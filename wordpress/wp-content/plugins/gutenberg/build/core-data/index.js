@@ -1726,17 +1726,19 @@ const __experimentalSaveSpecifiedEntityEdits = (kind, name, recordId, itemsToSav
 /**
  * Returns an action object used in signalling that Upload permissions have been received.
  *
+ * @deprecated since WP 5.9, use receiveUserPermission instead.
+ *
  * @param {boolean} hasUploadPermissions Does the user have permission to upload files?
  *
  * @return {Object} Action object.
  */
 
 function receiveUploadPermissions(hasUploadPermissions) {
-  return {
-    type: 'RECEIVE_USER_PERMISSION',
-    key: 'create/media',
-    isAllowed: hasUploadPermissions
-  };
+  external_wp_deprecated_default()("wp.data.dispatch( 'core' ).receiveUploadPermissions", {
+    since: '5.9',
+    alternative: 'receiveUserPermission'
+  });
+  return receiveUserPermission('create/media', hasUploadPermissions);
 }
 /**
  * Returns an action object used in signalling that the current user has

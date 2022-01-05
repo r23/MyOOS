@@ -2627,7 +2627,7 @@ function createRegistry() {
   /**
    * Registers a store instance.
    *
-   * @param {string} name Store registry name.
+   * @param {string} name  Store registry name.
    * @param {Object} store Store instance object (getSelectors, getActions, subscribe).
    */
 
@@ -4060,7 +4060,7 @@ const subscribe = default_registry.subscribe;
  *
  * @deprecated Use `register( storeDescriptor )` instead.
  *
- * @param {string} name Store registry name.
+ * @param {string} name  Store registry name.
  * @param {Object} store Store instance (`{ getSelectors, getActions, subscribe }`).
  */
 

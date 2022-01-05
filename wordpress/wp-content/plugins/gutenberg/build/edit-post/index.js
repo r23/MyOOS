@@ -6037,6 +6037,10 @@ function EditTemplateTitle() {
     updateEditorSettings
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_editor_namespaceObject.store);
 
+  if (template.has_theme_file) {
+    return null;
+  }
+
   let templateTitle = (0,external_wp_i18n_namespaceObject.__)('Default');
 
   if (template !== null && template !== void 0 && template.title) {
@@ -6083,12 +6087,14 @@ function EditTemplateTitle() {
 
 function TemplateDescription() {
   const {
-    description
+    description,
+    title
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       getEditedPostTemplate
     } = select(store_store);
     return {
+      title: getEditedPostTemplate().title,
       description: getEditedPostTemplate().description
     };
   }, []);
@@ -6097,9 +6103,17 @@ function TemplateDescription() {
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalText, {
-    size: "body"
-  }, description);
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHeading, {
+    level: 4,
+    weight: 600
+  }, title), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalText, {
+    className: "edit-post-template-details__description",
+    size: "body",
+    as: "p",
+    style: {
+      marginTop: '12px'
+    }
+  }, description));
 }
 //# sourceMappingURL=template-description.js.map
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/header/template-title/index.js
@@ -6164,6 +6178,7 @@ function TemplateTitle() {
     templateTitle = template.slug;
   }
 
+  const hasOptions = !!(template.custom || template.wp_id || template.description);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-post-template-top-area"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
@@ -6177,7 +6192,7 @@ function TemplateTitle() {
       clearSelectedBlock();
       setIsEditingTemplate(false);
     }
-  }, title), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
+  }, title), hasOptions ? (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
     position: "bottom center",
     contentClassName: "edit-post-template-top-area__popover",
     renderToggle: _ref => {
@@ -6193,8 +6208,14 @@ function TemplateTitle() {
         label: (0,external_wp_i18n_namespaceObject.__)('Template Options')
       }, templateTitle);
     },
-    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, template.has_theme_file ? (0,external_wp_element_namespaceObject.createElement)(TemplateDescription, null) : (0,external_wp_element_namespaceObject.createElement)(EditTemplateTitle, null), (0,external_wp_element_namespaceObject.createElement)(DeleteTemplate, null))
-  }));
+    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(EditTemplateTitle, null), (0,external_wp_element_namespaceObject.createElement)(TemplateDescription, null), (0,external_wp_element_namespaceObject.createElement)(DeleteTemplate, null))
+  }) : (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalText, {
+    className: "edit-post-template-title",
+    size: "body",
+    style: {
+      lineHeight: '24px'
+    }
+  }, templateTitle));
 }
 
 /* harmony default export */ var template_title = (TemplateTitle);
@@ -6621,7 +6642,9 @@ function PostSticky() {
 
 
 function PostAuthor() {
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostAuthorCheck, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostAuthor, null)));
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostAuthorCheck, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, {
+    className: "edit-post-post-author"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostAuthor, null)));
 }
 /* harmony default export */ var post_author = (PostAuthor);
 //# sourceMappingURL=index.js.map
@@ -8293,7 +8316,7 @@ function WelcomeGuideTemplate() {
     toggleFeature
   } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Guide, {
-    className: "edit-post-welcome-guide",
+    className: "edit-template-welcome-guide",
     contentLabel: (0,external_wp_i18n_namespaceObject.__)('Welcome to the template editor'),
     finishButtonText: (0,external_wp_i18n_namespaceObject.__)('Get started'),
     onFinish: () => toggleFeature('welcomeGuideTemplate'),

@@ -5408,21 +5408,6 @@ function EditorSnackbars() {
   });
 }
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/close.js
-
-
-/**
- * WordPress dependencies
- */
-
-const close_close = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
-}));
-/* harmony default export */ var library_close = (close_close);
-//# sourceMappingURL=close.js.map
 ;// CONCATENATED MODULE: external ["wp","htmlEntities"]
 var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/entities-saved-states/entity-record-item.js
@@ -5589,7 +5574,6 @@ function EntityTypeList(_ref) {
 
 
 
-
 /**
  * Internal dependencies
  */
@@ -5599,6 +5583,7 @@ const TRANSLATED_SITE_PROPERTIES = {
   title: (0,external_wp_i18n_namespaceObject.__)('Title'),
   description: (0,external_wp_i18n_namespaceObject.__)('Tagline'),
   site_logo: (0,external_wp_i18n_namespaceObject.__)('Logo'),
+  site_icon: (0,external_wp_i18n_namespaceObject.__)('Icon'),
   show_on_front: (0,external_wp_i18n_namespaceObject.__)('Show on front'),
   page_on_front: (0,external_wp_i18n_namespaceObject.__)('Page on front')
 };
@@ -5741,19 +5726,23 @@ function EntitiesSavedStates(_ref) {
     ref: saveDialogRef
   }, saveDialogProps, {
     className: "entities-saved-states__panel"
-  }), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "entities-saved-states__panel-header"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
+    className: "entities-saved-states__panel-header",
+    gap: 2
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, {
+    isBlock: true,
+    as: external_wp_components_namespaceObject.Button,
     ref: saveButtonRef,
     variant: "primary",
     disabled: dirtyEntityRecords.length - unselectedEntities.length === 0,
     onClick: saveCheckedEntities,
     className: "editor-entities-saved-states__save-button"
-  }, (0,external_wp_i18n_namespaceObject.__)('Save')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    icon: library_close,
-    onClick: dismissPanel,
-    label: (0,external_wp_i18n_namespaceObject.__)('Close panel')
-  })), (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, (0,external_wp_i18n_namespaceObject.__)('Save')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, {
+    isBlock: true,
+    as: external_wp_components_namespaceObject.Button,
+    variant: "secondary",
+    onClick: dismissPanel
+  }, (0,external_wp_i18n_namespaceObject.__)('Cancel'))), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "entities-saved-states__text-prompt"
   }, (0,external_wp_element_namespaceObject.createElement)("strong", null, (0,external_wp_i18n_namespaceObject.__)('Are you ready to save?')), (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('The following changes have been made to your site, templates, and content.'))), sortedPartitionedSavables.map(list => {
     return (0,external_wp_element_namespaceObject.createElement)(EntityTypeList, {
@@ -8149,10 +8138,15 @@ class PostPublishButton extends external_wp_element_namespaceObject.Component {
       }
 
       const {
-        hasNonPostEntityChanges
-      } = _this.props;
+        hasNonPostEntityChanges,
+        setEntitiesSavedStatesCallback
+      } = _this.props; // If a post with non-post entities is published, but the user
+      // elects to not save changes to the non-post entities, those
+      // entities will still be dirty when the Publish button is clicked.
+      // We also need to check that the `setEntitiesSavedStatesCallback`
+      // prop was passed. See https://github.com/WordPress/gutenberg/pull/37383
 
-      if (hasNonPostEntityChanges) {
+      if (hasNonPostEntityChanges && setEntitiesSavedStatesCallback) {
         // The modal for multiple entity saving will open,
         // hold the callback for saving/publishing the post
         // so that we can call it if the post entity is checked.
@@ -8164,8 +8158,7 @@ class PostPublishButton extends external_wp_element_namespaceObject.Component {
         // function on its own will cause an error when called.
 
 
-        _this.props.setEntitiesSavedStatesCallback(() => _this.closeEntitiesSavedStates);
-
+        setEntitiesSavedStatesCallback(() => _this.closeEntitiesSavedStates);
         return external_lodash_namespaceObject.noop;
       }
 

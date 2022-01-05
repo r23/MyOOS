@@ -49647,13 +49647,9 @@ function ColorPalette(_ref6) {
   });
 
   let dropdownPosition;
-  let popoverProps;
 
   if (__experimentalIsRenderedInSidebar) {
     dropdownPosition = (0,external_wp_i18n_namespaceObject.isRTL)() ? 'bottom right' : 'bottom left';
-    popoverProps = {
-      __unstableForcePosition: true
-    };
   }
 
   const colordColor = w(value);
@@ -49664,7 +49660,6 @@ function ColorPalette(_ref6) {
     position: dropdownPosition,
     isRenderedInSidebar: __experimentalIsRenderedInSidebar,
     renderContent: renderCustomColorPicker,
-    popoverProps: popoverProps,
     renderToggle: _ref7 => {
       let {
         isOpen,
@@ -49954,7 +49949,6 @@ function GradientColorPickerDropdown(_ref2) {
     if (isRenderedInSidebar) {
       result.anchorRef = gradientPickerDomRef.current;
       result.position = (0,external_wp_i18n_namespaceObject.isRTL)() ? 'bottom right' : 'bottom left';
-      result.__unstableForcePosition = true;
     }
 
     return result;
@@ -51398,6 +51392,7 @@ const RemoveButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_b
 
 
 
+const DEFAULT_COLOR = '#000';
 
 function NameInput(_ref) {
   let {
@@ -51411,6 +51406,12 @@ function NameInput(_ref) {
     value: value,
     onChange: onChange
   });
+}
+
+function getNameForPosition(position) {
+  return (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %s: is a temporary id for a custom color */
+  (0,external_wp_i18n_namespaceObject.__)('Color %s '), position + 1);
 }
 
 function palette_edit_Option(_ref2) {
@@ -51466,7 +51467,16 @@ function palette_edit_Option(_ref2) {
   })));
 }
 
-function PaletteEditListView(_ref3) {
+function isTemporaryElement(slugPrefix, _ref3, index) {
+  let {
+    slug,
+    color,
+    gradient
+  } = _ref3;
+  return slug === slugPrefix + (0,external_lodash_namespaceObject.kebabCase)(getNameForPosition(index)) && (!!color && color === DEFAULT_COLOR || !!gradient && gradient === DEFAULT_GRADIENT);
+}
+
+function PaletteEditListView(_ref4) {
   let {
     elements,
     onChange,
@@ -51475,7 +51485,7 @@ function PaletteEditListView(_ref3) {
     canOnlyChangeValues,
     slugPrefix,
     isGradient
-  } = _ref3;
+  } = _ref4;
   // When unmounting the component if there are empty elements (the user did not complete the insertion) clean them.
   const elementsReference = (0,external_wp_element_namespaceObject.useRef)();
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -51483,18 +51493,8 @@ function PaletteEditListView(_ref3) {
   }, [elements]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     return () => {
-      if (elementsReference.current.some(_ref4 => {
-        let {
-          slug
-        } = _ref4;
-        return !slug;
-      })) {
-        const newElements = elementsReference.current.filter(_ref5 => {
-          let {
-            slug
-          } = _ref5;
-          return slug;
-        });
+      if (elementsReference.current.some((element, index) => isTemporaryElement(slugPrefix, element, index))) {
+        const newElements = elementsReference.current.filter((element, index) => !isTemporaryElement(slugPrefix, element, index));
         onChange(newElements.length ? newElements : undefined);
       }
     };
@@ -51545,7 +51545,7 @@ function PaletteEditListView(_ref3) {
 }
 
 const EMPTY_ARRAY = [];
-function PaletteEdit(_ref6) {
+function PaletteEdit(_ref5) {
   let {
     gradients,
     colors = EMPTY_ARRAY,
@@ -51555,7 +51555,7 @@ function PaletteEdit(_ref6) {
     canOnlyChangeValues,
     canReset,
     slugPrefix = ''
-  } = _ref6;
+  } = _ref5;
   const isGradient = !!gradients;
   const elements = isGradient ? gradients : colors;
   const [isEditing, setIsEditing] = (0,external_wp_element_namespaceObject.useState)(false);
@@ -51575,41 +51575,38 @@ function PaletteEdit(_ref6) {
     icon: library_plus,
     label: isGradient ? (0,external_wp_i18n_namespaceObject.__)('Add gradient') : (0,external_wp_i18n_namespaceObject.__)('Add color'),
     onClick: () => {
-      const tempOptionName = (0,external_wp_i18n_namespaceObject.sprintf)(
-      /* translators: %s: is a temporary id for a custom color */
-      (0,external_wp_i18n_namespaceObject.__)('Color %s '), elementsLength + 1);
+      const tempOptionName = getNameForPosition(elementsLength);
       onChange([...elements, { ...(isGradient ? {
           gradient: DEFAULT_GRADIENT
         } : {
-          color: '#000'
+          color: DEFAULT_COLOR
         }),
         name: tempOptionName,
-        slug: ''
+        slug: slugPrefix + (0,external_lodash_namespaceObject.kebabCase)(tempOptionName)
       }]);
       setIsEditing(true);
       setEditingElement(elements.length);
     }
-  }), hasElements && (canReset || !canOnlyChangeValues) && (0,external_wp_element_namespaceObject.createElement)(dropdown_menu, {
+  }), hasElements && (!isEditing || !canOnlyChangeValues || canReset) && (0,external_wp_element_namespaceObject.createElement)(dropdown_menu, {
     icon: more_vertical,
     label: isGradient ? (0,external_wp_i18n_namespaceObject.__)('Gradient options') : (0,external_wp_i18n_namespaceObject.__)('Color options'),
     toggleProps: {
       isSmall: true
     }
-  }, _ref7 => {
+  }, _ref6 => {
     let {
       onClose
-    } = _ref7;
+    } = _ref6;
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(navigable_container_menu, {
       role: "menu"
-    }, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    }, !isEditing && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
       variant: "tertiary",
-      disabled: isEditing,
       onClick: () => {
         setIsEditing(true);
         onClose();
       },
       className: "components-palette-edit__menu-button"
-    }, (0,external_wp_i18n_namespaceObject.__)('Edit custom colors')), !canOnlyChangeValues && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    }, isGradient ? (0,external_wp_i18n_namespaceObject.__)('Edit gradients') : (0,external_wp_i18n_namespaceObject.__)('Edit colors')), !canOnlyChangeValues && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
       variant: "tertiary",
       onClick: () => {
         setEditingElement(null);
@@ -69677,11 +69674,13 @@ function useToolsPanelItem(props) {
     shouldRenderPlaceholderItems: shouldRenderPlaceholder
   } = useToolsPanelContext();
   const hasValueCallback = (0,external_wp_element_namespaceObject.useCallback)(hasValue, [panelId]);
-  const resetAllFilterCallback = (0,external_wp_element_namespaceObject.useCallback)(resetAllFilter, [panelId]); // Registering the panel item allows the panel to include it in its
+  const resetAllFilterCallback = (0,external_wp_element_namespaceObject.useCallback)(resetAllFilter, [panelId]);
+  const previousPanelId = (0,external_wp_compose_namespaceObject.usePrevious)(currentPanelId);
+  const hasMatchingPanel = currentPanelId === panelId || currentPanelId === null; // Registering the panel item allows the panel to include it in its
   // automatically generated menu and determine its initial checked status.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (currentPanelId === panelId) {
+    if (hasMatchingPanel && previousPanelId !== null) {
       registerPanelItem({
         hasValue: hasValueCallback,
         isShownByDefault,
@@ -69692,11 +69691,11 @@ function useToolsPanelItem(props) {
     }
 
     return () => {
-      if (currentPanelId === panelId) {
+      if (previousPanelId === null && !!currentPanelId || currentPanelId === panelId) {
         deregisterPanelItem(label);
       }
     };
-  }, [currentPanelId, panelId, isShownByDefault, label, hasValueCallback, resetAllFilterCallback]);
+  }, [currentPanelId, hasMatchingPanel, isShownByDefault, label, hasValueCallback, panelId, previousPanelId, resetAllFilterCallback]);
   const isValueSet = hasValue();
   const wasValueSet = (0,external_wp_compose_namespaceObject.usePrevious)(isValueSet); // If this item represents a default control it will need to notify the
   // panel when a custom value has been set.
@@ -69714,7 +69713,7 @@ function useToolsPanelItem(props) {
   // trigger appropriate callback if it is.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (isResetting || currentPanelId !== panelId) {
+    if (isResetting || !hasMatchingPanel) {
       return;
     }
 
@@ -69725,7 +69724,7 @@ function useToolsPanelItem(props) {
     if (!isMenuItemChecked && wasMenuItemChecked) {
       onDeselect === null || onDeselect === void 0 ? void 0 : onDeselect();
     }
-  }, [currentPanelId, isMenuItemChecked, isResetting, isValueSet, panelId, wasMenuItemChecked]); // The item is shown if it is a default control regardless of whether it
+  }, [hasMatchingPanel, isMenuItemChecked, isResetting, isValueSet, wasMenuItemChecked]); // The item is shown if it is a default control regardless of whether it
   // has a value. Optional items are shown when they are checked or have
   // a value.
 

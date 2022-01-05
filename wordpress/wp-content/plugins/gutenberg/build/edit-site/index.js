@@ -558,23 +558,18 @@ const TEMPLATES_TOP_LEVEL = [...TEMPLATES_PRIMARY, ...TEMPLATES_SECONDARY];
 const TEMPLATES_GENERAL = ['page-home'];
 const TEMPLATES_POSTS_PREFIXES = ['post-', 'author-', 'single-post-', 'tag-'];
 const TEMPLATES_PAGES_PREFIXES = ['page-'];
-const TEMPLATES_NEW_OPTIONS = (/* unused pure expression or super */ null && (['front-page', 'single-post', 'page', 'archive', 'search', '404', 'index']));
 const TEMPLATE_OVERRIDES = {
   singular: ['single', 'page'],
   index: ['archive', '404', 'search', 'singular', 'home'],
   home: ['front-page']
 };
 const MENU_ROOT = 'root';
-const MENU_CONTENT_CATEGORIES = 'content-categories';
-const MENU_CONTENT_PAGES = 'content-pages';
-const MENU_CONTENT_POSTS = 'content-posts';
 const MENU_TEMPLATE_PARTS = 'template-parts';
 const MENU_TEMPLATES = 'templates';
 const MENU_TEMPLATES_GENERAL = 'templates-general';
 const MENU_TEMPLATES_PAGES = 'templates-pages';
 const MENU_TEMPLATES_POSTS = 'templates-posts';
 const MENU_TEMPLATES_UNUSED = 'templates-unused';
-const SEARCH_DEBOUNCE_IN_MS = 75;
 const MENU_TEMPLATE_PARTS_HEADERS = 'template-parts-headers';
 const MENU_TEMPLATE_PARTS_FOOTERS = 'template-parts-footers';
 const MENU_TEMPLATE_PARTS_SIDEBARS = 'template-parts-sidebars';
@@ -5859,6 +5854,7 @@ function ColorPalettePanel(_ref) {
  */
 
 
+
 function GradientPalettePanel(_ref) {
   let {
     name
@@ -5891,9 +5887,9 @@ function GradientPalettePanel(_ref) {
     paletteLabel: (0,external_wp_i18n_namespaceObject.__)('Custom'),
     emptyMessage: (0,external_wp_i18n_namespaceObject.__)('Custom gradients are empty! Add some gradients to create your own palette.'),
     slugPrefix: "custom-"
-  }), (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHeading, {
-    className: "edit-site-global-styles-gradient-palette-panel__duotone-heading"
-  }, (0,external_wp_i18n_namespaceObject.__)('Duotone')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DuotonePicker, {
+  }), (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)(subtitle, null, (0,external_wp_i18n_namespaceObject.__)('Duotone')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
+    margin: 3
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DuotonePicker, {
     duotonePalette: duotonePalette,
     disableCustomDuotone: true,
     disableCustomColors: true,
@@ -7192,6 +7188,7 @@ const wordpress = (0,external_wp_element_namespaceObject.createElement)(external
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -7222,6 +7219,14 @@ function NavigationToggle(_ref) {
     setIsNavigationPanelOpened
   } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
   const disableMotion = (0,external_wp_compose_namespaceObject.useReducedMotion)();
+  const navigationToggleRef = (0,external_wp_element_namespaceObject.useRef)();
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // TODO: Remove this effect when alternative solution is merged.
+    // See: https://github.com/WordPress/gutenberg/pull/37314
+    if (!isNavigationOpen) {
+      navigationToggleRef.current.focus();
+    }
+  }, [isNavigationOpen]);
 
   const toggleNavigationPanel = () => setIsNavigationPanelOpened(!isNavigationOpen);
 
@@ -7261,7 +7266,8 @@ function NavigationToggle(_ref) {
     whileHover: "expand"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     className: "edit-site-navigation-toggle__button has-icon",
-    label: (0,external_wp_i18n_namespaceObject.__)('Toggle navigation') // isPressed will add unwanted styles.
+    label: (0,external_wp_i18n_namespaceObject.__)('Toggle navigation'),
+    ref: navigationToggleRef // isPressed will add unwanted styles.
     ,
     "aria-pressed": isNavigationOpen,
     onClick: toggleNavigationPanel,
@@ -7906,14 +7912,41 @@ function ResizableEditor(_ref) {
       return;
     }
 
-    const resizeObserver = new iframe.contentWindow.ResizeObserver(() => {
-      setHeight(iframe.contentDocument.querySelector(`.edit-site-block-editor__block-list`).offsetHeight);
-    }); // Observing the <html> rather than the <body> because the latter
-    // gets destroyed and remounted after initialization in <Iframe>.
+    let animationFrame = null;
 
-    resizeObserver.observe(iframe.contentDocument.documentElement);
+    function resizeHeight() {
+      if (!animationFrame) {
+        // Throttle the updates on animation frame.
+        animationFrame = iframe.contentWindow.requestAnimationFrame(() => {
+          setHeight(iframe.contentDocument.documentElement.scrollHeight);
+          animationFrame = null;
+        });
+      }
+    }
+
+    let resizeObserver;
+
+    function registerObserver() {
+      var _resizeObserver;
+
+      (_resizeObserver = resizeObserver) === null || _resizeObserver === void 0 ? void 0 : _resizeObserver.disconnect();
+      resizeObserver = new iframe.contentWindow.ResizeObserver(resizeHeight); // Observing the <html> rather than the <body> because the latter
+      // gets destroyed and remounted after initialization in <Iframe>.
+
+      resizeObserver.observe(iframe.contentDocument.documentElement);
+      resizeHeight();
+    } // This is only required in Firefox for some unknown reasons.
+
+
+    iframe.addEventListener('load', registerObserver); // This is required in Chrome and Safari.
+
+    registerObserver();
     return () => {
-      resizeObserver.disconnect();
+      var _iframe$contentWindow, _resizeObserver2;
+
+      (_iframe$contentWindow = iframe.contentWindow) === null || _iframe$contentWindow === void 0 ? void 0 : _iframe$contentWindow.cancelAnimationFrame(animationFrame);
+      (_resizeObserver2 = resizeObserver) === null || _resizeObserver2 === void 0 ? void 0 : _resizeObserver2.disconnect();
+      iframe.removeEventListener('load', registerObserver);
     };
   }, [enableResizing]);
   const resizeWidthBy = (0,external_wp_element_namespaceObject.useCallback)(deltaPixels => {
@@ -7962,7 +7995,10 @@ function ResizableEditor(_ref) {
       styles: settings.styles
     }), (0,external_wp_element_namespaceObject.createElement)("style", null, // Forming a "block formatting context" to prevent margin collapsing.
     // @see https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context
-    `.edit-site-block-editor__block-list { display: flow-root; }`)),
+    `.is-root-container { display: flow-root; }`), enableResizing && (0,external_wp_element_namespaceObject.createElement)("style", null, // Force the <html> and <body>'s heights to fit the content.
+    `html, body { height: -moz-fit-content !important; height: fit-content !important; min-height: 0 !important; }`, // Some themes will have `min-height: 100vh` for the root container,
+    // which isn't a requirement in auto resize mode.
+    `.is-root-container { min-height: 0 !important; }`)),
     assets: settings.__unstableResolvedAssets,
     ref: ref,
     name: "editor-canvas",
@@ -8061,7 +8097,7 @@ function BlockEditor(_ref) {
         clearSelectedBlock();
       }
     }
-  }, (0,external_wp_element_namespaceObject.createElement)(back_button, null), (0,external_wp_element_namespaceObject.createElement)(resizable_editor // Reinitialize the editor and reset the states when the template changes.
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockEditorKeyboardShortcuts.Register, null), (0,external_wp_element_namespaceObject.createElement)(back_button, null), (0,external_wp_element_namespaceObject.createElement)(resizable_editor // Reinitialize the editor and reset the states when the template changes.
   , {
     key: templateId,
     enableResizing: isTemplatePart && // Disable resizing in mobile viewport.
@@ -9493,11 +9529,11 @@ function RenameMenuItem(_ref) {
         throw lastError;
       }
 
-      createSuccessNotice((0,external_wp_i18n_namespaceObject.__)('Template has been renamed.'), {
+      createSuccessNotice((0,external_wp_i18n_namespaceObject.__)('Entity renamed.'), {
         type: 'snackbar'
       });
     } catch (error) {
-      const errorMessage = error.message && error.code !== 'unknown_error' ? error.message : (0,external_wp_i18n_namespaceObject.__)('An error occurred while renaming the template.');
+      const errorMessage = error.message && error.code !== 'unknown_error' ? error.message : (0,external_wp_i18n_namespaceObject.__)('An error occurred while renaming the entity.');
       createErrorNotice(errorMessage, {
         type: 'snackbar'
       });
@@ -9510,7 +9546,7 @@ function RenameMenuItem(_ref) {
       setTitle(template.title.rendered);
     }
   }, (0,external_wp_i18n_namespaceObject.__)('Rename')), isModalOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
-    title: (0,external_wp_i18n_namespaceObject.__)('Rename template'),
+    title: (0,external_wp_i18n_namespaceObject.__)('Rename'),
     closeLabel: (0,external_wp_i18n_namespaceObject.__)('Close'),
     onRequestClose: () => {
       setIsModalOpen(false);
@@ -9589,11 +9625,11 @@ function Actions(_ref) {
         allowUndo: false
       });
       await saveEditedEntityRecord('postType', template.type, template.id);
-      createSuccessNotice((0,external_wp_i18n_namespaceObject.__)('Template reverted.'), {
+      createSuccessNotice((0,external_wp_i18n_namespaceObject.__)('Entity reverted.'), {
         type: 'snackbar'
       });
     } catch (error) {
-      const errorMessage = error.message && error.code !== 'unknown_error' ? error.message : (0,external_wp_i18n_namespaceObject.__)('An error occurred while reverting the template.');
+      const errorMessage = error.message && error.code !== 'unknown_error' ? error.message : (0,external_wp_i18n_namespaceObject.__)('An error occurred while reverting the entity.');
       createErrorNotice(errorMessage, {
         type: 'snackbar'
       });
@@ -9618,8 +9654,8 @@ function Actions(_ref) {
         removeTemplate(template);
         onClose();
       }
-    }, (0,external_wp_i18n_namespaceObject.__)('Delete template'))), isRevertable && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-      info: (0,external_wp_i18n_namespaceObject.__)('Restore template to default state'),
+    }, (0,external_wp_i18n_namespaceObject.__)('Delete'))), isRevertable && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+      info: (0,external_wp_i18n_namespaceObject.__)('Restore to default state'),
       onClick: () => {
         revertAndSaveTemplate();
         onClose();
@@ -9726,7 +9762,9 @@ function AddedByPlugin(_ref3) {
   }, (0,external_wp_element_namespaceObject.createElement)(CustomizedTooltip, {
     isCustomized: isCustomized
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "edit-site-list-added-by__icon"
+    className: classnames_default()('edit-site-list-added-by__icon', {
+      'is-customized': isCustomized
+    })
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Icon, {
     icon: library_plugins
   }))), (0,external_wp_element_namespaceObject.createElement)("span", null, (plugin === null || plugin === void 0 ? void 0 : plugin.name) || slug));

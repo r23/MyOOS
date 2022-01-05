@@ -2215,6 +2215,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalBorderRadiusControl": function() { return /* reexport */ BorderRadiusControl; },
   "__experimentalBorderStyleControl": function() { return /* reexport */ BorderStyleControl; },
   "__experimentalColorGradientControl": function() { return /* reexport */ control; },
+  "__experimentalColorGradientSettingsDropdown": function() { return /* reexport */ ColorGradientSettingsDropdown; },
   "__experimentalDuotoneControl": function() { return /* reexport */ duotone_control; },
   "__experimentalFontAppearanceControl": function() { return /* reexport */ FontAppearanceControl; },
   "__experimentalFontFamilyControl": function() { return /* reexport */ FontFamilyControl; },
@@ -3400,6 +3401,29 @@ const withSaveReusableBlock = reducer => (state, action) => {
   return reducer(state, action);
 };
 /**
+ * Higher-order reducer which removes blocks from state when switching parent block controlled state.
+ *
+ * @param {Function} reducer Original reducer function.
+ *
+ * @return {Function} Enhanced reducer function.
+ */
+
+
+const withResetControlledBlocks = reducer => (state, action) => {
+  if (action.type === 'SET_HAS_CONTROLLED_INNER_BLOCKS') {
+    // when switching a block from controlled to uncontrolled or inverse,
+    // we need to remove its content first.
+    const tempState = reducer(state, {
+      type: 'REPLACE_INNER_BLOCKS',
+      rootClientId: action.clientId,
+      blocks: []
+    });
+    return reducer(tempState, action);
+  }
+
+  return reducer(state, action);
+};
+/**
  * Reducer returning the blocks state.
  *
  * @param {Object} state  Current state.
@@ -3412,7 +3436,7 @@ const withSaveReusableBlock = reducer => (state, action) => {
 const blocks = (0,external_lodash_namespaceObject.flow)(external_wp_data_namespaceObject.combineReducers, withSaveReusableBlock, // needs to be before withBlockCache
 withBlockTree, // needs to be before withInnerBlocksRemoveCascade
 withInnerBlocksRemoveCascade, withReplaceInnerBlocks, // needs to be after withInnerBlocksRemoveCascade
-withBlockReset, withPersistentBlockChange, withIgnoredBlockChange)({
+withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetControlledBlocks)({
   byClientId() {
     let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
     let action = arguments.length > 1 ? arguments[1] : undefined;
@@ -5529,14 +5553,14 @@ function getBlockOrder(state, rootClientId) {
  * Returns the index at which the block corresponding to the specified client
  * ID occurs within the block order, or `-1` if the block does not exist.
  *
- * @param {Object}  state        Editor state.
- * @param {string}  clientId     Block client ID.
- * @param {?string} rootClientId Optional root client ID of block list.
+ * @param {Object} state    Editor state.
+ * @param {string} clientId Block client ID.
  *
  * @return {number} Index at which block exists in order.
  */
 
-function getBlockIndex(state, clientId, rootClientId) {
+function getBlockIndex(state, clientId) {
+  const rootClientId = getBlockRootClientId(state, clientId);
   return getBlockOrder(state, rootClientId).indexOf(clientId);
 }
 /**
@@ -8032,7 +8056,7 @@ const duplicateBlocks = function (clientIds) {
     }
 
     const rootClientId = select.getBlockRootClientId(clientIds[0]);
-    const lastSelectedIndex = select.getBlockIndex((0,external_lodash_namespaceObject.last)((0,external_lodash_namespaceObject.castArray)(clientIds)), rootClientId);
+    const lastSelectedIndex = select.getBlockIndex((0,external_lodash_namespaceObject.last)((0,external_lodash_namespaceObject.castArray)(clientIds)));
     const clonedBlocks = blocks.map(block => (0,external_wp_blocks_namespaceObject.__experimentalCloneSanitizedBlock)(block));
     dispatch.insertBlocks(clonedBlocks, lastSelectedIndex + 1, rootClientId, updateSelection);
 
@@ -8066,7 +8090,7 @@ const insertBeforeBlock = clientId => _ref18 => {
     return;
   }
 
-  const firstSelectedIndex = select.getBlockIndex(clientId, rootClientId);
+  const firstSelectedIndex = select.getBlockIndex(clientId);
   return dispatch.insertDefaultBlock({}, rootClientId, firstSelectedIndex);
 };
 /**
@@ -8092,7 +8116,7 @@ const insertAfterBlock = clientId => _ref19 => {
     return;
   }
 
-  const firstSelectedIndex = select.getBlockIndex(clientId, rootClientId);
+  const firstSelectedIndex = select.getBlockIndex(clientId);
   return dispatch.insertDefaultBlock({}, rootClientId, firstSelectedIndex + 1);
 };
 /**
@@ -8615,6 +8639,7 @@ function appendSelectors(selectors) {
 
 
 
+const blockedPaths = ['color', 'border', 'typography', 'spacing'];
 const deprecatedFlags = {
   'color.palette': settings => settings.colors === undefined ? undefined : settings.colors,
   'color.gradients': settings => settings.gradients === undefined ? undefined : settings.gradients,
@@ -8694,6 +8719,12 @@ function useSetting(path) {
   } = useBlockEditContext();
   const setting = (0,external_wp_data_namespaceObject.useSelect)(select => {
     var _get;
+
+    if (blockedPaths.includes(path)) {
+      // eslint-disable-next-line no-console
+      console.warn('Top level useSetting paths are disabled. Please use a subpath to query the information needed.');
+      return undefined;
+    }
 
     const settings = select(store).getSettings(); // 1 - Use __experimental features, if available.
     // We cascade to the all value if the block one is not available.
@@ -8899,55 +8930,35 @@ const flexWrapOptions = ['wrap', 'nowrap'];
     }));
   },
   save: function FlexLayoutStyle(_ref3) {
+    var _style$spacing$blockG, _style$spacing;
+
     let {
       selector,
-      layout
+      layout,
+      style
     } = _ref3;
     const {
-      orientation = 'horizontal',
-      setCascadingProperties = false
+      orientation = 'horizontal'
     } = layout;
     const blockGapSupport = useSetting('spacing.blockGap');
     const hasBlockGapStylesSupport = blockGapSupport !== null;
+    const blockGapValue = (_style$spacing$blockG = style === null || style === void 0 ? void 0 : (_style$spacing = style.spacing) === null || _style$spacing === void 0 ? void 0 : _style$spacing.blockGap) !== null && _style$spacing$blockG !== void 0 ? _style$spacing$blockG : 'var( --wp--style--block-gap, 0.5em )';
     const justifyContent = justifyContentMap[layout.justifyContent] || justifyContentMap.left;
     const flexWrap = flexWrapOptions.includes(layout.flexWrap) ? layout.flexWrap : 'wrap';
-    let rowOrientation = `
+    const rowOrientation = `
 		flex-direction: row;
 		align-items: center;
 		justify-content: ${justifyContent};
 		`;
-
-    if (setCascadingProperties) {
-      // --layout-justification-setting allows children to inherit the value
-      // regardless or row or column direction.
-      rowOrientation += `
-			--layout-justification-setting: ${justifyContent};
-			--layout-direction: row;
-			--layout-wrap: ${flexWrap};
-			--layout-justify: ${justifyContent};
-			--layout-align: center;
-			`;
-    }
-
     const alignItems = alignItemsMap[layout.justifyContent] || alignItemsMap.left;
-    let columnOrientation = `
+    const columnOrientation = `
 		flex-direction: column;
 		align-items: ${alignItems};
 		`;
-
-    if (setCascadingProperties) {
-      columnOrientation += `
-			--layout-justification-setting: ${alignItems};
-			--layout-direction: column;
-			--layout-justify: initial;
-			--layout-align: ${alignItems};
-			`;
-    }
-
     return (0,external_wp_element_namespaceObject.createElement)("style", null, `
 				${appendSelectors(selector)} {
 					display: flex;
-					gap: ${hasBlockGapStylesSupport ? 'var( --wp--style--block-gap, 0.5em )' : '0.5em'};
+					gap: ${hasBlockGapStylesSupport ? blockGapValue : '0.5em'};
 					flex-wrap: ${flexWrap};
 					${orientation === 'horizontal' ? rowOrientation : columnOrientation}
 				}
@@ -9207,9 +9218,12 @@ function Icon(_ref) {
     return null;
   },
   save: function DefaultLayoutStyle(_ref2) {
+    var _style$spacing$blockG, _style$spacing;
+
     let {
       selector,
-      layout = {}
+      layout = {},
+      style
     } = _ref2;
     const {
       contentSize,
@@ -9217,7 +9231,8 @@ function Icon(_ref) {
     } = layout;
     const blockGapSupport = useSetting('spacing.blockGap');
     const hasBlockGapStylesSupport = blockGapSupport !== null;
-    let style = !!contentSize || !!wideSize ? `
+    const blockGapValue = (_style$spacing$blockG = style === null || style === void 0 ? void 0 : (_style$spacing = style.spacing) === null || _style$spacing === void 0 ? void 0 : _style$spacing.blockGap) !== null && _style$spacing$blockG !== void 0 ? _style$spacing$blockG : 'var( --wp--style--block-gap )';
+    let output = !!contentSize || !!wideSize ? `
 					${appendSelectors(selector, '> *')} {
 						max-width: ${contentSize !== null && contentSize !== void 0 ? contentSize : wideSize};
 						margin-left: auto !important;
@@ -9232,7 +9247,7 @@ function Icon(_ref) {
 						max-width: none;
 					}
 				` : '';
-    style += `
+    output += `
 			${appendSelectors(selector, '> [data-align="left"]')} {
 				float: left;
 				margin-right: 2em;
@@ -9246,18 +9261,18 @@ function Icon(_ref) {
 		`;
 
     if (hasBlockGapStylesSupport) {
-      style += `
+      output += `
 				${appendSelectors(selector, '> *')} {
 					margin-top: 0;
 					margin-bottom: 0;
 				}
 				${appendSelectors(selector, '> * + *')} {
-					margin-top: var( --wp--style--block-gap );
+					margin-top: ${blockGapValue};
 				}
 			`;
     }
 
-    return (0,external_wp_element_namespaceObject.createElement)("style", null, style);
+    return (0,external_wp_element_namespaceObject.createElement)("style", null, output);
   },
 
   getOrientation() {
@@ -10020,17 +10035,41 @@ function BlockSupportToolsPanel(_ref) {
     label
   } = _ref;
   const {
-    clientId,
-    attributes
+    attributes,
+    clientIds,
+    panelId
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       getBlockAttributes,
-      getSelectedBlockClientId
-    } = select(store);
+      getMultiSelectedBlockClientIds,
+      getSelectedBlockClientId,
+      hasMultiSelection
+    } = select(store); // When we currently have a multi-selection, the value returned from
+    // `getSelectedBlockClientId()` is `null`. When a `null` value is used
+    // for the `panelId`, a `ToolsPanel` will still allow panel items to
+    // register themselves despite their panelIds not matching.
+
     const selectedBlockClientId = getSelectedBlockClientId();
+
+    if (hasMultiSelection()) {
+      const selectedBlockClientIds = getMultiSelectedBlockClientIds();
+      const selectedBlockAttributes = selectedBlockClientIds.reduce((blockAttributes, blockId) => {
+        blockAttributes[blockId] = getBlockAttributes(blockId);
+        return blockAttributes;
+      }, {});
+      return {
+        panelId: selectedBlockClientId,
+        clientIds: selectedBlockClientIds,
+        attributes: selectedBlockAttributes
+      };
+    }
+
     return {
-      clientId: selectedBlockClientId,
-      attributes: getBlockAttributes(selectedBlockClientId)
+      panelId: selectedBlockClientId,
+      clientIds: [selectedBlockClientId],
+      attributes: {
+        [selectedBlockClientId]: getBlockAttributes(selectedBlockClientId)
+      }
     };
   }, []);
   const {
@@ -10039,30 +10078,34 @@ function BlockSupportToolsPanel(_ref) {
 
   const resetAll = function () {
     let resetFilters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-    const {
-      style
-    } = attributes;
-    let newAttributes = {
-      style
-    };
-    resetFilters.forEach(resetFilter => {
-      newAttributes = { ...newAttributes,
-        ...resetFilter(newAttributes)
+    const newAttributes = {};
+    clientIds.forEach(clientId => {
+      const {
+        style
+      } = attributes[clientId];
+      let newBlockAttributes = {
+        style
       };
-    }); // Enforce a cleaned style object.
+      resetFilters.forEach(resetFilter => {
+        newBlockAttributes = { ...newBlockAttributes,
+          ...resetFilter(newBlockAttributes)
+        };
+      }); // Enforce a cleaned style object.
 
-    newAttributes = { ...newAttributes,
-      style: cleanEmptyObject(newAttributes.style)
-    };
-    updateBlockAttributes(clientId, newAttributes);
+      newBlockAttributes = { ...newBlockAttributes,
+        style: cleanEmptyObject(newBlockAttributes.style)
+      };
+      newAttributes[clientId] = newBlockAttributes;
+    });
+    updateBlockAttributes(clientIds, newAttributes, true);
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanel, {
     className: `${group}-block-support-panel`,
     label: label,
     resetAll: resetAll,
-    key: clientId,
-    panelId: clientId,
+    key: panelId,
+    panelId: panelId,
     hasInnerWrapper: true,
     shouldRenderPlaceholderItems: true // Required to maintain fills ordering.
 
@@ -16284,7 +16327,6 @@ function useBlockProps() {
     enableAnimation
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
-      getBlockRootClientId,
       getBlockIndex,
       getBlockMode,
       getBlockName,
@@ -16298,10 +16340,9 @@ function useBlockProps() {
     const isSelected = isBlockSelected(clientId);
     const isPartOfMultiSelection = isBlockMultiSelected(clientId) || isAncestorMultiSelected(clientId);
     const blockName = getBlockName(clientId);
-    const rootClientId = getBlockRootClientId(clientId);
     const blockType = (0,external_wp_blocks_namespaceObject.getBlockType)(blockName);
     return {
-      index: getBlockIndex(clientId, rootClientId),
+      index: getBlockIndex(clientId),
       mode: getBlockMode(clientId),
       name: blockName,
       blockApiVersion: (blockType === null || blockType === void 0 ? void 0 : blockType.apiVersion) || 1,
@@ -16612,7 +16653,7 @@ const applyWithDispatch = (0,external_wp_data_namespaceObject.withDispatch)((dis
       const {
         getBlockIndex
       } = select(store);
-      const index = getBlockIndex(clientId, rootClientId);
+      const index = getBlockIndex(clientId);
       insertBlocks(blocks, index + 1, rootClientId);
     },
 
@@ -16957,6 +16998,9 @@ function useBlockSync(_ref) {
     getBlockName,
     getBlocks
   } = registry.select(store);
+  const isControlled = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    return !clientId || select(store).areInnerBlocksControlled(clientId);
+  }, [clientId]);
   const pendingChanges = (0,external_wp_element_namespaceObject.useRef)({
     incoming: null,
     outgoing: []
@@ -16974,17 +17018,22 @@ function useBlockSync(_ref) {
     __unstableMarkNextChangeAsNotPersistent();
 
     if (clientId) {
-      setHasControlledInnerBlocks(clientId, true);
+      // It is important to batch here because otherwise,
+      // as soon as `setHasControlledInnerBlocks` is called
+      // the effect to restore might be triggered
+      // before the actual blocks get set properly in state.
+      registry.batch(() => {
+        setHasControlledInnerBlocks(clientId, true);
+        const storeBlocks = controlledBlocks.map(block => (0,external_wp_blocks_namespaceObject.cloneBlock)(block));
 
-      __unstableMarkNextChangeAsNotPersistent();
+        if (subscribed.current) {
+          pendingChanges.current.incoming = storeBlocks;
+        }
 
-      const storeBlocks = controlledBlocks.map(block => (0,external_wp_blocks_namespaceObject.cloneBlock)(block));
+        __unstableMarkNextChangeAsNotPersistent();
 
-      if (subscribed.current) {
-        pendingChanges.current.incoming = storeBlocks;
-      }
-
-      replaceInnerBlocks(clientId, storeBlocks);
+        replaceInnerBlocks(clientId, storeBlocks);
+      });
     } else {
       if (subscribed.current) {
         pendingChanges.current.incoming = controlledBlocks;
@@ -17030,12 +17079,21 @@ function useBlockSync(_ref) {
     }
   }, [controlledBlocks, clientId]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // When the block becomes uncontrolled, it means its inner state has been reset
+    // we need to take the blocks again from the external value property.
+    if (!isControlled) {
+      pendingChanges.current.outgoing = [];
+      setControlledBlocks();
+    }
+  }, [isControlled]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     const {
       getSelectionStart,
       getSelectionEnd,
       getSelectedBlocksInitialCaretPosition,
       isLastBlockChangePersistent,
-      __unstableIsLastBlockChangeIgnored
+      __unstableIsLastBlockChangeIgnored,
+      areInnerBlocksControlled
     } = registry.select(store);
     let blocks = getBlocks(clientId);
     let isPersistent = isLastBlockChangePersistent();
@@ -17049,7 +17107,17 @@ function useBlockSync(_ref) {
       // the subscription is triggering for a block (`clientId !== null`)
       // and its block name can't be found because it's not on the list.
       // (`getBlockName( clientId ) === null`).
-      if (clientId !== null && getBlockName(clientId) === null) return;
+      if (clientId !== null && getBlockName(clientId) === null) return; // When RESET_BLOCKS on parent blocks get called, the controlled blocks
+      // can reset to uncontrolled, in these situations, it means we need to populate
+      // the blocks again from the external blocks (the value property here)
+      // and we should stop triggering onChange
+
+      const isStillControlled = !clientId || areInnerBlocksControlled(clientId);
+
+      if (!isStillControlled) {
+        return;
+      }
+
       const newIsPersistent = isLastBlockChangePersistent();
       const newBlocks = getBlocks(clientId);
       const areBlocksDifferent = newBlocks !== blocks;
@@ -21040,10 +21108,10 @@ function useInsertionPoint(_ref) {
       _destinationIndex = insertionIndex;
     } else if (clientId) {
       // Insert after a specific client ID.
-      _destinationIndex = getBlockIndex(clientId, _destinationRootClientId);
+      _destinationIndex = getBlockIndex(clientId);
     } else if (!isAppender && selectedBlockClientId) {
       _destinationRootClientId = getBlockRootClientId(selectedBlockClientId);
-      _destinationIndex = getBlockIndex(selectedBlockClientId, _destinationRootClientId) + 1;
+      _destinationIndex = getBlockIndex(selectedBlockClientId) + 1;
     } else {
       // Insert at the end of the list.
       _destinationIndex = getBlockOrder(_destinationRootClientId).length;
@@ -22033,7 +22101,7 @@ function QuickInserter(_ref) {
       getBlockIndex,
       getBlockCount
     } = select(store);
-    const index = getBlockIndex(clientId, rootClientId);
+    const index = getBlockIndex(clientId);
     return {
       setInserterIsOpened: getSettings().__experimentalSetIsInserterOpened,
       insertionIndex: index === -1 ? getBlockCount() : index
@@ -22356,14 +22424,14 @@ class Inserter extends external_wp_element_namespaceObject.Component {
         } = select(store); // If the clientId is defined, we insert at the position of the block.
 
         if (clientId) {
-          return getBlockIndex(clientId, rootClientId);
+          return getBlockIndex(clientId);
         } // If there a selected block, we insert after the selected block.
 
 
         const end = getBlockSelectionEnd();
 
         if (!isAppender && end && getBlockRootClientId(end) === rootClientId) {
-          return getBlockIndex(end, rootClientId) + 1;
+          return getBlockIndex(end) + 1;
         } // Otherwise, we insert at the end of the current rootClientId
 
 
@@ -23197,7 +23265,7 @@ function useInBetweenInserter() {
         return;
       }
 
-      const index = getBlockIndex(clientId, rootClientId); // Don't show the in-between inserter before the first block in
+      const index = getBlockIndex(clientId); // Don't show the in-between inserter before the first block in
       // the list (preserves the original behaviour).
 
       if (index === 0) {
@@ -23684,7 +23752,7 @@ function BlockSelectionButton(_ref) {
       hasBlockMovingClientId,
       getBlockListSettings
     } = select(store);
-    const index = getBlockIndex(clientId, rootClientId);
+    const index = getBlockIndex(clientId);
     const {
       name,
       attributes
@@ -23796,8 +23864,8 @@ function BlockSelectionButton(_ref) {
     if ((isEnter || isSpace) && startingBlockClientId) {
       const sourceRoot = getBlockRootClientId(startingBlockClientId);
       const destRoot = getBlockRootClientId(selectedBlockClientId);
-      const sourceBlockIndex = getBlockIndex(startingBlockClientId, sourceRoot);
-      let destinationBlockIndex = getBlockIndex(selectedBlockClientId, destRoot);
+      const sourceBlockIndex = getBlockIndex(startingBlockClientId);
+      let destinationBlockIndex = getBlockIndex(selectedBlockClientId);
 
       if (sourceBlockIndex < destinationBlockIndex && sourceRoot === destRoot) {
         destinationBlockIndex -= 1;
@@ -24342,8 +24410,8 @@ const BlockMoverButton = (0,external_wp_element_namespaceObject.forwardRef)((_re
     const normalizedClientIds = (0,external_lodash_namespaceObject.castArray)(clientIds);
     const firstClientId = (0,external_lodash_namespaceObject.first)(normalizedClientIds);
     const blockRootClientId = getBlockRootClientId(firstClientId);
-    const firstBlockIndex = getBlockIndex(firstClientId, blockRootClientId);
-    const lastBlockIndex = getBlockIndex((0,external_lodash_namespaceObject.last)(normalizedClientIds), blockRootClientId);
+    const firstBlockIndex = getBlockIndex(firstClientId);
+    const lastBlockIndex = getBlockIndex((0,external_lodash_namespaceObject.last)(normalizedClientIds));
     const blockOrder = getBlockOrder(blockRootClientId);
     const block = getBlock(firstClientId);
     const isFirstBlock = firstBlockIndex === 0;
@@ -24506,8 +24574,8 @@ function BlockMover(_ref) {
   const firstClientId = (0,external_lodash_namespaceObject.first)(normalizedClientIds);
   const block = getBlock(firstClientId);
   const rootClientId = getBlockRootClientId((0,external_lodash_namespaceObject.first)(normalizedClientIds));
-  const firstIndex = getBlockIndex(firstClientId, rootClientId);
-  const lastIndex = getBlockIndex((0,external_lodash_namespaceObject.last)(normalizedClientIds), rootClientId);
+  const firstIndex = getBlockIndex(firstClientId);
+  const lastIndex = getBlockIndex((0,external_lodash_namespaceObject.last)(normalizedClientIds));
   const blockOrder = getBlockOrder(rootClientId);
   const isFirst = firstIndex === 0;
   const isLast = lastIndex === blockOrder.length - 1;
@@ -24979,7 +25047,7 @@ function replaceActiveStyle(className, activeStyle, newStyle) {
  * act as a fallback for when there is no active style applied to a block. The default item also serves
  * as a switch on the frontend to deactivate non-default styles.
  *
- * @param {Array}           styles Block style variations.
+ * @param {Array} styles Block style variations.
  *
  * @return {Array<Object?>}        The style collection.
  */
@@ -24998,7 +25066,7 @@ function getRenderedStyles(styles) {
 /**
  * Returns a style object from a collection of styles where that style object is the default block style.
  *
- * @param {Array}    styles Block style variations.
+ * @param {Array} styles Block style variations.
  *
  * @return {Object?}        The default style object, if found.
  */
@@ -25052,7 +25120,7 @@ function useGenericPreviewBlock(block, type) {
 
 /**
  *
- * @param  {useStylesForBlocksArguments} useStylesForBlocks arguments.
+ * @param {useStylesForBlocksArguments} useStylesForBlocks arguments.
  * @return {Object}                                         Results of the select methods.
  */
 
@@ -27508,7 +27576,7 @@ function onBlockDrop(targetRootClientId, targetBlockIndex, getBlockIndex, getCli
 
 
     if (dropType === 'block') {
-      const sourceBlockIndex = getBlockIndex(sourceClientIds[0], sourceRootClientId); // If the user is dropping to the same position, return early.
+      const sourceBlockIndex = getBlockIndex(sourceClientIds[0]); // If the user is dropping to the same position, return early.
 
       if (sourceRootClientId === targetRootClientId && sourceBlockIndex === targetBlockIndex) {
         return;
@@ -28287,6 +28355,83 @@ function ColorGradientControl(props) {
 
 /* harmony default export */ var control = (ColorGradientControl);
 //# sourceMappingURL=control.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/dropdown.js
+
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function ColorGradientSettingsDropdown(_ref) {
+  let {
+    colors,
+    gradients,
+    disableCustomColors,
+    disableCustomGradients,
+    __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar,
+    enableAlpha,
+    settings
+  } = _ref;
+  let dropdownPosition;
+
+  if (__experimentalIsRenderedInSidebar) {
+    dropdownPosition = (0,external_wp_i18n_namespaceObject.isRTL)() ? 'bottom right' : 'bottom left';
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, {
+    isBordered: true,
+    isSeparated: true,
+    className: "block-editor-panel-color-gradient-settings__item-group"
+  }, settings.map((setting, index) => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
+    key: index,
+    position: dropdownPosition,
+    className: "block-editor-panel-color-gradient-settings__dropdown",
+    contentClassName: "block-editor-panel-color-gradient-settings__dropdown-content",
+    renderToggle: _ref2 => {
+      var _setting$gradientValu;
+
+      let {
+        isOpen,
+        onToggle
+      } = _ref2;
+      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItem, {
+        onClick: onToggle,
+        className: classnames_default()('block-editor-panel-color-gradient-settings__item', {
+          'is-open': isOpen
+        })
+      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+        justify: "flex-start"
+      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
+        className: "block-editor-panel-color-gradient-settings__color-indicator",
+        colorValue: (_setting$gradientValu = setting.gradientValue) !== null && _setting$gradientValu !== void 0 ? _setting$gradientValu : setting.colorValue
+      }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, setting.label)));
+    },
+    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(control, _extends({
+      showTitle: false,
+      colors,
+      gradients,
+      disableCustomColors,
+      disableCustomGradients,
+      __experimentalHasMultipleOrigins,
+      __experimentalIsRenderedInSidebar,
+      enableAlpha
+    }, setting))
+  })));
+}
+//# sourceMappingURL=dropdown.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/use-common-single-multiple-selects.js
 /**
  * Internal dependencies
@@ -28560,13 +28705,19 @@ function BorderColorEdit(props) {
     });
   };
 
-  return (0,external_wp_element_namespaceObject.createElement)(control, _extends({
+  const settings = [{
     label: (0,external_wp_i18n_namespaceObject.__)('Color'),
-    colorValue: colorValue,
     onColorChange: onChangeColor,
-    clearable: false,
+    colorValue,
+    clearable: false
+  }];
+  return (0,external_wp_element_namespaceObject.createElement)(ColorGradientSettingsDropdown, _extends({
+    settings: settings,
+    disableCustomColors: true,
+    disableCustomGradients: true,
     __experimentalHasMultipleOrigins: true,
-    __experimentalIsRenderedInSidebar: true
+    __experimentalIsRenderedInSidebar: true,
+    enableAlpha: true
   }, colorGradientSettings));
 }
 /**
@@ -29725,7 +29876,6 @@ function getGradientSlugByValue(gradients, value) {
 
   return gradient && gradient.slug;
 }
-const EMPTY_OBJECT = {};
 function __experimentalUseGradient() {
   let {
     gradientAttribute = 'gradient',
@@ -29734,8 +29884,10 @@ function __experimentalUseGradient() {
   const {
     clientId
   } = useBlockEditContext();
-  const gradientsPerOrigin = useSetting('color.gradients') || EMPTY_OBJECT;
-  const allGradients = (0,external_wp_element_namespaceObject.useMemo)(() => [...((gradientsPerOrigin === null || gradientsPerOrigin === void 0 ? void 0 : gradientsPerOrigin.custom) || []), ...((gradientsPerOrigin === null || gradientsPerOrigin === void 0 ? void 0 : gradientsPerOrigin.theme) || []), ...((gradientsPerOrigin === null || gradientsPerOrigin === void 0 ? void 0 : gradientsPerOrigin.default) || [])], [gradientsPerOrigin]);
+  const userGradientPalette = useSetting('color.gradients.custom');
+  const themeGradientPalette = useSetting('color.gradients.theme');
+  const defaultGradientPalette = useSetting('color.gradients.default');
+  const allGradients = (0,external_wp_element_namespaceObject.useMemo)(() => [...(userGradientPalette || []), ...(themeGradientPalette || []), ...(defaultGradientPalette || [])], [userGradientPalette, themeGradientPalette, defaultGradientPalette]);
   const {
     gradient,
     customGradient
@@ -29885,59 +30037,19 @@ const PanelColorGradientSettingsInner = _ref3 => {
     gradients: gradients,
     settings: settings
   }));
-  let dropdownPosition;
-  let popoverProps;
-
-  if (__experimentalIsRenderedInSidebar) {
-    dropdownPosition = (0,external_wp_i18n_namespaceObject.isRTL)() ? 'bottom right' : 'bottom left';
-    popoverProps = {
-      __unstableForcePosition: true
-    };
-  }
-
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, _extends({
     className: classnames_default()('block-editor-panel-color-gradient-settings', className),
     title: showTitle ? titleElement : undefined
-  }, props), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, {
-    isBordered: true,
-    isSeparated: true,
-    className: "block-editor-panel-color-gradient-settings__item-group"
-  }, settings.map((setting, index) => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
-    position: dropdownPosition,
-    popoverProps: popoverProps,
-    className: "block-editor-panel-color-gradient-settings__dropdown",
-    key: index,
-    contentClassName: "block-editor-panel-color-gradient-settings__dropdown-content",
-    renderToggle: _ref4 => {
-      var _setting$gradientValu;
-
-      let {
-        isOpen,
-        onToggle
-      } = _ref4;
-      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItem, {
-        onClick: onToggle,
-        className: classnames_default()('block-editor-panel-color-gradient-settings__item', {
-          'is-open': isOpen
-        })
-      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
-        justify: "flex-start"
-      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
-        className: "block-editor-panel-color-gradient-settings__color-indicator",
-        colorValue: (_setting$gradientValu = setting.gradientValue) !== null && _setting$gradientValu !== void 0 ? _setting$gradientValu : setting.colorValue
-      }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, setting.label)));
-    },
-    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(control, _extends({
-      showTitle: false,
-      colors,
-      gradients,
-      disableCustomColors,
-      disableCustomGradients,
-      __experimentalHasMultipleOrigins,
-      __experimentalIsRenderedInSidebar,
-      enableAlpha
-    }, setting))
-  }))), !!children && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
+  }, props), (0,external_wp_element_namespaceObject.createElement)(ColorGradientSettingsDropdown, {
+    settings: settings,
+    colors,
+    gradients,
+    disableCustomColors,
+    disableCustomGradients,
+    __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar,
+    enableAlpha
+  }), !!children && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
     marginY: 4
   }), " ", children));
 };
@@ -30139,7 +30251,6 @@ function ColorPanel(_ref) {
 
 
 const COLOR_SUPPORT_KEY = 'color';
-const color_EMPTY_OBJECT = {};
 
 const hasColorSupport = blockType => {
   const colorSupport = (0,external_wp_blocks_namespaceObject.getBlockSupport)(blockType, COLOR_SUPPORT_KEY);
@@ -30309,7 +30420,7 @@ function immutableSet(object, path, value) {
 
 
 function ColorEdit(props) {
-  var _gradientsPerOrigin$t, _style$color6, _style$color7, _style$color8, _style$elements2, _style$elements2$link, _style$elements2$link2, _style$elements3, _style$elements3$link, _style$elements3$link2;
+  var _style$color6, _style$color7, _style$color8, _style$elements2, _style$elements2$link, _style$elements2$link2, _style$elements3, _style$elements3$link, _style$elements3$link2;
 
   const {
     name: blockName,
@@ -30322,15 +30433,17 @@ function ColorEdit(props) {
   const themePalette = useSetting('color.palette.theme');
   const defaultPalette = useSetting('color.palette.default');
   const allSolids = (0,external_wp_element_namespaceObject.useMemo)(() => [...(userPalette || []), ...(themePalette || []), ...(defaultPalette || [])], [userPalette, themePalette, defaultPalette]);
-  const gradientsPerOrigin = useSetting('color.gradients') || color_EMPTY_OBJECT;
+  const userGradientPalette = useSetting('color.gradients.custom');
+  const themeGradientPalette = useSetting('color.gradients.theme');
+  const defaultGradientPalette = useSetting('color.gradients.default');
+  const allGradients = (0,external_wp_element_namespaceObject.useMemo)(() => [...(userGradientPalette || []), ...(themeGradientPalette || []), ...(defaultGradientPalette || [])], [userGradientPalette, themeGradientPalette, defaultGradientPalette]);
   const areCustomSolidsEnabled = useSetting('color.custom');
   const areCustomGradientsEnabled = useSetting('color.customGradient');
   const isBackgroundEnabled = useSetting('color.background');
   const isLinkEnabled = useSetting('color.link');
   const isTextEnabled = useSetting('color.text');
   const solidsEnabled = areCustomSolidsEnabled || !themePalette || (themePalette === null || themePalette === void 0 ? void 0 : themePalette.length) > 0;
-  const gradientsEnabled = areCustomGradientsEnabled || !(gradientsPerOrigin !== null && gradientsPerOrigin !== void 0 && gradientsPerOrigin.theme) || (gradientsPerOrigin === null || gradientsPerOrigin === void 0 ? void 0 : (_gradientsPerOrigin$t = gradientsPerOrigin.theme) === null || _gradientsPerOrigin$t === void 0 ? void 0 : _gradientsPerOrigin$t.length) > 0;
-  const allGradients = (0,external_wp_element_namespaceObject.useMemo)(() => [...((gradientsPerOrigin === null || gradientsPerOrigin === void 0 ? void 0 : gradientsPerOrigin.custom) || []), ...((gradientsPerOrigin === null || gradientsPerOrigin === void 0 ? void 0 : gradientsPerOrigin.theme) || []), ...((gradientsPerOrigin === null || gradientsPerOrigin === void 0 ? void 0 : gradientsPerOrigin.default) || [])], [gradientsPerOrigin]); // Shouldn't be needed but right now the ColorGradientsPanel
+  const gradientsEnabled = areCustomGradientsEnabled || !themeGradientPalette || (themeGradientPalette === null || themeGradientPalette === void 0 ? void 0 : themeGradientPalette.length) > 0; // Shouldn't be needed but right now the ColorGradientsPanel
   // can trigger both onChangeColor and onChangeBackground
   // synchronously causing our two callbacks to override changes
   // from each other.
@@ -30440,17 +30553,17 @@ function ColorEdit(props) {
     external_wp_element_namespaceObject.Platform.OS === 'web' && !gradient && !(style !== null && style !== void 0 && (_style$color6 = style.color) !== null && _style$color6 !== void 0 && _style$color6.gradient),
     clientId: props.clientId,
     settings: [...(hasTextColor ? [{
-      label: (0,external_wp_i18n_namespaceObject.__)('Text color'),
+      label: (0,external_wp_i18n_namespaceObject.__)('Text'),
       onColorChange: onChangeColor('text'),
       colorValue: getColorObjectByAttributeValues(allSolids, textColor, style === null || style === void 0 ? void 0 : (_style$color7 = style.color) === null || _style$color7 === void 0 ? void 0 : _style$color7.text).color
     }] : []), ...(hasBackgroundColor || hasGradientColor ? [{
-      label: (0,external_wp_i18n_namespaceObject.__)('Background color'),
+      label: (0,external_wp_i18n_namespaceObject.__)('Background'),
       onColorChange: hasBackgroundColor ? onChangeColor('background') : undefined,
       colorValue: getColorObjectByAttributeValues(allSolids, backgroundColor, style === null || style === void 0 ? void 0 : (_style$color8 = style.color) === null || _style$color8 === void 0 ? void 0 : _style$color8.background).color,
       gradientValue,
       onGradientChange: hasGradientColor ? onChangeGradient : undefined
     }] : []), ...(hasLinkColor ? [{
-      label: (0,external_wp_i18n_namespaceObject.__)('Link Color'),
+      label: (0,external_wp_i18n_namespaceObject.__)('Link'),
       onColorChange: onChangeLinkColor,
       colorValue: getLinkColorFromAttributeValue(allSolids, style === null || style === void 0 ? void 0 : (_style$elements2 = style.elements) === null || _style$elements2 === void 0 ? void 0 : (_style$elements2$link = _style$elements2.link) === null || _style$elements2$link === void 0 ? void 0 : (_style$elements2$link2 = _style$elements2$link.color) === null || _style$elements2$link2 === void 0 ? void 0 : _style$elements2$link2.text),
       clearable: !!(style !== null && style !== void 0 && (_style$elements3 = style.elements) !== null && _style$elements3 !== void 0 && (_style$elements3$link = _style$elements3.link) !== null && _style$elements3$link !== void 0 && (_style$elements3$link2 = _style$elements3$link.color) !== null && _style$elements3$link2 !== void 0 && _style$elements3$link2.text)
@@ -33019,6 +33132,7 @@ function compileStyleValue(uncompiledValue) {
 
 function getInlineStyles() {
   let styles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  const ignoredStyles = ['spacing.blockGap'];
   const output = {};
   Object.keys(external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY).forEach(propKey => {
     const path = external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[propKey].value;
@@ -33038,7 +33152,7 @@ function getInlineStyles() {
             output[name] = compileStyleValue(value);
           }
         });
-      } else {
+      } else if (!ignoredStyles.includes(path.join('.'))) {
         output[propKey] = compileStyleValue((0,external_lodash_namespaceObject.get)(styles, path));
       }
     }
@@ -33759,7 +33873,8 @@ const withLayoutStyles = (0,external_wp_compose_namespaceObject.createHigherOrde
   });
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, shouldRenderLayoutStyles && element && (0,external_wp_element_namespaceObject.createPortal)((0,external_wp_element_namespaceObject.createElement)(LayoutStyle, {
     selector: `.wp-container-${id}`,
-    layout: usedLayout
+    layout: usedLayout,
+    style: attributes === null || attributes === void 0 ? void 0 : attributes.style
   }), element), (0,external_wp_element_namespaceObject.createElement)(BlockListBlock, _extends({}, props, {
     className: className
   })));
@@ -33907,7 +34022,7 @@ function getColorClassesAndStyles(attributes) {
     style: styleProp
   };
 }
-const use_color_props_EMPTY_OBJECT = {};
+const EMPTY_OBJECT = {};
 /**
  * Determines the color related props for a block derived from its color block
  * support attributes.
@@ -33932,7 +34047,7 @@ function useColorProps(attributes) {
   const userPalette = useSetting('color.palette.custom') || [];
   const themePalette = useSetting('color.palette.theme') || [];
   const defaultPalette = useSetting('color.palette.default') || [];
-  const gradientsPerOrigin = useSetting('color.gradients') || use_color_props_EMPTY_OBJECT;
+  const gradientsPerOrigin = useSetting('color.gradients') || EMPTY_OBJECT;
   const colors = (0,external_wp_element_namespaceObject.useMemo)(() => [...(userPalette || []), ...(themePalette || []), ...(defaultPalette || [])], [userPalette, themePalette, defaultPalette]);
   const gradients = (0,external_wp_element_namespaceObject.useMemo)(() => [...((gradientsPerOrigin === null || gradientsPerOrigin === void 0 ? void 0 : gradientsPerOrigin.custom) || []), ...((gradientsPerOrigin === null || gradientsPerOrigin === void 0 ? void 0 : gradientsPerOrigin.theme) || []), ...((gradientsPerOrigin === null || gradientsPerOrigin === void 0 ? void 0 : gradientsPerOrigin.default) || [])], [gradientsPerOrigin]);
   const colorProps = getColorClassesAndStyles(attributes); // Force inline styles to apply colors when themes do not load their color
@@ -36116,7 +36231,7 @@ function useListViewDropZone() {
       return {
         clientId,
         rootClientId,
-        blockIndex: getBlockIndex(clientId, rootClientId),
+        blockIndex: getBlockIndex(clientId),
         element: blockElement,
         isDraggedBlock: isBlockDrag ? draggedBlockClientIds.includes(clientId) : false,
         innerBlockCount: getBlockCount(clientId),
@@ -44389,7 +44504,16 @@ const BlockInspector = _ref => {
   if (count > 1) {
     return (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "block-editor-block-inspector"
-    }, (0,external_wp_element_namespaceObject.createElement)(multi_selection_inspector, null), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, null));
+    }, (0,external_wp_element_namespaceObject.createElement)(multi_selection_inspector, null), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, null), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
+      __experimentalGroup: "typography",
+      label: (0,external_wp_i18n_namespaceObject.__)('Typography')
+    }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
+      __experimentalGroup: "dimensions",
+      label: (0,external_wp_i18n_namespaceObject.__)('Dimensions')
+    }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
+      __experimentalGroup: "border",
+      label: (0,external_wp_i18n_namespaceObject.__)('Border')
+    }));
   }
 
   const isSelectedBlockUnregistered = selectedBlockName === (0,external_wp_blocks_namespaceObject.getUnregisteredTypeHandlerName)();
@@ -44437,11 +44561,11 @@ const BlockInspectorSingleBlock = _ref2 => {
     __experimentalGroup: "typography",
     label: (0,external_wp_i18n_namespaceObject.__)('Typography')
   }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
-    __experimentalGroup: "border",
-    label: (0,external_wp_i18n_namespaceObject.__)('Border')
-  }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
     __experimentalGroup: "dimensions",
     label: (0,external_wp_i18n_namespaceObject.__)('Dimensions')
+  }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
+    __experimentalGroup: "border",
+    label: (0,external_wp_i18n_namespaceObject.__)('Border')
   }), (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)(AdvancedControls, null)), (0,external_wp_element_namespaceObject.createElement)(skip_to_selected_block, {
     key: "back"
   }));
@@ -44570,6 +44694,15 @@ function BlockTools(_ref) {
         insertBeforeBlock((0,external_lodash_namespaceObject.first)(clientIds));
       }
     } else if (isMatch('core/block-editor/delete-multi-selection', event)) {
+      /**
+       * Check if the target element is a text area, input or
+       * event.defaultPrevented and return early. In all these
+       * cases backspace could be handled elsewhere.
+       */
+      if (['INPUT', 'TEXTAREA'].includes(event.target.nodeName) || event.defaultPrevented) {
+        return;
+      }
+
       const clientIds = getSelectedBlockClientIds();
 
       if (clientIds.length > 1) {
@@ -45350,6 +45483,7 @@ function useNoRecursiveRenders(uniqueId) {
 /*
  * Block Creation Components
  */
+
 
 
 

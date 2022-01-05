@@ -252,6 +252,14 @@ function ServerSideRender(props) {
   const hasEmptyResponse = response === '';
   const hasError = response === null || response === void 0 ? void 0 : response.error;
 
+  if (isLoading) {
+    return (0,external_wp_element_namespaceObject.createElement)(LoadingResponsePlaceholder, _extends({}, props, {
+      showLoader: showLoader
+    }), hasResponse && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
+      className: className
+    }, response));
+  }
+
   if (hasEmptyResponse || !hasResponse) {
     return (0,external_wp_element_namespaceObject.createElement)(EmptyResponsePlaceholder, props);
   }
@@ -260,14 +268,6 @@ function ServerSideRender(props) {
     return (0,external_wp_element_namespaceObject.createElement)(ErrorResponsePlaceholder, _extends({
       response: response
     }, props));
-  }
-
-  if (isLoading) {
-    return (0,external_wp_element_namespaceObject.createElement)(LoadingResponsePlaceholder, _extends({}, props, {
-      showLoader: showLoader
-    }), hasResponse && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
-      className: className
-    }, response));
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
