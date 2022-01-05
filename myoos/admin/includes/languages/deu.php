@@ -33,6 +33,7 @@
   * on Windows try 'de' or 'German'
   */
   define('THE_LOCALE', 'de_DE');
+  define('LANG', 'de');
   define('DATE_FORMAT_SHORT', '%d.%m.%Y');  // this is used for strftime()
   define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); // this is used for strftime()
   define('DATE_FORMAT', 'd.m.Y');  // this is used for strftime()

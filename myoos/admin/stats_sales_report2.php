@@ -50,6 +50,9 @@
   define('OOS_VALID_MOD', 'yes');
   require 'includes/main.php';
 
+  use Carbon\Carbon;
+  Carbon::setLocale(LANG);
+
   require 'includes/classes/class_currencies.php';
   $currencies = new currencies();
 
@@ -274,14 +277,11 @@
           $m = 1;
       }
         for ($i = 1; $i < 13; $i++) {
-			$monthNum = 3;
-			$dateObj = DateTime::createFromFormat('!m', $monthNum);
-			$monthName = $dateObj->format('F'); // March 
-			echo $monthName;
+			$monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); 
             ?>
                       <option<?php if ($m == $i) {
                 echo ' selected="selected"';
-            } ?> value="<?php echo $i; ?>"><?php echo strftime("%B", mktime(0, 0, 0, $i, 1)); ?></option>
+            } ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>
 <?php
         } ?>
                     </select>
@@ -410,10 +410,11 @@
         $m = date("n");
     }
         for ($i = 1; $i < 13; $i++) {
+			$monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); 
             ?>
                       <option<?php if ($m == $i) {
                 echo ' selected="selected"';
-            } ?> value="<?php echo $i; ?>"><?php echo strftime("%B", mktime(0, 0, 0, $i, 1)); ?></option>
+            } ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>
 <?php
         } ?>
                     </select>

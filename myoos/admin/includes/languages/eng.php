@@ -32,6 +32,7 @@
   * on Windows try 'en', or 'English'
   */
   define('THE_LOCALE', 'en_US');
+  define('LANG', 'en');
   define('DATE_FORMAT_SHORT', '%m/%d/%Y');  // this is used for strftime()
   define('DATE_FORMAT_LONG', '%A %d %B, %Y'); // this is used for strftime()
   define('DATE_FORMAT', 'm/d/Y'); // this is used for date()
