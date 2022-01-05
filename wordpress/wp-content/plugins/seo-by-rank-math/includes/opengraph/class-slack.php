@@ -85,10 +85,10 @@ class Slack extends OpenGraph {
 
 		if ( $this->is_product() ) {
 			$data = $this->get_product_data();
-		} elseif ( $this->is_post() ) {
-			$data = $this->get_post_data();
 		} elseif ( $this->is_page() ) {
 			$data = $this->get_page_data();
+		} elseif ( $this->is_singular() ) {
+			$data = $this->get_post_data();
 		} elseif ( $this->is_term() ) {
 			$data = $this->get_term_data();
 		} elseif ( $this->is_author() ) {
@@ -140,12 +140,12 @@ class Slack extends OpenGraph {
 	}
 
 	/**
-	 * Check if current page is a post.
+	 * Check if current page is a post or a CPT.
 	 *
 	 * @return bool
 	 */
-	private function is_post() {
-		return Helper::get_settings( 'titles.pt_post_slack_enhanced_sharing' ) && is_singular( 'post' );
+	private function is_singular() {
+		return is_singular() && Helper::get_settings( sprintf( 'titles.pt_%s_slack_enhanced_sharing', get_post_type() ) );
 	}
 
 	/**
@@ -163,11 +163,7 @@ class Slack extends OpenGraph {
 	 * @return bool
 	 */
 	private function is_term() {
-		if ( is_category() ) {
-			return Helper::get_settings( 'titles.tax_category_slack_enhanced_sharing' );
-		} elseif ( is_tag() ) {
-			return Helper::get_settings( 'titles.tax_post_tag_slack_enhanced_sharing' );
-		} elseif ( is_tax() ) {
+		if ( is_category() || is_tag() || is_tax() ) {
 			global $wp_query;
 			return Helper::get_settings( sprintf( 'titles.tax_%s_slack_enhanced_sharing', $wp_query->get_queried_object()->taxonomy ) );
 		}
@@ -301,8 +297,13 @@ class Slack extends OpenGraph {
 			return $data;
 		}
 
-		$label          = get_post_type_object( get_post_type() )->labels->name;
-		$data[ $label ] = $term->category_count;
+		$label            = __( 'Items', 'rank-math' );
+		$post_type_object = get_post_type_object( get_post_type() );
+		if ( is_object( $post_type_object ) && isset( $post_type_object->labels->name ) ) {
+			$label = $post_type_object->labels->name;
+		}
+
+		$data[ $label ] = ( ! empty( $term->category_count ) ? $term->category_count : $term->count );
 
 		return $data;
 	}

@@ -47,11 +47,25 @@ class Common {
 		$this->action( 'wp_ajax_nopriv_rank_math_overlay_thumb', 'generate_overlay_thumbnail' );
 
 		$this->filter( 'is_protected_meta', 'hide_rank_math_meta', 10, 2 );
+		$this->action( 'rank_math/admin/before_editor_scripts', 'editor_script' );
 
 		new Auto_Updater();
 		new Update_Email();
 		new Defaults();
 		new Admin_Bar_Menu();
+	}
+
+	/**
+	 * Enqueue common editor script to use in all editors.
+	 */
+	public function editor_script() {
+		wp_register_script(
+			'rank-math-app',
+			rank_math()->plugin_url() . 'assets/admin/js/rank-math-app.js',
+			[],
+			rank_math()->version,
+			true
+		);
 	}
 
 	/**
@@ -283,8 +297,9 @@ class Common {
 	/**
 	 * Get correct imagecreatef based on image file.
 	 *
-	 * @param string $image_file
-	 * @return void
+	 * @param string $image_file Image file.
+	 *
+	 * @return string New generated image
 	 */
 	private function get_imagecreatefrom_method( $image_file ) {
 		$image_format = pathinfo( $image_file, PATHINFO_EXTENSION );
@@ -303,6 +318,7 @@ class Common {
 	 *
 	 * @param string $image_file    The permalink generated for this post by WordPress.
 	 * @param string $overlay_image The ID of the post.
+	 * @param string $position      Image position.
 	 */
 	private function create_overlay_image( $image_file, $overlay_image, $position ) {
 		$imagecreatefrom         = $this->get_imagecreatefrom_method( $image_file );

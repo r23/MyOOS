@@ -40,9 +40,8 @@ class Admin extends Base {
 		parent::__construct();
 
 		$this->action( 'cmb2_admin_init', 'add_kb_links', 50 );
-		$this->action( 'rank_math/admin/enqueue_scripts', 'enqueue' );
+		$this->action( 'rank_math/admin/editor_scripts', 'enqueue' );
 		$this->action( 'rank_math/post/column/seo_details', 'display_schema_type' );
-		$this->action( 'elementor/editor/before_enqueue_scripts', 'elementor_enqueue', 9 );
 	}
 
 	/**
@@ -79,32 +78,13 @@ class Admin extends Base {
 		Helper::add_json( 'schemas', $this->get_schema_data( $cmb->object_id() ) );
 		Helper::add_json( 'customSchemaImage', esc_url( rank_math()->plugin_url() . 'includes/modules/schema/assets/img/custom-schema-builder.jpg' ) );
 
-		$is_gutenberg = Helper::is_block_editor() && \rank_math_is_gutenberg();
-		$is_elementor = Helper::is_elementor_editor();
-
-		if ( ! $is_elementor ) {
-			wp_enqueue_style( 'rank-math-schema', rank_math()->plugin_url() . 'includes/modules/schema/assets/css/schema.css', [ 'wp-components', 'rank-math-post-metabox' ], rank_math()->version );
-			$this->enqueue_translation();
-		}
+		wp_enqueue_style( 'rank-math-schema', rank_math()->plugin_url() . 'includes/modules/schema/assets/css/schema.css', [ 'wp-components', 'rank-math-editor' ], rank_math()->version );
+		$this->enqueue_translation();
 
 		$screen = get_current_screen();
 		if ( 'rank_math_schema' !== $screen->post_type ) {
-			$dep = $is_gutenberg ? [ 'rank-math-gutenberg' ] : [ 'rank-math-metabox' ];
-			wp_enqueue_script( 'rank-math-schema', rank_math()->plugin_url() . 'includes/modules/schema/assets/js/schema-gutenberg.js', $dep, rank_math()->version, true );
+			wp_enqueue_script( 'rank-math-schema', rank_math()->plugin_url() . 'includes/modules/schema/assets/js/schema-gutenberg.js', [ 'rank-math-editor' ], rank_math()->version, true );
 		}
-	}
-
-	/**
-	 * Enqueue Styles and Scripts required for the metabox in Elementor editor.
-	 */
-	public function elementor_enqueue() {
-		if ( ! Helper::has_cap( 'onpage_snippet' ) || Admin_Helper::is_posts_page() ) {
-			return;
-		}
-
-		wp_enqueue_style( 'rank-math-elementor-schema', rank_math()->plugin_url() . 'includes/modules/schema/assets/css/schema.css', [], rank_math()->version );
-		wp_enqueue_script( 'rank-math-schema', rank_math()->plugin_url() . 'includes/modules/schema/assets/js/schema-gutenberg.js', [ 'rank-math-elementor' ], rank_math()->version, true );
-		$this->enqueue_translation();
 	}
 
 	/**
@@ -148,6 +128,17 @@ class Admin extends Base {
 				'isPrimary' => true,
 			],
 		];
+
+		if ( ! in_array( $default_type, [ 'Article', 'NewsArticle', 'BlogPosting' ], true ) ) {
+			return $schemas;
+		}
+
+		$post_type   = get_post_type( $post_id );
+		$name        = Helper::get_settings( "titles.pt_{$post_type}_default_snippet_name" );
+		$description = Helper::get_settings( "titles.pt_{$post_type}_default_snippet_desc" );
+
+		$schemas['new-9999']['headline']    = $name ? $name : '';
+		$schemas['new-9999']['description'] = $description ? $description : '';
 
 		return $schemas;
 	}

@@ -1,4 +1,4 @@
-# Copyright (C) 2021 rank-math
+# Copyright (C) 2022 rank-math
 # This file is distributed under the same license as the rank-math package.
 msgid ""
 msgstr ""
@@ -588,6 +588,15 @@ msgid ".htaccess file updated successfully."
 msgstr ""
 
 msgid "Panel"
+msgstr ""
+
+msgid "Take your SEO to the Next Level!"
+msgstr ""
+
+msgid "Get Rank Math PRO!"
+msgstr ""
+
+msgid "Click here to see all the exciting features."
 msgstr ""
 
 msgid "Save Changes"
@@ -1430,6 +1439,27 @@ msgstr ""
 msgid "NEW!"
 msgstr ""
 
+msgid "Take SEO to the Next Level!"
+msgstr ""
+
+msgid "Unlimited personal websites"
+msgstr ""
+
+msgid "Free 15 Content AI Credits"
+msgstr ""
+
+msgid "Track 500 Keywords"
+msgstr ""
+
+msgid "Powerful Schema Generator"
+msgstr ""
+
+msgid "24/7 Support"
+msgstr ""
+
+msgid "Buy"
+msgstr ""
+
 #. translators: %d: minutes
 #. translators: %s expands to a unit of time (e.g. 1 minute).
 msgid "%d minute"
@@ -1438,6 +1468,9 @@ msgstr[0] ""
 msgstr[1] ""
 
 msgid "Less than a minute"
+msgstr ""
+
+msgid "Items"
 msgstr ""
 
 msgid "Post ID"
@@ -4174,6 +4207,19 @@ msgstr ""
 msgid "To configure attachment-related meta tags disable attachment redirection to parent."
 msgstr ""
 
+#. translators: Post type name.
+msgid "When the option is enabled and a %s is shared on Slack, additional information will be shown (estimated time to read and author)."
+msgstr ""
+
+msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price)."
+msgstr ""
+
+msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price & availability)."
+msgstr ""
+
+msgid "When the option is enabled and a page is shared on Slack, additional information will be shown (estimated time to read)."
+msgstr ""
+
 #. translators: post type name
 msgid "Single %s Title"
 msgstr ""
@@ -4255,18 +4301,6 @@ msgid "Thumbnail for Facebook"
 msgstr ""
 
 msgid "Image displayed when your page is shared on Facebook and other social networks. Use images that are at least 1200 x 630 pixels for the best display on high resolution devices."
-msgstr ""
-
-msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price)."
-msgstr ""
-
-msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price & availability)."
-msgstr ""
-
-msgid "When the option is enabled and a page is shared on Slack, additional information will be shown (time to read)."
-msgstr ""
-
-msgid "When the option is enabled and a post is shared on Slack, additional information will be shown (author name & time to read)."
 msgstr ""
 
 msgid "Add SEO controls for the editor screen to customize SEO options for posts in this post type."

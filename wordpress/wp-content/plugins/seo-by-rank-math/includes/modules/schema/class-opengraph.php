@@ -39,13 +39,7 @@ class Opengraph {
 			return;
 		}
 
-		global $post;
-		$schemas = array_filter(
-			DB::get_schemas( $post->ID ),
-			function( $schema ) {
-				return in_array( $schema['@type'], [ 'Article', 'NewsArticle', 'BlogPosting', 'Product', 'VideoObject' ], true );
-			}
-		);
+		$schemas = $this->get_schemas();
 		if ( empty( $schemas ) ) {
 			return;
 		}
@@ -62,6 +56,36 @@ class Opengraph {
 			$method = $hash[ $schema['@type'] ];
 			$this->$method( $schema, $opengraph );
 		}
+	}
+
+	/**
+	 * Function to get schema data.
+	 */
+	private function get_schemas() {
+		global $post;
+		$schemas = array_filter(
+			DB::get_schemas( $post->ID ),
+			function( $schema ) {
+				return in_array( $schema['@type'], [ 'Article', 'NewsArticle', 'BlogPosting', 'Product', 'VideoObject' ], true );
+			}
+		);
+
+		if ( ! empty( $schemas ) ) {
+			return $schemas;
+		}
+
+		$default_schema = Helper::get_default_schema_type( $post->ID, true, false );
+		if ( ! in_array( $default_schema, [ 'Article', 'BlogPosting', 'NewsArticle' ] ) ) {
+			return false;
+		}
+
+		return [
+			[
+				'@type' => $default_schema,
+				'datePublished' => '%date(Y-m-d\TH:i:sP)%',
+				'dateModified'  => '%modified(Y-m-d\TH:i:sP)%',
+			]
+		];
 	}
 
 	/**

@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.8
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.79
+Stable tag: 1.0.80
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -581,15 +581,14 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.79 [Dec 22, 2021] =
-* Added: [HUGE!] Enhanced [Sharing on Slack](https://rankmath.com/kb/slack-enhanced-sharing/)
-* Improved: Renamed `Exclude this Image from sitemap` label to make it more contextualized
-* Fixed: PHP warning when using the [`rank_math_contact_info` shortcode](https://rankmath.com/kb/local-seo/#contact-info-shortcode)
-* Fixed: [Thumbnail Overlay](https://rankmath.com/kb/meta-box-social-tab/#add-icon-overlay-to-thumbnails) was not working on the server where `allow_url_fopen` is not enabled
-* Fixed: SEO data was not updating on Classic editor when the `Enter` key is used to submit the form
-* Fixed: Saving a page with Firefox using Divi Backend editor was showing an error on some setups
-* Fixed: Editing a product made with Divi Backend editor was showing a popup
-* Fixed: Product short description was not updating after editing a product using Divi Backend editor
-* Fixed: Deleting [Focus keyword](https://rankmath.com/kb/general-tab/#the-focus-keyword-section) was not working after the last update
+= 1.0.80 [Jan 05, 2022] =
+* Improved: [HUGE!] Made several significant code improvements that have made the plugin even FASTER. Now, the plugin folder is lighter than 450 KB
+* Added: [Slack sharing](https://rankmath.com/kb/slack-enhanced-sharing/) option in all the post types
+* Fixed: Slack item number tag was not showing on the custom taxonomies
+* Fixed: Missing `article:published_time` & `article:modified_time` tags on posts using default [Article Schema](https://rankmath.com/kb/article-schema/) from Titles & Meta settings
+* Fixed: [Article Schema](https://rankmath.com/kb/article-schema/) was not showing the default Heading & Description value from the [general settings](https://rankmath.com/kb/general-settings/) on the new posts
+* Fixed: [External link tests](https://rankmath.com/kb/score-100-in-tests/#linking-to-external-content-with-a-followed-link) was not working properly when [NoFollow External links](https://rankmath.com/kb/should-you-nofollow-external-links/#nofollow-all-external-links) option was enabled
+* Fixed: `#current_year` variable was not getting imported from the [AIO SEO plugin](https://rankmath.com/alternative-for-aio-seo/)
+* Fixed: PHP notice on archive pages
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

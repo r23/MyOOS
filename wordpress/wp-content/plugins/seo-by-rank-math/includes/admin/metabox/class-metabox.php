@@ -69,6 +69,11 @@ class Metabox implements Runner {
 	 * Enqueue styles and scripts for the metabox.
 	 */
 	public function enqueue() {
+		/**
+		 * Allow other plugins to enqueue/dequeue admin styles or scripts before plugin assets.
+		 */
+		$this->do_action( 'admin/before_editor_scripts' );
+
 		$screen = get_current_screen();
 		$js     = rank_math()->plugin_url() . 'assets/admin/js/';
 
@@ -90,14 +95,14 @@ class Metabox implements Runner {
 				[
 					'rank-math-common',
 					'rank-math-cmb2',
-					'rank-math-post-metabox',
+					'rank-math-editor',
 					'wp-components',
 				],
 				rank_math()->version
 			);
 
 			wp_enqueue_script(
-				'rank-math-metabox',
+				'rank-math-editor',
 				rank_math()->plugin_url() . 'assets/admin/js/classic.js',
 				[
 					'clipboard',
@@ -115,6 +120,7 @@ class Metabox implements Runner {
 					'rank-math-analyzer',
 					'rank-math-validate',
 					'wp-block-editor',
+					'rank-math-app',
 				],
 				rank_math()->version,
 				true
@@ -122,13 +128,18 @@ class Metabox implements Runner {
 		}
 
 		$this->do_action( 'enqueue_scripts/assessor' );
+
+		/**
+		 * Allow other plugins to enqueue/dequeue admin styles or scripts after plugin assets.
+		 */
+		$this->do_action( 'admin/editor_scripts' );
 	}
 
 	/**
 	 * Enqueque scripts common for all builders.
 	 */
 	private function enqueue_commons() {
-		wp_register_style( 'rank-math-post-metabox', rank_math()->plugin_url() . 'assets/admin/css/gutenberg.css', [ 'rank-math-common' ], rank_math()->version );
+		wp_register_style( 'rank-math-editor', rank_math()->plugin_url() . 'assets/admin/css/gutenberg.css', [ 'rank-math-common' ], rank_math()->version );
 		wp_register_script( 'rank-math-analyzer', rank_math()->plugin_url() . 'assets/admin/js/analyzer.js', [ 'lodash', 'wp-autop', 'wp-wordcount' ], rank_math()->version, true );
 	}
 

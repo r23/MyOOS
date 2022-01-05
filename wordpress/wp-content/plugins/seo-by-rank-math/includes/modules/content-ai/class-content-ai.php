@@ -35,8 +35,7 @@ class Content_AI {
 
 		$this->filter( 'rank_math/settings/general', 'add_settings' );
 		$this->action( 'rest_api_init', 'init_rest_api' );
-		$this->action( 'rank_math/admin/enqueue_scripts', 'editor_scripts', 20 );
-		$this->action( 'wp_footer', 'editor_scripts', 11 );
+		$this->action( 'rank_math/admin/editor_scripts', 'editor_scripts', 20 );
 		$this->filter( 'rank_math/metabox/post/values', 'add_metadata', 10, 2 );
 		$this->action( 'cmb2_admin_init', 'add_content_ai_metabox', 11 );
 		$this->action( 'rank_math/deregister_site', 'remove_credits_data' );
@@ -123,13 +122,6 @@ class Content_AI {
 			return;
 		}
 
-		$dep = [
-			'classic'   => 'rank-math-metabox',
-			'gutenberg' => 'rank-math-gutenberg',
-			'elementor' => 'rank-math-elementor',
-			'divi'      => 'rank-math-divi',
-		];
-
 		wp_register_style( 'rank-math-common', rank_math()->plugin_url() . 'assets/admin/css/common.css', null, rank_math()->version );
 		wp_enqueue_style(
 			'rank-math-content-ai',
@@ -141,9 +133,7 @@ class Content_AI {
 		wp_enqueue_script(
 			'rank-math-content-ai',
 			rank_math()->plugin_url() . 'includes/modules/content-ai/assets/js/content-ai.js',
-			[
-				$dep[ $editor ],
-			],
+			[ 'rank-math-editor' ],
 			rank_math()->version,
 			true
 		);
@@ -198,7 +188,7 @@ class Content_AI {
 		$this->has_cap_ajax( 'content_ai' );
 		$this->success(
 			[
-				'credits' => Helper::get_content_ai_credits( true )
+				'credits' => Helper::get_content_ai_credits( true ),
 			]
 		);
 	}

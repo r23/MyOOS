@@ -45,6 +45,16 @@ $primary_taxonomy_hash = [
 
 $is_stories_post_type = defined( 'WEBSTORIES_VERSION' ) && 'web-story' === $post_type;
 
+// Translators: Post type name.
+$slack_enhanced_sharing_description = sprintf( __( 'When the option is enabled and a %s is shared on Slack, additional information will be shown (estimated time to read and author).', 'rank-math' ), $name );
+if ( 'page' === $post_type ) {
+	$slack_enhanced_sharing_description = __( 'When the option is enabled and a page is shared on Slack, additional information will be shown (estimated time to read).', 'rank-math' );
+} elseif ( 'product' === $post_type ) {
+	$slack_enhanced_sharing_description = __( 'When the option is enabled and a product is shared on Slack, additional information will be shown (price & availability).', 'rank-math' );
+} elseif ( 'download' === $post_type ) {
+	$slack_enhanced_sharing_description = __( 'When the option is enabled and a product is shared on Slack, additional information will be shown (price).', 'rank-math' );
+}
+
 $cmb->add_field(
 	[
 		'id'              => 'pt_' . $post_type . '_title',
@@ -325,51 +335,16 @@ if ( 'attachment' === $post_type ) {
 		]
 	);
 } else {
-	if ( 'post' === $post_type ) {
-		$cmb->add_field(
-			[
-				'id'      => 'pt_' . $post_type . '_slack_enhanced_sharing',
-				'type'    => 'toggle',
-				'name'    => esc_html__( 'Slack Enhanced Sharing', 'rank-math' ),
-				'desc'    => esc_html__( 'When the option is enabled and a post is shared on Slack, additional information will be shown (author name & time to read).', 'rank-math' ),
-				'default' => 'on',
-				'classes' => 'rank-math-advanced-option',
-			]
-		);
-	} elseif ( 'page' === $post_type ) {
-		$cmb->add_field(
-			[
-				'id'      => 'pt_' . $post_type . '_slack_enhanced_sharing',
-				'type'    => 'toggle',
-				'name'    => esc_html__( 'Slack Enhanced Sharing', 'rank-math' ),
-				'desc'    => esc_html__( 'When the option is enabled and a page is shared on Slack, additional information will be shown (time to read).', 'rank-math' ),
-				'default' => 'on',
-				'classes' => 'rank-math-advanced-option',
-			]
-		);
-	} elseif ( 'product' === $post_type ) {
-		$cmb->add_field(
-			[
-				'id'      => 'pt_' . $post_type . '_slack_enhanced_sharing',
-				'type'    => 'toggle',
-				'name'    => esc_html__( 'Slack Enhanced Sharing', 'rank-math' ),
-				'desc'    => esc_html__( 'When the option is enabled and a product is shared on Slack, additional information will be shown (price & availability).', 'rank-math' ),
-				'default' => 'on',
-				'classes' => 'rank-math-advanced-option',
-			]
-		);
-	} elseif ( 'download' === $post_type ) {
-		$cmb->add_field(
-			[
-				'id'      => 'pt_' . $post_type . '_slack_enhanced_sharing',
-				'type'    => 'toggle',
-				'name'    => esc_html__( 'Slack Enhanced Sharing', 'rank-math' ),
-				'desc'    => esc_html__( 'When the option is enabled and a product is shared on Slack, additional information will be shown (price).', 'rank-math' ),
-				'default' => 'on',
-				'classes' => 'rank-math-advanced-option',
-			]
-		);
-	}
+	$cmb->add_field(
+		[
+			'id'      => 'pt_' . $post_type . '_slack_enhanced_sharing',
+			'type'    => 'toggle',
+			'name'    => esc_html__( 'Slack Enhanced Sharing', 'rank-math' ),
+			'desc'    => esc_html( $slack_enhanced_sharing_description ),
+			'default' => in_array( $post_type, [ 'post', 'page', 'product', 'download' ], true ) ? 'on' : 'off',
+			'classes' => 'rank-math-advanced-option',
+		]
+	);
 
 	$cmb->add_field(
 		[

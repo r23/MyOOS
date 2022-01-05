@@ -272,7 +272,7 @@ class Post_Screen implements IScreen {
 	 * Enqueque scripts common for all builders.
 	 */
 	private function enqueue_commons() {
-		wp_register_style( 'rank-math-post-metabox', rank_math()->plugin_url() . 'assets/admin/css/gutenberg.css', [], rank_math()->version );
+		wp_register_style( 'rank-math-editor', rank_math()->plugin_url() . 'assets/admin/css/gutenberg.css', [], rank_math()->version );
 	}
 
 	/**
@@ -296,10 +296,10 @@ class Post_Screen implements IScreen {
 	 * Enqueue scripts for gutenberg screen.
 	 */
 	private function enqueue_for_gutenberg() {
-		wp_enqueue_style( 'rank-math-post-metabox' );
+		wp_enqueue_style( 'rank-math-editor' );
 		wp_enqueue_script( 'rank-math-formats' );
 		wp_enqueue_script(
-			'rank-math-gutenberg',
+			'rank-math-editor',
 			rank_math()->plugin_url() . 'assets/admin/js/gutenberg.js',
 			[
 				'clipboard',
@@ -313,6 +313,7 @@ class Post_Screen implements IScreen {
 				'wp-plugins',
 				'wp-wordcount',
 				'rank-math-analyzer',
+				'rank-math-app',
 			],
 			rank_math()->version,
 			true
