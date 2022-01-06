@@ -26,7 +26,11 @@ if (!is_numeric(MAX_DISPLAY_NEW_PRODUCTS)) {
     return false;
 }
 
-if ((!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == '0')) {
+use Carbon\Carbon;
+Carbon::setLocale(LANG);
+
+
+if ((!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == 0)) {
     $productstable = $oostable['products'];
     $products_descriptiontable = $oostable['products_description'];
     $specialstable = $oostable['specials'];
@@ -148,10 +152,14 @@ while ($new_products = $new_products_result->fields) {
     $new_products_result->MoveNext();
 }
 
+
+$m = date("n");
+$monthName = (new Carbon())->setMonth($m)->isoFormat('MMMM');
+
 // assign Smarty variables;
 $smarty->assign(
     array(
-        'block_heading_new_products' => sprintf($aLang['table_heading_new_products'], strftime('%B')),
+        'block_heading_new_products' => sprintf($aLang['table_heading_new_products'], $monthName),
         'new_products_array' => $aNewProducts
     )
 );
