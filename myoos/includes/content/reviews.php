@@ -89,8 +89,6 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     $aReviews = array();
     while ($reviews = $reviews_result->fields) {
-        $date_long = oos_date_long($reviews['date_added']);
-
         $aReviews[] = array('id' => $reviews['reviews_id'],
                           'products_id' => $reviews['products_id'],
                           'reviews_id' => $reviews['reviews_id'],
@@ -101,7 +99,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                           'review' => htmlspecialchars(substr($reviews['reviews_text'], 0, 250), ENT_QUOTES, 'UTF-8') . '..',
                           'rating' => $reviews['reviews_rating'],
                           'word_count' => oosWordCount($reviews['reviews_text'], ' '),
-                          'date_added' => $date_long);
+                          'date_added' => $reviews['date_added']);
         $reviews_result->MoveNext();
     }
 
