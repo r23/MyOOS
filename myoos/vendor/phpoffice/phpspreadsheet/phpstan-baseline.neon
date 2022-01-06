@@ -161,16 +161,6 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:raiseFormulaError\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:raiseFormulaError\\(\\) has parameter \\$errorMessage with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Calculation/Calculation.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\Calculation\\:\\:validateBinaryOperand\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
@@ -221,27 +211,27 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function preg_quote expects string, int\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function preg_quote expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function strtoupper expects string, mixed given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, int\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, mixed given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, null given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, null given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Calculation.php
 
@@ -516,12 +506,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function array_keys expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(input|array) of function array_keys expects array, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function strtoupper expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Database/DatabaseAbstract.php
 
@@ -556,7 +546,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Date.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
 
@@ -566,7 +556,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/DateValue.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function strtoupper expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Difference.php
 
@@ -576,12 +566,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/Helpers.php
 
 		-
-			message: "#^Parameter \\#1 \\$x of function fmod expects float, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(x|num1) of function fmod expects float, mixed given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeParts.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/DateTimeExcel/TimeValue.php
 
@@ -756,12 +746,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\<0, 281474976710655\\>\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$num(ber)? of function floor expects float(\\|int)?, float\\|int\\<0, 281474976710655\\>\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, float\\|int\\|string given\\.$#"
+			message: "#^Parameter \\#1 \\$num(ber)? of function floor expects float(\\|int)?, float\\|int\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Engineering/BitWise.php
 
@@ -986,12 +976,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Financial/Dollar.php
 
 		-
-			message: "#^Parameter \\#1 \\$number of function floor expects float, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$num(ber)? of function floor expects float(\\|int)?, mixed given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Financial/Dollar.php
 
 		-
-			message: "#^Parameter \\#1 \\$x of function fmod expects float, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(x|num1) of function fmod expects float, mixed given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/Financial/Dollar.php
 
@@ -1276,12 +1266,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Helpers.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Helpers.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, mixed given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Hyperlink.php
 
@@ -1391,7 +1381,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/Offset.php
 
@@ -1411,17 +1401,17 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
 		-
-			message: "#^Parameter \\#1 \\$low of function range expects float\\|int\\|string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$(low|start) of function range expects float\\|int\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
 		-
-			message: "#^Parameter \\#2 \\$high of function range expects float\\|int\\|string, string\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$(high|end) of function range expects float\\|int\\|string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$str(ing)? of function explode expects string, mixed given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Calculation/LookupRef/RowColumnInformation.php
 
@@ -1486,12 +1476,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
 		-
-			message: "#^Parameter \\#1 \\$array_arg of function uasort expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$array(_arg)? of function uasort expects array, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function array_keys expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(input|array) of function array_keys expects array, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/LookupRef/VLookup.php
 
@@ -1561,12 +1551,12 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function array_filter expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(input|array) of function array_filter expects array, mixed given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$str(ing)? of function explode expects string, mixed given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Calculation/MathTrig/Subtotal.php
 
@@ -1766,7 +1756,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
 
 		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(var|value) of function count expects array\\|Countable, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/Statistical/Distributions/ChiSquared.php
 
@@ -1931,7 +1921,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData.php
 
 		-
-			message: "#^Parameter \\#1 \\$glue of function implode expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(glue|separator) of function implode expects (array\\|)?string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData/Concatenate.php
 
@@ -1961,7 +1951,7 @@ parameters:
 			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Calculation/TextData/Format.php
 
@@ -2136,17 +2126,17 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function array_chunk expects array, array\\<int, string\\>\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$(input|array) of function array_chunk expects array, array\\<int, string\\>\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function strtoupper expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, array\\<int, string\\>\\|string given\\.$#"
+			message: "#^Parameter \\#2 \\$str(ing)? of function explode expects string, array\\<int, string\\>\\|string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/Coordinate.php
 
@@ -2171,7 +2161,7 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/DataType.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtolower expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function strtolower expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/DataValidator.php
 
@@ -2181,7 +2171,7 @@ parameters:
 			path: src/PhpSpreadsheet/Cell/DefaultValueBinder.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function ltrim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function ltrim expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Cell/DefaultValueBinder.php
 
@@ -2466,17 +2456,17 @@ parameters:
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function array_values expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(input|array) of function array_values expects array, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
 		-
-			message: "#^Parameter \\#1 \\$stack of function array_shift expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(stack|array) of function array_shift expects array, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
 		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(var|value) of function count expects array\\|Countable, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Chart/DataSeriesValues.php
 
@@ -3046,7 +3036,7 @@ parameters:
 			path: src/PhpSpreadsheet/Helper/Html.php
 
 		-
-			message: "#^Parameter \\#1 \\$function of function call_user_func expects callable\\(\\)\\: mixed, array\\{\\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Helper\\\\Html\\), mixed\\} given\\.$#"
+			message: "#^Parameter \\#1 \\$(function|callback) of function call_user_func expects callable\\(\\)\\: mixed, array\\{\\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Helper\\\\Html\\), mixed\\} given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Helper/Html.php
 
@@ -3211,7 +3201,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Gnumeric.php
 
@@ -3561,7 +3551,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, mixed given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
@@ -3571,7 +3561,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(var|value) of function count expects array\\|Countable, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls.php
 
@@ -3701,7 +3691,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xls/MD5.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function array_values expects array, array\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$(input|array) of function array_values expects array, array\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xls/MD5.php
 
@@ -3991,7 +3981,7 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xlsx.php
 
@@ -4461,106 +4451,6 @@ parameters:
 			path: src/PhpSpreadsheet/Reader/Xlsx/SheetViewOptions.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:dxfs\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:dxfs\\(\\) has parameter \\$readDataOnly with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:getArrayItem\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:getArrayItem\\(\\) has parameter \\$array with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:getArrayItem\\(\\) has parameter \\$key with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:readColor\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:readColor\\(\\) has parameter \\$background with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:readColor\\(\\) has parameter \\$color with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:readProtectionHidden\\(\\) has parameter \\$style with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:readProtectionLocked\\(\\) has parameter \\$style with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:readStyle\\(\\) has parameter \\$style with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:setStyleBaseData\\(\\) has parameter \\$cellStyles with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:setStyleBaseData\\(\\) has parameter \\$styles with no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:styles\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Parameter \\#1 \\$hexColourValue of static method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\:\\:changeBrightness\\(\\) expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Parameter \\#2 \\$alignmentXml of static method PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:readAlignmentStyle\\(\\) expects SimpleXMLElement, object given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:\\$cellStyles has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:\\$styleXml has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:\\$styles has no type specified\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
-			message: "#^Static property PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Styles\\:\\:\\$theme \\(PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Theme\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Reader\\\\Xlsx\\\\Theme\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Reader/Xlsx/Styles.php
-
-		-
 			message: "#^Parameter \\#1 \\$haystack of function strpos expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Reader/Xml.php
@@ -4711,37 +4601,37 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:imagecreatefrombmp\\(\\) should return GdImage\\|resource but returns resource\\|false\\.$#"
+			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\Drawing\\:\\:imagecreatefrombmp\\(\\) should return GdImage\\|resource but returns (GdImage|resource)\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
 		-
-			message: "#^Parameter \\#1 \\$fp of function feof expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$(fp|stream) of function feof expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
 		-
-			message: "#^Parameter \\#1 \\$fp of function fread expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$(fp|stream) of function fread expects resource, resource\\|false given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagecolorallocate expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$im(age)? of function imagecolorallocate expects (GdImage|resource), (GdImage|resource)\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagesetpixel expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$im(age)? of function imagesetpixel expects (GdImage|resource), (GdImage|resource)\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
 		-
-			message: "#^Parameter \\#1 \\$x_size of function imagecreatetruecolor expects int, float\\|int given\\.$#"
+			message: "#^Parameter \\#1 \\$(x_size|width) of function imagecreatetruecolor expects int, float\\|int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
 		-
-			message: "#^Parameter \\#2 \\$data of function unpack expects string, string\\|false given\\.$#"
+			message: "#^Parameter \\#2 \\$(data|string) of function unpack expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
@@ -4751,7 +4641,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
 		-
-			message: "#^Parameter \\#2 \\$y_size of function imagecreatetruecolor expects int, float\\|int given\\.$#"
+			message: "#^Parameter \\#2 \\$(y_size|height) of function imagecreatetruecolor expects int, float\\|int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
@@ -4771,7 +4661,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
 		-
-			message: "#^Parameter \\#4 \\$col of function imagesetpixel expects int, int\\|false given\\.$#"
+			message: "#^Parameter \\#4 \\$col(or)? of function imagesetpixel expects int, int\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Drawing.php
 
@@ -4981,7 +4871,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, float\\|int given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function trim expects string, float\\|int given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/JAMA/Matrix.php
 
@@ -5086,7 +4976,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLE.php
 
 		-
-			message: "#^Parameter \\#2 \\$data of function unpack expects string, string\\|false given\\.$#"
+			message: "#^Parameter \\#2 \\$(data|string) of function unpack expects string, string\\|false given\\.$#"
 			count: 3
 			path: src/PhpSpreadsheet/Shared/OLE.php
 
@@ -5126,7 +5016,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/OLE.php
 
 		-
-			message: "#^Parameter \\#1 \\$var of function count expects array\\|Countable, string given\\.$#"
+			message: "#^Parameter \\#1 \\$(var|value) of function count expects array\\|Countable, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/OLE/ChainedBlockStream.php
 
@@ -5287,11 +5177,6 @@ parameters:
 
 		-
 			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Shared/StringHelper.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:countCharacters\\(\\) should return int but returns int\\|false\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/StringHelper.php
 
@@ -5496,7 +5381,7 @@ parameters:
 			path: src/PhpSpreadsheet/Shared/Trend/PolynomialBestFit.php
 
 		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$args of function array_merge expects array, float given\\.$#"
+			message: "#^Parameter \\#2 \\.\\.\\.\\$(args|arrays) of function array_merge expects array, float given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Shared/Trend/PolynomialBestFit.php
 
@@ -5614,66 +5499,6 @@ parameters:
 			message: "#^Unreachable statement \\- code above always terminates\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Spreadsheet.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Alignment.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Border.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getStyleArray\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Border.php
-
-		-
-			message: "#^Parameter \\#1 \\$parent of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Supervisor\\:\\:bindParent\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style, \\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Border\\) given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Border.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Borders.php
-
-		-
-			message: "#^Parameter \\#1 \\$parent of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Supervisor\\:\\:bindParent\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style, \\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Borders\\) given\\.$#"
-			count: 10
-			path: src/PhpSpreadsheet/Style/Borders.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getStyleArray\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Border\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\:\\:getColor\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Border\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\:\\:getEndColor\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Border\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\:\\:getStartColor\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\:\\:getColourComponent\\(\\) should return int\\|string but returns float\\|int\\|string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Color.php
 
 		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Conditional\\:\\:\\$condition \\(array\\<string\\>\\) does not accept array\\<bool\\|float\\|int\\|string\\>\\.$#"
@@ -5846,36 +5671,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/ConditionalFormatting/ConditionalFormattingRuleExtension.php
 
 		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Fill.php
-
-		-
-			message: "#^Parameter \\#1 \\$parent of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Supervisor\\:\\:bindParent\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style, \\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Fill\\) given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Style/Fill.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Font.php
-
-		-
-			message: "#^Parameter \\#1 \\$parent of method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Supervisor\\:\\:bindParent\\(\\) expects PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style, \\$this\\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\) given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Font.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\:\\:\\$builtInFormatCode \\(int\\|false\\) does not accept bool\\|int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\DateFormatter\\:\\:escapeQuotesCallback\\(\\) has parameter \\$matches with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
@@ -5911,7 +5706,7 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$str(ing)? of function explode expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/DateFormatter.php
 
@@ -5996,36 +5791,6 @@ parameters:
 			path: src/PhpSpreadsheet/Style/NumberFormat/FractionFormatter.php
 
 		-
-			message: "#^Cannot cast mixed to int\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function abs expects float\\|int\\|string, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
-			message: "#^Parameter \\#1 \\$number of function number_format expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
-			message: "#^Parameter \\#1 \\$x of function fmod expects float, mixed given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$values of function sprintf expects bool\\|float\\|int\\|string\\|null, mixed given\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Style/NumberFormat/NumberFormatter.php
-
-		-
 			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\NumberFormat\\\\PercentageFormatter\\:\\:format\\(\\) has parameter \\$value with no type specified\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
@@ -6034,21 +5799,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$format of function sprintf expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Style/NumberFormat/PercentageFormatter.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getSharedComponent\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Protection.php
-
-		-
-			message: "#^Call to an undefined method PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getCellXfByIndex\\(\\)\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Style.php
-
-		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\:\\:getParent\\(\\) should return PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet but returns PhpOffice\\\\PhpSpreadsheet\\\\Spreadsheet\\|PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Style\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Style/Style.php
 
 		-
 			message: "#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\\.$#"
@@ -6181,11 +5931,6 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Column.php
 
 		-
-			message: "#^Cannot use array destructuring on array\\|false\\.$#"
-			count: 2
-			path: src/PhpSpreadsheet/Worksheet/Drawing.php
-
-		-
 			message: "#^Property PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Drawing\\\\Shadow\\:\\:\\$color \\(PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\) does not accept PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Color\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Drawing/Shadow.php
@@ -6201,7 +5946,7 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$str(ing)? of function explode expects string, string\\|null given\\.$#"
 			count: 5
 			path: src/PhpSpreadsheet/Worksheet/PageSetup.php
 
@@ -6306,17 +6051,7 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function array_splice expects array, ArrayObject\\<int, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\> given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of class PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter constructor expects string, null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
-
-		-
-			message: "#^Parameter \\#1 \\$range of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\AutoFilter\\:\\:setRange\\(\\) expects string, null given\\.$#"
+			message: "#^Parameter \\#1 \\$(input|string|array) of function array_splice expects array, ArrayObject\\<int, PhpOffice\\\\PhpSpreadsheet\\\\Chart\\\\Chart\\> given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
@@ -6331,7 +6066,7 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtoupper expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function strtoupper expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
@@ -6346,7 +6081,7 @@ parameters:
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
 		-
-			message: "#^Parameter \\#2 \\$start of function substr expects int, int\\<0, max\\>\\|false given\\.$#"
+			message: "#^Parameter \\#2 \\$(start|offset) of function substr expects int, int(\\<0, max\\>)?\\|false given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Worksheet/Worksheet.php
 
@@ -6661,11 +6396,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:getSheetIndex\\(\\) should return int but returns int\\|null\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Html.php
-
-		-
 			message: "#^Parameter \\#1 \\$borderStyle of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Html\\:\\:mapBorderStyle\\(\\) expects int, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
@@ -6681,12 +6411,12 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagepng expects resource, GdImage\\|resource given\\.$#"
+			message: "#^Parameter \\#1 \\$im(age)? of function imagepng expects (GdImage|resource), GdImage\\|resource given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Html.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function base64_encode expects string, string\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function base64_encode expects string, string\\|false given\\.$#"
 			count: 2
 			path: src/PhpSpreadsheet/Writer/Html.php
 
@@ -6781,26 +6511,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Ods/Settings.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function fwrite expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Pdf/Dompdf.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Pdf/Dompdf.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between null and int will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Pdf/Mpdf.php
-
-		-
-			message: "#^Strict comparison using \\=\\=\\= between int and null will always evaluate to false\\.$#"
-			count: 1
-			path: src/PhpSpreadsheet/Writer/Pdf/Tcpdf.php
-
-		-
 			message: "#^Cannot call method getHashCode\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\Font\\|null\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
@@ -6856,12 +6566,12 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagepng expects resource, GdImage\\|resource given\\.$#"
+			message: "#^Parameter \\#1 \\$im(age)? of function imagepng expects (GdImage|resource), GdImage\\|resource given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagepng expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$im(age)? of function imagepng expects (GdImage|resource), (GdImage|resource)\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls.php
 
@@ -6996,7 +6706,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strrev expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function strrev expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
@@ -7016,7 +6726,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
 		-
-			message: "#^Parameter \\#2 \\$str of function explode expects string, mixed given\\.$#"
+			message: "#^Parameter \\#2 \\$str(ing)? of function explode expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Parser.php
 
@@ -7126,11 +6836,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$ascii of function chr expects int, float given\\.$#"
-			count: 3
-			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
-
-		-
 			message: "#^Parameter \\#1 \\$bitmap of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xls\\\\Worksheet\\:\\:processBitmap\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
@@ -7146,7 +6851,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagecolorat expects resource, GdImage\\|resource given\\.$#"
+			message: "#^Parameter \\#1 \\$im(age)? of function imagecolorat expects (GdImage|resource), GdImage\\|resource given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
@@ -7161,12 +6866,12 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#2 \\$col of function imagecolorsforindex expects int, int\\|false given\\.$#"
+			message: "#^Parameter \\#2 \\$col(or)? of function imagecolorsforindex expects int, int\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#2 \\$data of function unpack expects string, string\\|false given\\.$#"
+			message: "#^Parameter \\#2 \\$(data|string) of function unpack expects string, string\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
@@ -7176,7 +6881,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
 		-
-			message: "#^Parameter \\#2 \\$pieces of function implode expects array, array\\<int, string\\>\\|false given\\.$#"
+			message: "#^Parameter \\#2 \\$(pieces|array) of function implode expects array(\\|null)?, array\\<int, string\\>\\|false given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xls/Worksheet.php
 
@@ -7281,7 +6986,7 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx.php
 
 		-
-			message: "#^Parameter \\#1 \\$function of function call_user_func expects callable\\(\\)\\: mixed, string given\\.$#"
+			message: "#^Parameter \\#1 \\$(function|callback) of function call_user_func expects callable\\(\\)\\: mixed, string given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx.php
 
@@ -7796,11 +7501,6 @@ parameters:
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
 
 		-
-			message: "#^Parameter \\#3 \\$namespace of method XMLWriter\\:\\:startElementNs\\(\\) expects string, null given\\.$#"
-			count: 8
-			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
-
-		-
 			message: "#^Parameter \\#3 \\$stringTable of method PhpOffice\\\\PhpSpreadsheet\\\\Writer\\\\Xlsx\\\\Worksheet\\:\\:writeSheetData\\(\\) expects array\\<string\\>, array\\<string\\>\\|null given\\.$#"
 			count: 1
 			path: src/PhpSpreadsheet/Writer/Xlsx/Worksheet.php
@@ -8221,26 +7921,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Calculation/Functions/Financial/XirrTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$cellAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:COLUMN\\(\\) expects array\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/LookupRef/ColumnTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$cellAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:OFFSET\\(\\) expects string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/LookupRef/OffsetTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$cellAddress of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:ROW\\(\\) expects array\\|string\\|null, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/LookupRef/RowTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$matrixData of static method PhpOffice\\\\PhpSpreadsheet\\\\Calculation\\\\LookupRef\\:\\:TRANSPOSE\\(\\) expects array, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/Functions/LookupRef/TransposeTest.php
-
-		-
 			message: "#^Part \\$number \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Calculation/Functions/MathTrig/AcotTest.php
@@ -8511,11 +8191,6 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Calculation/Functions/TextData/UpperTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of function substr expects string, mixed given\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Calculation/LookupRefTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$currencyCode of static method PhpOffice\\\\PhpSpreadsheet\\\\Shared\\\\StringHelper\\:\\:setCurrencyCode\\(\\) expects string, mixed given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Cell/AdvancedValueBinderTest.php
@@ -8621,22 +8296,22 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagecolorallocate expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$im(age)? of function imagecolorallocate expects (GdImage|resource), (GdImage|resource)\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagestring expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$im(age)? of function imagestring expects (GdImage|resource), (GdImage|resource)\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\MemoryDrawing\\:\\:setImageResource\\(\\) expects GdImage\\|resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\MemoryDrawing\\:\\:setImageResource\\(\\) expects GdImage\\|resource, (GdImage|resource)\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
 
 		-
-			message: "#^Parameter \\#6 \\$col of function imagestring expects int, int\\|false given\\.$#"
+			message: "#^Parameter \\#6 \\$col(or)? of function imagestring expects int, int\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Functional/DrawingImageHyperlinkTest.php
 
@@ -8666,7 +8341,7 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Functional/StreamTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$fp of function fstat expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$(fp|stream) of function fstat expects resource, resource\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Functional/StreamTest.php
 
@@ -8694,16 +8369,6 @@ parameters:
 			message: "#^Cannot call method getValue\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\NamedRange\\|null\\.$#"
 			count: 5
 			path: tests/PhpSpreadsheetTests/NamedRangeTest.php
-
-		-
-			message: "#^Property PhpOffice\\\\PhpSpreadsheetTests\\\\Reader\\\\Csv\\\\CsvContiguousFilter\\:\\:\\$startRow \\(int\\) does not accept mixed\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Csv/CsvContiguousFilter.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Csv/CsvContiguousTest.php
 
 		-
 			message: "#^Part \\$result \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
@@ -8741,7 +8406,7 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strrev expects string, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$str(ing)? of function strrev expects string, mixed given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Security/XmlScannerTest.php
 
@@ -8809,16 +8474,6 @@ parameters:
 			message: "#^Cannot call method setMinimumConditionalFormatValueObject\\(\\) on PhpOffice\\\\PhpSpreadsheet\\\\Style\\\\ConditionalFormatting\\\\ConditionalDataBar\\|null\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Reader/Xlsx/ConditionalFormattingDataBarXlsxTest.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/Namespace.Issue2109bTest.php
-
-		-
-			message: "#^Cannot cast mixed to string\\.$#"
-			count: 1
-			path: tests/PhpSpreadsheetTests/Reader/Xlsx/Namespace.Openpyxl35Test.php
 
 		-
 			message: "#^Part \\$result \\(mixed\\) of encapsed string cannot be cast to string\\.$#"
@@ -8976,22 +8631,22 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Worksheet/AutoFilter/DateGroupTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagecolorallocate expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$im(age)? of function imagecolorallocate expects (resource|GdImage), (resource|GdImage)\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$im of function imagestring expects resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$im(age)? of function imagestring expects (resource|GdImage), (resource|GdImage)\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\MemoryDrawing\\:\\:setImageResource\\(\\) expects GdImage\\|resource, resource\\|false given\\.$#"
+			message: "#^Parameter \\#1 \\$value of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\MemoryDrawing\\:\\:setImageResource\\(\\) expects GdImage\\|resource, (GdImage|resource)\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
 
 		-
-			message: "#^Parameter \\#6 \\$col of function imagestring expects int, int\\|false given\\.$#"
+			message: "#^Parameter \\#6 \\$col(or)? of function imagestring expects int, int\\|false given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Worksheet/DrawingTest.php
 
@@ -9086,7 +8741,7 @@ parameters:
 			path: tests/PhpSpreadsheetTests/Writer/Xls/WorkbookTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$input of function array_keys expects array, mixed given\\.$#"
+			message: "#^Parameter \\#1 \\$(input|array) of function array_keys expects array, mixed given\\.$#"
 			count: 1
 			path: tests/PhpSpreadsheetTests/Writer/Xls/WorkbookTest.php
 

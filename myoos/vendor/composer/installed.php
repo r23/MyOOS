@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '1f4b0bb7bbb074745c18a2897fe77d08f13c0207',
+        'reference' => '9b2bda991b133606d3307da1a4756e96cf3eb136',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -214,7 +214,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '1f4b0bb7bbb074745c18a2897fe77d08f13c0207',
+            'reference' => '9b2bda991b133606d3307da1a4756e96cf3eb136',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -281,12 +281,12 @@
             ),
         ),
         'phpoffice/phpspreadsheet' => array(
-            'pretty_version' => '1.20.0',
-            'version' => '1.20.0.0',
+            'pretty_version' => '1.21.0',
+            'version' => '1.21.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpoffice/phpspreadsheet',
             'aliases' => array(),
-            'reference' => '44436f270bb134b4a94670f3d020a85dfa0a3c02',
+            'reference' => '1a359d2ccbb89c05f5dffb32711a95f4afc67964',
             'dev_requirement' => false,
         ),
         'phpoffice/phpword' => array(
