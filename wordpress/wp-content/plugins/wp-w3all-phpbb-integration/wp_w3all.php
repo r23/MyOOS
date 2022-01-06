@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.4.6
+Version: 2.4.7
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -35,7 +35,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.4.6' );
+define( 'WPW3ALL_VERSION', '2.4.7' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -205,7 +205,7 @@ if ( defined( 'WP_ADMIN' ) )
       add_action( 'init', array( 'WP_w3all_admin', 'wp_w3all_init' ) );
       add_action( 'init', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_init' ), 3 );
 
-   if ( defined('PHPBB_INSTALLED') && !isset($w3deactivate_wp_w3all_plugin) OR !empty($w3all_phpbb_dbconn) && !isset($w3deactivate_wp_w3all_plugin) ){
+   if ( defined('W3PHPBBDBCONN') && !isset($w3deactivate_wp_w3all_plugin) OR defined('PHPBB_INSTALLED') && !isset($w3deactivate_wp_w3all_plugin) ){
 
     function wp_w3all_phpbb_registration_save( $user_id ) {
 
@@ -277,7 +277,7 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
     return;
 }
 
-} // if defined phpbb installed end
+} // defined('W3PHPBBDBCONN') end
 
 } else { // not in WP admin
 

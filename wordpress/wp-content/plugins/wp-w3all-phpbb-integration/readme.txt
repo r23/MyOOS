@@ -2,10 +2,10 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.4.6
+Stable tag: 2.4.7
 License: GPLv2 or later
 Requires at least: 5.0.0
-Tested up to: 5.8
+Tested up to: 5.9
 
 WordPress w3all phpBB integration - easy, light, secure, powerful
 
@@ -72,6 +72,13 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.4.7 =
+*Release Date - 5 Jan, 2022*
+
+* Fix: user not added into phpBB, when an user added by admin in WordPress
+* Fix  all others actions that do not fires when editing users in wp-admin side
+
 
 = 2.4.6 =
 *Release Date - 4 Jan, 2022*
