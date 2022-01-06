@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-12-22 12:54:14+0000\n"
+"PO-Revision-Date: 2022-01-05 14:01:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,49 +11,87 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
 
+#: includes/module/class-manager.php:495
+msgid "Buy"
+msgstr "Kaufen"
+
+#: includes/module/class-manager.php:491
+msgid "24/7 Support"
+msgstr "24/7 Support"
+
+#: includes/module/class-manager.php:490
+msgid "Powerful Schema Generator"
+msgstr "Leistungsstarker Schema Generator"
+
+#: includes/module/class-manager.php:489
+msgid "Track 500 Keywords"
+msgstr "500 Schlüsselwörter verfolgen"
+
+#: includes/module/class-manager.php:488
+msgid "Free 15 Content AI Credits"
+msgstr "15 kostenlose Inhalts-KI Guthaben"
+
+#: includes/module/class-manager.php:487
+msgid "Unlimited personal websites"
+msgstr "Unbegrenzte persönliche Websites"
+
+#: includes/module/class-manager.php:485
+msgid "Take SEO to the Next Level!"
+msgstr "Bringe das SEO auf die nächste Stufe!"
+
+#: includes/admin/class-options.php:279
+msgid "Click here to see all the exciting features."
+msgstr "Klicke hier, um alle spannenden Funktionen zu sehen."
+
+#: includes/admin/class-options.php:278
+msgid "Get Rank Math PRO!"
+msgstr "Hole dir Rank Math PRO!"
+
+#: includes/admin/class-options.php:277
+msgid "Take your SEO to the Next Level!"
+msgstr "Bringe dein SEO auf die nächste Stufe!"
+
 #: includes/settings/titles/taxonomies.php:114
 msgid "When the option is enabled and a term from this taxonomy is shared on Slack, additional information will be shown (the total number of items with this term)."
 msgstr "Wenn die Option aktiviert ist und ein Begriff aus dieser Taxonomie auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (die Gesamtzahl der Elemente mit diesem Begriff)."
 
-#: includes/settings/titles/post-types.php:367
+#: includes/settings/titles/post-types.php:55
 msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price)."
 msgstr "Wenn die Option aktiviert ist und ein Produkt auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Preis)."
 
-#: includes/settings/titles/post-types.php:356
+#: includes/settings/titles/post-types.php:53
 msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price & availability)."
 msgstr "Wenn die Option aktiviert ist und ein Produkt auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Preis und Verfügbarkeit)."
 
-#: includes/settings/titles/post-types.php:345
-msgid "When the option is enabled and a page is shared on Slack, additional information will be shown (time to read)."
-msgstr "Wenn die Option aktiviert ist und eine Seite auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Zeit zum Lesen)."
+#: includes/settings/titles/post-types.php:51
+msgid "When the option is enabled and a page is shared on Slack, additional information will be shown (estimated time to read)."
+msgstr "Wenn die Option aktiviert ist und eine Seite auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (geschätzte Zeit zum Lesen)."
 
-#: includes/settings/titles/post-types.php:334
-msgid "When the option is enabled and a post is shared on Slack, additional information will be shown (author name & time to read)."
-msgstr "Wenn die Option aktiviert ist und ein Beitrag auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Name des Autors und Zeit bis zum Lesen)."
+#. Translators: Post type name.
+#: includes/settings/titles/post-types.php:49
+msgid "When the option is enabled and a %s is shared on Slack, additional information will be shown (estimated time to read and author)."
+msgstr "Wenn die Option aktiviert ist und ein %s auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (geschätzte Zeit zum Lesen und Autor)."
 
 #: includes/settings/titles/author.php:126
 msgid "When the option is enabled and an author archive is shared on Slack, additional information will be shown (name & total number of posts)."
 msgstr "Wenn die Option aktiviert ist und ein Autorenarchiv auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Name und Gesamtanzahl der Beiträge)."
 
 #: includes/settings/titles/author.php:125
-#: includes/settings/titles/post-types.php:333
-#: includes/settings/titles/post-types.php:344
-#: includes/settings/titles/post-types.php:355
-#: includes/settings/titles/post-types.php:366
+#: includes/settings/titles/post-types.php:342
 #: includes/settings/titles/taxonomies.php:113
 msgid "Slack Enhanced Sharing"
 msgstr "Slack Verbesserte Freigabe"
 
-#: includes/opengraph/class-slack.php:286
+#: includes/opengraph/class-slack.php:282
 msgid "Less than a minute"
 msgstr "Weniger als eine Minute"
 
-#: includes/opengraph/class-slack.php:245
-#: includes/opengraph/class-slack.php:259
+#: includes/opengraph/class-slack.php:241
+#: includes/opengraph/class-slack.php:255
 msgid "Time to read"
 msgstr "Zeit zum Lesen"
 
-#: includes/opengraph/class-slack.php:244
+#: includes/opengraph/class-slack.php:240
 msgid "Written by"
 msgstr "Verfasst von"
 
@@ -61,7 +99,7 @@ msgstr "Verfasst von"
 msgid "Exclude this attachment from sitemap"
 msgstr "Diesen Anhang von der Sitemap ausschließen"
 
-#: includes/settings/titles/post-types.php:141
+#: includes/settings/titles/post-types.php:151
 msgid "Local Business"
 msgstr "Lokales Unternehmen"
 
@@ -120,11 +158,11 @@ msgstr "Inhalts-KI ist für diesen Beitragstyp nicht aktiviert."
 msgid "Sorry, only authenticated users can research the keyword."
 msgstr "Leider können nur authentifizierte Benutzer das Schlüsselwort recherchieren."
 
-#: includes/modules/content-ai/class-content-ai.php:96
+#: includes/modules/content-ai/class-content-ai.php:95
 msgid "Rank Math Content AI"
 msgstr "Rang Math Inhalts-KI"
 
-#: includes/module/class-manager.php:376
+#: includes/module/class-manager.php:379
 msgid "NEW!"
 msgstr "NEU!"
 
@@ -133,12 +171,12 @@ msgid "You cant access this page."
 msgstr "Du kannst diese Seite nicht aufrufen."
 
 #: includes/module/class-manager.php:175
-#: includes/modules/content-ai/class-content-ai.php:74
+#: includes/modules/content-ai/class-content-ai.php:73
 msgid "Get sophisticated AI suggestions for related Keywords, Questions & Links to include in the SEO meta & Content Area. Supports 80+ Countries."
 msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselwörter, Fragen und Links, die du in den SEO-Meta- und Inhaltsbereich aufnehmen können. Unterstützt 80+ Länder."
 
 #: includes/module/class-manager.php:174
-#: includes/modules/content-ai/class-content-ai.php:73
+#: includes/modules/content-ai/class-content-ai.php:72
 #: includes/modules/role-manager/class-capability-manager.php:70
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 msgid "Content AI"
@@ -395,7 +433,7 @@ msgid "Spain"
 msgstr "Spanien"
 
 #: includes/settings/titles/author.php:136
-#: includes/settings/titles/post-types.php:378
+#: includes/settings/titles/post-types.php:353
 #: includes/settings/titles/taxonomies.php:124
 msgid "Add SEO Controls"
 msgstr "SEO-Steuerelemente hinzufügen"
@@ -696,7 +734,7 @@ msgid "Show SEO Score to Visitors"
 msgstr "SEO-Score für Besucher anzeigen"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:293
+#: includes/settings/titles/post-types.php:303
 msgid "Choose which taxonomy you want to use with the Primary Term feature. This will also be the taxonomy shown in the Breadcrumbs when a single %1$s is being viewed."
 msgstr "Wähle die Taxonomie, die du mit der Funktion \"Primärer Begriff\" verwenden möchtest. Dies wird auch die Taxonomie sein, die in den Brotkrumen angezeigt wird, wenn ein einzelner %1$s angezeigt wird."
 
@@ -1170,7 +1208,7 @@ msgstr "Gibt an, wie oft deine Website in den Suchergbnissen angezeigt wurde."
 msgid "This is the number of pageviews carried out by visitors from Google."
 msgstr "Dies ist die Anzahl der Seiten, die Besucher von Google aufgerufen haben."
 
-#: includes/opengraph/class-slack.php:326
+#: includes/opengraph/class-slack.php:327
 msgid "Posts"
 msgstr "Beiträge"
 
@@ -1215,7 +1253,7 @@ msgstr "Angemeldete Benutzer ausschließen"
 #: includes/admin/wizard/views/search-console-ui.php:210
 #: includes/admin/wizard/views/search-console-ui.php:235
 #: includes/admin/wizard/views/search-console-ui.php:302
-#: includes/module/class-manager.php:378
+#: includes/module/class-manager.php:381
 #: includes/modules/analytics/views/options.php:137
 msgid "PRO"
 msgstr "PRO"
@@ -1724,14 +1762,14 @@ msgid "Sorry, no preference found."
 msgstr "Keine Präferenz gefunden."
 
 #: includes/helpers/class-schema.php:93
-#: includes/settings/titles/post-types.php:124
+#: includes/settings/titles/post-types.php:134
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "EDD Product"
 msgstr "EDD-Produkt"
 
 #: includes/helpers/class-schema.php:89
-#: includes/settings/titles/post-types.php:124
+#: includes/settings/titles/post-types.php:134
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "WooCommerce Product"
@@ -1869,7 +1907,7 @@ msgid "Analyze your site by %1$s linking your Rank Math account %2$s"
 msgstr "Analysiere deine Website durch %1$s Verbinden deines Rank Math-Kontos %2$s"
 
 #. translators: link to title setting screen
-#: includes/settings/titles/post-types.php:138
+#: includes/settings/titles/post-types.php:148
 msgid "Default rich snippet selected when creating a new location."
 msgstr "Standard-Rich-Snippet bei der Erstellung eines neuen Standorts ausgewählt."
 
@@ -1958,7 +1996,7 @@ msgid "Custom values for robots meta tag on %s archives."
 msgstr "Benutzerdefinierte Werte für Robots-Meta-Tag in %s-Archiven."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:237
+#: includes/settings/titles/post-types.php:247
 msgid "Custom values for robots meta tag on %s."
 msgstr "Benutzerdefinierte Werte für Robots-Meta-Tag auf %s."
 
@@ -2348,7 +2386,7 @@ msgstr "%1$s und %2$s"
 #. translators: %s expands to a unit of time (e.g. 1 minute).
 #. translators: %d: minutes
 #: includes/modules/schema/blocks/class-block-howto.php:429
-#: includes/opengraph/class-slack.php:281
+#: includes/opengraph/class-slack.php:277
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d Minute"
@@ -2574,9 +2612,9 @@ msgid "On-Page Schema Settings"
 msgstr "On-Page Schema Einstellungen"
 
 #: includes/admin/wizard/class-schema-markup.php:58
-#: includes/settings/titles/post-types.php:119
-#: includes/settings/titles/post-types.php:136
-#: includes/settings/titles/post-types.php:152
+#: includes/settings/titles/post-types.php:129
+#: includes/settings/titles/post-types.php:146
+#: includes/settings/titles/post-types.php:162
 msgid "Schema Type"
 msgstr "Schema-Typ"
 
@@ -2615,9 +2653,7 @@ msgid "Review (Unsupported)"
 msgstr "Rezension (Nicht unterstützt)"
 
 #. Translators: placeholder is a link to "Read more".
-#: includes/settings/general/others.php:20 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/settings/general/others.php:20 assets/admin/js/rank-math-app.js:1
 msgid "Read more"
 msgstr "Weiterlesen"
 
@@ -2739,16 +2775,16 @@ msgstr "Blog-Seite anzeigen"
 msgid "%s Archives Advanced Robots Meta"
 msgstr "%s Archive Erweiterte Roboter-Meta"
 
-#: includes/settings/titles/post-types.php:407
+#: includes/settings/titles/post-types.php:382
 msgid "List of custom fields name to include in the Page analysis. Add one per line."
 msgstr "Liste der benutzerdefinierten Feldnamen, die in die Seitenanalyse einbezogen werden sollen. Füge einen pro Zeile hinzu."
 
-#: includes/settings/titles/post-types.php:406
+#: includes/settings/titles/post-types.php:381
 msgid "Custom Fields"
 msgstr "Benutzerdefinierte Felder"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:251
+#: includes/settings/titles/post-types.php:261
 msgid "%s Advanced Robots Meta"
 msgstr "%s Erweiterte Roboter-Meta"
 
@@ -2768,15 +2804,11 @@ msgstr "Homepage Erweiterte Roboter"
 msgid "Add <code>rel=\"sponsored\"</code>"
 msgstr "Füge <code>rel=\"sponsored\"</code> hinzu"
 
-#: includes/admin/class-cmb2-fields.php:280 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/admin/class-cmb2-fields.php:280 assets/admin/js/rank-math-app.js:1
 msgid "Standard"
 msgstr "Standard"
 
-#: includes/admin/class-cmb2-fields.php:279 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/admin/class-cmb2-fields.php:279 assets/admin/js/rank-math-app.js:1
 msgid "Large"
 msgstr "Groß"
 
@@ -2795,9 +2827,7 @@ msgstr "Du hast noch keinen Slogan eingegeben. Es ist eine gute Idee, einen zu w
 msgid "here"
 msgstr "hier"
 
-#: includes/settings/titles/global.php:30 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/settings/titles/global.php:30 assets/admin/js/rank-math-app.js:1
 msgid "Advanced Robots Meta"
 msgstr "Erweiterte Roboter-Meta"
 
@@ -2975,11 +3005,11 @@ msgstr "BuddyPress"
 msgid "Robots Txt"
 msgstr "Robots Txt"
 
-#: includes/admin/class-options.php:284
+#: includes/admin/class-options.php:300
 msgid "Reset Options"
 msgstr "Einstellungen zurücksetzen"
 
-#: includes/admin/class-options.php:283
+#: includes/admin/class-options.php:299
 #: includes/modules/version-control/views/auto-update-panel.php:74
 #: includes/modules/version-control/views/beta-optin-panel.php:45
 msgid "Save Changes"
@@ -3258,9 +3288,7 @@ msgstr "Weist Suchmaschinen an, diese Seiten in den Suchergebnissen zu indiziere
 msgid "Review analytics and sitemaps"
 msgstr "Überprüfung von Analysen und Sitemaps"
 
-#: includes/helpers/class-choices.php:73 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:73 assets/admin/js/rank-math-app.js:1
 msgid "Index"
 msgstr "Index"
 
@@ -3336,16 +3364,16 @@ msgstr "Suchmaschinenoptimierung von Rank Math - https://s.rankmath.com/home"
 msgid "https://s.rankmath.com/home"
 msgstr "https://s.rankmath.com/home"
 
-#: includes/modules/schema/class-admin.php:59 assets/admin/js/blocks.js:1
+#: includes/modules/schema/class-admin.php:58 assets/admin/js/blocks.js:1
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Schema"
 msgstr "Schema"
 
-#: includes/settings/titles/post-types.php:306
+#: includes/settings/titles/post-types.php:316
 msgid "Image displayed when your page is shared on Facebook and other social networks. Use images that are at least 1200 x 630 pixels for the best display on high resolution devices."
 msgstr "Das Bild wird angezeigt, wenn deine Seite auf Facebook und anderen sozialen Netzwerken freigegeben wird. Verwende Bilder mit einer Auflösung von mindestens 1200x630px für die beste Darstellung auf hochauflösenden Geräten."
 
-#: includes/settings/titles/post-types.php:305
+#: includes/settings/titles/post-types.php:315
 msgid "Thumbnail for Facebook"
 msgstr "Vorschaubild für Facebook"
 
@@ -3562,94 +3590,94 @@ msgstr "Gib hier deine komplette Facebook-Seiten-URL ein. Beispiel:"
 msgid "Facebook Page URL"
 msgstr "URL der Facebook-Seite"
 
-#: includes/settings/titles/post-types.php:379
+#: includes/settings/titles/post-types.php:354
 msgid "Add SEO controls for the editor screen to customize SEO options for posts in this post type."
 msgstr "Füge SEO-Steuerelemente für den Editorbildschirm hinzu, um die SEO-Optionen für Beiträge in diesem Beitragstyp anzupassen."
 
-#: includes/settings/titles/post-types.php:321
-#: includes/settings/titles/post-types.php:394
+#: includes/settings/titles/post-types.php:331
+#: includes/settings/titles/post-types.php:369
 msgid "Read Only"
 msgstr "Nur lesen"
 
-#: includes/settings/titles/post-types.php:317
-#: includes/settings/titles/post-types.php:390
+#: includes/settings/titles/post-types.php:327
+#: includes/settings/titles/post-types.php:365
 msgid "Add bulk editing columns to the post listing screen."
 msgstr "Füge dem Bildschirm für die Beitragsliste Spalten zur Massenbearbeitung hinzu."
 
-#: includes/settings/titles/post-types.php:316
-#: includes/settings/titles/post-types.php:389
+#: includes/settings/titles/post-types.php:326
+#: includes/settings/titles/post-types.php:364
 msgid "Bulk Editing"
 msgstr "Massenbearbeitung"
 
-#: includes/settings/titles/post-types.php:291
+#: includes/settings/titles/post-types.php:301
 msgid "Primary Taxonomy"
 msgstr "Primäre Taxonomie"
 
-#: includes/settings/titles/post-types.php:276
+#: includes/settings/titles/post-types.php:286
 msgid "Titles"
 msgstr "Titel"
 
-#: includes/settings/titles/post-types.php:274
+#: includes/settings/titles/post-types.php:284
 msgid "Use the Focus Keyword as the default text for the links instead of the post titles."
 msgstr "Verwende das Fokus-Schlüsselwort als Standardtext für die Links anstelle der Beitrag-Titel."
 
-#: includes/settings/titles/post-types.php:273
+#: includes/settings/titles/post-types.php:283
 msgid "Link Suggestion Titles"
 msgstr "Linkvorschlag-Titel"
 
-#: includes/settings/titles/post-types.php:263
+#: includes/settings/titles/post-types.php:273
 msgid "Enable Link Suggestions meta box for this post type, along with the Pillar Content feature."
 msgstr "Aktiviere das Metafeld Linkvorschläge für diesen Beitragstyp zusammen mit der Funktion Säuleninhalt."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:220
+#: includes/settings/titles/post-types.php:230
 msgid "Select custom robots meta, such as <code>nofollow</code>, <code>noarchive</code>, etc. for single %s pages. Otherwise the default meta will be used, as set in the Global Meta tab."
 msgstr "Wähle benutzerdefinierte Roboter-Metas, wie z.B. <code>nofollow</code>, <code>noarchive</code>, etc. für einzelne %s-Seiten. Andernfalls wird die Standard-Meta verwendet, wie auf der Registerkarte Globale Meta eingestellt."
 
 #. translators: post type name
 #. translators: post type name
-#: includes/settings/titles/post-types.php:218
-#: includes/settings/titles/post-types.php:235
+#: includes/settings/titles/post-types.php:228
+#: includes/settings/titles/post-types.php:245
 msgid "%s Robots Meta"
 msgstr "%s Robots-Meta"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:104
+#: includes/settings/titles/post-types.php:114
 msgid "Description for %s archive pages."
 msgstr "Beschreibung für %s Archiv-Seiten."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:102
+#: includes/settings/titles/post-types.php:112
 msgid "%s Archive Description"
 msgstr "%s Archiv-Beschreibung"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:89
+#: includes/settings/titles/post-types.php:99
 msgid "Title for %s archive pages."
 msgstr "Titel für %s Archiv-Seiten."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:87
+#: includes/settings/titles/post-types.php:97
 msgid "%s Archive Title"
 msgstr "%s Archiv-Titel"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:70
+#: includes/settings/titles/post-types.php:80
 msgid "Default description for single %s pages. This can be changed on a per-post basis on the post editor screen."
 msgstr "Standardbeschreibung für einzelne %s-Seiten. Dies kann auf dem Beitragsbildschirm pro Beitrag geändert werden."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:68
+#: includes/settings/titles/post-types.php:78
 msgid "Single %s Description"
 msgstr "Einzelne %s Beschreibung"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:55
+#: includes/settings/titles/post-types.php:65
 msgid "Default title tag for single %s pages. This can be changed on a per-post basis on the post editor screen."
 msgstr "Standard-Titel-Tag für einzelne %s-Seiten. Dies kann auf dem Bildschirm des Beitrag-Editors pro Beitrag geändert werden."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:53
+#: includes/settings/titles/post-types.php:63
 msgid "Single %s Title"
 msgstr "Einzelner %s Titel"
 
@@ -3752,7 +3780,7 @@ msgstr "Benutzerdefinierte Werte für Roboter-Meta Tag auf der Startseite."
 #: includes/modules/buddypress/views/options-titles.php:48
 #: includes/settings/titles/author.php:49
 #: includes/settings/titles/homepage.php:71
-#: includes/settings/titles/post-types.php:223
+#: includes/settings/titles/post-types.php:233
 #: includes/settings/titles/taxonomies.php:74
 msgid "Custom"
 msgstr "Benutzerdefiniert"
@@ -3760,7 +3788,7 @@ msgstr "Benutzerdefiniert"
 #: includes/modules/buddypress/views/options-titles.php:47
 #: includes/settings/titles/author.php:48
 #: includes/settings/titles/homepage.php:70
-#: includes/settings/titles/post-types.php:222
+#: includes/settings/titles/post-types.php:232
 #: includes/settings/titles/taxonomies.php:73
 msgid "Default"
 msgstr "Standard"
@@ -3843,14 +3871,14 @@ msgid "Author Base"
 msgstr "Autorenbasis"
 
 #: includes/settings/titles/author.php:23 includes/settings/titles/misc.php:27
-#: includes/settings/titles/post-types.php:320
-#: includes/settings/titles/post-types.php:393
+#: includes/settings/titles/post-types.php:330
+#: includes/settings/titles/post-types.php:368
 msgid "Enabled"
 msgstr "Aktiviert"
 
 #: includes/settings/titles/author.php:22 includes/settings/titles/misc.php:26
-#: includes/settings/titles/post-types.php:319
-#: includes/settings/titles/post-types.php:392
+#: includes/settings/titles/post-types.php:329
+#: includes/settings/titles/post-types.php:367
 msgid "Disabled"
 msgstr "Deaktiviert"
 
@@ -4560,7 +4588,7 @@ msgstr "Das Setzen von Fokus-Schlüsselwörter für Ihre Beiträge ermöglicht e
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:68
 #: includes/replace-variables/class-advanced-variables.php:55
-#: includes/settings/titles/post-types.php:277
+#: includes/settings/titles/post-types.php:287
 msgid "Focus Keywords"
 msgstr "Fokus-Schlüsselwörter"
 
@@ -4699,6 +4727,10 @@ msgstr "Abruf in Bearbeitung"
 #: includes/modules/analytics/views/options.php:78
 msgid "Update Data manually"
 msgstr "Daten manuell aktualisieren"
+
+#: includes/opengraph/class-slack.php:300
+msgid "Items"
+msgstr "Artikel"
 
 #: includes/modules/seo-analysis/views/graphs.php:40
 msgid "Warnings"
@@ -4944,7 +4976,7 @@ msgid "Availability Starts"
 msgstr "Verfügbarkeit beginnt"
 
 #: includes/modules/schema/shortcode/event.php:137
-#: includes/opengraph/class-slack.php:199
+#: includes/opengraph/class-slack.php:195
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Availability"
@@ -5034,7 +5066,7 @@ msgstr "Autor"
 msgid "Url"
 msgstr "URL"
 
-#: includes/settings/titles/post-types.php:168
+#: includes/settings/titles/post-types.php:178
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Headline"
@@ -5174,8 +5206,7 @@ msgid "Empty Trash"
 msgstr "Papierkorb leeren"
 
 #: includes/modules/redirections/class-table.php:272
-#: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/rank-math-app.js:1
 msgid "All"
 msgstr "Alle"
 
@@ -5300,14 +5331,12 @@ msgstr "Status"
 
 #: includes/modules/redirections/class-form.php:125
 #: includes/modules/redirections/views/options.php:51
-#: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/rank-math-app.js:1
 msgid "Redirection Type"
 msgstr "Umleitungs Typ"
 
 #: includes/modules/redirections/class-form.php:117
-#: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/rank-math-app.js:1
 msgid "Destination URL"
 msgstr "Ziel-URL"
 
@@ -5605,7 +5634,7 @@ msgstr "Ihr Name oder Firmenname"
 #: includes/modules/local-seo/views/titles-options.php:34
 #: includes/modules/schema/shortcode/book.php:36
 #: includes/modules/sitemap/sitemap-xsl.php:169
-#: includes/opengraph/class-slack.php:325 includes/settings/titles/local.php:29
+#: includes/opengraph/class-slack.php:326 includes/settings/titles/local.php:29
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Name"
@@ -5763,8 +5792,7 @@ msgstr "URL"
 
 #: includes/modules/404-monitor/class-table.php:205
 #: includes/modules/404-monitor/class-table.php:268
-#: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/rank-math-app.js:1
 msgid "Redirect"
 msgstr "Umleiten"
 
@@ -5826,21 +5854,15 @@ msgstr "Protokoll gelöscht - %d Elemente gelöscht."
 msgid "%d log(s) deleted."
 msgstr "%d Protokoll(e) gelöscht."
 
-#: includes/settings/titles/global.php:101 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/settings/titles/global.php:101 assets/admin/js/rank-math-app.js:1
 msgid "Summary Card"
 msgstr "Übersichtskarte"
 
-#: includes/settings/titles/global.php:100 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/settings/titles/global.php:100 assets/admin/js/rank-math-app.js:1
 msgid "Summary Card with Large Image"
 msgstr "Übersichtskarte mit großem Bild"
 
-#: includes/settings/titles/global.php:17 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/settings/titles/global.php:17 assets/admin/js/rank-math-app.js:1
 msgid "Robots Meta"
 msgstr "Roboter-Meta"
 
@@ -5922,33 +5944,23 @@ msgstr "Enthält"
 msgid "Exact"
 msgstr "Exakt"
 
-#: includes/helpers/class-choices.php:480 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:480 assets/admin/js/rank-math-app.js:1
 msgid "451 Content Unavailable for Legal Reasons"
 msgstr "451 Inhalt aus rechtlichen Gründen nicht verfügbar"
 
-#: includes/helpers/class-choices.php:479 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:479 assets/admin/js/rank-math-app.js:1
 msgid "410 Content Deleted"
 msgstr "410 Inhalt gelöscht"
 
-#: includes/helpers/class-choices.php:478 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:478 assets/admin/js/rank-math-app.js:1
 msgid "307 Temporary Redirect"
 msgstr "307 Temporäre Umleitung"
 
-#: includes/helpers/class-choices.php:477 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:477 assets/admin/js/rank-math-app.js:1
 msgid "302 Temporary Move"
 msgstr "302 Temporäre Umleitung"
 
-#: includes/helpers/class-choices.php:476 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:476 assets/admin/js/rank-math-app.js:1
 msgid "301 Permanent Move"
 msgstr "301 Permanente Umleitung"
 
@@ -6022,15 +6034,11 @@ msgstr "Buch"
 msgid "Any"
 msgstr "Irgendwelche"
 
-#: includes/helpers/class-choices.php:78 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:78 assets/admin/js/rank-math-app.js:1
 msgid "Prevents a snippet from being shown in the search results"
 msgstr "Verhindert, dass ein Snippet in den Suchergebnissen angezeigt wird"
 
-#: includes/helpers/class-choices.php:78 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:78 assets/admin/js/rank-math-app.js:1
 msgid "No Snippet"
 msgstr "Kein Snippet"
 
@@ -6038,27 +6046,19 @@ msgstr "Kein Snippet"
 msgid "Lets you specify that you do not want your pages to appear as the referring page for images that appear in image search results"
 msgstr "Hier kannst du festlegen, dass deine Seiten nicht als Verweisseite für Bilder in Bildsuchergebnissen angezeigt werden soll"
 
-#: includes/helpers/class-choices.php:77 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:77 assets/admin/js/rank-math-app.js:1
 msgid "No Image Index"
 msgstr "Kein Bildverzeichnis"
 
-#: includes/helpers/class-choices.php:76 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:76 assets/admin/js/rank-math-app.js:1
 msgid "Prevents search engines from showing Cached links for pages"
 msgstr "Verhindert, dass Suchmaschinen zwischengespeicherte Links für Seiten anzeigen"
 
-#: includes/helpers/class-choices.php:76 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:76 assets/admin/js/rank-math-app.js:1
 msgid "No Archive"
 msgstr "Kein Archiv"
 
-#: includes/helpers/class-choices.php:75 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:75 assets/admin/js/rank-math-app.js:1
 msgid "Prevents search engines from following links on the pages"
 msgstr "Verhindert, dass Suchmaschinen folgenden Links auf den Seiten folgen"
 
@@ -6066,16 +6066,12 @@ msgstr "Verhindert, dass Suchmaschinen folgenden Links auf den Seiten folgen"
 msgid "No Follow"
 msgstr "Nicht folgen"
 
-#: includes/helpers/class-choices.php:74 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:74 assets/admin/js/rank-math-app.js:1
 msgid "Prevents pages from being indexed and displayed in search engine result pages"
 msgstr "Verhindert, dass Seiten indiziert und in Suchmaschinen-Ergebnisseiten angezeigt werden"
 
 #: includes/admin/class-post-columns.php:232
-#: includes/helpers/class-choices.php:74 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/helpers/class-choices.php:74 assets/admin/js/rank-math-app.js:1
 msgid "No Index"
 msgstr "Kein Index"
 
@@ -6142,9 +6138,8 @@ msgid "SEO options related to featured images and media appearing in your post c
 msgstr "SEO-Optionen im Zusammenhang mit den vorgestellten Bildern und Medien, die in deinem Beitrag erscheinen. %s."
 
 #: includes/modules/image-seo/class-admin.php:45
-#: includes/modules/sitemap/sitemap-xsl.php:308 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/modules/sitemap/sitemap-xsl.php:308
+#: assets/admin/js/rank-math-app.js:1
 msgid "Images"
 msgstr "Bilder"
 
@@ -6349,8 +6344,7 @@ msgstr "Fokus-Schlüsselwort des aktuellen Beitrags"
 
 #: includes/admin/class-post-columns.php:253
 #: includes/replace-variables/class-advanced-variables.php:44
-#: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/rank-math-app.js:1
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 msgid "Focus Keyword"
 msgstr "Fokus-Schlüsselwort"
@@ -6584,8 +6578,7 @@ msgstr "Aktiv"
 #: includes/modules/404-monitor/class-admin.php:220
 #: includes/modules/instant-indexing/class-instant-indexing.php:225
 #: includes/modules/redirections/class-admin.php:334 rank-math.php:426
-#: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/rank-math-app.js:1
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -7355,26 +7348,26 @@ msgid "Requirements"
 msgstr "Anforderungen"
 
 #: includes/admin/wizard/class-schema-markup.php:84
-#: includes/settings/titles/post-types.php:205
+#: includes/settings/titles/post-types.php:215
 msgid "News Article"
 msgstr "Nachrichtenartikel"
 
 #: includes/admin/wizard/class-schema-markup.php:83
-#: includes/settings/titles/post-types.php:204
+#: includes/settings/titles/post-types.php:214
 msgid "Blog Post"
 msgstr "Blog Beitrag"
 
 #: includes/admin/wizard/class-schema-markup.php:82
 #: includes/helpers/class-choices.php:436 includes/helpers/class-schema.php:85
-#: includes/settings/titles/post-types.php:156
-#: includes/settings/titles/post-types.php:203
+#: includes/settings/titles/post-types.php:166
+#: includes/settings/titles/post-types.php:213
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Article"
 msgstr "Artikel"
 
 #: includes/admin/wizard/class-schema-markup.php:80
-#: includes/settings/titles/post-types.php:201
+#: includes/settings/titles/post-types.php:211
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Article Type"
@@ -7383,17 +7376,17 @@ msgstr "Artikel Type"
 #. translators: Google article snippet doc link
 #. translators: Google article snippet doc link
 #: includes/admin/wizard/class-schema-markup.php:75
-#: includes/settings/titles/post-types.php:196
+#: includes/settings/titles/post-types.php:206
 msgid "Google does not allow Person as the Publisher for articles. Organization will be used instead. You can read more about this <a href=\"%s\" target=\"_blank\">here</a>."
 msgstr "Google erlaubt Person nicht als Publisher für Artikel. Organisation wird stattdessen verwendet. Weitere Informationen zu diesem Thema findest du <a href=\"%s\" target=\"_blank\">hier</a>."
 
 #: includes/admin/wizard/class-schema-markup.php:174
-#: includes/settings/titles/post-types.php:157
+#: includes/settings/titles/post-types.php:167
 msgid "None (Click here to set one)"
 msgstr "Keine (Klicke hier, um eine einzustellen)"
 
 #: includes/admin/wizard/class-schema-markup.php:173
-#: includes/settings/titles/post-types.php:153
+#: includes/settings/titles/post-types.php:163
 msgid "Default rich snippet selected when creating a new post of this type. "
 msgstr "Standard Rich-Snippet, das beim Erstellen eines neuen Beitrag dieses Typs ausgewählt wurde. "
 
@@ -7407,7 +7400,7 @@ msgstr "Produkt"
 
 #. translators: link to title setting screen
 #: includes/admin/wizard/class-schema-markup.php:159
-#: includes/settings/titles/post-types.php:121
+#: includes/settings/titles/post-types.php:131
 msgid "Default rich snippet selected when creating a new product."
 msgstr "Standard Rich-Snippet, das beim Erstellen eines neuen Produkts ausgewählt wurde."
 
@@ -7675,8 +7668,8 @@ msgstr "Preisspanne"
 #: includes/admin/class-serp-preview.php:319
 #: includes/modules/schema/shortcode/service.php:27
 #: includes/modules/schema/shortcode/softwareapplication.php:20
-#: includes/opengraph/class-slack.php:198
-#: includes/opengraph/class-slack.php:213
+#: includes/opengraph/class-slack.php:194
+#: includes/opengraph/class-slack.php:209
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Price"
@@ -7694,7 +7687,7 @@ msgstr "Bewertung: %s"
 
 #: includes/admin/class-serp-preview.php:435
 #: includes/admin/class-serp-preview.php:453
-#: includes/opengraph/class-slack.php:228
+#: includes/opengraph/class-slack.php:224
 msgid "In stock"
 msgstr "Auf Lager"
 
@@ -7706,15 +7699,11 @@ msgstr "Kalorien: "
 msgid "Price range: "
 msgstr "Preisspanne: "
 
-#: includes/admin/class-serp-preview.php:108 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/admin/class-serp-preview.php:108 assets/admin/js/rank-math-app.js:1
 msgid "This page will not appear in search results. You can disable noindex in the Advanced tab."
 msgstr "Diese Seite wird nicht in den Suchergebnissen angezeigt. Du kannst noindex auf der Registerkarte Erweitert deaktivieren."
 
-#: includes/admin/class-serp-preview.php:107 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/admin/class-serp-preview.php:107 assets/admin/js/rank-math-app.js:1
 msgid "Noindex robots meta is enabled"
 msgstr "Noindex Robots-Meta ist aktiviert"
 
@@ -7730,29 +7719,22 @@ msgstr "Klicke hier, um einen Permalink einzugeben"
 msgid "Click to enter custom title"
 msgstr "Klicke hier um einen benutzerdefinierten Titel einzugeben"
 
-#: includes/admin/class-serp-preview.php:48 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/admin/class-serp-preview.php:48 assets/admin/js/rank-math-app.js:1
 msgid "Mobile Preview"
 msgstr "Vorschau für Mobil"
 
-#: includes/admin/class-serp-preview.php:48 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/admin/class-serp-preview.php:48 assets/admin/js/rank-math-app.js:1
 msgid "Desktop Preview"
 msgstr "Vorschau für Desktop"
 
-#: includes/admin/class-serp-preview.php:48 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/admin/class-serp-preview.php:48 assets/admin/js/rank-math-app.js:1
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Preview"
 msgstr "Vorschau"
 
 #: includes/modules/seo-analysis/class-seo-analyzer.php:505
-#: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/rank-math-app.js:1
 msgid "Basic SEO"
 msgstr "Grundlegende SEO"
 
@@ -7799,9 +7781,7 @@ msgstr "Säulen-Inhalt"
 msgid "Alternative Text"
 msgstr "Alternativer Text"
 
-#: includes/admin/class-post-columns.php:162 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/admin/class-post-columns.php:162 assets/admin/js/rank-math-app.js:1
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Title"
@@ -7891,43 +7871,40 @@ msgid "Panel"
 msgstr "Bedienfeld"
 
 #: includes/modules/404-monitor/views/options.php:33
-#: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/rank-math-app.js:1
 msgid "Advanced"
 msgstr "Erweitert"
 
-#: includes/modules/sitemap/class-admin.php:64 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/modules/sitemap/class-admin.php:64
+#: assets/admin/js/rank-math-app.js:1
 msgid "General"
 msgstr "Allgemein"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
-#: includes/settings/titles/post-types.php:180 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: includes/settings/titles/post-types.php:190
+#: assets/admin/js/rank-math-app.js:1
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Description"
 msgstr "Beschreibung"
 
-#: includes/admin/metabox/class-metabox.php:262
+#: includes/admin/metabox/class-metabox.php:273
 msgid "We can't show any link suggestions for this post. Try selecting categories and tags for this post, and mark other posts as Pillar Content to make them show up here."
 msgstr "Wir können keine Linkvorschläge für diesen Beitrag machen. Versuche, Kategorien und Tags für diesen Beitrag auszuwählen, und markiere andere Beiträge als Säuleninhalt, damit sie hier angezeigt werden."
 
-#: includes/admin/metabox/class-metabox.php:253
+#: includes/admin/metabox/class-metabox.php:264
 msgid "Click on the button to copy URL or insert link in content. You can also drag and drop links in the post content."
 msgstr "Klicke auf die Schaltfläche, um die URL zu kopieren oder einen Link in den Inhalt einzufügen. Du kannst auch Links per Drag & Drop in den Inhalt des Beitrags ziehen."
 
-#: includes/admin/metabox/class-metabox.php:242
-#: includes/settings/titles/post-types.php:262
+#: includes/admin/metabox/class-metabox.php:253
+#: includes/settings/titles/post-types.php:272
 msgid "Link Suggestions"
 msgstr "Linkvorschläge"
 
 #. Plugin Name of the plugin
 #: includes/admin/class-admin-bar-menu.php:173
-#: includes/admin/metabox/class-metabox.php:326
+#: includes/admin/metabox/class-metabox.php:337
 msgid "Rank Math SEO"
 msgstr "Rank Math SEO"
 
@@ -8018,11 +7995,10 @@ msgstr "Bist du sicher, dass du die Einstellungen in Rank Math importieren möch
 #: includes/admin/class-cmb2-fields.php:281
 #: includes/admin/wizard/class-schema-markup.php:161
 #: includes/helpers/class-taxonomy.php:152
-#: includes/settings/titles/post-types.php:123
-#: includes/settings/titles/post-types.php:140
-#: includes/settings/titles/post-types.php:155 assets/admin/js/blocks.js:1
-#: assets/admin/js/classic.js:1 assets/admin/js/divi.js:1
-#: assets/admin/js/elementor.js:1 assets/admin/js/gutenberg.js:1
+#: includes/settings/titles/post-types.php:133
+#: includes/settings/titles/post-types.php:150
+#: includes/settings/titles/post-types.php:165 assets/admin/js/blocks.js:1
+#: assets/admin/js/rank-math-app.js:1
 msgid "None"
 msgstr "Nichts"
 
@@ -8034,7 +8010,7 @@ msgid "On"
 msgstr "Ein"
 
 #: includes/admin/class-cmb2-fields.php:125
-#: includes/modules/schema/class-admin.php:56
+#: includes/modules/schema/class-admin.php:55
 #: includes/modules/version-control/views/auto-update-panel.php:28
 #: includes/modules/version-control/views/auto-update-panel.php:51
 #: includes/modules/version-control/views/beta-optin-panel.php:31
@@ -8110,9 +8086,8 @@ msgstr "Hilfe und Support"
 #: includes/modules/role-manager/class-user-role-editor.php:58
 #: includes/modules/schema/class-blocks.php:68
 #: includes/modules/status/class-system-status.php:122
-#: assets/admin/js/blocks.js:1 assets/admin/js/classic.js:1
-#: assets/admin/js/divi.js:1 assets/admin/js/elementor.js:1
-#: assets/admin/js/gutenberg.js:1
+#: assets/admin/js/blocks.js:1 assets/admin/js/gutenberg.js:1
+#: assets/admin/js/rank-math-app.js:1
 msgid "Rank Math"
 msgstr "Rank Math"
 
