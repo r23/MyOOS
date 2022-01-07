@@ -12,7 +12,7 @@
  echo'<div style="background-color:#FFF;padding:10px;"><h3>NOTE: you\'re going to insert users into phpBB Group ID -> '.$w3all_add_into_spec_group.' <br /><br />Check that it exist. See it into WP w3all Config Page, and/or you can change this value where related option<br /><br /><i>"Add newly WordPress registered users into a specified phpBB group"</i></h4>';
   $up_conf_w3all_url = admin_url() . 'options-general.php?page=wp-w3all-users-to-phpbb';
 
-  $phpbb_config = unserialize(W3PHPBBCONFIG);
+  $phpbb_config = W3PHPBBCONFIG;
   $default_dateformat = $phpbb_config["default_dateformat"];
   $default_lang = $phpbb_config["default_lang"];
     if(empty($default_lang)){ $wp_lang_x_phpbb = 'en'; }

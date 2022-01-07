@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.4.7
+Stable tag: 2.4.8
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.9
@@ -72,6 +72,15 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.4.8 =
+*Release Date - 7 Jan, 2022*
+
+* Fix: profile fields correctly managed when admin or user update profile fields: 'error email existent into linked cms' was coming out, even when email not existent or email not updated
+* Fix: optimize last added wp_check_password() that follow to correctly check password in any passed hash, even if plugin not correctly configured
+* Fix: error on transfer processes tasks due to wrong serialize() still in place
+* Minor fixes
+
 
 = 2.4.7 =
 *Release Date - 5 Jan, 2022*

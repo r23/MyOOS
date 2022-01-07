@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.4.7
+Version: 2.4.8
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -35,7 +35,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.4.7' );
+define( 'WPW3ALL_VERSION', '2.4.8' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -155,7 +155,7 @@ if ( defined( 'WP_ADMIN' ) )
   }
 
   add_action( 'init', 'w3all_VAR_IF_U_CAN', 1 );
-  
+
   // phpBB file config inclusion, or not
  if( !isset($_POST['w3all_phpbb_dbconn']) && empty($w3all_phpbb_dbconn) && !isset($w3deactivate_wp_w3all_plugin) )
  { // config file inclusion
@@ -201,7 +201,7 @@ if ( defined( 'WP_ADMIN' ) )
       require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all-admin.php' );
       require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all.widgets-phpbb.php' );
 
-      add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_phpbb_config_res'), 2);
+     // add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_phpbb_config_res'), 2);
       add_action( 'init', array( 'WP_w3all_admin', 'wp_w3all_init' ) );
       add_action( 'init', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_init' ), 3 );
 
@@ -277,7 +277,7 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
     return;
 }
 
-} // defined('W3PHPBBDBCONN') end
+} // defined('W3PHPBBDBCONN') WP admin end
 
 } else { // not in WP admin
 
@@ -321,7 +321,7 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
      require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all-phpbb.php' );
      require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all.widgets-phpbb.php' );
 
-      add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_phpbb_config_res'), 2);
+      //add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_phpbb_config_res'), 2);
       add_action( 'init', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_init'), 3);
 
      if(!empty($w3all_phpbb_wptoolbar_pm_yn)){
@@ -723,47 +723,37 @@ function w3all_user_profile_update_errors( $array ) {
   global $wpdb;
   $wpu_db_umtab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
   $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
-  $uid = intval($_POST['user_id']);
-  $wpunewemail = $wpdb->get_row("SELECT * FROM $wpu_db_umtab WHERE user_id = '".$uid."' AND meta_key = '_new_email'");
-  if(!empty($wpunewemail)){
-   $wpunewemail = unserialize($wpunewemail->meta_value);
-   $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $wpunewemail['newemail'] );
+
+  //if ( get_current_user_id() == $_POST['user_id'] ){ // then the changed email is stored as temp email
+  if ( $_POST['checkuser_id'] == $_POST['user_id'] ){ // same user updating, then the changed email is stored as temp email
+   $uid = intval($_POST['user_id']);
+   $wpunewemail = $wpdb->get_row("SELECT * FROM $wpu_db_umtab WHERE user_id = '".$uid."' AND meta_key = '_new_email'");
+    if(!empty($wpunewemail)){
+     $wpunewemail = unserialize($wpunewemail->meta_value);
+     $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $wpunewemail['newemail'] );
+    }
+
+   if( !empty($phpbb_u) ){
+     delete_user_meta($uid, '_new_email'); // remove new email change request
+     $array->add( 'w3_ck_phpbb_duplicated_email_error', __( '<strong>Error</strong>: email paired to another user into our forum. The email update has been rejected.', 'wp-w3all-phpbb-integration' ) );
+    }
+    return;
   }
 
-  if( !empty($_POST['email']) && $_POST['checkuser_id'] != $_POST['user_id'] && current_user_can( 'edit_users' ) )
+  // if ( get_current_user_id() != $_POST['user_id'] ){ // user editing another user: then the changed email can be checked as $_POST['email']
+  if( !empty($_POST['email']) && $_POST['checkuser_id'] != $_POST['user_id'] ) // user editing another user: then the changed email can be checked as $_POST['email']
   {
-   $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $_POST['email'] );
-   if( !empty($phpbb_u) )
-   {
+
+    if( ! email_exists($_POST['email']) ){ // only if the update is going to change the email also, check then
+
+    $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $_POST['email'] );
+     if(!empty($phpbb_u))
+    {
      wp_w3_error($redirect_to='', $message='');
      exit;
-   }
-  }
-
-    $wpu = get_user_by('id', $uid);
-
-  if( current_user_can( 'create_users' ) && $_POST['action'] == 'update' && $_POST['user_id'] > 1 )
-  {
-   //if( !empty($phpbb_u) && count($phpbb_u) > 1 ){
-   if(!empty($phpbb_u))
-   {
-    $array->add( 'w3_ck_phpbb_duplicated_email_error', __( '<strong>Error</strong>: email is paired to another username into our forum. The email update has been rejected.<br /><br />If you\'re running phpBB integration with mismatching usernames/email pairs, change email for this user into phpBB (and remember that until this user will not visit WordPress as logged in, his profile will not be updated with the new email)', 'wp-w3all-phpbb-integration' ) );
-   }
-  }
-
-  if(isset($_POST['email']) && isset($_POST['action']) && $_POST['action'] == 'update' && isset($_POST['user_id']))
-  {
-    //if( !empty($phpbb_u) && count($phpbb_u) > 1 ){ // for mismatching username integration
-    if( !empty($phpbb_u) ){
-     $array->add( 'w3_ck_phpbb_duplicated_email_error', __( '<strong>Error</strong>: email is paired to another username into our forum. The email update has been rejected.', 'wp-w3all-phpbb-integration' ) );
     }
-   }
-
-  if(!empty($array->errors) OR !empty($array->error_data))
-  {
-   delete_user_meta($wpu->ID, '_new_email'); // remove new email change request
   }
-
+}
 
 }
 
@@ -959,8 +949,9 @@ function wp_check_password($password, $hash, $user_id = '') {
    $hash_x_wp = $hash;
 
      $wpu = get_user_by( 'ID', $user_id );
-     $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
+
     if(empty($wpu)){
+      $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
       $wpu = $wpdb->get_row("SELECT * FROM $wpu_db_utab WHERE ID = '".$user_id."'");
      }
 
@@ -1006,7 +997,7 @@ function wp_check_password($password, $hash, $user_id = '') {
 
 ///////////
 // check that this user do not need to be added into phpBB, due to $w3all_add_into_phpBB_after_confirm
-// that if active, do not let add the user in phpBB, into create_phpBB_user()
+
        if( $w3all_add_into_phpBB_after_confirm == 1 )
        {
 
@@ -1299,7 +1290,7 @@ function w3all_add_phpbb_user() {
   // check that the presented token match or return
 
      $phpbb_config = WP_w3all_phpbb::w3all_get_phpbb_config_res();
-     $phpbb_config = unserialize(W3PHPBBCONFIG);
+     $phpbb_config = W3PHPBBCONFIG;
 
       if(!empty($phpbb_config["avatar_salt"]))
       {
@@ -1421,10 +1412,11 @@ function w3all_add_phpbb_user() {
 
 } // END function w3all_add_phpbb_user()
 
+// let users login with any hash, if integration connection problems occurs and they have been logged out
  if ( !defined('W3PHPBBDBCONN') )
  {
- 	
- 	if ( ! function_exists( 'wp_check_password' ) ) :
+
+  if ( ! function_exists( 'wp_check_password' ) ) :
 
 function wp_check_password($password, $hash, $user_id = '') {
 
@@ -1436,13 +1428,9 @@ function wp_check_password($password, $hash, $user_id = '') {
    $check = false;
    $hash_x_wp = $hash;
 
-     $wpu = get_user_by( 'ID', $user_id );
-
-    if( empty($wpu) OR empty($password) OR empty($hash) ){
+    if( empty($password) OR empty($hash) ){
       return;
     }
-
- if(!empty($wpu)){
 
    // If the hash still old md5
     if ( $hash != null && strlen($hash) <= 32 ) {
@@ -1471,18 +1459,15 @@ function wp_check_password($password, $hash, $user_id = '') {
   }
 
      if ($check === true){
-     	return apply_filters( 'check_password', $check, $password, $hash, $user_id );
+      return apply_filters( 'check_password', $check, $password, $hash, $user_id );
       } else {
       return apply_filters( 'check_password', false, $password, $hash, $user_id );
         }
 
- } else {
-      return apply_filters( 'check_password', false, $password, $hash, $user_id );
-     }
 }
 
 endif;
- 	
+
  }
 
 

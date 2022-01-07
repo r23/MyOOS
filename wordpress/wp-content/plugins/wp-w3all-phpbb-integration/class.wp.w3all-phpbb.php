@@ -31,7 +31,6 @@ private static function w3all_wp_logout($redirect = ''){
        }
 
       $phpbb_config = W3PHPBBCONFIG;
-      $phpbb_config = unserialize($phpbb_config);
       $w3phpbb_conn = self::w3all_db_connect();
 
         $k   = $phpbb_config["cookie_name"].'_k';
@@ -158,8 +157,7 @@ private static function w3all_get_phpbb_config(){
   update_option( 'w3all_phpbb_cookie', $up );
  }
 
-  $res_c = serialize($res);
-  define( "W3PHPBBCONFIG", $res_c );
+  define("W3PHPBBCONFIG", $res);
 
   return $res;
 
@@ -177,7 +175,7 @@ private static function verify_phpbb_credentials(){
 
         $phpbb_config = self::w3all_get_phpbb_config();
           if(defined("W3PHPBBCONFIG")){
-           $phpbb_config = unserialize(W3PHPBBCONFIG);
+           $phpbb_config = W3PHPBBCONFIG;
           } else { return; }
 
       if( isset($_GET['action']) && $_GET['action'] == 'logout' ){
@@ -253,6 +251,7 @@ private static function verify_phpbb_credentials(){
   } else {
      $phpbb_user_session = '';
     }
+
 
   /*if( isset($get_phpbb_SU_info) )
   {
@@ -386,6 +385,7 @@ private static function verify_phpbb_credentials(){
   }
 
    $w3_phpbb_user_session = serialize($phpbb_user_session);
+
    define("W3PHPBBUSESSION", $w3_phpbb_user_session);
 
     // some lang may differ about notation on both phpBB and WP ... so some edit may sometime will be necessary to adjust ...
@@ -730,7 +730,7 @@ private static function phpBB_user_session_set($wp_user_data){
   }
 
   $phpbb_config = self::w3all_get_phpbb_config();
-  $phpbb_config = unserialize(W3PHPBBCONFIG);
+  $phpbb_config = W3PHPBBCONFIG;
 
        $w3phpbb_conn = self::w3all_db_connect();
 
@@ -870,7 +870,7 @@ public static function w3_phpbb_ban($phpbb_uid = '', $uname = '', $uemail = ''){
 
     $user_REMOTE_ADDR = (! filter_var(trim($_SERVER["REMOTE_ADDR"]), FILTER_VALIDATE_IP)) ? '' : $_SERVER["REMOTE_ADDR"];
     $phpbb_config = self::w3all_get_phpbb_config();
-    $phpbb_config = unserialize(W3PHPBBCONFIG);
+    $phpbb_config = W3PHPBBCONFIG;
 
     $timenow = time();
     $w3phpbb_conn = self::w3all_db_connect();
@@ -1004,7 +1004,7 @@ private static function create_phpBB_user($wpu, $action = ''){
    global $w3all_config, $wpdb, $w3all_phpbb_user_deactivated_yn, $w3all_phpbb_lang_switch_yn, $w3all_add_into_spec_group, $w3all_add_into_phpBB_after_confirm;
    $w3phpbb_conn = self::w3all_db_connect();
    $phpbb_config = self::w3all_get_phpbb_config();
-   $phpbb_config = unserialize(W3PHPBBCONFIG);
+   $phpbb_config = W3PHPBBCONFIG;
 
    // skip, if 'create phpBB user after account confirmation' option enabled
    // if this option active, the user will be added into phpBB only after his first successsful login
@@ -1154,7 +1154,7 @@ private static function create_phpBB_user($wpu, $action = ''){
      $w3phpbb_conn->query("UPDATE ".$w3all_config["table_prefix"]."config SET config_value = '$uid' WHERE config_name = 'newest_user_id'");
 
   }
-   // echo $w3all_phpbb_user_deactivated_yn;exit;
+
   // FIX AUTOLOGIN for woocommerce or any other plugin:
   // when user registered and need to be logged in automatically, then avoid to follow without phpBB session setup
   // or since the phpBB cookie is not released at this point, when verify_credentials will fire, the user will be logged out
@@ -1186,7 +1186,7 @@ public static function phpBB_user_check( $sanitized_user_login, $user_email, $is
 
         $w3phpbb_conn = self::w3all_db_connect();
         $phpbb_config = self::w3all_get_phpbb_config();
-        $phpbb_config = unserialize(W3PHPBBCONFIG);
+        $phpbb_config = W3PHPBBCONFIG;
 
         $u = $phpbb_config["cookie_name"].'_u';
 
@@ -1341,7 +1341,7 @@ public static function wp_w3all_phpbb_logout() {
    global $w3all_config,$w3cookie_domain,$w3all_useragent;
       $w3phpbb_conn = self::w3all_db_connect();
       $phpbb_config = self::w3all_get_phpbb_config();
-      $phpbb_config = unserialize(W3PHPBBCONFIG);
+      $phpbb_config = W3PHPBBCONFIG;
 
         $k   = $phpbb_config["cookie_name"].'_k';
         $sid = $phpbb_config["cookie_name"].'_sid';
@@ -1450,7 +1450,7 @@ public static function phpbb_pass_update($user, $new_pass) {
 
  public static function phpbb_update_profile($user_id, $old_user_data) {
 
-// the profile_update hook seem to fire (also and may should not) just after an user is created.
+// the profile_update hook seem to fire just after an user is created.
 // so return here if the $_GET['action'] == 'register' detected
 // anyway, may some other external plugin will work with his own vars: so may add here
 
@@ -1459,7 +1459,7 @@ public static function phpbb_pass_update($user, $new_pass) {
    global $wpdb,$w3all_config,$w3all_phpbb_lang_switch_yn;
 
      $w3phpbb_conn = self::wp_w3all_phpbb_conn_init();
-     $phpbb_config = unserialize(W3PHPBBCONFIG);
+     $phpbb_config = W3PHPBBCONFIG;
 
      $phpbb_version = substr($phpbb_config["version"], 0, 3);
      $wpu = get_user_by('ID', $user_id);
@@ -2215,7 +2215,7 @@ public static function wp_w3all_get_phpbb_lastopics_short_wi( $atts ) {
   global $w3all_config,$w3all_url_to_cms,$wp_w3all_forum_folder_wp,$w3all_lasttopic_avatar_num,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn,$w3all_get_topics_x_ugroup,$w3all_iframe_phpbb_link_yn;
 
    $phpbb_config = self::w3all_get_phpbb_config();
-   $phpbb_config = unserialize(W3PHPBBCONFIG);
+   $phpbb_config = W3PHPBBCONFIG;
    $w3db_conn = self::w3all_db_connect();
    $atts = array_map ('trim', $atts);
 
@@ -2599,7 +2599,7 @@ public static function w3all_get_phpbb_avatars_url( $w3unames ) {
   $phpbb_config = self::w3all_get_phpbb_config();
   // if the database connection fail, at this point W3PHPBBCONFIG is not defined
   if(defined("W3PHPBBCONFIG")){
-   $phpbb_config = unserialize(W3PHPBBCONFIG);
+   $phpbb_config = W3PHPBBCONFIG;
   } else { return; }
 
   $uavatars = $w3db_conn->get_results( "SELECT user_id, username, user_avatar, user_avatar_type FROM ".$w3all_config["table_prefix"]."users WHERE user_email IN(".$w3unames.") ORDER BY user_id DESC" );
@@ -2946,7 +2946,7 @@ private static function create_phpBB_user_wpms($username_id_object = '', $user_e
 
    $w3phpbb_conn = self::w3all_db_connect();
    $phpbb_config = self::w3all_get_phpbb_config();
-   $phpbb_config = unserialize(W3PHPBBCONFIG);
+   $phpbb_config = W3PHPBBCONFIG;
 
    $default_dateformat = $phpbb_config["default_dateformat"];
    $default_lang = $phpbb_config["default_lang"];

@@ -12,7 +12,7 @@
     die("<h2>Wp w3all miss phpBB configuration. Can't connect to phpBB database</h2>");
   }
 
-  $phpbb_config = unserialize(W3PHPBBCONFIG);
+  $phpbb_config = W3PHPBBCONFIG;
   $phpbb_config_file = $w3all_config;
   $phpbb_conn = WP_w3all_phpbb::wp_w3all_phpbb_conn_init();
   $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
