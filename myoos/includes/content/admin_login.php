@@ -57,6 +57,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 $manual_infotable = $oostable['manual_info'];
 $sql = "SELECT status FROM $manual_infotable WHERE man_info_id = '1'";
 $login = $dbconn->GetRow($sql);
+
 if ($login['status'] == '0') {
     oos_redirect(oos_href_link($aContents['403']));
 }
