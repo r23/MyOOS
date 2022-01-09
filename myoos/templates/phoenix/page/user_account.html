@@ -39,18 +39,75 @@
 					{/if}				  
 					</ul>
 
-    <table border="0" width="100%" cellspacing="0">
-      <tr>
-        <td>{$oosPageHeading}</td>
-      </tr>
-      <tr>
-        <td height="10"></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
-         <tr>
-           <td class="formAreaTitle">{$lang.category_personal}</td>
-         </tr>
+
+			<h5 class="mb-4 pt-sm-3">{$lang.category_personal}</h5>
+			<form >
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="account-fn">First Name</label>
+						<input class="form-control" type="text" id="account-fn" value="Daniel" required>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="account-fn">{$lang.entry_first_name}</label>
+						<input class="form-control" type="text" id="account-fn" value="{$account.customers_firstname}" required>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="account-ln">{$lang.entry_last_name}</label>
+						<input class="form-control" type="text" id="account-ln" value="{$account.customers_lastname}" required>
+					</div>
+				</div>
+				
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="account-email">{$lang.entry_email_address}</label>
+						<input class="form-control" type="email" id="account-email" value="{$account.customers_email_address}" disabled>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="account-phone">{$lang.entry_telephone_number}</label>
+						<input class="form-control" type="text" id="account-phone" value="{$account.customers_telephone}">
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">		
+					<div class="form-group">
+						<label for="account-pass">New Password</label>
+						<input class="form-control" type="password" id="account-pass">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="account-confirm-pass">Confirm Password</label>
+						<input class="form-control" type="password" id="account-confirm-pass">
+					</div>
+				</div>
+
+
+				
+            <div class="col-12">
+              <hr class="mt-2 mb-3">
+              <div class="d-flex flex-wrap justify-content-between align-items-center">
+                <div class="custom-control custom-checkbox d-block">
+                  <input class="custom-control-input" type="checkbox" id="subscribe_me" checked>
+                  <label class="custom-control-label" for="subscribe_me">Subscribe me to Newsletter</label>
+                </div>
+                <button class="btn btn-primary mt-3 mt-sm-0" type="button" data-toggle="toast" data-target="#profile-toast">Update profile</button>
+              </div>
+            </div>				
+				
+			</form>		
+<table border="0" width="100%" cellspacing="0" cellpadding="2">
+
          <tr>
            <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
             <tr>
@@ -61,14 +118,12 @@
             <td class="main">&nbsp;{$gender}</td>
           </tr>
 {/if}
+{if $smarty.const.ACCOUNT_TELEPHONE eq 'true'}		
           <tr>
-            <td class="main">&nbsp;{$lang.entry_first_name}</td>
-            <td class="main">&nbsp;{$account.customers_firstname}</td>
+            <td class="main">&nbsp;{$lang.entry_telephone_number}</td>
+            <td class="main">&nbsp;{$account.customers_telephone}</td>
           </tr>
-          <tr>
-            <td class="main">&nbsp;{$lang.entry_last_name}</td>
-            <td class="main">&nbsp;{$account.customers_lastname}</td>
-          </tr>
+{/if}
 {if $smarty.const.ACCOUNT_DOB eq 'true'}
           <tr>
             <td class="main">&nbsp;{$lang.entry_date_of_birth}</td>
@@ -76,8 +131,8 @@
           </tr>
 {/if}
          <tr>
-            <td class="main">&nbsp;{$lang.entry_email_address}</td>
-            <td class="main">&nbsp;{$account.customers_email_address}</td>
+            <td class="main">&nbsp;</td>
+            <td class="main">&nbsp;</td>
           </tr>
         </table></td>
       </tr>
@@ -164,25 +219,7 @@
       </tr>
     </table></td>
   </tr>
-  <tr>
-    <td class="formAreaTitle"><br>{$lang.category_options}</td>
-  </tr>
-  <tr>
-    <td class="main"><table border="0" width="100%" cellspacing="0" cellpadding="2" class="formArea">
-      <tr>
-        <td class="main"><table border="0" cellspacing="0" cellpadding="2">
-          <tr>
-            <td class="main">&nbsp;{$lang.entry_newsletter}</td>
-            <td class="main">&nbsp;{$newsletter}</td>
-          </tr>
-        </table></td>
-      </tr>
-    </table></td>
-  </tr>
  </table>
-        </td>
-      </tr>
-    </table>
 
 
 				</div>
