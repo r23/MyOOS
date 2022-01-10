@@ -166,6 +166,8 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
     /**
      * Gets the fully qualified class-name from the namespace alias.
      *
+     * @deprecated This method is deprecated along with short namespace aliases.
+     *
      * @param string $namespaceAlias
      * @param string $simpleClassName
      *
@@ -224,6 +226,13 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
 
         // Check for namespace alias
         if (strpos($className, ':') !== false) {
+            Deprecation::trigger(
+                'doctrine/persistence',
+                'https://github.com/doctrine/persistence/issues/204',
+                'Short namespace aliases such as "%s" are deprecated, use ::class constant instead.',
+                $className
+            );
+
             [$namespaceAlias, $simpleClassName] = explode(':', $className, 2);
 
             $realClassName = $this->getFqcnFromAlias($namespaceAlias, $simpleClassName);
@@ -444,22 +453,29 @@ abstract class AbstractClassMetadataFactory implements ClassMetadataFactory
     /**
      * {@inheritDoc}
      *
-     * @psalm-param class-string|string $class
+     * @psalm-param class-string|string $className
      */
-    public function isTransient($class)
+    public function isTransient($className)
     {
         if (! $this->initialized) {
             $this->initialize();
         }
 
         // Check for namespace alias
-        if (strpos($class, ':') !== false) {
-            [$namespaceAlias, $simpleClassName] = explode(':', $class, 2);
-            $class                              = $this->getFqcnFromAlias($namespaceAlias, $simpleClassName);
+        if (strpos($className, ':') !== false) {
+            Deprecation::trigger(
+                'doctrine/persistence',
+                'https://github.com/doctrine/persistence/issues/204',
+                'Short namespace aliases such as "%s" are deprecated, use ::class constant instead.',
+                $className
+            );
+
+            [$namespaceAlias, $simpleClassName] = explode(':', $className, 2);
+            $className                          = $this->getFqcnFromAlias($namespaceAlias, $simpleClassName);
         }
 
-        /** @psalm-var class-string $class */
-        return $this->getDriver()->isTransient($class);
+        /** @psalm-var class-string $className */
+        return $this->getDriver()->isTransient($className);
     }
 
     /**
