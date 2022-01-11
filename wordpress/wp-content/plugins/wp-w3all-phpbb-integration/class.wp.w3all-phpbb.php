@@ -84,7 +84,7 @@ private static function w3all_wp_logout($redirect = ''){
 private static function w3all_db_connect(){
 
  if(defined('W3PHPBBDBCONN')){
-  $w3all_config_db = W3PHPBBDBCONN; // switch to W3PHPBBDBCONN only, on vers 2.6.0
+  $w3all_config_db = W3PHPBBDBCONN; // switch to W3PHPBBDBCONN-only, on vers 2.6.0
  } else { global $w3all_config_db; } // to be removed on vers 2.6.0
 
  if(empty($w3all_config_db) OR defined('W3ALLCONNWRONGPARAMS')){ return; }
@@ -249,7 +249,7 @@ private static function verify_phpbb_credentials(){
      GROUP BY ". $w3all_config["table_prefix"] ."sessions_keys.user_id");
 
   } else {
-     $phpbb_user_session = '';
+     $phpbb_user_session = array();
     }
 
 
@@ -1083,11 +1083,14 @@ private static function create_phpBB_user($wpu, $action = ''){
   if ( $phpbb_u < 2 OR !empty($phpbb_u) && current_user_can( 'manage_options' ) === true ) {
 
       // check that the user need to be added as activated or not into phpBB
-        if(current_user_can( 'manage_options' ) === true){ // an admin adding user
+      
+        if( current_user_can( 'manage_options' ) === true ){ // an admin adding user
           $phpbb_user_type = 0;
         } else {
           $phpbb_user_type = $w3all_phpbb_user_deactivated_yn;
         }
+        
+        
 
       $wpus_db_tab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'signups' : $wpdb->prefix . 'signups';
        $wpdb->query("SHOW TABLES LIKE '$wpus_db_tab'");
@@ -1127,12 +1130,15 @@ private static function create_phpBB_user($wpu, $action = ''){
       }
       // phpBB 3.3.0 >
       if($phpbb_version == '3.3'){
-        $w3phpbb_conn->query("INSERT INTO ".$w3all_config["table_prefix"]."users (user_id, user_type, group_id, user_permissions, user_perm_from, user_ip, user_regdate, username, username_clean, user_password, user_passchg, user_email, user_birthday, user_lastvisit, user_lastmark, user_lastpost_time, user_lastpage, user_last_confirm_key, user_last_search, user_warnings, user_last_warning, user_login_attempts, user_inactive_reason, user_inactive_time, user_posts, user_lang, user_timezone, user_dateformat, user_style, user_rank, user_colour, user_new_privmsg, user_unread_privmsg, user_last_privmsg, user_message_rules, user_full_folder, user_emailtime, user_topic_show_days, user_topic_sortby_type, user_topic_sortby_dir, user_post_show_days, user_post_sortby_type, user_post_sortby_dir, user_notify, user_notify_pm, user_notify_type, user_allow_pm, user_allow_viewonline, user_allow_viewemail, user_allow_massemail, user_options, user_avatar, user_avatar_type, user_avatar_width, user_avatar_height, user_sig, user_sig_bbcode_uid, user_sig_bbcode_bitfield, user_jabber, user_actkey, reset_token, reset_token_expiration, user_newpasswd, user_form_salt, user_new, user_reminded, user_reminded_time)
-         VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','','0','','$wpur','$wpul','$wpunn','$wpup','0','$wpue','','0','0','0','index.php','','0','0','0','0','0','0','0','$wp_lang_x_phpbb','','d M Y H:i','1','0','$group_color','0','0','0','0','-3','0','0','t','d','0','t','a','0','1','0','1','1','1','1','230271','$uavatar','$avatype','50','50','','','','','','','0','','','$user_new','0','0')");
+       // all users db fields insert
+       // $w3phpbb_conn->query("INSERT INTO ".$w3all_config["table_prefix"]."users (user_id, user_type, group_id, user_permissions, user_perm_from, user_ip, user_regdate, username, username_clean, user_password, user_passchg, user_email, user_birthday, user_lastvisit, user_lastmark, user_lastpost_time, user_lastpage, user_last_confirm_key, user_last_search, user_warnings, user_last_warning, user_login_attempts, user_inactive_reason, user_inactive_time, user_posts, user_lang, user_timezone, user_dateformat, user_style, user_rank, user_colour, user_new_privmsg, user_unread_privmsg, user_last_privmsg, user_message_rules, user_full_folder, user_emailtime, user_topic_show_days, user_topic_sortby_type, user_topic_sortby_dir, user_post_show_days, user_post_sortby_type, user_post_sortby_dir, user_notify, user_notify_pm, user_notify_type, user_allow_pm, user_allow_viewonline, user_allow_viewemail, user_allow_massemail, user_options, user_avatar, user_avatar_type, user_avatar_width, user_avatar_height, user_sig, user_sig_bbcode_uid, user_sig_bbcode_bitfield, user_jabber, user_actkey, reset_token, reset_token_expiration, user_newpasswd, user_form_salt, user_new, user_reminded, user_reminded_time)
+       //  VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','','0','','$wpur','$wpul','$wpunn','$wpup','0','$wpue','','0','0','0','index.php','','0','0','0','0','0','0','0','$wp_lang_x_phpbb','','d M Y H:i','1','0','$group_color','0','0','0','0','-3','0','0','t','d','0','t','a','0','1','0','1','1','1','1','230271','$uavatar','$avatype','50','50','','','','','','','0','','','$user_new','0','0')");
+       // only users db required fields insert
+          $w3phpbb_conn->query("INSERT INTO ".$w3all_config["table_prefix"]."users (user_id, user_type, group_id, user_regdate, username, username_clean, user_password, user_email, user_lang, user_colour, user_avatar, user_avatar_type, user_new)
+           VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','$wpur','$wpul','$wpunn','$wpup','$wpue','$wp_lang_x_phpbb','$group_color','$uavatar','$avatype','$user_new')");
       }
 
       $phpBBlid = $w3phpbb_conn->insert_id;
-
 
      $w3phpbb_conn->query("INSERT INTO ".$w3all_config["table_prefix"]."user_group (group_id, user_id, group_leader, user_pending) VALUES ('$w3all_add_into_spec_group','$phpBBlid','0','0')");
      //$w3phpbb_conn->query("INSERT INTO ".$w3all_config["table_prefix"]."acl_users (user_id, forum_id, auth_option_id, auth_role_id, auth_setting) VALUES ('$phpBBlid','0','0','6','0')");
@@ -1453,6 +1459,8 @@ public static function phpbb_pass_update($user, $new_pass) {
 // the profile_update hook seem to fire just after an user is created.
 // so return here if the $_GET['action'] == 'register' detected
 // anyway, may some other external plugin will work with his own vars: so may add here
+
+// many front-end plugins do not let fire the wp user_profile_update_errors hook
 
  if ( $user_id == 1 OR isset($_GET['action']) && $_GET['action'] == 'register' ){ return; }
 
@@ -2970,7 +2978,7 @@ private static function create_phpBB_user_wpms($username_id_object = '', $user_e
     foreach($kv as $k => $v){
     if($k == 'rank_special' && $v == 0){
     $urank_id_a = $kv;
-    goto this1; // break to the first found ('it seem' to be the default phpBB behavior)??
+    goto this1; // break to the first found (seem to be the default phpBB behavior)
     }
    }}
  }
@@ -3011,7 +3019,7 @@ else { $rankID = 0; $group_color = ''; }
       $phpbb_user_type = $w3all_phpbb_user_deactivated_yn == 1 ? 1 : 0;
 
       //$phpbb_user_type = 0; // modified // set to 1 as deactivated on phpBB on WP MSMU except for admin action (but it is not what needed, since activation link set to user if admin action via https://localhost/wp5/wp-admin/network/user-new.php)
-      //if( $key == 'is_admin_action' ){
+
       if(current_user_can( 'create_users' )){
         $phpbb_user_type = 0;
       }
@@ -3021,7 +3029,7 @@ else { $rankID = 0; $group_color = ''; }
      if( !empty($user) && isset($user->user_pass) OR is_object( $username_id_object ) ){
         $wpup = $user->user_pass;
       } else {
-       $wpup = substr(str_shuffle(md5(time()) . '+ABCKD!EFGJH?LMNO=PQRST!UVZXY-'), 0, rand(8,16)); // a temp pass to be updated after signup finished
+       $wpup = substr(str_shuffle(md5(time()) . 'ABCKDEFGLJZ'), 0, rand(8,16)); // a temp pass to be updated after signup finished
        $wpup = password_hash($wpup, PASSWORD_BCRYPT,['cost' => 12]);
       }
 
@@ -3044,7 +3052,7 @@ else { $rankID = 0; $group_color = ''; }
       $wpunn = esc_sql(strtolower($wpul));
       $wpul  = esc_sql($wpul);
 
-     // if added as newely registered user, then then the user need to be also added into Registered Group
+     // if added as newely registered user, the user need to be also added into Registered Group
      // and as user new 1 into users tab (to be correctly removed from newbie group when promoted based on posts)
       $user_new = 0;
       if($w3all_add_into_spec_group == 7){
@@ -3060,8 +3068,10 @@ else { $rankID = 0; $group_color = ''; }
      }
      // phpBB 3.3.0 >
      if($phpbb_version == '3.3'){
-       $w3phpbb_conn->query("INSERT INTO ".$w3all_config["table_prefix"]."users (user_id, user_type, group_id, user_permissions, user_perm_from, user_ip, user_regdate, username, username_clean, user_password, user_passchg, user_email, user_birthday, user_lastvisit, user_lastmark, user_lastpost_time, user_lastpage, user_last_confirm_key, user_last_search, user_warnings, user_last_warning, user_login_attempts, user_inactive_reason, user_inactive_time, user_posts, user_lang, user_timezone, user_dateformat, user_style, user_rank, user_colour, user_new_privmsg, user_unread_privmsg, user_last_privmsg, user_message_rules, user_full_folder, user_emailtime, user_topic_show_days, user_topic_sortby_type, user_topic_sortby_dir, user_post_show_days, user_post_sortby_type, user_post_sortby_dir, user_notify, user_notify_pm, user_notify_type, user_allow_pm, user_allow_viewonline, user_allow_viewemail, user_allow_massemail, user_options, user_avatar, user_avatar_type, user_avatar_width, user_avatar_height, user_sig, user_sig_bbcode_uid, user_sig_bbcode_bitfield, user_jabber, user_actkey, reset_token, reset_token_expiration, user_newpasswd, user_form_salt, user_new, user_reminded, user_reminded_time)
-         VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','','0','','$wpur','$wpul','$wpunn','$wpup','0','$wpue','','0','0','0','index.php','','0','0','0','0','0','0','0','$wp_lang_x_phpbb','','d M Y H:i','1','0','$group_color','0','0','0','0','-3','0','0','t','d','0','t','a','0','1','0','1','1','1','1','230271','$uavatar','$avatype','50','50','','','','','','','0','','','$user_new','0','0')");
+      // $w3phpbb_conn->query("INSERT INTO ".$w3all_config["table_prefix"]."users (user_id, user_type, group_id, user_permissions, user_perm_from, user_ip, user_regdate, username, username_clean, user_password, user_passchg, user_email, user_birthday, user_lastvisit, user_lastmark, user_lastpost_time, user_lastpage, user_last_confirm_key, user_last_search, user_warnings, user_last_warning, user_login_attempts, user_inactive_reason, user_inactive_time, user_posts, user_lang, user_timezone, user_dateformat, user_style, user_rank, user_colour, user_new_privmsg, user_unread_privmsg, user_last_privmsg, user_message_rules, user_full_folder, user_emailtime, user_topic_show_days, user_topic_sortby_type, user_topic_sortby_dir, user_post_show_days, user_post_sortby_type, user_post_sortby_dir, user_notify, user_notify_pm, user_notify_type, user_allow_pm, user_allow_viewonline, user_allow_viewemail, user_allow_massemail, user_options, user_avatar, user_avatar_type, user_avatar_width, user_avatar_height, user_sig, user_sig_bbcode_uid, user_sig_bbcode_bitfield, user_jabber, user_actkey, reset_token, reset_token_expiration, user_newpasswd, user_form_salt, user_new, user_reminded, user_reminded_time)
+      //   VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','','0','','$wpur','$wpul','$wpunn','$wpup','0','$wpue','','0','0','0','index.php','','0','0','0','0','0','0','0','$wp_lang_x_phpbb','','d M Y H:i','1','0','$group_color','0','0','0','0','-3','0','0','t','d','0','t','a','0','1','0','1','1','1','1','230271','$uavatar','$avatype','50','50','','','','','','','0','','','$user_new','0','0')");
+          $w3phpbb_conn->query("INSERT INTO ".$w3all_config["table_prefix"]."users (user_id, user_type, group_id, user_regdate, username, username_clean, user_password, user_email, user_lang, user_colour, user_avatar, user_avatar_type, user_new)
+           VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','$wpur','$wpul','$wpunn','$wpup','$wpue','$wp_lang_x_phpbb','$group_color','$uavatar','$avatype','$user_new')");
      }
 
        $phpBBlid = $w3phpbb_conn->insert_id; // memo: pass only assigned vars on queries using this, or will return null

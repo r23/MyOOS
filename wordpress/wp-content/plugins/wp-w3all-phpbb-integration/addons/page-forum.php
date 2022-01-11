@@ -7,11 +7,16 @@
  * @subpackage wp_w3all
  * @V5 JS -> https://www.axew3.com/w3/2018/12/phpbb-wordpress-template-integration-iframe-v5/
  */
-// axew3.com //
+// 2022 - @axew3.com //
 
 // START MAY DO NOT MODIFY
 
-// for compatibility with all the rest if the case switch these vars
+  if(defined("W3PHPBBCONFIG")){
+    // detect if it is the uid2 in phpBB
+    $phpBBuid2 = (isset($_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u']) && $_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u'] == 2) ? 2 : 0;
+   } else { $phpBBuid2 = 0; }
+
+// for compatibility with all the rest if the case switch these vars // TO BE REMOVED: due to overall_header js code
 if( isset($_GET["f"]) ){
   $_GET["forum_id"] = $_GET["f"];
 }
@@ -36,6 +41,14 @@ $w3allhomeurl = get_home_url();
 $current_user = wp_get_current_user();
 $w3all_url_to_cms_clean = $w3all_url_to_cms;
 $w3all_url_to_cms_clean0 = strpos($w3all_url_to_cms_clean, 'https://') !== false ? str_replace('https://', 'http://', $w3all_url_to_cms_clean) : str_replace('http://', 'https://', $w3all_url_to_cms_clean);
+// guess to get the domain.com to display into preloader // array order here, is !important
+if(!empty($w3all_url_to_cms)){
+$w3guessdomaindisplay = str_replace(array("http://www.","https://www.","http://","https://"), array("","","",""), $w3all_url_to_cms);
+$spos = strpos($w3guessdomaindisplay,'/');
+if($spos !== false)
+{
+ $w3guessdomaindisplay = substr($w3guessdomaindisplay, 0, $spos);
+}} else { $w3guessdomaindisplay = 'Did you setup the URL that point to phpBB into the integration plugin admin page<br /> and is it correct?'; }
 
 if( preg_match('/[^0-9]/',$w3phpbbuid) OR preg_match('/[^a-z]/',$w3phpbbwatch) OR preg_match('/[^a-z]/',$w3phpbbunwatch) OR preg_match('/[^A-Za-z]/',$w3iu_folder) OR preg_match('/[^A-Za-z]/',$w3iu) OR preg_match('/[^0-9]/',$w3phpbb_start) OR preg_match('/[^0-9]/',$w3topic_id) OR preg_match('/[^0-9]/',$w3forum_id) OR preg_match('/[^0-9]/',$w3post_id) OR preg_match('/[^0-9A-Za-z]/',$w3mode) OR preg_match('/[^0-9A-Za-z]/',$w3phpbbsid) ){
 
@@ -58,6 +71,7 @@ $w3all_orig_www = strpos($w3all_url_to_cms,'https') !== false ? 'https://www.'. 
 
 // build and pass links x iframe //
 // Old way: from 1.9.4 substantially execute only when links from widgets
+// Obsolete: from 2.4.5 in widgets and shortcodes there are direct links, due to overall_header.html phpBB js code. There is no need to follow with this
 if ( !empty($w3forum_id) && empty($w3topic_id) && empty($w3phpbb_start) && empty($w3post_id) ){
     $w3all_url_to_cms = $w3all_url_to_cms . "/viewforum.php?f=". $w3forum_id ."";
 } elseif ( !empty($w3forum_id) && !empty($w3phpbb_start) && empty($w3topic_id) ) {
@@ -114,7 +128,7 @@ if( isset($_GET["w3"]) && empty($w3forum_id) ){ // default
     $w3all_url_to_cms = $w3all_url_to_cms0;
    }
 }
-
+// old way to be removed
 // assure that passed url is correctly all decoded // may something else need to added in certain conditions
 $w3all_url_to_cms = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms);
 
@@ -137,15 +151,15 @@ function wp_w3all_add_ajax() {
           $w3all_url_to_phpbb_ib = $w3all_url_to_cms . "/ucp.php?i=pm&folder=inbox";
          }
 
-$s = "<script type=\"text/javascript\" src=\"".plugins_url()."/wp-w3all-phpbb-integration/addons/resizer/iframeResizer.min.js\"></script>
+$s = "
+<script type=\"text/javascript\" src=\"".plugins_url()."/wp-w3all-phpbb-integration/addons/resizer/iframeResizer.min.js\"></script>
 <script type=\"text/javascript\">
 // pre loader js code for iframe content
-jQuery( document ).ready(function() {
- jQuery('#w3idwloader').attr( \"class\", \"w3_wrap_loader\" );
-});
+//jQuery( document ).ready(function() {
+ //jQuery('#w3idwloader').attr( \"class\", \"w3_wrap_loader\" );
+//});
 jQuery(window).load(function() {
- jQuery('#w3idwloader').attr( \"class\", \"w3_no_wrap_loader\" );
- //jQuery('#w3idwloader').css(\"display\",\"none\");
+ jQuery('#w3idwloader').css(\"display\",\"none\");
 });
 
 function w3all_ajaxup_from_phpbb_do(res){
@@ -196,11 +210,14 @@ if(/^\W/ig.exec(w3allappend) !== null){
 }
 return w3allappend;
 }
-
 </script>
 <style type=\"text/css\" media=\"screen\">
-.w3_no_wrap_loader{
-display:none;
+.w3preloadtext{
+color:#DDD;
+font-size:3.5em;
+font-family:impact,arial, sans-serif;
+font-style:italic;
+text-shadow: rgba(0,0,0,0) -1px 0px;
 }
 .w3_wrap_loader{
 position:fixed;
@@ -208,25 +225,34 @@ top:0%;
 bottom:0%;
 left:0%;
 right:0%;
-background: rgba(0,0,0,1);
-z-index: 99999;
+background: rgba(0,0,0,0.95);
+z-index:99999;
 opacity:90;
 -webkit-transition: opacity 400ms ease-in;
 -moz-transition: opacity 400ms ease-in;
 transition: opacity 400ms ease-in;
 width:100%;
-display:flex;
-align-items: center;
 text-align:center;
-pointer-events: none;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+pointer-events:none;
+height:100%;
+}
+.ww3_loader{
+width:100%;
+text-align:center;
 }
 .w3_loader {
 height: 8px;
 width: 30%;
+align-items: center;
+justify-content: center;
 position: relative; left: 50%;
 transform: translateX(-50%);
 overflow: hidden;
-background-color: #ddd;
+background-color: #DDD;
 border-radius: 20px;
 margin:0px;padding:0px;
 }
@@ -238,10 +264,9 @@ position: absolute;
 content: \"\";
 left: -200px;
 width: 200px;
-background-color: #2980b9;
+background-color: #333;
 animation: loading 1s linear infinite;
 }
-
 @keyframes loading {
 from {left: -200px; width: 30%;}
 50% {width: 30%;}
@@ -250,12 +275,14 @@ from {left: -200px; width: 30%;}
 95% {left: 120%;}
 to {left: 100%;}
 }
-</style>";
+</style>
+";
   echo $s;
 }
 
-add_action('wp_head','wp_w3all_add_ajax');
 add_action('wp_enqueue_scripts', 'w3all_enqueue_scripts');
+add_action('wp_head','wp_w3all_add_ajax');
+
 // END MAY DO NOT MODIFY
 
 // START a default WordPress page
@@ -263,24 +290,30 @@ add_action('wp_enqueue_scripts', 'w3all_enqueue_scripts');
 get_header();
 ?>
 
+<!-- noscript warning and simple preloader -->
+<div id="w3idwloader" class="w3_wrap_loader">
+  <noscript><h3 style="background-color:#333;color:#FFF;padding:15px;font-size:0.8em;pointer-events:auto;">Javascript disabled: can't load the forum page at this Url.<br />Enable Javascript on your browser or visit the forum here:<br /><br /><?php echo $w3all_url_to_cms;?><br /><a href="<?php echo $w3all_url_to_cms;?>">To be auto-redirected click here<br />(may this link will not work)</a></h3></noscript>
+<div class="w3preloadtext"><?php echo $w3guessdomaindisplay ; ?></div>
+<div class="ww3_loader"><div class="w3_loader"></div></div>
+</div>
 <!-- START iframe div -->
-<div id="w3idwloader" class="w3_no_wrap_loader"><div class="w3_loader"></div></div>
-<div class="">
-<noscript><h3>It seem that your browser have Javascript disabled: can't load the forum page at this Url. Please enable Javascript on your browser or <a href="<?php echo $w3all_url_to_cms;?>">visit the forum here</a>.<br /><br /></h3></noscript>
+<div id="" class="">
 <iframe id="w3all_phpbb_iframe" style="width:1px;min-width:100%;*width:100%;border:0;" scrolling="no" src="<?php echo $w3all_url_to_cms; ?>"></iframe>
 <?php
     echo "<script type=\"text/javascript\">
     document.domain = '".$document_domain."'; // NOTE: for domains like 'mysite.co.uk' remove this line, if you setup the next to match the correct document.domain
     // document.domain = 'mydomain.com'; // NOTE: reset/setup this with domain (like mysite.co.uk) if js error when WP is installed like on mysite.domain.com and phpBB on domain.com: js origin error can come out for example when WordPress is on subdomain install and phpBB on domain. The origin fix is needed: (do this also on phpBB overall_footer.html added code, it need to match)
     var wp_u_logged = ".$current_user->ID.";
+    var phpBBuid2 = ".$phpBBuid2.";
 
  function w3all_ajaxup_from_phpbb(res){
       var w3all_phpbb_u_logged  = /#w3all_phpbb_u_logged=1/ig.exec(res);
 
+   if(phpBBuid2 != 2){ // if not phpBB uid 2 or get loop for this user
        if( w3all_phpbb_u_logged == null && wp_u_logged > 1 || wp_u_logged == 0 && w3all_phpbb_u_logged != null ){
-       document.location.replace('".$w3allhomeurl."/index.php/".$wp_w3all_forum_folder_wp."/');
+        document.location.replace('".$w3allhomeurl."/index.php/".$wp_w3all_forum_folder_wp."/');
        }
-
+    }
       var w3all_phpbbpmcount = /.*(#w3all_phpbbpmcount)=([0-9]+).*/ig.exec(res);
       if(w3all_phpbbpmcount !== null){
          w3all_ajaxup_from_phpbb_do(w3all_phpbbpmcount[2]);

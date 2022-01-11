@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.4.8
+Version: 2.4.9
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -35,7 +35,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.4.8' );
+define( 'WPW3ALL_VERSION', '2.4.9' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -93,8 +93,8 @@ if(isset($w3reset_cookie_domain)){
    $w3all_transfer_phpbb_yn = isset($w3all_conf_pref['w3all_transfer_phpbb_yn']) ? $w3all_conf_pref['w3all_transfer_phpbb_yn'] : '';
    $w3all_phpbb_widget_mark_ru_yn = isset($w3all_conf_pref['w3all_phpbb_widget_mark_ru_yn']) ? $w3all_conf_pref['w3all_phpbb_widget_mark_ru_yn'] : '';
    $w3all_phpbb_widget_FA_mark_yn = isset($w3all_conf_pref['w3all_phpbb_widget_FA_mark_yn']) ? $w3all_conf_pref['w3all_phpbb_widget_FA_mark_yn'] : 0;
-
    $w3all_phpbb_user_deactivated_yn = isset($w3all_conf_pref['w3all_phpbb_user_deactivated_yn']) ? $w3all_conf_pref['w3all_phpbb_user_deactivated_yn'] : 0;
+ 
    $w3all_phpbb_wptoolbar_pm_yn = isset($w3all_conf_pref['w3all_phpbb_wptoolbar_pm_yn']) ? $w3all_conf_pref['w3all_phpbb_wptoolbar_pm_yn'] : '';
    $w3all_exclude_phpbb_forums = isset($w3all_conf_pref['w3all_exclude_phpbb_forums']) ? $w3all_conf_pref['w3all_exclude_phpbb_forums'] : '';
    $w3all_phpbb_lang_switch_yn = isset($w3all_conf_pref['w3all_phpbb_lang_switch_yn']) ? $w3all_conf_pref['w3all_phpbb_lang_switch_yn'] : 0;
@@ -699,64 +699,6 @@ function w3all_rememberme_long($expire) { // Set remember me wp cookie to expire
     }
   }
 
-function w3all_user_profile_update_errors( $array ) {
-
- // note that this do not work on frontend plugin like on mepr
- // if a plugin do not let fire native wordpress hooks, then something like this will never fire
- // can be added custom forcing, via an init hook that could check for $_POST vars and enqueue if necessary
-
- // check for duplicated emails into phpBB
- // Note that this fire after user's email change request fired, if update done on wp profile: so remove and return error, if email update occur
- // and return error any time, any wp profile field updated, like password, if more than one email records found into phpBB. Or the update will occur for all those users with same email in phpBB
-
- // if there are errors already, there is no need to follow here
- // It should be, since user's email updates allowed only on wp or phpbb, then duplicated email error
- // will be thrown by wordpress earlier, so there should be no need to follow here
-  if(!empty($array->errors) OR !empty($array->error_data)){
-   return;
-  }
-
-   if(!isset($_POST['user_id'])){ // adding an user in wp-admin, there is not $_POST['user_id'] here
-      return;
-    }
-
-  global $wpdb;
-  $wpu_db_umtab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
-  $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
-
-  //if ( get_current_user_id() == $_POST['user_id'] ){ // then the changed email is stored as temp email
-  if ( $_POST['checkuser_id'] == $_POST['user_id'] ){ // same user updating, then the changed email is stored as temp email
-   $uid = intval($_POST['user_id']);
-   $wpunewemail = $wpdb->get_row("SELECT * FROM $wpu_db_umtab WHERE user_id = '".$uid."' AND meta_key = '_new_email'");
-    if(!empty($wpunewemail)){
-     $wpunewemail = unserialize($wpunewemail->meta_value);
-     $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $wpunewemail['newemail'] );
-    }
-
-   if( !empty($phpbb_u) ){
-     delete_user_meta($uid, '_new_email'); // remove new email change request
-     $array->add( 'w3_ck_phpbb_duplicated_email_error', __( '<strong>Error</strong>: email paired to another user into our forum. The email update has been rejected.', 'wp-w3all-phpbb-integration' ) );
-    }
-    return;
-  }
-
-  // if ( get_current_user_id() != $_POST['user_id'] ){ // user editing another user: then the changed email can be checked as $_POST['email']
-  if( !empty($_POST['email']) && $_POST['checkuser_id'] != $_POST['user_id'] ) // user editing another user: then the changed email can be checked as $_POST['email']
-  {
-
-    if( ! email_exists($_POST['email']) ){ // only if the update is going to change the email also, check then
-
-    $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $_POST['email'] );
-     if(!empty($phpbb_u))
-    {
-     wp_w3_error($redirect_to='', $message='');
-     exit;
-    }
-  }
-}
-
-}
-
 // Swap WordPress default Login, Register and Lost Password links
 if( $w3all_wp_phpbb_lrl_links_switch_yn > 0 ){
 // this affect the lost password url on WP
@@ -835,22 +777,6 @@ add_action( 'init', 'w3all_add_phpbb_user' );
     //$valid=0;
     return $valid;
  }
-
-
- function temp_wp_w3_error_on_update($redirect_to = ''){
-
-      if(!empty($redirect_to) && current_user_can( 'manage_options' )){
-        echo $message = __( '<h3>Error: username or email already exists.</h3>  Username and/or email already exists, or is associated with another existing user account on our forum database<br />', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.$redirect_to.'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
-      } else {
-         echo $message = __( '<h3>Error: username or email already exists.</h3> Username and/or email already exists, or is associated with another existing user account on our forum database<br />', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.get_edit_user_link().'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
-       }
-     }
-
-function wp_w3_error($redirect_to='', $message=''){
-   if(empty($message)){
-        echo $message = __( '<h3>Error: username or email already exists</h3>The username and/or email address already exists, or is associated with another existing user account on our forum database<br /><br />', 'wp-w3all-phpbb-integration' );
-      }
-}
 
  function wp_w3all_toolbar_new_phpbbpm( $wp_admin_bar ) {
     global $w3all_phpbb_wptoolbar_pm_yn,$w3all_iframe_phpbb_link_yn,$wp_w3all_forum_folder_wp,$w3all_url_to_cms;
@@ -1062,9 +988,15 @@ return $post_std;
 
 }
 
+
+} // END // 2nd // // if ( defined('W3PHPBBDBCONN') && !isset($w3deactivate_wp_w3all_plugin) && !defined( 'WP_ADMIN' ) )
+
+
 /////////////////////////
 // W3ALL WPMS MU START
 /////////////////////////
+
+if( is_multisite() && ! defined("WPW3ALL_NOT_ULINKED") ){
 
 function w3all_wpmu_validate_user_signup( $result ){
  if( empty($result['errors']->errors) ){
@@ -1195,7 +1127,7 @@ function w3all_wpmu_new_user( $user_id ) {
   }
 }
 
-if( is_multisite() && ! defined("WPW3ALL_NOT_ULINKED") ){
+
 // admin
 add_action( 'init', 'w3all_network_admin_actions' );
 function w3all_network_admin_actions() {
@@ -1216,14 +1148,84 @@ add_action( 'wpmu_activate_user', 'w3all_wpmu_activate_user_phpbb', 10, 3 );
 add_action( 'wpmu_new_user', 'w3all_wpmu_new_user', 10, 1 );
 add_action( 'remove_user_from_blog', 'w3all_remove_user_from_blog', 10, 2 );
 
-}
+} // END if( is_multisite() && ! defined("WPW3ALL_NOT_ULINKED") )
 
 /////////////////////////
 // W3ALL WPMS MU END
 /////////////////////////
 
 
-} // END   if ( defined('PHPBB_INSTALLED') ){ // 2nd //
+ function temp_wp_w3_error_on_update($redirect_to = ''){
+
+      if(!empty($redirect_to) && current_user_can( 'manage_options' )){
+        echo $message = __( '<h3>Error: username or email already exists.</h3>  Username and/or email already exists, or is associated with another existing user account on our forum database<br />', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.$redirect_to.'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
+      } else {
+         echo $message = __( '<h3>Error: username or email already exists.</h3> Username and/or email already exists, or is associated with another existing user account on our forum database<br />', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.get_edit_user_link().'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
+       }
+     }
+
+function wp_w3_error($redirect_to='', $message=''){
+   if(empty($message)){
+        echo $message = __( '<h3>Error: username or email already exists</h3>The username and/or email address already exists, or is associated with another existing user account on our forum database<br /><br />', 'wp-w3all-phpbb-integration' );
+      }
+}
+
+function w3all_user_profile_update_errors( $array ) {
+
+ // note that this do not work on frontend plugin like on mepr
+ // if a plugin do not let fire native wordpress hooks, then something like this will never fire
+ // can be added custom forcing, via an init hook that could check for $_POST vars and enqueue if necessary
+
+ // check for duplicated emails into phpBB
+ // Note that this fire after user's email change request fired, if update done on wp profile: so remove and return error, if email update occur
+ // and return error any time, any wp profile field updated, like password, if more than one email records found into phpBB. Or the update will occur for all those users with same email in phpBB
+
+ // if there are errors already, there is no need to follow here
+
+  if(!empty($array->errors) OR !empty($array->error_data)){
+   return;
+  }
+
+   if(!isset($_POST['user_id'])){ // adding an user in wp-admin, there is not $_POST['user_id'] here
+      return;
+    }
+
+  global $wpdb;
+  $wpu_db_umtab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
+  $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
+
+  //if ( get_current_user_id() == $_POST['user_id'] ){ // then the changed email is stored as temp email
+  if ( $_POST['checkuser_id'] == $_POST['user_id'] OR get_current_user_id() == $_POST['user_id'] ){ // same user updating, then the changed email is stored as temp email
+   $uid = intval($_POST['user_id']);
+   $wpunewemail = $wpdb->get_row("SELECT * FROM $wpu_db_umtab WHERE user_id = '".$uid."' AND meta_key = '_new_email'");
+    if(!empty($wpunewemail)){
+     $wpunewemail = unserialize($wpunewemail->meta_value);
+     $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $wpunewemail['newemail'] );
+    }
+
+   if( !empty($phpbb_u) ){
+     delete_user_meta($uid, '_new_email'); // remove new email change request
+     $array->add( 'w3_ck_phpbb_duplicated_email_error', __( '<strong>Error</strong>: email paired to another user into our forum. The email update has been rejected.', 'wp-w3all-phpbb-integration' ) );
+    }
+    return;
+  }
+
+  // if ( get_current_user_id() != $_POST['user_id'] ){ // user editing another user: then the changed email can be checked as $_POST['email']
+  if( !empty($_POST['email']) && $_POST['checkuser_id'] != $_POST['user_id'] ) // user editing another user: then the changed email can be checked as $_POST['email']
+  {
+
+    if( ! email_exists($_POST['email']) ){ // only if the update is going to change the email also, check then
+
+    $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $_POST['email'] );
+     if(!empty($phpbb_u))
+    {
+     wp_w3_error($redirect_to='', $message='');
+     exit;
+    }
+  }
+}
+
+}
 
 // This is for feed shortcode param 'w3feed_text_words' and may valid only for a phpBB feed
 // If this param passed, and is a phpBB feed, as on 3.2.5 the feed content return

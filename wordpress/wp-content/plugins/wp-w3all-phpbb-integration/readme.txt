@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.4.8
+Stable tag: 2.4.9
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.9
@@ -72,6 +72,17 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.4.9 =
+*Release Date - 10 Jan, 2022*
+
+* Fix: remove 'all db fields' when phpBB user's insertion, reducing to the minimum insertion query (only phpBB 3.3>)
+* Fix: hooks execution flow all around, removing and executing only when needed
+* Update: page-forum.php to fix the easy preloader, adding the text above as default, that will display the domain name automatically. To update if you want, rebuild page-forum on plugin admin or substitute the one into your active template folder (page-forum(orWhatEverYouNamedIt).php, with the new page-forum.php you find into the plugin '/addons' folder, renaming it as needed
+* Fix: definitively page-forum to resolve the loop problem when UID 2 login in phpBB and into page-forum get loop (because users uid1 in wp and uid2 in phpBB are not linked) 
+* Fix: some admin configuration hint and order fields
+* Minor fixes
+* Read: short 2.4.9 logs, preloader and more hints here: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=1677
 
 = 2.4.8 =
 *Release Date - 7 Jan, 2022*
