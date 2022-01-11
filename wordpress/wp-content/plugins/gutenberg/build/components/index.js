@@ -49638,7 +49638,7 @@ function ColorPalette(_ref6) {
     __experimentalIsRenderedInSidebar = false
   } = _ref6;
   const clearColor = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
-  const Component = __experimentalHasMultipleOrigins ? MultiplePalettes : SinglePalette;
+  const Component = __experimentalHasMultipleOrigins && colors !== null && colors !== void 0 && colors.length ? MultiplePalettes : SinglePalette;
 
   const renderCustomColorPicker = () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
     color: value,
