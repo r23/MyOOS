@@ -16,7 +16,6 @@
 			<div class="col-md-12">
 				<div class="btn-group" role="group" aria-label="...">
 					<a href="{html_href_link content=$filename.account}" class="btn btn-default active" role="button"><i class="fa fa-th" aria-hidden="true"></i>{$lang.login_block_my_account}</a>
-					<a href="{html_href_link content=$filename.account_edit}" class="btn btn-default" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.button_account}</a>
 					<a href="{html_href_link content=$filename.account_address_book}" class="btn btn-default" role="button"><i class="fa fa-map-marker" aria-hidden="true"></i>{$lang.button_address_book}</a>
 					<a href="{html_href_link content=$filename.account_history page=1}" class="btn btn-default" role="button"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a>
 					<a href="{html_href_link content=$filename.account_wishlist page=1}" class="btn btn-default" role="button"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a>
@@ -31,7 +30,6 @@
 				<div class="innerWrapper">
 					<ul class="list-inline">
 						<li><a href="{html_href_link content=$filename.account}" class="btn btn-default btn-lg" role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.button_account}</a></li>			
-						<li><a href="{html_href_link content=$filename.account_edit}" class="btn btn-default btn-lg"	role="button"><i class="fa fa-user" aria-hidden="true"></i>{$lang.login_block_account_edit}</a></li>		
 						<li><a href="{html_href_link content=$filename.account_history page=1}" class="btn btn-default btn-lg"><i class="fa fa-list" aria-hidden="true"></i>{$lang.button_history}</a></li>
 						<li><a href="{html_href_link content=$filename.account_wishlist page=1}" class="btn btn-default btn-lg"><i class="fa fa-gift" aria-hidden="true"></i>{$lang.button_wishlist}</a></li>
 					{if $oEvent->installed_plugin('notify')}
@@ -40,8 +38,17 @@
 					</ul>
 
 
-			<h5 class="mb-4 pt-sm-3">{$lang.category_personal}</h5>
-			<form >
+					<h5 class="mb-4 pt-sm-3">{$lang.category_personal}</h5>
+					<form name="account" id="account" class="form-horizontal" action="{html_get_link}" method="POST">
+						<fieldset>
+							<input type="hidden" name="action" value="process">
+							<input type="hidden" name="content" value="{$filename.account}">	
+						{if $mySystem.sed}
+							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+							<input type="hidden" name="formid" value="{$mySystem.formid}">
+						{/if}
+					
+					
 			<div class="row">
 				<div class="col-md-6">
 					<div class="form-group">
@@ -94,16 +101,16 @@
 
 
 				
-            <div class="col-12">
-              <hr class="mt-2 mb-3">
-              <div class="d-flex flex-wrap justify-content-between align-items-center">
-                <div class="custom-control custom-checkbox d-block">
-                  <input class="custom-control-input" type="checkbox" id="subscribe_me" checked>
-                  <label class="custom-control-label" for="subscribe_me">Subscribe me to Newsletter</label>
-                </div>
-                <button class="btn btn-primary mt-3 mt-sm-0" type="button" data-toggle="toast" data-target="#profile-toast">Update profile</button>
-              </div>
-            </div>				
+				<div class="col-12">
+					<hr class="mt-2 mb-3">
+					<div class="d-flex flex-wrap justify-content-between align-items-center">
+						<div class="custom-control custom-checkbox d-block">
+							<input class="custom-control-input" type="checkbox" id="subscribe_me" checked>
+							<label class="custom-control-label" for="subscribe_me">Subscribe me to Newsletter</label>
+						</div>
+						<button class="btn btn-primary mt-3 mt-sm-0" type="button" data-toggle="toast" data-target="#profile-toast">Update profile</button>
+					</div>
+				</div>				
 				
 			</form>		
 <table border="0" width="100%" cellspacing="0" cellpadding="2">

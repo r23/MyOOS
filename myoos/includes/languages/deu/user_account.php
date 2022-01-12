@@ -21,4 +21,27 @@
    ---------------------------------------------------------------------- */
 
 $aLang['navbar_title'] = 'Ihr Konto';
-$aLang['heading_title'] = 'Ihre persönliche Daten';
+$aLang['heading_title'] = 'Ihre persönlichen Daten';
+
+$aLang['owner_email_subject'] = 'Neue Kundendaten';
+$aLang['owner_email_date'] = 'Datum:';
+$aLang['owner_email_company_info'] = 'Firmendaten';
+$aLang['owner_email_contact'] = 'Kontaktinformationen';
+$aLang['owner_email_options'] = 'Optionen';
+$aLang['owner_email_company'] = 'Firmenname:';
+$aLang['owner_email_owner'] = 'Inhaber:';
+$aLang['owner_email_gender'] = 'Anrede:';
+$aLang['owner_email_first_name'] = 'Vorname:';
+$aLang['owner_email_last_name'] = 'Nachname:';
+$aLang['owner_email_date_of_birth'] = 'Geburtsdatum:';
+$aLang['owner_email_address'] = 'eMail-Adresse:';
+$aLang['owner_email_street'] = 'Straße/Nr.:';
+$aLang['owner_email_post_code'] = 'Postleitzahl:';
+$aLang['owner_email_city'] = 'Ort:';
+$aLang['owner_email_state'] = 'Bundesland:';
+$aLang['owner_email_country'] = 'Land:';
+$aLang['owner_email_telephone_number'] = 'Telefonnummer:';
+$aLang['owner_email_newsletter'] = 'Newsletter:';
+$aLang['owner_email_newsletter_yes'] = 'abonniert';
+$aLang['owner_email_newsletter_no'] = 'nicht abonniert';
+$aLang['email_separator'] = '------------------------------------------------------';
