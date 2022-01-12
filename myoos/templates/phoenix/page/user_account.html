@@ -49,20 +49,23 @@
 						{/if}
 					
 					
-			<div class="row">
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="account-fn">First Name</label>
-						<input class="form-control" type="text" id="account-fn" value="Daniel" required>
-					</div>
-				</div>
+						<div class="row">
+						{if $smarty.const.ACCOUNT_GENDER eq 'true'}
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="account-fn">{$lang.entry_gender} *</label>
+									<input required type="radio" id="gender" name="gender" value="m" {if $male}checked="checked"{/if}> {$lang.male} <input required type="radio" id="gender" name="gender" value="f" {if $female}checked="checked"{/if}> {$lang.female}
+								</div>
+							</div>
+						{/if}
 
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="account-fn">{$lang.entry_first_name}</label>
+
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="account-fn">{$lang.entry_first_name}</label>
 						<input class="form-control" type="text" id="account-fn" value="{$account.customers_firstname}" required>
-					</div>
-				</div>
+								</div>
+							</div>
 
 				<div class="col-md-6">
 					<div class="form-group">
@@ -113,6 +116,89 @@
 				</div>				
 				
 			</form>		
+			
+##
+								{if $smarty.const.ACCOUNT_GENDER eq 'true'}
+									<div class="form-group">
+										<label class="col-sm-4 form-control-label" for="gender">{$lang.entry_gender} *</label>
+										<div class="col-sm-5">
+											<input required type="radio" id="gender" name="gender" value="m" {if $male}checked="checked"{/if}> {$lang.male} <input required type="radio" id="gender" name="gender" value="f" {if $female}checked="checked"{/if}> {$lang.female}
+										</div>						
+									</div>
+								{/if}
+								
+									<div class="form-group">
+										<label class="col-sm-4 form-control-label" for="firstname">{$lang.entry_first_name} *</label>
+										<div class="col-sm-5">
+											<input required type="text" value="{$account.customers_firstname}" class="form-control" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 form-control-label" for="lastname">{$lang.entry_last_name} *</label>
+										<div class="col-sm-5">
+											<input required type="text" value="{$account.customers_lastname}" class="form-control" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}">
+										</div>
+									</div>
+								{if $smarty.const.ACCOUNT_DOB eq 'true'}
+									<div class="form-group">
+										<label class="col-sm-4 form-control-label" for="dob">{$lang.entry_date_of_birth} *</label>
+										<div class="col-sm-5">
+											<input required type="text" value="{$account.customers_dob|oos_date_short}" class="form-control" id="dob" name="dob" placeholder="{$lang.entry_date_of_birth_text}">
+										</div>
+									</div>
+								{/if}
+									<div class="form-group">
+										<label class="col-sm-4 form-control-label" for="email_address">{$lang.entry_email_address} *</label>
+										<div class="col-sm-5">
+											<input required type="text" value="{$account.customers_email_address}" class="form-control" id="email_address" name="email_address" placeholder="{$lang.entry_email_address}">
+										</div>
+									</div>
+								{if $smarty.const.ACCOUNT_TELEPHONE eq 'true'}										
+									<div class="form-group">
+										<label class="col-sm-4 form-control-label" for="telephone">{$lang.entry_telephone_number}</label>
+										<div class="col-sm-5">
+											<input type="text" value="{$account.customers_telephone}" class="form-control" id="telephone" name="telephone" placeholder="{$lang.entry_telephone_number}">
+										</div>
+									</div>
+								{/if}	
+
+									<hr />
+									<h4>{$lang.category_password}</h4>
+									<div class="form-group">
+										<label class="col-sm-4 form-control-label" for="password">{$lang.entry_password} *</label>
+										<div class="col-sm-5">
+											<input required type="password" value="{$smarty.post.password|escape}" class="form-control" id="password" name="password" placeholder="{$lang.entry_password}">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-4 form-control-label" for="confirmation">{$lang.entry_password_confirmation} *</label>
+										<div class="col-sm-5">
+											<input required type="password" value="{$smarty.post.confirmation|escape}" class="form-control" id="confirmation" name="confirmation" placeholder="{$lang.entry_password_confirmation}">
+										</div>
+									</div>
+									 <div class="form-check">
+										<div class="col-sm-5 col-sm-offset-4">
+											<div class="checkbox">
+											{if $bNewsletter}
+												<label class="checkbox m-0">
+													<input type="checkbox" class="form-check-input" id="agree" name="newsletter" value="yes">{$lang.newsletter_agree}
+												</label>
+											{/if}
+											</div>
+										</div>
+									</div>							
+									<hr />							
+								</fieldset>
+								<div class="form-group">
+									<div class="col-sm-9 col-sm-offset-4">
+										<button type="submit" class="btn btn-primary"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_save_info}</button>
+									</div>
+								</div>
+							</form>
+
+
+##
+
 <table border="0" width="100%" cellspacing="0" cellpadding="2">
 
          <tr>
