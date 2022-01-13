@@ -62,17 +62,27 @@
 
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="account-fn">{$lang.entry_first_name}</label>
-						<input class="form-control" type="text" id="account-fn" value="{$account.customers_firstname}" required>
+									<label for="firstname">{$lang.entry_first_name} *</label>
+									<input class="form-control" type="text" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}" value="{$account.customers_firstname}" required>
 								</div>
 							</div>
 
-				<div class="col-md-6">
-					<div class="form-group">
-						<label for="account-ln">{$lang.entry_last_name}</label>
-						<input class="form-control" type="text" id="account-ln" value="{$account.customers_lastname}" required>
-					</div>
-				</div>
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="lastname">{$lang.entry_last_name} *</label>
+									<input class="form-control" type="text" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}" value="{$account.customers_lastname}" required>
+								</div>
+							</div>
+
+						{if $smarty.const.ACCOUNT_DOB eq 'true'}
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="dob">{$lang.entry_date_of_birth} *</label>
+									<input class="form-control" type="text" id="dob" name="dob" placeholder="{$lang.entry_date_of_birth_text}" value="{$account.customers_dob|oos_date_short}" required>
+								</div>
+							</div>
+						{/if}
+
 				
 				<div class="col-md-6">
 					<div class="form-group">
@@ -111,7 +121,8 @@
 							<input class="custom-control-input" type="checkbox" id="subscribe_me" checked>
 							<label class="custom-control-label" for="subscribe_me">Subscribe me to Newsletter</label>
 						</div>
-						<button class="btn btn-primary mt-3 mt-sm-0" type="button" data-toggle="toast" data-target="#profile-toast">Update profile</button>
+
+						<button type="submit" class="btn btn-primary mt-3 mt-sm-0"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_save_info}</button>
 					</div>
 				</div>				
 				
@@ -127,18 +138,8 @@
 									</div>
 								{/if}
 								
-									<div class="form-group">
-										<label class="col-sm-4 form-control-label" for="firstname">{$lang.entry_first_name} *</label>
-										<div class="col-sm-5">
-											<input required type="text" value="{$account.customers_firstname}" class="form-control" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-4 form-control-label" for="lastname">{$lang.entry_last_name} *</label>
-										<div class="col-sm-5">
-											<input required type="text" value="{$account.customers_lastname}" class="form-control" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}">
-										</div>
-									</div>
+
+
 								{if $smarty.const.ACCOUNT_DOB eq 'true'}
 									<div class="form-group">
 										<label class="col-sm-4 form-control-label" for="dob">{$lang.entry_date_of_birth} *</label>
