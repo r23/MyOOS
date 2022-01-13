@@ -2545,16 +2545,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.108.0",
+            "version": "v7.109.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "81524a3087612f1b41846b9cd6deb80150af985b"
+                "reference": "01d53390c0628cb2c702131f1854d76d2022fd25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/81524a3087612f1b41846b9cd6deb80150af985b",
-                "reference": "81524a3087612f1b41846b9cd6deb80150af985b",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/01d53390c0628cb2c702131f1854d76d2022fd25",
+                "reference": "01d53390c0628cb2c702131f1854d76d2022fd25",
                 "shasum": ""
             },
             "require": {
@@ -2599,9 +2599,9 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v7.108.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v7.109.0"
             },
-            "time": "2021-12-22T16:40:02+00:00"
+            "time": "2022-01-12T16:19:43+00:00"
         },
         {
             "name": "symfony/contracts",
