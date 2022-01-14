@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-05 14:01:07+0000\n"
+"PO-Revision-Date: 2022-01-13 21:30:01+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -448,7 +448,7 @@ msgstr "Du bist leider nicht berechtigt, diesen Begriff zu bearbeiten."
 
 #: includes/modules/analytics/class-analytics.php:199
 msgid "Average position of all the ranking keywords below 100 position."
-msgstr "Durchschnittliche Position aller rangierenden Keywords unter 100 Position."
+msgstr "Durchschnittliche Position aller rangierenden Schlüsselwort unter Position 100."
 
 #: includes/admin/importers/class-aioseo.php:74
 msgid "Import Locations Settings."
@@ -1002,7 +1002,7 @@ msgstr "Tabellen neu erstellen"
 
 #: includes/modules/status/class-system-status.php:180
 msgid "Database Table: Keyword Manager"
-msgstr "Datenbank-Tabelle: Keyword-Manager"
+msgstr "Datenbank-Tabelle: Schlüsselwort-Manager"
 
 #: includes/modules/status/class-system-status.php:179
 msgid "Database Table: Google AdSense"
@@ -1153,7 +1153,7 @@ msgstr "Log-Zähler"
 
 #: includes/modules/analytics/class-analytics.php:191
 msgid "Total number of keywords your site ranking below 100 position."
-msgstr "Gesamtzahl der Keywords, die deine Website unter 100 platziert."
+msgstr "Gesamtzahl der Schlüsselwörter, die deine Website unter 100 rangiert."
 
 #: includes/modules/404-monitor/class-admin.php:189
 #: includes/modules/analytics/class-analytics.php:156
@@ -1299,7 +1299,7 @@ msgstr "Nutze unseren revolutionären SEO-Analyzer, um deine Website auf SEO-Feh
 
 #: includes/admin/wizard/views/rank-math-connect.php:29
 msgid "Free keyword suggestions when entering a focus keyword"
-msgstr "Kostenlose Keyword-Vorschläge beim Eingeben von Fokus-Schlüsselwörter"
+msgstr "Kostenlose Schlüsselwort-Vorschläge beim Eingeben von Fokus-Schlüsselwörter"
 
 #: includes/admin/wizard/views/google-connect.php:28
 #: includes/admin/wizard/views/rank-math-connect.php:28
@@ -1314,7 +1314,7 @@ msgstr "Baue Google Analytics ganz einfach ohne zusätzliche Plugins ein"
 #: includes/admin/wizard/views/google-connect.php:26
 #: includes/admin/wizard/views/rank-math-connect.php:26
 msgid "Track page and keyword rankings with the Advanced Analytics module"
-msgstr "Verfolge Seiten- und Keyword-Rankings mit dem Advanced-Analytics-Modul"
+msgstr "Verfolge Seiten- und Schlüsselwort-Rankings mit dem Erweiterten-Analytics-Modul"
 
 #: includes/admin/wizard/views/google-connect.php:25
 #: includes/admin/wizard/views/rank-math-connect.php:25
@@ -3751,7 +3751,7 @@ msgstr "Datum Archive"
 
 #: includes/settings/titles/homepage.php:128
 msgid "Image displayed when your homepage is shared on Facebook and other social networks. Use images that are at least 1200 x 630 pixels for the best display on high resolution devices."
-msgstr "Das Bild wird angezeigt, wenn Ihre Homepage auf Facebook und anderen sozialen Netzwerken geteilt wird. Verwende Bilder mit einer Auflösung von mindestens 1200 x 630px, um eine optimale Anzeige auf hochauflösenden Geräten zu erzielen."
+msgstr "Das Bild wird angezeigt, wenn deine Homepage auf Facebook und anderen sozialen Netzwerken geteilt wird. Verwende Bilder mit einer Auflösung von mindestens 1200 x 630px, um eine optimale Anzeige auf hochauflösenden Geräten zu erzielen."
 
 #: includes/settings/titles/homepage.php:127
 msgid "Homepage Thumbnail for Facebook"
@@ -4348,7 +4348,7 @@ msgstr "Ausgewählte Bilder einbinden"
 
 #: includes/modules/sitemap/settings/general.php:43
 msgid "Include reference to images from the post content in sitemaps. This helps search engines index the important images on your pages."
-msgstr "Aufnahme von Verweisen auf Bilder aus dem Post-Inhalt in Sitemaps. Dies hilft Suchmaschinen, die wichtigen Bilder auf Ihren Seiten zu indizieren."
+msgstr "Aufnahme von Verweisen auf Bilder aus dem Post-Inhalt in Sitemaps. Dies hilft Suchmaschinen, die wichtigen Bilder auf deinen Seiten zu indizieren."
 
 #: includes/modules/sitemap/settings/general.php:42
 msgid "Images in Sitemaps"
@@ -4396,7 +4396,7 @@ msgstr "%s Archive"
 #. translators: Taxonomy singular label
 #: includes/modules/sitemap/class-admin.php:178
 msgid "your product %s pages"
-msgstr "Ihre Produkt %s Seiten"
+msgstr "Deine Produkt %s Seiten"
 
 #: includes/modules/sitemap/class-admin.php:163
 msgid "Taxonomies:"
@@ -4529,7 +4529,7 @@ msgstr "Wenn du keine XML-Sitemap hast, ist die beste Option, ein Plugin zu inst
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:122
 msgid "XML sitemaps are a special type of text file that tells search engines about the structure of your site. They're a list of all the resources (pages and files) you would like the search engine to index. You can assign different priorities, so certain pages will be crawled first. Before XML sitemaps, search engines were limited to indexing the content they could find by following links. That's still an important feature for search engine spiders, but XML sitemaps have made it easier for content creators and search engines to collaborate."
-msgstr "XML-Sitemaps sind eine spezielle Art von Textdatei, die Suchmaschinen über die Struktur Ihrer Website informiert. Es handelt sich um eine Liste aller Ressourcen (Seiten und Dateien), die die Suchmaschine indizieren soll. du kannst verschiedene Prioritäten vergeben, so dass bestimmte Seiten zuerst durchsucht werden. Vor XML-Sitemaps beschränkten sich Suchmaschinen auf die Indizierung von Inhalten, die sie über folgende Links finden konnten. Das ist immer noch ein wichtiges Feature für Suchmaschinen-Spider, aber XML-Sitemaps haben es für Inhaltsersteller und Suchmaschinen einfacher gemacht, zusammenzuarbeiten."
+msgstr "XML-Sitemaps sind eine spezielle Art von Textdatei, die Suchmaschinen über die Struktur deiner Website informiert. Es handelt sich um eine Liste aller Ressourcen (Seiten und Dateien), die die Suchmaschine indizieren soll. du kannst verschiedene Prioritäten vergeben, so dass bestimmte Seiten zuerst durchsucht werden. Vor XML-Sitemaps beschränkten sich Suchmaschinen auf die Indizierung von Inhalten, die sie über folgende Links finden konnten. Das ist immer noch ein wichtiges Feature für Suchmaschinen-Spider, aber XML-Sitemaps haben es für Inhaltsersteller und Suchmaschinen einfacher gemacht, zusammenzuarbeiten."
 
 #. translators: Link to Search Console KB article
 #: includes/modules/seo-analysis/seo-analysis-tests.php:115
@@ -4556,7 +4556,7 @@ msgstr "Die Behebung des Problems ist einfach - bearbeite die Website und füge 
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:79
 msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
-msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Focus Keyword hinzufügst, überprüft Rank Math, ob du das Keyword im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Keyword im Titel fehlt, wird es dir hier mitgeteilt."
+msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Fokus-Schlüsselwort hinzufügst, überprüft Rank Math, ob du das Schlüsselwort im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Schlüsselwort im Titel fehlt, wird es dir hier mitgeteilt."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:78
 msgid "Make sure the focus keywords you set for the posts appear in their titles."
@@ -4576,7 +4576,7 @@ msgstr "Wenn du Rank Math kein Fokus-Schlüsselwort zum Arbeiten gibst, kann es 
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:71
 msgid "Rank Math uses these focus keywords to analyze your on-page content.  It can tell if you've done a good job of optimizing your text to rank for these keywords."
-msgstr "Rank Math verwendet diese Fokus-Schlüsselwörter, um deinen Inhalt auf der Seite zu analysieren. Es kann erkennen, ob du gute Arbeit geleistet habst, indem du deinen Text optimiert habst, um ihn für diese Keywords zu bewerten."
+msgstr "Rank Math verwendet diese Fokus-Schlüsselwörter, um deinen Inhalt auf der Seite zu analysieren. Es kann erkennen, ob du gute Arbeit geleistet habst, indem du deinen Text optimiert habst, um ihn für diese Schlüsselwort zu bewerten."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:70
 msgid "Rank Math allows you to set a focus keyword for every post and page you write - the option is in the \"Meta Box\", which appears under the text editor in the screen where you write and edit content."
@@ -4584,7 +4584,7 @@ msgstr "Rank Math ermöglicht es dir für jeden Beitrag und jede Seite die du sc
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:69
 msgid "Setting focus keywords for your posts allows Rank Math to analyse the content."
-msgstr "Das Setzen von Fokus-Schlüsselwörter für Ihre Beiträge ermöglicht es Rank Math, den Inhalt zu analysieren."
+msgstr "Das Setzen von Fokus-Schlüsselwörter für deine Beiträge ermöglicht es Rank Math, den Inhalt zu analysieren."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:68
 #: includes/replace-variables/class-advanced-variables.php:55
@@ -4594,7 +4594,7 @@ msgstr "Fokus-Schlüsselwörter"
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:64
 msgid "This looks nice for readers - and it gets your keywords into the URL (keywords in the URL is a ranking factor)."
-msgstr "Das sieht für Leser gut aus - und bringt Ihre Keywords in die URL (Keywords in der URL sind ein Ranking-Faktor)."
+msgstr "Das ist Benutzerfreundlich und bringt die Schlüsselwörter in die URL. Schlüsselwörter in der URL sind ein Rankingfaktor."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:63
 msgid "This option will replace the \"?p=99\" part of the URL with the post's title, like this: http://www.yoursite.com/my-amazing-post-title/"
@@ -4607,7 +4607,7 @@ msgstr "Glücklicherweise ist es sehr einfach zu reparieren.  Gehe einfach auf <
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:60
 msgid "It's not very kind on the eyes, and it does nothing for your site's SEO.  In fact, it can hurt it - Google's bot is quite cautious about crawling pages that look auto-generated."
-msgstr "Es ist nicht sehr freundlich für die Augen, und es tut nichts für die SEO Ihrer Website.  Tatsächlich kann es ihm schaden - Googles Bot ist sehr vorsichtig beim Crawlen von Seiten, die automatisch generiert aussehen."
+msgstr "Es ist nicht sehr freundlich für die Augen, und es tut nichts für die SEO deiner Website.  Tatsächlich kann es ihm schaden - Googles Bot ist sehr vorsichtig beim Crawlen von Seiten, die automatisch generiert aussehen."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:59
 msgid "The standard permalink structure is pretty ugly - WordPress generates offputting URLs like: http://www.yoursite.com/?p=99"
@@ -4624,16 +4624,16 @@ msgstr "Permalink-Struktur"
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:38
 msgid "The tagline is the second option.  Choose a tagline that summarizes your site in a few words.  The tagline is also a good place to use your main keyword."
-msgstr "Der Slogan ist die zweite Option.  Wähle einen Slogan, der deine Website in wenigen Worten zusammenfasst.  Der Slogan ist auch ein guter Ort, um dein Haupt-Keyword zu verwenden."
+msgstr "Der Slogan ist die zweite Option.  Wähle einen Slogan, der deine Website in wenigen Worten zusammenfasst.  Der Slogan ist auch ein guter Ort, um dein Haupt-Schlüsselwort zu verwenden."
 
 #. translators: link to general setting screen
 #: includes/modules/seo-analysis/seo-analysis-tests.php:37
 msgid "Changing your tagline is very easy.  Just head on over to <a target=\"_blank\" href=\"%1$s\">Settings - General</a> in WordPress's admin menu (on the left), or click on the link in this sentence."
-msgstr "Die Änderung Ihres Slogans ist sehr einfach.  Gehe einfach zu <a target=\"_blank\" href=\"%1$s\">Einstellungen - Allgemein</a> im WordPress-Adminmenü (links) oder klicke auf den Link in diesem Satz."
+msgstr "Die Änderung deines Slogans ist sehr einfach.  Gehe einfach zu <a target=\"_blank\" href=\"%1$s\">Einstellungen - Allgemein</a> im WordPress-Adminmenü (links) oder klicke auf den Link in diesem Satz."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:35
 msgid "Unfortunately, the standard WordPress tagline is \"Just Another WordPress site.\"  That's pretty sloppy looking, and it does nothing for your SEO.  In fact, it's actually a security risk - it makes it easy for hackers with a WordPress exploit to locate your site with an automated search."
-msgstr "Leider ist die Standardmarke von WordPress \"Nur eine weitere WordPress Seite\".  Dies sieht ziemlich schlampig aus und es tut nichts für Ihre SEO.  Tatsächlich stellt es ein Sicherheitsrisiko dar - es macht es Hackern mit einem WordPress-Exploit leicht, deine Website mit einer automatisierten Suche zu finden."
+msgstr "Leider ist die Standardmarke von WordPress \"Nur eine weitere WordPress Seite\".  Dies sieht ziemlich schlampig aus und es tut nichts für deine SEO. Tatsächlich stellt es ein Sicherheitsrisiko dar - es macht es Hackern mit einem WordPress-Exploit leicht, deine Website mit einer automatisierten Suche zu finden."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:34
 msgid "Most WordPress themes place your site's tagline in a prominent position (inside header tags near the top of the page).  Using the right tagline can give your site an SEO boost."
@@ -4762,7 +4762,7 @@ msgstr "Gesamtanzahl an Klicks"
 #: includes/modules/analytics/class-analytics.php:190
 #: includes/modules/analytics/views/email-reports/sections/summary.php:50
 msgid "Total Keywords"
-msgstr "Keywords insgesamt"
+msgstr "Schlüsselwörter insgesamt"
 
 #: includes/modules/status/class-system-status.php:194
 msgid "Not found"
@@ -4901,7 +4901,7 @@ msgstr "Rezeptausbeute"
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Keywords"
-msgstr "Keywords"
+msgstr "Schlüsselwörter"
 
 #: includes/modules/schema/shortcode/recipe.php:27
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
@@ -5122,7 +5122,7 @@ msgstr "Neu hinzufügen"
 
 #: includes/modules/redirections/views/help-tab-overview.php:18
 msgid "Redirections can be exported to your .htaccess file for faster redirections, in SEO > Settings > Import/Export."
-msgstr "Weiterleitungen können zur schnelleren Weiterleitung in Ihre .htaccess-Datei exportiert werden. Wähle dazu SEO> Einstellungen> Import/Export."
+msgstr "Weiterleitungen können zur schnelleren Weiterleitung in deine .htaccess-Datei exportiert werden. Wähle dazu SEO> Einstellungen> Import/Export."
 
 #: includes/modules/redirections/views/help-tab-overview.php:17
 msgid "Using a 302 <em>temporary</em> redirection is useful when you want to test a new page for client feedback temporarily without affecting the SEO scores of the original page."
@@ -5629,7 +5629,7 @@ msgstr "Logo"
 #: includes/modules/local-seo/views/titles-options.php:35
 #: includes/settings/titles/local.php:30
 msgid "Your name or company name"
-msgstr "Ihr Name oder Firmenname"
+msgstr "Dein Name oder Firmenname"
 
 #: includes/modules/local-seo/views/titles-options.php:34
 #: includes/modules/schema/shortcode/book.php:36
@@ -5693,7 +5693,7 @@ msgstr "Weitere hinzufügen"
 
 #: includes/modules/404-monitor/views/options.php:55
 msgid "Enter URIs or keywords you wish to prevent from getting logged by the 404 monitor."
-msgstr "Gib URLs oder Keywords ein, die vom 404-Monitor nicht protokolliert werden sollen."
+msgstr "URLs oder Schlüsselwörter eingeben, die vom 404-Monitor nicht protokolliert werden sollen."
 
 #: includes/modules/404-monitor/views/options.php:54
 msgid "Exclude Paths"
@@ -5721,7 +5721,7 @@ msgstr "Modus"
 
 #: includes/modules/404-monitor/views/options.php:20
 msgid "If you have hundreds of 404 errors, your error log might increase quickly. Only choose this option if you have a very few 404s and are unable to replicate the 404 error on a particular URL from your end."
-msgstr "Wenn du hunderte von 404-Fehlern hast, kann sich dein Fehlerprotokoll schnell erhöhen. Wähle diese Option nur, wenn du nur sehr wenige 404-Fehler hast und den 404-Fehler auf einer bestimmten URL von Ihrem Ende aus nicht replizieren können."
+msgstr "Wenn du hunderte von 404-Fehlern hast, kann sich dein Fehlerprotokoll schnell erhöhen. Wähle diese Option nur, wenn du nur sehr wenige 404-Fehler hast und den 404-Fehler auf einer bestimmten URL von ihrem Ende aus nicht replizieren können."
 
 #: includes/modules/404-monitor/views/help-tab-screen-content.php:19
 #: includes/modules/redirections/views/help-tab-screen-content.php:19
@@ -5741,7 +5741,7 @@ msgstr "Auf der Registerkarte Bildschirmoptionen kannst du festlegen, wie viele 
 #: includes/modules/404-monitor/views/help-tab-screen-content.php:16
 #: includes/modules/redirections/views/help-tab-screen-content.php:16
 msgid "You can hide/display columns based on your needs."
-msgstr "Du kannst Spalten entsprechend Ihren Anforderungen ein- und ausblenden."
+msgstr "Spalten lassen sich entsprechend den Anforderungen ein- und ausblenden."
 
 #: includes/modules/404-monitor/views/help-tab-screen-content.php:13
 #: includes/modules/redirections/views/help-tab-screen-content.php:13
@@ -7037,7 +7037,7 @@ msgstr "Deine PHP-Version: %s | Empfohlene Version: 7.4 | Mindestanforderung: 7.
 
 #: includes/admin/wizard/views/compatibility.php:62
 msgid "This plugin is compatible with your PHP version but we recommend updating to PHP 7.2 for increased speed and security."
-msgstr "Dieses Plugin ist mit Ihrer PHP-Version kompatibel. Wir empfehlen jedoch, ein Update auf PHP 7.2 durchzuführen, um die Geschwindigkeit und Sicherheit zu erhöhen."
+msgstr "Dieses Plugin ist mit deiner PHP-Version kompatibel. Wir empfehlen jedoch, ein Update auf PHP 7.2 durchzuführen, um die Geschwindigkeit und Sicherheit zu erhöhen."
 
 #: includes/admin/wizard/views/compatibility.php:61
 msgid "More information"
@@ -7789,7 +7789,7 @@ msgstr "Titel"
 
 #: includes/admin/class-post-columns.php:255
 msgid "Keyword"
-msgstr "Keyword"
+msgstr "Schlüsselwort"
 
 #: includes/admin/class-post-columns.php:196
 #: includes/admin/class-post-columns.php:218
