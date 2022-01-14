@@ -287,7 +287,7 @@ $aLang = [
 
 'entry_agree_error'     => 'Please accept our <strong>Terms and Conditions</strong> and <strong>Privacy Policy</strong>!',
 'agree'                 => 'By creating an account, you agree to the <a href="%s" target="_blank" rel="noopener"><strong>Terms and Conditions</strong></a> and <a href="%s" target="_blank" rel="noopener"><strong>Privacy Policy</strong></a>.',
-'newsletter_agree'      => 'Yes, I wish to receive occasional emails about special offers, new products and exclusive promotions. I can cancel my subscription at any time. (Optional)',
+'newsletter_agree'      => 'Yes, I wish to receive occasional emails about special offers, new products and exclusive promotions. I can cancel my subscription at any time.',
 
 'success_address_book_entry_deleted'    => 'The selected entry has been deleted successfully.',
 'warning_primary_address_deletion'      => 'The standard postal address can not be deleted.',

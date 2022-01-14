@@ -270,7 +270,7 @@ $aLang = [
 
 'entry_agree_error'                    => 'Bitte akzeptieren Sie unsere AGB und Datenschutzbestimmungen!',
 'agree'                                => 'Ja, ich stimme den <a href="%s" target="_blank" rel="noopener"><strong>AGB</strong></a> und den <a href="%s" target="_blank" rel="noopener"><strong>Datenschutzbestimmungen</strong></a> zu.',
-'newsletter_agree'                     => 'Ja, ich möchte per E-Mail-Newsletter über Trends, Aktionen &amp; Gutscheine informiert werden. Abmeldung jederzeit möglich. (optional)',
+'newsletter_agree'                     => 'Ja, ich möchte per E-Mail-Newsletter über Trends, Aktionen &amp; Gutscheine informiert werden. Abmeldung jederzeit möglich.',
 
 'success_address_book_entry_deleted'   => 'Die ausgewählte Adresse wurde erfolgreich gelöscht.',
 'warning_primary_address_deletion'     => 'Die Standardadresse kann nicht gelöscht werden.',
