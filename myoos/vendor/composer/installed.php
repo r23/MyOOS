@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '31302b5f1cf4c68dd233817a7814e5ab99bfe9d2',
+        'reference' => '3f4bd37777963da12c5b173ad0d309f22e2f87e4',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '31302b5f1cf4c68dd233817a7814e5ab99bfe9d2',
+            'reference' => '3f4bd37777963da12c5b173ad0d309f22e2f87e4',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -422,12 +422,12 @@
             'dev_requirement' => false,
         ),
         'smarty/smarty' => array(
-            'pretty_version' => 'v4.0.3',
-            'version' => '4.0.3.0',
+            'pretty_version' => 'v4.0.4',
+            'version' => '4.0.4.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../smarty/smarty',
             'aliases' => array(),
-            'reference' => 'f707dadecbc145bac40f77f47595f32ec18eed01',
+            'reference' => 'cdf0f2b164fbb9a96f86be97713a2426f0bb0c97',
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
