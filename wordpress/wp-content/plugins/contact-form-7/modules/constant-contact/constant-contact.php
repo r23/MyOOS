@@ -3,6 +3,7 @@
 wpcf7_include_module_file( 'constant-contact/service.php' );
 wpcf7_include_module_file( 'constant-contact/contact-post-request.php' );
 wpcf7_include_module_file( 'constant-contact/contact-form-properties.php' );
+wpcf7_include_module_file( 'constant-contact/doi.php' );
 
 
 add_action(
@@ -96,9 +97,27 @@ function wpcf7_constant_contact_submit( $contact_form, $result ) {
 		return;
 	}
 
-	if ( $email = $request_builder->get_email_address()
-	and $service->email_exists( $email ) ) {
-		return;
+	$email = $request_builder->get_email_address();
+
+	if ( $email ) {
+		if ( $service->email_exists( $email ) ) {
+			return;
+		}
+
+		$token = null;
+
+		do_action_ref_array( 'wpcf7_doi', array(
+			'wpcf7_constant_contact',
+			array(
+				'email_to' => $email,
+				'properties' => $request_builder->to_array(),
+			),
+			&$token,
+		) );
+
+		if ( isset( $token ) ) {
+			return;
+		}
 	}
 
 	$service->create_contact( $request_builder->to_array() );

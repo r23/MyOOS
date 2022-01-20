@@ -2,6 +2,7 @@
 
 wpcf7_include_module_file( 'sendinblue/service.php' );
 wpcf7_include_module_file( 'sendinblue/contact-form-properties.php' );
+wpcf7_include_module_file( 'sendinblue/doi.php' );
 
 
 add_action( 'wpcf7_init', 'wpcf7_sendinblue_register_service', 1, 0 );
@@ -69,65 +70,83 @@ function wpcf7_sendinblue_submit( $contact_form, $result ) {
 
 	$attributes = wpcf7_sendinblue_collect_parameters();
 
-	if ( empty( $attributes['EMAIL'] ) and empty( $attributes['SMS'] ) ) {
-		return;
-	}
-
-	$contact_params = apply_filters(
-		'wpcf7_sendinblue_contact_parameters',
-		array(
-			'email' => $attributes['EMAIL'],
-			'attributes' => (object) $attributes,
-			'listIds' => (array) $prop['contact_lists'],
-			'updateEnabled' => false,
-		)
+	$params = array(
+		'contact' => array(),
+		'email' => array(),
 	);
 
-	$contact_id = $service->create_contact( $contact_params );
-
-	if ( ! $contact_id ) {
-		return;
-	}
-
-	if ( ! $prop['enable_transactional_email'] or ! $prop['email_template'] ) {
-		return;
-	}
-
-	$first_name = isset( $attributes['FIRSTNAME'] )
-		? trim( $attributes['FIRSTNAME'] )
-		: '';
-
-	$last_name = isset( $attributes['LASTNAME'] )
-		? trim( $attributes['LASTNAME'] )
-		: '';
-
-	if ( $first_name or $last_name ) {
-		$email_to_name = sprintf(
-			/* translators: 1: first name, 2: last name */
-			_x( '%1$s %2$s', 'personal name', 'contact-form-7' ),
-			$first_name,
-			$last_name
+	if ( ! empty( $attributes['EMAIL'] ) or ! empty( $attributes['SMS'] ) ) {
+		$params['contact'] = apply_filters(
+			'wpcf7_sendinblue_contact_parameters',
+			array(
+				'email' => $attributes['EMAIL'],
+				'attributes' => (object) $attributes,
+				'listIds' => (array) $prop['contact_lists'],
+				'updateEnabled' => false,
+			)
 		);
-	} else {
-		$email_to_name = '';
 	}
 
-	$email_params = apply_filters(
-		'wpcf7_sendinblue_email_parameters',
-		array(
-			'templateId' => absint( $prop['email_template'] ),
-			'to' => array(
-				array(
-					'name' => $email_to_name,
-					'email' => $attributes['EMAIL'],
-				),
-			),
-			'params' => (object) $attributes,
-			'tags' => array( 'Contact Form 7' ),
-		)
-	);
+	if ( $prop['enable_transactional_email'] and $prop['email_template'] ) {
+		$first_name = isset( $attributes['FIRSTNAME'] )
+			? trim( $attributes['FIRSTNAME'] )
+			: '';
 
-	$service->send_email( $email_params );
+		$last_name = isset( $attributes['LASTNAME'] )
+			? trim( $attributes['LASTNAME'] )
+			: '';
+
+		if ( $first_name or $last_name ) {
+			$email_to_name = sprintf(
+				/* translators: 1: first name, 2: last name */
+				_x( '%1$s %2$s', 'personal name', 'contact-form-7' ),
+				$first_name,
+				$last_name
+			);
+		} else {
+			$email_to_name = '';
+		}
+
+		$params['email'] = apply_filters(
+			'wpcf7_sendinblue_email_parameters',
+			array(
+				'templateId' => absint( $prop['email_template'] ),
+				'to' => array(
+					array(
+						'name' => $email_to_name,
+						'email' => $attributes['EMAIL'],
+					),
+				),
+				'params' => (object) $attributes,
+				'tags' => array( 'Contact Form 7' ),
+			)
+		);
+	}
+
+	if ( is_email( $attributes['EMAIL'] ) ) {
+		$token = null;
+
+		do_action_ref_array( 'wpcf7_doi', array(
+			'wpcf7_sendinblue',
+			array(
+				'email_to' => $attributes['EMAIL'],
+				'properties' => $params,
+			),
+			&$token,
+		) );
+
+		if ( isset( $token ) ) {
+			return;
+		}
+	}
+
+	if ( ! empty( $params['contact'] ) ) {
+		$contact_id = $service->create_contact( $params['contact'] );
+
+		if ( $contact_id and ! empty( $params['email'] ) ) {
+			$service->send_email( $params['email'] );
+		}
+	}
 }
 
 
