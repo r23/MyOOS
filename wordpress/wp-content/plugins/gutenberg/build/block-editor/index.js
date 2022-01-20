@@ -18234,7 +18234,7 @@ function Iframe(_ref3, ref) {
       // be added in the editor too, which we'll somehow have to get from
       // the server in the future (which will run the PHP filters).
 
-      setBodyClasses(Array.from(ownerDocument.body.classList).filter(name => name.startsWith('admin-color-') || name === 'wp-embed-responsive'));
+      setBodyClasses(Array.from(ownerDocument.body.classList).filter(name => name.startsWith('admin-color-') || name.startsWith('post-type-') || name === 'wp-embed-responsive'));
       contentDocument.dir = ownerDocument.dir;
       documentElement.removeChild(contentDocument.head);
       documentElement.removeChild(contentDocument.body);
@@ -21926,7 +21926,7 @@ function InserterTabs(_ref) {
 
 
 
-function InserterMenu(_ref) {
+function InserterMenu(_ref, ref) {
   let {
     rootClientId,
     clientId,
@@ -22012,6 +22012,12 @@ function InserterMenu(_ref) {
 
     return reusableBlocksTab;
   }, [blocksTab, patternsTab, reusableBlocksTab]);
+  const searchRef = (0,external_wp_element_namespaceObject.useRef)();
+  (0,external_wp_element_namespaceObject.useImperativeHandle)(ref, () => ({
+    focusSearch: () => {
+      searchRef.current.focus();
+    }
+  }));
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-inserter__menu"
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -22026,7 +22032,8 @@ function InserterMenu(_ref) {
     },
     value: filterValue,
     label: (0,external_wp_i18n_namespaceObject.__)('Search for blocks and patterns'),
-    placeholder: (0,external_wp_i18n_namespaceObject.__)('Search')
+    placeholder: (0,external_wp_i18n_namespaceObject.__)('Search'),
+    ref: searchRef
   }), !!filterValue && (0,external_wp_element_namespaceObject.createElement)(search_results, {
     filterValue: filterValue,
     onSelect: onSelect,
@@ -22045,7 +22052,7 @@ function InserterMenu(_ref) {
   }));
 }
 
-/* harmony default export */ var menu = (InserterMenu);
+/* harmony default export */ var menu = ((0,external_wp_element_namespaceObject.forwardRef)(InserterMenu));
 //# sourceMappingURL=menu.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/quick-inserter.js
 
@@ -28368,7 +28375,6 @@ function ColorGradientControl(props) {
  */
 
 
-
 /**
  * Internal dependencies
  */
@@ -28388,7 +28394,7 @@ function ColorGradientSettingsDropdown(_ref) {
   let dropdownPosition;
 
   if (__experimentalIsRenderedInSidebar) {
-    dropdownPosition = (0,external_wp_i18n_namespaceObject.isRTL)() ? 'bottom right' : 'bottom left';
+    dropdownPosition = 'bottom left';
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, {
@@ -35554,9 +35560,11 @@ const useListViewContext = () => (0,external_wp_element_namespaceObject.useConte
 
 
 
+
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -35651,6 +35659,9 @@ function ListViewBlock(_ref) {
     'is-dragging': isDragged,
     'has-single-cell': hideBlockActions
   });
+  const blockInformation = useBlockDisplayInformation(clientId);
+  const settingsAriaLabel = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: The title of the block.
+  (0,external_wp_i18n_namespaceObject.__)('Options for %s block'), blockInformation.title);
   return (0,external_wp_element_namespaceObject.createElement)(ListViewLeaf, {
     className: classes,
     onMouseEnter: onMouseEnter,
@@ -35728,6 +35739,7 @@ function ListViewBlock(_ref) {
     return (0,external_wp_element_namespaceObject.createElement)(block_settings_dropdown, {
       clientIds: [clientId],
       icon: more_vertical,
+      label: settingsAriaLabel,
       toggleProps: {
         ref,
         className: 'block-editor-list-view-block__menu',
@@ -40459,7 +40471,7 @@ function LinkPreview(_ref) {
     className: "block-editor-link-control__search-item-info"
   }, displayURL)) : (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "block-editor-link-control__search-item-error-notice"
-  }, "Link is empty"))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+  }, (0,external_wp_i18n_namespaceObject.__)('Link is empty')))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     icon: library_edit,
     label: (0,external_wp_i18n_namespaceObject.__)('Edit'),
     className: "block-editor-link-control__search-item-action",
@@ -44751,6 +44763,7 @@ function BlockTools(_ref) {
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -44758,7 +44771,7 @@ function BlockTools(_ref) {
 
 
 
-function InserterLibrary(_ref) {
+function InserterLibrary(_ref, ref) {
   let {
     rootClientId,
     clientId,
@@ -44785,11 +44798,12 @@ function InserterLibrary(_ref) {
     showMostUsedBlocks: showMostUsedBlocks,
     __experimentalInsertionIndex: __experimentalInsertionIndex,
     __experimentalFilterValue: __experimentalFilterValue,
-    shouldFocusBlock: shouldFocusBlock
+    shouldFocusBlock: shouldFocusBlock,
+    ref: ref
   });
 }
 
-/* harmony default export */ var library = (InserterLibrary);
+/* harmony default export */ var library = ((0,external_wp_element_namespaceObject.forwardRef)(InserterLibrary));
 //# sourceMappingURL=library.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/keyboard-shortcuts/index.js
 /**

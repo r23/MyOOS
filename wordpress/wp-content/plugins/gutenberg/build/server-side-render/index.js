@@ -339,6 +339,7 @@ const ExportedServerSideRender = (0,external_wp_data_namespaceObject.withSelect)
 if (window && window.wp && window.wp.components) {
   window.wp.components.ServerSideRender = (0,external_wp_element_namespaceObject.forwardRef)((props, ref) => {
     external_wp_deprecated_default()('wp.components.ServerSideRender', {
+      version: '6.2',
       since: '5.3',
       alternative: 'wp.serverSideRender'
     });

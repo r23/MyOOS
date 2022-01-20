@@ -17630,7 +17630,6 @@ function Dashicon(_ref) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * WordPress dependencies
@@ -34771,7 +34770,6 @@ function createHighlighterText(_ref) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -34818,7 +34816,6 @@ function getHeadingFontSize() {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -35394,7 +35391,6 @@ function label_Label(_ref) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * WordPress dependencies
@@ -38387,7 +38383,6 @@ function useDragCursor(isDragging, dragDirection) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -38408,7 +38403,6 @@ const initialInputControlState = {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -38429,7 +38423,7 @@ const UPDATE = 'UPDATE';
 /**
  * External dependencies
  */
- // eslint-disable-next-line no-restricted-imports
+
 
 /**
  * WordPress dependencies
@@ -38815,7 +38809,7 @@ function use_update_effect_useUpdateEffect(effect, deps) {
  * External dependencies
  */
 
- // eslint-disable-next-line no-restricted-imports
+
 
 /**
  * WordPress dependencies
@@ -39056,7 +39050,7 @@ const ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(In
  * External dependencies
  */
 
- // eslint-disable-next-line no-restricted-imports
+
 
 /**
  * WordPress dependencies
@@ -39323,7 +39317,6 @@ function useSpacer(props) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -40044,18 +40037,23 @@ function font(value) {
  */
 
 
+
 const base_control_styles_Wrapper = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1puf3u3"
+  target: "e1puf3u4"
 } : 0)("font-family:", font('default.fontFamily'), ";font-size:", font('default.fontSize'), ";" + ( true ? "" : 0));
 const StyledField = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1puf3u2"
+  target: "e1puf3u3"
 } : 0)("margin-bottom:", space(2), ";.components-panel__row &{margin-bottom:inherit;}" + ( true ? "" : 0));
+const labelStyles = /*#__PURE__*/emotion_react_browser_esm_css("display:inline-block;margin-bottom:", space(2), ";" + ( true ? "" : 0),  true ? "" : 0);
 const StyledLabel = emotion_styled_base_browser_esm("label",  true ? {
-  target: "e1puf3u1"
-} : 0)("display:inline-block;margin-bottom:", space(2), ";" + ( true ? "" : 0));
+  target: "e1puf3u2"
+} : 0)(labelStyles, ";" + ( true ? "" : 0));
 const StyledHelp = emotion_styled_base_browser_esm("p",  true ? {
-  target: "e1puf3u0"
+  target: "e1puf3u1"
 } : 0)("font-size:", font('helpText.fontSize'), ";font-style:normal;color:", COLORS.mediumGray.text, ";" + ( true ? "" : 0));
+const StyledVisualLabel = emotion_styled_base_browser_esm("span",  true ? {
+  target: "e1puf3u0"
+} : 0)(labelStyles, ";" + ( true ? "" : 0));
 //# sourceMappingURL=base-control-styles.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/base-control/index.js
 
@@ -40134,9 +40132,8 @@ BaseControl.VisualLabel = _ref2 => {
     className,
     children
   } = _ref2;
-  className = classnames_default()('components-base-control__label', className);
-  return (0,external_wp_element_namespaceObject.createElement)("span", {
-    className: className
+  return (0,external_wp_element_namespaceObject.createElement)(StyledVisualLabel, {
+    className: classnames_default()('components-base-control__label', className)
   }, children);
 };
 
@@ -40834,7 +40831,6 @@ function getUnitsWithCurrentUnit(currentValue, legacyUnit) {
  * External dependencies
  */
 
- // eslint-disable-next-line no-restricted-imports
 
 
 
@@ -40976,7 +40972,6 @@ function useControlledState(currentState) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 
 /**
@@ -43361,7 +43356,7 @@ const DividerView = emotion_styled_base_browser_esm("hr",  true ? {
  * External dependencies
  */
 // eslint-disable-next-line no-restricted-imports
- // eslint-disable-next-line no-restricted-imports
+
 
 /**
  * Internal dependencies
@@ -44060,7 +44055,6 @@ function getAlignmentProps(alignment) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * WordPress dependencies
@@ -44301,7 +44295,7 @@ const DownArrowWrapper = emotion_styled_base_browser_esm("div",  true ? {
  * External dependencies
  */
 
- // eslint-disable-next-line no-restricted-imports
+
 
 /**
  * WordPress dependencies
@@ -48054,7 +48048,6 @@ var Tooltip_Tooltip = createComponent({
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -48820,8 +48813,6 @@ function useControlledValue(_ref) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
-
 
 
 /**
@@ -48875,7 +48866,7 @@ const ColorPicker = (props, forwardedRef) => {
     return w(color);
   }, [color]);
   const debouncedSetColor = (0,external_wp_compose_namespaceObject.useDebounce)(setColor);
-  const handleChange = (0,external_React_.useCallback)(nextValue => {
+  const handleChange = (0,external_wp_element_namespaceObject.useCallback)(nextValue => {
     debouncedSetColor(nextValue.toHex());
   }, [debouncedSetColor]);
   const [showInputs, setShowInputs] = (0,external_wp_element_namespaceObject.useState)(false);
@@ -48921,7 +48912,6 @@ const ConnectedColorPicker = contextConnect(ColorPicker, 'ColorPicker');
 /**
  * External dependencies
  */
- // eslint-disable-next-line no-restricted-imports
 
 
 /**
@@ -49099,7 +49089,6 @@ const useItemGroupContext = () => (0,external_wp_element_namespaceObject.useCont
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -49461,7 +49450,6 @@ function useHeading(props) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -49649,7 +49637,7 @@ function ColorPalette(_ref6) {
   let dropdownPosition;
 
   if (__experimentalIsRenderedInSidebar) {
-    dropdownPosition = (0,external_wp_i18n_namespaceObject.isRTL)() ? 'bottom right' : 'bottom left';
+    dropdownPosition = 'bottom left';
   }
 
   const colordColor = w(value);
@@ -49948,7 +49936,7 @@ function GradientColorPickerDropdown(_ref2) {
 
     if (isRenderedInSidebar) {
       result.anchorRef = gradientPickerDomRef.current;
-      result.position = (0,external_wp_i18n_namespaceObject.isRTL)() ? 'bottom right' : 'bottom left';
+      result.position = 'bottom left';
     }
 
     return result;
@@ -51228,7 +51216,6 @@ function DropdownMenu(dropdownMenuProps) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * WordPress dependencies
@@ -51277,7 +51264,6 @@ function hook_useItem(props) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -51775,110 +51761,104 @@ var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
 
 
+const emptyList = Object.freeze([]);
 
-class SuggestionsList extends external_wp_element_namespaceObject.Component {
-  constructor() {
-    super(...arguments);
-    this.handleMouseDown = this.handleMouseDown.bind(this);
-    this.bindList = this.bindList.bind(this);
-  }
+const handleMouseDown = e => {
+  // By preventing default here, we will not lose focus of <input> when clicking a suggestion
+  e.preventDefault();
+};
 
-  componentDidUpdate() {
+function SuggestionsList(_ref) {
+  let {
+    selectedIndex,
+    scrollIntoView,
+    match = '',
+    onHover,
+    onSelect,
+    suggestions = emptyList,
+    displayTransform,
+    instanceId,
+    setTimeout
+  } = _ref;
+  const [scrollingIntoView, setScrollingIntoView] = (0,external_wp_element_namespaceObject.useState)(false);
+  const listRef = (0,external_wp_compose_namespaceObject.useRefEffect)(listNode => {
     // only have to worry about scrolling selected suggestion into view
     // when already expanded
-    if (this.props.selectedIndex > -1 && this.props.scrollIntoView && this.list.children[this.props.selectedIndex]) {
-      this.scrollingIntoView = true;
-      lib_default()(this.list.children[this.props.selectedIndex], this.list, {
+    if (selectedIndex > -1 && scrollIntoView && listNode.children[selectedIndex]) {
+      setScrollingIntoView(true);
+      lib_default()(listNode.children[selectedIndex], listNode, {
         onlyScrollIfNeeded: true
       });
-      this.props.setTimeout(() => {
-        this.scrollingIntoView = false;
+      setTimeout(() => {
+        setScrollingIntoView(false);
       }, 100);
     }
-  }
+  }, [selectedIndex, scrollIntoView]);
 
-  bindList(ref) {
-    this.list = ref;
-  }
-
-  handleHover(suggestion) {
+  const handleHover = suggestion => {
     return () => {
-      if (!this.scrollingIntoView) {
-        this.props.onHover(suggestion);
+      if (!scrollingIntoView) {
+        onHover === null || onHover === void 0 ? void 0 : onHover(suggestion);
       }
     };
-  }
+  };
 
-  handleClick(suggestion) {
+  const handleClick = suggestion => {
     return () => {
-      this.props.onSelect(suggestion);
+      onSelect === null || onSelect === void 0 ? void 0 : onSelect(suggestion);
     };
-  }
+  };
 
-  handleMouseDown(e) {
-    // By preventing default here, we will not lose focus of <input> when clicking a suggestion
-    e.preventDefault();
-  }
+  const computeSuggestionMatch = suggestion => {
+    const matchText = displayTransform(match || '').toLocaleLowerCase();
 
-  computeSuggestionMatch(suggestion) {
-    const match = this.props.displayTransform(this.props.match || '').toLocaleLowerCase();
-
-    if (match.length === 0) {
+    if (matchText.length === 0) {
       return null;
     }
 
-    suggestion = this.props.displayTransform(suggestion);
-    const indexOfMatch = suggestion.toLocaleLowerCase().indexOf(match);
+    suggestion = displayTransform(suggestion);
+    const indexOfMatch = suggestion.toLocaleLowerCase().indexOf(matchText);
     return {
       suggestionBeforeMatch: suggestion.substring(0, indexOfMatch),
-      suggestionMatch: suggestion.substring(indexOfMatch, indexOfMatch + match.length),
-      suggestionAfterMatch: suggestion.substring(indexOfMatch + match.length)
+      suggestionMatch: suggestion.substring(indexOfMatch, indexOfMatch + matchText.length),
+      suggestionAfterMatch: suggestion.substring(indexOfMatch + matchText.length)
     };
-  }
+  }; // We set `tabIndex` here because otherwise Firefox sets focus on this
+  // div when tabbing off of the input in `TokenField` -- not really sure
+  // why, since usually a div isn't focusable by default
+  // TODO does this still apply now that it's a <ul> and not a <div>?
 
-  render() {
-    // We set `tabIndex` here because otherwise Firefox sets focus on this
-    // div when tabbing off of the input in `TokenField` -- not really sure
-    // why, since usually a div isn't focusable by default
-    // TODO does this still apply now that it's a <ul> and not a <div>?
-    return (0,external_wp_element_namespaceObject.createElement)("ul", {
-      ref: this.bindList,
-      className: "components-form-token-field__suggestions-list",
-      id: `components-form-token-suggestions-${this.props.instanceId}`,
-      role: "listbox"
-    }, (0,external_lodash_namespaceObject.map)(this.props.suggestions, (suggestion, index) => {
-      const match = this.computeSuggestionMatch(suggestion);
-      const classeName = classnames_default()('components-form-token-field__suggestion', {
-        'is-selected': index === this.props.selectedIndex
-      });
-      /* eslint-disable jsx-a11y/click-events-have-key-events */
 
-      return (0,external_wp_element_namespaceObject.createElement)("li", {
-        id: `components-form-token-suggestions-${this.props.instanceId}-${index}`,
-        role: "option",
-        className: classeName,
-        key: suggestion !== null && suggestion !== void 0 && suggestion.value ? suggestion.value : this.props.displayTransform(suggestion),
-        onMouseDown: this.handleMouseDown,
-        onClick: this.handleClick(suggestion),
-        onMouseEnter: this.handleHover(suggestion),
-        "aria-selected": index === this.props.selectedIndex
-      }, match ? (0,external_wp_element_namespaceObject.createElement)("span", {
-        "aria-label": this.props.displayTransform(suggestion)
-      }, match.suggestionBeforeMatch, (0,external_wp_element_namespaceObject.createElement)("strong", {
-        className: "components-form-token-field__suggestion-match"
-      }, match.suggestionMatch), match.suggestionAfterMatch) : this.props.displayTransform(suggestion));
-      /* eslint-enable jsx-a11y/click-events-have-key-events */
-    }));
-  }
+  return (0,external_wp_element_namespaceObject.createElement)("ul", {
+    ref: listRef,
+    className: "components-form-token-field__suggestions-list",
+    id: `components-form-token-suggestions-${instanceId}`,
+    role: "listbox"
+  }, (0,external_lodash_namespaceObject.map)(suggestions, (suggestion, index) => {
+    const matchText = computeSuggestionMatch(suggestion);
+    const className = classnames_default()('components-form-token-field__suggestion', {
+      'is-selected': index === selectedIndex
+    });
+    /* eslint-disable jsx-a11y/click-events-have-key-events */
 
+    return (0,external_wp_element_namespaceObject.createElement)("li", {
+      id: `components-form-token-suggestions-${instanceId}-${index}`,
+      role: "option",
+      className: className,
+      key: suggestion !== null && suggestion !== void 0 && suggestion.value ? suggestion.value : displayTransform(suggestion),
+      onMouseDown: handleMouseDown,
+      onClick: handleClick(suggestion),
+      onMouseEnter: handleHover(suggestion),
+      "aria-selected": index === selectedIndex
+    }, matchText ? (0,external_wp_element_namespaceObject.createElement)("span", {
+      "aria-label": displayTransform(suggestion)
+    }, matchText.suggestionBeforeMatch, (0,external_wp_element_namespaceObject.createElement)("strong", {
+      className: "components-form-token-field__suggestion-match"
+    }, matchText.suggestionMatch), matchText.suggestionAfterMatch) : displayTransform(suggestion));
+    /* eslint-enable jsx-a11y/click-events-have-key-events */
+  }));
 }
 
-SuggestionsList.defaultProps = {
-  match: '',
-  onHover: () => {},
-  onSelect: () => {},
-  suggestions: Object.freeze([])
-};
 /* harmony default export */ var suggestions_list = ((0,external_wp_compose_namespaceObject.withSafeTimeout)(SuggestionsList));
 //# sourceMappingURL=suggestions-list.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/higher-order/with-focus-outside/index.js
@@ -52490,8 +52470,6 @@ function Modal(props, forwardedRef) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
- // eslint-disable-next-line no-restricted-imports
 
 /**
  * WordPress dependencies
@@ -52517,9 +52495,9 @@ function ConfirmDialog(props, forwardedRef) {
     children,
     ...otherProps
   } = useContextSystem(props, 'ConfirmDialog');
-  const [isOpen, setIsOpen] = (0,external_React_.useState)();
-  const [shouldSelfClose, setShouldSelfClose] = (0,external_React_.useState)();
-  (0,external_React_.useEffect)(() => {
+  const [isOpen, setIsOpen] = (0,external_wp_element_namespaceObject.useState)();
+  const [shouldSelfClose, setShouldSelfClose] = (0,external_wp_element_namespaceObject.useState)();
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
     // We only allow the dialog to close itself if `isOpenProp` is *not* set.
     // If `isOpenProp` is set, then it (probably) means it's controlled by a
     // parent component. In that case, `shouldSelfClose` might do more harm than
@@ -56682,6 +56660,7 @@ function useMultipleSelection(userProps) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -56773,7 +56752,13 @@ function CustomSelectControl(_ref3) {
   const menuProps = getMenuProps({
     className: 'components-custom-select-control__menu',
     'aria-hidden': !isOpen
-  }); // We need this here, because the null active descendant is not fully ARIA compliant.
+  });
+  const onKeyDownHandler = (0,external_wp_element_namespaceObject.useCallback)(e => {
+    var _menuProps$onKeyDown;
+
+    e.stopPropagation();
+    menuProps === null || menuProps === void 0 ? void 0 : (_menuProps$onKeyDown = menuProps.onKeyDown) === null || _menuProps$onKeyDown === void 0 ? void 0 : _menuProps$onKeyDown.call(menuProps, e);
+  }, [menuProps]); // We need this here, because the null active descendant is not fully ARIA compliant.
 
   if ((_menuProps$ariaActiv = menuProps['aria-activedescendant']) !== null && _menuProps$ariaActiv !== void 0 && _menuProps$ariaActiv.startsWith('downshift-null')) {
     delete menuProps['aria-activedescendant'];
@@ -56797,7 +56782,9 @@ function CustomSelectControl(_ref3) {
   }), custom_select_control_itemToString(selectedItem), (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
     icon: chevron_down,
     className: "components-custom-select-control__button-icon"
-  })), (0,external_wp_element_namespaceObject.createElement)("ul", menuProps, isOpen && items.map((item, index) => // eslint-disable-next-line react/jsx-key
+  })), (0,external_wp_element_namespaceObject.createElement)("ul", extends_extends({}, menuProps, {
+    onKeyDown: onKeyDownHandler
+  }), isOpen && items.map((item, index) => // eslint-disable-next-line react/jsx-key
   (0,external_wp_element_namespaceObject.createElement)("li", getItemProps({
     item,
     index,
@@ -58726,8 +58713,8 @@ function external_link_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You hav
 const StyledIcon = /*#__PURE__*/emotion_styled_base_browser_esm(icons_build_module_icon,  true ? {
   target: "etxm6pv0"
 } : 0)( true ? {
-  name: "bqq7t3",
-  styles: "width:1.4em;height:1.4em;margin:-0.2em 0.1em 0;vertical-align:middle;fill:currentColor"
+  name: "rvs7bx",
+  styles: "width:1em;height:1em;margin:0;vertical-align:middle;fill:currentColor"
 } : 0);
 //# sourceMappingURL=external-link-styles.js.map
 ;// CONCATENATED MODULE: ./packages/components/build-module/external-link/index.js
@@ -61528,7 +61515,6 @@ const useToggleGroupControlContext = () => (0,external_wp_element_namespaceObjec
  * External dependencies
  */
 // eslint-disable-next-line no-restricted-imports
-// eslint-disable-next-line no-restricted-imports
 
 
 /**
@@ -61856,7 +61842,6 @@ const medium = /*#__PURE__*/emotion_react_browser_esm_css("min-height:", config_
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 // eslint-disable-next-line no-restricted-imports
 
 /**
@@ -63880,7 +63865,6 @@ const search = (0,external_wp_element_namespaceObject.createElement)(external_wp
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 function useCombinedRef() {
   for (var _len = arguments.length, refs = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -64998,7 +64982,6 @@ function component_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to 
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * WordPress dependencies
@@ -65098,7 +65081,6 @@ function navigator_screen_component_EMOTION_STRINGIFIED_CSS_ERROR_() { return "Y
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 // eslint-disable-next-line no-restricted-imports
 
 
@@ -67289,7 +67271,6 @@ const LabelText = /*#__PURE__*/emotion_styled_base_browser_esm(text_component,  
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * WordPress dependencies
@@ -67368,15 +67349,15 @@ const label_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardR
  */
 
 
+
 /**
  * WordPress dependencies
  */
 
- // eslint-disable-next-line no-restricted-imports
-
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -69235,7 +69216,6 @@ function useToolsPanelHeader(props) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * WordPress dependencies
@@ -69601,7 +69581,6 @@ function useToolsPanel(props) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -69748,7 +69727,6 @@ function useToolsPanelItem(props) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -70321,7 +70299,6 @@ const positionRelative =  true ? {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * WordPress dependencies

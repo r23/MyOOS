@@ -1115,28 +1115,6 @@ __webpack_require__.d(build_module_file_namespaceObject, {
   "settings": function() { return file_settings; }
 });
 
-// NAMESPACE OBJECT: ./packages/interface/build-module/store/actions.js
-var actions_namespaceObject = {};
-__webpack_require__.r(actions_namespaceObject);
-__webpack_require__.d(actions_namespaceObject, {
-  "disableComplementaryArea": function() { return disableComplementaryArea; },
-  "enableComplementaryArea": function() { return enableComplementaryArea; },
-  "pinItem": function() { return pinItem; },
-  "setFeatureDefaults": function() { return setFeatureDefaults; },
-  "setFeatureValue": function() { return setFeatureValue; },
-  "toggleFeature": function() { return toggleFeature; },
-  "unpinItem": function() { return unpinItem; }
-});
-
-// NAMESPACE OBJECT: ./packages/interface/build-module/store/selectors.js
-var selectors_namespaceObject = {};
-__webpack_require__.r(selectors_namespaceObject);
-__webpack_require__.d(selectors_namespaceObject, {
-  "getActiveComplementaryArea": function() { return getActiveComplementaryArea; },
-  "isFeatureActive": function() { return isFeatureActive; },
-  "isItemPinned": function() { return isItemPinned; }
-});
-
 // NAMESPACE OBJECT: ./packages/block-library/build-module/gallery/index.js
 var build_module_gallery_namespaceObject = {};
 __webpack_require__.r(build_module_gallery_namespaceObject);
@@ -1903,6 +1881,9 @@ const audio = (0,external_wp_element_namespaceObject.createElement)(external_wp_
 
 }]);
 //# sourceMappingURL=deprecated.js.map
+// EXTERNAL MODULE: ./node_modules/classnames/index.js
+var classnames = __webpack_require__(4184);
+var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 ;// CONCATENATED MODULE: external ["wp","blob"]
 var external_wp_blob_namespaceObject = window["wp"]["blob"];
 ;// CONCATENATED MODULE: external ["wp","data"]
@@ -2278,8 +2259,13 @@ const getAttributesFromPreview = memize_default()(function (preview, title, curr
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
+
 
 
 
@@ -2298,6 +2284,7 @@ const ALLOWED_MEDIA_TYPES = ['audio'];
 function AudioEdit(_ref) {
   let {
     attributes,
+    className,
     noticeOperations,
     setAttributes,
     onReplace,
@@ -2313,7 +2300,7 @@ function AudioEdit(_ref) {
     preload,
     src
   } = attributes;
-  const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)();
+  const isTemporaryAudio = !id && (0,external_wp_blob_namespaceObject.isBlobURL)(src);
   const mediaUpload = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       getSettings
@@ -2388,8 +2375,7 @@ function AudioEdit(_ref) {
 
   function getAutoplayHelp(checked) {
     return checked ? (0,external_wp_i18n_namespaceObject.__)('Autoplay may cause usability issues for some users.') : null;
-  } // const { setAttributes, isSelected, noticeUI } = this.props;
-
+  }
 
   function onSelectAudio(media) {
     if (!media || !media.url) {
@@ -2409,6 +2395,13 @@ function AudioEdit(_ref) {
       id: media.id
     });
   }
+
+  const classes = classnames_default()(className, {
+    'is-transient': isTemporaryAudio
+  });
+  const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
+    className: classes
+  });
 
   if (!src) {
     return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.MediaPlaceholder, {
@@ -2471,7 +2464,7 @@ function AudioEdit(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)("audio", {
     controls: "controls",
     src: src
-  })), (!external_wp_blockEditor_namespaceObject.RichText.isEmpty(caption) || isSelected) && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
+  })), isTemporaryAudio && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null), (!external_wp_blockEditor_namespaceObject.RichText.isEmpty(caption) || isSelected) && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
     tagName: "figcaption",
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Audio caption text'),
     placeholder: (0,external_wp_i18n_namespaceObject.__)('Add caption'),
@@ -2694,9 +2687,6 @@ const button_button = (0,external_wp_element_namespaceObject.createElement)(exte
 }));
 /* harmony default export */ var library_button = (button_button);
 //# sourceMappingURL=button.js.map
-// EXTERNAL MODULE: ./node_modules/classnames/index.js
-var classnames = __webpack_require__(4184);
-var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 ;// CONCATENATED MODULE: external ["wp","compose"]
 var external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/utils/clean-empty-object.js
@@ -6718,10 +6708,20 @@ const columns_metadata = {
       link: true
     },
     spacing: {
+      blockGap: true,
       margin: ["top", "bottom"],
       padding: true,
       __experimentalDefaultControls: {
         padding: true
+      }
+    },
+    __experimentalLayout: {
+      allowSwitching: false,
+      allowInheriting: false,
+      allowEditing: false,
+      "default": {
+        type: "flex",
+        flexWrap: "nowrap"
       }
     }
   },
@@ -13117,12 +13117,8 @@ function runV2Migration(attributes) {
   const imageBlocks = attributes.images.map(image => {
     return getImageBlock(image, attributes.sizeSlug, linkTo);
   });
-  return [{
-    caption: attributes.caption,
-    columns: attributes.columns,
-    imageCrop: attributes.imageCrop,
+  return [{ ...(0,external_lodash_namespaceObject.omit)(attributes, ['images', 'ids']),
     linkTo,
-    sizeSlug: attributes.sizeSlug,
     allowResize: false
   }, imageBlocks];
 }
@@ -13213,6 +13209,10 @@ const deprecated_v6 = {
       selector: '.blocks-gallery-caption'
     },
     imageCrop: {
+      type: 'boolean',
+      default: true
+    },
+    fixedHeight: {
       type: 'boolean',
       default: true
     },
@@ -14430,461 +14430,6 @@ function useGetMedia(innerBlockImages) {
   return currentImageMedia;
 }
 //# sourceMappingURL=use-get-media.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/reducer.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Reducer to keep tract of the active area per scope.
- *
- * @param {boolean} state           Previous state.
- * @param {Object}  action          Action object.
- * @param {string}  action.type     Action type.
- * @param {string}  action.itemType Type of item.
- * @param {string}  action.scope    Item scope.
- * @param {string}  action.item     Item name.
- *
- * @return {Object} Updated state.
- */
-
-function singleEnableItems() {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let {
-    type,
-    itemType,
-    scope,
-    item
-  } = arguments.length > 1 ? arguments[1] : undefined;
-
-  if (type !== 'SET_SINGLE_ENABLE_ITEM' || !itemType || !scope) {
-    return state;
-  }
-
-  return { ...state,
-    [itemType]: { ...state[itemType],
-      [scope]: item || null
-    }
-  };
-}
-/**
- * Reducer keeping track of the "pinned" items per scope.
- *
- * @param {boolean} state           Previous state.
- * @param {Object}  action          Action object.
- * @param {string}  action.type     Action type.
- * @param {string}  action.itemType Type of item.
- * @param {string}  action.scope    Item scope.
- * @param {string}  action.item     Item name.
- * @param {boolean} action.isEnable Whether the item is pinned.
- *
- * @return {Object} Updated state.
- */
-
-function multipleEnableItems() {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let {
-    type,
-    itemType,
-    scope,
-    item,
-    isEnable
-  } = arguments.length > 1 ? arguments[1] : undefined;
-
-  if (type !== 'SET_MULTIPLE_ENABLE_ITEM' || !itemType || !scope || !item || (0,external_lodash_namespaceObject.get)(state, [itemType, scope, item]) === isEnable) {
-    return state;
-  }
-
-  const currentTypeState = state[itemType] || {};
-  const currentScopeState = currentTypeState[scope] || {};
-  return { ...state,
-    [itemType]: { ...currentTypeState,
-      [scope]: { ...currentScopeState,
-        [item]: isEnable || false
-      }
-    }
-  };
-}
-/**
- * Reducer returning the defaults for user preferences.
- *
- * This is kept intentionally separate from the preferences
- * themselves so that defaults are not persisted.
- *
- * @param {Object} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {Object} Updated state.
- */
-
-const preferenceDefaults = (0,external_wp_data_namespaceObject.combineReducers)({
-  features() {
-    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    let action = arguments.length > 1 ? arguments[1] : undefined;
-
-    if (action.type === 'SET_FEATURE_DEFAULTS') {
-      const {
-        scope,
-        defaults
-      } = action;
-      return { ...state,
-        [scope]: { ...state[scope],
-          ...defaults
-        }
-      };
-    }
-
-    return state;
-  }
-
-});
-/**
- * Reducer returning the user preferences.
- *
- * @param {Object} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {Object} Updated state.
- */
-
-const preferences = (0,external_wp_data_namespaceObject.combineReducers)({
-  features() {
-    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    let action = arguments.length > 1 ? arguments[1] : undefined;
-
-    if (action.type === 'SET_FEATURE_VALUE') {
-      const {
-        scope,
-        featureName,
-        value
-      } = action;
-      return { ...state,
-        [scope]: { ...state[scope],
-          [featureName]: value
-        }
-      };
-    }
-
-    return state;
-  }
-
-});
-const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
-  singleEnableItems,
-  multipleEnableItems
-});
-/* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
-  enableItems,
-  preferenceDefaults,
-  preferences
-}));
-//# sourceMappingURL=reducer.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/actions.js
-/**
- * Returns an action object used in signalling that an active area should be changed.
- *
- * @param {string} itemType Type of item.
- * @param {string} scope    Item scope.
- * @param {string} item     Item identifier.
- *
- * @return {Object} Action object.
- */
-function setSingleEnableItem(itemType, scope, item) {
-  return {
-    type: 'SET_SINGLE_ENABLE_ITEM',
-    itemType,
-    scope,
-    item
-  };
-}
-/**
- * Returns an action object used in signalling that a complementary item should be enabled.
- *
- * @param {string} scope Complementary area scope.
- * @param {string} area  Area identifier.
- *
- * @return {Object} Action object.
- */
-
-
-function enableComplementaryArea(scope, area) {
-  return setSingleEnableItem('complementaryArea', scope, area);
-}
-/**
- * Returns an action object used in signalling that the complementary area of a given scope should be disabled.
- *
- * @param {string} scope Complementary area scope.
- *
- * @return {Object} Action object.
- */
-
-function disableComplementaryArea(scope) {
-  return setSingleEnableItem('complementaryArea', scope, undefined);
-}
-/**
- * Returns an action object to make an area enabled/disabled.
- *
- * @param {string}  itemType Type of item.
- * @param {string}  scope    Item scope.
- * @param {string}  item     Item identifier.
- * @param {boolean} isEnable Boolean indicating if an area should be pinned or not.
- *
- * @return {Object} Action object.
- */
-
-function setMultipleEnableItem(itemType, scope, item, isEnable) {
-  return {
-    type: 'SET_MULTIPLE_ENABLE_ITEM',
-    itemType,
-    scope,
-    item,
-    isEnable
-  };
-}
-/**
- * Returns an action object used in signalling that an item should be pinned.
- *
- * @param {string} scope  Item scope.
- * @param {string} itemId Item identifier.
- *
- * @return {Object} Action object.
- */
-
-
-function pinItem(scope, itemId) {
-  return setMultipleEnableItem('pinnedItems', scope, itemId, true);
-}
-/**
- * Returns an action object used in signalling that an item should be unpinned.
- *
- * @param {string} scope  Item scope.
- * @param {string} itemId Item identifier.
- *
- * @return {Object} Action object.
- */
-
-function unpinItem(scope, itemId) {
-  return setMultipleEnableItem('pinnedItems', scope, itemId, false);
-}
-/**
- * Returns an action object used in signalling that a feature should be toggled.
- *
- * @param {string} scope       The feature scope (e.g. core/edit-post).
- * @param {string} featureName The feature name.
- */
-
-function toggleFeature(scope, featureName) {
-  return function (_ref) {
-    let {
-      select,
-      dispatch
-    } = _ref;
-    const currentValue = select.isFeatureActive(scope, featureName);
-    dispatch.setFeatureValue(scope, featureName, !currentValue);
-  };
-}
-/**
- * Returns an action object used in signalling that a feature should be set to
- * a true or false value
- *
- * @param {string}  scope       The feature scope (e.g. core/edit-post).
- * @param {string}  featureName The feature name.
- * @param {boolean} value       The value to set.
- *
- * @return {Object} Action object.
- */
-
-function setFeatureValue(scope, featureName, value) {
-  return {
-    type: 'SET_FEATURE_VALUE',
-    scope,
-    featureName,
-    value: !!value
-  };
-}
-/**
- * Returns an action object used in signalling that defaults should be set for features.
- *
- * @param {string}                  scope    The feature scope (e.g. core/edit-post).
- * @param {Object<string, boolean>} defaults A key/value map of feature names to values.
- *
- * @return {Object} Action object.
- */
-
-function setFeatureDefaults(scope, defaults) {
-  return {
-    type: 'SET_FEATURE_DEFAULTS',
-    scope,
-    defaults
-  };
-}
-//# sourceMappingURL=actions.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/selectors.js
-/**
- * External dependencies
- */
-
-/**
- * Returns the item that is enabled in a given scope.
- *
- * @param {Object} state    Global application state.
- * @param {string} itemType Type of item.
- * @param {string} scope    Item scope.
- *
- * @return {?string|null} The item that is enabled in the passed scope and type.
- */
-
-function getSingleEnableItem(state, itemType, scope) {
-  return (0,external_lodash_namespaceObject.get)(state.enableItems.singleEnableItems, [itemType, scope]);
-}
-/**
- * Returns the complementary area that is active in a given scope.
- *
- * @param {Object} state Global application state.
- * @param {string} scope Item scope.
- *
- * @return {string} The complementary area that is active in the given scope.
- */
-
-
-function getActiveComplementaryArea(state, scope) {
-  return getSingleEnableItem(state, 'complementaryArea', scope);
-}
-/**
- * Returns a boolean indicating if an item is enabled or not in a given scope.
- *
- * @param {Object} state    Global application state.
- * @param {string} itemType Type of item.
- * @param {string} scope    Scope.
- * @param {string} item     Item to check.
- *
- * @return {boolean|undefined} True if the item is enabled, false otherwise if the item is explicitly disabled, and undefined if there is no information for that item.
- */
-
-function isMultipleEnabledItemEnabled(state, itemType, scope, item) {
-  return (0,external_lodash_namespaceObject.get)(state.enableItems.multipleEnableItems, [itemType, scope, item]);
-}
-/**
- * Returns a boolean indicating if an item is pinned or not.
- *
- * @param {Object} state Global application state.
- * @param {string} scope Scope.
- * @param {string} item  Item to check.
- *
- * @return {boolean} True if the item is pinned and false otherwise.
- */
-
-
-function isItemPinned(state, scope, item) {
-  return isMultipleEnabledItemEnabled(state, 'pinnedItems', scope, item) !== false;
-}
-/**
- * Returns a boolean indicating whether a feature is active for a particular
- * scope.
- *
- * @param {Object} state       The store state.
- * @param {string} scope       The scope of the feature (e.g. core/edit-post).
- * @param {string} featureName The name of the feature.
- *
- * @return {boolean} Is the feature enabled?
- */
-
-function isFeatureActive(state, scope, featureName) {
-  var _state$preferences$fe, _state$preferenceDefa;
-
-  const featureValue = (_state$preferences$fe = state.preferences.features[scope]) === null || _state$preferences$fe === void 0 ? void 0 : _state$preferences$fe[featureName];
-  const defaultedFeatureValue = featureValue !== undefined ? featureValue : (_state$preferenceDefa = state.preferenceDefaults.features[scope]) === null || _state$preferenceDefa === void 0 ? void 0 : _state$preferenceDefa[featureName];
-  return !!defaultedFeatureValue;
-}
-//# sourceMappingURL=selectors.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
-/**
- * The identifier for the data store.
- *
- * @type {string}
- */
-const STORE_NAME = 'core/interface';
-//# sourceMappingURL=constants.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/index.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-/**
- * Store definition for the interface namespace.
- *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
- *
- * @type {Object}
- */
-
-const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, {
-  reducer: reducer,
-  actions: actions_namespaceObject,
-  selectors: selectors_namespaceObject,
-  persist: ['enableItems', 'preferences'],
-  __experimentalUseThunks: true
-}); // Once we build a more generic persistence plugin that works across types of stores
-// we'd be able to replace this with a register call.
-
-(0,external_wp_data_namespaceObject.registerStore)(STORE_NAME, {
-  reducer: reducer,
-  actions: actions_namespaceObject,
-  selectors: selectors_namespaceObject,
-  persist: ['enableItems', 'preferences'],
-  __experimentalUseThunks: true
-});
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/interface/build-module/index.js
-
-
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/block-library/build-module/gallery/use-mobile-warning.js
-/**
- * WordPress dependencies
- */
-
-
-
-
-function useMobileWarning(newImages) {
-  const {
-    createWarningNotice
-  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
-  const {
-    toggleFeature
-  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
-  const isMobileWarningActive = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      isFeatureActive
-    } = select(store);
-    return isFeatureActive('core/edit-post', 'mobileGalleryWarning');
-  }, []);
-
-  if (!isMobileWarningActive || !newImages) {
-    return;
-  }
-
-  createWarningNotice((0,external_wp_i18n_namespaceObject.__)('If you want to edit the gallery you just added in the mobile app, to avoid losing any data please make sure you use version 18.2 of the app or above.'), {
-    type: 'snackbar',
-    explicitDismiss: true
-  });
-  toggleFeature('core/edit-post', 'mobileGalleryWarning');
-}
-//# sourceMappingURL=use-mobile-warning.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/gallery/edit.js
 
 
@@ -14921,11 +14466,6 @@ function useMobileWarning(newImages) {
 
 
 
-
-
-/**
- * Internal dependencies
- */
 
 
 const MAX_COLUMNS = 8;
@@ -15004,7 +14544,6 @@ function GalleryEdit(props) {
   })), [innerBlockImages]);
   const imageData = useGetMedia(innerBlockImages);
   const newImages = useGetNewImages(images, imageData);
-  useMobileWarning(newImages);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     newImages === null || newImages === void 0 ? void 0 : newImages.forEach(newImage => {
       updateBlockAttributes(newImage.clientId, { ...buildImageAttributes(newImage.attributes),
@@ -28756,8 +28295,9 @@ function PageListEdit(_ref) {
   } = _ref;
   const {
     pagesByParentId,
-    totalPages
-  } = usePagesByParentId();
+    totalPages,
+    hasResolvedPages
+  } = usePageData();
   const isNavigationChild = ('showSubmenuIcon' in context);
   const allowConvertToLinks = isNavigationChild && totalPages <= edit_MAX_PAGE_COUNT;
   const [isOpen, setOpen] = (0,external_wp_element_namespaceObject.useState)(false);
@@ -28784,18 +28324,33 @@ function PageListEdit(_ref) {
   }, (0,external_wp_i18n_namespaceObject.__)('Edit'))), allowConvertToLinks && isOpen && (0,external_wp_element_namespaceObject.createElement)(ConvertToLinksModal, {
     onClose: closeModal,
     clientId: clientId
-  }), totalPages === undefined && (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null))), totalPages === 0 && (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_i18n_namespaceObject.__)('Page List: No pages to show.'))), totalPages > 0 && (0,external_wp_element_namespaceObject.createElement)("ul", blockProps, (0,external_wp_element_namespaceObject.createElement)(PageItems, {
+  }), !hasResolvedPages && (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null))), hasResolvedPages && totalPages === null && (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Notice, {
+    status: 'warning',
+    isDismissible: false
+  }, (0,external_wp_i18n_namespaceObject.__)('Page List: Cannot retrieve Pages.')))), totalPages === 0 && (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Notice, {
+    status: 'info',
+    isDismissible: false
+  }, (0,external_wp_i18n_namespaceObject.__)('Page List: Cannot retrieve Pages.'))), totalPages > 0 && (0,external_wp_element_namespaceObject.createElement)("ul", blockProps, (0,external_wp_element_namespaceObject.createElement)(PageItems, {
     context: context,
     pagesByParentId: pagesByParentId
   })));
 }
 
-function usePagesByParentId() {
+function useFrontPageId() {
+  return (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const site = select(external_wp_coreData_namespaceObject.store).getEntityRecord('root', 'site');
+    return (site === null || site === void 0 ? void 0 : site.show_on_front) === 'page' && (site === null || site === void 0 ? void 0 : site.page_on_front);
+  }, []);
+}
+
+function usePageData() {
   const {
-    pages
+    pages,
+    hasResolvedPages
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
-      getEntityRecords
+      getEntityRecords,
+      hasFinishedResolution
     } = select(external_wp_coreData_namespaceObject.store);
     return {
       pages: getEntityRecords('postType', 'page', {
@@ -28803,10 +28358,18 @@ function usePagesByParentId() {
         order: 'asc',
         _fields: ['id', 'link', 'parent', 'title', 'menu_order'],
         per_page: -1
-      })
+      }),
+      hasResolvedPages: hasFinishedResolution('getEntityRecords', ['postType', 'page', {
+        orderby: 'menu_order',
+        order: 'asc',
+        _fields: ['id', 'link', 'parent', 'title', 'menu_order'],
+        per_page: -1
+      }])
     };
   }, []);
   return (0,external_wp_element_namespaceObject.useMemo)(() => {
+    var _pages$length;
+
     // TODO: Once the REST API supports passing multiple values to
     // 'orderby', this can be removed.
     // https://core.trac.wordpress.org/ticket/39037
@@ -28826,9 +28389,10 @@ function usePagesByParentId() {
     }, new Map());
     return {
       pagesByParentId,
-      totalPages: pages === null || pages === void 0 ? void 0 : pages.length
+      hasResolvedPages,
+      totalPages: (_pages$length = pages === null || pages === void 0 ? void 0 : pages.length) !== null && _pages$length !== void 0 ? _pages$length : null
     };
-  }, [pages]);
+  }, [pages, hasResolvedPages]);
 }
 
 const PageItems = (0,external_wp_element_namespaceObject.memo)(function PageItems(_ref2) {
@@ -28839,6 +28403,7 @@ const PageItems = (0,external_wp_element_namespaceObject.memo)(function PageItem
     depth = 0
   } = _ref2;
   const pages = pagesByParentId.get(parentId);
+  const frontPageId = useFrontPageId();
 
   if (!(pages !== null && pages !== void 0 && pages.length)) {
     return [];
@@ -28855,7 +28420,8 @@ const PageItems = (0,external_wp_element_namespaceObject.memo)(function PageItem
         'has-child': hasChildren,
         'wp-block-navigation-item': isNavigationChild,
         'open-on-click': context.openSubmenusOnClick,
-        'open-on-hover-click': !context.openSubmenusOnClick && context.showSubmenuIcon
+        'open-on-hover-click': !context.openSubmenusOnClick && context.showSubmenuIcon,
+        'menu-item-home': page.id === frontPageId
       })
     }, hasChildren && context.openSubmenusOnClick ? (0,external_wp_element_namespaceObject.createElement)(ItemSubmenuToggle, {
       title: (_page$title = page.title) === null || _page$title === void 0 ? void 0 : _page$title.rendered
@@ -29505,7 +29071,6 @@ const {
     typography: {
       fontSize: true,
       lineHeight: true,
-      __experimentalFontFamily: true,
       __experimentalFontStyle: true,
       __experimentalFontWeight: true,
       __experimentalLetterSpacing: true,
@@ -29614,7 +29179,6 @@ const paragraph_metadata = {
     typography: {
       fontSize: true,
       lineHeight: true,
-      __experimentalFontFamily: true,
       __experimentalFontStyle: true,
       __experimentalFontWeight: true,
       __experimentalLetterSpacing: true,
@@ -29856,7 +29420,7 @@ const post_author_metadata = {
   name: "core/post-author",
   title: "Post Author",
   category: "theme",
-  description: "Add the author of this post.",
+  description: "Display post author details such as name, avatar, and bio.",
   textdomain: "default",
   attributes: {
     textAlign: {
@@ -31267,6 +30831,25 @@ function PostExcerptEditor(_ref) {
   }, readMoreLink) : readMoreLink));
 }
 //# sourceMappingURL=edit.js.map
+;// CONCATENATED MODULE: ./packages/block-library/build-module/post-excerpt/transforms.js
+/**
+ * WordPress dependencies
+ */
+
+const post_excerpt_transforms_transforms = {
+  from: [{
+    type: 'block',
+    blocks: ['core/post-content'],
+    transform: () => (0,external_wp_blocks_namespaceObject.createBlock)('core/post-excerpt')
+  }],
+  to: [{
+    type: 'block',
+    blocks: ['core/post-content'],
+    transform: () => (0,external_wp_blocks_namespaceObject.createBlock)('core/post-content')
+  }]
+};
+/* harmony default export */ var post_excerpt_transforms = (post_excerpt_transforms_transforms);
+//# sourceMappingURL=transforms.js.map
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/post-excerpt/index.js
 /**
  * WordPress dependencies
@@ -31323,12 +30906,14 @@ const post_excerpt_metadata = {
   style: "wp-block-post-excerpt"
 };
 
+
 const {
   name: post_excerpt_name
 } = post_excerpt_metadata;
 
 const post_excerpt_settings = {
   icon: post_excerpt,
+  transforms: post_excerpt_transforms,
   edit: PostExcerptEditor
 };
 //# sourceMappingURL=index.js.map
@@ -32104,7 +31689,7 @@ const post_template_metadata = {
   apiVersion: 2,
   name: "core/post-template",
   title: "Post Template",
-  category: "design",
+  category: "theme",
   parent: ["core/query"],
   description: "Contains the block elements used to render a post, like the title, date, featured image, content or excerpt, and more.",
   textdomain: "default",
@@ -34392,7 +33977,7 @@ function QueryContent(_ref) {
   // Query parameters for each block are scoped to their ID.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (!queryId) {
+    if (!Number.isFinite(queryId)) {
       __unstableMarkNextChangeAsNotPersistent();
 
       setAttributes({
@@ -34967,7 +34552,7 @@ const query_pagination_metadata = {
   apiVersion: 2,
   name: "core/query-pagination",
   title: "Pagination",
-  category: "design",
+  category: "theme",
   parent: ["core/query"],
   description: "Displays a paginated navigation to next/previous set of posts, when applicable.",
   textdomain: "default",
@@ -35070,7 +34655,7 @@ const query_pagination_next_metadata = {
   apiVersion: 2,
   name: "core/query-pagination-next",
   title: "Next Page",
-  category: "design",
+  category: "theme",
   parent: ["core/query-pagination"],
   description: "Displays the next posts page link.",
   textdomain: "default",
@@ -35147,7 +34732,7 @@ const query_pagination_numbers_metadata = {
   apiVersion: 2,
   name: "core/query-pagination-numbers",
   title: "Page Numbers",
-  category: "design",
+  category: "theme",
   parent: ["core/query-pagination"],
   description: "Displays a list of page numbers for pagination",
   textdomain: "default",
@@ -35224,7 +34809,7 @@ const query_pagination_previous_metadata = {
   apiVersion: 2,
   name: "core/query-pagination-previous",
   title: "Previous Page",
-  category: "design",
+  category: "theme",
   parent: ["core/query-pagination"],
   description: "Displays the previous posts page link.",
   textdomain: "default",
@@ -37735,7 +37320,6 @@ function LogoEdit(_ref2) {
     isSelected
   } = _ref2;
   const {
-    className: styleClass,
     width,
     shouldSyncIcon
   } = attributes;
@@ -37789,32 +37373,8 @@ function LogoEdit(_ref2) {
     };
   }, []);
   const {
-    getGlobalBlockCount
-  } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_blockEditor_namespaceObject.store);
-  const {
     editEntityRecord
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    // Cleanup function to discard unsaved changes to the icon and logo when
-    // the block is removed.
-    return () => {
-      // Do nothing if the block is being rendered in the styles preview or the
-      // block inserter.
-      if (styleClass !== null && styleClass !== void 0 && styleClass.includes('block-editor-block-types-list__site-logo-example') || styleClass !== null && styleClass !== void 0 && styleClass.includes('block-editor-block-styles__block-preview-container')) {
-        return;
-      }
-
-      const logoBlockCount = getGlobalBlockCount('core/site-logo'); // Only discard unsaved changes if we are removing the last Site Logo block
-      // on the page.
-
-      if (logoBlockCount === 0) {
-        editEntityRecord('root', 'site', undefined, {
-          site_logo: undefined,
-          site_icon: undefined
-        });
-      }
-    };
-  }, []);
 
   const setLogo = function (newValue) {
     let shouldForceSync = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;

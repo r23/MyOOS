@@ -2211,7 +2211,7 @@ var external_lodash_namespaceObject = window["lodash"];
 /**
  * External dependencies
  */
- // eslint-disable-next-line no-restricted-imports
+
 
 /**
  * Given a function mapping a component to an enhanced component and modifier
@@ -2580,7 +2580,6 @@ function useInstanceId(object, prefix) {
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * Internal dependencies
@@ -2608,7 +2607,7 @@ const withInstanceId = create_higher_order_component(WrappedComponent => {
 /**
  * External dependencies
  */
- // eslint-disable-next-line no-restricted-imports
+
 
 /**
  * WordPress dependencies
@@ -2722,7 +2721,6 @@ var external_wp_dom_namespaceObject = window["wp"]["dom"];
 /**
  * External dependencies
  */
-// eslint-disable-next-line no-restricted-imports
 
 /**
  * WordPress dependencies

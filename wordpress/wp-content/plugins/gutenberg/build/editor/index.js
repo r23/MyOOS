@@ -3124,7 +3124,8 @@ function getBlockEditorSelector(name) {
   return (0,external_wp_data_namespaceObject.createRegistrySelector)(select => function (state) {
     external_wp_deprecated_default()("`wp.data.select( 'core/editor' )." + name + '`', {
       since: '5.3',
-      alternative: "`wp.data.select( 'core/block-editor' )." + name + '`'
+      alternative: "`wp.data.select( 'core/block-editor' )." + name + '`',
+      version: '6.2'
     });
 
     for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
@@ -3539,7 +3540,7 @@ function getNotificationArgumentsForSaveSuccess(data) {
 
   if (!isPublished && !willPublish) {
     // If saving a non-published post, don't show notice.
-    noticeMessage = (0,external_wp_i18n_namespaceObject.__)('Saved');
+    noticeMessage = (0,external_wp_i18n_namespaceObject.__)('Draft saved');
     shouldShowLink = false;
   } else if (isPublished && !willPublish) {
     // If undoing publish status, show specific notice
@@ -4182,7 +4183,8 @@ function updateEditorSettings(settings) {
 const getBlockEditorAction = name => function* () {
   external_wp_deprecated_default()("`wp.data.dispatch( 'core/editor' )." + name + '`', {
     since: '5.3',
-    alternative: "`wp.data.dispatch( 'core/block-editor' )." + name + '`'
+    alternative: "`wp.data.dispatch( 'core/block-editor' )." + name + '`',
+    version: '6.2'
   });
 
   for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -7422,6 +7424,343 @@ function LastRevision(_ref) {
   };
 })(LastRevision));
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-locked-modal/index.js
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function PostLockedModal() {
+  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(PostLockedModal);
+  const hookName = 'core/editor/post-locked-modal-' + instanceId;
+  const {
+    autosave,
+    updatePostLock
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  const {
+    isLocked,
+    isTakeover,
+    user,
+    postId,
+    postLockUtils,
+    activePostLock,
+    postType,
+    previewLink
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      isPostLocked,
+      isPostLockTakeover,
+      getPostLockUser,
+      getCurrentPostId,
+      getActivePostLock,
+      getEditedPostAttribute,
+      getEditedPostPreviewLink,
+      getEditorSettings
+    } = select(store);
+    const {
+      getPostType
+    } = select(external_wp_coreData_namespaceObject.store);
+    return {
+      isLocked: isPostLocked(),
+      isTakeover: isPostLockTakeover(),
+      user: getPostLockUser(),
+      postId: getCurrentPostId(),
+      postLockUtils: getEditorSettings().postLockUtils,
+      activePostLock: getActivePostLock(),
+      postType: getPostType(getEditedPostAttribute('type')),
+      previewLink: getEditedPostPreviewLink()
+    };
+  }, []);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    /**
+     * Keep the lock refreshed.
+     *
+     * When the user does not send a heartbeat in a heartbeat-tick
+     * the user is no longer editing and another user can start editing.
+     *
+     * @param {Object} data Data to send in the heartbeat request.
+     */
+    function sendPostLock(data) {
+      if (isLocked) {
+        return;
+      }
+
+      data['wp-refresh-post-lock'] = {
+        lock: activePostLock,
+        post_id: postId
+      };
+    }
+    /**
+     * Refresh post locks: update the lock string or show the dialog if somebody has taken over editing.
+     *
+     * @param {Object} data Data received in the heartbeat request
+     */
+
+
+    function receivePostLock(data) {
+      if (!data['wp-refresh-post-lock']) {
+        return;
+      }
+
+      const received = data['wp-refresh-post-lock'];
+
+      if (received.lock_error) {
+        // Auto save and display the takeover modal.
+        autosave();
+        updatePostLock({
+          isLocked: true,
+          isTakeover: true,
+          user: {
+            avatar: received.lock_error.avatar_src
+          }
+        });
+      } else if (received.new_lock) {
+        updatePostLock({
+          isLocked: false,
+          activePostLock: received.new_lock
+        });
+      }
+    }
+    /**
+     * Unlock the post before the window is exited.
+     */
+
+
+    function releasePostLock() {
+      if (isLocked || !activePostLock) {
+        return;
+      }
+
+      const data = new window.FormData();
+      data.append('action', 'wp-remove-post-lock');
+      data.append('_wpnonce', postLockUtils.unlockNonce);
+      data.append('post_ID', postId);
+      data.append('active_post_lock', activePostLock);
+
+      if (window.navigator.sendBeacon) {
+        window.navigator.sendBeacon(postLockUtils.ajaxUrl, data);
+      } else {
+        const xhr = new window.XMLHttpRequest();
+        xhr.open('POST', postLockUtils.ajaxUrl, false);
+        xhr.send(data);
+      }
+    } // Details on these events on the Heartbeat API docs
+    // https://developer.wordpress.org/plugins/javascript/heartbeat-api/
+
+
+    (0,external_wp_hooks_namespaceObject.addAction)('heartbeat.send', hookName, sendPostLock);
+    (0,external_wp_hooks_namespaceObject.addAction)('heartbeat.tick', hookName, receivePostLock);
+    window.addEventListener('beforeunload', releasePostLock);
+    return () => {
+      (0,external_wp_hooks_namespaceObject.removeAction)('heartbeat.send', hookName);
+      (0,external_wp_hooks_namespaceObject.removeAction)('heartbeat.tick', hookName);
+      window.removeEventListener('beforeunload', releasePostLock);
+    };
+  }, []);
+
+  if (!isLocked) {
+    return null;
+  }
+
+  const userDisplayName = user.name;
+  const userAvatar = user.avatar;
+  const unlockUrl = (0,external_wp_url_namespaceObject.addQueryArgs)('post.php', {
+    'get-post-lock': '1',
+    lockKey: true,
+    post: postId,
+    action: 'edit',
+    _wpnonce: postLockUtils.nonce
+  });
+  const allPostsUrl = getWPAdminURL('edit.php', {
+    post_type: (0,external_lodash_namespaceObject.get)(postType, ['slug'])
+  });
+
+  const allPostsLabel = (0,external_wp_i18n_namespaceObject.__)('Exit editor');
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
+    title: isTakeover ? (0,external_wp_i18n_namespaceObject.__)('Someone else has taken over this post') : (0,external_wp_i18n_namespaceObject.__)('This post is already being edited'),
+    focusOnMount: true,
+    shouldCloseOnClickOutside: false,
+    shouldCloseOnEsc: false,
+    isDismissible: false,
+    className: "editor-post-locked-modal"
+  }, !!userAvatar && (0,external_wp_element_namespaceObject.createElement)("img", {
+    src: userAvatar,
+    alt: (0,external_wp_i18n_namespaceObject.__)('Avatar'),
+    className: "editor-post-locked-modal__avatar"
+  }), (0,external_wp_element_namespaceObject.createElement)("div", null, !!isTakeover && (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_element_namespaceObject.createInterpolateElement)(userDisplayName ? (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %s: user's display name */
+  (0,external_wp_i18n_namespaceObject.__)('<strong>%s</strong> now has editing control of this posts (<PreviewLink />). Don’t worry, your changes up to this moment have been saved.'), userDisplayName) : (0,external_wp_i18n_namespaceObject.__)('Another user now has editing control of this post (<PreviewLink />). Don’t worry, your changes up to this moment have been saved.'), {
+    strong: (0,external_wp_element_namespaceObject.createElement)("strong", null),
+    PreviewLink: (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
+      href: previewLink
+    }, (0,external_wp_i18n_namespaceObject.__)('preview'))
+  })), !isTakeover && (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_element_namespaceObject.createInterpolateElement)(userDisplayName ? (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %s: user's display name */
+  (0,external_wp_i18n_namespaceObject.__)('<strong>%s</strong> is currently working on this post (<PreviewLink />), which means you cannot make changes, unless you take over.'), userDisplayName) : (0,external_wp_i18n_namespaceObject.__)('Another user is currently working on this post (<PreviewLink />), which means you cannot make changes, unless you take over.'), {
+    strong: (0,external_wp_element_namespaceObject.createElement)("strong", null),
+    PreviewLink: (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
+      href: previewLink
+    }, (0,external_wp_i18n_namespaceObject.__)('preview'))
+  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
+    className: "editor-post-locked-modal__buttons",
+    justify: "flex-end",
+    expanded: false
+  }, !isTakeover && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "tertiary",
+    href: unlockUrl
+  }, (0,external_wp_i18n_namespaceObject.__)('Take over'))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "primary",
+    href: allPostsUrl
+  }, allPostsLabel)))));
+}
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-pending-status/check.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function PostPendingStatusCheck(_ref) {
+  let {
+    hasPublishAction,
+    isPublished,
+    children
+  } = _ref;
+
+  if (isPublished || !hasPublishAction) {
+    return null;
+  }
+
+  return children;
+}
+/* harmony default export */ var post_pending_status_check = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => {
+  const {
+    isCurrentPostPublished,
+    getCurrentPostType,
+    getCurrentPost
+  } = select(store);
+  return {
+    hasPublishAction: (0,external_lodash_namespaceObject.get)(getCurrentPost(), ['_links', 'wp:action-publish'], false),
+    isPublished: isCurrentPostPublished(),
+    postType: getCurrentPostType()
+  };
+}))(PostPendingStatusCheck));
+//# sourceMappingURL=check.js.map
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-pending-status/index.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function PostPendingStatus(_ref) {
+  let {
+    status,
+    onUpdateStatus
+  } = _ref;
+
+  const togglePendingStatus = () => {
+    const updatedStatus = status === 'pending' ? 'draft' : 'pending';
+    onUpdateStatus(updatedStatus);
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(post_pending_status_check, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Pending review'),
+    checked: status === 'pending',
+    onChange: togglePendingStatus
+  }));
+}
+/* harmony default export */ var post_pending_status = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => ({
+  status: select(store).getEditedPostAttribute('status')
+})), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => ({
+  onUpdateStatus(status) {
+    dispatch(store).editPost({
+      status
+    });
+  }
+
+})))(PostPendingStatus));
+//# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-pingbacks/index.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function PostPingbacks(_ref) {
+  let {
+    pingStatus = 'open',
+    ...props
+  } = _ref;
+
+  const onTogglePingback = () => props.editPost({
+    ping_status: pingStatus === 'open' ? 'closed' : 'open'
+  });
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Allow pingbacks & trackbacks'),
+    checked: pingStatus === 'open',
+    onChange: onTogglePingback
+  });
+}
+
+/* harmony default export */ var post_pingbacks = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+  return {
+    pingStatus: select(store).getEditedPostAttribute('ping_status')
+  };
+}), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => ({
+  editPost: dispatch(store).editPost
+}))])(PostPingbacks));
+//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-preview-button/index.js
 
 
@@ -7686,334 +8025,6 @@ class PostPreviewButton extends external_wp_element_namespaceObject.Component {
   } = _ref2;
   return isViewable;
 })])(PostPreviewButton));
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-locked-modal/index.js
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-function PostLockedModal() {
-  const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(PostLockedModal);
-  const hookName = 'core/editor/post-locked-modal-' + instanceId;
-  const {
-    autosave,
-    updatePostLock
-  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
-  const {
-    isLocked,
-    isTakeover,
-    user,
-    postId,
-    postLockUtils,
-    activePostLock,
-    postType
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      isPostLocked,
-      isPostLockTakeover,
-      getPostLockUser,
-      getCurrentPostId,
-      getActivePostLock,
-      getEditedPostAttribute,
-      getEditorSettings
-    } = select(store);
-    const {
-      getPostType
-    } = select(external_wp_coreData_namespaceObject.store);
-    return {
-      isLocked: isPostLocked(),
-      isTakeover: isPostLockTakeover(),
-      user: getPostLockUser(),
-      postId: getCurrentPostId(),
-      postLockUtils: getEditorSettings().postLockUtils,
-      activePostLock: getActivePostLock(),
-      postType: getPostType(getEditedPostAttribute('type'))
-    };
-  }, []);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    /**
-     * Keep the lock refreshed.
-     *
-     * When the user does not send a heartbeat in a heartbeat-tick
-     * the user is no longer editing and another user can start editing.
-     *
-     * @param {Object} data Data to send in the heartbeat request.
-     */
-    function sendPostLock(data) {
-      if (isLocked) {
-        return;
-      }
-
-      data['wp-refresh-post-lock'] = {
-        lock: activePostLock,
-        post_id: postId
-      };
-    }
-    /**
-     * Refresh post locks: update the lock string or show the dialog if somebody has taken over editing.
-     *
-     * @param {Object} data Data received in the heartbeat request
-     */
-
-
-    function receivePostLock(data) {
-      if (!data['wp-refresh-post-lock']) {
-        return;
-      }
-
-      const received = data['wp-refresh-post-lock'];
-
-      if (received.lock_error) {
-        // Auto save and display the takeover modal.
-        autosave();
-        updatePostLock({
-          isLocked: true,
-          isTakeover: true,
-          user: {
-            avatar: received.lock_error.avatar_src
-          }
-        });
-      } else if (received.new_lock) {
-        updatePostLock({
-          isLocked: false,
-          activePostLock: received.new_lock
-        });
-      }
-    }
-    /**
-     * Unlock the post before the window is exited.
-     */
-
-
-    function releasePostLock() {
-      if (isLocked || !activePostLock) {
-        return;
-      }
-
-      const data = new window.FormData();
-      data.append('action', 'wp-remove-post-lock');
-      data.append('_wpnonce', postLockUtils.unlockNonce);
-      data.append('post_ID', postId);
-      data.append('active_post_lock', activePostLock);
-
-      if (window.navigator.sendBeacon) {
-        window.navigator.sendBeacon(postLockUtils.ajaxUrl, data);
-      } else {
-        const xhr = new window.XMLHttpRequest();
-        xhr.open('POST', postLockUtils.ajaxUrl, false);
-        xhr.send(data);
-      }
-    } // Details on these events on the Heartbeat API docs
-    // https://developer.wordpress.org/plugins/javascript/heartbeat-api/
-
-
-    (0,external_wp_hooks_namespaceObject.addAction)('heartbeat.send', hookName, sendPostLock);
-    (0,external_wp_hooks_namespaceObject.addAction)('heartbeat.tick', hookName, receivePostLock);
-    window.addEventListener('beforeunload', releasePostLock);
-    return () => {
-      (0,external_wp_hooks_namespaceObject.removeAction)('heartbeat.send', hookName);
-      (0,external_wp_hooks_namespaceObject.removeAction)('heartbeat.tick', hookName);
-      window.removeEventListener('beforeunload', releasePostLock);
-    };
-  }, []);
-
-  if (!isLocked) {
-    return null;
-  }
-
-  const userDisplayName = user.name;
-  const userAvatar = user.avatar;
-  const unlockUrl = (0,external_wp_url_namespaceObject.addQueryArgs)('post.php', {
-    'get-post-lock': '1',
-    lockKey: true,
-    post: postId,
-    action: 'edit',
-    _wpnonce: postLockUtils.nonce
-  });
-  const allPostsUrl = getWPAdminURL('edit.php', {
-    post_type: (0,external_lodash_namespaceObject.get)(postType, ['slug'])
-  });
-
-  const allPostsLabel = (0,external_wp_i18n_namespaceObject.__)('Exit the Editor');
-
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
-    title: isTakeover ? (0,external_wp_i18n_namespaceObject.__)('Someone else has taken over this post.') : (0,external_wp_i18n_namespaceObject.__)('This post is already being edited.'),
-    focusOnMount: true,
-    shouldCloseOnClickOutside: false,
-    shouldCloseOnEsc: false,
-    isDismissible: false,
-    className: "editor-post-locked-modal"
-  }, !!userAvatar && (0,external_wp_element_namespaceObject.createElement)("img", {
-    src: userAvatar,
-    alt: (0,external_wp_i18n_namespaceObject.__)('Avatar'),
-    className: "editor-post-locked-modal__avatar"
-  }), !!isTakeover && (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)("div", null, userDisplayName ? (0,external_wp_i18n_namespaceObject.sprintf)(
-  /* translators: %s: user's display name */
-  (0,external_wp_i18n_namespaceObject.__)('%s now has editing control of this post. Don’t worry, your changes up to this moment have been saved.'), userDisplayName) : (0,external_wp_i18n_namespaceObject.__)('Another user now has editing control of this post. Don’t worry, your changes up to this moment have been saved.')), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "editor-post-locked-modal__buttons"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    variant: "primary",
-    href: allPostsUrl
-  }, allPostsLabel))), !isTakeover && (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)("div", null, userDisplayName ? (0,external_wp_i18n_namespaceObject.sprintf)(
-  /* translators: %s: user's display name */
-  (0,external_wp_i18n_namespaceObject.__)('%s is currently working on this post, which means you cannot make changes, unless you take over.'), userDisplayName) : (0,external_wp_i18n_namespaceObject.__)('Another user is currently working on this post, which means you cannot make changes, unless you take over.')), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "editor-post-locked-modal__buttons"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    variant: "secondary",
-    href: allPostsUrl
-  }, allPostsLabel), (0,external_wp_element_namespaceObject.createElement)(post_preview_button, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    variant: "primary",
-    href: unlockUrl
-  }, (0,external_wp_i18n_namespaceObject.__)('Take Over')))));
-}
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-pending-status/check.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-function PostPendingStatusCheck(_ref) {
-  let {
-    hasPublishAction,
-    isPublished,
-    children
-  } = _ref;
-
-  if (isPublished || !hasPublishAction) {
-    return null;
-  }
-
-  return children;
-}
-/* harmony default export */ var post_pending_status_check = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => {
-  const {
-    isCurrentPostPublished,
-    getCurrentPostType,
-    getCurrentPost
-  } = select(store);
-  return {
-    hasPublishAction: (0,external_lodash_namespaceObject.get)(getCurrentPost(), ['_links', 'wp:action-publish'], false),
-    isPublished: isCurrentPostPublished(),
-    postType: getCurrentPostType()
-  };
-}))(PostPendingStatusCheck));
-//# sourceMappingURL=check.js.map
-;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-pending-status/index.js
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-function PostPendingStatus(_ref) {
-  let {
-    status,
-    onUpdateStatus
-  } = _ref;
-
-  const togglePendingStatus = () => {
-    const updatedStatus = status === 'pending' ? 'draft' : 'pending';
-    onUpdateStatus(updatedStatus);
-  };
-
-  return (0,external_wp_element_namespaceObject.createElement)(post_pending_status_check, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Pending review'),
-    checked: status === 'pending',
-    onChange: togglePendingStatus
-  }));
-}
-/* harmony default export */ var post_pending_status = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => ({
-  status: select(store).getEditedPostAttribute('status')
-})), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => ({
-  onUpdateStatus(status) {
-    dispatch(store).editPost({
-      status
-    });
-  }
-
-})))(PostPendingStatus));
-//# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-pingbacks/index.js
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-function PostPingbacks(_ref) {
-  let {
-    pingStatus = 'open',
-    ...props
-  } = _ref;
-
-  const onTogglePingback = () => props.editPost({
-    ping_status: pingStatus === 'open' ? 'closed' : 'open'
-  });
-
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Allow pingbacks & trackbacks'),
-    checked: pingStatus === 'open',
-    onChange: onTogglePingback
-  });
-}
-
-/* harmony default export */ var post_pingbacks = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
-  return {
-    pingStatus: select(store).getEditedPostAttribute('ping_status')
-  };
-}), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => ({
-  editPost: dispatch(store).editPost
-}))])(PostPingbacks));
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-button/label.js
 /**
@@ -9159,6 +9170,452 @@ function PostFormatPanel() {
   })));
 }
 //# sourceMappingURL=maybe-post-format-panel.js.map
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/hierarchical-term-selector.js
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * Module Constants
+ */
+
+const hierarchical_term_selector_DEFAULT_QUERY = {
+  per_page: -1,
+  orderby: 'name',
+  order: 'asc',
+  _fields: 'id,name,parent',
+  context: 'view'
+};
+const MIN_TERMS_COUNT_FOR_FILTER = 8;
+const hierarchical_term_selector_EMPTY_ARRAY = [];
+/**
+ * Sort Terms by Selected.
+ *
+ * @param {Object[]} termsTree Array of terms in tree format.
+ * @param {number[]} terms     Selected terms.
+ *
+ * @return {Object[]} Sorted array of terms.
+ */
+
+function sortBySelected(termsTree, terms) {
+  const treeHasSelection = termTree => {
+    if (terms.indexOf(termTree.id) !== -1) {
+      return true;
+    }
+
+    if (undefined === termTree.children) {
+      return false;
+    }
+
+    return termTree.children.map(treeHasSelection).filter(child => child).length > 0;
+  };
+
+  const termOrChildIsSelected = (termA, termB) => {
+    const termASelected = treeHasSelection(termA);
+    const termBSelected = treeHasSelection(termB);
+
+    if (termASelected === termBSelected) {
+      return 0;
+    }
+
+    if (termASelected && !termBSelected) {
+      return -1;
+    }
+
+    if (!termASelected && termBSelected) {
+      return 1;
+    }
+
+    return 0;
+  };
+
+  const newTermTree = [...termsTree];
+  newTermTree.sort(termOrChildIsSelected);
+  return newTermTree;
+}
+/**
+ * Find term by parent id or name.
+ *
+ * @param {Object[]}      terms  Array of Terms.
+ * @param {number|string} parent id.
+ * @param {string}        name   Term name.
+ * @return {Object} Term object.
+ */
+
+function findTerm(terms, parent, name) {
+  return (0,external_lodash_namespaceObject.find)(terms, term => {
+    return (!term.parent && !parent || parseInt(term.parent) === parseInt(parent)) && term.name.toLowerCase() === name.toLowerCase();
+  });
+}
+/**
+ * Get filter matcher function.
+ *
+ * @param {string} filterValue Filter value.
+ * @return {(function(Object): (Object|boolean))} Matcher function.
+ */
+
+function getFilterMatcher(filterValue) {
+  const matchTermsForFilter = originalTerm => {
+    if ('' === filterValue) {
+      return originalTerm;
+    } // Shallow clone, because we'll be filtering the term's children and
+    // don't want to modify the original term.
+
+
+    const term = { ...originalTerm
+    }; // Map and filter the children, recursive so we deal with grandchildren
+    // and any deeper levels.
+
+    if (term.children.length > 0) {
+      term.children = term.children.map(matchTermsForFilter).filter(child => child);
+    } // If the term's name contains the filterValue, or it has children
+    // (i.e. some child matched at some point in the tree) then return it.
+
+
+    if (-1 !== term.name.toLowerCase().indexOf(filterValue.toLowerCase()) || term.children.length > 0) {
+      return term;
+    } // Otherwise, return false. After mapping, the list of terms will need
+    // to have false values filtered out.
+
+
+    return false;
+  };
+
+  return matchTermsForFilter;
+}
+/**
+ * Hierarchical term selector.
+ *
+ * @param {Object} props      Component props.
+ * @param {string} props.slug Taxonomy slug.
+ * @return {WPElement}        Hierarchical term selector component.
+ */
+
+function HierarchicalTermSelector(_ref) {
+  let {
+    slug
+  } = _ref;
+  const [adding, setAdding] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [formName, setFormName] = (0,external_wp_element_namespaceObject.useState)('');
+  /**
+   * @type {[number|'', Function]}
+   */
+
+  const [formParent, setFormParent] = (0,external_wp_element_namespaceObject.useState)('');
+  const [showForm, setShowForm] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [filterValue, setFilterValue] = (0,external_wp_element_namespaceObject.useState)('');
+  const [filteredTermsTree, setFilteredTermsTree] = (0,external_wp_element_namespaceObject.useState)([]);
+  const debouncedSpeak = (0,external_wp_compose_namespaceObject.useDebounce)(external_wp_a11y_namespaceObject.speak, 500);
+  const {
+    hasCreateAction,
+    hasAssignAction,
+    terms,
+    loading,
+    availableTerms,
+    taxonomy
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getCurrentPost,
+      getEditedPostAttribute
+    } = select(store);
+    const {
+      getTaxonomy,
+      getEntityRecords,
+      isResolving
+    } = select(external_wp_coreData_namespaceObject.store);
+
+    const _taxonomy = getTaxonomy(slug);
+
+    return {
+      hasCreateAction: _taxonomy ? (0,external_lodash_namespaceObject.get)(getCurrentPost(), ['_links', 'wp:action-create-' + _taxonomy.rest_base], false) : false,
+      hasAssignAction: _taxonomy ? (0,external_lodash_namespaceObject.get)(getCurrentPost(), ['_links', 'wp:action-assign-' + _taxonomy.rest_base], false) : false,
+      terms: _taxonomy ? getEditedPostAttribute(_taxonomy.rest_base) : hierarchical_term_selector_EMPTY_ARRAY,
+      loading: isResolving('getEntityRecords', ['taxonomy', slug, hierarchical_term_selector_DEFAULT_QUERY]),
+      availableTerms: getEntityRecords('taxonomy', slug, hierarchical_term_selector_DEFAULT_QUERY) || hierarchical_term_selector_EMPTY_ARRAY,
+      taxonomy: _taxonomy
+    };
+  }, [slug]);
+  const {
+    editPost
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  const {
+    saveEntityRecord
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
+  const availableTermsTree = (0,external_wp_element_namespaceObject.useMemo)(() => sortBySelected(buildTermsTree(availableTerms), terms), // Remove `terms` from the dependency list to avoid reordering every time
+  // checking or unchecking a term.
+  [availableTerms]);
+
+  if (!hasAssignAction) {
+    return null;
+  }
+  /**
+   * Append new term.
+   *
+   * @param {Object} term Term object.
+   * @return {Promise} A promise that resolves to save term object.
+   */
+
+
+  const addTerm = term => {
+    return saveEntityRecord('taxonomy', slug, term);
+  };
+  /**
+   * Update terms for post.
+   *
+   * @param {number[]} termIds Term ids.
+   */
+
+
+  const onUpdateTerms = termIds => {
+    editPost({
+      [taxonomy.rest_base]: termIds
+    });
+  };
+  /**
+   * Handler for checking term.
+   *
+   * @param {number} termId
+   */
+
+
+  const onChange = termId => {
+    const hasTerm = terms.includes(termId);
+    const newTerms = hasTerm ? (0,external_lodash_namespaceObject.without)(terms, termId) : [...terms, termId];
+    onUpdateTerms(newTerms);
+  };
+
+  const onChangeFormName = value => {
+    setFormName(value);
+  };
+  /**
+   * Handler for changing form parent.
+   *
+   * @param {number|''} parentId Parent post id.
+   */
+
+
+  const onChangeFormParent = parentId => {
+    setFormParent(parentId);
+  };
+
+  const onToggleForm = () => {
+    setShowForm(!showForm);
+  };
+
+  const onAddTerm = async event => {
+    event.preventDefault();
+
+    if (formName === '' || adding) {
+      return;
+    } // check if the term we are adding already exists
+
+
+    const existingTerm = findTerm(availableTerms, formParent, formName);
+
+    if (existingTerm) {
+      // if the term we are adding exists but is not selected select it
+      if (!(0,external_lodash_namespaceObject.some)(terms, term => term === existingTerm.id)) {
+        onUpdateTerms([...terms, existingTerm.id]);
+      }
+
+      setFormName('');
+      setFormParent('');
+      return;
+    }
+
+    setAdding(true);
+    const newTerm = await addTerm({
+      name: formName,
+      parent: formParent ? formParent : undefined
+    });
+    const termAddedMessage = (0,external_wp_i18n_namespaceObject.sprintf)(
+    /* translators: %s: taxonomy name */
+    (0,external_wp_i18n_namespaceObject._x)('%s added', 'term'), (0,external_lodash_namespaceObject.get)(taxonomy, ['labels', 'singular_name'], slug === 'category' ? (0,external_wp_i18n_namespaceObject.__)('Category') : (0,external_wp_i18n_namespaceObject.__)('Term')));
+    (0,external_wp_a11y_namespaceObject.speak)(termAddedMessage, 'assertive');
+    setAdding(false);
+    setFormName('');
+    setFormParent('');
+    onUpdateTerms([...terms, newTerm.id]);
+  };
+
+  const setFilter = value => {
+    const newFilteredTermsTree = availableTermsTree.map(getFilterMatcher(value)).filter(term => term);
+
+    const getResultCount = termsTree => {
+      let count = 0;
+
+      for (let i = 0; i < termsTree.length; i++) {
+        count++;
+
+        if (undefined !== termsTree[i].children) {
+          count += getResultCount(termsTree[i].children);
+        }
+      }
+
+      return count;
+    };
+
+    setFilterValue(value);
+    setFilteredTermsTree(newFilteredTermsTree);
+    const resultCount = getResultCount(newFilteredTermsTree);
+    const resultsFoundMessage = (0,external_wp_i18n_namespaceObject.sprintf)(
+    /* translators: %d: number of results */
+    (0,external_wp_i18n_namespaceObject._n)('%d result found.', '%d results found.', resultCount), resultCount);
+    debouncedSpeak(resultsFoundMessage, 'assertive');
+  };
+
+  const renderTerms = renderedTerms => {
+    return renderedTerms.map(term => {
+      return (0,external_wp_element_namespaceObject.createElement)("div", {
+        key: term.id,
+        className: "editor-post-taxonomies__hierarchical-terms-choice"
+      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
+        checked: terms.indexOf(term.id) !== -1,
+        onChange: () => {
+          const termId = parseInt(term.id, 10);
+          onChange(termId);
+        },
+        label: (0,external_lodash_namespaceObject.unescape)(term.name)
+      }), !!term.children.length && (0,external_wp_element_namespaceObject.createElement)("div", {
+        className: "editor-post-taxonomies__hierarchical-terms-subchoices"
+      }, renderTerms(term.children)));
+    });
+  };
+
+  const labelWithFallback = (labelProperty, fallbackIsCategory, fallbackIsNotCategory) => (0,external_lodash_namespaceObject.get)(taxonomy, ['labels', labelProperty], slug === 'category' ? fallbackIsCategory : fallbackIsNotCategory);
+
+  const newTermButtonLabel = labelWithFallback('add_new_item', (0,external_wp_i18n_namespaceObject.__)('Add new category'), (0,external_wp_i18n_namespaceObject.__)('Add new term'));
+  const newTermLabel = labelWithFallback('new_item_name', (0,external_wp_i18n_namespaceObject.__)('Add new category'), (0,external_wp_i18n_namespaceObject.__)('Add new term'));
+  const parentSelectLabel = labelWithFallback('parent_item', (0,external_wp_i18n_namespaceObject.__)('Parent Category'), (0,external_wp_i18n_namespaceObject.__)('Parent Term'));
+  const noParentOption = `— ${parentSelectLabel} —`;
+  const newTermSubmitLabel = newTermButtonLabel;
+  const filterLabel = (0,external_lodash_namespaceObject.get)(taxonomy, ['labels', 'search_items'], (0,external_wp_i18n_namespaceObject.__)('Search Terms'));
+  const groupLabel = (0,external_lodash_namespaceObject.get)(taxonomy, ['name'], (0,external_wp_i18n_namespaceObject.__)('Terms'));
+  const showFilter = availableTerms.length >= MIN_TERMS_COUNT_FOR_FILTER;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, showFilter && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
+    className: "editor-post-taxonomies__hierarchical-terms-filter",
+    label: filterLabel,
+    value: filterValue,
+    onChange: setFilter
+  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "editor-post-taxonomies__hierarchical-terms-list",
+    tabIndex: "0",
+    role: "group",
+    "aria-label": groupLabel
+  }, renderTerms('' !== filterValue ? filteredTermsTree : availableTermsTree)), !loading && hasCreateAction && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    onClick: onToggleForm,
+    className: "editor-post-taxonomies__hierarchical-terms-add",
+    "aria-expanded": showForm,
+    variant: "link"
+  }, newTermButtonLabel), showForm && (0,external_wp_element_namespaceObject.createElement)("form", {
+    onSubmit: onAddTerm
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
+    className: "editor-post-taxonomies__hierarchical-terms-input",
+    label: newTermLabel,
+    value: formName,
+    onChange: onChangeFormName,
+    required: true
+  }), !!availableTerms.length && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TreeSelect, {
+    label: parentSelectLabel,
+    noOptionLabel: noParentOption,
+    onChange: onChangeFormParent,
+    selectedId: formParent,
+    tree: availableTermsTree
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    variant: "secondary",
+    type: "submit",
+    className: "editor-post-taxonomies__hierarchical-terms-submit"
+  }, newTermSubmitLabel)));
+}
+
+/* harmony default export */ var hierarchical_term_selector = ((0,external_wp_components_namespaceObject.withFilters)('editor.PostTaxonomyType')(HierarchicalTermSelector));
+//# sourceMappingURL=hierarchical-term-selector.js.map
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/maybe-category-panel.js
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function MaybeCategoryPanel() {
+  const hasNoCategory = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _select$getEntityReco;
+
+    const postType = select(store).getCurrentPostType();
+    const categoriesTaxonomy = select(external_wp_coreData_namespaceObject.store).getTaxonomy('category');
+    const defaultCategorySlug = 'uncategorized';
+    const defaultCategory = (_select$getEntityReco = select(external_wp_coreData_namespaceObject.store).getEntityRecords('taxonomy', 'category', {
+      slug: defaultCategorySlug
+    })) === null || _select$getEntityReco === void 0 ? void 0 : _select$getEntityReco[0];
+    const postTypeSupportsCategories = categoriesTaxonomy && (0,external_lodash_namespaceObject.some)(categoriesTaxonomy.types, type => type === postType);
+    const categories = categoriesTaxonomy && select(store).getEditedPostAttribute(categoriesTaxonomy.rest_base); // This boolean should return true if everything is loaded
+    // ( categoriesTaxonomy, defaultCategory )
+    // and the post has not been assigned a category different than "uncategorized".
+
+    return !!categoriesTaxonomy && !!defaultCategory && postTypeSupportsCategories && ((categories === null || categories === void 0 ? void 0 : categories.length) === 0 || (categories === null || categories === void 0 ? void 0 : categories.length) === 1 && defaultCategory.id === categories[0]);
+  }, []);
+  const [shouldShowPanel, setShouldShowPanel] = (0,external_wp_element_namespaceObject.useState)(false);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // We use state to avoid hiding the panel if the user edits the categories
+    // and adds one within the panel itself (while visible).
+    if (hasNoCategory) {
+      setShouldShowPanel(true);
+    }
+  }, [hasNoCategory]);
+
+  if (!shouldShowPanel) {
+    return null;
+  }
+
+  const panelBodyTitle = [(0,external_wp_i18n_namespaceObject.__)('Suggestion:'), (0,external_wp_element_namespaceObject.createElement)("span", {
+    className: "editor-post-publish-panel__link",
+    key: "label"
+  }, (0,external_wp_i18n_namespaceObject.__)('Assign a category'))];
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
+    initialOpen: false,
+    title: panelBodyTitle
+  }, (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Categories provide a helpful way to group related posts together and to quickly tell readers what a post is about.')), (0,external_wp_element_namespaceObject.createElement)(hierarchical_term_selector, {
+    slug: "category"
+  }));
+}
+
+/* harmony default export */ var maybe_category_panel = (MaybeCategoryPanel);
+//# sourceMappingURL=maybe-category-panel.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/prepublish.js
 
 
@@ -9180,6 +9637,7 @@ function PostFormatPanel() {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -9272,7 +9730,7 @@ function PostPublishPanelPrepublish(_ref) {
       className: "editor-post-publish-panel__link",
       key: "label"
     }, (0,external_wp_element_namespaceObject.createElement)(post_schedule_label, null))]
-  }, (0,external_wp_element_namespaceObject.createElement)(PostSchedule, null))), (0,external_wp_element_namespaceObject.createElement)(PostFormatPanel, null), (0,external_wp_element_namespaceObject.createElement)(maybe_tags_panel, null), children);
+  }, (0,external_wp_element_namespaceObject.createElement)(PostSchedule, null))), (0,external_wp_element_namespaceObject.createElement)(PostFormatPanel, null), (0,external_wp_element_namespaceObject.createElement)(maybe_tags_panel, null), (0,external_wp_element_namespaceObject.createElement)(maybe_category_panel, null), children);
 }
 
 /* harmony default export */ var prepublish = (PostPublishPanelPrepublish);
@@ -10140,385 +10598,6 @@ function PostSticky(_ref) {
   };
 })])(PostSticky));
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/hierarchical-term-selector.js
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-/**
- * Module Constants
- */
-
-const hierarchical_term_selector_DEFAULT_QUERY = {
-  per_page: -1,
-  orderby: 'name',
-  order: 'asc',
-  _fields: 'id,name,parent',
-  context: 'view'
-};
-const MIN_TERMS_COUNT_FOR_FILTER = 8;
-const hierarchical_term_selector_EMPTY_ARRAY = [];
-/**
- * Sort Terms by Selected.
- *
- * @param {Object[]} termsTree Array of terms in tree format.
- * @param {number[]} terms     Selected terms.
- *
- * @return {Object[]} Sorted array of terms.
- */
-
-function sortBySelected(termsTree, terms) {
-  const treeHasSelection = termTree => {
-    if (terms.indexOf(termTree.id) !== -1) {
-      return true;
-    }
-
-    if (undefined === termTree.children) {
-      return false;
-    }
-
-    return termTree.children.map(treeHasSelection).filter(child => child).length > 0;
-  };
-
-  const termOrChildIsSelected = (termA, termB) => {
-    const termASelected = treeHasSelection(termA);
-    const termBSelected = treeHasSelection(termB);
-
-    if (termASelected === termBSelected) {
-      return 0;
-    }
-
-    if (termASelected && !termBSelected) {
-      return -1;
-    }
-
-    if (!termASelected && termBSelected) {
-      return 1;
-    }
-
-    return 0;
-  };
-
-  const newTermTree = [...termsTree];
-  newTermTree.sort(termOrChildIsSelected);
-  return newTermTree;
-}
-/**
- * Find term by parent id or name.
- *
- * @param {Object[]}      terms  Array of Terms.
- * @param {number|string} parent id.
- * @param {string}        name   Term name.
- * @return {Object} Term object.
- */
-
-function findTerm(terms, parent, name) {
-  return (0,external_lodash_namespaceObject.find)(terms, term => {
-    return (!term.parent && !parent || parseInt(term.parent) === parseInt(parent)) && term.name.toLowerCase() === name.toLowerCase();
-  });
-}
-/**
- * Get filter matcher function.
- *
- * @param {string} filterValue Filter value.
- * @return {(function(Object): (Object|boolean))} Matcher function.
- */
-
-function getFilterMatcher(filterValue) {
-  const matchTermsForFilter = originalTerm => {
-    if ('' === filterValue) {
-      return originalTerm;
-    } // Shallow clone, because we'll be filtering the term's children and
-    // don't want to modify the original term.
-
-
-    const term = { ...originalTerm
-    }; // Map and filter the children, recursive so we deal with grandchildren
-    // and any deeper levels.
-
-    if (term.children.length > 0) {
-      term.children = term.children.map(matchTermsForFilter).filter(child => child);
-    } // If the term's name contains the filterValue, or it has children
-    // (i.e. some child matched at some point in the tree) then return it.
-
-
-    if (-1 !== term.name.toLowerCase().indexOf(filterValue.toLowerCase()) || term.children.length > 0) {
-      return term;
-    } // Otherwise, return false. After mapping, the list of terms will need
-    // to have false values filtered out.
-
-
-    return false;
-  };
-
-  return matchTermsForFilter;
-}
-/**
- * Hierarchical term selector.
- *
- * @param {Object} props      Component props.
- * @param {string} props.slug Taxonomy slug.
- * @return {WPElement}        Hierarchical term selector component.
- */
-
-function HierarchicalTermSelector(_ref) {
-  let {
-    slug
-  } = _ref;
-  const [adding, setAdding] = (0,external_wp_element_namespaceObject.useState)(false);
-  const [formName, setFormName] = (0,external_wp_element_namespaceObject.useState)('');
-  /**
-   * @type {[number|'', Function]}
-   */
-
-  const [formParent, setFormParent] = (0,external_wp_element_namespaceObject.useState)('');
-  const [showForm, setShowForm] = (0,external_wp_element_namespaceObject.useState)(false);
-  const [filterValue, setFilterValue] = (0,external_wp_element_namespaceObject.useState)('');
-  const [filteredTermsTree, setFilteredTermsTree] = (0,external_wp_element_namespaceObject.useState)([]);
-  const debouncedSpeak = (0,external_wp_compose_namespaceObject.useDebounce)(external_wp_a11y_namespaceObject.speak, 500);
-  const {
-    hasCreateAction,
-    hasAssignAction,
-    terms,
-    loading,
-    availableTerms,
-    taxonomy
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      getCurrentPost,
-      getEditedPostAttribute
-    } = select(store);
-    const {
-      getTaxonomy,
-      getEntityRecords,
-      isResolving
-    } = select(external_wp_coreData_namespaceObject.store);
-
-    const _taxonomy = getTaxonomy(slug);
-
-    return {
-      hasCreateAction: _taxonomy ? (0,external_lodash_namespaceObject.get)(getCurrentPost(), ['_links', 'wp:action-create-' + _taxonomy.rest_base], false) : false,
-      hasAssignAction: _taxonomy ? (0,external_lodash_namespaceObject.get)(getCurrentPost(), ['_links', 'wp:action-assign-' + _taxonomy.rest_base], false) : false,
-      terms: _taxonomy ? getEditedPostAttribute(_taxonomy.rest_base) : hierarchical_term_selector_EMPTY_ARRAY,
-      loading: isResolving('getEntityRecords', ['taxonomy', slug, hierarchical_term_selector_DEFAULT_QUERY]),
-      availableTerms: getEntityRecords('taxonomy', slug, hierarchical_term_selector_DEFAULT_QUERY) || hierarchical_term_selector_EMPTY_ARRAY,
-      taxonomy: _taxonomy
-    };
-  }, [slug]);
-  const {
-    editPost
-  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
-  const {
-    saveEntityRecord
-  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
-  const availableTermsTree = (0,external_wp_element_namespaceObject.useMemo)(() => sortBySelected(buildTermsTree(availableTerms), terms), // Remove `terms` from the dependency list to avoid reordering every time
-  // checking or unchecking a term.
-  [availableTerms]);
-
-  if (!hasAssignAction) {
-    return null;
-  }
-  /**
-   * Append new term.
-   *
-   * @param {Object} term Term object.
-   * @return {Promise} A promise that resolves to save term object.
-   */
-
-
-  const addTerm = term => {
-    return saveEntityRecord('taxonomy', slug, term);
-  };
-  /**
-   * Update terms for post.
-   *
-   * @param {number[]} termIds Term ids.
-   */
-
-
-  const onUpdateTerms = termIds => {
-    editPost({
-      [taxonomy.rest_base]: termIds
-    });
-  };
-  /**
-   * Handler for checking term.
-   *
-   * @param {number} termId
-   */
-
-
-  const onChange = termId => {
-    const hasTerm = terms.includes(termId);
-    const newTerms = hasTerm ? (0,external_lodash_namespaceObject.without)(terms, termId) : [...terms, termId];
-    onUpdateTerms(newTerms);
-  };
-
-  const onChangeFormName = value => {
-    setFormName(value);
-  };
-  /**
-   * Handler for changing form parent.
-   *
-   * @param {number|''} parentId Parent post id.
-   */
-
-
-  const onChangeFormParent = parentId => {
-    setFormParent(parentId);
-  };
-
-  const onToggleForm = () => {
-    setShowForm(!showForm);
-  };
-
-  const onAddTerm = async event => {
-    event.preventDefault();
-
-    if (formName === '' || adding) {
-      return;
-    } // check if the term we are adding already exists
-
-
-    const existingTerm = findTerm(availableTerms, formParent, formName);
-
-    if (existingTerm) {
-      // if the term we are adding exists but is not selected select it
-      if (!(0,external_lodash_namespaceObject.some)(terms, term => term === existingTerm.id)) {
-        onUpdateTerms([...terms, existingTerm.id]);
-      }
-
-      setFormName('');
-      setFormParent('');
-      return;
-    }
-
-    setAdding(true);
-    const newTerm = await addTerm({
-      name: formName,
-      parent: formParent ? formParent : undefined
-    });
-    const termAddedMessage = (0,external_wp_i18n_namespaceObject.sprintf)(
-    /* translators: %s: taxonomy name */
-    (0,external_wp_i18n_namespaceObject._x)('%s added', 'term'), (0,external_lodash_namespaceObject.get)(taxonomy, ['labels', 'singular_name'], slug === 'category' ? (0,external_wp_i18n_namespaceObject.__)('Category') : (0,external_wp_i18n_namespaceObject.__)('Term')));
-    (0,external_wp_a11y_namespaceObject.speak)(termAddedMessage, 'assertive');
-    setAdding(false);
-    setFormName('');
-    setFormParent('');
-    onUpdateTerms([...terms, newTerm.id]);
-  };
-
-  const setFilter = value => {
-    const newFilteredTermsTree = availableTermsTree.map(getFilterMatcher(value)).filter(term => term);
-
-    const getResultCount = termsTree => {
-      let count = 0;
-
-      for (let i = 0; i < termsTree.length; i++) {
-        count++;
-
-        if (undefined !== termsTree[i].children) {
-          count += getResultCount(termsTree[i].children);
-        }
-      }
-
-      return count;
-    };
-
-    setFilterValue(value);
-    setFilteredTermsTree(newFilteredTermsTree);
-    const resultCount = getResultCount(newFilteredTermsTree);
-    const resultsFoundMessage = (0,external_wp_i18n_namespaceObject.sprintf)(
-    /* translators: %d: number of results */
-    (0,external_wp_i18n_namespaceObject._n)('%d result found.', '%d results found.', resultCount), resultCount);
-    debouncedSpeak(resultsFoundMessage, 'assertive');
-  };
-
-  const renderTerms = renderedTerms => {
-    return renderedTerms.map(term => {
-      return (0,external_wp_element_namespaceObject.createElement)("div", {
-        key: term.id,
-        className: "editor-post-taxonomies__hierarchical-terms-choice"
-      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
-        checked: terms.indexOf(term.id) !== -1,
-        onChange: () => {
-          const termId = parseInt(term.id, 10);
-          onChange(termId);
-        },
-        label: (0,external_lodash_namespaceObject.unescape)(term.name)
-      }), !!term.children.length && (0,external_wp_element_namespaceObject.createElement)("div", {
-        className: "editor-post-taxonomies__hierarchical-terms-subchoices"
-      }, renderTerms(term.children)));
-    });
-  };
-
-  const labelWithFallback = (labelProperty, fallbackIsCategory, fallbackIsNotCategory) => (0,external_lodash_namespaceObject.get)(taxonomy, ['labels', labelProperty], slug === 'category' ? fallbackIsCategory : fallbackIsNotCategory);
-
-  const newTermButtonLabel = labelWithFallback('add_new_item', (0,external_wp_i18n_namespaceObject.__)('Add new category'), (0,external_wp_i18n_namespaceObject.__)('Add new term'));
-  const newTermLabel = labelWithFallback('new_item_name', (0,external_wp_i18n_namespaceObject.__)('Add new category'), (0,external_wp_i18n_namespaceObject.__)('Add new term'));
-  const parentSelectLabel = labelWithFallback('parent_item', (0,external_wp_i18n_namespaceObject.__)('Parent Category'), (0,external_wp_i18n_namespaceObject.__)('Parent Term'));
-  const noParentOption = `— ${parentSelectLabel} —`;
-  const newTermSubmitLabel = newTermButtonLabel;
-  const filterLabel = (0,external_lodash_namespaceObject.get)(taxonomy, ['labels', 'search_items'], (0,external_wp_i18n_namespaceObject.__)('Search Terms'));
-  const groupLabel = (0,external_lodash_namespaceObject.get)(taxonomy, ['name'], (0,external_wp_i18n_namespaceObject.__)('Terms'));
-  const showFilter = availableTerms.length >= MIN_TERMS_COUNT_FOR_FILTER;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, showFilter && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
-    className: "editor-post-taxonomies__hierarchical-terms-filter",
-    label: filterLabel,
-    value: filterValue,
-    onChange: setFilter
-  }), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "editor-post-taxonomies__hierarchical-terms-list",
-    tabIndex: "0",
-    role: "group",
-    "aria-label": groupLabel
-  }, renderTerms('' !== filterValue ? filteredTermsTree : availableTermsTree)), !loading && hasCreateAction && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    onClick: onToggleForm,
-    className: "editor-post-taxonomies__hierarchical-terms-add",
-    "aria-expanded": showForm,
-    variant: "link"
-  }, newTermButtonLabel), showForm && (0,external_wp_element_namespaceObject.createElement)("form", {
-    onSubmit: onAddTerm
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
-    className: "editor-post-taxonomies__hierarchical-terms-input",
-    label: newTermLabel,
-    value: formName,
-    onChange: onChangeFormName,
-    required: true
-  }), !!availableTerms.length && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TreeSelect, {
-    label: parentSelectLabel,
-    noOptionLabel: noParentOption,
-    onChange: onChangeFormParent,
-    selectedId: formParent,
-    tree: availableTermsTree
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    variant: "secondary",
-    type: "submit",
-    className: "editor-post-taxonomies__hierarchical-terms-submit"
-  }, newTermSubmitLabel)));
-}
-
-/* harmony default export */ var hierarchical_term_selector = ((0,external_wp_components_namespaceObject.withFilters)('editor.PostTaxonomyType')(HierarchicalTermSelector));
-//# sourceMappingURL=hierarchical-term-selector.js.map
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/index.js
 
 
@@ -11678,7 +11757,8 @@ function deprecateComponent(name, Wrapped) {
   const Component = (0,external_wp_element_namespaceObject.forwardRef)((props, ref) => {
     external_wp_deprecated_default()('wp.editor.' + name, {
       since: '5.3',
-      alternative: 'wp.blockEditor.' + name
+      alternative: 'wp.blockEditor.' + name,
+      version: '6.2'
     });
     return (0,external_wp_element_namespaceObject.createElement)(Wrapped, _extends({
       ref: ref
@@ -11694,7 +11774,8 @@ function deprecateFunction(name, func) {
   return function () {
     external_wp_deprecated_default()('wp.editor.' + name, {
       since: '5.3',
-      alternative: 'wp.blockEditor.' + name
+      alternative: 'wp.blockEditor.' + name,
+      version: '6.2'
     });
     return func(...arguments);
   };
