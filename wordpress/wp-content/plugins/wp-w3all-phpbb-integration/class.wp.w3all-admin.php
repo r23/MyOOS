@@ -4,7 +4,6 @@ class WP_w3all_admin {
 public static function wp_w3all_init() {
 
   add_action( 'admin_menu', array( 'WP_w3all_admin', 'wp_w3all_menu' ) );
-  
   if ( isset($_POST['w3all_conf']) OR isset($_POST['w3all_conf_pref']) OR isset($_POST['w3all_conf_avatars']) OR isset($_POST['w3all_conf_add_users_to_phpbb']) OR isset($_POST['w3all_conf_pref_template_embed']) OR isset($_POST['w3all_conf_pref_template_embed_link']) OR isset($_POST['w3all_phpbb_dbconn']) ){
 
     if ( !current_user_can( 'manage_options' ) )  {
@@ -20,12 +19,17 @@ public static function wp_w3all_menu() {
    $w3all_conf_pref = empty(trim($w3all_conf_pref)) ? array() : unserialize($w3all_conf_pref);
    $w3all_transfer_phpbb_yn = isset($w3all_conf_pref['w3all_transfer_phpbb_yn']) ? $w3all_conf_pref['w3all_transfer_phpbb_yn'] : 0;
 
-  add_options_page( 'w3all Options', 'WP w3all', 'manage_options', 'wp-w3all-options', array( 'WP_w3all_admin', 'wp_w3all_options' ) );
+   add_options_page( 'w3all Options', 'WP w3all', 'manage_options', 'wp-w3all-options', array( 'WP_w3all_admin', 'wp_w3all_options' ) );
 
-  if ( $w3all_transfer_phpbb_yn == 1 ) {
-     add_options_page( 'w3all WP users to phpBB', 'WP w3all transfer', 'manage_options', 'wp-w3all-users-to-phpbb', array( 'WP_w3all_admin', 'wp_w3all_users_to_phpbb' ) );
-     add_options_page( 'w3all WP phpBB users to WP', 'phpBB w3all transfer', 'manage_options', 'wp-w3all-users-to-wp', array( 'WP_w3all_admin', 'wp_w3all_users_to_wp' ) );
-     add_options_page( 'w3all WP phpBB users check', 'WP w3all check', 'manage_options', 'wp-w3all-users-check', array( 'WP_w3all_admin', 'wp_w3all_phpbb_check_users' ) );
+  if ( defined('W3PHPBBCONFIG') ){
+   add_management_page( 'w3all WP users to phpBB', 'WP w3all transfer', 'manage_options', 'wp-w3all-users-to-phpbb', array( 'WP_w3all_admin', 'wp_w3all_users_to_phpbb' ) );
+   add_management_page( 'w3all WP phpBB users to WP', 'phpBB w3all transfer', 'manage_options', 'wp-w3all-users-to-wp', array( 'WP_w3all_admin', 'wp_w3all_users_to_wp' ) );
+   add_management_page( 'w3all WP phpBB users check', 'WP w3all check', 'manage_options', 'wp-w3all-users-check', array( 'WP_w3all_admin', 'wp_w3all_phpbb_check_users' ) );
+   add_management_page( 'w3all WP phpBB tasks', 'WP w3all tasks', 'manage_options', 'wp-w3all-common-tasks', array( 'WP_w3all_admin', 'wp_w3all_phpbb_common_tasks' ) );
+
+     //add_options_page( 'w3all WP users to phpBB', 'WP w3all transfer', 'manage_options', 'wp-w3all-users-to-phpbb', array( 'WP_w3all_admin', 'wp_w3all_users_to_phpbb' ) );
+     //add_options_page( 'w3all WP phpBB users to WP', 'phpBB w3all transfer', 'manage_options', 'wp-w3all-users-to-wp', array( 'WP_w3all_admin', 'wp_w3all_users_to_wp' ) );
+     //add_options_page( 'w3all WP phpBB users check', 'WP w3all check', 'manage_options', 'wp-w3all-users-check', array( 'WP_w3all_admin', 'wp_w3all_phpbb_check_users' ) );
    }
 }
 
@@ -59,6 +63,15 @@ public static function wp_w3all_phpbb_check_users() {
    include( $file );
 }
 
+public static function wp_w3all_phpbb_common_tasks() {
+
+  if ( !current_user_can( 'manage_options' ) )  {
+   wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+  }
+   $file = WPW3ALL_PLUGIN_DIR . 'admin/wp_w3all_phpbb_common_tasks.php';
+   include( $file );
+}
+
 public static function wp_w3all_options() {
 
    if ( !current_user_can( 'manage_options' ) )  {
@@ -73,7 +86,7 @@ public static function get_form_set_update() {
    if ( !current_user_can( 'manage_options' ) )  {
      wp_die( __( 'You do not have sufficient permissions to perform this operation.' ) );
    }
-   
+
   if ( isset($_POST['w3all_conf']) ){
 
       if ( empty ( $_POST["w3all_conf"]["w3all_path_to_cms"] ) ){
@@ -84,7 +97,6 @@ public static function get_form_set_update() {
 
         $_POST["w3all_conf"]["w3all_path_to_cms"] = stripslashes($_POST["w3all_conf"]["w3all_path_to_cms"]);
       }
-
 
        $w3all_conf = $_POST['w3all_conf'];
        $data_update = $w3all_conf;

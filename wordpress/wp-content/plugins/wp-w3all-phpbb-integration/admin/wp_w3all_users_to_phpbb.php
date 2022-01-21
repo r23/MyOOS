@@ -4,13 +4,16 @@
     }
 
  global $w3all_add_into_spec_group,$w3all_config,$wpdb;
+ 
+    set_time_limit(300); // set execution time to 5 min "This function has no effect when PHP is running in safe mode. There is no workaround other than turning off safe mode or changing the time limit in the php.ini."
 
    if ( !defined('W3PHPBBCONFIG') ){
-    die("<h2>Wp w3all miss phpBB configuration. Can't connect to phpBB database</h2>");
+   	die("<h2>Wp w3all miss phpBB db configuration. Set phpBB connection values by opening:<br /><br /> Settings -> WP w3all</h2>");
    }
 
  echo'<div style="background-color:#FFF;padding:10px;"><h3>NOTE: you\'re going to insert users into phpBB Group ID -> '.$w3all_add_into_spec_group.' <br /><br />Check that it exist. See it into WP w3all Config Page, and/or you can change this value where related option<br /><br /><i>"Add newly WordPress registered users into a specified phpBB group"</i></h4>';
-  $up_conf_w3all_url = admin_url() . 'options-general.php?page=wp-w3all-users-to-phpbb';
+  //$up_conf_w3all_url = admin_url() . 'options-general.php?page=wp-w3all-users-to-phpbb';
+    $up_conf_w3all_url = admin_url() . 'tools.php?page=wp-w3all-users-to-phpbb';
 
   $phpbb_config = W3PHPBBCONFIG;
   $default_dateformat = $phpbb_config["default_dateformat"];
@@ -66,7 +69,7 @@ if ( ! empty( $user_query->results ) ) {
     foreach($kv as $k => $v){
     if($k == 'rank_special' && $v == 0){
     $urank_id_a = $kv;
-    goto this1; // break to the first found ('it seem' the default phpBB behavior)??
+    goto this1; // break to the first found ('it seem' the default phpBB behavior)
     }
    }}
  }
@@ -136,8 +139,11 @@ if( $wpu->ID > 1 && is_email($wpu->user_email) ){
       VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','','0','', '$wpur', '$wpul', '$wpunn', '$wpup', '0', '$wpue', '$user_email_hash', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '0', '$wp_lang_x_phpbb', 'Europe/Rome', '$default_dateformat', '1', '$rankID', '$group_color', '0', '0', '0', '0', '-3', '0', '0', 't', 'd', 0, 't', 'a', '0', '1', '0', '1', '1', '1', '1', '230271', '', '', '0', '0', '', '', '', '', '', '', '', '0', '0', '0') ON DUPLICATE KEY UPDATE user_regdate = '$wpur', user_password = '$wpup',user_email = '$wpue',user_email_hash = '$user_email_hash'");
      }
     if($phpbb_version == '3.3'){
-     $phpbb_conn->query("INSERT INTO ".$phpbb_config_file["table_prefix"]."users (user_id, user_type, group_id, user_permissions, user_perm_from, user_ip, user_regdate, username, username_clean, user_password, user_passchg, user_email, user_birthday, user_lastvisit, user_lastmark, user_lastpost_time, user_lastpage, user_last_confirm_key, user_last_search, user_warnings, user_last_warning, user_login_attempts, user_inactive_reason, user_inactive_time, user_posts, user_lang, user_timezone, user_dateformat, user_style, user_rank, user_colour, user_new_privmsg, user_unread_privmsg, user_last_privmsg, user_message_rules, user_full_folder, user_emailtime, user_topic_show_days, user_topic_sortby_type, user_topic_sortby_dir, user_post_show_days, user_post_sortby_type, user_post_sortby_dir, user_notify, user_notify_pm, user_notify_type, user_allow_pm, user_allow_viewonline, user_allow_viewemail, user_allow_massemail, user_options, user_avatar, user_avatar_type, user_avatar_width, user_avatar_height, user_sig, user_sig_bbcode_uid, user_sig_bbcode_bitfield, user_jabber, user_actkey, reset_token, reset_token_expiration, user_newpasswd, user_form_salt, user_new, user_reminded, user_reminded_time)
-      VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','','0','','$wpur','$wpul','$wpunn','$wpup','0','$wpue','','0','0','0','index.php','','0','0','0','0','0','0','0','$wp_lang_x_phpbb','','d M Y H:i','1','0','$group_color','0','0','0','0','-3','0','0','t','d','0','t','a','0','1','0','1','1','1','1','230271','$uavatar','$avatype','50','50','','','','','','','0','','','0','0','0') ON DUPLICATE KEY UPDATE user_regdate = '$wpur', user_password = '$wpup',user_email = '$wpue',user_email = '$wpue'");
+     //$phpbb_conn->query("INSERT INTO ".$phpbb_config_file["table_prefix"]."users (user_id, user_type, group_id, user_permissions, user_perm_from, user_ip, user_regdate, username, username_clean, user_password, user_passchg, user_email, user_birthday, user_lastvisit, user_lastmark, user_lastpost_time, user_lastpage, user_last_confirm_key, user_last_search, user_warnings, user_last_warning, user_login_attempts, user_inactive_reason, user_inactive_time, user_posts, user_lang, user_timezone, user_dateformat, user_style, user_rank, user_colour, user_new_privmsg, user_unread_privmsg, user_last_privmsg, user_message_rules, user_full_folder, user_emailtime, user_topic_show_days, user_topic_sortby_type, user_topic_sortby_dir, user_post_show_days, user_post_sortby_type, user_post_sortby_dir, user_notify, user_notify_pm, user_notify_type, user_allow_pm, user_allow_viewonline, user_allow_viewemail, user_allow_massemail, user_options, user_avatar, user_avatar_type, user_avatar_width, user_avatar_height, user_sig, user_sig_bbcode_uid, user_sig_bbcode_bitfield, user_jabber, user_actkey, reset_token, reset_token_expiration, user_newpasswd, user_form_salt, user_new, user_reminded, user_reminded_time)
+     // VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','','0','','$wpur','$wpul','$wpunn','$wpup','0','$wpue','','0','0','0','index.php','','0','0','0','0','0','0','0','$wp_lang_x_phpbb','','d M Y H:i','1','0','$group_color','0','0','0','0','-3','0','0','t','d','0','t','a','0','1','0','1','1','1','1','230271','$uavatar','$avatype','50','50','','','','','','','0','','','0','0','0') ON DUPLICATE KEY UPDATE user_regdate = '$wpur', user_password = '$wpup',user_email = '$wpue',user_email = '$wpue'");
+      // only users db required fields insert
+        $phpbb_conn->query("INSERT INTO ".$w3all_config["table_prefix"]."users (user_id, user_type, group_id, user_regdate, username, username_clean, user_password, user_email, user_lang, user_colour, user_avatar, user_avatar_type, user_new)
+       VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','$wpur','$wpul','$wpunn','$wpup','$wpue','$wp_lang_x_phpbb','$group_color','$uavatar','$avatype','0') ON DUPLICATE KEY UPDATE user_password = '$wpup',user_email = '$wpue'");
      }
     } else { // without updating date
       if($phpbb_version == '3.2'){
@@ -145,8 +151,11 @@ if( $wpu->ID > 1 && is_email($wpu->user_email) ){
        VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','','0','', '$wpur', '$wpul', '$wpunn', '$wpup', '0', '$wpue', '$user_email_hash', '', '', '', '', '', '', '0', '0', '0', '0', '0', '0', '0', '$wp_lang_x_phpbb', 'Europe/Rome', '$default_dateformat', '1', '$rankID', '$group_color', '0', '0', '0', '0', '-3', '0', '0', 't', 'd', 0, 't', 'a', '0', '1', '0', '1', '1', '1', '1', '230271', '', '', '0', '0', '', '', '', '', '', '', '', '0', '0', '0') ON DUPLICATE KEY UPDATE user_password = '$wpup',user_email = '$wpue',user_email_hash = '$user_email_hash'");
       }
       if($phpbb_version == '3.3'){
-       $phpbb_conn->query("INSERT INTO ".$phpbb_config_file["table_prefix"]."users (user_id, user_type, group_id, user_permissions, user_perm_from, user_ip, user_regdate, username, username_clean, user_password, user_passchg, user_email, user_birthday, user_lastvisit, user_lastmark, user_lastpost_time, user_lastpage, user_last_confirm_key, user_last_search, user_warnings, user_last_warning, user_login_attempts, user_inactive_reason, user_inactive_time, user_posts, user_lang, user_timezone, user_dateformat, user_style, user_rank, user_colour, user_new_privmsg, user_unread_privmsg, user_last_privmsg, user_message_rules, user_full_folder, user_emailtime, user_topic_show_days, user_topic_sortby_type, user_topic_sortby_dir, user_post_show_days, user_post_sortby_type, user_post_sortby_dir, user_notify, user_notify_pm, user_notify_type, user_allow_pm, user_allow_viewonline, user_allow_viewemail, user_allow_massemail, user_options, user_avatar, user_avatar_type, user_avatar_width, user_avatar_height, user_sig, user_sig_bbcode_uid, user_sig_bbcode_bitfield, user_jabber, user_actkey, reset_token, reset_token_expiration, user_newpasswd, user_form_salt, user_new, user_reminded, user_reminded_time)
-       VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','','0','','$wpur','$wpul','$wpunn','$wpup','0','$wpue','','0','0','0','index.php','','0','0','0','0','0','0','0','$wp_lang_x_phpbb','','d M Y H:i','1','0','$group_color','0','0','0','0','-3','0','0','t','d','0','t','a','0','1','0','1','1','1','1','230271','$uavatar','$avatype','50','50','','','','','','','0','','','0','0','0') ON DUPLICATE KEY UPDATE user_password = '$wpup',user_email = '$wpue',user_email = '$wpue'");
+       //$phpbb_conn->query("INSERT INTO ".$phpbb_config_file["table_prefix"]."users (user_id, user_type, group_id, user_permissions, user_perm_from, user_ip, user_regdate, username, username_clean, user_password, user_passchg, user_email, user_birthday, user_lastvisit, user_lastmark, user_lastpost_time, user_lastpage, user_last_confirm_key, user_last_search, user_warnings, user_last_warning, user_login_attempts, user_inactive_reason, user_inactive_time, user_posts, user_lang, user_timezone, user_dateformat, user_style, user_rank, user_colour, user_new_privmsg, user_unread_privmsg, user_last_privmsg, user_message_rules, user_full_folder, user_emailtime, user_topic_show_days, user_topic_sortby_type, user_topic_sortby_dir, user_post_show_days, user_post_sortby_type, user_post_sortby_dir, user_notify, user_notify_pm, user_notify_type, user_allow_pm, user_allow_viewonline, user_allow_viewemail, user_allow_massemail, user_options, user_avatar, user_avatar_type, user_avatar_width, user_avatar_height, user_sig, user_sig_bbcode_uid, user_sig_bbcode_bitfield, user_jabber, user_actkey, reset_token, reset_token_expiration, user_newpasswd, user_form_salt, user_new, user_reminded, user_reminded_time)
+       //VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','','0','','$wpur','$wpul','$wpunn','$wpup','0','$wpue','','0','0','0','index.php','','0','0','0','0','0','0','0','$wp_lang_x_phpbb','','d M Y H:i','1','0','$group_color','0','0','0','0','-3','0','0','t','d','0','t','a','0','1','0','1','1','1','1','230271','$uavatar','$avatype','50','50','','','','','','','0','','','0','0','0') ON DUPLICATE KEY UPDATE user_password = '$wpup',user_email = '$wpue'");
+      // only users db required fields insert
+        $phpbb_conn->query("INSERT INTO ".$w3all_config["table_prefix"]."users (user_id, user_type, group_id, user_regdate, username, username_clean, user_password, user_email, user_lang, user_colour, user_avatar, user_avatar_type, user_new)
+       VALUES ('','$phpbb_user_type','$w3all_add_into_spec_group','$wpur','$wpul','$wpunn','$wpup','$wpue','$wp_lang_x_phpbb','$group_color','$uavatar','$avatype','0') ON DUPLICATE KEY UPDATE user_password = '$wpup',user_email = '$wpue'");
       }
     }
 
@@ -172,7 +181,7 @@ if( $wpu->ID > 1 && is_email($wpu->user_email) ){
 
 } else {
         echo '<h1 style="margin-top:1.0em;color:green">Fix phpBB Total and Newest Members here below, or do these two steps on phpBB ACP.</h1><h1><span style="color:green">No more WordPress users found. WP user\'s transfer into phpBB completed!</span></h1>';
-        echo '<h2>All users have been added on phpBB as default Registered users.<br /> Users with no-role on WordPress have been added as deactivated phpBB users.<br />The WP install admin (uid 1) has been excluded by the transfer process.</h2>';
+        echo '<h2>All users have been added on phpBB as default Registered users.<br /> Users with no-role on WordPress have been added as deactivated phpBB users.<br />The WP install admin (uid 1) has been excluded by the transfer process</h2>';
         $socm = 'Transfer Complete! Reload this page if you want to re-start the transfer process';
     }
 }
@@ -207,23 +216,19 @@ if( $wpu->ID > 1 && is_email($wpu->user_email) ){
       {
          $w3warn = '<h2 style="color:red">Error:</h2> '.$_POST['w3ins_wu_to_phpbb'].' <h2 style="color:red">Do you try to transfer the user ID 1 in wordpress?</h2>';
         }
-
-
-
-
   } // END if (isset($_POST['w3ins_wu_to_phpbb'])){
 
  ?>
 
 <div>
   <hr style="background-color:#333;height:2px;" />
-<div class=""><h1>Transfer WordPress Users to phpBB forum ( raw w3_all )</h1></div>
-<h4><span style="color:red">Notice</span>: do not put so hight value for users to transfer each time. It is set by default to 100 users x time, but you can change the value.<br />Try out: maybe 50, 100 or also 5000 or more users to transfer x time is ok for your system/server resources (6000 per time has been the max without errors i've ever try, without changing the php server execution time limit).<br />Let the task to run into same page after the process start. If Php/server error come out due to max execution time, it is necessary to adjust to a lower value the number of users to transfer x time.<br />Refresh browser window: this will "reset the counter" of the transfer procedure.<br />
- Repeat the process by setting a lower value for users to be added x time: continue adding users until a <span style="color:green">green message</span> will display that the transfer has been completed.<br />After this remember to Fix phpBB values about <i>Total</i> and <i>Newest Members</i> here below, or do these two steps directly on phpBB ACP.<br />If there is an existent same username on phpBB, his email address and password are overwrite by the email address and password of the transferred WP user. The process exclude both WP and phpBB default install admins.
- All users are transferred on phpBB as registered users if they have a role on WP, as deactivated in phpBB if no roles on WP.<br />Note: if some modification to the default phpBB database user's tables structure, this procedure will return error and no user will be transferred into phpBB.
- <br /><br /><span style="color:red">Note important</span>: if there are users in phpBB using same email address and with different usernames, <span style="color:red">a warning</span> will appear for these users:<br />it is mandatory that you change the email address for these users in phpBB, as indicated on warning (if it show up).<br /><span style="color:red">It is mandatory that in phpBB do NOT exists users sharing the same email address</span> (because it is possible option in phpBB but not in Wordpress).<br />
- May check if there are by running the related check option: <a href="<?php echo admin_url() . 'options-general.php?page=wp-w3all-users-check'; ?>">w3all users check -> List phpBB users with duplicated usernames or emails</a><br />
- <br />The best way would be to check and adjust these possible old phpBB users created with same email, via phpBB ACP, before to start the transfer process. <br />But the transfer can be restarted any time you like, so you can adjust warnings and repeat the process from begin.
+<div class=""><h1>Transfer WordPress Users into phpBB ( raw w3_all )</h1></div>
+<h4><span style="color:red">Notice</span>: do not put so hight value for users to be transferred each time. It is set by default to 20 users x time, but it is possible to increase the value.<br />Try out: maybe 50, 100 or also 5000 or more users to transfer x time if it is ok for the system/server (6000 per time has been the max tested without errors, without changing the php server execution time limit).<br />Let the task to run into the browser after you clicked into button and the transfer process started. It may will require some time (also minutes like the case of 6000 users per time). If Php/server error come out due to max execution time, it is necessary to adjust to a lower value the number of users to be transferred x time.<br />Refresh browser window: this will "reset the counter" of the transfer procedure to 0.<br />
+ Repeat the process by setting to a lower value, users to process x time: continue adding users until a <span style="color:green">green message</span> will display that the transfer has been completed.<br />After this remember to Fix phpBB values about <i>Total</i> and <i>Newest Members</i> here below, or do these two steps directly on phpBB ACP.<br />If there is an existent same username on phpBB, his email address and password are overwritten by the email address and password of the transferred WP user. The process exclude both WP and phpBB default install admins.
+ All users are transferred on phpBB as registered users if they have a role on WP, as deactivated in phpBB if no roles on WP.
+ <br /><br /><span style="color:red">Note important</span>: if there are users in phpBB sharing same email address, <span style="color:red">a warning</span> will appear for these users:<br />it is mandatory that you change the email address for these users in phpBB, as indicated on warning (if it show up).<br /><span style="color:red">It is mandatory that in phpBB do NOT exists users sharing the same email address</span> (because it is possible option in phpBB but not in Wordpress, and if you do know exactly what are possible implications of this, it is better that there are not users sharing same email in phpBB).<br />
+ May check if there are by running the related check option: <a href="<?php echo admin_url() . 'tools.php?page=wp-w3all-users-check'; ?>">w3all users check -> List phpBB users with duplicated usernames or emails</a><br />
+ <br />Then before to start the transfer process, you can fix user's email using the Common task utilities <a href="<?php echo admin_url() . 'tools.php?page=wp-w3all-common-tasks'; ?>">WP_W3ALL common tasks phpBB/WordPress</a>. <br />The transfer can be restarted any time and it is possible to repeat the process from begin just reloading the page
     </h4>
 
 <form name="w3all_conf_add_users_to_phpbb" id="w3all-conf-add-users-to-phpbb" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
@@ -255,8 +260,8 @@ if( $wpu->ID > 1 && is_email($wpu->user_email) ){
 <hr /><hr />
 
 
-  <div class=""><h1>Fix phpBB <i>Total Members and Newest Member</i> after users transfers complete</h1>
-  or do these two steps via phpBB ACP<br /><br />
+  <div class=""><h1>Fix phpBB <i>Total Members and Newest Member</i></h1>
+   when users transfers finished or do these two steps via phpBB ACP<br /><br />
 
     <br /><b>Fix phpBB Total Members Counter</b><br /><br />
 <?php

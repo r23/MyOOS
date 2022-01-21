@@ -8,7 +8,9 @@ if ( defined('W3PHPBBCONFIG') ){
 	if (class_exists('WP_w3all_phpbb')) {
 	 $wp_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
    $w3db_conn = WP_w3all_phpbb::w3all_db_connect_res();
-   $ck_w3all_phpbb_url = admin_url() . 'options-general.php?page=wp-w3all-users-check';
+   //$ck_w3all_phpbb_url = admin_url() . 'options-general.php?page=wp-w3all-users-check';
+   $ck_w3all_phpbb_url = admin_url() . 'tools.php?page=wp-w3all-users-check';
+
    $phpBBuck = array();
    $wps_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'signups' : $wpdb->prefix . 'signups';
    $wpp_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'posts' : $wpdb->prefix . 'posts';
@@ -413,7 +415,7 @@ if(isset($phpbb_duplicated_usernames)){
 
 	 	echo'<p>Check phpBB emails and usernames that are sharing same email address or same username into<br />
 	 	<strong><i>phpBB -> ACP -> TAB Users and Groups -> Manage users -></i> click into <span style="color:#C70039;font-size:120%;">Find a Member</span> link</strong><br />and insert username or email to find out users sharing same email address or having same username and then fix issues.<br />If all result ok (no duplicated usernames or emails found), <span style="color:#2f6e17">GREEN</span> message will display</p>';
-echo 'To return to the main WP users check page, reload this page or click <a href="' . admin_url() . 'options-general.php?page=wp-w3all-users-check'.'">here</a><br /><br /><hr />';
+echo 'To return to the main WP users check page, reload this page or click <a href="' . admin_url() . 'tools.php?page=wp-w3all-users-check'.'">here</a><br /><br /><hr />';
 
 
 }
@@ -461,7 +463,7 @@ if(isset($phpbb_unwanted_usernames_chars)){
 
 	 	echo'<p>Check phpBB usernames for not allowed characters in WordPress<br />
 	 	If all checked usernames will results ok, so not containing not allowed characters into WordPress, <span style="color:#2f6e17">GREEN</span> message will display</p>';
-echo 'To return to the main WP users check page, reload this page or click <a href="' . admin_url() . 'options-general.php?page=wp-w3all-users-check'.'">here</a><br /><br /><hr />';
+echo 'To return to the main WP users check page, reload this page or click <a href="' . admin_url() . 'tools.php?page=wp-w3all-users-check'.'">here</a><br /><br /><hr />';
 
 
 }

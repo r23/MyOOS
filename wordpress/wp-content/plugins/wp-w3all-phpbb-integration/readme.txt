@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.4.9
+Stable tag: 2.5.0
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.9
@@ -72,6 +72,20 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.5.0 =
+*Release Date - 20 Jan, 2022*
+
+* Fix: unique database connection instance (faster)
+* Fix: front-end plugins email check before update: if the email match another existent into phpBB the update will be rejected with a message. It has been tested working fine into Memberpress and should be ok into any other
+* Note: to test that it is working on any plugin and that an existent email is found and the email update rejected, may as obvious, it sould be tested against an email that do not exist in WP, but that exist in phpBB and belong to another user
+* Fix: user insertion query into phpBB, using only required values
+* Add: common tasks screen, where at moment it is possible to change email for an user only in phpBB or only in WordPress by username, so to make it easy to fix any user's email problem between phpBB and WP
+* Fix: all transfers, check and common tasks options that are now ever available: into related option on plugin admin page, or under WP Tools menu
+* Some hints have been simplified and updated to be more clear
+* Fix: Last posts widgets and shortcodes have been updated to display the same data/hour format of the WordPress setting. Changing WP settings about time/hour format will change the output to the same into widgets/shortcodes
+* Add: parsing of the [attachment] bbcode into phpBB post shortcode: see example here https://www.axew3.com/w3/2017/07/wordpress-shortcode-phpbb-posts-into-wp-post/
+* Minor code fixes
 
 = 2.4.9 =
 *Release Date - 10 Jan, 2022*

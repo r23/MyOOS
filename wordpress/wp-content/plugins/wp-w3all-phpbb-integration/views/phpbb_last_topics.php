@@ -1,6 +1,9 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
 
-global $w3all_iframe_custom_w3fancyurl,$w3all_iframe_phpbb_link_yn,$w3cookie_domain,$wp_w3all_forum_folder_wp;
+global $w3all_iframe_phpbb_link_yn,$w3cookie_domain,$wp_w3all_forum_folder_wp;
+$dateformat = get_option('date_format');
+$gmtoffset = get_option('gmt_offset');
+$timeformat = get_option('time_format');
 
 if(empty($wp_w3all_forum_folder_wp) && $w3all_iframe_phpbb_link_yn == 1){
   echo 'Notice: the forum\'s page name has not been setup. Do it into the plugin admin page';
@@ -42,7 +45,8 @@ if ( $countn < $topics_number ){
    if( $value->user_id == 2 ){ // switch if install admins (uid 1 WP - uid 2 phpBB) have different usernames
      $wpu = get_user_by('ID', 1);
     } else {
-         $wpu = get_user_by('login', $value->topic_last_poster_name);
+         //$wpu = get_user_by('login', $value->topic_last_poster_name);
+         $wpu = get_user_by('email', $value->user_email);
         }
 
    if( ! $wpu && isset($phpbbUAVA) ){
@@ -60,11 +64,11 @@ if ( $countn < $topics_number ){
 
         if ($w3all_avatars_yn){
 
-          echo "<li class=\"".$w3all_lastopics_style_li_class."\"><table style=\"border-spacing:0;border-collapse:collapse;vertical-align:middle;margin:0;border:0;\"><tr><td style=\"border:0;width:".$w3all_last_t_avatar_dim."px;\">".$w3all_avatar_display."</td><td style=\"border:0;width:auto\"><a href=\"$w3all_url_to_cms/viewtopic.php?f=$value->forum_id&amp;t=$value->topic_id&amp;p=$value->post_id#p$value->post_id\">$value->topic_title</a> ".$w3all_post_state_ru."<br />". __( 'by ' , 'wp-w3all-phpbb-integration' )." $value->topic_last_poster_name ". __( 'at ' , 'wp-w3all-phpbb-integration' ) . date_i18n( 'H:i Y-m-d', $value->topic_last_post_time + ( 3600 * get_option( 'gmt_offset' )) ) ."</td></tr></table></li>\n";
+          echo "<li class=\"".$w3all_lastopics_style_li_class."\"><table style=\"border-spacing:0;border-collapse:collapse;vertical-align:middle;margin:0;border:0;\"><tr><td style=\"border:0;width:".$w3all_last_t_avatar_dim."px;\">".$w3all_avatar_display."</td><td style=\"border:0;width:auto\"><a href=\"$w3all_url_to_cms/viewtopic.php?f=$value->forum_id&amp;t=$value->topic_id&amp;p=$value->post_id#p$value->post_id\">$value->topic_title</a> ".$w3all_post_state_ru."<br />". __( 'by ' , 'wp-w3all-phpbb-integration' )." $value->topic_last_poster_name<br />". date_i18n( $dateformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ." ". date_i18n( $timeformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ."</td></tr></table></li>\n";
 
          } else {
 
-                  echo "<li class=\"".$w3all_lastopics_style_li_class."\"><a href=\"$w3all_url_to_cms/viewtopic.php?f=$value->forum_id&amp;t=$value->topic_id&amp;p=$value->post_id#p$value->post_id\">$value->topic_title</a>  ".$w3all_post_state_ru."<br />". __( 'by ' , 'wp-w3all-phpbb-integration' )." $value->topic_last_poster_name " . __( 'at ' , 'wp-w3all-phpbb-integration' ) . date_i18n( 'H:i Y-m-d', $value->topic_last_post_time + ( 3600 * get_option( 'gmt_offset' )) ) ."</li>\n";
+                  echo "<li class=\"".$w3all_lastopics_style_li_class."\"><a href=\"$w3all_url_to_cms/viewtopic.php?f=$value->forum_id&amp;t=$value->topic_id&amp;p=$value->post_id#p$value->post_id\">$value->topic_title</a>  ".$w3all_post_state_ru."<br />". __( 'by ' , 'wp-w3all-phpbb-integration' )." $value->topic_last_poster_name<br />" . date_i18n( $dateformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ." ". date_i18n( $timeformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ."</li>\n";
                 }
        }
 
@@ -74,11 +78,11 @@ if ( $countn < $topics_number ){
 
           if ($w3all_avatars_yn){
 
-             echo "<li class=\"".$w3all_lastopics_style_li_class."\"><table style=\"border-spacing:0;border-collapse:collapse;vertical-align:middle;margin:0;border:0;\"><tr><td style=\"border:0;width:".$w3all_last_t_avatar_dim."px;\">".$w3all_avatar_display."</td><td style=\"border:0;width:auto\"><a href=\"$w3all_url_to_cms/viewtopic.php?f=$value->forum_id&amp;t=$value->topic_id&amp;p=$value->post_id#p$value->post_id\">$value->topic_title</a> ".$w3all_post_state_ru."<br />$value->post_text ...<br />". __( 'by ' , 'wp-w3all-phpbb-integration' )." $value->topic_last_poster_name ". __( 'at ' , 'wp-w3all-phpbb-integration' ) . date_i18n( 'H:i Y-m-d', $value->topic_last_post_time + ( 3600 * get_option( 'gmt_offset' )) ) ."</td></tr></table></li>\n";
+             echo "<li class=\"".$w3all_lastopics_style_li_class."\"><table style=\"border-spacing:0;border-collapse:collapse;vertical-align:middle;margin:0;border:0;\"><tr><td style=\"border:0;width:".$w3all_last_t_avatar_dim."px;\">".$w3all_avatar_display."</td><td style=\"border:0;width:auto\"><a href=\"$w3all_url_to_cms/viewtopic.php?f=$value->forum_id&amp;t=$value->topic_id&amp;p=$value->post_id#p$value->post_id\">$value->topic_title</a> ".$w3all_post_state_ru."<br />$value->post_text ...<br />". __( 'by ' , 'wp-w3all-phpbb-integration' )." $value->topic_last_poster_name<br />" . date_i18n( $dateformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ." ". date_i18n( $timeformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ."</td></tr></table></li>\n";
 
             } else {
 
-                     echo "<li class=\"".$w3all_lastopics_style_li_class."\"><a href=\"$w3all_url_to_cms/viewtopic.php?f=$value->forum_id&amp;t=$value->topic_id&amp;p=$value->post_id#p$value->post_id\">$value->topic_title</a>  ".$w3all_post_state_ru."<br />$value->post_text ...<br />". __( 'by ' , 'wp-w3all-phpbb-integration' )." $value->topic_last_poster_name ". __( 'at ' , 'wp-w3all-phpbb-integration' ) . date_i18n( 'H:i Y-m-d', $value->topic_last_post_time + ( 3600 * get_option( 'gmt_offset' )) ) ."</li>\n";
+                     echo "<li class=\"".$w3all_lastopics_style_li_class."\"><a href=\"$w3all_url_to_cms/viewtopic.php?f=$value->forum_id&amp;t=$value->topic_id&amp;p=$value->post_id#p$value->post_id\">$value->topic_title</a>  ".$w3all_post_state_ru."<br />$value->post_text ...<br />". __( 'by ' , 'wp-w3all-phpbb-integration' )." $value->topic_last_poster_name<br />" . date_i18n( $dateformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ." ". date_i18n( $timeformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ."</li>\n";
                   }
          }
 

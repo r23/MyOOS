@@ -56,8 +56,12 @@
   } else { $colorwarn = 'green;'; }
 
    $w3db_conn = WP_w3all_phpbb::w3all_db_connect_res();
+
    if( $w3db_conn !== null ){
-    $phpBBgroups = $w3db_conn->get_results("SELECT * FROM ". $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] ."groups");
+   	ob_start(); // suppress error if table_prefix is wrong
+     $phpBBgroups = $w3db_conn->get_results("SELECT * FROM ". $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] ."groups");
+    ob_get_contents();
+    ob_end_clean();
    } else { $colorwarn = 'red;'; }
 
    if(empty($phpBBgroups)){ // presumably then, connection values are ok, but the table prefix is wrong
@@ -167,9 +171,8 @@ file_put_contents($w3all_page_td, $w3all_default_template);
 <div class="" style="margin-top:4.0em;margin-right:1.0em;">
 <form name="w3all_phpbb_dbconn" id="w3all-phpbb-dbconn" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
 
-<h1 style="color:green">WP_w3all phpBB db connection values and integration main settings</h1>
+<h1 style="color:green">WP_w3all phpBB db connection and main settings</h1>
 <hr />
-
 <h3><?php echo __('Setup phpBB database connection, Url, Password hash and Integration mode config', 'wp-w3all-phpbb-integration');?></h3>
 
 <?php
@@ -179,7 +182,7 @@ file_put_contents($w3all_page_td, $w3all_default_template);
     }
 ?>
 
-<button id="w3all_config_b" class="button" style="background-color:<?php echo $colorwarn;?>color:#FFF">phpBB connection and main options</button>
+<button id="w3all_config_b" class="button" style="background-color:<?php echo $colorwarn;?>color:#FFF">phpBB connection and main options</button> &nbsp; <?php if( $colorwarn == 'red;' ){ echo __('<span style="color:red;font-weight:700;">WP_w3all miss phpBB db connection values</span>', 'wp-w3all-phpbb-integration'); } ?>
 <br /><br />
 <div id="w3allconfigoption" style="padding:5px;margin:0 20px; 0 0">
 <script>
@@ -189,7 +192,7 @@ jQuery( "#w3all_config_b" ).click(function(e) {
 jQuery( "#w3allconfigoption" ).toggle();
 });
 </script>
-<?php echo __('<span style="color:red">NOTE</span> that <span style="color:red">if WordPress is running in debug mode</span>, failing on setting up db connection values here, lead WordPress to end up with a MySQL error warning and no way to update connection settings and get out by this situation (if not accessing db and changing related option values, or disabling the plugin etc).<br />Instead, open the <i>wp-config.php</i> file and temporarily <span style="color:red">disable the debug in WordPress</span><br />by commenting ( prepend with // ) the \'WP_DEBUG\' line &nbsp;&nbsp;&nbsp;<i> // define( \'WP_DEBUG\', true );</i><br />So WordPress will not end up with an error that stop any other WP code execution, when it is in DEBUG mode and a MySQL connection error occur'); ?>
+<?php echo __('<span style="color:red;font-weight:900;">NOTE for developers:</span> beware that <span style="color:red;font-weight:700;">if WordPress is running in debug mode</span>, failing on setting up db connection values here, lead WordPress to end up with a MySQL error warning and no way to update connection settings and get out by this situation (if not accessing db and changing related option values, or disabling the plugin etc).<br />Instead, open the <i>wp-config.php</i> file and temporarily <span style="color:red;font-weight:700;">disable the debug in WordPress</span><br />comment ( prepend with // ) the \'WP_DEBUG\' line<i>&nbsp;&nbsp; // define( \'WP_DEBUG\', true );</i><br />So WordPress will not end up with an error that stop any other WP code execution, when it is in DEBUG mode and a MySQL connection error occur'); ?>
 <br /><br />
 phpBB real URL: do NOT add final slash and set https or http, the same as WordPress<br /><br />
 <input id="w3all_phpbb_url" name="w3all_phpbb_dbconn[w3all_phpbb_url]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_url'] ); ?>"> <b><span style="<?php if(empty($w3all_phpbb_dbconn['w3all_phpbb_url'])) {echo 'color:red';}else{echo 'display:none';} ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span></b> <?php echo __(' Real phpBB URL - NOTE: do NOT add final slash / &nbsp;&nbsp;Example: https://www.axew3.com/phpbb', 'wp-w3all-phpbb-integration'); ?>
@@ -223,16 +226,16 @@ echo __('Choosing to hash passwords in phpBB mode, when/if integration disabled,
 <?php wp_nonce_field( 'w3all_phpbbdbconn_nonce', 'w3all_phpbbdbconn_nonce_f' ); ?>
 </form>
 </div><!-- close <div id="w3all_config_w" -->
-<hr />
+<hr /><hr />
 </div>
 
 
 <div class="" style="margin-top:3.0em;margin-right:1.0em;padding:0 10px 0 0">
 <form name="w3all_conf_pref" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
-<h1 style="color:green">WP_w3all Preferences</h1>
+<h1 style="color:green">WP_w3all users transfer, check options and common tasks</h1>
 <hr />
-<strong><span style="color:#ff0000">NOTE: IT IS MANDATORY</span></strong>, to transfer existent WordPress users into phpBB when integration start<br /> and that all users must exists into both CMS with unique username/email pairs!<br />Use the <i>WP w3all check -> List phpBB users with duplicated usernames or emails</i> task<br /><br />
-<button id="w3ckoption" class="button">Users Transfer and Check options</button>
+<strong><span style="color:#ff0000">NOTE: IT IS MANDATORY</span></strong> to transfer existent WordPress users into phpBB when integration start<br /><br />
+<button id="w3ckoption" class="button">Users transfer, Check options and Common tasks</button>
 <br /><br />
 <div id="w3all_ck_page" style="padding:5px;margin:0 20px; 0 0">
 <script>
@@ -242,20 +245,25 @@ jQuery( "#w3ckoption" ).click(function(e) {
 jQuery( "#w3all_ck_page" ).toggle();
 });
 </script>
-
-
-
 <?php
-if($w3all_conf_pref['w3all_transfer_phpbb_yn'] == 1){
+echo __('it depend on how Cms are configured to run as integrated (where you allow users to update email)<br />but normally all users must exists into both CMS with unique username/email pairs<br />Use the <i>WP w3all check -> List phpBB users with duplicated usernames or emails</i> task<br /><strong style="color:#FF0000">NOTE: IT IS MANDATORY</strong> as explained on the <a target="_blank" href="https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/">Help Install Page</a><br /><strong style="color:#FF0000">to transfer existent WordPress users into phpBB when integration start</strong><br />
+  While <strong>it is (may) not mandatory</strong> to transfer phpBB users into WordPress when integration start<br />Run check tasks before to start the integration or use it to check for user\'s problems time after time<br />These options are also visible into WordPress admin under Tools Menu', 'wp-w3all-phpbb-integration'); 
+
+/*if($w3all_conf_pref['w3all_transfer_phpbb_yn'] == 1){
  echo '<a href="' . admin_url() . 'options-general.php?page=wp-w3all-users-to-phpbb">wp-w3all-users-to-phpbb</a><br />';
  echo '<a href="' . admin_url() . 'options-general.php?page=wp-w3all-users-to-wp">wp-w3all-users-to-wp</a><br />';
  echo '<a href="' . admin_url() . 'options-general.php?page=wp-w3all-users-to-phpbb">wp-w3all-users-check</a>';
-}
-echo __('<h3>Activate WordPress to phpBB and phpBB to WP users transfer and/or the phpBB WP users check</h3><strong style="color:#FF0000">NOTE: IT IS MANDATORY</strong>, as explained on <a target="_blank" href="https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/">Help Install Page</a>, <strong style="color:#FF0000">to transfer existent WordPress users into phpBB when integration start!</strong><br />
-  While <strong>it is not mandatory</strong> to transfer phpBB users into WordPress when integration start.<br /><br />Note: this option will also activate the - WP w3all check - option, to check problems between linked phpBB and WP users.<br />Run these tasks before to start the integration or to check for user\'s problems time after time.<br /><br />Once activated all options will be visible in WordPress admin side menu under Settings Menu (or here): when the transfer or the user\'s check finished, you can turn it off<br />and remove options items from Admin Side Settings Menu.', 'wp-w3all-phpbb-integration'); ?>
-<p><input type="radio" name="w3all_conf_pref[w3all_transfer_phpbb_yn]" id="w3all_transfer_phpbb_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_transfer_phpbb_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
-<p><input type="radio" name="w3all_conf_pref[w3all_transfer_phpbb_yn]" id="w3all_transfer_phpbb_yn_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_transfer_phpbb_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
+}*/
+ echo '<br /><br /><a href="' . admin_url() . 'tools.php?page=wp-w3all-users-to-phpbb">wp-w3all WordPress users to phpbb</a><br />';
+ echo '<a href="' . admin_url() . 'tools.php?page=wp-w3all-users-to-wp">wp-w3all phpBB users to WordPress</a><br />';
+ echo '<a href="' . admin_url() . 'tools.php?page=wp-w3all-users-check">wp-w3all users check tasks</a><br />';
+ echo '<a href="' . admin_url() . 'tools.php?page=wp-w3all-common-tasks">wp-w3all users common tasks</a>';
+
+?>
 </div>
+<form name="w3all_conf_pref" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
+<hr /><hr />
+<h1 style="color:green">WP_w3all Preferences</h1>
 <hr />
 <h3><?php echo __('Add newly WordPress registered users into specified phpBB group', 'wp-w3all-phpbb-integration');?></h3>
 
