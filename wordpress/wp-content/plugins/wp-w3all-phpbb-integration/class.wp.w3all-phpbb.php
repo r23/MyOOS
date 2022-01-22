@@ -178,7 +178,11 @@ private static function verify_phpbb_credentials(){
 
           if(defined("W3PHPBBCONFIG")){
            $phpbb_config = W3PHPBBCONFIG;
-          } else { return; }
+          } else { $phpbb_config = self::w3all_get_phpbb_config(); }
+          	
+         if(!defined("W3PHPBBCONFIG")){ // may the connection db values have not still been set
+           return;
+          }
 
       if( isset($_GET['action']) && $_GET['action'] == 'logout' ){
          self::w3all_wp_logout();

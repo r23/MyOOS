@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.5.0
+Version: 2.5.1
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -35,7 +35,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.5.0' );
+define( 'WPW3ALL_VERSION', '2.5.1' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -319,7 +319,7 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
 
   // 1st of 2
   if ( defined('W3PHPBBDBCONN') && !isset($w3deactivate_wp_w3all_plugin) ){
-
+    
      require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all-phpbb.php' );
      require_once( WPW3ALL_PLUGIN_DIR . 'class.wp.w3all.widgets-phpbb.php' );
 
@@ -661,7 +661,10 @@ function w3all_filter_pre_user_email( $raw_user_email ) {
         temp_wp_w3_error_on_update('onlymsg');
         exit;
       }
-   }
+   } else {  // this is not an email, avoid any going on (ex: memberpress setup an email field without checking for email validity so that also something like uiefhiefhuiwfe is ok for him!)
+   	   echo __( '<strong>Error</strong>: wrong email format. Return back.', 'wp-w3all-phpbb-integration' );
+   	   exit;
+   	 }
   return $raw_user_email;
 }
 
@@ -669,7 +672,7 @@ function w3all_filter_pre_user_email( $raw_user_email ) {
 if(! defined("WPW3ALL_NOT_ULINKED")){
 
   add_filter( 'pre_user_email', 'w3all_filter_pre_user_email', 10, 1 ); // check for possible duplicated email in phpBB, BEFORE the email being updated in WP
-  
+
   if(isset($_POST['w3all_username']) && isset($_POST['w3all_password'])){
    add_action( 'init', 'w3all_login_widget');
   }
