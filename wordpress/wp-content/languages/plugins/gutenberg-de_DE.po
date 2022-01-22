@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-19 17:41:51+0000\n"
+"PO-Revision-Date: 2022-01-21 19:51:36+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -185,7 +185,7 @@ msgstr "Wird als Startseite der Website angezeigt."
 
 #: lib/compat/wordpress-5.9/block-template-utils.php:117
 msgid "Displays as the site's home page, or as the Posts page when a static home page isn't set."
-msgstr "Wird als Startseite der Webseite angezeigt oder als Beitragsseite, wenn keine statische Startseite gesetzt ist."
+msgstr "Wird entweder als Startseite der Website oder als Beitragsseite angezeigt, wenn keine statische Startseite gesetzt ist."
 
 #: lib/compat/wordpress-5.9/block-template-utils.php:113
 msgid "Displays posts."
