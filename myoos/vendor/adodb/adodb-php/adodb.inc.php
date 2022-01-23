@@ -198,7 +198,7 @@ if (!defined('_ADODB_LAYER')) {
 		/**
 		 * ADODB version as a string.
 		 */
-		$ADODB_vers = 'v5.21.3  2021-10-31';
+		$ADODB_vers = 'v5.21.4  2022-01-22';
 
 		/**
 		 * Determines whether recordset->RecordCount() is used.
@@ -3450,9 +3450,9 @@ http://www.stanford.edu/dept/itss/docs/oracle/10g/server.101/b10759/statements_1
 		function valid() {
 			return !$this->rs->EOF;
 		}
-		
+
 		#[\ReturnTypeWillChange]
-		function key() {		
+		function key() {
 			return false;
 		}
 
@@ -3460,7 +3460,7 @@ http://www.stanford.edu/dept/itss/docs/oracle/10g/server.101/b10759/statements_1
 		function current() {
 			return false;
 		}
-		
+
 		#[\ReturnTypeWillChange]
 		function next() {}
 
@@ -3468,6 +3468,7 @@ http://www.stanford.edu/dept/itss/docs/oracle/10g/server.101/b10759/statements_1
 			return call_user_func_array(array($this->rs, $func), $params);
 		}
 
+		#[\ReturnTypeWillChange]
 		function hasMore() {
 			return false;
 		}
@@ -3491,7 +3492,7 @@ http://www.stanford.edu/dept/itss/docs/oracle/10g/server.101/b10759/statements_1
 		function RowCount() {
 			return 0;
 		}
-		
+
 		function RecordCount() {
 			return 0;
 		}
@@ -3579,7 +3580,7 @@ http://www.stanford.edu/dept/itss/docs/oracle/10g/server.101/b10759/statements_1
 		function rewind() {
 			$this->rs->MoveFirst();
 		}
-		
+
 		#[\ReturnTypeWillChange]
 		function valid() {
 			return !$this->rs->EOF;
@@ -3589,7 +3590,7 @@ http://www.stanford.edu/dept/itss/docs/oracle/10g/server.101/b10759/statements_1
 		function key() {
 			return $this->rs->_currentRow;
 		}
-		
+
 		#[\ReturnTypeWillChange]
 		function current() {
 			return $this->rs->fields;
