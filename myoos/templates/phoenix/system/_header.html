@@ -53,8 +53,9 @@
 <link rel="stylesheet" href="{$theme}/css/myoos.min.css">
 
 <link rel="stylesheet" href="{$theme}/css/vendor.min.css" />
+<!--
 <link rel="stylesheet" href="{$theme}/css/theme.min.css" />
-
+  -->
 {if !empty($smarty.const.SITE_ICONS)}
 <!-- Place favicon.ico and apple-touch-icon.png -->
 <link rel="shortcut icon" href="images/ico/favicon.ico">
@@ -84,7 +85,7 @@
 			<ul class="list-inline header-buttons">	
 				<li class="list-inline-item">
 				{if $cart_count_contents gt 0 }
-					<a href="#offcanvas-cart" data-toggle="offcanvas">
+					<a href="#offcanvas-cart" data-bs-toggle="offcanvas" aria-controls="offcanvas-cart">
 						<i class="fa fa-shopping-basket" aria-hidden="true"></i>
 						<span id="count-contents" class="badge badge-default">{$cart_count_contents}</span>
 						{$lang.header_title_cart_contents}
@@ -111,7 +112,8 @@
 						{$lang.header_title_logoff}
 					</a>
 				{else}
-					<a href="#offcanvas-account" data-toggle="offcanvas">
+							
+					<a href="#offcanvas-account" data-bs-toggle="offcanvas" aria-controls="offcanvas-account">
 						<i class="fa fa-user-o" aria-hidden="true"></i>
 						{$lang.header_title_login}
 					</a>
