@@ -1,11 +1,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-w3all-phpbb-integration\n"
-"POT-Creation-Date: 2022-01-23 01:22+0100\n"
-"PO-Revision-Date: 2022-01-23 11:36+0100\n"
+"POT-Creation-Date: 2022-01-23 11:32+0100\n"
+"PO-Revision-Date: 2022-01-23 11:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: wp-w3all-phpbb@you.us\n"
-"Language: en\n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -21,18 +21,20 @@ msgstr ""
 #: views/wp_w3all_login_form.php:73 views/wp_w3all_phpbb_upm_short.php:4
 #: wp_w3all.php:822 wp_w3all.php:852
 msgid "You have "
-msgstr ""
+msgstr "Hai "
 
 #: addons/page-forum.php:168 addons/page-forum.php:172
 #: views/wp_w3all_phpbb_upm_short.php:4
 msgid " unread forum PM"
-msgstr ""
+msgstr " messaggi non letti"
 
 #: admin/config.php:176
 msgid ""
 "Setup phpBB database connection, Url, Password hash and Integration mode "
 "config"
 msgstr ""
+"Inserisci dati di connessione al database di phpBB, URL, Password hash e "
+"modalità di integrazione"
 
 #: admin/config.php:180
 msgid ""
@@ -40,10 +42,18 @@ msgid ""
 "phpBB db connection values it is mandatory to<br /><br /> <a target=\"_blank"
 "\" href=\"https://www.axew3.com/w3/2016/02/configure-phpbb-cookie-all-domain/"
 "\">setup the correct cookie setting into phpBB</a> and read the <i>phpBB "
-"side</i> setup section into the same <a target=\"_blank\" href=\"https://www."
+"side</i> setup section into the <a target=\"_blank\" href=\"https://www."
 "axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-"
 "phpbb-integration/\">Install Help Page</a></h3>"
 msgstr ""
+"<h3 style=\"color:#ff0000\">Prima di attivare l'integrazione impostando i "
+"valori di connessione al db di phpBB è obbligatorio<br /><br /><a target="
+"\"_blank\" href=\"https://www.axew3.com/w3/2016/02/configure-phpbb-cookie-"
+"all-domain/\">impostare correttamente il setting dei cookie in phpBB</a> e "
+"leggere la sezione <i>phpBB side</i> nella pagina di <a target=\"_blank\" "
+"href=\"https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-"
+"scripts-docs/wordpress-phpbb-integration/\">aiuto per l'installazione</a></"
+"h3>"
 
 #: admin/config.php:181
 msgid ""
@@ -761,7 +771,7 @@ msgstr ""
 
 #: class.wp.w3all-phpbb-postshort.php:2470 class.wp.w3all-phpbb.php:2464
 msgid "Attachments"
-msgstr ""
+msgstr "Allegati"
 
 #: class.wp.w3all.widgets-phpbb.php:10
 msgid "WP phpBB w3all Login"
@@ -796,7 +806,7 @@ msgstr ""
 #: views/phpbb_last_topics_output_shortcode.php:65
 #: views/phpbb_last_topics_withimage_output_shortcode.php:42
 msgid "Guest"
-msgstr ""
+msgstr "Visitatore"
 
 #: views/phpbb_last_topics.php:67 views/phpbb_last_topics.php:71
 #: views/phpbb_last_topics.php:81 views/phpbb_last_topics.php:85
@@ -810,16 +820,16 @@ msgstr ""
 #: views/phpbb_last_topics_output_shortcode.php:89
 #: views/phpbb_last_topics_withimage_output_shortcode.php:91
 msgid "by "
-msgstr ""
+msgstr "da "
 
 #: views/phpbb_last_topics_withimage_output_shortcode.php:94
 msgid "at "
-msgstr ""
+msgstr "a "
 
 #: views/wp_w3all_feeds_short.php:15
 #, php-format
 msgid "Posted %s"
-msgstr ""
+msgstr "Pubblicato%s"
 
 #: views/wp_w3all_login_form.php:32
 msgid ""
@@ -847,7 +857,7 @@ msgstr ""
 
 #: views/wp_w3all_login_form.php:50
 msgid "Register"
-msgstr ""
+msgstr "Registrazione"
 
 #: views/wp_w3all_login_form.php:51
 msgid "&nbsp;&nbsp;Username"
@@ -859,7 +869,7 @@ msgstr ""
 
 #: views/wp_w3all_login_form.php:55
 msgid "Remember me"
-msgstr ""
+msgstr "Ricordami"
 
 #: views/wp_w3all_login_form.php:57
 msgid "Log In"
@@ -867,23 +877,23 @@ msgstr ""
 
 #: views/wp_w3all_login_form.php:59
 msgid "I forgot my password"
-msgstr ""
+msgstr "Ho dimenticato la password"
 
 #: views/wp_w3all_login_form.php:71
 msgid "Hello "
-msgstr ""
+msgstr "Ciao "
 
 #: views/wp_w3all_login_form.php:73
 msgid "unread forum's pm"
-msgstr ""
+msgstr "messaggi non letti"
 
 #: views/wp_w3all_login_form.php:75
 msgid "Forum's posts count: "
-msgstr ""
+msgstr "Posts totali: "
 
 #: views/wp_w3all_login_form.php:76
 msgid "Registered on: "
-msgstr ""
+msgstr "Registrato il: "
 
 #: wp_w3all.php:377 wp_w3all.php:1364 wp_w3all.php:1381
 msgid ""
@@ -917,6 +927,10 @@ msgid ""
 "mismatching session<br /><strong>To fix the problem, please login now here!</"
 "strong>"
 msgstr ""
+"<strong>Avviso: account bloccato<br />Effettua nuovamente il login!</"
+"strong><br />Account disconnesso a causa di un attacco contro la sessione o "
+"a causa di una mancata corrispondenza di sessione<br /><strong>Per risolvere "
+"il problema effettua il login qui</strong>"
 
 #: wp_w3all.php:515
 msgid ""
@@ -960,15 +974,15 @@ msgstr ""
 
 #: wp_w3all.php:797
 msgid "<h3>Error: email address not valid.</h3><br />"
-msgstr ""
+msgstr "<h3>Errore: indirizzo email non valido.</h3><br />"
 
 #: wp_w3all.php:797 wp_w3all.php:1193 wp_w3all.php:1195
 msgid "Return back"
-msgstr ""
+msgstr "Torna indietro"
 
 #: wp_w3all.php:822 wp_w3all.php:852
 msgid "unread forum PM"
-msgstr ""
+msgstr "messaggi non letti"
 
 #: wp_w3all.php:1191
 msgid ""

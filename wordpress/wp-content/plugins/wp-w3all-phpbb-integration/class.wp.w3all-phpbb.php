@@ -1,5 +1,5 @@
 <?php
-// copyright 2020/21 - axew3.com
+//Copyright (C) 2022 - axew3.com
 class WP_w3all_phpbb {
 
 // lost on the way
@@ -179,7 +179,7 @@ private static function verify_phpbb_credentials(){
           if(defined("W3PHPBBCONFIG")){
            $phpbb_config = W3PHPBBCONFIG;
           } else { $phpbb_config = self::w3all_get_phpbb_config(); }
-          	
+
          if(!defined("W3PHPBBCONFIG")){ // may the connection db values have not still been set
            return;
           }
@@ -2299,9 +2299,10 @@ if ( count($last_topics) < 2 ) { echo 'Almost two topics with attachments requir
 // START SHORTCODE for phpBB POST into WP
 //#######################
 
-// wp_w3all_get_phpbb_post_short Version 1.1 // 20/01/2022
-// 1.1 add attachments
-// This need to be improved
+// wp_w3all_get_phpbb_post_short Version 1.2 // 24/01/2022
+// 1.1> add attachments
+// To be improved about: cleanup fake html tags and carriage return to be ever exactly the same
+
 public static function wp_w3all_get_phpbb_post_short( $atts ) {
   global $w3all_config,$w3all_phpbb_connection,$w3all_url_to_cms;
 
@@ -2311,17 +2312,11 @@ public static function wp_w3all_get_phpbb_post_short( $atts ) {
         'wordsnum' => '0'
     ), $atts );
 
-$p['id'] = intval($p['id']);
-if($p['id'] == 0){
-  return "w3all shortcode error.<br /> The shortcode need to be added like this:<br />[w3allforumpost id=\"150\"]<br />change '150' <strong>with the (existent) phpBB post ID to display here.</strong>";
-}
+  $p['id'] = intval($p['id']);
+   if($p['id'] == 0){
+    return "w3all shortcode error.<br /> The shortcode need to be added like this:<br />[w3allforumpost id=\"150\"]<br />change '150' <strong>with the (existent) phpBB post ID to display here.</strong>";
+   }
 
-/*$phpbb_post = $w3all_phpbb_connection->get_results("SELECT T.*, P.* FROM ".$w3all_config["table_prefix"]."topics AS T, ".$w3all_config["table_prefix"]."posts AS P
-  WHERE T.topic_visibility = 1
-   AND T.topic_id = P.topic_id
-   AND P.post_visibility = 1
-   AND P.post_id = '".$p['id']."'
-   ");*/
    $phpbb_post = $w3all_phpbb_connection->get_results("SELECT *
     FROM ". $w3all_config["table_prefix"] ."topics
     JOIN ". $w3all_config["table_prefix"] ."posts ON ". $w3all_config["table_prefix"] ."posts.post_id =  ". $p['id'] ."
@@ -2353,6 +2348,8 @@ if($p['id'] == 0){
    return $res;
   } elseif( isset($phpbb_post[0]['post_attachment']) && $phpbb_post[0]['post_attachment'] > 0 ) // get attachments if there are
   {
+   // get attachments DESC ordered: array keys that match the inline placeholder id will correctly pair the attach (even when into post there are images named the same)
+   // like [attachment=0]image.png[/attachment][attachment=5]image.png[/attachment][attachment=1]image.png[/attachment]
    $phpbb_post_attach = $w3all_phpbb_connection->get_results("SELECT * FROM ".$w3all_config["table_prefix"]."attachments WHERE post_msg_id = '".$p['id']."' ORDER BY attach_id DESC",ARRAY_A);
   }
 
@@ -2361,40 +2358,39 @@ if($p['id'] == 0){
   $suffixes = array('', 'kb', 'mb', 'gb', 'tb');
   $precision = 2;
 
-  //TODO: clean up after all, before return the output, all the 'non existent' tags like:<e> and </e> and more
+ // TODO: clean up after all, before return the output, all the 'non existent' tags like:<e> and </e> and more
 
-// START Grab attachments "placed inline" on post and replace
-// remove each added inline attach from the attachments array: if there are more that belongs to the post, append to the output after
+ // START Grab attachments "placed inline" on post and replace
+ // remove each added inline attach from the attachments array: if there are more that belongs to the post, append to the output after
 
-// get the inline attach number, and all within a bbcode attach (recursive)
-preg_match_all('~\[attachment=([0-9+])\]([^\[]*)\[/attachment\]~si', $phpbb_post['post_text'], $amatches, PREG_SET_ORDER);
+ // get the inline attach number, and all within a bbcode attach
+  preg_match_all('~\[attachment=([0-9+])\]([^\[]*)\[/attachment\]~si', $phpbb_post['post_text'], $amatches, PREG_SET_ORDER);
 
-if( $amatches && !empty($phpbb_post_attach) ){ // remove and replace (also from array)
+ if( $amatches && !empty($phpbb_post_attach) )
+ { // going to pair, replace (and remove from main attach array the inline attachments)
 
- foreach($amatches as $am){
-   $realfilename = preg_replace(array ('~\[attachment=[0-9+]\]~', '~\[/attachment\]~'), array ('', ''), $am[0]);
-   $realfilename = strip_tags(trim($realfilename));
-
-  foreach( $phpbb_post_attach as $pa => $ppa ){
-
-   if(!empty($realfilename) && $ppa['real_filename'] == $realfilename) // so this is our attach array to get values from and assign replacing...
+  foreach($amatches as $am => $amm)
+  {
+   foreach( $phpbb_post_attach as $pa => $ppa )
    {
+    if( $pa == $amm[1] ) // placeholder id match the array key: this is our attach array to get values from and assign replacing for this placeholder...
+    {
        $base = log($ppa['filesize'], 1024);
        $fsize_display = round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
 
-     if (!in_array(strtolower($ppa['extension']), $validImgExt)) { // this is not an image
-      $areplace = '<br /><a style="font-weight:900" href="'.$w3all_url_to_cms.'/download/file.php?id='.$ppa['attach_id'].'">'.$ppa['real_filename'].'</a> <i>('.$fsize_display.')</i><br />';
-     } else { // this is an image
-        $areplace = '<br /><img src="'.$w3all_url_to_cms.'/download/file.php?id='.$ppa['attach_id'].'" alt="'.$ppa['real_filename'].'" /><br />'.$ppa['real_filename'].' <i>('.$fsize_display.')</i><br />';
-       }
+      if (!in_array(strtolower($ppa['extension']), $validImgExt)) { // this is not an image
+       $areplace = '<br /><a style="font-weight:900" href="'.$w3all_url_to_cms.'/download/file.php?id='.$ppa['attach_id'].'">'.$ppa['real_filename'].'</a> <i>('.$fsize_display.')</i><br />';
+      } else { // this is an image // maybe some img ext need to be added, because above array $validImgExt only contain "jpg", "jpeg", "gif", "png" so only these are considered to be parsed like an img here
+         $areplace = '<br /><img src="'.$w3all_url_to_cms.'/download/file.php?id='.$ppa['attach_id'].'" alt="'.$ppa['real_filename'].'" /><br />'.$ppa['real_filename'].' <i>('.$fsize_display.')</i><br />';
+        }
 
-      $phpbb_post['post_text'] = preg_replace('~\[attachment='.$am[1].'\]([^\[]*)\[/attachment\]~si', $areplace, $phpbb_post['post_text']);
-      unset($phpbb_post_attach[$pa]); // remove inline attachments, only 'non added inline' need to display on bottom of the post
+      $phpbb_post['post_text'] = preg_replace('~\[attachment='.$amm[1].'\]([^\[]*)\[/attachment\]~si', $areplace, $phpbb_post['post_text']);
+      unset($phpbb_post_attach[$pa]); // remove this inline attach, only 'non added inline' need to display on bottom of the post
+     }
    }
   }
  }
-}
-// If there are remaining attachments not inline, display them after the post content
+// If there are remaining attachments not inline, display them after the post content, more below
 // END Grab attachments "placed inline" on post and replace. Inline attachments have been removed from attachments array
 
 // START Grab the code and replace with a placeholder '#w3#bbcode#replace#'
@@ -2444,7 +2440,7 @@ $cccc++;
 }
 // END Grab the code and replace with a placeholder '#w3#bbcode#replace#'
 
-// attachments non-inline START
+// remaining attachments non-inline START
     if(!empty($phpbb_post_attach))
     {
       $attach_output = '';
@@ -2460,7 +2456,7 @@ $cccc++;
           }
        }
      }
-     
+
      $attach_output = '<div style="background:#F3F3F3;margin:10px 0;padding:10px"><div><i>'.__( 'Attachments', 'wp-w3all-phpbb-integration' ).'</i><hr style="margin:0;" /></div>'.$attach_output .'</div>';
 
     if(isset($phpbb_post_attach) && isset($attach_output)){
@@ -2471,6 +2467,7 @@ $cccc++;
 return $res;
 
 }
+
 
 public static function w3all_bbcodeconvert($text) {
   // a default (+-- complete) phpBB bbcode array

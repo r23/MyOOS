@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.5.1
+Version: 2.5.2
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -35,7 +35,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.5.1' );
+define( 'WPW3ALL_VERSION', '2.5.2' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -819,7 +819,7 @@ function w3all_edit_profile_url( $url, $user_id, $scheme ) {
         $args_meta = array( 'class' => 'w3all_phpbb_pmn' );
         $args = array(
                 'id'    => 'w3all_phpbb_pm',
-                'title' => __( 'You have ', 'wp-w3all-phpbb-integration' ) . $phpbb_user_session[0]->user_unread_privmsg . __( ' unread forum PM', 'wp-w3all-phpbb-integration' ),
+                'title' => __( 'You have ', 'wp-w3all-phpbb-integration' ) . $phpbb_user_session[0]->user_unread_privmsg .' '. __( 'unread forum PM', 'wp-w3all-phpbb-integration' ),
                 'href'  => $hrefmode,
                 'meta' => $args_meta );
 
@@ -849,7 +849,7 @@ if ( defined("W3PHPBBUSESSION") ) {
 
 $s = "<script>
 jQuery(document).ready(function() {
- var msgs = '".__( 'You have ', 'wp-w3all-phpbb-integration' )."' + ".$phpbb_user_session[0]->user_unread_privmsg." + '".__( ' unread forum PM', 'wp-w3all-phpbb-integration' )."';
+ var msgs = '".__( 'You have ', 'wp-w3all-phpbb-integration' )."' + ".$phpbb_user_session[0]->user_unread_privmsg." + ' ".__( 'unread forum PM', 'wp-w3all-phpbb-integration' )."';
  jQuery('#".$elemID."').after('<li id=\"wp-admin-bar-phpbb-pm\" class=\"menupop\"><a class=\"ab-item\" href=\"".$w3all_url_to_phpbb_ib."\">' + msgs + '</li>');
 });
 

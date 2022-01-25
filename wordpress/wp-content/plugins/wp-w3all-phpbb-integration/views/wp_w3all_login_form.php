@@ -48,9 +48,9 @@ $w3all_loginform_style_li_class = 'w3all_li_widgetLogin';
       ?>
 <form method="post" action="<?php echo $current_url; ?>" class="w3all_login_form">
   <h3><a href="<?php echo wp_registration_url(); ?>"><?php esc_html_e( 'Register' , 'wp-w3all-phpbb-integration' ); ?></a></h3>
-      <input style="width:60%;" type="text" tabindex="1" name="w3all_username" id="username" size="10" class="" title="Username" /> <?php esc_html_e( ' &nbsp;Username' , 'wp-w3all-phpbb-integration' ); ?>
+      <input style="width:60%;" type="text" tabindex="1" name="w3all_username" id="username" size="10" class="" title="Username" /> <?php esc_html_e( '&nbsp;&nbsp;Username' , 'wp-w3all-phpbb-integration' ); ?>
       <br /><br />
-      <input style="width:60%;" type="password" tabindex="2" name="w3all_password" id="password" size="10" class="" title="Password" autocomplete="off" /> <?php esc_html_e( ' &nbsp;Password' , 'wp-w3all-phpbb-integration' ); ?>
+      <input style="width:60%;" type="password" tabindex="2" name="w3all_password" id="password" size="10" class="" title="Password" autocomplete="off" /> <?php esc_html_e( '&nbsp;&nbsp;Password' , 'wp-w3all-phpbb-integration' ); ?>
       <br /><br />
       <?php esc_html_e( 'Remember me' , 'wp-w3all-phpbb-integration' ); ?> <input type="checkbox" tabindex="4" name="autologin" id="autologin" />
       <br /><br />
@@ -70,7 +70,7 @@ if ( is_user_logged_in() && isset($phpbb_user_session) ){
      echo '<li class="'.$w3all_loginform_style_li_class.'">' . get_avatar(get_current_user_id(), $w3all_last_t_avatar_dim) . '</li>';
      echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'Hello ' , 'wp-w3all-phpbb-integration' ) . $phpbb_user_session[0]->username . '</li>';
      if($phpbb_user_session[0]->user_unread_privmsg > 0){
-      echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'You have ' , 'wp-w3all-phpbb-integration' ) . '<a href="'.$w3all_url_to_cms.'/ucp.php?i=pm&amp;folder=inbox">' . $phpbb_user_session[0]->user_unread_privmsg . '</a>' . __( ' unread forum\'s pm' , 'wp-w3all-phpbb-integration' ) . '</li>';
+      echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'You have ' , 'wp-w3all-phpbb-integration' ) . '<a href="'.$w3all_url_to_cms.'/ucp.php?i=pm&amp;folder=inbox">' . $phpbb_user_session[0]->user_unread_privmsg . '</a> ' . __( 'unread forum\'s pm' , 'wp-w3all-phpbb-integration' ) . '</li>';
      }
      echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'Forum\'s posts count: ' , 'wp-w3all-phpbb-integration' ) . $phpbb_user_session[0]->user_posts . '</li>';
      echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'Registered on: ' , 'wp-w3all-phpbb-integration' ) . date_i18n( 'd M Y', $phpbb_user_session[0]->user_regdate + ( 3600 * get_option( 'gmt_offset' )) ) . '</li>';

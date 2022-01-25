@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.5.1
+Stable tag: 2.5.2
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.9
@@ -72,6 +72,15 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.5.2 =
+*Release Date - 24 Jan, 2022*
+
+* Fix: language file wp-w3all-phpbb-integration.pot into /wp-content/plugins/wp-w3all-phpbb-integration/languages that can be used to correctly create .po lang files. en_EN, us_US, fr_FR, es_ES and it_IT have been added into languages folder by default, ready in place, even if not still translated (have been translated just front-end strings into it_IT)
+* Fix: the shortcode phpBB posts into WP post has been updated to correctly parse any attachment, inline and not inline, exactly like phpBB do
+* phpBB Post Shortcode is here: https://www.axew3.com/w3/2017/07/wordpress-shortcode-phpbb-posts-into-wp-post/
+* Fix admin hints all over
+* Minor fixes
 
 = 2.5.1 =
 *Release Date - 21 Jan, 2022*

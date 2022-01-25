@@ -1,8 +1,9 @@
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-w3all-phpbb-integration\n"
 "POT-Creation-Date: 2022-01-23 01:22+0100\n"
-"PO-Revision-Date: 2022-01-23 11:36+0100\n"
+"PO-Revision-Date: 2022-01-23 00:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: wp-w3all-phpbb@you.us\n"
 "Language: en\n"

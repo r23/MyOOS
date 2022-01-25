@@ -177,7 +177,7 @@ file_put_contents($w3all_page_td, $w3all_default_template);
 
 <?php
     if( !defined('W3PHPBBDBCONN') ){
-     echo __('<h3 style="color:#ff0000">Before to activate the integration by setting phpBB db connection values it is mandatory to<br /><br /> <a target="_blank" href="https://www.axew3.com/w3/2016/02/configure-phpbb-cookie-all-domain/">setup the correct cookie setting into phpBB</a> (and read the <a target="_blank" href="https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/">Install Help Page</a>)</h3>', 'wp-w3all-phpbb-integration');
+     echo __('<h3 style="color:#ff0000">Before to activate the integration by setting phpBB db connection values it is mandatory to<br /><br /> <a target="_blank" href="https://www.axew3.com/w3/2016/02/configure-phpbb-cookie-all-domain/">setup the correct cookie setting into phpBB</a> and read the <i>phpBB side</i> setup section into the <a target="_blank" href="https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/">Install Help Page</a></h3>', 'wp-w3all-phpbb-integration');
      echo __('<h4 style="color:#ff0000">Wp w3all miss phpBB db connection values.</h4>', 'wp-w3all-phpbb-integration');
     }
 ?>
