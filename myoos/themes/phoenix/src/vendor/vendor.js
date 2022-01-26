@@ -1,6 +1,6 @@
 // @prepros-prepend  "./js/jquery.min.js"
 // @prepros-prepend  "./js/popper.min.js"
-// @prepros-prepend  "./js/bootstrap.min.js"
+// @prepros-prepend  "./js/bootstrap.bundle.min"
 // @prepros-prepend  "./js/feather.min.js"
 // @prepros-prepend  "./js/jquery.fancybox.min.js"
 // @prepros-prepend  "./js/owl.carousel.min.js"

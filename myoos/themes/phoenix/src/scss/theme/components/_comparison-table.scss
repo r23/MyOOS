@@ -1,0 +1,72 @@
+//
+// Comparison table
+// --------------------------------------------------
+
+
+.comparison-table {
+  width: 100%;
+  font-size: $comparison-table-font-size;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  table {
+    min-width: $comparison-table-min-width;
+    table-layout: fixed;
+    tbody + tbody {
+      border-top-width: $table-border-width;
+    }
+  }
+  .table-bordered thead td {
+    border-bottom-width: $table-border-width;
+  }
+  .comparison-item {
+    position: relative;
+    padding: .875rem .75rem 1.125rem;
+    border: $table-border-width solid $table-border-color;
+    @include border-radius($comparison-table-item-border-radius);
+    background-color: $white;
+    text-align: center;
+    .comparison-item-thumb {
+      display: block;
+      width: $comparison-table-item-image-width;
+      margin: {
+        right: auto;
+        bottom: .75rem;
+        left: auto;
+      }
+      > img {
+        display: block;
+        width: 100%;
+      }
+    }
+    .comparison-item-title {
+      display: block;
+      width: 100%;
+      margin-bottom: 14px;
+      color: $comparison-table-item-title-color;
+      font-weight: $comparison-table-item-title-font-weight;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    .btn { margin: 0; }
+    .remove-item {
+      display: block;
+      position: absolute;
+      top: -.3125rem;
+      right: -.3125rem;
+      width: $comparison-table-remove-btn-size;
+      height: $comparison-table-remove-btn-size;
+      border-radius: 50%;
+      background-color: $comparison-table-remove-btn-bg;
+      color: $comparison-table-remove-btn-color;
+      text-align: center;
+      cursor: pointer;
+      .feather {
+        width: $comparison-table-remove-btn-cion-size;
+        height: $comparison-table-remove-btn-cion-size;
+      }
+    }
+  }
+}

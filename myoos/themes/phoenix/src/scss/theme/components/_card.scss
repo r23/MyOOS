@@ -1,0 +1,107 @@
+//
+// Card
+// --------------------------------------------------
+
+
+// Header navs
+
+.card-header-tabs {
+  margin: {
+    top: -$card-spacer-x / 3;
+    right: -$card-spacer-x;
+    bottom: -$card-spacer-y;
+    left: -$card-spacer-x;
+  }
+}
+
+
+// Accordion
+
+.accordion {
+  .card-header {
+    padding: 0;
+    background-color: transparent;
+  }
+  .accordion-heading {
+    margin-bottom: 0;
+    font: {
+      size: $accordion-heading-font-size;
+      weight: $accordion-heading-font-weight;
+    }
+    > a {
+      display: block;
+      position: relative;
+      padding: $card-spacer-x;
+      padding-right: ($card-spacer-x * 1.5 + $accordion-indicator-box-size);
+      color: $accordion-heading-color;
+      &:hover {
+        color: inherit;
+        text-decoration: none;
+      }
+    }
+  }
+  .accordion-indicator {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: $card-spacer-x;
+    width: $accordion-indicator-box-size;
+    height: $accordion-indicator-box-size;
+    margin-top: -($accordion-indicator-box-size / 2);
+    transition: $accordion-indicator-transition;
+    border: $border-width solid $accordion-indicator-border-color;
+    border-radius: 50%;
+    line-height: $accordion-indicator-box-size;
+    text-align: center;
+    > .feather {
+      @include feather-icon-size($accordion-indicator-icon-size);
+      margin-top: -.375rem;
+    }
+  }
+  .collapsed .accordion-indicator {
+    transform: rotate(-180deg);
+  }
+}
+
+
+// Card link
+
+a.card:hover {
+  text-decoration: none;
+}
+
+
+// Tiled image
+
+.card-img-tiles {
+  display: flex;
+  position: relative;
+  background-color: $card-bg;
+  z-index: 5;
+  .main-img,
+  .thumblist {
+    > img {
+      display: block;
+      width: 100%;
+    }
+  }
+  .main-img {
+    width: 67%;
+    padding-right: .375rem;
+  }
+  .thumblist {
+    width: 33%;
+    padding-left: .375rem;
+    > img {
+      margin-bottom: .75rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+
+// IE 11 Fix
+// Core Bootstrap issue https://github.com/twbs/bootstrap/issues/21885
+.card * { min-height: .01px; }

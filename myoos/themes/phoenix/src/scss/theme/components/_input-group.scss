@@ -1,0 +1,10 @@
+//
+// Input group
+// --------------------------------------------------
+
+
+// Input addon icon
+
+.input-group-text .feather {
+  @include feather-icon-size($input-group-icon-size);
+}

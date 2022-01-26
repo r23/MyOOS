@@ -1,0 +1,93 @@
+/** price
+*************************************************** **/
+
+.product-price {
+	color:#5c77fc;
+    font-size: 20px;
+    margin-top: 6px;
+    font-weight: bold;
+    > span {
+      color: #999;
+      font-size: 15px;
+      display: inline-block;
+      padding: 0 10px;
+      font-weight: 400;
+	 }
+ }
+
+.line-through		{ text-decoration: line-through; }
+
+.span.price-offer{
+	color:#ef4135;
+	font-size:24px;
+	padding-right:5px;
+}
+
+.span.price-old{
+	font-size:18px;
+	color:#808080;
+}
+
+
+.product_details_desc span.price-offer {
+	color:#ef4135;
+	font-size:24px;
+	padding-right:5px;
+}
+
+.product_details_desc span.price-old {
+	font-size:18px;
+	color:#808080;
+}
+
+
+.product-price span.price-offer {
+	color:#ef4135;
+	font-size:24px;
+	padding-right:5px;
+}
+
+.product-price span.price-old {
+	font-size:18px;
+	color:#808080;
+}
+
+
+
+.product-price span.price-offer {
+	color:#ef4135;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.product-price span.price-old {
+	font-size:18px;
+	color:#808080;
+}
+
+.product-price p {
+  margin-bottom: 38px;
+}
+
+.total_price {
+    float:right;
+    width:100px;
+    font-size:15px;
+    padding:10px;
+    line-height:30px;
+    text-align:right;
+    font-weight:bold;
+}
+
+.final_price {
+    float:right;
+    font-size:15px;
+    padding:10px;
+    line-height:30px;
+    text-align:right;
+}
+
+.prices-tax {
+	font-size:  15px;
+	margin: 0;
+}

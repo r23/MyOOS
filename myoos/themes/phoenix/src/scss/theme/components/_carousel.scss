@@ -1,0 +1,110 @@
+//
+// Carousel (based on Owl Carousel)
+// --------------------------------------------------
+
+.owl-carousel {
+
+  // Navs
+  .owl-nav {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    @include border-radius($carousel-navs-border-radius);
+    box-shadow: $carousel-navs-box-shadow;
+  }
+  .owl-nav button.owl-next,
+  .owl-nav button.owl-prev {
+    display: block;
+    float: left;
+    width: $carousel-navs-size;
+    height: $carousel-navs-size;
+    transition: all .3s;
+    background-color: $carousel-navs-bg;
+    color: $carousel-navs-arrow-color;
+    line-height: $carousel-navs-size;
+    text-align: center;
+    text-align: center;
+    opacity: 1;
+    > span { display: none; }
+    &:hover:not(.disabled) {
+      color: $carousel-navs-hover-arrow-color;
+    }
+    &:focus { outline: none; }
+    &::after {
+      display: inline-block;
+      line-height: 1;
+      font-size: $carousel-navs-arrow-size;
+    }
+    &.disabled {
+      color: $gray-500;
+      cursor: not-allowed;
+    }
+  }
+  .owl-nav button.owl-prev {
+    &::after {
+      margin: {
+        top: .275rem;
+        left: -.125rem;
+      }
+      content: '‹';
+    }
+}
+  .owl-nav button.owl-next {
+    border-left: $border-width solid rgba($border-color, .55);
+    &::after {
+      margin: {
+        top: .275rem;
+        right: -.125rem;
+      }
+      content: '›';
+    }
+  }
+
+  // Dots
+  .owl-dots {
+    display: block;
+    width: 100%;
+    padding: 1rem 0;
+    text-align: center;
+    .owl-dot {
+      display: inline-block;
+      width: $carousel-dots-size;
+      height: $carousel-dots-size;
+      margin: 0 .3125rem;
+      transition: all .25s;
+      border-radius: 50%;
+      background-color: $carousel-dots-color;
+      opacity: .5;
+      vertical-align: middle;
+      &.active {
+        transform: scale(2);
+        opacity: 1;
+      }
+      &:focus { outline: none; }
+    }
+  }
+
+  // Nav bottom
+  &.owl-nav-bottom {
+    .owl-nav {
+      top: auto;
+      bottom: 1rem;
+    }
+    .owl-dots {
+      position: absolute;
+    }
+  }
+
+  &.carousel-flush {
+    .owl-dots { padding-top: 0 !important; }
+    .owl-item { padding: 0 .9375rem; }
+  }
+
+  &.controls-hidden-mobile {
+    @include media-breakpoint-down(md) {
+      .owl-nav {
+        display: none;
+      }
+    }
+  }
+}

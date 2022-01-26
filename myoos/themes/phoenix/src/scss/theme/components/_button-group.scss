@@ -1,0 +1,97 @@
+//
+// Button group
+// --------------------------------------------------
+
+
+// Update pill button styles inside button group
+
+.btn-group {
+  .btn-pill {
+    border-radius: 0;
+    &:first-of-type {
+      border: {
+        top-left-radius: $btn-pill-border-radius;
+        bottom-left-radius: $btn-pill-border-radius;
+      }
+      &.btn-sm {
+        border: {
+          top-left-radius: $btn-pill-border-radius-sm;
+          bottom-left-radius: $btn-pill-border-radius-sm;
+        }
+      }
+      &.btn-lg {
+        border: {
+          top-left-radius: $btn-pill-border-radius-lg;
+          bottom-left-radius: $btn-pill-border-radius-lg;
+        }
+      }
+    }
+    &:last-of-type {
+      border: {
+        top-right-radius: $btn-pill-border-radius;
+        bottom-right-radius: $btn-pill-border-radius;
+      }
+      &.btn-sm {
+        border: {
+          top-right-radius: $btn-pill-border-radius-sm;
+          bottom-right-radius: $btn-pill-border-radius-sm;
+        }
+      }
+      &.btn-lg {
+        border: {
+          top-right-radius: $btn-pill-border-radius-lg;
+          bottom-right-radius: $btn-pill-border-radius-lg;
+        }
+      }
+    }
+  }
+  &.btn-group-lg .btn-pill {
+    border-radius: 0;
+    &:first-of-type {
+      border: {
+        top-left-radius: $btn-pill-border-radius-lg;
+        bottom-left-radius: $btn-pill-border-radius-lg;
+      }
+    }
+    &:last-of-type {
+      border: {
+        top-right-radius: $btn-pill-border-radius-lg;
+        bottom-right-radius: $btn-pill-border-radius-lg;
+      }
+    }
+  }
+  &.btn-group-sm .btn-pill {
+    border-radius: 0;
+    &:first-of-type {
+      border: {
+        top-left-radius: $btn-pill-border-radius-sm;
+        bottom-left-radius: $btn-pill-border-radius-sm;
+      }
+    }
+    &:last-of-type {
+      border: {
+        top-right-radius: $btn-pill-border-radius-sm;
+        bottom-right-radius: $btn-pill-border-radius-sm;
+      }
+    }
+  }
+  > .btn-group:not(:first-child) > .btn-pill {
+    border: {
+      top-left-radius: 0;
+      bottom-left-radius: 0;
+    }
+  }
+  > .btn-pill:not(:last-child):not(.dropdown-toggle) {
+    border: {
+      top-right-radius: 0;
+      bottom-right-radius: 0;
+    }
+  }
+}
+
+
+// Vertical button group
+
+.btn-group-vertical {
+  .btn { box-shadow: none !important; }
+}

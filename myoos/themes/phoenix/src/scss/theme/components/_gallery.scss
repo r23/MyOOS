@@ -1,0 +1,85 @@
+//
+// Gallery
+// --------------------------------------------------
+
+
+.gallery-item {
+  display: block;
+  position: relative;
+  text-decoration: none;
+  overflow: hidden;
+
+  > img {
+    display: block;
+    width: 100%;
+    transform: translate3d(0, 0, 0);
+    transition: all .45s;
+  }
+
+  .gallery-caption {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: $gallery-caption-padding;
+    transform: translate3d(0, 100%, 0);
+    transition: all .4s;
+    background-color: $gallery-caption-bg;
+    color: $gallery-caption-color;
+    font: {
+      size: $gallery-caption-font-size;
+      weight: $gallery-caption-font-weight;
+    }
+    text-align: center;
+  }
+
+  .gallery-indicator {
+    display: inline-block;
+    margin-right: .375rem;
+    vertical-align: middle;
+    > .gallery-indicator-icon {
+      width: $gallery-indicator-icon-size;
+      height: $gallery-indicator-icon-size;
+      color: $gallery-indicator-color;
+    }
+  }
+
+  // Video item
+  &.video-item {
+    .gallery-indicator {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: $gallery-indicator-box-size;
+      height: $gallery-indicator-box-size;
+      margin: {
+        top: -($gallery-indicator-box-size / 2);
+        left: -($gallery-indicator-box-size / 2);
+      }
+      border-radius: 50%;
+      background-color: $gallery-caption-bg;
+      text-align: center;
+      line-height: $gallery-indicator-box-size - .25rem;
+      box-shadow: $gallery-indicator-box-shadow;
+      z-index: 10;
+      > .gallery-indicator-icon {
+        width: $gallery-indicator-icon-size * .85;
+        height: $gallery-indicator-icon-size * .85;
+      }
+    }
+  }
+
+  // Hover state
+  &:hover {
+    > img { transform: translate3d(0, -1.5rem, 0); }
+    .gallery-caption { transform: translate3d(0, 0, 0); }
+  }
+}
+
+// Fancybox overrides
+.fancybox-thumbs__list a::before {
+  border-width: 4px;
+  border-color: $primary;
+}

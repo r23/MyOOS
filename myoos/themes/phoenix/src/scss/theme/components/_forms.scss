@@ -1,0 +1,116 @@
+//
+// Forms
+// --------------------------------------------------
+
+
+// Label
+
+label {
+  padding-top: .0625rem;
+  font-size: $font-size-sm;
+  &:not(.form-check-label):not(.custom-control-label):not(.custom-file-label):not(.custom-option-label) {
+    color: $headings-color;
+    font-weight: $font-weight-semibold;
+  }
+}
+
+
+// Custom control label
+
+.custom-control:focus,
+.custom-control-label:focus { outline: none; }
+
+
+// Form validation
+
+.was-validated .form-control:valid,
+.was-validated .form-control.is-valid,
+.was-validated .custom-file-input:valid ~ .custom-file-label {
+  &, &:focus {
+    border-color: $input-border-color;
+  }
+}
+.invalid-tooltip {
+  padding: .15rem .5rem;
+  font-size: $form-feedback-font-size;
+}
+.was-validated .custom-control-input:valid ~ .custom-control-label,
+.was-validated .custom-control-input.is-valid ~ .custom-control-label {
+  color: inherit;
+}  
+.was-validated .custom-control-input:valid:checked ~ .custom-control-label::before, .was-validated .custom-control-input.is-valid:checked ~ .custom-control-label::before {
+  border-color: $custom-control-indicator-checked-bg !important;
+  background-color: $custom-control-indicator-checked-bg;
+}
+.was-validated .custom-control-input:valid ~ .custom-control-label::before,
+.was-validated .custom-control-input.is-valid ~ .custom-control-label::before {
+  border-color: $custom-control-indicator-border-color !important;
+}
+
+
+// Disabled inputs
+
+.form-control:disabled {
+  cursor: not-allowed;
+}
+
+
+// Subscription form status
+
+.subscribe-status {
+  padding: .125rem .375rem;
+  color: $white;
+  font-size: $font-size-sm;
+  text-align: center;
+  &.status-success {
+    background-color: darken($success, 3%);
+  }
+  &.status-error {
+    background-color: $danger;
+  }
+}
+
+// Custom size / color radios
+.custom-option {
+  padding-left: 0;
+  &.custom-control-inline {
+    margin-right: ($spacer / 4);
+  }
+}
+.custom-option-label {
+  position: relative;
+  width: $custom-option-size;
+  height: $custom-option-size;
+  margin-bottom: 0;
+  transition: $custom-option-transition;
+  border: $custom-option-border-width solid $custom-option-border-color;
+  @include border-radius($custom-option-border-radius);
+  color: $custom-option-color;
+  font: {
+    size: $custom-option-font-size;
+    weight: $custom-option-font-weight;
+  }
+  text-align: center;
+  line-height: ($custom-option-size - .25rem);
+  cursor: pointer;
+  &:hover {
+    border-color: $custom-option-hover-border-color;
+    color: $custom-option-hover-color;
+  }
+}
+.custom-option-color {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: ($custom-option-size - .75rem);
+  height: ($custom-option-size - .75rem);
+  margin: {
+    top: -(($custom-option-size - .75rem) / 2);
+    left: -(($custom-option-size - .75rem) / 2);
+  }
+}
+.custom-control-input:checked ~ .custom-option-label {
+  border-color: $custom-option-active-border-color;
+  color: $custom-option-active-color;
+}
