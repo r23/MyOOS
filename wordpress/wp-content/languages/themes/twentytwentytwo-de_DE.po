@@ -1,0 +1,888 @@
+# Translation of Themes - Twenty Twenty-Two in German
+# This file is distributed under the same license as the Themes - Twenty Twenty-Two package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2022-01-18 07:47:53+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"Language: de\n"
+"Project-Id-Version: Themes - Twenty Twenty-Two\n"
+
+#. Description of the theme
+msgid "Built on a solidly designed foundation, Twenty Twenty-Two embraces the idea that everyone deserves a truly unique website. The theme’s subtle styles are inspired by the diversity and versatility of birds: its typography is lightweight yet strong, its color palette is drawn from nature, and its layout elements sit gently on the page. The true richness of Twenty Twenty-Two lies in its opportunity for customization. The theme is built to take advantage of the Full Site Editing features introduced in WordPress 5.9, which means that colors, typography, and the layout of every single page on your site can be customized to suit your vision. It also includes dozens of block patterns, opening the door to a wide range of professionally designed layouts in just a few clicks. Whether you’re building a single-page website, a blog, a business website, or a portfolio, Twenty Twenty-Two will help you create a site that is uniquely yours."
+msgstr "Twenty Twenty-Two basiert auf einer solide gestalteten Grundlage und vertritt die Idee, dass jeder eine wirklich einzigartige Website verdient. Die subtilen Stile des Themes sind von der Vielfalt und Vielseitigkeit der Vögel inspiriert: Die Typografie ist leicht und doch stark, die Farbpalette ist der Natur entnommen, und die Layout-Elemente sitzen sanft auf der Seite. Der wahre Reichtum von Twenty Twenty-Two liegt in der Möglichkeit der individuellen Anpassung. Das Theme wurde so entwickelt, dass es die Vorteile der in WordPress 5.9 eingeführten Full-Site-Editing-Funktionen nutzt, was bedeutet, dass Farben, Typografie und das Layout jeder einzelnen Seite deiner Website individuell angepasst werden können, um deinen Vorstellungen zu entsprechen. Außerdem enthält es Dutzende von Blockvorlagen, die dir mit nur wenigen Klicks die Tür zu einer breiten Palette professionell gestalteter Layouts öffnen. Ganz gleich, ob du eine Onepage-Website, einen Blog, eine Unternehmenswebsite oder ein Portfolio erstellst, Twenty Twenty-Two hilft dir dabei, eine Website zu erstellen, die ganz auf dich zugeschnitten ist."
+
+#. Theme Name of the theme
+msgid "Twenty Twenty-Two"
+msgstr "Twenty Twenty-Two"
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Footer"
+msgstr "Footer"
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Header (Dark, small)"
+msgstr "Header (dunkel, klein)"
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Header (Dark, large)"
+msgstr "Header (dunkel, groß)"
+
+#: theme.json
+msgctxt "Template part name"
+msgid "Header"
+msgstr "Header"
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Page (No Separators)"
+msgstr "Seite (ohne Trennzeichen)"
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Single Post (No Separators)"
+msgstr "Einzelner Beitrag (ohne Trennzeichen)"
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Page (Large Header)"
+msgstr "Seite (großer Header)"
+
+#: theme.json
+msgctxt "Custom template name"
+msgid "Blank"
+msgstr "Leer"
+
+#: theme.json
+msgctxt "Duotone name"
+msgid "Primary and tertiary"
+msgstr "Primär und tertiär"
+
+#: theme.json
+msgctxt "Duotone name"
+msgid "Primary and secondary"
+msgstr "Primär und sekundär"
+
+#: theme.json
+msgctxt "Duotone name"
+msgid "Primary and background"
+msgstr "Primär und Hintergrund"
+
+#: theme.json
+msgctxt "Duotone name"
+msgid "Foreground and tertiary"
+msgstr "Vordergrund und tertiär"
+
+#: theme.json
+msgctxt "Duotone name"
+msgid "Foreground and secondary"
+msgstr "Vordergrund und sekundär"
+
+#: theme.json
+msgctxt "Duotone name"
+msgid "Foreground and background"
+msgstr "Vordergrund und Hintergrund"
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Diagonal background to tertiary"
+msgstr "Diagonal von Hintergrund zu tertiär"
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Diagonal tertiary to background"
+msgstr "Diagonal von tertiär zu Hintergrund"
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Diagonal background to secondary"
+msgstr "Diagonal von Hintergrund zu sekundär"
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Diagonal secondary to background"
+msgstr "Diagonal von sekundär zu Hintergrund"
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Diagonal primary to foreground"
+msgstr "Diagonal von primär zu Vordergrund"
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Vertical tertiary to background"
+msgstr "Vertikal von tertiär zu Hintergrund"
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Vertical secondary to background"
+msgstr "Vertikal von sekundär zu Hintergrund"
+
+#: theme.json
+msgctxt "Gradient name"
+msgid "Vertical secondary to tertiary"
+msgstr "Vertikal von sekundär zu tertiär"
+
+#: theme.json
+msgctxt "Color name"
+msgid "Tertiary"
+msgstr "Tertiär"
+
+#: theme.json
+msgctxt "Color name"
+msgid "Secondary"
+msgstr "Sekundär"
+
+#: theme.json
+msgctxt "Color name"
+msgid "Primary"
+msgstr "Primär"
+
+#: theme.json
+msgctxt "Color name"
+msgid "Background"
+msgstr "Hintergrund"
+
+#: theme.json
+msgctxt "Color name"
+msgid "Foreground"
+msgstr "Vordergrund"
+
+#: theme.json
+msgctxt "Font family name"
+msgid "Source Serif Pro"
+msgstr "Source Serif Pro"
+
+#: theme.json
+msgctxt "Font family name"
+msgid "System Font"
+msgstr "Systemschrift"
+
+#: inc/patterns/query-text-grid.php:6
+msgid "Text-based grid of posts"
+msgstr "Textbasiertes Beitragsraster"
+
+#: inc/patterns/query-simple-blog.php:6
+msgid "Simple blog posts"
+msgstr "Einfache Blogbeiträge"
+
+#: inc/patterns/query-large-titles.php:6
+msgid "Large post titles"
+msgstr "Große Beitragstitel"
+
+#: inc/patterns/query-irregular-grid.php:6
+msgid "Irregular grid of posts"
+msgstr "Unregelmäßiges Beitragsraster"
+
+#: inc/patterns/query-image-grid.php:6
+msgid "Grid of image posts"
+msgstr "Raster mit Beitragsbildern"
+
+#: inc/patterns/query-grid.php:6
+msgid "Grid of posts"
+msgstr "Beitragsraster"
+
+#: inc/patterns/query-default.php:6
+msgid "Default posts"
+msgstr "Standard-Beiträge"
+
+#: inc/patterns/page-sidebar-poster.php:56
+msgid "The Grand Theater<br>154 Eastern Avenue<br>Maryland NY, 12345"
+msgstr "The Grand Theater<br>154 Eastern Avenue<br>Maryland New York, 12345"
+
+#: inc/patterns/page-sidebar-poster.php:52
+msgid "Location"
+msgstr "Ort"
+
+#: inc/patterns/page-sidebar-poster.php:44
+msgid "February, 12 2021"
+msgstr "12. Februar 2021"
+
+#: inc/patterns/page-sidebar-poster.php:40
+msgid "Date"
+msgstr "Datum"
+
+#: inc/patterns/page-sidebar-poster.php:14
+msgid "<em>Flutter</em>, a collection of bird-related ephemera"
+msgstr "<em>Flattern</em>, eine Sammlung vogelbezogener Ephemera"
+
+#: inc/patterns/page-sidebar-poster.php:6
+msgid "Poster with right sidebar"
+msgstr "Poster mit rechter Seitenleiste"
+
+#: inc/patterns/page-sidebar-grid-posts.php:6
+msgid "Grid of posts with left sidebar"
+msgstr "Beitragsraster mit linker Seitenleiste"
+
+#: inc/patterns/page-sidebar-blog-posts.php:6
+msgid "Blog posts with left sidebar"
+msgstr "Blogbeiträge mit linker Seitenleiste"
+
+#: inc/patterns/page-sidebar-blog-posts-right.php:80
+msgid "Tags"
+msgstr "Schlagwörter"
+
+#: inc/patterns/page-sidebar-blog-posts-right.php:6
+msgid "Blog posts with right sidebar"
+msgstr "Blogbeiträge mit rechter Seitenleiste"
+
+#: inc/patterns/page-layout-two-columns.php:58
+msgid "POSTS"
+msgstr "BEITRÄGE"
+
+#: inc/patterns/page-layout-two-columns.php:21
+msgid "WELCOME"
+msgstr "WILLKOMMEN"
+
+#: inc/patterns/page-layout-two-columns.php:10
+msgid "<em>Goldfinch </em><br><em>&amp; Sparrow</em>"
+msgstr "<em>Stieglitz </em><br><em>&amp; Sperling</em>"
+
+#: inc/patterns/page-layout-two-columns.php:6
+msgid "Page layout with two columns"
+msgstr "Seitenlayout mit zwei Spalten"
+
+#: inc/patterns/page-layout-image-text-and-video.php:53
+msgid "Oh hello. My name’s Angelo, and you’ve found your way to my blog. I write about a range of topics, but lately I’ve been sharing my hopes for next year."
+msgstr "Oh hallo. Mein Name ist Angelo und du hast den Weg zu meinem Blog gefunden. Ich schreibe über eine Reihe von Themen, aber in letzter Zeit habe ich meine Hoffnungen für das nächste Jahr geteilt."
+
+#: inc/patterns/page-layout-image-text-and-video.php:42
+msgid "An illustration of a bird in flight"
+msgstr "Eine Illustration eines Vogels im Flug"
+
+#: inc/patterns/page-layout-image-text-and-video.php:21
+msgid "Screening"
+msgstr "Vorführung"
+
+#: inc/patterns/page-layout-image-text-and-video.php:6
+msgid "Page layout with image, text and video"
+msgstr "Seitenlayout mit Bild, Text und Video"
+
+#: inc/patterns/page-layout-image-and-text.php:27
+#: inc/patterns/page-layout-two-columns.php:36
+msgid "Oh hello. My name’s Angelo, and I operate this blog. I was born in Portland, but I currently live in upstate New York. You may recognize me from publications with names like <a href=\"#\">Eagle Beagle</a> and <a href=\"#\">Mourning Dive</a>. I write for a living.<br><br>I usually use this blog to catalog extensive lists of birds and other things that I find interesting. If you find an error with one of my lists, please keep it to yourself.<br><br>If that’s not your cup of tea, <a href=\"#\">I definitely recommend this tea</a>. It’s my favorite."
+msgstr "Oh hallo. Mein Name ist Angelo, und ich betreibe diesen Blog. Ich wurde in Portland geboren, lebe aber derzeit im Hinterland von New York. Du kennst mich vielleicht von Veröffentlichungen mit Namen wie <a href=\"#\">Eagle Beagle</a> und <a href=\"#\">Mourning Dive</a>. Ich schreibe beruflich.<br><br>Normalerweise benutze ich diesen Blog, um umfangreiche Listen von Vögeln und anderen Dingen, die ich interessant finde, zu katalogisieren. Wenn du einen Fehler in einer meiner Listen findest, behalte ihn bitte für dich.<br><br>Wenn das nicht dein Ding ist, <a href=\"#\">empfehle ich dir unbedingt dieses Ding</a>. Das ist mein Favorit."
+
+#: inc/patterns/page-layout-image-and-text.php:15
+msgctxt "Short for to be determined"
+msgid "TBD"
+msgstr "N. N."
+
+#: inc/patterns/page-layout-image-and-text.php:10
+msgid "<em>Watching Birds </em><br><em>in the Garden</em>"
+msgstr "<em>Vogelbeobachtung </em><br><em>im Garten</em>"
+
+#: inc/patterns/page-layout-image-and-text.php:6
+msgid "Page layout with image and text"
+msgstr "Seitenlayout mit Bild und Text"
+
+#: inc/patterns/page-about-solid-color.php:22
+msgid "Oh hello. My name’s Edvard, and you’ve found your way to my website. I’m an avid bird watcher, and I also broadcast my own radio show every Tuesday evening at 11PM EDT. Listen in sometime!"
+msgstr "Oh hallo. Mein Name ist Edvard, und du hast den Weg zu meiner Website gefunden. Ich bin ein begeisterter Vogelbeobachter und moderiere dienstagabends um 23 Uhr meine eigene Radiosendung. Hör doch mal rein!"
+
+#: inc/patterns/page-about-solid-color.php:14
+msgid "Edvard<br>Smith"
+msgstr "Edvard<br>Smith"
+
+#: inc/patterns/page-about-solid-color.php:6
+msgid "About page on solid color background"
+msgstr "Info-Seite auf einfarbigem Hintergrund"
+
+#: inc/patterns/page-about-simple-dark.php:22
+msgid "Oh hello. My name’s Jesús, and you’ve found your way to my website. I’m an avid bird watcher, and I also broadcast my own radio show on Tuesday evenings at 11PM EDT."
+msgstr "Oh hallo. Mein Name ist Jesús, und du hast den Weg zu meiner Website gefunden. Ich bin ein begeisterter Vogelbeobachter und moderiere dienstagabends um 23 Uhr meine eigene Radiosendung."
+
+#: inc/patterns/page-about-simple-dark.php:18
+msgid "Jesús<br>Rodriguez"
+msgstr "Jesús<br>Rodriguez"
+
+#: inc/patterns/page-about-simple-dark.php:6
+msgid "Simple dark about page"
+msgstr "Einfache dunkle Info-Seite"
+
+#: inc/patterns/page-about-media-right.php:20
+msgid "Oh hello. My name’s Emery, and you’ve found your way to my website. I’m an avid bird watcher, and I also broadcast my own radio show on Tuesday evenings at 11PM EDT."
+msgstr "Oh hallo. Mein Name ist Emery, und du hast den Weg zu meiner Website gefunden. Ich bin ein begeisterter Vogelbeobachter und moderiere dienstagabends um 23 Uhr meine eigene Radiosendung."
+
+#: inc/patterns/page-about-media-right.php:16
+msgid "Emery<br>Driscoll"
+msgstr "Emery<br>Driscoll"
+
+#: inc/patterns/page-about-media-right.php:9
+msgid "An image of a bird flying"
+msgstr "Ein Bild eines fliegenden Vogels"
+
+#: inc/patterns/page-about-media-right.php:6
+msgid "About page with media on the right"
+msgstr "Info-Seite mit Medien auf der rechten Seite"
+
+#: inc/patterns/page-about-media-left.php:21
+msgid "Oh hello. My name’s Doug, and you’ve found your way to my website. I’m an avid bird watcher, and I also broadcast my own radio show on Tuesday evenings at 11PM EDT."
+msgstr "Oh hallo. Mein Name ist Doug, und du hast den Weg zu meiner Website gefunden. Ich bin ein begeisterter Vogelbeobachter und moderiere dienstagabends um 23 Uhr meine eigene Radiosendung."
+
+#: inc/patterns/page-about-media-left.php:17
+msgid "Stilton"
+msgstr "Stilton"
+
+#: inc/patterns/page-about-media-left.php:17
+msgid "Doug"
+msgstr "Doug"
+
+#: inc/patterns/page-about-media-left.php:9
+#: inc/patterns/page-sidebar-poster.php:26
+msgid "Image of a bird on a branch"
+msgstr "Bild eines Vogels auf einem Ast"
+
+#: inc/patterns/page-about-media-left.php:6
+msgid "About page with media on the left"
+msgstr "Info-Seite mit Medien auf der linken Seite"
+
+#: inc/patterns/page-about-links.php:21
+msgid "A podcast about birds"
+msgstr "Ein Podcast über Vögel"
+
+#: inc/patterns/page-about-links.php:17
+msgid "Swoop"
+msgstr "Sturzflug"
+
+#: inc/patterns/page-about-links.php:6
+msgid "About page links"
+msgstr "Links der Info-Seite"
+
+#: inc/patterns/page-about-links-dark.php:42
+#: inc/patterns/page-about-links.php:46
+msgid "About the hosts"
+msgstr "Über die Moderatoren"
+
+#: inc/patterns/page-about-links-dark.php:38
+#: inc/patterns/page-about-links.php:42
+msgid "Support the show"
+msgstr "Unterstützen"
+
+#: inc/patterns/page-about-links-dark.php:34
+#: inc/patterns/page-about-links.php:38
+msgid "Listen on Spotify"
+msgstr "Auf Spotify anhören"
+
+#: inc/patterns/page-about-links-dark.php:30
+#: inc/patterns/page-about-links.php:34
+msgid "Listen on iTunes Podcasts"
+msgstr "Auf iTunes Podcasts anhören"
+
+#: inc/patterns/page-about-links-dark.php:26
+#: inc/patterns/page-about-links.php:30
+msgid "Watch our videos"
+msgstr "Unsere Videos anschauen"
+
+#: inc/patterns/page-about-links-dark.php:17
+msgid "A trouble of hummingbirds"
+msgstr "Ein Problem mit Kolibris"
+
+#: inc/patterns/page-about-links-dark.php:13
+#: inc/patterns/page-about-links.php:10
+msgid "Logo featuring a flying bird"
+msgstr "Logo mit einem fliegenden Vogel"
+
+#: inc/patterns/page-about-links-dark.php:6
+msgid "About page links (dark)"
+msgstr "Links der Info-Seite (dunkel)"
+
+#: inc/patterns/page-about-large-image-and-buttons.php:6
+msgid "About page with large image and buttons"
+msgstr "Info-Seite mit großem Bild und Buttons"
+
+#: inc/patterns/page-about-large-image-and-buttons.php:59
+msgid "Join my mailing list"
+msgstr "Bei meiner Mailingliste anmelden"
+
+#: inc/patterns/page-about-large-image-and-buttons.php:51
+msgid "Learn about my process"
+msgstr "Mehr über meinen Prozess erfahren"
+
+#: inc/patterns/page-about-large-image-and-buttons.php:43
+msgid "Read about me"
+msgstr "Mehr über mich lesen"
+
+#: inc/patterns/page-about-large-image-and-buttons.php:33
+msgid "Take a class"
+msgstr "Einen Kurs besuchen"
+
+#: inc/patterns/page-about-large-image-and-buttons.php:25
+msgid "Support my studio"
+msgstr "Mein Studio unterstützen"
+
+#: inc/patterns/page-about-large-image-and-buttons.php:17
+msgid "Purchase my work"
+msgstr "Meine Arbeit kaufen"
+
+#: inc/patterns/hidden-bird.php:9 inc/patterns/hidden-heading-and-bird.php:10
+msgid "Heading and bird image"
+msgstr "Überschrift und Vogelbild"
+
+#: inc/patterns/hidden-404.php:12
+msgid "This page could not be found. Maybe try a search?"
+msgstr "Diese Seite konnte nicht gefunden werden. Vielleicht probierst du eine Suche?"
+
+#: inc/patterns/hidden-404.php:9
+msgctxt "Error code for a webpage that is not found."
+msgid "404"
+msgstr "404"
+
+#: inc/patterns/hidden-404.php:6
+msgid "404 content"
+msgstr "404-Inhalt"
+
+#: inc/patterns/header-with-tagline.php:6
+msgid "Header with tagline"
+msgstr "Header mit Untertitel"
+
+#: inc/patterns/header-title-navigation-social.php:6
+msgid "Title, navigation, and social links header"
+msgstr "Header mit Titel, Navigation und Social Links"
+
+#: inc/patterns/header-title-and-button.php:6
+msgid "Title and button header"
+msgstr "Header mit Titel und Button"
+
+#: inc/patterns/header-text-only-with-tagline-black-background.php:6
+msgid "Text-only header with tagline and black background"
+msgstr "Reiner Text-Header mit Untertitel und schwarzem Hintergrund"
+
+#: inc/patterns/header-text-only-salmon-background.php:6
+msgid "Text-only header with salmon background"
+msgstr "Reiner Text-Header mit lachsfarbenem Hintergrund"
+
+#: inc/patterns/header-text-only-green-background.php:6
+msgid "Text-only header with green background"
+msgstr "Reiner Text-Header mit grünem Hintergrund"
+
+#: inc/patterns/header-stacked.php:6
+msgid "Logo and navigation header"
+msgstr "Header mit Logo und Navigation"
+
+#: inc/patterns/header-small-dark.php:6
+msgid "Small header with dark background"
+msgstr "Kleiner Header mit dunklem Hintergrund"
+
+#: inc/patterns/header-logo-navigation-social-black-background.php:6
+msgid "Logo, navigation, and social links header with black background"
+msgstr "Header mit Logo, Navigation, Social Links und schwarzem Hintergrund"
+
+#: inc/patterns/header-logo-navigation-offset-tagline.php:6
+msgid "Logo, navigation, and offset tagline Header"
+msgstr "Header mit Logo, Navigation und abgesetztem Untertitel"
+
+#: inc/patterns/header-logo-navigation-gray-background.php:6
+msgid "Logo and navigation header with gray background"
+msgstr "Header mit Logo, Navigation und grauem Hintergrund"
+
+#: inc/patterns/header-large-dark.php:24
+#: inc/patterns/hidden-heading-and-bird.php:14
+msgid "<em>The Hatchery</em>: a blog about my adventures in bird watching"
+msgstr "<em>Die Brutstätte</em>: ein Blog über meine Abenteuer bei der Vogelbeobachtung"
+
+#: inc/patterns/header-large-dark.php:6
+msgid "Large header with dark background"
+msgstr "Großer Header mit dunklem Hintergrund"
+
+#: inc/patterns/header-image-background.php:11
+msgid "Illustration of a flying bird"
+msgstr "Illustration eines fliegenden Vogels"
+
+#: inc/patterns/header-image-background.php:6
+msgid "Header with image background"
+msgstr "Header mit Bild-Hintergrund"
+
+#: inc/patterns/header-image-background-overlay.php:6
+msgid "Header with image background and overlay"
+msgstr "Header mit Bild-Hintergrund und Overlay"
+
+#: inc/patterns/header-default.php:6
+msgid "Default header"
+msgstr "Standard-Header"
+
+#: inc/patterns/header-centered-title-navigation-social.php:6
+msgid "Centered header with navigation, social links, and salmon background"
+msgstr "Zentrierter Header mit Navigation, Social Links und lachsfarbenem Hintergrund"
+
+#: inc/patterns/header-centered-logo.php:6
+msgid "Header with centered logo"
+msgstr "Header mit zentriertem Logo"
+
+#: inc/patterns/header-centered-logo-black-background.php:6
+msgid "Header with centered logo and black background"
+msgstr "Header mit zentriertem Logo und schwarzem Hintergrund"
+
+#: inc/patterns/general-wide-image-intro-buttons.php:31
+msgid "Learn More"
+msgstr "Mehr erfahren"
+
+#: inc/patterns/general-wide-image-intro-buttons.php:16
+msgid "Welcome to<br>the Aviary"
+msgstr "Willkommen im<br>Vogelhaus"
+
+#: inc/patterns/general-wide-image-intro-buttons.php:6
+msgid "Wide image with introduction and buttons"
+msgstr "Breites Bild mit Einleitung und Buttons"
+
+#: inc/patterns/general-video-trailer.php:16
+#: inc/patterns/general-wide-image-intro-buttons.php:22
+msgid "A film about hobbyist bird watchers, a catalog of different birds, paired with the noises they make. Each bird is listed by their scientific name so things seem more official."
+msgstr "Ein Film über Hobby-Vogelbeobachter, ein Katalog von verschiedenen Vögeln, gepaart mit den Geräuschen, die sie machen. Jeder Vogel ist mit seinem wissenschaftlichen Namen aufgeführt, damit die Dinge offizieller erscheinen."
+
+#: inc/patterns/general-video-trailer.php:12
+#: inc/patterns/page-layout-image-text-and-video.php:49
+msgid "Extended Trailer"
+msgstr "Erweiterter Trailer"
+
+#: inc/patterns/general-video-trailer.php:6
+msgid "Video trailer"
+msgstr "Video-Trailer"
+
+#: inc/patterns/general-video-header-details.php:41
+msgid "Angelo Tso<br>Edward Stilton<br>Amy Jensen<br>Boston Bell<br>Shay Ford"
+msgstr "Angelo Tso<br>Edward Stilton<br>Amy Jensen<br>Boston Bell<br>Shay Ford"
+
+#: inc/patterns/general-video-header-details.php:35
+msgid "Jesús Rodriguez<br>Doug Stilton<br>Emery Driscoll<br>Megan Perry<br>Rowan Price"
+msgstr "Jesús Rodriguez<br>Doug Stilton<br>Emery Driscoll<br>Megan Perry<br>Rowan Price"
+
+#: inc/patterns/general-video-header-details.php:29
+msgid "Featuring"
+msgstr "Mitwirkende"
+
+#: inc/patterns/general-video-header-details.php:11
+#: inc/patterns/page-layout-image-text-and-video.php:11
+msgid "<em>Warble</em>, a film about <br>hobbyist bird watchers."
+msgstr "<em>Warble</em>, ein Film über <br>Hobby-Vogelbeobachter."
+
+#: inc/patterns/general-video-header-details.php:6
+msgid "Video with header and details"
+msgstr "Video mit Header und Details"
+
+#: inc/patterns/general-two-images-text.php:42
+#: inc/patterns/general-wide-image-intro-buttons.php:35
+#: inc/patterns/page-layout-image-text-and-video.php:30
+msgid "Buy Tickets"
+msgstr "Tickets kaufen"
+
+#: inc/patterns/general-two-images-text.php:29
+#: inc/patterns/page-layout-image-text-and-video.php:25
+msgid "May 14th, 2022 @ 7:00PM<br>The Vintagé Theater,<br>245 Arden Rd.<br>Gardenville, NH"
+msgstr "14. Mai 2022, 19:00 Uhr<br>The Vintagé Theater,<br>245 Arden Rd.<br>Gardenville, New Hampshire"
+
+#: inc/patterns/general-two-images-text.php:25
+msgid "SCREENING"
+msgstr "VORFÜHRUNG"
+
+#: inc/patterns/general-two-images-text.php:17
+#: inc/patterns/general-wide-image-intro-buttons.php:10
+#: inc/patterns/header-large-dark.php:29 inc/patterns/header-small-dark.php:25
+#: inc/patterns/hidden-bird.php:12 inc/patterns/hidden-heading-and-bird.php:19
+msgid "Illustration of a bird flying."
+msgstr "Illustration eines fliegenden Vogels."
+
+#: inc/patterns/general-two-images-text.php:11
+msgid "Illustration of a bird sitting on a branch."
+msgstr "Illustration eines Vogels, der auf einem Ast sitzt."
+
+#: inc/patterns/general-two-images-text.php:6
+msgid "Two images with text"
+msgstr "Zwei Bilder mit Text"
+
+#: inc/patterns/general-subscribe.php:16
+msgid "Join our mailing list"
+msgstr "Newsletter abonnieren"
+
+#: inc/patterns/general-subscribe.php:11
+msgid "Watch birds<br>from your inbox"
+msgstr "Vogelbeobachtung<br>in deinem Posteingang"
+
+#: inc/patterns/general-subscribe.php:6
+msgid "Subscribe callout"
+msgstr "Abonnement-Aufforderung"
+
+#: inc/patterns/general-pricing-table.php:84
+msgid "$150"
+msgstr "150 €"
+
+#: inc/patterns/general-pricing-table.php:79
+msgid "Play a leading role for our community by joining at the Falcon level. This level earns you a seat on our board, where you can help plan future birdwatching expeditions."
+msgstr "Übernimm eine führende Rolle für unsere Gemeinschaft, indem du der Falken-Stufe beitrittst. Mit dieser Stufe erhältst du einen Sitz in unserem Vorstand, wo du bei der Planung künftiger Expeditionen zur Vogelbeobachtung mitwirken kannst."
+
+#: inc/patterns/general-pricing-table.php:75
+msgid "Falcon"
+msgstr "Falke"
+
+#: inc/patterns/general-pricing-table.php:71
+msgctxt "Third item in a numbered list."
+msgid "3"
+msgstr "3"
+
+#: inc/patterns/general-pricing-table.php:56
+msgid "$75"
+msgstr "75 €"
+
+#: inc/patterns/general-pricing-table.php:51
+msgid "Join at the Sparrow level and become a member of our flock! You’ll receive our newsletter, plus a bird pin that you can wear with pride when you’re out in nature."
+msgstr "Werde Mitglied auf der Spatzen-Stufe und ein Teil unserer Vogelschar! Du erhältst unseren Newsletter und eine Vogel-Anstecknadel, die du mit Stolz tragen kannst, wenn du in der Natur unterwegs bist."
+
+#: inc/patterns/general-pricing-table.php:47
+msgid "Sparrow"
+msgstr "Sperling"
+
+#: inc/patterns/general-pricing-table.php:43
+msgctxt "Second item in a numbered list."
+msgid "2"
+msgstr "2"
+
+#: inc/patterns/general-pricing-table.php:28
+msgid "$25"
+msgstr "25 €"
+
+#: inc/patterns/general-pricing-table.php:23
+msgid "Help support our growing community by joining at the Pigeon level. Your support will help pay our writers, and you’ll get access to our exclusive newsletter."
+msgstr "Hilf mit, unsere wachsende Gemeinschaft zu unterstützen, indem du dich auf der Tauben-Stufe beteiligst. Deine Unterstützung hilft, unsere Autoren zu bezahlen, und du erhältst Zugang zu unserem exklusiven Newsletter."
+
+#: inc/patterns/general-pricing-table.php:19
+msgid "Pigeon"
+msgstr "Taube"
+
+#: inc/patterns/general-pricing-table.php:15
+msgctxt "First item in a numbered list."
+msgid "1"
+msgstr "1"
+
+#: inc/patterns/general-pricing-table.php:6
+msgid "Pricing table"
+msgstr "Preistabelle"
+
+#: inc/patterns/general-list-events.php:103
+msgid "Emery Driscoll"
+msgstr "Emery Driscoll"
+
+#: inc/patterns/general-list-events.php:97
+msgid "May 20th, 2022, 6 PM"
+msgstr "20. Mai 2022, 18:00"
+
+#: inc/patterns/general-list-events.php:79
+msgid "Amy Jensen"
+msgstr "Amy Jensen"
+
+#: inc/patterns/general-list-events.php:73
+msgid "May 18th, 2022, 7 PM"
+msgstr "18. Mai 2022, 19:00"
+
+#: inc/patterns/general-list-events.php:61
+#: inc/patterns/general-list-events.php:109
+msgid "The Swell Theater<br>120 River Rd.<br>Rainfall, NH"
+msgstr "The Swell Theater<br>120 River Rd.<br>Rainfall, New Hampshire"
+
+#: inc/patterns/general-list-events.php:55
+msgid "Doug Stilton"
+msgstr "Doug Stilton"
+
+#: inc/patterns/general-list-events.php:49
+msgid "May 16th, 2022, 6 PM"
+msgstr "16. Mai 2022, 18:00"
+
+#: inc/patterns/general-list-events.php:37
+#: inc/patterns/general-list-events.php:85
+msgid "The Vintagé Theater<br>245 Arden Rd.<br>Gardenville, NH"
+msgstr "The Vintagé Theater<br>245 Arden Rd.<br>Gardenville, New Hampshire"
+
+#: inc/patterns/general-list-events.php:31
+msgid "Jesús Rodriguez"
+msgstr "Jesús Rodriguez"
+
+#: inc/patterns/general-list-events.php:25
+msgid "May 14th, 2022, 6 PM"
+msgstr "14. Mai 2022, 18:00"
+
+#: inc/patterns/general-list-events.php:11
+msgid "Speaker Series"
+msgstr "Rednerliste"
+
+#: inc/patterns/general-list-events.php:6
+msgid "List of events"
+msgstr "Veranstaltungsliste"
+
+#: inc/patterns/general-layered-images-with-duotone.php:10
+#: inc/patterns/page-sidebar-blog-posts-right.php:58
+msgid "Illustration of a flying bird."
+msgstr "Illustration eines fliegenden Vogels."
+
+#: inc/patterns/general-layered-images-with-duotone.php:9
+#: inc/patterns/header-image-background-overlay.php:11
+msgid "Painting of ducks in the water."
+msgstr "Gemälde von Enten auf dem Wasser."
+
+#: inc/patterns/general-layered-images-with-duotone.php:6
+msgid "Layered images with duotone"
+msgstr "Überlagerte Bilder mit Duotone-Effekt"
+
+#: inc/patterns/general-large-list-names.php:30
+msgid "Read more"
+msgstr "Weiterlesen"
+
+#: inc/patterns/general-large-list-names.php:21
+msgid "Jesús Rodriguez, Doug Stilton, Emery Driscoll, Megan Perry, Rowan Price, Angelo Tso, Edward Stilton, Amy Jensen, Boston Bell, Shay Ford, Lee Cunningham, Evelynn Ray, Landen Reese, Ewan Hart, Jenna Chan, Phoenix Murray, Mel Saunders, Aldo Davidson, Zain Hall."
+msgstr "Jesús Rodriguez, Doug Stilton, Emery Driscoll, Megan Perry, Rowan Price, Angelo Tso, Edward Stilton, Amy Jensen, Boston Bell, Shay Ford, Lee Cunningham, Evelynn Ray, Landen Reese, Ewan Hart, Jenna Chan, Phoenix Murray, Mel Saunders, Aldo Davidson, Zain Hall."
+
+#: inc/patterns/general-large-list-names.php:11
+#: inc/patterns/page-sidebar-poster.php:32
+msgid "An icon representing binoculars."
+msgstr "Ein Icon, das ein Fernglas darstellt."
+
+#: inc/patterns/general-large-list-names.php:6
+msgid "Large list of names"
+msgstr "Umfangreiche Liste mit Namen"
+
+#: inc/patterns/general-image-with-caption.php:15
+msgid "A beautiful bird featuring a surprising set of color feathers."
+msgstr "Ein wunderschöner Vogel mit einem Federkleid in überraschenden Farben."
+
+#: inc/patterns/general-image-with-caption.php:11
+msgid "Hummingbird"
+msgstr "Kolibri"
+
+#: inc/patterns/general-image-with-caption.php:10
+msgid "Hummingbird illustration"
+msgstr "Illustration eines Kolibris"
+
+#: inc/patterns/general-image-with-caption.php:6
+msgid "Image with caption"
+msgstr "Bild mit Beschriftung"
+
+#: inc/patterns/general-featured-posts.php:6
+msgid "Featured posts"
+msgstr "Hervorgehobene Beiträge"
+
+#: inc/patterns/general-divider-light.php:6
+msgid "Divider with image and color (light)"
+msgstr "Trenner mit Bild und Farbe (hell)"
+
+#: inc/patterns/general-divider-dark.php:6
+msgid "Divider with image and color (dark)"
+msgstr "Trenner mit Bild und Farbe (dunkel)"
+
+#: inc/patterns/footer-title-tagline-social.php:6
+msgid "Footer with title, tagline, and social links on a dark background"
+msgstr "Footer mit Titel, Untertitel und Social Links auf einem dunklen Hintergrund"
+
+#: inc/patterns/footer-social-copyright.php:6
+msgid "Footer with social links and copyright"
+msgstr "Footer mit Social Links und Copyright-Text"
+
+#: inc/patterns/footer-query-title-citation.php:6
+msgid "Footer with query, title, and citation"
+msgstr "Footer mit Abfrage, Titel und Zitat"
+
+#: inc/patterns/footer-query-images-title-citation.php:6
+msgid "Footer with query, featured images, title, and citation"
+msgstr "Footer mit Abfrage, Beitragsbild, Titel und Zitat"
+
+#: inc/patterns/footer-navigation.php:6
+msgid "Footer with navigation and citation"
+msgstr "Footer mit Navigation und Zitat"
+
+#: inc/patterns/footer-navigation-copyright.php:20
+#: inc/patterns/footer-social-copyright.php:24
+msgid "© Site Title"
+msgstr "© Website-Titel"
+
+#: inc/patterns/footer-navigation-copyright.php:6
+msgid "Footer with navigation and copyright"
+msgstr "Footer mit Navigation und Copyright-Text"
+
+#: inc/patterns/footer-logo.php:6
+msgid "Footer with logo and citation"
+msgstr "Footer mit Logo und Zitat"
+
+#: inc/patterns/footer-default.php:6
+msgid "Default footer"
+msgstr "Standard-Footer"
+
+#: inc/patterns/footer-dark.php:6
+msgid "Dark footer with title and citation"
+msgstr "Dunkler Footer mit Titel und Zitat"
+
+#: inc/patterns/footer-blog.php:50 inc/patterns/footer-dark.php:18
+#: inc/patterns/footer-default.php:18 inc/patterns/footer-logo.php:18
+#: inc/patterns/footer-navigation.php:20
+#: inc/patterns/footer-query-images-title-citation.php:35
+#: inc/patterns/footer-query-title-citation.php:33
+msgid "https://wordpress.org"
+msgstr "https://de.wordpress.org"
+
+#. Translators: WordPress link.
+#: inc/patterns/footer-blog.php:49 inc/patterns/footer-dark.php:17
+#: inc/patterns/footer-default.php:17 inc/patterns/footer-logo.php:17
+#: inc/patterns/footer-navigation.php:19
+#: inc/patterns/footer-query-images-title-citation.php:34
+#: inc/patterns/footer-query-title-citation.php:32
+msgid "Proudly powered by %s"
+msgstr "Stolz präsentiert von %s"
+
+#: inc/patterns/footer-blog.php:31
+#: inc/patterns/page-sidebar-blog-posts-right.php:74
+msgid "Categories"
+msgstr "Kategorien"
+
+#: inc/patterns/footer-blog.php:23 inc/patterns/general-featured-posts.php:10
+msgid "Latest posts"
+msgstr "Neueste Beiträge"
+
+#: inc/patterns/footer-blog.php:6
+msgid "Blog footer"
+msgstr "Blog-Footer"
+
+#: inc/patterns/footer-about-title-logo.php:17 inc/patterns/footer-blog.php:17
+msgid "We are a rogue collective of bird watchers. We’ve been known to sneak through fences, climb perimeter walls, and generally trespass in order to observe the rarest of birds."
+msgstr "Wir sind eine bunt gemischte Gruppe von Vogelbeobachtern. Wir sind dafür bekannt, uns durch Zäune zu schleichen, über Mauern zu klettern oder sonstwie unbefugt einzudringen, um die seltensten Vögel zu beobachten."
+
+#: inc/patterns/footer-about-title-logo.php:13 inc/patterns/footer-blog.php:13
+msgid "About us"
+msgstr "Über uns"
+
+#: inc/patterns/footer-about-title-logo.php:6
+msgid "Footer with text, title, and logo"
+msgstr "Footer mit Text, Titel und Logo"
+
+#: inc/block-patterns.php:21
+msgid "Pages"
+msgstr "Seiten"
+
+#: inc/block-patterns.php:20
+msgid "Query"
+msgstr "Abfrage"
+
+#: inc/block-patterns.php:19
+msgid "Headers"
+msgstr "Header"
+
+#: inc/block-patterns.php:18
+msgid "Footers"
+msgstr "Footer"
+
+#: inc/block-patterns.php:17
+msgid "Featured"
+msgstr "Hervorgehoben"
+
+#. Author URI of the theme
+msgid "https://wordpress.org/"
+msgstr "https://de.wordpress.org/"
+
+#. Author of the theme
+msgid "the WordPress team"
+msgstr "WordPress-Team"
+
+#. Theme URI of the theme
+msgid "https://github.com/wordpress/twentytwentytwo/"
+msgstr "https://github.com/wordpress/twentytwentytwo/"

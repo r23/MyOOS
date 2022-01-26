@@ -20,12 +20,12 @@ msgstr "Unser Standard-Theme für 2020 ist so konzipiert, dass es die Flexibilit
 msgid "Twenty Twenty"
 msgstr "Twenty Twenty"
 
-#: classes/class-twentytwenty-customize.php:130
+#: classes/class-twentytwenty-customize.php:131
 msgctxt "color"
 msgid "Custom"
 msgstr "Individuell"
 
-#: classes/class-twentytwenty-customize.php:129
+#: classes/class-twentytwenty-customize.php:130
 msgctxt "color"
 msgid "Default"
 msgstr "Standard"
@@ -140,7 +140,7 @@ msgstr "Primär"
 msgid "Nothing Found"
 msgstr "Nichts gefunden"
 
-#: classes/class-twentytwenty-customize.php:250
+#: classes/class-twentytwenty-customize.php:251
 msgid "Show author bio"
 msgstr "Autor-Biografie anzeigen"
 
@@ -221,35 +221,35 @@ msgstr "Die erste Adresse für Moderne Kunst in Nordschweden. In den Sommermonat
 msgid "The New UMoMA Opens its Doors"
 msgstr "Das neue Museum öffnet seine Türen"
 
-#: classes/class-twentytwenty-customize.php:399
+#: classes/class-twentytwenty-customize.php:400
 msgid "Overlay Opacity"
 msgstr "Deckkraft für den Overlay-Effekt"
 
-#: classes/class-twentytwenty-customize.php:379
+#: classes/class-twentytwenty-customize.php:380
 msgid "The color used for the text in the overlay."
 msgstr "Die für den Text im Overlay benutzte Farbe."
 
-#: classes/class-twentytwenty-customize.php:378
+#: classes/class-twentytwenty-customize.php:379
 msgid "Overlay Text Color"
 msgstr "Overlay-Textfarbe"
 
-#: classes/class-twentytwenty-customize.php:357
+#: classes/class-twentytwenty-customize.php:358
 msgid "The color used for the overlay. Defaults to the accent color."
 msgstr "Die für das Overlay genutzte Farbe. Standard ist die Akzentfarbe."
 
-#: classes/class-twentytwenty-customize.php:356
+#: classes/class-twentytwenty-customize.php:357
 msgid "Overlay Background Color"
 msgstr "Overlay-Hintergrundfarbe"
 
-#: classes/class-twentytwenty-customize.php:287
+#: classes/class-twentytwenty-customize.php:288
 msgid "Settings for the \"Cover Template\" page template. Add a featured image to use as background."
 msgstr "Einstellungen für das Seitentemplate „Cover-Template“. Füge ein Beitragsbild als Hintergrund hinzu."
 
-#: classes/class-twentytwenty-customize.php:187
+#: classes/class-twentytwenty-customize.php:188
 msgid "Apply a custom color for links, buttons, featured images."
 msgstr "Wähle für Links, Buttons und Beitragsbilder eine eigene Farbe."
 
-#: classes/class-twentytwenty-customize.php:127
+#: classes/class-twentytwenty-customize.php:128
 msgid "Primary Color"
 msgstr "Akzentfarbe"
 
@@ -269,12 +269,12 @@ msgstr[0] "Es gibt %s Treffer für deine Suche."
 msgstr[1] "Es gibt %s Treffer für deine Suche."
 
 #. translators: %s: HTML character for up arrow.
-#: footer.php:49
+#: footer.php:55
 msgid "Up %s"
 msgstr "Hoch %s"
 
 #. translators: %s: HTML character for up arrow.
-#: footer.php:43
+#: footer.php:49
 msgid "To the top %s"
 msgstr "Nach oben %s"
 
@@ -331,7 +331,6 @@ msgstr "Social-Media-Links"
 msgid "Footer"
 msgstr "Footer"
 
-#. translators: %s: Author name.
 #. translators: %s: Author name.
 #: inc/template-tags.php:375 template-parts/entry-author-bio.php:20
 msgid "By %s"
@@ -501,7 +500,7 @@ msgstr "Erweitertes Desktop-Menü"
 msgid "Desktop Horizontal Menu"
 msgstr "Horizontales Desktop-Menü"
 
-#: footer.php:33
+#: footer.php:39
 msgid "Powered by WordPress"
 msgstr "Powered by WordPress"
 
@@ -539,12 +538,12 @@ msgstr "Eine Antwort auf „%s“"
 msgid "Leave a comment"
 msgstr "Schreibe einen Kommentar"
 
-#: classes/class-twentytwenty-walker-page.php:110 inc/template-tags.php:580
+#: classes/class-twentytwenty-walker-page.php:115 inc/template-tags.php:580
 msgid "Show sub menu"
 msgstr "Untermenü anzeigen"
 
 #. translators: %d: ID of a post.
-#: classes/class-twentytwenty-walker-page.php:73
+#: classes/class-twentytwenty-walker-page.php:78
 msgid "#%d (no title)"
 msgstr "#%d (kein Titel)"
 
@@ -569,52 +568,52 @@ msgstr "%1$s um %2$s"
 msgid "says:"
 msgstr "sagt:"
 
-#: classes/class-twentytwenty-customize.php:400
+#: classes/class-twentytwenty-customize.php:401
 msgid "Make sure that the contrast is high enough so that the text is readable."
 msgstr "Achte darauf, den Kontrast so hoch einzustellen, dass der Text gut lesbar bleibt."
 
-#: classes/class-twentytwenty-customize.php:310
+#: classes/class-twentytwenty-customize.php:311
 msgid "Creates a parallax effect when the visitor scrolls."
 msgstr "Erstellt einen Parallex-Effekt, wenn der Besucher die Seite scrollt."
 
-#: classes/class-twentytwenty-customize.php:309
+#: classes/class-twentytwenty-customize.php:310
 msgid "Fixed Background Image"
 msgstr "Fixiertes Hintergrundbild"
 
 #. Template Name of the theme
-#: classes/class-twentytwenty-customize.php:285
+#: classes/class-twentytwenty-customize.php:286
 msgid "Cover Template"
 msgstr "Cover-Template"
 
-#: classes/class-twentytwenty-customize.php:274
+#: classes/class-twentytwenty-customize.php:275
 msgid "Summary"
 msgstr "Zusammenfassung"
 
-#: classes/class-twentytwenty-customize.php:273
+#: classes/class-twentytwenty-customize.php:274
 msgid "Full text"
 msgstr "Vollständigen Text"
 
-#: classes/class-twentytwenty-customize.php:271
+#: classes/class-twentytwenty-customize.php:272
 msgid "On archive pages, posts show:"
 msgstr "Zeige auf Archivseiten, Beiträgen:"
 
-#: classes/class-twentytwenty-customize.php:229
+#: classes/class-twentytwenty-customize.php:230
 msgid "Show search in header"
 msgstr "Suchfeld im Header anzeigen"
 
-#: classes/class-twentytwenty-customize.php:206
+#: classes/class-twentytwenty-customize.php:207
 msgid "Theme Options"
 msgstr "Theme-Optionen"
 
-#: classes/class-twentytwenty-customize.php:105
+#: classes/class-twentytwenty-customize.php:106
 msgid "Header &amp; Footer Background Color"
 msgstr "Hintergrundfarbe für Header und Footer"
 
-#: classes/class-twentytwenty-customize.php:86
+#: classes/class-twentytwenty-customize.php:87
 msgid "Scales the logo to half its uploaded size, making it sharp on high-res screens."
 msgstr "Skaliert das Logo auf die Hälfte der hochgeladenen Größe und wird so auf hochauflösenden Bildschirmen scharf wiedergegeben."
 
-#: classes/class-twentytwenty-customize.php:85
+#: classes/class-twentytwenty-customize.php:86
 msgid "Retina logo"
 msgstr "Retina-Logo"
 
@@ -627,7 +626,7 @@ msgid "Page Not Found"
 msgstr "Die Seite konnte nicht gefunden werden"
 
 #. Author URI of the theme
-#: footer.php:32
+#: footer.php:38
 msgid "https://wordpress.org/"
 msgstr "https://de.wordpress.org/"
 
