@@ -223,14 +223,40 @@
 	{include file="phoenix/canvas/_account.html"}
 {/if}		
 
+<script src="js/plugins/cookie_consent/bootstrap-cookie-consent-settings.js"></script> 
 <!-- Core --> 
 <script src="{$theme}/js/vendor.min.js"></script>
 
 {$javascript}
+
+<!-- Plugins  -->
+<script src="js/plugins/viewport-checker/viewportchecker.min.js"></script> 
+<script src="js/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
+
+
+<script src="{$theme}/js/theme.min.js"></script>
+<script src="{$theme}/js/shop.app.js"></script>
+
 {literal}
 <script>
+    var cookieSettings = new BootstrapCookieConsentSettings({
+        contentURL: "./cookie_consent",
+<!--		
+        postSelectionCallback: function () {
+            location.reload() // reload after selection
+        }
+ -->
+    })
 
+    function showSettingsDialog() {
+        cookieSettings.showDialog()
+    }
+	
 	$(document).ready(function() {
+
+        $("#settingsOutput").text(JSON.stringify(cookieSettings.getSettings()))
+        $("#settingsAnalysisOutput").text(cookieSettings.getSettings("analyses"))
+
 
 		// RADIO OPTION
 		$('input[type=radio]').on('change', updateRadioOption);
@@ -303,15 +329,6 @@
 	})
 </script>
 {/literal}
- Plugins  -->
-<script src="js/plugins/viewport-checker/viewportchecker.min.js"></script> 
-<script src="js/plugins/magnific-popup/jquery.magnific-popup.min.js"></script> 
-<script src="js/plugins/cookie_consent/bootstrap-cookie-consent-settings.js"></script> 
-
-
-<script src="{$theme}/js/theme.min.js"></script>
-<script src="{$theme}/js/shop.app.js"></script>
-
 
 {if $smarty.session.new_products_id_in_cart}
 {literal}
@@ -342,33 +359,6 @@
 {/literal}
 {/if}
 
-{literal}
-<script>
-/* <![CDATA[ */
-var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
-/* ]]> */
-</script>
-{/literal}
 
-
-{literal}
-<script>
-    var cookieSettings = new BootstrapCookieConsentSettings({
-        contentURL: "./cookie_consent",
-        postSelectionCallback: function () {
-            location.reload() // reload after selection
-        }
-    })
-
-    function showSettingsDialog() {
-        cookieSettings.showDialog()
-    }
-
-    $(document).ready(function () {
-        $("#settingsOutput").text(JSON.stringify(cookieSettings.getSettings()))
-        $("#settingsAnalysisOutput").text(cookieSettings.getSettings("analyses"))
-    })
-</script>
-{/literal}
 </body>
 </html>
