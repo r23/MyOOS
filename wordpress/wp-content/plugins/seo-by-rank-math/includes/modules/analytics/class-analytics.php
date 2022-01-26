@@ -71,11 +71,6 @@ class Analytics extends Base {
 			$this->action( 'admin_init', 'refres_token_missing', 25 );
 			$this->action( 'admin_init', 'cancel_fetch', 5 );
 
-			// Show Analytics block in the Dashboard widget only if account is connected or user has permissions.
-			if ( Helper::has_cap( 'analytics' ) && Authentication::is_authorized() ) {
-				$this->action( 'rank_math/dashboard/widget', 'dashboard_widget', 9 );
-			}
-
 			new OAuth();
 		}
 	}
@@ -138,91 +133,6 @@ class Analytics extends Base {
 		}
 
 		update_option( 'rank_math_analytics_first_fetch', 'hidden' );
-	}
-
-	/**
-	 * Add stats widget into admin dashboard.
-	 */
-	public function dashboard_widget() {
-		// Get stats info within last 30 days.
-		Stats::get()->set_date_range( '-30 days' );
-		$data                   = Stats::get()->get_widget();
-		$analytics              = get_option( 'rank_math_google_analytic_options' );
-		$is_analytics_connected = ! empty( $analytics ) && ! empty( $analytics['view_id'] );
-		?>
-		<h3>
-			<?php esc_html_e( 'Analytics', 'rank-math' ); ?>
-			<span><?php esc_html_e( 'Last 30 Days', 'rank-math' ); ?></span>
-			<a href="<?php echo esc_url( Helper::get_admin_url( 'analytics' ) ); ?>" class="rank-math-view-report" title="<?php esc_html_e( 'View Report', 'rank-math' ); ?>"><i class="dashicons dashicons-ellipsis"></i></a>
-		</h3>
-		<div class="rank-math-dashabord-block items-4">
-
-			<?php if ( $is_analytics_connected && defined( 'RANK_MATH_PRO_FILE' ) ) : ?>
-			<div>
-				<h4>
-					<?php esc_html_e( 'Search Traffic', 'rank-math' ); ?>
-					<span class="rank-math-tooltip"><em class="dashicons-before dashicons-editor-help"></em><span><?php esc_html_e( 'This is the number of pageviews carried out by visitors from Google.', 'rank-math' ); ?></span></span>
-				</h4>
-				<?php $this->get_analytic_block( $data->pageviews ); ?>
-			</div>
-			<?php endif; ?>
-
-			<div>
-				<h4>
-					<?php esc_html_e( 'Total Impressions', 'rank-math' ); ?>
-					<span class="rank-math-tooltip"><em class="dashicons-before dashicons-editor-help"></em><span><?php esc_html_e( 'How many times your site showed up in the search results.', 'rank-math' ); ?></span></span>
-				</h4>
-				<?php $this->get_analytic_block( $data->impressions ); ?>
-			</div>
-
-			<?php if ( ! $is_analytics_connected || ( $is_analytics_connected && ! defined( 'RANK_MATH_PRO_FILE' ) ) ) : ?>
-			<div>
-				<h4>
-					<?php esc_html_e( 'Total Clicks', 'rank-math' ); ?>
-					<span class="rank-math-tooltip"><em class="dashicons-before dashicons-editor-help"></em><span><?php esc_html_e( 'This is the number of pageviews carried out by visitors from Google.', 'rank-math' ); ?></span></span>
-				</h4>
-				<?php $this->get_analytic_block( $data->clicks ); ?>
-			</div>
-			<?php endif; ?>
-
-			<div>
-				<h4>
-					<?php esc_html_e( 'Total Keywords', 'rank-math' ); ?>
-					<span class="rank-math-tooltip"><em class="dashicons-before dashicons-editor-help"></em><span><?php esc_html_e( 'Total number of keywords your site ranking below 100 position.', 'rank-math' ); ?></span></span>
-				</h4>
-				<?php $this->get_analytic_block( $data->keywords ); ?>
-			</div>
-
-			<div>
-				<h4>
-					<?php esc_html_e( 'Average Position', 'rank-math' ); ?>
-					<span class="rank-math-tooltip"><em class="dashicons-before dashicons-editor-help"></em><span><?php esc_html_e( 'Average position of all the ranking keywords below 100 position.', 'rank-math' ); ?></span></span>
-				</h4>
-				<?php $this->get_analytic_block( $data->position, true ); ?>
-			</div>
-
-		</div>
-		<?php
-	}
-
-	/**
-	 * Get analytic block
-	 *
-	 * @param object  $item   Item.
-	 * @param boolean $revert Flag whether to revert difference icon or not.
-	 */
-	private function get_analytic_block( $item, $revert = false ) {
-		$is_negative = absint( $item['difference'] ) !== $item['difference'];
-		$diff_class  = ( ! $revert && $is_negative ) || ( $revert && ! $is_negative && $item['difference'] > 0 ) ? 'down' : 'up';
-		if ( ( ! $revert && ! $is_negative && $item['difference'] > 0 ) || ( $revert && $is_negative ) ) {
-			$diff_class = 'up';
-		}
-		?>
-		<div class="rank-math-item-numbers">
-			<strong class="text-large" title="<?php echo esc_html( Str::human_number( $item['total'] ) ); ?>"><?php echo esc_html( Str::human_number( $item['total'] ) ); ?></strong>
-			<span class="rank-math-item-difference <?php echo esc_attr( $diff_class ); ?>" title="<?php echo esc_html( Str::human_number( abs( $item['difference'] ) ) ); ?>"><?php echo esc_html( Str::human_number( abs( $item['difference'] ) ) ); ?></span>
-		</div>
-		<?php
 	}
 
 	/**

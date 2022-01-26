@@ -71,11 +71,6 @@ class Elementor {
 	 * Enqueue scripts.
 	 */
 	public function enqueue() {
-		/**
-		 * Allow other plugins to enqueue/dequeue admin styles or scripts before plugin assets.
-		 */
-		$this->do_action( 'admin/before_editor_scripts' );
-
 		$deps = [
 			'wp-core-data',
 			'wp-components',
@@ -110,11 +105,6 @@ class Elementor {
 		rank_math()->variables->setup_json();
 
 		$this->content_ai_style( $media_query );
-
-		/**
-		 * Allow other plugins to enqueue/dequeue admin styles or scripts after plugin assets.
-		 */
-		$this->do_action( 'admin/editor_scripts' );
 	}
 
 	/**

@@ -53,6 +53,7 @@ class Common {
 		new Update_Email();
 		new Defaults();
 		new Admin_Bar_Menu();
+		new Dashboard_Widget();
 	}
 
 	/**

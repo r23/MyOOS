@@ -45,7 +45,7 @@ class Product_Redirection {
 	 * @return string|array
 	 */
 	public function pre_redirection( $check, $uri, $full_uri ) {
-		if ( $new_link = $this->get_redirection_url( $uri ) ) { // phpcs:ignore
+		if ( $new_link = $this->get_redirection_url() ) { // phpcs:ignore
 			return [
 				'url_to'      => $new_link,
 				'header_code' => 301,
@@ -59,9 +59,7 @@ class Product_Redirection {
 	 * Redirect product with base to the new link.
 	 */
 	public function redirect() {
-		global $wp;
-
-		if ( $link = $this->get_redirection_url( $wp->request ) ) { // phpcs:ignore
+		if ( $link = $this->get_redirection_url() ) { // phpcs:ignore
 			Helper::redirect( $link, 301 );
 			exit;
 		}
@@ -70,21 +68,21 @@ class Product_Redirection {
 	/**
 	 * Get Product URL.
 	 *
-	 * @param string $uri Current URL.
-	 *
 	 * @return string Modified URL
 	 */
-	private function get_redirection_url( $uri ) {
+	private function get_redirection_url() {
 		if ( ! $this->can_redirect() ) {
 			return false;
 		}
 
+		global $wp;
+		$url                 = $wp->request;
 		$is_product          = is_product();
 		$permalink_structure = wc_get_permalink_structure();
 		$base                = $is_product ? $permalink_structure['product_base'] : $permalink_structure['category_base'];
 
 		$base     = explode( '/', ltrim( $base, '/' ) );
-		$new_link = $uri;
+		$new_link = $url;
 
 		// Early Bail if new_link length is less then the base.
 		if ( count( explode( '/', $new_link ) ) <= count( $base ) ) {
@@ -109,7 +107,7 @@ class Product_Redirection {
 
 		$new_link = implode( '/', array_map( 'rawurlencode', explode( '/', $new_link ) ) ); // encode everything but slashes.
 
-		return $new_link === $this->strip_ignored_parts( $uri ) ? false : trailingslashit( home_url( strtolower( $new_link ) ) );
+		return $new_link === $this->strip_ignored_parts( $url ) ? false : trailingslashit( home_url( strtolower( $new_link ) ) );
 	}
 
 	/**

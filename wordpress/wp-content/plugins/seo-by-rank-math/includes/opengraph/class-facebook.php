@@ -314,7 +314,7 @@ class Facebook extends OpenGraph {
 		$pub  = mysql2date( DATE_W3C, $post->post_date, false );
 		$mod  = mysql2date( DATE_W3C, $post->post_modified, false );
 
-		if ( $mod !== $pub ) {
+		if ( strtotime( $mod ) > strtotime( $pub ) ) {
 			$this->tag( 'og:updated_time', $mod );
 		}
 	}

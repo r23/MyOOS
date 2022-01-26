@@ -286,7 +286,7 @@ class Admin extends Base {
 	 * @return string
 	 */
 	private function get_nginx_notice() {
-		if ( empty( Param::server( 'SERVER_SOFTWARE' ) ) || get_option( 'rank_math_remove_nginx_notice' ) ) {
+		if ( 'rank-math-options-sitemap' !== Param::get( 'page' ) || empty( Param::server( 'SERVER_SOFTWARE' ) ) || get_option( 'rank_math_remove_nginx_notice' ) ) {
 			return '';
 		}
 

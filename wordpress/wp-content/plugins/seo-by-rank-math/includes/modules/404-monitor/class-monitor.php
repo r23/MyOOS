@@ -39,11 +39,44 @@ class Monitor {
 			$this->ajax( 'delete_log', 'delete_log' );
 		}
 
+		if ( Helper::has_cap( '404_monitor' ) && Conditional::is_rest() ) {
+			$this->action( 'rank_math/dashboard/widget', 'dashboard_widget', 11 );
+		}
+
 		$hook = defined( 'CT_VERSION' ) ? 'oxygen_enqueue_frontend_scripts' : 'get_header';
 		$this->action( $hook, 'capture_404' );
 		if ( Helper::has_cap( '404_monitor' ) ) {
 			$this->action( 'rank_math/admin_bar/items', 'admin_bar_items', 11 );
 		}
+	}
+
+	/**
+	 * Add stats in the admin dashboard widget.
+	 */
+	public function dashboard_widget() {
+		$data = DB::get_stats();
+		?>
+		<h3>
+			<?php esc_html_e( '404 Monitor', 'rank-math' ); ?>
+			<a href="<?php echo esc_url( Helper::get_admin_url( '404-monitor' ) ); ?>" class="rank-math-view-report" title="<?php esc_html_e( 'View Report', 'rank-math' ); ?>"><i class="dashicons dashicons-ellipsis"></i></a>
+		</h3>
+		<div class="rank-math-dashabord-block">
+			<div>
+				<h4>
+					<?php esc_html_e( 'Log Count', 'rank-math' ); ?>
+					<span class="rank-math-tooltip"><em class="dashicons-before dashicons-editor-help"></em><span><?php esc_html_e( 'Total number of 404 pages opened by the users.', 'rank-math' ); ?></span></span>
+				</h4>
+				<strong class="text-large"><?php echo esc_html( Str::human_number( $data->total ) ); ?></strong>
+			</div>
+			<div>
+				<h4>
+					<?php esc_html_e( 'URL Hits', 'rank-math' ); ?>
+					<span class="rank-math-tooltip"><em class="dashicons-before dashicons-editor-help"></em><span><?php esc_html_e( 'Total number visits received on all the 404 pages.', 'rank-math' ); ?></span></span>
+				</h4>
+				<strong class="text-large"><?php echo esc_html( Str::human_number( $data->hits ) ); ?></strong>
+			</div>
+		</div>
+		<?php
 	}
 
 	/**

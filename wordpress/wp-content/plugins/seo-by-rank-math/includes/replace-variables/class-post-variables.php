@@ -13,6 +13,7 @@ namespace RankMath\Replace_Variables;
 use RankMath\Post;
 use RankMath\Paper\Paper;
 use MyThemeShop\Helpers\Str;
+use MyThemeShop\Helpers\Arr;
 use MyThemeShop\Helpers\WordPress;
 
 defined( 'ABSPATH' ) || exit;
@@ -389,9 +390,10 @@ class Post_Variables extends Advanced_Variables {
 	 * @return string|null
 	 */
 	public function get_modified( $format = '' ) {
-		if ( ! empty( $this->args->post_modified ) ) {
-			$format = $format ? $format : get_option( 'date_format' );
-			return mysql2date( $format, $this->args->post_modified, true );
+		if ( ! empty( $this->args->post_modified ) && ! empty( $this->args->post_date ) ) {
+			$modified = strtotime( $this->args->post_date ) > strtotime( $this->args->post_modified ) ? $this->args->post_date : $this->args->post_modified;
+			$format   = $format ? $format : get_option( 'date_format' );
+			return mysql2date( $format, $modified, true );
 		}
 
 		return null;
@@ -485,8 +487,8 @@ class Post_Variables extends Advanced_Variables {
 
 		// 4. Paragraph with the focus keyword.
 		if ( ! empty( $keywords ) ) {
-			$keywords = implode( ',', array_map( 'preg_quote', array_map( 'trim', explode( ',', $keywords ) ) ) );
-			$regex = '/<p>(.*' . str_replace( [ ',', ' ', '/' ], [ '|', '.', '\/' ], $keywords ) . '.*)<\/p>/iu';
+			$keywords = implode( ',', array_map( 'preg_quote', Arr::from_string( $keywords ) ) );
+			$regex    = '/<p>(.*' . str_replace( [ ',', ' ', '/' ], [ '|', '.', '\/' ], $keywords ) . '.*)<\/p>/iu';
 			\preg_match_all( $regex, $post_content, $matches );
 			if ( isset( $matches[1], $matches[1][0] ) ) {
 				return $matches[1][0];

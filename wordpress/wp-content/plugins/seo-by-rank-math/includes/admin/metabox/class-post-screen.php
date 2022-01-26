@@ -223,6 +223,11 @@ class Post_Screen implements IScreen {
 	private function get_permalink_format() {
 		$post_id = $this->get_object_id();
 		$post    = get_post( $post_id );
+
+		if ( 'attachment' === $post->post_type ) {
+			return str_replace( $post->post_name, '%postname%', get_permalink( $post ) );
+		}
+
 		if ( 'auto-draft' !== $post->post_status || 'post' !== $post->post_type ) {
 			$sample_permalink = get_sample_permalink( $post_id, null, null );
 			return isset( $sample_permalink[0] ) ? $sample_permalink[0] : home_url();

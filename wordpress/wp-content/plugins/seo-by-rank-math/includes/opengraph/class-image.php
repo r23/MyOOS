@@ -549,7 +549,12 @@ class Image {
 			return false;
 		}
 
-		return in_array( $check['ext'], [ 'jpeg', 'jpg', 'gif', 'png' ], true );
+		$extensions = [ 'jpeg', 'jpg', 'gif', 'png' ];
+		if ( 'twitter' === $this->network ) {
+			$extensions[] = 'webp';
+		}
+
+		return in_array( $check['ext'], $extensions, true );
 	}
 
 	/**

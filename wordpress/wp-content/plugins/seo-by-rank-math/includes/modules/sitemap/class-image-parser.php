@@ -19,6 +19,7 @@ use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Url;
+use MyThemeShop\Helpers\Arr;
 use MyThemeShop\Helpers\Attachment;
 
 defined( 'ABSPATH' ) || exit;
@@ -229,7 +230,7 @@ class Image_Parser {
 			return;
 		}
 
-		$customs = array_filter( array_map( 'trim', explode( "\n", $customs ) ) );
+		$customs = Arr::from_string( $customs, "\n" );
 		foreach ( $customs as $key ) {
 			$src = get_post_meta( $this->post->ID, $key, true );
 			if ( Str::is_non_empty( $src ) && preg_match( '/\.(jpg|jpeg|png|gif)$/i', $src ) ) {

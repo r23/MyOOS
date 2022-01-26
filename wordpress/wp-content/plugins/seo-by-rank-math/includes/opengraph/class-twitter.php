@@ -16,6 +16,7 @@ namespace RankMath\OpenGraph;
 use RankMath\Helper;
 use RankMath\Post;
 use MyThemeShop\Helpers\Str;
+use MyThemeShop\Helpers\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -149,7 +150,7 @@ class Twitter extends OpenGraph {
 
 		$size = Helper::get_post_meta( 'twitter_player_size' );
 		if ( $size ) {
-			$size = array_map( 'trim', explode( 'x', $size ) );
+			$size = Arr::from_string( $size, 'x' );
 			if ( isset( $size[1] ) ) {
 				$twitter_meta['twitter:player:width']  = (int) $size[0];
 				$twitter_meta['twitter:player:height'] = (int) $size[1];

@@ -143,6 +143,7 @@ class Assets implements Runner {
 
 		if ( 'dashboard' === $screen->id ) {
 			wp_enqueue_style( self::PREFIX . 'dashabord-widget' );
+			wp_enqueue_script( self::PREFIX . 'dashboard' );
 		}
 
 		// Our screens only.

@@ -10,6 +10,7 @@
 
 namespace RankMath\Module;
 
+use RankMath\KB;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Conditional;
@@ -164,7 +165,8 @@ class Manager {
 
 		$modules['instant-indexing'] = [
 			'title'    => esc_html__( 'Instant Indexing', 'rank-math' ),
-			'desc'     => esc_html__( 'Directly notify search engines(Bing) when pages are added, updated or removed.', 'rank-math' ),
+			// Translators: placeholder is "IndexNow API".
+			'desc'     => sprintf( esc_html__( 'Directly notify search engines like Bing & Yandex using the %s when pages are added, updated and removed, or submit URLs manually.', 'rank-math' ), '<a href="' . KB::get( 'instant-indexing' ) . '" target="_blank">' . __( 'IndexNow API', 'rank-math' ) . '</a>' ),
 			'class'    => 'RankMath\Instant_Indexing\Instant_Indexing',
 			'icon'     => 'instant-indexing',
 			'settings' => Helper::get_admin_url( 'options-instant-indexing' ),

@@ -14,6 +14,7 @@ use RankMath\Helper;
 use RankMath\Paper\Paper;
 use RankMath\Traits\Hooker;
 use RankMath\Traits\Shortcode;
+use MyThemeShop\Helpers\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -121,7 +122,7 @@ class Shortcodes {
 		: [ 'name', 'email', 'address', 'hours', 'phone', 'map' ];
 
 		if ( ! empty( $args['show'] ) && 'all' !== $args['show'] ) {
-			$allowed = array_intersect( array_map( 'trim', explode( ',', $args['show'] ) ), $allowed );
+			$allowed = array_intersect( Arr::from_string( $args['show'] ), $allowed );
 		}
 
 		return $allowed;

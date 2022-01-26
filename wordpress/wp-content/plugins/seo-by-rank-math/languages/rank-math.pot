@@ -247,27 +247,6 @@ msgstr ""
 msgid "Facebook profile URL"
 msgstr ""
 
-msgid "Rank Math Overview"
-msgstr ""
-
-msgid "Latest Blog Posts from Rank Math"
-msgstr ""
-
-msgid "Error in fetching."
-msgstr ""
-
-msgid "NEW"
-msgstr ""
-
-msgid "Blog"
-msgstr ""
-
-msgid "(opens in a new window)"
-msgstr ""
-
-msgid "Go Pro"
-msgstr ""
-
 msgid "The canonical URL you entered does not seem to be a valid URL. Please double check it in the SEO meta box &raquo; Advanced tab."
 msgstr ""
 
@@ -377,6 +356,27 @@ msgid "Large"
 msgstr ""
 
 msgid "Standard"
+msgstr ""
+
+msgid "Rank Math Overview"
+msgstr ""
+
+msgid "Latest Blog Posts from Rank Math"
+msgstr ""
+
+msgid "Error in fetching."
+msgstr ""
+
+msgid "NEW"
+msgstr ""
+
+msgid "Blog"
+msgstr ""
+
+msgid "(opens in a new window)"
+msgstr ""
+
+msgid "Go Pro"
 msgstr ""
 
 msgid "Import & Export"
@@ -1341,7 +1341,11 @@ msgstr ""
 msgid "Instant Indexing"
 msgstr ""
 
-msgid "Directly notify search engines(Bing) when pages are added, updated or removed."
+#. translators: placeholder is "IndexNow API".
+msgid "Directly notify search engines like Bing & Yandex using the %s when pages are added, updated and removed, or submit URLs manually."
+msgstr ""
+
+msgid "IndexNow API"
 msgstr ""
 
 msgid "Content AI"
@@ -2478,6 +2482,9 @@ msgstr ""
 msgid "Not a valid settings founds to delete cache."
 msgstr ""
 
+msgid "Last 30 Days"
+msgstr ""
+
 msgid "Review analytics and sitemaps"
 msgstr ""
 
@@ -2485,13 +2492,6 @@ msgid "Analytics cache cleared."
 msgstr ""
 
 msgid "Post re-index in progress."
-msgstr ""
-
-#. translators: Auth URL
-msgid "It seems like the connection with your Google account & Rank Math needs to be made again. <a href=\"%s\" class=\"rank-math-reconnect-google\">Please click here.</a>"
-msgstr ""
-
-msgid "Last 30 Days"
 msgstr ""
 
 msgid "Search Traffic"
@@ -2519,6 +2519,10 @@ msgid "Average Position"
 msgstr ""
 
 msgid "Average position of all the ranking keywords below 100 position."
+msgstr ""
+
+#. translators: Auth URL
+msgid "It seems like the connection with your Google account & Rank Math needs to be made again. <a href=\"%s\" class=\"rank-math-reconnect-google\">Please click here.</a>"
 msgstr ""
 
 msgid "Rank Math is importing latest data from connected Google Services, %1$s remaining."
@@ -2837,44 +2841,84 @@ msgstr ""
 msgid "Format used for the new <code>title</code> attribute values."
 msgstr ""
 
-msgid "Bing URL Submission API: Insert one or more URLs."
+msgid "Unknown error."
 msgstr ""
 
-#. translators: The placeholder is the number of URLs.
-msgid "Successfully submitted %s URL to the Bing URL Submission API."
-msgid_plural "Successfully submitted %s URLs to the Bing URL Submission API."
-msgstr[0] ""
-msgstr[1] ""
-
-msgid "Failed to submit post to the Bing URL Submission API."
+msgid "Invalid request."
 msgstr ""
 
-msgid "Post successfully submitted to the Bing URL Submission API."
+msgid "Invalid API key."
 msgstr ""
 
-#. translators: daily quota
-msgid "Please configure the Instant Indexing module in the Settings tab first."
+msgid "Invalid URL."
 msgstr ""
 
-#. translators: placeholder is the error message.
-msgid "Bing URL Submission API error: %s"
+msgid "Too many requests."
 msgstr ""
 
-#. translators: 1. the error code, 2. the error message.
-msgid "Bing URL Submission API HTTP error %1$s: %2$s"
+msgid "Internal server error."
 msgstr ""
 
-msgid "Instant Indexing: Submit to Bing"
+msgid "Instant Indexing: Submit Pages"
+msgstr ""
+
+msgid "Instant Indexing: Submit Page"
+msgstr ""
+
+msgid "Submit URLs"
+msgstr ""
+
+msgid "Send URLs directly to the IndexNow API."
 msgstr ""
 
 #. translators: Link to kb article
 msgid "Instant Indexing module settings. %s."
 msgstr ""
 
-msgid "URL Submission"
+msgid "History"
 msgstr ""
 
-msgid "Send URLs directly to the Bing URL Submission API."
+msgid "The last 100 IndexNow API requests."
+msgstr ""
+
+msgid "An error occurred while submitting the URL."
+msgstr ""
+
+msgid "Error: could not clear history."
+msgstr ""
+
+msgid "Error: could not get history."
+msgstr ""
+
+msgid "No submissions yet."
+msgstr ""
+
+msgid "Error submitting page to IndexNow."
+msgstr ""
+
+#. translators: %s: Number of pages submitted.
+msgid "%s page submitted to IndexNow."
+msgid_plural "%s pages submitted to IndexNow."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "No URLs provided."
+msgstr ""
+
+msgid "Invalid URLs provided."
+msgstr ""
+
+msgid "Failed to submit URLs. See details in the History tab."
+msgstr ""
+
+#. translators: %s is the number of URLs submitted.
+msgid "Successfully submitted %s URL."
+msgid_plural "Successfully submitted %s URLs."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: placeholder is human-readable time, e.g. "1 hour".
+msgid "%s ago"
 msgstr ""
 
 msgid "Links: "
@@ -2897,18 +2941,6 @@ msgstr ""
 
 #. translators: Link to kb article
 msgid "Easily create redirects without fiddling with tedious code. %s."
-msgstr ""
-
-msgid "Redirection Count"
-msgstr ""
-
-msgid "Total number of Redirections created in the Rank Math."
-msgstr ""
-
-msgid "Redirection Hits"
-msgstr ""
-
-msgid "Total number of hits received by all the Redirections."
 msgstr ""
 
 msgid "No valid ID found."
@@ -2998,6 +3030,18 @@ msgstr ""
 
 #. translators: source pattern
 msgid "Invalid regex pattern: %s"
+msgstr ""
+
+msgid "Redirection Count"
+msgstr ""
+
+msgid "Total number of Redirections created in the Rank Math."
+msgstr ""
+
+msgid "Redirection Hits"
+msgstr ""
+
+msgid "Total number of hits received by all the Redirections."
 msgstr ""
 
 msgid "Create and edit redirections"
@@ -4893,31 +4937,77 @@ msgstr ""
 msgid "%1$s credits left. Upgrade to get more credits from %2$s."
 msgstr ""
 
-#. translators: daily quota
-msgid "Insert URLs to send to the Bing URL Submission API (one per line, up to 500):"
+msgid "Insert URLs to send to the IndexNow API (one per line, up to 10,000):"
 msgstr ""
 
-msgid "Submit URLs"
+msgctxt "URL slug placeholder"
+msgid "hello-world"
 msgstr ""
 
-#. translators: daily quota
-msgid "Quota Left Today: %s"
+msgid "Clear History"
 msgstr ""
 
-msgid "Bing API Key"
+msgid "Manual"
 msgstr ""
 
-#. translators: Link to KB article
-msgid "Insert your Bing Webmaster Tools API Key. %s"
+msgid "Auto"
 msgstr ""
 
-msgid "How to obtain it?"
+msgid "Time"
 msgstr ""
 
-msgid "Auto-Submit to Bing"
+msgid "Response"
 msgstr ""
 
-msgid "Submit posts from these post types automatically to the Bing URL Submission API when a post is published or edited."
+msgid "Response Code Help"
+msgstr ""
+
+msgid "Response Code"
+msgstr ""
+
+msgid "Response Message"
+msgstr ""
+
+msgid "Reasons"
+msgstr ""
+
+msgid "The URL was successfully submitted to the IndexNow API."
+msgstr ""
+
+msgid "Accepted"
+msgstr ""
+
+msgid "The URL was successfully submitted to the IndexNow API, but the API key will be checked later."
+msgstr ""
+
+msgid "Bad Request"
+msgstr ""
+
+msgid "The request was invalid."
+msgstr ""
+
+msgid "Forbidden"
+msgstr ""
+
+msgid "The key was invalid (e.g. key not found, file found but key not in the file)."
+msgstr ""
+
+msgid "Unprocessable Entity"
+msgstr ""
+
+msgid "The URLs don't belong to the host or the key is not matching the schema in the protocol."
+msgstr ""
+
+msgid "Too Many Requests"
+msgstr ""
+
+msgid "Too Many Requests (potential Spam)."
+msgstr ""
+
+msgid "Auto-Submit Post Types"
+msgstr ""
+
+msgid "Submit posts from these post types automatically to the IndexNow API when a post is published, updated, or trashed."
 msgstr ""
 
 msgid "Email"

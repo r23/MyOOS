@@ -19,8 +19,8 @@ $cmb->add_field(
 		'name'    => esc_html__( 'Author Archives', 'rank-math' ),
 		'desc'    => esc_html__( 'Enables or disables Author Archives. If disabled, the Author Archives are redirected to your homepage. To avoid duplicate content issues, noindex author archives if you keep them enabled.', 'rank-math' ),
 		'options' => [
-			'on' => esc_html__( 'Disabled', 'rank-math' ),
-			'off'  => esc_html__( 'Enabled', 'rank-math' ),
+			'on'  => esc_html__( 'Disabled', 'rank-math' ),
+			'off' => esc_html__( 'Enabled', 'rank-math' ),
 		],
 		'default' => $this->do_filter( 'settings/titles/disable_author_archives', 'off' ),
 	]
@@ -126,6 +126,7 @@ $cmb->add_field(
 		'desc'    => esc_html__( 'When the option is enabled and an author archive is shared on Slack, additional information will be shown (name & total number of posts).', 'rank-math' ),
 		'default' => 'on',
 		'classes' => 'rank-math-advanced-option',
+		'dep'     => $dep,
 	]
 );
 
