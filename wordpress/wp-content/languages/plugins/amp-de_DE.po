@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-08 02:04:28+0000\n"
+"PO-Revision-Date: 2022-01-28 00:12:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1908,7 +1908,7 @@ msgstr "Blog"
 #: src/Validation/ScannableURLProvider.php:124
 #: src/Validation/ScannableURLProvider.php:138
 msgid "Homepage"
-msgstr "Startseite"
+msgstr "Homepage"
 
 #: includes/class-amp-theme-support.php:700
 msgid "Singular"
@@ -2575,7 +2575,7 @@ msgstr "Header-Hintergrund und Link-Farbe"
 
 #: includes/settings/class-amp-customizer-design-settings.php:146
 msgid "Header Text Color"
-msgstr "Header-Text-Farbe"
+msgstr "Header-Textfarbe"
 
 #: includes/settings/class-amp-customizer-design-settings.php:134
 msgid "Design"

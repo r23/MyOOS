@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.9.x - Development - Administration - Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-05 07:57:34+0000\n"
+"PO-Revision-Date: 2022-01-28 00:08:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -377,7 +377,7 @@ msgstr "Deaktivieren"
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:469
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:580
 msgid "Enable"
-msgstr "Freischalten"
+msgstr "Aktivieren"
 
 #. translators: %s: Number of themes.
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:415
