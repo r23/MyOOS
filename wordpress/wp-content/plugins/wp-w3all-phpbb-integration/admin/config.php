@@ -131,6 +131,7 @@ $w3all_conf_pref['w3all_add_into_wp_u_capability'] = isset($w3all_conf_pref['w3a
 $w3all_conf_pref['w3all_wp_signup_fix_yn'] = isset($w3all_conf_pref['w3all_wp_signup_fix_yn']) ? $w3all_conf_pref['w3all_wp_signup_fix_yn'] : 0;
 $w3all_conf_pref['w3all_add_into_phpBB_after_confirm'] = isset($w3all_conf_pref['w3all_add_into_phpBB_after_confirm']) ? $w3all_conf_pref['w3all_add_into_phpBB_after_confirm'] : 0;
 $w3all_conf_pref['w3all_push_new_pass_into_phpbb'] = isset($w3all_conf_pref['w3all_push_new_pass_into_phpbb']) ? $w3all_conf_pref['w3all_push_new_pass_into_phpbb'] : 0;
+$w3all_conf_pref['w3all_disable_ck_email_before_wp_update'] = isset($w3all_conf_pref['w3all_disable_ck_email_before_wp_update']) ? $w3all_conf_pref['w3all_disable_ck_email_before_wp_update'] : 0;
 
 $w3all_phpbb_dbconn['w3all_phpbb_url'] = isset($w3all_phpbb_dbconn['w3all_phpbb_url']) ? $w3all_phpbb_dbconn['w3all_phpbb_url'] : '';
 $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] = isset($w3all_phpbb_dbconn['w3all_phpbb_dbhost']) ? $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] : '';
@@ -329,6 +330,11 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 
 <hr />
 
+<?php echo __('<h3>Disable the check of the email existance in phpBB before it is updated in WordPress (front end plugins profile pages)</h3>', 'wp-w3all-phpbb-integration'); ?>
+<?php echo __('This option, active by default, can be disabled it if there are problems with the message "Error: email exists into our forum"<br />that could come out when some plugin goes to perform some task (example: Woocommerce memberships renewal process)<br />Note that deactivating this option, it is may required that users have been all paired using the check and users transfer process. If you wish to let users to update their email and register also in phpBB, you may will install the phpBB WordPress integration extension into phpBB side, or you\'ll disable the <i>Edit account settings</i> module in phpBB via<br /><i>ACP -> System Tab -> Module management -> User Control panel</i><br />disable the <i>Edit account settings</i> module (where user can change email and update password in phpBB)<br /><br />This option may do not affect the default WordPress user profile page. And it is may not required to disable this option into default WordPress installations<br />But it depend on how you configure WP and phpBB to run as integrated, and how external plugins manage profile updates<br />May test your installation before to disable', 'wp-w3all-phpbb-integration'); ?>
+<p><input type="radio" name="w3all_conf_pref[w3all_disable_ck_email_before_wp_update]" id="w3all_disable_ck_email_before_wp_update_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_disable_ck_email_before_wp_update']); ?> /> <?php echo __('Disabled', 'wp-w3all-phpbb-integration'); ?></p>
+<p><input type="radio" name="w3all_conf_pref[w3all_disable_ck_email_before_wp_update]" id="w3all_disable_ck_email_before_wp_update_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_disable_ck_email_before_wp_update']); ?> /> <?php echo __('Enabled', 'wp-w3all-phpbb-integration'); ?></p>
+<hr />
 <?php echo __('<h3>Force WordPress password reset (front end plugins)</h3>', 'wp-w3all-phpbb-integration'); ?>
 <?php echo __('If a frontend plugin bypass the default password reset process, so that this do not let update the new WordPress password at same time into phpBB, force the user\'s password update into phpBB when user login in WordPress<br /><br />This option is may not required into default WordPress installations. Test your installation before to activate', 'wp-w3all-phpbb-integration'); ?>
 <p><input type="radio" name="w3all_conf_pref[w3all_push_new_pass_into_phpbb]" id="w3all_push_new_pass_into_phpbb_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_push_new_pass_into_phpbb']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>

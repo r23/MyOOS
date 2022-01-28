@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.5.2
+Stable tag: 2.5.3
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.9
@@ -72,6 +72,14 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.5.3 =
+*Release Date - 27 Jan, 2022*
+
+* Fix: 'Error: the provided email is associated with another account into our forum' coming out when user register in phpBB and then should be added into WordPress due to a valid phpBB session or explicit login into WP
+* Fix:  Fix: all others cases, where an user registered in phpBB and then should be added in WP, included user addition in WP using the phpBB integration extension option (that if used do not need to be updated, the bug was affecting the plugin code and not the phpBB extension)
+* Add: option 'Disable the check of the email existance in phpBB before it is updated in WordPress (front end plugins profile pages)'. The option mean is explained within same option hint into plugin admin page
+* Minor lang hint fixes
 
 = 2.5.2 =
 *Release Date - 24 Jan, 2022*

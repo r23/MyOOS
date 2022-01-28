@@ -167,7 +167,7 @@ private static function w3all_get_phpbb_config(){
 }
 
 private static function verify_phpbb_credentials(){
-  global $w3all_phpbb_connection,$w3all_config, $wpdb, $w3cookie_domain, $w3all_anti_brute_force_yn, $w3all_bruteblock_phpbbulist, $w3all_phpbb_lang_switch_yn, $w3all_useragent, $wp_w3all_forum_folder_wp, $w3all_add_into_wp_u_capability;
+  global $w3all_phpbb_connection,$w3all_config,$w3all_oninsert_wp_user,$wpdb,$w3cookie_domain,$w3all_anti_brute_force_yn,$w3all_bruteblock_phpbbulist,$w3all_phpbb_lang_switch_yn,$w3all_useragent,$wp_w3all_forum_folder_wp,$w3all_add_into_wp_u_capability;
 
   if( isset( $_GET['action'] ) && $_GET['action'] == 'validate_2fa' ){
     return;
@@ -521,6 +521,7 @@ private static function verify_phpbb_credentials(){
                'role'             =>  $role
                );
 
+  $w3all_oninsert_wp_user = 1; // declared into wp_w3all.php: if creating an user in wp, avoid checks about duplicate users email into -> wp_w3all_phpbb_registration_save()
   $user_id = wp_insert_user( $userdata );
   $on_ins = 1;
 
@@ -1014,7 +1015,7 @@ private static function create_phpBB_user($wpu, $action = ''){
 
    if( empty($wpu) ){ return; }
 
-   global $w3all_phpbb_connection,$w3all_config, $wpdb, $w3all_phpbb_user_deactivated_yn, $w3all_phpbb_lang_switch_yn, $w3all_add_into_spec_group, $w3all_add_into_phpBB_after_confirm;
+   global $w3all_phpbb_connection,$w3all_config,$w3all_oninsert_wp_user,$wpdb, $w3all_phpbb_user_deactivated_yn, $w3all_phpbb_lang_switch_yn, $w3all_add_into_spec_group, $w3all_add_into_phpBB_after_confirm;
    $phpbb_config = self::w3all_get_phpbb_config();
    $phpbb_config = W3PHPBBCONFIG;
 
@@ -1189,6 +1190,7 @@ private static function create_phpBB_user($wpu, $action = ''){
  }
 
  if(isset($phpBBlid)){
+ 	$w3all_oninsert_wp_user = 1; // or get email exist, because w3all_filter_pre_user_email() will fire after, wp update occour by the way
   return $phpBBlid;
  }
 
@@ -1584,7 +1586,7 @@ public static function phpbb_pass_update($user, $new_pass) {
 public static function w3_check_phpbb_profile_wpnu($username){ // email/user_login
 
  if( defined('W3ALL_WPNU_CKU') OR empty($username) ): return; endif;
-  global $w3all_phpbb_connection,$w3all_config,$wpdb,$w3all_add_into_wp_u_capability,$w3cookie_domain,$w3all_add_into_phpBB_after_confirm,$w3all_push_new_pass_into_phpbb;
+  global $w3all_phpbb_connection,$w3all_config,$wpdb,$w3all_oninsert_wp_user,$w3all_add_into_wp_u_capability,$w3cookie_domain,$w3all_add_into_phpBB_after_confirm,$w3all_push_new_pass_into_phpbb;
 
   $username = trim($username);
   $user = is_email($username) ? get_user_by('email', $username) : get_user_by('login', $username );
@@ -1686,6 +1688,7 @@ public static function w3_check_phpbb_profile_wpnu($username){ // email/user_log
      'role' => $role
     );
 
+    $w3all_oninsert_wp_user = 1;
     $user_id = wp_insert_user( $userdata );
 
    if ( is_wp_error( $user_id ) ) {
