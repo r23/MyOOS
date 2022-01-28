@@ -77,11 +77,14 @@ class Pro_Notice {
 	}
 
 	/**
-	 * Add inline JS related to the Pro notice.
+	 * Add inline JS & CSS related to the Pro notice.
 	 *
 	 * @return void
 	 */
 	public function pro_notice_js() {
+		if ( ! Helper::has_notification( 'rank_math_pro_notice' ) ) {
+			return;
+		}
 		?>
 		<script>
 			(function( $ ) {
@@ -109,6 +112,67 @@ class Pro_Notice {
 				});
 			})(jQuery);
 		</script>
+		<style>
+			#rank_math_pro_notice.is-dismissible {
+				background: #253142;
+				color: #e4e5e7;
+				border-width: 3px;
+				border-style: solid;
+				border-color: #161e28;
+				padding: 0.25rem 1rem 1rem;
+				border-radius: 5px;
+			}
+			#rank_math_pro_notice.is-dismissible p {
+				font-size: 1.25rem;
+				color: #f7d070;
+				margin-bottom: 0;
+			}
+			#rank_math_pro_notice.is-dismissible ul {
+				line-height: 1;
+				margin-bottom: 0;
+				text-align: left;
+				opacity: 0.8;
+				font-size: 15px;
+				max-width: 530px;
+			}
+			#rank_math_pro_notice.is-dismissible li {
+				display: inline-block;
+				width: 49%;
+				margin-bottom: 0.5rem;
+			}
+			#rank_math_pro_notice ul li:before {
+				font-family: dashicons;
+				font-size: 20px;
+				width: 20px;
+				height: 20px;
+				margin-right: 5px;
+				content: '\f147';
+				text-align: center;
+				vertical-align: middle;
+				color: #161e28;
+				border-radius: 10px;
+				background: #9ce2b6;
+			}
+			#rank_math_pro_notice .button {
+				border-color: #f7d070;
+				background: #f7d070;
+				color: #5a4000;
+				font-size: 15px;
+				margin-right: 12px;
+			}
+			div#rank_math_pro_notice .rank-math-maybe-later-action,
+			div#rank_math_pro_notice .rank-math-already-upgraded-action {
+				color: #f7d070;
+				opacity: 0.7;
+				margin: 0 12px;
+				font-size: 13px;
+			}
+
+			.toplevel_page_rank-math #rank_math_pro_notice,
+			body[class*="rank-math_page_rank-math-options-"] div#rank_math_pro_notice {
+				display: none;
+			}
+		</style>
 		<?php
 	}
 
@@ -144,32 +208,38 @@ class Pro_Notice {
 			case 1:
 				$message = '<p><strong>';
 
-				$message .= esc_html__( 'Upgrade to Rank Math PRO and unlock advanced features', 'rank-math' );
-				$message .= '</strong></p><p>';
-				// Translators: placeholder is the words "advanced SEO features".
-				$message .= sprintf( esc_html__( 'By upgrading to Rank Math PRO you get access to %s like more Schema Markups, Schema Generator, Advanced Analytics, Email Reporting and much more!', 'rank-math' ), '<a href="https://rankmath.com/free-vs-pro/?utm_source=Plugin&utm_medium=Upgrade%20Notice%202%20New%20Free%20Vs%20PRO%20Link&utm_campaign=WP" target="_blank"><strong>' . __( 'advanced SEO features', 'rank-math' ) . '</strong></a>' );
-				$message .= '</p>';
-
+				$message .= esc_html__( 'Rank Your Content With the Power of PRO & A.I.', 'rank-math' );
+				$message .= '</strong></p>';
+				$message .= '<ul>
+								<li>' . esc_html__( 'Unlimited Websites', 'rank-math' ) . '</li>
+								<li>' . esc_html__( 'Content A.I. (Artificial Intelligence)', 'rank-math' ) . '</li>
+								<li>' . esc_html__( 'Keyword Rank Tracker', 'rank-math' ) . '</li>
+								<li>' . esc_html__( 'Powerful Schema Generator', 'rank-math' ) . '</li>
+								<li>' . esc_html__( '24x7 Premium Support', 'rank-math' ) . '</li>
+								<li>' . esc_html__( 'SEO Email Reports', 'rank-math' ) . '</li>
+								<li>' . esc_html__( 'and Many More…', 'rank-math' ) . '</li>
+							</ul>';
 				$message .= '<p>
-						<a href="https://rankmath.com/pricing/?utm_source=Plugin&utm_medium=Upgrade%20Notice%202%20New%20Yes&utm_campaign=WP" class="rank-math-dismiss-pro-notice rank-math-upgrade-action" target="_blank" rel="noopener noreferrer"><strong>' . esc_html__( 'Yes, I want to learn more', 'rank-math' ) . '</strong></a><br>
-						<a href="#" class="rank-math-dismiss-pro-notice rank-math-already-upgraded-action">' . esc_html__( 'No, I don\'t want it', 'rank-math' ) . '</a><br>
-						<a href="#" class="rank-math-dismiss-pro-notice rank-math-already-upgraded-action">' . esc_html__( 'I already upgraded', 'rank-math' ) . '</a>
-					</p>';
+								<a href="https://rankmath.com/pricing/?utm_source=Plugin&utm_medium=Upgrade%20Notice%202%20New%20Yes&utm_campaign=WP" class="button rank-math-dismiss-pro-notice rank-math-upgrade-action" target="_blank" rel="noopener noreferrer"><strong>' . esc_html__( 'Yes, I want to learn more', 'rank-math' ) . '</strong></a><a href="#" class="rank-math-dismiss-pro-notice rank-math-already-upgraded-action">' . esc_html__( 'No, I don\'t want it', 'rank-math' ) . '</a><a href="#" class="rank-math-dismiss-pro-notice rank-math-already-upgraded-action">' . esc_html__( 'I already upgraded', 'rank-math' ) . '</a>
+							</p>';
 				break;
 
 			default:
 				$message = '<p><strong>';
 
-				$message .= esc_html__( 'Upgrade to Rank Math PRO and unlock advanced features', 'rank-math' );
+				$message .= esc_html__( 'Rank Your Content With the Power of PRO & A.I.', 'rank-math' );
 				$message .= '</strong></p><p>';
-				// Translators: placeholder is the words "advanced SEO features".
-				$message .= sprintf( esc_html__( 'By upgrading to Rank Math PRO you get access to %s like more Schema Markups, Schema Generator, Advanced Analytics, Email Reporting and much more!', 'rank-math' ), '<a href="https://rankmath.com/free-vs-pro/?utm_source=Plugin&utm_medium=Upgrade%20Notice%201%20New%20Free%20Vs%20PRO%20Link&utm_campaign=WP" target="_blank"><strong>' . __( 'advanced SEO features', 'rank-math' ) . '</strong></a>' );
-				$message .= '</p>';
-
+				$message .= '<ul>
+								<li>' . esc_html__( 'Unlimited Websites', 'rank-math' ) . '</li>
+								<li>' . esc_html__( 'Content A.I. (Artificial Intelligence)', 'rank-math' ) . '</li>
+								<li>' . esc_html__( 'Keyword Rank Tracker', 'rank-math' ) . '</li>
+								<li>' . esc_html__( 'Powerful Schema Generator', 'rank-math' ) . '</li>
+								<li>' . esc_html__( '24x7 Premium Support', 'rank-math' ) . '</li>
+								<li>' . esc_html__( 'SEO Email Reports', 'rank-math' ) . '</li>
+								<li>' . esc_html__( 'and Many More…', 'rank-math' ) . '</li>
+							</ul>';
 				$message .= '<p>
-						<a href="https://rankmath.com/pricing/?utm_source=Plugin&utm_medium=Upgrade%20Notice%201%20New%20Yes&utm_campaign=WP" class="rank-math-dismiss-pro-notice rank-math-upgrade-action" target="_blank" rel="noopener noreferrer"><strong>' . esc_html__( 'Yes, I want better SEO', 'rank-math' ) . '</strong></a><br>
-						<a href="#" class="rank-math-dismiss-pro-notice rank-math-maybe-later-action">' . esc_html__( 'No, maybe later', 'rank-math' ) . '</a><br>
-						<a href="#" class="rank-math-dismiss-pro-notice rank-math-already-upgraded-action">' . esc_html__( 'I already purchased', 'rank-math' ) . '</a>
+						<a href="https://rankmath.com/pricing/?utm_source=Plugin&utm_medium=Upgrade%20Notice%201%20New%20Yes&utm_campaign=WP" class="button rank-math-dismiss-pro-notice rank-math-upgrade-action" target="_blank" rel="noopener noreferrer"><strong>' . esc_html__( 'Yes, I want better SEO', 'rank-math' ) . '</strong></a><a href="#" class="rank-math-dismiss-pro-notice rank-math-maybe-later-action">' . esc_html__( 'No, maybe later', 'rank-math' ) . '</a><a href="#" class="rank-math-dismiss-pro-notice rank-math-already-upgraded-action">' . esc_html__( 'I already purchased', 'rank-math' ) . '</a>
 					</p>';
 				break;
 		}

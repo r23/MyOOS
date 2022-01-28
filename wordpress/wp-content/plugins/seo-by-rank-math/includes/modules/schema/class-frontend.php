@@ -246,7 +246,7 @@ class Frontend {
 			$schemas
 		);
 
-		$faq_key = ! empty( $faq_data ) ? key( array_filter( $faq_data ) ) : '';
+		$faq_key = is_array( $faq_data ) && ! empty( $faq_data ) ? key( array_filter( $faq_data ) ) : '';
 		if ( ! $faq_key ) {
 			return $schemas;
 		}

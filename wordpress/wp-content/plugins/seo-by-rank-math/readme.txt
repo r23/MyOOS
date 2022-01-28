@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.9
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.81
+Stable tag: 1.0.81.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -144,7 +144,7 @@ Even with significantly more features than other plugins, Rank Math SEO loads am
 
 * **Quick Edit SEO Details** - Go through a lot of posts/pages quickly by ensuring they are optimized for search engines. Quickly edit multiple SEO fields at once using Rank Math SEO.
 
-* **[Instant Indexing for Bing](https://rankmath.com/blog/bing-indexing-api/)** - Get your content instantly indexed by Bing. Enter a few key details and you are all set and ready to go.
+* **[Instant Indexing for Bing & Yandex](https://rankmath.com/kb/how-to-use-indexnow/)** - Get your content instantly indexed by Bing & Yandex using their IndexNow API.
 
 * **[Instant Indexing for Google](https://rankmath.com/blog/google-indexing-api/)** - Instantly getting indexed by Google used to be reserved to huge brands and large websites. Not anymore. Just about anyone can take advantage of Google’s Instant Indexing feature using Rank Math SEO.
 
@@ -368,7 +368,7 @@ and many more
 ✔ Open External Links in New Tabs
 ✔ Nofollow External Links
 ✔ `Noindex` Paginated, Archive, Search Result Pages
-✔ Instant Indexing for Bing [Also Google using our <a href="https://rankmath.com/blog/google-indexing-api/" target="_blank">Instant Indexing Plugin</a>]
+✔ Instant Indexing for Bing & Yandex [Also Google using our <a href="https://rankmath.com/blog/google-indexing-api/" target="_blank">Instant Indexing Plugin</a>]
 
 **WooCommerce SEO**
 ✔ Automatic Schema for WooCommerce Products
@@ -580,6 +580,13 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 13. Rank Math SEO Comes with 15+ FREE modules.
 
 == Changelog ==
+
+= 1.0.81.1 [Jan 27, 2022] =
+* Fixed: [Variable dropdown](https://rankmath.com/kb/variables-in-seo-title-description/) was not working with the WordPress v5.9
+* Fixed: [SEO Panel](https://rankmath.com/blog/divi-seo/) was not appearing on Divi's frontend editor for WordPress v5.9
+* Fixed: PHP warnings for various non-arrays on some setups
+* Fixed: Wrong changelog link in the [Update email](https://rankmath.com/kb/version-control/#update-notification-email)
+
 
 = 1.0.81 [Jan 26, 2022] =
 * Added: [HUGE!] [Introducing IndexNow integration](https://rankmath.com/kb/how-to-use-indexnow/). We have replaced the old Bing Instant Indexing API with the latest IndexNow API. This new API also supports Yandex

@@ -171,6 +171,10 @@ class JsonLD {
 	 * @return array
 	 */
 	private function validate_schema( $data ) {
+		if ( ! is_array( $data ) || empty( $data ) ) {
+			return $data;
+		}
+
 		foreach ( $data as $id => $value ) {
 			if ( is_array( $value ) ) {
 				// Remove aline @type.

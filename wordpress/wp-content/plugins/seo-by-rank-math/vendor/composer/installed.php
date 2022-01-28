@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '10026b37e334c79fa0d7a21869f4c3518fce1584',
+    'reference' => '87e8930fa65b779f0c2fa9958e4cfcc3e3dfcc29',
     'name' => 'rankmath/seo-by-rank-math',
   ),
   'versions' => 
@@ -40,12 +40,12 @@
     ),
     'mythemeshop/wordpress-helpers' => 
     array (
-      'pretty_version' => 'v1.1.17',
-      'version' => '1.1.17.0',
+      'pretty_version' => 'v1.1.18',
+      'version' => '1.1.18.0',
       'aliases' => 
       array (
       ),
-      'reference' => '23c46eacd1ac24ed515c5ff38b57b6864cb75808',
+      'reference' => '6294c995e9365bee25fcfa8f3c045800620a5278',
     ),
     'rankmath/seo-by-rank-math' => 
     array (
@@ -54,7 +54,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '10026b37e334c79fa0d7a21869f4c3518fce1584',
+      'reference' => '87e8930fa65b779f0c2fa9958e4cfcc3e3dfcc29',
     ),
     'woocommerce/action-scheduler' => 
     array (
