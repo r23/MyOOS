@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.5.3
+Stable tag: 2.5.4
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.9
@@ -72,6 +72,11 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.5.4 =
+*Release Date - 29 Jan, 2022*
+
+* Fix: error when user deleted on WordPress Multisite
 
 = 2.5.3 =
 *Release Date - 27 Jan, 2022*

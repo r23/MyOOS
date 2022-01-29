@@ -1774,7 +1774,7 @@ public static function wp_w3all_get_phpbb_user_info($username){ // email/user_ob
            return false;
          }
 
-  if (is_object( $username )) {
+  if (isset($username->user_login)) {
     $username = trim($username->user_login);
   }
 
@@ -1826,6 +1826,11 @@ public static function wp_w3all_phpbb_delete_user ($user_id){
 // Only deactivate user in phpBB if deleted on WP
 
  $user = get_user_by( 'ID', $user_id );
+ 
+ if($user->ID < 2){
+ 	return;
+ }
+ 
  $user->user_email = strtolower($user->user_email);
  $phpbb_udata = self::wp_w3all_get_phpbb_user_info($user->user_email);
 
@@ -1868,7 +1873,7 @@ public static function wp_w3all_phpbb_delete_user_signup($user_id, $blog_id = ''
 
 if ( is_multisite() ) { // clean also signup of this user if WPMU for compatibility with integration
   // the check is done against an user that exist into users table, not signup
-  // we can't leave the user into signup table, while not result in users tab: because in phpBB an user could register in the while another username, with same email
+  // we can't leave the user into signup table, while do not result in users tab: because in phpBB an user could register in the while another username, with same email
 
   // cleanup signup from sub if exist
  $wpu_db_utab = $wpdb->prefix . 'signups';
