@@ -373,6 +373,7 @@ $(document).ready(function() {
       function showOffcanvas (target, callback) {
         callback = setTimeout(function () {
           $(BODY).addClass('offcanvas-open');
+		  $(BODY).attr("style", "overflow: hidden; padding-right: 17px;");
         }, 100);
         $(target).addClass('show', callback);
       }	
