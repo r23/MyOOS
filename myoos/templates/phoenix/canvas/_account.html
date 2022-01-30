@@ -2,7 +2,7 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-account" aria-labelledby="offcanvas-accountLabel">
 	<div class="offcanvas-header d-flex justify-content-between align-items-center">
         <h3 class="offcanvas-title">{$smarty.const.STORE_NAME}</h3>
-        <button class="btn-close text-reset" type="button" data-dismiss="offcanvas" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <button class="btn-close text-reset" type="button" data-dismiss="offcanvas" aria-label="Close"></button>
 	</div>
 	<div class="offcanvas-body">
 		<div class="offcanvas-body-inner">
@@ -37,8 +37,9 @@
 								<div class="invalid-feedback">{$lang.text_please_enter_a_password}.</div>
 							</div>
 						</div>
-				
-						<button class="btn btn-primary btn-block" type="submit">{$lang.button_login}</button>
+						<div class="d-grid gap-2">
+							<button class="btn btn-primary" type="submit">{$lang.button_login}</button>
+						</div>				
 					</form>
 					<div class="text-left pt-4">
 						<p>{$lang.text_password_forgotten} <a href="{html_href_link content=$filename.password_forgotten}">{$lang.link_password_forgotten}</a></p>

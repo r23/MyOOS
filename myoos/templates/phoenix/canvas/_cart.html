@@ -2,7 +2,7 @@
 <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-cart" aria-labelledby="offcanvas-cartLabel">
 	<div class="offcanvas-header d-flex justify-content-between align-items-center">
 		<h3 class="offcanvas-title">{$lang.header_title_cart_contents}</h3>
-		<button class="close" type="button" data-dismiss="offcanvas" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<button class="btn-close text-reset" type="button" data-dismiss="offcanvas" aria-label="Close"></button>
 	</div>
 
 	<div class="offcanvas-body">
@@ -12,10 +12,8 @@
 
 			{if $smarty.session.new_products_id_in_cart}
 				<div class="alert alert-success alert-dismissible fade show" role="alert">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>			
-					<p>{$lang.text_item_successfull}<p>
+					{$lang.text_item_successfull}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>
 			{/if}
 			
@@ -37,10 +35,14 @@
 
 				<hr>
 				<div class="d-flex justify-content-between align-items-center py-3">
-				<div class="font-size-sm"> <span class="mr-2">{$lang.sub_title_total}</span><span class="font-weight-semibold text-dark">{$cart_show_total}*</span></div><a class="btn btn-outline-secondary btn-sm" href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents} <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+					<div class="font-size-sm"> <span class="mr-2">{$lang.sub_title_total}</span><span class="font-weight-semibold text-dark">{$cart_show_total}*</span></div><a class="btn btn-outline-secondary btn-sm" href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents} <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 				</div>
 				<p class="prices-tax">{$tax_plus_shipping}</p>
-				{if $myUser.show_price eq 1 }<a class="btn btn-primary btn-sm btn-block" href="{html_href_link content=$filename.checkout_shipping}"><i class="fa fa-credit-card" aria-hidden="true"></i> {$lang.button_checkout}</a>{/if}
+				{if $myUser.show_price eq 1 }
+				<div class="d-grid gap-2">
+					<a class="btn btn-primary btn-sm" href="{html_href_link content=$filename.checkout_shipping}"><i class="fa fa-credit-card" aria-hidden="true"></i> {$lang.button_checkout}</a>
+				</div>
+				{/if}
 			</div>		
 		{/if}
 		</div>
