@@ -18,7 +18,7 @@ function gutenberg_render_block_core_post_template( $attributes, $content, $bloc
 	$page_key = isset( $block->context['queryId'] ) ? 'query-' . $block->context['queryId'] . '-page' : 'query-page';
 	$page     = empty( $_GET[ $page_key ] ) ? 1 : (int) $_GET[ $page_key ];
 
-	$query_args = build_query_vars_from_query_block( $block, $page );
+	$query_args = gutenberg_build_query_vars_from_query_block( $block, $page );
 	// Override the custom query with the global query if needed.
 	$use_global_query = ( isset( $block->context['query']['inherit'] ) && $block->context['query']['inherit'] );
 	if ( $use_global_query ) {
@@ -61,8 +61,8 @@ function gutenberg_render_block_core_post_template( $attributes, $content, $bloc
 				)
 			)
 		)->render( array( 'dynamic' => false ) );
-		$post_classes  = esc_attr( implode( ' ', get_post_class( 'wp-block-post' ) ) );
-		$content      .= '<li class="' . $post_classes . '">' . $block_content . '</li>';
+		$post_classes  = implode( ' ', get_post_class( 'wp-block-post' ) );
+		$content      .= '<li class="' . esc_attr( $post_classes ) . '">' . $block_content . '</li>';
 	}
 
 	wp_reset_postdata();

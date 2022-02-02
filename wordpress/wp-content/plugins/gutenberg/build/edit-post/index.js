@@ -3234,7 +3234,9 @@ const getEditedPostTemplate = (0,external_wp_data_namespaceObject.createRegistry
   if (currentTemplate) {
     var _select$getEntityReco;
 
-    const templateWithSameSlug = (_select$getEntityReco = select(external_wp_coreData_namespaceObject.store).getEntityRecords('postType', 'wp_template')) === null || _select$getEntityReco === void 0 ? void 0 : _select$getEntityReco.find(template => template.slug === currentTemplate);
+    const templateWithSameSlug = (_select$getEntityReco = select(external_wp_coreData_namespaceObject.store).getEntityRecords('postType', 'wp_template', {
+      per_page: -1
+    })) === null || _select$getEntityReco === void 0 ? void 0 : _select$getEntityReco.find(template => template.slug === currentTemplate);
 
     if (!templateWithSameSlug) {
       return templateWithSameSlug;
@@ -4850,14 +4852,26 @@ function NavigationButton(_ref) {
   let {
     as: Tag = external_wp_components_namespaceObject.Button,
     path,
-    isBack = false,
     ...props
   } = _ref;
-  const navigator = (0,external_wp_components_namespaceObject.__experimentalUseNavigator)();
+  const {
+    push
+  } = (0,external_wp_components_namespaceObject.__experimentalUseNavigator)();
   return (0,external_wp_element_namespaceObject.createElement)(Tag, _extends({
-    onClick: () => navigator.push(path, {
-      isBack
-    })
+    onClick: () => push(path)
+  }, props));
+}
+
+function NavigationBackButton(_ref2) {
+  let {
+    as: Tag = external_wp_components_namespaceObject.Button,
+    ...props
+  } = _ref2;
+  const {
+    pop
+  } = (0,external_wp_components_namespaceObject.__experimentalUseNavigator)();
+  return (0,external_wp_element_namespaceObject.createElement)(Tag, _extends({
+    onClick: pop
   }, props));
 }
 
@@ -4994,12 +5008,12 @@ function PreferencesModal() {
   const {
     tabs,
     sectionsContentMap
-  } = (0,external_wp_element_namespaceObject.useMemo)(() => sections.reduce((accumulator, _ref2) => {
+  } = (0,external_wp_element_namespaceObject.useMemo)(() => sections.reduce((accumulator, _ref3) => {
     let {
       name,
       tabLabel: title,
       content
-    } = _ref2;
+    } = _ref3;
     accumulator.tabs.push({
       name,
       title
@@ -5057,10 +5071,8 @@ function PreferencesModal() {
         justify: "left",
         size: "small",
         gap: "6"
-      }, (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
-        path: "/",
+      }, (0,external_wp_element_namespaceObject.createElement)(NavigationBackButton, {
         icon: (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_right : chevron_left,
-        isBack: true,
         "aria-label": (0,external_wp_i18n_namespaceObject.__)('Navigate to the previous view')
       }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalText, {
         size: "16"
@@ -8001,7 +8013,8 @@ function TemplatePanel() {
     const _supportsTemplateMode = select(external_wp_editor_namespaceObject.store).getEditorSettings().supportsTemplateMode && _isViewable;
 
     const wpTemplates = getEntityRecords('postType', 'wp_template', {
-      post_type: currentPostType
+      post_type: currentPostType,
+      per_page: -1
     });
     const newAvailableTemplates = (0,external_lodash_namespaceObject.fromPairs)((wpTemplates || []).map(_ref => {
       let {

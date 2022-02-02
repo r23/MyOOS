@@ -408,6 +408,7 @@ __webpack_require__.d(build_module_actions_namespaceObject, {
   "__experimentalBatch": function() { return __experimentalBatch; },
   "__experimentalReceiveCurrentGlobalStylesId": function() { return __experimentalReceiveCurrentGlobalStylesId; },
   "__experimentalReceiveThemeBaseGlobalStyles": function() { return __experimentalReceiveThemeBaseGlobalStyles; },
+  "__experimentalReceiveThemeGlobalStyleVariations": function() { return __experimentalReceiveThemeGlobalStyleVariations; },
   "__experimentalSaveSpecifiedEntityEdits": function() { return __experimentalSaveSpecifiedEntityEdits; },
   "__unstableCreateUndoLevel": function() { return __unstableCreateUndoLevel; },
   "addEntities": function() { return addEntities; },
@@ -434,6 +435,7 @@ __webpack_require__.r(build_module_selectors_namespaceObject);
 __webpack_require__.d(build_module_selectors_namespaceObject, {
   "__experimentalGetCurrentGlobalStylesId": function() { return __experimentalGetCurrentGlobalStylesId; },
   "__experimentalGetCurrentThemeBaseGlobalStyles": function() { return __experimentalGetCurrentThemeBaseGlobalStyles; },
+  "__experimentalGetCurrentThemeGlobalStylesVariations": function() { return __experimentalGetCurrentThemeGlobalStylesVariations; },
   "__experimentalGetDirtyEntityRecords": function() { return __experimentalGetDirtyEntityRecords; },
   "__experimentalGetEntitiesBeingSaved": function() { return __experimentalGetEntitiesBeingSaved; },
   "__experimentalGetEntityRecordNoResolver": function() { return __experimentalGetEntityRecordNoResolver; },
@@ -479,6 +481,7 @@ __webpack_require__.r(resolvers_namespaceObject);
 __webpack_require__.d(resolvers_namespaceObject, {
   "__experimentalGetCurrentGlobalStylesId": function() { return resolvers_experimentalGetCurrentGlobalStylesId; },
   "__experimentalGetCurrentThemeBaseGlobalStyles": function() { return resolvers_experimentalGetCurrentThemeBaseGlobalStyles; },
+  "__experimentalGetCurrentThemeGlobalStylesVariations": function() { return resolvers_experimentalGetCurrentThemeGlobalStylesVariations; },
   "__experimentalGetTemplateForLink": function() { return resolvers_experimentalGetTemplateForLink; },
   "canUser": function() { return resolvers_canUser; },
   "canUserEditEntityRecord": function() { return resolvers_canUserEditEntityRecord; },
@@ -1205,6 +1208,22 @@ function __experimentalReceiveThemeBaseGlobalStyles(stylesheet, globalStyles) {
     type: 'RECEIVE_THEME_GLOBAL_STYLES',
     stylesheet,
     globalStyles
+  };
+}
+/**
+ * Returns an action object used in signalling that the theme global styles variations have been received.
+ *
+ * @param {string} stylesheet The theme's identifier
+ * @param {Array}  variations The global styles variations.
+ *
+ * @return {Object} Action object.
+ */
+
+function __experimentalReceiveThemeGlobalStyleVariations(stylesheet, variations) {
+  return {
+    type: 'RECEIVE_THEME_GLOBAL_STYLE_VARIATIONS',
+    stylesheet,
+    variations
   };
 }
 /**
@@ -1997,7 +2016,7 @@ const prePersistPostType = (persistedRecord, edits) => {
 
 async function loadPostTypeEntities() {
   const postTypes = await external_wp_apiFetch_default()({
-    path: '/wp/v2/types?context=edit'
+    path: '/wp/v2/types?context=view'
   });
   return (0,external_lodash_namespaceObject.map)(postTypes, (postType, name) => {
     var _postType$rest_namesp;
@@ -2011,7 +2030,7 @@ async function loadPostTypeEntities() {
         context: 'edit'
       },
       name,
-      label: postType.labels.singular_name,
+      label: postType.name,
       transientEdits: {
         blocks: true,
         selection: true
@@ -2039,7 +2058,7 @@ async function loadPostTypeEntities() {
 
 async function loadTaxonomyEntities() {
   const taxonomies = await external_wp_apiFetch_default()({
-    path: '/wp/v2/taxonomies?context=edit'
+    path: '/wp/v2/taxonomies?context=view'
   });
   return (0,external_lodash_namespaceObject.map)(taxonomies, (taxonomy, name) => {
     var _taxonomy$rest_namesp;
@@ -2052,7 +2071,7 @@ async function loadTaxonomyEntities() {
         context: 'edit'
       },
       name,
-      label: taxonomy.labels.singular_name
+      label: taxonomy.name
     };
   });
 }
@@ -2692,6 +2711,28 @@ function themeBaseGlobalStyles() {
   return state;
 }
 /**
+ * Reducer managing the theme global styles variations.
+ *
+ * @param {string} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {string} Updated state.
+ */
+
+function themeGlobalStyleVariations() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'RECEIVE_THEME_GLOBAL_STYLE_VARIATIONS':
+      return { ...state,
+        [action.stylesheet]: action.variations
+      };
+  }
+
+  return state;
+}
+/**
  * Higher Order Reducer for a given entity config. It supports:
  *
  *  - Fetching
@@ -3081,6 +3122,7 @@ function autosaves() {
   currentTheme,
   currentGlobalStylesId,
   currentUser,
+  themeGlobalStyleVariations,
   themeBaseGlobalStyles,
   taxonomies,
   entities,
@@ -4296,6 +4338,23 @@ function __experimentalGetCurrentThemeBaseGlobalStyles(state) {
 
   return state.themeBaseGlobalStyles[currentTheme.stylesheet];
 }
+/**
+ * Return the ID of the current global styles object.
+ *
+ * @param {Object} state Data state.
+ *
+ * @return {string} The current global styles ID.
+ */
+
+function __experimentalGetCurrentThemeGlobalStylesVariations(state) {
+  const currentTheme = getCurrentTheme(state);
+
+  if (!currentTheme) {
+    return null;
+  }
+
+  return state.themeGlobalStyleVariations[currentTheme.stylesheet];
+}
 //# sourceMappingURL=selectors.js.map
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/forward-resolver.js
 /**
@@ -4788,7 +4847,20 @@ const resolvers_experimentalGetCurrentThemeBaseGlobalStyles = () => async _ref14
   const themeGlobalStyles = await external_wp_apiFetch_default()({
     path: `/wp/v2/global-styles/themes/${currentTheme.stylesheet}`
   });
-  await dispatch.__experimentalReceiveThemeBaseGlobalStyles(currentTheme.stylesheet, themeGlobalStyles);
+
+  dispatch.__experimentalReceiveThemeBaseGlobalStyles(currentTheme.stylesheet, themeGlobalStyles);
+};
+const resolvers_experimentalGetCurrentThemeGlobalStylesVariations = () => async _ref15 => {
+  let {
+    resolveSelect,
+    dispatch
+  } = _ref15;
+  const currentTheme = await resolveSelect.getCurrentTheme();
+  const variations = await external_wp_apiFetch_default()({
+    path: `/wp/v2/global-styles/themes/${currentTheme.stylesheet}/variations`
+  });
+
+  dispatch.__experimentalReceiveThemeGlobalStyleVariations(currentTheme.stylesheet, variations);
 };
 //# sourceMappingURL=resolvers.js.map
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/locks/utils.js

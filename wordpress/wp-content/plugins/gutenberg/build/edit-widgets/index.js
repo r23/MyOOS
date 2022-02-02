@@ -4511,10 +4511,11 @@ function Interface(_ref) {
       closeGeneralSidebar();
     }
   }, [isInserterOpened, isListViewOpened, isHugeViewport]);
+  const hasSecondarySidebar = isListViewOpened || isInserterOpened;
   return (0,external_wp_element_namespaceObject.createElement)(interface_skeleton, {
     labels: interfaceLabels,
     header: (0,external_wp_element_namespaceObject.createElement)(header, null),
-    secondarySidebar: (0,external_wp_element_namespaceObject.createElement)(SecondarySidebar, null),
+    secondarySidebar: hasSecondarySidebar && (0,external_wp_element_namespaceObject.createElement)(SecondarySidebar, null),
     sidebar: hasSidebarEnabled && (0,external_wp_element_namespaceObject.createElement)(complementary_area.Slot, {
       scope: "core/edit-widgets"
     }),

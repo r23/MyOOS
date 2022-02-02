@@ -2711,9 +2711,13 @@ function getEditedPostPreviewLink(state) {
     return;
   }
 
-  let previewLink = getAutosaveAttribute(state, 'preview_link');
+  let previewLink = getAutosaveAttribute(state, 'preview_link'); // Fix for issue: https://github.com/WordPress/gutenberg/issues/33616
+  // If the post is draft, ignore the preview link from the autosave record,
+  // because the preview could be a stale autosave if the post was switched from
+  // published to draft.
+  // See: https://github.com/WordPress/gutenberg/pull/37952
 
-  if (!previewLink) {
+  if (!previewLink || 'draft' === getCurrentPost(state).status) {
     previewLink = getEditedPostAttribute(state, 'link');
 
     if (previewLink) {
@@ -7530,7 +7534,8 @@ function PostLockedModal() {
           isLocked: true,
           isTakeover: true,
           user: {
-            avatar: received.lock_error.avatar_src
+            name: received.lock_error.name,
+            avatar: received.lock_error.avatar_src_2x
           }
         });
       } else if (received.new_lock) {
@@ -7606,7 +7611,9 @@ function PostLockedModal() {
   }, !!userAvatar && (0,external_wp_element_namespaceObject.createElement)("img", {
     src: userAvatar,
     alt: (0,external_wp_i18n_namespaceObject.__)('Avatar'),
-    className: "editor-post-locked-modal__avatar"
+    className: "editor-post-locked-modal__avatar",
+    width: 64,
+    height: 64
   }), (0,external_wp_element_namespaceObject.createElement)("div", null, !!isTakeover && (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_element_namespaceObject.createInterpolateElement)(userDisplayName ? (0,external_wp_i18n_namespaceObject.sprintf)(
   /* translators: %s: user's display name */
   (0,external_wp_i18n_namespaceObject.__)('<strong>%s</strong> now has editing control of this posts (<PreviewLink />). Don’t worry, your changes up to this moment have been saved.'), userDisplayName) : (0,external_wp_i18n_namespaceObject.__)('Another user now has editing control of this post (<PreviewLink />). Don’t worry, your changes up to this moment have been saved.'), {
@@ -7614,14 +7621,14 @@ function PostLockedModal() {
     PreviewLink: (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
       href: previewLink
     }, (0,external_wp_i18n_namespaceObject.__)('preview'))
-  })), !isTakeover && (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_element_namespaceObject.createInterpolateElement)(userDisplayName ? (0,external_wp_i18n_namespaceObject.sprintf)(
+  })), !isTakeover && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_element_namespaceObject.createInterpolateElement)(userDisplayName ? (0,external_wp_i18n_namespaceObject.sprintf)(
   /* translators: %s: user's display name */
   (0,external_wp_i18n_namespaceObject.__)('<strong>%s</strong> is currently working on this post (<PreviewLink />), which means you cannot make changes, unless you take over.'), userDisplayName) : (0,external_wp_i18n_namespaceObject.__)('Another user is currently working on this post (<PreviewLink />), which means you cannot make changes, unless you take over.'), {
     strong: (0,external_wp_element_namespaceObject.createElement)("strong", null),
     PreviewLink: (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
       href: previewLink
     }, (0,external_wp_i18n_namespaceObject.__)('preview'))
-  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
+  })), (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('If you take over, the other user will lose editing control to the post, but their changes will be saved.'))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
     className: "editor-post-locked-modal__buttons",
     justify: "flex-end",
     expanded: false
@@ -11547,7 +11554,8 @@ function useBlockEditorSettings(settings, hasTemplate) {
     reusableBlocks,
     hasUploadPermissions,
     canUseUnfilteredHTML,
-    userCanCreatePages
+    userCanCreatePages,
+    pageOnFront
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       canUserUseUnfilteredHTML
@@ -11556,8 +11564,10 @@ function useBlockEditorSettings(settings, hasTemplate) {
     const {
       canUser,
       getUnstableBase,
-      hasFinishedResolution
+      hasFinishedResolution,
+      getEntityRecord
     } = select(external_wp_coreData_namespaceObject.store);
+    const siteSettings = getEntityRecord('root', 'site');
     const siteData = getUnstableBase();
     const hasFinishedResolvingSiteData = hasFinishedResolution('getUnstableBase');
     return {
@@ -11569,7 +11579,8 @@ function useBlockEditorSettings(settings, hasTemplate) {
       hasUploadPermissions: (0,external_lodash_namespaceObject.defaultTo)(canUser('create', 'media'), true),
       hasResolvedLocalSiteData: hasFinishedResolvingSiteData,
       baseUrl: (siteData === null || siteData === void 0 ? void 0 : siteData.url) || '',
-      userCanCreatePages: canUser('create', 'pages')
+      userCanCreatePages: canUser('create', 'pages'),
+      pageOnFront: siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.page_on_front
     };
   }, []);
   const {
@@ -11596,7 +11607,7 @@ function useBlockEditorSettings(settings, hasTemplate) {
     return saveEntityRecord('postType', 'page', options);
   };
 
-  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalFeatures', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableResolvedAssets']),
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalDiscussionSettings', '__experimentalFeatures', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableResolvedAssets']),
     mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
     __experimentalReusableBlocks: reusableBlocks,
     __experimentalFetchLinkSuggestions: (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings),
@@ -11605,8 +11616,9 @@ function useBlockEditorSettings(settings, hasTemplate) {
     __experimentalUndo: undo,
     outlineMode: hasTemplate,
     __experimentalCreatePageEntity: createPageEntity,
-    __experimentalUserCanCreatePages: userCanCreatePages
-  }), [settings, hasUploadPermissions, reusableBlocks, canUseUnfilteredHTML, undo, hasTemplate, userCanCreatePages]);
+    __experimentalUserCanCreatePages: userCanCreatePages,
+    pageOnFront
+  }), [settings, hasUploadPermissions, reusableBlocks, canUseUnfilteredHTML, undo, hasTemplate, userCanCreatePages, pageOnFront]);
 }
 
 /* harmony default export */ var use_block_editor_settings = (useBlockEditorSettings);

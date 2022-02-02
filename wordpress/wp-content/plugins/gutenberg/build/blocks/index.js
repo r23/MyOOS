@@ -12199,6 +12199,19 @@ function imageCorrector(node) {
   }
 }
 //# sourceMappingURL=image-corrector.js.map
+;// CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/div-normaliser.js
+/**
+ * Internal dependencies
+ */
+
+function divNormaliser(node) {
+  if (node.nodeName !== 'DIV') {
+    return;
+  }
+
+  node.innerHTML = normaliseBlocks(node.innerHTML);
+}
+//# sourceMappingURL=div-normaliser.js.map
 // EXTERNAL MODULE: ./node_modules/showdown/dist/showdown.js
 var showdown = __webpack_require__(3787);
 var showdown_default = /*#__PURE__*/__webpack_require__.n(showdown);
@@ -12422,6 +12435,7 @@ function emptyParagraphRemover(node) {
 
 
 
+
 /**
  * Browser dependencies
  */
@@ -12547,7 +12561,7 @@ function pasteHandler(_ref) {
       return piece;
     }
 
-    const filters = [googleDocsUIdRemover, msListConverter, headRemover, listReducer, imageCorrector, phrasingContentReducer, specialCommentConverter, commentRemover, iframeRemover, figureContentReducer, blockquoteNormaliser];
+    const filters = [googleDocsUIdRemover, msListConverter, headRemover, listReducer, imageCorrector, phrasingContentReducer, specialCommentConverter, commentRemover, iframeRemover, figureContentReducer, blockquoteNormaliser, divNormaliser];
     const schema = { ...blockContentSchema,
       // Keep top-level phrasing content, normalised by `normaliseBlocks`.
       ...phrasingContentSchema

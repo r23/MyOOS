@@ -2217,8 +2217,8 @@ var external_lodash_namespaceObject = window["lodash"];
  * Given a function mapping a component to an enhanced component and modifier
  * name, returns the enhanced component augmented with a generated displayName.
  *
- * @param  mapComponentToEnhancedComponent Function mapping component to enhanced component.
- * @param  modifierName                    Seed name from which to generated display name.
+ * @param mapComponent Function mapping component to enhanced component.
+ * @param modifierName Seed name from which to generated display name.
  *
  * @return Component class with generated display name assigned.
  */
@@ -2258,7 +2258,6 @@ var external_wp_element_namespaceObject = window["wp"]["element"];
  * Internal dependencies
  */
 
-
 /**
  * Higher-order component creator, creating a new component which renders if
  * the given condition is satisfied or with the given optional prop name.
@@ -2276,6 +2275,7 @@ var external_wp_element_namespaceObject = window["wp"]["element"];
  *
  * @return Higher-order component.
  */
+
 const ifCondition = predicate => create_higher_order_component(WrappedComponent => props => {
   if (!predicate(props)) {
     return null;
@@ -2302,10 +2302,13 @@ var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(exte
  */
 
 
+/**
+ * External dependencies
+ */
 
 /**
  * Given a component returns the enhanced component augmented with a component
- * only rerendering when its props/state change
+ * only re-rendering when its props/state change
  */
 const pure = create_higher_order_component(Wrapped => {
   if (Wrapped.prototype instanceof external_wp_element_namespaceObject.Component) {
@@ -2460,7 +2463,8 @@ function withGlobalEvents(eventTypesToHandlers) {
   external_wp_deprecated_default()('wp.compose.withGlobalEvents', {
     since: '5.7',
     alternative: 'useEffect'
-  });
+  }); // @ts-ignore We don't need to fix the type-related issues because this is deprecated.
+
   return create_higher_order_component(WrappedComponent => {
     class Wrapper extends external_wp_element_namespaceObject.Component {
       constructor(
@@ -2578,10 +2582,6 @@ function useInstanceId(object, prefix) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * Internal dependencies
  */
 
@@ -2593,7 +2593,8 @@ function useInstanceId(object, prefix) {
 
 const withInstanceId = create_higher_order_component(WrappedComponent => {
   return props => {
-    const instanceId = useInstanceId(WrappedComponent);
+    const instanceId = useInstanceId(WrappedComponent); // @ts-ignore
+
     return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, _extends({}, props, {
       instanceId: instanceId
     }));
@@ -2618,6 +2619,14 @@ const withInstanceId = create_higher_order_component(WrappedComponent => {
  */
 
 
+/**
+ * We cannot use the `Window['setTimeout']` and `Window['clearTimeout']`
+ * types here because those functions include functionality that is not handled
+ * by this component, like the ability to pass extra arguments.
+ *
+ * In the case of this component, we only handle the simplest case where
+ * `setTimeout` only accepts a function (not a string) and an optional delay.
+ */
 
 /**
  * A higher-order component used to provide and manage delayed function calls

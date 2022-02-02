@@ -20,7 +20,7 @@ function gutenberg_render_block_core_rss( $attributes ) {
 	}
 
 	if ( ! $rss->get_item_quantity() ) {
-		return '<div class="components-placeholder"><div class="notice notice-error">' . esc_html__( 'An error has occurred, which probably means the feed is down. Try again later.' ) . '</div></div>';
+		return '<div class="components-placeholder"><div class="notice notice-error">' . __( 'An error has occurred, which probably means the feed is down. Try again later.' ) . '</div></div>';
 	}
 
 	$rss_items  = $rss->get_items( 0, $attributes['itemsToShow'] );
@@ -57,7 +57,7 @@ function gutenberg_render_block_core_rss( $attributes ) {
 				$author = $author->get_name();
 				$author = '<span class="wp-block-rss__item-author">' . sprintf(
 					/* translators: %s: the author. */
-					esc_html__( 'by %s' ),
+					__( 'by %s' ),
 					esc_html( strip_tags( $author ) )
 				) . '</span>';
 			}

@@ -1084,7 +1084,18 @@ const I18N_HOOK_REGEXP = /^i18n\.(n?gettext|has_translation)(_|$)/;
 /**
  * @typedef {(data?: LocaleData, domain?: string) => void} SetLocaleData
  *
- * Merges locale data into the Tannin instance by domain. Accepts data in a
+ * Merges locale data into the Tannin instance by domain. Note that this
+ * function will overwrite the domain configuration. Accepts data in a
+ * Jed-formatted JSON object shape.
+ *
+ * @see http://messageformat.github.io/Jed/
+ */
+
+/**
+ * @typedef {(data?: LocaleData, domain?: string) => void} AddLocaleData
+ *
+ * Merges locale data into the Tannin instance by domain. Note that this
+ * function will also merge the domain configuration. Accepts data in a
  * Jed-formatted JSON object shape.
  *
  * @see http://messageformat.github.io/Jed/
@@ -1172,7 +1183,11 @@ const I18N_HOOK_REGEXP = /^i18n\.(n?gettext|has_translation)(_|$)/;
  *
  * @typedef I18n
  * @property {GetLocaleData}   getLocaleData   Returns locale data by domain in a Jed-formatted JSON object shape.
- * @property {SetLocaleData}   setLocaleData   Merges locale data into the Tannin instance by domain. Accepts data in a
+ * @property {SetLocaleData}   setLocaleData   Merges locale data into the Tannin instance by domain. Note that this
+ *                                             function will overwrite the domain configuration. Accepts data in a
+ *                                             Jed-formatted JSON object shape.
+ * @property {AddLocaleData}   addLocaleData   Merges locale data into the Tannin instance by domain. Note that this
+ *                                             function will also merge the domain configuration. Accepts data in a
  *                                             Jed-formatted JSON object shape.
  * @property {ResetLocaleData} resetLocaleData Resets all current Tannin instance locale data and sets the specified
  *                                             locale data for the domain. Accepts data in a Jed-formatted JSON object shape.
@@ -1235,22 +1250,45 @@ const createI18n = (initialData, initialDomain, hooks) => {
 
 
   const doSetLocaleData = function (data) {
+    var _tannin$data$domain;
+
     let domain = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
-    tannin.data[domain] = { ...DEFAULT_LOCALE_DATA,
-      ...tannin.data[domain],
+    tannin.data[domain] = { ...tannin.data[domain],
       ...data
     }; // Populate default domain configuration (supported locale date which omits
     // a plural forms expression).
 
     tannin.data[domain][''] = { ...DEFAULT_LOCALE_DATA[''],
-      ...tannin.data[domain]['']
-    };
+      ...((_tannin$data$domain = tannin.data[domain]) === null || _tannin$data$domain === void 0 ? void 0 : _tannin$data$domain[''])
+    }; // Clean up cached plural forms functions cache as it might be updated.
+
+    delete tannin.pluralForms[domain];
   };
   /** @type {SetLocaleData} */
 
 
   const setLocaleData = (data, domain) => {
     doSetLocaleData(data, domain);
+    notifyListeners();
+  };
+  /** @type {AddLocaleData} */
+
+
+  const addLocaleData = function (data) {
+    var _tannin$data$domain2;
+
+    let domain = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
+    tannin.data[domain] = { ...tannin.data[domain],
+      ...data,
+      // Populate default domain configuration (supported locale date which omits
+      // a plural forms expression).
+      '': { ...DEFAULT_LOCALE_DATA[''],
+        ...((_tannin$data$domain2 = tannin.data[domain]) === null || _tannin$data$domain2 === void 0 ? void 0 : _tannin$data$domain2['']),
+        ...(data === null || data === void 0 ? void 0 : data[''])
+      }
+    }; // Clean up cached plural forms functions cache as it might be updated.
+
+    delete tannin.pluralForms[domain];
     notifyListeners();
   };
   /** @type {ResetLocaleData} */
@@ -1487,6 +1525,7 @@ const createI18n = (initialData, initialDomain, hooks) => {
   return {
     getLocaleData,
     setLocaleData,
+    addLocaleData,
     resetLocaleData,
     subscribe,
     __,
