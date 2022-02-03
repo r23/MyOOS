@@ -14,6 +14,18 @@
  * limitations under the License.
  */
 -->
+<?php
+define('OOS_VALID_MOD', true);
+
+
+if (is_readable('../../includes/local/configure.php')) {
+    require_once '../..//includes/local/configure.php';
+} else {
+    require_once '../..//includes/configure.php';
+}
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +34,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
   <meta name="color-scheme" content="dark light">
 
-  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+  <script type="module" src="<?php echo OOS_HTTPS_SERVER . OOS_SHOP . 'js/model-viewer/dist/model-viewer.min.js'; ?>"></script>
 
   <style>
     html {
