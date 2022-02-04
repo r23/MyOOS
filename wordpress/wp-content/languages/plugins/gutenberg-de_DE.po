@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-02-02 18:42:46+0000\n"
+"PO-Revision-Date: 2022-02-04 07:19:36+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -402,7 +402,7 @@ msgstr "Navigationsmenüs"
 msgid "Editor %s"
 msgstr "Editor %s"
 
-#: lib/init.php:99 build/edit-site/index.js:10540
+#: lib/init.php:99 build/edit-site/index.js:10541
 msgid "Editor (beta)"
 msgstr "Editor (Beta)"
 
@@ -2873,7 +2873,7 @@ msgid "No matching template found."
 msgstr "Kein passendes Template gefunden."
 
 #: lib/compat/wordpress-5.9/templates.php:83 build/blocks/index.js:5389
-#: build/edit-site/index.js:7385 build/edit-site/index.js:7439
+#: build/edit-site/index.js:7386 build/edit-site/index.js:7440
 msgid "Theme"
 msgstr "Theme"
 
@@ -2963,7 +2963,7 @@ msgid_plural "Template Parts"
 msgstr[0] "Template-Teil"
 msgstr[1] "Template-Teile"
 
-#: lib/compat/wordpress-5.9/template-parts.php:22 build/edit-site/index.js:8580
+#: lib/compat/wordpress-5.9/template-parts.php:22 build/edit-site/index.js:8581
 msgid "Template Parts"
 msgstr "Template-Teile"
 
@@ -3053,8 +3053,8 @@ msgstr "Templates"
 #: lib/compat/wordpress-5.9/templates.php:23 build/edit-post/index.js:4973
 #: build/edit-post/index.js:6533 build/edit-post/index.js:6545
 #: build/edit-post/index.js:6546 build/edit-post/index.js:8056
-#: build/edit-site/index.js:8174 build/edit-site/index.js:8185
-#: build/edit-site/index.js:8187 build/edit-site/index.js:11413
+#: build/edit-site/index.js:8175 build/edit-site/index.js:8186
+#: build/edit-site/index.js:8188 build/edit-site/index.js:11414
 msgid "Template"
 msgstr "Template"
 
@@ -3066,7 +3066,7 @@ msgstr "Kein passendes Template gefunden"
 msgid "Templates to include in your theme."
 msgstr "Templates, die in dein Theme eingefügt werden können."
 
-#: lib/compat/wordpress-5.9/templates.php:22 build/edit-site/index.js:8572
+#: lib/compat/wordpress-5.9/templates.php:22 build/edit-site/index.js:8573
 msgid "Templates"
 msgstr "Templates"
 
@@ -3404,8 +3404,8 @@ msgstr "Füge einen Block hinzu, der Inhalte von anderen Websites wie Twitter od
 #: lib/navigation-theme-opt-in.php:96 build/edit-navigation/index.js:3679
 #: build/edit-navigation/index.js:3694 build/edit-navigation/index.js:3696
 #: build/edit-post/index.js:6532 build/edit-post/index.js:6551
-#: build/edit-post/index.js:6553 build/edit-site/index.js:8177
-#: build/edit-site/index.js:8192 build/edit-site/index.js:8194
+#: build/edit-post/index.js:6553 build/edit-site/index.js:8178
+#: build/edit-site/index.js:8193 build/edit-site/index.js:8195
 #: build/edit-widgets/index.js:3427
 msgid "Block"
 msgstr "Block"
