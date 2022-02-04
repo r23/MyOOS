@@ -1,7 +1,7 @@
 === Gutenberg ===
 Contributors: matveb, joen, karmatosed
 Tested up to: 5.9
-Stable tag: 12.5.0
+Stable tag: 12.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -56,4 +56,4 @@ The four phases of the project are Editing, Customization, Collaboration, and Mu
 
 == Changelog ==
 
-To read the changelog for Gutenberg 12.5.1, please navigate to the <a href="https://github.com/WordPress/gutenberg/releases/tag/v12.5.1">release page</a>.
+To read the changelog for Gutenberg 12.5.2, please navigate to the <a href="https://github.com/WordPress/gutenberg/releases/tag/v12.5.2">release page</a>.
