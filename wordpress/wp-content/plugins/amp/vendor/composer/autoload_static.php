@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc1147c91d584620ff8c3a6f2cc17f214
+class ComposerStaticInitead1d9e11eb07373df640550be971dc2
 {
     public static $files = array (
         '356506e5d3d2f49e680971cd925046fa' => __DIR__ . '/..' . '/ampproject/amp-toolbox/include/compatibility-fixes.php',
@@ -276,6 +276,7 @@ class ComposerStaticInitc1147c91d584620ff8c3a6f2cc17f214
         'AmpProject\\Dom\\Document\\Filter\\LibxmlCompatibility' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Dom/Document/Filter/LibxmlCompatibility.php',
         'AmpProject\\Dom\\Document\\Filter\\MustacheScriptTemplates' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Dom/Document/Filter/MustacheScriptTemplates.php',
         'AmpProject\\Dom\\Document\\Filter\\NormalizeHtmlAttributes' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Dom/Document/Filter/NormalizeHtmlAttributes.php',
+        'AmpProject\\Dom\\Document\\Filter\\NormalizeHtmlEntities' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Dom/Document/Filter/NormalizeHtmlEntities.php',
         'AmpProject\\Dom\\Document\\Filter\\NoscriptElements' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Dom/Document/Filter/NoscriptElements.php',
         'AmpProject\\Dom\\Document\\Filter\\ProtectEsiTags' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Dom/Document/Filter/ProtectEsiTags.php',
         'AmpProject\\Dom\\Document\\Filter\\SelfClosingSVGElements' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Dom/Document/Filter/SelfClosingSVGElements.php',
@@ -315,6 +316,7 @@ class ComposerStaticInitc1147c91d584620ff8c3a6f2cc17f214
         'AmpProject\\Exception\\InvalidExtension' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Exception/InvalidExtension.php',
         'AmpProject\\Exception\\InvalidFormat' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Exception/InvalidFormat.php',
         'AmpProject\\Exception\\InvalidListName' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Exception/InvalidListName.php',
+        'AmpProject\\Exception\\InvalidOptionValue' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Exception/InvalidOptionValue.php',
         'AmpProject\\Exception\\InvalidSpecName' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Exception/InvalidSpecName.php',
         'AmpProject\\Exception\\InvalidSpecRuleName' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Exception/InvalidSpecRuleName.php',
         'AmpProject\\Exception\\InvalidTagId' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Exception/InvalidTagId.php',
@@ -345,6 +347,7 @@ class ComposerStaticInitc1147c91d584620ff8c3a6f2cc17f214
         'AmpProject\\Layout' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Layout.php',
         'AmpProject\\Optimizer\\Configuration' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Configuration.php',
         'AmpProject\\Optimizer\\Configuration\\AmpRuntimeCssConfiguration' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Configuration/AmpRuntimeCssConfiguration.php',
+        'AmpProject\\Optimizer\\Configuration\\AmpStoryCssOptimizerConfiguration' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Configuration/AmpStoryCssOptimizerConfiguration.php',
         'AmpProject\\Optimizer\\Configuration\\AutoExtensionsConfiguration' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Configuration/AutoExtensionsConfiguration.php',
         'AmpProject\\Optimizer\\Configuration\\BaseTransformerConfiguration' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Configuration/BaseTransformerConfiguration.php',
         'AmpProject\\Optimizer\\Configuration\\MinifyHtmlConfiguration' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Configuration/MinifyHtmlConfiguration.php',
@@ -390,6 +393,7 @@ class ComposerStaticInitc1147c91d584620ff8c3a6f2cc17f214
         'AmpProject\\Optimizer\\Transformer\\AmpBoilerplateErrorHandler' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Transformer/AmpBoilerplateErrorHandler.php',
         'AmpProject\\Optimizer\\Transformer\\AmpRuntimeCss' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Transformer/AmpRuntimeCss.php',
         'AmpProject\\Optimizer\\Transformer\\AmpRuntimePreloads' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Transformer/AmpRuntimePreloads.php',
+        'AmpProject\\Optimizer\\Transformer\\AmpStoryCssOptimizer' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Transformer/AmpStoryCssOptimizer.php',
         'AmpProject\\Optimizer\\Transformer\\AutoExtensions' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Transformer/AutoExtensions.php',
         'AmpProject\\Optimizer\\Transformer\\GoogleFontsPreconnect' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Transformer/GoogleFontsPreconnect.php',
         'AmpProject\\Optimizer\\Transformer\\MinifyHtml' => __DIR__ . '/..' . '/ampproject/amp-toolbox/src/Optimizer/Transformer/MinifyHtml.php',
@@ -1402,9 +1406,9 @@ class ComposerStaticInitc1147c91d584620ff8c3a6f2cc17f214
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc1147c91d584620ff8c3a6f2cc17f214::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitc1147c91d584620ff8c3a6f2cc17f214::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitc1147c91d584620ff8c3a6f2cc17f214::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitead1d9e11eb07373df640550be971dc2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitead1d9e11eb07373df640550be971dc2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitead1d9e11eb07373df640550be971dc2::$classMap;
 
         }, null, ClassLoader::class);
     }
