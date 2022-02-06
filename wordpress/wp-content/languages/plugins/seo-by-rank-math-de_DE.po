@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-28 00:12:33+0000\n"
+"PO-Revision-Date: 2022-02-06 12:00:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,41 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
+
+#: includes/admin/class-pro-notice.php:220
+#: includes/admin/class-pro-notice.php:239
+msgid "and Many More…"
+msgstr "und viele mehr…"
+
+#: includes/admin/class-pro-notice.php:219
+#: includes/admin/class-pro-notice.php:238
+msgid "SEO Email Reports"
+msgstr "SEO E-Mail-Berichte"
+
+#: includes/admin/class-pro-notice.php:218
+#: includes/admin/class-pro-notice.php:237
+msgid "24x7 Premium Support"
+msgstr "24x7 Premium-Unterstützung"
+
+#: includes/admin/class-pro-notice.php:216
+#: includes/admin/class-pro-notice.php:235
+msgid "Keyword Rank Tracker"
+msgstr "Schlüsselwort Rank Tracker"
+
+#: includes/admin/class-pro-notice.php:215
+#: includes/admin/class-pro-notice.php:234
+msgid "Content A.I. (Artificial Intelligence)"
+msgstr "Content K.I. (Künstliche Intelligenz)"
+
+#: includes/admin/class-pro-notice.php:214
+#: includes/admin/class-pro-notice.php:233
+msgid "Unlimited Websites"
+msgstr "Unbegrenzt Websites"
+
+#: includes/admin/class-pro-notice.php:211
+#: includes/admin/class-pro-notice.php:230
+msgid "Rank Your Content With the Power of PRO & A.I."
+msgstr "Ordne deine Inhalte mit der Kraft von PRO & K.I."
 
 #: includes/modules/instant-indexing/views/options.php:19
 msgid "Submit posts from these post types automatically to the IndexNow API when a post is published, updated, or trashed."
@@ -936,6 +971,10 @@ msgstr "https://support.rankmath.com/"
 #: includes/class-update-email.php:68
 msgid "If you have any questions or experience any issues – our support team is at your disposal:"
 msgstr "Wenn du Fragen hast oder Probleme auftreten - unser Support-Team steht dir gerne zur Verfügung:"
+
+#: includes/class-update-email.php:145
+msgid "https://rankmath.com/changelog/free"
+msgstr "https://rankmath.com/changelog/free"
 
 #. Translators: placeholder is the new admin page URL.
 #: includes/class-update-email.php:65
