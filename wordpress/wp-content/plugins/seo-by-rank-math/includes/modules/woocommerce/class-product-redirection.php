@@ -13,6 +13,8 @@ namespace RankMath\WooCommerce;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use RankMath\Helpers\Sitepress;
+use MyThemeShop\Helpers\Param;
+use RankMath\Redirections\Redirection;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -75,8 +77,7 @@ class Product_Redirection {
 			return false;
 		}
 
-		global $wp;
-		$url                 = $wp->request;
+		$url                 = $this->get_source_url();
 		$is_product          = is_product();
 		$permalink_structure = wc_get_permalink_structure();
 		$base                = $is_product ? $permalink_structure['product_base'] : $permalink_structure['category_base'];
@@ -108,6 +109,21 @@ class Product_Redirection {
 		$new_link = implode( '/', array_map( 'rawurlencode', explode( '/', $new_link ) ) ); // encode everything but slashes.
 
 		return $new_link === $this->strip_ignored_parts( $url ) ? false : trailingslashit( home_url( strtolower( $new_link ) ) );
+	}
+
+	/**
+	 * Get source URL.
+	 *
+	 * @return string
+	 */
+	private function get_source_url() {
+		global $wp;
+		$url = defined( 'TRP_PLUGIN_DIR' ) ? $wp->request : Param::server( 'REQUEST_URI' );
+		$url = str_replace( home_url( '/' ), '', $url );
+		$url = urldecode( $url );
+		$url = trim( Redirection::strip_subdirectory( $url ), '/' );
+
+		return $url;
 	}
 
 	/**

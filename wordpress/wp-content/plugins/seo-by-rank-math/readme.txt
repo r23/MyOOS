@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.9
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.81.1
+Stable tag: 1.0.82
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -270,7 +270,6 @@ Even with significantly more features than other plugins, Rank Math SEO loads am
 * **Search Engine Verification Tools**
 	* Bing Site Verification
 	* Baidu Site Verification
-	* Alexa Site Verification
 	* Yandex Site Verification
 	* **Google Site Verification**
 	* Pinterest Site Verification
@@ -581,29 +580,26 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.81.1 [Jan 27, 2022] =
-* Fixed: [Variable dropdown](https://rankmath.com/kb/variables-in-seo-title-description/) was not working with the WordPress v5.9
-* Fixed: [SEO Panel](https://rankmath.com/blog/divi-seo/) was not appearing on Divi's frontend editor for WordPress v5.9
-* Fixed: PHP warnings for various non-arrays on some setups
-* Fixed: Wrong changelog link in the [Update email](https://rankmath.com/kb/version-control/#update-notification-email)
-
-
-= 1.0.81 [Jan 26, 2022] =
-* Added: [HUGE!] [Introducing IndexNow integration](https://rankmath.com/kb/how-to-use-indexnow/). We have replaced the old Bing Instant Indexing API with the latest IndexNow API. This new API also supports Yandex
-* Added: [Submission Log in the Instant Indexing](https://rankmath.com/kb/how-to-use-indexnow/#checking-the-history) Settings page to monitor last 100 submissions and removed regular submission notifications
-* Improved: Converted Dashboard widget from PHP to React, around 20% performance improvements
-* Improved: [Content AI](https://rankmath.com/content-ai) recommendation algorithm
-* Improved: Added range value in the Recommended Section of Content AI to make it is easy to understand
-* Improved: You can now use WebP image format for [Twitter Open Graph](https://rankmath.com/kb/sharing-content-on-social-media/#twitter)
-* Improved: Compatibility with PHP 8.1
-* Fixed: Bulk URL submission to Bing was not working from the Post list page
-* Fixed: Secondary language Product pages created using TranslatePress plugin were not working well when [Remove Product Base](https://rankmath.com/kb/general-settings/#remove-base) option was enabled
-* Fixed: Added a condition to add `article:modified_time` & `og:updated_time` only when the post modified time is greater than the published time
-* Fixed: [Length indicator](https://rankmath.com/kb/general-tab/#num-1-4-writing-a-compelling-title-permalink-and-description) was not working on the Attachment pages
-* Fixed: [Slack sharing](https://rankmath.com/kb/titles-and-meta/#authors-slack-enhanced-sharing) was showing in Author settings even when [Author archive pages](https://rankmath.com/kb/titles-and-meta/#author-archives) were disabled
-* Fixed: PHP error in the Dashboard widget on some setups
-* Fixed: Missing Logo error in AMP on [Web Stories](https://rankmath.com/kb/google-web-stories/) posts. The priority is now given to the logo added in the Web Stories settings
-* Fixed: [Importing settings](https://rankmath.com/kb/import-export-settings/#importing-your-settings) was not working on some setups where the `.txt` file upload was not permitted for the security reasons
-* Fixed: Single Post Redirection option was getting enabled after changing the post slug. This was happening when [Auto Post Redirect](https://rankmath.com/kb/general-settings/#auto-post-redirect) option was enabled in the General Settings
+= 1.0.82 [Feb 09, 2022] =
+* Added: [New options](https://i.rankmath.com/LoMD3n) to debug the IndexNow API related issues
+* Added: Support for Cyrillic characters in the Content Analysis, now languages like Russian are supported
+* Added: Support for ImageMagick extension
+* Added: [New filter](https://rankmath.com/kb/filters-hooks-api-developer/#change-sitemap-caching-mode) to change the Sitemap caching method
+* Improved: Made several significant code improvements in the Analytics Module that have made the plugin even FASTER and lighter
+* Improved: Made several improvements in [Content AI](https://rankmath.com/content-ai/) to make it easy to understand
+* Improved: Plugin performance by removing duplicate queries
+* Improved: Don't submit `noindex` posts to the [IndexNow API](https://rankmath.com/kb/how-to-use-indexnow/) after updating the post
+* Improved: Warning shown below the Thumbnail Overlay field
+* Fixed: JS errors in Gutenberg editor after disabling the PRO version
+* Fixed: Content analysis was not analyzing the main post content on the pages that were using Divi's dynamic Header & Footer templates
+* Fixed: PHP warning on Divi's frontend editor when WP File Manager plugin was active
+* Fixed: Searching for encoded [404 URLs](https://rankmath.com/kb/advanced-404-monitor/) was not working
+* Fixed: Too many redirections error on some setups when [Remove Product Base](https://rankmath.com/kb/general-settings/#remove-base) option was enabled
+* Fixed: Editing a Focus Keyword was not working
+* Fixed: Content AI's [Recommended keywords](https://rankmath.com/kb/how-to-use-content-ai/#keywords) were not detecting accented characters in the Content area
+* Fixed: SEO panel was getting closed after removing the Focus keyword in the Divi Page Builder
+* Fixed: [Slack sharing](https://rankmath.com/kb/slack-enhanced-sharing/) was showing the wrong product price for the Product variant
+* Fixed: PHP errors on some sites
+* Removed: [Alexa Verification field](https://rankmath.com/kb/verify-your-site-with-alexa/#how-to-set-up-your-site-on-alexa) from the General Settings as it is no longer used
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

@@ -50,7 +50,7 @@ class Watcher implements Runner {
 
 		check_admin_referer( 'rank_math_deactivate_plugins' );
 
-		$type    = Param::get( 'plugin_type', 'seo' );
+		$type    = Param::get( 'plugin_type', 'seo', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK );
 		$allowed = [ 'seo', 'sitemap' ];
 		if ( ! in_array( $type, $allowed, true ) ) {
 			return;

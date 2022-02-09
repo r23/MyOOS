@@ -94,7 +94,6 @@ class Head {
 			'google_verify'    => 'google-site-verification',
 			'bing_verify'      => 'msvalidate.01',
 			'baidu_verify'     => 'baidu-site-verification',
-			'alexa_verify'     => 'alexaVerifyID',
 			'yandex_verify'    => 'yandex-verification',
 			'pinterest_verify' => 'p:domain_verify',
 			'norton_verify'    => 'norton-safeweb-site-verification',

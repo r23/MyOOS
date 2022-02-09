@@ -295,6 +295,7 @@ class ComposerStaticInite0bd047aa5058f04568aa38dfc5ac000
         'RankMath\\Status\\Status' => __DIR__ . '/../..' . '/includes/modules/status/class-status.php',
         'RankMath\\Status\\System_Status' => __DIR__ . '/../..' . '/includes/modules/status/class-system-status.php',
         'RankMath\\Term' => __DIR__ . '/../..' . '/includes/class-term.php',
+        'RankMath\\Thumbnail_Overlay' => __DIR__ . '/../..' . '/includes/class-thumbnail-overlay.php',
         'RankMath\\Tools\\Database_Tools' => __DIR__ . '/../..' . '/includes/modules/database-tools/class-database-tools.php',
         'RankMath\\Tools\\Remove_Schema' => __DIR__ . '/../..' . '/includes/modules/database-tools/class-remove-schema.php',
         'RankMath\\Tools\\Yoast_Blocks' => __DIR__ . '/../..' . '/includes/modules/database-tools/class-yoast-blocks.php',

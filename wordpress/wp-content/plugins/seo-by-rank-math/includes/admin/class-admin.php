@@ -152,9 +152,9 @@ class Admin implements Runner {
 			$this->success( $result );
 		}
 
-		$keyword     = Param::get( 'keyword' );
-		$object_id   = Param::get( 'objectID' );
-		$object_type = Param::get( 'objectType' );
+		$keyword     = Param::get( 'keyword', '', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_BACKTICK );
+		$object_id   = Param::get( 'objectID', 0, FILTER_VALIDATE_INT );
+		$object_type = Param::get( 'objectType', '', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK );
 		$column_ids  = [
 			'post' => 'ID',
 			'term' => 'term_id',
@@ -325,7 +325,7 @@ class Admin implements Runner {
 		if ( ! current_user_can( 'activate_plugins' ) ) {
 			$this->error( esc_html__( 'You are not authorized to perform this action.', 'rank-math' ) );
 		}
-		$plugin = Param::post( 'plugin' );
+		$plugin = Param::post( 'plugin', '', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK );
 		if ( 'all' !== $plugin ) {
 			deactivate_plugins( $plugin );
 			die( '1' );

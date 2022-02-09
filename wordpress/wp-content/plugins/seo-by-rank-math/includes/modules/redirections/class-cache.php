@@ -32,7 +32,7 @@ class Cache {
 	 * Get redirection by object ID.
 	 *
 	 * @param  integer $object_id   Object ID to look for.
-	 * @param  string  $object_type Current objcect type.
+	 * @param  string  $object_type Current object type.
 	 * @return object
 	 */
 	public static function get_by_object_id( $object_id, $object_type ) {
@@ -47,6 +47,18 @@ class Cache {
 	 */
 	public static function get_by_url( $url ) {
 		return empty( $url ) ? false : self::table()->where( 'BINARY from_url', $url )->one();
+	}
+
+	/**
+	 * Get redirections by object ID or URL.
+	 *
+	 * @param integer $object_id   Object ID to look for.
+	 * @param string  $object_type Current object type.
+	 * @param string  $url         URL to look for.
+	 * @return array
+	 */
+	public static function get_by_object_id_or_url( $object_id, $object_type, $url ) {
+		return self::table()->where( [ [ 'object_id', '=', $object_id ], [ 'object_type', '=', $object_type ] ], 'and' )->orWhere( 'BINARY from_url', $url )->orderBy( 'object_id', 'desc' )->get();
 	}
 
 	/**

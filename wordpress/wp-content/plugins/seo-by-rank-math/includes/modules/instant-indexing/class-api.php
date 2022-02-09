@@ -201,8 +201,20 @@ class Api {
 	 *
 	 * @return string
 	 */
+	public function get_key() {
+		if ( ! empty( $this->api_key ) ) {
+			return $this->api_key;
+		}
+
+		$this->api_key = Helper::get_settings( 'instant_indexing.indexnow_api_key' );
+		return $this->api_key;
+	}
+
+	/**
+	 * Alias for get_key().
+	 */
 	public function get_api_key() {
-		return Helper::get_settings( 'instant_indexing.indexnow_api_key' );
+		return $this->get_key();
 	}
 
 	/**
@@ -210,8 +222,8 @@ class Api {
 	 *
 	 * @return string
 	 */
-	public function get_key_location() {
-		return trailingslashit( home_url() ) . $this->get_api_key() . '.txt';
+	public function get_key_location( $context = '' ) {
+		return $this->do_filter( 'instant_indexing/indexnow_key_location', trailingslashit( home_url() ) . $this->get_key() . '.txt', $context );
 	}
 
 	/**
@@ -303,8 +315,8 @@ class Api {
 		return wp_json_encode(
 			[
 				'host'        => $this->get_host(),
-				'key'         => $this->get_api_key(),
-				'keyLocation' => $this->get_key_location(),
+				'key'         => $this->get_key(),
+				'keyLocation' => $this->get_key_location( 'request_payload' ),
 				'urlList'     => (array) $urls,
 			]
 		);
@@ -335,5 +347,26 @@ class Api {
 		}
 
 		$this->last_error = $message;
+	}
+
+
+	/**
+	 * Generate and save a new API key.
+	 */
+	public function reset_key() {
+		$settings = Helper::get_settings( 'instant_indexing', [] );
+		$settings['indexnow_api_key'] = $this->generate_api_key();
+		$this->api_key = $settings['indexnow_api_key'];
+		update_option( 'rank-math-options-instant-indexing', $settings );
+	}
+
+	/**
+	 * Generate new random API key.
+	 */
+	private function generate_api_key() {
+		$api_key = wp_generate_uuid4();
+		$api_key = preg_replace( '[-]', '', $api_key );
+
+		return $api_key;
 	}
 }

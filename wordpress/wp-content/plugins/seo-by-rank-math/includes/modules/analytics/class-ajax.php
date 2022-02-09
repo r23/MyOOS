@@ -93,10 +93,10 @@ class AJAX {
 		$this->has_cap_ajax( 'analytics' );
 
 		$value = [
-			'account_id'       => Param::post( 'accountID' ),
-			'property_id'      => Param::post( 'propertyID' ),
-			'view_id'          => Param::post( 'viewID' ),
-			'country'          => Param::post( 'country', 'all' ),
+			'account_id'       => Param::post( 'accountID', false, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK ),
+			'property_id'      => Param::post( 'propertyID', false, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK ),
+			'view_id'          => Param::post( 'viewID', false, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK ),
+			'country'          => Param::post( 'country', 'all', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_BACKTICK ),
 			'install_code'     => Param::post( 'installCode', false, FILTER_VALIDATE_BOOLEAN ),
 			'anonymize_ip'     => Param::post( 'anonymizeIP', false, FILTER_VALIDATE_BOOLEAN ),
 			'local_ga_js'      => Param::post( 'localGAJS', false, FILTER_VALIDATE_BOOLEAN ),
@@ -228,7 +228,7 @@ class AJAX {
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'analytics' );
 
-		$query = Param::get( 'query' );
+		$query = Param::get( 'query', '', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_BACKTICK );
 
 		$data = DB::objects()
 		->whereLike( 'title', $query )

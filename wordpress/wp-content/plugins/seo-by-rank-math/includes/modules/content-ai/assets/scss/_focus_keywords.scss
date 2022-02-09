@@ -90,7 +90,17 @@ div.rank-math-ca-keywords-wrapper {
 		color: #606060;
 
 		label {
-			font-weight: 500;
+			font-weight: 600;
+			margin-bottom: 30px;
+		}
+
+		.components-base-control__help {
+			color: inherit;
+		}
+
+		.help-text {
+			position: absolute;
+			top: 23px;
 		}
 
 		.rank-math-ca-credits {

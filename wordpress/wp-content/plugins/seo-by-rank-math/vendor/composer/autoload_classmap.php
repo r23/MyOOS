@@ -265,6 +265,7 @@ return array(
     'RankMath\\Status\\Status' => $baseDir . '/includes/modules/status/class-status.php',
     'RankMath\\Status\\System_Status' => $baseDir . '/includes/modules/status/class-system-status.php',
     'RankMath\\Term' => $baseDir . '/includes/class-term.php',
+    'RankMath\\Thumbnail_Overlay' => $baseDir . '/includes/class-thumbnail-overlay.php',
     'RankMath\\Tools\\Database_Tools' => $baseDir . '/includes/modules/database-tools/class-database-tools.php',
     'RankMath\\Tools\\Remove_Schema' => $baseDir . '/includes/modules/database-tools/class-remove-schema.php',
     'RankMath\\Tools\\Yoast_Blocks' => $baseDir . '/includes/modules/database-tools/class-yoast-blocks.php',

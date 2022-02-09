@@ -11,7 +11,7 @@ use MyThemeShop\Helpers\Param;
 use RankMath\Admin\Admin_Helper;
 
 defined( 'ABSPATH' ) || exit;
-$page = Param::get( 'page' );
+$page = Param::get( 'page', '', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK );
 $page = in_array( $page, [ 'rank-math-options-general', 'rank-math-analytics' ], true ) ? 'rank-math-options-general' : 'rank-math-wizard&step=analytics';
 $url  = Admin_Helper::get_activate_url( admin_url( 'admin.php?analytics=1&page=' . $page ) );
 ?>

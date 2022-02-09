@@ -1136,7 +1136,6 @@ class Yoast extends Plugin_Importer {
 	private function social_webmaster_settings( $yoast_main, $yoast_social ) {
 		$hash = [
 			'baiduverify'     => 'baidu_verify',
-			'alexaverify'     => 'alexa_verify',
 			'googleverify'    => 'google_verify',
 			'msverify'        => 'bing_verify',
 			'pinterestverify' => 'pinterest_verify',

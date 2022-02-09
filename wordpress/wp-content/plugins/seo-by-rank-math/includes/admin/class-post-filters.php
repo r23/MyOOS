@@ -106,7 +106,7 @@ class Post_Filters implements Runner {
 			return;
 		}
 
-		$focus_keyword = Param::get( 'focus_keyword', '' );
+		$focus_keyword = Param::get( 'focus_keyword', '', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_BACKTICK );
 		if ( 1 === absint( $focus_keyword ) ) {
 			$query->set(
 				'meta_query',

@@ -125,7 +125,7 @@ class Post_Columns implements Runner {
 		global $post_type;
 		$current_pt = $post_type;
 		if ( ! $post_type && 'inline-save' === Param::post( 'action' ) ) {
-			$post_id    = Param::post( 'post_ID' );
+			$post_id    = Param::post( 'post_ID', 0, FILTER_VALIDATE_INT );
 			$current_pt = get_post_type( $post_id );
 		}
 		$columns['rank_math_seo_details'] = esc_html__( 'SEO Details', 'rank-math' );

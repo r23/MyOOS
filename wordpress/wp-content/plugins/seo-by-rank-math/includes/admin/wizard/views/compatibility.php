@@ -21,10 +21,10 @@ $php_version_recommend = version_compare( $php_version, '7.4', '<' );
 
 $dom_ext       = extension_loaded( 'dom' );
 $simplexml_ext = extension_loaded( 'SimpleXML' );
-$gd_ext        = extension_loaded( 'gd' );
+$image_ext     = extension_loaded( 'gd' ) || extension_loaded( 'imagick' );
 $mb_string     = extension_loaded( 'mbstring' );
 $openssl       = extension_loaded( 'openssl' );
-$all_good      = $php_version_ok && $dom_ext && $simplexml_ext && $gd_ext && $mb_string && $openssl;
+$all_good      = $php_version_ok && $dom_ext && $simplexml_ext && $image_ext && $mb_string && $openssl;
 
 ?>
 
@@ -92,11 +92,11 @@ if ( $all_good ) :
 			</th>
 			<td><span class="dashicons dashicons-<?php echo $simplexml_ext ? 'yes' : 'no'; ?>"></span></td>
 		</tr>
-		<tr class="check-<?php echo $gd_ext ? 'yes' : 'no'; ?>">
+		<tr class="check-<?php echo $image_ext ? 'yes' : 'no'; ?>">
 			<th>
-				<?php echo $gd_ext ? esc_html__( 'PHP GD Extension installed', 'rank-math' ) : esc_html__( 'PHP GD Extension missing', 'rank-math' ); ?>
+				<?php echo $image_ext ? esc_html__( 'PHP GD or Imagick Extension installed', 'rank-math' ) : esc_html__( 'PHP GD or Imagick Extension missing', 'rank-math' ); ?>
 			</th>
-			<td><span class="dashicons dashicons-<?php echo $gd_ext ? 'yes' : 'no'; ?>"></span></td>
+			<td><span class="dashicons dashicons-<?php echo $image_ext ? 'yes' : 'no'; ?>"></span></td>
 		</tr>
 		<tr class="check-<?php echo $mb_string ? 'yes' : 'no'; ?>">
 			<th>

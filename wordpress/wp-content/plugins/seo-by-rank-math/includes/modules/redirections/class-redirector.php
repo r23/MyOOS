@@ -227,22 +227,19 @@ class Redirector {
 	 * Search from cache.
 	 */
 	private function from_cache() {
-		// If there is a queried object.
-		$object_id = get_queried_object_id();
-		if ( $object_id ) {
-			$redirection = Cache::get_by_object_id( $object_id, $this->get_current_object_type() );
-			if ( $redirection && trim( $redirection->from_url, '/' ) === $this->uri ) {
+		$redirections = Cache::get_by_object_id_or_url( (int) get_queried_object_id(), $this->get_current_object_type(), $this->uri );
+		foreach ( $redirections as $redirection ) {
+			if ( empty( $redirection->object_id ) ) {
 				$this->cache = true;
 				$this->set_redirection( $redirection->redirection_id );
 				return;
 			}
-		}
 
-		$redirection = Cache::get_by_url( $this->uri );
-		if ( $redirection ) {
-			$this->cache = true;
-			$this->set_redirection( $redirection->redirection_id );
-			return;
+			if ( trim( $redirection->from_url, '/' ) === $this->uri ) {
+				$this->cache = true;
+				$this->set_redirection( $redirection->redirection_id );
+				return;
+			}
 		}
 	}
 
@@ -384,9 +381,12 @@ class Redirector {
 			'WP_User' => 'user',
 		];
 		$object = get_queried_object();
-		$object = get_class( $object );
+		if ( ! $object ) {
+			return 'none';
+		}
 
-		return isset( $hash[ $object ] ) ? $hash[ $object ] : 'any';
+		$object = get_class( $object );
+		return isset( $hash[ $object ] ) ? $hash[ $object ] : 'none';
 	}
 
 	/**

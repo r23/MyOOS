@@ -79,6 +79,19 @@ class Rest extends WP_REST_Controller {
 				],
 			]
 		);
+
+		$endpoint = '/resetKey/';
+		register_rest_route(
+			$namespace,
+			$endpoint,
+			[
+				[
+					'methods'             => WP_REST_Server::EDITABLE,
+					'callback'            => [ $this, 'reset_key' ],
+					'permission_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'can_manage_options' ],
+				],
+			]
+		);
 	}
 
 	/**
@@ -167,5 +180,26 @@ class Rest extends WP_REST_Controller {
 	public function clear_log( WP_REST_Request $request ) {
 		Api::get()->clear_log();
 		return new WP_REST_Response( [ 'status' => 'ok' ] );
+	}
+
+	/**
+	 * Reset key.
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 *
+	 * @return WP_REST_Response|WP_Error
+	 */
+	public function reset_key( WP_REST_Request $request ) {
+		$api = Api::get();
+		$api->reset_key();
+		$key = $api->get_key();
+		$location = $api->get_key_location( 'reset_key' );
+		return new WP_REST_Response(
+			[
+				'status'   => 'ok',
+				'key'      => $key,
+				'location' => $location,
+			]
+		);
 	}
 }

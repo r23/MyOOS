@@ -150,17 +150,23 @@ class Product_WooCommerce {
 			return;
 		}
 
-		$image             = wp_get_attachment_image_src( $product->get_image_id(), 'single-post-thumbnail' );
-		$entity['image'][] = [
-			'@type'  => 'ImageObject',
-			'url'    => $image[0],
-			'height' => $image[2],
-			'width'  => $image[1],
-		];
+		$image = wp_get_attachment_image_src( $product->get_image_id(), 'single-post-thumbnail' );
+		if ( ! empty( $image ) ) {
+			$entity['image'][] = [
+				'@type'  => 'ImageObject',
+				'url'    => $image[0],
+				'height' => $image[2],
+				'width'  => $image[1],
+			];
+		}
 
 		$gallery = $product->get_gallery_image_ids();
 		foreach ( $gallery as $image_id ) {
-			$image             = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
+			$image = wp_get_attachment_image_src( $image_id, 'single-post-thumbnail' );
+			if ( empty( $image ) ) {
+				continue;
+			}
+
 			$entity['image'][] = [
 				'@type'  => 'ImageObject',
 				'url'    => $image[0],

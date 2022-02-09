@@ -54,10 +54,10 @@ class Instant_Indexing extends Base {
 		$this->action( 'admin_enqueue_scripts', 'enqueue', 20 );
 
 		if ( ! $this->is_configured() ) {
-			$this->reset_api_key();
+			Api::get()->reset_key();
 		}
 
-		$post_types = Helper::get_settings( 'instant_indexing.bing_post_types', [] );
+		$post_types = $this->get_auto_submit_post_types();
 		foreach ( $post_types as $post_type ) {
 			$this->action( 'save_post_' . $post_type, 'save_post', 10, 3 );
 			$this->filter( "bulk_actions-edit-{$post_type}", 'post_bulk_actions', 11 );
@@ -107,7 +107,7 @@ class Instant_Indexing extends Base {
 			return $actions;
 		}
 
-		$post_types = Helper::get_settings( 'instant_indexing.bing_post_types', [] );
+		$post_types = $this->get_auto_submit_post_types();
 		if ( ! in_array( $post->post_type, $post_types, true ) ) {
 			return $actions;
 		}
@@ -254,6 +254,10 @@ class Instant_Indexing extends Base {
 			return;
 		}
 
+		if ( ! Helper::is_post_indexable( $post_id ) ) {
+			return;
+		}
+
 		/**
 		 * Filter the URL to be submitted to IndexNow.
 		 * Returning false will prevent the URL from being submitted.
@@ -288,7 +292,7 @@ class Instant_Indexing extends Base {
 	 * @return void
 	 */
 	public function enqueue( $hook ) {
-		if ( 'rank-math_page_rank-math-options-instant-indexing' !== $hook ) {
+		if ( 'rank-math_page_rank-math-options-instant-indexing' !== $hook && 'rank-math_page_instant-indexing' !== $hook ) {
 			return;
 		}
 
@@ -310,37 +314,21 @@ class Instant_Indexing extends Base {
 	}
 
 	/**
-	 * Generate new random API key.
-	 */
-	private function generate_api_key() {
-		$api_key = wp_generate_uuid4();
-		$api_key = preg_replace( '[-]', '', $api_key );
-
-		return $api_key;
-	}
-
-	/**
-	 * Generate and save a new API key.
-	 */
-	private function reset_api_key() {
-		$settings = Helper::get_settings( 'instant_indexing', [] );
-		$settings['indexnow_api_key'] = $this->generate_api_key();
-		update_option( 'rank-math-options-instant-indexing', $settings );
-	}
-
-	/**
 	 * Serve API key for search engines.
 	 */
 	public function serve_api_key() {
-		$api_key = Helper::get_settings( 'instant_indexing.indexnow_api_key' );
 		global $wp;
-		$current_url = home_url( $wp->request );
 
-		if ( isset( $current_url ) && trailingslashit( get_home_url() ) . $api_key . '.txt' === $current_url ) {
+		$api          = Api::get();
+		$key          = $api->get_key();
+		$key_location = $api->get_key_location( 'serve_api_key' );
+		$current_url  = home_url( $wp->request );
+
+		if ( isset( $current_url ) && $key_location === $current_url ) {
 			header( 'Content-Type: text/plain' );
 			header( 'X-Robots-Tag: noindex' );
 			status_header( 200 );
-			echo esc_html( $api_key );
+			echo esc_html( $key );
 
 			exit();
 		}
@@ -357,10 +345,21 @@ class Instant_Indexing extends Base {
 	private function api_submit( $url, $is_manual_submission ) {
 		$api = Api::get();
 
+		/**
+		 * Filter the URL to be submitted to IndexNow.
+		 * Returning false will prevent the URL from being submitted.
+		 *
+		 * @param bool   $is_manual_submission Whether the URL is submitted manually by the user.
+		 */
+		$url = $this->do_filter( 'instant_indexing/submit_url', $url, $is_manual_submission );
+		if ( ! $url ) {
+			return false;
+		}
+
 		if ( ! $is_manual_submission ) {
 			$logs = array_values( array_reverse( $api->get_log() ) );
 			if ( ! empty( $logs[0] ) && $logs[0]['url'] === $url && time() - $logs[0]['time'] < self::THROTTLE_LIMIT ) {
-				return;
+				return false;
 			}
 		}
 
@@ -398,6 +397,16 @@ class Instant_Indexing extends Base {
 		}
 
 		Helper::add_notification( $notification_message, [ 'type' => $notification_type ] );
+	}
+
+	/**
+	 * Get post types where auto-submit is enabled.
+	 *
+	 * @return array
+	 */
+	private function get_auto_submit_post_types() {
+		$post_types = Helper::get_settings( 'instant_indexing.bing_post_types', [] );
+		return $post_types;
 	}
 
 }

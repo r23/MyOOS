@@ -325,7 +325,7 @@ class Screen implements IScreen {
 	 */
 	private function diacritics() {
 		$locale = Locale::get_site_language();
-		$locale = in_array( $locale, [ 'en', 'de' ], true ) ? $locale : 'en';
+		$locale = in_array( $locale, [ 'en', 'de', 'ru' ], true ) ? $locale : 'en';
 		$file   = rank_math()->plugin_dir() . 'assets/vendor/diacritics/' . $locale . '.php';
 		if ( ! file_exists( $file ) ) {
 			return false;

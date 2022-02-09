@@ -56,9 +56,9 @@ class Admin_Bar_Menu {
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'onpage_general' );
 
-		$what        = Param::post( 'what' );
-		$object_id   = Param::post( 'objectID' );
-		$object_type = Param::post( 'objectType' );
+		$what        = Param::post( 'what', '', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK );
+		$object_id   = Param::post( 'objectID', 0, FILTER_VALIDATE_INT );
+		$object_type = Param::post( 'objectType', '', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK );
 
 		if ( ! $what || ! $object_id || ! $object_type ) {
 			return 0;

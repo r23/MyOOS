@@ -205,7 +205,7 @@ class Import_Export implements Runner {
 		$this->verify_nonce( 'rank-math-ajax-nonce' );
 		$this->has_cap_ajax( 'general' );
 
-		$perform = Param::post( 'perform' );
+		$perform = Param::post( 'perform', '', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK );
 		if ( ! $this->is_action_allowed( $perform ) ) {
 			$this->error( esc_html__( 'Action not allowed.', 'rank-math' ) );
 		}
@@ -247,7 +247,7 @@ class Import_Export implements Runner {
 		$this->verify_nonce( 'rank-math-ajax-nonce' );
 		$this->has_cap_ajax( 'general' );
 
-		$key = Param::post( 'key' );
+		$key = Param::post( 'key', '', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK );
 		if ( ! $key ) {
 			$this->error( esc_html__( 'No backup key found to delete.', 'rank-math' ) );
 		}
@@ -263,7 +263,7 @@ class Import_Export implements Runner {
 		$this->verify_nonce( 'rank-math-ajax-nonce' );
 		$this->has_cap_ajax( 'general' );
 
-		$key = Param::post( 'key' );
+		$key = Param::post( 'key', '', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK );
 		if ( ! $key ) {
 			$this->error( esc_html__( 'No backup key found to restore.', 'rank-math' ) );
 		}

@@ -331,12 +331,13 @@ class Post_Screen implements IScreen {
 	 * @return string
 	 */
 	private function get_current_post_type() {
+		$post_type = get_post_type();
 		if ( function_exists( 'get_current_screen' ) ) {
-			$screen = get_current_screen();
-			return $screen->post_type;
+			$screen    = get_current_screen();
+			$post_type = isset( $screen->post_type ) ? $screen->post_type : $post_type;
 		}
 
-		return get_post_type();
+		return $post_type;
 	}
 
 	/**

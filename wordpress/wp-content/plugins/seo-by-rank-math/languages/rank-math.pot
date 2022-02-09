@@ -101,7 +101,7 @@ msgstr ""
 msgid "Rank Math Free"
 msgstr ""
 
-msgid "https://rankmath.com/changelog/#free"
+msgid "https://rankmath.com/changelog/free"
 msgstr ""
 
 #. translators: placeholders are the old and new version numbers.
@@ -665,15 +665,28 @@ msgstr ""
 msgid "Pillar Content"
 msgstr ""
 
-msgid "Upgrade to Rank Math PRO and unlock advanced features"
+msgid "Rank Your Content With the Power of PRO & A.I."
 msgstr ""
 
-#. translators: placeholder is the words "advanced SEO features".
-#. translators: placeholder is the words "advanced SEO features".
-msgid "By upgrading to Rank Math PRO you get access to %s like more Schema Markups, Schema Generator, Advanced Analytics, Email Reporting and much more!"
+msgid "Unlimited Websites"
 msgstr ""
 
-msgid "advanced SEO features"
+msgid "Content A.I. (Artificial Intelligence)"
+msgstr ""
+
+msgid "Keyword Rank Tracker"
+msgstr ""
+
+msgid "Powerful Schema Generator"
+msgstr ""
+
+msgid "24x7 Premium Support"
+msgstr ""
+
+msgid "SEO Email Reports"
+msgstr ""
+
+msgid "and Many More…"
 msgstr ""
 
 msgid "Yes, I want to learn more"
@@ -1453,9 +1466,6 @@ msgid "Free 15 Content AI Credits"
 msgstr ""
 
 msgid "Track 500 Keywords"
-msgstr ""
-
-msgid "Powerful Schema Generator"
 msgstr ""
 
 msgid "24/7 Support"
@@ -3970,16 +3980,6 @@ msgstr ""
 msgid "Enter your Baidu Webmaster Tools verification HTML code or ID. Get it from here: %s"
 msgstr ""
 
-msgid "Alexa Verification ID"
-msgstr ""
-
-#. translators: Alexa webmaster link
-msgid "Enter your Alexa verification HTML code or ID. Get it from here: %s"
-msgstr ""
-
-msgid "Alexa Account"
-msgstr ""
-
 msgid "Yandex Verification ID"
 msgstr ""
 
@@ -4549,10 +4549,10 @@ msgstr ""
 msgid "PHP SimpleXML Extension missing"
 msgstr ""
 
-msgid "PHP GD Extension installed"
+msgid "PHP GD or Imagick Extension installed"
 msgstr ""
 
-msgid "PHP GD Extension missing"
+msgid "PHP GD or Imagick Extension missing"
 msgstr ""
 
 msgid "PHP MBstring Extension installed"

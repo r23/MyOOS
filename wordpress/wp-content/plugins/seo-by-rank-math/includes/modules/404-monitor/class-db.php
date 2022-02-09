@@ -55,7 +55,7 @@ class DB {
 		$table = self::table()->found_rows()->page( $args['paged'] - 1, $args['limit'] );
 
 		if ( ! empty( $args['search'] ) ) {
-			$table->whereLike( 'uri', $args['search'] );
+			$table->whereLike( 'uri', rawurlencode( $args['search'] ) );
 		}
 
 		if ( ! empty( $args['ids'] ) ) {
