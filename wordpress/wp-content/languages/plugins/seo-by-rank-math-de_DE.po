@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-02-06 12:00:41+0000\n"
+"PO-Revision-Date: 2022-02-09 13:42:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,30 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
+
+#: includes/admin/wizard/views/compatibility.php:97
+msgid "PHP GD or Imagick Extension missing"
+msgstr "PHP GD oder Imagick Erweiterung fehlt"
+
+#: includes/admin/wizard/views/compatibility.php:97
+msgid "PHP GD or Imagick Extension installed"
+msgstr "PHP GD oder Imagick Erweiterung fehlt"
+
+#: includes/modules/instant-indexing/views/options.php:29
+msgid "API Key"
+msgstr "API-Key"
+
+#: includes/modules/instant-indexing/views/options.php:32
+msgid "Change Key"
+msgstr "Key ändern"
+
+#: includes/modules/instant-indexing/views/options.php:40
+msgid "API Key Location"
+msgstr "Ort des API-Keys"
+
+#: includes/modules/instant-indexing/views/options.php:41
+msgid "Check Key"
+msgstr "Key prüfen"
 
 #: includes/admin/class-pro-notice.php:220
 #: includes/admin/class-pro-notice.php:239
@@ -46,11 +70,11 @@ msgstr "Unbegrenzt Websites"
 msgid "Rank Your Content With the Power of PRO & A.I."
 msgstr "Ordne deine Inhalte mit der Kraft von PRO & K.I."
 
-#: includes/modules/instant-indexing/views/options.php:19
+#: includes/modules/instant-indexing/views/options.php:21
 msgid "Submit posts from these post types automatically to the IndexNow API when a post is published, updated, or trashed."
 msgstr "Sende Beiträge aus diesen Beitragstypen automatisch an die IndexNow-API, wenn ein Beitrag veröffentlicht, aktualisiert oder in den Papierkorb geworfen wird."
 
-#: includes/modules/instant-indexing/views/options.php:18
+#: includes/modules/instant-indexing/views/options.php:20
 msgid "Auto-Submit Post Types"
 msgstr "Automatisches Senden von Beitragstypen"
 
@@ -136,46 +160,46 @@ msgid "Insert URLs to send to the IndexNow API (one per line, up to 10,000):"
 msgstr "Füge URLs ein, die an die IndexNow-API gesendet werden sollen (eine pro Zeile, bis zu 10.000):"
 
 #. Translators: placeholder is human-readable time, e.g. "1 hour".
-#: includes/modules/instant-indexing/class-rest.php:141
+#: includes/modules/instant-indexing/class-rest.php:154
 msgid "%s ago"
 msgstr "%s her"
 
 #. Translators: %s is the number of URLs submitted.
-#: includes/modules/instant-indexing/class-rest.php:115
+#: includes/modules/instant-indexing/class-rest.php:128
 msgid "Successfully submitted %s URL."
 msgid_plural "Successfully submitted %s URLs."
 msgstr[0] "Erfolgreich %s URLs übermittelt."
 msgstr[1] "Erfolgreich %s URL übermittelt."
 
-#: includes/modules/instant-indexing/class-rest.php:106
+#: includes/modules/instant-indexing/class-rest.php:119
 msgid "Failed to submit URLs. See details in the History tab."
 msgstr "URLs konnten nicht gesendet werden. Weitere Informationen findest du auf der Registerkarte Verlauf."
 
-#: includes/modules/instant-indexing/class-rest.php:101
+#: includes/modules/instant-indexing/class-rest.php:114
 msgid "Invalid URLs provided."
 msgstr "Ungültige URLs angegeben."
 
-#: includes/modules/instant-indexing/class-rest.php:94
+#: includes/modules/instant-indexing/class-rest.php:107
 msgid "No URLs provided."
 msgstr "Keine URLs angegeben."
 
-#: includes/modules/instant-indexing/class-instant-indexing.php:389
+#: includes/modules/instant-indexing/class-instant-indexing.php:388
 msgid "Error submitting page to IndexNow."
 msgstr "Fehler beim Senden der Seite an IndexNow."
 
-#: includes/modules/instant-indexing/class-instant-indexing.php:306
+#: includes/modules/instant-indexing/class-instant-indexing.php:310
 msgid "No submissions yet."
 msgstr "Noch keine Einreichungen."
 
-#: includes/modules/instant-indexing/class-instant-indexing.php:305
+#: includes/modules/instant-indexing/class-instant-indexing.php:309
 msgid "Error: could not get history."
 msgstr "Fehler: Verlauf konnte nicht abgerufen werden."
 
-#: includes/modules/instant-indexing/class-instant-indexing.php:304
+#: includes/modules/instant-indexing/class-instant-indexing.php:308
 msgid "Error: could not clear history."
 msgstr "Fehler: Verlauf konnte nicht gelöscht werden."
 
-#: includes/modules/instant-indexing/class-instant-indexing.php:303
+#: includes/modules/instant-indexing/class-instant-indexing.php:307
 msgid "An error occurred while submitting the URL."
 msgstr "Beim Senden der URL ist ein Fehler aufgetreten."
 
@@ -199,23 +223,23 @@ msgstr "Sofortige Indizierung: Seite senden"
 msgid "Instant Indexing: Submit Pages"
 msgstr "Sofortige Indizierung: Seiten senden"
 
-#: includes/modules/instant-indexing/class-api.php:330
+#: includes/modules/instant-indexing/class-api.php:342
 msgid "Internal server error."
 msgstr "Interner Serverfehler."
 
-#: includes/modules/instant-indexing/class-api.php:329
+#: includes/modules/instant-indexing/class-api.php:341
 msgid "Too many requests."
 msgstr "Zu viele Anfragen."
 
-#: includes/modules/instant-indexing/class-api.php:328
+#: includes/modules/instant-indexing/class-api.php:340
 msgid "Invalid URL."
 msgstr "Ungültige URL."
 
-#: includes/modules/instant-indexing/class-api.php:326
+#: includes/modules/instant-indexing/class-api.php:338
 msgid "Invalid request."
 msgstr "Ungültige Anfrage."
 
-#: includes/modules/instant-indexing/class-api.php:324
+#: includes/modules/instant-indexing/class-api.php:336
 msgid "Unknown error."
 msgstr "Unbekannter Fehler."
 
@@ -230,13 +254,13 @@ msgid "Directly notify search engines like Bing & Yandex using the %s when pages
 msgstr "Benachrichtige Suchmaschinen wie Bing & Yandex direkt über die %s, wenn Seiten hinzugefügt, aktualisiert und entfernt werden, oder senden Sie URLs manuell."
 
 #. translators: %s: Number of pages submitted.
-#: includes/modules/instant-indexing/class-instant-indexing.php:395
+#: includes/modules/instant-indexing/class-instant-indexing.php:394
 msgid "%s page submitted to IndexNow."
 msgid_plural "%s pages submitted to IndexNow."
 msgstr[0] "%s Seite an IndexNow übermittelt."
 msgstr[1] "%s Seiten an IndexNow übermittelt."
 
-#: includes/modules/instant-indexing/class-api.php:327
+#: includes/modules/instant-indexing/class-api.php:339
 msgid "Invalid API key."
 msgstr "Ungültiger API Schlüssel."
 
@@ -308,16 +332,16 @@ msgstr "Wenn die Option aktiviert ist und ein Autorenarchiv auf Slack geteilt wi
 msgid "Slack Enhanced Sharing"
 msgstr "Slack Verbesserte Freigabe"
 
-#: includes/opengraph/class-slack.php:282
+#: includes/opengraph/class-slack.php:305
 msgid "Less than a minute"
 msgstr "Weniger als eine Minute"
 
-#: includes/opengraph/class-slack.php:241
-#: includes/opengraph/class-slack.php:255
+#: includes/opengraph/class-slack.php:264
+#: includes/opengraph/class-slack.php:278
 msgid "Time to read"
 msgstr "Zeit zum Lesen"
 
-#: includes/opengraph/class-slack.php:240
+#: includes/opengraph/class-slack.php:263
 msgid "Written by"
 msgstr "Verfasst von"
 
@@ -1253,7 +1277,7 @@ msgstr "Neueste Blog-Beiträge von Rank Math"
 msgid "Rank Math Overview"
 msgstr "Rank Math Übersicht"
 
-#: includes/frontend/class-head.php:386
+#: includes/frontend/class-head.php:385
 msgid "Search Engine Optimization by Rank Math PRO - https://s.rankmath.com/home"
 msgstr "Suchmaschinen-Optimierung durch Rank Math PRO - https://s.rankmath.com/home"
 
@@ -1343,7 +1367,7 @@ msgstr "Danke, dass du Rank Math aktualisiert hast. Wir haben unser Analytics-Mo
 msgid "This is the number of pageviews carried out by visitors from Google."
 msgstr "Dies ist die Anzahl der Seiten, die Besucher von Google aufgerufen haben."
 
-#: includes/opengraph/class-slack.php:327
+#: includes/opengraph/class-slack.php:350
 #: includes/modules/analytics/assets/js/stats.js:1
 msgid "Posts"
 msgstr "Beiträge"
@@ -2490,7 +2514,7 @@ msgstr "Gesamtzeit:"
 #. translators: %s expands to a unit of time (e.g. 1 minute).
 #. translators: %d: minutes
 #: includes/modules/schema/blocks/class-block-howto.php:429
-#: includes/opengraph/class-slack.php:277
+#: includes/opengraph/class-slack.php:300
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d Minute"
@@ -2532,7 +2556,7 @@ msgstr "Blöcke importieren"
 msgid "Import and convert all compatible blocks in post contents."
 msgstr "Importiere und konvertiere alle kompatiblen Blöcke in Beitragsinhalten."
 
-#: includes/admin/importers/class-yoast.php:1194
+#: includes/admin/importers/class-yoast.php:1193
 msgid "No post found."
 msgstr "Es wurden keine Beiträge gefunden."
 
@@ -3488,7 +3512,7 @@ msgstr "Diese XML-Sitemap wird generiert von <a href=\"%s\" target=\"_blank\">Ra
 msgid "Last Mod."
 msgstr "Zuletzt geändert."
 
-#: includes/frontend/class-head.php:384
+#: includes/frontend/class-head.php:383
 msgid "Search Engine Optimization by Rank Math - https://s.rankmath.com/home"
 msgstr "Suchmaschinenoptimierung von Rank Math - https://s.rankmath.com/home"
 
@@ -3953,7 +3977,7 @@ msgid "Disabled"
 msgstr "Deaktiviert"
 
 #. translators: Pinterest webmaster link
-#: includes/settings/general/webmaster.php:79
+#: includes/settings/general/webmaster.php:66
 msgid "Pinterest Account"
 msgstr "Pinterest Konto"
 
@@ -4344,19 +4368,14 @@ msgid "Include Featured Images"
 msgstr "Ausgewählte Bilder einbinden"
 
 #. translators: Norton webmaster link
-#: includes/settings/general/webmaster.php:91
+#: includes/settings/general/webmaster.php:78
 msgid "Norton Ownership Verification Page"
 msgstr "Norton Verifizierung Seite"
 
 #. translators: Yandex webmaster link
-#: includes/settings/general/webmaster.php:66
+#: includes/settings/general/webmaster.php:53
 msgid "Yandex.Webmaster Page"
 msgstr "Yandex.Webmaster Seite"
-
-#. translators: Alexa webmaster link
-#: includes/settings/general/webmaster.php:53
-msgid "Alexa Account"
-msgstr "Alexa Konto"
 
 #. translators: Baidu webmaster link
 #: includes/settings/general/webmaster.php:39
@@ -4368,21 +4387,17 @@ msgstr "Baidu Webmaster Tools"
 msgid "Author Archives"
 msgstr "Autoren Archive"
 
-#: includes/settings/general/webmaster.php:89
+#: includes/settings/general/webmaster.php:76
 msgid "Norton Safe Web Verification ID"
 msgstr "Norton Safe-Web-Verification-ID"
 
-#: includes/settings/general/webmaster.php:77
+#: includes/settings/general/webmaster.php:64
 msgid "Pinterest Verification ID"
 msgstr "Pinterest Verifizierungs-ID"
 
-#: includes/settings/general/webmaster.php:64
+#: includes/settings/general/webmaster.php:51
 msgid "Yandex Verification ID"
 msgstr "Yandex Verifizierungs-ID"
-
-#: includes/settings/general/webmaster.php:51
-msgid "Alexa Verification ID"
-msgstr "Alexa Verifizierungs-ID"
 
 #: includes/settings/general/links.php:95
 msgid "Nofollow Exclude Domains"
@@ -4694,6 +4709,12 @@ msgstr "Suche"
 msgid "Learn more."
 msgstr "Mehr erfahren."
 
+#: includes/admin/wizard/views/search-console-ui.php:74
+#: includes/modules/analytics/google/class-permissions.php:107
+#: includes/modules/seo-analysis/seo-analysis-tests.php:104
+msgid "Search Console"
+msgstr "Search Console"
+
 #. translators: Link to kb article
 #. translators: Link to KB article
 #. translators: Redirection page url
@@ -4734,12 +4755,6 @@ msgstr "Mehr erfahren."
 #: includes/modules/woocommerce/class-admin.php:76
 msgid "Learn more"
 msgstr "Mehr erfahren"
-
-#: includes/admin/wizard/views/search-console-ui.php:74
-#: includes/modules/analytics/google/class-permissions.php:107
-#: includes/modules/seo-analysis/seo-analysis-tests.php:104
-msgid "Search Console"
-msgstr "Search Console"
 
 #: includes/admin/class-setup-wizard.php:117
 #: includes/admin/wizard/class-sitemap.php:63
@@ -4786,14 +4801,6 @@ msgstr "Diesmal kann keine Aktion ausgeführt werden."
 msgid "Local SEO"
 msgstr "Lokales SEO"
 
-#: includes/admin/wizard/views/compatibility.php:97
-msgid "PHP GD Extension missing"
-msgstr "PHP GD Erweiterung fehlt"
-
-#: includes/admin/wizard/views/compatibility.php:97
-msgid "PHP GD Extension installed"
-msgstr "PHP GD Erweiterung installiert"
-
 #: includes/admin/wizard/views/compatibility.php:91
 msgid "PHP SimpleXML Extension missing"
 msgstr "PHP SimpleXML Erweiterung fehlt"
@@ -4835,7 +4842,7 @@ msgstr "Externe Links mit “nofollow”"
 msgid "Automatically add <code>rel=\"nofollow\"</code> attribute for links pointing to external image files. The attribute is dynamically applied when the content is displayed, and the stored content is not changed."
 msgstr "Fügt automatisch das Attribut <code>rel=\"nofollow\"</code> zu Links zu externen Dateien hinzu. Das Attribut wird dynamisch beim Anzeigen des Inhalts hinzugefügt, der gespeicherte Inhalt wird nicht verändert."
 
-#: includes/opengraph/class-slack.php:300
+#: includes/opengraph/class-slack.php:323
 msgid "Items"
 msgstr "Artikel"
 
@@ -5741,7 +5748,7 @@ msgstr "Logo"
 #: includes/modules/local-seo/views/titles-options.php:34
 #: includes/modules/schema/shortcode/book.php:36
 #: includes/modules/sitemap/sitemap-xsl.php:169
-#: includes/opengraph/class-slack.php:326 includes/settings/titles/local.php:29
+#: includes/opengraph/class-slack.php:349 includes/settings/titles/local.php:29
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Name"
@@ -6118,7 +6125,7 @@ msgstr "Ergebnisse für %s"
 msgid "Archives for %s"
 msgstr "Archiv für %s"
 
-#: includes/frontend/class-head.php:392
+#: includes/frontend/class-head.php:391
 msgid "Rank Math WordPress SEO plugin"
 msgstr "Rank Math WordPress SEO Plugin"
 
@@ -6899,7 +6906,7 @@ msgid "You can use the separator character in titles by inserting <code>%separat
 msgstr "Du kannst das Trennzeichen in Titeln verwenden, indem du <code>%separator%</code> or <code>%sep%</code> in die Titelfelder einfügst."
 
 #. translators: Yandex webmaster link
-#: includes/settings/general/webmaster.php:66
+#: includes/settings/general/webmaster.php:53
 msgid "Enter your Yandex verification HTML code or ID. Get it from here: %s"
 msgstr "Gebe deinen HTML-Code oder deine ID für die Yandex Verifizierung ein. Hier findest du diesen: %s"
 
@@ -6908,19 +6915,14 @@ msgid "Change the <code>/author/</code> part in author archive URLs."
 msgstr "Ändere den Teil <code>/author/</code> in den URLs des Autorenarchivs."
 
 #. translators: Norton webmaster link
-#: includes/settings/general/webmaster.php:91
+#: includes/settings/general/webmaster.php:78
 msgid "Enter your Norton Safe Web verification HTML code or ID. Get it from here: %s"
 msgstr "Gebe deinen HTML-Code oder deine ID für die Norton Safe-Web-Verifizierung ein. Hier findest du diesen: %s"
 
 #. translators: Pinterest webmaster link
-#: includes/settings/general/webmaster.php:79
+#: includes/settings/general/webmaster.php:66
 msgid "Enter your Pinterest verification HTML code or ID. Get it from here: %s"
 msgstr "Gebe deinen Pinterest Verifikation-HTML-Code oder deine ID ein. Hier findest du diesen: %s"
-
-#. translators: Alexa webmaster link
-#: includes/settings/general/webmaster.php:53
-msgid "Enter your Alexa verification HTML code or ID. Get it from here: %s"
-msgstr "Gebe deinen Alexa-Verifizierungs-HTML-Code oder deine ID ein. Hier findest du diese: %s"
 
 #. translators: Baidu webmaster link
 #: includes/settings/general/webmaster.php:41
@@ -7642,10 +7644,6 @@ msgstr "Aufnahme von Verweisen auf Bilder aus dem Post-Inhalt in Sitemaps. Dies 
 msgid "your product %s pages"
 msgstr "Deine Produkt %s Seiten"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:122
-msgid "XML sitemaps are a special type of text file that tells search engines about the structure of your site. They're a list of all the resources (pages and files) you would like the search engine to index. You can assign different priorities, so certain pages will be crawled first. Before XML sitemaps, search engines were limited to indexing the content they could find by following links. That's still an important feature for search engine spiders, but XML sitemaps have made it easier for content creators and search engines to collaborate."
-msgstr "XML-Sitemaps sind eine spezielle Art von Textdatei, die Suchmaschinen über die Struktur deiner Website informiert. Es handelt sich um eine Liste aller Ressourcen (Seiten und Dateien), die die Suchmaschine indizieren soll. du kannst verschiedene Prioritäten vergeben, so dass bestimmte Seiten zuerst durchsucht werden. Vor XML-Sitemaps beschränkten sich Suchmaschinen auf die Indizierung von Inhalten, die sie über folgende Links finden konnten. Das ist immer noch ein wichtiges Feature für Suchmaschinen-Spider, aber XML-Sitemaps haben es für Inhaltsersteller und Suchmaschinen einfacher gemacht, zusammenzuarbeiten."
-
 #: includes/modules/seo-analysis/seo-analysis-tests.php:71
 msgid "Rank Math uses these focus keywords to analyze your on-page content.  It can tell if you've done a good job of optimizing your text to rank for these keywords."
 msgstr "Rank Math verwendet diese Fokus-Schlüsselwörter, um deinen Inhalt auf der Seite zu analysieren. Es kann erkennen, ob du gute Arbeit geleistet habst, indem du deinen Text optimiert habst, um ihn für diese Schlüsselwort zu bewerten."
@@ -7662,13 +7660,17 @@ msgstr "Das ist Benutzerfreundlich und bringt die Schlüsselwörter in die URL. 
 msgid "It's not very kind on the eyes, and it does nothing for your site's SEO.  In fact, it can hurt it - Google's bot is quite cautious about crawling pages that look auto-generated."
 msgstr "Es ist nicht sehr freundlich für die Augen, und es tut nichts für die SEO deiner Website.  Tatsächlich kann es ihm schaden - Googles Bot ist sehr vorsichtig beim Crawlen von Seiten, die automatisch generiert aussehen."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:38
-msgid "The tagline is the second option.  Choose a tagline that summarizes your site in a few words.  The tagline is also a good place to use your main keyword."
-msgstr "Der Slogan ist die zweite Option.  Wähle einen Slogan, der deine Website in wenigen Worten zusammenfasst.  Der Slogan ist auch ein guter Ort, um dein Haupt-Schlüsselwort zu verwenden."
+#: includes/modules/seo-analysis/seo-analysis-tests.php:122
+msgid "XML sitemaps are a special type of text file that tells search engines about the structure of your site. They're a list of all the resources (pages and files) you would like the search engine to index. You can assign different priorities, so certain pages will be crawled first. Before XML sitemaps, search engines were limited to indexing the content they could find by following links. That's still an important feature for search engine spiders, but XML sitemaps have made it easier for content creators and search engines to collaborate."
+msgstr "XML-Sitemaps sind eine spezielle Art von Textdatei, die Suchmaschinen über die Struktur deiner Website informiert. Es handelt sich um eine Liste aller Ressourcen (Seiten und Dateien), die die Suchmaschine indizieren soll. du kannst verschiedene Prioritäten vergeben, so dass bestimmte Seiten zuerst durchsucht werden. Vor XML-Sitemaps beschränkten sich Suchmaschinen auf die Indizierung von Inhalten, die sie über folgende Links finden konnten. Das ist immer noch ein wichtiges Feature für Suchmaschinen-Spider, aber XML-Sitemaps haben es für Inhaltsersteller und Suchmaschinen einfacher gemacht, zusammenzuarbeiten."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:79
 msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
 msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Fokus-Schlüsselwort hinzufügst, überprüft Rank Math, ob du das Schlüsselwort im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Schlüsselwort im Titel fehlt, wird es dir hier mitgeteilt."
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:38
+msgid "The tagline is the second option.  Choose a tagline that summarizes your site in a few words.  The tagline is also a good place to use your main keyword."
+msgstr "Der Slogan ist die zweite Option.  Wähle einen Slogan, der deine Website in wenigen Worten zusammenfasst.  Der Slogan ist auch ein guter Ort, um dein Haupt-Schlüsselwort zu verwenden."
 
 #. translators: link to general setting screen
 #: includes/modules/seo-analysis/seo-analysis-tests.php:37
