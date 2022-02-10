@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-16 13:10:36+0000\n"
+"PO-Revision-Date: 2022-02-09 13:43:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,11 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
+
+#. translators: %s: blog name
+#: modules/constant-contact/doi.php:70 modules/sendinblue/doi.php:78
+msgid "Opt-in confirmation from %s"
+msgstr "Opt-In-Bestätigung von %s"
 
 #: modules/constant-contact/contact-form-properties.php:170
 msgid "You can set up the Constant Contact integration here. For details, see %s."
@@ -52,7 +57,7 @@ msgid "Stripe is a simple and powerful way to accept payments online. Stripe has
 msgstr "Stripe ist eine einfache und leistungsstarke Möglichkeit, Zahlungen online zu akzeptieren. Stripe hat keine Einrichtungsgebühren, keine monatlichen Gebühren und keine versteckten Kosten. Millionen von Unternehmen vertrauen auf die Software-Tools von Stripe, um Zahlungen sicher zu akzeptieren und weltweit zu expandieren. Einzelheiten findest du unter %s."
 
 #. translators: 1: first name, 2: last name
-#: modules/sendinblue/sendinblue.php:107
+#: modules/sendinblue/sendinblue.php:102
 msgctxt "personal name"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
@@ -432,7 +437,7 @@ msgstr "Mit dem Integrations-Modul für Constant Contact kannst du Daten aus ges
 msgid "Constant Contact"
 msgstr "Constant Contact"
 
-#: modules/constant-contact/constant-contact.php:21
+#: modules/constant-contact/constant-contact.php:22
 msgid "Email marketing"
 msgstr "E-Mail-Marketing"
 
@@ -794,7 +799,6 @@ msgid "Thank you for your message. It has been sent."
 msgstr "Vielen Dank für deine Nachricht. Sie wurde gesendet."
 
 #. translators: 1: blog name, 2: [your-subject]
-#. translators: 1: blog name, 2: [your-subject]
 #: includes/contact-form-template.php:52 includes/contact-form-template.php:96
 msgctxt "mail subject"
 msgid "%1$s \"%2$s\""
@@ -887,7 +891,7 @@ msgid "https://contactform7.com/"
 msgstr "https://contactform7.com/"
 
 #. translators: title of your first contact form. %d: number fixed to '1'
-#: load.php:183
+#: load.php:184
 msgid "Contact form %d"
 msgstr "Kontaktformular %d"
 
@@ -1364,7 +1368,6 @@ msgstr "Die Nachricht des Absenders konnte nicht gesendet werden"
 msgid "Sender's message was sent successfully"
 msgstr "Die Nachricht des Absenders wurde erfolgreich gesendet"
 
-#. translators: 1: blog name, 2: blog URL
 #. translators: 1: blog name, 2: blog URL
 #: includes/contact-form-template.php:77 includes/contact-form-template.php:111
 msgid "This e-mail was sent from a contact form on %1$s (%2$s)"
