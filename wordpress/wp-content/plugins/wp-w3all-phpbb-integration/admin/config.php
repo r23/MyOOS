@@ -58,7 +58,7 @@
    $w3db_conn = WP_w3all_phpbb::w3all_db_connect_res();
 
    if( $w3db_conn !== null ){
-   	ob_start(); // suppress error if table_prefix is wrong
+    ob_start(); // suppress error if table_prefix is wrong
      $phpBBgroups = $w3db_conn->get_results("SELECT * FROM ". $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] ."groups");
     ob_get_contents();
     ob_end_clean();
@@ -77,19 +77,22 @@ $w3wp_roles = isset($w3_wp_roles->role_names) ? $w3_wp_roles->role_names : array
 $current_user = wp_get_current_user();
 ?>
 
+<div class="w3_main_config_wrapper"><!-- wrap all -->
+
+<div style="text-align:center"><?php echo __('<h1>WordPress phpBB integration</h1>', 'wp-w3all-phpbb-integration');?></div>
 <div style="background-color:#FFF;margin:0 20px 0 0;display:flex;flex-direction:row-reverse;align-items:center;justify-content:center;">
-<h4 style="font-weight:900;padding:2.5em 2.5em 0;"><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<!--<h4 style="font-weight:900;padding:2.5em 2.5em 0;"><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
 <input type="hidden" name="hosted_button_id" value="GUPQNQPZ6V9NG">
 <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" style="border:0;" name="submit" alt="PayPal - The safer, easier way to pay online!">
 <img alt="" style="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form></h4>
+</form></h4>-->
 
+<h4 style="padding:2.5em 2.5em 0;font-weight:700"><span style="font-size:90%;color:red;">&hearts;</span> <a href="https://www.paypal.me/alessionanni" target="_blank">Support this Plugin</a></h4>
+<h4 style="padding:2.5em 2.5em 0;font-weight:700"><a href="https://www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-tasks-extension/" target="_blank">phpBB WordPress Integration extension</a></h4>
+<h4 style="font-weight:700;padding:2.5em 2.5em 0;"><a target="_blank"href="https://www.axew3.com/w3/wordpress-phpbb-integration-install/#commonHowto">How To and Shortcodes list</a></h4>
+<h4 style="font-weight:700;padding:2.5em 2.5em 0;"><a target="_blank"href="https://www.axew3.com/w3/wordpress-phpbb-integration-install/">Install Steps, Help and FAQs</a></h4>
 
-<h4 style="font-weight:900;padding:2.5em 2.5em 0;"><a target="_blank"href="https://www.axew3.com/w3/wp-w3all-wordpress-to-phpbb-install-and-how-to/#commonHowto">How To and all Shortcodes list</a></h4>
-<h4 style="font-weight:900;padding:2.5em 2.5em 0;"><a target="_blank"href="https://www.axew3.com/w3/wp-w3all-wordpress-to-phpbb-install-and-how-to/">READ - Install Steps, Help and FAQ</a></h4>
-
-<h4 style="padding:2.5em 2.5em 0;font-weight:900"><span style="font-size:150%;color:red;">&hearts;</span> <a href="https://www.paypal.me/alessionanni" target="_blank">Support this Plugin</a> <span style="font-size:150%;color:red;">&hearts;</span></h4>
 </div>
 
 <?php
@@ -132,6 +135,7 @@ $w3all_conf_pref['w3all_wp_signup_fix_yn'] = isset($w3all_conf_pref['w3all_wp_si
 $w3all_conf_pref['w3all_add_into_phpBB_after_confirm'] = isset($w3all_conf_pref['w3all_add_into_phpBB_after_confirm']) ? $w3all_conf_pref['w3all_add_into_phpBB_after_confirm'] : 0;
 $w3all_conf_pref['w3all_push_new_pass_into_phpbb'] = isset($w3all_conf_pref['w3all_push_new_pass_into_phpbb']) ? $w3all_conf_pref['w3all_push_new_pass_into_phpbb'] : 0;
 $w3all_conf_pref['w3all_disable_ck_email_before_wp_update'] = isset($w3all_conf_pref['w3all_disable_ck_email_before_wp_update']) ? $w3all_conf_pref['w3all_disable_ck_email_before_wp_update'] : 0;
+$w3all_conf_pref['w3all_delete_users_into_phpbb_ext'] = isset($w3all_conf_pref['w3all_delete_users_into_phpbb_ext']) ? $w3all_conf_pref['w3all_delete_users_into_phpbb_ext'] : 0;
 
 $w3all_phpbb_dbconn['w3all_phpbb_url'] = isset($w3all_phpbb_dbconn['w3all_phpbb_url']) ? $w3all_phpbb_dbconn['w3all_phpbb_url'] : '';
 $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] = isset($w3all_phpbb_dbconn['w3all_phpbb_dbhost']) ? $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] : '';
@@ -147,10 +151,6 @@ $w3all_phpbb_dbconn['w3all_not_link_phpbb_wp'] = isset($w3all_phpbb_dbconn['w3al
  if($w3all_conf_pref['w3all_anti_brute_force_yn'] < 1){
       delete_option( 'w3all_bruteblock_phpbbulist');
   }
-
- if(isset( $_POST["w3all_conf"]["w3all_path_to_cms"]  ) OR isset( $_POST["w3all_phpbb_dbconn"] )){
-  register_uninstall_hook( __FILE__, array( 'WP_w3all_admin', 'clean_up_on_plugin_off' ) );
- }
 
 $up_conf_w3all_url = admin_url() . 'options-general.php?page=wp-w3all-options';
 
@@ -193,13 +193,13 @@ jQuery( "#w3all_config_b" ).click(function(e) {
 jQuery( "#w3allconfigoption" ).toggle();
 });
 </script>
-<?php echo __('<span style="color:red;font-weight:900;">NOTE for developers:</span> beware that <span style="color:red;font-weight:700;">if WordPress is running in debug mode</span>, failing on setting up db connection values here, lead WordPress to end up with a MySQL error warning and no way to update connection settings and get out by this situation (if not accessing db and changing related option values, or disabling the plugin etc).<br />Instead, open the <i>wp-config.php</i> file and temporarily <span style="color:red;font-weight:700;">disable the debug in WordPress</span><br />comment ( prepend with // ) the \'WP_DEBUG\' line<i>&nbsp;&nbsp; // define( \'WP_DEBUG\', true );</i><br />So WordPress will not end up with an error that stop any other WP code execution, when it is in DEBUG mode and a MySQL connection error occur'); ?>
+<?php echo __('<span style="color:red;font-weight:700;">NOTE: if WordPress is running in debug mode</span>, failing on setting up db connection values here, lead WordPress to end up with a MySQL error warning and no way to update connection settings and get out by this situation (if not accessing db and changing related option values, or disabling the plugin etc).<br />Instead, open the <i>wp-config.php</i> file and temporarily <span style="color:red;font-weight:700;">disable the debug in WordPress</span><br />comment ( prepend with // ) the \'WP_DEBUG\' line<i>&nbsp;&nbsp; // define( \'WP_DEBUG\', true );</i><br />So WordPress will not end up with an error that stop any other WP code execution, when it is in DEBUG mode and a MySQL connection error occur'); ?>
 <br /><br />
 phpBB real URL: do NOT add final slash and set https or http, the same as WordPress<br /><br />
 <input id="w3all_phpbb_url" name="w3all_phpbb_dbconn[w3all_phpbb_url]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_url'] ); ?>"> <b><span style="<?php if(empty($w3all_phpbb_dbconn['w3all_phpbb_url'])) {echo 'color:red';}else{echo 'display:none';} ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span></b> <?php echo __(' Real phpBB URL - NOTE: do NOT add final slash / &nbsp;&nbsp;Example: https://www.axew3.com/phpbb', 'wp-w3all-phpbb-integration'); ?>
 <br /><br /><br />
 phpBB database connection values<br /><br />
-<input id="w3all_phpbb_dbhost" name="w3all_phpbb_dbconn[w3all_phpbb_dbhost]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] ); ?>"> <b><span style="<?php if(empty($w3all_phpbb_dbconn['w3all_phpbb_dbhost'])) echo 'color:red'; ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span> Db host</b>
+<input id="w3all_phpbb_dbhost" name="w3all_phpbb_dbconn[w3all_phpbb_dbhost]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] ); ?>"> <b><span style="<?php if(empty($w3all_phpbb_dbconn['w3all_phpbb_dbhost'])) echo 'color:red'; ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span> Db host</b> <?php echo __('(if localhost may can be omitted)', 'wp-w3all-phpbb-integration'); ?>
 <br /><br />
 <input id="w3all_phpbb_dbname" name="w3all_phpbb_dbconn[w3all_phpbb_dbname]" type="text" size="35" value="<?php echo esc_attr( $w3all_phpbb_dbconn['w3all_phpbb_dbname'] ); ?>"> <b><span style="<?php if(empty($w3all_phpbb_dbconn['w3all_phpbb_dbname'])) echo 'color:red'; ?>"> <?php echo __('(REQUIRED)', 'wp-w3all-phpbb-integration');?></span> Db name</b>
 <br /><br />
@@ -248,7 +248,7 @@ jQuery( "#w3all_ck_page" ).toggle();
 </script>
 <?php
 echo __('it depend on how Cms are configured to run as integrated (where you allow users to update email)<br />but normally all users must exists into both CMS with unique username/email pairs<br />Use the <i>WP w3all check -> List phpBB users with duplicated usernames or emails</i> task<br /><strong style="color:#FF0000">NOTE: IT IS MANDATORY</strong> as explained on the <a target="_blank" href="https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/">Help Install Page</a><br /><strong style="color:#FF0000">to transfer existent WordPress users into phpBB when integration start</strong><br />
-  While <strong>it is (may) not mandatory</strong> to transfer phpBB users into WordPress when integration start<br />Run check tasks before to start the integration or use it to check for user\'s problems time after time<br />These options are also visible into WordPress admin under Tools Menu', 'wp-w3all-phpbb-integration'); 
+  While <strong>it is (may) not mandatory</strong> to transfer phpBB users into WordPress when integration start<br />Run check tasks before to start the integration or use it to check for user\'s problems time after time<br />These options are also visible into WordPress admin under Tools Menu', 'wp-w3all-phpbb-integration');
 
 /*if($w3all_conf_pref['w3all_transfer_phpbb_yn'] == 1){
  echo '<a href="' . admin_url() . 'options-general.php?page=wp-w3all-users-to-phpbb">wp-w3all-users-to-phpbb</a><br />';
@@ -295,7 +295,7 @@ if (! in_array($w3all_conf_pref['w3all_add_into_spec_group'], $existentGroups)) 
 
 <hr />
 
-<?php echo __('<h3>w3all sessions keys Brute Force countermeasure</h3><strong style="color:#FF0000">Note:</strong> do not deactivate/disable this option if you do not really know what it exactly mean</strong><br /><strong style="color:#FF0000">Note -> read this thread to know how a Secure Integration works:</strong> <a target="_blank" href="https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=80&p=320#p320">How to secure WP_w3all phpBB WordPress integration</a><br />Note: to reset/empty data of this option, set to NO and <i>Save WP_w3all Preferences</i>. If array of data will exceed 4000 records, a notice will display here', 'wp-w3all-phpbb-integration');
+<?php echo __('<h3>w3all sessions keys Brute Force countermeasure</h3><strong style="color:#FF0000">Note:</strong> do not deactivate/disable this option if you do not really know what it exactly mean</strong><br /><strong style="color:#FF0000">Note -> read this thread to know how a Secure Integration works:</strong> <a target="_blank" href="https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=80&p=320#p320">How to secure WP_w3all phpBB WordPress integration</a><br />Note: to force the reset/empty data of this option, set to NO and <i>Save WP_w3all Preferences</i>. It is cleaned up automatically when/if exceed 4000 ids records', 'wp-w3all-phpbb-integration');
 
 if ( !empty($w3all_bruteblock_phpbbulist_count) && $w3all_bruteblock_phpbbulist_count > 4000 ){
   echo __('<br /><br /><strong style="color:#FF0000;font-size:140%">Notice:</strong> the Brute Force list contain ', 'wp-w3all-phpbb-integration') . $w3all_bruteblock_phpbbulist_count . __(' records.<br />If you wish to empty/reset to 0 the list, disable the option and click <i>Save WP_w3all Preferences</i> button (then re-enable it)', 'wp-w3all-phpbb-integration');
@@ -330,10 +330,15 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 
 <hr />
 
-<?php echo __('<h3>Disable the check of the email existance in phpBB before it is updated in WordPress (front end plugins profile pages)</h3>', 'wp-w3all-phpbb-integration'); ?>
-<?php echo __('This option, active by default, can be disabled it if there are problems with the message "Error: email exists into our forum"<br />that could come out when some plugin goes to perform some task (example: Woocommerce memberships renewal process)<br />Note that deactivating this option, it is may required that users have been all paired using the check and users transfer process. If you wish to let users to update their email and register also in phpBB, you may will install the phpBB WordPress integration extension into phpBB side, or you\'ll disable the <i>Edit account settings</i> module in phpBB via<br /><i>ACP -> System Tab -> Module management -> User Control panel</i><br />disable the <i>Edit account settings</i> module (where user can change email and update password in phpBB)<br /><br />This option may do not affect the default WordPress user profile page. And it is may not required to disable this option into default WordPress installations<br />But it depend on how you configure WP and phpBB to run as integrated, and how external plugins manage profile updates<br />May test your installation before to disable', 'wp-w3all-phpbb-integration'); ?>
+<?php echo __('<h3 style="text-decoration:underline;text-decoration-color:#FA8072">Disable check of the existence of the email in phpBB before it is updated in WordPress (front end plugins profile pages)</h3>', 'wp-w3all-phpbb-integration'); ?>
+<?php echo __('<span style="color:red">Important:</span> this option, active by default, can be disabled it if there are problems with the message "Error: email exists into our forum" (that could come out in some page)<br />and/or that could come out when some plugin goes to perform some task (example: Woocommerce memberships renewal process, but not only)<br />Note that deactivating this option, it is required that users have been all paired using the check and users transfer process. If you wish to let users to update their email and register also in phpBB, you may will install the <a href="https://www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-tasks-extension/" target="_blank">phpBB WordPress Integration Common Tasks extension</a> into phpBB, or you\'ll disable registrations and the <i>Edit account settings</i> module in phpBB via<br /><i>ACP -> System Tab -> Module management -> User Control panel</i><br />disable the <i>Edit account settings</i> module (where user can change email and update password in phpBB)<br /><br />This option do not affect the default WordPress user profile page. And it is not required to disable this option into default WordPress installations<br />But it depend on how you configure WP and phpBB to run as integrated, and (more than this) how external plugins manage profile updates and WP hooks<br />Test your installation before to disable', 'wp-w3all-phpbb-integration'); ?>
 <p><input type="radio" name="w3all_conf_pref[w3all_disable_ck_email_before_wp_update]" id="w3all_disable_ck_email_before_wp_update_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_disable_ck_email_before_wp_update']); ?> /> <?php echo __('Disabled', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_disable_ck_email_before_wp_update]" id="w3all_disable_ck_email_before_wp_update_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_disable_ck_email_before_wp_update']); ?> /> <?php echo __('Enabled', 'wp-w3all-phpbb-integration'); ?></p>
+<hr />
+<?php echo __('<h3>Delete phpBB users when users deleted in WordPress</h3>', 'wp-w3all-phpbb-integration'); ?>
+<?php echo __('Note that before to activate this option, it is required to install the phpBB WordPress extension in phpBB.<br />If the phpBB WordPress extension is not installed in phpBB, this option will not affect.<br />Note that if this option is not active, users are deactivated in phpBB and not deleted, when deleted in WordPress (that is also a good antispam method).<br /><br />Note: even if this option has been activated, the default behavior will follow. So that if the cURL will fail (so the user will not be deleted in phpBB when deleted in WP) the user will be by the way deactivated in phpBB.<br />Note that activating this, will not be possible to delete more than 50 users per time in WordPress<br />(the delete action will refuse to follow, informing you to deactivate this option if you like to do so)', 'wp-w3all-phpbb-integration'); ?>
+<p><input type="radio" name="w3all_conf_pref[w3all_delete_users_into_phpbb_ext]" id="w3all_delete_users_into_phpbb_ext_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_delete_users_into_phpbb_ext']); ?> /> <?php echo __('Yes - require <a href="https://www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-tasks-extension/" target="_blank">phpBB WordPress Integration Common Tasks extension 1.0.2></a>', 'wp-w3all-phpbb-integration'); ?></p>
+<p><input type="radio" name="w3all_conf_pref[w3all_delete_users_into_phpbb_ext]" id="w3all_delete_users_into_phpbb_ext_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_delete_users_into_phpbb_ext']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
 <hr />
 <?php echo __('<h3>Force WordPress password reset (front end plugins)</h3>', 'wp-w3all-phpbb-integration'); ?>
 <?php echo __('If a frontend plugin bypass the default password reset process, so that this do not let update the new WordPress password at same time into phpBB, force the user\'s password update into phpBB when user login in WordPress<br /><br />This option is may not required into default WordPress installations. Test your installation before to activate', 'wp-w3all-phpbb-integration'); ?>
@@ -473,3 +478,5 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 <h4 style="font-weight:900;padding:2.5em 2.5em 0;"><a target="_blank"href="https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/#commonHowto">Common How To and all Shortcodes list</a></h4>
 <h4 style="padding:2.5em 2.5em 0;font-weight:900"><span style="font-size:150%;color:red;">&hearts;</span> <a href="https://www.paypal.me/alessionanni" target="_blank">Support this Plugin</a> <span style="font-size:150%;color:red;">&hearts;</span></h4>
 </div>
+
+</div><!-- <div class="w3_main_config_wrapper"> -->

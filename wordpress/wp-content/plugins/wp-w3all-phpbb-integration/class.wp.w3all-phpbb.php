@@ -107,7 +107,7 @@ private static function w3all_db_connect(){
    }
 
      if($_GET['page'] == 'wp-w3all-options' OR current_user_can('manage_options')){
-       echo __('<div class="" style="font-size:0.9em;margin:30px;width:50%;background-color:#F1F1F1;border:3px solid red;position:absolute;top:50;right:0;text-align:center;z-index:99999999;padding:20px;max-height:140px;overflow:scroll"><h3 style="margin:0 10px 10px 10px"><span style="color:#FF0000;">WARNING</span></h3><strong>phpBB database connection error.</strong><br /><span style="color:#FF0000">Integration Running as USERS NOT LINKED</span> until this message display.<br />Double check phpBB db connection values <span style="color:#FF0000">into the integration plugin admin page and <b>NOT the wp-config.php</span> (as may suggested on the message below).'.$dberror.'</div><br />', 'wp-w3all-phpbb-integration');
+       echo __('<div class="" style="font-size:0.9em;margin:30px;width:40%;background-color:#F1F1F1;border:3px solid red;position:fixed;top:120;right:0;text-align:center;z-index:99999999;padding:20px;max-height:140px;overflow:scroll"><h3 style="margin:0 10px 10px 10px"><span style="color:#FF0000;">WARNING</span></h3><strong>phpBB database connection error.</strong><br /><span style="color:#FF0000">Integration Running as USERS NOT LINKED</span> until this message display.<br />Double check phpBB db connection values <span style="color:#FF0000">into the integration plugin admin page and <b>NOT the wp-config.php</span> (as may suggested on the message below).'.$dberror.'</div><br />', 'wp-w3all-phpbb-integration');
       }
     return;
    }
@@ -201,7 +201,7 @@ private static function verify_phpbb_credentials(){
     // before this
      if( $current_user->ID == 1 OR intval($_COOKIE[$u]) == 2 ){ return; } // exclude WP admin UID1 and phpBB admin UID2
     // then this
-    if ( intval($_COOKIE[$u]) < 2 && is_user_logged_in() ) { self::w3all_wp_logout(); } // exclude again phpBB admin UID2
+    if ( intval($_COOKIE[$u]) < 2 && is_user_logged_in() ) { self::w3all_wp_logout(); }
 
 // HERE INSIDE WE ARE SECURE //
      if ( $_COOKIE[$u] > 1 ){
@@ -310,14 +310,15 @@ private static function verify_phpbb_credentials(){
 
  if(isset($phpbb_user_session[0])){
 
-  if( strtolower($current_user->user_email) != strtolower($phpbb_user_session[0]->user_email) )
+  /*if( strtolower($current_user->user_email) != strtolower($phpbb_user_session[0]->user_email) )
   {
 
    // if email changed into phpBB profile, then the username need to match on both phpBB and WP, or this update will fail, and we'll get a loop
-   if( strtolower($current_user->user_login) == mb_strtolower($phpbb_user_session[0]->username,'UTF-8') && !email_exists($phpbb_user_session[0]->user_email) )
-   {
-     $wpdb->query("UPDATE $wpu_db_utab SET user_email = '".$phpbb_user_session[0]->user_email."' WHERE ID = '$current_user->ID'");
-   }
+   // NOTE REMOVED: email change allowed in phpBB, only if integration extension added
+   //if( strtolower($current_user->user_login) == mb_strtolower($phpbb_user_session[0]->username,'UTF-8') && !email_exists($phpbb_user_session[0]->user_email) )
+   //{
+   //  $wpdb->query("UPDATE $wpu_db_utab SET user_email = '".$phpbb_user_session[0]->user_email."' WHERE ID = '$current_user->ID'");
+   //}
     // !!! NOTE IMPORTANT !!!!
     // USE THE /wp-w3all-phpbb-integration/addons/phpBB_EXT
     // SINCE 2.4.6>
@@ -332,14 +333,13 @@ private static function verify_phpbb_credentials(){
     // May redirection to what it is needed should be added, or wp home will be the redirect to (as code is more below, where user re-logged)
     // !!! NOTE IMPORTANT !!!!
 
-     wp_destroy_current_session();
-     wp_clear_auth_cookie();
-     wp_set_current_user( 0 );
-  }
+     //wp_destroy_current_session();
+     //wp_clear_auth_cookie();
+     //wp_set_current_user( 0 );
+  }*/
 
   // assure that this array will contain the user_id
   $phpbb_user_session[0]->user_id = $phpbb_u;
-
   // lowercase email
   $phpbb_user_session[0]->user_email = strtolower($phpbb_user_session[0]->user_email);
 
@@ -569,16 +569,16 @@ private static function verify_phpbb_credentials(){
 
  }
 
-  if ( ! is_user_logged_in() && ! is_wp_error( $user_id ) ) {
+  if ( ! is_user_logged_in() && ! is_wp_error( $user_id ) && $user_id > 1 ) {
 
-   $user_id = $user_id > 0 ? $user_id : $ck_wpun_exists;
+   //$user_id = $user_id > 0 ? $user_id : $ck_wpun_exists; // removed (only by email) //-> && $user_id > 1
 
-   $user = $wpdb->get_row("SELECT * FROM $wpu_db_utab WHERE ID = '".$user_id."' OR LOWER(user_email) = '".$phpbb_user_session[0]->user_email."' ");
+    $user = $wpdb->get_row("SELECT * FROM $wpu_db_utab WHERE ID = '".$user_id."' OR LOWER(user_email) = '".$phpbb_user_session[0]->user_email."' ");
        if(empty($user)){
         $user = get_user_by( 'ID', $user_id );
        }
 
-    if( !$user OR $user->ID < 2 ) { return; }
+    if( empty($user) OR $user->ID < 2 ) { return; }
 
        $remember = ( empty($phpbb_k) ) ? false : 1; // 1 is needed: true as $remember lead to false result
 
@@ -1190,7 +1190,7 @@ private static function create_phpBB_user($wpu, $action = ''){
  }
 
  if(isset($phpBBlid)){
- 	$w3all_oninsert_wp_user = 1; // or get email exist, because w3all_filter_pre_user_email() will fire after, wp update occour by the way
+  $w3all_oninsert_wp_user = 1; // or get email exist, because w3all_filter_pre_user_email() will fire after, wp update occour by the way
   return $phpBBlid;
  }
 
@@ -1778,7 +1778,10 @@ public static function wp_w3all_get_phpbb_user_info($username){ // email/user_ob
     $username = trim($username->user_login);
   }
 
-  $username = mb_strtolower($username,'UTF-8');
+ if(is_email($username)){
+  $username = strtolower($username);
+ } else { $username = mb_strtolower($username,'UTF-8'); }
+
   $username = esc_sql($username);
   $db_eu = is_email($username) ? 'users.user_email) = \''.$username.'\'' : 'users.username) = \''.$username.'\'';
 
@@ -1818,37 +1821,32 @@ public static function wp_w3all_get_phpbb_user_info_by_email($email){
 
 }
 
-
+// Only deactivate user in phpBB if deleted on WP
 public static function wp_w3all_phpbb_delete_user ($user_id){
 
  global $w3all_config,$wpdb,$w3all_phpbb_connection;
 
-// Only deactivate user in phpBB if deleted on WP
-
  $user = get_user_by( 'ID', $user_id );
- 
- if($user->ID < 2){
- 	return;
- }
- 
- $user->user_email = strtolower($user->user_email);
- $phpbb_udata = self::wp_w3all_get_phpbb_user_info($user->user_email);
 
- $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '1' WHERE LOWER(user_email) = '$user->user_email'");
-  if(isset($phpbb_udata[0])){
+ if($user->ID < 2){
+  return;
+ }
+
+ $user_email = strtolower($user->user_email);
+
+ $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'signups' : $wpdb->prefix . 'signups';
+ $wpdb->query("SHOW TABLES LIKE '$wpu_db_utab'");
+  if($wpdb->num_rows > 0){
+   $wpdb->query("DELETE FROM $wpu_db_utab WHERE LOWER(user_email) = '$user->user_email'");
+  }
+
+   $phpbb_udata = self::wp_w3all_get_phpbb_user_info($user_email);
+    if(empty($phpbb_udata[0])){ return; }
+
+   $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '1' WHERE LOWER(user_email) = '$user->user_email'");
    $uuid = $phpbb_udata[0]->user_id;
    $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions WHERE ".$w3all_config["table_prefix"]."sessions.session_user_id = '".$uuid."'");
    $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions_keys WHERE ".$w3all_config["table_prefix"]."sessions_keys.user_id = '".$uuid."'");
-  }
-
- $wpu_db_utab0 = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'signups' : $wpdb->prefix . 'signups';
-
- $wpu_db_utab = $wpdb->prefix . 'signups';
- $wpdb->query("SHOW TABLES LIKE '$wpu_db_utab'");
-  if($wpdb->num_rows > 0){
-   $wpdb->query("DELETE FROM $wpu_db_utab0 WHERE LOWER(user_email) = '$user->user_email'");
-   $wpdb->query("DELETE FROM $wpu_db_utab WHERE LOWER(user_email) = '$user->user_email'");
-  }
 
 }
 
@@ -1859,32 +1857,28 @@ public static function wp_w3all_phpbb_delete_user_signup($user_id, $blog_id = ''
 
 // Only deactivate user in phpBB if deleted on WP
 
- $user = get_user_by( 'ID', $user_id );
- $user->user_email = strtolower($user->user_email);
- $phpbb_udata = self::wp_w3all_get_phpbb_user_info($user->user_login);
+ $user = get_user_by('ID', $user_id);
+  if(empty($user->user_email)){ return; }
+ $user_email = strtolower($user->user_email);
+
+ $phpbb_udata = self::wp_w3all_get_phpbb_user_info_by_email($user_email);
+
+ if(empty($phpbb_udata[0])){ return; }
 
   $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '1' WHERE LOWER(user_email) = '$user->user_email'");
-  if(isset($phpbb_udata[0]->user_id)){
+
    $uuid = $phpbb_udata[0]->user_id;
    $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions WHERE ".$w3all_config["table_prefix"]."sessions.session_user_id = '".$uuid."'");
    $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions_keys WHERE ".$w3all_config["table_prefix"]."sessions_keys.user_id = '".$uuid."'");
 
-  }
-
-if ( is_multisite() ) { // clean also signup of this user if WPMU for compatibility with integration
+  // clean also signup of this user if WPMU for compatibility with integration
   // the check is done against an user that exist into users table, not signup
-  // we can't leave the user into signup table, while do not result in users tab: because in phpBB an user could register in the while another username, with same email
 
-  // cleanup signup from sub if exist
- $wpu_db_utab = $wpdb->prefix . 'signups';
- $wpdb->query("SHOW TABLES LIKE '$wpu_db_utab'");
-if($wpdb->num_rows > 0){
-  $wpu_db_utab = $wpdb->prefix . 'signups';
-  $wpdb->query("DELETE FROM $wpu_db_utab WHERE user_email = '$user->user_email' OR user_login = '$user->user_login'");
- }
-  // clean up from main
+  // cleanup signup if exist the table
  $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'signups' : $wpdb->prefix . 'signups';
- $wpdb->query("DELETE FROM $wpu_db_utab WHERE user_email = '$user->user_email' OR user_login = '$user->user_login'");
+ $wpdb->query("SHOW TABLES LIKE '$wpu_db_utab'");
+ if($wpdb->num_rows > 0){
+  $wpdb->query("DELETE FROM $wpu_db_utab WHERE user_email = '$user->user_email'");
  }
 
 }
@@ -1980,7 +1974,7 @@ if ( defined("W3PHPBBUSESSION") ) {
   } else {
    $file = WPW3ALL_PLUGIN_DIR . 'views/wp_w3all_phpbb_upm_short.php';
    ob_start();
-   include($file);
+    include($file);
    return ob_get_clean();
   }
 
@@ -2080,13 +2074,16 @@ public static function wp_w3all_phpbb_last_topics_single_multi_fp_short( $atts )
         'w3_ul_class' => '',
         'w3_li_class' => '',
         'w3_inline_style' => '',
-        'w3_href_blank' => '0'
+        'w3_href_blank' => '0',
+        'no_avatars' => ''
     ), $atts );
 
     if( empty($ltm['forums_id']) OR preg_match('/[^[,0-9]/',$ltm['forums_id']) ){
       echo'Specified parameter <i>forums_id</i> on Shortcode <i>w3allastopicforumsids</i> not found or contain wrong characters. w3all shortcode error.<br /> The shortcode need to be added like this:<br /><pre>[w3allastopicforumsids topics_number="5" forums_id="4,8"]</pre><br />change \'4,8\' <strong>with existent phpBB forums ID to display here (also a single one).</strong>';
       return;
     }
+
+    $no_avatars = intval($ltm['no_avatars']) > 0 ? 1 : 0;
     $topics_number = intval($ltm['topics_number']) > 0 ? intval($ltm['topics_number']) : 5; // 5 by default if not specified
     $wp_w3all_post_text = intval($ltm['post_text']) > 0 ? intval($ltm['post_text']) : 0;
     $wp_w3all_text_words = intval($ltm['text_words']) > 0 ? intval($ltm['text_words']) : 30;
@@ -2179,10 +2176,12 @@ public static function wp_w3all_get_phpbb_lastopics_short( $atts, $is_shortcode 
         'w3_ul_class' => '',
         'w3_li_class' => '',
         'w3_inline_style' => '',
-        'w3_href_blank' => ''
+        'w3_href_blank' => '',
+        'no_avatars' => ''
     ), $atts );
 
-    $mode = intval($ltm['mode']) > 0 ? 0 : 0; // not used
+    //$mode = intval($ltm['mode']) > 0 ? 0 : 0; // not used
+    $no_avatars = intval($ltm['no_avatars']) > 0 ? 1 : 0;
     $topics_number = intval($ltm['topics_number']) > 0 ? intval($ltm['topics_number']) : 0;
     $wp_w3all_post_text = intval($ltm['post_text']) > 0 ? intval($ltm['post_text']) : 0;
     $wp_w3all_text_words = intval($ltm['text_words']) > 0 ? intval($ltm['text_words']) : 0;
@@ -2465,9 +2464,10 @@ $cccc++;
        }
      }
 
+    if(!empty($attach_output)){
      $attach_output = '<div style="background:#F3F3F3;margin:10px 0;padding:10px"><div><i>'.__( 'Attachments', 'wp-w3all-phpbb-integration' ).'</i><hr style="margin:0;" /></div>'.$attach_output .'</div>';
-
-    if(isset($phpbb_post_attach) && isset($attach_output)){
+    }
+    if(isset($phpbb_post_attach) && !empty($attach_output)){
       $res .= $attach_output;
     }
 // attachments END

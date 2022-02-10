@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.5.4
+Stable tag: 2.5.5
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.9
@@ -72,6 +72,23 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.5.5 =
+*Release Date - 9 Feb, 2022*
+
+* Fix: correctly remove all db options (famous 5/6 rows) when plugin uninstalled
+* Fix: clean up function wp_w3all_phpbb_delete_user_signup() from not necessary code
+* Add: no_avatars="1" param into shortcodes 'w3allastopics' and 'w3allastopicforumsids'. If the paramater is set and is set to 1, avatars will not display into the used shortcode, even if into the plugin admin, avatars settings have been set as active. Note that to update to this if using custom shortcodes files you have to substitute these files or this shortcode option will not affect
+* Fix: 'w3allforumpost' shortcode to correctly display or not the attachment panel into rendered posts
+* Add: option delete users in phpBB when deleted in WordPress. It require the 'phpBB WordPress integration common tasks extension' installed in phpBB to work as expected. It do not require to activate any option into the extension
+* Note about delete users option: by default users deleted in WP are deactivated in phpBB, and it will continue to be the default behavior if option not active (and even if active: so that if the cURL will fail, and users not deleted in phpBB, users will be by the way deactivated in phpBB)
+* See logs: https://www.axew3.com/w3/forums/viewtopic.php?p=5511#p5511
+* phpBB extension: download and follow instructions if you wish to update to 1.0.2 (that only add the above mentioned feature about users deletion) here: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=1670
+* Note: the phpBB extension will not anymore provided within the plugin. To make it more comfortable to be updated all will be ever into one single place: https://www.axew3.com/w3/forums/viewtopic.php?p=5509#p5509
+* Note: the phpBB extension main page link has been added into plugin admin page
+* Fix: more hints simplified (to be more clear, like about bruteforce behavior) into phpBB admin
+* New: help install simplified, shortened and improved has been linked into plugin admin and the old marked as obsolete: https://www.axew3.com/w3/wordpress-phpbb-integration-install/
+* More minor fixes and clean up
 
 = 2.5.4 =
 *Release Date - 29 Jan, 2022*

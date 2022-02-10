@@ -51,7 +51,6 @@ if($spos !== false)
 }} else { $w3guessdomaindisplay = 'Did you setup the URL that point to phpBB into the integration plugin admin page<br /> and is it correct?'; }
 
 if( preg_match('/[^0-9]/',$w3phpbbuid) OR preg_match('/[^a-z]/',$w3phpbbwatch) OR preg_match('/[^a-z]/',$w3phpbbunwatch) OR preg_match('/[^A-Za-z]/',$w3iu_folder) OR preg_match('/[^A-Za-z]/',$w3iu) OR preg_match('/[^0-9]/',$w3phpbb_start) OR preg_match('/[^0-9]/',$w3topic_id) OR preg_match('/[^0-9]/',$w3forum_id) OR preg_match('/[^0-9]/',$w3post_id) OR preg_match('/[^0-9A-Za-z]/',$w3mode) OR preg_match('/[^0-9A-Za-z]/',$w3phpbbsid) ){
-
   die("Something goes wrong with your URL request, <a href=\"$w3allhomeurl\">please leave this page</a>.");
 }
 
@@ -314,6 +313,7 @@ get_header();
         document.location.replace('".$w3allhomeurl."/index.php/".$wp_w3all_forum_folder_wp."/');
        }
     }
+      jQuery('#w3idwloader').css(\"display\",\"none\");
       var w3all_phpbbpmcount = /.*(#w3all_phpbbpmcount)=([0-9]+).*/ig.exec(res);
       if(w3all_phpbbpmcount !== null){
          w3all_ajaxup_from_phpbb_do(w3all_phpbbpmcount[2]);

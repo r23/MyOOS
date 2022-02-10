@@ -2,7 +2,11 @@
 // This file views/phpbb_last_topics_single_multi_shortcode.php output shortcode 'w3allastopicspagesm' (Last Topics For specific forums ids shortcode)
 
 $w3all_avatars_yn = ( $w3all_get_phpbb_avatar_yn == 1 && $w3all_last_t_avatar_yn == 1 ) ? true : false; // avatars or not
-
+// if yes, check that it has not been disabled/redefined into this shortcode via no_avatar param
+ if ( $w3all_avatars_yn ) {
+  $w3all_avatars_yn = $no_avatars > 0 ? false : $w3all_avatars_yn;
+ }
+ 
 $dateformat = get_option('date_format');
 $gmtoffset = get_option('gmt_offset');
 $timeformat = get_option('time_format');

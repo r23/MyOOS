@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-w3all-phpbb-integration\n"
-"POT-Creation-Date: 2022-01-27 18:52+0100\n"
+"POT-Creation-Date: 2022-02-09 15:32+0100\n"
 "PO-Revision-Date: 2022-01-23 00:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: wp-w3all-phpbb@you.us\n"
@@ -18,15 +18,19 @@ msgstr ""
 "X-Poedit-SearchPath-0: languages\n"
 "X-Poedit-SearchPath-1: .\n"
 
-#: addons/page-forum.php:168 addons/page-forum.php:172
+#: addons/page-forum.php:167 addons/page-forum.php:171
 #: views/wp_w3all_login_form.php:73 views/wp_w3all_phpbb_upm_short.php:4
-#: wp_w3all.php:828 wp_w3all.php:858
+#: wp_w3all.php:852 wp_w3all.php:882
 msgid "You have "
 msgstr ""
 
-#: addons/page-forum.php:168 addons/page-forum.php:172
+#: addons/page-forum.php:167 addons/page-forum.php:171
 #: views/wp_w3all_phpbb_upm_short.php:4
 msgid " unread forum PM"
+msgstr ""
+
+#: admin/config.php:82
+msgid "<h1>WordPress phpBB integration</h1>"
 msgstr ""
 
 #: admin/config.php:177
@@ -59,15 +63,14 @@ msgstr ""
 
 #: admin/config.php:196
 msgid ""
-"<span style=\"color:red;font-weight:900;\">NOTE for developers:</span> "
-"beware that <span style=\"color:red;font-weight:700;\">if WordPress is "
-"running in debug mode</span>, failing on setting up db connection values "
-"here, lead WordPress to end up with a MySQL error warning and no way to "
-"update connection settings and get out by this situation (if not accessing "
-"db and changing related option values, or disabling the plugin etc).<br /"
-">Instead, open the <i>wp-config.php</i> file and temporarily <span style="
-"\"color:red;font-weight:700;\">disable the debug in WordPress</span><br /"
-">comment ( prepend with // ) the 'WP_DEBUG' line<i>&nbsp;&nbsp; // "
+"<span style=\"color:red;font-weight:700;\">NOTE: if WordPress is running in "
+"debug mode</span>, failing on setting up db connection values here, lead "
+"WordPress to end up with a MySQL error warning and no way to update "
+"connection settings and get out by this situation (if not accessing db and "
+"changing related option values, or disabling the plugin etc).<br />Instead, "
+"open the <i>wp-config.php</i> file and temporarily <span style=\"color:red;"
+"font-weight:700;\">disable the debug in WordPress</span><br />comment "
+"( prepend with // ) the 'WP_DEBUG' line<i>&nbsp;&nbsp; // "
 "define( 'WP_DEBUG', true );</i><br />So WordPress will not end up with an "
 "error that stop any other WP code execution, when it is in DEBUG mode and a "
 "MySQL connection error occur"
@@ -82,6 +85,10 @@ msgstr ""
 msgid ""
 " Real phpBB URL - NOTE: do NOT add final slash / &nbsp;&nbsp;Example: "
 "https://www.axew3.com/phpbb"
+msgstr ""
+
+#: admin/config.php:202
+msgid "(if localhost may can be omitted)"
 msgstr ""
 
 #: admin/config.php:214
@@ -191,9 +198,9 @@ msgid ""
 "#FF0000\">Note -> read this thread to know how a Secure Integration works:</"
 "strong> <a target=\"_blank\" href=\"https://www.axew3.com/w3/forums/"
 "viewtopic.php?f=2&t=80&p=320#p320\">How to secure WP_w3all phpBB WordPress "
-"integration</a><br />Note: to reset/empty data of this option, set to NO and "
-"<i>Save WP_w3all Preferences</i>. If array of data will exceed 4000 records, "
-"a notice will display here"
+"integration</a><br />Note: to force the reset/empty data of this option, set "
+"to NO and <i>Save WP_w3all Preferences</i>. It is cleaned up automatically "
+"when/if exceed 4000 ids records"
 msgstr ""
 
 #: admin/config.php:301
@@ -208,20 +215,20 @@ msgid ""
 "and click <i>Save WP_w3all Preferences</i> button (then re-enable it)"
 msgstr ""
 
-#: admin/config.php:305 admin/config.php:340 admin/config.php:348
-#: admin/config.php:358 admin/config.php:363 admin/config.php:367
-#: admin/config.php:372 admin/config.php:376 admin/config.php:380
-#: admin/config.php:384 admin/config.php:388 admin/config.php:405
-#: admin/config.php:409 admin/config.php:449
+#: admin/config.php:305 admin/config.php:345 admin/config.php:353
+#: admin/config.php:363 admin/config.php:368 admin/config.php:372
+#: admin/config.php:377 admin/config.php:381 admin/config.php:385
+#: admin/config.php:389 admin/config.php:393 admin/config.php:410
+#: admin/config.php:414 admin/config.php:454
 #: class.wp.w3all.widgets-phpbb.php:45 class.wp.w3all.widgets-phpbb.php:124
 msgid "Yes"
 msgstr ""
 
-#: admin/config.php:306 admin/config.php:341 admin/config.php:349
-#: admin/config.php:359 admin/config.php:364 admin/config.php:368
-#: admin/config.php:373 admin/config.php:377 admin/config.php:381
-#: admin/config.php:385 admin/config.php:389 admin/config.php:406
-#: admin/config.php:410 admin/config.php:450
+#: admin/config.php:306 admin/config.php:341 admin/config.php:346
+#: admin/config.php:354 admin/config.php:364 admin/config.php:369
+#: admin/config.php:373 admin/config.php:378 admin/config.php:382
+#: admin/config.php:386 admin/config.php:390 admin/config.php:394
+#: admin/config.php:411 admin/config.php:415 admin/config.php:455
 #: class.wp.w3all.widgets-phpbb.php:44 class.wp.w3all.widgets-phpbb.php:123
 msgid "No"
 msgstr ""
@@ -252,28 +259,32 @@ msgstr ""
 
 #: admin/config.php:333
 msgid ""
-"<h3>Disable the check of the email existance in phpBB before it is updated "
-"in WordPress (front end plugins profile pages)</h3>"
+"<h3 style=\"text-decoration:underline;text-decoration-color:"
+"#FA8072\">Disable check of the existence of the email in phpBB before it is "
+"updated in WordPress (front end plugins profile pages)</h3>"
 msgstr ""
 
 #: admin/config.php:334
 msgid ""
-"This option, active by default, can be disabled it if there are problems "
-"with the message \"Error: email exists into our forum\"<br />that could come "
-"out when some plugin goes to perform some task (example: Woocommerce "
-"memberships renewal process)<br />Note that deactivating this option, it is "
-"may required that users have been all paired using the check and users "
-"transfer process. If you wish to let users to update their email and "
-"register also in phpBB, you may will install the phpBB WordPress integration "
-"extension into phpBB side, or you'll disable the <i>Edit account settings</"
-"i> module in phpBB via<br /><i>ACP -> System Tab -> Module management -> "
-"User Control panel</i><br />disable the <i>Edit account settings</i> module "
-"(where user can change email and update password in phpBB)<br /><br />This "
-"option may do not affect the default WordPress user profile page. And it is "
-"may not required to disable this option into default WordPress "
-"installations<br />But it depend on how you configure WP and phpBB to run as "
-"integrated, and how external plugins manage profile updates<br />May test "
-"your installation before to disable"
+"<span style=\"color:red\">Important:</span> this option, active by default, "
+"can be disabled it if there are problems with the message \"Error: email "
+"exists into our forum\" (that could come out in some page)<br />and/or that "
+"could come out when some plugin goes to perform some task (example: "
+"Woocommerce memberships renewal process, but not only)<br />Note that "
+"deactivating this option, it is required that users have been all paired "
+"using the check and users transfer process. If you wish to let users to "
+"update their email and register also in phpBB, you may will install the <a "
+"href=\"https://www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-"
+"tasks-extension/\" target=\"_blank\">phpBB WordPress Integration Common "
+"Tasks extension</a> into phpBB, or you'll disable registrations and the "
+"<i>Edit account settings</i> module in phpBB via<br /><i>ACP -> System Tab -"
+"> Module management -> User Control panel</i><br />disable the <i>Edit "
+"account settings</i> module (where user can change email and update password "
+"in phpBB)<br /><br />This option do not affect the default WordPress user "
+"profile page. And it is not required to disable this option into default "
+"WordPress installations<br />But it depend on how you configure WP and phpBB "
+"to run as integrated, and (more than this) how external plugins manage "
+"profile updates and WP hooks<br />Test your installation before to disable"
 msgstr ""
 
 #: admin/config.php:335
@@ -285,10 +296,36 @@ msgid "Enabled"
 msgstr ""
 
 #: admin/config.php:338
-msgid "<h3>Force WordPress password reset (front end plugins)</h3>"
+msgid "<h3>Delete phpBB users when users deleted in WordPress</h3>"
 msgstr ""
 
 #: admin/config.php:339
+msgid ""
+"Note that before to activate this option, it is required to install the "
+"phpBB WordPress extension in phpBB.<br />If the phpBB WordPress extension is "
+"not installed in phpBB, this option will not affect.<br />Note that if this "
+"option is not active, users are deactivated in phpBB and not deleted, when "
+"deleted in WordPress (that is also a good antispam method).<br /><br />Note: "
+"even if this option has been activated, the default behavior will follow. So "
+"that if the cURL will fail (so the user will not be deleted in phpBB when "
+"deleted in WP) the user will be by the way deactivated in phpBB.<br />Note "
+"that activating this, will not be possible to delete more than 50 users per "
+"time in WordPress<br />(the delete action will refuse to follow, informing "
+"you to deactivate this option if you like to do so)"
+msgstr ""
+
+#: admin/config.php:340
+msgid ""
+"Yes - require <a href=\"https://www.axew3.com/w3/2022/02/phpbb-wordpress-"
+"integration-common-tasks-extension/\" target=\"_blank\">phpBB WordPress "
+"Integration Common Tasks extension 1.0.2></a>"
+msgstr ""
+
+#: admin/config.php:343
+msgid "<h3>Force WordPress password reset (front end plugins)</h3>"
+msgstr ""
+
+#: admin/config.php:344
 msgid ""
 "If a frontend plugin bypass the default password reset process, so that this "
 "do not let update the new WordPress password at same time into phpBB, force "
@@ -297,11 +334,11 @@ msgid ""
 "your installation before to activate"
 msgstr ""
 
-#: admin/config.php:343
+#: admin/config.php:348
 msgid "Exclude phpBB forums ids to be listed on Last Topics Posts widgets"
 msgstr ""
 
-#: admin/config.php:344
+#: admin/config.php:349
 msgid ""
 "Comma separated, phpBB forums ID to be excluded from w3all Last Topics Posts "
 "widget<br /><b>Note</b>: if string contain a different sequence than "
@@ -309,26 +346,26 @@ msgid ""
 "the front end widget) <b>Correct example: 2,3,7,12,20</b>"
 msgstr ""
 
-#: admin/config.php:346
+#: admin/config.php:351
 msgid ""
 "<h3>Retrieve posts on Last Topics Widget based on phpBB user's permissions</"
 "h3>"
 msgstr ""
 
-#: admin/config.php:347
+#: admin/config.php:352
 msgid ""
 "If some forum require specific permissions to be viewed and the user do not "
 "belong to this specific allowed group, posts/topics from these forums are "
 "not retrieved to be displayed into Last Topics Widgets"
 msgstr ""
 
-#: admin/config.php:351
+#: admin/config.php:356
 msgid ""
 "<h3>Use custom files to display Last Topics Widgets, Login Widget or "
 "Shortcodes content</h3>"
 msgstr ""
 
-#: admin/config.php:352
+#: admin/config.php:357
 msgid ""
 "Files that display widgets output and that reside into folder <i>/wp-content/"
 "plugins/wp-w3all-phpbb-integration<b>/views</b></i><br />can be copied/"
@@ -341,22 +378,22 @@ msgid ""
 "<i>/wp-content/plugins/<b>wp-w3all-config</b></i> folder"
 msgstr ""
 
-#: admin/config.php:353
+#: admin/config.php:358
 msgid ""
 "Yes, use custom files copied into <i>/wp-content/plugins/<b>wp-w3all-config</"
 "b></i> folder"
 msgstr ""
 
-#: admin/config.php:354
+#: admin/config.php:359
 msgid "No, use default folder's plugin files"
 msgstr ""
 
-#: admin/config.php:356
+#: admin/config.php:361
 msgid ""
 "<h3>Add users in phpBB only after first successful login in WordPress</h3>"
 msgstr ""
 
-#: admin/config.php:357
+#: admin/config.php:362
 msgid ""
 "Note: if the option below<br />- <i>Deactivate phpBB user account until WP "
 "confirmation</i><br />is set to Yes, then the user will be added into phpBB "
@@ -373,7 +410,7 @@ msgid ""
 "will fail and the user will have to login by the way"
 msgstr ""
 
-#: admin/config.php:361
+#: admin/config.php:366
 msgid ""
 "<h3>Deactivate phpBB user account until WP confirmation</h3>If this option "
 "is set to Yes, users are added in phpBB as <b><i>deactivated</i></b> when "
@@ -387,7 +424,7 @@ msgid ""
 "able to login until not activated via admin in phpBB"
 msgstr ""
 
-#: admin/config.php:362
+#: admin/config.php:367
 msgid ""
 "<br /><!--<span style=\"text-decoration: line-through;\"><b>Note</b>: this "
 "work only with default WP registration system where WP send an email link to "
@@ -399,7 +436,7 @@ msgid ""
 "about WP/phpBB account confirmation/activation</span>-->"
 msgstr ""
 
-#: admin/config.php:366
+#: admin/config.php:371
 msgid ""
 "<h3>Activate notify Read/Unread Topics/Posts into Last Topics widgets </"
 "h3>Set to <b>Yes</b>, to notify on Last Topics Widgets if listed topics are "
@@ -407,7 +444,7 @@ msgid ""
 "users"
 msgstr ""
 
-#: admin/config.php:370
+#: admin/config.php:375
 msgid ""
 "<h3>Activate Font Awesome icons to notify Read/Unread Topics/Posts on Last "
 "Topics widgets or shortcodes </h3>If activated, the CSS Font Awesome library "
@@ -416,14 +453,14 @@ msgid ""
 "Shortcode"
 msgstr ""
 
-#: admin/config.php:375
+#: admin/config.php:380
 msgid ""
 "<h3>Activate notify Read/Unread Private Messages into Admin Tool Bar </"
 "h3>Display new user's phpBB Private Messages notification into WP admin "
 "user's toolbar"
 msgstr ""
 
-#: admin/config.php:379
+#: admin/config.php:384
 msgid ""
 "<h3>Activate language update/switch on profile for users between WordPress "
 "and phpBB</h3>When user change language on profile, it will be so updated "
@@ -434,14 +471,14 @@ msgid ""
 "send out a PM for example)"
 msgstr ""
 
-#: admin/config.php:383
+#: admin/config.php:388
 msgid ""
 "<h3>Swap WordPress default <i>Register and Lost Password</i> links to point "
 "to phpBB related pages</h3>Note: option <i>Links for embedded phpBB iframe "
 "into WordPress</i> more below, affect this option"
 msgstr ""
 
-#: admin/config.php:387
+#: admin/config.php:392
 msgid ""
 "<h3 style=\"color:#003333\">Activate [w3allcustomiframe] shortcode</"
 "h3>Advanced. This shortcode can (also) be used in <span style=\"color:"
@@ -453,11 +490,11 @@ msgid ""
 "properly on each WordPress page this shorcode will be added"
 msgstr ""
 
-#: admin/config.php:391
+#: admin/config.php:396
 msgid "Save WP_w3all Preferences"
 msgstr ""
 
-#: admin/config.php:401
+#: admin/config.php:406
 msgid ""
 "<h3>Use phpBB avatar to replace WordPress user's avatar</h3>If set to Yes, "
 "Gravatars profiles images on WordPress, are replaced by phpBB user's avatars "
@@ -474,13 +511,13 @@ msgid ""
 "setting (if you do not want really it)"
 msgstr ""
 
-#: admin/config.php:408
+#: admin/config.php:413
 msgid ""
 "<h3 style=\"color:#869eff\">Activate phpBB avatars on Last Forums Topics "
 "widgets</h3>Add avatars for each user on Last Forums Topics widget"
 msgstr ""
 
-#: admin/config.php:412
+#: admin/config.php:417
 msgid ""
 "<h3>Last Forums Topics Widget avatar's dimension</h3>Set the avatar "
 "dimension (in pixel) for Last Forum Topics Widget (Ex: 50).<br />Note: "
@@ -488,7 +525,7 @@ msgid ""
 "on Last Forums Topics widgets</i> option is set to yes"
 msgstr ""
 
-#: admin/config.php:415
+#: admin/config.php:420
 msgid ""
 "<h3>Last Forums Topics number of users's avatars to retrieve</"
 "h3><strong><span style=\"color:red\">Note:</span> if not set, 10 by default, "
@@ -502,11 +539,11 @@ msgid ""
 "yes"
 msgstr ""
 
-#: admin/config.php:419
+#: admin/config.php:424
 msgid "Save WP_w3all Avatars Options"
 msgstr ""
 
-#: admin/config.php:428
+#: admin/config.php:433
 msgid ""
 "<h4 style=\"color:#333\">Before to activate this option, <b><a href="
 "\"https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-"
@@ -520,7 +557,7 @@ msgid ""
 "<h3>Create or rebuild WordPress forum page template</h3>"
 msgstr ""
 
-#: admin/config.php:431
+#: admin/config.php:436
 msgid ""
 " This option set the name of (and create) the page template that will embed "
 "the phpBB forum iframe on WordPress.<br />It is required to create a new "
@@ -560,15 +597,15 @@ msgid ""
 "\"Create WP_w3all phpBB Page Template\" button."
 msgstr ""
 
-#: admin/config.php:440
+#: admin/config.php:445
 msgid "Create/Rebuild WP_w3all phpBB Page Template"
 msgstr ""
 
-#: admin/config.php:447
+#: admin/config.php:452
 msgid "Links for embedded phpBB iframe into WordPress"
 msgstr ""
 
-#: admin/config.php:448
+#: admin/config.php:453
 msgid ""
 "Note important: if using the iframe mode and the phpBB JS overall_header."
 "html code applied (that redirect any direct link to phpBB, to the WP page "
@@ -586,11 +623,11 @@ msgid ""
 "index phpBB Urls (real phpBB Urls)"
 msgstr ""
 
-#: admin/config.php:451
+#: admin/config.php:456
 msgid "Fancy URL query string for the WordPress page forum that embed phpBB"
 msgstr ""
 
-#: admin/config.php:453
+#: admin/config.php:458
 msgid ""
 "Change the <i>w3</i> var of the WordPress forum's page query URL part<br /"
 ">If you change the default value <strong><i>w3</i></strong>, then you have "
@@ -609,17 +646,17 @@ msgid ""
 "html</i> code"
 msgstr ""
 
-#: admin/config.php:455
+#: admin/config.php:460
 msgid "Re-position top gap"
 msgstr ""
 
-#: admin/config.php:457
+#: admin/config.php:462
 msgid ""
 "Change (in pixel) the distance gap where the WordPress page Forum will "
 "scroll to by default (useful to fit different theme headers)"
 msgstr ""
 
-#: admin/config.php:460
+#: admin/config.php:465
 msgid ""
 "Save Last Topics widgets/shortcodes links, top gap and Fancy Url settings"
 msgstr ""
@@ -731,15 +768,15 @@ msgstr ""
 
 #: class.wp.w3all-phpbb.php:110
 msgid ""
-"<div class=\"\" style=\"font-size:0.9em;margin:30px;width:50%;background-"
-"color:#F1F1F1;border:3px solid red;position:absolute;top:50;right:0;text-"
-"align:center;z-index:99999999;padding:20px;max-height:140px;overflow:scroll"
-"\"><h3 style=\"margin:0 10px 10px 10px\"><span style=\"color:#FF0000;"
-"\">WARNING</span></h3><strong>phpBB database connection error.</strong><br /"
-"><span style=\"color:#FF0000\">Integration Running as USERS NOT LINKED</"
-"span> until this message display.<br />Double check phpBB db connection "
-"values <span style=\"color:#FF0000\">into the integration plugin admin page "
-"and <b>NOT the wp-config.php</span> (as may suggested on the message below)."
+"<div class=\"\" style=\"font-size:0.9em;margin:30px;width:40%;background-"
+"color:#F1F1F1;border:3px solid red;position:fixed;top:120;right:0;text-align:"
+"center;z-index:99999999;padding:20px;max-height:140px;overflow:scroll\"><h3 "
+"style=\"margin:0 10px 10px 10px\"><span style=\"color:#FF0000;\">WARNING</"
+"span></h3><strong>phpBB database connection error.</strong><br /><span style="
+"\"color:#FF0000\">Integration Running as USERS NOT LINKED</span> until this "
+"message display.<br />Double check phpBB db connection values <span style="
+"\"color:#FF0000\">into the integration plugin admin page and <b>NOT the wp-"
+"config.php</span> (as may suggested on the message below)."
 msgstr ""
 
 #: class.wp.w3all-phpbb.php:282
@@ -773,20 +810,20 @@ msgid ""
 "allowed on this system. Please contact an administrator.</strong></p></div>"
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:1248
+#: class.wp.w3all-phpbb.php:1249
 msgid ""
 "<strong>ERROR</strong>: You're logged in! Back to main site and logout "
 "before to create a new account."
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:1639
+#: class.wp.w3all-phpbb.php:1640
 msgid ""
 "<p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.3em"
 "\"><strong>Notice: your username contains illegal characters that are not "
 "allowed in this system. Please contact an administrator.</strong></p>"
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:1694
+#: class.wp.w3all-phpbb.php:1696
 msgid ""
 "<div><p style=\"padding:10px 30px;background-color:#fff;color:#000;font-"
 "size:1.0em\"><strong>ERROR: try to reload page, but if the error persist may "
@@ -794,7 +831,7 @@ msgid ""
 "allowed on this cms. Please contact an administrator.</strong></p></div>"
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:2461
+#: class.wp.w3all-phpbb.php:2468
 msgid "Attachments"
 msgstr ""
 
@@ -826,23 +863,39 @@ msgstr ""
 msgid "Last Topics Posts"
 msgstr ""
 
+#: common/phpbb_endpoints_ext_functions.php:38
+msgid ""
+"<h4>ERROR: too much users to be deleted per time (max 50). Return back and "
+"disable the option you activated that allow to delete users in phpBB (if you "
+"wish to delete more than 30 users per time) into the WP_w3all integration "
+"plugin admin page. Remember deativating the option: in this case, deleted "
+"users in WP, are deactivated in phpBB and not deleted<.</h4>"
+msgstr ""
+
+#: common/phpbb_endpoints_ext_functions.php:81
+msgid ""
+"<h4>ERROR: cannot cURL the linked phpBB to delete users. Return back and "
+"disable the option that allow to delete users in phpBB, into the WP_w3all "
+"integration plugin admin page.</h4>"
+msgstr ""
+
 #: views/phpbb_last_topics.php:61
-#: views/phpbb_last_topics_forums_ids_shortcode.php:68
-#: views/phpbb_last_topics_output_shortcode.php:65
+#: views/phpbb_last_topics_forums_ids_shortcode.php:72
+#: views/phpbb_last_topics_output_shortcode.php:69
 #: views/phpbb_last_topics_withimage_output_shortcode.php:42
 msgid "Guest"
 msgstr ""
 
 #: views/phpbb_last_topics.php:67 views/phpbb_last_topics.php:71
 #: views/phpbb_last_topics.php:81 views/phpbb_last_topics.php:85
-#: views/phpbb_last_topics_forums_ids_shortcode.php:74
 #: views/phpbb_last_topics_forums_ids_shortcode.php:78
-#: views/phpbb_last_topics_forums_ids_shortcode.php:88
+#: views/phpbb_last_topics_forums_ids_shortcode.php:82
 #: views/phpbb_last_topics_forums_ids_shortcode.php:92
-#: views/phpbb_last_topics_output_shortcode.php:71
+#: views/phpbb_last_topics_forums_ids_shortcode.php:96
 #: views/phpbb_last_topics_output_shortcode.php:75
-#: views/phpbb_last_topics_output_shortcode.php:85
+#: views/phpbb_last_topics_output_shortcode.php:79
 #: views/phpbb_last_topics_output_shortcode.php:89
+#: views/phpbb_last_topics_output_shortcode.php:93
 #: views/phpbb_last_topics_withimage_output_shortcode.php:91
 msgid "by "
 msgstr ""
@@ -920,7 +973,7 @@ msgstr ""
 msgid "Registered on: "
 msgstr ""
 
-#: wp_w3all.php:377 wp_w3all.php:1372 wp_w3all.php:1389
+#: wp_w3all.php:395 wp_w3all.php:1396 wp_w3all.php:1413
 msgid ""
 "<p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.3em"
 "\"><strong>Notice: your forum username contains illegal characters not "
@@ -929,7 +982,7 @@ msgid ""
 "strong></p>"
 msgstr ""
 
-#: wp_w3all.php:381 wp_w3all.php:1376 wp_w3all.php:1393
+#: wp_w3all.php:399 wp_w3all.php:1400 wp_w3all.php:1417
 msgid ""
 "<p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.3em"
 "\"><strong>Notice: your forum username contains illegal characters not "
@@ -937,7 +990,7 @@ msgid ""
 "contact an administrator.</strong></p>"
 msgstr ""
 
-#: wp_w3all.php:412 wp_w3all.php:1421
+#: wp_w3all.php:430 wp_w3all.php:1445
 msgid ""
 "<div><p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.0em"
 "\"><strong>Error: try to reload page, but if the error persist may mean that "
@@ -945,7 +998,7 @@ msgid ""
 "allowed on this system. Please contact an administrator.</strong></p></div>"
 msgstr ""
 
-#: wp_w3all.php:505
+#: wp_w3all.php:524
 msgid ""
 "<strong>Notice: account Locked<br />Please re-login!</strong><br />Account "
 "logged out due to detected brute force attack against session or due to "
@@ -953,90 +1006,90 @@ msgid ""
 "strong>"
 msgstr ""
 
-#: wp_w3all.php:516
+#: wp_w3all.php:535
 msgid ""
 "Notice: your username, IP or email is currently banned into our forum. "
 "Please contact an administrator."
 msgstr ""
 
-#: wp_w3all.php:519
+#: wp_w3all.php:538
 msgid ""
 "Notice: the specified username is currently inactive into our forum. Please "
 "contact an administrator."
 msgstr ""
 
-#: wp_w3all.php:522
+#: wp_w3all.php:541
 msgid ""
 "Notice: the specified username contains characters not allowed in this "
 "system. Please contact an administrator."
 msgstr ""
 
-#: wp_w3all.php:525
+#: wp_w3all.php:544
 msgid ""
 "Notice: mismatching session OR bruteforce login detected. Please login here "
 "again to unlock your account."
 msgstr ""
 
-#: wp_w3all.php:539
+#: wp_w3all.php:558
 msgid ""
 "<strong>Error</strong>: wrong email or the provided username, email or IP "
 "address result banned on our forum."
 msgstr ""
 
-#: wp_w3all.php:546
+#: wp_w3all.php:565
 msgid ""
 "<strong>Error</strong>: provided email or username already exist on our "
 "forum database."
 msgstr ""
 
-#: wp_w3all.php:668
+#: wp_w3all.php:688
 msgid "<strong>Error</strong>: wrong email format. Return back."
 msgstr ""
 
-#: wp_w3all.php:803
+#: wp_w3all.php:827
 msgid "<h3>Error: email address not valid.</h3><br />"
 msgstr ""
 
-#: wp_w3all.php:803 wp_w3all.php:1199 wp_w3all.php:1201
+#: wp_w3all.php:827 wp_w3all.php:1223 wp_w3all.php:1225
 msgid "Return back"
 msgstr ""
 
-#: wp_w3all.php:828 wp_w3all.php:858
+#: wp_w3all.php:852 wp_w3all.php:882
 msgid "unread forum PM"
 msgstr ""
 
-#: wp_w3all.php:1197
+#: wp_w3all.php:1221
 msgid "<h3>Error: the provided email is paired to another user into our forum"
 msgstr ""
 
-#: wp_w3all.php:1199
+#: wp_w3all.php:1223
 msgid ""
 "<h3>Error: username or email already exists.</h3>  Username and/or email "
 "already exists, or is associated with another existing user account into our "
 "forum<br />"
 msgstr ""
 
-#: wp_w3all.php:1201
+#: wp_w3all.php:1225
 msgid ""
 "<h3>Error: username or email already exists.</h3> Username and/or email "
 "already exists, and results to be paired to another existent user account "
 "into our forum<br />"
 msgstr ""
 
-#: wp_w3all.php:1207
+#: wp_w3all.php:1231
 msgid ""
 "<h3>Error: username or email already exists</h3>The username and/or email "
 "address already exists, or results to be paired to another existing user "
 "account into our forum<br /><br />"
 msgstr ""
 
-#: wp_w3all.php:1248
+#: wp_w3all.php:1272
 msgid ""
 "<strong>Error</strong>: email paired to another user into our forum. The "
 "email update has been rejected."
 msgstr ""
 
-#: wp_w3all.php:1358
+#: wp_w3all.php:1382
 msgid ""
 "<p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.3em"
 "\"><strong>Notice: it is required that you activate your account into our "
