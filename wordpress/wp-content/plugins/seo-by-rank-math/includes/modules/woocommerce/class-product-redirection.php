@@ -123,7 +123,23 @@ class Product_Redirection {
 		$url = urldecode( $url );
 		$url = trim( Redirection::strip_subdirectory( $url ), '/' );
 
+		$url = explode( '?', $url );
+		$url = trim( $url[0], '/' );
+
+		if ( $this->is_amp_endpoint() ) {
+			$url = \str_replace( '/' . \amp_get_slug(), '', $url );
+		}
+
 		return $url;
+	}
+
+	/**
+	 * Is AMP url.
+	 *
+	 * @return bool
+	 */
+	private function is_amp_endpoint() {
+		return \function_exists( 'is_amp_endpoint' ) && \function_exists( 'amp_is_canonical' ) && is_amp_endpoint() && ! amp_is_canonical();
 	}
 
 	/**
