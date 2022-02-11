@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-02-09 13:42:08+0000\n"
+"PO-Revision-Date: 2022-02-11 10:58:53+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -34,6 +34,15 @@ msgstr "Ort des API-Keys"
 #: includes/modules/instant-indexing/views/options.php:41
 msgid "Check Key"
 msgstr "Key prüfen"
+
+#. Translators: %s is the words "Check Key".
+#: includes/modules/instant-indexing/views/options.php:44
+msgid "Use the %1$s button to verify that the key is accessible for search engines. Clicking on it should open the key file in your browser and show the API key."
+msgstr "Verwende die Schaltfläche %1$s, um zu überprüfen, ob der Schlüssel für Suchmaschinen zugänglich ist. Wenn du drauf klickst, wird die Schlüsseldatei in deinem Browser geöffnet und der API-Schlüssel angezeigt."
+
+#: includes/modules/instant-indexing/views/options.php:30
+msgid "The IndexNow API key proves the ownership of the site. It is generated automatically. You can change the key if it becomes known to third parties."
+msgstr "Der IndexNow-API-Schlüssel belegt das Eigentum an der Website. Es wird automatisch generiert. Du kannst den Schlüssel ändern, wenn er Dritten bekannt wird."
 
 #: includes/admin/class-pro-notice.php:220
 #: includes/admin/class-pro-notice.php:239
@@ -4322,6 +4331,7 @@ msgid "Links"
 msgstr "Links"
 
 #. translators: 1: current page number, 2: total number of pages.
+#. translators: current page and page count
 #: includes/replace-variables/class-advanced-variables.php:209
 #: includes/modules/analytics/assets/js/stats.js:1
 msgid "Page %1$d of %2$d"
