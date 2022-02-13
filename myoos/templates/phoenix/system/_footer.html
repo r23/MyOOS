@@ -241,13 +241,21 @@
 {literal}
 <script>
     var cookieSettings = new BootstrapCookieConsentSettings({
-        contentURL: "./cookie_consent",
-		
+        contentURL: "https://www.petzoldts.de/cookie_consent",
         postSelectionCallback: function () {
             location.reload() // reload after selection
         }
+    })
 
-    });
+    function showSettingsDialog() {
+        cookieSettings.showDialog()
+    }
+
+    $(document).ready(function () {
+        $("#settingsOutput").text(JSON.stringify(cookieSettings.getSettings()))
+        $("#settingsAnalysisOutput").text(cookieSettings.getSettings("analyses"))
+    })
+</script>
 
     function showSettingsDialog() {
         cookieSettings.showDialog()
