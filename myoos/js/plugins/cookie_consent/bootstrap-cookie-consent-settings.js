@@ -194,9 +194,15 @@ function BootstrapCookieConsentSettings(props) {
     }
 
     // init
+
     if (Cookie.get(this.props.cookieName) === undefined && this.props.autoShowDialog) {
-        showDialog()
+		if ( cnArgs.hideEffect === 'none' ) {		
+			showDialog()
+		}
     }
+
+
+
 
     // API
 
