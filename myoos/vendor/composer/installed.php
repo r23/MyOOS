@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '12ac65904ed98b1ea01d08cfb9c98b51c1e67611',
+        'reference' => '8566fe52012f6d3aa9361259f8773f6b266f9472',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -173,12 +173,12 @@
             'dev_requirement' => false,
         ),
         'mobiledetect/mobiledetectlib' => array(
-            'pretty_version' => '2.8.37',
-            'version' => '2.8.37.0',
+            'pretty_version' => '2.8.38',
+            'version' => '2.8.38.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../mobiledetect/mobiledetectlib',
             'aliases' => array(),
-            'reference' => '9841e3c46f5bd0739b53aed8ac677fa712943df7',
+            'reference' => 'b6c4ac9686d204c49a432f527f137cf24ac0b90e',
             'dev_requirement' => false,
         ),
         'myclabs/php-enum' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '12ac65904ed98b1ea01d08cfb9c98b51c1e67611',
+            'reference' => '8566fe52012f6d3aa9361259f8773f6b266f9472',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
