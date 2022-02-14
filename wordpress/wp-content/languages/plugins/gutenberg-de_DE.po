@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-02-04 07:19:36+0000\n"
+"PO-Revision-Date: 2022-02-13 21:02:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3093,11 +3093,11 @@ msgstr "Footer"
 
 #: build/block-library/blocks/rss.php:23
 msgid "An error has occurred, which probably means the feed is down. Try again later."
-msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zur Zeit nicht. Versuche es später noch einmal."
+msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zurzeit nicht. Versuche es später erneut."
 
 #: build/block-library/blocks/rss.php:19
 msgid "RSS Error:"
-msgstr "RSS Fehler:"
+msgstr "RSS-Fehler:"
 
 #: build/block-library/blocks/search.php:25
 #: build/block-library/blocks/search.php:26
