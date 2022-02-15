@@ -1946,7 +1946,7 @@ public static function wp_w3all_custom_iframe_short( $atts ){
 
 // w3allphpbbupm // wp_w3all_phpBB_u_pm_short vers 1.0 x phpBB PM
 public static function wp_w3all_phpbb_upm_short( $atts ) {
- global $w3all_custom_output_files, $w3all_iframe_phpbb_link_yn, $wp_w3all_forum_folder_wp, $w3all_url_to_cms;
+ global $w3all_custom_output_files, $w3all_url_to_cms;
 
 if ( defined("W3PHPBBUSESSION") ) {
  $phpbb_user_session = unserialize(W3PHPBBUSESSION);
@@ -1961,7 +1961,7 @@ if ( defined("W3PHPBBUSESSION") ) {
 
  $w3pm_inline_style = empty($args['w3pm_inline_style']) ? '' : ' style="'.$args['w3pm_inline_style'].'"';
  $w3pm_href_blank = ($args['w3pm_href_blank'] > 0) ? ' target="_blank"' : '';
- $w3pm_href = $w3all_iframe_phpbb_link_yn == 1 ? get_home_url() . '/index.php/'.$wp_w3all_forum_folder_wp.'/?i=pm&amp;folder=inbox' : $w3all_url_to_cms.'/ucp.php?i=pm&amp;folder=inbox';
+ $w3pm_href = $w3all_url_to_cms.'/ucp.php?i=pm&amp;folder=inbox';
 
  $w3pm_class = $args['w3pm_class'];
  $w3pm_id = $args['w3pm_id'];
@@ -2055,7 +2055,7 @@ $maxitems = 0;
 
 // wp_w3all_get_phpbb_lastopics_short vers 1.0 x (phpbb_last_topics_forums_ids_shortcode.php) single or multiple forums
 public static function wp_w3all_phpbb_last_topics_single_multi_fp_short( $atts ) {
-  global $w3all_phpbb_connection,$w3all_config,$w3all_url_to_cms,$w3all_get_topics_x_ugroup,$w3all_lasttopic_avatar_num,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn,$w3all_iframe_phpbb_link_yn,$wp_w3all_forum_folder_wp;
+  global $w3all_phpbb_connection,$w3all_config,$w3all_url_to_cms,$w3all_get_topics_x_ugroup,$w3all_lasttopic_avatar_num,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn;
 
  if(is_array($atts)){
   $atts = array_map ('trim', $atts);
@@ -2161,7 +2161,7 @@ if(!empty($last_topics)){
 
 // wp_w3all_get_phpbb_lastopics_short vers 1.0
 public static function wp_w3all_get_phpbb_lastopics_short( $atts, $is_shortcode = true ) {
-  global $w3all_lasttopic_avatar_num,$w3all_url_to_cms,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn,$wp_w3all_forum_folder_wp,$w3all_iframe_phpbb_link_yn;
+  global $w3all_lasttopic_avatar_num,$w3all_url_to_cms,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn;
 
   if(is_array($atts)){
   $atts = array_map ('trim', $atts);
@@ -2221,7 +2221,7 @@ public static function wp_w3all_get_phpbb_lastopics_short( $atts, $is_shortcode 
 // NOTE: as is the query the result will contain only topics with almost an attach inside on one of their posts:
 // only the first (time based) inserted, will be retrieved to display
 public static function wp_w3all_get_phpbb_lastopics_short_wi( $atts ) {
-  global $w3all_phpbb_connection,$w3all_config,$w3all_url_to_cms,$wp_w3all_forum_folder_wp,$w3all_lasttopic_avatar_num,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn,$w3all_get_topics_x_ugroup,$w3all_iframe_phpbb_link_yn;
+  global $w3all_phpbb_connection,$w3all_config,$w3all_url_to_cms,$w3all_lasttopic_avatar_num,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn,$w3all_get_topics_x_ugroup;
 
    $phpbb_config = self::w3all_get_phpbb_config();
    $phpbb_config = W3PHPBBCONFIG;

@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.5.5
+Stable tag: 2.5.6
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.9
@@ -27,7 +27,7 @@ WP w3all phpBB is capable of running in iframe mode and automatically embedding 
 Transfer over pre-existing WP users into your phpBB forums (and vice versa) when integration first begins. After the setup and initialization of the plugin, WP users will automatically be added into phpBB upon their first login, and vice versa. But you could use the plugin just only to transfer users between phpBB and Wordpress by activating the plugin as not linked (read the help install page).
 
 = phpBB avatars into WordPress options =
-You have the option to use phpBB avatars to replace WP Gravatars (and vice versa for Buddypress).
+Option to use phpBB avatars to replace WP Gravatars.
 
 = WordPress MUMS ready =
 It is possible to integrate a WP Multisite network, but linking the same phpBB forum into each subsite.
@@ -35,20 +35,19 @@ It is possible to integrate a WP Multisite network, but linking the same phpBB f
 = Shortcodes and more options =
 * [Shortcode to display phpBB posts on WordPress posts/pages as formatted bbcode or plain text](https://www.axew3.com/w3/2017/07/wordpress-shortcode-phpbb-posts-into-wp-post/)
 * [Shortcode to display recent phpBB Topics/Posts on WordPress posts/pages](https://www.axew3.com/w3/2017/09/wordpress-shortcode-last-phpbb-topics-posts-into-wp-post/)
-* [Check the list of others available Shortcodes on the Common How To section of the install help page](https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/)
+* [Check the list of others available Shortcodes on the Common How To section of the install help page](https://www.axew3.com/w3/wordpress-phpbb-integration-install/)
 * Transfer phpBB users into WordPress and vice versa
-* Buddypress full profile field and avatar integration (advanced)
-* Check more options and features in the WP admin Settings -> WP_w3all (config page). More documentation can be found at the [WP w3all phpBB help page](https://www.axew3.com/w3/wp-w3all-wordpress-to-phpbb-install-and-how-to/)
+* Check more options and features in the WP admin Settings -> WP_w3all (config page). More documentation can be found at the [WP w3all phpBB help page](https://www.axew3.com/w3/wordpress-phpbb-integration-install/) and into inline plugin admin page hints
 
 = WordPress phpBB integration without linking users =
 * [Display phpBB posts and Last Topics Widgets into WordPress posts/pages, also cross domain, without linking users](https://www.axew3.com/w3/2018/01/wordpress-phpbb-integration-without-linking-users/)
 
 = Help pages =
 WP w3all phpBB help page with common questions, setup and usage guides, and answers to frequently asked questions to be up and running in minutes are available here:
-[WP w3all phpBB help page](https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/)
+[WP w3all phpBB help page](https://www.axew3.com/w3/wordpress-phpbb-integration-install/)
 
 == Installation ==
-* [Read this page at axew3.com for the installation guide](https://www.axew3.com/w3/wp-w3all-wordpress-to-phpbb-install-and-how-to/)
+* [Read this page at axew3.com for the installation guide](https://www.axew3.com/w3/wordpress-phpbb-integration-install/)
 
 = Summary =
 * Download the WP w3all plugin onto your WP site and activate it.
@@ -72,6 +71,17 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.5.6 =
+*Release Date - 15 Feb, 2022*
+
+* Add: the awesome iframe phpBB template integration that will fit any template. You'll find it into plugin admin page
+* See: see the new awesome iframe shortcode home page here: https://www.axew3.com/w3/2022/02/the-awesome-iframe-template-integration-using-shortcode/
+* See: easy example online: https://www.axew3.com/w3/board/
+* Fix: a possible (even very hard) secondary security bug into page forum and /common/phpbb_endpoints_ext_functions.php
+* Remove: finally clean up 'Links for embedded phpBB iframe into WordPress' option, not required anymore by long time, since V5 js code. Remove all related code, into all functions, also about a jquery function inclusion 
+* Fix: several language hints (lang file updated) and minor clean up all over
+* Enjoy
 
 = 2.5.5 =
 *Release Date - 9 Feb, 2022*

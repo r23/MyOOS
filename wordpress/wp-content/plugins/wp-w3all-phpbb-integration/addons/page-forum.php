@@ -1,4 +1,4 @@
-<?php
+<?php defined( 'ABSPATH' ) or die( 'forbidden' );
 /*
  Template Name: Forum
  Template Post Type: page
@@ -7,7 +7,7 @@
  * @subpackage wp_w3all
  * @V5 JS -> https://www.axew3.com/w3/2018/12/phpbb-wordpress-template-integration-iframe-v5/
  */
-// 2022 - @axew3.com //
+// @2022 -> @axew3.com //
 
 // START MAY DO NOT MODIFY
 
@@ -132,10 +132,10 @@ if( isset($_GET["w3"]) && empty($w3forum_id) ){ // default
 $w3all_url_to_cms = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms);
 
 // bug -> https://wordpress.org/support/topic/problem-using-iframe-feature-with-https/
-if( strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) OR strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) + 1 )
-{
- $w3all_url_to_cms .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/index.php');
-}
+//if( strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) OR strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) + 1 )
+//{
+// $w3all_url_to_cms .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/index.php');
+//}
 
 function w3all_enqueue_scripts() {
  wp_enqueue_script("jquery");
@@ -184,7 +184,7 @@ function w3allNormalize_phpBBUrl_onParent(href){
 // and if SEO mods that may assign some different kind of links values
 // by the way, SEO absolute urls http(s) should be (all?) already considered here ...
 
-var boardU = '".get_option( 'w3all_url_to_cms' )."';
+var boardU = '".$w3all_url_to_cms."';
 var phpbbRUrl = href.split(/^.+?(\w+.+)$/);
 if( href.indexOf('app.php') > -1 ){ // since the previous not 'normalize' this type of passed value (and may miss something else)
    phpbburl = href.split(/^.+?(app\.php.+)$/);

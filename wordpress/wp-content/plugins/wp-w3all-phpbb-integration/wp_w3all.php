@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.5.5
+Version: 2.5.6
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -35,7 +35,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.5.5' );
+define( 'WPW3ALL_VERSION', '2.5.6' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -74,7 +74,7 @@ $phpbb_on_template_iframe = get_option( 'w3all_iframe_phpbb_link_yn' ); // old w
 // changed into follow: the name of the option should also change
 $w3all_iframe_phpbb_link = unserialize(get_option('w3all_conf_pref_template_embed_link'));
 
-// $w3all_iframe_phpbb_link_yn need to be removed all over: no requirement since the overall_header.html js code in phpBB
+// $w3all_iframe_phpbb_link_yn has been removed all over: no requirement due to the overall_header.html js code in phpBB. Leave only for compatibility with old way
 $w3all_iframe_phpbb_link_yn = isset($w3all_iframe_phpbb_link["w3all_iframe_phpbb_link_yn"]) ? $w3all_iframe_phpbb_link["w3all_iframe_phpbb_link_yn"] : 0;
 $w3all_iframe_custom_w3fancyurl = isset($w3all_iframe_phpbb_link["w3all_iframe_custom_w3fancyurl"]) ? $w3all_iframe_phpbb_link["w3all_iframe_custom_w3fancyurl"] : 'w3';
 $w3all_iframe_custom_top_gap = isset($w3all_iframe_phpbb_link["w3all_iframe_custom_top_gap"]) ? intval($w3all_iframe_phpbb_link["w3all_iframe_custom_top_gap"]) : '100';
@@ -111,6 +111,7 @@ if(isset($w3reset_cookie_domain)){
    $w3all_push_new_pass_into_phpbb = isset($w3all_conf_pref['w3all_push_new_pass_into_phpbb']) ? $w3all_conf_pref['w3all_push_new_pass_into_phpbb'] : 0;
    $w3all_disable_ck_email_before_wp_update = isset($w3all_conf_pref['w3all_disable_ck_email_before_wp_update']) ? $w3all_conf_pref['w3all_disable_ck_email_before_wp_update'] : 0;
    $w3all_delete_users_into_phpbb_ext = isset($w3all_conf_pref['w3all_delete_users_into_phpbb_ext']) ? $w3all_conf_pref['w3all_delete_users_into_phpbb_ext'] : 0;
+   $wp_w3all_phpbb_iframe_short_pages_yn = isset($w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn']) ? $w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn'] : 0;
 
    // to define W3PHPBBLASTOPICS when 'at MAX'
    // used on last_forums_topics() to set W3PHPBBLASTOPICS
@@ -615,59 +616,22 @@ function wp_w3all_add_phpbb_font_awesome(){
 ";
 }
 
-function w3all_iframe_href_switch(){
- echo "<script type=\"text/javascript\">function w3allIframeHref(ids,res){ ids='#'+ids;jQuery(ids).attr('href',res); }</script>
-";
-}
-
   function phpbb_auth_login_url( $login_url, $redirect, $force_reauth ) {
-
-    global $w3all_url_to_cms, $w3all_iframe_phpbb_link_yn, $wp_w3all_forum_folder_wp;
-
-    if( $w3all_iframe_phpbb_link_yn == 1 ){
-
-        $wp_w3all_forum_folder_wp = "index.php/" . $wp_w3all_forum_folder_wp;
-        $redirect = $wp_w3all_forum_folder_wp . '/?mode=login';
-       return $redirect;
-
-      } else { // lost pass no iframe
-
-               $redirect = $w3all_url_to_cms . '/ucp.php?mode=login';
-               return $redirect;
-             }
+    global $w3all_url_to_cms;
+     $redirect = $w3all_url_to_cms . '/ucp.php?mode=login';
+    return $redirect;
    }
 
   function phpbb_reset_pass_url( $lostpassword_url, $redirect ) {
-
-    global $w3all_url_to_cms, $w3all_iframe_phpbb_link_yn, $wp_w3all_forum_folder_wp;
-
-    if( $w3all_iframe_phpbb_link_yn == 1 ){ // lost pass phpBB link iframe mode
-
-      $wp_w3all_forum_folder_wp = "index.php/" . $wp_w3all_forum_folder_wp;
-      $redirect = $wp_w3all_forum_folder_wp . '/?mode=sendpassword';
-       return $redirect;
-
-     } else { // lost pass no iframe
-
-        $redirect = $w3all_url_to_cms . '/ucp.php?mode=sendpassword';
-          return $redirect;
-       }
-   }
-
-
+    global $w3all_url_to_cms;
+     $redirect = $w3all_url_to_cms . '/ucp.php?mode=sendpassword';
+    return $redirect;
+  }
 
  function phpbb_register_url( $register_url ) {
-   global $w3all_url_to_cms, $w3all_iframe_phpbb_link_yn, $wp_w3all_forum_folder_wp;
-
-  if( $w3all_iframe_phpbb_link_yn == 1 ){
-   $wp_w3all_forum_folder_wp = "index.php/" . $wp_w3all_forum_folder_wp;
-   $redirect = $wp_w3all_forum_folder_wp . '/?mode=register';
-    return $redirect;
-  } else { // register no iframe, direct link to phpBB
-     $redirect = $w3all_url_to_cms . '/ucp.php?mode=register';
-      return $redirect;
-    }
-
+   global $w3all_url_to_cms;
+    $redirect = $w3all_url_to_cms . '/ucp.php?mode=register';
+   return $redirect;
  }
 
 function w3all_rememberme_long($expire) { // Set remember me wp cookie to expire in one year
@@ -724,13 +688,6 @@ if(! defined("WPW3ALL_NOT_ULINKED")){
 
 } // END this -> if(! defined("WPW3ALL_NOT_ULINKED")){
 
-if( $w3all_iframe_phpbb_link_yn == 1 ){
-  function w3all_enq_jquery() {
-   wp_enqueue_script("jquery");
-  }
- add_action('wp_enqueue_scripts', 'w3all_enq_jquery');
- add_action('wp_footer', 'w3all_iframe_href_switch');
-}
 
  } // end if ( defined('W3PHPBBDBCONN')
 } // end not in admin
@@ -781,6 +738,11 @@ if(! is_admin())
    }
  }
 
+ if(!empty($wp_w3all_phpbb_iframe_short_pages_yn))
+ {
+   add_action( 'init', 'wp_w3all_phpbb_iframe_short_if');
+ }
+
  add_shortcode( 'w3allfeed', array( 'WP_w3all_phpbb', 'wp_w3all_feeds_short' ) );
 
 }
@@ -801,18 +763,49 @@ add_action('wp_enqueue_scripts', 'wp_w3all_enqueue_scripts');
  }
 
 
+ function wp_w3all_phpbb_iframe_short_if()
+ {
+   global $wp_w3all_phpbb_iframe_short_pages_yn;
+
+   $wp_w3all_phpbb_iframe_pages = explode(',',trim($wp_w3all_phpbb_iframe_short_pages_yn));
+   if(is_array($wp_w3all_phpbb_iframe_pages))
+   {
+    $wp_w3all_phpbb_iframe_pages = array_map('trim', $wp_w3all_phpbb_iframe_pages);
+    $shortonpage = $shortonpage_home = false;
+    foreach($wp_w3all_phpbb_iframe_pages as $p)
+    { // detect which/if page match in the request and check if inhomepage-phpbbiframe for home has been set: check it after
+      if($p=='inhomepage-phpbbiframe'){ $shortonpage_home = true; }
+      if(strpos($_SERVER['REQUEST_URI'], $p))
+      {
+       $shortonpage = true;
+      }
+     }
+
+    if(!$shortonpage && $shortonpage_home)
+    {
+     $req_page = ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' OR is_ssl()) ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+      // Detect if it is the home page // and if the short has been activated also into the home page
+      // This as obvious will fail, if there is a query string appended to the home url. Normally it is assumed that there is not:
+      // if the shortcode do not fire on the homepage, may the reason is due to this
+      if(home_url() == $req_page && isset($shortonpage_home) OR home_url() == substr($req_page, 0, -1) && isset($shortonpage_home))
+      {
+       $shortonpage = true;
+      }
+     }
+
+    } else { return; }
+
+  if($shortonpage){
+   include( WPW3ALL_PLUGIN_DIR.'common/wp_phpbb_iframe_shortcode.php' );
+  }
+
+}
+
+
 function w3all_edit_profile_url( $url, $user_id, $scheme ) {
-
-    global $w3all_url_to_cms, $w3all_iframe_phpbb_link_yn, $wp_w3all_forum_folder_wp;
-
-    if( $w3all_iframe_phpbb_link_yn == 1 ){
-        $wp_w3all_forum_folder_wp = "index.php/" . $wp_w3all_forum_folder_wp;
-        $url = $wp_w3all_forum_folder_wp . '/?ucp.php?i=ucp_profile&amp;mode=profile_info';
-      } else { // lost pass no iframe
-               $url = $w3all_url_to_cms . '/ucp.php?i=ucp_profile&amp;mode=profile_info';
-             }
-
-  return $url;
+    global $w3all_url_to_cms;
+     $url = $w3all_url_to_cms . '/ucp.php?i=ucp_profile&amp;mode=profile_info';
+    return $url;
 }
 
 
@@ -840,12 +833,12 @@ function w3all_edit_profile_url( $url, $user_id, $scheme ) {
  }
 
  function wp_w3all_toolbar_new_phpbbpm( $wp_admin_bar ) {
-    global $w3all_phpbb_wptoolbar_pm_yn,$w3all_iframe_phpbb_link_yn,$wp_w3all_forum_folder_wp,$w3all_url_to_cms;
+    global $w3all_phpbb_wptoolbar_pm_yn,$w3all_url_to_cms;
 
   if ( defined("W3PHPBBUSESSION") && $w3all_phpbb_wptoolbar_pm_yn == 1 ) {
         $phpbb_user_session = unserialize(W3PHPBBUSESSION);
         if($phpbb_user_session[0]->user_unread_privmsg > 0){
-        $hrefmode = $w3all_iframe_phpbb_link_yn == 1 ? get_home_url() . "/index.php/".$wp_w3all_forum_folder_wp.'/?i=pm&amp;folder=inbox">' : $w3all_url_to_cms.'/ucp.php?i=pm&amp;folder=inbox';
+        $hrefmode = $w3all_url_to_cms.'/ucp.php?i=pm&amp;folder=inbox';
         $args_meta = array( 'class' => 'w3all_phpbb_pmn' );
         $args = array(
                 'id'    => 'w3all_phpbb_pm',
@@ -861,34 +854,29 @@ function w3all_edit_profile_url( $url, $user_id, $scheme ) {
 
 
 function wp_w3all_new_phpbbpm_wp_menu_item_push($elemID, $msg='') {
- global $w3all_custom_output_files, $w3all_iframe_phpbb_link_yn, $wp_w3all_forum_folder_wp, $w3all_url_to_cms;
+ global $w3all_custom_output_files,$w3all_url_to_cms;
 
-if ( is_user_logged_in() ) {
+ if ( is_user_logged_in() ) {
  // NOTE: primary-menu OR THE ID of the UL that contain li menu items
  $elemID = empty($elemID) ? 'wp-admin-bar-my-account' : $elemID;
 
-if ( defined("W3PHPBBUSESSION") ) {
- $phpbb_user_session = unserialize(W3PHPBBUSESSION);
+  if ( defined("W3PHPBBUSESSION") ) {
+   $phpbb_user_session = unserialize(W3PHPBBUSESSION);
    if($phpbb_user_session[0]->user_unread_privmsg > 0){
 
-  if ($w3all_iframe_phpbb_link_yn > 0){
-    $w3all_url_to_phpbb_ib = get_home_url() . "/" . $wp_w3all_forum_folder_wp . "/?i=pm&folder=inbox";
-  } else {
-          $w3all_url_to_phpbb_ib = $w3all_url_to_cms . "/ucp.php?i=pm&folder=inbox";
-         }
+    $w3all_url_to_phpbb_ib = $w3all_url_to_cms . "/ucp.php?i=pm&folder=inbox";
 
-$s = "<script>
-jQuery(document).ready(function() {
- var msgs = '".__( 'You have ', 'wp-w3all-phpbb-integration' )."' + ".$phpbb_user_session[0]->user_unread_privmsg." + ' ".__( 'unread forum PM', 'wp-w3all-phpbb-integration' )."';
- jQuery('#".$elemID."').after('<li id=\"wp-admin-bar-phpbb-pm\" class=\"menupop\"><a class=\"ab-item\" href=\"".$w3all_url_to_phpbb_ib."\">' + msgs + '</li>');
-});
+     $s = "<script>
+     jQuery(document).ready(function() {
+     var msgs = '".__( 'You have ', 'wp-w3all-phpbb-integration' )."' + ".$phpbb_user_session[0]->user_unread_privmsg." + ' ".__( 'unread forum PM', 'wp-w3all-phpbb-integration' )."';
+     jQuery('#".$elemID."').after('<li id=\"wp-admin-bar-phpbb-pm\" class=\"menupop\"><a class=\"ab-item\" href=\"".$w3all_url_to_phpbb_ib."\">' + msgs + '</li>');
+     });
+     </script>
+    ";
+    echo $s;
 
-</script>
-";
-  echo $s;
-
+    }
    }
-  }
  }
 }
 

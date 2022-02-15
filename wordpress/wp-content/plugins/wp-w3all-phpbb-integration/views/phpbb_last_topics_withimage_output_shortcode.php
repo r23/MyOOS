@@ -46,16 +46,7 @@ foreach ($last_topics as $key => $w3topic) {
    $w3topic->post_text = ''; // if not post with text
   }
 
-/* if ( $w3all_iframe_phpbb_link_yn == 1 ){
-    // see wp_w3all.php -> function w3all_widget_iframe_href(){
-    $ih = get_home_url()."/index.php/$wp_w3all_forum_folder_wp/?forum_id=$w3topic->forum_id&amp;topic_id=$w3topic->topic_id&amp;post_id=$w3topic->post_id#p$w3topic->post_id";
-    $idsh = 'w3all' . $countn . mt_rand(999,500000); // guess (+- surely) to not build a duplicated ID for the 'a' element on page output, even with multiple widgets/shortcodes instances on same page ...
-  // link (with js seo trick) to iframed phpBB in WP page
-  $titleLinkToPost = "<a id=\"".$idsh."\" onmouseover=\" w3allIframeHref('".$idsh."','".$ih."');\" href=\"$w3all_url_to_cms/viewtopic.php?f=$w3topic->forum_id&amp;t=$w3topic->topic_id&amp;p=$w3topic->post_id#p$w3topic->post_id\">$w3topic->topic_title</a> ".$w3all_post_state_ru."<br />";
- } else {*/
-  // direct link to phpBB
   $titleLinkToPost = '<a href="'.$w3all_url_to_cms.'/viewtopic.php?f='.$w3topic->forum_id.'&amp;t='.$w3topic->topic_id.'&amp;p='.$w3topic->post_id.'#p'.$w3topic->post_id.'">'.$w3topic->topic_title.'</a> '.$w3all_post_state_ru.'<br />';
-// }
 
 /*
 // switch for zebra colors 'inline' maybe in this way

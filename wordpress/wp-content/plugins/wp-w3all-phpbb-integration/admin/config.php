@@ -4,20 +4,7 @@
       die('<h3>Forbidden</h3>');
     }
 
- /*if(isset($_POST['w3all_phpbb_dbconn']))
-  {
-    //global $w3all_phpbb_dbconn;
-   $w3all_phpbb_dbconn['w3all_phpbb_url'] = (!filter_var($_POST['w3all_phpbb_dbconn']['w3all_phpbb_url'], FILTER_VALIDATE_URL)) ? '' : $_POST['w3all_phpbb_dbconn']['w3all_phpbb_url'];
-   $w3all_phpbb_dbconn['w3all_phpbb_dbhost'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbhost'];
-   $w3all_phpbb_dbconn['w3all_phpbb_dbname'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbname'];
-   $w3all_phpbb_dbconn['w3all_phpbb_dbuser'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbuser'];
-   $w3all_phpbb_dbconn['w3all_phpbb_dbpasswd'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbpasswd'];
-   $w3all_phpbb_dbconn['w3all_phpbb_dbtableprefix'] = $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbtableprefix'];
-   $w3all_phpbb_dbconn['w3all_phpbb_dbport'] =  $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbport'];
-   $w3all_phpbb_dbconn['w3all_pass_hash_way'] = intval($_POST['w3all_phpbb_dbconn']['w3all_pass_hash_way']);
-   $w3all_phpbb_dbconn['w3all_not_link_phpbb_wp'] = intval($_POST['w3all_phpbb_dbconn']['w3all_not_link_phpbb_wp']);
-    update_option('w3all_phpbb_dbconn',$w3all_phpbb_dbconn);
-  } else*/if ( defined('PHPBB_INSTALLED') && empty(get_option('w3all_phpbb_dbconn')) )
+ if ( defined('PHPBB_INSTALLED') && empty(get_option('w3all_phpbb_dbconn')) )
    {
 
     $config_file =  get_option( 'w3all_path_to_cms' ) . '/config.php';
@@ -64,11 +51,7 @@
     ob_end_clean();
    } else { $colorwarn = 'red;'; }
 
-   if(empty($phpBBgroups)){ // presumably then, connection values are ok, but the table prefix is wrong
-    $colorwarn = 'red;';
-   }
-
-   if(empty($w3all_phpbb_dbconn['w3all_phpbb_url'])){
+   if(empty($phpBBgroups) OR empty($w3all_phpbb_dbconn['w3all_phpbb_url'])){ // if empty($phpBBgroups) presumably then, connection values are ok, but the table prefix is wrong
     $colorwarn = 'red;';
    }
 
@@ -81,17 +64,11 @@ $current_user = wp_get_current_user();
 
 <div style="text-align:center"><?php echo __('<h1>WordPress phpBB integration</h1>', 'wp-w3all-phpbb-integration');?></div>
 <div style="background-color:#FFF;margin:0 20px 0 0;display:flex;flex-direction:row-reverse;align-items:center;justify-content:center;">
-<!--<h4 style="font-weight:900;padding:2.5em 2.5em 0;"><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="GUPQNQPZ6V9NG">
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" style="border:0;" name="submit" alt="PayPal - The safer, easier way to pay online!">
-<img alt="" style="" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-</form></h4>-->
 
-<h4 style="padding:2.5em 2.5em 0;font-weight:700"><span style="font-size:90%;color:red;">&hearts;</span> <a href="https://www.paypal.me/alessionanni" target="_blank">Support this Plugin</a></h4>
-<h4 style="padding:2.5em 2.5em 0;font-weight:700"><a href="https://www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-tasks-extension/" target="_blank">phpBB WordPress Integration extension</a></h4>
-<h4 style="font-weight:700;padding:2.5em 2.5em 0;"><a target="_blank"href="https://www.axew3.com/w3/wordpress-phpbb-integration-install/#commonHowto">How To and Shortcodes list</a></h4>
-<h4 style="font-weight:700;padding:2.5em 2.5em 0;"><a target="_blank"href="https://www.axew3.com/w3/wordpress-phpbb-integration-install/">Install Steps, Help and FAQs</a></h4>
+<h4 style="padding:0 2.5em 0;font-weight:700"><span style="font-size:90%;color:red;">&hearts;</span> <a href="https://www.paypal.me/alessionanni" target="_blank">Support this Plugin</a></h4>
+<h4 style="padding:0 2.5em 0;font-weight:700"><a href="https://www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-tasks-extension/" target="_blank">phpBB WordPress Integration extension</a></h4>
+<h4 style="font-weight:700;padding:0 2.5em 0;"><a target="_blank"href="https://www.axew3.com/w3/wordpress-phpbb-integration-install/#commonHowto">How To and Shortcodes list</a></h4>
+<h4 style="font-weight:700;padding:0 2.5em 0;"><a target="_blank"href="https://www.axew3.com/w3/wordpress-phpbb-integration-install/">Install Steps, Help and FAQs</a></h4>
 
 </div>
 
@@ -295,7 +272,7 @@ if (! in_array($w3all_conf_pref['w3all_add_into_spec_group'], $existentGroups)) 
 
 <hr />
 
-<?php echo __('<h3>w3all sessions keys Brute Force countermeasure</h3><strong style="color:#FF0000">Note:</strong> do not deactivate/disable this option if you do not really know what it exactly mean</strong><br /><strong style="color:#FF0000">Note -> read this thread to know how a Secure Integration works:</strong> <a target="_blank" href="https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=80&p=320#p320">How to secure WP_w3all phpBB WordPress integration</a><br />Note: to force the reset/empty data of this option, set to NO and <i>Save WP_w3all Preferences</i>. It is cleaned up automatically when/if exceed 4000 ids records', 'wp-w3all-phpbb-integration');
+<?php echo __('<h3>w3all sessions keys Brute Force countermeasure</h3><strong style="color:#FF0000">Note:</strong> do not deactivate/disable this option if you do not really know what it exactly mean</strong><br /><strong style="color:#FF0000">Note -> read this thread to know how it work:</strong> <a target="_blank" href="https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=80&p=320#p320">secure WP_w3all phpBB WordPress integration</a><br />Note: to force the reset/empty data of this option, set to NO and <i>Save WP_w3all Preferences</i>. It is shortened automatically when/if exceed 4000 ids records', 'wp-w3all-phpbb-integration');
 
 if ( !empty($w3all_bruteblock_phpbbulist_count) && $w3all_bruteblock_phpbbulist_count > 4000 ){
   echo __('<br /><br /><strong style="color:#FF0000;font-size:140%">Notice:</strong> the Brute Force list contain ', 'wp-w3all-phpbb-integration') . $w3all_bruteblock_phpbbulist_count . __(' records.<br />If you wish to empty/reset to 0 the list, disable the option and click <i>Save WP_w3all Preferences</i> button (then re-enable it)', 'wp-w3all-phpbb-integration');
@@ -330,7 +307,7 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 
 <hr />
 
-<?php echo __('<h3 style="text-decoration:underline;text-decoration-color:#FA8072">Disable check of the existence of the email in phpBB before it is updated in WordPress (front end plugins profile pages)</h3>', 'wp-w3all-phpbb-integration'); ?>
+<?php echo __('<h3 style="text-decoration:underline;text-decoration-color:#FA8072">Disable existence check of the email in phpBB before it is updated in WordPress</h3>', 'wp-w3all-phpbb-integration'); ?>
 <?php echo __('<span style="color:red">Important:</span> this option, active by default, can be disabled it if there are problems with the message "Error: email exists into our forum" (that could come out in some page)<br />and/or that could come out when some plugin goes to perform some task (example: Woocommerce memberships renewal process, but not only)<br />Note that deactivating this option, it is required that users have been all paired using the check and users transfer process. If you wish to let users to update their email and register also in phpBB, you may will install the <a href="https://www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-tasks-extension/" target="_blank">phpBB WordPress Integration Common Tasks extension</a> into phpBB, or you\'ll disable registrations and the <i>Edit account settings</i> module in phpBB via<br /><i>ACP -> System Tab -> Module management -> User Control panel</i><br />disable the <i>Edit account settings</i> module (where user can change email and update password in phpBB)<br /><br />This option do not affect the default WordPress user profile page. And it is not required to disable this option into default WordPress installations<br />But it depend on how you configure WP and phpBB to run as integrated, and (more than this) how external plugins manage profile updates and WP hooks<br />Test your installation before to disable', 'wp-w3all-phpbb-integration'); ?>
 <p><input type="radio" name="w3all_conf_pref[w3all_disable_ck_email_before_wp_update]" id="w3all_disable_ck_email_before_wp_update_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_disable_ck_email_before_wp_update']); ?> /> <?php echo __('Disabled', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_disable_ck_email_before_wp_update]" id="w3all_disable_ck_email_before_wp_update_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_disable_ck_email_before_wp_update']); ?> /> <?php echo __('Enabled', 'wp-w3all-phpbb-integration'); ?></p>
@@ -388,6 +365,9 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 <?php echo __('<h3>Swap WordPress default <i>Register and Lost Password</i> links to point to phpBB related pages</h3>Note: option <i>Links for embedded phpBB iframe into WordPress</i> more below, affect this option', 'wp-w3all-phpbb-integration'); ?>
 <p><input type="radio" name="w3all_conf_pref[w3all_wp_phpbb_lrl_links_switch_yn]" id="w3all_wp_phpbb_lrl_links_switch_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_wp_phpbb_lrl_links_switch_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_wp_phpbb_lrl_links_switch_yn]" id="w3all_wp_phpbb_lrl_links_switch_yn_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_wp_phpbb_lrl_links_switch_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
+<hr />
+<?php echo __('<h3>The (awesome) iframe template integration using shortcode<br /><br />Activate [w3allphpbbiframe] shortcode</h3>Note that if the field is empty or the value not correct, this option do not affect and the shortcode will not fire on page<br /><br />The [w3allphpbbiframe] shortcode display the phpBB iframe into any WordPress template page<br /><span style="color:#003333">Note that to work it require to apply the same js phpBB code, like it is for the page-forum template integration (more below), into both phpBB overall_header.html and overall_footer.html files</span>. Read <b>How to</b> here: <a target="_blank" href="https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/">phpBB WordPress template integration iframe</a><br /><br />How to complete setup the shortcode is explained here: <a href="https://www.axew3.com/w3/2022/02/the-awesome-iframe-template-integration-using-shortcode/" target="_blank">the awesome iframe template integration using shortcode</a><br />Set the <i>wp_page_name</i> and the <i>wp_page_iframe_top_gap</i> params into each shortcode<br /><br />Set here the name of the page (or pages, separated by comma) where the shortcode will be used (this is needed to load required hooks and code on WP pages, only when the shorcode will be effectively executed, and not into all WP pages)<br />So that going to display the shortcode into a page named <i>board</i> which <i>slug</i> is <i>board</i>, put &nbsp;<i>board</i>&nbsp; as value here<br />if on more than one, may <i>board</i> and <i>sample-page</i>, set as &nbsp;<i>board,sample-page</i> &nbsp;separated by comma<br /><br />Note for homepage: the setting require this placeholder &nbsp;<i>inhomepage-phpbbiframe</i> &nbsp;<br />so the above example become  &nbsp;<i>board,sample-page,inhomepage-phpbbiframe</i>&nbsp;  separated by comma, or just &nbsp;<i>inhomepage-phpbbiframe</i>&nbsp; if the shortcode will run only into the home page', 'wp-w3all-phpbb-integration'); ?>
+<p><input id="" name="w3all_conf_pref[wp_w3all_phpbb_iframe_short_pages_yn]" type="text" size="25" value="<?php echo esc_attr( $w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn'] ); ?>"> <?php echo __('if more pages, separate pages name/slug by comma', 'wp-w3all-phpbb-integration'); ?></p>
 <hr />
 <?php echo __('<h3 style="color:#003333">Activate [w3allcustomiframe] shortcode</h3>Advanced. This shortcode can (also) be used in <span style="color:#003333">Not Linked Users Mode</span>. Read <b>How To use</b> here: <a target="_blank" href="https://www.axew3.com/w3/2019/12/w3allcustomiframe-shortcode-how-to/">[w3allcustomiframe] shortcode how to</a>.<br />Activating this option, the iframe js resizer library will be added/loaded into WordPress header<br />to allow the javascript resizer code work properly on each WordPress page this shorcode will be added', 'wp-w3all-phpbb-integration'); ?>
 <p><input type="radio" name="w3all_conf_pref[w3all_custom_iframe_yn]" id="w3all_custom_iframe_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_custom_iframe_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
@@ -449,10 +429,6 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 <div style="margin-top:4.0em;">
 -->
 <form name="w3all_conf_pref_template_embed_link" id="w3all-conf-pref-template-embed-link" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
-<h3><?php echo __('Links for embedded phpBB iframe into WordPress', 'wp-w3all-phpbb-integration'); ?></h3>
-<?php echo __('Note important: if using the iframe mode and the phpBB JS overall_header.html code applied (that redirect any direct link to phpBB, to the WP page forum, where phpBB iframed display), there is no reason to activate this OBSOLETE option that will be soon removed.<br /><br />Change links for wp_w3all Last Topics Post widgets/shortcodes to point to the WP forum page:<br />if set to Yes, it changes links on <i>Last Topics Posts Widgets/shortcodes</i> that will points to the created WP page that contain the embedded phpBB forum iframe, if set to No it will link to the real phpbb URL/folder.<br /><br /><strong>Note:</strong> to point WordPress Registration, Login and Lost Password links to iframe, activate the option<br /><i>Swap WordPress default Login, Register and Lost Password links to point to phpBB related pages</i><br />more above into preferences options.<br/><br />Changing these settings, do NOT change/interferes the way Spiders will index phpBB Urls (real phpBB Urls)', 'wp-w3all-phpbb-integration'); ?>
-<p><input type="radio" name="w3all_conf_pref_template_embed_link[w3all_iframe_phpbb_link_yn]" id="w3all_iframe_phpbb_link_1" value="1" <?php checked('1', $w3all_iframe_phpbb_link_yn); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
-<p><input type="radio" name="w3all_conf_pref_template_embed_link[w3all_iframe_phpbb_link_yn]" id="w3all_iframe_phpbb_link_0" value="0" <?php checked('0', $w3all_iframe_phpbb_link_yn); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
 <h3><?php echo __('Fancy URL query string for the WordPress page forum that embed phpBB', 'wp-w3all-phpbb-integration'); ?></h3>
 <p><input id="w3all_iframe_custom_w3fancyurl" name="w3all_conf_pref_template_embed_link[w3all_iframe_custom_w3fancyurl]" type="text" size="25" value="<?php echo $w3all_iframe_custom_w3fancyurl; ?>"> default <i>w3</i></p>
 <?php echo __('Change the <i>w3</i> var of the WordPress forum\'s page query URL part<br />If you change the default value <strong><i>w3</i></strong>, then you have to setup the same value as it is here, to match the same into <i>overall_footer.html</i> and <i>overall_header.html</i> javascript code you added, as inline code hints indicate (recompile the phpBB template if you change overall_header.html or overall_footer.html code)<br /><strong>Note: you can not use</strong> as value for the <i>fancy query string</i> any of the <a target="_blank" href="https://codex.wordpress.org/Reserved_Terms">RESERVED WordPress Terms</a><br /><br />Doing this, will change the default (for example):<br />
@@ -462,7 +438,7 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 <?php echo __('Change (in pixel) the distance gap where the WordPress page Forum will scroll to by default (useful to fit different theme headers)', 'wp-w3all-phpbb-integration'); ?>
 
 <br /><br />
-<input type="submit" name="submit" class="button button-primary" value="<?php echo __('Save Last Topics widgets/shortcodes links, top gap and Fancy Url settings', 'wp-w3all-phpbb-integration');?>">
+<input type="submit" name="submit" class="button button-primary" value="<?php echo __('Save Top gap and Fancy Url settings', 'wp-w3all-phpbb-integration');?>">
 </form><br /><hr style="border-color:gray" />
 </div>
 
