@@ -3,9 +3,9 @@
 * Tags:              anti-spam, antispam, block spam, comment, comments, comment spam, pingback, spam, spam filter, trackback, GDPR
 * Donate link:       https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TD4AMD2D8EMZW
 * Requires at least: 4.5
-* Tested up to:      5.8
+* Tested up to:      5.9
 * Requires PHP:      5.2
-* Stable tag:        2.10.0
+* Stable tag:        2.11.0
 * License:           GPLv2 or later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -62,9 +62,13 @@ After you have activated *Antispam Bee* the plugin will block spam comments out 
 ### Does Antispam Bee prevents spam registrations or protects form plugins? ###
 Antispam Bee works best with default WordPress comments. It does not help to protect form plugins and does not prevent spam registrations. Hopefully we can provide better hooks for third party plugins to use Antispam Bee to fill this gap in the forthcoming new major version.
 
-### Does Antispam Bee work with Jetpack, Disqus Comments and other comment plugins? ###
-Antispam Bee works best with default WordPress comments. It is not compatible with Jetpack or Disqus Comments as those plugins load the comment form within an iframe. Thus Antispam Bee can not access the comment form directly.
-It also won’t work with any AJAX-powered comment forms.
+### Does Antispam Bee work with Jetpack, wpDiscuz, Disqus Comments and similar comment plugins?
+Antispam Bee works best with default WordPress comments. It is not compatible with Jetpack, wpDiscuz or Disqus Comments as those plugins load a new comment form within an iframe. Thus Antispam Bee can not access the comment form directly.
+
+### Does Antispam Bee work with AJAX comment plugins or similar theme features?
+Whether Antispam Bee works with a comment form submitted via AJAX depends on how the AJAX request is made. If the request goes to the file that usually also receives the comments, Antispam Bee could work with it out of the box (the [WP Ajaxify Comments](https://wordpress.org/plugins/wp-ajaxify-comments/) plugin does this, for example). 
+
+If the comments are sent to the `admin-ajax.php`, the `antispam_bee_disallow_ajax_calls` filter must be used to run ASB for requests to that file as well. If the script does not send all form data to the file, but only some selected ones, further customization is probably necessary, as [exemplified in this post by Torsten Landsiedel](https://torstenlandsiedel.de/2020/10/04/ajaxifizierte-kommentare-und-antispam-bee/) (in German).
 
 ### Does Antispam Bee store any private user data, and is it compliant with GDPR? ###
 Antispam Bee is developed in Europe. You might have heard we can be a bit nitpicky over here when it comes to privacy. The plugin does not save private user data and is 100% compliant with GDPR.
@@ -91,6 +95,13 @@ No, Antispam Bee is free forever, for both private and commercial projects. You 
 A complete documentation is available on [pluginkollektiv.org](https://antispambee.pluginkollektiv.org/documentation/).
 
 ## Changelog ##
+
+### 2.11.0 ###
+  * Fix: Allow empty comments if `allow_empty_comment` is set to true
+  * Fix: Add `aria-label` to work around bug in a11y testing tools
+  * Fix: Change priority for `comment_form_field_comment` from 10 to 99
+  * Tweak: Updated some FAQ entries
+  * Tweak: Updated build tooling
 
 ### 2.10.0 ###
   * Fix: Switch from ip2country.info to iplocate.io for country check

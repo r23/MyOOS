@@ -9,7 +9,7 @@
  * Domain Path: /lang
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Version:     2.10.0
+ * Version:     2.11.0
  *
  * @package Antispam Bee
  **/
@@ -92,6 +92,7 @@ class Antispam_Bee {
 	 * @since  0.1
 	 * @since  2.6.4
 	 * @since  2.10.0 Change handling of comment field honeypot and call functions after completed upgrades
+	 * @since  2.11.0 Change priority from default 10 to 99 for comment_form_field_comment
 	 */
 	public static function init() {
 		add_action(
@@ -335,7 +336,8 @@ class Antispam_Bee {
 					array(
 						__CLASS__,
 						'prepare_comment_field',
-					)
+					),
+					99
 				);
 			}
 
@@ -1117,11 +1119,11 @@ class Antispam_Bee {
 		$hidden_field = self::get_key( $_POST, 'comment' );
 		$plugin_field = self::get_key( $_POST, self::get_secret_name_for_post( $post_id ) );
 
-		if ( empty( $hidden_field ) && ! empty( $plugin_field ) ) {
+		if ( ! empty( $hidden_field ) ) {
+			$_POST['ab_spam__hidden_field'] = 1;
+		} else {
 			$_POST['comment'] = $plugin_field;
 			unset( $_POST[ self::get_secret_name_for_post( $post_id ) ] );
-		} else {
-			$_POST['ab_spam__hidden_field'] = 1;
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 	}
@@ -1278,7 +1280,7 @@ class Antispam_Bee {
 		$output .= $matches['between1'] . $matches['between2'] . $matches['between3'];
 		$output .= $matches['after'] . '>';
 		$output .= $matches['content'];
-		$output .= '</textarea><textarea id="comment" aria-hidden="true" name="comment" autocomplete="new-password" style="padding:0 !important;clip:rect(1px, 1px, 1px, 1px) !important;position:absolute !important;white-space:nowrap !important;height:1px !important;width:1px !important;overflow:hidden !important;" tabindex="-1"></textarea>';
+		$output .= '</textarea><textarea id="comment" aria-label="hp-comment" aria-hidden="true" name="comment" autocomplete="new-password" style="padding:0 !important;clip:rect(1px, 1px, 1px, 1px) !important;position:absolute !important;white-space:nowrap !important;height:1px !important;width:1px !important;overflow:hidden !important;" tabindex="-1"></textarea>';
 
 		$output .= $id_script;
 		$output .= $init_time_field;
@@ -1425,7 +1427,10 @@ class Antispam_Bee {
 		$author    = self::get_key( $comment, 'comment_author' );
 		$useragent = self::get_key( $comment, 'comment_agent' );
 
-		if ( empty( $body ) ) {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound
+		$allow_empty_comment = apply_filters( 'allow_empty_comment', false, $comment );
+
+		if ( empty( $body ) && ! $allow_empty_comment ) {
 			return array(
 				'reason' => 'empty',
 			);
@@ -2245,7 +2250,7 @@ class Antispam_Bee {
 		if ( function_exists( 'filter_var' ) ) {
 			return filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) !== false;
 		} else {
-			return preg_match( '/^\d{1,3}(\.\d{1,3}){3,3}$/', $ip );
+			return preg_match( '/^\d{1,3}(\.\d{1,3}){3}$/', $ip );
 		}
 	}
 
