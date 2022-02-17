@@ -506,7 +506,6 @@ __webpack_require__.d(actions_namespaceObject, {
 var plugins_namespaceObject = {};
 __webpack_require__.r(plugins_namespaceObject);
 __webpack_require__.d(plugins_namespaceObject, {
-  "controls": function() { return plugins_controls; },
   "persistence": function() { return persistence; }
 });
 
@@ -2761,6 +2760,10 @@ function createRegistry() {
   //
 
   function use(plugin, options) {
+    if (!plugin) {
+      return;
+    }
+
     registry = { ...registry,
       ...plugin(registry, options)
     };
@@ -2787,19 +2790,6 @@ function createRegistry() {
 
 /* harmony default export */ var default_registry = (createRegistry());
 //# sourceMappingURL=default-registry.js.map
-;// CONCATENATED MODULE: ./packages/data/build-module/plugins/controls/index.js
-/**
- * WordPress dependencies
- */
-
-/* harmony default export */ var plugins_controls = (registry => {
-  external_wp_deprecated_default()('wp.data.plugins.controls', {
-    since: '5.4',
-    hint: 'The controls plugins is now baked-in.'
-  });
-  return registry;
-});
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/data/build-module/plugins/persistence/storage/object.js
 let objectStorage;
 const storage = {
@@ -3116,7 +3106,6 @@ persistencePlugin.__unstableMigrate = pluginOptions => {
 /* harmony default export */ var persistence = (persistencePlugin);
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/data/build-module/plugins/index.js
-
 
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js

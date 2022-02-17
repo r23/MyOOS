@@ -3980,23 +3980,32 @@ function ManageLocations(_ref) {
  */
 
 
+
 function DeleteMenu(_ref) {
   let {
     onDeleteMenu,
     isMenuBeingDeleted
   } = _ref;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+  const [showConfirmDialog, setShowConfirmDialog] = (0,external_wp_element_namespaceObject.useState)(false);
+
+  const handleConfirm = () => {
+    setShowConfirmDialog(false);
+    onDeleteMenu();
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     className: "edit-navigation-inspector-additions__delete-menu-button",
     variant: "secondary",
     isDestructive: true,
     isBusy: isMenuBeingDeleted,
     onClick: () => {
-      if ( // eslint-disable-next-line no-alert
-      window.confirm((0,external_wp_i18n_namespaceObject.__)('Are you sure you want to delete this navigation? This action cannot be undone.'))) {
-        onDeleteMenu();
-      }
+      setShowConfirmDialog(true);
     }
-  }, (0,external_wp_i18n_namespaceObject.__)('Delete menu')));
+  }, (0,external_wp_i18n_namespaceObject.__)('Delete menu')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalConfirmDialog, {
+    isOpen: showConfirmDialog,
+    onConfirm: handleConfirm,
+    onCancel: () => setShowConfirmDialog(false)
+  }, (0,external_wp_i18n_namespaceObject.__)('Are you sure you want to delete this navigation? This action cannot be undone.'))));
 }
 //# sourceMappingURL=delete-menu.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/sidebar/index.js
@@ -4421,6 +4430,29 @@ const external = (0,external_wp_element_namespaceObject.createElement)(external_
 }));
 /* harmony default export */ var library_external = (external);
 //# sourceMappingURL=external.js.map
+;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/header/tools-more-menu-group.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const {
+  Fill: ToolsMoreMenuGroup,
+  Slot
+} = (0,external_wp_components_namespaceObject.createSlotFill)('EditNavigationToolsMoreMenuGroup');
+
+ToolsMoreMenuGroup.Slot = _ref => {
+  let {
+    fillProps
+  } = _ref;
+  return (0,external_wp_element_namespaceObject.createElement)(Slot, {
+    fillProps: fillProps
+  }, fills => fills);
+};
+
+/* harmony default export */ var tools_more_menu_group = (ToolsMoreMenuGroup);
+//# sourceMappingURL=tools-more-menu-group.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/header/more-menu.js
 
 
@@ -4431,8 +4463,13 @@ const external = (0,external_wp_element_namespaceObject.createElement)(external_
 
 
 
+/**
+ * Internal dependencies
+ */
+
+
 function MoreMenu() {
-  return (0,external_wp_element_namespaceObject.createElement)(MoreMenuDropdown, null, () => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
+  return (0,external_wp_element_namespaceObject.createElement)(MoreMenuDropdown, null, onClose => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
     label: (0,external_wp_i18n_namespaceObject.__)('Tools')
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
     role: "menuitem",
@@ -4444,7 +4481,11 @@ function MoreMenu() {
     as: "span"
   },
   /* translators: accessibility text */
-  (0,external_wp_i18n_namespaceObject.__)('(opens in a new tab)')))));
+  (0,external_wp_i18n_namespaceObject.__)('(opens in a new tab)'))), (0,external_wp_element_namespaceObject.createElement)(tools_more_menu_group.Slot, {
+    fillProps: {
+      onClose
+    }
+  })));
 }
 //# sourceMappingURL=more-menu.js.map
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/components/header/index.js
@@ -4726,6 +4767,7 @@ function UnsavedChangesWarning() {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -4838,7 +4880,7 @@ function Layout(_ref) {
     onSelectMenu: selectMenu,
     onDeleteMenu: deleteMenu,
     isMenuBeingDeleted: isMenuBeingDeleted
-  })), (0,external_wp_element_namespaceObject.createElement)(UnsavedChangesWarning, null)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover.Slot, null))));
+  })), (0,external_wp_element_namespaceObject.createElement)(UnsavedChangesWarning, null)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover.Slot, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_plugins_namespaceObject.PluginArea, null))));
 }
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: external ["wp","url"]

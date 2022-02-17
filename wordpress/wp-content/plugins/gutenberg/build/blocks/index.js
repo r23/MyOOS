@@ -7452,7 +7452,7 @@ function switchToBlockType(blocks, name) {
     return null;
   }
 
-  const ret = transformationResults.map(result => {
+  const ret = transformationResults.map((result, index, results) => {
     /**
      * Filters an individual transform result from block transformation.
      * All of the original blocks are passed, since transformations are
@@ -7460,8 +7460,10 @@ function switchToBlockType(blocks, name) {
      *
      * @param {Object}   transformedBlock The transformed block.
      * @param {Object[]} blocks           Original blocks transformed.
+     * @param {Object[]} index            Index of the transformed block on the array of results.
+     * @param {Object[]} results          An array all the blocks that resulted from the transformation.
      */
-    return (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.switchToBlockType.transformedBlock', result, blocks);
+    return (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.switchToBlockType.transformedBlock', result, blocks, index, results);
   });
   return ret;
 }

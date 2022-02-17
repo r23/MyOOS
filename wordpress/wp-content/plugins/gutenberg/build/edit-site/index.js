@@ -5412,21 +5412,29 @@ function NavigationButton(_ref2) {
     ...props
   } = _ref2;
   const {
-    push
+    goTo
   } = (0,external_wp_components_namespaceObject.__experimentalUseNavigator)();
+  const dataAttrName = 'data-navigator-focusable-id';
+  const dataAttrValue = path;
+  const dataAttrCssSelector = `[${dataAttrName}="${dataAttrValue}"]`;
+  const buttonProps = { ...props,
+    [dataAttrName]: dataAttrValue
+  };
   return (0,external_wp_element_namespaceObject.createElement)(GenericNavigationButton, extends_extends({
-    onClick: () => push(path)
-  }, props));
+    onClick: () => goTo(path, {
+      focusTargetSelector: dataAttrCssSelector
+    })
+  }, buttonProps));
 }
 
 function NavigationBackButton(_ref3) {
   let { ...props
   } = _ref3;
   const {
-    pop
+    goBack
   } = (0,external_wp_components_namespaceObject.__experimentalUseNavigator)();
   return (0,external_wp_element_namespaceObject.createElement)(GenericNavigationButton, extends_extends({
-    onClick: pop
+    onClick: goBack
   }, props));
 }
 
@@ -7217,7 +7225,7 @@ function Palette(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
     path: screenPath
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
-    isReversed: colors.length === 0
+    direction: colors.length === 0 ? 'row-reverse' : 'row'
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexBlock, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalZStack, {
     isLayered: false,
     offset: -8
@@ -10408,6 +10416,7 @@ function useTitle(title) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -10491,6 +10500,9 @@ function Editor(_ref) {
   const {
     enableComplementaryArea
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  const {
+    createErrorNotice
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
   const [isEntitiesSavedStatesOpen, setIsEntitiesSavedStatesOpen] = (0,external_wp_element_namespaceObject.useState)(false);
   const openEntitiesSavedStates = (0,external_wp_element_namespaceObject.useCallback)(() => setIsEntitiesSavedStatesOpen(true), []);
   const closeEntitiesSavedStates = (0,external_wp_element_namespaceObject.useCallback)(() => {
@@ -10534,7 +10546,13 @@ function Editor(_ref) {
     }
 
     return null;
-  }; // Only announce the title once the editor is ready to prevent "Replace"
+  };
+
+  function onPluginAreaError(name) {
+    createErrorNotice((0,external_wp_i18n_namespaceObject.sprintf)(
+    /* translators: %s: plugin name */
+    (0,external_wp_i18n_namespaceObject.__)('The "%s" plugin has encountered an error and cannot be rendered.'), name));
+  } // Only announce the title once the editor is ready to prevent "Replace"
   // action in <URlQueryController> from double-announcing.
 
 
@@ -10579,12 +10597,16 @@ function Editor(_ref) {
       onClick: openEntitiesSavedStates,
       "aria-expanded": false
     }, (0,external_wp_i18n_namespaceObject.__)('Open save panel')))),
-    footer: (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockBreadcrumb, null),
+    footer: (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockBreadcrumb, {
+      rootLabelText: (0,external_wp_i18n_namespaceObject.__)('Template')
+    }),
     shortcuts: {
       previous: previousShortcut,
       next: nextShortcut
     }
-  }), (0,external_wp_element_namespaceObject.createElement)(WelcomeGuide, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover.Slot, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_plugins_namespaceObject.PluginArea, null))))))));
+  }), (0,external_wp_element_namespaceObject.createElement)(WelcomeGuide, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover.Slot, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_plugins_namespaceObject.PluginArea, {
+    onError: onPluginAreaError
+  }))))))));
 }
 
 /* harmony default export */ var editor = (Editor);

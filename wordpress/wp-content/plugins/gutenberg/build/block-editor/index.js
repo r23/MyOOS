@@ -2193,7 +2193,6 @@ __webpack_require__.d(__webpack_exports__, {
   "ObserveTyping": function() { return /* reexport */ observe_typing; },
   "PanelColorSettings": function() { return /* reexport */ panel_color_settings; },
   "PlainText": function() { return /* reexport */ plain_text; },
-  "PreserveScrollInReorder": function() { return /* reexport */ PreserveScrollInReorder; },
   "RichText": function() { return /* reexport */ rich_text; },
   "RichTextShortcut": function() { return /* reexport */ RichTextShortcut; },
   "RichTextToolbarButton": function() { return /* reexport */ RichTextToolbarButton; },
@@ -2242,6 +2241,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalResponsiveBlockControl": function() { return /* reexport */ responsive_block_control; },
   "__experimentalTextDecorationControl": function() { return /* reexport */ TextDecorationControl; },
   "__experimentalTextTransformControl": function() { return /* reexport */ TextTransformControl; },
+  "__experimentalToolsPanelColorDropdown": function() { return /* reexport */ ToolsPanelColorDropdown; },
   "__experimentalUnitControl": function() { return /* reexport */ UnitControl; },
   "__experimentalUseBlockPreview": function() { return /* reexport */ useBlockPreview; },
   "__experimentalUseBorderProps": function() { return /* reexport */ useBorderProps; },
@@ -9935,12 +9935,14 @@ var external_wp_warning_namespaceObject = window["wp"]["warning"];
 const InspectorControlsDefault = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorControls');
 const InspectorControlsAdvanced = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorAdvancedControls');
 const InspectorControlsBorder = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorControlsBorder');
+const InspectorControlsColor = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorControlsColor');
 const InspectorControlsDimensions = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorControlsDimensions');
 const InspectorControlsTypography = (0,external_wp_components_namespaceObject.createSlotFill)('InspectorControlsTypography');
 const groups_groups = {
   default: InspectorControlsDefault,
   advanced: InspectorControlsAdvanced,
   border: InspectorControlsBorder,
+  color: InspectorControlsColor,
   dimensions: InspectorControlsDimensions,
   typography: InspectorControlsTypography
 };
@@ -10018,6 +10020,57 @@ const cleanEmptyObject = object => {
   const cleanedNestedObjects = (0,external_lodash_namespaceObject.pickBy)((0,external_lodash_namespaceObject.mapValues)(object, cleanEmptyObject), external_lodash_namespaceObject.identity);
   return (0,external_lodash_namespaceObject.isEmpty)(cleanedNestedObjects) ? undefined : cleanedNestedObjects;
 };
+function immutableSet(object, path, value) {
+  return (0,external_lodash_namespaceObject.setWith)(object ? (0,external_lodash_namespaceObject.clone)(object) : {}, path, value, external_lodash_namespaceObject.clone);
+}
+function transformStyles(activeSupports, migrationPaths, result, source, index, results) {
+  var _source$;
+
+  // If there are no active supports return early.
+  if ((0,external_lodash_namespaceObject.every)(activeSupports, isActive => !isActive)) {
+    return result;
+  } // If the condition verifies we are probably in the presence of a wrapping transform
+  // e.g: nesting paragraphs in a group or columns and in that case the styles should not be transformed.
+
+
+  if (results.length === 1 && result.innerBlocks.length === source.length) {
+    return result;
+  } // For cases where we have a transform from one block to multiple blocks
+  // or multiple blocks to one block we apply the styles of the first source block
+  // to the result(s).
+
+
+  let referenceBlockAttributes = (_source$ = source[0]) === null || _source$ === void 0 ? void 0 : _source$.attributes; // If we are in presence of transform between more than one block in the source
+  // that has more than one block in the result
+  // we apply the styles on source N to the result N,
+  // if source N does not exists we do nothing.
+
+  if (results.length > 1 && source.length > 1) {
+    if (source[index]) {
+      var _source$index;
+
+      referenceBlockAttributes = (_source$index = source[index]) === null || _source$index === void 0 ? void 0 : _source$index.attributes;
+    } else {
+      return result;
+    }
+  }
+
+  let returnBlock = result;
+  (0,external_lodash_namespaceObject.forEach)(activeSupports, (isActive, support) => {
+    if (isActive) {
+      migrationPaths[support].forEach(path => {
+        const styleValue = (0,external_lodash_namespaceObject.get)(referenceBlockAttributes, path);
+
+        if (styleValue) {
+          returnBlock = { ...returnBlock,
+            attributes: immutableSet(returnBlock.attributes, path, styleValue)
+          };
+        }
+      });
+    }
+  });
+  return returnBlock;
+}
 //# sourceMappingURL=utils.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inspector-controls/block-support-tools-panel.js
 
@@ -10082,7 +10135,9 @@ function BlockSupportToolsPanel(_ref) {
     panelId: panelId,
     hasInnerWrapper: true,
     shouldRenderPlaceholderItems: true // Required to maintain fills ordering.
-
+    ,
+    __experimentalFirstVisibleItemClass: "first",
+    __experimentalLastVisibleItemClass: "last"
   }, children);
 }
 //# sourceMappingURL=block-support-tools-panel.js.map
@@ -19689,7 +19744,7 @@ const wrap = function (namespace) {
  * @return {Array} converted rules.
  */
 
-const transformStyles = function (styles) {
+const transform_styles_transformStyles = function (styles) {
   let wrapperClassName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
   return (0,external_lodash_namespaceObject.map)(styles, _ref => {
     let {
@@ -19714,7 +19769,7 @@ const transformStyles = function (styles) {
   });
 };
 
-/* harmony default export */ var transform_styles = (transformStyles);
+/* harmony default export */ var transform_styles = (transform_styles_transformStyles);
 //# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/editor-styles/index.js
 
@@ -19869,7 +19924,9 @@ function AutoBlockPreview(_ref) {
       documentElement.classList.add('block-editor-block-preview__content-iframe');
       documentElement.style.position = 'absolute';
       documentElement.style.width = '100%';
-      bodyElement.style.padding = __experimentalPadding + 'px';
+      bodyElement.style.padding = __experimentalPadding + 'px'; // necessary for contentResizeListener to work.
+
+      bodyElement.style.position = 'relative';
     }, []),
     "aria-hidden": true,
     tabIndex: -1,
@@ -21326,7 +21383,9 @@ function getItemSearchRank(item, searchTerm) {
 
 
   if (rank !== 0 && name.startsWith('core/')) {
-    rank++;
+    const isCoreBlockVariation = name !== item.id; // Give a bit better rank to "core" blocks over "core" block variations.
+
+    rank += isCoreBlockVariation ? 1 : 2;
   }
 
   return rank;
@@ -28751,7 +28810,7 @@ function BorderColorEdit(props) {
     return (_getColorObjectByAttr = getColorObjectByAttributeValues(availableColors, borderColor, customBorderColor)) === null || _getColorObjectByAttr === void 0 ? void 0 : _getColorObjectByAttr.color;
   }); // Detect changes in the color attributes and update the colorValue to keep the
   // UI in sync. This is necessary for situations when border controls interact with
-  // eachother: eg, setting the border width to zero causes the color and style
+  // each other: eg, setting the border width to zero causes the color and style
   // selections to be cleared.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -30009,148 +30068,6 @@ function __experimentalUseGradient() {
   };
 }
 //# sourceMappingURL=use-gradient.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/panel-color-gradient-settings.js
-
-
-
-/**
- * External dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
- // translators: first %s: The type of color or gradient (e.g. background, overlay...), second %s: the color name or value (e.g. red or #ff0000)
-
-const colorIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(%s: color %s)'); // translators: first %s: The type of color or gradient (e.g. background, overlay...), second %s: the color name or value (e.g. red or #ff0000)
-
-
-const gradientIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(%s: gradient %s)');
-
-const panel_color_gradient_settings_colorsAndGradientKeys = ['colors', 'disableCustomColors', 'gradients', 'disableCustomGradients'];
-
-const Indicators = _ref => {
-  let {
-    colors,
-    gradients,
-    settings
-  } = _ref;
-  return settings.map((_ref2, index) => {
-    let {
-      colorValue,
-      gradientValue,
-      label,
-      colors: availableColors,
-      gradients: availableGradients
-    } = _ref2;
-
-    if (!colorValue && !gradientValue) {
-      return null;
-    }
-
-    let ariaLabel;
-
-    if (colorValue) {
-      const colorObject = getColorObjectByColorValue(availableColors || colors, colorValue);
-      ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(colorIndicatorAriaLabel, label.toLowerCase(), colorObject && colorObject.name || colorValue);
-    } else {
-      const gradientObject = __experimentalGetGradientObjectByGradientValue(availableGradients || gradients, colorValue);
-
-      ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(gradientIndicatorAriaLabel, label.toLowerCase(), gradientObject && gradientObject.name || gradientValue);
-    }
-
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
-      key: index,
-      colorValue: colorValue || gradientValue,
-      "aria-label": ariaLabel
-    });
-  });
-};
-
-const PanelColorGradientSettingsInner = _ref3 => {
-  let {
-    className,
-    colors,
-    gradients,
-    disableCustomColors,
-    disableCustomGradients,
-    children,
-    settings,
-    title,
-    showTitle = true,
-    __experimentalHasMultipleOrigins,
-    __experimentalIsRenderedInSidebar,
-    enableAlpha,
-    ...props
-  } = _ref3;
-
-  if ((0,external_lodash_namespaceObject.isEmpty)(colors) && (0,external_lodash_namespaceObject.isEmpty)(gradients) && disableCustomColors && disableCustomGradients && (0,external_lodash_namespaceObject.every)(settings, setting => (0,external_lodash_namespaceObject.isEmpty)(setting.colors) && (0,external_lodash_namespaceObject.isEmpty)(setting.gradients) && (setting.disableCustomColors === undefined || setting.disableCustomColors) && (setting.disableCustomGradients === undefined || setting.disableCustomGradients))) {
-    return null;
-  }
-
-  const titleElement = (0,external_wp_element_namespaceObject.createElement)("span", {
-    className: "block-editor-panel-color-gradient-settings__panel-title"
-  }, title, (0,external_wp_element_namespaceObject.createElement)(Indicators, {
-    colors: colors,
-    gradients: gradients,
-    settings: settings
-  }));
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, _extends({
-    className: classnames_default()('block-editor-panel-color-gradient-settings', className),
-    title: showTitle ? titleElement : undefined
-  }, props), (0,external_wp_element_namespaceObject.createElement)(ColorGradientSettingsDropdown, {
-    settings: settings,
-    colors,
-    gradients,
-    disableCustomColors,
-    disableCustomGradients,
-    __experimentalHasMultipleOrigins,
-    __experimentalIsRenderedInSidebar,
-    enableAlpha
-  }), !!children && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
-    marginY: 4
-  }), " ", children));
-};
-
-const PanelColorGradientSettingsSingleSelect = props => {
-  const colorGradientSettings = useCommonSingleMultipleSelects();
-  colorGradientSettings.colors = useSetting('color.palette');
-  colorGradientSettings.gradients = useSetting('color.gradients');
-  return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsInner, _extends({}, colorGradientSettings, props));
-};
-
-const PanelColorGradientSettingsMultipleSelect = props => {
-  const colorGradientSettings = useMultipleOriginColorsAndGradients();
-  return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsInner, _extends({}, colorGradientSettings, props));
-};
-
-const PanelColorGradientSettings = props => {
-  if ((0,external_lodash_namespaceObject.every)(panel_color_gradient_settings_colorsAndGradientKeys, key => props.hasOwnProperty(key))) {
-    return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsInner, props);
-  }
-
-  if (props.__experimentalHasMultipleOrigins) {
-    return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsMultipleSelect, props);
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsSingleSelect, props);
-};
-
-/* harmony default export */ var panel_color_gradient_settings = (PanelColorGradientSettings);
-//# sourceMappingURL=panel-color-gradient-settings.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/contrast-checker/index.js
 
 
@@ -30167,101 +30084,186 @@ const PanelColorGradientSettings = props => {
 
 
 
-
 k([names, a11y]);
 
-function ContrastCheckerMessage(_ref) {
+function ContrastChecker(_ref) {
   let {
-    colordBackgroundColor,
-    colordTextColor,
     backgroundColor,
+    fallbackBackgroundColor,
+    fallbackTextColor,
+    fallbackLinkColor,
+    fontSize,
+    // font size value in pixels
+    isLargeText,
     textColor,
-    shouldShowTransparencyWarning
+    linkColor,
+    enableAlphaChecker = false
   } = _ref;
-  let msg = '';
+  const currentBackgroundColor = backgroundColor || fallbackBackgroundColor; // Must have a background color.
 
-  if (shouldShowTransparencyWarning) {
-    msg = (0,external_wp_i18n_namespaceObject.__)('Transparent text may be hard for people to read.');
-  } else {
-    msg = colordBackgroundColor.brightness() < colordTextColor.brightness() ? (0,external_wp_i18n_namespaceObject.__)('This color combination may be hard for people to read. Try using a darker background color and/or a brighter text color.') : (0,external_wp_i18n_namespaceObject.__)('This color combination may be hard for people to read. Try using a brighter background color and/or a darker text color.');
+  if (!currentBackgroundColor) {
+    return null;
+  }
+
+  const currentTextColor = textColor || fallbackTextColor;
+  const currentLinkColor = linkColor || fallbackLinkColor; // Must have at least one text color.
+
+  if (!currentTextColor && !currentLinkColor) {
+    return null;
+  }
+
+  const textColors = [{
+    color: currentTextColor,
+    description: (0,external_wp_i18n_namespaceObject.__)('text color')
+  }, {
+    color: currentLinkColor,
+    description: (0,external_wp_i18n_namespaceObject.__)('link color')
+  }];
+  const colordBackgroundColor = w(currentBackgroundColor);
+  const backgroundColorHasTransparency = colordBackgroundColor.alpha() < 1;
+  const backgroundColorBrightness = colordBackgroundColor.brightness();
+  const isReadableOptions = {
+    level: 'AA',
+    size: isLargeText || isLargeText !== false && fontSize >= 24 ? 'large' : 'small'
+  };
+  let message = '';
+  let speakMessage = '';
+
+  for (const item of textColors) {
+    // If there is no color, go no further.
+    if (!item.color) {
+      continue;
+    }
+
+    const colordTextColor = w(item.color);
+    const isColordTextReadable = colordTextColor.isReadable(colordBackgroundColor, isReadableOptions);
+    const textHasTransparency = colordTextColor.alpha() < 1; // If the contrast is not readable.
+
+    if (!isColordTextReadable) {
+      // Don't show the message if the background or text is transparent.
+      if (backgroundColorHasTransparency || textHasTransparency) {
+        continue;
+      }
+
+      message = backgroundColorBrightness < colordTextColor.brightness() ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s is a type of text color, e.g., "text color" or "link color"
+      (0,external_wp_i18n_namespaceObject.__)('This color combination may be hard for people to read. Try using a darker background color and/or a brighter %s.'), item.description) : (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s is a type of text color, e.g., "text color" or "link color"
+      (0,external_wp_i18n_namespaceObject.__)('This color combination may be hard for people to read. Try using a brighter background color and/or a darker %s.'), item.description);
+      speakMessage = (0,external_wp_i18n_namespaceObject.__)('This color combination may be hard for people to read.'); // Break from the loop when we have a contrast warning.
+      // These messages take priority over the transparency warning.
+
+      break;
+    } // If there is no contrast warning and the text is transparent,
+    // show the transparent warning if alpha check is enabled.
+
+
+    if (textHasTransparency && enableAlphaChecker) {
+      message = (0,external_wp_i18n_namespaceObject.__)('Transparent text may be hard for people to read.');
+      speakMessage = (0,external_wp_i18n_namespaceObject.__)('Transparent text may be hard for people to read.');
+    }
+  }
+
+  if (!message) {
+    return null;
   } // Note: The `Notice` component can speak messages via its `spokenMessage`
   // prop, but the contrast checker requires granular control over when the
   // announcements are made. Notably, the message will be re-announced if a
   // new color combination is selected and the contrast is still insufficient.
 
 
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    const speakMsg = shouldShowTransparencyWarning ? (0,external_wp_i18n_namespaceObject.__)('Transparent text may be hard for people to read.') : (0,external_wp_i18n_namespaceObject.__)('This color combination may be hard for people to read.');
-    (0,external_wp_a11y_namespaceObject.speak)(speakMsg);
-  }, [backgroundColor, textColor]);
+  (0,external_wp_a11y_namespaceObject.speak)(speakMessage);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-contrast-checker"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Notice, {
     spokenMessage: null,
     status: "warning",
     isDismissible: false
-  }, msg));
-}
-
-function ContrastChecker(_ref2) {
-  let {
-    backgroundColor,
-    fallbackBackgroundColor,
-    fallbackTextColor,
-    fontSize,
-    // font size value in pixels
-    isLargeText,
-    textColor,
-    enableAlphaChecker = false
-  } = _ref2;
-
-  if (!(backgroundColor || fallbackBackgroundColor) || !(textColor || fallbackTextColor)) {
-    return null;
-  }
-
-  const colordBackgroundColor = w(backgroundColor || fallbackBackgroundColor);
-  const colordTextColor = w(textColor || fallbackTextColor);
-  const textColorHasTransparency = colordTextColor.alpha() < 1;
-  const backgroundColorHasTransparency = colordBackgroundColor.alpha() < 1;
-  const hasTransparency = textColorHasTransparency || backgroundColorHasTransparency;
-  const isReadable = colordTextColor.isReadable(colordBackgroundColor, {
-    level: 'AA',
-    size: isLargeText || isLargeText !== false && fontSize >= 24 ? 'large' : 'small'
-  }); // Don't show the message if the text is readable AND there's no transparency.
-  // This is the default.
-
-  if (isReadable && !hasTransparency) {
-    return null;
-  }
-
-  if (hasTransparency) {
-    if ( // If there's transparency, don't show the message if the alpha checker is disabled.
-    !enableAlphaChecker || // If the alpha checker is enabled, we only show the warning if the text has transparency.
-    isReadable && !textColorHasTransparency) {
-      return null;
-    }
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(ContrastCheckerMessage, {
-    backgroundColor: backgroundColor,
-    textColor: textColor,
-    colordBackgroundColor: colordBackgroundColor,
-    colordTextColor: colordTextColor // Flag to warn about transparency only if the text is otherwise readable according to colord
-    // to ensure the readability warnings take precedence.
-    ,
-    shouldShowTransparencyWarning: isReadable && textColorHasTransparency
-  });
+  }, message));
 }
 
 /* harmony default export */ var contrast_checker = (ContrastChecker);
 //# sourceMappingURL=index.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/tools-panel-color-dropdown.js
+
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function ToolsPanelColorDropdown(_ref) {
+  var _settings$gradientVal;
+
+  let {
+    settings,
+    enableAlpha,
+    ...otherProps
+  } = _ref;
+  const colorGradientSettings = useMultipleOriginColorsAndGradients();
+  const controlSettings = { ...colorGradientSettings,
+    clearable: false,
+    enableAlpha,
+    label: settings.label,
+    onColorChange: settings.onColorChange,
+    onGradientChange: settings.onGradientChange,
+    colorValue: settings.colorValue,
+    gradientValue: settings.gradientValue
+  };
+  const selectedColor = (_settings$gradientVal = settings.gradientValue) !== null && _settings$gradientVal !== void 0 ? _settings$gradientVal : settings.colorValue;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, _extends({
+    hasValue: settings.hasValue,
+    label: settings.label,
+    onDeselect: settings.onDeselect,
+    isShownByDefault: settings.isShownByDefault,
+    resetAllFilter: settings.resetAllFilter
+  }, otherProps, {
+    className: "block-editor-tools-panel-color-gradient-settings__item"
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
+    className: "block-editor-tools-panel-color-dropdown",
+    contentClassName: "block-editor-panel-color-gradient-settings__dropdown-content",
+    renderToggle: _ref2 => {
+      let {
+        isOpen,
+        onToggle
+      } = _ref2;
+      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+        onClick: onToggle,
+        "aria-expanded": isOpen,
+        className: classnames_default()('block-editor-panel-color-gradient-settings__dropdown', {
+          'is-open': isOpen
+        })
+      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+        justify: "flex-start"
+      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
+        className: "block-editor-panel-color-gradient-settings__color-indicator",
+        colorValue: selectedColor
+      }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, settings.label)));
+    },
+    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(control, _extends({
+      showTitle: false,
+      __experimentalHasMultipleOrigins: true,
+      __experimentalIsRenderedInSidebar: true,
+      enableAlpha: true
+    }, controlSettings))
+  }));
+}
+//# sourceMappingURL=tools-panel-color-dropdown.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/color-panel.js
 
 
 /**
  * WordPress dependencies
  */
-
 
 /**
  * Internal dependencies
@@ -30281,13 +30283,15 @@ function ColorPanel(_ref) {
     enableAlpha = false,
     settings,
     clientId,
-    enableContrastChecking = true,
-    showTitle = true
+    enableContrastChecking = true
   } = _ref;
   const [detectedBackgroundColor, setDetectedBackgroundColor] = (0,external_wp_element_namespaceObject.useState)();
   const [detectedColor, setDetectedColor] = (0,external_wp_element_namespaceObject.useState)();
+  const [detectedLinkColor, setDetectedLinkColor] = (0,external_wp_element_namespaceObject.useState)();
   const ref = useBlockRef(clientId);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
+    var _ref$current;
+
     if (!enableContrastChecking) {
       return;
     }
@@ -30297,6 +30301,12 @@ function ColorPanel(_ref) {
     }
 
     setDetectedColor(getComputedStyle(ref.current).color);
+    const firstLinkElement = (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.querySelector('a');
+
+    if (firstLinkElement && !!firstLinkElement.innerText) {
+      setDetectedLinkColor(getComputedStyle(firstLinkElement).color);
+    }
+
     let backgroundColorNode = ref.current;
     let backgroundColor = getComputedStyle(backgroundColorNode).backgroundColor;
 
@@ -30307,19 +30317,19 @@ function ColorPanel(_ref) {
 
     setDetectedBackgroundColor(backgroundColor);
   });
-  return (0,external_wp_element_namespaceObject.createElement)(inspector_controls, null, (0,external_wp_element_namespaceObject.createElement)(panel_color_gradient_settings, {
-    title: (0,external_wp_i18n_namespaceObject.__)('Color'),
-    initialOpen: false,
-    settings: settings,
-    showTitle: showTitle,
-    enableAlpha: enableAlpha,
-    __experimentalHasMultipleOrigins: true,
-    __experimentalIsRenderedInSidebar: true
-  }, enableContrastChecking && (0,external_wp_element_namespaceObject.createElement)(contrast_checker, {
+  return (0,external_wp_element_namespaceObject.createElement)(inspector_controls, {
+    __experimentalGroup: "color"
+  }, settings.map((setting, index) => (0,external_wp_element_namespaceObject.createElement)(ToolsPanelColorDropdown, {
+    key: index,
+    settings: setting,
+    panelId: clientId,
+    enableAlpha: enableAlpha
+  })), enableContrastChecking && (0,external_wp_element_namespaceObject.createElement)(contrast_checker, {
     backgroundColor: detectedBackgroundColor,
     textColor: detectedColor,
-    enableAlphaChecker: enableAlpha
-  })));
+    enableAlphaChecker: enableAlpha,
+    linkColor: detectedLinkColor
+  }));
 }
 //# sourceMappingURL=color-panel.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/color.js
@@ -30385,6 +30395,143 @@ const hasTextColorSupport = blockType => {
   return colorSupport && colorSupport.text !== false;
 };
 /**
+ * Checks whether a color has been set either with a named preset color in
+ * a top level block attribute or as a custom value within the style attribute
+ * object.
+ *
+ * @param {string} name Name of the color to check.
+ * @return {boolean} Whether or not a color has a value.
+ */
+
+
+const hasColor = name => props => {
+  var _props$attributes$sty9, _props$attributes$sty10;
+
+  if (name === 'background') {
+    var _props$attributes$sty, _props$attributes$sty2, _props$attributes$sty3, _props$attributes$sty4;
+
+    return !!props.attributes.backgroundColor || !!((_props$attributes$sty = props.attributes.style) !== null && _props$attributes$sty !== void 0 && (_props$attributes$sty2 = _props$attributes$sty.color) !== null && _props$attributes$sty2 !== void 0 && _props$attributes$sty2.background) || !!props.attributes.gradient || !!((_props$attributes$sty3 = props.attributes.style) !== null && _props$attributes$sty3 !== void 0 && (_props$attributes$sty4 = _props$attributes$sty3.color) !== null && _props$attributes$sty4 !== void 0 && _props$attributes$sty4.gradient);
+  }
+
+  if (name === 'link') {
+    var _props$attributes$sty5, _props$attributes$sty6, _props$attributes$sty7, _props$attributes$sty8;
+
+    return !!((_props$attributes$sty5 = props.attributes.style) !== null && _props$attributes$sty5 !== void 0 && (_props$attributes$sty6 = _props$attributes$sty5.elements) !== null && _props$attributes$sty6 !== void 0 && (_props$attributes$sty7 = _props$attributes$sty6.link) !== null && _props$attributes$sty7 !== void 0 && (_props$attributes$sty8 = _props$attributes$sty7.color) !== null && _props$attributes$sty8 !== void 0 && _props$attributes$sty8.text);
+  }
+
+  return !!props.attributes[`${name}Color`] || !!((_props$attributes$sty9 = props.attributes.style) !== null && _props$attributes$sty9 !== void 0 && (_props$attributes$sty10 = _props$attributes$sty9.color) !== null && _props$attributes$sty10 !== void 0 && _props$attributes$sty10[name]);
+};
+/**
+ * Clears a single color property from a style object.
+ *
+ * @param {Array}  path  Path to color property to clear within styles object.
+ * @param {Object} style Block attributes style object.
+ * @return {Object} Styles with the color property omitted.
+ */
+
+
+const clearColorFromStyles = (path, style) => cleanEmptyObject(immutableSet(style, path, undefined));
+/**
+ * Resets the block attributes for text color.
+ *
+ * @param {Object}   props               Current block props.
+ * @param {Object}   props.attributes    Block attributes.
+ * @param {Function} props.setAttributes Block's setAttributes prop used to apply reset.
+ */
+
+
+const resetTextColor = _ref => {
+  let {
+    attributes,
+    setAttributes
+  } = _ref;
+  setAttributes({
+    textColor: undefined,
+    style: clearColorFromStyles(['color', 'text'], attributes.style)
+  });
+};
+/**
+ * Clears text color related properties from supplied attributes.
+ *
+ * @param {Object} attributes Block attributes.
+ * @return {Object} Update block attributes with text color properties omitted.
+ */
+
+
+const resetAllTextFilter = attributes => ({
+  textColor: undefined,
+  style: clearColorFromStyles(['color', 'text'], attributes.style)
+});
+/**
+ * Resets the block attributes for link color.
+ *
+ * @param {Object}   props               Current block props.
+ * @param {Object}   props.attributes    Block attributes.
+ * @param {Function} props.setAttributes Block's setAttributes prop used to apply reset.
+ */
+
+
+const resetLinkColor = _ref2 => {
+  let {
+    attributes,
+    setAttributes
+  } = _ref2;
+  const path = ['elements', 'link', 'color', 'text'];
+  setAttributes({
+    style: clearColorFromStyles(path, attributes.style)
+  });
+};
+/**
+ * Clears link color related properties from supplied attributes.
+ *
+ * @param {Object} attributes Block attributes.
+ * @return {Object} Update block attributes with link color properties omitted.
+ */
+
+
+const resetAllLinkFilter = attributes => ({
+  style: clearColorFromStyles(['elements', 'link', 'color', 'text'], attributes.style)
+});
+/**
+ * Clears all background color related properties including gradients from
+ * supplied block attributes.
+ *
+ * @param {Object} attributes Block attributes.
+ * @return {Object} Block attributes with background and gradient omitted.
+ */
+
+
+const clearBackgroundAndGradient = attributes => {
+  var _attributes$style;
+
+  return {
+    backgroundColor: undefined,
+    gradient: undefined,
+    style: { ...attributes.style,
+      color: { ...((_attributes$style = attributes.style) === null || _attributes$style === void 0 ? void 0 : _attributes$style.color),
+        background: undefined,
+        gradient: undefined
+      }
+    }
+  };
+};
+/**
+ * Resets the block attributes for both background color and gradient.
+ *
+ * @param {Object}   props               Current block props.
+ * @param {Object}   props.attributes    Block attributes.
+ * @param {Function} props.setAttributes Block's setAttributes prop used to apply reset.
+ */
+
+
+const resetBackgroundAndGradient = _ref3 => {
+  let {
+    attributes,
+    setAttributes
+  } = _ref3;
+  setAttributes(clearBackgroundAndGradient(attributes));
+};
+/**
  * Filters registered block settings, extending attributes to include
  * `backgroundColor` and `textColor` attribute.
  *
@@ -30444,7 +30591,7 @@ function color_addSaveProps(props, blockType, attributes) {
     return props;
   }
 
-  const hasGradient = hasGradientSupport(blockType); // I'd have prefered to avoid the "style" attribute usage here
+  const hasGradient = hasGradientSupport(blockType); // I'd have preferred to avoid the "style" attribute usage here
 
   const {
     backgroundColor,
@@ -30468,7 +30615,7 @@ function color_addSaveProps(props, blockType, attributes) {
   return props;
 }
 /**
- * Filters registered block settings to extand the block edit wrapper
+ * Filters registered block settings to extend the block edit wrapper
  * to apply the desired styles and classnames properly.
  *
  * @param {Object} settings Original block settings.
@@ -30505,10 +30652,6 @@ const getLinkColorFromAttributeValue = (colors, value) => {
 
   return value;
 };
-
-function immutableSet(object, path, value) {
-  return (0,external_lodash_namespaceObject.setWith)(object ? (0,external_lodash_namespaceObject.clone)(object) : {}, path, value, external_lodash_namespaceObject.clone);
-}
 /**
  * Inspector control panel containing the color related configuration
  *
@@ -30648,6 +30791,7 @@ function ColorEdit(props) {
   };
 
   const enableContrastChecking = external_wp_element_namespaceObject.Platform.OS === 'web' && !gradient && !(style !== null && style !== void 0 && (_style$color6 = style.color) !== null && _style$color6 !== void 0 && _style$color6.gradient);
+  const defaultColorControls = (0,external_wp_blocks_namespaceObject.getBlockSupport)(props.name, [COLOR_SUPPORT_KEY, '__experimentalDefaultControls']);
   return (0,external_wp_element_namespaceObject.createElement)(ColorPanel, {
     enableContrastChecking: enableContrastChecking,
     clientId: props.clientId,
@@ -30655,18 +30799,30 @@ function ColorEdit(props) {
     settings: [...(hasTextColor ? [{
       label: (0,external_wp_i18n_namespaceObject.__)('Text'),
       onColorChange: onChangeColor('text'),
-      colorValue: getColorObjectByAttributeValues(allSolids, textColor, style === null || style === void 0 ? void 0 : (_style$color7 = style.color) === null || _style$color7 === void 0 ? void 0 : _style$color7.text).color
+      colorValue: getColorObjectByAttributeValues(allSolids, textColor, style === null || style === void 0 ? void 0 : (_style$color7 = style.color) === null || _style$color7 === void 0 ? void 0 : _style$color7.text).color,
+      isShownByDefault: defaultColorControls === null || defaultColorControls === void 0 ? void 0 : defaultColorControls.text,
+      hasValue: () => hasColor('text')(props),
+      onDeselect: () => resetTextColor(props),
+      resetAllFilter: resetAllTextFilter
     }] : []), ...(hasBackgroundColor || hasGradientColor ? [{
       label: (0,external_wp_i18n_namespaceObject.__)('Background'),
       onColorChange: hasBackgroundColor ? onChangeColor('background') : undefined,
       colorValue: getColorObjectByAttributeValues(allSolids, backgroundColor, style === null || style === void 0 ? void 0 : (_style$color8 = style.color) === null || _style$color8 === void 0 ? void 0 : _style$color8.background).color,
       gradientValue,
-      onGradientChange: hasGradientColor ? onChangeGradient : undefined
+      onGradientChange: hasGradientColor ? onChangeGradient : undefined,
+      isShownByDefault: defaultColorControls === null || defaultColorControls === void 0 ? void 0 : defaultColorControls.background,
+      hasValue: () => hasColor('background')(props),
+      onDeselect: () => resetBackgroundAndGradient(props),
+      resetAllFilter: clearBackgroundAndGradient
     }] : []), ...(hasLinkColor ? [{
       label: (0,external_wp_i18n_namespaceObject.__)('Link'),
       onColorChange: onChangeLinkColor,
       colorValue: getLinkColorFromAttributeValue(allSolids, style === null || style === void 0 ? void 0 : (_style$elements2 = style.elements) === null || _style$elements2 === void 0 ? void 0 : (_style$elements2$link = _style$elements2.link) === null || _style$elements2$link === void 0 ? void 0 : (_style$elements2$link2 = _style$elements2$link.color) === null || _style$elements2$link2 === void 0 ? void 0 : _style$elements2$link2.text),
-      clearable: !!(style !== null && style !== void 0 && (_style$elements3 = style.elements) !== null && _style$elements3 !== void 0 && (_style$elements3$link = _style$elements3.link) !== null && _style$elements3$link !== void 0 && (_style$elements3$link2 = _style$elements3$link.color) !== null && _style$elements3$link2 !== void 0 && _style$elements3$link2.text)
+      clearable: !!(style !== null && style !== void 0 && (_style$elements3 = style.elements) !== null && _style$elements3 !== void 0 && (_style$elements3$link = _style$elements3.link) !== null && _style$elements3$link !== void 0 && (_style$elements3$link2 = _style$elements3$link.color) !== null && _style$elements3$link2 !== void 0 && _style$elements3$link2.text),
+      isShownByDefault: defaultColorControls === null || defaultColorControls === void 0 ? void 0 : defaultColorControls.link,
+      hasValue: () => hasColor('link')(props),
+      onDeselect: () => resetLinkColor(props),
+      resetAllFilter: resetAllLinkFilter
     }] : [])]
   });
 }
@@ -30723,10 +30879,27 @@ const withColorPaletteStyles = (0,external_wp_compose_namespaceObject.createHigh
     wrapperProps: wrapperProps
   }));
 });
+const MIGRATION_PATHS = {
+  linkColor: [['style', 'elements', 'link', 'color', 'text']],
+  textColor: [['textColor'], ['style', 'color', 'text']],
+  backgroundColor: [['backgroundColor'], ['style', 'color', 'background']],
+  gradient: [['gradient'], ['style', 'color', 'gradient']]
+};
+function addTransforms(result, source, index, results) {
+  const destinationBlockType = result.name;
+  const activeSupports = {
+    linkColor: hasLinkColorSupport(destinationBlockType),
+    textColor: hasTextColorSupport(destinationBlockType),
+    backgroundColor: hasBackgroundColorSupport(destinationBlockType),
+    gradient: hasGradientSupport(destinationBlockType)
+  };
+  return transformStyles(activeSupports, MIGRATION_PATHS, result, source, index, results);
+}
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.registerBlockType', 'core/color/addAttribute', color_addAttributes);
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.getSaveContent.extraProps', 'core/color/addSaveProps', color_addSaveProps);
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.registerBlockType', 'core/color/addEditProps', color_addEditProps);
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockListBlock', 'core/color/with-color-palette-styles', withColorPaletteStyles);
+(0,external_wp_hooks_namespaceObject.addFilter)('blocks.switchToBlockType.transformedBlock', 'core/color/addTransforms', addTransforms);
 //# sourceMappingURL=color.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/font-appearance-control/index.js
 
@@ -31888,10 +32061,21 @@ const withFontSizeInlineStyles = (0,external_wp_compose_namespaceObject.createHi
   };
   return (0,external_wp_element_namespaceObject.createElement)(BlockListBlock, newProps);
 }, 'withFontSizeInlineStyles');
+const font_size_MIGRATION_PATHS = {
+  fontSize: [['fontSize'], ['style', 'typography', 'fontSize']]
+};
+function font_size_addTransforms(result, source, index, results) {
+  const destinationBlockType = result.name;
+  const activeSupports = {
+    fontSize: (0,external_wp_blocks_namespaceObject.hasBlockSupport)(destinationBlockType, FONT_SIZE_SUPPORT_KEY)
+  };
+  return transformStyles(activeSupports, font_size_MIGRATION_PATHS, result, source, index, results);
+}
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.registerBlockType', 'core/font/addAttribute', font_size_addAttributes);
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.getSaveContent.extraProps', 'core/font/addSaveProps', font_size_addSaveProps);
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.registerBlockType', 'core/font/addEditProps', font_size_addEditProps);
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockListBlock', 'core/font-size/with-font-size-inline-styles', withFontSizeInlineStyles);
+(0,external_wp_hooks_namespaceObject.addFilter)('blocks.switchToBlockType.transformedBlock', 'core/font-size/addTransforms', font_size_addTransforms);
 //# sourceMappingURL=font-size.js.map
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/format-underline.js
 
@@ -35497,7 +35681,8 @@ function ListViewBlockSelectButton(_ref, ref) {
     onFocus,
     onDragStart,
     onDragEnd,
-    draggable
+    draggable,
+    isExpanded
   } = _ref;
   const blockInformation = useBlockDisplayInformation(clientId);
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(ListViewBlockSelectButton);
@@ -35530,7 +35715,8 @@ function ListViewBlockSelectButton(_ref, ref) {
     onDragStart: onDragStartHandler,
     onDragEnd: onDragEnd,
     draggable: draggable,
-    href: `#block-${clientId}`
+    href: `#block-${clientId}`,
+    "aria-expanded": isExpanded
   }, (0,external_wp_element_namespaceObject.createElement)(ListViewExpander, {
     onClick: onToggleExpanded
   }), (0,external_wp_element_namespaceObject.createElement)(block_icon, {
@@ -35578,6 +35764,7 @@ const ListViewBlockContents = (0,external_wp_element_namespaceObject.forwardRef)
     position,
     siblingBlockCount,
     level,
+    isExpanded,
     ...props
   } = _ref;
   const {
@@ -35622,7 +35809,8 @@ const ListViewBlockContents = (0,external_wp_element_namespaceObject.forwardRef)
       level: level,
       draggable: draggable,
       onDragStart: onDragStart,
-      onDragEnd: onDragEnd
+      onDragEnd: onDragEnd,
+      isExpanded: isExpanded
     }, props));
   });
 });
@@ -35791,7 +35979,8 @@ function ListViewBlock(_ref) {
       level: level,
       ref: ref,
       tabIndex: tabIndex,
-      onFocus: onFocus
+      onFocus: onFocus,
+      isExpanded: isExpanded
     }));
   }), hasRenderedMovers && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTreeGridCell, {
     className: moverCellClassName,
@@ -37519,6 +37708,148 @@ function ColorPaletteControl(_ref) {
   }));
 }
 //# sourceMappingURL=control.js.map
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/panel-color-gradient-settings.js
+
+
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+ // translators: first %s: The type of color or gradient (e.g. background, overlay...), second %s: the color name or value (e.g. red or #ff0000)
+
+const colorIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(%s: color %s)'); // translators: first %s: The type of color or gradient (e.g. background, overlay...), second %s: the color name or value (e.g. red or #ff0000)
+
+
+const gradientIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(%s: gradient %s)');
+
+const panel_color_gradient_settings_colorsAndGradientKeys = ['colors', 'disableCustomColors', 'gradients', 'disableCustomGradients'];
+
+const Indicators = _ref => {
+  let {
+    colors,
+    gradients,
+    settings
+  } = _ref;
+  return settings.map((_ref2, index) => {
+    let {
+      colorValue,
+      gradientValue,
+      label,
+      colors: availableColors,
+      gradients: availableGradients
+    } = _ref2;
+
+    if (!colorValue && !gradientValue) {
+      return null;
+    }
+
+    let ariaLabel;
+
+    if (colorValue) {
+      const colorObject = getColorObjectByColorValue(availableColors || colors, colorValue);
+      ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(colorIndicatorAriaLabel, label.toLowerCase(), colorObject && colorObject.name || colorValue);
+    } else {
+      const gradientObject = __experimentalGetGradientObjectByGradientValue(availableGradients || gradients, colorValue);
+
+      ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(gradientIndicatorAriaLabel, label.toLowerCase(), gradientObject && gradientObject.name || gradientValue);
+    }
+
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
+      key: index,
+      colorValue: colorValue || gradientValue,
+      "aria-label": ariaLabel
+    });
+  });
+};
+
+const PanelColorGradientSettingsInner = _ref3 => {
+  let {
+    className,
+    colors,
+    gradients,
+    disableCustomColors,
+    disableCustomGradients,
+    children,
+    settings,
+    title,
+    showTitle = true,
+    __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar,
+    enableAlpha,
+    ...props
+  } = _ref3;
+
+  if ((0,external_lodash_namespaceObject.isEmpty)(colors) && (0,external_lodash_namespaceObject.isEmpty)(gradients) && disableCustomColors && disableCustomGradients && (0,external_lodash_namespaceObject.every)(settings, setting => (0,external_lodash_namespaceObject.isEmpty)(setting.colors) && (0,external_lodash_namespaceObject.isEmpty)(setting.gradients) && (setting.disableCustomColors === undefined || setting.disableCustomColors) && (setting.disableCustomGradients === undefined || setting.disableCustomGradients))) {
+    return null;
+  }
+
+  const titleElement = (0,external_wp_element_namespaceObject.createElement)("span", {
+    className: "block-editor-panel-color-gradient-settings__panel-title"
+  }, title, (0,external_wp_element_namespaceObject.createElement)(Indicators, {
+    colors: colors,
+    gradients: gradients,
+    settings: settings
+  }));
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, _extends({
+    className: classnames_default()('block-editor-panel-color-gradient-settings', className),
+    title: showTitle ? titleElement : undefined
+  }, props), (0,external_wp_element_namespaceObject.createElement)(ColorGradientSettingsDropdown, {
+    settings: settings,
+    colors,
+    gradients,
+    disableCustomColors,
+    disableCustomGradients,
+    __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar,
+    enableAlpha
+  }), !!children && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
+    marginY: 4
+  }), " ", children));
+};
+
+const PanelColorGradientSettingsSingleSelect = props => {
+  const colorGradientSettings = useCommonSingleMultipleSelects();
+  colorGradientSettings.colors = useSetting('color.palette');
+  colorGradientSettings.gradients = useSetting('color.gradients');
+  return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsInner, _extends({}, colorGradientSettings, props));
+};
+
+const PanelColorGradientSettingsMultipleSelect = props => {
+  const colorGradientSettings = useMultipleOriginColorsAndGradients();
+  return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsInner, _extends({}, colorGradientSettings, props));
+};
+
+const PanelColorGradientSettings = props => {
+  if ((0,external_lodash_namespaceObject.every)(panel_color_gradient_settings_colorsAndGradientKeys, key => props.hasOwnProperty(key))) {
+    return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsInner, props);
+  }
+
+  if (props.__experimentalHasMultipleOrigins) {
+    return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsMultipleSelect, props);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(PanelColorGradientSettingsSingleSelect, props);
+};
+
+/* harmony default export */ var panel_color_gradient_settings = (PanelColorGradientSettings);
+//# sourceMappingURL=panel-color-gradient-settings.js.map
 ;// CONCATENATED MODULE: ./node_modules/react-easy-crop/node_modules/tslib/tslib.es6.js
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -40526,6 +40857,8 @@ function useRemoteUrlData(url) {
 
 
 function LinkPreview(_ref) {
+  var _value$url;
+
   let {
     value,
     onEditClick,
@@ -40542,8 +40875,9 @@ function LinkPreview(_ref) {
 
   const hasRichData = richData && Object.keys(richData).length;
   const displayURL = value && (0,external_wp_url_namespaceObject.filterURLForDisplay)((0,external_wp_url_namespaceObject.safeDecodeURI)(value.url), 16) || '';
-  const displayTitle = (richData === null || richData === void 0 ? void 0 : richData.title) || (value === null || value === void 0 ? void 0 : value.title) || displayURL;
-  const isEmptyURL = !value.url.length;
+  const displayTitle = (richData === null || richData === void 0 ? void 0 : richData.title) || (value === null || value === void 0 ? void 0 : value.title) || displayURL; // url can be undefined if the href attribute is unset
+
+  const isEmptyURL = !(value !== null && value !== void 0 && (_value$url = value.url) !== null && _value$url !== void 0 && _value$url.length);
   let icon;
 
   if (richData !== null && richData !== void 0 && richData.icon) {
@@ -41519,7 +41853,6 @@ URLPopover.LinkViewer = LinkViewer;
 
 
 
-
 /**
  * Internal dependencies
  */
@@ -41570,7 +41903,6 @@ function MediaPlaceholder(_ref2) {
     addToGallery,
     multiple = false,
     handleUpload = true,
-    dropZoneUIOnly,
     disableDropZone,
     disableMediaButtons,
     onError,
@@ -41864,14 +42196,7 @@ function MediaPlaceholder(_ref2) {
     return renderPlaceholder(uploadMediaLibraryButton);
   };
 
-  if (dropZoneUIOnly || disableMediaButtons) {
-    if (dropZoneUIOnly) {
-      external_wp_deprecated_default()('wp.blockEditor.MediaPlaceholder dropZoneUIOnly prop', {
-        since: '5.4',
-        alternative: 'disableMediaButtons'
-      });
-    }
-
+  if (disableMediaButtons) {
     return (0,external_wp_element_namespaceObject.createElement)(media_upload_check, null, renderDropZone());
   }
 
@@ -42229,7 +42554,8 @@ function getAllowedFormats(_ref) {
 
   external_wp_deprecated_default()('wp.blockEditor.RichText formattingControls prop', {
     since: '5.4',
-    alternative: 'allowedFormats'
+    alternative: 'allowedFormats',
+    version: '6.2'
   });
   return formattingControls.map(name => `core/${name}`);
 }
@@ -42365,6 +42691,8 @@ function usePasteHandler(props) {
   propsRef.current = props;
   return (0,external_wp_compose_namespaceObject.useRefEffect)(element => {
     function _onPaste(event) {
+      var _html;
+
       const {
         isSelected,
         disableFormats,
@@ -42467,11 +42795,18 @@ function usePasteHandler(props) {
           text: plainText
         })));
         return;
-      } // Only process file if no HTML is present.
-      // Note: a pasted file may have the URL as plain text.
+      } // Process any attached files, unless we detect Microsoft Office as
+      // the source.
+      //
+      // When content is copied from Microsoft Office, an image of the
+      // content is rendered and attached to the clipboard along with the
+      // plain-text and HTML content. This artifact is a distraction from
+      // the relevant clipboard data, so we ignore it.
+      //
+      // Props https://github.com/pubpub/pubpub/commit/2f933277a15a263a1ab4bbd36b96d3a106544aec
 
 
-      if (files && files.length && !html) {
+      if (files && files.length && !((_html = html) !== null && _html !== void 0 && _html.includes('xmlns:o="urn:schemas-microsoft-com:office:office'))) {
         const content = (0,external_wp_blocks_namespaceObject.pasteHandler)({
           HTML: filePasteHandler(files),
           mode: 'BLOCKS',
@@ -43455,7 +43790,8 @@ function RichTextWrapper(_ref, forwardedRef) {
 
   external_wp_deprecated_default()('wp.blockEditor.RichText wrapperClassName prop', {
     since: '5.4',
-    alternative: 'className prop or create your own wrapper div'
+    alternative: 'className prop or create your own wrapper div',
+    version: '6.2'
   });
   const className = classnames_default()('block-editor-rich-text', wrapperClassName);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -44663,6 +44999,9 @@ const BlockInspector = _ref => {
     return (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "block-editor-block-inspector"
     }, (0,external_wp_element_namespaceObject.createElement)(multi_selection_inspector, null), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, null), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
+      __experimentalGroup: "color",
+      label: (0,external_wp_i18n_namespaceObject.__)('Color')
+    }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
       __experimentalGroup: "typography",
       label: (0,external_wp_i18n_namespaceObject.__)('Typography')
     }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
@@ -44716,6 +45055,10 @@ const BlockInspectorSingleBlock = _ref2 => {
   }), (0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockName, 'defaultStylePicker', true) && (0,external_wp_element_namespaceObject.createElement)(DefaultStylePicker, {
     blockName: blockName
   }))), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, null), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
+    __experimentalGroup: "color",
+    label: (0,external_wp_i18n_namespaceObject.__)('Color'),
+    className: "color-block-support-panel__inner-wrapper"
+  }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
     __experimentalGroup: "typography",
     label: (0,external_wp_i18n_namespaceObject.__)('Typography')
   }), (0,external_wp_element_namespaceObject.createElement)(inspector_controls.Slot, {
@@ -45320,19 +45663,6 @@ function ObserveTyping(_ref) {
 
 /* harmony default export */ var observe_typing = (ObserveTyping);
 //# sourceMappingURL=index.js.map
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/preserve-scroll-in-reorder/index.js
-/**
- * WordPress dependencies
- */
-
-function PreserveScrollInReorder() {
-  external_wp_deprecated_default()('PreserveScrollInReorder component', {
-    since: '5.4',
-    hint: 'This behavior is now built-in the block list'
-  });
-  return null;
-}
-//# sourceMappingURL=index.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/typewriter/index.js
 
 
@@ -45705,10 +46035,10 @@ function useNoRecursiveRenders(uniqueId) {
 
 
 
+
 /*
  * Content Related Components
  */
-
 
 
 
