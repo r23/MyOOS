@@ -18,7 +18,7 @@
  * @author  Nick Ilyin <nick.ilyin@gmail.com>
  * Original author: Victor Stanciu <vic.stanciu@gmail.com>
  *
- * @version 2.8.38
+ * @version 2.8.39
  *
  * Auto-generated isXXXX() magic methods.
  * php -a examples/dump_magic_methods.php
@@ -255,7 +255,7 @@ class Mobile_Detect
     /**
      * Stores the version number of the current release.
      */
-    const VERSION                   = '2.8.38';
+    const VERSION                   = '2.8.39';
 
     /**
      * A type for the version() method indicating a string return value.
@@ -720,14 +720,14 @@ class Mobile_Detect
     protected static $browsers = array(
         //'Vivaldi'         => 'Vivaldi',
         // @reference: https://developers.google.com/chrome/mobile/docs/user-agent
-        'Chrome'          => '\bCrMo\b|CriOS|Android.*Chrome/[.0-9]* (Mobile)?',
+        'Chrome'          => '\bCrMo\b|CriOS.*Mobile|Android.*Chrome/[.0-9]* Mobile',
         'Dolfin'          => '\bDolfin\b',
         'Opera'           => 'Opera.*Mini|Opera.*Mobi|Android.*Opera|Mobile.*OPR/[0-9.]+$|Coast/[0-9.]+',
         'Skyfire'         => 'Skyfire',
         // Added "Edge on iOS" https://github.com/serbanghita/Mobile-Detect/issues/764
-        'Edge'             => '\bEdgiOS\b|Mobile Safari/[.0-9]* Edge',
+        'Edge'             => 'EdgiOS.*Mobile|Mobile Safari/[.0-9]* Edge',
         'IE'              => 'IEMobile|MSIEMobile', // |Trident/[.0-9]+
-        'Firefox'         => 'fennec|firefox.*maemo|(Mobile|Tablet).*Firefox|Firefox.*Mobile|FxiOS',
+        'Firefox'         => 'fennec|firefox.*maemo|(Mobile|Tablet).*Firefox|Firefox.*Mobile|FxiOS.*Mobile',
         'Bolt'            => 'bolt',
         'TeaShark'        => 'teashark',
         'Blazer'          => 'Blazer',
@@ -1519,6 +1519,10 @@ class Mobile_Detect
     public function version($propertyName, $type = self::VERSION_TYPE_STRING)
     {
         if (empty($propertyName)) {
+            return false;
+        }
+        
+        if (!\is_string($this->userAgent)) {
             return false;
         }
 
