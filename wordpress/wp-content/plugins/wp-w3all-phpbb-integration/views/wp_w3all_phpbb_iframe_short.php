@@ -8,7 +8,7 @@
     $phpBBuid2 = (isset($_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u']) && $_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u'] == 2) ? 2 : 0;
    } else { $phpBBuid2 = 0; }
 
-global $w3all_iframe_custom_w3fancyurl,$w3all_url_to_cms,$w3all_iframe_phpbb_link_yn,$w3all_iframe_custom_top_gap,$w3cookie_domain,$wp_w3all_forum_folder_wp;
+global $w3all_iframe_custom_w3fancyurl,$w3all_url_to_cms,$w3all_iframe_custom_top_gap,$w3cookie_domain,$wp_w3all_forum_folder_wp;
 $wp_w3all_forum_folder_wp = empty($ltm['wp_page_name']) ? $wp_w3all_forum_folder_wp : $ltm['wp_page_name'];
 $w3all_iframe_custom_top_gap = empty($ltm['wp_page_iframe_top_gap']) ? $w3all_iframe_custom_top_gap : $ltm['wp_page_iframe_top_gap'];
 $w3allhomeurl = get_home_url();
@@ -55,10 +55,11 @@ if( isset($_GET["w3"]) ){ // default
     $w3all_url_to_cms = $w3all_url_to_cms0;
    }
 }
+
 // old way to be removed
 // assure that passed url is correctly all decoded // may something else need to added in certain conditions
 $w3all_url_to_cms = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms);
-
+$w3all_url_to_cms_switch_phpbb_default_url = (empty($ltm['phpbb_default_url'])) ? $w3all_url_to_cms : $ltm['phpbb_default_url'];
 echo'<!-- noscript warning and simple preloader -->
 <div id="w3idwloader" class="w3_wrap_loader">
   <noscript><h3 style="background-color:#333;color:#FFF;padding:15px;font-size:0.8em;pointer-events:auto;">Javascript disabled: can\'t load the forum page at this Url.<br />Enable Javascript on your browser or visit the forum here:<br /><br />'.$w3all_url_to_cms.'<br /><a href="'.$w3all_url_to_cms.'">To be auto-redirected click here<br />(may this link will not work)</a></h3></noscript>
@@ -67,13 +68,14 @@ echo'<!-- noscript warning and simple preloader -->
 </div>
 <!-- START iframe div -->
 <div id="w3all_wrap_phpbb_forum_shortcode_div_id" class="w3all_wrap_phpbb_forum_shortcode_div_class">
-<iframe id="w3all_phpbb_iframe" style="width:1px;min-width:100%;*width:100%;border:0;" scrolling="no" src="'.$w3all_url_to_cms.'"></iframe>
+<iframe id="w3all_phpbb_iframe" style="width:1px;min-width:100%;*width:100%;border:0;" scrolling="no" src="'.$w3all_url_to_cms_switch_phpbb_default_url.'"></iframe>
 ';
 echo "<script type=\"text/javascript\">
     document.domain = '".$document_domain."'; // NOTE: for domains like 'mysite.co.uk' remove this line, if you setup the next to match the correct document.domain
     // document.domain = 'mydomain.com'; // NOTE: reset/setup this with domain (like mysite.co.uk) if js error when WP is installed like on mysite.domain.com and phpBB on domain.com: js origin error can come out for example when WordPress is on subdomain install and phpBB on domain. The origin fix is needed: (do this also on phpBB overall_footer.html added code, it need to match)
     var wp_u_logged = ".$current_user->ID.";
     var phpBBuid2 = ".$phpBBuid2.";
+    var inhomepageShort = '".$ltm['wp_page_name']."';
 
  function w3all_ajaxup_from_phpbb(res){
       var w3all_phpbb_u_logged  = /#w3all_phpbb_u_logged=1/ig.exec(res);
@@ -131,8 +133,8 @@ echo "<script type=\"text/javascript\">
    if( /[^-0-9A-Za-z\._#\:\?\/=&%]/ig.exec(w3all_passed_url) !== null || /adm\//ig.exec(w3all_passed_url) !== null || /sid=/ig.exec(w3all_passed_url) !== null ){
      w3all_passed_url = '';
    }
-  // PUSH phpBB URLs //
-   if(w3all_passed_url != ''){
+  // PUSH phpBB URLs // do not push in home if inhomepage-phpbbiframe set. If not set then page-forum ($wp_w3all_forum_folder_wp value) need to exist
+   if(w3all_passed_url != '' && inhomepageShort != 'inhomepage-phpbbiframe'){
     w3all_passed_url = window.btoa(unescape(encodeURIComponent(w3all_passed_url)));
     var w3all_passed_url_push = '".$w3allhomeurl."/".$wp_w3all_forum_folder_wp."/?".$w3all_iframe_custom_w3fancyurl."=' + w3all_passed_url;
     history.replaceState({w3all_passed_url: w3all_passed_url}, \"\", w3all_passed_url_push);

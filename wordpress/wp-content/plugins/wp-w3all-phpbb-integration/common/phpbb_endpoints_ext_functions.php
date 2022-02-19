@@ -7,6 +7,8 @@
 
  function w3all_usersdata_predelete_in_phpbb_exec($id, $reassign, $user)
  {
+ 	  if ( ! current_user_can( 'delete_users' ) ) { return; }
+
     global $wpdb,$w3all_wpusers_delete_ary_once,$w3all_url_to_cms;
 
   if( $w3all_wpusers_delete_ary_once < 1 && isset($_REQUEST['action']) && $_REQUEST['action'] == 'dodelete' && current_user_can('delete_users') )
@@ -33,9 +35,9 @@
         }
       }
 
-     if( count($emailist) > 50 ) // max 50 users per time
+     if( count($emailist) > 25 ) // max 25 users per time
      {
-       echo __('<h4>ERROR: too much users to be deleted per time (max 50). Return back and disable the option you activated that allow to delete users in phpBB (if you wish to delete more than 30 users per time) into the WP_w3all integration plugin admin page. Remember deativating the option: in this case, deleted users in WP, are deactivated in phpBB and not deleted<.</h4>', 'wp-w3all-phpbb-integration');
+       echo __('<h4>ERROR: too much users to be deleted per time (max 50). Return back and disable the option you activated that allow to delete users in phpBB (if you wish to delete more than 25 users per time) into the WP_w3all integration plugin admin page. Remember deativating the option: in this case, deleted users in WP, are deactivated in phpBB and not deleted<.</h4>', 'wp-w3all-phpbb-integration');
        exit;
      }
 
@@ -99,7 +101,7 @@
     if ( ! current_user_can( 'delete_users' ) OR $w3all_wpusers_delete_ary_once > 1 )
     { return; }
      // remove all, just after phpBB retrieved the necessary after first delete in WP occur
-     // more secure would be: empty this with a query from phpBB, as soon the $_POST received and data retrieved
+     // could be: empty this with a query from/in phpBB, as soon the $_POST received and data retrieved
      update_user_meta( get_current_user_id(), 'w3all_wpdelete_phpbbulist_delby', 'done'); // empty the meta field, it is like an 'auto nonce'
      $w3all_wpusers_delete_ary_once++;
   }

@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-w3all-phpbb-integration\n"
-"POT-Creation-Date: 2022-02-15 10:05+0100\n"
+"POT-Creation-Date: 2022-02-18 21:14+0100\n"
 "PO-Revision-Date: 2022-01-23 00:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: wp-w3all-phpbb@you.us\n"
@@ -19,15 +19,15 @@ msgstr ""
 "X-Poedit-SearchPath-1: .\n"
 
 #: addons/page-forum.php:167 addons/page-forum.php:171
-#: common/wp_phpbb_iframe_shortcode.php:61
-#: common/wp_phpbb_iframe_shortcode.php:65 views/wp_w3all_login_form.php:73
+#: common/wp_phpbb_iframe_shortcode.php:64
+#: common/wp_phpbb_iframe_shortcode.php:68 views/wp_w3all_login_form.php:73
 #: views/wp_w3all_phpbb_upm_short.php:4 wp_w3all.php:845 wp_w3all.php:871
 msgid "You have "
 msgstr ""
 
 #: addons/page-forum.php:167 addons/page-forum.php:171
-#: common/wp_phpbb_iframe_shortcode.php:61
-#: common/wp_phpbb_iframe_shortcode.php:65 views/wp_w3all_phpbb_upm_short.php:4
+#: common/wp_phpbb_iframe_shortcode.php:64
+#: common/wp_phpbb_iframe_shortcode.php:68 views/wp_w3all_phpbb_upm_short.php:4
 msgid " unread forum PM"
 msgstr ""
 
@@ -217,20 +217,20 @@ msgid ""
 "and click <i>Save WP_w3all Preferences</i> button (then re-enable it)"
 msgstr ""
 
-#: admin/config.php:282 admin/config.php:322 admin/config.php:330
-#: admin/config.php:340 admin/config.php:345 admin/config.php:349
-#: admin/config.php:354 admin/config.php:358 admin/config.php:362
-#: admin/config.php:366 admin/config.php:373 admin/config.php:390
-#: admin/config.php:394 class.wp.w3all.widgets-phpbb.php:45
-#: class.wp.w3all.widgets-phpbb.php:124
+#: admin/config.php:282 admin/config.php:313 admin/config.php:322
+#: admin/config.php:330 admin/config.php:340 admin/config.php:345
+#: admin/config.php:349 admin/config.php:354 admin/config.php:358
+#: admin/config.php:362 admin/config.php:366 admin/config.php:373
+#: admin/config.php:390 admin/config.php:394
+#: class.wp.w3all.widgets-phpbb.php:45 class.wp.w3all.widgets-phpbb.php:124
 msgid "Yes"
 msgstr ""
 
-#: admin/config.php:283 admin/config.php:318 admin/config.php:323
-#: admin/config.php:331 admin/config.php:341 admin/config.php:346
-#: admin/config.php:350 admin/config.php:355 admin/config.php:359
-#: admin/config.php:363 admin/config.php:367 admin/config.php:374
-#: admin/config.php:391 admin/config.php:395
+#: admin/config.php:283 admin/config.php:312 admin/config.php:318
+#: admin/config.php:323 admin/config.php:331 admin/config.php:341
+#: admin/config.php:346 admin/config.php:350 admin/config.php:355
+#: admin/config.php:359 admin/config.php:363 admin/config.php:367
+#: admin/config.php:374 admin/config.php:391 admin/config.php:395
 #: class.wp.w3all.widgets-phpbb.php:44 class.wp.w3all.widgets-phpbb.php:123
 msgid "No"
 msgstr ""
@@ -268,33 +268,28 @@ msgstr ""
 
 #: admin/config.php:311
 msgid ""
-"<span style=\"color:red\">Important:</span> this option, active by default, "
-"can be disabled it if there are problems with the message \"Error: email "
-"exists into our forum\" (that could come out in some page)<br />and/or that "
+"<span style=\"color:red;text-decoration:underline\">Important:</span> this "
+"option, active by default, can be <strong>Disabled setting it to Yes (so "
+"will be Disabled the email check)</strong>. Set to Yes and disable if there "
+"are problems with the message <span style=\"color:red;\">\"Error: email "
+"exists into our forum\"</span> that could come out in some page, and/or that "
 "could come out when some plugin goes to perform some task (example: "
-"Woocommerce memberships renewal process, but not only)<br />Note that "
-"deactivating this option, it is required that users have been all paired "
-"using the check and users transfer process. If you wish to let users to "
-"update their email and register also in phpBB, you may will install the <a "
-"href=\"https://www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-"
-"tasks-extension/\" target=\"_blank\">phpBB WordPress Integration Common "
-"Tasks extension</a> into phpBB, or you'll disable registrations and the "
-"<i>Edit account settings</i> module in phpBB via<br /><i>ACP -> System Tab -"
-"> Module management -> User Control panel</i><br />disable the <i>Edit "
-"account settings</i> module (where user can change email and update password "
-"in phpBB)<br /><br />This option do not affect the default WordPress user "
+"Woocommerce memberships renewal process but not only)<br />Note that setting "
+"to Yes this option, it is required that users have been all paired using the "
+"check and users transfer process. If you wish to let users to update their "
+"email and register also in phpBB, you may will install the <a href=\"https://"
+"www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-tasks-extension/"
+"\" target=\"_blank\">phpBB WordPress Integration Common Tasks extension</a> "
+"into phpBB, or you'll disable registrations and the <i>Edit account "
+"settings</i> module in phpBB via<br /><i>ACP -> System Tab -> Module "
+"management -> User Control panel</i><br />disable the <i>Edit account "
+"settings</i> module (where user can change email and update password in "
+"phpBB)<br /><br />This option do not affect the default WordPress user "
 "profile page. And it is not required to disable this option into default "
 "WordPress installations<br />But it depend on how you configure WP and phpBB "
 "to run as integrated, and (more than this) how external plugins manage "
-"profile updates and WP hooks<br />Test your installation before to disable"
-msgstr ""
-
-#: admin/config.php:312
-msgid "Disabled"
-msgstr ""
-
-#: admin/config.php:313
-msgid "Enabled"
+"profile updates and WP hooks<br />Test your installation before to set to "
+"Yes (so the email check will be Disabled)"
 msgstr ""
 
 #: admin/config.php:315
@@ -303,15 +298,14 @@ msgstr ""
 
 #: admin/config.php:316
 msgid ""
-"Note that before to activate this option, it is required to install the "
-"phpBB WordPress extension in phpBB.<br />If the phpBB WordPress extension is "
-"not installed in phpBB, this option will not affect.<br />Note that if this "
-"option is not active, users are deactivated in phpBB and not deleted, when "
-"deleted in WordPress (that is also a good antispam method).<br /><br />Note: "
-"even if this option has been activated, the default behavior will follow. So "
-"that if the cURL will fail (so the user will not be deleted in phpBB when "
+"Note that if the phpBB WordPress extension is not installed in phpBB, this "
+"option will not affect.<br />Note that if this option is not active, users "
+"are deactivated in phpBB and not deleted, when deleted in WordPress (that is "
+"also a good antispam method).<br /><br />Note: even if this option has been "
+"activated, the default user deactivation behavior will follow. So that if "
+"this task (cURL) will fail (and the user will not be deleted in phpBB when "
 "deleted in WP) the user will be by the way deactivated in phpBB.<br />Note "
-"that activating this, will not be possible to delete more than 50 users per "
+"that activating this, will not be possible to delete more than 25 users per "
 "time in WordPress<br />(the delete action will refuse to follow, informing "
 "you to deactivate this option if you like to do so)"
 msgstr ""
@@ -877,16 +871,16 @@ msgstr ""
 msgid "Last Topics Posts"
 msgstr ""
 
-#: common/phpbb_endpoints_ext_functions.php:38
+#: common/phpbb_endpoints_ext_functions.php:40
 msgid ""
 "<h4>ERROR: too much users to be deleted per time (max 50). Return back and "
 "disable the option you activated that allow to delete users in phpBB (if you "
-"wish to delete more than 30 users per time) into the WP_w3all integration "
+"wish to delete more than 25 users per time) into the WP_w3all integration "
 "plugin admin page. Remember deativating the option: in this case, deleted "
 "users in WP, are deactivated in phpBB and not deleted<.</h4>"
 msgstr ""
 
-#: common/phpbb_endpoints_ext_functions.php:81
+#: common/phpbb_endpoints_ext_functions.php:83
 msgid ""
 "<h4>ERROR: cannot cURL the linked phpBB to delete users. Return back and "
 "disable the option that allow to delete users in phpBB, into the WP_w3all "

@@ -15,11 +15,14 @@ function wp_w3all_phpbb_iframe_short( $atts ){
 
     $ltm = shortcode_atts( array(
         'wp_page_name' => '',
-        'wp_page_iframe_top_gap' => '0',
+        'phpbb_default_url' => '',
+        'wp_page_iframe_top_gap' => '0'
     ), $atts );
   }
 
    $ltm['wp_page_iframe_top_gap'] = intval($ltm['wp_page_iframe_top_gap']);
+   $ltm['phpbb_default_url'] = (!filter_var($ltm['phpbb_default_url'], FILTER_VALIDATE_URL)) ? '' : $ltm['phpbb_default_url'];
+   $ltm['wp_page_name'] = preg_match('/[^-0-9A-Za-z _]/',$ltm['wp_page_name']) ? '' : $ltm['wp_page_name'];
 
    if( $w3all_custom_output_files == 1 ) {
      $file = ABSPATH . 'wp-content/plugins/wp-w3all-config/wp_w3all_phpbb_iframe_short.php';

@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.5.6
+Stable tag: 2.5.7
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.9
@@ -71,6 +71,18 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.5.7 =
+*Release Date - 18 Feb, 2022*
+
+* Add: param 'phpbb_default_url' for the "awesome phpBB iframe shortcode" and explain what it is possible to do with it, and more with the others params, see: https://www.axew3.com/w3/2022/02/the-awesome-iframe-template-integration-using-shortcode/
+* Fix: hint explain for option "Disable existence check of the email in phpBB before it is updated in WordPress" that was leading to a misundertanding as it was written, because the explain was substantially wrong (sorry). It is important hint. Read it, (in the hope) it is clear now!
+* Move to: (if related option active) max 25 users per time the max allowed users that will be possible to delete at mean time in phpBB, while users deleted in WP 
+* Fix: more hints into admin plugin page
+* Fix: the overall_footer.html js code for iframe has been patched to avoid that bots load the code. Are just two lines, one on top and one on the bottom, that wraps the overall_footer code (like it was already for the overall_header): https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/ 
+* Fix: minor security fixes
+* Minor fixes
+* See: release logs https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=1704
 
 = 2.5.6 =
 *Release Date - 15 Feb, 2022*
