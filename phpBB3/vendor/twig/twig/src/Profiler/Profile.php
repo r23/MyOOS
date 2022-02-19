@@ -18,10 +18,10 @@ namespace Twig\Profiler;
  */
 class Profile implements \IteratorAggregate, \Serializable
 {
-    public const ROOT = 'ROOT';
-    public const BLOCK = 'block';
-    public const TEMPLATE = 'template';
-    public const MACRO = 'macro';
+    const ROOT = 'ROOT';
+    const BLOCK = 'block';
+    const TEMPLATE = 'template';
+    const MACRO = 'macro';
 
     private $template;
     private $name;
@@ -33,7 +33,7 @@ class Profile implements \IteratorAggregate, \Serializable
     public function __construct(string $template = 'main', string $type = self::ROOT, string $name = 'main')
     {
         if (__CLASS__ !== static::class) {
-            @trigger_error('Overriding '.__CLASS__.' is deprecated since Twig 2.4.0 and the class will be final in 3.0.', \E_USER_DEPRECATED);
+            @trigger_error('Overriding '.__CLASS__.' is deprecated since Twig 2.4.0 and the class will be final in 3.0.', E_USER_DEPRECATED);
         }
 
         $this->template = $template;
@@ -157,18 +157,17 @@ class Profile implements \IteratorAggregate, \Serializable
         $this->enter();
     }
 
-    #[\ReturnTypeWillChange]
-    public function getIterator(): \Traversable
+    public function getIterator()
     {
         return new \ArrayIterator($this->profiles);
     }
 
-    public function serialize(): string
+    public function serialize()
     {
         return serialize($this->__serialize());
     }
 
-    public function unserialize($data): void
+    public function unserialize($data)
     {
         $this->__unserialize(unserialize($data));
     }
@@ -176,7 +175,7 @@ class Profile implements \IteratorAggregate, \Serializable
     /**
      * @internal
      */
-    public function __serialize(): array
+    public function __serialize()
     {
         return [$this->template, $this->name, $this->type, $this->starts, $this->ends, $this->profiles];
     }
@@ -184,7 +183,7 @@ class Profile implements \IteratorAggregate, \Serializable
     /**
      * @internal
      */
-    public function __unserialize(array $data): void
+    public function __unserialize(array $data)
     {
         list($this->template, $this->name, $this->type, $this->starts, $this->ends, $this->profiles) = $data;
     }

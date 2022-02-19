@@ -102,7 +102,7 @@ class Ruleset extends Collection implements ArrayAccess, ConfigProvider
 	*
 	* @param  string $k Rule name, e.g. "allowChild" or "isTransparent"
 	*/
-	public function offsetExists($k): bool
+	public function offsetExists($k)
 	{
 		return isset($this->items[$k]);
 	}
@@ -113,7 +113,6 @@ class Ruleset extends Collection implements ArrayAccess, ConfigProvider
 	* @param  string $k Rule name, e.g. "allowChild" or "isTransparent"
 	* @return mixed
 	*/
-	#[\ReturnTypeWillChange]
 	public function offsetGet($k)
 	{
 		return $this->items[$k];
@@ -122,7 +121,7 @@ class Ruleset extends Collection implements ArrayAccess, ConfigProvider
 	/**
 	* Not supported
 	*/
-	public function offsetSet($k, $v): void
+	public function offsetSet($k, $v)
 	{
 		throw new RuntimeException('Not supported');
 	}
@@ -134,9 +133,9 @@ class Ruleset extends Collection implements ArrayAccess, ConfigProvider
 	*
 	* @param  string $k Rule name, e.g. "allowChild" or "isTransparent"
 	*/
-	public function offsetUnset($k): void
+	public function offsetUnset($k)
 	{
-		$this->remove($k);
+		return $this->remove($k);
 	}
 
 	//==========================================================================

@@ -29,9 +29,9 @@ use Twig\Error\RuntimeError;
  */
 abstract class Template
 {
-    public const ANY_CALL = 'any';
-    public const ARRAY_CALL = 'array';
-    public const METHOD_CALL = 'method';
+    const ANY_CALL = 'any';
+    const ARRAY_CALL = 'array';
+    const METHOD_CALL = 'method';
 
     protected $parent;
     protected $parents = [];
@@ -355,7 +355,7 @@ abstract class Template
      *
      * @return Template
      */
-    public function unwrap()
+    protected function unwrap()
     {
         return $this;
     }

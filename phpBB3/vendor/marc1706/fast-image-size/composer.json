@@ -22,11 +22,7 @@
   },
   "autoload": {
     "psr-4": {
-      "FastImageSize\\": "lib"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
+      "FastImageSize\\": "lib",
       "FastImageSize\\tests\\": "tests"
     }
   },

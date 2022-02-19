@@ -241,7 +241,7 @@ class NormalizedCollection extends Collection implements ArrayAccess
 	* @param  string|integer $offset
 	* @return bool
 	*/
-	public function offsetExists($offset): bool
+	public function offsetExists($offset)
 	{
 		return $this->exists($offset);
 	}
@@ -250,7 +250,6 @@ class NormalizedCollection extends Collection implements ArrayAccess
 	* @param  string|integer $offset
 	* @return mixed
 	*/
-	#[\ReturnTypeWillChange]
 	public function offsetGet($offset)
 	{
 		return $this->get($offset);
@@ -261,7 +260,7 @@ class NormalizedCollection extends Collection implements ArrayAccess
 	* @param  mixed          $value
 	* @return void
 	*/
-	public function offsetSet($offset, $value): void
+	public function offsetSet($offset, $value)
 	{
 		$this->set($offset, $value);
 	}
@@ -270,7 +269,7 @@ class NormalizedCollection extends Collection implements ArrayAccess
 	* @param  string|integer $offset
 	* @return void
 	*/
-	public function offsetUnset($offset): void
+	public function offsetUnset($offset)
 	{
 		$this->delete($offset);
 	}
