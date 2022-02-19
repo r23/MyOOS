@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-02-11 10:58:53+0000\n"
+"PO-Revision-Date: 2022-02-19 11:28:21+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4835,10 +4835,6 @@ msgstr "AMP"
 msgid "Export Settings"
 msgstr "Export Einstellungen"
 
-#: includes/admin/wizard/views/compatibility.php:57
-msgid "Recommended: PHP 7.4 or later"
-msgstr "Empfohlen: PHP 7.4 oder höher"
-
 #: includes/settings/general/links.php:70
 msgid "Nofollow Image File Links"
 msgstr "Bilddatei Links mit “nofollow”"
@@ -6809,11 +6805,6 @@ msgid "Connect Your Account"
 msgstr "Verbinde dein Konto"
 
 #. translators: php version
-#: includes/admin/wizard/views/compatibility.php:69
-msgid "Your PHP Version: %s | Recommended version: 7.4 | Minimal required: 7.2"
-msgstr "Deine PHP-Version: %s | Empfohlene Version: 7.4 | Mindestanforderung: 7.2"
-
-#. translators: php version
 #: includes/admin/wizard/views/compatibility.php:54
 msgid "Your PHP Version: %s"
 msgstr "Deine PHP Version: %s"
@@ -7734,6 +7725,15 @@ msgstr "Antwort-Code"
 #: includes/admin/class-option-center.php:159
 msgid "Homepage"
 msgstr "Homepage"
+
+#. translators: php version
+#: includes/admin/wizard/views/compatibility.php:69
+msgid "Your PHP Version: %s | Recommended version: 7.4 | Minimal required: 7.2"
+msgstr "Deine PHP-Version: %s | Empfohlene Version: 7.2 | Mindestanforderung: 5.4"
+
+#: includes/admin/wizard/views/compatibility.php:57
+msgid "Recommended: PHP 7.4 or later"
+msgstr "Empfohlen: PHP 7.2 oder höher"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
