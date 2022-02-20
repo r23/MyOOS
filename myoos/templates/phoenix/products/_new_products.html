@@ -9,7 +9,7 @@
 		<div class="col-lg-3 col-md-4 col-sm-6">
 			<div class="product-card mb-4">
 				<div class="product-thumb">
-					<a href="{html_href_link content=$page_file action=add_wishlist products_id=$new_product.products_id}" class="product-wishlist-btn" data-toggle="tooltip" data-placement="left" title="{$lang.button_add_wishlist}"><i data-feather="heart"></i></a>
+					<a href="{html_href_link content=$page_file action=add_wishlist products_id=$new_product.products_id}" class="product-wishlist-btn" data-bs-toggle="tooltip" data-placement="left" title="{$lang.button_add_wishlist}"><i data-feather="heart"></i></a>
 					<a href="{product_link products_id=$new_product.products_id}">{product_image dir=medium image=$new_product.products_image alt=$new_product.products_name}</a>
 				</div>
 				<div class="product-card-body text-center"><a class="product-meta" href="{html_href_link content=$filename.shop category=$new_product.products_path}" title="{$new_product.categories_name}">{$new_product.categories_name}</a>
@@ -39,7 +39,7 @@
 				</div>
 		
 				<div class="d-grid gap-2 product-card-body body-hidden">
-					<a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$new_product.order_min  products_id=$new_product.products_id}" class="btn btn-primary btn-sm" role="button" data-toggle="toast" data-target="#cart-toast">{$lang.button_hp_buy}</a><a class="quick-view-btn" href="{product_link products_id=$new_product.products_id}" ><i class="mr-1" data-feather="eye"></i>{$lang.button_hp_more}</a>			
+					<a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$new_product.order_min  products_id=$new_product.products_id}" class="btn btn-primary btn-sm" role="button" data-bs-toggle="toast" data-target="#cart-toast">{$lang.button_hp_buy}</a><a class="quick-view-btn" href="{product_link products_id=$new_product.products_id}" ><i class="mr-1" data-feather="eye"></i>{$lang.button_hp_more}</a>			
 				</div>
 			</div>
 		</div>

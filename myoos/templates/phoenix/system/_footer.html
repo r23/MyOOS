@@ -17,7 +17,7 @@
 					<ul class="list-inline">			
 					{if $languages_block}
 						<li>
-							<a class="dropdown-toggle no-text-underline dropup m-color-white-opacity-0_8 m-color-white--hover" data-toggle="dropdown" href="#">{$lang.header_select_language}: ({$language})</a>
+							<a class="dropdown-toggle no-text-underline dropup m-color-white-opacity-0_8 m-color-white--hover" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  href="#">{$lang.header_select_language}: ({$language})</a>
 							<ul class="dropdown-langs dropdown-menu">
 							{foreach item=languages from=$languages_contents}
 								{if $languages.iso_639_2 == $language}
@@ -35,7 +35,7 @@
 					{/if}
 					{if $currency_block}
 						<li>
-							<a class="dropdown-toggle no-text-underline dropup m-color-white-opacity-0_8 m-color-white--hover" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">{$lang.header_select_currencies}: ({$currency})</a>
+							<a class="dropdown-toggle no-text-underline dropup m-color-white-opacity-0_8 m-color-white--hover" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">{$lang.header_select_currencies}: ({$currency})</a>
 							<ul class="dropdown-langs dropdown-menu">
 							{foreach item=currencies from=$currencies_contents}
 								{if $currencies.id == $currency}
