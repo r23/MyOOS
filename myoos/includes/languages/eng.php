@@ -390,6 +390,7 @@ $aLang = [
 'text_required'            => 'Required',
 'text_more'                => 'more...',
 'text_new'                 => 'NEW',
+'text_sale'                => 'SALE',
 'text_categories' 	       => 'CATEGORIES',
 
 'text_no_longer_available'	=> 'No longer available',
