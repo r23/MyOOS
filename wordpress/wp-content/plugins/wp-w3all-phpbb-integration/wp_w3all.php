@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.5.7
+Version: 2.5.8
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -35,7 +35,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.5.7' );
+define( 'WPW3ALL_VERSION', '2.5.8' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -111,7 +111,9 @@ if(isset($w3reset_cookie_domain)){
    $w3all_push_new_pass_into_phpbb = isset($w3all_conf_pref['w3all_push_new_pass_into_phpbb']) ? $w3all_conf_pref['w3all_push_new_pass_into_phpbb'] : 0;
    $w3all_disable_ck_email_before_wp_update = isset($w3all_conf_pref['w3all_disable_ck_email_before_wp_update']) ? $w3all_conf_pref['w3all_disable_ck_email_before_wp_update'] : 0;
    $w3all_delete_users_into_phpbb_ext = isset($w3all_conf_pref['w3all_delete_users_into_phpbb_ext']) ? $w3all_conf_pref['w3all_delete_users_into_phpbb_ext'] : 0;
-   $wp_w3all_phpbb_iframe_short_pages_yn = isset($w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn']) ? $w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn'] : 0;
+   $wp_w3all_phpbb_iframe_short_pages_yn = (isset($w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn']) && ! empty($w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn'])) ? trim($w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn']) : '';
+
+// TODO: trim all vars before they are updated, in admin update file
 
    // to define W3PHPBBLASTOPICS when 'at MAX'
    // used on last_forums_topics() to set W3PHPBBLASTOPICS
@@ -657,8 +659,7 @@ function w3all_filter_pre_user_email( $raw_user_email ) {
 
 
 if(! defined("WPW3ALL_NOT_ULINKED")){
-
-  if ($w3all_disable_ck_email_before_wp_update < 1){ // disabled -> 1
+  if ($w3all_disable_ck_email_before_wp_update < 1){
   // this is inside // not in WP admin{} so it do not run into default WP admin profile pages
   // note that 'user_profile_update_errors' hook will run instead into defualt wp profile wp-admin pages
    add_filter( 'pre_user_email', 'w3all_filter_pre_user_email', 10, 1 ); // check for possible duplicated email in phpBB, BEFORE the email being updated in WP

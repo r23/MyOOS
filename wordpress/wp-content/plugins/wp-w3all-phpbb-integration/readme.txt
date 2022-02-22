@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, bridge, template, embed, iframe, include, users, transfer, cms, bulletin, board, forum, phpbb3, wp
-Stable tag: 2.5.7
+Stable tag: 2.5.8
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.9
@@ -71,6 +71,12 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.5.8 =
+*Release Date - 22 Feb, 2022*
+
+* Fix: definitively fix the important option "Disable existence check of the email in phpBB before it is updated in WordPress" that was setting at contrary the resulting effect enabled/disabled
+* Fix: fix wp_w3all.php and admin/config.php to correctly manage the last added phpbb_iframe_short_pages shortcode option
 
 = 2.5.7 =
 *Release Date - 18 Feb, 2022*
