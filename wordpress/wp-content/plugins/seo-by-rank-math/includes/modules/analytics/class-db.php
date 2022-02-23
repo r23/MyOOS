@@ -173,13 +173,18 @@ class DB {
 	 * @return boolean
 	 */
 	public static function date_exists( $date, $action = 'console' ) {
-		$table['console'] = DB_Helper::check_table_exists( 'rank_math_analytics_gsc' ) ? 'rank_math_analytics_gsc' : '';
+		$tables['console'] = DB_Helper::check_table_exists( 'rank_math_analytics_gsc' ) ? 'rank_math_analytics_gsc' : '';
 
-		if ( empty( $table[ $action ] ) ) {
+		/**
+		 * Filter: 'rank_math/analytics/date_exists_tables' - Allow developers to add more tables to check.
+		 */
+		$tables = apply_filters( 'rank_math/analytics/date_exists_tables', $tables, $date, $action );
+
+		if ( empty( $tables[ $action ] ) ) {
 			return true; // Should return true to avoid further data fetch action.
 		}
 
-		$table = self::table( $table[ $action ] );
+		$table = self::table( $tables[ $action ] );
 
 		$id = $table
 			->select( 'id' )

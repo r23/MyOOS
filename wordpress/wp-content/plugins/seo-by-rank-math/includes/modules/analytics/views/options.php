@@ -74,8 +74,8 @@ if ( ! Authentication::is_authorized() ) {
 
 $is_fetching = 'fetching' === get_option( 'rank_math_analytics_first_fetch' );
 $buttons     = '<br>' .
-	'<button class="button button-small console-cache-delete" data-days="-1">' . esc_html__( 'Delete Data', 'rank-math' ) . '</button>' .
-	'&nbsp;&nbsp;<button class="button button-small console-cache-update-manually"' . ( $disable ? ' disabled="disabled"' : '' ) . '>' . ( $is_queue_empty ? esc_html__( 'Update Data manually', 'rank-math' ) : esc_html__( 'Fetching in Progress', 'rank-math' ) ) . '</button>' .
+	'<button class="button button-small console-cache-delete" data-days="-1">' . esc_html__( 'Delete data', 'rank-math' ) . '</button>' .
+	'&nbsp;&nbsp;<button class="button button-small console-cache-update-manually"' . ( $disable ? ' disabled="disabled"' : '' ) . '>' . ( $is_queue_empty ? esc_html__( 'Update data manually', 'rank-math' ) : esc_html__( 'Fetching in Progress', 'rank-math' ) ) . '</button>' .
 	'&nbsp;&nbsp;<button class="button button-link-delete button-small cancel-fetch"' . disabled( $is_fetching, false, false ) . '>' . esc_html__( 'Cancel Fetching', 'rank-math' ) . '</button>';
 
 $buttons .= '<br>' . join( '', $db_info );

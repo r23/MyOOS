@@ -51,7 +51,13 @@ class Thumbnail_Overlay {
 		}
 		$overlay_image = $choices[ $type ]['path'];
 		$image         = Helper::get_scaled_image_path( $thumbnail_id, 'large' );
-		$position      = $choices[ $type ]['position'];
+
+		// If 'large' thumbnail is not found, fall back to full size.
+		if ( empty( $image ) ) {
+			$image = Helper::get_scaled_image_path( $thumbnail_id, 'full' );
+		}
+
+		$position = $choices[ $type ]['position'];
 
 		if ( ! empty( $image ) ) {
 			$this->create_overlay_image( $image, $overlay_image, $position );

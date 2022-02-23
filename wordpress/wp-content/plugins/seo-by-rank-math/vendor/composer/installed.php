@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'a064472b65c7746ad83deacec32dceaf2bbbccce',
+    'reference' => '08ad574c4db124083cb6d88a1c78fa03f004f4d1',
     'name' => 'rankmath/seo-by-rank-math',
   ),
   'versions' => 
@@ -22,12 +22,12 @@
     ),
     'cmb2/cmb2' => 
     array (
-      'pretty_version' => 'v2.9.0',
-      'version' => '2.9.0.0',
+      'pretty_version' => 'v2.10.1',
+      'version' => '2.10.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'cacbc8cedbfdf8ffe0e840858e6860f9333c33f2',
+      'reference' => '4afc4bb7b92ab6d93aac2247c9a84af773e42532',
     ),
     'donatj/phpuseragentparser' => 
     array (
@@ -54,7 +54,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'a064472b65c7746ad83deacec32dceaf2bbbccce',
+      'reference' => '08ad574c4db124083cb6d88a1c78fa03f004f4d1',
     ),
     'woocommerce/action-scheduler' => 
     array (

@@ -194,6 +194,7 @@ class Post_Screen implements IScreen {
 			'titleSentiment'            => true,
 			'titleHasPowerWords'        => true,
 			'titleHasNumber'            => true,
+			'hasContentAI'              => true,
 		];
 
 		return $tests;

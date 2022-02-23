@@ -80,33 +80,33 @@ trait Schema {
 	 * @param  string $schema Schema.
 	 * @return string
 	 */
-	public static function sanitize_schema_title( $schema ) {
+	public static function sanitize_schema_title( $schema, $translate = true ) {
 		if ( in_array( $schema, [ 'BlogPosting', 'NewsArticle' ], true ) ) {
-			return esc_html__( 'Article', 'rank-math' );
+			return $translate ? esc_html__( 'Article', 'rank-math' ) : esc_html( 'Article' );
 		}
 
 		if ( 'WooCommerceProduct' === $schema ) {
-			return esc_html__( 'WooCommerce Product', 'rank-math' );
+			return $translate ? esc_html__( 'WooCommerce Product', 'rank-math' ) : esc_html( 'WooCommerce Product' );
 		}
 
 		if ( 'EDDProduct' === $schema ) {
-			return esc_html__( 'EDD Product', 'rank-math' );
+			return $translate ? esc_html__( 'EDD Product', 'rank-math' ) : esc_html( 'EDD Product' );
 		}
 
 		if ( 'VideoObject' === $schema ) {
-			return esc_html__( 'Video', 'rank-math' );
+			return $translate ? esc_html__( 'Video', 'rank-math' ) : esc_html( 'Video' );
 		}
 
 		if ( 'JobPosting' === $schema ) {
-			return esc_html__( 'Job Posting', 'rank-math' );
+			return $translate ? esc_html__( 'Job Posting', 'rank-math' ) : esc_html( 'Job Posting' );
 		}
 
 		if ( 'SoftwareApplication' === $schema ) {
-			return esc_html__( 'Software Application', 'rank-math' );
+			return $translate ? esc_html__( 'Software Application', 'rank-math' ) : esc_html( 'Software Application' );
 		}
 
 		if ( 'MusicGroup' === $schema || 'MusicAlbum' === $schema ) {
-			return esc_html__( 'Music', 'rank-math' );
+			return $translate ? esc_html__( 'Music', 'rank-math' ) : esc_html( 'Music' );
 		}
 
 		return $schema;

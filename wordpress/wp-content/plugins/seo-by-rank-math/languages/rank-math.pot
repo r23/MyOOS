@@ -3017,6 +3017,10 @@ msgstr ""
 msgid "Please add at least one valid source URL."
 msgstr ""
 
+#. translators: Placeholder expands to number of redirections.
+msgid "Warning: you have more than %d active redirections. Exporting them to your .htaccess file may cause performance issues."
+msgstr ""
+
 msgid "Export to .htaccess"
 msgstr ""
 
@@ -4859,10 +4863,10 @@ msgstr ""
 msgid "Next data fetch on %s"
 msgstr ""
 
-msgid "Delete Data"
+msgid "Delete data"
 msgstr ""
 
-msgid "Update Data manually"
+msgid "Update data manually"
 msgstr ""
 
 msgid "Fetching in Progress"
@@ -5008,6 +5012,25 @@ msgid "Auto-Submit Post Types"
 msgstr ""
 
 msgid "Submit posts from these post types automatically to the IndexNow API when a post is published, updated, or trashed."
+msgstr ""
+
+msgid "API Key"
+msgstr ""
+
+msgid "The IndexNow API key proves the ownership of the site. It is generated automatically. You can change the key if it becomes known to third parties."
+msgstr ""
+
+msgid "Change Key"
+msgstr ""
+
+msgid "API Key Location"
+msgstr ""
+
+msgid "Check Key"
+msgstr ""
+
+#. translators: %s is the words "Check Key".
+msgid "Use the %1$s button to verify that the key is accessible for search engines. Clicking on it should open the key file in your browser and show the API key."
 msgstr ""
 
 msgid "Email"

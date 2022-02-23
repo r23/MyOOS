@@ -89,7 +89,7 @@ class Watcher {
 			'object_id'           => $post_id,
 			'primary_key'         => $primary_keyword,
 			'seo_score'           => $primary_keyword ? get_post_meta( $post_id, 'rank_math_seo_score', true ) : 0,
-			'schemas_in_use'      => \RankMath\Schema\DB::get_schema_types( $post_id, true ),
+			'schemas_in_use'      => \RankMath\Schema\DB::get_schema_types( $post_id, true, false ),
 			'is_indexable'        => Helper::is_post_indexable( $post_id ),
 			'pagespeed_refreshed' => 'NULL',
 		];

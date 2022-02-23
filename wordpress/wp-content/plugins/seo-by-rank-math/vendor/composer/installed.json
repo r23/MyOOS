@@ -44,17 +44,17 @@
         },
         {
             "name": "cmb2/cmb2",
-            "version": "v2.9.0",
-            "version_normalized": "2.9.0.0",
+            "version": "v2.10.1",
+            "version_normalized": "2.10.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CMB2/CMB2.git",
-                "reference": "cacbc8cedbfdf8ffe0e840858e6860f9333c33f2"
+                "reference": "4afc4bb7b92ab6d93aac2247c9a84af773e42532"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CMB2/CMB2/zipball/cacbc8cedbfdf8ffe0e840858e6860f9333c33f2",
-                "reference": "cacbc8cedbfdf8ffe0e840858e6860f9333c33f2",
+                "url": "https://api.github.com/repos/CMB2/CMB2/zipball/4afc4bb7b92ab6d93aac2247c9a84af773e42532",
+                "reference": "4afc4bb7b92ab6d93aac2247c9a84af773e42532",
                 "shasum": ""
             },
             "require": {
@@ -64,12 +64,13 @@
                 "apigen/apigen": "4.1.2",
                 "awesomemotive/am-cli-tools": ">=1.3.1",
                 "nette/utils": "2.5.3",
-                "phpunit/phpunit": "6.5.13"
+                "phpunit/phpunit": "^6.5",
+                "yoast/phpunit-polyfills": "^1.0"
             },
             "suggest": {
                 "composer/installers": "~1.0"
             },
-            "time": "2021-03-04T02:18:53+00:00",
+            "time": "2022-02-22T14:15:16+00:00",
             "type": "wordpress-plugin",
             "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
