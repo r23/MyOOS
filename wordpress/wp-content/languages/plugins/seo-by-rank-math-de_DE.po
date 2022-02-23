@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-02-19 11:28:21+0000\n"
+"PO-Revision-Date: 2022-02-23 11:05:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,11 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
+
+#. Translators: Placeholder expands to number of redirections.
+#: includes/modules/redirections/class-import-export.php:53
+msgid "Warning: you have more than %d active redirections. Exporting them to your .htaccess file may cause performance issues."
+msgstr "Warnung: Du hast mehr als %d aktive Umleitungen. Das Exportieren in deine .htaccess-Datei kann zu Leistungsproblemen führen."
 
 #: includes/admin/wizard/views/compatibility.php:97
 msgid "PHP GD or Imagick Extension missing"
@@ -1750,10 +1755,6 @@ msgstr "Index neu aufbauen"
 msgid "Storage Days: %s"
 msgstr "Tage Speicherdauer: %s"
 
-#: includes/modules/analytics/views/options.php:77
-msgid "Delete Data"
-msgstr "Daten löschen"
-
 #. Translators: placeholder is a link to rankmath.com, with "free version" as
 #. the anchor text.
 #: includes/modules/analytics/views/options.php:84
@@ -1929,6 +1930,10 @@ msgstr "Kostenlose Schlüsselwort-Vorschläge beim Eingeben von Fokus-Schlüssel
 #: includes/admin/wizard/views/rank-math-connect.php:26
 msgid "Track page and keyword rankings with the Advanced Analytics module"
 msgstr "Verfolge Seiten- und Schlüsselwort-Rankings mit dem Erweiterten-Analytics-Modul"
+
+#: includes/modules/analytics/views/options.php:77
+msgid "Delete data"
+msgstr "Daten löschen"
 
 #: includes/helpers/class-schema.php:93
 #: includes/settings/titles/post-types.php:134
@@ -4331,7 +4336,6 @@ msgid "Links"
 msgstr "Links"
 
 #. translators: 1: current page number, 2: total number of pages.
-#. translators: current page and page count
 #: includes/replace-variables/class-advanced-variables.php:209
 #: includes/modules/analytics/assets/js/stats.js:1
 msgid "Page %1$d of %2$d"
@@ -4648,7 +4652,7 @@ msgid "No plugin detected with importable data."
 msgstr "Kein Plugin mit importierbaren Daten erkannt."
 
 #: includes/admin/views/import-export/import-export-panel.php:66
-#: includes/modules/redirections/class-import-export.php:54
+#: includes/modules/redirections/class-import-export.php:76
 msgid "Export"
 msgstr "Exportieren"
 
@@ -5081,7 +5085,7 @@ msgstr "Rückfallverhalten"
 msgid "Display the Debug Console instead of being redirected. Administrators only."
 msgstr "Zeigt die Debug-Konsole an, anstatt umgeleitet zu werden. Nur für Administratoren."
 
-#: includes/modules/redirections/class-import-export.php:41
+#: includes/modules/redirections/class-import-export.php:63
 msgid "Export to Nginx config file"
 msgstr "In Nginx-Konfigurationsdatei exportieren"
 
@@ -6662,7 +6666,7 @@ msgstr "Alt Attribut Format"
 msgid "Bulk Actions"
 msgstr "Massen-Aktionen"
 
-#: includes/modules/redirections/class-import-export.php:40
+#: includes/modules/redirections/class-import-export.php:62
 msgid "Export to .htaccess"
 msgstr "In .htaccess exportieren"
 
@@ -7438,10 +7442,6 @@ msgstr "<strong>Mindestgröße: 160 × 90 px, maximal: 1920 × 1080 px</strong>.
 msgid "Default Social Share Image"
 msgstr "Standardmäßiges Bild zum Teilen in Socialmedia"
 
-#: includes/modules/analytics/views/options.php:78
-msgid "Update Data manually"
-msgstr "Daten manuell aktualisieren"
-
 #: includes/admin/class-setup-wizard.php:112
 #: includes/admin/wizard/views/search-console-ui.php:109
 #: includes/module/class-manager.php:206
@@ -7734,6 +7734,10 @@ msgstr "Deine PHP-Version: %s | Empfohlene Version: 7.2 | Mindestanforderung: 5.
 #: includes/admin/wizard/views/compatibility.php:57
 msgid "Recommended: PHP 7.4 or later"
 msgstr "Empfohlen: PHP 7.2 oder höher"
+
+#: includes/modules/analytics/views/options.php:78
+msgid "Update data manually"
+msgstr "Daten manuell aktualisieren"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
