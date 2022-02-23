@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Akismet Spam Protection - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-07-06 20:49:59+0000\n"
+"PO-Revision-Date: 2022-02-16 06:58:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,29 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Akismet Spam Protection - Stable (latest release)\n"
+
+#. translators: The placeholder is the name of a subscription level, like
+#. "Plus" or "Enterprise" .
+#: views/notice.php:277
+msgid "Upgrade to %s"
+msgstr "Upgrade auf %s"
+
+#: views/notice.php:233 views/notice.php:241 views/notice.php:249
+#: views/notice.php:258
+msgid "Learn more about usage limits."
+msgstr "Erfahre mehr über Nutzungslimits."
+
+#: views/notice.php:212
+msgid "Your account has been restricted"
+msgstr "Dein Konto wurde eingeschränkt"
+
+#: views/notice.php:208
+msgid "Your Akismet account usage is approaching your plan&#8217;s limit"
+msgstr "Die Nutzung deines Akismet-Kontos nähert sich dem Limit deines Tarifs"
+
+#: views/notice.php:205
+msgid "Your Akismet account usage is over your plan&#8217;s limit"
+msgstr "Die Nutzung deines Akismet-Kontos hat das Limit deines Tarifs überschritten"
 
 #. translators: The placeholder is a URL.
 #: views/notice.php:123
