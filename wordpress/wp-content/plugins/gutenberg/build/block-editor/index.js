@@ -25874,7 +25874,7 @@ const moreVertical = (0,external_wp_element_namespaceObject.createElement)(exter
 //# sourceMappingURL=more-vertical.js.map
 ;// CONCATENATED MODULE: external ["wp","blob"]
 var external_wp_blob_namespaceObject = window["wp"]["blob"];
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/utils/get-paste-event-data.js
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/utils/pasting.js
 /**
  * WordPress dependencies
  */
@@ -25908,10 +25908,9 @@ function getPasteEventData(_ref) {
       type
     } = _ref2;
     return /^image\/(?:jpe?g|png|gif|webp)$/.test(type);
-  }); // Only process files if no HTML is present.
-  // A pasted file may have the URL as plain text.
+  });
 
-  if (files.length && !html) {
+  if (files.length && !shouldDismissPastedFiles(files, html, plainText)) {
     html = files.map(file => `<img src="${(0,external_wp_blob_namespaceObject.createBlobURL)(file)}">`).join('');
     plainText = '';
   }
@@ -25921,7 +25920,41 @@ function getPasteEventData(_ref) {
     plainText
   };
 }
-//# sourceMappingURL=get-paste-event-data.js.map
+/**
+ * Given a collection of DataTransfer files and HTML and plain text strings,
+ * determine whether the files are to be dismissed in favor of the HTML.
+ *
+ * Certain office-type programs, like Microsoft Word or Apple Numbers,
+ * will, upon copy, generate a screenshot of the content being copied and
+ * attach it to the clipboard alongside the actual rich text that the user
+ * sought to copy. In those cases, we should let Gutenberg handle the rich text
+ * content and not the screenshot, since this allows Gutenberg to insert
+ * meaningful blocks, like paragraphs, lists or even tables.
+ *
+ * @param {File[]} files File objects obtained from a paste event
+ * @param {string} html  HTML content obtained from a paste event
+ * @return {boolean}     True if the files should be dismissed
+ */
+
+function shouldDismissPastedFiles(files, html
+/*, plainText */
+) {
+  // The question is only relevant when there is actual HTML content and when
+  // there is exactly one image file.
+  if (html && (files === null || files === void 0 ? void 0 : files.length) === 1 && files[0].type.indexOf('image/') === 0) {
+    var _html$match;
+
+    // A single <img> tag found in the HTML source suggests that the
+    // content being pasted revolves around an image. Sometimes there are
+    // other elements found, like <figure>, but we assume that the user's
+    // intention is to paste the actual image file.
+    const IMAGE_TAG = /<\s*img\b/gi;
+    return ((_html$match = html.match(IMAGE_TAG)) === null || _html$match === void 0 ? void 0 : _html$match.length) !== 1;
+  }
+
+  return false;
+}
+//# sourceMappingURL=pasting.js.map
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/copy-handler/index.js
 
 
@@ -42666,6 +42699,7 @@ function splitValue(_ref) {
 
 
 
+
 /** @typedef {import('@wordpress/rich-text').RichTextValue} RichTextValue */
 
 /**
@@ -42691,8 +42725,6 @@ function usePasteHandler(props) {
   propsRef.current = props;
   return (0,external_wp_compose_namespaceObject.useRefEffect)(element => {
     function _onPaste(event) {
-      var _html;
-
       const {
         isSelected,
         disableFormats,
@@ -42795,18 +42827,14 @@ function usePasteHandler(props) {
           text: plainText
         })));
         return;
-      } // Process any attached files, unless we detect Microsoft Office as
-      // the source.
+      } // Process any attached files, unless we infer that the files in
+      // question are redundant "screenshots" of the actual HTML payload,
+      // as created by certain office-type programs.
       //
-      // When content is copied from Microsoft Office, an image of the
-      // content is rendered and attached to the clipboard along with the
-      // plain-text and HTML content. This artifact is a distraction from
-      // the relevant clipboard data, so we ignore it.
-      //
-      // Props https://github.com/pubpub/pubpub/commit/2f933277a15a263a1ab4bbd36b96d3a106544aec
+      // @see shouldDismissPastedFiles
 
 
-      if (files && files.length && !((_html = html) !== null && _html !== void 0 && _html.includes('xmlns:o="urn:schemas-microsoft-com:office:office'))) {
+      if (files !== null && files !== void 0 && files.length && !shouldDismissPastedFiles(files, html, plainText)) {
         const content = (0,external_wp_blocks_namespaceObject.pasteHandler)({
           HTML: filePasteHandler(files),
           mode: 'BLOCKS',
