@@ -1070,7 +1070,6 @@ updateWithTax();
 
 
                      </div>
-##
                      <div class="tab-pane" id="obligation" role="tabpanel">
 
 						<div class="col-12 mt-3">
