@@ -3735,17 +3735,17 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.4",
-            "version_normalized": "5.4.4.0",
+            "version": "v5.4.5",
+            "version_normalized": "5.4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "d7915d01c1205b7e6f2cbc58c5b5b3fd0d973a1c"
+                "reference": "54cd033e40564a258e62e759ca1ad07e4863e385"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/d7915d01c1205b7e6f2cbc58c5b5b3fd0d973a1c",
-                "reference": "d7915d01c1205b7e6f2cbc58c5b5b3fd0d973a1c",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/54cd033e40564a258e62e759ca1ad07e4863e385",
+                "reference": "54cd033e40564a258e62e759ca1ad07e4863e385",
                 "shasum": ""
             },
             "require": {
@@ -3896,21 +3896,21 @@
                 "twig/inky-extra": "^2.12|^3",
                 "twig/markdown-extra": "^2.12|^3"
             },
-            "time": "2022-01-29T18:08:18+00:00",
+            "time": "2022-02-28T07:58:12+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
-                    "Symfony\\Bridge\\Monolog\\": "src/Symfony/Bridge/Monolog/",
-                    "Symfony\\Bridge\\ProxyManager\\": "src/Symfony/Bridge/ProxyManager/",
-                    "Symfony\\Bridge\\Twig\\": "src/Symfony/Bridge/Twig/",
-                    "Symfony\\Bundle\\": "src/Symfony/Bundle/",
-                    "Symfony\\Component\\": "src/Symfony/Component/"
-                },
                 "files": [
                     "src/Symfony/Component/String/Resources/functions.php"
                 ],
+                "psr-4": {
+                    "Symfony\\Bundle\\": "src/Symfony/Bundle/",
+                    "Symfony\\Component\\": "src/Symfony/Component/",
+                    "Symfony\\Bridge\\Twig\\": "src/Symfony/Bridge/Twig/",
+                    "Symfony\\Bridge\\Monolog\\": "src/Symfony/Bridge/Monolog/",
+                    "Symfony\\Bridge\\Doctrine\\": "src/Symfony/Bridge/Doctrine/",
+                    "Symfony\\Bridge\\ProxyManager\\": "src/Symfony/Bridge/ProxyManager/"
+                },
                 "classmap": [
                     "src/Symfony/Component/Intl/Resources/stubs"
                 ],
@@ -3939,7 +3939,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.4"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.5"
             },
             "funding": [
                 {

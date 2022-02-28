@@ -249,6 +249,12 @@ class PropertyAccessor implements PropertyAccessorInterface
         }
 
         if (\PHP_VERSION_ID < 80000) {
+            if (preg_match('/^Typed property \S+::\$\S+ must be (\S+), (\S+) used$/', $message, $matches)) {
+                [, $expectedType, $actualType] = $matches;
+
+                throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given at property path "%s".', $expectedType, 'NULL' === $actualType ? 'null' : $actualType, $propertyPath), 0, $previous);
+            }
+
             if (!str_starts_with($message, 'Argument ')) {
                 return;
             }
@@ -264,6 +270,11 @@ class PropertyAccessor implements PropertyAccessorInterface
 
         if (preg_match('/^\S+::\S+\(\): Argument #\d+ \(\$\S+\) must be of type (\S+), (\S+) given/', $message, $matches)) {
             [, $expectedType, $actualType] = $matches;
+
+            throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given at property path "%s".', $expectedType, 'NULL' === $actualType ? 'null' : $actualType, $propertyPath), 0, $previous);
+        }
+        if (preg_match('/^Cannot assign (\S+) to property \S+::\$\S+ of type (\S+)$/', $message, $matches)) {
+            [, $actualType, $expectedType] = $matches;
 
             throw new InvalidArgumentException(sprintf('Expected argument of type "%s", "%s" given at property path "%s".', $expectedType, 'NULL' === $actualType ? 'null' : $actualType, $propertyPath), 0, $previous);
         }
@@ -464,7 +475,7 @@ class PropertyAccessor implements PropertyAccessorInterface
                             && $object instanceof $trace['class']
                             && preg_match('/Return value (?:of .*::\w+\(\) )?must be of (?:the )?type (\w+), null returned$/', $e->getMessage(), $matches)
                         ) {
-                            throw new UninitializedPropertyException(sprintf('The method "%s::%s()" returned "null", but expected type "%3$s". Did you forget to initialize a property or to make the return type nullable using "?%3$s"?', !str_contains(\get_class($object), "@anonymous\0") ? \get_class($object) : (get_parent_class($object) ?: key(class_implements($object)) ?: 'class').'@anonymous', $name, $matches[1]), 0, $e);
+                            throw new UninitializedPropertyException(sprintf('The method "%s::%s()" returned "null", but expected type "%3$s". Did you forget to initialize a property or to make the return type nullable using "?%3$s"?', get_debug_type($object), $name, $matches[1]), 0, $e);
                         }
 
                         throw $e;
@@ -482,8 +493,8 @@ class PropertyAccessor implements PropertyAccessorInterface
                 }
             } catch (\Error $e) {
                 // handle uninitialized properties in PHP >= 7.4
-                if (\PHP_VERSION_ID >= 70400 && preg_match('/^Typed property ('.preg_quote(get_debug_type($object), '/').')::\$(\w+) must not be accessed before initialization$/', $e->getMessage(), $matches)) {
-                    $r = new \ReflectionProperty($class, $matches[2]);
+                if (\PHP_VERSION_ID >= 70400 && preg_match('/^Typed property ([\w\\\\@]+)::\$(\w+) must not be accessed before initialization$/', $e->getMessage(), $matches)) {
+                    $r = new \ReflectionProperty(str_contains($matches[1], '@anonymous') ? $class : $matches[1], $matches[2]);
                     $type = ($type = $r->getType()) instanceof \ReflectionNamedType ? $type->getName() : (string) $type;
 
                     throw new UninitializedPropertyException(sprintf('The property "%s::$%s" is not readable because it is typed "%s". You should initialize it or declare a default value instead.', $matches[1], $r->getName(), $type), 0, $e);
