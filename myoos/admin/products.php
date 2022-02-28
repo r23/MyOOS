@@ -660,8 +660,8 @@ function calcBasePriceFactor() {
                   <div class="tab-content">
 					<div class="text-right mt-3 mb-3">
 						<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($back_url, $back_url_params) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?>
-						<?php echo oos_submit_button(IMAGE_SAVE); ?>
-						<?php echo oos_reset_button(BUTTON_RESET); ?>			   
+						<?php echo oos_reset_button(BUTTON_RESET); ?>
+						<?php echo oos_submit_button(IMAGE_SAVE); ?>						
 					</div>			  
                      <div class="tab-pane active" id="edit" role="tabpanel">
 
@@ -1409,8 +1409,8 @@ updateWithTax();
                </div>
             <div class="text-right mt-3">
 				<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($back_url, $back_url_params) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?>
-				<?php echo oos_submit_button(IMAGE_SAVE); ?>
-				<?php echo oos_reset_button(BUTTON_RESET); ?>			   
+				<?php echo oos_reset_button(BUTTON_RESET); ?>
+				<?php echo oos_submit_button(IMAGE_SAVE); ?>		   
 			</div>				
 			
             </form>
