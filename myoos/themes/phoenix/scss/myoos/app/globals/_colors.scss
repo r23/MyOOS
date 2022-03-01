@@ -544,13 +544,3 @@ section.featured-grid div.row>div .ribbon:before,
 }
 
 
-.page-item.active .page-link {
-    background-color:$m-color-primary;
-    border-color: $m-color-primary;
-}
-
-.page-link >a:focus {
-    z-index: 2;
-    outline: $m-color-primary-light-v2;
-    box-shadow: $m-color-primary-light-v1;
-}

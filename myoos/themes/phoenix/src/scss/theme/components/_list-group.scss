@@ -3,22 +3,6 @@
 // --------------------------------------------------
 
 
-// Interactive list items
-
-.list-group-item-action {
-  transition: $list-group-action-transition;
-  font-weight: $list-group-action-font-weight;
-  &:hover {
-    box-shadow: $list-group-action-hover-box-shadow;
-  }
-}
-.list-group-item.active {
-  border-color: $list-group-border-color;
-  border-left-color: $list-group-active-border-color;
-  box-shadow: $list-group-action-active-box-shadow;
-}
-
-
 // Contextual variants
 
 @each $color, $value in $theme-colors {
