@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '698c26257ca0e8a1a5c66cf2ce980b39ad927db0',
+        'reference' => '0e0196302caf631b28980623564f1e8c30cf1fd8',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -110,12 +110,12 @@
             'dev_requirement' => false,
         ),
         'friendsofphp/proxy-manager-lts' => array(
-            'pretty_version' => 'v1.0.5',
-            'version' => '1.0.5.0',
+            'pretty_version' => 'v1.0.6',
+            'version' => '1.0.6.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../friendsofphp/proxy-manager-lts',
             'aliases' => array(),
-            'reference' => '006aa5d32f887a4db4353b13b5b5095613e0611f',
+            'reference' => '7a3d6121bb5e93014dfbb354d48538e75e9a47d6',
             'dev_requirement' => false,
         ),
         'khanamiryan/qrcode-detector-decoder' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '698c26257ca0e8a1a5c66cf2ce980b39ad927db0',
+            'reference' => '0e0196302caf631b28980623564f1e8c30cf1fd8',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
