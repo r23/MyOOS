@@ -14,11 +14,11 @@
 		<div class="row">
 
 			<!-- left column -->
-			<div class="col-lg-9 col-md-9 col-sm-9">
+			<div class="col-12 col-lg-9">
 
 			{if $panorama_info}
 				<div class="ratio ratio-16x9 mb-30">
-					<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.panorama panorama_id=$panorama_info.panorama_id}"  frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen="allowfullscreen"></iframe>			
+					<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.panorama panorama_id=$panorama_info.panorama_id}" gesture="media" allow="encrypted-media" allowfullscreen="allowfullscreen"></iframe>			
 				</div>
 			{/if}			
 			
@@ -85,7 +85,7 @@
 				<ul class="product-list row list-inline m-0">
 				{foreach item=product from=$listing}
 					<!-- item -->
-					<li class="col-lg-3 col-sm-3">
+					<li class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
 
 						<div class="product">
 
@@ -106,9 +106,9 @@
 								<div class="product-info">
 {*
   todo								
-									<span class="badge badge-success">NEW</span>
+									<span class="badge badge-success">{$lang.text_new}</span>
 *}									
-									{if (!empty($product.listing_product_special_price))}<span class="badge badge-danger">SALE</span>{/if}
+									{if (!empty($product.listing_product_special_price))}<span class="badge badge-danger">{$lang.text_sale} SALE</span>{/if}
 								</div>
 								<!-- /product more info -->
 							</div>
@@ -177,7 +177,7 @@
 
 	
 			<!-- sidebar-->
-			<div class="col-lg-3 col-md-3 col-sm-3">
+			<div class="col-12 col-lg-3">
 			{foreach $sidebar as $panel}
 				{if $panel.content}
 					{$panel.content}
