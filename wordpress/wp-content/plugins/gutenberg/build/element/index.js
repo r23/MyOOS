@@ -410,7 +410,7 @@ function closeOuterElement(endOffset) {
 }
 
 /* harmony default export */ var create_interpolate_element = (createInterpolateElement);
-//# sourceMappingURL=create-interpolate-element.js.map
+
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/element/build-module/react.js
@@ -640,7 +640,7 @@ function switchChildrenNodeName(children, nodeName) {
     }, childrenProp);
   });
 }
-//# sourceMappingURL=react.js.map
+
 ;// CONCATENATED MODULE: external "ReactDOM"
 var external_ReactDOM_namespaceObject = window["ReactDOM"];
 ;// CONCATENATED MODULE: ./packages/element/build-module/react-platform.js
@@ -681,7 +681,7 @@ var external_ReactDOM_namespaceObject = window["ReactDOM"];
  */
 
 
-//# sourceMappingURL=react-platform.js.map
+
 ;// CONCATENATED MODULE: ./packages/element/build-module/utils.js
 /**
  * External dependencies
@@ -705,7 +705,7 @@ const isEmptyElement = element => {
 
   return !element;
 };
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/element/build-module/platform.js
 /**
  * Parts of this source were derived and modified from react-native-web,
@@ -741,7 +741,7 @@ const Platform = {
  */
 
 /* harmony default export */ var platform = (Platform);
-//# sourceMappingURL=platform.js.map
+
 ;// CONCATENATED MODULE: external ["wp","escapeHtml"]
 var external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
 ;// CONCATENATED MODULE: ./packages/element/build-module/raw-html.js
@@ -786,7 +786,7 @@ function RawHTML(_ref) {
     ...props
   });
 }
-//# sourceMappingURL=raw-html.js.map
+
 ;// CONCATENATED MODULE: ./packages/element/build-module/serialize.js
 /**
  * Parts of this source were derived and modified from fast-react-render,
@@ -1286,7 +1286,7 @@ function renderStyle(style) {
   return result;
 }
 /* harmony default export */ var serialize = (renderElement);
-//# sourceMappingURL=serialize.js.map
+
 ;// CONCATENATED MODULE: ./packages/element/build-module/index.js
 
 
@@ -1295,7 +1295,7 @@ function renderStyle(style) {
 
 
 
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).element = __webpack_exports__;
 /******/ })()
 ;

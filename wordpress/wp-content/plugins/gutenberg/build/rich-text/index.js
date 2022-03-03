@@ -139,7 +139,7 @@ function formatTypes() {
 /* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
   formatTypes
 }));
-//# sourceMappingURL=reducer.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
 
 
@@ -484,7 +484,7 @@ function getFormatTypeForClassName(state, elementClassName) {
     return ` ${elementClassName} `.indexOf(` ${className} `) >= 0;
   });
 }
-//# sourceMappingURL=selectors.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/store/actions.js
 /**
  * External dependencies
@@ -519,7 +519,7 @@ function removeFormatTypes(names) {
     names: (0,external_lodash_namespaceObject.castArray)(names)
   };
 }
-//# sourceMappingURL=actions.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/store/index.js
 /**
  * WordPress dependencies
@@ -547,7 +547,7 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
   actions: actions_namespaceObject
 });
 (0,external_wp_data_namespaceObject.register)(store);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/is-format-equal.js
 /** @typedef {import('./create').RichTextFormat} RichTextFormat */
 
@@ -605,7 +605,7 @@ function isFormatEqual(format1, format2) {
 
   return true;
 }
-//# sourceMappingURL=is-format-equal.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/normalise-formats.js
 /**
  * Internal dependencies
@@ -643,7 +643,7 @@ function normaliseFormats(value) {
     formats: newFormats
   };
 }
-//# sourceMappingURL=normalise-formats.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/apply-format.js
 /**
  * External dependencies
@@ -745,7 +745,7 @@ function applyFormat(value, format) {
     }), format]
   });
 }
-//# sourceMappingURL=apply-format.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/create-element.js
 /**
  * Parse the given HTML into a body element.
@@ -775,7 +775,7 @@ function createElement(_ref, html) {
   createElement.body.innerHTML = html;
   return createElement.body;
 }
-//# sourceMappingURL=create-element.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/special-characters.js
 /**
  * Line separator character, used for multiline text.
@@ -792,7 +792,7 @@ const OBJECT_REPLACEMENT_CHARACTER = '\ufffc';
  */
 
 const ZWNBSP = '\ufeff';
-//# sourceMappingURL=special-characters.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/create.js
 /**
  * WordPress dependencies
@@ -1392,7 +1392,7 @@ function getAttributes(_ref4) {
 
   return accumulator;
 }
-//# sourceMappingURL=create.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/concat.js
 /**
  * Internal dependencies
@@ -1433,7 +1433,7 @@ function concat() {
 
   return normaliseFormats(values.reduce(mergePair, create()));
 }
-//# sourceMappingURL=concat.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/get-active-formats.js
 /** @typedef {import('./create').RichTextValue} RichTextValue */
 
@@ -1481,7 +1481,7 @@ function getActiveFormats(_ref) {
 
   return formats[start] || EMPTY_ACTIVE_FORMATS;
 }
-//# sourceMappingURL=get-active-formats.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/get-active-format.js
 /**
  * External dependencies
@@ -1514,7 +1514,7 @@ function getActiveFormat(value, formatType) {
     type: formatType
   });
 }
-//# sourceMappingURL=get-active-format.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/get-active-object.js
 /**
  * Internal dependencies
@@ -1546,7 +1546,7 @@ function getActiveObject(_ref) {
 
   return replacements[start];
 }
-//# sourceMappingURL=get-active-object.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/get-text-content.js
 /**
  * Internal dependencies
@@ -1569,7 +1569,7 @@ function getTextContent(_ref) {
   } = _ref;
   return text.replace(new RegExp(OBJECT_REPLACEMENT_CHARACTER, 'g'), '').replace(new RegExp(LINE_SEPARATOR, 'g'), '\n');
 }
-//# sourceMappingURL=get-text-content.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/get-line-index.js
 /**
  * Internal dependencies
@@ -1603,7 +1603,7 @@ function getLineIndex(_ref) {
     }
   }
 }
-//# sourceMappingURL=get-line-index.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/is-list-root-selected.js
 /**
  * Internal dependencies
@@ -1629,7 +1629,7 @@ function isListRootSelected(value) {
   const replacement = replacements[lineIndex];
   return !replacement || replacement.length < 1;
 }
-//# sourceMappingURL=is-list-root-selected.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/is-active-list-type.js
 /**
  * Internal dependencies
@@ -1663,7 +1663,7 @@ function isActiveListType(value, type, rootType) {
   const lastFormat = replacement[replacement.length - 1];
   return lastFormat.type === type;
 }
-//# sourceMappingURL=is-active-list-type.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/is-collapsed.js
 /** @typedef {import('./create').RichTextValue} RichTextValue */
 
@@ -1690,7 +1690,7 @@ function isCollapsed(_ref) {
 
   return start === end;
 }
-//# sourceMappingURL=is-collapsed.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/is-empty.js
 /**
  * Internal dependencies
@@ -1747,7 +1747,7 @@ function isEmptyLine(_ref2) {
 
   return text.slice(start - 1, end + 1) === `${LINE_SEPARATOR}${LINE_SEPARATOR}`;
 }
-//# sourceMappingURL=is-empty.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/join.js
 /**
  * Internal dependencies
@@ -1789,7 +1789,7 @@ function join(values) {
     };
   }));
 }
-//# sourceMappingURL=join.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/register-format-type.js
 /**
  * WordPress dependencies
@@ -1894,7 +1894,7 @@ function registerFormatType(name, settings) {
   (0,external_wp_data_namespaceObject.dispatch)(store).addFormatTypes(settings);
   return settings;
 }
-//# sourceMappingURL=register-format-type.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/remove-format.js
 /**
  * External dependencies
@@ -1978,7 +1978,7 @@ function filterFormats(formats, index, formatType) {
     delete formats[index];
   }
 }
-//# sourceMappingURL=remove-format.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/insert.js
 /**
  * Internal dependencies
@@ -2025,7 +2025,7 @@ function insert(value, valueToInsert) {
     end: index
   });
 }
-//# sourceMappingURL=insert.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/remove.js
 /**
  * Internal dependencies
@@ -2048,7 +2048,7 @@ function insert(value, valueToInsert) {
 function remove(value, startIndex, endIndex) {
   return insert(value, create(), startIndex, endIndex);
 }
-//# sourceMappingURL=remove.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/replace.js
 /**
  * Internal dependencies
@@ -2125,7 +2125,7 @@ function replace_replace(_ref, pattern, replacement) {
     end
   });
 }
-//# sourceMappingURL=replace.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/insert-line-separator.js
 /**
  * Internal dependencies
@@ -2165,7 +2165,7 @@ function insertLineSeparator(value) {
   };
   return insert(value, valueToInsert, startIndex, endIndex);
 }
-//# sourceMappingURL=insert-line-separator.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/remove-line-separator.js
 /**
  * Internal dependencies
@@ -2227,7 +2227,7 @@ function removeLineSeparator(value) {
 
   return newValue;
 }
-//# sourceMappingURL=remove-line-separator.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/insert-object.js
 /**
  * Internal dependencies
@@ -2259,7 +2259,7 @@ function insertObject(value, formatToInsert, startIndex, endIndex) {
   };
   return insert(value, valueToInsert, startIndex, endIndex);
 }
-//# sourceMappingURL=insert-object.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/slice.js
 /** @typedef {import('./create').RichTextValue} RichTextValue */
 
@@ -2294,7 +2294,7 @@ function slice(value) {
     text: text.slice(startIndex, endIndex)
   };
 }
-//# sourceMappingURL=slice.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/split.js
 /**
  * Internal dependencies
@@ -2384,7 +2384,7 @@ function splitAtSelection(_ref2) {
   return [// Ensure newlines are trimmed.
   replace_replace(before, /\u2028+$/, ''), replace_replace(after, /^\u2028+/, '')];
 }
-//# sourceMappingURL=split.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/get-format-type.js
 /**
  * WordPress dependencies
@@ -2408,7 +2408,7 @@ function splitAtSelection(_ref2) {
 function get_format_type_getFormatType(name) {
   return (0,external_wp_data_namespaceObject.select)(store).getFormatType(name);
 }
-//# sourceMappingURL=get-format-type.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/to-tree.js
 /**
  * Internal dependencies
@@ -2744,7 +2744,7 @@ function toTree(_ref2) {
 
   return tree;
 }
-//# sourceMappingURL=to-tree.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/to-dom.js
 /**
  * Internal dependencies
@@ -3084,7 +3084,7 @@ function applySelection(_ref6, current) {
     }
   }
 }
-//# sourceMappingURL=to-dom.js.map
+
 ;// CONCATENATED MODULE: external ["wp","escapeHtml"]
 var external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/to-html-string.js
@@ -3227,7 +3227,7 @@ function createChildrenHTML() {
     return child.text === undefined ? createElementHTML(child) : (0,external_wp_escapeHtml_namespaceObject.escapeEditableHTML)(child.text);
   }).join('');
 }
-//# sourceMappingURL=to-html-string.js.map
+
 ;// CONCATENATED MODULE: external ["wp","a11y"]
 var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
 ;// CONCATENATED MODULE: external ["wp","i18n"]
@@ -3277,7 +3277,7 @@ function toggleFormat(value, format) {
 
   return applyFormat(value, format);
 }
-//# sourceMappingURL=toggle-format.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/unregister-format-type.js
 /**
  * WordPress dependencies
@@ -3311,7 +3311,7 @@ function unregisterFormatType(name) {
   (0,external_wp_data_namespaceObject.dispatch)(store).removeFormatTypes(name);
   return oldFormat;
 }
-//# sourceMappingURL=unregister-format-type.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/can-indent-list-items.js
 /**
  * Internal dependencies
@@ -3344,7 +3344,7 @@ function canIndentListItems(value) {
 
   return formatsAtLineIndex.length <= formatsAtPreviousLineIndex.length;
 }
-//# sourceMappingURL=can-indent-list-items.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/can-outdent-list-items.js
 /**
  * Internal dependencies
@@ -3368,7 +3368,7 @@ function canOutdentListItems(value) {
   const startingLineIndex = getLineIndex(value, start);
   return replacements[startingLineIndex] !== undefined;
 }
-//# sourceMappingURL=can-outdent-list-items.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/indent-list-items.js
 /**
  * Internal dependencies
@@ -3459,7 +3459,7 @@ function indentListItems(value, rootFormat) {
     replacements: newFormats
   };
 }
-//# sourceMappingURL=indent-list-items.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/get-parent-line-index.js
 /**
  * Internal dependencies
@@ -3498,7 +3498,7 @@ function getParentLineIndex(_ref, lineIndex) {
     }
   }
 }
-//# sourceMappingURL=get-parent-line-index.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/get-last-child-index.js
 /**
  * Internal dependencies
@@ -3543,7 +3543,7 @@ function getLastChildIndex(_ref, lineIndex) {
 
   return childIndex;
 }
-//# sourceMappingURL=get-last-child-index.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/outdent-list-items.js
 /**
  * Internal dependencies
@@ -3602,7 +3602,7 @@ function outdentListItems(value) {
     replacements: newFormats
   };
 }
-//# sourceMappingURL=outdent-list-items.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/change-list-type.js
 /**
  * Internal dependencies
@@ -3670,7 +3670,7 @@ function changeListType(value, newFormat) {
     replacements: newReplacements
   };
 }
-//# sourceMappingURL=change-list-type.js.map
+
 ;// CONCATENATED MODULE: external ["wp","element"]
 var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-anchor-ref.js
@@ -3746,7 +3746,7 @@ function useAnchorRef(_ref) {
     return element.closest(tagName + (className ? '.' + className : ''));
   }, [activeFormat, value.start, value.end, tagName, className]);
 }
-//# sourceMappingURL=use-anchor-ref.js.map
+
 ;// CONCATENATED MODULE: external ["wp","compose"]
 var external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-default-style.js
@@ -3789,7 +3789,7 @@ function useDefaultStyle() {
     element.style.minWidth = minWidth;
   }, []);
 }
-//# sourceMappingURL=use-default-style.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-boundary-style.js
 /**
  * WordPress dependencies
@@ -3848,7 +3848,7 @@ function useBoundaryStyle(_ref) {
   }, [activeFormats]);
   return ref;
 }
-//# sourceMappingURL=use-boundary-style.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-copy-handler.js
 /**
  * WordPress dependencies
@@ -3898,7 +3898,7 @@ function useCopyHandler(props) {
     };
   }, []);
 }
-//# sourceMappingURL=use-copy-handler.js.map
+
 ;// CONCATENATED MODULE: external ["wp","keycodes"]
 var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-format-boundaries.js
@@ -4013,7 +4013,7 @@ function useFormatBoundaries(props) {
     };
   }, []);
 }
-//# sourceMappingURL=use-format-boundaries.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-select-object.js
 /**
  * WordPress dependencies
@@ -4049,7 +4049,7 @@ function useSelectObject() {
     };
   }, []);
 }
-//# sourceMappingURL=use-select-object.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-indent-list-item-on-space.js
 /**
  * WordPress dependencies
@@ -4115,7 +4115,7 @@ function useIndentListItemOnSpace(props) {
     };
   }, []);
 }
-//# sourceMappingURL=use-indent-list-item-on-space.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/update-formats.js
 /**
  * Internal dependencies
@@ -4174,7 +4174,7 @@ function updateFormats(_ref) {
 
   return value;
 }
-//# sourceMappingURL=update-formats.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-input-and-selection.js
 /**
  * WordPress dependencies
@@ -4446,7 +4446,7 @@ function useInputAndSelection(props) {
     };
   }, []);
 }
-//# sourceMappingURL=use-input-and-selection.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-delete.js
 /**
  * WordPress dependencies
@@ -4519,7 +4519,7 @@ function useDelete(props) {
     };
   }, []);
 }
-//# sourceMappingURL=use-delete.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-space.js
 /**
  * WordPress dependencies
@@ -4591,7 +4591,7 @@ function useSpace() {
     };
   }, []);
 }
-//# sourceMappingURL=use-space.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/index.js
 /**
  * WordPress dependencies
@@ -4797,6 +4797,7 @@ function useRichText(_ref) {
   (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
     if (didMount.current && value !== _value.current) {
       applyFromProps();
+      forceRender();
     }
   }, [value]); // Value updates must happen synchonously to avoid overwriting newer values.
 
@@ -4843,7 +4844,7 @@ function useRichText(_ref) {
   };
 }
 function __experimentalRichText() {}
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/format-edit.js
 
 
@@ -4887,7 +4888,7 @@ function FormatEdit(_ref) {
     });
   });
 }
-//# sourceMappingURL=format-edit.js.map
+
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/index.js
 
 
@@ -4925,7 +4926,7 @@ function FormatEdit(_ref) {
 
 
 
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).richText = __webpack_exports__;
 /******/ })()
 ;

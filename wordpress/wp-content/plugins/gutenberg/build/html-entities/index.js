@@ -96,7 +96,7 @@ function decodeEntities(html) {
     decoded
   );
 }
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).htmlEntities = __webpack_exports__;
 /******/ })()
 ;

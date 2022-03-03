@@ -85,7 +85,7 @@ function isShallowEqualObjects(a, b) {
 
   return true;
 }
-//# sourceMappingURL=objects.js.map
+
 ;// CONCATENATED MODULE: ./packages/is-shallow-equal/build-module/arrays.js
 /**
  * Returns true if the two arrays are shallow equal, or false otherwise.
@@ -112,7 +112,7 @@ function isShallowEqualArrays(a, b) {
 
   return true;
 }
-//# sourceMappingURL=arrays.js.map
+
 ;// CONCATENATED MODULE: ./packages/is-shallow-equal/build-module/index.js
 /**
  * Internal dependencies
@@ -146,7 +146,7 @@ function isShallowEqual(a, b) {
 
   return a === b;
 }
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).isShallowEqual = __webpack_exports__;
 /******/ })()
 ;

@@ -48,6 +48,6 @@ document.addEventListener('keyup', function (event) {
     }
   });
 });
-//# sourceMappingURL=view.js.map
+
 /******/ })()
 ;

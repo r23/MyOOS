@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 3859:
+/***/ 9025:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -12,13 +12,13 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.race = exports.join = exports.fork = exports.promise = undefined;
 
-var _is = __webpack_require__(7333);
+var _is = __webpack_require__(9681);
 
 var _is2 = _interopRequireDefault(_is);
 
-var _helpers = __webpack_require__(3467);
+var _helpers = __webpack_require__(7783);
 
-var _dispatcher = __webpack_require__(701);
+var _dispatcher = __webpack_require__(2451);
 
 var _dispatcher2 = _interopRequireDefault(_dispatcher);
 
@@ -123,7 +123,7 @@ exports["default"] = [promise, fork, join, race, subscribe];
 
 /***/ }),
 
-/***/ 8016:
+/***/ 7961:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -133,7 +133,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.iterator = exports.array = exports.object = exports.error = exports.any = undefined;
 
-var _is = __webpack_require__(7333);
+var _is = __webpack_require__(9681);
 
 var _is2 = _interopRequireDefault(_is);
 
@@ -223,7 +223,7 @@ exports["default"] = [error, iterator, array, object, any];
 
 /***/ }),
 
-/***/ 1850:
+/***/ 2165:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -233,7 +233,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.cps = exports.call = undefined;
 
-var _is = __webpack_require__(7333);
+var _is = __webpack_require__(9681);
 
 var _is2 = _interopRequireDefault(_is);
 
@@ -265,7 +265,7 @@ exports["default"] = [call, cps];
 
 /***/ }),
 
-/***/ 8909:
+/***/ 6288:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -274,11 +274,11 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var _builtin = __webpack_require__(8016);
+var _builtin = __webpack_require__(7961);
 
 var _builtin2 = _interopRequireDefault(_builtin);
 
-var _is = __webpack_require__(7333);
+var _is = __webpack_require__(9681);
 
 var _is2 = _interopRequireDefault(_is);
 
@@ -350,7 +350,7 @@ exports["default"] = create;
 
 /***/ }),
 
-/***/ 4320:
+/***/ 2290:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -360,7 +360,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.wrapControls = exports.asyncControls = exports.create = undefined;
 
-var _helpers = __webpack_require__(3467);
+var _helpers = __webpack_require__(7783);
 
 Object.keys(_helpers).forEach(function (key) {
   if (key === "default") return;
@@ -372,15 +372,15 @@ Object.keys(_helpers).forEach(function (key) {
   });
 });
 
-var _create = __webpack_require__(8909);
+var _create = __webpack_require__(6288);
 
 var _create2 = _interopRequireDefault(_create);
 
-var _async = __webpack_require__(3859);
+var _async = __webpack_require__(9025);
 
 var _async2 = _interopRequireDefault(_async);
 
-var _wrap = __webpack_require__(1850);
+var _wrap = __webpack_require__(2165);
 
 var _wrap2 = _interopRequireDefault(_wrap);
 
@@ -392,7 +392,7 @@ exports.wrapControls = _wrap2.default;
 
 /***/ }),
 
-/***/ 701:
+/***/ 2451:
 /***/ (function(__unused_webpack_module, exports) {
 
 
@@ -424,7 +424,7 @@ exports["default"] = createDispatcher;
 
 /***/ }),
 
-/***/ 3467:
+/***/ 7783:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -434,7 +434,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports.createChannel = exports.subscribe = exports.cps = exports.apply = exports.call = exports.invoke = exports.delay = exports.race = exports.join = exports.fork = exports.error = exports.all = undefined;
 
-var _keys = __webpack_require__(1309);
+var _keys = __webpack_require__(9851);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -564,7 +564,7 @@ var createChannel = exports.createChannel = function createChannel(callback) {
 
 /***/ }),
 
-/***/ 7333:
+/***/ 9681:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -575,7 +575,7 @@ Object.defineProperty(exports, "__esModule", ({
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
-var _keys = __webpack_require__(1309);
+var _keys = __webpack_require__(9851);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -628,7 +628,7 @@ exports["default"] = is;
 
 /***/ }),
 
-/***/ 1309:
+/***/ 9851:
 /***/ (function(__unused_webpack_module, exports) {
 
 
@@ -723,9 +723,9 @@ function isGenerator(object) {
   // These checks seem to be compatible with several generator helpers as well as the native implementation.
   return !!object && typeof object[Symbol.iterator] === 'function' && typeof object.next === 'function';
 }
-//# sourceMappingURL=is-generator.js.map
+
 // EXTERNAL MODULE: ./node_modules/rungen/dist/index.js
-var dist = __webpack_require__(4320);
+var dist = __webpack_require__(2290);
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./node_modules/is-promise/index.mjs
@@ -765,7 +765,7 @@ function isActionOfType(object, expectedType) {
   /* eslint-enable jsdoc/valid-types */
   return isAction(object) && object.type === expectedType;
 }
-//# sourceMappingURL=is-action.js.map
+
 ;// CONCATENATED MODULE: ./packages/redux-routine/build-module/runtime.js
 /**
  * External dependencies
@@ -825,7 +825,7 @@ function createRuntime() {
     resolve(result);
   }, reject));
 }
-//# sourceMappingURL=runtime.js.map
+
 ;// CONCATENATED MODULE: ./packages/redux-routine/build-module/index.js
 /**
  * Internal dependencies
@@ -858,7 +858,7 @@ function createMiddleware() {
     };
   };
 }
-//# sourceMappingURL=index.js.map
+
 }();
 (window.wp = window.wp || {}).reduxRoutine = __webpack_exports__["default"];
 /******/ })()

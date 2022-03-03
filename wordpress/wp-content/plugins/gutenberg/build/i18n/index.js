@@ -1,7 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 9588:
+/***/ 9756:
 /***/ (function(module) {
 
 /**
@@ -169,7 +169,7 @@ module.exports = memize;
 
 /***/ }),
 
-/***/ 8975:
+/***/ 124:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/* global window, exports, define */
@@ -488,10 +488,10 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 // EXTERNAL MODULE: ./node_modules/memize/index.js
-var memize = __webpack_require__(9588);
+var memize = __webpack_require__(9756);
 var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
 // EXTERNAL MODULE: ./node_modules/sprintf-js/src/sprintf.js
-var sprintf = __webpack_require__(8975);
+var sprintf = __webpack_require__(124);
 var sprintf_default = /*#__PURE__*/__webpack_require__.n(sprintf);
 ;// CONCATENATED MODULE: ./packages/i18n/build-module/sprintf.js
 /**
@@ -536,7 +536,7 @@ function sprintf_sprintf(format) {
     return format;
   }
 }
-//# sourceMappingURL=sprintf.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/@tannin/postfix/index.js
 var PRECEDENCE, OPENERS, TERMINATORS, PATTERN;
 
@@ -1536,7 +1536,7 @@ const createI18n = (initialData, initialDomain, hooks) => {
     hasTranslation
   };
 };
-//# sourceMappingURL=create-i18n.js.map
+
 ;// CONCATENATED MODULE: external ["wp","hooks"]
 var external_wp_hooks_namespaceObject = window["wp"]["hooks"];
 ;// CONCATENATED MODULE: ./packages/i18n/build-module/default-i18n.js
@@ -1686,12 +1686,12 @@ const isRTL = i18n.isRTL.bind(i18n);
  */
 
 const hasTranslation = i18n.hasTranslation.bind(i18n);
-//# sourceMappingURL=default-i18n.js.map
+
 ;// CONCATENATED MODULE: ./packages/i18n/build-module/index.js
 
 
 
-//# sourceMappingURL=index.js.map
+
 }();
 (window.wp = window.wp || {}).i18n = __webpack_exports__;
 /******/ })()

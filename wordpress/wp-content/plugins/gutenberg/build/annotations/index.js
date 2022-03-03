@@ -73,7 +73,7 @@ var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
  * @type {string}
  */
 const STORE_NAME = 'core/annotations';
-//# sourceMappingURL=constants.js.map
+
 ;// CONCATENATED MODULE: ./packages/annotations/build-module/format/annotation.js
 /**
  * WordPress dependencies
@@ -267,7 +267,7 @@ const annotation = {
   }
 
 };
-//# sourceMappingURL=annotation.js.map
+
 ;// CONCATENATED MODULE: ./packages/annotations/build-module/format/index.js
 /**
  * WordPress dependencies
@@ -283,7 +283,7 @@ const {
   ...settings
 } = annotation;
 (0,external_wp_richText_namespaceObject.registerFormatType)(format_name, settings);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","hooks"]
 var external_wp_hooks_namespaceObject = window["wp"]["hooks"];
 ;// CONCATENATED MODULE: external ["wp","data"]
@@ -324,7 +324,7 @@ const addAnnotationClassName = OriginalComponent => {
 };
 
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockListBlock', 'core/annotations', addAnnotationClassName);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/annotations/build-module/store/reducer.js
@@ -431,7 +431,7 @@ function annotations() {
   return state;
 }
 /* harmony default export */ var reducer = (annotations);
-//# sourceMappingURL=reducer.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
 
 
@@ -794,7 +794,7 @@ function __experimentalGetAnnotations(state) {
     return annotations;
   });
 }
-//# sourceMappingURL=selectors.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/rng.js
 // Unique ID creation requires a high quality random # generator. In the browser we therefore
 // require the crypto API and do not support built-in fallback to lower quality random number
@@ -979,7 +979,7 @@ function __experimentalRemoveAnnotationsBySource(source) {
     source
   };
 }
-//# sourceMappingURL=actions.js.map
+
 ;// CONCATENATED MODULE: ./packages/annotations/build-module/store/index.js
 /**
  * WordPress dependencies
@@ -1011,7 +1011,7 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
   actions: actions_namespaceObject
 });
 (0,external_wp_data_namespaceObject.register)(store);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/annotations/build-module/index.js
 /**
  * Internal dependencies
@@ -1019,7 +1019,7 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
 
 
 
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).annotations = __webpack_exports__;
 /******/ })()
 ;

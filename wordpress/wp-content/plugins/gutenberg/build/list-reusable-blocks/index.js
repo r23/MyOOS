@@ -101,7 +101,7 @@ function readTextFile(file) {
     reader.readAsText(file);
   });
 }
-//# sourceMappingURL=file.js.map
+
 ;// CONCATENATED MODULE: ./packages/list-reusable-blocks/build-module/utils/export.js
 /**
  * External dependencies
@@ -142,7 +142,7 @@ async function exportReusableBlock(id) {
 }
 
 /* harmony default export */ var utils_export = (exportReusableBlock);
-//# sourceMappingURL=export.js.map
+
 ;// CONCATENATED MODULE: external ["wp","components"]
 var external_wp_components_namespaceObject = window["wp"]["components"];
 ;// CONCATENATED MODULE: external ["wp","compose"]
@@ -199,7 +199,7 @@ async function importReusableBlock(file) {
 }
 
 /* harmony default export */ var utils_import = (importReusableBlock);
-//# sourceMappingURL=import.js.map
+
 ;// CONCATENATED MODULE: ./packages/list-reusable-blocks/build-module/components/import-form/index.js
 
 
@@ -302,7 +302,7 @@ function ImportForm(_ref) {
 }
 
 /* harmony default export */ var import_form = ((0,external_wp_compose_namespaceObject.withInstanceId)(ImportForm));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/list-reusable-blocks/build-module/components/import-dropdown/index.js
 
 
@@ -352,7 +352,7 @@ function ImportDropdown(_ref) {
 }
 
 /* harmony default export */ var import_dropdown = (ImportDropdown);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/list-reusable-blocks/build-module/index.js
 
 
@@ -404,7 +404,7 @@ document.addEventListener('DOMContentLoaded', () => {
     onUpload: showNotice
   }), container);
 });
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).listReusableBlocks = __webpack_exports__;
 /******/ })()
 ;

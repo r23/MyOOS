@@ -93,7 +93,7 @@ function isURL(url) {
     return false;
   }
 }
-//# sourceMappingURL=is-url.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/is-email.js
 const EMAIL_REGEXP = /^(mailto:)?[a-z0-9._%+-]+@[a-z0-9][a-z0-9.-]*\.[a-z]{2,63}$/i;
 /**
@@ -112,7 +112,7 @@ const EMAIL_REGEXP = /^(mailto:)?[a-z0-9._%+-]+@[a-z0-9][a-z0-9.-]*\.[a-z]{2,63}
 function isEmail(email) {
   return EMAIL_REGEXP.test(email);
 }
-//# sourceMappingURL=is-email.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/get-protocol.js
 /**
  * Returns the protocol part of the URL.
@@ -134,7 +134,7 @@ function getProtocol(url) {
     return matches[1];
   }
 }
-//# sourceMappingURL=get-protocol.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/is-valid-protocol.js
 /**
  * Tests if a url protocol is valid.
@@ -156,7 +156,7 @@ function isValidProtocol(protocol) {
 
   return /^[a-z\-.\+]+[0-9]*:$/i.test(protocol);
 }
-//# sourceMappingURL=is-valid-protocol.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/get-authority.js
 /**
  * Returns the authority part of the URL.
@@ -178,7 +178,7 @@ function getAuthority(url) {
     return matches[1];
   }
 }
-//# sourceMappingURL=get-authority.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/is-valid-authority.js
 /**
  * Checks for invalid characters within the provided authority.
@@ -200,7 +200,7 @@ function isValidAuthority(authority) {
 
   return /^[^\s#?]+$/.test(authority);
 }
-//# sourceMappingURL=is-valid-authority.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/get-path.js
 /**
  * Returns the path part of the URL.
@@ -222,7 +222,7 @@ function getPath(url) {
     return matches[1];
   }
 }
-//# sourceMappingURL=get-path.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/is-valid-path.js
 /**
  * Checks for invalid characters within the provided path.
@@ -244,7 +244,7 @@ function isValidPath(path) {
 
   return /^[^\s#?]+$/.test(path);
 }
-//# sourceMappingURL=is-valid-path.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/get-query-string.js
 /**
  * Returns the query string part of the URL.
@@ -269,7 +269,7 @@ function getQueryString(url) {
     return query;
   }
 }
-//# sourceMappingURL=get-query-string.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/build-query-string.js
 /**
  * Generates URL-encoded query string using input query data.
@@ -329,7 +329,7 @@ function buildQueryString(data) {
 
   return string.substr(1);
 }
-//# sourceMappingURL=build-query-string.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/is-valid-query-string.js
 /**
  * Checks for invalid characters within the provided query string.
@@ -351,7 +351,7 @@ function isValidQueryString(queryString) {
 
   return /^[^\s#?\/]+$/.test(queryString);
 }
-//# sourceMappingURL=is-valid-query-string.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/get-path-and-query-string.js
 /**
  * Internal dependencies
@@ -379,7 +379,7 @@ function getPathAndQueryString(url) {
   if (queryString) value += `?${queryString}`;
   return value;
 }
-//# sourceMappingURL=get-path-and-query-string.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/get-fragment.js
 /**
  * Returns the fragment part of the URL.
@@ -401,7 +401,7 @@ function getFragment(url) {
     return matches[1];
   }
 }
-//# sourceMappingURL=get-fragment.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/is-valid-fragment.js
 /**
  * Checks for invalid characters within the provided fragment.
@@ -423,7 +423,7 @@ function isValidFragment(fragment) {
 
   return /^#[^\s#?\/]*$/.test(fragment);
 }
-//# sourceMappingURL=is-valid-fragment.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/get-query-args.js
 /**
  * Internal dependencies
@@ -510,7 +510,7 @@ function getQueryArgs(url) {
     return accumulator;
   }, {});
 }
-//# sourceMappingURL=get-query-args.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/add-query-args.js
 /**
  * Internal dependencies
@@ -556,7 +556,7 @@ function addQueryArgs() {
 
   return baseUrl + '?' + buildQueryString(args);
 }
-//# sourceMappingURL=add-query-args.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/get-query-arg.js
 /**
  * Internal dependencies
@@ -587,7 +587,7 @@ function addQueryArgs() {
 function getQueryArg(url, arg) {
   return getQueryArgs(url)[arg];
 }
-//# sourceMappingURL=get-query-arg.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/has-query-arg.js
 /**
  * Internal dependencies
@@ -610,7 +610,7 @@ function getQueryArg(url, arg) {
 function hasQueryArg(url, arg) {
   return getQueryArg(url, arg) !== undefined;
 }
-//# sourceMappingURL=has-query-arg.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/remove-query-args.js
 /**
  * Internal dependencies
@@ -649,7 +649,7 @@ function removeQueryArgs(url) {
   const queryString = buildQueryString(query);
   return queryString ? baseURL + '?' + queryString : baseURL;
 }
-//# sourceMappingURL=remove-query-args.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/prepend-http.js
 /**
  * Internal dependencies
@@ -682,7 +682,7 @@ function prependHTTP(url) {
 
   return url;
 }
-//# sourceMappingURL=prepend-http.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/safe-decode-uri.js
 /**
  * Safely decodes a URI with `decodeURI`. Returns the URI unmodified if
@@ -704,7 +704,7 @@ function safeDecodeURI(uri) {
     return uri;
   }
 }
-//# sourceMappingURL=safe-decode-uri.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/safe-decode-uri-component.js
 /**
  * Safely decodes a URI component with `decodeURIComponent`. Returns the URI component unmodified if
@@ -721,7 +721,7 @@ function safeDecodeURIComponent(uriComponent) {
     return uriComponent;
   }
 }
-//# sourceMappingURL=safe-decode-uri-component.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/filter-url-for-display.js
 /**
  * Returns a URL for display.
@@ -767,7 +767,7 @@ function filterURLForDisplay(url) {
   const truncatedFile = fileName.slice(-3) + '.' + extension;
   return file.slice(0, maxLength - truncatedFile.length - 1) + '…' + truncatedFile;
 }
-//# sourceMappingURL=filter-url-for-display.js.map
+
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/url/build-module/clean-for-slug.js
@@ -799,7 +799,7 @@ function cleanForSlug(string) {
 
   return (0,external_lodash_namespaceObject.trim)((0,external_lodash_namespaceObject.deburr)(string).replace(/[\s\./]+/g, '-').replace(/[^\w-]+/g, '').toLowerCase(), '-');
 }
-//# sourceMappingURL=clean-for-slug.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/get-filename.js
 /**
  * Returns the filename part of the URL.
@@ -825,7 +825,7 @@ function getFilename(url) {
     return filename;
   }
 }
-//# sourceMappingURL=get-filename.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/normalize-path.js
 /**
  * Given a path, returns a normalized path where equal query parameter values
@@ -853,7 +853,7 @@ function normalizePath(path) {
   .map(pair => pair.join('=')) // 'a=5&b=1&c=2'
   .join('&');
 }
-//# sourceMappingURL=normalize-path.js.map
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/index.js
 
 
@@ -881,7 +881,7 @@ function normalizePath(path) {
 
 
 
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).url = __webpack_exports__;
 /******/ })()
 ;

@@ -88,6 +88,6 @@ window.addEventListener('load', () => {
     });
   });
 });
-//# sourceMappingURL=view.js.map
+
 /******/ })()
 ;

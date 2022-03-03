@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 6494:
+/***/ 6803:
 /***/ (function(module) {
 
 /*
@@ -1824,7 +1824,7 @@ module.exports = {
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module is referenced by other modules so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__(6494);
+/******/ 	var __webpack_exports__ = __webpack_require__(6803);
 /******/ 	(window.wp = window.wp || {}).blockSerializationSpecParser = __webpack_exports__;
 /******/ 	
 /******/ })()

@@ -216,7 +216,7 @@ const errorNotices = function () {
   blockManagement,
   errorNotices
 }));
-//# sourceMappingURL=reducer.js.map
+
 ;// CONCATENATED MODULE: external ["wp","blockEditor"]
 var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/store/utils/has-block-type.js
@@ -253,7 +253,7 @@ function hasBlockType(blockType) {
 
   return false;
 }
-//# sourceMappingURL=has-block-type.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/store/selectors.js
 /**
  * WordPress dependencies
@@ -368,7 +368,7 @@ function getErrorNotices(state) {
 function getErrorNoticeForBlock(state, blockId) {
   return state.errorNotices[blockId];
 }
-//# sourceMappingURL=selectors.js.map
+
 ;// CONCATENATED MODULE: external ["wp","i18n"]
 var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 ;// CONCATENATED MODULE: external ["wp","apiFetch"]
@@ -376,6 +376,8 @@ var external_wp_apiFetch_namespaceObject = window["wp"]["apiFetch"];
 var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_namespaceObject);
 ;// CONCATENATED MODULE: external ["wp","notices"]
 var external_wp_notices_namespaceObject = window["wp"]["notices"];
+;// CONCATENATED MODULE: external ["wp","url"]
+var external_wp_url_namespaceObject = window["wp"]["url"];
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/store/load-assets.js
 /**
  * WordPress dependencies
@@ -448,7 +450,7 @@ async function loadAssets() {
     await loadAsset(newAsset);
   }
 }
-//# sourceMappingURL=load-assets.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/store/utils/get-plugin-url.js
 /**
  * Get the plugin's direct API link out of a block-directory response.
@@ -470,11 +472,17 @@ function getPluginUrl(block) {
 
   return false;
 }
-//# sourceMappingURL=get-plugin-url.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/store/actions.js
+/**
+ * External dependencies
+ */
+
 /**
  * WordPress dependencies
  */
+
+
 
 
 
@@ -531,7 +539,8 @@ const installBlockType = block => async _ref => {
     dispatch
   } = _ref;
   const {
-    id
+    id,
+    name
   } = block;
   let success = false;
   dispatch.clearErrorNotice(id);
@@ -567,11 +576,27 @@ const installBlockType = block => async _ref => {
       links: { ...block.links,
         ...links
       }
+    }); // Ensures that the block metadata is propagated to the editor when registered on the server.
+
+    const metadataFields = ['api_version', 'title', 'category', 'parent', 'icon', 'description', 'keywords', 'attributes', 'provides_context', 'uses_context', 'supports', 'styles', 'example', 'variations'];
+    await external_wp_apiFetch_default()({
+      path: (0,external_wp_url_namespaceObject.addQueryArgs)(`/wp/v2/block-types/${name}`, {
+        _fields: metadataFields
+      })
+    }) // Ignore when the block is not registered on the server.
+    .catch(() => {}).then(response => {
+      if (!response) {
+        return;
+      }
+
+      (0,external_wp_blocks_namespaceObject.unstable__bootstrapServerSideBlockDefinitions)({
+        [name]: (0,external_lodash_namespaceObject.pick)(response, metadataFields)
+      });
     });
     await loadAssets();
     const registeredBlocks = registry.select(external_wp_blocks_namespaceObject.store).getBlockTypes();
 
-    if (!registeredBlocks.some(i => i.name === block.name)) {
+    if (!registeredBlocks.some(i => i.name === name)) {
       throw new Error((0,external_wp_i18n_namespaceObject.__)('Error registering block. Try reloading the page.'));
     }
 
@@ -716,7 +741,7 @@ function clearErrorNotice(blockId) {
     blockId
   };
 }
-//# sourceMappingURL=actions.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/store/resolvers.js
 /**
  * External dependencies
@@ -750,7 +775,7 @@ const resolvers_getDownloadableBlocks = filterValue => async _ref => {
     dispatch(receiveDownloadableBlocks(blocks, filterValue));
   } catch {}
 };
-//# sourceMappingURL=resolvers.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/store/index.js
 /**
  * WordPress dependencies
@@ -781,8 +806,7 @@ const storeConfig = {
   reducer: reducer,
   selectors: selectors_namespaceObject,
   actions: actions_namespaceObject,
-  resolvers: resolvers_namespaceObject,
-  __experimentalUseThunks: true
+  resolvers: resolvers_namespaceObject
 };
 /**
  * Store definition for the block directory namespace.
@@ -794,7 +818,7 @@ const storeConfig = {
 
 const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, storeConfig);
 (0,external_wp_data_namespaceObject.register)(store);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/auto-block-uninstaller/index.js
 /**
  * WordPress dependencies
@@ -830,7 +854,7 @@ function AutoBlockUninstaller() {
   }, [shouldRemoveBlockTypes]);
   return null;
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","components"]
 var external_wp_components_namespaceObject = window["wp"]["components"];
 ;// CONCATENATED MODULE: external ["wp","compose"]
@@ -888,7 +912,7 @@ function Icon(_ref) {
 }
 
 /* harmony default export */ var icon = (Icon);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","primitives"]
 var external_wp_primitives_namespaceObject = window["wp"]["primitives"];
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/star-filled.js
@@ -905,7 +929,7 @@ const starFilled = (0,external_wp_element_namespaceObject.createElement)(externa
   d: "M11.776 4.454a.25.25 0 01.448 0l2.069 4.192a.25.25 0 00.188.137l4.626.672a.25.25 0 01.139.426l-3.348 3.263a.25.25 0 00-.072.222l.79 4.607a.25.25 0 01-.362.263l-4.138-2.175a.25.25 0 00-.232 0l-4.138 2.175a.25.25 0 01-.363-.263l.79-4.607a.25.25 0 00-.071-.222L4.754 9.881a.25.25 0 01.139-.426l4.626-.672a.25.25 0 00.188-.137l2.069-4.192z"
 }));
 /* harmony default export */ var star_filled = (starFilled);
-//# sourceMappingURL=star-filled.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/star-half.js
 
 
@@ -920,7 +944,7 @@ const starHalf = (0,external_wp_element_namespaceObject.createElement)(external_
   d: "M9.518 8.783a.25.25 0 00.188-.137l2.069-4.192a.25.25 0 01.448 0l2.07 4.192a.25.25 0 00.187.137l4.626.672a.25.25 0 01.139.427l-3.347 3.262a.25.25 0 00-.072.222l.79 4.607a.25.25 0 01-.363.264l-4.137-2.176a.25.25 0 00-.233 0l-4.138 2.175a.25.25 0 01-.362-.263l.79-4.607a.25.25 0 00-.072-.222L4.753 9.882a.25.25 0 01.14-.427l4.625-.672zM12 14.533c.28 0 .559.067.814.2l1.895.997-.362-2.11a1.75 1.75 0 01.504-1.55l1.533-1.495-2.12-.308a1.75 1.75 0 01-1.317-.957L12 7.39v7.143z"
 }));
 /* harmony default export */ var star_half = (starHalf);
-//# sourceMappingURL=star-half.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/star-empty.js
 
 
@@ -937,7 +961,7 @@ const starEmpty = (0,external_wp_element_namespaceObject.createElement)(external
   clipRule: "evenodd"
 }));
 /* harmony default export */ var star_empty = (starEmpty);
-//# sourceMappingURL=star-empty.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/block-ratings/stars.js
 
 
@@ -983,7 +1007,7 @@ function Stars(_ref) {
 }
 
 /* harmony default export */ var stars = (Stars);
-//# sourceMappingURL=stars.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/block-ratings/index.js
 
 
@@ -1002,7 +1026,7 @@ const BlockRatings = _ref => {
   }));
 };
 /* harmony default export */ var block_ratings = (BlockRatings);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/downloadable-block-icon/index.js
 
 
@@ -1028,7 +1052,7 @@ function DownloadableBlockIcon(_ref) {
 }
 
 /* harmony default export */ var downloadable_block_icon = (DownloadableBlockIcon);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/downloadable-block-notice/index.js
 
 
@@ -1059,7 +1083,7 @@ const DownloadableBlockNotice = _ref => {
   }, errorNotice.message, errorNotice.isFatal ? ' ' + (0,external_wp_i18n_namespaceObject.__)('Try reloading the page.') : null));
 };
 /* harmony default export */ var downloadable_block_notice = (DownloadableBlockNotice);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/downloadable-block-list-item/index.js
 
 
@@ -1206,7 +1230,7 @@ function DownloadableBlockListItem(_ref3) {
 }
 
 /* harmony default export */ var downloadable_block_list_item = (DownloadableBlockListItem);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/downloadable-blocks-list/index.js
 
 
@@ -1276,7 +1300,7 @@ function DownloadableBlocksList(_ref) {
 }
 
 /* harmony default export */ var downloadable_blocks_list = (DownloadableBlocksList);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","a11y"]
 var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/downloadable-blocks-panel/inserter-panel.js
@@ -1317,7 +1341,7 @@ function DownloadableBlocksInserterPanel(_ref) {
 }
 
 /* harmony default export */ var inserter_panel = (DownloadableBlocksInserterPanel);
-//# sourceMappingURL=inserter-panel.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/block-default.js
 
 
@@ -1332,7 +1356,7 @@ const blockDefault = (0,external_wp_element_namespaceObject.createElement)(exter
   d: "M19 8h-1V6h-5v2h-2V6H6v2H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm.5 10c0 .3-.2.5-.5.5H5c-.3 0-.5-.2-.5-.5v-8c0-.3.2-.5.5-.5h14c.3 0 .5.2.5.5v8z"
 }));
 /* harmony default export */ var block_default = (blockDefault);
-//# sourceMappingURL=block-default.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/downloadable-blocks-panel/no-results.js
 
 
@@ -1352,7 +1376,7 @@ function DownloadableBlocksNoResults() {
 }
 
 /* harmony default export */ var no_results = (DownloadableBlocksNoResults);
-//# sourceMappingURL=no-results.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/downloadable-blocks-panel/index.js
 
 
@@ -1439,7 +1463,7 @@ function DownloadableBlocksPanel(_ref) {
     isLoading
   };
 })])(DownloadableBlocksPanel));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/plugins/inserter-menu-downloadable-blocks-panel/index.js
 
 
@@ -1491,7 +1515,7 @@ function InserterMenuDownloadableBlocksPanel() {
 }
 
 /* harmony default export */ var inserter_menu_downloadable_blocks_panel = (InserterMenuDownloadableBlocksPanel);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","editPost"]
 var external_wp_editPost_namespaceObject = window["wp"]["editPost"];
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/compact-list/index.js
@@ -1541,7 +1565,7 @@ function CompactList(_ref) {
     (0,external_wp_i18n_namespaceObject.__)('By %s'), author))));
   }));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/plugins/installed-blocks-pre-publish-panel/index.js
 
 
@@ -1576,7 +1600,7 @@ function InstalledBlocksPrePublishPanel() {
     items: newBlockTypes
   }));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/plugins/get-install-missing/install-button.js
 
 
@@ -1624,7 +1648,7 @@ function InstallButton(_ref) {
   /* translators: %s: block name */
   (0,external_wp_i18n_namespaceObject.__)('Install %s'), block.title));
 }
-//# sourceMappingURL=install-button.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/plugins/get-install-missing/index.js
 
 
@@ -1728,7 +1752,7 @@ const ModifiedWarning = _ref2 => {
 };
 
 /* harmony default export */ var get_install_missing = (getInstallMissing);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/plugins/index.js
 
 
@@ -1759,14 +1783,14 @@ const ModifiedWarning = _ref2 => {
   settings.edit = get_install_missing(settings.edit);
   return settings;
 });
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/index.js
 /**
  * Internal dependencies
  */
 
 
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).blockDirectory = __webpack_exports__;
 /******/ })()
 ;

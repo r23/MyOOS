@@ -401,7 +401,7 @@ function addBlockFromStack(endOffset) {
 
   output.push(block);
 }
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).blockSerializationDefaultParser = __webpack_exports__;
 /******/ })()
 ;

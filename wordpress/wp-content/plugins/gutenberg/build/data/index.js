@@ -1,7 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 3909:
+/***/ 2167:
 /***/ (function(module) {
 
 "use strict";
@@ -316,7 +316,7 @@ module.exports = EquivalentKeyMap;
 
 /***/ }),
 
-/***/ 9884:
+/***/ 9125:
 /***/ (function(module) {
 
 function combineReducers( reducers ) {
@@ -510,7 +510,7 @@ __webpack_require__.d(plugins_namespaceObject, {
 });
 
 // EXTERNAL MODULE: ./node_modules/turbo-combine-reducers/index.js
-var turbo_combine_reducers = __webpack_require__(9884);
+var turbo_combine_reducers = __webpack_require__(9125);
 var turbo_combine_reducers_default = /*#__PURE__*/__webpack_require__.n(turbo_combine_reducers);
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
@@ -1243,7 +1243,7 @@ if (false) {}
 
 
 // EXTERNAL MODULE: ./node_modules/equivalent-key-map/equivalent-key-map.js
-var equivalent_key_map = __webpack_require__(3909);
+var equivalent_key_map = __webpack_require__(2167);
 var equivalent_key_map_default = /*#__PURE__*/__webpack_require__.n(equivalent_key_map);
 ;// CONCATENATED MODULE: external ["wp","reduxRoutine"]
 var external_wp_reduxRoutine_namespaceObject = window["wp"]["reduxRoutine"];
@@ -1330,7 +1330,7 @@ function createRegistryControl(registryControl) {
   registryControl.isRegistryControl = true;
   return registryControl;
 }
-//# sourceMappingURL=factory.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/controls.js
 /**
  * External dependencies
@@ -1487,7 +1487,7 @@ const builtinControls = {
     return registry.dispatch(storeKey)[actionName](...args);
   })
 };
-//# sourceMappingURL=controls.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/is-promise/index.mjs
 function isPromise(obj) {
   return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
@@ -1517,7 +1517,7 @@ const promiseMiddleware = () => next => action => {
 };
 
 /* harmony default export */ var promise_middleware = (promiseMiddleware);
-//# sourceMappingURL=promise-middleware.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/store/index.js
 const coreDataStore = {
   name: 'core/data',
@@ -1561,7 +1561,7 @@ const coreDataStore = {
 
 };
 /* harmony default export */ var store = (coreDataStore);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/resolvers-cache-middleware.js
 /**
  * External dependencies
@@ -1611,7 +1611,7 @@ const createResolversCacheMiddleware = (registry, reducerKey) => () => next => a
 };
 
 /* harmony default export */ var resolvers_cache_middleware = (createResolversCacheMiddleware);
-//# sourceMappingURL=resolvers-cache-middleware.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/redux-store/thunk-middleware.js
 function createThunkMiddleware(args) {
   return () => next => action => {
@@ -1622,30 +1622,24 @@ function createThunkMiddleware(args) {
     return next(action);
   };
 }
-//# sourceMappingURL=thunk-middleware.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/redux-store/metadata/utils.js
+/**
+ * External dependencies
+ */
+
 /**
  * Higher-order reducer creator which creates a combined reducer object, keyed
  * by a property on the action object.
  *
- * @template {any} TState
- * @template {import('redux').AnyAction} TAction
- *
- * @param {string} actionProperty Action property by which to key object.
- *
- * @return {(reducer: import('redux').Reducer<TState, TAction>) => import('redux').Reducer<Record<string, TState>, TAction>} Higher-order reducer.
+ * @param  actionProperty Action property by which to key object.
+ * @return Higher-order reducer.
  */
 const onSubKey = actionProperty => reducer => function () {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] :
-  /** @type {Record<string, TState>} */
-  {};
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   let action = arguments.length > 1 ? arguments[1] : undefined;
   // Retrieve subkey from action. Do not track if undefined; useful for cases
   // where reducer is scoped by action shape.
-
-  /** @type {keyof state} */
-
-  /* eslint-enable jsdoc/no-undefined-types */
   const key = action[actionProperty];
 
   if (key === undefined) {
@@ -1664,7 +1658,29 @@ const onSubKey = actionProperty => reducer => function () {
     [key]: nextKeyState
   };
 };
-//# sourceMappingURL=utils.js.map
+/**
+ * Normalize selector argument array by defaulting `undefined` value to an empty array
+ * and removing trailing `undefined` values.
+ *
+ * @param  args Selector argument array
+ * @return Normalized state key array
+ */
+
+function selectorArgsToStateKey(args) {
+  if (args === undefined || args === null) {
+    return [];
+  }
+
+  const len = args.length;
+  let idx = len;
+
+  while (idx > 0 && args[idx - 1] === undefined) {
+    idx--;
+  }
+
+  return idx === len ? args : args.slice(0, idx);
+}
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/redux-store/metadata/reducer.js
 /**
  * External dependencies
@@ -1693,7 +1709,7 @@ const subKeysIsResolved = onSubKey('selectorName')(function () {
       {
         const isStarting = action.type === 'START_RESOLUTION';
         const nextState = new (equivalent_key_map_default())(state);
-        nextState.set(action.args, isStarting);
+        nextState.set(selectorArgsToStateKey(action.args), isStarting);
         return nextState;
       }
 
@@ -1704,7 +1720,7 @@ const subKeysIsResolved = onSubKey('selectorName')(function () {
         const nextState = new (equivalent_key_map_default())(state);
 
         for (const resolutionArgs of action.args) {
-          nextState.set(resolutionArgs, isStarting);
+          nextState.set(selectorArgsToStateKey(resolutionArgs), isStarting);
         }
 
         return nextState;
@@ -1713,7 +1729,7 @@ const subKeysIsResolved = onSubKey('selectorName')(function () {
     case 'INVALIDATE_RESOLUTION':
       {
         const nextState = new (equivalent_key_map_default())(state);
-        nextState.delete(action.args);
+        nextState.delete(selectorArgsToStateKey(action.args));
         return nextState;
       }
   }
@@ -1754,11 +1770,16 @@ const isResolved = function () {
 };
 
 /* harmony default export */ var metadata_reducer = (isResolved);
-//# sourceMappingURL=reducer.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/redux-store/metadata/selectors.js
 /**
  * External dependencies
  */
+
+/**
+ * Internal dependencies
+ */
+
 
 /** @typedef {Record<string, import('./reducer').State>} State */
 
@@ -1768,9 +1789,9 @@ const isResolved = function () {
  * or not resolved for the given set of arguments, otherwise true or false for
  * resolution started and completed respectively.
  *
- * @param {State}     state        Data state.
- * @param {string}    selectorName Selector name.
- * @param {unknown[]} args         Arguments passed to selector.
+ * @param {State}      state        Data state.
+ * @param {string}     selectorName Selector name.
+ * @param {unknown[]?} args         Arguments passed to selector.
  *
  * @return {boolean | undefined} isResolving value.
  */
@@ -1782,51 +1803,48 @@ function getIsResolving(state, selectorName, args) {
     return undefined;
   }
 
-  return map.get(args);
+  return map.get(selectorArgsToStateKey(args));
 }
 /**
  * Returns true if resolution has already been triggered for a given
  * selector name, and arguments set.
  *
- * @param {State}     state        Data state.
- * @param {string}    selectorName Selector name.
- * @param {unknown[]} [args]       Arguments passed to selector (default `[]`).
+ * @param {State}      state        Data state.
+ * @param {string}     selectorName Selector name.
+ * @param {unknown[]?} args         Arguments passed to selector.
  *
  * @return {boolean} Whether resolution has been triggered.
  */
 
-function hasStartedResolution(state, selectorName) {
-  let args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+function hasStartedResolution(state, selectorName, args) {
   return getIsResolving(state, selectorName, args) !== undefined;
 }
 /**
  * Returns true if resolution has completed for a given selector
  * name, and arguments set.
  *
- * @param {State}     state        Data state.
- * @param {string}    selectorName Selector name.
- * @param {unknown[]} [args]       Arguments passed to selector.
+ * @param {State}      state        Data state.
+ * @param {string}     selectorName Selector name.
+ * @param {unknown[]?} args         Arguments passed to selector.
  *
  * @return {boolean} Whether resolution has completed.
  */
 
-function hasFinishedResolution(state, selectorName) {
-  let args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+function hasFinishedResolution(state, selectorName, args) {
   return getIsResolving(state, selectorName, args) === false;
 }
 /**
  * Returns true if resolution has been triggered but has not yet completed for
  * a given selector name, and arguments set.
  *
- * @param {State}     state        Data state.
- * @param {string}    selectorName Selector name.
- * @param {unknown[]} [args]       Arguments passed to selector.
+ * @param {State}      state        Data state.
+ * @param {string}     selectorName Selector name.
+ * @param {unknown[]?} args         Arguments passed to selector.
  *
  * @return {boolean} Whether resolution is in progress.
  */
 
-function isResolving(state, selectorName) {
-  let args = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+function isResolving(state, selectorName, args) {
   return getIsResolving(state, selectorName, args) === true;
 }
 /**
@@ -1840,7 +1858,7 @@ function isResolving(state, selectorName) {
 function getCachedResolvers(state) {
   return state;
 }
-//# sourceMappingURL=selectors.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/redux-store/metadata/actions.js
 /**
  * Returns an action object used in signalling that selector resolution has
@@ -1880,10 +1898,10 @@ function finishResolution(selectorName, args) {
  * started.
  *
  * @param {string}    selectorName Name of selector for which resolver triggered.
- * @param {unknown[]} args         Array of arguments to associate for uniqueness, each item
+ * @param {unknown[][]} args         Array of arguments to associate for uniqueness, each item
  *                                 is associated to a resolution.
  *
- * @return {{ type: 'START_RESOLUTIONS', selectorName: string, args: unknown[] }} Action object.
+ * @return {{ type: 'START_RESOLUTIONS', selectorName: string, args: unknown[][] }} Action object.
  */
 
 function startResolutions(selectorName, args) {
@@ -1898,10 +1916,10 @@ function startResolutions(selectorName, args) {
  * completed.
  *
  * @param {string}    selectorName Name of selector for which resolver triggered.
- * @param {unknown[]} args         Array of arguments to associate for uniqueness, each item
+ * @param {unknown[][]} args         Array of arguments to associate for uniqueness, each item
  *                                 is associated to a resolution.
  *
- * @return {{ type: 'FINISH_RESOLUTIONS', selectorName: string, args: unknown[] }} Action object.
+ * @return {{ type: 'FINISH_RESOLUTIONS', selectorName: string, args: unknown[][] }} Action object.
  */
 
 function finishResolutions(selectorName, args) {
@@ -1955,7 +1973,7 @@ function invalidateResolutionForStoreSelector(selectorName) {
     selectorName
   };
 }
-//# sourceMappingURL=actions.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/redux-store/index.js
 /**
  * External dependencies
@@ -2172,12 +2190,7 @@ function instantiateReduxStore(key, options, registry, thunkArgs) {
     ...builtinControls
   };
   const normalizedControls = (0,external_lodash_namespaceObject.mapValues)(controls, control => control.isRegistryControl ? control(registry) : control);
-  const middlewares = [resolvers_cache_middleware(registry, key), promise_middleware, external_wp_reduxRoutine_default()(normalizedControls)];
-
-  if (options.__experimentalUseThunks) {
-    middlewares.push(createThunkMiddleware(thunkArgs));
-  }
-
+  const middlewares = [resolvers_cache_middleware(registry, key), promise_middleware, external_wp_reduxRoutine_default()(normalizedControls), createThunkMiddleware(thunkArgs)];
   const enhancers = [applyMiddleware(...middlewares)];
 
   if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__) {
@@ -2396,7 +2409,7 @@ async function fulfillResolver(store, resolvers, selectorName) {
     await store.dispatch(action);
   }
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/utils/emitter.js
 /**
  * Create an event emitter.
@@ -2447,7 +2460,7 @@ function createEmitter() {
 
   };
 }
-//# sourceMappingURL=emitter.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/registry.js
 /**
  * External dependencies
@@ -2782,14 +2795,14 @@ function createRegistry() {
 
   return withPlugins(registry);
 }
-//# sourceMappingURL=registry.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/default-registry.js
 /**
  * Internal dependencies
  */
 
 /* harmony default export */ var default_registry = (createRegistry());
-//# sourceMappingURL=default-registry.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/plugins/persistence/storage/object.js
 let objectStorage;
 const storage = {
@@ -2815,7 +2828,7 @@ const storage = {
 
 };
 /* harmony default export */ var object = (storage);
-//# sourceMappingURL=object.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/plugins/persistence/storage/default.js
 /**
  * Internal dependencies
@@ -2835,7 +2848,7 @@ try {
 }
 
 /* harmony default export */ var storage_default = (default_storage);
-//# sourceMappingURL=default.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/plugins/persistence/index.js
 /**
  * External dependencies
@@ -3104,10 +3117,10 @@ persistencePlugin.__unstableMigrate = pluginOptions => {
 };
 
 /* harmony default export */ var persistence = (persistencePlugin);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/plugins/index.js
 
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -3239,7 +3252,7 @@ const RegistryConsumer = Consumer;
  */
 
 /* harmony default export */ var context = (Provider);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/registry-provider/use-registry.js
 /**
  * WordPress dependencies
@@ -3293,7 +3306,7 @@ const RegistryConsumer = Consumer;
 function useRegistry() {
   return (0,external_wp_element_namespaceObject.useContext)(Context);
 }
-//# sourceMappingURL=use-registry.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/async-mode-provider/context.js
 /**
  * WordPress dependencies
@@ -3341,7 +3354,7 @@ const AsyncModeConsumer = (/* unused pure expression or super */ null && (contex
  */
 
 /* harmony default export */ var async_mode_provider_context = (context_Provider);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/async-mode-provider/use-async-mode.js
 /**
  * WordPress dependencies
@@ -3355,7 +3368,7 @@ const AsyncModeConsumer = (/* unused pure expression or super */ null && (contex
 function useAsyncMode() {
   return (0,external_wp_element_namespaceObject.useContext)(context_Context);
 }
-//# sourceMappingURL=use-async-mode.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/use-select/index.js
 /**
  * External dependencies
@@ -3583,7 +3596,7 @@ function useSelect(mapSelect, deps) {
   }, [registry, trapSelect, hasMappingFunction, depsChangedFlag]);
   return hasMappingFunction ? mapOutput : registry.select(mapSelect);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/with-select/index.js
 
 
@@ -3645,7 +3658,7 @@ const withSelect = mapSelectToProps => (0,external_wp_compose_namespaceObject.cr
 }), 'withSelect');
 
 /* harmony default export */ var with_select = (withSelect);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/use-dispatch/use-dispatch-with-map.js
 /**
  * External dependencies
@@ -3699,7 +3712,7 @@ const useDispatchWithMap = (dispatchMap, deps) => {
 };
 
 /* harmony default export */ var use_dispatch_with_map = (useDispatchWithMap);
-//# sourceMappingURL=use-dispatch-with-map.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/with-dispatch/index.js
 
 
@@ -3801,7 +3814,7 @@ const withDispatch = mapDispatchToProps => (0,external_wp_compose_namespaceObjec
 }, 'withDispatch');
 
 /* harmony default export */ var with_dispatch = (withDispatch);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/with-registry/index.js
 
 
@@ -3828,7 +3841,7 @@ const withRegistry = (0,external_wp_compose_namespaceObject.createHigherOrderCom
   registry: registry
 }))), 'withRegistry');
 /* harmony default export */ var with_registry = (withRegistry);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/use-dispatch/use-dispatch.js
 /**
  * Internal dependencies
@@ -3889,7 +3902,7 @@ const useDispatch = storeNameOrDescriptor => {
 };
 
 /* harmony default export */ var use_dispatch = (useDispatch);
-//# sourceMappingURL=use-dispatch.js.map
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/index.js
 /**
  * External dependencies
@@ -4095,7 +4108,7 @@ const use = default_registry.use;
  */
 
 const register = default_registry.register;
-//# sourceMappingURL=index.js.map
+
 }();
 (window.wp = window.wp || {}).data = __webpack_exports__;
 /******/ })()

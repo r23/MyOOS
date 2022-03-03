@@ -1,5 +1,33 @@
 /******/ (function() { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	// The require scope
+/******/ 	var __webpack_require__ = {};
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/************************************************************************/
 var __webpack_exports__ = {};
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+;// CONCATENATED MODULE: external ["wp","url"]
+var external_wp_url_namespaceObject = window["wp"]["url"];
+;// CONCATENATED MODULE: ./packages/admin-manifest/build-module/index.js
+/**
+ * WordPress dependencies
+ */
+
+
 function addManifest(manifest) {
   const link = document.createElement('link');
   link.rel = 'manifest';
@@ -168,10 +196,12 @@ window.addEventListener('load', () => {
     });
   }))]).then(() => {
     addManifest(manifest);
-    window.navigator.serviceWorker.register(adminUrl + '?service-worker');
+    window.navigator.serviceWorker.register((0,external_wp_url_namespaceObject.addQueryArgs)(adminUrl, {
+      'service-worker': true
+    }));
   });
 });
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).adminManifest = __webpack_exports__;
 /******/ })()
 ;

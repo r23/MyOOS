@@ -1,7 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 4184:
+/***/ 4403:
 /***/ (function(module, exports) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -158,7 +158,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
-var classnames = __webpack_require__(4184);
+var classnames = __webpack_require__(4403);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 ;// CONCATENATED MODULE: external ["wp","element"]
 var external_wp_element_namespaceObject = window["wp"]["element"];
@@ -262,22 +262,22 @@ const SVG = _ref => {
 
   return (0,external_wp_element_namespaceObject.createElement)("svg", appliedProps);
 };
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/primitives/build-module/horizontal-rule/index.js
 const HorizontalRule = 'hr';
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/primitives/build-module/block-quotation/index.js
 const BlockQuotation = 'blockquote';
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/primitives/build-module/view/index.js
 const View = 'div';
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/primitives/build-module/index.js
 
 
 
 
-//# sourceMappingURL=index.js.map
+
 }();
 (window.wp = window.wp || {}).primitives = __webpack_exports__;
 /******/ })()

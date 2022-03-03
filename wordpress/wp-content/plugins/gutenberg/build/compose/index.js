@@ -1,7 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 2152:
+/***/ 8294:
 /***/ (function(module) {
 
 /*!
@@ -956,7 +956,7 @@ module.exports.TinyEmitter = E;
 
 /***/ }),
 
-/***/ 2441:
+/***/ 7973:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
@@ -2022,7 +2022,7 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
 
 /***/ }),
 
-/***/ 3956:
+/***/ 5538:
 /***/ (function() {
 
 /**
@@ -2075,11 +2075,10 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
 
 /***/ }),
 
-/***/ 5464:
+/***/ 235:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 var e=__webpack_require__(9196),n={display:"block",opacity:0,position:"absolute",top:0,left:0,height:"100%",width:"100%",overflow:"hidden",pointerEvents:"none",zIndex:-1},t=function(t){var r=t.onResize,u=e.useRef();return function(n,t){var r=function(){return n.current&&n.current.contentDocument&&n.current.contentDocument.defaultView};function u(){t();var e=r();e&&e.addEventListener("resize",t)}e.useEffect((function(){return r()?u():n.current&&n.current.addEventListener&&n.current.addEventListener("load",u),function(){var e=r();e&&"function"==typeof e.removeEventListener&&e.removeEventListener("resize",t)}}),[])}(u,(function(){return r(u)})),e.createElement("iframe",{style:n,src:"about:blank",ref:u,"aria-hidden":!0,tabIndex:-1,frameBorder:0})},r=function(e){return{width:null!=e?e.offsetWidth:null,height:null!=e?e.offsetHeight:null}};module.exports=function(n){void 0===n&&(n=r);var u=e.useState(n(null)),o=u[0],i=u[1],c=e.useCallback((function(e){return i(n(e.current))}),[n]);return[e.useMemo((function(){return e.createElement(t,{onResize:c})}),[c]),o]};
-//# sourceMappingURL=index.js.map
 
 
 /***/ }),
@@ -2232,7 +2231,7 @@ function createHigherOrderComponent(mapComponent, modifierName) {
 }
 
 /* harmony default export */ var create_higher_order_component = (createHigherOrderComponent);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/compose.js
 /**
  * External dependencies
@@ -2248,7 +2247,7 @@ function createHigherOrderComponent(mapComponent, modifierName) {
  */
 
 /* harmony default export */ var compose = (external_lodash_namespaceObject.flowRight);
-//# sourceMappingURL=compose.js.map
+
 ;// CONCATENATED MODULE: external ["wp","element"]
 var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/if-condition/index.js
@@ -2285,7 +2284,7 @@ const ifCondition = predicate => create_higher_order_component(WrappedComponent 
 }, 'ifCondition');
 
 /* harmony default export */ var if_condition = (ifCondition);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
 var external_wp_isShallowEqual_namespaceObject = window["wp"]["isShallowEqual"];
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_namespaceObject);
@@ -2332,7 +2331,7 @@ const pure = create_higher_order_component(Wrapped => {
   };
 }, 'pure');
 /* harmony default export */ var higher_order_pure = (pure);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -2411,7 +2410,7 @@ class Listener {
 }
 
 /* harmony default export */ var listener = (Listener);
-//# sourceMappingURL=listener.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-global-events/index.js
 
 
@@ -2529,7 +2528,7 @@ function withGlobalEvents(eventTypesToHandlers) {
     });
   }, 'withGlobalEvents');
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-instance-id/index.js
 // Disable reason: Object and object are distinctly different types in TypeScript and we mean the lowercase object in thise case
 // but eslint wants to force us to use `Object`. See https://stackoverflow.com/questions/49464634/difference-between-object-and-object-in-typescript
@@ -2576,7 +2575,7 @@ function useInstanceId(object, prefix) {
   }, [object]);
 }
 /* eslint-enable jsdoc/check-types */
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-instance-id/index.js
 
 
@@ -2601,7 +2600,7 @@ const withInstanceId = create_higher_order_component(WrappedComponent => {
   };
 }, 'withInstanceId');
 /* harmony default export */ var with_instance_id = (withInstanceId);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-safe-timeout/index.js
 
 
@@ -2670,7 +2669,7 @@ const withSafeTimeout = create_higher_order_component(OriginalComponent => {
   };
 }, 'withSafeTimeout');
 /* harmony default export */ var with_safe_timeout = (withSafeTimeout);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-state/index.js
 
 
@@ -2721,7 +2720,7 @@ function withState() {
     };
   }, 'withState');
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","keycodes"]
 var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 ;// CONCATENATED MODULE: external ["wp","dom"]
@@ -2765,7 +2764,7 @@ function useRefEffect(callback, dependencies) {
     }
   }, dependencies);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-constrained-tabbing/index.js
 /**
  * WordPress dependencies
@@ -2852,9 +2851,9 @@ function useConstrainedTabbing() {
 }
 
 /* harmony default export */ var use_constrained_tabbing = (useConstrainedTabbing);
-//# sourceMappingURL=index.js.map
+
 // EXTERNAL MODULE: ./node_modules/clipboard/dist/clipboard.js
-var dist_clipboard = __webpack_require__(2152);
+var dist_clipboard = __webpack_require__(8294);
 var clipboard_default = /*#__PURE__*/__webpack_require__.n(dist_clipboard);
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-copy-on-click/index.js
 /**
@@ -2938,7 +2937,7 @@ function useCopyOnClick(ref, text) {
   }, [text, timeout, setHasCopied]);
   return hasCopied;
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-copy-to-clipboard/index.js
 /**
  * External dependencies
@@ -3011,7 +3010,7 @@ function useCopyToClipboard(text, onSuccess) {
     };
   }, []);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focus-on-mount/index.js
 /**
  * WordPress dependencies
@@ -3072,7 +3071,7 @@ function useFocusOnMount() {
     target.focus();
   }, []);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focus-return/index.js
 /**
  * WordPress dependencies
@@ -3149,7 +3148,7 @@ function useFocusReturn(onFocusReturn) {
 }
 
 /* harmony default export */ var use_focus_return = (useFocusReturn);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focus-outside/index.js
 /**
  * External dependencies
@@ -3343,7 +3342,7 @@ function useFocusOutside(onFocusOutside) {
     onBlur: queueBlurCheck
   };
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-merge-refs/index.js
 /**
  * WordPress dependencies
@@ -3472,7 +3471,7 @@ function useMergeRefs(refs) {
     }
   }, []);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-dialog/index.js
 /**
  * WordPress dependencies
@@ -3555,7 +3554,7 @@ function useDialog(options) {
 }
 
 /* harmony default export */ var use_dialog = (useDialog);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-disabled/index.js
 /**
  * External dependencies
@@ -3660,7 +3659,7 @@ function useDisabled() {
   }, []);
   return node;
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-isomorphic-layout-effect/index.js
 /**
  * WordPress dependencies
@@ -3674,7 +3673,7 @@ function useDisabled() {
 
 const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? external_wp_element_namespaceObject.useLayoutEffect : external_wp_element_namespaceObject.useEffect;
 /* harmony default export */ var use_isomorphic_layout_effect = (useIsomorphicLayoutEffect);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-dragging/index.js
 /**
  * WordPress dependencies
@@ -3749,12 +3748,12 @@ function useDragging(_ref) {
     isDragging
   };
 }
-//# sourceMappingURL=index.js.map
+
 // EXTERNAL MODULE: ./node_modules/mousetrap/mousetrap.js
-var mousetrap_mousetrap = __webpack_require__(2441);
+var mousetrap_mousetrap = __webpack_require__(7973);
 var mousetrap_default = /*#__PURE__*/__webpack_require__.n(mousetrap_mousetrap);
 // EXTERNAL MODULE: ./node_modules/mousetrap/plugins/global-bind/mousetrap-global-bind.js
-var mousetrap_global_bind = __webpack_require__(3956);
+var mousetrap_global_bind = __webpack_require__(5538);
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-keyboard-shortcut/index.js
 /**
  * External dependencies
@@ -3863,7 +3862,7 @@ shortcuts, callback) {
 }
 
 /* harmony default export */ var use_keyboard_shortcut = (useKeyboardShortcut);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-media-query/index.js
 /**
  * WordPress dependencies
@@ -3894,7 +3893,7 @@ function useMediaQuery(query) {
   }, [query]);
   return !!query && match;
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-previous/index.js
 /**
  * WordPress dependencies
@@ -3919,7 +3918,7 @@ function usePrevious(value) {
 
   return ref.current;
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-reduced-motion/index.js
 /**
  * Internal dependencies
@@ -3934,7 +3933,7 @@ function usePrevious(value) {
 const useReducedMotion = () => useMediaQuery('(prefers-reduced-motion: reduce)');
 
 /* harmony default export */ var use_reduced_motion = (useReducedMotion);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-viewport-match/index.js
 /**
  * WordPress dependencies
@@ -4023,9 +4022,9 @@ const useViewportMatch = function (breakpoint) {
 
 useViewportMatch.__experimentalWidthProvider = ViewportMatchWidthContext.Provider;
 /* harmony default export */ var use_viewport_match = (useViewportMatch);
-//# sourceMappingURL=index.js.map
+
 // EXTERNAL MODULE: ./node_modules/react-resize-aware/dist/index.js
-var dist = __webpack_require__(5464);
+var dist = __webpack_require__(235);
 var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-resize-observer/index.js
 /**
@@ -4059,7 +4058,7 @@ var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
  */
 
 /* harmony default export */ var use_resize_observer = ((dist_default()));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","priorityQueue"]
 var external_wp_priorityQueue_namespaceObject = window["wp"]["priorityQueue"];
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-async-list/index.js
@@ -4139,7 +4138,7 @@ function useAsyncList(list) {
 }
 
 /* harmony default export */ var use_async_list = (useAsyncList);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-warn-on-change/index.js
 /**
  * Internal dependencies
@@ -4188,7 +4187,7 @@ function useWarnOnChange(object) {
 }
 
 /* harmony default export */ var use_warn_on_change = (useWarnOnChange);
-//# sourceMappingURL=index.js.map
+
 // EXTERNAL MODULE: external "React"
 var external_React_ = __webpack_require__(9196);
 ;// CONCATENATED MODULE: ./node_modules/use-memo-one/dist/use-memo-one.esm.js
@@ -4271,7 +4270,7 @@ function useDebounce(fn, wait, options) {
   (0,external_wp_element_namespaceObject.useEffect)(() => () => debounced.cancel(), [debounced]);
   return debounced;
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-throttle/index.js
 /**
  * External dependencies
@@ -4304,7 +4303,7 @@ function useThrottle(fn, wait, options) {
   (0,external_wp_element_namespaceObject.useEffect)(() => () => throttled.cancel(), [throttled]);
   return throttled;
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-drop-zone/index.js
 /**
  * WordPress dependencies
@@ -4543,7 +4542,7 @@ function useDropZone(_ref) {
     };
   }, [isDisabled]);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focusable-iframe/index.js
 /**
  * Internal dependencies
@@ -4584,7 +4583,7 @@ function useFocusableIframe() {
     };
   }, []);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-fixed-window-list/index.js
 /**
  * External dependencies
@@ -4749,7 +4748,7 @@ function useFixedWindowList(elementRef, itemHeight, totalItems, options) {
   }, [totalItems, itemHeight, elementRef, fixedListWindow.visibleItems]);
   return [fixedListWindow, setFixedListWindow];
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/index.js
 // Utils
  // Compose helper (aliased flowRight from Lodash)
@@ -4789,7 +4788,7 @@ function useFixedWindowList(elementRef, itemHeight, totalItems, options) {
 
 
 
-//# sourceMappingURL=index.js.map
+
 }();
 (window.wp = window.wp || {}).compose = __webpack_exports__;
 /******/ })()

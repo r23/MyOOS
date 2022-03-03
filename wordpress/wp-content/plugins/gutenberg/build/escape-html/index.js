@@ -64,7 +64,7 @@ __webpack_require__.d(__webpack_exports__, {
 function __unstableEscapeGreaterThan(value) {
   return value.replace(/>/g, '&gt;');
 }
-//# sourceMappingURL=escape-greater.js.map
+
 ;// CONCATENATED MODULE: ./packages/escape-html/build-module/index.js
 /**
  * Internal dependencies
@@ -187,7 +187,7 @@ function escapeEditableHTML(value) {
 function isValidAttributeName(name) {
   return !REGEXP_INVALID_ATTRIBUTE_NAME.test(name);
 }
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).escapeHtml = __webpack_exports__;
 /******/ })()
 ;

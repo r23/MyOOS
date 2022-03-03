@@ -180,7 +180,7 @@ function withI18n(InnerComponent) {
   EnhancedComponent.displayName = `WithI18n(${innerComponentName})`;
   return EnhancedComponent;
 }
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).reactI18n = __webpack_exports__;
 /******/ })()
 ;

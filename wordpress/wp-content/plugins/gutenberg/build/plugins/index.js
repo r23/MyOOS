@@ -1,7 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 9588:
+/***/ 9756:
 /***/ (function(module) {
 
 /**
@@ -259,7 +259,7 @@ var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
 // EXTERNAL MODULE: ./node_modules/memize/index.js
-var memize = __webpack_require__(9588);
+var memize = __webpack_require__(9756);
 var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
 ;// CONCATENATED MODULE: external ["wp","hooks"]
 var external_wp_hooks_namespaceObject = window["wp"]["hooks"];
@@ -314,7 +314,7 @@ const {
 const withPluginContext = mapContextToProps => (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(OriginalComponent => {
   return props => (0,external_wp_element_namespaceObject.createElement)(Consumer, null, context => (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, _extends({}, props, mapContextToProps(context, props))));
 }, 'withPluginContext');
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/plugins/build-module/components/plugin-error-boundary/index.js
 /**
  * WordPress dependencies
@@ -354,7 +354,7 @@ class PluginErrorBoundary extends external_wp_element_namespaceObject.Component 
   }
 
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","primitives"]
 var external_wp_primitives_namespaceObject = window["wp"]["primitives"];
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/plugins.js
@@ -371,7 +371,7 @@ const plugins = (0,external_wp_element_namespaceObject.createElement)(external_w
   d: "M10.5 4v4h3V4H15v4h1.5a1 1 0 011 1v4l-3 4v2a1 1 0 01-1 1h-3a1 1 0 01-1-1v-2l-3-4V9a1 1 0 011-1H9V4h1.5zm.5 12.5v2h2v-2l3-4v-3H8v3l3 4z"
 }));
 /* harmony default export */ var library_plugins = (plugins);
-//# sourceMappingURL=plugins.js.map
+
 ;// CONCATENATED MODULE: ./packages/plugins/build-module/api/index.js
 /* eslint no-console: [ 'error', { allow: [ 'error' ] } ] */
 
@@ -597,7 +597,7 @@ function getPlugin(name) {
 function getPlugins(scope) {
   return Object.values(api_plugins).filter(plugin => plugin.scope === scope);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/plugins/build-module/components/plugin-area/index.js
 
 
@@ -720,15 +720,15 @@ class PluginArea extends external_wp_element_namespaceObject.Component {
 }
 
 /* harmony default export */ var plugin_area = (PluginArea);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/plugins/build-module/components/index.js
 
 
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/plugins/build-module/index.js
 
 
-//# sourceMappingURL=index.js.map
+
 }();
 (window.wp = window.wp || {}).plugins = __webpack_exports__;
 /******/ })()

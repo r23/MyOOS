@@ -144,7 +144,7 @@ const defaultSettings = {
     type: 'words'
   }
 };
-//# sourceMappingURL=defaultSettings.js.map
+
 ;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripTags.js
 /**
  * Replaces items matched in the regex with new line
@@ -157,7 +157,7 @@ const defaultSettings = {
 function stripTags(settings, text) {
   return text.replace(settings.HTMLRegExp, '\n');
 }
-//# sourceMappingURL=stripTags.js.map
+
 ;// CONCATENATED MODULE: ./packages/wordcount/build-module/transposeAstralsToCountableChar.js
 /**
  * Replaces items matched in the regex with character.
@@ -170,7 +170,7 @@ function stripTags(settings, text) {
 function transposeAstralsToCountableChar(settings, text) {
   return text.replace(settings.astralRegExp, 'a');
 }
-//# sourceMappingURL=transposeAstralsToCountableChar.js.map
+
 ;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripHTMLEntities.js
 /**
  * Removes items matched in the regex.
@@ -183,7 +183,7 @@ function transposeAstralsToCountableChar(settings, text) {
 function stripHTMLEntities(settings, text) {
   return text.replace(settings.HTMLEntityRegExp, '');
 }
-//# sourceMappingURL=stripHTMLEntities.js.map
+
 ;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripConnectors.js
 /**
  * Replaces items matched in the regex with spaces.
@@ -196,7 +196,7 @@ function stripHTMLEntities(settings, text) {
 function stripConnectors(settings, text) {
   return text.replace(settings.connectorRegExp, ' ');
 }
-//# sourceMappingURL=stripConnectors.js.map
+
 ;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripRemovables.js
 /**
  * Removes items matched in the regex.
@@ -209,7 +209,7 @@ function stripConnectors(settings, text) {
 function stripRemovables(settings, text) {
   return text.replace(settings.removeRegExp, '');
 }
-//# sourceMappingURL=stripRemovables.js.map
+
 ;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripHTMLComments.js
 /**
  * Removes items matched in the regex.
@@ -222,7 +222,7 @@ function stripRemovables(settings, text) {
 function stripHTMLComments(settings, text) {
   return text.replace(settings.HTMLcommentRegExp, '');
 }
-//# sourceMappingURL=stripHTMLComments.js.map
+
 ;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripShortcodes.js
 /**
  * Replaces items matched in the regex with a new line.
@@ -239,7 +239,7 @@ function stripShortcodes(settings, text) {
 
   return text;
 }
-//# sourceMappingURL=stripShortcodes.js.map
+
 ;// CONCATENATED MODULE: ./packages/wordcount/build-module/stripSpaces.js
 /**
  * Replaces items matched in the regex with spaces.
@@ -252,7 +252,7 @@ function stripShortcodes(settings, text) {
 function stripSpaces(settings, text) {
   return text.replace(settings.spaceRegExp, ' ');
 }
-//# sourceMappingURL=stripSpaces.js.map
+
 ;// CONCATENATED MODULE: ./packages/wordcount/build-module/transposeHTMLEntitiesToCountableChars.js
 /**
  * Replaces items matched in the regex with a single character.
@@ -265,7 +265,7 @@ function stripSpaces(settings, text) {
 function transposeHTMLEntitiesToCountableChars(settings, text) {
   return text.replace(settings.HTMLEntityRegExp, 'a');
 }
-//# sourceMappingURL=transposeHTMLEntitiesToCountableChars.js.map
+
 ;// CONCATENATED MODULE: ./packages/wordcount/build-module/index.js
 /**
  * External dependencies
@@ -397,7 +397,7 @@ function count(text, type, userSettings) {
       return 0;
   }
 }
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).wordcount = __webpack_exports__;
 /******/ })()
 ;

@@ -123,7 +123,7 @@ function isBlobURL(url) {
 
   return url.indexOf('blob:') === 0;
 }
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).blob = __webpack_exports__;
 /******/ })()
 ;

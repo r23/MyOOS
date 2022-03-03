@@ -274,7 +274,7 @@ function ServerSideRender(props) {
     className: className
   }, response);
 }
-//# sourceMappingURL=server-side-render.js.map
+
 ;// CONCATENATED MODULE: ./packages/server-side-render/build-module/index.js
 
 
@@ -350,7 +350,7 @@ if (window && window.wp && window.wp.components) {
 }
 
 /* harmony default export */ var build_module = (ExportedServerSideRender);
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).serverSideRender = __webpack_exports__["default"];
 /******/ })()
 ;

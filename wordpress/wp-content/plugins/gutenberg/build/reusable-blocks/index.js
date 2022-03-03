@@ -164,7 +164,7 @@ function __experimentalSetEditingReusableBlock(clientId, isEditing) {
     isEditing
   };
 }
-//# sourceMappingURL=actions.js.map
+
 ;// CONCATENATED MODULE: ./packages/reusable-blocks/build-module/store/reducer.js
 /**
  * WordPress dependencies
@@ -185,7 +185,7 @@ function isEditingReusableBlock() {
 /* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
   isEditingReusableBlock
 }));
-//# sourceMappingURL=reducer.js.map
+
 ;// CONCATENATED MODULE: ./packages/reusable-blocks/build-module/store/selectors.js
 /**
  * Returns true if reusable block is in the editing state.
@@ -197,7 +197,7 @@ function isEditingReusableBlock() {
 function __experimentalIsEditingReusableBlock(state, clientId) {
   return state.isEditingReusableBlock[clientId];
 }
-//# sourceMappingURL=selectors.js.map
+
 ;// CONCATENATED MODULE: ./packages/reusable-blocks/build-module/store/index.js
 /**
  * WordPress dependencies
@@ -222,11 +222,10 @@ const STORE_NAME = 'core/reusable-blocks';
 const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, {
   actions: actions_namespaceObject,
   reducer: reducer,
-  selectors: selectors_namespaceObject,
-  __experimentalUseThunks: true
+  selectors: selectors_namespaceObject
 });
 (0,external_wp_data_namespaceObject.register)(store);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","element"]
 var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external ["wp","components"]
@@ -247,7 +246,7 @@ const reusableBlock = (0,external_wp_element_namespaceObject.createElement)(exte
   d: "M7 7.2h8.2L13.5 9l1.1 1.1 3.6-3.6-3.5-4-1.1 1 1.9 2.3H7c-.9 0-1.7.3-2.3.9-1.4 1.5-1.4 4.2-1.4 5.6v.2h1.5v-.3c0-1.1 0-3.5 1-4.5.3-.3.7-.5 1.2-.5zm13.8 4V11h-1.5v.3c0 1.1 0 3.5-1 4.5-.3.3-.7.5-1.3.5H8.8l1.7-1.7-1.1-1.1L5.9 17l3.5 4 1.1-1-1.9-2.3H17c.9 0 1.7-.3 2.3-.9 1.5-1.4 1.5-4.2 1.5-5.6z"
 }));
 /* harmony default export */ var reusable_block = (reusableBlock);
-//# sourceMappingURL=reusable-block.js.map
+
 ;// CONCATENATED MODULE: external ["wp","notices"]
 var external_wp_notices_namespaceObject = window["wp"]["notices"];
 ;// CONCATENATED MODULE: external ["wp","coreData"]
@@ -379,7 +378,7 @@ function ReusableBlockConvertButton(_ref) {
     }, (0,external_wp_i18n_namespaceObject.__)('Save')))))));
   });
 }
-//# sourceMappingURL=reusable-block-convert-button.js.map
+
 ;// CONCATENATED MODULE: external ["wp","url"]
 var external_wp_url_namespaceObject = window["wp"]["url"];
 ;// CONCATENATED MODULE: ./packages/reusable-blocks/build-module/components/reusable-blocks-menu-items/reusable-blocks-manage-button.js
@@ -437,7 +436,7 @@ function ReusableBlocksManageButton(_ref) {
 }
 
 /* harmony default export */ var reusable_blocks_manage_button = (ReusableBlocksManageButton);
-//# sourceMappingURL=reusable-blocks-manage-button.js.map
+
 ;// CONCATENATED MODULE: ./packages/reusable-blocks/build-module/components/reusable-blocks-menu-items/index.js
 
 
@@ -474,14 +473,14 @@ function ReusableBlocksMenuItems(_ref) {
     clientIds: getSelectedBlockClientIds()
   };
 })(ReusableBlocksMenuItems));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/reusable-blocks/build-module/components/index.js
 
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/reusable-blocks/build-module/index.js
 
 
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).reusableBlocks = __webpack_exports__;
 /******/ })()
 ;

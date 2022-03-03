@@ -65,13 +65,13 @@ const hidePdfEmbedsOnUnsupportedBrowsers = () => {
     });
   }
 };
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/file/view.js
 /**
  * Internal dependencies
  */
 
 hidePdfEmbedsOnUnsupportedBrowsers();
-//# sourceMappingURL=view.js.map
+
 /******/ })()
 ;

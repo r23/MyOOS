@@ -60,7 +60,7 @@ function createRequestIdleCallback() {
   return window.requestIdleCallback || window.requestAnimationFrame;
 }
 /* harmony default export */ var request_idle_callback = (createRequestIdleCallback());
-//# sourceMappingURL=request-idle-callback.js.map
+
 ;// CONCATENATED MODULE: ./packages/priority-queue/build-module/index.js
 /**
  * Internal dependencies
@@ -234,7 +234,7 @@ const createQueue = () => {
     reset
   };
 };
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).priorityQueue = __webpack_exports__;
 /******/ })()
 ;

@@ -212,7 +212,7 @@ const controls = {
   }
 
 };
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).dataControls = __webpack_exports__;
 /******/ })()
 ;

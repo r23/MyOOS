@@ -1,10 +1,10 @@
 /******/ (function() { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 3909:
+/***/ 2167:
 /***/ (function(module) {
 
+"use strict";
 
 
 function _typeof(obj) {
@@ -314,6 +314,174 @@ function () {
 module.exports = EquivalentKeyMap;
 
 
+/***/ }),
+
+/***/ 9756:
+/***/ (function(module) {
+
+/**
+ * Memize options object.
+ *
+ * @typedef MemizeOptions
+ *
+ * @property {number} [maxSize] Maximum size of the cache.
+ */
+
+/**
+ * Internal cache entry.
+ *
+ * @typedef MemizeCacheNode
+ *
+ * @property {?MemizeCacheNode|undefined} [prev] Previous node.
+ * @property {?MemizeCacheNode|undefined} [next] Next node.
+ * @property {Array<*>}                   args   Function arguments for cache
+ *                                               entry.
+ * @property {*}                          val    Function result.
+ */
+
+/**
+ * Properties of the enhanced function for controlling cache.
+ *
+ * @typedef MemizeMemoizedFunction
+ *
+ * @property {()=>void} clear Clear the cache.
+ */
+
+/**
+ * Accepts a function to be memoized, and returns a new memoized function, with
+ * optional options.
+ *
+ * @template {Function} F
+ *
+ * @param {F}             fn        Function to memoize.
+ * @param {MemizeOptions} [options] Options object.
+ *
+ * @return {F & MemizeMemoizedFunction} Memoized function.
+ */
+function memize( fn, options ) {
+	var size = 0;
+
+	/** @type {?MemizeCacheNode|undefined} */
+	var head;
+
+	/** @type {?MemizeCacheNode|undefined} */
+	var tail;
+
+	options = options || {};
+
+	function memoized( /* ...args */ ) {
+		var node = head,
+			len = arguments.length,
+			args, i;
+
+		searchCache: while ( node ) {
+			// Perform a shallow equality test to confirm that whether the node
+			// under test is a candidate for the arguments passed. Two arrays
+			// are shallowly equal if their length matches and each entry is
+			// strictly equal between the two sets. Avoid abstracting to a
+			// function which could incur an arguments leaking deoptimization.
+
+			// Check whether node arguments match arguments length
+			if ( node.args.length !== arguments.length ) {
+				node = node.next;
+				continue;
+			}
+
+			// Check whether node arguments match arguments values
+			for ( i = 0; i < len; i++ ) {
+				if ( node.args[ i ] !== arguments[ i ] ) {
+					node = node.next;
+					continue searchCache;
+				}
+			}
+
+			// At this point we can assume we've found a match
+
+			// Surface matched node to head if not already
+			if ( node !== head ) {
+				// As tail, shift to previous. Must only shift if not also
+				// head, since if both head and tail, there is no previous.
+				if ( node === tail ) {
+					tail = node.prev;
+				}
+
+				// Adjust siblings to point to each other. If node was tail,
+				// this also handles new tail's empty `next` assignment.
+				/** @type {MemizeCacheNode} */ ( node.prev ).next = node.next;
+				if ( node.next ) {
+					node.next.prev = node.prev;
+				}
+
+				node.next = head;
+				node.prev = null;
+				/** @type {MemizeCacheNode} */ ( head ).prev = node;
+				head = node;
+			}
+
+			// Return immediately
+			return node.val;
+		}
+
+		// No cached value found. Continue to insertion phase:
+
+		// Create a copy of arguments (avoid leaking deoptimization)
+		args = new Array( len );
+		for ( i = 0; i < len; i++ ) {
+			args[ i ] = arguments[ i ];
+		}
+
+		node = {
+			args: args,
+
+			// Generate the result from original function
+			val: fn.apply( null, args ),
+		};
+
+		// Don't need to check whether node is already head, since it would
+		// have been returned above already if it was
+
+		// Shift existing head down list
+		if ( head ) {
+			head.prev = node;
+			node.next = head;
+		} else {
+			// If no head, follows that there's no tail (at initial or reset)
+			tail = node;
+		}
+
+		// Trim tail if we're reached max size and are pending cache insertion
+		if ( size === /** @type {MemizeOptions} */ ( options ).maxSize ) {
+			tail = /** @type {MemizeCacheNode} */ ( tail ).prev;
+			/** @type {MemizeCacheNode} */ ( tail ).next = null;
+		} else {
+			size++;
+		}
+
+		head = node;
+
+		return node.val;
+	}
+
+	memoized.clear = function() {
+		head = null;
+		tail = null;
+		size = 0;
+	};
+
+	if ( false ) {}
+
+	// Ignore reason: There's not a clear solution to create an intersection of
+	// the function with additional properties, where the goal is to retain the
+	// function signature of the incoming argument and add control properties
+	// on the return value.
+
+	// @ts-ignore
+	return memoized;
+}
+
+module.exports = memize;
+
+
 /***/ })
 
 /******/ 	});
@@ -385,8 +553,9 @@ module.exports = EquivalentKeyMap;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
+"use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -395,6 +564,8 @@ __webpack_require__.d(__webpack_exports__, {
   "EntityProvider": function() { return /* reexport */ EntityProvider; },
   "__experimentalFetchLinkSuggestions": function() { return /* reexport */ _experimental_fetch_link_suggestions; },
   "__experimentalFetchUrlData": function() { return /* reexport */ _experimental_fetch_url_data; },
+  "__experimentalUseEntityRecord": function() { return /* reexport */ __experimentalUseEntityRecord; },
+  "__experimentalUseEntityRecords": function() { return /* reexport */ __experimentalUseEntityRecords; },
   "store": function() { return /* binding */ store; },
   "useEntityBlockEditor": function() { return /* reexport */ useEntityBlockEditor; },
   "useEntityId": function() { return /* reexport */ useEntityId; },
@@ -524,7 +695,7 @@ const ifMatchingAction = isMatch => reducer => (state, action) => {
 };
 
 /* harmony default export */ var if_matching_action = (ifMatchingAction);
-//# sourceMappingURL=if-matching-action.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/replace-action.js
 /**
  * Higher-order reducer creator which substitutes the action object before
@@ -539,7 +710,7 @@ const replaceAction = replacer => reducer => (state, action) => {
 };
 
 /* harmony default export */ var replace_action = (replaceAction);
-//# sourceMappingURL=replace-action.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/conservative-map-item.js
 /**
  * External dependencies
@@ -589,7 +760,7 @@ function conservativeMapItem(item, nextItem) {
 
   return result;
 }
-//# sourceMappingURL=conservative-map-item.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/on-sub-key.js
 /**
  * Higher-order reducer creator which creates a combined reducer object, keyed
@@ -623,7 +794,7 @@ const onSubKey = actionProperty => reducer => function () {
   };
 };
 /* harmony default export */ var on_sub_key = (onSubKey);
-//# sourceMappingURL=on-sub-key.js.map
+
 ;// CONCATENATED MODULE: external ["wp","apiFetch"]
 var external_wp_apiFetch_namespaceObject = window["wp"]["apiFetch"];
 var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_namespaceObject);
@@ -775,7 +946,7 @@ function receiveQueriedItems(items) {
     query
   };
 }
-//# sourceMappingURL=actions.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/batch/default-processor.js
 /**
  * External dependencies
@@ -855,7 +1026,7 @@ async function defaultProcessor(requests) {
 
   return results;
 }
-//# sourceMappingURL=default-processor.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/batch/create-batch.js
 /**
  * External dependencies
@@ -1053,7 +1224,7 @@ class ObservableSet {
   }
 
 }
-//# sourceMappingURL=create-batch.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/name.js
 /**
  * The reducer key used by core data in store registration.
@@ -1062,7 +1233,7 @@ class ObservableSet {
  * @type {string}
  */
 const STORE_NAME = 'core';
-//# sourceMappingURL=name.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/actions.js
 /**
  * External dependencies
@@ -1538,7 +1709,7 @@ const saveEntityRecord = function (kind, name, record) {
           // so the client just sends and receives objects.
           const currentUser = select.getCurrentUser();
           const currentUserId = currentUser ? currentUser.id : undefined;
-          const autosavePost = resolveSelect.getAutosave(persistedRecord.type, persistedRecord.id, currentUserId); // Autosaves need all expected fields to be present.
+          const autosavePost = await resolveSelect.getAutosave(persistedRecord.type, persistedRecord.id, currentUserId); // Autosaves need all expected fields to be present.
           // So we fallback to the previous autosave and then
           // to the actual persisted entity if the edits don't
           // have a value.
@@ -1793,7 +1964,7 @@ function receiveAutosaves(postId, autosaves) {
     autosaves: (0,external_lodash_namespaceObject.castArray)(autosaves)
   };
 }
-//# sourceMappingURL=actions.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/entities.js
 /**
  * External dependencies
@@ -2130,7 +2301,7 @@ const getKindEntities = kind => async _ref => {
   dispatch(addEntities(entities));
   return entities;
 };
-//# sourceMappingURL=entities.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/get-normalized-comma-separable.js
 /**
  * Given a value which can be specified as one or the other of a comma-separated
@@ -2152,7 +2323,7 @@ function getNormalizedCommaSeparable(value) {
 }
 
 /* harmony default export */ var get_normalized_comma_separable = (getNormalizedCommaSeparable);
-//# sourceMappingURL=get-normalized-comma-separable.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/with-weak-map-cache.js
 /**
  * External dependencies
@@ -2190,7 +2361,7 @@ function withWeakMapCache(fn) {
 }
 
 /* harmony default export */ var with_weak_map_cache = (withWeakMapCache);
-//# sourceMappingURL=with-weak-map-cache.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/queried-data/get-query-parts.js
 /**
  * WordPress dependencies
@@ -2294,7 +2465,7 @@ function getQueryParts(query) {
   return parts;
 }
 /* harmony default export */ var get_query_parts = (with_weak_map_cache(getQueryParts));
-//# sourceMappingURL=get-query-parts.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/queried-data/reducer.js
 /**
  * External dependencies
@@ -2534,7 +2705,7 @@ const queries = function () {
   itemIsComplete,
   queries
 }));
-//# sourceMappingURL=reducer.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/reducer.js
 /**
  * External dependencies
@@ -3131,7 +3302,7 @@ function autosaves() {
   userPermissions,
   autosaves
 }));
-//# sourceMappingURL=reducer.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
 
 
@@ -3409,7 +3580,7 @@ function isShallowEqual( a, b, fromIndex ) {
 }
 
 // EXTERNAL MODULE: ./node_modules/equivalent-key-map/equivalent-key-map.js
-var equivalent_key_map = __webpack_require__(3909);
+var equivalent_key_map = __webpack_require__(2167);
 var equivalent_key_map_default = /*#__PURE__*/__webpack_require__.n(equivalent_key_map);
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/queried-data/selectors.js
 /**
@@ -3542,7 +3713,7 @@ const getQueriedItems = rememo(function (state) {
   queriedItemsCache.set(query, items);
   return items;
 });
-//# sourceMappingURL=selectors.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/is-raw-attribute.js
 /**
  * Checks whether the attribute is a "raw" attribute or not.
@@ -3555,7 +3726,7 @@ const getQueriedItems = rememo(function (state) {
 function isRawAttribute(entity, attribute) {
   return (entity.rawAttributes || []).includes(attribute);
 }
-//# sourceMappingURL=is-raw-attribute.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/selectors.js
 /**
  * External dependencies
@@ -4355,7 +4526,7 @@ function __experimentalGetCurrentThemeGlobalStylesVariations(state) {
 
   return state.themeGlobalStyleVariations[currentTheme.stylesheet];
 }
-//# sourceMappingURL=selectors.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/forward-resolver.js
 /**
  * Higher-order function which forward the resolution to another resolver with the same arguments.
@@ -4378,7 +4549,7 @@ const forwardResolver = resolverName => function () {
 };
 
 /* harmony default export */ var forward_resolver = (forwardResolver);
-//# sourceMappingURL=forward-resolver.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/resolvers.js
 /**
  * External dependencies
@@ -4681,11 +4852,7 @@ const resolvers_canUser = (action, resource, id) => async _ref7 => {
   try {
     response = await external_wp_apiFetch_default()({
       path,
-      // Ideally this would always be an OPTIONS request, but unfortunately there's
-      // a bug in the REST API which causes the Allow header to not be sent on
-      // OPTIONS requests to /posts/:id routes.
-      // https://core.trac.wordpress.org/ticket/45753
-      method: id ? 'GET' : 'OPTIONS',
+      method: 'OPTIONS',
       parse: false
     });
   } catch (error) {
@@ -4694,18 +4861,7 @@ const resolvers_canUser = (action, resource, id) => async _ref7 => {
     return;
   }
 
-  let allowHeader;
-
-  if ((0,external_lodash_namespaceObject.hasIn)(response, ['headers', 'get'])) {
-    // If the request is fetched using the fetch api, the header can be
-    // retrieved using the 'get' method.
-    allowHeader = response.headers.get('allow');
-  } else {
-    // If the request was preloaded server-side and is returned by the
-    // preloading middleware, the header will be a simple property.
-    allowHeader = (0,external_lodash_namespaceObject.get)(response, ['headers', 'Allow'], '');
-  }
-
+  const allowHeader = response.headers.get('allow');
   const key = (0,external_lodash_namespaceObject.compact)([action, resource, id]).join('/');
   const isAllowed = (0,external_lodash_namespaceObject.includes)(allowHeader, method);
   dispatch.receiveUserPermission(key, isAllowed);
@@ -4862,7 +5018,7 @@ const resolvers_experimentalGetCurrentThemeGlobalStylesVariations = () => async 
 
   dispatch.__experimentalReceiveThemeGlobalStyleVariations(currentTheme.stylesheet, variations);
 };
-//# sourceMappingURL=resolvers.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/locks/utils.js
 function deepCopyLocksTreePath(tree, path) {
   const newTree = { ...tree
@@ -4936,7 +5092,7 @@ function hasConflictingLock(_ref, locks) {
 
   return false;
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/locks/reducer.js
 /**
  * Internal dependencies
@@ -5010,7 +5166,7 @@ function locks() {
 
   return state;
 }
-//# sourceMappingURL=reducer.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/locks/selectors.js
 /**
  * Internal dependencies
@@ -5053,7 +5209,7 @@ function isLockAvailable(state, store, path, _ref) {
 
   return true;
 }
-//# sourceMappingURL=selectors.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/locks/engine.js
 /**
  * Internal dependencies
@@ -5120,7 +5276,7 @@ function createLocks() {
     release
   };
 }
-//# sourceMappingURL=engine.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/locks/actions.js
 /**
  * Internal dependencies
@@ -5145,7 +5301,7 @@ function createLocksActions() {
     __unstableReleaseStoreLock
   };
 }
-//# sourceMappingURL=actions.js.map
+
 ;// CONCATENATED MODULE: external ["wp","element"]
 var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external ["wp","blocks"]
@@ -5377,7 +5533,253 @@ function useEntityBlockEditor(kind, type) {
   }, [kind, type, id]);
   return [blocks !== null && blocks !== void 0 ? blocks : EMPTY_ARRAY, onInput, onChange];
 }
-//# sourceMappingURL=entity-provider.js.map
+
+// EXTERNAL MODULE: ./node_modules/memize/index.js
+var memize = __webpack_require__(9756);
+var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/memoize.js
+/**
+ * External dependencies
+ */
+ // re-export due to restrictive esModuleInterop setting
+
+/* harmony default export */ var memoize = ((memize_default()));
+
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/constants.js
+/* eslint-disable-next-line no-shadow */
+let Status;
+
+(function (Status) {
+  Status["Idle"] = "IDLE";
+  Status["Resolving"] = "RESOLVING";
+  Status["Error"] = "ERROR";
+  Status["Success"] = "SUCCESS";
+})(Status || (Status = {}));
+
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/use-query-select.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const META_SELECTORS = ['getIsResolving', 'hasStartedResolution', 'hasFinishedResolution', 'isResolving', 'getCachedResolvers'];
+
+/**
+ * Like useSelect, but the selectors return objects containing
+ * both the original data AND the resolution info.
+ *
+ * @param {Function} mapQuerySelect see useSelect
+ * @param {Array}    deps           see useSelect
+ *
+ * @example
+ * ```js
+ * import { useQuerySelect } from '@wordpress/data';
+ * import { store as coreDataStore } from '@wordpress/core-data';
+ *
+ * function PageTitleDisplay( { id } ) {
+ *   const { data: page, isResolving } = useQuerySelect( ( query ) => {
+ *     return query( coreDataStore ).getEntityRecord( 'postType', 'page', id )
+ *   }, [ id ] );
+ *
+ *   if ( isResolving ) {
+ *     return 'Loading...';
+ *   }
+ *
+ *   return page.title;
+ * }
+ *
+ * // Rendered in the application:
+ * // <PageTitleDisplay id={ 10 } />
+ * ```
+ *
+ * In the above example, when `PageTitleDisplay` is rendered into an
+ * application, the page and the resolution details will be retrieved from
+ * the store state using the `mapSelect` callback on `useQuerySelect`.
+ *
+ * If the id prop changes then any page in the state for that id is
+ * retrieved. If the id prop doesn't change and other props are passed in
+ * that do change, the title will not change because the dependency is just
+ * the id.
+ * @see useSelect
+ *
+ * @return {QuerySelectResponse} Queried data.
+ */
+function __experimentalUseQuerySelect(mapQuerySelect, deps) {
+  return (0,external_wp_data_namespaceObject.useSelect)((select, registry) => {
+    const resolve = store => enrichSelectors(select(store));
+
+    return mapQuerySelect(resolve, registry);
+  }, deps);
+}
+
+/**
+ * Transform simple selectors into ones that return an object with the
+ * original return value AND the resolution info.
+ *
+ * @param {Object} selectors Selectors to enrich
+ * @return {EnrichedSelectors} Enriched selectors
+ */
+const enrichSelectors = memoize(selectors => {
+  const resolvers = {};
+
+  for (const selectorName in selectors) {
+    if (META_SELECTORS.includes(selectorName)) {
+      continue;
+    }
+
+    Object.defineProperty(resolvers, selectorName, {
+      get: () => function () {
+        const {
+          getIsResolving,
+          hasFinishedResolution
+        } = selectors;
+
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        const isResolving = !!getIsResolving(selectorName, args);
+        const hasResolved = !isResolving && hasFinishedResolution(selectorName, args);
+        const data = selectors[selectorName](...args);
+        let status;
+
+        if (isResolving) {
+          status = Status.Resolving;
+        } else if (hasResolved) {
+          if (data) {
+            status = Status.Success;
+          } else {
+            status = Status.Error;
+          }
+        } else {
+          status = Status.Idle;
+        }
+
+        return {
+          data,
+          status,
+          isResolving,
+          hasResolved
+        };
+      }
+    });
+  }
+
+  return resolvers;
+});
+
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/use-entity-record.js
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * Resolves the specified entity record.
+ *
+ * @param  kind     Kind of the requested entity.
+ * @param  name     Name of the requested  entity.
+ * @param  recordId Record ID of the requested entity.
+ *
+ * @example
+ * ```js
+ * import { useEntityRecord } from '@wordpress/core-data';
+ *
+ * function PageTitleDisplay( { id } ) {
+ *   const { record, isResolving } = useEntityRecord( 'postType', 'page', id );
+ *
+ *   if ( isResolving ) {
+ *     return 'Loading...';
+ *   }
+ *
+ *   return record.title;
+ * }
+ *
+ * // Rendered in the application:
+ * // <PageTitleDisplay id={ 1 } />
+ * ```
+ *
+ * In the above example, when `PageTitleDisplay` is rendered into an
+ * application, the page and the resolution details will be retrieved from
+ * the store state using `getEntityRecord()`, or resolved if missing.
+ *
+ * @return {EntityRecordResolution<RecordType>} Entity record data.
+ * @template RecordType
+ */
+function __experimentalUseEntityRecord(kind, name, recordId) {
+  const {
+    data: record,
+    ...rest
+  } = __experimentalUseQuerySelect(query => query(store).getEntityRecord(kind, name, recordId), [kind, name, recordId]);
+  return {
+    record,
+    ...rest
+  };
+}
+
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/use-entity-records.js
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * Resolves the specified entity records.
+ *
+ * @param  kind      Kind of the requested entities.
+ * @param  name      Name of the requested entities.
+ * @param  queryArgs HTTP query for the requested entities.
+ *
+ * @example
+ * ```js
+ * import { useEntityRecord } from '@wordpress/core-data';
+ *
+ * function PageTitlesList() {
+ *   const { records, isResolving } = useEntityRecords( 'postType', 'page' );
+ *
+ *   if ( isResolving ) {
+ *     return 'Loading...';
+ *   }
+ *
+ *   return (
+ *     <ul>
+ *       {records.map(( page ) => (
+ *         <li>{ page.title }</li>
+ *       ))}
+ *     </ul>
+ *   );
+ * }
+ *
+ * // Rendered in the application:
+ * // <PageTitlesList />
+ * ```
+ *
+ * In the above example, when `PageTitlesList` is rendered into an
+ * application, the list of records and the resolution details will be retrieved from
+ * the store state using `getEntityRecords()`, or resolved if missing.
+ *
+ * @return {EntityRecordsResolution<RecordType>} Entity records data.
+ * @template RecordType
+ */
+function __experimentalUseEntityRecords(kind, name) {
+  let queryArgs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  const {
+    data: records,
+    ...rest
+  } = __experimentalUseQuerySelect(query => query(store).getEntityRecords(kind, name, queryArgs), [kind, name, queryArgs]);
+  return {
+    records,
+    ...rest
+  };
+}
+
 ;// CONCATENATED MODULE: external ["wp","htmlEntities"]
 var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/__experimental-fetch-link-suggestions.js
@@ -5556,7 +5958,7 @@ const fetchLinkSuggestions = async function (search) {
 };
 
 /* harmony default export */ var _experimental_fetch_link_suggestions = (fetchLinkSuggestions);
-//# sourceMappingURL=__experimental-fetch-link-suggestions.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/__experimental-fetch-url-data.js
 /**
  * WordPress dependencies
@@ -5631,11 +6033,11 @@ const fetchUrlData = async function (url) {
 };
 
 /* harmony default export */ var _experimental_fetch_url_data = (fetchUrlData);
-//# sourceMappingURL=__experimental-fetch-url-data.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/index.js
 
 
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/index.js
 /**
  * WordPress dependencies
@@ -5726,8 +6128,7 @@ const storeConfig = () => ({
   },
   resolvers: { ...resolvers_namespaceObject,
     ...entityResolvers
-  },
-  __experimentalUseThunks: true
+  }
 });
 /**
  * Store definition for the code data namespace.
@@ -5743,7 +6144,10 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
 
 
 
-//# sourceMappingURL=index.js.map
+
+
+
+
 }();
 (window.wp = window.wp || {}).coreData = __webpack_exports__;
 /******/ })()

@@ -100,7 +100,7 @@ function isAppleOS() {
   } = _window.navigator;
   return platform.indexOf('Mac') !== -1 || (0,external_lodash_namespaceObject.includes)(['iPad', 'iPhone'], platform);
 }
-//# sourceMappingURL=platform.js.map
+
 ;// CONCATENATED MODULE: ./packages/keycodes/build-module/index.js
 /**
  * Note: The order of the modifier keys in many of the [foo]Shortcut()
@@ -470,7 +470,7 @@ const isKeyboardEvent = (0,external_lodash_namespaceObject.mapValues)(modifiers,
     }
   );
 });
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).keycodes = __webpack_exports__;
 /******/ })()
 ;

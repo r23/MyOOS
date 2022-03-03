@@ -162,7 +162,7 @@ const preferences = (0,external_wp_data_namespaceObject.combineReducers)({
   guides,
   preferences
 }));
-//# sourceMappingURL=reducer.js.map
+
 ;// CONCATENATED MODULE: ./packages/nux/build-module/store/actions.js
 /**
  * Returns an action object that, when dispatched, presents a guide that takes
@@ -216,7 +216,7 @@ function enableTips() {
     type: 'ENABLE_TIPS'
   };
 }
-//# sourceMappingURL=actions.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
 
 
@@ -574,7 +574,7 @@ function isTipVisible(state, tipId) {
 function selectors_areTipsEnabled(state) {
   return state.preferences.areTipsEnabled;
 }
-//# sourceMappingURL=selectors.js.map
+
 ;// CONCATENATED MODULE: ./packages/nux/build-module/store/index.js
 /**
  * WordPress dependencies
@@ -610,7 +610,7 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
   selectors: selectors_namespaceObject,
   persist: ['preferences']
 });
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","element"]
 var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external ["wp","compose"]
@@ -635,7 +635,7 @@ const close_close = (0,external_wp_element_namespaceObject.createElement)(extern
   d: "M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
 }));
 /* harmony default export */ var library_close = (close_close);
-//# sourceMappingURL=close.js.map
+
 ;// CONCATENATED MODULE: ./packages/nux/build-module/components/dot-tip/index.js
 
 
@@ -738,7 +738,7 @@ function DotTip(_ref) {
 
   };
 }))(DotTip));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/nux/build-module/index.js
 /**
  * WordPress dependencies
@@ -751,7 +751,7 @@ external_wp_deprecated_default()('wp.nux', {
   hint: 'wp.components.Guide can be used to show a user guide.',
   version: '6.2'
 });
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).nux = __webpack_exports__;
 /******/ })()
 ;

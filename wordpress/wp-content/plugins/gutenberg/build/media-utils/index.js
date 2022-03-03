@@ -482,10 +482,10 @@ class MediaUpload extends external_wp_element_namespaceObject.Component {
 }
 
 /* harmony default export */ var media_upload = (MediaUpload);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/media-utils/build-module/components/index.js
 
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","apiFetch"]
 var external_wp_apiFetch_namespaceObject = window["wp"]["apiFetch"];
 var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_namespaceObject);
@@ -702,14 +702,14 @@ function createMediaFromFile(file, additionalData) {
     method: 'POST'
   });
 }
-//# sourceMappingURL=upload-media.js.map
+
 ;// CONCATENATED MODULE: ./packages/media-utils/build-module/utils/index.js
 
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/media-utils/build-module/index.js
 
 
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).mediaUtils = __webpack_exports__;
 /******/ })()
 ;

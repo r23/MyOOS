@@ -116,7 +116,7 @@ function deprecated(feature) {
   logged[message] = true;
 }
 /** @typedef {import('utility-types').NonUndefined<Parameters<typeof deprecated>[1]>} DeprecatedOptions */
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).deprecated = __webpack_exports__["default"];
 /******/ })()
 ;

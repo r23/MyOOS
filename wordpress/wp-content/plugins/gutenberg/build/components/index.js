@@ -1,11 +1,11 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 3804:
+/***/ 9268:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2717);
+/* harmony import */ var _emotion_memoize__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3059);
 
 
 var reactPropsRegex = /^((children|dangerouslySetInnerHTML|key|ref|autoFocus|defaultValue|defaultChecked|innerHTML|suppressContentEditableWarning|suppressHydrationWarning|valueLink|accept|acceptCharset|accessKey|action|allow|allowUserMedia|allowPaymentRequest|allowFullScreen|allowTransparency|alt|async|autoComplete|autoPlay|capture|cellPadding|cellSpacing|challenge|charSet|checked|cite|classID|className|cols|colSpan|content|contentEditable|contextMenu|controls|controlsList|coords|crossOrigin|data|dateTime|decoding|default|defer|dir|disabled|disablePictureInPicture|download|draggable|encType|form|formAction|formEncType|formMethod|formNoValidate|formTarget|frameBorder|headers|height|hidden|high|href|hrefLang|htmlFor|httpEquiv|id|inputMode|integrity|is|keyParams|keyType|kind|label|lang|list|loading|loop|low|marginHeight|marginWidth|max|maxLength|media|mediaGroup|method|min|minLength|multiple|muted|name|nonce|noValidate|open|optimum|pattern|placeholder|playsInline|poster|preload|profile|radioGroup|readOnly|referrerPolicy|rel|required|reversed|role|rows|rowSpan|sandbox|scope|scoped|scrolling|seamless|selected|shape|size|sizes|slot|span|spellCheck|src|srcDoc|srcLang|srcSet|start|step|style|summary|tabIndex|target|title|type|useMap|value|width|wmode|wrap|about|datatype|inlist|prefix|property|resource|typeof|vocab|autoCapitalize|autoCorrect|autoSave|color|inert|itemProp|itemScope|itemType|itemID|itemRef|on|results|security|unselectable|accentHeight|accumulate|additive|alignmentBaseline|allowReorder|alphabetic|amplitude|arabicForm|ascent|attributeName|attributeType|autoReverse|azimuth|baseFrequency|baselineShift|baseProfile|bbox|begin|bias|by|calcMode|capHeight|clip|clipPathUnits|clipPath|clipRule|colorInterpolation|colorInterpolationFilters|colorProfile|colorRendering|contentScriptType|contentStyleType|cursor|cx|cy|d|decelerate|descent|diffuseConstant|direction|display|divisor|dominantBaseline|dur|dx|dy|edgeMode|elevation|enableBackground|end|exponent|externalResourcesRequired|fill|fillOpacity|fillRule|filter|filterRes|filterUnits|floodColor|floodOpacity|focusable|fontFamily|fontSize|fontSizeAdjust|fontStretch|fontStyle|fontVariant|fontWeight|format|from|fr|fx|fy|g1|g2|glyphName|glyphOrientationHorizontal|glyphOrientationVertical|glyphRef|gradientTransform|gradientUnits|hanging|horizAdvX|horizOriginX|ideographic|imageRendering|in|in2|intercept|k|k1|k2|k3|k4|kernelMatrix|kernelUnitLength|kerning|keyPoints|keySplines|keyTimes|lengthAdjust|letterSpacing|lightingColor|limitingConeAngle|local|markerEnd|markerMid|markerStart|markerHeight|markerUnits|markerWidth|mask|maskContentUnits|maskUnits|mathematical|mode|numOctaves|offset|opacity|operator|order|orient|orientation|origin|overflow|overlinePosition|overlineThickness|panose1|paintOrder|pathLength|patternContentUnits|patternTransform|patternUnits|pointerEvents|points|pointsAtX|pointsAtY|pointsAtZ|preserveAlpha|preserveAspectRatio|primitiveUnits|r|radius|refX|refY|renderingIntent|repeatCount|repeatDur|requiredExtensions|requiredFeatures|restart|result|rotate|rx|ry|scale|seed|shapeRendering|slope|spacing|specularConstant|specularExponent|speed|spreadMethod|startOffset|stdDeviation|stemh|stemv|stitchTiles|stopColor|stopOpacity|strikethroughPosition|strikethroughThickness|string|stroke|strokeDasharray|strokeDashoffset|strokeLinecap|strokeLinejoin|strokeMiterlimit|strokeOpacity|strokeWidth|surfaceScale|systemLanguage|tableValues|targetX|targetY|textAnchor|textDecoration|textRendering|textLength|to|transform|u1|u2|underlinePosition|underlineThickness|unicode|unicodeBidi|unicodeRange|unitsPerEm|vAlphabetic|vHanging|vIdeographic|vMathematical|values|vectorEffect|version|vertAdvY|vertOriginX|vertOriginY|viewBox|viewTarget|visibility|widths|wordSpacing|writingMode|x|xHeight|x1|x2|xChannelSelector|xlinkActuate|xlinkArcrole|xlinkHref|xlinkRole|xlinkShow|xlinkTitle|xlinkType|xmlBase|xmlns|xmlnsXlink|xmlLang|xmlSpace|y|y1|y2|yChannelSelector|z|zoomAndPan|for|class|autofocus)|(([Dd][Aa][Tt][Aa]|[Aa][Rr][Ii][Aa]|x)-.*))$/; // https://esbench.com/bench/5bfee68a4cd7e6009ef61d23
@@ -25,7 +25,7 @@ var index = (0,_emotion_memoize__WEBPACK_IMPORTED_MODULE_0__/* ["default"] */ .Z
 
 /***/ }),
 
-/***/ 2717:
+/***/ 3059:
 /***/ (function(__unused_webpack_module, __webpack_exports__) {
 
 "use strict";
@@ -42,7 +42,7 @@ function memoize(fn) {
 
 /***/ }),
 
-/***/ 9733:
+/***/ 5096:
 /***/ (function(module) {
 
 "use strict";
@@ -96,26 +96,26 @@ module.exports = {
   valuesOf: noopThunk,
   withShape: noopThunk
 };
-//# sourceMappingURL=index.js.map
+
 
 /***/ }),
 
-/***/ 8341:
+/***/ 4882:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-module.exports =  true ? __webpack_require__(9733) : 0;
+module.exports =  true ? __webpack_require__(5096) : 0;
 
-//# sourceMappingURL=index.js.map
+
 
 /***/ }),
 
-/***/ 3535:
+/***/ 4485:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var ES = __webpack_require__(9336);
+var ES = __webpack_require__(2176);
 
 var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || (Math.pow(2, 53) - 1);
 
@@ -182,19 +182,19 @@ module.exports = function flat() {
 
 /***/ }),
 
-/***/ 6650:
+/***/ 116:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var define = __webpack_require__(4289);
-var bind = __webpack_require__(8612);
+var define = __webpack_require__(9170);
+var bind = __webpack_require__(1930);
 
-var implementation = __webpack_require__(3535);
-var getPolyfill = __webpack_require__(8981);
+var implementation = __webpack_require__(4485);
+var getPolyfill = __webpack_require__(616);
 var polyfill = getPolyfill();
-var shim = __webpack_require__(2131);
+var shim = __webpack_require__(2059);
 
 var boundFlat = bind.call(Function.call, polyfill);
 
@@ -209,13 +209,13 @@ module.exports = boundFlat;
 
 /***/ }),
 
-/***/ 8981:
+/***/ 616:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var implementation = __webpack_require__(3535);
+var implementation = __webpack_require__(4485);
 
 module.exports = function getPolyfill() {
 	return Array.prototype.flat || implementation;
@@ -224,14 +224,14 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ 2131:
+/***/ 2059:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var define = __webpack_require__(4289);
-var getPolyfill = __webpack_require__(8981);
+var define = __webpack_require__(9170);
+var getPolyfill = __webpack_require__(616);
 
 module.exports = function shimFlat() {
 	var polyfill = getPolyfill();
@@ -246,15 +246,15 @@ module.exports = function shimFlat() {
 
 /***/ }),
 
-/***/ 1924:
+/***/ 7615:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(210);
+var GetIntrinsic = __webpack_require__(1801);
 
-var callBind = __webpack_require__(5559);
+var callBind = __webpack_require__(2550);
 
 var $indexOf = callBind(GetIntrinsic('String.prototype.indexOf'));
 
@@ -269,14 +269,14 @@ module.exports = function callBoundIntrinsic(name, allowMissing) {
 
 /***/ }),
 
-/***/ 5559:
+/***/ 2550:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var bind = __webpack_require__(8612);
-var GetIntrinsic = __webpack_require__(210);
+var bind = __webpack_require__(1930);
+var GetIntrinsic = __webpack_require__(1801);
 
 var $apply = GetIntrinsic('%Function.prototype.apply%');
 var $call = GetIntrinsic('%Function.prototype.call%');
@@ -310,7 +310,7 @@ if ($defineProperty) {
 
 /***/ }),
 
-/***/ 4184:
+/***/ 4403:
 /***/ (function(module, exports) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -374,7 +374,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 7734:
+/***/ 8495:
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -592,14 +592,14 @@ function addEventListener(target, eventName, listener, options) {
 
 /***/ }),
 
-/***/ 4289:
+/***/ 9170:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var keys = __webpack_require__(2215);
-var foreach = __webpack_require__(9804);
+var keys = __webpack_require__(806);
+var foreach = __webpack_require__(4175);
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol() === 'symbol';
 
 var toStr = Object.prototype.toString;
@@ -656,7 +656,7 @@ module.exports = defineProperties;
 
 /***/ }),
 
-/***/ 1676:
+/***/ 8110:
 /***/ (function(module) {
 
 "use strict";
@@ -686,18 +686,18 @@ module.exports = function contains(other) {
 
 /***/ }),
 
-/***/ 2483:
+/***/ 6789:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var define = __webpack_require__(8368);
+var define = __webpack_require__(7727);
 
-var implementation = __webpack_require__(1676);
-var getPolyfill = __webpack_require__(4356);
+var implementation = __webpack_require__(8110);
+var getPolyfill = __webpack_require__(8267);
 var polyfill = getPolyfill();
-var shim = __webpack_require__(1514);
+var shim = __webpack_require__(714);
 
 var boundContains = function contains(node, other) {
 	return polyfill.apply(node, [other]);
@@ -714,13 +714,13 @@ module.exports = boundContains;
 
 /***/ }),
 
-/***/ 8368:
+/***/ 7727:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var keys = __webpack_require__(2215);
+var keys = __webpack_require__(806);
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol('foo') === 'symbol';
 
 var toStr = Object.prototype.toString;
@@ -780,13 +780,13 @@ module.exports = defineProperties;
 
 /***/ }),
 
-/***/ 4356:
+/***/ 8267:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var implementation = __webpack_require__(1676);
+var implementation = __webpack_require__(8110);
 
 module.exports = function getPolyfill() {
 	if (typeof document !== 'undefined') {
@@ -807,14 +807,14 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ 1514:
+/***/ 714:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var define = __webpack_require__(8368);
-var getPolyfill = __webpack_require__(4356);
+var define = __webpack_require__(7727);
+var getPolyfill = __webpack_require__(8267);
 
 module.exports = function shimContains() {
 	var polyfill = getPolyfill();
@@ -838,13 +838,13 @@ module.exports = function shimContains() {
 
 /***/ }),
 
-/***/ 9010:
+/***/ 1345:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var util = __webpack_require__(4657);
+var util = __webpack_require__(5022);
 
 function scrollIntoView(elem, container, config) {
   config = config || {};
@@ -979,17 +979,17 @@ module.exports = scrollIntoView;
 
 /***/ }),
 
-/***/ 4979:
+/***/ 5425:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(9010);
+module.exports = __webpack_require__(1345);
 
 /***/ }),
 
-/***/ 4657:
+/***/ 5022:
 /***/ (function(module) {
 
 "use strict";
@@ -1435,7 +1435,7 @@ module.exports = _extends({
 
 /***/ }),
 
-/***/ 6781:
+/***/ 9214:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -1458,20 +1458,20 @@ __webpack_unused_export__=y;
 
 /***/ }),
 
-/***/ 1726:
+/***/ 2797:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
 if (true) {
-  /* unused reexport */ __webpack_require__(6781);
+  /* unused reexport */ __webpack_require__(9214);
 } else {}
 
 
 /***/ }),
 
-/***/ 8769:
+/***/ 7124:
 /***/ (function(module) {
 
 "use strict";
@@ -1656,16 +1656,16 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 
 /***/ }),
 
-/***/ 5826:
+/***/ 2820:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var has = __webpack_require__(7642);
-var toPrimitive = __webpack_require__(5331);
+var has = __webpack_require__(9284);
+var toPrimitive = __webpack_require__(6120);
 
-var GetIntrinsic = __webpack_require__(8769);
+var GetIntrinsic = __webpack_require__(7124);
 
 var $TypeError = GetIntrinsic('%TypeError%');
 var $SyntaxError = GetIntrinsic('%SyntaxError%');
@@ -1678,16 +1678,16 @@ var $RegExp = GetIntrinsic('%RegExp%');
 
 var hasSymbols = !!$Symbol;
 
-var $isNaN = __webpack_require__(1214);
-var $isFinite = __webpack_require__(3060);
+var $isNaN = __webpack_require__(1569);
+var $isFinite = __webpack_require__(2590);
 var MAX_SAFE_INTEGER = $Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
 
-var assign = __webpack_require__(6204);
-var sign = __webpack_require__(4099);
-var mod = __webpack_require__(9388);
-var isPrimitive = __webpack_require__(3126);
+var assign = __webpack_require__(3034);
+var sign = __webpack_require__(5954);
+var mod = __webpack_require__(1295);
+var isPrimitive = __webpack_require__(6777);
 var parseInteger = parseInt;
-var bind = __webpack_require__(8612);
+var bind = __webpack_require__(1930);
 var arraySlice = bind.call(Function.call, $Array.prototype.slice);
 var strSlice = bind.call(Function.call, $String.prototype.slice);
 var isBinary = bind.call(Function.call, $RegExp.prototype.test, /^0b[01]+$/i);
@@ -1723,9 +1723,9 @@ var trim = function (value) {
 	return replace(value, trimRegex, '');
 };
 
-var ES5 = __webpack_require__(9291);
+var ES5 = __webpack_require__(6112);
 
-var hasRegExpMatcher = __webpack_require__(8420);
+var hasRegExpMatcher = __webpack_require__(5278);
 
 // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-abstract-operations
 var ES6 = assign(assign({}, ES5), {
@@ -2357,14 +2357,14 @@ module.exports = ES6;
 
 /***/ }),
 
-/***/ 1911:
+/***/ 9212:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var ES2015 = __webpack_require__(5826);
-var assign = __webpack_require__(6204);
+var ES2015 = __webpack_require__(2820);
+var assign = __webpack_require__(3034);
 
 var ES2016 = assign(assign({}, ES2015), {
 	// https://github.com/tc39/ecma262/pull/60
@@ -2381,14 +2381,14 @@ module.exports = ES2016;
 
 /***/ }),
 
-/***/ 9336:
+/***/ 2176:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var ES2016 = __webpack_require__(1911);
-var assign = __webpack_require__(6204);
+var ES2016 = __webpack_require__(9212);
+var assign = __webpack_require__(3034);
 
 var ES2017 = assign(assign({}, ES2016), {
 	ToIndex: function ToIndex(value) {
@@ -2414,28 +2414,28 @@ module.exports = ES2017;
 
 /***/ }),
 
-/***/ 9291:
+/***/ 6112:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(8769);
+var GetIntrinsic = __webpack_require__(7124);
 
 var $Object = GetIntrinsic('%Object%');
 var $TypeError = GetIntrinsic('%TypeError%');
 var $String = GetIntrinsic('%String%');
 
-var $isNaN = __webpack_require__(1214);
-var $isFinite = __webpack_require__(3060);
+var $isNaN = __webpack_require__(1569);
+var $isFinite = __webpack_require__(2590);
 
-var sign = __webpack_require__(4099);
-var mod = __webpack_require__(9388);
+var sign = __webpack_require__(5954);
+var mod = __webpack_require__(1295);
 
-var IsCallable = __webpack_require__(5320);
-var toPrimitive = __webpack_require__(2116);
+var IsCallable = __webpack_require__(5443);
+var toPrimitive = __webpack_require__(8023);
 
-var has = __webpack_require__(7642);
+var has = __webpack_require__(9284);
 
 // https://es5.github.io/#x9
 var ES5 = {
@@ -2664,10 +2664,10 @@ module.exports = ES5;
 
 /***/ }),
 
-/***/ 6204:
+/***/ 3034:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var bind = __webpack_require__(8612);
+var bind = __webpack_require__(1930);
 var has = bind.call(Function.call, Object.prototype.hasOwnProperty);
 
 var $assign = Object.assign;
@@ -2688,7 +2688,7 @@ module.exports = function assign(target, source) {
 
 /***/ }),
 
-/***/ 3060:
+/***/ 2590:
 /***/ (function(module) {
 
 var $isNaN = Number.isNaN || function (a) { return a !== a; };
@@ -2698,7 +2698,7 @@ module.exports = Number.isFinite || function (x) { return typeof x === 'number' 
 
 /***/ }),
 
-/***/ 1214:
+/***/ 1569:
 /***/ (function(module) {
 
 module.exports = Number.isNaN || function isNaN(a) {
@@ -2708,7 +2708,7 @@ module.exports = Number.isNaN || function isNaN(a) {
 
 /***/ }),
 
-/***/ 3126:
+/***/ 6777:
 /***/ (function(module) {
 
 module.exports = function isPrimitive(value) {
@@ -2718,7 +2718,7 @@ module.exports = function isPrimitive(value) {
 
 /***/ }),
 
-/***/ 9388:
+/***/ 1295:
 /***/ (function(module) {
 
 module.exports = function mod(number, modulo) {
@@ -2729,7 +2729,7 @@ module.exports = function mod(number, modulo) {
 
 /***/ }),
 
-/***/ 4099:
+/***/ 5954:
 /***/ (function(module) {
 
 module.exports = function sign(number) {
@@ -2739,7 +2739,7 @@ module.exports = function sign(number) {
 
 /***/ }),
 
-/***/ 2116:
+/***/ 8023:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -2747,9 +2747,9 @@ module.exports = function sign(number) {
 
 var toStr = Object.prototype.toString;
 
-var isPrimitive = __webpack_require__(4149);
+var isPrimitive = __webpack_require__(3777);
 
-var isCallable = __webpack_require__(5320);
+var isCallable = __webpack_require__(5443);
 
 // https://es5.github.io/#x8.12
 var ES5internalSlots = {
@@ -2784,7 +2784,7 @@ module.exports = function ToPrimitive(input, PreferredType) {
 
 /***/ }),
 
-/***/ 5331:
+/***/ 6120:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -2792,10 +2792,10 @@ module.exports = function ToPrimitive(input, PreferredType) {
 
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol.iterator === 'symbol';
 
-var isPrimitive = __webpack_require__(4149);
-var isCallable = __webpack_require__(5320);
-var isDate = __webpack_require__(8923);
-var isSymbol = __webpack_require__(2636);
+var isPrimitive = __webpack_require__(3777);
+var isCallable = __webpack_require__(5443);
+var isDate = __webpack_require__(8659);
+var isSymbol = __webpack_require__(3082);
 
 var ordinaryToPrimitive = function OrdinaryToPrimitive(O, hint) {
 	if (typeof O === 'undefined' || O === null) {
@@ -2866,7 +2866,7 @@ module.exports = function ToPrimitive(input, PreferredType) {
 
 /***/ }),
 
-/***/ 4149:
+/***/ 3777:
 /***/ (function(module) {
 
 module.exports = function isPrimitive(value) {
@@ -2876,7 +2876,7 @@ module.exports = function isPrimitive(value) {
 
 /***/ }),
 
-/***/ 3316:
+/***/ 2920:
 /***/ (function(module) {
 
 //
@@ -3027,7 +3027,7 @@ module.exports.strategies = {
 
 /***/ }),
 
-/***/ 9804:
+/***/ 4175:
 /***/ (function(module) {
 
 
@@ -3056,7 +3056,7 @@ module.exports = function forEach (obj, fn, ctx) {
 
 /***/ }),
 
-/***/ 7648:
+/***/ 9930:
 /***/ (function(module) {
 
 "use strict";
@@ -3116,20 +3116,20 @@ module.exports = function bind(that) {
 
 /***/ }),
 
-/***/ 8612:
+/***/ 1930:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var implementation = __webpack_require__(7648);
+var implementation = __webpack_require__(9930);
 
 module.exports = Function.prototype.bind || implementation;
 
 
 /***/ }),
 
-/***/ 210:
+/***/ 1801:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -3186,7 +3186,7 @@ var ThrowTypeError = $gOPD
 	}())
 	: throwTypeError;
 
-var hasSymbols = __webpack_require__(3085)();
+var hasSymbols = __webpack_require__(658)();
 
 var getProto = Object.getPrototypeOf || function (x) { return x.__proto__; }; // eslint-disable-line no-proto
 
@@ -3317,8 +3317,8 @@ var LEGACY_ALIASES = {
 	'%WeakSetPrototype%': ['WeakSet', 'prototype']
 };
 
-var bind = __webpack_require__(8612);
-var hasOwn = __webpack_require__(7642);
+var bind = __webpack_require__(1930);
+var hasOwn = __webpack_require__(9284);
 var $concat = bind.call(Function.call, Array.prototype.concat);
 var $spliceApply = bind.call(Function.apply, Array.prototype.splice);
 var $replace = bind.call(Function.call, String.prototype.replace);
@@ -3450,14 +3450,14 @@ module.exports = function GetIntrinsic(name, allowMissing) {
 
 /***/ }),
 
-/***/ 3085:
+/***/ 658:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
 var origSymbol = __webpack_require__.g.Symbol;
-var hasSymbolSham = __webpack_require__(4429);
+var hasSymbolSham = __webpack_require__(8838);
 
 module.exports = function hasNativeSymbols() {
 	if (typeof origSymbol !== 'function') { return false; }
@@ -3471,7 +3471,7 @@ module.exports = function hasNativeSymbols() {
 
 /***/ }),
 
-/***/ 4429:
+/***/ 8838:
 /***/ (function(module) {
 
 "use strict";
@@ -3521,14 +3521,14 @@ module.exports = function hasSymbols() {
 
 /***/ }),
 
-/***/ 1884:
+/***/ 5371:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var define = __webpack_require__(4289);
-var isSymbol = __webpack_require__(2636);
+var define = __webpack_require__(9170);
+var isSymbol = __webpack_require__(3082);
 
 var globalKey = '__ global cache key __';
 /* istanbul ignore else */
@@ -3620,7 +3620,7 @@ module.exports = globalCache;
 
 /***/ }),
 
-/***/ 9948:
+/***/ 7115:
 /***/ (function(__unused_webpack_module, exports) {
 
 // Copyright (c) 2014 Rafael Caricio. All rights reserved.
@@ -3966,7 +3966,7 @@ exports.parse = (GradientParser || {}).parse;
 
 /***/ }),
 
-/***/ 5419:
+/***/ 5682:
 /***/ (function(module) {
 
 "use strict";
@@ -4016,20 +4016,20 @@ module.exports = function hasSymbols() {
 
 /***/ }),
 
-/***/ 7642:
+/***/ 9284:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var bind = __webpack_require__(8612);
+var bind = __webpack_require__(1930);
 
 module.exports = bind.call(Function.call, Object.prototype.hasOwnProperty);
 
 
 /***/ }),
 
-/***/ 6928:
+/***/ 3138:
 /***/ (function(module) {
 
 module.exports =
@@ -4287,17 +4287,17 @@ module.exports =
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=index.js.map
+
 
 /***/ }),
 
-/***/ 8679:
+/***/ 1281:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var reactIs = __webpack_require__(9864);
+var reactIs = __webpack_require__(338);
 
 /**
  * Copyright 2015, Yahoo! Inc.
@@ -4402,7 +4402,7 @@ module.exports = hoistNonReactStatics;
 
 /***/ }),
 
-/***/ 5320:
+/***/ 5443:
 /***/ (function(module) {
 
 "use strict";
@@ -4447,7 +4447,7 @@ module.exports = function isCallable(value) {
 
 /***/ }),
 
-/***/ 8923:
+/***/ 8659:
 /***/ (function(module) {
 
 "use strict";
@@ -4475,13 +4475,13 @@ module.exports = function isDateObject(value) {
 
 /***/ }),
 
-/***/ 8420:
+/***/ 5278:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var has = __webpack_require__(7642);
+var has = __webpack_require__(9284);
 var regexExec = RegExp.prototype.exec;
 var gOPD = Object.getOwnPropertyDescriptor;
 
@@ -4522,7 +4522,7 @@ module.exports = function isRegex(value) {
 
 /***/ }),
 
-/***/ 2636:
+/***/ 3082:
 /***/ (function(module) {
 
 "use strict";
@@ -4557,7 +4557,7 @@ if (hasSymbols) {
 
 /***/ }),
 
-/***/ 1465:
+/***/ 5834:
 /***/ (function(module, exports) {
 
 Object.defineProperty(exports, "__esModule", ({
@@ -4571,10 +4571,10 @@ module.exports = exports['default'];
 
 /***/ }),
 
-/***/ 2705:
+/***/ 4937:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var root = __webpack_require__(5639);
+var root = __webpack_require__(158);
 
 /** Built-in value references. */
 var Symbol = root.Symbol;
@@ -4584,12 +4584,12 @@ module.exports = Symbol;
 
 /***/ }),
 
-/***/ 4239:
+/***/ 194:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(2705),
-    getRawTag = __webpack_require__(9607),
-    objectToString = __webpack_require__(2333);
+var Symbol = __webpack_require__(4937),
+    getRawTag = __webpack_require__(5401),
+    objectToString = __webpack_require__(2445);
 
 /** `Object#toString` result references. */
 var nullTag = '[object Null]',
@@ -4619,10 +4619,10 @@ module.exports = baseGetTag;
 
 /***/ }),
 
-/***/ 7561:
+/***/ 2383:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var trimmedEndIndex = __webpack_require__(7990);
+var trimmedEndIndex = __webpack_require__(8725);
 
 /** Used to match leading whitespace. */
 var reTrimStart = /^\s+/;
@@ -4645,7 +4645,7 @@ module.exports = baseTrim;
 
 /***/ }),
 
-/***/ 1957:
+/***/ 4528:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /** Detect free variable `global` from Node.js. */
@@ -4656,10 +4656,10 @@ module.exports = freeGlobal;
 
 /***/ }),
 
-/***/ 9607:
+/***/ 5401:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var Symbol = __webpack_require__(2705);
+var Symbol = __webpack_require__(4937);
 
 /** Used for built-in method references. */
 var objectProto = Object.prototype;
@@ -4709,7 +4709,7 @@ module.exports = getRawTag;
 
 /***/ }),
 
-/***/ 2333:
+/***/ 2445:
 /***/ (function(module) {
 
 /** Used for built-in method references. */
@@ -4738,10 +4738,10 @@ module.exports = objectToString;
 
 /***/ }),
 
-/***/ 5639:
+/***/ 158:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var freeGlobal = __webpack_require__(1957);
+var freeGlobal = __webpack_require__(4528);
 
 /** Detect free variable `self`. */
 var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
@@ -4754,7 +4754,7 @@ module.exports = root;
 
 /***/ }),
 
-/***/ 7990:
+/***/ 8725:
 /***/ (function(module) {
 
 /** Used to match a single whitespace character. */
@@ -4780,12 +4780,12 @@ module.exports = trimmedEndIndex;
 
 /***/ }),
 
-/***/ 3279:
+/***/ 6897:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var isObject = __webpack_require__(3218),
-    now = __webpack_require__(7771),
-    toNumber = __webpack_require__(4841);
+var isObject = __webpack_require__(3619),
+    now = __webpack_require__(8253),
+    toNumber = __webpack_require__(5053);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -4978,7 +4978,7 @@ module.exports = debounce;
 
 /***/ }),
 
-/***/ 3218:
+/***/ 3619:
 /***/ (function(module) {
 
 /**
@@ -5016,7 +5016,7 @@ module.exports = isObject;
 
 /***/ }),
 
-/***/ 7005:
+/***/ 1653:
 /***/ (function(module) {
 
 /**
@@ -5052,11 +5052,11 @@ module.exports = isObjectLike;
 
 /***/ }),
 
-/***/ 3448:
+/***/ 1878:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(4239),
-    isObjectLike = __webpack_require__(7005);
+var baseGetTag = __webpack_require__(194),
+    isObjectLike = __webpack_require__(1653);
 
 /** `Object#toString` result references. */
 var symbolTag = '[object Symbol]';
@@ -5088,10 +5088,10 @@ module.exports = isSymbol;
 
 /***/ }),
 
-/***/ 7771:
+/***/ 8253:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var root = __webpack_require__(5639);
+var root = __webpack_require__(158);
 
 /**
  * Gets the timestamp of the number of milliseconds that have elapsed since
@@ -5118,11 +5118,11 @@ module.exports = now;
 
 /***/ }),
 
-/***/ 3493:
+/***/ 8172:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var debounce = __webpack_require__(3279),
-    isObject = __webpack_require__(3218);
+var debounce = __webpack_require__(6897),
+    isObject = __webpack_require__(3619);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -5194,12 +5194,12 @@ module.exports = throttle;
 
 /***/ }),
 
-/***/ 4841:
+/***/ 5053:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-var baseTrim = __webpack_require__(7561),
-    isObject = __webpack_require__(3218),
-    isSymbol = __webpack_require__(3448);
+var baseTrim = __webpack_require__(2383),
+    isObject = __webpack_require__(3619),
+    isSymbol = __webpack_require__(1878);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -5265,7 +5265,7 @@ module.exports = toNumber;
 
 /***/ }),
 
-/***/ 9588:
+/***/ 9756:
 /***/ (function(module) {
 
 /**
@@ -5433,7 +5433,7 @@ module.exports = memize;
 
 /***/ }),
 
-/***/ 8987:
+/***/ 8383:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -5444,7 +5444,7 @@ if (!Object.keys) {
 	// modified from https://github.com/es-shims/es5-shim
 	var has = Object.prototype.hasOwnProperty;
 	var toStr = Object.prototype.toString;
-	var isArgs = __webpack_require__(1414); // eslint-disable-line global-require
+	var isArgs = __webpack_require__(4418); // eslint-disable-line global-require
 	var isEnumerable = Object.prototype.propertyIsEnumerable;
 	var hasDontEnumBug = !isEnumerable.call({ toString: null }, 'toString');
 	var hasProtoEnumBug = isEnumerable.call(function () {}, 'prototype');
@@ -5563,17 +5563,17 @@ module.exports = keysShim;
 
 /***/ }),
 
-/***/ 2215:
+/***/ 806:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
 var slice = Array.prototype.slice;
-var isArgs = __webpack_require__(1414);
+var isArgs = __webpack_require__(4418);
 
 var origKeys = Object.keys;
-var keysShim = origKeys ? function keys(o) { return origKeys(o); } : __webpack_require__(8987);
+var keysShim = origKeys ? function keys(o) { return origKeys(o); } : __webpack_require__(8383);
 
 var originalKeys = Object.keys;
 
@@ -5603,7 +5603,7 @@ module.exports = keysShim;
 
 /***/ }),
 
-/***/ 1414:
+/***/ 4418:
 /***/ (function(module) {
 
 "use strict";
@@ -5628,19 +5628,19 @@ module.exports = function isArguments(value) {
 
 /***/ }),
 
-/***/ 2837:
+/***/ 2148:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
 // modified from https://github.com/es-shims/es6-shim
-var keys = __webpack_require__(2215);
-var bind = __webpack_require__(8612);
+var keys = __webpack_require__(806);
+var bind = __webpack_require__(1930);
 var canBeObject = function (obj) {
 	return typeof obj !== 'undefined' && obj !== null;
 };
-var hasSymbols = __webpack_require__(5419)();
+var hasSymbols = __webpack_require__(5682)();
 var toObject = Object;
 var push = bind.call(Function.call, Array.prototype.push);
 var propIsEnumerable = bind.call(Function.call, Object.prototype.propertyIsEnumerable);
@@ -5677,17 +5677,17 @@ module.exports = function assign(target, source1) {
 
 /***/ }),
 
-/***/ 3533:
+/***/ 4011:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var defineProperties = __webpack_require__(4289);
+var defineProperties = __webpack_require__(9170);
 
-var implementation = __webpack_require__(2837);
-var getPolyfill = __webpack_require__(8162);
-var shim = __webpack_require__(4489);
+var implementation = __webpack_require__(2148);
+var getPolyfill = __webpack_require__(293);
+var shim = __webpack_require__(2666);
 
 var polyfill = getPolyfill();
 
@@ -5702,13 +5702,13 @@ module.exports = polyfill;
 
 /***/ }),
 
-/***/ 8162:
+/***/ 293:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var implementation = __webpack_require__(2837);
+var implementation = __webpack_require__(2148);
 
 var lacksProperEnumerationOrder = function () {
 	if (!Object.assign) {
@@ -5761,14 +5761,14 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ 4489:
+/***/ 2666:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var define = __webpack_require__(4289);
-var getPolyfill = __webpack_require__(8162);
+var define = __webpack_require__(9170);
+var getPolyfill = __webpack_require__(293);
 
 module.exports = function shimAssign() {
 	var polyfill = getPolyfill();
@@ -5783,15 +5783,15 @@ module.exports = function shimAssign() {
 
 /***/ }),
 
-/***/ 3513:
+/***/ 1631:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var has = __webpack_require__(7642);
-var RequireObjectCoercible = __webpack_require__(8108);
-var callBound = __webpack_require__(1924);
+var has = __webpack_require__(9284);
+var RequireObjectCoercible = __webpack_require__(604);
+var callBound = __webpack_require__(7615);
 
 var $isEnumerable = callBound('Object.prototype.propertyIsEnumerable');
 
@@ -5809,18 +5809,18 @@ module.exports = function values(O) {
 
 /***/ }),
 
-/***/ 5869:
+/***/ 5861:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var define = __webpack_require__(7905);
-var callBind = __webpack_require__(5559);
+var define = __webpack_require__(7057);
+var callBind = __webpack_require__(2550);
 
-var implementation = __webpack_require__(3513);
-var getPolyfill = __webpack_require__(7164);
-var shim = __webpack_require__(6970);
+var implementation = __webpack_require__(1631);
+var getPolyfill = __webpack_require__(779);
+var shim = __webpack_require__(7256);
 
 var polyfill = callBind(getPolyfill(), Object);
 
@@ -5835,13 +5835,13 @@ module.exports = polyfill;
 
 /***/ }),
 
-/***/ 7905:
+/***/ 7057:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var keys = __webpack_require__(2215);
+var keys = __webpack_require__(806);
 var hasSymbols = typeof Symbol === 'function' && typeof Symbol('foo') === 'symbol';
 
 var toStr = Object.prototype.toString;
@@ -5901,24 +5901,24 @@ module.exports = defineProperties;
 
 /***/ }),
 
-/***/ 8108:
+/***/ 604:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(5751);
+module.exports = __webpack_require__(2559);
 
 
 /***/ }),
 
-/***/ 5751:
+/***/ 2559:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var GetIntrinsic = __webpack_require__(210);
+var GetIntrinsic = __webpack_require__(1801);
 
 var $TypeError = GetIntrinsic('%TypeError%');
 
@@ -5934,13 +5934,13 @@ module.exports = function CheckObjectCoercible(value, optMessage) {
 
 /***/ }),
 
-/***/ 7164:
+/***/ 779:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var implementation = __webpack_require__(3513);
+var implementation = __webpack_require__(1631);
 
 module.exports = function getPolyfill() {
 	return typeof Object.values === 'function' ? Object.values : implementation;
@@ -5949,14 +5949,14 @@ module.exports = function getPolyfill() {
 
 /***/ }),
 
-/***/ 6970:
+/***/ 7256:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var getPolyfill = __webpack_require__(7164);
-var define = __webpack_require__(7905);
+var getPolyfill = __webpack_require__(779);
+var define = __webpack_require__(7057);
 
 module.exports = function shimValues() {
 	var polyfill = getPolyfill();
@@ -5971,7 +5971,7 @@ module.exports = function shimValues() {
 
 /***/ }),
 
-/***/ 2703:
+/***/ 5372:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -5984,7 +5984,7 @@ module.exports = function shimValues() {
 
 
 
-var ReactPropTypesSecret = __webpack_require__(414);
+var ReactPropTypesSecret = __webpack_require__(9567);
 
 function emptyFunction() {}
 function emptyFunctionWithReset() {}
@@ -6043,7 +6043,7 @@ module.exports = function() {
 
 /***/ }),
 
-/***/ 5697:
+/***/ 2652:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /**
@@ -6056,13 +6056,13 @@ module.exports = function() {
 if (false) { var throwOnDirectAccess, ReactIs; } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(2703)();
+  module.exports = __webpack_require__(5372)();
 }
 
 
 /***/ }),
 
-/***/ 414:
+/***/ 9567:
 /***/ (function(module) {
 
 "use strict";
@@ -6082,7 +6082,7 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
-/***/ 1775:
+/***/ 2541:
 /***/ (function(module) {
 
 "use strict";
@@ -6164,16 +6164,16 @@ module.exports = shallowCompare;
 
 /***/ }),
 
-/***/ 6063:
+/***/ 4185:
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
 // eslint-disable-next-line import/no-unresolved
-__webpack_require__(5453);
+__webpack_require__(17);
 
 
 /***/ }),
 
-/***/ 5533:
+/***/ 7617:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -6188,7 +6188,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _object = __webpack_require__(3533);
+var _object = __webpack_require__(4011);
 
 var _object2 = _interopRequireDefault(_object);
 
@@ -6196,41 +6196,41 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactAddonsShallowCompare = __webpack_require__(1775);
+var _reactAddonsShallowCompare = __webpack_require__(2541);
 
 var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-var _reactMomentProptypes = __webpack_require__(2605);
+var _reactMomentProptypes = __webpack_require__(6150);
 
 var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _airbnbPropTypes = __webpack_require__(4882);
 
-var _reactWithStyles = __webpack_require__(7224);
+var _reactWithStyles = __webpack_require__(3576);
 
 var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _defaultPhrases = __webpack_require__(8304);
+var _defaultPhrases = __webpack_require__(6030);
 
-var _getPhrasePropTypes = __webpack_require__(1983);
+var _getPhrasePropTypes = __webpack_require__(2893);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _getCalendarDaySettings = __webpack_require__(6732);
+var _getCalendarDaySettings = __webpack_require__(7475);
 
 var _getCalendarDaySettings2 = _interopRequireDefault(_getCalendarDaySettings);
 
-var _ModifiersShape = __webpack_require__(337);
+var _ModifiersShape = __webpack_require__(6747);
 
 var _ModifiersShape2 = _interopRequireDefault(_ModifiersShape);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -6656,7 +6656,7 @@ exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 
 /***/ }),
 
-/***/ 6419:
+/***/ 5986:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -6670,7 +6670,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _object = __webpack_require__(3533);
+var _object = __webpack_require__(4011);
 
 var _object2 = _interopRequireDefault(_object);
 
@@ -6678,69 +6678,69 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactAddonsShallowCompare = __webpack_require__(1775);
+var _reactAddonsShallowCompare = __webpack_require__(2541);
 
 var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-var _reactMomentProptypes = __webpack_require__(2605);
+var _reactMomentProptypes = __webpack_require__(6150);
 
 var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _airbnbPropTypes = __webpack_require__(4882);
 
-var _reactWithStyles = __webpack_require__(7224);
+var _reactWithStyles = __webpack_require__(3576);
 
 var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _defaultPhrases = __webpack_require__(8304);
+var _defaultPhrases = __webpack_require__(6030);
 
-var _getPhrasePropTypes = __webpack_require__(1983);
+var _getPhrasePropTypes = __webpack_require__(2893);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _CalendarWeek = __webpack_require__(650);
+var _CalendarWeek = __webpack_require__(4604);
 
 var _CalendarWeek2 = _interopRequireDefault(_CalendarWeek);
 
-var _CalendarDay = __webpack_require__(5533);
+var _CalendarDay = __webpack_require__(7617);
 
 var _CalendarDay2 = _interopRequireDefault(_CalendarDay);
 
-var _calculateDimension = __webpack_require__(403);
+var _calculateDimension = __webpack_require__(8607);
 
 var _calculateDimension2 = _interopRequireDefault(_calculateDimension);
 
-var _getCalendarMonthWeeks = __webpack_require__(7116);
+var _getCalendarMonthWeeks = __webpack_require__(5644);
 
 var _getCalendarMonthWeeks2 = _interopRequireDefault(_getCalendarMonthWeeks);
 
-var _isSameDay = __webpack_require__(1992);
+var _isSameDay = __webpack_require__(3923);
 
 var _isSameDay2 = _interopRequireDefault(_isSameDay);
 
-var _toISODateString = __webpack_require__(4162);
+var _toISODateString = __webpack_require__(1688);
 
 var _toISODateString2 = _interopRequireDefault(_toISODateString);
 
-var _ModifiersShape = __webpack_require__(337);
+var _ModifiersShape = __webpack_require__(6747);
 
 var _ModifiersShape2 = _interopRequireDefault(_ModifiersShape);
 
-var _ScrollableOrientationShape = __webpack_require__(1073);
+var _ScrollableOrientationShape = __webpack_require__(6553);
 
 var _ScrollableOrientationShape2 = _interopRequireDefault(_ScrollableOrientationShape);
 
-var _DayOfWeekShape = __webpack_require__(8182);
+var _DayOfWeekShape = __webpack_require__(243);
 
 var _DayOfWeekShape2 = _interopRequireDefault(_DayOfWeekShape);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -7062,7 +7062,7 @@ exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref) {
 
 /***/ }),
 
-/***/ 9137:
+/***/ 7938:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7076,7 +7076,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _object = __webpack_require__(3533);
+var _object = __webpack_require__(4011);
 
 var _object2 = _interopRequireDefault(_object);
 
@@ -7084,75 +7084,75 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactAddonsShallowCompare = __webpack_require__(1775);
+var _reactAddonsShallowCompare = __webpack_require__(2541);
 
 var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-var _reactMomentProptypes = __webpack_require__(2605);
+var _reactMomentProptypes = __webpack_require__(6150);
 
 var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _airbnbPropTypes = __webpack_require__(4882);
 
-var _reactWithStyles = __webpack_require__(7224);
+var _reactWithStyles = __webpack_require__(3576);
 
 var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _consolidatedEvents = __webpack_require__(7734);
+var _consolidatedEvents = __webpack_require__(8495);
 
-var _defaultPhrases = __webpack_require__(8304);
+var _defaultPhrases = __webpack_require__(6030);
 
-var _getPhrasePropTypes = __webpack_require__(1983);
+var _getPhrasePropTypes = __webpack_require__(2893);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _CalendarMonth = __webpack_require__(6419);
+var _CalendarMonth = __webpack_require__(5986);
 
 var _CalendarMonth2 = _interopRequireDefault(_CalendarMonth);
 
-var _isTransitionEndSupported = __webpack_require__(9826);
+var _isTransitionEndSupported = __webpack_require__(7978);
 
 var _isTransitionEndSupported2 = _interopRequireDefault(_isTransitionEndSupported);
 
-var _getTransformStyles = __webpack_require__(8926);
+var _getTransformStyles = __webpack_require__(8304);
 
 var _getTransformStyles2 = _interopRequireDefault(_getTransformStyles);
 
-var _getCalendarMonthWidth = __webpack_require__(6694);
+var _getCalendarMonthWidth = __webpack_require__(8964);
 
 var _getCalendarMonthWidth2 = _interopRequireDefault(_getCalendarMonthWidth);
 
-var _toISOMonthString = __webpack_require__(180);
+var _toISOMonthString = __webpack_require__(2705);
 
 var _toISOMonthString2 = _interopRequireDefault(_toISOMonthString);
 
-var _isPrevMonth = __webpack_require__(1491);
+var _isPrevMonth = __webpack_require__(3858);
 
 var _isPrevMonth2 = _interopRequireDefault(_isPrevMonth);
 
-var _isNextMonth = __webpack_require__(2376);
+var _isNextMonth = __webpack_require__(1310);
 
 var _isNextMonth2 = _interopRequireDefault(_isNextMonth);
 
-var _ModifiersShape = __webpack_require__(337);
+var _ModifiersShape = __webpack_require__(6747);
 
 var _ModifiersShape2 = _interopRequireDefault(_ModifiersShape);
 
-var _ScrollableOrientationShape = __webpack_require__(1073);
+var _ScrollableOrientationShape = __webpack_require__(6553);
 
 var _ScrollableOrientationShape2 = _interopRequireDefault(_ScrollableOrientationShape);
 
-var _DayOfWeekShape = __webpack_require__(8182);
+var _DayOfWeekShape = __webpack_require__(243);
 
 var _DayOfWeekShape2 = _interopRequireDefault(_DayOfWeekShape);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -7629,7 +7629,7 @@ exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref) {
 
 /***/ }),
 
-/***/ 650:
+/***/ 4604:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7644,13 +7644,13 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _airbnbPropTypes = __webpack_require__(4882);
 
-var _CalendarDay = __webpack_require__(5533);
+var _CalendarDay = __webpack_require__(7617);
 
 var _CalendarDay2 = _interopRequireDefault(_CalendarDay);
 
-var _CustomizableCalendarDay = __webpack_require__(1652);
+var _CustomizableCalendarDay = __webpack_require__(6698);
 
 var _CustomizableCalendarDay2 = _interopRequireDefault(_CustomizableCalendarDay);
 
@@ -7674,7 +7674,7 @@ CalendarWeek.propTypes = propTypes;
 
 /***/ }),
 
-/***/ 2814:
+/***/ 9588:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7711,7 +7711,7 @@ exports["default"] = ChevronDown;
 
 /***/ }),
 
-/***/ 6952:
+/***/ 1809:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7748,7 +7748,7 @@ exports["default"] = ChevronUp;
 
 /***/ }),
 
-/***/ 7798:
+/***/ 6973:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7786,7 +7786,7 @@ exports["default"] = CloseButton;
 
 /***/ }),
 
-/***/ 1652:
+/***/ 6698:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7801,7 +7801,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _object = __webpack_require__(3533);
+var _object = __webpack_require__(4011);
 
 var _object2 = _interopRequireDefault(_object);
 
@@ -7809,39 +7809,39 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactAddonsShallowCompare = __webpack_require__(1775);
+var _reactAddonsShallowCompare = __webpack_require__(2541);
 
 var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-var _reactMomentProptypes = __webpack_require__(2605);
+var _reactMomentProptypes = __webpack_require__(6150);
 
 var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _airbnbPropTypes = __webpack_require__(4882);
 
-var _reactWithStyles = __webpack_require__(7224);
+var _reactWithStyles = __webpack_require__(3576);
 
 var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _defaultPhrases = __webpack_require__(8304);
+var _defaultPhrases = __webpack_require__(6030);
 
-var _getPhrasePropTypes = __webpack_require__(1983);
+var _getPhrasePropTypes = __webpack_require__(2893);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _getCalendarDaySettings = __webpack_require__(6732);
+var _getCalendarDaySettings = __webpack_require__(7475);
 
 var _getCalendarDaySettings2 = _interopRequireDefault(_getCalendarDaySettings);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
-var _DefaultTheme = __webpack_require__(6729);
+var _DefaultTheme = __webpack_require__(8158);
 
 var _DefaultTheme2 = _interopRequireDefault(_DefaultTheme);
 
@@ -8297,7 +8297,7 @@ exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 
 /***/ }),
 
-/***/ 5860:
+/***/ 8665:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8312,7 +8312,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _object = __webpack_require__(3533);
+var _object = __webpack_require__(4011);
 
 var _object2 = _interopRequireDefault(_object);
 
@@ -8320,89 +8320,89 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactAddonsShallowCompare = __webpack_require__(1775);
+var _reactAddonsShallowCompare = __webpack_require__(2541);
 
 var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _airbnbPropTypes = __webpack_require__(4882);
 
-var _reactWithStyles = __webpack_require__(7224);
+var _reactWithStyles = __webpack_require__(3576);
 
 var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _throttle = __webpack_require__(3493);
+var _throttle = __webpack_require__(8172);
 
 var _throttle2 = _interopRequireDefault(_throttle);
 
-var _isTouchDevice = __webpack_require__(1465);
+var _isTouchDevice = __webpack_require__(5834);
 
 var _isTouchDevice2 = _interopRequireDefault(_isTouchDevice);
 
-var _reactOutsideClickHandler = __webpack_require__(9834);
+var _reactOutsideClickHandler = __webpack_require__(6606);
 
 var _reactOutsideClickHandler2 = _interopRequireDefault(_reactOutsideClickHandler);
 
-var _defaultPhrases = __webpack_require__(8304);
+var _defaultPhrases = __webpack_require__(6030);
 
-var _getPhrasePropTypes = __webpack_require__(1983);
+var _getPhrasePropTypes = __webpack_require__(2893);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _CalendarMonthGrid = __webpack_require__(9137);
+var _CalendarMonthGrid = __webpack_require__(7938);
 
 var _CalendarMonthGrid2 = _interopRequireDefault(_CalendarMonthGrid);
 
-var _DayPickerNavigation = __webpack_require__(6476);
+var _DayPickerNavigation = __webpack_require__(3895);
 
 var _DayPickerNavigation2 = _interopRequireDefault(_DayPickerNavigation);
 
-var _DayPickerKeyboardShortcuts = __webpack_require__(6708);
+var _DayPickerKeyboardShortcuts = __webpack_require__(600);
 
 var _DayPickerKeyboardShortcuts2 = _interopRequireDefault(_DayPickerKeyboardShortcuts);
 
-var _getNumberOfCalendarMonthWeeks = __webpack_require__(3065);
+var _getNumberOfCalendarMonthWeeks = __webpack_require__(4112);
 
 var _getNumberOfCalendarMonthWeeks2 = _interopRequireDefault(_getNumberOfCalendarMonthWeeks);
 
-var _getCalendarMonthWidth = __webpack_require__(6694);
+var _getCalendarMonthWidth = __webpack_require__(8964);
 
 var _getCalendarMonthWidth2 = _interopRequireDefault(_getCalendarMonthWidth);
 
-var _calculateDimension = __webpack_require__(403);
+var _calculateDimension = __webpack_require__(8607);
 
 var _calculateDimension2 = _interopRequireDefault(_calculateDimension);
 
-var _getActiveElement = __webpack_require__(5446);
+var _getActiveElement = __webpack_require__(5814);
 
 var _getActiveElement2 = _interopRequireDefault(_getActiveElement);
 
-var _isDayVisible = __webpack_require__(3720);
+var _isDayVisible = __webpack_require__(5713);
 
 var _isDayVisible2 = _interopRequireDefault(_isDayVisible);
 
-var _ModifiersShape = __webpack_require__(337);
+var _ModifiersShape = __webpack_require__(6747);
 
 var _ModifiersShape2 = _interopRequireDefault(_ModifiersShape);
 
-var _ScrollableOrientationShape = __webpack_require__(1073);
+var _ScrollableOrientationShape = __webpack_require__(6553);
 
 var _ScrollableOrientationShape2 = _interopRequireDefault(_ScrollableOrientationShape);
 
-var _DayOfWeekShape = __webpack_require__(8182);
+var _DayOfWeekShape = __webpack_require__(243);
 
 var _DayOfWeekShape2 = _interopRequireDefault(_DayOfWeekShape);
 
-var _CalendarInfoPositionShape = __webpack_require__(2003);
+var _CalendarInfoPositionShape = __webpack_require__(8182);
 
 var _CalendarInfoPositionShape2 = _interopRequireDefault(_CalendarInfoPositionShape);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -9880,7 +9880,7 @@ exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 
 /***/ }),
 
-/***/ 6708:
+/***/ 600:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9895,7 +9895,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _object = __webpack_require__(3533);
+var _object = __webpack_require__(4011);
 
 var _object2 = _interopRequireDefault(_object);
 
@@ -9903,25 +9903,25 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _airbnbPropTypes = __webpack_require__(4882);
 
-var _reactWithStyles = __webpack_require__(7224);
+var _reactWithStyles = __webpack_require__(3576);
 
-var _defaultPhrases = __webpack_require__(8304);
+var _defaultPhrases = __webpack_require__(6030);
 
-var _getPhrasePropTypes = __webpack_require__(1983);
+var _getPhrasePropTypes = __webpack_require__(2893);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _KeyboardShortcutRow = __webpack_require__(5804);
+var _KeyboardShortcutRow = __webpack_require__(5820);
 
 var _KeyboardShortcutRow2 = _interopRequireDefault(_KeyboardShortcutRow);
 
-var _CloseButton = __webpack_require__(7798);
+var _CloseButton = __webpack_require__(6973);
 
 var _CloseButton2 = _interopRequireDefault(_CloseButton);
 
@@ -10390,7 +10390,7 @@ exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref3) {
 
 /***/ }),
 
-/***/ 6476:
+/***/ 3895:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10402,7 +10402,7 @@ Object.defineProperty(exports, "__esModule", ({
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _object = __webpack_require__(3533);
+var _object = __webpack_require__(4011);
 
 var _object2 = _interopRequireDefault(_object);
 
@@ -10410,41 +10410,41 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _airbnbPropTypes = __webpack_require__(4882);
 
-var _reactWithStyles = __webpack_require__(7224);
+var _reactWithStyles = __webpack_require__(3576);
 
-var _defaultPhrases = __webpack_require__(8304);
+var _defaultPhrases = __webpack_require__(6030);
 
-var _getPhrasePropTypes = __webpack_require__(1983);
+var _getPhrasePropTypes = __webpack_require__(2893);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _LeftArrow = __webpack_require__(8601);
+var _LeftArrow = __webpack_require__(8);
 
 var _LeftArrow2 = _interopRequireDefault(_LeftArrow);
 
-var _RightArrow = __webpack_require__(7783);
+var _RightArrow = __webpack_require__(4921);
 
 var _RightArrow2 = _interopRequireDefault(_RightArrow);
 
-var _ChevronUp = __webpack_require__(6952);
+var _ChevronUp = __webpack_require__(1809);
 
 var _ChevronUp2 = _interopRequireDefault(_ChevronUp);
 
-var _ChevronDown = __webpack_require__(2814);
+var _ChevronDown = __webpack_require__(9588);
 
 var _ChevronDown2 = _interopRequireDefault(_ChevronDown);
 
-var _ScrollableOrientationShape = __webpack_require__(1073);
+var _ScrollableOrientationShape = __webpack_require__(6553);
 
 var _ScrollableOrientationShape2 = _interopRequireDefault(_ScrollableOrientationShape);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -10700,7 +10700,7 @@ exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 
 /***/ }),
 
-/***/ 9368:
+/***/ 6302:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10715,7 +10715,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _object = __webpack_require__(3533);
+var _object = __webpack_require__(4011);
 
 var _object2 = _interopRequireDefault(_object);
 
@@ -10723,73 +10723,73 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _reactMomentProptypes = __webpack_require__(2605);
+var _reactMomentProptypes = __webpack_require__(6150);
 
 var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _airbnbPropTypes = __webpack_require__(4882);
 
 var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _object3 = __webpack_require__(5869);
+var _object3 = __webpack_require__(5861);
 
 var _object4 = _interopRequireDefault(_object3);
 
-var _isTouchDevice = __webpack_require__(1465);
+var _isTouchDevice = __webpack_require__(5834);
 
 var _isTouchDevice2 = _interopRequireDefault(_isTouchDevice);
 
-var _defaultPhrases = __webpack_require__(8304);
+var _defaultPhrases = __webpack_require__(6030);
 
-var _getPhrasePropTypes = __webpack_require__(1983);
+var _getPhrasePropTypes = __webpack_require__(2893);
 
 var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
 
-var _isSameDay = __webpack_require__(1992);
+var _isSameDay = __webpack_require__(3923);
 
 var _isSameDay2 = _interopRequireDefault(_isSameDay);
 
-var _isAfterDay = __webpack_require__(6023);
+var _isAfterDay = __webpack_require__(7365);
 
 var _isAfterDay2 = _interopRequireDefault(_isAfterDay);
 
-var _getVisibleDays = __webpack_require__(1729);
+var _getVisibleDays = __webpack_require__(3268);
 
 var _getVisibleDays2 = _interopRequireDefault(_getVisibleDays);
 
-var _isDayVisible = __webpack_require__(3720);
+var _isDayVisible = __webpack_require__(5713);
 
 var _isDayVisible2 = _interopRequireDefault(_isDayVisible);
 
-var _toISODateString = __webpack_require__(4162);
+var _toISODateString = __webpack_require__(1688);
 
 var _toISODateString2 = _interopRequireDefault(_toISODateString);
 
-var _toISOMonthString = __webpack_require__(180);
+var _toISOMonthString = __webpack_require__(2705);
 
 var _toISOMonthString2 = _interopRequireDefault(_toISOMonthString);
 
-var _ScrollableOrientationShape = __webpack_require__(1073);
+var _ScrollableOrientationShape = __webpack_require__(6553);
 
 var _ScrollableOrientationShape2 = _interopRequireDefault(_ScrollableOrientationShape);
 
-var _DayOfWeekShape = __webpack_require__(8182);
+var _DayOfWeekShape = __webpack_require__(243);
 
 var _DayOfWeekShape2 = _interopRequireDefault(_DayOfWeekShape);
 
-var _CalendarInfoPositionShape = __webpack_require__(2003);
+var _CalendarInfoPositionShape = __webpack_require__(8182);
 
 var _CalendarInfoPositionShape2 = _interopRequireDefault(_CalendarInfoPositionShape);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
-var _DayPicker = __webpack_require__(5860);
+var _DayPicker = __webpack_require__(8665);
 
 var _DayPicker2 = _interopRequireDefault(_DayPicker);
 
@@ -11750,7 +11750,7 @@ DayPickerSingleDateController.defaultProps = defaultProps;
 
 /***/ }),
 
-/***/ 5804:
+/***/ 5820:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11762,7 +11762,7 @@ Object.defineProperty(exports, "__esModule", ({
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _object = __webpack_require__(3533);
+var _object = __webpack_require__(4011);
 
 var _object2 = _interopRequireDefault(_object);
 
@@ -11770,13 +11770,13 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _airbnbPropTypes = __webpack_require__(4882);
 
-var _reactWithStyles = __webpack_require__(7224);
+var _reactWithStyles = __webpack_require__(3576);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -11866,7 +11866,7 @@ exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
 
 /***/ }),
 
-/***/ 8601:
+/***/ 8:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11903,7 +11903,7 @@ exports["default"] = LeftArrow;
 
 /***/ }),
 
-/***/ 7783:
+/***/ 4921:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11940,7 +11940,7 @@ exports["default"] = RightArrow;
 
 /***/ }),
 
-/***/ 5388:
+/***/ 257:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -11986,7 +11986,7 @@ var MODIFIER_KEY_NAMES = exports.MODIFIER_KEY_NAMES = new Set(['Shift', 'Control
 
 /***/ }),
 
-/***/ 8304:
+/***/ 6030:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -12206,41 +12206,19 @@ var CalendarDayPhrases = exports.CalendarDayPhrases = {
 
 /***/ }),
 
-/***/ 5453:
+/***/ 17:
 /***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var _registerCSSInterfaceWithDefaultTheme = __webpack_require__(5135);
+var _registerCSSInterfaceWithDefaultTheme = __webpack_require__(9305);
 
 var _registerCSSInterfaceWithDefaultTheme2 = _interopRequireDefault(_registerCSSInterfaceWithDefaultTheme);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 (0, _registerCSSInterfaceWithDefaultTheme2['default'])();
-
-/***/ }),
-
-/***/ 2003:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _propTypes = __webpack_require__(5697);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _constants = __webpack_require__(5388);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports["default"] = _propTypes2['default'].oneOf([_constants.INFO_POSITION_TOP, _constants.INFO_POSITION_BOTTOM, _constants.INFO_POSITION_BEFORE, _constants.INFO_POSITION_AFTER]);
 
 /***/ }),
 
@@ -12254,19 +12232,19 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports["default"] = _propTypes2['default'].oneOf(_constants.WEEKDAYS);
+exports["default"] = _propTypes2['default'].oneOf([_constants.INFO_POSITION_TOP, _constants.INFO_POSITION_BOTTOM, _constants.INFO_POSITION_BEFORE, _constants.INFO_POSITION_AFTER]);
 
 /***/ }),
 
-/***/ 337:
+/***/ 243:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12276,11 +12254,33 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _constants = __webpack_require__(257);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports["default"] = _propTypes2['default'].oneOf(_constants.WEEKDAYS);
+
+/***/ }),
+
+/***/ 6747:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var _propTypes = __webpack_require__(2652);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _airbnbPropTypes = __webpack_require__(4882);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -12312,7 +12312,7 @@ exports["default"] = (0, _airbnbPropTypes.and)([_propTypes2['default'].instanceO
 
 /***/ }),
 
-/***/ 1073:
+/***/ 6553:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12322,11 +12322,11 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -12334,7 +12334,7 @@ exports["default"] = _propTypes2['default'].oneOf([_constants.HORIZONTAL_ORIENTA
 
 /***/ }),
 
-/***/ 6729:
+/***/ 8158:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -12541,7 +12541,7 @@ exports["default"] = {
 
 /***/ }),
 
-/***/ 403:
+/***/ 8607:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -12586,7 +12586,7 @@ function calculateDimension(el, axis) {
 
 /***/ }),
 
-/***/ 5446:
+/***/ 5814:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -12602,7 +12602,7 @@ function getActiveElement() {
 
 /***/ }),
 
-/***/ 6732:
+/***/ 7475:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12613,11 +12613,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = getCalendarDaySettings;
 
-var _getPhrase = __webpack_require__(4748);
+var _getPhrase = __webpack_require__(7098);
 
 var _getPhrase2 = _interopRequireDefault(_getPhrase);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -12661,7 +12661,7 @@ function getCalendarDaySettings(day, ariaLabelFormat, daySize, modifiers, phrase
 
 /***/ }),
 
-/***/ 7116:
+/***/ 5644:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12676,7 +12676,7 @@ var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -12726,7 +12726,7 @@ function getCalendarMonthWeeks(month, enableOutsideDays) {
 
 /***/ }),
 
-/***/ 6694:
+/***/ 8964:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -12742,7 +12742,7 @@ function getCalendarMonthWidth(daySize, calendarMonthPadding) {
 
 /***/ }),
 
-/***/ 3065:
+/***/ 4112:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12774,7 +12774,7 @@ function getNumberOfCalendarMonthWeeks(month) {
 
 /***/ }),
 
-/***/ 4748:
+/***/ 7098:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -12796,7 +12796,7 @@ function getPhrase(phrase, args) {
 
 /***/ }),
 
-/***/ 1983:
+/***/ 2893:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12807,11 +12807,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = getPhrasePropTypes;
 
-var _object = __webpack_require__(3533);
+var _object = __webpack_require__(4011);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -12827,7 +12827,7 @@ function getPhrasePropTypes(defaultPhrases) {
 
 /***/ }),
 
-/***/ 8926:
+/***/ 8304:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -12848,7 +12848,7 @@ function getTransformStyles(transformValue) {
 
 /***/ }),
 
-/***/ 1729:
+/***/ 3268:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12863,7 +12863,7 @@ var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _toISOMonthString = __webpack_require__(180);
+var _toISOMonthString = __webpack_require__(2705);
 
 var _toISOMonthString2 = _interopRequireDefault(_toISOMonthString);
 
@@ -12918,7 +12918,7 @@ function getVisibleDays(month, numberOfMonths, enableOutsideDays, withoutTransit
 
 /***/ }),
 
-/***/ 6023:
+/***/ 7365:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12933,11 +12933,11 @@ var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _isBeforeDay = __webpack_require__(2933);
+var _isBeforeDay = __webpack_require__(862);
 
 var _isBeforeDay2 = _interopRequireDefault(_isBeforeDay);
 
-var _isSameDay = __webpack_require__(1992);
+var _isSameDay = __webpack_require__(3923);
 
 var _isSameDay2 = _interopRequireDefault(_isSameDay);
 
@@ -12950,7 +12950,7 @@ function isAfterDay(a, b) {
 
 /***/ }),
 
-/***/ 2933:
+/***/ 862:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12986,7 +12986,7 @@ function isBeforeDay(a, b) {
 
 /***/ }),
 
-/***/ 3720:
+/***/ 5713:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12997,11 +12997,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = isDayVisible;
 
-var _isBeforeDay = __webpack_require__(2933);
+var _isBeforeDay = __webpack_require__(862);
 
 var _isBeforeDay2 = _interopRequireDefault(_isBeforeDay);
 
-var _isAfterDay = __webpack_require__(6023);
+var _isAfterDay = __webpack_require__(7365);
 
 var _isAfterDay2 = _interopRequireDefault(_isAfterDay);
 
@@ -13019,7 +13019,7 @@ function isDayVisible(day, month, numberOfMonths, enableOutsideDays) {
 
 /***/ }),
 
-/***/ 2376:
+/***/ 1310:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13034,7 +13034,7 @@ var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _isSameMonth = __webpack_require__(34);
+var _isSameMonth = __webpack_require__(4669);
 
 var _isSameMonth2 = _interopRequireDefault(_isSameMonth);
 
@@ -13047,7 +13047,7 @@ function isNextMonth(a, b) {
 
 /***/ }),
 
-/***/ 1491:
+/***/ 3858:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13062,7 +13062,7 @@ var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _isSameMonth = __webpack_require__(34);
+var _isSameMonth = __webpack_require__(4669);
 
 var _isSameMonth2 = _interopRequireDefault(_isSameMonth);
 
@@ -13075,7 +13075,7 @@ function isPrevMonth(a, b) {
 
 /***/ }),
 
-/***/ 1992:
+/***/ 3923:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13101,7 +13101,7 @@ function isSameDay(a, b) {
 
 /***/ }),
 
-/***/ 34:
+/***/ 4669:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13127,7 +13127,7 @@ function isSameMonth(a, b) {
 
 /***/ }),
 
-/***/ 9826:
+/***/ 7978:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -13143,7 +13143,7 @@ function isTransitionEndSupported() {
 
 /***/ }),
 
-/***/ 5135:
+/***/ 9305:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13154,11 +13154,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = registerCSSInterfaceWithDefaultTheme;
 
-var _reactWithStylesInterfaceCss = __webpack_require__(5906);
+var _reactWithStylesInterfaceCss = __webpack_require__(5553);
 
 var _reactWithStylesInterfaceCss2 = _interopRequireDefault(_reactWithStylesInterfaceCss);
 
-var _registerInterfaceWithDefaultTheme = __webpack_require__(8874);
+var _registerInterfaceWithDefaultTheme = __webpack_require__(1980);
 
 var _registerInterfaceWithDefaultTheme2 = _interopRequireDefault(_registerInterfaceWithDefaultTheme);
 
@@ -13170,7 +13170,7 @@ function registerCSSInterfaceWithDefaultTheme() {
 
 /***/ }),
 
-/***/ 8874:
+/***/ 1980:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13181,11 +13181,11 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = registerInterfaceWithDefaultTheme;
 
-var _ThemedStyleSheet = __webpack_require__(4202);
+var _ThemedStyleSheet = __webpack_require__(9349);
 
 var _ThemedStyleSheet2 = _interopRequireDefault(_ThemedStyleSheet);
 
-var _DefaultTheme = __webpack_require__(6729);
+var _DefaultTheme = __webpack_require__(8158);
 
 var _DefaultTheme2 = _interopRequireDefault(_DefaultTheme);
 
@@ -13198,7 +13198,7 @@ function registerInterfaceWithDefaultTheme(reactWithStylesInterface) {
 
 /***/ }),
 
-/***/ 4162:
+/***/ 1688:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13213,11 +13213,11 @@ var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _toMomentObject = __webpack_require__(1526);
+var _toMomentObject = __webpack_require__(2008);
 
 var _toMomentObject2 = _interopRequireDefault(_toMomentObject);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -13230,7 +13230,7 @@ function toISODateString(date, currentFormat) {
 
 /***/ }),
 
-/***/ 180:
+/***/ 2705:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13245,11 +13245,11 @@ var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _toMomentObject = __webpack_require__(1526);
+var _toMomentObject = __webpack_require__(2008);
 
 var _toMomentObject2 = _interopRequireDefault(_toMomentObject);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -13262,7 +13262,7 @@ function toISOMonthString(date, currentFormat) {
 
 /***/ }),
 
-/***/ 1526:
+/***/ 2008:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13277,7 +13277,7 @@ var _moment = __webpack_require__(6292);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _constants = __webpack_require__(5388);
+var _constants = __webpack_require__(257);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -13290,7 +13290,7 @@ function toMomentObject(dateString, customFormat) {
 
 /***/ }),
 
-/***/ 9921:
+/***/ 4821:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -13313,20 +13313,20 @@ exports.isSuspense=function(a){return t(a)===p};
 
 /***/ }),
 
-/***/ 9864:
+/***/ 338:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
 if (true) {
-  module.exports = __webpack_require__(9921);
+  module.exports = __webpack_require__(4821);
 } else {}
 
 
 /***/ }),
 
-/***/ 8333:
+/***/ 9217:
 /***/ (function(module) {
 
 var messages = {
@@ -13452,12 +13452,12 @@ module.exports = {
 
 /***/ }),
 
-/***/ 2605:
+/***/ 6150:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 var moment = __webpack_require__(6292);
-var momentValidationWrapper = __webpack_require__(914);
-var core = __webpack_require__(8333);
+var momentValidationWrapper = __webpack_require__(3416);
+var core = __webpack_require__(9217);
 
 module.exports = {
 
@@ -13499,7 +13499,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 914:
+/***/ 3416:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 var moment = __webpack_require__(6292);
@@ -13526,7 +13526,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 6428:
+/***/ 2239:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13542,19 +13542,19 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _airbnbPropTypes = __webpack_require__(8341);
+var _airbnbPropTypes = __webpack_require__(4882);
 
-var _consolidatedEvents = __webpack_require__(7734);
+var _consolidatedEvents = __webpack_require__(8495);
 
-var _object = __webpack_require__(5869);
+var _object = __webpack_require__(5861);
 
 var _object2 = _interopRequireDefault(_object);
 
-var _document = __webpack_require__(2483);
+var _document = __webpack_require__(6789);
 
 var _document2 = _interopRequireDefault(_document);
 
@@ -13765,25 +13765,24 @@ OutsideClickHandler.defaultProps = defaultProps;
 
 /***/ }),
 
-/***/ 9834:
+/***/ 6606:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 // eslint-disable-next-line import/no-unresolved
-module.exports = __webpack_require__(6428);
+module.exports = __webpack_require__(2239);
 
 
 /***/ }),
 
-/***/ 5464:
+/***/ 235:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 var e=__webpack_require__(9196),n={display:"block",opacity:0,position:"absolute",top:0,left:0,height:"100%",width:"100%",overflow:"hidden",pointerEvents:"none",zIndex:-1},t=function(t){var r=t.onResize,u=e.useRef();return function(n,t){var r=function(){return n.current&&n.current.contentDocument&&n.current.contentDocument.defaultView};function u(){t();var e=r();e&&e.addEventListener("resize",t)}e.useEffect((function(){return r()?u():n.current&&n.current.addEventListener&&n.current.addEventListener("load",u),function(){var e=r();e&&"function"==typeof e.removeEventListener&&e.removeEventListener("resize",t)}}),[])}(u,(function(){return r(u)})),e.createElement("iframe",{style:n,src:"about:blank",ref:u,"aria-hidden":!0,tabIndex:-1,frameBorder:0})},r=function(e){return{width:null!=e?e.offsetWidth:null,height:null!=e?e.offsetHeight:null}};module.exports=function(n){void 0===n&&(n=r);var u=e.useState(n(null)),o=u[0],i=u[1],c=e.useCallback((function(e){return i(n(e.current))}),[n]);return[e.useMemo((function(){return e.createElement(t,{onResize:c})}),[c]),o]};
-//# sourceMappingURL=index.js.map
 
 
 /***/ }),
 
-/***/ 2166:
+/***/ 5080:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -13801,7 +13800,7 @@ var DIRECTIONS = exports.DIRECTIONS = {
 
 /***/ }),
 
-/***/ 9885:
+/***/ 6640:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13811,7 +13810,7 @@ Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -13825,7 +13824,7 @@ exports["default"] = _propTypes2['default'].shape({
 
 /***/ }),
 
-/***/ 8232:
+/***/ 3688:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 var __webpack_unused_export__;
@@ -13833,21 +13832,21 @@ __webpack_unused_export__ = ({
   value: true
 });
 
-var _arrayPrototype = __webpack_require__(6650);
+var _arrayPrototype = __webpack_require__(116);
 
 var _arrayPrototype2 = _interopRequireDefault(_arrayPrototype);
 
-var _globalCache = __webpack_require__(1884);
+var _globalCache = __webpack_require__(5371);
 
 var _globalCache2 = _interopRequireDefault(_globalCache);
 
-var _constants = __webpack_require__(8966);
+var _constants = __webpack_require__(6930);
 
-var _getClassName = __webpack_require__(6280);
+var _getClassName = __webpack_require__(1689);
 
 var _getClassName2 = _interopRequireDefault(_getClassName);
 
-var _separateStyles2 = __webpack_require__(4333);
+var _separateStyles2 = __webpack_require__(1881);
 
 var _separateStyles3 = _interopRequireDefault(_separateStyles2);
 
@@ -13906,7 +13905,7 @@ exports["default"] = { create: create, resolve: resolve };
 
 /***/ }),
 
-/***/ 8966:
+/***/ 6930:
 /***/ (function(__unused_webpack_module, exports) {
 
 Object.defineProperty(exports, "__esModule", ({
@@ -13920,7 +13919,7 @@ exports.MAX_SPECIFICITY = MAX_SPECIFICITY;
 
 /***/ }),
 
-/***/ 6280:
+/***/ 1689:
 /***/ (function(__unused_webpack_module, exports) {
 
 Object.defineProperty(exports, "__esModule", ({
@@ -13942,7 +13941,7 @@ function getClassName(namespace, styleName) {
 
 /***/ }),
 
-/***/ 4333:
+/***/ 1881:
 /***/ (function(__unused_webpack_module, exports) {
 
 Object.defineProperty(exports, "__esModule", ({
@@ -13991,16 +13990,16 @@ exports["default"] = separateStyles;
 
 /***/ }),
 
-/***/ 5906:
+/***/ 5553:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 // eslint-disable-next-line import/no-unresolved
-module.exports = __webpack_require__(8232)["default"];
+module.exports = __webpack_require__(3688)["default"];
 
 
 /***/ }),
 
-/***/ 4202:
+/***/ 9349:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -14102,7 +14101,7 @@ exports["default"] = {
 
 /***/ }),
 
-/***/ 7224:
+/***/ 3576:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14119,7 +14118,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.withStyles = withStyles;
 
-var _object = __webpack_require__(3533);
+var _object = __webpack_require__(4011);
 
 var _object2 = _interopRequireDefault(_object);
 
@@ -14127,21 +14126,21 @@ var _react = __webpack_require__(9196);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _propTypes = __webpack_require__(5697);
+var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _hoistNonReactStatics = __webpack_require__(682);
+var _hoistNonReactStatics = __webpack_require__(3166);
 
 var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-var _constants = __webpack_require__(2166);
+var _constants = __webpack_require__(5080);
 
-var _brcast = __webpack_require__(9885);
+var _brcast = __webpack_require__(6640);
 
 var _brcast2 = _interopRequireDefault(_brcast);
 
-var _ThemedStyleSheet = __webpack_require__(4202);
+var _ThemedStyleSheet = __webpack_require__(9349);
 
 var _ThemedStyleSheet2 = _interopRequireDefault(_ThemedStyleSheet);
 
@@ -14357,13 +14356,13 @@ function withStyles(styleFn) {
 
 /***/ }),
 
-/***/ 682:
+/***/ 3166:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 
 
-var reactIs = __webpack_require__(9864);
+var reactIs = __webpack_require__(338);
 
 /**
  * Copyright 2015, Yahoo! Inc.
@@ -14692,6 +14691,8 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalNavigationGroup": function() { return /* reexport */ NavigationGroup; },
   "__experimentalNavigationItem": function() { return /* reexport */ NavigationItem; },
   "__experimentalNavigationMenu": function() { return /* reexport */ NavigationMenu; },
+  "__experimentalNavigatorBackButton": function() { return /* reexport */ navigator_back_button_component; },
+  "__experimentalNavigatorButton": function() { return /* reexport */ navigator_button_component; },
   "__experimentalNavigatorProvider": function() { return /* reexport */ navigator_provider_component; },
   "__experimentalNavigatorScreen": function() { return /* reexport */ navigator_screen_component; },
   "__experimentalNumberControl": function() { return /* reexport */ number_control; },
@@ -14804,7 +14805,7 @@ var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
-var classnames = __webpack_require__(4184);
+var classnames = __webpack_require__(4403);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 ;// CONCATENATED MODULE: external ["wp","i18n"]
 var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
@@ -17301,7 +17302,7 @@ const close_close = (0,external_wp_element_namespaceObject.createElement)(extern
   d: "M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
 }));
 /* harmony default export */ var library_close = (close_close);
-//# sourceMappingURL=close.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/popover/utils.js
 // @ts-nocheck
 
@@ -17610,7 +17611,7 @@ function offsetIframe(rect, ownerDocument, container) {
   const iframeRect = frameElement.getBoundingClientRect();
   return new defaultView.DOMRect(rect.left + iframeRect.left, rect.top + iframeRect.top, rect.width, rect.height);
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: external ["wp","deprecated"]
 var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
@@ -17644,7 +17645,7 @@ function Dashicon(_ref) {
 }
 
 /* harmony default export */ var dashicon = (Dashicon);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/icon/index.js
 
 
@@ -17717,7 +17718,7 @@ function Icon(_ref) {
 }
 
 /* harmony default export */ var build_module_icon = (Icon);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","warning"]
 var external_wp_warning_namespaceObject = window["wp"]["warning"];
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/context/context-system-provider.js
@@ -17829,7 +17830,7 @@ const BaseContextSystemProvider = _ref2 => {
 };
 
 const ContextSystemProvider = (0,external_wp_element_namespaceObject.memo)(BaseContextSystemProvider);
-//# sourceMappingURL=context-system-provider.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/context/constants.js
 const REACT_TYPEOF_KEY = '$$typeof';
 const COMPONENT_NAMESPACE = 'data-wp-component';
@@ -17841,7 +17842,7 @@ const CONTEXT_COMPONENT_NAMESPACE = 'data-wp-c5tc8t';
  */
 
 const CONNECT_STATIC_NAMESPACE = '__contextSystemKey__';
-//# sourceMappingURL=constants.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/context/utils.js
 /**
  * Internal dependencies
@@ -17882,9 +17883,9 @@ function getConnectedNamespace() {
     [CONNECTED_NAMESPACE]: true
   };
 }
-//# sourceMappingURL=utils.js.map
+
 // EXTERNAL MODULE: ./node_modules/memize/index.js
-var memize = __webpack_require__(9588);
+var memize = __webpack_require__(9756);
 var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/context/get-styled-class-name-from-key.js
 /**
@@ -17905,7 +17906,7 @@ function getStyledClassName(namespace) {
 }
 
 const getStyledClassNameFromKey = memize_default()(getStyledClassName);
-//# sourceMappingURL=get-styled-class-name-from-key.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/@emotion/cache/node_modules/@emotion/sheet/dist/emotion-sheet.browser.esm.js
 /*
 
@@ -19309,7 +19310,7 @@ var unitlessKeys = {
 /* harmony default export */ var unitless_browser_esm = (unitlessKeys);
 
 // EXTERNAL MODULE: ./node_modules/@emotion/memoize/dist/memoize.browser.esm.js
-var memoize_browser_esm = __webpack_require__(2717);
+var memoize_browser_esm = __webpack_require__(3059);
 ;// CONCATENATED MODULE: ./node_modules/@emotion/serialize/dist/emotion-serialize.browser.esm.js
 
 
@@ -20030,7 +20031,7 @@ const useCx = () => {
   }, [cache]);
   return cx;
 };
-//# sourceMappingURL=use-cx.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/context/use-context-system.js
 /**
  * WordPress dependencies
@@ -20102,7 +20103,7 @@ function useContextSystem(props, namespace) {
   finalComponentProps.className = classes;
   return finalComponentProps;
 }
-//# sourceMappingURL=use-context-system.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/context/context-connect.js
 /**
  * External dependencies
@@ -20223,7 +20224,7 @@ function hasConnectNamespace(Component, match) {
 
   return false;
 }
-//# sourceMappingURL=context-connect.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/visually-hidden/styles.js
 /** @type {import('react').CSSProperties} */
 const visuallyHidden = {
@@ -20239,7 +20240,7 @@ const visuallyHidden = {
   width: '1px',
   wordWrap: 'normal'
 };
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/@emotion/styled/node_modules/@emotion/is-prop-valid/dist/emotion-is-prop-valid.browser.esm.js
 
 
@@ -20452,7 +20453,7 @@ const View = emotion_styled_base_browser_esm("div",  true ? {
 View.selector = '.components-view';
 View.displayName = 'View';
 /* harmony default export */ var component = (View);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/visually-hidden/component.js
 
 
@@ -20465,7 +20466,7 @@ View.displayName = 'View';
 
 /**
  * @param {import('../ui/context').WordPressComponentProps<{ children: import('react').ReactNode }, 'div'>} props
- * @param {import('react').Ref<any>}                                                                        forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                               forwardedRef
  */
 
 function VisuallyHidden(props, forwardedRef) {
@@ -20502,7 +20503,7 @@ function VisuallyHidden(props, forwardedRef) {
 
 const ConnectedVisuallyHidden = contextConnect(VisuallyHidden, 'VisuallyHidden');
 /* harmony default export */ var visually_hidden_component = (ConnectedVisuallyHidden);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/button/index.js
 
 
@@ -20679,7 +20680,7 @@ function Button(props, ref) {
   }, describedBy)));
 }
 /* harmony default export */ var build_module_button = ((0,external_wp_element_namespaceObject.forwardRef)(Button));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/scroll-lock/index.js
 /**
  * WordPress dependencies
@@ -20739,7 +20740,7 @@ function ScrollLock() {
   }, []);
   return null;
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/context.js
 // @ts-nocheck
 
@@ -20757,7 +20758,7 @@ const SlotFillContext = (0,external_wp_element_namespaceObject.createContext)({
   subscribe: () => {}
 });
 /* harmony default export */ var context = (SlotFillContext);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/use-slot.js
 // @ts-nocheck
 
@@ -20794,7 +20795,7 @@ const useSlot = name => {
 };
 
 /* harmony default export */ var use_slot = (useSlot);
-//# sourceMappingURL=use-slot.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/fill.js
 
 
@@ -20874,7 +20875,7 @@ const Fill = props => (0,external_wp_element_namespaceObject.createElement)(cont
 });
 
 /* harmony default export */ var fill = (Fill);
-//# sourceMappingURL=fill.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/slot.js
 
 
@@ -20984,7 +20985,7 @@ const Slot = props => (0,external_wp_element_namespaceObject.createElement)(cont
 });
 
 /* harmony default export */ var slot = (Slot);
-//# sourceMappingURL=slot.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/bubbles-virtually/slot-fill-context.js
 // @ts-nocheck
 
@@ -21005,7 +21006,7 @@ const slot_fill_context_SlotFillContext = (0,external_wp_element_namespaceObject
   unregisterFill: () => {}
 });
 /* harmony default export */ var slot_fill_context = (slot_fill_context_SlotFillContext);
-//# sourceMappingURL=slot-fill-context.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/bubbles-virtually/use-slot.js
 // @ts-nocheck
 
@@ -21043,7 +21044,7 @@ function use_slot_useSlot(name) {
     unregisterFill
   };
 }
-//# sourceMappingURL=use-slot.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/rng.js
 // Unique ID creation requires a high quality random # generator. In the browser we therefore
 // require the crypto API and do not support built-in fallback to lower quality random number
@@ -21166,7 +21167,7 @@ function StyleProvider(_ref) {
     value: cache
   }, children);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/bubbles-virtually/fill.js
 
 // @ts-nocheck
@@ -21233,7 +21234,7 @@ function fill_Fill(_ref) {
   }, children);
   return (0,external_wp_element_namespaceObject.createPortal)(wrappedChildren, slot.ref.current);
 }
-//# sourceMappingURL=fill.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/bubbles-virtually/slot.js
 
 
@@ -21279,7 +21280,7 @@ function slot_Slot(_ref, forwardedRef) {
 }
 
 /* harmony default export */ var bubbles_virtually_slot = ((0,external_wp_element_namespaceObject.forwardRef)(slot_Slot));
-//# sourceMappingURL=slot.js.map
+
 ;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
 var external_wp_isShallowEqual_namespaceObject = window["wp"]["isShallowEqual"];
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_namespaceObject);
@@ -21382,7 +21383,7 @@ function SlotFillProvider(_ref) {
     value: registry
   }, children);
 }
-//# sourceMappingURL=slot-fill-provider.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/provider.js
 
 // @ts-nocheck
@@ -21509,7 +21510,7 @@ class provider_SlotFillProvider extends external_wp_element_namespaceObject.Comp
   }
 
 }
-//# sourceMappingURL=provider.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/index.js
 
 
@@ -21576,7 +21577,7 @@ function createSlotFill(name) {
   };
 }
 
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/animate/index.js
 /**
  * External dependencies
@@ -21646,7 +21647,7 @@ function Animate(_ref) {
     })
   });
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/popover/index.js
 
 
@@ -22130,7 +22131,7 @@ function PopoverSlot(_ref2, ref) {
 PopoverContainer.Slot = (0,external_wp_element_namespaceObject.forwardRef)(PopoverSlot);
 PopoverContainer.__unstableSlotNameProvider = slotNameContext.Provider;
 /* harmony default export */ var popover = (PopoverContainer);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/shortcut/index.js
 
 
@@ -22180,7 +22181,7 @@ function Shortcut(_ref) {
 }
 
 /* harmony default export */ var build_module_shortcut = (Shortcut);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tooltip/index.js
 
 // @ts-nocheck
@@ -22407,7 +22408,7 @@ function Tooltip(props) {
 }
 
 /* harmony default export */ var tooltip = (Tooltip);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/alignment-matrix-control/utils.js
 /**
  * External dependencies
@@ -22472,9 +22473,9 @@ function getAlignmentIndex() {
   const index = ALIGNMENTS.indexOf(item);
   return index > -1 ? index : undefined;
 }
-//# sourceMappingURL=utils.js.map
+
 // EXTERNAL MODULE: ./node_modules/hoist-non-react-statics/dist/hoist-non-react-statics.cjs.js
-var hoist_non_react_statics_cjs = __webpack_require__(8679);
+var hoist_non_react_statics_cjs = __webpack_require__(1281);
 ;// CONCATENATED MODULE: ./node_modules/@emotion/react/dist/emotion-react.browser.esm.js
 
 
@@ -22821,7 +22822,7 @@ function rgba() {
   let alpha = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
   return w(hexValue).alpha(alpha).toRgbString();
 }
-//# sourceMappingURL=colors.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/colors-values.js
 /**
  * External dependencies
@@ -23003,7 +23004,7 @@ const COLORS = { ...BASE,
   ui: UI
 };
 /* harmony default export */ var colors_values = ((/* unused pure expression or super */ null && (COLORS)));
-//# sourceMappingURL=colors-values.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/reduce-motion.js
 /**
  * Allows users to opt-out of animations via OS-level preferences.
@@ -23037,7 +23038,7 @@ function reduceMotion() {
 		}
 	`;
 }
-//# sourceMappingURL=reduce-motion.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/alignment-matrix-control/styles/alignment-matrix-control-styles.js
 
 
@@ -23101,7 +23102,7 @@ const Cell = emotion_styled_base_browser_esm("span",  true ? {
   name: "rjf3ub",
   styles: "appearance:none;border:none;box-sizing:border-box;margin:0;display:flex;position:relative;outline:none;align-items:center;justify-content:center;padding:0"
 } : 0);
-//# sourceMappingURL=alignment-matrix-control-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/alignment-matrix-control/cell.js
 
 
@@ -23135,7 +23136,7 @@ function cell_Cell(_ref) {
     role: "presentation"
   })));
 }
-//# sourceMappingURL=cell.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/reakit-utils/es/useSealedState.js
 
 
@@ -24833,7 +24834,7 @@ const alignment_matrix_control_icon_styles_Point = emotion_styled_base_browser_e
   target: "elqsdmc0"
 } : 0)("height:2px;width:2px;", pointBase, ";", alignment_matrix_control_icon_styles_pointActive, ";" + ( true ? "" : 0));
 const alignment_matrix_control_icon_styles_Cell = Cell;
-//# sourceMappingURL=alignment-matrix-control-icon-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/alignment-matrix-control/icon.js
 
 
@@ -24879,7 +24880,7 @@ function AlignmentMatrixControlIcon(_ref) {
     }));
   }));
 }
-//# sourceMappingURL=icon.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/alignment-matrix-control/index.js
 
 
@@ -24965,7 +24966,7 @@ function AlignmentMatrixControl(_ref) {
   }))));
 }
 AlignmentMatrixControl.Icon = AlignmentMatrixControlIcon;
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/tslib/tslib.es6.js
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -26645,7 +26646,7 @@ var shouldForward = function (key) { return !isValidMotionProp(key); };
  * actually required.
  */
 try {
-    var emotionIsPropValid_1 = (__webpack_require__(3804)/* ["default"] */ .Z);
+    var emotionIsPropValid_1 = (__webpack_require__(9268)/* ["default"] */ .Z);
     shouldForward = function (key) {
         // Handle events explicitly as Emotion validates them all as true
         if (key.startsWith("on")) {
@@ -33874,7 +33875,7 @@ const FlexContext = (0,external_wp_element_namespaceObject.createContext)({
   flexItemDisplay: undefined
 });
 const useFlexContext = () => (0,external_wp_element_namespaceObject.useContext)(FlexContext);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/flex/styles.js
 function styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -33915,7 +33916,7 @@ const ItemsRow =  true ? {
   name: "1pwxzk4",
   styles: ">*{min-width:0;}"
 } : 0;
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/flex/flex-item/hook.js
 /**
  * External dependencies
@@ -33951,7 +33952,7 @@ function useFlexItem(props) {
     className: classes
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/flex/flex-block/hook.js
 /**
  * Internal dependencies
@@ -33970,7 +33971,7 @@ function useFlexBlock(props) {
   });
   return flexItemProps;
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/flex/flex-block/component.js
 
 
@@ -33983,7 +33984,7 @@ function useFlexBlock(props) {
 
 /**
  * @param {import('../../ui/context').WordPressComponentProps<import('../types').FlexBlockProps, 'div'>} props
- * @param {import('react').Ref<any>}                                                                     forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                            forwardedRef
  */
 
 function FlexBlock(props, forwardedRef) {
@@ -34006,7 +34007,7 @@ function FlexBlock(props, forwardedRef) {
 
 const ConnectedFlexBlock = contextConnect(FlexBlock, 'FlexBlock');
 /* harmony default export */ var flex_block_component = (ConnectedFlexBlock);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/flex/flex-item/component.js
 
 
@@ -34019,7 +34020,7 @@ const ConnectedFlexBlock = contextConnect(FlexBlock, 'FlexBlock');
 
 /**
  * @param {import('../../ui/context').WordPressComponentProps<import('../types').FlexItemProps, 'div'>} props
- * @param {import('react').Ref<any>}                                                                    forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                           forwardedRef
  */
 
 function FlexItem(props, forwardedRef) {
@@ -34042,7 +34043,7 @@ function FlexItem(props, forwardedRef) {
 
 const ConnectedFlexItem = contextConnect(FlexItem, 'FlexItem');
 /* harmony default export */ var flex_item_component = (ConnectedFlexItem);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/utils/use-responsive-value.js
 /**
  * WordPress dependencies
@@ -34104,7 +34105,7 @@ function useResponsiveValue(values) {
     index >= array.length ? array.length - 1 : index]
   );
 }
-//# sourceMappingURL=use-responsive-value.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/utils/space.js
 /**
  * A real number or something parsable as a number
@@ -34142,7 +34143,7 @@ function space(value) {
 
   return `calc(${GRID_BASE} * ${value})`;
 }
-//# sourceMappingURL=space.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/rtl.js
 /**
  * External dependencies
@@ -34242,7 +34243,7 @@ function rtl() {
  */
 
 rtl.watch = () => (0,external_wp_i18n_namespaceObject.isRTL)();
-//# sourceMappingURL=rtl.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/flex/flex/hook.js
 /**
  * External dependencies
@@ -34345,7 +34346,7 @@ function useFlex(props) {
     isColumn
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/flex/flex/component.js
 
 
@@ -34359,7 +34360,7 @@ function useFlex(props) {
 
 /**
  * @param {import('../../ui/context').WordPressComponentProps<import('../types').FlexProps, 'div'>} props
- * @param {import('react').Ref<any>}                                                                forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                       forwardedRef
  */
 
 function component_Flex(props, forwardedRef) {
@@ -34411,7 +34412,7 @@ function component_Flex(props, forwardedRef) {
 
 const ConnectedFlex = contextConnect(component_Flex, 'Flex');
 /* harmony default export */ var flex_component = (ConnectedFlex);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/truncate/styles.js
 function truncate_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -34423,7 +34424,7 @@ const Truncate =  true ? {
   name: "hdknak",
   styles: "display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"
 } : 0;
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/truncate/utils.js
 /**
  * External dependencies
@@ -34520,7 +34521,7 @@ function truncateContent() {
   const truncatedContent = ellipsizeMode !== TRUNCATE_TYPE.auto ? truncateMiddle(words, truncateHead, truncateTail, ellipsis) : words;
   return truncatedContent;
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/truncate/hook.js
 /**
  * External dependencies
@@ -34573,7 +34574,7 @@ function useTruncate(props) {
     children: truncatedContent
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/utils/colors.js
 /**
  * External dependencies
@@ -34668,7 +34669,7 @@ function getOptimalTextShade(backgroundColor) {
   const result = getOptimalTextColor(backgroundColor);
   return result === '#000000' ? 'dark' : 'light';
 }
-//# sourceMappingURL=colors.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/config-values.js
 /**
  * Internal dependencies
@@ -34748,7 +34749,7 @@ const TOGGLE_GROUP_CONTROL_PROPS = {
   transitionTimingFunction: 'cubic-bezier(0.08, 0.52, 0.52, 1)',
   transitionTimingFunctionControl: 'cubic-bezier(0.12, 0.8, 0.32, 1)'
 });
-//# sourceMappingURL=config-values.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/text/styles.js
 function text_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -34774,9 +34775,9 @@ const upperCase =  true ? {
   name: "50zrmy",
   styles: "text-transform:uppercase"
 } : 0;
-//# sourceMappingURL=styles.js.map
+
 // EXTERNAL MODULE: ./node_modules/highlight-words-core/dist/index.js
-var dist = __webpack_require__(6928);
+var dist = __webpack_require__(3138);
 ;// CONCATENATED MODULE: ./packages/components/build-module/text/utils.js
 /**
  * External dependencies
@@ -34919,7 +34920,7 @@ function createHighlighterText(_ref) {
   });
   return textContent;
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/utils/font-size.js
 /**
  * External dependencies
@@ -34965,7 +34966,7 @@ function getHeadingFontSize() {
   const headingSize = `fontSizeH${size}`;
   return config_values[headingSize];
 }
-//# sourceMappingURL=font-size.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/text/get-line-height.js
 /**
  * External dependencies
@@ -35000,7 +35001,7 @@ function getLineHeight(adjustLineHeightForInnerControls, lineHeight) {
 
   return value;
 }
-//# sourceMappingURL=get-line-height.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/text/hook.js
 function hook_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -35163,7 +35164,7 @@ function useText(props) {
     children: truncate ? truncateProps.children : content
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/text/component.js
 
 
@@ -35176,7 +35177,7 @@ function useText(props) {
 
 /**
  * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'span'>} props
- * @param {import('react').Ref<any>}                                                         forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                forwardedRef
  */
 
 function component_Text(props, forwardedRef) {
@@ -35207,7 +35208,7 @@ function component_Text(props, forwardedRef) {
 
 const ConnectedText = contextConnect(component_Text, 'Text');
 /* harmony default export */ var text_component = (ConnectedText);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/styles/input-control-styles.js
 
 
@@ -35480,7 +35481,7 @@ const Suffix = emotion_styled_base_browser_esm("span",  true ? {
   name: "jgf79h",
   styles: "align-items:center;align-self:stretch;box-sizing:border-box;display:flex"
 } : 0);
-//# sourceMappingURL=input-control-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/backdrop.js
 
 
@@ -35509,7 +35510,7 @@ function Backdrop(_ref) {
 
 const MemoizedBackdrop = (0,external_wp_element_namespaceObject.memo)(Backdrop);
 /* harmony default export */ var backdrop = (MemoizedBackdrop);
-//# sourceMappingURL=backdrop.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/label.js
 
 
@@ -35539,7 +35540,7 @@ function label_Label(_ref) {
     htmlFor: htmlFor
   }, props), children);
 }
-//# sourceMappingURL=label.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/input-base.js
 
 
@@ -35637,157 +35638,1592 @@ function InputBase(_ref, ref) {
   );
 }
 /* harmony default export */ var input_base = ((0,external_wp_element_namespaceObject.forwardRef)(InputBase));
-//# sourceMappingURL=input-base.js.map
-;// CONCATENATED MODULE: ./node_modules/react-use-gesture/dist/reactusegesture.esm.js
 
-
-// vector add
-function addV(v1, v2) {
-  return v1.map(function (v, i) {
-    return v + v2[i];
-  });
-} // vector substract
-
-function subV(v1, v2) {
-  return v1.map(function (v, i) {
-    return v - v2[i];
-  });
+;// CONCATENATED MODULE: ./node_modules/@use-gesture/core/dist/maths-b2a210f4.esm.js
+function maths_b2a210f4_esm_clamp(v, min, max) {
+  return Math.max(min, Math.min(v, max));
 }
-/**
- * Calculates distance
- * @param movement the difference between current and initial vectors
- * @returns distance
- */
+const V = {
+  toVector(v, fallback) {
+    if (v === undefined) v = fallback;
+    return Array.isArray(v) ? v : [v, v];
+  },
 
-function calculateDistance(movement) {
-  return Math.hypot.apply(Math, movement);
-}
-function calculateAllGeometry(movement, delta) {
-  if (delta === void 0) {
-    delta = movement;
+  add(v1, v2) {
+    return [v1[0] + v2[0], v1[1] + v2[1]];
+  },
+
+  sub(v1, v2) {
+    return [v1[0] - v2[0], v1[1] - v2[1]];
+  },
+
+  addTo(v1, v2) {
+    v1[0] += v2[0];
+    v1[1] += v2[1];
+  },
+
+  subTo(v1, v2) {
+    v1[0] -= v2[0];
+    v1[1] -= v2[1];
   }
 
-  var dl = calculateDistance(delta);
-  var alpha = dl === 0 ? 0 : 1 / dl;
-  var direction = delta.map(function (v) {
-    return alpha * v;
-  });
-  var distance = calculateDistance(movement);
-  return {
-    distance: distance,
-    direction: direction
-  };
-}
-/**
- * Calculates all kinematics
- * @template T the expected vector type
- * @param movement the difference between current and initial vectors
- * @param delta the difference between current and previous vectors
- * @param delta_t the time difference between current and previous timestamps
- * @returns all kinematics
- */
-
-function calculateAllKinematics(movement, delta, dt) {
-  var dl = calculateDistance(delta);
-  var alpha = dl === 0 ? 0 : 1 / dl;
-  var beta = dt === 0 ? 0 : 1 / dt;
-  var velocity = beta * dl;
-  var velocities = delta.map(function (v) {
-    return beta * v;
-  });
-  var direction = delta.map(function (v) {
-    return alpha * v;
-  });
-  var distance = calculateDistance(movement);
-  return {
-    velocities: velocities,
-    velocity: velocity,
-    distance: distance,
-    direction: direction
-  };
-}
-/**
- * Because IE doesn't support `Math.sign` function, so we use the polyfill version of the function.
- * This polyfill function is suggested by Mozilla:
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sign#Polyfill
- * @param x target number
- */
-
-function sign(x) {
-  if (Math.sign) return Math.sign(x);
-  return Number(x > 0) - Number(x < 0) || +x;
-}
-
-function minMax(value, min, max) {
-  return Math.max(min, Math.min(value, max));
-} // Based on @aholachek ;)
-// https://twitter.com/chpwn/status/285540192096497664
-// iOS constant = 0.55
-// https://medium.com/@nathangitter/building-fluid-interfaces-ios-swift-9732bb934bf5
-
-
-function rubberband2(distance, constant) {
-  // default constant from the article is 0.7
-  return Math.pow(distance, constant * 5);
-}
+};
 
 function rubberband(distance, dimension, constant) {
-  if (dimension === 0 || Math.abs(dimension) === Infinity) return rubberband2(distance, constant);
+  if (dimension === 0 || Math.abs(dimension) === Infinity) return Math.pow(distance, constant * 5);
   return distance * dimension * constant / (dimension + constant * distance);
 }
 
-function rubberbandIfOutOfBounds(position, min, max, constant) {
-  if (constant === void 0) {
-    constant = 0.15;
-  }
-
-  if (constant === 0) return minMax(position, min, max);
+function rubberbandIfOutOfBounds(position, min, max, constant = 0.15) {
+  if (constant === 0) return maths_b2a210f4_esm_clamp(position, min, max);
   if (position < min) return -rubberband(min - position, max - min, constant) + min;
   if (position > max) return +rubberband(position - max, max - min, constant) + max;
   return position;
 }
+function computeRubberband(bounds, [Vx, Vy], [Rx, Ry]) {
+  const [[X0, X1], [Y0, Y1]] = bounds;
+  return [rubberbandIfOutOfBounds(Vx, X0, X1, Rx), rubberbandIfOutOfBounds(Vy, Y0, Y1, Ry)];
+}
 
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
+
+
+;// CONCATENATED MODULE: ./node_modules/@use-gesture/core/dist/actions-5ad85d2f.esm.js
+
+
+function actions_5ad85d2f_esm_defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function actions_5ad85d2f_esm_ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function actions_5ad85d2f_esm_objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = null != arguments[i] ? arguments[i] : {};
+    i % 2 ? actions_5ad85d2f_esm_ownKeys(Object(source), !0).forEach(function (key) {
+      actions_5ad85d2f_esm_defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : actions_5ad85d2f_esm_ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
+  }
+
+  return target;
+}
+
+const EVENT_TYPE_MAP = {
+  pointer: {
+    start: 'down',
+    change: 'move',
+    end: 'up'
+  },
+  mouse: {
+    start: 'down',
+    change: 'move',
+    end: 'up'
+  },
+  touch: {
+    start: 'start',
+    change: 'move',
+    end: 'end'
+  },
+  gesture: {
+    start: 'start',
+    change: 'change',
+    end: 'end'
+  }
+};
+
+function capitalize(string) {
+  if (!string) return '';
+  return string[0].toUpperCase() + string.slice(1);
+}
+
+function toHandlerProp(device, action = '', capture = false) {
+  const deviceProps = EVENT_TYPE_MAP[device];
+  const actionKey = deviceProps ? deviceProps[action] || action : action;
+  return 'on' + capitalize(device) + capitalize(actionKey) + (capture ? 'Capture' : '');
+}
+const pointerCaptureEvents = ['gotpointercapture', 'lostpointercapture'];
+function parseProp(prop) {
+  let eventKey = prop.substring(2).toLowerCase();
+  const passive = !!~eventKey.indexOf('passive');
+  if (passive) eventKey = eventKey.replace('passive', '');
+  const captureKey = pointerCaptureEvents.includes(eventKey) ? 'capturecapture' : 'capture';
+  const capture = !!~eventKey.indexOf(captureKey);
+  if (capture) eventKey = eventKey.replace('capture', '');
+  return {
+    device: eventKey,
+    capture,
+    passive
+  };
+}
+function toDomEventType(device, action = '') {
+  const deviceProps = EVENT_TYPE_MAP[device];
+  const actionKey = deviceProps ? deviceProps[action] || action : action;
+  return device + actionKey;
+}
+function isTouch(event) {
+  return 'touches' in event;
+}
+
+function getCurrentTargetTouchList(event) {
+  return Array.from(event.touches).filter(e => {
+    var _event$currentTarget, _event$currentTarget$;
+
+    return e.target === event.currentTarget || ((_event$currentTarget = event.currentTarget) === null || _event$currentTarget === void 0 ? void 0 : (_event$currentTarget$ = _event$currentTarget.contains) === null || _event$currentTarget$ === void 0 ? void 0 : _event$currentTarget$.call(_event$currentTarget, e.target));
+  });
+}
+
+function getTouchList(event) {
+  return event.type === 'touchend' || event.type === 'touchcancel' ? event.changedTouches : event.targetTouches;
+}
+
+function getValueEvent(event) {
+  return isTouch(event) ? getTouchList(event)[0] : event;
+}
+
+function distanceAngle(P1, P2) {
+  const dx = P2.clientX - P1.clientX;
+  const dy = P2.clientY - P1.clientY;
+  const cx = (P2.clientX + P1.clientX) / 2;
+  const cy = (P2.clientY + P1.clientY) / 2;
+  const distance = Math.hypot(dx, dy);
+  const angle = -(Math.atan2(dx, dy) * 180) / Math.PI;
+  const origin = [cx, cy];
+  return {
+    angle,
+    distance,
+    origin
+  };
+}
+function touchIds(event) {
+  return getCurrentTargetTouchList(event).map(touch => touch.identifier);
+}
+function touchDistanceAngle(event, ids) {
+  const [P1, P2] = Array.from(event.touches).filter(touch => ids.includes(touch.identifier));
+  return distanceAngle(P1, P2);
+}
+function pointerId(event) {
+  const valueEvent = getValueEvent(event);
+  return isTouch(event) ? valueEvent.identifier : valueEvent.pointerId;
+}
+function pointerValues(event) {
+  const valueEvent = getValueEvent(event);
+  return [valueEvent.clientX, valueEvent.clientY];
+}
+const LINE_HEIGHT = 40;
+const PAGE_HEIGHT = 800;
+function wheelValues(event) {
+  let {
+    deltaX,
+    deltaY,
+    deltaMode
+  } = event;
+
+  if (deltaMode === 1) {
+    deltaX *= LINE_HEIGHT;
+    deltaY *= LINE_HEIGHT;
+  } else if (deltaMode === 2) {
+    deltaX *= PAGE_HEIGHT;
+    deltaY *= PAGE_HEIGHT;
+  }
+
+  return [deltaX, deltaY];
+}
+function scrollValues(event) {
+  var _ref, _ref2;
+
+  const {
+    scrollX,
+    scrollY,
+    scrollLeft,
+    scrollTop
+  } = event.currentTarget;
+  return [(_ref = scrollX !== null && scrollX !== void 0 ? scrollX : scrollLeft) !== null && _ref !== void 0 ? _ref : 0, (_ref2 = scrollY !== null && scrollY !== void 0 ? scrollY : scrollTop) !== null && _ref2 !== void 0 ? _ref2 : 0];
+}
+function getEventDetails(event) {
+  const payload = {};
+  if ('buttons' in event) payload.buttons = event.buttons;
+
+  if ('shiftKey' in event) {
+    const {
+      shiftKey,
+      altKey,
+      metaKey,
+      ctrlKey
+    } = event;
+    Object.assign(payload, {
+      shiftKey,
+      altKey,
+      metaKey,
+      ctrlKey
+    });
+  }
+
+  return payload;
+}
+
+function call(v, ...args) {
+  if (typeof v === 'function') {
+    return v(...args);
+  } else {
+    return v;
   }
 }
+function actions_5ad85d2f_esm_noop() {}
+function chain(...fns) {
+  if (fns.length === 0) return actions_5ad85d2f_esm_noop;
+  if (fns.length === 1) return fns[0];
+  return function () {
+    let result;
 
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
+    for (const fn of fns) {
+      result = fn.apply(this, arguments) || result;
+    }
+
+    return result;
+  };
+}
+function assignDefault(value, fallback) {
+  return Object.assign({}, fallback, value || {});
 }
 
-function reactusegesture_esm_extends() {
-  reactusegesture_esm_extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
+const BEFORE_LAST_KINEMATICS_DELAY = 32;
+class Engine {
+  constructor(ctrl, args, key) {
+    this.ctrl = ctrl;
+    this.args = args;
+    this.key = key;
 
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
+    if (!this.state) {
+      this.state = {};
+      this.computeValues([0, 0]);
+      this.computeInitial();
+      if (this.init) this.init();
+      this.reset();
+    }
+  }
+
+  get state() {
+    return this.ctrl.state[this.key];
+  }
+
+  set state(state) {
+    this.ctrl.state[this.key] = state;
+  }
+
+  get shared() {
+    return this.ctrl.state.shared;
+  }
+
+  get eventStore() {
+    return this.ctrl.gestureEventStores[this.key];
+  }
+
+  get timeoutStore() {
+    return this.ctrl.gestureTimeoutStores[this.key];
+  }
+
+  get config() {
+    return this.ctrl.config[this.key];
+  }
+
+  get sharedConfig() {
+    return this.ctrl.config.shared;
+  }
+
+  get handler() {
+    return this.ctrl.handlers[this.key];
+  }
+
+  reset() {
+    const {
+      state,
+      shared,
+      ingKey,
+      args
+    } = this;
+    shared[ingKey] = state._active = state.active = state._blocked = state._force = false;
+    state._step = [false, false];
+    state.intentional = false;
+    state._movement = [0, 0];
+    state._distance = [0, 0];
+    state._direction = [0, 0];
+    state._delta = [0, 0];
+    state._bounds = [[-Infinity, Infinity], [-Infinity, Infinity]];
+    state.args = args;
+    state.axis = undefined;
+    state.memo = undefined;
+    state.elapsedTime = 0;
+    state.direction = [0, 0];
+    state.distance = [0, 0];
+    state.overflow = [0, 0];
+    state._movementBound = [false, false];
+    state.velocity = [0, 0];
+    state.movement = [0, 0];
+    state.delta = [0, 0];
+    state.timeStamp = 0;
+  }
+
+  start(event) {
+    const state = this.state;
+    const config = this.config;
+
+    if (!state._active) {
+      this.reset();
+      this.computeInitial();
+      state._active = true;
+      state.target = event.target;
+      state.currentTarget = event.currentTarget;
+      state.lastOffset = config.from ? call(config.from, state) : state.offset;
+      state.offset = state.lastOffset;
+    }
+
+    state.startTime = state.timeStamp = event.timeStamp;
+  }
+
+  computeValues(values) {
+    const state = this.state;
+    state._values = values;
+    state.values = this.config.transform(values);
+  }
+
+  computeInitial() {
+    const state = this.state;
+    state._initial = state._values;
+    state.initial = state.values;
+  }
+
+  compute(event) {
+    const {
+      state,
+      config,
+      shared
+    } = this;
+    state.args = this.args;
+    let dt = 0;
+
+    if (event) {
+      state.event = event;
+      if (config.preventDefault && event.cancelable) state.event.preventDefault();
+      state.type = event.type;
+      shared.touches = this.ctrl.pointerIds.size || this.ctrl.touchIds.size;
+      shared.locked = !!document.pointerLockElement;
+      Object.assign(shared, getEventDetails(event));
+      shared.down = shared.pressed = shared.buttons % 2 === 1 || shared.touches > 0;
+      dt = event.timeStamp - state.timeStamp;
+      state.timeStamp = event.timeStamp;
+      state.elapsedTime = state.timeStamp - state.startTime;
+    }
+
+    if (state._active) {
+      const _absoluteDelta = state._delta.map(Math.abs);
+
+      V.addTo(state._distance, _absoluteDelta);
+    }
+
+    const [_m0, _m1] = state._movement;
+    const [t0, t1] = config.threshold;
+    const {
+      _step,
+      values
+    } = state;
+
+    if (config.hasCustomTransform) {
+      if (_step[0] === false) _step[0] = Math.abs(_m0) >= t0 && values[0];
+      if (_step[1] === false) _step[1] = Math.abs(_m1) >= t1 && values[1];
+    } else {
+      if (_step[0] === false) _step[0] = Math.abs(_m0) >= t0 && Math.sign(_m0) * t0;
+      if (_step[1] === false) _step[1] = Math.abs(_m1) >= t1 && Math.sign(_m1) * t1;
+    }
+
+    state.intentional = _step[0] !== false || _step[1] !== false;
+    if (!state.intentional) return;
+    const movement = [0, 0];
+
+    if (config.hasCustomTransform) {
+      const [v0, v1] = values;
+      movement[0] = _step[0] !== false ? v0 - _step[0] : 0;
+      movement[1] = _step[1] !== false ? v1 - _step[1] : 0;
+    } else {
+      movement[0] = _step[0] !== false ? _m0 - _step[0] : 0;
+      movement[1] = _step[1] !== false ? _m1 - _step[1] : 0;
+    }
+
+    if (this.intent) this.intent(movement);
+
+    if (state._active && !state._blocked || state.active) {
+      state.first = state._active && !state.active;
+      state.last = !state._active && state.active;
+      state.active = shared[this.ingKey] = state._active;
+
+      if (event) {
+        if (state.first) {
+          if ('bounds' in config) state._bounds = call(config.bounds, state);
+          if (this.setup) this.setup();
+        }
+
+        state.movement = movement;
+        const previousOffset = state.offset;
+        this.computeOffset();
+
+        if (!state.last || dt > BEFORE_LAST_KINEMATICS_DELAY) {
+          state.delta = V.sub(state.offset, previousOffset);
+          const absoluteDelta = state.delta.map(Math.abs);
+          V.addTo(state.distance, absoluteDelta);
+          state.direction = state.delta.map(Math.sign);
+          state._direction = state._delta.map(Math.sign);
+
+          if (!state.first && dt > 0) {
+            state.velocity = [absoluteDelta[0] / dt, absoluteDelta[1] / dt];
+          }
         }
       }
     }
 
-    return target;
-  };
+    const [ox, oy] = state.offset;
+    const [[x0, x1], [y0, y1]] = state._bounds;
+    state.overflow = [ox < x0 ? -1 : ox > x1 ? 1 : 0, oy < y0 ? -1 : oy > y1 ? 1 : 0];
+    state._movementBound[0] = state.overflow[0] ? state._movementBound[0] === false ? state._movement[0] : state._movementBound[0] : false;
+    state._movementBound[1] = state.overflow[1] ? state._movementBound[1] === false ? state._movement[1] : state._movementBound[1] : false;
+    const rubberband = state._active ? config.rubberband || [0, 0] : [0, 0];
+    state.offset = computeRubberband(state._bounds, state.offset, rubberband);
+    this.computeMovement();
+  }
 
-  return reactusegesture_esm_extends.apply(this, arguments);
+  emit() {
+    const state = this.state;
+    const shared = this.shared;
+    const config = this.config;
+    if (!state._active) this.clean();
+    if ((state._blocked || !state.intentional) && !state._force && !config.triggerAllEvents) return;
+    const memo = this.handler(actions_5ad85d2f_esm_objectSpread2(actions_5ad85d2f_esm_objectSpread2(actions_5ad85d2f_esm_objectSpread2({}, shared), state), {}, {
+      [this.aliasKey]: state.values
+    }));
+    if (memo !== undefined) state.memo = memo;
+  }
+
+  clean() {
+    this.eventStore.clean();
+    this.timeoutStore.clean();
+  }
+
 }
 
-function reactusegesture_esm_inheritsLoose(subClass, superClass) {
-  subClass.prototype = Object.create(superClass.prototype);
-  subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
+function selectAxis([dx, dy]) {
+  const d = Math.abs(dx) - Math.abs(dy);
+  if (d > 0) return 'x';
+  if (d < 0) return 'y';
+  return undefined;
 }
 
-function reactusegesture_esm_objectWithoutPropertiesLoose(source, excluded) {
+function restrictVectorToAxis(v, axis) {
+  switch (axis) {
+    case 'x':
+      v[1] = 0;
+      break;
+
+    case 'y':
+      v[0] = 0;
+      break;
+  }
+}
+
+class CoordinatesEngine extends Engine {
+  constructor(...args) {
+    super(...args);
+
+    actions_5ad85d2f_esm_defineProperty(this, "aliasKey", 'xy');
+  }
+
+  reset() {
+    super.reset();
+    this.state.axis = undefined;
+  }
+
+  init() {
+    this.state.offset = [0, 0];
+    this.state.lastOffset = [0, 0];
+  }
+
+  computeOffset() {
+    this.state.offset = V.add(this.state.lastOffset, this.state.movement);
+  }
+
+  computeMovement() {
+    this.state.movement = V.sub(this.state.offset, this.state.lastOffset);
+  }
+
+  intent(v) {
+    this.state.axis = this.state.axis || selectAxis(v);
+    this.state._blocked = (this.config.lockDirection || !!this.config.axis) && !this.state.axis || !!this.config.axis && this.config.axis !== this.state.axis;
+    if (this.state._blocked) return;
+
+    if (this.config.axis || this.config.lockDirection) {
+      restrictVectorToAxis(v, this.state.axis);
+    }
+  }
+
+}
+
+const identity = v => v;
+const DEFAULT_RUBBERBAND = 0.15;
+const commonConfigResolver = {
+  enabled(value = true) {
+    return value;
+  },
+
+  preventDefault(value = false) {
+    return value;
+  },
+
+  triggerAllEvents(value = false) {
+    return value;
+  },
+
+  rubberband(value = 0) {
+    switch (value) {
+      case true:
+        return [DEFAULT_RUBBERBAND, DEFAULT_RUBBERBAND];
+
+      case false:
+        return [0, 0];
+
+      default:
+        return V.toVector(value);
+    }
+  },
+
+  from(value) {
+    if (typeof value === 'function') return value;
+    if (value != null) return V.toVector(value);
+  },
+
+  transform(value, _k, config) {
+    const transform = value || config.shared.transform;
+    this.hasCustomTransform = !!transform;
+
+    if (false) {}
+
+    return transform || identity;
+  },
+
+  threshold(value) {
+    return V.toVector(value, 0);
+  }
+
+};
+
+if (false) {}
+
+const coordinatesConfigResolver = actions_5ad85d2f_esm_objectSpread2(actions_5ad85d2f_esm_objectSpread2({}, commonConfigResolver), {}, {
+  axis(_v, _k, {
+    axis
+  }) {
+    this.lockDirection = axis === 'lock';
+    if (!this.lockDirection) return axis;
+  },
+
+  bounds(value = {}) {
+    if (typeof value === 'function') {
+      return state => coordinatesConfigResolver.bounds(value(state));
+    }
+
+    if ('current' in value) {
+      return () => value.current;
+    }
+
+    if (typeof HTMLElement === 'function' && value instanceof HTMLElement) {
+      return value;
+    }
+
+    const {
+      left = -Infinity,
+      right = Infinity,
+      top = -Infinity,
+      bottom = Infinity
+    } = value;
+    return [[left, right], [top, bottom]];
+  }
+
+});
+
+const DISPLACEMENT = 10;
+const KEYS_DELTA_MAP = {
+  ArrowRight: (factor = 1) => [DISPLACEMENT * factor, 0],
+  ArrowLeft: (factor = 1) => [-DISPLACEMENT * factor, 0],
+  ArrowUp: (factor = 1) => [0, -DISPLACEMENT * factor],
+  ArrowDown: (factor = 1) => [0, DISPLACEMENT * factor]
+};
+class DragEngine extends CoordinatesEngine {
+  constructor(...args) {
+    super(...args);
+
+    actions_5ad85d2f_esm_defineProperty(this, "ingKey", 'dragging');
+  }
+
+  reset() {
+    super.reset();
+    const state = this.state;
+    state._pointerId = undefined;
+    state._pointerActive = false;
+    state._keyboardActive = false;
+    state._preventScroll = false;
+    state._delayed = false;
+    state.swipe = [0, 0];
+    state.tap = false;
+    state.canceled = false;
+    state.cancel = this.cancel.bind(this);
+  }
+
+  setup() {
+    const state = this.state;
+
+    if (state._bounds instanceof HTMLElement) {
+      const boundRect = state._bounds.getBoundingClientRect();
+
+      const targetRect = state.currentTarget.getBoundingClientRect();
+      const _bounds = {
+        left: boundRect.left - targetRect.left + state.offset[0],
+        right: boundRect.right - targetRect.right + state.offset[0],
+        top: boundRect.top - targetRect.top + state.offset[1],
+        bottom: boundRect.bottom - targetRect.bottom + state.offset[1]
+      };
+      state._bounds = coordinatesConfigResolver.bounds(_bounds);
+    }
+  }
+
+  cancel() {
+    const state = this.state;
+    if (state.canceled) return;
+    state.canceled = true;
+    state._active = false;
+    setTimeout(() => {
+      this.compute();
+      this.emit();
+    }, 0);
+  }
+
+  setActive() {
+    this.state._active = this.state._pointerActive || this.state._keyboardActive;
+  }
+
+  clean() {
+    this.pointerClean();
+    this.state._pointerActive = false;
+    this.state._keyboardActive = false;
+    super.clean();
+  }
+
+  pointerDown(event) {
+    const config = this.config;
+    const state = this.state;
+    if (event.buttons != null && (Array.isArray(config.pointerButtons) ? !config.pointerButtons.includes(event.buttons) : config.pointerButtons !== -1 && config.pointerButtons !== event.buttons)) return;
+    this.ctrl.setEventIds(event);
+
+    if (config.pointerCapture) {
+      event.target.setPointerCapture(event.pointerId);
+    }
+
+    if (state._pointerActive) return;
+    this.start(event);
+    this.setupPointer(event);
+    state._pointerId = pointerId(event);
+    state._pointerActive = true;
+    this.computeValues(pointerValues(event));
+    this.computeInitial();
+
+    if (config.preventScroll) {
+      this.setupScrollPrevention(event);
+    } else if (config.delay > 0) {
+      this.setupDelayTrigger(event);
+    } else {
+      this.startPointerDrag(event);
+    }
+  }
+
+  startPointerDrag(event) {
+    const state = this.state;
+    state._active = true;
+    state._preventScroll = true;
+    state._delayed = false;
+    this.compute(event);
+    this.emit();
+  }
+
+  pointerMove(event) {
+    const state = this.state;
+    const config = this.config;
+    if (!state._pointerActive) return;
+    if (state.type === event.type && event.timeStamp === state.timeStamp) return;
+    const id = pointerId(event);
+    if (state._pointerId && id !== state._pointerId) return;
+
+    const _values = pointerValues(event);
+
+    if (document.pointerLockElement === event.target) {
+      state._delta = [event.movementX, event.movementY];
+    } else {
+      state._delta = V.sub(_values, state._values);
+      this.computeValues(_values);
+    }
+
+    V.addTo(state._movement, state._delta);
+    this.compute(event);
+
+    if (state._delayed) {
+      this.timeoutStore.remove('dragDelay');
+      state.active = false;
+      this.startPointerDrag(event);
+      return;
+    }
+
+    if (config.preventScroll && !state._preventScroll) {
+      if (state.axis) {
+        if (state.axis === config.preventScrollAxis || config.preventScrollAxis === 'xy') {
+          state._active = false;
+          this.clean();
+          return;
+        } else {
+          this.timeoutStore.remove('startPointerDrag');
+          this.startPointerDrag(event);
+          return;
+        }
+      } else {
+        return;
+      }
+    }
+
+    this.emit();
+  }
+
+  pointerUp(event) {
+    this.ctrl.setEventIds(event);
+
+    try {
+      if (this.config.pointerCapture && event.target.hasPointerCapture(event.pointerId)) {
+        ;
+        event.target.releasePointerCapture(event.pointerId);
+      }
+    } catch (_unused) {
+      if (false) {}
+    }
+
+    const state = this.state;
+    const config = this.config;
+    if (!state._pointerActive) return;
+    const id = pointerId(event);
+    if (state._pointerId && id !== state._pointerId) return;
+    this.state._pointerActive = false;
+    this.setActive();
+    this.compute(event);
+    const [dx, dy] = state._distance;
+    state.tap = dx <= config.tapsThreshold && dy <= config.tapsThreshold;
+
+    if (state.tap && config.filterTaps) {
+      state._force = true;
+    } else {
+      const [dirx, diry] = state.direction;
+      const [vx, vy] = state.velocity;
+      const [mx, my] = state.movement;
+      const [svx, svy] = config.swipe.velocity;
+      const [sx, sy] = config.swipe.distance;
+      const sdt = config.swipe.duration;
+
+      if (state.elapsedTime < sdt) {
+        if (Math.abs(vx) > svx && Math.abs(mx) > sx) state.swipe[0] = dirx;
+        if (Math.abs(vy) > svy && Math.abs(my) > sy) state.swipe[1] = diry;
+      }
+    }
+
+    this.emit();
+  }
+
+  pointerClick(event) {
+    if (!this.state.tap) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+  }
+
+  setupPointer(event) {
+    const config = this.config;
+    let device = config.device;
+
+    if (false) {}
+
+    if (config.pointerLock) {
+      event.currentTarget.requestPointerLock();
+    }
+
+    if (!config.pointerCapture) {
+      this.eventStore.add(this.sharedConfig.window, device, 'change', this.pointerMove.bind(this));
+      this.eventStore.add(this.sharedConfig.window, device, 'end', this.pointerUp.bind(this));
+      this.eventStore.add(this.sharedConfig.window, device, 'cancel', this.pointerUp.bind(this));
+    }
+  }
+
+  pointerClean() {
+    if (this.config.pointerLock && document.pointerLockElement === this.state.currentTarget) {
+      document.exitPointerLock();
+    }
+  }
+
+  preventScroll(event) {
+    if (this.state._preventScroll && event.cancelable) {
+      event.preventDefault();
+    }
+  }
+
+  setupScrollPrevention(event) {
+    persistEvent(event);
+    this.eventStore.add(this.sharedConfig.window, 'touch', 'change', this.preventScroll.bind(this), {
+      passive: false
+    });
+    this.eventStore.add(this.sharedConfig.window, 'touch', 'end', this.clean.bind(this), {
+      passive: false
+    });
+    this.eventStore.add(this.sharedConfig.window, 'touch', 'cancel', this.clean.bind(this), {
+      passive: false
+    });
+    this.timeoutStore.add('startPointerDrag', this.startPointerDrag.bind(this), this.config.preventScroll, event);
+  }
+
+  setupDelayTrigger(event) {
+    this.state._delayed = true;
+    this.timeoutStore.add('dragDelay', this.startPointerDrag.bind(this), this.config.delay, event);
+  }
+
+  keyDown(event) {
+    const deltaFn = KEYS_DELTA_MAP[event.key];
+
+    if (deltaFn) {
+      const state = this.state;
+      const factor = event.shiftKey ? 10 : event.altKey ? 0.1 : 1;
+      state._delta = deltaFn(factor);
+      this.start(event);
+      state._keyboardActive = true;
+      V.addTo(state._movement, state._delta);
+      this.compute(event);
+      this.emit();
+    }
+  }
+
+  keyUp(event) {
+    if (!(event.key in KEYS_DELTA_MAP)) return;
+    this.state._keyboardActive = false;
+    this.setActive();
+    this.compute(event);
+    this.emit();
+  }
+
+  bind(bindFunction) {
+    const device = this.config.device;
+    bindFunction(device, 'start', this.pointerDown.bind(this));
+
+    if (this.config.pointerCapture) {
+      bindFunction(device, 'change', this.pointerMove.bind(this));
+      bindFunction(device, 'end', this.pointerUp.bind(this));
+      bindFunction(device, 'cancel', this.pointerUp.bind(this));
+      bindFunction('lostPointerCapture', '', this.pointerUp.bind(this));
+    }
+
+    bindFunction('key', 'down', this.keyDown.bind(this));
+    bindFunction('key', 'up', this.keyUp.bind(this));
+
+    if (this.config.filterTaps) {
+      bindFunction('click', '', this.pointerClick.bind(this), {
+        capture: true,
+        passive: false
+      });
+    }
+  }
+
+}
+
+function persistEvent(event) {
+  'persist' in event && typeof event.persist === 'function' && event.persist();
+}
+
+const actions_5ad85d2f_esm_isBrowser = typeof window !== 'undefined' && window.document && window.document.createElement;
+
+function actions_5ad85d2f_esm_supportsTouchEvents() {
+  return actions_5ad85d2f_esm_isBrowser && 'ontouchstart' in window;
+}
+
+function isTouchScreen() {
+  return actions_5ad85d2f_esm_supportsTouchEvents() || actions_5ad85d2f_esm_isBrowser && window.navigator.maxTouchPoints > 1;
+}
+
+function actions_5ad85d2f_esm_supportsPointerEvents() {
+  return actions_5ad85d2f_esm_isBrowser && 'onpointerdown' in window;
+}
+
+function supportsPointerLock() {
+  return actions_5ad85d2f_esm_isBrowser && 'exitPointerLock' in window.document;
+}
+
+function supportsGestureEvents() {
+  try {
+    return 'constructor' in GestureEvent;
+  } catch (e) {
+    return false;
+  }
+}
+
+const SUPPORT = {
+  isBrowser: actions_5ad85d2f_esm_isBrowser,
+  gesture: supportsGestureEvents(),
+  touch: isTouchScreen(),
+  touchscreen: isTouchScreen(),
+  pointer: actions_5ad85d2f_esm_supportsPointerEvents(),
+  pointerLock: supportsPointerLock()
+};
+
+const DEFAULT_PREVENT_SCROLL_DELAY = 250;
+const DEFAULT_DRAG_DELAY = 180;
+const DEFAULT_SWIPE_VELOCITY = 0.5;
+const DEFAULT_SWIPE_DISTANCE = 50;
+const DEFAULT_SWIPE_DURATION = 250;
+const dragConfigResolver = actions_5ad85d2f_esm_objectSpread2(actions_5ad85d2f_esm_objectSpread2({}, coordinatesConfigResolver), {}, {
+  pointerLock(_v, _k, {
+    pointer: {
+      lock = false,
+      touch = false
+    } = {}
+  }) {
+    this.useTouch = touch && SUPPORT.touch;
+    return lock && SUPPORT.pointerLock;
+  },
+
+  device(_v, _k) {
+    if (this.useTouch) return 'touch';
+    if (this.pointerLock) return 'mouse';
+    if (SUPPORT.pointer) return 'pointer';
+    if (SUPPORT.touch) return 'touch';
+    return 'mouse';
+  },
+
+  preventScroll(value = false, _k, {
+    preventScrollAxis = 'y'
+  }) {
+    if (preventScrollAxis) this.preventScrollAxis = preventScrollAxis;
+    if (!SUPPORT.touchscreen) return false;
+    if (typeof value === 'number') return value;
+    return value ? DEFAULT_PREVENT_SCROLL_DELAY : false;
+  },
+
+  pointerCapture(_v, _k, {
+    pointer: {
+      capture = true,
+      buttons = 1
+    } = {}
+  }) {
+    this.pointerButtons = buttons;
+    return !this.pointerLock && this.device === 'pointer' && capture;
+  },
+
+  threshold(value, _k, {
+    filterTaps = false,
+    tapsThreshold = 3,
+    axis = undefined
+  }) {
+    const threshold = V.toVector(value, filterTaps ? tapsThreshold : axis ? 1 : 0);
+    this.filterTaps = filterTaps;
+    this.tapsThreshold = tapsThreshold;
+    return threshold;
+  },
+
+  swipe({
+    velocity = DEFAULT_SWIPE_VELOCITY,
+    distance = DEFAULT_SWIPE_DISTANCE,
+    duration = DEFAULT_SWIPE_DURATION
+  } = {}) {
+    return {
+      velocity: this.transform(V.toVector(velocity)),
+      distance: this.transform(V.toVector(distance)),
+      duration
+    };
+  },
+
+  delay(value = 0) {
+    switch (value) {
+      case true:
+        return DEFAULT_DRAG_DELAY;
+
+      case false:
+        return 0;
+
+      default:
+        return value;
+    }
+  }
+
+});
+
+if (false) {}
+
+const SCALE_ANGLE_RATIO_INTENT_DEG = 30;
+const PINCH_WHEEL_RATIO = 36;
+class PinchEngine extends Engine {
+  constructor(...args) {
+    super(...args);
+
+    actions_5ad85d2f_esm_defineProperty(this, "ingKey", 'pinching');
+
+    actions_5ad85d2f_esm_defineProperty(this, "aliasKey", 'da');
+  }
+
+  init() {
+    this.state.offset = [1, 0];
+    this.state.lastOffset = [1, 0];
+    this.state._pointerEvents = new Map();
+  }
+
+  reset() {
+    super.reset();
+    const state = this.state;
+    state._touchIds = [];
+    state.canceled = false;
+    state.cancel = this.cancel.bind(this);
+    state.turns = 0;
+  }
+
+  computeOffset() {
+    const {
+      type,
+      movement,
+      lastOffset
+    } = this.state;
+
+    if (type === 'wheel') {
+      this.state.offset = V.add(movement, lastOffset);
+    } else {
+      this.state.offset = [(1 + movement[0]) * lastOffset[0], movement[1] + lastOffset[1]];
+    }
+  }
+
+  computeMovement() {
+    const {
+      offset,
+      lastOffset
+    } = this.state;
+    this.state.movement = [offset[0] / lastOffset[0], offset[1] - lastOffset[1]];
+  }
+
+  intent(v) {
+    const state = this.state;
+
+    if (!state.axis) {
+      const axisMovementDifference = Math.abs(v[0]) * SCALE_ANGLE_RATIO_INTENT_DEG - Math.abs(v[1]);
+      if (axisMovementDifference < 0) state.axis = 'angle';else if (axisMovementDifference > 0) state.axis = 'scale';
+    }
+
+    if (this.config.lockDirection) {
+      if (state.axis === 'scale') v[1] = 0;else if (state.axis === 'angle') v[0] = 0;
+    }
+  }
+
+  cancel() {
+    const state = this.state;
+    if (state.canceled) return;
+    setTimeout(() => {
+      state.canceled = true;
+      state._active = false;
+      this.compute();
+      this.emit();
+    }, 0);
+  }
+
+  touchStart(event) {
+    this.ctrl.setEventIds(event);
+    const state = this.state;
+    const ctrlTouchIds = this.ctrl.touchIds;
+
+    if (state._active) {
+      if (state._touchIds.every(id => ctrlTouchIds.has(id))) return;
+    }
+
+    if (ctrlTouchIds.size < 2) return;
+    this.start(event);
+    state._touchIds = Array.from(ctrlTouchIds).slice(0, 2);
+    const payload = touchDistanceAngle(event, state._touchIds);
+    this.pinchStart(event, payload);
+  }
+
+  pointerStart(event) {
+    if (event.buttons != null && event.buttons % 2 !== 1) return;
+    this.ctrl.setEventIds(event);
+    event.target.setPointerCapture(event.pointerId);
+    const state = this.state;
+    const _pointerEvents = state._pointerEvents;
+    const ctrlPointerIds = this.ctrl.pointerIds;
+
+    if (state._active) {
+      if (Array.from(_pointerEvents.keys()).every(id => ctrlPointerIds.has(id))) return;
+    }
+
+    if (_pointerEvents.size < 2) {
+      _pointerEvents.set(event.pointerId, event);
+    }
+
+    if (state._pointerEvents.size < 2) return;
+    this.start(event);
+    const payload = distanceAngle(...Array.from(_pointerEvents.values()));
+    this.pinchStart(event, payload);
+  }
+
+  pinchStart(event, payload) {
+    const state = this.state;
+    state.origin = payload.origin;
+    this.computeValues([payload.distance, payload.angle]);
+    this.computeInitial();
+    this.compute(event);
+    this.emit();
+  }
+
+  touchMove(event) {
+    if (!this.state._active) return;
+    const payload = touchDistanceAngle(event, this.state._touchIds);
+    this.pinchMove(event, payload);
+  }
+
+  pointerMove(event) {
+    const _pointerEvents = this.state._pointerEvents;
+
+    if (_pointerEvents.has(event.pointerId)) {
+      _pointerEvents.set(event.pointerId, event);
+    }
+
+    if (!this.state._active) return;
+    const payload = distanceAngle(...Array.from(_pointerEvents.values()));
+    this.pinchMove(event, payload);
+  }
+
+  pinchMove(event, payload) {
+    const state = this.state;
+    const prev_a = state._values[1];
+    const delta_a = payload.angle - prev_a;
+    let delta_turns = 0;
+    if (Math.abs(delta_a) > 270) delta_turns += Math.sign(delta_a);
+    this.computeValues([payload.distance, payload.angle - 360 * delta_turns]);
+    state.origin = payload.origin;
+    state.turns = delta_turns;
+    state._movement = [state._values[0] / state._initial[0] - 1, state._values[1] - state._initial[1]];
+    this.compute(event);
+    this.emit();
+  }
+
+  touchEnd(event) {
+    this.ctrl.setEventIds(event);
+    if (!this.state._active) return;
+
+    if (this.state._touchIds.some(id => !this.ctrl.touchIds.has(id))) {
+      this.state._active = false;
+      this.compute(event);
+      this.emit();
+    }
+  }
+
+  pointerEnd(event) {
+    const state = this.state;
+    this.ctrl.setEventIds(event);
+
+    try {
+      event.target.releasePointerCapture(event.pointerId);
+    } catch (_unused) {}
+
+    if (state._pointerEvents.has(event.pointerId)) {
+      state._pointerEvents.delete(event.pointerId);
+    }
+
+    if (!state._active) return;
+
+    if (state._pointerEvents.size < 2) {
+      state._active = false;
+      this.compute(event);
+      this.emit();
+    }
+  }
+
+  gestureStart(event) {
+    if (event.cancelable) event.preventDefault();
+    const state = this.state;
+    if (state._active) return;
+    this.start(event);
+    this.computeValues([event.scale, event.rotation]);
+    state.origin = [event.clientX, event.clientY];
+    this.compute(event);
+    this.emit();
+  }
+
+  gestureMove(event) {
+    if (event.cancelable) event.preventDefault();
+    if (!this.state._active) return;
+    const state = this.state;
+    this.computeValues([event.scale, event.rotation]);
+    state.origin = [event.clientX, event.clientY];
+    const _previousMovement = state._movement;
+    state._movement = [event.scale - 1, event.rotation];
+    state._delta = V.sub(state._movement, _previousMovement);
+    this.compute(event);
+    this.emit();
+  }
+
+  gestureEnd(event) {
+    if (!this.state._active) return;
+    this.state._active = false;
+    this.compute(event);
+    this.emit();
+  }
+
+  wheel(event) {
+    if (!event.ctrlKey) return;
+    if (!this.state._active) this.wheelStart(event);else this.wheelChange(event);
+    this.timeoutStore.add('wheelEnd', this.wheelEnd.bind(this));
+  }
+
+  wheelStart(event) {
+    this.start(event);
+    this.wheelChange(event);
+  }
+
+  wheelChange(event) {
+    const isR3f = ('uv' in event);
+
+    if (!isR3f) {
+      if (event.cancelable) {
+        event.preventDefault();
+      }
+
+      if (false) {}
+    }
+
+    const state = this.state;
+    state._delta = [-wheelValues(event)[1] / PINCH_WHEEL_RATIO * state.offset[0], 0];
+    V.addTo(state._movement, state._delta);
+    this.state.origin = [event.clientX, event.clientY];
+    this.compute(event);
+    this.emit();
+  }
+
+  wheelEnd() {
+    if (!this.state._active) return;
+    this.state._active = false;
+    this.compute();
+    this.emit();
+  }
+
+  bind(bindFunction) {
+    const device = this.config.device;
+
+    if (!!device) {
+      bindFunction(device, 'start', this[device + 'Start'].bind(this));
+      bindFunction(device, 'change', this[device + 'Move'].bind(this));
+      bindFunction(device, 'end', this[device + 'End'].bind(this));
+      bindFunction(device, 'cancel', this[device + 'End'].bind(this));
+    } else {
+      bindFunction('wheel', '', this.wheel.bind(this), {
+        passive: false
+      });
+    }
+  }
+
+}
+
+const pinchConfigResolver = actions_5ad85d2f_esm_objectSpread2(actions_5ad85d2f_esm_objectSpread2({}, commonConfigResolver), {}, {
+  useTouch(_v, _k, {
+    pointer: {
+      touch = false
+    } = {}
+  }) {
+    return touch && SUPPORT.touch;
+  },
+
+  device(_v, _k, config) {
+    const sharedConfig = config.shared;
+    if (sharedConfig.target && !SUPPORT.touch && SUPPORT.gesture) return 'gesture';
+    if (this.useTouch) return 'touch';
+
+    if (SUPPORT.touchscreen) {
+      if (SUPPORT.pointer) return 'pointer';
+      if (SUPPORT.touch) return 'touch';
+    }
+  },
+
+  bounds(_v, _k, {
+    scaleBounds = {},
+    angleBounds = {}
+  }) {
+    const _scaleBounds = state => {
+      const D = assignDefault(call(scaleBounds, state), {
+        min: -Infinity,
+        max: Infinity
+      });
+      return [D.min, D.max];
+    };
+
+    const _angleBounds = state => {
+      const A = assignDefault(call(angleBounds, state), {
+        min: -Infinity,
+        max: Infinity
+      });
+      return [A.min, A.max];
+    };
+
+    if (typeof scaleBounds !== 'function' && typeof angleBounds !== 'function') return [_scaleBounds(), _angleBounds()];
+    return state => [_scaleBounds(state), _angleBounds(state)];
+  },
+
+  threshold(value, _k, config) {
+    this.lockDirection = config.axis === 'lock';
+    const threshold = V.toVector(value, this.lockDirection ? [0.1, 3] : 0);
+    return threshold;
+  }
+
+});
+
+class MoveEngine extends CoordinatesEngine {
+  constructor(...args) {
+    super(...args);
+
+    actions_5ad85d2f_esm_defineProperty(this, "ingKey", 'moving');
+  }
+
+  move(event) {
+    if (this.config.mouseOnly && event.pointerType !== 'mouse') return;
+    if (!this.state._active) this.moveStart(event);else this.moveChange(event);
+    this.timeoutStore.add('moveEnd', this.moveEnd.bind(this));
+  }
+
+  moveStart(event) {
+    this.start(event);
+    this.computeValues(pointerValues(event));
+    this.compute(event);
+    this.computeInitial();
+    this.emit();
+  }
+
+  moveChange(event) {
+    if (!this.state._active) return;
+    const values = pointerValues(event);
+    const state = this.state;
+    state._delta = V.sub(values, state._values);
+    V.addTo(state._movement, state._delta);
+    this.computeValues(values);
+    this.compute(event);
+    this.emit();
+  }
+
+  moveEnd(event) {
+    if (!this.state._active) return;
+    this.state._active = false;
+    this.compute(event);
+    this.emit();
+  }
+
+  bind(bindFunction) {
+    bindFunction('pointer', 'change', this.move.bind(this));
+    bindFunction('pointer', 'leave', this.moveEnd.bind(this));
+  }
+
+}
+
+const moveConfigResolver = actions_5ad85d2f_esm_objectSpread2(actions_5ad85d2f_esm_objectSpread2({}, coordinatesConfigResolver), {}, {
+  mouseOnly: (value = true) => value
+});
+
+class ScrollEngine extends CoordinatesEngine {
+  constructor(...args) {
+    super(...args);
+
+    actions_5ad85d2f_esm_defineProperty(this, "ingKey", 'scrolling');
+  }
+
+  scroll(event) {
+    if (!this.state._active) this.start(event);
+    this.scrollChange(event);
+    this.timeoutStore.add('scrollEnd', this.scrollEnd.bind(this));
+  }
+
+  scrollChange(event) {
+    if (event.cancelable) event.preventDefault();
+    const state = this.state;
+    const values = scrollValues(event);
+    state._delta = V.sub(values, state._values);
+    V.addTo(state._movement, state._delta);
+    this.computeValues(values);
+    this.compute(event);
+    this.emit();
+  }
+
+  scrollEnd() {
+    if (!this.state._active) return;
+    this.state._active = false;
+    this.compute();
+    this.emit();
+  }
+
+  bind(bindFunction) {
+    bindFunction('scroll', '', this.scroll.bind(this));
+  }
+
+}
+
+const scrollConfigResolver = coordinatesConfigResolver;
+
+class WheelEngine extends CoordinatesEngine {
+  constructor(...args) {
+    super(...args);
+
+    actions_5ad85d2f_esm_defineProperty(this, "ingKey", 'wheeling');
+  }
+
+  wheel(event) {
+    if (!this.state._active) this.start(event);
+    this.wheelChange(event);
+    this.timeoutStore.add('wheelEnd', this.wheelEnd.bind(this));
+  }
+
+  wheelChange(event) {
+    const state = this.state;
+    state._delta = wheelValues(event);
+    V.addTo(state._movement, state._delta);
+    const [ox, oy] = state.overflow;
+    const [dx, dy] = state._delta;
+    const [dirx, diry] = state._direction;
+
+    if (ox < 0 && dx > 0 && dirx < 0 || ox > 0 && dx < 0 && dirx > 0) {
+      state._movement[0] = state._movementBound[0];
+    }
+
+    if (oy < 0 && dy > 0 && diry < 0 || oy > 0 && dy < 0 && diry > 0) {
+      state._movement[1] = state._movementBound[1];
+    }
+
+    this.compute(event);
+    this.emit();
+  }
+
+  wheelEnd() {
+    if (!this.state._active) return;
+    this.state._active = false;
+    this.compute();
+    this.emit();
+  }
+
+  bind(bindFunction) {
+    bindFunction('wheel', '', this.wheel.bind(this));
+  }
+
+}
+
+const wheelConfigResolver = coordinatesConfigResolver;
+
+class HoverEngine extends CoordinatesEngine {
+  constructor(...args) {
+    super(...args);
+
+    actions_5ad85d2f_esm_defineProperty(this, "ingKey", 'hovering');
+  }
+
+  enter(event) {
+    if (this.config.mouseOnly && event.pointerType !== 'mouse') return;
+    this.start(event);
+    this.computeValues(pointerValues(event));
+    this.compute(event);
+    this.emit();
+  }
+
+  leave(event) {
+    if (this.config.mouseOnly && event.pointerType !== 'mouse') return;
+    const state = this.state;
+    if (!state._active) return;
+    state._active = false;
+    const values = pointerValues(event);
+    state._movement = state._delta = V.sub(values, state._values);
+    this.computeValues(values);
+    this.compute(event);
+    state.delta = state.movement;
+    this.emit();
+  }
+
+  bind(bindFunction) {
+    bindFunction('pointer', 'enter', this.enter.bind(this));
+    bindFunction('pointer', 'leave', this.leave.bind(this));
+  }
+
+}
+
+const hoverConfigResolver = actions_5ad85d2f_esm_objectSpread2(actions_5ad85d2f_esm_objectSpread2({}, coordinatesConfigResolver), {}, {
+  mouseOnly: (value = true) => value
+});
+
+const actions_5ad85d2f_esm_EngineMap = new Map();
+const ConfigResolverMap = new Map();
+function actions_5ad85d2f_esm_registerAction(action) {
+  actions_5ad85d2f_esm_EngineMap.set(action.key, action.engine);
+  ConfigResolverMap.set(action.key, action.resolver);
+}
+const actions_5ad85d2f_esm_dragAction = {
+  key: 'drag',
+  engine: DragEngine,
+  resolver: dragConfigResolver
+};
+const actions_5ad85d2f_esm_hoverAction = {
+  key: 'hover',
+  engine: HoverEngine,
+  resolver: hoverConfigResolver
+};
+const actions_5ad85d2f_esm_moveAction = {
+  key: 'move',
+  engine: MoveEngine,
+  resolver: moveConfigResolver
+};
+const actions_5ad85d2f_esm_pinchAction = {
+  key: 'pinch',
+  engine: PinchEngine,
+  resolver: pinchConfigResolver
+};
+const actions_5ad85d2f_esm_scrollAction = {
+  key: 'scroll',
+  engine: ScrollEngine,
+  resolver: scrollConfigResolver
+};
+const actions_5ad85d2f_esm_wheelAction = {
+  key: 'wheel',
+  engine: WheelEngine,
+  resolver: wheelConfigResolver
+};
+
+
+
+;// CONCATENATED MODULE: ./node_modules/@use-gesture/core/dist/use-gesture-core.esm.js
+
+
+
+function use_gesture_core_esm_objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
   var sourceKeys = Object.keys(source);
@@ -35802,147 +37238,69 @@ function reactusegesture_esm_objectWithoutPropertiesLoose(source, excluded) {
   return target;
 }
 
-function reactusegesture_esm_assertThisInitialized(self) {
-  if (self === void 0) {
-    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+  var target = use_gesture_core_esm_objectWithoutPropertiesLoose(source, excluded);
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
   }
 
-  return self;
+  return target;
 }
 
-function reactusegesture_esm_unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return reactusegesture_esm_arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return reactusegesture_esm_arrayLikeToArray(o, minLen);
-}
-
-function reactusegesture_esm_arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
-
-  return arr2;
-}
-
-function reactusegesture_esm_createForOfIteratorHelperLoose(o, allowArrayLike) {
-  var it;
-
-  if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
-    if (Array.isArray(o) || (it = reactusegesture_esm_unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
-      if (it) o = it;
-      var i = 0;
-      return function () {
-        if (i >= o.length) return {
-          done: true
-        };
-        return {
-          done: false,
-          value: o[i++]
-        };
-      };
+const sharedConfigResolver = {
+  target(value) {
+    if (value) {
+      return () => 'current' in value ? value.current : value;
     }
 
-    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+    return undefined;
+  },
+
+  enabled(value = true) {
+    return value;
+  },
+
+  window(value = SUPPORT.isBrowser ? window : undefined) {
+    return value;
+  },
+
+  eventOptions({
+    passive = true,
+    capture = false
+  } = {}) {
+    return {
+      passive,
+      capture
+    };
+  },
+
+  transform(value) {
+    return value;
   }
 
-  it = o[Symbol.iterator]();
-  return it.next.bind(it);
-}
+};
 
-function reactusegesture_esm_noop() {}
-/**
- * TODO Beware that only optimized cases are covered in tests =)
- * TODO Need to cover general case as well
- *
- * @param fns
- */
+const _excluded = ["target", "eventOptions", "window", "enabled", "transform"];
+function resolveWith(config = {}, resolvers) {
+  const result = {};
 
-function chainFns() {
-  for (var _len = arguments.length, fns = new Array(_len), _key = 0; _key < _len; _key++) {
-    fns[_key] = arguments[_key];
-  }
-
-  if (fns.length === 0) return reactusegesture_esm_noop;
-  if (fns.length === 1) return fns[0];
-  return function () {
-    var result;
-
-    for (var _iterator = reactusegesture_esm_createForOfIteratorHelperLoose(fns), _step; !(_step = _iterator()).done;) {
-      var fn = _step.value;
-      result = fn.apply(this, arguments) || result;
-    }
-
-    return result;
-  };
-}
-/**
- * Expects a simple value or 2D vector (an array with 2 elements) and
- * always returns 2D vector. If simple value is passed, returns a
- * vector with this value as both coordinates.
- *
- * @param value
- */
-
-function ensureVector(value, fallback) {
-  if (value === undefined) {
-    if (fallback === undefined) {
-      throw new Error('Must define fallback value if undefined is expected');
-    }
-
-    value = fallback;
-  }
-
-  if (Array.isArray(value)) return value;
-  return [value, value];
-}
-/**
- * Helper for defining a default value
- *
- * @param value
- * @param fallback
- */
-
-function assignDefault(value, fallback) {
-  return Object.assign({}, fallback, value || {});
-}
-/**
- * Resolves getters (functions) by calling them
- * If simple value is given it just passes through
- *
- * @param v
- */
-
-function valueFn(v) {
-  if (typeof v === 'function') {
-    for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-      args[_key2 - 1] = arguments[_key2];
-    }
-
-    // @ts-ignore
-    return v.apply(void 0, args);
-  } else {
-    return v;
-  }
-}
-
-function resolveWith(config, resolvers) {
-  if (config === void 0) {
-    config = {};
-  }
-
-  var result = {};
-
-  for (var _i = 0, _Object$entries = Object.entries(resolvers); _i < _Object$entries.length; _i++) {
-    var _Object$entries$_i = _Object$entries[_i],
-        key = _Object$entries$_i[0],
-        resolver = _Object$entries$_i[1];
-
+  for (const [key, resolver] of Object.entries(resolvers)) {
     switch (typeof resolver) {
       case 'function':
-        result[key] = resolver.call(result, config[key], key, config);
+        if (false) {} else {
+          result[key] = resolver.call(result, config[key], key, config);
+        }
+
         break;
 
       case 'object':
@@ -35957,2530 +37315,380 @@ function resolveWith(config, resolvers) {
 
   return result;
 }
-
-var WEBKIT_DISTANCE_SCALE_FACTOR = 260;
-/**
- * Whether the browser supports GestureEvent (ie Safari)
- * @returns true if the browser supports gesture event
- */
-
-function supportsGestureEvents() {
-  try {
-    // TODO [TS] possibly find GestureEvent definitions?
-    // @ts-ignore: no type definitions for webkit GestureEvents
-    return 'constructor' in GestureEvent;
-  } catch (e) {
-    return false;
-  }
-}
-function reactusegesture_esm_supportsTouchEvents() {
-  return typeof window !== 'undefined' && 'ontouchstart' in window;
-}
-
-function getEventTouches(event) {
-  if ('pointerId' in event) return null;
-  return event.type === 'touchend' ? event.changedTouches : event.targetTouches;
-}
-
-function getPointerIds(event) {
-  if ('pointerId' in event) return [event.pointerId];
-  return Array.from(getEventTouches(event)).map(function (t) {
-    return t.identifier;
-  });
-}
-function getGenericEventData(event) {
-  var buttons = 'buttons' in event ? event.buttons : 0;
-  var shiftKey = event.shiftKey,
-      altKey = event.altKey,
-      metaKey = event.metaKey,
-      ctrlKey = event.ctrlKey; // TODO check if this might create some overrides?
-
-  return {
-    buttons: buttons,
-    shiftKey: shiftKey,
-    altKey: altKey,
-    metaKey: metaKey,
-    ctrlKey: ctrlKey
-  };
-}
-
-var identity = function identity(xy) {
-  return xy;
-};
-/**
- * Gets pointer event values.
- * @param event
- * @returns pointer event values
- */
-
-
-function getPointerEventValues(event, transform) {
-  if (transform === void 0) {
-    transform = identity;
-  }
-
-  var touchEvents = getEventTouches(event);
-
-  var _ref = touchEvents ? touchEvents[0] : event,
-      clientX = _ref.clientX,
-      clientY = _ref.clientY;
-
-  return transform([clientX, clientY]);
-}
-/**
- * Gets two touches event data
- * @param event
- * @returns two touches event data
- */
-
-function getTwoTouchesEventValues(event, pointerIds, transform) {
-  if (transform === void 0) {
-    transform = identity;
-  }
-
-  var _Array$from$filter = Array.from(event.touches).filter(function (t) {
-    return pointerIds.includes(t.identifier);
-  }),
-      A = _Array$from$filter[0],
-      B = _Array$from$filter[1];
-
-  var dx = B.clientX - A.clientX;
-  var dy = B.clientY - A.clientY;
-  var cx = (B.clientX + A.clientX) / 2;
-  var cy = (B.clientY + A.clientY) / 2; // const e: any = 'nativeEvent' in event ? event.nativeEvent : event
-
-  var distance = Math.hypot(dx, dy); // FIXME rotation has inconsistant values so we're not using it atm
-  // const angle = (e.rotation as number) ?? -(Math.atan2(dx, dy) * 180) / Math.PI
-
-  var angle = -(Math.atan2(dx, dy) * 180) / Math.PI;
-  var values = transform([distance, angle]);
-  var origin = transform([cx, cy]);
-  return {
-    values: values,
-    origin: origin
-  };
-}
-/**
- * Gets scroll event values
- * @param event
- * @returns scroll event values
- */
-
-function getScrollEventValues(event, transform) {
-  if (transform === void 0) {
-    transform = identity;
-  }
-
-  // If the currentTarget is the window then we return the scrollX/Y position.
-  // If not (ie the currentTarget is a DOM element), then we return scrollLeft/Top
-  var _event$currentTarget = event.currentTarget,
-      scrollX = _event$currentTarget.scrollX,
-      scrollY = _event$currentTarget.scrollY,
-      scrollLeft = _event$currentTarget.scrollLeft,
-      scrollTop = _event$currentTarget.scrollTop;
-  return transform([scrollX || scrollLeft || 0, scrollY || scrollTop || 0]);
-} // wheel delta defaults from https://github.com/facebookarchive/fixed-data-table/blob/master/src/vendor_upstream/dom/normalizeWheel.js
-
-var LINE_HEIGHT = 40;
-var PAGE_HEIGHT = 800;
-/**
- * Gets wheel event values.
- * @param event
- * @returns wheel event values
- */
-
-function getWheelEventValues(event, transform) {
-  if (transform === void 0) {
-    transform = identity;
-  }
-
-  var deltaX = event.deltaX,
-      deltaY = event.deltaY,
-      deltaMode = event.deltaMode; // normalize wheel values, especially for Firefox
-
-  if (deltaMode === 1) {
-    deltaX *= LINE_HEIGHT;
-    deltaY *= LINE_HEIGHT;
-  } else if (deltaMode === 2) {
-    deltaX *= PAGE_HEIGHT;
-    deltaY *= PAGE_HEIGHT;
-  }
-
-  return transform([deltaX, deltaY]);
-}
-/**
- * Gets webkit gesture event values.
- * @param event
- * @returns webkit gesture event values
- */
-
-function getWebkitGestureEventValues(event, transform) {
-  if (transform === void 0) {
-    transform = identity;
-  }
-
-  return transform([event.scale * WEBKIT_DISTANCE_SCALE_FACTOR, event.rotation]);
-}
-
-var DEFAULT_DRAG_DELAY = 180;
-var DEFAULT_RUBBERBAND = 0.15;
-var DEFAULT_SWIPE_VELOCITY = 0.5;
-var DEFAULT_SWIPE_DISTANCE = 50;
-var DEFAULT_SWIPE_DURATION = 250;
-var InternalGestureOptionsNormalizers = {
-  threshold: function threshold(value) {
-    if (value === void 0) {
-      value = 0;
-    }
-
-    return ensureVector(value);
-  },
-  rubberband: function rubberband(value) {
-    if (value === void 0) {
-      value = 0;
-    }
-
-    switch (value) {
-      case true:
-        return ensureVector(DEFAULT_RUBBERBAND);
-
-      case false:
-        return ensureVector(0);
-
-      default:
-        return ensureVector(value);
-    }
-  },
-  enabled: function enabled(value) {
-    if (value === void 0) {
-      value = true;
-    }
-
-    return value;
-  },
-  triggerAllEvents: function triggerAllEvents(value) {
-    if (value === void 0) {
-      value = false;
-    }
-
-    return value;
-  },
-  initial: function initial(value) {
-    if (value === void 0) {
-      value = 0;
-    }
-
-    if (typeof value === 'function') return value;
-    return ensureVector(value);
-  },
-  transform: true
-};
-
-var InternalCoordinatesOptionsNormalizers = /*#__PURE__*/reactusegesture_esm_extends({}, InternalGestureOptionsNormalizers, {
-  axis: true,
-  lockDirection: function lockDirection(value) {
-    if (value === void 0) {
-      value = false;
-    }
-
-    return value;
-  },
-  bounds: function bounds(value) {
-    if (value === void 0) {
-      value = {};
-    }
-
-    if (typeof value === 'function') return function (state) {
-      return InternalCoordinatesOptionsNormalizers.bounds(value(state));
-    };
-    var _value2 = value,
-        _value2$left = _value2.left,
-        left = _value2$left === void 0 ? -Infinity : _value2$left,
-        _value2$right = _value2.right,
-        right = _value2$right === void 0 ? Infinity : _value2$right,
-        _value2$top = _value2.top,
-        top = _value2$top === void 0 ? -Infinity : _value2$top,
-        _value2$bottom = _value2.bottom,
-        bottom = _value2$bottom === void 0 ? Infinity : _value2$bottom;
-    return [[left, right], [top, bottom]];
-  }
-});
-
-var reactusegesture_esm_isBrowser = typeof window !== 'undefined' && window.document && window.document.createElement;
-var InternalGenericOptionsNormalizers = {
-  enabled: function enabled(value) {
-    if (value === void 0) {
-      value = true;
-    }
-
-    return value;
-  },
-  domTarget: true,
-  window: /*#__PURE__*/function (_window) {
-    function window(_x) {
-      return _window.apply(this, arguments);
-    }
-
-    window.toString = function () {
-      return _window.toString();
-    };
-
-    return window;
-  }(function (value) {
-    if (value === void 0) {
-      value = reactusegesture_esm_isBrowser ? window : undefined;
-    }
-
-    return value;
-  }),
-  eventOptions: function eventOptions(_temp) {
-    var _ref = _temp === void 0 ? {} : _temp,
-        _ref$passive = _ref.passive,
-        passive = _ref$passive === void 0 ? true : _ref$passive,
-        _ref$capture = _ref.capture,
-        capture = _ref$capture === void 0 ? false : _ref$capture;
-
-    return {
-      passive: passive,
-      capture: capture
-    };
-  },
-  transform: true
-};
-
-var InternalDistanceAngleOptionsNormalizers = /*#__PURE__*/reactusegesture_esm_extends({}, InternalGestureOptionsNormalizers, {
-  bounds: function bounds(_value, _key, _ref2) {
-    var _ref2$distanceBounds = _ref2.distanceBounds,
-        distanceBounds = _ref2$distanceBounds === void 0 ? {} : _ref2$distanceBounds,
-        _ref2$angleBounds = _ref2.angleBounds,
-        angleBounds = _ref2$angleBounds === void 0 ? {} : _ref2$angleBounds;
-
-    var _distanceBounds = function _distanceBounds(state) {
-      var D = assignDefault(valueFn(distanceBounds, state), {
-        min: -Infinity,
-        max: Infinity
-      });
-      return [D.min, D.max];
-    };
-
-    var _angleBounds = function _angleBounds(state) {
-      var A = assignDefault(valueFn(angleBounds, state), {
-        min: -Infinity,
-        max: Infinity
-      });
-      return [A.min, A.max];
-    };
-
-    if (typeof distanceBounds !== 'function' && typeof angleBounds !== 'function') return [_distanceBounds(), _angleBounds()];
-    return function (state) {
-      return [_distanceBounds(state), _angleBounds(state)];
-    };
-  }
-});
-
-var InternalDragOptionsNormalizers = /*#__PURE__*/reactusegesture_esm_extends({}, InternalCoordinatesOptionsNormalizers, {
-  useTouch: function useTouch(value) {
-    if (value === void 0) {
-      value = false;
-    }
-
-    return value && reactusegesture_esm_supportsTouchEvents();
-  },
-  experimental_preventWindowScrollY: function experimental_preventWindowScrollY(value) {
-    if (value === void 0) {
-      value = false;
-    }
-
-    return value;
-  },
-  threshold: function threshold(v, _k, _ref3) {
-    var _ref3$filterTaps = _ref3.filterTaps,
-        filterTaps = _ref3$filterTaps === void 0 ? false : _ref3$filterTaps,
-        _ref3$lockDirection = _ref3.lockDirection,
-        lockDirection = _ref3$lockDirection === void 0 ? false : _ref3$lockDirection,
-        _ref3$axis = _ref3.axis,
-        axis = _ref3$axis === void 0 ? undefined : _ref3$axis;
-    var A = ensureVector(v, filterTaps ? 3 : lockDirection ? 1 : axis ? 1 : 0);
-    this.filterTaps = filterTaps;
-    return A;
-  },
-  swipeVelocity: function swipeVelocity(v) {
-    if (v === void 0) {
-      v = DEFAULT_SWIPE_VELOCITY;
-    }
-
-    return ensureVector(v);
-  },
-  swipeDistance: function swipeDistance(v) {
-    if (v === void 0) {
-      v = DEFAULT_SWIPE_DISTANCE;
-    }
-
-    return ensureVector(v);
-  },
-  swipeDuration: function swipeDuration(value) {
-    if (value === void 0) {
-      value = DEFAULT_SWIPE_DURATION;
-    }
-
-    return value;
-  },
-  delay: function delay(value) {
-    if (value === void 0) {
-      value = 0;
-    }
-
-    switch (value) {
-      case true:
-        return DEFAULT_DRAG_DELAY;
-
-      case false:
-        return 0;
-
-      default:
-        return value;
-    }
-  }
-});
-
-function getInternalGenericOptions(config) {
-  if (config === void 0) {
-    config = {};
-  }
-
-  // TODO warn when passive is set to true and domTarget is undefined
-  return resolveWith(config, InternalGenericOptionsNormalizers);
-}
-function getInternalCoordinatesOptions(config) {
-  if (config === void 0) {
-    config = {};
-  }
-
-  return resolveWith(config, InternalCoordinatesOptionsNormalizers);
-}
-function getInternalDistanceAngleOptions(config) {
-  if (config === void 0) {
-    config = {};
-  }
-
-  return resolveWith(config, InternalDistanceAngleOptionsNormalizers);
-}
-function getInternalDragOptions(config) {
-  if (config === void 0) {
-    config = {};
-  }
-
-  return resolveWith(config, InternalDragOptionsNormalizers);
-}
-
-function _buildMoveConfig(_ref) {
-  var domTarget = _ref.domTarget,
-      eventOptions = _ref.eventOptions,
-      window = _ref.window,
-      enabled = _ref.enabled,
-      rest = reactusegesture_esm_objectWithoutPropertiesLoose(_ref, ["domTarget", "eventOptions", "window", "enabled"]);
-
-  var opts = getInternalGenericOptions({
-    domTarget: domTarget,
-    eventOptions: eventOptions,
-    window: window,
-    enabled: enabled
-  });
-  opts.move = getInternalCoordinatesOptions(rest);
-  return opts;
-}
-function _buildHoverConfig(_ref2) {
-  var domTarget = _ref2.domTarget,
-      eventOptions = _ref2.eventOptions,
-      window = _ref2.window,
-      enabled = _ref2.enabled,
-      rest = reactusegesture_esm_objectWithoutPropertiesLoose(_ref2, ["domTarget", "eventOptions", "window", "enabled"]);
-
-  var opts = getInternalGenericOptions({
-    domTarget: domTarget,
-    eventOptions: eventOptions,
-    window: window,
-    enabled: enabled
-  });
-  opts.hover = reactusegesture_esm_extends({
-    enabled: true
-  }, rest);
-  return opts;
-}
-function _buildDragConfig(_ref3) {
-  var domTarget = _ref3.domTarget,
-      eventOptions = _ref3.eventOptions,
-      window = _ref3.window,
-      enabled = _ref3.enabled,
-      rest = reactusegesture_esm_objectWithoutPropertiesLoose(_ref3, ["domTarget", "eventOptions", "window", "enabled"]);
-
-  var opts = getInternalGenericOptions({
-    domTarget: domTarget,
-    eventOptions: eventOptions,
-    window: window,
-    enabled: enabled
-  });
-  opts.drag = getInternalDragOptions(rest);
-  return opts;
-}
-function _buildPinchConfig(_ref4) {
-  var domTarget = _ref4.domTarget,
-      eventOptions = _ref4.eventOptions,
-      window = _ref4.window,
-      enabled = _ref4.enabled,
-      rest = reactusegesture_esm_objectWithoutPropertiesLoose(_ref4, ["domTarget", "eventOptions", "window", "enabled"]);
-
-  var opts = getInternalGenericOptions({
-    domTarget: domTarget,
-    eventOptions: eventOptions,
-    window: window,
-    enabled: enabled
-  });
-  opts.pinch = getInternalDistanceAngleOptions(rest);
-  return opts;
-}
-function _buildScrollConfig(_ref5) {
-  var domTarget = _ref5.domTarget,
-      eventOptions = _ref5.eventOptions,
-      window = _ref5.window,
-      enabled = _ref5.enabled,
-      rest = reactusegesture_esm_objectWithoutPropertiesLoose(_ref5, ["domTarget", "eventOptions", "window", "enabled"]);
-
-  var opts = getInternalGenericOptions({
-    domTarget: domTarget,
-    eventOptions: eventOptions,
-    window: window,
-    enabled: enabled
-  });
-  opts.scroll = getInternalCoordinatesOptions(rest);
-  return opts;
-}
-function _buildWheelConfig(_ref6) {
-  var domTarget = _ref6.domTarget,
-      eventOptions = _ref6.eventOptions,
-      window = _ref6.window,
-      enabled = _ref6.enabled,
-      rest = reactusegesture_esm_objectWithoutPropertiesLoose(_ref6, ["domTarget", "eventOptions", "window", "enabled"]);
-
-  var opts = getInternalGenericOptions({
-    domTarget: domTarget,
-    eventOptions: eventOptions,
-    window: window,
-    enabled: enabled
-  });
-  opts.wheel = getInternalCoordinatesOptions(rest);
-  return opts;
-}
-function buildComplexConfig(config, actions) {
-  if (config === void 0) {
-    config = {};
-  }
-
-  if (actions === void 0) {
-    actions = new Set();
-  }
-
-  var _config = config,
-      drag = _config.drag,
-      wheel = _config.wheel,
-      move = _config.move,
-      scroll = _config.scroll,
-      pinch = _config.pinch,
-      hover = _config.hover,
-      eventOptions = _config.eventOptions,
-      window = _config.window,
-      transform = _config.transform,
-      domTarget = _config.domTarget,
-      enabled = _config.enabled;
-  var mergedConfig = getInternalGenericOptions({
-    domTarget: domTarget,
-    eventOptions: eventOptions,
-    transform: transform,
-    window: window,
-    enabled: enabled
-  });
-  if (actions.has('onDrag')) mergedConfig.drag = getInternalDragOptions(drag);
-  if (actions.has('onWheel')) mergedConfig.wheel = getInternalCoordinatesOptions(wheel);
-  if (actions.has('onScroll')) mergedConfig.scroll = getInternalCoordinatesOptions(scroll);
-  if (actions.has('onMove')) mergedConfig.move = getInternalCoordinatesOptions(move);
-  if (actions.has('onPinch')) mergedConfig.pinch = getInternalDistanceAngleOptions(pinch);
-  if (actions.has('onHover')) mergedConfig.hover = reactusegesture_esm_extends({
-    enabled: true
-  }, hover);
-  return mergedConfig;
-}
-
-function getInitial(mixed) {
-  return reactusegesture_esm_extends({
-    _active: false,
-    _blocked: false,
-    _intentional: [false, false],
-    _movement: [0, 0],
-    _initial: [0, 0],
-    _bounds: [[-Infinity, Infinity], [-Infinity, Infinity]],
-    _lastEventType: undefined,
-    _dragStarted: false,
-    _dragPreventScroll: false,
-    _dragIsTap: true,
-    _dragDelayed: false,
-    event: undefined,
-    intentional: false,
-    values: [0, 0],
-    velocities: [0, 0],
-    delta: [0, 0],
-    movement: [0, 0],
-    offset: [0, 0],
-    lastOffset: [0, 0],
-    direction: [0, 0],
-    initial: [0, 0],
-    previous: [0, 0],
-    first: false,
-    last: false,
-    active: false,
-    timeStamp: 0,
-    startTime: 0,
-    elapsedTime: 0,
-    cancel: reactusegesture_esm_noop,
-    canceled: false,
-    memo: undefined,
-    args: undefined
-  }, mixed);
-}
-
-function getInitialState() {
-  var shared = {
-    hovering: false,
-    scrolling: false,
-    wheeling: false,
-    dragging: false,
-    moving: false,
-    pinching: false,
-    touches: 0,
-    buttons: 0,
-    down: false,
-    shiftKey: false,
-    altKey: false,
-    metaKey: false,
-    ctrlKey: false,
-    locked: false
-  };
-  var drag = getInitial({
-    _pointerId: undefined,
-    axis: undefined,
-    xy: [0, 0],
-    vxvy: [0, 0],
-    velocity: 0,
-    distance: 0,
-    tap: false,
-    swipe: [0, 0]
-  });
-  var pinch = getInitial({
-    // @ts-expect-error when used _pointerIds we can assert its type will be [number, number]
-    _pointerIds: [],
-    da: [0, 0],
-    vdva: [0, 0],
-    // @ts-expect-error origin can never be passed as undefined in userland
-    origin: undefined,
-    turns: 0
-  });
-  var wheel = getInitial({
-    axis: undefined,
-    xy: [0, 0],
-    vxvy: [0, 0],
-    velocity: 0,
-    distance: 0
-  });
-  var move = getInitial({
-    axis: undefined,
-    xy: [0, 0],
-    vxvy: [0, 0],
-    velocity: 0,
-    distance: 0
-  });
-  var scroll = getInitial({
-    axis: undefined,
-    xy: [0, 0],
-    vxvy: [0, 0],
-    velocity: 0,
-    distance: 0
-  });
-  return {
-    shared: shared,
-    drag: drag,
-    pinch: pinch,
-    wheel: wheel,
-    move: move,
-    scroll: scroll
-  };
-}
-
-var RecognizersMap = /*#__PURE__*/new Map();
-
-var identity$1 = function identity(xy) {
-  return xy;
-};
-/**
- * @private
- * Recognizer abstract class.
- */
-
-
-var Recognizer = /*#__PURE__*/function () {
-  /**
-   * Creates an instance of a gesture recognizer.
-   * @param stateKey drag, move, pinch, etc.
-   * @param controller the controller attached to the gesture
-   * @param [args] the args that should be passed to the gesture handler
-   */
-  function Recognizer(controller, args) {
-    var _this = this;
-
-    if (args === void 0) {
-      args = [];
-    }
-
-    this.controller = controller;
-    this.args = args;
-    this.debounced = true; // Convenience method to set a timeout for a given gesture
-
-    this.setTimeout = function (callback, ms) {
-      var _window;
-
-      if (ms === void 0) {
-        ms = 140;
-      }
-
-      clearTimeout(_this.controller.timeouts[_this.stateKey]);
-
-      for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-        args[_key - 2] = arguments[_key];
-      }
-
-      _this.controller.timeouts[_this.stateKey] = (_window = window).setTimeout.apply(_window, [callback, ms].concat(args));
-    }; // Convenience method to clear a timeout for a given gesture
-
-
-    this.clearTimeout = function () {
-      clearTimeout(_this.controller.timeouts[_this.stateKey]);
-    };
-    /**
-     * Fires the gesture handler
-     */
-
-
-    this.fireGestureHandler = function (forceFlag) {
-      if (forceFlag === void 0) {
-        forceFlag = false;
-      }
-
-      /**
-       * If the gesture has been blocked (this can happen when the gesture has started in an unwanted direction),
-       * clean everything and don't do anything.
-       */
-      if (_this.state._blocked) {
-        // we need debounced gestures to end by themselves
-        if (!_this.debounced) {
-          _this.state._active = false;
-
-          _this.clean();
-        }
-
-        return null;
-      } // If the gesture has no intentional dimension, don't fire the handler.
-
-
-      if (!forceFlag && !_this.state.intentional && !_this.config.triggerAllEvents) return null;
-
-      if (_this.state.intentional) {
-        var prev_active = _this.state.active;
-        var next_active = _this.state._active;
-        _this.state.active = next_active;
-        _this.state.first = next_active && !prev_active;
-        _this.state.last = prev_active && !next_active;
-        _this.controller.state.shared[_this.ingKey] = next_active; // Sets dragging, pinching, etc. to the gesture active state
-      }
-
-      var touches = _this.controller.pointerIds.size || _this.controller.touchIds.size;
-      var down = _this.controller.state.shared.buttons > 0 || touches > 0;
-
-      var state = reactusegesture_esm_extends({}, _this.controller.state.shared, _this.state, _this.mapStateValues(_this.state), {
-        locked: !!document.pointerLockElement,
-        touches: touches,
-        down: down
-      }); // @ts-expect-error
-
-
-      var newMemo = _this.handler(state); // Sets memo to the returned value of the handler (unless it's not undefined)
-
-
-      _this.state.memo = newMemo !== void 0 ? newMemo : _this.state.memo;
-      return state;
-    };
-
-    this.controller = controller;
-    this.args = args;
-  } // Returns the gesture config
-
-
-  var _proto = Recognizer.prototype;
-
-  // Convenience method to update the shared state
-  _proto.updateSharedState = function updateSharedState(sharedState) {
-    Object.assign(this.controller.state.shared, sharedState);
-  } // Convenience method to update the gesture state
-  ;
-
-  _proto.updateGestureState = function updateGestureState(gestureState) {
-    Object.assign(this.state, gestureState);
-  }
-  /**
-   * Returns state properties depending on the movement and state.
-   *
-   * Should be overriden for custom behavior, doesn't do anything in the implementation
-   * below.
-   */
-  ;
-
-  _proto.checkIntentionality = function checkIntentionality(_intentional, _movement) {
-    return {
-      _intentional: _intentional,
-      _blocked: false
-    };
-  }
-  /**
-   * Returns basic movement properties for the gesture based on the next values and current state.
-   */
-  ;
-
-  _proto.getMovement = function getMovement(values) {
-    var _this$config = this.config,
-        rubberband = _this$config.rubberband,
-        T = _this$config.threshold;
-    var _this$state = this.state,
-        _bounds = _this$state._bounds,
-        _initial = _this$state._initial,
-        _active = _this$state._active,
-        wasIntentional = _this$state._intentional,
-        lastOffset = _this$state.lastOffset,
-        prevMovement = _this$state.movement;
-    var M = this.getInternalMovement(values, this.state);
-
-    var _T = this.transform(T).map(Math.abs);
-
-    var i0 = wasIntentional[0] === false ? getIntentionalDisplacement(M[0], _T[0]) : wasIntentional[0];
-    var i1 = wasIntentional[1] === false ? getIntentionalDisplacement(M[1], _T[1]) : wasIntentional[1]; // Get gesture specific state properties based on intentionality and movement.
-
-    var intentionalityCheck = this.checkIntentionality([i0, i1], M);
-
-    if (intentionalityCheck._blocked) {
-      return reactusegesture_esm_extends({}, intentionalityCheck, {
-        _movement: M,
-        delta: [0, 0]
-      });
-    }
-
-    var _intentional = intentionalityCheck._intentional;
-    var _movement = M;
-    /**
-     * The movement sent to the handler has 0 in its dimensions when intentionality is false.
-     * It is calculated from the actual movement minus the threshold.
-     */
-
-    var movement = [_intentional[0] !== false ? M[0] - _intentional[0] : 0, _intentional[1] !== false ? M[1] - _intentional[1] : 0];
-    var offset = addV(movement, lastOffset);
-    /**
-     * Rubberband should be 0 when the gesture is no longer active, so that movement
-     * and offset can return within their bounds.
-     */
-
-    var _rubberband = _active ? rubberband : [0, 0];
-
-    movement = computeRubberband(_bounds, addV(movement, _initial), _rubberband);
-    return reactusegesture_esm_extends({}, intentionalityCheck, {
-      intentional: _intentional[0] !== false || _intentional[1] !== false,
-      _initial: _initial,
-      _movement: _movement,
-      movement: movement,
-      values: values,
-      offset: computeRubberband(_bounds, offset, _rubberband),
-      delta: subV(movement, prevMovement)
-    });
-  } // Cleans the gesture. Can be overriden by gestures.
-  ;
-
-  _proto.clean = function clean() {
-    this.clearTimeout();
+function use_gesture_core_esm_parse(config, gestureKey) {
+  const _ref = config,
+        {
+    target,
+    eventOptions,
+    window,
+    enabled,
+    transform
+  } = _ref,
+        rest = _objectWithoutProperties(_ref, _excluded);
+
+  const _config = {
+    shared: resolveWith({
+      target,
+      eventOptions,
+      window,
+      enabled,
+      transform
+    }, sharedConfigResolver)
   };
 
-  _createClass(Recognizer, [{
-    key: "config",
-    get: function get() {
-      return this.controller.config[this.stateKey];
-    } // Is the gesture enabled
-
-  }, {
-    key: "enabled",
-    get: function get() {
-      return this.controller.config.enabled && this.config.enabled;
-    } // Returns the controller state for a given gesture
-
-  }, {
-    key: "state",
-    get: function get() {
-      return this.controller.state[this.stateKey];
-    } // Returns the gesture handler
-
-  }, {
-    key: "handler",
-    get: function get() {
-      return this.controller.handlers[this.stateKey];
-    }
-  }, {
-    key: "transform",
-    get: function get() {
-      return this.config.transform || this.controller.config.transform || identity$1;
-    }
-  }]);
-
-  return Recognizer;
-}(); //--------------------------------------------
-
-function getIntentionalDisplacement(movement, threshold) {
-  if (Math.abs(movement) >= threshold) {
-    return sign(movement) * threshold;
+  if (gestureKey) {
+    const resolver = ConfigResolverMap.get(gestureKey);
+    _config[gestureKey] = resolveWith(actions_5ad85d2f_esm_objectSpread2({
+      shared: _config.shared
+    }, rest), resolver);
   } else {
-    return false;
-  }
-}
+    for (const key in rest) {
+      const resolver = ConfigResolverMap.get(key);
 
-function computeRubberband(bounds, _ref, _ref2) {
-  var Vx = _ref[0],
-      Vy = _ref[1];
-  var Rx = _ref2[0],
-      Ry = _ref2[1];
-  var _bounds$ = bounds[0],
-      X1 = _bounds$[0],
-      X2 = _bounds$[1],
-      _bounds$2 = bounds[1],
-      Y1 = _bounds$2[0],
-      Y2 = _bounds$2[1];
-  return [rubberbandIfOutOfBounds(Vx, X1, X2, Rx), rubberbandIfOutOfBounds(Vy, Y1, Y2, Ry)];
-}
-/**
- * Returns a generic, common payload for all gestures from an event.
- */
-
-
-function getGenericPayload(_ref3, event, isStartEvent) {
-  var state = _ref3.state;
-  var timeStamp = event.timeStamp,
-      _lastEventType = event.type;
-  var previous = state.values;
-  var elapsedTime = isStartEvent ? 0 : timeStamp - state.startTime;
-  return {
-    _lastEventType: _lastEventType,
-    event: event,
-    timeStamp: timeStamp,
-    elapsedTime: elapsedTime,
-    previous: previous
-  };
-}
-/**
- * Returns the reinitialized start state for the gesture.
- * Should be common to all gestures.
- */
-
-function getStartGestureState(_ref4, values, event) {
-  var state = _ref4.state,
-      config = _ref4.config,
-      stateKey = _ref4.stateKey,
-      args = _ref4.args;
-  var offset = state.offset;
-  var startTime = event.timeStamp;
-  var initial = config.initial,
-      bounds = config.bounds;
-
-  var _state = reactusegesture_esm_extends({}, getInitialState()[stateKey], {
-    _active: true,
-    args: args,
-    values: values,
-    initial: values,
-    offset: offset,
-    lastOffset: offset,
-    startTime: startTime
-  });
-
-  return reactusegesture_esm_extends({}, _state, {
-    _initial: valueFn(initial, _state),
-    _bounds: valueFn(bounds, _state)
-  });
-}
-
-function partial(func, state) {
-  return function (event) {
-    for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
+      if (resolver) {
+        _config[key] = resolveWith(actions_5ad85d2f_esm_objectSpread2({
+          shared: _config.shared
+        }, rest[key]), resolver);
+      } else if (false) {}
     }
-
-    // @ts-ignore
-    return func.call.apply(func, [this, reactusegesture_esm_extends({}, state, {
-      event: event
-    })].concat(args));
-  };
-}
-/**
- * The controller will keep track of the state for all gestures and also keep
- * track of timeouts, and window listeners.
- */
-
-
-var Controller = function Controller(classes) {
-  var _this = this;
-
-  this.classes = classes;
-  this.pointerIds = new Set(); // register Pointer Events pointerIds
-
-  this.touchIds = new Set(); // register Touch Events identifiers
-
-  this.supportsTouchEvents = reactusegesture_esm_supportsTouchEvents();
-  this.supportsGestureEvents = supportsGestureEvents();
-
-  this.bind = function () {
-    var bindings = {};
-
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-
-    for (var _iterator = reactusegesture_esm_createForOfIteratorHelperLoose(_this.classes), _step; !(_step = _iterator()).done;) {
-      var RecognizerClass = _step.value;
-      new RecognizerClass(_this, args).addBindings(bindings);
-    } // we also add event bindings for native handlers
-
-
-    for (var _i = 0, _Object$entries = Object.entries(_this.nativeRefs); _i < _Object$entries.length; _i++) {
-      var _Object$entries$_i = _Object$entries[_i],
-          event = _Object$entries$_i[0],
-          handler = _Object$entries$_i[1];
-      addBindings(bindings, event, partial(handler, reactusegesture_esm_extends({}, _this.state.shared, {
-        args: args
-      })));
-    }
-
-    if (_this.config.domTarget) {
-      // If config.domTarget is set we add event listeners to it and return the clean function.
-      return updateDomListeners(_this, bindings);
-    } else {
-      // If not, we return an object that contains gesture handlers mapped to react handler event keys.
-      return getPropsListener(_this, bindings);
-    }
-  };
-
-  this.effect = function () {
-    if (_this.config.domTarget) _this.bind();
-    return _this.clean;
-  };
-  /**
-   * Function ran on component unmount: cleans timeouts and removes dom listeners set by the bind function.
-   */
-
-
-  this.clean = function () {
-    var domTarget = getDomTargetFromConfig(_this.config);
-    var eventOptions = _this.config.eventOptions;
-    if (domTarget) removeListeners(domTarget, takeAll(_this.domListeners), eventOptions);
-    Object.values(_this.timeouts).forEach(clearTimeout);
-    clearAllWindowListeners(_this);
-  };
-
-  this.classes = classes;
-  this.state = getInitialState();
-  this.timeouts = {};
-  this.domListeners = [];
-  this.windowListeners = {};
-};
-function addEventIds(controller, event) {
-  var idList = 'pointerId' in event ? controller.pointerIds : controller.touchIds;
-  getPointerIds(event).forEach(idList.add, idList);
-}
-function removeEventIds(controller, event) {
-  var idList = 'pointerId' in event ? controller.pointerIds : controller.touchIds;
-  getPointerIds(event).forEach(idList["delete"], idList);
-}
-function clearAllWindowListeners(controller) {
-  var _controller$config = controller.config,
-      el = _controller$config.window,
-      eventOptions = _controller$config.eventOptions,
-      windowListeners = controller.windowListeners;
-  if (!el) return;
-
-  for (var stateKey in windowListeners) {
-    var handlers = windowListeners[stateKey];
-    removeListeners(el, handlers, eventOptions);
   }
 
-  controller.windowListeners = {};
-}
-function clearWindowListeners(_ref, stateKey, options) {
-  var config = _ref.config,
-      windowListeners = _ref.windowListeners;
-
-  if (options === void 0) {
-    options = config.eventOptions;
-  }
-
-  if (!config.window) return;
-  removeListeners(config.window, windowListeners[stateKey], options);
-  delete windowListeners[stateKey];
-}
-function updateWindowListeners(_ref2, stateKey, listeners, options) {
-  var config = _ref2.config,
-      windowListeners = _ref2.windowListeners;
-
-  if (listeners === void 0) {
-    listeners = [];
-  }
-
-  if (options === void 0) {
-    options = config.eventOptions;
-  }
-
-  if (!config.window) return;
-  removeListeners(config.window, windowListeners[stateKey], options);
-  addListeners(config.window, windowListeners[stateKey] = listeners, options);
+  return _config;
 }
 
-function updateDomListeners(_ref3, bindings) {
-  var config = _ref3.config,
-      domListeners = _ref3.domListeners;
-  var domTarget = getDomTargetFromConfig(config);
-  if (!domTarget) throw new Error('domTarget must be defined');
-  var eventOptions = config.eventOptions;
-  removeListeners(domTarget, takeAll(domListeners), eventOptions);
+class EventStore {
+  constructor(ctrl) {
+    actions_5ad85d2f_esm_defineProperty(this, "_listeners", []);
 
-  for (var _i2 = 0, _Object$entries2 = Object.entries(bindings); _i2 < _Object$entries2.length; _i2++) {
-    var _Object$entries2$_i = _Object$entries2[_i2],
-        key = _Object$entries2$_i[0],
-        fns = _Object$entries2$_i[1];
-    var name = key.slice(2).toLowerCase();
-    domListeners.push([name, chainFns.apply(void 0, fns)]);
+    this._ctrl = ctrl;
   }
 
-  addListeners(domTarget, domListeners, eventOptions);
+  add(element, device, action, handler, options) {
+    const type = toDomEventType(device, action);
+
+    const eventOptions = actions_5ad85d2f_esm_objectSpread2(actions_5ad85d2f_esm_objectSpread2({}, this._ctrl.config.shared.eventOptions), options);
+
+    element.addEventListener(type, handler, eventOptions);
+
+    this._listeners.push(() => element.removeEventListener(type, handler, eventOptions));
+  }
+
+  clean() {
+    this._listeners.forEach(remove => remove());
+
+    this._listeners = [];
+  }
+
 }
 
-function getPropsListener(_ref4, bindings) {
-  var config = _ref4.config;
-  var props = {};
-  var captureString = config.eventOptions.capture ? 'Capture' : '';
-
-  for (var _i3 = 0, _Object$entries3 = Object.entries(bindings); _i3 < _Object$entries3.length; _i3++) {
-    var _Object$entries3$_i = _Object$entries3[_i3],
-        event = _Object$entries3$_i[0],
-        fns = _Object$entries3$_i[1];
-    var fnsArray = Array.isArray(fns) ? fns : [fns];
-    var key = event + captureString;
-    props[key] = chainFns.apply(void 0, fnsArray);
+class TimeoutStore {
+  constructor() {
+    actions_5ad85d2f_esm_defineProperty(this, "_timeouts", new Map());
   }
 
-  return props;
+  add(key, callback, ms = 140, ...args) {
+    this.remove(key);
+
+    this._timeouts.set(key, window.setTimeout(callback, ms, ...args));
+  }
+
+  remove(key) {
+    const timeout = this._timeouts.get(key);
+
+    if (timeout) window.clearTimeout(timeout);
+  }
+
+  clean() {
+    this._timeouts.forEach(timeout => void window.clearTimeout(timeout));
+
+    this._timeouts.clear();
+  }
+
 }
 
-function takeAll(array) {
-  if (array === void 0) {
-    array = [];
-  }
+class Controller {
+  constructor(handlers) {
+    actions_5ad85d2f_esm_defineProperty(this, "gestures", new Set());
 
-  return array.splice(0, array.length);
-}
+    actions_5ad85d2f_esm_defineProperty(this, "_targetEventStore", new EventStore(this));
 
-function getDomTargetFromConfig(_ref5) {
-  var domTarget = _ref5.domTarget;
-  return domTarget && 'current' in domTarget ? domTarget.current : domTarget;
-}
-/**
- * bindings is an object which keys match ReactEventHandlerKeys.
- * Since a recognizer might want to bind a handler function to an event key already used by a previously
- * added recognizer, we need to make sure that each event key is an array of all the functions mapped for
- * that key.
- */
+    actions_5ad85d2f_esm_defineProperty(this, "gestureEventStores", {});
 
+    actions_5ad85d2f_esm_defineProperty(this, "gestureTimeoutStores", {});
 
-function addBindings(bindings, name, fn) {
-  if (!bindings[name]) bindings[name] = [];
-  bindings[name].push(fn);
-}
+    actions_5ad85d2f_esm_defineProperty(this, "handlers", {});
 
-function addListeners(el, listeners, options) {
-  if (listeners === void 0) {
-    listeners = [];
-  }
+    actions_5ad85d2f_esm_defineProperty(this, "config", {});
 
-  if (options === void 0) {
-    options = {};
-  }
+    actions_5ad85d2f_esm_defineProperty(this, "pointerIds", new Set());
 
-  for (var _iterator2 = reactusegesture_esm_createForOfIteratorHelperLoose(listeners), _step2; !(_step2 = _iterator2()).done;) {
-    var _step2$value = _step2.value,
-        eventName = _step2$value[0],
-        eventHandler = _step2$value[1];
-    el.addEventListener(eventName, eventHandler, options);
-  }
-}
+    actions_5ad85d2f_esm_defineProperty(this, "touchIds", new Set());
 
-function removeListeners(el, listeners, options) {
-  if (listeners === void 0) {
-    listeners = [];
-  }
-
-  if (options === void 0) {
-    options = {};
-  }
-
-  for (var _iterator3 = reactusegesture_esm_createForOfIteratorHelperLoose(listeners), _step3; !(_step3 = _iterator3()).done;) {
-    var _step3$value = _step3.value,
-        eventName = _step3$value[0],
-        eventHandler = _step3$value[1];
-    el.removeEventListener(eventName, eventHandler, options);
-  }
-}
-
-/* eslint-disable react-hooks/exhaustive-deps */
-/**
- * Utility hook called by all gesture hooks and that will be responsible for the internals.
- *
- * @param handlers
- * @param classes
- * @param config
- * @param nativeHandlers - native handlers such as onClick, onMouseDown, etc.
- */
-
-function useRecognizers(handlers, config, nativeHandlers) {
-  if (nativeHandlers === void 0) {
-    nativeHandlers = {};
-  }
-
-  var classes = resolveClasses(handlers);
-  var controller = external_React_default().useMemo(function () {
-    return new Controller(classes);
-  }, []);
-  controller.config = config;
-  controller.handlers = handlers;
-  controller.nativeRefs = nativeHandlers;
-  external_React_default().useEffect(controller.effect, []); // @ts-ignore
-
-  if (controller.config.domTarget) return deprecationNoticeForDomTarget; // @ts-ignore
-
-  return controller.bind;
-}
-
-function deprecationNoticeForDomTarget() {
-  if (false) {}
-}
-
-function resolveClasses(internalHandlers) {
-  var classes = new Set();
-  if (internalHandlers.drag) classes.add(RecognizersMap.get('drag'));
-  if (internalHandlers.wheel) classes.add(RecognizersMap.get('wheel'));
-  if (internalHandlers.scroll) classes.add(RecognizersMap.get('scroll'));
-  if (internalHandlers.move) classes.add(RecognizersMap.get('move'));
-  if (internalHandlers.pinch) classes.add(RecognizersMap.get('pinch'));
-  if (internalHandlers.hover) classes.add(RecognizersMap.get('hover'));
-  return classes;
-}
-
-/**
- * @private
- * Abstract class for coordinates-based gesture recongizers
- */
-
-var CoordinatesRecognizer = /*#__PURE__*/function (_Recognizer) {
-  reactusegesture_esm_inheritsLoose(CoordinatesRecognizer, _Recognizer);
-
-  function CoordinatesRecognizer() {
-    return _Recognizer.apply(this, arguments) || this;
-  }
-
-  var _proto = CoordinatesRecognizer.prototype;
-
-  /**
-   * Returns the real movement (without taking intentionality into account)
-   */
-  _proto.getInternalMovement = function getInternalMovement(values, state) {
-    return subV(values, state.initial);
-  }
-  /**
-   * In coordinates-based gesture, this function will detect the first intentional axis,
-   * lock the gesture axis if lockDirection is specified in the config, block the gesture
-   * if the first intentional axis doesn't match the specified axis in config.
-   */
-  ;
-
-  _proto.checkIntentionality = function checkIntentionality(_intentional, _movement) {
-    if (_intentional[0] === false && _intentional[1] === false) {
-      return {
-        _intentional: _intentional,
-        axis: this.state.axis
-      };
-    }
-
-    var _movement$map = _movement.map(Math.abs),
-        absX = _movement$map[0],
-        absY = _movement$map[1];
-
-    var axis = this.state.axis || (absX > absY ? 'x' : absX < absY ? 'y' : undefined);
-    if (!this.config.axis && !this.config.lockDirection) return {
-      _intentional: _intentional,
-      _blocked: false,
-      axis: axis
-    };
-    if (!axis) return {
-      _intentional: [false, false],
-      _blocked: false,
-      axis: axis
-    };
-    if (!!this.config.axis && axis !== this.config.axis) return {
-      _intentional: _intentional,
-      _blocked: true,
-      axis: axis
-    };
-    _intentional[axis === 'x' ? 1 : 0] = false;
-    return {
-      _intentional: _intentional,
-      _blocked: false,
-      axis: axis
-    };
-  };
-
-  _proto.getKinematics = function getKinematics(values, event) {
-    var state = this.getMovement(values);
-
-    if (!state._blocked) {
-      var dt = event.timeStamp - this.state.timeStamp;
-      Object.assign(state, calculateAllKinematics(state.movement, state.delta, dt));
-    }
-
-    return state;
-  };
-
-  _proto.mapStateValues = function mapStateValues(state) {
-    return {
-      xy: state.values,
-      vxvy: state.velocities
-    };
-  };
-
-  return CoordinatesRecognizer;
-}(Recognizer);
-
-var TAP_DISTANCE_THRESHOLD = 3;
-
-function persistEvent(event) {
-  'persist' in event && typeof event.persist === 'function' && event.persist();
-}
-
-var DragRecognizer = /*#__PURE__*/function (_CoordinatesRecognize) {
-  reactusegesture_esm_inheritsLoose(DragRecognizer, _CoordinatesRecognize);
-
-  function DragRecognizer() {
-    var _this;
-
-    _this = _CoordinatesRecognize.apply(this, arguments) || this;
-    _this.ingKey = 'dragging';
-    _this.stateKey = 'drag'; // TODO add back when setPointerCapture is widely wupported
-    // https://caniuse.com/#search=setPointerCapture
-
-    _this.setPointerCapture = function (event) {
-      // don't perform pointere capture when user wants to use touch events or
-      // when a pointerLockElement exists as this would throw an error
-      if (_this.config.useTouch || document.pointerLockElement) return;
-      var target = event.target,
-          pointerId = event.pointerId;
-
-      if (target && 'setPointerCapture' in target) {
-        // this would work in the DOM but doesn't with react three fiber
-        // target.addEventListener('pointermove', this.onDragChange, this.controller.config.eventOptions)
-        // @ts-expect-error
-        target.setPointerCapture(pointerId);
+    actions_5ad85d2f_esm_defineProperty(this, "state", {
+      shared: {
+        shiftKey: false,
+        metaKey: false,
+        ctrlKey: false,
+        altKey: false
       }
-
-      _this.updateGestureState({
-        _dragTarget: target,
-        _dragPointerId: pointerId
-      });
-    };
-
-    _this.releasePointerCapture = function () {
-      if (_this.config.useTouch || document.pointerLockElement) return;
-      var _this$state = _this.state,
-          _dragTarget = _this$state._dragTarget,
-          _dragPointerId = _this$state._dragPointerId;
-
-      if (_dragPointerId && _dragTarget && 'releasePointerCapture' in _dragTarget) {
-        // this would work in the DOM but doesn't with react three fiber
-        // target.removeEventListener('pointermove', this.onDragChange, this.controller.config.eventOptions)
-        if (!('hasPointerCapture' in _dragTarget) || _dragTarget.hasPointerCapture(_dragPointerId)) try {
-          _dragTarget.releasePointerCapture(_dragPointerId);
-        } catch (e) {}
-      }
-    };
-
-    _this.preventScroll = function (event) {
-      if (_this.state._dragPreventScroll && event.cancelable) {
-        event.preventDefault();
-      }
-    };
-
-    _this.getEventId = function (event) {
-      if (_this.config.useTouch) return event.changedTouches[0].identifier;
-      return event.pointerId;
-    };
-
-    _this.isValidEvent = function (event) {
-      // if we were using pointer events only event.isPrimary === 1 would suffice
-      return _this.state._pointerId === _this.getEventId(event);
-    };
-
-    _this.shouldPreventWindowScrollY = _this.config.experimental_preventWindowScrollY && _this.controller.supportsTouchEvents;
-
-    _this.setUpWindowScrollDetection = function (event) {
-      persistEvent(event); // we add window listeners that will prevent the scroll when the user has started dragging
-
-      updateWindowListeners(_this.controller, _this.stateKey, [['touchmove', _this.preventScroll], ['touchend', _this.clean.bind(reactusegesture_esm_assertThisInitialized(_this))], ['touchcancel', _this.clean.bind(reactusegesture_esm_assertThisInitialized(_this))]], {
-        passive: false
-      });
-
-      _this.setTimeout(_this.startDrag.bind(reactusegesture_esm_assertThisInitialized(_this)), 250, event);
-    };
-
-    _this.setUpDelayedDragTrigger = function (event) {
-      _this.state._dragDelayed = true;
-      persistEvent(event);
-
-      _this.setTimeout(_this.startDrag.bind(reactusegesture_esm_assertThisInitialized(_this)), _this.config.delay, event);
-    };
-
-    _this.setStartState = function (event) {
-      var values = getPointerEventValues(event, _this.transform);
-
-      _this.updateSharedState(getGenericEventData(event));
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, getStartGestureState(reactusegesture_esm_assertThisInitialized(_this), values, event), getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event, true), {
-        _pointerId: _this.getEventId(event)
-      }));
-
-      _this.updateGestureState(_this.getMovement(values));
-    };
-
-    _this.onDragStart = function (event) {
-      addEventIds(_this.controller, event);
-      if (!_this.enabled || _this.state._active) return;
-
-      _this.setStartState(event);
-
-      _this.setPointerCapture(event);
-
-      if (_this.shouldPreventWindowScrollY) _this.setUpWindowScrollDetection(event);else if (_this.config.delay > 0) _this.setUpDelayedDragTrigger(event);else _this.startDrag(event, true); // we pass the values to the startDrag event
-    };
-
-    _this.onDragChange = function (event) {
-      if ( // if the gesture was canceled or
-      _this.state.canceled || // if onDragStart wasn't fired or
-      !_this.state._active || // if the event pointerId doesn't match the one that initiated the drag
-      !_this.isValidEvent(event) || // if the event has the same timestamp as the previous event
-      // note that checking type equality is ONLY for tests ¯\_(ツ)_/¯
-      _this.state._lastEventType === event.type && event.timeStamp === _this.state.timeStamp) return;
-      var values;
-
-      if (document.pointerLockElement) {
-        var movementX = event.movementX,
-            movementY = event.movementY;
-        values = addV(_this.transform([movementX, movementY]), _this.state.values);
-      } else values = getPointerEventValues(event, _this.transform);
-
-      var kinematics = _this.getKinematics(values, event); // if startDrag hasn't fired
-
-
-      if (!_this.state._dragStarted) {
-        // If the gesture isn't active then respond to the event only if
-        // it's been delayed via the `delay` option, in which case start
-        // the gesture immediately.
-        if (_this.state._dragDelayed) {
-          _this.startDrag(event);
-
-          return;
-        } // if the user wants to prevent vertical window scroll when user starts dragging
-
-
-        if (_this.shouldPreventWindowScrollY) {
-          if (!_this.state._dragPreventScroll && kinematics.axis) {
-            // if the user is dragging horizontally then we should allow the drag
-            if (kinematics.axis === 'x') {
-              _this.startDrag(event);
-            } else {
-              _this.state._active = false;
-              return;
-            }
-          } else return;
-        } else return;
-      }
-
-      var genericEventData = getGenericEventData(event);
-
-      _this.updateSharedState(genericEventData);
-
-      var genericPayload = getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event); // This verifies if the drag can be assimilated to a tap by checking
-      // if the real distance of the drag (ie not accounting for the threshold) is
-      // greater than the TAP_DISTANCE_THRESHOLD.
-
-      var realDistance = calculateDistance(kinematics._movement);
-      var _dragIsTap = _this.state._dragIsTap;
-      if (_dragIsTap && realDistance >= TAP_DISTANCE_THRESHOLD) _dragIsTap = false;
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, genericPayload, kinematics, {
-        _dragIsTap: _dragIsTap
-      }));
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onDragEnd = function (event) {
-      removeEventIds(_this.controller, event); // if the event pointerId doesn't match the one that initiated the drag
-      // we don't want to end the drag
-
-      if (!_this.isValidEvent(event)) return;
-
-      _this.clean(); // if the gesture is no longer active (ie canceled)
-      // don't do anything
-
-
-      if (!_this.state._active) return;
-      _this.state._active = false;
-      var tap = _this.state._dragIsTap;
-      var _this$state$velocitie = _this.state.velocities,
-          vx = _this$state$velocitie[0],
-          vy = _this$state$velocitie[1];
-      var _this$state$movement = _this.state.movement,
-          mx = _this$state$movement[0],
-          my = _this$state$movement[1];
-      var _this$state$_intentio = _this.state._intentional,
-          ix = _this$state$_intentio[0],
-          iy = _this$state$_intentio[1];
-      var _this$config$swipeVel = _this.config.swipeVelocity,
-          svx = _this$config$swipeVel[0],
-          svy = _this$config$swipeVel[1];
-      var _this$config$swipeDis = _this.config.swipeDistance,
-          sx = _this$config$swipeDis[0],
-          sy = _this$config$swipeDis[1];
-      var sd = _this.config.swipeDuration;
-
-      var endState = reactusegesture_esm_extends({}, getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event), _this.getMovement(_this.state.values));
-
-      var swipe = [0, 0];
-
-      if (endState.elapsedTime < sd) {
-        if (ix !== false && Math.abs(vx) > svx && Math.abs(mx) > sx) swipe[0] = sign(vx);
-        if (iy !== false && Math.abs(vy) > svy && Math.abs(my) > sy) swipe[1] = sign(vy);
-      }
-
-      _this.updateSharedState({
-        buttons: 0
-      });
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, endState, {
-        tap: tap,
-        swipe: swipe
-      }));
-
-      _this.fireGestureHandler(_this.config.filterTaps && tap === true);
-    };
-
-    _this.clean = function () {
-      _CoordinatesRecognize.prototype.clean.call(reactusegesture_esm_assertThisInitialized(_this));
-
-      _this.state._dragStarted = false;
-
-      _this.releasePointerCapture();
-
-      clearWindowListeners(_this.controller, _this.stateKey);
-    };
-
-    _this.onCancel = function () {
-      if (_this.state.canceled) return;
-
-      _this.updateGestureState({
-        canceled: true,
-        _active: false
-      });
-
-      _this.updateSharedState({
-        buttons: 0
-      });
-
-      setTimeout(function () {
-        return _this.fireGestureHandler();
-      }, 0);
-    };
-
-    _this.onClick = function (event) {
-      if (!_this.state._dragIsTap) event.stopPropagation();
-    };
-
-    return _this;
-  }
-
-  var _proto = DragRecognizer.prototype;
-
-  _proto.startDrag = function startDrag(event, onDragIsStart) {
-    if (onDragIsStart === void 0) {
-      onDragIsStart = false;
-    }
-
-    // startDrag can happen after a timeout, so we need to check if the gesture is still active
-    // as the user might have lift up the pointer in between.
-    if ( // if the gesture isn't active (probably means)
-    !this.state._active || // if the drag has already started we should ignore subsequent attempts
-    this.state._dragStarted) return;
-    if (!onDragIsStart) this.setStartState(event);
-    this.updateGestureState({
-      _dragStarted: true,
-      _dragPreventScroll: true,
-      cancel: this.onCancel
     });
-    this.clearTimeout();
-    this.fireGestureHandler();
-  };
 
-  _proto.addBindings = function addBindings$1(bindings) {
-    if (this.config.useTouch) {
-      addBindings(bindings, 'onTouchStart', this.onDragStart);
-
-      addBindings(bindings, 'onTouchMove', this.onDragChange); // this is needed for react-three-fiber
-
-
-      addBindings(bindings, 'onTouchEnd', this.onDragEnd);
-
-      addBindings(bindings, 'onTouchCancel', this.onDragEnd);
-    } else {
-      addBindings(bindings, 'onPointerDown', this.onDragStart);
-
-      addBindings(bindings, 'onPointerMove', this.onDragChange); // this is needed for react-three-fiber
-
-
-      addBindings(bindings, 'onPointerUp', this.onDragEnd);
-
-      addBindings(bindings, 'onPointerCancel', this.onDragEnd);
-    }
-
-    if (this.config.filterTaps) {
-      var handler = this.controller.config.eventOptions.capture ? 'onClick' : 'onClickCapture';
-
-      addBindings(bindings, handler, this.onClick);
-    }
-  };
-
-  return DragRecognizer;
-}(CoordinatesRecognizer);
-
-/**
- * Inlined from https://github.com/alexreardon/memoize-one
- */
-function memoizeOne(resultFn, isEqual) {
-  var lastThis;
-  var lastArgs = [];
-  var lastResult;
-  var calledOnce = false;
-
-  function memoized() {
-    for (var _len = arguments.length, newArgs = new Array(_len), _key = 0; _key < _len; _key++) {
-      newArgs[_key] = arguments[_key];
-    }
-
-    if (calledOnce && lastThis === this && isEqual(newArgs, lastArgs)) {
-      return lastResult;
-    }
-
-    lastResult = resultFn.apply(this, newArgs);
-    calledOnce = true;
-    lastThis = this;
-    lastArgs = newArgs;
-    return lastResult;
+    resolveGestures(this, handlers);
   }
 
-  return memoized;
-}
+  setEventIds(event) {
+    if (isTouch(event)) {
+      this.touchIds = new Set(touchIds(event));
+    } else if ('pointerId' in event) {
+      if (event.type === 'pointerup' || event.type === 'pointercancel') this.pointerIds.delete(event.pointerId);else if (event.type === 'pointerdown') this.pointerIds.add(event.pointerId);
+    }
+  }
 
-/**
- * Taken from https://github.com/FormidableLabs/react-fast-compare
- *
- * Dropped comments and ArrayBuffer handling
- */
-function equal(a, b) {
-  if (a === b) return true;
+  applyHandlers(handlers, nativeHandlers) {
+    this.handlers = handlers;
+    this.nativeHandlers = nativeHandlers;
+  }
 
-  if (a && b && typeof a == 'object' && typeof b == 'object') {
-    if (a.constructor !== b.constructor) return false;
-    var length, i, keys;
+  applyConfig(config, gestureKey) {
+    this.config = use_gesture_core_esm_parse(config, gestureKey);
+  }
 
-    if (Array.isArray(a)) {
-      length = a.length;
-      if (length !== b.length) return false;
+  clean() {
+    this._targetEventStore.clean();
 
-      for (i = length; i-- !== 0;) {
-        if (!equal(a[i], b[i])) return false;
+    for (const key of this.gestures) {
+      this.gestureEventStores[key].clean();
+      this.gestureTimeoutStores[key].clean();
+    }
+  }
+
+  effect() {
+    if (this.config.shared.target) this.bind();
+    return () => this._targetEventStore.clean();
+  }
+
+  bind(...args) {
+    const sharedConfig = this.config.shared;
+    const eventOptions = sharedConfig.eventOptions;
+    const props = {};
+    let target;
+
+    if (sharedConfig.target) {
+      target = sharedConfig.target();
+      if (!target) return;
+    }
+
+    const bindFunction = bindToProps(props, eventOptions, !!target);
+
+    if (sharedConfig.enabled) {
+      for (const gestureKey of this.gestures) {
+        if (this.config[gestureKey].enabled) {
+          const Engine = actions_5ad85d2f_esm_EngineMap.get(gestureKey);
+          new Engine(this, args, gestureKey).bind(bindFunction);
+        }
       }
 
-      return true;
-    }
-
-    var it;
-
-    if (typeof Map === 'function' && a instanceof Map && b instanceof Map) {
-      if (a.size !== b.size) return false;
-      it = a.entries();
-
-      while (!(i = it.next()).done) {
-        if (!b.has(i.value[0])) return false;
+      for (const eventKey in this.nativeHandlers) {
+        bindFunction(eventKey, '', event => this.nativeHandlers[eventKey](actions_5ad85d2f_esm_objectSpread2(actions_5ad85d2f_esm_objectSpread2({}, this.state.shared), {}, {
+          event,
+          args
+        })), undefined, true);
       }
-
-      it = a.entries();
-
-      while (!(i = it.next()).done) {
-        if (!equal(i.value[1], b.get(i.value[0]))) return false;
-      }
-
-      return true;
     }
 
-    if (typeof Set === 'function' && a instanceof Set && b instanceof Set) {
-      if (a.size !== b.size) return false;
-      it = a.entries();
-
-      while (!(i = it.next()).done) {
-        if (!b.has(i.value[0])) return false;
-      }
-
-      return true;
+    for (const handlerProp in props) {
+      props[handlerProp] = chain(...props[handlerProp]);
     }
 
-    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
-    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
-    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
-    keys = Object.keys(a);
-    length = keys.length;
-    if (length !== Object.keys(b).length) return false;
+    if (!target) return props;
 
-    for (i = length; i-- !== 0;) {
-      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
-    }
+    for (const handlerProp in props) {
+      const {
+        device,
+        capture,
+        passive
+      } = parseProp(handlerProp);
 
-    if (typeof Element !== 'undefined' && a instanceof Element) return false;
-
-    for (i = length; i-- !== 0;) {
-      if (keys[i] === '_owner' && a.$$typeof) continue;
-      if (!equal(a[keys[i]], b[keys[i]])) return false;
-    }
-
-    return true;
-  } // true if both NaN, false otherwise — NaN !== NaN → true
-  // eslint-disable-next-line no-self-compare
-
-
-  return a !== a && b !== b;
-}
-
-function isEqual(a, b) {
-  try {
-    return equal(a, b);
-  } catch (error) {
-    if ((error.message || '').match(/stack|recursion/i)) {
-      console.warn('react-fast-compare cannot handle circular refs');
-      return false;
-    }
-
-    throw error;
-  }
-}
-
-/**
- * Drag hook.
- *
- * @param handler - the function fired every time the drag gesture updates
- * @param [config={}] - the config object including generic options and drag options
- */
-
-function reactusegesture_esm_useDrag(handler, config) {
-  if (config === void 0) {
-    config = {};
-  }
-
-  RecognizersMap.set('drag', DragRecognizer);
-  var buildDragConfig = (0,external_React_.useRef)();
-
-  if (!buildDragConfig.current) {
-    buildDragConfig.current = memoizeOne(_buildDragConfig, isEqual);
-  }
-
-  return useRecognizers({
-    drag: handler
-  }, buildDragConfig.current(config));
-}
-
-/**
- * @private
- * Abstract class for distance/angle-based gesture recongizers
- */
-
-var DistanceAngleRecognizer = /*#__PURE__*/(/* unused pure expression or super */ null && (function (_Recognizer) {
-  reactusegesture_esm_inheritsLoose(DistanceAngleRecognizer, _Recognizer);
-
-  function DistanceAngleRecognizer() {
-    return _Recognizer.apply(this, arguments) || this;
-  }
-
-  var _proto = DistanceAngleRecognizer.prototype;
-
-  _proto.getInternalMovement = function getInternalMovement(values, state) {
-    var prev_a = state.values[1]; // not be defined if ctrl+wheel is used for zoom only
-
-    var d = values[0],
-        _values$ = values[1],
-        a = _values$ === void 0 ? prev_a : _values$;
-    var delta_a = a - prev_a;
-    var next_turns = state.turns;
-    if (Math.abs(delta_a) > 270) next_turns += sign(delta_a);
-    return subV([d, a - 360 * next_turns], state.initial);
-  };
-
-  _proto.getKinematics = function getKinematics(values, event) {
-    var state = this.getMovement(values);
-    var turns = (values[1] - state._movement[1] - this.state.initial[1]) / 360;
-    var dt = event.timeStamp - this.state.timeStamp;
-
-    var _calculateAllKinemati = calculateAllKinematics(state.movement, state.delta, dt),
-        kinematics = reactusegesture_esm_objectWithoutPropertiesLoose(_calculateAllKinemati, ["distance", "velocity"]);
-
-    return reactusegesture_esm_extends({
-      turns: turns
-    }, state, kinematics);
-  };
-
-  _proto.mapStateValues = function mapStateValues(state) {
-    return {
-      da: state.values,
-      vdva: state.velocities
-    };
-  };
-
-  return DistanceAngleRecognizer;
-}(Recognizer)));
-
-var PinchRecognizer = /*#__PURE__*/(/* unused pure expression or super */ null && (function (_DistanceAngleRecogni) {
-  reactusegesture_esm_inheritsLoose(PinchRecognizer, _DistanceAngleRecogni);
-
-  function PinchRecognizer() {
-    var _this;
-
-    _this = _DistanceAngleRecogni.apply(this, arguments) || this;
-    _this.ingKey = 'pinching';
-    _this.stateKey = 'pinch';
-
-    _this.onPinchStart = function (event) {
-      addEventIds(_this.controller, event);
-      if (!_this.enabled || _this.state._active) return; // until we reach two fingers on the target don't react
-
-      if (_this.controller.touchIds.size < 2) return;
-
-      var _pointerIds = Array.from(_this.controller.touchIds).slice(0, 2);
-
-      var _getTwoTouchesEventVa = getTwoTouchesEventValues(event, _pointerIds, _this.transform),
-          values = _getTwoTouchesEventVa.values,
-          origin = _getTwoTouchesEventVa.origin;
-
-      _this.updateSharedState(getGenericEventData(event));
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, getStartGestureState(reactusegesture_esm_assertThisInitialized(_this), values, event), getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event, true), {
-        _pointerIds: _pointerIds,
-        cancel: _this.onCancel,
-        origin: origin
-      }));
-
-      _this.updateGestureState(_this.getMovement(values));
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onPinchChange = function (event) {
-      var _this$state = _this.state,
-          canceled = _this$state.canceled,
-          _active = _this$state._active;
-      if (canceled || !_active || // if the event has the same timestamp as the previous event
-      event.timeStamp === _this.state.timeStamp) return;
-      var genericEventData = getGenericEventData(event);
-
-      _this.updateSharedState(genericEventData);
-
-      var _getTwoTouchesEventVa2 = getTwoTouchesEventValues(event, _this.state._pointerIds, _this.transform),
-          values = _getTwoTouchesEventVa2.values,
-          origin = _getTwoTouchesEventVa2.origin;
-
-      var kinematics = _this.getKinematics(values, event);
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event), kinematics, {
-        origin: origin
-      }));
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onPinchEnd = function (event) {
-      removeEventIds(_this.controller, event);
-      var pointerIds = getPointerIds(event); // if none of the lifted pointerIds is in the state pointerIds don't do anything
-
-      if (_this.state._pointerIds.every(function (id) {
-        return !pointerIds.includes(id);
-      })) return;
-
-      _this.clean();
-
-      if (!_this.state._active) return;
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event), _this.getMovement(_this.state.values), {
-        _active: false
-      }));
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onCancel = function () {
-      if (_this.state.canceled) return;
-
-      _this.updateGestureState({
-        _active: false,
-        canceled: true
+      this._targetEventStore.add(target, device, '', props[handlerProp], {
+        capture,
+        passive
       });
-
-      setTimeout(function () {
-        return _this.fireGestureHandler();
-      }, 0);
-    };
-    /**
-     * PINCH WITH WEBKIT GESTURES
-     */
-
-
-    _this.onGestureStart = function (event) {
-      if (!_this.enabled) return;
-      event.preventDefault(); // useless
-
-      var values = getWebkitGestureEventValues(event, _this.transform);
-
-      _this.updateSharedState(getGenericEventData(event));
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, getStartGestureState(reactusegesture_esm_assertThisInitialized(_this), values, event), getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event, true), {
-        origin: [event.clientX, event.clientY],
-        cancel: _this.onCancel
-      }));
-
-      _this.updateGestureState(_this.getMovement(values));
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onGestureChange = function (event) {
-      var _this$state2 = _this.state,
-          canceled = _this$state2.canceled,
-          _active = _this$state2._active;
-      if (canceled || !_active) return;
-      event.preventDefault();
-      var genericEventData = getGenericEventData(event);
-
-      _this.updateSharedState(genericEventData);
-
-      var values = getWebkitGestureEventValues(event, _this.transform);
-
-      var kinematics = _this.getKinematics(values, event);
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event), kinematics, {
-        origin: [event.clientX, event.clientY]
-      }));
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onGestureEnd = function (event) {
-      _this.clean();
-
-      if (!_this.state._active) return;
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event), _this.getMovement(_this.state.values), {
-        _active: false,
-        origin: [event.clientX, event.clientY]
-      }));
-
-      _this.fireGestureHandler();
-    };
-    /**
-     * PINCH WITH WHEEL
-     */
-
-
-    _this.wheelShouldRun = function (event) {
-      return _this.enabled && event.ctrlKey;
-    };
-
-    _this.getWheelValuesFromEvent = function (event) {
-      var _getWheelEventValues = getWheelEventValues(event, _this.transform),
-          delta_d = _getWheelEventValues[1];
-
-      var _this$state$values = _this.state.values,
-          prev_d = _this$state$values[0],
-          prev_a = _this$state$values[1];
-      var d = prev_d - delta_d;
-      var a = prev_a !== void 0 ? prev_a : 0;
-      return {
-        values: [d, a],
-        origin: [event.clientX, event.clientY],
-        delta: [0, delta_d]
-      };
-    };
-
-    _this.onWheel = function (event) {
-      if (!_this.wheelShouldRun(event)) return;
-
-      _this.setTimeout(_this.onWheelEnd);
-
-      if (!_this.state._active) _this.onWheelStart(event);else _this.onWheelChange(event);
-    };
-
-    _this.onWheelStart = function (event) {
-      var _this$getWheelValuesF = _this.getWheelValuesFromEvent(event),
-          values = _this$getWheelValuesF.values,
-          delta = _this$getWheelValuesF.delta,
-          origin = _this$getWheelValuesF.origin;
-
-      if (event.cancelable) event.preventDefault();else if (false) {}
-
-      _this.updateSharedState(getGenericEventData(event));
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, getStartGestureState(reactusegesture_esm_assertThisInitialized(_this), values, event), getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event, true), {
-        initial: _this.state.values,
-        offset: values,
-        delta: delta,
-        origin: origin
-      }));
-
-      _this.updateGestureState(_this.getMovement(values));
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onWheelChange = function (event) {
-      if (event.cancelable) event.preventDefault();
-
-      _this.updateSharedState(getGenericEventData(event));
-
-      var _this$getWheelValuesF2 = _this.getWheelValuesFromEvent(event),
-          values = _this$getWheelValuesF2.values,
-          origin = _this$getWheelValuesF2.origin,
-          delta = _this$getWheelValuesF2.delta;
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event), _this.getKinematics(values, event), {
-        origin: origin,
-        delta: delta
-      }));
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onWheelEnd = function () {
-      _this.clean();
-
-      if (!_this.state._active) return;
-      _this.state._active = false;
-
-      _this.updateGestureState(_this.getMovement(_this.state.values));
-
-      _this.fireGestureHandler();
-    };
-
-    return _this;
-  }
-
-  var _proto = PinchRecognizer.prototype;
-
-  _proto.addBindings = function addBindings$1(bindings) {
-    // Only try to use gesture events when they are supported and domTarget is set
-    // as React doesn't support gesture handlers.
-    if (this.controller.config.domTarget && !this.controller.supportsTouchEvents && this.controller.supportsGestureEvents) {
-      addBindings(bindings, 'onGestureStart', this.onGestureStart);
-
-      addBindings(bindings, 'onGestureChange', this.onGestureChange);
-
-      addBindings(bindings, 'onGestureEnd', this.onGestureEnd);
-    } else {
-      addBindings(bindings, 'onTouchStart', this.onPinchStart);
-
-      addBindings(bindings, 'onTouchMove', this.onPinchChange);
-
-      addBindings(bindings, 'onTouchEnd', this.onPinchEnd);
-
-      addBindings(bindings, 'onTouchCancel', this.onPinchEnd);
-
-      addBindings(bindings, 'onWheel', this.onWheel);
     }
-  };
-
-  return PinchRecognizer;
-}(DistanceAngleRecognizer)));
-
-/**
- * Pinch hook.
- *
- * @param handler - the function fired every time the pinch gesture updates
- * @param [config={}] - the config object including generic options and pinch options
- */
-
-function usePinch(handler, config) {
-  if (config === void 0) {
-    config = {};
   }
 
-  RecognizersMap.set('pinch', PinchRecognizer);
-  var buildPinchConfig = useRef();
-
-  if (!buildPinchConfig.current) {
-    buildPinchConfig.current = memoizeOne(_buildPinchConfig, isEqual);
-  }
-
-  return useRecognizers({
-    pinch: handler
-  }, buildPinchConfig.current(config));
 }
 
-var WheelRecognizer = /*#__PURE__*/(/* unused pure expression or super */ null && (function (_CoordinatesRecognize) {
-  reactusegesture_esm_inheritsLoose(WheelRecognizer, _CoordinatesRecognize);
-
-  function WheelRecognizer() {
-    var _this;
-
-    _this = _CoordinatesRecognize.apply(this, arguments) || this;
-    _this.ingKey = 'wheeling';
-    _this.stateKey = 'wheel';
-    _this.debounced = true;
-
-    _this.handleEvent = function (event) {
-      if (event.ctrlKey && 'pinch' in _this.controller.handlers) return;
-      if (!_this.enabled) return;
-
-      _this.setTimeout(_this.onEnd);
-
-      _this.updateSharedState(getGenericEventData(event));
-
-      var values = addV(getWheelEventValues(event, _this.transform), _this.state.values);
-
-      if (!_this.state._active) {
-        _this.updateGestureState(reactusegesture_esm_extends({}, getStartGestureState(reactusegesture_esm_assertThisInitialized(_this), values, event), getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event, true), {
-          initial: _this.state.values
-        }));
-
-        var movement = _this.getMovement(values);
-
-        var geometry = calculateAllGeometry(movement.delta);
-
-        _this.updateGestureState(movement);
-
-        _this.updateGestureState(geometry);
-      } else {
-        _this.updateGestureState(reactusegesture_esm_extends({}, getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event), _this.getKinematics(values, event)));
-      }
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onEnd = function () {
-      _this.clean();
-
-      if (!_this.state._active) return;
-
-      var movement = _this.getMovement(_this.state.values);
-
-      _this.updateGestureState(movement);
-
-      _this.updateGestureState({
-        _active: false,
-        velocities: [0, 0],
-        velocity: 0
-      });
-
-      _this.fireGestureHandler();
-    };
-
-    return _this;
-  }
-
-  var _proto = WheelRecognizer.prototype;
-
-  _proto.addBindings = function addBindings$1(bindings) {
-    addBindings(bindings, 'onWheel', this.handleEvent);
-  };
-
-  return WheelRecognizer;
-}(CoordinatesRecognizer)));
-
-/**
- * Wheel hook.
- *
- * @param handler - the function fired every time the wheel gesture updates
- * @param the config object including generic options and wheel options
- */
-
-function useWheel(handler, config) {
-  if (config === void 0) {
-    config = {};
-  }
-
-  RecognizersMap.set('wheel', WheelRecognizer);
-  var buildWheelConfig = useRef();
-
-  if (!buildWheelConfig.current) {
-    buildWheelConfig.current = memoizeOne(_buildWheelConfig, isEqual);
-  }
-
-  return useRecognizers({
-    wheel: handler
-  }, buildWheelConfig.current(config));
+function setupGesture(ctrl, gestureKey) {
+  ctrl.gestures.add(gestureKey);
+  ctrl.gestureEventStores[gestureKey] = new EventStore(ctrl);
+  ctrl.gestureTimeoutStores[gestureKey] = new TimeoutStore();
 }
 
-var MoveRecognizer = /*#__PURE__*/function (_CoordinatesRecognize) {
-  reactusegesture_esm_inheritsLoose(MoveRecognizer, _CoordinatesRecognize);
-
-  function MoveRecognizer() {
-    var _this;
-
-    _this = _CoordinatesRecognize.apply(this, arguments) || this;
-    _this.ingKey = 'moving';
-    _this.stateKey = 'move';
-    _this.debounced = true;
-
-    _this.onMove = function (event) {
-      if (!_this.enabled) return;
-
-      _this.setTimeout(_this.onMoveEnd);
-
-      if (!_this.state._active) _this.onMoveStart(event);else _this.onMoveChange(event);
-    };
-
-    _this.onMoveStart = function (event) {
-      _this.updateSharedState(getGenericEventData(event));
-
-      var values = getPointerEventValues(event, _this.transform);
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, getStartGestureState(reactusegesture_esm_assertThisInitialized(_this), values, event), getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event, true)));
-
-      _this.updateGestureState(_this.getMovement(values));
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onMoveChange = function (event) {
-      _this.updateSharedState(getGenericEventData(event));
-
-      var values = getPointerEventValues(event, _this.transform);
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event), _this.getKinematics(values, event)));
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onMoveEnd = function () {
-      _this.clean();
-
-      if (!_this.state._active) return;
-      var values = _this.state.values;
-
-      _this.updateGestureState(_this.getMovement(values));
-
-      _this.updateGestureState({
-        velocities: [0, 0],
-        velocity: 0,
-        _active: false
-      });
-
-      _this.fireGestureHandler();
-    };
-
-    _this.hoverTransform = function () {
-      return _this.controller.config.hover.transform || _this.controller.config.transform;
-    };
-
-    _this.onPointerEnter = function (event) {
-      _this.controller.state.shared.hovering = true;
-      if (!_this.controller.config.enabled) return;
-
-      if (_this.controller.config.hover.enabled) {
-        var values = getPointerEventValues(event, _this.hoverTransform());
-
-        var state = reactusegesture_esm_extends({}, _this.controller.state.shared, _this.state, getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event, true), {
-          args: _this.args,
-          values: values,
-          active: true,
-          hovering: true
-        });
-
-        _this.controller.handlers.hover(reactusegesture_esm_extends({}, state, _this.mapStateValues(state)));
-      }
-
-      if ('move' in _this.controller.handlers) _this.onMoveStart(event);
-    };
-
-    _this.onPointerLeave = function (event) {
-      _this.controller.state.shared.hovering = false;
-      if ('move' in _this.controller.handlers) _this.onMoveEnd();
-      if (!_this.controller.config.hover.enabled) return;
-      var values = getPointerEventValues(event, _this.hoverTransform());
-
-      var state = reactusegesture_esm_extends({}, _this.controller.state.shared, _this.state, getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event), {
-        args: _this.args,
-        values: values,
-        active: false
-      });
-
-      _this.controller.handlers.hover(reactusegesture_esm_extends({}, state, _this.mapStateValues(state)));
-    };
-
-    return _this;
-  }
-
-  var _proto = MoveRecognizer.prototype;
-
-  _proto.addBindings = function addBindings$1(bindings) {
-    if ('move' in this.controller.handlers) {
-      addBindings(bindings, 'onPointerMove', this.onMove);
-    }
-
-    if ('hover' in this.controller.handlers) {
-      addBindings(bindings, 'onPointerEnter', this.onPointerEnter);
-
-      addBindings(bindings, 'onPointerLeave', this.onPointerLeave);
-    }
-  };
-
-  return MoveRecognizer;
-}(CoordinatesRecognizer);
-
-/**
- * Move hook.
- *
- * @param handler - the function fired every time the move gesture updates
- * @param [config={}] - the config object including generic options and move options
- */
-
-function useMove(handler, config) {
-  if (config === void 0) {
-    config = {};
-  }
-
-  RecognizersMap.set('move', MoveRecognizer);
-  var buildMoveConfig = useRef();
-
-  if (!buildMoveConfig.current) {
-    buildMoveConfig.current = memoizeOne(_buildMoveConfig, isEqual);
-  }
-
-  return useRecognizers({
-    move: handler
-  }, buildMoveConfig.current(config));
+function resolveGestures(ctrl, internalHandlers) {
+  if (internalHandlers.drag) setupGesture(ctrl, 'drag');
+  if (internalHandlers.wheel) setupGesture(ctrl, 'wheel');
+  if (internalHandlers.scroll) setupGesture(ctrl, 'scroll');
+  if (internalHandlers.move) setupGesture(ctrl, 'move');
+  if (internalHandlers.pinch) setupGesture(ctrl, 'pinch');
+  if (internalHandlers.hover) setupGesture(ctrl, 'hover');
 }
 
-/**
- * Hover hook.
- *
- * @param handler - the function fired every time the hover gesture updates
- * @param [config={}] - the config object including generic options and hover options
- */
+const bindToProps = (props, eventOptions, withPassiveOption) => (device, action, handler, options = {}, isNative = false) => {
+  var _options$capture, _options$passive;
 
-function useHover(handler, config) {
-  if (config === void 0) {
-    config = {};
-  }
+  const capture = (_options$capture = options.capture) !== null && _options$capture !== void 0 ? _options$capture : eventOptions.capture;
+  const passive = (_options$passive = options.passive) !== null && _options$passive !== void 0 ? _options$passive : eventOptions.passive;
+  let handlerProp = isNative ? device : toHandlerProp(device, action, capture);
+  if (withPassiveOption && passive) handlerProp += 'Passive';
+  props[handlerProp] = props[handlerProp] || [];
+  props[handlerProp].push(handler);
+};
 
-  RecognizersMap.set('hover', MoveRecognizer);
-  var buildHoverConfig = (0,external_React_.useRef)();
+const RE_NOT_NATIVE = /^on(Drag|Wheel|Scroll|Move|Pinch|Hover)/;
 
-  if (!buildHoverConfig.current) {
-    buildHoverConfig.current = memoizeOne(_buildHoverConfig, isEqual);
-  }
+function sortHandlers(_handlers) {
+  const native = {};
+  const handlers = {};
+  const actions = new Set();
 
-  return useRecognizers({
-    hover: handler
-  }, buildHoverConfig.current(config));
-}
-
-var ScrollRecognizer = /*#__PURE__*/(/* unused pure expression or super */ null && (function (_CoordinatesRecognize) {
-  reactusegesture_esm_inheritsLoose(ScrollRecognizer, _CoordinatesRecognize);
-
-  function ScrollRecognizer() {
-    var _this;
-
-    _this = _CoordinatesRecognize.apply(this, arguments) || this;
-    _this.ingKey = 'scrolling';
-    _this.stateKey = 'scroll';
-    _this.debounced = true;
-
-    _this.handleEvent = function (event) {
-      if (!_this.enabled) return;
-
-      _this.clearTimeout();
-
-      _this.setTimeout(_this.onEnd);
-
-      var values = getScrollEventValues(event, _this.transform);
-
-      _this.updateSharedState(getGenericEventData(event));
-
-      if (!_this.state._active) {
-        _this.updateGestureState(reactusegesture_esm_extends({}, getStartGestureState(reactusegesture_esm_assertThisInitialized(_this), values, event), getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event, true), {
-          initial: _this.state.values
-        }));
-
-        var movementDetection = _this.getMovement(values);
-
-        var geometry = calculateAllGeometry(movementDetection.delta);
-
-        _this.updateGestureState(movementDetection);
-
-        _this.updateGestureState(geometry);
-      } else {
-        _this.updateGestureState(reactusegesture_esm_extends({}, getGenericPayload(reactusegesture_esm_assertThisInitialized(_this), event), _this.getKinematics(values, event)));
-      }
-
-      _this.fireGestureHandler();
-    };
-
-    _this.onEnd = function () {
-      _this.clean();
-
-      if (!_this.state._active) return;
-
-      _this.updateGestureState(reactusegesture_esm_extends({}, _this.getMovement(_this.state.values), {
-        _active: false,
-        velocities: [0, 0],
-        velocity: 0
-      }));
-
-      _this.fireGestureHandler();
-    };
-
-    return _this;
-  }
-
-  var _proto = ScrollRecognizer.prototype;
-
-  _proto.addBindings = function addBindings$1(bindings) {
-    addBindings(bindings, 'onScroll', this.handleEvent);
-  };
-
-  return ScrollRecognizer;
-}(CoordinatesRecognizer)));
-
-/**
- * Scroll hook.
- *
- * @param handler - the function fired every time the scroll gesture updates
- * @param [config={}] - the config object including generic options and scroll options
- */
-
-function useScroll(handler, config) {
-  if (config === void 0) {
-    config = {};
-  }
-
-  RecognizersMap.set('scroll', ScrollRecognizer);
-  var buildScrollConfig = useRef();
-
-  if (!buildScrollConfig.current) {
-    buildScrollConfig.current = memoizeOne(_buildScrollConfig, isEqual);
-  }
-
-  return useRecognizers({
-    scroll: handler
-  }, buildScrollConfig.current(config));
-}
-
-var RE_NOT_NATIVE = /^on(Drag|Wheel|Scroll|Move|Pinch|Hover)/;
-
-function sortHandlers(handlers) {
-  var _native = {};
-  var handle = {};
-  var actions = new Set();
-
-  for (var key in handlers) {
+  for (let key in _handlers) {
     if (RE_NOT_NATIVE.test(key)) {
       actions.add(RegExp.lastMatch);
-      handle[key] = handlers[key];
+      handlers[key] = _handlers[key];
     } else {
-      _native[key] = handlers[key];
+      native[key] = _handlers[key];
     }
   }
 
-  return [handle, _native, actions];
+  return [handlers, native, actions];
 }
-/**
- * @public
- *
- * The most complete gesture hook, allowing support for multiple gestures.
- *
- * @param {Handlers} handlers - an object with on[Gesture] keys containg gesture handlers
- * @param {UseGestureConfig} [config={}] - the full config object
- * @returns {(...args: any[]) => HookReturnType<Config>}
- */
 
+function registerGesture(actions, handlers, handlerKey, key, internalHandlers, config) {
+  if (!actions.has(handlerKey)) return;
 
-function useGesture(_handlers, config) {
-  if (config === void 0) {
-    config = {};
+  if (!EngineMap.has(key)) {
+    if (false) {}
+
+    return;
   }
 
-  var _sortHandlers = sortHandlers(_handlers),
-      handlers = _sortHandlers[0],
-      nativeHandlers = _sortHandlers[1],
-      actions = _sortHandlers[2];
+  const startKey = handlerKey + 'Start';
+  const endKey = handlerKey + 'End';
 
-  RecognizersMap.set('drag', DragRecognizer);
-  RecognizersMap.set('hover', MoveRecognizer);
-  RecognizersMap.set('move', MoveRecognizer);
-  RecognizersMap.set('pinch', PinchRecognizer);
-  RecognizersMap.set('scroll', ScrollRecognizer);
-  RecognizersMap.set('wheel', WheelRecognizer);
-  var mergedConfig = buildComplexConfig(config, actions);
-  var internalHandlers = {};
-  if (actions.has('onDrag')) internalHandlers.drag = includeStartEndHandlers(handlers, 'onDrag');
-  if (actions.has('onWheel')) internalHandlers.wheel = includeStartEndHandlers(handlers, 'onWheel');
-  if (actions.has('onScroll')) internalHandlers.scroll = includeStartEndHandlers(handlers, 'onScroll');
-  if (actions.has('onMove')) internalHandlers.move = includeStartEndHandlers(handlers, 'onMove');
-  if (actions.has('onPinch')) internalHandlers.pinch = includeStartEndHandlers(handlers, 'onPinch');
-  if (actions.has('onHover')) internalHandlers.hover = handlers.onHover;
-  return useRecognizers(internalHandlers, mergedConfig, nativeHandlers);
-}
-
-function includeStartEndHandlers(handlers, handlerKey) {
-  var startKey = handlerKey + 'Start';
-  var endKey = handlerKey + 'End';
-
-  var fn = function fn(state) {
-    var memo = undefined;
+  const fn = state => {
+    let memo = undefined;
     if (state.first && startKey in handlers) handlers[startKey](state);
     if (handlerKey in handlers) memo = handlers[handlerKey](state);
     if (state.last && endKey in handlers) handlers[endKey](state);
     return memo;
   };
 
-  return fn;
+  internalHandlers[key] = fn;
+  config[key] = config[key] || {};
+}
+
+function use_gesture_core_esm_parseMergedHandlers(mergedHandlers, mergedConfig) {
+  const [handlers, nativeHandlers, actions] = sortHandlers(mergedHandlers);
+  const internalHandlers = {};
+  registerGesture(actions, handlers, 'onDrag', 'drag', internalHandlers, mergedConfig);
+  registerGesture(actions, handlers, 'onWheel', 'wheel', internalHandlers, mergedConfig);
+  registerGesture(actions, handlers, 'onScroll', 'scroll', internalHandlers, mergedConfig);
+  registerGesture(actions, handlers, 'onPinch', 'pinch', internalHandlers, mergedConfig);
+  registerGesture(actions, handlers, 'onMove', 'move', internalHandlers, mergedConfig);
+  registerGesture(actions, handlers, 'onHover', 'hover', internalHandlers, mergedConfig);
+  return {
+    handlers: internalHandlers,
+    config: mergedConfig,
+    nativeHandlers
+  };
 }
 
 
-//# sourceMappingURL=reactusegesture.esm.js.map
+
+;// CONCATENATED MODULE: ./node_modules/@use-gesture/react/dist/use-gesture-react.esm.js
+
+
+
+
+
+
+
+function useRecognizers(handlers, config = {}, gestureKey, nativeHandlers) {
+  const ctrl = external_React_default().useMemo(() => new Controller(handlers), []);
+  ctrl.applyHandlers(handlers, nativeHandlers);
+  ctrl.applyConfig(config, gestureKey);
+  external_React_default().useEffect(ctrl.effect.bind(ctrl));
+  external_React_default().useEffect(() => {
+    return ctrl.clean.bind(ctrl);
+  }, []);
+
+  if (config.target === undefined) {
+    return ctrl.bind.bind(ctrl);
+  }
+
+  return undefined;
+}
+
+function use_gesture_react_esm_useDrag(handler, config = {}) {
+  actions_5ad85d2f_esm_registerAction(actions_5ad85d2f_esm_dragAction);
+  return useRecognizers({
+    drag: handler
+  }, config, 'drag');
+}
+
+function usePinch(handler, config = {}) {
+  registerAction(pinchAction);
+  return useRecognizers({
+    pinch: handler
+  }, config, 'pinch');
+}
+
+function useWheel(handler, config = {}) {
+  registerAction(wheelAction);
+  return useRecognizers({
+    wheel: handler
+  }, config, 'wheel');
+}
+
+function useScroll(handler, config = {}) {
+  registerAction(scrollAction);
+  return useRecognizers({
+    scroll: handler
+  }, config, 'scroll');
+}
+
+function useMove(handler, config = {}) {
+  registerAction(moveAction);
+  return useRecognizers({
+    move: handler
+  }, config, 'move');
+}
+
+function useHover(handler, config = {}) {
+  actions_5ad85d2f_esm_registerAction(actions_5ad85d2f_esm_hoverAction);
+  return useRecognizers({
+    hover: handler
+  }, config, 'hover');
+}
+
+function createUseGesture(actions) {
+  actions.forEach(registerAction);
+  return function useGesture(_handlers, _config = {}) {
+    const {
+      handlers,
+      nativeHandlers,
+      config
+    } = parseMergedHandlers(_handlers, _config);
+    return useRecognizers(handlers, config, undefined, nativeHandlers);
+  };
+}
+
+function useGesture(handlers, config = {}) {
+  const hook = createUseGesture([dragAction, pinchAction, scrollAction, wheelAction, moveAction, hoverAction]);
+  return hook(handlers, config);
+}
+
+
 
 ;// CONCATENATED MODULE: external ["wp","keycodes"]
 var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
@@ -38534,7 +37742,7 @@ function useDragCursor(isDragging, dragDirection) {
   }, [isDragging]);
   return dragCursor;
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/reducer/state.js
 /**
  * External dependencies
@@ -38554,7 +37762,7 @@ const initialInputControlState = {
   isPressEnterToChange: false,
   value: ''
 };
-//# sourceMappingURL=state.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/reducer/actions.js
 /**
  * External dependencies
@@ -38574,7 +37782,7 @@ const PRESS_ENTER = 'PRESS_ENTER';
 const PRESS_UP = 'PRESS_UP';
 const RESET = 'RESET';
 const UPDATE = 'UPDATE';
-//# sourceMappingURL=actions.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/reducer/reducer.js
 /**
  * External dependencies
@@ -38628,6 +37836,9 @@ const composeStateReducers = function () {
     }
 
     return fns.reduceRight((state, fn) => {
+      // TODO: Assess whether this can be replaced with a more standard `compose` implementation
+      // like wp.data.compose() (aka lodash flowRight) or Redux compose().
+      // The current implementation only works by functions mutating the original state object.
       const fnState = fn(...args);
       return (0,external_lodash_namespaceObject.isEmpty)(fnState) ? state : { ...state,
         ...fnState
@@ -38831,7 +38042,7 @@ function useInputControlStateReducer() {
     update
   };
 }
-//# sourceMappingURL=reducer.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/values.js
 /* eslint-disable jsdoc/valid-types */
 
@@ -38928,7 +38139,7 @@ function isValueNumeric(value) {
   const valueToCheck = typeof value === 'string' ? value.replace(delimiterRegexp, '').replace(decimalRegexp, '.').replace(INTERNATIONAL_THOUSANDS_DELIMITER, '') : value;
   return !isNaN(parseFloat(valueToCheck)) && isFinite(valueToCheck);
 }
-//# sourceMappingURL=values.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-update-effect.js
 /**
  * WordPress dependencies
@@ -38956,7 +38167,7 @@ function use_update_effect_useUpdateEffect(effect, deps) {
 }
 
 /* harmony default export */ var use_update_effect = (use_update_effect_useUpdateEffect);
-//# sourceMappingURL=use-update-effect.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/input-field.js
 
 
@@ -39124,15 +38335,12 @@ function InputField(_ref, ref) {
     }
   };
 
-  const dragGestureProps = reactusegesture_esm_useDrag(dragProps => {
+  const dragGestureProps = use_gesture_react_esm_useDrag(dragProps => {
     const {
       distance,
       dragging,
       event
-    } = dragProps; // The event is persisted to prevent errors in components using this
-    // to check if a modifier key was held while dragging.
-
-    event.persist();
+    } = dragProps;
     if (!distance) return;
     event.stopPropagation();
     /**
@@ -39155,7 +38363,10 @@ function InputField(_ref, ref) {
     }
   }, {
     threshold: dragThreshold,
-    enabled: isDragEnabled
+    enabled: isDragEnabled,
+    pointer: {
+      capture: false
+    }
   });
   const dragProps = isDragEnabled ? dragGestureProps() : {};
   /*
@@ -39197,7 +38408,7 @@ function InputField(_ref, ref) {
 
 const ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(InputField);
 /* harmony default export */ var input_field = (ForwardedComponent);
-//# sourceMappingURL=input-field.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/index.js
 
 
@@ -39281,7 +38492,7 @@ function InputControl(_ref, ref) {
 }
 const input_control_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(InputControl);
 /* harmony default export */ var input_control = (input_control_ForwardedComponent);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/angle-picker-control/styles/angle-picker-control-styles.js
 
 
@@ -39315,7 +38526,7 @@ const CircleIndicatorWrapper = emotion_styled_base_browser_esm("div",  true ? {
 const CircleIndicator = emotion_styled_base_browser_esm("div",  true ? {
   target: "e65ony40"
 } : 0)("background:", COLORS.admin.theme, ";border-radius:50%;border:", INNER_CIRCLE_SIZE, "px solid ", COLORS.admin.theme, ";bottom:0;box-sizing:border-box;display:block;height:0px;left:0;margin:auto;position:absolute;right:0;top:-", CIRCLE_SIZE / 2, "px;width:0px;" + ( true ? "" : 0));
-//# sourceMappingURL=angle-picker-control-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/angle-picker-control/angle-circle.js
 
 
@@ -39424,7 +38635,7 @@ function getAngle(centerX, centerY, pointX, pointY) {
 }
 
 /* harmony default export */ var angle_circle = (AngleCircle);
-//# sourceMappingURL=angle-circle.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/spacer/hook.js
 /**
  * External dependencies
@@ -39465,7 +38676,7 @@ function useSpacer(props) {
     className: classes
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/spacer/component.js
 
 
@@ -39514,7 +38725,7 @@ function Spacer(props, forwardedRef) {
 
 const ConnectedSpacer = contextConnect(Spacer, 'Spacer');
 /* harmony default export */ var spacer_component = (ConnectedSpacer);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/angle-picker-control/index.js
 
 
@@ -39584,7 +38795,7 @@ function AnglePickerControl(_ref) {
     onChange: onChange
   })));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","richText"]
 var external_wp_richText_namespaceObject = window["wp"]["richText"];
 ;// CONCATENATED MODULE: external ["wp","a11y"]
@@ -39683,7 +38894,7 @@ function getDefaultUseItems(autocompleter) {
     return [items];
   };
 }
-//# sourceMappingURL=get-default-use-items.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/autocomplete/autocompleter-ui.js
 
 
@@ -39759,7 +38970,7 @@ function getAutoCompleterUI(autocompleter) {
 
   return AutocompleterUI;
 }
-//# sourceMappingURL=autocompleter-ui.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/autocomplete/index.js
 
 
@@ -40152,7 +39363,7 @@ function Autocomplete(_ref3) {
   } = useAutocomplete(options);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, children(props), isSelected && popover);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/font-values.js
 /* harmony default export */ var font_values = ({
   'default.fontFamily': "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif",
@@ -40160,7 +39371,7 @@ function Autocomplete(_ref3) {
   'helpText.fontSize': '12px',
   mobileTextMinFontSize: '16px'
 });
-//# sourceMappingURL=font-values.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/font.js
 /**
  * External dependencies
@@ -40180,7 +39391,7 @@ function Autocomplete(_ref3) {
 function font(value) {
   return (0,external_lodash_namespaceObject.get)(font_values, value, '');
 }
-//# sourceMappingURL=font.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/base-control/styles/base-control-styles.js
 
 
@@ -40210,7 +39421,7 @@ const StyledHelp = emotion_styled_base_browser_esm("p",  true ? {
 const StyledVisualLabel = emotion_styled_base_browser_esm("span",  true ? {
   target: "e1puf3u0"
 } : 0)(labelStyles, ";" + ( true ? "" : 0));
-//# sourceMappingURL=base-control-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/base-control/index.js
 
 
@@ -40294,7 +39505,7 @@ BaseControl.VisualLabel = _ref2 => {
 };
 
 /* harmony default export */ var base_control = (BaseControl);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/number-control/styles/number-control-styles.js
 
 
@@ -40328,7 +39539,7 @@ const htmlArrowStyles = _ref2 => {
 const number_control_styles_Input = /*#__PURE__*/emotion_styled_base_browser_esm(input_control,  true ? {
   target: "ep48uk90"
 } : 0)(htmlArrowStyles, ";" + ( true ? "" : 0));
-//# sourceMappingURL=number-control-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/math.js
 /**
  * External dependencies
@@ -40430,7 +39641,7 @@ function roundClamp() {
 function roundClampString() {
   return roundClamp(...arguments).toString();
 }
-//# sourceMappingURL=math.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/number-control/index.js
 
 
@@ -40597,7 +39808,7 @@ function NumberControl(_ref, ref) {
   }));
 }
 /* harmony default export */ var number_control = ((0,external_wp_element_namespaceObject.forwardRef)(NumberControl));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/unit-control/styles/unit-control-styles.js
 
 
@@ -40667,7 +39878,7 @@ const UnitLabel = emotion_styled_base_browser_esm("div",  true ? {
 const UnitSelect = emotion_styled_base_browser_esm("select",  true ? {
   target: "e1bagdl30"
 } : 0)("&&&{", baseUnitLabelStyles, ";cursor:pointer;border:1px solid transparent;height:100%;&:hover{background-color:", COLORS.lightGray[300], ";}&:focus{border-color:", COLORS.ui.borderFocus, ";outline:2px solid transparent;outline-offset:0;}&:disabled{cursor:initial;&:hover{background-color:transparent;}}}" + ( true ? "" : 0));
-//# sourceMappingURL=unit-control-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/unit-control/utils.js
 /**
  * WordPress dependencies
@@ -40978,7 +40189,7 @@ function getUnitsWithCurrentUnit(currentValue, legacyUnit) {
 
   return unitsWithCurrentUnit;
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/unit-control/unit-select-control.js
 
 
@@ -41031,7 +40242,7 @@ function UnitSelectControl(_ref) {
     key: option.value
   }, option.label)));
 }
-//# sourceMappingURL=unit-select-control.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-controlled-state.js
 /**
  * WordPress dependencies
@@ -41120,7 +40331,7 @@ function useControlledState(currentState) {
 }
 
 /* harmony default export */ var use_controlled_state = (useControlledState);
-//# sourceMappingURL=use-controlled-state.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/unit-control/index.js
 
 
@@ -41334,7 +40545,7 @@ function UnitControl(_ref, forwardedRef) {
 const ForwardedUnitControl = (0,external_wp_element_namespaceObject.forwardRef)(UnitControl);
 
 /* harmony default export */ var unit_control = (ForwardedUnitControl);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/styles/box-control-styles.js
 
 
@@ -41437,7 +40648,7 @@ const unitControlMarginStyles = _ref4 => {
 const box_control_styles_UnitControl = /*#__PURE__*/emotion_styled_base_browser_esm(unit_control,  true ? {
   target: "e7pk0lh0"
 } : 0)("max-width:60px;", unitControlBorderRadiusStyles, ";", unitControlMarginStyles, ";" + ( true ? "" : 0));
-//# sourceMappingURL=box-control-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/unit-control.js
 
 
@@ -41511,7 +40722,7 @@ function unit_control_Tooltip(_ref3) {
     position: "top"
   }, (0,external_wp_element_namespaceObject.createElement)("div", null, children));
 }
-//# sourceMappingURL=unit-control.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/utils.js
 /**
  * External dependencies
@@ -41684,7 +40895,7 @@ function normalizeSides(sides) {
 
   return filteredSides;
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/all-input-control.js
 
 
@@ -41795,7 +41006,7 @@ function AllInputControl(_ref) {
     placeholder: allPlaceholder
   }));
 }
-//# sourceMappingURL=all-input-control.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/input-controls.js
 
 
@@ -41919,7 +41130,7 @@ function BoxInputControls(_ref) {
     key: `box-control-${side}`
   })))));
 }
-//# sourceMappingURL=input-controls.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/axial-input-controls.js
 
 
@@ -42058,7 +41269,7 @@ function AxialInputControls(_ref) {
     key: side
   }))));
 }
-//# sourceMappingURL=axial-input-controls.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/styles/box-control-icon-styles.js
 
 
@@ -42133,7 +41344,7 @@ const LeftStroke = /*#__PURE__*/emotion_styled_base_browser_esm(VerticalStroke, 
   name: "1ode3cm",
   styles: "left:0"
 } : 0);
-//# sourceMappingURL=box-control-icon-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/icon.js
 
 
@@ -42181,7 +41392,7 @@ function BoxControlIcon(_ref) {
     isFocused: left
   })));
 }
-//# sourceMappingURL=icon.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/link.js
 
 
@@ -42196,7 +41407,7 @@ const link_link = (0,external_wp_element_namespaceObject.createElement)(external
   d: "M15.6 7.2H14v1.5h1.6c2 0 3.7 1.7 3.7 3.7s-1.7 3.7-3.7 3.7H14v1.5h1.6c2.8 0 5.2-2.3 5.2-5.2 0-2.9-2.3-5.2-5.2-5.2zM4.7 12.4c0-2 1.7-3.7 3.7-3.7H10V7.2H8.4c-2.9 0-5.2 2.3-5.2 5.2 0 2.9 2.3 5.2 5.2 5.2H10v-1.5H8.4c-2 0-3.7-1.7-3.7-3.7zm4.6.9h5.3v-1.5H9.3v1.5z"
 }));
 /* harmony default export */ var library_link = (link_link);
-//# sourceMappingURL=link.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/link-off.js
 
 
@@ -42211,7 +41422,7 @@ const linkOff = (0,external_wp_element_namespaceObject.createElement)(external_w
   d: "M15.6 7.3h-.7l1.6-3.5-.9-.4-3.9 8.5H9v1.5h2l-1.3 2.8H8.4c-2 0-3.7-1.7-3.7-3.7s1.7-3.7 3.7-3.7H10V7.3H8.4c-2.9 0-5.2 2.3-5.2 5.2 0 2.9 2.3 5.2 5.2 5.2H9l-1.4 3.2.9.4 5.7-12.5h1.4c2 0 3.7 1.7 3.7 3.7s-1.7 3.7-3.7 3.7H14v1.5h1.6c2.9 0 5.2-2.3 5.2-5.2 0-2.9-2.4-5.2-5.2-5.2z"
 }));
 /* harmony default export */ var link_off = (linkOff);
-//# sourceMappingURL=link-off.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/linked-button.js
 
 
@@ -42244,7 +41455,7 @@ function LinkedButton(_ref) {
     "aria-label": label
   }))));
 }
-//# sourceMappingURL=linked-button.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/styles/box-control-visualizer-styles.js
 
 
@@ -42308,7 +41519,7 @@ const LeftView = /*#__PURE__*/emotion_styled_base_browser_esm(Side,  true ? {
 } : 0)("top:0;bottom:0;", rtl({
   left: 0
 }), ";" + ( true ? "" : 0));
-//# sourceMappingURL=box-control-visualizer-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/visualizer.js
 
 
@@ -42463,7 +41674,7 @@ function useSideAnimation(value) {
     isActive
   };
 }
-//# sourceMappingURL=visualizer.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/index.js
 
 
@@ -42619,7 +41830,7 @@ function BoxControl(_ref) {
   }))), !isLinked && !splitOnAxis && (0,external_wp_element_namespaceObject.createElement)(BoxInputControls, inputControlProps));
 }
 BoxControl.__Visualizer = BoxControlVisualizer;
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/button-group/index.js
 
 
@@ -42648,7 +41859,7 @@ function ButtonGroup(_ref, ref) {
 }
 
 /* harmony default export */ var button_group = ((0,external_wp_element_namespaceObject.forwardRef)(ButtonGroup));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/elevation/styles.js
 function elevation_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -42660,7 +41871,7 @@ const Elevation =  true ? {
   name: "12ip69d",
   styles: "background:transparent;display:block;margin:0!important;pointer-events:none;position:absolute;will-change:box-shadow"
 } : 0;
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/elevation/hook.js
 /**
  * External dependencies
@@ -42752,7 +41963,7 @@ function useElevation(props) {
     'aria-hidden': true
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/elevation/component.js
 
 
@@ -42765,7 +41976,7 @@ function useElevation(props) {
 
 /**
  * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').Ref<any>}                                                        forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                               forwardedRef
  */
 
 function component_Elevation(props, forwardedRef) {
@@ -42801,7 +42012,7 @@ function component_Elevation(props, forwardedRef) {
 
 const ConnectedElevation = contextConnect(component_Elevation, 'Elevation');
 /* harmony default export */ var elevation_component = (ConnectedElevation);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/styles.js
 function card_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -42861,7 +42072,7 @@ const cardPaddings = {
   extraSmall: xSmallCardPadding
 };
 const shady = /*#__PURE__*/emotion_react_browser_esm_css("background-color:", COLORS.lightGray[200], ";" + ( true ? "" : 0),  true ? "" : 0);
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/surface/styles.js
 /**
  * External dependencies
@@ -42976,7 +42187,7 @@ const getVariant = (variant, surfaceBackgroundSize, surfaceBackgroundSizeDotted)
       }
   }
 };
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/surface/hook.js
 /**
  * WordPress dependencies
@@ -43019,7 +42230,7 @@ function useSurface(props) {
     className: classes
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card/hook.js
 /**
  * WordPress dependencies
@@ -43096,7 +42307,7 @@ function useCard(props) {
     size
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card/component.js
 
 
@@ -43123,7 +42334,7 @@ function useCard(props) {
 
 /**
  * @param {import('../../ui/context').WordPressComponentProps<import('../types').Props, 'div'>} props
- * @param {import('react').Ref<any>}                                                            forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                   forwardedRef
  */
 
 function component_Card(props, forwardedRef) {
@@ -43204,7 +42415,7 @@ function component_Card(props, forwardedRef) {
 
 const ConnectedCard = contextConnect(component_Card, 'Card');
 /* harmony default export */ var card_component = (ConnectedCard);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/scrollable/styles.js
 function scrollable_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -43242,7 +42453,7 @@ const scrollAuto =  true ? {
   name: "umwchj",
   styles: "overflow-y:auto"
 } : 0;
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/scrollable/hook.js
 /**
  * WordPress dependencies
@@ -43276,7 +42487,7 @@ function useScrollable(props) {
     className: classes
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/scrollable/component.js
 
 
@@ -43289,7 +42500,7 @@ function useScrollable(props) {
 
 /**
  * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').Ref<any>}                                                        forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                               forwardedRef
  */
 
 function component_Scrollable(props, forwardedRef) {
@@ -43318,7 +42529,7 @@ function component_Scrollable(props, forwardedRef) {
 
 const ConnectedScrollable = contextConnect(component_Scrollable, 'Scrollable');
 /* harmony default export */ var scrollable_component = (ConnectedScrollable);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card-body/hook.js
 /**
  * WordPress dependencies
@@ -43351,7 +42562,7 @@ function useCardBody(props) {
     isScrollable
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card-body/component.js
 
 
@@ -43365,7 +42576,7 @@ function useCardBody(props) {
 
 /**
  * @param {import('../../ui/context').WordPressComponentProps<import('../types').BodyProps, 'div'>} props
- * @param {import('react').Ref<any>}                                                                forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                       forwardedRef
  */
 
 function CardBody(props, forwardedRef) {
@@ -43403,7 +42614,7 @@ function CardBody(props, forwardedRef) {
 
 const ConnectedCardBody = contextConnect(CardBody, 'CardBody');
 /* harmony default export */ var card_body_component = (ConnectedCardBody);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/reakit/es/Separator/Separator.js
 
 
@@ -43503,7 +42714,7 @@ const renderSize = _ref3 => {
 const DividerView = emotion_styled_base_browser_esm("hr",  true ? {
   target: "e19on6iw0"
 } : 0)("border:0;margin:0;", renderBorder, " ", renderSize, " ", renderMargin, ";" + ( true ? "" : 0));
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/divider/component.js
 
 
@@ -43554,7 +42765,7 @@ function component_Divider(props, forwardedRef) {
 
 const ConnectedDivider = contextConnect(component_Divider, 'Divider');
 /* harmony default export */ var divider_component = (ConnectedDivider);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card-divider/hook.js
 /**
  * WordPress dependencies
@@ -43583,7 +42794,7 @@ function useCardDivider(props) {
     className: classes
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card-divider/component.js
 
 
@@ -43596,7 +42807,7 @@ function useCardDivider(props) {
 
 /**
  * @param {import('../../ui/context').WordPressComponentProps<import('../../divider').DividerProps, 'hr', false>} props
- * @param {import('react').Ref<any>}                                                                              forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                                     forwardedRef
  */
 
 function CardDivider(props, forwardedRef) {
@@ -43624,7 +42835,7 @@ function CardDivider(props, forwardedRef) {
 
 const ConnectedCardDivider = contextConnect(CardDivider, 'CardDivider');
 /* harmony default export */ var card_divider_component = (ConnectedCardDivider);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card-footer/hook.js
 /**
  * WordPress dependencies
@@ -43658,7 +42869,7 @@ function useCardFooter(props) {
     justify
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card-footer/component.js
 
 
@@ -43671,7 +42882,7 @@ function useCardFooter(props) {
 
 /**
  * @param {import('../../ui/context').WordPressComponentProps<import('../types').FooterProps, 'div'>} props
- * @param {import('react').Ref<any>}                                                                  forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                         forwardedRef
  */
 
 function CardFooter(props, forwardedRef) {
@@ -43697,7 +42908,7 @@ function CardFooter(props, forwardedRef) {
 
 const ConnectedCardFooter = contextConnect(CardFooter, 'CardFooter');
 /* harmony default export */ var card_footer_component = (ConnectedCardFooter);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card-header/hook.js
 /**
  * WordPress dependencies
@@ -43729,7 +42940,7 @@ function useCardHeader(props) {
     className: classes
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card-header/component.js
 
 
@@ -43742,7 +42953,7 @@ function useCardHeader(props) {
 
 /**
  * @param {import('../../ui/context').WordPressComponentProps<import('../types').HeaderProps, 'div'>} props
- * @param {import('react').Ref<any>}                                                                  forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                         forwardedRef
  */
 
 function CardHeader(props, forwardedRef) {
@@ -43768,7 +42979,7 @@ function CardHeader(props, forwardedRef) {
 
 const ConnectedCardHeader = contextConnect(CardHeader, 'CardHeader');
 /* harmony default export */ var card_header_component = (ConnectedCardHeader);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card-media/hook.js
 /**
  * WordPress dependencies
@@ -43797,7 +43008,7 @@ function useCardMedia(props) {
     className: classes
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/card/card-media/component.js
 
 
@@ -43810,7 +43021,7 @@ function useCardMedia(props) {
 
 /**
  * @param {import('../../ui/context').WordPressComponentProps<{ children: import('react').ReactNode }, 'div'>} props
- * @param {import('react').Ref<any>}                                                                           forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                                  forwardedRef
  */
 
 function CardMedia(props, forwardedRef) {
@@ -43840,7 +43051,7 @@ function CardMedia(props, forwardedRef) {
 
 const ConnectedCardMedia = contextConnect(CardMedia, 'CardMedia');
 /* harmony default export */ var card_media_component = (ConnectedCardMedia);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
 /**
  * WordPress dependencies
@@ -43872,7 +43083,7 @@ function icon_Icon(_ref) {
 }
 
 /* harmony default export */ var icons_build_module_icon = (icon_Icon);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/check.js
 
 
@@ -43887,7 +43098,7 @@ const check = (0,external_wp_element_namespaceObject.createElement)(external_wp_
   d: "M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"
 }));
 /* harmony default export */ var library_check = (check);
-//# sourceMappingURL=check.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/checkbox-control/index.js
 
 
@@ -43955,7 +43166,7 @@ function CheckboxControl(_ref) {
     htmlFor: id
   }, label));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/clipboard-button/index.js
 
 
@@ -44018,7 +43229,7 @@ function ClipboardButton(_ref) {
     onCopy: focusOnCopyEventTarget
   }), children);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/line-solid.js
 
 
@@ -44035,7 +43246,7 @@ const lineSolid = (0,external_wp_element_namespaceObject.createElement)(external
   d: "M5 11.25h14v1.5H5z"
 }));
 /* harmony default export */ var line_solid = (lineSolid);
-//# sourceMappingURL=line-solid.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/plus.js
 
 
@@ -44050,7 +43261,7 @@ const plus = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
   d: "M18 11.2h-5.2V6h-1.6v5.2H6v1.6h5.2V18h1.6v-5.2H18z"
 }));
 /* harmony default export */ var library_plus = (plus);
-//# sourceMappingURL=plus.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/more-vertical.js
 
 
@@ -44065,7 +43276,7 @@ const moreVertical = (0,external_wp_element_namespaceObject.createElement)(exter
   d: "M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"
 }));
 /* harmony default export */ var more_vertical = (moreVertical);
-//# sourceMappingURL=more-vertical.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/settings.js
 
 
@@ -44080,7 +43291,7 @@ const settings = (0,external_wp_element_namespaceObject.createElement)(external_
   d: "M14.5 13.8c-1.1 0-2.1.7-2.4 1.8H4V17h8.1c.3 1 1.3 1.8 2.4 1.8s2.1-.7 2.4-1.8H20v-1.5h-3.1c-.3-1-1.3-1.7-2.4-1.7zM11.9 7c-.3-1-1.3-1.8-2.4-1.8S7.4 6 7.1 7H4v1.5h3.1c.3 1 1.3 1.8 2.4 1.8s2.1-.7 2.4-1.8H20V7h-8.1z"
 }));
 /* harmony default export */ var library_settings = (settings);
-//# sourceMappingURL=settings.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/utils.js
 /**
  * External dependencies
@@ -44206,7 +43417,7 @@ function getAlignmentProps(alignment) {
   };
   return alignmentProps;
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/utils/get-valid-children.js
 /**
  * External dependencies
@@ -44228,7 +43439,7 @@ function getValidChildren(children) {
   if (typeof children === 'string') return [children];
   return external_wp_element_namespaceObject.Children.toArray(children).filter(child => (0,external_wp_element_namespaceObject.isValidElement)(child));
 }
-//# sourceMappingURL=get-valid-children.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/hook.js
 
 
@@ -44283,7 +43494,7 @@ function useHStack(props) {
   const flexProps = useFlex(propsForFlex);
   return flexProps;
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/component.js
 
 
@@ -44296,7 +43507,7 @@ function useHStack(props) {
 
 /**
  * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').Ref<any>}                                                        forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                               forwardedRef
  */
 
 function HStack(props, forwardedRef) {
@@ -44332,7 +43543,7 @@ function HStack(props, forwardedRef) {
 
 const ConnectedHStack = contextConnect(HStack, 'HStack');
 /* harmony default export */ var h_stack_component = (ConnectedHStack);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-down.js
 
 
@@ -44347,7 +43558,7 @@ const chevronDown = (0,external_wp_element_namespaceObject.createElement)(extern
   d: "M17.5 11.6L12 16l-5.5-4.4.9-1.2L12 14l4.5-3.6 1 1.2z"
 }));
 /* harmony default export */ var chevron_down = (chevronDown);
-//# sourceMappingURL=chevron-down.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/select-control/styles/select-control-styles.js
 
 
@@ -44442,7 +43653,7 @@ const DownArrowWrapper = emotion_styled_base_browser_esm("div",  true ? {
 } : 0)("align-items:center;bottom:0;box-sizing:border-box;display:flex;padding:0 4px;pointer-events:none;position:absolute;top:0;", rtl({
   right: 0
 }), " svg{display:block;}" + ( true ? "" : 0));
-//# sourceMappingURL=select-control-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/select-control/index.js
 
 
@@ -44451,7 +43662,7 @@ const DownArrowWrapper = emotion_styled_base_browser_esm("div",  true ? {
  * External dependencies
  */
 
- // eslint-disable-next-line no-restricted-imports
+
 
 /**
  * WordPress dependencies
@@ -44578,7 +43789,7 @@ function SelectControl(_ref, ref) {
 
 const select_control_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(SelectControl);
 /* harmony default export */ var select_control = (select_control_ForwardedComponent);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/range-control/utils.js
 // @ts-nocheck
 
@@ -44699,7 +43910,7 @@ function useDebouncedHoverInteraction(_ref2) {
     onMouseLeave: handleOnMouseLeave
   };
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/range-control/styles/range-control-styles.js
 
 
@@ -44932,7 +44143,7 @@ const ActionRightWrapper = emotion_styled_base_browser_esm("span",  true ? {
 } : 0)("box-sizing:border-box;display:block;margin-top:0;button,button.is-small{margin-left:0;", rangeHeight, ";}", rtl({
   marginLeft: 8
 }), ";" + ( true ? "" : 0));
-//# sourceMappingURL=range-control-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/range-control/input-range.js
 
 
@@ -44984,7 +44195,7 @@ function input_range_InputRange(_ref, ref) {
 
 const input_range_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(input_range_InputRange);
 /* harmony default export */ var input_range = (input_range_ForwardedComponent);
-//# sourceMappingURL=input-range.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/range-control/mark.js
 
 
@@ -45021,7 +44232,7 @@ function RangeMark(_ref) {
     style: style
   }, label));
 }
-//# sourceMappingURL=mark.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/range-control/rail.js
 
 
@@ -45134,7 +44345,7 @@ function useMarks(_ref3) {
   });
   return placedMarks;
 }
-//# sourceMappingURL=rail.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/range-control/tooltip.js
 
 
@@ -45206,7 +44417,7 @@ function useTooltipPosition(_ref2) {
   });
   return position;
 }
-//# sourceMappingURL=tooltip.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/range-control/index.js
 
 
@@ -45482,7 +44693,7 @@ function RangeControl(_ref, ref) {
 
 const range_control_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(RangeControl);
 /* harmony default export */ var range_control = (range_control_ForwardedComponent);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/styles.js
 
 
@@ -45541,7 +44752,7 @@ const ColorHexInputControl = /*#__PURE__*/emotion_styled_base_browser_esm(input_
   name: "1287a6j",
   styles: "width:8em"
 } : 0);
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getBoundingClientRect.js
 function getBoundingClientRect(element) {
   var rect = element.getBoundingClientRect();
@@ -47957,7 +47168,7 @@ var TooltipReference = createComponent({
 
 const TooltipContext = (0,external_wp_element_namespaceObject.createContext)({});
 const useTooltipContext = () => (0,external_wp_element_namespaceObject.useContext)(TooltipContext);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-e6a5cfbe.js
 // Automatically generated
 var DISCLOSURE_STATE_KEYS = ["baseId", "unstable_idCountRef", "visible", "animated", "animating", "setBaseId", "show", "hide", "toggle", "setVisible", "setAnimated", "stopAnimation"];
@@ -48243,11 +47454,11 @@ function component_Shortcut(props, forwardedRef) {
 
 const ConnectedShortcut = contextConnect(component_Shortcut, 'Shortcut');
 /* harmony default export */ var shortcut_component = (ConnectedShortcut);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/z-index.js
 const Flyout = 10000;
 const z_index_Tooltip = 1000002;
-//# sourceMappingURL=z-index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/tooltip/styles.js
 
 
@@ -48277,7 +47488,7 @@ const noOutline =  true ? {
 const TooltipShortcut = /*#__PURE__*/emotion_styled_base_browser_esm(shortcut_component,  true ? {
   target: "e7tfjmw0"
 } : 0)("display:inline-block;margin-left:", space(1), ";" + ( true ? "" : 0));
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/tooltip/content.js
 
 
@@ -48302,7 +47513,7 @@ const {
 /**
  *
  * @param {import('../context').WordPressComponentProps<import('./types').ContentProps, 'div'>} props
- * @param {import('react').Ref<any>}                                                            forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                   forwardedRef
  */
 
 function content_TooltipContent(props, forwardedRef) {
@@ -48325,7 +47536,7 @@ function content_TooltipContent(props, forwardedRef) {
 }
 
 /* harmony default export */ var tooltip_content = (contextConnect(content_TooltipContent, 'TooltipContent'));
-//# sourceMappingURL=content.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/ui/tooltip/component.js
 
 
@@ -48350,7 +47561,7 @@ function content_TooltipContent(props, forwardedRef) {
 
 /**
  * @param {import('../context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').Ref<any>}                                                     forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                            forwardedRef
  */
 
 function component_Tooltip(props, forwardedRef) {
@@ -48418,7 +47629,7 @@ function component_Tooltip(props, forwardedRef) {
 
 const ConnectedTooltip = contextConnect(component_Tooltip, 'Tooltip');
 /* harmony default export */ var tooltip_component = (ConnectedTooltip);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/color-display.js
 
 
@@ -48589,7 +47800,7 @@ const ColorDisplay = _ref6 => {
     }
   }, (0,external_wp_element_namespaceObject.createElement)(Component, props)));
 };
-//# sourceMappingURL=color-display.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/input-with-slider.js
 
 
@@ -48638,7 +47849,7 @@ const InputWithSlider = _ref => {
     withInputField: false
   }));
 };
-//# sourceMappingURL=input-with-slider.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/rgb-input.js
 
 
@@ -48713,7 +47924,7 @@ const RgbInput = _ref => {
     }))
   }));
 };
-//# sourceMappingURL=rgb-input.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/hsl-input.js
 
 
@@ -48796,7 +48007,7 @@ const HslInput = _ref => {
     }
   }));
 };
-//# sourceMappingURL=hsl-input.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/hex-input.js
 
 
@@ -48825,10 +48036,10 @@ const HexInput = _ref => {
     enableAlpha
   } = _ref;
 
-  const handleValidate = value => {
-    if (!w('#' + value).isValid()) {
-      throw new Error('Invalid hex color input');
-    }
+  const handleChange = nextValue => {
+    if (!nextValue) return;
+    const hexValue = nextValue.startsWith('#') ? nextValue : '#' + nextValue;
+    onChange(w(hexValue));
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(ColorHexInputControl, {
@@ -48839,16 +48050,13 @@ const HexInput = _ref => {
       lineHeight: 1
     }, "#"),
     value: color.toHex().slice(1).toUpperCase(),
-    onChange: nextValue => {
-      onChange(w('#' + nextValue));
-    },
-    onValidate: handleValidate,
-    maxLength: enableAlpha ? 8 : 6,
+    onChange: handleChange,
+    maxLength: enableAlpha ? 9 : 7,
     label: (0,external_wp_i18n_namespaceObject.__)('Hex color'),
     hideLabelFromVision: true
   });
 };
-//# sourceMappingURL=hex-input.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/color-input.js
 
 
@@ -48887,10 +48095,9 @@ const ColorInput = _ref => {
       return (0,external_wp_element_namespaceObject.createElement)(HexInput, props);
   }
 };
-//# sourceMappingURL=color-input.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/react-colorful/dist/index.module.js
-function index_module_u(){return(index_module_u=Object.assign||function(e){for(var r=1;r<arguments.length;r++){var t=arguments[r];for(var o in t)Object.prototype.hasOwnProperty.call(t,o)&&(e[o]=t[o])}return e}).apply(this,arguments)}function index_module_c(e,r){if(null==e)return{};var t,o,n={},a=Object.keys(e);for(o=0;o<a.length;o++)r.indexOf(t=a[o])>=0||(n[t]=e[t]);return n}function index_module_s(e){var t=(0,external_React_.useRef)(e),o=(0,external_React_.useRef)(function(e){t.current&&t.current(e)});return t.current=e,o.current}var index_module_i=function(e,r,t){return void 0===r&&(r=0),void 0===t&&(t=1),e>t?t:e<r?r:e},index_module_f=function(e){return"touches"in e},index_module_v=function(e,r){var t=e.getBoundingClientRect(),o=index_module_f(r)?r.touches[0]:r;return{left:index_module_i((o.pageX-(t.left+window.pageXOffset))/t.width),top:index_module_i((o.pageY-(t.top+window.pageYOffset))/t.height)}},index_module_d=function(e){!index_module_f(e)&&e.preventDefault()},index_module_h=external_React_default().memo(function(n){var a=n.onMove,l=n.onKey,i=index_module_c(n,["onMove","onKey"]),h=(0,external_React_.useRef)(null),m=index_module_s(a),g=index_module_s(l),p=(0,external_React_.useRef)(!1),b=(0,external_React_.useMemo)(function(){var e=function(e){index_module_d(e),(index_module_f(e)?e.touches.length>0:e.buttons>0)&&h.current?m(index_module_v(h.current,e)):t(!1)},r=function(){return t(!1)};function t(t){var o=p.current,n=t?self.addEventListener:self.removeEventListener;n(o?"touchmove":"mousemove",e),n(o?"touchend":"mouseup",r)}return[function(e){var r=e.nativeEvent,o=h.current;o&&(index_module_d(r),!function(e,r){return r&&!index_module_f(e)}(r,p.current)&&o&&(p.current=index_module_f(r),o.focus(),m(index_module_v(o,r)),t(!0)))},function(e){var r=e.which||e.keyCode;r<37||r>40||(e.preventDefault(),g({left:39===r?.05:37===r?-.05:0,top:40===r?.05:38===r?-.05:0}))},t]},[g,m]),_=b[0],C=b[1],x=b[2];return (0,external_React_.useEffect)(function(){return x},[x]),external_React_default().createElement("div",index_module_u({},i,{onTouchStart:_,onMouseDown:_,className:"react-colorful__interactive",ref:h,onKeyDown:C,tabIndex:0,role:"slider"}))}),index_module_m=function(e){return e.filter(Boolean).join(" ")},index_module_g=function(r){var t=r.color,o=r.left,n=r.top,a=void 0===n?.5:n,l=index_module_m(["react-colorful__pointer",r.className]);return external_React_default().createElement("div",{className:l,style:{top:100*a+"%",left:100*o+"%"}},external_React_default().createElement("div",{className:"react-colorful__pointer-fill",style:{backgroundColor:t}}))},index_module_p=function(e,r,t){return void 0===r&&(r=0),void 0===t&&(t=Math.pow(10,r)),Math.round(t*e)/t},index_module_b={grad:.9,turn:360,rad:360/(2*Math.PI)},_=function(e){return"#"===e[0]&&(e=e.substr(1)),e.length<6?{r:parseInt(e[0]+e[0],16),g:parseInt(e[1]+e[1],16),b:parseInt(e[2]+e[2],16),a:1}:{r:parseInt(e.substr(0,2),16),g:parseInt(e.substr(2,2),16),b:parseInt(e.substr(4,2),16),a:1}},C=function(e,r){return void 0===r&&(r="deg"),Number(e)*(index_module_b[r]||1)},index_module_x=function(e){var r=/hsla?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?index_module_H({h:C(r[1],r[2]),s:Number(r[3]),l:Number(r[4]),a:void 0===r[5]?1:Number(r[5])/(r[6]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_E=index_module_x,index_module_H=function(e){var r=e.s,t=e.l;return{h:e.h,s:(r*=(t<50?t:100-t)/100)>0?2*r/(t+r)*100:0,v:t+r,a:e.a}},index_module_M=function(e){var r=e.s,t=e.v,o=e.a,n=(200-r)*t/100;return{h:index_module_p(e.h),s:index_module_p(n>0&&n<200?r*t/100/(n<=100?n:200-n)*100:0),l:index_module_p(n/2),a:index_module_p(o,2)}},index_module_N=function(e){var r=index_module_M(e);return"hsl("+r.h+", "+r.s+"%, "+r.l+"%)"},index_module_w=function(e){var r=index_module_M(e);return"hsla("+r.h+", "+r.s+"%, "+r.l+"%, "+r.a+")"},index_module_y=function(e){var r=e.h,t=e.s,o=e.v,n=e.a;r=r/360*6,t/=100,o/=100;var a=Math.floor(r),l=o*(1-t),u=o*(1-(r-a)*t),c=o*(1-(1-r+a)*t),s=a%6;return{r:index_module_p(255*[o,u,l,l,c,o][s]),g:index_module_p(255*[c,o,o,u,l,l][s]),b:index_module_p(255*[l,l,c,o,o,u][s]),a:index_module_p(n,2)}},q=function(e){var r=/hsva?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?B({h:C(r[1],r[2]),s:Number(r[3]),v:Number(r[4]),a:void 0===r[5]?1:Number(r[5])/(r[6]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_k=q,O=function(e){var r=/rgba?\(?\s*(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?z({r:Number(r[1])/(r[2]?100/255:1),g:Number(r[3])/(r[4]?100/255:1),b:Number(r[5])/(r[6]?100/255:1),a:void 0===r[7]?1:Number(r[7])/(r[8]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_I=O,index_module_j=function(e){var r=e.toString(16);return r.length<2?"0"+r:r},z=function(e){var r=e.r,t=e.g,o=e.b,n=e.a,a=Math.max(r,t,o),l=a-Math.min(r,t,o),u=l?a===r?(t-o)/l:a===t?2+(o-r)/l:4+(r-t)/l:0;return{h:index_module_p(60*(u<0?u+6:u)),s:index_module_p(a?l/a*100:0),v:index_module_p(a/255*100),a:n}},B=function(e){return{h:index_module_p(e.h),s:index_module_p(e.s),v:index_module_p(e.v),a:index_module_p(e.a,2)}},K=external_React_default().memo(function(r){var t=r.hue,o=r.onChange,n=index_module_m(["react-colorful__hue",r.className]);return external_React_default().createElement("div",{className:n},external_React_default().createElement(index_module_h,{onMove:function(e){o({h:360*e.left})},onKey:function(e){o({h:index_module_i(t+360*e.left,0,360)})},"aria-label":"Hue","aria-valuetext":index_module_p(t)},external_React_default().createElement(index_module_g,{className:"react-colorful__hue-pointer",left:t/360,color:index_module_N({h:t,s:100,v:100,a:1})})))}),A=external_React_default().memo(function(r){var t=r.hsva,o=r.onChange,n={backgroundColor:index_module_N({h:t.h,s:100,v:100,a:1})};return external_React_default().createElement("div",{className:"react-colorful__saturation",style:n},external_React_default().createElement(index_module_h,{onMove:function(e){o({s:100*e.left,v:100-100*e.top})},onKey:function(e){o({s:index_module_i(t.s+100*e.left,0,100),v:index_module_i(t.v-100*e.top,0,100)})},"aria-label":"Color","aria-valuetext":"Saturation "+index_module_p(t.s)+"%, Brightness "+index_module_p(t.v)+"%"},external_React_default().createElement(index_module_g,{className:"react-colorful__saturation-pointer",top:1-t.v/100,left:t.s/100,color:index_module_N(t)})))}),L=function(e,r){if(e===r)return!0;for(var t in e)if(e[t]!==r[t])return!1;return!0},D=function(e,r){return e.replace(/\s/g,"")===r.replace(/\s/g,"")};function F(e,t,l){var u=index_module_s(l),c=(0,external_React_.useState)(function(){return e.toHsva(t)}),i=c[0],f=c[1],v=(0,external_React_.useRef)({color:t,hsva:i});(0,external_React_.useEffect)(function(){if(!e.equal(t,v.current.color)){var r=e.toHsva(t);v.current={hsva:r,color:t},f(r)}},[t,e]),(0,external_React_.useEffect)(function(){var r;L(i,v.current.hsva)||e.equal(r=e.fromHsva(i),v.current.color)||(v.current={hsva:i,color:r},u(r))},[i,e,u]);var d=(0,external_React_.useCallback)(function(e){f(function(r){return Object.assign({},r,e)})},[]);return[i,d]}var index_module_S,P,T="undefined"!=typeof window?external_React_.useLayoutEffect:external_React_.useEffect,X=function(){return index_module_S||( true?__webpack_require__.nc:0)},Y=function(e){index_module_S=e},index_module_$=function(){T(function(){if("undefined"!=typeof document&&!P){(P=document.createElement("style")).innerHTML='.react-colorful{position:relative;display:flex;flex-direction:column;width:200px;height:200px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.react-colorful__saturation{position:relative;flex-grow:1;border-color:transparent;border-bottom:12px solid #000;border-radius:8px 8px 0 0;background-image:linear-gradient(0deg,#000,transparent),linear-gradient(90deg,#fff,hsla(0,0%,100%,0))}.react-colorful__alpha-gradient,.react-colorful__pointer-fill{content:"";position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;border-radius:inherit}.react-colorful__alpha-gradient,.react-colorful__saturation{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}.react-colorful__alpha,.react-colorful__hue{position:relative;height:24px}.react-colorful__hue{background:linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)}.react-colorful__last-control{border-radius:0 0 8px 8px}.react-colorful__interactive{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;outline:none;touch-action:none}.react-colorful__pointer{position:absolute;z-index:1;box-sizing:border-box;width:28px;height:28px;transform:translate(-50%,-50%);background-color:#fff;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2)}.react-colorful__interactive:focus .react-colorful__pointer{transform:translate(-50%,-50%) scale(1.1)}.react-colorful__alpha,.react-colorful__alpha-pointer{background-color:#fff;background-image:url(\'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><path d="M8 0h8v8H8zM0 8h8v8H0z"/></svg>\')}.react-colorful__saturation-pointer{z-index:3}.react-colorful__hue-pointer{z-index:2}';var e=X();e&&P.setAttribute("nonce",e),document.head.appendChild(P)}},[])},R=function(r){var t=r.className,o=r.colorModel,n=r.color,a=void 0===n?o.defaultColor:n,l=r.onChange,s=index_module_c(r,["className","colorModel","color","onChange"]);index_module_$();var i=F(o,a,l),f=i[0],v=i[1],d=index_module_m(["react-colorful",t]);return external_React_default().createElement("div",index_module_u({},s,{className:d}),external_React_default().createElement(A,{hsva:f,onChange:v}),external_React_default().createElement(K,{hue:f.h,onChange:v,className:"react-colorful__last-control"}))},G={defaultColor:"000",toHsva:function(e){return z(_(e))},fromHsva:function(e){return t=(r=index_module_y(e)).g,o=r.b,"#"+index_module_j(r.r)+index_module_j(t)+index_module_j(o);var r,t,o},equal:function(e,r){return e.toLowerCase()===r.toLowerCase()||L(_(e),_(r))}},J=function(r){return e.createElement(R,index_module_u({},r,{colorModel:G}))},Q=function(r){var t=r.className,o=r.hsva,n=r.onChange,a={backgroundImage:"linear-gradient(90deg, "+index_module_w(Object.assign({},o,{a:0}))+", "+index_module_w(Object.assign({},o,{a:1}))+")"},l=index_module_m(["react-colorful__alpha",t]);return external_React_default().createElement("div",{className:l},external_React_default().createElement("div",{className:"react-colorful__alpha-gradient",style:a}),external_React_default().createElement(index_module_h,{onMove:function(e){n({a:e.left})},onKey:function(e){n({a:index_module_i(o.a+e.left)})},"aria-label":"Alpha","aria-valuetext":index_module_p(100*o.a)+"%"},external_React_default().createElement(index_module_g,{className:"react-colorful__alpha-pointer",left:o.a,color:index_module_w(o)})))},U=function(r){var t=r.className,o=r.colorModel,n=r.color,a=void 0===n?o.defaultColor:n,l=r.onChange,s=index_module_c(r,["className","colorModel","color","onChange"]);index_module_$();var i=F(o,a,l),f=i[0],v=i[1],d=index_module_m(["react-colorful",t]);return external_React_default().createElement("div",index_module_u({},s,{className:d}),external_React_default().createElement(A,{hsva:f,onChange:v}),external_React_default().createElement(K,{hue:f.h,onChange:v}),external_React_default().createElement(Q,{hsva:f,onChange:v,className:"react-colorful__last-control"}))},V={defaultColor:{h:0,s:0,l:0,a:1},toHsva:index_module_H,fromHsva:index_module_M,equal:L},W=function(r){return e.createElement(U,index_module_u({},r,{colorModel:V}))},Z={defaultColor:"hsla(0, 0%, 0%, 1)",toHsva:index_module_x,fromHsva:index_module_w,equal:D},ee=function(r){return e.createElement(U,index_module_u({},r,{colorModel:Z}))},re={defaultColor:{h:0,s:0,l:0},toHsva:function(e){return index_module_H({h:e.h,s:e.s,l:e.l,a:1})},fromHsva:function(e){return{h:(r=index_module_M(e)).h,s:r.s,l:r.l};var r},equal:L},te=function(r){return e.createElement(R,index_module_u({},r,{colorModel:re}))},oe={defaultColor:"hsl(0, 0%, 0%)",toHsva:index_module_E,fromHsva:index_module_N,equal:D},ne=function(r){return e.createElement(R,index_module_u({},r,{colorModel:oe}))},ae={defaultColor:{h:0,s:0,v:0,a:1},toHsva:function(e){return e},fromHsva:B,equal:L},le=function(r){return e.createElement(U,index_module_u({},r,{colorModel:ae}))},ue={defaultColor:"hsva(0, 0%, 0%, 1)",toHsva:q,fromHsva:function(e){var r=B(e);return"hsva("+r.h+", "+r.s+"%, "+r.v+"%, "+r.a+")"},equal:D},ce=function(r){return e.createElement(U,index_module_u({},r,{colorModel:ue}))},se={defaultColor:{h:0,s:0,v:0},toHsva:function(e){return{h:e.h,s:e.s,v:e.v,a:1}},fromHsva:function(e){var r=B(e);return{h:r.h,s:r.s,v:r.v}},equal:L},ie=function(r){return e.createElement(R,index_module_u({},r,{colorModel:se}))},fe={defaultColor:"hsv(0, 0%, 0%)",toHsva:index_module_k,fromHsva:function(e){var r=B(e);return"hsv("+r.h+", "+r.s+"%, "+r.v+"%)"},equal:D},ve=function(r){return e.createElement(R,index_module_u({},r,{colorModel:fe}))},de={defaultColor:{r:0,g:0,b:0,a:1},toHsva:z,fromHsva:index_module_y,equal:L},he=function(r){return e.createElement(U,index_module_u({},r,{colorModel:de}))},me={defaultColor:"rgba(0, 0, 0, 1)",toHsva:O,fromHsva:function(e){var r=index_module_y(e);return"rgba("+r.r+", "+r.g+", "+r.b+", "+r.a+")"},equal:D},ge=function(r){return external_React_default().createElement(U,index_module_u({},r,{colorModel:me}))},pe={defaultColor:{r:0,g:0,b:0},toHsva:function(e){return z({r:e.r,g:e.g,b:e.b,a:1})},fromHsva:function(e){return{r:(r=index_module_y(e)).r,g:r.g,b:r.b};var r},equal:L},be=function(r){return e.createElement(R,index_module_u({},r,{colorModel:pe}))},_e={defaultColor:"rgb(0, 0, 0)",toHsva:index_module_I,fromHsva:function(e){var r=index_module_y(e);return"rgb("+r.r+", "+r.g+", "+r.b+")"},equal:D},Ce=function(r){return external_React_default().createElement(R,index_module_u({},r,{colorModel:_e}))},xe=/^#?[0-9A-F]{3}$/i,Ee=/^#?[0-9A-F]{6}$/i,He=function(e){return Ee.test(e)||xe.test(e)},Me=function(e){return e.replace(/([^0-9A-F]+)/gi,"").substr(0,6)},Ne=function(r){var t=r.color,l=void 0===t?"":t,i=r.onChange,f=r.onBlur,v=r.prefixed,d=index_module_c(r,["color","onChange","onBlur","prefixed"]),h=n(function(){return Me(l)}),m=h[0],g=h[1],p=index_module_s(i),b=index_module_s(f),_=a(function(e){var r=Me(e.target.value);g(r),He(r)&&p("#"+r)},[p]),C=a(function(e){He(e.target.value)||g(Me(l)),b(e)},[l,b]);return o(function(){g(Me(l))},[l]),e.createElement("input",index_module_u({},d,{value:(v?"#":"")+m,spellCheck:"false",onChange:_,onBlur:C}))};
-//# sourceMappingURL=index.module.js.map
+function index_module_u(){return(index_module_u=Object.assign||function(e){for(var r=1;r<arguments.length;r++){var t=arguments[r];for(var o in t)Object.prototype.hasOwnProperty.call(t,o)&&(e[o]=t[o])}return e}).apply(this,arguments)}function index_module_c(e,r){if(null==e)return{};var t,o,n={},a=Object.keys(e);for(o=0;o<a.length;o++)r.indexOf(t=a[o])>=0||(n[t]=e[t]);return n}function index_module_s(e){var t=(0,external_React_.useRef)(e),o=(0,external_React_.useRef)(function(e){t.current&&t.current(e)});return t.current=e,o.current}var index_module_i=function(e,r,t){return void 0===r&&(r=0),void 0===t&&(t=1),e>t?t:e<r?r:e},index_module_f=function(e){return"touches"in e},index_module_v=function(e,r){var t=e.getBoundingClientRect(),o=index_module_f(r)?r.touches[0]:r;return{left:index_module_i((o.pageX-(t.left+window.pageXOffset))/t.width),top:index_module_i((o.pageY-(t.top+window.pageYOffset))/t.height)}},index_module_d=function(e){!index_module_f(e)&&e.preventDefault()},index_module_h=external_React_default().memo(function(n){var a=n.onMove,l=n.onKey,i=index_module_c(n,["onMove","onKey"]),h=(0,external_React_.useRef)(null),m=index_module_s(a),g=index_module_s(l),p=(0,external_React_.useRef)(!1),b=(0,external_React_.useMemo)(function(){var e=function(e){index_module_d(e),(index_module_f(e)?e.touches.length>0:e.buttons>0)&&h.current?m(index_module_v(h.current,e)):t(!1)},r=function(){return t(!1)};function t(t){var o=p.current,n=t?self.addEventListener:self.removeEventListener;n(o?"touchmove":"mousemove",e),n(o?"touchend":"mouseup",r)}return[function(e){var r=e.nativeEvent,o=h.current;o&&(index_module_d(r),!function(e,r){return r&&!index_module_f(e)}(r,p.current)&&o&&(p.current=index_module_f(r),o.focus(),m(index_module_v(o,r)),t(!0)))},function(e){var r=e.which||e.keyCode;r<37||r>40||(e.preventDefault(),g({left:39===r?.05:37===r?-.05:0,top:40===r?.05:38===r?-.05:0}))},t]},[g,m]),_=b[0],C=b[1],x=b[2];return (0,external_React_.useEffect)(function(){return x},[x]),external_React_default().createElement("div",index_module_u({},i,{onTouchStart:_,onMouseDown:_,className:"react-colorful__interactive",ref:h,onKeyDown:C,tabIndex:0,role:"slider"}))}),index_module_m=function(e){return e.filter(Boolean).join(" ")},index_module_g=function(r){var t=r.color,o=r.left,n=r.top,a=void 0===n?.5:n,l=index_module_m(["react-colorful__pointer",r.className]);return external_React_default().createElement("div",{className:l,style:{top:100*a+"%",left:100*o+"%"}},external_React_default().createElement("div",{className:"react-colorful__pointer-fill",style:{backgroundColor:t}}))},index_module_p=function(e,r,t){return void 0===r&&(r=0),void 0===t&&(t=Math.pow(10,r)),Math.round(t*e)/t},index_module_b={grad:.9,turn:360,rad:360/(2*Math.PI)},_=function(e){return"#"===e[0]&&(e=e.substr(1)),e.length<6?{r:parseInt(e[0]+e[0],16),g:parseInt(e[1]+e[1],16),b:parseInt(e[2]+e[2],16),a:1}:{r:parseInt(e.substr(0,2),16),g:parseInt(e.substr(2,2),16),b:parseInt(e.substr(4,2),16),a:1}},C=function(e,r){return void 0===r&&(r="deg"),Number(e)*(index_module_b[r]||1)},index_module_x=function(e){var r=/hsla?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?index_module_H({h:C(r[1],r[2]),s:Number(r[3]),l:Number(r[4]),a:void 0===r[5]?1:Number(r[5])/(r[6]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_E=index_module_x,index_module_H=function(e){var r=e.s,t=e.l;return{h:e.h,s:(r*=(t<50?t:100-t)/100)>0?2*r/(t+r)*100:0,v:t+r,a:e.a}},index_module_M=function(e){var r=e.s,t=e.v,o=e.a,n=(200-r)*t/100;return{h:index_module_p(e.h),s:index_module_p(n>0&&n<200?r*t/100/(n<=100?n:200-n)*100:0),l:index_module_p(n/2),a:index_module_p(o,2)}},index_module_N=function(e){var r=index_module_M(e);return"hsl("+r.h+", "+r.s+"%, "+r.l+"%)"},index_module_w=function(e){var r=index_module_M(e);return"hsla("+r.h+", "+r.s+"%, "+r.l+"%, "+r.a+")"},index_module_y=function(e){var r=e.h,t=e.s,o=e.v,n=e.a;r=r/360*6,t/=100,o/=100;var a=Math.floor(r),l=o*(1-t),u=o*(1-(r-a)*t),c=o*(1-(1-r+a)*t),s=a%6;return{r:index_module_p(255*[o,u,l,l,c,o][s]),g:index_module_p(255*[c,o,o,u,l,l][s]),b:index_module_p(255*[l,l,c,o,o,u][s]),a:index_module_p(n,2)}},q=function(e){var r=/hsva?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?B({h:C(r[1],r[2]),s:Number(r[3]),v:Number(r[4]),a:void 0===r[5]?1:Number(r[5])/(r[6]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_k=q,O=function(e){var r=/rgba?\(?\s*(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?z({r:Number(r[1])/(r[2]?100/255:1),g:Number(r[3])/(r[4]?100/255:1),b:Number(r[5])/(r[6]?100/255:1),a:void 0===r[7]?1:Number(r[7])/(r[8]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_I=O,index_module_j=function(e){var r=e.toString(16);return r.length<2?"0"+r:r},z=function(e){var r=e.r,t=e.g,o=e.b,n=e.a,a=Math.max(r,t,o),l=a-Math.min(r,t,o),u=l?a===r?(t-o)/l:a===t?2+(o-r)/l:4+(r-t)/l:0;return{h:index_module_p(60*(u<0?u+6:u)),s:index_module_p(a?l/a*100:0),v:index_module_p(a/255*100),a:n}},B=function(e){return{h:index_module_p(e.h),s:index_module_p(e.s),v:index_module_p(e.v),a:index_module_p(e.a,2)}},K=external_React_default().memo(function(r){var t=r.hue,o=r.onChange,n=index_module_m(["react-colorful__hue",r.className]);return external_React_default().createElement("div",{className:n},external_React_default().createElement(index_module_h,{onMove:function(e){o({h:360*e.left})},onKey:function(e){o({h:index_module_i(t+360*e.left,0,360)})},"aria-label":"Hue","aria-valuetext":index_module_p(t)},external_React_default().createElement(index_module_g,{className:"react-colorful__hue-pointer",left:t/360,color:index_module_N({h:t,s:100,v:100,a:1})})))}),A=external_React_default().memo(function(r){var t=r.hsva,o=r.onChange,n={backgroundColor:index_module_N({h:t.h,s:100,v:100,a:1})};return external_React_default().createElement("div",{className:"react-colorful__saturation",style:n},external_React_default().createElement(index_module_h,{onMove:function(e){o({s:100*e.left,v:100-100*e.top})},onKey:function(e){o({s:index_module_i(t.s+100*e.left,0,100),v:index_module_i(t.v-100*e.top,0,100)})},"aria-label":"Color","aria-valuetext":"Saturation "+index_module_p(t.s)+"%, Brightness "+index_module_p(t.v)+"%"},external_React_default().createElement(index_module_g,{className:"react-colorful__saturation-pointer",top:1-t.v/100,left:t.s/100,color:index_module_N(t)})))}),L=function(e,r){if(e===r)return!0;for(var t in e)if(e[t]!==r[t])return!1;return!0},D=function(e,r){return e.replace(/\s/g,"")===r.replace(/\s/g,"")};function F(e,t,l){var u=index_module_s(l),c=(0,external_React_.useState)(function(){return e.toHsva(t)}),i=c[0],f=c[1],v=(0,external_React_.useRef)({color:t,hsva:i});(0,external_React_.useEffect)(function(){if(!e.equal(t,v.current.color)){var r=e.toHsva(t);v.current={hsva:r,color:t},f(r)}},[t,e]),(0,external_React_.useEffect)(function(){var r;L(i,v.current.hsva)||e.equal(r=e.fromHsva(i),v.current.color)||(v.current={hsva:i,color:r},u(r))},[i,e,u]);var d=(0,external_React_.useCallback)(function(e){f(function(r){return Object.assign({},r,e)})},[]);return[i,d]}var index_module_S,P,T="undefined"!=typeof window?external_React_.useLayoutEffect:external_React_.useEffect,X=function(){return index_module_S||( true?__webpack_require__.nc:0)},Y=function(e){index_module_S=e},index_module_$=function(){T(function(){if("undefined"!=typeof document&&!P){(P=document.createElement("style")).innerHTML='.react-colorful{position:relative;display:flex;flex-direction:column;width:200px;height:200px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.react-colorful__saturation{position:relative;flex-grow:1;border-color:transparent;border-bottom:12px solid #000;border-radius:8px 8px 0 0;background-image:linear-gradient(0deg,#000,transparent),linear-gradient(90deg,#fff,hsla(0,0%,100%,0))}.react-colorful__alpha-gradient,.react-colorful__pointer-fill{content:"";position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;border-radius:inherit}.react-colorful__alpha-gradient,.react-colorful__saturation{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}.react-colorful__alpha,.react-colorful__hue{position:relative;height:24px}.react-colorful__hue{background:linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)}.react-colorful__last-control{border-radius:0 0 8px 8px}.react-colorful__interactive{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;outline:none;touch-action:none}.react-colorful__pointer{position:absolute;z-index:1;box-sizing:border-box;width:28px;height:28px;transform:translate(-50%,-50%);background-color:#fff;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2)}.react-colorful__interactive:focus .react-colorful__pointer{transform:translate(-50%,-50%) scale(1.1)}.react-colorful__alpha,.react-colorful__alpha-pointer{background-color:#fff;background-image:url(\'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><path d="M8 0h8v8H8zM0 8h8v8H0z"/></svg>\')}.react-colorful__saturation-pointer{z-index:3}.react-colorful__hue-pointer{z-index:2}';var e=X();e&&P.setAttribute("nonce",e),document.head.appendChild(P)}},[])},R=function(r){var t=r.className,o=r.colorModel,n=r.color,a=void 0===n?o.defaultColor:n,l=r.onChange,s=index_module_c(r,["className","colorModel","color","onChange"]);index_module_$();var i=F(o,a,l),f=i[0],v=i[1],d=index_module_m(["react-colorful",t]);return external_React_default().createElement("div",index_module_u({},s,{className:d}),external_React_default().createElement(A,{hsva:f,onChange:v}),external_React_default().createElement(K,{hue:f.h,onChange:v,className:"react-colorful__last-control"}))},G={defaultColor:"000",toHsva:function(e){return z(_(e))},fromHsva:function(e){return t=(r=index_module_y(e)).g,o=r.b,"#"+index_module_j(r.r)+index_module_j(t)+index_module_j(o);var r,t,o},equal:function(e,r){return e.toLowerCase()===r.toLowerCase()||L(_(e),_(r))}},J=function(r){return e.createElement(R,index_module_u({},r,{colorModel:G}))},Q=function(r){var t=r.className,o=r.hsva,n=r.onChange,a={backgroundImage:"linear-gradient(90deg, "+index_module_w(Object.assign({},o,{a:0}))+", "+index_module_w(Object.assign({},o,{a:1}))+")"},l=index_module_m(["react-colorful__alpha",t]);return external_React_default().createElement("div",{className:l},external_React_default().createElement("div",{className:"react-colorful__alpha-gradient",style:a}),external_React_default().createElement(index_module_h,{onMove:function(e){n({a:e.left})},onKey:function(e){n({a:index_module_i(o.a+e.left)})},"aria-label":"Alpha","aria-valuetext":index_module_p(100*o.a)+"%"},external_React_default().createElement(index_module_g,{className:"react-colorful__alpha-pointer",left:o.a,color:index_module_w(o)})))},U=function(r){var t=r.className,o=r.colorModel,n=r.color,a=void 0===n?o.defaultColor:n,l=r.onChange,s=index_module_c(r,["className","colorModel","color","onChange"]);index_module_$();var i=F(o,a,l),f=i[0],v=i[1],d=index_module_m(["react-colorful",t]);return external_React_default().createElement("div",index_module_u({},s,{className:d}),external_React_default().createElement(A,{hsva:f,onChange:v}),external_React_default().createElement(K,{hue:f.h,onChange:v}),external_React_default().createElement(Q,{hsva:f,onChange:v,className:"react-colorful__last-control"}))},index_module_V={defaultColor:{h:0,s:0,l:0,a:1},toHsva:index_module_H,fromHsva:index_module_M,equal:L},W=function(r){return e.createElement(U,index_module_u({},r,{colorModel:index_module_V}))},Z={defaultColor:"hsla(0, 0%, 0%, 1)",toHsva:index_module_x,fromHsva:index_module_w,equal:D},ee=function(r){return e.createElement(U,index_module_u({},r,{colorModel:Z}))},re={defaultColor:{h:0,s:0,l:0},toHsva:function(e){return index_module_H({h:e.h,s:e.s,l:e.l,a:1})},fromHsva:function(e){return{h:(r=index_module_M(e)).h,s:r.s,l:r.l};var r},equal:L},te=function(r){return e.createElement(R,index_module_u({},r,{colorModel:re}))},oe={defaultColor:"hsl(0, 0%, 0%)",toHsva:index_module_E,fromHsva:index_module_N,equal:D},ne=function(r){return e.createElement(R,index_module_u({},r,{colorModel:oe}))},ae={defaultColor:{h:0,s:0,v:0,a:1},toHsva:function(e){return e},fromHsva:B,equal:L},le=function(r){return e.createElement(U,index_module_u({},r,{colorModel:ae}))},ue={defaultColor:"hsva(0, 0%, 0%, 1)",toHsva:q,fromHsva:function(e){var r=B(e);return"hsva("+r.h+", "+r.s+"%, "+r.v+"%, "+r.a+")"},equal:D},ce=function(r){return e.createElement(U,index_module_u({},r,{colorModel:ue}))},se={defaultColor:{h:0,s:0,v:0},toHsva:function(e){return{h:e.h,s:e.s,v:e.v,a:1}},fromHsva:function(e){var r=B(e);return{h:r.h,s:r.s,v:r.v}},equal:L},ie=function(r){return e.createElement(R,index_module_u({},r,{colorModel:se}))},fe={defaultColor:"hsv(0, 0%, 0%)",toHsva:index_module_k,fromHsva:function(e){var r=B(e);return"hsv("+r.h+", "+r.s+"%, "+r.v+"%)"},equal:D},ve=function(r){return e.createElement(R,index_module_u({},r,{colorModel:fe}))},de={defaultColor:{r:0,g:0,b:0,a:1},toHsva:z,fromHsva:index_module_y,equal:L},he=function(r){return e.createElement(U,index_module_u({},r,{colorModel:de}))},me={defaultColor:"rgba(0, 0, 0, 1)",toHsva:O,fromHsva:function(e){var r=index_module_y(e);return"rgba("+r.r+", "+r.g+", "+r.b+", "+r.a+")"},equal:D},ge=function(r){return external_React_default().createElement(U,index_module_u({},r,{colorModel:me}))},pe={defaultColor:{r:0,g:0,b:0},toHsva:function(e){return z({r:e.r,g:e.g,b:e.b,a:1})},fromHsva:function(e){return{r:(r=index_module_y(e)).r,g:r.g,b:r.b};var r},equal:L},be=function(r){return e.createElement(R,index_module_u({},r,{colorModel:pe}))},_e={defaultColor:"rgb(0, 0, 0)",toHsva:index_module_I,fromHsva:function(e){var r=index_module_y(e);return"rgb("+r.r+", "+r.g+", "+r.b+")"},equal:D},Ce=function(r){return external_React_default().createElement(R,index_module_u({},r,{colorModel:_e}))},xe=/^#?[0-9A-F]{3}$/i,Ee=/^#?[0-9A-F]{6}$/i,He=function(e){return Ee.test(e)||xe.test(e)},Me=function(e){return e.replace(/([^0-9A-F]+)/gi,"").substr(0,6)},Ne=function(r){var t=r.color,l=void 0===t?"":t,i=r.onChange,f=r.onBlur,v=r.prefixed,d=index_module_c(r,["color","onChange","onBlur","prefixed"]),h=n(function(){return Me(l)}),m=h[0],g=h[1],p=index_module_s(i),b=index_module_s(f),_=a(function(e){var r=Me(e.target.value);g(r),He(r)&&p("#"+r)},[p]),C=a(function(e){He(e.target.value)||g(Me(l)),b(e)},[l,b]);return o(function(){g(Me(l))},[l]),e.createElement("input",index_module_u({},d,{value:(v?"#":"")+m,spellCheck:"false",onChange:_,onBlur:C}))};
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/picker.js
 
@@ -48920,7 +48127,7 @@ const Picker = _ref => {
     }
   });
 };
-//# sourceMappingURL=picker.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-controlled-value.js
 /**
  * WordPress dependencies
@@ -48961,7 +48168,7 @@ function useControlledValue(_ref) {
 
   return [value, setValue];
 }
-//# sourceMappingURL=use-controlled-value.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/component.js
 
 
@@ -49063,7 +48270,7 @@ const ColorPicker = (props, forwardedRef) => {
 
 const ConnectedColorPicker = contextConnect(ColorPicker, 'ColorPicker');
 /* harmony default export */ var color_picker_component = (ConnectedColorPicker);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/use-deprecated-props.js
 /**
  * External dependencies
@@ -49138,7 +48345,7 @@ function use_deprecated_props_useDeprecatedProps(props) {
     enableAlpha
   };
 }
-//# sourceMappingURL=use-deprecated-props.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/legacy-adapter.js
 
 
@@ -49150,7 +48357,7 @@ function use_deprecated_props_useDeprecatedProps(props) {
 const LegacyAdapter = props => {
   return (0,external_wp_element_namespaceObject.createElement)(color_picker_component, use_deprecated_props_useDeprecatedProps(props));
 };
-//# sourceMappingURL=legacy-adapter.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/item-group/styles.js
 function item_group_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -49194,7 +48401,7 @@ const itemSizes = {
   medium: /*#__PURE__*/emotion_react_browser_esm_css("padding:", paddingY, " ", config_values.controlPaddingX, ";" + ( true ? "" : 0),  true ? "" : 0),
   large: /*#__PURE__*/emotion_react_browser_esm_css("padding:", paddingYLarge, " ", config_values.controlPaddingXLarge, ";" + ( true ? "" : 0),  true ? "" : 0)
 };
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item-group/hook.js
 /**
  * Internal dependencies
@@ -49225,7 +48432,7 @@ function useItemGroup(props) {
     ...otherProps
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/item-group/context.js
 /**
  * WordPress dependencies
@@ -49239,7 +48446,7 @@ const ItemGroupContext = (0,external_wp_element_namespaceObject.createContext)({
   size: 'medium'
 });
 const useItemGroupContext = () => (0,external_wp_element_namespaceObject.useContext)(ItemGroupContext);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item-group/component.js
 
 
@@ -49280,7 +48487,7 @@ function ItemGroup(props, forwardedRef) {
 }
 
 /* harmony default export */ var item_group_component = (contextConnect(ItemGroup, 'ItemGroup'));
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/v-stack/hook.js
 /**
  * Internal dependencies
@@ -49304,7 +48511,7 @@ function useVStack(props) {
   });
   return hStackProps;
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/v-stack/component.js
 
 
@@ -49317,7 +48524,7 @@ function useVStack(props) {
 
 /**
  * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').Ref<any>}                                                        forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                               forwardedRef
  */
 
 function VStack(props, forwardedRef) {
@@ -49353,7 +48560,7 @@ function VStack(props, forwardedRef) {
 
 const ConnectedVStack = contextConnect(VStack, 'VStack');
 /* harmony default export */ var v_stack_component = (ConnectedVStack);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/dropdown/index.js
 
 
@@ -49463,7 +48670,7 @@ function Dropdown(props) {
     className: classnames_default()('components-dropdown__content', popoverProps ? popoverProps.className : undefined, contentClassName)
   }), renderContent(args)));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/circular-option-picker/index.js
 
 
@@ -49562,7 +48769,7 @@ function CircularOptionPicker(_ref5) {
 CircularOptionPicker.Option = Option;
 CircularOptionPicker.ButtonAction = ButtonAction;
 CircularOptionPicker.DropdownLinkAction = DropdownLinkAction;
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/a11y.mjs
 var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.055,2.4)},a11y_t=function(t){return.2126*a11y_o(t.r)+.7152*a11y_o(t.g)+.0722*a11y_o(t.b)};/* harmony default export */ function a11y(o){o.prototype.luminance=function(){return o=a11y_t(this.rgba),void 0===(r=2)&&(r=0),void 0===n&&(n=Math.pow(10,r)),Math.round(n*o)/n+0;var o,r,n},o.prototype.contrast=function(r){void 0===r&&(r="#FFF");var n,a,i,e,v,u,d,c=r instanceof o?r:new o(r);return e=this.rgba,v=c.toRgb(),u=a11y_t(e),d=a11y_t(v),n=u>d?(u+.05)/(d+.05):(d+.05)/(u+.05),void 0===(a=2)&&(a=0),void 0===i&&(i=Math.pow(10,a)),Math.floor(i*n)/i+0},o.prototype.isReadable=function(o,t){return void 0===o&&(o="#FFF"),void 0===t&&(t={}),this.contrast(o)>=(e=void 0===(i=(r=t).size)?"normal":i,"AAA"===(a=void 0===(n=r.level)?"AA":n)&&"normal"===e?7:"AA"===a&&"large"===e?3:4.5);var r,n,a,i,e}}
 
@@ -49601,7 +48808,7 @@ function useHeading(props) {
     as
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/heading/component.js
 
 
@@ -49639,7 +48846,7 @@ function Heading(props, forwardedRef) {
 
 const ConnectedHeading = contextConnect(Heading, 'Heading');
 /* harmony default export */ var heading_component = (ConnectedHeading);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-palette/styles.js
 
 
@@ -49659,7 +48866,7 @@ const ColorHeading = /*#__PURE__*/emotion_styled_base_browser_esm(heading_compon
   name: "13lxv2o",
   styles: "text-transform:uppercase;line-height:24px;font-weight:500;&&&{font-size:11px;margin-bottom:0;}"
 } : 0);
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-palette/index.js
 
 
@@ -49836,7 +49043,7 @@ function ColorPalette(_ref6) {
     }, (0,external_wp_i18n_namespaceObject.__)('Clear'))
   }));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/constants.js
 const GRADIENT_MARKERS_WIDTH = 16;
 const INSERT_POINT_WIDTH = 16;
@@ -49846,7 +49053,7 @@ const MINIMUM_DISTANCE_BETWEEN_POINTS = 0;
 const MINIMUM_SIGNIFICANT_MOVE = 5;
 const KEYBOARD_CONTROL_POINT_VARIATION = MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_POINT;
 const MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_MARKER = (INSERT_POINT_WIDTH + GRADIENT_MARKERS_WIDTH) / 2;
-//# sourceMappingURL=constants.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/utils.js
 /**
  * Internal dependencies
@@ -50026,7 +49233,7 @@ function getHorizontalRelativeGradientPosition(mouseXCoordinate, containerElemen
   const availableWidth = width - MINIMUM_ABSOLUTE_LEFT_POSITION - INSERT_POINT_WIDTH;
   return Math.round(clampPercent(absolutePositionValue * 100 / availableWidth));
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/control-points.js
 
 
@@ -50291,7 +49498,7 @@ function InsertPoint(_ref6) {
 
 ControlPoints.InsertPoint = InsertPoint;
 /* harmony default export */ var control_points = (ControlPoints);
-//# sourceMappingURL=control-points.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-bar/index.js
 
 
@@ -50473,9 +49680,9 @@ function CustomGradientBar(_ref) {
     }
   })));
 }
-//# sourceMappingURL=index.js.map
+
 // EXTERNAL MODULE: ./node_modules/gradient-parser/build/node.js
-var build_node = __webpack_require__(9948);
+var build_node = __webpack_require__(7115);
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/constants.js
 /**
  * WordPress dependencies
@@ -50508,7 +49715,7 @@ const DIRECTIONAL_ORIENTATION_ANGLE_MAP = {
   'top left': 315,
   'left top': 315
 };
-//# sourceMappingURL=constants.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/serializer.js
 /**
  * External dependencies
@@ -50571,7 +49778,7 @@ function serializeGradient(_ref3) {
   }).map(serializeGradientColorStop);
   return `${type}(${(0,external_lodash_namespaceObject.compact)([serializedOrientation, ...serializedColorStops]).join(',')})`;
 }
-//# sourceMappingURL=serializer.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/utils.js
 /**
  * External dependencies
@@ -50676,7 +49883,7 @@ function getStopCssColor(colorStop) {
       return 'transparent';
   }
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/styles/custom-gradient-picker-styles.js
 
 
@@ -50702,7 +49909,7 @@ const AccessoryWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_block
   name: "1gvx10y",
   styles: "flex-grow:5"
 } : 0);
-//# sourceMappingURL=custom-gradient-picker-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/index.js
 
 
@@ -50839,7 +50046,7 @@ function CustomGradientPicker(_ref3) {
     onChange: onChange
   }))));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/gradient-picker/index.js
 
 
@@ -50966,7 +50173,7 @@ function GradientPicker(_ref5) {
     })
   });
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/menu.js
 
 
@@ -50981,7 +50188,7 @@ const menu = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
   d: "M5 5v1.5h14V5H5zm0 7.8h14v-1.5H5v1.5zM5 19h14v-1.5H5V19z"
 }));
 /* harmony default export */ var library_menu = (menu);
-//# sourceMappingURL=menu.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/container.js
 
 
@@ -51147,7 +50354,7 @@ const forwardedNavigableContainer = (props, ref) => {
 
 forwardedNavigableContainer.displayName = 'NavigableContainer';
 /* harmony default export */ var container = ((0,external_wp_element_namespaceObject.forwardRef)(forwardedNavigableContainer));
-//# sourceMappingURL=container.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/menu.js
 
 
@@ -51214,7 +50421,7 @@ function NavigableMenu(_ref, ref) {
   }, rest));
 }
 /* harmony default export */ var navigable_container_menu = ((0,external_wp_element_namespaceObject.forwardRef)(NavigableMenu));
-//# sourceMappingURL=menu.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/dropdown-menu/index.js
 
 
@@ -51371,7 +50578,7 @@ function DropdownMenu(dropdownMenuProps) {
 }
 
 /* harmony default export */ var dropdown_menu = (DropdownMenu);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/palette-edit/styles.js
 
 
@@ -51426,7 +50633,7 @@ const DoneButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_but
 const RemoveButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
   target: "e5bw3220"
 } : 0)("&&{margin-top:", space(1), ";}" + ( true ? "" : 0));
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/palette-edit/index.js
 
 
@@ -51717,7 +50924,7 @@ function PaletteEdit(_ref5) {
     disableCustomColors: true
   }))), !hasElements && emptyMessage);
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-indicator/index.js
 
 
@@ -51743,7 +50950,7 @@ const ColorIndicator = _ref => {
 };
 
 /* harmony default export */ var color_indicator = (ColorIndicator);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/close-small.js
 
 
@@ -51758,7 +50965,7 @@ const closeSmall = (0,external_wp_element_namespaceObject.createElement)(externa
   d: "M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"
 }));
 /* harmony default export */ var close_small = (closeSmall);
-//# sourceMappingURL=close-small.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/form-token-field/token-input.js
 
 
@@ -51831,9 +51038,9 @@ class TokenInput extends external_wp_element_namespaceObject.Component {
 }
 
 /* harmony default export */ var token_input = (TokenInput);
-//# sourceMappingURL=token-input.js.map
+
 // EXTERNAL MODULE: ./node_modules/dom-scroll-into-view/lib/index.js
-var lib = __webpack_require__(4979);
+var lib = __webpack_require__(5425);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 ;// CONCATENATED MODULE: ./packages/components/build-module/form-token-field/suggestions-list.js
 
@@ -51949,7 +51156,7 @@ function SuggestionsList(_ref) {
 }
 
 /* harmony default export */ var suggestions_list = ((0,external_wp_compose_namespaceObject.withSafeTimeout)(SuggestionsList));
-//# sourceMappingURL=suggestions-list.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/higher-order/with-focus-outside/index.js
 
 
@@ -51967,7 +51174,7 @@ function SuggestionsList(_ref) {
     ref: bindFocusOutsideHandler
   }, props)));
 }, 'withFocusOutside'));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/combobox-control/index.js
 
 
@@ -52214,7 +51421,7 @@ function ComboboxControl(_ref) {
 }
 
 /* harmony default export */ var combobox_control = (ComboboxControl);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/modal/aria-helper.js
 //@ts-nocheck
 
@@ -52284,7 +51491,7 @@ function showApp() {
   hiddenElements = [];
   isHidden = false;
 }
-//# sourceMappingURL=aria-helper.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/modal/index.js
 
 
@@ -52418,7 +51625,7 @@ function Modal(props, forwardedRef) {
 }
 
 /* harmony default export */ var modal = ((0,external_wp_element_namespaceObject.forwardRef)(Modal));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/confirm-dialog/styles.js
 function confirm_dialog_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -52439,7 +51646,7 @@ const wrapper =  true ? {
   name: "7g5ii0",
   styles: "&&{z-index:1000001;}"
 } : 0;
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/confirm-dialog/component.js
 
 
@@ -52527,7 +51734,7 @@ function ConfirmDialog(props, forwardedRef) {
 }
 
 /* harmony default export */ var confirm_dialog_component = (contextConnect(ConfirmDialog, 'ConfirmDialog'));
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/objectWithoutPropertiesLoose.js
 function objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
@@ -52544,13 +51751,12 @@ function objectWithoutPropertiesLoose_objectWithoutPropertiesLoose(source, exclu
   return target;
 }
 // EXTERNAL MODULE: ./node_modules/prop-types/index.js
-var prop_types = __webpack_require__(5697);
+var prop_types = __webpack_require__(2652);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 // EXTERNAL MODULE: ./node_modules/downshift/node_modules/react-is/index.js
-var react_is = __webpack_require__(1726);
+var react_is = __webpack_require__(2797);
 ;// CONCATENATED MODULE: ./node_modules/compute-scroll-into-view/dist/index.module.js
 function index_module_t(t){return null!=t&&"object"==typeof t&&1===t.nodeType}function index_module_e(t,e){return(!e||"hidden"!==t)&&"visible"!==t&&"clip"!==t}function index_module_n(t,n){if(t.clientHeight<t.scrollHeight||t.clientWidth<t.scrollWidth){var r=getComputedStyle(t,null);return index_module_e(r.overflowY,n)||index_module_e(r.overflowX,n)||function(t){var e=function(t){if(!t.ownerDocument||!t.ownerDocument.defaultView)return null;try{return t.ownerDocument.defaultView.frameElement}catch(t){return null}}(t);return!!e&&(e.clientHeight<t.scrollHeight||e.clientWidth<t.scrollWidth)}(t)}return!1}function index_module_r(t,e,n,r,i,o,l,d){return o<t&&l>e||o>t&&l<e?0:o<=t&&d<=n||l>=e&&d>=n?o-t-r:l>e&&d<n||o<t&&d>n?l-e+i:0}/* harmony default export */ function index_module(e,i){var o=window,l=i.scrollMode,d=i.block,u=i.inline,h=i.boundary,a=i.skipOverflowHiddenElements,c="function"==typeof h?h:function(t){return t!==h};if(!index_module_t(e))throw new TypeError("Invalid target");for(var f=document.scrollingElement||document.documentElement,s=[],p=e;index_module_t(p)&&c(p);){if((p=p.parentNode)===f){s.push(p);break}p===document.body&&index_module_n(p)&&!index_module_n(document.documentElement)||index_module_n(p,a)&&s.push(p)}for(var g=o.visualViewport?o.visualViewport.width:innerWidth,m=o.visualViewport?o.visualViewport.height:innerHeight,w=window.scrollX||pageXOffset,v=window.scrollY||pageYOffset,W=e.getBoundingClientRect(),b=W.height,H=W.width,y=W.top,M=W.right,E=W.bottom,V=W.left,x="start"===d||"nearest"===d?y:"end"===d?E:y+b/2,I="center"===u?V+H/2:"end"===u?M:V,C=[],T=0;T<s.length;T++){var k=s[T],B=k.getBoundingClientRect(),D=B.height,O=B.width,R=B.top,X=B.right,Y=B.bottom,L=B.left;if("if-needed"===l&&y>=0&&V>=0&&E<=m&&M<=g&&y>=R&&E<=Y&&V>=L&&M<=X)return C;var S=getComputedStyle(k),j=parseInt(S.borderLeftWidth,10),N=parseInt(S.borderTopWidth,10),q=parseInt(S.borderRightWidth,10),z=parseInt(S.borderBottomWidth,10),A=0,F=0,G="offsetWidth"in k?k.offsetWidth-k.clientWidth-j-q:0,J="offsetHeight"in k?k.offsetHeight-k.clientHeight-N-z:0;if(f===k)A="start"===d?x:"end"===d?x-m:"nearest"===d?index_module_r(v,v+m,m,N,z,v+x,v+x+b,b):x-m/2,F="start"===u?I:"center"===u?I-g/2:"end"===u?I-g:index_module_r(w,w+g,g,j,q,w+I,w+I+H,H),A=Math.max(0,A+v),F=Math.max(0,F+w);else{A="start"===d?x-R-N:"end"===d?x-Y+z+J:"nearest"===d?index_module_r(R,Y,D,N,z+J,x,x+b,b):x-(R+D/2)+J/2,F="start"===u?I-L-j:"center"===u?I-(L+O/2)+G/2:"end"===u?I-X+q+G:index_module_r(L,X,O,j,q+G,I,I+H,H);var K=k.scrollLeft,P=k.scrollTop;x+=P-(A=Math.max(0,Math.min(P+A,k.scrollHeight-D+J))),I+=K-(F=Math.max(0,Math.min(K+F,k.scrollWidth-O+G)))}C.push({el:k,top:A,left:F})}return C}
-//# sourceMappingURL=index.module.js.map
 
 ;// CONCATENATED MODULE: ./node_modules/downshift/dist/downshift.esm.js
 
@@ -54404,7 +53610,7 @@ function getInitialValue(props, propKey, defaultStateValues) {
   return getDefaultValue(props, propKey, defaultStateValues);
 }
 
-function downshift_esm_getInitialState(props) {
+function getInitialState(props) {
   var selectedItem = getInitialValue(props, 'selectedItem');
   var isOpen = getInitialValue(props, 'isOpen');
   var highlightedIndex = getInitialValue(props, 'highlightedIndex');
@@ -54942,7 +54148,7 @@ function useSelect(userProps) {
       getA11ySelectionMessage = props.getA11ySelectionMessage,
       getA11yStatusMessage = props.getA11yStatusMessage; // Initial state depending on controlled props.
 
-  var initialState = downshift_esm_getInitialState(props);
+  var initialState = getInitialState(props);
 
   var _useControlledReducer = useControlledReducer(downshiftSelectReducer, initialState, props),
       state = _useControlledReducer[0],
@@ -55438,7 +54644,7 @@ var stateChangeTypes$2 = /*#__PURE__*/Object.freeze({
 });
 
 function getInitialState$1(props) {
-  var initialState = downshift_esm_getInitialState(props);
+  var initialState = getInitialState(props);
   var selectedItem = initialState.selectedItem;
   var inputValue = initialState.inputValue;
 
@@ -56783,14 +55989,14 @@ function CustomSelectControl(_ref3) {
     className: "components-custom-select-control__item-icon"
   })))));
 }
-//# sourceMappingURL=index.js.map
+
 // EXTERNAL MODULE: ./node_modules/react-dates/initialize.js
-var initialize = __webpack_require__(6063);
+var initialize = __webpack_require__(4185);
 // EXTERNAL MODULE: external "moment"
 var external_moment_ = __webpack_require__(6292);
 var external_moment_default = /*#__PURE__*/__webpack_require__.n(external_moment_);
 // EXTERNAL MODULE: ./node_modules/react-dates/lib/components/DayPickerSingleDateController.js
-var DayPickerSingleDateController = __webpack_require__(9368);
+var DayPickerSingleDateController = __webpack_require__(6302);
 ;// CONCATENATED MODULE: ./packages/components/build-module/date-time/utils.js
 /**
  * External dependencies
@@ -56811,7 +56017,7 @@ const getMomentDate = date => {
 
   return date ? external_moment_default()(date) : external_moment_default()();
 };
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/date-time/date.js
 
 
@@ -56985,7 +56191,7 @@ function DatePicker(_ref2) {
 }
 
 /* harmony default export */ var date = (DatePicker);
-//# sourceMappingURL=date.js.map
+
 ;// CONCATENATED MODULE: external ["wp","date"]
 var external_wp_date_namespaceObject = window["wp"]["date"];
 ;// CONCATENATED MODULE: ./packages/components/build-module/date-time/timezone.js
@@ -57029,7 +56235,7 @@ const TimeZone = () => {
 };
 
 /* harmony default export */ var timezone = (TimeZone);
-//# sourceMappingURL=timezone.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/date-time/time.js
 
 
@@ -57296,7 +56502,7 @@ function TimePicker(_ref2) {
   }, (0,external_wp_i18n_namespaceObject.__)('PM'))), (0,external_wp_element_namespaceObject.createElement)(timezone, null))));
 }
 /* harmony default export */ var time = (TimePicker);
-//# sourceMappingURL=time.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/date-time/index.js
 
 
@@ -57386,7 +56592,7 @@ function DateTimePicker(_ref, ref) {
 }
 
 /* harmony default export */ var date_time = ((0,external_wp_element_namespaceObject.forwardRef)(DateTimePicker));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/dimension-control/sizes.js
 /**
  * Sizes
@@ -57428,7 +56634,7 @@ const findSizeBySlug = (sizes, slug) => sizes.find(size => slug === size.slug);
   name: (0,external_wp_i18n_namespaceObject._x)('Extra Large', 'Size of a UI element'),
   slug: 'xlarge'
 }]);
-//# sourceMappingURL=sizes.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/dimension-control/index.js
 
 
@@ -57503,7 +56709,7 @@ function DimensionControl(props) {
   });
 }
 /* harmony default export */ var dimension_control = (DimensionControl);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/disabled/styles/disabled-styles.js
 
 
@@ -57518,7 +56724,7 @@ const StyledWrapper = emotion_styled_base_browser_esm("div",  true ? {
   name: "u2jump",
   styles: "position:relative;pointer-events:none;&::after{content:'';position:absolute;top:0;right:0;bottom:0;left:0;}*{pointer-events:none;}"
 } : 0);
-//# sourceMappingURL=disabled-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/disabled/index.js
 
 
@@ -57654,7 +56860,7 @@ function Disabled(_ref) {
 Disabled.Context = Context;
 Disabled.Consumer = Consumer;
 /* harmony default export */ var disabled = (Disabled);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/draggable/index.js
 
 
@@ -57872,7 +57078,7 @@ function Draggable(_ref) {
     ref: dragComponentRef
   }, dragComponent));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/upload.js
 
 
@@ -57887,7 +57093,7 @@ const upload = (0,external_wp_element_namespaceObject.createElement)(external_wp
   d: "M18.5 15v3.5H13V6.7l4.5 4.1 1-1.1-6.2-5.8-5.8 5.8 1 1.1 4-4v11.7h-6V15H4v5h16v-5z"
 }));
 /* harmony default export */ var library_upload = (upload);
-//# sourceMappingURL=upload.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/use-force-update.js
 
 
@@ -58296,7 +57502,7 @@ function DropZoneComponent(_ref) {
     className: classes
   }, disableMotion ? children : (0,external_wp_element_namespaceObject.createElement)(AnimatePresence, null, children));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/drop-zone/provider.js
 /**
  * WordPress dependencies
@@ -58312,7 +57518,7 @@ function DropZoneProvider(_ref) {
   });
   return children;
 }
-//# sourceMappingURL=provider.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/swatch.js
 
 
@@ -58327,7 +57533,7 @@ const swatch = (0,external_wp_element_namespaceObject.createElement)(external_wp
   d: "M5 17.7c.4.5.8.9 1.2 1.2l1.1-1.4c-.4-.3-.7-.6-1-1L5 17.7zM5 6.3l1.4 1.1c.3-.4.6-.7 1-1L6.3 5c-.5.4-.9.8-1.3 1.3zm.1 7.8l-1.7.5c.2.6.4 1.1.7 1.6l1.5-.8c-.2-.4-.4-.8-.5-1.3zM4.8 12v-.7L3 11.1v1.8l1.7-.2c.1-.2.1-.5.1-.7zm3 7.9c.5.3 1.1.5 1.6.7l.5-1.7c-.5-.1-.9-.3-1.3-.5l-.8 1.5zM19 6.3c-.4-.5-.8-.9-1.2-1.2l-1.1 1.4c.4.3.7.6 1 1L19 6.3zm-.1 3.6l1.7-.5c-.2-.6-.4-1.1-.7-1.6l-1.5.8c.2.4.4.8.5 1.3zM5.6 8.6l-1.5-.8c-.3.5-.5 1-.7 1.6l1.7.5c.1-.5.3-.9.5-1.3zm2.2-4.5l.8 1.5c.4-.2.8-.4 1.3-.5l-.5-1.7c-.6.2-1.1.4-1.6.7zm8.8 13.5l1.1 1.4c.5-.4.9-.8 1.2-1.2l-1.4-1.1c-.2.3-.5.6-.9.9zm1.8-2.2l1.5.8c.3-.5.5-1.1.7-1.6l-1.7-.5c-.1.5-.3.9-.5 1.3zm2.6-4.3l-1.7.2v1.4l1.7.2V12v-.9zM11.1 3l.2 1.7h1.4l.2-1.7h-1.8zm3 2.1c.5.1.9.3 1.3.5l.8-1.5c-.5-.3-1.1-.5-1.6-.7l-.5 1.7zM12 19.2h-.7l-.2 1.8h1.8l-.2-1.7c-.2-.1-.5-.1-.7-.1zm2.1-.3l.5 1.7c.6-.2 1.1-.4 1.6-.7l-.8-1.5c-.4.2-.8.4-1.3.5z"
 }));
 /* harmony default export */ var library_swatch = (swatch);
-//# sourceMappingURL=swatch.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/swatch/index.js
 
 
@@ -58356,7 +57562,7 @@ function Swatch(_ref) {
 }
 
 /* harmony default export */ var build_module_swatch = (Swatch);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/duotone-picker/utils.js
 /**
  * External dependencies
@@ -58453,7 +57659,7 @@ function getColorsFromColorStops() {
     return color;
   });
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/duotone-picker/duotone-swatch.js
 
 
@@ -58473,7 +57679,7 @@ function DuotoneSwatch(_ref) {
 }
 
 /* harmony default export */ var duotone_swatch = (DuotoneSwatch);
-//# sourceMappingURL=duotone-swatch.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-list-picker/index.js
 
 
@@ -58543,7 +57749,7 @@ function ColorListPicker(_ref2) {
 }
 
 /* harmony default export */ var color_list_picker = (ColorListPicker);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/duotone-picker/custom-duotone-bar.js
 
 
@@ -58573,7 +57779,7 @@ function CustomDuotoneBar(_ref) {
     }
   });
 }
-//# sourceMappingURL=custom-duotone-bar.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/duotone-picker/duotone-picker.js
 
 
@@ -58663,7 +57869,7 @@ function DuotonePicker(_ref) {
 }
 
 /* harmony default export */ var duotone_picker = (DuotonePicker);
-//# sourceMappingURL=duotone-picker.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/external.js
 
 
@@ -58678,7 +57884,7 @@ const external = (0,external_wp_element_namespaceObject.createElement)(external_
   d: "M18.2 17c0 .7-.6 1.2-1.2 1.2H7c-.7 0-1.2-.6-1.2-1.2V7c0-.7.6-1.2 1.2-1.2h3.2V4.2H7C5.5 4.2 4.2 5.5 4.2 7v10c0 1.5 1.2 2.8 2.8 2.8h10c1.5 0 2.8-1.2 2.8-2.8v-3.6h-1.5V17zM14.9 3v1.5h3.7l-6.4 6.4 1.1 1.1 6.4-6.4v3.7h1.5V3h-6.3z"
 }));
 /* harmony default export */ var library_external = (external);
-//# sourceMappingURL=external.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/external-link/styles/external-link-styles.js
 
 
@@ -58698,7 +57904,7 @@ const StyledIcon = /*#__PURE__*/emotion_styled_base_browser_esm(icons_build_modu
   name: "rvs7bx",
   styles: "width:1em;height:1em;margin:0;vertical-align:middle;fill:currentColor"
 } : 0);
-//# sourceMappingURL=external-link-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/external-link/index.js
 
 
@@ -58752,7 +57958,7 @@ function ExternalLink(_ref, ref) {
   );
 }
 /* harmony default export */ var external_link = ((0,external_wp_element_namespaceObject.forwardRef)(ExternalLink));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-26bb1730.js
 // Automatically generated
 var POPOVER_STATE_KEYS = ["baseId", "unstable_idCountRef", "visible", "animated", "animating", "setBaseId", "show", "hide", "toggle", "setVisible", "setAnimated", "stopAnimation", "modal", "unstable_disclosureRef", "setModal", "unstable_referenceRef", "unstable_popoverRef", "unstable_arrowRef", "unstable_popoverStyles", "unstable_arrowStyles", "unstable_originalPlacement", "unstable_update", "placement", "place"];
@@ -59036,9 +58242,9 @@ var PopoverDisclosure = createComponent({
 
 const FlyoutContext = (0,external_wp_element_namespaceObject.createContext)({});
 const useFlyoutContext = () => (0,external_wp_element_namespaceObject.useContext)(FlyoutContext);
-//# sourceMappingURL=context.js.map
+
 // EXTERNAL MODULE: ./node_modules/react-resize-aware/dist/index.js
-var react_resize_aware_dist = __webpack_require__(5464);
+var react_resize_aware_dist = __webpack_require__(235);
 var react_resize_aware_dist_default = /*#__PURE__*/__webpack_require__.n(react_resize_aware_dist);
 ;// CONCATENATED MODULE: ./packages/components/build-module/flyout/utils.js
 /**
@@ -59065,7 +58271,7 @@ function useFlyoutResizeUpdater(_ref) {
   }, [sizes.width, sizes.height]);
   return resizeListener;
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/reakit-utils/es/useUpdateEffect.js
 
 
@@ -60257,7 +59463,7 @@ const FlyoutContentView = /*#__PURE__*/emotion_styled_base_browser_esm(Popover_P
 const CardView = /*#__PURE__*/emotion_styled_base_browser_esm(card_component,  true ? {
   target: "e1vtu5160"
 } : 0)(card_body_component.selector, "{max-height:80vh;}" + ( true ? "" : 0));
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/flyout/flyout-content/component.js
 
 
@@ -60271,7 +59477,7 @@ const CardView = /*#__PURE__*/emotion_styled_base_browser_esm(card_component,  t
 /**
  *
  * @param {import('../../ui/context').WordPressComponentProps<import('../types').ContentProps, 'div', false>} props
- * @param {import('react').Ref<any>}                                                                          forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                                 forwardedRef forwardedRef
  */
 
 function FlyoutContent(props, forwardedRef) {
@@ -60309,7 +59515,7 @@ function FlyoutContent(props, forwardedRef) {
 
 const ConnectedFlyoutContent = contextConnect(FlyoutContent, 'FlyoutContent');
 /* harmony default export */ var flyout_content_component = (ConnectedFlyoutContent);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/flyout/flyout/hook.js
 /**
  * External dependencies
@@ -60354,7 +59560,7 @@ function useFlyout(props) {
     flyoutState
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/flyout/flyout/component.js
 
 
@@ -60382,7 +59588,7 @@ function useFlyout(props) {
 /**
  *
  * @param {import('../../ui/context').WordPressComponentProps<import('../types').Props, 'div', false>} props
- * @param {import('react').Ref<any>}                                                                   forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                          forwardedRef
  */
 
 function component_Flyout(props, forwardedRef) {
@@ -60444,7 +59650,7 @@ function component_Flyout(props, forwardedRef) {
 
 const ConnectedFlyout = contextConnect(component_Flyout, 'Flyout');
 /* harmony default export */ var flyout_component = (ConnectedFlyout);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/styles/focal-point-picker-style.js
 
 
@@ -60515,7 +59721,7 @@ const GridLineY = /*#__PURE__*/emotion_styled_base_browser_esm(GridLine,  true ?
   name: "1oz3zka",
   styles: "width:1px;top:0;bottom:0"
 } : 0);
-//# sourceMappingURL=focal-point-picker-style.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/utils.js
 const INITIAL_BOUNDS = {
   top: 0,
@@ -60560,7 +59766,7 @@ function isVideoType() {
 function fractionToPercentage(fraction) {
   return Math.round(fraction * 100);
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/controls.js
 
 
@@ -60631,7 +59837,7 @@ function controls_UnitControl(props) {
     }]
   }, props));
 }
-//# sourceMappingURL=controls.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/styles/focal-point-style.js
 
 
@@ -60673,7 +59879,7 @@ const PointerIconPathOutline = /*#__PURE__*/emotion_styled_base_browser_esm(exte
 const PointerIconPathFill = /*#__PURE__*/emotion_styled_base_browser_esm(external_wp_primitives_namespaceObject.Path,  true ? {
   target: "eas61re0"
 } : 0)("fill:", COLORS.blue.wordpress[700], ";fill:", COLORS.ui.theme, ";" + ( true ? "" : 0));
-//# sourceMappingURL=focal-point-style.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/focal-point.js
 
 
@@ -60715,7 +59921,7 @@ function FocalPoint(_ref) {
     d: "M15 3C8.4 3 3 8.4 3 15s5.4 12 12 12 12-5.4 12-12S21.6 3 15 3zm0 22C9.5 25 5 20.5 5 15S9.5 5 15 5s10 4.5 10 10-4.5 10-10 10z"
   })));
 }
-//# sourceMappingURL=focal-point.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/grid.js
 
 
@@ -60785,7 +59991,7 @@ function useRevealAnimation(value) {
     isActive
   };
 }
-//# sourceMappingURL=grid.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/media.js
 
 
@@ -60866,7 +60072,7 @@ function MediaPlaceholderElement(_ref2) {
     ref: mediaRef
   }, props));
 }
-//# sourceMappingURL=media.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/index.js
 
 
@@ -60916,8 +60122,9 @@ class FocalPointPicker extends external_wp_element_namespaceObject.Component {
     };
 
     this.onChangeAtControls = value => {
-      this.updateValue(value);
-      this.props.onChange(value);
+      this.updateValue(value, () => {
+        this.props.onChange(this.state.percentages);
+      });
     };
 
     this.updateBounds = this.updateBounds.bind(this);
@@ -61011,18 +60218,22 @@ class FocalPointPicker extends external_wp_element_namespaceObject.Component {
   }
 
   updateValue() {
+    var _this$props$resolvePo, _this$props$resolvePo2, _this$props;
+
     let nextValue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    let callback = arguments.length > 1 ? arguments[1] : undefined;
+    const resolvedValue = (_this$props$resolvePo = (_this$props$resolvePo2 = (_this$props = this.props).resolvePoint) === null || _this$props$resolvePo2 === void 0 ? void 0 : _this$props$resolvePo2.call(_this$props, nextValue)) !== null && _this$props$resolvePo !== void 0 ? _this$props$resolvePo : nextValue;
     const {
       x,
       y
-    } = nextValue;
+    } = resolvedValue;
     const nextPercentage = {
       x: parseFloat(x).toFixed(2),
       y: parseFloat(y).toFixed(2)
     };
     this.setState({
       percentages: nextPercentage
-    });
+    }, callback);
   }
 
   updateBounds() {
@@ -61032,7 +60243,7 @@ class FocalPointPicker extends external_wp_element_namespaceObject.Component {
   }
 
   startDrag(event) {
-    var _this$props$onDragSta, _this$props;
+    var _this$props$onDragSta, _this$props2;
 
     event.persist();
     this.containerRef.current.focus();
@@ -61049,11 +60260,11 @@ class FocalPointPicker extends external_wp_element_namespaceObject.Component {
       y: event.pageY
     }, event.shiftKey);
     this.updateValue(value);
-    (_this$props$onDragSta = (_this$props = this.props).onDragStart) === null || _this$props$onDragSta === void 0 ? void 0 : _this$props$onDragSta.call(_this$props, value, event);
+    (_this$props$onDragSta = (_this$props2 = this.props).onDragStart) === null || _this$props$onDragSta === void 0 ? void 0 : _this$props$onDragSta.call(_this$props2, value, event);
   }
 
   stopDrag(event) {
-    var _this$props$onDragEnd, _this$props2;
+    var _this$props$onDragEnd, _this$props3;
 
     const {
       ownerDocument
@@ -61065,7 +60276,7 @@ class FocalPointPicker extends external_wp_element_namespaceObject.Component {
     }, () => {
       this.props.onChange(this.state.percentages);
     });
-    (_this$props$onDragEnd = (_this$props2 = this.props).onDragEnd) === null || _this$props$onDragEnd === void 0 ? void 0 : _this$props$onDragEnd.call(_this$props2, event);
+    (_this$props$onDragEnd = (_this$props3 = this.props).onDragEnd) === null || _this$props$onDragEnd === void 0 ? void 0 : _this$props$onDragEnd.call(_this$props3, event);
   }
 
   onKeyDown(event) {
@@ -61082,12 +60293,13 @@ class FocalPointPicker extends external_wp_element_namespaceObject.Component {
     const axis = keyCode === external_wp_keycodes_namespaceObject.UP || keyCode === external_wp_keycodes_namespaceObject.DOWN ? 'y' : 'x';
     const value = parseFloat(next[axis]) + delta;
     next[axis] = roundClamp(value, 0, 1, step);
-    this.updateValue(next);
-    this.props.onChange(next);
+    this.updateValue(next, () => {
+      this.props.onChange(this.state.percentages);
+    });
   }
 
   doDrag(event) {
-    var _this$props$onDrag, _this$props3;
+    var _this$props$onDrag, _this$props4;
 
     // Prevents text-selection when dragging.
     event.preventDefault();
@@ -61096,7 +60308,7 @@ class FocalPointPicker extends external_wp_element_namespaceObject.Component {
       y: event.pageY
     }, event.shiftKey);
     this.updateValue(value);
-    (_this$props$onDrag = (_this$props3 = this.props).onDrag) === null || _this$props$onDrag === void 0 ? void 0 : _this$props$onDrag.call(_this$props3, value, event);
+    (_this$props$onDrag = (_this$props4 = this.props).onDrag) === null || _this$props$onDrag === void 0 ? void 0 : _this$props$onDrag.call(_this$props4, value, event);
   }
 
   getValueFromPoint(point, byTenths) {
@@ -61236,7 +60448,7 @@ FocalPointPicker.defaultProps = {
   url: null
 };
 /* harmony default export */ var focal_point_picker = ((0,external_wp_compose_namespaceObject.withInstanceId)(FocalPointPicker));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/focusable-iframe/index.js
 
 
@@ -61264,7 +60476,7 @@ function FocusableIframe(_ref) {
     ref: ref
   }, props));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/reakit/es/Radio/RadioState.js
 
 
@@ -61378,7 +60590,7 @@ var RadioGroup = createComponent({
 const ToggleGroupControlContext = (0,external_wp_element_namespaceObject.createContext)({});
 const useToggleGroupControlContext = () => (0,external_wp_element_namespaceObject.useContext)(ToggleGroupControlContext);
 /* harmony default export */ var toggle_group_control_context = (ToggleGroupControlContext);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control/styles.js
 function toggle_group_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -61396,7 +60608,7 @@ const toggle_group_control_styles_block =  true ? {
   name: "7whenc",
   styles: "display:flex;width:100%"
 } : 0;
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control/component.js
 
 
@@ -61505,7 +60717,7 @@ function component_ToggleGroupControl(props, forwardedRef) {
 
 const ConnectedToggleGroupControl = contextConnect(component_ToggleGroupControl, 'ToggleGroupControl');
 /* harmony default export */ var toggle_group_control_component = (ConnectedToggleGroupControl);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/reakit/es/Radio/Radio.js
 
 
@@ -61717,7 +60929,7 @@ const LabelPlaceholderView = emotion_styled_base_browser_esm("div",  true ? {
   target: "eu1cvm70"
 } : 0)("font-size:", config_values.fontSize, ";font-weight:bold;height:0;overflow:hidden;visibility:hidden;" + ( true ? "" : 0));
 const medium = /*#__PURE__*/emotion_react_browser_esm_css("min-height:", config_values.controlHeight, ";" + ( true ? "" : 0),  true ? "" : 0);
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control-option/component.js
 
 
@@ -61827,7 +61039,7 @@ function ToggleGroupControlOption(props, forwardedRef) {
 
 const ConnectedToggleGroupControlOption = contextConnect(ToggleGroupControlOption, 'ToggleGroupControlOption');
 /* harmony default export */ var toggle_group_control_option_component = (ConnectedToggleGroupControlOption);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/utils.js
 /**
  * WordPress dependencies
@@ -61947,7 +61159,7 @@ function getSelectedOption(fontSizes, value) {
 
   return fontSizes.find(font => font.size === value) || CUSTOM_FONT_SIZE_OPTION;
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/index.js
 
 
@@ -62053,7 +61265,6 @@ function FontSizePicker(_ref, ref) {
     className: `${baseClassName}__header__hint`
   }, headerHint)), !disableCustomFontSizes && (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     label: showCustomValueControl ? (0,external_wp_i18n_namespaceObject.__)('Use size preset') : (0,external_wp_i18n_namespaceObject.__)('Set custom size'),
-    showTooltip: false,
     icon: library_settings,
     onClick: () => {
       setShowCustomValueControl(!showCustomValueControl);
@@ -62135,7 +61346,7 @@ function FontSizePicker(_ref, ref) {
 }
 
 /* harmony default export */ var font_size_picker = ((0,external_wp_element_namespaceObject.forwardRef)(FontSizePicker));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/form-file-upload/index.js
 
 
@@ -62185,7 +61396,7 @@ function FormFileUpload(_ref) {
 }
 
 /* harmony default export */ var form_file_upload = (FormFileUpload);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/form-toggle/index.js
 
 
@@ -62226,7 +61437,7 @@ function FormToggle(_ref) {
 }
 
 /* harmony default export */ var form_toggle = (FormToggle);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/form-token-field/token.js
 
 
@@ -62300,7 +61511,7 @@ function Token(_ref) {
     "aria-describedby": `components-form-token-field__token-text-${instanceId}`
   }));
 }
-//# sourceMappingURL=token.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/higher-order/with-spoken-messages/index.js
 
 
@@ -62325,7 +61536,7 @@ function Token(_ref) {
   speak: external_wp_a11y_namespaceObject.speak,
   debouncedSpeak: (0,external_wp_compose_namespaceObject.useDebounce)(external_wp_a11y_namespaceObject.speak, 500)
 })), 'withSpokenMessages'));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/form-token-field/index.js
 
 
@@ -62972,7 +62183,7 @@ FormTokenField.defaultProps = {
   __experimentalShowHowTo: true
 };
 /* harmony default export */ var form_token_field = (with_spoken_messages((0,external_wp_compose_namespaceObject.withInstanceId)(FormTokenField)));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/grid/utils.js
 const grid_utils_ALIGNMENTS = {
   bottom: {
@@ -63031,7 +62242,7 @@ function utils_getAlignmentProps(alignment) {
   return alignmentProps;
 }
 /* eslint-enable jsdoc/valid-types */
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/grid/hook.js
 /**
  * External dependencies
@@ -63098,7 +62309,7 @@ function useGrid(props) {
     className: classes
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/grid/component.js
 
 
@@ -63111,7 +62322,7 @@ function useGrid(props) {
 
 /**
  * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').Ref<any>}                                                        forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                               forwardedRef
  */
 
 function Grid(props, forwardedRef) {
@@ -63145,7 +62356,7 @@ function Grid(props, forwardedRef) {
 
 const ConnectedGrid = contextConnect(Grid, 'Grid');
 /* harmony default export */ var grid_component = (ConnectedGrid);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/guide/icons.js
 
 
@@ -63169,7 +62380,7 @@ const PageControlIcon = _ref => {
     fill: isSelected ? '#419ECD' : '#E1E3E6'
   }));
 };
-//# sourceMappingURL=icons.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/guide/page-control.js
 
 
@@ -63212,7 +62423,7 @@ function PageControl(_ref) {
     onClick: () => setCurrentPage(page)
   }))));
 }
-//# sourceMappingURL=page-control.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/guide/finish-button.js
 
 
@@ -63247,7 +62458,7 @@ function FinishButton(props) {
     ref: ref
   }));
 }
-//# sourceMappingURL=finish-button.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/guide/index.js
 
 
@@ -63350,7 +62561,7 @@ function Guide(_ref) {
     onClick: onFinish
   }, finishButtonText || (0,external_wp_i18n_namespaceObject.__)('Finish')))));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/guide/page.js
 
 
@@ -63368,7 +62579,7 @@ function GuidePage(props) {
   }, []);
   return (0,external_wp_element_namespaceObject.createElement)("div", props);
 }
-//# sourceMappingURL=page.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/button/deprecated.js
 
 
@@ -63408,7 +62619,7 @@ function IconButton(_ref, ref) {
 }
 
 /* harmony default export */ var deprecated = ((0,external_wp_element_namespaceObject.forwardRef)(IconButton));
-//# sourceMappingURL=deprecated.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item/hook.js
 /**
  * External dependencies
@@ -63453,7 +62664,7 @@ function hook_useItem(props) {
     ...otherProps
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item/component.js
 
 
@@ -63484,7 +62695,7 @@ function component_Item(props, forwardedRef) {
 }
 
 /* harmony default export */ var item_component = (contextConnect(component_Item, 'Item'));
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/keyboard-shortcuts/index.js
 
 
@@ -63543,7 +62754,7 @@ function KeyboardShortcuts(_ref2) {
 }
 
 /* harmony default export */ var keyboard_shortcuts = (KeyboardShortcuts);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/menu-group/index.js
 
 // @ts-nocheck
@@ -63587,7 +62798,7 @@ function MenuGroup(props) {
   }, children));
 }
 /* harmony default export */ var menu_group = (MenuGroup);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/menu-item/index.js
 
 
@@ -63659,7 +62870,7 @@ function MenuItem(props, ref) {
   }));
 }
 /* harmony default export */ var menu_item = ((0,external_wp_element_namespaceObject.forwardRef)(MenuItem));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/menu-items-choice/index.js
 
 
@@ -63705,7 +62916,7 @@ function MenuItemsChoice(_ref) {
     }, item.label);
   });
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/tabbable.js
 
 
@@ -63761,11 +62972,11 @@ function TabbableContainer(_ref, ref) {
   }, props));
 }
 /* harmony default export */ var tabbable = ((0,external_wp_element_namespaceObject.forwardRef)(TabbableContainer));
-//# sourceMappingURL=tabbable.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/constants.js
 const ROOT_MENU = 'root';
 const SEARCH_FOCUS_DELAY = 100;
-//# sourceMappingURL=constants.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/context.js
 /**
  * External dependencies
@@ -63801,7 +63012,7 @@ const NavigationContext = (0,external_wp_element_namespaceObject.createContext)(
   }
 });
 const useNavigationContext = () => (0,external_wp_element_namespaceObject.useContext)(NavigationContext);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/search.js
 
 
@@ -63816,7 +63027,7 @@ const search = (0,external_wp_element_namespaceObject.createElement)(external_wp
   d: "M13.5 6C10.5 6 8 8.5 8 11.5c0 1.1.3 2.1.9 3l-3.4 3 1 1.1 3.4-2.9c1 .9 2.2 1.4 3.6 1.4 3 0 5.5-2.5 5.5-5.5C19 8.5 16.5 6 13.5 6zm0 9.5c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"
 }));
 /* harmony default export */ var library_search = (search);
-//# sourceMappingURL=search.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-combined-ref.js
 /**
  * WordPress dependencies
@@ -63845,7 +63056,7 @@ function useCombinedRef() {
   }, [refs]);
   return targetRef;
 }
-//# sourceMappingURL=use-combined-ref.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/search-control/index.js
 
 
@@ -63934,7 +63145,7 @@ function SearchControl(_ref, ref) {
 }
 
 /* harmony default export */ var search_control = ((0,external_wp_element_namespaceObject.forwardRef)(SearchControl));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/styles/navigation-styles.js
 
 
@@ -64008,7 +63219,7 @@ const ItemBadgeUI = emotion_styled_base_browser_esm("span",  true ? {
 const ItemTitleUI = /*#__PURE__*/emotion_styled_base_browser_esm(text_component,  true ? {
   target: "ejwewyf0"
 } : 0)(() => (0,external_wp_i18n_namespaceObject.isRTL)() ? 'margin-left: auto;' : 'margin-right: auto;', " font-size:14px;line-height:20px;color:inherit;" + ( true ? "" : 0));
-//# sourceMappingURL=navigation-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/use-navigation-tree-nodes.js
 /**
  * External dependencies
@@ -64037,7 +63248,7 @@ const useNavigationTreeNodes = () => {
     removeNode
   };
 };
-//# sourceMappingURL=use-navigation-tree-nodes.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/use-create-navigation-tree.js
 /**
  * WordPress dependencies
@@ -64132,7 +63343,7 @@ const useCreateNavigationTree = () => {
     isMenuEmpty
   };
 };
-//# sourceMappingURL=use-create-navigation-tree.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/index.js
 
 
@@ -64215,7 +63426,7 @@ function Navigation(_ref) {
     value: context
   }, children)));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-right.js
 
 
@@ -64230,7 +63441,7 @@ const chevronRight = (0,external_wp_element_namespaceObject.createElement)(exter
   d: "M10.6 6L9.4 7l4.6 5-4.6 5 1.2 1 5.4-6z"
 }));
 /* harmony default export */ var chevron_right = (chevronRight);
-//# sourceMappingURL=chevron-right.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-left.js
 
 
@@ -64245,7 +63456,7 @@ const chevronLeft = (0,external_wp_element_namespaceObject.createElement)(extern
   d: "M14.6 7l-1.2-1L8 12l5.4 6 1.2-1-4.6-5z"
 }));
 /* harmony default export */ var chevron_left = (chevronLeft);
-//# sourceMappingURL=chevron-left.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/back-button/index.js
 
 
@@ -64309,7 +63520,7 @@ function NavigationBackButton(_ref, ref) {
 }
 
 /* harmony default export */ var back_button = ((0,external_wp_element_namespaceObject.forwardRef)(NavigationBackButton));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/group/context.js
 /**
  * WordPress dependencies
@@ -64319,7 +63530,7 @@ const NavigationGroupContext = (0,external_wp_element_namespaceObject.createCont
   group: undefined
 });
 const useNavigationGroupContext = () => (0,external_wp_element_namespaceObject.useContext)(NavigationGroupContext);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/group/index.js
 
 
@@ -64380,7 +63591,7 @@ function NavigationGroup(_ref) {
     role: "group"
   }, children)));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/item/base-content.js
 
 
@@ -64401,7 +63612,7 @@ function NavigationItemBaseContent(props) {
     className: "components-navigation__item-badge"
   }, badge));
 }
-//# sourceMappingURL=base-content.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/menu/context.js
 /**
  * WordPress dependencies
@@ -64412,7 +63623,7 @@ const NavigationMenuContext = (0,external_wp_element_namespaceObject.createConte
   search: ''
 });
 const useNavigationMenuContext = () => (0,external_wp_element_namespaceObject.useContext)(NavigationMenuContext);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/utils.js
 /**
  * External dependencies
@@ -64421,7 +63632,7 @@ const useNavigationMenuContext = () => (0,external_wp_element_namespaceObject.us
 
 const normalizeInput = input => (0,external_lodash_namespaceObject.deburr)(input).replace(/^\//, '').toLowerCase();
 const normalizedSearch = (title, search) => -1 !== normalizeInput(title).indexOf(normalizeInput(search));
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/item/use-navigation-tree-item.js
 /**
  * WordPress dependencies
@@ -64463,7 +63674,7 @@ const useNavigationTreeItem = (itemId, props) => {
     };
   }, [activeMenu, search]);
 };
-//# sourceMappingURL=use-navigation-tree-item.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/item/base.js
 
 
@@ -64508,7 +63719,7 @@ function NavigationItemBase(props) {
     className: classes
   }, restProps), children);
 }
-//# sourceMappingURL=base.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/item/index.js
 
 
@@ -64597,7 +63808,7 @@ function NavigationItem(props) {
     icon: navigationIcon
   })));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/menu/use-navigation-tree-menu.js
 /**
  * WordPress dependencies
@@ -64626,7 +63837,7 @@ const useNavigationTreeMenu = props => {
     };
   }, []);
 };
-//# sourceMappingURL=use-navigation-tree-menu.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/menu/menu-title-search.js
 
 
@@ -64723,7 +63934,7 @@ function MenuTitleSearch(_ref) {
 }
 
 /* harmony default export */ var menu_title_search = (with_spoken_messages(MenuTitleSearch));
-//# sourceMappingURL=menu-title-search.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/menu/menu-title.js
 
 
@@ -64802,7 +64013,7 @@ function NavigationMenuTitle(_ref) {
     title: title
   })));
 }
-//# sourceMappingURL=menu-title.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/menu/search-no-results-found.js
 
 
@@ -64838,7 +64049,7 @@ function NavigationSearchNoResultsFound(_ref) {
 
   return (0,external_wp_element_namespaceObject.createElement)(ItemBaseUI, null, (0,external_wp_element_namespaceObject.createElement)(ItemUI, null, (0,external_wp_i18n_namespaceObject.__)('No results found.'), " "));
 }
-//# sourceMappingURL=search-no-results-found.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/menu/index.js
 
 
@@ -64920,7 +64131,7 @@ function NavigationMenu(props) {
     search: search
   })))));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigator/context.js
 /**
  * WordPress dependencies
@@ -64936,7 +64147,7 @@ const initialContextValue = {
   goBack: () => {}
 };
 const NavigatorContext = (0,external_wp_element_namespaceObject.createContext)(initialContextValue);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigator/navigator-provider/component.js
 
 
@@ -65008,44 +64219,34 @@ function NavigatorProvider(props, forwardedRef) {
   }, children));
 }
 /**
- * The `NavigatorProvider` component allows rendering nested panels or menus (via the `NavigatorScreen` component) and navigate between these different states (via the `useNavigator` hook).
+ * The `NavigatorProvider` component allows rendering nested views/panels/menus
+ * (via the `NavigatorScreen` component and navigate between these different
+ * view (via the `NavigatorButton` and `NavigatorBackButton` components or the
+ * `useNavigator` hook).
  *
  * @example
  * ```jsx
  * import {
  *   __experimentalNavigatorProvider as NavigatorProvider,
  *   __experimentalNavigatorScreen as NavigatorScreen,
- *   __experimentalUseNavigator as useNavigator,
+ *   __experimentalNavigatorButton as NavigatorButton,
+ *   __experimentalNavigatorBackButton as NavigatorBackButton,
  * } from '@wordpress/components';
- *
- * function NavigatorButton( { path, ...props } ) {
- *  const { goTo } = useNavigator();
- *  return (
- *    <Button
- *      variant="primary"
- *      onClick={ () => goTo( path ) }
- *      { ...props }
- *    />
- *  );
- * }
- *
- * function NavigatorBackButton( props ) {
- *   const { goBack } = useNavigator();
- *   return <Button variant="secondary" onClick={ () => goBack() } { ...props } />;
- * }
  *
  * const MyNavigation = () => (
  *   <NavigatorProvider initialPath="/">
  *     <NavigatorScreen path="/">
  *       <p>This is the home screen.</p>
- *   	   <NavigatorButton path="/child">
+ *        <NavigatorButton path="/child">
  *          Navigate to child screen.
  *       </NavigatorButton>
  *     </NavigatorScreen>
  *
  *     <NavigatorScreen path="/child">
  *       <p>This is the child screen.</p>
- *       <NavigatorBackButton>Go back</NavigatorBackButton>
+ *       <NavigatorBackButton>
+ *         Go back
+ *       </NavigatorBackButton>
  *     </NavigatorScreen>
  *   </NavigatorProvider>
  * );
@@ -65055,7 +64256,9 @@ function NavigatorProvider(props, forwardedRef) {
 
 const ConnectedNavigatorProvider = contextConnect(NavigatorProvider, 'NavigatorProvider');
 /* harmony default export */ var navigator_provider_component = (ConnectedNavigatorProvider);
-//# sourceMappingURL=component.js.map
+
+;// CONCATENATED MODULE: external ["wp","escapeHtml"]
+var external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigator/navigator-screen/component.js
 
 
@@ -65071,6 +64274,7 @@ function navigator_screen_component_EMOTION_STRINGIFIED_CSS_ERROR_() { return "Y
 /**
  * WordPress dependencies
  */
+
 
 
 
@@ -65106,7 +64310,7 @@ function NavigatorScreen(props, forwardedRef) {
   const {
     location
   } = (0,external_wp_element_namespaceObject.useContext)(NavigatorContext);
-  const isMatch = location.path === path;
+  const isMatch = location.path === (0,external_wp_escapeHtml_namespaceObject.escapeAttribute)(path);
   const wrapperRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const previousLocation = (0,external_wp_compose_namespaceObject.usePrevious)(location);
   const cx = useCx();
@@ -65184,44 +64388,34 @@ function NavigatorScreen(props, forwardedRef) {
   }, otherProps, animatedProps), children);
 }
 /**
- * The `NavigatorScreen` component represents a single view/screen/panel/menu and is supposed to be used in combination with the `NavigatorProvider` component.
+ * The `NavigatorScreen` component represents a single view/screen/panel and
+ * should be used in combination with the `NavigatorProvider`, the
+ * `NavigatorButton` and the `NavigatorBackButton` components (or the `useNavigator`
+ * hook).
  *
  * @example
  * ```jsx
  * import {
  *   __experimentalNavigatorProvider as NavigatorProvider,
  *   __experimentalNavigatorScreen as NavigatorScreen,
- *   __experimentalUseNavigator as useNavigator,
+ *   __experimentalNavigatorButton as NavigatorButton,
+ *   __experimentalNavigatorBackButton as NavigatorBackButton,
  * } from '@wordpress/components';
- *
- * function NavigatorButton( { path, ...props } ) {
- *  const { goTo } = useNavigator();
- *  return (
- *    <Button
- *      variant="primary"
- *      onClick={ () => goTo( path ) }
- *      { ...props }
- *    />
- *  );
- * }
- *
- * function NavigatorBackButton( props ) {
- *   const { goBack } = useNavigator();
- *   return <Button variant="secondary" onClick={ () => goBack() } { ...props } />;
- * }
  *
  * const MyNavigation = () => (
  *   <NavigatorProvider initialPath="/">
  *     <NavigatorScreen path="/">
  *       <p>This is the home screen.</p>
- *   	   <NavigatorButton path="/child">
+ *        <NavigatorButton path="/child">
  *          Navigate to child screen.
  *       </NavigatorButton>
  *     </NavigatorScreen>
  *
  *     <NavigatorScreen path="/child">
  *       <p>This is the child screen.</p>
- *       <NavigatorBackButton>Go back</NavigatorBackButton>
+ *       <NavigatorBackButton>
+ *         Go back
+ *       </NavigatorBackButton>
  *     </NavigatorScreen>
  *   </NavigatorProvider>
  * );
@@ -65231,7 +64425,7 @@ function NavigatorScreen(props, forwardedRef) {
 
 const ConnectedNavigatorScreen = contextConnect(NavigatorScreen, 'NavigatorScreen');
 /* harmony default export */ var navigator_screen_component = (ConnectedNavigatorScreen);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigator/use-navigator.js
 /**
  * WordPress dependencies
@@ -65260,7 +64454,210 @@ function useNavigator() {
 }
 
 /* harmony default export */ var use_navigator = (useNavigator);
-//# sourceMappingURL=use-navigator.js.map
+
+;// CONCATENATED MODULE: ./packages/components/build-module/navigator/navigator-button/hook.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+const cssSelectorForAttribute = (attrName, attrValue) => `[${attrName}="${attrValue}"]`;
+
+function useNavigatorButton(props) {
+  const {
+    path,
+    onClick,
+    as = build_module_button,
+    attributeName = 'id',
+    ...otherProps
+  } = useContextSystem(props, 'NavigatorButton');
+  const escapedPath = (0,external_wp_escapeHtml_namespaceObject.escapeAttribute)(path);
+  const {
+    goTo
+  } = use_navigator();
+  const handleClick = (0,external_wp_element_namespaceObject.useCallback)(e => {
+    e.preventDefault();
+    goTo(escapedPath, {
+      focusTargetSelector: cssSelectorForAttribute(attributeName, escapedPath)
+    });
+    onClick === null || onClick === void 0 ? void 0 : onClick(e);
+  }, [goTo, onClick]);
+  return {
+    as,
+    onClick: handleClick,
+    ...otherProps,
+    [attributeName]: escapedPath
+  };
+}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/navigator/navigator-button/component.js
+
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function NavigatorButton(props, forwardedRef) {
+  const navigatorButtonProps = useNavigatorButton(props);
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
+    ref: forwardedRef
+  }, navigatorButtonProps));
+}
+/**
+ * The `NavigatorButton` component can be used to navigate to a screen and should
+ * be used in combination with the `NavigatorProvider`, the `NavigatorScreen`
+ * and the `NavigatorBackButton` components (or the `useNavigator` hook).
+ *
+ * @example
+ * ```jsx
+ * import {
+ *   __experimentalNavigatorProvider as NavigatorProvider,
+ *   __experimentalNavigatorScreen as NavigatorScreen,
+ *   __experimentalNavigatorButton as NavigatorButton,
+ *   __experimentalNavigatorBackButton as NavigatorBackButton,
+ * } from '@wordpress/components';
+ *
+ * const MyNavigation = () => (
+ *   <NavigatorProvider initialPath="/">
+ *     <NavigatorScreen path="/">
+ *       <p>This is the home screen.</p>
+ *        <NavigatorButton path="/child">
+ *          Navigate to child screen.
+ *       </NavigatorButton>
+ *     </NavigatorScreen>
+ *
+ *     <NavigatorScreen path="/child">
+ *       <p>This is the child screen.</p>
+ *       <NavigatorBackButton>
+ *         Go back
+ *       </NavigatorBackButton>
+ *     </NavigatorScreen>
+ *   </NavigatorProvider>
+ * );
+ * ```
+ */
+
+
+const ConnectedNavigatorButton = contextConnect(NavigatorButton, 'NavigatorButton');
+/* harmony default export */ var navigator_button_component = (ConnectedNavigatorButton);
+
+;// CONCATENATED MODULE: ./packages/components/build-module/navigator/navigator-back-button/hook.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function useNavigatorBackButton(props) {
+  const {
+    onClick,
+    as = build_module_button,
+    ...otherProps
+  } = useContextSystem(props, 'NavigatorBackButton');
+  const {
+    goBack
+  } = use_navigator();
+  const handleClick = (0,external_wp_element_namespaceObject.useCallback)(e => {
+    e.preventDefault();
+    goBack();
+    onClick === null || onClick === void 0 ? void 0 : onClick(e);
+  }, [goBack, onClick]);
+  return {
+    as,
+    onClick: handleClick,
+    ...otherProps
+  };
+}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/navigator/navigator-back-button/component.js
+
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function NavigatorBackButton(props, forwardedRef) {
+  const navigatorBackButtonProps = useNavigatorBackButton(props);
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
+    ref: forwardedRef
+  }, navigatorBackButtonProps));
+}
+/**
+ * The `NavigatorBackButton` component can be used to navigate to a screen and
+ * should be used in combination with the `NavigatorProvider`, the
+ * `NavigatorScreen` and the `NavigatorButton` components (or the `useNavigator`
+ * hook).
+ *
+ * @example
+ * ```jsx
+ * import {
+ *   __experimentalNavigatorProvider as NavigatorProvider,
+ *   __experimentalNavigatorScreen as NavigatorScreen,
+ *   __experimentalNavigatorButton as NavigatorButton,
+ *   __experimentalNavigatorBackButton as NavigatorBackButton,
+ * } from '@wordpress/components';
+ *
+ * const MyNavigation = () => (
+ *   <NavigatorProvider initialPath="/">
+ *     <NavigatorScreen path="/">
+ *       <p>This is the home screen.</p>
+ *        <NavigatorButton path="/child">
+ *          Navigate to child screen.
+ *       </NavigatorButton>
+ *     </NavigatorScreen>
+ *
+ *     <NavigatorScreen path="/child">
+ *       <p>This is the child screen.</p>
+ *       <NavigatorBackButton>
+ *         Go back
+ *       </NavigatorBackButton>
+ *     </NavigatorScreen>
+ *   </NavigatorProvider>
+ * );
+ * ```
+ */
+
+
+const ConnectedNavigatorBackButton = contextConnect(NavigatorBackButton, 'NavigatorBackButton');
+/* harmony default export */ var navigator_back_button_component = (ConnectedNavigatorBackButton);
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/notice/index.js
 
 
@@ -65399,7 +64796,7 @@ function Notice(_ref) {
 }
 
 /* harmony default export */ var build_module_notice = (Notice);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/notice/list.js
 
 
@@ -65446,7 +64843,7 @@ function NoticeList(_ref) {
 }
 
 /* harmony default export */ var list = (NoticeList);
-//# sourceMappingURL=list.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/panel/header.js
 
 
@@ -65461,7 +64858,7 @@ function PanelHeader(_ref) {
 }
 
 /* harmony default export */ var panel_header = (PanelHeader);
-//# sourceMappingURL=header.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/panel/index.js
 
 
@@ -65496,7 +64893,7 @@ function Panel(_ref, ref) {
 }
 
 /* harmony default export */ var panel = ((0,external_wp_element_namespaceObject.forwardRef)(Panel));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-up.js
 
 
@@ -65511,7 +64908,7 @@ const chevronUp = (0,external_wp_element_namespaceObject.createElement)(external
   d: "M6.5 12.4L12 8l5.5 4.4-.9 1.2L12 10l-4.5 3.6-1-1.2z"
 }));
 /* harmony default export */ var chevron_up = (chevronUp);
-//# sourceMappingURL=chevron-up.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/panel/body.js
 
 
@@ -65625,7 +65022,7 @@ const PanelBodyTitle = (0,external_wp_element_namespaceObject.forwardRef)((_ref2
 const body_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(PanelBody);
 body_ForwardedComponent.displayName = 'PanelBody';
 /* harmony default export */ var body = (body_ForwardedComponent);
-//# sourceMappingURL=body.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/panel/row.js
 
 
@@ -65649,7 +65046,7 @@ const PanelRow = (0,external_wp_element_namespaceObject.forwardRef)((_ref, ref) 
   }, children);
 });
 /* harmony default export */ var row = (PanelRow);
-//# sourceMappingURL=row.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/placeholder/index.js
 
 
@@ -65731,7 +65128,7 @@ function Placeholder(_ref) {
 }
 
 /* harmony default export */ var placeholder = (Placeholder);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/query-controls/terms.js
 /**
  * External dependencies
@@ -65770,7 +65167,7 @@ function buildTermsTree(flatTerms) {
 
   return fillWithChildren(termsByParent['0'] || []);
 }
-//# sourceMappingURL=terms.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-select/index.js
 
 
@@ -65820,7 +65217,7 @@ function TreeSelect(_ref) {
     value: selectedId
   }, props));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/query-controls/category-select.js
 
 
@@ -65855,7 +65252,7 @@ function CategorySelect(_ref) {
     selectedId: selectedCategoryId
   }, props));
 }
-//# sourceMappingURL=category-select.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/query-controls/author-select.js
 
 
@@ -65882,7 +65279,7 @@ function AuthorSelect(_ref) {
     selectedId: selectedAuthorId
   });
 }
-//# sourceMappingURL=author-select.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/query-controls/index.js
 
 
@@ -65983,7 +65380,7 @@ function QueryControls(_ref) {
     required: true
   })];
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/radio-context/index.js
 /**
  * WordPress dependencies
@@ -65994,7 +65391,7 @@ const RadioContext = (0,external_wp_element_namespaceObject.createContext)({
   setState: () => {}
 });
 /* harmony default export */ var radio_context = (RadioContext);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/radio/index.js
 
 
@@ -66032,7 +65429,7 @@ function radio_Radio(_ref, ref) {
 }
 
 /* harmony default export */ var build_module_radio = ((0,external_wp_element_namespaceObject.forwardRef)(radio_Radio));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/radio-group/index.js
 
 
@@ -66082,7 +65479,7 @@ function radio_group_RadioGroup(_ref, ref) {
 }
 
 /* harmony default export */ var radio_group = ((0,external_wp_element_namespaceObject.forwardRef)(radio_group_RadioGroup));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/radio-control/index.js
 
 
@@ -66140,7 +65537,7 @@ function RadioControl(_ref) {
     htmlFor: `${id}-${index}`
   }, option.label))));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/re-resizable/lib/resizer.js
 var resizer_extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -66249,7 +65646,7 @@ var Resizer = /** @class */ (function (_super) {
 
 
 // EXTERNAL MODULE: ./node_modules/fast-memoize/src/index.js
-var src = __webpack_require__(3316);
+var src = __webpack_require__(2920);
 var src_default = /*#__PURE__*/__webpack_require__.n(src);
 ;// CONCATENATED MODULE: ./node_modules/re-resizable/lib/index.js
 var lib_extends = (undefined && undefined.__extends) || (function () {
@@ -67238,7 +66635,7 @@ function getSizeLabel(_ref2) {
 
   return undefined;
 }
-//# sourceMappingURL=utils.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/resizable-box/resize-tooltip/styles/resize-tooltip.styles.js
 
 
@@ -67273,7 +66670,7 @@ const resize_tooltip_styles_Tooltip = emotion_styled_base_browser_esm("div",  tr
 const LabelText = /*#__PURE__*/emotion_styled_base_browser_esm(text_component,  true ? {
   target: "ekdag500"
 } : 0)("&&&{color:", COLORS.ui.textDark, ";display:block;font-size:13px;line-height:1.4;}" + ( true ? "" : 0));
-//# sourceMappingURL=resize-tooltip.styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/resizable-box/resize-tooltip/label.js
 
 
@@ -67349,7 +66746,7 @@ function resize_tooltip_label_Label(_ref, ref) {
 
 const label_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(resize_tooltip_label_Label);
 /* harmony default export */ var resize_tooltip_label = (label_ForwardedComponent);
-//# sourceMappingURL=label.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/resizable-box/resize-tooltip/index.js
 
 
@@ -67412,7 +66809,7 @@ function ResizeTooltip(_ref, ref) {
 
 const resize_tooltip_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(ResizeTooltip);
 /* harmony default export */ var resize_tooltip = (resize_tooltip_ForwardedComponent);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/resizable-box/index.js
 
 
@@ -67483,7 +66880,7 @@ function ResizableBox(_ref, ref) {
 }
 
 /* harmony default export */ var resizable_box = ((0,external_wp_element_namespaceObject.forwardRef)(ResizableBox));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/responsive-wrapper/index.js
 
 
@@ -67527,7 +66924,7 @@ function ResponsiveWrapper(_ref) {
 }
 
 /* harmony default export */ var responsive_wrapper = (ResponsiveWrapper);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/sandbox/index.js
 
 
@@ -67764,7 +67161,7 @@ function Sandbox(_ref) {
     height: Math.ceil(height)
   });
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/snackbar/index.js
 
 
@@ -67905,7 +67302,7 @@ function Snackbar(_ref, ref) {
 }
 
 /* harmony default export */ var snackbar = ((0,external_wp_element_namespaceObject.forwardRef)(Snackbar));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/snackbar/list.js
 
 
@@ -68002,7 +67399,7 @@ function SnackbarList(_ref) {
 }
 
 /* harmony default export */ var snackbar_list = (SnackbarList);
-//# sourceMappingURL=list.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/spinner/styles.js
 
 
@@ -68038,7 +67435,7 @@ const SpinnerTrack = emotion_styled_base_browser_esm("circle",  true ? {
 const SpinnerIndicator = emotion_styled_base_browser_esm("path",  true ? {
   target: "e1bj2jdf0"
 } : 0)(commonPathProps, ";stroke:currentColor;stroke-linecap:round;transform-origin:50% 50%;animation:1.4s linear infinite both ", spinAnimation, ";" + ( true ? "" : 0));
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/spinner/index.js
 
 
@@ -68086,7 +67483,7 @@ function Spinner(_ref) {
     vectorEffect: "non-scaling-stroke"
   }));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/surface/component.js
 
 
@@ -68099,7 +67496,7 @@ function Spinner(_ref) {
 
 /**
  * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').Ref<any>}                                                        forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                               forwardedRef
  */
 
 function component_Surface(props, forwardedRef) {
@@ -68132,7 +67529,7 @@ function component_Surface(props, forwardedRef) {
 
 const ConnectedSurface = contextConnect(component_Surface, 'Surface');
 /* harmony default export */ var surface_component = (ConnectedSurface);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tab-panel/index.js
 
 
@@ -68233,7 +67630,7 @@ function TabPanel(_ref2) {
     className: "components-tab-panel__tab-content"
   }, children(selectedTab)));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/text-control/index.js
 
 
@@ -68263,8 +67660,8 @@ function TabPanel(_ref2) {
 
 /**
  *
- * @param {Props}                                 props Props
- * @param {import('react').Ref<HTMLInputElement>} [ref]
+ * @param {Props}                                          props Props
+ * @param {import('react').ForwardedRef<HTMLInputElement>} ref
  */
 
 function TextControl(_ref, ref) {
@@ -68303,7 +67700,7 @@ function TextControl(_ref, ref) {
 }
 
 /* harmony default export */ var text_control = ((0,external_wp_element_namespaceObject.forwardRef)(TextControl));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/input/base.js
 /**
  * External dependencies
@@ -68318,7 +67715,7 @@ function TextControl(_ref, ref) {
 
 const inputStyleNeutral = /*#__PURE__*/emotion_react_browser_esm_css("box-shadow:0 0 0 transparent;transition:box-shadow 0.1s linear;border-radius:", config_values.radiusBlockUi, ";border:", config_values.borderWidth, " solid ", COLORS.ui.border, ";" + ( true ? "" : 0),  true ? "" : 0);
 const inputStyleFocus = /*#__PURE__*/emotion_react_browser_esm_css("border-color:var( --wp-admin-theme-color );box-shadow:0 0 0 calc( ", config_values.borderWidthFocus, " - ", config_values.borderWidth, " ) var( --wp-admin-theme-color );outline:2px solid transparent;" + ( true ? "" : 0),  true ? "" : 0);
-//# sourceMappingURL=base.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/breakpoint-values.js
 /* harmony default export */ var breakpoint_values = ({
   huge: '1440px',
@@ -68332,7 +67729,7 @@ const inputStyleFocus = /*#__PURE__*/emotion_react_browser_esm_css("border-color
   mobile: '480px',
   'zoomed-in': '280px'
 });
-//# sourceMappingURL=breakpoint-values.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/breakpoint.js
 /**
  * Internal dependencies
@@ -68344,7 +67741,7 @@ const inputStyleFocus = /*#__PURE__*/emotion_react_browser_esm_css("border-color
  */
 
 const breakpoint = point => `@media (min-width: ${breakpoint_values[point]})`;
-//# sourceMappingURL=breakpoint.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/input/input-control.js
 /**
  * External dependencies
@@ -68359,7 +67756,7 @@ const breakpoint = point => `@media (min-width: ${breakpoint_values[point]})`;
 
 
 const inputControl = /*#__PURE__*/emotion_react_browser_esm_css("font-family:", font('default.fontFamily'), ";padding:6px 8px;", inputStyleNeutral, ";font-size:", font('mobileTextMinFontSize'), ";line-height:normal;", breakpoint('small'), "{font-size:", font('default.fontSize'), ";line-height:normal;}&:focus{", inputStyleFocus, ";}&::-webkit-input-placeholder{color:", COLORS.darkGray.placeholder, ";}&::-moz-placeholder{opacity:1;color:", COLORS.darkGray.placeholder, ";}&:-ms-input-placeholder{color:", COLORS.darkGray.placeholder, ";}.is-dark-theme &{&::-webkit-input-placeholder{color:", COLORS.lightGray.placeholder, ";}&::-moz-placeholder{opacity:1;color:", COLORS.lightGray.placeholder, ";}&:-ms-input-placeholder{color:", COLORS.lightGray.placeholder, ";}}" + ( true ? "" : 0),  true ? "" : 0);
-//# sourceMappingURL=input-control.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/textarea-control/styles/textarea-control-styles.js
 
 
@@ -68374,7 +67771,7 @@ const inputControl = /*#__PURE__*/emotion_react_browser_esm_css("font-family:", 
 const StyledTextarea = emotion_styled_base_browser_esm("textarea",  true ? {
   target: "ebk7yr50"
 } : 0)("width:100%;", inputControl, ";" + ( true ? "" : 0));
-//# sourceMappingURL=textarea-control-styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/textarea-control/index.js
 
 
@@ -68420,7 +67817,7 @@ function TextareaControl(_ref) {
     value: value
   }, props)));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/text-highlight/index.js
 
 
@@ -68452,7 +67849,7 @@ const TextHighlight = _ref => {
 };
 
 /* harmony default export */ var text_highlight = (TextHighlight);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/tip.js
 
 
@@ -68467,7 +67864,7 @@ const tip = (0,external_wp_element_namespaceObject.createElement)(external_wp_pr
   d: "M12 15.8c-3.7 0-6.8-3-6.8-6.8s3-6.8 6.8-6.8c3.7 0 6.8 3 6.8 6.8s-3.1 6.8-6.8 6.8zm0-12C9.1 3.8 6.8 6.1 6.8 9s2.4 5.2 5.2 5.2c2.9 0 5.2-2.4 5.2-5.2S14.9 3.8 12 3.8zM8 17.5h8V19H8zM10 20.5h4V22h-4z"
 }));
 /* harmony default export */ var library_tip = (tip);
-//# sourceMappingURL=tip.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tip/index.js
 
 
@@ -68494,7 +67891,7 @@ function Tip(props) {
 }
 
 /* harmony default export */ var build_module_tip = (Tip);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toggle-control/index.js
 
 
@@ -68552,7 +67949,7 @@ function ToggleControl(_ref) {
     className: "components-toggle-control__label"
   }, label));
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-ae468c11.js
 // Automatically generated
 var TOOLBAR_STATE_KEYS = ["baseId", "unstable_idCountRef", "unstable_virtual", "rtl", "orientation", "items", "groups", "currentId", "loop", "wrap", "shift", "unstable_moves", "unstable_hasActiveWidget", "unstable_includesBaseElement", "setBaseId", "registerItem", "unregisterItem", "registerGroup", "unregisterGroup", "move", "next", "previous", "up", "down", "first", "last", "sort", "unstable_setVirtual", "setRTL", "setOrientation", "setCurrentId", "setLoop", "setWrap", "setShift", "reset", "unstable_setIncludesBaseElement", "unstable_setHasActiveWidget"];
@@ -68614,7 +68011,7 @@ var ToolbarItem = createComponent({
 
 const ToolbarContext = (0,external_wp_element_namespaceObject.createContext)();
 /* harmony default export */ var toolbar_context = (ToolbarContext);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-item/index.js
 
 
@@ -68667,7 +68064,7 @@ function toolbar_item_ToolbarItem(_ref, ref) {
 }
 
 /* harmony default export */ var toolbar_item = ((0,external_wp_element_namespaceObject.forwardRef)(toolbar_item_ToolbarItem));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-button/toolbar-button-container.js
 
 
@@ -68676,7 +68073,7 @@ const ToolbarButtonContainer = props => (0,external_wp_element_namespaceObject.c
 }, props.children);
 
 /* harmony default export */ var toolbar_button_container = (ToolbarButtonContainer);
-//# sourceMappingURL=toolbar-button-container.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-button/index.js
 
 
@@ -68750,7 +68147,7 @@ function ToolbarButton(_ref, ref) {
 }
 
 /* harmony default export */ var toolbar_button = ((0,external_wp_element_namespaceObject.forwardRef)(ToolbarButton));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-group/toolbar-group-container.js
 
 
@@ -68767,7 +68164,7 @@ const ToolbarGroupContainer = _ref => {
 };
 
 /* harmony default export */ var toolbar_group_container = (ToolbarGroupContainer);
-//# sourceMappingURL=toolbar-group-container.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-group/toolbar-group-collapsed.js
 
 
@@ -68809,7 +68206,7 @@ function ToolbarGroupCollapsed(_ref) {
 }
 
 /* harmony default export */ var toolbar_group_collapsed = (ToolbarGroupCollapsed);
-//# sourceMappingURL=toolbar-group-collapsed.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-group/index.js
 
 
@@ -68908,7 +68305,7 @@ function ToolbarGroup(_ref) {
 }
 
 /* harmony default export */ var toolbar_group = (ToolbarGroup);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./node_modules/reakit/es/Toolbar/ToolbarState.js
 
 
@@ -69038,7 +68435,7 @@ function ToolbarContainer(_ref, ref) {
 }
 
 /* harmony default export */ var toolbar_container = ((0,external_wp_element_namespaceObject.forwardRef)(ToolbarContainer));
-//# sourceMappingURL=toolbar-container.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/index.js
 
 
@@ -69098,7 +68495,7 @@ function toolbar_Toolbar(_ref, ref) {
 }
 
 /* harmony default export */ var toolbar = ((0,external_wp_element_namespaceObject.forwardRef)(toolbar_Toolbar));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-dropdown-menu/index.js
 
 
@@ -69137,7 +68534,7 @@ function ToolbarDropdownMenu(props, ref) {
 }
 
 /* harmony default export */ var toolbar_dropdown_menu = ((0,external_wp_element_namespaceObject.forwardRef)(ToolbarDropdownMenu));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/reset.js
 
 
@@ -69152,7 +68549,7 @@ const reset_reset = (0,external_wp_element_namespaceObject.createElement)(extern
   d: "M7 11.5h10V13H7z"
 }));
 /* harmony default export */ var library_reset = (reset_reset);
-//# sourceMappingURL=reset.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/styles.js
 function tools_panel_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -69205,7 +68602,7 @@ const styles_DropdownMenu =  true ? {
   name: "16gsvie",
   styles: "min-width:200px"
 } : 0;
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/context.js
 /**
  * WordPress dependencies
@@ -69231,7 +68628,7 @@ const ToolsPanelContext = (0,external_wp_element_namespaceObject.createContext)(
   areAllOptionalControlsHidden: true
 });
 const useToolsPanelContext = () => (0,external_wp_element_namespaceObject.useContext)(ToolsPanelContext);
-//# sourceMappingURL=context.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/tools-panel-header/hook.js
 /**
  * WordPress dependencies
@@ -69274,7 +68671,7 @@ function useToolsPanelHeader(props) {
     className: classes
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/tools-panel-header/component.js
 
 
@@ -69422,7 +68819,7 @@ const component_ToolsPanelHeader = (props, forwardedRef) => {
 
 const ConnectedToolsPanelHeader = contextConnect(component_ToolsPanelHeader, 'ToolsPanelHeader');
 /* harmony default export */ var tools_panel_header_component = (ConnectedToolsPanelHeader);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/tools-panel/hook.js
 /**
  * WordPress dependencies
@@ -69646,7 +69043,7 @@ function useToolsPanel(props) {
     className: classes
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/tools-panel/component.js
 
 
@@ -69687,7 +69084,7 @@ const component_ToolsPanel = (props, forwardedRef) => {
 
 const ConnectedToolsPanel = contextConnect(component_ToolsPanel, 'ToolsPanel');
 /* harmony default export */ var tools_panel_component = (ConnectedToolsPanel);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/tools-panel-item/hook.js
 /**
  * WordPress dependencies
@@ -69798,7 +69195,7 @@ function useToolsPanelItem(props) {
     className: classes
   };
 }
-//# sourceMappingURL=hook.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/tools-panel-item/component.js
 
 
@@ -69837,7 +69234,7 @@ const component_ToolsPanelItem = (props, forwardedRef) => {
 
 const ConnectedToolsPanelItem = contextConnect(component_ToolsPanelItem, 'ToolsPanelItem');
 /* harmony default export */ var tools_panel_item_component = (ConnectedToolsPanelItem);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-grid/roving-tab-index-context.js
 /**
  * WordPress dependencies
@@ -69846,7 +69243,7 @@ const ConnectedToolsPanelItem = contextConnect(component_ToolsPanelItem, 'ToolsP
 const RovingTabIndexContext = (0,external_wp_element_namespaceObject.createContext)();
 const useRovingTabIndexContext = () => (0,external_wp_element_namespaceObject.useContext)(RovingTabIndexContext);
 const RovingTabIndexProvider = RovingTabIndexContext.Provider;
-//# sourceMappingURL=roving-tab-index-context.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-grid/roving-tab-index.js
 
 
@@ -69884,7 +69281,7 @@ function RovingTabIndex(_ref) {
     value: providerValue
   }, children);
 }
-//# sourceMappingURL=roving-tab-index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-grid/index.js
 
 
@@ -69935,6 +69332,7 @@ function getRowFocusables(rowElement) {
  * @param {WPElement} props.children      Children to be rendered.
  * @param {Function}  props.onExpandRow   Callback to fire when row is expanded.
  * @param {Function}  props.onCollapseRow Callback to fire when row is collapsed.
+ * @param {Function}  props.onFocusRow    Callback to fire when moving focus to a different row.
  * @param {Object}    ref                 A ref to the underlying DOM table element.
  */
 
@@ -69944,6 +69342,7 @@ function TreeGrid(_ref, ref) {
     children,
     onExpandRow = () => {},
     onCollapseRow = () => {},
+    onFocusRow = () => {},
     ...props
   } = _ref;
   const onKeyDown = (0,external_wp_element_namespaceObject.useCallback)(event => {
@@ -69951,12 +69350,13 @@ function TreeGrid(_ref, ref) {
       keyCode,
       metaKey,
       ctrlKey,
-      altKey,
-      shiftKey
-    } = event;
-    const hasModifierKeyPressed = metaKey || ctrlKey || altKey || shiftKey;
+      altKey
+    } = event; // The shift key is intentionally absent from the following list,
+    // to enable shift + up/down to select items from the list.
 
-    if (hasModifierKeyPressed || !(0,external_lodash_namespaceObject.includes)([external_wp_keycodes_namespaceObject.UP, external_wp_keycodes_namespaceObject.DOWN, external_wp_keycodes_namespaceObject.LEFT, external_wp_keycodes_namespaceObject.RIGHT], keyCode)) {
+    const hasModifierKeyPressed = metaKey || ctrlKey || altKey;
+
+    if (hasModifierKeyPressed || !(0,external_lodash_namespaceObject.includes)([external_wp_keycodes_namespaceObject.UP, external_wp_keycodes_namespaceObject.DOWN, external_wp_keycodes_namespaceObject.LEFT, external_wp_keycodes_namespaceObject.RIGHT, external_wp_keycodes_namespaceObject.HOME, external_wp_keycodes_namespaceObject.END], keyCode)) {
       return;
     } // The event will be handled, stop propagation.
 
@@ -70088,12 +69488,53 @@ function TreeGrid(_ref, ref) {
 
 
       const nextIndex = Math.min(currentColumnIndex, focusablesInNextRow.length - 1);
+      focusablesInNextRow[nextIndex].focus(); // Let consumers know the row that was originally focused,
+      // and the row that is now in focus.
+
+      onFocusRow(event, activeRow, rows[nextRowIndex]); // Prevent key use for anything else. This ensures Voiceover
+      // doesn't try to handle key navigation.
+
+      event.preventDefault();
+    } else if ((0,external_lodash_namespaceObject.includes)([external_wp_keycodes_namespaceObject.HOME, external_wp_keycodes_namespaceObject.END], keyCode)) {
+      // Calculate the rowIndex of the next row.
+      const rows = Array.from(treeGridElement.querySelectorAll('[role="row"]'));
+      const currentRowIndex = rows.indexOf(activeRow);
+      let nextRowIndex;
+
+      if (keyCode === external_wp_keycodes_namespaceObject.HOME) {
+        nextRowIndex = 0;
+      } else {
+        nextRowIndex = rows.length - 1;
+      } // Focus is either at the top or bottom edge of the grid. Do nothing.
+
+
+      if (nextRowIndex === currentRowIndex) {
+        // Prevent key use for anything else. For example, Voiceover
+        // will start navigating horizontally when reaching the vertical
+        // bounds of a table.
+        event.preventDefault();
+        return;
+      } // Get the focusables in the next row.
+
+
+      const focusablesInNextRow = getRowFocusables(rows[nextRowIndex]); // If for some reason there are no focusables in the next row, do nothing.
+
+      if (!focusablesInNextRow || !focusablesInNextRow.length) {
+        // Prevent key use for anything else. For example, Voiceover
+        // will still focus text when using arrow keys, while this
+        // component should limit navigation to focusables.
+        event.preventDefault();
+        return;
+      } // Try to focus the element in the next row that's at a similar column to the activeElement.
+
+
+      const nextIndex = Math.min(currentColumnIndex, focusablesInNextRow.length - 1);
       focusablesInNextRow[nextIndex].focus(); // Prevent key use for anything else. This ensures Voiceover
       // doesn't try to handle key navigation.
 
       event.preventDefault();
     }
-  }, [onExpandRow, onCollapseRow]);
+  }, [onExpandRow, onCollapseRow, onFocusRow]);
   /* Disable reason: A treegrid is implemented using a table element. */
 
   /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
@@ -70110,7 +69551,7 @@ function TreeGrid(_ref, ref) {
 
 
 
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-grid/row.js
 
 
@@ -70147,7 +69588,7 @@ function TreeGridRow(_ref, ref) {
 }
 
 /* harmony default export */ var tree_grid_row = ((0,external_wp_element_namespaceObject.forwardRef)(TreeGridRow));
-//# sourceMappingURL=row.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-grid/roving-tab-index-item.js
 
 
@@ -70193,7 +69634,7 @@ function TreeGridRow(_ref, ref) {
 
   return (0,external_wp_element_namespaceObject.createElement)(Component, allProps, children);
 }));
-//# sourceMappingURL=roving-tab-index-item.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-grid/item.js
 
 
@@ -70216,7 +69657,7 @@ function TreeGridRow(_ref, ref) {
     ref: ref
   }, props), children);
 }));
-//# sourceMappingURL=item.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-grid/cell.js
 
 
@@ -70242,7 +69683,7 @@ function TreeGridRow(_ref, ref) {
     ref: ref
   }, children));
 }));
-//# sourceMappingURL=cell.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/truncate/component.js
 
 
@@ -70255,7 +69696,7 @@ function TreeGridRow(_ref, ref) {
 
 /**
  * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'span'>} props
- * @param {import('react').Ref<any>}                                                         forwardedRef
+ * @param {import('react').ForwardedRef<any>}                                                forwardedRef
  */
 
 function component_Truncate(props, forwardedRef) {
@@ -70291,7 +69732,7 @@ function component_Truncate(props, forwardedRef) {
 
 const ConnectedTruncate = contextConnect(component_Truncate, 'Truncate');
 /* harmony default export */ var truncate_component = (ConnectedTruncate);
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/isolated-event-container/index.js
 
 
@@ -70324,7 +69765,7 @@ function stopPropagation(event) {
   }), children);
   /* eslint-enable jsx-a11y/no-static-element-interactions */
 }));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/z-stack/styles.js
 
 
@@ -70378,7 +69819,7 @@ const positionRelative =  true ? {
   name: "bjn8wh",
   styles: "position:relative"
 } : 0;
-//# sourceMappingURL=styles.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/z-stack/component.js
 
 
@@ -70428,7 +69869,7 @@ function ZStack(props, forwardedRef) {
 }
 
 /* harmony default export */ var z_stack_component = (contextConnect(ZStack, 'ZStack'));
-//# sourceMappingURL=component.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/higher-order/navigate-regions/index.js
 
 
@@ -70523,7 +69964,7 @@ function useNavigateRegions() {
   } = _ref3;
   return (0,external_wp_element_namespaceObject.createElement)("div", useNavigateRegions(shortcuts), (0,external_wp_element_namespaceObject.createElement)(Component, props));
 }, 'navigateRegions'));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/higher-order/with-constrained-tabbing/index.js
 
 
@@ -70539,7 +69980,7 @@ const withConstrainedTabbing = (0,external_wp_compose_namespaceObject.createHigh
   }, (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, props));
 }, 'withConstrainedTabbing');
 /* harmony default export */ var with_constrained_tabbing = (withConstrainedTabbing);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/higher-order/with-fallback-styles/index.js
 
 
@@ -70609,7 +70050,7 @@ const withConstrainedTabbing = (0,external_wp_compose_namespaceObject.createHigh
 
   };
 }, 'withFallbackStyles'));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: external ["wp","hooks"]
 var external_wp_hooks_namespaceObject = window["wp"]["hooks"];
 ;// CONCATENATED MODULE: ./packages/components/build-module/higher-order/with-filters/index.js
@@ -70725,7 +70166,7 @@ function withFilters(hookName) {
     return FilteredComponentRenderer;
   }, 'withFilters');
 }
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/higher-order/with-focus-return/index.js
 
 
@@ -70796,7 +70237,7 @@ const with_focus_return_Provider = _ref => {
   });
   return children;
 };
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/higher-order/with-notices/index.js
 
 
@@ -70898,7 +70339,7 @@ const with_focus_return_Provider = _ref => {
 
   return Component;
 }));
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/index.js
 // Primitives
  // Components
@@ -71030,7 +70471,7 @@ const with_focus_return_Provider = _ref => {
 
 
 
-//# sourceMappingURL=index.js.map
+
 }();
 (window.wp = window.wp || {}).components = __webpack_exports__;
 /******/ })()

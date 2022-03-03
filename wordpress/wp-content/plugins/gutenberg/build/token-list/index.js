@@ -284,7 +284,7 @@ class TokenList {
   }
 
 }
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).tokenList = __webpack_exports__["default"];
 /******/ })()
 ;

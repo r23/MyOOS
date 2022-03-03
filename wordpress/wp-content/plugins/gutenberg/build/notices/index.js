@@ -98,7 +98,7 @@ const onSubKey = actionProperty => reducer => function () {
   };
 };
 /* harmony default export */ var on_sub_key = (onSubKey);
-//# sourceMappingURL=on-sub-key.js.map
+
 ;// CONCATENATED MODULE: ./packages/notices/build-module/store/reducer.js
 /**
  * External dependencies
@@ -139,7 +139,7 @@ const notices = on_sub_key('context')(function () {
   return state;
 });
 /* harmony default export */ var reducer = (notices);
-//# sourceMappingURL=reducer.js.map
+
 ;// CONCATENATED MODULE: ./packages/notices/build-module/store/constants.js
 /**
  * Default context to use for notice grouping when not otherwise specified. Its
@@ -156,7 +156,7 @@ const DEFAULT_CONTEXT = 'global';
  */
 
 const DEFAULT_STATUS = 'info';
-//# sourceMappingURL=constants.js.map
+
 ;// CONCATENATED MODULE: ./packages/notices/build-module/store/actions.js
 /**
  * External dependencies
@@ -325,7 +325,7 @@ function removeNotice(id) {
     context
   };
 }
-//# sourceMappingURL=actions.js.map
+
 ;// CONCATENATED MODULE: ./packages/notices/build-module/store/selectors.js
 /**
  * Internal dependencies
@@ -384,7 +384,7 @@ function getNotices(state) {
   let context = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : DEFAULT_CONTEXT;
   return state[context] || DEFAULT_NOTICES;
 }
-//# sourceMappingURL=selectors.js.map
+
 ;// CONCATENATED MODULE: ./packages/notices/build-module/store/index.js
 /**
  * WordPress dependencies
@@ -411,10 +411,10 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)('core/notice
   selectors: selectors_namespaceObject
 });
 (0,external_wp_data_namespaceObject.register)(store);
-//# sourceMappingURL=index.js.map
+
 ;// CONCATENATED MODULE: ./packages/notices/build-module/index.js
 
-//# sourceMappingURL=index.js.map
+
 (window.wp = window.wp || {}).notices = __webpack_exports__;
 /******/ })()
 ;
