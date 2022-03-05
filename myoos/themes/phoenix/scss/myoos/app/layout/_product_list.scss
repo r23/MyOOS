@@ -3,6 +3,11 @@
 
 
 div.product {
+	position: relative;
+	width: 100%;
+	max-width: 20rem;
+	margin-right: auto;
+	margin-left: auto;
 	margin-bottom: 60px;
 	.product-buttons a.btn-default {
     border: 0;
