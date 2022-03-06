@@ -3735,17 +3735,17 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.5",
-            "version_normalized": "5.4.5.0",
+            "version": "v5.4.6",
+            "version_normalized": "5.4.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "54cd033e40564a258e62e759ca1ad07e4863e385"
+                "reference": "9c760742591490b16fcf4c55236ffa730806008d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/54cd033e40564a258e62e759ca1ad07e4863e385",
-                "reference": "54cd033e40564a258e62e759ca1ad07e4863e385",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/9c760742591490b16fcf4c55236ffa730806008d",
+                "reference": "9c760742591490b16fcf4c55236ffa730806008d",
                 "shasum": ""
             },
             "require": {
@@ -3880,7 +3880,6 @@
                 "masterminds/html5": "^2.6",
                 "monolog/monolog": "^1.25.1|^2",
                 "nyholm/psr7": "^1.0",
-                "paragonie/sodium_compat": "^1.8",
                 "pda/pheanstalk": "^4.0",
                 "php-http/httplug": "^1.0|^2.0",
                 "phpdocumentor/reflection-docblock": "^3.0|^4.0|^5.0",
@@ -3896,7 +3895,7 @@
                 "twig/inky-extra": "^2.12|^3",
                 "twig/markdown-extra": "^2.12|^3"
             },
-            "time": "2022-02-28T07:58:12+00:00",
+            "time": "2022-03-05T21:15:03+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -3939,7 +3938,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.5"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.6"
             },
             "funding": [
                 {
