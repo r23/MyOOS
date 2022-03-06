@@ -1,10 +1,5 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-   if ( !current_user_can( 'manage_options' ) ) {
-      die('<h3>Forbidden</h3>');
-    }
-
 // a basic wp w3all phpBB users importer into WordPress
- // $up_conf_w3all_url = admin_url() . 'options-general.php?page=wp-w3all-users-to-wp';
     $up_conf_w3all_url = admin_url() . 'tools.php?page=wp-w3all-users-to-wp';
   $w3warn = '';
   global $w3all_config,$wpdb,$w3all_add_into_wp_u_capability;

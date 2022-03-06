@@ -1,7 +1,4 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-   if ( !current_user_can( 'manage_options' ) ) {
-      die('<h3>Forbidden</h3>');
-    }
 
  global $w3all_add_into_spec_group,$w3all_config,$wpdb;
  

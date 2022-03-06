@@ -1,13 +1,16 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
 // 2022 - @axew3.com //
 
-// START MAY DO NOT MODIFY
+// START (MAY) DO NOT MODIFY
 
   if(defined("W3PHPBBCONFIG")){
     // detect if it is the uid2 in phpBB
     $phpBBuid2 = (isset($_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u']) && $_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u'] == 2) ? 2 : 0;
    } else { $phpBBuid2 = 0; }
-
+  if(defined("WPW3ALL_NOT_ULINKED")) { $phpBBuid2 = 2; } // switch to be like it is uid2, so to avoid the reload of the page loop
+  // the shortcode homepage push has been excluded directly more below where: if(w3all_passed_url != '' && inhomepageShort != 'inhomepage-phpbbiframe'){
+  // we'll exclude also if the passed url_push is set to 'no' more below
+  
 global $w3all_iframe_custom_w3fancyurl,$w3all_url_to_cms,$w3all_iframe_custom_top_gap,$w3cookie_domain,$wp_w3all_forum_folder_wp;
 $wp_w3all_forum_folder_wp = empty($ltm['wp_page_name']) ? $wp_w3all_forum_folder_wp : $ltm['wp_page_name'];
 $w3all_iframe_custom_top_gap = empty($ltm['wp_page_iframe_top_gap']) ? $w3all_iframe_custom_top_gap : $ltm['wp_page_iframe_top_gap'];
@@ -60,6 +63,7 @@ if( isset($_GET["w3"]) ){ // default
 // assure that passed url is correctly all decoded // may something else need to added in certain conditions
 $w3all_url_to_cms = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms);
 $w3all_url_to_cms_switch_phpbb_default_url = (empty($ltm['phpbb_default_url'])) ? $w3all_url_to_cms : $ltm['phpbb_default_url'];
+
 echo'<!-- noscript warning and simple preloader -->
 <div id="w3idwloader" class="w3_wrap_loader">
   <noscript><h3 style="background-color:#333;color:#FFF;padding:15px;font-size:0.8em;pointer-events:auto;">Javascript disabled: can\'t load the forum page at this Url.<br />Enable Javascript on your browser or visit the forum here:<br /><br />'.$w3all_url_to_cms.'<br /><a href="'.$w3all_url_to_cms.'">To be auto-redirected click here<br />(may this link will not work)</a></h3></noscript>
@@ -76,6 +80,7 @@ echo "<script type=\"text/javascript\">
     var wp_u_logged = ".$current_user->ID.";
     var phpBBuid2 = ".$phpBBuid2.";
     var inhomepageShort = '".$ltm['wp_page_name']."';
+    var w3urlpush = '".$ltm['url_push']."';    
 
  function w3all_ajaxup_from_phpbb(res){
       var w3all_phpbb_u_logged  = /#w3all_phpbb_u_logged=1/ig.exec(res);
@@ -134,16 +139,16 @@ echo "<script type=\"text/javascript\">
      w3all_passed_url = '';
    }
   // PUSH phpBB URLs // do not push in home if inhomepage-phpbbiframe set. If not set then page-forum ($wp_w3all_forum_folder_wp value) need to exist
-   if(w3all_passed_url != '' && inhomepageShort != 'inhomepage-phpbbiframe'){
+   if(w3all_passed_url != '' && inhomepageShort != 'inhomepage-phpbbiframe' && w3urlpush == 'yes'){
     w3all_passed_url = window.btoa(unescape(encodeURIComponent(w3all_passed_url)));
     var w3all_passed_url_push = '".$w3allhomeurl."/".$wp_w3all_forum_folder_wp."/?".$w3all_iframe_custom_w3fancyurl."=' + w3all_passed_url;
     history.replaceState({w3all_passed_url: w3all_passed_url}, \"\", w3all_passed_url_push);
    }
   } // end // onMessage
-//,
-//scrollCallback: function(x,y){
-//return false;
-//}
+,
+scrollCallback: function(x,y){
+return false;
+}
 });
 </script>";
 

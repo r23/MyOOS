@@ -6,29 +6,38 @@
  add_action('wp_head','wp_w3all_short_add_css_ajax');
  add_shortcode( 'w3allphpbbiframe', 'wp_w3all_phpbb_iframe_short' );
 
-
 function wp_w3all_phpbb_iframe_short( $atts ){
-  global $w3all_config,$w3all_custom_output_files,$w3cookie_domain,$w3all_url_to_cms;
+  global $w3all_config,$w3all_custom_output_files,$wp_w3all_phpbb_iframe_short_token_yn;
 
  if(is_array($atts)){
-  $atts = array_map ('trim', $atts); 
+  $atts = array_map ('trim', $atts);
 
     $ltm = shortcode_atts( array(
         'wp_page_name' => '',
         'phpbb_default_url' => '',
-        'wp_page_iframe_top_gap' => '0'
-    ), $atts );
+        'wp_page_iframe_top_gap' => '0',
+        'url_push' => 'yes',
+        'security_token' => ''
+     ), $atts );
   }
+  
+  if( !empty($wp_w3all_phpbb_iframe_short_token_yn) && $ltm['security_token'] != $wp_w3all_phpbb_iframe_short_token_yn )
+  { return; }
 
    $ltm['wp_page_iframe_top_gap'] = intval($ltm['wp_page_iframe_top_gap']);
    $ltm['phpbb_default_url'] = (!filter_var($ltm['phpbb_default_url'], FILTER_VALIDATE_URL)) ? '' : $ltm['phpbb_default_url'];
    $ltm['wp_page_name'] = preg_match('/[^-0-9A-Za-z _]/',$ltm['wp_page_name']) ? '' : $ltm['wp_page_name'];
+   $ltm['url_push'] = strtolower($ltm['url_push']) == 'yes' ? 'yes' : 'no'; // do not affect homepage: if shortcode on homepage, will by the way avoided the url push into /views/wp_w3all_phpbb_iframe_short.php
+
 
    if( $w3all_custom_output_files == 1 ) {
+   	 $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/wp_w3all_phpbb_iframe_short.php';
+   	 if (!file_exists($file)){
      $file = ABSPATH . 'wp-content/plugins/wp-w3all-config/wp_w3all_phpbb_iframe_short.php';
-    ob_start();
+     }
+     ob_start();
       include($file);
-    return ob_get_clean();
+     return ob_get_clean();
     } else {
      $file = WPW3ALL_PLUGIN_DIR . 'views/wp_w3all_phpbb_iframe_short.php';
     ob_start();
@@ -175,4 +184,3 @@ to {left: 100%;}
 ";
   echo $s;
 }
-

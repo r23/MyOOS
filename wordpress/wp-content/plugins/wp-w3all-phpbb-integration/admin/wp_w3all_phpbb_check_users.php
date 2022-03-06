@@ -1,7 +1,4 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-   if ( !current_user_can( 'manage_options' ) ) {
-      die('<h3>Forbidden</h3>');
-    }
 // the check mess (that basically and by the way should work fine)
  	 global $w3all_config,$wpdb,$w3all_phpbb_dbconn;
 if ( defined('W3PHPBBCONFIG') ){

@@ -7,36 +7,18 @@
  * @subpackage wp_w3all
  * @V5 JS -> https://www.axew3.com/w3/2018/12/phpbb-wordpress-template-integration-iframe-v5/
  */
-// @2022 -> @axew3.com //
+// @2022 axew3.com //
 
-// START MAY DO NOT MODIFY 
+// START MAY DO NOT MODIFY
 
   if(defined("W3PHPBBCONFIG")){
-    // detect if it is the uid2 in phpBB
+    // detect if it is the uid2 in phpBB and avoid iframe loop
     $phpBBuid2 = (isset($_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u']) && $_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u'] == 2) ? 2 : 0;
    } else { $phpBBuid2 = 0; }
+   // detect if running as not linked users mode and avoid iframe loop
+  if(defined("WPW3ALL_NOT_ULINKED")) { $phpBBuid2 = 2; } // switch to be like it is uid2, so to avoid the reload of the page loop
 
-// for compatibility with all the rest if the case switch these vars // TO BE REMOVED: due to overall_header js code
-if( isset($_GET["f"]) ){
-  $_GET["forum_id"] = $_GET["f"];
-}
-if( isset($_GET["t"]) ){
-  $_GET["topic_id"] = $_GET["t"];
-}
-
-$w3forum_id = isset($_GET["forum_id"]) ? $_GET["forum_id"] : '';
-$w3topic_id = isset($_GET["topic_id"]) ? $_GET["topic_id"] : '';
-$w3post_id  = isset($_GET["post_id"]) ? $_GET["post_id"] : ''; // p reserved // may used for htaccess "strong" and consistent, V1 code redirect trick
-$w3mode     = isset($_GET["mode"]) ? $_GET["mode"] : '';
-$w3phpbbuid = isset($_GET["u"]) ? $_GET["u"] : '';
-$w3phpbbsid = isset($_GET["sid"]) ? $_GET["sid"] : '';
-$w3phpbbwatch = isset($_GET["watch"]) ? $_GET["watch"] : '';
-$w3phpbbunwatch = isset($_GET["unwatch"]) ? $_GET["unwatch"] : '';
-$w3phpbb_start  = isset($_GET["start"]) ? $_GET["start"] : '';
-$w3iu = isset($_GET["i"]) ? $_GET["i"] : '';
-$w3iu_folder = isset($_GET["folder"]) ? $_GET["folder"] : '';
-
-global $w3all_iframe_custom_w3fancyurl,$w3all_url_to_cms,$w3all_iframe_phpbb_link_yn,$w3all_iframe_custom_top_gap,$w3cookie_domain,$wp_w3all_forum_folder_wp;
+global $w3all_iframe_custom_w3fancyurl,$w3all_url_to_cms,$w3all_iframe_custom_top_gap,$w3cookie_domain,$wp_w3all_forum_folder_wp;
 $w3allhomeurl = get_home_url();
 $current_user = wp_get_current_user();
 $w3all_url_to_cms_clean = $w3all_url_to_cms;
@@ -49,10 +31,6 @@ if($spos !== false)
 {
  $w3guessdomaindisplay = substr($w3guessdomaindisplay, 0, $spos);
 }} else { $w3guessdomaindisplay = 'Did you setup the URL that point to phpBB into the integration plugin admin page<br /> and is it correct?'; }
-
-if( preg_match('/[^0-9]/',$w3phpbbuid) OR preg_match('/[^a-z]/',$w3phpbbwatch) OR preg_match('/[^a-z]/',$w3phpbbunwatch) OR preg_match('/[^A-Za-z]/',$w3iu_folder) OR preg_match('/[^A-Za-z]/',$w3iu) OR preg_match('/[^0-9]/',$w3phpbb_start) OR preg_match('/[^0-9]/',$w3topic_id) OR preg_match('/[^0-9]/',$w3forum_id) OR preg_match('/[^0-9]/',$w3post_id) OR preg_match('/[^0-9A-Za-z]/',$w3mode) OR preg_match('/[^0-9A-Za-z]/',$w3phpbbsid) ){
-  die("Something goes wrong with your URL request, <a href=\"$w3allhomeurl\">please leave this page</a>.");
-}
 
 if(!empty($w3cookie_domain)){
  if(substr($w3cookie_domain, 0, 1) == '.'){
@@ -68,87 +46,34 @@ if(!empty($w3cookie_domain)){
 $w3all_orig = strpos($w3all_url_to_cms,'https') !== false ? 'https://'. $document_domain : 'http://' . $document_domain;
 $w3all_orig_www = strpos($w3all_url_to_cms,'https') !== false ? 'https://www.'. $document_domain : 'http://www.' . $document_domain;
 
-// build and pass links x iframe //
-// Old way: from 1.9.4 substantially execute only when links from widgets
-// Obsolete: from 2.4.5 in widgets and shortcodes there are direct links, due to overall_header.html phpBB js code. There is no need to follow with this
-if ( !empty($w3forum_id) && empty($w3topic_id) && empty($w3phpbb_start) && empty($w3post_id) ){
-    $w3all_url_to_cms = $w3all_url_to_cms . "/viewforum.php?f=". $w3forum_id ."";
-} elseif ( !empty($w3forum_id) && !empty($w3phpbb_start) && empty($w3topic_id) ) {
-     $w3all_url_to_cms = $w3all_url_to_cms . "/viewforum.php?f=". $w3forum_id ."&amp;start=".$w3phpbb_start."";
-} elseif ( !empty($w3forum_id) && !empty($w3topic_id) && empty($w3post_id) && empty($w3phpbb_start) ) {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/viewtopic.php?f=". $w3forum_id ."&amp;t=".$w3topic_id."";
-} elseif ( !empty($w3forum_id) && !empty($w3topic_id) && !empty($w3post_id) ) {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/viewtopic.php?f=". $w3forum_id ."&amp;t=".$w3topic_id."&amp;p=".$w3post_id."#p".$w3post_id."";
-} elseif ( !empty($w3forum_id) && empty($w3topic_id) && !empty($w3post_id) ) {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/viewtopic.php?f=". $w3forum_id ."&amp;p=".$w3post_id."#p".$w3post_id."";
-} elseif ( !empty($w3forum_id) && !empty($w3topic_id) && !empty($w3phpbb_start) ) {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/viewtopic.php?f=". $w3forum_id ."&amp;t=".$w3topic_id."&amp;start=".$w3phpbb_start."";
-} elseif ( empty($w3forum_id) && !empty($w3post_id) && empty($w3iu) ) {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/viewtopic.php?p=".$w3post_id."#p".$w3post_id."";
-} elseif (stristr($w3mode, "ucp")) { // custom to ucp
-    $w3all_url_to_cms = $w3all_url_to_cms . "/ucp.php";
-} elseif (stristr($w3mode, "register")) {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/ucp.php?mode=register";
-} elseif (stristr($w3mode, "sendpassword")) {
-   $w3all_url_to_cms = $w3all_url_to_cms . "/ucp.php?mode=sendpassword";
-} elseif (stristr($w3mode, "login")) {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/ucp.php?mode=login";
-} elseif (stristr($w3mode, "logout")) {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/ucp.php?mode=logout&amp;sid=". $w3phpbbsid ."";
-} elseif (stristr($w3mode, "memberlist")) { // custom to memberlist
-    $w3all_url_to_cms = $w3all_url_to_cms . "/memberlist.php";
-} elseif (stristr($w3mode, "viewprofile")) {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/memberlist.php?mode=viewprofile&amp;u=". $w3phpbbuid ."";
-} elseif (stristr($w3mode, "contactadmin")) {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/memberlist.php?mode=contactadmin";
-} elseif (stristr($w3mode, "team")) {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/memberlist.php?mode=team";
-} elseif (stristr($w3iu, "pm") && $w3iu_folder == 'inbox') {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/ucp.php?i=pm&folder=inbox";
-} elseif (stristr($w3mode, "view") && $w3iu == 'pm') {
-    $w3all_url_to_cms = $w3all_url_to_cms . "/ucp.php?i=pm&mode=view&f=0&p=".$w3post_id."";
-} else {
-  // nothing
-}
-
 // security switch
 $w3all_url_to_cms0 = $w3all_url_to_cms;
 
-if( isset($_GET["w3"]) && empty($w3forum_id) ){ // default
+if( isset($_GET["w3"]) ){ // default
  $phpbb_url = trim(base64_decode($_GET["w3"]));
  $w3all_url_to_cms = $w3all_url_to_cms . '/' . $phpbb_url;
    if( preg_match('/[^-0-9A-Za-z\._#\:\?\/=&%]/ui',$phpbb_url) ){
     $w3all_url_to_cms = $w3all_url_to_cms0;
    }
-} elseif ( isset($_GET[$w3all_iframe_custom_w3fancyurl]) && empty($w3forum_id) ){ //fancy
+} elseif ( isset($_GET[$w3all_iframe_custom_w3fancyurl]) ){ //fancy
  $phpbb_url = trim(base64_decode($_GET[$w3all_iframe_custom_w3fancyurl]));
  $w3all_url_to_cms = $w3all_url_to_cms . '/' . $phpbb_url;
    if( preg_match('/[^-0-9A-Za-z\._#\:\?\/=&%]/ui',$phpbb_url) ){
     $w3all_url_to_cms = $w3all_url_to_cms0;
    }
 }
-// old way to be removed
-// assure that passed url is correctly all decoded // may something else need to added in certain conditions
-$w3all_url_to_cms = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms);
 
-// bug -> https://wordpress.org/support/topic/problem-using-iframe-feature-with-https/
-//if( strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) OR strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) + 1 )
-//{
-// $w3all_url_to_cms .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/index.php');
-//}
+// assure that passed url is correctly all decoded // may something else need to be added in certain conditions
+$w3all_url_to_cms = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms);
 
 function w3all_enqueue_scripts() {
  wp_enqueue_script("jquery");
 }
 
 function wp_w3all_add_ajax() {
-  global $w3all_url_to_cms, $wp_w3all_forum_folder_wp,$w3all_iframe_phpbb_link_yn, $w3allhomeurl;
+  global $w3all_url_to_cms,$wp_w3all_forum_folder_wp,$w3allhomeurl;
 
-  if ($w3all_iframe_phpbb_link_yn > 0){
-    $w3all_url_to_phpbb_ib = $w3allhomeurl . "/" . $wp_w3all_forum_folder_wp . "/?i=pm&folder=inbox";
-  } else {
-          $w3all_url_to_phpbb_ib = $w3all_url_to_cms . "/ucp.php?i=pm&folder=inbox";
-         }
+  $w3all_url_to_phpbb_ib = $w3all_url_to_cms . "/ucp.php?i=pm&folder=inbox";
 
 $s = "
 <script type=\"text/javascript\" src=\"".plugins_url()."/wp-w3all-phpbb-integration/addons/resizer/iframeResizer.min.js\"></script>
@@ -285,7 +210,6 @@ add_action('wp_head','wp_w3all_add_ajax');
 // END MAY DO NOT MODIFY
 
 // START a default WordPress page
-
 get_header();
 ?>
 
@@ -368,10 +292,10 @@ get_header();
     history.replaceState({w3all_passed_url: w3all_passed_url}, \"\", w3all_passed_url_push);
    }
   } // end // onMessage
-//,
-//scrollCallback: function(x,y){
-//return false;
-//}
+,
+scrollCallback: function(x,y){
+return false;
+}
 });
 </script>";
 ?>
