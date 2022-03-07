@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'd73eb3d445c4e830e768b166c0af84c1d739655a',
+        'reference' => 'e66f3a23130cb02aff2759b844c09f4db86ee9a7',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'd73eb3d445c4e830e768b166c0af84c1d739655a',
+            'reference' => 'e66f3a23130cb02aff2759b844c09f4db86ee9a7',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -233,12 +233,12 @@
             'dev_requirement' => false,
         ),
         'phenx/php-svg-lib' => array(
-            'pretty_version' => '0.4.0',
-            'version' => '0.4.0.0',
+            'pretty_version' => '0.4.1',
+            'version' => '0.4.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phenx/php-svg-lib',
             'aliases' => array(),
-            'reference' => '3ffbbb037f0871c3a819e90cff8b36dd7e656189',
+            'reference' => '4498b5df7b08e8469f0f8279651ea5de9626ed02',
             'dev_requirement' => false,
         ),
         'php-amqplib/php-amqplib' => array(
