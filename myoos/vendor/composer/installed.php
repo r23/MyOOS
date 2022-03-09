@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'a8c5ff36f0538efcbe9d7531ae3a8f22c485c7a8',
+        'reference' => 'cc93dd8e18abe9319f992803f07abbfc7a1b2d64',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -137,12 +137,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-escaper' => array(
-            'pretty_version' => '2.9.0',
-            'version' => '2.9.0.0',
+            'pretty_version' => '2.10.0',
+            'version' => '2.10.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-escaper',
             'aliases' => array(),
-            'reference' => '891ad70986729e20ed2e86355fcf93c9dc238a5f',
+            'reference' => '58af67282db37d24e584a837a94ee55b9c7552be',
             'dev_requirement' => false,
         ),
         'maennchen/zipstream-php' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'a8c5ff36f0538efcbe9d7531ae3a8f22c485c7a8',
+            'reference' => 'cc93dd8e18abe9319f992803f07abbfc7a1b2d64',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
