@@ -296,7 +296,7 @@ define('IMAGE_PLUGINS_REMOVE', 'Plugins Entfernen');
 define('IMAGE_PREVIEW', 'Vorschau');
 define('BUTTON_RESET', 'Zurücksetzen');
 define('IMAGE_RESTORE', 'Zurücksichern');
-define('IMAGE_SAVE', 'Speichern');
+define('BUTTON_SAVE', 'Speichern');
 define('IMAGE_SEARCH', 'Suchen');
 define('IMAGE_SELECT', 'Auswählen');
 define('BUTTON_SELECT_IMAGE', 'Bild auswählen');

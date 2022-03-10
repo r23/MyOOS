@@ -559,7 +559,7 @@ if (isset($_GET['gPath']) && ($_GET['gPath'])) {
             $contents[] = array('text' => TEXT_INFO_GROUPS_NAME_USED . '<br>&nbsp;');
         }
       $contents[] = array('align' => 'center', 'text' => TEXT_INFO_EDIT_GROUP_INTRO . '<br>&nbsp;<br>' . oos_draw_input_field('admin_groups_name', $gInfo->admin_groups_name));
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_members'], 'gID=' . $gInfo->admin_groups_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 

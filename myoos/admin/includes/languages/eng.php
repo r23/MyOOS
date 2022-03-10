@@ -292,7 +292,7 @@ define('IMAGE_PLUGINS_REMOVE', 'Remove Plugins');
 define('IMAGE_PREVIEW', 'Preview');
 define('IMAGE_RESTORE', 'Restore');
 define('BUTTON_RESET', 'Reset');
-define('IMAGE_SAVE', 'Save');
+define('BUTTON_SAVE', 'Save');
 define('IMAGE_SEARCH', 'Search');
 define('IMAGE_SELECT', 'Select');
 define('BUTTON_SELECT_IMAGE', 'Select image');

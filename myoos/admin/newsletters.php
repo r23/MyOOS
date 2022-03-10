@@ -225,7 +225,7 @@ if (!empty($action)) {
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>
-            <td class="main" align="right"><?php echo(($form_action == 'insert') ? oos_submit_button(IMAGE_SAVE) : oos_submit_button(IMAGE_UPDATE)). '&nbsp;&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
+            <td class="main" align="right"><?php echo(($form_action == 'insert') ? oos_submit_button(BUTTON_SAVE) : oos_submit_button(IMAGE_UPDATE)). '&nbsp;&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $nPage . '&nID=' . $nID) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
           </tr>
         </table></td>
       </form></tr>

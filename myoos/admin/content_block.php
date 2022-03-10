@@ -285,7 +285,7 @@ if (!empty($action)) {
 
       $contents[] = array('text' => '<br><b>' . TABLE_HEADING_SORT_ORDER . ':</b> ' . oos_draw_input_field('sort_order', '', 'size="2"'));
 
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $_GET['bID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $_GET['bID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 
@@ -312,7 +312,7 @@ if (!empty($action)) {
 
       $contents[] = array('text' => '<br><b>' . TABLE_HEADING_SORT_ORDER . ':</b><br>' . oos_draw_input_field('sort_order', $bInfo->block_sort_order, 'size="2"'));
 
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['content_block'], 'page=' . $nPage . '&bID=' . $bInfo->block_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 

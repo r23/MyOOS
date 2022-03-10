@@ -323,7 +323,7 @@
       $contents[] = array('text' => TEXT_INFO_NEW_FILE_INTRO );
       $contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . oos_draw_pull_down_menu('admin_files_name', $show, $show));
       $contents[] = array('text' => oos_draw_hidden_field('admin_files_to_boxes', $_GET['cPath']));
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 

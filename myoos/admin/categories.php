@@ -910,8 +910,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
                   <div class="tab-content">
 					<div class="text-right mt-3 mb-3">   
 						<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($back_url, $back_url_params) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?>		
-						<?php echo oos_submit_button(IMAGE_SAVE); ?>
-						<?php echo oos_reset_button(BUTTON_RESET); ?>			   
+						<?php echo oos_reset_button(BUTTON_RESET); ?>
+						<?php echo oos_submit_button(BUTTON_SAVE); ?>						
 					</div>				  
 					<div class="tab-pane active" id="edit" role="tabpanel">
 
@@ -1387,8 +1387,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
                </div>
             <div class="text-right mt-3">
 				<?php echo '<a  class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($back_url, $back_url_params) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>'; ?>
-				<?php echo oos_submit_button(IMAGE_SAVE); ?>
-				<?php echo oos_reset_button(BUTTON_RESET); ?>			
+				<?php echo oos_reset_button(BUTTON_RESET); ?>
+				<?php echo oos_submit_button(BUTTON_SAVE); ?>
             </div>
 		</form>
 	</div>
@@ -1601,7 +1601,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 
         $contents = array('form' => oos_draw_form('id', 'new_slave_product', $aContents['categories'], 'action=new_slave_product&cPath=' . $cPath . '&pID=' . $pInfo->products_id, 'post', false, 'enctype="multipart/form-data"'));
         $contents[] = array('text' => '<br>' . TEXT_ADD_SLAVE_PRODUCT . '<br>' . oos_draw_input_field('slave_product_id', '', 'size="10"'));
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
 
         $contents[] = array('text' => '<br>' . TEXT_CURRENT_SLAVE_PRODUCTS);
