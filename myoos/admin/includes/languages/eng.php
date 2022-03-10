@@ -289,7 +289,7 @@ define('IMAGE_ORDERS_PACKINGSLIP', 'Packing Slip');
 define('BUTTON_PANORAMA', 'Panorama');
 define('IMAGE_PLUGINS_INSTALL', 'Install Plugins');
 define('IMAGE_PLUGINS_REMOVE', 'Remove Plugins');
-define('IMAGE_PREVIEW', 'Preview');
+define('BUTTON_PREVIEW', 'Preview');
 define('IMAGE_RESTORE', 'Restore');
 define('BUTTON_RESET', 'Reset');
 define('BUTTON_SAVE', 'Save');

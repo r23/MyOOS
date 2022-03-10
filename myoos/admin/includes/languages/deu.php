@@ -293,7 +293,7 @@ define('IMAGE_ORDERS_PACKINGSLIP', 'Lieferschein');
 define('BUTTON_PANORAMA', 'Panorama');
 define('IMAGE_PLUGINS_INSTALL', 'Plugins Installieren');
 define('IMAGE_PLUGINS_REMOVE', 'Plugins Entfernen');
-define('IMAGE_PREVIEW', 'Vorschau');
+define('BUTTON_PREVIEW', 'Vorschau');
 define('BUTTON_RESET', 'Zurücksetzen');
 define('IMAGE_RESTORE', 'Zurücksichern');
 define('BUTTON_SAVE', 'Speichern');

@@ -715,7 +715,7 @@ if ($action == 'delete_panorama') {
     if (isset($pInfo->scene_image) && (oos_is_not_null($pInfo->scene_image))) {
         #	if (isset($pInfo->scene_image) && (!empty($pInfo->scene_image))) {?>
 						<div class="text-right mt-3 mb-5">
-							<?php echo oos_preview_button(IMAGE_PREVIEW, 'scene'); ?>	
+							<?php echo oos_preview_button(BUTTON_PREVIEW, 'scene'); ?>	
 						</div>
 						
 						<div class="row mb-3 pb-3 bb">
@@ -763,7 +763,7 @@ pannellum.viewer('panorama', {
     } else {
         ?>
 						<div class="text-right mt-3 mb-5">
-							<?php echo oos_preview_button(IMAGE_PREVIEW, 'scene'); ?>
+							<?php echo oos_preview_button(BUTTON_PREVIEW, 'scene'); ?>
 						</div>
 			
 						<div id="panorama"></div>			
@@ -1090,7 +1090,7 @@ $spot_array = [];
     if (oos_is_not_null($pInfo->scene_image)) {
         ?>	
 						<div class="text-right mt-3 mb-5">
-							<?php echo oos_preview_button(IMAGE_PREVIEW, 'hotspot'); ?>	
+							<?php echo oos_preview_button(BUTTON_PREVIEW, 'hotspot'); ?>	
 						</div>
 						
 						<div class="row mb-3 pb-3 bb">
@@ -1142,7 +1142,7 @@ pannellum.viewer('panorama_hot', {
     } else {
         ?>
 						<div class="text-right mt-3 mb-5">
-							<?php echo oos_preview_button(IMAGE_PREVIEW, 'hotspot'); ?>	
+							<?php echo oos_preview_button(BUTTON_PREVIEW, 'hotspot'); ?>	
 						</div>
 			
 						<div id="panorama"></div>
