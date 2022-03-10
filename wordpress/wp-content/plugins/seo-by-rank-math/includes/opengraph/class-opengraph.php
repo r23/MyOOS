@@ -192,15 +192,14 @@ class OpenGraph {
 	 */
 	public function get_overlay_image( $network = 'facebook' ) {
 		if ( is_singular() ) {
-			return Helper::get_post_meta( "{$network}_enable_image_overlay" ) ? Helper::get_post_meta( "{$network}_image_overlay" ) : '';
+			return Helper::get_post_meta( "{$network}_enable_image_overlay" ) ? Helper::get_post_meta( "{$network}_image_overlay", '', 'play' ) : '';
 		}
-
 		if ( is_category() || is_tag() || is_tax() ) {
-			return Helper::get_term_meta( "{$network}_enable_image_overlay" ) ? Helper::get_term_meta( "{$network}_image_overlay" ) : '';
+			return Helper::get_term_meta( "{$network}_enable_image_overlay" ) ? Helper::get_term_meta( "{$network}_image_overlay", 0, '', 'play' ) : '';
 		}
 
 		if ( is_author() ) {
-			return Helper::get_user_meta( "{$network}_enable_image_overlay" ) ? Helper::get_user_meta( "{$network}_image_overlay" ) : '';
+			return Helper::get_user_meta( "{$network}_enable_image_overlay" ) ? Helper::get_user_meta( "{$network}_image_overlay", 0, 'play' ) : '';
 		}
 
 		return '';

@@ -178,6 +178,7 @@ class System_Status {
 			'rank_math_analytics_ga'              => esc_html__( 'Database Table: Google Analytics', 'rank-math' ),
 			'rank_math_analytics_adsense'         => esc_html__( 'Database Table: Google AdSense', 'rank-math' ),
 			'rank_math_analytics_keyword_manager' => esc_html__( 'Database Table: Keyword Manager', 'rank-math' ),
+			'rank_math_analytics_inspections'     => esc_html__( 'Database Table: Inspections', 'rank-math' ),
 		];
 
 		if ( ! defined( 'RANK_MATH_PRO_FILE' ) ) {
@@ -228,6 +229,13 @@ class System_Status {
 		$this->wp_info = [ 'rank-math' => $rankmath_data ] + $core_data;
 	}
 
+	/**
+	 * Get Table size.
+	 *
+	 * @param string $table Table name.
+	 *
+	 * @return int Table size.
+	 */
 	public function get_table_size( $table ) {
 		global $wpdb;
 		$size = (int) $wpdb->get_var( 'SELECT SUM((data_length + index_length)) AS size FROM information_schema.TABLES WHERE table_schema="' . $wpdb->dbname . '" AND (table_name="' . $wpdb->prefix . $table . '")' ); // phpcs:ignore

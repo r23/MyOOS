@@ -76,10 +76,11 @@ trait WordPress {
 	 * @param  string $key      Internal key of the value to get (without prefix).
 	 * @param  mixed  $term     Term to get the meta value for either (string) term name, (int) term ID or (object) term.
 	 * @param  string $taxonomy Name of the taxonomy to which the term is attached.
+	 * @param  string $default  Default value to use.
 	 * @return mixed
 	 */
-	public static function get_term_meta( $key, $term = 0, $taxonomy = '' ) {
-		return Term::get_meta( $key, $term, $taxonomy );
+	public static function get_term_meta( $key, $term = 0, $taxonomy = '', $default = '' ) {
+		return Term::get_meta( $key, $term, $taxonomy, $default );
 	}
 
 	/**
@@ -89,10 +90,11 @@ trait WordPress {
 	 *
 	 * @param  string $key  Internal key of the value to get (without prefix).
 	 * @param  mixed  $user User to get the meta value for either (int) user ID or (object) user.
+	 * @param  string $default  Default value to use.
 	 * @return mixed
 	 */
-	public static function get_user_meta( $key, $user = 0 ) {
-		return User::get_meta( $key, $user );
+	public static function get_user_meta( $key, $user = 0, $default = '' ) {
+		return User::get_meta( $key, $user, $default );
 	}
 
 	/**

@@ -53,23 +53,6 @@
 				border-right-width: 0;
 				border-left-width: 11px;
 			}
-
-			@keyframes bounce {
-				from {
-					transform: translateY(0px);
-				}
-				to {
-					transform: translateY(-5px);
-				}
-			}
-			@-webkit-keyframes bounce {
-				from {
-					transform: translateY(0px);
-				}
-				to {
-					transform: translateY(-5px);
-				}
-			}
 		}
 
 		i {

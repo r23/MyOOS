@@ -99,6 +99,7 @@ class Installer {
 		$tables[] = $wpdb->prefix . 'rank_math_internal_meta';
 		$tables[] = $wpdb->prefix . 'rank_math_analytics_gsc';
 		$tables[] = $wpdb->prefix . 'rank_math_analytics_objects';
+		$tables[] = $wpdb->prefix . 'rank_math_analytics_inspections';
 
 		return $tables;
 	}

@@ -2612,9 +2612,6 @@ msgstr ""
 msgid "Clear analytics cache to re-calculate all the stats again."
 msgstr ""
 
-msgid "here"
-msgstr ""
-
 msgid "Clear Cache"
 msgstr ""
 
@@ -3672,6 +3669,9 @@ msgstr ""
 msgid "Database Table: Keyword Manager"
 msgstr ""
 
+msgid "Database Table: Inspections"
+msgstr ""
+
 msgid "Not found"
 msgstr ""
 
@@ -4679,6 +4679,12 @@ msgstr ""
 msgid "Site"
 msgstr ""
 
+msgid "Enable the Index Status tab"
+msgstr ""
+
+msgid "Enable this option to show the Index Status tab in the Analytics module."
+msgstr ""
+
 msgid "Property"
 msgstr ""
 
@@ -4841,6 +4847,9 @@ msgstr ""
 msgid "Bad request. Please check the code."
 msgstr ""
 
+msgid "Unknown error, call get_response() to find out what happened."
+msgstr ""
+
 msgid "Sorry, no preference found."
 msgstr ""
 
@@ -4939,6 +4948,9 @@ msgstr ""
 
 #. translators: 1. Credits left 2. Buy more credits link
 msgid "%1$s credits left. Upgrade to get more credits from %2$s."
+msgstr ""
+
+msgid "here"
 msgstr ""
 
 msgid "Insert URLs to send to the IndexNow API (one per line, up to 10,000):"

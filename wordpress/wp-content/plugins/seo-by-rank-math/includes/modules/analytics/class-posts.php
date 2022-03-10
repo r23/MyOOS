@@ -89,8 +89,8 @@ class Posts extends Objects {
 		);
 
 		return apply_filters( 'rank_math/analytics/post_data', $data, $request );
-
 	}
+
 	/**
 	 * Get posts by objects.
 	 *

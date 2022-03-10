@@ -54,6 +54,15 @@ class DB {
 	}
 
 	/**
+	 * Get inspections table.
+	 *
+	 * @return \MyThemeShop\Database\Query_Builder
+	 */
+	public static function inspections() {
+		return Database::table( 'rank_math_analytics_inspections' );
+	}
+
+	/**
 	 * Delete a record.
 	 *
 	 * @param  int $days Decide whether to delete all or delete 90 days data.
@@ -228,6 +237,77 @@ class DB {
 	}
 
 	/**
+	 * Add new record in the inspections table.
+	 *
+	 * @param array $args Values to insert.
+	 *
+	 * @return bool|int
+	 */
+	public static function store_inspection( $args = [] ) {
+		if ( empty( $args ) || empty( $args['page'] ) ) {
+			return false;
+		}
+
+		unset( $args['id'] );
+
+		$defaults = self::get_inspection_defaults();
+
+		// Only keep $args items that are in $defaults.
+		$args = array_intersect_key( $args, $defaults );
+
+		// Apply defaults.
+		$args = wp_parse_args( $args, $defaults );
+
+		// We only have strings: placeholders will be '%s'.
+		$format = array_fill( 0, count( $args ), '%s' );
+
+		// Check if we have an existing record, based on 'page'.
+		$id = self::inspections()
+			->select( 'id' )
+			->where( 'page', $args['page'] )
+			->getVar();
+
+		if ( $id ) {
+			return self::inspections()
+				->set( $args )
+				->where( 'id', $id )
+				->update();
+		}
+
+		return self::inspections()->insert( $args, $format );
+	}
+
+	/**
+	 * Get inspection defaults.
+	 *
+	 * @return array
+	 */
+	public static function get_inspection_defaults() {
+		$defaults = [
+			'created'                  => current_time( 'mysql' ),
+			'page'                     => '',
+			'index_verdict'            => 'VERDICT_UNSPECIFIED',
+			'indexing_state'           => 'INDEXING_STATE_UNSPECIFIED',
+			'coverage_state'           => '',
+			'page_fetch_state'         => 'PAGE_FETCH_STATE_UNSPECIFIED',
+			'robots_txt_state'         => 'ROBOTS_TXT_STATE_UNSPECIFIED',
+			'mobile_usability_verdict' => 'VERDICT_UNSPECIFIED',
+			'mobile_usability_issues'  => '',
+			'rich_results_verdict'     => 'VERDICT_UNSPECIFIED',
+			'rich_results_items'       => '',
+			'last_crawl_time'          => '',
+			'crawled_as'               => 'CRAWLING_USER_AGENT_UNSPECIFIED',
+			'google_canonical'         => '',
+			'user_canonical'           => '',
+			'sitemap'                  => '',
+			'referring_urls'           => '',
+			'raw_api_response'         => '',
+		];
+
+		return apply_filters( 'rank_math/analytics/inspection_defaults', $defaults );
+	}
+
+	/**
 	 * Add/Update a record into/from objects table.
 	 *
 	 * @param array $args Values to update.
@@ -365,5 +445,48 @@ class DB {
 		}
 
 		return $number;
+	}
+
+	/**
+	 * Get all inspections.
+	 *
+	 * @param array $params   REST Parameters.
+	 * @param int   $per_page Limit.
+	 */
+	public static function get_inspections( $params, $per_page ) {
+		$page     = ! empty( $params['page'] ) ? absint( $params['page'] ) : 1;
+		$per_page = absint( $per_page );
+		$offset   = ( $page - 1 ) * $per_page;
+
+		$table1 = self::inspections()->table;
+		$table2 = self::objects()->table;
+
+		$query = self::inspections()
+			->select( [ "$table1.*", "$table2.title", "$table2.object_id" ] )
+			->leftJoin( $table2, "$table1.page", "$table2.page" )
+			->where( "$table2.page", '!=', '' )
+			->orderBy( 'id', 'DESC' )
+			->limit( $per_page, $offset );
+
+		do_action_ref_array( 'rank_math/analytics/get_inspections_query', [ &$query, $params ] );
+
+		$results = $query->get();
+
+		return apply_filters( 'rank_math/analytics/get_inspections_results', $results );
+	}
+
+	/**
+	 * Get inspections count.
+	 *
+	 * @param array $params   REST Parameters.
+	 *
+	 * @return int
+	 */
+	public static function get_inspections_count( $params ) {
+		$query = self::inspections()->selectCount( 'id', 'total' );
+
+		do_action_ref_array( 'rank_math/analytics/get_inspections_count_query', [ &$query, $params ] );
+
+		return $query->getVar();
 	}
 }

@@ -16,7 +16,6 @@ use RankMath\Google\Api;
 use RankMath\Module\Base;
 use MyThemeShop\Admin\Page;
 use MyThemeShop\Helpers\Arr;
-use MyThemeShop\Helpers\Str;
 use RankMath\Google\Console;
 use RankMath\Google\Authentication;
 use MyThemeShop\Helpers\Conditional;
@@ -68,7 +67,7 @@ class Analytics extends Base {
 		if ( is_admin() ) {
 			$this->filter( 'rank_math/database/tools', 'add_tools' );
 			$this->filter( 'rank_math/settings/general', 'add_settings' );
-			$this->action( 'admin_init', 'refres_token_missing', 25 );
+			$this->action( 'admin_init', 'refresh_token_missing', 25 );
 			$this->action( 'admin_init', 'cancel_fetch', 5 );
 
 			new OAuth();
@@ -95,7 +94,7 @@ class Analytics extends Base {
 	/**
 	 * If refresh token missing add notice.
 	 */
-	public function refres_token_missing() {
+	public function refresh_token_missing() {
 		// Bail if the user is not authenticated at all yet.
 		if ( ! Helper::is_site_connected() || ! Authentication::is_authorized() ) {
 			return;
@@ -157,6 +156,16 @@ class Analytics extends Base {
 			$action         = current( $actions );
 			$schedule       = $action->get_schedule();
 			$next_timestamp = $schedule->get_date()->getTimestamp();
+
+			// Calculate extra time needed for the inspections.
+			$objects_count   = DB::objects()->selectCount( 'id' )->getVar();
+			$daily_api_limit = \RankMath\Analytics\Workflow\Inspections::API_LIMIT;
+			$time_gap        = \RankMath\Analytics\Workflow\Inspections::REQUEST_GAP_SECONDS;
+			$extra_time      = $objects_count * $time_gap;
+			if ( $objects_count > $daily_api_limit ) {
+				$extra_time += DAY_IN_SECONDS * floor( $objects_count / $daily_api_limit );
+			}
+
 			// phpcs:disable
 			$notification   = new \MyThemeShop\Notification(
 				/* translators: delete counter */
@@ -164,7 +173,7 @@ class Analytics extends Base {
 					'<svg style="vertical-align: middle; margin-right: 5px" viewBox="0 0 462.03 462.03" xmlns="http://www.w3.org/2000/svg" width="20"><g><path d="m462 234.84-76.17 3.43 13.43 21-127 81.18-126-52.93-146.26 60.97 10.14 24.34 136.1-56.71 128.57 54 138.69-88.61 13.43 21z"></path><path d="m54.1 312.78 92.18-38.41 4.49 1.89v-54.58h-96.67zm210.9-223.57v235.05l7.26 3 89.43-57.05v-181zm-105.44 190.79 96.67 40.62v-165.19h-96.67z"></path></g></svg>' .
 					esc_html__( 'Rank Math is importing latest data from connected Google Services, %1$s remaining.', 'rank-math' ) .
 					'&nbsp;<a href="%2$s">' . esc_html__( 'Cancel Fetch', 'rank-math' ) . '</a>',
-					$this->human_interval( $next_timestamp - gmdate( 'U' ) ),
+					$this->human_interval( $next_timestamp - gmdate( 'U' ) + $extra_time ),
 					esc_url( wp_nonce_url( add_query_arg( 'cancel-fetch', 1 ), 'rank_math_cancel_fetch' ) )
 				),
 				[
@@ -368,6 +377,13 @@ class Analytics extends Base {
 					'position'        => true,
 					'positionHistory' => true,
 				],
+				'indexing' => [
+					'index_verdict'            => true,
+					'indexing_state'           => true,
+					'mobile_usability_verdict' => true,
+					'rich_results_items'       => true,
+					'page_fetch_state'         => false,
+				],
 			]
 		);
 
@@ -387,6 +403,20 @@ class Analytics extends Base {
 		Helper::add_json( 'lastUpdated', $updated );
 
 		Helper::add_json( 'singleImage', rank_math()->plugin_url() . 'includes/modules/analytics/assets/img/single-post-report.jpg' );
+
+		// Index Status tab.
+		$profile = get_option( 'rank_math_google_analytic_profile', [] );
+		$enable_index_status = true;
+		if ( is_array( $profile ) && isset( $profile['enable_index_status'] ) ) {
+			$enable_index_status = $profile['enable_index_status'];
+		}
+
+		Helper::add_json( 'enableIndexStatus', $enable_index_status );
+		Helper::add_json( 'viewedIndexStatus', get_option( 'rank_math_viewed_index_status', false ) );
+
+		if ( $enable_index_status ) {
+			update_option( 'rank_math_viewed_index_status', true );
+		}
 	}
 
 	/**
@@ -466,13 +496,13 @@ class Analytics extends Base {
 				'analytics_clear_caches'  => [
 					'title'       => __( 'Purge Analytics Cache', 'rank-math' ),
 					/* translators: 1. Review Schema documentation link */
-					'description' => sprintf( __( 'Clear analytics cache to re-calculate all the stats again.', 'rank-math' ), '<a href="https://rankmath.com/kb/how-to-fix-review-schema-errors/" target="_blank">' . esc_attr__( 'here', 'rank-math' ) . '</a>' ),
+					'description' => __( 'Clear analytics cache to re-calculate all the stats again.', 'rank-math' ),
 					'button_text' => __( 'Clear Cache', 'rank-math' ),
 				],
 				'analytics_reindex_posts' => [
 					'title'       => __( 'Rebuild Index for Analytics', 'rank-math' ),
 					/* translators: 1. Review Schema documentation link */
-					'description' => sprintf( __( 'Missing some posts/pages in the Analytics data? Clear the index and build a new one for more accurate stats.', 'rank-math' ), '<a href="https://rankmath.com/kb/how-to-fix-review-schema-errors/" target="_blank">' . esc_attr__( 'here', 'rank-math' ) . '</a>' ),
+					'description' => __( 'Missing some posts/pages in the Analytics data? Clear the index and build a new one for more accurate stats.', 'rank-math' ),
 					'button_text' => __( 'Rebuild Index', 'rank-math' ),
 				],
 			],

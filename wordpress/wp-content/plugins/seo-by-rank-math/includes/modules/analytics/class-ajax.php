@@ -53,14 +53,16 @@ class AJAX {
 		check_ajax_referer( 'rank-math-ajax-nonce', 'security' );
 		$this->has_cap_ajax( 'analytics' );
 
-		$profile = Param::post( 'profile' );
-		$country = Param::post( 'country', 'all' );
-		$days    = Param::get( 'days', 90, FILTER_VALIDATE_INT );
+		$profile             = Param::post( 'profile' );
+		$country             = Param::post( 'country', 'all' );
+		$days                = Param::get( 'days', 90, FILTER_VALIDATE_INT );
+		$enable_index_status = Param::post( 'enableIndexStatus', false, FILTER_VALIDATE_BOOLEAN );
 
 		$prev  = get_option( 'rank_math_google_analytic_profile', [] );
 		$value = [
-			'country' => $country,
-			'profile' => $profile,
+			'country'             => $country,
+			'profile'             => $profile,
+			'enable_index_status' => $enable_index_status,
 		];
 		update_option( 'rank_math_google_analytic_profile', $value );
 
@@ -93,15 +95,15 @@ class AJAX {
 		$this->has_cap_ajax( 'analytics' );
 
 		$value = [
-			'account_id'       => Param::post( 'accountID', false, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK ),
-			'property_id'      => Param::post( 'propertyID', false, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK ),
-			'view_id'          => Param::post( 'viewID', false, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK ),
-			'country'          => Param::post( 'country', 'all', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_BACKTICK ),
-			'install_code'     => Param::post( 'installCode', false, FILTER_VALIDATE_BOOLEAN ),
-			'anonymize_ip'     => Param::post( 'anonymizeIP', false, FILTER_VALIDATE_BOOLEAN ),
-			'local_ga_js'      => Param::post( 'localGAJS', false, FILTER_VALIDATE_BOOLEAN ),
-			'cookieless_ga'    => Param::post( 'cookielessGA', false, FILTER_VALIDATE_BOOLEAN ),
-			'exclude_loggedin' => Param::post( 'excludeLoggedin', false, FILTER_VALIDATE_BOOLEAN ),
+			'account_id'          => Param::post( 'accountID', false, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK ),
+			'property_id'         => Param::post( 'propertyID', false, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK ),
+			'view_id'             => Param::post( 'viewID', false, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_BACKTICK ),
+			'country'             => Param::post( 'country', 'all', FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_BACKTICK ),
+			'install_code'        => Param::post( 'installCode', false, FILTER_VALIDATE_BOOLEAN ),
+			'anonymize_ip'        => Param::post( 'anonymizeIP', false, FILTER_VALIDATE_BOOLEAN ),
+			'local_ga_js'         => Param::post( 'localGAJS', false, FILTER_VALIDATE_BOOLEAN ),
+			'cookieless_ga'       => Param::post( 'cookielessGA', false, FILTER_VALIDATE_BOOLEAN ),
+			'exclude_loggedin'    => Param::post( 'excludeLoggedin', false, FILTER_VALIDATE_BOOLEAN ),
 		];
 
 		$prev = get_option( 'rank_math_google_analytic_options' );

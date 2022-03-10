@@ -43,8 +43,8 @@ class Monitor {
 			$this->action( 'rank_math/dashboard/widget', 'dashboard_widget', 11 );
 		}
 
-		$hook = defined( 'CT_VERSION' ) ? 'oxygen_enqueue_frontend_scripts' : 'get_header';
-		$this->action( $hook, 'capture_404' );
+		$this->action( $this->get_hook(), 'capture_404' );
+
 		if ( Helper::has_cap( '404_monitor' ) ) {
 			$this->action( 'rank_math/admin_bar/items', 'admin_bar_items', 11 );
 		}
@@ -179,7 +179,7 @@ class Monitor {
 			return '';
 		}
 
-		$parsed = $this->parse_user_agent( $u_agent );
+		$parsed  = $this->parse_user_agent( $u_agent );
 		$nice_ua = '';
 		if ( ! empty( $parsed['browser'] ) ) {
 			$nice_ua .= $parsed['browser'];
@@ -217,5 +217,22 @@ class Monitor {
 			'browser'  => $agent->browser(),
 			'version'  => $agent->browserVersion(),
 		];
+	}
+
+	/**
+	 * Function to get the hook name depending on the theme.
+	 *
+	 * @return string WP hook.
+	 */
+	private function get_hook() {
+		if ( defined( 'CT_VERSION' ) ) {
+			return 'oxygen_enqueue_frontend_scripts';
+		}
+
+		if ( function_exists( 'wp_is_block_theme' ) && wp_is_block_theme() ) {
+			return 'wp_head';
+		}
+
+		return 'get_header';
 	}
 }

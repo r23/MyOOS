@@ -188,7 +188,6 @@ class Analytics_Common {
 		}
 	}
 
-
 	/**
 	 * Enable the email reports option if the `enable_email_reports` param is set.
 	 *

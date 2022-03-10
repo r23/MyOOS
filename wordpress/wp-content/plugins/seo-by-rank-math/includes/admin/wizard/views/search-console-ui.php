@@ -10,6 +10,7 @@ use RankMath\KB;
 use RankMath\Helper;
 use RankMath\Google\Authentication;
 use RankMath\Google\Permissions;
+use RankMath\Analytics\Url_Inspection;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -47,11 +48,12 @@ $analytics = wp_parse_args(
 		'exclude_loggedin' => false,
 	]
 );
-$is_profile_connected   = ! empty( $profile['profile'] );
-$is_adsense_connected   = ! empty( $analytics['adsense_id'] );
-$is_analytics_connected = ! empty( $analytics['view_id'] );
-$all_services           = get_option( 'rank_math_analytics_all_services' );
-$is_pro_active          = defined( 'RANK_MATH_PRO_FILE' );
+$is_profile_connected    = ! empty( $profile['profile'] );
+$is_adsense_connected    = ! empty( $analytics['adsense_id'] );
+$is_analytics_connected  = ! empty( $analytics['view_id'] );
+$is_index_status_enabled = Url_Inspection::is_enabled() || ! $is_profile_connected;
+$all_services            = get_option( 'rank_math_analytics_all_services' );
+$is_pro_active           = defined( 'RANK_MATH_PRO_FILE' );
 ?>
 <input type="hidden" class="cmb2-id-check-all-services" value="<?php echo $is_profile_connected && $is_analytics_connected ? '1' : '0'; ?>" />
 
@@ -90,6 +92,21 @@ $console_classes = Helper::classnames(
 				</select>
 			</div>
 			<?php do_action( 'rank_math/analytics/options/console' ); ?>
+		</div>
+
+
+		<div class="cmb-row cmb-type-toggle">
+			<div class="cmb-td">
+				<label class="cmb2-toggle">
+					<input type="checkbox" class="regular-text notrack" name="enable-index-status" id="enable-index-status" value="on"<?php checked( $is_index_status_enabled ); ?> <?php echo disabled( ! $is_profile_connected ) ?>>
+					<span class="cmb2-slider">
+						<svg width="3" height="8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 6" class="toggle_on" role="img" aria-hidden="true" focusable="false"><path d="M0 0h2v6H0z"></path></svg>
+						<svg width="8" height="8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 6 6" class="toggle_off" role="img" aria-hidden="true" focusable="false"><path d="M3 1.5c.8 0 1.5.7 1.5 1.5S3.8 4.5 3 4.5 1.5 3.8 1.5 3 2.2 1.5 3 1.5M3 0C1.3 0 0 1.3 0 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"></path></svg>
+					</span>
+				</label>
+				<label for="enable-index-status"><?php esc_html_e( 'Enable the Index Status tab', 'rank-math' ); ?></label>
+				<div class="cmb2-metabox-description"><?php esc_html_e( 'Enable this option to show the Index Status tab in the Analytics module.', 'rank-math' ); ?> <a href="<?php echo KB::get( 'url-inspection-api' ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Learn more.', 'rank-math' ); ?></a></div>
+			</div>
 		</div>
 	</div>
 </div>

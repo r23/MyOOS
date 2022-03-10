@@ -81,6 +81,8 @@ class Console extends Base {
 		} catch ( Exception $e ) { // phpcs:ignore
 			// Will log.
 		}
+
+		\RankMath\Helper::check_collation( $table );
 	}
 
 	/**

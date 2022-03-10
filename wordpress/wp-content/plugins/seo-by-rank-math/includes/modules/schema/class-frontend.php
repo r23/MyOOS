@@ -136,11 +136,15 @@ class Frontend {
 	 * @return array
 	 */
 	public function validate_event_schema( $schema ) {
-		if ( empty( $schema['startDate'] ) ) {
-			return $schema;
+		if ( ! empty( $schema['startDate'] ) ) {
+			$start_date          = Helper::convert_date( strtotime( $schema['startDate'] ), true );
+			$schema['startDate'] = str_replace( ' ', 'T', $start_date );
 		}
 
-		$schema['startDate'] = str_replace( ' ', 'T', Helper::convert_date( $schema['startDate'], true ) );
+		if ( ! empty( $schema['endDate'] ) ) {
+			$end_date          = Helper::convert_date( strtotime( $schema['endDate'] ), true );
+			$schema['endDate'] = str_replace( ' ', 'T', $end_date );
+		}
 
 		return $schema;
 	}

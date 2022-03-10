@@ -49,6 +49,7 @@ class KB {
 		'sw-analytics-kb'             => 'https://rankmath.com/kb/analytics/?utm_source=Plugin&utm_medium=SW%20Analytics%20Step%20Description&utm_campaign=WP',
 		'benefits-analytics-kb'       => 'https://rankmath.com/kb/analytics/?utm_source=Plugin&utm_medium=SW%20Analytics%20Step%20Benefits&utm_campaign=WP',
 		'settings-gdpr-analytics'     => 'https://rankmath.com/blog/google-analytics-gdpr/?utm_source=Plugin&utm_medium=SW%20Analytics%20GDPR%20Option&utm_campaign=WP',
+		'url-inspection-api'          => 'https://rankmath.com/kb/url-inspection-api-integration/?utm_source=Plugin&utm_medium=SW%20Analytics%20Index%20Status%20Option&utm_campaign=WP',
 		'seo-analysis-gsc-test'       => 'https://rankmath.com/kb/analytics/?utm_source=Plugin&utm_medium=SEO%20Analysis%20GSC%20Test&utm_campaign=WP',
 		'remove-category-base'        => 'https://rankmath.com/kb/general-settings/?utm_source=Plugin&utm_campaign=WP#strip-category-base',
 		'link-settings'               => 'https://rankmath.com/kb/general-settings/?utm_source=Plugin&utm_campaign=WP#links',

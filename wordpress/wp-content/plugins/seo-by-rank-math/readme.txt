@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.9
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.83
+Stable tag: 1.0.84
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -580,14 +580,15 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.83 [Feb 23, 2022] =
-* Added: [NEW!] Dedicated [Content Analysis tests](https://rankmath.com/blog/woocommerce-seo/?play-video=ba2u_siPqig&start-time=1311) for WooCommerce & EDD Products in the PRO version
-* Added: New test in the Content Analysis to check if the [Content AI](https://rankmath.com/kb/how-to-use-content-ai/) is used or not
-* Improved: Replaced tooltip toggle of each Content Analysis test with the respective [KB article](https://rankmath.com/kb/score-100-in-tests/) for better contextual help
-* Fixed: Some Content Analysis tests were getting hidden on posts with a Russian focus keyword
-* Fixed: [External and Internal link tests](https://rankmath.com/kb/score-100-in-tests/#linking-to-external-sources) were not working well on some sites with the Russian language
-* Fixed: [Image Overlay](https://rankmath.com/kb/meta-box-social-tab/#add-icon-overlay-to-thumbnails) feature was not working on some setups
-* Fixed: [Export Redirections to .htaccess/nginx](https://rankmath.com/kb/setting-up-redirections/#backing-up-your-redirects) was only exporting 1000 URLs
-* Fixed: Content AI's [media count test](https://rankmath.com/kb/how-to-use-content-ai/#num-6-5-media-count) was not updating instantly after adding a Featured Image in the Classic editor
+= 1.0.84 [Mar 09, 2022] =
+* Added: [HUGE!] [Google URL Inspection API Integration](https://rankmath.com/kb/url-inspection-api-integration/) in our Analytics Module, now you can see current Index Staus, Earned Rich Results, Errors & Warnings from Google directly in your WordPress backend!
+* Improved: [Keyword in URL](https://rankmath.com/kb/score-100-in-tests/#focus-keyword-in-the-url-primary-focus-keyword-only) test now detects the Focus Keyword in the parent page slug and domain name
+* Improved: Made several code improvements
+* Fixed: [404 Monitor](https://rankmath.com/kb/advanced-404-monitor/) was not working on the Full Site Editing sites
+* Fixed: [Thumbnail Overlay](https://rankmath.com/kb/meta-box-social-tab/#add-icon-overlay-to-thumbnails) option was not working on some setups
+* Fixed: SEO data was not updating in the Divi Page Builder's editor on the sub-folder installation
+* Fixed: [SERP Preview](https://rankmath.com/kb/general-tab/#the-preview-section) was showing text from the commented code
+* Fixed: The `startDate` field in [Event schema](https://rankmath.com/kb/rich-snippets/#event) was not accepting the variables
+* Fixed: [Content AI](https://rankmath.com/content-ai/) style on RTL sites
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**
