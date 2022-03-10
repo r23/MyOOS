@@ -1,0 +1,44 @@
+.wp-block-three-object-block {
+	background-color: #fff;
+	color: #000;
+	padding: 2px;
+}
+
+.wp-block-three-object-block {
+	border: 1px dotted #f00;
+}
+ .glb-preview-container {
+	 padding: 100px;
+	 text-align: center;
+	 align-items: center;
+	 align-content: center;
+	 background-color:#f2f2f2;
+ }
+
+ .glb-preview-container button{
+	padding: 10px;
+	border-radius: 30px;
+	background-color:#333;
+	color: white;
+}
+
+.three-object-block-tip {
+	overflow-wrap: break-word;
+	background-color: black;
+	color: white;
+	padding: 10px;
+	font-weight: 500;
+	max-width: 160px;
+	font-size: 14px;
+	margin-top: 0px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.glb-preview-container button:hover{
+	padding: 10px;
+	border-radius: 30px;
+	background-color:rgb(69, 69, 69);
+	color: white;
+	cursor: pointer;
+}
