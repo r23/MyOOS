@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-02-23 11:05:02+0000\n"
+"PO-Revision-Date: 2022-03-09 13:36:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,22 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-alpha.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
+
+#: includes/modules/status/class-system-status.php:181
+msgid "Database Table: Inspections"
+msgstr "Datenbanktabelle: Inspektionen"
+
+#: includes/modules/analytics/google/class-request.php:231
+msgid "Unknown error, call get_response() to find out what happened."
+msgstr "Unbekannter Fehler, rufe get_response() an, um herauszufinden, was passiert ist."
+
+#: includes/admin/wizard/views/search-console-ui.php:108
+msgid "Enable this option to show the Index Status tab in the Analytics module."
+msgstr "Aktiviere diese Option, um die Registerkarte Indexstatus im Analytics-Modul anzuzeigen."
+
+#: includes/admin/wizard/views/search-console-ui.php:107
+msgid "Enable the Index Status tab"
+msgstr "Aktivieren der Registerkarte Indexstatus"
 
 #. Translators: Placeholder expands to number of redirections.
 #: includes/modules/redirections/class-import-export.php:53
@@ -712,7 +728,7 @@ msgstr "Ich habe bereits gekauft"
 msgid "Yes, I want better SEO"
 msgstr "Ja, ich will besseres SEO"
 
-#: includes/modules/analytics/class-analytics-common.php:297
+#: includes/modules/analytics/class-analytics-common.php:296
 #: includes/modules/analytics/assets/js/stats.js:1
 msgid "Average position of all the ranking keywords below 100 position."
 msgstr "Durchschnittliche Position aller rangierenden Schlüsselwort unter Position 100."
@@ -803,11 +819,11 @@ msgstr "Symbol für externe Links"
 msgid "Every 30 days"
 msgstr "Alle 30 Tage"
 
-#: includes/admin/wizard/views/search-console-ui.php:324
+#: includes/admin/wizard/views/search-console-ui.php:341
 msgid "Learn more about Email Reports."
 msgstr "Erfahre mehr über E-Mail-Berichte."
 
-#: includes/admin/wizard/views/search-console-ui.php:324
+#: includes/admin/wizard/views/search-console-ui.php:341
 msgid "Receive Analytics reports periodically in email."
 msgstr "Erhalte regelmäßig Analytics-Berichte per E-Mail."
 
@@ -823,8 +839,8 @@ msgstr "E-Mail-Häufigkeit"
 msgid "Turn on email reports."
 msgstr "Aktiviere E-Mail-Berichte."
 
-#: includes/admin/wizard/views/search-console-ui.php:323
-#: includes/admin/wizard/views/search-console-ui.php:328
+#: includes/admin/wizard/views/search-console-ui.php:340
+#: includes/admin/wizard/views/search-console-ui.php:345
 #: includes/modules/analytics/views/options.php:114
 #: includes/modules/analytics/views/options.php:129
 msgid "Email Reports"
@@ -887,7 +903,7 @@ msgstr "Importiere alle Weiterleitungen, die du bereits in Yoast Premium eingeri
 msgid "Since you are using an NGINX server, you may need to add the following code to your %s <strong>if your Sitemap pages are not loading</strong>. If you are unsure how to do it, please contact your hosting provider."
 msgstr "Da du einen NGINX-Server verwendest, musst du möglicherweise den folgenden Code zu deinem %s hinzufügen, <strong>wenn deine Sitemap-Seiten nicht geladen werden</strong>. Wenn du dir nicht sicher bist, wie das geht, wenden dich bitte an deinen Hosting-Anbieter."
 
-#: includes/admin/wizard/views/search-console-ui.php:206
+#: includes/admin/wizard/views/search-console-ui.php:223
 msgid "Enable Cookieless Tracking. Want to make Analytics GDPR ready? %s"
 msgstr "Aktiviere Cookieless Tracking. Möchtest du die Analysen Datenschutzkonform machen? %s"
 
@@ -935,23 +951,23 @@ msgstr "Keine Rank Math Transienten gefunden."
 msgid "Focus Keywords of the current post"
 msgstr "Fokus-Schlüsselworter des aktuellen Beitrags"
 
-#: includes/modules/analytics/class-analytics.php:272
+#: includes/modules/analytics/class-analytics.php:281
 msgid "Cache deleted."
 msgstr "Cache gelöscht."
 
-#: includes/modules/analytics/class-analytics.php:271
+#: includes/modules/analytics/class-analytics.php:280
 msgid "Are you sure you want to disconnect Google services from your site?"
 msgstr "Bist du sicher, dass du die Google-Dienste wirklich von deiner Webseite trennen möchtest?"
 
-#: includes/modules/analytics/class-analytics.php:270
+#: includes/modules/analytics/class-analytics.php:279
 msgid "You are about to delete your 90 days cache."
 msgstr "Du bist dabei deinen 90-Tage-Cache zu löschen."
 
-#: includes/modules/analytics/class-analytics.php:269
+#: includes/modules/analytics/class-analytics.php:278
 msgid "You are about to delete all the previously imported data."
 msgstr "Du bist dabei alle bisher importierten Daten zu löschen."
 
-#: includes/modules/analytics/class-analytics.php:268
+#: includes/modules/analytics/class-analytics.php:277
 msgid "Are you sure you want to do this?"
 msgstr "Bist du sicher, dass du das machen willst?"
 
@@ -960,7 +976,7 @@ msgstr "Bist du sicher, dass du das machen willst?"
 msgid "Locations Sitemap %1$s %2$s"
 msgstr "Standorte-Sitemap %1$s %2$s"
 
-#: includes/admin/wizard/views/search-console-ui.php:231
+#: includes/admin/wizard/views/search-console-ui.php:248
 msgid "Self-Hosted Analytics JS File"
 msgstr "Selbstgehostete Analytics JS-Datei"
 
@@ -1093,15 +1109,15 @@ msgstr "Vergeben"
 msgid "Not Given"
 msgstr "Nicht vergegeben"
 
-#: includes/modules/analytics/class-analytics.php:166
+#: includes/modules/analytics/class-analytics.php:175
 msgid "Cancel Fetch"
 msgstr "Abrufen abbrechen"
 
-#: includes/modules/analytics/class-ajax.php:195
+#: includes/modules/analytics/class-ajax.php:197
 msgid "Data fetching started in the background."
 msgstr "Das Abrufen der Daten wurde im Hintergrund gestartet."
 
-#: includes/modules/analytics/class-ajax.php:161
+#: includes/modules/analytics/class-ajax.php:163
 msgid "Data fetching cancelled."
 msgstr "Datenabruf abgebrochen."
 
@@ -1142,7 +1158,7 @@ msgid "Reset"
 msgstr "Zurücksetzen"
 
 #. translators: Auth URL
-#: includes/modules/analytics/class-analytics.php:114
+#: includes/modules/analytics/class-analytics.php:113
 msgid "It seems like the connection with your Google account & Rank Math needs to be made again. <a href=\"%s\" class=\"rank-math-reconnect-google\">Please click here.</a>"
 msgstr "Es scheint, dass die Verbindung mit deinem Google-Konto und Rank Math erneut hergestellt werden muss. <a href=\"%s\" class=\"rank-math-reconnect-google\"> Bitte klicke hier. </a>"
 
@@ -1159,7 +1175,7 @@ msgid "Import meta information of your terms like the titles, descriptions, robo
 msgstr "Importiere Metainformationen deiner Beiträge/Seiten wie Titel, Beschreibungen, Roboter-Meta, OpenGraph-Informationen etc."
 
 #. translators: reconnect link
-#: includes/modules/analytics/google/class-request.php:153
+#: includes/modules/analytics/google/class-request.php:155
 msgid "There is a problem with the Google auth token. Please <a href=\"%1$s\" class=\"button button-link rank-math-reconnect-google\">reconnect your app</a>"
 msgstr "Es gibt kein Refresh-Token. Bitte <a href=\"%1$s\" class=\"button button-link rank-math-reconnect-google\">Verbinde deine Anwendung erneut</a>"
 
@@ -1329,20 +1345,20 @@ msgstr "Letzte 30 Tage"
 msgid "View Report"
 msgstr "Bericht anzeigen"
 
-#: includes/modules/analytics/class-analytics-common.php:291
+#: includes/modules/analytics/class-analytics-common.php:290
 #: includes/modules/analytics/assets/js/stats.js:1
 msgid "Total number of keywords your site ranking below 100 position."
 msgstr "Gesamtzahl der Schlüsselwörter, die deine Website unter 100 rangiert."
 
-#: includes/admin/wizard/views/search-console-ui.php:302
+#: includes/admin/wizard/views/search-console-ui.php:319
 msgid "Google AdSense support is only available in Rank Math Pro's Advanced Analytics module."
 msgstr "Google AdSense-Unterstützung ist nur im Erweiterten Analytics-Modul von Rank Math Pro verfügbar."
 
-#: includes/admin/wizard/views/search-console-ui.php:167
+#: includes/admin/wizard/views/search-console-ui.php:184
 msgid "Enable this option only if you are not using any other plugin/theme to install Google Analytics code."
 msgstr "Aktiviere diese Option nur dann, wenn du kein anderes Plugin oder Theme verwendest, um den Google-Analytics-Code einzubinden."
 
-#: includes/admin/wizard/views/search-console-ui.php:59
+#: includes/admin/wizard/views/search-console-ui.php:61
 msgid "Reconnect"
 msgstr "Neu verbinden"
 
@@ -1376,8 +1392,8 @@ msgstr "Upgraden"
 msgid "Thank you for updating Rank Math! We've completely revamped our Analytics module with Google Analytics & Google Search Console integrations. For a seamless experience, please re-authenticate your Google account. %1$sClick here to Connect%2$s"
 msgstr "Danke, dass du Rank Math aktualisiert hast. Wir haben unser Analytics-Modul mit Integration von Google Analytics und Google Search Console komplett neu gebaut. Damit diese reibungslos funktioniert, muss du dein Google-Konto neu authentifizieren. %1$sKlick hier, um dich anzumelden%2$s"
 
-#: includes/modules/analytics/class-analytics-common.php:273
-#: includes/modules/analytics/class-analytics-common.php:285
+#: includes/modules/analytics/class-analytics-common.php:272
+#: includes/modules/analytics/class-analytics-common.php:284
 msgid "This is the number of pageviews carried out by visitors from Google."
 msgstr "Dies ist die Anzahl der Seiten, die Besucher von Google aufgerufen haben."
 
@@ -1386,11 +1402,11 @@ msgstr "Dies ist die Anzahl der Seiten, die Besucher von Google aufgerufen haben
 msgid "Posts"
 msgstr "Beiträge"
 
-#: includes/modules/analytics/class-analytics-common.php:272
+#: includes/modules/analytics/class-analytics-common.php:271
 msgid "Search Traffic"
 msgstr "Such-Traffic"
 
-#: includes/modules/analytics/class-analytics-common.php:279
+#: includes/modules/analytics/class-analytics-common.php:278
 #: includes/modules/analytics/assets/js/stats.js:1
 msgid "How many times your site showed up in the search results."
 msgstr "Gibt an, wie oft deine Website in den Suchergbnissen angezeigt wurde."
@@ -1407,50 +1423,50 @@ msgstr "Nachrichten-Einstellungen erfolgreich importiert."
 msgid "Connect Google Services"
 msgstr "Google-Dienste verbinden"
 
-#: includes/admin/wizard/views/search-console-ui.php:276
+#: includes/admin/wizard/views/search-console-ui.php:293
 msgid "AdSense"
 msgstr "AdSense"
 
-#: includes/admin/wizard/views/search-console-ui.php:255
+#: includes/admin/wizard/views/search-console-ui.php:272
 msgid "Exclude Logged-in users"
 msgstr "Angemeldete Benutzer ausschließen"
 
-#: includes/admin/wizard/views/search-console-ui.php:185
-#: includes/admin/wizard/views/search-console-ui.php:210
-#: includes/admin/wizard/views/search-console-ui.php:235
-#: includes/admin/wizard/views/search-console-ui.php:302
+#: includes/admin/wizard/views/search-console-ui.php:202
+#: includes/admin/wizard/views/search-console-ui.php:227
+#: includes/admin/wizard/views/search-console-ui.php:252
+#: includes/admin/wizard/views/search-console-ui.php:319
 #: includes/module/class-manager.php:383
 #: includes/modules/analytics/views/options.php:137
 msgid "PRO"
 msgstr "PRO"
 
-#: includes/admin/wizard/views/search-console-ui.php:181
+#: includes/admin/wizard/views/search-console-ui.php:198
 msgid "Anonymize IP addresses"
 msgstr "IP-Adressen anonymisieren"
 
-#: includes/admin/wizard/views/search-console-ui.php:166
+#: includes/admin/wizard/views/search-console-ui.php:183
 msgid "Install analytics code"
 msgstr "Analytics-Code installieren"
 
-#: includes/admin/wizard/views/search-console-ui.php:144
+#: includes/admin/wizard/views/search-console-ui.php:161
 msgid "View"
 msgstr "Anzeigen"
 
-#: includes/admin/wizard/views/search-console-ui.php:85
+#: includes/admin/wizard/views/search-console-ui.php:87
 msgid "Site"
 msgstr "Website"
 
 #: includes/admin/wizard/views/google-connect.php:37
 #: includes/admin/wizard/views/rank-math-connect.php:39
-#: includes/admin/wizard/views/search-console-ui.php:313
+#: includes/admin/wizard/views/search-console-ui.php:330
 msgid "We do not store any of the data from your Google account on our servers, everything is processed & stored on your server. We take your privacy extremely seriously and ensure it is never misused. %s"
 msgstr "Wir speichern keinerlei Daten aus deinem Google-Konto auf unseren Servern, alles wird auf deinem Server verarbeitet und gespeichert. Wir nehmen den Schutz deiner Daten extrem ernst und stellen sich, dass sie nie missbraucht werden. %s"
 
-#: includes/admin/wizard/views/search-console-ui.php:133
+#: includes/admin/wizard/views/search-console-ui.php:150
 msgid "Property"
 msgstr "Eigentum"
 
-#: includes/admin/wizard/views/search-console-ui.php:59
+#: includes/admin/wizard/views/search-console-ui.php:61
 msgid "Disconnect"
 msgstr "Verbindung trennen"
 
@@ -1746,7 +1762,7 @@ msgstr "Südafrika"
 msgid "Singapore"
 msgstr "Singapur"
 
-#: includes/modules/analytics/class-analytics.php:476
+#: includes/modules/analytics/class-analytics.php:506
 msgid "Rebuild Index"
 msgstr "Index neu aufbauen"
 
@@ -1784,19 +1800,19 @@ msgid "Analytics cache cleared."
 msgstr "Analytics-Cache geleert."
 
 #. translators: 1. Review Schema documentation link
-#: includes/modules/analytics/class-analytics.php:475
+#: includes/modules/analytics/class-analytics.php:505
 msgid "Missing some posts/pages in the Analytics data? Clear the index and build a new one for more accurate stats."
 msgstr "Fehlen Beiträge / Seiten in den Analytics-Daten? Für genauere Statistiken leere den Index und erstelle einen neuen."
 
-#: includes/modules/analytics/class-analytics.php:473
+#: includes/modules/analytics/class-analytics.php:503
 msgid "Rebuild Index for Analytics"
 msgstr "Analytics-Index neu erstellen"
 
-#: includes/modules/analytics/class-analytics.php:470
+#: includes/modules/analytics/class-analytics.php:500
 msgid "Clear Cache"
 msgstr "Cache leeren"
 
-#: includes/modules/analytics/rest/class-rest.php:150
+#: includes/modules/analytics/rest/class-rest.php:115
 msgid "Sorry, no preference found."
 msgstr "Keine Präferenz gefunden."
 
@@ -1824,73 +1840,73 @@ msgid "Connect Your Rank Math Account"
 msgstr "Verbinde dein Rank-Math-Konto"
 
 #. translators: 1. Review Schema documentation link
-#: includes/modules/analytics/class-analytics.php:469
+#: includes/modules/analytics/class-analytics.php:499
 msgid "Clear analytics cache to re-calculate all the stats again."
 msgstr "Analytics-Cache leeren, um alle Statistiken neu zu berechnen."
 
-#: includes/modules/analytics/class-analytics.php:467
+#: includes/modules/analytics/class-analytics.php:497
 msgid "Purge Analytics Cache"
 msgstr "Analytics-Cache entleeren"
 
 #. translators: Link to kb article
-#: includes/modules/analytics/class-analytics.php:445
+#: includes/modules/analytics/class-analytics.php:475
 msgid "See your Google Search Console, Analytics and AdSense data without leaving your WP dashboard. %s."
 msgstr "Sieh deine Daten aus Google Search Console, Analytics und AdSense, ohne dein WP-Dashboard zu verlassen. %s."
 
-#: includes/modules/analytics/class-analytics.php:234
+#: includes/modules/analytics/class-analytics.php:243
 msgid "Now!"
 msgstr "Jetzt!"
 
 #. translators: %s: amount of time
-#: includes/modules/analytics/class-analytics.php:229
+#: includes/modules/analytics/class-analytics.php:238
 msgid "%s second"
 msgid_plural "%s seconds"
 msgstr[0] "%s Sekunde"
 msgstr[1] "%s Sekunden"
 
 #. translators: %s: amount of time
-#: includes/modules/analytics/class-analytics.php:224
+#: includes/modules/analytics/class-analytics.php:233
 msgid "%s minute"
 msgid_plural "%s minutes"
 msgstr[0] "%s Minute"
 msgstr[1] "%s Minuten"
 
 #. translators: %s: amount of time
-#: includes/modules/analytics/class-analytics.php:219
+#: includes/modules/analytics/class-analytics.php:228
 msgid "%s hour"
 msgid_plural "%s hours"
 msgstr[0] "%s Stunde"
 msgstr[1] "%s Stunden"
 
 #. translators: %s: amount of time
-#: includes/modules/analytics/class-analytics.php:214
+#: includes/modules/analytics/class-analytics.php:223
 msgid "%s day"
 msgid_plural "%s days"
 msgstr[0] "%s Tag"
 msgstr[1] "%s Tage"
 
 #. translators: %s: amount of time
-#: includes/modules/analytics/class-analytics.php:209
+#: includes/modules/analytics/class-analytics.php:218
 msgid "%s week"
 msgid_plural "%s weeks"
 msgstr[0] "%s Woche"
 msgstr[1] "%s Wochen"
 
 #. translators: %s: amount of time
-#: includes/modules/analytics/class-analytics.php:204
+#: includes/modules/analytics/class-analytics.php:213
 msgid "%s month"
 msgid_plural "%s months"
 msgstr[0] "%s Monat"
 msgstr[1] "%s Monate"
 
 #. translators: %s: amount of time
-#: includes/modules/analytics/class-analytics.php:199
+#: includes/modules/analytics/class-analytics.php:208
 msgid "%s year"
 msgid_plural "%s years"
 msgstr[0] "%s Jahr"
 msgstr[1] "%s Jahre"
 
-#: includes/modules/analytics/rest/class-rest.php:175
+#: includes/modules/analytics/rest/class-rest.php:140
 msgid "Sorry, no post id found."
 msgstr "Keine Beitrags-ID gefunden."
 
@@ -1912,7 +1928,7 @@ msgstr "Sitemaps automatisch an die Google Search Console übertragen"
 msgid "Rank Math automates everything, use below button to connect your site with Google Search Console and Google Analytics. It will verify your site and submit sitemaps automatically. %s"
 msgstr "Rank Math automatisiert das alles, benutze den Button unten, um deine Website mit der Google Search Console und Google Analytics zu verbinden. Es verifiziert deine Website und überträgt Sitemaps automatisch. %s"
 
-#: includes/modules/analytics/class-analytics.php:165
+#: includes/modules/analytics/class-analytics.php:174
 msgid "Rank Math is importing latest data from connected Google Services, %1$s remaining."
 msgstr "Rank Math importiert die neuesten Daten aus den verbundenen Google-Diensten, %1$s verbleiben."
 
@@ -2132,8 +2148,8 @@ msgid "Disconnect Account"
 msgstr "Konto trennen"
 
 #: includes/admin/views/plugin-activation.php:23
-#: includes/admin/wizard/views/search-console-ui.php:122
-#: includes/admin/wizard/views/search-console-ui.php:287
+#: includes/admin/wizard/views/search-console-ui.php:139
+#: includes/admin/wizard/views/search-console-ui.php:304
 msgid "Account"
 msgstr "Konto"
 
@@ -2939,10 +2955,7 @@ msgstr "Gebe eine maximale Dauer in Sekunden für eine animierte Videovorschau a
 msgid "Large"
 msgstr "Groß"
 
-#. translators: 1. Review Schema documentation link
 #. translators: 1. Credits left 2. Buy more credits link
-#: includes/modules/analytics/class-analytics.php:469
-#: includes/modules/analytics/class-analytics.php:475
 #: includes/modules/content-ai/views/options.php:51
 msgid "here"
 msgstr "hier"
@@ -4718,12 +4731,13 @@ msgstr "Suche"
 #: includes/admin/wizard/class-sitemap.php:37
 #: includes/admin/wizard/views/google-connect.php:37
 #: includes/admin/wizard/views/rank-math-connect.php:39
-#: includes/admin/wizard/views/search-console-ui.php:313
+#: includes/admin/wizard/views/search-console-ui.php:108
+#: includes/admin/wizard/views/search-console-ui.php:330
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 msgid "Learn more."
 msgstr "Mehr erfahren."
 
-#: includes/admin/wizard/views/search-console-ui.php:74
+#: includes/admin/wizard/views/search-console-ui.php:76
 #: includes/modules/analytics/google/class-permissions.php:107
 #: includes/modules/seo-analysis/seo-analysis-tests.php:104
 msgid "Search Console"
@@ -4755,7 +4769,7 @@ msgstr "Search Console"
 #: includes/admin/class-option-center.php:270
 #: includes/admin/wizard/views/ready.php:45
 #: includes/modules/404-monitor/class-admin.php:170
-#: includes/modules/analytics/class-analytics.php:445
+#: includes/modules/analytics/class-analytics.php:475
 #: includes/modules/image-seo/class-admin.php:47
 #: includes/modules/instant-indexing/class-instant-indexing.php:196
 #: includes/modules/instant-indexing/class-instant-indexing.php:204
@@ -4860,7 +4874,7 @@ msgstr "Artikel"
 msgid "Warnings"
 msgstr "Warnhinweise"
 
-#: includes/modules/analytics/class-analytics-common.php:296
+#: includes/modules/analytics/class-analytics-common.php:295
 #: includes/modules/analytics/views/email-reports/sections/summary.php:64
 msgid "Average Position"
 msgstr "Durchschnittliche Position"
@@ -4899,11 +4913,11 @@ msgstr "Geschlecht"
 msgid "Menu URL"
 msgstr "Menü-URL"
 
-#: includes/modules/analytics/class-ajax.php:172
+#: includes/modules/analytics/class-ajax.php:174
 msgid "Google oAuth is not authorized."
 msgstr "Google oAuth ist nicht autorisiert."
 
-#: includes/modules/analytics/class-ajax.php:207
+#: includes/modules/analytics/class-ajax.php:209
 msgid "Not a valid settings founds to delete cache."
 msgstr "Es wurde keine gültige Einstellung zum Löschen des Caches gefunden."
 
@@ -4915,12 +4929,12 @@ msgstr "Update-Funktionen"
 msgid "Price Currency"
 msgstr "Preis Währung"
 
-#: includes/modules/analytics/class-analytics-common.php:278
+#: includes/modules/analytics/class-analytics-common.php:277
 #: includes/modules/analytics/views/email-reports/sections/summary.php:20
 msgid "Total Impressions"
 msgstr "Gesamtimpressionen"
 
-#: includes/modules/analytics/class-analytics-common.php:284
+#: includes/modules/analytics/class-analytics-common.php:283
 #: includes/modules/analytics/views/email-reports/sections/summary.php:34
 msgid "Total Clicks"
 msgstr "Gesamtanzahl an Klicks"
@@ -5170,6 +5184,7 @@ msgstr "Aktivieren"
 
 #: includes/module/class-manager.php:255
 #: includes/modules/redirections/class-form.php:135
+#: includes/modules/analytics/assets/js/stats.js:1
 msgid "Status"
 msgstr "Status"
 
@@ -5843,7 +5858,7 @@ msgstr "Aktiv"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: includes/class-installer.php:343
+#: includes/class-installer.php:344
 #: includes/settings/general/breadcrumbs.php:65
 msgid "Home"
 msgstr "Startseite"
@@ -6116,21 +6131,21 @@ msgstr "WooCommerce"
 msgid "AMP plugin"
 msgstr "AMP Plugin"
 
-#: includes/class-installer.php:348
+#: includes/class-installer.php:349
 #: includes/settings/general/breadcrumbs.php:121
 msgid "404 Error: page not found"
 msgstr "404 Fehler: Seite nicht gefunden"
 
 #. translators: Search query term
 #. translators: placeholder
-#: includes/class-installer.php:347
+#: includes/class-installer.php:348
 #: includes/settings/general/breadcrumbs.php:110
 msgid "Results for %s"
 msgstr "Ergebnisse für %s"
 
 #. translators: Archive title
 #. translators: placeholder
-#: includes/class-installer.php:345
+#: includes/class-installer.php:346
 #: includes/settings/general/breadcrumbs.php:98
 msgid "Archives for %s"
 msgstr "Archiv für %s"
@@ -7443,13 +7458,13 @@ msgid "Default Social Share Image"
 msgstr "Standardmäßiges Bild zum Teilen in Socialmedia"
 
 #: includes/admin/class-setup-wizard.php:112
-#: includes/admin/wizard/views/search-console-ui.php:109
+#: includes/admin/wizard/views/search-console-ui.php:126
 #: includes/module/class-manager.php:206
 #: includes/modules/analytics/class-analytics-common.php:70
 #: includes/modules/analytics/class-analytics-common.php:141
-#: includes/modules/analytics/class-analytics.php:49
-#: includes/modules/analytics/class-analytics.php:410
-#: includes/modules/analytics/class-analytics.php:443
+#: includes/modules/analytics/class-analytics.php:48
+#: includes/modules/analytics/class-analytics.php:440
+#: includes/modules/analytics/class-analytics.php:473
 #: includes/modules/role-manager/class-capability-manager.php:63
 #: includes/modules/analytics/assets/js/stats.js:1
 msgid "Analytics"
@@ -7506,7 +7521,7 @@ msgstr "Du hast die Google Search Console noch nicht verlinkt."
 msgid "For the best SEO results, use a custom permalink structure, preferably one that includes the post title (<code>%%postname%%</code>). You can change it by navigating to <a href=\"%s\">Settings &gt; Permalinks</a>"
 msgstr "Für die besten SEO-Ergebnisse verwende eine benutzerdefinierte Permalink-Struktur, vorzugsweise eine, die den Posttitel enthält (<code>%%postname%%</code>). Du kannst es ändern, indem du zu <a href=\"%s\">Einstellungen &gt; Permalinks</a> navigierst"
 
-#: includes/modules/analytics/google/class-request.php:225
+#: includes/modules/analytics/google/class-request.php:227
 msgid "Bad request. Please check the code."
 msgstr "Fehlerhafte Anfrage. Bitte überprüfe den Code."
 
@@ -7608,7 +7623,7 @@ msgstr "Automatisiere einige deiner SEO-Aufgaben, wie z.B. externe Links, Umleit
 msgid "Log item successfully deleted."
 msgstr "Protokolldatei erfolgreich gelöscht."
 
-#: includes/admin/wizard/views/search-console-ui.php:206
+#: includes/admin/wizard/views/search-console-ui.php:223
 msgid "Click here."
 msgstr "Hier klicken."
 
@@ -7624,7 +7639,7 @@ msgstr "Der Inhalt ist gesperrt, weil sich im Stammordner eine robots.txt-Datei 
 msgid "Advanced Options"
 msgstr "Erweiterte Optionen"
 
-#: includes/modules/status/class-system-status.php:194
+#: includes/modules/status/class-system-status.php:195
 msgid "Not found"
 msgstr "Nicht gefunden"
 
@@ -7682,7 +7697,7 @@ msgstr "Die Änderung deines Slogans ist sehr einfach.  Gehe einfach zu <a targe
 msgid "Unfortunately, the standard WordPress tagline is \"Just Another WordPress site.\"  That's pretty sloppy looking, and it does nothing for your SEO.  In fact, it's actually a security risk - it makes it easy for hackers with a WordPress exploit to locate your site with an automated search."
 msgstr "Leider ist die Standardmarke von WordPress \"Nur eine weitere WordPress Seite\".  Dies sieht ziemlich schlampig aus und es tut nichts für deine SEO. Tatsächlich stellt es ein Sicherheitsrisiko dar - es macht es Hackern mit einem WordPress-Exploit leicht, deine Website mit einer automatisierten Suche zu finden."
 
-#: includes/modules/analytics/class-analytics-common.php:290
+#: includes/modules/analytics/class-analytics-common.php:289
 #: includes/modules/analytics/views/email-reports/sections/summary.php:50
 #: includes/modules/analytics/assets/js/stats.js:1
 msgid "Total Keywords"
