@@ -307,7 +307,7 @@ define('IMAGE_SPECIALS', 'Sonderangebot');
 define('IMAGE_STATUS', 'Kundengruppe');
 define('IMAGE_UNLOCK', 'Entsperren');
 define('BUTTON_UNTRASH', 'Wiederherstellen');
-define('IMAGE_UPDATE', 'Aktualisieren');
+define('BUTTON_UPDATE', 'Aktualisieren');
 define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurse aktualisieren');
 define('IMAGE_UPLOAD', 'Hochladen');
 define('IMAGE_WISHLIST', 'Wunschzettel');

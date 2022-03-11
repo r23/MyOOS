@@ -640,7 +640,7 @@ function check_form() {
         </table></td>
       </tr>
       <tr>
-        <td align="right" class="main"><?php echo oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('action'))) .'" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
+        <td align="right" class="main"><?php echo oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('action'))) .'" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>
       </tr></form>
 	 </table>
 	 <!-- body_text_eof //-->
@@ -847,7 +847,7 @@ function check_form() {
             }
         }
         $contents[] = array('text' => '</table>');
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['customers'], oos_get_all_get_params(array('cID', 'action')) . 'cID=' . $cInfo->customers_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 

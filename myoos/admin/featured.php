@@ -222,7 +222,7 @@ if (($action == 'new') || ($action == 'edit')) {
 					
 					<div class="text-right mt-3">
 						<?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $fID) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
-						<?php echo(($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(IMAGE_UPDATE)); ?>
+						<?php echo(($form_action == 'insert') ? oos_submit_button(BUTTON_INSERT) : oos_submit_button(BUTTON_UPDATE)); ?>
 					</div>					
 					
 			</form>	

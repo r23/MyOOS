@@ -406,7 +406,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
             echo '            <td colspan="7" valign="top">' .
                           oos_draw_form('id', 'serial_form', $aContents['orders'], 'action=update_serial&oID=' . $oID . '&serial=' . $order->products[$i]['id'], 'post', false) .
-                          oos_draw_input_field('serial_number', $serial_number, '', false, 'text', true) . '&nbsp;&nbsp;' . oos_submit_button(IMAGE_UPDATE) . '</td>' . "\n" .
+                          oos_draw_input_field('serial_number', $serial_number, '', false, 'text', true) . '&nbsp;&nbsp;' . oos_submit_button(BUTTON_UPDATE) . '</td>' . "\n" .
              '          </tr>' . "\n";
         }
     } ?>
@@ -484,7 +484,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td class="main"><b><?php echo ENTRY_NOTIFY_COMMENTS; ?></b> <?php echo oos_draw_checkbox_field('notify_comments', '', true); ?></td>
               </tr>
             </table></td>
-            <td valign="top"><?php echo oos_submit_button(IMAGE_UPDATE); ?></td>
+            <td valign="top"><?php echo oos_submit_button(BUTTON_UPDATE); ?></td>
           </tr>
         </table></td>
       </form></tr>

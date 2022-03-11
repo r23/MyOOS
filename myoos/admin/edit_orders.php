@@ -868,7 +868,7 @@ $order_result = $dbconn->Execute("SELECT products_id, products_quantity FROM " .
       </tr>
 
       <tr>
-  <td align='center' valign="top"><?php echo oos_submit_button(IMAGE_UPDATE); ?></td>
+  <td align='center' valign="top"><?php echo oos_submit_button(BUTTON_UPDATE); ?></td>
       </tr>
       </form>
 <?php
