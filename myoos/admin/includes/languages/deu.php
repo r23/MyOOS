@@ -273,7 +273,7 @@ define('IMAGE_ICON_INFO', 'Information');
 define('BUTTON_INSERT', 'Einfügen');
 define('IMAGE_LOCK', 'Sperren');
 define('IMAGE_LOGIN', 'Shop Login');
-define('IMAGE_MOVE', 'Verschieben');
+define('BUTTON_MOVE', 'Verschieben');
 define('BUTTON_MOVE_TRASH', 'In den Papierkorb verschieben');
 define('IMAGE_NEW_CATEGORY', 'Neue Kategorie erstellen');
 define('IMAGE_NEW_COUNTRY', 'Neues Land aufnehmen');

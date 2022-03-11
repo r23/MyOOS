@@ -269,7 +269,7 @@ define('IMAGE_ICON_INFO', 'Info');
 define('BUTTON_INSERT', 'Insert');
 define('IMAGE_LOCK', 'Lock');
 define('IMAGE_LOGIN', 'Shop Login');
-define('IMAGE_MOVE', 'Move');
+define('BUTTON_MOVE', 'Move');
 define('BUTTON_MOVE_TRASH', 'Move to the Trash');
 define('IMAGE_NEW_CATEGORY', 'New Category');
 define('IMAGE_NEW_COUNTRY', 'New Country');
