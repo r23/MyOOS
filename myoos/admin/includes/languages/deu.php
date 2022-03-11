@@ -255,7 +255,7 @@ define('BUTTON_ADD_FILES', 'Dateien hinzufügen');
 
 define('BUTTON_CHANGE', 'Ändern');
 define('BUTTON_CONFIRM', 'Bestätigen');
-define('IMAGE_COPY', 'Kopieren');
+define('BUTTON_COPY', 'Kopieren');
 define('IMAGE_COPY_TO', 'Kopieren nach');
 define('BUTTON_CUBE', '3-D Objekt');
 define('IMAGE_DEFINE', 'Definieren');

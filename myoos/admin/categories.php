@@ -1682,7 +1682,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents[] = array('text' => '<br>' . oos_image(OOS_IMAGES . 'pixel_black.gif', '', '100%', '3'));
         $contents[] = array('text' => '<br>' . TEXT_COPY_ATTRIBUTES_ONLY);
         $contents[] = array('text' => '<br>' . TEXT_COPY_ATTRIBUTES . '<br>' . oos_draw_radio_field('copy_attributes', 'copy_attributes_yes', true) . ' ' . TEXT_COPY_ATTRIBUTES_YES . '<br>' . oos_draw_radio_field('copy_attributes', 'copy_attributes_no') . ' ' . TEXT_COPY_ATTRIBUTES_NO);
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_COPY) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_COPY) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
         break;
 
