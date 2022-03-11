@@ -254,7 +254,7 @@ define('BUTTON_START_UPLOAD', 'Hochladen starten');
 define('BUTTON_ADD_FILES', 'Dateien hinzufügen');
 
 define('BUTTON_CHANGE', 'Ändern');
-define('IMAGE_CONFIRM', 'Bestätigen');
+define('BUTTON_CONFIRM', 'Bestätigen');
 define('IMAGE_COPY', 'Kopieren');
 define('IMAGE_COPY_TO', 'Kopieren nach');
 define('BUTTON_CUBE', '3-D Objekt');

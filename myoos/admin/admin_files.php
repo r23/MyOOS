@@ -333,7 +333,7 @@
       $contents = array('form' => oos_draw_form('id', 'remove_file', $aContents['admin_files'], 'action=file_remove&cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id'], 'post', false, 'enctype="multipart/form-data"'));
       $contents[] = array('text' => oos_draw_hidden_field('admin_files_id', $_GET['fID']));
       $contents[] = array('text' =>  sprintf(TEXT_INFO_DELETE_FILE_INTRO, $fInfo->admin_files_name, ucfirst(substr_replace($current_box['admin_box_name'], '', -4))) );
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(IMAGE_CONFIRM) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $_GET['fID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_CONFIRM) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $_GET['fID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 

@@ -784,7 +784,7 @@ case 'voucherreport':
     echo oos_draw_hidden_field('coupon_finishdate', date('Y-m-d', mktime(0, 0, 0, $_POST['coupon_finishdate_month'], $_POST['coupon_finishdate_day'], $_POST['coupon_finishdate_year'])));
 ?>
      <tr>
-        <td class="text-left"><?php echo oos_submit_button(IMAGE_CONFIRM); ?></td>
+        <td class="text-left"><?php echo oos_submit_button(BUTTON_CONFIRM); ?></td>
         <td class="text-left"><?php echo oos_cancel_button('<i class="fa fa-chevron-left"></i> ' . BUTTON_BACK, 'back'); ?></td>
       </tr>
 
