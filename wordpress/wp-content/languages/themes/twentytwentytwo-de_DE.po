@@ -882,7 +882,3 @@ msgstr "https://de.wordpress.org/"
 #. Author of the theme
 msgid "the WordPress team"
 msgstr "WordPress-Team"
-
-#. Theme URI of the theme
-msgid "https://github.com/wordpress/twentytwentytwo/"
-msgstr "https://github.com/wordpress/twentytwentytwo/"
