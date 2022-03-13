@@ -13,9 +13,9 @@
 .badge-primary, .badge-success,
 .badge-info, .badge-warning,
 .badge-danger, .badge-dark {
-  color: $white;
+  color: #ef4135;
   @include hover-focus {
-    color: $white !important;
+    color: #ef4135 !important;
   }
 }
 .badge-secondary,

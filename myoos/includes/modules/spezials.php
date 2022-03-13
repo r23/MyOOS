@@ -64,7 +64,7 @@ if ($new_spezials_result->RecordCount() >= MIN_DISPLAY_NEW_SPEZILAS) {
         $order_max = number_format($new_spezials['products_quantity_order_max']);
 
         $aCategoryPath = [];
-        $aCategoryPath = oos_get_category_path($new_products['products_id']);
+        $aCategoryPath = oos_get_category_path($new_spezials['products_id']);
 
         $aSpezials[] = ['products_id' => $new_spezials['products_id'],
                                     'products_image' => $new_spezials['products_image'],
