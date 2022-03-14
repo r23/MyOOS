@@ -16,52 +16,53 @@
 			<!-- left column -->
 			<div class="col-12 col-lg-9">
 
-			{if $panorama_info}
-				<div class="ratio ratio-16x9 mb-30">
-					<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.panorama panorama_id=$panorama_info.panorama_id}" gesture="media" allow="encrypted-media" allowfullscreen="allowfullscreen"></iframe>
-				</div>
-			{/if}
+				{if $page eq 1}
+					{if $panorama_info}
+						<div class="ratio ratio-16x9 mb-30">
+							<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.panorama panorama_id=$panorama_info.panorama_id}" gesture="media" allow="encrypted-media" allowfullscreen="allowfullscreen"></iframe>
+						</div>
+					{/if}
 
-			{if $slider}
-				<!-- CAROUSEL -->
-				<div id="categoryIndicators" class="carousel slide" data-ride="carousel">
-				{if $smarty.const.CATEGORYINDICATORS == 'true'}
-					<ol class="carousel-indicators">
-					{foreach $slider as $i}
-						<li data-target="#categoryIndicators" data-slide-to="{$i@iteration-1}" {if $i@first}class="active"{/if}></li>
-					{/foreach}
-					</ol>
+					{if $slider}
+						<!-- CAROUSEL -->
+						<div id="categoryIndicators" class="carousel slide" data-ride="carousel">
+						{if $smarty.const.CATEGORYINDICATORS == 'true'}
+							<ol class="carousel-indicators">
+							{foreach $slider as $i}
+								<li data-target="#categoryIndicators" data-slide-to="{$i@iteration-1}" {if $i@first}class="active"{/if}></li>
+							{/foreach}
+							</ol>
+						{/if}
+							<div class="carousel-inner">
+							{foreach $slider as $i}
+							<!-- item -->
+							<div class="carousel-item {if $i@first}active{/if}">
+								{category_image dir=large image=$i.image alt=$category.categories_name}
+							</div>
+							<!-- item -->
+							{/foreach}
+							</div>
+							<a class="carousel-control-prev" href="#categoryIndicators" role="button" data-slide="prev">
+								<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+								<span class="sr-only">{$lang.prevnext_slider_previous}</span>
+							</a>
+							<a class="carousel-control-next" href="#categoryIndicators" role="button" data-slide="next">
+								<span class="carousel-control-next-icon" aria-hidden="true"></span>
+								<span class="sr-only">{$lang.prevnext_slider_next}</span>
+							</a>
+						</div>
+						<!-- /CAROUSEL -->
+					{/if}
+
+					{if !empty($category.categories_description) }
+						<div class="clearfix mb-5">
+							<div class="">
+								<h2>{$category.categories_name}</h2>
+									{$category.categories_description}
+							</div>
+						</div>
+					{/if}
 				{/if}
-					<div class="carousel-inner">
-					{foreach $slider as $i}
-					<!-- item -->
-					<div class="carousel-item {if $i@first}active{/if}">
-						{category_image dir=large image=$i.image alt=$category.categories_name}
-					</div>
-					<!-- item -->
-					{/foreach}
-					</div>
-					<a class="carousel-control-prev" href="#categoryIndicators" role="button" data-slide="prev">
-						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-						<span class="sr-only">{$lang.prevnext_slider_previous}</span>
-					</a>
-					<a class="carousel-control-next" href="#categoryIndicators" role="button" data-slide="next">
-						<span class="carousel-control-next-icon" aria-hidden="true"></span>
-						<span class="sr-only">{$lang.prevnext_slider_next}</span>
-					</a>
-				</div>
-				<!-- /CAROUSEL -->
-			{/if}
-
-			{if !empty($category.categories_description) }
-				<div class="clearfix mb-5">
-					<div class="">
-						<h2>{$category.categories_name}</h2>
-							{$category.categories_description}
-					</div>
-				</div>
-			{/if}
-
 				<!-- list options -->
 				<div class="clearfix shop-list-options mb-20">
 					<!-- pagination -->

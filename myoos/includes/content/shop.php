@@ -260,7 +260,8 @@ if ($category_depth == 'nested') {
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $category['categories_name'],
-            'canonical'     => $sCanonical
+            'canonical'     => $sCanonical,
+			'page'			=> $nPage
         )
     );
 

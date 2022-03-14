@@ -13,7 +13,8 @@
 .badge-primary, .badge-success,
 .badge-info, .badge-warning,
 .badge-danger, .badge-dark {
-  color: #ef4135;
+  color: #fff;
+  background-color: #f44336;
   @include hover-focus {
     color: #ef4135 !important;
   }
