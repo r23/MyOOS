@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '3a2cea02e75b21c7ca5c22eb2cae5b542eba3727',
+        'reference' => 'aca3936885376c61b10f4fbade6069490ad49e09',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'bacon/bacon-qr-code' => array(
-            'pretty_version' => '2.0.6',
-            'version' => '2.0.6.0',
+            'pretty_version' => '2.0.7',
+            'version' => '2.0.7.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../bacon/bacon-qr-code',
             'aliases' => array(),
-            'reference' => '0069435e2a01a57193b25790f105a5d3168653c1',
+            'reference' => 'd70c840f68657ce49094b8d91f9ee0cc07fbf66c',
             'dev_requirement' => false,
         ),
         'dasprid/enum' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '3a2cea02e75b21c7ca5c22eb2cae5b542eba3727',
+            'reference' => 'aca3936885376c61b10f4fbade6069490ad49e09',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
