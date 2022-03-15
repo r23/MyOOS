@@ -21,7 +21,7 @@
 /** ensure this file is being included by a parent file */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-if (!$oEvent->installed_plugin('spezials')) {
+if (!$oEvent->installed_plugin('specials')) {
     return false;
 }
 if (!is_numeric(MAX_DISPLAY_NEW_SPEZILAS)) {

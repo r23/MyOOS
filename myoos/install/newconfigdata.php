@@ -229,7 +229,7 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configur
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_DISPLAY_MANUFACTURER_NAME_LEN', '15', 6, 3, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") or die("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MODULE_PLUGIN_EVENT_INSTALLED', 'category_path;breadcrumb;mail;spezials;featured;reviews;manufacturers;', 6, 0, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") or die("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MODULE_PLUGIN_EVENT_INSTALLED', 'category_path;breadcrumb;mail;specials;featured;reviews;manufacturers;', 6, 0, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") or die("<b>".NOTUPDATED . $prefix_table . "configuration</b>");
 
 //7
 $result = $db->Execute("INSERT INTO " . $prefix_table . "configuration (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('STORE_ORIGIN_COUNTRY', 'DE', 7, 1, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)") or die("<b>".NOTUPDATED . $prefix_table . "configuration</b>");

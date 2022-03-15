@@ -32,8 +32,8 @@ $aTemplate['page'] = $sTheme . '/page/home.html';
 if ($oEvent->installed_plugin('featured')) {
     $aTemplate['featured'] = $sTheme . '/products/_featured.html';
 }
-if ($oEvent->installed_plugin('spezials')) {
-    $aTemplate['spezials'] = $sTheme . '/products/_spezials.html';
+if ($oEvent->installed_plugin('specials')) {
+    $aTemplate['specials'] = $sTheme . '/products/_specials.html';
 }
 if ($oEvent->installed_plugin('manufacturers')) {
     $aTemplate['mod_manufacturers'] = $sTheme . '/modules/manufacturers.html';
@@ -73,11 +73,11 @@ if ($oEvent->installed_plugin('featured')) {
     $smarty->assign('featured', $smarty->fetch($aTemplate['featured'], $sModulesCacheID));
 }
 
-if ($oEvent->installed_plugin('spezials')) {
-    if (!$smarty->isCached($aTemplate['spezials'], $sModulesCacheID)) {
-        require_once MYOOS_INCLUDE_PATH . '/includes/modules/spezials.php';
+if ($oEvent->installed_plugin('specials')) {
+    if (!$smarty->isCached($aTemplate['specials'], $sModulesCacheID)) {
+        require_once MYOOS_INCLUDE_PATH . '/includes/modules/specials.php';
     }
-    $smarty->assign('spezials', $smarty->fetch($aTemplate['spezials'], $sModulesCacheID));
+    $smarty->assign('specials', $smarty->fetch($aTemplate['specials'], $sModulesCacheID));
 }
 
 

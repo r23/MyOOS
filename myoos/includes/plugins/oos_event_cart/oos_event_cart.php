@@ -1,6 +1,6 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: oos_event_spezials.php,v 1.1 2007/06/13 15:41:56 r23 Exp $
+   $Id: oos_event_specials.php,v 1.1 2007/06/13 15:41:56 r23 Exp $
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de

@@ -21,7 +21,7 @@
 /** ensure this file is being included by a parent file */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-if (!$oEvent->installed_plugin('spezials')) {
+if (!$oEvent->installed_plugin('specials')) {
     oos_redirect(oos_href_link($aContents['home']));
 }
 
@@ -36,7 +36,7 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 $sGroup = trim($aUser['text']);
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
-$nContentCacheID = $sTheme . '|info|' . $sGroup . '|spezials|' . $nPage . '|' . $sLanguage;
+$nContentCacheID = $sTheme . '|info|' . $sGroup . '|specials|' . $nPage . '|' . $sLanguage;
 
 $sCanonical = oos_href_link($aContents['specials'], 'page='. $nPage, false, true);
 
