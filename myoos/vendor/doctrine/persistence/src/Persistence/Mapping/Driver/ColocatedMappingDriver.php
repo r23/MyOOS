@@ -2,7 +2,6 @@
 
 namespace Doctrine\Persistence\Mapping\Driver;
 
-use Doctrine\Common\Annotations\Reader;
 use Doctrine\Persistence\Mapping\MappingException;
 use FilesystemIterator;
 use RecursiveDirectoryIterator;
@@ -14,7 +13,6 @@ use RegexIterator;
 use function array_merge;
 use function array_unique;
 use function assert;
-use function get_class;
 use function get_declared_classes;
 use function in_array;
 use function is_dir;
@@ -25,17 +23,10 @@ use function str_replace;
 use function strpos;
 
 /**
- * The AnnotationDriver reads the mapping metadata from docblock annotations.
+ * The ColocatedMappingDriver reads the mapping metadata located near the code.
  */
-abstract class AnnotationDriver implements MappingDriver
+trait ColocatedMappingDriver
 {
-    /**
-     * The annotation reader.
-     *
-     * @var Reader
-     */
-    protected $reader;
-
     /**
      * The paths where to look for mapping files.
      *
@@ -58,36 +49,12 @@ abstract class AnnotationDriver implements MappingDriver
     protected $fileExtension = '.php';
 
     /**
-     * Cache for AnnotationDriver#getAllClassNames().
+     * Cache for getAllClassNames().
      *
      * @var string[]|null
      * @psalm-var list<class-string>|null
      */
     protected $classNames;
-
-    /**
-     * Name of the entity annotations as keys.
-     *
-     * @var array<class-string, bool|int>
-     */
-    protected $entityAnnotationClasses = [];
-
-    /**
-     * Initializes a new AnnotationDriver that uses the given AnnotationReader for reading
-     * docblock annotations.
-     *
-     * @param Reader               $reader The AnnotationReader to use, duck-typed.
-     * @param string|string[]|null $paths  One or multiple paths where mapping classes can be found.
-     */
-    public function __construct($reader, $paths = null)
-    {
-        $this->reader = $reader;
-        if (! $paths) {
-            return;
-        }
-
-        $this->addPaths((array) $paths);
-    }
 
     /**
      * Appends lookup paths to metadata driver.
@@ -134,16 +101,6 @@ abstract class AnnotationDriver implements MappingDriver
     }
 
     /**
-     * Retrieve the current annotation reader
-     *
-     * @return Reader
-     */
-    public function getReader()
-    {
-        return $this->reader;
-    }
-
-    /**
      * Gets the file extension used to look for mapping files under.
      *
      * @return string
@@ -156,11 +113,9 @@ abstract class AnnotationDriver implements MappingDriver
     /**
      * Sets the file extension used to look for mapping files under.
      *
-     * @param string $fileExtension The file extension to set.
-     *
      * @return void
      */
-    public function setFileExtension($fileExtension)
+    public function setFileExtension(string $fileExtension)
     {
         $this->fileExtension = $fileExtension;
     }
@@ -169,26 +124,18 @@ abstract class AnnotationDriver implements MappingDriver
      * Returns whether the class with the specified name is transient. Only non-transient
      * classes, that is entities and mapped superclasses, should have their metadata loaded.
      *
-     * A class is non-transient if it is annotated with an annotation
-     * from the {@see AnnotationDriver::entityAnnotationClasses}.
+     * @param string $className
+     * @psalm-param class-string $className
      *
-     * {@inheritDoc}
+     * @return bool
      */
-    public function isTransient($className)
-    {
-        $classAnnotations = $this->reader->getClassAnnotations(new ReflectionClass($className));
-
-        foreach ($classAnnotations as $annot) {
-            if (isset($this->entityAnnotationClasses[get_class($annot)])) {
-                return false;
-            }
-        }
-
-        return true;
-    }
+    abstract public function isTransient($className);
 
     /**
-     * {@inheritDoc}
+     * Gets the names of all mapped classes known to this driver.
+     *
+     * @return string[] The names of all mapped classes known to this driver.
+     * @psalm-return list<class-string>
      */
     public function getAllClassNames()
     {
@@ -197,7 +144,7 @@ abstract class AnnotationDriver implements MappingDriver
         }
 
         if (! $this->paths) {
-            throw MappingException::pathRequired();
+            throw MappingException::pathRequiredForDriver(static::class);
         }
 
         $classes       = [];
@@ -220,7 +167,7 @@ abstract class AnnotationDriver implements MappingDriver
             foreach ($iterator as $file) {
                 $sourceFile = $file[0];
 
-                if (! preg_match('(^phar:)i', $sourceFile)) {
+                if (preg_match('(^phar:)i', $sourceFile) === 0) {
                     $sourceFile = realpath($sourceFile);
                 }
 
