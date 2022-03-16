@@ -330,7 +330,7 @@
           $keys = '';
           if ($pInfo->uninstallable || (!empty($pInfo->keys) && sizeof($pInfo->keys > 0))) {
               if ($pInfo->status) {
-                  $contents[] = array('align' => 'center', 'text' => ($pInfo->uninstallable ? '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=remove') . '">' . oos_button('modules_remove', IMAGE_PLUGINS_REMOVE) . '</a>' : '') . ((sizeof($pInfo->keys) > 0) ? ' <a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a>' : ''));
+                  $contents[] = array('align' => 'center', 'text' => ($pInfo->uninstallable ? '<a class="btn btn-sm btn-danger mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=remove') . '" role="button">' . IMAGE_PLUGINS_REMOVE . '</a>' : '') . ((sizeof($pInfo->keys) > 0) ? ' <a class="btn btn-sm btn-primary mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=edit') . '" role="button">' . BUTTON_EDIT . '</a>' : ''));
 
                   if (isset($sInfo->config_item) && is_array($pInfo->config_item) && sizeof($pInfo->config_item) > 0) {
                       $keys = '<br>';
@@ -359,7 +359,7 @@
                       $keys = substr($keys, 0, strrpos($keys, '<br><br>'));
                   }
               } else {
-                  $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=install') . '">' . oos_button('module_install', IMAGE_PLUGINS_INSTALL) . '</a>');
+                  $contents[] = array('align' => 'center', 'text' => '<a class="btn btn-sm btn-success mb-20" href="' . oos_href_link_admin($aContents['plugins'], 'plugin=' . $pInfo->instance . '&action=install') . '" role="button">' . IMAGE_PLUGINS_INSTALL . '</a>');
               }
           }
 
