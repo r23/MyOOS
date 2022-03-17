@@ -209,7 +209,8 @@ if (($action == 'new') || ($action == 'edit')) {
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_FEATURED_EXPIRES_DATE; ?></label>
                            <div class="col-xl-6 col-10">
                               <div class="input-group date" id="datetimepicker1">
-                                 <input class="form-control" type="text" name="expires_date" value="<?php echo $sInfo->expires_date; ?>">
+								 <input class="form-control" type="text" name="expires_date" value="<?php echo(isset($sInfo->expires_date) ? $sInfo->expires_date : ''); ?>">
+
                                  <span class="input-group-addon">
                                     <span class="fa fa-calendar"></span>
                                  </span>
