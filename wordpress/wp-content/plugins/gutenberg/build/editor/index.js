@@ -1853,55 +1853,6 @@ const PERMALINK_POSTNAME_REGEX = /%(?:postname|pagename)%/;
 const ONE_MINUTE_IN_MS = 60 * 1000;
 const AUTOSAVE_PROPERTIES = ['title', 'excerpt', 'content'];
 
-;// CONCATENATED MODULE: ./packages/editor/build-module/utils/url.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Returns the URL of a WPAdmin Page.
- *
- * TODO: This should be moved to a module less specific to the editor.
- *
- * @param {string} page  Page to navigate to.
- * @param {Object} query Query Args.
- *
- * @return {string} WPAdmin URL.
- */
-
-function getWPAdminURL(page, query) {
-  return (0,external_wp_url_namespaceObject.addQueryArgs)(page, query);
-}
-/**
- * Performs some basic cleanup of a string for use as a post slug
- *
- * This replicates some of what sanitize_title() does in WordPress core, but
- * is only designed to approximate what the slug will be.
- *
- * Converts Latin-1 Supplement and Latin Extended-A letters to basic Latin letters.
- * Removes combining diacritical marks. Converts whitespace, periods,
- * and forward slashes to hyphens. Removes any remaining non-word characters
- * except hyphens and underscores. Converts remaining string to lowercase.
- * It does not account for octets, HTML entities, or other encoded characters.
- *
- * @param {string} string Title or slug to be processed
- *
- * @return {string} Processed string
- */
-
-function cleanForSlug(string) {
-  if (!string) {
-    return '';
-  }
-
-  return (0,external_lodash_namespaceObject.trim)((0,external_lodash_namespaceObject.deburr)(string).replace(/[\s\./]+/g, '-').replace(/[^\p{L}\p{N}_-]+/gu, '').toLowerCase(), '-');
-}
-
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/header.js
 
 
@@ -2010,7 +1961,6 @@ function getTemplatePartIcon(iconName) {
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -2284,7 +2234,7 @@ const getNestedEditedPostProperty = (state, attributeName) => {
 
 
 function getEditedPostAttribute(state, attributeName) {
-  // Special cases
+  // Special cases.
   switch (attributeName) {
     case 'content':
       return getEditedPostContent(state);
@@ -2405,7 +2355,7 @@ function isEditedPostPublishable(state) {
   const post = getCurrentPost(state); // TODO: Post being publishable should be superset of condition of post
   // being saveable. Currently this restriction is imposed at UI.
   //
-  //  See: <PostPublishButton /> (`isButtonEnabled` assigned by `isSaveable`)
+  //  See: <PostPublishButton /> (`isButtonEnabled` assigned by `isSaveable`).
 
   return isEditedPostDirty(state) || ['publish', 'private', 'future'].indexOf(post.status) === -1;
 }
@@ -2429,7 +2379,7 @@ function isEditedPostSaveable(state) {
   //  See: `isEditedPostPublishable` (includes `isEditedPostDirty` condition)
   //  See: <PostSavedState /> (`forceIsDirty` prop)
   //  See: <PostPublishButton /> (`forceIsDirty` prop)
-  //  See: https://github.com/WordPress/gutenberg/pull/4184
+  //  See: https://github.com/WordPress/gutenberg/pull/4184.
 
 
   return !!getEditedPostAttribute(state, 'title') || !!getEditedPostAttribute(state, 'excerpt') || !isEditedPostEmpty(state) || external_wp_element_namespaceObject.Platform.OS === 'native';
@@ -2542,7 +2492,7 @@ const isEditedPostAutosaveable = (0,external_wp_data_namespaceObject.createRegis
  */
 
 function isEditedPostBeingScheduled(state) {
-  const date = getEditedPostAttribute(state, 'date'); // Offset the date by one minute (network latency)
+  const date = getEditedPostAttribute(state, 'date'); // Offset the date by one minute (network latency).
 
   const checkedDate = new Date(Number((0,external_wp_date_namespaceObject.getDate)(date)) - ONE_MINUTE_IN_MS);
   return (0,external_wp_date_namespaceObject.isInTheFuture)(checkedDate);
@@ -2566,7 +2516,7 @@ function isEditedPostDateFloating(state) {
   const modified = getEditedPostAttribute(state, 'modified'); // This should be the status of the persisted post
   // It shouldn't use the "edited" status otherwise it breaks the
   // inferred post data floating status
-  // See https://github.com/WordPress/gutenberg/issues/28083
+  // See https://github.com/WordPress/gutenberg/issues/28083.
 
   const status = getCurrentPost(state).status;
 
@@ -2681,7 +2631,7 @@ function getEditedPostPreviewLink(state) {
   // If the post is draft, ignore the preview link from the autosave record,
   // because the preview could be a stale autosave if the post was switched from
   // published to draft.
-  // See: https://github.com/WordPress/gutenberg/pull/37952
+  // See: https://github.com/WordPress/gutenberg/pull/37952.
 
   if (!previewLink || 'draft' === getCurrentPost(state).status) {
     previewLink = getEditedPostAttribute(state, 'link');
@@ -2720,7 +2670,7 @@ function getSuggestedPostFormat(state) {
   // so we can derive a suitable post format from it.
 
   if (blocks.length === 1) {
-    name = blocks[0].name; // check for core/embed `video` and `audio` eligible suggestions
+    name = blocks[0].name; // Check for core/embed `video` and `audio` eligible suggestions.
 
     if (name === 'core/embed') {
       var _blocks$0$attributes;
@@ -2849,7 +2799,7 @@ function getPermalink(state) {
  */
 
 function getEditedPostSlug(state) {
-  return getEditedPostAttribute(state, 'slug') || cleanForSlug(getEditedPostAttribute(state, 'title')) || getCurrentPostId(state);
+  return getEditedPostAttribute(state, 'slug') || (0,external_wp_url_namespaceObject.cleanForSlug)(getEditedPostAttribute(state, 'title')) || getCurrentPostId(state);
 }
 /**
  * Returns the permalink for a post, split into it's three parts: the prefix,
@@ -3554,19 +3504,19 @@ function getNotificationArgumentsForSaveSuccess(data) {
     noticeMessage = (0,external_wp_i18n_namespaceObject.__)('Draft saved');
     shouldShowLink = false;
   } else if (isPublished && !willPublish) {
-    // If undoing publish status, show specific notice
+    // If undoing publish status, show specific notice.
     noticeMessage = postType.labels.item_reverted_to_draft;
     shouldShowLink = false;
   } else if (!isPublished && willPublish) {
     // If publishing or scheduling a post, show the corresponding
-    // publish message
+    // publish message.
     noticeMessage = {
       publish: postType.labels.item_published,
       private: postType.labels.item_published_privately,
       future: postType.labels.item_scheduled
     }[post.status];
   } else {
-    // Generic fallback notice
+    // Generic fallback notice.
     noticeMessage = postType.labels.item_updated;
   }
 
@@ -3609,7 +3559,7 @@ function getNotificationArgumentsForSaveFail(data) {
 
   const publishStatus = ['publish', 'private', 'future'];
   const isPublished = publishStatus.indexOf(post.status) !== -1; // If the post was being published, we show the corresponding publish error message
-  // Unless we publish an "updating failed" message
+  // Unless we publish an "updating failed" message.
 
   const messages = {
     publish: (0,external_wp_i18n_namespaceObject.__)('Publishing failed.'),
@@ -5086,7 +5036,7 @@ function TextEditorGlobalKeyboardShortcuts() {
 
 
 function EditorKeyboardShortcutsRegister() {
-  // Registering the shortcuts
+  // Registering the shortcuts.
   const {
     registerShortcut
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_keyboardShortcuts_namespaceObject.store);
@@ -5419,7 +5369,7 @@ function EntityRecordItem(_ref) {
     const parents = select(external_wp_blockEditor_namespaceObject.store).getBlockParents((_blocks$ = blocks[0]) === null || _blocks$ === void 0 ? void 0 : _blocks$.clientId); // Return closest parent block's clientId.
 
     return parents[parents.length - 1];
-  }, []); // Handle templates that might use default descriptive titles
+  }, []); // Handle templates that might use default descriptive titles.
 
   const entityRecordTitle = (0,external_wp_data_namespaceObject.useSelect)(select => {
     if ('postType' !== kind || 'wp_template' !== name) {
@@ -6984,21 +6934,21 @@ function PostFeaturedImage(_ref) {
     const mediaSize = (0,external_wp_hooks_namespaceObject.applyFilters)('editor.PostFeaturedImage.imageSize', 'post-thumbnail', media.id, currentPostId);
 
     if ((0,external_lodash_namespaceObject.has)(media, ['media_details', 'sizes', mediaSize])) {
-      // use mediaSize when available
+      // Use mediaSize when available.
       mediaWidth = media.media_details.sizes[mediaSize].width;
       mediaHeight = media.media_details.sizes[mediaSize].height;
       mediaSourceUrl = media.media_details.sizes[mediaSize].source_url;
     } else {
-      // get fallbackMediaSize if mediaSize is not available
+      // Get fallbackMediaSize if mediaSize is not available.
       const fallbackMediaSize = (0,external_wp_hooks_namespaceObject.applyFilters)('editor.PostFeaturedImage.imageSize', 'thumbnail', media.id, currentPostId);
 
       if ((0,external_lodash_namespaceObject.has)(media, ['media_details', 'sizes', fallbackMediaSize])) {
-        // use fallbackMediaSize when mediaSize is not available
+        // Use fallbackMediaSize when mediaSize is not available.
         mediaWidth = media.media_details.sizes[fallbackMediaSize].width;
         mediaHeight = media.media_details.sizes[fallbackMediaSize].height;
         mediaSourceUrl = media.media_details.sizes[fallbackMediaSize].source_url;
       } else {
-        // use full image size when mediaFallbackSize and mediaSize are not available
+        // Use full image size when mediaFallbackSize and mediaSize are not available.
         mediaWidth = media.media_details.width;
         mediaHeight = media.media_details.height;
         mediaSourceUrl = media.source_url;
@@ -7355,10 +7305,10 @@ function PostLastRevisionCheck(_ref) {
 
 
 
+
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -7369,7 +7319,7 @@ function LastRevision(_ref) {
     revisionsCount
   } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(post_last_revision_check, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    href: getWPAdminURL('revision.php', {
+    href: (0,external_wp_url_namespaceObject.addQueryArgs)('revision.php', {
       revision: lastRevisionId,
       gutenberg: true
     }),
@@ -7413,7 +7363,6 @@ function LastRevision(_ref) {
 /**
  * Internal dependencies
  */
-
 
 
 function PostLockedModal() {
@@ -7558,7 +7507,7 @@ function PostLockedModal() {
     action: 'edit',
     _wpnonce: postLockUtils.nonce
   });
-  const allPostsUrl = getWPAdminURL('edit.php', {
+  const allPostsUrl = (0,external_wp_url_namespaceObject.addQueryArgs)('edit.php', {
     post_type: (0,external_lodash_namespaceObject.get)(postType, ['slug'])
   });
 
@@ -8654,9 +8603,9 @@ function PostSchedule() {
   // We also make sure this a is not escaped by a "/"
 
 
-  const is12HourTime = /a(?!\\)/i.test(settings.formats.time.toLowerCase() // Test only the lower case a
-  .replace(/\\\\/g, '') // Replace "//" with empty strings
-  .split('').reverse().join('') // Reverse the string and test for "a" not followed by a slash
+  const is12HourTime = /a(?!\\)/i.test(settings.formats.time.toLowerCase() // Test only the lower case a.
+  .replace(/\\\\/g, '') // Replace "//" with empty strings.
+  .split('').reverse().join('') // Reverse the string and test for "a" not followed by a slash.
   );
 
   function onChange(newDate) {
@@ -9424,13 +9373,13 @@ function HierarchicalTermSelector(_ref) {
 
     if (formName === '' || adding) {
       return;
-    } // check if the term we are adding already exists
+    } // Check if the term we are adding already exists.
 
 
     const existingTerm = findTerm(availableTerms, formParent, formName);
 
     if (existingTerm) {
-      // if the term we are adding exists but is not selected select it
+      // If the term we are adding exists but is not selected select it.
       if (!(0,external_lodash_namespaceObject.some)(terms, term => term === existingTerm.id)) {
         onUpdateTerms([...terms, existingTerm.id]);
       }
@@ -10439,7 +10388,6 @@ function PostSlugCheck(_ref) {
 
 
 
-
 class PostSlug extends external_wp_element_namespaceObject.Component {
   constructor(_ref) {
     let {
@@ -10449,7 +10397,7 @@ class PostSlug extends external_wp_element_namespaceObject.Component {
     } = _ref;
     super(...arguments);
     this.state = {
-      editedSlug: (0,external_wp_url_namespaceObject.safeDecodeURIComponent)(postSlug) || cleanForSlug(postTitle) || postID
+      editedSlug: (0,external_wp_url_namespaceObject.safeDecodeURIComponent)(postSlug) || (0,external_wp_url_namespaceObject.cleanForSlug)(postTitle) || postID
     };
     this.setSlug = this.setSlug.bind(this);
   }
@@ -10462,7 +10410,7 @@ class PostSlug extends external_wp_element_namespaceObject.Component {
     const {
       value
     } = event.target;
-    const editedSlug = cleanForSlug(value);
+    const editedSlug = (0,external_wp_url_namespaceObject.cleanForSlug)(value);
 
     if (editedSlug === postSlug) {
       return;
@@ -11548,13 +11496,9 @@ function useBlockEditorSettings(settings, hasTemplate) {
     const isWeb = external_wp_element_namespaceObject.Platform.OS === 'web';
     const {
       canUser,
-      getUnstableBase,
-      hasFinishedResolution,
       getEntityRecord
     } = select(external_wp_coreData_namespaceObject.store);
     const siteSettings = getEntityRecord('root', 'site');
-    const siteData = getUnstableBase();
-    const hasFinishedResolvingSiteData = hasFinishedResolution('getUnstableBase');
     return {
       canUseUnfilteredHTML: canUserUseUnfilteredHTML(),
       reusableBlocks: isWeb ? select(external_wp_coreData_namespaceObject.store).getEntityRecords('postType', 'wp_block', {
@@ -11562,8 +11506,6 @@ function useBlockEditorSettings(settings, hasTemplate) {
       }) : [],
       // Reusable blocks are fetched in the native version of this hook.
       hasUploadPermissions: (0,external_lodash_namespaceObject.defaultTo)(canUser('create', 'media'), true),
-      hasResolvedLocalSiteData: hasFinishedResolvingSiteData,
-      baseUrl: (siteData === null || siteData === void 0 ? void 0 : siteData.url) || '',
       userCanCreatePages: canUser('create', 'pages'),
       pageOnFront: siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.page_on_front
     };
@@ -11703,7 +11645,7 @@ function EditorProvider(_ref) {
     return () => {
       __experimentalTearDownEditor();
     };
-  }, []); // Synchronize the editor settings as they change
+  }, []); // Synchronize the editor settings as they change.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     updateEditorSettings(settings);
@@ -11740,7 +11682,7 @@ var external_wp_serverSideRender_default = /*#__PURE__*/__webpack_require__.n(ex
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/deprecated.js
 
 
-// Block Creation Components
+// Block Creation Components.
 
 /**
  * WordPress dependencies
@@ -11835,8 +11777,8 @@ const withColors = deprecateFunction('withColors', external_wp_blockEditor_names
 const withFontSizes = deprecateFunction('withFontSizes', external_wp_blockEditor_namespaceObject.withFontSizes);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/index.js
-// Block Creation Components
- // Post Related Components
+// Block Creation Components.
+ // Post Related Components.
 
 
 
@@ -11898,10 +11840,42 @@ const withFontSizes = deprecateFunction('withFontSizes', external_wp_blockEditor
 
 
 
- // State Related Components
+ // State Related Components.
 
 
 
+
+;// CONCATENATED MODULE: ./packages/editor/build-module/utils/url.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Performs some basic cleanup of a string for use as a post slug
+ *
+ * This replicates some of what sanitize_title() does in WordPress core, but
+ * is only designed to approximate what the slug will be.
+ *
+ * Converts Latin-1 Supplement and Latin Extended-A letters to basic Latin letters.
+ * Removes combining diacritical marks. Converts whitespace, periods,
+ * and forward slashes to hyphens. Removes any remaining non-word characters
+ * except hyphens and underscores. Converts remaining string to lowercase.
+ * It does not account for octets, HTML entities, or other encoded characters.
+ *
+ * @param {string} string Title or slug to be processed
+ *
+ * @return {string} Processed string
+ */
+
+function cleanForSlug(string) {
+  external_wp_deprecated_default()('wp.editor.cleanForSlug', {
+    since: '12.7',
+    plugin: 'Gutenberg',
+    alternative: 'wp.url.cleanForSlug'
+  });
+  return (0,external_wp_url_namespaceObject.cleanForSlug)(string);
+}
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/utils/index.js
 /**

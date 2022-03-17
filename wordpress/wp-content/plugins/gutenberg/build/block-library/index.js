@@ -2104,8 +2104,8 @@ const createUpgradedEmbedBlock = function (props) {
   const matchedBlock = findMoreSuitableBlock(url); // WordPress blocks can work on multiple sites, and so don't have patterns,
   // so if we're in a WordPress block, assume the user has chosen it for a WordPress URL.
 
-  const isCurrentBlockWP = providerNameSlug === 'wordpress' || type === WP_EMBED_TYPE; // if current block is not WordPress and a more suitable block found
-  // that is different from the current one, create the new matched block
+  const isCurrentBlockWP = providerNameSlug === 'wordpress' || type === WP_EMBED_TYPE; // If current block is not WordPress and a more suitable block found
+  // that is different from the current one, create the new matched block.
 
   const shouldCreateNewBlock = !isCurrentBlockWP && matchedBlock && (matchedBlock.attributes.providerNameSlug !== providerNameSlug || !providerNameSlug);
 
@@ -2397,15 +2397,15 @@ function AudioEdit(_ref) {
 
   function onSelectAudio(media) {
     if (!media || !media.url) {
-      // in this case there was an error and we should continue in the editing state
-      // previous attributes should be removed because they may be temporary blob urls
+      // In this case there was an error and we should continue in the editing state
+      // previous attributes should be removed because they may be temporary blob urls.
       setAttributes({
         src: undefined,
         id: undefined
       });
       return;
-    } // sets the block's attribute and updates the edit component from the
-    // selected media, then switches off the editing UI
+    } // Sets the block's attribute and updates the edit component from the
+    // selected media, then switches off the editing UI.
 
 
     setAttributes({
@@ -2544,7 +2544,7 @@ const transforms = {
     transform(files) {
       const file = files[0]; // We don't need to upload the media directly here
       // It's already done as part of the `componentDidMount`
-      // in the audio block
+      // in the audio block.
 
       const block = (0,external_wp_blocks_namespaceObject.createBlock)('core/audio', {
         src: (0,external_wp_blob_namespaceObject.createBlobURL)(file)
@@ -3782,7 +3782,7 @@ function WidthPanel(_ref) {
 
   function handleChange(newWidth) {
     // Check if we are toggling the width off
-    const width = selectedWidth === newWidth ? undefined : newWidth; // Update attributes
+    const width = selectedWidth === newWidth ? undefined : newWidth; // Update attributes.
 
     setAttributes({
       width
@@ -3946,7 +3946,8 @@ function ButtonEdit(props) {
       (_richTextRef$current2 = richTextRef.current) === null || _richTextRef$current2 === void 0 ? void 0 : _richTextRef$current2.focus();
     },
     anchorRef: ref === null || ref === void 0 ? void 0 : ref.current,
-    focusOnMount: isEditingURL ? 'firstElement' : false
+    focusOnMount: isEditingURL ? 'firstElement' : false,
+    __unstableSlotName: '__unstable-block-tools-after'
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLinkControl, {
     className: "wp-block-navigation-link__inline-link-input",
     value: {
@@ -4383,23 +4384,23 @@ const transforms_transforms = {
     type: 'block',
     isMultiBlock: true,
     blocks: ['core/button'],
-    transform: buttons => // Creates the buttons block
-    (0,external_wp_blocks_namespaceObject.createBlock)(transforms_name, {}, // Loop the selected buttons
-    buttons.map(attributes => // Create singular button in the buttons block
+    transform: buttons => // Creates the buttons block.
+    (0,external_wp_blocks_namespaceObject.createBlock)(transforms_name, {}, // Loop the selected buttons.
+    buttons.map(attributes => // Create singular button in the buttons block.
     (0,external_wp_blocks_namespaceObject.createBlock)('core/button', attributes)))
   }, {
     type: 'block',
     isMultiBlock: true,
     blocks: ['core/paragraph'],
-    transform: buttons => // Creates the buttons block
-    (0,external_wp_blocks_namespaceObject.createBlock)(transforms_name, {}, // Loop the selected buttons
+    transform: buttons => // Creates the buttons block.
+    (0,external_wp_blocks_namespaceObject.createBlock)(transforms_name, {}, // Loop the selected buttons.
     buttons.map(attributes => {
-      const element = (0,external_wp_richText_namespaceObject.__unstableCreateElement)(document, attributes.content); // Remove any HTML tags
+      const element = (0,external_wp_richText_namespaceObject.__unstableCreateElement)(document, attributes.content); // Remove any HTML tags.
 
-      const text = element.innerText || ''; // Get first url
+      const text = element.innerText || ''; // Get first url.
 
       const link = element.querySelector('a');
-      const url = link === null || link === void 0 ? void 0 : link.getAttribute('href'); // Create singular button in the buttons block
+      const url = link === null || link === void 0 ? void 0 : link.getAttribute('href'); // Create singular button in the buttons block.
 
       return (0,external_wp_blocks_namespaceObject.createBlock)('core/button', {
         text,
@@ -4747,9 +4748,9 @@ const category = (0,external_wp_element_namespaceObject.createElement)(external_
 
 const pin = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
   xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "-2 -2 24 24"
+  viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M10.44 3.02l1.82-1.82 6.36 6.35-1.83 1.82c-1.05-.68-2.48-.57-3.41.36l-.75.75c-.92.93-1.04 2.35-.35 3.41l-1.83 1.82-2.41-2.41-2.8 2.79c-.42.42-3.38 2.71-3.8 2.29s1.86-3.39 2.28-3.81l2.79-2.79L4.1 9.36l1.83-1.82c1.05.69 2.48.57 3.4-.36l.75-.75c.93-.92 1.05-2.35.36-3.41z"
+  d: "m21.5 9.1-6.6-6.6-4.2 5.6c-1.2-.1-2.4.1-3.6.7-.1 0-.1.1-.2.1-.5.3-.9.6-1.2.9l3.7 3.7-5.7 5.7v1.1h1.1l5.7-5.7 3.7 3.7c.4-.4.7-.8.9-1.2.1-.1.1-.2.2-.3.6-1.1.8-2.4.6-3.6l5.6-4.1zm-7.3 3.5.1.9c.1.9 0 1.8-.4 2.6l-6-6c.8-.4 1.7-.5 2.6-.4l.9.1L15 4.9 19.1 9l-4.9 3.6z"
 }));
 /* harmony default export */ var library_pin = (pin);
 
@@ -4770,7 +4771,6 @@ const pin = (0,external_wp_element_namespaceObject.createElement)(external_wp_pr
 
 
 
-
 function CategoriesEdit(_ref) {
   let {
     attributes: {
@@ -4782,29 +4782,20 @@ function CategoriesEdit(_ref) {
     setAttributes
   } = _ref;
   const selectId = (0,external_wp_compose_namespaceObject.useInstanceId)(CategoriesEdit, 'blocks-category-select');
+  const query = {
+    per_page: -1,
+    hide_empty: true,
+    context: 'view'
+  };
+
+  if (showOnlyTopLevel) {
+    query.parent = 0;
+  }
+
   const {
-    categories,
-    isRequesting
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      getEntityRecords,
-      isResolving
-    } = select(external_wp_coreData_namespaceObject.store);
-    const query = {
-      per_page: -1,
-      hide_empty: true,
-      context: 'view'
-    };
-
-    if (showOnlyTopLevel) {
-      query.parent = 0;
-    }
-
-    return {
-      categories: getEntityRecords('taxonomy', 'category', query),
-      isRequesting: isResolving('getEntityRecords', ['taxonomy', 'category', query])
-    };
-  }, [showOnlyTopLevel]);
+    records: categories,
+    isResolving
+  } = (0,external_wp_coreData_namespaceObject.__experimentalUseEntityRecords)('taxonomy', 'category', query);
 
   const getCategoriesList = parentId => {
     if (!(categories !== null && categories !== void 0 && categories.length)) {
@@ -4904,10 +4895,10 @@ function CategoriesEdit(_ref) {
     label: (0,external_wp_i18n_namespaceObject.__)('Show hierarchy'),
     checked: showHierarchy,
     onChange: toggleAttribute('showHierarchy')
-  }))), isRequesting && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, {
+  }))), isResolving && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, {
     icon: library_pin,
     label: (0,external_wp_i18n_namespaceObject.__)('Categories')
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null)), !isRequesting && (categories === null || categories === void 0 ? void 0 : categories.length) === 0 && (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Your site does not have any posts, so there is nothing to display here at the moment.')), !isRequesting && (categories === null || categories === void 0 ? void 0 : categories.length) > 0 && (displayAsDropdown ? renderCategoryDropdown() : renderCategoryList()));
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null)), !isResolving && (categories === null || categories === void 0 ? void 0 : categories.length) === 0 && (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Your site does not have any posts, so there is nothing to display here at the moment.')), !isResolving && (categories === null || categories === void 0 ? void 0 : categories.length) > 0 && (displayAsDropdown ? renderCategoryDropdown() : renderCategoryList()));
 }
 
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/categories/index.js
@@ -5145,12 +5136,12 @@ function ClassicEdit(_ref) {
       editor.on('remove', debouncedOnChange.cancel);
       editor.on('keydown', event => {
         if (external_wp_keycodes_namespaceObject.isKeyboardEvent.primary(event, 'z')) {
-          // Prevent the gutenberg undo kicking in so TinyMCE undo stack works as expected
+          // Prevent the gutenberg undo kicking in so TinyMCE undo stack works as expected.
           event.stopPropagation();
         }
 
         if ((event.keyCode === external_wp_keycodes_namespaceObject.BACKSPACE || event.keyCode === external_wp_keycodes_namespaceObject.DELETE) && isTmceEmpty(editor)) {
-          // delete the block
+          // Delete the block.
           onReplace([]);
           event.preventDefault();
           event.stopImmediatePropagation();
@@ -5493,7 +5484,6 @@ const code_metadata = {
   },
   supports: {
     anchor: true,
-    __experimentalSelector: ".wp-block-code > code",
     typography: {
       fontSize: true,
       lineHeight: true,
@@ -6349,7 +6339,7 @@ const ColumnsEditContainerWrapper = (0,external_wp_data_namespaceObject.withDisp
 
     setAttributes({
       verticalAlignment
-    }); // Update all child Column Blocks to match
+    }); // Update all child Column Blocks to match.
 
     const innerBlockClientIds = getBlockOrder(clientId);
     innerBlockClientIds.forEach(innerBlockClientId => {
@@ -9187,7 +9177,7 @@ function attributesFromMedia(setAttributes, dimRatio) {
       media.type = (0,external_wp_blob_namespaceObject.getBlobTypeByURL)(media.url);
     }
 
-    let mediaType; // for media selections originated from a file upload.
+    let mediaType; // For media selections originated from a file upload.
 
     if (media.media_type) {
       if (media.media_type === IMAGE_BACKGROUND_TYPE) {
@@ -9198,7 +9188,7 @@ function attributesFromMedia(setAttributes, dimRatio) {
         mediaType = VIDEO_BACKGROUND_TYPE;
       }
     } else {
-      // for media selections originated from existing files in the media library.
+      // For media selections originated from existing files in the media library.
       if (media.type !== IMAGE_BACKGROUND_TYPE && media.type !== VIDEO_BACKGROUND_TYPE) {
         return;
       }
@@ -9312,9 +9302,9 @@ const deprecated_blockAttributes = {
   focalPoint: {
     type: 'object'
   }
-}; // v8: deprecated to remove duplicated gradient classes and swap `wp-block-cover__gradient-background` for `wp-block-cover__background`.
+}; // Deprecation for blocks with `minHeightUnit` set but no `minHeight`.
 
-const v8 = {
+const v9 = {
   attributes: {
     url: {
       type: 'string'
@@ -9443,6 +9433,179 @@ const v8 = {
       'is-repeated': isRepeated,
       'has-custom-content-position': !isContentPositionCenter(contentPosition)
     }, getPositionClassName(contentPosition));
+    const gradientValue = gradient || customGradient;
+    return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
+      className: classes,
+      style
+    }), (0,external_wp_element_namespaceObject.createElement)("span", {
+      "aria-hidden": "true",
+      className: classnames_default()('wp-block-cover__background', overlayColorClass, dimRatioToClass(dimRatio), {
+        'has-background-dim': dimRatio !== undefined,
+        // For backwards compatibility. Former versions of the Cover Block applied
+        // `.wp-block-cover__gradient-background` in the presence of
+        // media, a gradient and a dim.
+        'wp-block-cover__gradient-background': url && gradientValue && dimRatio !== 0,
+        'has-background-gradient': gradientValue,
+        [gradientClass]: gradientClass
+      }),
+      style: bgStyle
+    }), isImageBackground && isImgElement && url && (0,external_wp_element_namespaceObject.createElement)("img", {
+      className: classnames_default()('wp-block-cover__image-background', id ? `wp-image-${id}` : null),
+      alt: alt,
+      src: url,
+      style: {
+        objectPosition
+      },
+      "data-object-fit": "cover",
+      "data-object-position": objectPosition
+    }), isVideoBackground && url && (0,external_wp_element_namespaceObject.createElement)("video", {
+      className: classnames_default()('wp-block-cover__video-background', 'intrinsic-ignore'),
+      autoPlay: true,
+      muted: true,
+      loop: true,
+      playsInline: true,
+      src: url,
+      style: {
+        objectPosition
+      },
+      "data-object-fit": "cover",
+      "data-object-position": objectPosition
+    }), (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useInnerBlocksProps.save({
+      className: 'wp-block-cover__inner-container'
+    })));
+  }
+
+}; // v8: deprecated to remove duplicated gradient classes and swap `wp-block-cover__gradient-background` for `wp-block-cover__background`.
+
+const v8 = {
+  attributes: {
+    url: {
+      type: 'string'
+    },
+    id: {
+      type: 'number'
+    },
+    alt: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'img',
+      attribute: 'alt',
+      default: ''
+    },
+    hasParallax: {
+      type: 'boolean',
+      default: false
+    },
+    isRepeated: {
+      type: 'boolean',
+      default: false
+    },
+    dimRatio: {
+      type: 'number',
+      default: 100
+    },
+    overlayColor: {
+      type: 'string'
+    },
+    customOverlayColor: {
+      type: 'string'
+    },
+    backgroundType: {
+      type: 'string',
+      default: 'image'
+    },
+    focalPoint: {
+      type: 'object'
+    },
+    minHeight: {
+      type: 'number'
+    },
+    minHeightUnit: {
+      type: 'string'
+    },
+    gradient: {
+      type: 'string'
+    },
+    customGradient: {
+      type: 'string'
+    },
+    contentPosition: {
+      type: 'string'
+    },
+    isDark: {
+      type: 'boolean',
+      default: true
+    },
+    allowedBlocks: {
+      type: 'array'
+    },
+    templateLock: {
+      type: ['string', 'boolean'],
+      enum: ['all', 'insert', false]
+    }
+  },
+  supports: {
+    anchor: true,
+    align: true,
+    html: false,
+    spacing: {
+      padding: true,
+      __experimentalDefaultControls: {
+        padding: true
+      }
+    },
+    color: {
+      __experimentalDuotone: '> .wp-block-cover__image-background, > .wp-block-cover__video-background',
+      text: false,
+      background: false
+    }
+  },
+
+  save(_ref2) {
+    let {
+      attributes
+    } = _ref2;
+    const {
+      backgroundType,
+      gradient,
+      contentPosition,
+      customGradient,
+      customOverlayColor,
+      dimRatio,
+      focalPoint,
+      hasParallax,
+      isDark,
+      isRepeated,
+      overlayColor,
+      url,
+      alt,
+      id,
+      minHeight: minHeightProp,
+      minHeightUnit
+    } = attributes;
+    const overlayColorClass = (0,external_wp_blockEditor_namespaceObject.getColorClassName)('background-color', overlayColor);
+
+    const gradientClass = (0,external_wp_blockEditor_namespaceObject.__experimentalGetGradientClass)(gradient);
+
+    const minHeight = minHeightUnit ? `${minHeightProp}${minHeightUnit}` : minHeightProp;
+    const isImageBackground = IMAGE_BACKGROUND_TYPE === backgroundType;
+    const isVideoBackground = VIDEO_BACKGROUND_TYPE === backgroundType;
+    const isImgElement = !(hasParallax || isRepeated);
+    const style = { ...(isImageBackground && !isImgElement ? backgroundImageStyles(url) : {}),
+      minHeight: minHeight || undefined
+    };
+    const bgStyle = {
+      backgroundColor: !overlayColorClass ? customOverlayColor : undefined,
+      background: customGradient ? customGradient : undefined
+    };
+    const objectPosition = // prettier-ignore
+    focalPoint && isImgElement ? `${Math.round(focalPoint.x * 100)}% ${Math.round(focalPoint.y * 100)}%` : undefined;
+    const classes = classnames_default()({
+      'is-light': !isDark,
+      'has-parallax': hasParallax,
+      'is-repeated': isRepeated,
+      'has-custom-content-position': !isContentPositionCenter(contentPosition)
+    }, getPositionClassName(contentPosition));
     return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
       className: classes,
       style
@@ -9527,10 +9690,10 @@ const v7 = {
     }
   },
 
-  save(_ref2) {
+  save(_ref3) {
     let {
       attributes
-    } = _ref2;
+    } = _ref3;
     const {
       backgroundType,
       gradient,
@@ -9634,10 +9797,10 @@ const v6 = {
     align: true
   },
 
-  save(_ref3) {
+  save(_ref4) {
     let {
       attributes
-    } = _ref3;
+    } = _ref4;
     const {
       backgroundType,
       gradient,
@@ -9734,10 +9897,10 @@ const v5 = {
     align: true
   },
 
-  save(_ref4) {
+  save(_ref5) {
     let {
       attributes
-    } = _ref4;
+    } = _ref5;
     const {
       backgroundType,
       gradient,
@@ -9813,10 +9976,10 @@ const v4 = {
     align: true
   },
 
-  save(_ref5) {
+  save(_ref6) {
     let {
       attributes
-    } = _ref5;
+    } = _ref6;
     const {
       backgroundType,
       gradient,
@@ -9892,10 +10055,10 @@ const v3 = {
     align: true
   },
 
-  save(_ref6) {
+  save(_ref7) {
     let {
       attributes
-    } = _ref6;
+    } = _ref7;
     const {
       backgroundType,
       contentAlign,
@@ -9971,10 +10134,10 @@ const v2 = {
     className: false
   },
 
-  save(_ref7) {
+  save(_ref8) {
     let {
       attributes
-    } = _ref7;
+    } = _ref8;
     const {
       url,
       title,
@@ -10039,10 +10202,10 @@ const cover_deprecated_v1 = {
     className: false
   },
 
-  save(_ref8) {
+  save(_ref9) {
     let {
       attributes
-    } = _ref8;
+    } = _ref9;
     const {
       url,
       title,
@@ -10077,7 +10240,7 @@ const cover_deprecated_v1 = {
   }
 
 };
-/* harmony default export */ var cover_deprecated = ([v8, v7, v6, v5, v4, v3, v2, cover_deprecated_v1]);
+/* harmony default export */ var cover_deprecated = ([v9, v8, v7, v6, v5, v4, v3, v2, cover_deprecated_v1]);
 
 // EXTERNAL MODULE: ./node_modules/fast-average-color/dist/index.js
 var dist = __webpack_require__(5027);
@@ -10151,11 +10314,12 @@ function CoverHeightInput(_ref) {
   const units = (0,external_wp_components_namespaceObject.__experimentalUseCustomUnits)({
     availableUnits: (0,external_wp_blockEditor_namespaceObject.useSetting)('spacing.units') || ['px', 'em', 'rem', 'vw', 'vh'],
     defaultValues: {
-      px: '430',
-      em: '20',
-      rem: '20',
-      vw: '20',
-      vh: '50'
+      px: 430,
+      '%': 20,
+      em: 20,
+      rem: 20,
+      vw: 20,
+      vh: 50
     }
   });
 
@@ -10169,10 +10333,6 @@ function CoverHeightInput(_ref) {
 
     setTemporaryInput(null);
     onChange(inputValue);
-
-    if (inputValue === undefined) {
-      onUnitChange();
-    }
   };
 
   const handleOnBlur = () => {
@@ -10289,7 +10449,7 @@ function useCoverIsDark(url) {
   }, [overlayColor, dimRatio > 50 || !url, setIsDark]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (!url && !overlayColor) {
-      // Reset isDark
+      // Reset isDark.
       setIsDark(false);
     }
   }, [!url && !overlayColor, setIsDark]);
@@ -10450,7 +10610,7 @@ function CoverEdit(_ref5) {
   }, [isCoverDark]);
   const isImageBackground = IMAGE_BACKGROUND_TYPE === backgroundType;
   const isVideoBackground = VIDEO_BACKGROUND_TYPE === backgroundType;
-  const minHeightWithUnit = minHeightUnit ? `${minHeight}${minHeightUnit}` : minHeight;
+  const minHeightWithUnit = minHeight && minHeightUnit ? `${minHeight}${minHeightUnit}` : minHeight;
   const isImgElement = !(hasParallax || isRepeated);
   const style = { ...(isImageBackground && !isImgElement ? backgroundImageStyles(url) : undefined),
     minHeight: minHeightWithUnit || undefined
@@ -10760,7 +10920,7 @@ function cover_save_save(_ref) {
 
   const gradientClass = (0,external_wp_blockEditor_namespaceObject.__experimentalGetGradientClass)(gradient);
 
-  const minHeight = minHeightUnit ? `${minHeightProp}${minHeightUnit}` : minHeightProp;
+  const minHeight = minHeightProp && minHeightUnit ? `${minHeightProp}${minHeightUnit}` : minHeightProp;
   const isImageBackground = IMAGE_BACKGROUND_TYPE === backgroundType;
   const isVideoBackground = VIDEO_BACKGROUND_TYPE === backgroundType;
   const isImgElement = !(hasParallax || isRepeated);
@@ -11808,7 +11968,7 @@ const EmbedEdit = props => {
     setAttributes({
       url: newURL
     });
-  }, [preview === null || preview === void 0 ? void 0 : preview.html, attributesUrl]); // Handle incoming preview
+  }, [preview === null || preview === void 0 ? void 0 : preview.html, attributesUrl]); // Handle incoming preview.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (preview && !isEditingURL) {
@@ -12195,7 +12355,7 @@ const variations_variations = [{
     responsive: true
   }
 }, {
-  // Deprecated since CollegeHumor content is now powered by YouTube
+  // Deprecated since CollegeHumor content is now powered by YouTube.
   name: 'collegehumor',
   title: 'CollegeHumor',
   icon: embedVideoIcon,
@@ -12920,6 +13080,7 @@ function FileEdit(_ref2) {
   } = _ref2;
   const {
     id,
+    fileId,
     fileName,
     href,
     textLinkHref,
@@ -12929,7 +13090,6 @@ function FileEdit(_ref2) {
     displayPreview,
     previewHeight
   } = attributes;
-  const [hasError, setHasError] = (0,external_wp_element_namespaceObject.useState)(false);
   const {
     media,
     mediaUpload
@@ -12938,10 +13098,11 @@ function FileEdit(_ref2) {
     mediaUpload: select(external_wp_blockEditor_namespaceObject.store).getSettings().mediaUpload
   }), [id]);
   const {
-    toggleSelection
+    toggleSelection,
+    __unstableMarkNextChangeAsNotPersistent
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    // Upload a file drag-and-dropped into the editor
+    // Upload a file drag-and-dropped into the editor.
     if ((0,external_wp_blob_namespaceObject.isBlobURL)(href)) {
       const file = (0,external_wp_blob_namespaceObject.getBlobByURL)(href);
       mediaUpload({
@@ -12950,10 +13111,7 @@ function FileEdit(_ref2) {
           let [newMedia] = _ref3;
           return onSelectFile(newMedia);
         },
-        onError: message => {
-          setHasError(true);
-          noticeOperations.createErrorNotice(message);
-        }
+        onError: onUploadError
       });
       (0,external_wp_blob_namespaceObject.revokeBlobURL)(href);
     }
@@ -12963,15 +13121,18 @@ function FileEdit(_ref2) {
     }
   }, []);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    // Add a unique fileId to each file block
-    setAttributes({
-      fileId: `wp-block-file--media-${clientId}`
-    });
-  }, [clientId]);
+    if (!fileId && href) {
+      // Add a unique fileId to each file block.
+      __unstableMarkNextChangeAsNotPersistent();
+
+      setAttributes({
+        fileId: `wp-block-file--media-${clientId}`
+      });
+    }
+  }, [href, fileId, clientId]);
 
   function onSelectFile(newMedia) {
     if (newMedia && newMedia.url) {
-      setHasError(false);
       const isPdf = newMedia.url.endsWith('.pdf');
       setAttributes({
         href: newMedia.url,
@@ -12985,13 +13146,15 @@ function FileEdit(_ref2) {
   }
 
   function onUploadError(message) {
-    setHasError(true);
+    setAttributes({
+      href: undefined
+    });
     noticeOperations.removeAllNotices();
     noticeOperations.createErrorNotice(message);
   }
 
   function changeLinkDestinationOption(newHref) {
-    // Choose Media File or Attachment Page (when file is in Media Library)
+    // Choose Media File or Attachment Page (when file is in Media Library).
     setAttributes({
       textLinkHref: newHref
     });
@@ -13047,7 +13210,7 @@ function FileEdit(_ref2) {
   });
   const displayPreviewInEditor = browserSupportsPdfs() && displayPreview;
 
-  if (!href || hasError) {
+  if (!href) {
     return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.MediaPlaceholder, {
       icon: (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockIcon, {
         icon: library_file
@@ -13131,7 +13294,7 @@ function FileEdit(_ref2) {
   }), showDownloadButton && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: 'wp-block-file__button-richtext-wrapper'
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
-    tagName: "div" // must be block-level or else cursor disappears
+    tagName: "div" // Must be block-level or else cursor disappears.
     ,
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Download button text'),
     className: 'wp-block-file__button',
@@ -13170,6 +13333,10 @@ function file_save_save(_ref) {
   const pdfEmbedLabel = external_wp_blockEditor_namespaceObject.RichText.isEmpty(fileName) ? (0,external_wp_i18n_namespaceObject.__)('PDF embed') : (0,external_wp_i18n_namespaceObject.sprintf)(
   /* translators: %s: filename. */
   (0,external_wp_i18n_namespaceObject.__)('Embed of %s.'), fileName);
+  const hasFilename = !external_wp_blockEditor_namespaceObject.RichText.isEmpty(fileName); // Only output an `aria-describedby` when the element it's referring to is
+  // actually rendered.
+
+  const describedById = hasFilename ? fileId : undefined;
   return href && (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save(), displayPreview && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("object", {
     className: "wp-block-file__embed",
     data: href,
@@ -13179,8 +13346,8 @@ function file_save_save(_ref) {
       height: `${previewHeight}px`
     },
     "aria-label": pdfEmbedLabel
-  })), !external_wp_blockEditor_namespaceObject.RichText.isEmpty(fileName) && (0,external_wp_element_namespaceObject.createElement)("a", {
-    id: fileId,
+  })), hasFilename && (0,external_wp_element_namespaceObject.createElement)("a", {
+    id: describedById,
     href: textLinkHref,
     target: textLinkTarget,
     rel: textLinkTarget ? 'noreferrer noopener' : undefined
@@ -13190,7 +13357,7 @@ function file_save_save(_ref) {
     href: href,
     className: "wp-block-file__button",
     download: true,
-    "aria-describedby": fileId
+    "aria-describedby": describedById
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText.Content, {
     value: downloadButtonText
   })));
@@ -15243,7 +15410,7 @@ function GalleryEdit(props) {
   }
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    // linkTo attribute must be saved so blocks don't break when changing image_default_link_type in options.php
+    // linkTo attribute must be saved so blocks don't break when changing image_default_link_type in options.php.
     if (!linkTo) {
       var _window, _window$wp, _window$wp$media, _window$wp$media$view, _window$wp$media$view2, _window$wp$media$view3;
 
@@ -16023,7 +16190,7 @@ function edit_GalleryEdit(props) {
 
     const attachment = (0,external_lodash_namespaceObject.find)(attachmentCaptions, {
       id: newImageId
-    }); // if the attachment caption is updated
+    }); // If the attachment caption is updated.
 
     if (attachment && attachment.caption !== newImage.caption) {
       return newImage.caption;
@@ -16154,14 +16321,14 @@ function edit_GalleryEdit(props) {
     }
   }, []);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    // Deselect images when deselecting the block
+    // Deselect images when deselecting the block.
     if (!isSelected) {
       setSelectedImage();
     }
   }, [isSelected]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     // linkTo attribute must be saved so blocks don't break when changing
-    // image_default_link_type in options.php
+    // image_default_link_type in options.php.
     if (!linkTo) {
       var _window, _window$wp, _window$wp$media, _window$wp$media$view, _window$wp$media$view2, _window$wp$media$view3;
 
@@ -17285,6 +17452,43 @@ function group_save_save(_ref) {
   return (0,external_wp_element_namespaceObject.createElement)(Tag, external_wp_blockEditor_namespaceObject.useInnerBlocksProps.save(external_wp_blockEditor_namespaceObject.useBlockProps.save()));
 }
 
+;// CONCATENATED MODULE: ./packages/block-library/build-module/group/transforms.js
+/**
+ * WordPress dependencies
+ */
+
+const group_transforms_transforms = {
+  from: [{
+    type: 'block',
+    isMultiBlock: true,
+    blocks: ['*'],
+
+    __experimentalConvert(blocks) {
+      const alignments = ['wide', 'full']; // Determine the widest setting of all the blocks to be grouped
+
+      const widestAlignment = blocks.reduce((accumulator, block) => {
+        const {
+          align
+        } = block.attributes;
+        return alignments.indexOf(align) > alignments.indexOf(accumulator) ? align : accumulator;
+      }, undefined); // Clone the Blocks to be Grouped
+      // Failing to create new block references causes the original blocks
+      // to be replaced in the switchToBlockType call thereby meaning they
+      // are removed both from their original location and within the
+      // new group block.
+
+      const groupInnerBlocks = blocks.map(block => {
+        return (0,external_wp_blocks_namespaceObject.createBlock)(block.name, block.attributes, block.innerBlocks);
+      });
+      return (0,external_wp_blocks_namespaceObject.createBlock)('core/group', {
+        align: widestAlignment
+      }, groupInnerBlocks);
+    }
+
+  }]
+};
+/* harmony default export */ var group_transforms = (group_transforms_transforms);
+
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/group/variations.js
 /**
  * WordPress dependencies
@@ -17328,7 +17532,6 @@ const group_variations_variations = [{
 /**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -17407,6 +17610,7 @@ const group_metadata = {
 };
 
 
+
 const {
   name: group_name
 } = group_metadata;
@@ -17466,41 +17670,7 @@ const group_settings = {
       }
     }]
   },
-  transforms: {
-    from: [{
-      type: 'block',
-      isMultiBlock: true,
-      blocks: ['*'],
-
-      __experimentalConvert(blocks) {
-        // Avoid transforming a single `core/group` Block
-        if (blocks.length === 1 && blocks[0].name === 'core/group') {
-          return;
-        }
-
-        const alignments = ['wide', 'full']; // Determine the widest setting of all the blocks to be grouped
-
-        const widestAlignment = blocks.reduce((accumulator, block) => {
-          const {
-            align
-          } = block.attributes;
-          return alignments.indexOf(align) > alignments.indexOf(accumulator) ? align : accumulator;
-        }, undefined); // Clone the Blocks to be Grouped
-        // Failing to create new block references causes the original blocks
-        // to be replaced in the switchToBlockType call thereby meaning they
-        // are removed both from their original location and within the
-        // new group block.
-
-        const groupInnerBlocks = blocks.map(block => {
-          return (0,external_wp_blocks_namespaceObject.createBlock)(block.name, block.attributes, block.innerBlocks);
-        });
-        return (0,external_wp_blocks_namespaceObject.createBlock)('core/group', {
-          align: widestAlignment
-        }, groupInnerBlocks);
-      }
-
-    }]
-  },
+  transforms: group_transforms,
   edit: group_edit,
   save: group_save_save,
   deprecated: group_deprecated,
@@ -18482,7 +18652,7 @@ function HomeEdit(_ref) {
     var _getUnstableBase;
 
     const {
-      getUnstableBase //site index
+      getUnstableBase // Site index.
 
     } = select(external_wp_coreData_namespaceObject.store);
     return {
@@ -19790,6 +19960,12 @@ function ImageEdit(_ref) {
   function onUploadError(message) {
     noticeOperations.removeAllNotices();
     noticeOperations.createErrorNotice(message);
+    setAttributes({
+      src: undefined,
+      id: undefined,
+      url: undefined
+    });
+    setTemporaryURL(undefined);
   }
 
   function onSelectImage(media) {
@@ -19926,12 +20102,7 @@ function ImageEdit(_ref) {
         allowedTypes: constants_ALLOWED_MEDIA_TYPES,
         onError: message => {
           isTemp = false;
-          noticeOperations.createErrorNotice(message);
-          setAttributes({
-            src: undefined,
-            id: undefined,
-            url: undefined
-          });
+          onUploadError(message);
         }
       });
     }
@@ -20086,7 +20257,7 @@ function stripFirstImage(attributes, _ref) {
     body
   } = document.implementation.createHTMLDocument('');
   body.innerHTML = shortcode.content;
-  let nodeToRemove = body.querySelector('img'); // if an image has parents, find the topmost node to remove
+  let nodeToRemove = body.querySelector('img'); // If an image has parents, find the topmost node to remove.
 
   while (nodeToRemove && nodeToRemove.parentNode && nodeToRemove.parentNode !== body) {
     nodeToRemove = nodeToRemove.parentNode;
@@ -22744,6 +22915,7 @@ const DEFAULT_MEDIA_SIZE_SLUG = 'full';
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -22782,8 +22954,25 @@ function edit_attributesFromMedia(_ref) {
     setAttributes
   } = _ref;
   return media => {
+    if (!media || !media.url) {
+      setAttributes({
+        mediaAlt: undefined,
+        mediaId: undefined,
+        mediaType: undefined,
+        mediaUrl: undefined,
+        mediaLink: undefined,
+        href: undefined,
+        focalPoint: undefined
+      });
+      return;
+    }
+
+    if ((0,external_wp_blob_namespaceObject.isBlobURL)(media.url)) {
+      media.type = (0,external_wp_blob_namespaceObject.getBlobTypeByURL)(media.url);
+    }
+
     let mediaType;
-    let src; // for media selections originated from a file upload.
+    let src; // For media selections originated from a file upload.
 
     if (media.media_type) {
       if (media.media_type === 'image') {
@@ -22794,7 +22983,7 @@ function edit_attributesFromMedia(_ref) {
         mediaType = 'video';
       }
     } else {
-      // for media selections originated from existing files in the media library.
+      // For media selections originated from existing files in the media library.
       mediaType = media.type;
     }
 
@@ -23666,11 +23855,11 @@ const more_transforms_transforms = {
         customText,
         noTeaser
       } = node.dataset;
-      const attrs = {}; // Don't copy unless defined and not an empty string
+      const attrs = {}; // Don't copy unless defined and not an empty string.
 
       if (customText) {
         attrs.customText = customText;
-      } // Special handling for boolean
+      } // Special handling for boolean.
 
 
       if (noTeaser === '') {
@@ -23760,6 +23949,8 @@ const navigation = (0,external_wp_element_namespaceObject.createElement)(externa
 }));
 /* harmony default export */ var library_navigation = (navigation);
 
+;// CONCATENATED MODULE: external ["wp","a11y"]
+var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/list-view.js
 
 
@@ -23854,6 +24045,7 @@ function useNavigationMenu(ref) {
       getEditedEntityRecord,
       getEntityRecords,
       hasFinishedResolution,
+      isResolving,
       canUser
     } = select(external_wp_coreData_namespaceObject.store);
     const navigationMenuSingleArgs = ['postType', 'wp_navigation', ref];
@@ -23884,6 +24076,7 @@ function useNavigationMenu(ref) {
       canUserDeleteNavigationMenu: ref ? canUser('delete', 'navigation', ref) : undefined,
       hasResolvedCanUserDeleteNavigationMenu: hasFinishedResolution('canUser', ['delete', 'navigation', ref]),
       canUserCreateNavigationMenu: canUser('create', 'navigation'),
+      isResolvingCanUserCreateNavigationMenu: isResolving('canUser', ['create', 'navigation']),
       hasResolvedCanUserCreateNavigationMenu: hasFinishedResolution('canUser', ['create', 'navigation'])
     };
   }, [ref]);
@@ -23926,30 +24119,18 @@ function useNavigationEntities(menuId) {
 
 function useMenuEntities() {
   const {
-    menus,
-    isResolvingMenus,
-    hasResolvedMenus
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      getMenus,
-      isResolving,
-      hasFinishedResolution
-    } = select(external_wp_coreData_namespaceObject.store);
-    const menusParameters = [{
-      per_page: -1,
-      context: 'view'
-    }];
-    return {
-      menus: getMenus(...menusParameters),
-      isResolvingMenus: isResolving('getMenus', menusParameters),
-      hasResolvedMenus: hasFinishedResolution('getMenus', menusParameters)
-    };
-  }, []);
+    records,
+    isResolving,
+    hasResolved
+  } = (0,external_wp_coreData_namespaceObject.__experimentalUseEntityRecords)('root', 'menu', {
+    per_page: -1,
+    context: 'view'
+  });
   return {
-    menus,
-    isResolvingMenus,
-    hasResolvedMenus,
-    hasMenus: !!(hasResolvedMenus && menus !== null && menus !== void 0 && menus.length)
+    menus: records,
+    isResolvingMenus: isResolving,
+    hasResolvedMenus: hasResolved,
+    hasMenus: !!(hasResolved && records !== null && records !== void 0 && records.length)
   };
 }
 
@@ -23981,33 +24162,21 @@ function useMenuItemEntities(menuId) {
 
 function usePageEntities() {
   const {
-    pages,
-    isResolvingPages,
-    hasResolvedPages
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      getEntityRecords,
-      isResolving,
-      hasFinishedResolution
-    } = select(external_wp_coreData_namespaceObject.store);
-    const pagesParameters = ['postType', 'page', {
-      parent: 0,
-      order: 'asc',
-      orderby: 'id',
-      per_page: -1,
-      context: 'view'
-    }];
-    return {
-      pages: getEntityRecords(...pagesParameters) || null,
-      isResolvingPages: isResolving('getEntityRecords', pagesParameters),
-      hasResolvedPages: hasFinishedResolution('getEntityRecords', pagesParameters)
-    };
-  }, []);
+    records,
+    isResolving,
+    hasResolved
+  } = (0,external_wp_coreData_namespaceObject.__experimentalUseEntityRecords)('postType', 'page', {
+    parent: 0,
+    order: 'asc',
+    orderby: 'id',
+    per_page: -1,
+    context: 'view'
+  });
   return {
-    pages,
-    isResolvingPages,
-    hasResolvedPages,
-    hasPages: !!(hasResolvedPages && pages !== null && pages !== void 0 && pages.length)
+    pages: records,
+    isResolvingPages: isResolving,
+    hasResolvedPages: hasResolved,
+    hasPages: !!(hasResolved && records !== null && records !== void 0 && records.length)
   };
 }
 
@@ -24047,24 +24216,18 @@ function Icon(_ref) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
 
 
 
-
 const PlaceholderPreview = _ref => {
   let {
-    isLoading
+    isVisible = true
   } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: classnames_default()('wp-block-navigation-placeholder__preview', {
-      'is-loading': isLoading
-    })
+    "aria-hidden": !isVisible ? true : undefined,
+    className: "wp-block-navigation-placeholder__preview"
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "wp-block-navigation-placeholder__actions__indicator"
   }, (0,external_wp_element_namespaceObject.createElement)(icon, {
@@ -24074,431 +24237,8 @@ const PlaceholderPreview = _ref => {
 
 /* harmony default export */ var placeholder_preview = (PlaceholderPreview);
 
-;// CONCATENATED MODULE: ./packages/block-library/build-module/template-part/edit/utils/create-template-part-id.js
-/**
- * Generates a template part Id based on slug and theme inputs.
- *
- * @param {string} theme the template part's theme.
- * @param {string} slug  the template part's slug
- * @return {string|null} the template part's Id.
- */
-function createTemplatePartId(theme, slug) {
-  return theme && slug ? theme + '//' + slug : null;
-}
-
-;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/use-template-part-area-label.js
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Internal dependencies
- */
-// TODO: this util should perhaps be refactored somewhere like core-data.
-
-
-function useTemplatePartAreaLabel(clientId) {
-  return (0,external_wp_data_namespaceObject.useSelect)(select => {
-    // Use the lack of a clientId as an opportunity to bypass the rest
-    // of this hook.
-    if (!clientId) {
-      return;
-    }
-
-    const {
-      getBlock,
-      getBlockParentsByBlockName
-    } = select(external_wp_blockEditor_namespaceObject.store);
-    const withAscendingResults = true;
-    const parentTemplatePartClientIds = getBlockParentsByBlockName(clientId, 'core/template-part', withAscendingResults);
-
-    if (!(parentTemplatePartClientIds !== null && parentTemplatePartClientIds !== void 0 && parentTemplatePartClientIds.length)) {
-      return;
-    } // FIXME: @wordpress/block-library should not depend on @wordpress/editor.
-    // Blocks can be loaded into a *non-post* block editor.
-    // This code is lifted from this file:
-    // packages/block-library/src/template-part/edit/advanced-controls.js
-    // eslint-disable-next-line @wordpress/data-no-store-string-literals
-
-
-    const definedAreas = select('core/editor').__experimentalGetDefaultTemplatePartAreas();
-
-    const {
-      getEditedEntityRecord
-    } = select(external_wp_coreData_namespaceObject.store);
-
-    for (const templatePartClientId of parentTemplatePartClientIds) {
-      const templatePartBlock = getBlock(templatePartClientId); // The 'area' usually isn't stored on the block, but instead
-      // on the entity.
-
-      const {
-        theme,
-        slug
-      } = templatePartBlock.attributes;
-      const templatePartEntityId = createTemplatePartId(theme, slug);
-      const templatePartEntity = getEditedEntityRecord('postType', 'wp_template_part', templatePartEntityId); // Look up the `label` for the area in the defined areas so
-      // that an internationalized label can be used.
-
-      if (templatePartEntity !== null && templatePartEntity !== void 0 && templatePartEntity.area) {
-        var _definedAreas$find;
-
-        return (_definedAreas$find = definedAreas.find(definedArea => definedArea.area !== 'uncategorized' && definedArea.area === templatePartEntity.area)) === null || _definedAreas$find === void 0 ? void 0 : _definedAreas$find.label;
-      }
-    }
-  }, [clientId]);
-}
-
-;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/edit/use-generate-default-navigation-title.js
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-const DRAFT_MENU_PARAMS = ['postType', 'wp_navigation', {
-  status: 'draft',
-  per_page: -1
-}];
-const PUBLISHED_MENU_PARAMS = ['postType', 'wp_navigation', {
-  per_page: -1,
-  status: 'publish'
-}];
-function useGenerateDefaultNavigationTitle(clientId) {
-  // The block will be disabled in a block preview, use this as a way of
-  // avoiding the side-effects of this component for block previews.
-  const isDisabled = (0,external_wp_element_namespaceObject.useContext)(external_wp_components_namespaceObject.Disabled.Context); // Because we can't conditionally call hooks, pass an undefined client id
-  // arg to bypass the expensive `useTemplateArea` code. The hook will return
-  // early.
-
-  const area = useTemplatePartAreaLabel(isDisabled ? undefined : clientId);
-  const registry = (0,external_wp_data_namespaceObject.useRegistry)();
-  return (0,external_wp_element_namespaceObject.useCallback)(async () => {
-    // Ensure other navigation menus have loaded so an
-    // accurate name can be created.
-    if (isDisabled) {
-      return '';
-    }
-
-    const {
-      getEntityRecords
-    } = registry.resolveSelect(external_wp_coreData_namespaceObject.store);
-    const [draftNavigationMenus, navigationMenus] = await Promise.all([getEntityRecords(...DRAFT_MENU_PARAMS), getEntityRecords(...PUBLISHED_MENU_PARAMS)]);
-    const title = area ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: the name of a menu (e.g. Header navigation).
-    (0,external_wp_i18n_namespaceObject.__)('%s navigation'), area) : // translators: 'navigation' as in website navigation.
-    (0,external_wp_i18n_namespaceObject.__)('Navigation'); // Determine how many menus start with the automatic title.
-
-    const matchingMenuTitleCount = [...draftNavigationMenus, ...navigationMenus].reduce((count, menu) => {
-      var _menu$title, _menu$title$raw;
-
-      return menu !== null && menu !== void 0 && (_menu$title = menu.title) !== null && _menu$title !== void 0 && (_menu$title$raw = _menu$title.raw) !== null && _menu$title$raw !== void 0 && _menu$title$raw.startsWith(title) ? count + 1 : count;
-    }, 0); // Append a number to the end of the title if a menu with
-    // the same name exists.
-
-    const titleWithCount = matchingMenuTitleCount > 0 ? `${title} ${matchingMenuTitleCount + 1}` : title;
-    return titleWithCount || '';
-  }, [isDisabled, area]);
-}
-
-;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/edit/use-create-navigation-menu.js
-/**
- * WordPress dependencies
- */
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-function useCreateNavigationMenu(clientId) {
-  const {
-    saveEntityRecord
-  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
-  const generateDefaultTitle = useGenerateDefaultNavigationTitle(clientId); // This callback uses data from the two placeholder steps and only creates
-  // a new navigation menu when the user completes the final step.
-
-  return (0,external_wp_element_namespaceObject.useCallback)(async function () {
-    let title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-    let blocks = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-
-    if (!title) {
-      title = await generateDefaultTitle();
-    }
-
-    const record = {
-      title,
-      content: (0,external_wp_blocks_namespaceObject.serialize)(blocks),
-      status: 'publish'
-    };
-    return await saveEntityRecord('postType', 'wp_navigation', record);
-  }, [external_wp_blocks_namespaceObject.serialize, saveEntityRecord]);
-}
-
 ;// CONCATENATED MODULE: external ["wp","htmlEntities"]
 var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
-;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/menu-items-to-blocks.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-
-/**
- * Convert a flat menu item structure to a nested blocks structure.
- *
- * @param {Object[]} menuItems An array of menu items.
- *
- * @return {WPBlock[]} An array of blocks.
- */
-
-function menuItemsToBlocks(menuItems) {
-  if (!menuItems) {
-    return null;
-  }
-
-  const menuTree = createDataTree(menuItems);
-  const blocks = mapMenuItemsToBlocks(menuTree);
-  return (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.navigation.__unstableMenuItemsToBlocks', blocks, menuItems);
-}
-/**
- * A recursive function that maps menu item nodes to blocks.
- *
- * @param {WPNavMenuItem[]} menuItems An array of WPNavMenuItem items.
- * @return {Object} Object containing innerBlocks and mapping.
- */
-
-function mapMenuItemsToBlocks(menuItems) {
-  let mapping = {}; // The menuItem should be in menu_order sort order.
-
-  const sortedItems = (0,external_lodash_namespaceObject.sortBy)(menuItems, 'menu_order');
-  const innerBlocks = sortedItems.map(menuItem => {
-    var _menuItem$children, _menuItem$children2;
-
-    if (menuItem.type === 'block') {
-      const [block] = (0,external_wp_blocks_namespaceObject.parse)(menuItem.content.raw);
-
-      if (!block) {
-        return (0,external_wp_blocks_namespaceObject.createBlock)('core/freeform', {
-          content: menuItem.content
-        });
-      }
-
-      return block;
-    }
-
-    const attributes = menuItemToBlockAttributes(menuItem); // If there are children recurse to build those nested blocks.
-
-    const {
-      innerBlocks: nestedBlocks = [],
-      // alias to avoid shadowing
-      mapping: nestedMapping = {} // alias to avoid shadowing
-
-    } = (_menuItem$children = menuItem.children) !== null && _menuItem$children !== void 0 && _menuItem$children.length ? mapMenuItemsToBlocks(menuItem.children) : {}; // Update parent mapping with nested mapping.
-
-    mapping = { ...mapping,
-      ...nestedMapping
-    };
-    const blockType = (_menuItem$children2 = menuItem.children) !== null && _menuItem$children2 !== void 0 && _menuItem$children2.length ? 'core/navigation-submenu' : 'core/navigation-link'; // Create block with nested "innerBlocks".
-
-    const block = (0,external_wp_blocks_namespaceObject.createBlock)(blockType, attributes, nestedBlocks); // Create mapping for menuItem -> block
-
-    mapping[menuItem.id] = block.clientId;
-    return block;
-  });
-  return {
-    innerBlocks,
-    mapping
-  };
-}
-/**
- * A WP nav_menu_item object.
- * For more documentation on the individual fields present on a menu item please see:
- * https://core.trac.wordpress.org/browser/tags/5.7.1/src/wp-includes/nav-menu.php#L789
- *
- * Changes made here should also be mirrored in packages/edit-navigation/src/store/utils.js.
- *
- * @typedef WPNavMenuItem
- *
- * @property {Object} title       stores the raw and rendered versions of the title/label for this menu item.
- * @property {Array}  xfn         the XFN relationships expressed in the link of this menu item.
- * @property {Array}  classes     the HTML class attributes for this menu item.
- * @property {string} attr_title  the HTML title attribute for this menu item.
- * @property {string} object      The type of object originally represented, such as 'category', 'post', or 'attachment'.
- * @property {string} object_id   The DB ID of the original object this menu item represents, e.g. ID for posts and term_id for categories.
- * @property {string} description The description of this menu item.
- * @property {string} url         The URL to which this menu item points.
- * @property {string} type        The family of objects originally represented, such as 'post_type' or 'taxonomy'.
- * @property {string} target      The target attribute of the link element for this menu item.
- */
-
-/**
- * Convert block attributes to menu item.
- *
- * @param {WPNavMenuItem} menuItem the menu item to be converted to block attributes.
- * @return {Object} the block attributes converted from the WPNavMenuItem item.
- */
-
-
-function menuItemToBlockAttributes(_ref) {
-  var _object;
-
-  let {
-    title: menuItemTitleField,
-    xfn,
-    classes,
-    // eslint-disable-next-line camelcase
-    attr_title,
-    object,
-    // eslint-disable-next-line camelcase
-    object_id,
-    description,
-    url,
-    type: menuItemTypeField,
-    target
-  } = _ref;
-
-  // For historical reasons, the `core/navigation-link` variation type is `tag`
-  // whereas WP Core expects `post_tag` as the `object` type.
-  // To avoid writing a block migration we perform a conversion here.
-  // See also inverse equivalent in `blockAttributesToMenuItem`.
-  if (object && object === 'post_tag') {
-    object = 'tag';
-  }
-
-  return {
-    label: (menuItemTitleField === null || menuItemTitleField === void 0 ? void 0 : menuItemTitleField.rendered) || '',
-    ...(((_object = object) === null || _object === void 0 ? void 0 : _object.length) && {
-      type: object
-    }),
-    kind: (menuItemTypeField === null || menuItemTypeField === void 0 ? void 0 : menuItemTypeField.replace('_', '-')) || 'custom',
-    url: url || '',
-    ...((xfn === null || xfn === void 0 ? void 0 : xfn.length) && xfn.join(' ').trim() && {
-      rel: xfn.join(' ').trim()
-    }),
-    ...((classes === null || classes === void 0 ? void 0 : classes.length) && classes.join(' ').trim() && {
-      className: classes.join(' ').trim()
-    }),
-
-    /* eslint-disable camelcase */
-    ...((attr_title === null || attr_title === void 0 ? void 0 : attr_title.length) && {
-      title: attr_title
-    }),
-    ...(object_id && 'custom' !== object && {
-      id: object_id
-    }),
-
-    /* eslint-enable camelcase */
-    ...((description === null || description === void 0 ? void 0 : description.length) && {
-      description
-    }),
-    ...(target === '_blank' && {
-      opensInNewTab: true
-    })
-  };
-}
-/**
- * Creates a nested, hierarchical tree representation from unstructured data that
- * has an inherent relationship defined between individual items.
- *
- * For example, by default, each element in the dataset should have an `id` and
- * `parent` property where the `parent` property indicates a relationship between
- * the current item and another item with a matching `id` properties.
- *
- * This is useful for building linked lists of data from flat data structures.
- *
- * @param {Array}  dataset  linked data to be rearranged into a hierarchical tree based on relational fields.
- * @param {string} id       the property which uniquely identifies each entry within the array.
- * @param {*}      relation the property which identifies how the current item is related to other items in the data (if at all).
- * @return {Array} a nested array of parent/child relationships
- */
-
-
-function createDataTree(dataset) {
-  let id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'id';
-  let relation = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'parent';
-  const hashTable = Object.create(null);
-  const dataTree = [];
-
-  for (const data of dataset) {
-    hashTable[data[id]] = { ...data,
-      children: []
-    };
-
-    if (data[relation]) {
-      hashTable[data[relation]] = hashTable[data[relation]] || {};
-      hashTable[data[relation]].children = hashTable[data[relation]].children || [];
-      hashTable[data[relation]].children.push(hashTable[data[id]]);
-    } else {
-      dataTree.push(hashTable[data[id]]);
-    }
-  }
-
-  return dataTree;
-}
-
-;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/use-convert-classic-menu.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-function useConvertClassicMenu(onFinish) {
-  const [selectedMenu, setSelectedMenu] = (0,external_wp_element_namespaceObject.useState)();
-  const [isAwaitingMenuItemResolution, setIsAwaitingMenuItemResolution] = (0,external_wp_element_namespaceObject.useState)(false);
-  const [menuName, setMenuName] = (0,external_wp_element_namespaceObject.useState)('');
-  const {
-    menuItems,
-    hasResolvedMenuItems
-  } = useNavigationEntities(selectedMenu);
-  const createFromMenu = (0,external_wp_element_namespaceObject.useCallback)(name => {
-    const {
-      innerBlocks: blocks
-    } = menuItemsToBlocks(menuItems);
-    onFinish(blocks, name);
-  }, [menuItems, menuItemsToBlocks, onFinish]);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    // If the user selected a menu but we had to wait for menu items to
-    // finish resolving, then create the block once resolution finishes.
-    if (isAwaitingMenuItemResolution && hasResolvedMenuItems) {
-      createFromMenu(menuName);
-      setIsAwaitingMenuItemResolution(false);
-    }
-  }, [isAwaitingMenuItemResolution, hasResolvedMenuItems, menuName]);
-  return (0,external_wp_element_namespaceObject.useCallback)((id, name) => {
-    setSelectedMenu(id); // If we have menu items, create the block right away.
-
-    if (hasResolvedMenuItems) {
-      createFromMenu(name);
-      return;
-    } // Otherwise, create the block when resolution finishes.
-
-
-    setIsAwaitingMenuItemResolution(true); // Store the name to use later.
-
-    setMenuName(name);
-  }, [hasResolvedMenuItems, createFromMenu]);
-}
-
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/edit/navigation-menu-selector.js
 
 
@@ -24509,21 +24249,21 @@ function useConvertClassicMenu(onFinish) {
 
 
 
+
 /**
  * Internal dependencies
  */
 
 
 
-
-
 function NavigationMenuSelector(_ref) {
   let {
-    clientId,
+    currentMenuId,
     onSelect,
     onCreateNew,
     showManageActions = false,
-    actionLabel
+    actionLabel,
+    toggleProps = {}
   } = _ref;
 
   /* translators: %s: The name of a menu. */
@@ -24539,62 +24279,78 @@ function NavigationMenuSelector(_ref) {
     canUserUpdateNavigationMenu,
     canSwitchNavigationMenu
   } = useNavigationMenu();
-  const createNavigationMenu = useCreateNavigationMenu(clientId);
+  const handleSelect = (0,external_wp_element_namespaceObject.useCallback)(_onClose => selectedId => {
+    _onClose();
 
-  const onFinishMenuCreation = async function (blocks) {
-    let navigationMenuTitle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    onSelect(navigationMenus === null || navigationMenus === void 0 ? void 0 : navigationMenus.find(post => post.id === selectedId));
+  }, [navigationMenus]);
+  const handleSelectClassic = (0,external_wp_element_namespaceObject.useCallback)((_onClose, menu) => () => {
+    _onClose();
 
-    if (!canUserCreateNavigationMenu) {
-      return;
-    }
-
-    const navigationMenu = await createNavigationMenu(navigationMenuTitle, blocks);
-    onSelect(navigationMenu);
-  };
-
-  const convertClassicMenuToBlocks = useConvertClassicMenu(onFinishMenuCreation);
+    onSelect(menu);
+  }, []);
+  const menuChoices = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return (navigationMenus === null || navigationMenus === void 0 ? void 0 : navigationMenus.map(_ref2 => {
+      let {
+        id,
+        title
+      } = _ref2;
+      const label = (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(title.rendered);
+      return {
+        value: id,
+        label,
+        ariaLabel: (0,external_wp_i18n_namespaceObject.sprintf)(actionLabel, label)
+      };
+    })) || [];
+  }, [navigationMenus]);
   const hasNavigationMenus = !!(navigationMenus !== null && navigationMenus !== void 0 && navigationMenus.length);
   const hasClassicMenus = !!(classicMenus !== null && classicMenus !== void 0 && classicMenus.length);
   const showNavigationMenus = !!canSwitchNavigationMenu;
   const showClassicMenus = !!canUserCreateNavigationMenu;
-  const hasManagePermissions = canUserCreateNavigationMenu || canUserUpdateNavigationMenu;
-  const showSelectMenus = (canSwitchNavigationMenu || canUserCreateNavigationMenu) && (hasNavigationMenus || hasClassicMenus);
+  const hasManagePermissions = canUserCreateNavigationMenu || canUserUpdateNavigationMenu; // Show the selector if:
+  // - has switch or create permissions and there are block or classic menus.
+  // - user has create or update permisisons and component should show the menu actions.
+
+  const showSelectMenus = (canSwitchNavigationMenu || canUserCreateNavigationMenu) && (hasNavigationMenus || hasClassicMenus) || hasManagePermissions && showManageActions;
 
   if (!showSelectMenus) {
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, showNavigationMenus && hasNavigationMenus && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Menus')
-  }, navigationMenus.map(menu => {
-    const label = (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(menu.title.rendered);
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-      onClick: () => {
-        onSelect(menu);
-      },
-      key: menu.id,
-      "aria-label": (0,external_wp_i18n_namespaceObject.sprintf)(actionLabel, label)
-    }, label);
-  })), showClassicMenus && hasClassicMenus && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Classic Menus')
-  }, classicMenus.map(menu => {
-    const label = (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(menu.name);
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-      onClick: () => {
-        convertClassicMenuToBlocks(menu.id, menu.name);
-      },
-      key: menu.id,
-      "aria-label": (0,external_wp_i18n_namespaceObject.sprintf)(createActionLabel, label)
-    }, label);
-  })), showManageActions && hasManagePermissions && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Tools')
-  }, canUserCreateNavigationMenu && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-    onClick: onCreateNew
-  }, (0,external_wp_i18n_namespaceObject.__)('Create new menu')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-    href: (0,external_wp_url_namespaceObject.addQueryArgs)('edit.php', {
-      post_type: 'wp_navigation'
-    })
-  }, (0,external_wp_i18n_namespaceObject.__)('Manage menus'))));
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarDropdownMenu, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Select Menu'),
+    text: (0,external_wp_i18n_namespaceObject.__)('Select Menu'),
+    icon: null,
+    toggleProps: toggleProps
+  }, _ref3 => {
+    let {
+      onClose
+    } = _ref3;
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, showNavigationMenus && hasNavigationMenus && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
+      label: (0,external_wp_i18n_namespaceObject.__)('Menus')
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItemsChoice, {
+      value: currentMenuId,
+      onSelect: handleSelect(onClose),
+      choices: menuChoices
+    })), showClassicMenus && hasClassicMenus && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
+      label: (0,external_wp_i18n_namespaceObject.__)('Classic Menus')
+    }, classicMenus === null || classicMenus === void 0 ? void 0 : classicMenus.map(menu => {
+      const label = (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(menu.name);
+      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+        onClick: handleSelectClassic(onClose, menu),
+        key: menu.id,
+        "aria-label": (0,external_wp_i18n_namespaceObject.sprintf)(createActionLabel, label)
+      }, label);
+    })), showManageActions && hasManagePermissions && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
+      label: (0,external_wp_i18n_namespaceObject.__)('Tools')
+    }, canUserCreateNavigationMenu && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+      onClick: onCreateNew
+    }, (0,external_wp_i18n_namespaceObject.__)('Create new menu')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+      href: (0,external_wp_url_namespaceObject.addQueryArgs)('edit.php', {
+        post_type: 'wp_navigation'
+      })
+    }, (0,external_wp_i18n_namespaceObject.__)('Manage menus'))));
+  });
 }
 
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/edit/placeholder/index.js
@@ -24606,6 +24362,8 @@ function NavigationMenuSelector(_ref) {
 
 
 
+
+
 /**
  * Internal dependencies
  */
@@ -24613,50 +24371,40 @@ function NavigationMenuSelector(_ref) {
 
 
 
-
-
 function NavigationPlaceholder(_ref) {
   let {
+    isSelected,
+    currentMenuId,
     clientId,
+    canUserCreateNavigationMenu = false,
+    isResolvingCanUserCreateNavigationMenu,
     onFinish,
-    canSwitchNavigationMenu,
-    hasResolvedNavigationMenus,
-    canUserCreateNavigationMenu = false
+    onCreateEmpty
   } = _ref;
-  const createNavigationMenu = useCreateNavigationMenu(clientId);
-
-  const onFinishMenuCreation = async function (blocks) {
-    let navigationMenuTitle = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-    if (!canUserCreateNavigationMenu) {
+  const {
+    isResolvingMenus,
+    hasResolvedMenus
+  } = useNavigationEntities();
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (!isSelected) {
       return;
     }
 
-    const navigationMenu = await createNavigationMenu(navigationMenuTitle, blocks);
-    onFinish(navigationMenu, blocks);
-  };
+    if (isResolvingMenus) {
+      (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('Loading Navigation block setup options.'));
+    }
 
-  const {
-    isResolvingPages,
-    isResolvingMenus,
-    hasMenus
-  } = useNavigationEntities();
-  const isStillLoading = isResolvingPages || isResolvingMenus;
-
-  const onCreateEmptyMenu = () => {
-    onFinishMenuCreation([]);
-  };
-
-  const {
-    navigationMenus
-  } = useNavigationMenu();
-  const hasNavigationMenus = !!(navigationMenus !== null && navigationMenus !== void 0 && navigationMenus.length);
-  const showSelectMenus = (canSwitchNavigationMenu || canUserCreateNavigationMenu) && (hasNavigationMenus || hasMenus);
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (!hasResolvedNavigationMenus || isStillLoading) && (0,external_wp_element_namespaceObject.createElement)(placeholder_preview, {
-    isLoading: true
-  }), hasResolvedNavigationMenus && !isStillLoading && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, {
+    if (hasResolvedMenus) {
+      (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('Navigation block setup options ready.'));
+    }
+  }, [isResolvingMenus, isSelected]);
+  const isResolvingActions = isResolvingMenus && isResolvingCanUserCreateNavigationMenu;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Placeholder, {
     className: "wp-block-navigation-placeholder"
-  }, (0,external_wp_element_namespaceObject.createElement)(placeholder_preview, null), (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, (0,external_wp_element_namespaceObject.createElement)(placeholder_preview, {
+    isVisible: !isSelected
+  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+    "aria-hidden": !isSelected ? true : undefined,
     className: "wp-block-navigation-placeholder__controls"
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "wp-block-navigation-placeholder__actions"
@@ -24664,23 +24412,18 @@ function NavigationPlaceholder(_ref) {
     className: "wp-block-navigation-placeholder__actions__indicator"
   }, (0,external_wp_element_namespaceObject.createElement)(icon, {
     icon: library_navigation
-  }), ' ', (0,external_wp_i18n_namespaceObject.__)('Navigation')), (0,external_wp_element_namespaceObject.createElement)("hr", null), showSelectMenus ? (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropdownMenu, {
-    text: (0,external_wp_i18n_namespaceObject.__)('Select menu'),
-    icon: null,
+  }), " ", (0,external_wp_i18n_namespaceObject.__)('Navigation')), (0,external_wp_element_namespaceObject.createElement)("hr", null), isResolvingActions && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null), (0,external_wp_element_namespaceObject.createElement)(NavigationMenuSelector, {
+    currentMenuId: currentMenuId,
+    clientId: clientId,
+    onSelect: onFinish,
     toggleProps: {
       variant: 'tertiary',
       iconPosition: 'right',
       className: 'wp-block-navigation-placeholder__actions__dropdown'
-    },
-    popoverProps: {
-      isAlternate: true
     }
-  }, () => (0,external_wp_element_namespaceObject.createElement)(NavigationMenuSelector, {
-    clientId: clientId,
-    onSelect: onFinish
-  })), (0,external_wp_element_namespaceObject.createElement)("hr", null)) : undefined, canUserCreateNavigationMenu && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+  }), (0,external_wp_element_namespaceObject.createElement)("hr", null), canUserCreateNavigationMenu && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     variant: "tertiary",
-    onClick: onCreateEmptyMenu
+    onClick: onCreateEmpty
   }, (0,external_wp_i18n_namespaceObject.__)('Start empty'))))));
 }
 
@@ -24830,7 +24573,6 @@ const LAYOUT = {
 };
 function NavigationInnerBlocks(_ref) {
   let {
-    isVisible,
     clientId,
     hasCustomPlaceholder,
     orientation
@@ -24852,7 +24594,7 @@ function NavigationInnerBlocks(_ref) {
       isImmediateParentOfSelectedBlock: hasSelectedInnerBlock(clientId, false),
       selectedBlockHasDescendants: !!((_getClientIdsOfDescen = getClientIdsOfDescendants([selectedBlockId])) !== null && _getClientIdsOfDescen !== void 0 && _getClientIdsOfDescen.length),
       // This prop is already available but computing it here ensures it's
-      // fresh compared to isImmediateParentOfSelectedBlock
+      // fresh compared to isImmediateParentOfSelectedBlock.
       isSelected: selectedBlockId === clientId
     };
   }, [clientId]);
@@ -24868,6 +24610,12 @@ function NavigationInnerBlocks(_ref) {
 
   const parentOrChildHasSelection = isSelected || isImmediateParentOfSelectedBlock && !selectedBlockHasDescendants;
   const placeholder = (0,external_wp_element_namespaceObject.useMemo)(() => (0,external_wp_element_namespaceObject.createElement)(placeholder_preview, null), []);
+  const hasMenuItems = !!(blocks !== null && blocks !== void 0 && blocks.length); // If there is a `ref` attribute pointing to a `wp_navigation` but
+  // that menu has no **items** (i.e. empty) then show a placeholder.
+  // The block must also be selected else the placeholder will display
+  // alongside the appender.
+
+  const showPlaceholder = !hasCustomPlaceholder && !hasMenuItems && !isSelected;
   const innerBlocksProps = (0,external_wp_blockEditor_namespaceObject.useInnerBlocksProps)({
     className: 'wp-block-navigation__container'
   }, {
@@ -24890,7 +24638,7 @@ function NavigationInnerBlocks(_ref) {
     // inherit templateLock={ 'all' }.
     templateLock: false,
     __experimentalLayout: LAYOUT,
-    placeholder: !isVisible || hasCustomPlaceholder ? undefined : placeholder
+    placeholder: showPlaceholder ? placeholder : undefined
   });
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalBlockContentOverlay, {
     clientId: clientId,
@@ -24915,6 +24663,220 @@ function NavigationMenuNameControl() {
     value: title,
     onChange: updateTitle
   });
+}
+
+;// CONCATENATED MODULE: ./packages/block-library/build-module/template-part/edit/utils/create-template-part-id.js
+/**
+ * Generates a template part Id based on slug and theme inputs.
+ *
+ * @param {string} theme the template part's theme.
+ * @param {string} slug  the template part's slug
+ * @return {string|null} the template part's Id.
+ */
+function createTemplatePartId(theme, slug) {
+  return theme && slug ? theme + '//' + slug : null;
+}
+
+;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/use-template-part-area-label.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+// TODO: this util should perhaps be refactored somewhere like core-data.
+
+
+function useTemplatePartAreaLabel(clientId) {
+  return (0,external_wp_data_namespaceObject.useSelect)(select => {
+    // Use the lack of a clientId as an opportunity to bypass the rest
+    // of this hook.
+    if (!clientId) {
+      return;
+    }
+
+    const {
+      getBlock,
+      getBlockParentsByBlockName
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    const withAscendingResults = true;
+    const parentTemplatePartClientIds = getBlockParentsByBlockName(clientId, 'core/template-part', withAscendingResults);
+
+    if (!(parentTemplatePartClientIds !== null && parentTemplatePartClientIds !== void 0 && parentTemplatePartClientIds.length)) {
+      return;
+    } // FIXME: @wordpress/block-library should not depend on @wordpress/editor.
+    // Blocks can be loaded into a *non-post* block editor.
+    // This code is lifted from this file:
+    // packages/block-library/src/template-part/edit/advanced-controls.js
+    // eslint-disable-next-line @wordpress/data-no-store-string-literals
+
+
+    const definedAreas = select('core/editor').__experimentalGetDefaultTemplatePartAreas();
+
+    const {
+      getEditedEntityRecord
+    } = select(external_wp_coreData_namespaceObject.store);
+
+    for (const templatePartClientId of parentTemplatePartClientIds) {
+      const templatePartBlock = getBlock(templatePartClientId); // The 'area' usually isn't stored on the block, but instead
+      // on the entity.
+
+      const {
+        theme,
+        slug
+      } = templatePartBlock.attributes;
+      const templatePartEntityId = createTemplatePartId(theme, slug);
+      const templatePartEntity = getEditedEntityRecord('postType', 'wp_template_part', templatePartEntityId); // Look up the `label` for the area in the defined areas so
+      // that an internationalized label can be used.
+
+      if (templatePartEntity !== null && templatePartEntity !== void 0 && templatePartEntity.area) {
+        var _definedAreas$find;
+
+        return (_definedAreas$find = definedAreas.find(definedArea => definedArea.area !== 'uncategorized' && definedArea.area === templatePartEntity.area)) === null || _definedAreas$find === void 0 ? void 0 : _definedAreas$find.label;
+      }
+    }
+  }, [clientId]);
+}
+
+;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/edit/use-generate-default-navigation-title.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const DRAFT_MENU_PARAMS = ['postType', 'wp_navigation', {
+  status: 'draft',
+  per_page: -1
+}];
+const PUBLISHED_MENU_PARAMS = ['postType', 'wp_navigation', {
+  per_page: -1,
+  status: 'publish'
+}];
+function useGenerateDefaultNavigationTitle(clientId) {
+  // The block will be disabled in a block preview, use this as a way of
+  // avoiding the side-effects of this component for block previews.
+  const isDisabled = (0,external_wp_element_namespaceObject.useContext)(external_wp_components_namespaceObject.Disabled.Context); // Because we can't conditionally call hooks, pass an undefined client id
+  // arg to bypass the expensive `useTemplateArea` code. The hook will return
+  // early.
+
+  const area = useTemplatePartAreaLabel(isDisabled ? undefined : clientId);
+  const registry = (0,external_wp_data_namespaceObject.useRegistry)();
+  return (0,external_wp_element_namespaceObject.useCallback)(async () => {
+    // Ensure other navigation menus have loaded so an
+    // accurate name can be created.
+    if (isDisabled) {
+      return '';
+    }
+
+    const {
+      getEntityRecords
+    } = registry.resolveSelect(external_wp_coreData_namespaceObject.store);
+    const [draftNavigationMenus, navigationMenus] = await Promise.all([getEntityRecords(...DRAFT_MENU_PARAMS), getEntityRecords(...PUBLISHED_MENU_PARAMS)]);
+    const title = area ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: the name of a menu (e.g. Header navigation).
+    (0,external_wp_i18n_namespaceObject.__)('%s navigation'), area) : // translators: 'navigation' as in website navigation.
+    (0,external_wp_i18n_namespaceObject.__)('Navigation'); // Determine how many menus start with the automatic title.
+
+    const matchingMenuTitleCount = [...draftNavigationMenus, ...navigationMenus].reduce((count, menu) => {
+      var _menu$title, _menu$title$raw;
+
+      return menu !== null && menu !== void 0 && (_menu$title = menu.title) !== null && _menu$title !== void 0 && (_menu$title$raw = _menu$title.raw) !== null && _menu$title$raw !== void 0 && _menu$title$raw.startsWith(title) ? count + 1 : count;
+    }, 0); // Append a number to the end of the title if a menu with
+    // the same name exists.
+
+    const titleWithCount = matchingMenuTitleCount > 0 ? `${title} ${matchingMenuTitleCount + 1}` : title;
+    return titleWithCount || '';
+  }, [isDisabled, area]);
+}
+
+;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/edit/use-create-navigation-menu.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const CREATE_NAVIGATION_MENU_SUCCESS = 'success';
+const CREATE_NAVIGATION_MENU_ERROR = 'error';
+const CREATE_NAVIGATION_MENU_PENDING = 'pending';
+const CREATE_NAVIGATION_MENU_IDLE = 'idle';
+function useCreateNavigationMenu(clientId) {
+  const [status, setStatus] = (0,external_wp_element_namespaceObject.useState)(CREATE_NAVIGATION_MENU_IDLE);
+  const [value, setValue] = (0,external_wp_element_namespaceObject.useState)(null);
+  const [error, setError] = (0,external_wp_element_namespaceObject.useState)(null);
+  const {
+    saveEntityRecord
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_coreData_namespaceObject.store);
+  const generateDefaultTitle = useGenerateDefaultNavigationTitle(clientId); // This callback uses data from the two placeholder steps and only creates
+  // a new navigation menu when the user completes the final step.
+
+  const create = (0,external_wp_element_namespaceObject.useCallback)(async function () {
+    let title = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    let blocks = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+    // Guard against creating Navigations without a title.
+    // Note you can pass no title, but if one is passed it must be
+    // a string otherwise the title may end up being empty.
+    if (title && typeof title !== 'string') {
+      setError('Invalid title supplied when creating Navigation Menu.');
+      setStatus(CREATE_NAVIGATION_MENU_ERROR);
+      throw new Error(`Value of supplied title argument was not a string.`);
+    }
+
+    setStatus(CREATE_NAVIGATION_MENU_PENDING);
+    setValue(null);
+    setError(null);
+
+    if (!title) {
+      title = await generateDefaultTitle().catch(err => {
+        setError(err === null || err === void 0 ? void 0 : err.message);
+        setStatus(CREATE_NAVIGATION_MENU_ERROR);
+        throw new Error('Failed to create title when saving new Navigation Menu.', {
+          cause: err
+        });
+      });
+    }
+
+    const record = {
+      title,
+      content: (0,external_wp_blocks_namespaceObject.serialize)(blocks),
+      status: 'publish'
+    }; // Return affords ability to await on this function directly
+
+    return saveEntityRecord('postType', 'wp_navigation', record).then(response => {
+      setValue(response);
+      setStatus(CREATE_NAVIGATION_MENU_SUCCESS);
+      return response;
+    }).catch(err => {
+      setError(err === null || err === void 0 ? void 0 : err.message);
+      setStatus(CREATE_NAVIGATION_MENU_ERROR);
+      throw new Error('Unable to save new Navigation Menu', {
+        cause: err
+      });
+    });
+  }, [external_wp_blocks_namespaceObject.serialize, saveEntityRecord]);
+  return {
+    create,
+    status,
+    value,
+    error
+  };
 }
 
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/edit/unsaved-inner-blocks.js
@@ -24984,7 +24946,9 @@ function UnsavedInnerBlocks(_ref) {
     hasResolvedNavigationMenus,
     navigationMenus
   } = useNavigationMenu();
-  const createNavigationMenu = useCreateNavigationMenu(clientId); // Automatically save the uncontrolled blocks.
+  const {
+    create: createNavigationMenu
+  } = useCreateNavigationMenu(clientId); // Automatically save the uncontrolled blocks.
 
   (0,external_wp_element_namespaceObject.useEffect)(async () => {
     // The block will be disabled when used in a BlockPreview.
@@ -25080,7 +25044,7 @@ function NavigationMenuDeleteControl(_ref) {
 function useNavigationNotice() {
   let {
     name,
-    message
+    message = ''
   } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   const noticeRef = (0,external_wp_element_namespaceObject.useRef)();
   const {
@@ -25088,13 +25052,13 @@ function useNavigationNotice() {
     removeNotice
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
 
-  const showNotice = () => {
+  const showNotice = customMsg => {
     if (noticeRef.current) {
       return;
     }
 
     noticeRef.current = name;
-    createWarningNotice(message, {
+    createWarningNotice(customMsg || message, {
       id: noticeRef.current,
       type: 'snackbar'
     });
@@ -25114,6 +25078,311 @@ function useNavigationNotice() {
 
 /* harmony default export */ var use_navigation_notice = (useNavigationNotice);
 
+;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/menu-items-to-blocks.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Convert a flat menu item structure to a nested blocks structure.
+ *
+ * @param {Object[]} menuItems An array of menu items.
+ *
+ * @return {WPBlock[]} An array of blocks.
+ */
+
+function menuItemsToBlocks(menuItems) {
+  if (!menuItems) {
+    return null;
+  }
+
+  const menuTree = createDataTree(menuItems);
+  const blocks = mapMenuItemsToBlocks(menuTree);
+  return (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.navigation.__unstableMenuItemsToBlocks', blocks, menuItems);
+}
+/**
+ * A recursive function that maps menu item nodes to blocks.
+ *
+ * @param {WPNavMenuItem[]} menuItems An array of WPNavMenuItem items.
+ * @return {Object} Object containing innerBlocks and mapping.
+ */
+
+function mapMenuItemsToBlocks(menuItems) {
+  let mapping = {}; // The menuItem should be in menu_order sort order.
+
+  const sortedItems = (0,external_lodash_namespaceObject.sortBy)(menuItems, 'menu_order');
+  const innerBlocks = sortedItems.map(menuItem => {
+    var _menuItem$children, _menuItem$children2;
+
+    if (menuItem.type === 'block') {
+      const [block] = (0,external_wp_blocks_namespaceObject.parse)(menuItem.content.raw);
+
+      if (!block) {
+        return (0,external_wp_blocks_namespaceObject.createBlock)('core/freeform', {
+          content: menuItem.content
+        });
+      }
+
+      return block;
+    }
+
+    const attributes = menuItemToBlockAttributes(menuItem); // If there are children recurse to build those nested blocks.
+
+    const {
+      innerBlocks: nestedBlocks = [],
+      // alias to avoid shadowing
+      mapping: nestedMapping = {} // alias to avoid shadowing
+
+    } = (_menuItem$children = menuItem.children) !== null && _menuItem$children !== void 0 && _menuItem$children.length ? mapMenuItemsToBlocks(menuItem.children) : {}; // Update parent mapping with nested mapping.
+
+    mapping = { ...mapping,
+      ...nestedMapping
+    };
+    const blockType = (_menuItem$children2 = menuItem.children) !== null && _menuItem$children2 !== void 0 && _menuItem$children2.length ? 'core/navigation-submenu' : 'core/navigation-link'; // Create block with nested "innerBlocks".
+
+    const block = (0,external_wp_blocks_namespaceObject.createBlock)(blockType, attributes, nestedBlocks); // Create mapping for menuItem -> block.
+
+    mapping[menuItem.id] = block.clientId;
+    return block;
+  });
+  return {
+    innerBlocks,
+    mapping
+  };
+}
+/**
+ * A WP nav_menu_item object.
+ * For more documentation on the individual fields present on a menu item please see:
+ * https://core.trac.wordpress.org/browser/tags/5.7.1/src/wp-includes/nav-menu.php#L789
+ *
+ * Changes made here should also be mirrored in packages/edit-navigation/src/store/utils.js.
+ *
+ * @typedef WPNavMenuItem
+ *
+ * @property {Object} title       stores the raw and rendered versions of the title/label for this menu item.
+ * @property {Array}  xfn         the XFN relationships expressed in the link of this menu item.
+ * @property {Array}  classes     the HTML class attributes for this menu item.
+ * @property {string} attr_title  the HTML title attribute for this menu item.
+ * @property {string} object      The type of object originally represented, such as 'category', 'post', or 'attachment'.
+ * @property {string} object_id   The DB ID of the original object this menu item represents, e.g. ID for posts and term_id for categories.
+ * @property {string} description The description of this menu item.
+ * @property {string} url         The URL to which this menu item points.
+ * @property {string} type        The family of objects originally represented, such as 'post_type' or 'taxonomy'.
+ * @property {string} target      The target attribute of the link element for this menu item.
+ */
+
+/**
+ * Convert block attributes to menu item.
+ *
+ * @param {WPNavMenuItem} menuItem the menu item to be converted to block attributes.
+ * @return {Object} the block attributes converted from the WPNavMenuItem item.
+ */
+
+
+function menuItemToBlockAttributes(_ref) {
+  var _object;
+
+  let {
+    title: menuItemTitleField,
+    xfn,
+    classes,
+    // eslint-disable-next-line camelcase
+    attr_title,
+    object,
+    // eslint-disable-next-line camelcase
+    object_id,
+    description,
+    url,
+    type: menuItemTypeField,
+    target
+  } = _ref;
+
+  // For historical reasons, the `core/navigation-link` variation type is `tag`
+  // whereas WP Core expects `post_tag` as the `object` type.
+  // To avoid writing a block migration we perform a conversion here.
+  // See also inverse equivalent in `blockAttributesToMenuItem`.
+  if (object && object === 'post_tag') {
+    object = 'tag';
+  }
+
+  return {
+    label: (menuItemTitleField === null || menuItemTitleField === void 0 ? void 0 : menuItemTitleField.rendered) || '',
+    ...(((_object = object) === null || _object === void 0 ? void 0 : _object.length) && {
+      type: object
+    }),
+    kind: (menuItemTypeField === null || menuItemTypeField === void 0 ? void 0 : menuItemTypeField.replace('_', '-')) || 'custom',
+    url: url || '',
+    ...((xfn === null || xfn === void 0 ? void 0 : xfn.length) && xfn.join(' ').trim() && {
+      rel: xfn.join(' ').trim()
+    }),
+    ...((classes === null || classes === void 0 ? void 0 : classes.length) && classes.join(' ').trim() && {
+      className: classes.join(' ').trim()
+    }),
+
+    /* eslint-disable camelcase */
+    ...((attr_title === null || attr_title === void 0 ? void 0 : attr_title.length) && {
+      title: attr_title
+    }),
+    ...(object_id && 'custom' !== object && {
+      id: object_id
+    }),
+
+    /* eslint-enable camelcase */
+    ...((description === null || description === void 0 ? void 0 : description.length) && {
+      description
+    }),
+    ...(target === '_blank' && {
+      opensInNewTab: true
+    })
+  };
+}
+/**
+ * Creates a nested, hierarchical tree representation from unstructured data that
+ * has an inherent relationship defined between individual items.
+ *
+ * For example, by default, each element in the dataset should have an `id` and
+ * `parent` property where the `parent` property indicates a relationship between
+ * the current item and another item with a matching `id` properties.
+ *
+ * This is useful for building linked lists of data from flat data structures.
+ *
+ * @param {Array}  dataset  linked data to be rearranged into a hierarchical tree based on relational fields.
+ * @param {string} id       the property which uniquely identifies each entry within the array.
+ * @param {*}      relation the property which identifies how the current item is related to other items in the data (if at all).
+ * @return {Array} a nested array of parent/child relationships
+ */
+
+
+function createDataTree(dataset) {
+  let id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'id';
+  let relation = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'parent';
+  const hashTable = Object.create(null);
+  const dataTree = [];
+
+  for (const data of dataset) {
+    hashTable[data[id]] = { ...data,
+      children: []
+    };
+
+    if (data[relation]) {
+      hashTable[data[relation]] = hashTable[data[relation]] || {};
+      hashTable[data[relation]].children = hashTable[data[relation]].children || [];
+      hashTable[data[relation]].children.push(hashTable[data[id]]);
+    } else {
+      dataTree.push(hashTable[data[id]]);
+    }
+  }
+
+  return dataTree;
+}
+
+;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/edit/use-convert-classic-menu-to-block-menu.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const CLASSIC_MENU_CONVERSION_SUCCESS = 'success';
+const CLASSIC_MENU_CONVERSION_ERROR = 'error';
+const CLASSIC_MENU_CONVERSION_PENDING = 'pending';
+const CLASSIC_MENU_CONVERSION_IDLE = 'idle';
+
+function useConvertClassicToBlockMenu(clientId) {
+  const {
+    create: createNavigationMenu
+  } = useCreateNavigationMenu(clientId);
+  const registry = (0,external_wp_data_namespaceObject.useRegistry)();
+  const [status, setStatus] = (0,external_wp_element_namespaceObject.useState)(CLASSIC_MENU_CONVERSION_IDLE);
+  const [value, setValue] = (0,external_wp_element_namespaceObject.useState)(null);
+  const [error, setError] = (0,external_wp_element_namespaceObject.useState)(null);
+
+  async function convertClassicMenuToBlockMenu(menuId, menuName) {
+    let navigationMenu;
+    let classicMenuItems; // 1. Fetch the classic Menu items.
+
+    try {
+      classicMenuItems = await registry.resolveSelect(external_wp_coreData_namespaceObject.store).getMenuItems({
+        menus: menuId,
+        per_page: -1,
+        context: 'view'
+      });
+    } catch (err) {
+      throw new Error((0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: the name of a menu (e.g. Header navigation).
+      (0,external_wp_i18n_namespaceObject.__)(`Unable to fetch classic menu "%s" from API.`), menuName), {
+        cause: err
+      });
+    } // Handle offline response which resolves to `null`.
+
+
+    if (classicMenuItems === null) {
+      throw new Error((0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: the name of a menu (e.g. Header navigation).
+      (0,external_wp_i18n_namespaceObject.__)(`Unable to fetch classic menu "%s" from API.`), menuName));
+    } // 2. Convert the classic items into blocks.
+
+
+    const {
+      innerBlocks
+    } = menuItemsToBlocks(classicMenuItems); // 3. Create the `wp_navigation` Post with the blocks.
+
+    try {
+      navigationMenu = await createNavigationMenu(menuName, innerBlocks);
+    } catch (err) {
+      throw new Error((0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: the name of a menu (e.g. Header navigation).
+      (0,external_wp_i18n_namespaceObject.__)(`Unable to create Navigation Menu "%s".`), menuName), {
+        cause: err
+      });
+    }
+
+    return navigationMenu;
+  }
+
+  const convert = (0,external_wp_element_namespaceObject.useCallback)((menuId, menuName) => {
+    if (!menuId || !menuName) {
+      setError('Unable to convert menu. Missing menu details.');
+      setStatus(CLASSIC_MENU_CONVERSION_ERROR);
+      return;
+    }
+
+    setStatus(CLASSIC_MENU_CONVERSION_PENDING);
+    setValue(null);
+    setError(null);
+    convertClassicMenuToBlockMenu(menuId, menuName).then(navMenu => {
+      setValue(navMenu);
+      setStatus(CLASSIC_MENU_CONVERSION_SUCCESS);
+    }).catch(err => {
+      setError(err === null || err === void 0 ? void 0 : err.message);
+      setStatus(CLASSIC_MENU_CONVERSION_ERROR); // Rethrow error for debugging.
+
+      throw new Error((0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: the name of a menu (e.g. Header navigation).
+      (0,external_wp_i18n_namespaceObject.__)(`Unable to create Navigation Menu "%s".`), menuName), {
+        cause: err
+      });
+    });
+  }, [clientId]);
+  return {
+    convert,
+    status,
+    value,
+    error
+  };
+}
+
+/* harmony default export */ var use_convert_classic_menu_to_block_menu = (useConvertClassicToBlockMenu);
+
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/edit/index.js
 
 
@@ -25132,9 +25401,11 @@ function useNavigationNotice() {
 
 
 
+
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -25232,6 +25503,33 @@ function Navigation(_ref) {
   // the Select Menu dropdown.
 
   useNavigationEntities();
+  const [showNavigationMenuCreateNotice, hideNavigationMenuCreateNotice] = use_navigation_notice({
+    name: 'block-library/core/navigation/create'
+  });
+  const {
+    create: createNavigationMenu,
+    status: createNavigationMenuStatus,
+    error: createNavigationMenuError,
+    value: createNavigationMenuPost
+  } = useCreateNavigationMenu(clientId);
+  const isCreatingNavigationMenu = createNavigationMenuStatus === CREATE_NAVIGATION_MENU_PENDING;
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    hideNavigationMenuCreateNotice();
+
+    if (createNavigationMenuStatus === CREATE_NAVIGATION_MENU_PENDING) {
+      (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)(`Creating Navigation Menu.`));
+    }
+
+    if (createNavigationMenuStatus === CREATE_NAVIGATION_MENU_SUCCESS) {
+      setRef(createNavigationMenuPost.id);
+      selectBlock(clientId);
+      showNavigationMenuCreateNotice((0,external_wp_i18n_namespaceObject.__)(`Navigation Menu successfully created.`));
+    }
+
+    if (createNavigationMenuStatus === CREATE_NAVIGATION_MENU_ERROR) {
+      showNavigationMenuCreateNotice((0,external_wp_i18n_namespaceObject.__)('Failed to create Navigation Menu.'));
+    }
+  }, [createNavigationMenu, createNavigationMenuStatus, createNavigationMenuError, createNavigationMenuPost]);
   const {
     hasUncontrolledInnerBlocks,
     uncontrolledInnerBlocks,
@@ -25249,7 +25547,7 @@ function Navigation(_ref) {
 
     const _uncontrolledInnerBlocks = getBlock(clientId).innerBlocks;
 
-    const _hasUncontrolledInnerBlocks = _uncontrolledInnerBlocks === null || _uncontrolledInnerBlocks === void 0 ? void 0 : _uncontrolledInnerBlocks.length;
+    const _hasUncontrolledInnerBlocks = !!(_uncontrolledInnerBlocks !== null && _uncontrolledInnerBlocks !== void 0 && _uncontrolledInnerBlocks.length);
 
     const _controlledInnerBlocks = _hasUncontrolledInnerBlocks ? EMPTY_ARRAY : getBlocks(clientId);
 
@@ -25268,14 +25566,11 @@ function Navigation(_ref) {
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
   const [hasSavedUnsavedInnerBlocks, setHasSavedUnsavedInnerBlocks] = (0,external_wp_element_namespaceObject.useState)(false);
   const isWithinUnassignedArea = !!navigationArea && !ref;
-  const [isPlaceholderShown, setIsPlaceholderShown] = (0,external_wp_element_namespaceObject.useState)(!hasUncontrolledInnerBlocks || isWithinUnassignedArea);
   const [isResponsiveMenuOpen, setResponsiveMenuVisibility] = (0,external_wp_element_namespaceObject.useState)(false);
   const [overlayMenuPreview, setOverlayMenuPreview] = (0,external_wp_element_namespaceObject.useState)(false);
   const {
     isNavigationMenuResolved,
     isNavigationMenuMissing,
-    canSwitchNavigationMenu,
-    hasResolvedNavigationMenus,
     navigationMenus,
     navigationMenu,
     canUserUpdateNavigationMenu,
@@ -25283,6 +25578,7 @@ function Navigation(_ref) {
     canUserDeleteNavigationMenu,
     hasResolvedCanUserDeleteNavigationMenu,
     canUserCreateNavigationMenu,
+    isResolvingCanUserCreateNavigationMenu,
     hasResolvedCanUserCreateNavigationMenu
   } = useNavigationMenu(ref);
   const navRef = (0,external_wp_element_namespaceObject.useRef)();
@@ -25291,7 +25587,30 @@ function Navigation(_ref) {
     listViewToolbarButton,
     listViewModal
   } = useListViewModal(clientId);
-  const isEntityAvailable = !isNavigationMenuMissing && isNavigationMenuResolved;
+  const {
+    convert,
+    status: classicMenuConversionStatus,
+    error: classicMenuConversionError,
+    value: classicMenuConversionResult
+  } = use_convert_classic_menu_to_block_menu(clientId);
+  const isConvertingClassicMenu = classicMenuConversionStatus === CLASSIC_MENU_CONVERSION_PENDING; // The standard HTML5 tag for the block wrapper.
+
+  const TagName = 'nav'; // "placeholder" shown if:
+  // - there is no ref attribute pointing to a Navigation Post.
+  // - there is no classic menu conversion process in progress.
+  // - there is no menu creation process in progress.
+  // - there are no uncontrolled blocks.
+  // - (legacy) there is a Navigation Area without a ref attribute pointing to a Navigation Post.
+
+  const isPlaceholder = !ref && !isCreatingNavigationMenu && !isConvertingClassicMenu && (!hasUncontrolledInnerBlocks || isWithinUnassignedArea);
+  const isEntityAvailable = !isNavigationMenuMissing && isNavigationMenuResolved; // "loading" state:
+  // - there is a menu creation process in progress.
+  // - there is a classic menu conversion process in progress.
+  // OR
+  // - there is a ref attribute pointing to a Navigation Post
+  // - the Navigation Post isn't available (hasn't resolved) yet.
+
+  const isLoading = isCreatingNavigationMenu || isConvertingClassicMenu || !!(ref && !isEntityAvailable && !isConvertingClassicMenu);
   const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
     ref: navRef,
     className: classnames_default()(className, {
@@ -25327,7 +25646,32 @@ function Navigation(_ref) {
   const [detectedBackgroundColor, setDetectedBackgroundColor] = (0,external_wp_element_namespaceObject.useState)();
   const [detectedColor, setDetectedColor] = (0,external_wp_element_namespaceObject.useState)();
   const [detectedOverlayBackgroundColor, setDetectedOverlayBackgroundColor] = (0,external_wp_element_namespaceObject.useState)();
-  const [detectedOverlayColor, setDetectedOverlayColor] = (0,external_wp_element_namespaceObject.useState)(); // Spacer block needs orientation from context. This is a patch until
+  const [detectedOverlayColor, setDetectedOverlayColor] = (0,external_wp_element_namespaceObject.useState)();
+  const [showClassicMenuConversionErrorNotice, hideClassicMenuConversionErrorNotice] = use_navigation_notice({
+    name: 'block-library/core/navigation/classic-menu-conversion/error'
+  });
+
+  function handleUpdateMenu(menuId) {
+    setRef(menuId);
+    selectBlock(clientId);
+  }
+
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (classicMenuConversionStatus === CLASSIC_MENU_CONVERSION_PENDING) {
+      (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('Classic menu importing.'));
+    }
+
+    if (classicMenuConversionStatus === CLASSIC_MENU_CONVERSION_SUCCESS && classicMenuConversionResult) {
+      handleUpdateMenu(classicMenuConversionResult === null || classicMenuConversionResult === void 0 ? void 0 : classicMenuConversionResult.id);
+      hideClassicMenuConversionErrorNotice();
+      (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('Classic menu imported successfully.'));
+    }
+
+    if (classicMenuConversionStatus === CLASSIC_MENU_CONVERSION_ERROR) {
+      showClassicMenuConversionErrorNotice(classicMenuConversionError);
+      (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('Classic menu import failed.'));
+    }
+  }, [classicMenuConversionStatus, classicMenuConversionResult, classicMenuConversionError]); // Spacer block needs orientation from context. This is a patch until
   // https://github.com/WordPress/gutenberg/issues/36197 is addressed.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -25352,11 +25696,7 @@ function Navigation(_ref) {
     if (subMenuElement) {
       detectColors(subMenuElement, setDetectedOverlayColor, setDetectedOverlayBackgroundColor);
     }
-  }); // Hide the placeholder if an navigation menu entity has loaded.
-
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    setIsPlaceholderShown(!isEntityAvailable);
-  }, [isEntityAvailable]);
+  });
   const [showCantEditNotice, hideCantEditNotice] = use_navigation_notice({
     name: 'block-library/core/navigation/permissions/update',
     message: (0,external_wp_i18n_namespaceObject.__)('You do not have permission to edit this Menu. Any changes made will not be saved.')
@@ -25381,7 +25721,20 @@ function Navigation(_ref) {
       }
     }
   }, [isSelected, isInnerBlockSelected, canUserUpdateNavigationMenu, hasResolvedCanUserUpdateNavigationMenu, canUserCreateNavigationMenu, hasResolvedCanUserCreateNavigationMenu, ref]);
-  const startWithEmptyMenu = (0,external_wp_element_namespaceObject.useCallback)(() => {
+  const handleSelectNavigation = (0,external_wp_element_namespaceObject.useCallback)(navPostOrClassicMenu => {
+    if (!navPostOrClassicMenu) {
+      return;
+    }
+
+    const isClassicMenu = navPostOrClassicMenu.hasOwnProperty('auto_add');
+
+    if (isClassicMenu) {
+      convert(navPostOrClassicMenu.id, navPostOrClassicMenu.name);
+    } else {
+      handleUpdateMenu(navPostOrClassicMenu.id);
+    }
+  }, [convert, handleUpdateMenu]);
+  const resetToEmptyBlock = (0,external_wp_element_namespaceObject.useCallback)(() => {
     registry.batch(() => {
       if (navigationArea) {
         setAreaMenu(0);
@@ -25394,8 +25747,6 @@ function Navigation(_ref) {
       if (!ref) {
         replaceInnerBlocks(clientId, []);
       }
-
-      setIsPlaceholderShown(true);
     });
   }, [clientId, ref]); // If the block has inner blocks, but no menu id, this was an older
   // navigation block added before the block used a wp_navigation entity.
@@ -25406,7 +25757,7 @@ function Navigation(_ref) {
   const hasUnsavedBlocks = hasUncontrolledInnerBlocks && !isEntityAvailable;
 
   if (hasUnsavedBlocks) {
-    return (0,external_wp_element_namespaceObject.createElement)("nav", blockProps, (0,external_wp_element_namespaceObject.createElement)(ResponsiveWrapper, {
+    return (0,external_wp_element_namespaceObject.createElement)(TagName, blockProps, (0,external_wp_element_namespaceObject.createElement)(ResponsiveWrapper, {
       id: clientId,
       onToggle: setResponsiveMenuVisibility,
       isOpen: isResponsiveMenuOpen,
@@ -25434,7 +25785,7 @@ function Navigation(_ref) {
 
   if (ref && isNavigationMenuMissing) {
     return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, null, (0,external_wp_i18n_namespaceObject.__)('Navigation menu has been deleted or is unavailable. '), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-      onClick: startWithEmptyMenu,
+      onClick: resetToEmptyBlock,
       variant: "link"
     }, (0,external_wp_i18n_namespaceObject.__)('Create a new menu?'))));
   }
@@ -25448,33 +25799,34 @@ function Navigation(_ref) {
   const overlayMenuPreviewClasses = classnames_default()('wp-block-navigation__overlay-menu-preview', {
     open: overlayMenuPreview
   });
+
+  if (isPlaceholder) {
+    return (0,external_wp_element_namespaceObject.createElement)(TagName, blockProps, (0,external_wp_element_namespaceObject.createElement)(PlaceholderComponent, {
+      isSelected: isSelected,
+      currentMenuId: ref,
+      clientId: clientId,
+      canUserCreateNavigationMenu: canUserCreateNavigationMenu,
+      isResolvingCanUserCreateNavigationMenu: isResolvingCanUserCreateNavigationMenu,
+      onFinish: handleSelectNavigation,
+      onCreateEmpty: () => createNavigationMenu('', [])
+    }));
+  }
+
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_coreData_namespaceObject.EntityProvider, {
     kind: "postType",
     type: "wp_navigation",
     id: ref
-  }, (0,external_wp_element_namespaceObject.createElement)(RecursionProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, !isDraftNavigationMenu && isEntityAvailable && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarDropdownMenu, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Select Menu'),
-    text: (0,external_wp_i18n_namespaceObject.__)('Select Menu'),
-    icon: null
-  }, _ref2 => {
-    let {
-      onClose
-    } = _ref2;
-    return (0,external_wp_element_namespaceObject.createElement)(NavigationMenuSelector, {
-      clientId: clientId,
-      onSelect: _ref3 => {
-        let {
-          id
-        } = _ref3;
-        setRef(id);
-        onClose();
-      },
-      onCreateNew: startWithEmptyMenu
-      /* translators: %s: The name of a menu. */
-      ,
-      actionLabel: (0,external_wp_i18n_namespaceObject.__)("Switch to '%s'"),
-      showManageActions: true
-    });
+  }, (0,external_wp_element_namespaceObject.createElement)(RecursionProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, !isDraftNavigationMenu && isEntityAvailable && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, {
+    className: "wp-block-navigation__toolbar-menu-selector"
+  }, (0,external_wp_element_namespaceObject.createElement)(NavigationMenuSelector, {
+    currentMenuId: ref,
+    clientId: clientId,
+    onSelect: handleSelectNavigation,
+    onCreateNew: resetToEmptyBlock
+    /* translators: %s: The name of a menu. */
+    ,
+    actionLabel: (0,external_wp_i18n_namespaceObject.__)("Switch to '%s'"),
+    showManageActions: true
   })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, listViewToolbarButton)), listViewModal, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, null, hasSubmenuIndicatorSetting && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
     title: (0,external_wp_i18n_namespaceObject.__)('Display')
   }, isResponsive && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
@@ -25559,24 +25911,10 @@ function Navigation(_ref) {
   })))), isEntityAvailable && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, {
     __experimentalGroup: "advanced"
   }, hasResolvedCanUserUpdateNavigationMenu && canUserUpdateNavigationMenu && (0,external_wp_element_namespaceObject.createElement)(NavigationMenuNameControl, null), hasResolvedCanUserDeleteNavigationMenu && canUserDeleteNavigationMenu && (0,external_wp_element_namespaceObject.createElement)(NavigationMenuDeleteControl, {
-    onDelete: startWithEmptyMenu
-  })), (0,external_wp_element_namespaceObject.createElement)("nav", blockProps, isPlaceholderShown && (0,external_wp_element_namespaceObject.createElement)(PlaceholderComponent, {
-    onFinish: post => {
-      setIsPlaceholderShown(false);
-
-      if (post) {
-        setRef(post.id);
-      }
-
-      selectBlock(clientId);
-    },
-    canSwitchNavigationMenu: canSwitchNavigationMenu,
-    hasResolvedNavigationMenus: hasResolvedNavigationMenus,
-    clientId: clientId,
-    canUserCreateNavigationMenu: canUserCreateNavigationMenu
-  }), !hasResolvedCanUserCreateNavigationMenu || !isEntityAvailable && !isPlaceholderShown && (0,external_wp_element_namespaceObject.createElement)(placeholder_preview, {
-    isLoading: true
-  }), !isPlaceholderShown && (0,external_wp_element_namespaceObject.createElement)(ResponsiveWrapper, {
+    onDelete: resetToEmptyBlock
+  })), isLoading && (0,external_wp_element_namespaceObject.createElement)(TagName, blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, {
+    className: "wp-block-navigation__loading-indicator"
+  })), !isLoading && (0,external_wp_element_namespaceObject.createElement)(TagName, blockProps, (0,external_wp_element_namespaceObject.createElement)(ResponsiveWrapper, {
     id: clientId,
     onToggle: setResponsiveMenuVisibility,
     label: (0,external_wp_i18n_namespaceObject.__)('Menu'),
@@ -25587,7 +25925,6 @@ function Navigation(_ref) {
     classNames: overlayClassnames,
     styles: overlayStyles
   }, isEntityAvailable && (0,external_wp_element_namespaceObject.createElement)(NavigationInnerBlocks, {
-    isVisible: !isPlaceholderShown,
     clientId: clientId,
     hasCustomPlaceholder: !!CustomPlaceholder,
     orientation: orientation
@@ -27425,7 +27762,7 @@ const customPostType = (0,external_wp_element_namespaceObject.createElement)(ext
  // FALLBACK: this is only used when the server does not understand the variations property in the
 // register_block_type call. see navigation-link/index.php.
 // Delete this file when supported WP ranges understand the `variations` property when passed to
-// register_block_type in index.php
+// register_block_type in index.php.
 
 const fallbackVariations = [{
   name: 'link',
@@ -27517,14 +27854,14 @@ function enhanceNavigationLinkVariations(settings, name) {
   if (name !== 'core/navigation-link') {
     return settings;
   } // Fallback handling may be deleted after supported WP ranges understand the `variations`
-  // property when passed to register_block_type in index.php
+  // property when passed to register_block_type in index.php.
 
 
   if (!settings.variations) {
     return { ...settings,
       variations: fallback_variations
     };
-  } // Otherwise decorate server passed variations with an icon and isActive function
+  } // Otherwise decorate server passed variations with an icon and isActive function.
 
 
   if (settings.variations) {
@@ -27796,8 +28133,6 @@ const removeSubmenu = (0,external_wp_element_namespaceObject.createElement)(exte
 }));
 /* harmony default export */ var remove_submenu = (removeSubmenu);
 
-;// CONCATENATED MODULE: external ["wp","a11y"]
-var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation-submenu/icons.js
 
 
@@ -28235,7 +28570,7 @@ function NavigationSubmenuEdit(_ref) {
     if (!openSubmenusOnClick && !url) {
       setIsLinkOpen(true);
     }
-  }, []); // Store the colors from context as attributes for rendering
+  }, []); // Store the colors from context as attributes for rendering.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     // This side-effect should not create an undo level as those should
@@ -28345,7 +28680,7 @@ function NavigationSubmenuEdit(_ref) {
       backgroundColor: !backgroundColor && customBackgroundColor
     },
     onKeyDown
-  }); // Always use overlay colors for submenus
+  }); // Always use overlay colors for submenus.
 
   const innerBlocksColors = edit_getColors(context, true);
 
@@ -28876,7 +29211,7 @@ const convertSelectedBlockToNavigationLinks = _ref => {
         type,
         parent
       } = _ref2;
-      // See if a placeholder exists. This is created if children appear before parents in list
+      // See if a placeholder exists. This is created if children appear before parents in list.
       const innerBlocks = (_linkMap$id$innerBloc = (_linkMap$id = linkMap[id]) === null || _linkMap$id === void 0 ? void 0 : _linkMap$id.innerBlocks) !== null && _linkMap$id$innerBloc !== void 0 ? _linkMap$id$innerBloc : [];
       linkMap[id] = createBlock('core/navigation-link', {
         id,
@@ -28890,7 +29225,7 @@ const convertSelectedBlockToNavigationLinks = _ref => {
         navigationLinks.push(linkMap[id]);
       } else {
         if (!linkMap[parent]) {
-          // Use a placeholder if the child appears before parent in list
+          // Use a placeholder if the child appears before parent in list.
           linkMap[parent] = {
             innerBlocks: []
           };
@@ -28927,27 +29262,17 @@ function ConvertToLinksModal(_ref3) {
     clientId
   } = _ref3;
   const {
-    pages,
-    pagesFinished
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      getEntityRecords,
-      hasFinishedResolution
-    } = select(external_wp_coreData_namespaceObject.store);
-    const query = ['postType', 'page', {
-      per_page: MAX_PAGE_COUNT,
-      _fields: PAGE_FIELDS,
-      // TODO: When https://core.trac.wordpress.org/ticket/39037 REST API support for multiple orderby
-      // values is resolved, update 'orderby' to [ 'menu_order', 'post_title' ] to provide a consistent
-      // sort.
-      orderby: 'menu_order',
-      order: 'asc'
-    }];
-    return {
-      pages: getEntityRecords(...query),
-      pagesFinished: hasFinishedResolution('getEntityRecords', query)
-    };
-  }, [clientId]);
+    records: pages,
+    hasResolved: pagesFinished
+  } = (0,external_wp_coreData_namespaceObject.__experimentalUseEntityRecords)('postType', 'page', {
+    per_page: MAX_PAGE_COUNT,
+    _fields: PAGE_FIELDS,
+    // TODO: When https://core.trac.wordpress.org/ticket/39037 REST API support for multiple orderby
+    // values is resolved, update 'orderby' to [ 'menu_order', 'post_title' ] to provide a consistent
+    // sort.
+    orderby: 'menu_order',
+    order: 'asc'
+  });
   const {
     replaceBlock
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
@@ -29082,28 +29407,14 @@ function useFrontPageId() {
 
 function usePageData() {
   const {
-    pages,
-    hasResolvedPages
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      getEntityRecords,
-      hasFinishedResolution
-    } = select(external_wp_coreData_namespaceObject.store);
-    return {
-      pages: getEntityRecords('postType', 'page', {
-        orderby: 'menu_order',
-        order: 'asc',
-        _fields: ['id', 'link', 'parent', 'title', 'menu_order'],
-        per_page: -1
-      }),
-      hasResolvedPages: hasFinishedResolution('getEntityRecords', ['postType', 'page', {
-        orderby: 'menu_order',
-        order: 'asc',
-        _fields: ['id', 'link', 'parent', 'title', 'menu_order'],
-        per_page: -1
-      }])
-    };
-  }, []);
+    records: pages,
+    hasResolved: hasResolvedPages
+  } = (0,external_wp_coreData_namespaceObject.__experimentalUseEntityRecords)('postType', 'page', {
+    orderby: 'menu_order',
+    order: 'asc',
+    _fields: ['id', 'link', 'parent', 'title', 'menu_order'],
+    per_page: -1
+  });
   return (0,external_wp_element_namespaceObject.useMemo)(() => {
     var _pages$length;
 
@@ -30282,7 +30593,8 @@ function PostAuthorNameEdit(_ref) {
 
   const displayAuthor = isLink ? (0,external_wp_element_namespaceObject.createElement)("a", {
     href: "#author-pseudo-link",
-    onClick: event => event.preventDefault()
+    onClick: event => event.preventDefault(),
+    className: "wp-block-post-author-name__link"
   }, displayName) : displayName;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, {
     group: "block"
@@ -30940,7 +31252,9 @@ function PostCommentsFormEdit(_ref) {
         textAlign: nextAlign
       });
     }
-  })), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, !commentStatus && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, null, (0,external_wp_i18n_namespaceObject.__)('Post Comments Form block: comments are not enabled for this post type.')), 'open' !== commentStatus && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, null, (0,external_wp_i18n_namespaceObject.__)('Post Comments Form block: comments to this post are not allowed.')), 'open' === commentStatus && (0,external_wp_i18n_namespaceObject.__)('Post Comments Form')));
+  })), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, !commentStatus && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, null, (0,external_wp_i18n_namespaceObject.__)('Post Comments Form block: comments are not enabled for this post type.')), 'open' !== commentStatus && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, null, (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: 1: Post type (i.e. "post", "page") */
+  (0,external_wp_i18n_namespaceObject.__)('Post Comments Form block: comments to this %s are not allowed.'), postType)), 'open' === commentStatus && (0,external_wp_i18n_namespaceObject.__)('Post Comments Form')));
 }
 
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/post-comments-form/index.js
@@ -31697,15 +32011,18 @@ function PostExcerptEditor(_ref) {
     }),
     withoutInteractiveFormatting: true
   });
+  const excerptClassName = classnames_default()('wp-block-post-excerpt__excerpt', {
+    'is-inline': !showMoreOnNewLine
+  });
   const excerptContent = isEditable ? (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
-    className: !showMoreOnNewLine && 'wp-block-post-excerpt__excerpt is-inline',
+    className: excerptClassName,
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Post excerpt text'),
     value: rawExcerpt || strippedRenderedExcerpt || (isSelected ? '' : (0,external_wp_i18n_namespaceObject.__)('No post excerpt found')),
     onChange: setExcerpt,
     tagName: "p"
-  }) : renderedExcerpt && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Disabled, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
-    key: "html"
-  }, renderedExcerpt)) || (0,external_wp_i18n_namespaceObject.__)('No post excerpt found');
+  }) : (0,external_wp_element_namespaceObject.createElement)("p", {
+    className: excerptClassName
+  }, strippedRenderedExcerpt || (0,external_wp_i18n_namespaceObject.__)('No post excerpt found'));
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.AlignmentToolbar, {
     value: textAlign,
     onChange: newAlign => setAttributes({
@@ -32769,6 +33086,7 @@ function usePostTerms(_ref) {
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
@@ -32854,7 +33172,7 @@ function PostTermsEdit(_ref) {
     key: postTerm.id,
     href: postTerm.link,
     onClick: event => event.preventDefault()
-  }, postTerm.name)).reduce((prev, curr) => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, prev, (0,external_wp_element_namespaceObject.createElement)("span", {
+  }, (0,external_lodash_namespaceObject.unescape)(postTerm.name))).reduce((prev, curr) => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, prev, (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "wp-block-post-terms__separator"
   }, separator || ' '), curr)), !isLoading && !hasPostTerms && ((selectedTerm === null || selectedTerm === void 0 ? void 0 : (_selectedTerm$labels = selectedTerm.labels) === null || _selectedTerm$labels === void 0 ? void 0 : _selectedTerm$labels.no_terms) || (0,external_wp_i18n_namespaceObject.__)('Term items not found.'))));
 }
@@ -36172,7 +36490,6 @@ const query_pagination_previous_settings = {
 /**
  * WordPress dependencies
  */
-// import { useSelect, useDispatch } from '@wordpress/data';
 
 
 
@@ -37078,16 +37395,10 @@ function ReusableBlockEdit(_ref) {
   } = _ref;
   const [hasAlreadyRendered, RecursionProvider] = (0,external_wp_blockEditor_namespaceObject.__experimentalUseNoRecursiveRenders)(ref);
   const {
-    isMissing,
+    record,
     hasResolved
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const persistedBlock = select(external_wp_coreData_namespaceObject.store).getEntityRecord('postType', 'wp_block', ref);
-    const hasResolvedBlock = select(external_wp_coreData_namespaceObject.store).hasFinishedResolution('getEntityRecord', ['postType', 'wp_block', ref]);
-    return {
-      hasResolved: hasResolvedBlock,
-      isMissing: hasResolvedBlock && !persistedBlock
-    };
-  }, [ref, clientId]);
+  } = (0,external_wp_coreData_namespaceObject.__experimentalUseEntityRecord)('postType', 'wp_block', ref);
+  const isMissing = hasResolved && !record;
   const {
     __experimentalConvertBlockToStatic: convertBlockToStatic
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_reusableBlocks_namespaceObject.store);
@@ -37677,6 +37988,7 @@ function utils_isPercentageUnit(unit) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -37853,7 +38165,8 @@ function SearchEdit(_ref) {
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, buttonUseIcon && (0,external_wp_element_namespaceObject.createElement)("button", {
       type: "button",
       className: buttonClasses,
-      style: buttonStyles
+      style: buttonStyles,
+      "aria-label": buttonText ? (0,external_wp_dom_namespaceObject.__unstableStripHTML)(buttonText) : (0,external_wp_i18n_namespaceObject.__)('Search')
     }, (0,external_wp_element_namespaceObject.createElement)(icon, {
       icon: library_search
     })), !buttonUseIcon && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
@@ -38222,11 +38535,11 @@ function separatorSave(_ref) {
   const {
     color,
     customColor
-  } = attributes; // the hr support changing color using border-color, since border-color
-  // is not yet supported in the color palette, we use background-color
+  } = attributes; // The hr support changing color using border-color, since border-color
+  // is not yet supported in the color palette, we use background-color.
 
-  const backgroundClass = (0,external_wp_blockEditor_namespaceObject.getColorClassName)('background-color', color); // the dots styles uses text for the dots, to change those dots color is
-  // using color, not backgroundColor
+  const backgroundClass = (0,external_wp_blockEditor_namespaceObject.getColorClassName)('background-color', color); // The dots styles uses text for the dots, to change those dots color is
+  // using color, not backgroundColor.
 
   const colorClass = (0,external_wp_blockEditor_namespaceObject.getColorClassName)('color', color);
   const className = classnames_default()({
@@ -38895,7 +39208,7 @@ function LogoEdit(_ref2) {
     }
 
     if (!media.id && media.url) {
-      // This is a temporary blob image
+      // This is a temporary blob image.
       setLogo(undefined);
       setLogoUrl(media.url);
       return;
@@ -41492,11 +41805,11 @@ function DimensionInput(_ref) {
   const units = (0,external_wp_components_namespaceObject.__experimentalUseCustomUnits)({
     availableUnits: availableUnitSettings || ['px', 'em', 'rem', 'vw', 'vh'],
     defaultValues: {
-      px: '100',
-      em: '10',
-      rem: '10',
-      vw: '10',
-      vh: '25'
+      px: 100,
+      em: 10,
+      rem: 10,
+      vw: 10,
+      vh: 25
     }
   });
 
@@ -42915,7 +43228,7 @@ function TableEdit(_ref2) {
     setAttributes(insertRow(attributes, {
       sectionName,
       rowIndex: newRowIndex
-    })); // Select the first cell of the new row
+    })); // Select the first cell of the new row.
 
     setSelectedCell({
       sectionName,
@@ -42980,7 +43293,7 @@ function TableEdit(_ref2) {
     const newColumnIndex = columnIndex + delta;
     setAttributes(insertColumn(attributes, {
       columnIndex: newColumnIndex
-    })); // Select the first cell of the new column
+    })); // Select the first cell of the new column.
 
     setSelectedCell({
       rowIndex: 0,
@@ -45784,17 +46097,17 @@ function VideoEdit(_ref) {
     var _media$image, _media$image2;
 
     if (!media || !media.url) {
-      // in this case there was an error
+      // In this case there was an error
       // previous attributes should be removed
-      // because they may be temporary blob urls
+      // because they may be temporary blob urls.
       setAttributes({
         src: undefined,
         id: undefined,
         poster: undefined
       });
       return;
-    } // sets the block's attribute and updates the edit component from the
-    // selected media
+    } // Sets the block's attribute and updates the edit component from the
+    // selected media.
 
 
     setAttributes({
@@ -46286,7 +46599,6 @@ const video_settings = {
 
 
 
- // import * as tableOfContents from './table-of-contents';
 
 
 
@@ -46331,10 +46643,10 @@ const registerBlock = block => {
 const __experimentalGetCoreBlocks = () => [// Common blocks are grouped at the top to prioritize their display
 // in various contexts — like the inserter and auto-complete components.
 build_module_paragraph_namespaceObject, build_module_image_namespaceObject, build_module_heading_namespaceObject, build_module_gallery_namespaceObject, build_module_list_namespaceObject, build_module_quote_namespaceObject, // Register all remaining core blocks.
-archives_namespaceObject, build_module_audio_namespaceObject, build_module_button_namespaceObject, build_module_buttons_namespaceObject, build_module_calendar_namespaceObject, categories_namespaceObject, window.wp && window.wp.oldEditor ? freeform_namespaceObject : null, // Only add the classic block in WP Context
+archives_namespaceObject, build_module_audio_namespaceObject, build_module_button_namespaceObject, build_module_buttons_namespaceObject, build_module_calendar_namespaceObject, categories_namespaceObject, window.wp && window.wp.oldEditor ? freeform_namespaceObject : null, // Only add the classic block in WP Context.
 build_module_code_namespaceObject, build_module_column_namespaceObject, build_module_columns_namespaceObject, build_module_cover_namespaceObject, embed_namespaceObject, build_module_file_namespaceObject, build_module_group_namespaceObject, build_module_html_namespaceObject, latest_comments_namespaceObject, latest_posts_namespaceObject, media_text_namespaceObject, missing_namespaceObject, build_module_more_namespaceObject, nextpage_namespaceObject, page_list_namespaceObject, pattern_namespaceObject, build_module_preformatted_namespaceObject, build_module_pullquote_namespaceObject, block_namespaceObject, build_module_rss_namespaceObject, build_module_search_namespaceObject, build_module_separator_namespaceObject, build_module_shortcode_namespaceObject, social_link_namespaceObject, social_links_namespaceObject, spacer_namespaceObject, build_module_table_namespaceObject, // tableOfContents,
 tag_cloud_namespaceObject, text_columns_namespaceObject, build_module_verse_namespaceObject, build_module_video_namespaceObject, // theme blocks
-build_module_navigation_namespaceObject, navigation_link_namespaceObject, navigation_submenu_namespaceObject, build_module_site_logo_namespaceObject, site_title_namespaceObject, site_tagline_namespaceObject, query_namespaceObject, template_part_namespaceObject, build_module_post_title_namespaceObject, build_module_post_excerpt_namespaceObject, build_module_post_featured_image_namespaceObject, build_module_post_content_namespaceObject, build_module_post_author_namespaceObject, build_module_post_date_namespaceObject, build_module_post_terms_namespaceObject, post_navigation_link_namespaceObject, post_template_namespaceObject, build_module_query_pagination_namespaceObject, build_module_query_pagination_next_namespaceObject, build_module_query_pagination_numbers_namespaceObject, build_module_query_pagination_previous_namespaceObject, build_module_post_comments_namespaceObject, loginout_namespaceObject, build_module_term_description_namespaceObject, build_module_query_title_namespaceObject, post_author_name_namespaceObject, post_author_biography_namespaceObject];
+build_module_navigation_namespaceObject, navigation_link_namespaceObject, navigation_submenu_namespaceObject, build_module_site_logo_namespaceObject, site_title_namespaceObject, site_tagline_namespaceObject, query_namespaceObject, template_part_namespaceObject, build_module_post_title_namespaceObject, build_module_post_excerpt_namespaceObject, build_module_post_featured_image_namespaceObject, build_module_post_content_namespaceObject, build_module_post_author_namespaceObject, build_module_post_date_namespaceObject, build_module_post_terms_namespaceObject, post_navigation_link_namespaceObject, post_template_namespaceObject, build_module_query_pagination_namespaceObject, build_module_query_pagination_next_namespaceObject, build_module_query_pagination_numbers_namespaceObject, build_module_query_pagination_previous_namespaceObject, build_module_post_comments_namespaceObject, loginout_namespaceObject, build_module_term_description_namespaceObject, build_module_query_title_namespaceObject, post_author_biography_namespaceObject];
 /**
  * Function to register core blocks provided by the block editor.
  *
@@ -46377,7 +46689,7 @@ const __experimentalRegisterExperimentalCoreBlocks =  true ? function () {
     enableFSEBlocks
   } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   [// Experimental blocks.
-  home_link_namespaceObject, // Full Site Editing blocks.
+  home_link_namespaceObject, post_author_name_namespaceObject, // Full Site Editing blocks.
   ...(enableFSEBlocks ? [build_module_comment_author_avatar_namespaceObject, build_module_comment_author_name_namespaceObject, build_module_comment_content_namespaceObject, comment_date_namespaceObject, build_module_comment_edit_link_namespaceObject, build_module_comment_reply_link_namespaceObject, comment_template_namespaceObject, comments_query_loop_namespaceObject, comments_pagination_namespaceObject, comments_pagination_next_namespaceObject, comments_pagination_numbers_namespaceObject, comments_pagination_previous_namespaceObject, navigation_area_namespaceObject, post_comment_namespaceObject, build_module_post_comments_count_namespaceObject, build_module_post_comments_form_namespaceObject, post_comments_link_namespaceObject, read_more_namespaceObject] : [])].forEach(registerBlock);
 } : 0;
 

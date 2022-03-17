@@ -798,7 +798,7 @@ function cleanForSlug(string) {
     return '';
   }
 
-  return (0,external_lodash_namespaceObject.trim)((0,external_lodash_namespaceObject.deburr)(string).replace(/[\s\./]+/g, '-').replace(/[^\w-]+/g, '').toLowerCase(), '-');
+  return (0,external_lodash_namespaceObject.trim)((0,external_lodash_namespaceObject.deburr)(string).replace(/[\s\./]+/g, '-').replace(/[^\p{L}\p{N}_-]+/gu, '').toLowerCase(), '-');
 }
 
 ;// CONCATENATED MODULE: ./packages/url/build-module/get-filename.js
@@ -844,14 +844,16 @@ function normalizePath(path) {
 
   if (!query) {
     return base;
-  } // 'b=1&c=2&a=5'
+  } // 'b=1%2C2&c=2&a=5'
 
 
-  return base + '?' + query // [ 'b=1', 'c=2', 'a=5' ]
-  .split('&') // [ [ 'b, '1' ], [ 'c', '2' ], [ 'a', '5' ] ]
-  .map(entry => entry.split('=')) // [ [ 'a', '5' ], [ 'b, '1' ], [ 'c', '2' ] ]
-  .sort((a, b) => a[0].localeCompare(b[0])) // [ 'a=5', 'b=1', 'c=2' ]
-  .map(pair => pair.join('=')) // 'a=5&b=1&c=2'
+  return base + '?' + query // [ 'b=1%2C2', 'c=2', 'a=5' ]
+  .split('&') // [ [ 'b, '1%2C2' ], [ 'c', '2' ], [ 'a', '5' ] ]
+  .map(entry => entry.split('=')) // [ [ 'b', '1,2' ], [ 'c', '2' ], [ 'a', '5' ] ]
+  .map(pair => pair.map(decodeURIComponent)) // [ [ 'a', '5' ], [ 'b, '1,2' ], [ 'c', '2' ] ]
+  .sort((a, b) => a[0].localeCompare(b[0])) // [ [ 'a', '5' ], [ 'b, '1%2C2' ], [ 'c', '2' ] ]
+  .map(pair => pair.map(encodeURIComponent)) // [ 'a=5', 'b=1%2C2', 'c=2' ]
+  .map(pair => pair.join('=')) // 'a=5&b=1%2C2&c=2'
   .join('&');
 }
 

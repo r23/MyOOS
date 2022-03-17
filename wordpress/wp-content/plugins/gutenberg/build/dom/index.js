@@ -756,7 +756,7 @@ function getScrollContainer(node) {
     if (/(auto|scroll)/.test(overflowY)) {
       return node;
     }
-  } // Continue traversing
+  } // Continue traversing.
 
 
   return getScrollContainer(
@@ -804,7 +804,7 @@ function getOffsetParent(node) {
   /** @type {Element} */
   closestElement).position !== 'static') {
     return closestElement;
-  } // offsetParent is undocumented/draft
+  } // offsetParent is undocumented/draft.
 
 
   return (

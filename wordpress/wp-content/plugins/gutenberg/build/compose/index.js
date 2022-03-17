@@ -2216,8 +2216,8 @@ var external_lodash_namespaceObject = window["lodash"];
  * Given a function mapping a component to an enhanced component and modifier
  * name, returns the enhanced component augmented with a generated displayName.
  *
- * @param mapComponent Function mapping component to enhanced component.
- * @param modifierName Seed name from which to generated display name.
+ * @param  mapComponent Function mapping component to enhanced component.
+ * @param  modifierName Seed name from which to generated display name.
  *
  * @return Component class with generated display name assigned.
  */
@@ -3170,7 +3170,7 @@ const INPUT_BUTTON_TYPES = ['button', 'submit'];
 /**
  * @typedef {HTMLButtonElement | HTMLLinkElement | HTMLInputElement} FocusNormalizedButton
  */
-// Disable reason: Rule doesn't support predicate return types
+// Disable reason: Rule doesn't support predicate return types.
 
 /* eslint-disable jsdoc/valid-types */
 
@@ -3541,7 +3541,7 @@ function useDialog(options) {
     event) => {
       var _currentOptions$curre3;
 
-      // Close on escape
+      // Close on escape.
       if (event.keyCode === external_wp_keycodes_namespaceObject.ESCAPE && !event.defaultPrevented && (_currentOptions$curre3 = currentOptions.current) !== null && _currentOptions$curre3 !== void 0 && _currentOptions$curre3.onClose) {
         event.preventDefault();
         currentOptions.current.onClose();
@@ -3827,7 +3827,7 @@ shortcuts, callback) {
 
     const mousetrap = new (mousetrap_default())(target && target.current ? target.current : // We were passing `document` here previously, so to successfully cast it to Element we must cast it first to `unknown`.
     // Not sure if this is a mistake but it was the behavior previous to the addition of types so we're just doing what's
-    // necessary to maintain the existing behavior
+    // necessary to maintain the existing behavior.
 
     /** @type {Element} */
 
@@ -4319,7 +4319,7 @@ function useThrottle(fn, wait, options) {
 /**
  * @template T
  * @param {T} value
- * @return {import('react').MutableRefObject<T>} A ref with the value.
+ * @return {import('react').MutableRefObject<T|null>} A ref with the value.
  */
 
 function useFreshRef(value) {
@@ -4531,6 +4531,12 @@ function useDropZone(_ref) {
 
     ownerDocument.addEventListener('dragenter', maybeDragStart);
     return () => {
+      onDropRef.current = null;
+      onDragStartRef.current = null;
+      onDragEnterRef.current = null;
+      onDragLeaveRef.current = null;
+      onDragEndRef.current = null;
+      onDragOverRef.current = null;
       delete element.dataset.isDropZone;
       element.removeEventListener('drop', onDrop);
       element.removeEventListener('dragenter', onDragEnter);
@@ -4656,7 +4662,7 @@ function useFixedWindowList(elementRef, itemHeight, totalItems, options) {
         return;
       }
 
-      const visibleItems = Math.ceil(scrollContainer.clientHeight / itemHeight); // Aim to keep opening list view fast, afterward we can optimize for scrolling
+      const visibleItems = Math.ceil(scrollContainer.clientHeight / itemHeight); // Aim to keep opening list view fast, afterward we can optimize for scrolling.
 
       const windowOverscan = initRender ? visibleItems : (_options$windowOversc = options === null || options === void 0 ? void 0 : options.windowOverscan) !== null && _options$windowOversc !== void 0 ? _options$windowOversc : visibleItems;
       const firstViewableIndex = Math.floor(scrollContainer.scrollTop / itemHeight);
@@ -4750,17 +4756,17 @@ function useFixedWindowList(elementRef, itemHeight, totalItems, options) {
 }
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/index.js
-// Utils
+// Utils.
  // Compose helper (aliased flowRight from Lodash)
 
- // Higher-order components
+ // Higher-order components.
 
 
 
 
 
 
- // Hooks
+ // Hooks.
 
 
 

@@ -607,10 +607,10 @@ const installBlockType = block => async _ref => {
     });
     success = true;
   } catch (error) {
-    let message = error.message || (0,external_wp_i18n_namespaceObject.__)('An error occurred.'); // Errors we throw are fatal
+    let message = error.message || (0,external_wp_i18n_namespaceObject.__)('An error occurred.'); // Errors we throw are fatal.
 
 
-    let isFatal = error instanceof Error; // Specific API errors that are fatal
+    let isFatal = error instanceof Error; // Specific API errors that are fatal.
 
     const fatalAPIErrors = {
       folder_exists: (0,external_wp_i18n_namespaceObject.__)('This block is already installed. Try reloading the page.'),

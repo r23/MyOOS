@@ -132,11 +132,11 @@ const __experimentalDeleteReusableBlock = id => async _ref3 => {
   let {
     registry
   } = _ref3;
-  const reusableBlock = registry.select('core').getEditedEntityRecord('postType', 'wp_block', id); // Don't allow a reusable block with a temporary ID to be deleted
+  const reusableBlock = registry.select('core').getEditedEntityRecord('postType', 'wp_block', id); // Don't allow a reusable block with a temporary ID to be deleted.
 
   if (!reusableBlock) {
     return;
-  } // Remove any other blocks that reference this reusable block
+  } // Remove any other blocks that reference this reusable block.
 
 
   const allBlocks = registry.select(external_wp_blockEditor_namespaceObject.store).getBlocks();

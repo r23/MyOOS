@@ -1326,7 +1326,7 @@ const createI18n = (initialData, initialDomain, hooks) => {
     let number = arguments.length > 4 ? arguments[4] : undefined;
 
     if (!tannin.data[domain]) {
-      // use `doSetLocaleData` to set silently, without notifying listeners
+      // Use `doSetLocaleData` to set silently, without notifying listeners.
       doSetLocaleData(undefined, domain);
     }
 

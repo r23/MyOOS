@@ -225,7 +225,7 @@ function ServerSideRender(props) {
   }, []);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     // Don't debounce the first fetch. This ensures that the first render
-    // shows data as soon as possible
+    // shows data as soon as possible.
     if (prevProps === undefined) {
       fetchData();
     } else if (!(0,external_lodash_namespaceObject.isEqual)(prevProps, props)) {

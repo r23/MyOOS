@@ -1074,6 +1074,8 @@ async function defaultProcessor(requests) {
 function createBatch() {
   let processor = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : defaultProcessor;
   let lastId = 0;
+  /** @type {Array<{ input: any; resolve: ( value: any ) => void; reject: ( error: any ) => void }>} */
+
   let queue = [];
   const pending = new ObservableSet();
   return {
@@ -1129,7 +1131,7 @@ function createBatch() {
      * Runs the batch. This calls `batchProcessor` and resolves or rejects
      * all promises returned by `add()`.
      *
-     * @return {Promise} A promise that resolves to a boolean that is true
+     * @return {Promise<boolean>} A promise that resolves to a boolean that is true
      *                   if the processor returned no errors.
      */
     async run() {
@@ -1138,7 +1140,7 @@ function createBatch() {
           const unsubscribe = pending.subscribe(() => {
             if (!pending.size) {
               unsubscribe();
-              resolve();
+              resolve(undefined);
             }
           });
         });
@@ -1169,17 +1171,20 @@ function createBatch() {
 
       let isSuccess = true;
 
-      for (const [result, {
-        resolve,
-        reject
-      }] of (0,external_lodash_namespaceObject.zip)(results, queue)) {
+      for (const pair of (0,external_lodash_namespaceObject.zip)(results, queue)) {
+        /** @type {{error?: unknown, output?: unknown}} */
+        const result = pair[0];
+        /** @type {{resolve: (value: any) => void; reject: (error: any) => void} | undefined} */
+
+        const queueItem = pair[1];
+
         if (result !== null && result !== void 0 && result.error) {
-          reject(result.error);
+          queueItem === null || queueItem === void 0 ? void 0 : queueItem.reject(result.error);
           isSuccess = false;
         } else {
           var _result$output;
 
-          resolve((_result$output = result === null || result === void 0 ? void 0 : result.output) !== null && _result$output !== void 0 ? _result$output : result);
+          queueItem === null || queueItem === void 0 ? void 0 : queueItem.resolve((_result$output = result === null || result === void 0 ? void 0 : result.output) !== null && _result$output !== void 0 ? _result$output : result);
         }
       }
 
@@ -1204,14 +1209,14 @@ class ObservableSet {
     return this.set.size;
   }
 
-  add() {
-    this.set.add(...arguments);
+  add(value) {
+    this.set.add(value);
     this.subscribers.forEach(subscriber => subscriber());
     return this;
   }
 
-  delete() {
-    const isSuccess = this.set.delete(...arguments);
+  delete(value) {
+    const isSuccess = this.set.delete(value);
     this.subscribers.forEach(subscriber => subscriber());
     return isSuccess;
   }
@@ -1509,12 +1514,12 @@ const deleteEntityRecord = function (kind, name, recordId, query) {
  * Returns an action object that triggers an
  * edit to an entity record.
  *
- * @param {string}  kind               Kind of the edited entity record.
- * @param {string}  name               Name of the edited entity record.
- * @param {number}  recordId           Record ID of the edited entity record.
- * @param {Object}  edits              The edits.
- * @param {Object}  options            Options for the edit.
- * @param {boolean} options.undoIgnore Whether to ignore the edit in undo history or not.
+ * @param {string}  kind                 Kind of the edited entity record.
+ * @param {string}  name                 Name of the edited entity record.
+ * @param {number}  recordId             Record ID of the edited entity record.
+ * @param {Object}  edits                The edits.
+ * @param {Object}  options              Options for the edit.
+ * @param {boolean} [options.undoIgnore] Whether to ignore the edit in undo history or not.
  *
  * @return {Object} Action object.
  */
@@ -1573,8 +1578,6 @@ const editEntityRecord = function (kind, name, recordId, edits) {
 /**
  * Action triggered to undo the last edit to
  * an entity record, if any.
- *
- * @return {undefined}
  */
 
 const undo = () => _ref3 => {
@@ -1599,8 +1602,6 @@ const undo = () => _ref3 => {
 /**
  * Action triggered to redo the last undoed
  * edit to an entity record, if any.
- *
- * @return {undefined}
  */
 
 const redo = () => _ref4 => {
@@ -1812,8 +1813,8 @@ const saveEntityRecord = function (kind, name, record) {
  *                         `saveEntityRecord`, `saveEditedEntityRecord`, and
  *                         `deleteEntityRecord`.
  *
- * @return {Promise} A promise that resolves to an array containing the return
- *                   values of each function given in `requests`.
+ * @return {(thunkArgs: Object) => Promise} A promise that resolves to an array containing the return
+ *                                          values of each function given in `requests`.
  */
 
 const __experimentalBatch = requests => async _ref6 => {
@@ -2122,7 +2123,7 @@ const defaultEntities = [{
     context: 'edit'
   },
   plural: 'globalStylesVariations',
-  // should be different than name
+  // Should be different than name.
   getTitle: record => {
     var _record$title;
 
@@ -3062,7 +3063,7 @@ function entitiesConfig() {
 const entities = function () {
   let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   let action = arguments.length > 1 ? arguments[1] : undefined;
-  const newConfig = entitiesConfig(state.config, action); // Generates a dynamic reducer for the entities
+  const newConfig = entitiesConfig(state.config, action); // Generates a dynamic reducer for the entities.
 
   let entitiesDataReducer = state.reducer;
 
@@ -4831,6 +4832,8 @@ const resolvers_getEmbedPreview = url => async _ref6 => {
  */
 
 const resolvers_canUser = (action, resource, id) => async _ref7 => {
+  var _response$headers;
+
   let {
     dispatch
   } = _ref7;
@@ -4859,9 +4862,12 @@ const resolvers_canUser = (action, resource, id) => async _ref7 => {
     // Do nothing if our OPTIONS request comes back with an API error (4xx or
     // 5xx). The previously determined isAllowed value will remain in the store.
     return;
-  }
+  } // Optional chaining operator is used here because the API requests don't
+  // return the expected result in the native version. Instead, API requests
+  // only return the result, without including response properties like the headers.
 
-  const allowHeader = response.headers.get('allow');
+
+  const allowHeader = (_response$headers = response.headers) === null || _response$headers === void 0 ? void 0 : _response$headers.get('allow');
   const key = (0,external_lodash_namespaceObject.compact)([action, resource, id]).join('/');
   const isAllowed = (0,external_lodash_namespaceObject.includes)(allowHeader, method);
   dispatch.receiveUserPermission(key, isAllowed);
@@ -5725,8 +5731,13 @@ function __experimentalUseEntityRecord(kind, name, recordId) {
 
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/use-entity-records.js
 /**
+ * WordPress dependencies
+ */
+
+/**
  * Internal dependencies
  */
+
 
 
 
@@ -5736,7 +5747,6 @@ function __experimentalUseEntityRecord(kind, name, recordId) {
  * @param  kind      Kind of the requested entities.
  * @param  name      Name of the requested entities.
  * @param  queryArgs HTTP query for the requested entities.
- *
  * @example
  * ```js
  * import { useEntityRecord } from '@wordpress/core-data';
@@ -5770,10 +5780,15 @@ function __experimentalUseEntityRecord(kind, name, recordId) {
  */
 function __experimentalUseEntityRecords(kind, name) {
   let queryArgs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  // Serialize queryArgs to a string that can be safely used as a React dep.
+  // We can't just pass queryArgs as one of the deps, because if it is passed
+  // as an object literal, then it will be a different object on each call even
+  // if the values remain the same.
+  const queryAsString = (0,external_wp_url_namespaceObject.addQueryArgs)('', queryArgs);
   const {
     data: records,
     ...rest
-  } = __experimentalUseQuerySelect(query => query(store).getEntityRecords(kind, name, queryArgs), [kind, name, queryArgs]);
+  } = __experimentalUseQuerySelect(query => query(store).getEntityRecords(kind, name, queryArgs), [kind, name, queryAsString]);
   return {
     records,
     ...rest
@@ -5885,7 +5900,7 @@ const fetchLinkSuggestions = async function (search) {
           }
         };
       });
-    }).catch(() => []) // fail by returning no results
+    }).catch(() => []) // Fail by returning no results.
     );
   }
 
@@ -5932,7 +5947,7 @@ const fetchLinkSuggestions = async function (search) {
   }
 
   return Promise.all(queries).then(results => {
-    return results.reduce((accumulator, current) => accumulator.concat(current), //flatten list
+    return results.reduce((accumulator, current) => accumulator.concat(current), // Flatten list.
     []).filter(
     /**
      * @param {{ id: number }} result

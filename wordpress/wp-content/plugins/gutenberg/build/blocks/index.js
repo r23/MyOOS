@@ -6257,7 +6257,7 @@ const BLOCK_ICON_DEFAULT = 'block-default';
 
 const DEPRECATED_ENTRY_KEYS = ['attributes', 'supports', 'save', 'migrate', 'isEligible', 'apiVersion'];
 const __EXPERIMENTAL_STYLE_PROPERTY = {
-  //kept for back-compatibility purposes.
+  // Kept for back-compatibility purposes.
   '--wp--style--color--link': {
     value: ['color', 'link'],
     support: ['color', 'link']
@@ -7168,7 +7168,7 @@ const isPossibleTransformForSource = (transform, direction, blocks) => {
   if (!isValidForMultiBlocks) {
     return false;
   } // Check non-wildcard transforms to ensure that transform is valid
-  // for a block selection of multiple blocks of different types
+  // for a block selection of multiple blocks of different types.
 
 
   if (!isWildcardBlockTransform(transform) && !(0,external_lodash_namespaceObject.every)(blocks, {
@@ -8260,7 +8260,7 @@ function getInnerBlocksProps() {
   let props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   const {
     innerBlocks
-  } = innerBlocksPropsProvider; // Value is an array of blocks, so defer to block serializer
+  } = innerBlocksPropsProvider; // Value is an array of blocks, so defer to block serializer.
 
   const html = serializer_serialize(innerBlocks, {
     isInnerBlocks: true
@@ -9516,7 +9516,7 @@ function getNormalizedStyleValue(value) {
   const textPieces = getTextPiecesSplitOnWhitespace(value);
   const normalizedPieces = textPieces.map(getNormalizedLength);
   const result = normalizedPieces.join(' ');
-  return result // Normalize URL type to omit whitespace or quotes
+  return result // Normalize URL type to omit whitespace or quotes.
   .replace(REGEXP_STYLE_URL_TYPE, 'url($1)');
 }
 /**
@@ -9529,10 +9529,10 @@ function getNormalizedStyleValue(value) {
 
 function getStyleProperties(text) {
   const pairs = text // Trim ending semicolon (avoid including in split)
-  .replace(/;?\s*$/, '') // Split on property assignment
+  .replace(/;?\s*$/, '') // Split on property assignment.
   .split(';') // For each property assignment...
   .map(style => {
-    // ...split further into key-value pairs
+    // ...split further into key-value pairs.
     const [key, ...valueParts] = style.split(':');
     const value = valueParts.join(':');
     return [key.trim(), getNormalizedStyleValue(value.trim())];
@@ -9591,7 +9591,7 @@ function isEqualTagAttributePairs(actual, expected) {
 
   for (let i = 0; i < actual.length; i++) {
     const [name, actualValue] = actual[i];
-    const nameLower = name.toLowerCase(); // As noted above, if missing member in B, assume different
+    const nameLower = name.toLowerCase(); // As noted above, if missing member in B, assume different.
 
     if (!expectedAttributes.hasOwnProperty(nameLower)) {
       logger.warning('Encountered unexpected attribute `%s`.', name);
@@ -9602,13 +9602,13 @@ function isEqualTagAttributePairs(actual, expected) {
     const isEqualAttributes = isEqualAttributesOfName[nameLower];
 
     if (isEqualAttributes) {
-      // Defer custom attribute equality handling
+      // Defer custom attribute equality handling.
       if (!isEqualAttributes(actualValue, expectedValue)) {
         logger.warning('Expected attribute `%s` of value `%s`, saw `%s`.', name, expectedValue, actualValue);
         return false;
       }
     } else if (actualValue !== expectedValue) {
-      // Otherwise strict inequality should bail
+      // Otherwise strict inequality should bail.
       logger.warning('Expected attribute `%s` of value `%s`, saw `%s`.', name, expectedValue, actualValue);
       return false;
     }
@@ -9695,10 +9695,10 @@ function getHTMLTokens(html) {
 
 
 function isClosedByToken(currentToken, nextToken) {
-  // Ensure this is a self closed token
+  // Ensure this is a self closed token.
   if (!currentToken.selfClosing) {
     return false;
-  } // Check token names and determine if nextToken is the closing tag for currentToken
+  } // Check token names and determine if nextToken is the closing tag for currentToken.
 
 
   if (nextToken && nextToken.tagName === currentToken.tagName && nextToken.type === 'EndTag') {
@@ -9725,10 +9725,10 @@ function isEquivalentHTML(actual, expected) {
   // Short-circuit if markup is identical.
   if (actual === expected) {
     return true;
-  } // Tokenize input content and reserialized save content
+  } // Tokenize input content and reserialized save content.
 
 
-  const [actualTokens, expectedTokens] = [actual, expected].map(html => getHTMLTokens(html, logger)); // If either is malformed then stop comparing - the strings are not equivalent
+  const [actualTokens, expectedTokens] = [actual, expected].map(html => getHTMLTokens(html, logger)); // If either is malformed then stop comparing - the strings are not equivalent.
 
   if (!actualTokens || !expectedTokens) {
     return false;
@@ -9737,19 +9737,19 @@ function isEquivalentHTML(actual, expected) {
   let actualToken, expectedToken;
 
   while (actualToken = getNextNonWhitespaceToken(actualTokens)) {
-    expectedToken = getNextNonWhitespaceToken(expectedTokens); // Inequal if exhausted all expected tokens
+    expectedToken = getNextNonWhitespaceToken(expectedTokens); // Inequal if exhausted all expected tokens.
 
     if (!expectedToken) {
       logger.warning('Expected end of content, instead saw %o.', actualToken);
       return false;
-    } // Inequal if next non-whitespace token of each set are not same type
+    } // Inequal if next non-whitespace token of each set are not same type.
 
 
     if (actualToken.type !== expectedToken.type) {
       logger.warning('Expected token of type `%s` (%o), instead saw `%s` (%o).', expectedToken.type, expectedToken, actualToken.type, actualToken);
       return false;
     } // Defer custom token type equality handling, otherwise continue and
-    // assume as equal
+    // assume as equal.
 
 
     const isEqualTokens = isEqualTokensOfType[actualToken.type];
@@ -9757,23 +9757,23 @@ function isEquivalentHTML(actual, expected) {
     if (isEqualTokens && !isEqualTokens(actualToken, expectedToken, logger)) {
       return false;
     } // Peek at the next tokens (actual and expected) to see if they close
-    // a self-closing tag
+    // a self-closing tag.
 
 
     if (isClosedByToken(actualToken, expectedTokens[0])) {
       // Consume the next expected token that closes the current actual
-      // self-closing token
+      // self-closing token.
       getNextNonWhitespaceToken(expectedTokens);
     } else if (isClosedByToken(expectedToken, actualTokens[0])) {
       // Consume the next actual token that closes the current expected
-      // self-closing token
+      // self-closing token.
       getNextNonWhitespaceToken(actualTokens);
     }
   }
 
   if (expectedToken = getNextNonWhitespaceToken(expectedTokens)) {
     // If any non-whitespace tokens remain in expected token set, this
-    // indicates inequality
+    // indicates inequality.
     logger.warning('Expected %o, instead saw end of content.', expectedToken);
     return false;
   }
@@ -9899,8 +9899,8 @@ function convertLegacyBlockNameAndAttributes(name, attributes) {
       speaker: 'speaker-deck',
       polldaddy: 'crowdsignal'
     };
-    newAttributes.providerNameSlug = providerSlug in deprecated ? deprecated[providerSlug] : providerSlug; // this is needed as the `responsive` attribute was passed
-    // in a different way before the refactoring to block variations
+    newAttributes.providerNameSlug = providerSlug in deprecated ? deprecated[providerSlug] : providerSlug; // This is needed as the `responsive` attribute was passed
+    // in a different way before the refactoring to block variations.
 
     if (!['amazon-kindle', 'wordpress'].includes(providerSlug)) {
       newAttributes.responsive = true;
@@ -11390,7 +11390,7 @@ function createMore(customText, noTeaser, doc) {
   }
 
   if (noTeaser) {
-    // "Boolean" data attribute
+    // "Boolean" data attribute.
     node.dataset.noTeaser = '';
   }
 
@@ -12908,7 +12908,7 @@ const BlockContentProvider = _ref => {
   } = _ref;
 
   const BlockContent = () => {
-    // Value is an array of blocks, so defer to block serializer
+    // Value is an array of blocks, so defer to block serializer.
     const html = serialize(innerBlocks, {
       isInnerBlocks: true
     }); // Use special-cased raw HTML tag to avoid default escaping

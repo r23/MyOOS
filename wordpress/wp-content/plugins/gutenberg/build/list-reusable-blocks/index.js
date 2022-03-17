@@ -366,7 +366,7 @@ function ImportDropdown(_ref) {
  */
 
 
- // Setup Export Links
+ // Setup Export Links.
 
 document.body.addEventListener('click', event => {
   if (!event.target.classList.contains('wp-list-reusable-blocks__export')) {
@@ -375,7 +375,7 @@ document.body.addEventListener('click', event => {
 
   event.preventDefault();
   utils_export(event.target.dataset.id);
-}); // Setup Import Form
+}); // Setup Import Form.
 
 document.addEventListener('DOMContentLoaded', () => {
   const button = document.querySelector('.page-title-action');

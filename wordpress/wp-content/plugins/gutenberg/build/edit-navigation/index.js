@@ -726,19 +726,19 @@ const getNavigationPostForMenu = menuId => async _ref => {
     return;
   }
 
-  const stubPost = createStubPost(menuId); // Persist an empty post to warm up the state
+  const stubPost = createStubPost(menuId); // Persist an empty post to warm up the state.
 
   dispatch(persistPost(stubPost)); // Dispatch startResolution to skip the execution of the real getEntityRecord resolver - it would
   // issue an http request and fail.
 
   const args = [NAVIGATION_POST_KIND, NAVIGATION_POST_POST_TYPE, stubPost.id];
-  registry.dispatch(external_wp_coreData_namespaceObject.store).startResolution('getEntityRecord', args); // Now let's create a proper one hydrated using actual menu items
+  registry.dispatch(external_wp_coreData_namespaceObject.store).startResolution('getEntityRecord', args); // Now let's create a proper one hydrated using actual menu items.
 
   const menuItems = await registry.resolveSelect(external_wp_coreData_namespaceObject.store).getMenuItems(menuItemsQuery(menuId));
-  const navigationBlock = createNavigationBlock(menuItems); // Persist the actual post containing the navigation block
+  const navigationBlock = createNavigationBlock(menuItems); // Persist the actual post containing the navigation block.
 
   const builtPost = createStubPost(menuId, navigationBlock);
-  dispatch(persistPost(builtPost)); // Dispatch finishResolution to conclude startResolution dispatched earlier
+  dispatch(persistPost(builtPost)); // Dispatch finishResolution to conclude startResolution dispatched earlier.
 
   registry.dispatch(external_wp_coreData_namespaceObject.store).finishResolution('getEntityRecord', args);
 };
@@ -906,14 +906,14 @@ const saveNavigationPost = post => async _ref => {
   });
 
   try {
-    const menuId = post.meta.menuId; // Save menu
+    const menuId = post.meta.menuId; // Save menu.
 
     await registry.dispatch(external_wp_coreData_namespaceObject.store).saveEditedEntityRecord('root', 'menu', menuId);
     const error = registry.select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError('root', 'menu', menuId);
 
     if (error) {
       throw new Error(error.message);
-    } // Save menu items
+    } // Save menu items.
 
 
     const updatedBlocks = await dispatch(batchSaveMenuItems(post.blocks[0], menuId)); // Clear "stub" navigation post edits to avoid a false "dirty" state.
@@ -951,7 +951,7 @@ const batchSaveMenuItems = (navigationBlock, menuId) => async _ref2 => {
     dispatch,
     registry
   } = _ref2;
-  // Make sure all the existing menu items are available before proceeding
+  // Make sure all the existing menu items are available before proceeding.
   const oldMenuItems = await registry.resolveSelect(external_wp_coreData_namespaceObject.store).getMenuItems({
     menus: menuId,
     per_page: -1
@@ -963,7 +963,7 @@ const batchSaveMenuItems = (navigationBlock, menuId) => async _ref2 => {
   // are no consistency guarantees and we don't want to delete something
   // that was a parent node before another node takes it place.
 
-  const navBlockAfterUpdates = await dispatch(batchUpdateMenuItems(navBlockWithRecordIds, menuId)); // Delete menu items
+  const navBlockAfterUpdates = await dispatch(batchUpdateMenuItems(navBlockWithRecordIds, menuId)); // Delete menu items.
 
   const deletedIds = (0,external_lodash_namespaceObject.difference)(oldMenuItems.map(_ref3 => {
     let {
@@ -998,7 +998,7 @@ const batchInsertPlaceholderMenuItems = navigationBlock => async _ref4 => {
       menu_order: 1
     });
   });
-  const results = await registry.dispatch(external_wp_coreData_namespaceObject.store).__experimentalBatch(tasks); // Return an updated navigation block with all the IDs in
+  const results = await registry.dispatch(external_wp_coreData_namespaceObject.store).__experimentalBatch(tasks); // Return an updated navigation block with all the IDs in.
 
   const blockToResult = new Map((0,external_lodash_namespaceObject.zip)(blocksWithoutRecordId, results));
   return mapBlocksTree(navigationBlock, block => {
@@ -1041,13 +1041,13 @@ const batchUpdateMenuItems = (navigationBlock, menuId) => async _ref6 => {
     (0,external_wp_i18n_namespaceObject.__)('The following blocks haven\'t been saved because they are not supported: "%s".'), unsupportedMenuItems.join('", "')));
   }
 
-  const updatedMenuItems = allMenuItems // Filter out unsupported blocks
+  const updatedMenuItems = allMenuItems // Filter out unsupported blocks.
   .filter(_ref9 => {
     let {
       block
     } = _ref9;
     return isBlockSupportedInNav(block);
-  }) // Transform the blocks into menu items
+  }) // Transform the blocks into menu items.
   .map(_ref10 => {
     let {
       block,
@@ -1055,14 +1055,14 @@ const batchUpdateMenuItems = (navigationBlock, menuId) => async _ref6 => {
       childIndex
     } = _ref10;
     return blockToMenuItem(block, registry.select(external_wp_coreData_namespaceObject.store).getMenuItem(getRecordIdFromBlock(block)), getRecordIdFromBlock(parentBlock), childIndex, menuId);
-  }) // Filter out menu items without any edits
+  }) // Filter out menu items without any edits.
   .filter(menuItem => {
     // Update an existing entity record.
     registry.dispatch(external_wp_coreData_namespaceObject.store).editEntityRecord('root', 'menuItem', menuItem.id, menuItem, {
       undoIgnore: true
     });
     return registry.select(external_wp_coreData_namespaceObject.store).hasEditsForEntityRecord('root', 'menuItem', menuItem.id);
-  }); // Map the edited menu items to batch tasks
+  }); // Map the edited menu items to batch tasks.
 
   const tasks = updatedMenuItems.map(menuItem => _ref11 => {
     let {
@@ -1719,93 +1719,61 @@ const IsMenuNameControlFocusedContext = (0,external_wp_element_namespaceObject.c
  */
 
 function useNavigationEntities(menuId) {
-  return { ...usePageEntities(),
-    ...useMenuEntities(),
-    ...useMenuItemEntities(menuId)
-  };
-}
-
-function useMenuEntities() {
   const {
-    menus,
-    isResolvingMenus,
-    hasResolvedMenus
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      getMenus,
-      isResolving,
-      hasFinishedResolution
-    } = select(external_wp_coreData_namespaceObject.store);
-    const menusParameters = [{
-      per_page: -1
-    }];
-    return {
-      menus: getMenus(...menusParameters),
-      isResolvingMenus: isResolving('getMenus', menusParameters),
-      hasResolvedMenus: hasFinishedResolution('getMenus', menusParameters)
-    };
-  }, []);
+    records: menus,
+    isResolving: isResolvingMenus,
+    hasResolved: hasResolvedMenus
+  } = (0,external_wp_coreData_namespaceObject.__experimentalUseEntityRecords)('root', 'menu', [{
+    per_page: -1
+  }]);
+  const {
+    records: pages,
+    isResolving: isResolvingPages,
+    hasResolved: hasResolvedPages
+  } = (0,external_wp_coreData_namespaceObject.__experimentalUseEntityRecords)('postType', 'page', {
+    parent: 0,
+    order: 'asc',
+    orderby: 'id',
+    per_page: -1
+  });
   return {
+    pages,
+    isResolvingPages,
+    hasResolvedPages,
+    hasPages: !!(hasResolvedPages && pages !== null && pages !== void 0 && pages.length),
     menus,
     isResolvingMenus,
     hasResolvedMenus,
-    hasMenus: !!(hasResolvedMenus && menus !== null && menus !== void 0 && menus.length)
+    hasMenus: !!(hasResolvedMenus && menus !== null && menus !== void 0 && menus.length),
+    ...useMenuItemEntities(menuId)
   };
 }
 
 function useMenuItemEntities(menuId) {
   const {
     menuItems,
-    hasResolvedMenuItems
+    hasResolvedMenuItems = false
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    if (!menuId) {
+      return {};
+    }
+
     const {
       getMenuItems,
       hasFinishedResolution
     } = select(external_wp_coreData_namespaceObject.store);
-    const hasSelectedMenu = menuId !== undefined;
-    const menuItemsParameters = hasSelectedMenu ? [{
+    const query = {
       menus: menuId,
       per_page: -1
-    }] : undefined;
+    };
     return {
-      menuItems: hasSelectedMenu ? getMenuItems(...menuItemsParameters) : undefined,
-      hasResolvedMenuItems: hasSelectedMenu ? hasFinishedResolution('getMenuItems', menuItemsParameters) : false
+      menuItems: getMenuItems(query),
+      hasResolvedMenuItems: hasFinishedResolution('getMenuItems', [query])
     };
   }, [menuId]);
   return {
     menuItems,
     hasResolvedMenuItems
-  };
-}
-
-function usePageEntities() {
-  const {
-    pages,
-    isResolvingPages,
-    hasResolvedPages
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    const {
-      getEntityRecords,
-      isResolving,
-      hasFinishedResolution
-    } = select(external_wp_coreData_namespaceObject.store);
-    const pagesParameters = ['postType', 'page', {
-      parent: 0,
-      order: 'asc',
-      orderby: 'id',
-      per_page: -1
-    }];
-    return {
-      pages: getEntityRecords(...pagesParameters) || null,
-      isResolvingPages: isResolving('getEntityRecords', pagesParameters),
-      hasResolvedPages: hasFinishedResolution('getEntityRecords', pagesParameters)
-    };
-  }, []);
-  return {
-    pages,
-    isResolvingPages,
-    hasResolvedPages,
-    hasPages: !!(hasResolvedPages && pages !== null && pages !== void 0 && pages.length)
   };
 }
 
@@ -2135,81 +2103,25 @@ function multipleEnableItems() {
     }
   };
 }
-/**
- * Reducer returning the defaults for user preferences.
- *
- * This is kept intentionally separate from the preferences
- * themselves so that defaults are not persisted.
- *
- * @param {Object} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {Object} Updated state.
- */
-
-const preferenceDefaults = (0,external_wp_data_namespaceObject.combineReducers)({
-  features() {
-    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    let action = arguments.length > 1 ? arguments[1] : undefined;
-
-    if (action.type === 'SET_FEATURE_DEFAULTS') {
-      const {
-        scope,
-        defaults
-      } = action;
-      return { ...state,
-        [scope]: { ...state[scope],
-          ...defaults
-        }
-      };
-    }
-
-    return state;
-  }
-
-});
-/**
- * Reducer returning the user preferences.
- *
- * @param {Object} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {Object} Updated state.
- */
-
-const preferences = (0,external_wp_data_namespaceObject.combineReducers)({
-  features() {
-    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    let action = arguments.length > 1 ? arguments[1] : undefined;
-
-    if (action.type === 'SET_FEATURE_VALUE') {
-      const {
-        scope,
-        featureName,
-        value
-      } = action;
-      return { ...state,
-        [scope]: { ...state[scope],
-          [featureName]: value
-        }
-      };
-    }
-
-    return state;
-  }
-
-});
 const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
   singleEnableItems,
   multipleEnableItems
 });
 /* harmony default export */ var store_reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
-  enableItems,
-  preferenceDefaults,
-  preferences
+  enableItems
 }));
 
+;// CONCATENATED MODULE: external ["wp","deprecated"]
+var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
+var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
+;// CONCATENATED MODULE: external ["wp","preferences"]
+var external_wp_preferences_namespaceObject = window["wp"]["preferences"];
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/actions.js
+/**
+ * WordPress dependencies
+ */
+
+
 /**
  * Returns an action object used in signalling that an active area should be changed.
  *
@@ -2219,6 +2131,7 @@ const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
  *
  * @return {Object} Action object.
  */
+
 function setSingleEnableItem(itemType, scope, item) {
   return {
     type: 'SET_SINGLE_ENABLE_ITEM',
@@ -2306,11 +2219,13 @@ function unpinItem(scope, itemId) {
 function toggleFeature(scope, featureName) {
   return function (_ref) {
     let {
-      select,
-      dispatch
+      registry
     } = _ref;
-    const currentValue = select.isFeatureActive(scope, featureName);
-    dispatch.setFeatureValue(scope, featureName, !currentValue);
+    external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).toggleFeature`, {
+      version: '6.0',
+      alternative: `wp.dispatch( 'core/preferences' ).toggle`
+    });
+    registry.dispatch(external_wp_preferences_namespaceObject.store).toggle(scope, featureName);
   };
 }
 /**
@@ -2325,11 +2240,15 @@ function toggleFeature(scope, featureName) {
  */
 
 function setFeatureValue(scope, featureName, value) {
-  return {
-    type: 'SET_FEATURE_VALUE',
-    scope,
-    featureName,
-    value: !!value
+  return function (_ref2) {
+    let {
+      registry
+    } = _ref2;
+    external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureValue`, {
+      version: '6.0',
+      alternative: `wp.dispatch( 'core/preferences' ).set`
+    });
+    registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, featureName, !!value);
   };
 }
 /**
@@ -2342,10 +2261,15 @@ function setFeatureValue(scope, featureName, value) {
  */
 
 function setFeatureDefaults(scope, defaults) {
-  return {
-    type: 'SET_FEATURE_DEFAULTS',
-    scope,
-    defaults
+  return function (_ref3) {
+    let {
+      registry
+    } = _ref3;
+    external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureDefaults`, {
+      version: '6.0',
+      alternative: `wp.dispatch( 'core/preferences' ).setDefaults`
+    });
+    registry.dispatch(external_wp_preferences_namespaceObject.store).setDefaults(scope, defaults);
   };
 }
 
@@ -2353,6 +2277,13 @@ function setFeatureDefaults(scope, defaults) {
 /**
  * External dependencies
  */
+
+/**
+ * WordPress dependencies
+ */
+
+
+
 
 /**
  * Returns the item that is enabled in a given scope.
@@ -2419,13 +2350,13 @@ function isItemPinned(state, scope, item) {
  * @return {boolean} Is the feature enabled?
  */
 
-function isFeatureActive(state, scope, featureName) {
-  var _state$preferences$fe, _state$preferenceDefa;
-
-  const featureValue = (_state$preferences$fe = state.preferences.features[scope]) === null || _state$preferences$fe === void 0 ? void 0 : _state$preferences$fe[featureName];
-  const defaultedFeatureValue = featureValue !== undefined ? featureValue : (_state$preferenceDefa = state.preferenceDefaults.features[scope]) === null || _state$preferenceDefa === void 0 ? void 0 : _state$preferenceDefa[featureName];
-  return !!defaultedFeatureValue;
-}
+const isFeatureActive = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, scope, featureName) => {
+  external_wp_deprecated_default()(`wp.select( 'core/interface' ).isFeatureActive( scope, featureName )`, {
+    version: '6.0',
+    alternative: `!! wp.select( 'core/preferences' ).isFeatureActive( scope, featureName )`
+  });
+  return !!select(external_wp_preferences_namespaceObject.store).get(scope, featureName);
+});
 
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
 /**
@@ -2452,7 +2383,7 @@ const store_storeConfig = {
   reducer: store_reducer,
   actions: store_actions_namespaceObject,
   selectors: store_selectors_namespaceObject,
-  persist: ['enableItems', 'preferences']
+  persist: ['enableItems']
 };
 /**
  * Store definition for the interface namespace.
@@ -3123,6 +3054,10 @@ function MoreMenuDropdown(_ref) {
 
 
 
+
+
+
+
 ;// CONCATENATED MODULE: ./packages/interface/build-module/index.js
 
 
@@ -3385,7 +3320,7 @@ function AddMenu(_ref) {
     variant: "primary",
     disabled: !menuName.length,
     isBusy: isCreatingMenu
-    /* Button is disabled but still focusable */
+    /* Button is disabled but still focusable. */
     ,
     "aria-disabled": !menuName.length || isCreatingMenu
   }, (0,external_wp_i18n_namespaceObject.__)('Create menu')));
@@ -4953,7 +4888,7 @@ function createMenuPreloadingMiddleware(preloadedData) {
     });
 
     if (menu.length > 0) {
-      menuDataLoaded = true; // We don't have headers because we "emulate" this request
+      menuDataLoaded = true; // We don't have headers because we "emulate" this request.
 
       return sendSuccessResponse({
         body: menu[0],

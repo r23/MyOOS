@@ -147,12 +147,10 @@ var external_wp_url_namespaceObject = window["wp"]["url"];
  */
 
 function createPreloadingMiddleware(preloadedData) {
-  const cache = Object.keys(preloadedData).reduce((result, path) => {
-    result[(0,external_wp_url_namespaceObject.normalizePath)(path)] = preloadedData[path];
-    return result;
-  },
-  /** @type {Record<string, any>} */
-  {});
+  const cache = Object.fromEntries(Object.entries(preloadedData).map(_ref => {
+    let [path, data] = _ref;
+    return [(0,external_wp_url_namespaceObject.normalizePath)(path), data];
+  }));
   return (options, next) => {
     const {
       parse = true
@@ -162,10 +160,13 @@ function createPreloadingMiddleware(preloadedData) {
     let rawPath = options.path;
 
     if (!rawPath && options.url) {
-      const pathFromQuery = (0,external_wp_url_namespaceObject.getQueryArg)(options.url, 'rest_route');
+      const {
+        rest_route: pathFromQuery,
+        ...queryArgs
+      } = (0,external_wp_url_namespaceObject.getQueryArgs)(options.url);
 
       if (typeof pathFromQuery === 'string') {
-        rawPath = pathFromQuery;
+        rawPath = (0,external_wp_url_namespaceObject.addQueryArgs)(pathFromQuery, queryArgs);
       }
     }
 
@@ -177,12 +178,12 @@ function createPreloadingMiddleware(preloadedData) {
     const path = (0,external_wp_url_namespaceObject.normalizePath)(rawPath);
 
     if ('GET' === method && cache[path]) {
-      const cacheData = cache[path]; // Unsetting the cache key ensures that the data is only used a single time
+      const cacheData = cache[path]; // Unsetting the cache key ensures that the data is only used a single time.
 
       delete cache[path];
       return prepareResponse(cacheData, !!parse);
     } else if ('OPTIONS' === method && cache[method] && cache[method][path]) {
-      const cacheData = cache[method][path]; // Unsetting the cache key ensures that the data is only used a single time
+      const cacheData = cache[method][path]; // Unsetting the cache key ensures that the data is only used a single time.
 
       delete cache[method][path];
       return prepareResponse(cacheData, !!parse);
@@ -702,7 +703,7 @@ const defaultFetchHandler = nextOptions => {
     headers['Content-Type'] = 'application/json';
   }
 
-  const responsePromise = window.fetch( // fall back to explicitly passing `window.location` which is the behavior if `undefined` is passed
+  const responsePromise = window.fetch( // Fall back to explicitly passing `window.location` which is the behavior if `undefined` is passed.
   url || path || window.location.href, { ...DEFAULT_OPTIONS,
     ...remainingOptions,
     body,

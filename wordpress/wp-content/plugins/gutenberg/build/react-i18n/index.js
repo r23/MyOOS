@@ -126,7 +126,7 @@ function I18nProvider(props) {
     children,
     i18n = external_wp_i18n_namespaceObject.defaultI18n
   } = props;
-  const [update, forceUpdate] = (0,external_wp_element_namespaceObject.useReducer)(() => [], []); // rerender translations whenever the i18n instance fires a change event
+  const [update, forceUpdate] = (0,external_wp_element_namespaceObject.useReducer)(() => [], []); // Rerender translations whenever the i18n instance fires a change event.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => i18n.subscribe(forceUpdate), [i18n]);
   const value = (0,external_wp_element_namespaceObject.useMemo)(() => makeContextValue(i18n), [i18n, update]);
