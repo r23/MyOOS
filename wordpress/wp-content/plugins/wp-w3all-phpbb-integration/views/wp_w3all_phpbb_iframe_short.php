@@ -10,7 +10,7 @@
   if(defined("WPW3ALL_NOT_ULINKED")) { $phpBBuid2 = 2; } // switch to be like it is uid2, so to avoid the reload of the page loop
   // the shortcode homepage push has been excluded directly more below where: if(w3all_passed_url != '' && inhomepageShort != 'inhomepage-phpbbiframe'){
   // we'll exclude also if the passed url_push is set to 'no' more below
-  
+
 global $w3all_iframe_custom_w3fancyurl,$w3all_url_to_cms,$w3all_iframe_custom_top_gap,$w3cookie_domain,$wp_w3all_forum_folder_wp;
 $wp_w3all_forum_folder_wp = empty($ltm['wp_page_name']) ? $wp_w3all_forum_folder_wp : $ltm['wp_page_name'];
 $w3all_iframe_custom_top_gap = empty($ltm['wp_page_iframe_top_gap']) ? $w3all_iframe_custom_top_gap : $ltm['wp_page_iframe_top_gap'];
@@ -80,7 +80,8 @@ echo "<script type=\"text/javascript\">
     var wp_u_logged = ".$current_user->ID.";
     var phpBBuid2 = ".$phpBBuid2.";
     var inhomepageShort = '".$ltm['wp_page_name']."';
-    var w3urlpush = '".$ltm['url_push']."';    
+    var w3urlpush = '".$ltm['url_push']."';
+    var w3scrolldefault = '".$ltm['scroll_default']."';
 
  function w3all_ajaxup_from_phpbb(res){
       var w3all_phpbb_u_logged  = /#w3all_phpbb_u_logged=1/ig.exec(res);
@@ -96,12 +97,14 @@ echo "<script type=\"text/javascript\">
          w3all_ajaxup_from_phpbb_do(w3all_phpbbpmcount[2]);
        }
 
+     if(w3scrolldefault == 'yes'){
       var w3all_lochash = /.*(#w3all_lochash)=([0-9]+).*/ig.exec(res);
       if(w3all_lochash !== null && w3all_lochash[2] != 0){
          jQuery('html, body').animate({ scrollTop: w3all_lochash[2]}, 400);
        } else {
-         jQuery('html, body').animate({ scrollTop: ".$w3all_iframe_custom_top_gap."}, 400);
-       }
+          jQuery('html, body').animate({ scrollTop: ".$w3all_iframe_custom_top_gap."}, 400);
+         }
+     } // if(w3scrolldefault
 
  } // END w3all_ajaxup_from_phpbb(res){
 
@@ -146,7 +149,7 @@ echo "<script type=\"text/javascript\">
    }
   } // end // onMessage
 ,
-scrollCallback: function(x,y){
+onScroll: function(x,y){
 return false;
 }
 });
@@ -154,5 +157,3 @@ return false;
 
 echo'</div><!-- END iframe div -->
 ';
-
-?>

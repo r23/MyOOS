@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.5.9
+Version: 2.6.0
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -34,12 +34,12 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.5.9' );
+define( 'WPW3ALL_VERSION', '2.6.0' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-$w3all_phpbb_connection = $w3all_wp_email_exist_inphpbb = $w3all_oninsert_wp_user = $w3all_wpusers_delete_ary = $w3all_wpusers_delete_once = ''; // $w3all_oninsert_wp_user used to check if WP is creating an user, switch to 1 before wp_insert_user fire so to avoid user's email check into phpBB
+$w3all_phpbb_connection = $w3all_wp_email_exist_inphpbb = $w3all_oninsert_wp_user = $w3all_wpusers_delete_ary = $w3all_wpusers_delete_once = $phpbb_online_udata = $w3all_widget_phpbb_onlineStats_exec = ''; // $w3all_oninsert_wp_user used to check if WP is creating an user, switch to 1 before wp_insert_user fire so to avoid user's email check into phpBB
 
 $w3all_w_lastopicspost_max = get_option( 'widget_wp_w3all_widget_last_topics' );
 $config_avatars = get_option('w3all_conf_avatars');
@@ -339,7 +339,6 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
       //add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_phpbb_config_res'), 2);
       add_action( 'init', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_init'), 3);
 
-
  function w3all_login_widget(){
 
   if(isset($_POST['log']) && isset($_POST['pwd']))
@@ -559,9 +558,9 @@ function wp_w3all_check_fields($errors, $sanitized_user_login, $user_email) {
         return $errors;
         }
 
-     $test = WP_w3all_phpbb::ck_phpbb_user_by_ue($sanitized_user_login, $user_email);
+     $t = WP_w3all_phpbb::ck_phpbb_user_by_ue($sanitized_user_login, $user_email);
 
-      if(!empty($test)){
+      if(!empty($t)){
          $errors->add( 'w3all_user_exist', __( '<strong>Error</strong>: provided email or username already exist on our forum database.', 'wp-w3all-phpbb-integration' ) );
          return $errors;
       }
@@ -678,7 +677,7 @@ if(! defined("WPW3ALL_NOT_ULINKED")){
   add_action( 'wp_authenticate', array( 'WP_w3all_phpbb', 'w3_check_phpbb_profile_wpnu' ), 10, 1 );
   add_action( 'wp_logout', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_logout' ) );
   add_action( 'profile_update', 'wp_w3all_up_wp_prof_on_phpbb', 10, 2 );
-  add_action('wp_login', 'wp_w3all_phpbb_login', 10, 2);
+  add_action( 'wp_login', 'wp_w3all_phpbb_login', 10, 2);
   add_action( 'delete_user', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_delete_user' ) ); // x buddypress or ohers plugins that allow users to delete their own user's account on frontend profile
   add_action( 'user_profile_update_errors', 'w3all_user_profile_update_errors', 10, 1 );
   if(!empty($w3all_phpbb_wptoolbar_pm_yn)){
@@ -710,7 +709,6 @@ if( $w3all_wp_phpbb_lrl_links_switch_yn > 0 ){
 
 if(! is_admin())
 {
-
  add_shortcode( 'w3allphpbbupm', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_upm_short' ) );
  add_shortcode( 'w3allforumpost', array( 'WP_w3all_phpbb', 'wp_w3all_get_phpbb_post_short' ) );
  add_shortcode( 'w3allastopics', array( 'WP_w3all_phpbb', 'wp_w3all_get_phpbb_lastopics_short' ) );
@@ -788,13 +786,13 @@ function wp_w3all_phpbb_iframe_shortif()
 
     if(!empty($REQUEST_URI)){
       $r = strpos($siteUrl, $REQUEST_URI);
-      if( $r !== false)
+      if($r !== false)
       { $shortonpage = true; }
      } elseif ( $_SERVER['REQUEST_URI'] == '/' ){ $shortonpage = true; }
     }
    }
   } else { return; }
-  	
+
   if($shortonpage){
    include( WPW3ALL_PLUGIN_DIR.'common/wp_phpbb_iframe_shortcode.php' );
   }
@@ -1509,4 +1507,26 @@ endif;
 
  }
 
-?>
+ function w3all_get_phpbb_onlineStats() {
+
+    if(defined("W3PHPBBCONFIG")){
+     $phpbb_config = W3PHPBBCONFIG;
+    } else { return; }
+
+    global $w3all_config,$w3all_phpbb_connection,$phpbb_online_udata;
+
+   if( $phpbb_config['load_online_time'] > 0 )
+   {
+    $losTime = time()-($phpbb_config['load_online_time']*60);
+    $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_time, U.user_id, U.username, U.user_email
+     FROM ".$w3all_config["table_prefix"]."sessions AS S
+     JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = S.session_user_id
+     WHERE S.session_time > $losTime
+     ORDER BY U.username",ARRAY_A);
+   }
+
+  $phpbb_online_udata = empty($phpbb_uonline_udata) ? array() : $phpbb_uonline_udata;
+
+   return $phpbb_online_udata;
+
+}

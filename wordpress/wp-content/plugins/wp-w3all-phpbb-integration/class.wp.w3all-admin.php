@@ -145,5 +145,3 @@ public static function get_form_set_update() {
 }
 
 }
-
-?>

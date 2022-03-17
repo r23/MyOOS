@@ -100,4 +100,3 @@ if(  $c0untn == $wp_w3all_columns_number ){ $c0untn = 0; }
 echo '</tr></tbody></table><!-- close table wrapper -->';
 
 }
-?>

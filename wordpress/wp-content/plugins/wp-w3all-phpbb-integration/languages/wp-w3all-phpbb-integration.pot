@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wp-w3all-phpbb-integration\n"
-"POT-Creation-Date: 2022-03-05 22:47+0100\n"
+"POT-Creation-Date: 2022-03-17 01:41+0100\n"
 "PO-Revision-Date: 2022-01-23 00:01+0100\n"
 "Last-Translator: \n"
 "Language-Team: wp-w3all-phpbb@you.us\n"
@@ -19,15 +19,15 @@ msgstr ""
 "X-Poedit-SearchPath-1: .\n"
 
 #: addons/page-forum.php:92 addons/page-forum.php:96
-#: common/wp_phpbb_iframe_shortcode.php:73
-#: common/wp_phpbb_iframe_shortcode.php:77 views/wp_w3all_login_form.php:73
-#: views/wp_w3all_phpbb_upm_short.php:4 wp_w3all.php:837 wp_w3all.php:863
+#: common/wp_phpbb_iframe_shortcode.php:74
+#: common/wp_phpbb_iframe_shortcode.php:78 views/wp_w3all_login_form.php:73
+#: views/wp_w3all_phpbb_upm_short.php:4 wp_w3all.php:841 wp_w3all.php:867
 msgid "You have "
 msgstr ""
 
 #: addons/page-forum.php:92 addons/page-forum.php:96
-#: common/wp_phpbb_iframe_shortcode.php:73
-#: common/wp_phpbb_iframe_shortcode.php:77 views/wp_w3all_phpbb_upm_short.php:4
+#: common/wp_phpbb_iframe_shortcode.php:74
+#: common/wp_phpbb_iframe_shortcode.php:78 views/wp_w3all_phpbb_upm_short.php:4
 msgid " unread forum PM"
 msgstr ""
 
@@ -86,10 +86,6 @@ msgstr ""
 msgid ""
 " Real phpBB URL - NOTE: do NOT add final slash / &nbsp;&nbsp;Example: "
 "https://www.axew3.com/phpbb"
-msgstr ""
-
-#: admin/config.php:182
-msgid "(if localhost may can be omitted)"
 msgstr ""
 
 #: admin/config.php:194
@@ -219,9 +215,10 @@ msgstr ""
 #: admin/config.php:285 admin/config.php:316 admin/config.php:326
 #: admin/config.php:334 admin/config.php:344 admin/config.php:349
 #: admin/config.php:353 admin/config.php:358 admin/config.php:362
-#: admin/config.php:366 admin/config.php:370 admin/config.php:379
-#: admin/config.php:396 admin/config.php:400
+#: admin/config.php:366 admin/config.php:370 admin/config.php:380
+#: admin/config.php:397 admin/config.php:401
 #: class.wp.w3all.widgets-phpbb.php:45 class.wp.w3all.widgets-phpbb.php:127
+#: class.wp.w3all.widgets-phpbb.php:256
 msgid "Yes"
 msgstr ""
 
@@ -229,8 +226,9 @@ msgstr ""
 #: admin/config.php:327 admin/config.php:335 admin/config.php:345
 #: admin/config.php:350 admin/config.php:354 admin/config.php:359
 #: admin/config.php:363 admin/config.php:367 admin/config.php:371
-#: admin/config.php:380 admin/config.php:397 admin/config.php:401
+#: admin/config.php:381 admin/config.php:398 admin/config.php:402
 #: class.wp.w3all.widgets-phpbb.php:44 class.wp.w3all.widgets-phpbb.php:126
+#: class.wp.w3all.widgets-phpbb.php:255
 msgid "No"
 msgstr ""
 
@@ -483,9 +481,8 @@ msgid ""
 "[w3allphpbbiframe] shortcode display the phpBB iframe into any WordPress "
 "template page<br /><span style=\"color:#003333\">Note that to work it "
 "require to apply the same js phpBB code, like it is for the page-forum "
-"template integration (more below), into both phpBB overall_header.html and "
-"overall_footer.html files</span>. Read <b>How to</b> here: <a target=\"_blank"
-"\" href=\"https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-"
+"template integration (more below)</span>. Read <b>How to</b> here: <a target="
+"\"_blank\" href=\"https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-"
 "integration-iframe-v5/\">phpBB WordPress template integration iframe</a><br /"
 "><br />How to complete setup the shortcode is explained here: <a href="
 "\"https://www.axew3.com/w3/2022/02/the-awesome-iframe-template-integration-"
@@ -503,23 +500,33 @@ msgid ""
 "phpbbiframe</i> &nbsp;<br />so the above example become  &nbsp;<i>board,"
 "sample-page,inhomepage-phpbbiframe</i>&nbsp;  separated by comma, or just "
 "&nbsp;<i>inhomepage-phpbbiframe</i>&nbsp; if the shortcode will run only "
-"into the home page<br /><i>security_token</i> param note: if leaved blank/"
-"empty the option do not affect. No spaces and only alphanumeric characters "
-"allowed"
+"into the home page"
 msgstr ""
 
 #: admin/config.php:374
 msgid "if more pages, separate pages name/slug by comma"
 msgstr ""
 
-#: admin/config.php:375
+#: admin/config.php:376
 msgid ""
-"<i>security_token</i> param - only <i>A-Z a-z 0-9</i> allowed, or, like if "
-"empty, the option will not affect ( example: aWBfCg098JAH09z834HSG OR "
-"MYsecret )"
+"<h3><span style=\"color:#cc2900\">Shortcodes token</span><br /><br /"
+">Activate security token for shortcodes</h3>Note that if the field is empty "
+"this option do not affect (disabled)<br />The param <i>security_token</i> "
+"can be applied into all shortcodes that allows the param <i>security_token</"
+"i> (see shortcodes pages for params of each)<br />Note: if empty the option "
+"do not affect. No spaces and only alphanumeric characters allowed<br />Note "
+"that if this option result active, all shortcodes that implement the "
+"<i>security_token</i> and that do not contains the <i>security_token</i> "
+"parameter, will not be parsed"
 msgstr ""
 
-#: admin/config.php:378
+#: admin/config.php:377
+msgid ""
+"<i>security_token</i> only <i>A-Z a-z 0-9</i> allowed ( example: "
+"aBc12345678901SSeLaN2050 OR MYsecret )"
+msgstr ""
+
+#: admin/config.php:379
 msgid ""
 "<h3 style=\"color:#003333\">Activate [w3allcustomiframe] shortcode</"
 "h3>Advanced. Read <b>How To use</b> here: <a target=\"_blank\" href="
@@ -530,11 +537,11 @@ msgid ""
 "this shorcode will be added"
 msgstr ""
 
-#: admin/config.php:382
+#: admin/config.php:383
 msgid "Save WP_w3all Preferences"
 msgstr ""
 
-#: admin/config.php:392
+#: admin/config.php:393
 msgid ""
 "<h3>Use phpBB avatar to replace WordPress user's avatar</h3>If set to Yes, "
 "Gravatars profiles images on WordPress, are replaced by phpBB user's avatars "
@@ -551,13 +558,13 @@ msgid ""
 "setting (if you do not want really it)"
 msgstr ""
 
-#: admin/config.php:399
+#: admin/config.php:400
 msgid ""
 "<h3 style=\"color:#869eff\">Activate phpBB avatars on Last Forums Topics "
 "widgets</h3>Add avatars for each user on Last Forums Topics widget"
 msgstr ""
 
-#: admin/config.php:403
+#: admin/config.php:404
 msgid ""
 "<h3>Last Forums Topics Widget avatar's dimension</h3>Set the avatar "
 "dimension (in pixel) for Last Forum Topics Widget (Ex: 50).<br />Note: "
@@ -565,7 +572,7 @@ msgid ""
 "on Last Forums Topics widgets</i> option is set to yes"
 msgstr ""
 
-#: admin/config.php:406
+#: admin/config.php:407
 msgid ""
 "<h3>Last Forums Topics number of users's avatars to retrieve</"
 "h3><strong><span style=\"color:red\">Note:</span> if not set, 10 by default, "
@@ -579,11 +586,11 @@ msgid ""
 "yes"
 msgstr ""
 
-#: admin/config.php:410
+#: admin/config.php:411
 msgid "Save WP_w3all Avatars Options"
 msgstr ""
 
-#: admin/config.php:419
+#: admin/config.php:420
 msgid ""
 "<h4 style=\"color:#333\">Before to activate this option, <b><a href="
 "\"https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-"
@@ -597,7 +604,7 @@ msgid ""
 "<h3>Create or rebuild WordPress forum page template</h3>"
 msgstr ""
 
-#: admin/config.php:422
+#: admin/config.php:423
 msgid ""
 " This option set the name of (and create) the page template that will embed "
 "the phpBB forum iframe on WordPress.<br />It is required to create a new "
@@ -637,15 +644,15 @@ msgid ""
 "\"Create WP_w3all phpBB Page Template\" button."
 msgstr ""
 
-#: admin/config.php:431
+#: admin/config.php:432
 msgid "Create/Rebuild WP_w3all phpBB Page Template"
 msgstr ""
 
-#: admin/config.php:438
+#: admin/config.php:439
 msgid "Fancy URL query string for the WordPress page forum that embed phpBB"
 msgstr ""
 
-#: admin/config.php:440
+#: admin/config.php:441
 msgid ""
 "Change the <i>w3</i> var of the WordPress forum's page query URL part<br /"
 ">If you change the default value <strong><i>w3</i></strong>, then you have "
@@ -664,17 +671,17 @@ msgid ""
 "html</i> code"
 msgstr ""
 
-#: admin/config.php:442
+#: admin/config.php:443
 msgid "Re-position top gap"
 msgstr ""
 
-#: admin/config.php:444
+#: admin/config.php:445
 msgid ""
 "Change (in pixel) the distance gap where the WordPress page Forum will "
 "scroll to by default (useful to fit different theme headers)"
 msgstr ""
 
-#: admin/config.php:447
+#: admin/config.php:448
 msgid "Save Top gap and Fancy Url settings"
 msgstr ""
 
@@ -796,14 +803,14 @@ msgid ""
 "config.php</span> (as may suggested on the message below)."
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:281
+#: class.wp.w3all-phpbb.php:265
 msgid ""
 "<p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.3em"
 "\"><strong>Notice: logged in username contains illegal characters forbidden "
 "on this CMS. Please contact an administrator.</strong></p>"
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:494
+#: class.wp.w3all-phpbb.php:461
 msgid ""
 "<p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.3em"
 "\"><strong>Notice: your username contains illegal characters not allowed on "
@@ -811,7 +818,7 @@ msgid ""
 "displayed on this page.<br />Please contact an administrator.</strong></p>"
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:498
+#: class.wp.w3all-phpbb.php:465
 msgid ""
 "<p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.3em"
 "\"><strong>Notice: your username contains illegal characters not allowed on "
@@ -819,7 +826,7 @@ msgid ""
 "administrator.</strong></p>"
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:530
+#: class.wp.w3all-phpbb.php:497
 msgid ""
 "<div><p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.0em"
 "\"><strong>ERROR: try to reload page, but if the error persist may mean that "
@@ -827,20 +834,20 @@ msgid ""
 "allowed on this system. Please contact an administrator.</strong></p></div>"
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:1241
+#: class.wp.w3all-phpbb.php:1206
 msgid ""
 "<strong>ERROR</strong>: You're logged in! Back to main site and logout "
 "before to create a new account."
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:1630
+#: class.wp.w3all-phpbb.php:1595
 msgid ""
 "<p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.3em"
 "\"><strong>Notice: your username contains illegal characters that are not "
 "allowed in this system. Please contact an administrator.</strong></p>"
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:1686
+#: class.wp.w3all-phpbb.php:1651
 msgid ""
 "<div><p style=\"padding:10px 30px;background-color:#fff;color:#000;font-"
 "size:1.0em\"><strong>ERROR: try to reload page, but if the error persist may "
@@ -848,7 +855,7 @@ msgid ""
 "allowed on this cms. Please contact an administrator.</strong></p></div>"
 msgstr ""
 
-#: class.wp.w3all-phpbb.php:2476
+#: class.wp.w3all-phpbb.php:2447
 msgid "Attachments"
 msgstr ""
 
@@ -878,6 +885,26 @@ msgstr ""
 
 #: class.wp.w3all.widgets-phpbb.php:111
 msgid "Last Topics Posts"
+msgstr ""
+
+#: class.wp.w3all.widgets-phpbb.php:189
+msgid "WP phpBB w3all phpBB online stats"
+msgstr ""
+
+#: class.wp.w3all.widgets-phpbb.php:190
+msgid "Display phpBB online users and stats"
+msgstr ""
+
+#: class.wp.w3all.widgets-phpbb.php:238
+msgid "phpBB online users and stats"
+msgstr ""
+
+#: class.wp.w3all.widgets-phpbb.php:250
+msgid "Links"
+msgstr ""
+
+#: class.wp.w3all.widgets-phpbb.php:251
+msgid "Avatars"
 msgstr ""
 
 #: common/phpbb_endpoints_ext_functions.php:40
@@ -919,6 +946,38 @@ msgstr ""
 
 #: views/phpbb_last_topics_withimage_output_shortcode.php:85
 msgid "at "
+msgstr ""
+
+#: views/phpbb_uonline_stats.php:4
+msgid "Most users ever online was: "
+msgstr ""
+
+#: views/phpbb_uonline_stats.php:5
+msgid "Registered users: "
+msgstr ""
+
+#: views/phpbb_uonline_stats.php:6
+msgid "Topics: "
+msgstr ""
+
+#: views/phpbb_uonline_stats.php:7
+msgid "Posts: "
+msgstr ""
+
+#: views/phpbb_uonline_stats.php:8
+msgid "There are"
+msgstr ""
+
+#: views/phpbb_uonline_stats.php:8
+msgid "guests "
+msgstr ""
+
+#: views/phpbb_uonline_stats.php:8
+msgid "and"
+msgstr ""
+
+#: views/phpbb_uonline_stats.php:8
+msgid "users online "
 msgstr ""
 
 #: views/wp_w3all_feeds_short.php:15
@@ -990,7 +1049,7 @@ msgstr ""
 msgid "Registered on: "
 msgstr ""
 
-#: wp_w3all.php:395 wp_w3all.php:1372 wp_w3all.php:1389
+#: wp_w3all.php:394 wp_w3all.php:1376 wp_w3all.php:1393
 msgid ""
 "<p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.3em"
 "\"><strong>Notice: your forum username contains illegal characters not "
@@ -999,7 +1058,7 @@ msgid ""
 "strong></p>"
 msgstr ""
 
-#: wp_w3all.php:399 wp_w3all.php:1376 wp_w3all.php:1393
+#: wp_w3all.php:398 wp_w3all.php:1380 wp_w3all.php:1397
 msgid ""
 "<p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.3em"
 "\"><strong>Notice: your forum username contains illegal characters not "
@@ -1007,7 +1066,7 @@ msgid ""
 "contact an administrator.</strong></p>"
 msgstr ""
 
-#: wp_w3all.php:430 wp_w3all.php:1421
+#: wp_w3all.php:429 wp_w3all.php:1425
 msgid ""
 "<div><p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.0em"
 "\"><strong>Error: try to reload page, but if the error persist may mean that "
@@ -1015,7 +1074,7 @@ msgid ""
 "allowed on this system. Please contact an administrator.</strong></p></div>"
 msgstr ""
 
-#: wp_w3all.php:524
+#: wp_w3all.php:523
 msgid ""
 "<strong>Notice: account Locked<br />Please re-login!</strong><br />Account "
 "logged out due to detected brute force attack against session or due to "
@@ -1023,85 +1082,85 @@ msgid ""
 "strong>"
 msgstr ""
 
-#: wp_w3all.php:535
+#: wp_w3all.php:534
 msgid ""
 "Notice: your username, IP or email is currently banned into our forum. "
 "Please contact an administrator."
 msgstr ""
 
-#: wp_w3all.php:538
+#: wp_w3all.php:537
 msgid ""
 "Notice: the specified username is currently inactive into our forum. Please "
 "contact an administrator."
 msgstr ""
 
-#: wp_w3all.php:541
+#: wp_w3all.php:540
 msgid ""
 "Notice: the specified username contains characters not allowed in this "
 "system. Please contact an administrator."
 msgstr ""
 
-#: wp_w3all.php:544
+#: wp_w3all.php:543
 msgid ""
 "Notice: mismatching session OR bruteforce login detected. Please login here "
 "again to unlock your account."
 msgstr ""
 
-#: wp_w3all.php:558
+#: wp_w3all.php:557
 msgid ""
 "<strong>Error</strong>: wrong email or the provided username, email or IP "
 "address result banned on our forum."
 msgstr ""
 
-#: wp_w3all.php:565
+#: wp_w3all.php:564
 msgid ""
 "<strong>Error</strong>: provided email or username already exist on our "
 "forum database."
 msgstr ""
 
-#: wp_w3all.php:812
+#: wp_w3all.php:816
 msgid "<h3>Error: email address not valid.</h3><br />"
 msgstr ""
 
-#: wp_w3all.php:812 wp_w3all.php:1200 wp_w3all.php:1202
+#: wp_w3all.php:816 wp_w3all.php:1204 wp_w3all.php:1206
 msgid "Return back"
 msgstr ""
 
-#: wp_w3all.php:837 wp_w3all.php:863
+#: wp_w3all.php:841 wp_w3all.php:867
 msgid "unread forum PM"
 msgstr ""
 
-#: wp_w3all.php:1198
+#: wp_w3all.php:1202
 msgid ""
 "<h3>Error: the provided email is paired to another user into our forum</h3>"
 msgstr ""
 
-#: wp_w3all.php:1200
+#: wp_w3all.php:1204
 msgid ""
 "<h3>Error: username or email already exists.</h3>  Username and/or email "
 "already exists, or is associated with another existing user account into our "
 "forum<br />"
 msgstr ""
 
-#: wp_w3all.php:1202
+#: wp_w3all.php:1206
 msgid ""
 "<h3>Error: username or email already exists.</h3> Username and/or email "
 "already exists, and results to be paired to another existent user account "
 "into our forum<br />"
 msgstr ""
 
-#: wp_w3all.php:1208
+#: wp_w3all.php:1212
 msgid ""
 "<h3>Error: username or email already exists</h3>The username and/or email "
 "address already exists, or results to be paired to another existing user "
 "account into our forum<br /><br />"
 msgstr ""
 
-#: wp_w3all.php:1248
+#: wp_w3all.php:1252
 msgid "<strong>Error</strong>: email paired to another user into our forum."
 msgstr ""
 
-#: wp_w3all.php:1358
+#: wp_w3all.php:1362
 msgid ""
 "<p style=\"padding:30px;background-color:#fff;color:#000;font-size:1.3em"
 "\"><strong>Notice: it is required that you activate your account into our "

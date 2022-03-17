@@ -293,7 +293,7 @@ get_header();
    }
   } // end // onMessage
 ,
-scrollCallback: function(x,y){
+onScroll: function(x,y){
 return false;
 }
 });

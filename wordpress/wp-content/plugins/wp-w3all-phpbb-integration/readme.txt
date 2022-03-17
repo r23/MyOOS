@@ -2,10 +2,10 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, users
-Stable tag: 2.5.9
+Stable tag: 2.6.0
 License: GPLv2 or later
 Requires at least: 5.0.0
-Tested up to: 5.9
+Tested up to: 5.9.2
 Requires PHP: 7.0
 
 WordPress w3all phpBB integration - easy, light, secure, powerful
@@ -72,6 +72,20 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.6.0 =
+*Release Date - 17 Mar, 2022*
+
+* Fix: multisite user deletion and users deletion all over
+* Add: new shortcode/widget (online users and forums stats). Related output file is /views/phpbb_uonline_stats.php
+* Fix: correct user switch, when session mismatching due to different logins on different tabs using different users
+* Fix: avatars to correctly get avatar by email and not username
+* Add: iframe param "scroll_default" for the awesome shortcode, so that it is possible to disable the scroll behavior (may when the phpBB iframed into a post that will display as url default a specific topic)
+* Update iframe files and page-forum. If you wish to update follow update steps (only) here: https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/
+* Change: the shortcode param security_token, available for all shortcodes where applied
+* Minor code fixes
+* Minor hints fixes
+* All logs 2.6.0: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=1715
 
 = 2.5.9 =
 *Release Date - 5 Mar, 2022*

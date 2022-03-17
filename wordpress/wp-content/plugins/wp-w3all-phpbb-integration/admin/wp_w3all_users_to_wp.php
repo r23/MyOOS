@@ -1,11 +1,14 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
+  if ( !current_user_can('manage_options') ) {
+    die('<h3>Forbidden</h3>');
+  }
 // a basic wp w3all phpBB users importer into WordPress
     $up_conf_w3all_url = admin_url() . 'tools.php?page=wp-w3all-users-to-wp';
   $w3warn = '';
   global $w3all_config,$wpdb,$w3all_add_into_wp_u_capability;
 
  if ( !defined('W3PHPBBCONFIG') ){
-   	die("<h2>Wp w3all miss phpBB db configuration. Set phpBB connection values by opening:<br /><br /> Settings -> WP w3all</h2>");
+    die("<h2>Wp w3all miss phpBB db configuration. Set phpBB connection values by opening:<br /><br /> Settings -> WP w3all</h2>");
   }
 
   $phpbb_config = W3PHPBBCONFIG;
@@ -13,9 +16,9 @@
   $phpbb_conn = WP_w3all_phpbb::wp_w3all_phpbb_conn_init();
   $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
   $wpu_db_umtab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
-  
+
   set_time_limit(300); // set execution time to 5 min "This function has no effect when PHP is running in safe mode. There is no workaround other than turning off safe mode or changing the time limit in the php.ini."
-  
+
   if(!isset($_POST["start_select"])){
       $start_select = 0;
       $limit_select = 0;
@@ -202,7 +205,7 @@ foreach ( $phpbb_users as $u ) {
  ?>
 
 <div class="wrap" style="margin-top:4.0em;">
-<div class=""><h1>Transfer phpBB Users into WordPress ( raw w3_all )</h1><h3>Note: this step is may not required (if phpBB integration extension has been installed into phpBB), but normally when integration start it is may mandatory to transfer old existent WordPress users into phpBB using the <a href="<?php echo admin_url(); ?>tools.php?page=wp-w3all-users-to-phpbb">WP w3all transfer</a></h3>
+<div class=""><h1>Transfer phpBB Users into WordPress ( raw w3_all )</h1><h3>Note: this step is may not required (if the phpBB integration extension has been installed into phpBB), but normally when integration start it is may mandatory to transfer old existent WordPress users into phpBB using the <a href="<?php echo admin_url(); ?>tools.php?page=wp-w3all-users-to-phpbb">WP w3all transfer</a></h3>
   <h3>Note that phpBB usernames containing illegal characters into WordPress, being "cleaned" before to be added in wordpress, so that maybe phpBB's username will not match the same in WordPress in certain cases. Ex: <i style="color:#e52800">a'l @ewdw/&%$&pound;$&pound;</i> will be added as <i style="color:#e52800">al @ewdw</i><br />Resulting empty usernames after cleaned up, being reported and not added/imported</h3>
   </div>
 

@@ -1,13 +1,13 @@
-<?php defined( 'ABSPATH' ) or die( 'forbidden' ); 
+<?php defined( 'ABSPATH' ) or die( 'forbidden' );
 echo '<ul class="'.$w3feed_ul_class.'">';
-     if ( $maxitems == 0 ) : 
+     if ( $maxitems == 0 ) :
         echo'<li class="'.$w3feed_li_class.'"'.$w3feed_inline_style.'>'. _e( 'No items to display', 'wp-w3all-phpbb-integration' ).'</li>';
       else : ?>
-        <?php 
+        <?php
         $citems = count($rss_items);
         $ccitems = 0;
         foreach ( $rss_items as $item ) :
-        $ccitems++; 
+        $ccitems++;
         $author = $item->get_author();
             echo '<li class="'.$w3feed_li_class.'"' .$w3feed_inline_style. '>';
             ?>
@@ -16,14 +16,14 @@ echo '<ul class="'.$w3feed_ul_class.'">';
                     <?php echo esc_html( $item->get_title() ); ?>
                 </a>
     <?php if($w3feed_text_words > 0){
-            	 	echo '<div>' . wp_w3all_R_num_of_words_parse($item->get_content(), $w3feed_text_words) . '</div>';
+                echo '<div>' . wp_w3all_R_num_of_words_parse($item->get_content(), $w3feed_text_words) . '</div>';
              if($ccitems < $citems){ echo '<hr />'; }
              } elseif ($w3feed_text_words == 'content') {
-             	  echo '<div>' . wpautop($item->get_content()) . '</div>'; 
+                echo '<div>' . wpautop($item->get_content()) . '</div>';
                }
-               
+
        // if($ccitems < $citems){ echo '<hr />'; } // output a separator <hr>
-         
+
          ?>
       </li>
         <?php endforeach; ?>

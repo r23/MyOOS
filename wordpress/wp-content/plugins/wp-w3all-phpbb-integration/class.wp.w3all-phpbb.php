@@ -19,9 +19,9 @@ public static function wp_w3all_phpbb_init() {
     self::verify_phpbb_credentials();
   endif;
 
- if ( $w3all_get_phpbb_avatar_yn == 1 ):
+  if ( $w3all_get_phpbb_avatar_yn == 1 ):
     self::init_w3all_avatars();
- endif;
+  endif;
 
 }
 
@@ -127,7 +127,7 @@ private static function w3all_get_phpbb_config(){
    }
 
   ob_start();
-   $a = $w3all_phpbb_connection->get_results("SELECT * FROM ". $w3all_config["table_prefix"] ."config WHERE config_name IN('allow_autologin','avatar_gallery_path','avatar_path','avatar_salt','cookie_domain','cookie_name','default_dateformat','default_lang','load_online_time','max_autologin_time','newest_user_id','newest_username','num_posts','num_topics','num_users','rand_seed','rand_seed_last_update','script_path','session_length','version') ORDER BY config_name ASC");
+   $a = $w3all_phpbb_connection->get_results("SELECT * FROM ". $w3all_config["table_prefix"] ."config WHERE config_name IN('allow_autologin','avatar_gallery_path','avatar_path','avatar_salt','cookie_domain','cookie_name','default_dateformat','default_lang','load_online_time','max_autologin_time','newest_user_id','newest_username','num_posts','num_topics','num_users','rand_seed','rand_seed_last_update','record_online_users','script_path','session_length','version') ORDER BY config_name ASC");
   ob_get_contents();
   ob_end_clean();
 
@@ -151,9 +151,10 @@ private static function w3all_get_phpbb_config(){
                     'num_users' => $a[14]->config_value,
                     'rand_seed' => $a[15]->config_value,
                     'rand_seed_last_update' => $a[16]->config_value,
-                    'script_path' => $a[17]->config_value,
-                    'session_length' => $a[18]->config_value,
-                    'version'  => $a[19]->config_value
+                    'record_online_users' => $a[17]->config_value,
+                    'script_path' => $a[18]->config_value,
+                    'session_length' => $a[19]->config_value,
+                    'version'  => $a[20]->config_value
                   );
 
  if( $res["cookie_domain"] != $w3cookie_domain ){
@@ -239,7 +240,6 @@ private static function verify_phpbb_credentials(){
       LEFT JOIN ". $w3all_config["table_prefix"] ."notifications ON ". $w3all_config["table_prefix"] ."notifications.user_id = ". $w3all_config["table_prefix"] ."users.user_id
        AND ". $w3all_config["table_prefix"] ."notifications.notification_read = 0
      GROUP BY ". $w3all_config["table_prefix"] ."sessions.session_user_id");
-
   } elseif ( !empty( $phpbb_k ) ){ // remember me auto login
    $phpbb_user_session = $w3all_phpbb_connection->get_results("SELECT *
     FROM ". $w3all_config["table_prefix"] ."sessions_keys
@@ -252,25 +252,9 @@ private static function verify_phpbb_credentials(){
       LEFT JOIN ". $w3all_config["table_prefix"] ."notifications ON ". $w3all_config["table_prefix"] ."notifications.user_id = ". $w3all_config["table_prefix"] ."users.user_id
        AND ". $w3all_config["table_prefix"] ."notifications.notification_read = 0
      GROUP BY ". $w3all_config["table_prefix"] ."sessions_keys.user_id");
-
   } else {
      $phpbb_user_session = array();
     }
-
-  /*if( isset($get_phpbb_SU_info) )
-  {
-
-    $losTime = time()-($phpbb_config['load_online_time']*60);
-
-    $phpbb_common_data = $w3db_conn->get_results("SELECT S.session_time, U.user_id, U.username, U.user_email
-    FROM ".$w3all_config["table_prefix"]."sessions AS S
-    JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = S.session_user_id
-    WHERE S.session_time > $losTime
-    ORDER BY S.session_user_id DESC",ARRAY_A);
-
-    $phpbb_common_data = empty($phpbb_common_data) ? array() : $phpbb_common_data;
-     define("W3PHPBBCUDATA",$phpbb_common_data);
-   }*/
 
   // If it is a multisite, then Usernames can only contain lowercase letters (a-z) and numbers.
   // Avoid any going on and setup as not linked this user (or get a loop)
@@ -287,7 +271,7 @@ private static function verify_phpbb_credentials(){
 
   // START // w3all Brute Force Prevention // record addition
   if ( empty($phpbb_user_session) && $phpbb_u > 2 ){ // did not match any session
-  	// should get only a value to know that the user exist, not all table values
+    // should get only a value to know that the user exist, not all table values
     $phpbb_user = $w3all_phpbb_connection->get_row("SELECT * FROM ".$w3all_config["table_prefix"]."users WHERE user_id = '".$phpbb_u."'");
     // index uid
     // will contain phpBB uid as value, but everything else could be added to be used
@@ -310,33 +294,17 @@ private static function verify_phpbb_credentials(){
 
  if(isset($phpbb_user_session[0])){
 
-  /*if( strtolower($current_user->user_email) != strtolower($phpbb_user_session[0]->user_email) )
+  if( strtolower($current_user->user_email) != strtolower($phpbb_user_session[0]->user_email) )
   {
-
-   // if email changed into phpBB profile, then the username need to match on both phpBB and WP, or this update will fail, and we'll get a loop
-   // NOTE REMOVED: email change allowed in phpBB, only if integration extension added
-   //if( strtolower($current_user->user_login) == mb_strtolower($phpbb_user_session[0]->username,'UTF-8') && !email_exists($phpbb_user_session[0]->user_email) )
-   //{
-   //  $wpdb->query("UPDATE $wpu_db_utab SET user_email = '".$phpbb_user_session[0]->user_email."' WHERE ID = '$current_user->ID'");
-   //}
-    // !!! NOTE IMPORTANT !!!!
-    // USE THE /wp-w3all-phpbb-integration/addons/phpBB_EXT
-    // SINCE 2.4.6>
-
-    // !!! NOTE IMPORTANT !!!! (if phpBB_EXT not installed)
-    // loop if email changed in phpBB and username do not match on both phpBB and WP
-    // running integration with mismatching usernames/pairs, it is required to allow registration/email update ONLY in WP
-    // if email changed in phpBB, with mismatching usernames, it will cause a re-login on-fly for the user by the way
-
-    // following workaround, cause a re-login on-fly by the way, if email changed in phpBB!
-    // Cases: if also username mismatch, a logout. If phpBB username contain forbidden chars, and do not exist in WP, added as new user, if no email and nor username found in wp.
-    // May redirection to what it is needed should be added, or wp home will be the redirect to (as code is more below, where user re-logged)
-    // !!! NOTE IMPORTANT !!!!
-
-     //wp_destroy_current_session();
-     //wp_clear_auth_cookie();
-     //wp_set_current_user( 0 );
-  }*/
+  	// this is an user logged in phpBB, with another username, and the WP user is another
+  	// avoid going on that will cause an update to same (other) phpbb user email
+  	// reset the wp user, let login with presented phpBB session
+     if(email_exists($phpbb_user_session[0]->user_email)){
+     	 wp_destroy_current_session();
+       wp_clear_auth_cookie();
+       wp_set_current_user( 0 );
+     }
+  }
 
   // assure that this array will contain the user_id
   $phpbb_user_session[0]->user_id = $phpbb_u;
@@ -426,7 +394,7 @@ private static function verify_phpbb_credentials(){
           } else {
            $wp_lang_x_phpbb = substr(get_locale(), 0, strpos(get_locale(), '_')); // should extract Lang code ISO Code phpBB suitable for this lang
            }
-      } else {
+       } else {
           if( strlen($wp_umeta['locale'][0]) == 2 ){ $wp_lang_x_phpbb = strtolower($wp_umeta['locale'][0]);
           } else {
             $wp_lang_x_phpbb = substr($wp_umeta['locale'][0], 0, strpos($wp_umeta['locale'][0], '_')); // should extract Lang code ISO Code phpBB suitable for this lang
@@ -596,7 +564,6 @@ private static function verify_phpbb_credentials(){
         header("Location: $uw"); /* Redirect to phpBB a coming 'onlogin' for addition */
        exit;
      }
-
 
     $redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
     if ( ( empty( $redirect_to ) || $redirect_to == admin_url() ) ) {
@@ -877,11 +844,10 @@ public static function w3_phpbb_ban($phpbb_uid = '', $uname = '', $uemail = ''){
     }
 
     $uemail = sanitize_email($uemail);
-    $uemail = esc_sql(strtolower($uemail));
-
     if( !is_email( $uemail ) ) {
      return false;
     }
+    $uemail = esc_sql(strtolower($uemail));
 
     $user_REMOTE_ADDR = (! filter_var(trim($_SERVER["REMOTE_ADDR"]), FILTER_VALIDATE_IP)) ? '' : $_SERVER["REMOTE_ADDR"];
     $phpbb_config = self::w3all_get_phpbb_config();
@@ -1582,7 +1548,7 @@ public static function w3_check_phpbb_profile_wpnu($username){ // email/user_log
   $user = is_email($username) ? get_user_by('email', $username) : get_user_by('login', $username );
 
    if ( strlen($username) > 50 ){
-     echo '<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em">Your <strong>registered username on our forum contain characters not allowed on this CMS system, or your username is too long (max 49 chars allowed)</strong>, you can\'t be added or login in this site side (and you\'ll see this message) until logged in on forums as <b>'.$phpbb_user_session[0]->username.'</b>. Please return back and contact the administrator reporting about this error issue. Thank you <input type="button" value="Go Back" onclick="history.back(-1)" /></p>';
+     //echo '<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em">Your <strong>registered username on our forum contain characters not allowed on this CMS system, or your username is too long (max 49 chars allowed)</strong>, you can\'t be added or login in this site side (and you\'ll see this message) until logged in on forums as <b>'.$phpbb_user_session[0]->username.'</b>. Please return back and contact the administrator reporting about this error issue. Thank you <input type="button" value="Go Back" onclick="history.back(-1)" /></p>';
       return;
    }
 
@@ -1802,9 +1768,16 @@ public static function wp_w3all_get_phpbb_user_info_by_email($email){
 
  global $w3all_config,$w3all_phpbb_connection;
 
+   $email = sanitize_email($email);
+    if( !is_email($email) ) {
+     return false;
+    }
+
+   $email = strtolower($email);
+
     $phpbb_user = $w3all_phpbb_connection->get_results("SELECT *
     FROM ". $w3all_config["table_prefix"] ."groups
-    JOIN ". $w3all_config["table_prefix"] ."users ON ". $w3all_config["table_prefix"] ."users.user_email = '".$email."'
+    JOIN ". $w3all_config["table_prefix"] ."users ON LOWER(". $w3all_config["table_prefix"] ."users.user_email) = '$email'
     AND ". $w3all_config["table_prefix"] ."users.group_id = ". $w3all_config["table_prefix"] ."groups.group_id");
 
  return $phpbb_user;
@@ -1822,22 +1795,21 @@ public static function wp_w3all_phpbb_delete_user ($user_id){
   return;
  }
 
- $user_email = strtolower($user->user_email);
+ $email = strtolower($user->user_email);
 
  $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'signups' : $wpdb->prefix . 'signups';
  $wpdb->query("SHOW TABLES LIKE '$wpu_db_utab'");
   if($wpdb->num_rows > 0){
-   $wpdb->query("DELETE FROM $wpu_db_utab WHERE LOWER(user_email) = '$user->user_email'");
+   $wpdb->query("DELETE FROM $wpu_db_utab WHERE LOWER(user_email) = '$email'");
   }
 
-   $phpbb_udata = self::wp_w3all_get_phpbb_user_info($user_email);
+   $phpbb_udata = self::wp_w3all_get_phpbb_user_info($email);
     if(empty($phpbb_udata[0])){ return; }
 
-   $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '1' WHERE LOWER(user_email) = '$user->user_email'");
+   $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '1' WHERE LOWER(user_email) = '$email'");
    $uuid = $phpbb_udata[0]->user_id;
-   $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions WHERE ".$w3all_config["table_prefix"]."sessions.session_user_id = '".$uuid."'");
-   $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions_keys WHERE ".$w3all_config["table_prefix"]."sessions_keys.user_id = '".$uuid."'");
-
+   $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions WHERE ".$w3all_config["table_prefix"]."sessions.session_user_id = '$uuid'");
+   $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions_keys WHERE ".$w3all_config["table_prefix"]."sessions_keys.user_id = '$uuid'");
 }
 
 
@@ -1849,17 +1821,17 @@ public static function wp_w3all_phpbb_delete_user_signup($user_id, $blog_id = ''
 
  $user = get_user_by('ID', $user_id);
   if(empty($user->user_email)){ return; }
- $user_email = strtolower($user->user_email);
 
- $phpbb_udata = self::wp_w3all_get_phpbb_user_info_by_email($user_email);
+ $phpbb_udata = self::wp_w3all_get_phpbb_user_info_by_email($user->user_email);
 
  if(empty($phpbb_udata[0])){ return; }
 
-  $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '1' WHERE LOWER(user_email) = '$user->user_email'");
+  $email = strtolower($user->user_email);
+  $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '1' WHERE LOWER(user_email) = '$email'");
 
    $uuid = $phpbb_udata[0]->user_id;
-   $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions WHERE ".$w3all_config["table_prefix"]."sessions.session_user_id = '".$uuid."'");
-   $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions_keys WHERE ".$w3all_config["table_prefix"]."sessions_keys.user_id = '".$uuid."'");
+   $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions WHERE ".$w3all_config["table_prefix"]."sessions.session_user_id = '$uuid'");
+   $w3all_phpbb_connection->query("DELETE FROM ". $w3all_config["table_prefix"] ."sessions_keys WHERE ".$w3all_config["table_prefix"]."sessions_keys.user_id = '$uuid'");
 
   // clean also signup of this user if WPMU for compatibility with integration
   // the check is done against an user that exist into users table, not signup
@@ -1868,7 +1840,7 @@ public static function wp_w3all_phpbb_delete_user_signup($user_id, $blog_id = ''
  $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'signups' : $wpdb->prefix . 'signups';
  $wpdb->query("SHOW TABLES LIKE '$wpu_db_utab'");
  if($wpdb->num_rows > 0){
-  $wpdb->query("DELETE FROM $wpu_db_utab WHERE user_email = '$user->user_email'");
+  $wpdb->query("DELETE FROM $wpu_db_utab WHERE LOWER(user_email) = '$email'");
  }
 
 }
@@ -1922,8 +1894,8 @@ public static function wp_w3all_custom_iframe_short( $atts ){
     }
 
    if( $w3all_custom_output_files == 1 ) {
-   	 $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/wp_w3all_custom_iframe_short.php';
-   	 if (!file_exists($file)){
+     $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/wp_w3all_custom_iframe_short.php';
+     if (!file_exists($file)){
      $file = ABSPATH . 'wp-content/plugins/wp-w3all-config/wp_w3all_custom_iframe_short.php';// old way
      }
     ob_start();
@@ -2581,7 +2553,7 @@ public static function w3_bbcode_rep0($matches)
 
 public static function wp_w3all_assoc_phpbb_wp_users() {
 
-  global $wp, $w3all_get_phpbb_avatar_yn, $w3all_last_t_avatar_yn, $w3all_lasttopic_avatar_num, $w3all_wlastopicspost_max;
+  global $wp, $w3all_get_phpbb_avatar_yn,$phpbb_online_udata,$w3all_widget_phpbb_onlineStats_exec,$w3all_last_t_avatar_yn, $w3all_lasttopic_avatar_num, $w3all_wlastopicspost_max;
 
     $w3all_lasttopic_avatar_num = $w3all_wlastopicspost_max > $w3all_lasttopic_avatar_num ? $w3all_wlastopicspost_max : $w3all_lasttopic_avatar_num;
 
@@ -2617,13 +2589,22 @@ public static function wp_w3all_assoc_phpbb_wp_users() {
 // see: wp_w3all_phpbb_custom_avatar()
 
 if(defined("W3ALLFORUMSIDSSHORT")){
-
   $short_call_add_users_ava = unserialize(W3ALLFORUMSIDSSHORT);
   foreach ($short_call_add_users_ava as $e){
     $p_unames[] = $e->user_email;
   }
-
 }
+
+// $w3all_widget_phpbb_onlineStats_exec -> class WP_w3all_widget_phpbb_onlineStats extends WP_Widget
+ if($w3all_widget_phpbb_onlineStats_exec > 0){
+ 	w3all_get_phpbb_onlineStats(); // fill $phpbb_online_udata
+  if(!empty($phpbb_online_udata))
+  {
+   foreach ($phpbb_online_udata as $p){
+    $p_unames[] = $p['user_email'];
+   }
+  }
+ }
 
    // add current user
    $current_user = wp_get_current_user();
@@ -2631,7 +2612,7 @@ if(defined("W3ALLFORUMSIDSSHORT")){
     $p_unames[] = $current_user->user_email;
    }
 
-  // add current profile user ( only work into default wp profile? )
+  // add current profile user ( may only work into default wp profile )
   if (isset($_GET['user_id'])){
    $guid = intval($_GET['user_id']);
     $u = get_user_by( 'ID', $guid );
@@ -2673,12 +2654,13 @@ if(defined("W3ALLFORUMSIDSSHORT")){
 
   if($ava_set_x['puid'] == 2){ // switch if install admins (uid 1 WP - uid 2 phpBB) have different usernames
     $usid = get_user_by('ID', 1);
-   } else { $usid = get_user_by('login', $ava_set_x['uname']); }
+   } else { $usid = get_user_by('email', $ava_set_x['uemail']); }
 
-      if($usid):
-        $wp_user_phpbb_avatar[] = array("wpuid" => $usid->ID, "phpbbavaurl" => $ava_set_x['uavaurl'], "phpbbuid" => $ava_set_x['puid']);
+      if($usid && $usid->ID > 0):
+        $wp_user_phpbb_avatar[] = array("wpuserlogin" => $usid->user_login, "wpuid" => $usid->ID, "phpbbavaurl" => $ava_set_x['uavaurl'], "phpbbuid" => $ava_set_x['puid']);
       else:
-        $wp_user_phpbb_avatar[] = array("wpuid" => 0, "phpbbavaurl" => $ava_set_x['uavaurl'], "phpbbuid" => $ava_set_x['puid']);
+      $usid_user_login = 'Guest';
+        $wp_user_phpbb_avatar[] = array("wpuserlogin" => $usid_user_login, "wpuid" => 0, "phpbbavaurl" => $ava_set_x['uavaurl'], "phpbbuid" => $ava_set_x['puid']);
       endif;
   }
  } else { $w3all_u_ava_urls = array(); }
@@ -2689,7 +2671,7 @@ if(defined("W3ALLFORUMSIDSSHORT")){
   if(!defined("W3ALLPHPBBUAVA")){
    define("W3ALLPHPBBUAVA", $u_a);
   }
-  if(defined("W3ALLFORUMSIDSSHORT")){
+  if(defined("W3ALLFORUMSIDSSHORT") && !defined("W3ALLPHPBBUAVAADDSHORTUSERS")){
     define("W3ALLPHPBBUAVAADDSHORTUSERS", $u_a);
   }
   return $wp_userphpbbavatar;
@@ -2702,12 +2684,12 @@ public static function w3all_get_phpbb_avatars_url( $w3unames ) {
   global $w3all_phpbb_connection,$w3all_config, $w3all_avatar_via_phpbb_file,$w3all_url_to_cms;
 
   $phpbb_config = self::w3all_get_phpbb_config();
-  // if the database connection fail, at this point W3PHPBBCONFIG is not defined
+
   if(defined("W3PHPBBCONFIG")){
    $phpbb_config = W3PHPBBCONFIG;
   } else { return; }
 
-  $uavatars = $w3all_phpbb_connection->get_results( "SELECT user_id, username, user_avatar, user_avatar_type FROM ".$w3all_config["table_prefix"]."users WHERE user_email IN(".$w3unames.") ORDER BY user_id DESC" );
+  $uavatars = $w3all_phpbb_connection->get_results( "SELECT user_id, username, user_email, user_avatar, user_avatar_type FROM ".$w3all_config["table_prefix"]."users WHERE user_email IN(".$w3unames.") ORDER BY user_id DESC" );
 
   if(!empty($uavatars)){
 
@@ -2718,11 +2700,11 @@ public static function w3all_get_phpbb_avatars_url( $w3unames ) {
         if ( $user_ava->user_avatar_type == 'avatar.driver.local' ){
 
           $phpbb_avatar_url = $w3all_url_to_cms . '/' . $phpbb_config["avatar_gallery_path"] . '/' . $user_ava->user_avatar;
-          $u_a[] = array("puid" => $user_ava->user_id, "uname" => $user_ava->username, "uavaurl" => $phpbb_avatar_url);
+          $u_a[] = array("puid" => $user_ava->user_id, "uname" => $user_ava->username, "uemail" => $user_ava->user_email, "uavaurl" => $phpbb_avatar_url);
 
         }  elseif ( $user_ava->user_avatar_type == 'avatar.driver.remote' ){
           $phpbb_avatar_url = $user_ava->user_avatar;
-          $u_a[] = array("puid" => $user_ava->user_id, "uname" => $user_ava->username, "uavaurl" => $phpbb_avatar_url);
+          $u_a[] = array("puid" => $user_ava->user_id, "uname" => $user_ava->username, "uemail" => $user_ava->user_email, "uavaurl" => $phpbb_avatar_url);
 
         } else {
            $avatar_entry = $user_ava->user_avatar;
@@ -2733,15 +2715,8 @@ public static function w3all_get_phpbb_avatars_url( $w3unames ) {
            $phpbb_avatar_url = $w3all_url_to_cms . "/download/file.php?avatar=" . $avatar_entry . '.' . $ext;
 
       // in phpBB there is Gravatar as option available as profile image
-      // so if it is the case, the user at this point can have an email address, instead than an image url as value
-      // $pemail = '/^.*@[-a-z0-9]+\.+[-a-z0-9]+[\.[a-z0-9]+]?/';
-      // preg_match($pemail, $user_ava->user_avatar, $url_email);
-      // $phpbb_avatar_url = (empty($url_email)) ? $phpbb_avatar_url : $user_ava->user_avatar;
-
         $phpbb_avatar_url = is_email( $user_ava->user_avatar ) ? $user_ava->user_avatar : $phpbb_avatar_url;
-        //$u_a[] = array("puid" => $user_ava->user_id, "uname" => $user_ava->username, "uavaurl" => $phpbb_avatar_url);
-        $u_a[] = array("puid" => $user_ava->user_id, "uname" => $user_ava->username, "uavaurl" => $phpbb_avatar_url);
-
+        $u_a[] = array("puid" => $user_ava->user_id, "uname" => $user_ava->username, "uemail" => $user_ava->user_email, "uavaurl" => $phpbb_avatar_url);
       }
      }
     }
@@ -2753,7 +2728,6 @@ public static function w3all_get_phpbb_avatars_url( $w3unames ) {
 
 public static function wp_w3all_phpbb_custom_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
 
-//$uids_urls = self::wp_w3all_assoc_phpbb_wp_users();
   $uids_urls = unserialize(W3ALLPHPBBUAVA);
 
 if(defined("W3ALLPHPBBUAVAADDSHORTUSERS")){
@@ -2785,9 +2759,9 @@ if(defined("W3ALLPHPBBUAVAADDSHORTUSERS")){
           if( is_email( $w3all_wupa["phpbbavaurl"] ) ) {
            $w3all_wupa["phpbbavaurl"] = get_avatar_url( $w3all_wupa["phpbbavaurl"] );
           }
-
           if ( $user->data->ID == $w3all_wupa["wpuid"] ) {
               $avatar = $w3all_wupa["phpbbavaurl"];
+              $alt = $w3all_wupa["wpuserlogin"];
               $avatar = "<img alt='{$alt}' src='{$avatar}' class='avatar avatar-{$size} photo' height='{$size}' width='{$size}' />";
          }
         }
@@ -2799,7 +2773,7 @@ if(defined("W3ALLPHPBBUAVAADDSHORTUSERS")){
 }
 
 public static function init_w3all_avatars(){
-  // widgets may runs BEFORE w3all_get_phpbb_config() call
+
    if( ! defined("W3PHPBBCONFIG") ){
     $phpbb_config = self::w3all_get_phpbb_config();
    } else {
@@ -3201,4 +3175,3 @@ else { $rankID = 0; $group_color = ''; }
 //############################################
 
 } // END class WP_w3all_phpbb
-?>

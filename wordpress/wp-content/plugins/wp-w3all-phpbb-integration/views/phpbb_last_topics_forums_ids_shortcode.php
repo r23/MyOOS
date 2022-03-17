@@ -106,4 +106,3 @@ if(!empty($w3phpbbuava)){
      echo "</ul>";
 
 }
-?>

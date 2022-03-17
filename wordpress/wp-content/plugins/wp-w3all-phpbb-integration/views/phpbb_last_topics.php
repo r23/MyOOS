@@ -94,4 +94,3 @@ if ( $countn < $topics_number ){
      echo "</ul>";
 
 }
-?>

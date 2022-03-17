@@ -1,4 +1,7 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
+  if ( !current_user_can('manage_options') ) {
+    die('<h3>Forbidden</h3>');
+   }
  global $w3all_config,$wpdb;
 
     set_time_limit(300); // set execution time to 5 min "This function has no effect when PHP is running in safe mode. There is no workaround other than turning off safe mode or changing the time limit in the php.ini."

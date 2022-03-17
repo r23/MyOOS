@@ -13,11 +13,11 @@ echo "<script type=\"text/javascript\">
 document.domain = '".$document_domain."';
 
 iFrameResize({
-				log                     : false,
-				inPageLinks             : true,
-        targetOrigin: '".$ltm['url_to_display']."', 
-        checkOrigin : ".$w3check_origin.", 
-     // heightCalculationMethod: 'documentElementOffset', // If iframe not resize correctly, un-comment (or change with one of others available resize methods) 
+        log                     : false,
+        inPageLinks             : true,
+        targetOrigin: '".$ltm['url_to_display']."',
+        checkOrigin : ".$w3check_origin.",
+     // heightCalculationMethod: 'documentElementOffset', // If iframe not resize correctly, un-comment (or change with one of others available resize methods)
      // see: https://github.com/davidjbradshaw/iframe-resizer#heightcalculationmethod
      // https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/options.md#checkorigin
 });

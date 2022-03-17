@@ -1,11 +1,13 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-
+   if ( !current_user_can('manage_options') ) {
+    die('<h3>Forbidden</h3>');
+   }
  global $w3all_add_into_spec_group,$w3all_config,$wpdb;
- 
+
     set_time_limit(300); // set execution time to 5 min "This function has no effect when PHP is running in safe mode. There is no workaround other than turning off safe mode or changing the time limit in the php.ini."
 
    if ( !defined('W3PHPBBCONFIG') ){
-   	die("<h2>Wp w3all miss phpBB db configuration. Set phpBB connection values by opening:<br /><br /> Settings -> WP w3all</h2>");
+    die("<h2>Wp w3all miss phpBB db configuration. Set phpBB connection values by opening:<br /><br /> Settings -> WP w3all</h2>");
    }
 
  echo'<div style="background-color:#FFF;padding:10px;"><h3>NOTE: you\'re going to insert users into phpBB Group ID -> '.$w3all_add_into_spec_group.' <br /><br />Check that it exist. See it into WP w3all Config Page, and/or you can change this value where related option<br /><br /><i>"Add newly WordPress registered users into a specified phpBB group"</i></h4>';
@@ -123,7 +125,7 @@ if( $wpu->ID > 1 && is_email($wpu->user_email) ){
     {
      foreach($user_exist as $ue){
       if ( mb_strtolower($ue->user_email,'UTF-8') == mb_strtolower($wpue,'UTF-8') && mb_strtolower($ue->username,'UTF-8') != mb_strtolower($wpul,'UTF-8') ){
-         echo "<b><span style=\"color:red;font-size:120%\">WARNING!</span> <b>-> Existent username <span style=\"color:red\">". $ue->username ."</span></b> in phpBB </b> with same email address of WordPress user <b><span style=\"color:red\">". $wpul ."</b><br /> <span style=\"color:red\">-- Change the email address</span> for the user <span style=\"color:red\">". $ue->username ."</span> in phpBB via ACP. <b><span style=\"color:red\">". $wpul ."</span> NOT transferred into phpBB</b><br />";
+         echo "<b><span style=\"color:red;font-size:120%\">WARNING!</span> <b>-> Existent username <span style=\"color:red\">". $ue->username ."</span></b> in phpBB </b> with same email address of WordPress user <b><span style=\"color:red\">". $wpul ."</b><br /> <span style=\"color:red\">-- Change the email address</span> for the user <span style=\"color:red\">". $ue->username ."</span> using the <a href=\"".admin_url()."tools.php?page=wp-w3all-common-tasks\">Tasks utility</a> or via phpBB ACP. <b><span style=\"color:red\">". $wpul ."</span> NOT transferred into phpBB</b><br />";
          $nd++;
        }
      }
@@ -225,7 +227,7 @@ if( $wpu->ID > 1 && is_email($wpu->user_email) ){
  All users are transferred on phpBB as registered users if they have a role on WP, as deactivated in phpBB if no roles on WP.
  <br /><br /><span style="color:red">Note important</span>: if there are users in phpBB sharing same email address, <span style="color:red">a warning</span> will appear for these users:<br />it is mandatory that you change the email address for these users in phpBB, as indicated on warning (if it show up).<br /><span style="color:red">It is mandatory that in phpBB do NOT exists users sharing the same email address</span>, because it is possible option in phpBB but not in Wordpress, and if you do not know exactly, doing some test, the possible implications of this, it is better that there are no users sharing same email in phpBB (ex: updating an user in WP, will update two users or more in phpBB, those with same email).<br />
  May check if there are by running the related check option: <a href="<?php echo admin_url() . 'tools.php?page=wp-w3all-users-check'; ?>">w3all users check -> List phpBB users with duplicated usernames or emails</a><br />
- <br />Then before to start the transfer process, you can fix user's email using the Common task utilities <a href="<?php echo admin_url() . 'tools.php?page=wp-w3all-common-tasks'; ?>">WP_W3ALL common tasks phpBB/WordPress</a>. <br />The transfer can be restarted any time and it is possible to repeat the process from begin just reloading the page
+ <br />Then before to start the transfer process, you can fix user's email using the Common task utilities <a href="<?php echo admin_url() . 'tools.php?page=wp-w3all-common-tasks'; ?>">WP_W3ALL common tasks phpBB/WordPress</a>. <br />The transfer can be restarted any time and it is possible to repeat the process from begin, reloading the page
     </h4>
 
 <form name="w3all_conf_add_users_to_phpbb" id="w3all-conf-add-users-to-phpbb" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">

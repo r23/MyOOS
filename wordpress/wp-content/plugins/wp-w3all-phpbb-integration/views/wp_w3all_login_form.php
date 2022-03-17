@@ -80,4 +80,4 @@ if ( is_user_logged_in() && isset($phpbb_user_session) ){
 
       <a class="button" href="<?php echo wp_logout_url(); ?>"><?php echo __('Logout' , 'wp-w3all-phpbb-integration' ); ?></a>
 
-<?php } ?>
+<?php }

@@ -17,6 +17,7 @@ function wp_w3all_phpbb_iframe_short( $atts ){
         'phpbb_default_url' => '',
         'wp_page_iframe_top_gap' => '0',
         'url_push' => 'yes',
+        'scroll_default' => 'yes',
         'security_token' => ''
      ), $atts );
   }
@@ -28,7 +29,7 @@ function wp_w3all_phpbb_iframe_short( $atts ){
    $ltm['phpbb_default_url'] = (!filter_var($ltm['phpbb_default_url'], FILTER_VALIDATE_URL)) ? '' : $ltm['phpbb_default_url'];
    $ltm['wp_page_name'] = preg_match('/[^-0-9A-Za-z _]/',$ltm['wp_page_name']) ? '' : $ltm['wp_page_name'];
    $ltm['url_push'] = strtolower($ltm['url_push']) == 'yes' ? 'yes' : 'no'; // do not affect homepage: if shortcode on homepage, will by the way avoided the url push into /views/wp_w3all_phpbb_iframe_short.php
-
+   $ltm['scroll_default'] = strtolower($ltm['scroll_default']) == 'yes' ? 'yes' : 'no';
 
    if( $w3all_custom_output_files == 1 ) {
    	 $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/wp_w3all_phpbb_iframe_short.php';
