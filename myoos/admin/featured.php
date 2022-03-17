@@ -52,8 +52,12 @@ $fID = (isset($_GET['fID']) ? intval($_GET['fID']) : '');
 if (!empty($action)) {
     switch ($action) {
       case 'setflag':
-        oos_set_featured_status($_GET['id'], $_GET['flag']);
-        oos_redirect_admin(oos_href_link_admin($aContents['featured'], ''));
+            if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+                oos_set_featured_status($_GET['id'], $_GET['flag']);
+            }
+
+            oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'fID=' . intval($_GET['id']) . '&page=' . $nPage));
+            break;	  
         break;
 
       case 'insert':
@@ -65,10 +69,11 @@ if (!empty($action)) {
         break;
 
       case 'update':
+		$featured_id = oos_db_prepare_input($_POST['featured_id']);
         $expires_date = oos_db_prepare_input($_POST['expires_date']);
-
+		
         $featuredtable = $oostable['featured'];
-        $dbconn->Execute("UPDATE $featuredtable SET featured_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE featured_id = '" . intval($_POST['featured_id']) . "'");
+        $dbconn->Execute("UPDATE $featuredtable SET featured_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE featured_id = '" . intval($featured_id) . "'");
         oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured_id));
         break;
 
@@ -260,9 +265,9 @@ if (($action == 'new') || ($action == 'edit')) {
             }
 
             if (isset($sInfo) && is_object($sInfo) && ($featured['featured_id'] == $sInfo->featured_id)) {
-                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '\'">' . "\n";
+                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '\'">' . "\n";			
             } else {
-                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '\'">' . "\n";
+                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '\'">' . "\n";				
             } ?>
                 <td><?php echo $featured['products_name']; ?></td>
                 <td  align="right">&nbsp;</td>
