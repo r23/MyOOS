@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '5b9d6d0fa42e0f5faebd41f463191f10bf749d0d',
+        'reference' => '76cd11c1154d970b439fe55cc53feb3fcfe59928',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '5b9d6d0fa42e0f5faebd41f463191f10bf749d0d',
+            'reference' => '76cd11c1154d970b439fe55cc53feb3fcfe59928',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -431,12 +431,12 @@
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
-            'pretty_version' => 'v7.116.0',
-            'version' => '7.116.0.0',
+            'pretty_version' => 'v7.117.0',
+            'version' => '7.117.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stripe/stripe-php',
             'aliases' => array(),
-            'reference' => '7a39f594f213ed3f443a95adf769d1ecbc8393e7',
+            'reference' => 'c9d40524c63f3c5042d704f88a60f49a349b1221',
             'dev_requirement' => false,
         ),
         'symfony/asset' => array(
