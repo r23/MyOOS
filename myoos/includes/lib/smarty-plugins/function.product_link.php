@@ -26,21 +26,19 @@
  */
 function smarty_function_product_link($params, &$smarty)
 {
+    require_once(MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.html_href_link.php');
 
-	require_once(MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.html_href_link.php');
+    $aContents =  oos_get_content();
 
-	$aContents =  oos_get_content(); 
+    $result = array();
+    $link_params = array();
+    $link_params = array('content' => $aContents['product_info']);
 
-	$result = array();
-	$link_params = array();
-	$link_params = array('content' => $aContents['product_info']);
+    if (is_array($params)) {
+        $result = array_merge($link_params, $params);
+    } else {
+        throw new SmartyException("products_info_link: extra attribute '$params' must an array", E_USER_NOTICE);
+    }
 
-	if (is_array($params)) {
-		$result = array_merge($link_params, $params);
-	} else {
-		throw new SmartyException("products_info_link: extra attribute '$params' must an array", E_USER_NOTICE);
-	}
-
-	return smarty_function_html_href_link($result, $smarty);
-
+    return smarty_function_html_href_link($result, $smarty);
 }

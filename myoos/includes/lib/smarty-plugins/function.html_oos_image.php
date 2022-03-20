@@ -34,7 +34,7 @@
  */
 function smarty_function_html_oos_image($params, &$smarty)
 {
-	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $alt = '';
     $image = '';
@@ -43,15 +43,15 @@ function smarty_function_html_oos_image($params, &$smarty)
     $basedir = isset($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '';
 
 
-    foreach($params as $_key => $_val) {
-        switch($_key) {
+    foreach ($params as $_key => $_val) {
+        switch ($_key) {
             case 'image':
             case 'basedir':
                 $$_key = $_val;
                 break;
 
             case 'alt':
-                if(!is_array($_val)) {
+                if (!is_array($_val)) {
                     $$_key = smarty_function_escape_special_chars($_val);
                 } else {
                     throw new SmartyException("html_oos_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
@@ -59,7 +59,7 @@ function smarty_function_html_oos_image($params, &$smarty)
                 break;
 
             default:
-                if(!is_array($_val)) {
+                if (!is_array($_val)) {
                     $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
                 } else {
                     throw new SmartyException("html_oos_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
@@ -73,13 +73,13 @@ function smarty_function_html_oos_image($params, &$smarty)
     if (empty($image) || ($image == OOS_IMAGES)) {
         return false;
     }
-	
+
     if (isset($template->smarty->security_policy)) {
         // local file
-		if (!$template->smarty->security_policy->isTrustedResourceDir($image)) {
-			return;
+        if (!$template->smarty->security_policy->isTrustedResourceDir($image)) {
+            return;
         }
-    }	
+    }
 
     return '<img class="img-fluid" src="'.$image.'" alt="'.$alt.'"'.$extra.' />';
 }

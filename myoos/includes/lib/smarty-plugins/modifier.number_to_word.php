@@ -16,8 +16,6 @@
  */
 function smarty_modifier_number_to_word($number)
 {
-
-	$f = new NumberFormatter("en", NumberFormatter::SPELLOUT);
-	return $f->format($number);
-
+    $f = new NumberFormatter("en", NumberFormatter::SPELLOUT);
+    return $f->format($number);
 }

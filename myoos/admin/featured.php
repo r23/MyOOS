@@ -24,19 +24,19 @@ function oos_set_featured_status($featured_id, $status)
 {
 
     // Get database information
-	$dbconn =& oosDBGetConn();
-	$oostable =& oosDBGetTables();
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
 
-	if ($status == '1') {
-		$featuredtable = $oostable['featured'];
-		return $dbconn->Execute("UPDATE $featuredtable SET status = '1', expires_date = NULL, date_status_change = now() WHERE featured_id = '" . intval($featured_id) . "'");
-	} elseif ($status == '0') {
-		$featuredtable = $oostable['featured'];
-		return $dbconn->Execute("UPDATE $featuredtable SET status = '0', date_status_change = now() WHERE featured_id = '" . intval($featured_id) . "'");
-	} else {
-		return -1;
-	}
+    if ($status == '1') {
+        $featuredtable = $oostable['featured'];
+        return $dbconn->Execute("UPDATE $featuredtable SET status = '1', expires_date = NULL, date_status_change = now() WHERE featured_id = '" . intval($featured_id) . "'");
+    } elseif ($status == '0') {
+        $featuredtable = $oostable['featured'];
+        return $dbconn->Execute("UPDATE $featuredtable SET status = '0', date_status_change = now() WHERE featured_id = '" . intval($featured_id) . "'");
+    } else {
+        return -1;
+    }
 }
 
 require 'includes/classes/class_currencies.php';
@@ -49,38 +49,38 @@ $fID = (isset($_GET['fID']) ? intval($_GET['fID']) : '');
 
 if (!empty($action)) {
     switch ($action) {
-		case 'setflag':
+        case 'setflag':
             if (isset($_GET['id']) && is_numeric($_GET['id'])) {
                 oos_set_featured_status($_GET['id'], $_GET['flag']);
             }
 
             oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'fID=' . intval($_GET['id']) . '&page=' . $nPage));
-            break;	  
+            break;
 
-		case 'insert':
-			$expires_date = oos_db_prepare_input($_POST['expires_date']);
+        case 'insert':
+            $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-			$featuredtable = $oostable['featured'];
-			$dbconn->Execute("INSERT INTO $featuredtable (products_id, featured_date_added, expires_date, status) VALUES ('" . intval($_POST['products_id']) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
-			oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
-			break;
+            $featuredtable = $oostable['featured'];
+            $dbconn->Execute("INSERT INTO $featuredtable (products_id, featured_date_added, expires_date, status) VALUES ('" . intval($_POST['products_id']) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+            oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
+            break;
 
-		case 'update':
-			$featured_id = oos_db_prepare_input($_POST['featured_id']);
-			$expires_date = oos_db_prepare_input($_POST['expires_date']);
-			
-			$featuredtable = $oostable['featured'];
-			$dbconn->Execute("UPDATE $featuredtable SET featured_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE featured_id = '" . intval($featured_id) . "'");
-			oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . intval($featured_id)));
+        case 'update':
+            $featured_id = oos_db_prepare_input($_POST['featured_id']);
+            $expires_date = oos_db_prepare_input($_POST['expires_date']);
+
+            $featuredtable = $oostable['featured'];
+            $dbconn->Execute("UPDATE $featuredtable SET featured_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE featured_id = '" . intval($featured_id) . "'");
+            oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . intval($featured_id)));
         break;
 
-		case 'deleteconfirm':
-			$featured_id = oos_db_prepare_input($_GET['fID']);
+        case 'deleteconfirm':
+            $featured_id = oos_db_prepare_input($_GET['fID']);
 
-			$featuredtable = $oostable['featured'];
-			$dbconn->Execute("DELETE FROM $featuredtable WHERE featured_id = '" . oos_db_input($featured_id) . "'");
+            $featuredtable = $oostable['featured'];
+            $dbconn->Execute("DELETE FROM $featuredtable WHERE featured_id = '" . oos_db_input($featured_id) . "'");
 
-			oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
+            oos_redirect_admin(oos_href_link_admin($aContents['featured'], 'page=' . $nPage));
         break;
     }
 }
@@ -251,23 +251,22 @@ if (($action == 'new') || ($action == 'edit')) {
 					</thead>
 <?php
     $featured_result_raw = "SELECT p.products_id, pd.products_name, s.featured_id, s.featured_date_added, s.featured_last_modified, s.expires_date, s.date_status_change, s.status FROM " . $oostable['products'] . " p, " . $oostable['featured'] . " s, " . $oostable['products_description'] . " pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = s.products_id ORDER BY pd.products_name";
-	$featured_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $featured_result_raw, $featured_result_numrows);
-	$featured_result = $dbconn->Execute($featured_result_raw);
-	while ($featured = $featured_result->fields) {
-		if ((!isset($_GET['fID']) || (isset($_GET['fID']) && ($_GET['fID'] == $featured['featured_id']))) && !isset($sInfo)) {
-			$productstable = $oostable['products'];
-			$products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $featured['products_id'] . "'");
-			$products = $products_result->fields;
-			$sInfo_array = array_merge($featured, $products);
-			$sInfo = new objectInfo($sInfo_array);
-		
-		}
+        $featured_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $featured_result_raw, $featured_result_numrows);
+        $featured_result = $dbconn->Execute($featured_result_raw);
+        while ($featured = $featured_result->fields) {
+            if ((!isset($_GET['fID']) || (isset($_GET['fID']) && ($_GET['fID'] == $featured['featured_id']))) && !isset($sInfo)) {
+                $productstable = $oostable['products'];
+                $products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $featured['products_id'] . "'");
+                $products = $products_result->fields;
+                $sInfo_array = array_merge($featured, $products);
+                $sInfo = new objectInfo($sInfo_array);
+            }
 
-		if (isset($sInfo) && is_object($sInfo) && ($featured['featured_id'] == $sInfo->featured_id)) {
-			echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '\'">' . "\n";			
-		} else {
-			echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '\'">' . "\n";				
-		} ?>
+            if (isset($sInfo) && is_object($sInfo) && ($featured['featured_id'] == $sInfo->featured_id)) {
+                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '\'">' . "\n";
+            } else {
+                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']) . '\'">' . "\n";
+            } ?>
                 <td><?php echo $featured['products_name']; ?></td>
                 <td  align="right">&nbsp;</td>
                 <td  align="right">
@@ -278,15 +277,14 @@ if (($action == 'new') || ($action == 'edit')) {
             echo '<a href="' . oos_href_link_admin($aContents['featured'], 'action=setflag&flag=1&id=' . $featured['featured_id']) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
         } ?></td>
                 <td class="text-right">
-<?php 
-		if (isset($sInfo) && is_object($sInfo) && ($featured['featured_id'] == $sInfo->featured_id)) {					
-			echo  $featured['featured_id'] . '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
-				<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>'; 					 
-		} else {
-			echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']. '&action=edit') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
-				<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id'] . '&action=delete') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>'; 
-		}
-?>
+<?php
+        if (isset($sInfo) && is_object($sInfo) && ($featured['featured_id'] == $sInfo->featured_id)) {
+            echo  $featured['featured_id'] . '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
+				<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>';
+        } else {
+            echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']. '&action=edit') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
+				<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id'] . '&action=delete') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>';
+        } ?>
 			&nbsp;</td>				
 
 		      </tr>

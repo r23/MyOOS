@@ -8,11 +8,10 @@
  * @subpackage Phoenix_Session
  */
 
-use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag; 
+use Symfony\Component\HttpFoundation\Session\Attribute\AttributeBag;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
-
 
 /**
  * Phoenix_Session class.
@@ -26,49 +25,48 @@ class Phoenix_Session extends Session
      *
      * @var string
      */
-    const MESSAGE_STATUS = 'status';
+    public const MESSAGE_STATUS = 'status';
 
     /**
      * The message type for warning messages, to use with, for example, {@link hasMessages()}.
      *
      * @var string
      */
-    const MESSAGE_WARNING = 'warning';
+    public const MESSAGE_WARNING = 'warning';
 
     /**
      * The message type for error messages, to use with, for example, {@link hasMessages()}.
      *
      * @var string
      */
-    const MESSAGE_ERROR = 'error';
+    public const MESSAGE_ERROR = 'error';
 
     public function start()
     {
-	
-		$user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
-		$spider_flag = false;
-		$spider_kill_sid = 'false';
+        $user_agent = strtolower($_SERVER['HTTP_USER_AGENT']);
+        $spider_flag = false;
+        $spider_kill_sid = 'false';
 
-		// set the top level domains
-		$current_domain = oos_server_get_top_level_domain(OOS_HTTPS_SERVER);
+        // set the top level domains
+        $current_domain = oos_server_get_top_level_domain(OOS_HTTPS_SERVER);
 
-		// garbage collection may disabled by default (e.g., Debian)
-		if (ini_get('session.gc_probability') == 0) {
-			@ini_set('session.gc_probability', 1);
-		}		
-		
-		/*
+        // garbage collection may disabled by default (e.g., Debian)
+        if (ini_get('session.gc_probability') == 0) {
+            @ini_set('session.gc_probability', 1);
+        }
+
+        /*
         $config = array(
             'gc_probability' => System::getVar('gc_probability'),
             'gc_divisor' => 10000,
             'gc_maxlifetime' => System::getVar('secinactivemins'),
         );
-		*/
-		
-		/*
+        */
+
+        /*
         $path = System::getBaseUri();
-		*/
-		
+        */
+
         if (empty($path)) {
             $path = '/';
         } elseif (substr($path, -1, 1) != '/') {
@@ -83,18 +81,17 @@ class Phoenix_Session extends Session
             $host = substr($host, 0, $pos);
         }
 
-		// Currently set to 1 year
-		$lifetime = 31536000;
+        // Currently set to 1 year
+        $lifetime = 31536000;
         $config['cookie_lifetime'] = $lifetime;
 
-		# possible values: 'strict', 'lax' and null
-		$config['cookie_samesite'] = 'strict';
+        # possible values: 'strict', 'lax' and null
+        $config['cookie_samesite'] = 'strict';
 
-		$options['cache_limiter'] = session_cache_limiter();
+        $options['cache_limiter'] = session_cache_limiter();
 
         $this->storage->setOptions($config);
-        return parent::start();		
-		
+        return parent::start();
     }
 
 
@@ -243,5 +240,4 @@ class Phoenix_Session extends Session
     {
         return parent::has($key);
     }
-
 }

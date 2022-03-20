@@ -1,4 +1,5 @@
 <?php
+
  /*
   * Smarty plugin
   *
@@ -10,7 +11,7 @@
   * Purpose:  pad a string to a certain length with another string. like php/str_pad
   *
   * Example:  {$text|str_pad:20:'.':'both'}
-  *    will pad $string with dots, in both sides 
+  *    will pad $string with dots, in both sides
   *    until $text length equal to 20 characteres
   *    (assuming that $text has less than 20 characteres)
   *
@@ -21,8 +22,10 @@
   *    pad_type - both, left or right
   */
 
-function smarty_modifier_str_pad($string, $length, $pad_string=' ', $pad_type='left') {
-  $pads = array('left'=>0, 'right'=>1, 'both'=>2);
-  if(array_key_exists($pad_type, $pads))
-    return str_pad($string, $length ,$pad_string,$pads[$pad_type]);
+function smarty_modifier_str_pad($string, $length, $pad_string=' ', $pad_type='left')
+{
+    $pads = array('left'=>0, 'right'=>1, 'both'=>2);
+    if (array_key_exists($pad_type, $pads)) {
+        return str_pad($string, $length, $pad_string, $pads[$pad_type]);
+    }
 }

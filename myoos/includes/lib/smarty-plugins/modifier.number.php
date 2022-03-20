@@ -8,7 +8,7 @@
 
 /*
  * Smarty plugin
- * 
+ *
  * Type:     modifier
  * Name:     number<br>
  * Version:  0.1

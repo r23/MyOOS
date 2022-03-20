@@ -20,22 +20,17 @@
  */
 function smarty_modifier_gravatar($email, $default=false, $size=false, $rating=false, $border=false)
 {
-
     $gravurl = "<img src='http://www.gravatar.com/avatar.php?gravatar_id=".md5($email);
-    if ($default)
-    {
+    if ($default) {
         $gravurl .= "&amp;default=".urlencode($default);
     }
-    if ($size)
-    {
+    if ($size) {
         $gravurl .= "&amp;size=".$size;
     }
-    if ($rating)
-    {
+    if ($rating) {
         $gravurl .= "&amp;rating=".$rating;
     }
-    if ($border)
-    {
+    if ($border) {
         $gravurl .= "&amp;border=".$border;
     }
     return $gravurl. "' alt='Gravatar Image' />";

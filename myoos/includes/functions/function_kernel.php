@@ -1844,7 +1844,7 @@ function oos_newsletter_subscribe_mail($email_address)
         $smarty->caching = false;
 
         $smarty->assign(
-                [
+            [
                     'shop_name'		=> STORE_NAME,
                     'shop_url'		=> OOS_HTTPS_SERVER . OOS_SHOP,
                     'shop_logo'		=> STORE_LOGO,

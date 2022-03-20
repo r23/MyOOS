@@ -29,20 +29,21 @@
  */
 function smarty_function_logo($params, &$smarty)
 {
-	
-	if (empty(STORE_LOGO)) return '';
+    if (empty(STORE_LOGO)) {
+        return '';
+    }
 
-	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $basedir = OOS_IMAGES . 'logo/';
-	
-    foreach($params as $_key => $_val) {
-      switch($_key) {
+
+    foreach ($params as $_key => $_val) {
+        switch ($_key) {
         case 'dir':
            if (!is_array($_val)) {
-             $$_key = smarty_function_escape_special_chars($_val);
+               $$_key = smarty_function_escape_special_chars($_val);
            } else {
-             throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+               throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
            }
            break;
       }
@@ -50,7 +51,5 @@ function smarty_function_logo($params, &$smarty)
 
     $image = $basedir . $dir . '/' . STORE_LOGO;
 
-	return '<img id="logo-header" class="img-fluid" src="' . $image . '" alt="' . STORE_NAME. '" title="' . STORE_NAME . '">';
-	
+    return '<img id="logo-header" class="img-fluid" src="' . $image . '" alt="' . STORE_NAME. '" title="' . STORE_NAME . '">';
 }
-

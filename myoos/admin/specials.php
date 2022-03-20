@@ -341,9 +341,8 @@ if (($action == 'new') || ($action == 'edit')) {
                 echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['specials'], 'page=' . $nPage . '&sID=' . $specials['specials_id']) . '\'">' . "\n";
             }
 
-           # $in_price = $sInfo->products_price;
-           # $in_new_price = $sInfo->specials_new_products_price;
-?>
+            # $in_price = $sInfo->products_price;
+            # $in_new_price = $sInfo->specials_new_products_price;?>
                 <td><?php echo $specials['products_name']; ?></td>
                 <td  align="right"><s><?php echo $currencies->format($specials['products_price']); ?></s> <span><?php echo $currencies->format($specials['specials_new_products_price']); ?></span></td>
                 <td  align="right">

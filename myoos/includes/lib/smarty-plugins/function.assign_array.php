@@ -24,6 +24,6 @@ function smarty_function_assign_array($params, &$smarty)
         throw new SmartyException("assign_array: missing 'values' parameter");
         return;
     }
-    
+
     return $values[$var];
 }

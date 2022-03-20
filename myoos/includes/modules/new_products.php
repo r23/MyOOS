@@ -27,6 +27,7 @@ if (!is_numeric(MAX_DISPLAY_NEW_PRODUCTS)) {
 }
 
 use Carbon\Carbon;
+
 Carbon::setLocale(LANG);
 
 

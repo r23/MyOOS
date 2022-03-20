@@ -867,12 +867,12 @@ function check_form() {
           $login_result = $dbconn->Execute($sql);
           $login = $login_result->fields;
           if ($login['status'] != '0') {
-			if (!empty($cInfo->customers_email_address)) {			  
-				$contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login', $aCatalog['login_admin'], 'action=login_admin', 'POST') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button(IMAGE_LOGIN) . '</form>');
-			}
+              if (!empty($cInfo->customers_email_address)) {
+                  $contents[] = array('align' => 'center', 'text' => oos_draw_login_form('login', $aCatalog['login_admin'], 'action=login_admin', 'POST') . oos_draw_hidden_field('verif_key', $login['man_key']) . oos_draw_hidden_field('email_address', $cInfo->customers_email_address) . oos_submit_button(IMAGE_LOGIN) . '</form>');
+              }
           }
-		
-		
+
+
           $customer_status = oos_get_customers_status($cInfo->customers_id);
           $contents[] = array('text' => '<br>'  . oos_customers_payment($customer_status['customers_status_payment']));
 

@@ -14,7 +14,7 @@
  * Purpose:  highlight first character of the input string with css class<br>
  * Input:
  *         - string = string whose first char should be wrapped in the given class
- * 
+ *
  * Examples:<br>
  * <pre>
  * {$xxx|highlight_char:big_font}
@@ -34,20 +34,18 @@
  * @param Smarty
  * @return string|null
  */
-function smarty_modifier_highlight_char($string,$css_class,$tag_name="span")
-{ 	  									  
-	// strip whitespace off the front of the string, and make sure
-	// there are characters in the string, we only return valid characters...
-	if ( ($s = trim($string)) != '' )
-	{				
-		$html = "<$tag_name";
-		if ( $css_class != 'none' ) $html .= ' class="'.$css_class.'"';
-		$html .= '>'.substr($s,0,1)."</$tag_name>".substr($s,1);
-		return $html;
-	}
-	else
-	{	
-		return '';
-	}
+function smarty_modifier_highlight_char($string, $css_class, $tag_name="span")
+{
+    // strip whitespace off the front of the string, and make sure
+    // there are characters in the string, we only return valid characters...
+    if (($s = trim($string)) != '') {
+        $html = "<$tag_name";
+        if ($css_class != 'none') {
+            $html .= ' class="'.$css_class.'"';
+        }
+        $html .= '>'.substr($s, 0, 1)."</$tag_name>".substr($s, 1);
+        return $html;
+    } else {
+        return '';
+    }
 }
-

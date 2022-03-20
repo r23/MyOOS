@@ -542,8 +542,7 @@ class upload
         $error,
         $index,
         $content_range
-    )
-    {
+    ) {
         while (is_dir($this->get_upload_path($name))) {
             $name = $this->upcount_name($name);
         }
@@ -568,8 +567,7 @@ class upload
         $error,
         $index,
         $content_range
-    )
-    {
+    ) {
         // Add missing file extension for known image types:
         if (strpos($name, '.') === false &&
                 preg_match('/^image\/(gif|jpe?g|png|webp)/', $type, $matches)) {
@@ -612,8 +610,7 @@ class upload
         $error,
         $index,
         $content_range
-    )
-    {
+    ) {
 
         // Remove path information and dots around the filename, to prevent uploading
         // into different directories or replacing hidden system files.
@@ -644,8 +641,7 @@ class upload
         $error,
         $index,
         $content_range
-    )
-    {
+    ) {
         $name = $this->trim_file_name(
             $file_path,
             $name,
@@ -1256,8 +1252,7 @@ class upload
         $error,
         $index = null,
         $content_range = null
-    )
-    {
+    ) {
         $file = new \stdClass();
         $file->name = $this->get_file_name(
             $uploaded_file,

@@ -27,28 +27,28 @@
  */
 function smarty_function_product_image_link($params, &$smarty)
 {
-	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $basedir = OOS_IMAGES . 'product/';
-	$dir = 'large';
+    $dir = 'large';
 
-    foreach($params as $_key => $_val) {
-      switch($_key) {
+    foreach ($params as $_key => $_val) {
+        switch ($_key) {
         case 'image':
         case 'basedir':
-		case 'dir':
+        case 'dir':
            if (!is_array($_val)) {
-             $$_key = smarty_function_escape_special_chars($_val);
+               $$_key = smarty_function_escape_special_chars($_val);
            } else {
-             throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+               throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
            }
            break;
 
         default:
            if (!is_array($_val)) {
-             $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+               $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
            } else {
-             throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+               throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
            }
            break;
       }
@@ -63,12 +63,10 @@ function smarty_function_product_image_link($params, &$smarty)
 
     if (isset($template->smarty->security_policy)) {
         // local file
-		if (!$template->smarty->security_policy->isTrustedResourceDir($image)) {
-			return;
+        if (!$template->smarty->security_policy->isTrustedResourceDir($image)) {
+            return;
         }
-    }	
-	
-	return $image;
+    }
 
+    return $image;
 }
-

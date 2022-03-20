@@ -27,9 +27,9 @@
   * on Windows try 'de' or 'German'
   */
   define('THE_LOCALE', 'de_DE');
-  define('DATE_FORMAT_SHORT', '%d.%m.%Y'); 
-  define('DATE_FORMAT_LONG', '%A, %d. %B %Y'); 
-  define('DATE_FORMAT', 'd.m.Y'); 
+  define('DATE_FORMAT_SHORT', '%d.%m.%Y');
+  define('DATE_FORMAT_LONG', '%A, %d. %B %Y');
+  define('DATE_FORMAT', 'd.m.Y');
   define('DATE_TIME_FORMAT', DATE_FORMAT_SHORT . ' %H:%M:%S');
   define('DATE_TIME_FORMAT_SHORT', '%H:%M:%S');
 

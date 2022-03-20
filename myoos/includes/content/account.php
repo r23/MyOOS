@@ -167,8 +167,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 
         if (SEND_CUSTOMER_EDIT_EMAILS == 'true') {
-			$formatter = new IntlDateFormatter(THE_LOCALE, IntlDateFormatter::FULL, IntlDateFormatter::NONE);
-			
+            $formatter = new IntlDateFormatter(THE_LOCALE, IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+
             $email_owner = $aLang['owner_email_subject'] . "\n" .
             $aLang['email_separator'] . "\n" .
             $aLang['owner_email_date'] . ' ' . $formatter->format(time()) . "\n\n" .
@@ -215,7 +215,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
             }
         }
 
-		// todo: successful
+        // todo: successful
         // oos_redirect(oos_href_link($aContents['account']));
     }
 }

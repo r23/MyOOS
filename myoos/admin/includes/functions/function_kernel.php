@@ -237,11 +237,11 @@ function oos_datetime_short($raw_datetime)
         return false;
     }
 
-	$locale = THE_LOCALE;
-	$dateType = IntlDateFormatter::LONG; //type of date formatting
-	$timeType = IntlDateFormatter::SHORT; //type of time formatting setting to none, will give you date itself
-	$formatter = new IntlDateFormatter($locale, $dateType, $timeType);
-	$dateTime = new DateTime($raw_datetime);
+    $locale = THE_LOCALE;
+    $dateType = IntlDateFormatter::LONG; //type of date formatting
+    $timeType = IntlDateFormatter::SHORT; //type of time formatting setting to none, will give you date itself
+    $formatter = new IntlDateFormatter($locale, $dateType, $timeType);
+    $dateTime = new DateTime($raw_datetime);
 
     return $formatter->format($dateTime);
 }

@@ -36,18 +36,17 @@
 
 function smarty_function_oos_address_label($params, &$smarty)
 {
+    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    require_once(MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.oos_address_format.php');
 
-	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-	require_once(MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.oos_address_format.php');
-	
     $customers_id = '';
     $address_id = 1;
     $html = true;
     $boln = '';
     $eoln = '<br>';
 
-    foreach($params as $_key => $_val) {
-      $$_key = smarty_function_escape_special_chars($_val);
+    foreach ($params as $_key => $_val) {
+        $$_key = smarty_function_escape_special_chars($_val);
     }
 
     $dbconn =& oosDBGetConn();
@@ -59,11 +58,10 @@ function smarty_function_oos_address_label($params, &$smarty)
     $format_id = oos_get_address_format_id($address['country_id']);
 
 
-    return smarty_function_oos_address_format(array('address_format_id' => $format_id,
+    return smarty_function_oos_address_format(
+        array('address_format_id' => $format_id,
                                                     'address'   => $address,
                                                     'html'      => $html),
-                                                  $smarty);
-
-
+        $smarty
+    );
 }
-

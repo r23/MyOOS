@@ -258,7 +258,7 @@ if (!$product_info_result->RecordCount()) {
 
         if ($reviews->RecordCount()) {
             $reviews_average_result = $dbconn->Execute("SELECT avg(reviews_rating) AS average_rating FROM $reviewstable WHERE products_id = '" .  intval($nProductsID) . "'");
-            $reviews_average = $reviews_average_result->fields;			
+            $reviews_average = $reviews_average_result->fields;
             $smarty->assign('average_rating', $reviews_average['average_rating']);
         }
     }

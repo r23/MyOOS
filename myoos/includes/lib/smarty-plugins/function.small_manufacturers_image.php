@@ -29,7 +29,7 @@
  */
 function smarty_function_small_manufacturers_image($params, &$smarty)
 {
-	require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
     $basedir = OOS_IMAGES . 'brands/small/';
     $border = 0;
@@ -37,24 +37,24 @@ function smarty_function_small_manufacturers_image($params, &$smarty)
     $image = '';
     $extra = '';
 
-    foreach($params as $_key => $_val) {
-      switch($_key) {
+    foreach ($params as $_key => $_val) {
+        switch ($_key) {
         case 'image':
         case 'basedir':
         case 'alt':
-		case 'class':
+        case 'class':
            if (!is_array($_val)) {
-             $$_key = smarty_function_escape_special_chars($_val);
+               $$_key = smarty_function_escape_special_chars($_val);
            } else {
-             throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+               throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
            }
            break;
 
         default:
            if (!is_array($_val)) {
-             $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+               $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
            } else {
-             throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+               throw new SmartyException("small_category_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
            }
            break;
       }
@@ -68,12 +68,10 @@ function smarty_function_small_manufacturers_image($params, &$smarty)
 
     if (isset($template->smarty->security_policy)) {
         // local file
-		if (!$template->smarty->security_policy->isTrustedResourceDir($image)) {
-			return;
+        if (!$template->smarty->security_policy->isTrustedResourceDir($image)) {
+            return;
         }
-    }		
-	
+    }
+
     return '<img class="img-fluid ' . $class . '" src="' . $image . '" alt="' . $alt . '" ' . $extra . ' />';
-
 }
-

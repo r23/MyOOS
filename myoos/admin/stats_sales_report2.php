@@ -51,6 +51,7 @@
   require 'includes/main.php';
 
   use Carbon\Carbon;
+
   Carbon::setLocale(LANG);
 
   require 'includes/classes/class_currencies.php';
@@ -174,12 +175,11 @@
   if ($srExp < 2) {
       // not for csv export
       require 'includes/header.php';
-/*
-      if ($srExp < 1) {
-          require 'includes/header.php';
-      } 
-*/
-?>
+      /*
+            if ($srExp < 1) {
+                require 'includes/header.php';
+            }
+      */ ?>
 <?php
     if ($srExp < 1) {
         ?>
@@ -277,8 +277,7 @@
           $m = 1;
       }
         for ($i = 1; $i < 13; $i++) {
-			$monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); 
-            ?>
+            $monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); ?>
                       <option<?php if ($m == $i) {
                 echo ' selected="selected"';
             } ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>
@@ -410,8 +409,7 @@
         $m = date("n");
     }
         for ($i = 1; $i < 13; $i++) {
-			$monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); 
-            ?>
+            $monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); ?>
                       <option<?php if ($m == $i) {
                 echo ' selected="selected"';
             } ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>

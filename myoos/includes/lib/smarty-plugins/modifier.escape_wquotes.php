@@ -20,22 +20,21 @@
  * -------------------------------------------------------------
  */
 
-function smarty_modifier_escape_wquotes ($text)
-
+function smarty_modifier_escape_wquotes($text)
 {
-   $badwordchars=array(
+    $badwordchars=array(
                            chr(145),
                            chr(146),
                            chr(147),
                            chr(148),
                            chr(151)
                            );
-   $fixedwordchars=array(
+    $fixedwordchars=array(
                            "&acute;",
                            "&acute;",
                            '&quot;',
                            '&quot;',
                            '&mdash;'
                            );
-   return str_replace($badwordchars,$fixedwordchars,$text);
+    return str_replace($badwordchars, $fixedwordchars, $text);
 }

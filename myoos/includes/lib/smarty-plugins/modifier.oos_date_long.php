@@ -4,13 +4,13 @@
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
-   
-   
+
+
    Copyright (c) 2003 - 2022 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
-   File: general.php,v 1.212 2003/02/17 07:55:54 hpdl 
+   File: general.php,v 1.212 2003/02/17 07:55:54 hpdl
    ----------------------------------------------------------------------
    osCommerce, Open Source E-Commerce Solutions
    http://www.oscommerce.com
@@ -24,7 +24,7 @@
  * @package Smarty
  * @subpackage plugins
  */
- 
+
 /**
  * Smarty oos_date_long modifier plugin
  *
@@ -38,16 +38,18 @@
  * Author:   r23 <info at r23 dot de>
  * -------------------------------------------------------------
  */
- 
+
 function smarty_modifier_oos_date_long($raw_date)
 {
-    if ( ($raw_date == '0000-00-00 00:00:00') || ($raw_date == '') ) return false;
+    if (($raw_date == '0000-00-00 00:00:00') || ($raw_date == '')) {
+        return false;
+    }
 
-	$locale = THE_LOCALE;
-	$dateType = IntlDateFormatter::FULL;//type of date formatting
-	$timeType = IntlDateFormatter::NONE;//type of time formatting setting to none, will give you date itself
-	$formatter =new IntlDateFormatter($locale, $dateType, $timeType);
-	$dateTime = new DateTime($raw_date);
-	
+    $locale = THE_LOCALE;
+    $dateType = IntlDateFormatter::FULL;//type of date formatting
+    $timeType = IntlDateFormatter::NONE;//type of time formatting setting to none, will give you date itself
+    $formatter =new IntlDateFormatter($locale, $dateType, $timeType);
+    $dateTime = new DateTime($raw_date);
+
     return $formatter->format($dateTime);
 }
