@@ -80,7 +80,7 @@ if ($featured_result->RecordCount() >= 1) {
         $order_max = number_format($listing['products_quantity_order_max']);
 
         $aCategoryPath = [];
-        $aCategoryPath = oos_get_category_path($new_products['products_id']);
+        $aCategoryPath = oos_get_category_path($featured['products_id']);
 
         $aFeatured[] = array('products_id' => $featured['products_id'],
                             'products_image' => $featured['products_image'],
