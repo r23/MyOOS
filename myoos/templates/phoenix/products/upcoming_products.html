@@ -2,12 +2,10 @@
 	{if $smarty.section.i.first}
 		<div class="table-responsive">
 			<table class="table table-striped">
-				<thead>
 					<tr>
-						<th scope="col">{$lang.table_heading_upcoming_products}</th>
-						<th scope="col" align="right">{$lang.table_heading_date_expected}</th>
+						<td><strong>{$lang.table_heading_upcoming_products}</strong></td>
+						<td align="right">{$lang.table_heading_date_expected}</td>
 					</tr>
-				</thead>
 	{/if}
 					<tr>
 						<td>&nbsp;<a href="{product_link products_id=$expected_array[i].products_id}">{$expected_array[i].products_name}</a>&nbsp;</td>

@@ -39,7 +39,7 @@ if ($oEvent->installed_plugin('manufacturers')) {
     $aTemplate['mod_manufacturers'] = $sTheme . '/modules/manufacturers.html';
 }
 $aTemplate['new_products'] = $sTheme . '/products/_new_products.html';
-$aTemplate['upcoming_products'] = $sTheme . '/page/products/upcoming_products.html';
+$aTemplate['upcoming_products'] = $sTheme . 'products/upcoming_products.html';
 
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
