@@ -24,7 +24,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 if (!$oEvent->installed_plugin('specials')) {
     return false;
 }
-if (!is_numeric(MAX_DISPLAY_NEW_SPEZILAS)) {
+if (!is_numeric(MAX_RANDOM_SELECT_SPECIALS)) {
     return false;
 }
 
