@@ -173,4 +173,5 @@ $lang = array_merge($lang, array(
 	'UPLOAD_DIR_EXPLAIN'			=> 'Hier werden die Dateianhänge gespeichert. Wenn Sie dieses Verzeichnis ändern und schon hochgeladene Dateien existieren, müssen Sie diese manuell in das neue Verzeichnis kopieren.',
 	'UPLOAD_ICON'					=> 'Upload-Symbol',
 	'UPLOAD_NOT_DIR'				=> 'Der angegebene Pfad für hochgeladene Dateien ist kein existierendes Verzeichnis.',
+	'UPLOAD_POST_NOT_EXIST'			=> 'Datei „%1$s“ kann nicht hochgeladen werden, weil der Beitrag Nummer %2$d nicht existiert.',
 ));

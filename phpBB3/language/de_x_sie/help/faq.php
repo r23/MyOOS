@@ -42,7 +42,7 @@ $lang = array_merge($lang, array(
 	'HELP_FAQ_BLOCK_SEARCH'	=> 'Die Foren durchsuchen',
 	'HELP_FAQ_BLOCK_USERSETTINGS'	=> 'Benutzerpräferenzen und -einstellungen',
 
-	'HELP_FAQ_BOOKMARKS_DIFFERENCE_ANSWER'	=> 'In phpBB 3.0 funktionierten Lesezeichen ähnlich den Lesezeichen in Web-Browsern: Sie bekamen keine Informationen bei einem Update. In phpBB 3.1 ähneln Lesezeichen mehr einem Abonnement: Sie können eine Benachrichtigung erhalten, wenn ein Thema aktualisiert wird. Abonnements hingegen informieren Sie bei einer Aktualisierung eines Themas oder eines Forums des Boards. Die Benachrichtigungsoptionen für Lesezeichen und Abonnements können im persönlichen Bereich unter „Benachrichtigungen einstellen“ geändert werden.',
+	'HELP_FAQ_BOOKMARKS_DIFFERENCE_ANSWER'	=> 'In phpBB 3.0 funktionierten Lesezeichen ähnlich den Lesezeichen in Web-Browsern: Sie bekamen keine Informationen bei einem Update. Seit phpBB 3.1 ähneln Lesezeichen mehr einem Abonnement: Sie können eine Benachrichtigung erhalten, wenn ein Thema aktualisiert wird. Abonnements hingegen informieren Sie bei einer Aktualisierung eines Themas oder eines Forums des Boards. Die Benachrichtigungsoptionen für Lesezeichen und Abonnements können im persönlichen Bereich unter „Benachrichtigungen einstellen“ geändert werden.',
 	'HELP_FAQ_BOOKMARKS_DIFFERENCE_QUESTION'	=> 'Was ist der Unterschied zwischen einem Lesezeichen und einem Abonnements für ein Thema oder Forum?',
 	'HELP_FAQ_BOOKMARKS_FORUM_ANSWER'	=> 'Um ein Forum zu abonnieren, verwenden Sie im Forum den Link „Forum abonnieren“, der sich meist am Ende der Seite befindet.',
 	'HELP_FAQ_BOOKMARKS_FORUM_QUESTION'	=> 'Wie kann ich ein Forum abonnieren?',

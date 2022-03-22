@@ -1270,6 +1270,7 @@ FileETag None
 	Require all denied
 </files>
 
+
 <IfModule mod_rewrite.c>
 RewriteEngine on
 
@@ -1362,4 +1363,3 @@ RewriteRule ^(.*)$ app.php [QSA,L]
 		</Files>
 	</IfModule>
 </IfModule>
-

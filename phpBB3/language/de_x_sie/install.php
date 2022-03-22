@@ -360,7 +360,7 @@ $lang = array_merge($lang, array(
 
 		<h1>Wie Sie ein Update Ihrer Installation mit dem „Komplettpaket“ durchführen</h1>
 
-		<p>Es wird empfohlen, Ihre Installation mit Hilfe des Komplettpakets zu aktualisieren. Wenn allerdings in Ihrer Installation die phpBB-Hauptdateien verändert wurden, sollten Sie stattdessen das „Automatische-Update-Paket“ verwenden, um diese Veränderungen nicht zu verlieren. Sie können Ihre Installation auch mit den in der INSTALL.html beschriebenen Methoden aktualisieren. Zum Aktualisieren von phpBB mit Hilfe des Komplettpakets müssen Sie folgende Schritte ausführen (ausführliche Anleitung auf <a href="https://www.phpbb.de/go/3.3/update">www.phpBB.de</a>):</p>
+		<p>Es wird empfohlen, Ihre Installation mit Hilfe des Komplettpakets zu aktualisieren. Wenn allerdings in Ihrer Installation die phpBB-Hauptdateien verändert wurden, sollten Sie stattdessen das „Erweiterte-Update-Paket“ verwenden, um diese Veränderungen nicht zu verlieren. Sie können Ihre Installation auch mit den in der INSTALL.html beschriebenen Methoden aktualisieren. Zum Aktualisieren von phpBB mit Hilfe des Komplettpakets müssen Sie folgende Schritte ausführen (ausführliche Anleitung auf <a href="https://www.phpbb.de/go/3.3/update">www.phpBB.de</a>):</p>
 
 		<ol style="margin-left: 20px; font-size: 1.1em;">
 			<li><strong class="error">Sichern Sie alle Board-Dateien und die Datenbank.</strong></li>
@@ -381,12 +381,12 @@ $lang = array_merge($lang, array(
 			<li>Aktualisieren Sie Ihre Styles<br><br></li>
 		</ul>
 
-		<h1>Wie Sie ein Update Ihrer Installation mit dem „Automatischen-Update-Paket“ durchführen</h1>
+		<h1>Wie Sie ein Update Ihrer Installation mit dem „Erweiterten-Update-Paket“ durchführen</h1>
 
-		<p>Das „Automatische-Update-Paket“ wird nur in dem Fall empfohlen, wenn in Ihrer Installation die phpBB-Hauptdateien verändert wurden. Sie können Ihre Installation auch mit den in der INSTALL.html beschriebenen Methoden aktualisieren. Zum automatischen Update von phpBB müssen Sie folgende Schritte ausführen:</p>
+		<p>Das „Erweiterte-Update-Paket“ wird nur in dem Fall empfohlen, wenn in Ihrer Installation die phpBB-Hauptdateien verändert wurden. Sie können Ihre Installation auch mit den in der INSTALL.html beschriebenen Methoden aktualisieren. Zum erweiterten Update von phpBB müssen Sie folgende Schritte ausführen:</p>
 
 		<ol style="margin-left: 20px; font-size: 1.1em;">
-			<li>Gehen Sie zur <a href="https://www.phpbb.com/downloads/" title="https://www.phpbb.com/downloads/">phpBB.com-Downloadseite</a> und laden Sie das entsprechende „Automatische-Update-Paket“ herunter (<a href="https://www.phpbb.de/go/3.3/downloads">deutschsprachige Downloadseite</a>).</li>
+			<li>Gehen Sie zur <a href="https://www.phpbb.com/downloads/" title="https://www.phpbb.com/downloads/">phpBB.com-Downloadseite</a> und laden Sie das entsprechende „Erweiterte-Update-Paket“ herunter (<a href="https://www.phpbb.de/go/3.3/downloads">deutschsprachige Downloadseite</a>).</li>
 			<li>Entpacken Sie das Archiv.</li>
 			<li>Laden Sie die entpackten Verzeichnisse „install“ und „vendor“ vollständig in Ihr phpBB-Hauptverzeichnis (dort, wo die config.php ist).</li>
 		</ol>

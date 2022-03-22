@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit091ee507e950562916a7b9e983cb8bba
+class ComposerStaticInite05fbd935d070511ca8b4f312af58187
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -79,7 +79,6 @@ class ComposerStaticInit091ee507e950562916a7b9e983cb8bba
         ),
         'F' => 
         array (
-            'FastImageSize\\tests\\' => 20,
             'FastImageSize\\' => 14,
         ),
     );
@@ -220,10 +219,6 @@ class ComposerStaticInit091ee507e950562916a7b9e983cb8bba
         'GuzzleHttp\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
-        ),
-        'FastImageSize\\tests\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/marc1706/fast-image-size/tests',
         ),
         'FastImageSize\\' => 
         array (
@@ -1368,6 +1363,7 @@ class ComposerStaticInit091ee507e950562916a7b9e983cb8bba
         'Twig\\Node\\BlockNode' => __DIR__ . '/..' . '/twig/twig/src/Node/BlockNode.php',
         'Twig\\Node\\BlockReferenceNode' => __DIR__ . '/..' . '/twig/twig/src/Node/BlockReferenceNode.php',
         'Twig\\Node\\BodyNode' => __DIR__ . '/..' . '/twig/twig/src/Node/BodyNode.php',
+        'Twig\\Node\\CheckSecurityCallNode' => __DIR__ . '/..' . '/twig/twig/src/Node/CheckSecurityCallNode.php',
         'Twig\\Node\\CheckSecurityNode' => __DIR__ . '/..' . '/twig/twig/src/Node/CheckSecurityNode.php',
         'Twig\\Node\\CheckToStringNode' => __DIR__ . '/..' . '/twig/twig/src/Node/CheckToStringNode.php',
         'Twig\\Node\\DeprecatedNode' => __DIR__ . '/..' . '/twig/twig/src/Node/DeprecatedNode.php',
@@ -2149,10 +2145,10 @@ class ComposerStaticInit091ee507e950562916a7b9e983cb8bba
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit091ee507e950562916a7b9e983cb8bba::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit091ee507e950562916a7b9e983cb8bba::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit091ee507e950562916a7b9e983cb8bba::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit091ee507e950562916a7b9e983cb8bba::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite05fbd935d070511ca8b4f312af58187::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite05fbd935d070511ca8b4f312af58187::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInite05fbd935d070511ca8b4f312af58187::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInite05fbd935d070511ca8b4f312af58187::$classMap;
 
         }, null, ClassLoader::class);
     }
