@@ -145,7 +145,11 @@ class Sitemap_XML extends XML {
 
 		// No cache was found, refresh it because cache is enabled.
 		$this->build_sitemap();
-		return $this->cache->store_sitemap( $this->type, $this->current_page, $this->sitemap );
+		if ( ! empty( $this->sitemap ) ) {
+			return $this->cache->store_sitemap( $this->type, $this->current_page, $this->sitemap );
+		}
+
+		return false;
 	}
 
 	/**

@@ -347,12 +347,8 @@ function rank_math_analyze_focus_keywords() {
  * @return array
  */
 function rank_math_analyze_post_titles() {
-	global $wpdb;
-
-	$message = '';
-	$result  = 'fail';
-	$info    = [];
-	$data    = rank_math_get_posts_with_titles();
+	$info = [];
+	$data = rank_math_get_posts_with_titles();
 
 	// Early Bail!
 	if ( empty( $data ) ) {
@@ -379,7 +375,7 @@ function rank_math_analyze_post_titles() {
 	return [
 		'status'  => 'fail',
 		/* translators: post type links */
-		'message' => sprintf( esc_html__( 'There are %s published posts where the focus keyword does not appear in the post title.', 'rank-math' ), join( ', ', $links ) ),
+		'message' => sprintf( esc_html__( 'There are %s published posts where the primary focus keyword does not appear in the post title.', 'rank-math' ), join( ', ', $links ) ),
 		'info'    => $info,
 	];
 }
@@ -441,7 +437,7 @@ function rank_math_get_posts_with_titles() {
 	);
 
 	$mq_sql = $meta_query->get_sql( 'post', $wpdb->posts, 'ID' );
-	$query  = "SELECT {$wpdb->posts}.ID, {$wpdb->posts}.post_type FROM $wpdb->posts {$mq_sql['join']} WHERE 1=1 {$mq_sql['where']}{$in_post_types} AND ({$wpdb->posts}.post_status = 'publish') AND {$wpdb->posts}.post_title NOT REGEXP REPLACE({$wpdb->postmeta}.meta_value, ',', '|') GROUP BY {$wpdb->posts}.ID";
+	$query  = "SELECT {$wpdb->posts}.ID, {$wpdb->posts}.post_type FROM $wpdb->posts {$mq_sql['join']} WHERE 1=1 {$mq_sql['where']}{$in_post_types} AND ({$wpdb->posts}.post_status = 'publish') AND {$wpdb->posts}.post_title NOT LIKE CONCAT( '%', SUBSTRING_INDEX( {$wpdb->postmeta}.meta_value, ',', 1 ), '%' ) GROUP BY {$wpdb->posts}.ID";
 
 	return $wpdb->get_results( $query, ARRAY_A ); // phpcs:ignore
 }

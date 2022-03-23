@@ -334,7 +334,7 @@ class Redirection {
 			return false;
 		}
 
-		return urldecode( untrailingslashit( self::strip_subdirectory( $url ) ) );
+		return urldecode( self::strip_subdirectory( $url ) );
 	}
 
 	/**

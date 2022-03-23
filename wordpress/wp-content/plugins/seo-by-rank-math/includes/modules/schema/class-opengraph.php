@@ -140,8 +140,10 @@ class Opengraph {
 		}
 
 		global $post;
-		$pub = Helper::replace_vars( $schema['datePublished'], $post );
-		$mod = Helper::replace_vars( $schema['dateModified'], $post );
+		$pub =  '%date(Y-m-dTH:i:sP)%' === $schema['datePublished'] ? '%date(Y-m-d\TH:i:sP)%' : $schema['datePublished'];
+		$mod =  '%modified(Y-m-dTH:i:sP)%' === $schema['dateModified'] ? '%modified(Y-m-d\TH:i:sP)%' : $schema['dateModified'];
+		$pub = Helper::replace_vars( $pub, $post );
+		$mod = Helper::replace_vars( $mod, $post );
 		$opengraph->tag( 'article:published_time', $pub );
 		if ( $mod !== $pub ) {
 			$opengraph->tag( 'article:modified_time', $mod );

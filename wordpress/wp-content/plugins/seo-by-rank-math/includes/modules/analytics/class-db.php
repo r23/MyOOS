@@ -458,13 +458,13 @@ class DB {
 		$per_page = absint( $per_page );
 		$offset   = ( $page - 1 ) * $per_page;
 
-		$table1 = self::inspections()->table;
-		$table2 = self::objects()->table;
+		$inspections = self::inspections()->table;
+		$objects     = self::objects()->table;
 
 		$query = self::inspections()
-			->select( [ "$table1.*", "$table2.title", "$table2.object_id" ] )
-			->leftJoin( $table2, "$table1.page", "$table2.page" )
-			->where( "$table2.page", '!=', '' )
+			->select( [ "$inspections.*", "$objects.title", "$objects.object_id" ] )
+			->leftJoin( $objects, "$inspections.page", "$objects.page" )
+			->where( "$objects.page", '!=', '' )
 			->orderBy( 'id', 'DESC' )
 			->limit( $per_page, $offset );
 
@@ -483,7 +483,9 @@ class DB {
 	 * @return int
 	 */
 	public static function get_inspections_count( $params ) {
-		$query = self::inspections()->selectCount( 'id', 'total' );
+		$pages = self::objects()->select( 'page' )->get( ARRAY_A );
+		$pages = array_unique( wp_list_pluck( $pages, 'page' ) );
+		$query = self::inspections()->selectCount( 'id', 'total' )->whereIn( 'page', $pages );
 
 		do_action_ref_array( 'rank_math/analytics/get_inspections_count_query', [ &$query, $params ] );
 

@@ -13,6 +13,7 @@ namespace RankMath\Redirections;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Param;
+use RankMath\Helpers\Sitepress;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -136,6 +137,8 @@ class Watcher {
 		if ( ! in_array( $taxonomy, array_keys( Helper::get_accessible_taxonomies() ), true ) ) {
 			return;
 		}
+
+		Sitepress::get()->delete_cached_tax_permalink( $term_id, $taxonomy );
 
 		// Both state permalink.
 		$before_permalink = isset( $this->updated_terms[ $term_id ] ) ? $this->updated_terms[ $term_id ] : false;

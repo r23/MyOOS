@@ -3424,7 +3424,7 @@ msgid "+%d More..."
 msgstr ""
 
 #. translators: post type links
-msgid "There are %s published posts where the focus keyword does not appear in the post title."
+msgid "There are %s published posts where the primary focus keyword does not appear in the post title."
 msgstr ""
 
 msgid "Your site has one or more sitemaps."

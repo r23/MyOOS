@@ -105,7 +105,7 @@ class Summary {
 		];
 
 		$object_type_sql = $post_type ? ' AND object_subtype = "' . $post_type . '"' : '';
-		$data = $wpdb->get_results(
+		$data            = $wpdb->get_results(
 			"SELECT COUNT(object_id) AS count,
 				CASE
 					WHEN seo_score BETWEEN 81 AND 100 THEN 'good'
@@ -137,12 +137,11 @@ class Summary {
 			$query->where( 'object_subtype', $post_type );
 		}
 
-		$average        = $query->one();
+		$average         = $query->one();
 		$average->total += property_exists( $stats, 'noData' ) ? $stats->noData : 0; // phpcs:ignore
 		if ( $average->total > 0 ) {
 			$stats->average = \round( $average->score / $average->total, 2 );
 		}
-
 		return $stats;
 	}
 
@@ -160,6 +159,11 @@ class Summary {
 			->selectAvg( 'ctr', 'ctr' )
 			->whereBetween( 'created', [ $this->start_date, $this->end_date ] )
 			->one();
+		// Check validation.
+		$stats->clicks      = empty( $stats->clicks ) ? 0 : $stats->clicks;
+		$stats->impressions = empty( $stats->impressions ) ? 0 : $stats->impressions;
+		$stats->position    = empty( $stats->position ) ? 0 : $stats->position;
+		$stats->ctr         = empty( $stats->ctr ) ? 0 : $stats->ctr;
 
 		$old_stats = DB::analytics()
 			->selectCount( 'DISTINCT(page)', 'posts' )
@@ -169,6 +173,26 @@ class Summary {
 			->selectAvg( 'ctr', 'ctr' )
 			->whereBetween( 'created', [ $this->compare_start_date, $this->compare_end_date ] )
 			->one();
+
+		// Check validation.
+		$old_stats->clicks      = empty( $old_stats->clicks ) ? 0 : $old_stats->clicks;
+		$old_stats->impressions = empty( $old_stats->impressions ) ? 0 : $old_stats->impressions;
+		$old_stats->position    = empty( $old_stats->position ) ? 0 : $old_stats->position;
+		$old_stats->ctr         = empty( $old_stats->ctr ) ? 0 : $old_stats->ctr;
+
+		$stats->ctr = [
+			'total'    => 0,
+			'previous' => 0,
+		];
+
+		if ( 0 !== $stats->impressions ) {
+			$stats->ctr['total'] = round( ( $stats->clicks / $stats->impressions ) * 100, 2 );
+		}
+		if ( 0 !== $old_stats->impressions ) {
+			$stats->ctr['previous'] = round( ( $old_stats->clicks / $old_stats->impressions ) * 100, 2 );
+		}
+
+		$stats->ctr['difference'] = $stats->ctr['total'] - $stats->ctr['previous'];
 
 		$stats->clicks = [
 			'total'      => (int) $stats->clicks,
@@ -187,21 +211,12 @@ class Summary {
 			'previous'   => (float) \number_format( $old_stats->position, 2 ),
 			'difference' => (float) \number_format( $stats->position - $old_stats->position, 2 ),
 		];
-
-		$stats->ctr = [
-			'total'      => (float) \number_format( $stats->ctr, 2 ),
-			'previous'   => (float) \number_format( $old_stats->ctr, 2 ),
-			'difference' => (float) \number_format( $stats->ctr - $old_stats->ctr, 2 ),
-		];
-
 		$stats->keywords = $this->get_keywords_summary();
 		$stats->graph    = $this->get_analytics_summary_graph();
 
 		$stats = apply_filters( 'rank_math/analytics/summary', $stats );
-
 		return array_filter( (array) $stats );
 	}
-
 	/**
 	 * Get posts summary.
 	 *

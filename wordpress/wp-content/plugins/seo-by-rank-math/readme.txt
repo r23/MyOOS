@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.9
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.84
+Stable tag: 1.0.85
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -580,15 +580,20 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.84 [Mar 09, 2022] =
-* Added: [HUGE!] [Google URL Inspection API Integration](https://rankmath.com/kb/url-inspection-api-integration/) in our Analytics Module, now you can see current Index Staus, Earned Rich Results, Errors & Warnings from Google directly in your WordPress backend!
-* Improved: [Keyword in URL](https://rankmath.com/kb/score-100-in-tests/#focus-keyword-in-the-url-primary-focus-keyword-only) test now detects the Focus Keyword in the parent page slug and domain name
-* Improved: Made several code improvements
-* Fixed: [404 Monitor](https://rankmath.com/kb/advanced-404-monitor/) was not working on the Full Site Editing sites
-* Fixed: [Thumbnail Overlay](https://rankmath.com/kb/meta-box-social-tab/#add-icon-overlay-to-thumbnails) option was not working on some setups
-* Fixed: SEO data was not updating in the Divi Page Builder's editor on the sub-folder installation
-* Fixed: [SERP Preview](https://rankmath.com/kb/general-tab/#the-preview-section) was showing text from the commented code
-* Fixed: The `startDate` field in [Event schema](https://rankmath.com/kb/rich-snippets/#event) was not accepting the variables
-* Fixed: [Content AI](https://rankmath.com/content-ai/) style on RTL sites
+= 1.0.85 [Mar 23, 2022] =
+* Added: Search field for in the property selection dropdown present in the [Analytics Module settings](https://rankmath.com/kb/general-settings/#search-console-settings)
+* Improved: Increased the width of [tables present on the Analytics Pages](https://rankmath.com/kb/analytics/)
+* Improved: Added condition to validate the date before adding it to `article:published_time` & `article:modified_time` tags
+* Updated: [CTR](https://rankmath.com/kb/analytics/#seo-performance) calculation formula to show more accurate values in the Analytics Module
+* Fixed: [SEO Analysis](https://rankmath.com/kb/seo-analysis/) was not working on some setups
+* Fixed: [SEO score](https://rankmath.com/kb/score-100-in-tests/) was crossing 100 value on some setups
+* Fixed: Trailing slash was getting stripped from the [Source URL](https://rankmath.com/kb/setting-up-redirections/#source-urls) when setting a Redirection
+* Fixed: [SERP preview](https://rankmath.com/kb/general-tab/#num-1-4-writing-a-compelling-title-permalink-and-description) in Divi editor was not showing the parent page in the permalink
+* Fixed: [Auto Post Redirection](https://rankmath.com/kb/general-settings/#auto-post-redirect) was not working on Product Category pages when the WPML plugin is active
+* Fixed: [Rest of the Keywords](https://rankmath.com/kb/analytics/#num-4-2-rest-of-the-keywords) was not showing any data when keywords had Multibyte characters
+* Fixed: Links inserted from [Link Suggestion](https://rankmath.com/kb/pillar-content-internal-linking/#pillar-content) were getting inserted to the wrong location in the Block editor
+* Fixed: [Index Status](https://rankmath.com/kb/url-inspection-api-integration/) was showing wrong pagination count when entries were not present in the `rank_math_analytics_objects` table
+* Fixed: Non-existent [sitemap](https://rankmath.com/kb/configure-sitemaps/) pages were showing a blank sitemap instead of a 404 error, props to [@Roger_Montti](https://www.linkedin.com/in/martinibuster/)
+* Fixed: Incompatibility with the Blocksy theme
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**
