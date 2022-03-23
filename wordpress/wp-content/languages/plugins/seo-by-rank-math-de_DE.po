@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-03-16 16:18:55+0000\n"
+"PO-Revision-Date: 2022-03-23 11:45:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3619,11 +3619,11 @@ msgstr "Benutzerdefiniert (Shortcode verwenden)"
 msgid "Blog Public"
 msgstr "Öffentlicher Blog"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:500
+#: includes/modules/seo-analysis/seo-analysis-tests.php:496
 msgid "Your site is accessible by search engine."
 msgstr "Deine Website ist über eine Suchmaschine zugänglich."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:489
+#: includes/modules/seo-analysis/seo-analysis-tests.php:485
 msgid "Attention: Search Engines can't see your website."
 msgstr "Achtung: Suchmaschinen können deine Website nicht sehen."
 
@@ -3632,7 +3632,7 @@ msgstr "Achtung: Suchmaschinen können deine Website nicht sehen."
 #. translators: %1$s resolves to the opening tag of the link to the reading
 #. settings, %1$s resolves to the closing tag for the link
 #: includes/modules/seo-analysis/seo-analysis-tests.php:48
-#: includes/modules/seo-analysis/seo-analysis-tests.php:492
+#: includes/modules/seo-analysis/seo-analysis-tests.php:488
 msgid "You must %1$sgo to your Reading Settings%2$s and uncheck the box for Search Engine Visibility."
 msgstr "Du müsst %1$sgo zu deinen Leseeinstellungen%2$s gehen und das Kontrollkästchen für Suchmaschinensichtbarkeit deaktivieren."
 
@@ -4292,11 +4292,11 @@ msgstr "Ausgewählte Seite: %s"
 msgid "What is this?"
 msgstr "Was ist das hier?"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:480
+#: includes/modules/seo-analysis/seo-analysis-tests.php:476
 msgid "No sitemaps found."
 msgstr "Keine Sitemaps gefunden."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:480
+#: includes/modules/seo-analysis/seo-analysis-tests.php:476
 msgid "Your site has one or more sitemaps."
 msgstr "Deine Seite hat eine oder mehrere Sitemaps."
 
@@ -4386,7 +4386,7 @@ msgid "Edit .htaccess"
 msgstr ".htaccess Datei bearbeiten"
 
 #. translators: post ID count
-#: includes/modules/seo-analysis/seo-analysis-tests.php:376
+#: includes/modules/seo-analysis/seo-analysis-tests.php:372
 msgid "+%d More..."
 msgstr "+%d Mehr..."
 
@@ -7056,14 +7056,14 @@ msgid "<strong>Activate/Deactivate</strong> redirections. Deactivated redirectio
 msgstr "Umleitungen <strong>aktivieren/deaktivieren</strong>. Deaktivierte Umleitungen werden auf deiner Website nicht wirksam."
 
 #. translators: 1. url to new screen, 2. old trashed post permalink
-#: includes/modules/redirections/class-watcher.php:355
+#: includes/modules/redirections/class-watcher.php:358
 msgid "<strong>SEO Notice:</strong> A previously published %1$s has been moved to trash. You may redirect <code>%2$s</code> to <a href=\"%3$s\">a new url</a>."
 msgstr "<strong> SEO-Hinweis:</strong> Ein zuvor veröffentlichter Beitrag %1$s wurde in den Papierkorb verschoben. Du kannst ihn umleiten <code>%2$s</code> an <a href=\"%3$s\">Neue URL</a>."
 
 #. translators: %1$s: post type label, %2$s: edit redirection URL.
 #. translators: %1$s: term name, %2$s: edit redirection URL.
-#: includes/modules/redirections/class-watcher.php:100
-#: includes/modules/redirections/class-watcher.php:150
+#: includes/modules/redirections/class-watcher.php:101
+#: includes/modules/redirections/class-watcher.php:153
 msgid "SEO Notice: you just changed the slug of a %1$s and Rank Math has automatically created a redirection. You can edit the redirection by <a href=\"%2$s\">clicking here</a>."
 msgstr "SEO-Hinweis: Du hast gerade den Slug von %1$s geändert und Rank Math hat automatisch eine Umleitung erstellt. Du kannst die Umleitung bearbeiten, indem du <a href=\"%2$s\">hier klickst</a>."
 
@@ -7543,11 +7543,11 @@ msgid "Edit default SEO settings for this post type"
 msgstr "Bearbeite die Standard-SEO-Einstellungen für diesen Beitragstyp"
 
 #. translators: post type links
-#: includes/modules/seo-analysis/seo-analysis-tests.php:382
-msgid "There are %s published posts where the focus keyword does not appear in the post title."
-msgstr "Es gibt %s veröffentlichte Beiträge, bei denen das Fokus-Schlüsselwort nicht im Beitragstitel erscheint."
+#: includes/modules/seo-analysis/seo-analysis-tests.php:378
+msgid "There are %s published posts where the primary focus keyword does not appear in the post title."
+msgstr "Es gibt %s veröffentlichte Beiträge, bei denen das primäre Fokus-Schlüsselwort nicht im Beitragstitel erscheint."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:361
+#: includes/modules/seo-analysis/seo-analysis-tests.php:357
 msgid "Focus keywords appear in the titles of published posts where it is set."
 msgstr "Fokus-Schlüsselwörter erscheinen in den Titeln der veröffentlichten Beiträge, wo sie gesetzt sind."
 
