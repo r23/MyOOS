@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.85.x-dev',
-        'version' => '1.0.85.9999999-dev',
+        'pretty_version' => 'dev-develop',
+        'version' => 'dev-develop',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '8f73973c6bf9d822bcee57e70f81ff5bf39acd99',
+        'reference' => '2d2d81c3b3e8430cb979507dc76df4c38f8b19b4',
         'name' => 'rankmath/seo-by-rank-math',
         'dev' => true,
     ),
@@ -47,12 +47,12 @@
             'dev_requirement' => false,
         ),
         'rankmath/seo-by-rank-math' => array(
-            'pretty_version' => '1.0.85.x-dev',
-            'version' => '1.0.85.9999999-dev',
+            'pretty_version' => 'dev-develop',
+            'version' => 'dev-develop',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '8f73973c6bf9d822bcee57e70f81ff5bf39acd99',
+            'reference' => '2d2d81c3b3e8430cb979507dc76df4c38f8b19b4',
             'dev_requirement' => false,
         ),
         'woocommerce/action-scheduler' => array(

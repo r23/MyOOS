@@ -262,16 +262,19 @@ class Redirection {
 	 * @return string
 	 */
 	private function sanitize_source( $pattern, $comparison ) {
-		if ( 'regex' === $comparison ) {
+		if ( 'exact' === $comparison ) {
+			$pattern = $this->sanitize_source_url( $pattern );
+			if ( $pattern && false === $this->nocache ) {
+				$this->pre_redirection_cache( $pattern );
+			}
+
+			return $pattern;
+		} elseif ( 'regex' === $comparison ) {
 			return $this->sanitize_source_regex( $pattern );
 		}
 
-		$pattern = $this->sanitize_source_url( $pattern );
-		if ( $pattern && 'exact' === $comparison && false === $this->nocache ) {
-			$this->pre_redirection_cache( $pattern );
-		}
-
-		return $pattern;
+		// Other comparison types: "contains", "start", "end".
+		return filter_var( $pattern, FILTER_SANITIZE_SPECIAL_CHARS, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_STRIP_BACKTICK );
 	}
 
 	/**
@@ -314,11 +317,12 @@ class Redirection {
 			return ltrim( $url, '/' );
 		}
 
-		$domain = $this->get_home_domain();
-		$url    = trailingslashit( $url );
-		$url    = str_replace( $domain . '#', $domain . '/#', $url ); // For website.com#URI link.
-		$domain = trailingslashit( $domain );
-		$search = [
+		$original = $url;
+		$domain   = $this->get_home_domain();
+		$url      = trailingslashit( $url );
+		$url      = str_replace( $domain . '#', $domain . '/#', $url );  // For website.com#URI link.
+		$domain   = trailingslashit( $domain );
+		$search   = [
 			'http://' . $domain,
 			'http://www.' . $domain,
 			'https://' . $domain,
@@ -332,6 +336,11 @@ class Redirection {
 		// External domain.
 		if ( empty( $url ) || 0 === strpos( $url, 'http://' ) || 0 === strpos( $url, 'https://' ) ) {
 			return false;
+		}
+
+		// Remove trailing slash if original url doesn't have it.
+		if ( '/' !== substr( $original, -1 ) ) {
+			$url = untrailingslashit( $url );
 		}
 
 		return urldecode( self::strip_subdirectory( $url ) );

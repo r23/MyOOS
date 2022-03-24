@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.9
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.85
+Stable tag: 1.0.85.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -579,6 +579,9 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 13. Rank Math SEO Comes with 15+ FREE modules.
 
 == Changelog ==
+
+= 1.0.85.1 [Mar 24, 2022] =
+* Fixed: Trailing slashes were automatically added to [Source URL](https://rankmath.com/kb/setting-up-redirections/#source-urls) when creating a **new** Redirection rule
 
 = 1.0.85 [Mar 23, 2022] =
 * Added: Search field for in the property selection dropdown present in the [Analytics Module settings](https://rankmath.com/kb/general-settings/#search-console-settings)
