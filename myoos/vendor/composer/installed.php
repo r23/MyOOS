@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '7cff227bc91f78b674e7c194aa67897351e3a6a6',
+        'reference' => 'c95a66ff9f346fcea99b486a492c084b7d89858d',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '7cff227bc91f78b674e7c194aa67897351e3a6a6',
+            'reference' => 'c95a66ff9f346fcea99b486a492c084b7d89858d',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -986,12 +986,12 @@
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
-            'pretty_version' => 'v3.3.8',
-            'version' => '3.3.8.0',
+            'pretty_version' => 'v3.3.9',
+            'version' => '3.3.9.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../twig/twig',
             'aliases' => array(),
-            'reference' => '972d8604a92b7054828b539f2febb0211dd5945c',
+            'reference' => '6ff9b0e440fa66f97f207e181c41340ddfa5683d',
             'dev_requirement' => false,
         ),
         'videlalvaro/php-amqplib' => array(
