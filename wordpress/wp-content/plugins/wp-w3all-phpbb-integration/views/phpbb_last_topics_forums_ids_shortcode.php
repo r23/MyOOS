@@ -56,7 +56,6 @@ if(!empty($w3phpbbuava)){
     if( $value->user_id == 2 ){ // switch if install admins (uid 1 WP - uid 2 phpBB) have different usernames
      $wpu = get_user_by('ID', 1);
     } else {
-    	    //$wpu = get_user_by('login', $value->topic_last_poster_name);
           $wpu = get_user_by('email', $value->user_email);
         }
 

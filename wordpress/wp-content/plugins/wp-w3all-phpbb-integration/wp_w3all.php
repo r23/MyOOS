@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.6.0
+Version: 2.6.1
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -34,12 +34,12 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.6.0' );
+define( 'WPW3ALL_VERSION', '2.6.1' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-$w3all_phpbb_connection = $w3all_wp_email_exist_inphpbb = $w3all_oninsert_wp_user = $w3all_wpusers_delete_ary = $w3all_wpusers_delete_once = $phpbb_online_udata = $w3all_widget_phpbb_onlineStats_exec = ''; // $w3all_oninsert_wp_user used to check if WP is creating an user, switch to 1 before wp_insert_user fire so to avoid user's email check into phpBB
+$w3all_phpbb_connection = $w3all_phpbb_usession = $w3all_wp_email_exist_inphpbb = $w3all_oninsert_wp_user = $w3all_wpusers_delete_ary = $w3all_wpusers_delete_once = $phpbb_online_udata = $w3all_widget_phpbb_onlineStats_exec = ''; // $w3all_oninsert_wp_user used to check if WP is creating an user, switch to 1 before wp_insert_user fire so to avoid user's email check into phpBB
 
 $w3all_w_lastopicspost_max = get_option( 'widget_wp_w3all_widget_last_topics' );
 $config_avatars = get_option('w3all_conf_avatars');
@@ -112,10 +112,8 @@ if(isset($w3reset_cookie_domain)){
    $w3all_delete_users_into_phpbb_ext = isset($w3all_conf_pref['w3all_delete_users_into_phpbb_ext']) ? $w3all_conf_pref['w3all_delete_users_into_phpbb_ext'] : 0;
    $wp_w3all_phpbb_iframe_short_pages_yn = (isset($w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn']) && ! empty($w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn'])) ? trim($w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn']) : '';
    $wp_w3all_phpbb_iframe_short_token_yn = (isset($w3all_conf_pref['wp_w3all_phpbb_iframe_short_token_yn']) && ! empty($w3all_conf_pref['wp_w3all_phpbb_iframe_short_token_yn'])) ? trim($w3all_conf_pref['wp_w3all_phpbb_iframe_short_token_yn']) : '';
-// TODO: trim all vars before they are updated, in admin update file
 
-   // to define W3PHPBBLASTOPICS when 'at MAX'
-   // used on last_forums_topics() to set W3PHPBBLASTOPICS
+   // to set W3PHPBBLASTOPICS
    // then used to avoid more calls in case of multiple widgets (not x shortcode by forums ids)
 
    if(!empty($w3all_w_lastopicspost_max)){
@@ -829,16 +827,15 @@ function w3all_edit_profile_url( $url, $user_id, $scheme ) {
  }
 
  function wp_w3all_toolbar_new_phpbbpm( $wp_admin_bar ) {
-    global $w3all_phpbb_wptoolbar_pm_yn,$w3all_url_to_cms;
+    global $w3all_phpbb_wptoolbar_pm_yn,$w3all_url_to_cms,$w3all_phpbb_usession;
 
-  if ( defined("W3PHPBBUSESSION") && $w3all_phpbb_wptoolbar_pm_yn == 1 ) {
-        $phpbb_user_session = unserialize(W3PHPBBUSESSION);
-        if($phpbb_user_session[0]->user_unread_privmsg > 0){
+  if ( !empty($w3all_phpbb_usession) && $w3all_phpbb_wptoolbar_pm_yn == 1 ) {
+        if($w3all_phpbb_usession->user_unread_privmsg > 0){
         $hrefmode = $w3all_url_to_cms.'/ucp.php?i=pm&amp;folder=inbox';
         $args_meta = array( 'class' => 'w3all_phpbb_pmn' );
         $args = array(
                 'id'    => 'w3all_phpbb_pm',
-                'title' => __( 'You have ', 'wp-w3all-phpbb-integration' ) . $phpbb_user_session[0]->user_unread_privmsg .' '. __( 'unread forum PM', 'wp-w3all-phpbb-integration' ),
+                'title' => __( 'You have ', 'wp-w3all-phpbb-integration' ) . $w3all_phpbb_usession->user_unread_privmsg .' '. __( 'unread forum PM', 'wp-w3all-phpbb-integration' ),
                 'href'  => $hrefmode,
                 'meta' => $args_meta );
 
@@ -850,21 +847,20 @@ function w3all_edit_profile_url( $url, $user_id, $scheme ) {
 
 
 function wp_w3all_new_phpbbpm_wp_menu_item_push($elemID, $msg='') {
- global $w3all_custom_output_files,$w3all_url_to_cms;
+ global $w3all_custom_output_files,$w3all_url_to_cms,$w3all_phpbb_usession;
 
  if ( is_user_logged_in() ) {
  // NOTE: primary-menu OR THE ID of the UL that contain li menu items
  $elemID = empty($elemID) ? 'wp-admin-bar-my-account' : $elemID;
 
-  if ( defined("W3PHPBBUSESSION") ) {
-   $phpbb_user_session = unserialize(W3PHPBBUSESSION);
-   if($phpbb_user_session[0]->user_unread_privmsg > 0){
+  if ( !empty($w3all_phpbb_usession) ) {
+   if($w3all_phpbb_usession->user_unread_privmsg > 0){
 
     $w3all_url_to_phpbb_ib = $w3all_url_to_cms . "/ucp.php?i=pm&folder=inbox";
 
      $s = "<script>
      jQuery(document).ready(function() {
-     var msgs = '".__( 'You have ', 'wp-w3all-phpbb-integration' )."' + ".$phpbb_user_session[0]->user_unread_privmsg." + ' ".__( 'unread forum PM', 'wp-w3all-phpbb-integration' )."';
+     var msgs = '".__( 'You have ', 'wp-w3all-phpbb-integration' )."' + ".$w3all_phpbb_usession->user_unread_privmsg." + ' ".__( 'unread forum PM', 'wp-w3all-phpbb-integration' )."';
      jQuery('#".$elemID."').after('<li id=\"wp-admin-bar-phpbb-pm\" class=\"menupop\"><a class=\"ab-item\" href=\"".$w3all_url_to_phpbb_ib."\">' + msgs + '</li>');
      });
      </script>
@@ -1294,12 +1290,10 @@ if( preg_match('/(.+)(<p>.?Statistics:(.+)<\/p>)/', $post_str, $str_post_data) >
  $post_std = ''; $i = 0; $b = $words;
 
   foreach ($post_string as $post_st) {
-
-    $i++;
-    if( $i < $b + 1 ){ // offset of 1
-
+    if( $i < $b ){ // offset of 1
       $post_std .= $post_st . ' ';
     }
+   $i++;
   }
 
  $post_std .= ' ...';
@@ -1509,15 +1503,13 @@ endif;
 
  function w3all_get_phpbb_onlineStats() {
 
-    if(defined("W3PHPBBCONFIG")){
-     $phpbb_config = W3PHPBBCONFIG;
-    } else { return; }
+    if(!defined("W3PHPBBCONFIG")){ return; }
 
     global $w3all_config,$w3all_phpbb_connection,$phpbb_online_udata;
 
-   if( $phpbb_config['load_online_time'] > 0 )
+   if( W3PHPBBCONFIG['load_online_time'] > 0 )
    {
-    $losTime = time()-($phpbb_config['load_online_time']*60);
+    $losTime = time()-(W3PHPBBCONFIG['load_online_time']*60);
     $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_time, U.user_id, U.username, U.user_email
      FROM ".$w3all_config["table_prefix"]."sessions AS S
      JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = S.session_user_id

@@ -9,7 +9,7 @@
    } else { $phpBBuid2 = 0; }
   if(defined("WPW3ALL_NOT_ULINKED")) { $phpBBuid2 = 2; } // switch to be like it is uid2, so to avoid the reload of the page loop
   // the shortcode homepage push has been excluded directly more below where: if(w3all_passed_url != '' && inhomepageShort != 'inhomepage-phpbbiframe'){
-  // we'll exclude also if the passed url_push is set to 'no' more below
+  // exclude also if the passed url_push is set to 'no' more below
 
 global $w3all_iframe_custom_w3fancyurl,$w3all_url_to_cms,$w3all_iframe_custom_top_gap,$w3cookie_domain,$wp_w3all_forum_folder_wp;
 $wp_w3all_forum_folder_wp = empty($ltm['wp_page_name']) ? $wp_w3all_forum_folder_wp : $ltm['wp_page_name'];
@@ -117,8 +117,8 @@ echo "<script type=\"text/javascript\">
         inPageLinks : true,
         targetOrigin: '".$w3all_url_to_cms."',
         checkOrigin : w3all_orig_domains,
-     // heightCalculationMethod: 'documentElementOffset', // If iframe not resize correctly, un-comment (or change with one of others available resize methods)
-     // see: https://github.com/davidjbradshaw/iframe-resizer#heightcalculationmethod
+     // heightCalculationMethod: 'taggedElement', // If iframe not resize correctly, un-comment (or change with one of others available resize methods)
+     // see: https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/options.md
 
   onMessage : function(messageData){ // Callback fn when message is received
         // w3all simple js check and redirects

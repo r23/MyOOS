@@ -1,5 +1,5 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-
+     
 if(is_home()){
 $current_url = get_home_url();
 } else {
@@ -26,7 +26,7 @@ $w3all_loginform_style_li_class = 'w3all_li_widgetLogin';
 
  <?php if ( ! is_user_logged_in() ){
 
- if(isset($_COOKIE["w3all_set_cmsg"]) && !empty($_COOKIE["w3all_set_cmsg"])){
+ if(!empty($_COOKIE["w3all_set_cmsg"])){
     global $w3cookie_domain;
     if(trim($_COOKIE["w3all_set_cmsg"]) == 'phpbb_ban'){
      echo __('<strong>Notice: your username, IP or email is currently banned into our forum. Please contact an administrator.</strong>', 'wp-w3all-phpbb-integration');
@@ -60,20 +60,19 @@ $w3all_loginform_style_li_class = 'w3all_li_widgetLogin';
       <input type="hidden" name="redirect_to" value="<?php echo $current_url; ?>">
 
   </form>
-  <?php } ?>
-<?php
+  <?php }
 
-if ( is_user_logged_in() && isset($phpbb_user_session) ){
+if ( is_user_logged_in() && !empty($phpbb_user_session) ){
 
     if( $display_phpbb_user_info_yn == 1 ){ // if widget instance option is set to yes
      echo '<ul class="'.$w3all_loginform_style_ul_class.'" style="'.$w3all_loginform_style_ul.'">';
      echo '<li class="'.$w3all_loginform_style_li_class.'">' . get_avatar(get_current_user_id(), $w3all_last_t_avatar_dim) . '</li>';
-     echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'Hello ' , 'wp-w3all-phpbb-integration' ) . $phpbb_user_session[0]->username . '</li>';
-     if($phpbb_user_session[0]->user_unread_privmsg > 0){
-      echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'You have ' , 'wp-w3all-phpbb-integration' ) . '<a href="'.$w3all_url_to_cms.'/ucp.php?i=pm&amp;folder=inbox">' . $phpbb_user_session[0]->user_unread_privmsg . '</a> ' . __( 'unread forum\'s pm' , 'wp-w3all-phpbb-integration' ) . '</li>';
+     echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'Hello ' , 'wp-w3all-phpbb-integration' ) . $w3all_phpbb_usession->username . '</li>';
+     if($w3all_phpbb_usession->user_unread_privmsg > 0){
+      echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'You have ' , 'wp-w3all-phpbb-integration' ) . '<a href="'.$w3all_url_to_cms.'/ucp.php?i=pm&amp;folder=inbox">' . $w3all_phpbb_usession->user_unread_privmsg . '</a> ' . __( 'unread forum\'s pm' , 'wp-w3all-phpbb-integration' ) . '</li>';
      }
-     echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'Forum\'s posts count: ' , 'wp-w3all-phpbb-integration' ) . $phpbb_user_session[0]->user_posts . '</li>';
-     echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'Registered on: ' , 'wp-w3all-phpbb-integration' ) . date_i18n( 'd M Y', $phpbb_user_session[0]->user_regdate + ( 3600 * get_option( 'gmt_offset' )) ) . '</li>';
+     echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'Forum\'s posts count: ' , 'wp-w3all-phpbb-integration' ) . $w3all_phpbb_usession->user_posts . '</li>';
+     echo '<li class="'.$w3all_loginform_style_li_class.'">' . __( 'Registered on: ' , 'wp-w3all-phpbb-integration' ) . date_i18n( 'd M Y', $w3all_phpbb_usession->user_regdate + ( 3600 * get_option( 'gmt_offset' )) ) . '</li>';
      echo '</ul>';
     }
 ?>

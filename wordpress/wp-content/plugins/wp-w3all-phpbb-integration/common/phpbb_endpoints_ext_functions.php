@@ -86,8 +86,6 @@
      } else {
      // since WP delete, fire for each deleted user this hook
      $w3all_wpusers_delete_ary_once = 1; // to run only once
-     //echo __('<h4>OK CURL.</h4>', 'wp-w3all-phpbb-integration');
-     //exit;
      }
 
     }
@@ -96,9 +94,8 @@
   function w3all_usersdata_deleted_in_phpbb_exec($id, $reassign, $user)
   {
     global $wpdb,$w3all_wpusers_delete_ary_once;
-    // $w3all_wpusers_delete_ary_once++ to run only once
 
-    if ( ! current_user_can( 'delete_users' ) OR $w3all_wpusers_delete_ary_once > 1 )
+    if ( ! current_user_can( 'delete_users' ) OR $w3all_wpusers_delete_ary_once == 1 )
     { return; }
      // remove all, just after phpBB retrieved the necessary after first delete in WP occur
      // could be: empty this with a query from/in phpBB, as soon the $_POST received and data retrieved

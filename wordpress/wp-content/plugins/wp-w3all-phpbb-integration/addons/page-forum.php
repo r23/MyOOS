@@ -261,8 +261,8 @@ get_header();
         inPageLinks : true,
         targetOrigin: '".$w3all_url_to_cms."',
         checkOrigin : w3all_orig_domains,
-     // heightCalculationMethod: 'documentElementOffset', // If iframe not resize correctly, un-comment (or change with one of others available resize methods)
-     // see: https://github.com/davidjbradshaw/iframe-resizer#heightcalculationmethod
+     // heightCalculationMethod: 'taggedElement', // If iframe not resize correctly, un-comment (or change with one of others available resize methods)
+     // see: https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/options.md
 
   onMessage : function(messageData){ // Callback fn when message is received
         // w3all simple js check and redirects

@@ -1,6 +1,6 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
 
-// remove adding // or activate, by removing //
+// remove adding // or activate by removing //
 echo '<div>'.__( 'Most users ever online was: ', 'wp-w3all-phpbb-integration' ) . W3PHPBBCONFIG['record_online_users'] . '</div>'
 . '<div>'.__( 'Registered users: ', 'wp-w3all-phpbb-integration' ) . W3PHPBBCONFIG['num_users'] . '</div>'
 . '<div>'.__( 'Topics: ', 'wp-w3all-phpbb-integration' ) . W3PHPBBCONFIG['num_topics'] . '</div>'

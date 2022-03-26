@@ -1,16 +1,12 @@
 <?php
 class WP_w3all_widget_login extends WP_Widget
 {
-
   function __construct() {
-    load_plugin_textdomain( 'wp-w3all-phpbb-integration' );
-
     parent::__construct(
       'wp_w3all_widget_login',
       __( 'WP phpBB w3all Login' , 'wp-w3all-phpbb-integration'),
       array( 'description' => __( 'Display the widget WP phpBB login form' , 'wp-w3all-phpbb-integration') )
     );
-
   }
 
 public function widget( $args, $instance ) {
@@ -50,12 +46,12 @@ public function form( $instance ) {
 // substantially this should be renamed, since now the Login Widget do not point anymore to phpBB, but login within WP: see // w3all Login widget check credentials
 public function wp_w3all_to_phpbb_form($display_phpbb_user_info_yn = 0) {
 
-      global $w3all_url_to_cms, $w3all_custom_output_files, $wp, $w3all_last_t_avatar_dim, $w3cookie_domain;
-
-     if ( is_user_logged_in() && defined("W3PHPBBUSESSION") ) {
-        $phpbb_user_session = unserialize(W3PHPBBUSESSION);
+      global $w3all_url_to_cms,$w3all_phpbb_usession,$w3all_custom_output_files,$wp,$w3all_last_t_avatar_dim,$w3cookie_domain;
+     
+    if ( is_user_logged_in() && !empty($w3all_phpbb_usession) ) { // maintain compatibility with old way for views file
+        $phpbb_user_session[0] = $w3all_phpbb_usession;
      }
-
+  
 // see wp_w3all.php
 //if(isset($_POST['w3all_username']) && isset($_POST['w3all_password'])){
 
@@ -78,15 +74,12 @@ if( $w3all_custom_output_files == 1 ) { // custom file include
 
 class WP_w3all_widget_last_topics extends WP_Widget
 {
-
   function __construct() {
-
     parent::__construct(
       'wp_w3all_widget_last_topics',
       __( 'WP phpBB w3all Last Topics' , 'wp-w3all-phpbb-integration'),
       array( 'description' => __( 'Display the widget WP phpBB last forums topics' , 'wp-w3all-phpbb-integration') )
     );
-
   }
 
 public function widget( $args, $instance ) {
@@ -182,7 +175,6 @@ public function wp_w3all_phpbb_last_topics($post_text, $topics_number, $text_wor
 
 class WP_w3all_widget_phpbb_onlineStats extends WP_Widget
 {
-
   function __construct() {
     parent::__construct(
       'wp_w3all_widget_phpbb_onlineStats',

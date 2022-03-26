@@ -169,7 +169,7 @@ private static function w3all_get_phpbb_config(){
 }
 
 private static function verify_phpbb_credentials(){
-  global $w3all_phpbb_connection,$w3all_config,$w3all_oninsert_wp_user,$wpdb,$w3cookie_domain,$w3all_anti_brute_force_yn,$w3all_bruteblock_phpbbulist,$w3all_phpbb_lang_switch_yn,$w3all_useragent,$wp_w3all_forum_folder_wp,$w3all_add_into_wp_u_capability;
+  global $w3all_phpbb_connection,$w3all_phpbb_usession,$w3all_config,$w3all_oninsert_wp_user,$wpdb,$w3cookie_domain,$w3all_anti_brute_force_yn,$w3all_bruteblock_phpbbulist,$w3all_phpbb_lang_switch_yn,$w3all_useragent,$wp_w3all_forum_folder_wp,$w3all_add_into_wp_u_capability;
 
   if( isset( $_GET['action'] ) && $_GET['action'] == 'validate_2fa' ){
     return;
@@ -296,11 +296,11 @@ private static function verify_phpbb_credentials(){
 
   if( strtolower($current_user->user_email) != strtolower($phpbb_user_session[0]->user_email) )
   {
-  	// this is an user logged in phpBB, with another username, and the WP user is another
-  	// avoid going on that will cause an update to same (other) phpbb user email
-  	// reset the wp user, let login with presented phpBB session
+    // if this is an user logged in phpBB, with another username, and the WP user logged in is another
+    // avoid going on that will cause an update to same (other) phpbb user email
+    // reset the wp user, let login with presented phpBB session
      if(email_exists($phpbb_user_session[0]->user_email)){
-     	 wp_destroy_current_session();
+       wp_destroy_current_session();
        wp_clear_auth_cookie();
        wp_set_current_user( 0 );
      }
@@ -356,6 +356,7 @@ private static function verify_phpbb_credentials(){
     self::w3all_wp_logout('wp_login_url');
   }
 
+   $w3all_phpbb_usession = $phpbb_user_session[0];
    $w3_phpbb_user_session = serialize($phpbb_user_session);
    define("W3PHPBBUSESSION", $w3_phpbb_user_session);
 
@@ -365,7 +366,7 @@ private static function verify_phpbb_credentials(){
 
  if ( is_user_logged_in() ) {
 
-      // expired session
+      // expired session // assumed _k as valid without checking if it is expired (well, could/should be may improved)
       if ( empty( $phpbb_k ) && ( time() - $phpbb_config["session_length"] ) > $phpbb_user_session[0]->session_time )
       {
         self::w3all_wp_logout();
@@ -499,10 +500,9 @@ private static function verify_phpbb_credentials(){
     exit;
    }
 
-// NOTE: duplicated users insertions on iframe first time login resolved (see more below on redirect for iframe)
-// when the first login happen into wp page forum (and registration done into phpBB), and a redirect to same forum page will happen, this will remove by the way the duplicated wp user
-// if  $on_ins , do not redirect to same page forum, but to wp user profile
-// but if redirect will not fire, then assure all will go as needed here
+// NOTE: duplicated users insertions on iframe first time login resolved more below, on redirect for iframe
+// if  $on_ins , do not redirect to same page forum, but to another wp page, or duplicated user insertion will may happen
+// if redirect will not fire, assure all will go as needed here, removing the duplicated user
 
  $wp_duplicated_u = $wpdb->get_results("SELECT * FROM $wpu_db_utab WHERE LOWER(user_email) = '".$phpbb_user_session[0]->user_email."'",ARRAY_A);
  if(count($wp_duplicated_u) > 1){
@@ -539,8 +539,6 @@ private static function verify_phpbb_credentials(){
 
   if ( ! is_user_logged_in() && ! is_wp_error( $user_id ) && $user_id > 1 ) {
 
-   //$user_id = $user_id > 0 ? $user_id : $ck_wpun_exists; // removed (only by email) //-> && $user_id > 1
-
     $user = $wpdb->get_row("SELECT * FROM $wpu_db_utab WHERE ID = '".$user_id."' OR LOWER(user_email) = '".$phpbb_user_session[0]->user_email."' ");
        if(empty($user)){
         $user = get_user_by( 'ID', $user_id );
@@ -548,22 +546,12 @@ private static function verify_phpbb_credentials(){
 
     if( empty($user) OR $user->ID < 2 ) { return; }
 
-       $remember = ( empty($phpbb_k) ) ? false : 1; // 1 is needed: true as $remember lead to false result
+       $remember = ( empty($phpbb_k) ) ? false : 1;
 
        wp_set_current_user( $user->ID, $user->user_login );
        wp_set_auth_cookie( $user->ID, $remember, is_ssl() );
        define("PHPBBAUTHCOOKIEREL",true);
        do_action( 'wp_login', $user->user_login, $user );
-
-// START w3all redirect to phpBB (user redirected onlogin by snippet added into phpBB, to add user in WP)
-// Redirect to phpBB, if redirected by 'phpBB onlogin': if snippet code in phpBB, used to redirect in WP and add the user +- at same time into WP (no iframe mode)
-// This is NOT for iframe mode, it is assumed that the redirect trick is never used in iframe!
-
-     if(isset($_GET["w3allAU"])){
-       $uw = base64_decode(trim($_GET["w3allAU"]));
-        header("Location: $uw"); /* Redirect to phpBB a coming 'onlogin' for addition */
-       exit;
-     }
 
     $redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
     if ( ( empty( $redirect_to ) || $redirect_to == admin_url() ) ) {
@@ -605,15 +593,9 @@ private static function verify_phpbb_credentials(){
 
 private static function last_forums_topics($ntopics = 10){
 
- global $w3all_phpbb_connection,$w3all_config,$w3all_exclude_phpbb_forums,$w3all_wlastopicspost_max,$w3all_lasttopic_avatar_num,$w3all_get_topics_x_ugroup;
+ global $w3all_phpbb_connection,$w3all_phpbb_usession,$w3all_config,$w3all_exclude_phpbb_forums,$w3all_wlastopicspost_max,$w3all_lasttopic_avatar_num,$w3all_get_topics_x_ugroup;
 
  if( empty($w3all_phpbb_connection) ){ return; }
- // widgets may runs BEFORE w3all_get_phpbb_config() call
- if( ! defined("W3PHPBBCONFIG") ){
-  $phpbb_config = self::w3all_get_phpbb_config();
- } else {
-  $phpbb_config = W3PHPBBCONFIG;
- }
 
  $topics = array();
  $ntopics0 = $w3all_wlastopicspost_max > $w3all_lasttopic_avatar_num ? $w3all_wlastopicspost_max : $w3all_lasttopic_avatar_num;
@@ -622,14 +604,13 @@ private static function last_forums_topics($ntopics = 10){
 
 if($w3all_get_topics_x_ugroup == 1){ // list of allowed forums to retrieve topics if option active
 
- if (defined('W3PHPBBUSESSION')) {
-   $us = unserialize(W3PHPBBUSESSION);
-   $ug = $us[0]->group_id;
-   $ui = $us[0]->user_id;
+ if (!empty($w3all_phpbb_usession)) {
+   $ug = $w3all_phpbb_usession->group_id;
+   $ui = $w3all_phpbb_usession->user_id;
   } else {
-  $ug = 1; // the default phpBB guest user group
-  $ui = 1;
-}
+    $ug = 1; // the default phpBB guest user group
+    $ui = 1;
+   }
 // this need to be adjusted if 'phpBB default schema' isn't the used one
 $gaf = $w3all_phpbb_connection->get_results("SELECT DISTINCT ".$w3all_config["table_prefix"]."acl_groups.forum_id FROM ".$w3all_config["table_prefix"]."acl_groups
  WHERE ".$w3all_config["table_prefix"]."acl_groups.auth_role_id != 16
@@ -649,7 +630,6 @@ $gaf = $w3all_phpbb_connection->get_results("SELECT DISTINCT ".$w3all_config["ta
   $topics_x_ugroup = '';
 }
 
-// clean up errors, if connection db table fail due to wrong tab prefix
 ob_start();
 
   if (empty( $w3all_exclude_phpbb_forums )){
@@ -1911,11 +1891,13 @@ public static function wp_w3all_custom_iframe_short( $atts ){
 
 // w3allphpbbupm // wp_w3all_phpBB_u_pm_short vers 1.0 x phpBB PM
 public static function wp_w3all_phpbb_upm_short( $atts ) {
- global $w3all_custom_output_files, $w3all_url_to_cms;
+ global $w3all_custom_output_files,$w3all_url_to_cms,$w3all_phpbb_usession;
 
-if ( defined("W3PHPBBUSESSION") ) {
- $phpbb_user_session = unserialize(W3PHPBBUSESSION);
-   if($phpbb_user_session[0]->user_unread_privmsg > 0){
+if ( !empty($w3all_phpbb_usession) ){
+
+   $phpbb_user_session[0] = $w3all_phpbb_usession; // maintain compatibility with old way for views file
+
+   if($w3all_phpbb_usession->user_unread_privmsg > 0){
 
    $args = shortcode_atts( array(
     'w3pm_class' => 'w3pm_class',
@@ -1948,7 +1930,7 @@ if ( defined("W3PHPBBUSESSION") ) {
 
  } // END if($phpbb_user_session[0]->user_unread_privmsg > 0){
 
-} // END defined
+}
   else { return; }
 } // END function wp_w3all_phpbb_upm_short
 
@@ -2026,7 +2008,7 @@ $maxitems = 0;
 
 // wp_w3all_get_phpbb_lastopics_short vers 1.0 x (phpbb_last_topics_forums_ids_shortcode.php) single or multiple forums
 public static function wp_w3all_phpbb_last_topics_single_multi_fp_short( $atts ) {
-  global $w3all_phpbb_connection,$w3all_config,$w3all_url_to_cms,$w3all_get_topics_x_ugroup,$w3all_lasttopic_avatar_num,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn;
+  global $w3all_phpbb_connection,$w3all_phpbb_usession,$w3all_config,$w3all_url_to_cms,$w3all_get_topics_x_ugroup,$w3all_lasttopic_avatar_num,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn;
 
  if(is_array($atts)){
   $atts = array_map ('trim', $atts);
@@ -2067,9 +2049,8 @@ public static function wp_w3all_phpbb_last_topics_single_multi_fp_short( $atts )
   $topics_x_ugroup = '';
 
 if($w3all_get_topics_x_ugroup == 1){ // list of allowed forums to retrieve topics if option active
-  if (defined('W3PHPBBUSESSION')) {
-   $us = unserialize(W3PHPBBUSESSION);
-   $ug = $us[0]->group_id;
+  if (!empty($w3all_phpbb_usession)) {
+   $ug = $w3all_phpbb_usession->group_id;
   } else {
    $ug = 1; // the default phpBB guest user group
   }
@@ -2198,7 +2179,7 @@ public static function wp_w3all_get_phpbb_lastopics_short( $atts, $is_shortcode 
 // NOTE: as is the query the result will contain only topics with almost an attach inside on one of their posts:
 // only the first (time based) inserted, will be retrieved to display
 public static function wp_w3all_get_phpbb_lastopics_short_wi( $atts ) {
-  global $w3all_phpbb_connection,$w3all_config,$w3all_url_to_cms,$w3all_lasttopic_avatar_num,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn,$w3all_get_topics_x_ugroup;
+  global $w3all_phpbb_connection,$w3all_config,$w3all_phpbb_usession,$w3all_url_to_cms,$w3all_lasttopic_avatar_num,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn,$w3all_get_topics_x_ugroup;
 
    $phpbb_config = self::w3all_get_phpbb_config();
    $phpbb_config = W3PHPBBCONFIG;
@@ -2228,9 +2209,8 @@ public static function wp_w3all_get_phpbb_lastopics_short_wi( $atts ) {
    }
 
 if( $w3all_get_topics_x_ugroup == 1 ){
-  if (defined('W3PHPBBUSESSION')) {
-   $us = unserialize(W3PHPBBUSESSION);
-   $ug = $us[0]->group_id;
+  if (!empty($w3all_phpbb_usession)) {
+   $ug = $w3all_phpbb_usession->group_id;
   } else {
   $ug = 1; // the default phpBB guest user group
 }
@@ -2597,7 +2577,7 @@ if(defined("W3ALLFORUMSIDSSHORT")){
 
 // $w3all_widget_phpbb_onlineStats_exec -> class WP_w3all_widget_phpbb_onlineStats extends WP_Widget
  if($w3all_widget_phpbb_onlineStats_exec > 0){
- 	w3all_get_phpbb_onlineStats(); // fill $phpbb_online_udata
+  w3all_get_phpbb_onlineStats(); // fill $phpbb_online_udata
   if(!empty($phpbb_online_udata))
   {
    foreach ($phpbb_online_udata as $p){
@@ -2877,19 +2857,18 @@ public static function w3all_get_unread_topics($username = false, $sql_extra = '
   // define( "W3UNREADTOPICS", $unread_topics );
   // or get Notice: Constant W3UNREADTOPICS already defined
 
-  global $w3all_phpbb_connection,$w3all_config,$w3all_wlastopicspost_max,$w3all_lasttopic_avatar_num;
+  global $w3all_phpbb_connection,$w3all_config,$w3all_phpbb_usession,$w3all_wlastopicspost_max,$w3all_lasttopic_avatar_num;
 
     $user = wp_get_current_user();
     if ( $user->ID < 2 ){ return false; } // only for WP logged in users, and exclude WP UID 1
 
-     $user->user_email = strtolower($user->user_email);
+     $user_email = strtolower($user->user_email);
 
- if (defined('W3PHPBBUSESSION')) {
-   $us = unserialize(W3PHPBBUSESSION);
-   $user_id = $us[0]->user_id;
-   $last_mark = $us[0]->user_lastmark; // when/if the user have mark all as read
+ if (!empty($w3all_phpbb_usession)) {
+   $user_id = $w3all_phpbb_usession->user_id;
+   $last_mark = $w3all_phpbb_usession->user_lastmark; // when/if the user have mark all as read
   } else {
-     $phpbb_u = $w3all_phpbb_connection->get_row("SELECT * FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$user->user_email'") ;
+     $phpbb_u = $w3all_phpbb_connection->get_row("SELECT * FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$user_email'") ;
    if(!empty($phpbb_u)){
     $user_id = $phpbb_u->user_id;
     $last_mark = $phpbb_u->user_lastmark; // when/if the user have mark all as read

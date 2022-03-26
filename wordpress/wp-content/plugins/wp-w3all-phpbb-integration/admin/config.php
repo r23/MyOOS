@@ -242,9 +242,22 @@ echo __('it depend on how Cms are configured to run as integrated (where you all
 
 ?>
 </div>
+
 <form name="w3all_conf_pref" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
 <hr /><hr />
 <h1 style="color:green">WP_w3all Preferences</h1>
+<hr />
+<br />
+<button id="w3confprefoption" class="button">w3all Preferences</button>
+<br /><br />
+<div id="w3all_confpref_page" style="padding:5px;margin:0 20px; 0 0">
+<script>
+jQuery('#w3all_confpref_page').hide();
+jQuery( "#w3confprefoption" ).click(function(e) {
+ e.preventDefault();
+jQuery( "#w3all_confpref_page" ).toggle();
+});
+</script>
 <hr />
 <h3><?php echo __('Add newly WordPress registered users into specified phpBB group', 'wp-w3all-phpbb-integration');?></h3>
 
@@ -311,7 +324,7 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 <hr />
 
 <?php echo __('<h3 style="text-decoration:underline;text-decoration-color:#FA8072">Disable existence check of the email in phpBB before it is updated in WordPress (front-end plugins pages)</h3>', 'wp-w3all-phpbb-integration'); ?>
-<?php echo __('<span style="color:red;text-decoration:underline;">Important:</span> this option, enable or disable the check of the email in phpBB before it is updated in WordPress, when update done on front-end pages by external plugins. The check can be <strong>Enabled setting it to No (so will be Enabled the email check)</strong>. If setting to No (enabling the email check in phpBB), consider that in case an email is found duplicated into phpBB, the email will reset to the old one, without any notice message to the user<br />Note that maintaining the setting of this option to Yes, require that users have been all paired using the check and users transfer process. If you wish to let users to update their email and register also in phpBB, you may will install the <a href="https://www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-tasks-extension/" target="_blank">phpBB WordPress Integration Common Tasks extension</a> into phpBB, or you\'ll disable registrations and the <i>Edit account settings</i> module in phpBB via<br /><i>ACP -> System Tab -> Module management -> User Control panel</i><br />disable the <i>Edit account settings</i> module (where user can change email and update password in phpBB)<br /><br />This option do not affect the default WordPress profile page or WP users admin pages<br />It depend on how you configure WP and phpBB to run as integrated, and (more than this) how external plugins manage profile updates and WP hooks<br />All will work all fine also with the email check Enabled (set No): anyway if an email update occur and a duplicated email is found into phpBB, the user email value reset automatically to the old one without and notification or warning to the user', 'wp-w3all-phpbb-integration'); ?>
+<?php echo __('<span style="color:red;text-decoration:underline;">Important:</span> this option, enable or disable the check of the email in phpBB before it is updated in WordPress, when update done on front-end pages by external plugins. The check can be <strong>Enabled setting it to No (so will be Enabled the email check)</strong>. If setting to No (enabling the email check in phpBB), consider that in case an email is found duplicated into phpBB, the email will reset to the old one, without any notice message to the user<br />Note that maintaining the setting of this option to Yes, require that users have been all paired using the check and users transfer process. If you wish to let users to update their email and register also in phpBB, you may will install the <a href="https://www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-tasks-extension/" target="_blank">phpBB WordPress Integration Common Tasks extension</a> into phpBB, or you\'ll disable registrations and the <i>Edit account settings</i> module in phpBB via<br /><i>ACP -> System Tab -> Module management -> User Control panel</i><br />disable the <i>Edit account settings</i> module (where user can change email and update password in phpBB)<br /><br />This option do not affect the default WordPress profile page or WP users admin pages<br />It depend on how you configure WP and phpBB to run as integrated, and (more than this) how external plugins manage profile updates and WP hooks<br />All will work all fine also with the email check Enabled (set No): anyway if an email update occur and a duplicated email is found into phpBB, the user email value reset automatically to the old one without any notification or warning to the user', 'wp-w3all-phpbb-integration'); ?>
 
 <p><input type="radio" name="w3all_conf_pref[w3all_disable_ck_email_before_wp_update]" id="w3all_disable_ck_email_before_wp_update_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_disable_ck_email_before_wp_update']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_disable_ck_email_before_wp_update]" id="w3all_disable_ck_email_before_wp_update_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_disable_ck_email_before_wp_update']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
@@ -381,12 +394,11 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 <p><input type="radio" name="w3all_conf_pref[w3all_custom_iframe_yn]" id="w3all_custom_iframe_yn_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_custom_iframe_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
 <hr />
 <input type="submit" name="submit" class="button button-primary" value="<?php echo __('Save WP_w3all Preferences', 'wp-w3all-phpbb-integration');?>">
-</form>
-
 </div>
-
-
-<div style="margin-top:4.0em;margin-right:1.0em;">
+</form>
+</div>
+<hr /><hr />
+<div style="margin-top:2.0em;margin-right:1.0em;">
 <form name="w3all_conf_avatars" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
 <h1 style="color:green">WP_w3all Avatars Options (1.0)</h1>
 <hr />

@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, users
-Stable tag: 2.6.0
+Stable tag: 2.6.1
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 5.9.2
@@ -59,7 +59,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Navigate to the WP w3all tranfer settings page under the settings tab in your WP admin dashboard.
 * Follow the instructions to transfer all of your existing WP users over into phpBB.
 
-= Optionally = 
+= Optionally =
 * Activate, configure and save the login and last forum topic widgets
 * Detailed instructions at [WP phpBB integration help install docs page](https://www.axew3.com/w3/cms-plugins-scripts/wordpress-plugins-scripts-docs/wordpress-phpbb-integration/)
 
@@ -72,6 +72,13 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.6.1 =
+*Release Date - 26 Mar, 2022*
+
+* Fix: some secondary issues with last added Stats Widget
+* Fix: behavior when integration used together with the phpBB WP extension, to delete users
+* Release Logs: https://www.axew3.com/w3/forums/viewtopic.php?t=1720
 
 = 2.6.0 =
 *Release Date - 17 Mar, 2022*
@@ -92,7 +99,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 
 * Fix: fix option "Disable existence check of the email in phpBB before it is updated in WordPress"
 * Fix: fix wp_w3all.php and admin/config.php to correctly manage the last added phpbb_iframe_short_pages shortcode option
-* Fix: [w3allphpbbiframe] shortcode under several aspects and add 2 new params: check it here https://www.axew3.com/w3/2022/02/the-awesome-iframe-template-integration-using-shortcode/ 
+* Fix: [w3allphpbbiframe] shortcode under several aspects and add 2 new params: check it here https://www.axew3.com/w3/2022/02/the-awesome-iframe-template-integration-using-shortcode/
 * Fix: the js overall_footer.html code and page-forum code have been updated to fix some secondary but important bug https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/
 * Fix: minor code fixes and hints. See some logs here: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=1708
 
@@ -107,9 +114,9 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 
 * Add: param 'phpbb_default_url' for the "awesome phpBB iframe shortcode" and explain what it is possible to do with it, and more with the others params, see: https://www.axew3.com/w3/2022/02/the-awesome-iframe-template-integration-using-shortcode/
 * Fix: hint explain for option "Disable existence check of the email in phpBB before it is updated in WordPress" that was leading to a misundertanding as it was written, because the explain was substantially wrong (sorry). It is important hint. Read it, (in the hope) it is clear now!
-* Move to: (if related option active) max 25 users per time the max allowed users that will be possible to delete at mean time in phpBB, while users deleted in WP 
+* Move to: (if related option active) max 25 users per time the max allowed users that will be possible to delete at mean time in phpBB, while users deleted in WP
 * Fix: more hints into admin plugin page
-* Fix: the overall_footer.html js code for iframe has been patched to avoid that bots load the code. Are just two lines, one on top and one on the bottom, that wraps the overall_footer code (like it was already for the overall_header): https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/ 
+* Fix: the overall_footer.html js code for iframe has been patched to avoid that bots load the code. Are just two lines, one on top and one on the bottom, that wraps the overall_footer code (like it was already for the overall_header): https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/
 * Fix: minor security fixes
 * Minor fixes
 * See: release logs https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=1704
@@ -121,7 +128,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * See: see the new awesome iframe shortcode home page here: https://www.axew3.com/w3/2022/02/the-awesome-iframe-template-integration-using-shortcode/
 * See: easy example online: https://www.axew3.com/w3/board/
 * Fix: a possible (even very hard) secondary security bug into page forum and /common/phpbb_endpoints_ext_functions.php
-* Remove: finally clean up 'Links for embedded phpBB iframe into WordPress' option, not required anymore by long time, since V5 js code. Remove all related code, into all functions, also about a jquery function inclusion 
+* Remove: finally clean up 'Links for embedded phpBB iframe into WordPress' option, not required anymore by long time, since V5 js code. Remove all related code, into all functions, also about a jquery function inclusion
 * Fix: several language hints (lang file updated) and minor clean up all over
 * Enjoy
 
@@ -190,7 +197,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Fix: remove 'all db fields' when phpBB user's insertion, reducing to the minimum insertion query (only phpBB 3.3>)
 * Fix: hooks execution flow all around, removing and executing only when needed
 * Update: page-forum.php to fix the easy preloader, adding the text above as default, that will display the domain name automatically. To update if you want, rebuild page-forum on plugin admin or substitute the one into your active template folder (page-forum(orWhatEverYouNamedIt).php, with the new page-forum.php you find into the plugin '/addons' folder, renaming it as needed
-* Fix: definitively page-forum to resolve the loop problem when UID 2 login in phpBB and into page-forum get loop (because users uid1 in wp and uid2 in phpBB are not linked) 
+* Fix: definitively page-forum to resolve the loop problem when UID 2 login in phpBB and into page-forum get loop (because users uid1 in wp and uid2 in phpBB are not linked)
 * Fix: some admin configuration hint and order fields
 * Minor fixes
 * Read: short 2.4.9 logs, preloader and more hints here: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=1677
@@ -245,7 +252,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Add: option "Force correct WordPress password reset (front end plugins)" that resolve problems into front end plugins (read hints into the same plugin option)
 * Fix: WP UID 1 wrong password on reset
 * Fix: user addition in phpBB, if added as newbie, then promoted to Registered when reach specified number of posts: the user is now added/created in phpBB in the correct way, so to be removed from Newly Registered when the case, and promoted to Registered
-* Fix: page-forum.php: fix uid1 WP and phpBB uid2 (install admins) loop on page-forum, given by the fact that uid1 in WP and uid2 in phpBB are not linked anymore. To fix this, it is necessary to rebuild page forum, and update overall_footer.html js code. 
+* Fix: page-forum.php: fix uid1 WP and phpBB uid2 (install admins) loop on page-forum, given by the fact that uid1 in WP and uid2 in phpBB are not linked anymore. To fix this, it is necessary to rebuild page forum, and update overall_footer.html js code.
 * Fix: history.pushState and history.replaceState on page-forum so to return to correct page when navigating back by clicking into Browser Back button. Fix the empty w3= (custom fancy= url) sometime happening on address bar. page-forum(orWhateverYouNamedIt).php require to be rebuilt into plugin admin or manually substituted, for changes to take effect, and for the Wp uid1 and phpBB uid2 loop into page-forum, the overall_footer.html code require to be updated: https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/ . If you want to update to fix the uid 1 loop on page-forum just looking what into overall_footer.html code changed, follow this link: https://www.axew3.com/w3/forums/viewtopic.php?p=5175#p5175
 * Fix: function create_phpBB_user() to not follow on create the user if email or username already exists into phpBB, so to avoid an error in certain cases
 * Fix: WP and MUMS under several aspects and errors messages
@@ -259,7 +266,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Fix: transfer process utility, WordPress users to phpBB (may still will not work properly for non latin chars)
 * Fix: transfer process phpBB to Wp, allowing characters range -0-9A-Za-z _.@ for network multisites
 * Fix: 'List WordPress users that not exists in phpBB: delete WordPress users that not exists in phpBB' on WP_w3all phpBB WP users check utility
-* Minor: fixes 
+* Minor: fixes
 
 = 2.4.2 =
 *Release Date - 5 Jan, 2021*
@@ -334,7 +341,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 
 * Fix: definitevely fix duplicated WP user insertion, when registration done in iframed phpBB, then login first time, into phpBB iframed
 * Fix: correct user's phpBB session cleanup, when user deleted into WordPress
-* Fix: a secondary bug on empty value passed on query, when user deleted in wordpress (then it's deactivated in phpBB), and the user perform a Logout (very rare) 
+* Fix: a secondary bug on empty value passed on query, when user deleted in wordpress (then it's deactivated in phpBB), and the user perform a Logout (very rare)
 * Fix: several secondary Php warnings coming out (only) into certain conditions
 
 = 2.3.4 =
@@ -343,7 +350,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Fix: default page-forum.php, to correctly setup js array() of allowed domain, for subdomains installations (there is no need to update your working page-forum)
 * Fix: WordPress to phpBB users transfer, to correctly transfer old existent WP users with the correct registration date in phpBB.
 * Add: option 'Transfer WordpRess users into phpBB with WP user's registration date' OR 'Transfer WordpRess users into phpBB with actual (time now) registration time'
-* Fix: re-add fix for duplicated user insertion in wordpress, when registration, and then login first time, done into phpBB via page-forum iframe mode, since it seem to follow the bug in some configurations 
+* Fix: re-add fix for duplicated user insertion in wordpress, when registration, and then login first time, done into phpBB via page-forum iframe mode, since it seem to follow the bug in some configurations
 
 = 2.3.3 =
 *Release Date - 15 Mar, 2020*
@@ -355,7 +362,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 = 2.3.2 =
 *Release Date - 12 Mar, 2020*
 * Fix: wp_w3all_phpbb_delete_user_signup() function to correctly remove signups, where on mums subsites, the table signup exist or not (it depend on how configured the network) and do not throw error
-* Fix: signups to correctly search and retrieve db data by the right table, when on certain subsites mums configurations 
+* Fix: signups to correctly search and retrieve db data by the right table, when on certain subsites mums configurations
 * Fix: 'Fix Users Signup process' bug, password (maybe) do not match for the new WP registered user, using front end WP plugins
 * Fix: minor security fix
 * iframe V5: fix for correct Lightbox code execution, see the easy fix (that add just a line of code) here: https://www.axew3.com/w3/forums/viewtopic.php?p=4522#p4522
@@ -367,7 +374,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 
 = 2.3.0 =
 *Release Date - 09 Mar, 2020*
-* Fix: security bug into 'w3_phpbb_ban()' function (affecting banned accounts) 
+* Fix: security bug into 'w3_phpbb_ban()' function (affecting banned accounts)
 * Add: complete and correct handle banned phpBB users. A banned user in phpBB, will result immediately as 'User with No Role' in WordPress (do not wait until next user login in wp). Read more about here: https://www.axew3.com/w3/forums/viewtopic.php?p=4501#p4501
 * Fix: display message to the user if the account results to be Banned or Deactivated into phpBB
 * Fix: correct re-activation of a WP 'no role' user (based on rule setup into plugin admin), if user re-activated in phpBB, or correctly re-add user if the user was deleted in WordPress (then deactivated/re-activated in phpBB and login in WP).
@@ -376,7 +383,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Fix: more minor but important fixes
 * Fix: optimize '$w3all_bruteblock_phpbbulist' and $w3all_u_signups_data arrays, used when related options active. The code cleanup old records at certain conditions (array contain more than 3000 records). Faster, light.
 * Fix: hints into plugin admin
-* Notice: 2.3.0 has been quite deeply tested under any aspect to be released as a stable version that resolve many inconsistencies. However since mixed options and related possibilities are hundreds, it is important that you report any bug you may found!  
+* Notice: 2.3.0 has been quite deeply tested under any aspect to be released as a stable version that resolve many inconsistencies. However since mixed options and related possibilities are hundreds, it is important that you report any bug you may found!
 
 = 2.2.9 =
 *Release Date - 02 Mar, 2020*
@@ -409,7 +416,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 *Release Date - 26 Feb, 2020*
 * ADD/fix: 'Fix Users Signup process' option, into main plugin admin page. Read inline hints to know what it is used for, and do not activate on already working integrations
 * Fix: two reported secondary Php notices: https://wordpress.org/support/topic/2-different-error/
-* Fix: last topic widget, to correctly display read/unread icon (when no avatar option active, and the setup of the wodget is to display last topics with text) 
+* Fix: last topic widget, to correctly display read/unread icon (when no avatar option active, and the setup of the wodget is to display last topics with text)
 * Clean up: secondary issues and inline hints
 * Notice: report bugs!
 
@@ -418,7 +425,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Fix: (iframe) page-forum.php security bug
 * !important: Update as soon page-forum rebuilding it on plugin admin, or manually substituting it
 * Fix: (iframe) page-forum.php: default /wp-content/plugins/wp-w3all-phpbb-integration/addons/page-forum.php has been updated again (and definitively fixed) to correctly process urls, if url coming from a click into WP widgets. To update to the latest page-forum, rebuild it into plugin admin or manually replace with the new one of this release: https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/
-* Fix: PHP Notice: Undefined variable: topics_x_ugroup ON class.wp.w3all-phpbb.php on line 2161 
+* Fix: PHP Notice: Undefined variable: topics_x_ugroup ON class.wp.w3all-phpbb.php on line 2161
 * Fix: secondary notice error on line 1185 class.wp.w3all-phpbb.php
 * Fix: the 'Transfer phpBB Users into WordPress' option
 * ADD: single phpBB user addition into WordPress option into the 'Transfer phpBB Users into WordPress' page
@@ -443,7 +450,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Fix: minor (but important) code
 * Note: iframe V5 overall_header.html javascript code has been updated to remove a (wrong) commented js instruction, responsible to correctly reload any page when phpBB accessed via direct url. Hints into help install page have been corrected to be more clear/precise
 * V5 iframe code: https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/
-* Fix: hints into plugin admin page 
+* Fix: hints into plugin admin page
 
 = 2.1.9 =
 *Release Date - 04 Feb, 2020*
@@ -496,9 +503,9 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 = 2.1.1 =
 *Release Date - 21 Gen, 2020*
 * Update: page-forum to be compatible with the new iframe v5 code (granting compatibility with v4 iframe code, which you can follow using): https://www.axew3.com/w3/2020/01/phpbb-wordpress-template-integration-iframe-v5/
-* Add: fancy w3 var for query string (better later then never) new option into plugin admin page. 'Fancy URL query string for the WordPress Forum page' that allow to switch the name of the (infamous) var 'w3' in the URL query string, to something that more like. To use this it is required to update page-forum to latest version, and update the overall_header.html iframe js code to v5 
+* Add: fancy w3 var for query string (better later then never) new option into plugin admin page. 'Fancy URL query string for the WordPress Forum page' that allow to switch the name of the (infamous) var 'w3' in the URL query string, to something that more like. To use this it is required to update page-forum to latest version, and update the overall_header.html iframe js code to v5
 * Fix: page-forum for correct targetOrigin value
-* Fix: remove jQuery function, replaced by pure Js code, to allow URL seo switches javascript function work properly on widgets and shortcodes, also if the theme in use do not add the jQuery library by default 
+* Fix: remove jQuery function, replaced by pure Js code, to allow URL seo switches javascript function work properly on widgets and shortcodes, also if the theme in use do not add the jQuery library by default
 * Fix: phpBB PM shortcode, where error on html output
 * Fix: WP admin plugin configuration page with some minor fixes and corrected hints and options
 * Fix: remove unwanted code, partially cleanup issues to speed up execution
@@ -527,7 +534,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 = 2.0.7 =
 *Release Date - 08 Gen, 2020*
 * Fix: phpBB 3.2 versions. Php notice error (and subsequent query fail for user_email_hash value) for WP user profile update action
-* Please update as soon if still in phpBB 3.2> releases. 
+* Please update as soon if still in phpBB 3.2> releases.
 
 = 2.0.6 =
 *Release Date - 07 Gen, 2020*
@@ -558,7 +565,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 = 2.0.2 =
 *Release Date - 29 Dic, 2019*
 * Fix: mums network installations. The How To page has been updated: https://www.axew3.com/w3/2017/04/wp_w3all-for-wordpress-ms-mu-multisite-multiuser-network-installations/
-* Fix: nicenames for network and common wp installations 
+* Fix: nicenames for network and common wp installations
 * Fix: '/wp-content/plugins/wp-w3all-phpbb-integration/views/wp_w3all_login_form.php' for any kind of wp installation (mums network)
 * Fix: (secondary) security fix for the custom phpBB config.php file '/wp-content/plugins/wp-w3all-phpbb-integration/addons/wp-w3all-config/config.php'. Please follow this step if you want to fix the issue: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=1448&p=4241#p4241
 * Fix: correct profile fields (email change) updates flow
@@ -573,7 +580,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Fix (minor security): cookies released to be http only
 * Change/fix: move admin files from folder 'views' to 'admin' folder: so entire 'views' folder can be copied as is for 'custom files' option
 * Add: 'advanced' [w3allcustomiframe] shortcode, that is added option into plugin's admin page
-* Fix: 'page-forum.php' (or whatever you named it) adding the js code that allow the origin check for the embedded iframe, ONLY allowed then on the domain it run 
+* Fix: 'page-forum.php' (or whatever you named it) adding the js code that allow the origin check for the embedded iframe, ONLY allowed then on the domain it run
 * The fix for 'page-forum.php', if you want manually apply and not rebuild or substitute the template file, can be found here: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=1442
 
 = 2.0.0 =
@@ -584,7 +591,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Memo: Fix/rebuild WP_w3all Login widget: check that if you're using/activated option 'Use custom files to display Last Topics Widgets ...', you'll need to add the new file 'views/wp_w3all_login_form.php' into the custom '/wp-content/plugins/wp-w3all-config' folder
 * Add: compatibility to let external WordPress Firewall plugins to monitorate/log sessions activities
 * Add: simple and rude (but effective) option to monitorate/prevent Brute Force into sessions keys. Read hints x 2.0.0 linked into new plugin Option and activate it!
-* Fix: Wp_w3all Widgets. Fixed possibility to add plugin's widgets in the right way, also via external plugins like Elementor 
+* Fix: Wp_w3all Widgets. Fixed possibility to add plugin's widgets in the right way, also via external plugins like Elementor
 * Fix: Last Topics widget multiple instances
 * Fix more important bugs all around
 * Fix minor security bug
@@ -606,14 +613,14 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 *Release Date - 8 Mag, 2019*
 * Add - WP_w3all phpBB WP users check: simply tasks to check problems between linked phpBB and WordPress users. To use, just activate the option 'Activate WordPress to phpBB and phpBB to WP users transfer and/or the phpBB WP users check' on plugin admin page and read new option's hints
 * Fix correct multisite user's deletion on certain circumstances
-* Minor code and config hints adjustments 
+* Minor code and config hints adjustments
 
 = 1.9.7 =
 *Release Date - 14 Mar, 2019*
 * Add - phpBB and/or any Feed shortcode - [w3allfeed w3feed_url="aFeedURL"] - check all features/attributes and how to use here: https://www.axew3.com/w3/2019/03/shorcode-rss-feeds-into-wordpress/
 * Improve shortcodes [[w3allastopics] AND [w3allastopicforumsids]. Added shortcodes attributes to style each shortcode output with easy (like on latest added above feed shortcode). Maintain compatibility with old way. Check changes and how to use here: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=550
 * The v3 iframe code can be improved to be as it is actually on the online iframe integration example at axew3.com. If you wish to update to the smooth scroll improvement, before iframe v4 code changes/release that has been moved to the vers. 2.0.0 plugin release date, follow hints here: https://www.axew3.com/w3/2019/03/smooth-scroll-for-phpbb-wordpress-template-integration-iframe-v3/
-* Minor code adjustments 
+* Minor code adjustments
 
 = 1.9.6 =
 *Release Date - 21 Feb, 2019*
@@ -658,7 +665,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 = 1.9.1 =
 *Release Date - 22 Aug, 2018*
 * Fix inefficient latest posts query by @reloadgg, see: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=850
-* Fix error on shortcode x single or specified multiple forums and add improvement based on the above by @reloadgg 
+* Fix error on shortcode x single or specified multiple forums and add improvement based on the above by @reloadgg
 * All fixes listed on this topic: https://wordpress.org/support/topic/1-9-0-patches-logs/
 * Multisite installations do not need anymore to add the 'define' line of code on wp-config.php file (fix suggested by Jakub), but the code is/remain compatible for the old way: documentation about has been updated: https://www.axew3.com/w3/2017/04/wp_w3all-for-wordpress-ms-mu-multisite-multiuser-network-installations/
 * Minor fixes
@@ -667,7 +674,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 *Release Date - 29 Jul, 2018*
 * Add option: 'Add newly WordPress registered users into a specified phpBB group' into WP_w3all admin config page
 * Fix Woocommerce (and all other plugins) miss parameter Php notice onlogin in wordpress, where woocommerce installed: the same php notice was coming out also into plugin WP Better Security, and many others
-* Add Shortcode: display phpBB last topics grid in Wordpress with first topic's attached image (linked on the Help Install Page, where 'Common How To' list): the new linked shortcode is here: https://www.axew3.com/w3/forums/viewtopic.php?f=13&t=783 
+* Add Shortcode: display phpBB last topics grid in Wordpress with first topic's attached image (linked on the Help Install Page, where 'Common How To' list): the new linked shortcode is here: https://www.axew3.com/w3/forums/viewtopic.php?f=13&t=783
 * Contain all patches listed on this topic: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=784
 * More important and minor fixes.
 
@@ -685,7 +692,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 = 1.8.7 =
 *Release Date - 3 Apr, 2018*
 * Fix a secondary problem about security and users. The problem: a WP actual bug allow to a logged in WP user (while it is logged in), to register a new WP user pointing to the 'wp-login.php?mode=register' url, that isn't a correct behavior (and that not need to happen with this integration plugin). The new created user in WP, if a new user is added/registered in this way in WP, it is not added at same time into phpBB also.
-* Extend phpBB email ban options on WP registration: if a domain or subdomain email address result banned in phpBB, the user will not be able to register into WordPress using these email address.  
+* Extend phpBB email ban options on WP registration: if a domain or subdomain email address result banned in phpBB, the user will not be able to register into WordPress using these email address.
 * Contain all latest and tested 1.8.4, 1.8.5 and 1.8.6 fixes.
 * Minor fixes
 
@@ -726,7 +733,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 = 1.8.1 =
 *Release Date - 2 Feb, 2018*
 
-* Fix: install admin on phpBB UID 2 and WP admin UID 1 have different usernames, so if there are posts into Last Topics Widgets or Last Topics Shortcode about this user, the avatar fail to display. 
+* Fix: install admin on phpBB UID 2 and WP admin UID 1 have different usernames, so if there are posts into Last Topics Widgets or Last Topics Shortcode about this user, the avatar fail to display.
 * Fix an old - Admin related - avatar issue (secondary bug, but obscure the reason of this behavior): when an admin open the Discussion settings on WordPress administration: WP admin -> Settings -> Discussion, the avatars lists, show the viewing user avatar for all options, instead than different gravatars
 * Add option: Retrieve phpBB avatars by using native phpBB file.php, that avoid to edit the .htaccess file on phpBB to get avatars available in WordPress, as suggested by Alexvrs. Check it here: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=622&p=2558#p2557
 * Add feature: force user addition at same time into Wordpress when register and then login into phpBB (even if not in iframe mode). Check this: https://www.axew3.com/w3/forums/viewtopic.php?f=2&t=643
@@ -766,7 +773,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 *Release Date - 28 Sep, 2017*
 
 * If using embedded iframe: it is required to replace the old file 'iframeResizer.contentWindow.min.js' added into phpBB root with the new updated one you'll find inside folder: wp-content/plugins/wp-w3all-phpbb-integration/addons/resizer
-* Fix important bug related to WP user ID 1 and phpBB user ID 2 (default install admins) if username mismatch. 1.7.6 was already patched about this: https://wordpress.org/support/topic/1-7-6-patches/ 
+* Fix important bug related to WP user ID 1 and phpBB user ID 2 (default install admins) if username mismatch. 1.7.6 was already patched about this: https://wordpress.org/support/topic/1-7-6-patches/
 * Fix error on retrieve correctly user datas on certain user's actions. As above, 1.7.6 was already patched about this.
 * Add WP integration compatibility with phpBB user's banning actions. A phpBB banned IP, email or username, will not be able to login or register WP. If user is banned by username in phpBB, he will be logged out immediately, even without visiting phpBB, when return to visit WP side with a valid cookie. But if a ban is issued by IP or email in phpBB and the user in the while return back to site visiting WP pages with valid cookie credentials, will result logged in until he not visit phpBB (so phpBB will reset his cookie and will be logged out). This secondary aspect will be fixed before, or on WP_w3all 1.8.0.
 * Add [media] bbcode parsing, to show embedded phpBB posts video into WP posts, when bbcode about phpBB mod - mediaembed - is used/installed into phpBB: https://www.phpbb.com/customise/db/extension/mediaembed/
@@ -839,7 +846,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Fix cookie setting to be detected and setup one time, not at 'runtime' when page load (that was since 1.7.0 to correct detect of cookie setting). Now the check is for any www top level domain (for advanced -> see new function: w3all_extract_cookie_domain() on wp_w3all.php).
 * Fix x MUMS: user was not added into phpBB on creating site/blog and related new user subadmin via admin.
 * Fix x MUMS: users addition error message: see https://wordpress.org/support/topic/1-7-0-released/#post-9106748
-* Tested to fix adding/registering/login users into WP default, WP Network Multisite, Buddypress (and should fix any other plugin that use signups). Still not add all profile fields update for Buddypress, it will be done (hope) on 1.7.2. 
+* Tested to fix adding/registering/login users into WP default, WP Network Multisite, Buddypress (and should fix any other plugin that use signups). Still not add all profile fields update for Buddypress, it will be done (hope) on 1.7.2.
 * Added manual setting on wp_w3all.php to force plugin deactivation if necessary, to make possible a clean uninstall of the plugin even on most worse situations or just for testing purpose (this is completely redundant, if the plugin is installed using phpBB custom manual config.php, because you can deactivate the plugin within this file instead (as explained on inline hints in file)). A documentation help for common problems about will be done asap (if never necessary for someone).
 * Added manual setting on wp_w3all.php also for cookie to force cookie setting change (option about this will be added also into wp_w3all admin config on next version).
 
@@ -857,7 +864,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 *Release Date - 26 Apr, 2017*
 
 * Security fix.
-* Add Multisite installation compatibility (1st version): it is possible to link only the same phpBB install if the plugin is activated as network. Is not possible to link a different phpBB on sub-sites! Explanation article will be available here: https://www.axew3.com/w3/2017/04/wp_w3all-for-wordpress-ms-mu-multisite-multiuser-network-installations/ 
+* Add Multisite installation compatibility (1st version): it is possible to link only the same phpBB install if the plugin is activated as network. Is not possible to link a different phpBB on sub-sites! Explanation article will be available here: https://www.axew3.com/w3/2017/04/wp_w3all-for-wordpress-ms-mu-multisite-multiuser-network-installations/
 * Fix user addition as active into phpBB, if the user is added manually by admin.
 * Fix correct redirect existent phpBB user when added onlogin in WordPress.
 * Add Buddypress compatibility (no profile fields updates for fields like Google, Twitter etc. This aspect is moved to next versions)
@@ -895,7 +902,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 * Fix scroll for +- all phpBB iframe instances in the definitive way. The page-forum.php need to be rebuilt and overall_footer.html in phpBB need to be updated with the new code to apply all javascript fixes. Substitute the old code added into phpBB overall_footer.html with the new one you can found here: https://www.axew3.com/w3/2016/02/embed-phpbb-into-wordpress-template-iframe-responsive/
 * Fix partial execution of code about Last Topics Notification, fired also when option not active
 * Add User Info option into Login Widget: Name, Registration Date, Unread PMs, Number of posts on phpBB. Avatar will be added on next versions.
-* Add Notification about new messages in phpBB, into WP admin bar menu for users (not suitable maybe for iframe mode, as it need to reload WP page to update state read/unreads. It will be improved soon with ajax to be responsive in this sense) 
+* Add Notification about new messages in phpBB, into WP admin bar menu for users (not suitable maybe for iframe mode, as it need to reload WP page to update state read/unreads. It will be improved soon with ajax to be responsive in this sense)
 * More minor code clean up and fixes
 
 = 1.6.5 =
@@ -935,7 +942,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 *Release Date - 16 Feb, 2017*
 
 * !Important - Fix 'phpBB get config' function, which was called and repeated several times during plugin code execution. It is now exeuted only one time, on any possible plugin options configuration.
-* !Important - Fix WP_w3all Preferences: no reports about this but, the only one option working was the 'Activate WordPress to phpBB users transfer', on 'WP_w3all Preferences' options section while all others fails. 
+* !Important - Fix WP_w3all Preferences: no reports about this but, the only one option working was the 'Activate WordPress to phpBB users transfer', on 'WP_w3all Preferences' options section while all others fails.
 * Add - notify about Read/Unread Topics/Posts option (WP_w3all Preferences), for registered users in Last Topics Widgets.
 * More important fixes.
 
@@ -1238,7 +1245,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 = 1.1.5 =
 *Release Date - 24 March, 2016*
 * Users can now login/out/register and change profile email or password on WP or phpBB. More on next versions.
-* Fix iframe mode logout when performed from WP: required to rebuild the forum page on wp_w3all or manually modify adding the new logout fix. 
+* Fix iframe mode logout when performed from WP: required to rebuild the forum page on wp_w3all or manually modify adding the new logout fix.
 * Fix user transfer from WP to phpBB, where last insertid value was missed during insert query
 * Fix several bugs
 
@@ -1280,7 +1287,7 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 = 1.0.7 =
 *Release Date - 28 Febrary, 2016*
 * Fix login/out widget links for iframe mode
-* Fix correct template page name detection 
+* Fix correct template page name detection
 * Fix minor bugs
 
 = 1.0.6 =
