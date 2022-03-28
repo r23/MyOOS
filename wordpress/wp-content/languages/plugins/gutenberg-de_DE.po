@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-03-17 11:21:05+0000\n"
+"PO-Revision-Date: 2022-03-27 14:22:49+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3002,11 +3002,11 @@ msgstr "Überschriften sind selbst separate Blöcke, was bei der Gliederung und 
 
 #: post-content.php:24
 msgid "... like this one, which is right aligned."
-msgstr "... wie dieser, der rechtsbündig ist."
+msgstr "...&nbsp;wie dieser, der rechtsbündig ist."
 
 #: post-content.php:20
 msgid "What you are reading now is a <strong>text block</strong> the most basic block of all. The text block has its own controls to be moved freely around the post..."
-msgstr "Was du gerade liest, befindet sich in einem <strong>Text-Block</strong>, der einfachste Block von allen. Der Text-Block kann frei im Beitrag positioniert werden..."
+msgstr "Was du gerade liest, befindet sich in einem <strong>Text-Block</strong>, der einfachste Block von allen. Der Text-Block kann frei im Beitrag positioniert werden&nbsp;..."
 
 #: post-content.php:16
 msgid "The goal of this new editor is to make adding rich content to WordPress simple and enjoyable. This whole post is composed of <em>pieces of content</em>—somewhat similar to LEGO bricks—that you can move around and interact with. Move your cursor around and you&#8217;ll notice the different blocks light up with outlines and arrows. Press the arrows to reposition blocks quickly, without fearing about losing things in the process of copying and pasting."
