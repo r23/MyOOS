@@ -29,7 +29,7 @@
 						{if $smarty.const.CATEGORYINDICATORS == 'true'}
 							<ol class="carousel-indicators">
 							{foreach $slider as $i}
-								<li data-target="#categoryIndicators" data-slide-to="{$i@iteration-1}" {if $i@first}class="active"{/if}></li>
+								<li data-bs-target="#categoryIndicators" data-slide-to="{$i@iteration-1}" {if $i@first}class="active"{/if}></li>
 							{/foreach}
 							</ol>
 						{/if}
