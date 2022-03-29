@@ -263,7 +263,7 @@ function oos_load_xml($url)
         curl_setopt($curl, CURLOPT_URL, $url);
 
         //  return the response body
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HEADER, false);
 
         // execute and pass the result
