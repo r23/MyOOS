@@ -158,7 +158,6 @@ var selectors_namespaceObject = {};
 __webpack_require__.r(selectors_namespaceObject);
 __webpack_require__.d(selectors_namespaceObject, {
   "getNavigationPostForMenu": function() { return selectors_getNavigationPostForMenu; },
-  "getSelectedMenuId": function() { return getSelectedMenuId; },
   "hasResolvedNavigationPost": function() { return hasResolvedNavigationPost; },
   "isInserterOpened": function() { return isInserterOpened; }
 });
@@ -168,8 +167,7 @@ var actions_namespaceObject = {};
 __webpack_require__.r(actions_namespaceObject);
 __webpack_require__.d(actions_namespaceObject, {
   "saveNavigationPost": function() { return saveNavigationPost; },
-  "setIsInserterOpened": function() { return setIsInserterOpened; },
-  "setSelectedMenuId": function() { return setSelectedMenuId; }
+  "setIsInserterOpened": function() { return setIsInserterOpened; }
 });
 
 // NAMESPACE OBJECT: ./packages/interface/build-module/store/actions.js
@@ -270,25 +268,6 @@ const NEW_TAB_TARGET_ATTRIBUTE = '_blank';
  */
 
 /**
- * Reducer keeping track of selected menu ID.
- *
- * @param {number} state  Current state.
- * @param {Object} action Dispatched action.
- * @return {Object} Updated state.
- */
-
-function selectedMenuId() {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  let action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case 'SET_SELECTED_MENU_ID':
-      return action.menuId;
-  }
-
-  return state;
-}
-/**
  * Reducer tracking whether the inserter is open.
  *
  * @param {boolean|Object} state        Current state.
@@ -310,7 +289,6 @@ function blockInserterPanel() {
 }
 
 /* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
-  selectedMenuId,
   blockInserterPanel
 }));
 
@@ -794,18 +772,6 @@ function createNavigationBlock(menuItems) {
 
 
 /**
- * Returns the selected menu ID.
- *
- * @param {Object} state Global application state.
- * @return {number} The selected menu ID.
- */
-
-function getSelectedMenuId(state) {
-  var _state$selectedMenuId;
-
-  return (_state$selectedMenuId = state.selectedMenuId) !== null && _state$selectedMenuId !== void 0 ? _state$selectedMenuId : null;
-}
-/**
  * Returns a "stub" navigation post reflecting the contents of menu with id=menuId. The
  * post is meant as a convenient to only exists in runtime and should never be saved. It
  * enables a convenient way of editing the navigation by using a regular post editor.
@@ -877,19 +843,6 @@ const STORE_NAME = 'core/edit-navigation';
 
 
 /**
- * Returns an action object used to select menu.
- *
- * @param {number} menuId The menu ID.
- * @return {Object} Action object.
- */
-
-function setSelectedMenuId(menuId) {
-  return {
-    type: 'SET_SELECTED_MENU_ID',
-    menuId
-  };
-}
-/**
  * Converts all the blocks into menu items and submits a batch request to save everything at once.
  *
  * @param {Object} post A navigation post to process
@@ -908,13 +861,9 @@ const saveNavigationPost = post => async _ref => {
   try {
     const menuId = post.meta.menuId; // Save menu.
 
-    await registry.dispatch(external_wp_coreData_namespaceObject.store).saveEditedEntityRecord('root', 'menu', menuId);
-    const error = registry.select(external_wp_coreData_namespaceObject.store).getLastEntitySaveError('root', 'menu', menuId);
-
-    if (error) {
-      throw new Error(error.message);
-    } // Save menu items.
-
+    await registry.dispatch(external_wp_coreData_namespaceObject.store).saveEditedEntityRecord('root', 'menu', menuId, {
+      throwOnError: true
+    }); // Save menu items.
 
     const updatedBlocks = await dispatch(batchSaveMenuItems(post.blocks[0], menuId)); // Clear "stub" navigation post edits to avoid a false "dirty" state.
 
@@ -1200,21 +1149,6 @@ function setIsInserterOpened(value) {
 
 
 /**
- * Block editor data store configuration.
- *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#registerStore
- *
- * @type {Object}
- */
-
-const storeConfig = {
-  reducer: reducer,
-  selectors: selectors_namespaceObject,
-  resolvers: resolvers_namespaceObject,
-  actions: actions_namespaceObject,
-  persist: ['selectedMenuId']
-};
-/**
  * Store definition for the edit navigation namespace.
  *
  * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
@@ -1222,10 +1156,13 @@ const storeConfig = {
  * @type {Object}
  */
 
-const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, storeConfig); // Once we build a more generic persistence plugin that works across types of stores
-// we'd be able to replace this with a register call.
-
-(0,external_wp_data_namespaceObject.registerStore)(STORE_NAME, storeConfig);
+const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, {
+  reducer: reducer,
+  selectors: selectors_namespaceObject,
+  resolvers: resolvers_namespaceObject,
+  actions: actions_namespaceObject
+});
+(0,external_wp_data_namespaceObject.register)(store);
 
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 function _extends() {
@@ -1540,14 +1477,13 @@ function useMenuNotifications(menuId) {
   }, [lastDeleteError]);
 }
 
+;// CONCATENATED MODULE: external ["wp","preferences"]
+var external_wp_preferences_namespaceObject = window["wp"]["preferences"];
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/hooks/use-selected-menu-id.js
 /**
  * WordPress dependencies
  */
 
-/**
- * Internal dependencies
- */
 
 
 /**
@@ -1559,10 +1495,13 @@ function useMenuNotifications(menuId) {
  */
 
 function useSelectedMenuId() {
-  const selectedMenuId = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).getSelectedMenuId(), []);
+  var _useSelect;
+
+  const selectedMenuId = (_useSelect = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_preferences_namespaceObject.store).get('core/edit-navigation', 'selectedMenuId'), [])) !== null && _useSelect !== void 0 ? _useSelect : null;
   const {
-    setSelectedMenuId
-  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+    set
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_preferences_namespaceObject.store);
+  const setSelectedMenuId = (0,external_wp_element_namespaceObject.useCallback)(menuId => set('core/edit-navigation', 'selectedMenuId', menuId), [set]);
   return [selectedMenuId, setSelectedMenuId];
 }
 
@@ -2114,8 +2053,6 @@ const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
 ;// CONCATENATED MODULE: external ["wp","deprecated"]
 var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
-;// CONCATENATED MODULE: external ["wp","preferences"]
-var external_wp_preferences_namespaceObject = window["wp"]["preferences"];
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/actions.js
 /**
  * WordPress dependencies
@@ -2222,7 +2159,7 @@ function toggleFeature(scope, featureName) {
       registry
     } = _ref;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).toggleFeature`, {
-      version: '6.0',
+      since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).toggle`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).toggle(scope, featureName);
@@ -2245,7 +2182,7 @@ function setFeatureValue(scope, featureName, value) {
       registry
     } = _ref2;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureValue`, {
-      version: '6.0',
+      since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).set`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, featureName, !!value);
@@ -2266,7 +2203,7 @@ function setFeatureDefaults(scope, defaults) {
       registry
     } = _ref3;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureDefaults`, {
-      version: '6.0',
+      since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).setDefaults`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).setDefaults(scope, defaults);
@@ -2352,7 +2289,7 @@ function isItemPinned(state, scope, item) {
 
 const isFeatureActive = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, scope, featureName) => {
   external_wp_deprecated_default()(`wp.select( 'core/interface' ).isFeatureActive( scope, featureName )`, {
-    version: '6.0',
+    since: '6.0',
     alternative: `!! wp.select( 'core/preferences' ).isFeatureActive( scope, featureName )`
   });
   return !!select(external_wp_preferences_namespaceObject.store).get(scope, featureName);
@@ -2379,7 +2316,7 @@ const constants_STORE_NAME = 'core/interface';
 
 
 
-const store_storeConfig = {
+const storeConfig = {
   reducer: store_reducer,
   actions: store_actions_namespaceObject,
   selectors: store_selectors_namespaceObject,
@@ -2393,10 +2330,10 @@ const store_storeConfig = {
  * @type {Object}
  */
 
-const store_store = (0,external_wp_data_namespaceObject.createReduxStore)(constants_STORE_NAME, store_storeConfig); // Once we build a more generic persistence plugin that works across types of stores
+const store_store = (0,external_wp_data_namespaceObject.createReduxStore)(constants_STORE_NAME, storeConfig); // Once we build a more generic persistence plugin that works across types of stores
 // we'd be able to replace this with a register call.
 
-(0,external_wp_data_namespaceObject.registerStore)(constants_STORE_NAME, store_storeConfig);
+(0,external_wp_data_namespaceObject.registerStore)(constants_STORE_NAME, storeConfig);
 
 ;// CONCATENATED MODULE: external ["wp","plugins"]
 var external_wp_plugins_namespaceObject = window["wp"]["plugins"];

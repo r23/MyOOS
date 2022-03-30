@@ -184,7 +184,6 @@ var store_actions_namespaceObject = {};
 __webpack_require__.r(store_actions_namespaceObject);
 __webpack_require__.d(store_actions_namespaceObject, {
   "__experimentalSetPreviewDeviceType": function() { return __experimentalSetPreviewDeviceType; },
-  "__experimentalUpdateLocalAutosaveInterval": function() { return __experimentalUpdateLocalAutosaveInterval; },
   "__unstableCreateTemplate": function() { return __unstableCreateTemplate; },
   "__unstableSwitchToTemplateMode": function() { return __unstableSwitchToTemplateMode; },
   "closeGeneralSidebar": function() { return closeGeneralSidebar; },
@@ -495,15 +494,11 @@ function CopyContentMenuItem() {
 var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/store/defaults.js
 const PREFERENCES_DEFAULTS = {
-  editorMode: 'visual',
   panels: {
     'post-status': {
       opened: true
     }
-  },
-  hiddenBlockTypes: [],
-  preferredStyleVariations: {},
-  localAutosaveInterval: 15
+  }
 };
 
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/store/reducer.js
@@ -585,44 +580,6 @@ const preferences = (0,external_lodash_namespaceObject.flow)([external_wp_data_n
             }
           };
         }
-    }
-
-    return state;
-  },
-
-  editorMode(state, action) {
-    if (action.type === 'SWITCH_MODE') {
-      return action.mode;
-    }
-
-    return state;
-  },
-
-  preferredStyleVariations(state, action) {
-    switch (action.type) {
-      case 'UPDATE_PREFERRED_STYLE_VARIATIONS':
-        {
-          if (!action.blockName) {
-            return state;
-          }
-
-          if (!action.blockStyle) {
-            return (0,external_lodash_namespaceObject.omit)(state, [action.blockName]);
-          }
-
-          return { ...state,
-            [action.blockName]: action.blockStyle
-          };
-        }
-    }
-
-    return state;
-  },
-
-  localAutosaveInterval(state, action) {
-    switch (action.type) {
-      case 'UPDATE_LOCAL_AUTOSAVE_INTERVAL':
-        return action.interval;
     }
 
     return state;
@@ -1131,7 +1088,7 @@ function toggleFeature(scope, featureName) {
       registry
     } = _ref;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).toggleFeature`, {
-      version: '6.0',
+      since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).toggle`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).toggle(scope, featureName);
@@ -1154,7 +1111,7 @@ function setFeatureValue(scope, featureName, value) {
       registry
     } = _ref2;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureValue`, {
-      version: '6.0',
+      since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).set`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, featureName, !!value);
@@ -1175,7 +1132,7 @@ function setFeatureDefaults(scope, defaults) {
       registry
     } = _ref3;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureDefaults`, {
-      version: '6.0',
+      since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).setDefaults`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).setDefaults(scope, defaults);
@@ -1261,7 +1218,7 @@ function isItemPinned(state, scope, item) {
 
 const isFeatureActive = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, scope, featureName) => {
   external_wp_deprecated_default()(`wp.select( 'core/interface' ).isFeatureActive( scope, featureName )`, {
-    version: '6.0',
+    since: '6.0',
     alternative: `!! wp.select( 'core/preferences' ).isFeatureActive( scope, featureName )`
   });
   return !!select(external_wp_preferences_namespaceObject.store).get(scope, featureName);
@@ -2448,13 +2405,9 @@ const actions_toggleFeature = feature => _ref3 => {
 
 const switchEditorMode = mode => _ref4 => {
   let {
-    dispatch,
     registry
   } = _ref4;
-  dispatch({
-    type: 'SWITCH_MODE',
-    mode
-  }); // Unselect blocks when we switch to the code editor.
+  registry.dispatch(external_wp_preferences_namespaceObject.store).set('core/edit-post', 'editorMode', mode); // Unselect blocks when we switch to the code editor.
 
   if (mode !== 'visual') {
     registry.dispatch(external_wp_blockEditor_namespaceObject.store).clearSelectedBlock();
@@ -2481,44 +2434,46 @@ const togglePinnedPluginItem = pluginName => _ref5 => {
  *
  * @param {string}  blockName  Name of the block.
  * @param {?string} blockStyle Name of the style that should be auto applied. If undefined, the "auto apply" setting of the block is removed.
- *
- * @return {Object} Action object.
  */
 
-function updatePreferredStyleVariations(blockName, blockStyle) {
-  return {
-    type: 'UPDATE_PREFERRED_STYLE_VARIATIONS',
-    blockName,
-    blockStyle
-  };
-}
-/**
- * Returns an action object used in signalling that the editor should attempt
- * to locally autosave the current post every `interval` seconds.
- *
- * @param {number} interval The new interval, in seconds.
- * @return {Object} Action object.
- */
+const updatePreferredStyleVariations = (blockName, blockStyle) => _ref6 => {
+  var _registry$select$get;
 
-function __experimentalUpdateLocalAutosaveInterval(interval) {
-  return {
-    type: 'UPDATE_LOCAL_AUTOSAVE_INTERVAL',
-    interval
-  };
-}
+  let {
+    registry
+  } = _ref6;
+
+  if (!blockName) {
+    return;
+  }
+
+  const existingVariations = (_registry$select$get = registry.select(external_wp_preferences_namespaceObject.store).get('core/edit-post', 'preferredStyleVariations')) !== null && _registry$select$get !== void 0 ? _registry$select$get : {}; // When the blockStyle is omitted, remove the block's preferred variation.
+
+  if (!blockStyle) {
+    const updatedVariations = { ...existingVariations
+    };
+    delete updatedVariations[blockName];
+    registry.dispatch(external_wp_preferences_namespaceObject.store).set('core/edit-post', 'preferredStyleVariations', updatedVariations);
+  } else {
+    // Else add the variation.
+    registry.dispatch(external_wp_preferences_namespaceObject.store).set('core/edit-post', 'preferredStyleVariations', { ...existingVariations,
+      [blockName]: blockStyle
+    });
+  }
+};
 /**
  * Update the provided block types to be visible.
  *
  * @param {string[]} blockNames Names of block types to show.
  */
 
-const showBlockTypes = blockNames => _ref6 => {
-  var _registry$select$get;
+const showBlockTypes = blockNames => _ref7 => {
+  var _registry$select$get2;
 
   let {
     registry
-  } = _ref6;
-  const existingBlockNames = (_registry$select$get = registry.select(external_wp_preferences_namespaceObject.store).get('core/edit-post', 'hiddenBlockTypes')) !== null && _registry$select$get !== void 0 ? _registry$select$get : [];
+  } = _ref7;
+  const existingBlockNames = (_registry$select$get2 = registry.select(external_wp_preferences_namespaceObject.store).get('core/edit-post', 'hiddenBlockTypes')) !== null && _registry$select$get2 !== void 0 ? _registry$select$get2 : [];
   const newBlockNames = (0,external_lodash_namespaceObject.without)(existingBlockNames, ...(0,external_lodash_namespaceObject.castArray)(blockNames));
   registry.dispatch(external_wp_preferences_namespaceObject.store).set('core/edit-post', 'hiddenBlockTypes', newBlockNames);
 };
@@ -2528,13 +2483,13 @@ const showBlockTypes = blockNames => _ref6 => {
  * @param {string[]} blockNames Names of block types to hide.
  */
 
-const hideBlockTypes = blockNames => _ref7 => {
-  var _registry$select$get2;
+const hideBlockTypes = blockNames => _ref8 => {
+  var _registry$select$get3;
 
   let {
     registry
-  } = _ref7;
-  const existingBlockNames = (_registry$select$get2 = registry.select(external_wp_preferences_namespaceObject.store).get('core/edit-post', 'hiddenBlockTypes')) !== null && _registry$select$get2 !== void 0 ? _registry$select$get2 : [];
+  } = _ref8;
+  const existingBlockNames = (_registry$select$get3 = registry.select(external_wp_preferences_namespaceObject.store).get('core/edit-post', 'hiddenBlockTypes')) !== null && _registry$select$get3 !== void 0 ? _registry$select$get3 : [];
   const mergedBlockNames = new Set([...existingBlockNames, ...(0,external_lodash_namespaceObject.castArray)(blockNames)]);
   registry.dispatch(external_wp_preferences_namespaceObject.store).set('core/edit-post', 'hiddenBlockTypes', [...mergedBlockNames]);
 };
@@ -2545,10 +2500,10 @@ const hideBlockTypes = blockNames => _ref7 => {
  * @param {Object} metaBoxesPerLocation Meta boxes per location.
  */
 
-const setAvailableMetaBoxesPerLocation = metaBoxesPerLocation => _ref8 => {
+const setAvailableMetaBoxesPerLocation = metaBoxesPerLocation => _ref9 => {
   let {
     dispatch
-  } = _ref8;
+  } = _ref9;
   return dispatch({
     type: 'SET_META_BOXES_PER_LOCATIONS',
     metaBoxesPerLocation
@@ -2558,12 +2513,12 @@ const setAvailableMetaBoxesPerLocation = metaBoxesPerLocation => _ref8 => {
  * Update a metabox.
  */
 
-const requestMetaBoxUpdates = () => async _ref9 => {
+const requestMetaBoxUpdates = () => async _ref10 => {
   let {
     registry,
     select,
     dispatch
-  } = _ref9;
+  } = _ref10;
   dispatch({
     type: 'REQUEST_META_BOX_UPDATES'
   }); // Saves the wp_editor fields.
@@ -2588,8 +2543,8 @@ const requestMetaBoxUpdates = () => async _ref9 => {
 
     return memo;
   }, new window.FormData());
-  additionalData.forEach(_ref10 => {
-    let [key, value] = _ref10;
+  additionalData.forEach(_ref11 => {
+    let [key, value] = _ref11;
     return formData.append(key, value);
   });
 
@@ -2695,12 +2650,12 @@ function setIsEditingTemplate(value) {
 
 const __unstableSwitchToTemplateMode = function () {
   let newTemplate = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-  return _ref11 => {
+  return _ref12 => {
     let {
       registry,
       select,
       dispatch
-    } = _ref11;
+    } = _ref12;
     dispatch(setIsEditingTemplate(true));
     const isWelcomeGuideActive = select.isFeatureActive('welcomeGuideTemplate');
 
@@ -2718,10 +2673,10 @@ const __unstableSwitchToTemplateMode = function () {
  * @param {Object?} template Template to create and assign.
  */
 
-const __unstableCreateTemplate = template => async _ref12 => {
+const __unstableCreateTemplate = template => async _ref13 => {
   let {
     registry
-  } = _ref12;
+  } = _ref13;
   const savedTemplate = await registry.dispatch(external_wp_coreData_namespaceObject.store).saveEntityRecord('postType', 'wp_template', template);
   const post = registry.select(external_wp_editor_namespaceObject.store).getCurrentPost();
   registry.dispatch(external_wp_coreData_namespaceObject.store).editEntityRecord('postType', post.type, post.id, {
@@ -2733,12 +2688,12 @@ let actions_metaBoxesInitialized = false;
  * Initializes WordPress `postboxes` script and the logic for saving meta boxes.
  */
 
-const initializeMetaBoxes = () => _ref13 => {
+const initializeMetaBoxes = () => _ref14 => {
   let {
     registry,
     select,
     dispatch
-  } = _ref13;
+  } = _ref14;
 
   const isEditorReady = registry.select(external_wp_editor_namespaceObject.store).__unstableIsEditorReady();
 
@@ -3085,9 +3040,11 @@ const EMPTY_ARRAY = [];
  * @return {string} Editing mode.
  */
 
-function getEditorMode(state) {
-  return getPreference(state, 'editorMode', 'visual');
-}
+const getEditorMode = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => () => {
+  var _select$get;
+
+  return (_select$get = select(external_wp_preferences_namespaceObject.store).get('core/edit-post', 'editorMode')) !== null && _select$get !== void 0 ? _select$get : 'visual';
+});
 /**
  * Returns true if the editor sidebar is opened.
  *
@@ -3132,7 +3089,7 @@ const getActiveGeneralSidebarName = (0,external_wp_data_namespaceObject.createRe
 }); // The current list of preference keys that have been migrated to the
 // preferences package.
 
-const MIGRATED_KEYS = ['hiddenBlockTypes'];
+const MIGRATED_KEYS = ['hiddenBlockTypes', 'editorMode', 'preferredStyleVariations'];
 /**
  * Returns the preferences (these preferences are persisted locally).
  *
@@ -3179,9 +3136,9 @@ function getPreference(state, preferenceKey, defaultValue) {
  */
 
 const getHiddenBlockTypes = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => () => {
-  var _select$get;
+  var _select$get2;
 
-  return (_select$get = select(external_wp_preferences_namespaceObject.store).get('core/edit-post', 'hiddenBlockTypes')) !== null && _select$get !== void 0 ? _select$get : EMPTY_ARRAY;
+  return (_select$get2 = select(external_wp_preferences_namespaceObject.store).get('core/edit-post', 'hiddenBlockTypes')) !== null && _select$get2 !== void 0 ? _select$get2 : EMPTY_ARRAY;
 });
 /**
  * Returns true if the publish sidebar is opened.
@@ -5992,7 +5949,9 @@ function DeleteTemplate() {
     updateEditorSettings({ ...settings,
       availableTemplates: newAvailableTemplates
     });
-    deleteEntityRecord('postType', 'wp_template', template.id);
+    deleteEntityRecord('postType', 'wp_template', template.id, {
+      throwOnError: true
+    });
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
@@ -9031,7 +8990,6 @@ function Editor(_ref) {
     preferredStyleVariations,
     hiddenBlockTypes,
     blockTypes,
-    __experimentalLocalAutosaveInterval,
     keepCaretInsideBlock,
     isTemplateMode,
     template
@@ -9081,7 +9039,6 @@ function Editor(_ref) {
       preferredStyleVariations: getPreference('preferredStyleVariations'),
       hiddenBlockTypes: getHiddenBlockTypes(),
       blockTypes: getBlockTypes(),
-      __experimentalLocalAutosaveInterval: getPreference('localAutosaveInterval'),
       keepCaretInsideBlock: isFeatureActive('keepCaretInsideBlock'),
       isTemplateMode: isEditingTemplate(),
       template: supportsTemplateMode && isViewable ? getEditedPostTemplate() : null,
@@ -9101,7 +9058,6 @@ function Editor(_ref) {
       hasFixedToolbar,
       focusMode,
       hasReducedUI,
-      __experimentalLocalAutosaveInterval,
       // This is marked as experimental to give time for the quick inserter to mature.
       __experimentalSetIsInserterOpened: setIsInserterOpened,
       keepCaretInsideBlock,
@@ -9119,7 +9075,7 @@ function Editor(_ref) {
     }
 
     return result;
-  }, [settings, hasFixedToolbar, focusMode, hasReducedUI, hiddenBlockTypes, blockTypes, preferredStyleVariations, __experimentalLocalAutosaveInterval, setIsInserterOpened, updatePreferredStyleVariations, keepCaretInsideBlock]);
+  }, [settings, hasFixedToolbar, focusMode, hasReducedUI, hiddenBlockTypes, blockTypes, preferredStyleVariations, setIsInserterOpened, updatePreferredStyleVariations, keepCaretInsideBlock]);
   const styles = (0,external_wp_element_namespaceObject.useMemo)(() => {
     const themeStyles = [];
     const presetStyles = [];
@@ -9279,6 +9235,7 @@ const PluginBlockSettingsMenuItem = _ref => {
 
 
 
+
 /**
  * Renders a menu item in `Plugins` group in `More Menu` drop down, and can be used to as a button or link depending on the props provided.
  * The text within the component appears as the menu item label.
@@ -9337,7 +9294,10 @@ const PluginBlockSettingsMenuItem = _ref => {
  */
 
 /* harmony default export */ var plugin_more_menu_item = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_plugins_namespaceObject.withPluginContext)((context, ownProps) => {
+  var _ownProps$as;
+
   return {
+    as: (_ownProps$as = ownProps.as) !== null && _ownProps$as !== void 0 ? _ownProps$as : external_wp_components_namespaceObject.MenuItem,
     icon: ownProps.icon || context.icon,
     name: 'core/edit-post/plugin-more-menu'
   };
@@ -9479,9 +9439,11 @@ function initializeEditor(id, postType, postId, settings, initialEdits) {
   const target = document.getElementById(id);
   const reboot = reinitializeEditor.bind(null, postType, postId, target, settings, initialEdits);
   (0,external_wp_data_namespaceObject.dispatch)(external_wp_preferences_namespaceObject.store).setDefaults('core/edit-post', {
+    editorMode: 'visual',
     fixedToolbar: false,
     fullscreenMode: true,
     hiddenBlockTypes: [],
+    preferredStyleVariations: {},
     showBlockBreadcrumbs: true,
     showIconLabels: false,
     themeStyles: true,

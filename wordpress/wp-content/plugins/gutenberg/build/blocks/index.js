@@ -1,6 +1,174 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 9756:
+/***/ (function(module) {
+
+/**
+ * Memize options object.
+ *
+ * @typedef MemizeOptions
+ *
+ * @property {number} [maxSize] Maximum size of the cache.
+ */
+
+/**
+ * Internal cache entry.
+ *
+ * @typedef MemizeCacheNode
+ *
+ * @property {?MemizeCacheNode|undefined} [prev] Previous node.
+ * @property {?MemizeCacheNode|undefined} [next] Next node.
+ * @property {Array<*>}                   args   Function arguments for cache
+ *                                               entry.
+ * @property {*}                          val    Function result.
+ */
+
+/**
+ * Properties of the enhanced function for controlling cache.
+ *
+ * @typedef MemizeMemoizedFunction
+ *
+ * @property {()=>void} clear Clear the cache.
+ */
+
+/**
+ * Accepts a function to be memoized, and returns a new memoized function, with
+ * optional options.
+ *
+ * @template {Function} F
+ *
+ * @param {F}             fn        Function to memoize.
+ * @param {MemizeOptions} [options] Options object.
+ *
+ * @return {F & MemizeMemoizedFunction} Memoized function.
+ */
+function memize( fn, options ) {
+	var size = 0;
+
+	/** @type {?MemizeCacheNode|undefined} */
+	var head;
+
+	/** @type {?MemizeCacheNode|undefined} */
+	var tail;
+
+	options = options || {};
+
+	function memoized( /* ...args */ ) {
+		var node = head,
+			len = arguments.length,
+			args, i;
+
+		searchCache: while ( node ) {
+			// Perform a shallow equality test to confirm that whether the node
+			// under test is a candidate for the arguments passed. Two arrays
+			// are shallowly equal if their length matches and each entry is
+			// strictly equal between the two sets. Avoid abstracting to a
+			// function which could incur an arguments leaking deoptimization.
+
+			// Check whether node arguments match arguments length
+			if ( node.args.length !== arguments.length ) {
+				node = node.next;
+				continue;
+			}
+
+			// Check whether node arguments match arguments values
+			for ( i = 0; i < len; i++ ) {
+				if ( node.args[ i ] !== arguments[ i ] ) {
+					node = node.next;
+					continue searchCache;
+				}
+			}
+
+			// At this point we can assume we've found a match
+
+			// Surface matched node to head if not already
+			if ( node !== head ) {
+				// As tail, shift to previous. Must only shift if not also
+				// head, since if both head and tail, there is no previous.
+				if ( node === tail ) {
+					tail = node.prev;
+				}
+
+				// Adjust siblings to point to each other. If node was tail,
+				// this also handles new tail's empty `next` assignment.
+				/** @type {MemizeCacheNode} */ ( node.prev ).next = node.next;
+				if ( node.next ) {
+					node.next.prev = node.prev;
+				}
+
+				node.next = head;
+				node.prev = null;
+				/** @type {MemizeCacheNode} */ ( head ).prev = node;
+				head = node;
+			}
+
+			// Return immediately
+			return node.val;
+		}
+
+		// No cached value found. Continue to insertion phase:
+
+		// Create a copy of arguments (avoid leaking deoptimization)
+		args = new Array( len );
+		for ( i = 0; i < len; i++ ) {
+			args[ i ] = arguments[ i ];
+		}
+
+		node = {
+			args: args,
+
+			// Generate the result from original function
+			val: fn.apply( null, args ),
+		};
+
+		// Don't need to check whether node is already head, since it would
+		// have been returned above already if it was
+
+		// Shift existing head down list
+		if ( head ) {
+			head.prev = node;
+			node.next = head;
+		} else {
+			// If no head, follows that there's no tail (at initial or reset)
+			tail = node;
+		}
+
+		// Trim tail if we're reached max size and are pending cache insertion
+		if ( size === /** @type {MemizeOptions} */ ( options ).maxSize ) {
+			tail = /** @type {MemizeCacheNode} */ ( tail ).prev;
+			/** @type {MemizeCacheNode} */ ( tail ).next = null;
+		} else {
+			size++;
+		}
+
+		head = node;
+
+		return node.val;
+	}
+
+	memoized.clear = function() {
+		head = null;
+		tail = null;
+		size = 0;
+	};
+
+	if ( false ) {}
+
+	// Ignore reason: There's not a clear solution to create an intersection of
+	// the function with additional properties, where the goal is to retain the
+	// function signature of the incoming argument and add control properties
+	// on the return value.
+
+	// @ts-ignore
+	return memoized;
+}
+
+module.exports = memize;
+
+
+/***/ }),
+
 /***/ 7308:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5279,6 +5447,7 @@ __webpack_require__.d(__webpack_exports__, {
   "registerBlockType": function() { return /* reexport */ registerBlockType; },
   "registerBlockVariation": function() { return /* reexport */ registerBlockVariation; },
   "serialize": function() { return /* reexport */ serializer_serialize; },
+  "serializeRawBlock": function() { return /* reexport */ serializeRawBlock; },
   "setCategories": function() { return /* reexport */ categories_setCategories; },
   "setDefaultBlockName": function() { return /* reexport */ setDefaultBlockName; },
   "setFreeformContentHandlerName": function() { return /* reexport */ setFreeformContentHandlerName; },
@@ -5292,6 +5461,7 @@ __webpack_require__.d(__webpack_exports__, {
   "unregisterBlockVariation": function() { return /* reexport */ unregisterBlockVariation; },
   "unstable__bootstrapServerSideBlockDefinitions": function() { return /* reexport */ unstable__bootstrapServerSideBlockDefinitions; },
   "updateCategory": function() { return /* reexport */ categories_updateCategory; },
+  "validateBlock": function() { return /* reexport */ validateBlock; },
   "withBlockContentContext": function() { return /* reexport */ withBlockContentContext; }
 });
 
@@ -9146,9 +9316,17 @@ function tokenize(input, options) {
 
 
 
+;// CONCATENATED MODULE: external ["wp","deprecated"]
+var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
+var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
 ;// CONCATENATED MODULE: external ["wp","htmlEntities"]
 var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/api/validation/logger.js
+/**
+ * @typedef LoggerItem
+ * @property {Function}   log  Which logger recorded the message
+ * @property {Array<any>} args White arguments were supplied to the logger
+ */
 function createLogger() {
   /**
    * Creates a log handler with block validation prefix.
@@ -9191,7 +9369,7 @@ function createQueuedLogger() {
   /**
    * The list of enqueued log actions to print.
    *
-   * @type {Array}
+   * @type {Array<LoggerItem>}
    */
   const queue = [];
   const logger = createLogger();
@@ -9236,6 +9414,7 @@ function createQueuedLogger() {
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -9243,6 +9422,12 @@ function createQueuedLogger() {
 
 
 
+
+/** @typedef {import('../parser').WPBlock} WPBlock */
+
+/** @typedef {import('../registration').WPBlockType} WPBlockType */
+
+/** @typedef {import('./logger').LoggerItem} LoggerItem */
 
 /**
  * Globally matches any consecutive whitespace
@@ -9800,17 +9985,18 @@ function isEquivalentHTML(actual, expected) {
  * with assumed attributes, the content matches the original value. If block is
  * invalid, this function returns all validations issues as well.
  *
- * @param {import('../parser').WPBlock}           block           block object.
- * @param {import('../registration').WPBlockType} blockTypeOrName Block type or name.
+ * @param {WPBlock}            block                          block object.
+ * @param {WPBlockType|string} [blockTypeOrName = block.name] Block type or name, inferred from block if not given.
  *
- * @return {[boolean,Object]} validation results.
+ * @return {[boolean,Array<LoggerItem>]} validation results.
  */
 
-function validateBlock(block, blockTypeOrName) {
+function validateBlock(block) {
+  let blockTypeOrName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : block.name;
   const isFallbackBlock = block.name === getFreeformContentHandlerName() || block.name === getUnregisteredTypeHandlerName(); // Shortcut to avoid costly validation.
 
   if (isFallbackBlock) {
-    return [true];
+    return [true, []];
   }
 
   const logger = createQueuedLogger();
@@ -9839,6 +10025,8 @@ function validateBlock(block, blockTypeOrName) {
  *
  * Logs to console in development environments when invalid.
  *
+ * @deprecated Use validateBlock instead to avoid data loss.
+ *
  * @param {string|Object} blockTypeOrName      Block type.
  * @param {Object}        attributes           Parsed block attributes.
  * @param {string}        originalBlockContent Original block content.
@@ -9847,6 +10035,11 @@ function validateBlock(block, blockTypeOrName) {
  */
 
 function isValidBlockContent(blockTypeOrName, attributes, originalBlockContent) {
+  external_wp_deprecated_default()('isValidBlockContent introduces opportunity for data loss', {
+    since: '12.6',
+    plugin: 'Gutenberg',
+    alternative: 'validateBlock'
+  });
   const blockType = normalizeBlockType(blockTypeOrName);
   const block = {
     name: blockType.name,
@@ -9938,8 +10131,15 @@ function convertLegacyBlockNameAndAttributes(name, attributes) {
  */
 
 /**
+ * @typedef {Object}   Options                   Serialization options.
+ * @property {boolean} [isCommentDelimited=true] Whether to output HTML comments around blocks.
+ */
+
+/** @typedef {import("./").WPRawBlock} WPRawBlock */
+
+/**
  * Serializes a block node into the native HTML-comment-powered block format.
- * CAVEAT: This function is intended for reserializing blocks as parsed by
+ * CAVEAT: This function is intended for re-serializing blocks as parsed by
  * valid parsers and skips any validation steps. This is NOT a generic
  * serialization function for in-memory blocks. For most purposes, see the
  * following functions available in the `@wordpress/blocks` package:
@@ -9952,9 +10152,8 @@ function convertLegacyBlockNameAndAttributes(name, attributes) {
  * @see `@wordpress/block-serialization-default-parser` package
  * @see `@wordpress/block-serialization-spec-parser` package
  *
- * @param {import(".").WPRawBlock} rawBlock                   A block node as returned by a valid parser.
- * @param {?Object}                options                    Serialization options.
- * @param {?boolean}               options.isCommentDelimited Whether to output HTML comments around blocks.
+ * @param {WPRawBlock} rawBlock     A block node as returned by a valid parser.
+ * @param {Options}    [options={}] Serialization options.
  *
  * @return {string} An HTML string representing a block.
  */
@@ -10155,6 +10354,9 @@ function query(selector, matchers) {
     });
   };
 }
+// EXTERNAL MODULE: ./node_modules/memize/index.js
+var memize = __webpack_require__(9756);
+var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/api/matchers.js
 /**
  * External dependencies
@@ -10499,6 +10701,7 @@ function children_matcher(selector) {
  */
 
 
+
 /**
  * WordPress dependencies
  */
@@ -10591,19 +10794,15 @@ function isOfTypes(value, types) {
  * commentAttributes returns the attribute value depending on its source
  * definition of the given attribute key.
  *
- * @param {string} attributeKey      Attribute key.
- * @param {Object} attributeSchema   Attribute's schema.
- * @param {string} innerHTML         Block's raw content.
- * @param {Object} commentAttributes Block's comment attributes.
+ * @param {string}      attributeKey      Attribute key.
+ * @param {Object}      attributeSchema   Attribute's schema.
+ * @param {string|Node} innerHTML         Block's raw content.
+ * @param {Object}      commentAttributes Block's comment attributes.
  *
  * @return {*} Attribute value.
  */
 
 function getBlockAttribute(attributeKey, attributeSchema, innerHTML, commentAttributes) {
-  const {
-    type,
-    enum: enumSet
-  } = attributeSchema;
   let value;
 
   switch (attributeSchema.source) {
@@ -10625,14 +10824,14 @@ function getBlockAttribute(attributeKey, attributeSchema, innerHTML, commentAttr
       break;
   }
 
-  if (!isValidByType(value, type) || !isValidByEnum(value, enumSet)) {
+  if (!isValidByType(value, attributeSchema.type) || !isValidByEnum(value, attributeSchema.enum)) {
     // Reject the value if it is not valid. Reverting to the undefined
     // value ensures the default is respected, if applicable.
     value = undefined;
   }
 
   if (value === undefined) {
-    return attributeSchema.default;
+    value = attributeSchema.default;
   }
 
   return value;
@@ -10675,7 +10874,7 @@ function isValidByEnum(value, enumSet) {
  * @return {Function} A hpq Matcher.
  */
 
-function matcherFromSource(sourceConfig) {
+const matcherFromSource = memize_default()(sourceConfig => {
   switch (sourceConfig.source) {
     case 'attribute':
       let matcher = attr(sourceConfig.selector, sourceConfig.attribute);
@@ -10709,25 +10908,37 @@ function matcherFromSource(sourceConfig) {
       // eslint-disable-next-line no-console
       console.error(`Unknown source type "${sourceConfig.source}"`);
   }
+});
+/**
+ * Parse a HTML string into DOM tree.
+ *
+ * @param {string|Node} innerHTML HTML string or already parsed DOM node.
+ *
+ * @return {Node} Parsed DOM node.
+ */
+
+function parseHtml(innerHTML) {
+  return parse(innerHTML, h => h);
 }
 /**
  * Given a block's raw content and an attribute's schema returns the attribute's
  * value depending on its source.
  *
- * @param {string} innerHTML       Block's raw content.
- * @param {Object} attributeSchema Attribute's schema.
+ * @param {string|Node} innerHTML       Block's raw content.
+ * @param {Object}      attributeSchema Attribute's schema.
  *
  * @return {*} Attribute value.
  */
 
+
 function parseWithAttributeSchema(innerHTML, attributeSchema) {
-  return parse(innerHTML, matcherFromSource(attributeSchema));
+  return matcherFromSource(attributeSchema)(parseHtml(innerHTML));
 }
 /**
  * Returns the block attributes of a registered block node given its type.
  *
  * @param {string|Object} blockTypeOrName Block type or name.
- * @param {string}        innerHTML       Raw block content.
+ * @param {string|Node}   innerHTML       Raw block content.
  * @param {?Object}       attributes      Known block attributes (from delimiters).
  *
  * @return {Object} All block attributes.
@@ -10735,10 +10946,9 @@ function parseWithAttributeSchema(innerHTML, attributeSchema) {
 
 function getBlockAttributes(blockTypeOrName, innerHTML) {
   let attributes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  const doc = parseHtml(innerHTML);
   const blockType = normalizeBlockType(blockTypeOrName);
-  const blockAttributes = (0,external_lodash_namespaceObject.mapValues)(blockType.attributes, (attributeSchema, attributeKey) => {
-    return getBlockAttribute(attributeKey, attributeSchema, innerHTML, attributes);
-  });
+  const blockAttributes = (0,external_lodash_namespaceObject.mapValues)(blockType.attributes, (schema, key) => getBlockAttribute(key, schema, doc, attributes));
   return (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.getBlockAttributes', blockAttributes, blockType, innerHTML, attributes);
 }
 
@@ -10754,6 +10964,12 @@ function getBlockAttributes(blockTypeOrName, innerHTML) {
 
 
 
+const CLASS_ATTR_SCHEMA = {
+  type: 'string',
+  source: 'attribute',
+  selector: '[data-custom-class-name] > *',
+  attribute: 'class'
+};
 /**
  * Given an HTML string, returns an array of class names assigned to the root
  * element in the markup.
@@ -10764,13 +10980,7 @@ function getBlockAttributes(blockTypeOrName, innerHTML) {
  */
 
 function getHTMLRootElementClasses(innerHTML) {
-  innerHTML = `<div data-custom-class-name>${innerHTML}</div>`;
-  const parsed = parseWithAttributeSchema(innerHTML, {
-    type: 'string',
-    source: 'attribute',
-    selector: '[data-custom-class-name] > *',
-    attribute: 'class'
-  });
+  const parsed = parseWithAttributeSchema(`<div data-custom-class-name>${innerHTML}</div>`, CLASS_ATTR_SCHEMA);
   return parsed ? parsed.trim().split(/\s+/) : [];
 }
 /**
@@ -10970,12 +11180,18 @@ function applyBlockDeprecatedVersions(block, rawBlock, blockType) {
  *
  * @typedef WPBlock
  *
- * @property {string}    name             Block name
- * @property {Object }   attributes       Block raw or comment attributes.
- * @property {WPBlock[]} innerBlocks      Inner Blocks.
- * @property {string}    originalContent  Original content of the block before validation fixes.
- * @property {boolean}   isValid          Whether the block is valid.
- * @property {Object[]}  validationIssues Validation issues.
+ * @property {string}     name                    Block name
+ * @property {Object}     attributes              Block raw or comment attributes.
+ * @property {WPBlock[]}  innerBlocks             Inner Blocks.
+ * @property {string}     originalContent         Original content of the block before validation fixes.
+ * @property {boolean}    isValid                 Whether the block is valid.
+ * @property {Object[]}   validationIssues        Validation issues.
+ * @property {WPRawBlock} [__unstableBlockSource] Un-processed original copy of block if created through parser.
+ */
+
+/**
+ * @typedef  {Object}  ParseOptions
+ * @property {boolean} __unstableSkipMigrationLogs If a block is migrated from a deprecated version, skip logging the migration details.
  */
 
 /**
@@ -11094,13 +11310,14 @@ function applyBlockValidation(unvalidatedBlock, blockType) {
 /**
  * Given a raw block returned by grammar parsing, returns a fully parsed block.
  *
- * @param {WPRawBlock} rawBlock The raw block object.
+ * @param {WPRawBlock}   rawBlock The raw block object.
+ * @param {ParseOptions} options  Extra options for handling block parsing.
  *
  * @return {WPBlock} Fully parsed block.
  */
 
 
-function parseRawBlock(rawBlock) {
+function parseRawBlock(rawBlock, options) {
   let normalizedBlock = normalizeRawBlock(rawBlock); // During the lifecycle of the project, we renamed some old blocks
   // and transformed others to new blocks. To avoid breaking existing content,
   // we added this function to properly parse the old content.
@@ -11126,7 +11343,7 @@ function parseRawBlock(rawBlock) {
   } // Parse inner blocks recursively.
 
 
-  const parsedInnerBlocks = normalizedBlock.innerBlocks.map(parseRawBlock) // See https://github.com/WordPress/gutenberg/pull/17164.
+  const parsedInnerBlocks = normalizedBlock.innerBlocks.map(innerBlock => parseRawBlock(innerBlock, options)) // See https://github.com/WordPress/gutenberg/pull/17164.
   .filter(innerBlock => !!innerBlock); // Get the fully parsed block.
 
   const parsedBlock = createBlock(normalizedBlock.blockName, getBlockAttributes(blockType, normalizedBlock.innerHTML, normalizedBlock.attrs), parsedInnerBlocks);
@@ -11141,7 +11358,17 @@ function parseRawBlock(rawBlock) {
 
   const updatedBlock = applyBlockDeprecatedVersions(validatedBlock, normalizedBlock, blockType);
 
-  if (!validatedBlock.isValid && updatedBlock.isValid) {
+  if (!updatedBlock.isValid) {
+    // Preserve the original unprocessed version of the block
+    // that we received (no fixes, no deprecations) so that
+    // we can save it as close to exactly the same way as
+    // we loaded it. This is important to avoid corruption
+    // and data loss caused by block implementations trying
+    // to process data that isn't fully recognized.
+    updatedBlock.__unstableBlockSource = rawBlock;
+  }
+
+  if (!validatedBlock.isValid && updatedBlock.isValid && !(options !== null && options !== void 0 && options.__unstableSkipMigrationLogs)) {
     /* eslint-disable no-console */
     console.groupCollapsed('Updated Block: %s', blockType.name);
     console.info('Block successfully updated for `%s` (%o).\n\nNew content generated by `save` function:\n\n%s\n\nContent retrieved from post body:\n\n%s', blockType.name, blockType, getSaveContent(blockType, updatedBlock.attributes), updatedBlock.originalContent);
@@ -11175,14 +11402,15 @@ function parseRawBlock(rawBlock) {
  * @see
  * https://developer.wordpress.org/block-editor/packages/packages-block-serialization-default-parser/
  *
- * @param {string} content The post content.
+ * @param {string}       content The post content.
+ * @param {ParseOptions} options Extra options for handling block parsing.
  *
  * @return {Array} Block list.
  */
 
-function parser_parse(content) {
+function parser_parse(content, options) {
   return (0,external_wp_blockSerializationDefaultParser_namespaceObject.parse)(content).reduce((accumulator, rawBlock) => {
-    const block = parseRawBlock(rawBlock);
+    const block = parseRawBlock(rawBlock, options);
 
     if (block) {
       accumulator.push(block);
@@ -11192,9 +11420,6 @@ function parser_parse(content) {
   }, []);
 }
 
-;// CONCATENATED MODULE: external ["wp","deprecated"]
-var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
-var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/get-raw-transforms.js
 /**
  * External dependencies
@@ -12774,6 +12999,7 @@ function synchronizeBlocksWithTemplate() {
 // block. For composition, it also means inner blocks can effectively be child
 // components whose mechanisms can be shielded from the `edit` implementation
 // and just passed along.
+
 
 
  // While block transformations account for a specific surface of the API, there

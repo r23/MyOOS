@@ -1181,23 +1181,22 @@ const PREFERENCES_DEFAULTS = {
   isPublishSidebarEnabled: true
 };
 /**
- * The default post editor settings
+ * The default post editor settings.
  *
- *  allowedBlockTypes  boolean|Array Allowed block types
- *  richEditingEnabled boolean       Whether rich editing is enabled or not
- *  codeEditingEnabled boolean       Whether code editing is enabled or not
- *  enableCustomFields boolean       Whether the WordPress custom fields are enabled or not.
- *                                     true  = the user has opted to show the Custom Fields panel at the bottom of the editor.
- *                                     false = the user has opted to hide the Custom Fields panel at the bottom of the editor.
- *                                     undefined = the current environment does not support Custom Fields,
- *                                                 so the option toggle in Preferences -> Panels to
- *                                                 enable the Custom Fields panel is not displayed.
- *  autosaveInterval   number        Autosave Interval
- *  availableTemplates array?        The available post templates
- *  disablePostFormats boolean       Whether or not the post formats are disabled
- *  allowedMimeTypes   array?        List of allowed mime types and file extensions
- *  maxUploadFileSize  number        Maximum upload file size
- *  supportsLayout     boolean      Whether the editor supports layouts.
+ * @property {boolean|Array} allowedBlockTypes     Allowed block types
+ * @property {boolean}       richEditingEnabled    Whether rich editing is enabled or not
+ * @property {boolean}       codeEditingEnabled    Whether code editing is enabled or not
+ * @property {boolean}       enableCustomFields    Whether the WordPress custom fields are enabled or not.
+ *                                                 true  = the user has opted to show the Custom Fields panel at the bottom of the editor.
+ *                                                 false = the user has opted to hide the Custom Fields panel at the bottom of the editor.
+ *                                                 undefined = the current environment does not support Custom Fields, so the option toggle in Preferences -> Panels to enable the Custom Fields panel is not displayed.
+ * @property {number}        autosaveInterval      How often in seconds the post will be auto-saved via the REST API.
+ * @property {number}        localAutosaveInterval How often in seconds the post will be backed up to sessionStorage.
+ * @property {Array?}        availableTemplates    The available post templates
+ * @property {boolean}       disablePostFormats    Whether or not the post formats are disabled
+ * @property {Array?}        allowedMimeTypes      List of allowed mime types and file extensions
+ * @property {number}        maxUploadFileSize     Maximum upload file size
+ * @property {boolean}       supportsLayout        Whether the editor supports layouts.
  */
 
 const EDITOR_SETTINGS_DEFAULTS = { ...external_wp_blockEditor_namespaceObject.SETTINGS_DEFAULTS,
@@ -3497,12 +3496,13 @@ function getNotificationArgumentsForSaveSuccess(data) {
   const isPublished = (0,external_lodash_namespaceObject.includes)(publishStatus, previousPost.status);
   const willPublish = (0,external_lodash_namespaceObject.includes)(publishStatus, post.status);
   let noticeMessage;
-  let shouldShowLink = (0,external_lodash_namespaceObject.get)(postType, ['viewable'], false); // Always should a notice, which will be spoken for accessibility.
+  let shouldShowLink = (0,external_lodash_namespaceObject.get)(postType, ['viewable'], false);
+  let isDraft; // Always should a notice, which will be spoken for accessibility.
 
   if (!isPublished && !willPublish) {
     // If saving a non-published post, don't show notice.
-    noticeMessage = (0,external_wp_i18n_namespaceObject.__)('Draft saved');
-    shouldShowLink = false;
+    noticeMessage = (0,external_wp_i18n_namespaceObject.__)('Draft saved.');
+    isDraft = true;
   } else if (isPublished && !willPublish) {
     // If undoing publish status, show specific notice.
     noticeMessage = postType.labels.item_reverted_to_draft;
@@ -3524,7 +3524,7 @@ function getNotificationArgumentsForSaveSuccess(data) {
 
   if (shouldShowLink) {
     actions.push({
-      label: postType.labels.view_item,
+      label: isDraft ? (0,external_wp_i18n_namespaceObject.__)('View Preview') : postType.labels.view_item,
       url: post.link
     });
   }
@@ -5450,11 +5450,11 @@ function EntityTypeList(_ref) {
     closePanel
   } = _ref;
   const firstRecord = list[0];
-  const entity = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).getEntity(firstRecord.kind, firstRecord.name), [firstRecord.kind, firstRecord.name]);
+  const entityConfig = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).getEntityConfig(firstRecord.kind, firstRecord.name), [firstRecord.kind, firstRecord.name]);
   const {
     name
   } = firstRecord;
-  const entityLabel = name === 'wp_template_part' ? (0,external_wp_i18n_namespaceObject._n)('Template Part', 'Template Parts', list.length) : entity.label; // Set description based on type of entity.
+  const entityLabel = name === 'wp_template_part' ? (0,external_wp_i18n_namespaceObject._n)('Template Part', 'Template Parts', list.length) : entityConfig.label; // Set description based on type of entity.
 
   const description = getEntityDescription(name, list.length);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
@@ -5943,7 +5943,7 @@ function LocalAutosaveMonitor() {
   const {
     localAutosaveInterval
   } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
-    localAutosaveInterval: select(store_store).getEditorSettings().__experimentalLocalAutosaveInterval
+    localAutosaveInterval: select(store_store).getEditorSettings().localAutosaveInterval
   }), []);
   return (0,external_wp_element_namespaceObject.createElement)(autosave_monitor, {
     interval: localAutosaveInterval,
@@ -11534,7 +11534,7 @@ function useBlockEditorSettings(settings, hasTemplate) {
     return saveEntityRecord('postType', 'page', options);
   };
 
-  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalDiscussionSettings', '__experimentalFeatures', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__experimentalGenerateAnchors', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableResolvedAssets']),
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalDiscussionSettings', '__experimentalFeatures', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__experimentalGenerateAnchors', '__experimentalCanLockBlocks', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableResolvedAssets']),
     mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
     __experimentalReusableBlocks: reusableBlocks,
     __experimentalFetchLinkSuggestions: (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings),

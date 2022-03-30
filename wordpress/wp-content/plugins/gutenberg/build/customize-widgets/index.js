@@ -840,7 +840,7 @@ function toggleFeature(scope, featureName) {
       registry
     } = _ref;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).toggleFeature`, {
-      version: '6.0',
+      since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).toggle`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).toggle(scope, featureName);
@@ -863,7 +863,7 @@ function setFeatureValue(scope, featureName, value) {
       registry
     } = _ref2;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureValue`, {
-      version: '6.0',
+      since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).set`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, featureName, !!value);
@@ -884,7 +884,7 @@ function setFeatureDefaults(scope, defaults) {
       registry
     } = _ref3;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureDefaults`, {
-      version: '6.0',
+      since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).setDefaults`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).setDefaults(scope, defaults);
@@ -970,7 +970,7 @@ function isItemPinned(state, scope, item) {
 
 const isFeatureActive = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, scope, featureName) => {
   external_wp_deprecated_default()(`wp.select( 'core/interface' ).isFeatureActive( scope, featureName )`, {
-    version: '6.0',
+    since: '6.0',
     alternative: `!! wp.select( 'core/preferences' ).isFeatureActive( scope, featureName )`
   });
   return !!select(external_wp_preferences_namespaceObject.store).get(scope, featureName);

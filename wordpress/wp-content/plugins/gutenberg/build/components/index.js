@@ -38274,8 +38274,6 @@ function useGesture(handlers, config = {}) {
 
 
 
-;// CONCATENATED MODULE: external ["wp","keycodes"]
-var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/utils.js
 /**
  * WordPress dependencies
@@ -38365,13 +38363,11 @@ const PRESS_DOWN = 'PRESS_DOWN';
 const PRESS_ENTER = 'PRESS_ENTER';
 const PRESS_UP = 'PRESS_UP';
 const RESET = 'RESET';
-const UPDATE = 'UPDATE';
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/reducer/reducer.js
 /**
  * External dependencies
  */
-
 
 /**
  * WordPress dependencies
@@ -38401,36 +38397,6 @@ function mergeInitialState() {
   };
 }
 /**
- * Composes multiple stateReducers into a single stateReducer, building
- * the pipeline to control the flow for state and actions.
- *
- * @param  fns State reducers.
- * @return The single composed stateReducer.
- */
-
-
-const composeStateReducers = function () {
-  for (var _len = arguments.length, fns = new Array(_len), _key = 0; _key < _len; _key++) {
-    fns[_key] = arguments[_key];
-  }
-
-  return function () {
-    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-      args[_key2] = arguments[_key2];
-    }
-
-    return fns.reduceRight((state, fn) => {
-      // TODO: Assess whether this can be replaced with a more standard `compose` implementation
-      // like wp.data.compose() (aka lodash flowRight) or Redux compose().
-      // The current implementation only works by functions mutating the original state object.
-      const fnState = fn(...args);
-      return (0,external_lodash_namespaceObject.isEmpty)(fnState) ? state : { ...state,
-        ...fnState
-      };
-    }, {});
-  };
-};
-/**
  * Creates a reducer that opens the channel for external state subscription
  * and modification.
  *
@@ -38440,6 +38406,7 @@ const composeStateReducers = function () {
  * @param  composedStateReducers A custom reducer that can subscribe and modify state.
  * @return The reducer.
  */
+
 
 function inputControlStateReducer(composedStateReducers) {
   return (state, action) => {
@@ -38493,11 +38460,6 @@ function inputControlStateReducer(composedStateReducers) {
         nextState.error = null;
         nextState.isDirty = false;
         nextState.value = action.payload.value || state.initialValue;
-        break;
-
-      case UPDATE:
-        nextState.value = action.payload.value;
-        nextState.isDirty = false;
         break;
 
       /**
@@ -38603,7 +38565,6 @@ function useInputControlStateReducer() {
 
   const reset = createChangeEvent(RESET);
   const commit = createChangeEvent(COMMIT);
-  const update = createChangeEvent(UPDATE);
   const dragStart = createDragEvent(DRAG_START);
   const drag = createDragEvent(DRAG);
   const dragEnd = createDragEvent(DRAG_END);
@@ -38622,8 +38583,7 @@ function useInputControlStateReducer() {
     pressEnter,
     pressUp,
     reset,
-    state,
-    update
+    state
   };
 }
 
@@ -38668,7 +38628,6 @@ function use_update_effect_useUpdateEffect(effect, deps) {
 /**
  * WordPress dependencies
  */
-
 
 /**
  * Internal dependencies
@@ -38716,8 +38675,7 @@ function InputField(_ref, ref) {
     pressDown,
     pressEnter,
     pressUp,
-    reset,
-    update
+    reset
   } = useInputControlStateReducer(stateReducer, {
     isDragEnabled,
     value: valueProp,
@@ -38745,7 +38703,7 @@ function InputField(_ref, ref) {
     }
 
     if (!isFocused && !wasDirtyOnBlur.current) {
-      update(valueProp, _event);
+      commit(valueProp, _event);
     } else if (!isDirty) {
       onChange(value, {
         event: _event
@@ -38762,7 +38720,7 @@ function InputField(_ref, ref) {
      * the onChange callback.
      */
 
-    if (isPressEnterToChange && isDirty) {
+    if (isDirty || !event.target.validity.valid) {
       wasDirtyOnBlur.current = true;
       handleOnCommit(event);
     }
@@ -38791,20 +38749,20 @@ function InputField(_ref, ref) {
 
   const handleOnKeyDown = event => {
     const {
-      keyCode
+      key
     } = event;
     onKeyDown(event);
 
-    switch (keyCode) {
-      case external_wp_keycodes_namespaceObject.UP:
+    switch (key) {
+      case 'ArrowUp':
         pressUp(event);
         break;
 
-      case external_wp_keycodes_namespaceObject.DOWN:
+      case 'ArrowDown':
         pressDown(event);
         break;
 
-      case external_wp_keycodes_namespaceObject.ENTER:
+      case 'Enter':
         pressEnter(event);
 
         if (isPressEnterToChange) {
@@ -38814,7 +38772,7 @@ function InputField(_ref, ref) {
 
         break;
 
-      case external_wp_keycodes_namespaceObject.ESCAPE:
+      case 'Escape':
         if (isPressEnterToChange && isDirty) {
           event.preventDefault();
           reset(valueProp, event);
@@ -38828,8 +38786,18 @@ function InputField(_ref, ref) {
     const {
       distance,
       dragging,
-      event
-    } = dragProps;
+      event,
+      target
+    } = dragProps; // The `target` prop always references the `input` element while, by
+    // default, the `dragProps.event.target` property would reference the real
+    // event target (i.e. any DOM element that the pointer is hovering while
+    // dragging). Ensuring that the `target` is always the `input` element
+    // allows consumers of `InputControl` (or any higher-level control) to
+    // check the input's validity by accessing `event.target.validity.valid`.
+
+    dragProps.event = { ...dragProps.event,
+      target
+    };
     if (!distance) return;
     event.stopPropagation();
     /**
@@ -39286,6 +39254,8 @@ function AnglePickerControl(_ref) {
   })));
 }
 
+;// CONCATENATED MODULE: external ["wp","keycodes"]
+var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 ;// CONCATENATED MODULE: external ["wp","richText"]
 var external_wp_richText_namespaceObject = window["wp"]["richText"];
 ;// CONCATENATED MODULE: external ["wp","a11y"]
@@ -39885,6 +39855,8 @@ function font(value) {
 ;// CONCATENATED MODULE: ./packages/components/build-module/base-control/styles/base-control-styles.js
 
 
+function base_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
 /**
  * External dependencies
  */
@@ -39898,16 +39870,37 @@ function font(value) {
 const base_control_styles_Wrapper = emotion_styled_base_browser_esm("div",  true ? {
   target: "e1puf3u4"
 } : 0)("font-family:", font('default.fontFamily'), ";font-size:", font('default.fontSize'), ";" + ( true ? "" : 0));
+
+const deprecatedMarginField = _ref2 => {
+  let {
+    __nextHasNoMarginBottom = false
+  } = _ref2;
+  return !__nextHasNoMarginBottom && /*#__PURE__*/emotion_react_browser_esm_css("margin-bottom:", space(2), ";" + ( true ? "" : 0),  true ? "" : 0);
+};
+
 const StyledField = emotion_styled_base_browser_esm("div",  true ? {
   target: "e1puf3u3"
-} : 0)("margin-bottom:", space(2), ";.components-panel__row &{margin-bottom:inherit;}" + ( true ? "" : 0));
+} : 0)(deprecatedMarginField, " .components-panel__row &{margin-bottom:inherit;}" + ( true ? "" : 0));
 const labelStyles = /*#__PURE__*/emotion_react_browser_esm_css("display:inline-block;margin-bottom:", space(2), ";" + ( true ? "" : 0),  true ? "" : 0);
 const StyledLabel = emotion_styled_base_browser_esm("label",  true ? {
   target: "e1puf3u2"
 } : 0)(labelStyles, ";" + ( true ? "" : 0));
+
+var base_control_styles_ref =  true ? {
+  name: "11yad0w",
+  styles: "margin-bottom:revert"
+} : 0;
+
+const deprecatedMarginHelp = _ref3 => {
+  let {
+    __nextHasNoMarginBottom = false
+  } = _ref3;
+  return !__nextHasNoMarginBottom && base_control_styles_ref;
+};
+
 const StyledHelp = emotion_styled_base_browser_esm("p",  true ? {
   target: "e1puf3u1"
-} : 0)("font-size:", font('helpText.fontSize'), ";font-style:normal;color:", COLORS.mediumGray.text, ";" + ( true ? "" : 0));
+} : 0)("margin-top:", space(2), ";margin-bottom:0;font-size:", font('helpText.fontSize'), ";font-style:normal;color:", COLORS.mediumGray.text, ";", deprecatedMarginHelp, ";" + ( true ? "" : 0));
 const StyledVisualLabel = emotion_styled_base_browser_esm("span",  true ? {
   target: "e1puf3u0"
 } : 0)(labelStyles, ";" + ( true ? "" : 0));
@@ -39927,18 +39920,19 @@ const StyledVisualLabel = emotion_styled_base_browser_esm("span",  true ? {
 
 /**
  * @typedef Props
- * @property {string}                    [id]                  The id of the element to which labels and help text are being generated.
- *                                                             That element should be passed as a child.
- * @property {import('react').ReactNode} help                  If this property is added, a help text will be
- *                                                             generated using help property as the content.
- * @property {import('react').ReactNode} [label]               If this property is added, a label will be generated
- *                                                             using label property as the content.
- * @property {boolean}                   [hideLabelFromVision] If true, the label will only be visible to screen readers.
- * @property {string}                    [className]           The class that will be added with "components-base-control" to the
- *                                                             classes of the wrapper div. If no className is passed only
- *                                                             components-base-control is used.
- * @property {import('react').ReactNode} [children]            The content to be displayed within
- *                                                             the BaseControl.
+ * @property {boolean}                   [__nextHasNoMarginBottom] Start opting into the new margin-free styles that will become the default in a future version.
+ * @property {string}                    [id]                      The id of the element to which labels and help text are being generated.
+ *                                                                 That element should be passed as a child.
+ * @property {import('react').ReactNode} help                      If this property is added, a help text will be
+ *                                                                 generated using help property as the content.
+ * @property {import('react').ReactNode} [label]                   If this property is added, a label will be generated
+ *                                                                 using label property as the content.
+ * @property {boolean}                   [hideLabelFromVision]     If true, the label will only be visible to screen readers.
+ * @property {string}                    [className]               The class that will be added with "components-base-control" to the
+ *                                                                 classes of the wrapper div. If no className is passed only
+ *                                                                 components-base-control is used.
+ * @property {import('react').ReactNode} [children]                The content to be displayed within
+ *                                                                 the BaseControl.
  */
 
 /**
@@ -39948,6 +39942,7 @@ const StyledVisualLabel = emotion_styled_base_browser_esm("span",  true ? {
 
 function BaseControl(_ref) {
   let {
+    __nextHasNoMarginBottom = false,
     id,
     label,
     hideLabelFromVision,
@@ -39958,7 +39953,9 @@ function BaseControl(_ref) {
   return (0,external_wp_element_namespaceObject.createElement)(base_control_styles_Wrapper, {
     className: classnames_default()('components-base-control', className)
   }, (0,external_wp_element_namespaceObject.createElement)(StyledField, {
-    className: "components-base-control__field"
+    className: "components-base-control__field" // TODO: Official deprecation for this should start after all internal usages have been migrated
+    ,
+    __nextHasNoMarginBottom: __nextHasNoMarginBottom
   }, label && id && (hideLabelFromVision ? (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, {
     as: "label",
     htmlFor: id
@@ -39969,7 +39966,8 @@ function BaseControl(_ref) {
     as: "label"
   }, label) : (0,external_wp_element_namespaceObject.createElement)(BaseControl.VisualLabel, null, label)), children), !!help && (0,external_wp_element_namespaceObject.createElement)(StyledHelp, {
     id: id ? id + '__help' : undefined,
-    className: "components-base-control__help"
+    className: "components-base-control__help",
+    __nextHasNoMarginBottom: __nextHasNoMarginBottom
   }, help));
 }
 /**
@@ -40252,10 +40250,9 @@ function isValueNumeric(value) {
 
 
 
-
 function NumberControl(_ref, ref) {
   let {
-    __unstableStateReducer: stateReducer = state => state,
+    __unstableStateReducer: stateReducerProp,
     className,
     dragDirection = 'n',
     hideHTMLArrows = false,
@@ -40293,12 +40290,14 @@ function NumberControl(_ref, ref) {
    */
 
   const numberControlStateReducer = (state, action) => {
+    const nextState = { ...state
+    };
     const {
       type,
       payload
     } = action;
     const event = payload === null || payload === void 0 ? void 0 : payload.event;
-    const currentValue = state.value;
+    const currentValue = nextState.value;
     /**
      * Handles custom UP and DOWN Keyboard events
      */
@@ -40320,7 +40319,7 @@ function NumberControl(_ref, ref) {
         nextValue = subtract(nextValue, incrementalValue);
       }
 
-      state.value = constrainValue(nextValue, enableShift ? incrementalValue : null);
+      nextState.value = constrainValue(nextValue, enableShift ? incrementalValue : null);
     }
     /**
      * Handles drag to update events
@@ -40359,20 +40358,20 @@ function NumberControl(_ref, ref) {
       if (delta !== 0) {
         delta = Math.ceil(Math.abs(delta)) * Math.sign(delta);
         const distance = delta * modifier * directionModifier;
-        state.value = constrainValue(add(currentValue, distance), enableShift ? modifier : null);
+        nextState.value = constrainValue(add(currentValue, distance), enableShift ? modifier : null);
       }
     }
     /**
-     * Handles commit (ENTER key press or on blur if isPressEnterToChange)
+     * Handles commit (ENTER key press or blur)
      */
 
 
     if (type === PRESS_ENTER || type === COMMIT) {
       const applyEmptyValue = required === false && currentValue === '';
-      state.value = applyEmptyValue ? currentValue : constrainValue(currentValue);
+      nextState.value = applyEmptyValue ? currentValue : constrainValue(currentValue);
     }
 
-    return state;
+    return nextState;
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(number_control_styles_Input, extends_extends({
@@ -40391,7 +40390,12 @@ function NumberControl(_ref, ref) {
     step: step,
     type: typeProp,
     value: valueProp,
-    __unstableStateReducer: composeStateReducers(numberControlStateReducer, stateReducer)
+    __unstableStateReducer: (state, action) => {
+      var _stateReducerProp;
+
+      const baseState = numberControlStateReducer(state, action);
+      return (_stateReducerProp = stateReducerProp === null || stateReducerProp === void 0 ? void 0 : stateReducerProp(baseState, action)) !== null && _stateReducerProp !== void 0 ? _stateReducerProp : baseState;
+    }
   }));
 }
 /* harmony default export */ var number_control = ((0,external_wp_element_namespaceObject.forwardRef)(NumberControl));
@@ -40779,12 +40783,11 @@ function getUnitsWithCurrentUnit(rawValue, legacyUnit) {
 
 
 
-
 function UnitSelectControl(_ref) {
   let {
     className,
     isUnitSelectTabbable: isTabbable = true,
-    onChange = external_lodash_namespaceObject.noop,
+    onChange,
     size = 'default',
     unit = 'px',
     units = CSS_UNITS,
@@ -40803,7 +40806,7 @@ function UnitSelectControl(_ref) {
       value: unitValue
     } = event.target;
     const data = units.find(option => option.value === unitValue);
-    onChange(unitValue, {
+    onChange === null || onChange === void 0 ? void 0 : onChange(unitValue, {
       event,
       data
     });
@@ -40937,10 +40940,9 @@ function useControlledState(currentState) {
 
 
 
-
-function UnitControl(_ref, forwardedRef) {
-  let {
-    __unstableStateReducer: stateReducer = state => state,
+function UnforwardedUnitControl(unitControlProps, forwardedRef) {
+  const {
+    __unstableStateReducer: stateReducerProp,
     autoComplete = 'off',
     className,
     disabled = false,
@@ -40949,18 +40951,27 @@ function UnitControl(_ref, forwardedRef) {
     isResetValueOnUnitChange = false,
     isUnitSelectTabbable = true,
     label,
-    onChange = external_lodash_namespaceObject.noop,
-    onUnitChange = external_lodash_namespaceObject.noop,
+    onChange: onChangeProp,
+    onUnitChange,
     size = 'default',
     style,
     unit: unitProp,
     units: unitsProp = CSS_UNITS,
     value: valueProp,
     ...props
-  } = _ref;
-  // The `value` prop, in theory, should not be `null`, but the following line
+  } = unitControlProps;
+
+  if ('unit' in unitControlProps) {
+    external_wp_deprecated_default()('UnitControl unit prop', {
+      since: '5.6',
+      hint: 'The unit should be provided within the `value` prop.',
+      version: '6.2'
+    });
+  } // The `value` prop, in theory, should not be `null`, but the following line
   // ensures it fallback to `undefined` in case a consumer of `UnitControl`
   // still passes `null` as a `value`.
+
+
   const nonNullValueProp = valueProp !== null && valueProp !== void 0 ? valueProp : undefined;
   const units = (0,external_wp_element_namespaceObject.useMemo)(() => getUnitsWithCurrentUnit(nonNullValueProp, unitProp, unitsProp), [nonNullValueProp, unitProp, unitsProp]);
   const [parsedQuantity, parsedUnit] = getParsedQuantityAndUnit(nonNullValueProp, unitProp, units);
@@ -40969,7 +40980,9 @@ function UnitControl(_ref, forwardedRef) {
     fallback: ''
   });
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    setUnit(parsedUnit);
+    if (parsedUnit !== undefined) {
+      setUnit(parsedUnit);
+    }
   }, [parsedUnit]); // Stores parsed value for hand-off in state reducer.
 
   const refParsedQuantity = (0,external_wp_element_namespaceObject.useRef)(undefined);
@@ -40977,7 +40990,7 @@ function UnitControl(_ref, forwardedRef) {
 
   const handleOnQuantityChange = (nextQuantityValue, changeProps) => {
     if (nextQuantityValue === '' || typeof nextQuantityValue === 'undefined' || nextQuantityValue === null) {
-      onChange('', changeProps);
+      onChangeProp === null || onChangeProp === void 0 ? void 0 : onChangeProp('', changeProps);
       return;
     }
     /*
@@ -40987,7 +41000,7 @@ function UnitControl(_ref, forwardedRef) {
 
 
     const onChangeValue = getValidParsedQuantityAndUnit(nextQuantityValue, units, parsedQuantity, unit).join('');
-    onChange(onChangeValue, changeProps);
+    onChangeProp === null || onChangeProp === void 0 ? void 0 : onChangeProp(onChangeValue, changeProps);
   };
 
   const handleOnUnitChange = (nextUnitValue, changeProps) => {
@@ -41000,8 +41013,8 @@ function UnitControl(_ref, forwardedRef) {
       nextValue = `${data.default}${nextUnitValue}`;
     }
 
-    onChange(nextValue, changeProps);
-    onUnitChange(nextUnitValue, changeProps);
+    onChangeProp === null || onChangeProp === void 0 ? void 0 : onChangeProp(nextValue, changeProps);
+    onUnitChange === null || onUnitChange === void 0 ? void 0 : onUnitChange(nextUnitValue, changeProps);
     setUnit(nextUnitValue);
   };
 
@@ -41020,8 +41033,8 @@ function UnitControl(_ref, forwardedRef) {
         event,
         data
       };
-      onChange(`${validParsedQuantity !== null && validParsedQuantity !== void 0 ? validParsedQuantity : ''}${validParsedUnit}`, changeProps);
-      onUnitChange(validParsedUnit, changeProps);
+      onChangeProp === null || onChangeProp === void 0 ? void 0 : onChangeProp(`${validParsedQuantity !== null && validParsedQuantity !== void 0 ? validParsedQuantity : ''}${validParsedUnit}`, changeProps);
+      onUnitChange === null || onUnitChange === void 0 ? void 0 : onUnitChange(validParsedUnit, changeProps);
       setUnit(validParsedUnit);
     }
   };
@@ -41030,10 +41043,10 @@ function UnitControl(_ref, forwardedRef) {
 
   const handleOnKeyDown = event => {
     const {
-      keyCode
+      key
     } = event;
 
-    if (keyCode === external_wp_keycodes_namespaceObject.ENTER) {
+    if (key === 'Enter') {
       mayUpdateUnit(event);
     }
   };
@@ -41049,22 +41062,34 @@ function UnitControl(_ref, forwardedRef) {
 
 
   const unitControlStateReducer = (state, action) => {
+    const nextState = { ...state
+    };
     /*
      * On commits (when pressing ENTER and on blur if
      * isPressEnterToChange is true), if a parse has been performed
      * then use that result to update the state.
      */
+
     if (action.type === COMMIT) {
       if (refParsedQuantity.current !== undefined) {
         var _refParsedQuantity$cu;
 
-        state.value = ((_refParsedQuantity$cu = refParsedQuantity.current) !== null && _refParsedQuantity$cu !== void 0 ? _refParsedQuantity$cu : '').toString();
+        nextState.value = ((_refParsedQuantity$cu = refParsedQuantity.current) !== null && _refParsedQuantity$cu !== void 0 ? _refParsedQuantity$cu : '').toString();
         refParsedQuantity.current = undefined;
       }
     }
 
-    return state;
+    return nextState;
   };
+
+  let stateReducer = unitControlStateReducer;
+
+  if (stateReducerProp) {
+    stateReducer = (state, action) => {
+      const baseState = unitControlStateReducer(state, action);
+      return stateReducerProp(baseState, action);
+    };
+  }
 
   const inputSuffix = !disableUnits ? (0,external_wp_element_namespaceObject.createElement)(UnitSelectControl, {
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Select unit'),
@@ -41109,11 +41134,11 @@ function UnitControl(_ref, forwardedRef) {
     suffix: inputSuffix,
     value: parsedQuantity !== null && parsedQuantity !== void 0 ? parsedQuantity : '',
     step: step,
-    __unstableStateReducer: composeStateReducers(unitControlStateReducer, stateReducer)
+    __unstableStateReducer: stateReducer
   })));
 }
 /**
- * `UnitControl` allows the user to set a value as well as a unit (e.g. `px`).
+ * `UnitControl` allows the user to set a numeric quantity as well as a unit (e.g. `px`).
  *
  *
  * @example
@@ -41130,9 +41155,9 @@ function UnitControl(_ref, forwardedRef) {
  */
 
 
-const ForwardedUnitControl = (0,external_wp_element_namespaceObject.forwardRef)(UnitControl);
+const UnitControl = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedUnitControl);
 
-/* harmony default export */ var unit_control = (ForwardedUnitControl);
+/* harmony default export */ var unit_control = (UnitControl);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/styles/box-control-styles.js
 
@@ -41364,6 +41389,7 @@ function mode(arr) {
  * Gets the 'all' input value and unit from values data.
  *
  * @param {Object} values         Box values.
+ * @param {Object} selectedUnits  Box units.
  * @param {Array}  availableSides Available box sides to evaluate.
  *
  * @return {string} A value + unit for the 'all' input.
@@ -41372,17 +41398,17 @@ function mode(arr) {
 
 function getAllValue() {
   let values = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let availableSides = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ALL_SIDES;
+  let selectedUnits = arguments.length > 1 ? arguments[1] : undefined;
+  let availableSides = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ALL_SIDES;
   const sides = normalizeSides(availableSides);
   const parsedQuantitiesAndUnits = sides.map(side => parseQuantityAndUnitFromRawValue(values[side]));
-  const allValues = parsedQuantitiesAndUnits.map(value => {
+  const allParsedQuantities = parsedQuantitiesAndUnits.map(value => {
     var _value$;
 
     return (_value$ = value[0]) !== null && _value$ !== void 0 ? _value$ : '';
   });
-  const allUnits = parsedQuantitiesAndUnits.map(value => value[1]);
-  const value = allValues.every(v => v === allValues[0]) ? allValues[0] : '';
-  const unit = mode(allUnits);
+  const allParsedUnits = parsedQuantitiesAndUnits.map(value => value[1]);
+  const commonQuantity = allParsedQuantities.every(v => v === allParsedQuantities[0]) ? allParsedQuantities[0] : '';
   /**
    * The isNumber check is important. On reset actions, the incoming value
    * may be null or an empty string.
@@ -41393,8 +41419,19 @@ function getAllValue() {
    * simple truthy check.
    */
 
-  const allValue = (0,external_lodash_namespaceObject.isNumber)(value) ? `${value}${unit}` : undefined;
-  return allValue;
+  let commonUnit;
+
+  if ((0,external_lodash_namespaceObject.isNumber)(commonQuantity)) {
+    commonUnit = mode(allParsedUnits);
+  } else {
+    var _getAllUnitFallback;
+
+    // Set meaningful unit selection if no commonQuantity and user has previously
+    // selected units without assigning values while controls were unlinked.
+    commonUnit = (_getAllUnitFallback = getAllUnitFallback(selectedUnits)) !== null && _getAllUnitFallback !== void 0 ? _getAllUnitFallback : mode(allParsedUnits);
+  }
+
+  return [commonQuantity, commonUnit].join('');
 }
 /**
  * Determine the most common unit selection to use as a fallback option.
@@ -41414,16 +41451,18 @@ function getAllUnitFallback(selectedUnits) {
 /**
  * Checks to determine if values are mixed.
  *
- * @param {Object} values Box values.
- * @param {Array}  sides  Available box sides to evaluate.
+ * @param {Object} values        Box values.
+ * @param {Object} selectedUnits Box units.
+ * @param {Array}  sides         Available box sides to evaluate.
  *
  * @return {boolean} Whether values are mixed.
  */
 
 function isValuesMixed() {
   let values = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let sides = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : ALL_SIDES;
-  const allValue = getAllValue(values, sides);
+  let selectedUnits = arguments.length > 1 ? arguments[1] : undefined;
+  let sides = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ALL_SIDES;
+  const allValue = getAllValue(values, selectedUnits, sides);
   const isMixed = isNaN(parseFloat(allValue));
   return isMixed;
 }
@@ -41514,13 +41553,10 @@ function AllInputControl(_ref) {
     setSelectedUnits,
     ...props
   } = _ref;
-  const allValue = getAllValue(values, sides);
+  const allValue = getAllValue(values, selectedUnits, sides);
   const hasValues = isValuesDefined(values);
-  const isMixed = hasValues && isValuesMixed(values, sides);
-  const allPlaceholder = isMixed ? LABELS.mixed : null; // Set meaningful unit selection if no allValue and user has previously
-  // selected units without assigning values while controls were unlinked.
-
-  const allUnitFallback = !allValue ? getAllUnitFallback(selectedUnits) : undefined;
+  const isMixed = hasValues && isValuesMixed(values, selectedUnits, sides);
+  const allPlaceholder = isMixed ? LABELS.mixed : null;
 
   const handleOnFocus = event => {
     onFocus(event, {
@@ -41589,7 +41625,6 @@ function AllInputControl(_ref) {
     disableUnits: isMixed,
     isOnly: true,
     value: allValue,
-    unit: allUnitFallback,
     onChange: handleOnChange,
     onUnitChange: handleOnUnitChange,
     onFocus: handleOnFocus,
@@ -41610,6 +41645,7 @@ function AllInputControl(_ref) {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -41707,20 +41743,23 @@ function BoxInputControls(_ref) {
     gap: 0,
     align: "top",
     className: "component-box-control__input-controls"
-  }, filteredSides.map(side => (0,external_wp_element_namespaceObject.createElement)(BoxUnitControl, extends_extends({}, props, {
-    isFirst: first === side,
-    isLast: last === side,
-    isOnly: only === side,
-    value: values[side],
-    unit: values[side] ? undefined : selectedUnits[side],
-    onChange: createHandleOnChange(side),
-    onUnitChange: createHandleOnUnitChange(side),
-    onFocus: createHandleOnFocus(side),
-    onHoverOn: createHandleOnHoverOn(side),
-    onHoverOff: createHandleOnHoverOff(side),
-    label: LABELS[side],
-    key: `box-control-${side}`
-  })))));
+  }, filteredSides.map(side => {
+    const [parsedQuantity, parsedUnit] = parseQuantityAndUnitFromRawValue(values[side]);
+    const computedUnit = values[side] ? parsedUnit : selectedUnits[side];
+    return (0,external_wp_element_namespaceObject.createElement)(BoxUnitControl, extends_extends({}, props, {
+      isFirst: first === side,
+      isLast: last === side,
+      isOnly: only === side,
+      value: [parsedQuantity, computedUnit].join(''),
+      onChange: createHandleOnChange(side),
+      onUnitChange: createHandleOnUnitChange(side),
+      onFocus: createHandleOnFocus(side),
+      onHoverOn: createHandleOnHoverOn(side),
+      onHoverOff: createHandleOnHoverOff(side),
+      label: LABELS[side],
+      key: `box-control-${side}`
+    }));
+  })));
 }
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/axial-input-controls.js
@@ -41730,6 +41769,7 @@ function BoxInputControls(_ref) {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -41846,20 +41886,23 @@ function AxialInputControls(_ref) {
     gap: 0,
     align: "top",
     className: "component-box-control__vertical-horizontal-input-controls"
-  }, filteredSides.map(side => (0,external_wp_element_namespaceObject.createElement)(BoxUnitControl, extends_extends({}, props, {
-    isFirst: first === side,
-    isLast: last === side,
-    isOnly: only === side,
-    value: side === 'vertical' ? values.top : values.left,
-    unit: side === 'vertical' ? selectedUnits.top : selectedUnits.left,
-    onChange: createHandleOnChange(side),
-    onUnitChange: createHandleOnUnitChange(side),
-    onFocus: createHandleOnFocus(side),
-    onHoverOn: createHandleOnHoverOn(side),
-    onHoverOff: createHandleOnHoverOff(side),
-    label: LABELS[side],
-    key: side
-  }))));
+  }, filteredSides.map(side => {
+    const [parsedQuantity, parsedUnit] = parseQuantityAndUnitFromRawValue(side === 'vertical' ? values.top : values.left);
+    const selectedUnit = side === 'vertical' ? selectedUnits.top : selectedUnits.left;
+    return (0,external_wp_element_namespaceObject.createElement)(BoxUnitControl, extends_extends({}, props, {
+      isFirst: first === side,
+      isLast: last === side,
+      isOnly: only === side,
+      value: [parsedQuantity, selectedUnit !== null && selectedUnit !== void 0 ? selectedUnit : parsedUnit].join(''),
+      onChange: createHandleOnChange(side),
+      onUnitChange: createHandleOnUnitChange(side),
+      onFocus: createHandleOnFocus(side),
+      onHoverOn: createHandleOnHoverOn(side),
+      onHoverOff: createHandleOnHoverOff(side),
+      label: LABELS[side],
+      key: side
+    }));
+  }));
 }
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/styles/box-control-icon-styles.js
@@ -43248,6 +43291,8 @@ var Separator = createComponent({
 ;// CONCATENATED MODULE: ./packages/components/build-module/divider/styles.js
 
 
+function divider_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
 /**
  * External dependencies
  */
@@ -43271,32 +43316,44 @@ const MARGIN_DIRECTIONS = {
 // When both the generic `margin` and the specific `marginStart|marginEnd` props are defined,
 // the latter will take priority.
 
-const renderMargin = _ref => {
+const renderMargin = _ref2 => {
   let {
     'aria-orientation': orientation = 'horizontal',
     margin,
     marginStart,
     marginEnd
-  } = _ref;
+  } = _ref2;
   return /*#__PURE__*/emotion_react_browser_esm_css(rtl({
     [MARGIN_DIRECTIONS[orientation].start]: space(marginStart !== null && marginStart !== void 0 ? marginStart : margin),
     [MARGIN_DIRECTIONS[orientation].end]: space(marginEnd !== null && marginEnd !== void 0 ? marginEnd : margin)
   })(),  true ? "" : 0,  true ? "" : 0);
 };
 
-const renderBorder = _ref2 => {
+var styles_ref =  true ? {
+  name: "1u4hpl4",
+  styles: "display:inline"
+} : 0;
+
+const renderDisplay = _ref3 => {
   let {
     'aria-orientation': orientation = 'horizontal'
-  } = _ref2;
+  } = _ref3;
+  return orientation === 'vertical' ? styles_ref : undefined;
+};
+
+const renderBorder = _ref4 => {
+  let {
+    'aria-orientation': orientation = 'horizontal'
+  } = _ref4;
   return /*#__PURE__*/emotion_react_browser_esm_css({
     [orientation === 'vertical' ? 'borderRight' : 'borderBottom']: '1px solid currentColor'
   },  true ? "" : 0,  true ? "" : 0);
 };
 
-const renderSize = _ref3 => {
+const renderSize = _ref5 => {
   let {
     'aria-orientation': orientation = 'horizontal'
-  } = _ref3;
+  } = _ref5;
   return /*#__PURE__*/emotion_react_browser_esm_css({
     height: orientation === 'vertical' ? 'auto' : 0,
     width: orientation === 'vertical' ? 0 : 'auto'
@@ -43305,7 +43362,7 @@ const renderSize = _ref3 => {
 
 const DividerView = emotion_styled_base_browser_esm("hr",  true ? {
   target: "e19on6iw0"
-} : 0)("border:0;margin:0;", renderBorder, " ", renderSize, " ", renderMargin, ";" + ( true ? "" : 0));
+} : 0)("border:0;margin:0;", renderDisplay, " ", renderBorder, " ", renderSize, " ", renderMargin, ";" + ( true ? "" : 0));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/divider/component.js
 
@@ -43676,6 +43733,21 @@ function icon_Icon(_ref) {
 
 /* harmony default export */ var icons_build_module_icon = (icon_Icon);
 
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/reset.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const reset_reset = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M7 11.5h10V13H7z"
+}));
+/* harmony default export */ var library_reset = (reset_reset);
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/check.js
 
 
@@ -43706,6 +43778,7 @@ const check = (0,external_wp_element_namespaceObject.createElement)(external_wp_
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -43717,6 +43790,7 @@ function CheckboxControl(_ref) {
     className,
     heading,
     checked,
+    indeterminate,
     help,
     onChange,
     ...props
@@ -43729,6 +43803,20 @@ function CheckboxControl(_ref) {
     });
   }
 
+  const [showCheckedIcon, setShowCheckedIcon] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [showIndeterminateIcon, setShowIndeterminateIcon] = (0,external_wp_element_namespaceObject.useState)(false); // Run the following callback everytime the `ref` (and the additional
+  // dependencies) change.
+
+  const ref = (0,external_wp_compose_namespaceObject.useRefEffect)(node => {
+    if (!node) {
+      return;
+    } // It cannot be set using an HTML attribute.
+
+
+    node.indeterminate = !!indeterminate;
+    setShowCheckedIcon(node.matches(':checked'));
+    setShowIndeterminateIcon(node.matches(':indeterminate'));
+  }, [checked, indeterminate]);
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(CheckboxControl);
   const id = `inspector-checkbox-control-${instanceId}`;
 
@@ -43742,6 +43830,7 @@ function CheckboxControl(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "components-checkbox-control__input-container"
   }, (0,external_wp_element_namespaceObject.createElement)("input", extends_extends({
+    ref: ref,
     id: id,
     className: "components-checkbox-control__input",
     type: "checkbox",
@@ -43749,7 +43838,11 @@ function CheckboxControl(_ref) {
     onChange: onChangeValue,
     checked: checked,
     "aria-describedby": !!help ? id + '__help' : undefined
-  }, props)), checked ? (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
+  }, props)), showIndeterminateIcon ? (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
+    icon: library_reset,
+    className: "components-checkbox-control__indeterminate",
+    role: "presentation"
+  }) : null, showCheckedIcon ? (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
     icon: library_check,
     className: "components-checkbox-control__checked",
     role: "presentation"
@@ -49365,6 +49458,55 @@ CircularOptionPicker.DropdownLinkAction = DropdownLinkAction;
 ;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/a11y.mjs
 var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.055,2.4)},a11y_t=function(t){return.2126*a11y_o(t.r)+.7152*a11y_o(t.g)+.0722*a11y_o(t.b)};/* harmony default export */ function a11y(o){o.prototype.luminance=function(){return o=a11y_t(this.rgba),void 0===(r=2)&&(r=0),void 0===n&&(n=Math.pow(10,r)),Math.round(n*o)/n+0;var o,r,n},o.prototype.contrast=function(r){void 0===r&&(r="#FFF");var n,a,i,e,v,u,d,c=r instanceof o?r:new o(r);return e=this.rgba,v=c.toRgb(),u=a11y_t(e),d=a11y_t(v),n=u>d?(u+.05)/(d+.05):(d+.05)/(u+.05),void 0===(a=2)&&(a=0),void 0===i&&(i=Math.pow(10,a)),Math.floor(i*n)/i+0},o.prototype.isReadable=function(o,t){return void 0===o&&(o="#FFF"),void 0===t&&(t={}),this.contrast(o)>=(e=void 0===(i=(r=t).size)?"normal":i,"AAA"===(a=void 0===(n=r.level)?"AA":n)&&"normal"===e?7:"AA"===a&&"large"===e?3:4.5);var r,n,a,i,e}}
 
+;// CONCATENATED MODULE: ./packages/components/build-module/truncate/component.js
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'span'>} props
+ * @param {import('react').ForwardedRef<any>}                                                forwardedRef
+ */
+
+function component_Truncate(props, forwardedRef) {
+  const truncateProps = useTruncate(props);
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
+    as: "span"
+  }, truncateProps, {
+    ref: forwardedRef
+  }));
+}
+/**
+ * `Truncate` is a typography primitive that trims text content.
+ * For almost all cases, it is recommended that `Text`, `Heading`, or
+ * `Subheading` is used to render text content. However,`Truncate` is
+ * available for custom implementations.
+ *
+ * @example
+ * ```jsx
+ * import { __experimentalTruncate as Truncate } from `@wordpress/components`;
+ *
+ * function Example() {
+ * 	return (
+ * 		<Truncate>
+ * 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ex
+ * 			neque, vulputate a diam et, luctus convallis lacus. Vestibulum ac
+ * 			mollis mi. Morbi id elementum massa.
+ * 		</Truncate>
+ * 	);
+ * }
+ * ```
+ */
+
+
+const ConnectedTruncate = contextConnect(component_Truncate, 'Truncate');
+/* harmony default export */ var truncate_component = (ConnectedTruncate);
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/heading/hook.js
 /**
  * Internal dependencies
@@ -49487,6 +49629,8 @@ const ColorHeading = /*#__PURE__*/emotion_styled_base_browser_esm(heading_compon
 
 
 
+
+
 k([names, a11y]);
 
 function SinglePalette(_ref) {
@@ -49572,6 +49716,37 @@ function CustomColorPickerDropdown(_ref5) {
     })
   }, props));
 }
+
+const extractColorNameFromCurrentValue = function (currentValue) {
+  let colors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  let showMultiplePalettes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  if (!currentValue) {
+    return '';
+  } // Normalize format of `colors` to simplify the following loop
+
+
+  const colorPalettes = showMultiplePalettes ? colors : [{
+    colors
+  }];
+
+  for (const {
+    colors: paletteColors
+  } of colorPalettes) {
+    for (const {
+      name: colorName,
+      color: colorValue
+    } of paletteColors) {
+      if (w(currentValue).toHex() === w(colorValue).toHex()) {
+        return colorName;
+      }
+    }
+  } // translators: shown when the user has picked a custom color (i.e not in the palette of colors).
+
+
+  return (0,external_wp_i18n_namespaceObject.__)('Custom');
+};
+
 function ColorPalette(_ref6) {
   let {
     clearable = true,
@@ -49585,7 +49760,8 @@ function ColorPalette(_ref6) {
     __experimentalIsRenderedInSidebar = false
   } = _ref6;
   const clearColor = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
-  const Component = __experimentalHasMultipleOrigins && colors !== null && colors !== void 0 && colors.length ? MultiplePalettes : SinglePalette;
+  const showMultiplePalettes = __experimentalHasMultipleOrigins && (colors === null || colors === void 0 ? void 0 : colors.length);
+  const Component = showMultiplePalettes ? MultiplePalettes : SinglePalette;
 
   const renderCustomColorPicker = () => (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
     color: value,
@@ -49600,6 +49776,10 @@ function ColorPalette(_ref6) {
   }
 
   const colordColor = w(value);
+  const valueWithoutLeadingHash = value !== null && value !== void 0 && value.startsWith('#') ? value.substring(1) : value !== null && value !== void 0 ? value : '';
+  const buttonLabelName = (0,external_wp_element_namespaceObject.useMemo)(() => extractColorNameFromCurrentValue(value, colors, showMultiplePalettes), [value, colors, showMultiplePalettes]);
+  const customColorAccessibleLabel = !!valueWithoutLeadingHash ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %1$s: The name of the color e.g: "vivid red". %2$s: The color's hex code e.g: "#f00".
+  (0,external_wp_i18n_namespaceObject.__)('Custom color picker. The currently selected color is called "%1$s" and has a value of "%2$s".'), buttonLabelName, valueWithoutLeadingHash) : (0,external_wp_i18n_namespaceObject.__)('Custom color picker.');
   return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
     spacing: 3,
     className: className
@@ -49612,17 +49792,27 @@ function ColorPalette(_ref6) {
         isOpen,
         onToggle
       } = _ref7;
-      return (0,external_wp_element_namespaceObject.createElement)("button", {
+      return (0,external_wp_element_namespaceObject.createElement)(flex_component, {
+        as: 'button',
+        justify: "space-between",
+        align: "flex-start",
         className: "components-color-palette__custom-color",
         "aria-expanded": isOpen,
         "aria-haspopup": "true",
         onClick: onToggle,
-        "aria-label": (0,external_wp_i18n_namespaceObject.__)('Custom color picker'),
+        "aria-label": customColorAccessibleLabel,
         style: {
           background: value,
           color: colordColor.contrast() > colordColor.contrast('#000') ? '#fff' : '#000'
         }
-      }, value);
+      }, (0,external_wp_element_namespaceObject.createElement)(flex_item_component, {
+        isBlock: true,
+        as: truncate_component,
+        className: "components-color-palette__custom-color-name"
+      }, buttonLabelName), (0,external_wp_element_namespaceObject.createElement)(flex_item_component, {
+        as: "span",
+        className: "components-color-palette__custom-color-value"
+      }, valueWithoutLeadingHash));
     }
   }), (0,external_wp_element_namespaceObject.createElement)(Component, {
     clearable: clearable,
@@ -56488,6 +56678,8 @@ function CustomSelectControl(_ref3) {
   var _menuProps$ariaActiv;
 
   let {
+    /** Start opting into the larger default height that will become the default size in a future version. */
+    __next36pxDefaultSize = false,
     className,
     hideLabelFromVision,
     label,
@@ -56555,8 +56747,10 @@ function CustomSelectControl(_ref3) {
     // This is needed because some speech recognition software don't support `aria-labelledby`.
     'aria-label': label,
     'aria-labelledby': undefined,
-    className: 'components-custom-select-control__button',
-    isSmall: true,
+    className: classnames_default()('components-custom-select-control__button', {
+      'is-next-36px-default-size': __next36pxDefaultSize
+    }),
+    isSmall: !__next36pxDefaultSize,
     describedBy: getDescribedBy()
   }), custom_select_control_itemToString(selectedItem), (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
     icon: chevron_down,
@@ -56570,7 +56764,8 @@ function CustomSelectControl(_ref3) {
     key: item.key,
     className: classnames_default()(item.className, 'components-custom-select-control__item', {
       'is-highlighted': index === highlightedIndex,
-      'has-hint': !!item.__experimentalHint
+      'has-hint': !!item.__experimentalHint,
+      'is-next-36px-default-size': __next36pxDefaultSize
     }),
     style: item.style
   }), item.name, item.__experimentalHint && (0,external_wp_element_namespaceObject.createElement)("span", {
@@ -60416,12 +60611,12 @@ function FocalPointPickerControls(_ref) {
     className: "focal-point-picker__controls"
   }, (0,external_wp_element_namespaceObject.createElement)(controls_UnitControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Left'),
-    value: valueX,
+    value: [valueX, '%'].join(''),
     onChange: next => handleChange(next, 'x'),
     dragDirection: "e"
   }), (0,external_wp_element_namespaceObject.createElement)(controls_UnitControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Top'),
-    value: valueY,
+    value: [valueY, '%'].join(''),
     onChange: next => handleChange(next, 'y'),
     dragDirection: "s"
   }));
@@ -60433,7 +60628,6 @@ function controls_UnitControl(props) {
     labelPosition: "top",
     max: TEXTCONTROL_MAX,
     min: TEXTCONTROL_MIN,
-    unit: "%",
     units: [{
       value: '%',
       label: '%'
@@ -61964,6 +62158,7 @@ function FormFileUpload(_ref) {
     children,
     multiple = false,
     onChange,
+    onClick,
     render,
     ...props
   } = _ref;
@@ -61988,7 +62183,9 @@ function FormFileUpload(_ref) {
       display: 'none'
     },
     accept: accept,
-    onChange: onChange
+    onChange: onChange,
+    onClick: onClick,
+    "data-testid": "form-file-upload-input"
   }));
 }
 
@@ -67266,7 +67463,7 @@ const resize_tooltip_styles_Tooltip = emotion_styled_base_browser_esm("div",  tr
 
 const LabelText = /*#__PURE__*/emotion_styled_base_browser_esm(text_component,  true ? {
   target: "ekdag500"
-} : 0)("&&&{color:", COLORS.ui.textDark, ";display:block;font-size:13px;line-height:1.4;}" + ( true ? "" : 0));
+} : 0)("&&&{color:", COLORS.ui.textDark, ";display:block;font-size:13px;line-height:1.4;white-space:nowrap;}" + ( true ? "" : 0));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/resizable-box/resize-tooltip/label.js
 
@@ -69132,21 +69329,6 @@ function ToolbarDropdownMenu(props, ref) {
 
 /* harmony default export */ var toolbar_dropdown_menu = ((0,external_wp_element_namespaceObject.forwardRef)(ToolbarDropdownMenu));
 
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/reset.js
-
-
-/**
- * WordPress dependencies
- */
-
-const reset_reset = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M7 11.5h10V13H7z"
-}));
-/* harmony default export */ var library_reset = (reset_reset);
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/styles.js
 function tools_panel_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
@@ -70283,55 +70465,6 @@ function TreeGridRow(_ref, ref) {
     ref: ref
   }, children));
 }));
-
-;// CONCATENATED MODULE: ./packages/components/build-module/truncate/component.js
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-/**
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'span'>} props
- * @param {import('react').ForwardedRef<any>}                                                forwardedRef
- */
-
-function component_Truncate(props, forwardedRef) {
-  const truncateProps = useTruncate(props);
-  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
-    as: "span"
-  }, truncateProps, {
-    ref: forwardedRef
-  }));
-}
-/**
- * `Truncate` is a typography primitive that trims text content.
- * For almost all cases, it is recommended that `Text`, `Heading`, or
- * `Subheading` is used to render text content. However,`Truncate` is
- * available for custom implementations.
- *
- * @example
- * ```jsx
- * import { __experimentalTruncate as Truncate } from `@wordpress/components`;
- *
- * function Example() {
- * 	return (
- * 		<Truncate>
- * 			Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc ex
- * 			neque, vulputate a diam et, luctus convallis lacus. Vestibulum ac
- * 			mollis mi. Morbi id elementum massa.
- * 		</Truncate>
- * 	);
- * }
- * ```
- */
-
-
-const ConnectedTruncate = contextConnect(component_Truncate, 'Truncate');
-/* harmony default export */ var truncate_component = (ConnectedTruncate);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/isolated-event-container/index.js
 
