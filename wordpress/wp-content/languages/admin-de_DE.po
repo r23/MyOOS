@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.9.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-01-27 23:55:41+0000\n"
+"PO-Revision-Date: 2022-03-30 09:14:20+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -786,11 +786,11 @@ msgid "Want more events? <a href=\"%s\">Help organize the next one</a>!"
 msgstr "Du möchtest mehr Events? <a href=\"%s\">Hilf bei der Organisation der nächsten</a>!"
 
 #. translators: %s: User's display name.
-#: wp-admin/includes/ajax-actions.php:5460
+#: wp-admin/includes/ajax-actions.php:5483
 msgid "A password reset link was emailed to %s."
 msgstr "Ein Link zum Zurücksetzen des Passwortes wurde per E-Mail an %s gesendet."
 
-#: wp-admin/includes/ajax-actions.php:5450
+#: wp-admin/includes/ajax-actions.php:5473
 msgid "Cannot send password reset, permission denied."
 msgstr "Das Zurücksetzen des Passwortes kann nicht gesendet werden, die Berechtigung wurde verweigert."
 
@@ -1169,10 +1169,10 @@ msgstr "Zuletzt verwendet"
 
 #. translators: 1: The Site Health action that is no longer used by core. 2:
 #. The new function that replaces it.
-#: wp-admin/includes/ajax-actions.php:5188
-#: wp-admin/includes/ajax-actions.php:5221
-#: wp-admin/includes/ajax-actions.php:5254
-#: wp-admin/includes/ajax-actions.php:5304
+#: wp-admin/includes/ajax-actions.php:5211
+#: wp-admin/includes/ajax-actions.php:5244
+#: wp-admin/includes/ajax-actions.php:5277
+#: wp-admin/includes/ajax-actions.php:5327
 msgid "The Site Health check for %1$s has been replaced with %2$s."
 msgstr "Der Test zum Website-Zustand für %1$s wurde durch %2$s ersetzt."
 
@@ -1425,7 +1425,7 @@ msgctxt "theme"
 msgid "Activate &#8220;%s&#8221;"
 msgstr "&#8222;%s&#8220; aktivieren"
 
-#: wp-admin/includes/ajax-actions.php:5394
+#: wp-admin/includes/ajax-actions.php:5417
 msgid "Sorry, you are not allowed to modify plugins."
 msgstr "Du bist leider nicht berechtigt, Plugins zu ändern."
 
@@ -1479,7 +1479,7 @@ msgid "File upload settings"
 msgstr "Datei-Upload-Einstellungen"
 
 #. translators: %s: Theme name.
-#: wp-admin/theme-install.php:408
+#: wp-admin/theme-install.php:411
 msgctxt "theme"
 msgid "Cannot Install %s"
 msgstr "%s kann nicht installiert werden"
@@ -1492,7 +1492,7 @@ msgstr "%s installieren"
 
 #. translators: %s: Theme name.
 #: wp-admin/includes/class-wp-theme-install-list-table.php:334
-#: wp-admin/theme-install.php:401
+#: wp-admin/theme-install.php:404
 msgctxt "theme"
 msgid "Install %s"
 msgstr "%s installieren"
@@ -1512,7 +1512,7 @@ msgstr "%s jetzt aktualisieren"
 msgid "- %1$s version %2$s"
 msgstr "- %1$s Version %2$s"
 
-#: wp-admin/theme-install.php:371 wp-admin/theme-install.php:433
+#: wp-admin/theme-install.php:372 wp-admin/theme-install.php:436
 msgctxt "theme"
 msgid "Activated"
 msgstr "Aktiviert"
@@ -1550,7 +1550,7 @@ msgid "Dismiss this notice."
 msgstr "Diese Meldung ausblenden."
 
 #. translators: %s: Theme name.
-#: wp-admin/theme-install.php:386 wp-admin/themes.php:561
+#: wp-admin/theme-install.php:389 wp-admin/themes.php:561
 #: wp-admin/themes.php:921 wp-admin/themes.php:1140
 msgctxt "theme"
 msgid "Cannot Activate %s"
@@ -1647,8 +1647,8 @@ msgstr "Automatische Aktualisierungen können für die Hauptversionen von WordPr
 msgid "<strong>Important:</strong> Before updating, please <a href=\"%1$s\">back up your database and files</a>. For help with updates, visit the <a href=\"%2$s\">Updating WordPress</a> documentation page."
 msgstr "<strong>Wichtig:</strong> Vor der Aktualisierung bitte deine <a href=\"%1$s\">Datenbank und Dateien sichern (engl.)</a>. Hilfe bei Aktualisierungen erhältst du auf der Dokumentationsseite <a href=\"%2$s\">WordPress aktualisieren (engl.)</a>."
 
-#: wp-admin/customize.php:199 wp-admin/theme-install.php:389
-#: wp-admin/theme-install.php:436 wp-admin/themes.php:563
+#: wp-admin/customize.php:199 wp-admin/theme-install.php:392
+#: wp-admin/theme-install.php:439 wp-admin/themes.php:563
 #: wp-admin/themes.php:923 wp-admin/themes.php:1143
 msgctxt "theme"
 msgid "Cannot Activate"
@@ -1684,20 +1684,20 @@ msgctxt "plugin"
 msgid "<strong>Error:</strong> Current versions of WordPress (%1$s) and PHP (%2$s) do not meet minimum requirements for %3$s. The plugin requires WordPress %4$s and PHP %5$s."
 msgstr "<strong>Fehler:</strong> Die aktuellen Versionen von WordPress&nbsp;(%1$s) und PHP&nbsp;(%2$s) entsprechen nicht den Mindestanforderungen für %3$s. Das Plugin benötigt WordPress&nbsp;%4$s und PHP&nbsp;%5$s."
 
-#: wp-admin/includes/ajax-actions.php:5416
+#: wp-admin/includes/ajax-actions.php:5439
 msgid "Invalid data. The item does not exist."
 msgstr "Ungültige Daten. Das Element existiert nicht."
 
-#: wp-admin/includes/ajax-actions.php:5387
-#: wp-admin/includes/ajax-actions.php:5412
+#: wp-admin/includes/ajax-actions.php:5410
+#: wp-admin/includes/ajax-actions.php:5435
 msgid "Invalid data. Unknown type."
 msgstr "Ungültige Daten. Unbekannter Typ."
 
-#: wp-admin/includes/ajax-actions.php:5382
+#: wp-admin/includes/ajax-actions.php:5405
 msgid "Invalid data. Unknown state."
 msgstr "Ungültige Daten. Unbekannter Status."
 
-#: wp-admin/includes/ajax-actions.php:5376
+#: wp-admin/includes/ajax-actions.php:5399
 msgid "Invalid data. No selected item."
 msgstr "Ungültige Daten. Kein ausgewähltes Element."
 
@@ -1918,11 +1918,11 @@ msgstr "Downgrade des Themes fehlgeschlagen."
 
 #: wp-admin/includes/class-theme-upgrader.php:105
 msgid "Downgrading the theme&#8230;"
-msgstr "Downgrade des Themes&#8230;"
+msgstr "Downgrade des Themes&nbsp;&#8230;"
 
 #: wp-admin/includes/class-theme-upgrader.php:99
 msgid "Updating the theme&#8230;"
-msgstr "Aktualisierung des Themes&#8230;"
+msgstr "Aktualisierung des Themes&nbsp;&#8230;"
 
 #. translators: %s: Theme error.
 #: wp-admin/includes/class-theme-upgrader.php:95
@@ -2052,8 +2052,8 @@ msgstr "Erforderliche WordPress-Version"
 msgid "Theme name"
 msgstr "Theme-Name"
 
-#: wp-admin/includes/theme.php:1063 wp-admin/theme-install.php:410
-#: wp-admin/theme-install.php:442
+#: wp-admin/includes/theme.php:1063 wp-admin/theme-install.php:413
+#: wp-admin/theme-install.php:445
 msgctxt "theme"
 msgid "Cannot Install"
 msgstr "Installation nicht möglich"
@@ -2076,11 +2076,11 @@ msgstr "Downgrade des Plugins fehlgeschlagen."
 
 #: wp-admin/includes/class-plugin-upgrader.php:96
 msgid "Downgrading the plugin&#8230;"
-msgstr "Downgrade des Plugins&#8230;"
+msgstr "Downgrade des Plugins&nbsp;&#8230;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:90
 msgid "Updating the plugin&#8230;"
-msgstr "Aktualisierung des Plugins&#8230;"
+msgstr "Aktualisierung des Plugins&nbsp;&#8230;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:81
 msgid "Could not remove the current plugin."
@@ -2088,7 +2088,7 @@ msgstr "Das aktuell bestehende Plugin konnte nicht entfernt werden."
 
 #: wp-admin/includes/class-plugin-upgrader.php:80
 msgid "Removing the current plugin&#8230;"
-msgstr "Entferne das bestehende Plugin&#8230;"
+msgstr "Entferne das bestehende Plugin&nbsp;&#8230;"
 
 #: wp-admin/includes/class-wp-debug-data.php:1286
 msgid "Auto-update"
@@ -2191,7 +2191,7 @@ msgstr "In regelmäßigen Abständen werden automatisch Tests zum Website-Zustan
 
 #: wp-admin/includes/dashboard.php:1923
 msgid "No information yet&hellip;"
-msgstr "Noch keine Information &hellip;"
+msgstr "Noch keine Information&nbsp;&hellip;"
 
 #. translators: 1: upload_max_filesize, 2: php.ini
 #: wp-admin/includes/file.php:861
@@ -2360,7 +2360,7 @@ msgstr "<a href=\"https://wordpress.org/support/article/posts-screen/\">Dokument
 msgid "<a href=\"https://wordpress.org/support/article/settings-discussion-screen/\">Documentation on Discussion Settings</a>"
 msgstr "<a href=\"https://wordpress.org/support/article/settings-discussion-screen/\">Dokumentation zu Diskussionseinstellungen (engl.)</a>"
 
-#: wp-admin/theme-install.php:140
+#: wp-admin/theme-install.php:141
 msgid "<a href=\"https://wordpress.org/support/article/using-themes/#adding-new-themes\">Documentation on Adding New Themes</a>"
 msgstr "<a href=\"https://wordpress.org/support/article/using-themes/#adding-new-themes\">Dokumentation über das Hinzufügen neuer Themes (engl.) </a>"
 
@@ -2464,7 +2464,7 @@ msgstr "Diese Seite kann dir jedes Detail über die Konfiguration deiner WordPre
 
 #: wp-admin/includes/dashboard.php:1925 wp-admin/site-health.php:127
 msgid "Results are still loading&hellip;"
-msgstr "Die Ergebnisse werden noch geladen&hellip;"
+msgstr "Die Ergebnisse werden noch geladen&nbsp;&hellip;"
 
 #: wp-admin/options-permalink.php:64
 msgid "<a href=\"https://wordpress.org/support/article/nginx/\">Documentation on Nginx configuration</a>."
@@ -3034,17 +3034,17 @@ msgid "The authenticity of %s could not be verified as signature verification is
 msgstr "Die Echtheit von %s konnte nicht verifiziert werden, da die Signaturprüfung auf diesem System nicht verfügbar ist."
 
 #. translators: %s: Eraser friendly name.
-#: wp-admin/includes/ajax-actions.php:5063
+#: wp-admin/includes/ajax-actions.php:5086
 msgid "Eraser callback is not valid: %s."
 msgstr "Der Löschvorgang ist nicht gültig: %s."
 
 #. translators: %s: Eraser friendly name.
-#: wp-admin/includes/ajax-actions.php:5053
+#: wp-admin/includes/ajax-actions.php:5076
 msgid "Eraser does not include a callback: %s."
 msgstr "Löschprogramm enthält keinen Aufruf: %s."
 
-#: wp-admin/includes/ajax-actions.php:4775
-#: wp-admin/includes/ajax-actions.php:4966
+#: wp-admin/includes/ajax-actions.php:4798
+#: wp-admin/includes/ajax-actions.php:4989
 msgid "Sorry, you are not allowed to perform this action."
 msgstr "Du bist leider nicht berechtigt, diese Aktion durchzuführen."
 
@@ -4191,11 +4191,11 @@ msgstr[1] "Alle <span class=\"count\">(%s)</span>"
 msgid "Show comments cookies opt-in checkbox, allowing comment author cookies to be set"
 msgstr "Das Opt-in-Kontrollkästchen für Kommentar-Cookies anzeigen, damit die Cookies des Kommentar-Autors gesetzt werden können"
 
-#: wp-admin/theme-install.php:423
+#: wp-admin/theme-install.php:426
 msgid "Next theme"
 msgstr "Nächstes Theme"
 
-#: wp-admin/theme-install.php:422
+#: wp-admin/theme-install.php:425
 msgid "Previous theme"
 msgstr "Vorheriges Theme"
 
@@ -4316,7 +4316,7 @@ msgstr "Alte Übersetzung konnte nicht entfernt werden."
 
 #: wp-admin/includes/class-language-pack-upgrader.php:121
 msgid "Removing the old version of the translation&#8230;"
-msgstr "Alte Übersetzung wird entfernt&#160;&hellip;"
+msgstr "Alte Übersetzung wird entfernt&nbsp;&#8230;"
 
 #. translators: %s: URL to WordPress Updates screen.
 #: wp-admin/includes/plugin-install.php:831
@@ -4497,7 +4497,7 @@ msgstr "Das Unternehmen XYZ wurde 1971 gegründet und versorgt die Öffentlichke
 #. translators: First page content.
 #: wp-admin/includes/upgrade.php:313
 msgid "...or something like this:"
-msgstr "...oder so etwas wie das hier:"
+msgstr "...&nbsp;oder so etwas wie:"
 
 #. translators: First page content.
 #: wp-admin/includes/upgrade.php:308
@@ -4688,7 +4688,7 @@ msgstr "Brauchst du Hilfe beim Zusammenstellen deiner neuen Seite zur Datenschut
 #: wp-admin/includes/class-wp-privacy-data-removal-requests-list-table.php:66
 #: wp-admin/includes/class-wp-privacy-data-removal-requests-list-table.php:140
 msgid "Erasing data..."
-msgstr "Daten löschen..."
+msgstr "Daten löschen&nbsp;…"
 
 #: wp-admin/erase-personal-data.php:111
 msgid "Add Data Erasure Request"
@@ -5000,7 +5000,7 @@ msgid "Report generated for"
 msgstr "Bericht erstellt für"
 
 #. translators: %s: Exporter array index.
-#: wp-admin/includes/ajax-actions.php:4859
+#: wp-admin/includes/ajax-actions.php:4882
 msgid "Exporter array at index %s does not include a friendly name."
 msgstr "Der Funktion zum Datenexport im Index %s des Arrays fehlt ein Anzeigename."
 
@@ -5012,72 +5012,72 @@ msgstr "Du bist leider nicht berechtigt, personenbezogene Daten auf dieser Websi
 msgid "Sorry, you are not allowed to export personal data on this site."
 msgstr "Du bist leider nicht berechtigt, personenbezogene Daten auf dieser Website zu exportieren."
 
-#: wp-admin/includes/ajax-actions.php:5026
+#: wp-admin/includes/ajax-actions.php:5049
 msgid "Eraser index is out of range."
 msgstr "Index der Funktion zur Datenlöschung ist außerhalb des Bereichs."
 
-#: wp-admin/includes/ajax-actions.php:4985
+#: wp-admin/includes/ajax-actions.php:5008
 msgid "Missing eraser index."
 msgstr "Index der Funktion zur Datenlöschung fehlt."
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:4910
+#: wp-admin/includes/ajax-actions.php:4933
 msgid "Expected done (boolean) in response array from exporter: %s."
 msgstr "Erwartetes done (boolesch) in Antwort-Array der Funktion zum Datenexport: %s."
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:4903
+#: wp-admin/includes/ajax-actions.php:4926
 msgid "Expected data array in response array from exporter: %s."
 msgstr "Erwartet wurde ein Daten-Array im Antwort-Array der Funktion zum Datenexport: %s."
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:4896
+#: wp-admin/includes/ajax-actions.php:4919
 msgid "Expected data in response array from exporter: %s."
 msgstr "Daten erwartet im Antwort-Array der Funktion zum Datenexport: %s."
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:4889
+#: wp-admin/includes/ajax-actions.php:4912
 msgid "Expected response as an array from exporter: %s."
 msgstr "Erwartet wurde ein Array als Antwort der Funktion zum Datenexport: %s."
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:4875
+#: wp-admin/includes/ajax-actions.php:4898
 msgid "Exporter callback is not a valid callback: %s."
 msgstr "Rückruffunktion der Funktion zum Datenexport ist kein gültiger Callback: %s."
 
 #. translators: %s: Exporter friendly name.
-#: wp-admin/includes/ajax-actions.php:4868
+#: wp-admin/includes/ajax-actions.php:4891
 msgid "Exporter does not include a callback: %s."
 msgstr "Funktion zum Datenexport enthält keine gültige Rückruffunktion: %s."
 
 #. translators: %s: Exporter array index.
-#: wp-admin/includes/ajax-actions.php:4852
+#: wp-admin/includes/ajax-actions.php:4875
 msgid "Expected an array describing the exporter at index %s."
 msgstr "Erwartet wurde ein Array zur Beschreibung der Funktion zum Datenexport im Index %s."
 
-#: wp-admin/includes/ajax-actions.php:4838
+#: wp-admin/includes/ajax-actions.php:4861
 msgid "Exporter index is out of range."
 msgstr "Der Exporter-Index ist außerhalb des Bereichs."
 
-#: wp-admin/includes/ajax-actions.php:4834
+#: wp-admin/includes/ajax-actions.php:4857
 msgid "Exporter index cannot be negative."
 msgstr "Index der Funktion zum Datenexport kann nicht negativ sein."
 
-#: wp-admin/includes/ajax-actions.php:4828
+#: wp-admin/includes/ajax-actions.php:4851
 msgid "An exporter has improperly used the registration filter."
 msgstr "Eine Funktion zum Datenexport hat den Registrierungs-Filter unzulässig benutzt."
 
-#: wp-admin/includes/ajax-actions.php:4799
-#: wp-admin/includes/ajax-actions.php:4991
+#: wp-admin/includes/ajax-actions.php:4822
+#: wp-admin/includes/ajax-actions.php:5014
 msgid "Missing page index."
 msgstr "Fehlender Seiten-Index."
 
-#: wp-admin/includes/ajax-actions.php:4793
+#: wp-admin/includes/ajax-actions.php:4816
 msgid "Missing exporter index."
 msgstr "Index der Funktion zum Export fehlt."
 
-#: wp-admin/includes/ajax-actions.php:4784
-#: wp-admin/includes/ajax-actions.php:4975
+#: wp-admin/includes/ajax-actions.php:4807
+#: wp-admin/includes/ajax-actions.php:4998
 msgid "Invalid request type."
 msgstr "Ungültiger Anfragetyp."
 
@@ -5176,7 +5176,7 @@ msgstr "E-Mail gesendet."
 
 #: wp-admin/includes/class-wp-privacy-data-export-requests-list-table.php:134
 msgid "Sending email..."
-msgstr "Versende E-Mail..."
+msgstr "Versende E-Mail&nbsp;..."
 
 #: wp-admin/includes/class-wp-privacy-data-export-requests-list-table.php:62
 msgid "Download personal data again"
@@ -5205,7 +5205,7 @@ msgstr "Export personenbezogener Daten"
 msgid "Personal Data Export for %s"
 msgstr "Export personenbezogener Daten für %s"
 
-#: wp-admin/includes/ajax-actions.php:4789
+#: wp-admin/includes/ajax-actions.php:4812
 msgid "A valid email address must be given."
 msgstr "Eine gültige E-Mail-Adresse muss angegeben werden."
 
@@ -5234,7 +5234,7 @@ msgstr "Erneut versuchen"
 
 #: wp-admin/includes/class-wp-privacy-data-export-requests-list-table.php:61
 msgid "Downloading data..."
-msgstr "Lade Daten herunter..."
+msgstr "Lade Daten herunter&nbsp;…"
 
 #: wp-admin/includes/class-wp-privacy-data-export-requests-list-table.php:60
 msgid "Download personal data"
@@ -5276,61 +5276,61 @@ msgstr "Bestätigungs-Anfrage erfolgreich erneut versendet."
 msgid "Unable to initiate confirmation request."
 msgstr "Kann Bestätigungs-Anfrage nicht initiieren."
 
-#: wp-admin/includes/ajax-actions.php:4771
-#: wp-admin/includes/ajax-actions.php:4961
+#: wp-admin/includes/ajax-actions.php:4794
+#: wp-admin/includes/ajax-actions.php:4984
 msgid "Invalid request ID."
 msgstr "Ungültige Anfrage-ID."
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5135
+#: wp-admin/includes/ajax-actions.php:5158
 msgid "Expected done flag in response array from %1$s eraser (index %2$d)."
 msgstr "Erwartetes done flag in Antwort-Array der Funktion zur Datenlöschung %1$s (Index %2$d)."
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5124
+#: wp-admin/includes/ajax-actions.php:5147
 msgid "Expected messages key to reference an array in response array from %1$s eraser (index %2$d)."
 msgstr "Erwarteter messages-Schlüssel in Antwort-Array der Funktion zur Datenlöschung %1$s (Index %2$d)."
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5113
+#: wp-admin/includes/ajax-actions.php:5136
 msgid "Expected messages key in response array from %1$s eraser (index %2$d)."
 msgstr "Erwarteter messages-Schlüssel in Antwort-Array der Funktion zur Datenlöschung %1$s (Index %2$d)."
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5102
+#: wp-admin/includes/ajax-actions.php:5125
 msgid "Expected items_retained key in response array from %1$s eraser (index %2$d)."
 msgstr "Erwarteter items_retained-Schlüssel in Antwort-Array der Funktion zur Datenlöschung %1$s (Index %2$d)."
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5091
+#: wp-admin/includes/ajax-actions.php:5114
 msgid "Expected items_removed key in response array from %1$s eraser (index %2$d)."
 msgstr "Erwarteter items_removed-Schlüssel in Antwort-Array der Funktion zur Datenlöschung %1$s (Index %2$d)."
 
 #. translators: 1: Eraser friendly name, 2: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5080
+#: wp-admin/includes/ajax-actions.php:5103
 msgid "Did not receive array from %1$s eraser (index %2$d)."
 msgstr "Kein Array der Datenlöschungs-Funktion %1$s (Index %2$d) erhalten."
 
 #. translators: %d: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5044
+#: wp-admin/includes/ajax-actions.php:5067
 msgid "Eraser array at index %d does not include a friendly name."
 msgstr "Der Funktion zur Datenlöschung im Index %d des Arrays fehlt ein Anzeigename."
 
 #. translators: %d: Eraser array index.
-#: wp-admin/includes/ajax-actions.php:5039
+#: wp-admin/includes/ajax-actions.php:5062
 msgid "Expected an array describing the eraser at index %d."
 msgstr "Erwartet wurde ein Array, dass die Funktion zur Datenlöschung im Index %d beschreibt."
 
-#: wp-admin/includes/ajax-actions.php:4842
-#: wp-admin/includes/ajax-actions.php:5030
+#: wp-admin/includes/ajax-actions.php:4865
+#: wp-admin/includes/ajax-actions.php:5053
 msgid "Page index cannot be less than one."
 msgstr "Seiten-Index kann nicht kleiner als 1 sein."
 
-#: wp-admin/includes/ajax-actions.php:5022
+#: wp-admin/includes/ajax-actions.php:5045
 msgid "Eraser index cannot be less than one."
 msgstr "Index der Funktion zur Datenlöschung kann nicht kleiner als 1 sein."
 
-#: wp-admin/includes/ajax-actions.php:4981
+#: wp-admin/includes/ajax-actions.php:5004
 msgid "Invalid email address in request."
 msgstr "Ungültige E-Mail-Adresse in der Anfrage."
 
@@ -5420,7 +5420,7 @@ msgstr "Hochgeladen am: %s"
 #: wp-admin/includes/class-plugin-upgrader.php:77
 #: wp-admin/includes/class-theme-upgrader.php:75
 msgid "Downloading installation package from %s&#8230;"
-msgstr "Herunterladen des Installationspakets von %s&#160;&hellip;"
+msgstr "Herunterladen des Installationspakets von %s&nbsp;&#8230;"
 
 #. translators: %s: Package URL.
 #: wp-admin/includes/class-language-pack-upgrader.php:117
@@ -5820,16 +5820,12 @@ msgstr "Du bist leider nicht berechtigt, Benutzer zu löschen."
 msgid "Sorry, you are not allowed to create users."
 msgstr "Du bist leider nicht berechtigt, Benutzer zu erstellen."
 
-#: wp-admin/customize.php:238
-msgid "The Customizer allows you to preview changes to your site before publishing them. You can navigate to different pages on your site within the preview. Edit shortcuts are shown for some editable elements."
-msgstr "Der Customizer ermöglicht dir eine Vorschau der Änderungen an deiner Website vor dem Veröffentlichen. Du kannst innerhalb der Vorschau unterschiedliche Seiten deiner Website ansteuern. Es werden Buttons neben den editierbaren Elementen angezeigt."
-
 #: wp-admin/customize.php:258
 msgctxt "short (~12 characters) label for hide controls button"
 msgid "Hide Controls"
 msgstr "Ausblenden"
 
-#: wp-admin/theme-install.php:71
+#: wp-admin/theme-install.php:72
 msgid "Expand Sidebar"
 msgstr "Seitenleiste einblenden"
 
@@ -5846,21 +5842,21 @@ msgstr "ID #%1$s: %2$s <strong>Du bist leider nicht berechtigt diesen Benutzer z
 msgid "You can select the language you wish to use while using the WordPress administration screen without affecting the language site visitors see."
 msgstr "Du kannst die Sprache auswählen, die du im WordPress-Administrationsbereich (Backend) benutzen willst, ohne Auswirkungen auf die Sprache, die Besucher deiner Website (im Frontend) zu sehen bekommen."
 
-#: wp-admin/theme-install.php:244
+#: wp-admin/theme-install.php:245
 msgid "Edit Filters"
 msgstr "Filter bearbeiten"
 
-#: wp-admin/theme-install.php:217 wp-admin/theme-install.php:239
+#: wp-admin/theme-install.php:218 wp-admin/theme-install.php:240
 msgid "Clear current filters"
 msgstr "Aktuelle Filter entfernen"
 
 #. translators: Accessibility text.
-#: wp-admin/theme-install.php:73
+#: wp-admin/theme-install.php:74
 msgid "Select one or more Theme features to filter by"
 msgstr "Wähle ein oder mehrere Funktionen nach denen die Themes gefiltert werden"
 
 #. translators: %s: Number of ratings.
-#: wp-admin/includes/theme.php:857 wp-admin/theme-install.php:465
+#: wp-admin/includes/theme.php:857 wp-admin/theme-install.php:468
 msgid "(%s ratings)"
 msgstr "(%s Bewertungen)"
 
@@ -5874,7 +5870,7 @@ msgstr "Aktuelles Header-Bild"
 
 #: wp-admin/includes/plugin-install.php:338
 msgid "Search plugins..."
-msgstr "Plugins durchsuchen ..."
+msgstr "Plugins durchsuchen&nbsp;..."
 
 #: wp-admin/includes/meta-boxes.php:139
 msgid "Set status"
@@ -5900,6 +5896,10 @@ msgstr "Du bist leider nicht berechtigt, Dateien an Beiträge anzuhängen."
 #: wp-admin/plugins.php:551
 msgid "https://wordpress.org/plugins/"
 msgstr "https://de.wordpress.org/plugins/"
+
+#: wp-admin/customize.php:238
+msgid "The Customizer allows you to preview changes to your site before publishing them. You can navigate to different pages on your site within the preview. Edit shortcuts are shown for some editable elements. The Customizer is intended for use with non-block themes."
+msgstr "Der Customizer ermöglicht dir in einer Vorschau die Änderungen an deiner Website vor dem Veröffentlichen zu sehen. Du kannst innerhalb der Vorschau zu verschiedenen Seiten deiner Website navigieren. Für einige bearbeitbare Elemente werden Shortcuts zum Bearbeiten angezeigt. Der Customizer ist für die Verwendung mit Nicht-Block-Themes vorgesehen."
 
 #: wp-admin/customize.php:72 wp-admin/customize.php:81
 msgid "Customize New Changes"
@@ -5932,7 +5932,7 @@ msgstr "Wiederholen"
 #: wp-admin/options-reading.php:54 wp-admin/options-writing.php:54
 #: wp-admin/plugin-editor.php:145 wp-admin/plugin-install.php:122
 #: wp-admin/plugins.php:590 wp-admin/revision.php:158
-#: wp-admin/theme-editor.php:56 wp-admin/theme-install.php:141
+#: wp-admin/theme-editor.php:56 wp-admin/theme-install.php:142
 #: wp-admin/themes.php:209 wp-admin/tools.php:57 wp-admin/update-core.php:1018
 #: wp-admin/upload.php:76 wp-admin/upload.php:257 wp-admin/user-edit.php:74
 #: wp-admin/user-new.php:296 wp-admin/users.php:78 wp-admin/widgets-form.php:72
@@ -5953,7 +5953,7 @@ msgstr "%s Aktualisierung fehlgeschlagen."
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:447
 msgid "Search installed plugins..."
-msgstr "Installierte Plugins durchsuchen ..."
+msgstr "Installierte Plugins durchsuchen&nbsp;..."
 
 #: wp-admin/plugin-install.php:103
 msgid "You can find new plugins to install by searching or browsing the directory right here in your own Plugins section."
@@ -6051,7 +6051,7 @@ msgstr "Du bist leider nicht berechtigt, Benutzer zu diesem Netzwerk hinzuzufüg
 msgid "Sorry, you are not allowed to edit this changeset."
 msgstr "Du bist leider nicht berechtigt, dieses Änderungs-Set zu bearbeiten."
 
-#: wp-admin/includes/ajax-actions.php:4189 wp-admin/update.php:207
+#: wp-admin/includes/ajax-actions.php:4212 wp-admin/update.php:207
 #: wp-admin/update.php:230
 msgid "Sorry, you are not allowed to update themes for this site."
 msgstr "Du bist leider nicht berechtigt, Themes dieser Website zu aktualisieren."
@@ -6066,7 +6066,7 @@ msgstr "Du bist leider nicht berechtigt, diese Website zu aktualisieren."
 msgid "New version available. <button class=\"button-link\" type=\"button\">Update now</button>"
 msgstr "Es ist eine neue Version verfügbar. <button class=\"button-link\" type=\"button\">Jetzt aktualisieren</button>"
 
-#: wp-admin/theme-install.php:170
+#: wp-admin/theme-install.php:171
 msgid "The Theme Installer screen requires JavaScript."
 msgstr "Die „Themes installieren“-Ansicht erfordert JavaScript."
 
@@ -6274,37 +6274,37 @@ msgstr "Du bist leider nicht berechtigt, die Links dieser Website zu bearbeiten.
 msgid "Sorry, you are not allowed to manage privacy options on this site."
 msgstr "Du bist leider nicht berechtigt, den Datenschutz dieser Website zu verwalten."
 
-#: wp-admin/includes/ajax-actions.php:4614
+#: wp-admin/includes/ajax-actions.php:4637
 msgid "Plugin could not be deleted."
 msgstr "Plugin konnte nicht gelöscht werden."
 
-#: wp-admin/includes/ajax-actions.php:4468 wp-admin/update.php:29
+#: wp-admin/includes/ajax-actions.php:4491 wp-admin/update.php:29
 #: wp-admin/update.php:57 wp-admin/update.php:80
 msgid "Sorry, you are not allowed to update plugins for this site."
 msgstr "Du bist leider nicht berechtigt, Plugins dieser Website zu aktualisieren."
 
-#: wp-admin/includes/ajax-actions.php:4344
-#: wp-admin/includes/ajax-actions.php:4453
-#: wp-admin/includes/ajax-actions.php:4561
+#: wp-admin/includes/ajax-actions.php:4367
+#: wp-admin/includes/ajax-actions.php:4476
+#: wp-admin/includes/ajax-actions.php:4584
 msgid "No plugin specified."
 msgstr "Kein Plugin angegeben."
 
-#: wp-admin/includes/ajax-actions.php:4320
+#: wp-admin/includes/ajax-actions.php:4343
 msgid "Theme could not be deleted."
 msgstr "Theme konnte nicht gelöscht werden."
 
-#: wp-admin/includes/ajax-actions.php:4282
+#: wp-admin/includes/ajax-actions.php:4305
 msgid "Sorry, you are not allowed to delete themes on this site."
 msgstr "Du bist leider nicht berechtigt, Theme auf dieser Website zu löschen."
 
-#: wp-admin/includes/ajax-actions.php:4065 wp-admin/theme-install.php:16
+#: wp-admin/includes/ajax-actions.php:4085 wp-admin/theme-install.php:16
 #: wp-admin/update.php:258 wp-admin/update.php:300 wp-admin/update.php:334
 msgid "Sorry, you are not allowed to install themes on this site."
 msgstr "Du bist leider nicht berechtigt, Themes auf dieser Website zu installieren."
 
-#: wp-admin/includes/ajax-actions.php:4052
-#: wp-admin/includes/ajax-actions.php:4175
-#: wp-admin/includes/ajax-actions.php:4270
+#: wp-admin/includes/ajax-actions.php:4072
+#: wp-admin/includes/ajax-actions.php:4198
+#: wp-admin/includes/ajax-actions.php:4293
 msgid "No theme specified."
 msgstr "Kein Theme angegeben."
 
@@ -6462,7 +6462,7 @@ msgstr "Neues Theme aktiviert."
 msgid "Settings saved and theme activated."
 msgstr "Einstellungen gespeichert und Theme aktiviert."
 
-#: wp-admin/freedoms.php:96 wp-admin/theme-install.php:108
+#: wp-admin/freedoms.php:96 wp-admin/theme-install.php:109
 #: wp-admin/themes.php:157
 msgid "https://wordpress.org/themes/"
 msgstr "https://de.wordpress.org/themes/"
@@ -6863,11 +6863,11 @@ msgstr "Das Stylesheet %s enthält keinen gültigen Theme-Header."
 msgid "The theme is missing the %s stylesheet."
 msgstr "Dem Theme fehlt das Stylesheet %s."
 
-#: wp-admin/theme-install.php:204
+#: wp-admin/theme-install.php:205
 msgid "If you have marked themes as favorites on WordPress.org, you can browse them here."
 msgstr "Wenn du Themes auf WordPress.org als Favoriten markiert hast, kannst du sie hier durchstöbern."
 
-#: wp-admin/theme-install.php:187
+#: wp-admin/theme-install.php:188
 msgctxt "themes"
 msgid "Favorites"
 msgstr "Favoriten"
@@ -6975,11 +6975,11 @@ msgstr "Medienelementliste filtern"
 msgid "Install Parent Theme"
 msgstr "Eltern-Theme installieren"
 
-#: wp-admin/theme-install.php:248 wp-admin/network/themes.php:333
+#: wp-admin/theme-install.php:249 wp-admin/network/themes.php:333
 msgid "Themes list"
 msgstr "Themesliste"
 
-#: wp-admin/theme-install.php:177 wp-admin/network/themes.php:331
+#: wp-admin/theme-install.php:178 wp-admin/network/themes.php:331
 msgid "Filter themes list"
 msgstr "Themesliste filtern"
 
@@ -7046,7 +7046,7 @@ msgstr "Bedienfeld umschalten: %s"
 
 #: wp-admin/includes/post.php:1823
 msgid "Saving revision&hellip;"
-msgstr "Speichere Revision&#160;&hellip;"
+msgstr "Speichere Revision&nbsp;&hellip;"
 
 #: wp-admin/includes/post.php:1524
 msgid "Edit permalink"
@@ -7344,7 +7344,7 @@ msgstr "Kommentare (%s)"
 msgid "Comments (%1$s) on &#8220;%2$s&#8221;"
 msgstr "Kommentare (%1$s) zu &#8222;%2$s&#8220;"
 
-#: wp-admin/includes/ajax-actions.php:5404
+#: wp-admin/includes/ajax-actions.php:5427
 msgid "Sorry, you are not allowed to modify themes."
 msgstr "Du bist leider nicht berechtigt, Themes zu ändern."
 
@@ -7432,7 +7432,7 @@ msgid_plural "%s comments"
 msgstr[0] "%s Kommentar"
 msgstr[1] "%s Kommentare"
 
-#: wp-admin/includes/ajax-actions.php:3903
+#: wp-admin/includes/ajax-actions.php:3923
 msgid "Image could not be processed."
 msgstr "Bild konnte nicht verarbeitet werden."
 
@@ -7544,16 +7544,16 @@ msgstr "Beispiel: www.wordpress.org"
 msgid "The search for installed themes will search for terms in their name, description, author, or tag."
 msgstr "Bei der Suche nach installierten Themes wird nach Begriffen in deren Namen, Beschreibung, Autor und Schlagwort gesucht."
 
-#: wp-admin/theme-install.php:111
+#: wp-admin/theme-install.php:112
 msgid "Alternately, you can browse the themes that are Popular or Latest. When you find a theme you like, you can preview it or install it."
 msgstr "Alternativ kannst du nach empfohlenen, populären oder neuesten Themes suchen. Wenn du ein Theme findest, das dir gefällt, kannst du dir eine Vorschau ansehen oder es direkt installieren."
 
-#: wp-admin/theme-install.php:110
+#: wp-admin/theme-install.php:111
 msgid "You can Search for themes by keyword, author, or tag, or can get more specific and search by criteria listed in the feature filter."
 msgstr "Bei der Suche nach Themes kannst du Stichwörter, Autoren oder Schlagwörter verwenden oder mit den Kriterien, die im Eigenschaften-Filter aufgeführt werden, noch gezielter suchen."
 
 #. translators: %d: Number of themes.
-#: wp-admin/theme-install.php:68 wp-admin/themes.php:235
+#: wp-admin/theme-install.php:69 wp-admin/themes.php:235
 msgid "Number of Themes found: %d"
 msgstr "Anzahl der gefundenen Themes: %d"
 
@@ -7646,7 +7646,7 @@ msgstr "Durch Anklicken des Buttons &#8222;Überall sonst abmelden&#8220; kannst
 msgid "New translations are available."
 msgstr "Es sind neue Übersetzungen vorhanden."
 
-#: wp-admin/theme-install.php:470
+#: wp-admin/theme-install.php:473
 msgid "This theme has not been rated yet."
 msgstr "Dieses Theme hat noch keine Bewertung."
 
@@ -7912,19 +7912,19 @@ msgid "Filter by comment type"
 msgstr "Nach Kommentartyp filtern"
 
 #. translators: %s: User's display name.
-#: wp-admin/includes/ajax-actions.php:3878
+#: wp-admin/includes/ajax-actions.php:3898
 msgid "%s has been logged out."
 msgstr "%s wurde abgemeldet."
 
-#: wp-admin/includes/ajax-actions.php:3874
+#: wp-admin/includes/ajax-actions.php:3894
 msgid "You are now logged out everywhere else."
 msgstr "Du bist nun von allen anderen Geräten abgemeldet."
 
-#: wp-admin/includes/ajax-actions.php:3865
+#: wp-admin/includes/ajax-actions.php:3885
 msgid "Could not log out user sessions. Please try again."
 msgstr "Die Sitzungen konnten nicht abgemeldet werden. Bitte versuche es nochmal."
 
-#: wp-admin/includes/ajax-actions.php:3752
+#: wp-admin/includes/ajax-actions.php:3772
 msgid "This preview is unavailable in the editor."
 msgstr "Die Vorschau ist im Editor nicht verfügbar."
 
@@ -8113,7 +8113,7 @@ msgid "Beta Testing"
 msgstr "Beta-Testen"
 
 #. translators: %s: URL that could not be embedded.
-#: wp-admin/includes/ajax-actions.php:3718
+#: wp-admin/includes/ajax-actions.php:3738
 msgid "%s failed to embed."
 msgstr "%s konnte nicht eingebunden werden."
 
@@ -8121,7 +8121,7 @@ msgstr "%s konnte nicht eingebunden werden."
 msgid "If you reach out to us, we'll also ensure you'll never have this problem again."
 msgstr "Wenn du dich an uns wendest, geben wir unser Bestes, damit dieses Problem nicht mehr auftritt."
 
-#: wp-admin/theme-install.php:242
+#: wp-admin/theme-install.php:243
 msgid "Filtering by:"
 msgstr "Filterung nach:"
 
@@ -8163,12 +8163,12 @@ msgid "All comment types"
 msgstr "Alle Kommentartypen"
 
 #: wp-admin/includes/class-wp-theme-install-list-table.php:66
-#: wp-admin/theme-install.php:186
+#: wp-admin/theme-install.php:187
 msgctxt "themes"
 msgid "Latest"
 msgstr "Neueste"
 
-#: wp-admin/theme-install.php:185
+#: wp-admin/theme-install.php:186
 msgctxt "themes"
 msgid "Popular"
 msgstr "Populär"
@@ -8198,16 +8198,16 @@ msgstr "<strong>Löschen</strong> bringt dich zur „Benutzer löschen“-Ansich
 msgid "<strong>Remove</strong> allows you to remove a user from your site. It does not delete their content. You can also remove multiple users at once by using bulk actions."
 msgstr "<strong>Entfernen</strong> ermöglicht es dir, einen Benutzer von deiner Website zu entfernen. Dessen Inhalte werden nicht gelöscht. Du kannst auch mehrere Benutzer auf einmal löschen, indem du die Mehrfachaktionen verwendest."
 
-#: wp-admin/theme-install.php:349
+#: wp-admin/theme-install.php:350
 msgctxt "theme"
 msgid "Details &amp; Preview"
 msgstr "Details &amp; Vorschau"
 
-#: wp-admin/theme-install.php:58
+#: wp-admin/theme-install.php:59
 msgid "Search themes..."
-msgstr "Themes durchsuchen ..."
+msgstr "Themes durchsuchen&nbsp;..."
 
-#: wp-admin/theme-install.php:57
+#: wp-admin/theme-install.php:58
 msgid "Search Themes"
 msgstr "Themes suchen"
 
@@ -8260,7 +8260,7 @@ msgstr "Danke für dein Vertrauen in <a href=\"%s\">WordPress</a>."
 
 #: wp-admin/themes.php:233
 msgid "Search installed themes..."
-msgstr "Installierte Themes durchsuchen ..."
+msgstr "Installierte Themes durchsuchen&nbsp;..."
 
 #: wp-admin/update-core.php:986
 msgid "<strong>Translations</strong> &mdash; The files translating WordPress into your language are updated for you whenever any other updates occur. But if these files are out of date, you can <strong>click the &#8220;Update Translations&#8221;</strong> button."
@@ -8445,7 +8445,7 @@ msgstr "Vorheriges Theme anzeigen"
 msgid "Update Available"
 msgstr "Aktualisierung verfügbar"
 
-#: wp-admin/theme-install.php:56 wp-admin/themes.php:231
+#: wp-admin/theme-install.php:57 wp-admin/themes.php:231
 msgid "Add New Theme"
 msgstr "Neues Theme hinzufügen"
 
@@ -8674,7 +8674,7 @@ msgstr "Übersetzungen für %s"
 #: wp-admin/includes/class-language-pack-upgrader-skin.php:51
 #: wp-admin/includes/class-wp-automatic-updater.php:384
 msgid "Updating translations for %1$s (%2$s)&#8230;"
-msgstr "Aktualisierung der Übersetzungen für %1$s (%2$s)&#160;&hellip;"
+msgstr "Aktualisierung der Übersetzungen für %1$s (%2$s)&nbsp;&#8230;"
 
 #: wp-admin/includes/class-language-pack-upgrader-skin.php:31
 #: wp-admin/update-core.php:814 wp-admin/update-core.php:1224
@@ -8765,11 +8765,11 @@ msgstr "Bitte gib einen gültigen Benutzernamen an."
 
 #: wp-admin/includes/update-core.php:1186
 msgid "Copying the required files&#8230;"
-msgstr "Kopieren der erforderlichen Dateien&#160;&hellip;"
+msgstr "Kopieren der erforderlichen Dateien&nbsp;&#8230;"
 
 #: wp-admin/includes/update-core.php:1100
 msgid "Preparing to install the latest version&#8230;"
-msgstr "Vorbereitung für die Installation der neuesten Version&#160;&hellip;"
+msgstr "Vorbereitung für die Installation der neuesten Version&nbsp;&#8230;"
 
 #: wp-admin/includes/file.php:2392
 msgid "This password will not be stored on the server."
@@ -9019,7 +9019,7 @@ msgstr "Um zwischen den Revisionen zu navigieren, <strong>verschiebe den Slider 
 #: wp-admin/customize.php:151 wp-admin/includes/class-wp-debug-data.php:438
 #: wp-admin/includes/dashboard.php:1140 wp-admin/includes/dashboard.php:1339
 msgid "Loading&hellip;"
-msgstr "Lädt&#160;&hellip;"
+msgstr "Lädt&nbsp;&hellip;"
 
 #: wp-admin/post.php:308
 msgid "This item has already been deleted."
@@ -9275,7 +9275,7 @@ msgstr "Vielen Dank für die Aktualisierung! Bitte besuche die Seite <a href=\"%
 
 #: wp-admin/setup-config.php:473
 msgid "All right, sparky! You&#8217;ve made it through this part of the installation. WordPress can now communicate with your database. If you are ready, time now to&hellip;"
-msgstr "Alles klar! Diesen Teil der Installation hast du geschafft. WordPress kann jetzt mit deiner Datenbank kommunizieren. Wenn du bereit bist, kannst du jetzt die&#160;&hellip;"
+msgstr "Alles klar! Diesen Teil der Installation hast du geschafft. WordPress kann jetzt mit deiner Datenbank kommunizieren. Wenn du bereit bist, kannst du jetzt die&nbsp;&hellip;"
 
 #: wp-admin/includes/class-wp-debug-data.php:886
 msgid "Client version"
@@ -9471,11 +9471,11 @@ msgstr "Sichtbarkeit für Suchmaschinen"
 msgid "Welcome to WordPress %1$s. You will be redirected to the About WordPress screen. If not, click <a href=\"%2$s\">here</a>."
 msgstr "Willkommen bei WordPress&nbsp;%1$s. Du wirst nun zur Seite „Über WordPress“ weitergeleitet. Falls nicht, klicke <a href=\"%2$s\">hier</a>."
 
-#: wp-admin/includes/plugin-install.php:378 wp-admin/theme-install.php:210
+#: wp-admin/includes/plugin-install.php:378 wp-admin/theme-install.php:211
 msgid "Get Favorites"
 msgstr "Favoriten auflisten"
 
-#: wp-admin/includes/plugin-install.php:376 wp-admin/theme-install.php:207
+#: wp-admin/includes/plugin-install.php:376 wp-admin/theme-install.php:208
 msgid "Your WordPress.org username:"
 msgstr "Benutzername bei WordPress.org:"
 
@@ -9502,7 +9502,7 @@ msgctxt "Plugin Installer"
 msgid "Favorites"
 msgstr "Favoriten"
 
-#: wp-admin/theme-install.php:128
+#: wp-admin/theme-install.php:129
 msgid "To install the theme so you can preview it with your site&#8217;s content and customize its theme options, click the \"Install\" button at the top of the left-hand pane. The theme files will be downloaded to your website automatically. When this is complete, the theme is now available for activation, which you can do by clicking the \"Activate\" link, or by navigating to your Manage Themes screen and clicking the \"Live Preview\" link under any installed theme&#8217;s thumbnail image."
 msgstr "Um das Theme zu installieren, sodass du es mit dem Inhalt deiner Website in der Vorschau anschauen und die Theme-Optionen anpassen kannst, klicke bitte auf den Button „Installieren“ oben im linken Fensterbereich. Die Theme-Dateien werden dadurch automatisch auf deine Website heruntergeladen. Wenn dies abgeschlossen ist, steht das Theme zur Aktivierung bereit. Das machst du, indem du auf den Link „Aktivieren“ klickst oder indem du zum Bildschirm in dem die „Themes“ verwaltet werden, navigierst und auf den Link „Live-Vorschau“ unten, auf einem der Miniaturansichtsbilder eines installierten Themes klickst."
 
@@ -9590,7 +9590,7 @@ msgid "Select Image"
 msgstr "Bild auswählen"
 
 #: wp-admin/includes/class-wp-theme-install-list-table.php:403
-#: wp-admin/theme-install.php:542
+#: wp-admin/theme-install.php:545
 msgid "Collapse"
 msgstr "Einklappen"
 
@@ -9616,11 +9616,11 @@ msgstr "Installiert"
 msgid "Previewing and Customizing"
 msgstr "Vorschau und Anpassen"
 
-#: wp-admin/theme-install.php:133
+#: wp-admin/theme-install.php:134
 msgid "Previewing and Installing"
 msgstr "Vorschau und Installation"
 
-#: wp-admin/theme-install.php:127
+#: wp-admin/theme-install.php:128
 msgid "Once you have generated a list of themes, you can preview and install any of them. Click on the thumbnail of the theme you&#8217;re interested in previewing. It will open up in a full-screen Preview page to give you a better idea of how that theme will look."
 msgstr "Sobald du eine Liste von Themes generiert hast, kannst du diese in der Vorschau ansehen und eins davon installieren. Klicke auf das Vorschaubild des Themes, das dich interessiert, um die Vorschau anzuzeigen. Es öffnet sich ein Popup mit der Vorschau, um dir einen besseren Eindruck zu geben, wie deine Website mit dem Theme aussehen könnte."
 
@@ -9689,7 +9689,7 @@ msgstr "Suche nach Themes per Stichwort."
 
 #: wp-admin/setup-config.php:195
 msgid "In all likelihood, these items were supplied to you by your web host. If you don&#8217;t have this information, then you will need to contact them before you can continue. If you&#8217;re all ready&hellip;"
-msgstr "Wahrscheinlich kannst du diese Informationen in deinem Webhosting-Konto finden. Wenn du sie nicht parat hast, kontaktiere die Firma, bei der deine Website gehostet wird, bevor du weitermachst."
+msgstr "Wahrscheinlich kannst du diese Informationen in deinem Webhosting-Konto finden. Wenn du sie nicht parat hast, kontaktiere die Firma, bei der deine Website gehostet wird, bevor du weitermachst&nbsp;&hellip;"
 
 #: wp-admin/theme-editor.php:247
 msgid "This theme is broken."
@@ -9774,7 +9774,7 @@ msgid "Version:"
 msgstr "Version:"
 
 #: wp-admin/includes/class-wp-theme-install-list-table.php:401
-#: wp-admin/theme-install.php:70 wp-admin/theme-install.php:540
+#: wp-admin/theme-install.php:71 wp-admin/theme-install.php:543
 msgid "Collapse Sidebar"
 msgstr "Seitenleiste einklappen"
 
@@ -9822,11 +9822,11 @@ msgstr "Das Eltern-Theme, <strong>%1$s %2$s</strong>, ist momentan installiert."
 #. translators: 1: Theme name, 2: Theme version.
 #: wp-admin/includes/class-theme-upgrader.php:87
 msgid "Preparing to install <strong>%1$s %2$s</strong>&#8230;"
-msgstr "Vorbereiten der Installation <strong>%1$s %2$s</strong>&#160;&hellip;"
+msgstr "Vorbereiten der Installation <strong>%1$s %2$s</strong>&nbsp;&#8230;"
 
 #: wp-admin/includes/class-theme-upgrader.php:85
 msgid "This theme requires a parent theme. Checking if it is installed&#8230;"
-msgstr "Dieses Theme braucht ein Eltern-Theme. Überprüfung, ob es installiert ist&#160;&hellip;"
+msgstr "Dieses Theme braucht ein Eltern-Theme. Überprüfung, ob es installiert ist&nbsp;&#8230;"
 
 #: wp-admin/includes/class-custom-image-header.php:753
 msgid "Show header text with your image."
@@ -10178,7 +10178,7 @@ msgstr "Reparaturen abgeschlossen. Bitte entferne die folgende Zeile aus wp-conf
 #. translators: 1: Table name, 2: Error message.
 #: wp-admin/maint/repair.php:104
 msgid "The %1$s table is not okay. It is reporting the following error: %2$s. WordPress will attempt to repair this table&hellip;"
-msgstr "Die Tabelle %1$s ist nicht in Ordnung. Es liegt folgender Fehlerbericht vor: %2$s. WordPress wird versuchen, diese Tabelle zu reparieren&#160;&hellip;"
+msgstr "Die Tabelle %1$s ist nicht in Ordnung. Es liegt folgender Fehlerbericht vor: %2$s. WordPress wird versuchen, diese Tabelle zu reparieren&nbsp;&hellip;"
 
 #: wp-admin/user-new.php:419
 msgid "Enter the email address or username of an existing user on this network to invite them to this site. That person will be sent an email asking them to confirm the invite."
@@ -10671,7 +10671,7 @@ msgstr "Das Menü auf der linken Seite bietet Zugang zu allen Einstellungen und 
 #: wp-admin/plugin-editor.php:125 wp-admin/plugin-install.php:96
 #: wp-admin/plugins.php:544 wp-admin/revision.php:151
 #: wp-admin/site-health.php:80 wp-admin/theme-editor.php:28
-#: wp-admin/theme-install.php:121 wp-admin/themes.php:143
+#: wp-admin/theme-install.php:122 wp-admin/themes.php:143
 #: wp-admin/update-core.php:977 wp-admin/upload.php:54 wp-admin/upload.php:230
 #: wp-admin/user-edit.php:66 wp-admin/user-new.php:273 wp-admin/users.php:34
 #: wp-admin/widgets-form.php:43 wp-admin/network/index.php:34
@@ -10783,8 +10783,8 @@ msgstr "Super-Administrator"
 #. translators: %s: Theme version number.
 #. translators: %s: WordPress version.
 #. translators: %s: Theme version.
-#: wp-admin/includes/ajax-actions.php:4478
-#: wp-admin/includes/ajax-actions.php:4521
+#: wp-admin/includes/ajax-actions.php:4501
+#: wp-admin/includes/ajax-actions.php:4544
 #: wp-admin/includes/class-wp-debug-data.php:959
 #: wp-admin/includes/class-wp-debug-data.php:1006
 #: wp-admin/includes/class-wp-debug-data.php:1329
@@ -10839,7 +10839,7 @@ msgstr "Website löschen"
 #. translators: %s: Plugin name.
 #: wp-admin/includes/class-wp-theme-install-list-table.php:492
 #: wp-admin/includes/deprecated.php:1387 wp-admin/includes/theme.php:1060
-#: wp-admin/theme-install.php:403 wp-admin/theme-install.php:440
+#: wp-admin/theme-install.php:406 wp-admin/theme-install.php:443
 #: wp-admin/includes/network.php:374
 msgid "Install"
 msgstr "Installieren"
@@ -10867,7 +10867,7 @@ msgstr "Die Einstellungen wurden gespeichert."
 #: wp-admin/options-writing.php:52 wp-admin/plugin-editor.php:142
 #: wp-admin/plugin-install.php:120 wp-admin/plugins.php:587
 #: wp-admin/revision.php:156 wp-admin/site-health.php:89
-#: wp-admin/theme-editor.php:51 wp-admin/theme-install.php:139
+#: wp-admin/theme-editor.php:51 wp-admin/theme-install.php:140
 #: wp-admin/themes.php:206 wp-admin/tools.php:55 wp-admin/update-core.php:1015
 #: wp-admin/upload.php:74 wp-admin/upload.php:255 wp-admin/user-edit.php:72
 #: wp-admin/user-new.php:294 wp-admin/users.php:75 wp-admin/widgets-form.php:70
@@ -10994,7 +10994,7 @@ msgid "Name"
 msgstr "Name"
 
 #. translators: %s: Theme Directory URL.
-#: wp-admin/theme-install.php:107
+#: wp-admin/theme-install.php:108
 msgid "You can find additional themes for your site by using the Theme Browser/Installer on this screen, which will display themes from the <a href=\"%s\">WordPress Theme Directory</a>. These themes are designed and developed by third parties, are available free of charge, and are compatible with the license WordPress uses."
 msgstr "Hier kannst du zusätzliche Themes für deine Website finden, indem du den Theme-Browser dieser Ansicht nutzt. Es werden hier die Themes aus dem <a href=\"%s\">WordPress-Theme-Verzeichnis</a> angezeigt, zum Durchstöbern und Installieren. Alle Themes wurden von Dritten designt und entwickelt, sind kostenlos und kompatibel mit der von WordPress genutzten Lizenz (GPL)."
 
@@ -11119,7 +11119,7 @@ msgstr "%1$s von %2$s"
 msgid "%s Page Template"
 msgstr "%s Seiten-Template"
 
-#: wp-admin/includes/ajax-actions.php:4583 wp-admin/plugins.php:624
+#: wp-admin/includes/ajax-actions.php:4606 wp-admin/plugins.php:624
 msgid "You cannot delete a plugin while it is active on the main site."
 msgstr "Du kannst ein Plugin nicht löschen, so lange es noch auf der Haupt-Website aktiv ist."
 
@@ -11267,7 +11267,7 @@ msgstr "Plugin aktualisieren"
 msgid "Theme updated successfully."
 msgstr "Das Theme wurde erfolgreich aktualisiert."
 
-#: wp-admin/includes/ajax-actions.php:4249
+#: wp-admin/includes/ajax-actions.php:4272
 #: wp-admin/includes/class-theme-upgrader.php:63
 #: wp-admin/includes/class-theme-upgrader.php:100
 msgid "Theme update failed."
@@ -11278,7 +11278,7 @@ msgstr "Theme-Aktualisierung fehlgeschlagen."
 msgid "Plugin updated successfully."
 msgstr "Das Plugin wurde erfolgreich aktualisiert."
 
-#: wp-admin/includes/ajax-actions.php:4540
+#: wp-admin/includes/ajax-actions.php:4563
 #: wp-admin/includes/class-plugin-upgrader.php:64
 #: wp-admin/includes/class-plugin-upgrader.php:91
 msgid "Plugin update failed."
@@ -11389,7 +11389,7 @@ msgstr "Bitte wähle ein oder mehrere Themes, die aktualisiert werden sollen."
 msgid "The update process is starting. This process may take a while on some hosts, so please be patient."
 msgstr "Der Aktualisierungsprozess beginnt. Dies kann eine Weile dauern, bitte hab etwas Geduld."
 
-#: wp-admin/theme-install.php:216 wp-admin/theme-install.php:238
+#: wp-admin/theme-install.php:217 wp-admin/theme-install.php:239
 msgid "Apply Filters"
 msgstr "Filter anwenden"
 
@@ -11585,7 +11585,7 @@ msgid "Your profile contains information about you (your &#8220;account&#8221;) 
 msgstr "Dein Profil enthält die Informationen deines Benutzerkontos und einige persönliche Einstellungen für die Benutzung von WordPress."
 
 #. translators: %s: /wp-content/themes
-#: wp-admin/theme-install.php:114
+#: wp-admin/theme-install.php:115
 msgid "You can Upload a theme manually if you have already downloaded its ZIP archive onto your computer (make sure it is from a trusted and original source). You can also do it the old-fashioned way and copy a downloaded theme&#8217;s folder via FTP into your %s directory."
 msgstr "Hast du bereits ein Theme in einer ZIP-Datei (stelle sicher, dass es von einer vertrauenswürdigen Quelle stammt), kannst du es direkt über diese Oberfläche durch einen Klick auf „Theme hochladen“ hochladen und verwenden. Du kannst es aber auch auf deinem Computer entpacken und den gesamten Theme-Ordner via FTP in das Verzeichnis %s kopieren."
 
@@ -11709,7 +11709,7 @@ msgstr "Du benutzt die aktuelle Version von WordPress."
 
 #: wp-admin/plugin-editor.php:170 wp-admin/theme-editor.php:168
 msgid "Function Name&hellip;"
-msgstr "Funktionsname&#160;&hellip;"
+msgstr "Funktionsname&nbsp;&hellip;"
 
 #: wp-admin/includes/class-plugin-installer-skin.php:104
 msgid "Activate Plugin &amp; Run Importer"
@@ -12510,7 +12510,7 @@ msgstr "Inaktive Widgets"
 #: wp-admin/includes/class-wp-users-list-table.php:299
 #: wp-admin/includes/class-wp-users-list-table.php:301
 msgid "Change role to&hellip;"
-msgstr "Rolle ändern in&#160;&hellip;"
+msgstr "Rolle ändern in&nbsp;&hellip;"
 
 #. translators: 1: User role name, 2: Number of users.
 #: wp-admin/includes/class-wp-users-list-table.php:227
@@ -12678,8 +12678,8 @@ msgstr "Deine WordPress-Datenbank ist aktuell!"
 msgid "Installing theme from uploaded file: %s"
 msgstr "Installiere Theme aus hochgeladener Datei: %s"
 
-#: wp-admin/theme-install.php:59 wp-admin/theme-install.php:161
-#: wp-admin/theme-install.php:163 wp-admin/update.php:308
+#: wp-admin/theme-install.php:60 wp-admin/theme-install.php:162
+#: wp-admin/theme-install.php:164 wp-admin/update.php:308
 msgid "Upload Theme"
 msgstr "Theme hochladen"
 
@@ -12911,7 +12911,7 @@ msgstr "Plugin-Dateien"
 msgid "Select plugin to edit:"
 msgstr "Zu bearbeitendes Plugin wählen:"
 
-#: wp-admin/includes/ajax-actions.php:4751 wp-admin/plugin-editor.php:185
+#: wp-admin/includes/ajax-actions.php:4774 wp-admin/plugin-editor.php:185
 #: wp-admin/theme-editor.php:190
 msgid "File edited successfully."
 msgstr "Die Datei wurde erfolgreich bearbeitet."
@@ -13561,7 +13561,7 @@ msgstr "Du benutzt eine Entwicklungsversion (%1$s). Super! Halte dich <a href=\"
 
 #: wp-admin/includes/update-core.php:1423
 msgid "Upgrading database&#8230;"
-msgstr "Die Datenbank wird aktualisiert&#160;&hellip;"
+msgstr "Die Datenbank wird aktualisiert&nbsp;&#8230;"
 
 #: wp-admin/includes/update-core.php:981
 msgid "The update could not be unpacked"
@@ -13569,7 +13569,7 @@ msgstr "Das Update konnte nicht entpackt werden"
 
 #: wp-admin/includes/update-core.php:963
 msgid "Verifying the unpacked files&#8230;"
-msgstr "Überprüfung der entpackten Dateien&#160;&hellip;"
+msgstr "Überprüfung der entpackten Dateien&nbsp;&#8230;"
 
 #. translators: 1: WordPress version number, 2: Minimum required MySQL version
 #. number, 3: Current MySQL version number.
@@ -13604,7 +13604,7 @@ msgid "This theme is already installed."
 msgstr "Dieses Theme ist bereits installiert."
 
 #. translators: %s: Theme version.
-#: wp-admin/includes/theme.php:839 wp-admin/theme-install.php:476
+#: wp-admin/includes/theme.php:839 wp-admin/theme-install.php:479
 #: wp-admin/themes.php:957
 msgid "Version: %s"
 msgstr "Version: %s"
@@ -13665,7 +13665,7 @@ msgstr "Zwei Spalten"
 msgid "One Column"
 msgstr "Eine Spalte"
 
-#: wp-admin/includes/theme-install.php:139 wp-admin/theme-install.php:190
+#: wp-admin/includes/theme-install.php:139 wp-admin/theme-install.php:191
 msgid "Feature Filter"
 msgstr "Nach Funktionen filtern"
 
@@ -14804,7 +14804,7 @@ msgstr "Das Theme wurde erfolgreich installiert."
 
 #: wp-admin/includes/class-theme-upgrader.php:77
 msgid "Installing the theme&#8230;"
-msgstr "Das Theme wird installiert&#160;&hellip;"
+msgstr "Das Theme wird installiert&nbsp;&#8230;"
 
 #: wp-admin/includes/class-theme-upgrader.php:62
 #: wp-admin/includes/class-theme-upgrader.php:79
@@ -14826,12 +14826,12 @@ msgstr "Das Plugin wurde erfolgreich installiert."
 
 #: wp-admin/includes/class-plugin-upgrader.php:79
 msgid "Installing the plugin&#8230;"
-msgstr "Das Plugin wird installiert&#160;&hellip;"
+msgstr "Das Plugin wird installiert&nbsp;&#8230;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:78
 #: wp-admin/includes/class-theme-upgrader.php:76
 msgid "Unpacking the package&#8230;"
-msgstr "Entpacken des Pakets&#160;&hellip;"
+msgstr "Entpacken des Pakets&nbsp;&#8230;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:75
 #: wp-admin/includes/class-theme-upgrader.php:73
@@ -14851,7 +14851,7 @@ msgstr "Die alte Version des Plugins wird entfernt&#8230;"
 #: wp-admin/includes/class-plugin-upgrader.php:61
 #: wp-admin/includes/class-theme-upgrader.php:60
 msgid "Unpacking the update&#8230;"
-msgstr "Entpacken der aktualisierten Version&#160;&hellip;"
+msgstr "Entpacken der aktualisierten Version&nbsp;&#8230;"
 
 #: wp-admin/includes/class-plugin-upgrader.php:57
 msgid "The plugin is at the latest version."
@@ -14860,12 +14860,12 @@ msgstr "Das Plugin ist auf dem neuesten Stand."
 #: wp-admin/includes/class-wp-upgrader.php:168
 #: wp-admin/includes/update-core.php:1313
 msgid "Disabling Maintenance mode&#8230;"
-msgstr "Abschalten des Wartungsmodus&#160;&hellip;"
+msgstr "Abschalten des Wartungsmodus&nbsp;&#8230;"
 
 #: wp-admin/includes/class-wp-upgrader.php:167
 #: wp-admin/includes/update-core.php:1177
 msgid "Enabling Maintenance mode&#8230;"
-msgstr "Anschalten des Wartungsmodus&#160;&hellip;"
+msgstr "Anschalten des Wartungsmodus&nbsp;&#8230;"
 
 #: wp-admin/includes/file.php:1626 wp-admin/includes/file.php:1781
 msgid "Incompatible Archive."
@@ -14883,7 +14883,7 @@ msgstr "Der Zielordner existiert bereits."
 
 #: wp-admin/includes/class-wp-upgrader.php:160
 msgid "Installing the latest version&#8230;"
-msgstr "Die aktuelle Version wird installiert&#160;&hellip;"
+msgstr "Die aktuelle Version wird installiert&nbsp;&#8230;"
 
 #: wp-admin/includes/class-wp-privacy-data-export-requests-list-table.php:63
 #: wp-admin/includes/class-wp-upgrader.php:159
@@ -15014,7 +15014,7 @@ msgstr "LiveJournal"
 
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:294
 #: wp-admin/includes/class-wp-theme-install-list-table.php:159
-#: wp-admin/setup-config.php:277 wp-admin/theme-install.php:66
+#: wp-admin/setup-config.php:277 wp-admin/theme-install.php:67
 msgid "Try Again"
 msgstr "Erneut versuchen"
 
