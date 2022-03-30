@@ -5,18 +5,18 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'cacfd7abb99d970b6b279ebf59ca22b5380883b7',
+        'reference' => '5be77424a36de3c21b3a61e3e63079217f7897b6',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
     'versions' => array(
         'adodb/adodb-php' => array(
-            'pretty_version' => 'v5.22.0',
-            'version' => '5.22.0.0',
+            'pretty_version' => 'v5.22.1',
+            'version' => '5.22.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../adodb/adodb-php',
             'aliases' => array(),
-            'reference' => 'd99127b8811a9f949c00ab425065e380dce6bdc1',
+            'reference' => '64cfc1a65648e4d1245c724ca0c347c9c5eaf2f6',
             'dev_requirement' => false,
         ),
         'bacon/bacon-qr-code' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'cacfd7abb99d970b6b279ebf59ca22b5380883b7',
+            'reference' => '5be77424a36de3c21b3a61e3e63079217f7897b6',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -431,12 +431,12 @@
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
-            'pretty_version' => 'v7.119.0',
-            'version' => '7.119.0.0',
+            'pretty_version' => 'v7.120.0',
+            'version' => '7.120.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stripe/stripe-php',
             'aliases' => array(),
-            'reference' => 'a454dde82f5698cc4bcc5016c5328f533f516690',
+            'reference' => 'd63a23a281d2efa1a9618ac48b74c61ce8a775f1',
             'dev_requirement' => false,
         ),
         'symfony/asset' => array(

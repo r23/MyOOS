@@ -2,17 +2,17 @@
     "packages": [
         {
             "name": "adodb/adodb-php",
-            "version": "v5.22.0",
-            "version_normalized": "5.22.0.0",
+            "version": "v5.22.1",
+            "version_normalized": "5.22.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ADOdb/ADOdb.git",
-                "reference": "d99127b8811a9f949c00ab425065e380dce6bdc1"
+                "reference": "64cfc1a65648e4d1245c724ca0c347c9c5eaf2f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/d99127b8811a9f949c00ab425065e380dce6bdc1",
-                "reference": "d99127b8811a9f949c00ab425065e380dce6bdc1",
+                "url": "https://api.github.com/repos/ADOdb/ADOdb/zipball/64cfc1a65648e4d1245c724ca0c347c9c5eaf2f6",
+                "reference": "64cfc1a65648e4d1245c724ca0c347c9c5eaf2f6",
                 "shasum": ""
             },
             "require": {
@@ -21,7 +21,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^8.5"
             },
-            "time": "2022-02-07T23:42:42+00:00",
+            "time": "2022-03-30T08:49:08+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2632,17 +2632,17 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v7.119.0",
-            "version_normalized": "7.119.0.0",
+            "version": "v7.120.0",
+            "version_normalized": "7.120.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "a454dde82f5698cc4bcc5016c5328f533f516690"
+                "reference": "d63a23a281d2efa1a9618ac48b74c61ce8a775f1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/a454dde82f5698cc4bcc5016c5328f533f516690",
-                "reference": "a454dde82f5698cc4bcc5016c5328f533f516690",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/d63a23a281d2efa1a9618ac48b74c61ce8a775f1",
+                "reference": "d63a23a281d2efa1a9618ac48b74c61ce8a775f1",
                 "shasum": ""
             },
             "require": {
@@ -2657,7 +2657,7 @@
                 "phpunit/phpunit": "^5.7 || ^9.0",
                 "squizlabs/php_codesniffer": "^3.3"
             },
-            "time": "2022-03-25T20:09:27+00:00",
+            "time": "2022-03-29T15:44:39+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2689,7 +2689,7 @@
             ],
             "support": {
                 "issues": "https://github.com/stripe/stripe-php/issues",
-                "source": "https://github.com/stripe/stripe-php/tree/v7.119.0"
+                "source": "https://github.com/stripe/stripe-php/tree/v7.120.0"
             },
             "install-path": "../stripe/stripe-php"
         },
