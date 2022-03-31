@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-03-30 13:19:01+0000\n"
+"PO-Revision-Date: 2022-03-31 06:53:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,14 +12,67 @@ msgstr ""
 "Project-Id-Version: Plugins - Gutenberg - Stable (latest release)\n"
 
 #: build/block-library/blocks/query-no-results/block.json
+msgctxt "block description"
+msgid "Contains the block elements used to render content when no query results are found."
+msgstr "Enthält die Block-Elemente, mit denen Inhalte dargestellt werden, falls keine Abfrage-Ergebnisse gefunden wurden."
+
+#: build/block-library/blocks/query-no-results/block.json
 msgctxt "block title"
 msgid "No results"
 msgstr "Keine Ergebnisse"
+
+#: build/block-library/blocks/list-item/block.json
+msgctxt "block description"
+msgid "Create a list item."
+msgstr "Erstelle ein Listen-Element."
+
+#: build/block-library/blocks/list-item/block.json
+msgctxt "block title"
+msgid "List item"
+msgstr "Listen-Element"
+
+#: build/block-library/blocks/avatar/block.json
+msgctxt "block description"
+msgid "Add a user's avatar."
+msgstr "Füge den Avatar eines Benutzers hinzu."
 
 #: build/block-library/blocks/avatar/block.json
 msgctxt "block title"
 msgid "Avatar"
 msgstr "Avatar"
+
+#: lib/experiments-page.php:61
+msgid "Test a new list block that uses nested list item blocks (Warning: The new block is not ready. You may experience content loss, avoid using it on production sites)"
+msgstr "Teste einen neuen Listen-Block, der verschachtelte Listen-Element-Blöcke verwendet (Warnung: Der neue Block ist noch nicht fertig. Du könntest Inhalte verlieren, setze ihn besser nicht auf Produktions-Websites ein)"
+
+#: lib/experiments-page.php:56
+msgid "List block v2"
+msgstr "Listen-Block v2"
+
+#. translators: %1s: file name; %2s: slug value found.
+#: lib/compat/wordpress-6.0/block-patterns.php:138
+msgid "Could not register file \"%s\" as a block pattern (\"Title\" field missing)"
+msgstr "Die Datei „%s“ konnte nicht als Block-Vorlage registriert werden (Feld „Titel“ fehlt)"
+
+#. translators: %1s: file name; %2s: slug value found.
+#: lib/compat/wordpress-6.0/block-patterns.php:122
+msgid "Could not register file \"%1$s\" as a block pattern (invalid slug \"%2$s\")"
+msgstr "Die Datei „%1$s“ konnte nicht als Block-Vorlage registriert werden (ungültige Titelform „%2$s“)"
+
+#. translators: %s: file name.
+#: lib/compat/wordpress-6.0/block-patterns.php:111
+msgid "Could not register file \"%s\" as a block pattern (\"Slug\" field missing)"
+msgstr "Die Datei „%s“ konnte nicht als Block-Vorlage registriert werden (Feld „Titelform“ fehlt)"
+
+#. translators: %s is the Comment Author name.
+#: build/block-library/blocks/avatar.php:127
+msgid "( %s website link, opens in a new tab)"
+msgstr "(Der Link zur Website von %s, wird in einem neuen Tab geöffnet)"
+
+#. translators: %s is the Author name.
+#: build/block-library/blocks/avatar.php:100
+msgid "( %s author archive, opens in a new tab)"
+msgstr "(Das Autoren-Archiv von %s, wird in einem neuen Tab geöffnet)"
 
 #. translators: %s is the provider name.
 #: lib/compat/wordpress-6.0/class-wp-webfonts.php:252
@@ -219,6 +272,10 @@ msgstr "Zeigt die Seite mit der Datenschutzerklärung an."
 #: lib/compat/wordpress-5.9/block-template-utils.php:161
 msgid "Displays individual media items or attachments."
 msgstr "Zeigt individuelle Medienelemente oder Anhänge an."
+
+#: lib/compat/wordpress-5.9/block-template-utils.php:157
+msgid "Displays latest posts with a single post tag."
+msgstr "Zeigt die neuesten Beiträge mit nur einem Beitrags-Schlagwort an."
 
 #: lib/compat/wordpress-5.9/block-template-utils.php:153
 msgid "Displays posts from a specific date."

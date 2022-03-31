@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.9.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-03-30 06:52:37+0000\n"
+"PO-Revision-Date: 2022-03-30 18:38:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -274,7 +274,7 @@ msgctxt "block description"
 msgid "Display content in multiple columns, with blocks added to each column."
 msgstr "Inhalte mehrspaltig darstellen, wobei jeder Spalte Blöcke hinzugefügt werden."
 
-#: wp-includes/js/dist/edit-site.js:8457 wp-admin/site-editor.php:27
+#: wp-includes/js/dist/edit-site.js:8460 wp-admin/site-editor.php:27
 msgid "Editor (beta)"
 msgstr "Editor (Beta)"
 
@@ -12885,7 +12885,7 @@ msgstr "Tabellen-Kopfzelle"
 #: wp-includes/block-template-utils.php:86
 #: wp-includes/js/dist/block-library.js:39637
 #: wp-includes/js/dist/customize-widgets.js:3979
-#: wp-includes/js/dist/edit-post.js:3146 wp-includes/js/dist/edit-site.js:11320
+#: wp-includes/js/dist/edit-post.js:3146 wp-includes/js/dist/edit-site.js:11324
 #: wp-includes/js/dist/edit-widgets.js:4917
 msgid "Footer"
 msgstr "Footer"
@@ -14223,7 +14223,7 @@ msgstr "Stylesheet"
 #: wp-includes/js/dist/edit-post.js:6873 wp-includes/js/dist/edit-post.js:6874
 #: wp-includes/js/dist/edit-post.js:8252 wp-includes/js/dist/edit-site.js:6158
 #: wp-includes/js/dist/edit-site.js:6169 wp-includes/js/dist/edit-site.js:6171
-#: wp-includes/js/dist/edit-site.js:9309
+#: wp-includes/js/dist/edit-site.js:9313
 #: wp-admin/includes/class-wp-posts-list-table.php:1810
 #: wp-admin/includes/meta-boxes.php:979
 msgid "Template"
@@ -17582,7 +17582,7 @@ msgstr "Erster Beitrag"
 #: wp-includes/js/dist/block-library.js:33927
 #: wp-includes/js/dist/customize-widgets.js:3973
 #: wp-includes/js/dist/edit-post.js:3140 wp-includes/js/dist/edit-post.js:8401
-#: wp-includes/js/dist/edit-site.js:6381 wp-includes/js/dist/edit-site.js:11314
+#: wp-includes/js/dist/edit-site.js:6381 wp-includes/js/dist/edit-site.js:11318
 #: wp-includes/js/dist/edit-widgets.js:2215
 #: wp-includes/js/dist/edit-widgets.js:4911 wp-admin/includes/ms.php:1082
 #: wp-admin/menu.php:359 wp-admin/options.php:22 wp-admin/network/menu.php:109
@@ -17782,7 +17782,7 @@ msgstr "Auswählen"
 #: wp-includes/js/dist/edit-post.js:4842 wp-includes/js/dist/edit-post.js:5497
 #: wp-includes/js/dist/edit-post.js:5870 wp-includes/js/dist/edit-post.js:8110
 #: wp-includes/js/dist/edit-site.js:2678 wp-includes/js/dist/edit-site.js:6781
-#: wp-includes/js/dist/edit-site.js:8931
+#: wp-includes/js/dist/edit-site.js:8934
 #: wp-includes/js/dist/edit-widgets.js:2592
 #: wp-includes/js/dist/reusable-blocks.js:459
 #: wp-admin/includes/class-wp-theme-install-list-table.php:394
@@ -17936,7 +17936,7 @@ msgstr "OK"
 msgid "Image URL"
 msgstr "Bild-URL"
 
-#: wp-includes/js/dist/edit-site.js:9022 wp-includes/js/dist/edit-site.js:9315
+#: wp-includes/js/dist/edit-site.js:9025 wp-includes/js/dist/edit-site.js:9319
 #: wp-admin/includes/media.php:2584
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:370
 msgid "Actions"
@@ -18099,7 +18099,7 @@ msgstr "Seitenleiste"
 #: wp-includes/admin-bar.php:1050 wp-includes/block-template-utils.php:77
 #: wp-includes/js/dist/block-library.js:39628
 #: wp-includes/js/dist/customize-widgets.js:3964
-#: wp-includes/js/dist/edit-post.js:3131 wp-includes/js/dist/edit-site.js:11305
+#: wp-includes/js/dist/edit-post.js:3131 wp-includes/js/dist/edit-site.js:11309
 #: wp-includes/js/dist/edit-widgets.js:4902
 #: wp-admin/includes/class-custom-image-header.php:73 wp-admin/menu.php:233
 msgid "Header"
@@ -18143,7 +18143,7 @@ msgstr "Schlagwörter"
 #. translators: accessibility text for the content landmark region.
 #: wp-includes/revision.php:33 wp-includes/js/dist/block-editor.js:26362
 #: wp-includes/js/dist/customize-widgets.js:3967
-#: wp-includes/js/dist/edit-post.js:3134 wp-includes/js/dist/edit-site.js:11308
+#: wp-includes/js/dist/edit-post.js:3134 wp-includes/js/dist/edit-site.js:11312
 #: wp-includes/js/dist/edit-widgets.js:4905 wp-admin/includes/dashboard.php:576
 #: wp-admin/index.php:104
 msgid "Content"
@@ -18160,7 +18160,7 @@ msgstr "Inhalt"
 #: wp-includes/js/dist/block-library.js:39146
 #: wp-includes/js/dist/block-library.js:39161
 #: wp-includes/js/dist/edit-post.js:8138 wp-includes/js/dist/edit-site.js:6844
-#: wp-includes/js/dist/edit-site.js:8955 wp-includes/js/dist/editor.js:9201
+#: wp-includes/js/dist/edit-site.js:8958 wp-includes/js/dist/editor.js:9201
 #: wp-includes/js/dist/reusable-blocks.js:486 wp-admin/comment.php:247
 #: wp-admin/includes/class-walker-nav-menu-edit.php:305
 #: wp-admin/includes/class-wp-posts-list-table.php:2011
@@ -18293,7 +18293,7 @@ msgstr "Beschreibung"
 #: wp-includes/js/dist/block-library.js:32456
 #: wp-includes/js/dist/block-library.js:39152
 #: wp-includes/js/dist/edit-post.js:8122 wp-includes/js/dist/edit-site.js:6799
-#: wp-includes/js/dist/edit-site.js:8942
+#: wp-includes/js/dist/edit-site.js:8945
 #: wp-includes/js/dist/reusable-blocks.js:474 wp-admin/edit-form-comment.php:49
 #: wp-admin/includes/class-wp-application-passwords-list-table.php:29
 #: wp-admin/includes/class-wp-debug-data.php:1129
@@ -18328,7 +18328,7 @@ msgid "Categories"
 msgstr "Kategorien"
 
 #: wp-includes/class-wp-editor.php:1247 wp-includes/js/dist/edit-site.js:3029
-#: wp-includes/js/dist/edit-site.js:8958 wp-includes/js/dist/editor.js:5423
+#: wp-includes/js/dist/edit-site.js:8961 wp-includes/js/dist/editor.js:5423
 #: wp-includes/js/dist/editor.js:9489
 #: wp-includes/js/dist/reusable-blocks.js:489
 #: wp-includes/js/dist/widgets.js:392 wp-admin/edit-form-comment.php:90
@@ -18377,7 +18377,7 @@ msgstr "Textauszug"
 #: wp-includes/script-loader.php:1162
 #: wp-includes/js/dist/customize-widgets.js:3976
 #: wp-includes/js/dist/edit-post.js:3143 wp-includes/js/dist/edit-post.js:6952
-#: wp-includes/js/dist/edit-site.js:11317
+#: wp-includes/js/dist/edit-site.js:11321
 #: wp-includes/js/dist/edit-widgets.js:4914 wp-includes/js/dist/editor.js:7750
 #: wp-includes/js/dist/editor.js:7941 wp-admin/customize.php:193
 #: wp-admin/includes/meta-boxes.php:359 wp-admin/includes/meta-boxes.php:360
