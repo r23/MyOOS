@@ -57854,7 +57854,25 @@ class Renderer extends EventDispatcher {
             style.width = `${width}px`;
             style.height = `${height}px`;
             scene.queueRender();
+            this.dispatchRenderScale(scene);
         }
+    }
+    dispatchRenderScale(scene) {
+        const scale = this.scaleFactor;
+        const renderedDpr = this.dpr * scale;
+        const reason = scale < 1 ? 'GPU throttling' :
+            this.dpr !== window.devicePixelRatio ? 'No meta viewport tag' :
+                '';
+        scene.element.dispatchEvent(new CustomEvent('render-scale', {
+            detail: {
+                reportedDpr: window.devicePixelRatio,
+                renderedDpr: renderedDpr,
+                minimumDpr: this.dpr * SCALE_STEPS[this.lastStep],
+                pixelWidth: Math.ceil(scene.width * renderedDpr),
+                pixelHeight: Math.ceil(scene.height * renderedDpr),
+                reason: reason
+            }
+        }));
     }
     registerScene(scene) {
         this.scenes.add(scene);
@@ -57868,6 +57886,7 @@ class Renderer extends EventDispatcher {
             canvas.classList.add('show');
         }
         scene.queueRender();
+        this.dispatchRenderScale(scene);
         if (this.canRender && this.scenes.size > 0) {
             this.threeRenderer.setAnimationLoop((time, frame) => this.render(time, frame));
         }
@@ -61374,7 +61393,7 @@ class SmoothControls extends EventDispatcher {
         // Pan state
         this.enablePan = true;
         this.panProjection = new Matrix3();
-        this.panMetersPerPixel = 0;
+        this.panPerPixel = 0;
         // Internal orbital position state
         this.spherical = new Spherical();
         this.goalSpherical = new Spherical();
@@ -61390,7 +61409,7 @@ class SmoothControls extends EventDispatcher {
         this.startPointerPosition = { clientX: 0, clientY: 0 };
         this.touchDecided = false;
         this.onMouseMove = (event) => {
-            if (this.panMetersPerPixel > 0) {
+            if (this.panPerPixel > 0) {
                 this.movePan(event.clientX, event.clientY);
             }
             else {
@@ -61417,7 +61436,7 @@ class SmoothControls extends EventDispatcher {
                     const deltaZoom = ZOOM_SENSITIVITY * (lastTouchDistance - touchDistance) / 10.0;
                     this.userAdjustOrbit(0, 0, deltaZoom);
                 }
-                if (this.panMetersPerPixel > 0) {
+                if (this.panPerPixel > 0) {
                     const thisX = 0.5 * (targetTouches[0].clientX + targetTouches[1].clientX);
                     const thisY = 0.5 * (targetTouches[0].clientY + targetTouches[1].clientY);
                     this.movePan(thisX, thisY);
@@ -61452,7 +61471,11 @@ class SmoothControls extends EventDispatcher {
                         event.shiftKey)) {
                     this.initializePan();
                 }
-                this.handleSinglePointerDown(event);
+                this.lastPointerPosition.clientX = event.clientX;
+                this.lastPointerPosition.clientY = event.clientY;
+                this.startPointerPosition.clientX = event.clientX;
+                this.startPointerPosition.clientY = event.clientY;
+                this.element.style.cursor = 'grabbing';
             });
         };
         this.onTouchStart = (event) => {
@@ -61469,7 +61492,12 @@ class SmoothControls extends EventDispatcher {
         };
         this.onMouseUp = (event) => {
             self.removeEventListener('mousemove', this.onMouseMove);
-            this.recenter(event);
+            if (this.panPerPixel > 0) {
+                this.resetRadius();
+            }
+            else {
+                this.recenter(event);
+            }
             this.onPointerUp();
         };
         this.onTouchEnd = (event) => {
@@ -61477,7 +61505,12 @@ class SmoothControls extends EventDispatcher {
                 this.onTouchChange(event);
             }
             if (event.targetTouches.length === 0) {
-                this.recenter(event.changedTouches[0]);
+                if (this.panPerPixel > 0) {
+                    this.resetRadius();
+                }
+                else {
+                    this.recenter(event.changedTouches[0]);
+                }
             }
             this.onPointerUp();
         };
@@ -61823,16 +61856,17 @@ class SmoothControls extends EventDispatcher {
     }
     initializePan() {
         this.scene.element[$panElement].style.opacity = 1;
-        const { theta, phi, radius } = this.spherical;
+        const { theta, phi } = this.spherical;
         const psi = theta - this.scene.yaw;
-        this.panMetersPerPixel = (PAN_SENSITIVITY * radius) /
-            this.element.getBoundingClientRect().height;
+        this.panPerPixel =
+            PAN_SENSITIVITY / this.element.getBoundingClientRect().height;
         this.panProjection.set(-Math.cos(psi), -Math.cos(phi) * Math.sin(psi), 0, 0, Math.sin(phi), 0, Math.sin(psi), -Math.cos(phi) * Math.cos(psi), 0);
     }
     movePan(thisX, thisY) {
         const { scene, lastPointerPosition } = this;
         const dxy = vector3.set(thisX - lastPointerPosition.clientX, thisY - lastPointerPosition.clientY, 0);
-        dxy.multiplyScalar(this.panMetersPerPixel);
+        const metersPerPixel = this.spherical.radius * this.panPerPixel;
+        dxy.multiplyScalar(metersPerPixel);
         lastPointerPosition.clientX = thisX;
         lastPointerPosition.clientY = thisY;
         const target = scene.getTarget();
@@ -61841,49 +61875,53 @@ class SmoothControls extends EventDispatcher {
         scene.setTarget(target.x, target.y, target.z);
     }
     recenter(pointer) {
-        if (!this.enablePan) {
+        if (!this.enablePan ||
+            Math.abs(pointer.clientX - this.startPointerPosition.clientX) >
+                TAP_DISTANCE ||
+            Math.abs(pointer.clientY - this.startPointerPosition.clientY) >
+                TAP_DISTANCE) {
             return;
         }
         const { scene } = this;
         scene.element[$panElement].style.opacity = 0;
-        if (Math.abs(pointer.clientX - this.startPointerPosition.clientX) <
-            TAP_DISTANCE &&
-            Math.abs(pointer.clientY - this.startPointerPosition.clientY) <
-                TAP_DISTANCE) {
-            const hit = scene.positionAndNormalFromPoint(scene.getNDC(pointer.clientX, pointer.clientY));
-            if (hit == null) {
-                const { cameraTarget } = scene.element;
-                scene.element.cameraTarget = '';
-                scene.element.cameraTarget = cameraTarget;
-                // Zoom all the way out.
-                this.userAdjustOrbit(0, 0, 1);
-            }
-            else {
-                scene.target.worldToLocal(hit.position);
-                scene.setTarget(hit.position.x, hit.position.y, hit.position.z);
-                // Zoom in on the tapped point.
-                this.userAdjustOrbit(0, 0, -5 * ZOOM_SENSITIVITY);
-            }
+        const hit = scene.positionAndNormalFromPoint(scene.getNDC(pointer.clientX, pointer.clientY));
+        if (hit == null) {
+            const { cameraTarget } = scene.element;
+            scene.element.cameraTarget = '';
+            scene.element.cameraTarget = cameraTarget;
+            // Zoom all the way out.
+            this.userAdjustOrbit(0, 0, 1);
         }
-        else if (this.panMetersPerPixel > 0) {
-            const hit = scene.positionAndNormalFromPoint(vector2.set(0, 0));
-            if (hit == null)
-                return;
+        else {
             scene.target.worldToLocal(hit.position);
-            const goalTarget = scene.getTarget();
-            const { theta, phi } = this.spherical;
-            // Set target to surface hit point, except the target is still settling,
-            // so offset the goal accordingly so the transition is smooth even though
-            // this will drift the target slightly away from the hit point.
-            const psi = theta - scene.yaw;
-            const n = vector3.set(Math.sin(phi) * Math.sin(psi), Math.cos(phi), Math.sin(phi) * Math.cos(psi));
-            const dr = n.dot(hit.position.sub(goalTarget));
-            goalTarget.add(n.multiplyScalar(dr));
-            scene.setTarget(goalTarget.x, goalTarget.y, goalTarget.z);
-            // Change the camera radius to match the change in target so that the
-            // camera itself does not move, unless it hits a radius bound.
-            this.setOrbit(undefined, undefined, this.goalSpherical.radius - dr);
+            scene.setTarget(hit.position.x, hit.position.y, hit.position.z);
+            // Zoom in on the tapped point.
+            this.userAdjustOrbit(0, 0, -5 * ZOOM_SENSITIVITY);
         }
+    }
+    resetRadius() {
+        if (!this.enablePan || this.panPerPixel === 0) {
+            return;
+        }
+        const { scene } = this;
+        scene.element[$panElement].style.opacity = 0;
+        const hit = scene.positionAndNormalFromPoint(vector2.set(0, 0));
+        if (hit == null)
+            return;
+        scene.target.worldToLocal(hit.position);
+        const goalTarget = scene.getTarget();
+        const { theta, phi } = this.spherical;
+        // Set target to surface hit point, except the target is still settling,
+        // so offset the goal accordingly so the transition is smooth even though
+        // this will drift the target slightly away from the hit point.
+        const psi = theta - scene.yaw;
+        const n = vector3.set(Math.sin(phi) * Math.sin(psi), Math.cos(phi), Math.sin(phi) * Math.cos(psi));
+        const dr = n.dot(hit.position.sub(goalTarget));
+        goalTarget.add(n.multiplyScalar(dr));
+        scene.setTarget(goalTarget.x, goalTarget.y, goalTarget.z);
+        // Change the camera radius to match the change in target so that the
+        // camera itself does not move, unless it hits a radius bound.
+        this.setOrbit(undefined, undefined, this.goalSpherical.radius - dr);
     }
     onPointerDown(fn) {
         if (!this.canInteract) {
@@ -61893,12 +61931,21 @@ class SmoothControls extends EventDispatcher {
         fn();
     }
     onTouchChange(event) {
-        const { targetTouches } = event;
+        const { targetTouches, changedTouches } = event;
         switch (targetTouches.length) {
             default:
             case 1:
                 this.touchMode = this.touchModeRotate;
-                this.handleSinglePointerDown(targetTouches[0]);
+                this.lastPointerPosition.clientX = targetTouches[0].clientX;
+                this.lastPointerPosition.clientY = targetTouches[0].clientY;
+                if (targetTouches[0].identifier ===
+                    changedTouches[0].identifier) { // finger down
+                    this.startPointerPosition.clientX = targetTouches[0].clientX;
+                    this.startPointerPosition.clientY = targetTouches[0].clientY;
+                }
+                else { // finger up
+                    this.resetRadius();
+                }
                 break;
             case 2:
                 this.touchMode = (this.touchDecided && this.touchMode === null) ?
@@ -61907,21 +61954,20 @@ class SmoothControls extends EventDispatcher {
                 this.touchDecided = true;
                 if (this.enablePan) {
                     this.initializePan();
+                    const x = 0.5 * (targetTouches[0].clientX + targetTouches[1].clientX);
+                    const y = 0.5 * (targetTouches[0].clientY + targetTouches[1].clientY);
+                    this.lastPointerPosition.clientX = x;
+                    this.lastPointerPosition.clientY = y;
+                    this.startPointerPosition.clientX = x;
+                    this.startPointerPosition.clientY = y;
                 }
                 break;
         }
         this.lastTouches = targetTouches;
     }
-    handleSinglePointerDown(pointer) {
-        this.lastPointerPosition.clientX = pointer.clientX;
-        this.lastPointerPosition.clientY = pointer.clientY;
-        this.startPointerPosition.clientX = pointer.clientX;
-        this.startPointerPosition.clientY = pointer.clientY;
-        this.element.style.cursor = 'grabbing';
-    }
     onPointerUp() {
         this.element.style.cursor = 'grab';
-        this.panMetersPerPixel = 0;
+        this.panPerPixel = 0;
         if (this.isUserPointing) {
             this.dispatchEvent({ type: 'pointer-change-end', pointer: Object.assign({}, this.lastPointerPosition) });
         }
@@ -66497,7 +66543,7 @@ class Material extends ThreeDOMElement {
         };
         this[$sourceObject].alphaMode = alphaMode;
         for (const material of this[$correlatedObjects]) {
-            enableTransparency(material, alphaMode !== 'OPAQUE');
+            enableTransparency(material, alphaMode === 'BLEND');
             this[$applyAlphaCutoff]();
             material.needsUpdate = true;
         }
