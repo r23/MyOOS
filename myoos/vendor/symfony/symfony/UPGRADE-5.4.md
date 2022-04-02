@@ -43,7 +43,7 @@ FrameworkBundle
 HttpKernel
 ----------
 
- * Deprecate `AbstractTestSessionListener::getSession` inject a session in the request instead
+ * Deprecate `AbstractTestSessionListener` and `TestSessionListener`, use `AbstractSessionListener` and `SessionListener` instead
 
 HttpFoundation
 --------------
@@ -51,6 +51,11 @@ HttpFoundation
  * Deprecate passing `null` as `$requestIp` to `IpUtils::checkIp()`, `IpUtils::checkIp4()` or `IpUtils::checkIp6()`, pass an empty string instead.
  * Mark `Request::get()` internal, use explicit input sources instead
  * Deprecate `upload_progress.*` and `url_rewriter.tags` session options
+
+Ldap
+----
+
+ * Deprecate `LdapAuthenticator::createAuthenticatedToken()`, use `LdapAuthenticator::createToken()` instead
 
 Lock
 ----
