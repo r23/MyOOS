@@ -2,33 +2,37 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-03-24 16:18:14+0000\n"
+"PO-Revision-Date: 2022-04-05 17:10:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"X-Generator: GlotPress/3.0.0-rc.2\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
 
 #. translators: 1: PHP function name, 2: version number, 3: alternative
 #. function name
 #: includes/functions.php:537
+#, gp-priority: normal
 msgid "Function %1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s! Use %3$s instead."
 msgstr "Funktion %1$s ist seit Contact Form 7 Version %2$s <strong>veraltet</strong>! Nutze stattdessen %3$s."
 
 #: includes/integration.php:25
+#, gp-priority: normal
 msgid "Spam protection"
 msgstr "Spam-Schutz"
 
 #. translators: Developer debugging message. 1: PHP function name, 2:
 #. Explanatory message, 3: Contact Form 7 version number.
 #: includes/functions.php:607
+#, gp-priority: normal
 msgid "Function %1$s was called incorrectly. %2$s %3$s"
 msgstr "Die Funktion %1$s wurde fehlerhaft aufgerufen. %2$s %3$s"
 
 #. translators: 1: blog name, 2: confirmation link
 #: modules/constant-contact/doi.php:76 modules/sendinblue/doi.php:84
+#, gp-priority: normal
 msgid ""
 "Hello,\n"
 "\n"
@@ -58,159 +62,195 @@ msgstr ""
 
 #. translators: %s: blog name
 #: modules/constant-contact/doi.php:70 modules/sendinblue/doi.php:78
+#, gp-priority: normal
 msgid "Opt-in confirmation from %s"
 msgstr "Opt-In-Bestätigung von %s"
 
 #: modules/constant-contact/contact-form-properties.php:170
+#, gp-priority: normal
 msgid "You can set up the Constant Contact integration here. For details, see %s."
 msgstr "Du kannst die Constant-Contact-Integration hier einrichten. Detail findest du auf %s."
 
 #: modules/stripe/stripe.php:313
+#, gp-priority: normal
 msgid "Complete payment"
 msgstr "Zahlung abschließen"
 
 #: modules/stripe/stripe.php:298
+#, gp-priority: normal
 msgid "Proceed to checkout"
 msgstr "weiter zur Kasse"
 
 #: modules/stripe/stripe.php:186
+#, gp-priority: normal
 msgid "Payment is required. Please pay by credit card."
 msgstr "Die Bezahlung ist erforderlich. Bitte zahle mit Kreditkarte."
 
 #: includes/integration.php:27
+#, gp-priority: normal
 msgid "Payments"
 msgstr "Zahlungen"
 
 #: modules/stripe/service.php:207
+#, gp-priority: normal
 msgid "Publishable Key"
 msgstr "veröffentlichbarer Schlüssel"
 
 #: modules/stripe/service.php:184
+#, gp-priority: normal
 msgid "Stripe is not available on this site. It requires an HTTPS-enabled site."
 msgstr "Stripe ist auf dieser Website nicht verfügbar. Es erfordert eine HTTPS-aktivierte Website."
 
 #: modules/stripe/service.php:169
+#, gp-priority: normal
 msgid "Stripe is active on this site."
 msgstr "Stripe ist auf dieser Website aktiv."
 
 #: modules/stripe/service.php:162
+#, gp-priority: normal
 msgid "Stripe integration"
 msgstr "Stripe-Integration"
 
 #: modules/stripe/service.php:159
+#, gp-priority: normal
 msgid "Stripe is a simple and powerful way to accept payments online. Stripe has no setup fees, no monthly fees, and no hidden costs. Millions of businesses rely on Stripe’s software tools to accept payments securely and expand globally. For details, see %s."
 msgstr "Stripe ist eine einfache und leistungsstarke Möglichkeit, Zahlungen online zu akzeptieren. Stripe hat keine Einrichtungsgebühren, keine monatlichen Gebühren und keine versteckten Kosten. Millionen von Unternehmen vertrauen auf die Software-Tools von Stripe, um Zahlungen sicher zu akzeptieren und weltweit zu expandieren. Einzelheiten findest du unter %s."
 
 #. translators: 1: first name, 2: last name
 #: modules/sendinblue/sendinblue.php:114
+#, gp-priority: normal
 msgctxt "personal name"
 msgid "%1$s %2$s"
 msgstr "%1$s %2$s"
 
 #: includes/rest-api.php:458
+#, gp-priority: normal
 msgid "Unique identifier for the contact form."
 msgstr "Eindeutiger Identifikator für das Kontaktformular."
 
 #: includes/config-validator.php:447
+#, gp-priority: normal
 msgid "Dots are used in form-tag names."
 msgstr "Punkte werden im Namen des form-Tags verwendet."
 
 #: admin/includes/welcome-panel.php:303
+#, gp-priority: normal
 msgid "Show welcome panel"
 msgstr "Willkommenspanel anzeigen"
 
 #: admin/includes/welcome-panel.php:300
+#, gp-priority: normal
 msgid "Welcome panel"
 msgstr "Willkommenspanel"
 
 #: admin/includes/welcome-panel.php:169 modules/stripe/service.php:36
+#, gp-priority: normal
 msgid "Stripe"
 msgstr "Stripe"
 
 #: admin/includes/welcome-panel.php:168 modules/stripe/service.php:161
+#, gp-priority: normal
 msgid "https://contactform7.com/stripe-integration/"
 msgstr "https://contactform7.com/stripe-integration/"
 
 #. translators: 1: link labeled 'reCAPTCHA', 2: link labeled 'Stripe'
 #: admin/includes/welcome-panel.php:162
+#, gp-priority: normal
 msgid "With help from cloud-based machine learning, anti-spam services will protect your forms (%1$s). Even payment services are natively supported (%2$s)."
 msgstr "Mit Hilfe von Cloud-basiertem maschinellem Lernen schützen Antispam-Dienste deine Formulare (%1$s). Sogar Zahlungsdienste werden von Grund auf unterstützt (%2$s)."
 
 #. translators: 1: link labeled 'Sendinblue', 2: link labeled 'Constant
 #. Contact'
 #: admin/includes/welcome-panel.php:150
+#, gp-priority: normal
 msgid "Your contact forms will become more powerful and versatile by integrating them with external APIs. With CRM and email marketing services, you can build your own contact lists (%1$s and %2$s)."
 msgstr "Deine Kontaktformulare werden leistungsfähiger und vielseitiger, wenn du sie in externe APIs integrierst. Mit CRM- und E-Mail-Marketingdiensten kannst du deine eigenen Kontaktlisten erstellen (%1$s und %2$s)."
 
 #: admin/includes/welcome-panel.php:142
+#, gp-priority: normal
 msgid "You have strong allies to back you up."
 msgstr "Du hast starke Partner, die dir den Rücken stärken."
 
 #: admin/admin.php:508
+#, gp-priority: normal
 msgid "Integration with external APIs"
 msgstr "Integration mit externen APIs"
 
 #: admin/admin.php:507
+#, gp-priority: normal
 msgid "https://contactform7.com/integration-with-external-apis/"
 msgstr "https://contactform7.com/integration-with-external-apis/"
 
 #. translators: %s: link labeled 'Integration with external APIs'
 #: admin/admin.php:505
+#, gp-priority: normal
 msgid "You can expand the possibilities of your contact forms by integrating them with external services. For details, see %s."
 msgstr "Du kannst die Möglichkeiten deiner Kontaktformulare erweitern, indem du sie in externe Dienste integrierst. Einzelheiten findest du unter %s."
 
 #: admin/admin.php:65 admin/admin.php:500
+#, gp-priority: normal
 msgid "Integration with External API"
 msgstr "Integration mit externer API"
 
 #: modules/sendinblue/contact-form-properties.php:288
+#, gp-priority: normal
 msgid "Manage your email templates"
 msgstr "Deine E-Mail-Vorlagen verwalten"
 
 #: modules/sendinblue/contact-form-properties.php:273
+#, gp-priority: normal
 msgid "You have no active email template yet."
 msgstr "Noch keine aktive E-Mail-Vorlage vorhanden."
 
 #: modules/sendinblue/contact-form-properties.php:253
+#, gp-priority: normal
 msgid "&mdash; Select &mdash;"
 msgstr "&mdash; Auswählen &mdash;"
 
 #: modules/sendinblue/contact-form-properties.php:240
+#, gp-priority: normal
 msgid "Select an email template:"
 msgstr "Wähle eine E-Mail-Vorlage:"
 
 #: modules/sendinblue/contact-form-properties.php:223
+#, gp-priority: normal
 msgid "Send a welcome email to new contacts"
 msgstr "Eine Willkommens-E-Mail an neue Kontakte senden"
 
 #: modules/sendinblue/contact-form-properties.php:205
 #: modules/sendinblue/contact-form-properties.php:214
+#, gp-priority: normal
 msgid "Welcome email"
 msgstr "Willkommens-E-Mail"
 
 #: modules/constant-contact/contact-form-properties.php:267
 #: modules/sendinblue/contact-form-properties.php:195
 #: modules/sendinblue/contact-form-properties.php:289
+#, gp-priority: normal
 msgid "(opens in a new tab)"
 msgstr "(öffnet in einem neuen Tab)"
 
 #: modules/constant-contact/contact-form-properties.php:266
 #: modules/sendinblue/contact-form-properties.php:194
+#, gp-priority: normal
 msgid "Manage your contact lists"
 msgstr "Verwalte deine Kontaktliste"
 
 #: modules/constant-contact/contact-form-properties.php:251
 #: modules/sendinblue/contact-form-properties.php:179
+#, gp-priority: normal
 msgid "You have no contact list yet."
 msgstr "Du hast noch keine Kontaktliste."
 
 #: modules/constant-contact/contact-form-properties.php:227
 #: modules/sendinblue/contact-form-properties.php:155
+#, gp-priority: normal
 msgid "Select lists to which contacts are added:"
 msgstr "Listen auswählen, zu denen Kontakte hinzugefügt werden:"
 
 #: modules/constant-contact/contact-form-properties.php:210
 #: modules/sendinblue/contact-form-properties.php:138
+#, gp-priority: normal
 msgid "Add form submitters to your contact lists"
 msgstr "Füge die Formularabsender zu deinen Kontaktlisten hinzu"
 
@@ -218,50 +258,61 @@ msgstr "Füge die Formularabsender zu deinen Kontaktlisten hinzu"
 #: modules/constant-contact/contact-form-properties.php:201
 #: modules/sendinblue/contact-form-properties.php:120
 #: modules/sendinblue/contact-form-properties.php:129
+#, gp-priority: normal
 msgid "Contact lists"
 msgstr "Kontaktlisten"
 
 #: modules/sendinblue/contact-form-properties.php:97
+#, gp-priority: normal
 msgid "You can set up the Sendinblue integration here. For details, see %s."
 msgstr "Du kannst die Sendinblue-Integration hier einrichten. Detail findest du auf %s."
 
 #: modules/sendinblue/service.php:207
+#, gp-priority: normal
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
 #: modules/sendinblue/service.php:203
+#, gp-priority: normal
 msgctxt "API keys"
 msgid "Remove key"
 msgstr "Schlüssel entfernen"
 
 #: modules/sendinblue/service.php:182
+#, gp-priority: normal
 msgid "API key"
 msgstr "API-Schlüssel"
 
 #: modules/sendinblue/service.php:168
+#, gp-priority: normal
 msgid "Setup integration"
 msgstr "Integration konfigurieren"
 
 #: modules/sendinblue/service.php:158
+#, gp-priority: normal
 msgid "Sendinblue is active on this site."
 msgstr "Sendinblue ist auf dieser Website aktiv."
 
 #: modules/sendinblue/contact-form-properties.php:101
 #: modules/sendinblue/service.php:151
+#, gp-priority: normal
 msgid "Sendinblue integration"
 msgstr "Sendinblue-Integration"
 
 #: admin/includes/welcome-panel.php:152
 #: modules/sendinblue/contact-form-properties.php:100
 #: modules/sendinblue/service.php:150
+#, gp-priority: normal
 msgid "https://contactform7.com/sendinblue-integration/"
 msgstr "https://contactform7.com/sendinblue-integration/"
 
 #: modules/sendinblue/service.php:148
+#, gp-priority: normal
 msgid "Store and organize your contacts while protecting user privacy on Sendinblue, the leading CRM & email marketing platform in Europe. Sendinblue offers unlimited contacts and advanced marketing features. For details, see %s."
 msgstr "Verwalte und organisiere deine Kontakte, während du den Datenschutz deiner Benutzer bei Sendinblue, der führenden CRM- und E-Mail-Marketing-Plattform in Europa, schützt. Sendinblue bietet unendliche Kontakte und erweiterte Marketing-Funktionen. Für Details, siehe %s."
 
 #: modules/sendinblue/service.php:126
+#, gp-priority: normal
 msgid "You have not been authenticated. Make sure the provided API key is correct."
 msgstr "Du wurdest nicht angemeldet. Stelle sicher, dass der API-Schlüssel korrekt ist."
 
@@ -269,203 +320,249 @@ msgstr "Du wurdest nicht angemeldet. Stelle sicher, dass der API-Schlüssel korr
 #: modules/sendinblue/contact-form-properties.php:109
 #: modules/sendinblue/contact-form-properties.php:303
 #: modules/sendinblue/service.php:30
+#, gp-priority: normal
 msgid "Sendinblue"
 msgstr "Sendinblue"
 
 #: includes/mail.php:180
+#, gp-priority: normal
 msgid "Failed to attach a file. The total file size exceeds the limit of 25 megabytes."
 msgstr "Das Anhängen einer Datei ist fehlgeschlagen. Die Gesamtgröße der Datei überschreitet den Grenzwert von 25 Megabyte."
 
 #. translators: %s: Attachment file path.
 #: includes/mail.php:159
+#, gp-priority: normal
 msgid "Failed to attach a file. %s is not a readable file."
 msgstr "Das Anhängen einer Datei ist fehlgeschlagen. %s ist keine lesbare Datei."
 
 #. translators: %s: Attachment file path.
 #: includes/mail.php:144
+#, gp-priority: normal
 msgid "Failed to attach a file. %s is not in the allowed directory."
 msgstr "Das Anhängen einer Datei ist fehlgeschlagen. %s befindet sich nicht im zulässigen Verzeichnis."
 
 #: includes/contact-form-template.php:42
+#, gp-priority: normal
 msgid "Submit"
 msgstr "Senden"
 
 #: includes/contact-form-template.php:37
+#, gp-priority: normal
 msgid "(optional)"
 msgstr "(optional)"
 
 #: admin/includes/welcome-panel.php:69
+#, gp-priority: normal
 msgid "disallowed list"
 msgstr "Sperrliste"
 
 #: modules/disallowed-list.php:35
+#, gp-priority: normal
 msgid "Disallowed words (%s) are used."
 msgstr "Es werden Wörter von der Sperrliste verwendet (%s)."
 
 #: modules/disallowed-list.php:32
+#, gp-priority: normal
 msgid "Disallowed words are used."
 msgstr "Es werden Wörter von der Sperrliste verwendet."
 
 #: includes/contact-form-functions.php:142
+#, gp-priority: normal
 msgid "Not Found"
 msgstr "Nicht gefunden"
 
 #. translators: %s: Contact Form 7 version number.
 #: includes/functions.php:599
+#, gp-priority: normal
 msgid "(This message was added in Contact Form 7 version %s.)"
 msgstr "(Dieser Hinweis wurde in Contact&nbsp;Form&nbsp;7 Version&nbsp;%s hinzugefügt.)"
 
 #: includes/special-mail-tags.php:22 includes/special-mail-tags.php:97
 #: includes/special-mail-tags.php:164 includes/special-mail-tags.php:218
 #: modules/flamingo.php:297
+#, gp-priority: normal
 msgid "The fourth parameter ($mail_tag) must be an instance of the WPCF7_MailTag class."
 msgstr "Der vierte Parameter ($mail_tag) muss eine Instanz der Klasse WPCF7_MailTag sein."
 
 #. translators: time format, see https://www.php.net/date
 #: admin/includes/class-contact-forms-list-table.php:238
+#, gp-priority: normal
 msgid "g:i a"
 msgstr "G:i"
 
 #. translators: 1: date, 2: time
 #: admin/includes/class-contact-forms-list-table.php:234
+#, gp-priority: normal
 msgid "%1$s at %2$s"
 msgstr "%1$s um %2$s"
 
 #: admin/edit-contact-form.php:197
+#, gp-priority: normal
 msgid "docs"
 msgstr "Dokumentation (engl.)"
 
 #. translators: 1: FAQ, 2: Docs ("FAQ & Docs")
 #: admin/edit-contact-form.php:190
+#, gp-priority: normal
 msgid "%1$s and %2$s"
 msgstr "%1$s und %2$s"
 
 #: admin/includes/editor.php:247
+#, gp-priority: normal
 msgid "Additional settings"
 msgstr "Zusätzliche Einstellungen"
 
 #: modules/constant-contact/service.php:355 modules/recaptcha/service.php:256
 #: modules/sendinblue/service.php:125 modules/sendinblue/service.php:133
 #: modules/stripe/service.php:142
+#, gp-priority: normal
 msgid "Error"
 msgstr "Fehler"
 
 #: includes/config-validator.php:617
+#, gp-priority: normal
 msgid "The total size of attachment files is too large."
 msgstr "Die Gesamtgröße aller Anhänge ist zu groß."
 
 #: includes/config-validator.php:426
+#, gp-priority: normal
 msgid "Unavailable HTML elements are used in the form template."
 msgstr "In diesem Formular-Template werden nicht verfügbare HTML-Elemente verwendet."
 
 #: modules/recaptcha/service.php:279
+#, gp-priority: normal
 msgid "reCAPTCHA is active on this site."
 msgstr "reCAPTCHA ist auf dieser Website aktiv."
 
 #: modules/recaptcha/recaptcha.php:148
+#, gp-priority: normal
 msgid "reCAPTCHA response token is empty."
 msgstr "reCaptcha-Antwort-Token ist leer."
 
 #: includes/submission.php:577
+#, gp-priority: normal
 msgid "Submitted nonce is invalid."
 msgstr "Eingereichte Nonce ist ungültig."
 
 #: includes/submission.php:568
+#, gp-priority: normal
 msgid "User-Agent string is unnaturally short."
 msgstr "Der User-Agent-String ist unnatürlich kurz."
 
 #: modules/recaptcha/recaptcha.php:157
+#, gp-priority: normal
 msgid "reCAPTCHA score (%1$.2f) is lower than the threshold (%2$.2f)."
 msgstr "reCAPTCHA-Punktzahl (%1$.2f) liegt unterhalb der Schwelle (%2$.2f)."
 
 #: modules/akismet.php:64
+#, gp-priority: normal
 msgid "Akismet returns a spam response."
 msgstr "Akismet gibt eine Spam-Antwort zurück."
 
 #: modules/constant-contact/service.php:454
+#, gp-priority: normal
 msgctxt "API keys"
 msgid "Reset Keys"
 msgstr "Schlüssel zurücksetzen"
 
 #: modules/constant-contact/service.php:383
+#, gp-priority: normal
 msgid "This site is connected to the Constant Contact API."
 msgstr "Diese Webeite ist mit der Constant Contact API verbunden."
 
 #: modules/constant-contact/service.php:362
+#, gp-priority: normal
 msgid "Configuration updated."
 msgstr "Konfiguration aktualisiert. "
 
 #: modules/constant-contact/service.php:356
+#, gp-priority: normal
 msgid "Failed to establish connection. Please double-check your configuration."
 msgstr "Herstellen der Verbindung ist fehlgeschlagen. Bitte überprüfe deine Konfiguration noch einmal."
 
 #: modules/constant-contact/service.php:349
+#, gp-priority: normal
 msgid "Connection established."
 msgstr "Verbindung aufgebaut."
 
 #. translators: 1: response code, 2: message, 3: body, 4: URL
 #: includes/functions.php:646
+#, gp-priority: normal
 msgid "HTTP Response: %1$s %2$s %3$s from %4$s"
 msgstr "HTTP-Response: %1$s %2$s %3$s von %4$s"
 
 #: modules/recaptcha/service.php:351 modules/stripe/service.php:249
+#, gp-priority: normal
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
 #: modules/recaptcha/service.php:269
+#, gp-priority: normal
 msgid "reCAPTCHA protects you against spam and other types of automated abuse. With Contact Form 7&#8217;s reCAPTCHA integration module, you can block abusive form submissions by spam bots. For details, see %s."
 msgstr "reCAPTCHA schützt dich gegen Spam und andere Arten automatischen Missbrauchs. Mit dem reCAPTCHA-Integrations-Modul von Contact Form 7 kannst du diese Formular-Absendungen von Spam-Bots blockieren. Weitere Informationen unter %s (engl.)."
 
 #: modules/recaptcha/recaptcha.php:261 modules/recaptcha/service.php:272
+#, gp-priority: normal
 msgid "reCAPTCHA (v3)"
 msgstr "reCAPTCHA (v3)"
 
 #: modules/recaptcha/recaptcha.php:255
+#, gp-priority: normal
 msgid "API keys for reCAPTCHA v3 are different from those for v2; keys for v2 don&#8217;t work with the v3 API. You need to register your sites again to get new keys for v3. For details, see %s."
 msgstr "API-Schlüssel für reCAPTCHA v3 unterscheiden sich von denen für v2; Schlüssel für v2 funktionieren nicht mit der API von v3. Du musst deine Websites erneut registrieren, um neue Schlüssel für die v3 zu erhalten. Weitere Informationen unter %s (engl.)."
 
 #: modules/constant-contact/service.php:459
+#, gp-priority: normal
 msgid "Connect to the Constant Contact API"
 msgstr "Verbindung zur Constant Contact API herstellen"
 
 #: modules/recaptcha/service.php:346 modules/stripe/service.php:245
+#, gp-priority: normal
 msgctxt "API keys"
 msgid "Remove Keys"
 msgstr "Schlüssel entfernen"
 
 #: modules/constant-contact/service.php:446
+#, gp-priority: normal
 msgid "Set this URL as the redirect URI."
 msgstr "Diese URL als Weiterleitungs-URI setzen."
 
 #: modules/constant-contact/service.php:439
+#, gp-priority: normal
 msgid "Redirect URI"
 msgstr "Weiterleitungs-URI"
 
 #: modules/constant-contact/service.php:422
+#, gp-priority: normal
 msgid "App Secret"
 msgstr "App Secret"
 
 #: modules/constant-contact/service.php:405
+#, gp-priority: normal
 msgid "API Key"
 msgstr "API-Schlüssel"
 
 #: modules/constant-contact/service.php:393 modules/recaptcha/service.php:289
 #: modules/stripe/service.php:179
+#, gp-priority: normal
 msgid "Setup Integration"
 msgstr "Integration konfigurieren"
 
 #: modules/constant-contact/contact-form-properties.php:174
 #: modules/constant-contact/service.php:376
+#, gp-priority: normal
 msgid "Constant Contact integration"
 msgstr "Integration von Constant Contact"
 
 #: admin/includes/welcome-panel.php:156
 #: modules/constant-contact/contact-form-properties.php:173
 #: modules/constant-contact/service.php:372
+#, gp-priority: normal
 msgid "https://contactform7.com/constant-contact-integration/"
 msgstr "https://contactform7.com/constant-contact-integration/"
 
 #: modules/constant-contact/service.php:370
+#, gp-priority: normal
 msgid "The Constant Contact integration module allows you to send contact data collected through your contact forms to the Constant Contact API. You can create reliable email subscription services in a few easy steps. For details, see %s."
 msgstr "Mit dem Integrations-Modul für Constant Contact kannst du Daten aus gesendeten Kontaktformularen an die Constant-Contact-API senden. Du kannst zuverlässige E-Mail-Abonnement-Dienste in wenigen einfachen Schritten erstellen. Weitere Informationen unter %s (engl.)."
 
@@ -473,766 +570,947 @@ msgstr "Mit dem Integrations-Modul für Constant Contact kannst du Daten aus ges
 #: modules/constant-contact/contact-form-properties.php:181
 #: modules/constant-contact/contact-form-properties.php:281
 #: modules/constant-contact/service.php:105
+#, gp-priority: normal
 msgid "Constant Contact"
 msgstr "Constant Contact"
 
 #: includes/integration.php:26
+#, gp-priority: normal
 msgid "Email marketing"
 msgstr "E-Mail-Marketing"
 
 #: includes/config-validator.php:679
+#, gp-priority: normal
 msgid "It is not allowed to use files outside the wp-content directory."
 msgstr "Es ist nicht erlaubt, Dateien außerhalb des Verzeichnisses „wp-content“ zu benutzen."
 
 #: modules/acceptance.php:275
+#, gp-priority: normal
 msgid "Make this checkbox optional"
 msgstr "Diese Checkbox als optional einstellen"
 
 #: admin/edit-contact-form.php:206
+#, gp-priority: normal
 msgid "Professional services"
 msgstr "Individueller Service von Profis (engl.)"
 
 #: admin/edit-contact-form.php:205
+#, gp-priority: normal
 msgid "https://contactform7.com/custom-development/"
 msgstr "https://contactform7.com/custom-development/"
 
 #: admin/edit-contact-form.php:202
+#, gp-priority: normal
 msgid "Support forums"
 msgstr "Support-Foren"
 
 #: admin/edit-contact-form.php:201
+#, gp-priority: normal
 msgid "https://wordpress.org/support/plugin/contact-form-7/"
 msgstr "https://wordpress.org/support/plugin/contact-form-7/"
 
 #: admin/edit-contact-form.php:186
+#, gp-priority: normal
 msgid "Here are some available options to help solve your problems."
 msgstr "Hier sind einige verfügbare Optionen, um dir bei der Lösung deiner Probleme zu helfen."
 
 #: admin/edit-contact-form.php:184
+#, gp-priority: normal
 msgid "Do you need help?"
 msgstr "Brauchst du Hilfe?"
 
 #: modules/acceptance.php:266
+#, gp-priority: normal
 msgid "Condition"
 msgstr "Bedingung"
 
 #. translators: 1: 'Consented' or 'Not consented', 2: conditions
 #: modules/acceptance.php:224
+#, gp-priority: normal
 msgctxt "mail output for acceptance checkboxes"
 msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
 
 #: modules/acceptance.php:208
+#, gp-priority: normal
 msgid "Not consented"
 msgstr "Nicht zugestimmt"
 
 #: modules/acceptance.php:206
+#, gp-priority: normal
 msgid "Consented"
 msgstr "Zugestimmt"
 
 #: includes/submission.php:95
+#, gp-priority: normal
 msgid "Sending mail has been aborted."
 msgstr "Der E-Mail-Versand wurde abgebrochen."
 
 #: admin/includes/editor.php:211
+#, gp-priority: normal
 msgid "You can edit messages used in various situations here. For details, see %s."
 msgstr "Hier kannst du die Nachrichten bearbeiten, die in verschiedenen Situationen verwendet werden. Weitere Informationen unter %s (engl.)."
 
 #: admin/includes/editor.php:210
+#, gp-priority: normal
 msgid "Editing messages"
 msgstr "Nachrichten bearbeiten"
 
 #: admin/includes/editor.php:209
+#, gp-priority: normal
 msgid "https://contactform7.com/editing-messages/"
 msgstr "https://contactform7.com/editing-messages/"
 
 #: admin/includes/editor.php:130
+#, gp-priority: normal
 msgid "You can edit the mail template here. For details, see %s."
 msgstr "Hier kannst du die E-Mail-Vorlage bearbeiten. Weitere Informationen unter %s (engl.)."
 
 #: admin/includes/editor.php:57
+#, gp-priority: normal
 msgid "You can edit the form template here. For details, see %s."
 msgstr "Hier kannst du die Formularvorlage bearbeiten. Weitere Informationen unter %s (engl.)."
 
 #: admin/includes/editor.php:56
+#, gp-priority: normal
 msgid "Editing form template"
 msgstr "Formularvorlage bearbeiten"
 
 #: admin/includes/editor.php:55
+#, gp-priority: normal
 msgid "https://contactform7.com/editing-form-template/"
 msgstr "https://contactform7.com/editing-form-template/"
 
 #. translators: screen reader text
 #: admin/edit-contact-form.php:224
+#, gp-priority: normal
 msgid "(left and right arrow)"
 msgstr "(Pfeil nach links und rechts)"
 
 #. translators: 1: ◀ ▶ dashicon, 2: screen reader text for the dashicon
 #: admin/edit-contact-form.php:219
+#, gp-priority: normal
 msgid "%1$s %2$s keys switch panels"
 msgstr "%1$s %2$s Tasten wechseln die Anzeige"
 
 #. translators: screen reader text
 #: admin/admin.php:158
+#, gp-priority: normal
 msgid "(configuration error)"
 msgstr "(Konfigurationsfehler)"
 
 #: admin/admin.php:151
+#, gp-priority: normal
 msgid "How to resolve?"
 msgstr "Wie löse ich das Problem?"
 
 #: admin/includes/welcome-panel.php:100
+#, gp-priority: normal
 msgid "Your donation will help encourage and support the plugin&#8217;s continued development and better user support."
 msgstr "Deine Spende wird dazu beitragen, die fortlaufende Entwicklung des Plugins und eine bessere Benutzerunterstützung zu fördern und zu unterstützen."
 
 #: admin/includes/welcome-panel.php:97
+#, gp-priority: normal
 msgid "making a donation"
 msgstr "eine Spende"
 
 #. translators: %s: link labeled 'making a donation'
 #: admin/includes/welcome-panel.php:94
+#, gp-priority: normal
 msgid "If you enjoy using Contact Form 7 and find it useful, please consider %s."
 msgstr "Wenn du gerne Contact Form 7 nutzt und es nützlich findest, dann erwäge bitte %s. "
 
 #: admin/includes/welcome-panel.php:91
+#, gp-priority: normal
 msgid "It is hard to continue development and support for this plugin without contributions from users like you."
 msgstr "Es ist schwer, die Entwicklung und den Support für dieses Plugin ohne Beiträge von Nutzern wie dir fortzusetzen."
 
 #: includes/contact-form.php:519 includes/contact-form.php:1032
+#, gp-priority: normal
 msgid "This contact form is available only for logged in users."
 msgstr "Dieses Kontaktformular ist nur für angemeldete Benutzer verfügbar."
 
 #: includes/config-validator.php:152
+#, gp-priority: normal
 msgid "Deprecated settings are used."
 msgstr "Es werden veraltete Einstellungen verwendet."
 
 #. translators: %s: link labeled 'Really Simple CAPTCHA'
 #: modules/really-simple-captcha.php:36
+#, gp-priority: normal
 msgid "To use CAPTCHA, you need %s plugin installed."
 msgstr "Um CAPTCHA zu verwenden, muss das Plugin %s installiert sein."
 
 #: includes/rest-api.php:306
+#, gp-priority: normal
 msgid "There was an error deleting the contact form."
 msgstr "Beim Löschen des Kontaktformulars ist ein Fehler aufgetreten."
 
 #: includes/rest-api.php:66 includes/rest-api.php:82 includes/rest-api.php:98
+#, gp-priority: normal
 msgid "You are not allowed to access the requested contact form."
 msgstr "Du hast nicht die Berechtigung, auf das angeforderte Kontaktformular zuzugreifen."
 
 #: includes/rest-api.php:230 includes/rest-api.php:252
 #: includes/rest-api.php:297 includes/rest-api.php:327
 #: includes/rest-api.php:385
+#, gp-priority: normal
 msgid "The requested contact form was not found."
 msgstr "Das angeforderte Kontaktformular wurde nicht gefunden."
 
 #: includes/rest-api.php:44
+#, gp-priority: normal
 msgid "You are not allowed to create a contact form."
 msgstr "Du bist nicht berechtigt ein Kontaktformular zu erstellen."
 
 #: includes/rest-api.php:184
+#, gp-priority: normal
 msgid "Cannot create existing contact form."
 msgstr "Ein vorhandenes Kontaktformular kann nicht erstellt werden."
 
 #: includes/rest-api.php:30
+#, gp-priority: normal
 msgid "You are not allowed to access contact forms."
 msgstr "Du hast keine Berechtigung, um auf Kontaktformulare zuzugreifen."
 
 #: includes/config-validator.php:661
+#, gp-priority: normal
 msgid "Attachment file does not exist at %path%."
 msgstr "Datei für Anhang in folgendem Pfad nicht vorhanden: %path%."
 
 #: includes/config-validator.php:537
+#, gp-priority: normal
 msgid "Invalid mailbox syntax is used in the %name% field."
 msgstr "Ungültige Postfachsyntax wird im Feld %name% verwendet."
 
 #. translators: %names%: a list of form control names
 #: includes/config-validator.php:409
+#, gp-priority: normal
 msgid "Unavailable names (%names%) are used for form controls."
 msgstr "Nicht verfügbare Namen (%names%) werden für Formularfelder verwendet."
 
 #: includes/config-validator.php:150
+#, gp-priority: normal
 msgid "There are invalid mail header fields."
 msgstr "Es gibt ungültige Mail-Header-Felder."
 
 #: includes/config-validator.php:146
+#, gp-priority: normal
 msgid "HTML tags are used in a message."
 msgstr "In einer Nachricht werden HTML-Tags verwendet."
 
 #: includes/config-validator.php:144
+#, gp-priority: normal
 msgid "Sender email address does not belong to the site domain."
 msgstr "Die Absender-E-Mail-Adresse gehört nicht zur Domain der Website."
 
 #: includes/config-validator.php:142
+#, gp-priority: normal
 msgid "Invalid mailbox syntax is used."
 msgstr "Es wird eine ungültige Mailbox-Syntax verwendet."
 
 #: includes/config-validator.php:140
+#, gp-priority: normal
 msgid "There is a possible empty field."
 msgstr "Es gibt möglicherweise ein leeres Eingabefeld."
 
 #. translators: %s: number of errors detected
 #: admin/includes/class-contact-forms-list-table.php:137
+#, gp-priority: normal
 msgid "%s configuration error detected"
 msgid_plural "%s configuration errors detected"
 msgstr[0] "%s Konfigurationsfehler entdeckt"
 msgstr[1] "%s Konfigurationsfehler entdeckt"
 
 #: admin/admin.php:569 includes/rest-api.php:196 includes/rest-api.php:263
+#, gp-priority: normal
 msgid "There was an error saving the contact form."
 msgstr "Beim Speichern des Kontaktformulars ist ein Fehler aufgetreten."
 
 #: admin/admin.php:155
+#, gp-priority: normal
 msgid "%d configuration errors detected in this tab panel"
 msgstr "%d Fehler in der Konfiguration dieses Reiters entdeckt"
 
 #: admin/admin.php:154
+#, gp-priority: normal
 msgid "1 configuration error detected in this tab panel"
 msgstr "1 Fehler in der Konfiguration dieses Reiters entdeckt"
 
 #: admin/admin.php:153
+#, gp-priority: normal
 msgid "%d configuration errors detected"
 msgstr "%d Fehler in der Konfiguration entdeckt"
 
 #: admin/admin.php:152
+#, gp-priority: normal
 msgid "1 configuration error detected"
 msgstr "1 Fehler in der Konfiguration entdeckt"
 
 #. translators: 1: WordPress hook name, 2: version number, 3: alternative hook
 #. name
 #: includes/functions.php:574
+#, gp-priority: normal
 msgid "Hook %1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s! Use %3$s instead."
 msgstr "Der Hook %1$s ist seit Contact Form 7 Version %2$s <strong>veraltet</strong>! Nutze stattdessen %3$s."
 
 #: admin/includes/welcome-panel.php:126
+#, gp-priority: normal
 msgid "Flamingo"
 msgstr "Flamingo"
 
 #. translators: %s: link labeled 'Flamingo'
 #: admin/includes/welcome-panel.php:123
+#, gp-priority: normal
 msgid "Install a message storage plugin before this happens to you. %s saves all messages through contact forms into the database. Flamingo is a free WordPress plugin created by the same author as Contact Form 7."
 msgstr "Bevor dir das passiert, installiere bitte ein Plugin zum Abspeichern von Nachrichten. %s speichert alle Nachrichten, die über Kontaktformulare gesendet werden, in der Datenbank. Flamingo ist ein kostenloses WordPress-Plugin vom gleichen Autor wie Contact Form 7."
 
 #: admin/includes/welcome-panel.php:120
+#, gp-priority: normal
 msgid "Contact Form 7 doesn&#8217;t store submitted messages anywhere. Therefore, you may lose important messages forever if your mail server has issues or you make a mistake in mail configuration."
 msgstr "Contact Form 7 speichert die übertragenen Nachrichten nirgends ab. Daher können wichtige Nachrichten verloren gehen, wenn es mit deinem Mailserver Probleme gibt oder du bei der Konfiguration der Mail-Einstellungen Fehler machst."
 
 #: admin/includes/welcome-panel.php:114
+#, gp-priority: normal
 msgid "Before you cry over spilt mail&#8230;"
 msgstr "Bevor du über verloren gegangene Mails weinst&nbsp;&hellip;"
 
 #: admin/includes/welcome-panel.php:68
+#, gp-priority: normal
 msgid "https://contactform7.com/comment-blacklist/"
 msgstr "https://contactform7.com/comment-blacklist/"
 
 #. translators: links labeled 1: 'Akismet', 2: 'reCAPTCHA', 3: 'disallowed
 #. list'
 #: admin/includes/welcome-panel.php:58
+#, gp-priority: normal
 msgid "Contact Form 7 supports spam-filtering with %1$s. Intelligent %2$s blocks annoying spambots. Plus, using %3$s, you can block messages containing specified keywords or those sent from specified IP addresses."
 msgstr "Contact Form 7 unterstützt die Spam-Filterung mit Hilfe von %1$s. Das intelligente %2$s blockiert nervende Spam-Bots. Zusätzlich kannst du die Funktion %3$s nutzen, um Nachrichten zu blockieren, die bestimmte Begriffe enthalten oder von einer bestimmten IP-Adresse kommen."
 
 #: admin/includes/welcome-panel.php:55
+#, gp-priority: normal
 msgid "Spammers target everything; your contact forms aren&#8217;t an exception. Before you get spammed, protect your contact forms with the powerful anti-spam features Contact Form 7 provides."
 msgstr "Spammer nehmen alles ins Visier; deine Kontaktformulare sind da keine Ausnahme. Bevor du zugespammt wirst, schütze deine Kontaktformulare mit den leistungsfähigen Anti-Spam-Funktionen, die Contact Form 7 bietet."
 
 #: admin/includes/welcome-panel.php:49
+#, gp-priority: normal
 msgid "Getting spammed? You have protection."
 msgstr "Wirst du zugespammt? Du bist geschützt."
 
 #: includes/config-validator.php:148
+#, gp-priority: normal
 msgid "Multiple form controls are in a single label element."
 msgstr "Mehrere Formularfelder sind in einem einzigen Beschriftungselement platziert."
 
 #: admin/includes/config-validator.php:135
+#, gp-priority: normal
 msgid "FAQ about Configuration Validator"
 msgstr "FAQ zum Konfigurations-Validator"
 
 #: admin/includes/config-validator.php:134
+#, gp-priority: normal
 msgid "https://contactform7.com/configuration-validator-faq/"
 msgstr "https://contactform7.com/configuration-validator-faq/"
 
 #: modules/text.php:204
+#, gp-priority: normal
 msgid "The telephone number is invalid."
 msgstr "Die Telefonnummer ist ungültig."
 
 #: modules/text.php:197
+#, gp-priority: normal
 msgid "The URL is invalid."
 msgstr "Die URL ist ungültig."
 
 #: modules/text.php:190
+#, gp-priority: normal
 msgid "The e-mail address entered is invalid."
 msgstr "Die eingegebene E-Mail-Adresse ist ungültig."
 
 #: modules/quiz.php:200
+#, gp-priority: normal
 msgid "The answer to the quiz is incorrect."
 msgstr "Die Antwort auf das Quiz ist falsch."
 
 #: modules/number.php:144
+#, gp-priority: normal
 msgid "The number is larger than the maximum allowed."
 msgstr "Die Zahl ist größer als das zulässige Maximum."
 
 #: modules/number.php:139
+#, gp-priority: normal
 msgid "The number is smaller than the minimum allowed."
 msgstr "Die Zahl ist niedriger als das zulässige Minimum."
 
 #: modules/number.php:134
+#, gp-priority: normal
 msgid "The number format is invalid."
 msgstr "Das Zahlenformat ist ungültig."
 
 #: includes/file.php:135
+#, gp-priority: normal
 msgid "There was an error uploading the file."
 msgstr "Beim Hochladen der Datei ist ein Fehler aufgetreten."
 
 #: includes/file.php:130
+#, gp-priority: normal
 msgid "The file is too big."
 msgstr "Diese Datei ist zu groß."
 
 #: includes/file.php:125
+#, gp-priority: normal
 msgid "You are not allowed to upload files of this type."
 msgstr "Es ist nicht erlaubt, Dateien dieses Typs hochzuladen."
 
 #: includes/file.php:120
+#, gp-priority: normal
 msgid "There was an unknown error uploading the file."
 msgstr "Beim Hochladen der Datei ist ein unbekannter Fehler aufgetreten."
 
 #: modules/date.php:152
+#, gp-priority: normal
 msgid "The date is after the latest one allowed."
 msgstr "Das Datum liegt nach dem spätesten zulässigen Datum."
 
 #: modules/date.php:147
+#, gp-priority: normal
 msgid "The date is before the earliest one allowed."
 msgstr "Das Datum liegt vor dem frühesten zulässigen Datum."
 
 #: modules/date.php:142
+#, gp-priority: normal
 msgid "The date format is incorrect."
 msgstr "Das Datumsformat ist ungültig."
 
 #: includes/contact-form-template.php:213
+#, gp-priority: normal
 msgid "The field is too short."
 msgstr "Deine Eingabe ist zu kurz."
 
 #: includes/contact-form-template.php:206
+#, gp-priority: normal
 msgid "The field is too long."
 msgstr "Deine Eingabe ist zu lang."
 
 #: includes/contact-form-template.php:199
+#, gp-priority: normal
 msgid "The field is required."
 msgstr "Dies ist ein Pflichtfeld."
 
 #: includes/contact-form-template.php:192
+#, gp-priority: normal
 msgid "You must accept the terms and conditions before sending your message."
 msgstr "Du musst die Bedingungen und Konditionen akzeptieren, bevor du deine Nachricht senden kannst."
 
 #: includes/contact-form-template.php:178
+#, gp-priority: normal
 msgid "One or more fields have an error. Please check and try again."
 msgstr "Ein oder mehrere Felder weisen einen Fehler auf. Bitte überprüfe das und versuche es erneut."
 
 #: includes/contact-form-template.php:171
 #: includes/contact-form-template.php:185
+#, gp-priority: normal
 msgid "There was an error trying to send your message. Please try again later."
 msgstr "Beim Versuch, deine Nachricht zu senden, ist ein Fehler aufgetreten. Bitte versuche es später nochmal."
 
 #: includes/contact-form-template.php:164
+#, gp-priority: normal
 msgid "Thank you for your message. It has been sent."
 msgstr "Vielen Dank für deine Nachricht. Sie wurde gesendet."
 
 #. translators: 1: blog name, 2: [your-subject]
 #: includes/contact-form-template.php:52 includes/contact-form-template.php:96
+#, gp-priority: normal
 msgctxt "mail subject"
 msgid "%1$s \"%2$s\""
 msgstr "%1$s „%2$s“"
 
 #: admin/includes/config-validator.php:48
+#, gp-priority: normal
 msgid "Misconfiguration leads to mail delivery failure or other troubles. Validate your contact forms now."
 msgstr "Eine Fehlkonfiguration führt zu Fehlern bei der E-Mail-Zustellung oder anderen Problemen. Validiere jetzt deine Kontaktformulare."
 
 #: admin/includes/config-validator.php:45
+#, gp-priority: normal
 msgid "Validate Contact Form 7 Configuration"
 msgstr "Konfiguration von Contact Form 7 validieren"
 
 #: includes/config-validator.php:23
+#, gp-priority: normal
 msgid "https://contactform7.com/configuration-errors/"
 msgstr "https://contactform7.com/configuration-errors/"
 
 #: admin/admin.php:600
+#, gp-priority: normal
 msgid "Configuration validation completed. No invalid contact form was found."
 msgstr "Validierung der Konfiguration abgeschlossen. Es wurden keine ungültigen Kontaktformulare gefunden."
 
 #. translators: %s: number of contact forms
 #: admin/admin.php:586
+#, gp-priority: normal
 msgid "Configuration validation completed. %s invalid contact form was found."
 msgid_plural "Configuration validation completed. %s invalid contact forms were found."
 msgstr[0] "Validierung der Konfiguration abgeschlossen. %s ungültiges Kontaktformular wurde gefunden."
 msgstr[1] "Validierung der Konfiguration abgeschlossen. %s ungültige Kontaktformulare wurden gefunden."
 
 #: admin/includes/config-validator.php:124
+#, gp-priority: normal
 msgid "Validate Configuration"
 msgstr "Konfiguration validieren"
 
 #. translators: %s: number of contact forms
 #: admin/includes/config-validator.php:112
+#, gp-priority: normal
 msgid "Validate %s contact form now"
 msgid_plural "Validate %s contact forms now"
 msgstr[0] "Jetzt %s Kontaktformular validieren"
 msgstr[1] "Jetzt %s Kontaktformulare validieren"
 
 #: admin/includes/config-validator.php:70
+#, gp-priority: normal
 msgid "You are not allowed to validate configuration."
 msgstr "Du hast nicht die Berechtigung, die Konfiguration zu validieren."
 
 #: admin/includes/welcome-panel.php:64 admin/includes/welcome-panel.php:164
 #: modules/recaptcha/recaptcha.php:260 modules/recaptcha/service.php:271
+#, gp-priority: normal
 msgid "https://contactform7.com/recaptcha/"
 msgstr "https://contactform7.com/recaptcha/"
 
 #: modules/recaptcha/service.php:322 modules/stripe/service.php:224
+#, gp-priority: normal
 msgid "Secret Key"
 msgstr "Geheimer Schlüssel"
 
 #: modules/recaptcha/service.php:305
+#, gp-priority: normal
 msgid "Site Key"
 msgstr "Website-Schlüssel"
 
 #: modules/recaptcha/service.php:262 modules/sendinblue/service.php:141
 #: modules/stripe/service.php:150
+#, gp-priority: normal
 msgid "Settings saved."
 msgstr "Einstellungen gespeichert."
 
 #: modules/recaptcha/service.php:257 modules/sendinblue/service.php:134
 #: modules/stripe/service.php:143
+#, gp-priority: normal
 msgid "Invalid key values."
 msgstr "Ungültige Schlüsselwerte."
 
 #: admin/includes/welcome-panel.php:65 admin/includes/welcome-panel.php:165
 #: modules/recaptcha/service.php:29
+#, gp-priority: normal
 msgid "reCAPTCHA"
 msgstr "reCAPTCHA"
 
 #: modules/really-simple-captcha.php:256
+#, gp-priority: normal
 msgid "CAPTCHA (Really Simple CAPTCHA)"
 msgstr "CAPTCHA (Really Simple CAPTCHA)"
 
 #. Author URI of the plugin
+#, gp-priority: normal
 msgid "https://ideasilo.wordpress.com/"
 msgstr "https://ideasilo.wordpress.com/"
 
 #. Author of the plugin
+#, gp-priority: normal
 msgid "Takayuki Miyoshi"
 msgstr "Takayuki Miyoshi"
 
 #. Description of the plugin
+#, gp-priority: normal
 msgid "Just another contact form plugin. Simple but flexible."
 msgstr "Nur ein weiteres Kontaktformular-Plugin. Einfach, aber flexibel."
 
 #. Plugin URI of the plugin
+#, gp-priority: normal
 msgid "https://contactform7.com/"
 msgstr "https://contactform7.com/"
 
 #. translators: title of your first contact form. %d: number fixed to '1'
 #: load.php:184
+#, gp-priority: normal
 msgid "Contact form %d"
 msgstr "Kontaktformular %d"
 
 #: modules/textarea.php:150
+#, gp-priority: normal
 msgid "Generate a form-tag for a multi-line text input field. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein mehrzeiliges Texteingabefeld generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/textarea.php:142
+#, gp-priority: normal
 msgid "text area"
 msgstr "Textfeld"
 
 #: modules/text.php:296
+#, gp-priority: normal
 msgid "This field requires author's URL"
 msgstr "Dieses Feld erfordert die URL des Autors"
 
 #: modules/text.php:291
+#, gp-priority: normal
 msgid "This field requires author's email address"
 msgstr "Dieses Feld erfordert die E-Mail-Adresse des Autors"
 
 #: modules/text.php:286
+#, gp-priority: normal
 msgid "This field requires author's name"
 msgstr "Dieses Feld erfordert den Namen des Autors"
 
 #: admin/includes/welcome-panel.php:61 modules/text.php:278
 #: modules/text.php:281
+#, gp-priority: normal
 msgid "Akismet"
 msgstr "Akismet"
 
 #: modules/text.php:246 modules/textarea.php:152
+#, gp-priority: normal
 msgid "Text fields"
 msgstr "Textfelder"
 
 #: modules/text.php:246 modules/textarea.php:152
+#, gp-priority: normal
 msgid "https://contactform7.com/text-fields/"
 msgstr "https://contactform7.com/text-fields/"
 
 #: modules/text.php:243
+#, gp-priority: normal
 msgid "Generate a form-tag for a single-line telephone number input field. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein einzeiliges Eingabefeld für Telefonnummern generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/text.php:241
+#, gp-priority: normal
 msgid "Generate a form-tag for a single-line URL input field. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein einzeiliges URL-Eingabefeld generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/text.php:239
+#, gp-priority: normal
 msgid "Generate a form-tag for a single-line email address input field. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein einzeiliges E-Mail-Adressen Eingabefeld generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/text.php:237
+#, gp-priority: normal
 msgid "Generate a form-tag for a single-line plain text input field. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein einzeiliges Klartext-Eingabefeld generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/text.php:224
+#, gp-priority: normal
 msgid "tel"
 msgstr "Telefon"
 
 #: modules/text.php:222
+#, gp-priority: normal
 msgid "URL"
 msgstr "URL"
 
 #: modules/text.php:220
+#, gp-priority: normal
 msgid "email"
 msgstr "E-Mail"
 
 #: modules/text.php:218
+#, gp-priority: normal
 msgid "text"
 msgstr "Text"
 
 #: modules/text.php:202
+#, gp-priority: normal
 msgid "Telephone number that the sender entered is invalid"
 msgstr "Die eingegebene Telefonnummer des Absenders ist ungültig"
 
 #: modules/text.php:195
+#, gp-priority: normal
 msgid "URL that the sender entered is invalid"
 msgstr "Die eingegebene URL des Absenders ist ungültig"
 
 #: modules/text.php:188
+#, gp-priority: normal
 msgid "Email address that the sender entered is invalid"
 msgstr "Die eingegebene E-Mail-Adresse des Absenders ist ungültig"
 
 #: modules/submit.php:65
+#, gp-priority: normal
 msgid "Label"
 msgstr "Beschriftung"
 
 #: modules/submit.php:55
+#, gp-priority: normal
 msgid "Submit button"
 msgstr "Senden-Button"
 
 #: modules/submit.php:55
+#, gp-priority: normal
 msgid "https://contactform7.com/submit-button/"
 msgstr "https://contactform7.com/submit-button/"
 
 #: modules/submit.php:53
+#, gp-priority: normal
 msgid "Generate a form-tag for a submit button. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für einen Absende-Button generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/submit.php:46
+#, gp-priority: normal
 msgid "submit"
 msgstr "Senden"
 
 #: modules/select.php:204
+#, gp-priority: normal
 msgid "Insert a blank item as the first option"
 msgstr "Füge ein leeres Element als erste Option ein"
 
 #: modules/select.php:203
+#, gp-priority: normal
 msgid "Allow multiple selections"
 msgstr "Mehrfachauswahl erlaubt"
 
 #: modules/select.php:170
+#, gp-priority: normal
 msgid "Generate a form-tag for a drop-down menu. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein Drop-Down-Menü generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/select.php:163
+#, gp-priority: normal
 msgid "drop-down menu"
 msgstr "Drop-Down Menü"
 
 #: modules/quiz.php:244
+#, gp-priority: normal
 msgid "One pipe-separated question-answer pair (e.g. The capital of Brazil?|Rio) per line."
 msgstr "Ein mit dem Pipe-Zeichen getrenntes Frage-Antwort-Paar (z.B. Die Hauptstadt von Brasilien?|Brasília) pro Zeile."
 
 #: modules/quiz.php:239 modules/quiz.php:242
+#, gp-priority: normal
 msgid "Questions and answers"
 msgstr "Fragen und Antworten"
 
 #: modules/quiz.php:224
+#, gp-priority: normal
 msgid "Quiz"
 msgstr "Quiz"
 
 #: modules/quiz.php:224
+#, gp-priority: normal
 msgid "https://contactform7.com/quiz/"
 msgstr "https://contactform7.com/quiz/"
 
 #: modules/quiz.php:222
+#, gp-priority: normal
 msgid "Generate a form-tag for a question-answer pair. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein Frage-Antwort-Paar generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/quiz.php:214
+#, gp-priority: normal
 msgid "quiz"
 msgstr "Quiz"
 
 #: modules/quiz.php:198
+#, gp-priority: normal
 msgid "Sender doesn't enter the correct answer to the quiz"
 msgstr "Der Absender gibt nicht die richtige Antwort auf das Quiz ein"
 
 #: modules/number.php:182
+#, gp-priority: normal
 msgid "Slider"
 msgstr "Schieberegler"
 
 #: modules/number.php:181
+#, gp-priority: normal
 msgid "Spinbox"
 msgstr "Spinbox"
 
 #: modules/number.php:166
+#, gp-priority: normal
 msgid "Number fields"
 msgstr "Zahlenfelder"
 
 #: modules/number.php:166
+#, gp-priority: normal
 msgid "https://contactform7.com/number-fields/"
 msgstr "https://contactform7.com/number-fields/"
 
 #: modules/number.php:164
+#, gp-priority: normal
 msgid "Generate a form-tag for a field for numeric value input. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein Feld mit numerischer Werteingabe generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/number.php:156
+#, gp-priority: normal
 msgid "number"
 msgstr "Zahl"
 
 #: modules/number.php:143
+#, gp-priority: normal
 msgid "Number is larger than maximum limit"
 msgstr "Zahl ist größer als das erlaubte Maximum"
 
 #: modules/number.php:138
+#, gp-priority: normal
 msgid "Number is smaller than minimum limit"
 msgstr "Zahl ist niedriger als das erlaubte Minimum"
 
 #: modules/number.php:133
+#, gp-priority: normal
 msgid "Number format that the sender entered is invalid"
 msgstr "Die eingegebene Zahlenformat ist ungültig"
 
 #. translators: %s: the path of the temporary folder
 #: includes/file.php:395
+#, gp-priority: normal
 msgid "This contact form has file uploading fields, but the temporary folder for the files (%s) does not exist or is not writable. You can create the folder or change its permission manually."
 msgstr "Dieses Kontaktformular enthält Felder zum Hochladen von Dateien, aber der temporäre Ordner für die Dateien (%s) ist nicht vorhanden oder nicht beschreibbar. Du kannst den Ordner anlegen oder seine Berechtigung manuell ändern."
 
 #: modules/file.php:182
+#, gp-priority: normal
 msgid "To attach the file uploaded through this field to mail, you need to insert the corresponding mail-tag (%s) into the File Attachments field on the Mail tab."
 msgstr "Um die über dieses Feld hochgeladene Datei der E-Mail anzuhängen, musst du das zugehörige E-Mail-Tag (%s) in das Dateianhang-Feld des E-Mail-Tabs einsetzen."
 
 #: modules/file.php:154
+#, gp-priority: normal
 msgid "Acceptable file types"
 msgstr "Akzeptierte Dateitypen"
 
 #: modules/file.php:149
+#, gp-priority: normal
 msgid "File size limit (bytes)"
 msgstr "Limit für die Dateigröße (Bytes)"
 
 #: modules/file.php:124
+#, gp-priority: normal
 msgid "File uploading and attachment"
 msgstr "Datei-Upload und Anhang"
 
 #: modules/file.php:124
+#, gp-priority: normal
 msgid "https://contactform7.com/file-uploading-and-attachment/"
 msgstr "https://contactform7.com/file-uploading-and-attachment/"
 
 #: modules/file.php:122
+#, gp-priority: normal
 msgid "Generate a form-tag for a file uploading field. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein Feld zum Hochladen von Dateien generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/file.php:114
+#, gp-priority: normal
 msgid "file"
 msgstr "Datei"
 
 #: includes/file.php:134
+#, gp-priority: normal
 msgid "Uploading a file fails for PHP error"
 msgstr "Das Hochladen der Datei verursachte einen PHP-Fehler"
 
 #: includes/file.php:129
+#, gp-priority: normal
 msgid "Uploaded file is too large"
 msgstr "Die hochgeladene Datei ist zu groß."
 
 #: includes/file.php:124
+#, gp-priority: normal
 msgid "Uploaded file is not allowed for file type"
 msgstr "Das Hochladen ist für den Dateityp nicht erlaubt."
 
 #: includes/file.php:119
+#, gp-priority: normal
 msgid "Uploading a file fails for any reason"
 msgstr "Das Hochladen einer Datei scheitert aus irgendeinem Grund."
 
 #: modules/date.php:215 modules/number.php:212
+#, gp-priority: normal
 msgid "Max"
 msgstr "Max."
 
 #: modules/date.php:210 modules/number.php:207
+#, gp-priority: normal
 msgid "Min"
 msgstr "Min."
 
 #: modules/date.php:205 modules/date.php:208 modules/number.php:202
 #: modules/number.php:205
+#, gp-priority: normal
 msgid "Range"
 msgstr "Bereich"
 
 #: modules/date.php:201 modules/number.php:198 modules/text.php:273
 #: modules/textarea.php:179
+#, gp-priority: normal
 msgid "Use this text as the placeholder of the field"
 msgstr "Verwende diesen Text als Platzhalter für das Feld"
 
 #: modules/date.php:199 modules/number.php:196 modules/text.php:271
 #: modules/textarea.php:177
+#, gp-priority: normal
 msgid "Default value"
 msgstr "Standardwert"
 
 #: modules/date.php:174
+#, gp-priority: normal
 msgid "Date field"
 msgstr "Datumsfeld"
 
 #: modules/date.php:174
+#, gp-priority: normal
 msgid "https://contactform7.com/date-field/"
 msgstr "https://contactform7.com/date-field/"
 
 #: modules/date.php:172
+#, gp-priority: normal
 msgid "Generate a form-tag for a date input field. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein Datums-Eingabefeld generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/date.php:164
+#, gp-priority: normal
 msgid "date"
 msgstr "Datum"
 
 #: modules/date.php:151
+#, gp-priority: normal
 msgid "Date is later than maximum limit"
 msgstr "Das Datum liegt nach dem letzten erlaubten Datum"
 
 #: modules/date.php:146
+#, gp-priority: normal
 msgid "Date is earlier than minimum limit"
 msgstr "Das Datum liegt vor dem ersten erlaubten Datum"
 
 #: modules/date.php:141
+#, gp-priority: normal
 msgid "Date format that the sender entered is invalid"
 msgstr "Das eingegebene Datumsformat ist ungültig"
 
 #: modules/checkbox.php:301 modules/date.php:245 modules/number.php:242
 #: modules/select.php:233 modules/text.php:329 modules/textarea.php:206
+#, gp-priority: normal
 msgid "To use the value input through this field in a mail field, you need to insert the corresponding mail-tag (%s) into the field on the Mail tab."
 msgstr "Um die Werteingabe über dieses Feld in einem E-Mail-Feld zu verwenden, musst du das zugehörige E-Mail-Tag (%s) in das Feld des E-Mail-Tabs einsetzen."
 
 #: modules/checkbox.php:271
+#, gp-priority: normal
 msgid "Make checkboxes exclusive"
 msgstr "Checkbox exklusiv machen"
 
 #: modules/checkbox.php:269
+#, gp-priority: normal
 msgid "Wrap each item with label element"
 msgstr "Jeden Eintrag mit Beschreibung umfassen"
 
 #: modules/checkbox.php:268
+#, gp-priority: normal
 msgid "Put a label first, a checkbox last"
 msgstr "Beschriftung vorne, Checkbox hinten"
 
 #: modules/checkbox.php:267 modules/select.php:202
+#, gp-priority: normal
 msgid "One option per line."
 msgstr "Eine Option pro Zeile."
 
 #: modules/checkbox.php:250 modules/date.php:188 modules/file.php:138
 #: modules/number.php:185 modules/select.php:186 modules/text.php:260
 #: modules/textarea.php:166
+#, gp-priority: normal
 msgid "Required field"
 msgstr "Pflichtfeld"
 
@@ -1241,71 +1519,88 @@ msgstr "Pflichtfeld"
 #: modules/number.php:176 modules/number.php:179 modules/select.php:182
 #: modules/select.php:185 modules/text.php:256 modules/text.php:259
 #: modules/textarea.php:162 modules/textarea.php:165
+#, gp-priority: normal
 msgid "Field type"
 msgstr "Feld-Typ"
 
 #: modules/checkbox.php:235 modules/select.php:172
+#, gp-priority: normal
 msgid "Checkboxes, radio buttons and menus"
 msgstr "Checkboxen, Radio-Buttons und Menüs"
 
 #: modules/checkbox.php:235 modules/select.php:172
+#, gp-priority: normal
 msgid "https://contactform7.com/checkboxes-radio-buttons-and-menus/"
 msgstr "https://contactform7.com/checkboxes-radio-buttons-and-menus/"
 
 #: modules/checkbox.php:232
+#, gp-priority: normal
 msgid "Generate a form-tag for a group of radio buttons. For more details, see %s."
-msgstr "Hiermit wird ein Formular-Tag für eine Gruppe von Radio-Buttions generiert. Weitere Informationen unter %s (engl.)."
+msgstr "Hiermit wird ein Formular-Tag für eine Gruppe von Radio-Buttons generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/checkbox.php:230
+#, gp-priority: normal
 msgid "Generate a form-tag for a group of checkboxes. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für eine Gruppe von Checkboxen generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/checkbox.php:217
+#, gp-priority: normal
 msgid "radio buttons"
 msgstr "Radio-Buttons"
 
 #: modules/checkbox.php:215
+#, gp-priority: normal
 msgid "checkboxes"
 msgstr "Checkboxen"
 
 #: modules/really-simple-captcha.php:377
+#, gp-priority: normal
 msgid "This contact form contains CAPTCHA fields, but the necessary libraries (GD and FreeType) are not available on your server."
 msgstr "Dieses Kontaktformular enthält Captcha-Felder, aber die benötigten Bibliotheken (GD und FreeType) sind nicht auf deinem Server verfügbar."
 
 #: modules/really-simple-captcha.php:370
+#, gp-priority: normal
 msgid "This contact form contains CAPTCHA fields, but the temporary folder for the files (%s) does not exist or is not writable. You can create the folder or change its permission manually."
 msgstr "Dieses Kontaktformular enthält CAPTCHA-Felder, aber der temporäre Ordner für die Dateien (%s) ist nicht vorhanden oder nicht beschreibbar. Du kannst den Ordner anlegen oder seine Berechtigung manuell ändern."
 
 #: modules/really-simple-captcha.php:315
+#, gp-priority: normal
 msgid "Input field settings"
 msgstr "Eingabefeld-Einstellungen"
 
 #: modules/really-simple-captcha.php:300
+#, gp-priority: normal
 msgid "Image settings"
 msgstr "Bildeinstellungen"
 
 #: modules/really-simple-captcha.php:283
+#, gp-priority: normal
 msgid "https://contactform7.com/captcha/"
 msgstr "https://contactform7.com/captcha/"
 
 #: modules/really-simple-captcha.php:281
+#, gp-priority: normal
 msgid "Generate form-tags for a CAPTCHA image and corresponding response input field. For more details, see %s."
 msgstr "Hiermit werden Formular-Tags für ein CAPTCHA-Bild und ein entsprechendes Eingabefeld generiert. Weitere Informationen unter %s (engl.)."
 
 #. translators: %s: link labeled 'Really Simple CAPTCHA'
 #: modules/really-simple-captcha.php:270
+#, gp-priority: normal
 msgid "To use CAPTCHA, you first need to install and activate %s plugin."
 msgstr "Um CAPTCHA zu verwenden musst du zuerst das Plugin %s installieren und aktivieren."
 
 #: modules/really-simple-captcha.php:283
+#, gp-priority: normal
 msgid "CAPTCHA"
 msgstr "Captcha"
 
 #: modules/really-simple-captcha.php:237
+#, gp-priority: normal
 msgid "Your entered code is incorrect."
 msgstr "Dein eingegebener Code ist falsch."
 
 #: modules/really-simple-captcha.php:235
+#, gp-priority: normal
 msgid "The code that sender entered does not match the CAPTCHA"
 msgstr "Der eingegebene Code stimmt nicht mit dem angezeigten Captcha-Code überein"
 
@@ -1313,6 +1608,7 @@ msgstr "Der eingegebene Code stimmt nicht mit dem angezeigten Captcha-Code über
 #: modules/file.php:177 modules/number.php:237 modules/quiz.php:268
 #: modules/really-simple-captcha.php:335 modules/select.php:228
 #: modules/submit.php:88 modules/text.php:324 modules/textarea.php:201
+#, gp-priority: normal
 msgid "Insert Tag"
 msgstr "Tag einfügen"
 
@@ -1321,6 +1617,7 @@ msgstr "Tag einfügen"
 #: modules/really-simple-captcha.php:308 modules/really-simple-captcha.php:323
 #: modules/select.php:215 modules/submit.php:75 modules/text.php:311
 #: modules/textarea.php:188
+#, gp-priority: normal
 msgid "Class attribute"
 msgstr "Klassen-Attribut"
 
@@ -1329,12 +1626,14 @@ msgstr "Klassen-Attribut"
 #: modules/really-simple-captcha.php:303 modules/really-simple-captcha.php:318
 #: modules/select.php:210 modules/submit.php:70 modules/text.php:306
 #: modules/textarea.php:183
+#, gp-priority: normal
 msgid "Id attribute"
 msgstr "ID-Attribut"
 
 #: modules/acceptance.php:271 modules/acceptance.php:274
 #: modules/checkbox.php:262 modules/checkbox.php:265 modules/select.php:197
 #: modules/select.php:200
+#, gp-priority: normal
 msgid "Options"
 msgstr "Optionen"
 
@@ -1342,334 +1641,415 @@ msgstr "Optionen"
 #: modules/file.php:144 modules/number.php:191 modules/quiz.php:234
 #: modules/really-simple-captcha.php:293 modules/select.php:192
 #: modules/text.php:266 modules/textarea.php:172
+#, gp-priority: normal
 msgid "Name"
 msgstr "Name"
 
 #: modules/acceptance.php:251
+#, gp-priority: normal
 msgid "Acceptance checkbox"
 msgstr "Zustimmungs-Checkbox"
 
 #: modules/acceptance.php:251
+#, gp-priority: normal
 msgid "https://contactform7.com/acceptance-checkbox/"
 msgstr "https://contactform7.com/acceptance-checkbox/"
 
 #: modules/acceptance.php:249
+#, gp-priority: normal
 msgid "Generate a form-tag for an acceptance checkbox. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für eine Zustimmungs-Checkbox generiert. Weitere Informationen unter %s (engl.)."
 
 #: modules/acceptance.php:241
+#, gp-priority: normal
 msgid "acceptance"
 msgstr "Zustimmung"
 
 #: includes/contact-form.php:221
+#, gp-priority: normal
 msgid "<code>%1$s</code> property of a <code>WPCF7_ContactForm</code> object is <strong>no longer accessible</strong>. Use <code>%2$s</code> method instead."
 msgstr "<code>%1$s</code> Eigenschaft eines <code>WPCF7_ContactForm</code> Objekts ist <strong>nicht mehr zugänglich</strong>. Verwende <code>%2$s</code> Methode stattdessen."
 
 #: includes/contact-form.php:110 includes/contact-form.php:428
+#, gp-priority: normal
 msgid "Untitled"
 msgstr "Ohne Titel"
 
 #: includes/contact-form.php:48
+#, gp-priority: normal
 msgid "Contact Form"
 msgstr "Kontaktformular"
 
 #: includes/contact-form-template.php:211
+#, gp-priority: normal
 msgid "There is a field with input that is shorter than the minimum allowed length"
 msgstr "Es gibt ein Feld, bei dem die Eingabe die Mindestlänge unterschreitet"
 
 #: includes/contact-form-template.php:204
+#, gp-priority: normal
 msgid "There is a field with input that is longer than the maximum allowed length"
 msgstr "Es gibt ein Feld mit einer Eingabe, die länger als die maximal zulässige Länge ist"
 
 #: includes/contact-form-template.php:197
+#, gp-priority: normal
 msgid "There is a field that the sender must fill in"
 msgstr "Es gibt ein Feld, das der Absender ausfüllen muss"
 
 #: includes/contact-form-template.php:190
+#, gp-priority: normal
 msgid "There are terms that the sender must accept"
 msgstr "Es gibt Bedingungen, die der Absender akzeptieren muss"
 
 #: includes/contact-form-template.php:183
+#, gp-priority: normal
 msgid "Submission was referred to as spam"
 msgstr "Eingabe wurde als Spam erkannt"
 
 #: includes/contact-form-template.php:176
+#, gp-priority: normal
 msgid "Validation errors occurred"
 msgstr "Fehler beim Ausfüllen des Formulars"
 
 #: includes/contact-form-template.php:169
+#, gp-priority: normal
 msgid "Sender's message failed to send"
 msgstr "Die Nachricht des Absenders konnte nicht gesendet werden"
 
 #: includes/contact-form-template.php:162
+#, gp-priority: normal
 msgid "Sender's message was sent successfully"
 msgstr "Die Nachricht des Absenders wurde erfolgreich gesendet"
 
 #. translators: 1: blog name, 2: blog URL
 #: includes/contact-form-template.php:77 includes/contact-form-template.php:111
+#, gp-priority: normal
 msgid "This e-mail was sent from a contact form on %1$s (%2$s)"
 msgstr "Diese E-Mail wurde von einem Kontaktformular von %1$s (%2$s) gesendet"
 
 #: includes/contact-form-template.php:72 includes/contact-form-template.php:106
+#, gp-priority: normal
 msgid "Message Body:"
 msgstr "Nachrichtentext:"
 
 #. translators: %s: [your-subject]
 #: includes/contact-form-template.php:69
+#, gp-priority: normal
 msgid "Subject: %s"
 msgstr "Betreff: %s"
 
 #. translators: %s: [your-name] <[your-email]>
 #: includes/contact-form-template.php:64
+#, gp-priority: normal
 msgid "From: %s"
 msgstr "Von: %s"
 
 #: modules/submit.php:26
+#, gp-priority: normal
 msgid "Send"
 msgstr "Senden"
 
 #: includes/contact-form-template.php:41
+#, gp-priority: normal
 msgid "Your message"
 msgstr "Deine Nachricht"
 
 #: includes/contact-form-template.php:39
+#, gp-priority: normal
 msgid "Your email"
 msgstr "Deine E-Mail-Adresse"
 
 #: includes/contact-form-template.php:38
+#, gp-priority: normal
 msgid "Your name"
 msgstr "Dein Name"
 
 #. translators: %s: title of form-tag like 'email' or 'checkboxes'
 #: admin/includes/tag-generator.php:46
+#, gp-priority: normal
 msgid "Form-tag Generator: %s"
 msgstr "Formular-Tag Generator: %s"
 
 #: admin/includes/help-tabs.php:91
+#, gp-priority: normal
 msgid "For more information:"
 msgstr "Für weitere Informationen:"
 
 #: admin/includes/help-tabs.php:83
+#, gp-priority: normal
 msgid "Any information you provide will not be shared with service providers without your authorization."
 msgstr "Die von dir bereitgestellten Informationen werden ohne deine Zustimmung nicht an Dienstleister weitergegeben."
 
 #: admin/includes/help-tabs.php:82
+#, gp-priority: normal
 msgid "You may need to first sign up for an account with the service that you plan to use. When you do so, you would need to authorize Contact Form 7 to access the service with your account."
 msgstr "Möglicherweise musst du dich zunächst mit einem Konto bei dem Dienst registrieren, den du nutzen möchtest. Wenn due dies tust, musst du Contact Form 7 autorisieren, um mit deinem Konto auf den Dienst zugreifen zu können."
 
 #: admin/includes/help-tabs.php:81
+#, gp-priority: normal
 msgid "On this screen, you can manage services that are available through Contact Form 7. Using API will allow you to collaborate with any services that are available."
 msgstr "In dieser Ansicht kannst du Dienste verwalten, die über Contact Form 7 zur Verfügung stehen. Die Verwendung der API ermöglicht dir, jeden Dienst zu nutzen, der zur Verfügung steht."
 
 #: admin/includes/help-tabs.php:79
+#, gp-priority: normal
 msgid "There are also special mail-tags that have specific names, but don&#8217;t have corresponding form-tags. They are used to represent meta information of form submissions like the submitter&#8217;s IP address or the URL of the page."
 msgstr "Es gibt auch spezielle E-Mail-Tags, die bestimmte Namen, aber keine zugehörigen Formular-Tags haben. Sie werden verwendet, um Meta-Informationen von Formularen wie IP-Adresse des Absenders oder die URL der Seite darzustellen."
 
 #: admin/includes/help-tabs.php:78
+#, gp-priority: normal
 msgid "A mail-tag is also a short code enclosed in square brackets that you can use in every Mail and Mail (2) field. A mail-tag represents a user input value through an input field of a corresponding form-tag."
 msgstr "Ein E-Mail-Tag ist auch ein Shortcode in eckigen Klammern, den du in jeder E-Mail und E-Mail (2) verwenden kannst. Ein Mail-Tag entspricht einem Benutzer-Eingabewert über ein Eingabefeld eines zugehörigen Formular-Tags."
 
 #: admin/includes/help-tabs.php:76
+#, gp-priority: normal
 msgid "While form-tags have a comparatively complex syntax, you don&#8217;t need to know the syntax to add form-tags because you can use the straightforward tag generator (<strong>Generate Tag</strong> button on this screen)."
 msgstr "Weil Formular-Tags eine vergleichsweise komplexe Syntax haben, brauchst du die Syntax zum Hinzufügen von Formular-Tags nicht zu kennen, da du einfach den jeweiligen Tag-Generator <strong>Button</strong> auf diesem Bildschirm verwenden kannst."
 
 #: admin/includes/help-tabs.php:75
+#, gp-priority: normal
 msgid "A form-tag is a short code enclosed in square brackets used in a form content. A form-tag generally represents an input field, and its components can be separated into four parts: type, name, options, and values. Contact Form 7 supports several types of form-tags including text fields, number fields, date fields, checkboxes, radio buttons, menus, file-uploading fields, CAPTCHAs, and quiz fields."
 msgstr "Ein Formular-Tag ist ein Shortcode in eckigen Klammern, den du in Formularen verwenden kannst. Ein Formular-Tag ist in der Regel ein Eingabefeld und seine Komponenten werden in vier Teile getrennt: Typ, Name, Optionen und Werte. Contact Form 7 unterstützt mehrere Arten von Formular-Tags, einschließlich Textfelder, Zahlenfelder, Datumsfelder, Checkboxen, Radio-Buttons, Menüs, Felder zum Hochladen von Dateien, CAPTCHAs und Quiz-Felder."
 
 #: admin/includes/help-tabs.php:73
+#, gp-priority: normal
 msgid "<strong>Additional Settings</strong> provides a place where you can customize the behavior of this contact form by adding code snippets."
 msgstr "<strong>Zusätzliche Einstellungen</strong> - Bietet eine Möglichkeit, um das Verhalten des Kontaktformulars zu ändern, indem du Code-Schnipsel hinzufügst."
 
 #: admin/includes/help-tabs.php:72
+#, gp-priority: normal
 msgid "In <strong>Messages</strong>, you can edit various types of messages used for this contact form. These messages are relatively short messages, like a validation error message you see when you leave a required field blank."
 msgstr "Unter <strong>Meldungen</strong> kannst du verschiedene Arten von Mitteilungen bearbeiten, die für das Kontaktformular verwendet werden. Diese Meldungen sind vergleichsweise kurze Meldungen, wie beispielsweise ein Hinweis auf einen Validierungsfehler, der angezeigt wird, wenn du ein Pflichtfeld frei lässt."
 
 #: admin/includes/help-tabs.php:71
+#, gp-priority: normal
 msgid "<strong>Mail (2)</strong> is an additional mail template that works similar to Mail. Mail (2) is different in that it is sent only when Mail has been sent successfully."
 msgstr "<strong>E-Mail (2)</strong> - Ist eine zusätzliche E-Mail-Vorlage, die ähnlich wie E-Mail funktioniert. Der Unterschied ist, dass E-Mail (2) nur bei Erfolg von E-Mail versendet wird."
 
 #: admin/includes/help-tabs.php:70
+#, gp-priority: normal
 msgid "<strong>Mail</strong> manages a mail template (headers and message body) that this contact form will send when users submit it. You can use Contact Form 7&#8217;s mail-tags here."
 msgstr "<strong>E-Mail</strong> - Verwaltet eine E-Mail-Vorlage (Kopfzeilen und Nachrichtentext), die dieses Kontaktformular versendet, wenn Benutzer es abschicken. Du kannst hier E-Mail-Tags von Contact Form 7 verwenden."
 
 #: admin/includes/help-tabs.php:69
+#, gp-priority: normal
 msgid "<strong>Form</strong> is a content of HTML form. You can use arbitrary HTML, which is allowed inside a form element. You can also use Contact Form 7&#8217;s form-tags here."
 msgstr "<strong>Formular</strong> - Ist der Inhalt eines HTML-Formulars. Du kannst beliebiges HTML, das in einem Formularelement erlaubt ist, verwenden. Du kannst hier auch Formular-Tags von Contact Form 7 verwenden."
 
 #: admin/includes/help-tabs.php:68
+#, gp-priority: normal
 msgid "<strong>Title</strong> is the title of a contact form. This title is only used for labeling a contact form, and can be edited."
 msgstr "<strong>Titel</strong> - Ist der Titel eines Kontaktformulars. Dieser Titel ist nur für die Bezeichnung eines Formulars und kann bearbeitet bzw. geändert werden."
 
 #: admin/includes/help-tabs.php:67
+#, gp-priority: normal
 msgid "On this screen, you can edit a contact form. A contact form is comprised of the following components:"
 msgstr "In dieser Ansicht kannst du ein Kontaktformular bearbeiten. Ein Formular setzt sich aus folgenden Komponenten zusammen:"
 
 #: admin/includes/help-tabs.php:65
+#, gp-priority: normal
 msgid "<strong>Duplicate</strong> - Clones that contact form. A cloned contact form inherits all content from the original, but has a different ID."
 msgstr "<strong>Kopieren</strong> - Kopiert das Kontaktformular. Ein kopiertes Formular erbt alle Inhalte, besitzt aber eine andere ID."
 
 #: admin/includes/help-tabs.php:64
+#, gp-priority: normal
 msgid "<strong>Edit</strong> - Navigates to the editing screen for that contact form. You can also reach that screen by clicking on the contact form title."
 msgstr "<strong>Bearbeiten</strong> - Wechselt in den Bearbeitungs-Modus des Kontaktformulars. Du erhältst diese Ansicht auch durch Anklicken des Formular-Titels."
 
 #: admin/includes/help-tabs.php:63
+#, gp-priority: normal
 msgid "Hovering over a row in the contact forms list will display action links that allow you to manage your contact form. You can perform the following actions:"
 msgstr "Durch Bewegen des Mauszeigers über eine Zeile in den Kontaktformularen werden Aktions-Links angezeigt, die dir ermöglichen, dein Formular zu verwalten. Du kannst folgende Aktionen durchführen:"
 
 #: admin/includes/help-tabs.php:61
+#, gp-priority: normal
 msgid "On this screen, you can manage contact forms provided by Contact Form 7. You can manage an unlimited number of contact forms. Each contact form has a unique ID and Contact Form 7 shortcode ([contact-form-7 ...]). To insert a contact form into a post or a text widget, insert the shortcode into the target."
 msgstr "In dieser Ansicht kannst du Kontaktformulare von Contact Form 7 verwalten. Du kannst eine unbegrenzte Anzahl von Kontaktformularen verwalten. Jedes Formular hat eine eindeutige ID und einen Shortcode von Contact Form 7 ([contact-form-7 ...]). Um ein Kontaktformular in einen Beitrag oder ein Text-Widget einzufügen, kopiere den Shortcode in das jeweilige Ziel (Seite, Beitrag, usw.)."
 
 #: admin/includes/help-tabs.php:40
+#, gp-priority: normal
 msgid "Mail-tags"
 msgstr "E-Mail-Tags"
 
 #: admin/includes/help-tabs.php:35
+#, gp-priority: normal
 msgid "Form-tags"
 msgstr "Formular-Tags"
 
 #: admin/includes/help-tabs.php:21
+#, gp-priority: normal
 msgid "Available Actions"
 msgstr "Verfügbare Aktionen"
 
 #: admin/includes/help-tabs.php:16 admin/includes/help-tabs.php:30
 #: admin/includes/help-tabs.php:49
+#, gp-priority: normal
 msgid "Overview"
 msgstr "Übersicht"
 
 #: admin/includes/editor.php:248
+#, gp-priority: normal
 msgid "You can add customization code snippets here. For details, see %s."
 msgstr "Hier kannst du eigene Code-Schnipsel hinzufügen. Weitere Details unter %s (engl.)."
 
 #: admin/includes/editor.php:246
+#, gp-priority: normal
 msgid "https://contactform7.com/additional-settings/"
 msgstr "https://contactform7.com/additional-settings/"
 
 #: admin/includes/editor.php:194
+#, gp-priority: normal
 msgid "File attachments"
 msgstr "Dateianhänge"
 
 #: admin/includes/editor.php:188
+#, gp-priority: normal
 msgid "Use HTML content type"
 msgstr "HTML-Content-Typ verwenden"
 
 #: admin/includes/editor.php:186
+#, gp-priority: normal
 msgid "Exclude lines with blank mail-tags from output"
 msgstr "Zeilen mit leeren E-Mail-Tags von Ausgabe ausschließen"
 
 #: admin/includes/editor.php:181
+#, gp-priority: normal
 msgid "Message body"
 msgstr "Nachrichtentext"
 
 #: admin/includes/editor.php:172
+#, gp-priority: normal
 msgid "Additional headers"
 msgstr "Zusätzliche Kopfzeilen"
 
 #: admin/includes/editor.php:163 includes/contact-form-template.php:40
+#, gp-priority: normal
 msgid "Subject"
 msgstr "Betreff"
 
 #: admin/includes/editor.php:154
+#, gp-priority: normal
 msgid "From"
 msgstr "Von"
 
 #: admin/includes/editor.php:145
+#, gp-priority: normal
 msgid "To"
 msgstr "An"
 
 #: admin/includes/editor.php:135
+#, gp-priority: normal
 msgid "In the following fields, you can use these mail-tags:"
 msgstr "In den folgenden Feldern kannst du diese E-Mail-Tags verwenden:"
 
 #: admin/includes/editor.php:119
+#, gp-priority: normal
 msgid "Mail (2) is an additional mail template often used as an autoresponder."
 msgstr "E-Mail (2) ist ein zusätzliche E-Mail-Vorlage, die häufig als Autoresponder verwendet wird."
 
 #: admin/includes/editor.php:85
+#, gp-priority: normal
 msgid "Use Mail (2)"
 msgstr "E-Mail (2) verwenden"
 
 #: admin/includes/editor.php:84
+#, gp-priority: normal
 msgid "Mail (2)"
 msgstr "E-Mail (2)"
 
 #. translators: date format, see https://www.php.net/date
 #: admin/includes/class-contact-forms-list-table.php:236
+#, gp-priority: normal
 msgid "Y/m/d"
 msgstr "d.m.Y"
 
 #. translators: %s: title of contact form
 #: admin/includes/class-contact-forms-list-table.php:122
+#, gp-priority: normal
 msgid "Edit &#8220;%s&#8221;"
 msgstr "Bearbeite &#8222;%s&#8220;"
 
 #: admin/includes/class-contact-forms-list-table.php:169
+#, gp-priority: normal
 msgid "Edit"
 msgstr "Bearbeiten"
 
 #: admin/includes/class-contact-forms-list-table.php:15
+#, gp-priority: normal
 msgid "Date"
 msgstr "Datum"
 
 #: admin/includes/class-contact-forms-list-table.php:14
+#, gp-priority: normal
 msgid "Author"
 msgstr "Autor"
 
 #: admin/includes/class-contact-forms-list-table.php:13
+#, gp-priority: normal
 msgid "Shortcode"
 msgstr "Shortcode"
 
 #: admin/includes/class-contact-forms-list-table.php:12
+#, gp-priority: normal
 msgid "Title"
 msgstr "Titel"
 
 #: admin/edit-contact-form.php:267 admin/includes/editor.php:252
+#, gp-priority: normal
 msgid "Additional Settings"
 msgstr "Zusätzliche Einstellungen"
 
 #. translators: %d: number of additional settings
 #: admin/edit-contact-form.php:265
+#, gp-priority: normal
 msgid "Additional Settings (%d)"
 msgstr "Zusätzliche Einstellungen (%d)"
 
 #: admin/edit-contact-form.php:245 admin/includes/editor.php:222
+#, gp-priority: normal
 msgid "Messages"
 msgstr "Meldungen"
 
 #: admin/edit-contact-form.php:241 admin/includes/editor.php:93
+#, gp-priority: normal
 msgid "Mail"
 msgstr "E-Mail"
 
 #: admin/edit-contact-form.php:237 admin/includes/editor.php:61
+#, gp-priority: normal
 msgid "Form"
 msgstr "Formular"
 
 #: admin/includes/help-tabs.php:94
+#, gp-priority: normal
 msgid "Support"
 msgstr "Support"
 
 #: admin/includes/help-tabs.php:94
+#, gp-priority: normal
 msgid "https://contactform7.com/support/"
 msgstr "https://contactform7.com/support/"
 
 #: admin/edit-contact-form.php:193 admin/includes/help-tabs.php:93
+#, gp-priority: normal
 msgid "FAQ"
 msgstr "Häufig gestellte Fragen"
 
 #: admin/edit-contact-form.php:192 admin/includes/help-tabs.php:93
+#, gp-priority: normal
 msgid "https://contactform7.com/faq/"
 msgstr "https://contactform7.com/faq/"
 
 #: admin/includes/help-tabs.php:92
+#, gp-priority: normal
 msgid "Docs"
 msgstr "Dokumente"
 
 #: admin/edit-contact-form.php:196 admin/includes/help-tabs.php:92
+#, gp-priority: normal
 msgid "https://contactform7.com/docs/"
 msgstr "https://contactform7.com/docs/"
 
 #: admin/edit-contact-form.php:168
+#, gp-priority: normal
 msgid ""
 "You are about to delete this contact form.\n"
 "  'Cancel' to stop, 'OK' to delete."
@@ -1679,137 +2059,170 @@ msgstr ""
 
 #: admin/edit-contact-form.php:168
 #: admin/includes/class-contact-forms-list-table.php:90
+#, gp-priority: normal
 msgid "Delete"
 msgstr "Löschen"
 
 #: admin/edit-contact-form.php:153
 #: admin/includes/class-contact-forms-list-table.php:187
+#, gp-priority: normal
 msgid "Duplicate"
 msgstr "Kopieren"
 
 #: admin/edit-contact-form.php:139
+#, gp-priority: normal
 msgid "Status"
 msgstr "Status"
 
 #: admin/edit-contact-form.php:125
+#, gp-priority: normal
 msgid "You can also use this old-style shortcode:"
 msgstr "Du kannst auch diesen Shortcode im alten Stil verwenden:"
 
 #: admin/edit-contact-form.php:118
+#, gp-priority: normal
 msgid "Copy this shortcode and paste it into your post, page, or text widget content:"
 msgstr "Kopiere diesen Shortcode und füge ihn in den Inhalt einer Seite, eines Beitrags oder eines Text-Widgets ein:"
 
 #: admin/edit-contact-form.php:95
+#, gp-priority: normal
 msgid "Enter title here"
 msgstr "Titel hier eingeben"
 
 #: admin/edit-contact-form.php:26 admin/edit-contact-form.php:146
+#, gp-priority: normal
 msgid "Save"
 msgstr "Speichern"
 
 #: admin/admin.php:673
+#, gp-priority: normal
 msgid "You are not allowed to edit this contact form."
 msgstr "Du bist nicht berechtigt, dieses Kontaktformular zu bearbeiten."
 
 #: admin/includes/welcome-panel.php:125
+#, gp-priority: normal
 msgid "https://contactform7.com/save-submitted-messages-with-flamingo/"
 msgstr "https://contactform7.com/save-submitted-messages-with-flamingo/"
 
 #: admin/includes/welcome-panel.php:60
+#, gp-priority: normal
 msgid "https://contactform7.com/spam-filtering-with-akismet/"
 msgstr "https://contactform7.com/spam-filtering-with-akismet/"
 
 #: admin/includes/editor.php:129
+#, gp-priority: normal
 msgid "Setting up mail"
 msgstr "Einrichten der E-Mail"
 
 #: admin/includes/editor.php:128
+#, gp-priority: normal
 msgid "https://contactform7.com/setting-up-mail/"
 msgstr "https://contactform7.com/setting-up-mail/"
 
 #: admin/includes/welcome-panel.php:96
+#, gp-priority: normal
 msgid "https://contactform7.com/donate/"
 msgstr "https://contactform7.com/donate/"
 
 #: admin/includes/welcome-panel.php:85
+#, gp-priority: normal
 msgid "Contact Form 7 needs your support."
 msgstr "Contact Form 7 braucht deine Unterstützung."
 
 #: admin/includes/welcome-panel.php:216
+#, gp-priority: normal
 msgid "Dismiss"
 msgstr "Ausblenden"
 
 #. translators: 1: version of Contact Form 7, 2: version of WordPress, 3: URL
 #: admin/admin.php:649
+#, gp-priority: normal
 msgid "<strong>Contact Form 7 %1$s requires WordPress %2$s or higher.</strong> Please <a href=\"%3$s\">update WordPress</a> first."
 msgstr "<strong>Contact Form 7 %1$s erfordert WordPress %2$s oder höher.</strong> Bitte <a href=\"%3$s\">aktualisiere WordPress</a> zuerst."
 
 #: admin/admin.php:626
+#, gp-priority: normal
 msgid "Settings"
 msgstr "Einstellungen"
 
 #: admin/admin.php:555
+#, gp-priority: normal
 msgid "Contact form deleted."
 msgstr "Kontaktformular gelöscht."
 
 #: admin/admin.php:553
+#, gp-priority: normal
 msgid "Contact form saved."
 msgstr "Kontaktformular gespeichert."
 
 #: admin/admin.php:551
+#, gp-priority: normal
 msgid "Contact form created."
 msgstr "Kontaktformular erstellt."
 
 #: admin/admin.php:448
+#, gp-priority: normal
 msgid "Search Contact Forms"
 msgstr "Formulare durchsuchen"
 
 #. translators: %s: search keywords
 #: admin/admin.php:425
+#, gp-priority: normal
 msgid "Search results for &#8220;%s&#8221;"
 msgstr "Suchergebnisse für &#8222;%s&#8220;"
 
 #: admin/admin.php:144
+#, gp-priority: normal
 msgid "The changes you made will be lost if you navigate away from this page."
 msgstr "Deine vorgenommenen Änderungen gehen verloren, wenn du diese Seite verlässt."
 
 #: admin/admin.php:330
+#, gp-priority: normal
 msgid "Error in deleting."
 msgstr "Fehler beim Löschen."
 
 #: admin/admin.php:325
+#, gp-priority: normal
 msgid "You are not allowed to delete this item."
 msgstr "Du bist nicht berechtigt, dieses Formular zu löschen."
 
 #: admin/admin.php:217 admin/admin.php:281
+#, gp-priority: normal
 msgid "You are not allowed to edit this item."
 msgstr "Du bist nicht berechtigt, dieses Formular zu bearbeiten."
 
 #: admin/admin.php:66
+#, gp-priority: normal
 msgid "Integration"
 msgstr "Integration"
 
 #: admin/admin.php:52 admin/admin.php:416 admin/edit-contact-form.php:47
+#, gp-priority: normal
 msgid "Add New"
 msgstr "Neu hinzufügen"
 
 #: admin/admin.php:51 admin/edit-contact-form.php:36
+#, gp-priority: normal
 msgid "Add New Contact Form"
 msgstr "Neues Kontaktformular hinzufügen"
 
 #: admin/admin.php:41 admin/admin.php:409 includes/contact-form.php:47
+#, gp-priority: normal
 msgid "Contact Forms"
 msgstr "Kontaktformulare"
 
 #: admin/admin.php:40 admin/edit-contact-form.php:38
+#, gp-priority: normal
 msgid "Edit Contact Form"
 msgstr "Kontaktformular bearbeiten"
 
 #: admin/admin.php:30
+#, gp-priority: normal
 msgid "Contact"
 msgstr "Formulare"
 
 #. Plugin Name of the plugin
 #: admin/admin.php:29 modules/flamingo.php:208 includes/block-editor/index.js:1
+#, gp-priority: normal
 msgid "Contact Form 7"
 msgstr "Contact Form 7"
