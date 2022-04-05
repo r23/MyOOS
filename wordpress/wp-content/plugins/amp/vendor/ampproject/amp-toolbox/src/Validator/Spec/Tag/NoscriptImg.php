@@ -11,7 +11,6 @@ use AmpProject\Extension;
 use AmpProject\Format;
 use AmpProject\Html\Attribute;
 use AmpProject\Html\Tag as Element;
-use AmpProject\Protocol;
 use AmpProject\Validator\Spec\AttributeList;
 use AmpProject\Validator\Spec\Identifiable;
 use AmpProject\Validator\Spec\SpecRule;
@@ -50,34 +49,19 @@ final class NoscriptImg extends Tag implements Identifiable
         SpecRule::TAG_NAME => Element::IMG,
         SpecRule::SPEC_NAME => 'noscript > img',
         SpecRule::ATTRS => [
-            Attribute::ALT => [],
             Attribute::ATTRIBUTION => [],
-            Attribute::BORDER => [],
             Attribute::DECODING => [
-                SpecRule::VALUE => [
+                SpecRule::VALUE_CASEI => [
                     'async',
                     'auto',
                     'sync',
                 ],
             ],
-            Attribute::HEIGHT => [],
-            Attribute::IMPORTANCE => [],
-            Attribute::ISMAP => [],
             Attribute::INTRINSICSIZE => [],
-            Attribute::LOADING => [],
-            Attribute::LONGDESC => [
-                SpecRule::DISALLOWED_VALUE_REGEX => '__amp_source_origin',
-                SpecRule::VALUE_URL => [
-                    SpecRule::PROTOCOL => [
-                        Protocol::HTTP,
-                        Protocol::HTTPS,
-                    ],
-                ],
-            ],
             Attribute::SIZES => [],
-            Attribute::WIDTH => [],
         ],
         SpecRule::ATTR_LISTS => [
+            AttributeList\ImgAttrs::ID,
             AttributeList\MandatorySrcOrSrcset::ID,
         ],
         SpecRule::SPEC_URL => 'https://amp.dev/documentation/components/amp-img/',

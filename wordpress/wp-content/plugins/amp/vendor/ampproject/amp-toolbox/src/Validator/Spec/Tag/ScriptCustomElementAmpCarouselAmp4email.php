@@ -44,6 +44,7 @@ final class ScriptCustomElementAmpCarouselAmp4email extends TagWithExtensionSpec
         SpecRule::NAME => 'amp-carousel',
         SpecRule::VERSION => [
             '0.1',
+            '0.2',
         ],
     ];
 
@@ -61,6 +62,10 @@ final class ScriptCustomElementAmpCarouselAmp4email extends TagWithExtensionSpec
      */
     const VERSIONS_META = [
         '0.1' => [
+            'hasCss' => true,
+            'hasBento' => false,
+        ],
+        '0.2' => [
             'hasCss' => true,
             'hasBento' => false,
         ],

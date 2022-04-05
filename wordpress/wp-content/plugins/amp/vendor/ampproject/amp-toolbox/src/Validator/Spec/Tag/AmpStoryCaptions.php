@@ -51,6 +51,7 @@ final class AmpStoryCaptions extends Tag implements Identifiable
         SpecRule::SPEC_URL => 'https://amp.dev/documentation/components/amp-story-captions',
         SpecRule::AMP_LAYOUT => [
             SpecRule::SUPPORTED_LAYOUTS => [
+                Layout::CONTAINER,
                 Layout::FILL,
                 Layout::FIXED,
                 Layout::FIXED_HEIGHT,
