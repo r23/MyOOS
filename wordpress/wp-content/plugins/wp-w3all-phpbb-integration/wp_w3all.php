@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.6.1
+Version: 2.6.2
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -34,7 +34,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.6.1' );
+define( 'WPW3ALL_VERSION', '2.6.2' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -1510,10 +1510,11 @@ endif;
    if( W3PHPBBCONFIG['load_online_time'] > 0 )
    {
     $losTime = time()-(W3PHPBBCONFIG['load_online_time']*60);
-    $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_time, U.user_id, U.username, U.user_email
+    $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_time, S.session_ip, U.user_id, U.username, U.user_email
      FROM ".$w3all_config["table_prefix"]."sessions AS S
      JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = S.session_user_id
      WHERE S.session_time > $losTime
+     GROUP BY S.session_ip
      ORDER BY U.username",ARRAY_A);
    }
 

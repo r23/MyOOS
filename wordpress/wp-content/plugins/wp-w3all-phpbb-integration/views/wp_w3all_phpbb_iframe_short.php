@@ -47,22 +47,31 @@ $w3all_url_to_cms0 = $w3all_url_to_cms;
 
 if( isset($_GET["w3"]) ){ // default
  $phpbb_url = trim(base64_decode($_GET["w3"]));
- $w3all_url_to_cms = $w3all_url_to_cms . '/' . $phpbb_url;
+ $w3all_url_to_cms_sw = $w3all_url_to_cms . '/' . $phpbb_url;
    if( preg_match('/[^-0-9A-Za-z\._#\:\?\/=&%]/ui',$phpbb_url) ){
-    $w3all_url_to_cms = $w3all_url_to_cms0;
+    $w3all_url_to_cms_sw = $w3all_url_to_cms0;
    }
 } elseif ( isset($_GET[$w3all_iframe_custom_w3fancyurl]) ){ //fancy
- $phpbb_url = trim(base64_decode($_GET[$w3all_iframe_custom_w3fancyurl]));
- $w3all_url_to_cms = $w3all_url_to_cms . '/' . $phpbb_url;
+  $phpbb_url = trim(base64_decode($_GET[$w3all_iframe_custom_w3fancyurl]));
+  $w3all_url_to_cms_sw = $w3all_url_to_cms . '/' . $phpbb_url;
    if( preg_match('/[^-0-9A-Za-z\._#\:\?\/=&%]/ui',$phpbb_url) ){
-    $w3all_url_to_cms = $w3all_url_to_cms0;
+    $w3all_url_to_cms_sw = $w3all_url_to_cms0;
    }
 }
 
-// old way to be removed
+// old way - to be removed
 // assure that passed url is correctly all decoded // may something else need to added in certain conditions
-$w3all_url_to_cms = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms);
-$w3all_url_to_cms_switch_phpbb_default_url = (empty($ltm['phpbb_default_url'])) ? $w3all_url_to_cms : $ltm['phpbb_default_url'];
+$w3all_url_to_cms_sw = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms_sw);
+
+// bug -> https://wordpress.org/support/topic/problem-using-iframe-feature-with-https/
+if( strlen($w3all_url_to_cms_sw) == strlen(get_option( 'w3all_url_to_cms' )) OR strlen($w3all_url_to_cms_sw) == strlen(get_option( 'w3all_url_to_cms' )) + 1 )
+{
+  // do not rewrite value of the global $w3all_url_to_cms or index.php will be may appended into widgets avatars urls, so that will make it fail image loads
+ $w3all_url_to_cms_sw = $w3all_url_to_cms;
+ $w3all_url_to_cms_sw .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/index.php');
+} else {  $w3all_url_to_cms_sw = $w3all_url_to_cms; }
+
+$w3all_url_to_cms_switch_phpbb_default_url = (empty($ltm['phpbb_default_url'])) ? $w3all_url_to_cms_sw : $ltm['phpbb_default_url'];
 
 echo'<!-- noscript warning and simple preloader -->
 <div id="w3idwloader" class="w3_wrap_loader">

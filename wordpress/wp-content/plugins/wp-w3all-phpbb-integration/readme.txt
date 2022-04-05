@@ -2,10 +2,10 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, users
-Stable tag: 2.6.1
+Stable tag: 2.6.2
 License: GPLv2 or later
 Requires at least: 5.0.0
-Tested up to: 5.9.2
+Tested up to: 5.9.3
 Requires PHP: 7.0
 
 WordPress w3all phpBB integration - easy, light, secure, powerful
@@ -72,6 +72,14 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.6.2 =
+*Release Date - 4 Apr, 2022*
+
+* Fix: phpBB STATS and online users widget query to get the correct online guests users number
+* Fix: addons/page-forum and /views/wp_w3all_phpbb_iframe_short.php fixed to NOT overwrite the global var $w3all_url_to_cms, leading to wrong widgets/shortcodes avatars links, if avatars option enabled
+* Minor fixes
+* Release Logs: https://www.axew3.com/w3/forums/viewtopic.php?t=1724
 
 = 2.6.1 =
 *Release Date - 26 Mar, 2022*

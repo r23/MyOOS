@@ -44,7 +44,7 @@ if(!empty($w3phpbbuava)){
   // wp_w3all_phpbb_last_topics() on class.wp.w3all.widgets-phpbb.php
   if($w3all_phpbb_widget_FA_mark_yn > 0){ // Font Awesome to notify about read/unread
    $w3all_post_state_ru = (isset($phpbb_unread_topics) && is_array($phpbb_unread_topics) && array_key_exists($value->topic_id, $phpbb_unread_topics)) ? $w3all_post_state_ru = ' &nbsp; <span style="color:#BC2A4D"><i class="fa fa-comment" aria-hidden="true"></i></span>' : '';
-  } else { // No Fontawesome, output just an &star; html entity (or whatever you like) for read/unread
+  } else { // No Fontawesome, output just an &star; html entity for read/unread
    $w3all_post_state_ru = (isset($phpbb_unread_topics) && is_array($phpbb_unread_topics) && array_key_exists($value->topic_id, $phpbb_unread_topics)) ? $w3all_post_state_ru = ' &nbsp; <span style="color:#BC2A4D">&star;</span>' : '';
   }
 

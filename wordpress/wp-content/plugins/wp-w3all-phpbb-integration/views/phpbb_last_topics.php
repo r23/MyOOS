@@ -6,7 +6,7 @@ $gmtoffset = get_option('gmt_offset');
 $timeformat = get_option('time_format');
 
 if(empty($wp_w3all_forum_folder_wp) && $w3all_iframe_phpbb_link_yn == 1){
-  echo 'Notice: the forum\'s page name has not been setup. Do it into the plugin admin page';
+  echo 'Notice: the forum\'s page name has not been set. Do it into the plugin admin page';
 }
 $w3all_avatars_yn = ( $w3all_get_phpbb_avatar_yn == 1 && $w3all_last_t_avatar_yn == 1 ) ? true : false; // avatars or not
 $w3all_lastopics_style_ul = 'list-style:none;margin:0px'; // change into whatever you need
@@ -36,16 +36,15 @@ if ( $countn < $topics_number ){
 
  if($w3all_phpbb_widget_FA_mark_yn > 0){ // Font Awesome to notify about read/unread
   $w3all_post_state_ru = (isset($phpbb_unread_topics) && is_array($phpbb_unread_topics) && array_key_exists($value->topic_id, $phpbb_unread_topics)) ? $w3all_post_state_ru = ' &nbsp; <span style="color:#BC2A4D"><i class="fa fa-comment" aria-hidden="true"></i></span>' : '';
- } else { // No Fontawesome, output just an &star; html entity (or whatever you like) for read/unread
+ } else { // No Fontawesome, output &star; html entity for read/unread
   $w3all_post_state_ru = (isset($phpbb_unread_topics) && is_array($phpbb_unread_topics) && array_key_exists($value->topic_id, $phpbb_unread_topics)) ? $w3all_post_state_ru = ' &nbsp; <span style="color:#BC2A4D">&star;</span>' : '';
  }
 
-  if ( $w3all_avatars_yn ){
-
-   if( $value->user_id == 2 ){ // switch if install admins (uid 1 WP - uid 2 phpBB) have different usernames
+  if ( $w3all_avatars_yn )
+  {
+   if( $value->user_id == 2 ){ // switch if install admins (uid 1 WP - uid 2 phpBB) 
      $wpu = get_user_by('ID', 1);
     } else {
-         //$wpu = get_user_by('login', $value->topic_last_poster_name);
          $wpu = get_user_by('email', $value->user_email);
         }
 
@@ -81,7 +80,6 @@ if ( $countn < $topics_number ){
              echo "<li class=\"".$w3all_lastopics_style_li_class."\"><table style=\"border-spacing:0;border-collapse:collapse;vertical-align:middle;margin:0;border:0;\"><tr><td style=\"border:0;width:".$w3all_last_t_avatar_dim."px;\">".$w3all_avatar_display."</td><td style=\"border:0;width:auto\"><a href=\"$w3all_url_to_cms/viewtopic.php?f=$value->forum_id&amp;t=$value->topic_id&amp;p=$value->post_id#p$value->post_id\">$value->topic_title</a> ".$w3all_post_state_ru."<br />$value->post_text ...<br />". __( 'by ' , 'wp-w3all-phpbb-integration' )." $value->topic_last_poster_name<br />" . date_i18n( $dateformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ." ". date_i18n( $timeformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ."</td></tr></table></li>\n";
 
             } else {
-
                      echo "<li class=\"".$w3all_lastopics_style_li_class."\"><a href=\"$w3all_url_to_cms/viewtopic.php?f=$value->forum_id&amp;t=$value->topic_id&amp;p=$value->post_id#p$value->post_id\">$value->topic_title</a>  ".$w3all_post_state_ru."<br />$value->post_text ...<br />". __( 'by ' , 'wp-w3all-phpbb-integration' )." $value->topic_last_poster_name<br />" . date_i18n( $dateformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ." ". date_i18n( $timeformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ."</li>\n";
                   }
          }

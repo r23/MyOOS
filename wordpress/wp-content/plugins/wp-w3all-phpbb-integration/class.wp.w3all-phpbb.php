@@ -257,7 +257,7 @@ private static function verify_phpbb_credentials(){
     }
 
   // If it is a multisite, then Usernames can only contain lowercase letters (a-z) and numbers.
-  // Avoid any going on and setup as not linked this user (or get a loop)
+  // Setup as not linked this user (or get a loop)
 
     //if( is_multisite() && !empty($phpbb_user_session) && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$phpbb_user_session[0]->username) ){
     if( is_multisite() && !empty($phpbb_user_session) && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$phpbb_user_session[0]->username) ){
@@ -294,22 +294,22 @@ private static function verify_phpbb_credentials(){
 
  if(isset($phpbb_user_session[0])){
 
-  if( strtolower($current_user->user_email) != strtolower($phpbb_user_session[0]->user_email) )
-  {
-    // if this is an user logged in phpBB, with another username, and the WP user logged in is another
-    // avoid going on that will cause an update to same (other) phpbb user email
-    // reset the wp user, let login with presented phpBB session
-     if(email_exists($phpbb_user_session[0]->user_email)){
-       wp_destroy_current_session();
-       wp_clear_auth_cookie();
-       wp_set_current_user( 0 );
-     }
-  }
-
   // assure that this array will contain the user_id
   $phpbb_user_session[0]->user_id = $phpbb_u;
   // lowercase email
   $phpbb_user_session[0]->user_email = strtolower($phpbb_user_session[0]->user_email);
+
+  if( strtolower($current_user->user_email) != $phpbb_user_session[0]->user_email )
+  {
+    // if this is an user logged in phpBB, with another username/email, and the WP user logged in is another
+    // avoid going on that will cause an update to the same (and of the other) phpbb user email
+    // reset the wp user, let login with presented phpBB session
+     if(email_exists($phpbb_user_session[0]->user_email)){
+       wp_destroy_current_session();
+       wp_clear_auth_cookie();
+       wp_set_current_user(0);
+     }
+  }
 
  // Banned Deactivated trick // +- the same done into w3_check_phpbb_profile_wpnu()
  // Check for ban_id: if not empty then almost a ban by IP or EMAIL or USERNAME exists
@@ -1206,7 +1206,7 @@ public static function phpBB_user_check2( $errors, $sanitized_user_login, $user_
 
 // START functions new way ck
 
-public static function ck_phpbb_user( $user_login = '', $user_email ){
+public static function ck_phpbb_user( $user_login = '', $user_email = '' ){
 
    global $w3all_config,$w3all_phpbb_connection;
 
@@ -2346,7 +2346,7 @@ public static function wp_w3all_get_phpbb_post_short( $atts ) {
        $fsize_display = round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
 
       if (!in_array(strtolower($ppa['extension']), $validImgExt)) { // this is not an image
-       $areplace = '<br /><a style="font-weight:900" href="'.$w3all_url_to_cms.'/download/file.php?id='.$ppa['attach_id'].'">'.$ppa['real_filename'].'</a> <i>('.$fsize_display.')</i><br />';
+       $areplace = '<br /><a style="font-weight:700" href="'.$w3all_url_to_cms.'/download/file.php?id='.$ppa['attach_id'].'">'.$ppa['real_filename'].'</a> <i>('.$fsize_display.')</i><br />';
       } else { // this is an image // maybe some img ext need to be added, because above array $validImgExt only contain "jpg", "jpeg", "gif", "png" so only these are considered to be parsed like an img here
          $areplace = '<br /><img src="'.$w3all_url_to_cms.'/download/file.php?id='.$ppa['attach_id'].'" alt="'.$ppa['real_filename'].'" /><br />'.$ppa['real_filename'].' <i>('.$fsize_display.')</i><br />';
         }
@@ -2361,7 +2361,7 @@ public static function wp_w3all_get_phpbb_post_short( $atts ) {
 // END Grab attachments "placed inline" on post and replace. Inline attachments have been removed from attachments array
 
 // START Grab the code and replace with a placeholder '#w3#bbcode#replace#'
-// so, after the others bbcode tags conversions, and after re-add each, properly wrapped
+// so, after the others bbcode tags conversions, re-add each, properly wrapped
 preg_match_all('~\<s\>\[code\]\</s\>(.*?)\<e\>\[/code\]\</e\>~si', $phpbb_post['post_text'], $cmatches, PREG_SET_ORDER);
 if($cmatches){ // remove and add custom placeholder
 $cc = 0;

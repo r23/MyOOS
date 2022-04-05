@@ -2,28 +2,28 @@
 /*
  Template Name: Forum
  Template Post Type: page
- * The default template to display content for WP_w3all embedded phpBB
+ * The default wp_w3all template to display content for the embedded phpBB
  * @package WordPress
  * @subpackage wp_w3all
  * @V5 JS -> https://www.axew3.com/w3/2018/12/phpbb-wordpress-template-integration-iframe-v5/
  */
 // @2022 axew3.com //
 
-// START MAY DO NOT MODIFY
+// START MAY DO NOT MODIFY 
 
   if(defined("W3PHPBBCONFIG")){
-    // detect if it is the uid2 in phpBB and avoid iframe loop
+    // detect if it is the uid2 in phpBB and avoid iframe loop 
     $phpBBuid2 = (isset($_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u']) && $_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u'] == 2) ? 2 : 0;
    } else { $phpBBuid2 = 0; }
-   // detect if running as not linked users mode and avoid iframe loop
-  if(defined("WPW3ALL_NOT_ULINKED")) { $phpBBuid2 = 2; } // switch to be like it is uid2, so to avoid the reload of the page loop
+   // detect if running as no linked users mode and avoid iframe loop	
+  if(defined("WPW3ALL_NOT_ULINKED")) { $phpBBuid2 = 0; }
 
 global $w3all_iframe_custom_w3fancyurl,$w3all_url_to_cms,$w3all_iframe_custom_top_gap,$w3cookie_domain,$wp_w3all_forum_folder_wp;
 $w3allhomeurl = get_home_url();
 $current_user = wp_get_current_user();
 $w3all_url_to_cms_clean = $w3all_url_to_cms;
 $w3all_url_to_cms_clean0 = strpos($w3all_url_to_cms_clean, 'https://') !== false ? str_replace('https://', 'http://', $w3all_url_to_cms_clean) : str_replace('http://', 'https://', $w3all_url_to_cms_clean);
-// guess to get the domain.com to display into preloader // array order here, is !important
+// guess to get the domain.com to display into preloader // array order here is !important
 if(!empty($w3all_url_to_cms)){
 $w3guessdomaindisplay = str_replace(array("http://www.","https://www.","http://","https://"), array("","","",""), $w3all_url_to_cms);
 $spos = strpos($w3guessdomaindisplay,'/');
@@ -66,12 +66,20 @@ if( isset($_GET["w3"]) ){ // default
 // assure that passed url is correctly all decoded // may something else need to be added in certain conditions
 $w3all_url_to_cms = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "."), $w3all_url_to_cms);
 
+// bug -> https://wordpress.org/support/topic/problem-using-iframe-feature-with-https/
+if( strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) OR strlen($w3all_url_to_cms) == strlen(get_option( 'w3all_url_to_cms' )) + 1 )
+{
+  // do not re-write value of the global $w3all_url_to_cms or index.php will be may appended into widgets avatars urls, so that will make it fail image loads
+ $w3all_url_to_cms_sw = $w3all_url_to_cms;
+ $w3all_url_to_cms_sw .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/index.php');
+} else {  $w3all_url_to_cms_sw = $w3all_url_to_cms; }
+
 function w3all_enqueue_scripts() {
  wp_enqueue_script("jquery");
 }
 
 function wp_w3all_add_ajax() {
-  global $w3all_url_to_cms,$wp_w3all_forum_folder_wp,$w3allhomeurl;
+  global $w3all_url_to_cms,$w3all_url_to_cms_sw,$wp_w3all_forum_folder_wp,$w3allhomeurl;
 
   $w3all_url_to_phpbb_ib = $w3all_url_to_cms . "/ucp.php?i=pm&folder=inbox";
 
@@ -79,9 +87,9 @@ $s = "
 <script type=\"text/javascript\" src=\"".plugins_url()."/wp-w3all-phpbb-integration/addons/resizer/iframeResizer.min.js\"></script>
 <script type=\"text/javascript\">
 // pre loader js code for iframe content
-//jQuery( document ).ready(function() {
- //jQuery('#w3idwloader').attr( \"class\", \"w3_wrap_loader\" );
-//});
+jQuery( document ).ready(function() {
+ jQuery('#w3idwloader').attr( \"class\", \"w3_wrap_loader\" );
+});
 jQuery(window).load(function() {
  jQuery('#w3idwloader').css(\"display\",\"none\");
 });
@@ -109,7 +117,7 @@ function w3allNormalize_phpBBUrl_onParent(href){
 // and if SEO mods that may assign some different kind of links values
 // by the way, SEO absolute urls http(s) should be (all?) already considered here ...
 
-var boardU = '".$w3all_url_to_cms."';
+var boardU = '".$w3all_url_to_cms_sw."';
 var phpbbRUrl = href.split(/^.+?(\w+.+)$/);
 if( href.indexOf('app.php') > -1 ){ // since the previous not 'normalize' this type of passed value (and may miss something else)
    phpbburl = href.split(/^.+?(app\.php.+)$/);
@@ -212,7 +220,6 @@ add_action('wp_head','wp_w3all_add_ajax');
 // START a default WordPress page
 get_header();
 ?>
-
 <!-- noscript warning and simple preloader -->
 <div id="w3idwloader" class="w3_wrap_loader">
   <noscript><h3 style="background-color:#333;color:#FFF;padding:15px;font-size:0.8em;pointer-events:auto;">Javascript disabled: can't load the forum page at this Url.<br />Enable Javascript on your browser or visit the forum here:<br /><br /><?php echo $w3all_url_to_cms;?><br /><a href="<?php echo $w3all_url_to_cms;?>">To be auto-redirected click here<br />(may this link will not work)</a></h3></noscript>
@@ -223,9 +230,9 @@ get_header();
 <div id="" class="">
 <iframe id="w3all_phpbb_iframe" style="width:1px;min-width:100%;*width:100%;border:0;" scrolling="no" src="<?php echo $w3all_url_to_cms; ?>"></iframe>
 <?php
-    echo "<script type=\"text/javascript\">
+    echo "<script>
     document.domain = '".$document_domain."'; // NOTE: for domains like 'mysite.co.uk' remove this line, if you setup the next to match the correct document.domain
-    // document.domain = 'mydomain.com'; // NOTE: reset/setup this with domain (like mysite.co.uk) if js error when WP is installed like on mysite.domain.com and phpBB on domain.com: js origin error can come out for example when WordPress is on subdomain install and phpBB on domain. The origin fix is needed: (do this also on phpBB overall_footer.html added code, it need to match)
+     //document.domain = '192.168.1.6'; // NOTE: reset/setup this with domain (like mysite.co.uk) if js error when WP is installed like on mysite.domain.com and phpBB on domain.com: js origin error can come out for example when WordPress is on subdomain install and phpBB on domain. The origin fix is needed: (do this also on phpBB overall_footer.html added code, it need to match)
     var wp_u_logged = ".$current_user->ID.";
     var phpBBuid2 = ".$phpBBuid2.";
 
@@ -259,10 +266,10 @@ get_header();
  iFrameResize({
         log         : false,
         inPageLinks : true,
-        targetOrigin: '".$w3all_url_to_cms."',
+        targetOrigin: '".$w3all_url_to_cms_sw."',
         checkOrigin : w3all_orig_domains,
-     // heightCalculationMethod: 'taggedElement', // If iframe not resize correctly, un-comment (or change with one of others available resize methods)
-     // see: https://github.com/davidjbradshaw/iframe-resizer/blob/master/docs/parent_page/options.md
+     // heightCalculationMethod: 'documentElementOffset', // If iframe not resize correctly, un-comment (or change with one of others available resize methods)
+     // see: https://github.com/davidjbradshaw/iframe-resizer#heightcalculationmethod
 
   onMessage : function(messageData){ // Callback fn when message is received
         // w3all simple js check and redirects
@@ -301,4 +308,4 @@ return false;
 ?>
 </div>
 <!-- END iframe div -->
-<?php get_footer(); ?>
+<?php get_footer();
