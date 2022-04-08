@@ -46,6 +46,7 @@ class Analytics_Common {
 		}
 
 		new GTag();
+		new Analytics_Stats();
 		$this->action( 'plugins_loaded', 'maybe_init_email_reports', 15 );
 		$this->action( 'init', 'maybe_enable_email_reports', 20 );
 		$this->action( 'cmb2_save_options-page_fields_rank-math-options-general_options', 'maybe_update_report_schedule', 20, 3 );
@@ -308,7 +309,7 @@ class Analytics_Common {
 	 * @param boolean $revert Flag whether to revert difference icon or not.
 	 */
 	private function get_analytic_block( $item, $revert = false ) {
-		$is_negative = absint( $item['difference'] ) !== $item['difference'];
+		$is_negative = abs( $item['difference'] ) !== $item['difference'];
 		$diff_class  = 'up';
 		if ( ( ! $revert && $is_negative ) || ( $revert && ! $is_negative && $item['difference'] > 0 ) ) {
 			$diff_class = 'down';

@@ -105,6 +105,7 @@ class Author implements Provider {
 			return $links;
 		}
 
+		Sitemap::maybe_redirect( count( $users ), $max_entries );
 		foreach ( $users as $user ) {
 			$url = $this->get_sitemap_url( $user );
 			if ( ! empty( $url ) ) {

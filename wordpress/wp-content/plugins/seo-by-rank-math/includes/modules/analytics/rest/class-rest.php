@@ -197,18 +197,6 @@ class Rest extends WP_REST_Controller {
 	}
 
 	/**
-	 * Should update pagespeed record.
-	 *
-	 * @param  int $id      Database row id.
-	 * @return bool
-	 */
-	private function should_update_pagespeed( $id ) {
-		$record = DB::objects()->where( 'id', $id )->one();
-
-		return \time() > ( \strtotime( $record->pagespeed_refreshed ) + ( DAY_IN_SECONDS * 7 ) );
-	}
-
-	/**
 	 * Get inspection results: latest result for each post.
 	 *
 	 * @param WP_REST_Request $request Rest request.
@@ -232,5 +220,17 @@ class Rest extends WP_REST_Controller {
 				'rowsFound' => DB::get_inspections_count( $request->get_params() ),
 			]
 		);
+	}
+
+	/**
+	 * Should update pagespeed record.
+	 *
+	 * @param  int $id      Database row id.
+	 * @return bool
+	 */
+	private function should_update_pagespeed( $id ) {
+		$record = DB::objects()->where( 'id', $id )->one();
+
+		return \time() > ( \strtotime( $record->pagespeed_refreshed ) + ( DAY_IN_SECONDS * 7 ) );
 	}
 }

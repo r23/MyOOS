@@ -317,4 +317,23 @@ class Sitemap {
 
 		return Helper::$method( $object );
 	}
+
+	/**
+	 * Redirect duplicate sitemaps.
+	 *
+	 * @param int $count       Total number of entries.
+	 * @param int $max_entries Entries per sitemap.
+	 */
+	public static function maybe_redirect( $count, $max_entries ) {
+		$current_page = (int) get_query_var( 'sitemap_n' );
+		if ( ! $current_page && $count > $max_entries ) {
+			Helper::redirect( preg_replace( '/\.xml$/', '1.xml', Helper::get_current_page_url() ) );
+			die();
+		}
+
+		if ( $count < $max_entries && $current_page ) {
+			Helper::redirect( preg_replace( '/' . preg_quote( $current_page ) . '\.xml$/', '.xml', Helper::get_current_page_url() ) );
+			die();
+		}
+	}
 }

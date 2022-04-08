@@ -1,0 +1,1 @@
+* Fixed: Hide [frontend Analytics Stats](https://rankmath.com/kb/analytics-stats-bar/) when Google Search Console is not connected to the site

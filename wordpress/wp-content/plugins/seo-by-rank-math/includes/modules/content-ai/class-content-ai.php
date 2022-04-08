@@ -33,6 +33,7 @@ class Content_AI {
 			return;
 		}
 
+		$this->filter( 'rank_math/analytics/post_data', 'add_contentai_data', 10, 2 );
 		$this->filter( 'rank_math/settings/general', 'add_settings' );
 		$this->action( 'rest_api_init', 'init_rest_api' );
 		$this->action( 'rank_math/admin/editor_scripts', 'editor_scripts', 20 );
@@ -40,6 +41,22 @@ class Content_AI {
 		$this->action( 'cmb2_admin_init', 'add_content_ai_metabox', 11 );
 		$this->action( 'rank_math/deregister_site', 'remove_credits_data' );
 		$this->ajax( 'get_content_ai_credits', 'update_content_ai_credits' );
+	}
+
+	/**
+	 * Add Content AI score in Single Page Site Analytics.
+	 *
+	 * @param  array           $data array.
+	 * @param  WP_REST_Request $request post object.
+	 * @return array $data sorted array.
+	 */
+	public function add_contentai_data( $data, \WP_REST_Request $request ) {
+		$post_id                = $data['object_id'];
+		$content_ai_data        = Helper::get_post_meta( 'contentai_score', $post_id );
+		$content_ai_score       = ! empty( $content_ai_data ) ? round( array_sum( array_values( $content_ai_data ) ) / count( $content_ai_data ) ) : 0;
+		$data['contentAiScore'] = absint( $content_ai_score );
+
+		return $data;
 	}
 
 	/**

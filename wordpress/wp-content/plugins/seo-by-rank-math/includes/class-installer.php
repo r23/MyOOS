@@ -371,6 +371,7 @@ class Installer {
 					'frontend_seo_score_position'         => 'top',
 					'setup_mode'                          => 'advanced',
 					'content_ai_post_types'               => array_keys( $post_types ),
+					'analytics_stats'                     => 'on',
 				]
 			)
 		);

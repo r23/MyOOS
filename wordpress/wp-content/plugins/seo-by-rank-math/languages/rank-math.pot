@@ -4894,6 +4894,12 @@ msgstr ""
 msgid "Analytics Database"
 msgstr ""
 
+msgid "Frontend Stats Bar"
+msgstr ""
+
+msgid "Enable this option to show Analytics Stats on the front just after the admin bar."
+msgstr ""
+
 #. translators: Placeholders are the opening and closing tag for the link.
 msgid "Receive periodic SEO Performance reports via email. Once enabled and options are saved, you can see %1$s the preview here%2$s."
 msgstr ""

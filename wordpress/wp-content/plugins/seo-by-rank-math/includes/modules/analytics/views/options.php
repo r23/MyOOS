@@ -5,6 +5,7 @@
  * @package Rank_Math
  */
 
+use RankMath\KB;
 use RankMath\Analytics\DB;
 use MyThemeShop\Helpers\Str;
 use RankMath\Google\Authentication;
@@ -103,6 +104,16 @@ $cmb->add_field(
 			return $value;
 		},
 		'after_field'     => $buttons,
+	]
+);
+
+$cmb->add_field(
+	[
+		'id'          => 'analytics_stats',
+		'type'        => 'toggle',
+		'name'        => __( 'Frontend Stats Bar', 'rank-math' ),
+		'description' =>  esc_html__( 'Enable this option to show Analytics Stats on the front just after the admin bar.', 'rank-math' ),
+		'default'     => 'on',
 	]
 );
 

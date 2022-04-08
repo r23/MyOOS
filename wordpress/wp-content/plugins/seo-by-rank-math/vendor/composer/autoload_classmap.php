@@ -73,6 +73,7 @@ return array(
     'RankMath\\Analytics\\AJAX' => $baseDir . '/includes/modules/analytics/class-ajax.php',
     'RankMath\\Analytics\\Analytics' => $baseDir . '/includes/modules/analytics/class-analytics.php',
     'RankMath\\Analytics\\Analytics_Common' => $baseDir . '/includes/modules/analytics/class-analytics-common.php',
+    'RankMath\\Analytics\\Analytics_Stats' => $baseDir . '/includes/modules/analytics/class-analytics-stats.php',
     'RankMath\\Analytics\\DB' => $baseDir . '/includes/modules/analytics/class-db.php',
     'RankMath\\Analytics\\Email_Reports' => $baseDir . '/includes/modules/analytics/class-email-reports.php',
     'RankMath\\Analytics\\GTag' => $baseDir . '/includes/modules/analytics/class-gtag.php',

@@ -1,0 +1,175 @@
+// main: ../stats.scss
+
+.#{$namespace} {
+    &-analytics {
+        width: $analytics_container_width;
+        max-width: 100%;
+    }
+
+    &-tabs {
+        // Tab Header.
+        .#{$namespace}-tab {
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 40px;
+
+            position: relative;
+
+            display: inline-block;
+
+            margin-left: 0;
+            padding: 0 15px;
+
+            transition: .25s all ease-in-out;
+            text-decoration: none;
+
+            color: #5b646c;
+            border: 1px solid $gray;
+            border-right: 0;
+            border-bottom: 0;
+            background: #f0f2f4;
+
+            &:hover,
+            &:focus,
+            &.is-active {
+                color: #1a1e22;
+                outline: none;
+                background: #f8f9fa;
+                box-shadow: none;
+            }
+
+            &-nav {
+                display: flex;
+                overflow-x: auto;
+
+                white-space: nowrap;
+
+                flex-flow: row;
+
+                @media screen and ( min-width: 64rem ) {
+                    overflow-x: visible;
+                }
+            }
+
+            &.is-active:after {
+                position: absolute;
+                z-index: 1;
+                bottom: -1px;
+                left: 0;
+
+                width: 100%;
+                height: 1px;
+
+                content: '';
+
+                background: #fafafb;
+            }
+
+            &:first-child {
+                border-radius: 4px 0 0 0;
+            }
+
+            &:last-of-type {
+                border-right: 1px solid $gray;
+                border-radius: 0 4px 0 0;
+            }
+
+            .rm-icon {
+                font-size: .825rem;
+
+                margin-right: 7px;
+
+                vertical-align: -1px;
+            }
+
+            // Tab Content.
+            &-content {
+                position: relative;
+
+                margin-bottom: .5rem;
+                padding: 30px 0;
+
+                color: $dark_gray;
+                border-radius: 0 6px 6px 6px;
+                background: #f8f9fa;
+
+                &:before {
+                    position: absolute;
+                    top: 0;
+                    left: -20px;
+
+                    overflow: hidden;
+
+                    width: 120vw;
+                    height: 100%;
+                    padding-bottom: 50px;
+
+                    content: '';
+
+                    border-top: 1px solid $gray;
+                    border-bottom: 1px solid $gray;
+                    background: #f8f9fa;
+                }
+
+                > div {
+                    position: relative;
+                }
+            }
+
+            &.is-new {
+                &:before {
+                    font-size: 9px;
+                    font-weight: 600;
+                    line-height: 1;
+                    color: #fff;
+                    
+                    position: absolute;
+                    top: -23px;
+                    right: 7px;
+                    padding: 3px 4px;
+
+                    content: 'New!';
+
+                    animation: bounce 0.8s infinite alternate;
+
+                    border-radius: 2px 2px 0 2px;
+                    background: $color-3;
+                }
+
+                &:after {
+                    position: absolute;
+                    top: -8px;
+                    left: auto;
+                    right: 7px;
+
+                    width: 0;
+                    height: 0;
+
+                    content: '';
+ 
+                    animation: bounce 0.8s infinite alternate;
+ 
+                    border: 0 solid transparent;
+                    border-top: 4px solid $color-3;
+                    border-right-width: 0;
+                    border-left-width: 11px;
+                }
+            }
+        }
+
+        .#{$namespace}-updated {
+            font-size: 13px;
+
+            display: inline-block;
+
+            margin-bottom: 10px;
+            margin-left: 10px;
+
+            opacity: .5;
+
+            @media screen and (min-width: 62rem) {
+                margin-left: auto;
+            }
+        }
+    }
+}

@@ -230,7 +230,11 @@ class Admin_Bar_Menu {
 	 */
 	private function add_post_type_menu() {
 		$post_type = get_post_type();
-		$name      = get_post_type_object( $post_type )->labels->name;
+		if ( ! $post_type ) {
+			return;
+		}
+
+		$name = get_post_type_object( $post_type )->labels->name;
 
 		if ( is_home() ) {
 			$post_type = 'page';

@@ -94,9 +94,7 @@ class Product_Redirection {
 		if ( $is_product ) {
 			$base[] = 'product';
 			$base[] = 'shop';
-			Sitepress::get()->remove_home_url_filter();
-			$new_link = ! is_feed() ? trim( str_replace( get_home_url(), '', get_permalink() ), '/' ) : $new_link;
-			Sitepress::get()->restore_home_url_filter();
+			$new_link = $this->remove_base_from_url( $new_link );
 		}
 
 		foreach ( array_unique( $base ) as $remove ) {
@@ -109,6 +107,37 @@ class Product_Redirection {
 		$new_link = implode( '/', array_map( 'rawurlencode', explode( '/', $new_link ) ) ); // encode everything but slashes.
 
 		return $new_link === $this->strip_ignored_parts( $url ) ? false : trailingslashit( home_url( strtolower( $new_link ) ) );
+	}
+
+	/**
+	 * Remove all bases from the product link.
+	 *
+	 * @param  string $link Product link.
+	 * @return string Modified URL
+	 */
+	private function remove_base_from_url( $link ) {
+		if ( is_feed() ) {
+			return $link;
+		}
+
+		if ( Sitepress::get()->is_active() ) {
+			global $sitepress_settings;
+
+			// Early bail if auto-translation is enabled in WPML.
+			if (
+				isset( $sitepress_settings['custom_posts_sync_option'] ) &&
+				isset( $sitepress_settings['custom_posts_sync_option']['product'] ) &&
+				2 === (int) $sitepress_settings['custom_posts_sync_option']['product']
+			) {
+				return $link;
+			}
+		}
+
+		Sitepress::get()->remove_home_url_filter();
+		$link = trim( str_replace( get_home_url(), '', get_permalink() ), '/' );
+		Sitepress::get()->restore_home_url_filter();
+
+		return $link;
 	}
 
 	/**

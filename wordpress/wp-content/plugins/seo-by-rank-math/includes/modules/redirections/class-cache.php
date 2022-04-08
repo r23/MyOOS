@@ -58,7 +58,13 @@ class Cache {
 	 * @return array
 	 */
 	public static function get_by_object_id_or_url( $object_id, $object_type, $url ) {
-		return self::table()->where( [ [ 'object_id', '=', $object_id ], [ 'object_type', '=', $object_type ] ], 'and' )->orWhere( 'BINARY from_url', $url )->orderBy( 'object_id', 'desc' )->get();
+		$query = self::table()->where( [ [ 'object_id', '=', $object_id ], [ 'object_type', '=', $object_type ] ], 'and' );
+
+		if ( '' !== (string) $url ) {
+			$query->orWhere( 'BINARY from_url', $url );
+		}
+
+		return $query->orderBy( 'object_id', 'desc' )->get();
 	}
 
 	/**
