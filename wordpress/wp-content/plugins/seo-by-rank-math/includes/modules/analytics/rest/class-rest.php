@@ -16,6 +16,7 @@ use WP_Error;
 use WP_REST_Server;
 use WP_REST_Request;
 use WP_REST_Controller;
+use RankMath\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -66,6 +67,10 @@ class Rest extends WP_REST_Controller {
 			],
 			'inspectionResults'  => [
 				'callback' => [ $this, 'get_inspection_results' ],
+			],
+			'removeFrontendStats'  => [
+				'callback' => [ $this, 'remove_frontend_stats' ],
+				'methods'  => WP_REST_Server::CREATABLE,
 			],
 		];
 
@@ -220,6 +225,23 @@ class Rest extends WP_REST_Controller {
 				'rowsFound' => DB::get_inspections_count( $request->get_params() ),
 			]
 		);
+	}
+
+	/**
+	 * Remove frontend stats.
+	 *
+	 * @param WP_REST_Request $request Rest request.
+	 *
+	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
+	 */
+	public function remove_frontend_stats( WP_REST_Request $request ) {
+		$hide_bar = (bool) $request->get_param( 'hide' );
+		$user_id  = get_current_user_id();
+		if ( $hide_bar ) {
+			return update_user_meta( $user_id, 'rank_math_hide_frontend_stats', true );
+		}
+
+		return delete_user_meta( $user_id, 'rank_math_hide_frontend_stats' );
 	}
 
 	/**

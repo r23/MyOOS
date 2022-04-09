@@ -12,8 +12,6 @@ namespace RankMath\Analytics;
 
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
-use RankMath\Google\Authentication;
-use MyThemeShop\Helpers\Conditional;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -28,13 +26,7 @@ class Analytics_Stats {
 	 * The Constructor
 	 */
 	public function __construct() {
-		if (
-			Conditional::is_heartbeat() ||
-			! Authentication::is_authorized() ||
-			! Helper::has_cap( 'analytics' ) ||
-			! Helper::get_settings( 'general.analytics_stats' ) ||
-			! \RankMath\Google\Console::is_console_connected()
-		) {
+		if ( ! Helper::can_add_frontend_stats() ) {
 			return;
 		}
 
@@ -54,5 +46,6 @@ class Analytics_Stats {
 		wp_enqueue_script( 'rank-math-analytics-stats', $uri . '/assets/js/admin-bar.js', [ 'jquery', 'wp-api-fetch', 'wp-element', 'wp-components' ], rank_math()->version, true );
 
 		Helper::add_json( 'isAnalyticsConnected', \RankMath\Google\Analytics::is_analytics_connected() );
+		Helper::add_json( 'hideFrontendStats', get_user_meta( get_current_user_id(), 'rank_math_hide_frontend_stats', true ) );
 	}
 }

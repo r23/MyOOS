@@ -153,6 +153,7 @@ class ComposerStaticInite0bd047aa5058f04568aa38dfc5ac000
         'RankMath\\Google\\Request' => __DIR__ . '/../..' . '/includes/modules/analytics/google/class-request.php',
         'RankMath\\Google\\Url_Inspection' => __DIR__ . '/../..' . '/includes/modules/analytics/google/class-url-inspection.php',
         'RankMath\\Helper' => __DIR__ . '/../..' . '/includes/class-helper.php',
+        'RankMath\\Helpers\\Analytics' => __DIR__ . '/../..' . '/includes/helpers/class-analytics.php',
         'RankMath\\Helpers\\Api' => __DIR__ . '/../..' . '/includes/helpers/class-api.php',
         'RankMath\\Helpers\\Attachment' => __DIR__ . '/../..' . '/includes/helpers/class-attachment.php',
         'RankMath\\Helpers\\Choices' => __DIR__ . '/../..' . '/includes/helpers/class-choices.php',

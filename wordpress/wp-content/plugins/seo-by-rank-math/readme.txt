@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.9
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.86.1
+Stable tag: 1.0.86.2
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -579,6 +579,11 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 13. Rank Math SEO Comes with 15+ FREE modules.
 
 == Changelog ==
+
+= 1.0.86.2 [Apr 09, 2022] =
+* Added: Filter to show/hide [Analytics Stats Bar on the frontend](https://rankmath.com/kb/filters-hooks-api-developer/#hide-analytics-stats-bar)
+* Improved: Hide [Analytics Stats Bar on the frontend](https://rankmath.com/kb/analytics-stats-bar/) on all the pages after clicking on the close button
+* Fixed: [Author Sitemap](https://rankmath.com/kb/configure-sitemaps/#authors) was not working on some setups after the last update
 
 = 1.0.86.1 [Apr 07, 2022] =
 * Fixed: Hide [frontend Analytics Stats](https://rankmath.com/kb/analytics-stats-bar/) when Google Search Console is not connected to the site

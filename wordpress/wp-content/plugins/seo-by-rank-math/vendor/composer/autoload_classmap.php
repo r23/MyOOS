@@ -123,6 +123,7 @@ return array(
     'RankMath\\Google\\Request' => $baseDir . '/includes/modules/analytics/google/class-request.php',
     'RankMath\\Google\\Url_Inspection' => $baseDir . '/includes/modules/analytics/google/class-url-inspection.php',
     'RankMath\\Helper' => $baseDir . '/includes/class-helper.php',
+    'RankMath\\Helpers\\Analytics' => $baseDir . '/includes/helpers/class-analytics.php',
     'RankMath\\Helpers\\Api' => $baseDir . '/includes/helpers/class-api.php',
     'RankMath\\Helpers\\Attachment' => $baseDir . '/includes/helpers/class-attachment.php',
     'RankMath\\Helpers\\Choices' => $baseDir . '/includes/helpers/class-choices.php',

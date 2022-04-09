@@ -61,11 +61,16 @@ class AnalyticsAdminBar {
 	 * Main Analytics stats wrapper.
 	*/
 	analyticsWrapper() {
+		const className = rankMath.hideFrontendStats ? 'hide-stats' : ''
+
 		return (
-			`<div id="rank-math-analytics-stats-wrapper">
+			`<div id="rank-math-analytics-stats-wrapper" class="${ className }">
 				<a href="#" class="rank-math-analytics-close-stats">
 					<i class="dashicons dashicons-no-alt"></i>
 					<svg viewBox="0 0 462.03 462.03" xmlns="http://www.w3.org/2000/svg"><g><path d="m462 234.84-76.17 3.43 13.43 21-127 81.18-126-52.93-146.26 60.97 10.14 24.34 136.1-56.71 128.57 54 138.69-88.61 13.43 21z"></path><path d="m54.1 312.78 92.18-38.41 4.49 1.89v-54.58h-96.67zm210.9-223.57v235.05l7.26 3 89.43-57.05v-181zm-105.44 190.79 96.67 40.62v-165.19h-96.67z"></path></g></svg>
+				</a>
+				<a href="https://rankmath.com/kb/analytics-stats-bar/?utm_source=Plugin&utm_medium=Analytics%20Stats%20Bar%20KB&utm_campaign=WP" target="_blank" class="rank-math-stats-bar-help">
+					<span class="rank-math-tooltip left bottom"><em class="dashicons-before dashicons-editor-help"></em><span>${ __( 'Learn More', 'rank-math' ) }</span></span>
 				</a>
 				<div id="rank-math-analytics-stats-content">
 					<div id="rank-math-analytics-stats" class="rank-math-analytics"></div>
@@ -141,9 +146,18 @@ class AnalyticsAdminBar {
 	 * Open and close stats click event.
 	*/
 	events() {
+		const analyticsWrapper = jQuery( '#rank-math-analytics-stats-wrapper' )
 		jQuery( '.rank-math-analytics-close-stats' ).on( 'click', ( e ) => {
 			e.preventDefault()
-			jQuery( '#rank-math-analytics-stats-wrapper' ).toggleClass( 'hide-stats' )
+			analyticsWrapper.toggleClass( 'hide-stats' )
+			apiFetch( {
+				method: 'POST',
+				path: 'rankmath/v1/an/removeFrontendStats/',
+				data: {
+					hide: analyticsWrapper.hasClass( 'hide-stats' ),
+				},
+			} )
+
 			return false
 		} )
 	}

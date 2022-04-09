@@ -15,6 +15,7 @@ namespace RankMath\Sitemap\Providers;
 
 use RankMath\Helper;
 use RankMath\Sitemap\Router;
+use RankMath\Sitemap\Sitemap;
 use RankMath\Traits\Hooker;
 
 defined( 'ABSPATH' ) || exit;
