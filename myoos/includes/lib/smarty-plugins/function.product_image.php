@@ -35,13 +35,13 @@ function smarty_function_product_image($params, &$smarty)
     $dir = 'large';
     $border = 0;
     $alt = '';
-    $image = '';
+    $src = '';
     $extra = '';
     $id = '';
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
-        case 'image':
+        case 'src':
         case 'basedir':
         case 'dir':
         case 'alt':
@@ -64,19 +64,35 @@ function smarty_function_product_image($params, &$smarty)
       }
     }
 
-    if (empty($image)) {
+    if (empty($src)) {
         return false;
     }
 
-    $image = $basedir . $dir . '/' . $image;
+    $src = $basedir . $dir . '/' . $src;
 
 
     if (isset($template->smarty->security_policy)) {
         // local file
-        if (!$template->smarty->security_policy->isTrustedResourceDir($image)) {
+        if (!$template->smarty->security_policy->isTrustedResourceDir($src)) {
             return;
         }
     }
 
-    return '<img id="' . $id . '" class="img-fluid ' . $class . '" src="' . $image . '" alt="' . strip_tags($alt) . '" ' . $extra . ' />';
+
+    $image = '<img';
+
+    if (!empty($id)) {
+        $image .= ' id="' . $id . '"';
+    }
+	
+	$image .= ' loading="lazy" class="img-fluid ' . $class . '" src="' . $src . '"';
+
+    if (!empty($alt)) {
+       $image .= ' alt="' . strip_tags($alt) . '"';
+    }
+
+    $image .= $extra . '>';
+
+    return $image;
+
 }

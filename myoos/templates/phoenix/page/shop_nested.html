@@ -27,7 +27,7 @@
 				<div class="row">
 					<div class="category-info">
 						<div class="image">
-							{category_image dir=large image=$category.categories_image alt=$category.categories_name class=image}
+							{category_image dir=large src=$category.categories_image alt=$category.categories_name class=image}
 						</div>
 						<div class="description">
 							{$category.categories_description}
@@ -41,7 +41,7 @@
 						<div class="category">
 							<div class="image">
 								<a href="{html_href_link content=$filename.shop category=$category.path}">
-									{category_image dir=medium image=$category.image alt=$category.name class=image}
+									{category_image dir=medium src=$category.image alt=$category.name class=image}
 								</a>
 							</div><!-- .image -->
 							<div class="text">

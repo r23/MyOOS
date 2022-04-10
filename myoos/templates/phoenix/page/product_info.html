@@ -19,12 +19,12 @@
 				<div class="product-gallery">
 					<ul class="product-thumbnails">
 						{foreach $product_gallery as $data}
-							<li {if $data@first}class="active"{/if}><a href="{$image_link}#{$data@iteration|number_to_word}" aria-controls="{$data@iteration|number_to_word}">{product_gallery_image dir=small image=$data.image alt=$product_info.products_name}</a></li>
+							<li {if $data@first}class="active"{/if}><a href="{$image_link}#{$data@iteration|number_to_word}" aria-controls="{$data@iteration|number_to_word}">{product_gallery_image dir=small src=$data.image alt=$product_info.products_name}</a></li>
 						{/foreach}				
 					</ul>
 					<div class="product-carousel owl-carousel">
 						{foreach $product_gallery as $data}
-							<a href="{product_image_link dir=large image=$data.image}" data-fancybox="prod-gallery" data-hash="{$data@iteration|number_to_word}">{product_gallery_image dir=large image=$data.image alt=$product_info.products_name}</a>
+							<a href="{product_image_link dir=large src=$data.image}" data-fancybox="prod-gallery" data-hash="{$data@iteration|number_to_word}">{product_gallery_image dir=large src=$data.image alt=$product_info.products_name}</a>
 						{/foreach}
 					</div>
 				</div>			
@@ -33,8 +33,8 @@
 				<div class="col-12 col-md-4">		
 					<div class="thumbnail relative mb-3">
 						<figure id="zoom-primary" class="zoom" data-mode="{$smarty.const.IMAGE_ZOOM|default:'mouseover'}">
-							<a class="lightbox {$smarty.const.ZOOM_BUTTON|default:'bottom-right'}" href="{product_image_link dir=large image=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>					
-							{product_image dir=large image=$product_info.products_image alt=$product_info.products_name}
+							<a class="lightbox {$smarty.const.ZOOM_BUTTON|default:'bottom-right'}" href="{product_image_link dir=large src=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>					
+							{product_image dir=large src=$product_info.products_image alt=$product_info.products_name}
 						</figure>
 					</div>			
 				</div>
@@ -188,7 +188,7 @@
 												<input type="radio" name="{$i.name}" value="{$i.value}" 
 													data-option-value="{$i.options_values_price}" 
 													data-option-base="{$i.option_base}" 
-													data-change-image="{$i.image}" 
+													data-change-src="{$i.image}" 
 													data-change-model="{$i.change_model}" 
 													{if $i.status == 0}disabled {else}{$i.checked}{/if}>
 												<i></i> {if $i.status == 0}<del>{$i.products_options_values_name}</del> <span class="font-weight-light">(out of stock)</span>{else}{$i.products_options_values_name}{/if}
@@ -324,7 +324,7 @@
 {/literal}	
 					
 						<div class="ratio ratio-4x3" style="background-color:{$ar.model_viewer_background_color|default:'#222'};">	
-							<model-viewer class="embed-responsive-item" src="./media/models/gltf/{$ar.url_glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls alt="{$ar.model_viewer_title}" ar-scale="{$ar.model_viewer_scale|default:'auto'}" {if ($ar.model_viewer_hdr ne 'none')} skybox-image="./media/textures/equirectangular/{$ar.model_viewer_hdr}" {/if} {if ($ar.model_viewer_auto_rotate eq 'true')} auto-rotate {/if} xr-environment></model-viewer>		
+							<model-viewer class="embed-responsive-item" src="./media/models/gltf/{$ar.url_glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls alt="{$ar.model_viewer_title}" ar-scale="{$ar.model_viewer_scale|default:'auto'}" {if ($ar.model_viewer_hdr ne 'none')} skybox-src="./media/textures/equirectangular/{$ar.model_viewer_hdr}" {/if} {if ($ar.model_viewer_auto_rotate eq 'true')} auto-rotate {/if} xr-environment></model-viewer>		
 						</div>						
 						
 						<div class="description_area">

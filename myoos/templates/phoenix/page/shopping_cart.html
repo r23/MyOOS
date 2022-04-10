@@ -82,7 +82,7 @@
 								<tr>
 							{/if}	
 									<td>
-										<span class="cartImage"><a href="{product_link products_id=$product.id}">{product_image dir=small image=$product.image alt=$product.name}</a></span>
+										<span class="cartImage"><a href="{product_link products_id=$product.id}">{product_image dir=small src=$product.image alt=$product.name}</a></span>
 									</td>
 									{if $smarty.const.PRODUCT_LIST_MODEL > 0}	  
 										<td><a href="{product_link products_id=$product.id}">{$product.model}</a></td>

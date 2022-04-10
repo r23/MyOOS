@@ -5,7 +5,7 @@
 	{if isset($random_product.reviews_text)}
 	<div class="text-center">
 		<a href="{html_href_link content=$filename.product_reviews_info products_id=$random_product.products_id reviews_id=$random_product.reviews_id}">
-			{product_image dir=small image=$random_product.products_image alt=$random_product.products_name}
+			{product_image dir=small src=$random_product.products_image alt=$random_product.products_name}
 		</a>
 	</div>
 	<div class="fs-12 text-left">
