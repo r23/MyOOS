@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-04-09 09:25:19+0000\n"
+"PO-Revision-Date: 2022-04-10 12:49:12+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,31 @@ msgstr ""
 "X-Generator: GlotPress/3.0.0-rc.4\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - AMP - Stable (latest release)\n"
+
+#: src/PluginSuppression.php:518
+msgid "Suppressed on AMP Pages"
+msgstr "Auf AMP-Seiten unterdrückt"
+
+#: src/PluginSuppression.php:517
+msgid "Visit AMP Settings"
+msgstr "AMP-Einstellungen besuchen"
+
+#: includes/validation/class-amp-validated-url-post-type.php:2819
+msgid "Pseudo-class selector used to increase specificity for rule extracted from inline styles and/or properties with !important qualifiers."
+msgstr "Pseudo-Klassenselektor, der benutzt wird, um die Spezifität für die extrahierte Regel von Inline-Stilen und/oder Eigenschaften mit !important zu erhöhen."
+
+#: includes/sanitizers/class-amp-core-theme-sanitizer.php:2045
+msgid "On"
+msgstr "An"
+
+#: includes/sanitizers/class-amp-core-theme-sanitizer.php:2044
+msgid "Off"
+msgstr "Aus"
+
+#. translators: %s: On/Off
+#: includes/sanitizers/class-amp-core-theme-sanitizer.php:2043
+msgid "Dark Mode: %s"
+msgstr "Dunkelmodus: %s"
 
 #: src/Admin/SiteHealth.php:440
 msgid "A page caching plugin was not detected."
