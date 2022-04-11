@@ -6,6 +6,26 @@ awareness about deprecated code.
 - Use of our low-overhead runtime deprecation API, details:
   https://github.com/doctrine/deprecations/
 
+# Upgrade to 2.5
+
+## Deprecated `OnClearEventArgs::clearsAllEntities()` and `OnClearEventArgs::getEntityClass()`
+
+These methods only make sense when partially clearing the object manager, which
+is deprecated.
+Passing a second argument to the constructor of `OnClearEventArgs` is
+deprecated as well.
+
+## Deprecated `ObjectManagerAware`
+
+Along with deprecating `PersistentObject`, deprecating `ObjectManagerAware`
+means deprecating support for active record, which already came with a word of
+warning. Please implement this directly in your application with a `postLoad`
+event if you need active record style functionality.
+
+## Deprecated `MappingException::pathRequired()`
+
+`MappingException::pathRequiredForDriver()` should be used instead.
+
 # Upgrade to 2.4
 
 ## Deprecated `AnnotationDriver`
