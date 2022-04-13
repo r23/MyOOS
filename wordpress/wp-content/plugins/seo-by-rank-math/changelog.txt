@@ -1,3 +1,0 @@
-* Added: Filter to show/hide [Analytics Stats Bar on the frontend](https://rankmath.com/kb/filters-hooks-api-developer/#hide-analytics-stats-bar)
-* Improved: Hide [Analytics Stats Bar on the frontend](https://rankmath.com/kb/analytics-stats-bar/) on all the pages after clicking on the close button
-* Fixed: [Author Sitemap](https://rankmath.com/kb/configure-sitemaps/#authors) was not working on some setups after the last update

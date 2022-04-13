@@ -235,13 +235,23 @@ class Rest extends WP_REST_Controller {
 	 * @return WP_REST_Response|WP_Error Response object on success, or WP_Error object on failure.
 	 */
 	public function remove_frontend_stats( WP_REST_Request $request ) {
-		$hide_bar = (bool) $request->get_param( 'hide' );
-		$user_id  = get_current_user_id();
-		if ( $hide_bar ) {
-			return update_user_meta( $user_id, 'rank_math_hide_frontend_stats', true );
-		}
+		if ( (bool) $request->get_param( 'toggleBar' ) ) {
+			$hide_bar = (bool) $request->get_param( 'hide' );
+			$user_id  = get_current_user_id();
+			if ( $hide_bar ) {
+				return update_user_meta( $user_id, 'rank_math_hide_frontend_stats', true );
+			}
 
-		return delete_user_meta( $user_id, 'rank_math_hide_frontend_stats' );
+			return delete_user_meta( $user_id, 'rank_math_hide_frontend_stats' );
+		}
+		
+		$all_opts                   = rank_math()->settings->all_raw();
+		$general                    = $all_opts['general'];
+		$general['analytics_stats'] = 'off';
+
+		Helper::update_all_settings( $general, null, null );
+
+		return true;
 	}
 
 	/**
