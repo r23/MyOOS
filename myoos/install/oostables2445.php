@@ -60,23 +60,3 @@ $idxflds = 'date_added';
 idxsql($idxname, $table, $idxflds);
 
 
-
-$table = $prefix_table . 'products_units';
-$flds = "
-  products_units_id I DEFAULT '0' NOTNULL PRIMARY,
-  languages_id I NOTNULL DEFAULT '1' PRIMARY,
-  products_unit_name C(60) NOTNULL
-";
-dosql($table, $flds);
-
-
-$table = $prefix_table . 'sessions';
-$flds = "
-  SESSKEY C(64) NOTNULL PRIMARY,
-  EXPIRY D NOTNULL,
-  EXPIREREF C(250),
-  CREATED T NOTNULL,
-  MODIFIED T NOTNULL,
-  SESSDATA XL
-";
-dosql($table, $flds);

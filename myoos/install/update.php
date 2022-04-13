@@ -114,6 +114,12 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
       print_oosFinish();
       break;
 
+    case "myOOS 2.4.45":
+      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+      oosDoUpgrade2445($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+      print_Next();
+    break;
+
     case "myOOS 2.4.40":
       oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
       oosDoUpgrade2440($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);

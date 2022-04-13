@@ -29,6 +29,8 @@ if (!$prefix_table == '') {
     $prefix_table = $prefix_table . '_';
 }
 
+include_once 'oostables2445.php';
+
 // configuration
 $table = $prefix_table . 'configuration';
 $result = $db->Execute("INSERT INTO " . $table . " (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MINIMUM_ORDER_VALUE', '', 1, 21, NULL, " . $db->DBTimeStamp($today) . ", NULL, NULL)");

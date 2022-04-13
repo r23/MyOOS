@@ -99,6 +99,7 @@ $oostable['products_options'] = $prefix_table . 'products_options';
 $oostable['products_options_types'] = $prefix_table . 'products_options_types';
 $oostable['products_options_values'] = $prefix_table . 'products_options_values';
 $oostable['products_options_values_to_products_options'] = $prefix_table . 'products_options_values_to_products_options';
+$oostable['products_price_history'] = $prefix_table . 'products_price_history';
 $oostable['products_status'] = $prefix_table . 'products_status';
 $oostable['products_to_categories'] = $prefix_table . 'products_to_categories';
 $oostable['products_to_master'] = $prefix_table . 'products_to_master';
