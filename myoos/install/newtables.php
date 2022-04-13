@@ -1168,6 +1168,20 @@ $flds = "
 dosql($table, $flds);
 
 
+$table = $prefix_table . 'products_price_history';
+$flds = "
+  products_price_history_id I NOTNULL AUTO PRIMARY,
+  products_id I NOTNULL DEFAULT '0',
+  old_products_price N '10.4' NOTNULL DEFAULT '0.0000',
+  date_added T
+";
+dosql($table, $flds);
+
+$idxname = 'idx_date_added';
+$idxflds = 'date_added';
+idxsql($idxname, $table, $idxflds);
+
+
 $table = $prefix_table . 'products_status';
 $flds = "
    products_status_id I DEFAULT '1' NOTNULL PRIMARY,
