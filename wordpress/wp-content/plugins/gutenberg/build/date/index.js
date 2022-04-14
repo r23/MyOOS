@@ -1279,12 +1279,29 @@ let settings = {
  */
 
 function setSettings(dateSettings) {
-  settings = dateSettings; // Backup and restore current locale.
+  settings = dateSettings;
+  setupWPTimezone(); // Does moment already have a locale with the right name?
 
-  const currentLocale = moment__WEBPACK_IMPORTED_MODULE_0___default().locale();
-  moment__WEBPACK_IMPORTED_MODULE_0___default().updateLocale(dateSettings.l10n.locale, {
-    // Inherit anything missing from the default locale.
-    parentLocale: currentLocale,
+  if (moment__WEBPACK_IMPORTED_MODULE_0___default().locales().includes(dateSettings.l10n.locale)) {
+    // Is that locale misconfigured, e.g. because we are on a site running
+    // WordPress < 6.0?
+    if (moment__WEBPACK_IMPORTED_MODULE_0___default().localeData(dateSettings.l10n.locale).longDateFormat('LTS') === null) {
+      // Delete the misconfigured locale.
+      // @ts-ignore Type definitions are incorrect - null is permitted.
+      moment__WEBPACK_IMPORTED_MODULE_0___default().defineLocale(dateSettings.l10n.locale, null);
+    } else {
+      // We have a properly configured locale, so no need to create one.
+      return;
+    }
+  } // defineLocale() will modify the current locale, so back it up.
+
+
+  const currentLocale = moment__WEBPACK_IMPORTED_MODULE_0___default().locale(); // Create locale.
+
+  moment__WEBPACK_IMPORTED_MODULE_0___default().defineLocale(dateSettings.l10n.locale, {
+    // Inherit anything missing from English. We don't load
+    // moment-with-locales.js so English is all there is.
+    parentLocale: 'en',
     months: dateSettings.l10n.months,
     monthsShort: dateSettings.l10n.monthsShort,
     weekdays: dateSettings.l10n.weekdays,
@@ -1300,21 +1317,18 @@ function setSettings(dateSettings) {
 
     longDateFormat: {
       LT: dateSettings.formats.time,
-      // @ts-ignore Forcing this to `null`
-      LTS: null,
-      // @ts-ignore Forcing this to `null`
-      L: null,
+      LTS: moment__WEBPACK_IMPORTED_MODULE_0___default().localeData('en').longDateFormat('LTS'),
+      L: moment__WEBPACK_IMPORTED_MODULE_0___default().localeData('en').longDateFormat('L'),
       LL: dateSettings.formats.date,
       LLL: dateSettings.formats.datetime,
-      // @ts-ignore Forcing this to `null`
-      LLLL: null
+      LLLL: moment__WEBPACK_IMPORTED_MODULE_0___default().localeData('en').longDateFormat('LLLL')
     },
     // From human_time_diff?
     // Set to `(number, withoutSuffix, key, isFuture) => {}` instead.
     relativeTime: dateSettings.l10n.relative
-  });
+  }); // Restore the locale to what it was.
+
   moment__WEBPACK_IMPORTED_MODULE_0___default().locale(currentLocale);
-  setupWPTimezone();
 }
 /**
  * Returns the currently defined date settings.
@@ -1502,8 +1516,20 @@ const formatMap = {
 
   // Full date/time.
   c: 'YYYY-MM-DDTHH:mm:ssZ',
+
   // .toISOString.
-  r: 'ddd, D MMM YYYY HH:mm:ss ZZ',
+
+  /**
+   * Formats the date as RFC2822.
+   *
+   * @param {Moment} momentDate Moment instance.
+   *
+   * @return {string} Formatted date.
+   */
+  r(momentDate) {
+    return momentDate.locale('en').format('ddd, DD MMM YYYY HH:mm:ss ZZ');
+  },
+
   U: 'X'
 };
 /**
@@ -1708,7 +1734,7 @@ function buildMoment(dateValue) {
     return dateMoment.tz(settings.timezone.string);
   }
 
-  return dateMoment.utcOffset(settings.timezone.offset);
+  return dateMoment.utcOffset(+settings.timezone.offset);
 }
 /**
  * Returns whether a certain UTC offset is valid or not.

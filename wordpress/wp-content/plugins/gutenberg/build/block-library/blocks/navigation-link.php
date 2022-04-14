@@ -197,6 +197,14 @@ function gutenberg_render_block_core_navigation_link( $attributes, $content, $bl
 	}
 
 	$html .= '</span>';
+
+	// Add description if available.
+	if ( ! empty( $attributes['description'] ) ) {
+		$html .= '<span class="wp-block-navigation-item__description">';
+		$html .= wp_kses_post( $attributes['description'] );
+		$html .= '</span>';
+	}
+
 	$html .= '</a>';
 	// End anchor tag content.
 

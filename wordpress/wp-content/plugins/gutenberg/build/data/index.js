@@ -2433,41 +2433,56 @@ function mapActions(actions, store) {
 
 
 function mapResolveSelectors(selectors, store) {
-  return (0,external_lodash_namespaceObject.mapValues)((0,external_lodash_namespaceObject.omit)(selectors, ['getIsResolving', 'hasStartedResolution', 'hasFinishedResolution', 'isResolving', 'getCachedResolvers']), (selector, selectorName) => function () {
-    for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-      args[_key3] = arguments[_key3];
+  const storeSelectors = (0,external_lodash_namespaceObject.omit)(selectors, ['getIsResolving', 'hasStartedResolution', 'hasFinishedResolution', 'hasResolutionFailed', 'isResolving', 'getCachedResolvers', 'getResolutionState', 'getResolutionError']);
+  return (0,external_lodash_namespaceObject.mapValues)(storeSelectors, (selector, selectorName) => {
+    // If the selector doesn't have a resolver, just convert the return value
+    // (including exceptions) to a Promise, no additional extra behavior is needed.
+    if (!selector.hasResolver) {
+      return async function () {
+        for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+          args[_key3] = arguments[_key3];
+        }
+
+        return selector.apply(null, args);
+      };
     }
 
-    return new Promise((resolve, reject) => {
-      const hasFinished = () => selectors.hasFinishedResolution(selectorName, args);
-
-      const finalize = result => {
-        const hasFailed = selectors.hasResolutionFailed(selectorName, args);
-
-        if (hasFailed) {
-          const error = selectors.getResolutionError(selectorName, args);
-          reject(error);
-        } else {
-          resolve(result);
-        }
-      };
-
-      const getResult = () => selector.apply(null, args); // Trigger the selector (to trigger the resolver)
-
-
-      const result = getResult();
-
-      if (hasFinished()) {
-        return finalize(result);
+    return function () {
+      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+        args[_key4] = arguments[_key4];
       }
 
-      const unsubscribe = store.subscribe(() => {
+      return new Promise((resolve, reject) => {
+        const hasFinished = () => selectors.hasFinishedResolution(selectorName, args);
+
+        const finalize = result => {
+          const hasFailed = selectors.hasResolutionFailed(selectorName, args);
+
+          if (hasFailed) {
+            const error = selectors.getResolutionError(selectorName, args);
+            reject(error);
+          } else {
+            resolve(result);
+          }
+        };
+
+        const getResult = () => selector.apply(null, args); // Trigger the selector (to trigger the resolver)
+
+
+        const result = getResult();
+
         if (hasFinished()) {
-          unsubscribe();
-          finalize(getResult());
+          return finalize(result);
         }
+
+        const unsubscribe = store.subscribe(() => {
+          if (hasFinished()) {
+            unsubscribe();
+            finalize(getResult());
+          }
+        });
       });
-    });
+    };
   });
 }
 /**
@@ -2507,8 +2522,8 @@ function mapResolvers(resolvers, selectors, store, resolversCache) {
     }
 
     const selectorResolver = function () {
-      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-        args[_key4] = arguments[_key4];
+      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        args[_key5] = arguments[_key5];
       }
 
       async function fulfillSelector() {
@@ -2570,8 +2585,8 @@ async function fulfillResolver(store, resolvers, selectorName) {
     return;
   }
 
-  for (var _len5 = arguments.length, args = new Array(_len5 > 3 ? _len5 - 3 : 0), _key5 = 3; _key5 < _len5; _key5++) {
-    args[_key5 - 3] = arguments[_key5];
+  for (var _len6 = arguments.length, args = new Array(_len6 > 3 ? _len6 - 3 : 0), _key6 = 3; _key6 < _len6; _key6++) {
+    args[_key6 - 3] = arguments[_key6];
   }
 
   const action = resolver.fulfill(...args);
@@ -2692,12 +2707,10 @@ function createRegistry() {
   let parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   const stores = {};
   const emitter = createEmitter();
-
-  const __experimentalListeningStores = new Set();
+  const listeningStores = new Set();
   /**
    * Global listener called for each store's update.
    */
-
 
   function globalListener() {
     emitter.emit();
@@ -2726,9 +2739,7 @@ function createRegistry() {
 
   function select(storeNameOrDescriptor) {
     const storeName = (0,external_lodash_namespaceObject.isObject)(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
-
-    __experimentalListeningStores.add(storeName);
-
+    listeningStores.add(storeName);
     const store = stores[storeName];
 
     if (store) {
@@ -2738,11 +2749,10 @@ function createRegistry() {
     return parent && parent.select(storeName);
   }
 
-  function __experimentalMarkListeningStores(callback, ref) {
-    __experimentalListeningStores.clear();
-
+  function __unstableMarkListeningStores(callback, ref) {
+    listeningStores.clear();
     const result = callback.call(this);
-    ref.current = Array.from(__experimentalListeningStores);
+    ref.current = Array.from(listeningStores);
     return result;
   }
   /**
@@ -2760,9 +2770,7 @@ function createRegistry() {
 
   function resolveSelect(storeNameOrDescriptor) {
     const storeName = (0,external_lodash_namespaceObject.isObject)(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
-
-    __experimentalListeningStores.add(storeName);
-
+    listeningStores.add(storeName);
     const store = stores[storeName];
 
     if (store) {
@@ -2898,7 +2906,7 @@ function createRegistry() {
    */
 
 
-  function __experimentalSubscribeStore(storeName, handler) {
+  function __unstableSubscribeStore(storeName, handler) {
     if (storeName in stores) {
       return stores[storeName].subscribe(handler);
     } // Trying to access a store that hasn't been registered,
@@ -2911,7 +2919,7 @@ function createRegistry() {
       return subscribe(handler);
     }
 
-    return parent.__experimentalSubscribeStore(storeName, handler);
+    return parent.__unstableSubscribeStore(storeName, handler);
   }
 
   function batch(callback) {
@@ -2935,8 +2943,8 @@ function createRegistry() {
     register,
     registerGenericStore,
     registerStore,
-    __experimentalMarkListeningStores,
-    __experimentalSubscribeStore
+    __unstableMarkListeningStores,
+    __unstableSubscribeStore
   }; //
   // TODO:
   // This function will be deprecated as soon as it is no longer internally referenced.
@@ -3298,29 +3306,50 @@ function migrateFeaturePreferencesToPreferencesStore(persistence, sourceStoreNam
     }
   }
 }
-function migrateIndividualPreferenceToPreferencesStore(persistence, sourceStoreName, key) {
+/**
+ * Migrates an individual item inside the `preferences` object for a store.
+ *
+ * @param {Object}    persistence   The persistence interface.
+ * @param {Object}    migrate       An options object that contains details of the migration.
+ * @param {string}    migrate.from  The name of the store to migrate from.
+ * @param {string}    migrate.scope The scope in the preferences store to migrate to.
+ * @param {string}    key           The key in the preferences object to migrate.
+ * @param {?Function} convert       A function that converts preferences from one format to another.
+ */
+
+function migrateIndividualPreferenceToPreferencesStore(persistence, _ref, key) {
   var _state$sourceStoreNam4, _state$sourceStoreNam5, _state$preferencesSto2, _state$preferencesSto3, _state$preferencesSto4, _state$preferencesSto5, _state$preferencesSto6, _state$preferencesSto7, _state$sourceStoreNam6;
 
+  let {
+    from: sourceStoreName,
+    scope
+  } = _ref;
+  let convert = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : external_lodash_namespaceObject.identity;
   const preferencesStoreName = 'core/preferences';
   const state = persistence.get();
   const sourcePreference = (_state$sourceStoreNam4 = state[sourceStoreName]) === null || _state$sourceStoreNam4 === void 0 ? void 0 : (_state$sourceStoreNam5 = _state$sourceStoreNam4.preferences) === null || _state$sourceStoreNam5 === void 0 ? void 0 : _state$sourceStoreNam5[key]; // There's nothing to migrate, exit early.
 
-  if (!sourcePreference) {
+  if (sourcePreference === undefined) {
     return;
   }
 
-  const targetPreference = (_state$preferencesSto2 = state[preferencesStoreName]) === null || _state$preferencesSto2 === void 0 ? void 0 : (_state$preferencesSto3 = _state$preferencesSto2.preferences) === null || _state$preferencesSto3 === void 0 ? void 0 : (_state$preferencesSto4 = _state$preferencesSto3[sourceStoreName]) === null || _state$preferencesSto4 === void 0 ? void 0 : _state$preferencesSto4[key]; // There's existing data at the target, so don't overwrite it, exit early.
+  const targetPreference = (_state$preferencesSto2 = state[preferencesStoreName]) === null || _state$preferencesSto2 === void 0 ? void 0 : (_state$preferencesSto3 = _state$preferencesSto2.preferences) === null || _state$preferencesSto3 === void 0 ? void 0 : (_state$preferencesSto4 = _state$preferencesSto3[scope]) === null || _state$preferencesSto4 === void 0 ? void 0 : _state$preferencesSto4[key]; // There's existing data at the target, so don't overwrite it, exit early.
 
   if (targetPreference) {
     return;
   }
 
-  const allPreferences = (_state$preferencesSto5 = state[preferencesStoreName]) === null || _state$preferencesSto5 === void 0 ? void 0 : _state$preferencesSto5.preferences;
-  const targetPreferences = (_state$preferencesSto6 = state[preferencesStoreName]) === null || _state$preferencesSto6 === void 0 ? void 0 : (_state$preferencesSto7 = _state$preferencesSto6.preferences) === null || _state$preferencesSto7 === void 0 ? void 0 : _state$preferencesSto7[sourceStoreName];
+  const otherScopes = (_state$preferencesSto5 = state[preferencesStoreName]) === null || _state$preferencesSto5 === void 0 ? void 0 : _state$preferencesSto5.preferences;
+  const otherPreferences = (_state$preferencesSto6 = state[preferencesStoreName]) === null || _state$preferencesSto6 === void 0 ? void 0 : (_state$preferencesSto7 = _state$preferencesSto6.preferences) === null || _state$preferencesSto7 === void 0 ? void 0 : _state$preferencesSto7[scope]; // Pass an object with the key and value as this allows the convert
+  // function to convert to a data structure that has different keys.
+
+  const convertedPreferences = convert({
+    [key]: sourcePreference
+  });
   persistence.set(preferencesStoreName, {
-    preferences: { ...allPreferences,
-      [sourceStoreName]: { ...targetPreferences,
-        [key]: sourcePreference
+    preferences: { ...otherScopes,
+      [scope]: { ...otherPreferences,
+        ...convertedPreferences
       }
     }
   }); // Remove migrated feature preferences from the source.
@@ -3331,6 +3360,59 @@ function migrateIndividualPreferenceToPreferencesStore(persistence, sourceStoreN
     preferences: { ...allSourcePreferences,
       [key]: undefined
     }
+  });
+}
+/**
+ * Convert from:
+ * ```
+ * {
+ *     panels: {
+ *         tags: {
+ *             enabled: true,
+ *             opened: true,
+ *         },
+ *         permalinks: {
+ *             enabled: false,
+ *             opened: false,
+ *         },
+ *     },
+ * }
+ * ```
+ *
+ * to:
+ * {
+ *     inactivePanels: [
+ *         'permalinks',
+ *     ],
+ *     openPanels: [
+ *         'tags',
+ *     ],
+ * }
+ *
+ * @param {Object} preferences A preferences object.
+ *
+ * @return {Object} The converted data.
+ */
+
+function convertEditPostPanels(preferences) {
+  var _preferences$panels;
+
+  const panels = (_preferences$panels = preferences === null || preferences === void 0 ? void 0 : preferences.panels) !== null && _preferences$panels !== void 0 ? _preferences$panels : {};
+  return Object.keys(panels).reduce((convertedData, panelName) => {
+    const panel = panels[panelName];
+
+    if ((panel === null || panel === void 0 ? void 0 : panel.enabled) === false) {
+      convertedData.inactivePanels.push(panelName);
+    }
+
+    if ((panel === null || panel === void 0 ? void 0 : panel.opened) === true) {
+      convertedData.openPanels.push(panelName);
+    }
+
+    return convertedData;
+  }, {
+    inactivePanels: [],
+    openPanels: []
   });
 }
 function migrateThirdPartyFeaturePreferencesToPreferencesStore(persistence) {
@@ -3347,7 +3429,7 @@ function migrateThirdPartyFeaturePreferencesToPreferencesStore(persistence) {
     // Don't migrate any core 'scopes'.
     if (scope.startsWith('core')) {
       continue;
-    } // Skip this scope if there are no features to migrates
+    } // Skip this scope if there are no features to migrate.
 
 
     const featuresToMigrate = interfaceScopes[scope];
@@ -3378,6 +3460,112 @@ function migrateThirdPartyFeaturePreferencesToPreferencesStore(persistence) {
     });
   }
 }
+/**
+ * Migrates interface 'enableItems' data to the preferences store.
+ *
+ * The interface package stores this data in this format:
+ * ```js
+ * {
+ *     enableItems: {
+ *         singleEnableItems: {
+ * 	           complementaryArea: {
+ *                 'core/edit-post': 'edit-post/document',
+ *                 'core/edit-site': 'edit-site/global-styles',
+ *             }
+ *         },
+ *         multipleEnableItems: {
+ *             pinnedItems: {
+ *                 'core/edit-post': {
+ *                     'plugin-1': true,
+ *                 },
+ *                 'core/edit-site': {
+ *                     'plugin-2': true,
+ *                 },
+ *             },
+ *         }
+ *     }
+ * }
+ * ```
+ * and it should be migrated it to:
+ * ```js
+ * {
+ *     'core/edit-post': {
+ *         complementaryArea: 'edit-post/document',
+ *         pinnedItems: {
+ *             'plugin-1': true,
+ *         },
+ *     },
+ *     'core/edit-site': {
+ *         complementaryArea: 'edit-site/global-styles',
+ *         pinnedItems: {
+ *             'plugin-2': true,
+ *         },
+ *     },
+ * }
+ * ```
+ *
+ * @param {Object} persistence The persistence interface.
+ */
+
+function migrateInterfaceEnableItemsToPreferencesStore(persistence) {
+  var _state$interfaceStore10, _state$preferencesSto9, _state$preferencesSto10, _sourceEnableItems$si, _sourceEnableItems$si2, _sourceEnableItems$mu, _sourceEnableItems$mu2;
+
+  const interfaceStoreName = 'core/interface';
+  const preferencesStoreName = 'core/preferences';
+  const state = persistence.get();
+  const sourceEnableItems = (_state$interfaceStore10 = state[interfaceStoreName]) === null || _state$interfaceStore10 === void 0 ? void 0 : _state$interfaceStore10.enableItems; // There's nothing to migrate, exit early.
+
+  if (!sourceEnableItems) {
+    return;
+  }
+
+  const allPreferences = (_state$preferencesSto9 = (_state$preferencesSto10 = state[preferencesStoreName]) === null || _state$preferencesSto10 === void 0 ? void 0 : _state$preferencesSto10.preferences) !== null && _state$preferencesSto9 !== void 0 ? _state$preferencesSto9 : {}; // First convert complementaryAreas into the right format.
+  // Use the existing preferences as the accumulator so that the data is
+  // merged.
+
+  const sourceComplementaryAreas = (_sourceEnableItems$si = sourceEnableItems === null || sourceEnableItems === void 0 ? void 0 : (_sourceEnableItems$si2 = sourceEnableItems.singleEnableItems) === null || _sourceEnableItems$si2 === void 0 ? void 0 : _sourceEnableItems$si2.complementaryArea) !== null && _sourceEnableItems$si !== void 0 ? _sourceEnableItems$si : {};
+  const convertedComplementaryAreas = Object.keys(sourceComplementaryAreas).reduce((accumulator, scope) => {
+    var _accumulator$scope;
+
+    const data = sourceComplementaryAreas[scope]; // Don't overwrite any existing data in the preferences store.
+
+    if ((_accumulator$scope = accumulator[scope]) !== null && _accumulator$scope !== void 0 && _accumulator$scope.complementaryArea) {
+      return accumulator;
+    }
+
+    return { ...accumulator,
+      [scope]: { ...accumulator[scope],
+        complementaryArea: data
+      }
+    };
+  }, allPreferences); // Next feed the converted complementary areas back into a reducer that
+  // converts the pinned items, resulting in the fully migrated data.
+
+  const sourcePinnedItems = (_sourceEnableItems$mu = sourceEnableItems === null || sourceEnableItems === void 0 ? void 0 : (_sourceEnableItems$mu2 = sourceEnableItems.multipleEnableItems) === null || _sourceEnableItems$mu2 === void 0 ? void 0 : _sourceEnableItems$mu2.pinnedItems) !== null && _sourceEnableItems$mu !== void 0 ? _sourceEnableItems$mu : {};
+  const allConvertedData = Object.keys(sourcePinnedItems).reduce((accumulator, scope) => {
+    var _accumulator$scope2;
+
+    const data = sourcePinnedItems[scope]; // Don't overwrite any existing data in the preferences store.
+
+    if ((_accumulator$scope2 = accumulator[scope]) !== null && _accumulator$scope2 !== void 0 && _accumulator$scope2.pinnedItems) {
+      return accumulator;
+    }
+
+    return { ...accumulator,
+      [scope]: { ...accumulator[scope],
+        pinnedItems: data
+      }
+    };
+  }, convertedComplementaryAreas);
+  persistence.set(preferencesStoreName, {
+    preferences: allConvertedData
+  }); // Remove migrated preferences.
+
+  const otherInterfaceItems = state[interfaceStoreName];
+  persistence.set(interfaceStoreName, { ...otherInterfaceItems,
+    enableItems: undefined
+  });
+}
 
 persistencePlugin.__unstableMigrate = pluginOptions => {
   const persistence = createPersistenceInterface(pluginOptions); // Boolean feature preferences.
@@ -3388,10 +3576,31 @@ persistencePlugin.__unstableMigrate = pluginOptions => {
   migrateFeaturePreferencesToPreferencesStore(persistence, 'core/edit-site');
   migrateThirdPartyFeaturePreferencesToPreferencesStore(persistence); // Other ad-hoc preferences.
 
-  migrateIndividualPreferenceToPreferencesStore(persistence, 'core/edit-post', 'hiddenBlockTypes');
-  migrateIndividualPreferenceToPreferencesStore(persistence, 'core/edit-post', 'editorMode');
-  migrateIndividualPreferenceToPreferencesStore(persistence, 'core/edit-post', 'preferredStyleVariations');
-  migrateIndividualPreferenceToPreferencesStore(persistence, 'core/edit-site', 'editorMode');
+  migrateIndividualPreferenceToPreferencesStore(persistence, {
+    from: 'core/edit-post',
+    scope: 'core/edit-post'
+  }, 'hiddenBlockTypes');
+  migrateIndividualPreferenceToPreferencesStore(persistence, {
+    from: 'core/edit-post',
+    scope: 'core/edit-post'
+  }, 'editorMode');
+  migrateIndividualPreferenceToPreferencesStore(persistence, {
+    from: 'core/edit-post',
+    scope: 'core/edit-post'
+  }, 'preferredStyleVariations');
+  migrateIndividualPreferenceToPreferencesStore(persistence, {
+    from: 'core/edit-post',
+    scope: 'core/edit-post'
+  }, 'panels', convertEditPostPanels);
+  migrateIndividualPreferenceToPreferencesStore(persistence, {
+    from: 'core/editor',
+    scope: 'core/edit-post'
+  }, 'isPublishSidebarEnabled');
+  migrateIndividualPreferenceToPreferencesStore(persistence, {
+    from: 'core/edit-site',
+    scope: 'core/edit-site'
+  }, 'editorMode');
+  migrateInterfaceEnableItemsToPreferencesStore(persistence);
 };
 
 /* harmony default export */ var persistence = (persistencePlugin);
@@ -3775,7 +3984,7 @@ function useSelect(mapSelect, deps) {
   // and only subscribe to those stores later.
 
   const listeningStores = (0,external_wp_element_namespaceObject.useRef)([]);
-  const trapSelect = (0,external_wp_element_namespaceObject.useCallback)(callback => registry.__experimentalMarkListeningStores(callback, listeningStores), [registry]); // Generate a "flag" for used in the effect dependency array.
+  const wrapSelect = (0,external_wp_element_namespaceObject.useCallback)(callback => registry.__unstableMarkListeningStores(() => callback(registry.select, registry), listeningStores), [registry]); // Generate a "flag" for used in the effect dependency array.
   // It's different than just using `mapSelect` since deps could be undefined,
   // in that case, we would still want to memoize it.
 
@@ -3789,7 +3998,7 @@ function useSelect(mapSelect, deps) {
 
     if (hasReplacedMapSelect || lastMapSelectFailed) {
       try {
-        mapOutput = trapSelect(() => _mapSelect(registry.select, registry));
+        mapOutput = wrapSelect(_mapSelect);
       } catch (error) {
         let errorMessage = `An error occurred while running 'mapSelect': ${error.message}`;
 
@@ -3831,7 +4040,7 @@ function useSelect(mapSelect, deps) {
     const onStoreChange = () => {
       if (isMountedAndNotUnsubscribing.current) {
         try {
-          const newMapOutput = trapSelect(() => latestMapSelect.current(registry.select, registry));
+          const newMapOutput = wrapSelect(latestMapSelect.current);
 
           if (external_wp_isShallowEqual_default()(latestMapOutput.current, newMapOutput)) {
             return;
@@ -3844,15 +4053,7 @@ function useSelect(mapSelect, deps) {
 
         forceRender();
       }
-    }; // Catch any possible state changes during mount before the subscription
-    // could be set.
-
-
-    if (latestIsAsync.current) {
-      renderQueue.add(queueContext, onStoreChange);
-    } else {
-      onStoreChange();
-    }
+    };
 
     const onChange = () => {
       if (latestIsAsync.current) {
@@ -3860,9 +4061,12 @@ function useSelect(mapSelect, deps) {
       } else {
         onStoreChange();
       }
-    };
+    }; // Catch any possible state changes during mount before the subscription
+    // could be set.
 
-    const unsubscribers = listeningStores.current.map(storeName => registry.__experimentalSubscribeStore(storeName, onChange));
+
+    onChange();
+    const unsubscribers = listeningStores.current.map(storeName => registry.__unstableSubscribeStore(storeName, onChange));
     return () => {
       isMountedAndNotUnsubscribing.current = false; // The return value of the subscribe function could be undefined if the store is a custom generic store.
 
@@ -3871,7 +4075,7 @@ function useSelect(mapSelect, deps) {
     }; // If you're tempted to eliminate the spread dependencies below don't do it!
     // We're passing these in from the calling function and want to make sure we're
     // examining every individual value inside the `deps` array.
-  }, [registry, trapSelect, hasMappingFunction, depsChangedFlag]);
+  }, [registry, wrapSelect, hasMappingFunction, depsChangedFlag]);
   return hasMappingFunction ? mapOutput : registry.select(mapSelect);
 }
 

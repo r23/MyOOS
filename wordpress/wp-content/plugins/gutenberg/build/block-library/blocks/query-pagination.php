@@ -18,9 +18,16 @@ function gutenberg_render_block_core_query_pagination( $attributes, $content ) {
 		return '';
 	}
 
+	$wrapper_attributes = get_block_wrapper_attributes(
+		array(
+			'role'       => 'navigation',
+			'aria-label' => __( 'Pagination' ),
+		)
+	);
+
 	return sprintf(
-		'<div %1$s>%2$s</div>',
-		get_block_wrapper_attributes(),
+		'<nav %1$s>%2$s</nav>',
+		$wrapper_attributes,
 		$content
 	);
 }

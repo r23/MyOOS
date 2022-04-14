@@ -431,94 +431,6 @@ const closeSmall = (0,external_wp_element_namespaceObject.createElement)(externa
 
 ;// CONCATENATED MODULE: external "lodash"
 var external_lodash_namespaceObject = window["lodash"];
-;// CONCATENATED MODULE: ./packages/interface/build-module/store/reducer.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Reducer to keep tract of the active area per scope.
- *
- * @param {boolean} state           Previous state.
- * @param {Object}  action          Action object.
- * @param {string}  action.type     Action type.
- * @param {string}  action.itemType Type of item.
- * @param {string}  action.scope    Item scope.
- * @param {string}  action.item     Item name.
- *
- * @return {Object} Updated state.
- */
-
-function singleEnableItems() {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let {
-    type,
-    itemType,
-    scope,
-    item
-  } = arguments.length > 1 ? arguments[1] : undefined;
-
-  if (type !== 'SET_SINGLE_ENABLE_ITEM' || !itemType || !scope) {
-    return state;
-  }
-
-  return { ...state,
-    [itemType]: { ...state[itemType],
-      [scope]: item || null
-    }
-  };
-}
-/**
- * Reducer keeping track of the "pinned" items per scope.
- *
- * @param {boolean} state           Previous state.
- * @param {Object}  action          Action object.
- * @param {string}  action.type     Action type.
- * @param {string}  action.itemType Type of item.
- * @param {string}  action.scope    Item scope.
- * @param {string}  action.item     Item name.
- * @param {boolean} action.isEnable Whether the item is pinned.
- *
- * @return {Object} Updated state.
- */
-
-function multipleEnableItems() {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let {
-    type,
-    itemType,
-    scope,
-    item,
-    isEnable
-  } = arguments.length > 1 ? arguments[1] : undefined;
-
-  if (type !== 'SET_MULTIPLE_ENABLE_ITEM' || !itemType || !scope || !item || (0,external_lodash_namespaceObject.get)(state, [itemType, scope, item]) === isEnable) {
-    return state;
-  }
-
-  const currentTypeState = state[itemType] || {};
-  const currentScopeState = currentTypeState[scope] || {};
-  return { ...state,
-    [itemType]: { ...currentTypeState,
-      [scope]: { ...currentScopeState,
-        [item]: isEnable || false
-      }
-    }
-  };
-}
-const enableItems = (0,external_wp_data_namespaceObject.combineReducers)({
-  singleEnableItems,
-  multipleEnableItems
-});
-/* harmony default export */ var store_reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
-  enableItems
-}));
-
 ;// CONCATENATED MODULE: external ["wp","deprecated"]
 var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
@@ -529,92 +441,87 @@ var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external
 
 
 /**
- * Returns an action object used in signalling that an active area should be changed.
- *
- * @param {string} itemType Type of item.
- * @param {string} scope    Item scope.
- * @param {string} item     Item identifier.
- *
- * @return {Object} Action object.
- */
-
-function setSingleEnableItem(itemType, scope, item) {
-  return {
-    type: 'SET_SINGLE_ENABLE_ITEM',
-    itemType,
-    scope,
-    item
-  };
-}
-/**
- * Returns an action object used in signalling that a complementary item should be enabled.
+ * Enable the complementary area.
  *
  * @param {string} scope Complementary area scope.
  * @param {string} area  Area identifier.
- *
- * @return {Object} Action object.
  */
 
+const enableComplementaryArea = (scope, area) => _ref => {
+  let {
+    registry
+  } = _ref;
 
-function enableComplementaryArea(scope, area) {
-  return setSingleEnableItem('complementaryArea', scope, area);
-}
+  // Return early if there's no area.
+  if (!area) {
+    return;
+  }
+
+  registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, 'complementaryArea', area);
+};
 /**
- * Returns an action object used in signalling that the complementary area of a given scope should be disabled.
+ * Disable the complementary area.
  *
  * @param {string} scope Complementary area scope.
- *
- * @return {Object} Action object.
  */
 
-function disableComplementaryArea(scope) {
-  return setSingleEnableItem('complementaryArea', scope, undefined);
-}
+const disableComplementaryArea = scope => _ref2 => {
+  let {
+    registry
+  } = _ref2;
+  registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, 'complementaryArea', null);
+};
 /**
- * Returns an action object to make an area enabled/disabled.
+ * Pins an item.
  *
- * @param {string}  itemType Type of item.
- * @param {string}  scope    Item scope.
- * @param {string}  item     Item identifier.
- * @param {boolean} isEnable Boolean indicating if an area should be pinned or not.
+ * @param {string} scope Item scope.
+ * @param {string} item  Item identifier.
  *
  * @return {Object} Action object.
  */
 
-function setMultipleEnableItem(itemType, scope, item, isEnable) {
-  return {
-    type: 'SET_MULTIPLE_ENABLE_ITEM',
-    itemType,
-    scope,
-    item,
-    isEnable
-  };
-}
+const pinItem = (scope, item) => _ref3 => {
+  let {
+    registry
+  } = _ref3;
+
+  // Return early if there's no item.
+  if (!item) {
+    return;
+  }
+
+  const pinnedItems = registry.select(external_wp_preferences_namespaceObject.store).get(scope, 'pinnedItems'); // The item is already pinned, there's nothing to do.
+
+  if ((pinnedItems === null || pinnedItems === void 0 ? void 0 : pinnedItems[item]) === true) {
+    return;
+  }
+
+  registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, 'pinnedItems', { ...pinnedItems,
+    [item]: true
+  });
+};
 /**
- * Returns an action object used in signalling that an item should be pinned.
+ * Unpins an item.
  *
- * @param {string} scope  Item scope.
- * @param {string} itemId Item identifier.
- *
- * @return {Object} Action object.
+ * @param {string} scope Item scope.
+ * @param {string} item  Item identifier.
  */
 
+const unpinItem = (scope, item) => _ref4 => {
+  let {
+    registry
+  } = _ref4;
 
-function pinItem(scope, itemId) {
-  return setMultipleEnableItem('pinnedItems', scope, itemId, true);
-}
-/**
- * Returns an action object used in signalling that an item should be unpinned.
- *
- * @param {string} scope  Item scope.
- * @param {string} itemId Item identifier.
- *
- * @return {Object} Action object.
- */
+  // Return early if there's no item.
+  if (!item) {
+    return;
+  }
 
-function unpinItem(scope, itemId) {
-  return setMultipleEnableItem('pinnedItems', scope, itemId, false);
-}
+  const pinnedItems = registry.select(external_wp_preferences_namespaceObject.store).get(scope, 'pinnedItems');
+  registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, 'pinnedItems', { ...pinnedItems,
+    [item]: false
+  });
+};
 /**
  * Returns an action object used in signalling that a feature should be toggled.
  *
@@ -623,10 +530,10 @@ function unpinItem(scope, itemId) {
  */
 
 function toggleFeature(scope, featureName) {
-  return function (_ref) {
+  return function (_ref5) {
     let {
       registry
-    } = _ref;
+    } = _ref5;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).toggleFeature`, {
       since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).toggle`
@@ -646,10 +553,10 @@ function toggleFeature(scope, featureName) {
  */
 
 function setFeatureValue(scope, featureName, value) {
-  return function (_ref2) {
+  return function (_ref6) {
     let {
       registry
-    } = _ref2;
+    } = _ref6;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureValue`, {
       since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).set`
@@ -667,10 +574,10 @@ function setFeatureValue(scope, featureName, value) {
  */
 
 function setFeatureDefaults(scope, defaults) {
-  return function (_ref3) {
+  return function (_ref7) {
     let {
       registry
-    } = _ref3;
+    } = _ref7;
     external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureDefaults`, {
       since: '6.0',
       alternative: `wp.dispatch( 'core/preferences' ).setDefaults`
@@ -681,29 +588,11 @@ function setFeatureDefaults(scope, defaults) {
 
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/selectors.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
 
 
 
-
-/**
- * Returns the item that is enabled in a given scope.
- *
- * @param {Object} state    Global application state.
- * @param {string} itemType Type of item.
- * @param {string} scope    Item scope.
- *
- * @return {?string|null} The item that is enabled in the passed scope and type.
- */
-
-function getSingleEnableItem(state, itemType, scope) {
-  return (0,external_lodash_namespaceObject.get)(state.enableItems.singleEnableItems, [itemType, scope]);
-}
 /**
  * Returns the complementary area that is active in a given scope.
  *
@@ -713,24 +602,9 @@ function getSingleEnableItem(state, itemType, scope) {
  * @return {string} The complementary area that is active in the given scope.
  */
 
-
-function getActiveComplementaryArea(state, scope) {
-  return getSingleEnableItem(state, 'complementaryArea', scope);
-}
-/**
- * Returns a boolean indicating if an item is enabled or not in a given scope.
- *
- * @param {Object} state    Global application state.
- * @param {string} itemType Type of item.
- * @param {string} scope    Scope.
- * @param {string} item     Item to check.
- *
- * @return {boolean|undefined} True if the item is enabled, false otherwise if the item is explicitly disabled, and undefined if there is no information for that item.
- */
-
-function isMultipleEnabledItemEnabled(state, itemType, scope, item) {
-  return (0,external_lodash_namespaceObject.get)(state.enableItems.multipleEnableItems, [itemType, scope, item]);
-}
+const getActiveComplementaryArea = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, scope) => {
+  return select(external_wp_preferences_namespaceObject.store).get(scope, 'complementaryArea');
+});
 /**
  * Returns a boolean indicating if an item is pinned or not.
  *
@@ -741,10 +615,12 @@ function isMultipleEnabledItemEnabled(state, itemType, scope, item) {
  * @return {boolean} True if the item is pinned and false otherwise.
  */
 
+const isItemPinned = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, scope, item) => {
+  var _pinnedItems$item;
 
-function isItemPinned(state, scope, item) {
-  return isMultipleEnabledItemEnabled(state, 'pinnedItems', scope, item) !== false;
-}
+  const pinnedItems = select(external_wp_preferences_namespaceObject.store).get(scope, 'pinnedItems');
+  return (_pinnedItems$item = pinnedItems === null || pinnedItems === void 0 ? void 0 : pinnedItems[item]) !== null && _pinnedItems$item !== void 0 ? _pinnedItems$item : true;
+});
 /**
  * Returns a boolean indicating whether a feature is active for a particular
  * scope.
@@ -784,13 +660,6 @@ const STORE_NAME = 'core/interface';
 
 
 
-
-const storeConfig = {
-  reducer: store_reducer,
-  actions: actions_namespaceObject,
-  selectors: selectors_namespaceObject,
-  persist: ['enableItems']
-};
 /**
  * Store definition for the interface namespace.
  *
@@ -799,10 +668,14 @@ const storeConfig = {
  * @type {Object}
  */
 
-const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, storeConfig); // Once we build a more generic persistence plugin that works across types of stores
+const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, {
+  reducer: () => {},
+  actions: actions_namespaceObject,
+  selectors: selectors_namespaceObject
+}); // Once we build a more generic persistence plugin that works across types of stores
 // we'd be able to replace this with a register call.
 
-(0,external_wp_data_namespaceObject.registerStore)(STORE_NAME, storeConfig);
+(0,external_wp_data_namespaceObject.register)(store);
 
 ;// CONCATENATED MODULE: external ["wp","plugins"]
 var external_wp_plugins_namespaceObject = window["wp"]["plugins"];
@@ -2400,7 +2273,7 @@ function isListViewOpened(state) {
  * @type {Object}
  */
 
-const store_storeConfig = {
+const storeConfig = {
   reducer: reducer,
   selectors: store_selectors_namespaceObject,
   resolvers: resolvers_namespaceObject,
@@ -2414,7 +2287,7 @@ const store_storeConfig = {
  * @type {Object}
  */
 
-const store_store = (0,external_wp_data_namespaceObject.createReduxStore)(constants_STORE_NAME, store_storeConfig);
+const store_store = (0,external_wp_data_namespaceObject.createReduxStore)(constants_STORE_NAME, storeConfig);
 (0,external_wp_data_namespaceObject.register)(store_store); // This package uses a few in-memory post types as wrappers for convenience.
 // This middleware prevents any network requests related to these types as they are
 // bound to fail anyway.
@@ -4435,9 +4308,12 @@ function Interface(_ref) {
       closeGeneralSidebar();
     }
   }, [isInserterOpened, isListViewOpened, isHugeViewport]);
+  const secondarySidebarLabel = isListViewOpened ? (0,external_wp_i18n_namespaceObject.__)('List View') : (0,external_wp_i18n_namespaceObject.__)('Block Library');
   const hasSecondarySidebar = isListViewOpened || isInserterOpened;
   return (0,external_wp_element_namespaceObject.createElement)(interface_skeleton, {
-    labels: interfaceLabels,
+    labels: { ...interfaceLabels,
+      secondarySidebar: secondarySidebarLabel
+    },
     header: (0,external_wp_element_namespaceObject.createElement)(header, null),
     secondarySidebar: hasSecondarySidebar && (0,external_wp_element_namespaceObject.createElement)(SecondarySidebar, null),
     sidebar: hasSidebarEnabled && (0,external_wp_element_namespaceObject.createElement)(complementary_area.Slot, {

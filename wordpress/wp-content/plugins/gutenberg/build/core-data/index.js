@@ -616,6 +616,8 @@ __webpack_require__.d(build_module_selectors_namespaceObject, {
   "getAuthors": function() { return getAuthors; },
   "getAutosave": function() { return getAutosave; },
   "getAutosaves": function() { return getAutosaves; },
+  "getBlockPatternCategories": function() { return getBlockPatternCategories; },
+  "getBlockPatterns": function() { return getBlockPatterns; },
   "getCurrentTheme": function() { return getCurrentTheme; },
   "getCurrentUser": function() { return getCurrentUser; },
   "getEditedEntityRecord": function() { return getEditedEntityRecord; },
@@ -661,6 +663,8 @@ __webpack_require__.d(resolvers_namespaceObject, {
   "getAuthors": function() { return resolvers_getAuthors; },
   "getAutosave": function() { return resolvers_getAutosave; },
   "getAutosaves": function() { return resolvers_getAutosaves; },
+  "getBlockPatternCategories": function() { return resolvers_getBlockPatternCategories; },
+  "getBlockPatterns": function() { return resolvers_getBlockPatterns; },
   "getCurrentTheme": function() { return resolvers_getCurrentTheme; },
   "getCurrentUser": function() { return resolvers_getCurrentUser; },
   "getEditedEntityRecord": function() { return resolvers_getEditedEntityRecord; },
@@ -679,14 +683,16 @@ var external_lodash_namespaceObject = window["lodash"];
 var external_wp_isShallowEqual_namespaceObject = window["wp"]["isShallowEqual"];
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_namespaceObject);
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/if-matching-action.js
+/** @typedef {import('../types').AnyFunction} AnyFunction */
+
 /**
  * A higher-order reducer creator which invokes the original reducer only if
  * the dispatching action matches the given predicate, **OR** if state is
  * initializing (undefined).
  *
- * @param {Function} isMatch Function predicate for allowing reducer call.
+ * @param {AnyFunction} isMatch Function predicate for allowing reducer call.
  *
- * @return {Function} Higher-order reducer.
+ * @return {AnyFunction} Higher-order reducer.
  */
 const ifMatchingAction = isMatch => reducer => (state, action) => {
   if (state === undefined || isMatch(action)) {
@@ -699,13 +705,15 @@ const ifMatchingAction = isMatch => reducer => (state, action) => {
 /* harmony default export */ var if_matching_action = (ifMatchingAction);
 
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/replace-action.js
+/** @typedef {import('../types').AnyFunction} AnyFunction */
+
 /**
  * Higher-order reducer creator which substitutes the action object before
  * passing to the original reducer.
  *
- * @param {Function} replacer Function mapping original action to replacement.
+ * @param {AnyFunction} replacer Function mapping original action to replacement.
  *
- * @return {Function} Higher-order reducer.
+ * @return {AnyFunction} Higher-order reducer.
  */
 const replaceAction = replacer => reducer => (state, action) => {
   return reducer(state, replacer(action));
@@ -764,13 +772,15 @@ function conservativeMapItem(item, nextItem) {
 }
 
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/on-sub-key.js
+/** @typedef {import('../types').AnyFunction} AnyFunction */
+
 /**
  * Higher-order reducer creator which creates a combined reducer object, keyed
  * by a property on the action object.
  *
  * @param {string} actionProperty Action property by which to key object.
  *
- * @return {Function} Higher-order reducer.
+ * @return {AnyFunction} Higher-order reducer.
  */
 const onSubKey = actionProperty => reducer => function () {
   let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -986,7 +996,7 @@ async function defaultProcessor(requests) {
     maxItems = preflightResponse.endpoints[0].args.requests.maxItems;
   }
 
-  const results = [];
+  const results = []; // @ts-ignore We would have crashed or never gotten to this point if we hadn't received the maxItems count.
 
   for (const batchRequests of (0,external_lodash_namespaceObject.chunk)(requests, maxItems)) {
     const batchResponse = await external_wp_apiFetch_default()({
@@ -2766,6 +2776,8 @@ const queries = function () {
 
 
 
+/** @typedef {import('./types').AnyFunction} AnyFunction */
+
 /**
  * Reducer managing terms state. Keyed by taxonomy slug, the value is either
  * undefined (if no request has been made for given taxonomy), null (if a
@@ -2954,7 +2966,7 @@ function themeGlobalStyleVariations() {
  *
  * @param {Object} entityConfig Entity config.
  *
- * @return {Function} Reducer.
+ * @return {AnyFunction} Reducer.
  */
 
 function entity(entityConfig) {
@@ -3133,17 +3145,35 @@ const entities = function () {
   };
 };
 /**
- * Reducer keeping track of entity edit undo history.
+ * @typedef {Object} UndoStateMeta
  *
- * @param {Object} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {Object} Updated state.
+ * @property {number} offset          Where in the undo stack we are.
+ * @property {Object} [flattenedUndo] Flattened form of undo stack.
  */
 
-const UNDO_INITIAL_STATE = [];
-UNDO_INITIAL_STATE.offset = 0;
+/** @typedef {Array<Object> & UndoStateMeta} UndoState */
+
+/**
+ * @type {UndoState}
+ *
+ * @todo Given how we use this we might want to make a custom class for it.
+ */
+
+const UNDO_INITIAL_STATE = Object.assign([], {
+  offset: 0
+});
+/** @type {Object} */
+
 let lastEditAction;
+/**
+ * Reducer keeping track of entity edit undo history.
+ *
+ * @param {UndoState} state  Current state.
+ * @param {Object}    action Dispatched action.
+ *
+ * @return {UndoState} Updated state.
+ */
+
 function reducer_undo() {
   let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : UNDO_INITIAL_STATE;
   let action = arguments.length > 1 ? arguments[1] : undefined;
@@ -3170,10 +3200,13 @@ function reducer_undo() {
           };
         }
       }
+      /** @type {UndoState} */
+
 
       let nextState;
 
       if (isUndoOrRedo) {
+        // @ts-ignore we might consider using Object.assign({}, state)
         nextState = [...state];
         nextState.offset = state.offset + (action.meta.isUndo ? -1 : 1);
 
@@ -3209,6 +3242,7 @@ function reducer_undo() {
 
 
       if (!isCreateUndoLevel && !Object.keys(action.edits).some(key => !action.transientEdits[key])) {
+        // @ts-ignore we might consider using Object.assign({}, state)
         nextState = [...state];
         nextState.flattenedUndo = { ...state.flattenedUndo,
           ...action.edits
@@ -3218,7 +3252,8 @@ function reducer_undo() {
       } // Clear potential redos, because this only supports linear history.
 
 
-      nextState = nextState || state.slice(0, state.offset || undefined);
+      nextState = // @ts-ignore this needs additional cleanup, probably involving code-level changes
+      nextState || state.slice(0, state.offset || undefined);
       nextState.offset = nextState.offset || 0;
       nextState.pop();
 
@@ -3329,6 +3364,28 @@ function autosaves() {
 
   return state;
 }
+function blockPatterns() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'RECEIVE_BLOCK_PATTERNS':
+      return action.patterns;
+  }
+
+  return state;
+}
+function blockPatternCategories() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'RECEIVE_BLOCK_PATTERN_CATEGORIES':
+      return action.categories;
+  }
+
+  return state;
+}
 /* harmony default export */ var build_module_reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
   terms,
   users,
@@ -3342,7 +3399,9 @@ function autosaves() {
   undo: reducer_undo,
   embedPreviews,
   userPermissions,
-  autosaves
+  autosaves,
+  blockPatterns,
+  blockPatternCategories
 }));
 
 ;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
@@ -4194,10 +4253,10 @@ const getEntityRecordNonTransientEdits = rememo((state, kind, name, recordId) =>
  * Returns true if the specified entity record has edits,
  * and false otherwise.
  *
- * @param {Object} state    State tree.
- * @param {string} kind     Entity kind.
- * @param {string} name     Entity name.
- * @param {number} recordId Record ID.
+ * @param {Object}        state    State tree.
+ * @param {string}        kind     Entity kind.
+ * @param {string}        name     Entity name.
+ * @param {number|string} recordId Record ID.
  *
  * @return {boolean} Whether the entity record has edits or not.
  */
@@ -4604,6 +4663,28 @@ function __experimentalGetCurrentThemeGlobalStylesVariations(state) {
   }
 
   return state.themeGlobalStyleVariations[currentTheme.stylesheet];
+}
+/**
+ * Retrieve the list of registered block patterns.
+ *
+ * @param {Object} state Data state.
+ *
+ * @return {Array} Block pattern list.
+ */
+
+function getBlockPatterns(state) {
+  return state.blockPatterns;
+}
+/**
+ * Retrieve the list of registered block pattern categories.
+ *
+ * @param {Object} state Data state.
+ *
+ * @return {Array} Block pattern category list.
+ */
+
+function getBlockPatternCategories(state) {
+  return state.blockPatternCategories;
 }
 
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/utils/forward-resolver.js
@@ -5095,6 +5176,42 @@ const resolvers_experimentalGetCurrentThemeGlobalStylesVariations = () => async 
   });
 
   dispatch.__experimentalReceiveThemeGlobalStyleVariations(currentTheme.stylesheet, variations);
+};
+const resolvers_getBlockPatterns = () => async _ref16 => {
+  let {
+    dispatch
+  } = _ref16;
+  const restPatterns = await external_wp_apiFetch_default()({
+    path: '/wp/v2/block-patterns/patterns'
+  });
+  const patterns = (0,external_lodash_namespaceObject.map)(restPatterns, pattern => (0,external_lodash_namespaceObject.mapKeys)(pattern, (value, key) => {
+    switch (key) {
+      case 'block_types':
+        return 'blockTypes';
+
+      case 'viewport_width':
+        return 'viewportWidth';
+
+      default:
+        return key;
+    }
+  }));
+  dispatch({
+    type: 'RECEIVE_BLOCK_PATTERNS',
+    patterns
+  });
+};
+const resolvers_getBlockPatternCategories = () => async _ref17 => {
+  let {
+    dispatch
+  } = _ref17;
+  const categories = await external_wp_apiFetch_default()({
+    path: '/wp/v2/block-patterns/categories'
+  });
+  dispatch({
+    type: 'RECEIVE_BLOCK_PATTERN_CATEGORIES',
+    categories
+  });
 };
 
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/locks/utils.js
@@ -5763,10 +5880,10 @@ const enrichSelectors = memoize(selectors => {
 /**
  * Resolves the specified entity record.
  *
- * @param  kind                                 Kind of the requested entity.
- * @param  name                                 Name of the requested  entity.
- * @param  recordId                             Record ID of the requested entity.
- * @param  options                              Hook options.
+ * @param  kind                   Kind of the requested entity.
+ * @param  name                   Name of the requested  entity.
+ * @param  recordId               Record ID of the requested entity.
+ * @param  options                Hook options.
  * @param  [options.enabled=true] Whether to run the query or short-circuit and return null. Defaults to true.
  * @example
  * ```js
@@ -5828,10 +5945,10 @@ function __experimentalUseEntityRecord(kind, name, recordId) {
 /**
  * Resolves the specified entity records.
  *
- * @param  kind                                 Kind of the requested entities.
- * @param  name                                 Name of the requested entities.
- * @param  queryArgs                            HTTP query for the requested entities.
- * @param  options                              Hook options.
+ * @param  kind      Kind of the requested entities.
+ * @param  name      Name of the requested entities.
+ * @param  queryArgs HTTP query for the requested entities.
+ * @param  options   Hook options.
  * @example
  * ```js
  * import { useEntityRecord } from '@wordpress/core-data';
@@ -5904,7 +6021,7 @@ var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
 /**
  * Filters the search by type
  *
- * @typedef { 'post' | 'term' | 'post-format' } WPLinkSearchType
+ * @typedef { 'attachment' | 'post' | 'term' | 'post-format' } WPLinkSearchType
  */
 
 /**
@@ -5931,6 +6048,17 @@ var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
  * @property {string} title  Title of the link.
  * @property {string} type   The taxonomy or post type slug or type URL.
  * @property {WPKind} [kind] Link kind of post-type or taxonomy
+ */
+
+/**
+ * @typedef WPLinkSearchResultAugments
+ *
+ * @property {{kind: WPKind}} [meta]    Contains kind information.
+ * @property {WPKind}         [subtype] Optional subtype if it exists.
+ */
+
+/**
+ * @typedef {WPLinkSearchResult & WPLinkSearchResultAugments} WPLinkSearchResultAugmented
  */
 
 /**
@@ -5976,6 +6104,8 @@ const fetchLinkSuggestions = async function (search) {
   const {
     disablePostFormats = false
   } = settings;
+  /** @type {Promise<WPLinkSearchResult>[]} */
+
   const queries = [];
 
   if (!type || type === 'post') {
@@ -6018,7 +6148,8 @@ const fetchLinkSuggestions = async function (search) {
           }
         };
       });
-    }).catch(() => []));
+    }).catch(() => []) // Fail by returning no results.
+    );
   }
 
   if (!disablePostFormats && (!type || type === 'post-format')) {
@@ -6039,28 +6170,51 @@ const fetchLinkSuggestions = async function (search) {
           }
         };
       });
-    }).catch(() => []));
+    }).catch(() => []) // Fail by returning no results.
+    );
+  }
+
+  if (!type || type === 'attachment') {
+    queries.push(external_wp_apiFetch_default()({
+      path: (0,external_wp_url_namespaceObject.addQueryArgs)('/wp/v2/media', {
+        search,
+        page,
+        per_page: perPage
+      })
+    }).then(results => {
+      return results.map(result => {
+        return { ...result,
+          meta: {
+            kind: 'media'
+          }
+        };
+      });
+    }).catch(() => []) // Fail by returning no results.
+    );
   }
 
   return Promise.all(queries).then(results => {
-    return results.reduce((accumulator, current) => accumulator.concat(current), // Flatten list.
+    return results.reduce((
+    /** @type {WPLinkSearchResult[]} */
+    accumulator, current) => accumulator.concat(current), // Flatten list.
     []).filter(
     /**
      * @param {{ id: number }} result
      */
     result => {
       return !!result.id;
-    }).slice(0, perPage).map(
-    /**
-     * @param {{ id: number, meta?: object, url:string, title?:string, subtype?: string, type?: string }} result
-     */
-    result => {
+    }).slice(0, perPage).map((
+    /** @type {WPLinkSearchResultAugmented} */
+    result) => {
       var _result$meta;
 
+      const isMedia = result.type === 'attachment';
       return {
         id: result.id,
-        url: result.url,
-        title: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(result.title || '') || (0,external_wp_i18n_namespaceObject.__)('(no title)'),
+        // @ts-ignore fix when we make this a TS file
+        url: isMedia ? result.source_url : result.url,
+        title: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(isMedia ? // @ts-ignore fix when we make this a TS file
+        result.title.rendered : result.title || '') || (0,external_wp_i18n_namespaceObject.__)('(no title)'),
         type: result.subtype || result.type,
         kind: result === null || result === void 0 ? void 0 : (_result$meta = result.meta) === null || _result$meta === void 0 ? void 0 : _result$meta.kind
       };

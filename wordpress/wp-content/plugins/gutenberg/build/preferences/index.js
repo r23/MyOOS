@@ -224,7 +224,7 @@ function get(state, scope, name) {
   var _state$preferences$sc, _state$defaults$scope;
 
   const value = (_state$preferences$sc = state.preferences[scope]) === null || _state$preferences$sc === void 0 ? void 0 : _state$preferences$sc[name];
-  return value !== null && value !== void 0 ? value : (_state$defaults$scope = state.defaults[scope]) === null || _state$defaults$scope === void 0 ? void 0 : _state$defaults$scope[name];
+  return value !== undefined ? value : (_state$defaults$scope = state.defaults[scope]) === null || _state$defaults$scope === void 0 ? void 0 : _state$defaults$scope[name];
 }
 
 ;// CONCATENATED MODULE: ./packages/preferences/build-module/store/constants.js

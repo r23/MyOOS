@@ -53,6 +53,7 @@ __webpack_require__.d(__webpack_exports__, {
   "insertAfter": function() { return /* reexport */ insertAfter; },
   "isEmpty": function() { return /* reexport */ isEmpty; },
   "isEntirelySelected": function() { return /* reexport */ isEntirelySelected; },
+  "isFormElement": function() { return /* reexport */ isFormElement; },
   "isHorizontalEdge": function() { return /* reexport */ isHorizontalEdge; },
   "isNumberInput": function() { return /* reexport */ isNumberInput; },
   "isPhrasingContent": function() { return /* reexport */ isPhrasingContent; },
@@ -906,6 +907,28 @@ function isDeepChild(query, container, propName) {
   } while (candidate);
 
   return false;
+}
+
+;// CONCATENATED MODULE: ./packages/dom/build-module/dom/is-form-element.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ *
+ * Detects if element is a form element.
+ *
+ * @param {Element} element The element to check.
+ *
+ * @return {boolean} True if form element and false otherwise.
+ */
+
+function isFormElement(element) {
+  const {
+    tagName
+  } = element;
+  const checkForInputTextarea = isInputOrTextArea(element);
+  return checkForInputTextarea || tagName === 'BUTTON' || tagName === 'SELECT';
 }
 
 ;// CONCATENATED MODULE: ./packages/dom/build-module/dom/is-rtl.js
@@ -1960,6 +1983,7 @@ function removeInvalidHTML(HTML, schema, inline) {
 }
 
 ;// CONCATENATED MODULE: ./packages/dom/build-module/dom/index.js
+
 
 
 

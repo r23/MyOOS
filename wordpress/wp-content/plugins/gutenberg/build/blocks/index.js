@@ -6372,7 +6372,7 @@ function isMatchingSearchTerm(state, nameOrType, searchTerm) {
   term => term.trim()]);
   const normalizedSearchTerm = getNormalizedSearchTerm(searchTerm);
   const isSearchMatch = (0,external_lodash_namespaceObject.flow)([getNormalizedSearchTerm, normalizedCandidate => (0,external_lodash_namespaceObject.includes)(normalizedCandidate, normalizedSearchTerm)]);
-  return isSearchMatch(blockType.title) || (0,external_lodash_namespaceObject.some)(blockType.keywords, isSearchMatch) || isSearchMatch(blockType.category);
+  return isSearchMatch(blockType.title) || (0,external_lodash_namespaceObject.some)(blockType.keywords, isSearchMatch) || isSearchMatch(blockType.category) || isSearchMatch(blockType.description);
 }
 /**
  * Returns a boolean indicating if a block has child blocks or not.
@@ -6500,7 +6500,8 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
       marginRight: 'right',
       marginBottom: 'bottom',
       marginLeft: 'left'
-    }
+    },
+    useEngine: true
   },
   padding: {
     value: ['spacing', 'padding'],
@@ -6709,6 +6710,13 @@ function unstable__bootstrapServerSideBlockDefinitions(definitions) {
       // @see https://github.com/WordPress/gutenberg/pull/29279
       if (serverSideBlockDefinitions[blockName].apiVersion === undefined && definitions[blockName].apiVersion) {
         serverSideBlockDefinitions[blockName].apiVersion = definitions[blockName].apiVersion;
+      } // The `ancestor` prop is not included in the definitions shared
+      // from the server yet, so it needs to be polyfilled as well.
+      // @see https://github.com/WordPress/gutenberg/pull/39894
+
+
+      if (serverSideBlockDefinitions[blockName].ancestor === undefined && definitions[blockName].ancestor) {
+        serverSideBlockDefinitions[blockName].ancestor = definitions[blockName].ancestor;
       }
 
       continue;
@@ -6731,7 +6739,7 @@ function getBlockSettingsFromMetadata(_ref) {
     textdomain,
     ...metadata
   } = _ref;
-  const allowedFields = ['apiVersion', 'title', 'category', 'parent', 'icon', 'description', 'keywords', 'attributes', 'providesContext', 'usesContext', 'supports', 'styles', 'example', 'variations'];
+  const allowedFields = ['apiVersion', 'title', 'category', 'parent', 'ancestor', 'icon', 'description', 'keywords', 'attributes', 'providesContext', 'usesContext', 'supports', 'styles', 'example', 'variations'];
   const settings = (0,external_lodash_namespaceObject.pick)(metadata, allowedFields);
 
   if (textdomain) {
@@ -7435,7 +7443,7 @@ const getBlockTypesForPossibleToTransforms = blocks => {
 
   const blockNames = (0,external_lodash_namespaceObject.flatMap)(possibleTransforms, transformation => transformation.blocks); // Map block names to block types.
 
-  return blockNames.map(name => registration_getBlockType(name));
+  return blockNames.map(name => name === '*' ? name : registration_getBlockType(name));
 };
 /**
  * Determines whether transform is a "block" type
@@ -7616,7 +7624,7 @@ function switchToBlockType(blocks, name) {
     return null;
   }
 
-  const hasSwitchedBlock = (0,external_lodash_namespaceObject.some)(transformationResults, result => result.name === name); // Ensure that at least one block object returned by the transformation has
+  const hasSwitchedBlock = name === '*' || (0,external_lodash_namespaceObject.some)(transformationResults, result => result.name === name); // Ensure that at least one block object returned by the transformation has
   // the expected "destination" block type.
 
   if (!hasSwitchedBlock) {
@@ -8348,6 +8356,56 @@ var external_wp_autop_namespaceObject = window["wp"]["autop"];
 ;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
 var external_wp_isShallowEqual_namespaceObject = window["wp"]["isShallowEqual"];
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_namespaceObject);
+;// CONCATENATED MODULE: ./packages/blocks/build-module/api/parser/serialize-raw-block.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * @typedef {Object}   Options                   Serialization options.
+ * @property {boolean} [isCommentDelimited=true] Whether to output HTML comments around blocks.
+ */
+
+/** @typedef {import("./").WPRawBlock} WPRawBlock */
+
+/**
+ * Serializes a block node into the native HTML-comment-powered block format.
+ * CAVEAT: This function is intended for re-serializing blocks as parsed by
+ * valid parsers and skips any validation steps. This is NOT a generic
+ * serialization function for in-memory blocks. For most purposes, see the
+ * following functions available in the `@wordpress/blocks` package:
+ *
+ * @see serializeBlock
+ * @see serialize
+ *
+ * For more on the format of block nodes as returned by valid parsers:
+ *
+ * @see `@wordpress/block-serialization-default-parser` package
+ * @see `@wordpress/block-serialization-spec-parser` package
+ *
+ * @param {WPRawBlock} rawBlock     A block node as returned by a valid parser.
+ * @param {Options}    [options={}] Serialization options.
+ *
+ * @return {string} An HTML string representing a block.
+ */
+
+function serializeRawBlock(rawBlock) {
+  let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  const {
+    isCommentDelimited = true
+  } = options;
+  const {
+    blockName,
+    attrs = {},
+    innerBlocks = [],
+    innerContent = []
+  } = rawBlock;
+  let childIndex = 0;
+  const content = innerContent.map(item => // `null` denotes a nested block, otherwise we have an HTML fragment.
+  item !== null ? item : serializeRawBlock(innerBlocks[childIndex++], options)).join('\n').replace(/\n+/g, '\n').trim();
+  return isCommentDelimited ? getCommentDelimitedContent(blockName, attrs, content) : content;
+}
+
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/api/serializer.js
 
 
@@ -8368,6 +8426,9 @@ var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(exte
  */
 
 
+
+
+/** @typedef {import('./parser').WPBlock} WPBlock */
 
 /**
  * @typedef {Object} WPBlockSerializationOptions Serialization Options.
@@ -8625,8 +8686,8 @@ function getCommentDelimitedContent(rawBlockName, attributes, content) {
  * Returns the content of a block, including comment delimiters, determining
  * serialized attributes and content form from the current state of the block.
  *
- * @param {Object}                      block   Block instance.
- * @param {WPBlockSerializationOptions} options Serialization options.
+ * @param {WPBlock}                      block   Block instance.
+ * @param {WPBlockSerializationOptions}  options Serialization options.
  *
  * @return {string} Serialized block.
  */
@@ -8635,6 +8696,11 @@ function serializeBlock(block) {
   let {
     isInnerBlocks = false
   } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  if (!block.isValid && block.__unstableBlockSource) {
+    return serializeRawBlock(block.__unstableBlockSource);
+  }
+
   const blockName = block.name;
   const saveContent = getBlockInnerHTML(block);
 
@@ -10123,56 +10189,6 @@ function convertLegacyBlockNameAndAttributes(name, attributes) {
   }
 
   return [name, newAttributes];
-}
-
-;// CONCATENATED MODULE: ./packages/blocks/build-module/api/parser/serialize-raw-block.js
-/**
- * Internal dependencies
- */
-
-/**
- * @typedef {Object}   Options                   Serialization options.
- * @property {boolean} [isCommentDelimited=true] Whether to output HTML comments around blocks.
- */
-
-/** @typedef {import("./").WPRawBlock} WPRawBlock */
-
-/**
- * Serializes a block node into the native HTML-comment-powered block format.
- * CAVEAT: This function is intended for re-serializing blocks as parsed by
- * valid parsers and skips any validation steps. This is NOT a generic
- * serialization function for in-memory blocks. For most purposes, see the
- * following functions available in the `@wordpress/blocks` package:
- *
- * @see serializeBlock
- * @see serialize
- *
- * For more on the format of block nodes as returned by valid parsers:
- *
- * @see `@wordpress/block-serialization-default-parser` package
- * @see `@wordpress/block-serialization-spec-parser` package
- *
- * @param {WPRawBlock} rawBlock     A block node as returned by a valid parser.
- * @param {Options}    [options={}] Serialization options.
- *
- * @return {string} An HTML string representing a block.
- */
-
-function serializeRawBlock(rawBlock) {
-  let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  const {
-    isCommentDelimited = true
-  } = options;
-  const {
-    blockName,
-    attrs = {},
-    innerBlocks = [],
-    innerContent = []
-  } = rawBlock;
-  let childIndex = 0;
-  const content = innerContent.map(item => // `null` denotes a nested block, otherwise we have an HTML fragment.
-  item !== null ? item : serializeRawBlock(innerBlocks[childIndex++], options)).join('\n').replace(/\n+/g, '\n').trim();
-  return isCommentDelimited ? getCommentDelimitedContent(blockName, attrs, content) : content;
 }
 
 ;// CONCATENATED MODULE: ./node_modules/hpq/es/get-path.js

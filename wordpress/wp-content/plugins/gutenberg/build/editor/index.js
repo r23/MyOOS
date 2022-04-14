@@ -1175,11 +1175,6 @@ var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
  * WordPress dependencies
  */
 
-const PREFERENCES_DEFAULTS = {
-  insertUsage: {},
-  // Should be kept for backward compatibility, see: https://github.com/WordPress/gutenberg/issues/14580.
-  isPublishSidebarEnabled: true
-};
 /**
  * The default post editor settings.
  *
@@ -1327,33 +1322,6 @@ function template() {
     case 'SET_TEMPLATE_VALIDITY':
       return { ...state,
         isValid: action.isValid
-      };
-  }
-
-  return state;
-}
-/**
- * Reducer returning the user preferences.
- *
- * @param {Object} state  Current state.
- * @param {Object} action Dispatched action.
- *
- * @return {string} Updated state.
- */
-
-function preferences() {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : PREFERENCES_DEFAULTS;
-  let action = arguments.length > 1 ? arguments[1] : undefined;
-
-  switch (action.type) {
-    case 'ENABLE_PUBLISH_SIDEBAR':
-      return { ...state,
-        isPublishSidebarEnabled: true
-      };
-
-    case 'DISABLE_PUBLISH_SIDEBAR':
-      return { ...state,
-        isPublishSidebarEnabled: false
       };
   }
 
@@ -1521,7 +1489,6 @@ function editorSettings() {
 /* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
   postId,
   postType,
-  preferences,
   saving,
   postLock,
   template,
@@ -1831,6 +1798,8 @@ const layout = (0,external_wp_element_namespaceObject.createElement)(external_wp
 }));
 /* harmony default export */ var library_layout = (layout);
 
+;// CONCATENATED MODULE: external ["wp","preferences"]
+var external_wp_preferences_namespaceObject = window["wp"]["preferences"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/store/constants.js
 /**
  * Set of post properties for which edits should assume a merging behavior,
@@ -1957,10 +1926,10 @@ function getTemplatePartIcon(iconName) {
 
 
 
+
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -2906,18 +2875,10 @@ function canUserUseUnfilteredHTML(state) {
  * Returns whether the pre-publish panel should be shown
  * or skipped when the user clicks the "publish" button.
  *
- * @param {Object} state Global application state.
- *
  * @return {boolean} Whether the pre-publish panel should be shown or not.
  */
 
-function isPublishSidebarEnabled(state) {
-  if (state.preferences.hasOwnProperty('isPublishSidebarEnabled')) {
-    return state.preferences.isPublishSidebarEnabled;
-  }
-
-  return PREFERENCES_DEFAULTS.isPublishSidebarEnabled;
-}
+const isPublishSidebarEnabled = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => () => !!select(external_wp_preferences_namespaceObject.store).get('core/edit-post', 'isPublishSidebarEnabled'));
 /**
  * Return the current block list.
  *
@@ -3606,6 +3567,7 @@ function getNotificationArgumentsForTrashFail(data) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -3943,27 +3905,25 @@ function updatePostLock(lock) {
   };
 }
 /**
- * Action that enables the publish sidebar.
- *
- * @return {Object} Action object
+ * Enable the publish sidebar.
  */
 
-function enablePublishSidebar() {
-  return {
-    type: 'ENABLE_PUBLISH_SIDEBAR'
-  };
-}
+const enablePublishSidebar = () => _ref9 => {
+  let {
+    registry
+  } = _ref9;
+  registry.dispatch(external_wp_preferences_namespaceObject.store).set('core/edit-post', 'isPublishSidebarEnabled', true);
+};
 /**
- * Action that disables the publish sidebar.
- *
- * @return {Object} Action object
+ * Disables the publish sidebar.
  */
 
-function disablePublishSidebar() {
-  return {
-    type: 'DISABLE_PUBLISH_SIDEBAR'
-  };
-}
+const disablePublishSidebar = () => _ref10 => {
+  let {
+    registry
+  } = _ref10;
+  registry.dispatch(external_wp_preferences_namespaceObject.store).set('core/edit-post', 'isPublishSidebarEnabled', false);
+};
 /**
  * Action that locks post saving.
  *
@@ -4083,12 +4043,12 @@ function unlockPostAutosaving(lockName) {
 
 const resetEditorBlocks = function (blocks) {
   let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return _ref9 => {
+  return _ref11 => {
     let {
       select,
       dispatch,
       registry
-    } = _ref9;
+    } = _ref11;
     const {
       __unstableShouldCreateUndoLevel,
       selection
@@ -4114,10 +4074,10 @@ const resetEditorBlocks = function (blocks) {
       // a new undo level.
 
 
-      edits.content = _ref10 => {
+      edits.content = _ref12 => {
         let {
           blocks: blocksForSerialization = []
-        } = _ref10;
+        } = _ref12;
         return (0,external_wp_blocks_namespaceObject.__unstableSerializeAndClean)(blocksForSerialization);
       };
     }
@@ -4148,10 +4108,10 @@ const getBlockEditorAction = name => function () {
     args[_key] = arguments[_key];
   }
 
-  return _ref11 => {
+  return _ref13 => {
     let {
       registry
-    } = _ref11;
+    } = _ref13;
     external_wp_deprecated_default()("`wp.data.dispatch( 'core/editor' )." + name + '`', {
       since: '5.3',
       alternative: "`wp.data.dispatch( 'core/block-editor' )." + name + '`',
@@ -4351,14 +4311,9 @@ const storeConfig = {
  * @type {Object}
  */
 
-const store_store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, { ...storeConfig,
-  persist: ['preferences']
-}); // Once we build a more generic persistence plugin that works across types of stores
-// we'd be able to replace this with a register call.
-
-(0,external_wp_data_namespaceObject.registerStore)(STORE_NAME, { ...storeConfig,
-  persist: ['preferences']
+const store_store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, { ...storeConfig
 });
+(0,external_wp_data_namespaceObject.register)(store_store);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/hooks/custom-sources-backwards-compatibility.js
 
@@ -6772,7 +6727,7 @@ function PostExcerpt(_ref) {
     onChange: value => onUpdateExcerpt(value),
     value: excerpt
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
-    href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/support/article/excerpt/')
+    href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/support/article/settings-sidebar/#excerpt')
   }, (0,external_wp_i18n_namespaceObject.__)('Learn more about manual excerpts')));
 }
 
@@ -11511,6 +11466,17 @@ function useBlockEditorSettings(settings, hasTemplate) {
     };
   }, []);
   const {
+    __experimentalBlockPatterns: settingsBlockPatterns,
+    __experimentalBlockPatternCategories: settingsBlockPatternCategories
+  } = settings;
+  const {
+    blockPatterns,
+    blockPatternCategories
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
+    blockPatterns: settingsBlockPatterns !== null && settingsBlockPatterns !== void 0 ? settingsBlockPatterns : select(external_wp_coreData_namespaceObject.store).getBlockPatterns(),
+    blockPatternCategories: settingsBlockPatternCategories !== null && settingsBlockPatternCategories !== void 0 ? settingsBlockPatternCategories : select(external_wp_coreData_namespaceObject.store).getBlockPatternCategories()
+  }), [settingsBlockPatterns, settingsBlockPatternCategories]);
+  const {
     undo
   } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
   const {
@@ -11534,9 +11500,11 @@ function useBlockEditorSettings(settings, hasTemplate) {
     return saveEntityRecord('postType', 'page', options);
   };
 
-  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalBlockPatternCategories', '__experimentalBlockPatterns', '__experimentalDiscussionSettings', '__experimentalFeatures', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__experimentalGenerateAnchors', '__experimentalCanLockBlocks', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableResolvedAssets']),
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalDiscussionSettings', '__experimentalFeatures', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'canLockBlocks', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomGradients', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'generateAnchors', 'hasFixedToolbar', 'hasReducedUI', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableResolvedAssets']),
     mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
     __experimentalReusableBlocks: reusableBlocks,
+    __experimentalBlockPatterns: blockPatterns,
+    __experimentalBlockPatternCategories: blockPatternCategories,
     __experimentalFetchLinkSuggestions: (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings),
     __experimentalFetchRichUrlData: external_wp_coreData_namespaceObject.__experimentalFetchUrlData,
     __experimentalCanUserUseUnfilteredHTML: canUseUnfilteredHTML,
@@ -11546,7 +11514,7 @@ function useBlockEditorSettings(settings, hasTemplate) {
     __experimentalUserCanCreatePages: userCanCreatePages,
     pageOnFront,
     __experimentalPreferPatternsOnRoot: hasTemplate
-  }), [settings, hasUploadPermissions, reusableBlocks, canUseUnfilteredHTML, undo, hasTemplate, userCanCreatePages, pageOnFront]);
+  }), [settings, hasUploadPermissions, reusableBlocks, blockPatterns, blockPatternCategories, canUseUnfilteredHTML, undo, hasTemplate, userCanCreatePages, pageOnFront]);
 }
 
 /* harmony default export */ var use_block_editor_settings = (useBlockEditorSettings);
