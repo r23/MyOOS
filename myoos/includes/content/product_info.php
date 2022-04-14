@@ -141,7 +141,7 @@ if (!$product_info_result->RecordCount()) {
 
     // Selector
     $bTypeRadio = false;
-    $aSelector = array();
+    $aSelector = [];
 
     $options = '';
     $number_of_uploads = 0;
@@ -271,7 +271,7 @@ if (!$product_info_result->RecordCount()) {
 						ORDER BY sort_order";
     $product_gallery_result = $dbconn->Execute($product_gallery_sql);
     if ($product_gallery_result->RecordCount()) {
-        $aProductsImages = array();
+        $aProductsImages = [];
         $aProductsImages[] = array('image' => $product_info['products_image']);
         while ($product_gallery = $product_gallery_result->fields) {
             $aProductsImages[] = array('image' => $product_gallery['image_name']);
@@ -294,7 +294,7 @@ if (!$product_info_result->RecordCount()) {
 							AND pmd.models_languages_id = '" . intval($nLanguageID) . "'";
     $products_models_result = $dbconn->Execute($products_models_sql);
     if ($products_models_result->RecordCount()) {
-        $aProductsModels = array();
+        $aProductsModels = [];
         while ($products_models = $products_models_result->fields) {
             $aProductsModels[] = array('models_id' => $products_models['models_id'],
                                         'name' => $products_models['models_name'],
@@ -320,7 +320,7 @@ if (!$product_info_result->RecordCount()) {
 								AND md.model_viewer_languages_id = '" . intval($nLanguageID) . "'";
     $products_model_viewer_result = $dbconn->Execute($products_model_viewer_sql);
     if ($products_model_viewer_result->RecordCount()) {
-        $aModelViewer = array();
+        $aModelViewer = [];
         while ($model_viewer = $products_model_viewer_result->fields) {
             $products_model_viewer_descriptiontable = $oostable['products_model_viewer_description'];
             $query = "UPDATE $products_model_viewer_descriptiontable"

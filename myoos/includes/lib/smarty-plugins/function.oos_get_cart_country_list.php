@@ -58,9 +58,9 @@ function smarty_function_oos_get_cart_country_list($params, &$smarty)
         $$_key = smarty_function_escape_special_chars($_val);
     }
 
-    $countries = array();
-    $countries_names = array();
-    $countries_values = array();
+    $countries = [];
+    $countries_names = [];
+    $countries_values = [];
 
     $countries = oos_get_countries();
 

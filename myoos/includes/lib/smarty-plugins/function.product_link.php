@@ -30,8 +30,8 @@ function smarty_function_product_link($params, &$smarty)
 
     $aContents =  oos_get_content();
 
-    $result = array();
-    $link_params = array();
+    $result = [];
+    $link_params = [];
     $link_params = array('content' => $aContents['product_info']);
 
     if (is_array($params)) {

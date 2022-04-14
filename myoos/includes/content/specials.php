@@ -70,7 +70,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $specials_split = new splitPageResults($specials_result_raw, MAX_DISPLAY_SPECIAL_PRODUCTS);
     $specials_result = $dbconn->Execute($specials_split->sql_query);
 
-    $aSpecials = array();
+    $aSpecials = [];
     while ($specials = $specials_result->fields) {
         $specials_base_product_price = '';
         $specials_base_product_special_price = '';

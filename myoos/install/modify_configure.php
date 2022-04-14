@@ -87,8 +87,8 @@ function modify_file($src, $reg_src, $reg_rep)
 }
 
 // Two global arrays
-$reg_src = array();
-$reg_rep = array();
+$reg_src = [];
+$reg_rep = [];
 
 // Setup various searches and replaces
 // Scott Kirkwood

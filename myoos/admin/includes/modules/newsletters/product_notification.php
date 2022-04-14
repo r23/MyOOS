@@ -44,7 +44,7 @@
 
           $aContents = oos_get_content();
 
-          $products_array = array();
+          $products_array = [];
           $products_result = $dbconn->Execute("SELECT pd.products_id, pd.products_name FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd WHERE pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND pd.products_id = p.products_id AND p.products_status >= '1' ORDER BY pd.products_name");
           while ($products = $products_result->fields) {
               $products_array[] = array('id' => $products['products_id'],
@@ -111,7 +111,7 @@ function selectAll(FormName, SelectBox) {
 
       public function confirm()
       {
-          $audience = array();
+          $audience = [];
 
           // Get database information
           $dbconn =& oosDBGetConn();
@@ -195,7 +195,7 @@ function selectAll(FormName, SelectBox) {
 
       public function send($newsletter_id)
       {
-          $audience = array();
+          $audience = [];
 
           // Get database information
           $dbconn =& oosDBGetConn();

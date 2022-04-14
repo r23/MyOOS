@@ -35,7 +35,7 @@ class ot_total
         $this->enabled = (defined('MODULE_ORDER_TOTAL_TOTAL_STATUS') && (MODULE_ORDER_TOTAL_TOTAL_STATUS == 'true') ? true : false);
         $this->sort_order = (defined('MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER') ? MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER : null);
 
-        $this->output = array();
+        $this->output = [];
     }
 
     public function process()

@@ -20,12 +20,12 @@
    ----------------------------------------------------------------------
    Example usage:
 
-   $heading = array();
+   $heading = [];
    $heading[] = array('params' => 'class="menuBoxHeading"',
                       'text'  => BOX_HEADING_TOOLS,
                       'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=tools'));
 
-   $contents = array();
+   $contents = [];
    $contents[] = array('text'  => SOME_TEXT);
 
    $box = new box;
@@ -39,8 +39,8 @@
   {
       public function __construct()
       {
-          $this->heading = array();
-          $this->contents = array();
+          $this->heading = [];
+          $this->contents = [];
       }
 
       public function infoBox($heading, $contents)

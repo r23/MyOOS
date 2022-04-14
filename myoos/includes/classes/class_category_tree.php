@@ -25,7 +25,7 @@ class oosCategoryTree
 {
     public $root_category_id = 0;
     public $max_level = 0;
-    public $data = array();
+    public $data = [];
     public $root_start_string = '';
     public $root_end_string = '';
     public $parent_start_string = '';
@@ -39,7 +39,7 @@ class oosCategoryTree
     public $spacer_string = '';
     public $spacer_multiplier = 1;
     public $follow_cpath = false;
-    public $cpath_array = array();
+    public $cpath_array = [];
     public $cpath_start_string = '';
     public $cpath_end_string = '';
     public $show_category_product_count = false;

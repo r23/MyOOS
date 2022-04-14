@@ -57,7 +57,7 @@ function installer_get_language()
 
        $locale_dir = './locales/';
        $lang = languagelist();
-       $langlist = array();
+       $langlist = [];
 
        if (is_dir($locale_dir)) {
            if ($dh = opendir($locale_dir)) {

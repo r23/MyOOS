@@ -143,7 +143,7 @@ if ($category_depth == 'nested') {
             $categories_result = $dbconn->Execute($sql);
         }
 
-        $aCategoriesBoxs = array();
+        $aCategoriesBoxs = [];
         while ($categories = $categories_result->fields) {
             $sCategoryNew = oos_get_path($categories['categories_id'], $categories['parent_id'], $categories['gparent_id']);
             $aCategoriesBoxs[] = array(
@@ -206,7 +206,7 @@ if ($category_depth == 'nested') {
               WHERE categories_id = '" . intval($nCurrentCategoryID) . "'";
     $category_slider = $dbconn->Execute($sql);
     if ($category_slider->RecordCount()) {
-        $aCategorySlider = array();
+        $aCategorySlider = [];
         while ($slider = $category_slider->fields) {
             $aCategorySlider[] = array(
                                     'image'	=> $slider['categories_image']
@@ -268,7 +268,7 @@ if ($category_depth == 'nested') {
     if (!$smarty->isCached($aTemplate['page'], $sContentCacheID)) {
 
 // create column list
-        $aDefineList = array();
+        $aDefineList = [];
         $aDefineList = array('PRODUCT_LIST_MODEL' => 1,
                            'PRODUCT_LIST_NAME' => 2,
                            'PRODUCT_LIST_MANUFACTURER' => 3,
@@ -279,7 +279,7 @@ if ($category_depth == 'nested') {
                            'PRODUCT_LIST_BUY_NOW' => 8,
                            'PRODUCT_LIST_SORT_ORDER' => 9);
         asort($aDefineList);
-        $aColumnList = array();
+        $aColumnList = [];
 
         foreach ($aDefineList as $key => $value) {
             if ($value > 0) {

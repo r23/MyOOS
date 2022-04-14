@@ -74,7 +74,7 @@ class upload
     public const IMAGETYPE_PNG = 3;
     public const IMAGETYPE_WEBP = 18;
 
-    protected $image_objects = array();
+    protected $image_objects = [];
 
     public function __construct($file = '', $options = null, $destination = '', $extensions = '', $initialize = true, $error_messages = null)
     {
@@ -82,7 +82,7 @@ class upload
         $this->set_destination($destination);
         $this->set_extensions($extensions);
 
-        $this->response = array();
+        $this->response = [];
         $this->options = array(
             'user_dirs' => false,
             'mkdir_mode' => 0755,
@@ -273,7 +273,7 @@ class upload
                 $this->extensions = array($extensions);
             }
         } else {
-            $this->extensions = array();
+            $this->extensions = [];
         }
     }
 
@@ -1219,7 +1219,7 @@ class upload
 
     protected function handle_image_file($file_path, $file)
     {
-        $failed_versions = array();
+        $failed_versions = [];
         foreach ($this->options['image_versions'] as $version => $options) {
             if ($this->create_scaled_image($file->name, $version, $options)) {
                 if (!empty($version)) {
@@ -1455,7 +1455,7 @@ class upload
             preg_split('/[^0-9]+/', $content_range_header) : null;
         $size =  $content_range ? $content_range[3] : null;
 
-        $files = array();
+        $files = [];
         if ($upload) {
             if (is_array($upload['tmp_name'])) {
                 // param_name is an array identifier like "files[]",

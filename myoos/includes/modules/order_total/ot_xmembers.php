@@ -46,7 +46,7 @@
           $this->minimum = isset($aUser['ot_minimum']) ? $aUser['ot_minimum'] : 0;
           $this->calculate_tax = (defined('MODULE_XMEMBERS_CALC_TAX') ? MODULE_XMEMBERS_CALC_TAX : null);
 
-          $this->output = array();
+          $this->output = [];
       }
 
       public function process()

@@ -125,7 +125,7 @@ $define_list = array('PRODUCT_LIST_MODEL' => '1',
                          'PRODUCT_LIST_BUY_NOW' => '9');
 asort($define_list);
 
-$column_list = array();
+$column_list = [];
 reset($define_list);
 foreach ($define_list as $column => $value) {
     if ($value) {
@@ -227,7 +227,7 @@ $where_str = " WHERE
 
 if (isset($categories_id) && is_numeric($categories_id)) {
     if ($_GET['inc_subcat'] == '1') {
-        $subcategories_array = array();
+        $subcategories_array = [];
         oos_get_subcategories($subcategories_array, $categories_id);
         $where_str .= " AND
                            p2c.products_id = p.products_id AND

@@ -35,7 +35,7 @@ class messageStack
 
     public function __construct()
     {
-        $this->errors = array();
+        $this->errors = [];
 
         if (isset($_SESSION['messageToStack'])) {
             for ($i = 0, $n = sizeof($_SESSION['messageToStack']); $i < $n; $i++) {
@@ -63,7 +63,7 @@ class messageStack
     public function add_session($message, $type = 'error')
     {
         if (!isset($_SESSION['messageToStack'])) {
-            $_SESSION['messageToStack'] = array();
+            $_SESSION['messageToStack'] = [];
         }
 
         $_SESSION['messageToStack'][] = array('text' => $message, 'type' => $type);
@@ -71,7 +71,7 @@ class messageStack
 
     public function reset()
     {
-        $this->errors = array();
+        $this->errors = [];
         $this->size = 0;
     }
 

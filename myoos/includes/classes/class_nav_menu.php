@@ -28,7 +28,7 @@ class nav_menu
     public $count = 0;
     public $count_col = 0;
     public $submenu = 0;
-    public $data = array();
+    public $data = [];
     public $root_start_string = '<li class="main-nav-item main-nav-expanded">';
     public $root_end_string = '</li>';
     public $parent_start_string = '<li>';
@@ -42,7 +42,7 @@ class nav_menu
     public $spacer_string = '';
     public $spacer_multiplier = 1;
     public $follow_cpath = false;
-    public $cpath_array = array();
+    public $cpath_array = [];
     public $cpath_start_string = '';
     public $cpath_end_string = '';
     public $banner_image = '';

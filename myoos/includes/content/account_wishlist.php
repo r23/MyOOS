@@ -59,7 +59,7 @@ $wishlist_result_raw = "SELECT products_id, customers_wishlist_date_added
 $wishlist_split = new splitPageResults($wishlist_result_raw, MAX_DISPLAY_WISHLIST_PRODUCTS);
 $wishlist_result = $dbconn->Execute($wishlist_split->sql_query);
 
-$aWishlist = array();
+$aWishlist = [];
 while ($wishlist = $wishlist_result->fields) {
     $wl_products_id = oos_get_product_id($wishlist['products_id']);
 

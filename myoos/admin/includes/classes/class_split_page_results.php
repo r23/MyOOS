@@ -87,7 +87,7 @@ class splitPageResults
             $num_pages++;
         } // has remainder so add one page
 
-        $pages_array = array();
+        $pages_array = [];
         for ($i=1; $i<=$num_pages; $i++) {
             $pages_array[] = array('id' => $i, 'text' => $i);
         }

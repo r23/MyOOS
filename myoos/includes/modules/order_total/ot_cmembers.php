@@ -45,7 +45,7 @@
           $this->calculate_tax = (defined('MODULE_CMEMBERS_CALC_TAX') ? MODULE_CMEMBERS_CALC_TAX : null);
           $this->percentage = (defined('MODULE_CMEMBERS_OT_DISCOUNT') ? MODULE_CMEMBERS_OT_DISCOUNT : null);
 
-          $this->output = array();
+          $this->output = [];
       }
 
       public function process()

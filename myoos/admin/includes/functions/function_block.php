@@ -83,7 +83,7 @@ function oos_show_block_to_page($block_id = '', $language_id = '')
         if (empty($language_id) || !is_numeric($language_id)) {
             $language_id = intval($_SESSION['language_id']);
         }
-        $type_array = array();
+        $type_array = [];
 
         // Get database information
         $dbconn =& oosDBGetConn();
@@ -103,7 +103,7 @@ function oos_show_block_to_page($block_id = '', $language_id = '')
             $type_result->MoveNext();
         }
 
-        $block_to_page_array = array();
+        $block_to_page_array = [];
 
         $block_to_page_typetable = $oostable['block_to_page_type'];
         $query = "SELECT block_id, page_type_id 
@@ -180,7 +180,7 @@ function oos_info_block_to_page($block_id = '', $language_id = '')
         if (empty($language_id) || !is_numeric($language_id)) {
             $language_id = intval($_SESSION['language_id']);
         }
-        $type_array = array();
+        $type_array = [];
 
         // Get database information
         $dbconn =& oosDBGetConn();

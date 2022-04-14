@@ -64,7 +64,7 @@ $history_result_raw = "SELECT o.orders_id, o.date_purchased, o.delivery_name, ot
 $history_split = new splitPageResults($history_result_raw, MAX_DISPLAY_ORDER_HISTORY);
 $history_result = $dbconn->Execute($history_split->sql_query);
 
-$aHistory = array();
+$aHistory = [];
 if ($history_result->RecordCount()) {
     while ($history = $history_result->fields) {
         $orders_productstable = $oostable['orders_products'];

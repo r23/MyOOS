@@ -26,7 +26,7 @@ function oos_get_path($current_category_id = '')
     global $cPath_array;
 
     if (!is_array($cPath_array)) {
-        $cPath_array = array();
+        $cPath_array = [];
     }
 
     if ($current_category_id == '') {
@@ -82,7 +82,7 @@ function oos_get_category_tree($parent_id = '0', $spacing = '', $exclude = '', $
     }
 
     if (!is_array($aCategoryTree)) {
-        $aCategoryTree = array();
+        $aCategoryTree = [];
     }
     if ((count($aCategoryTree) < 1) && ($exclude != '0')) {
         $aCategoryTree[] = array('id' => '0', 'text' => TEXT_TOP);
@@ -707,7 +707,7 @@ function category_move_to_trash($categories_id)
 function oos_generate_category_path($id, $from = 'category', $categories_array = '', $index = 0)
 {
     if (!is_array($categories_array)) {
-        $categories_array = array();
+        $categories_array = [];
     }
 
     // Get database information

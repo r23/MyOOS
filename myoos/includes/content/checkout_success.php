@@ -90,7 +90,7 @@ $oBreadcrumb->add($aLang['navbar_title_2']);
       $orders_result = $dbconn->Execute($sql);
       $orders = $orders_result->fields;
 
-      $products_array = array();
+      $products_array = [];
       $orders_productstable = $oostable['orders_products'];
       $sql = "SELECT products_id, products_name
             FROM $orders_productstable
@@ -115,7 +115,7 @@ $products_notify = '';
 if ($global['global_product_notifications'] != '1') {
     $products_notify .= $aLang['text_notify_products'] . '<br /><p class="productsNotifications">';
 
-    $products_displayed = array();
+    $products_displayed = [];
     for ($i=0, $n=count($products_array); $i<$n; $i++) {
         if (!in_array($products_array[$i]['id'], $products_displayed)) {
             $products_notify .= oos_draw_checkbox_field('notify[]', $products_array[$i]['id']) . ' ' . $products_array[$i]['text'] . '<br />';

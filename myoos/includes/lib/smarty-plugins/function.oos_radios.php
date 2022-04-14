@@ -104,7 +104,7 @@ function smarty_function_oos_radios($params, &$smarty)
         return '';
     } /* raise error here? */
 
-    $_html_result = array();
+    $_html_result = [];
 
     if (isset($options)) {
         foreach ($options as $_key=>$_val) {

@@ -24,7 +24,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 function oos_get_manufacturers()
 {
     if (!is_array($aManufacturers)) {
-        $aManufacturers = array();
+        $aManufacturers = [];
     }
 
     $dbconn =& oosDBGetConn();

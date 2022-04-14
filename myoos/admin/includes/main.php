@@ -130,7 +130,7 @@ if (!isset($_SESSION['language']) || isset($_GET['language'])) {
 
 
 // require the language translations
-$aLang = array();
+$aLang = [];
 $sLanguage = oos_var_prep_for_os($_SESSION['language']);
 require 'includes/languages/' . $sLanguage . '.php';
 require 'includes/languages/' . $sLanguage . '/configuration_group.php';

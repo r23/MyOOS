@@ -43,7 +43,7 @@ class ot_coupon
         $this->credit_class = true;
         $this->coupon_code = '';
 
-        $this->output = array();
+        $this->output = [];
     }
 
     public function process()

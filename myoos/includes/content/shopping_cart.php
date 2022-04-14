@@ -25,7 +25,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/shoppi
 
 $hidden_field = '';
 $any_out_of_stock = 0;
-$order_total_output = array();
+$order_total_output = [];
 $country = STORE_COUNTRY;
 
 if (isset($_SESSION)) {

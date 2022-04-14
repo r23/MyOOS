@@ -171,7 +171,7 @@ class Snoopy
 
                     if ($this->_framedepth < $this->maxframes && count($this->_frameurls) > 0) {
                         $frameurls = $this->_frameurls;
-                        $this->_frameurls = array();
+                        $this->_frameurls = [];
 
                         foreach ($frameurls as $frameurl) {
                             if ($this->_framedepth < $this->maxframes) {
@@ -224,7 +224,7 @@ class Snoopy
 
                 if ($this->_framedepth < $this->maxframes && count($this->_frameurls) > 0) {
                     $frameurls = $this->_frameurls;
-                    $this->_frameurls = array();
+                    $this->_frameurls = [];
 
                     foreach ($frameurls as $frameurl) {
                         if ($this->_framedepth < $this->maxframes) {
@@ -319,7 +319,7 @@ class Snoopy
 
                     if ($this->_framedepth < $this->maxframes && count($this->_frameurls) > 0) {
                         $frameurls = $this->_frameurls;
-                        $this->_frameurls = array();
+                        $this->_frameurls = [];
 
                         foreach ($frameurls as $frameurl) {
                             if ($this->_framedepth < $this->maxframes) {
@@ -381,7 +381,7 @@ class Snoopy
 
                 if ($this->_framedepth < $this->maxframes && count($this->_frameurls) > 0) {
                     $frameurls = $this->_frameurls;
-                    $this->_frameurls = array();
+                    $this->_frameurls = [];
 
                     foreach ($frameurls as $frameurl) {
                         if ($this->_framedepth < $this->maxframes) {
@@ -922,7 +922,7 @@ class Snoopy
             $this->setcookies();
         }
 
-        $headers = array();
+        $headers = [];
 
         $URI_PARTS = parse_url($URI);
         if (empty($url)) {

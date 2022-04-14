@@ -159,7 +159,7 @@ function oos_get_all_get_params($exclude_array = '')
     global $session;
 
     if ($exclude_array == '') {
-        $exclude_array = array();
+        $exclude_array = [];
     }
 
     $get_url = '';
@@ -201,7 +201,7 @@ function oos_var_prep_for_os()
                             '_',
                             '_');
 
-    $resarray = array();
+    $resarray = [];
     foreach (func_get_args() as $ourvar) {
         // Parse out bad things
         $ourvar = preg_replace($search, $replace, $ourvar);
@@ -436,7 +436,7 @@ function oos_get_languages()
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-    $aLanguages = array();
+    $aLanguages = [];
 
     $languagestable = $oostable['languages'];
     $query = "SELECT languages_id, name, iso_639_2, iso_639_1, iso_3166_1
@@ -523,7 +523,7 @@ function oos_get_products_title($product_id, $language_id = '')
 
 function oos_get_countries($default = '')
 {
-    $countries_array = array();
+    $countries_array = [];
     if ($default) {
         $countries_array[] = array('id' => '',
                                  'text' => $default);
@@ -553,7 +553,7 @@ function oos_get_countries($default = '')
 
 function oos_get_country_zones($country_id)
 {
-    $zones_array = array();
+    $zones_array = [];
 
     // Get database information
     $dbconn =& oosDBGetConn();

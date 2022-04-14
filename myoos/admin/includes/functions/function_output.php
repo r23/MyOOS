@@ -758,7 +758,7 @@ function oos_draw_products_pull_down($name, $exclude, $default = null, $id = 1)
     global $currencies;
 
     if (!is_array($exclude)) {
-        $exclude = array();
+        $exclude = [];
     }
 
     $select_string = '<select class="form-control" id="select2-' . $id . '" name="' . $name . '">';

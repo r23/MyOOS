@@ -113,7 +113,7 @@ function oos_create_coupon_code($salt="secret", $length=SECURITY_CODE_LENGTH)
   */
   function oos_draw_date_selector($prefix, $date='')
   {
-      $month_array = array();
+      $month_array = [];
       $month_array[1] =_JANUARY;
       $month_array[2] =_FEBRUARY;
       $month_array[3] =_MARCH;

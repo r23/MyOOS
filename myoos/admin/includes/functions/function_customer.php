@@ -65,7 +65,7 @@
   */
   function oos_get_customers_statuses()
   {
-      $customers_statuses_array = array();
+      $customers_statuses_array = [];
 
       // Get database information
       $dbconn =& oosDBGetConn();
@@ -103,7 +103,7 @@
   */
   function oos_get_customers_status($customer_id)
   {
-      $customer_status_array = array();
+      $customer_status_array = [];
 
       // Get database information
       $dbconn =& oosDBGetConn();

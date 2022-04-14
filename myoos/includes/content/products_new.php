@@ -76,7 +76,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $products_new_split = new splitPageResults($products_new_result_raw, MAX_DISPLAY_PRODUCTS_NEW);
     $products_new_result = $dbconn->Execute($products_new_split->sql_query);
 
-    $products_new_array = array();
+    $products_new_array = [];
     while ($products_new = $products_new_result->fields) {
         $discount = null;
 

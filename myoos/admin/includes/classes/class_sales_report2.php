@@ -197,7 +197,7 @@ class sales_report
             if ($i > 0) {
                 $price2 = 0;
                 $price3 = 0;
-                $option = array();
+                $option = [];
                 $k = -1;
                 $ord_pro_id_old = 0;
                 for ($j = 0; $j < $i; $j++) {

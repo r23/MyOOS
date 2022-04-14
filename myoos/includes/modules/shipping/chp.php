@@ -133,7 +133,7 @@
               $chp_cost_pri = @constant('MODULE_SHIPPING_CHP_COST_PRI_' . $j);
               $chp_cost_urg = @constant('MODULE_SHIPPING_CHP_COST_URG_' . $j);
 
-              $methods = array();
+              $methods = [];
 
               if ($chp_cost_eco != '') {
                   $chp_table_eco = preg_split("/[:,]/", $chp_cost_eco);
@@ -224,7 +224,7 @@
           if ((oos_is_not_null($method)) && (isset($this->types[$method]))) {
               for ($i=0; $i<count($methods); $i++) {
                   if ($method == $methods[$i]['id']) {
-                      $methodsc = array();
+                      $methodsc = [];
                       $methodsc[] = array('id' => $methods[$i]['id'],
                                 'title' => $methods[$i]['title'],
                                 'cost' => $methods[$i]['cost']);

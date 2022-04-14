@@ -22,7 +22,7 @@
 /** ensure this file is being included by a parent file */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-$aContents = array();
+$aContents = [];
 
 $prefix_filename = '';
 if (!$prefix_filename == '') {
@@ -100,7 +100,7 @@ if (!$prefix_catalog_filename == '') {
     $prefix_catalog_filename = $prefix_catalog_filename . '_';
 }
 
-$aCatalog = array();
+$aCatalog = [];
 $aCatalog['account_history_info'] = $prefix_catalog_filename . 'account_history_info';
 $aCatalog['default'] = $prefix_catalog_filename . 'home';
 $aCatalog['gv_redeem'] = $prefix_catalog_filename . 'gv_redeem';

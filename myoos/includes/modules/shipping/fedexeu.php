@@ -131,7 +131,7 @@
               $fedexeu_cost_pak = @constant('MODULE_SHIPPING_FEDEXEU_COST_PAK_' . $j);
               $fedexeu_cost_box = @constant('MODULE_SHIPPING_FEDEXEU_COST_BOX_' . $j);
 
-              $methods = array();
+              $methods = [];
 
               if ($fedexeu_cost_pak != '') {
                   $fedexeu_table_pak = preg_split("/[:,]/", $fedexeu_cost_pak);
@@ -205,7 +205,7 @@
           if ((oos_is_not_null($method)) && (isset($this->types[$method]))) {
               for ($i=0; $i<count($methods); $i++) {
                   if ($method == $methods[$i]['id']) {
-                      $methodsc = array();
+                      $methodsc = [];
                       $methodsc[] = array('id' => $methods[$i]['id'],
                                 'title' => $methods[$i]['title'],
                                 'cost' => $methods[$i]['cost']);

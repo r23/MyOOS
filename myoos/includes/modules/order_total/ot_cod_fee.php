@@ -52,7 +52,7 @@
           $this->enabled = (defined('MODULE_ORDER_TOTAL_COD_STATUS') && (MODULE_ORDER_TOTAL_COD_STATUS == 'true') ? true : false);
           $this->sort_order = (defined('MODULE_ORDER_TOTAL_COD_SORT_ORDER') ? MODULE_ORDER_TOTAL_COD_SORT_ORDER : null);
 
-          $this->output = array();
+          $this->output = [];
       }
 
       public function process()

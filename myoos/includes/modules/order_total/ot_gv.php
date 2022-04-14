@@ -43,7 +43,7 @@
       $this->credit_class = true;
           $this->checkbox = $this->user_prompt . '<input type="checkbox" onClick="submitFunction()" name="' . 'c' . $this->code . '">';
 
-          $this->output = array();
+          $this->output = [];
       }
 
       public function process()

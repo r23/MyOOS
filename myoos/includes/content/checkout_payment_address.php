@@ -298,7 +298,7 @@ if ($bProcess == false) {
 				FROM $address_booktable
 				WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'";
         $addresses_result = $dbconn->Execute($sql);
-        $addresses_array = array();
+        $addresses_array = [];
         while ($addresses = $addresses_result->fields) {
             $format_id = oos_get_address_format_id($address['country_id']);
             $addresses_array[] = array('format_id' => $format_id,
@@ -374,8 +374,8 @@ if ($bProcess == false) {
 
 
 if ($entry_state_has_zones == true) {
-    $zones_names = array();
-    $zones_values = array();
+    $zones_names = [];
+    $zones_values = [];
     $zonestable = $oostable['zones'];
     $zones_result = $dbconn->Execute("SELECT zone_name FROM $zonestable WHERE zone_country_id = '" . intval($country) . "' ORDER BY zone_name");
     while ($zones = $zones_result->fields) {

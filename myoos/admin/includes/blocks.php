@@ -30,7 +30,7 @@ $aBlocks[] = array(
     'active' => FALSE
 );
 */
-$aBlocks[] = array();
+$aBlocks[] = [];
 
 if (oos_admin_check_boxes('customers.php') == true) {
     include 'includes/boxes/customers.php';

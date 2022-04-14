@@ -49,7 +49,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_p
 if (isset($_POST['action']) && ($_POST['action'] == 'update_notifications') &&
     (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
     (array)$products = $_POST['products'];
-    $aRemove = array();
+    $aRemove = [];
     for ($i=0, $n=count($products); $i<$n; $i++) {
         if (is_numeric($products[$i])) {
             $aRemove[] = $products[$i];

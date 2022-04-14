@@ -23,7 +23,7 @@ function smarty_modifier_close_tags($string)
 
         // match closed tags
         if (preg_match_all('/<\/([a-z]+)>/', $string, $end_tags)) {
-            $complete_tags = array();
+            $complete_tags = [];
             $end_tags = $end_tags[1];
 
             foreach ($start_tags as $key => $val) {

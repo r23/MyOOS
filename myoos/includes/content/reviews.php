@@ -87,7 +87,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $reviews_split = new splitPageResults($reviews_result_raw, MAX_DISPLAY_NEW_REVIEWS);
     $reviews_result = $dbconn->Execute($reviews_split->sql_query);
 
-    $aReviews = array();
+    $aReviews = [];
     while ($reviews = $reviews_result->fields) {
         $aReviews[] = array('id' => $reviews['reviews_id'],
                           'products_id' => $reviews['products_id'],

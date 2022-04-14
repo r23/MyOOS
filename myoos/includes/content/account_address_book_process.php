@@ -429,8 +429,8 @@ $smarty->assign(
 
 
   if ($state_has_zones == 'true') {
-      $aZonesNames = array();
-      $aZonesValues = array();
+      $aZonesNames = [];
+      $aZonesValues = [];
       $zonestable = $oostable['zones'];
       $zones_query = "SELECT zone_name FROM $zonestable
                      WHERE zone_country_id = '" . oos_db_input($country) . "'
