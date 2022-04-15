@@ -27,10 +27,13 @@ function dosql($table, $flds)
 
     $dict = NewDataDictionary($db);
 
-    $taboptarray = array('mysql' => 'TYPE=MyISAM', 'REPLACE');
+    // $dict->debug = 1;
+    $taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE');
 
-    $sqlarray = $dict->CreateTableSQL($table, $flds, $taboptarray);
-    $dict->ExecuteSQLArray($sqlarray);
+    $sqlarray = $dict->createTableSQL($table, $flds, $taboptarray);
+    $dict->executeSqlArray($sqlarray);
+
+
 
     echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
 }
@@ -42,7 +45,7 @@ function idxsql($idxname, $table, $idxflds)
     $dict = NewDataDictionary($db);
 
     $sqlarray = $dict->CreateIndexSQL($idxname, $table, $idxflds);
-    $dict->ExecuteSQLArray($sqlarray);
+    $dict->executeSqlArray($sqlarray);
 }
 
 
