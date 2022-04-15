@@ -408,6 +408,40 @@ if (!$product_info_result->RecordCount()) {
         )
     );
 
+
+$oos_js = '<script src="js/plugins/apexcharts/dist/apexcharts.min.js"></script>
+<script>
+	// Replace Math.random() with a pseudo-random number generator to get reproducible results in e2e tests
+	// Based on https://gist.github.com/blixt/f17b47c62508be59987b
+	var _seed = 42;
+	Math.random = function() {
+		_seed = _seed * 16807 % 2147483647;
+		return (_seed - 1) / 2147483646;
+	};
+</script>
+
+<script src=".../irregular-data-series.js"></script>
+
+<script>
+	var ts2 = 1484418600000;
+	var dates = [];
+	var spikes = [5, -5, 3, -3, 8, -8]
+	for (var i = 0; i < 120; i++) {
+		ts2 = ts2 + 86400000;
+		var innerArr = [ts2, dataSeries[1][i].value];
+		dates.push(innerArr)
+	}
+</script>
+';
+
+    ob_start();
+    require_once MYOOS_INCLUDE_PATH . '/includes/content/chart/zoomable-timeseries.js.php';
+    $chart = ob_get_contents();
+    ob_end_clean();
+
+#	$smarty->assign('oos_js', $oos_js);
+#	$smarty->assign('chart', $chart);
+
     if (!isset($block_get_parameters)) {
         $block_get_parameters = oos_get_all_get_parameters(array('action'));
         $block_get_parameters = oos_remove_trailing($block_get_parameters);
@@ -416,7 +450,10 @@ if (!$product_info_result->RecordCount()) {
 
     $today = date("Y-m-d H:i:s");
     $smarty->assign('today', $today);
+	
 
+	
+	
     $smarty->assign('product_info', $product_info);
     $smarty->assign('heading_title', $product_info['products_name']);
     $smarty->assign('options', $options);
