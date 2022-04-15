@@ -286,6 +286,14 @@
             <div class="row">
                 <div class="col-12">
                     <div class="product_details_desc clearfix">
+					
+					{if $chart}		
+						<div class="relative mb-3">
+							{$chart}	
+						</div>
+					{/if}	
+					
+					
 						<div class="description_area">
 							{$product_info.products_description} 							
 						</div>
