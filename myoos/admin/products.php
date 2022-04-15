@@ -130,7 +130,6 @@ if (!empty($action)) {
                                     'products_discount4_qty' => oos_db_prepare_input($_POST['products_discount4_qty']),
                                   );
 
-
             if ($action == 'insert_product') {
                 $insert_sql_data = array('products_date_added' => 'now()');
 
@@ -141,7 +140,33 @@ if (!empty($action)) {
 
                 $products_to_categoriestable = $oostable['products_to_categories'];
                 $dbconn->Execute("INSERT INTO $products_to_categoriestable (products_id, categories_id) VALUES ('" . intval($products_id) . "', '" . intval($current_category_id) . "')");
+
+				// product price history
+				$sql_price_array = array('products_id' => $products_id,
+										'products_price' => oos_db_prepare_input($_POST['products_price']),
+										'date_added' => 'now()');
+				oos_db_perform($oostable['products_price_history'], $sql_price_array);  
+
+
             } elseif ($action == 'update_product') {
+				// product price history
+				$productstable = $oostable['products'];
+				$products_price_sql = "SELECT products_price
+                        FROM $productstable 
+                        WHERE products_id = '" . intval($products_id) . "'";
+				$products_price_result = $dbconn->Execute($products_price_sql);
+				$products_price = $products_price_result->fields;
+				$old_products_price = $products_price['products_price'];				
+				$new_products_price = oos_db_prepare_input($_POST['products_price']);
+
+				if ($old_products_price != $new_products_price) {
+					$sql_price_array = array('products_id' => $products_id,
+											'products_price' => oos_db_prepare_input($_POST['products_price']),
+											'date_added' => 'now()');
+					oos_db_perform($oostable['products_price_history'], $sql_price_array); 
+				}
+
+				
                 $update_sql_data = array('products_last_modified' => 'now()');
 
                 $sql_data_array = array_merge($sql_data_array, $update_sql_data);
@@ -149,6 +174,7 @@ if (!empty($action)) {
                 oos_db_perform($oostable['products'], $sql_data_array, 'UPDATE', 'products_id = \'' . intval($products_id) . '\'');
             }
 
+			
             $aLanguages = oos_get_languages();
             $nLanguages = count($aLanguages);
 
