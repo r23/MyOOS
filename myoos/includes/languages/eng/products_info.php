@@ -54,6 +54,10 @@ $aLang['table_heading_price'] = 'Price';
 $aLang['table_heading_weight'] = 'Weight';
 $aLang['table_heading_buy_now'] = 'Buy Now';
 
+$aLang['text_price_chart_titel'] = 'Price trend';
+$aLang['text_price_yaxis_titel'] = 'Price';
+
+
 // modules/slavery_listing.php
 $aLang['text_buy'] = 'Buy 1 \'';
 $aLang['text_now'] = '\' now';

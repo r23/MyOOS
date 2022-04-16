@@ -26,14 +26,13 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
      <div id="chart"></div>
 
-    <script>
-      
+    <script>  
         var options = {
           series: [{
-          name: 'XYZ MOTORS',
+          name: '<?php echo $product_info['products_name']; ?>',
           data: dates
         }],
-          chart: {
+        chart: {  
           type: 'area',
           stacked: false,
           height: 350,
@@ -53,7 +52,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
           size: 0,
         },
         title: {
-          text: 'Stock Price Movement',
+          text: '<?php echo $aLang['text_price_chart_titel']; ?>',
           align: 'left'
         },
         fill: {
@@ -73,7 +72,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
             },
           },
           title: {
-            text: 'Price'
+            text: '<?php echo $aLang['text_price_yaxis_titel']; ?>'
           },
         },
         xaxis: {
