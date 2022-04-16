@@ -408,6 +408,15 @@ if (!$product_info_result->RecordCount()) {
         )
     );
 
+# echo $sLanguageCode;
+# exit;
+
+# $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os($_SESSION['language']) : DEFAULT_LANGUAGE;
+# $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+# $sLanguageCode = isset($_SESSION['iso_639_1']) ? oos_var_prep_for_os($_SESSION['iso_639_1']) : DEFAULT_LANGUAGE_CODE;
+# $sLanguageName = isset($_SESSION['languages_name']) ? oos_var_prep_for_os($_SESSION['languages_name']) : DEFAULT_LANGUAGE_NAME;
+
+
 
 $oos_js = '<script src="js/plugins/apexcharts/dist/apexcharts.min.js"></script>
 <script>
@@ -420,7 +429,7 @@ $oos_js = '<script src="js/plugins/apexcharts/dist/apexcharts.min.js"></script>
 	};
 </script>
 
-<script src=".../irregular-data-series.js"></script>
+<script src="' . oos_get_data($aContents['price_trend'], 'products_id=' . intval($nProductsID)) . '"></script>
 
 <script>
 	var ts2 = 1484418600000;
@@ -439,8 +448,8 @@ $oos_js = '<script src="js/plugins/apexcharts/dist/apexcharts.min.js"></script>
     $chart = ob_get_contents();
     ob_end_clean();
 
-#	$smarty->assign('oos_js', $oos_js);
-#	$smarty->assign('chart', $chart);
+	$smarty->assign('oos_js', $oos_js);
+	$smarty->assign('chart', $chart);
 
     if (!isset($block_get_parameters)) {
         $block_get_parameters = oos_get_all_get_parameters(array('action'));

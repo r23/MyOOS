@@ -75,6 +75,25 @@ if ($request->isXmlHttpRequest()) {
     }
 
     require 'includes/nice_exit.php';
+	
+} elseif (isset($_GET['content']) || is_string($_GET['content'])) {
+    require 'includes/main_ajax.php';
+	
+	$sContent = oos_var_prep_for_os($_GET['content']);
+
+    // price trend, 
+    if (empty($sContent) || !is_string($sContent)) {
+        header("Content-Type: application/json");
+        exit(json_encode('403 Forbidden'));
+    } elseif (is_readable('includes/ajax/' . $sContent . '.php')) {
+        require MYOOS_INCLUDE_PATH . '/includes/ajax/' . $sContent . '.php';
+    } else {
+        header("Content-Type: application/json");
+        exit(json_encode(' Module not found'));
+    }
+
+    require 'includes/nice_exit.php';	
+	
 } else {
     http_response_code(403);
     echo 'Error 403 Forbidden';

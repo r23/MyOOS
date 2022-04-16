@@ -97,6 +97,73 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
     return $link;
 }
 
+ /**
+  * It begets a link to get data
+  *
+  * @param $modul
+  * @param $page
+  * @param $parameters
+  * @param $add_session_id
+  * @param $search_engine_safe
+  * @return string
+  */
+function oos_get_data($page = '', $parameters = '', $add_session_id = true, $search_engine_safe = true)
+{
+    global $session, $oEvent, $spider_flag;
+
+    $page = oos_output_string($page);
+
+    $link = OOS_HTTPS_SERVER . OOS_SHOP;
+
+    if (oos_is_not_null($parameters)) {
+        $link .= 'get_data.php?content=' . $page . '&amp;' . oos_output_string($parameters);
+    } else {
+        $link .= 'get_data.php?content=' . $page;
+    }
+
+    $separator = '&amp;';
+
+    while ((substr($link, -5) == '&amp;') || (substr($link, -1) == '?')) {
+        if (substr($link, -1) == '?') {
+            $link = substr($link, 0, -1);
+        } else {
+            $link = substr($link, 0, -5);
+        }
+    }
+
+    if (isset($_SESSION)) {
+
+        // Add the session ID when moving from HTTP and HTTPS servers or when SID is defined
+        if ($add_session_id == true) {
+            $_sid = $session->getName() . '=' . $session->getId();
+        }
+
+        if ($spider_flag === false) {
+            $_sid = null;
+        }
+    }
+
+    if (is_object($oEvent)) {
+        if (($search_engine_safe == true) &&  $oEvent->installed_plugin('sefu')) {
+            $link = str_replace(['?', '&amp;', '='], '/', $link);
+
+            $separator = '?';
+
+            $pos = strpos($link, 'action');
+            if ($pos === false) {
+                $url_rewrite = new url_rewrite();
+                $link = $url_rewrite->transform_uri($link);
+            }
+        }
+    }
+
+    if (isset($_sid)) {
+        $link .= $separator . oos_output_string($_sid);
+    }
+
+    return $link;
+}
+
 
  /**
   * The HTML image wrapper function
