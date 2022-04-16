@@ -14,7 +14,6 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
 ?>
     <style>
-      
         #chart {
       max-width: 650px;
       margin: 35px auto;
@@ -22,72 +21,44 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
       
     </style>
 
-  
+
 
      <div id="chart"></div>
-
-    <script>  
-        var options = {
+	 
+    <script>
+         var options = {
           series: [{
-          name: '<?php echo $product_info['products_name']; ?>',
-          data: dates
+          data: series.monthDataSeries1.prices
         }],
-        chart: {  
-          type: 'area',
-          stacked: false,
+          chart: {	  
           height: 350,
-          zoom: {
-            type: 'x',
-            enabled: true,
-            autoScaleYaxis: true
-          },
-          toolbar: {
-            autoSelected: 'zoom'
-          }
+          type: 'line',
+          id: 'areachart-2'
         },
         dataLabels: {
           enabled: false
         },
-        markers: {
-          size: 0,
+        stroke: {
+          curve: 'straight'
+        },
+        grid: {
+          padding: {
+            right: 30,
+            left: 20
+          }
         },
         title: {
-          text: '<?php echo $aLang['text_price_chart_titel']; ?>',
+          text: 'Line with Annotations',
           align: 'left'
         },
-        fill: {
-          type: 'gradient',
-          gradient: {
-            shadeIntensity: 1,
-            inverseColors: false,
-            opacityFrom: 0.5,
-            opacityTo: 0,
-            stops: [0, 90, 100]
-          },
-        },
-        yaxis: {
-          labels: {
-            formatter: function (val) {
-              return (val / 1000000).toFixed(0);
-            },
-          },
-          title: {
-            text: '<?php echo $aLang['text_price_yaxis_titel']; ?>'
-          },
-        },
+        labels: series.monthDataSeries1.dates,
         xaxis: {
           type: 'datetime',
-        },
-        tooltip: {
-          shared: false,
-          y: {
-            formatter: function (val) {
-              return (val / 1000000).toFixed(0)
-            }
-          }
-        }
+        },		
         };
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();      
+        chart.render();
+      
+      
     </script>
