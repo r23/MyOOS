@@ -67,10 +67,37 @@ function chartLine($xAxisData, $seriesData, $title = '')
     return $chart->render(uniqid());
 }
 
-echo chartLine(
-    ['2018-01-01','2018-01-02','2018-01-03','2018-01-04','2018-01-05','2018-01-06','2018-01-07','2018-01-08','2018-01-09','2018-01-10'],
-    [
-        ['name' => '数据1', 'data' => [99,102,20,235,112,675,76,24,657,32]],
-    ],
-    '测试数据'
-);
+
+$products_price_historytable = $oostable['products_price_history'];
+$sql = "SELECT products_price, date_added
+          FROM $products_price_historytable
+	     WHERE products_id = '" . intval($nProductsID) . "'
+      ORDER BY date_added DESC";
+$price_history_result = $dbconn->Execute($sql);
+if ($price_history_result->RecordCount() >= 2) {
+    $aDate = [];
+	$aData = [];
+    while ($price_history = $price_history_result->fields) {
+		$history_price = $oCurrencies->schema_price($price_history['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
+
+        $aDate[] = $price_history['date_added'];
+		$aData[] = $history_price;
+
+        // Move that ADOdb pointer!
+        $price_history_result->MoveNext();
+    }
+
+	
+	// current price with date
+	$aDate = array_merge($aDate, [$today]);
+	$aData = array_merge($aData, [$schema_product_price]);
+
+	echo chartLine( $aDate, 
+		[
+			['name' => $product_info['products_name'], 'data' => $aData],
+		],
+		$aLang['text_price_chart_titel']
+	);
+
+}
+
