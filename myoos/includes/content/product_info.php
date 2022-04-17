@@ -408,36 +408,10 @@ if (!$product_info_result->RecordCount()) {
         )
     );
 
-# echo $sLanguageCode;
-# exit;
-
-# $sLanguage = isset($_SESSION['language']) ? oos_var_prep_for_os($_SESSION['language']) : DEFAULT_LANGUAGE;
-# $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
-# $sLanguageCode = isset($_SESSION['iso_639_1']) ? oos_var_prep_for_os($_SESSION['iso_639_1']) : DEFAULT_LANGUAGE_CODE;
-# $sLanguageName = isset($_SESSION['languages_name']) ? oos_var_prep_for_os($_SESSION['languages_name']) : DEFAULT_LANGUAGE_NAME;
-
-
-
-$oos_js = '<script src="js/plugins/apexcharts/dist/apexcharts.min.js"></script>
-<script>
-	// Replace Math.random() with a pseudo-random number generator to get reproducible results in e2e tests
-	// Based on https://gist.github.com/blixt/f17b47c62508be59987b
-	var _seed = 42;
-	Math.random = function() {
-		_seed = _seed * 16807 % 2147483647;
-		return (_seed - 1) / 2147483646;
-	};
-</script>
-
-<script src="' . oos_get_data($aContents['price_trend'], 'products_id=' . intval($nProductsID)) . '"></script>
-';
-
     ob_start();
-    require_once MYOOS_INCLUDE_PATH . '/includes/content/chart/zoomable-timeseries.js.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/content/chart/line.php';
     $chart = ob_get_contents();
     ob_end_clean();
-
-	$smarty->assign('oos_js', $oos_js);
 	$smarty->assign('chart', $chart);
 
     if (!isset($block_get_parameters)) {
@@ -448,10 +422,7 @@ $oos_js = '<script src="js/plugins/apexcharts/dist/apexcharts.min.js"></script>
 
     $today = date("Y-m-d H:i:s");
     $smarty->assign('today', $today);
-	
 
-	
-	
     $smarty->assign('product_info', $product_info);
     $smarty->assign('heading_title', $product_info['products_name']);
     $smarty->assign('options', $options);
