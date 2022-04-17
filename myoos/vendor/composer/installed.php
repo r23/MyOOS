@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '04458c039a2eae28cdbb60771ced79196e15c383',
+        'reference' => '69a4b25cb576c5d92680f37d4d581f8b600f7188',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -118,6 +118,15 @@
             'reference' => 'c828ced1f932094ab79e4120a106a666565e4d9c',
             'dev_requirement' => false,
         ),
+        'hisune/echarts-php' => array(
+            'pretty_version' => '1.1.1',
+            'version' => '1.1.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../hisune/echarts-php',
+            'aliases' => array(),
+            'reference' => '3939489d2c97826c03ebbeced481dbd4ec2693fd',
+            'dev_requirement' => false,
+        ),
         'khanamiryan/qrcode-detector-decoder' => array(
             'pretty_version' => '1.0.5.2',
             'version' => '1.0.5.2',
@@ -196,7 +205,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '04458c039a2eae28cdbb60771ced79196e15c383',
+            'reference' => '69a4b25cb576c5d92680f37d4d581f8b600f7188',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(

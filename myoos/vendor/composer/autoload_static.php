@@ -90,6 +90,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'Laminas\\Escaper\\' => 16,
             'Laminas\\Code\\' => 13,
         ),
+        'H' => 
+        array (
+            'Hisune\\EchartsPHP\\' => 18,
+        ),
         'F' => 
         array (
             'FontLib\\' => 8,
@@ -284,6 +288,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Laminas\\Code\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-code/src',
+        ),
+        'Hisune\\EchartsPHP\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/hisune/echarts-php/src',
         ),
         'FontLib\\' => 
         array (

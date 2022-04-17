@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c02bc44202fa5360334f208c91b7cd9",
+    "content-hash": "74228801203986f06bbec1f2db7e668b",
     "packages": [
         {
             "name": "adodb/adodb-php",
@@ -835,6 +835,57 @@
                 }
             ],
             "time": "2022-03-02T09:29:19+00:00"
+        },
+        {
+            "name": "hisune/echarts-php",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hisune/Echarts-PHP.git",
+                "reference": "3939489d2c97826c03ebbeced481dbd4ec2693fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hisune/Echarts-PHP/zipball/3939489d2c97826c03ebbeced481dbd4ec2693fd",
+                "reference": "3939489d2c97826c03ebbeced481dbd4ec2693fd",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hisune\\EchartsPHP\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Hisune",
+                    "email": "hi@hisune.com",
+                    "homepage": "http://hisune.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A php wrapper for echarts javascript libraries",
+            "homepage": "http://hisune.com",
+            "keywords": [
+                "charts",
+                "echarts",
+                "javascript",
+                "php"
+            ],
+            "support": {
+                "email": "hi@hisune.com",
+                "issues": "https://github.com/hisune/Echarts-PHP/issues",
+                "source": "https://github.com/hisune/Echarts-PHP"
+            },
+            "time": "2022-03-03T09:58:13+00:00"
         },
         {
             "name": "khanamiryan/qrcode-detector-decoder",
