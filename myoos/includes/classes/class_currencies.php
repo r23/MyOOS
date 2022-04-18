@@ -90,6 +90,15 @@ class currencies
         return $this->currencies[$code]['title'];
     }
 
+    public function get_currencies_symbol_left($code)
+    {
+        return $this->currencies[$code]['symbol_left'];
+    }
+
+    public function get_currencies_symbol_right($code)
+    {
+        return $this->currencies[$code]['symbol_right'];
+    }
 
     public function get_value($code)
     {
@@ -105,6 +114,7 @@ class currencies
     {
         return $this->currencies[$code];
     }
+
 
     public function display_price($products_price, $products_tax, $quantity = 1)
     {

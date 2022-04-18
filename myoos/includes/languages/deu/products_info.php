@@ -56,6 +56,12 @@ $aLang['table_heading_buy_now'] = 'Bestellen';
 
 $aLang['text_price_chart_titel'] = 'Preisentwicklung';
 $aLang['text_price_yaxis_titel'] = 'Preis';
+$aLang['text_info_price_chart'] = 'Preisinformationen stehen bei dem Produkt <b>%s</b> leider erst seit dem <b>%s</b> zur Verfügung.';
+$aLang['text_price_chart_info'] = 'Preisentwicklung für %s ab <del>%s</del>.';
+
+$aLang['text_month'] = 'Monat';
+$aLang['text_months'] = 'Monate';
+$aLang['text_year'] = 'Jahr';
 
 // modules/slavery_listing.php
 $aLang['text_buy'] = '1 x \'';

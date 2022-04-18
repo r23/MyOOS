@@ -198,6 +198,7 @@ if ((!isset($_SESSION['currency']) || isset($_GET['currency'])) && $bNecessary =
     }
 }
 
+
 // determine the page directory
 $aContents = oos_get_content();
 

@@ -56,7 +56,12 @@ $aLang['table_heading_buy_now'] = 'Buy Now';
 
 $aLang['text_price_chart_titel'] = 'Price trend';
 $aLang['text_price_yaxis_titel'] = 'Price';
+$aLang['text_info_price_chart'] = 'Price information is unfortunately only available for the product <b>%s</b> since <b>%s</b>.';
+$aLang['text_price_chart_info'] = 'Price trend for %s from <del>%s</del>.';
 
+$aLang['text_month'] = 'month';
+$aLang['text_months'] = 'months';
+$aLang['text_year'] = 'year';
 
 // modules/slavery_listing.php
 $aLang['text_buy'] = 'Buy 1 \'';
