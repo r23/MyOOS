@@ -83,30 +83,34 @@ function chartLine($xAxisData, $seriesData, $title = '')
 }
 
 
-
-
 $startD = (!isset($_GET['startD']) || !is_numeric($_GET['startD'])) ? 2 : intval($_GET['startD']);
+$last_show_date = 0;
+
+$startDate_1 = mktime(0, 0, 0, date("m"), date("d")-30, date("Y")); 
+$startDate_2 = mktime(0, 0, 0, date("m"), date("d")-90, date("Y")); 
+$startDate_3 = mktime(0, 0, 0, date("m"), date("d")-183, date("Y")); 
+$startDate_4 = mktime(0, 0, 0, date("m"), date("d")-365, date("Y")); 
+
 
 switch ($startD) {
 	case '1':
-		$startDate = mktime(0, 0, 0, date("m"), date("d")-30, date("Y")); 
+		$startDate = $startDate_1;
 		break;
 
 	case '2':
-        $startDate = mktime(0, 0, 0, date("m"), date("d")-90, date("Y")); 
+        $startDate = $startDate_2; 
 		break;
 		
     case '3':
-		$startDate = mktime(0, 0, 0, date("m"), date("d")-183, date("Y")); 
+		$startDate = $startDate_3; 
         break;
 		
     case '4':
-		$startDate = mktime(0, 0, 0, date("m"), date("d")-365, date("Y")); 
+		$startDate = $startDate_3; 
         break;
 		
 	default:
-		$startDate = mktime(0, 0, 0, date("m"), date("d")-90, date("Y")); 
-		$startD = 2;
+		$startDate = $startDate_2; 
         break;		
 }
 
@@ -122,10 +126,7 @@ $sql = "SELECT UNIX_TIMESTAMP(min(date_added)) as first
 $first_result = $dbconn->Execute($sql);
 $first = $first_result->fields;
 
-
 $global_start_date = mktime(0, 0, 0, date("m", $first['first']), date("d", $first['first']), date("Y", $first['first']));
-
-
 if ($startDate == 0  or $startDate < $global_start_date) {
 
 	$before_date = date("Y-m-d", $startDate);
@@ -136,11 +137,20 @@ if ($startDate == 0  or $startDate < $global_start_date) {
 	
 	// set startDate to 
 	$startDate = $global_start_date;
-	
-	
+
 }
-
-
+//deactivate selection
+$ds = 5;
+if ($startDate_4 < $global_start_date) {
+	$ds = 4;
+} elseif ($startDate_3 < $global_start_date) {
+	$ds = 3;
+} elseif ($startDate_2 < $global_start_date) {
+	$ds = 2;
+} elseif ($startDate_1 < $global_start_date) {
+	$ds = 1;
+} 
+	
 $products_price_historytable = $oostable['products_price_history'];
 $sql = "SELECT products_price, date_added
           FROM $products_price_historytable
@@ -181,27 +191,33 @@ if ($price_history_result->RecordCount() >= 2) {
 
 
 	echo '<p class="text-end">';
-
-	if ($startD == 1) {
-		echo '1 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
-	} else {
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=1#anchor_1') . '">1 ' . $aLang['text_month'] . '</a>&nbsp;|&nbsp;';
+	if ($ds > 1) {
+		if ($startD == 1) {
+			echo '1 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
+		} else {
+			echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=1#anchor_1') . '">1 ' . $aLang['text_month'] . '</a>&nbsp;|&nbsp;';
+		}
 	}
-	if ($startD == 2) {
-		echo '3 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
-	} else {
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=2#anchor_1') . '">3 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
+	if ($ds > 2) {
+		if ($startD == 2) {
+			echo '3 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
+		} else {
+			echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=2#anchor_1') . '">3 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
+		}
 	}
-	if ($startD == 3) {
-		echo '6 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
-	} else {
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=3#anchor_1') . '">6 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
+	if ($ds > 3) {
+		if ($startD == 3) {
+			echo '6 ' . $aLang['text_month'] . '&nbsp;|&nbsp;';
+		} else {
+			echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=3#anchor_1') . '">6 ' . $aLang['text_months'] . '</a>&nbsp;|&nbsp;';
+		}
 	}
-
-	if ($startD == 4) {
-		echo '6 ' . $aLang['text_year'] . '&nbsp;|&nbsp;';
-	} else {	
-		echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=4#anchor_1') . '">1' . $aLang['text_year'] . '</a>&nbsp;|&nbsp;';
+	if ($ds > 4) {
+		if ($startD == 4) {
+			echo '1 ' . $aLang['text_year'] . '&nbsp;|&nbsp;';
+		} else {	
+			echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=4#anchor_1') . '">1' . $aLang['text_year'] . '</a>&nbsp;|&nbsp;';
+		}
 	}
 	echo '</p>';
 
