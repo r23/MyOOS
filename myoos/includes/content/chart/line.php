@@ -139,6 +139,7 @@ if ($startDate == 0  or $startDate < $global_start_date) {
 	$startDate = $global_start_date;
 
 }
+
 //deactivate selection
 $ds = 5;
 if ($startDate_4 < $global_start_date) {
@@ -216,7 +217,7 @@ if ($price_history_result->RecordCount() >= 2) {
 		if ($startD == 4) {
 			echo '1 ' . $aLang['text_year'] . '&nbsp;|&nbsp;';
 		} else {	
-			echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=4#anchor_1') . '">1' . $aLang['text_year'] . '</a>&nbsp;|&nbsp;';
+			echo '<a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $get_products_id . '&startD=4#anchor_1') . '">1' . $aLang['text_year'] . '</a>&nbsp;';
 		}
 	}
 	echo '</p>';
