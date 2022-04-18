@@ -82,8 +82,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
     return $chart->render(uniqid());
 }
 
-echo '<h3>' . $aLang['text_price_chart_titel'] . '</h3>';
-echo '<h4>' . $product_info['products_name'] . '</h4>';
+
 
 
 $startD = (!isset($_GET['startD']) || !is_numeric($_GET['startD'])) ? 2 : intval($_GET['startD']);
@@ -138,11 +137,7 @@ if ($startDate == 0  or $startDate < $global_start_date) {
 	// set startDate to 
 	$startDate = $global_start_date;
 	
-	echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">		
-		<h4>' . $sInfoTitle . '</h4>
-		<p>' . $sInfoText . '</p>
-		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-	</div>';	
+	
 }
 
 
@@ -155,8 +150,20 @@ $sql = "SELECT products_price, date_added
       ORDER BY date_added ASC";
 $price_history_result = $dbconn->Execute($sql);
 if ($price_history_result->RecordCount() >= 2) {
+	
+	echo '<h3>' . $aLang['text_price_chart_titel'] . '</h3>';
+	echo '<h4>' . $product_info['products_name'] . '</h4>';	
+
+	if (isset($sInfoTitle)) {
+		echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">		
+			<h4>' . $sInfoTitle . '</h4>
+			<p>' . $sInfoText . '</p>
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>';	
+	}	
     $aDate = [];
 	$aData = [];
+
     while ($price_history = $price_history_result->fields) {
 		$history_price = $oCurrencies->schema_price($price_history['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
 		
