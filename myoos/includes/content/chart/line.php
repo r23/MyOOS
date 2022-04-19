@@ -106,7 +106,7 @@ switch ($startD) {
         break;
 		
     case '4':
-		$startDate = $startDate_3; 
+		$startDate = $startDate_4; 
         break;
 		
 	default:
@@ -230,5 +230,4 @@ if ($price_history_result->RecordCount() >= 2) {
 		$aLang['text_price_chart_titel']
 	);
 
-}
-
+} 
