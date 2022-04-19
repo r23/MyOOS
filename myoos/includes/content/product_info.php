@@ -411,16 +411,16 @@ if (!$product_info_result->RecordCount()) {
     $today = date("Y-m-d H:i:s");
     $smarty->assign('today', $today);
 
-	// Price History Chart
-	if ($aUser['show_price'] == 1) {
-		ob_start();
-		require_once MYOOS_INCLUDE_PATH . '/includes/content/chart/line.php';
-		$chart = ob_get_contents();
-		ob_end_clean();
-		$smarty->assign('chart', $chart);
-	}
-	
-	
+    // Price History Chart
+    if ($aUser['show_price'] == 1) {
+        ob_start();
+        require_once MYOOS_INCLUDE_PATH . '/includes/content/chart/line.php';
+        $chart = ob_get_contents();
+        ob_end_clean();
+        $smarty->assign('chart', $chart);
+    }
+
+
     if (!isset($block_get_parameters)) {
         $block_get_parameters = oos_get_all_get_parameters(array('action'));
         $block_get_parameters = oos_remove_trailing($block_get_parameters);

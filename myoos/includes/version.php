@@ -20,4 +20,3 @@ define('OOS_VERSION', '2.4.47-dev');
 
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
-

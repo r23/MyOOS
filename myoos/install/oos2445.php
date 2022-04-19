@@ -30,4 +30,3 @@ if (!$prefix_table == '') {
 }
 
 include_once 'oostables2445.php';
-

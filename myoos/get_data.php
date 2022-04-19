@@ -75,7 +75,6 @@ if ($request->isXmlHttpRequest()) {
     }
 
     require 'includes/nice_exit.php';
-	
 } else {
     http_response_code(403);
     echo 'Error 403 Forbidden';

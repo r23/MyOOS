@@ -61,5 +61,3 @@ dosql($table, $flds);
 $idxname = 'idx_date_added';
 $idxflds = 'date_added';
 idxsql($idxname, $table, $idxflds);
-
-

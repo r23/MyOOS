@@ -84,15 +84,14 @@ function smarty_function_product_image($params, &$smarty)
     if (!empty($id)) {
         $image .= ' id="' . $id . '"';
     }
-	
-	$image .= ' loading="lazy" class="img-fluid ' . $class . '" src="' . $src . '"';
+
+    $image .= ' loading="lazy" class="img-fluid ' . $class . '" src="' . $src . '"';
 
     if (!empty($alt)) {
-       $image .= ' alt="' . strip_tags($alt) . '"';
+        $image .= ' alt="' . strip_tags($alt) . '"';
     }
 
     $image .= $extra . '>';
 
     return $image;
-
 }
