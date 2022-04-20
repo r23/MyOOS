@@ -37,6 +37,7 @@ $aContents = [
 'account_wishlist'                => $prefix_filename . 'account_wishlist',
 //admin
 'admin_login'                     => $prefix_filename . 'admin_login',
+'create_google2fa'                => $prefix_filename . 'create_2fa',
 //gv
 'gv_faq'                          => $prefix_filename . 'gv_faq',
 'gv_redeem'                       => $prefix_filename . 'gv_redeem',
@@ -77,7 +78,9 @@ $aContents = [
 'account_edit'                    => $prefix_filename . 'account_edit',
 'create_account'                  => $prefix_filename . 'create_account',
 'create_account_success'          => $prefix_filename . 'create_account_success',
+'create_create_google2fa'         => $prefix_filename . 'create_2fa',
 'login'                           => $prefix_filename . 'login',
+'login_reate_google2fa'           => $prefix_filename . 'login_2fa',
 'logoff'                          => $prefix_filename . 'logoff',
 'password_forgotten'              => $prefix_filename . 'password_forgotten',
 'product_notifications'           => $prefix_filename . 'product_notifications',
