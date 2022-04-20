@@ -56,6 +56,8 @@
 		"nesbot/carbon": "^2.55",
 		"hisune/echarts-php": "^1.1",
 		"pragmarx/google2fa": "^8.0"
-    }	
-
+    },
+	"require-dev": {
+		"roave/security-advisories": "dev-latest"
+	}
 }
