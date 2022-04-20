@@ -54,7 +54,8 @@
 		"adodb/adodb-php": "^5.21",
 		"tecnickcom/tcpdf": "^6.4.1",
 		"nesbot/carbon": "^2.55",
-		"hisune/echarts-php": "^1.1"
+		"hisune/echarts-php": "^1.1",
+		"pragmarx/google2fa": "^8.0"
     }	
 
 }

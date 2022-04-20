@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '380762feca989feda048c9b16b0812eeb48c4bba',
+        'reference' => '97803b44cd669557978314e447afd31ac2df77c0',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -205,7 +205,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '380762feca989feda048c9b16b0812eeb48c4bba',
+            'reference' => '97803b44cd669557978314e447afd31ac2df77c0',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -222,6 +222,15 @@
             'replaced' => array(
                 0 => '^2.1',
             ),
+        ),
+        'paragonie/constant_time_encoding' => array(
+            'pretty_version' => 'v2.5.0',
+            'version' => '2.5.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../paragonie/constant_time_encoding',
+            'aliases' => array(),
+            'reference' => '9229e15f2e6ba772f0c55dd6986c563b937170a8',
+            'dev_requirement' => false,
         ),
         'paypal/rest-api-sdk-php' => array(
             'pretty_version' => '1.14.0',
@@ -296,6 +305,15 @@
             'install_path' => __DIR__ . '/../phpseclib/phpseclib',
             'aliases' => array(),
             'reference' => 'c812fbb4d6b4d7f30235ab7298a12f09ba13b37c',
+            'dev_requirement' => false,
+        ),
+        'pragmarx/google2fa' => array(
+            'pretty_version' => '8.0.0',
+            'version' => '8.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../pragmarx/google2fa',
+            'aliases' => array(),
+            'reference' => '26c4c5cf30a2844ba121760fd7301f8ad240100b',
             'dev_requirement' => false,
         ),
         'psr/cache' => array(
