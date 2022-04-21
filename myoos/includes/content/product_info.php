@@ -330,12 +330,11 @@ if (!$product_info_result->RecordCount()) {
             $result = $dbconn->Execute($query, array((int)$model_viewer['model_viewer_id'], (int)$nLanguageID));
 
             $name = oos_strip_suffix($model_viewer['model_viewer_glb']);
-            $url = $name . '/glTF-Binary/' . $model_viewer['model_viewer_glb'];
             $url_glb = $name . '/glTF-Binary/' . $model_viewer['model_viewer_glb'];
 
             $aModelViewer[] = array('model_viewer_id' => $model_viewer['model_viewer_id'],
                            'model_viewer_glb' => $model_viewer['model_viewer_glb'],
-                           'url_glb' => $url,
+                           'url_glb' => $url_glb,
                            'model_viewer_usdz' => $model_viewer['model_viewer_usdz'],
                            'model_viewer_background_color' => $model_viewer['model_viewer_background_color'],
                            'model_viewer_scale' => $model_viewer['model_viewer_scale'],
@@ -404,7 +403,7 @@ if (!$product_info_result->RecordCount()) {
     $smarty->assign(
         array(
             'breadcrumb' => $oBreadcrumb->trail(),
-            'canonical'		=> $sCanonical
+            'canonical'	 => $sCanonical
         )
     );
 
