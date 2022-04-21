@@ -77,7 +77,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     $customerstable = $oostable['customers'];
     $sql = "SELECT customers_id, customers_gender, customers_firstname, customers_lastname,
                    customers_password, customers_wishlist_link_id, customers_language,
-                   customers_email_address, customers_default_address_id, customers_max_order 
+                   customers_email_address, customers_2fa_active, customers_default_address_id, customers_max_order 
             FROM $customerstable
             WHERE customers_login = '1'
               AND customers_email_address = '" . oos_db_input($email_address) . "'";
@@ -92,6 +92,13 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         if (!oos_validate_password($password, $check_customer['customers_password'])) {
             $bError = true;
         } else {
+
+			// customers_2fa_active
+			if ($check_customer['customers_2fa_active'] != '1') {
+				$_SESSION['customer_2fa_id'] = $check_customer['customers_id'];
+				oos_redirect(oos_href_link($aContents['login_2fa_info']));
+			}
+			
             $address_booktable = $oostable['address_book'];
             $sql = "SELECT entry_vat_id, entry_vat_id_status, entry_country_id, entry_zone_id
 					FROM $address_booktable
