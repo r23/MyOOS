@@ -29,7 +29,6 @@ if (!$prefix_table == '') {
     $prefix_table = $prefix_table . '_';
 }
 
-
 // admin 
 $table = $prefix_table . 'admin';
 $result = $db->Execute("ALTER TABLE  " . $table . " ADD `admin_2fa` VARCHAR(96) NULL DEFAULT NULL AFTER `admin_email_address`");
@@ -39,9 +38,24 @@ if ($result === false) {
     echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
+$result = $db->Execute("ALTER TABLE  " . $table . " ADD `admin_2fa_active` VARCHAR(1) NULL DEFAULT '0' AFTER `admin_2fa`");
+if ($result === false) {
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
+
+
 // customers 
 $table = $prefix_table . 'customers';
 $result = $db->Execute("ALTER TABLE  " . $table . " ADD `customers_2fa` VARCHAR(96) NULL DEFAULT NULL AFTER `customers_email_address`");
+if ($result === false) {
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
+
+$result = $db->Execute("ALTER TABLE  " . $table . " ADD `customers_2fa_active` VARCHAR(1) NULL DEFAULT '0' AFTER `customers_2fa`");
 if ($result === false) {
     echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
