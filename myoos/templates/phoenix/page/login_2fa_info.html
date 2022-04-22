@@ -20,8 +20,17 @@
 				
 				<a class="btn btn-primary w-100" href="{html_href_link content=$filename.create_2fa}" role="button">{$lang.button_new_2fa}</a>
 
-				<p><a href="{html_href_link content=$filename.login_process}">{$lang.button_not_now}</a></p>
-
+			<form name="login" action="{html_get_link}" method="POST">
+				{if $mySystem.sed}
+					<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+					<input type="hidden" name="formid" value="{$mySystem.formid}">
+				{/if}
+				<input type="hidden" name="action" value="process">
+				<input type="hidden" name="content" value="{$filename.login_process}">
+				
+				<button type="submit" class="btn btn-link">{$lang.button_not_now}</button>
+			</form>
+			
 				<h2>{$lang.text_2fa_app}</h2>
 
 				<p>{$lang.text_2fa_app_info}</p>
