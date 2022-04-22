@@ -15,7 +15,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'c2aad8997a98dfc4771bdbffea3d62b7' => __DIR__ . '/..' . '/laminas/laminas-code/polyfill/ReflectionEnumPolyfill.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-        'a9ed0d27b5a698798a89181429f162c5' => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib/Common/customFunctions.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         '2324d0e5cadd603331d27de142371f0b' => __DIR__ . '/..' . '/symfony/contracts/Deprecation/function.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
@@ -34,7 +33,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         ),
         'Z' => 
         array (
-            'Zxing\\' => 6,
             'ZipStream\\' => 10,
         ),
         'T' => 
@@ -129,10 +127,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'phpseclib\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
-        ),
-        'Zxing\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/khanamiryan/qrcode-detector-decoder/lib',
         ),
         'ZipStream\\' => 
         array (

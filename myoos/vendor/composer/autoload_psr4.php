@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'phpseclib\\' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
-    'Zxing\\' => array($vendorDir . '/khanamiryan/qrcode-detector-decoder/lib'),
     'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
     'Twig\\' => array($vendorDir . '/twig/twig/src'),
     'Symfony\\Polyfill\\Uuid\\' => array($vendorDir . '/symfony/polyfill-uuid'),
