@@ -82,6 +82,7 @@ $aContents = [
 'login'                           => $prefix_filename . 'login',
 'login_2fa_info'                  => $prefix_filename . 'login_2fa_info',
 'login_2fa'                       => $prefix_filename . 'login_2fa',
+'login_process'                   => $prefix_filename . 'login_process',
 'logoff'                          => $prefix_filename . 'logoff',
 'password_forgotten'              => $prefix_filename . 'password_forgotten',
 'product_notifications'           => $prefix_filename . 'product_notifications',

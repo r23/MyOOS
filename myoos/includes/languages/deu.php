@@ -343,6 +343,10 @@ $aLang = [
 'button_save_info'                   => 'Daten speichern',
 'button_view'                        => 'Details',
 
+'button_new_2fa'                     => 'Einrichten',
+'button_not_now'                     => 'Nicht jetzt',
+
+
 'button_hp_buy'            => 'In den Warenkorb',
 'button_hp_more'           => 'Zeige mehr',
 

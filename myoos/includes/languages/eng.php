@@ -364,6 +364,13 @@ $aLang = [
 'button_further_than_guest'  => 'Further than Guest',
 'button_save_info'           => 'Save Info',
 
+'button_new_2fa' => 'Set up',
+'button_not_now' => 'Not now',
+
+'button_hp_buy'  => 'Add to cart',
+'button_hp_more' => 'Show more',
+
+
 'icon_button_mail'           => 'E-mail',
 'icon_button_movie'          => 'Movie',
 'icon_button_pdf'            => 'PDF',

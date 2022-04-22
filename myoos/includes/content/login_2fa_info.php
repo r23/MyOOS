@@ -44,7 +44,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/login_
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title_1'], oos_href_link($aContents['login']));
-$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['password_forgotten']));
+$oBreadcrumb->add($aLang['navbar_title_2'], oos_href_link($aContents['login_2fa_info']));
 $sCanonical = oos_href_link($aContents['login'], '', false, true);
 
 
