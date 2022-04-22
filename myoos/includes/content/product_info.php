@@ -21,10 +21,14 @@
 /** ensure this file is being required by a parent file */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-use Endroid\QrCode\ErrorCorrectionLevel;
-use Endroid\QrCode\LabelAlignment;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\Encoding\Encoding;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelLow;
 use Endroid\QrCode\QrCode;
-use Endroid\QrCode\Response\QrCodeResponse;
+use Endroid\QrCode\Label\Label;
+use Endroid\QrCode\Logo\Logo;
+use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
+use Endroid\QrCode\Writer\PngWriter;
 
 if (isset($_GET['products_id'])) {
     if (!isset($nProductsID)) {
@@ -376,19 +380,22 @@ if (!$product_info_result->RecordCount()) {
                 }
 
                 // Create a basic QR code
-                $qrCode = new QrCode($sUrl);
-                $qrCode->setSize(110);
-                $qrCode->setMargin(10);
+				$writer = new PngWriter();
 
-                // Set advanced options
-                $qrCode->setWriterByName('png');
-                $qrCode->setEncoding('UTF-8');
-                $qrCode->setErrorCorrectionLevel(ErrorCorrectionLevel::HIGH());
-                $qrCode->setForegroundColor(['r' => 0, 'g' => 0, 'b' => 0, 'a' => 0]);
-                $qrCode->setBackgroundColor(['r' => 255, 'g' => 255, 'b' => 255, 'a' => 0]);
-                $qrCode->setRoundBlockSize(true);
-                $qrCode->setValidateResult(false);
-                $qrCode->setWriterOptions(['exclude_xml_declaration' => true]);
+				// Create QR code
+				$qrCode = QrCode::create($sUrl)
+					->setEncoding(new Encoding('UTF-8'))
+					->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+					->setSize(300)
+					->setMargin(10)
+					->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+					->setForegroundColor(new Color(0, 0, 0))
+					->setBackgroundColor(new Color(255, 255, 255));
+
+				$result = $writer->write($qrCode);
+				
+				// Save it to a file
+				$result->saveToFile($cache_file);
 
                 // Save it to a file
                 $qrCode->writeFile($cache_file);
