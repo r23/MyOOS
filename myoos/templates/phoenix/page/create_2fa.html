@@ -1,0 +1,67 @@
+{include file="phoenix/system/_header.html"}
+
+{include file="phoenix/system/_breadcrumbs.html"}
+
+{if $message}
+    {foreach $message as $info}
+        {include file="phoenix/system/_message.html"}
+    {/foreach}
+{/if}
+
+<!-- start content -->
+<section id="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+				<h2>{$lang.text_2fa_title}</h2>
+				
+				<p>{$lang.text_2fa_title_info}</p>
+
+
+
+<img class="img-fluid " src="{$qrcode}" alt="{$secretKey}"  />
+
+
+<?php
+
+print "Please enter your 2FA code:" . PHP_EOL;
+$code = readline();
+?>
+
+<form name="login" action="http://localhost/chart/test.php" method="POST" class="needs-validation" novalidate>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">code</label>
+	<input type="text" name="code" class="form-control">
+    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</fo
+
+				
+				
+				<a class="btn btn-primary w-100" href="{html_href_link content=$filename.create_2fa}" role="button">{$lang.button_new_2fa}</a>
+
+			<form name="login" action="{html_get_link}" method="POST">
+				{if $mySystem.sed}
+					<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+					<input type="hidden" name="formid" value="{$mySystem.formid}">
+				{/if}
+				<input type="hidden" name="action" value="process">
+				<input type="hidden" name="content" value="{$filename.login_process}">
+				
+				<button type="submit" class="btn btn-link">{$lang.button_not_now}</button>
+			</form>
+			
+				<h2>{$lang.text_2fa_app}</h2>
+
+				<p>{$lang.text_2fa_app_info}</p>
+				
+				<p>{$lang.text_2fa_app_download}</p>
+            </div>
+        </div>
+	</div>
+</section>
+<!-- end content -->
+
+	
+{include file="phoenix/system/_footer.html"}

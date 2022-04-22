@@ -95,6 +95,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 			// customers_2fa_active
 			if ($check_customer['customers_2fa_active'] != '1') {
+				$_SESSION['password'] = $password;
 				$_SESSION['customer_2fa_id'] = $check_customer['customers_id'];
 				oos_redirect(oos_href_link($aContents['login_2fa_info']));
 			}
