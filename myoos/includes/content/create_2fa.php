@@ -22,10 +22,14 @@ if ($session->hasStarted() === false) {
     $session->start();
 }
 
+if (!isset($_SESSION['user'])) {
+	$_SESSION['user'] = new oosUser();
+	$_SESSION['user']->anonymous();
+}
+
 if (!isset($_SESSION['customer_2fa_id'])) {
     oos_redirect(oos_href_link($aContents['login']));
 }
-
 
 use PragmaRX\Google2FA\Google2FA;
 use Endroid\QrCode\Color\Color;
@@ -37,12 +41,46 @@ use Endroid\QrCode\Logo\Logo;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
 
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/create_2fa.php';
+
+
 # Create the 2FA class
 $google2fa = new PragmaRX\Google2FA\Google2FA();
 
-# Create data that will go into the QR code
-# The title will show up first in the authenticator app, 
-# followed by the username wrapped in `()`
+if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
+    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+
+    $code = oos_prepare_input($_POST['code']);
+
+    if (empty($code) || !is_string($code)) {
+        $_SESSION['error_message'] = $aLang['text_code_error'];
+        oos_redirect(oos_href_link($aContents['login']));
+    }
+
+    $bError = false; // reset error flag
+
+	$code = str_replace(" ", "", $code);
+
+    if (strlen($code) < 6) {
+        $bError = true;
+        $oMessage->add('danger', $aLang['entry_code_error']);
+    }
+
+
+    if ($bError == false) {
+		$secretKey = oos_prepare_input($_SESSION['secretKey']);
+        $new_encrypted_password = oos_encrypt_password($password);
+        $sql_data_array = array('customers_2fa' => $secretKey,
+								'customers_2fa_active' => 1);
+
+
+        oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_2fa_id']) . "'");
+
+		oos_redirect(oos_href_link($aContents['product_info'], 'formid=' . $_SESSION['formid'] . '&action=process'));
+
+	}
+}
+
 
 $customerstable = $oostable['customers'];
 $sql = "SELECT customers_email_address
@@ -59,10 +97,9 @@ if (!$check_customer_result->RecordCount()) {
 	$companyEmail = $check_customer['customers_email_address'];
 	$secretKey = $google2fa->generateSecretKey();
 
-	$customerstable = $oostable['customers'];
-	$dbconn->Execute("UPDATE $customerstable
-					SET customers_2fa = '" . oos_db_input($secretKey) . "'
-					WHERE customers_id = '" . intval($_SESSION['customer_2fa_id']) . "'");
+	$_SESSION['secretKey'] = $secretKey];
+
+
 
 	$g2faUrl = $google2fa->getQRCodeUrl(
 		$companyName,
@@ -76,7 +113,7 @@ if (!$check_customer_result->RecordCount()) {
 	$qrCode = QrCode::create($g2faUrl)
 		->setEncoding(new Encoding('UTF-8'))
 		->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
-		->setSize(300)
+		->setSize(100)
 		->setMargin(10)
 		->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
 		->setForegroundColor(new Color(0, 0, 0))

@@ -55,8 +55,8 @@ if ($_SESSION['login_count'] > 6) {
 }
 
 
-if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
+    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_GET['formid']))) {
 
     $customerstable = $oostable['customers'];
     $sql = "SELECT customers_id, customers_gender, customers_firstname, customers_lastname,

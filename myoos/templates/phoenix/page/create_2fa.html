@@ -8,50 +8,51 @@
     {/foreach}
 {/if}
 
+
 <!-- start content -->
 <section id="content">
     <div class="container">
+	
+		<p><a href="{html_href_link content=$filename.login_2fa_info}">{$lang.button_back}</a></p>
+	
         <div class="row">
             <div class="col-md-6">
 				<h2>{$lang.text_2fa_title}</h2>
 				
-				<p>{$lang.text_2fa_title_info}</p>
-
-
-
-<img class="img-fluid " src="{$qrcode}" alt="{$secretKey}"  />
-
-
-<?php
-
-print "Please enter your 2FA code:" . PHP_EOL;
-$code = readline();
-?>
-
-<form name="login" action="http://localhost/chart/test.php" method="POST" class="needs-validation" novalidate>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">code</label>
-	<input type="text" name="code" class="form-control">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</fo
-
+				<p>{$lang.text_2fa_info}</p>
 				
-				
-				<a class="btn btn-primary w-100" href="{html_href_link content=$filename.create_2fa}" role="button">{$lang.button_new_2fa}</a>
+				<p><strong>{$lang.text_2fa_step1}</strong></p>
 
-			<form name="login" action="{html_get_link}" method="POST">
-				{if $mySystem.sed}
-					<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
-					<input type="hidden" name="formid" value="{$mySystem.formid}">
-				{/if}
-				<input type="hidden" name="action" value="process">
-				<input type="hidden" name="content" value="{$filename.login_process}">
-				
-				<button type="submit" class="btn btn-link">{$lang.button_not_now}</button>
-			</form>
-			
+				<img class="img-fluid " src="{$qrcode}" alt="{$secretKey}"  />
+				<p>{$lang.text_2fa_key}: <strong>{$secretKey}</strong></p>
+
+				<hr />
+
+					<form name="create_2fa" action="{html_get_link}" method="POST" class="needs-validation" novalidate>
+					{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+						<input type="hidden" name="formid" value="{$mySystem.formid}">
+					{/if}
+						<input type="hidden" name="action" value="process">
+						<input type="hidden" name="content" value="{$filename.create_google2fa}">			  
+
+				<p><strong>{$lang.text_2fa_step2}</strong></p>
+
+						<div class="form-group">
+							<label class="sr-only" for="signin-code">Code</label>
+							<div class="input-group">
+								<div class="input-group-prepend">
+								<input class="form-control" name="code" type="text" id="signin-code" placeholder="{$lang.text_2fa_placeholder}" aria-label="Code" aria-describedby="signin-code-icon" required>
+								<div class="invalid-feedback">{$lang.text_please_provide_email_address}.</div>
+							</div>
+						</div>
+
+						<div class="d-grid gap-2">
+							<button class="btn btn-primary" type="submit">{$lang.button_continue}</button>
+						</div>				
+					</form>						
+						
+				<div class="clearfix mt-80"></div>
 				<h2>{$lang.text_2fa_app}</h2>
 
 				<p>{$lang.text_2fa_app_info}</p>
