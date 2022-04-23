@@ -39,3 +39,4 @@ $aLang['text_2fa_app_download'] = 'Um eine App herunterzuladen, öffnen Sie den 
 
 $aLang['text_code_error'] = '<strong>FEHLER:</strong> Keine Übereinstimmung mit dem eingebenen \'Authentifizierungscode\' .';
 $aLang['entry_code_error'] = '<strong>FEHLER:</strong> Der Sicherheitscode besteht aus 6 Ziffern';
+$aLang['entry_2fa_success'] = 'Sie haben die zweistufige Verifizierung für Ihr Konto eingerichtet.';

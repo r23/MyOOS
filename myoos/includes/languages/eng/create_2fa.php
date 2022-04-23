@@ -37,5 +37,6 @@ $aLang['text_2fa_app'] = 'You need an authentication app?';
 $aLang['text_2fa_app_info'] = 'You can easily download an authentication app. This will generate a unique security code that you can use in addition to your password to log in. However, these app providers will not have access to your account information.'
 $aLang['text_2fa_app_download'] = 'To download an app, open the App Store on your phone. Search for &quot;Google Authenticator&quot; and download this app.';
 
-$aLang['text_code_error'] = '<strong>Error:</strong> No match with the \'authentication code\' entered..';
-$aLang['entry_code_error'] = '<strong>Error:</strong> The security code consists of 6 digits',';
+$aLang['text_code_error'] = '<strong>Error:</strong> No match with the \'authentication code\' entered.';
+$aLang['entry_code_error'] = '<strong>Error:</strong> The security code consists of 6 digits';
+$aLang['entry_2fa_success'] = 'You have set up two-step verification for your account';

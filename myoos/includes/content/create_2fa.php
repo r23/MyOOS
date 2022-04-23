@@ -51,8 +51,14 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
 
     $code = oos_prepare_input($_POST['code']);
-
+	$sKey = oos_prepare_input($_SESSION['secretKey']);
+	
     if (empty($code) || !is_string($code)) {
+        $_SESSION['error_message'] = $aLang['text_code_error'];
+        oos_redirect(oos_href_link($aContents['login']));
+    }
+
+    if (empty($sKey) || !is_string($sKey)) {
         $_SESSION['error_message'] = $aLang['text_code_error'];
         oos_redirect(oos_href_link($aContents['login']));
     }
@@ -66,14 +72,20 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         $oMessage->add('danger', $aLang['entry_code_error']);
     }
 
+	$window = 8; // 8 keys (respectively 4 minutes) past and future
+
+	$valid = $google2fa->verifyKey($sKey, $code, $window);	
+	
+	if (!$valid) {
+		$bError = true;
+        $oMessage->add('danger', $aLang['entry_code_error']);	
+	}
 
     if ($bError == false) {
-		$secretKey = oos_prepare_input($_SESSION['secretKey']);
-        $new_encrypted_password = oos_encrypt_password($password);
-        $sql_data_array = array('customers_2fa' => $secretKey,
+		
+		$_SESSION['success_message'] = $aLang['text_2fa_success'];		
+        $sql_data_array = array('customers_2fa' => $sKey,
 								'customers_2fa_active' => 1);
-
-
         oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_2fa_id']) . "'");
 
 		oos_redirect(oos_href_link($aContents['product_info'], 'formid=' . $_SESSION['formid'] . '&action=process'));
@@ -97,7 +109,7 @@ if (!$check_customer_result->RecordCount()) {
 	$companyEmail = $check_customer['customers_email_address'];
 	$secretKey = $google2fa->generateSecretKey();
 
-	$_SESSION['secretKey'] = $secretKey];
+	$_SESSION['secretKey'] = $secretKey;
 
 
 
