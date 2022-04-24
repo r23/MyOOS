@@ -23,16 +23,12 @@
 $aLang['navbar_title_1'] = 'Anmelden';
 $aLang['navbar_title_2'] = 'Zweistufige Verifizierung';
 
-$aLang['navbar_title'] = 'Zweistufige Verifizierung';
-$aLang['heading_title'] = 'Zweistufige Verifizierung';
+$aLang['navbar_title'] = 'Code eingeben';
+$aLang['heading_title'] = 'Code eingeben';
 
-$aLang['text_2fa_title'] = 'Code mit Authentifizierungs-App generieren.';
-$aLang['text_2fa_info'] = 'Jedes Mal, wenn Sie sich einloggen, generieren Sie mit einer Authentifizierungs-App einen einmaligen Code.';
-$aLang['text_2fa_step1'] = 'Schritt 1: Scannen Sie den folgenden QR-Code oder geben Sie den Schlüssel manuell in Ihre Authentifizierungs-App ein.';
-$aLang['text_2fa_key'] = 'Schlüssel';
-$aLang['text_2fa_step2'] = 'Schritt 2: Geben Sie den 6-stelligen Sicherheitscode aus Ihrer Authentifizierungs-App ein.';
-$aLang['text_2fa_placeholder'] = 'Authentifizierungscode';
+$aLang['text_2fa_info'] = 'Geben Sie den 6-stelligen Sicherheitscode aus Ihrer Authentifizierungs-App ein.';
+$aLang['text_2fa_placeholder'] = 'Sicherheitscode';
 
-$aLang['text_code_error'] = '<strong>FEHLER:</strong> Keine Übereinstimmung mit dem eingebenen \'Authentifizierungscode\' .';
-$aLang['entry_code_error'] = '<strong>FEHLER:</strong> Der Sicherheitscode besteht aus 6 Ziffern';
+$aLang['text_code_error'] = '<strong>FEHLER:</strong> Keine Übereinstimmung mit dem eingebenen \'Authentifizierungscode\'.';
+$aLang['entry_code_error'] = '<strong>FEHLER:</strong> Der Sicherheitscode besteht aus 6 Ziffern.';
 $aLang['entry_2fa_success'] = 'Sie haben die zweistufige Verifizierung für Ihr Konto eingerichtet.';

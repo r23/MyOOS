@@ -22,13 +22,17 @@ if ($session->hasStarted() === false) {
     $session->start();
 }
 
-if (!isset($_SESSION['user'])) {
-	$_SESSION['user'] = new oosUser();
-	$_SESSION['user']->anonymous();
+if ($_SESSION['google2fa_count'] > 6) {
+	oos_redirect(oos_href_link($aContents['403']));
 }
 
 if (!isset($_SESSION['customer_2fa_id'])) {
     oos_redirect(oos_href_link($aContents['login']));
+}
+
+if (!isset($_SESSION['user'])) {
+	$_SESSION['user'] = new oosUser();
+	$_SESSION['user']->anonymous();
 }
 
 use PragmaRX\Google2FA\Google2FA;
@@ -56,11 +60,9 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         $oMessage->add('danger', $aLang['entry_code_error']);
     }
 
-
     $bError = false; // reset error flag
 
-
-    // Check if email exists
+    // Check 
     $customerstable = $oostable['customers'];
     $sql = "SELECT customers_2fa, customers_2fa_active
             FROM $customerstable
@@ -82,10 +84,17 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		$valid = $google2fa->verifyKey($sKey, $code, $window);	
 	
 		if ($valid) {
-			oos_redirect(oos_href_link($aContents['product_info'], 'formid=' . $_SESSION['formid'] . '&action=process'));
+			oos_redirect(oos_href_link($aContents['login_process'], 'formid=' . $_SESSION['formid'] . '&action=process'));
 		} else {	
 			$bError = true;
-			$oMessage->add('danger', $aLang['entry_code_error']);	
+			
+			if (!isset($_SESSION['google2fa_count'])) {
+				$_SESSION['google2fa_count'] = 1;
+			} else {
+				$_SESSION['google2fa_count'] ++;
+			}
+			
+			$oMessage->add('danger', $aLang['text_code_error']);	
 		}
 	}
 }
