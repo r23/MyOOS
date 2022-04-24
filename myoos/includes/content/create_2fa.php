@@ -83,12 +83,12 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
     if ($bError == false) {
 		
-		$_SESSION['success_message'] = $aLang['text_2fa_success'];		
+		$_SESSION['success_message'] = $aLang['entry_2fa_success'];		
         $sql_data_array = array('customers_2fa' => $sKey,
 								'customers_2fa_active' => 1);
         oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_2fa_id']) . "'");
 
-		oos_redirect(oos_href_link($aContents['product_info'], 'formid=' . $_SESSION['formid'] . '&action=process'));
+		oos_redirect(oos_href_link($aContents['login_process'], 'formid=' . $_SESSION['formid'] . '&action=process'));
 
 	}
 }
