@@ -23,6 +23,13 @@
 $aLang['navbar_title'] = 'Ihr Konto';
 $aLang['heading_title'] = 'Ihre persönlichen Daten';
 
+Zweistufige Verifizierung verwalten
+
+Jedes Mal, wenn Sie sich einloggen, werden Sie nach der Eingabe des Passworts aufgefordert, einen einmaligen Code einzugeben.
+
+Die zweistufige Verifizierung ist aktiviert
+
+
 $aLang['owner_email_subject'] = 'Neue Kundendaten';
 $aLang['owner_email_date'] = 'Datum:';
 $aLang['owner_email_company_info'] = 'Firmendaten';
