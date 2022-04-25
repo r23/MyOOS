@@ -23,6 +23,12 @@
 $aLang['navbar_title'] = 'My Account';
 $aLang['heading_title'] = 'My Account Information';
 
+$aLang['text_2fa_heading_title'] = 'Manage two-step verification';
+$aLang['text_2fa_info'] = 'Each time you log in, you will be prompted to enter a unique code after entering your password';
+$aLang['text_2fa_status'] = 'The two-step verification is %s.'
+$aLang['text_activated'] = 'activated';
+$aLang['text_disabled'] = 'disabled';
+
 $aLang['owner_email_subject'] = 'New Customer Details';
 $aLang['owner_email_date'] = 'Date:';
 $aLang['owner_email_company_info'] = 'Company Details';

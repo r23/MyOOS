@@ -23,11 +23,11 @@
 $aLang['navbar_title'] = 'Ihr Konto';
 $aLang['heading_title'] = 'Ihre persönlichen Daten';
 
-Zweistufige Verifizierung verwalten
-
-Jedes Mal, wenn Sie sich einloggen, werden Sie nach der Eingabe des Passworts aufgefordert, einen einmaligen Code einzugeben.
-
-Die zweistufige Verifizierung ist aktiviert
+$aLang['text_2fa_heading_title'] = 'Zweistufige Verifizierung verwalten';
+$aLang['text_2fa_info'] = 'Jedes Mal, wenn Sie sich einloggen, werden Sie nach der Eingabe des Passworts aufgefordert, einen einmaligen Code einzugeben.';
+$aLang['text_2fa_status'] = 'Die zweistufige Verifizierung ist %s.';
+$aLang['text_activated'] = 'aktiviert';
+$aLang['text_disabled'] = 'deaktiviert';
 
 
 $aLang['owner_email_subject'] = 'Neue Kundendaten';

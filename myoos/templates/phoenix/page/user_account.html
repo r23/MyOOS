@@ -100,7 +100,36 @@
 							</div>
 						{/if}			
 						</div>
-					
+	
+	
+						<div class="row">
+							<div class="col-md-8">
+								<h5 class="mb-4 pt-sm-3">{$lang.text_2fa_heading_title}</h5>
+								<p>{$lang.text_2fa_info}</p>
+								<p>{$text_2fa_status}
+
+							</div>
+							<div class="col-md-8">
+								<div class="form-group">
+									<button type="submit" class="btn btn-primary mt-3 mt-sm-0"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_save_info}</button>
+								</div>
+							</div>
+
+				
+							<div class="col-12">
+								<hr class="mt-2 mb-3">
+								<div class="d-flex flex-wrap justify-content-between align-items-center">
+									<div class="custom-control custom-checkbox d-block">
+									{if $bNewsletter}
+										<input class="custom-control-input" type="checkbox" id="subscribe_me" checked>
+										<label class="custom-control-label" for="subscribe_me">{$lang.newsletter_agree}</label>								
+									{/if}
+									</div>
+									<button type="submit" class="btn btn-primary mt-3 mt-sm-0"><i class="fa fa-check" aria-hidden="true"></i> {$lang.button_save_info}</button>
+								</div>
+							</div>
+						</div>
+	
 					
 						<div class="row">
 							<div class="col-md-6">		

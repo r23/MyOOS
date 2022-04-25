@@ -35,9 +35,10 @@ $aContents = [
 'account_address_book'            => $prefix_filename . 'account_address_book',
 'account_address_book_process'    => $prefix_filename . 'account_address_book_process',
 'account_wishlist'                => $prefix_filename . 'account_wishlist',
+'create_google2fa'                => $prefix_filename . 'create_2fa',
+'disabled_google2fa'              => $prefix_filename . 'disabled_2fa',
 //admin
 'admin_login'                     => $prefix_filename . 'admin_login',
-'create_google2fa'                => $prefix_filename . 'create_2fa',
 //gv
 'gv_faq'                          => $prefix_filename . 'gv_faq',
 'gv_redeem'                       => $prefix_filename . 'gv_redeem',

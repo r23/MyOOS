@@ -224,7 +224,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 $customerstable = $oostable['customers'];
 $address_bookstable = $oostable['address_book'];
 $sql = "SELECT c.customers_gender, c.customers_firstname, c.customers_lastname,
-                 c.customers_dob, c.customers_email_address, c.customers_telephone, 
+                 c.customers_dob, c.customers_email_address, c.customers_2fa,
+                 c.customers_2fa_active, c.customers_telephone, 
                  a.entry_company, a.entry_owner, a.entry_vat_id, a.entry_vat_id_status,
 				 a.entry_street_address, a.entry_postcode, a.entry_city, 
 				 a.entry_zone_id, a.entry_state, a.entry_country_id
@@ -242,6 +243,12 @@ if ($account['customers_gender'] == 'm') {
 }
 $sCountryName = oos_get_country_name($account['entry_country_id']);
 
+if ($account['customers_2fa_active'] == '1') {
+	$status = $aLang['text_activated'];
+} else {
+	$status = $aLang['text_disabled'];
+}	
+$text_2fa_status = sprintf($aLang['text_2fa_status'], $status);
 
 // links breadcrumb
 $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['account']));
@@ -257,6 +264,7 @@ if (!isset($option)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
+
 // assign Smarty variables;
 $smarty->assign(
     array(
@@ -268,6 +276,7 @@ $smarty->assign(
         'account'              => $account,
         'gender'               => $gender,
         'oos_get_country_name' => $sCountryName,
+		'text_2fa_status'      => $text_2fa_status,
         'newsletter'           => $newsletter
     )
 );
