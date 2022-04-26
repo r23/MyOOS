@@ -345,7 +345,8 @@ $aLang = [
 
 'button_new_2fa'                     => 'Einrichten',
 'button_not_now'                     => 'Nicht jetzt',
-
+'button_activate'                    => 'Aktivieren',
+'button_deactivate'                  => 'Deaktivieren',
 
 'button_hp_buy'            => 'In den Warenkorb',
 'button_hp_more'           => 'Zeige mehr',

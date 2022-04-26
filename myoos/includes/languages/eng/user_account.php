@@ -25,7 +25,7 @@ $aLang['heading_title'] = 'My Account Information';
 
 $aLang['text_2fa_heading_title'] = 'Manage two-step verification';
 $aLang['text_2fa_info'] = 'Each time you log in, you will be prompted to enter a unique code after entering your password';
-$aLang['text_2fa_status'] = 'The two-step verification is %s.'
+$aLang['text_2fa_status'] = 'The two-step verification is <strong>%s</strong>.';
 $aLang['text_activated'] = 'activated';
 $aLang['text_disabled'] = 'disabled';
 
