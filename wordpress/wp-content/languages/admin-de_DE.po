@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 5.9.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-04-24 18:18:09+0000\n"
+"PO-Revision-Date: 2022-04-27 11:17:27+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2760,7 +2760,7 @@ msgstr "Füge für jeden Beitrag in einem Feed Folgendes hinzu"
 
 #: wp-admin/options-reading.php:145
 msgid "<strong>Warning:</strong> these pages should not be the same as your Privacy Policy page!"
-msgstr "<strong>Warnung:</strong> diese Seiten dürften nicht mit deiner Datenschutzseite übereinstimmen!"
+msgstr "<strong>Warnung:</strong> Diese Seiten dürfen nicht mit deiner Seite für Datenschutzerklärung übereinstimmen!"
 
 #: wp-admin/options-reading.php:53
 msgid "<a href=\"https://wordpress.org/support/article/settings-reading-screen/\">Documentation on Reading Settings</a>"
