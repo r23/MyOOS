@@ -36,16 +36,19 @@
 						<input type="hidden" name="action" value="process">
 						<input type="hidden" name="content" value="{$filename.create_google2fa}">			  
 
-				<p><strong>{$lang.text_2fa_step2}</strong></p>
+						<p><strong>{$lang.text_2fa_step2}</strong></p>
 
-						<div class="form-group">
+						<div class="input-group">
 							<label class="sr-only" for="signin-code">Code</label>
-							<div class="input-group">
-								<div class="input-group-prepend">
-								<input class="form-control" name="code" type="text" id="signin-code" placeholder="{$lang.text_2fa_placeholder}" aria-label="Code" aria-describedby="signin-code-icon" required>
-								<div class="invalid-feedback">{$lang.text_please_provide_email_address}.</div>
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<i class="fa fa-lock" aria-hidden="true"></i>
+								</div>
 							</div>
+							<input type="text" name="code" class="form-control" id="InputCode" placeholder="{$lang.text_2fa_placeholder}" data-original-title="" title="">
 						</div>
+
+
 
 						<div class="d-grid gap-2">
 							<button class="btn btn-primary" type="submit">{$lang.button_continue}</button>

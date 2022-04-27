@@ -29,6 +29,4 @@ $aLang['heading_title'] = 'Two-step verification';
 $aLang['text_2fa_title'] = 'Disable two-step verification?';
 $aLang['text_2fa_info'] = 'This will remove the additional protection for your account. Now you only use your password to log in.';
 
-$aLang['text_code_error'] = '<strong>Error:</strong> No match with the \'authentication code\' entered.';
-$aLang['entry_code_error'] = '<strong>Error:</strong> The security code consists of 6 digits';
-$aLang['entry_2fa_success'] = 'You have set up two-step verification for your account';
+$aLang['entry_2fa_success'] = 'You have disabled two-step verification for your account';

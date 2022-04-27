@@ -8,7 +8,6 @@
     {/foreach}
 {/if}
 
-
 <!-- start content -->
 <section id="content">
     <div class="container">
@@ -16,14 +15,13 @@
             <div class="col-md-6">
 				<h2>{$lang.text_2fa_title}</h2>
 				
-				<p>{$lang.text_2fa_title_info}</p>
-				
+				<p>{$lang.text_2fa_title_info}</p>	
 				
 				<a class="btn btn-primary w-100" href="{html_href_link content=$filename.create_2fa}" role="button">{$lang.button_new_2fa}</a>
 
-			
-			<p><a href="{html_href_link content=$filename.login_process action=process formid=$mySystem.formid }">{$lang.button_not_now}</a>
-			
+				<p class="text-center"><a href="{html_href_link content=$filename.login_process action=process formid=$mySystem.formid }">{$lang.button_not_now}</a>
+
+
 				<h2>{$lang.text_2fa_app}</h2>
 
 				<p>{$lang.text_2fa_app_info}</p>

@@ -29,7 +29,4 @@ $aLang['heading_title'] = 'Zweistufige Verifizierung';
 $aLang['text_2fa_title'] = 'Zweistufige Verifizierung deaktivieren?';
 $aLang['text_2fa_info'] = 'Damit wird der zusätzliche Schutz für Ihr Konto entfernt. Jetzt verwenden Sie nur noch Ihr Passwort zum Einloggen.';
 
-
-$aLang['text_code_error'] = '<strong>FEHLER:</strong> Keine Übereinstimmung mit dem eingebenen \'Authentifizierungscode\' .';
-$aLang['entry_code_error'] = '<strong>FEHLER:</strong> Der Sicherheitscode besteht aus 6 Ziffern';
-$aLang['entry_2fa_success'] = 'Sie haben die zweistufige Verifizierung für Ihr Konto eingerichtet.';
+$aLang['entry_2fa_success'] = 'Sie haben die zweistufige Verifizierung für Ihr Konto deaktiviert.';

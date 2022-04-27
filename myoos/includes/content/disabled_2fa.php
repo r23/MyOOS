@@ -106,7 +106,7 @@ todo sent mail to user!
         $_SESSION['success_message'] = $aLang['text_password_sent'];
 */
 
-     #   $_SESSION['success_message'] = $aLang['text_no_email_address_found'];
+		$_SESSION['error_message'] = $aLang['entry_2fa_success'];
 		oos_redirect(oos_href_link($aContents['account']));
 
 	}
