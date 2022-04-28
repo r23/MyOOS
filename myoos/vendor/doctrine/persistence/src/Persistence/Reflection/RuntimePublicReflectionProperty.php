@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Doctrine\Persistence\Reflection;
 
 use Doctrine\Common\Proxy\Proxy;
@@ -45,8 +47,8 @@ class RuntimePublicReflectionProperty extends ReflectionProperty
      *
      * @link https://bugs.php.net/bug.php?id=63463
      *
-     * @param object $object
-     * @param mixed  $value
+     * @param object|null $object
+     * @param mixed       $value
      *
      * @return void
      */
