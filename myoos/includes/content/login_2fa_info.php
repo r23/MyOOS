@@ -25,8 +25,8 @@ if ($session->hasStarted() === false) {
 }
 
 if (!isset($_SESSION['user'])) {
-	$_SESSION['user'] = new oosUser();
-	$_SESSION['user']->anonymous();
+    $_SESSION['user'] = new oosUser();
+    $_SESSION['user']->anonymous();
 }
 
 if (!isset($_SESSION['customer_2fa_id'])) {
@@ -34,7 +34,7 @@ if (!isset($_SESSION['customer_2fa_id'])) {
 }
 
 if ($_SESSION['login_count'] > 3) {
-	oos_redirect(oos_href_link($aContents['403']));
+    oos_redirect(oos_href_link($aContents['403']));
 }
 
 

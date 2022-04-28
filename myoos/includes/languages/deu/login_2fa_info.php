@@ -32,4 +32,3 @@ $aLang['text_2fa_title_info'] = 'Jedes Mal, wenn Sie sich einloggen, verwenden S
 $aLang['text_2fa_app'] =  'Sie brauchen eine Authentifizierungs-App?';
 $aLang['text_2fa_app_info'] = 'Eine Authentifizierungs-App können Sie ganz einfach herunterladen. Damit wird ein einmaliger Sicherheitscode generiert, den Sie zusätzlich zu Ihrem Passwort zum Einloggen verwenden können. Diese App-Anbieter haben jedoch keinen Zugriff auf Ihre Kontoinformationen.';
 $aLang['text_2fa_app_download'] = 'Um eine App herunterzuladen, öffnen Sie den App Store auf Ihrem Handy. Suchen Sie nach &quot;Google Authenticator&quot; und laden Sie diese App herunter.';
-

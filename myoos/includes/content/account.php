@@ -244,10 +244,10 @@ if ($account['customers_gender'] == 'm') {
 $sCountryName = oos_get_country_name($account['entry_country_id']);
 
 if ($account['customers_2fa_active'] == '1') {
-	$status = $aLang['text_activated'];
+    $status = $aLang['text_activated'];
 } else {
-	$status = $aLang['text_disabled'];
-}	
+    $status = $aLang['text_disabled'];
+}
 $text_2fa_status = sprintf($aLang['text_2fa_status'], $status);
 
 // links breadcrumb
@@ -276,7 +276,7 @@ $smarty->assign(
         'account'              => $account,
         'gender'               => $gender,
         'oos_get_country_name' => $sCountryName,
-		'text_2fa_status'      => $text_2fa_status,
+        'text_2fa_status'      => $text_2fa_status,
         'newsletter'           => $newsletter
     )
 );

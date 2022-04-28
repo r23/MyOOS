@@ -41,9 +41,6 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/disabl
 
 if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
-
-
-
     $customerstable = $oostable['customers'];
     $sql = "SELECT customers_gender, customers_firstname, customers_lastname, 
                    customers_language, customers_email_address
@@ -53,12 +50,12 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     $check_customer_result = $dbconn->Execute($sql);
 
     if ($check_customer_result->RecordCount()) {
-		$sKey = '';		
-		$sql_data_array = array('customers_2fa' => $sKey,
-								'customers_2fa_active' => 0);
-		oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_id']) . "'");		
+        $sKey = '';
+        $sql_data_array = array('customers_2fa' => $sKey,
+                                'customers_2fa_active' => 0);
+        oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_id']) . "'");
 
-		
+
         //smarty
         require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
         $smarty = new myOOS_Smarty();
@@ -85,10 +82,9 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_2fa_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
 
-		$_SESSION['error_message'] = $aLang['entry_2fa_success'];
-		oos_redirect(oos_href_link($aContents['account']));
-
-	}
+        $_SESSION['error_message'] = $aLang['entry_2fa_success'];
+        oos_redirect(oos_href_link($aContents['account']));
+    }
 }
 
 
@@ -103,21 +99,20 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-	require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-	require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
 $smarty->assign(
-	array(
-		'breadcrumb'    => $oBreadcrumb->trail(),
-		'heading_title' => $aLang['heading_title'],
-		'robots'		=> 'noindex,follow,noodp,noydir',
-		'canonical'		=> $sCanonical
-	)
+    array(
+        'breadcrumb'    => $oBreadcrumb->trail(),
+        'heading_title' => $aLang['heading_title'],
+        'robots'		=> 'noindex,follow,noodp,noydir',
+        'canonical'		=> $sCanonical
+    )
 );
 
 
 // display the template
 $smarty->display($aTemplate['page']);
-

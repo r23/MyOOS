@@ -35,29 +35,28 @@ if ($bNecessary === false) {
 
 // start the session
 if ($session->hasStarted() === false) {
-	$session->start();
+    $session->start();
 }
 
 if (!isset($_SESSION['user'])) {
-	$_SESSION['user'] = new oosUser();
-	$_SESSION['user']->anonymous();
+    $_SESSION['user'] = new oosUser();
+    $_SESSION['user']->anonymous();
 }
 
 /* Check if it is ok to login */
 if (!isset($_SESSION['password_forgotten_count'])) {
-	$_SESSION['login_count'] = 1;
+    $_SESSION['login_count'] = 1;
 } else {
-	$_SESSION['login_count'] ++;
+    $_SESSION['login_count'] ++;
 }
 
 if ($_SESSION['login_count'] > 6) {
-	oos_redirect(oos_href_link($aContents['403']));
+    oos_redirect(oos_href_link($aContents['403']));
 }
 
 
 if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
     (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_GET['formid']))) {
-
     $customerstable = $oostable['customers'];
     $sql = "SELECT customers_id, customers_gender, customers_firstname, customers_lastname,
                    customers_password, customers_wishlist_link_id, customers_language,
@@ -76,7 +75,6 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
         if (!oos_validate_password($_SESSION['password'], $check_customer['customers_password'])) {
             $bError = true;
         } else {
-		
             $address_booktable = $oostable['address_book'];
             $sql = "SELECT entry_vat_id, entry_vat_id_status, entry_country_id, entry_zone_id
 					FROM $address_booktable
@@ -140,6 +138,6 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
             }
         }
     }
-} 
+}
 
 oos_redirect(oos_href_link($aContents['403']));

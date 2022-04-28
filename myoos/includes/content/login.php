@@ -92,19 +92,16 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         if (!oos_validate_password($password, $check_customer['customers_password'])) {
             $bError = true;
         } else {
+            $_SESSION['customer_2fa_id'] = $check_customer['customers_id'];
 
+            // customers_2fa_active
+            if ($check_customer['customers_2fa_active'] == '1') {
+                oos_redirect(oos_href_link($aContents['login_2fa']));
+            } else {
+                oos_redirect(oos_href_link($aContents['login_2fa_info']));
+            }
 
-			$_SESSION['customer_2fa_id'] = $check_customer['customers_id'];
-			
-			// customers_2fa_active
-			if ($check_customer['customers_2fa_active'] == '1') {
-				oos_redirect(oos_href_link($aContents['login_2fa']));
-			} else {
-				oos_redirect(oos_href_link($aContents['login_2fa_info']));
-			}			
-
-			oos_redirect(oos_href_link($aContents['login_process'], 'formid=' . $_SESSION['formid'] . '&action=process'));
-
+            oos_redirect(oos_href_link($aContents['login_process'], 'formid=' . $_SESSION['formid'] . '&action=process'));
         }
     }
 }

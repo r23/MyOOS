@@ -380,22 +380,22 @@ if (!$product_info_result->RecordCount()) {
                 }
 
                 // Create a basic QR code
-				$writer = new PngWriter();
+                $writer = new PngWriter();
 
-				// Create QR code
-				$qrCode = QrCode::create($sUrl)
-					->setEncoding(new Encoding('UTF-8'))
-					->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
-					->setSize(300)
-					->setMargin(10)
-					->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
-					->setForegroundColor(new Color(0, 0, 0))
-					->setBackgroundColor(new Color(255, 255, 255));
+                // Create QR code
+                $qrCode = QrCode::create($sUrl)
+                    ->setEncoding(new Encoding('UTF-8'))
+                    ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+                    ->setSize(300)
+                    ->setMargin(10)
+                    ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+                    ->setForegroundColor(new Color(0, 0, 0))
+                    ->setBackgroundColor(new Color(255, 255, 255));
 
-				$result = $writer->write($qrCode);
-				
-				// Save it to a file
-				$result->saveToFile($cache_file);
+                $result = $writer->write($qrCode);
+
+                // Save it to a file
+                $result->saveToFile($cache_file);
 
                 // Save it to a file
                 $qrCode->writeFile($cache_file);

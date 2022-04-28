@@ -63,7 +63,7 @@ if ($result === false) {
 }
 
 
-// admin 
+// admin
 $table = $prefix_table . 'admin';
 $result = $db->Execute("ALTER TABLE  " . $table . " ADD `admin_2fa` VARCHAR(96) NULL DEFAULT NULL AFTER `admin_email_address`");
 if ($result === false) {
@@ -80,7 +80,7 @@ if ($result === false) {
 }
 
 
-// customers 
+// customers
 $table = $prefix_table . 'customers';
 $result = $db->Execute("ALTER TABLE  " . $table . " ADD `customers_2fa` VARCHAR(96) NULL DEFAULT NULL AFTER `customers_email_address`");
 if ($result === false) {

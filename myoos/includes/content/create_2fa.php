@@ -23,8 +23,8 @@ if ($session->hasStarted() === false) {
 }
 
 if (!isset($_SESSION['user'])) {
-	$_SESSION['user'] = new oosUser();
-	$_SESSION['user']->anonymous();
+    $_SESSION['user'] = new oosUser();
+    $_SESSION['user']->anonymous();
 }
 
 if (!isset($_SESSION['customer_2fa_id'])) {
@@ -49,10 +49,9 @@ $google2fa = new PragmaRX\Google2FA\Google2FA();
 
 if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
-
     $code = oos_prepare_input($_POST['code']);
-	$sKey = oos_prepare_input($_SESSION['secretKey']);
-	
+    $sKey = oos_prepare_input($_SESSION['secretKey']);
+
     if (empty($code) || !is_string($code)) {
         $_SESSION['error_message'] = $aLang['text_code_error'];
         oos_redirect(oos_href_link($aContents['login']));
@@ -65,32 +64,30 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
     $bError = false; // reset error flag
 
-	$code = str_replace(" ", "", $code);
+    $code = str_replace(" ", "", $code);
 
     if (strlen($code) < 6) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_code_error']);
     }
 
-	$window = 8; // 8 keys (respectively 4 minutes) past and future
+    $window = 8; // 8 keys (respectively 4 minutes) past and future
 
-	$valid = $google2fa->verifyKey($sKey, $code, $window);	
-	
-	if (!$valid) {
-		$bError = true;
-        $oMessage->add('danger', $aLang['entry_code_error']);	
-	}
+    $valid = $google2fa->verifyKey($sKey, $code, $window);
+
+    if (!$valid) {
+        $bError = true;
+        $oMessage->add('danger', $aLang['entry_code_error']);
+    }
 
     if ($bError == false) {
-		
-		$_SESSION['success_message'] = $aLang['entry_2fa_success'];		
+        $_SESSION['success_message'] = $aLang['entry_2fa_success'];
         $sql_data_array = array('customers_2fa' => $sKey,
-								'customers_2fa_active' => 1);
+                                'customers_2fa_active' => 1);
         oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_2fa_id']) . "'");
 
-		oos_redirect(oos_href_link($aContents['login_process'], 'formid=' . $_SESSION['formid'] . '&action=process'));
-
-	}
+        oos_redirect(oos_href_link($aContents['login_process'], 'formid=' . $_SESSION['formid'] . '&action=process'));
+    }
 }
 
 
@@ -101,39 +98,38 @@ $sql = "SELECT customers_email_address
 			AND customers_id = '" . intval($_SESSION['customer_2fa_id']) . "'";
 $check_customer_result = $dbconn->Execute($sql);
 if (!$check_customer_result->RecordCount()) {
-	oos_redirect(oos_href_link($aContents['403']));
+    oos_redirect(oos_href_link($aContents['403']));
 } else {
-	$check_customer = $check_customer_result->fields;
+    $check_customer = $check_customer_result->fields;
 
-	$companyName = STORE_NAME;
-	$companyEmail = $check_customer['customers_email_address'];
-	$secretKey = $google2fa->generateSecretKey();
+    $companyName = STORE_NAME;
+    $companyEmail = $check_customer['customers_email_address'];
+    $secretKey = $google2fa->generateSecretKey();
 
-	$_SESSION['secretKey'] = $secretKey;
+    $_SESSION['secretKey'] = $secretKey;
 
 
 
-	$g2faUrl = $google2fa->getQRCodeUrl(
-		$companyName,
-		$companyEmail,
-		$secretKey
-	);
+    $g2faUrl = $google2fa->getQRCodeUrl(
+        $companyName,
+        $companyEmail,
+        $secretKey
+    );
 
-	$writer = new PngWriter();
+    $writer = new PngWriter();
 
-	// Create QR code
-	$qrCode = QrCode::create($g2faUrl)
-		->setEncoding(new Encoding('UTF-8'))
-		->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
-		->setSize(100)
-		->setMargin(10)
-		->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
-		->setForegroundColor(new Color(0, 0, 0))
-		->setBackgroundColor(new Color(255, 255, 255));
+    // Create QR code
+    $qrCode = QrCode::create($g2faUrl)
+        ->setEncoding(new Encoding('UTF-8'))
+        ->setErrorCorrectionLevel(new ErrorCorrectionLevelLow())
+        ->setSize(100)
+        ->setMargin(10)
+        ->setRoundBlockSizeMode(new RoundBlockSizeModeMargin())
+        ->setForegroundColor(new Color(0, 0, 0))
+        ->setBackgroundColor(new Color(255, 255, 255));
 
-	$result = $writer->write($qrCode);
-	$dataUri = $result->getDataUri();
-
+    $result = $writer->write($qrCode);
+    $dataUri = $result->getDataUri();
 }
 
 // links breadcrumb
@@ -161,8 +157,8 @@ $smarty->assign(
           'login_active'	=> 1,
 
           'canonical'		=> $sCanonical,
-		  'secretKey'		=> $secretKey,
-		  'qrcode' 			=> $dataUri
+          'secretKey'		=> $secretKey,
+          'qrcode' 			=> $dataUri
       )
 );
 

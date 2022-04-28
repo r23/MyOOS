@@ -23,7 +23,7 @@ if ($session->hasStarted() === false) {
 }
 
 if ($_SESSION['google2fa_count'] > 6) {
-	oos_redirect(oos_href_link($aContents['403']));
+    oos_redirect(oos_href_link($aContents['403']));
 }
 
 if (!isset($_SESSION['customer_2fa_id'])) {
@@ -31,8 +31,8 @@ if (!isset($_SESSION['customer_2fa_id'])) {
 }
 
 if (!isset($_SESSION['user'])) {
-	$_SESSION['user'] = new oosUser();
-	$_SESSION['user']->anonymous();
+    $_SESSION['user'] = new oosUser();
+    $_SESSION['user']->anonymous();
 }
 
 use PragmaRX\Google2FA\Google2FA;
@@ -45,15 +45,14 @@ $google2fa = new PragmaRX\Google2FA\Google2FA();
 
 if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
-
     $code = oos_prepare_input($_POST['code']);
-	
+
     if (empty($code) || !is_string($code)) {
         $_SESSION['error_message'] = $aLang['text_code_error'];
         oos_redirect(oos_href_link($aContents['login']));
     }
 
-	$code = str_replace(" ", "", $code);
+    $code = str_replace(" ", "", $code);
 
     if (strlen($code) < 6) {
         $bError = true;
@@ -62,7 +61,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
     $bError = false; // reset error flag
 
-    // Check 
+    // Check
     $customerstable = $oostable['customers'];
     $sql = "SELECT customers_2fa, customers_2fa_active
             FROM $customerstable
@@ -77,26 +76,26 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     } else {
         $check_customer = $check_customer_result->fields;
 
-		$sKey = $check_customer['customers_2fa'];
+        $sKey = $check_customer['customers_2fa'];
 
-		$window = 8; // 8 keys (respectively 4 minutes) past and future
+        $window = 8; // 8 keys (respectively 4 minutes) past and future
 
-		$valid = $google2fa->verifyKey($sKey, $code, $window);	
-	
-		if ($valid) {
-			oos_redirect(oos_href_link($aContents['login_process'], 'formid=' . $_SESSION['formid'] . '&action=process'));
-		} else {	
-			$bError = true;
-			
-			if (!isset($_SESSION['google2fa_count'])) {
-				$_SESSION['google2fa_count'] = 1;
-			} else {
-				$_SESSION['google2fa_count'] ++;
-			}
-			
-			$oMessage->add('danger', $aLang['text_code_error']);	
-		}
-	}
+        $valid = $google2fa->verifyKey($sKey, $code, $window);
+
+        if ($valid) {
+            oos_redirect(oos_href_link($aContents['login_process'], 'formid=' . $_SESSION['formid'] . '&action=process'));
+        } else {
+            $bError = true;
+
+            if (!isset($_SESSION['google2fa_count'])) {
+                $_SESSION['google2fa_count'] = 1;
+            } else {
+                $_SESSION['google2fa_count'] ++;
+            }
+
+            $oMessage->add('danger', $aLang['text_code_error']);
+        }
+    }
 }
 
 
