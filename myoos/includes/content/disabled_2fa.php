@@ -59,22 +59,6 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 		oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_SESSION['customer_id']) . "'");		
 
 		
-/*
-todo sent mail to user!
-
-        $customers_name = $check_customer['customers_firstname'] . '. ' . $check_customer['customers_lastname'];
-
-        switch ($check_customer['customers_gender']) {
-            case 'm':
-                $sGreet = sprintf($aLang['email_greet_mr'], $customers_name);
-                break;
-            case 'f':
-                $sGreet = sprintf($aLang['email_greet_ms'], $customers_name);
-                break;
-            default:
-                $sGreet = $aLang['email_greet_none'];
-        }
-
         //smarty
         require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
         $smarty = new myOOS_Smarty();
@@ -90,21 +74,16 @@ todo sent mail to user!
                 'services_url'	=> PHPBB_URL,
                 'blog_url'		=> BLOG_URL,
                 'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', false, true),
-                'login_url'		=> oos_href_link($aContents['login'], '', false, true),
-                'greet'			=> $sGreet,
-                'password' 		=> $newpass
+                'login_url'		=> oos_href_link($aContents['login'], '', false, true)
             )
         );
 
         // create mails
-        $email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.html');
-        $email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/password_forgotten.tpl');
+        $email_html = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/disabled_2fa.html');
+        $email_txt = $smarty->fetch($sTheme . '/email/' . $sLanguage . '/disabled_2fa.tpl');
 
-        oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_password_reminder_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+        oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_2fa_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
-        $_SESSION['password_forgotten_count'] = 1;
-        $_SESSION['success_message'] = $aLang['text_password_sent'];
-*/
 
 		$_SESSION['error_message'] = $aLang['entry_2fa_success'];
 		oos_redirect(oos_href_link($aContents['account']));

@@ -30,3 +30,5 @@ $aLang['text_2fa_title'] = 'Zweistufige Verifizierung deaktivieren?';
 $aLang['text_2fa_info'] = 'Damit wird der zusätzliche Schutz für Ihr Konto entfernt. Jetzt verwenden Sie nur noch Ihr Passwort zum Einloggen.';
 
 $aLang['entry_2fa_success'] = 'Sie haben die zweistufige Verifizierung für Ihr Konto deaktiviert.';
+
+$aLang['email_2fa_subject'] = 'Die zweistufige Verifizierung wurde für Ihr Konto deaktiviert';

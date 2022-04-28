@@ -30,3 +30,5 @@ $aLang['text_2fa_title'] = 'Disable two-step verification?';
 $aLang['text_2fa_info'] = 'This will remove the additional protection for your account. Now you only use your password to log in.';
 
 $aLang['entry_2fa_success'] = 'You have disabled two-step verification for your account';
+
+$aLang['email_2fa_subject'] = 'Two-step verification has been disabled for your account';
