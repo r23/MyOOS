@@ -451,7 +451,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
             }
 
             $email_text .= $aLang['email_text'] . $aLang['email_contact'] . $aLang['email_warning'];
-            oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), '', STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');
+            oos_mail($name, $email_address, $aLang['email_subject'], nl2br($email_text), nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '3');
 
 
             if (SEND_CUSTOMER_EDIT_EMAILS == 'true') {
@@ -492,7 +492,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
                       $aLang['email_separator'] . "\n\n" .
                       $aLang['owner_email_options'] . "\n";
 
-            oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), '', $name, $email_address, '1');
+            oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), nl2br($email_owner), $name, $email_address, '1');
         }
 
 
