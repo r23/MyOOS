@@ -27,6 +27,10 @@ if (!isset($_SESSION['user'])) {
     $_SESSION['user']->anonymous();
 }
 
+if (isset($_SESSION['customer_id'])) {
+	$_SESSION['customer_2fa_id'] = intval($_SESSION['customer_id']);
+}
+
 if (!isset($_SESSION['customer_2fa_id'])) {
     oos_redirect(oos_href_link($aContents['login']));
 }
