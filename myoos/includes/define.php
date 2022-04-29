@@ -12,6 +12,9 @@
 /** ensure this file is being included by a parent file */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
+define('COST', '14');
+define('PEPPER', '.m3h-RL=^XM/72;tSdU\Bz');
+
 
 define('WARN_INSTALL_EXISTENCE', 'false');
 define('WARN_CONFIG_WRITEABLE', 'false');

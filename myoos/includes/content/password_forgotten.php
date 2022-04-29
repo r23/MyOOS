@@ -56,12 +56,14 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     }
 
     $customerstable = $oostable['customers'];
-    $check_customer_sql = "SELECT customers_gender, customers_firstname, customers_lastname, customers_password, customers_id
+    $check_customer_sql = "SELECT customers_id, customers_gender, customers_firstname, customers_lastname
                            FROM $customerstable
                            WHERE customers_email_address = '" . oos_db_input($email_address) . "'";
     $check_customer_result = $dbconn->Execute($check_customer_sql);
 
     if ($check_customer_result->RecordCount()) {
+		$check_customer = $check_customer_result->fields;
+
         // Crypted password mods - create a new password, update the database and mail it to them
         $newpass = oos_create_random_value(ENTRY_PASSWORD_MIN_LENGTH);
         $crypted_password = oos_encrypt_password($newpass);
@@ -69,7 +71,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         $customerstable = $oostable['customers'];
         $dbconn->Execute("UPDATE $customerstable
                         SET customers_password = '" . oos_db_input($crypted_password) . "'
-                        WHERE customers_id = '" . $check_customer['customers_id'] . "'");
+                        WHERE customers_id = '" . intval($check_customer['customers_id']) . "'");
 
         $customers_name = $check_customer['customers_firstname'] . '. ' . $check_customer['customers_lastname'];
 

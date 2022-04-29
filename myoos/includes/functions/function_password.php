@@ -31,8 +31,9 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
  */
 function oos_validate_password($password, $hash)
 {
-    if (oos_is_not_null($password) && oos_is_not_null($hash)) {
-        return password_verify($password, $hash);
+    
+	if (password_verify($password . PEPPER, $hash)) {		
+        return true;
     }
 
     return false;
@@ -47,7 +48,12 @@ function oos_validate_password($password, $hash)
  */
 function oos_encrypt_password($password)
 {
-    $hash = password_hash($password, PASSWORD_DEFAULT);
+
+	$optionen = [
+		'cost' => COST
+	];
+	
+	$hash = password_hash($password . PEPPER, PASSWORD_DEFAULT, $optionen);
 
     return $hash;
 }
