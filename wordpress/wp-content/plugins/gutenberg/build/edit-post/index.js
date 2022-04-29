@@ -3675,11 +3675,13 @@ function VisualEditor(_ref2) {
   } = _ref2;
   const {
     deviceType,
+    isWelcomeGuideVisible,
     isTemplateMode,
     wrapperBlockName,
     wrapperUniqueId
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
+      isFeatureActive,
       isEditingTemplate,
       __experimentalGetPreviewDeviceType
     } = select(store_store);
@@ -3700,11 +3702,15 @@ function VisualEditor(_ref2) {
 
     return {
       deviceType: __experimentalGetPreviewDeviceType(),
+      isWelcomeGuideVisible: isFeatureActive('welcomeGuide'),
       isTemplateMode: _isTemplateMode,
       wrapperBlockName: _wrapperBlockName,
       wrapperUniqueId: getCurrentPostId()
     };
   }, []);
+  const {
+    isCleanNewPost
+  } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_editor_namespaceObject.store);
   const hasMetaBoxes = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).hasMetaBoxes(), []);
   const {
     themeSupportsLayout,
@@ -3771,6 +3777,16 @@ function VisualEditor(_ref2) {
 
     return undefined;
   }, [isTemplateMode, themeSupportsLayout, defaultLayout]);
+  const titleRef = (0,external_wp_element_namespaceObject.useRef)();
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    var _titleRef$current;
+
+    if (isWelcomeGuideVisible || !isCleanNewPost()) {
+      return;
+    }
+
+    titleRef === null || titleRef === void 0 ? void 0 : (_titleRef$current = titleRef.current) === null || _titleRef$current === void 0 ? void 0 : _titleRef$current.focus();
+  }, [isWelcomeGuideVisible, isCleanNewPost]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockTools, {
     __unstableContentRef: ref,
     className: classnames_default()('edit-post-visual-editor', {
@@ -3807,7 +3823,9 @@ function VisualEditor(_ref2) {
   }), !isTemplateMode && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-post-visual-editor__post-title-wrapper",
     contentEditable: false
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostTitle, null)), (0,external_wp_element_namespaceObject.createElement)(RecursionProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockList, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostTitle, {
+    ref: titleRef
+  })), (0,external_wp_element_namespaceObject.createElement)(RecursionProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockList, {
     className: isTemplateMode ? 'wp-site-blocks' : undefined,
     __experimentalLayout: layout
   }))))), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableBlockSettingsMenuFirstItem, null, _ref3 => {
@@ -7493,7 +7511,6 @@ const PluginDocumentSettingPanel = (0,external_wp_compose_namespaceObject.compos
   }
 
   return {
-    icon: ownProps.icon || context.icon,
     panelName: `${context.name}/${ownProps.name}`
   };
 }), (0,external_wp_data_namespaceObject.withSelect)((select, _ref2) => {

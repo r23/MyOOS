@@ -22803,13 +22803,6 @@ const BASE = {
   black: '#000',
   white: '#fff'
 };
-/**
- * TODO: Continue to update values as "G2" design evolves.
- *
- * "G2" refers to the movement to advance the interface of the block editor.
- * https://github.com/WordPress/gutenberg/issues/18667
- */
-
 const G2 = {
   blue: {
     medium: {
@@ -22830,10 +22823,6 @@ const G2 = {
     // Used sparingly for light borders.
     100: '#f0f0f0' // Used for light gray backgrounds.
 
-  },
-  darkGray: {
-    primary: '#1e1e1e',
-    heading: '#050505'
   },
   mediumGray: {
     text: '#757575'
@@ -22959,10 +22948,17 @@ const UI = {
 // to extract the correct type defs here.
 
 const COLORS = Object.assign({}, BASE, {
-  darkGray: (0,external_lodash_namespaceObject.merge)({}, DARK_GRAY, G2.darkGray),
+  darkGray: DARK_GRAY,
   darkOpacity: DARK_OPACITY,
   darkOpacityLight: DARK_OPACITY_LIGHT,
   mediumGray: G2.mediumGray,
+
+  /**
+   * The main gray color object (since Apr 16, 2022).
+   *
+   * We are in the process of simplifying the colors in this file,
+   * please prefer this `gray` object in the meantime.
+   */
   gray: G2.gray,
   lightGray: (0,external_lodash_namespaceObject.merge)({}, LIGHT_GRAY, G2.lightGray),
   lightGrayLight: LIGHT_OPACITY_LIGHT,
@@ -23052,9 +23048,9 @@ const pointActive = _ref3 => {
   let {
     isActive
   } = _ref3;
-  const boxShadow = isActive ? `0 0 0 2px ${COLORS.black}` : null;
-  const pointColor = isActive ? COLORS.black : COLORS.lightGray[800];
-  const pointColorHover = isActive ? COLORS.black : COLORS.blue.medium.focus;
+  const boxShadow = isActive ? `0 0 0 2px ${COLORS.gray[900]}` : null;
+  const pointColor = isActive ? COLORS.gray[900] : COLORS.lightGray[800];
+  const pointColorHover = isActive ? COLORS.gray[900] : COLORS.blue.medium.focus;
   return /*#__PURE__*/emotion_react_browser_esm_css("box-shadow:", boxShadow, ";color:", pointColor, ";*:hover>&{color:", pointColorHover, ";}" + ( true ? "" : 0),  true ? "" : 0);
 };
 
@@ -35358,7 +35354,7 @@ function text_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried t
  */
 
 
-const Text = /*#__PURE__*/emotion_react_browser_esm_css("color:", COLORS.darkGray.primary, ";line-height:", config_values.fontLineHeightBase, ";margin:0;" + ( true ? "" : 0),  true ? "" : 0);
+const Text = /*#__PURE__*/emotion_react_browser_esm_css("color:", COLORS.gray[900], ";line-height:", config_values.fontLineHeightBase, ";margin:0;" + ( true ? "" : 0),  true ? "" : 0);
 const styles_block =  true ? {
   name: "4zleql",
   styles: "display:block"
@@ -35707,7 +35703,7 @@ function useText(props) {
     if (optimizeReadabilityFor) {
       const isOptimalTextColorDark = getOptimalTextShade(optimizeReadabilityFor) === 'dark';
       sx.optimalTextColor = isOptimalTextColorDark ? /*#__PURE__*/emotion_react_browser_esm_css({
-        color: COLORS.black
+        color: COLORS.gray[900]
       },  true ? "" : 0,  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css({
         color: COLORS.white
       },  true ? "" : 0,  true ? "" : 0);
@@ -36002,7 +35998,7 @@ const dragStyles = _ref15 => {
 
 const Input = emotion_styled_base_browser_esm("input",  true ? {
   target: "em5sgkm5"
-} : 0)("&&&{background-color:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.black, ";display:block;font-family:inherit;margin:0;outline:none;width:100%;", dragStyles, " ", disabledStyles, " ", fontSizeStyles, " ", sizeStyles, " &::-webkit-input-placeholder{line-height:normal;}}" + ( true ? "" : 0));
+} : 0)("&&&{background-color:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.gray[900], ";display:block;font-family:inherit;margin:0;outline:none;width:100%;", dragStyles, " ", disabledStyles, " ", fontSizeStyles, " ", sizeStyles, " &::-webkit-input-placeholder{line-height:normal;}}" + ( true ? "" : 0));
 
 const labelMargin = _ref16 => {
   let {
@@ -36024,7 +36020,7 @@ const labelMargin = _ref16 => {
 
 const BaseLabel = /*#__PURE__*/emotion_styled_base_browser_esm(text_component,  true ? {
   target: "em5sgkm4"
-} : 0)("&&&{box-sizing:border-box;color:currentColor;display:block;padding-top:0;padding-bottom:0;max-width:100%;z-index:1;", labelMargin, " overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}" + ( true ? "" : 0));
+} : 0)("&&&{box-sizing:border-box;display:block;padding-top:0;padding-bottom:0;max-width:100%;z-index:1;", labelMargin, " overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}" + ( true ? "" : 0));
 
 const Label = props => (0,external_wp_element_namespaceObject.createElement)(BaseLabel, extends_extends({}, props, {
   as: "label"
@@ -38907,7 +38903,7 @@ function input_control_useUniqueId(idProp) {
   return idProp || id;
 }
 
-function InputControl(_ref, ref) {
+function UnforwardedInputControl(_ref, ref) {
   let {
     __unstableStateReducer: stateReducer = state => state,
     __unstableInputWidth,
@@ -38960,8 +38956,28 @@ function InputControl(_ref, ref) {
     value: value
   })));
 }
-const input_control_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(InputControl);
-/* harmony default export */ var input_control = (input_control_ForwardedComponent);
+/**
+ * InputControl components let users enter and edit text. This is an experimental component
+ * intended to (in time) merge with or replace `TextControl`.
+ *
+ * @example
+ * import { __experimentalInputControl as InputControl } from '@wordpress/components';
+ * import { useState } from '@wordpress/compose';
+ *
+ * const Example = () => {
+ *   const [ value, setValue ] = useState( '' );
+ *
+ *   return (
+ *  	<InputControl
+ *  		value={ value }
+ *  		onChange={ ( nextValue ) => setValue( nextValue ) }
+ *  	/>
+ *   );
+ * };
+ */
+
+const InputControl = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedInputControl);
+/* harmony default export */ var input_control = (InputControl);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/angle-picker-control/styles/angle-picker-control-styles.js
 
@@ -41485,7 +41501,7 @@ const sizePaddings = _ref4 => {
 
 const Select = emotion_styled_base_browser_esm("select",  true ? {
   target: "e1mv6sxx1"
-} : 0)("&&&{appearance:none;background:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.black, ";display:block;font-family:inherit;margin:0;width:100%;", select_control_styles_disabledStyles, ";", select_control_styles_fontSizeStyles, ";", select_control_styles_sizeStyles, ";", sizePaddings, ";}" + ( true ? "" : 0));
+} : 0)("&&&{appearance:none;background:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.gray[900], ";display:block;font-family:inherit;margin:0;width:100%;", select_control_styles_disabledStyles, ";", select_control_styles_fontSizeStyles, ";", select_control_styles_sizeStyles, ";", sizePaddings, ";}" + ( true ? "" : 0));
 const DownArrowWrapper = emotion_styled_base_browser_esm("div",  true ? {
   target: "e1mv6sxx0"
 } : 0)("align-items:center;bottom:0;box-sizing:border-box;display:flex;padding:0 4px;pointer-events:none;position:absolute;top:0;", rtl({
@@ -46545,7 +46561,7 @@ function useHeading(props) {
   }
 
   const textProps = useText({
-    color: COLORS.darkGray.heading,
+    color: COLORS.gray[900],
     size: getHeadingFontSize(level),
     isBlock: true,
     weight: config_values.fontWeightHeading,
@@ -50074,7 +50090,7 @@ const shady = /*#__PURE__*/emotion_react_browser_esm_css("background-color:", CO
  */
 
 
-const Surface = /*#__PURE__*/emotion_react_browser_esm_css("background-color:", config_values.surfaceColor, ";color:", COLORS.darkGray.primary, ";position:relative;" + ( true ? "" : 0),  true ? "" : 0);
+const Surface = /*#__PURE__*/emotion_react_browser_esm_css("background-color:", config_values.surfaceColor, ";color:", COLORS.gray[900], ";position:relative;" + ( true ? "" : 0),  true ? "" : 0);
 const background = /*#__PURE__*/emotion_react_browser_esm_css("background-color:", config_values.surfaceBackgroundColor, ";" + ( true ? "" : 0),  true ? "" : 0);
 /**
  * @param {Object}  props
@@ -53121,6 +53137,7 @@ function PaletteEditListView(_ref4) {
       }
     };
   }, []);
+  const debounceOnChange = (0,external_wp_compose_namespaceObject.useDebounce)(onChange, 100);
   return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
     spacing: 3
   }, (0,external_wp_element_namespaceObject.createElement)(item_group_component, {
@@ -53136,7 +53153,7 @@ function PaletteEditListView(_ref4) {
       }
     },
     onChange: newElement => {
-      onChange(elements.map((currentElement, currentIndex) => {
+      debounceOnChange(elements.map((currentElement, currentIndex) => {
         if (currentIndex === index) {
           return newElement;
         }
@@ -64703,41 +64720,6 @@ function PageControl(_ref) {
   }))));
 }
 
-;// CONCATENATED MODULE: ./packages/components/build-module/guide/finish-button.js
-
-
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-function FinishButton(props) {
-  const ref = (0,external_wp_element_namespaceObject.useRef)(); // Focus the button on mount if nothing else is focused. This prevents a
-  // focus loss when the 'Next' button is swapped out.
-
-  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
-    const {
-      ownerDocument
-    } = ref.current;
-    const {
-      activeElement,
-      body
-    } = ownerDocument;
-
-    if (!activeElement || activeElement === body) {
-      ref.current.focus();
-    }
-  }, []);
-  return (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({}, props, {
-    ref: ref
-  }));
-}
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/guide/index.js
 
 
@@ -64753,10 +64735,10 @@ function FinishButton(props) {
 
 
 
+
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -64770,6 +64752,7 @@ function Guide(_ref) {
     onFinish,
     pages = []
   } = _ref;
+  const guideContainer = (0,external_wp_element_namespaceObject.useRef)();
   const [currentPage, setCurrentPage] = (0,external_wp_element_namespaceObject.useState)(0);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (external_wp_element_namespaceObject.Children.count(children)) {
@@ -64779,6 +64762,13 @@ function Guide(_ref) {
       });
     }
   }, [children]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    var _focus$tabbable$find, _focus$tabbable$find$;
+
+    // Each time we change the current page, start from the first element of the page.
+    // This also solves any focus loss that can happen.
+    (_focus$tabbable$find = external_wp_dom_namespaceObject.focus.tabbable.find(guideContainer.current)) === null || _focus$tabbable$find === void 0 ? void 0 : (_focus$tabbable$find$ = _focus$tabbable$find[0]) === null || _focus$tabbable$find$ === void 0 ? void 0 : _focus$tabbable$find$.focus();
+  }, [currentPage]);
 
   if (external_wp_element_namespaceObject.Children.count(children)) {
     pages = external_wp_element_namespaceObject.Children.map(children, child => ({
@@ -64815,7 +64805,8 @@ function Guide(_ref) {
       } else if (event.keyCode === external_wp_keycodes_namespaceObject.RIGHT) {
         goForward();
       }
-    }
+    },
+    ref: guideContainer
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-guide__container"
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -64824,10 +64815,7 @@ function Guide(_ref) {
     currentPage: currentPage,
     numberOfPages: pages.length,
     setCurrentPage: setCurrentPage
-  }), pages[currentPage].content, !canGoForward && (0,external_wp_element_namespaceObject.createElement)(FinishButton, {
-    className: "components-guide__inline-finish-button",
-    onClick: onFinish
-  }, finishButtonText || (0,external_wp_i18n_namespaceObject.__)('Finish'))), (0,external_wp_element_namespaceObject.createElement)("div", {
+  }), pages[currentPage].content), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-guide__footer"
   }, canGoBack && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     className: "components-guide__back-button",
@@ -64835,7 +64823,7 @@ function Guide(_ref) {
   }, (0,external_wp_i18n_namespaceObject.__)('Previous')), canGoForward && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     className: "components-guide__forward-button",
     onClick: goForward
-  }, (0,external_wp_i18n_namespaceObject.__)('Next')), !canGoForward && (0,external_wp_element_namespaceObject.createElement)(FinishButton, {
+  }, (0,external_wp_i18n_namespaceObject.__)('Next')), !canGoForward && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     className: "components-guide__finish-button",
     onClick: onFinish
   }, finishButtonText || (0,external_wp_i18n_namespaceObject.__)('Finish')))));
@@ -65485,7 +65473,7 @@ const ItemBaseUI = emotion_styled_base_browser_esm("li",  true ? {
   textAlign: 'left'
 }, {
   textAlign: 'right'
-}), " &:hover,&:focus:not( [aria-disabled='true'] ):active,&:active:not( [aria-disabled='true'] ):active{color:inherit;opacity:1;}}&.is-active{background-color:", UI.theme, ";color:", BASE.white, ";>button,>a{color:", BASE.white, ";opacity:1;}}>svg path{color:", G2.lightGray.ui, ";}" + ( true ? "" : 0));
+}), " &:hover,&:focus:not( [aria-disabled='true'] ):active,&:active:not( [aria-disabled='true'] ):active{color:inherit;opacity:1;}}&.is-active{background-color:", COLORS.ui.theme, ";color:", COLORS.white, ";>button,>a{color:", COLORS.white, ";opacity:1;}}>svg path{color:", COLORS.gray[600], ";}" + ( true ? "" : 0));
 const ItemUI = emotion_styled_base_browser_esm("div",  true ? {
   target: "ejwewyf3"
 } : 0)("display:flex;align-items:center;height:auto;min-height:40px;margin:0;padding:", space(1.5), " ", space(4), ";font-weight:400;line-height:20px;width:100%;color:inherit;opacity:0.7;" + ( true ? "" : 0));
@@ -69426,10 +69414,10 @@ function Sandbox(_ref) {
   }, []);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     trySandbox();
-  }, [title, type, styles, scripts]);
+  }, [title, styles, scripts]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     trySandbox(true);
-  }, [html]);
+  }, [html, type]);
   return (0,external_wp_element_namespaceObject.createElement)("iframe", {
     ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, (0,external_wp_compose_namespaceObject.useFocusableIframe)()]),
     title: title,

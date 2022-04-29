@@ -5603,6 +5603,16 @@ const PRESET_METADATA = [{
     propertyName: 'background'
   }]
 }, {
+  path: ['color', 'duotone'],
+  cssVarInfix: 'duotone',
+  valueFunc: _ref => {
+    let {
+      slug
+    } = _ref;
+    return `url( '#wp-duotone-${slug}' )`;
+  },
+  classes: []
+}, {
   path: ['typography', 'fontSizes'],
   valueKey: 'size',
   cssVarInfix: 'font-size',
@@ -5692,8 +5702,8 @@ function getPresetVariableFromValue(features, blockName, variableStylePath, pres
   return `var:preset|${cssVarInfix}|${presetObject.slug}`;
 }
 
-function getValueFromPresetVariable(features, blockName, variable, _ref) {
-  let [presetType, slug] = _ref;
+function getValueFromPresetVariable(features, blockName, variable, _ref2) {
+  let [presetType, slug] = _ref2;
   const metadata = (0,external_lodash_namespaceObject.find)(PRESET_METADATA, ['cssVarInfix', presetType]);
 
   if (!metadata) {
@@ -6011,12 +6021,12 @@ function useGradientsPerOrigin(name) {
 
 
 
+
 /**
  * Internal dependencies
  */
 
 
-const MIN_BORDER_WIDTH = 0;
 function useHasBorderPanel(name) {
   const controls = [useHasBorderColorControl(name), useHasBorderRadiusControl(name), useHasBorderStyleControl(name), useHasBorderWidthControl(name)];
   return controls.some(Boolean);
@@ -6042,6 +6052,37 @@ function useHasBorderWidthControl(name) {
   return useSetting('border.width', name)[0] && supports.includes('borderWidth');
 }
 
+function applyFallbackStyle(border) {
+  if (!border) {
+    return border;
+  }
+
+  if (!border.style && (border.color || border.width)) {
+    return { ...border,
+      style: 'solid'
+    };
+  }
+
+  return border;
+}
+
+function applyAllFallbackStyles(border) {
+  if (!border) {
+    return border;
+  }
+
+  if ((0,external_wp_components_namespaceObject.__experimentalHasSplitBorders)(border)) {
+    return {
+      top: applyFallbackStyle(border.top),
+      right: applyFallbackStyle(border.right),
+      bottom: applyFallbackStyle(border.bottom),
+      left: applyFallbackStyle(border.left)
+    };
+  }
+
+  return applyFallbackStyle(border);
+}
+
 function BorderPanel(_ref) {
   let {
     name
@@ -6049,46 +6090,11 @@ function BorderPanel(_ref) {
   // To better reflect if the user has customized a value we need to
   // ensure the style value being checked is from the `user` origin.
   const [userBorderStyles] = useStyle('border', name, 'user');
-
-  const createHasValueCallback = feature => () => !!(userBorderStyles !== null && userBorderStyles !== void 0 && userBorderStyles[feature]);
-
-  const createResetCallback = setStyle => () => setStyle(undefined);
-
-  const handleOnChange = setStyle => value => {
-    setStyle(value || undefined);
-  };
-
-  const units = (0,external_wp_components_namespaceObject.__experimentalUseCustomUnits)({
-    availableUnits: useSetting('spacing.units')[0] || ['px', 'em', 'rem']
-  }); // Border width.
-
-  const showBorderWidth = useHasBorderWidthControl(name);
-  const [borderWidthValue, setBorderWidth] = useStyle('border.width', name); // Border style.
-
-  const showBorderStyle = useHasBorderStyleControl(name);
-  const [borderStyle, setBorderStyle] = useStyle('border.style', name); // When we set a border color or width ensure we have a style so the user
-  // can see a visible border.
-
-  const handleOnChangeWithStyle = setStyle => value => {
-    if (!!value && !borderStyle) {
-      setBorderStyle('solid');
-    }
-
-    setStyle(value || undefined);
-  }; // Border color.
-
-
+  const [border, setBorder] = useStyle('border', name);
+  const colors = useColorsPerOrigin(name);
   const showBorderColor = useHasBorderColorControl(name);
-  const [borderColor, setBorderColor] = useStyle('border.color', name);
-  const disableCustomColors = !useSetting('color.custom')[0];
-  const disableCustomGradients = !useSetting('color.customGradient')[0];
-  const borderColorSettings = [{
-    label: (0,external_wp_i18n_namespaceObject.__)('Color'),
-    colors: useColorsPerOrigin(name),
-    colorValue: borderColor,
-    onColorChange: handleOnChangeWithStyle(setBorderColor),
-    clearable: false
-  }]; // Border radius.
+  const showBorderStyle = useHasBorderStyleControl(name);
+  const showBorderWidth = useHasBorderWidthControl(name); // Border radius.
 
   const showBorderRadius = useHasBorderRadiusControl(name);
   const [borderRadiusValues, setBorderRadius] = useStyle('border.radius', name);
@@ -6103,57 +6109,84 @@ function BorderPanel(_ref) {
     return !!borderValues;
   };
 
-  const resetAll = () => {
-    setBorderColor(undefined);
-    setBorderRadius(undefined);
-    setBorderStyle(undefined);
-    setBorderWidth(undefined);
+  const resetBorder = () => {
+    if (hasBorderRadius()) {
+      return setBorder({
+        radius: userBorderStyles.radius
+      });
+    }
+
+    setBorder(undefined);
   };
 
+  const resetAll = (0,external_wp_element_namespaceObject.useCallback)(() => setBorder(undefined), [setBorder]);
+  const onBorderChange = (0,external_wp_element_namespaceObject.useCallback)(newBorder => {
+    // Ensure we have a visible border style when a border width or
+    // color is being selected.
+    const newBorderWithStyle = applyAllFallbackStyles(newBorder); // As we can't conditionally generate styles based on if other
+    // style properties have been set we need to force split border
+    // definitions for user set border styles. Border radius is derived
+    // from the same property i.e. `border.radius` if it is a string
+    // that is used. The longhand border radii styles are only generated
+    // if that property is an object.
+    //
+    // For borders (color, style, and width) those are all properties on
+    // the `border` style property. This means if the theme.json defined
+    // split borders and the user condenses them into a flat border or
+    // vice-versa we'd get both sets of styles which would conflict.
+
+    const updatedBorder = !(0,external_wp_components_namespaceObject.__experimentalHasSplitBorders)(newBorderWithStyle) ? {
+      top: newBorderWithStyle,
+      right: newBorderWithStyle,
+      bottom: newBorderWithStyle,
+      left: newBorderWithStyle
+    } : {
+      color: null,
+      style: null,
+      width: null,
+      ...newBorderWithStyle
+    }; // As radius is maintained separately to color, style, and width
+    // maintain its value. Undefined values here will be cleaned when
+    // global styles are saved.
+
+    setBorder({
+      radius: border === null || border === void 0 ? void 0 : border.radius,
+      ...updatedBorder
+    });
+  }, [setBorder]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanel, {
     label: (0,external_wp_i18n_namespaceObject.__)('Border'),
     resetAll: resetAll
-  }, showBorderWidth && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
-    className: "single-column",
-    hasValue: createHasValueCallback('width'),
-    label: (0,external_wp_i18n_namespaceObject.__)('Width'),
-    onDeselect: createResetCallback(setBorderWidth),
+  }, (showBorderWidth || showBorderColor) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    hasValue: () => (0,external_wp_components_namespaceObject.__experimentalIsDefinedBorder)(userBorderStyles),
+    label: (0,external_wp_i18n_namespaceObject.__)('Border'),
+    onDeselect: () => resetBorder(),
     isShownByDefault: true
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalUnitControl, {
-    value: borderWidthValue,
-    label: (0,external_wp_i18n_namespaceObject.__)('Width'),
-    min: MIN_BORDER_WIDTH,
-    onChange: handleOnChangeWithStyle(setBorderWidth),
-    units: units
-  })), showBorderStyle && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
-    className: "single-column",
-    hasValue: createHasValueCallback('style'),
-    label: (0,external_wp_i18n_namespaceObject.__)('Style'),
-    onDeselect: createResetCallback(setBorderStyle),
-    isShownByDefault: true
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalBorderStyleControl, {
-    value: borderStyle,
-    onChange: handleOnChange(setBorderStyle)
-  })), showBorderColor && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
-    hasValue: createHasValueCallback('color'),
-    label: (0,external_wp_i18n_namespaceObject.__)('Color'),
-    onDeselect: createResetCallback(setBorderColor),
-    isShownByDefault: true
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalColorGradientSettingsDropdown, {
-    __experimentalHasMultipleOrigins: true,
-    __experimentalIsRenderedInSidebar: true,
-    disableCustomColors: disableCustomColors,
-    disableCustomGradients: disableCustomGradients,
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalBorderBoxControl, {
+    colors: colors,
     enableAlpha: true,
-    settings: borderColorSettings
+    onChange: onBorderChange,
+    showStyle: showBorderStyle,
+    value: border,
+    popoverClassNames: {
+      linked: 'edit-site-global-styles-sidebar__border-box-control__popover',
+      top: 'edit-site-global-styles-sidebar__border-box-control__popover-top',
+      right: 'edit-site-global-styles-sidebar__border-box-control__popover-right',
+      bottom: 'edit-site-global-styles-sidebar__border-box-control__popover-bottom',
+      left: 'edit-site-global-styles-sidebar__border-box-control__popover-left'
+    },
+    __experimentalHasMultipleOrigins: true,
+    __experimentalIsRenderedInSidebar: true
   })), showBorderRadius && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
     hasValue: hasBorderRadius,
     label: (0,external_wp_i18n_namespaceObject.__)('Radius'),
-    onDeselect: createResetCallback(setBorderRadius),
+    onDeselect: () => setBorderRadius(undefined),
     isShownByDefault: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalBorderRadiusControl, {
     values: borderRadiusValues,
-    onChange: handleOnChange(setBorderRadius)
+    onChange: value => {
+      setBorderRadius(value || undefined);
+    }
   })));
 }
 
@@ -6627,6 +6660,8 @@ function getCSSRules(style, options) {
 }
 
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/use-global-styles-output.js
+
+
 /**
  * External dependencies
  */
@@ -6638,13 +6673,11 @@ function getCSSRules(style, options) {
 
 
 
-/**
- * Internal dependencies
- */
 
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -6676,13 +6709,18 @@ function getPresetsDeclarations() {
     let {
       path,
       valueKey,
+      valueFunc,
       cssVarInfix
     } = _ref;
     const presetByOrigin = (0,external_lodash_namespaceObject.get)(blockPresets, path, []);
     ['default', 'theme', 'custom'].forEach(origin => {
       if (presetByOrigin[origin]) {
         presetByOrigin[origin].forEach(value => {
-          declarations.push(`--wp--preset--${cssVarInfix}--${(0,external_lodash_namespaceObject.kebabCase)(value.slug)}: ${value[valueKey]}`);
+          if (valueKey) {
+            declarations.push(`--wp--preset--${cssVarInfix}--${(0,external_lodash_namespaceObject.kebabCase)(value.slug)}: ${value[valueKey]}`);
+          } else if (valueFunc && typeof valueFunc === 'function') {
+            declarations.push(`--wp--preset--${cssVarInfix}--${(0,external_lodash_namespaceObject.kebabCase)(value.slug)}: ${valueFunc(value)}`);
+          }
         });
       }
     });
@@ -6734,6 +6772,18 @@ function getPresetsClasses(blockSelector) {
     });
     return declarations;
   }, '');
+}
+
+function getPresetsSvgFilters() {
+  let blockPresets = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return PRESET_METADATA.filter( // Duotone are the only type of filters for now.
+  metadata => metadata.path.at(-1) === 'duotone').flatMap(metadata => {
+    const presetByOrigin = (0,external_lodash_namespaceObject.get)(blockPresets, metadata.path, {});
+    return ['default', 'theme'].filter(origin => presetByOrigin[origin]).flatMap(origin => presetByOrigin[origin].map(preset => (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstablePresetDuotoneFilter, {
+      preset: preset,
+      key: preset.slug
+    })));
+  });
 }
 
 function flattenTree() {
@@ -6824,7 +6874,7 @@ const getNodesWithStyles = (tree, blockSelectors) => {
     return nodes;
   }
 
-  const pickStyleKeys = treeToPickFrom => (0,external_lodash_namespaceObject.pickBy)(treeToPickFrom, (value, key) => ['border', 'color', 'spacing', 'typography'].includes(key)); // Top-level.
+  const pickStyleKeys = treeToPickFrom => (0,external_lodash_namespaceObject.pickBy)(treeToPickFrom, (value, key) => ['border', 'color', 'spacing', 'typography', 'filter'].includes(key)); // Top-level.
 
 
   const styles = pickStyleKeys(tree.styles);
@@ -6853,7 +6903,8 @@ const getNodesWithStyles = (tree, blockSelectors) => {
     if (!!blockStyles && !!(blockSelectors !== null && blockSelectors !== void 0 && (_blockSelectors$block = blockSelectors[blockName]) !== null && _blockSelectors$block !== void 0 && _blockSelectors$block.selector)) {
       nodes.push({
         styles: blockStyles,
-        selector: blockSelectors[blockName].selector
+        selector: blockSelectors[blockName].selector,
+        duotoneSelector: blockSelectors[blockName].duotoneSelector
       });
     }
 
@@ -6941,15 +6992,44 @@ const toCustomProperties = (tree, blockSelectors) => {
   });
   return ruleset;
 };
-const toStyles = (tree, blockSelectors) => {
+const toStyles = (tree, blockSelectors, hasBlockGapSupport) => {
   const nodesWithStyles = getNodesWithStyles(tree, blockSelectors);
   const nodesWithSettings = getNodesWithSettings(tree, blockSelectors);
-  let ruleset = '.wp-site-blocks > * { margin-top: 0; margin-bottom: 0; }.wp-site-blocks > * + * { margin-top: var( --wp--style--block-gap ); }';
+  /*
+   * Reset default browser margin on the root body element.
+   * This is set on the root selector **before** generating the ruleset
+   * from the `theme.json`. This is to ensure that if the `theme.json` declares
+   * `margin` in its `spacing` declaration for the `body` element then these
+   * user-generated values take precedence in the CSS cascade.
+   * @link https://github.com/WordPress/gutenberg/issues/36147.
+   */
+
+  let ruleset = 'body {margin: 0;}';
   nodesWithStyles.forEach(_ref8 => {
     let {
       selector,
+      duotoneSelector,
       styles
     } = _ref8;
+    const duotoneStyles = {};
+
+    if (styles !== null && styles !== void 0 && styles.filter) {
+      duotoneStyles.filter = styles.filter;
+      delete styles.filter;
+    } // Process duotone styles (they use color.__experimentalDuotone selector).
+
+
+    if (duotoneSelector) {
+      const duotoneDeclarations = getStylesDeclarations(duotoneStyles);
+
+      if (duotoneDeclarations.length === 0) {
+        return;
+      }
+
+      ruleset = ruleset + `${duotoneSelector}{${duotoneDeclarations.join(';')};}`;
+    } // Process the remaning block styles (they use either normal block class or __experimentalSelector).
+
+
     const declarations = getStylesDeclarations(styles);
 
     if (declarations.length === 0) {
@@ -6958,6 +7038,17 @@ const toStyles = (tree, blockSelectors) => {
 
     ruleset = ruleset + `${selector}{${declarations.join(';')};}`;
   });
+  /* Add alignment / layout styles */
+
+  ruleset = ruleset + '.wp-site-blocks > .alignleft { float: left; margin-right: 2em; }';
+  ruleset = ruleset + '.wp-site-blocks > .alignright { float: right; margin-left: 2em; }';
+  ruleset = ruleset + '.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }';
+
+  if (hasBlockGapSupport) {
+    ruleset = ruleset + '.wp-site-blocks > * { margin-block-start: 0; margin-block-end: 0; }';
+    ruleset = ruleset + '.wp-site-blocks > * + * { margin-block-start: var( --wp--style--block-gap ); }';
+  }
+
   nodesWithSettings.forEach(_ref9 => {
     let {
       selector,
@@ -6977,17 +7068,28 @@ const toStyles = (tree, blockSelectors) => {
   });
   return ruleset;
 };
+function toSvgFilters(tree, blockSelectors) {
+  const nodesWithSettings = getNodesWithSettings(tree, blockSelectors);
+  return nodesWithSettings.flatMap(_ref10 => {
+    let {
+      presets
+    } = _ref10;
+    return getPresetsSvgFilters(presets);
+  });
+}
 
 const getBlockSelectors = blockTypes => {
   const result = {};
   blockTypes.forEach(blockType => {
-    var _blockType$supports$_, _blockType$supports;
+    var _blockType$supports$_, _blockType$supports, _blockType$supports$c, _blockType$supports2, _blockType$supports2$;
 
     const name = blockType.name;
     const selector = (_blockType$supports$_ = blockType === null || blockType === void 0 ? void 0 : (_blockType$supports = blockType.supports) === null || _blockType$supports === void 0 ? void 0 : _blockType$supports.__experimentalSelector) !== null && _blockType$supports$_ !== void 0 ? _blockType$supports$_ : '.wp-block-' + name.replace('core/', '').replace('/', '-');
+    const duotoneSelector = (_blockType$supports$c = blockType === null || blockType === void 0 ? void 0 : (_blockType$supports2 = blockType.supports) === null || _blockType$supports2 === void 0 ? void 0 : (_blockType$supports2$ = _blockType$supports2.color) === null || _blockType$supports2$ === void 0 ? void 0 : _blockType$supports2$.__experimentalDuotone) !== null && _blockType$supports$c !== void 0 ? _blockType$supports$c : null;
     result[name] = {
       name,
-      selector
+      selector,
+      duotoneSelector
     };
   });
   return result;
@@ -6996,9 +7098,12 @@ const getBlockSelectors = blockTypes => {
 function useGlobalStylesOutput() {
   const [stylesheets, setStylesheets] = (0,external_wp_element_namespaceObject.useState)([]);
   const [settings, setSettings] = (0,external_wp_element_namespaceObject.useState)({});
+  const [svgFilters, setSvgFilters] = (0,external_wp_element_namespaceObject.useState)({});
   const {
     merged: mergedConfig
   } = (0,external_wp_element_namespaceObject.useContext)(GlobalStylesContext);
+  const [blockGap] = useSetting('spacing.blockGap');
+  const hasBlockGapSupport = blockGap !== null;
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (!(mergedConfig !== null && mergedConfig !== void 0 && mergedConfig.styles) || !(mergedConfig !== null && mergedConfig !== void 0 && mergedConfig.settings)) {
       return;
@@ -7006,7 +7111,8 @@ function useGlobalStylesOutput() {
 
     const blockSelectors = getBlockSelectors((0,external_wp_blocks_namespaceObject.getBlockTypes)());
     const customProperties = toCustomProperties(mergedConfig, blockSelectors);
-    const globalStyles = toStyles(mergedConfig, blockSelectors);
+    const globalStyles = toStyles(mergedConfig, blockSelectors, hasBlockGapSupport);
+    const filters = toSvgFilters(mergedConfig, blockSelectors);
     setStylesheets([{
       css: customProperties,
       isGlobalStyles: true
@@ -7015,8 +7121,9 @@ function useGlobalStylesOutput() {
       isGlobalStyles: true
     }]);
     setSettings(mergedConfig.settings);
+    setSvgFilters(filters);
   }, [mergedConfig]);
-  return [stylesheets, settings];
+  return [stylesheets, settings, svgFilters, hasBlockGapSupport];
 }
 
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/preview.js
@@ -8852,11 +8959,13 @@ function NavigationMenuSidebar() {
   return (0,external_wp_element_namespaceObject.createElement)(DefaultSidebar, {
     className: "edit-site-navigation-menu-sidebar",
     identifier: "edit-site/navigation-menu",
-    title: (0,external_wp_i18n_namespaceObject.__)('Navigation Menus'),
+    title: (0,external_wp_i18n_namespaceObject.__)('Navigation'),
     icon: library_navigation,
     closeLabel: (0,external_wp_i18n_namespaceObject.__)('Close navigation menu sidebar'),
     panelClassName: "edit-site-navigation-menu-sidebar__panel",
-    header: (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexBlock, null, (0,external_wp_element_namespaceObject.createElement)("strong", null, (0,external_wp_i18n_namespaceObject.__)('Navigation Menus'))))
+    header: (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexBlock, null, (0,external_wp_element_namespaceObject.createElement)("strong", null, (0,external_wp_i18n_namespaceObject.__)('Navigation Menus')), (0,external_wp_element_namespaceObject.createElement)("span", {
+      className: "edit-site-navigation-sidebar__beta"
+    }, (0,external_wp_i18n_namespaceObject.__)('Beta'))))
   }, (0,external_wp_element_namespaceObject.createElement)(NavigationInspector, null));
 }
 
@@ -10081,6 +10190,7 @@ function ResizableEditor(_ref) {
   let {
     enableResizing,
     settings,
+    children,
     ...props
   } = _ref;
   const deviceType = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).__experimentalGetPreviewDeviceType(), []);
@@ -10188,7 +10298,7 @@ function ResizableEditor(_ref) {
     ref: ref,
     name: "editor-canvas",
     className: "edit-site-visual-editor__editor-canvas"
-  }, props)));
+  }, props), settings.svgFilters, children));
 }
 
 /* harmony default export */ var resizable_editor = (ResizableEditor);
@@ -11159,7 +11269,7 @@ function WelcomeGuide() {
 
 
 function useGlobalStylesRenderer() {
-  const [styles, settings] = useGlobalStylesOutput();
+  const [styles, settings, svgFilters] = useGlobalStylesOutput();
   const {
     getSettings
   } = (0,external_wp_data_namespaceObject.useSelect)(store_store);
@@ -11175,6 +11285,7 @@ function useGlobalStylesRenderer() {
     const nonGlobalStyles = (0,external_lodash_namespaceObject.filter)(currentStoreSettings.styles, style => !style.isGlobalStyles);
     updateSettings({ ...currentStoreSettings,
       styles: [...nonGlobalStyles, ...styles],
+      svgFilters,
       __experimentalFeatures: settings
     });
   }, [styles, settings]);
@@ -11365,11 +11476,11 @@ function Editor(_ref) {
   const secondarySidebarLabel = isListViewOpen ? (0,external_wp_i18n_namespaceObject.__)('List View') : (0,external_wp_i18n_namespaceObject.__)('Block Library');
 
   const secondarySidebar = () => {
-    if (isInserterOpen) {
+    if (editorMode === 'visual' && isInserterOpen) {
       return (0,external_wp_element_namespaceObject.createElement)(InserterSidebar, null);
     }
 
-    if (isListViewOpen) {
+    if (editorMode === 'visual' && isListViewOpen) {
       return (0,external_wp_element_namespaceObject.createElement)(ListViewSidebar, null);
     }
 

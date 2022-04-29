@@ -3976,11 +3976,11 @@ function useSelect(mapSelect, deps) {
     queue: true
   }), [registry]);
   const [, forceRender] = (0,external_wp_element_namespaceObject.useReducer)(s => s + 1, 0);
+  const latestRegistry = (0,external_wp_element_namespaceObject.useRef)(registry);
   const latestMapSelect = (0,external_wp_element_namespaceObject.useRef)();
   const latestIsAsync = (0,external_wp_element_namespaceObject.useRef)(isAsync);
   const latestMapOutput = (0,external_wp_element_namespaceObject.useRef)();
-  const latestMapOutputError = (0,external_wp_element_namespaceObject.useRef)();
-  const isMountedAndNotUnsubscribing = (0,external_wp_element_namespaceObject.useRef)(); // Keep track of the stores being selected in the _mapSelect function,
+  const latestMapOutputError = (0,external_wp_element_namespaceObject.useRef)(); // Keep track of the stores being selected in the _mapSelect function,
   // and only subscribe to those stores later.
 
   const listeningStores = (0,external_wp_element_namespaceObject.useRef)([]);
@@ -3993,10 +3993,11 @@ function useSelect(mapSelect, deps) {
 
   if (_mapSelect) {
     mapOutput = latestMapOutput.current;
+    const hasReplacedRegistry = latestRegistry.current !== registry;
     const hasReplacedMapSelect = latestMapSelect.current !== _mapSelect;
     const lastMapSelectFailed = !!latestMapOutputError.current;
 
-    if (hasReplacedMapSelect || lastMapSelectFailed) {
+    if (hasReplacedRegistry || hasReplacedMapSelect || lastMapSelectFailed) {
       try {
         mapOutput = wrapSelect(_mapSelect);
       } catch (error) {
@@ -4019,10 +4020,10 @@ function useSelect(mapSelect, deps) {
       return;
     }
 
+    latestRegistry.current = registry;
     latestMapSelect.current = _mapSelect;
     latestMapOutput.current = mapOutput;
-    latestMapOutputError.current = undefined;
-    isMountedAndNotUnsubscribing.current = true; // This has to run after the other ref updates
+    latestMapOutputError.current = undefined; // This has to run after the other ref updates
     // to avoid using stale values in the flushed
     // callbacks or potentially overwriting a
     // changed `latestMapOutput.current`.
@@ -4038,21 +4039,19 @@ function useSelect(mapSelect, deps) {
     }
 
     const onStoreChange = () => {
-      if (isMountedAndNotUnsubscribing.current) {
-        try {
-          const newMapOutput = wrapSelect(latestMapSelect.current);
+      try {
+        const newMapOutput = wrapSelect(latestMapSelect.current);
 
-          if (external_wp_isShallowEqual_default()(latestMapOutput.current, newMapOutput)) {
-            return;
-          }
-
-          latestMapOutput.current = newMapOutput;
-        } catch (error) {
-          latestMapOutputError.current = error;
+        if (external_wp_isShallowEqual_default()(latestMapOutput.current, newMapOutput)) {
+          return;
         }
 
-        forceRender();
+        latestMapOutput.current = newMapOutput;
+      } catch (error) {
+        latestMapOutputError.current = error;
       }
+
+      forceRender();
     };
 
     const onChange = () => {
@@ -4065,13 +4064,12 @@ function useSelect(mapSelect, deps) {
     // could be set.
 
 
-    onChange();
+    onStoreChange();
     const unsubscribers = listeningStores.current.map(storeName => registry.__unstableSubscribeStore(storeName, onChange));
     return () => {
-      isMountedAndNotUnsubscribing.current = false; // The return value of the subscribe function could be undefined if the store is a custom generic store.
-
+      // The return value of the subscribe function could be undefined if the store is a custom generic store.
       unsubscribers.forEach(unsubscribe => unsubscribe === null || unsubscribe === void 0 ? void 0 : unsubscribe());
-      renderQueue.flush(queueContext);
+      renderQueue.cancel(queueContext);
     }; // If you're tempted to eliminate the spread dependencies below don't do it!
     // We're passing these in from the calling function and want to make sure we're
     // examining every individual value inside the `deps` array.
