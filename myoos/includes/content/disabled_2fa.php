@@ -82,7 +82,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         oos_mail($check_customer['customers_firstname'] . " " . $check_customer['customers_lastname'], $email_address, $aLang['email_2fa_subject'], $email_txt, $email_html, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
 
-        $_SESSION['error_message'] = $aLang['entry_2fa_success'];
+        $_SESSION['info_message'] = $aLang['entry_2fa_success'];
         oos_redirect(oos_href_link($aContents['account']));
     }
 }
