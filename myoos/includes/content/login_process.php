@@ -43,6 +43,13 @@ if (!isset($_SESSION['user'])) {
     $_SESSION['user']->anonymous();
 }
 
+$password = oos_prepare_input($_SESSION['password']);
+
+if (empty($password) || !is_string($password)) {
+	oos_redirect(oos_href_link($aContents['login']));
+}
+
+
 /* Check if it is ok to login */
 if (!isset($_SESSION['password_forgotten_count'])) {
     $_SESSION['login_count'] = 1;
@@ -50,7 +57,7 @@ if (!isset($_SESSION['password_forgotten_count'])) {
     $_SESSION['login_count'] ++;
 }
 
-if ($_SESSION['login_count'] > 6) {
+if ($_SESSION['login_count'] > 20) {
     oos_redirect(oos_href_link($aContents['403']));
 }
 
@@ -72,7 +79,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
         $check_customer = $check_customer_result->fields;
 
         // Check that password is good
-        if (!oos_validate_password($_SESSION['password'], $check_customer['customers_password'])) {
+        if (!oos_validate_password($password, $check_customer['customers_password'])) {
             $bError = true;
         } else {
             $address_booktable = $oostable['address_book'];

@@ -23,6 +23,8 @@
 /** ensure this file is being included by a parent file */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
+$_SESSION['login_count'] = 0;
+
 $bError = false;
 
 // cookie-notice
@@ -110,6 +112,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 			}
 
             $_SESSION['customer_2fa_id'] = $check_customer['customers_id'];
+			$_SESSION['password'] = $password;
 
             // customers_2fa_active
             if ($check_customer['customers_2fa_active'] == '1') {

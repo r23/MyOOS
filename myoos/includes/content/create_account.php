@@ -43,7 +43,7 @@ if (!isset($_SESSION['navigation'])) {
     $_SESSION['navigation'] = new navigationHistory();
 }
 
-if ($_SESSION['login_count'] > 3) {
+if ($_SESSION['login_count'] > 20) {
     oos_redirect(oos_href_link($aContents['403']));
 }
 
