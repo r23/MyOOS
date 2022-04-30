@@ -67,6 +67,10 @@ $request = Request::createFromGLOBALs();
 require 'includes/filename.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/tables.php';
 
+// require Shop parameters
+require_once MYOOS_INCLUDE_PATH . '/includes/define.php';
+
+
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
 require 'includes/functions/function_kernel.php';
 require 'includes/functions/function_validations.php';
