@@ -33,7 +33,7 @@ define('TEXT_PASSWORD_FORGOTTEN', 'Passwort vergessen?');
 
 define('TEXT_LOGIN_ERROR', '<strong>Fehler:</strong> Falscher Benutzername oder Passwort!');
 define('TEXT_FORGOTTEN_ERROR', '<strong>Fehler:</strong> Vorname und Passwort sind nicht hinterlegt!');
-define('TEXT_FORGOTTEN_FAIL', 'Sie haben es mehr als 3x versucht. Aus Sicherheitsgrnden kontaktieren Sie bitte Ihren Administrator um ein neues Passwort zu erhalten.');
+define('TEXT_FORGOTTEN_FAIL', 'Sie haben es mehr als 3x versucht. Aus Sicherheitsgründen kontaktieren Sie bitte Ihren Administrator um ein neues Passwort zu erhalten.');
 define('TEXT_FORGOTTEN_SUCCESS', 'Das neue Passwort wurde an Ihre E-Mail-Adresse gesendet. Überprüfen Sie Ihren E-Mail-Eingang und klicken Sie zurück um sich anzumelden.');
 
 define('ADMIN_EMAIL_SUBJECT', 'Neues Passwort');
