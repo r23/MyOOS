@@ -70,10 +70,9 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     if (isset($_POST['newsletter'])) {
         $newsletter = oos_db_prepare_input($_POST['newsletter']);
     }
-
     $firstname = oos_remove_shouting($firstname, true);
     $lastname = oos_remove_shouting_name($lastname, true);
-    $email_address = strtolower($email_address);
+	$email_address = strtolower($email_address);
 
 
     $bError = false; // reset error flag
@@ -104,6 +103,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         }
     }
 
+
     if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_email_address_error']);
@@ -123,6 +123,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         }
     }
 
+
     if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_password_error']);
@@ -131,9 +132,9 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         $oMessage->add('danger', $aLang['entry_password_error_not_matching']);
     }
 
-
     if ($bError == false) {
         $new_encrypted_password = oos_encrypt_password($password);
+
         $sql_data_array = array('customers_firstname' => $firstname,
                             'customers_lastname' => $lastname,
                             'customers_email_address' => $email_address,
@@ -206,7 +207,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
             } else {
                 $email_owner .= $aLang['owner_email_newsletter'] . $aLang['entry_newsletter_no'] . "\n";
             }
-            oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), '', $name, $email_address);
+            oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), nl2br($email_owner), $name, $email_address);
         }
 
         if (NEWSLETTER == 'true') {
