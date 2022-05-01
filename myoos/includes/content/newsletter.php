@@ -32,9 +32,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/newsle
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 
 if (isset($_GET['subscribe']) && ($_GET['subscribe'] == 'confirm')) {
-    $sU = oos_prepare_input($_GET['u']);
-    $sID = oos_prepare_input($_GET['id']);
-    $sE = oos_prepare_input($_GET['e']);
+    $sU = oos_db_prepare_input($_GET['u']);
+    $sID = oos_db_prepare_input($_GET['id']);
+    $sE = oos_db_prepare_input($_GET['e']);
 
     if (empty($sU) || !is_string($sU)) {
         oos_redirect(oos_href_link($aContents['403']));

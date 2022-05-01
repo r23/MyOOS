@@ -43,7 +43,7 @@ if (!isset($_SESSION['user'])) {
     $_SESSION['user']->anonymous();
 }
 
-$password = oos_prepare_input($_SESSION['password']);
+$password = oos_db_prepare_input($_SESSION['password']);
 
 if (empty($password) || !is_string($password)) {
 	oos_redirect(oos_href_link($aContents['login']));

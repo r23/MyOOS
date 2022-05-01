@@ -107,7 +107,7 @@ if (isset($_SESSION)) {
                 $free_shipping = true;
             }
 
-            $shipping = isset($_SESSION['shipping']['id']) ? oos_prepare_input($_SESSION['shipping']['id']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
+            $shipping = isset($_SESSION['shipping']['id']) ? oos_db_prepare_input($_SESSION['shipping']['id']) : DEFAULT_SHIPPING_METHOD . '_' . DEFAULT_SHIPPING_METHOD;
             list($module, $method) = explode('_', $shipping);
 
             // load all enabled shipping modules

@@ -53,8 +53,8 @@ $google2fa = new PragmaRX\Google2FA\Google2FA();
 
 if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
-    $code = oos_prepare_input($_POST['code']);
-    $sKey = oos_prepare_input($_SESSION['secretKey']);
+    $code = oos_db_prepare_input($_POST['code']);
+    $sKey = oos_db_prepare_input($_SESSION['secretKey']);
 
     if (empty($code) || !is_string($code)) {
         $_SESSION['error_message'] = $aLang['text_code_error'];

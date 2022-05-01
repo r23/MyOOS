@@ -26,11 +26,11 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/contac
 $bError = false;
 
 if (isset($_POST['action']) && ($_POST['action'] == 'send')) {
-    $email_address = oos_prepare_input($_POST['email']);
-    $name = oos_prepare_input($_POST['name']);
-    $phone = oos_prepare_input($_POST['phone']);
-    $subject = oos_prepare_input($_POST['subject']);
-    $enquiry = oos_prepare_input($_POST['enquiry']);
+    $email_address = oos_db_prepare_input($_POST['email']);
+    $name = oos_db_prepare_input($_POST['name']);
+    $phone = oos_db_prepare_input($_POST['phone']);
+    $subject = oos_db_prepare_input($_POST['subject']);
+    $enquiry = oos_db_prepare_input($_POST['enquiry']);
 
     $email_address = strtolower($email_address);
 

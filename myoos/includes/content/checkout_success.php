@@ -42,7 +42,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checko
 if (isset($_POST['action']) && ($_POST['action'] == 'notify_process') &&
     (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
     if (isset($_POST['notify']) && !empty($_POST['notify'])) {
-        $notify = oos_prepare_input($_POST['notify']);
+        $notify = oos_db_prepare_input($_POST['notify']);
 
         if (!is_array($notify)) {
             $notify = array($notify);

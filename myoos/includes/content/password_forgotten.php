@@ -38,7 +38,7 @@ if ($session->hasStarted() === false) {
 
 if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
-    $email_address = oos_prepare_input($_POST['email_address']);
+    $email_address = oos_db_prepare_input($_POST['email_address']);
 
     if (empty($email_address) || !is_string($email_address)) {
         $_SESSION['error_message'] = $aLang['text_no_email_address_found'];

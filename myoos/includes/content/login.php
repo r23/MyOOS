@@ -51,8 +51,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         $_SESSION['user']->anonymous();
     }
 
-    $email_address = oos_prepare_input($_POST['email_address']);
-    $password = oos_prepare_input($_POST['password']);
+    $email_address = oos_db_prepare_input($_POST['email_address']);
+    $password = oos_db_prepare_input($_POST['password']);
 
     if (empty($email_address) || !is_string($email_address)) {
         $_SESSION['error_message'] = $aLang['text_login_error'];
