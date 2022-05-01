@@ -81,9 +81,9 @@ $product_info = $product_result->fields;
 if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
     (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) &&
     ($valid_product == true)) {
-    $review = oos_prepare_input($_POST['review']);
-    $rating = oos_prepare_input($_POST['rating']);
-    $headline = oos_prepare_input($_POST['headline']);
+    $review = oos_db_prepare_input($_POST['review']);
+    $rating = oos_db_prepare_input($_POST['rating']);
+    $headline = oos_db_prepare_input($_POST['headline']);
 
     $bError = false;
     if (strlen($review) < REVIEW_TEXT_MIN_LENGTH) {
