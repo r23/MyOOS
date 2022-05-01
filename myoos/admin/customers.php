@@ -142,6 +142,14 @@ if (!empty($action)) {
             }
         }
         break;
+      case 'set2fa':	
+			if (isset($_GET['2faflag']) && ($_GET['2faflag'] == '0')) {	  
+				$sKey = '';
+				$sql_data_array = array('customers_2fa' => $sKey,
+										'customers_2fa_active' => 0);
+				oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_GET['cID']) . "'");
+			}
+        break;		
       case 'statusconfirm':
         $customers_id = isset($_GET['cID']) ? intval($_GET['cID']) : '';
         $pdm_status = isset($_POST['pdm_status']) ? intval($_POST['pdm_status']) : 1;
@@ -432,8 +440,8 @@ function check_form() {
   if ($action == 'edit') {
       $customerstable = $oostable['customers'];
       $address_booktable = $oostable['address_book'];
-      $customers_result = $dbconn->Execute("SELECT c.customers_gender, c.customers_firstname, c.customers_lastname,
-                                                 c.customers_dob, c.customers_email_address, c.customers_wishlist_link_id,
+      $customers_result = $dbconn->Execute("SELECT c.customers_gender, c.customers_firstname, c.customers_lastname, c.customers_dob, 
+												 c.customers_email_address, c.customers_wishlist_link_id, c.customers_2fa_active,
                                                  a.entry_company, a.entry_owner, a.entry_vat_id, a.entry_vat_id_status, 
 												 a.entry_street_address, a.entry_postcode, a.entry_city, a.entry_state, a.entry_zone_id,
                                                  a.entry_country_id, c.customers_telephone,
@@ -703,6 +711,7 @@ function check_form() {
 							<th><?php echo TABLE_HEADING_FIRSTNAME; ?></th>
 							<th align="left"><?php echo HEADING_TITLE_STATUS; ?></th>
 							<th class="text-center"><?php echo HEADING_TITLE_LOGIN; ?></th>
+							<th class="text-center"><?php echo HEADING_TITLE_2FA_LOGIN; ?></th>							
 							<th class="text-right"><?php echo TABLE_HEADING_ACCOUNT_CREATED; ?></th>
 							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
@@ -721,8 +730,8 @@ function check_form() {
       $customerstable = $oostable['customers'];
       $address_booktable = $oostable['address_book'];
       $customers_result_raw = "SELECT c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address,
-                                    c.customers_wishlist_link_id, c.customers_status, c.customers_login, c.customers_max_order,  
-                                    a.entry_country_id, a.entry_city
+                                    c.customers_2fa_active, c.customers_wishlist_link_id, c.customers_status, c.customers_login, 
+									c.customers_max_order, a.entry_country_id, a.entry_city
                              FROM $customerstable c LEFT JOIN
                                   $address_booktable a
                                ON c.customers_id = a.customers_id AND
@@ -776,6 +785,14 @@ function check_form() {
       } else {
           echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=setflag&loginflag=1&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_GREEN_LIGHT, 10, 10) . '</a>';
       } ?>
+                <td class="text-center">
+<?php
+      if ($customers['customers_2fa_active'] == '1') {
+          echo '<a href="' . oos_href_link_admin($aContents['customers'], 'selected_box=customers&page=' . $nPage . '&action=set2fa&2faflag=0&cID=' . $customers['customers_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_RED_LIGHT, 10, 10) . '</a>';
+      } else {
+          echo '&nbsp;';
+      } ?>
+
                 <td class="text-right"><?php echo oos_date_short($info['date_account_created']); ?></td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
           echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
@@ -788,7 +805,7 @@ function check_form() {
       $customers_result->MoveNext();
       } ?>
               <tr>
-                <td colspan="7"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="8"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo $customers_split->display_count($customers_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
                     <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage, oos_get_all_get_params(array('page', 'info', 'x', 'y', 'cID'))); ?></td>
@@ -797,7 +814,7 @@ function check_form() {
     if (isset($_GET['search'])) {
         ?>
                   <tr>
-                    <td align="right" colspan="7"><?php echo '<a href="' . oos_href_link_admin($aContents['customers']) . '">' . oos_button(BUTTON_RESET) . '</a>'; ?></td>
+                    <td align="right" colspan="8"><?php echo '<a href="' . oos_href_link_admin($aContents['customers']) . '">' . oos_button(BUTTON_RESET) . '</a>'; ?></td>
                   </tr>
 <?php
     } ?>

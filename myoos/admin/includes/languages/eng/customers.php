@@ -34,6 +34,7 @@ define('TABLE_HEADING_ACTION', 'Action');
 define('HEADING_TITLE_STATUS', 'Status:');
 define('TEXT_ALL_CUSTOMERS', 'All Customers');
 define('HEADING_TITLE_LOGIN', 'Login');
+define('HEADING_TITLE_2FA_LOGIN', '2FA');
 
 define('TEXT_INFO_HEADING_STATUS_CUSTOMER', 'Edit Customer Status');
 define('TEXT_NO_CUSTOMER_HISTORY', 'No Customer History Available');
