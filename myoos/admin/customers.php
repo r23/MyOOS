@@ -142,14 +142,14 @@ if (!empty($action)) {
             }
         }
         break;
-      case 'set2fa':	
-			if (isset($_GET['2faflag']) && ($_GET['2faflag'] == '0')) {	  
-				$sKey = '';
-				$sql_data_array = array('customers_2fa' => $sKey,
-										'customers_2fa_active' => 0);
-				oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_GET['cID']) . "'");
-			}
-        break;		
+      case 'set2fa':
+            if (isset($_GET['2faflag']) && ($_GET['2faflag'] == '0')) {
+                $sKey = '';
+                $sql_data_array = array('customers_2fa' => $sKey,
+                                        'customers_2fa_active' => 0);
+                oos_db_perform($oostable['customers'], $sql_data_array, 'UPDATE', "customers_id = '" . intval($_GET['cID']) . "'");
+            }
+        break;
       case 'statusconfirm':
         $customers_id = isset($_GET['cID']) ? intval($_GET['cID']) : '';
         $pdm_status = isset($_POST['pdm_status']) ? intval($_POST['pdm_status']) : 1;

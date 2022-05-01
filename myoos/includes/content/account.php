@@ -72,7 +72,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     }
     $firstname = oos_remove_shouting($firstname, true);
     $lastname = oos_remove_shouting_name($lastname, true);
-	$email_address = strtolower($email_address);
+    $email_address = strtolower($email_address);
 
 
     $bError = false; // reset error flag

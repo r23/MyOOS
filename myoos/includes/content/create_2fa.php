@@ -28,7 +28,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 if (isset($_SESSION['customer_id'])) {
-	$_SESSION['customer_2fa_id'] = intval($_SESSION['customer_id']);
+    $_SESSION['customer_2fa_id'] = intval($_SESSION['customer_id']);
 }
 
 if (!isset($_SESSION['customer_2fa_id'])) {

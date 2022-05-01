@@ -62,7 +62,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     $check_customer_result = $dbconn->Execute($check_customer_sql);
 
     if ($check_customer_result->RecordCount()) {
-		$check_customer = $check_customer_result->fields;
+        $check_customer = $check_customer_result->fields;
 
         // Crypted password mods - create a new password, update the database and mail it to them
         $newpass = oos_create_random_value(ENTRY_PASSWORD_MIN_LENGTH);

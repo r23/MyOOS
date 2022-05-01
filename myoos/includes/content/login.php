@@ -94,25 +94,24 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         if (!oos_validate_password($password, $check_customer['customers_password'])) {
             $bError = true;
         } else {
+            $optionen = [
+                'cost' => COST
+            ];
 
-			$optionen = [
-				'cost' => COST
-			];
+            // Is password hash no longer up to date?
+            if (password_needs_rehash($check_customer['customers_password'], PASSWORD_DEFAULT, $options)) {
+                // create new hash, add Pepper again!
+                $new_hash = password_hash($password . PEPPER, PASSWORD_DEFAULT, $options);
 
-			// Is password hash no longer up to date?
-			if (password_needs_rehash($check_customer['customers_password'], PASSWORD_DEFAULT, $options)) {
-				// create new hash, add Pepper again!
-				$new_hash = password_hash($password . PEPPER, PASSWORD_DEFAULT, $options);
-
-				// Update hash in DB
-				$customerstable = $oostable['customers'];
-				$dbconn->Execute("UPDATE $customerstable
+                // Update hash in DB
+                $customerstable = $oostable['customers'];
+                $dbconn->Execute("UPDATE $customerstable
                         SET customers_password = '" . oos_db_input($new_hash) . "'
                         WHERE customers_id = '" . intval($check_customer['customers_id']) . "'");
-			}
+            }
 
             $_SESSION['customer_2fa_id'] = $check_customer['customers_id'];
-			$_SESSION['password'] = $password;
+            $_SESSION['password'] = $password;
 
             // customers_2fa_active
             if ($check_customer['customers_2fa_active'] == '1') {
