@@ -171,7 +171,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
         $email_text .= "\n";
         $email_text .= "Text:         ". $review . "\n";
 
-        oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $email_subject, nl2br($email_text), '', STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
+        oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $email_subject, nl2br($email_text), nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
         // clear cache
         require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';

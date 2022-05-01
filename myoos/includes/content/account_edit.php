@@ -219,7 +219,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
             } else {
                 $email_owner .= $aLang['owner_email_newsletter'] . $aLang['entry_newsletter_no'] . "\n";
             }
-            oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), '', $name, $email_address);
+            oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $aLang['owner_email_subject'], nl2br($email_owner), nl2br($email_owner), $name, $email_address);
         }
 
         if (NEWSLETTER == 'true') {
