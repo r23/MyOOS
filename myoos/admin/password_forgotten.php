@@ -66,7 +66,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
 							SET admin_password = '" . $crypted_password . "'
 							WHERE admin_id = '" . $check_admin['check_id'] . "'");
 
-            oos_mail($check_admin['check_firstname'] . ' ' . $check_admin['admin_lastname'], $check_admin['check_email_address'], ADMIN_PASSWORD_SUBJECT, nl2br(sprintf(ADMIN_PASSWORD_EMAIL_TEXT, $make_password)), nl2br(sprintf(ADMIN_PASSWORD_EMAIL_TEXT, $make_password)), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+            oos_mail($check_admin['check_firstname'] . ' ' . $check_admin['check_lastname'], $check_admin['check_email_address'], ADMIN_PASSWORD_SUBJECT, nl2br(sprintf(ADMIN_PASSWORD_EMAIL_TEXT, $make_password)), nl2br(sprintf(ADMIN_PASSWORD_EMAIL_TEXT, $make_password)), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
         }
     }
 }
