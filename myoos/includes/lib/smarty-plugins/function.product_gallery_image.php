@@ -31,15 +31,15 @@ function smarty_function_product_gallery_image($params, &$smarty)
 {
     require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
-    $basedir = OOS_IMAGES . 'product/';
+	$basedir = OOS_SHOP_IMAGES . 'product/';
     $dir = 'large';
     $alt = '';
-    $image = '';
+    $src = '';
     $extra = '';
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
-        case 'image':
+        case 'src':
         case 'basedir':
         case 'dir':
         case 'alt':
@@ -60,19 +60,20 @@ function smarty_function_product_gallery_image($params, &$smarty)
       }
     }
 
-    if (empty($image)) {
+
+    if (empty($src)) {
         return false;
     }
 
-    $image = $basedir . $dir . '/' . $image;
 
+    $src = $basedir . $dir . '/' . $src;
 
     if (isset($template->smarty->security_policy)) {
         // local file
-        if (!$template->smarty->security_policy->isTrustedResourceDir($image)) {
+        if (!$template->smarty->security_policy->isTrustedResourceDir($src)) {
             return;
         }
     }
 
-    return '<img src="' . $image . '" alt="' . strip_tags($alt) . '" ' . $extra . ' />';
+    return '<img src="' . $src . '" alt="' . strip_tags($alt) . '" ' . $extra . ' />';
 }
