@@ -29,12 +29,12 @@ function smarty_function_product_image_link($params, &$smarty)
 {
     require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
 
-    $basedir = OOS_IMAGES . 'product/';
+    $basedir = OOS_SHOP_IMAGES . 'product/';
     $dir = 'large';
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
-        case 'image':
+        case 'src':
         case 'basedir':
         case 'dir':
            if (!is_array($_val)) {
@@ -54,11 +54,11 @@ function smarty_function_product_image_link($params, &$smarty)
       }
     }
 
-    if (empty($image)) {
+    if (empty($src)) {
         return false;
     }
 
-    $image = $basedir . $dir . '/' . $image;
+    $image = $basedir . $dir . '/' . $src;
 
 
     if (isset($template->smarty->security_policy)) {
