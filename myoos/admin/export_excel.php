@@ -59,6 +59,8 @@
         fclose($fp);
 
         if (isset($_POST['download']) && ($_POST['download'] == 'yes')) {
+		# todo
+		/*
             switch ($_POST['compress']) {
             case 'gzip':
               exec(LOCAL_EXE_GZIP . ' ' . OOS_EXPORT_PATH . $excel_file);
@@ -70,6 +72,7 @@
               @unlink(OOS_EXPORT_PATH . $excel_file);
               $excel_file .= '.zip';
           }
+		*/
             header('Content-type: application/x-octet-stream');
             header('Content-disposition: attachment; filename=' . $excel_file);
 
@@ -78,6 +81,8 @@
 
             exit;
         } else {
+			# todo
+			/*
             switch ($_POST['compress']) {
             case 'gzip':
               exec(LOCAL_EXE_GZIP . ' ' . $excel_file);
@@ -87,6 +92,7 @@
               exec(LOCAL_EXE_ZIP . ' -j ' . $excel_file . '.zip ' . $excel_file);
               unlink(OOS_EXPORT_PATH . $excel_file);
           }
+		  		*/
             $messageStack->add_session(SUCCESS_DATABASE_SAVED, 'success');
         }
         oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
@@ -257,12 +263,10 @@ if ($dir_ok) {
       $contents = array('form' => oos_draw_form('id', 'backup', $aContents['export_excel'], 'action=make_file_now', 'post', false));
       $contents[] = array('text' => TEXT_INFO_NEW_BACKUP);
 
-      if (file_exists(LOCAL_EXE_GZIP)) {
-          $contents[] = array('text' => '<br>' . oos_draw_radio_field('compress', 'gzip') . ' ' . TEXT_INFO_USE_GZIP);
-      }
-      if (file_exists(LOCAL_EXE_ZIP)) {
-          $contents[] = array('text' => oos_draw_radio_field('compress', 'zip') . ' ' . TEXT_INFO_USE_ZIP);
-      }
+	# todo
+	#if (file_exists(LOCAL_EXE_ZIP)) {
+		#$contents[] = array('text' => oos_draw_radio_field('compress', 'zip') . ' ' . TEXT_INFO_USE_ZIP);
+	#}
 
       if ($dir_ok == true) {
           $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('download', 'yes') . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS);
