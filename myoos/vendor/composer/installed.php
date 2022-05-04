@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'a3da39fca2b43f6b95652da4d8a1e8bbb458ff2f',
+        'reference' => '99e3fa5f09bef6579fc0a2646ae5009b18474758',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -92,12 +92,12 @@
             'dev_requirement' => false,
         ),
         'friendsofphp/proxy-manager-lts' => array(
-            'pretty_version' => 'v1.0.10',
-            'version' => '1.0.10.0',
+            'pretty_version' => 'v1.0.11',
+            'version' => '1.0.11.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../friendsofphp/proxy-manager-lts',
             'aliases' => array(),
-            'reference' => '88dda72c48633326c81a01b861c8b6a923948f56',
+            'reference' => 'd1eadf86d5b843c496614ef075a8f655a880f1d8',
             'dev_requirement' => false,
         ),
         'hisune/echarts-php' => array(
@@ -178,7 +178,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'a3da39fca2b43f6b95652da4d8a1e8bbb458ff2f',
+            'reference' => '99e3fa5f09bef6579fc0a2646ae5009b18474758',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -420,7 +420,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '0e5a0abdd695cd45870e442647ef03a70f2ec1e5',
+            'reference' => '54c08f02765d00fd520897873f163703b08f68f2',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
@@ -442,12 +442,12 @@
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
-            'pretty_version' => 'v7.125.0',
-            'version' => '7.125.0.0',
+            'pretty_version' => 'v7.126.0',
+            'version' => '7.126.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stripe/stripe-php',
             'aliases' => array(),
-            'reference' => '822c00aa380c10c2a3c55d105c5da72ad577b7c4',
+            'reference' => 'c36de62a89475e81d9c75ec08de19376466f67b7',
             'dev_requirement' => false,
         ),
         'symfony/asset' => array(
