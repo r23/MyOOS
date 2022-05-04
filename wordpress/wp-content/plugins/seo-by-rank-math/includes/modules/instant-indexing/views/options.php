@@ -30,6 +30,7 @@ $cmb->add_field(
 		'desc'        => esc_html__( 'The IndexNow API key proves the ownership of the site. It is generated automatically. You can change the key if it becomes known to third parties.', 'rank-math' ),
 		'type'        => 'text',
 		'after_field' => '<a href="#" id="indexnow_reset_key" class="button button-secondary large-button"><span class="dashicons dashicons-update"></span> ' . esc_html__( 'Change Key', 'rank-math' ) . '</a>',
+		'classes'     => 'rank-math-advanced-option',
 		'attributes'  => [
 			'disabled' => 'disabled',
 		],
@@ -43,7 +44,7 @@ $check_key_label = esc_html__( 'Check Key', 'rank-math' );
 // Translators: %s is the words "Check Key".
 $field_desc = sprintf( esc_html__( 'Use the %1$s button to verify that the key is accessible for search engines. Clicking on it should open the key file in your browser and show the API key.', 'rank-math' ), '<strong>' . $check_key_label . '</strong>' );
 
-$location_field = '<div class="cmb-row cmb-type-text cmb2-id-indexnow-api-key-location table-layout" data-fieldtype="text">
+$location_field = '<div class="cmb-row cmb-type-text cmb2-id-indexnow-api-key-location table-layout rank-math-advanced-option" data-fieldtype="text">
 <div class="cmb-th">
 <label for="indexnow_api_key_location">' . $field_label . '</label>
 </div>

@@ -233,7 +233,9 @@ class DB {
 			$pattern = trim( $pattern, '/' );
 		}
 
-		return 'regex' === $comparison ? ( '@' . stripslashes( $pattern ) . '@' ) : $pattern;
+		$cleaned = 'regex' === $comparison ? ( '@' . stripslashes( $pattern ) . '@' ) : $pattern;
+
+		return apply_filters( 'rank_math/redirection/get_clean_pattern', $cleaned, $pattern, $comparison );
 	}
 
 	/**

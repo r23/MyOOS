@@ -113,7 +113,7 @@ $cmb->add_field(
 
 $cmb->add_field(
 	[
-		'id'   => 'rank_math_serp_preview',
+		'id'   => 'rank_math_rss_vars',
 		'type' => 'raw',
 		'file' => rank_math()->includes_dir() . 'settings/general/rss-vars-table.php',
 	]

@@ -11,7 +11,6 @@
 namespace RankMath\Redirections;
 
 use RankMath\Helper;
-use RankMath\Helpers\Sitepress;
 use MyThemeShop\Helpers\Param;
 use MyThemeShop\Admin\List_Table;
 
@@ -158,12 +157,10 @@ class Table extends List_Table {
 	 * @return string
 	 */
 	private function get_source_html( $source, $comparison_hash ) {
-		Sitepress::get()->remove_home_url_filter();
-		$html = '<span class="value-url_from"><strong><a href="' . esc_url( home_url( $source['pattern'] ) ) . '" target="_blank">' . esc_html( stripslashes( $source['pattern'] ) ) . '</a></strong></span>';
+		$html = '<span class="value-url_from"><strong><a href="' . esc_url( Helper::get_home_url( $source['pattern'] ) ) . '" target="_blank">' . esc_html( stripslashes( $source['pattern'] ) ) . '</a></strong></span>';
 		if ( 'exact' !== $source['comparison'] ) {
 			$html .= ' <span class="value-source-comparison">(' . esc_html( $comparison_hash[ $source['comparison'] ] ) . ')</span>';
 		}
-		Sitepress::get()->restore_home_url_filter();
 		return $html;
 	}
 

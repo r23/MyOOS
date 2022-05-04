@@ -1,0 +1,14 @@
+* Added: [HUGE!] Rank Math now supports [Google Analytics 4](https://rankmath.com/kb/using-ga4/)
+* Added: Option to create GA4 property with one click
+* Added: New option in [Database Tools](https://rankmath.com/kb/rank-math-status-and-tools/#fix-analytics-table-collations) to match the collations of all Analytics tables
+* Fixed: [Content AI](https://rankmath.com/kb/how-to-use-content-ai/) was not working on secondary language posts created using the WPML plugin
+* Fixed: [Search form on the Settings page](https://rankmath.com/kb/general-settings/) was showing irrelevant items in the dropdown 
+* Fixed: Both `index` & `noindex` options could be selected in the [Date Archive Robots settings](https://rankmath.com/kb/titles-and-meta/#date-robots-meta)
+* Fixed: Dashboard widget was showing 403 error to the Shop Manager user role
+* Fixed: Dashboard widget was showing an error when the site couldn't load the Blog posts from rankmath.com/blog/
+* Fixed: "Exclude this attachment from the Sitemap" option on the attachment details popup was showing to all the users
+* Fixed: [Content Analysis](https://rankmath.com/blog/divi-seo/) was also analyzing the global Header & Footer content added in the Divi's Theme Builder
+* Fixed: On Divi's frontend editor, the SEO modal was getting closed after clicking on the Schema generator button
+* Fixed: In [Easy Mode](https://rankmath.com/kb/switch-from-easy-to-advanced-mode/), [Instant Indexing](https://rankmath.com/kb/how-to-use-indexnow/#submit-urls-manually) settings were linked to the wrong page
+* Fixed: [Update data manually](https://rankmath.com/kb/general-settings/#analytics-database) option was not working well on some setups in the Analytics Module
+* Fixed: Invalid `%searchphrase%` variable was used as a default value on the Search page

@@ -59,6 +59,7 @@ class Analytics_Common {
 
 		$this->filter( 'rank_math/tools/analytics_clear_caches', 'analytics_clear_caches' );
 		$this->filter( 'rank_math/tools/analytics_reindex_posts', 'analytics_reindex_posts' );
+		$this->filter( 'rank_math/tools/analytics_fix_collations', 'analytics_fix_collations' );
 		$this->filter( 'wp_helpers_notifications_render', 'replace_notice_link', 10, 3 );
 	}
 
@@ -176,6 +177,33 @@ class Analytics_Common {
 		( new \RankMath\Analytics\Workflow\Objects() )->flat_posts();
 
 		return __( 'Post re-index in progress.', 'rank-math' );
+	}
+
+	/**
+	 * Fix table & column collations.
+	 *
+	 * @return string
+	 */
+	public function analytics_fix_collations() {
+		$tables = [
+			'rank_math_analytics_ga',
+			'rank_math_analytics_gsc',
+			'rank_math_analytics_keyword_manager',
+			'rank_math_analytics_inspections',
+		];
+
+		$objects_coll = Helper::get_table_collation( 'rank_math_analytics_objects' );
+		$changed      = 0;
+		foreach ( $tables as $table ) {
+			$changed += (int) Helper::check_collation( $table, 'all', $objects_coll );
+		}
+
+		return $changed ? sprintf(
+			/* translators: %1$d: number of changes, %2$s: new collation. */
+			_n( '%1$d collation changed to %2$s.', '%1$d collations changed to %2$s.', $changed, 'rank-math' ),
+			$changed,
+			'`' . $objects_coll . '`'
+		) : __( 'No collation mismatch to fix.', 'rank-math' );
 	}
 
 	/**

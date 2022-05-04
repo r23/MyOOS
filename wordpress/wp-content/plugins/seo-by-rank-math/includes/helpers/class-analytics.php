@@ -32,4 +32,18 @@ trait Analytics {
 			Helper::has_cap( 'analytics' ) &&
 			apply_filters( 'rank_math/analytics/frontend_stats', Helper::get_settings( 'general.analytics_stats' ) );
 	}
+
+	/**
+	 * Can add Index Status tab on Analytics page.
+	 *
+	 * @return bool
+	 */
+	public static function can_add_index_status() {
+		$profile = get_option( 'rank_math_google_analytic_profile', [] );
+		if ( is_array( $profile ) && isset( $profile['enable_index_status'] ) ) {
+			return $profile['enable_index_status'];
+		}
+
+		return true;
+	}
 }

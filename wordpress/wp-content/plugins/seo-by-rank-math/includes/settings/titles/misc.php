@@ -71,7 +71,7 @@ $cmb->add_field(
 		'options'           => Helper::choices_robots(),
 		'select_all_button' => false,
 		'dep'               => $dep,
-		'classes'           => 'rank-math-advanced-option',
+		'classes'           => 'rank-math-advanced-option rank-math-robots-data',
 	]
 );
 

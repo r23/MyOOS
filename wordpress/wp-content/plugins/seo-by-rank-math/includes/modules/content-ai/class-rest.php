@@ -174,7 +174,7 @@ class Rest extends WP_REST_Controller {
 			'username' => rawurlencode( $this->registered['username'] ),
 			'api_key'  => rawurlencode( $this->registered['api_key'] ),
 			'keyword'  => rawurlencode( $keyword ),
-			'site_url' => rawurlencode( home_url() ),
+			'site_url' => rawurlencode( Helper::get_home_url() ),
 			'new_api'  => 1,
 		];
 

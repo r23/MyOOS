@@ -60,6 +60,6 @@ class Api extends Console {
 	 * @return int
 	 */
 	public function get_row_limit() {
-		return apply_filters( 'rank_math/analytics/row_limit', 1000 );
+		return apply_filters( 'rank_math/analytics/row_limit', 10000 );
 	}
 }

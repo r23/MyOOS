@@ -364,7 +364,7 @@ msgstr ""
 msgid "Latest Blog Posts from Rank Math"
 msgstr ""
 
-msgid "Error in fetching."
+msgid "Error: the Rank Math blog feed could not be downloaded."
 msgstr ""
 
 msgid "NEW"
@@ -907,7 +907,7 @@ msgstr ""
 msgid "No Image Index"
 msgstr ""
 
-msgid "Lets you specify that you do not want your pages to appear as the referring page for images that appear in image search results"
+msgid "Prevents images on a page from being indexed by Google and other search engines"
 msgstr ""
 
 msgid "No Snippet"
@@ -2181,7 +2181,10 @@ msgstr ""
 msgid "Select this if you have a custom Rank Math settings file you want to use."
 msgstr ""
 
-msgid "<strong>Note</strong> You can easily switch between modes at any point."
+msgid "Note"
+msgstr ""
+
+msgid "You can easily switch between modes at any point."
 msgstr ""
 
 msgid "Import SEO Settings"
@@ -2504,6 +2507,15 @@ msgstr ""
 msgid "Post re-index in progress."
 msgstr ""
 
+#. translators: %1$d: number of changes, %2$s: new collation.
+msgid "%1$d collation changed to %2$s."
+msgid_plural "%1$d collations changed to %2$s."
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "No collation mismatch to fix."
+msgstr ""
+
 msgid "Search Traffic"
 msgstr ""
 
@@ -2608,7 +2620,6 @@ msgstr ""
 msgid "Purge Analytics Cache"
 msgstr ""
 
-#. translators: 1. Review Schema documentation link
 msgid "Clear analytics cache to re-calculate all the stats again."
 msgstr ""
 
@@ -2618,7 +2629,6 @@ msgstr ""
 msgid "Rebuild Index for Analytics"
 msgstr ""
 
-#. translators: 1. Review Schema documentation link
 msgid "Missing some posts/pages in the Analytics data? Clear the index and build a new one for more accurate stats."
 msgstr ""
 
@@ -2764,6 +2774,15 @@ msgid "Check if required tables exist and create them if not."
 msgstr ""
 
 msgid "Re-create Tables"
+msgstr ""
+
+msgid "Fix Analytics table collations"
+msgstr ""
+
+msgid "In some cases, the Analytics database tables or columns don't match with each other, which can cause database errors. This tool can fix that issue."
+msgstr ""
+
+msgid "Fix Collations"
 msgstr ""
 
 msgid "Yoast Block Converter"
@@ -4685,7 +4704,17 @@ msgstr ""
 msgid "Enable this option to show the Index Status tab in the Analytics module."
 msgstr ""
 
+#. translators: GA4 KB link
+msgid "Ready to switch to Google Analytics 4? %s"
+msgstr ""
+
+msgid "Click here to know how"
+msgstr ""
+
 msgid "Property"
+msgstr ""
+
+msgid "Data Stream"
 msgstr ""
 
 msgid "View"
@@ -4698,12 +4727,6 @@ msgid "Enable this option only if you are not using any other plugin/theme to in
 msgstr ""
 
 msgid "Anonymize IP addresses"
-msgstr ""
-
-msgid "Enable Cookieless Tracking. Want to make Analytics GDPR ready? %s"
-msgstr ""
-
-msgid "Click here."
 msgstr ""
 
 msgid "Self-Hosted Analytics JS File"

@@ -559,4 +559,20 @@ trait WordPress {
 
 		return implode( ' ', $classes );
 	}
+
+	/**
+	 * An helper function get the home_url without the WPML language parameter.
+	 * 
+	 * @param string $path   Path relative to the home URL.
+	 * @param string $scheme Scheme to give the home URL context.
+	 *
+	 * @return string
+	 */
+	public static function get_home_url( $path = '', $scheme = null ) {
+		Sitepress::get()->remove_home_url_filter();
+		$home_url = home_url( $path, $scheme );
+		Sitepress::get()->restore_home_url_filter();
+
+		return $home_url;
+	}
 }

@@ -47,8 +47,12 @@ class Admin extends Base {
 
 		// Attachment.
 		$this->filter( 'media_send_to_editor', 'media_popup_html', 10, 2 );
-		$this->filter( 'attachment_fields_to_edit', 'media_popup_fields', 20, 2 );
-		$this->filter( 'attachment_fields_to_save', 'media_popup_fields_save', 20, 2 );
+
+		if ( Helper::has_cap( 'sitemap' ) ) {
+			$this->filter( 'attachment_fields_to_edit', 'media_popup_fields', 20, 2 );
+			$this->filter( 'attachment_fields_to_save', 'media_popup_fields_save', 20, 2 );
+		}
+
 		$this->ajax( 'remove_nginx_notice', 'remove_nginx_notice' );
 	}
 

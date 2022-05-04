@@ -405,12 +405,7 @@ class Analytics extends Base {
 		Helper::add_json( 'singleImage', rank_math()->plugin_url() . 'includes/modules/analytics/assets/img/single-post-report.jpg' );
 
 		// Index Status tab.
-		$profile = get_option( 'rank_math_google_analytic_profile', [] );
-		$enable_index_status = true;
-		if ( is_array( $profile ) && isset( $profile['enable_index_status'] ) ) {
-			$enable_index_status = $profile['enable_index_status'];
-		}
-
+		$enable_index_status = Helper::can_add_index_status();
 		Helper::add_json( 'enableIndexStatus', $enable_index_status );
 		Helper::add_json( 'viewedIndexStatus', get_option( 'rank_math_viewed_index_status', false ) );
 
@@ -495,13 +490,11 @@ class Analytics extends Base {
 			[
 				'analytics_clear_caches'  => [
 					'title'       => __( 'Purge Analytics Cache', 'rank-math' ),
-					/* translators: 1. Review Schema documentation link */
 					'description' => __( 'Clear analytics cache to re-calculate all the stats again.', 'rank-math' ),
 					'button_text' => __( 'Clear Cache', 'rank-math' ),
 				],
 				'analytics_reindex_posts' => [
 					'title'       => __( 'Rebuild Index for Analytics', 'rank-math' ),
-					/* translators: 1. Review Schema documentation link */
 					'description' => __( 'Missing some posts/pages in the Analytics data? Clear the index and build a new one for more accurate stats.', 'rank-math' ),
 					'button_text' => __( 'Rebuild Index', 'rank-math' ),
 				],

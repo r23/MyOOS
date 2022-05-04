@@ -89,7 +89,7 @@ class Admin extends WP_REST_Controller {
 			[
 				'methods'             => \WP_REST_Server::READABLE,
 				'callback'            => [ $this, 'dashboard_widget_items' ],
-				'permission_callback' => [ '\\RankMath\\Rest\\Rest_Helper', 'can_manage_options' ],
+				'permission_callback' => function() { return current_user_can( 'read' ); },
 			]
 		);
 	}

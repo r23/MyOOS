@@ -133,9 +133,7 @@ class Product_Redirection {
 			}
 		}
 
-		Sitepress::get()->remove_home_url_filter();
-		$link = trim( str_replace( get_home_url(), '', get_permalink() ), '/' );
-		Sitepress::get()->restore_home_url_filter();
+		$link = trim( str_replace( Helper::get_home_url(), '', get_permalink() ), '/' );
 
 		return $link;
 	}

@@ -35,16 +35,16 @@ function rank_math_0_10_0_update_redirections() {
 
 	if ( ! DB::check_table_exists( 'rank_math_redirections' ) ) {
 		$sql = "CREATE TABLE {$wpdb->prefix}rank_math_redirections (
-			id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			sources TEXT NOT NULL,
-			url_to TEXT NOT NULL,
-			header_code SMALLINT(4) UNSIGNED NOT NULL,
-			hits BIGINT(20) UNSIGNED NOT NULL DEFAULT '0',
-			status VARCHAR(25) NOT NULL DEFAULT 'active',
-			created DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-			updated DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-			last_accessed DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-			PRIMARY KEY (id),
+			id bigint(20) unsigned NOT NULL auto_increment,
+			sources text NOT NULL,
+			url_to text NOT NULL,
+			header_code smallint(4) unsigned NOT NULL,
+			hits bigint(20) unsigned NOT NULL default '0',
+			status varchar(25) NOT NULL default 'active',
+			created datetime NOT NULL default '0000-00-00 00:00:00',
+			updated datetime NOT NULL default '0000-00-00 00:00:00',
+			last_accessed datetime NOT NULL default '0000-00-00 00:00:00',
+			PRIMARY KEY  (id),
 			KEY (status)
 		) $charset_collate;";
 
@@ -53,13 +53,13 @@ function rank_math_0_10_0_update_redirections() {
 
 	if ( ! DB::check_table_exists( 'rank_math_redirections_cache' ) ) {
 		$sql = "CREATE TABLE {$wpdb->prefix}rank_math_redirections_cache (
-			id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-			from_url TEXT NOT NULL,
-			redirection_id BIGINT(20) UNSIGNED NOT NULL,
-			object_id BIGINT(20) UNSIGNED NOT NULL DEFAULT '0',
-			object_type VARCHAR(10) NOT NULL DEFAULT 'post',
-			is_redirected TINYINT(1) NOT NULL DEFAULT '0',
-			PRIMARY KEY (id),
+			id bigint(20) unsigned NOT NULL auto_increment,
+			from_url text NOT NULL,
+			redirection_id bigint(20) unsigned NOT NULL,
+			object_id bigint(20) unsigned NOT NULL default '0',
+			object_type varchar(10) NOT NULL default 'post',
+			is_redirected tinyint(1) NOT NULL default '0',
+			PRIMARY KEY  (id),
 			KEY (redirection_id)
 		) $charset_collate;";
 
@@ -122,12 +122,12 @@ function rank_math_0_10_0_create_links_table() {
 	$charset_collate = $wpdb->get_charset_collate();
 	if ( ! DB::check_table_exists( 'rank_math_internal_links' ) ) {
 		$sql = "CREATE TABLE {$wpdb->prefix}rank_math_internal_links (
-			id BIGINT(20) unsigned NOT NULL AUTO_INCREMENT,
-			url VARCHAR(255) NOT NULL,
+			id bigint(20) unsigned NOT NULL auto_increment,
+			url varchar(255) NOT NULL,
 			post_id bigint(20) unsigned NOT NULL,
 			target_post_id bigint(20) unsigned NOT NULL,
-			type VARCHAR(8) NOT NULL,
-			PRIMARY KEY (id),
+			type varchar(8) NOT NULL,
+			PRIMARY KEY  (id),
 			KEY link_direction (post_id, type)
 		) $charset_collate;";
 		dbDelta( $sql );
@@ -135,10 +135,10 @@ function rank_math_0_10_0_create_links_table() {
 
 	if ( ! DB::check_table_exists( 'rank_math_internal_meta' ) ) {
 		$sql = "CREATE TABLE {$wpdb->prefix}rank_math_internal_meta (
-			object_id bigint(20) UNSIGNED NOT NULL,
-			internal_link_count int(10) UNSIGNED NULL DEFAULT 0,
-			external_link_count int(10) UNSIGNED NULL DEFAULT 0,
-			incoming_link_count int(10) UNSIGNED NULL DEFAULT 0,
+			object_id bigint(20) unsigned NOT NULL,
+			internal_link_count int(10) unsigned NULL default 0,
+			external_link_count int(10) unsigned NULL default 0,
+			incoming_link_count int(10) unsigned NULL default 0,
 			UNIQUE KEY object_id (object_id)
 		) $charset_collate;";
 		dbDelta( $sql );

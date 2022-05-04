@@ -213,6 +213,11 @@ class Instant_Indexing extends Base {
 			],
 		];
 
+		if ( 'easy' === Helper::get_settings( 'general.setup_mode', 'advanced' ) ) {
+			// Move ['settings'] to the top.
+			$tabs = [ 'settings' => $tabs['settings'] ] + $tabs;
+		}
+
 		/**
 		 * Allow developers to add new sections in the IndexNow settings.
 		 *

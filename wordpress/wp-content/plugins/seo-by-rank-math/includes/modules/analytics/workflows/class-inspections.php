@@ -77,33 +77,33 @@ class Inspections {
 		}
 
 		$schema = "CREATE TABLE {$wpdb->prefix}{$table} (
-				id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
-				page VARCHAR(500) NOT NULL,
-				created TIMESTAMP NOT NULL, 
-                index_verdict VARCHAR(64) NOT NULL,            /* PASS, PARTIAL, FAIL, NEUTRAL, VERDICT_UNSPECIFIED */
-                indexing_state VARCHAR(64) NOT NULL,           /* INDEXING_ALLOWED, BLOCKED_BY_META_TAG, BLOCKED_BY_HTTP_HEADER, BLOCKED_BY_ROBOTS_TXT, INDEXING_STATE_UNSPECIFIED */
-                coverage_state TEXT NOT NULL,                  /* String, e.g. 'Submitted and indexed'. */
-                page_fetch_state VARCHAR(64) NOT NULL,         /* SUCCESSFUL, SOFT_404, BLOCKED_ROBOTS_TXT, NOT_FOUND, ACCESS_DENIED, SERVER_ERROR, REDIRECT_ERROR, ACCESS_FORBIDDEN, BLOCKED_4XX, INTERNAL_CRAWL_ERROR, INVALID_URL, PAGE_FETCH_STATE_UNSPECIFIED */
-                robots_txt_state VARCHAR(64) NOT NULL,         /* ALLOWED, DISALLOWED, ROBOTS_TXT_STATE_UNSPECIFIED */
-                mobile_usability_verdict VARCHAR(64) NOT NULL, /* PASS, PARTIAL, FAIL, NEUTRAL, VERDICT_UNSPECIFIED */
-                mobile_usability_issues LONGTEXT NOT NULL,     /* JSON */
-                rich_results_verdict VARCHAR(64) NOT NULL,     /* PASS, PARTIAL, FAIL, NEUTRAL, VERDICT_UNSPECIFIED */
-                rich_results_items LONGTEXT NOT NULL,          /* JSON */
-                last_crawl_time TIMESTAMP NOT NULL,
-                crawled_as VARCHAR(64) NOT NULL,               /* DESKTOP, MOBILE, CRAWLING_USER_AGENT_UNSPECIFIED */
-                google_canonical TEXT NOT NULL,                /* Google-chosen canonical URL. */
-                user_canonical TEXT NOT NULL,                  /* Canonical URL declared on-page. */
-                sitemap TEXT NOT NULL,                         /* Sitemap URL. */
-                referring_urls LONGTEXT NOT NULL,              /* JSON */
-				raw_api_response LONGTEXT NOT NULL,            /* JSON */
-                PRIMARY KEY (id),
-				INDEX analytics_object_page (page(190)),
-				INDEX created (created),
-                INDEX index_verdict (index_verdict),
-                INDEX page_fetch_state (page_fetch_state),
-                INDEX robots_txt_state (robots_txt_state),
-                INDEX mobile_usability_verdict (mobile_usability_verdict),
-                INDEX rich_results_verdict (rich_results_verdict)
+				id bigint(20) unsigned NOT NULL auto_increment,
+				page varchar(500) NOT NULL,
+				created timestamp NOT NULL, 
+                index_verdict varchar(64) NOT NULL,            /* PASS, PARTIAL, FAIL, NEUTRAL, VERDICT_UNSPECIFIED */
+                indexing_state varchar(64) NOT NULL,           /* INDEXING_ALLOWED, BLOCKED_BY_META_TAG, BLOCKED_BY_HTTP_HEADER, BLOCKED_BY_ROBOTS_TXT, INDEXING_STATE_UNSPECIFIED */
+                coverage_state text NOT NULL,                  /* String, e.g. 'Submitted and indexed'. */
+                page_fetch_state varchar(64) NOT NULL,         /* SUCCESSFUL, SOFT_404, BLOCKED_ROBOTS_TXT, NOT_FOUND, ACCESS_DENIED, SERVER_ERROR, REDIRECT_ERROR, ACCESS_FORBIDDEN, BLOCKED_4XX, INTERNAL_CRAWL_ERROR, INVALID_URL, PAGE_FETCH_STATE_UNSPECIFIED */
+                robots_txt_state varchar(64) NOT NULL,         /* ALLOWED, DISALLOWED, ROBOTS_TXT_STATE_UNSPECIFIED */
+                mobile_usability_verdict varchar(64) NOT NULL, /* PASS, PARTIAL, FAIL, NEUTRAL, VERDICT_UNSPECIFIED */
+                mobile_usability_issues longtext NOT NULL,     /* JSON */
+                rich_results_verdict varchar(64) NOT NULL,     /* PASS, PARTIAL, FAIL, NEUTRAL, VERDICT_UNSPECIFIED */
+                rich_results_items longtext NOT NULL,          /* JSON */
+                last_crawl_time timestamp NOT NULL,
+                crawled_as varchar(64) NOT NULL,               /* DESKTOP, MOBILE, CRAWLING_USER_AGENT_UNSPECIFIED */
+                google_canonical text NOT NULL,                /* Google-chosen canonical URL. */
+                user_canonical text NOT NULL,                  /* Canonical URL declared on-page. */
+                sitemap text NOT NULL,                         /* Sitemap URL. */
+                referring_urls longtext NOT NULL,              /* JSON */
+				raw_api_response longtext NOT NULL,            /* JSON */
+                PRIMARY KEY  (id),
+				KEY analytics_object_page (page(190)),
+				KEY created (created),
+                KEY index_verdict (index_verdict),
+                KEY page_fetch_state (page_fetch_state),
+                KEY robots_txt_state (robots_txt_state),
+                KEY mobile_usability_verdict (mobile_usability_verdict),
+                KEY rich_results_verdict (rich_results_verdict)
             ) $collate;";
 
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
@@ -113,7 +113,9 @@ class Inspections {
 			// Will log.
 		}
 
-		\RankMath\Helper::check_collation( $table );
+		// Make sure that collations match the objects table.
+		$objects_coll = \RankMath\Helper::get_table_collation( 'rank_math_analytics_objects' );
+		\RankMath\Helper::check_collation( $table, 'all', $objects_coll );
 	}
 
 	/**

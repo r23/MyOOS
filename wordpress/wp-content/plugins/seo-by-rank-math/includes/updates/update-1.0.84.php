@@ -34,11 +34,11 @@ function rank_math_1_0_84_check_analytics_collations() {
 		'rank_math_analytics_ga',
 		'rank_math_analytics_gsc',
 		'rank_math_analytics_keyword_manager',
-		'rank_math_analytics_objects',
 	];
 
+	$objects_coll = \RankMath\Helper::get_table_collation( 'rank_math_analytics_objects' );
 	foreach ( $tables as $table ) {
-		\RankMath\Helper::check_collation( $table );
+		\RankMath\Helper::check_collation( $table, 'all', $objects_coll );
 	}
 }
 

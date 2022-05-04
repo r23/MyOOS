@@ -139,7 +139,7 @@ trait Api {
 		$args = [
 			'username' => rawurlencode( $registered['username'] ),
 			'api_key'  => rawurlencode( $registered['api_key'] ),
-			'site_url' => rawurlencode( home_url() ),
+			'site_url' => rawurlencode( self::get_home_url() ),
 		];
 
 		$url = add_query_arg(

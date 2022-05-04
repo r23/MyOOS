@@ -37,7 +37,7 @@ class Analytics_Stats {
 	 * Enqueue Styles and Scripts
 	 */
 	public function enqueue() {
-		if ( ! is_singular() || is_admin() || is_preview() ) {
+		if ( ! is_singular() || is_admin() || is_preview() || Helper::is_divi_frontend_editor() ) {
 			return;
 		}
 

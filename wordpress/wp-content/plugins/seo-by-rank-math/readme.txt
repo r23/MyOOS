@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 5.9
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.87
+Stable tag: 1.0.88
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -580,26 +580,20 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.87 [Apr 13, 2022] =
-* Added: Close button to permanently hide the [Analytics Stats bar](https://rankmath.com/kb/analytics-stats-bar/) from the frontend
-
-= 1.0.86.2 [Apr 09, 2022] =
-* Added: Filter to show/hide [Analytics Stats Bar on the frontend](https://rankmath.com/kb/filters-hooks-api-developer/#hide-analytics-stats-bar)
-* Improved: Hide [Analytics Stats Bar on the frontend](https://rankmath.com/kb/analytics-stats-bar/) on all the pages after clicking on the close button
-* Fixed: [Author Sitemap](https://rankmath.com/kb/configure-sitemaps/#authors) was not working on some setups after the last update
-
-= 1.0.86.1 [Apr 07, 2022] =
-* Fixed: Hide [frontend Analytics Stats](https://rankmath.com/kb/analytics-stats-bar/) when Google Search Console is not connected to the site
-
-= 1.0.86 [Apr 07, 2022] =
-* Added: [NEW!] Introducing Stats Bar. Now, you can view [Analytics stats on the frontend](https://rankmath.com/kb/analytics-stats-bar/)
-* Improved: Optimized the [Redirection](https://rankmath.com/kb/setting-up-redirections/) queries for better performance
-* Fixed: PHP warnings on some setups when [Admin Menu Bar](https://rankmath.com/kb/quick-actions/) was enabled
-* Fixed: [Remove Product Base](https://rankmath.com/kb/general-settings/#remove-base) option was not working well on auto-translated secondary languages products created using WPML
-* Fixed: Duplicate sitemap was getting generated. Now, this duplicate sitemap page will redirect to the main sitemap
-* Fixed: [Content AI Media count](https://rankmath.com/kb/seo-score-vs-content-ai-score/#media-count) was showing different counts in different editors
-* Fixed: Content AI was not detecting the videos added using the Elementor's Video widget
-* Fixed: Content AI was not detecting the iframe videos
-* Fixed: Average position in [Analytics](https://rankmath.com/kb/analytics/) page was showing the wrong color
+= 1.0.88 [May 04, 2022] =
+* Added: [HUGE!] Rank Math now supports [Google Analytics 4](https://rankmath.com/kb/using-ga4/)
+* Added: Option to create GA4 property with one click
+* Added: New option in [Database Tools](https://rankmath.com/kb/rank-math-status-and-tools/#fix-analytics-table-collations) to match the collations of all Analytics tables
+* Fixed: [Content AI](https://rankmath.com/kb/how-to-use-content-ai/) was not working on secondary language posts created using the WPML plugin
+* Fixed: [Search form on the Settings page](https://rankmath.com/kb/general-settings/) was showing irrelevant items in the dropdown 
+* Fixed: Both `index` & `noindex` options could be selected in the [Date Archive Robots settings](https://rankmath.com/kb/titles-and-meta/#date-robots-meta)
+* Fixed: Dashboard widget was showing 403 error to the Shop Manager user role
+* Fixed: Dashboard widget was showing an error when the site couldn't load the Blog posts from rankmath.com/blog/
+* Fixed: "Exclude this attachment from the Sitemap" option on the attachment details popup was showing to all the users
+* Fixed: [Content Analysis](https://rankmath.com/blog/divi-seo/) was also analyzing the global Header & Footer content added in the Divi's Theme Builder
+* Fixed: On Divi's frontend editor, the SEO modal was getting closed after clicking on the Schema generator button
+* Fixed: In [Easy Mode](https://rankmath.com/kb/switch-from-easy-to-advanced-mode/), [Instant Indexing](https://rankmath.com/kb/how-to-use-indexnow/#submit-urls-manually) settings were linked to the wrong page
+* Fixed: [Update data manually](https://rankmath.com/kb/general-settings/#analytics-database) option was not working well on some setups in the Analytics Module
+* Fixed: Invalid `%searchphrase%` variable was used as a default value on the Search page
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**
