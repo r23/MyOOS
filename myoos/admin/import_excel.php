@@ -59,11 +59,21 @@
       $split = oos_db_prepare_input($_GET['split']);
   }
 
-  if (isset($_FILES['usrfl']) && !empty($_FILES['usrfl'])) {
-      $usrfl = $_FILES['usrfl'];
-  }
 
-  require 'includes/header.php';
+if (isset($_FILES['usrfl'])) {
+	foreach ($_FILES['usrfl']['name'] as $key => $name) {
+		if (empty($name)) {
+			// purge empty slots
+			unset($_FILES['usrfl']['name'][$key]);
+			unset($_FILES['usrfl']['type'][$key]);
+			unset($_FILES['usrfl']['tmp_name'][$key]);
+			unset($_FILES['usrfl']['error'][$key]);
+			unset($_FILES['usrfl']['size'][$key]);
+		}
+	}
+}
+
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -113,20 +123,22 @@
         <td>
 
 <?php
-  if (is_uploaded_file($usrfl['tmp_name'])) {
-      oos_get_copy_uploaded_file($usrfl, OOS_UPDATE_PATH);
+if (isset($_FILES['usrfl'])) {
+	if (is_uploaded_file($_FILES['usrfl']['tmp_name'])) {
+
+      oos_get_copy_uploaded_file($_FILES['usrfl'], OOS_UPDATE_PATH);
 
       echo "<p class=smallText>";
       echo 'File uploaded<br>';
-      echo 'Temporary filename:: ' . $usrfl['tmp_name'] . '<br>';
-      echo 'User filename: ' . $usrfl['name'] . '<br>';
-      echo 'Size: ' . $usrfl['size'] . '<br>';
+      echo 'Temporary filename:: ' . $_FILES['usrfl']['tmp_name'] . '<br>';
+      echo 'User filename: ' . $_FILES['usrfl']['name'] . '<br>';
+      echo 'Size: ' . $_FILES['usrfl']['size'] . '<br>';
       echo '<br><br>';
       echo '<br>products_id | products_model | products_name | products_tax_class_id | products_status | products_price';
       echo '<br><br>';
 
       // get the entire file into an array
-      $readed = file(OOS_UPDATE_PATH . $usrfl['name']);
+      $readed = file(OOS_UPDATE_PATH . $_FILES['usrfl']['name']);
 
       foreach ($readed as $arr) {
           walk($arr);
@@ -134,7 +146,8 @@
       }
       echo '<br><br>';
       echo "Total Records inserted......".$Counter."<br>";
-  }
+	}
+}
 ?>
 
 <?php echo oos_draw_form('id', 'update_product', $aContents['import_excel'], '&split=0', 'post', false, 'enctype="multipart/form-data"'); ?>
