@@ -231,7 +231,7 @@ if ($dir_ok) {
 
         echo '              <tr>' . "\n";
         $onclick_link = 'file=' . $entry; ?>
-                <td onclick="document.location.href='<?php echo oos_href_link_admin($aContents['export_excel'], $onclick_link); ?>'"><?php echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'action=download&file=' . $entry) . '">' . oos_image(OOS_IMAGES . 'icons/file_download.gif', ICON_FILE_DOWNLOAD) . '</a>&nbsp;' . $entry; ?></td>
+                <td onclick="document.location.href='<?php echo oos_href_link_admin($aContents['export_excel'], $onclick_link); ?>'"><?php echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'action=download&file=' . $entry) . '"><i class="fa fa-download" title="' . ICON_FILE_DOWNLOAD . '" aria-hidden="true"></i></a>&nbsp;' . $entry; ?></td>
                 <td align="center" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['export_excel'], $onclick_link); ?>'"><?php echo date(PHP_DATE_TIME_FORMAT, filemtime(OOS_EXPORT_PATH . $entry)); ?></td>
                 <td align="right" onclick="document.location.href='<?php echo oos_href_link_admin($aContents['export_excel'], $onclick_link); ?>'"><?php echo number_format(filesize(OOS_EXPORT_PATH . $entry)); ?> bytes</td>
                 <td class="text-right"><?php if (isset($buInfo) && is_object($buInfo) && ($entry == $buInfo->file)) {

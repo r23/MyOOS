@@ -26,16 +26,16 @@
    ---------------------------------------------------------------------- */
 
 
-define('HEADING_TITLE', 'Database Backup Manager');
+define('HEADING_TITLE', 'Export product data data in Excel format');
 
 define('TABLE_HEADING_TITLE', 'Title');
 define('TABLE_HEADING_FILE_DATE', 'Date');
 define('TABLE_HEADING_FILE_SIZE', 'Size');
 define('TABLE_HEADING_ACTION', 'Action');
 
-define('TEXT_INFO_HEADING_NEW_BACKUP', 'New Backup');
+define('TEXT_INFO_HEADING_NEW_BACKUP', 'New product data export');
 define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Restore Local');
-define('TEXT_INFO_NEW_BACKUP', 'Do not interrupt the backup process which might take a couple of minutes.');
+define('TEXT_INFO_NEW_BACKUP', 'Please do NOT interrupt the export process. This may take a few minutes.');
 define('TEXT_INFO_UNPACK', '<br><br>(after unpacking the file from the archive)');
 define('TEXT_INFO_DATE', 'Date:');
 define('TEXT_INFO_SIZE', 'Size:');
@@ -47,13 +47,13 @@ define('TEXT_INFO_DOWNLOAD_ONLY', 'Download only (do not store server side)');
 define('TEXT_INFO_BEST_THROUGH_HTTPS', 'Best through a HTTPS connection');
 define('TEXT_DELETE_INTRO', 'Are you sure you want to delete this backup?');
 define('TEXT_NO_EXTENSION', 'None');
-define('TEXT_EXPORT_DIRECTORY', 'Backup Directory:');
+define('TEXT_EXPORT_DIRECTORY', 'Export directory:');
 define('TEXT_FORGET', '(<u>forget</u>)');
 
-define('ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST', 'Error!</strong> Backup directory does not exist. Please set this in configure.php.');
-define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', 'Error!</strong> Backup directory is not writeable.');
+define('ERROR_EXPORT_DIRECTORY_DOES_NOT_EXIST', 'Error!</strong> Export directory does not exist. Please set this in configure.php.');
+define('ERROR_EXPORT_DIRECTORY_NOT_WRITEABLE', 'Error!</strong> Export directory is not writeable.');
 define('ERROR_DOWNLOAD_LINK_NOT_ACCEPTABLE', 'Error!</strong> Download link not acceptable.');
 
-define('SUCCESS_DATABASE_SAVED', 'Success!</strong> The database has been saved.');
-define('SUCCESS_DATABASE_RESTORED', 'Success!</strong> The database has been restored.');
+define('SUCCESS_DATABASE_SAVED', 'Success!</strong> The Product data has been saved.');
+define('SUCCESS_DATABASE_RESTORED', 'Success!</strong> The Product data has been restored.');
 define('SUCCESS_EXPORT_DELETED', 'Success!</strong> The backup has been removed.');
