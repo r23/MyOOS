@@ -730,7 +730,7 @@ function check_form() {
       $customerstable = $oostable['customers'];
       $address_booktable = $oostable['address_book'];
       $customers_result_raw = "SELECT c.customers_id, c.customers_lastname, c.customers_firstname, c.customers_email_address,
-                                    c.customers_2fa_active, c.customers_wishlist_link_id, c.customers_status, c.customers_login, 
+									c.customers_2fa_active, c.customers_wishlist_link_id, c.customers_status, c.customers_login, 
 									c.customers_max_order, a.entry_country_id, a.entry_city
                              FROM $customerstable c LEFT JOIN
                                   $address_booktable a
