@@ -178,6 +178,7 @@ $analytic_classes = Helper::classnames(
 					<?php
 					if ( $is_analytics_connected ) :
 						$analytic_view = $is_ga4 ? $analytics['stream_name'] : $all_services['accounts'][ $analytics['account_id'] ]['properties'][ $analytics['property_id'] ]['profiles'][ $analytics['view_id'] ]['name'];
+						$analytic_view = $is_ga4 && ! $analytic_view && ! empty( $analytics['view_id'] ) ? 'Website' : $analytic_view;
 					?>
 						<option value="<?php echo esc_attr( $analytics['view_id'] ); ?>"><?php echo esc_attr( $analytic_view ); ?></option>
 					<?php
