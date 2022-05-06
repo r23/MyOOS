@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-05-04 13:05:39+0000\n"
+"PO-Revision-Date: 2022-05-05 12:47:34+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,13 +27,6 @@ msgstr "Korrigieren von Analytics-Tabellenkollatierungen"
 msgid "No collation mismatch to fix."
 msgstr "Es muss kein Kollatierungskonflikt behoben werden."
 
-#. translators: %1$d: number of changes, %2$s: new collation.
-#: includes/modules/analytics/class-analytics-common.php:203
-msgid "%1$d collation changed to %2$s."
-msgid_plural "%1$d collations changed to %2$s."
-msgstr[0] "%1$d Sortierung wurde in %2$s geändert."
-msgstr[1] ""
-
 #: includes/admin/wizard/views/search-console-ui.php:175
 #: assets/admin/js/common.js:1
 msgid "Data Stream"
@@ -46,6 +39,29 @@ msgstr "Diese Option verhindert, dass Bilder auf einer Seite von Google und ande
 #: includes/admin/class-dashboard-widget.php:77
 msgid "Error: the Rank Math blog feed could not be downloaded."
 msgstr "Fehler: Der Rank Math Blog-Feed konnte nicht heruntergeladen werden."
+
+#. translators: %1$d: number of changes, %2$s: new collation.
+#: includes/modules/analytics/class-analytics-common.php:203
+msgid "%1$d collation changed to %2$s."
+msgid_plural "%1$d collations changed to %2$s."
+msgstr[0] "%1$d Sortierung wurde in %2$s geändert."
+msgstr[1] "%1$d Sortierung wurde in %2$s geändert."
+
+#: includes/admin/wizard/views/search-console-ui.php:145
+msgid "Click here to know how"
+msgstr "Klicke hier, um zu erfahren, wie"
+
+#: includes/admin/wizard/views/search-console-ui.php:144
+msgid "Ready to switch to Google Analytics 4? %s"
+msgstr "Bist du bereit, zu Google Analytics 4 zu wechseln? %s"
+
+#: includes/admin/wizard/class-compatibility.php:56
+msgid "Note"
+msgstr "Hinweis"
+
+#: includes/admin/wizard/class-compatibility.php:56
+msgid "You can easily switch between modes at any point."
+msgstr "Du kannst jederzeit problemlos zwischen den Modi wechseln."
 
 #: includes/modules/analytics/views/options.php:115
 msgid "Enable this option to show Analytics Stats on the front just after the admin bar."
@@ -871,11 +887,11 @@ msgstr "Symbol für externe Links"
 msgid "Every 30 days"
 msgstr "Alle 30 Tage"
 
-#: includes/admin/wizard/views/search-console-ui.php:335
+#: includes/admin/wizard/views/search-console-ui.php:336
 msgid "Learn more about Email Reports."
 msgstr "Erfahre mehr über E-Mail-Berichte."
 
-#: includes/admin/wizard/views/search-console-ui.php:335
+#: includes/admin/wizard/views/search-console-ui.php:336
 msgid "Receive Analytics reports periodically in email."
 msgstr "Erhalte regelmäßig Analytics-Berichte per E-Mail."
 
@@ -891,8 +907,8 @@ msgstr "E-Mail-Häufigkeit"
 msgid "Turn on email reports."
 msgstr "Aktiviere E-Mail-Berichte."
 
-#: includes/admin/wizard/views/search-console-ui.php:334
-#: includes/admin/wizard/views/search-console-ui.php:339
+#: includes/admin/wizard/views/search-console-ui.php:335
+#: includes/admin/wizard/views/search-console-ui.php:340
 #: includes/modules/analytics/views/options.php:125
 #: includes/modules/analytics/views/options.php:140
 msgid "Email Reports"
@@ -1026,7 +1042,7 @@ msgstr "Bist du sicher, dass du das machen willst?"
 msgid "Locations Sitemap %1$s %2$s"
 msgstr "Standorte-Sitemap %1$s %2$s"
 
-#: includes/admin/wizard/views/search-console-ui.php:242
+#: includes/admin/wizard/views/search-console-ui.php:243
 msgid "Self-Hosted Analytics JS File"
 msgstr "Selbstgehostete Analytics JS-Datei"
 
@@ -1398,11 +1414,11 @@ msgstr "Bericht anzeigen"
 msgid "Total number of keywords your site ranking below 100 position."
 msgstr "Gesamtzahl der Schlüsselwörter, die deine Website unter 100 rangiert."
 
-#: includes/admin/wizard/views/search-console-ui.php:313
+#: includes/admin/wizard/views/search-console-ui.php:314
 msgid "Google AdSense support is only available in Rank Math Pro's Advanced Analytics module."
 msgstr "Google AdSense-Unterstützung ist nur im Erweiterten Analytics-Modul von Rank Math Pro verfügbar."
 
-#: includes/admin/wizard/views/search-console-ui.php:203
+#: includes/admin/wizard/views/search-console-ui.php:204
 msgid "Enable this option only if you are not using any other plugin/theme to install Google Analytics code."
 msgstr "Aktiviere diese Option nur dann, wenn du kein anderes Plugin oder Theme verwendest, um den Google-Analytics-Code einzubinden."
 
@@ -1493,27 +1509,27 @@ msgstr "Nachrichten-Einstellungen erfolgreich importiert."
 msgid "Connect Google Services"
 msgstr "Google-Dienste verbinden"
 
-#: includes/admin/wizard/views/search-console-ui.php:287
+#: includes/admin/wizard/views/search-console-ui.php:288
 msgid "AdSense"
 msgstr "AdSense"
 
-#: includes/admin/wizard/views/search-console-ui.php:266
+#: includes/admin/wizard/views/search-console-ui.php:267
 msgid "Exclude Logged-in users"
 msgstr "Angemeldete Benutzer ausschließen"
 
-#: includes/admin/wizard/views/search-console-ui.php:221
-#: includes/admin/wizard/views/search-console-ui.php:246
-#: includes/admin/wizard/views/search-console-ui.php:313
+#: includes/admin/wizard/views/search-console-ui.php:222
+#: includes/admin/wizard/views/search-console-ui.php:247
+#: includes/admin/wizard/views/search-console-ui.php:314
 #: includes/module/class-manager.php:383
 #: includes/modules/analytics/views/options.php:148
 msgid "PRO"
 msgstr "PRO"
 
-#: includes/admin/wizard/views/search-console-ui.php:217
+#: includes/admin/wizard/views/search-console-ui.php:218
 msgid "Anonymize IP addresses"
 msgstr "IP-Adressen anonymisieren"
 
-#: includes/admin/wizard/views/search-console-ui.php:202
+#: includes/admin/wizard/views/search-console-ui.php:203
 msgid "Install analytics code"
 msgstr "Analytics-Code installieren"
 
@@ -1528,7 +1544,7 @@ msgstr "Website"
 
 #: includes/admin/wizard/views/google-connect.php:37
 #: includes/admin/wizard/views/rank-math-connect.php:39
-#: includes/admin/wizard/views/search-console-ui.php:324
+#: includes/admin/wizard/views/search-console-ui.php:325
 msgid "We do not store any of the data from your Google account on our servers, everything is processed & stored on your server. We take your privacy extremely seriously and ensure it is never misused. %s"
 msgstr "Wir speichern keinerlei Daten aus deinem Google-Konto auf unseren Servern, alles wird auf deinem Server verarbeitet und gespeichert. Wir nehmen den Schutz deiner Daten extrem ernst und stellen sich, dass sie nie missbraucht werden. %s"
 
@@ -2221,7 +2237,7 @@ msgstr "Konto trennen"
 
 #: includes/admin/views/plugin-activation.php:23
 #: includes/admin/wizard/views/search-console-ui.php:152
-#: includes/admin/wizard/views/search-console-ui.php:298
+#: includes/admin/wizard/views/search-console-ui.php:299
 msgid "Account"
 msgstr "Konto"
 
@@ -4878,7 +4894,7 @@ msgstr "Mehr erfahren"
 #: includes/admin/wizard/views/google-connect.php:37
 #: includes/admin/wizard/views/rank-math-connect.php:39
 #: includes/admin/wizard/views/search-console-ui.php:112
-#: includes/admin/wizard/views/search-console-ui.php:324
+#: includes/admin/wizard/views/search-console-ui.php:325
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/src/Schema.js:26
 msgid "Learn more."
