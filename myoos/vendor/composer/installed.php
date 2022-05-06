@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '67bcc4326748ad783fe242bf3390ad6bb60c6779',
+        'reference' => 'bc3ebdf73d17f2f6c92eb04bbb990056d935133b',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -56,12 +56,12 @@
             'dev_requirement' => false,
         ),
         'doctrine/persistence' => array(
-            'pretty_version' => '3.0.1',
-            'version' => '3.0.1.0',
+            'pretty_version' => '3.0.2',
+            'version' => '3.0.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/persistence',
             'aliases' => array(),
-            'reference' => 'b7f12af9973c3861ca5489dd065c85fb2b99436c',
+            'reference' => '25ec98a8cbd1f850e60fdb62c0ef77c162da8704',
             'dev_requirement' => false,
         ),
         'dompdf/dompdf' => array(
@@ -178,7 +178,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '67bcc4326748ad783fe242bf3390ad6bb60c6779',
+            'reference' => 'bc3ebdf73d17f2f6c92eb04bbb990056d935133b',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -420,7 +420,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '54c08f02765d00fd520897873f163703b08f68f2',
+            'reference' => '2658dd564ed1a63989404083d7ccb9cb10e07701',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
@@ -442,12 +442,12 @@
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
-            'pretty_version' => 'v7.126.0',
-            'version' => '7.126.0.0',
+            'pretty_version' => 'v7.128.0',
+            'version' => '7.128.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../stripe/stripe-php',
             'aliases' => array(),
-            'reference' => 'c36de62a89475e81d9c75ec08de19376466f67b7',
+            'reference' => 'c704949c49b72985c76cc61063aa26fefbd2724e',
             'dev_requirement' => false,
         ),
         'symfony/asset' => array(
