@@ -9,21 +9,21 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
-      switch ($action) {
+if (!empty($action)) {
+	switch ($action) {
 
       case 'make_file_now':
         $excel_file = 'db_export-' . date('YmdHis') . '.cvs';
         $fp = fopen(OOS_EXPORT_PATH . $excel_file, 'w');
 
         $schema = '';
-        $schema .= 'id | Model | Name | tax_class_id | Status |  Price ' .  "\n";
+        $schema .= 'id | Model | Name | tax_class_id | Status |  Net Price | Gross Price ' .  "\n";
 
         $nLanguageID = intval($_SESSION['language_id']);
 
@@ -46,9 +46,9 @@
 
             $price = $products['products_price'];
             $tax = (100+oos_get_tax_rate($products['products_tax_class_id']))/100;
-            $price = number_format($price*$tax, 2, ".", "");
+            $price = number_format(oos_round($price*$tax, 2), 2, '.', '');
 
-            $schema .= $products['products_id']. '|'  . $products['products_model'] . '|' . $name . '|' . $products['products_tax_class_id'] . '|' . $products['products_status'] . '|' . $price . "\n";
+            $schema .= $products['products_id']. '|'  . $products['products_model'] . '|' . $name . '|' . $products['products_tax_class_id'] . '|' . $products['products_status'] . '|' . $products['products_price'] . '|' . $price . "\n";
 
             // Move that ADOdb pointer!
             $products_result->MoveNext();
@@ -99,13 +99,14 @@
         break;
 
       case 'download':
+		$sFile = oos_db_prepare_input($_GET['file']);
         $extension = substr($_GET['file'], -3);
         if (($extension == 'zip') || ($extension == '.gz') || ($extension == 'cvs')) {
-            if ($fp = fopen(OOS_EXPORT_PATH . $_GET['file'], 'rb')) {
-                $buffer = fread($fp, filesize(OOS_EXPORT_PATH . $_GET['file']));
+            if ($fp = fopen(OOS_EXPORT_PATH . $sFile, 'rb')) {
+                $buffer = fread($fp, filesize(OOS_EXPORT_PATH . $sFile));
                 fclose($fp);
                 header('Content-type: application/x-octet-stream');
-                header('Content-disposition: attachment; filename=' . $_GET['file']);
+                header('Content-disposition: attachment; filename=' . $sFile);
                 echo $buffer;
                 exit;
             }
@@ -248,7 +249,7 @@ if ($dir_ok) {
               <tr>
                 <td class="smallText" colspan="3"><?php echo TEXT_EXPORT_DIRECTORY . ' ' . OOS_EXPORT_PATH; ?></td>
                 <td align="right" class="smallText"><?php if ($action != 'backup') {
-    echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'action=backup') . '">' . oos_button(BUTTON_BACKUP) . '</a>';
+    echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'action=backup') . '">' . oos_button(BUTTON_EXPORT) . '</a>';
 } ?></td>
              </tr>
             </table></td>
@@ -258,10 +259,10 @@ if ($dir_ok) {
 
   switch ($action) {
     case 'backup':
-      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_BACKUP . '</b>');
+      $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_EXPORT . '</b>');
 
       $contents = array('form' => oos_draw_form('id', 'backup', $aContents['export_excel'], 'action=make_file_now', 'post', false));
-      $contents[] = array('text' => TEXT_INFO_NEW_BACKUP);
+      $contents[] = array('text' => TEXT_INFO_NEW_EXPORT);
 
 	# todo
 	#if (file_exists(LOCAL_EXE_ZIP)) {
@@ -274,7 +275,7 @@ if ($dir_ok) {
           $contents[] = array('text' => '<br>' . oos_draw_radio_field('download', 'yes', true) . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS);
       }
 
-      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_BACKUP) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['export_excel']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+      $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_EXPORT) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['export_excel']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
 

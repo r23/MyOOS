@@ -38,6 +38,6 @@ define('CATALOG_CONTENTS', 'Inhalt');
 define('REPORTS_PRODUCTS', 'Produkte');
 define('REPORTS_ORDERS', 'Bestellungen');
 
-define('TOOLS_BACKUP', 'Datensicherung');
+define('TOOLS_EXPORT', 'Datensicherung');
 define('TOOLS_BANNERS', 'Bannerverwaltung');
 define('TOOLS_FILES', 'Dateiverwaltung');

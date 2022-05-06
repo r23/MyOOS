@@ -33,9 +33,9 @@ define('TABLE_HEADING_FILE_DATE', 'Date');
 define('TABLE_HEADING_FILE_SIZE', 'Size');
 define('TABLE_HEADING_ACTION', 'Action');
 
-define('TEXT_INFO_HEADING_NEW_BACKUP', 'New product data export');
+define('TEXT_INFO_HEADING_NEW_EXPORT', 'New product data export');
 define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Restore Local');
-define('TEXT_INFO_NEW_BACKUP', 'Please do NOT interrupt the export process. This may take a few minutes.');
+define('TEXT_INFO_NEW_EXPORT', 'Please do NOT interrupt the export process. This may take a few minutes.');
 define('TEXT_INFO_UNPACK', '<br><br>(after unpacking the file from the archive)');
 define('TEXT_INFO_DATE', 'Date:');
 define('TEXT_INFO_SIZE', 'Size:');

@@ -32,9 +32,9 @@ define('TABLE_HEADING_FILE_DATE', 'Datum');
 define('TABLE_HEADING_FILE_SIZE', 'Größe');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_INFO_HEADING_NEW_BACKUP', 'Neuer Produktdaten Export');
+define('TEXT_INFO_HEADING_NEW_EXPORT', 'Neuer Produktdaten Export');
 define('TEXT_INFO_HEADING_RESTORE_LOCAL', 'Lokal wiederherstellen');
-define('TEXT_INFO_NEW_BACKUP', 'Bitte den Exportprozess AUF KEINEN FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
+define('TEXT_INFO_NEW_EXPORT', 'Bitte den Exportprozess AUF KEINEN FALL unterbrechen. Dieser kann einige Minuten in Anspruch nehmen.');
 define('TEXT_INFO_UNPACK', '<br><br>(nach dem die Dateien aus dem Archiv extrahiert wurden)');
 define('TEXT_INFO_DATE', 'Datum:');
 define('TEXT_INFO_SIZE', 'Größe:');

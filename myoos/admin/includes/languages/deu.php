@@ -155,11 +155,10 @@ define('BOX_REPORTS_SALES_REPORT2', 'Umsatzbericht');
 
 // tools text in includes/boxes/tools.php
 define('BOX_HEADING_TOOLS', 'Hilfsprogramme');
-define('BOX_TOOLS_BACKUP', 'Datenbanksicherung');
+define('BOX_TOOLS_EXPORT', 'Datenbanksicherung');
 
 define('BOX_TOOLS_DEFINE_LANGUAGE', 'Sprachen definieren');
 
-define('BOX_EXPORT_PREISSUCHMASCHINE', 'Export preissuchmaschine.de');
 define('BOX_TOOLS_MAIL', 'eMail versenden');
 define('BOX_TOOLS_NEWSLETTER_MANAGER', 'Rundschreiben Manager');
 define('BOX_HEADING_ADMINISTRATORS', 'Administrators');
@@ -172,7 +171,7 @@ define('BOX_LOCALIZATION_LANGUAGES', 'Sprachen');
 define('BOX_LOCALIZATION_CUSTOMERS_STATUS', 'Kundengruppen');
 
 // export
-define('BOX_HEADING_EXPORT', 'Export');
+define('BOX_HEADING_EXPORT', 'Export/Import');
 
 //information
 define('BOX_HEADING_INFORMATION', 'Information');
@@ -246,7 +245,7 @@ define('PLACEHOLDER_PASSWORD', 'Passwort');
 define('IMAGE_ANI_SEND_EMAIL', 'eMail versenden');
 define('BUTTON_AR', 'Augmented Reality');
 define('BUTTON_BACK', 'Zurück');
-define('BUTTON_BACKUP', 'Datensicherung');
+define('BUTTON_EXPORT', 'Produktdaten export');
 define('BUTTON_CANCEL', 'Abbrechen');
 define('BUTTON_UPLOAD_IMAGES', 'Bilder hochladen');
 define('BUTTON_CANCEL_UPLOAD', 'Hochladen abbrechen');
