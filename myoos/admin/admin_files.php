@@ -155,7 +155,7 @@
           } ?>
                 <td><?php echo $files['admin_files_name']; ?></td>
                 <td class="text-right"><?php if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id)) {
-              echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+              echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
           } else {
               echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
           } ?>&nbsp;</td>
@@ -256,7 +256,7 @@
       } ?>
                 </td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id)) {
-          echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+          echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
       } else {
           echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . isset($boxes[$i]['admin_boxes_id']) ? $boxes[$i]['admin_boxes_id'] : '') . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
       } ?>&nbsp;</td>

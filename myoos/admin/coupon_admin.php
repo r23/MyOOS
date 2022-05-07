@@ -363,7 +363,7 @@ case 'voucherreport':
                 <td class="text-center"><?php echo $cc_list['redeem_ip']; ?></td>
                 <td class="text-center"><?php echo oos_date_short($cc_list['redeem_date']); ?></td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['unique_id'] == $cInfo->unique_id)) {
-            echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+            echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
         } else {
             echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
         } ?>&nbsp;</td>
@@ -1088,7 +1088,7 @@ case 'voucherreport':
             &nbsp;</td>
                 <td class="text-center"><?php echo $cc_list['coupon_code']; ?></td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($cc_list['coupon_id'] == $cInfo->coupon_id)) {
-            echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+            echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
         } else {
             echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'page=' . $nPage . '&status=' . $status . '&cID=' . $cc_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
         } ?>&nbsp;</td>

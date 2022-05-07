@@ -242,7 +242,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       } ?>
 
                 <td class="text-right"><?php if (isset($oInfo) && is_object($oInfo) && ($products_units['products_units_id'] == $oInfo->products_units_id)) {
-          echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+          echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
       } else {
           echo '<a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $products_units['products_units_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
       } ?>&nbsp;</td>

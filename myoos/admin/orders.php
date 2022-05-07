@@ -443,7 +443,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
              '            <td class="smallText" align="center">' . oos_datetime_short($orders_history['date_added']) . '</td>' . "\n" .
              '            <td class="smallText" align="center">';
               if ($orders_history['customer_notified'] == '1') {
-                  echo '<i class="fa fa-check" aria-hidden="true"></i>' . "</td>\n";
+                  echo '<i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i>' . "</td>\n";
               } else {
                   echo oos_image(OOS_IMAGES . 'icons/cross.gif', ICON_CROSS) . "</td>\n";
               }
@@ -622,7 +622,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                 <td class="text-center"><?php echo oos_datetime_short($orders['date_purchased']); ?></td>
                 <td class="text-right"><?php echo $orders['orders_status_name']; ?></td>
                 <td class="text-right"><?php if (isset($oInfo) && is_object($oInfo) && ($orders['orders_id'] == $oInfo->orders_id)) {
-              echo '<button class="btn btn-info" type="button"><i class="fa fa-check" aria-hidden="true"></i></i></button>';
+              echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
           } else {
               echo '<a href="' . oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('oID')) . 'oID=' . $orders['orders_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
           } ?>&nbsp;</td>

@@ -40,22 +40,22 @@ function walk($item1)
 	$products_name = $items[2];
 	$products_tax_class_id = $items[3];
 	$products_status = $items[4];
-	$products_price = $items[5];
-	$products_price = str_replace(',', '.', $products_price);
-
-
+	$products_net_price = $items[5];
+	$products_net_price = str_replace(',', '.', $products_net_price);
+	$products_gross_price = $items[6];
+	$products_gross_price = str_replace(',', '.', $products_gross_price);
+	
 	$dbconn =& oosDBGetConn();
 	$oostable =& oosDBGetTables();
 
-/*
 	$tax_ratestable = $oostable['tax_rates'];
     $query = "SELECT tax_rate FROM $tax_ratestable WHERE tax_class_id = '" . intval($products_tax_class_id) . "'";
     $tax = $dbconn->GetOne($query);
 
 
-    $price = ($products_price/($tax+100)*100);
-*/
-	$price = $products_price;
+    $price = ($products_gross_price/($tax+100)*100);
+
+
   
 			$product_info = $product_info_result->fields; 
 			$products_tax_class_id = $product_info['products_tax_class_id'];
@@ -108,9 +108,9 @@ function walk($item1)
       $dbconn->Execute("UPDATE $productstable set products_price = '" . $products_price . "', products_status = '" . intval($products_status) . "' where products_id = '" . intval($products_id) . "'");
 }
 
-  if (isset($_GET['split']) && !empty($_GET['split'])) {
-      $split = oos_db_prepare_input($_GET['split']);
-  }
+if (isset($_GET['split']) && !empty($_GET['split'])) {
+	$split = oos_db_prepare_input($_GET['split']);
+}
 
 
 if (isset($_FILES['usrfl'])) {
@@ -187,7 +187,7 @@ if (isset($_FILES['usrfl'])) {
       echo 'User filename: ' . $_FILES['usrfl']['name'] . '<br>';
       echo 'Size: ' . $_FILES['usrfl']['size'] . '<br>';
       echo '<br><br>';
-      echo '<br>products_id | products_model | products_name | products_tax_class_id | products_status | products_price';
+      echo '<br>products_id | products_model | products_name | products_tax_class_id | products_status | products_net_price | products_gross_price';
       echo '<br><br>';
 
       // get the entire file into an array
