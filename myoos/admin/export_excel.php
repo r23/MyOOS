@@ -209,7 +209,7 @@ if ($dir_ok) {
             }
         }
     }
-    sort($contents);
+    rsort($contents);
 
     for ($files = 0, $count = count($contents); $files < $count; $files++) {
         $entry = $contents[$files];
