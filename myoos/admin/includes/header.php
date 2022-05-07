@@ -22,7 +22,6 @@
 /** ensure this file is being included by a parent file */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-
 ?><!DOCTYPE html>
 <html lang="<?php echo $_SESSION['iso_639_1']; ?>">
 <head>

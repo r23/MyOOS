@@ -464,5 +464,10 @@ define('IMAGE_NEXT', 'Nächster');
 define('TEXT_DISPLAY_NUMBER_OF_FILENAMES', 'Zeige an <b>%d</b> bis <b>%d</b> (von <b>%d</b> Dateinamen)');
 define('TEXT_DISPLAY_NUMBER_OF_MEMBERS', 'Zeige an <b>%d</b> bis <b>%d</b> (von <b>%d</b> Mitglieder)');
 
-
 define('PULL_DOWN_DEFAULT', 'Bitte auswählen');
+
+//.htaccess
+define('ERROR_HTACC_CHECK_ERROR', 'Es konnte nicht überprüft werden, ob das Shopsystem geschützt ist!<br>Der simulierte externe Zugriff konnte nicht ausgeführt werden.');
+define('ERROR_HTACC_INCOMPLETE', 'Das Shopsystem ist nicht geschützt, der Verzeichnisschutz ist unvollständig!');
+define('ERROR_HTACC_PROPOSED', 'Das Shopsystem ist nicht geschützt, ein Verzeichnisschutz wird dringend empfohlen!');
+

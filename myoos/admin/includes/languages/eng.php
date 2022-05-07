@@ -458,3 +458,9 @@ define('TEXT_DISPLAY_NUMBER_OF_FILENAMES', 'Displaying <b>%d</b> to <b>%d</b> (o
 define('TEXT_DISPLAY_NUMBER_OF_MEMBERS', 'Displaying <b>%d</b> to <b>%d</b> (of <b>%d</b> members)');
 
 define('PULL_DOWN_DEFAULT', 'Please Select');
+
+//.htaccess
+define('ERROR_HTACC_CHECK_ERROR', 'It could not be checked whether the program is protected!<br>The simulated external access could not be carried out.');
+define('ERROR_HTACC_INCOMPLETE', 'The program is not protected, the directory protection is incomplete!');
+define('ERROR_HTACC_PROPOSED', 'The program is not protected, directory protection is strongly recommended!');
+

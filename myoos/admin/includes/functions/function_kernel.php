@@ -53,6 +53,16 @@ function oos_admin_check_login()
 }
 
 
+function oos_check_is_access_protected()
+{
+    $rc = false;
+    $url = OOS_HTTPS_SERVER . OOS_SHOP . OOS_ADMIN;
+    $headers = get_headers($url);
+    if (is_array($headers) && count($headers) > 0) {
+        $rc = (preg_match('/\s+(?:401|403)\s+/', $headers[0])) ? 1 : 0;
+    }
+    return $rc;
+}
 
 
 function oos_admin_check_boxes($filename, $boxes ='')
