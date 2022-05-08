@@ -1752,25 +1752,25 @@ if ($action == 'new_category' || $action == 'edit_category') {
                 $sPriceList = $pInfo->products_price_list;
 
                 if ($action != 'new_product_preview') {
-                    $sPriceNetto = round($sPrice, TAX_DECIMAL_PLACES);
-                    $sPriceListNetto = round($sPriceList, TAX_DECIMAL_PLACES);
+                    $sPriceNetto = oos_round($sPrice, TAX_DECIMAL_PLACES);
+                    $sPriceListNetto = oos_round($sPriceList, TAX_DECIMAL_PLACES);
                     $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . $pInfo->products_tax_class_id . "' ");
                     $tax = $tax_result->fields;
                     $sPrice = ($sPrice*($tax['tax_rate']+100)/100);
                     $sPriceList = ($sPriceList*($tax['tax_rate']+100)/100);
 
                     if (isset($specials) && is_array($specials)) {
-                        $sSpecialsPriceNetto = round($specials['specials_new_products_price'], TAX_DECIMAL_PLACES);
-                        $sSpecialsPrice = round(($specials['specials_new_products_price']*($tax['tax_rate']+100)/100), TAX_DECIMAL_PLACES);
+                        $sSpecialsPriceNet = oos_round($specials['specials_new_products_price'], TAX_DECIMAL_PLACES);
+                        $sSpecialsPrice = oos_round(($specials['specials_new_products_price']*($tax['tax_rate']+100)/100), TAX_DECIMAL_PLACES);
                     }
                 }
 
-                $sPrice = round($sPrice, TAX_DECIMAL_PLACES);
-                $sPriceList = round($sPriceList, TAX_DECIMAL_PLACES);
+                $sPrice = oos_round($sPrice, TAX_DECIMAL_PLACES);
+                $sPriceList = oos_round($sPriceList, TAX_DECIMAL_PLACES);
 
                 if (isset($specials) && is_array($specials)) {
                     $contents[] = array('text' => '<br><b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> <span class="oldPrice">' . $currencies->format($sPrice) . '</span> - ' . TEXT_TAX_INFO . '<span class="oldPrice">' . $currencies->format($sPriceNetto) . '</span>');
-                    $contents[] = array('text' => '<b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> <span class="specialPrice">' . $currencies->format($sSpecialsPrice) . '</span> - ' . TEXT_TAX_INFO . '<span class="specialPrice">' . $currencies->format($sSpecialsPriceNetto) . '</span>');
+                    $contents[] = array('text' => '<b>' . TEXT_PRODUCTS_PRICE_INFO . '</b> <span class="specialPrice">' . $currencies->format($sSpecialsPrice) . '</span> - ' . TEXT_TAX_INFO . '<span class="specialPrice">' . $currencies->format($sSpecialsPriceNet) . '</span>');
 
                     $contents[] = array('text' => '' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sSpecialsPrice / $sPrice) * 100)) . '%');
                     if (date('Y-m-d') < $specials['expires_date']) {
