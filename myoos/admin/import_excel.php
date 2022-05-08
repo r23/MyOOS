@@ -54,8 +54,11 @@ function walk($item1)
 
 
     $price = ($products_gross_price/($tax+100)*100);
-
-
+echo $price;
+echo '<br>';
+echo $products_gross_price;
+echo '<br>';
+/*
   
 			$product_info = $product_info_result->fields; 
 			$products_tax_class_id = $product_info['products_tax_class_id'];
@@ -104,8 +107,31 @@ function walk($item1)
 				# echo 'Top-Angebot gefunden: ' . $products_model  . ' <br>';			
 			}
 		}
-      $productstable = $oostable['products'];
-      $dbconn->Execute("UPDATE $productstable set products_price = '" . $products_price . "', products_status = '" . intval($products_status) . "' where products_id = '" . intval($products_id) . "'");
+*/		
+	
+	// product price history
+	$productstable = $oostable['products'];
+	$products_price_sql = "SELECT products_price
+							FROM $productstable 
+							WHERE products_id = '" . intval($products_id) . "'";
+	$products_price_result = $dbconn->Execute($products_price_sql);
+	$products_price = $products_price_result->fields;
+	$old_products_price = $products_price['products_price'];
+	$new_products_price = $products_net_price;
+
+	if ($old_products_price != $new_products_price) {
+		$sql_price_array = array('products_id' => $products_id,
+								'products_price' => $products_net_price,
+								'date_added' => 'now()');
+		oos_db_perform($oostable['products_price_history'], $sql_price_array);
+	}
+
+    $productstable = $oostable['products'];
+	$dbconn->Execute("UPDATE $productstable 
+						SET products_price = '" . $products_net_price . "', 
+							products_model = '" . $products_model . "',
+							products_status = '" . intval($products_status) . "' 
+						where products_id = '" . intval($products_id) . "'");
 }
 
 if (isset($_GET['split']) && !empty($_GET['split'])) {
@@ -113,15 +139,15 @@ if (isset($_GET['split']) && !empty($_GET['split'])) {
 }
 
 
-if (isset($_FILES['usrfl'])) {
-	foreach ($_FILES['usrfl']['name'] as $key => $name) {
+if (isset($_FILES['files'])) {
+	foreach ($_FILES['files']['name'] as $key => $name) {
 		if (empty($name)) {
 			// purge empty slots
-			unset($_FILES['usrfl']['name'][$key]);
-			unset($_FILES['usrfl']['type'][$key]);
-			unset($_FILES['usrfl']['tmp_name'][$key]);
-			unset($_FILES['usrfl']['error'][$key]);
-			unset($_FILES['usrfl']['size'][$key]);
+			unset($_FILES['files']['name'][$key]);
+			unset($_FILES['files']['type'][$key]);
+			unset($_FILES['files']['tmp_name'][$key]);
+			unset($_FILES['files']['error'][$key]);
+			unset($_FILES['files']['size'][$key]);
 		}
 	}
 }
