@@ -77,6 +77,9 @@ define('MYOOS_INCLUDE_PATH', dirname(__DIR__, 1));
 
 require_once MYOOS_INCLUDE_PATH . '/includes/version.php';
 
+// require Shop parameters
+require_once MYOOS_INCLUDE_PATH . '/includes/define.php';
+
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_global.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_kernel.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
