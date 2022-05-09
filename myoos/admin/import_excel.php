@@ -36,17 +36,19 @@ function walk($item1)
 	$items = explode("|", $item1);
 
 	$products_id = $items[0];
-	$products_model = $items[1];
-	$products_name = $items[2];
-	$products_tax_class_id = $items[3];
-	$products_status = $items[4];
-	$products_net_price = $items[5];
-	$products_net_price = str_replace(',', '.', $products_net_price);
-	$products_gross_price = $items[6];
-	$products_gross_price = str_replace(',', '.', $products_gross_price);
-
-
 	if (isset($products_id) && is_numeric($products_id)) {
+
+		$products_model = $items[1];
+		$products_name = $items[2];
+		$products_tax_class_id = $items[3];
+		$products_status = $items[4];
+		$products_net_price = $items[5];
+		$products_net_price = str_replace(',', '.', $products_net_price);
+		$products_gross_price = $items[6];
+		$products_gross_price = str_replace(',', '.', $products_gross_price);
+
+
+
 
 		$dbconn =& oosDBGetConn();
 		$oostable =& oosDBGetTables();
@@ -217,9 +219,9 @@ if (isset($_FILES['usrfl'])) {
 		echo TEXT_TEMPORARY_FILENAME . $_FILES['usrfl']['tmp_name'] . '<br>';
 		echo TEXT_USER_FILENAME . $_FILES['usrfl']['name'] . '<br>';
 		echo TEXT_SIZE . $_FILES['usrfl']['size'] . '<br>';
-		echo '<br><br>';
-		echo '<br>products_id | products_model | products_name | products_tax_class_id | products_status | products_net_price | products_gross_price';
-		echo '<br><br>';
+		echo '<br>';
+#		echo '<br>products_id | products_model | products_name | products_tax_class_id | products_status | products_net_price | products_gross_price';
+		echo '<br>';
 
 		// get the entire file into an array
 		$readed = file(OOS_UPDATE_PATH . $_FILES['usrfl']['name']);
