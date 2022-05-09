@@ -25,7 +25,7 @@
    the translated file.
    ---------------------------------------------------------------------- */
 
-define('HEADING_TITLE', 'Export Produktdaten Daten im Excel-Format');
+define('HEADING_TITLE', 'Export Produktdaten im Excel-Format');
 
 define('TABLE_HEADING_TITLE', 'Titel');
 define('TABLE_HEADING_FILE_DATE', 'Datum');
