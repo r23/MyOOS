@@ -193,20 +193,20 @@ if (!defined('DEFAULT_LANGUAGE')) {
 if (basename($_SERVER['SCRIPT_NAME']) != $aContents['login']
    && basename($_SERVER['SCRIPT_NAME']) != $aContents['password_forgotten']) {
     oos_admin_check_login();
-	
-	$is_htaccess = (file_exists(OOS_ABSOLUTE_PATH . OOS_ADMIN . '.htaccess'));
-	$is_protected = oos_check_is_access_protected();	
+
+    $is_htaccess = (file_exists(OOS_ABSOLUTE_PATH . OOS_ADMIN . '.htaccess'));
+    $is_protected = oos_check_is_access_protected();
 
 
-	if (false === $is_protected) {
-		$messageStack->add(ERROR_HTACC_CHECK_ERROR, 'error');
-	} elseif (1 === $is_protected && !$is_htaccess) {
-		// The program is protected by higher-level authorizations; local directory protection is not required.
-	} elseif (1 === $is_protected && $is_htaccess) {
-		// The program is protected, the directory protection is complete.
-	} elseif (0 === $is_protected && $is_htaccess) {
-		$messageStack->add(ERROR_HTACC_INCOMPLETE, 'error');
-	} else {
-		$messageStack->add(ERROR_HTACC_PROPOSED, 'error');
-	}
+    if (false === $is_protected) {
+        $messageStack->add(ERROR_HTACC_CHECK_ERROR, 'error');
+    } elseif (1 === $is_protected && !$is_htaccess) {
+        // The program is protected by higher-level authorizations; local directory protection is not required.
+    } elseif (1 === $is_protected && $is_htaccess) {
+        // The program is protected, the directory protection is complete.
+    } elseif (0 === $is_protected && $is_htaccess) {
+        $messageStack->add(ERROR_HTACC_INCOMPLETE, 'error');
+    } else {
+        $messageStack->add(ERROR_HTACC_PROPOSED, 'error');
+    }
 }

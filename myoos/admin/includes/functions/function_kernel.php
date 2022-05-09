@@ -55,11 +55,10 @@ function oos_admin_check_login()
 
 function oos_check_is_access_protected()
 {
-	
-	if ($_SERVER['HTTP_HOST'] == 'localhost') {
-		return 1;
-	}	
-	
+    if ($_SERVER['HTTP_HOST'] == 'localhost') {
+        return 1;
+    }
+
     $rc = false;
     $url = OOS_HTTPS_SERVER . OOS_SHOP . OOS_ADMIN;
     $headers = get_headers($url);

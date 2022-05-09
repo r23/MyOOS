@@ -470,4 +470,3 @@ define('PULL_DOWN_DEFAULT', 'Bitte auswählen');
 define('ERROR_HTACC_CHECK_ERROR', 'Es konnte nicht überprüft werden, ob das Shopsystem geschützt ist!<br>Der simulierte externe Zugriff konnte nicht ausgeführt werden.');
 define('ERROR_HTACC_INCOMPLETE', 'Das Shopsystem ist nicht geschützt, der Verzeichnisschutz ist unvollständig!');
 define('ERROR_HTACC_PROPOSED', 'Das Shopsystem ist nicht geschützt, ein Verzeichnisschutz wird dringend empfohlen!');
-

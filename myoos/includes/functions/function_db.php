@@ -110,8 +110,7 @@ function oosDBInit()
     $GLOBALS['oosDB_connections'][0] = $dbconn;
     $GLOBALS['oosDB_tables'] = [];
 
-    $sql ="SET NAMES 'utf8mb4'";
-    $dbconn->execute($sql);
+    $db->Execute("SET NAMES 'utf8mb4'");
 
     return true;
 }
@@ -164,22 +163,22 @@ function oos_db_input($sStr)
     return addslashes($sStr);
 }
 
-  function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
-  {
+function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
+{
 
     // Get database information
-      $dbconn =& oosDBGetConn();
+    $dbconn =& oosDBGetConn();
 
-      reset($data);
-      if ($action == 'INSERT') {
-          $query = 'INSERT INTO ' . $table . ' (';
-          foreach (array_keys($data) as $columns) {
-              $query .= $columns . ', ';
-          }
-          $query = substr($query, 0, -2) . ') values (';
-          reset($data);
-          foreach ($data as $value) {
-              switch ((string)$value) {
+    reset($data);
+    if ($action == 'INSERT') {
+        $query = 'INSERT INTO ' . $table . ' (';
+        foreach (array_keys($data) as $columns) {
+            $query .= $columns . ', ';
+        }
+        $query = substr($query, 0, -2) . ') values (';
+        reset($data);
+        foreach ($data as $value) {
+            switch ((string)$value) {
           case 'now()':
             $query .= 'now(), ';
             break;
@@ -192,12 +191,12 @@ function oos_db_input($sStr)
             $query .= '\'' . oos_db_input($value) . '\', ';
             break;
         }
-          }
-          $query = substr($query, 0, -2) . ')';
-      } elseif ($action == 'UPDATE') {
-          $query = 'UPDATE ' . $table . ' set ';
-          foreach ($data as $columns => $value) {
-              switch ((string)$value) {
+        }
+        $query = substr($query, 0, -2) . ')';
+    } elseif ($action == 'UPDATE') {
+        $query = 'UPDATE ' . $table . ' set ';
+        foreach ($data as $columns => $value) {
+            switch ((string)$value) {
           case 'now()':
             $query .= $columns . ' = now(), ';
             break;
@@ -210,26 +209,26 @@ function oos_db_input($sStr)
             $query .= $columns . ' = \'' . oos_db_input($value) . '\', ';
             break;
         }
-          }
-          $query = substr($query, 0, -2) . ' where ' . $parameters;
-      }
-      return $dbconn->Execute($query);
-  }
+        }
+        $query = substr($query, 0, -2) . ' where ' . $parameters;
+    }
+    return $dbconn->Execute($query);
+}
 
-  function oos_db_prepare_input($sStr)
-  {
-      if (is_string($sStr)) {
-          return trim(stripslashes($sStr));
-      } elseif (is_array($sStr)) {
-          reset($sStr);
-          foreach ($sStr as $key => $value) {
-              $sStr[$key] = oos_db_prepare_input($value);
-          }
-          return $sStr;
-      } else {
-          return $sStr;
-      }
-  }
+function oos_db_prepare_input($sStr)
+{
+    if (is_string($sStr)) {
+        return trim(stripslashes($sStr));
+    } elseif (is_array($sStr)) {
+        reset($sStr);
+        foreach ($sStr as $key => $value) {
+            $sStr[$key] = oos_db_prepare_input($value);
+        }
+        return $sStr;
+    } else {
+        return $sStr;
+    }
+}
 
 function oosDBOutput($sStr)
 {
@@ -238,7 +237,6 @@ function oosDBOutput($sStr)
 
 function dosql($table, $flds)
 {
-
     // Get database information
     $dbconn =& oosDBGetConn();
     $dict = NewDataDictionary($dbconn);
@@ -251,7 +249,6 @@ function dosql($table, $flds)
 
 function idxsql($idxname, $table, $idxflds)
 {
-
     // Get database information
     $dbconn =& oosDBGetConn();
     $dict = NewDataDictionary($dbconn);

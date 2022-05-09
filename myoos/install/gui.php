@@ -595,11 +595,11 @@ function print_Confirm()
 
     $dir_fs_www_root = $_SERVER['DOCUMENT_ROOT']; // this replaced the foor loop
 
-	if ($_SERVER['HTTP_HOST'] == 'localhost') {
-		$oos_ssl_server = 'http://localhost';
-	} else {
-		$oos_ssl_server = 'https://' . $_SERVER['HTTP_HOST'];
-	}
+    if ($_SERVER['HTTP_HOST'] == 'localhost') {
+        $oos_ssl_server = 'http://localhost';
+    } else {
+        $oos_ssl_server = 'https://' . $_SERVER['HTTP_HOST'];
+    }
 
     echo '<font class="oos-title">' . VIRTUAL_1 . ':&nbsp;</font>' . "\n" .
         '<font class="oos-normal">' . VIRTUAL_2 . '</font>' . "\n" .

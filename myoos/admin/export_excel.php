@@ -16,7 +16,7 @@ require 'includes/main.php';
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
-	switch ($action) {
+    switch ($action) {
 
       case 'make_file_now':
         $excel_file = 'db_export-' . date('YmdHis') . '.cvs';
@@ -59,20 +59,20 @@ if (!empty($action)) {
         fclose($fp);
 
         if (isset($_POST['download']) && ($_POST['download'] == 'yes')) {
-		# todo
-		/*
-            switch ($_POST['compress']) {
-            case 'gzip':
-              exec(LOCAL_EXE_GZIP . ' ' . OOS_EXPORT_PATH . $excel_file);
-              $excel_file .= '.gz';
-              break;
+            # todo
+            /*
+                switch ($_POST['compress']) {
+                case 'gzip':
+                  exec(LOCAL_EXE_GZIP . ' ' . OOS_EXPORT_PATH . $excel_file);
+                  $excel_file .= '.gz';
+                  break;
 
-            case 'zip':
-              exec(LOCAL_EXE_ZIP . ' -j ' . OOS_EXPORT_PATH . $excel_file . '.zip ' . OOS_EXPORT_PATH . $excel_file);
-              @unlink(OOS_EXPORT_PATH . $excel_file);
-              $excel_file .= '.zip';
-          }
-		*/
+                case 'zip':
+                  exec(LOCAL_EXE_ZIP . ' -j ' . OOS_EXPORT_PATH . $excel_file . '.zip ' . OOS_EXPORT_PATH . $excel_file);
+                  @unlink(OOS_EXPORT_PATH . $excel_file);
+                  $excel_file .= '.zip';
+              }
+            */
             header('Content-type: application/x-octet-stream');
             header('Content-disposition: attachment; filename=' . $excel_file);
 
@@ -81,8 +81,8 @@ if (!empty($action)) {
 
             exit;
         } else {
-			# todo
-			/*
+            # todo
+            /*
             switch ($_POST['compress']) {
             case 'gzip':
               exec(LOCAL_EXE_GZIP . ' ' . $excel_file);
@@ -92,14 +92,14 @@ if (!empty($action)) {
               exec(LOCAL_EXE_ZIP . ' -j ' . $excel_file . '.zip ' . $excel_file);
               unlink(OOS_EXPORT_PATH . $excel_file);
           }
-		  		*/
+                  */
             $messageStack->add_session(SUCCESS_DATABASE_SAVED, 'success');
         }
         oos_redirect_admin(oos_href_link_admin($aContents['export_excel']));
         break;
 
       case 'download':
-		$sFile = oos_db_prepare_input($_GET['file']);
+        $sFile = oos_db_prepare_input($_GET['file']);
         $extension = substr($_GET['file'], -3);
         if (($extension == 'zip') || ($extension == '.gz') || ($extension == 'cvs')) {
             if ($fp = fopen(OOS_EXPORT_PATH . $sFile, 'rb')) {
@@ -126,7 +126,7 @@ if (!empty($action)) {
         }
         break;
     }
-  }
+}
 
 // check if the backup directory exists
   $dir_ok = false;
@@ -239,7 +239,6 @@ if ($dir_ok) {
             echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
         } else {
             echo '<a href="' . oos_href_link_admin($aContents['export_excel'], 'file=' . $entry) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></button></a>';
-
         } ?>&nbsp;</td>
               </tr>
 <?php
@@ -265,10 +264,10 @@ if ($dir_ok) {
       $contents = array('form' => oos_draw_form('id', 'backup', $aContents['export_excel'], 'action=make_file_now', 'post', false));
       $contents[] = array('text' => TEXT_INFO_NEW_EXPORT);
 
-	# todo
-	#if (file_exists(LOCAL_EXE_ZIP)) {
-		#$contents[] = array('text' => oos_draw_radio_field('compress', 'zip') . ' ' . TEXT_INFO_USE_ZIP);
-	#}
+    # todo
+    #if (file_exists(LOCAL_EXE_ZIP)) {
+        #$contents[] = array('text' => oos_draw_radio_field('compress', 'zip') . ' ' . TEXT_INFO_USE_ZIP);
+    #}
 
       if ($dir_ok == true) {
           $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('download', 'yes') . ' ' . TEXT_INFO_DOWNLOAD_ONLY . '*<br><br>*' . TEXT_INFO_BEST_THROUGH_HTTPS);
