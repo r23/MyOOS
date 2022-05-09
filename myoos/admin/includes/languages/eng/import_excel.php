@@ -27,3 +27,10 @@
 
 
 define('HEADING_TITLE', 'Update Excel Price');
+
+define('TEXT_HEADING', 'Upload product file');
+define('TEXT_FILE_UPLOADED', 'File uploaded');
+define('TEXT_TEMPORARY_FILENAME', 'Temporary filename: ');
+define('TEXT_USER_FILENAME', 'User filename: ');
+define('TEXT_SIZE', 'Size: ');
+define('TEXT_TOTAL_RECORDS', 'Total Records inserted......: ');
