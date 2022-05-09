@@ -157,7 +157,10 @@ if (!empty($action)) {
                 $old_products_price = $products_price['products_price'];
                 $new_products_price = oos_db_prepare_input($_POST['products_price']);
 
-                if ($old_products_price != $new_products_price) {
+				$epsilon = 0.00001;
+		
+				# https://www.php.net/manual/en/language.types.float.php#language.types.float.casting
+				if(abs($old_products_price-$new_products_price) > $epsilon) {					
                     $sql_price_array = array('products_id' => $products_id,
                                             'products_price' => oos_db_prepare_input($_POST['products_price']),
                                             'date_added' => 'now()');
