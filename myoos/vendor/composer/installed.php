@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'a53f0aa760f57f1bbc8dd1a321efa3ceda0da030',
+        'reference' => 'f77cb62affca25a4b31d52c367bf2d9bd5b95b2c',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -74,12 +74,12 @@
             'dev_requirement' => false,
         ),
         'endroid/qr-code' => array(
-            'pretty_version' => '4.4.8',
-            'version' => '4.4.8.0',
+            'pretty_version' => '4.4.9',
+            'version' => '4.4.9.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../endroid/qr-code',
             'aliases' => array(),
-            'reference' => '9109eb7790ece1d46b1ab40eb7f375bbd6e7cb5d',
+            'reference' => 'bf087fa1e93a1b7310e2d94d187e26ae51db199d',
             'dev_requirement' => false,
         ),
         'ezyang/htmlpurifier' => array(
@@ -178,7 +178,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'a53f0aa760f57f1bbc8dd1a321efa3ceda0da030',
+            'reference' => 'f77cb62affca25a4b31d52c367bf2d9bd5b95b2c',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
