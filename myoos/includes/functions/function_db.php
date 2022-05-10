@@ -110,7 +110,7 @@ function oosDBInit()
     $GLOBALS['oosDB_connections'][0] = $dbconn;
     $GLOBALS['oosDB_tables'] = [];
 
-    $db->Execute("SET NAMES 'utf8mb4'");
+    $dbconn->Execute("SET NAMES 'utf8mb4'");
 
     return true;
 }
