@@ -161,7 +161,7 @@ if (!empty($action)) {
 
                 # https://www.php.net/manual/en/language.types.float.php#language.types.float.casting
                 if (abs($old_products_price-$new_products_price) > $epsilon) {
-                    $sql_price_array = array('products_id' => $products_id,
+                    $sql_price_array = array('products_id' => intval($products_id),
                                             'products_price' => oos_db_prepare_input($_POST['products_price']),
                                             'date_added' => 'now()');
                     oos_db_perform($oostable['products_price_history'], $sql_price_array);

@@ -124,16 +124,16 @@ function walk($item1)
 
         # https://www.php.net/manual/en/language.types.float.php#language.types.float.casting
         if (abs($old_products_price-$new_products_price) > $epsilon) {
-            $sql_price_array = array('products_id' => $products_id,
-                                    'products_price' => $products_net_price,
+            $sql_price_array = array('products_id' => intval($products_id),
+                                    'products_price' => oos_db_input($products_net_price),
                                     'date_added' => 'now()');
             oos_db_perform($oostable['products_price_history'], $sql_price_array);
         }
 
         $productstable = $oostable['products'];
         $dbconn->Execute("UPDATE $productstable 
-							SET products_price = '" . $products_net_price . "', 
-								products_model = '" . $products_model . "',
+							SET products_price = '" . oos_db_input($products_net_price) . "', 
+								products_model = '" . oos_db_input($products_model) . "',
 								products_status = '" . intval($products_status) . "' 
 							WHERE products_id = '" . intval($products_id) . "'");
     }
