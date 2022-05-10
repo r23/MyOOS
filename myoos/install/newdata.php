@@ -617,6 +617,9 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "information_description
 $result = $db->Execute("INSERT INTO " . $prefix_table . "information_description (information_id, information_languages_id, information_name, information_heading_title, information_description) VALUES (6, 1, 'Zahlungsarten', 'Zahlungsarten', 'Fügen Sie hier Ihre Informationen über Ihre Zahlungarten ein' )") or die("<b>".NOTUPDATED . $prefix_table . "information_description</b>");
 $result = $db->Execute("INSERT INTO " . $prefix_table . "information_description (information_id, information_languages_id, information_name, information_heading_title, information_description) VALUES (6, 2, 'Payment Methods', 'Payment Methods', 'Put here your Payment Methods information' )") or die("<b>".NOTUPDATED . $prefix_table . "information_description</b>");
 
+$result = $db->Execute("INSERT INTO " . $prefix_table . "information_description (information_id, information_languages_id, information_name, information_heading_title, information_description) VALUES (7, 1, 'Kundenbewertungen', 'Kundenbewertungen', 'Fügen Sie hier Ihre Informationen zur Echtheit von Kundenbewertungen ein.' )") or die("<b>".NOTUPDATED . $prefix_table . "information_description</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "information_description (information_id, information_languages_id, information_name, information_heading_title, information_description) VALUES (7, 2, 'Customer reviews', 'Customer reviews', 'Insert your information about the authenticity of customer reviews here.' )") or die("<b>".NOTUPDATED . $prefix_table . "information_description</b>");
+
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "information_description " . UPDATED .'</font>';
 
