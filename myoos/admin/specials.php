@@ -101,7 +101,7 @@ if (!empty($action)) {
             $specials_price = ($products_price - (($specials_price / 100) * $products_price));
         }
 
-        $dbconn->Execute("UPDATE " . $oostable['specials'] . " SET specials_new_products_price = '" . oos_db_input($specials_price) . "', specials_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "' WHERE specials_id = '" .intval($specials_id) . "'");
+        $dbconn->Execute("UPDATE " . $oostable['specials'] . " SET specials_new_products_price = '" . oos_db_input($specials_price) . "', specials_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "', date_status_change = now(), status = 1 WHERE specials_id = '" .intval($specials_id) . "'");
          
 		$specialstable = $oostable['specials'];
         $query = "SELECT products_id FROM $specialstable WHERE specials_id = '" . intval($specials_id) . "'";
@@ -229,6 +229,7 @@ if (($action == 'new') || ($action == 'edit')) {
 				<form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post">
 					<?php if ($form_action == 'update') {
         echo oos_draw_hidden_field('specials_id', intval($sID));
+		echo oos_draw_hidden_field('products_price', (isset($sInfo->products_price) ? $sInfo->products_price : ''));
     } ?>
 
 <?php
@@ -269,12 +270,13 @@ if (($action == 'new') || ($action == 'edit')) {
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SPECIALS_PRODUCT; ?></label>
                            <div class="col-md-10">
 								<?php echo oos_draw_products_pull_down('products_id', $specials_array);
-        echo oos_draw_hidden_field('products_price', (isset($sInfo->products_price) ? $sInfo->products_price : '')); ?>
+         ?>
                            </div>
                         </div>
                      </fieldset>
 <?php
-    } ?>
+    } 
+?>
                      <fieldset>
                         <div class="form-group row mb-2">
                            <label class="col-md-2 col-form-label" for="input-id-1"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?></label>
@@ -367,7 +369,7 @@ if (($action == 'new') || ($action == 'edit')) {
         if ($specials['status'] == '1') {
             echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['specials'], 'action=setflag&flag=0&id=' . $specials['specials_id']) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
         } else {
-            echo '<a href="' . oos_href_link_admin($aContents['specials'], 'action=setflag&flag=1&id=' . $specials['specials_id']) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+			echo '<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $sInfo->specials_id . '&action=edit') . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
         } ?></td>
                 <td class="text-right"><?php if (isset($sInfo) && is_object($sInfo) && ($specials['specials_id'] == $sInfo->specials_id)) {
             echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';

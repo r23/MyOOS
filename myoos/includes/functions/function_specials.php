@@ -35,12 +35,30 @@ function oos_set_specials_status($nSpecialsId, $status)
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
+	
+	$specialstable = $oostable['specials'];
+	$query = "SELECT products_id FROM $specialstable WHERE specials_id = '" . intval($nSpecialsId) . "'";
+	$products_id = $dbconn->GetOne($query);
 
-    $specialstable = $oostable['specials'];
-    return $dbconn->Execute("UPDATE $specialstable
+
+	$productstable = $oostable['products'];
+	$product_query = "SELECT products_price
+                        FROM $productstable
+                        WHERE products_id = '" . intval($products_id) . "'";
+	$products_price = $dbconn->GetOne($product_query);
+
+	// product price history
+	$sql_price_array = array('products_id' => intval($products_id),
+							'products_price' => oos_db_input($products_price),
+							'date_added' => 'now()');
+	oos_db_perform($oostable['products_price_history'], $sql_price_array);	
+	
+	$dbconn->Execute("UPDATE $specialstable
                              SET status = '" . oos_db_input($status) . "',
                                  date_status_change = now()
                               WHERE specials_id = '" . intval($nSpecialsId) . "'");
+							  
+	return;
 }
 
 
