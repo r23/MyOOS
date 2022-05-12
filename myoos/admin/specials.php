@@ -64,70 +64,71 @@ if (!empty($action)) {
             oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'sID=' . intval($_GET['id']) . '&page=' . intval($nPage)));
             break;
 
-      case 'insert':
-        if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
-            $products_id = oos_db_prepare_input($_POST['products_id']);
-            $products_price = oos_db_prepare_input($_POST['products_price']);
-            $specials_price = oos_db_prepare_input($_POST['specials_price']);
-            $expires_date = oos_db_prepare_input($_POST['expires_date']);
+		case 'insert':
+			if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
+				$products_id = oos_db_prepare_input($_POST['products_id']);
+				$products_price = oos_db_prepare_input($_POST['products_price']);
+				$specials_price = oos_db_prepare_input($_POST['specials_price']);
+				$expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-            // insert a product on special
-            if (substr($_POST['specials_price'], -1) == '%') {
-                $productstable = $oostable['products'];
-                $new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
-                $new_special_insert = $new_special_insert_result->fields;
+				// insert a product on special
+				if (substr($_POST['specials_price'], -1) == '%') {
+					$productstable = $oostable['products'];
+					$new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
+					$new_special_insert = $new_special_insert_result->fields;
 
-                $products_price = $new_special_insert['products_price'];
-                $specials_price = ($products_price - (($specials_price / 100) * $products_price));
-            }
+					$products_price = $new_special_insert['products_price'];
+					$specials_price = ($products_price - (($specials_price / 100) * $products_price));
+				}
 
-            $dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+				$dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+				// product price history
+				$sql_price_array = array('products_id' => intval($products_id),
+										'products_price' => oos_db_input($specials_price),
+										'date_added' => 'now()');
+				oos_db_perform($oostable['products_price_history'], $sql_price_array);
+			}
+			oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
+			break;
+
+		case 'update':
+			$specials_id = oos_db_prepare_input($_POST['specials_id']);
+			$products_price = oos_db_prepare_input($_POST['products_price']);
+			$specials_price = oos_db_prepare_input($_POST['specials_price']);
+			$expires_date = oos_db_prepare_input($_POST['expires_date']);
+
+			if (substr($specials_price, -1) == '%') {
+				$specials_price = ($products_price - (($specials_price / 100) * $products_price));
+			}
+
+			$dbconn->Execute("UPDATE " . $oostable['specials'] . " SET specials_new_products_price = '" . oos_db_input($specials_price) . "', specials_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "', date_status_change = now(), status = 1 WHERE specials_id = '" .intval($specials_id) . "'");
+         
+			$specialstable = $oostable['specials'];
+			$query = "SELECT products_id FROM $specialstable WHERE specials_id = '" . intval($specials_id) . "'";
+			$products_id = $dbconn->GetOne($query);
+
 			// product price history
 			$sql_price_array = array('products_id' => intval($products_id),
 									'products_price' => oos_db_input($specials_price),
-                                    'date_added' => 'now()');
-            oos_db_perform($oostable['products_price_history'], $sql_price_array);
-        }
-        oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
-        break;
-
-      case 'update':
-        $specials_id = oos_db_prepare_input($_POST['specials_id']);
-        $products_price = oos_db_prepare_input($_POST['products_price']);
-        $specials_price = oos_db_prepare_input($_POST['specials_price']);
-        $expires_date = oos_db_prepare_input($_POST['expires_date']);
-
-        if (substr($specials_price, -1) == '%') {
-            $specials_price = ($products_price - (($specials_price / 100) * $products_price));
-        }
-
-        $dbconn->Execute("UPDATE " . $oostable['specials'] . " SET specials_new_products_price = '" . oos_db_input($specials_price) . "', specials_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "', date_status_change = now(), status = 1 WHERE specials_id = '" .intval($specials_id) . "'");
-         
-		$specialstable = $oostable['specials'];
-        $query = "SELECT products_id FROM $specialstable WHERE specials_id = '" . intval($specials_id) . "'";
-        $products_id = $dbconn->GetOne($query);
-
-		// product price history
-		$sql_price_array = array('products_id' => intval($products_id),
-								'products_price' => oos_db_input($specials_price),
-								'date_added' => 'now()');
-		oos_db_perform($oostable['products_price_history'], $sql_price_array);
+									'date_added' => 'now()');
+			oos_db_perform($oostable['products_price_history'], $sql_price_array);
 
 
-        oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . intval($specials_id)));
-        break;
+			oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . intval($specials_id)));
+			break;
 
-      case 'deleteconfirm':
-        $specials_id = oos_db_prepare_input($_GET['sID']);
+		case 'deleteconfirm':
+			$specials_id = oos_db_prepare_input($_GET['sID']);
 
-        $specialstable = $oostable['specials'];
-        $dbconn->Execute("DELETE FROM $specialstable WHERE specials_id = '" . oos_db_input($specials_id) . "'");
+			$specialstable = $oostable['specials'];
+			$dbconn->Execute("DELETE FROM $specialstable WHERE specials_id = '" . oos_db_input($specials_id) . "'");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
-        break;
-    }
+			oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
+			break;
+	}
 }
-  require 'includes/header.php';
+
+require 'includes/header.php';
 
 ?>
 <!-- body //-->

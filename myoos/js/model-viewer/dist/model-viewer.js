@@ -1,2620 +1,22 @@
 /**
  * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
  */
-/**
- * True if the custom elements polyfill is in use.
- */
-const isCEPolyfill = typeof window !== 'undefined' &&
-    window.customElements != null &&
-    window.customElements.polyfillWrapFlushCallback !==
-        undefined;
-/**
- * Removes nodes, starting from `start` (inclusive) to `end` (exclusive), from
- * `container`.
- */
-const removeNodes = (container, start, end = null) => {
-    while (start !== end) {
-        const n = start.nextSibling;
-        container.removeChild(start);
-        start = n;
-    }
-};
+const i$3=(i,e)=>"method"===e.kind&&e.descriptor&&!("value"in e.descriptor)?{...e,finisher(n){n.createProperty(e.key,i);}}:{kind:"field",key:Symbol(),placement:"own",descriptor:{},originalKey:e.key,initializer(){"function"==typeof e.initializer&&(this[e.key]=e.initializer.call(this));},finisher(n){n.createProperty(e.key,i);}};function e$3(e){return (n,t)=>void 0!==t?((i,e,n)=>{e.constructor.createProperty(n,i);})(e,n,t):i$3(e,n)}
 
 /**
  * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * An expression marker with embedded unique key to avoid collision with
- * possible text in templates.
- */
-const marker = `{{lit-${String(Math.random()).slice(2)}}}`;
-/**
- * An expression marker used text-positions, multi-binding attributes, and
- * attributes with markup-like text values.
- */
-const nodeMarker = `<!--${marker}-->`;
-const markerRegex = new RegExp(`${marker}|${nodeMarker}`);
-/**
- * Suffix appended to all bound attribute names.
- */
-const boundAttributeSuffix = '$lit$';
-/**
- * An updatable Template that tracks the location of dynamic parts.
- */
-class Template {
-    constructor(result, element) {
-        this.parts = [];
-        this.element = element;
-        const nodesToRemove = [];
-        const stack = [];
-        // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be null
-        const walker = document.createTreeWalker(element.content, 133 /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */, null, false);
-        // Keeps track of the last index associated with a part. We try to delete
-        // unnecessary nodes, but we never want to associate two different parts
-        // to the same index. They must have a constant node between.
-        let lastPartIndex = 0;
-        let index = -1;
-        let partIndex = 0;
-        const { strings, values: { length } } = result;
-        while (partIndex < length) {
-            const node = walker.nextNode();
-            if (node === null) {
-                // We've exhausted the content inside a nested template element.
-                // Because we still have parts (the outer for-loop), we know:
-                // - There is a template in the stack
-                // - The walker will find a nextNode outside the template
-                walker.currentNode = stack.pop();
-                continue;
-            }
-            index++;
-            if (node.nodeType === 1 /* Node.ELEMENT_NODE */) {
-                if (node.hasAttributes()) {
-                    const attributes = node.attributes;
-                    const { length } = attributes;
-                    // Per
-                    // https://developer.mozilla.org/en-US/docs/Web/API/NamedNodeMap,
-                    // attributes are not guaranteed to be returned in document order.
-                    // In particular, Edge/IE can return them out of order, so we cannot
-                    // assume a correspondence between part index and attribute index.
-                    let count = 0;
-                    for (let i = 0; i < length; i++) {
-                        if (endsWith(attributes[i].name, boundAttributeSuffix)) {
-                            count++;
-                        }
-                    }
-                    while (count-- > 0) {
-                        // Get the template literal section leading up to the first
-                        // expression in this attribute
-                        const stringForPart = strings[partIndex];
-                        // Find the attribute name
-                        const name = lastAttributeNameRegex.exec(stringForPart)[2];
-                        // Find the corresponding attribute
-                        // All bound attributes have had a suffix added in
-                        // TemplateResult#getHTML to opt out of special attribute
-                        // handling. To look up the attribute value we also need to add
-                        // the suffix.
-                        const attributeLookupName = name.toLowerCase() + boundAttributeSuffix;
-                        const attributeValue = node.getAttribute(attributeLookupName);
-                        node.removeAttribute(attributeLookupName);
-                        const statics = attributeValue.split(markerRegex);
-                        this.parts.push({ type: 'attribute', index, name, strings: statics });
-                        partIndex += statics.length - 1;
-                    }
-                }
-                if (node.tagName === 'TEMPLATE') {
-                    stack.push(node);
-                    walker.currentNode = node.content;
-                }
-            }
-            else if (node.nodeType === 3 /* Node.TEXT_NODE */) {
-                const data = node.data;
-                if (data.indexOf(marker) >= 0) {
-                    const parent = node.parentNode;
-                    const strings = data.split(markerRegex);
-                    const lastIndex = strings.length - 1;
-                    // Generate a new text node for each literal section
-                    // These nodes are also used as the markers for node parts
-                    for (let i = 0; i < lastIndex; i++) {
-                        let insert;
-                        let s = strings[i];
-                        if (s === '') {
-                            insert = createMarker();
-                        }
-                        else {
-                            const match = lastAttributeNameRegex.exec(s);
-                            if (match !== null && endsWith(match[2], boundAttributeSuffix)) {
-                                s = s.slice(0, match.index) + match[1] +
-                                    match[2].slice(0, -boundAttributeSuffix.length) + match[3];
-                            }
-                            insert = document.createTextNode(s);
-                        }
-                        parent.insertBefore(insert, node);
-                        this.parts.push({ type: 'node', index: ++index });
-                    }
-                    // If there's no text, we must insert a comment to mark our place.
-                    // Else, we can trust it will stick around after cloning.
-                    if (strings[lastIndex] === '') {
-                        parent.insertBefore(createMarker(), node);
-                        nodesToRemove.push(node);
-                    }
-                    else {
-                        node.data = strings[lastIndex];
-                    }
-                    // We have a part for each match found
-                    partIndex += lastIndex;
-                }
-            }
-            else if (node.nodeType === 8 /* Node.COMMENT_NODE */) {
-                if (node.data === marker) {
-                    const parent = node.parentNode;
-                    // Add a new marker node to be the startNode of the Part if any of
-                    // the following are true:
-                    //  * We don't have a previousSibling
-                    //  * The previousSibling is already the start of a previous part
-                    if (node.previousSibling === null || index === lastPartIndex) {
-                        index++;
-                        parent.insertBefore(createMarker(), node);
-                    }
-                    lastPartIndex = index;
-                    this.parts.push({ type: 'node', index });
-                    // If we don't have a nextSibling, keep this node so we have an end.
-                    // Else, we can remove it to save future costs.
-                    if (node.nextSibling === null) {
-                        node.data = '';
-                    }
-                    else {
-                        nodesToRemove.push(node);
-                        index--;
-                    }
-                    partIndex++;
-                }
-                else {
-                    let i = -1;
-                    while ((i = node.data.indexOf(marker, i + 1)) !== -1) {
-                        // Comment node has a binding marker inside, make an inactive part
-                        // The binding won't work, but subsequent bindings will
-                        // TODO (justinfagnani): consider whether it's even worth it to
-                        // make bindings in comments work
-                        this.parts.push({ type: 'node', index: -1 });
-                        partIndex++;
-                    }
-                }
-            }
-        }
-        // Remove text binding nodes after the walk to not disturb the TreeWalker
-        for (const n of nodesToRemove) {
-            n.parentNode.removeChild(n);
-        }
-    }
-}
-const endsWith = (str, suffix) => {
-    const index = str.length - suffix.length;
-    return index >= 0 && str.slice(index) === suffix;
-};
-const isTemplatePartActive = (part) => part.index !== -1;
-// Allows `document.createComment('')` to be renamed for a
-// small manual size-savings.
-const createMarker = () => document.createComment('');
-/**
- * This regex extracts the attribute name preceding an attribute-position
- * expression. It does this by matching the syntax allowed for attributes
- * against the string literal directly preceding the expression, assuming that
- * the expression is in an attribute-value position.
- *
- * See attributes in the HTML spec:
- * https://www.w3.org/TR/html5/syntax.html#elements-attributes
- *
- * " \x09\x0a\x0c\x0d" are HTML space characters:
- * https://www.w3.org/TR/html5/infrastructure.html#space-characters
- *
- * "\0-\x1F\x7F-\x9F" are Unicode control characters, which includes every
- * space character except " ".
- *
- * So an attribute is:
- *  * The name: any character except a control character, space character, ('),
- *    ("), ">", "=", or "/"
- *  * Followed by zero or more space characters
- *  * Followed by "="
- *  * Followed by zero or more space characters
- *  * Followed by:
- *    * Any character except space, ('), ("), "<", ">", "=", (`), or
- *    * (") then any non-("), or
- *    * (') then any non-(')
- */
-const lastAttributeNameRegex = 
-// eslint-disable-next-line no-control-regex
-/([ \x09\x0a\x0c\x0d])([^\0-\x1F\x7F-\x9F "'>=/]+)([ \x09\x0a\x0c\x0d]*=[ \x09\x0a\x0c\x0d]*(?:[^ \x09\x0a\x0c\x0d"'`<>=]*|"[^"]*|'[^']*))$/;
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-const walkerNodeFilter = 133 /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */;
-/**
- * Removes the list of nodes from a Template safely. In addition to removing
- * nodes from the Template, the Template part indices are updated to match
- * the mutated Template DOM.
- *
- * As the template is walked the removal state is tracked and
- * part indices are adjusted as needed.
- *
- * div
- *   div#1 (remove) <-- start removing (removing node is div#1)
- *     div
- *       div#2 (remove)  <-- continue removing (removing node is still div#1)
- *         div
- * div <-- stop removing since previous sibling is the removing node (div#1,
- * removed 4 nodes)
- */
-function removeNodesFromTemplate(template, nodesToRemove) {
-    const { element: { content }, parts } = template;
-    const walker = document.createTreeWalker(content, walkerNodeFilter, null, false);
-    let partIndex = nextActiveIndexInTemplateParts(parts);
-    let part = parts[partIndex];
-    let nodeIndex = -1;
-    let removeCount = 0;
-    const nodesToRemoveInTemplate = [];
-    let currentRemovingNode = null;
-    while (walker.nextNode()) {
-        nodeIndex++;
-        const node = walker.currentNode;
-        // End removal if stepped past the removing node
-        if (node.previousSibling === currentRemovingNode) {
-            currentRemovingNode = null;
-        }
-        // A node to remove was found in the template
-        if (nodesToRemove.has(node)) {
-            nodesToRemoveInTemplate.push(node);
-            // Track node we're removing
-            if (currentRemovingNode === null) {
-                currentRemovingNode = node;
-            }
-        }
-        // When removing, increment count by which to adjust subsequent part indices
-        if (currentRemovingNode !== null) {
-            removeCount++;
-        }
-        while (part !== undefined && part.index === nodeIndex) {
-            // If part is in a removed node deactivate it by setting index to -1 or
-            // adjust the index as needed.
-            part.index = currentRemovingNode !== null ? -1 : part.index - removeCount;
-            // go to the next active part.
-            partIndex = nextActiveIndexInTemplateParts(parts, partIndex);
-            part = parts[partIndex];
-        }
-    }
-    nodesToRemoveInTemplate.forEach((n) => n.parentNode.removeChild(n));
-}
-const countNodes = (node) => {
-    let count = (node.nodeType === 11 /* Node.DOCUMENT_FRAGMENT_NODE */) ? 0 : 1;
-    const walker = document.createTreeWalker(node, walkerNodeFilter, null, false);
-    while (walker.nextNode()) {
-        count++;
-    }
-    return count;
-};
-const nextActiveIndexInTemplateParts = (parts, startIndex = -1) => {
-    for (let i = startIndex + 1; i < parts.length; i++) {
-        const part = parts[i];
-        if (isTemplatePartActive(part)) {
-            return i;
-        }
-    }
-    return -1;
-};
-/**
- * Inserts the given node into the Template, optionally before the given
- * refNode. In addition to inserting the node into the Template, the Template
- * part indices are updated to match the mutated Template DOM.
- */
-function insertNodeIntoTemplate(template, node, refNode = null) {
-    const { element: { content }, parts } = template;
-    // If there's no refNode, then put node at end of template.
-    // No part indices need to be shifted in this case.
-    if (refNode === null || refNode === undefined) {
-        content.appendChild(node);
-        return;
-    }
-    const walker = document.createTreeWalker(content, walkerNodeFilter, null, false);
-    let partIndex = nextActiveIndexInTemplateParts(parts);
-    let insertCount = 0;
-    let walkerIndex = -1;
-    while (walker.nextNode()) {
-        walkerIndex++;
-        const walkerNode = walker.currentNode;
-        if (walkerNode === refNode) {
-            insertCount = countNodes(node);
-            refNode.parentNode.insertBefore(node, refNode);
-        }
-        while (partIndex !== -1 && parts[partIndex].index === walkerIndex) {
-            // If we've inserted the node, simply adjust all subsequent parts
-            if (insertCount > 0) {
-                while (partIndex !== -1) {
-                    parts[partIndex].index += insertCount;
-                    partIndex = nextActiveIndexInTemplateParts(parts, partIndex);
-                }
-                return;
-            }
-            partIndex = nextActiveIndexInTemplateParts(parts, partIndex);
-        }
-    }
-}
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-const directives = new WeakMap();
-const isDirective = (o) => {
-    return typeof o === 'function' && directives.has(o);
-};
-
-/**
- * @license
- * Copyright (c) 2018 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * A sentinel value that signals that a value was handled by a directive and
- * should not be written to the DOM.
- */
-const noChange = {};
-/**
- * A sentinel value that signals a NodePart to fully clear its content.
- */
-const nothing = {};
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * An instance of a `Template` that can be attached to the DOM and updated
- * with new values.
- */
-class TemplateInstance {
-    constructor(template, processor, options) {
-        this.__parts = [];
-        this.template = template;
-        this.processor = processor;
-        this.options = options;
-    }
-    update(values) {
-        let i = 0;
-        for (const part of this.__parts) {
-            if (part !== undefined) {
-                part.setValue(values[i]);
-            }
-            i++;
-        }
-        for (const part of this.__parts) {
-            if (part !== undefined) {
-                part.commit();
-            }
-        }
-    }
-    _clone() {
-        // There are a number of steps in the lifecycle of a template instance's
-        // DOM fragment:
-        //  1. Clone - create the instance fragment
-        //  2. Adopt - adopt into the main document
-        //  3. Process - find part markers and create parts
-        //  4. Upgrade - upgrade custom elements
-        //  5. Update - set node, attribute, property, etc., values
-        //  6. Connect - connect to the document. Optional and outside of this
-        //     method.
-        //
-        // We have a few constraints on the ordering of these steps:
-        //  * We need to upgrade before updating, so that property values will pass
-        //    through any property setters.
-        //  * We would like to process before upgrading so that we're sure that the
-        //    cloned fragment is inert and not disturbed by self-modifying DOM.
-        //  * We want custom elements to upgrade even in disconnected fragments.
-        //
-        // Given these constraints, with full custom elements support we would
-        // prefer the order: Clone, Process, Adopt, Upgrade, Update, Connect
-        //
-        // But Safari does not implement CustomElementRegistry#upgrade, so we
-        // can not implement that order and still have upgrade-before-update and
-        // upgrade disconnected fragments. So we instead sacrifice the
-        // process-before-upgrade constraint, since in Custom Elements v1 elements
-        // must not modify their light DOM in the constructor. We still have issues
-        // when co-existing with CEv0 elements like Polymer 1, and with polyfills
-        // that don't strictly adhere to the no-modification rule because shadow
-        // DOM, which may be created in the constructor, is emulated by being placed
-        // in the light DOM.
-        //
-        // The resulting order is on native is: Clone, Adopt, Upgrade, Process,
-        // Update, Connect. document.importNode() performs Clone, Adopt, and Upgrade
-        // in one step.
-        //
-        // The Custom Elements v1 polyfill supports upgrade(), so the order when
-        // polyfilled is the more ideal: Clone, Process, Adopt, Upgrade, Update,
-        // Connect.
-        const fragment = isCEPolyfill ?
-            this.template.element.content.cloneNode(true) :
-            document.importNode(this.template.element.content, true);
-        const stack = [];
-        const parts = this.template.parts;
-        // Edge needs all 4 parameters present; IE11 needs 3rd parameter to be null
-        const walker = document.createTreeWalker(fragment, 133 /* NodeFilter.SHOW_{ELEMENT|COMMENT|TEXT} */, null, false);
-        let partIndex = 0;
-        let nodeIndex = 0;
-        let part;
-        let node = walker.nextNode();
-        // Loop through all the nodes and parts of a template
-        while (partIndex < parts.length) {
-            part = parts[partIndex];
-            if (!isTemplatePartActive(part)) {
-                this.__parts.push(undefined);
-                partIndex++;
-                continue;
-            }
-            // Progress the tree walker until we find our next part's node.
-            // Note that multiple parts may share the same node (attribute parts
-            // on a single element), so this loop may not run at all.
-            while (nodeIndex < part.index) {
-                nodeIndex++;
-                if (node.nodeName === 'TEMPLATE') {
-                    stack.push(node);
-                    walker.currentNode = node.content;
-                }
-                if ((node = walker.nextNode()) === null) {
-                    // We've exhausted the content inside a nested template element.
-                    // Because we still have parts (the outer for-loop), we know:
-                    // - There is a template in the stack
-                    // - The walker will find a nextNode outside the template
-                    walker.currentNode = stack.pop();
-                    node = walker.nextNode();
-                }
-            }
-            // We've arrived at our part's node.
-            if (part.type === 'node') {
-                const part = this.processor.handleTextExpression(this.options);
-                part.insertAfterNode(node.previousSibling);
-                this.__parts.push(part);
-            }
-            else {
-                this.__parts.push(...this.processor.handleAttributeExpressions(node, part.name, part.strings, this.options));
-            }
-            partIndex++;
-        }
-        if (isCEPolyfill) {
-            document.adoptNode(fragment);
-            customElements.upgrade(fragment);
-        }
-        return fragment;
-    }
-}
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * Our TrustedTypePolicy for HTML which is declared using the html template
- * tag function.
- *
- * That HTML is a developer-authored constant, and is parsed with innerHTML
- * before any untrusted expressions have been mixed in. Therefor it is
- * considered safe by construction.
- */
-const policy = window.trustedTypes &&
-    trustedTypes.createPolicy('lit-html', { createHTML: (s) => s });
-const commentMarker = ` ${marker} `;
-/**
- * The return type of `html`, which holds a Template and the values from
- * interpolated expressions.
- */
-class TemplateResult {
-    constructor(strings, values, type, processor) {
-        this.strings = strings;
-        this.values = values;
-        this.type = type;
-        this.processor = processor;
-    }
-    /**
-     * Returns a string of HTML used to create a `<template>` element.
-     */
-    getHTML() {
-        const l = this.strings.length - 1;
-        let html = '';
-        let isCommentBinding = false;
-        for (let i = 0; i < l; i++) {
-            const s = this.strings[i];
-            // For each binding we want to determine the kind of marker to insert
-            // into the template source before it's parsed by the browser's HTML
-            // parser. The marker type is based on whether the expression is in an
-            // attribute, text, or comment position.
-            //   * For node-position bindings we insert a comment with the marker
-            //     sentinel as its text content, like <!--{{lit-guid}}-->.
-            //   * For attribute bindings we insert just the marker sentinel for the
-            //     first binding, so that we support unquoted attribute bindings.
-            //     Subsequent bindings can use a comment marker because multi-binding
-            //     attributes must be quoted.
-            //   * For comment bindings we insert just the marker sentinel so we don't
-            //     close the comment.
-            //
-            // The following code scans the template source, but is *not* an HTML
-            // parser. We don't need to track the tree structure of the HTML, only
-            // whether a binding is inside a comment, and if not, if it appears to be
-            // the first binding in an attribute.
-            const commentOpen = s.lastIndexOf('<!--');
-            // We're in comment position if we have a comment open with no following
-            // comment close. Because <-- can appear in an attribute value there can
-            // be false positives.
-            isCommentBinding = (commentOpen > -1 || isCommentBinding) &&
-                s.indexOf('-->', commentOpen + 1) === -1;
-            // Check to see if we have an attribute-like sequence preceding the
-            // expression. This can match "name=value" like structures in text,
-            // comments, and attribute values, so there can be false-positives.
-            const attributeMatch = lastAttributeNameRegex.exec(s);
-            if (attributeMatch === null) {
-                // We're only in this branch if we don't have a attribute-like
-                // preceding sequence. For comments, this guards against unusual
-                // attribute values like <div foo="<!--${'bar'}">. Cases like
-                // <!-- foo=${'bar'}--> are handled correctly in the attribute branch
-                // below.
-                html += s + (isCommentBinding ? commentMarker : nodeMarker);
-            }
-            else {
-                // For attributes we use just a marker sentinel, and also append a
-                // $lit$ suffix to the name to opt-out of attribute-specific parsing
-                // that IE and Edge do for style and certain SVG attributes.
-                html += s.substr(0, attributeMatch.index) + attributeMatch[1] +
-                    attributeMatch[2] + boundAttributeSuffix + attributeMatch[3] +
-                    marker;
-            }
-        }
-        html += this.strings[l];
-        return html;
-    }
-    getTemplateElement() {
-        const template = document.createElement('template');
-        let value = this.getHTML();
-        if (policy !== undefined) {
-            // this is secure because `this.strings` is a TemplateStringsArray.
-            // TODO: validate this when
-            // https://github.com/tc39/proposal-array-is-template-object is
-            // implemented.
-            value = policy.createHTML(value);
-        }
-        template.innerHTML = value;
-        return template;
-    }
-}
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-const isPrimitive = (value) => {
-    return (value === null ||
-        !(typeof value === 'object' || typeof value === 'function'));
-};
-const isIterable = (value) => {
-    return Array.isArray(value) ||
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        !!(value && value[Symbol.iterator]);
-};
-/**
- * Writes attribute values to the DOM for a group of AttributeParts bound to a
- * single attribute. The value is only set once even if there are multiple parts
- * for an attribute.
- */
-class AttributeCommitter {
-    constructor(element, name, strings) {
-        this.dirty = true;
-        this.element = element;
-        this.name = name;
-        this.strings = strings;
-        this.parts = [];
-        for (let i = 0; i < strings.length - 1; i++) {
-            this.parts[i] = this._createPart();
-        }
-    }
-    /**
-     * Creates a single part. Override this to create a differnt type of part.
-     */
-    _createPart() {
-        return new AttributePart(this);
-    }
-    _getValue() {
-        const strings = this.strings;
-        const l = strings.length - 1;
-        const parts = this.parts;
-        // If we're assigning an attribute via syntax like:
-        //    attr="${foo}"  or  attr=${foo}
-        // but not
-        //    attr="${foo} ${bar}" or attr="${foo} baz"
-        // then we don't want to coerce the attribute value into one long
-        // string. Instead we want to just return the value itself directly,
-        // so that sanitizeDOMValue can get the actual value rather than
-        // String(value)
-        // The exception is if v is an array, in which case we do want to smash
-        // it together into a string without calling String() on the array.
-        //
-        // This also allows trusted values (when using TrustedTypes) being
-        // assigned to DOM sinks without being stringified in the process.
-        if (l === 1 && strings[0] === '' && strings[1] === '') {
-            const v = parts[0].value;
-            if (typeof v === 'symbol') {
-                return String(v);
-            }
-            if (typeof v === 'string' || !isIterable(v)) {
-                return v;
-            }
-        }
-        let text = '';
-        for (let i = 0; i < l; i++) {
-            text += strings[i];
-            const part = parts[i];
-            if (part !== undefined) {
-                const v = part.value;
-                if (isPrimitive(v) || !isIterable(v)) {
-                    text += typeof v === 'string' ? v : String(v);
-                }
-                else {
-                    for (const t of v) {
-                        text += typeof t === 'string' ? t : String(t);
-                    }
-                }
-            }
-        }
-        text += strings[l];
-        return text;
-    }
-    commit() {
-        if (this.dirty) {
-            this.dirty = false;
-            this.element.setAttribute(this.name, this._getValue());
-        }
-    }
-}
-/**
- * A Part that controls all or part of an attribute value.
- */
-class AttributePart {
-    constructor(committer) {
-        this.value = undefined;
-        this.committer = committer;
-    }
-    setValue(value) {
-        if (value !== noChange && (!isPrimitive(value) || value !== this.value)) {
-            this.value = value;
-            // If the value is a not a directive, dirty the committer so that it'll
-            // call setAttribute. If the value is a directive, it'll dirty the
-            // committer if it calls setValue().
-            if (!isDirective(value)) {
-                this.committer.dirty = true;
-            }
-        }
-    }
-    commit() {
-        while (isDirective(this.value)) {
-            const directive = this.value;
-            this.value = noChange;
-            directive(this);
-        }
-        if (this.value === noChange) {
-            return;
-        }
-        this.committer.commit();
-    }
-}
-/**
- * A Part that controls a location within a Node tree. Like a Range, NodePart
- * has start and end locations and can set and update the Nodes between those
- * locations.
- *
- * NodeParts support several value types: primitives, Nodes, TemplateResults,
- * as well as arrays and iterables of those types.
- */
-class NodePart {
-    constructor(options) {
-        this.value = undefined;
-        this.__pendingValue = undefined;
-        this.options = options;
-    }
-    /**
-     * Appends this part into a container.
-     *
-     * This part must be empty, as its contents are not automatically moved.
-     */
-    appendInto(container) {
-        this.startNode = container.appendChild(createMarker());
-        this.endNode = container.appendChild(createMarker());
-    }
-    /**
-     * Inserts this part after the `ref` node (between `ref` and `ref`'s next
-     * sibling). Both `ref` and its next sibling must be static, unchanging nodes
-     * such as those that appear in a literal section of a template.
-     *
-     * This part must be empty, as its contents are not automatically moved.
-     */
-    insertAfterNode(ref) {
-        this.startNode = ref;
-        this.endNode = ref.nextSibling;
-    }
-    /**
-     * Appends this part into a parent part.
-     *
-     * This part must be empty, as its contents are not automatically moved.
-     */
-    appendIntoPart(part) {
-        part.__insert(this.startNode = createMarker());
-        part.__insert(this.endNode = createMarker());
-    }
-    /**
-     * Inserts this part after the `ref` part.
-     *
-     * This part must be empty, as its contents are not automatically moved.
-     */
-    insertAfterPart(ref) {
-        ref.__insert(this.startNode = createMarker());
-        this.endNode = ref.endNode;
-        ref.endNode = this.startNode;
-    }
-    setValue(value) {
-        this.__pendingValue = value;
-    }
-    commit() {
-        if (this.startNode.parentNode === null) {
-            return;
-        }
-        while (isDirective(this.__pendingValue)) {
-            const directive = this.__pendingValue;
-            this.__pendingValue = noChange;
-            directive(this);
-        }
-        const value = this.__pendingValue;
-        if (value === noChange) {
-            return;
-        }
-        if (isPrimitive(value)) {
-            if (value !== this.value) {
-                this.__commitText(value);
-            }
-        }
-        else if (value instanceof TemplateResult) {
-            this.__commitTemplateResult(value);
-        }
-        else if (value instanceof Node) {
-            this.__commitNode(value);
-        }
-        else if (isIterable(value)) {
-            this.__commitIterable(value);
-        }
-        else if (value === nothing) {
-            this.value = nothing;
-            this.clear();
-        }
-        else {
-            // Fallback, will render the string representation
-            this.__commitText(value);
-        }
-    }
-    __insert(node) {
-        this.endNode.parentNode.insertBefore(node, this.endNode);
-    }
-    __commitNode(value) {
-        if (this.value === value) {
-            return;
-        }
-        this.clear();
-        this.__insert(value);
-        this.value = value;
-    }
-    __commitText(value) {
-        const node = this.startNode.nextSibling;
-        value = value == null ? '' : value;
-        // If `value` isn't already a string, we explicitly convert it here in case
-        // it can't be implicitly converted - i.e. it's a symbol.
-        const valueAsString = typeof value === 'string' ? value : String(value);
-        if (node === this.endNode.previousSibling &&
-            node.nodeType === 3 /* Node.TEXT_NODE */) {
-            // If we only have a single text node between the markers, we can just
-            // set its value, rather than replacing it.
-            // TODO(justinfagnani): Can we just check if this.value is primitive?
-            node.data = valueAsString;
-        }
-        else {
-            this.__commitNode(document.createTextNode(valueAsString));
-        }
-        this.value = value;
-    }
-    __commitTemplateResult(value) {
-        const template = this.options.templateFactory(value);
-        if (this.value instanceof TemplateInstance &&
-            this.value.template === template) {
-            this.value.update(value.values);
-        }
-        else {
-            // Make sure we propagate the template processor from the TemplateResult
-            // so that we use its syntax extension, etc. The template factory comes
-            // from the render function options so that it can control template
-            // caching and preprocessing.
-            const instance = new TemplateInstance(template, value.processor, this.options);
-            const fragment = instance._clone();
-            instance.update(value.values);
-            this.__commitNode(fragment);
-            this.value = instance;
-        }
-    }
-    __commitIterable(value) {
-        // For an Iterable, we create a new InstancePart per item, then set its
-        // value to the item. This is a little bit of overhead for every item in
-        // an Iterable, but it lets us recurse easily and efficiently update Arrays
-        // of TemplateResults that will be commonly returned from expressions like:
-        // array.map((i) => html`${i}`), by reusing existing TemplateInstances.
-        // If _value is an array, then the previous render was of an
-        // iterable and _value will contain the NodeParts from the previous
-        // render. If _value is not an array, clear this part and make a new
-        // array for NodeParts.
-        if (!Array.isArray(this.value)) {
-            this.value = [];
-            this.clear();
-        }
-        // Lets us keep track of how many items we stamped so we can clear leftover
-        // items from a previous render
-        const itemParts = this.value;
-        let partIndex = 0;
-        let itemPart;
-        for (const item of value) {
-            // Try to reuse an existing part
-            itemPart = itemParts[partIndex];
-            // If no existing part, create a new one
-            if (itemPart === undefined) {
-                itemPart = new NodePart(this.options);
-                itemParts.push(itemPart);
-                if (partIndex === 0) {
-                    itemPart.appendIntoPart(this);
-                }
-                else {
-                    itemPart.insertAfterPart(itemParts[partIndex - 1]);
-                }
-            }
-            itemPart.setValue(item);
-            itemPart.commit();
-            partIndex++;
-        }
-        if (partIndex < itemParts.length) {
-            // Truncate the parts array so _value reflects the current state
-            itemParts.length = partIndex;
-            this.clear(itemPart && itemPart.endNode);
-        }
-    }
-    clear(startNode = this.startNode) {
-        removeNodes(this.startNode.parentNode, startNode.nextSibling, this.endNode);
-    }
-}
-/**
- * Implements a boolean attribute, roughly as defined in the HTML
- * specification.
- *
- * If the value is truthy, then the attribute is present with a value of
- * ''. If the value is falsey, the attribute is removed.
- */
-class BooleanAttributePart {
-    constructor(element, name, strings) {
-        this.value = undefined;
-        this.__pendingValue = undefined;
-        if (strings.length !== 2 || strings[0] !== '' || strings[1] !== '') {
-            throw new Error('Boolean attributes can only contain a single expression');
-        }
-        this.element = element;
-        this.name = name;
-        this.strings = strings;
-    }
-    setValue(value) {
-        this.__pendingValue = value;
-    }
-    commit() {
-        while (isDirective(this.__pendingValue)) {
-            const directive = this.__pendingValue;
-            this.__pendingValue = noChange;
-            directive(this);
-        }
-        if (this.__pendingValue === noChange) {
-            return;
-        }
-        const value = !!this.__pendingValue;
-        if (this.value !== value) {
-            if (value) {
-                this.element.setAttribute(this.name, '');
-            }
-            else {
-                this.element.removeAttribute(this.name);
-            }
-            this.value = value;
-        }
-        this.__pendingValue = noChange;
-    }
-}
-/**
- * Sets attribute values for PropertyParts, so that the value is only set once
- * even if there are multiple parts for a property.
- *
- * If an expression controls the whole property value, then the value is simply
- * assigned to the property under control. If there are string literals or
- * multiple expressions, then the strings are expressions are interpolated into
- * a string first.
- */
-class PropertyCommitter extends AttributeCommitter {
-    constructor(element, name, strings) {
-        super(element, name, strings);
-        this.single =
-            (strings.length === 2 && strings[0] === '' && strings[1] === '');
-    }
-    _createPart() {
-        return new PropertyPart(this);
-    }
-    _getValue() {
-        if (this.single) {
-            return this.parts[0].value;
-        }
-        return super._getValue();
-    }
-    commit() {
-        if (this.dirty) {
-            this.dirty = false;
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            this.element[this.name] = this._getValue();
-        }
-    }
-}
-class PropertyPart extends AttributePart {
-}
-// Detect event listener options support. If the `capture` property is read
-// from the options object, then options are supported. If not, then the third
-// argument to add/removeEventListener is interpreted as the boolean capture
-// value so we should only pass the `capture` property.
-let eventOptionsSupported = false;
-// Wrap into an IIFE because MS Edge <= v41 does not support having try/catch
-// blocks right into the body of a module
-(() => {
-    try {
-        const options = {
-            get capture() {
-                eventOptionsSupported = true;
-                return false;
-            }
-        };
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        window.addEventListener('test', options, options);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        window.removeEventListener('test', options, options);
-    }
-    catch (_e) {
-        // event options not supported
-    }
-})();
-class EventPart {
-    constructor(element, eventName, eventContext) {
-        this.value = undefined;
-        this.__pendingValue = undefined;
-        this.element = element;
-        this.eventName = eventName;
-        this.eventContext = eventContext;
-        this.__boundHandleEvent = (e) => this.handleEvent(e);
-    }
-    setValue(value) {
-        this.__pendingValue = value;
-    }
-    commit() {
-        while (isDirective(this.__pendingValue)) {
-            const directive = this.__pendingValue;
-            this.__pendingValue = noChange;
-            directive(this);
-        }
-        if (this.__pendingValue === noChange) {
-            return;
-        }
-        const newListener = this.__pendingValue;
-        const oldListener = this.value;
-        const shouldRemoveListener = newListener == null ||
-            oldListener != null &&
-                (newListener.capture !== oldListener.capture ||
-                    newListener.once !== oldListener.once ||
-                    newListener.passive !== oldListener.passive);
-        const shouldAddListener = newListener != null && (oldListener == null || shouldRemoveListener);
-        if (shouldRemoveListener) {
-            this.element.removeEventListener(this.eventName, this.__boundHandleEvent, this.__options);
-        }
-        if (shouldAddListener) {
-            this.__options = getOptions(newListener);
-            this.element.addEventListener(this.eventName, this.__boundHandleEvent, this.__options);
-        }
-        this.value = newListener;
-        this.__pendingValue = noChange;
-    }
-    handleEvent(event) {
-        if (typeof this.value === 'function') {
-            this.value.call(this.eventContext || this.element, event);
-        }
-        else {
-            this.value.handleEvent(event);
-        }
-    }
-}
-// We copy options because of the inconsistent behavior of browsers when reading
-// the third argument of add/removeEventListener. IE11 doesn't support options
-// at all. Chrome 41 only reads `capture` if the argument is an object.
-const getOptions = (o) => o &&
-    (eventOptionsSupported ?
-        { capture: o.capture, passive: o.passive, once: o.once } :
-        o.capture);
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * The default TemplateFactory which caches Templates keyed on
- * result.type and result.strings.
- */
-function templateFactory(result) {
-    let templateCache = templateCaches.get(result.type);
-    if (templateCache === undefined) {
-        templateCache = {
-            stringsArray: new WeakMap(),
-            keyString: new Map()
-        };
-        templateCaches.set(result.type, templateCache);
-    }
-    let template = templateCache.stringsArray.get(result.strings);
-    if (template !== undefined) {
-        return template;
-    }
-    // If the TemplateStringsArray is new, generate a key from the strings
-    // This key is shared between all templates with identical content
-    const key = result.strings.join(marker);
-    // Check if we already have a Template for this key
-    template = templateCache.keyString.get(key);
-    if (template === undefined) {
-        // If we have not seen this key before, create a new Template
-        template = new Template(result, result.getTemplateElement());
-        // Cache the Template for this key
-        templateCache.keyString.set(key, template);
-    }
-    // Cache all future queries for this TemplateStringsArray
-    templateCache.stringsArray.set(result.strings, template);
-    return template;
-}
-const templateCaches = new Map();
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-const parts = new WeakMap();
-/**
- * Renders a template result or other value to a container.
- *
- * To update a container with new values, reevaluate the template literal and
- * call `render` with the new result.
- *
- * @param result Any value renderable by NodePart - typically a TemplateResult
- *     created by evaluating a template tag like `html` or `svg`.
- * @param container A DOM parent to render to. The entire contents are either
- *     replaced, or efficiently updated if the same result type was previous
- *     rendered there.
- * @param options RenderOptions for the entire render tree rendered to this
- *     container. Render options must *not* change between renders to the same
- *     container, as those changes will not effect previously rendered DOM.
- */
-const render$1 = (result, container, options) => {
-    let part = parts.get(container);
-    if (part === undefined) {
-        removeNodes(container, container.firstChild);
-        parts.set(container, part = new NodePart(Object.assign({ templateFactory }, options)));
-        part.appendInto(container);
-    }
-    part.setValue(result);
-    part.commit();
-};
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-/**
- * Creates Parts when a template is instantiated.
- */
-class DefaultTemplateProcessor {
-    /**
-     * Create parts for an attribute-position binding, given the event, attribute
-     * name, and string literals.
-     *
-     * @param element The element containing the binding
-     * @param name  The attribute name
-     * @param strings The string literals. There are always at least two strings,
-     *   event for fully-controlled bindings with a single expression.
-     */
-    handleAttributeExpressions(element, name, strings, options) {
-        const prefix = name[0];
-        if (prefix === '.') {
-            const committer = new PropertyCommitter(element, name.slice(1), strings);
-            return committer.parts;
-        }
-        if (prefix === '@') {
-            return [new EventPart(element, name.slice(1), options.eventContext)];
-        }
-        if (prefix === '?') {
-            return [new BooleanAttributePart(element, name.slice(1), strings)];
-        }
-        const committer = new AttributeCommitter(element, name, strings);
-        return committer.parts;
-    }
-    /**
-     * Create parts for a text-position binding.
-     * @param templateFactory
-     */
-    handleTextExpression(options) {
-        return new NodePart(options);
-    }
-}
-const defaultTemplateProcessor = new DefaultTemplateProcessor();
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-// IMPORTANT: do not change the property name or the assignment expression.
-// This line will be used in regexes to search for lit-html usage.
-// TODO(justinfagnani): inject version number at build time
-if (typeof window !== 'undefined') {
-    (window['litHtmlVersions'] || (window['litHtmlVersions'] = [])).push('1.4.1');
-}
-/**
- * Interprets a template literal as an HTML template that can efficiently
- * render to and update a container.
- */
-const html = (strings, ...values) => new TemplateResult(strings, values, 'html', defaultTemplateProcessor);
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-// Get a key to lookup in `templateCaches`.
-const getTemplateCacheKey = (type, scopeName) => `${type}--${scopeName}`;
-let compatibleShadyCSSVersion = true;
-if (typeof window.ShadyCSS === 'undefined') {
-    compatibleShadyCSSVersion = false;
-}
-else if (typeof window.ShadyCSS.prepareTemplateDom === 'undefined') {
-    console.warn(`Incompatible ShadyCSS version detected. ` +
-        `Please update to at least @webcomponents/webcomponentsjs@2.0.2 and ` +
-        `@webcomponents/shadycss@1.3.1.`);
-    compatibleShadyCSSVersion = false;
-}
-/**
- * Template factory which scopes template DOM using ShadyCSS.
- * @param scopeName {string}
- */
-const shadyTemplateFactory = (scopeName) => (result) => {
-    const cacheKey = getTemplateCacheKey(result.type, scopeName);
-    let templateCache = templateCaches.get(cacheKey);
-    if (templateCache === undefined) {
-        templateCache = {
-            stringsArray: new WeakMap(),
-            keyString: new Map()
-        };
-        templateCaches.set(cacheKey, templateCache);
-    }
-    let template = templateCache.stringsArray.get(result.strings);
-    if (template !== undefined) {
-        return template;
-    }
-    const key = result.strings.join(marker);
-    template = templateCache.keyString.get(key);
-    if (template === undefined) {
-        const element = result.getTemplateElement();
-        if (compatibleShadyCSSVersion) {
-            window.ShadyCSS.prepareTemplateDom(element, scopeName);
-        }
-        template = new Template(result, element);
-        templateCache.keyString.set(key, template);
-    }
-    templateCache.stringsArray.set(result.strings, template);
-    return template;
-};
-const TEMPLATE_TYPES = ['html', 'svg'];
-/**
- * Removes all style elements from Templates for the given scopeName.
- */
-const removeStylesFromLitTemplates = (scopeName) => {
-    TEMPLATE_TYPES.forEach((type) => {
-        const templates = templateCaches.get(getTemplateCacheKey(type, scopeName));
-        if (templates !== undefined) {
-            templates.keyString.forEach((template) => {
-                const { element: { content } } = template;
-                // IE 11 doesn't support the iterable param Set constructor
-                const styles = new Set();
-                Array.from(content.querySelectorAll('style')).forEach((s) => {
-                    styles.add(s);
-                });
-                removeNodesFromTemplate(template, styles);
-            });
-        }
-    });
-};
-const shadyRenderSet = new Set();
-/**
- * For the given scope name, ensures that ShadyCSS style scoping is performed.
- * This is done just once per scope name so the fragment and template cannot
- * be modified.
- * (1) extracts styles from the rendered fragment and hands them to ShadyCSS
- * to be scoped and appended to the document
- * (2) removes style elements from all lit-html Templates for this scope name.
- *
- * Note, <style> elements can only be placed into templates for the
- * initial rendering of the scope. If <style> elements are included in templates
- * dynamically rendered to the scope (after the first scope render), they will
- * not be scoped and the <style> will be left in the template and rendered
- * output.
- */
-const prepareTemplateStyles = (scopeName, renderedDOM, template) => {
-    shadyRenderSet.add(scopeName);
-    // If `renderedDOM` is stamped from a Template, then we need to edit that
-    // Template's underlying template element. Otherwise, we create one here
-    // to give to ShadyCSS, which still requires one while scoping.
-    const templateElement = !!template ? template.element : document.createElement('template');
-    // Move styles out of rendered DOM and store.
-    const styles = renderedDOM.querySelectorAll('style');
-    const { length } = styles;
-    // If there are no styles, skip unnecessary work
-    if (length === 0) {
-        // Ensure prepareTemplateStyles is called to support adding
-        // styles via `prepareAdoptedCssText` since that requires that
-        // `prepareTemplateStyles` is called.
-        //
-        // ShadyCSS will only update styles containing @apply in the template
-        // given to `prepareTemplateStyles`. If no lit Template was given,
-        // ShadyCSS will not be able to update uses of @apply in any relevant
-        // template. However, this is not a problem because we only create the
-        // template for the purpose of supporting `prepareAdoptedCssText`,
-        // which doesn't support @apply at all.
-        window.ShadyCSS.prepareTemplateStyles(templateElement, scopeName);
-        return;
-    }
-    const condensedStyle = document.createElement('style');
-    // Collect styles into a single style. This helps us make sure ShadyCSS
-    // manipulations will not prevent us from being able to fix up template
-    // part indices.
-    // NOTE: collecting styles is inefficient for browsers but ShadyCSS
-    // currently does this anyway. When it does not, this should be changed.
-    for (let i = 0; i < length; i++) {
-        const style = styles[i];
-        style.parentNode.removeChild(style);
-        condensedStyle.textContent += style.textContent;
-    }
-    // Remove styles from nested templates in this scope.
-    removeStylesFromLitTemplates(scopeName);
-    // And then put the condensed style into the "root" template passed in as
-    // `template`.
-    const content = templateElement.content;
-    if (!!template) {
-        insertNodeIntoTemplate(template, condensedStyle, content.firstChild);
-    }
-    else {
-        content.insertBefore(condensedStyle, content.firstChild);
-    }
-    // Note, it's important that ShadyCSS gets the template that `lit-html`
-    // will actually render so that it can update the style inside when
-    // needed (e.g. @apply native Shadow DOM case).
-    window.ShadyCSS.prepareTemplateStyles(templateElement, scopeName);
-    const style = content.querySelector('style');
-    if (window.ShadyCSS.nativeShadow && style !== null) {
-        // When in native Shadow DOM, ensure the style created by ShadyCSS is
-        // included in initially rendered output (`renderedDOM`).
-        renderedDOM.insertBefore(style.cloneNode(true), renderedDOM.firstChild);
-    }
-    else if (!!template) {
-        // When no style is left in the template, parts will be broken as a
-        // result. To fix this, we put back the style node ShadyCSS removed
-        // and then tell lit to remove that node from the template.
-        // There can be no style in the template in 2 cases (1) when Shady DOM
-        // is in use, ShadyCSS removes all styles, (2) when native Shadow DOM
-        // is in use ShadyCSS removes the style if it contains no content.
-        // NOTE, ShadyCSS creates its own style so we can safely add/remove
-        // `condensedStyle` here.
-        content.insertBefore(condensedStyle, content.firstChild);
-        const removes = new Set();
-        removes.add(condensedStyle);
-        removeNodesFromTemplate(template, removes);
-    }
-};
-/**
- * Extension to the standard `render` method which supports rendering
- * to ShadowRoots when the ShadyDOM (https://github.com/webcomponents/shadydom)
- * and ShadyCSS (https://github.com/webcomponents/shadycss) polyfills are used
- * or when the webcomponentsjs
- * (https://github.com/webcomponents/webcomponentsjs) polyfill is used.
- *
- * Adds a `scopeName` option which is used to scope element DOM and stylesheets
- * when native ShadowDOM is unavailable. The `scopeName` will be added to
- * the class attribute of all rendered DOM. In addition, any style elements will
- * be automatically re-written with this `scopeName` selector and moved out
- * of the rendered DOM and into the document `<head>`.
- *
- * It is common to use this render method in conjunction with a custom element
- * which renders a shadowRoot. When this is done, typically the element's
- * `localName` should be used as the `scopeName`.
- *
- * In addition to DOM scoping, ShadyCSS also supports a basic shim for css
- * custom properties (needed only on older browsers like IE11) and a shim for
- * a deprecated feature called `@apply` that supports applying a set of css
- * custom properties to a given location.
- *
- * Usage considerations:
- *
- * * Part values in `<style>` elements are only applied the first time a given
- * `scopeName` renders. Subsequent changes to parts in style elements will have
- * no effect. Because of this, parts in style elements should only be used for
- * values that will never change, for example parts that set scope-wide theme
- * values or parts which render shared style elements.
- *
- * * Note, due to a limitation of the ShadyDOM polyfill, rendering in a
- * custom element's `constructor` is not supported. Instead rendering should
- * either done asynchronously, for example at microtask timing (for example
- * `Promise.resolve()`), or be deferred until the first time the element's
- * `connectedCallback` runs.
- *
- * Usage considerations when using shimmed custom properties or `@apply`:
- *
- * * Whenever any dynamic changes are made which affect
- * css custom properties, `ShadyCSS.styleElement(element)` must be called
- * to update the element. There are two cases when this is needed:
- * (1) the element is connected to a new parent, (2) a class is added to the
- * element that causes it to match different custom properties.
- * To address the first case when rendering a custom element, `styleElement`
- * should be called in the element's `connectedCallback`.
- *
- * * Shimmed custom properties may only be defined either for an entire
- * shadowRoot (for example, in a `:host` rule) or via a rule that directly
- * matches an element with a shadowRoot. In other words, instead of flowing from
- * parent to child as do native css custom properties, shimmed custom properties
- * flow only from shadowRoots to nested shadowRoots.
- *
- * * When using `@apply` mixing css shorthand property names with
- * non-shorthand names (for example `border` and `border-width`) is not
- * supported.
- */
-const render = (result, container, options) => {
-    if (!options || typeof options !== 'object' || !options.scopeName) {
-        throw new Error('The `scopeName` option is required.');
-    }
-    const scopeName = options.scopeName;
-    const hasRendered = parts.has(container);
-    const needsScoping = compatibleShadyCSSVersion &&
-        container.nodeType === 11 /* Node.DOCUMENT_FRAGMENT_NODE */ &&
-        !!container.host;
-    // Handle first render to a scope specially...
-    const firstScopeRender = needsScoping && !shadyRenderSet.has(scopeName);
-    // On first scope render, render into a fragment; this cannot be a single
-    // fragment that is reused since nested renders can occur synchronously.
-    const renderContainer = firstScopeRender ? document.createDocumentFragment() : container;
-    render$1(result, renderContainer, Object.assign({ templateFactory: shadyTemplateFactory(scopeName) }, options));
-    // When performing first scope render,
-    // (1) We've rendered into a fragment so that there's a chance to
-    // `prepareTemplateStyles` before sub-elements hit the DOM
-    // (which might cause them to render based on a common pattern of
-    // rendering in a custom element's `connectedCallback`);
-    // (2) Scope the template with ShadyCSS one time only for this scope.
-    // (3) Render the fragment into the container and make sure the
-    // container knows its `part` is the one we just rendered. This ensures
-    // DOM will be re-used on subsequent renders.
-    if (firstScopeRender) {
-        const part = parts.get(renderContainer);
-        parts.delete(renderContainer);
-        // ShadyCSS might have style sheets (e.g. from `prepareAdoptedCssText`)
-        // that should apply to `renderContainer` even if the rendered value is
-        // not a TemplateInstance. However, it will only insert scoped styles
-        // into the document if `prepareTemplateStyles` has already been called
-        // for the given scope name.
-        const template = part.value instanceof TemplateInstance ?
-            part.value.template :
-            undefined;
-        prepareTemplateStyles(scopeName, renderContainer, template);
-        removeNodes(container, container.firstChild);
-        container.appendChild(renderContainer);
-        parts.set(container, part);
-    }
-    // After elements have hit the DOM, update styling if this is the
-    // initial render to this container.
-    // This is needed whenever dynamic changes are made so it would be
-    // safest to do every render; however, this would regress performance
-    // so we leave it up to the user to call `ShadyCSS.styleElement`
-    // for dynamic changes.
-    if (!hasRendered && needsScoping) {
-        window.ShadyCSS.styleElement(container.host);
-    }
-};
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-var _a$b;
-/**
- * Use this module if you want to create your own base class extending
- * [[UpdatingElement]].
- * @packageDocumentation
- */
-/*
- * When using Closure Compiler, JSCompiler_renameProperty(property, object) is
- * replaced at compile time by the munged name for object[property]. We cannot
- * alias this function, so we have to use a small shim that has the same
- * behavior when not compiling.
- */
-window.JSCompiler_renameProperty =
-    (prop, _obj) => prop;
-const defaultConverter = {
-    toAttribute(value, type) {
-        switch (type) {
-            case Boolean:
-                return value ? '' : null;
-            case Object:
-            case Array:
-                // if the value is `null` or `undefined` pass this through
-                // to allow removing/no change behavior.
-                return value == null ? value : JSON.stringify(value);
-        }
-        return value;
-    },
-    fromAttribute(value, type) {
-        switch (type) {
-            case Boolean:
-                return value !== null;
-            case Number:
-                return value === null ? null : Number(value);
-            case Object:
-            case Array:
-                // Type assert to adhere to Bazel's "must type assert JSON parse" rule.
-                return JSON.parse(value);
-        }
-        return value;
-    }
-};
-/**
- * Change function that returns true if `value` is different from `oldValue`.
- * This method is used as the default for a property's `hasChanged` function.
- */
-const notEqual = (value, old) => {
-    // This ensures (old==NaN, value==NaN) always returns false
-    return old !== value && (old === old || value === value);
-};
-const defaultPropertyDeclaration = {
-    attribute: true,
-    type: String,
-    converter: defaultConverter,
-    reflect: false,
-    hasChanged: notEqual
-};
-const STATE_HAS_UPDATED = 1;
-const STATE_UPDATE_REQUESTED = 1 << 2;
-const STATE_IS_REFLECTING_TO_ATTRIBUTE = 1 << 3;
-const STATE_IS_REFLECTING_TO_PROPERTY = 1 << 4;
-/**
- * The Closure JS Compiler doesn't currently have good support for static
- * property semantics where "this" is dynamic (e.g.
- * https://github.com/google/closure-compiler/issues/3177 and others) so we use
- * this hack to bypass any rewriting by the compiler.
- */
-const finalized = 'finalized';
-/**
- * Base element class which manages element properties and attributes. When
- * properties change, the `update` method is asynchronously called. This method
- * should be supplied by subclassers to render updates as desired.
- * @noInheritDoc
- */
-class UpdatingElement extends HTMLElement {
-    constructor() {
-        super();
-        this.initialize();
-    }
-    /**
-     * Returns a list of attributes corresponding to the registered properties.
-     * @nocollapse
-     */
-    static get observedAttributes() {
-        // note: piggy backing on this to ensure we're finalized.
-        this.finalize();
-        const attributes = [];
-        // Use forEach so this works even if for/of loops are compiled to for loops
-        // expecting arrays
-        this._classProperties.forEach((v, p) => {
-            const attr = this._attributeNameForProperty(p, v);
-            if (attr !== undefined) {
-                this._attributeToPropertyMap.set(attr, p);
-                attributes.push(attr);
-            }
-        });
-        return attributes;
-    }
-    /**
-     * Ensures the private `_classProperties` property metadata is created.
-     * In addition to `finalize` this is also called in `createProperty` to
-     * ensure the `@property` decorator can add property metadata.
-     */
-    /** @nocollapse */
-    static _ensureClassProperties() {
-        // ensure private storage for property declarations.
-        if (!this.hasOwnProperty(JSCompiler_renameProperty('_classProperties', this))) {
-            this._classProperties = new Map();
-            // NOTE: Workaround IE11 not supporting Map constructor argument.
-            const superProperties = Object.getPrototypeOf(this)._classProperties;
-            if (superProperties !== undefined) {
-                superProperties.forEach((v, k) => this._classProperties.set(k, v));
-            }
-        }
-    }
-    /**
-     * Creates a property accessor on the element prototype if one does not exist
-     * and stores a PropertyDeclaration for the property with the given options.
-     * The property setter calls the property's `hasChanged` property option
-     * or uses a strict identity check to determine whether or not to request
-     * an update.
-     *
-     * This method may be overridden to customize properties; however,
-     * when doing so, it's important to call `super.createProperty` to ensure
-     * the property is setup correctly. This method calls
-     * `getPropertyDescriptor` internally to get a descriptor to install.
-     * To customize what properties do when they are get or set, override
-     * `getPropertyDescriptor`. To customize the options for a property,
-     * implement `createProperty` like this:
-     *
-     * static createProperty(name, options) {
-     *   options = Object.assign(options, {myOption: true});
-     *   super.createProperty(name, options);
-     * }
-     *
-     * @nocollapse
-     */
-    static createProperty(name, options = defaultPropertyDeclaration) {
-        // Note, since this can be called by the `@property` decorator which
-        // is called before `finalize`, we ensure storage exists for property
-        // metadata.
-        this._ensureClassProperties();
-        this._classProperties.set(name, options);
-        // Do not generate an accessor if the prototype already has one, since
-        // it would be lost otherwise and that would never be the user's intention;
-        // Instead, we expect users to call `requestUpdate` themselves from
-        // user-defined accessors. Note that if the super has an accessor we will
-        // still overwrite it
-        if (options.noAccessor || this.prototype.hasOwnProperty(name)) {
-            return;
-        }
-        const key = typeof name === 'symbol' ? Symbol() : `__${name}`;
-        const descriptor = this.getPropertyDescriptor(name, key, options);
-        if (descriptor !== undefined) {
-            Object.defineProperty(this.prototype, name, descriptor);
-        }
-    }
-    /**
-     * Returns a property descriptor to be defined on the given named property.
-     * If no descriptor is returned, the property will not become an accessor.
-     * For example,
-     *
-     *   class MyElement extends LitElement {
-     *     static getPropertyDescriptor(name, key, options) {
-     *       const defaultDescriptor =
-     *           super.getPropertyDescriptor(name, key, options);
-     *       const setter = defaultDescriptor.set;
-     *       return {
-     *         get: defaultDescriptor.get,
-     *         set(value) {
-     *           setter.call(this, value);
-     *           // custom action.
-     *         },
-     *         configurable: true,
-     *         enumerable: true
-     *       }
-     *     }
-     *   }
-     *
-     * @nocollapse
-     */
-    static getPropertyDescriptor(name, key, options) {
-        return {
-            // tslint:disable-next-line:no-any no symbol in index
-            get() {
-                return this[key];
-            },
-            set(value) {
-                const oldValue = this[name];
-                this[key] = value;
-                this
-                    .requestUpdateInternal(name, oldValue, options);
-            },
-            configurable: true,
-            enumerable: true
-        };
-    }
-    /**
-     * Returns the property options associated with the given property.
-     * These options are defined with a PropertyDeclaration via the `properties`
-     * object or the `@property` decorator and are registered in
-     * `createProperty(...)`.
-     *
-     * Note, this method should be considered "final" and not overridden. To
-     * customize the options for a given property, override `createProperty`.
-     *
-     * @nocollapse
-     * @final
-     */
-    static getPropertyOptions(name) {
-        return this._classProperties && this._classProperties.get(name) ||
-            defaultPropertyDeclaration;
-    }
-    /**
-     * Creates property accessors for registered properties and ensures
-     * any superclasses are also finalized.
-     * @nocollapse
-     */
-    static finalize() {
-        // finalize any superclasses
-        const superCtor = Object.getPrototypeOf(this);
-        if (!superCtor.hasOwnProperty(finalized)) {
-            superCtor.finalize();
-        }
-        this[finalized] = true;
-        this._ensureClassProperties();
-        // initialize Map populated in observedAttributes
-        this._attributeToPropertyMap = new Map();
-        // make any properties
-        // Note, only process "own" properties since this element will inherit
-        // any properties defined on the superClass, and finalization ensures
-        // the entire prototype chain is finalized.
-        if (this.hasOwnProperty(JSCompiler_renameProperty('properties', this))) {
-            const props = this.properties;
-            // support symbols in properties (IE11 does not support this)
-            const propKeys = [
-                ...Object.getOwnPropertyNames(props),
-                ...(typeof Object.getOwnPropertySymbols === 'function') ?
-                    Object.getOwnPropertySymbols(props) :
-                    []
-            ];
-            // This for/of is ok because propKeys is an array
-            for (const p of propKeys) {
-                // note, use of `any` is due to TypeSript lack of support for symbol in
-                // index types
-                // tslint:disable-next-line:no-any no symbol in index
-                this.createProperty(p, props[p]);
-            }
-        }
-    }
-    /**
-     * Returns the property name for the given attribute `name`.
-     * @nocollapse
-     */
-    static _attributeNameForProperty(name, options) {
-        const attribute = options.attribute;
-        return attribute === false ?
-            undefined :
-            (typeof attribute === 'string' ?
-                attribute :
-                (typeof name === 'string' ? name.toLowerCase() : undefined));
-    }
-    /**
-     * Returns true if a property should request an update.
-     * Called when a property value is set and uses the `hasChanged`
-     * option for the property if present or a strict identity check.
-     * @nocollapse
-     */
-    static _valueHasChanged(value, old, hasChanged = notEqual) {
-        return hasChanged(value, old);
-    }
-    /**
-     * Returns the property value for the given attribute value.
-     * Called via the `attributeChangedCallback` and uses the property's
-     * `converter` or `converter.fromAttribute` property option.
-     * @nocollapse
-     */
-    static _propertyValueFromAttribute(value, options) {
-        const type = options.type;
-        const converter = options.converter || defaultConverter;
-        const fromAttribute = (typeof converter === 'function' ? converter : converter.fromAttribute);
-        return fromAttribute ? fromAttribute(value, type) : value;
-    }
-    /**
-     * Returns the attribute value for the given property value. If this
-     * returns undefined, the property will *not* be reflected to an attribute.
-     * If this returns null, the attribute will be removed, otherwise the
-     * attribute will be set to the value.
-     * This uses the property's `reflect` and `type.toAttribute` property options.
-     * @nocollapse
-     */
-    static _propertyValueToAttribute(value, options) {
-        if (options.reflect === undefined) {
-            return;
-        }
-        const type = options.type;
-        const converter = options.converter;
-        const toAttribute = converter && converter.toAttribute ||
-            defaultConverter.toAttribute;
-        return toAttribute(value, type);
-    }
-    /**
-     * Performs element initialization. By default captures any pre-set values for
-     * registered properties.
-     */
-    initialize() {
-        this._updateState = 0;
-        this._updatePromise =
-            new Promise((res) => this._enableUpdatingResolver = res);
-        this._changedProperties = new Map();
-        this._saveInstanceProperties();
-        // ensures first update will be caught by an early access of
-        // `updateComplete`
-        this.requestUpdateInternal();
-    }
-    /**
-     * Fixes any properties set on the instance before upgrade time.
-     * Otherwise these would shadow the accessor and break these properties.
-     * The properties are stored in a Map which is played back after the
-     * constructor runs. Note, on very old versions of Safari (<=9) or Chrome
-     * (<=41), properties created for native platform properties like (`id` or
-     * `name`) may not have default values set in the element constructor. On
-     * these browsers native properties appear on instances and therefore their
-     * default value will overwrite any element default (e.g. if the element sets
-     * this.id = 'id' in the constructor, the 'id' will become '' since this is
-     * the native platform default).
-     */
-    _saveInstanceProperties() {
-        // Use forEach so this works even if for/of loops are compiled to for loops
-        // expecting arrays
-        this.constructor
-            ._classProperties.forEach((_v, p) => {
-            if (this.hasOwnProperty(p)) {
-                const value = this[p];
-                delete this[p];
-                if (!this._instanceProperties) {
-                    this._instanceProperties = new Map();
-                }
-                this._instanceProperties.set(p, value);
-            }
-        });
-    }
-    /**
-     * Applies previously saved instance properties.
-     */
-    _applyInstanceProperties() {
-        // Use forEach so this works even if for/of loops are compiled to for loops
-        // expecting arrays
-        // tslint:disable-next-line:no-any
-        this._instanceProperties.forEach((v, p) => this[p] = v);
-        this._instanceProperties = undefined;
-    }
-    connectedCallback() {
-        // Ensure first connection completes an update. Updates cannot complete
-        // before connection.
-        this.enableUpdating();
-    }
-    enableUpdating() {
-        if (this._enableUpdatingResolver !== undefined) {
-            this._enableUpdatingResolver();
-            this._enableUpdatingResolver = undefined;
-        }
-    }
-    /**
-     * Allows for `super.disconnectedCallback()` in extensions while
-     * reserving the possibility of making non-breaking feature additions
-     * when disconnecting at some point in the future.
-     */
-    disconnectedCallback() {
-    }
-    /**
-     * Synchronizes property values when attributes change.
-     */
-    attributeChangedCallback(name, old, value) {
-        if (old !== value) {
-            this._attributeToProperty(name, value);
-        }
-    }
-    _propertyToAttribute(name, value, options = defaultPropertyDeclaration) {
-        const ctor = this.constructor;
-        const attr = ctor._attributeNameForProperty(name, options);
-        if (attr !== undefined) {
-            const attrValue = ctor._propertyValueToAttribute(value, options);
-            // an undefined value does not change the attribute.
-            if (attrValue === undefined) {
-                return;
-            }
-            // Track if the property is being reflected to avoid
-            // setting the property again via `attributeChangedCallback`. Note:
-            // 1. this takes advantage of the fact that the callback is synchronous.
-            // 2. will behave incorrectly if multiple attributes are in the reaction
-            // stack at time of calling. However, since we process attributes
-            // in `update` this should not be possible (or an extreme corner case
-            // that we'd like to discover).
-            // mark state reflecting
-            this._updateState = this._updateState | STATE_IS_REFLECTING_TO_ATTRIBUTE;
-            if (attrValue == null) {
-                this.removeAttribute(attr);
-            }
-            else {
-                this.setAttribute(attr, attrValue);
-            }
-            // mark state not reflecting
-            this._updateState = this._updateState & ~STATE_IS_REFLECTING_TO_ATTRIBUTE;
-        }
-    }
-    _attributeToProperty(name, value) {
-        // Use tracking info to avoid deserializing attribute value if it was
-        // just set from a property setter.
-        if (this._updateState & STATE_IS_REFLECTING_TO_ATTRIBUTE) {
-            return;
-        }
-        const ctor = this.constructor;
-        // Note, hint this as an `AttributeMap` so closure clearly understands
-        // the type; it has issues with tracking types through statics
-        // tslint:disable-next-line:no-unnecessary-type-assertion
-        const propName = ctor._attributeToPropertyMap.get(name);
-        if (propName !== undefined) {
-            const options = ctor.getPropertyOptions(propName);
-            // mark state reflecting
-            this._updateState = this._updateState | STATE_IS_REFLECTING_TO_PROPERTY;
-            this[propName] =
-                // tslint:disable-next-line:no-any
-                ctor._propertyValueFromAttribute(value, options);
-            // mark state not reflecting
-            this._updateState = this._updateState & ~STATE_IS_REFLECTING_TO_PROPERTY;
-        }
-    }
-    /**
-     * This protected version of `requestUpdate` does not access or return the
-     * `updateComplete` promise. This promise can be overridden and is therefore
-     * not free to access.
-     */
-    requestUpdateInternal(name, oldValue, options) {
-        let shouldRequestUpdate = true;
-        // If we have a property key, perform property update steps.
-        if (name !== undefined) {
-            const ctor = this.constructor;
-            options = options || ctor.getPropertyOptions(name);
-            if (ctor._valueHasChanged(this[name], oldValue, options.hasChanged)) {
-                if (!this._changedProperties.has(name)) {
-                    this._changedProperties.set(name, oldValue);
-                }
-                // Add to reflecting properties set.
-                // Note, it's important that every change has a chance to add the
-                // property to `_reflectingProperties`. This ensures setting
-                // attribute + property reflects correctly.
-                if (options.reflect === true &&
-                    !(this._updateState & STATE_IS_REFLECTING_TO_PROPERTY)) {
-                    if (this._reflectingProperties === undefined) {
-                        this._reflectingProperties = new Map();
-                    }
-                    this._reflectingProperties.set(name, options);
-                }
-            }
-            else {
-                // Abort the request if the property should not be considered changed.
-                shouldRequestUpdate = false;
-            }
-        }
-        if (!this._hasRequestedUpdate && shouldRequestUpdate) {
-            this._updatePromise = this._enqueueUpdate();
-        }
-    }
-    /**
-     * Requests an update which is processed asynchronously. This should
-     * be called when an element should update based on some state not triggered
-     * by setting a property. In this case, pass no arguments. It should also be
-     * called when manually implementing a property setter. In this case, pass the
-     * property `name` and `oldValue` to ensure that any configured property
-     * options are honored. Returns the `updateComplete` Promise which is resolved
-     * when the update completes.
-     *
-     * @param name {PropertyKey} (optional) name of requesting property
-     * @param oldValue {any} (optional) old value of requesting property
-     * @returns {Promise} A Promise that is resolved when the update completes.
-     */
-    requestUpdate(name, oldValue) {
-        this.requestUpdateInternal(name, oldValue);
-        return this.updateComplete;
-    }
-    /**
-     * Sets up the element to asynchronously update.
-     */
-    async _enqueueUpdate() {
-        this._updateState = this._updateState | STATE_UPDATE_REQUESTED;
-        try {
-            // Ensure any previous update has resolved before updating.
-            // This `await` also ensures that property changes are batched.
-            await this._updatePromise;
-        }
-        catch (e) {
-            // Ignore any previous errors. We only care that the previous cycle is
-            // done. Any error should have been handled in the previous update.
-        }
-        const result = this.performUpdate();
-        // If `performUpdate` returns a Promise, we await it. This is done to
-        // enable coordinating updates with a scheduler. Note, the result is
-        // checked to avoid delaying an additional microtask unless we need to.
-        if (result != null) {
-            await result;
-        }
-        return !this._hasRequestedUpdate;
-    }
-    get _hasRequestedUpdate() {
-        return (this._updateState & STATE_UPDATE_REQUESTED);
-    }
-    get hasUpdated() {
-        return (this._updateState & STATE_HAS_UPDATED);
-    }
-    /**
-     * Performs an element update. Note, if an exception is thrown during the
-     * update, `firstUpdated` and `updated` will not be called.
-     *
-     * You can override this method to change the timing of updates. If this
-     * method is overridden, `super.performUpdate()` must be called.
-     *
-     * For instance, to schedule updates to occur just before the next frame:
-     *
-     * ```
-     * protected async performUpdate(): Promise<unknown> {
-     *   await new Promise((resolve) => requestAnimationFrame(() => resolve()));
-     *   super.performUpdate();
-     * }
-     * ```
-     */
-    performUpdate() {
-        // Abort any update if one is not pending when this is called.
-        // This can happen if `performUpdate` is called early to "flush"
-        // the update.
-        if (!this._hasRequestedUpdate) {
-            return;
-        }
-        // Mixin instance properties once, if they exist.
-        if (this._instanceProperties) {
-            this._applyInstanceProperties();
-        }
-        let shouldUpdate = false;
-        const changedProperties = this._changedProperties;
-        try {
-            shouldUpdate = this.shouldUpdate(changedProperties);
-            if (shouldUpdate) {
-                this.update(changedProperties);
-            }
-            else {
-                this._markUpdated();
-            }
-        }
-        catch (e) {
-            // Prevent `firstUpdated` and `updated` from running when there's an
-            // update exception.
-            shouldUpdate = false;
-            // Ensure element can accept additional updates after an exception.
-            this._markUpdated();
-            throw e;
-        }
-        if (shouldUpdate) {
-            if (!(this._updateState & STATE_HAS_UPDATED)) {
-                this._updateState = this._updateState | STATE_HAS_UPDATED;
-                this.firstUpdated(changedProperties);
-            }
-            this.updated(changedProperties);
-        }
-    }
-    _markUpdated() {
-        this._changedProperties = new Map();
-        this._updateState = this._updateState & ~STATE_UPDATE_REQUESTED;
-    }
-    /**
-     * Returns a Promise that resolves when the element has completed updating.
-     * The Promise value is a boolean that is `true` if the element completed the
-     * update without triggering another update. The Promise result is `false` if
-     * a property was set inside `updated()`. If the Promise is rejected, an
-     * exception was thrown during the update.
-     *
-     * To await additional asynchronous work, override the `_getUpdateComplete`
-     * method. For example, it is sometimes useful to await a rendered element
-     * before fulfilling this Promise. To do this, first await
-     * `super._getUpdateComplete()`, then any subsequent state.
-     *
-     * @returns {Promise} The Promise returns a boolean that indicates if the
-     * update resolved without triggering another update.
-     */
-    get updateComplete() {
-        return this._getUpdateComplete();
-    }
-    /**
-     * Override point for the `updateComplete` promise.
-     *
-     * It is not safe to override the `updateComplete` getter directly due to a
-     * limitation in TypeScript which means it is not possible to call a
-     * superclass getter (e.g. `super.updateComplete.then(...)`) when the target
-     * language is ES5 (https://github.com/microsoft/TypeScript/issues/338).
-     * This method should be overridden instead. For example:
-     *
-     *   class MyElement extends LitElement {
-     *     async _getUpdateComplete() {
-     *       await super._getUpdateComplete();
-     *       await this._myChild.updateComplete;
-     *     }
-     *   }
-     * @deprecated Override `getUpdateComplete()` instead for forward
-     *     compatibility with `lit-element` 3.0 / `@lit/reactive-element`.
-     */
-    _getUpdateComplete() {
-        return this.getUpdateComplete();
-    }
-    /**
-     * Override point for the `updateComplete` promise.
-     *
-     * It is not safe to override the `updateComplete` getter directly due to a
-     * limitation in TypeScript which means it is not possible to call a
-     * superclass getter (e.g. `super.updateComplete.then(...)`) when the target
-     * language is ES5 (https://github.com/microsoft/TypeScript/issues/338).
-     * This method should be overridden instead. For example:
-     *
-     *   class MyElement extends LitElement {
-     *     async getUpdateComplete() {
-     *       await super.getUpdateComplete();
-     *       await this._myChild.updateComplete;
-     *     }
-     *   }
-     */
-    getUpdateComplete() {
-        return this._updatePromise;
-    }
-    /**
-     * Controls whether or not `update` should be called when the element requests
-     * an update. By default, this method always returns `true`, but this can be
-     * customized to control when to update.
-     *
-     * @param _changedProperties Map of changed properties with old values
-     */
-    shouldUpdate(_changedProperties) {
-        return true;
-    }
-    /**
-     * Updates the element. This method reflects property values to attributes.
-     * It can be overridden to render and keep updated element DOM.
-     * Setting properties inside this method will *not* trigger
-     * another update.
-     *
-     * @param _changedProperties Map of changed properties with old values
-     */
-    update(_changedProperties) {
-        if (this._reflectingProperties !== undefined &&
-            this._reflectingProperties.size > 0) {
-            // Use forEach so this works even if for/of loops are compiled to for
-            // loops expecting arrays
-            this._reflectingProperties.forEach((v, k) => this._propertyToAttribute(k, this[k], v));
-            this._reflectingProperties = undefined;
-        }
-        this._markUpdated();
-    }
-    /**
-     * Invoked whenever the element is updated. Implement to perform
-     * post-updating tasks via DOM APIs, for example, focusing an element.
-     *
-     * Setting properties inside this method will trigger the element to update
-     * again after this update cycle completes.
-     *
-     * @param _changedProperties Map of changed properties with old values
-     */
-    updated(_changedProperties) {
-    }
-    /**
-     * Invoked when the element is first updated. Implement to perform one time
-     * work on the element after update.
-     *
-     * Setting properties inside this method will trigger the element to update
-     * again after this update cycle completes.
-     *
-     * @param _changedProperties Map of changed properties with old values
-     */
-    firstUpdated(_changedProperties) {
-    }
-}
-_a$b = finalized;
-/**
- * Marks class as having finished creating properties.
- */
-UpdatingElement[_a$b] = true;
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-const standardProperty = (options, element) => {
-    // When decorating an accessor, pass it through and add property metadata.
-    // Note, the `hasOwnProperty` check in `createProperty` ensures we don't
-    // stomp over the user's accessor.
-    if (element.kind === 'method' && element.descriptor &&
-        !('value' in element.descriptor)) {
-        return Object.assign(Object.assign({}, element), { finisher(clazz) {
-                clazz.createProperty(element.key, options);
-            } });
-    }
-    else {
-        // createProperty() takes care of defining the property, but we still
-        // must return some kind of descriptor, so return a descriptor for an
-        // unused prototype field. The finisher calls createProperty().
-        return {
-            kind: 'field',
-            key: Symbol(),
-            placement: 'own',
-            descriptor: {},
-            // When @babel/plugin-proposal-decorators implements initializers,
-            // do this instead of the initializer below. See:
-            // https://github.com/babel/babel/issues/9260 extras: [
-            //   {
-            //     kind: 'initializer',
-            //     placement: 'own',
-            //     initializer: descriptor.initializer,
-            //   }
-            // ],
-            initializer() {
-                if (typeof element.initializer === 'function') {
-                    this[element.key] = element.initializer.call(this);
-                }
-            },
-            finisher(clazz) {
-                clazz.createProperty(element.key, options);
-            }
-        };
-    }
-};
-const legacyProperty = (options, proto, name) => {
-    proto.constructor
-        .createProperty(name, options);
-};
-/**
- * A property decorator which creates a LitElement property which reflects a
- * corresponding attribute value. A [[`PropertyDeclaration`]] may optionally be
- * supplied to configure property features.
- *
- * This decorator should only be used for public fields. Private or protected
- * fields should use the [[`internalProperty`]] decorator.
- *
- * @example
- * ```ts
- * class MyElement {
- *   @property({ type: Boolean })
- *   clicked = false;
- * }
- * ```
- * @category Decorator
- * @ExportDecoratedItems
- */
-function property(options) {
-    // tslint:disable-next-line:no-any decorator
-    return (protoOrDescriptor, name) => (name !== undefined) ?
-        legacyProperty(options, protoOrDescriptor, name) :
-        standardProperty(options, protoOrDescriptor);
-}
-
-/**
-@license
-Copyright (c) 2019 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at
-http://polymer.github.io/LICENSE.txt The complete set of authors may be found at
-http://polymer.github.io/AUTHORS.txt The complete set of contributors may be
-found at http://polymer.github.io/CONTRIBUTORS.txt Code distributed by Google as
-part of the polymer project is also subject to an additional IP rights grant
-found at http://polymer.github.io/PATENTS.txt
-*/
-/**
- * Whether the current browser supports `adoptedStyleSheets`.
- */
-const supportsAdoptingStyleSheets = (window.ShadowRoot) &&
-    (window.ShadyCSS === undefined || window.ShadyCSS.nativeShadow) &&
-    ('adoptedStyleSheets' in Document.prototype) &&
-    ('replace' in CSSStyleSheet.prototype);
-const constructionToken = Symbol();
-class CSSResult {
-    constructor(cssText, safeToken) {
-        if (safeToken !== constructionToken) {
-            throw new Error('CSSResult is not constructable. Use `unsafeCSS` or `css` instead.');
-        }
-        this.cssText = cssText;
-    }
-    // Note, this is a getter so that it's lazy. In practice, this means
-    // stylesheets are not created until the first element instance is made.
-    get styleSheet() {
-        if (this._styleSheet === undefined) {
-            // Note, if `supportsAdoptingStyleSheets` is true then we assume
-            // CSSStyleSheet is constructable.
-            if (supportsAdoptingStyleSheets) {
-                this._styleSheet = new CSSStyleSheet();
-                this._styleSheet.replaceSync(this.cssText);
-            }
-            else {
-                this._styleSheet = null;
-            }
-        }
-        return this._styleSheet;
-    }
-    toString() {
-        return this.cssText;
-    }
-}
-/**
- * Wrap a value for interpolation in a [[`css`]] tagged template literal.
- *
- * This is unsafe because untrusted CSS text can be used to phone home
- * or exfiltrate data to an attacker controlled site. Take care to only use
- * this with trusted input.
- */
-const unsafeCSS = (value) => {
-    return new CSSResult(String(value), constructionToken);
-};
-
-/**
- * @license
- * Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
- * This code may only be used under the BSD style license found at
- * http://polymer.github.io/LICENSE.txt
- * The complete set of authors may be found at
- * http://polymer.github.io/AUTHORS.txt
- * The complete set of contributors may be found at
- * http://polymer.github.io/CONTRIBUTORS.txt
- * Code distributed by Google as part of the polymer project is also
- * subject to an additional IP rights grant found at
- * http://polymer.github.io/PATENTS.txt
- */
-// IMPORTANT: do not change the property name or the assignment expression.
-// This line will be used in regexes to search for LitElement usage.
-// TODO(justinfagnani): inject version number at build time
-(window['litElementVersions'] || (window['litElementVersions'] = []))
-    .push('2.5.1');
-/**
- * Sentinal value used to avoid calling lit-html's render function when
- * subclasses do not implement `render`
- */
-const renderNotImplemented = {};
-/**
- * Base element class that manages element properties and attributes, and
- * renders a lit-html template.
- *
- * To define a component, subclass `LitElement` and implement a
- * `render` method to provide the component's template. Define properties
- * using the [[`properties`]] property or the [[`property`]] decorator.
- */
-class LitElement extends UpdatingElement {
-    /**
-     * Return the array of styles to apply to the element.
-     * Override this method to integrate into a style management system.
-     *
-     * @nocollapse
-     */
-    static getStyles() {
-        return this.styles;
-    }
-    /** @nocollapse */
-    static _getUniqueStyles() {
-        // Only gather styles once per class
-        if (this.hasOwnProperty(JSCompiler_renameProperty('_styles', this))) {
-            return;
-        }
-        // Take care not to call `this.getStyles()` multiple times since this
-        // generates new CSSResults each time.
-        // TODO(sorvell): Since we do not cache CSSResults by input, any
-        // shared styles will generate new stylesheet objects, which is wasteful.
-        // This should be addressed when a browser ships constructable
-        // stylesheets.
-        const userStyles = this.getStyles();
-        if (Array.isArray(userStyles)) {
-            // De-duplicate styles preserving the _last_ instance in the set.
-            // This is a performance optimization to avoid duplicated styles that can
-            // occur especially when composing via subclassing.
-            // The last item is kept to try to preserve the cascade order with the
-            // assumption that it's most important that last added styles override
-            // previous styles.
-            const addStyles = (styles, set) => styles.reduceRight((set, s) => 
-            // Note: On IE set.add() does not return the set
-            Array.isArray(s) ? addStyles(s, set) : (set.add(s), set), set);
-            // Array.from does not work on Set in IE, otherwise return
-            // Array.from(addStyles(userStyles, new Set<CSSResult>())).reverse()
-            const set = addStyles(userStyles, new Set());
-            const styles = [];
-            set.forEach((v) => styles.unshift(v));
-            this._styles = styles;
-        }
-        else {
-            this._styles = userStyles === undefined ? [] : [userStyles];
-        }
-        // Ensure that there are no invalid CSSStyleSheet instances here. They are
-        // invalid in two conditions.
-        // (1) the sheet is non-constructible (`sheet` of a HTMLStyleElement), but
-        //     this is impossible to check except via .replaceSync or use
-        // (2) the ShadyCSS polyfill is enabled (:. supportsAdoptingStyleSheets is
-        //     false)
-        this._styles = this._styles.map((s) => {
-            if (s instanceof CSSStyleSheet && !supportsAdoptingStyleSheets) {
-                // Flatten the cssText from the passed constructible stylesheet (or
-                // undetectable non-constructible stylesheet). The user might have
-                // expected to update their stylesheets over time, but the alternative
-                // is a crash.
-                const cssText = Array.prototype.slice.call(s.cssRules)
-                    .reduce((css, rule) => css + rule.cssText, '');
-                return unsafeCSS(cssText);
-            }
-            return s;
-        });
-    }
-    /**
-     * Performs element initialization. By default this calls
-     * [[`createRenderRoot`]] to create the element [[`renderRoot`]] node and
-     * captures any pre-set values for registered properties.
-     */
-    initialize() {
-        super.initialize();
-        this.constructor._getUniqueStyles();
-        this.renderRoot = this.createRenderRoot();
-        // Note, if renderRoot is not a shadowRoot, styles would/could apply to the
-        // element's getRootNode(). While this could be done, we're choosing not to
-        // support this now since it would require different logic around de-duping.
-        if (window.ShadowRoot && this.renderRoot instanceof window.ShadowRoot) {
-            this.adoptStyles();
-        }
-    }
-    /**
-     * Returns the node into which the element should render and by default
-     * creates and returns an open shadowRoot. Implement to customize where the
-     * element's DOM is rendered. For example, to render into the element's
-     * childNodes, return `this`.
-     * @returns {Element|DocumentFragment} Returns a node into which to render.
-     */
-    createRenderRoot() {
-        return this.attachShadow(this.constructor.shadowRootOptions);
-    }
-    /**
-     * Applies styling to the element shadowRoot using the [[`styles`]]
-     * property. Styling will apply using `shadowRoot.adoptedStyleSheets` where
-     * available and will fallback otherwise. When Shadow DOM is polyfilled,
-     * ShadyCSS scopes styles and adds them to the document. When Shadow DOM
-     * is available but `adoptedStyleSheets` is not, styles are appended to the
-     * end of the `shadowRoot` to [mimic spec
-     * behavior](https://wicg.github.io/construct-stylesheets/#using-constructed-stylesheets).
-     */
-    adoptStyles() {
-        const styles = this.constructor._styles;
-        if (styles.length === 0) {
-            return;
-        }
-        // There are three separate cases here based on Shadow DOM support.
-        // (1) shadowRoot polyfilled: use ShadyCSS
-        // (2) shadowRoot.adoptedStyleSheets available: use it
-        // (3) shadowRoot.adoptedStyleSheets polyfilled: append styles after
-        // rendering
-        if (window.ShadyCSS !== undefined && !window.ShadyCSS.nativeShadow) {
-            window.ShadyCSS.ScopingShim.prepareAdoptedCssText(styles.map((s) => s.cssText), this.localName);
-        }
-        else if (supportsAdoptingStyleSheets) {
-            this.renderRoot.adoptedStyleSheets =
-                styles.map((s) => s instanceof CSSStyleSheet ? s : s.styleSheet);
-        }
-        else {
-            // This must be done after rendering so the actual style insertion is done
-            // in `update`.
-            this._needsShimAdoptedStyleSheets = true;
-        }
-    }
-    connectedCallback() {
-        super.connectedCallback();
-        // Note, first update/render handles styleElement so we only call this if
-        // connected after first update.
-        if (this.hasUpdated && window.ShadyCSS !== undefined) {
-            window.ShadyCSS.styleElement(this);
-        }
-    }
-    /**
-     * Updates the element. This method reflects property values to attributes
-     * and calls `render` to render DOM via lit-html. Setting properties inside
-     * this method will *not* trigger another update.
-     * @param _changedProperties Map of changed properties with old values
-     */
-    update(changedProperties) {
-        // Setting properties in `render` should not trigger an update. Since
-        // updates are allowed after super.update, it's important to call `render`
-        // before that.
-        const templateResult = this.render();
-        super.update(changedProperties);
-        // If render is not implemented by the component, don't call lit-html render
-        if (templateResult !== renderNotImplemented) {
-            this.constructor
-                .render(templateResult, this.renderRoot, { scopeName: this.localName, eventContext: this });
-        }
-        // When native Shadow DOM is used but adoptedStyles are not supported,
-        // insert styling after rendering to ensure adoptedStyles have highest
-        // priority.
-        if (this._needsShimAdoptedStyleSheets) {
-            this._needsShimAdoptedStyleSheets = false;
-            this.constructor._styles.forEach((s) => {
-                const style = document.createElement('style');
-                style.textContent = s.cssText;
-                this.renderRoot.appendChild(style);
-            });
-        }
-    }
-    /**
-     * Invoked on each update to perform rendering tasks. This method may return
-     * any value renderable by lit-html's `NodePart` - typically a
-     * `TemplateResult`. Setting properties inside this method will *not* trigger
-     * the element to update.
-     */
-    render() {
-        return renderNotImplemented;
-    }
-}
-/**
- * Ensure this class is marked as `finalized` as an optimization ensuring
- * it will not needlessly try to `finalize`.
- *
- * Note this property name is a string to prevent breaking Closure JS Compiler
- * optimizations. See updating-element.ts for more information.
- */
-LitElement['finalized'] = true;
-/**
- * Reference to the underlying library method used to render the element's
- * DOM. By default, points to the `render` method from lit-html's shady-render
- * module.
- *
- * **Most users will never need to touch this property.**
- *
- * This  property should not be confused with the `render` instance method,
- * which should be overridden to define a template for the element.
- *
- * Advanced users creating a new base class based on LitElement can override
- * this property to point to a custom render method with a signature that
- * matches [shady-render's `render`
- * method](https://lit-html.polymer-project.org/api/modules/shady_render.html#render).
- *
- * @nocollapse
- */
-LitElement.render = render;
-/** @nocollapse */
-LitElement.shadowRootOptions = { mode: 'open' };
+ * Copyright 2021 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */var n$4;null!=(null===(n$4=window.HTMLSlotElement)||void 0===n$4?void 0:n$4.prototype.assignedElements)?(o,n)=>o.assignedElements(n):(o,n)=>o.assignedNodes(n).filter((o=>o.nodeType===Node.ELEMENT_NODE));
 
 /**
  * @license
  * Copyright 2010-2022 Three.js Authors
  * SPDX-License-Identifier: MIT
  */
-const REVISION = '138';
+const REVISION = '139';
 const CullFaceNone = 0;
 const CullFaceBack = 1;
 const CullFaceFront = 2;
@@ -2671,7 +73,6 @@ const CubeRefractionMapping = 302;
 const EquirectangularReflectionMapping = 303;
 const EquirectangularRefractionMapping = 304;
 const CubeUVReflectionMapping = 306;
-const CubeUVRefractionMapping = 307;
 const RepeatWrapping = 1000;
 const ClampToEdgeWrapping = 1001;
 const MirroredRepeatWrapping = 1002;
@@ -2751,6 +152,8 @@ const BasicDepthPacking = 3200;
 const RGBADepthPacking = 3201;
 const TangentSpaceNormalMap = 0;
 const ObjectSpaceNormalMap = 1;
+const SRGBColorSpace = 'srgb';
+const LinearSRGBColorSpace = 'srgb-linear';
 const KeepStencilOp = 7680;
 const AlwaysStencilFunc = 519;
 
@@ -2871,8 +274,8 @@ function generateUUID() {
 			_lut$1[ d2 & 0x3f | 0x80 ] + _lut$1[ d2 >> 8 & 0xff ] + '-' + _lut$1[ d2 >> 16 & 0xff ] + _lut$1[ d2 >> 24 & 0xff ] +
 			_lut$1[ d3 & 0xff ] + _lut$1[ d3 >> 8 & 0xff ] + _lut$1[ d3 >> 16 & 0xff ] + _lut$1[ d3 >> 24 & 0xff ];
 
-	// .toUpperCase() here flattens concatenated strings to save heap memory space.
-	return uuid.toUpperCase();
+	// .toLowerCase() here flattens concatenated strings to save heap memory space.
+	return uuid.toLowerCase();
 
 }
 
@@ -2882,7 +285,7 @@ function clamp$1( value, min, max ) {
 
 }
 
-// compute euclidian modulo of m % n
+// compute euclidean modulo of m % n
 // https://en.wikipedia.org/wiki/Modulo_operation
 function euclideanModulo( n, m ) {
 
@@ -2980,13 +383,17 @@ function randFloatSpread( range ) {
 // Deterministic pseudo-random float in the interval [ 0, 1 ]
 function seededRandom( s ) {
 
-	if ( s !== undefined ) _seed = s % 2147483647;
+	if ( s !== undefined ) _seed = s;
 
-	// Park-Miller algorithm
+	// Mulberry32 generator
 
-	_seed = _seed * 16807 % 2147483647;
+	let t = _seed += 0x6D2B79F5;
 
-	return ( _seed - 1 ) / 2147483646;
+	t = Math.imul( t ^ t >>> 15, t | 1 );
+
+	t ^= t + Math.imul( t ^ t >>> 7, t | 61 );
+
+	return ( ( t ^ t >>> 14 ) >>> 0 ) / 4294967296;
 
 }
 
@@ -3076,6 +483,70 @@ function setQuaternionFromProperEuler( q, a, b, c, order ) {
 
 }
 
+function denormalize$1( value, array ) {
+
+	switch ( array.constructor ) {
+
+		case Float32Array:
+
+			return value;
+
+		case Uint16Array:
+
+			return value / 65535.0;
+
+		case Uint8Array:
+
+			return value / 255.0;
+
+		case Int16Array:
+
+			return Math.max( value / 32767.0, - 1.0 );
+
+		case Int8Array:
+
+			return Math.max( value / 127.0, - 1.0 );
+
+		default:
+
+			throw new Error( 'Invalid component type.' );
+
+	}
+
+}
+
+function normalize( value, array ) {
+
+	switch ( array.constructor ) {
+
+		case Float32Array:
+
+			return value;
+
+		case Uint16Array:
+
+			return Math.round( value * 65535.0 );
+
+		case Uint8Array:
+
+			return Math.round( value * 255.0 );
+
+		case Int16Array:
+
+			return Math.round( value * 32767.0 );
+
+		case Int8Array:
+
+			return Math.round( value * 127.0 );
+
+		default:
+
+			throw new Error( 'Invalid component type.' );
+
+	}
+
+}
+
 var MathUtils = /*#__PURE__*/Object.freeze({
 	__proto__: null,
 	DEG2RAD: DEG2RAD,
@@ -3099,7 +570,9 @@ var MathUtils = /*#__PURE__*/Object.freeze({
 	isPowerOfTwo: isPowerOfTwo,
 	ceilPowerOfTwo: ceilPowerOfTwo,
 	floorPowerOfTwo: floorPowerOfTwo,
-	setQuaternionFromProperEuler: setQuaternionFromProperEuler
+	setQuaternionFromProperEuler: setQuaternionFromProperEuler,
+	normalize: normalize,
+	denormalize: denormalize$1
 });
 
 class Vector2 {
@@ -3943,6 +1416,79 @@ function createElementNS( name ) {
 
 }
 
+function SRGBToLinear( c ) {
+
+	return ( c < 0.04045 ) ? c * 0.0773993808 : Math.pow( c * 0.9478672986 + 0.0521327014, 2.4 );
+
+}
+
+function LinearToSRGB( c ) {
+
+	return ( c < 0.0031308 ) ? c * 12.92 : 1.055 * ( Math.pow( c, 0.41666 ) ) - 0.055;
+
+}
+
+// JavaScript RGB-to-RGB transforms, defined as
+// FN[InputColorSpace][OutputColorSpace] callback functions.
+const FN = {
+	[ SRGBColorSpace ]: { [ LinearSRGBColorSpace ]: SRGBToLinear },
+	[ LinearSRGBColorSpace ]: { [ SRGBColorSpace ]: LinearToSRGB },
+};
+
+const ColorManagement = {
+
+	legacyMode: true,
+
+	get workingColorSpace() {
+
+		return LinearSRGBColorSpace;
+
+	},
+
+	set workingColorSpace( colorSpace ) {
+
+		console.warn( 'THREE.ColorManagement: .workingColorSpace is readonly.' );
+
+	},
+
+	convert: function ( color, sourceColorSpace, targetColorSpace ) {
+
+		if ( this.legacyMode || sourceColorSpace === targetColorSpace || ! sourceColorSpace || ! targetColorSpace ) {
+
+			return color;
+
+		}
+
+		if ( FN[ sourceColorSpace ] && FN[ sourceColorSpace ][ targetColorSpace ] !== undefined ) {
+
+			const fn = FN[ sourceColorSpace ][ targetColorSpace ];
+
+			color.r = fn( color.r );
+			color.g = fn( color.g );
+			color.b = fn( color.b );
+
+			return color;
+
+		}
+
+		throw new Error( 'Unsupported color space conversion.' );
+
+	},
+
+	fromWorkingColorSpace: function ( color, targetColorSpace ) {
+
+		return this.convert( color, this.workingColorSpace, targetColorSpace );
+
+	},
+
+	toWorkingColorSpace: function ( color, sourceColorSpace ) {
+
+		return this.convert( color, sourceColorSpace, this.workingColorSpace );
+
+	},
+
+};
+
 const _colorKeywords = { 'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua': 0x00FFFF, 'aquamarine': 0x7FFFD4, 'azure': 0xF0FFFF,
 	'beige': 0xF5F5DC, 'bisque': 0xFFE4C4, 'black': 0x000000, 'blanchedalmond': 0xFFEBCD, 'blue': 0x0000FF, 'blueviolet': 0x8A2BE2,
 	'brown': 0xA52A2A, 'burlywood': 0xDEB887, 'cadetblue': 0x5F9EA0, 'chartreuse': 0x7FFF00, 'chocolate': 0xD2691E, 'coral': 0xFF7F50,
@@ -3968,6 +1514,7 @@ const _colorKeywords = { 'aliceblue': 0xF0F8FF, 'antiquewhite': 0xFAEBD7, 'aqua'
 	'springgreen': 0x00FF7F, 'steelblue': 0x4682B4, 'tan': 0xD2B48C, 'teal': 0x008080, 'thistle': 0xD8BFD8, 'tomato': 0xFF6347, 'turquoise': 0x40E0D0,
 	'violet': 0xEE82EE, 'wheat': 0xF5DEB3, 'white': 0xFFFFFF, 'whitesmoke': 0xF5F5F5, 'yellow': 0xFFFF00, 'yellowgreen': 0x9ACD32 };
 
+const _rgb = { r: 0, g: 0, b: 0 };
 const _hslA = { h: 0, s: 0, l: 0 };
 const _hslB = { h: 0, s: 0, l: 0 };
 
@@ -3982,15 +1529,13 @@ function hue2rgb( p, q, t ) {
 
 }
 
-function SRGBToLinear( c ) {
+function toComponents( source, target ) {
 
-	return ( c < 0.04045 ) ? c * 0.0773993808 : Math.pow( c * 0.9478672986 + 0.0521327014, 2.4 );
+	target.r = source.r;
+	target.g = source.g;
+	target.b = source.b;
 
-}
-
-function LinearToSRGB( c ) {
-
-	return ( c < 0.0031308 ) ? c * 12.92 : 1.055 * ( Math.pow( c, 0.41666 ) ) - 0.055;
+	return target;
 
 }
 
@@ -4039,7 +1584,7 @@ class Color {
 
 	}
 
-	setHex( hex ) {
+	setHex( hex, colorSpace = SRGBColorSpace ) {
 
 		hex = Math.floor( hex );
 
@@ -4047,21 +1592,25 @@ class Color {
 		this.g = ( hex >> 8 & 255 ) / 255;
 		this.b = ( hex & 255 ) / 255;
 
+		ColorManagement.toWorkingColorSpace( this, colorSpace );
+
 		return this;
 
 	}
 
-	setRGB( r, g, b ) {
+	setRGB( r, g, b, colorSpace = LinearSRGBColorSpace ) {
 
 		this.r = r;
 		this.g = g;
 		this.b = b;
 
+		ColorManagement.toWorkingColorSpace( this, colorSpace );
+
 		return this;
 
 	}
 
-	setHSL( h, s, l ) {
+	setHSL( h, s, l, colorSpace = LinearSRGBColorSpace ) {
 
 		// h,s,l ranges are in 0.0 - 1.0
 		h = euclideanModulo( h, 1 );
@@ -4083,11 +1632,13 @@ class Color {
 
 		}
 
+		ColorManagement.toWorkingColorSpace( this, colorSpace );
+
 		return this;
 
 	}
 
-	setStyle( style ) {
+	setStyle( style, colorSpace = SRGBColorSpace ) {
 
 		function handleAlpha( string ) {
 
@@ -4124,6 +1675,8 @@ class Color {
 						this.g = Math.min( 255, parseInt( color[ 2 ], 10 ) ) / 255;
 						this.b = Math.min( 255, parseInt( color[ 3 ], 10 ) ) / 255;
 
+						ColorManagement.toWorkingColorSpace( this, colorSpace );
+
 						handleAlpha( color[ 4 ] );
 
 						return this;
@@ -4136,6 +1689,8 @@ class Color {
 						this.r = Math.min( 100, parseInt( color[ 1 ], 10 ) ) / 100;
 						this.g = Math.min( 100, parseInt( color[ 2 ], 10 ) ) / 100;
 						this.b = Math.min( 100, parseInt( color[ 3 ], 10 ) ) / 100;
+
+						ColorManagement.toWorkingColorSpace( this, colorSpace );
 
 						handleAlpha( color[ 4 ] );
 
@@ -4157,7 +1712,7 @@ class Color {
 
 						handleAlpha( color[ 4 ] );
 
-						return this.setHSL( h, s, l );
+						return this.setHSL( h, s, l, colorSpace );
 
 					}
 
@@ -4179,6 +1734,8 @@ class Color {
 				this.g = parseInt( hex.charAt( 1 ) + hex.charAt( 1 ), 16 ) / 255;
 				this.b = parseInt( hex.charAt( 2 ) + hex.charAt( 2 ), 16 ) / 255;
 
+				ColorManagement.toWorkingColorSpace( this, colorSpace );
+
 				return this;
 
 			} else if ( size === 6 ) {
@@ -4188,6 +1745,8 @@ class Color {
 				this.g = parseInt( hex.charAt( 2 ) + hex.charAt( 3 ), 16 ) / 255;
 				this.b = parseInt( hex.charAt( 4 ) + hex.charAt( 5 ), 16 ) / 255;
 
+				ColorManagement.toWorkingColorSpace( this, colorSpace );
+
 				return this;
 
 			}
@@ -4196,7 +1755,7 @@ class Color {
 
 		if ( style && style.length > 0 ) {
 
-			return this.setColorName( style );
+			return this.setColorName( style, colorSpace );
 
 		}
 
@@ -4204,7 +1763,7 @@ class Color {
 
 	}
 
-	setColorName( style ) {
+	setColorName( style, colorSpace = SRGBColorSpace ) {
 
 		// color keywords
 		const hex = _colorKeywords[ style.toLowerCase() ];
@@ -4212,7 +1771,7 @@ class Color {
 		if ( hex !== undefined ) {
 
 			// red
-			this.setHex( hex );
+			this.setHex( hex, colorSpace );
 
 		} else {
 
@@ -4277,23 +1836,27 @@ class Color {
 
 	}
 
-	getHex() {
+	getHex( colorSpace = SRGBColorSpace ) {
 
-		return ( this.r * 255 ) << 16 ^ ( this.g * 255 ) << 8 ^ ( this.b * 255 ) << 0;
+		ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
 
-	}
-
-	getHexString() {
-
-		return ( '000000' + this.getHex().toString( 16 ) ).slice( - 6 );
+		return clamp$1( _rgb.r * 255, 0, 255 ) << 16 ^ clamp$1( _rgb.g * 255, 0, 255 ) << 8 ^ clamp$1( _rgb.b * 255, 0, 255 ) << 0;
 
 	}
 
-	getHSL( target ) {
+	getHexString( colorSpace = SRGBColorSpace ) {
+
+		return ( '000000' + this.getHex( colorSpace ).toString( 16 ) ).slice( - 6 );
+
+	}
+
+	getHSL( target, colorSpace = LinearSRGBColorSpace ) {
 
 		// h,s,l ranges are in 0.0 - 1.0
 
-		const r = this.r, g = this.g, b = this.b;
+		ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
+
+		const r = _rgb.r, g = _rgb.g, b = _rgb.b;
 
 		const max = Math.max( r, g, b );
 		const min = Math.min( r, g, b );
@@ -4332,9 +1895,30 @@ class Color {
 
 	}
 
-	getStyle() {
+	getRGB( target, colorSpace = LinearSRGBColorSpace ) {
 
-		return 'rgb(' + ( ( this.r * 255 ) | 0 ) + ',' + ( ( this.g * 255 ) | 0 ) + ',' + ( ( this.b * 255 ) | 0 ) + ')';
+		ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
+
+		target.r = _rgb.r;
+		target.g = _rgb.g;
+		target.b = _rgb.b;
+
+		return target;
+
+	}
+
+	getStyle( colorSpace = SRGBColorSpace ) {
+
+		ColorManagement.fromWorkingColorSpace( toComponents( this, _rgb ), colorSpace );
+
+		if ( colorSpace !== SRGBColorSpace ) {
+
+			// Requires CSS Color Module Level 4 (https://www.w3.org/TR/css-color-4/).
+			return `color(${ colorSpace } ${ _rgb.r } ${ _rgb.g } ${ _rgb.b })`;
+
+		}
+
+		return `rgb(${( _rgb.r * 255 ) | 0},${( _rgb.g * 255 ) | 0},${( _rgb.b * 255 ) | 0})`;
 
 	}
 
@@ -5728,6 +3312,7 @@ class WebGLRenderTarget extends EventDispatcher {
 		this.texture = new Texture$1( image, options.mapping, options.wrapS, options.wrapT, options.magFilter, options.minFilter, options.format, options.type, options.anisotropy, options.encoding );
 		this.texture.isRenderTargetTexture = true;
 
+		this.texture.flipY = false;
 		this.texture.generateMipmaps = options.generateMipmaps !== undefined ? options.generateMipmaps : false;
 		this.texture.internalFormat = options.internalFormat !== undefined ? options.internalFormat : null;
 		this.texture.minFilter = options.minFilter !== undefined ? options.minFilter : LinearFilter;
@@ -5777,6 +3362,7 @@ class WebGLRenderTarget extends EventDispatcher {
 		this.viewport.copy( source.viewport );
 
 		this.texture = source.texture.clone();
+		this.texture.isRenderTargetTexture = true;
 
 		// ensure image object is not shared, see #20328
 
@@ -7915,9 +5501,9 @@ function satForAxes( axes, v0, v1, v2, extents ) {
 	for ( let i = 0, j = axes.length - 3; i <= j; i += 3 ) {
 
 		_testAxis.fromArray( axes, i );
-		// project the aabb onto the seperating axis
+		// project the aabb onto the separating axis
 		const r = extents.x * Math.abs( _testAxis.x ) + extents.y * Math.abs( _testAxis.y ) + extents.z * Math.abs( _testAxis.z );
-		// project all 3 vertices of the triangle onto the seperating axis
+		// project all 3 vertices of the triangle onto the separating axis
 		const p0 = v0.dot( _testAxis );
 		const p1 = v1.dot( _testAxis );
 		const p2 = v2.dot( _testAxis );
@@ -7925,7 +5511,7 @@ function satForAxes( axes, v0, v1, v2, extents ) {
 		if ( Math.max( - Math.max( p0, p1, p2 ), Math.min( p0, p1, p2 ) ) > r ) {
 
 			// points of the projected triangle are outside the projected half-length of the aabb
-			// the axis is seperating and we can exit
+			// the axis is separating and we can exit
 			return false;
 
 		}
@@ -11228,7 +8814,7 @@ class Material$1 extends EventDispatcher {
 
 			}
 
-			// for backward compatability if shading is set in the constructor
+			// for backward compatibility if shading is set in the constructor
 			if ( key === 'shading' ) {
 
 				console.warn( 'THREE.' + this.type + ': .shading has been removed. Use the boolean .flatShading instead.' );
@@ -11599,35 +9185,6 @@ Material$1.fromType = function ( /*type*/ ) {
 
 };
 
-/**
- * parameters = {
- *  color: <hex>,
- *  opacity: <float>,
- *  map: new THREE.Texture( <Image> ),
- *
- *  lightMap: new THREE.Texture( <Image> ),
- *  lightMapIntensity: <float>
- *
- *  aoMap: new THREE.Texture( <Image> ),
- *  aoMapIntensity: <float>
- *
- *  specularMap: new THREE.Texture( <Image> ),
- *
- *  alphaMap: new THREE.Texture( <Image> ),
- *
- *  envMap: new THREE.CubeTexture( [posx, negx, posy, negy, posz, negz] ),
- *  combine: THREE.Multiply,
- *  reflectivity: <float>,
- *  refractionRatio: <float>,
- *
- *  depthTest: <bool>,
- *  depthWrite: <bool>,
- *
- *  wireframe: <boolean>,
- *  wireframeLinewidth: <float>,
- * }
- */
-
 class MeshBasicMaterial extends Material$1 {
 
 	constructor( parameters ) {
@@ -11918,9 +9475,7 @@ class BufferAttribute {
 
 		for ( let i = 0, l = this.count; i < l; i ++ ) {
 
-			_vector$9.x = this.getX( i );
-			_vector$9.y = this.getY( i );
-			_vector$9.z = this.getZ( i );
+			_vector$9.fromBufferAttribute( this, i );
 
 			_vector$9.applyMatrix4( m );
 
@@ -11936,9 +9491,7 @@ class BufferAttribute {
 
 		for ( let i = 0, l = this.count; i < l; i ++ ) {
 
-			_vector$9.x = this.getX( i );
-			_vector$9.y = this.getY( i );
-			_vector$9.z = this.getZ( i );
+			_vector$9.fromBufferAttribute( this, i );
 
 			_vector$9.applyNormalMatrix( m );
 
@@ -11954,9 +9507,7 @@ class BufferAttribute {
 
 		for ( let i = 0, l = this.count; i < l; i ++ ) {
 
-			_vector$9.x = this.getX( i );
-			_vector$9.y = this.getY( i );
-			_vector$9.z = this.getZ( i );
+			_vector$9.fromBufferAttribute( this, i );
 
 			_vector$9.transformDirection( m );
 
@@ -13903,21 +11454,6 @@ var default_vertex = "void main() {\n\tgl_Position = projectionMatrix * modelVie
 
 var default_fragment = "void main() {\n\tgl_FragColor = vec4( 1.0, 0.0, 0.0, 1.0 );\n}";
 
-/**
- * parameters = {
- *  defines: { "label" : "value" },
- *  uniforms: { "parameter1": { value: 1.0 }, "parameter2": { value2: 2 } },
- *
- *  fragmentShader: <string>,
- *  vertexShader: <string>,
- *
- *  wireframe: <boolean>,
- *  wireframeLinewidth: <float>,
- *
- *  lights: <bool>
- * }
- */
-
 class ShaderMaterial extends Material$1 {
 
 	constructor( parameters ) {
@@ -14454,9 +11990,14 @@ class CubeCamera extends Object3D {
 
 		const [ cameraPX, cameraNX, cameraPY, cameraNY, cameraPZ, cameraNZ ] = this.children;
 
-		const currentXrEnabled = renderer.xr.enabled;
 		const currentRenderTarget = renderer.getRenderTarget();
 
+		const currentOutputEncoding = renderer.outputEncoding;
+		const currentToneMapping = renderer.toneMapping;
+		const currentXrEnabled = renderer.xr.enabled;
+
+		renderer.outputEncoding = LinearEncoding;
+		renderer.toneMapping = NoToneMapping;
 		renderer.xr.enabled = false;
 
 		const generateMipmaps = renderTarget.texture.generateMipmaps;
@@ -14485,6 +12026,8 @@ class CubeCamera extends Object3D {
 
 		renderer.setRenderTarget( currentRenderTarget );
 
+		renderer.outputEncoding = currentOutputEncoding;
+		renderer.toneMapping = currentToneMapping;
 		renderer.xr.enabled = currentXrEnabled;
 
 		renderTarget.texture.needsPMREMUpdate = true;
@@ -14551,7 +12094,6 @@ class WebGLCubeRenderTarget extends WebGLRenderTarget {
 	fromEquirectangularTexture( renderer, texture ) {
 
 		this.texture.type = texture.type;
-		this.texture.format = RGBAFormat; // see #18859
 		this.texture.encoding = texture.encoding;
 
 		this.texture.generateMipmaps = texture.generateMipmaps;
@@ -15416,7 +12958,7 @@ var fog_pars_fragment = "#ifdef USE_FOG\n\tuniform vec3 fogColor;\n\tvarying flo
 
 var gradientmap_pars_fragment = "#ifdef USE_GRADIENTMAP\n\tuniform sampler2D gradientMap;\n#endif\nvec3 getGradientIrradiance( vec3 normal, vec3 lightDirection ) {\n\tfloat dotNL = dot( normal, lightDirection );\n\tvec2 coord = vec2( dotNL * 0.5 + 0.5, 0.0 );\n\t#ifdef USE_GRADIENTMAP\n\t\treturn vec3( texture2D( gradientMap, coord ).r );\n\t#else\n\t\treturn ( coord.x < 0.7 ) ? vec3( 0.7 ) : vec3( 1.0 );\n\t#endif\n}";
 
-var lightmap_fragment = "#ifdef USE_LIGHTMAP\n\tvec4 lightMapTexel = texture2D( lightMap, vUv2 );\n\tvec3 lightMapIrradiance = lightMapTexel.rgb * lightMapIntensity;\n\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\tlightMapIrradiance *= PI;\n\t#endif\n\treflectedLight.indirectDiffuse += lightMapIrradiance;\n#endif";
+var lightmap_fragment = "#ifdef USE_LIGHTMAP\n\tvec4 lightMapTexel = texture2D( lightMap, vUv2 );\n\tvec3 lightMapIrradiance = lightMapTexel.rgb * lightMapIntensity;\n\treflectedLight.indirectDiffuse += lightMapIrradiance;\n#endif";
 
 var lightmap_pars_fragment = "#ifdef USE_LIGHTMAP\n\tuniform sampler2D lightMap;\n\tuniform float lightMapIntensity;\n#endif";
 
@@ -15424,7 +12966,7 @@ var lights_lambert_vertex = "vec3 diffuse = vec3( 1.0 );\nGeometricContext geome
 
 var lights_pars_begin = "uniform bool receiveShadow;\nuniform vec3 ambientLightColor;\nuniform vec3 lightProbe[ 9 ];\nvec3 shGetIrradianceAt( in vec3 normal, in vec3 shCoefficients[ 9 ] ) {\n\tfloat x = normal.x, y = normal.y, z = normal.z;\n\tvec3 result = shCoefficients[ 0 ] * 0.886227;\n\tresult += shCoefficients[ 1 ] * 2.0 * 0.511664 * y;\n\tresult += shCoefficients[ 2 ] * 2.0 * 0.511664 * z;\n\tresult += shCoefficients[ 3 ] * 2.0 * 0.511664 * x;\n\tresult += shCoefficients[ 4 ] * 2.0 * 0.429043 * x * y;\n\tresult += shCoefficients[ 5 ] * 2.0 * 0.429043 * y * z;\n\tresult += shCoefficients[ 6 ] * ( 0.743125 * z * z - 0.247708 );\n\tresult += shCoefficients[ 7 ] * 2.0 * 0.429043 * x * z;\n\tresult += shCoefficients[ 8 ] * 0.429043 * ( x * x - y * y );\n\treturn result;\n}\nvec3 getLightProbeIrradiance( const in vec3 lightProbe[ 9 ], const in vec3 normal ) {\n\tvec3 worldNormal = inverseTransformDirection( normal, viewMatrix );\n\tvec3 irradiance = shGetIrradianceAt( worldNormal, lightProbe );\n\treturn irradiance;\n}\nvec3 getAmbientLightIrradiance( const in vec3 ambientLightColor ) {\n\tvec3 irradiance = ambientLightColor;\n\treturn irradiance;\n}\nfloat getDistanceAttenuation( const in float lightDistance, const in float cutoffDistance, const in float decayExponent ) {\n\t#if defined ( PHYSICALLY_CORRECT_LIGHTS )\n\t\tfloat distanceFalloff = 1.0 / max( pow( lightDistance, decayExponent ), 0.01 );\n\t\tif ( cutoffDistance > 0.0 ) {\n\t\t\tdistanceFalloff *= pow2( saturate( 1.0 - pow4( lightDistance / cutoffDistance ) ) );\n\t\t}\n\t\treturn distanceFalloff;\n\t#else\n\t\tif ( cutoffDistance > 0.0 && decayExponent > 0.0 ) {\n\t\t\treturn pow( saturate( - lightDistance / cutoffDistance + 1.0 ), decayExponent );\n\t\t}\n\t\treturn 1.0;\n\t#endif\n}\nfloat getSpotAttenuation( const in float coneCosine, const in float penumbraCosine, const in float angleCosine ) {\n\treturn smoothstep( coneCosine, penumbraCosine, angleCosine );\n}\n#if NUM_DIR_LIGHTS > 0\n\tstruct DirectionalLight {\n\t\tvec3 direction;\n\t\tvec3 color;\n\t};\n\tuniform DirectionalLight directionalLights[ NUM_DIR_LIGHTS ];\n\tvoid getDirectionalLightInfo( const in DirectionalLight directionalLight, const in GeometricContext geometry, out IncidentLight light ) {\n\t\tlight.color = directionalLight.color;\n\t\tlight.direction = directionalLight.direction;\n\t\tlight.visible = true;\n\t}\n#endif\n#if NUM_POINT_LIGHTS > 0\n\tstruct PointLight {\n\t\tvec3 position;\n\t\tvec3 color;\n\t\tfloat distance;\n\t\tfloat decay;\n\t};\n\tuniform PointLight pointLights[ NUM_POINT_LIGHTS ];\n\tvoid getPointLightInfo( const in PointLight pointLight, const in GeometricContext geometry, out IncidentLight light ) {\n\t\tvec3 lVector = pointLight.position - geometry.position;\n\t\tlight.direction = normalize( lVector );\n\t\tfloat lightDistance = length( lVector );\n\t\tlight.color = pointLight.color;\n\t\tlight.color *= getDistanceAttenuation( lightDistance, pointLight.distance, pointLight.decay );\n\t\tlight.visible = ( light.color != vec3( 0.0 ) );\n\t}\n#endif\n#if NUM_SPOT_LIGHTS > 0\n\tstruct SpotLight {\n\t\tvec3 position;\n\t\tvec3 direction;\n\t\tvec3 color;\n\t\tfloat distance;\n\t\tfloat decay;\n\t\tfloat coneCos;\n\t\tfloat penumbraCos;\n\t};\n\tuniform SpotLight spotLights[ NUM_SPOT_LIGHTS ];\n\tvoid getSpotLightInfo( const in SpotLight spotLight, const in GeometricContext geometry, out IncidentLight light ) {\n\t\tvec3 lVector = spotLight.position - geometry.position;\n\t\tlight.direction = normalize( lVector );\n\t\tfloat angleCos = dot( light.direction, spotLight.direction );\n\t\tfloat spotAttenuation = getSpotAttenuation( spotLight.coneCos, spotLight.penumbraCos, angleCos );\n\t\tif ( spotAttenuation > 0.0 ) {\n\t\t\tfloat lightDistance = length( lVector );\n\t\t\tlight.color = spotLight.color * spotAttenuation;\n\t\t\tlight.color *= getDistanceAttenuation( lightDistance, spotLight.distance, spotLight.decay );\n\t\t\tlight.visible = ( light.color != vec3( 0.0 ) );\n\t\t} else {\n\t\t\tlight.color = vec3( 0.0 );\n\t\t\tlight.visible = false;\n\t\t}\n\t}\n#endif\n#if NUM_RECT_AREA_LIGHTS > 0\n\tstruct RectAreaLight {\n\t\tvec3 color;\n\t\tvec3 position;\n\t\tvec3 halfWidth;\n\t\tvec3 halfHeight;\n\t};\n\tuniform sampler2D ltc_1;\tuniform sampler2D ltc_2;\n\tuniform RectAreaLight rectAreaLights[ NUM_RECT_AREA_LIGHTS ];\n#endif\n#if NUM_HEMI_LIGHTS > 0\n\tstruct HemisphereLight {\n\t\tvec3 direction;\n\t\tvec3 skyColor;\n\t\tvec3 groundColor;\n\t};\n\tuniform HemisphereLight hemisphereLights[ NUM_HEMI_LIGHTS ];\n\tvec3 getHemisphereLightIrradiance( const in HemisphereLight hemiLight, const in vec3 normal ) {\n\t\tfloat dotNL = dot( normal, hemiLight.direction );\n\t\tfloat hemiDiffuseWeight = 0.5 * dotNL + 0.5;\n\t\tvec3 irradiance = mix( hemiLight.groundColor, hemiLight.skyColor, hemiDiffuseWeight );\n\t\treturn irradiance;\n\t}\n#endif";
 
-var envmap_physical_pars_fragment = "#if defined( USE_ENVMAP )\n\t#ifdef ENVMAP_MODE_REFRACTION\n\t\tuniform float refractionRatio;\n\t#endif\n\tvec3 getIBLIrradiance( const in vec3 normal ) {\n\t\t#if defined( ENVMAP_TYPE_CUBE_UV )\n\t\t\tvec3 worldNormal = inverseTransformDirection( normal, viewMatrix );\n\t\t\tvec4 envMapColor = textureCubeUV( envMap, worldNormal, 1.0 );\n\t\t\treturn PI * envMapColor.rgb * envMapIntensity;\n\t\t#else\n\t\t\treturn vec3( 0.0 );\n\t\t#endif\n\t}\n\tvec3 getIBLRadiance( const in vec3 viewDir, const in vec3 normal, const in float roughness ) {\n\t\t#if defined( ENVMAP_TYPE_CUBE_UV )\n\t\t\tvec3 reflectVec;\n\t\t\t#ifdef ENVMAP_MODE_REFLECTION\n\t\t\t\treflectVec = reflect( - viewDir, normal );\n\t\t\t\treflectVec = normalize( mix( reflectVec, normal, roughness * roughness) );\n\t\t\t#else\n\t\t\t\treflectVec = refract( - viewDir, normal, refractionRatio );\n\t\t\t#endif\n\t\t\treflectVec = inverseTransformDirection( reflectVec, viewMatrix );\n\t\t\tvec4 envMapColor = textureCubeUV( envMap, reflectVec, roughness );\n\t\t\treturn envMapColor.rgb * envMapIntensity;\n\t\t#else\n\t\t\treturn vec3( 0.0 );\n\t\t#endif\n\t}\n#endif";
+var envmap_physical_pars_fragment = "#if defined( USE_ENVMAP )\n\tvec3 getIBLIrradiance( const in vec3 normal ) {\n\t\t#if defined( ENVMAP_TYPE_CUBE_UV )\n\t\t\tvec3 worldNormal = inverseTransformDirection( normal, viewMatrix );\n\t\t\tvec4 envMapColor = textureCubeUV( envMap, worldNormal, 1.0 );\n\t\t\treturn PI * envMapColor.rgb * envMapIntensity;\n\t\t#else\n\t\t\treturn vec3( 0.0 );\n\t\t#endif\n\t}\n\tvec3 getIBLRadiance( const in vec3 viewDir, const in vec3 normal, const in float roughness ) {\n\t\t#if defined( ENVMAP_TYPE_CUBE_UV )\n\t\t\tvec3 reflectVec = reflect( - viewDir, normal );\n\t\t\treflectVec = normalize( mix( reflectVec, normal, roughness * roughness) );\n\t\t\treflectVec = inverseTransformDirection( reflectVec, viewMatrix );\n\t\t\tvec4 envMapColor = textureCubeUV( envMap, reflectVec, roughness );\n\t\t\treturn envMapColor.rgb * envMapIntensity;\n\t\t#else\n\t\t\treturn vec3( 0.0 );\n\t\t#endif\n\t}\n#endif";
 
 var lights_toon_fragment = "ToonMaterial material;\nmaterial.diffuseColor = diffuseColor.rgb;";
 
@@ -15440,7 +12982,7 @@ var lights_physical_pars_fragment = "struct PhysicalMaterial {\n\tvec3 diffuseCo
 
 var lights_fragment_begin = "\nGeometricContext geometry;\ngeometry.position = - vViewPosition;\ngeometry.normal = normal;\ngeometry.viewDir = ( isOrthographic ) ? vec3( 0, 0, 1 ) : normalize( vViewPosition );\n#ifdef USE_CLEARCOAT\n\tgeometry.clearcoatNormal = clearcoatNormal;\n#endif\nIncidentLight directLight;\n#if ( NUM_POINT_LIGHTS > 0 ) && defined( RE_Direct )\n\tPointLight pointLight;\n\t#if defined( USE_SHADOWMAP ) && NUM_POINT_LIGHT_SHADOWS > 0\n\tPointLightShadow pointLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_POINT_LIGHTS; i ++ ) {\n\t\tpointLight = pointLights[ i ];\n\t\tgetPointLightInfo( pointLight, geometry, directLight );\n\t\t#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_POINT_LIGHT_SHADOWS )\n\t\tpointLightShadow = pointLightShadows[ i ];\n\t\tdirectLight.color *= all( bvec2( directLight.visible, receiveShadow ) ) ? getPointShadow( pointShadowMap[ i ], pointLightShadow.shadowMapSize, pointLightShadow.shadowBias, pointLightShadow.shadowRadius, vPointShadowCoord[ i ], pointLightShadow.shadowCameraNear, pointLightShadow.shadowCameraFar ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_SPOT_LIGHTS > 0 ) && defined( RE_Direct )\n\tSpotLight spotLight;\n\t#if defined( USE_SHADOWMAP ) && NUM_SPOT_LIGHT_SHADOWS > 0\n\tSpotLightShadow spotLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_SPOT_LIGHTS; i ++ ) {\n\t\tspotLight = spotLights[ i ];\n\t\tgetSpotLightInfo( spotLight, geometry, directLight );\n\t\t#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_SPOT_LIGHT_SHADOWS )\n\t\tspotLightShadow = spotLightShadows[ i ];\n\t\tdirectLight.color *= all( bvec2( directLight.visible, receiveShadow ) ) ? getShadow( spotShadowMap[ i ], spotLightShadow.shadowMapSize, spotLightShadow.shadowBias, spotLightShadow.shadowRadius, vSpotShadowCoord[ i ] ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_DIR_LIGHTS > 0 ) && defined( RE_Direct )\n\tDirectionalLight directionalLight;\n\t#if defined( USE_SHADOWMAP ) && NUM_DIR_LIGHT_SHADOWS > 0\n\tDirectionalLightShadow directionalLightShadow;\n\t#endif\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_DIR_LIGHTS; i ++ ) {\n\t\tdirectionalLight = directionalLights[ i ];\n\t\tgetDirectionalLightInfo( directionalLight, geometry, directLight );\n\t\t#if defined( USE_SHADOWMAP ) && ( UNROLLED_LOOP_INDEX < NUM_DIR_LIGHT_SHADOWS )\n\t\tdirectionalLightShadow = directionalLightShadows[ i ];\n\t\tdirectLight.color *= all( bvec2( directLight.visible, receiveShadow ) ) ? getShadow( directionalShadowMap[ i ], directionalLightShadow.shadowMapSize, directionalLightShadow.shadowBias, directionalLightShadow.shadowRadius, vDirectionalShadowCoord[ i ] ) : 1.0;\n\t\t#endif\n\t\tRE_Direct( directLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if ( NUM_RECT_AREA_LIGHTS > 0 ) && defined( RE_Direct_RectArea )\n\tRectAreaLight rectAreaLight;\n\t#pragma unroll_loop_start\n\tfor ( int i = 0; i < NUM_RECT_AREA_LIGHTS; i ++ ) {\n\t\trectAreaLight = rectAreaLights[ i ];\n\t\tRE_Direct_RectArea( rectAreaLight, geometry, material, reflectedLight );\n\t}\n\t#pragma unroll_loop_end\n#endif\n#if defined( RE_IndirectDiffuse )\n\tvec3 iblIrradiance = vec3( 0.0 );\n\tvec3 irradiance = getAmbientLightIrradiance( ambientLightColor );\n\tirradiance += getLightProbeIrradiance( lightProbe, geometry.normal );\n\t#if ( NUM_HEMI_LIGHTS > 0 )\n\t\t#pragma unroll_loop_start\n\t\tfor ( int i = 0; i < NUM_HEMI_LIGHTS; i ++ ) {\n\t\t\tirradiance += getHemisphereLightIrradiance( hemisphereLights[ i ], geometry.normal );\n\t\t}\n\t\t#pragma unroll_loop_end\n\t#endif\n#endif\n#if defined( RE_IndirectSpecular )\n\tvec3 radiance = vec3( 0.0 );\n\tvec3 clearcoatRadiance = vec3( 0.0 );\n#endif";
 
-var lights_fragment_maps = "#if defined( RE_IndirectDiffuse )\n\t#ifdef USE_LIGHTMAP\n\t\tvec4 lightMapTexel = texture2D( lightMap, vUv2 );\n\t\tvec3 lightMapIrradiance = lightMapTexel.rgb * lightMapIntensity;\n\t\t#ifndef PHYSICALLY_CORRECT_LIGHTS\n\t\t\tlightMapIrradiance *= PI;\n\t\t#endif\n\t\tirradiance += lightMapIrradiance;\n\t#endif\n\t#if defined( USE_ENVMAP ) && defined( STANDARD ) && defined( ENVMAP_TYPE_CUBE_UV )\n\t\tiblIrradiance += getIBLIrradiance( geometry.normal );\n\t#endif\n#endif\n#if defined( USE_ENVMAP ) && defined( RE_IndirectSpecular )\n\tradiance += getIBLRadiance( geometry.viewDir, geometry.normal, material.roughness );\n\t#ifdef USE_CLEARCOAT\n\t\tclearcoatRadiance += getIBLRadiance( geometry.viewDir, geometry.clearcoatNormal, material.clearcoatRoughness );\n\t#endif\n#endif";
+var lights_fragment_maps = "#if defined( RE_IndirectDiffuse )\n\t#ifdef USE_LIGHTMAP\n\t\tvec4 lightMapTexel = texture2D( lightMap, vUv2 );\n\t\tvec3 lightMapIrradiance = lightMapTexel.rgb * lightMapIntensity;\n\t\tirradiance += lightMapIrradiance;\n\t#endif\n\t#if defined( USE_ENVMAP ) && defined( STANDARD ) && defined( ENVMAP_TYPE_CUBE_UV )\n\t\tiblIrradiance += getIBLIrradiance( geometry.normal );\n\t#endif\n#endif\n#if defined( USE_ENVMAP ) && defined( RE_IndirectSpecular )\n\tradiance += getIBLRadiance( geometry.viewDir, geometry.normal, material.roughness );\n\t#ifdef USE_CLEARCOAT\n\t\tclearcoatRadiance += getIBLRadiance( geometry.viewDir, geometry.clearcoatNormal, material.clearcoatRoughness );\n\t#endif\n#endif";
 
 var lights_fragment_end = "#if defined( RE_IndirectDiffuse )\n\tRE_IndirectDiffuse( irradiance, geometry, material, reflectedLight );\n#endif\n#if defined( RE_IndirectSpecular )\n\tRE_IndirectSpecular( radiance, iblIrradiance, clearcoatRadiance, geometry, material, reflectedLight );\n#endif";
 
@@ -15464,11 +13006,11 @@ var metalnessmap_fragment = "float metalnessFactor = metalness;\n#ifdef USE_META
 
 var metalnessmap_pars_fragment = "#ifdef USE_METALNESSMAP\n\tuniform sampler2D metalnessMap;\n#endif";
 
-var morphcolor_vertex = "#if defined( USE_MORPHCOLORS ) && defined( MORPHTARGETS_TEXTURE )\n\tvColor *= morphTargetBaseInfluence;\n\tfor ( int i = 0; i < MORPHTARGETS_COUNT; i ++ ) {\n\t\t#if defined( USE_COLOR_ALPHA )\n\t\t\tif ( morphTargetInfluences[ i ] != 0.0 ) vColor += getMorph( gl_VertexID, i, 2 ) * morphTargetInfluences[ i ];\n\t\t#elif defined( USE_COLOR )\n\t\t\tif ( morphTargetInfluences[ i ] != 0.0 ) vColor += getMorph( gl_VertexID, i, 2 ).rgb * morphTargetInfluences[ i ]\n\t\t#endif\n\t}\n#endif";
+var morphcolor_vertex = "#if defined( USE_MORPHCOLORS ) && defined( MORPHTARGETS_TEXTURE )\n\tvColor *= morphTargetBaseInfluence;\n\tfor ( int i = 0; i < MORPHTARGETS_COUNT; i ++ ) {\n\t\t#if defined( USE_COLOR_ALPHA )\n\t\t\tif ( morphTargetInfluences[ i ] != 0.0 ) vColor += getMorph( gl_VertexID, i, 2 ) * morphTargetInfluences[ i ];\n\t\t#elif defined( USE_COLOR )\n\t\t\tif ( morphTargetInfluences[ i ] != 0.0 ) vColor += getMorph( gl_VertexID, i, 2 ).rgb * morphTargetInfluences[ i ];\n\t\t#endif\n\t}\n#endif";
 
 var morphnormal_vertex = "#ifdef USE_MORPHNORMALS\n\tobjectNormal *= morphTargetBaseInfluence;\n\t#ifdef MORPHTARGETS_TEXTURE\n\t\tfor ( int i = 0; i < MORPHTARGETS_COUNT; i ++ ) {\n\t\t\tif ( morphTargetInfluences[ i ] != 0.0 ) objectNormal += getMorph( gl_VertexID, i, 1 ).xyz * morphTargetInfluences[ i ];\n\t\t}\n\t#else\n\t\tobjectNormal += morphNormal0 * morphTargetInfluences[ 0 ];\n\t\tobjectNormal += morphNormal1 * morphTargetInfluences[ 1 ];\n\t\tobjectNormal += morphNormal2 * morphTargetInfluences[ 2 ];\n\t\tobjectNormal += morphNormal3 * morphTargetInfluences[ 3 ];\n\t#endif\n#endif";
 
-var morphtarget_pars_vertex = "#ifdef USE_MORPHTARGETS\n\tuniform float morphTargetBaseInfluence;\n\t#ifdef MORPHTARGETS_TEXTURE\n\t\tuniform float morphTargetInfluences[ MORPHTARGETS_COUNT ];\n\t\tuniform sampler2DArray morphTargetsTexture;\n\t\tuniform vec2 morphTargetsTextureSize;\n\t\tvec4 getMorph( const in int vertexIndex, const in int morphTargetIndex, const in int offset ) {\n\t\t\tfloat texelIndex = float( vertexIndex * MORPHTARGETS_TEXTURE_STRIDE + offset );\n\t\t\tfloat y = floor( texelIndex / morphTargetsTextureSize.x );\n\t\t\tfloat x = texelIndex - y * morphTargetsTextureSize.x;\n\t\t\tvec3 morphUV = vec3( ( x + 0.5 ) / morphTargetsTextureSize.x, y / morphTargetsTextureSize.y, morphTargetIndex );\n\t\t\treturn texture( morphTargetsTexture, morphUV );\n\t\t}\n\t#else\n\t\t#ifndef USE_MORPHNORMALS\n\t\t\tuniform float morphTargetInfluences[ 8 ];\n\t\t#else\n\t\t\tuniform float morphTargetInfluences[ 4 ];\n\t\t#endif\n\t#endif\n#endif";
+var morphtarget_pars_vertex = "#ifdef USE_MORPHTARGETS\n\tuniform float morphTargetBaseInfluence;\n\t#ifdef MORPHTARGETS_TEXTURE\n\t\tuniform float morphTargetInfluences[ MORPHTARGETS_COUNT ];\n\t\tuniform sampler2DArray morphTargetsTexture;\n\t\tuniform ivec2 morphTargetsTextureSize;\n\t\tvec4 getMorph( const in int vertexIndex, const in int morphTargetIndex, const in int offset ) {\n\t\t\tint texelIndex = vertexIndex * MORPHTARGETS_TEXTURE_STRIDE + offset;\n\t\t\tint y = texelIndex / morphTargetsTextureSize.x;\n\t\t\tint x = texelIndex - y * morphTargetsTextureSize.x;\n\t\t\tivec3 morphUV = ivec3( x, y, morphTargetIndex );\n\t\t\treturn texelFetch( morphTargetsTexture, morphUV, 0 );\n\t\t}\n\t#else\n\t\t#ifndef USE_MORPHNORMALS\n\t\t\tuniform float morphTargetInfluences[ 8 ];\n\t\t#else\n\t\t\tuniform float morphTargetInfluences[ 4 ];\n\t\t#endif\n\t#endif\n#endif";
 
 var morphtarget_vertex = "#ifdef USE_MORPHTARGETS\n\ttransformed *= morphTargetBaseInfluence;\n\t#ifdef MORPHTARGETS_TEXTURE\n\t\tfor ( int i = 0; i < MORPHTARGETS_COUNT; i ++ ) {\n\t\t\tif ( morphTargetInfluences[ i ] != 0.0 ) transformed += getMorph( gl_VertexID, i, 0 ).xyz * morphTargetInfluences[ i ];\n\t\t}\n\t#else\n\t\ttransformed += morphTarget0 * morphTargetInfluences[ 0 ];\n\t\ttransformed += morphTarget1 * morphTargetInfluences[ 1 ];\n\t\ttransformed += morphTarget2 * morphTargetInfluences[ 2 ];\n\t\ttransformed += morphTarget3 * morphTargetInfluences[ 3 ];\n\t\t#ifndef USE_MORPHNORMALS\n\t\t\ttransformed += morphTarget4 * morphTargetInfluences[ 4 ];\n\t\t\ttransformed += morphTarget5 * morphTargetInfluences[ 5 ];\n\t\t\ttransformed += morphTarget6 * morphTargetInfluences[ 6 ];\n\t\t\ttransformed += morphTarget7 * morphTargetInfluences[ 7 ];\n\t\t#endif\n\t#endif\n#endif";
 
@@ -15550,7 +13092,7 @@ var worldpos_vertex = "#if defined( USE_ENVMAP ) || defined( DISTANCE ) || defin
 
 const vertex$g = "varying vec2 vUv;\nuniform mat3 uvTransform;\nvoid main() {\n\tvUv = ( uvTransform * vec3( uv, 1 ) ).xy;\n\tgl_Position = vec4( position.xy, 1.0, 1.0 );\n}";
 
-const fragment$g = "uniform sampler2D t2D;\nvarying vec2 vUv;\nvoid main() {\n\tgl_FragColor = texture2D( t2D, vUv );\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n}";
+const fragment$g = "uniform sampler2D t2D;\nvarying vec2 vUv;\nvoid main() {\n\tgl_FragColor = texture2D( t2D, vUv );\n\t#ifdef DECODE_VIDEO_TEXTURE\n\t\tgl_FragColor = vec4( mix( pow( gl_FragColor.rgb * 0.9478672986 + vec3( 0.0521327014 ), vec3( 2.4 ) ), gl_FragColor.rgb * 0.0773993808, vec3( lessThanEqual( gl_FragColor.rgb, vec3( 0.04045 ) ) ) ), gl_FragColor.w );\n\t#endif\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n}";
 
 const vertex$f = "varying vec3 vWorldDirection;\n#include <common>\nvoid main() {\n\tvWorldDirection = transformDirection( position, modelMatrix );\n\t#include <begin_vertex>\n\t#include <project_vertex>\n\tgl_Position.z = gl_Position.w;\n}";
 
@@ -15574,7 +13116,7 @@ const fragment$b = "uniform vec3 diffuse;\nuniform float opacity;\nuniform float
 
 const vertex$a = "#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <envmap_pars_vertex>\n#include <color_pars_vertex>\n#include <fog_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <morphcolor_vertex>\n\t#if defined ( USE_ENVMAP ) || defined ( USE_SKINNING )\n\t\t#include <beginnormal_vertex>\n\t\t#include <morphnormal_vertex>\n\t\t#include <skinbase_vertex>\n\t\t#include <skinnormal_vertex>\n\t\t#include <defaultnormal_vertex>\n\t#endif\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n\t#include <worldpos_vertex>\n\t#include <envmap_vertex>\n\t#include <fog_vertex>\n}";
 
-const fragment$a = "uniform vec3 diffuse;\nuniform float opacity;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\n#include <common>\n#include <dithering_pars_fragment>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <alphatest_pars_fragment>\n#include <aomap_pars_fragment>\n#include <lightmap_pars_fragment>\n#include <envmap_common_pars_fragment>\n#include <envmap_pars_fragment>\n#include <cube_uv_reflection_fragment>\n#include <fog_pars_fragment>\n#include <specularmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <specularmap_fragment>\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\t#ifdef USE_LIGHTMAP\n\t\tvec4 lightMapTexel= texture2D( lightMap, vUv2 );\n\t\treflectedLight.indirectDiffuse += lightMapTexel.rgb * lightMapIntensity;\n\t#else\n\t\treflectedLight.indirectDiffuse += vec3( 1.0 );\n\t#endif\n\t#include <aomap_fragment>\n\treflectedLight.indirectDiffuse *= diffuseColor.rgb;\n\tvec3 outgoingLight = reflectedLight.indirectDiffuse;\n\t#include <envmap_fragment>\n\t#include <output_fragment>\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n\t#include <dithering_fragment>\n}";
+const fragment$a = "uniform vec3 diffuse;\nuniform float opacity;\n#ifndef FLAT_SHADED\n\tvarying vec3 vNormal;\n#endif\n#include <common>\n#include <dithering_pars_fragment>\n#include <color_pars_fragment>\n#include <uv_pars_fragment>\n#include <uv2_pars_fragment>\n#include <map_pars_fragment>\n#include <alphamap_pars_fragment>\n#include <alphatest_pars_fragment>\n#include <aomap_pars_fragment>\n#include <lightmap_pars_fragment>\n#include <envmap_common_pars_fragment>\n#include <envmap_pars_fragment>\n#include <cube_uv_reflection_fragment>\n#include <fog_pars_fragment>\n#include <specularmap_pars_fragment>\n#include <logdepthbuf_pars_fragment>\n#include <clipping_planes_pars_fragment>\nvoid main() {\n\t#include <clipping_planes_fragment>\n\tvec4 diffuseColor = vec4( diffuse, opacity );\n\t#include <logdepthbuf_fragment>\n\t#include <map_fragment>\n\t#include <color_fragment>\n\t#include <alphamap_fragment>\n\t#include <alphatest_fragment>\n\t#include <specularmap_fragment>\n\tReflectedLight reflectedLight = ReflectedLight( vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ), vec3( 0.0 ) );\n\t#ifdef USE_LIGHTMAP\n\t\tvec4 lightMapTexel = texture2D( lightMap, vUv2 );\n\t\treflectedLight.indirectDiffuse += lightMapTexel.rgb * lightMapIntensity * RECIPROCAL_PI;\n\t#else\n\t\treflectedLight.indirectDiffuse += vec3( 1.0 );\n\t#endif\n\t#include <aomap_fragment>\n\treflectedLight.indirectDiffuse *= diffuseColor.rgb;\n\tvec3 outgoingLight = reflectedLight.indirectDiffuse;\n\t#include <envmap_fragment>\n\t#include <output_fragment>\n\t#include <tonemapping_fragment>\n\t#include <encodings_fragment>\n\t#include <fog_fragment>\n\t#include <premultiplied_alpha_fragment>\n\t#include <dithering_fragment>\n}";
 
 const vertex$9 = "#define LAMBERT\nvarying vec3 vLightFront;\nvarying vec3 vIndirectFront;\n#ifdef DOUBLE_SIDED\n\tvarying vec3 vLightBack;\n\tvarying vec3 vIndirectBack;\n#endif\n#include <common>\n#include <uv_pars_vertex>\n#include <uv2_pars_vertex>\n#include <envmap_pars_vertex>\n#include <bsdfs>\n#include <lights_pars_begin>\n#include <color_pars_vertex>\n#include <fog_pars_vertex>\n#include <morphtarget_pars_vertex>\n#include <skinning_pars_vertex>\n#include <shadowmap_pars_vertex>\n#include <logdepthbuf_pars_vertex>\n#include <clipping_planes_pars_vertex>\nvoid main() {\n\t#include <uv_vertex>\n\t#include <uv2_vertex>\n\t#include <color_vertex>\n\t#include <morphcolor_vertex>\n\t#include <beginnormal_vertex>\n\t#include <morphnormal_vertex>\n\t#include <skinbase_vertex>\n\t#include <skinnormal_vertex>\n\t#include <defaultnormal_vertex>\n\t#include <begin_vertex>\n\t#include <morphtarget_vertex>\n\t#include <skinning_vertex>\n\t#include <project_vertex>\n\t#include <logdepthbuf_vertex>\n\t#include <clipping_planes_vertex>\n\t#include <worldpos_vertex>\n\t#include <envmap_vertex>\n\t#include <lights_lambert_vertex>\n\t#include <shadowmap_vertex>\n\t#include <fog_vertex>\n}";
 
@@ -15782,8 +13324,8 @@ const UniformsLib = {
 		envMap: { value: null },
 		flipEnvMap: { value: - 1 },
 		reflectivity: { value: 1.0 }, // basic, lambert, phong
-		ior: { value: 1.5 }, // standard, physical
-		refractionRatio: { value: 0.98 }
+		ior: { value: 1.5 }, // physical
+		refractionRatio: { value: 0.98 } // basic, lambert, phong
 
 	},
 
@@ -16503,6 +14045,7 @@ function WebGLBindingStates( gl, extensions, attributes, capabilities ) {
 
 	const defaultState = createBindingState( null );
 	let currentState = defaultState;
+	let forceUpdate = false;
 
 	function setup( object, material, program, geometry, index ) {
 
@@ -16553,7 +14096,9 @@ function WebGLBindingStates( gl, extensions, attributes, capabilities ) {
 
 		}
 
-		if ( updateBuffers ) {
+		if ( updateBuffers || forceUpdate ) {
+
+			forceUpdate = false;
 
 			setupVertexAttributes( object, material, program, geometry );
 
@@ -17050,6 +14595,7 @@ function WebGLBindingStates( gl, extensions, attributes, capabilities ) {
 	function reset() {
 
 		resetDefaultState();
+		forceUpdate = true;
 
 		if ( currentState === defaultState ) return;
 
@@ -17058,7 +14604,7 @@ function WebGLBindingStates( gl, extensions, attributes, capabilities ) {
 
 	}
 
-	// for backward-compatilibity
+	// for backward-compatibility
 
 	function resetDefaultState() {
 
@@ -17831,7 +15377,7 @@ class PMREMGenerator {
 
 	_dispose() {
 
-		this._blurMaterial.dispose();
+		if ( this._blurMaterial !== null ) this._blurMaterial.dispose();
 
 		if ( this._pingPongRenderTarget !== null ) this._pingPongRenderTarget.dispose();
 
@@ -19162,7 +16708,6 @@ function WebGLMorphtargets( gl, capabilities, textures ) {
 				const buffer = new Float32Array( width * height * 4 * morphTargetsCount );
 
 				const texture = new DataArrayTexture( buffer, width, height, morphTargetsCount );
-				texture.format = RGBAFormat; // using RGBA since RGB might be emulated (and is thus slower)
 				texture.type = FloatType;
 				texture.needsUpdate = true;
 
@@ -19212,7 +16757,7 @@ function WebGLMorphtargets( gl, capabilities, textures ) {
 
 							morph.fromBufferAttribute( morphColor, j );
 
-							if ( morphColor.normalized === true ) denormalize( morph, morphNormal );
+							if ( morphColor.normalized === true ) denormalize( morph, morphColor );
 
 							buffer[ offset + stride + 8 ] = morph.x;
 							buffer[ offset + stride + 9 ] = morph.y;
@@ -20486,17 +18031,21 @@ function WebGLShader( gl, type, string ) {
 
 let programIdCount = 0;
 
-function addLineNumbers( string ) {
+function handleSource( string, errorLine ) {
 
 	const lines = string.split( '\n' );
+	const lines2 = [];
 
-	for ( let i = 0; i < lines.length; i ++ ) {
+	const from = Math.max( errorLine - 6, 0 );
+	const to = Math.min( errorLine + 6, lines.length );
 
-		lines[ i ] = ( i + 1 ) + ': ' + lines[ i ];
+	for ( let i = from; i < to; i ++ ) {
+
+		lines2.push( ( i + 1 ) + ': ' + lines[ i ] );
 
 	}
 
-	return lines.join( '\n' );
+	return lines2.join( '\n' );
 
 }
 
@@ -20523,10 +18072,12 @@ function getShaderErrors( gl, shader, type ) {
 
 	if ( status && errors === '' ) return '';
 
+	const errorLine = parseInt( /ERROR: 0:(\d+)/.exec( errors )[ 1 ] );
+
 	// --enable-privileged-webgl-extension
 	// console.log( '**' + type + '**', gl.getExtension( 'WEBGL_debug_shaders' ).getTranslatedShaderSource( shader ) );
 
-	return type.toUpperCase() + '\n\n' + errors + '\n\n' + addLineNumbers( gl.getShaderSource( shader ) );
+	return type.toUpperCase() + '\n\n' + errors + '\n\n' + handleSource( gl.getShaderSource( shader ), errorLine );
 
 }
 
@@ -20782,7 +18333,6 @@ function generateEnvMapTypeDefine( parameters ) {
 				break;
 
 			case CubeUVReflectionMapping:
-			case CubeUVRefractionMapping:
 				envMapTypeDefine = 'ENVMAP_TYPE_CUBE_UV';
 				break;
 
@@ -20803,7 +18353,6 @@ function generateEnvMapModeDefine( parameters ) {
 		switch ( parameters.envMapMode ) {
 
 			case CubeRefractionMapping:
-			case CubeUVRefractionMapping:
 
 				envMapModeDefine = 'ENVMAP_MODE_REFRACTION';
 				break;
@@ -21413,7 +18962,7 @@ class WebGLShaderCache {
 
 			shaderStage.usedTimes --;
 
-			if ( shaderStage.usedTimes === 0 ) this.shaderCache.delete( shaderStage );
+			if ( shaderStage.usedTimes === 0 ) this.shaderCache.delete( shaderStage.code );
 
 		}
 
@@ -21462,7 +19011,7 @@ class WebGLShaderCache {
 
 		if ( cache.has( code ) === false ) {
 
-			const stage = new WebGLShaderStage();
+			const stage = new WebGLShaderStage( code );
 			cache.set( code, stage );
 
 		}
@@ -21475,10 +19024,11 @@ class WebGLShaderCache {
 
 class WebGLShaderStage {
 
-	constructor() {
+	constructor( code ) {
 
 		this.id = _id ++;
 
+		this.code = code;
 		this.usedTimes = 0;
 
 	}
@@ -21559,7 +19109,7 @@ function WebGLPrograms( renderer, cubemaps, cubeuvmaps, extensions, capabilities
 		const environment = material.isMeshStandardMaterial ? scene.environment : null;
 
 		const envMap = ( material.isMeshStandardMaterial ? cubeuvmaps : cubemaps ).get( material.envMap || environment );
-		const envMapCubeUVHeight = ( !! envMap ) && ( ( envMap.mapping === CubeUVReflectionMapping ) || ( envMap.mapping === CubeUVRefractionMapping ) ) ? envMap.image.height : null;
+		const envMapCubeUVHeight = ( !! envMap ) && ( envMap.mapping === CubeUVReflectionMapping ) ? envMap.image.height : null;
 
 		const shaderID = shaderIDs[ material.type ];
 
@@ -22972,24 +20522,6 @@ function WebGLRenderStates( extensions, capabilities ) {
 
 }
 
-/**
- * parameters = {
- *
- *  opacity: <float>,
- *
- *  map: new THREE.Texture( <Image> ),
- *
- *  alphaMap: new THREE.Texture( <Image> ),
- *
- *  displacementMap: new THREE.Texture( <Image> ),
- *  displacementScale: <float>,
- *  displacementBias: <float>,
- *
- *  wireframe: <boolean>,
- *  wireframeLinewidth: <float>
- * }
- */
-
 class MeshDepthMaterial extends Material$1 {
 
 	constructor( parameters ) {
@@ -23041,24 +20573,6 @@ class MeshDepthMaterial extends Material$1 {
 }
 
 MeshDepthMaterial.prototype.isMeshDepthMaterial = true;
-
-/**
- * parameters = {
- *
- *  referencePosition: <float>,
- *  nearDistance: <float>,
- *  farDistance: <float>,
- *
- *  map: new THREE.Texture( <Image> ),
- *
- *  alphaMap: new THREE.Texture( <Image> ),
- *
- *  displacementMap: new THREE.Texture( <Image> ),
- *  displacementScale: <float>,
- *  displacementBias: <float>
- *
- * }
- */
 
 class MeshDistanceMaterial extends Material$1 {
 
@@ -23235,12 +20749,10 @@ function WebGLShadowMap( _renderer, _objects, _capabilities ) {
 
 			if ( shadow.map === null && ! shadow.isPointLightShadow && this.type === VSMShadowMap ) {
 
-				const pars = { minFilter: LinearFilter, magFilter: LinearFilter, format: RGBAFormat };
-
-				shadow.map = new WebGLRenderTarget( _shadowMapSize.x, _shadowMapSize.y, pars );
+				shadow.map = new WebGLRenderTarget( _shadowMapSize.x, _shadowMapSize.y );
 				shadow.map.texture.name = light.name + '.shadowMap';
 
-				shadow.mapPass = new WebGLRenderTarget( _shadowMapSize.x, _shadowMapSize.y, pars );
+				shadow.mapPass = new WebGLRenderTarget( _shadowMapSize.x, _shadowMapSize.y );
 
 				shadow.camera.updateProjectionMatrix();
 
@@ -24692,6 +22204,7 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 	const maxTextureSize = capabilities.maxTextureSize;
 	const maxSamples = capabilities.maxSamples;
 	const multisampledRTTExt = extensions.has( 'WEBGL_multisampled_render_to_texture' ) ? extensions.get( 'WEBGL_multisampled_render_to_texture' ) : null;
+	const supportsInvalidateFramebuffer = /OculusBrowser/g.test( navigator.userAgent );
 
 	const _videoTextures = new WeakMap();
 	let _canvas;
@@ -24707,6 +22220,7 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 	try {
 
 		useOffscreenCanvas = typeof OffscreenCanvas !== 'undefined'
+			// eslint-disable-next-line compat/compat
 			&& ( new OffscreenCanvas( 1, 1 ).getContext( '2d' ) ) !== null;
 
 	} catch ( err ) {
@@ -24720,6 +22234,7 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 		// Use OffscreenCanvas when available. Specially needed in web workers
 
 		return useOffscreenCanvas ?
+			// eslint-disable-next-line compat/compat
 			new OffscreenCanvas( width, height ) : createElementNS( 'canvas' );
 
 	}
@@ -26395,7 +23910,12 @@ function WebGLTextures( _gl, extensions, state, properties, capabilities, utils,
 			}
 
 			_gl.blitFramebuffer( 0, 0, width, height, 0, 0, width, height, mask, 9728 );
-			_gl.invalidateFramebuffer( 36008, invalidationArray );
+
+			if ( supportsInvalidateFramebuffer ) {
+
+				_gl.invalidateFramebuffer( 36008, invalidationArray );
+
+			}
 
 			state.bindFramebuffer( 36008, null );
 			state.bindFramebuffer( 36009, renderTargetProperties.__webglMultisampledFramebuffer );
@@ -27774,7 +25294,7 @@ class WebXRManager extends EventDispatcher {
 
 }
 
-function WebGLMaterials( properties ) {
+function WebGLMaterials( renderer, properties ) {
 
 	function refreshFogUniforms( uniforms, fog ) {
 
@@ -27802,7 +25322,6 @@ function WebGLMaterials( properties ) {
 		} else if ( material.isMeshLambertMaterial ) {
 
 			refreshUniformsCommon( uniforms, material );
-			refreshUniformsLambert( uniforms, material );
 
 		} else if ( material.isMeshToonMaterial ) {
 
@@ -27817,14 +25336,11 @@ function WebGLMaterials( properties ) {
 		} else if ( material.isMeshStandardMaterial ) {
 
 			refreshUniformsCommon( uniforms, material );
+			refreshUniformsStandard( uniforms, material );
 
 			if ( material.isMeshPhysicalMaterial ) {
 
 				refreshUniformsPhysical( uniforms, material, transmissionRenderTarget );
-
-			} else {
-
-				refreshUniformsStandard( uniforms, material );
 
 			}
 
@@ -27836,7 +25352,6 @@ function WebGLMaterials( properties ) {
 		} else if ( material.isMeshDepthMaterial ) {
 
 			refreshUniformsCommon( uniforms, material );
-			refreshUniformsDepth( uniforms, material );
 
 		} else if ( material.isMeshDistanceMaterial ) {
 
@@ -27846,7 +25361,6 @@ function WebGLMaterials( properties ) {
 		} else if ( material.isMeshNormalMaterial ) {
 
 			refreshUniformsCommon( uniforms, material );
-			refreshUniformsNormal( uniforms, material );
 
 		} else if ( material.isLineBasicMaterial ) {
 
@@ -27907,6 +25421,36 @@ function WebGLMaterials( properties ) {
 
 		}
 
+		if ( material.bumpMap ) {
+
+			uniforms.bumpMap.value = material.bumpMap;
+			uniforms.bumpScale.value = material.bumpScale;
+			if ( material.side === BackSide ) uniforms.bumpScale.value *= - 1;
+
+		}
+
+		if ( material.displacementMap ) {
+
+			uniforms.displacementMap.value = material.displacementMap;
+			uniforms.displacementScale.value = material.displacementScale;
+			uniforms.displacementBias.value = material.displacementBias;
+
+		}
+
+		if ( material.emissiveMap ) {
+
+			uniforms.emissiveMap.value = material.emissiveMap;
+
+		}
+
+		if ( material.normalMap ) {
+
+			uniforms.normalMap.value = material.normalMap;
+			uniforms.normalScale.value.copy( material.normalScale );
+			if ( material.side === BackSide ) uniforms.normalScale.value.negate();
+
+		}
+
 		if ( material.specularMap ) {
 
 			uniforms.specularMap.value = material.specularMap;
@@ -27936,7 +25480,11 @@ function WebGLMaterials( properties ) {
 		if ( material.lightMap ) {
 
 			uniforms.lightMap.value = material.lightMap;
-			uniforms.lightMapIntensity.value = material.lightMapIntensity;
+
+			// artist-friendly light intensity scaling factor
+			const scaleFactor = ( renderer.physicallyCorrectLights !== true ) ? Math.PI : 1;
+
+			uniforms.lightMapIntensity.value = material.lightMapIntensity * scaleFactor;
 
 		}
 
@@ -28221,50 +25769,10 @@ function WebGLMaterials( properties ) {
 
 	}
 
-	function refreshUniformsLambert( uniforms, material ) {
-
-		if ( material.emissiveMap ) {
-
-			uniforms.emissiveMap.value = material.emissiveMap;
-
-		}
-
-	}
-
 	function refreshUniformsPhong( uniforms, material ) {
 
 		uniforms.specular.value.copy( material.specular );
 		uniforms.shininess.value = Math.max( material.shininess, 1e-4 ); // to prevent pow( 0.0, 0.0 )
-
-		if ( material.emissiveMap ) {
-
-			uniforms.emissiveMap.value = material.emissiveMap;
-
-		}
-
-		if ( material.bumpMap ) {
-
-			uniforms.bumpMap.value = material.bumpMap;
-			uniforms.bumpScale.value = material.bumpScale;
-			if ( material.side === BackSide ) uniforms.bumpScale.value *= - 1;
-
-		}
-
-		if ( material.normalMap ) {
-
-			uniforms.normalMap.value = material.normalMap;
-			uniforms.normalScale.value.copy( material.normalScale );
-			if ( material.side === BackSide ) uniforms.normalScale.value.negate();
-
-		}
-
-		if ( material.displacementMap ) {
-
-			uniforms.displacementMap.value = material.displacementMap;
-			uniforms.displacementScale.value = material.displacementScale;
-			uniforms.displacementBias.value = material.displacementBias;
-
-		}
 
 	}
 
@@ -28273,36 +25781,6 @@ function WebGLMaterials( properties ) {
 		if ( material.gradientMap ) {
 
 			uniforms.gradientMap.value = material.gradientMap;
-
-		}
-
-		if ( material.emissiveMap ) {
-
-			uniforms.emissiveMap.value = material.emissiveMap;
-
-		}
-
-		if ( material.bumpMap ) {
-
-			uniforms.bumpMap.value = material.bumpMap;
-			uniforms.bumpScale.value = material.bumpScale;
-			if ( material.side === BackSide ) uniforms.bumpScale.value *= - 1;
-
-		}
-
-		if ( material.normalMap ) {
-
-			uniforms.normalMap.value = material.normalMap;
-			uniforms.normalScale.value.copy( material.normalScale );
-			if ( material.side === BackSide ) uniforms.normalScale.value.negate();
-
-		}
-
-		if ( material.displacementMap ) {
-
-			uniforms.displacementMap.value = material.displacementMap;
-			uniforms.displacementScale.value = material.displacementScale;
-			uniforms.displacementBias.value = material.displacementBias;
 
 		}
 
@@ -28325,36 +25803,6 @@ function WebGLMaterials( properties ) {
 
 		}
 
-		if ( material.emissiveMap ) {
-
-			uniforms.emissiveMap.value = material.emissiveMap;
-
-		}
-
-		if ( material.bumpMap ) {
-
-			uniforms.bumpMap.value = material.bumpMap;
-			uniforms.bumpScale.value = material.bumpScale;
-			if ( material.side === BackSide ) uniforms.bumpScale.value *= - 1;
-
-		}
-
-		if ( material.normalMap ) {
-
-			uniforms.normalMap.value = material.normalMap;
-			uniforms.normalScale.value.copy( material.normalScale );
-			if ( material.side === BackSide ) uniforms.normalScale.value.negate();
-
-		}
-
-		if ( material.displacementMap ) {
-
-			uniforms.displacementMap.value = material.displacementMap;
-			uniforms.displacementScale.value = material.displacementScale;
-			uniforms.displacementBias.value = material.displacementBias;
-
-		}
-
 		const envMap = properties.get( material ).envMap;
 
 		if ( envMap ) {
@@ -28367,8 +25815,6 @@ function WebGLMaterials( properties ) {
 	}
 
 	function refreshUniformsPhysical( uniforms, material, transmissionRenderTarget ) {
-
-		refreshUniformsStandard( uniforms, material );
 
 		uniforms.ior.value = material.ior; // also part of uniforms common
 
@@ -28474,85 +25920,13 @@ function WebGLMaterials( properties ) {
 
 		}
 
-		if ( material.bumpMap ) {
-
-			uniforms.bumpMap.value = material.bumpMap;
-			uniforms.bumpScale.value = material.bumpScale;
-			if ( material.side === BackSide ) uniforms.bumpScale.value *= - 1;
-
-		}
-
-		if ( material.normalMap ) {
-
-			uniforms.normalMap.value = material.normalMap;
-			uniforms.normalScale.value.copy( material.normalScale );
-			if ( material.side === BackSide ) uniforms.normalScale.value.negate();
-
-		}
-
-		if ( material.displacementMap ) {
-
-			uniforms.displacementMap.value = material.displacementMap;
-			uniforms.displacementScale.value = material.displacementScale;
-			uniforms.displacementBias.value = material.displacementBias;
-
-		}
-
-	}
-
-	function refreshUniformsDepth( uniforms, material ) {
-
-		if ( material.displacementMap ) {
-
-			uniforms.displacementMap.value = material.displacementMap;
-			uniforms.displacementScale.value = material.displacementScale;
-			uniforms.displacementBias.value = material.displacementBias;
-
-		}
-
 	}
 
 	function refreshUniformsDistance( uniforms, material ) {
 
-		if ( material.displacementMap ) {
-
-			uniforms.displacementMap.value = material.displacementMap;
-			uniforms.displacementScale.value = material.displacementScale;
-			uniforms.displacementBias.value = material.displacementBias;
-
-		}
-
 		uniforms.referencePosition.value.copy( material.referencePosition );
 		uniforms.nearDistance.value = material.nearDistance;
 		uniforms.farDistance.value = material.farDistance;
-
-	}
-
-	function refreshUniformsNormal( uniforms, material ) {
-
-		if ( material.bumpMap ) {
-
-			uniforms.bumpMap.value = material.bumpMap;
-			uniforms.bumpScale.value = material.bumpScale;
-			if ( material.side === BackSide ) uniforms.bumpScale.value *= - 1;
-
-		}
-
-		if ( material.normalMap ) {
-
-			uniforms.normalMap.value = material.normalMap;
-			uniforms.normalScale.value.copy( material.normalScale );
-			if ( material.side === BackSide ) uniforms.normalScale.value.negate();
-
-		}
-
-		if ( material.displacementMap ) {
-
-			uniforms.displacementMap.value = material.displacementMap;
-			uniforms.displacementScale.value = material.displacementScale;
-			uniforms.displacementBias.value = material.displacementBias;
-
-		}
 
 	}
 
@@ -28825,7 +26199,7 @@ function WebGLRenderer( parameters = {} ) {
 		morphtargets = new WebGLMorphtargets( _gl, capabilities, textures );
 		clipping = new WebGLClipping( properties );
 		programCache = new WebGLPrograms( _this, cubemaps, cubeuvmaps, extensions, capabilities, bindingStates, clipping );
-		materials = new WebGLMaterials( properties );
+		materials = new WebGLMaterials( _this, properties );
 		renderLists = new WebGLRenderLists();
 		renderStates = new WebGLRenderStates( extensions, capabilities );
 		background = new WebGLBackground( _this, cubemaps, state, objects, _alpha, _premultipliedAlpha );
@@ -29408,7 +26782,7 @@ function WebGLRenderer( parameters = {} ) {
 	const animation = new WebGLAnimation();
 	animation.setAnimationLoop( onAnimationFrame );
 
-	if ( typeof window !== 'undefined' ) animation.setContext( window );
+	if ( typeof self !== 'undefined' ) animation.setContext( self );
 
 	this.setAnimationLoop = function ( callback ) {
 
@@ -30501,19 +27875,11 @@ function WebGLRenderer( parameters = {} ) {
 
 				}
 
-				if ( _gl.checkFramebufferStatus( 36160 ) === 36053 ) {
+				// the following if statement ensures valid read requests (no out-of-bounds pixels, see #8604)
 
-					// the following if statement ensures valid read requests (no out-of-bounds pixels, see #8604)
+				if ( ( x >= 0 && x <= ( renderTarget.width - width ) ) && ( y >= 0 && y <= ( renderTarget.height - height ) ) ) {
 
-					if ( ( x >= 0 && x <= ( renderTarget.width - width ) ) && ( y >= 0 && y <= ( renderTarget.height - height ) ) ) {
-
-						_gl.readPixels( x, y, width, height, utils.convert( textureFormat ), utils.convert( textureType ), buffer );
-
-					}
-
-				} else {
-
-					console.error( 'THREE.WebGLRenderer.readRenderTargetPixels: readPixels from renderTarget failed. Framebuffer not complete.' );
+					_gl.readPixels( x, y, width, height, utils.convert( textureFormat ), utils.convert( textureType ), buffer );
 
 				}
 
@@ -30941,9 +28307,7 @@ class InterleavedBufferAttribute {
 
 		for ( let i = 0, l = this.data.count; i < l; i ++ ) {
 
-			_vector$6.x = this.getX( i );
-			_vector$6.y = this.getY( i );
-			_vector$6.z = this.getZ( i );
+			_vector$6.fromBufferAttribute( this, i );
 
 			_vector$6.applyMatrix4( m );
 
@@ -30959,9 +28323,7 @@ class InterleavedBufferAttribute {
 
 		for ( let i = 0, l = this.count; i < l; i ++ ) {
 
-			_vector$6.x = this.getX( i );
-			_vector$6.y = this.getY( i );
-			_vector$6.z = this.getZ( i );
+			_vector$6.fromBufferAttribute( this, i );
 
 			_vector$6.applyNormalMatrix( m );
 
@@ -30977,9 +28339,7 @@ class InterleavedBufferAttribute {
 
 		for ( let i = 0, l = this.count; i < l; i ++ ) {
 
-			_vector$6.x = this.getX( i );
-			_vector$6.y = this.getY( i );
-			_vector$6.z = this.getZ( i );
+			_vector$6.fromBufferAttribute( this, i );
 
 			_vector$6.transformDirection( m );
 
@@ -31185,16 +28545,6 @@ class InterleavedBufferAttribute {
 }
 
 InterleavedBufferAttribute.prototype.isInterleavedBufferAttribute = true;
-
-/**
- * parameters = {
- *  color: <hex>,
- *  map: new THREE.Texture( <Image> ),
- *  alphaMap: new THREE.Texture( <Image> ),
- *  rotation: <float>,
- *  sizeAttenuation: <bool>
- * }
- */
 
 class SpriteMaterial extends Material$1 {
 
@@ -31481,10 +28831,7 @@ class SkinnedMesh extends Mesh {
 
 		for ( let i = 0, l = skinWeight.count; i < l; i ++ ) {
 
-			vector.x = skinWeight.getX( i );
-			vector.y = skinWeight.getY( i );
-			vector.z = skinWeight.getZ( i );
-			vector.w = skinWeight.getW( i );
+			vector.fromBufferAttribute( skinWeight, i );
 
 			const scale = 1.0 / vector.manhattanLength();
 
@@ -32030,17 +29377,6 @@ class InstancedMesh extends Mesh {
 
 InstancedMesh.prototype.isInstancedMesh = true;
 
-/**
- * parameters = {
- *  color: <hex>,
- *  opacity: <float>,
- *
- *  linewidth: <float>,
- *  linecap: "round",
- *  linejoin: "round"
- * }
- */
-
 class LineBasicMaterial extends Material$1 {
 
 	constructor( parameters ) {
@@ -32392,19 +29728,6 @@ class LineLoop extends Line {
 
 LineLoop.prototype.isLineLoop = true;
 
-/**
- * parameters = {
- *  color: <hex>,
- *  opacity: <float>,
- *  map: new THREE.Texture( <Image> ),
- *  alphaMap: new THREE.Texture( <Image> ),
- *
- *  size: <float>,
- *  sizeAttenuation: <bool>
- *
- * }
- */
-
 class PointsMaterial extends Material$1 {
 
 	constructor( parameters ) {
@@ -32736,11 +30059,6 @@ class CanvasTexture extends Texture$1 {
 }
 
 CanvasTexture.prototype.isCanvasTexture = true;
-
-new Vector3();
-new Vector3();
-new Vector3();
-new Triangle();
 
 /**
  * Extensible curve object.
@@ -34624,6 +31942,11 @@ class Path extends CurvePath {
 
 }
 
+new Vector3();
+new Vector3();
+new Vector3();
+new Triangle();
+
 class Shape extends Path {
 
 	constructor( points ) {
@@ -35082,7 +32405,7 @@ function compareX( a, b ) {
 
 }
 
-// find a bridge between vertices that connects hole with an outer ring and and link it
+// find a bridge between vertices that connects hole with an outer ring and link it
 function eliminateHole( hole, outerNode ) {
 
 	outerNode = findHoleBridge( hole, outerNode );
@@ -35314,7 +32637,7 @@ function pointInTriangle( ax, ay, bx, by, cx, cy, px, py ) {
 // check if a diagonal between two polygon nodes is valid (lies in polygon interior)
 function isValidDiagonal( a, b ) {
 
-	return a.next.i !== b.i && a.prev.i !== b.i && ! intersectsPolygon( a, b ) && // dones't intersect other edges
+	return a.next.i !== b.i && a.prev.i !== b.i && ! intersectsPolygon( a, b ) && // doesn't intersect other edges
 		( locallyInside( a, b ) && locallyInside( b, a ) && middleInside( a, b ) && // locally visible
 		( area( a.prev, a, b.prev ) || area( a, b.prev, b ) ) || // does not create opposite-facing sectors
 		equals( a, b ) && area( a.prev, a, a.next ) > 0 && area( b.prev, b, b.next ) > 0 ); // special zero-length case
@@ -36576,12 +33899,6 @@ function toJSON( shapes, data ) {
 
 }
 
-/**
- * parameters = {
- *  color: <THREE.Color>
- * }
- */
-
 class ShadowMaterial extends Material$1 {
 
 	constructor( parameters ) {
@@ -36624,54 +33941,6 @@ class RawShaderMaterial extends ShaderMaterial {
 }
 
 RawShaderMaterial.prototype.isRawShaderMaterial = true;
-
-/**
- * parameters = {
- *  color: <hex>,
- *  roughness: <float>,
- *  metalness: <float>,
- *  opacity: <float>,
- *
- *  map: new THREE.Texture( <Image> ),
- *
- *  lightMap: new THREE.Texture( <Image> ),
- *  lightMapIntensity: <float>
- *
- *  aoMap: new THREE.Texture( <Image> ),
- *  aoMapIntensity: <float>
- *
- *  emissive: <hex>,
- *  emissiveIntensity: <float>
- *  emissiveMap: new THREE.Texture( <Image> ),
- *
- *  bumpMap: new THREE.Texture( <Image> ),
- *  bumpScale: <float>,
- *
- *  normalMap: new THREE.Texture( <Image> ),
- *  normalMapType: THREE.TangentSpaceNormalMap,
- *  normalScale: <Vector2>,
- *
- *  displacementMap: new THREE.Texture( <Image> ),
- *  displacementScale: <float>,
- *  displacementBias: <float>,
- *
- *  roughnessMap: new THREE.Texture( <Image> ),
- *
- *  metalnessMap: new THREE.Texture( <Image> ),
- *
- *  alphaMap: new THREE.Texture( <Image> ),
- *
- *  envMap: new THREE.CubeTexture( [posx, negx, posy, negy, posz, negz] ),
- *  envMapIntensity: <float>
- *
- *  refractionRatio: <float>,
- *
- *  wireframe: <boolean>,
- *  wireframeLinewidth: <float>,
- *
- *  flatShading: <bool>
- * }
- */
 
 class MeshStandardMaterial extends Material$1 {
 
@@ -36718,8 +33987,6 @@ class MeshStandardMaterial extends Material$1 {
 
 		this.envMap = null;
 		this.envMapIntensity = 1.0;
-
-		this.refractionRatio = 0.98;
 
 		this.wireframe = false;
 		this.wireframeLinewidth = 1;
@@ -36774,8 +34041,6 @@ class MeshStandardMaterial extends Material$1 {
 		this.envMap = source.envMap;
 		this.envMapIntensity = source.envMapIntensity;
 
-		this.refractionRatio = source.refractionRatio;
-
 		this.wireframe = source.wireframe;
 		this.wireframeLinewidth = source.wireframeLinewidth;
 		this.wireframeLinecap = source.wireframeLinecap;
@@ -36790,39 +34055,6 @@ class MeshStandardMaterial extends Material$1 {
 }
 
 MeshStandardMaterial.prototype.isMeshStandardMaterial = true;
-
-/**
- * parameters = {
- *  clearcoat: <float>,
- *  clearcoatMap: new THREE.Texture( <Image> ),
- *  clearcoatRoughness: <float>,
- *  clearcoatRoughnessMap: new THREE.Texture( <Image> ),
- *  clearcoatNormalScale: <Vector2>,
- *  clearcoatNormalMap: new THREE.Texture( <Image> ),
- *
- *  ior: <float>,
- *  reflectivity: <float>,
- *
- *  sheen: <float>,
- *  sheenColor: <Color>,
- *  sheenColorMap: new THREE.Texture( <Image> ),
- *  sheenRoughness: <float>,
- *  sheenRoughnessMap: new THREE.Texture( <Image> ),
- *
- *  transmission: <float>,
- *  transmissionMap: new THREE.Texture( <Image> ),
- *
- *  thickness: <float>,
- *  thicknessMap: new THREE.Texture( <Image> ),
- *  attenuationDistance: <float>,
- *  attenuationColor: <Color>,
- *
- *  specularIntensity: <float>,
- *  specularIntensityMap: new THREE.Texture( <Image> ),
- *  specularColor: <Color>,
- *  specularColorMap: new THREE.Texture( <Image> )
- * }
- */
 
 class MeshPhysicalMaterial extends MeshStandardMaterial {
 
@@ -36986,52 +34218,6 @@ class MeshPhysicalMaterial extends MeshStandardMaterial {
 
 MeshPhysicalMaterial.prototype.isMeshPhysicalMaterial = true;
 
-/**
- * parameters = {
- *  color: <hex>,
- *  specular: <hex>,
- *  shininess: <float>,
- *  opacity: <float>,
- *
- *  map: new THREE.Texture( <Image> ),
- *
- *  lightMap: new THREE.Texture( <Image> ),
- *  lightMapIntensity: <float>
- *
- *  aoMap: new THREE.Texture( <Image> ),
- *  aoMapIntensity: <float>
- *
- *  emissive: <hex>,
- *  emissiveIntensity: <float>
- *  emissiveMap: new THREE.Texture( <Image> ),
- *
- *  bumpMap: new THREE.Texture( <Image> ),
- *  bumpScale: <float>,
- *
- *  normalMap: new THREE.Texture( <Image> ),
- *  normalMapType: THREE.TangentSpaceNormalMap,
- *  normalScale: <Vector2>,
- *
- *  displacementMap: new THREE.Texture( <Image> ),
- *  displacementScale: <float>,
- *  displacementBias: <float>,
- *
- *  specularMap: new THREE.Texture( <Image> ),
- *
- *  alphaMap: new THREE.Texture( <Image> ),
- *
- *  envMap: new THREE.CubeTexture( [posx, negx, posy, negy, posz, negz] ),
- *  combine: THREE.MultiplyOperation,
- *  reflectivity: <float>,
- *  refractionRatio: <float>,
- *
- *  wireframe: <boolean>,
- *  wireframeLinewidth: <float>,
- *
- *  flatShading: <bool>
- * }
- */
-
 class MeshPhongMaterial extends Material$1 {
 
 	constructor( parameters ) {
@@ -37142,42 +34328,6 @@ class MeshPhongMaterial extends Material$1 {
 
 MeshPhongMaterial.prototype.isMeshPhongMaterial = true;
 
-/**
- * parameters = {
- *  color: <hex>,
- *
- *  map: new THREE.Texture( <Image> ),
- *  gradientMap: new THREE.Texture( <Image> ),
- *
- *  lightMap: new THREE.Texture( <Image> ),
- *  lightMapIntensity: <float>
- *
- *  aoMap: new THREE.Texture( <Image> ),
- *  aoMapIntensity: <float>
- *
- *  emissive: <hex>,
- *  emissiveIntensity: <float>
- *  emissiveMap: new THREE.Texture( <Image> ),
- *
- *  bumpMap: new THREE.Texture( <Image> ),
- *  bumpScale: <float>,
- *
- *  normalMap: new THREE.Texture( <Image> ),
- *  normalMapType: THREE.TangentSpaceNormalMap,
- *  normalScale: <Vector2>,
- *
- *  displacementMap: new THREE.Texture( <Image> ),
- *  displacementScale: <float>,
- *  displacementBias: <float>,
- *
- *  alphaMap: new THREE.Texture( <Image> ),
- *
- *  wireframe: <boolean>,
- *  wireframeLinewidth: <float>,
- *
- * }
- */
-
 class MeshToonMaterial extends Material$1 {
 
 	constructor( parameters ) {
@@ -37270,28 +34420,6 @@ class MeshToonMaterial extends Material$1 {
 
 MeshToonMaterial.prototype.isMeshToonMaterial = true;
 
-/**
- * parameters = {
- *  opacity: <float>,
- *
- *  bumpMap: new THREE.Texture( <Image> ),
- *  bumpScale: <float>,
- *
- *  normalMap: new THREE.Texture( <Image> ),
- *  normalMapType: THREE.TangentSpaceNormalMap,
- *  normalScale: <Vector2>,
- *
- *  displacementMap: new THREE.Texture( <Image> ),
- *  displacementScale: <float>,
- *  displacementBias: <float>,
- *
- *  wireframe: <boolean>,
- *  wireframeLinewidth: <float>
- *
- *  flatShading: <bool>
- * }
- */
-
 class MeshNormalMaterial extends Material$1 {
 
 	constructor( parameters ) {
@@ -37349,38 +34477,6 @@ class MeshNormalMaterial extends Material$1 {
 }
 
 MeshNormalMaterial.prototype.isMeshNormalMaterial = true;
-
-/**
- * parameters = {
- *  color: <hex>,
- *  opacity: <float>,
- *
- *  map: new THREE.Texture( <Image> ),
- *
- *  lightMap: new THREE.Texture( <Image> ),
- *  lightMapIntensity: <float>
- *
- *  aoMap: new THREE.Texture( <Image> ),
- *  aoMapIntensity: <float>
- *
- *  emissive: <hex>,
- *  emissiveIntensity: <float>
- *  emissiveMap: new THREE.Texture( <Image> ),
- *
- *  specularMap: new THREE.Texture( <Image> ),
- *
- *  alphaMap: new THREE.Texture( <Image> ),
- *
- *  envMap: new THREE.CubeTexture( [posx, negx, posy, negy, posz, negz] ),
- *  combine: THREE.Multiply,
- *  reflectivity: <float>,
- *  refractionRatio: <float>,
- *
- *  wireframe: <boolean>,
- *  wireframeLinewidth: <float>,
- *
- * }
- */
 
 class MeshLambertMaterial extends Material$1 {
 
@@ -37462,32 +34558,6 @@ class MeshLambertMaterial extends Material$1 {
 
 MeshLambertMaterial.prototype.isMeshLambertMaterial = true;
 
-/**
- * parameters = {
- *  color: <hex>,
- *  opacity: <float>,
- *
- *  matcap: new THREE.Texture( <Image> ),
- *
- *  map: new THREE.Texture( <Image> ),
- *
- *  bumpMap: new THREE.Texture( <Image> ),
- *  bumpScale: <float>,
- *
- *  normalMap: new THREE.Texture( <Image> ),
- *  normalMapType: THREE.TangentSpaceNormalMap,
- *  normalScale: <Vector2>,
- *
- *  displacementMap: new THREE.Texture( <Image> ),
- *  displacementScale: <float>,
- *  displacementBias: <float>,
- *
- *  alphaMap: new THREE.Texture( <Image> ),
- *
- *  flatShading: <bool>
- * }
- */
-
 class MeshMatcapMaterial extends Material$1 {
 
 	constructor( parameters ) {
@@ -37558,19 +34628,6 @@ class MeshMatcapMaterial extends Material$1 {
 }
 
 MeshMatcapMaterial.prototype.isMeshMatcapMaterial = true;
-
-/**
- * parameters = {
- *  color: <hex>,
- *  opacity: <float>,
- *
- *  linewidth: <float>,
- *
- *  scale: <float>,
- *  dashSize: <float>,
- *  gapSize: <float>
- * }
- */
 
 class LineDashedMaterial extends LineBasicMaterial {
 
@@ -38410,7 +35467,7 @@ class LinearInterpolant extends Interpolant {
 
 /**
  *
- * Interpolant that evaluates to the sample value at the position preceeding
+ * Interpolant that evaluates to the sample value at the position preceding
  * the parameter.
  */
 
@@ -44479,7 +41536,7 @@ class Spherical {
 
 	}
 
-	// restrict phi to be betwee EPS and PI-EPS
+	// restrict phi to be between EPS and PI-EPS
 	makeSafe() {
 
 		const EPS = 0.000001;
@@ -44674,67 +41731,152 @@ class GridHelper extends LineSegments {
 
 }
 
-const _floatView = new Float32Array( 1 );
-const _int32View = new Int32Array( _floatView.buffer );
+// Fast Half Float Conversions, http://www.fox-toolkit.org/ftp/fasthalffloatconversion.pdf
 
 class DataUtils {
 
-	// Converts float32 to float16 (stored as uint16 value).
+	// float32 to float16
 
 	static toHalfFloat( val ) {
 
-		if ( val > 65504 ) {
+		if ( Math.abs( val ) > 65504 ) console.warn( 'THREE.DataUtils.toHalfFloat(): Value out of range.' );
 
-			console.warn( 'THREE.DataUtils.toHalfFloat(): value exceeds 65504.' );
-
-			val = 65504; // maximum representable value in float16
-
-		}
-
-		// Source: http://gamedev.stackexchange.com/questions/17326/conversion-of-a-number-from-single-precision-floating-point-representation-to-a/17410#17410
-
-		/* This method is faster than the OpenEXR implementation (very often
-		* used, eg. in Ogre), with the additional benefit of rounding, inspired
-		* by James Tursa?s half-precision code. */
+		val = clamp$1( val, - 65504, 65504 );
 
 		_floatView[ 0 ] = val;
-		const x = _int32View[ 0 ];
+		const f = _uint32View[ 0 ];
+		const e = ( f >> 23 ) & 0x1ff;
+		return _baseTable[ e ] + ( ( f & 0x007fffff ) >> _shiftTable[ e ] );
 
-		let bits = ( x >> 16 ) & 0x8000; /* Get the sign */
-		let m = ( x >> 12 ) & 0x07ff; /* Keep one extra bit for rounding */
-		const e = ( x >> 23 ) & 0xff; /* Using int is faster here */
+	}
 
-		/* If zero, or denormal, or exponent underflows too much for a denormal
-			* half, return signed zero. */
-		if ( e < 103 ) return bits;
+	// float16 to float32
 
-		/* If NaN, return NaN. If Inf or exponent overflow, return Inf. */
-		if ( e > 142 ) {
+	static fromHalfFloat( val ) {
 
-			bits |= 0x7c00;
-			/* If exponent was 0xff and one mantissa bit was set, it means NaN,
-						* not Inf, so make sure we set one mantissa bit too. */
-			bits |= ( ( e == 255 ) ? 0 : 1 ) && ( x & 0x007fffff );
-			return bits;
+		const m = val >> 10;
+		_uint32View[ 0 ] = _mantissaTable[ _offsetTable[ m ] + ( val & 0x3ff ) ] + _exponentTable[ m ];
+		return _floatView[ 0 ];
 
-		}
+	}
 
-		/* If exponent underflows but not too much, return a denormal */
-		if ( e < 113 ) {
+}
 
-			m |= 0x0800;
-			/* Extra rounding may overflow and set mantissa to 0 and exponent
-				* to 1, which is OK. */
-			bits |= ( m >> ( 114 - e ) ) + ( ( m >> ( 113 - e ) ) & 1 );
-			return bits;
+// float32 to float16 helpers
 
-		}
+const _buffer = new ArrayBuffer( 4 );
+const _floatView = new Float32Array( _buffer );
+const _uint32View = new Uint32Array( _buffer );
 
-		bits |= ( ( e - 112 ) << 10 ) | ( m >> 1 );
-		/* Extra rounding. An overflow will set mantissa to 0 and increment
-			* the exponent, which is OK. */
-		bits += m & 1;
-		return bits;
+const _baseTable = new Uint32Array( 512 );
+const _shiftTable = new Uint32Array( 512 );
+
+for ( let i = 0; i < 256; ++ i ) {
+
+	const e = i - 127;
+
+	// very small number (0, -0)
+
+	if ( e < - 27 ) {
+
+		_baseTable[ i ] = 0x0000;
+		_baseTable[ i | 0x100 ] = 0x8000;
+		_shiftTable[ i ] = 24;
+		_shiftTable[ i | 0x100 ] = 24;
+
+		// small number (denorm)
+
+	} else if ( e < - 14 ) {
+
+		_baseTable[ i ] = 0x0400 >> ( - e - 14 );
+		_baseTable[ i | 0x100 ] = ( 0x0400 >> ( - e - 14 ) ) | 0x8000;
+		_shiftTable[ i ] = - e - 1;
+		_shiftTable[ i | 0x100 ] = - e - 1;
+
+		// normal number
+
+	} else if ( e <= 15 ) {
+
+		_baseTable[ i ] = ( e + 15 ) << 10;
+		_baseTable[ i | 0x100 ] = ( ( e + 15 ) << 10 ) | 0x8000;
+		_shiftTable[ i ] = 13;
+		_shiftTable[ i | 0x100 ] = 13;
+
+		// large number (Infinity, -Infinity)
+
+	} else if ( e < 128 ) {
+
+		_baseTable[ i ] = 0x7c00;
+		_baseTable[ i | 0x100 ] = 0xfc00;
+		_shiftTable[ i ] = 24;
+		_shiftTable[ i | 0x100 ] = 24;
+
+		// stay (NaN, Infinity, -Infinity)
+
+	} else {
+
+		_baseTable[ i ] = 0x7c00;
+		_baseTable[ i | 0x100 ] = 0xfc00;
+		_shiftTable[ i ] = 13;
+		_shiftTable[ i | 0x100 ] = 13;
+
+	}
+
+}
+
+// float16 to float32 helpers
+
+const _mantissaTable = new Uint32Array( 2048 );
+const _exponentTable = new Uint32Array( 64 );
+const _offsetTable = new Uint32Array( 64 );
+
+for ( let i = 1; i < 1024; ++ i ) {
+
+	let m = i << 13; // zero pad mantissa bits
+	let e = 0; // zero exponent
+
+	// normalized
+	while ( ( m & 0x00800000 ) === 0 ) {
+
+		m <<= 1;
+		e -= 0x00800000; // decrement exponent
+
+	}
+
+	m &= ~ 0x00800000; // clear leading 1 bit
+	e += 0x38800000; // adjust bias
+
+	_mantissaTable[ i ] = m | e;
+
+}
+
+for ( let i = 1024; i < 2048; ++ i ) {
+
+	_mantissaTable[ i ] = 0x38000000 + ( ( i - 1024 ) << 13 );
+
+}
+
+for ( let i = 1; i < 31; ++ i ) {
+
+	_exponentTable[ i ] = i << 23;
+
+}
+
+_exponentTable[ 31 ] = 0x47800000;
+_exponentTable[ 32 ] = 0x80000000;
+for ( let i = 33; i < 63; ++ i ) {
+
+	_exponentTable[ i ] = 0x80000000 + ( ( i - 32 ) << 23 );
+
+}
+
+_exponentTable[ 63 ] = 0xc7800000;
+
+for ( let i = 1; i < 64; ++ i ) {
+
+	if ( i !== 32 ) {
+
+		_offsetTable[ i ] = 1024;
 
 	}
 
@@ -46330,6 +43472,32 @@ if ( typeof window !== 'undefined' ) {
 
 }
 
+/**
+ * @license
+ * Copyright 2019 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+const t$1=window.ShadowRoot&&(void 0===window.ShadyCSS||window.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,e$2=Symbol(),n$3=new Map;class s$3{constructor(t,n){if(this._$cssResult$=!0,n!==e$2)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t;}get styleSheet(){let e=n$3.get(this.cssText);return t$1&&void 0===e&&(n$3.set(this.cssText,e=new CSSStyleSheet),e.replaceSync(this.cssText)),e}toString(){return this.cssText}}const o$3=t=>new s$3("string"==typeof t?t:t+"",e$2),i$2=(e,n)=>{t$1?e.adoptedStyleSheets=n.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet)):n.forEach((t=>{const n=document.createElement("style"),s=window.litNonce;void 0!==s&&n.setAttribute("nonce",s),n.textContent=t.cssText,e.appendChild(n);}));},S$1=t$1?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const n of t.cssRules)e+=n.cssText;return o$3(e)})(t):t;
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */var s$2;const e$1=window.trustedTypes,r$1=e$1?e$1.emptyScript:"",h$1=window.reactiveElementPolyfillSupport,o$2={toAttribute(t,i){switch(i){case Boolean:t=t?r$1:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t);}return t},fromAttribute(t,i){let s=t;switch(i){case Boolean:s=null!==t;break;case Number:s=null===t?null:Number(t);break;case Object:case Array:try{s=JSON.parse(t);}catch(t){s=null;}}return s}},n$2=(t,i)=>i!==t&&(i==i||t==t),l$2={attribute:!0,type:String,converter:o$2,reflect:!1,hasChanged:n$2};class a$1 extends HTMLElement{constructor(){super(),this._$Et=new Map,this.isUpdatePending=!1,this.hasUpdated=!1,this._$Ei=null,this.o();}static addInitializer(t){var i;null!==(i=this.l)&&void 0!==i||(this.l=[]),this.l.push(t);}static get observedAttributes(){this.finalize();const t=[];return this.elementProperties.forEach(((i,s)=>{const e=this._$Eh(s,i);void 0!==e&&(this._$Eu.set(e,s),t.push(e));})),t}static createProperty(t,i=l$2){if(i.state&&(i.attribute=!1),this.finalize(),this.elementProperties.set(t,i),!i.noAccessor&&!this.prototype.hasOwnProperty(t)){const s="symbol"==typeof t?Symbol():"__"+t,e=this.getPropertyDescriptor(t,s,i);void 0!==e&&Object.defineProperty(this.prototype,t,e);}}static getPropertyDescriptor(t,i,s){return {get(){return this[i]},set(e){const r=this[t];this[i]=e,this.requestUpdate(t,r,s);},configurable:!0,enumerable:!0}}static getPropertyOptions(t){return this.elementProperties.get(t)||l$2}static finalize(){if(this.hasOwnProperty("finalized"))return !1;this.finalized=!0;const t=Object.getPrototypeOf(this);if(t.finalize(),this.elementProperties=new Map(t.elementProperties),this._$Eu=new Map,this.hasOwnProperty("properties")){const t=this.properties,i=[...Object.getOwnPropertyNames(t),...Object.getOwnPropertySymbols(t)];for(const s of i)this.createProperty(s,t[s]);}return this.elementStyles=this.finalizeStyles(this.styles),!0}static finalizeStyles(i){const s=[];if(Array.isArray(i)){const e=new Set(i.flat(1/0).reverse());for(const i of e)s.unshift(S$1(i));}else void 0!==i&&s.push(S$1(i));return s}static _$Eh(t,i){const s=i.attribute;return !1===s?void 0:"string"==typeof s?s:"string"==typeof t?t.toLowerCase():void 0}o(){var t;this._$Ep=new Promise((t=>this.enableUpdating=t)),this._$AL=new Map,this._$Em(),this.requestUpdate(),null===(t=this.constructor.l)||void 0===t||t.forEach((t=>t(this)));}addController(t){var i,s;(null!==(i=this._$Eg)&&void 0!==i?i:this._$Eg=[]).push(t),void 0!==this.renderRoot&&this.isConnected&&(null===(s=t.hostConnected)||void 0===s||s.call(t));}removeController(t){var i;null===(i=this._$Eg)||void 0===i||i.splice(this._$Eg.indexOf(t)>>>0,1);}_$Em(){this.constructor.elementProperties.forEach(((t,i)=>{this.hasOwnProperty(i)&&(this._$Et.set(i,this[i]),delete this[i]);}));}createRenderRoot(){var t;const s=null!==(t=this.shadowRoot)&&void 0!==t?t:this.attachShadow(this.constructor.shadowRootOptions);return i$2(s,this.constructor.elementStyles),s}connectedCallback(){var t;void 0===this.renderRoot&&(this.renderRoot=this.createRenderRoot()),this.enableUpdating(!0),null===(t=this._$Eg)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostConnected)||void 0===i?void 0:i.call(t)}));}enableUpdating(t){}disconnectedCallback(){var t;null===(t=this._$Eg)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostDisconnected)||void 0===i?void 0:i.call(t)}));}attributeChangedCallback(t,i,s){this._$AK(t,s);}_$ES(t,i,s=l$2){var e,r;const h=this.constructor._$Eh(t,s);if(void 0!==h&&!0===s.reflect){const n=(null!==(r=null===(e=s.converter)||void 0===e?void 0:e.toAttribute)&&void 0!==r?r:o$2.toAttribute)(i,s.type);this._$Ei=t,null==n?this.removeAttribute(h):this.setAttribute(h,n),this._$Ei=null;}}_$AK(t,i){var s,e,r;const h=this.constructor,n=h._$Eu.get(t);if(void 0!==n&&this._$Ei!==n){const t=h.getPropertyOptions(n),l=t.converter,a=null!==(r=null!==(e=null===(s=l)||void 0===s?void 0:s.fromAttribute)&&void 0!==e?e:"function"==typeof l?l:null)&&void 0!==r?r:o$2.fromAttribute;this._$Ei=n,this[n]=a(i,t.type),this._$Ei=null;}}requestUpdate(t,i,s){let e=!0;void 0!==t&&(((s=s||this.constructor.getPropertyOptions(t)).hasChanged||n$2)(this[t],i)?(this._$AL.has(t)||this._$AL.set(t,i),!0===s.reflect&&this._$Ei!==t&&(void 0===this._$EC&&(this._$EC=new Map),this._$EC.set(t,s))):e=!1),!this.isUpdatePending&&e&&(this._$Ep=this._$E_());}async _$E_(){this.isUpdatePending=!0;try{await this._$Ep;}catch(t){Promise.reject(t);}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){var t;if(!this.isUpdatePending)return;this.hasUpdated,this._$Et&&(this._$Et.forEach(((t,i)=>this[i]=t)),this._$Et=void 0);let i=!1;const s=this._$AL;try{i=this.shouldUpdate(s),i?(this.willUpdate(s),null===(t=this._$Eg)||void 0===t||t.forEach((t=>{var i;return null===(i=t.hostUpdate)||void 0===i?void 0:i.call(t)})),this.update(s)):this._$EU();}catch(t){throw i=!1,this._$EU(),t}i&&this._$AE(s);}willUpdate(t){}_$AE(t){var i;null===(i=this._$Eg)||void 0===i||i.forEach((t=>{var i;return null===(i=t.hostUpdated)||void 0===i?void 0:i.call(t)})),this.hasUpdated||(this.hasUpdated=!0,this.firstUpdated(t)),this.updated(t);}_$EU(){this._$AL=new Map,this.isUpdatePending=!1;}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$Ep}shouldUpdate(t){return !0}update(t){void 0!==this._$EC&&(this._$EC.forEach(((t,i)=>this._$ES(i,this[i],t))),this._$EC=void 0),this._$EU();}updated(t){}firstUpdated(t){}}a$1.finalized=!0,a$1.elementProperties=new Map,a$1.elementStyles=[],a$1.shadowRootOptions={mode:"open"},null==h$1||h$1({ReactiveElement:a$1}),(null!==(s$2=globalThis.reactiveElementVersions)&&void 0!==s$2?s$2:globalThis.reactiveElementVersions=[]).push("1.3.2");
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+var t;const i$1=globalThis.trustedTypes,s$1=i$1?i$1.createPolicy("lit-html",{createHTML:t=>t}):void 0,e=`lit$${(Math.random()+"").slice(9)}$`,o$1="?"+e,n$1=`<${o$1}>`,l$1=document,h=(t="")=>l$1.createComment(t),r=t=>null===t||"object"!=typeof t&&"function"!=typeof t,d=Array.isArray,u=t=>{var i;return d(t)||"function"==typeof(null===(i=t)||void 0===i?void 0:i[Symbol.iterator])},c=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,v=/-->/g,a=/>/g,f=/>|[ 	\n\r](?:([^\s"'>=/]+)([ 	\n\r]*=[ 	\n\r]*(?:[^ 	\n\r"'`<>=]|("|')|))|$)/g,_=/'/g,m=/"/g,g=/^(?:script|style|textarea|title)$/i,p=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),$=p(1),b=Symbol.for("lit-noChange"),w=Symbol.for("lit-nothing"),T=new WeakMap,x$1=(t,i,s)=>{var e,o;const n=null!==(e=null==s?void 0:s.renderBefore)&&void 0!==e?e:i;let l=n._$litPart$;if(void 0===l){const t=null!==(o=null==s?void 0:s.renderBefore)&&void 0!==o?o:null;n._$litPart$=l=new N(i.insertBefore(h(),t),t,void 0,null!=s?s:{});}return l._$AI(t),l},A=l$1.createTreeWalker(l$1,129,null,!1),C=(t,i)=>{const o=t.length-1,l=[];let h,r=2===i?"<svg>":"",d=c;for(let i=0;i<o;i++){const s=t[i];let o,u,p=-1,$=0;for(;$<s.length&&(d.lastIndex=$,u=d.exec(s),null!==u);)$=d.lastIndex,d===c?"!--"===u[1]?d=v:void 0!==u[1]?d=a:void 0!==u[2]?(g.test(u[2])&&(h=RegExp("</"+u[2],"g")),d=f):void 0!==u[3]&&(d=f):d===f?">"===u[0]?(d=null!=h?h:c,p=-1):void 0===u[1]?p=-2:(p=d.lastIndex-u[2].length,o=u[1],d=void 0===u[3]?f:'"'===u[3]?m:_):d===m||d===_?d=f:d===v||d===a?d=c:(d=f,h=void 0);const y=d===f&&t[i+1].startsWith("/>")?" ":"";r+=d===c?s+n$1:p>=0?(l.push(o),s.slice(0,p)+"$lit$"+s.slice(p)+e+y):s+e+(-2===p?(l.push(void 0),i):y);}const u=r+(t[o]||"<?>")+(2===i?"</svg>":"");if(!Array.isArray(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return [void 0!==s$1?s$1.createHTML(u):u,l]};class E{constructor({strings:t,_$litType$:s},n){let l;this.parts=[];let r=0,d=0;const u=t.length-1,c=this.parts,[v,a]=C(t,s);if(this.el=E.createElement(v,n),A.currentNode=this.el.content,2===s){const t=this.el.content,i=t.firstChild;i.remove(),t.append(...i.childNodes);}for(;null!==(l=A.nextNode())&&c.length<u;){if(1===l.nodeType){if(l.hasAttributes()){const t=[];for(const i of l.getAttributeNames())if(i.endsWith("$lit$")||i.startsWith(e)){const s=a[d++];if(t.push(i),void 0!==s){const t=l.getAttribute(s.toLowerCase()+"$lit$").split(e),i=/([.?@])?(.*)/.exec(s);c.push({type:1,index:r,name:i[2],strings:t,ctor:"."===i[1]?M:"?"===i[1]?H:"@"===i[1]?I:S});}else c.push({type:6,index:r});}for(const i of t)l.removeAttribute(i);}if(g.test(l.tagName)){const t=l.textContent.split(e),s=t.length-1;if(s>0){l.textContent=i$1?i$1.emptyScript:"";for(let i=0;i<s;i++)l.append(t[i],h()),A.nextNode(),c.push({type:2,index:++r});l.append(t[s],h());}}}else if(8===l.nodeType)if(l.data===o$1)c.push({type:2,index:r});else {let t=-1;for(;-1!==(t=l.data.indexOf(e,t+1));)c.push({type:7,index:r}),t+=e.length-1;}r++;}}static createElement(t,i){const s=l$1.createElement("template");return s.innerHTML=t,s}}function P(t,i,s=t,e){var o,n,l,h;if(i===b)return i;let d=void 0!==e?null===(o=s._$Cl)||void 0===o?void 0:o[e]:s._$Cu;const u=r(i)?void 0:i._$litDirective$;return (null==d?void 0:d.constructor)!==u&&(null===(n=null==d?void 0:d._$AO)||void 0===n||n.call(d,!1),void 0===u?d=void 0:(d=new u(t),d._$AT(t,s,e)),void 0!==e?(null!==(l=(h=s)._$Cl)&&void 0!==l?l:h._$Cl=[])[e]=d:s._$Cu=d),void 0!==d&&(i=P(t,d._$AS(t,i.values),d,e)),i}class V{constructor(t,i){this.v=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}p(t){var i;const{el:{content:s},parts:e}=this._$AD,o=(null!==(i=null==t?void 0:t.creationScope)&&void 0!==i?i:l$1).importNode(s,!0);A.currentNode=o;let n=A.nextNode(),h=0,r=0,d=e[0];for(;void 0!==d;){if(h===d.index){let i;2===d.type?i=new N(n,n.nextSibling,this,t):1===d.type?i=new d.ctor(n,d.name,d.strings,this,t):6===d.type&&(i=new L(n,this,t)),this.v.push(i),d=e[++r];}h!==(null==d?void 0:d.index)&&(n=A.nextNode(),h++);}return o}m(t){let i=0;for(const s of this.v)void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}}class N{constructor(t,i,s,e){var o;this.type=2,this._$AH=w,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cg=null===(o=null==e?void 0:e.isConnected)||void 0===o||o;}get _$AU(){var t,i;return null!==(i=null===(t=this._$AM)||void 0===t?void 0:t._$AU)&&void 0!==i?i:this._$Cg}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===t.nodeType&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=P(this,t,i),r(t)?t===w||null==t||""===t?(this._$AH!==w&&this._$AR(),this._$AH=w):t!==this._$AH&&t!==b&&this.$(t):void 0!==t._$litType$?this.T(t):void 0!==t.nodeType?this.k(t):u(t)?this.S(t):this.$(t);}M(t,i=this._$AB){return this._$AA.parentNode.insertBefore(t,i)}k(t){this._$AH!==t&&(this._$AR(),this._$AH=this.M(t));}$(t){this._$AH!==w&&r(this._$AH)?this._$AA.nextSibling.data=t:this.k(l$1.createTextNode(t)),this._$AH=t;}T(t){var i;const{values:s,_$litType$:e}=t,o="number"==typeof e?this._$AC(t):(void 0===e.el&&(e.el=E.createElement(e.h,this.options)),e);if((null===(i=this._$AH)||void 0===i?void 0:i._$AD)===o)this._$AH.m(s);else {const t=new V(o,this),i=t.p(this.options);t.m(s),this.k(i),this._$AH=t;}}_$AC(t){let i=T.get(t.strings);return void 0===i&&T.set(t.strings,i=new E(t)),i}S(t){d(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const o of t)e===i.length?i.push(s=new N(this.M(h()),this.M(h()),this,this.options)):s=i[e],s._$AI(o),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,i){var s;for(null===(s=this._$AP)||void 0===s||s.call(this,!1,!0,i);t&&t!==this._$AB;){const i=t.nextSibling;t.remove(),t=i;}}setConnected(t){var i;void 0===this._$AM&&(this._$Cg=t,null===(i=this._$AP)||void 0===i||i.call(this,t));}}class S{constructor(t,i,s,e,o){this.type=1,this._$AH=w,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=o,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=w;}get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}_$AI(t,i=this,s,e){const o=this.strings;let n=!1;if(void 0===o)t=P(this,t,i,0),n=!r(t)||t!==this._$AH&&t!==b,n&&(this._$AH=t);else {const e=t;let l,h;for(t=o[0],l=0;l<o.length-1;l++)h=P(this,e[s+l],i,l),h===b&&(h=this._$AH[l]),n||(n=!r(h)||h!==this._$AH[l]),h===w?t=w:t!==w&&(t+=(null!=h?h:"")+o[l+1]),this._$AH[l]=h;}n&&!e&&this.C(t);}C(t){t===w?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"");}}class M extends S{constructor(){super(...arguments),this.type=3;}C(t){this.element[this.name]=t===w?void 0:t;}}const k=i$1?i$1.emptyScript:"";class H extends S{constructor(){super(...arguments),this.type=4;}C(t){t&&t!==w?this.element.setAttribute(this.name,k):this.element.removeAttribute(this.name);}}class I extends S{constructor(t,i,s,e,o){super(t,i,s,e,o),this.type=5;}_$AI(t,i=this){var s;if((t=null!==(s=P(this,t,i,0))&&void 0!==s?s:w)===b)return;const e=this._$AH,o=t===w&&e!==w||t.capture!==e.capture||t.once!==e.once||t.passive!==e.passive,n=t!==w&&(e===w||o);o&&this.element.removeEventListener(this.name,this,e),n&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){var i,s;"function"==typeof this._$AH?this._$AH.call(null!==(s=null===(i=this.options)||void 0===i?void 0:i.host)&&void 0!==s?s:this.element,t):this._$AH.handleEvent(t);}}class L{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){P(this,t);}}const z=window.litHtmlPolyfillSupport;null==z||z(E,N),(null!==(t=globalThis.litHtmlVersions)&&void 0!==t?t:globalThis.litHtmlVersions=[]).push("2.2.3");
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */var l,o;class s extends a$1{constructor(){super(...arguments),this.renderOptions={host:this},this._$Dt=void 0;}createRenderRoot(){var t,e;const i=super.createRenderRoot();return null!==(t=(e=this.renderOptions).renderBefore)&&void 0!==t||(e.renderBefore=i.firstChild),i}update(t){const i=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Dt=x$1(i,this.renderRoot,this.renderOptions);}connectedCallback(){var t;super.connectedCallback(),null===(t=this._$Dt)||void 0===t||t.setConnected(!0);}disconnectedCallback(){var t;super.disconnectedCallback(),null===(t=this._$Dt)||void 0===t||t.setConnected(!1);}render(){return b}}s.finalized=!0,s._$litElement$=!0,null===(l=globalThis.litElementHydrateSupport)||void 0===l||l.call(globalThis,{LitElement:s});const n=globalThis.litElementPolyfillSupport;null==n||n({LitElement:s});(null!==(o=globalThis.litElementVersions)&&void 0!==o?o:globalThis.litElementVersions=[]).push("3.2.0");
+
 /* @license
  * Copyright 2019 Google LLC. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the 'License');
@@ -46406,7 +43574,7 @@ const IS_SCENEVIEWER_CANDIDATE = IS_ANDROID && !IS_FIREFOX && !IS_OCULUS;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var CloseIcon = html `
+var CloseIcon = $ `
 <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" fill="#000000">
     <!-- NOTE(cdata): This SVG filter is a stop-gap until we can implement
          support for dynamic re-coloring of UI components -->
@@ -46440,7 +43608,7 @@ var CloseIcon = html `
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var ControlsPrompt = html `
+var ControlsPrompt = $ `
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="36">
     <defs>
         <path id="A" d="M.001.232h24.997V36H.001z" />
@@ -46475,7 +43643,7 @@ var ControlsPrompt = html `
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var ARGlyph = html `
+var ARGlyph = $ `
 <svg version="1.1" id="view_x5F_in_x5F_AR_x5F_icon"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24px" height="24px"
 	 viewBox="0 0 24 24" enable-background="new 0 0 24 24" xml:space="preserve">
@@ -46507,7 +43675,7 @@ var ARGlyph = html `
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const templateResult = html `
+const templateResult = $ `
 <style>
 :host {
   display: block;
@@ -46679,20 +43847,25 @@ canvas.show {
   opacity: 0;
 }
 
-.slot.interaction-prompt {
-  display: var(--interaction-prompt-display, flex);
+.centered {
+  align-items: center;
+  justify-content: center;
+}
+
+.cover {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  align-items: center;
-  justify-content: center;
+}
 
+.slot.interaction-prompt {
+  display: var(--interaction-prompt-display, flex);
+  overflow: hidden;
   opacity: 0;
   will-change: opacity;
-  overflow: hidden;
   transition: opacity 0.3s;
 }
 
@@ -46700,8 +43873,10 @@ canvas.show {
   opacity: 1;
 }
 
-.slot.interaction-prompt > .animated-container {
+.animated-container {
   will-change: transform, opacity;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
 .slot.interaction-prompt > * {
@@ -46806,7 +43981,7 @@ canvas.show {
           <canvas></canvas>
         </slot>
       </div>
-      
+
   </div>
 
   <!-- NOTE(cdata): We need to wrap slots because browsers without ShadowDOM
@@ -46829,17 +44004,26 @@ canvas.show {
 
   <div class="slot pan-target">
     <slot name="pan-target">
-      <div id="default-pan-target">      
+      <div id="default-pan-target">
       </div>
     </slot>
   </div>
 
-  <div class="slot interaction-prompt">
-    <div class="animated-container">
+  <div class="slot interaction-prompt cover centered">
+    <div id="prompt" class="animated-container">
       <slot name="interaction-prompt" aria-hidden="true">
         ${ControlsPrompt}
       </slot>
     </div>
+  </div>
+
+  <div id="finger0" class="animated-container cover">
+    <slot name="finger0" aria-hidden="true">
+    </slot>
+  </div>
+  <div id="finger1" class="animated-container cover">
+    <slot name="finger1" aria-hidden="true">
+    </slot>
   </div>
 
   <div class="slot default">
@@ -46853,7 +44037,7 @@ canvas.show {
         </div>
       </slot>
     </div>
-    
+
     <div class="slot exit-webxr-ar-button">
       <slot name="exit-webxr-ar-button">
         <a id="default-exit-webxr-ar-button" part="default-exit-webxr-ar-button"
@@ -46870,7 +44054,7 @@ canvas.show {
   <span id="status" role="status"></span>
 </div>`;
 const makeTemplate = (shadowRoot) => {
-    render$1(templateResult, shadowRoot);
+    x$1(templateResult, shadowRoot);
 };
 
 const _taskCache$1 = new WeakMap();
@@ -48015,7 +45199,7 @@ class GLTFMaterialsUnlitExtension$1 {
 
 			if ( metallicRoughness.baseColorTexture !== undefined ) {
 
-				pending.push( parser.assignTexture( materialParams, 'map', metallicRoughness.baseColorTexture ) );
+				pending.push( parser.assignTexture( materialParams, 'map', metallicRoughness.baseColorTexture, sRGBEncoding ) );
 
 			}
 
@@ -48169,7 +45353,7 @@ class GLTFMaterialsSheenExtension {
 
 		if ( extension.sheenColorTexture !== undefined ) {
 
-			pending.push( parser.assignTexture( materialParams, 'sheenColorMap', extension.sheenColorTexture ) );
+			pending.push( parser.assignTexture( materialParams, 'sheenColorMap', extension.sheenColorTexture, sRGBEncoding ) );
 
 		}
 
@@ -48402,11 +45586,7 @@ class GLTFMaterialsSpecularExtension {
 
 		if ( extension.specularColorTexture !== undefined ) {
 
-			pending.push( parser.assignTexture( materialParams, 'specularColorMap', extension.specularColorTexture ).then( function ( texture ) {
-
-				texture.encoding = sRGBEncoding;
-
-			} ) );
+			pending.push( parser.assignTexture( materialParams, 'specularColorMap', extension.specularColorTexture, sRGBEncoding ) );
 
 		}
 
@@ -48509,7 +45689,7 @@ class GLTFTextureWebPExtension {
 
 		return this.detectSupport().then( function ( isSupported ) {
 
-			if ( isSupported ) return parser.loadTextureImage( textureIndex, source, loader );
+			if ( isSupported ) return parser.loadTextureImage( textureIndex, extension.source, loader );
 
 			if ( json.extensionsRequired && json.extensionsRequired.indexOf( name ) >= 0 ) {
 
@@ -49053,8 +46233,7 @@ class GLTFMaterialsPbrSpecularGlossinessExtension {
 			'glossiness',
 			'alphaMap',
 			'envMap',
-			'envMapIntensity',
-			'refractionRatio',
+			'envMapIntensity'
 		];
 
 	}
@@ -49085,7 +46264,7 @@ class GLTFMaterialsPbrSpecularGlossinessExtension {
 
 		if ( pbrSpecularGlossiness.diffuseTexture !== undefined ) {
 
-			pending.push( parser.assignTexture( materialParams, 'map', pbrSpecularGlossiness.diffuseTexture ) );
+			pending.push( parser.assignTexture( materialParams, 'map', pbrSpecularGlossiness.diffuseTexture, sRGBEncoding ) );
 
 		}
 
@@ -49103,7 +46282,7 @@ class GLTFMaterialsPbrSpecularGlossinessExtension {
 
 			const specGlossMapDef = pbrSpecularGlossiness.specularGlossinessTexture;
 			pending.push( parser.assignTexture( materialParams, 'glossinessMap', specGlossMapDef ) );
-			pending.push( parser.assignTexture( materialParams, 'specularMap', specGlossMapDef ) );
+			pending.push( parser.assignTexture( materialParams, 'specularMap', specGlossMapDef, sRGBEncoding ) );
 
 		}
 
@@ -49152,8 +46331,6 @@ class GLTFMaterialsPbrSpecularGlossinessExtension {
 
 		material.envMap = materialParams.envMap === undefined ? null : materialParams.envMap;
 		material.envMapIntensity = 1.0;
-
-		material.refractionRatio = 0.98;
 
 		return material;
 
@@ -49665,7 +46842,7 @@ class GLTFParser {
 
 		// Use an ImageBitmapLoader if imageBitmaps are supported. Moves much of the
 		// expensive work of uploading a texture to the GPU off the main thread.
-		if ( typeof createImageBitmap !== 'undefined' && /Firefox|^((?!chrome|android).)*safari/i.test( navigator.userAgent ) === false ) {
+		if ( typeof createImageBitmap !== 'undefined' && /^((?!chrome|android).)*safari/i.test( navigator.userAgent ) === false ) {
 
 			this.textureLoader = new ImageBitmapLoader( this.options.manager );
 
@@ -50293,15 +47470,7 @@ class GLTFParser {
 
 		if ( this.sourceCache[ sourceIndex ] !== undefined ) {
 
-			return this.sourceCache[ sourceIndex ].then( function ( texture ) {
-
-				return texture.clone();
-
-			} ).catch( function ( error ) {
-
-				throw error;
-
-			} );
+			return this.sourceCache[ sourceIndex ].then( ( texture ) => texture.clone() );
 
 		}
 
@@ -50387,7 +47556,7 @@ class GLTFParser {
 	 * @param {Object} mapDef
 	 * @return {Promise<Texture>}
 	 */
-	assignTexture( materialParams, mapName, mapDef ) {
+	assignTexture( materialParams, mapName, mapDef, encoding ) {
 
 		const parser = this;
 
@@ -50412,6 +47581,12 @@ class GLTFParser {
 					parser.associations.set( texture, gltfReference );
 
 				}
+
+			}
+
+			if ( encoding !== undefined ) {
+
+				texture.encoding = encoding;
 
 			}
 
@@ -50586,7 +47761,7 @@ class GLTFParser {
 
 			if ( metallicRoughness.baseColorTexture !== undefined ) {
 
-				pending.push( parser.assignTexture( materialParams, 'map', metallicRoughness.baseColorTexture ) );
+				pending.push( parser.assignTexture( materialParams, 'map', metallicRoughness.baseColorTexture, sRGBEncoding ) );
 
 			}
 
@@ -50677,7 +47852,7 @@ class GLTFParser {
 
 		if ( materialDef.emissiveTexture !== undefined && materialType !== MeshBasicMaterial ) {
 
-			pending.push( parser.assignTexture( materialParams, 'emissiveMap', materialDef.emissiveTexture ) );
+			pending.push( parser.assignTexture( materialParams, 'emissiveMap', materialDef.emissiveTexture, sRGBEncoding ) );
 
 		}
 
@@ -50696,13 +47871,6 @@ class GLTFParser {
 			}
 
 			if ( materialDef.name ) material.name = materialDef.name;
-
-			// baseColorTexture, emissiveTexture, sheenColorMap, specularColorMap and specularGlossinessTexture use sRGB encoding.
-			if ( material.map ) material.map.encoding = sRGBEncoding;
-			if ( material.emissiveMap ) material.emissiveMap.encoding = sRGBEncoding;
-			if ( material.sheenColorMap ) material.sheenColorMap.encoding = sRGBEncoding;
-			if ( material.specularColorMap ) material.specularColorMap.encoding = sRGBEncoding;
-			if ( material.specularMap ) material.specularMap.encoding = sRGBEncoding;
 
 			assignExtrasToUserData( material, materialDef );
 
@@ -52828,7 +49996,8 @@ class CachingGLTFLoader extends EventDispatcher {
                 .then((preparedGLTF) => {
                 progressCallback(0.9);
                 return new GLTFInstance(preparedGLTF);
-            }).catch((reason => {
+            })
+                .catch((reason => {
                 console.error(reason);
                 return new GLTFInstance();
             }));
@@ -52852,18 +50021,9 @@ class CachingGLTFLoader extends EventDispatcher {
         this[$evictionPolicy].retain(url);
         // Patch dispose so that we can properly account for instance use
         // in the caching layer:
-        clone.dispose = (() => {
-            const originalDispose = clone.dispose;
-            let disposed = false;
-            return () => {
-                if (disposed) {
-                    return;
-                }
-                disposed = true;
-                originalDispose.apply(clone);
-                this[$evictionPolicy].release(url);
-            };
-        })();
+        clone.dispose = () => {
+            this[$evictionPolicy].release(url);
+        };
         return clone;
     }
 }
@@ -54319,7 +51479,7 @@ class ModelScene extends Scene {
         this.shadow = null;
         this.shadowIntensity = 0;
         this.shadowSoftness = 1;
-        this.bakedShadows = Array();
+        this.bakedShadows = new Set();
         this.exposure = 1;
         this.canScale = true;
         this.tightBounds = false;
@@ -54458,6 +51618,7 @@ class ModelScene extends Scene {
         if (this.shadow != null) {
             this.shadow.setIntensity(0);
         }
+        this.bakedShadows.clear();
         const gltf = this._currentGLTF;
         // Remove all current children
         if (gltf != null) {
@@ -54494,6 +51655,16 @@ class ModelScene extends Scene {
         }
         this.queueRender();
     }
+    markBakedShadow(mesh) {
+        mesh.userData.shadow = true;
+        this.bakedShadows.add(mesh);
+    }
+    unmarkBakedShadow(mesh) {
+        mesh.userData.shadow = false;
+        mesh.visible = true;
+        this.bakedShadows.delete(mesh);
+        this.boundingBox.expandByObject(mesh);
+    }
     findBakedShadows(group) {
         const boundingBox = new Box3();
         group.traverse((object) => {
@@ -54502,7 +51673,7 @@ class ModelScene extends Scene {
                 return;
             }
             const material = mesh.material;
-            if (!material.isMeshBasicMaterial || !material.transparent) {
+            if (!material.transparent) {
                 return;
             }
             boundingBox.setFromObject(mesh);
@@ -54512,9 +51683,29 @@ class ModelScene extends Scene {
             if (maxDim < MIN_SHADOW_RATIO * minDim) {
                 return;
             }
-            this.bakedShadows.push(mesh);
-            mesh.userData.shadow = true;
+            this.markBakedShadow(mesh);
         });
+    }
+    checkBakedShadows() {
+        const { min, max } = this.boundingBox;
+        const shadowBox = new Box3();
+        this.boundingBox.getSize(this.size);
+        for (const mesh of this.bakedShadows) {
+            shadowBox.setFromObject(mesh);
+            if (shadowBox.min.y < min.y + this.size.y / MIN_SHADOW_RATIO &&
+                shadowBox.min.x <= min.x && shadowBox.max.x >= max.x &&
+                shadowBox.min.z <= min.z && shadowBox.max.z >= max.z) {
+                // floor shadow
+                continue;
+            }
+            if (shadowBox.min.z < min.z + this.size.z / MIN_SHADOW_RATIO &&
+                shadowBox.min.x <= min.x && shadowBox.max.x >= max.x &&
+                shadowBox.min.y <= min.y && shadowBox.max.y >= max.y) {
+                // wall shadow
+                continue;
+            }
+            this.unmarkBakedShadow(mesh);
+        }
     }
     updateBoundingBox() {
         this.target.remove(this.modelContainer);
@@ -54528,10 +51719,11 @@ class ModelScene extends Scene {
             // If there's nothing but the baked shadow, then it's not a baked shadow.
             if (this.boundingBox.isEmpty()) {
                 this.setBakedShadowVisibility(true);
-                this.bakedShadows = [];
+                this.bakedShadows.forEach((mesh) => this.unmarkBakedShadow(mesh));
                 this.boundingBox =
                     reduceVertices(this.modelContainer, bound, new Box3());
             }
+            this.checkBakedShadows();
             this.setBakedShadowVisibility();
         }
         else {
@@ -54553,7 +51745,8 @@ class ModelScene extends Scene {
         this.setBakedShadowVisibility(false);
         const { center } = this.boundingSphere;
         if (this.tightBounds === true) {
-            await this.element.requestUpdate('cameraTarget');
+            this.element.requestUpdate('cameraTarget');
+            await this.element.updateComplete;
             center.copy(this.getTarget());
         }
         else {
@@ -54653,6 +51846,10 @@ class ModelScene extends Scene {
             this.target.position.set(x, y, z);
             this.target.updateMatrixWorld();
             this.queueRender();
+            return true;
+        }
+        else {
+            return false;
         }
     }
     /**
@@ -54747,7 +51944,8 @@ class ModelScene extends Scene {
                 if (lastAnimationAction != null && action !== lastAnimationAction) {
                     action.crossFadeFrom(lastAnimationAction, crossfadeTime, false);
                 }
-                else if (this.animationTimeScale > 0) {
+                else if (this.animationTimeScale > 0 &&
+                    this.animationTime == this.duration) {
                     // This is a workaround for what I believe is a three.js bug.
                     this.animationTime = 0;
                 }
@@ -55033,7 +52231,7 @@ const EnvironmentMixin = (ModelViewerElement) => {
             }
         }
         hasBakedShadow() {
-            return this[$scene].bakedShadows.length > 0;
+            return this[$scene].bakedShadows.size > 0;
         }
         [(_a = $currentEnvironmentMap, _b = $cancelEnvironmentUpdate, _c = $onPreload, $onModelLoad)]() {
             super[$onModelLoad]();
@@ -55091,19 +52289,19 @@ const EnvironmentMixin = (ModelViewerElement) => {
         }
     }
     __decorate$7([
-        property({ type: String, attribute: 'environment-image' })
+        e$3({ type: String, attribute: 'environment-image' })
     ], EnvironmentModelViewerElement.prototype, "environmentImage", void 0);
     __decorate$7([
-        property({ type: String, attribute: 'skybox-image' })
+        e$3({ type: String, attribute: 'skybox-image' })
     ], EnvironmentModelViewerElement.prototype, "skyboxImage", void 0);
     __decorate$7([
-        property({ type: Number, attribute: 'shadow-intensity' })
+        e$3({ type: Number, attribute: 'shadow-intensity' })
     ], EnvironmentModelViewerElement.prototype, "shadowIntensity", void 0);
     __decorate$7([
-        property({ type: Number, attribute: 'shadow-softness' })
+        e$3({ type: Number, attribute: 'shadow-softness' })
     ], EnvironmentModelViewerElement.prototype, "shadowSoftness", void 0);
     __decorate$7([
-        property({
+        e$3({
             type: Number,
         })
     ], EnvironmentModelViewerElement.prototype, "exposure", void 0);
@@ -56341,9 +53539,13 @@ class GLTFInstance {
                 materials.forEach(material => {
                     // Explicitly dispose any textures assigned to this material
                     for (const propertyName in material) {
-                        const propertyValue = material[propertyName];
-                        if (propertyValue instanceof Texture$1) {
-                            propertyValue.dispose();
+                        const texture = material[propertyName];
+                        if (texture instanceof Texture$1) {
+                            const image = texture.source.data;
+                            if (image instanceof ImageBitmap) {
+                                image.close();
+                            }
+                            texture.dispose();
                         }
                     }
                     material.dispose();
@@ -56624,14 +53826,15 @@ class ModelViewerGLTFInstance extends GLTFInstance {
             }
             const mesh = node;
             if (mesh.isMesh) {
+                const { geometry } = mesh;
                 mesh.castShadow = true;
                 if (mesh.isSkinnedMesh) {
                     // Akin to disablig frustum culling above, we have to also manually
                     // disable the bounds to make raycasting correct for skinned meshes.
-                    mesh.geometry.boundingSphere = nullSphere;
+                    geometry.boundingSphere = nullSphere;
                     // The bounding box is set in GLTFLoader by the accessor bounds, which
                     // are not updated with animation.
-                    mesh.geometry.boundingBox = null;
+                    geometry.boundingBox = null;
                 }
                 const material = mesh.material;
                 if (material.isMeshBasicMaterial === true) {
@@ -56639,6 +53842,22 @@ class ModelViewerGLTFInstance extends GLTFInstance {
                 }
                 // This makes shadows better for non-manifold meshes
                 material.shadowSide = FrontSide;
+                // Fixes an edge case with unused extra UV-coords being incorrectly
+                // referenced by three.js; remove when
+                // https://github.com/mrdoob/three.js/pull/23974 is merged.
+                if (material.aoMap) {
+                    const { gltf, threeObjectMap } = prepared[$correlatedSceneGraph$1];
+                    const gltfRef = threeObjectMap.get(material);
+                    if (gltf.materials != null && gltfRef != null &&
+                        gltfRef.materials != null) {
+                        const gltfMaterial = gltf.materials[gltfRef.materials];
+                        if (gltfMaterial.occlusionTexture &&
+                            gltfMaterial.occlusionTexture.texCoord === 0 &&
+                            geometry.attributes.uv != null) {
+                            geometry.setAttribute('uv2', geometry.attributes.uv);
+                        }
+                    }
+                }
             }
         });
         return prepared;
@@ -58312,7 +55531,7 @@ const toVector2D = (v) => {
 /**
  * Definition for a basic <model-viewer> element.
  */
-class ModelViewerElementBase extends UpdatingElement {
+class ModelViewerElementBase extends a$1 {
     /**
      * Creates a new ModelViewerElement.
      */
@@ -58691,13 +55910,13 @@ class ModelViewerElementBase extends UpdatingElement {
     }
 }
 __decorate$6([
-    property({ type: String })
+    e$3({ type: String })
 ], ModelViewerElementBase.prototype, "alt", void 0);
 __decorate$6([
-    property({ type: String })
+    e$3({ type: String })
 ], ModelViewerElementBase.prototype, "src", void 0);
 __decorate$6([
-    property({ type: Boolean, attribute: 'with-credentials' })
+    e$3({ type: Boolean, attribute: 'with-credentials' })
 ], ModelViewerElementBase.prototype, "withCredentials", void 0);
 
 /* @license
@@ -58836,13 +56055,13 @@ const AnimationMixin = (ModelViewerElement) => {
         }
     }
     __decorate$5([
-        property({ type: Boolean })
+        e$3({ type: Boolean })
     ], AnimationModelViewerElement.prototype, "autoplay", void 0);
     __decorate$5([
-        property({ type: String, attribute: 'animation-name' })
+        e$3({ type: String, attribute: 'animation-name' })
     ], AnimationModelViewerElement.prototype, "animationName", void 0);
     __decorate$5([
-        property({ type: Number, attribute: 'animation-crossfade-duration' })
+        e$3({ type: Number, attribute: 'animation-crossfade-duration' })
     ], AnimationModelViewerElement.prototype, "animationCrossfadeDuration", void 0);
     return AnimationModelViewerElement;
 };
@@ -60121,6 +57340,7 @@ function buildMaterial( material, textures ) {
             float outputs:g
             float outputs:b
             float3 outputs:rgb
+            ${ material.transparent || material.alphaTest > 0.0 ? 'float outputs:a' : '' }
         }`;
 
 	}
@@ -60128,6 +57348,17 @@ function buildMaterial( material, textures ) {
 	if ( material.map !== null ) {
 
 		inputs.push( `${ pad }color3f inputs:diffuseColor.connect = </Materials/Material_${ material.id }/Texture_${ material.map.id }_diffuse.outputs:rgb>` );
+
+		if ( material.transparent ) {
+
+			inputs.push( `${ pad }float inputs:opacity.connect = </Materials/Material_${ material.id }/Texture_${ material.map.id }_diffuse.outputs:a>` );
+
+		} else if ( material.alphaTest > 0.0 ) {
+
+			inputs.push( `${ pad }float inputs:opacity.connect = </Materials/Material_${ material.id }/Texture_${ material.map.id }_diffuse.outputs:a>` );
+			inputs.push( `${ pad }float inputs:opacityThreshold = ${material.alphaTest}` );
+
+		}
 
 		samplers.push( buildTexture( material.map, 'diffuse', material.color ) );
 
@@ -60638,22 +57869,22 @@ configuration or device capabilities');
         }
     }
     __decorate$4([
-        property({ type: Boolean, attribute: 'ar' })
+        e$3({ type: Boolean, attribute: 'ar' })
     ], ARModelViewerElement.prototype, "ar", void 0);
     __decorate$4([
-        property({ type: String, attribute: 'ar-scale' })
+        e$3({ type: String, attribute: 'ar-scale' })
     ], ARModelViewerElement.prototype, "arScale", void 0);
     __decorate$4([
-        property({ type: String, attribute: 'ar-placement' })
+        e$3({ type: String, attribute: 'ar-placement' })
     ], ARModelViewerElement.prototype, "arPlacement", void 0);
     __decorate$4([
-        property({ type: String, attribute: 'ar-modes' })
+        e$3({ type: String, attribute: 'ar-modes' })
     ], ARModelViewerElement.prototype, "arModes", void 0);
     __decorate$4([
-        property({ type: String, attribute: 'ios-src' })
+        e$3({ type: String, attribute: 'ios-src' })
     ], ARModelViewerElement.prototype, "iosSrc", void 0);
     __decorate$4([
-        property({ type: Boolean, attribute: 'xr-environment' })
+        e$3({ type: Boolean, attribute: 'xr-environment' })
     ], ARModelViewerElement.prototype, "xrEnvironment", void 0);
     return ARModelViewerElement;
 };
@@ -61330,8 +58561,9 @@ const style = (config) => {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-const PAN_SENSITIVITY = 0.75;
+const PAN_SENSITIVITY = 0.018;
 const TAP_DISTANCE = 2;
+const TAP_MS = 300;
 const vector2 = new Vector2();
 const vector3 = new Vector3();
 const DEFAULT_OPTIONS = Object.freeze({
@@ -61386,9 +58618,9 @@ class SmoothControls extends EventDispatcher {
         this.element = element;
         this.scene = scene;
         this.sensitivity = 1;
+        this.isUserChange = false;
         this._interactionEnabled = false;
         this._disableZoom = false;
-        this.isUserChange = false;
         this.isUserPointing = false;
         // Pan state
         this.enablePan = true;
@@ -61405,158 +58637,192 @@ class SmoothControls extends EventDispatcher {
         this.fovDamper = new Damper();
         // Pointer state
         this.touchMode = null;
-        this.lastPointerPosition = { clientX: 0, clientY: 0 };
+        this.pointers = [];
+        this.startTime = 0;
         this.startPointerPosition = { clientX: 0, clientY: 0 };
+        this.lastSeparation = 0;
         this.touchDecided = false;
-        this.onMouseMove = (event) => {
-            if (this.panPerPixel > 0) {
-                this.movePan(event.clientX, event.clientY);
-            }
-            else {
-                this.handleSinglePointerMove(event);
-            }
-            if (event.cancelable) {
+        this.onContext = (event) => {
+            if (this.enablePan) {
                 event.preventDefault();
             }
-        };
-        this.onTouchMove = (event) => {
-            if (this.touchMode !== null) {
-                this.touchMode(event);
-                if (this.touchMode !== null && event.cancelable) {
-                    event.preventDefault();
+            else {
+                for (const pointer of this.pointers) {
+                    // Required because of a common browser bug where the context menu never
+                    // fires a pointercancel event.
+                    this.onPointerUp(new PointerEvent('pointercancel', Object.assign(Object.assign({}, this.startPointerPosition), { pointerId: pointer.id })));
                 }
             }
         };
-        this.touchModeZoom = (event) => {
-            const { targetTouches } = event;
-            if (this.lastTouches.length > 1 && targetTouches.length > 1) {
-                if (!this._disableZoom) {
-                    const lastTouchDistance = this.twoTouchDistance(this.lastTouches[0], this.lastTouches[1]);
-                    const touchDistance = this.twoTouchDistance(targetTouches[0], targetTouches[1]);
-                    const deltaZoom = ZOOM_SENSITIVITY * (lastTouchDistance - touchDistance) / 10.0;
-                    this.userAdjustOrbit(0, 0, deltaZoom);
-                }
-                if (this.panPerPixel > 0) {
-                    const thisX = 0.5 * (targetTouches[0].clientX + targetTouches[1].clientX);
-                    const thisY = 0.5 * (targetTouches[0].clientY + targetTouches[1].clientY);
-                    this.movePan(thisX, thisY);
-                }
-                this.lastTouches = targetTouches;
+        this.touchModeZoom = (dx, dy) => {
+            if (!this._disableZoom) {
+                const touchDistance = this.twoTouchDistance(this.pointers[0], this.pointers[1]);
+                const deltaZoom = ZOOM_SENSITIVITY *
+                    (this.lastSeparation - touchDistance) * 50 / this.scene.height;
+                this.lastSeparation = touchDistance;
+                this.userAdjustOrbit(0, 0, deltaZoom);
+            }
+            if (this.panPerPixel > 0) {
+                this.movePan(dx, dy);
             }
         };
-        this.touchModeRotate = (event) => {
-            const { targetTouches } = event;
+        // We implement our own version of the browser's CSS touch-action, enforced by
+        // this function, because the iOS implementation of pan-y is bad and doesn't
+        // match Android. Specifically, even if a touch gesture begins by panning X,
+        // iOS will switch to scrolling as soon as the gesture moves in the Y, rather
+        // than staying in the same mode until the end of the gesture.
+        this.disableScroll = (event) => {
+            event.preventDefault();
+        };
+        this.touchModeRotate = (dx, dy) => {
             const { touchAction } = this._options;
             if (!this.touchDecided && touchAction !== 'none') {
                 this.touchDecided = true;
-                const { clientX, clientY } = targetTouches[0];
-                const dx = Math.abs(clientX - this.lastPointerPosition.clientX);
-                const dy = Math.abs(clientY - this.lastPointerPosition.clientY);
+                const dxMag = Math.abs(dx);
+                const dyMag = Math.abs(dy);
                 // If motion is mostly vertical, assume scrolling is the intent.
-                if ((touchAction === 'pan-y' && dy > dx) ||
-                    (touchAction === 'pan-x' && dx > dy)) {
+                if (this.isUserChange &&
+                    ((touchAction === 'pan-y' && dyMag > dxMag) ||
+                        (touchAction === 'pan-x' && dxMag > dyMag))) {
                     this.touchMode = null;
                     return;
                 }
-            }
-            this.handleSinglePointerMove(targetTouches[0]);
-            this.lastTouches = targetTouches;
-        };
-        this.onMouseDown = (event) => {
-            this.onPointerDown(() => {
-                self.addEventListener('mousemove', this.onMouseMove);
-                self.addEventListener('mouseup', this.onMouseUp, { once: true });
-                if (this.enablePan &&
-                    (event.button === 2 || event.ctrlKey || event.metaKey ||
-                        event.shiftKey)) {
-                    this.initializePan();
+                else {
+                    this.element.addEventListener('touchmove', this.disableScroll, { passive: false });
                 }
-                this.lastPointerPosition.clientX = event.clientX;
-                this.lastPointerPosition.clientY = event.clientY;
+            }
+            this.handleSinglePointerMove(dx, dy);
+        };
+        this.onPointerDown = (event) => {
+            if (!this.canInteract || this.pointers.length > 2) {
+                return;
+            }
+            const { element } = this;
+            if (this.pointers.length === 0) {
+                element.addEventListener('pointermove', this.onPointerMove);
+                element.addEventListener('pointerup', this.onPointerUp);
+                this.touchMode = null;
+                this.touchDecided = false;
                 this.startPointerPosition.clientX = event.clientX;
                 this.startPointerPosition.clientY = event.clientY;
-                this.element.style.cursor = 'grabbing';
-            });
-        };
-        this.onTouchStart = (event) => {
-            this.onPointerDown(() => {
-                const { targetTouches, changedTouches, touches } = event;
-                if (targetTouches.length === changedTouches.length) {
-                    this.touchMode = null;
-                    this.touchDecided = false;
-                }
-                if (targetTouches.length === touches.length) {
-                    this.onTouchChange(event);
-                }
-            });
-        };
-        this.onMouseUp = (event) => {
-            self.removeEventListener('mousemove', this.onMouseMove);
-            if (this.panPerPixel > 0) {
-                this.resetRadius();
+                this.startTime = performance.now();
             }
-            else {
-                this.recenter(event);
+            try {
+                element.setPointerCapture(event.pointerId);
             }
-            this.onPointerUp();
-        };
-        this.onTouchEnd = (event) => {
-            if (event.targetTouches.length > 0 && this.touchMode !== null) {
+            catch (_a) {
+            }
+            this.pointers.push({ clientX: event.clientX, clientY: event.clientY, id: event.pointerId });
+            this.isUserPointing = false;
+            if (event.pointerType === 'touch') {
+                this.isUserChange = !event.altKey; // set by interact() in controls.ts
                 this.onTouchChange(event);
             }
-            if (event.targetTouches.length === 0) {
-                if (this.panPerPixel > 0) {
-                    this.resetRadius();
-                }
-                else {
-                    this.recenter(event.changedTouches[0]);
+            else {
+                this.isUserChange = true;
+                this.onMouseDown(event);
+            }
+        };
+        this.onPointerMove = (event) => {
+            const pointer = this.pointers.find((pointer) => pointer.id === event.pointerId);
+            if (pointer == null) {
+                return;
+            }
+            const numTouches = this.pointers.length;
+            const dx = (event.clientX - pointer.clientX) / numTouches;
+            const dy = (event.clientY - pointer.clientY) / numTouches;
+            if (dx === 0 && dy === 0) {
+                return;
+            }
+            pointer.clientX = event.clientX;
+            pointer.clientY = event.clientY;
+            if (event.pointerType === 'touch') {
+                this.isUserChange = !event.altKey; // set by interact() in controls.ts
+                if (this.touchMode !== null) {
+                    this.touchMode(dx, dy);
                 }
             }
-            this.onPointerUp();
+            else {
+                this.isUserChange = true;
+                if (this.panPerPixel > 0) {
+                    this.movePan(dx, dy);
+                }
+                else {
+                    this.handleSinglePointerMove(dx, dy);
+                }
+            }
+        };
+        this.onPointerUp = (event) => {
+            const { element } = this;
+            const index = this.pointers.findIndex((pointer) => pointer.id === event.pointerId);
+            if (index !== -1) {
+                this.pointers.splice(index, 1);
+            }
+            // altKey indicates an interaction prompt; don't reset radius in this case
+            // as it will cause the camera to drift.
+            if (this.panPerPixel > 0 && !event.altKey) {
+                this.resetRadius();
+            }
+            if (this.pointers.length === 0) {
+                element.removeEventListener('pointermove', this.onPointerMove);
+                element.removeEventListener('pointerup', this.onPointerUp);
+                element.removeEventListener('touchmove', this.disableScroll);
+                if (this.enablePan) {
+                    this.recenter(event);
+                }
+            }
+            else if (this.touchMode !== null) {
+                this.onTouchChange(event);
+            }
+            this.scene.element[$panElement].style.opacity = 0;
+            element.style.cursor = 'grab';
+            this.panPerPixel = 0;
+            if (this.isUserPointing) {
+                this.dispatchEvent({ type: 'pointer-change-end' });
+            }
         };
         this.onWheel = (event) => {
             if (!this.canInteract) {
                 return;
             }
+            this.isUserChange = true;
             const deltaZoom = event.deltaY *
                 (event.deltaMode == 1 ? 18 : 1) * ZOOM_SENSITIVITY / 30;
             this.userAdjustOrbit(0, 0, deltaZoom);
-            if (event.cancelable) {
-                event.preventDefault();
-            }
+            event.preventDefault();
         };
         this.onKeyDown = (event) => {
             // We track if the key is actually one we respond to, so as not to
             // accidentally clober unrelated key inputs when the <model-viewer> has
             // focus.
-            let relevantKey = false;
+            let relevantKey = true;
+            const { isUserChange } = this;
+            this.isUserChange = true;
             switch (event.keyCode) {
                 case KeyCode.PAGE_UP:
-                    relevantKey = true;
                     this.userAdjustOrbit(0, 0, ZOOM_SENSITIVITY);
                     break;
                 case KeyCode.PAGE_DOWN:
-                    relevantKey = true;
                     this.userAdjustOrbit(0, 0, -1 * ZOOM_SENSITIVITY);
                     break;
                 case KeyCode.UP:
-                    relevantKey = true;
                     this.userAdjustOrbit(0, -KEYBOARD_ORBIT_INCREMENT, 0);
                     break;
                 case KeyCode.DOWN:
-                    relevantKey = true;
                     this.userAdjustOrbit(0, KEYBOARD_ORBIT_INCREMENT, 0);
                     break;
                 case KeyCode.LEFT:
-                    relevantKey = true;
                     this.userAdjustOrbit(-KEYBOARD_ORBIT_INCREMENT, 0, 0);
                     break;
                 case KeyCode.RIGHT:
-                    relevantKey = true;
                     this.userAdjustOrbit(KEYBOARD_ORBIT_INCREMENT, 0, 0);
                     break;
+                default:
+                    relevantKey = false;
+                    this.isUserChange = isUserChange;
+                    break;
             }
-            if (relevantKey && event.cancelable) {
+            if (relevantKey) {
                 event.preventDefault();
             }
         };
@@ -61571,14 +58837,16 @@ class SmoothControls extends EventDispatcher {
     enableInteraction() {
         if (this._interactionEnabled === false) {
             const { element } = this;
-            element.addEventListener('mousedown', this.onMouseDown);
+            element.addEventListener('pointerdown', this.onPointerDown);
+            element.addEventListener('pointercancel', this.onPointerUp);
             if (!this._disableZoom) {
                 element.addEventListener('wheel', this.onWheel);
             }
             element.addEventListener('keydown', this.onKeyDown);
-            element.addEventListener('touchstart', this.onTouchStart, { passive: true });
-            element.addEventListener('touchmove', this.onTouchMove, { passive: false });
-            element.addEventListener('touchend', this.onTouchEnd);
+            // This little beauty is to work around a WebKit bug that otherwise makes
+            // touch events randomly not cancelable.
+            element.addEventListener('touchmove', () => { }, { passive: false });
+            element.addEventListener('contextmenu', this.onContext);
             this.element.style.cursor = 'grab';
             this._interactionEnabled = true;
             this.updateTouchActionStyle();
@@ -61587,16 +58855,13 @@ class SmoothControls extends EventDispatcher {
     disableInteraction() {
         if (this._interactionEnabled === true) {
             const { element } = this;
-            self.removeEventListener('mousemove', this.onMouseMove);
-            element.removeEventListener('mousedown', this.onMouseDown);
-            if (!this._disableZoom) {
-                element.removeEventListener('wheel', this.onWheel);
-            }
+            element.removeEventListener('pointerdown', this.onPointerDown);
+            element.removeEventListener('pointermove', this.onPointerMove);
+            element.removeEventListener('pointerup', this.onPointerUp);
+            element.removeEventListener('pointercancel', this.onPointerUp);
+            element.removeEventListener('wheel', this.onWheel);
             element.removeEventListener('keydown', this.onKeyDown);
-            element.removeEventListener('touchstart', this.onTouchStart);
-            element.removeEventListener('touchmove', this.onTouchMove);
-            self.removeEventListener('mouseup', this.onMouseUp);
-            element.removeEventListener('touchend', this.onTouchEnd);
+            element.removeEventListener('contextmenu', this.onContext);
             element.style.cursor = '';
             this.touchMode = null;
             this._interactionEnabled = false;
@@ -61690,7 +58955,6 @@ class SmoothControls extends EventDispatcher {
         this.goalSpherical.phi = nextPhi;
         this.goalSpherical.radius = nextRadius;
         this.goalSpherical.makeSafe();
-        this.isUserChange = false;
         return true;
     }
     /**
@@ -61798,6 +59062,10 @@ class SmoothControls extends EventDispatcher {
             this.goalSpherical.radius === this.spherical.radius &&
             this.goalLogFov === this.logFov;
     }
+    dispatchChange() {
+        const source = this.isUserChange ? ChangeSource.USER_INTERACTION : ChangeSource.NONE;
+        this.dispatchEvent({ type: 'change', source });
+    }
     moveCamera() {
         // Derive the new camera position from the updated spherical:
         this.spherical.makeSafe();
@@ -61807,8 +59075,7 @@ class SmoothControls extends EventDispatcher {
             this.camera.fov = Math.exp(this.logFov);
             this.camera.updateProjectionMatrix();
         }
-        const source = this.isUserChange ? ChangeSource.USER_INTERACTION : ChangeSource.NONE;
-        this.dispatchEvent({ type: 'change', source });
+        this.dispatchChange();
     }
     get canInteract() {
         if (this._options.interactionPolicy == 'allow-when-focused') {
@@ -61819,14 +59086,13 @@ class SmoothControls extends EventDispatcher {
     }
     userAdjustOrbit(deltaTheta, deltaPhi, deltaZoom) {
         this.adjustOrbit(deltaTheta * this.sensitivity, deltaPhi * this.sensitivity, deltaZoom);
-        this.isUserChange = true;
         // Always make sure that an initial event is triggered in case there is
         // contention between user interaction and imperative changes. This initial
         // event will give external observers that chance to observe that
         // interaction occurred at all:
-        this.dispatchEvent({ type: 'change', source: ChangeSource.USER_INTERACTION });
+        this.dispatchChange();
     }
-    // Wraps to bewteen -pi and pi
+    // Wraps to between -pi and pi
     wrapAngle(radians) {
         const normalized = (radians + Math.PI) / (2 * Math.PI);
         const wrapped = normalized - Math.floor(normalized);
@@ -61842,40 +59108,34 @@ class SmoothControls extends EventDispatcher {
         const yDelta = yTwo - yOne;
         return Math.sqrt(xDelta * xDelta + yDelta * yDelta);
     }
-    handleSinglePointerMove(pointer) {
-        const { clientX, clientY } = pointer;
-        const deltaTheta = this.pixelLengthToSphericalAngle(clientX - this.lastPointerPosition.clientX);
-        const deltaPhi = this.pixelLengthToSphericalAngle(clientY - this.lastPointerPosition.clientY);
-        this.lastPointerPosition.clientX = clientX;
-        this.lastPointerPosition.clientY = clientY;
+    handleSinglePointerMove(dx, dy) {
+        const deltaTheta = this.pixelLengthToSphericalAngle(dx);
+        const deltaPhi = this.pixelLengthToSphericalAngle(dy);
         if (this.isUserPointing === false) {
             this.isUserPointing = true;
-            this.dispatchEvent({ type: 'pointer-change-start', pointer: Object.assign({}, pointer) });
+            this.dispatchEvent({ type: 'pointer-change-start' });
         }
         this.userAdjustOrbit(deltaTheta, deltaPhi, 0);
     }
     initializePan() {
-        this.scene.element[$panElement].style.opacity = 1;
         const { theta, phi } = this.spherical;
         const psi = theta - this.scene.yaw;
-        this.panPerPixel =
-            PAN_SENSITIVITY / this.element.getBoundingClientRect().height;
+        this.panPerPixel = PAN_SENSITIVITY / this.scene.height;
         this.panProjection.set(-Math.cos(psi), -Math.cos(phi) * Math.sin(psi), 0, 0, Math.sin(phi), 0, Math.sin(psi), -Math.cos(phi) * Math.cos(psi), 0);
     }
-    movePan(thisX, thisY) {
-        const { scene, lastPointerPosition } = this;
-        const dxy = vector3.set(thisX - lastPointerPosition.clientX, thisY - lastPointerPosition.clientY, 0);
-        const metersPerPixel = this.spherical.radius * this.panPerPixel;
+    movePan(dx, dy) {
+        const { scene } = this;
+        const dxy = vector3.set(dx, dy, 0);
+        const metersPerPixel = this.spherical.radius * Math.exp(this.logFov) * this.panPerPixel;
         dxy.multiplyScalar(metersPerPixel);
-        lastPointerPosition.clientX = thisX;
-        lastPointerPosition.clientY = thisY;
         const target = scene.getTarget();
         target.add(dxy.applyMatrix3(this.panProjection));
         scene.boundingSphere.clampPoint(target, target);
         scene.setTarget(target.x, target.y, target.z);
+        this.dispatchChange();
     }
     recenter(pointer) {
-        if (!this.enablePan ||
+        if (performance.now() > this.startTime + TAP_MS ||
             Math.abs(pointer.clientX - this.startPointerPosition.clientX) >
                 TAP_DISTANCE ||
             Math.abs(pointer.clientY - this.startPointerPosition.clientY) >
@@ -61883,7 +59143,6 @@ class SmoothControls extends EventDispatcher {
             return;
         }
         const { scene } = this;
-        scene.element[$panElement].style.opacity = 0;
         const hit = scene.positionAndNormalFromPoint(scene.getNDC(pointer.clientX, pointer.clientY));
         if (hit == null) {
             const { cameraTarget } = scene.element;
@@ -61895,19 +59154,14 @@ class SmoothControls extends EventDispatcher {
         else {
             scene.target.worldToLocal(hit.position);
             scene.setTarget(hit.position.x, hit.position.y, hit.position.z);
-            // Zoom in on the tapped point.
-            this.userAdjustOrbit(0, 0, -5 * ZOOM_SENSITIVITY);
         }
     }
     resetRadius() {
-        if (!this.enablePan || this.panPerPixel === 0) {
+        const { scene } = this;
+        const hit = scene.positionAndNormalFromPoint(vector2.set(0, 0));
+        if (hit == null) {
             return;
         }
-        const { scene } = this;
-        scene.element[$panElement].style.opacity = 0;
-        const hit = scene.positionAndNormalFromPoint(vector2.set(0, 0));
-        if (hit == null)
-            return;
         scene.target.worldToLocal(hit.position);
         const goalTarget = scene.getTarget();
         const { theta, phi } = this.spherical;
@@ -61923,54 +59177,40 @@ class SmoothControls extends EventDispatcher {
         // camera itself does not move, unless it hits a radius bound.
         this.setOrbit(undefined, undefined, this.goalSpherical.radius - dr);
     }
-    onPointerDown(fn) {
-        if (!this.canInteract) {
-            return;
-        }
-        this.isUserPointing = false;
-        fn();
-    }
     onTouchChange(event) {
-        const { targetTouches, changedTouches } = event;
-        switch (targetTouches.length) {
-            default:
-            case 1:
-                this.touchMode = this.touchModeRotate;
-                this.lastPointerPosition.clientX = targetTouches[0].clientX;
-                this.lastPointerPosition.clientY = targetTouches[0].clientY;
-                if (targetTouches[0].identifier ===
-                    changedTouches[0].identifier) { // finger down
-                    this.startPointerPosition.clientX = targetTouches[0].clientX;
-                    this.startPointerPosition.clientY = targetTouches[0].clientY;
-                }
-                else { // finger up
-                    this.resetRadius();
-                }
-                break;
-            case 2:
-                this.touchMode = (this.touchDecided && this.touchMode === null) ?
-                    null :
-                    this.touchModeZoom;
-                this.touchDecided = true;
-                if (this.enablePan) {
-                    this.initializePan();
-                    const x = 0.5 * (targetTouches[0].clientX + targetTouches[1].clientX);
-                    const y = 0.5 * (targetTouches[0].clientY + targetTouches[1].clientY);
-                    this.lastPointerPosition.clientX = x;
-                    this.lastPointerPosition.clientY = y;
-                    this.startPointerPosition.clientX = x;
-                    this.startPointerPosition.clientY = y;
-                }
-                break;
+        if (this.pointers.length === 1) {
+            this.touchMode = this.touchModeRotate;
         }
-        this.lastTouches = targetTouches;
+        else {
+            if (this._disableZoom) {
+                this.touchMode = null;
+                this.element.removeEventListener('touchmove', this.disableScroll);
+                return;
+            }
+            this.touchMode = (this.touchDecided && this.touchMode === null) ?
+                null :
+                this.touchModeZoom;
+            this.touchDecided = true;
+            this.element.addEventListener('touchmove', this.disableScroll, { passive: false });
+            this.lastSeparation =
+                this.twoTouchDistance(this.pointers[0], this.pointers[1]);
+            if (this.enablePan && this.touchMode != null) {
+                this.initializePan();
+                if (!event.altKey) { // user interaction, not prompt
+                    this.scene.element[$panElement].style.opacity = 1;
+                }
+            }
+        }
     }
-    onPointerUp() {
-        this.element.style.cursor = 'grab';
+    onMouseDown(event) {
         this.panPerPixel = 0;
-        if (this.isUserPointing) {
-            this.dispatchEvent({ type: 'pointer-change-end', pointer: Object.assign({}, this.lastPointerPosition) });
+        if (this.enablePan &&
+            (event.button === 2 || event.ctrlKey || event.metaKey ||
+                event.shiftKey)) {
+            this.initializePan();
+            this.scene.element[$panElement].style.opacity = 1;
         }
+        this.element.style.cursor = 'grabbing';
     }
 }
 
@@ -62001,21 +59241,15 @@ const interpolate = (start, end, ease = easeInOutQuad) => (time) => start + (end
  * allocated a percentage of the total time based on their relative weight.
  */
 const sequence = (tracks, weights) => {
-    const totalWeight = weights.reduce((total, weight) => total + weight, 0);
-    const ratios = weights.map(weight => weight / totalWeight);
+    const cumulativeSum = ((sum) => (value) => sum += value);
+    const times = weights.map(cumulativeSum(0));
     return (time) => {
-        let start = 0;
-        let ratio = Infinity;
-        let track = () => 0;
-        for (let i = 0; i < ratios.length; ++i) {
-            ratio = ratios[i];
-            track = tracks[i];
-            if (time <= (start + ratio)) {
-                break;
-            }
-            start += ratio;
-        }
-        return track((time - start) / ratio);
+        time = clamp(time, 0, 1);
+        time *= times[times.length - 1];
+        const i = times.findIndex((val) => val >= time);
+        const start = i < 1 ? 0 : times[i - 1];
+        const end = times[i];
+        return tracks[i]((time - start) / (end - start));
     };
 };
 /**
@@ -62025,12 +59259,12 @@ const sequence = (tracks, weights) => {
  * frames. Frames are only used to indicate the relative length of each keyframe
  * transition, so interpolated values will be computed for fractional frames.
  */
-const timeline = (initialValue, keyframes) => {
+const timeline = (path) => {
     const tracks = [];
     const weights = [];
-    let lastValue = initialValue;
-    for (let i = 0; i < keyframes.length; ++i) {
-        const keyframe = keyframes[i];
+    let lastValue = path.initialValue;
+    for (let i = 0; i < path.keyframes.length; ++i) {
+        const keyframe = path.keyframes[i];
         const { value, frames } = keyframe;
         const ease = keyframe.ease || easeInOutQuad;
         const track = interpolate(lastValue, value, ease);
@@ -62067,21 +59301,27 @@ var __decorate$3 = (undefined && undefined.__decorate) || function (decorators, 
 // @see https://github.com/google/model-viewer/issues/839
 const PROMPT_ANIMATION_TIME = 5000;
 // For timing purposes, a "frame" is a timing agnostic relative unit of time
-// and a "value" is a target value for the keyframe.
-const wiggle = timeline(0, [
-    { frames: 5, value: -1 },
-    { frames: 1, value: -1 },
-    { frames: 8, value: 1 },
-    { frames: 1, value: 1 },
-    { frames: 5, value: 0 },
-    { frames: 18, value: 0 }
-]);
-const fade = timeline(0, [
-    { frames: 1, value: 1 },
-    { frames: 5, value: 1 },
-    { frames: 1, value: 0 },
-    { frames: 6, value: 0 }
-]);
+// and a "value" is a target value for the Frame.
+const wiggle = timeline({
+    initialValue: 0,
+    keyframes: [
+        { frames: 5, value: -1 },
+        { frames: 1, value: -1 },
+        { frames: 8, value: 1 },
+        { frames: 1, value: 1 },
+        { frames: 5, value: 0 },
+        { frames: 18, value: 0 }
+    ]
+});
+const fade = timeline({
+    initialValue: 0,
+    keyframes: [
+        { frames: 1, value: 1 },
+        { frames: 5, value: 1 },
+        { frames: 1, value: 0 },
+        { frames: 6, value: 0 }
+    ]
+});
 const DEFAULT_FOV_DEG = 30;
 const OLD_DEFAULT_FOV_DEG = 45;
 const DEFAULT_MIN_FOV_DEG = 12;
@@ -62180,9 +59420,10 @@ const THIRD_PI = Math.PI / 3.0;
 const QUARTER_PI = HALF_PI / 2.0;
 const TAU = 2.0 * Math.PI;
 const $controls = Symbol('controls');
-const $promptElement = Symbol('promptElement');
 const $panElement = Symbol('panElement');
+const $promptElement = Symbol('promptElement');
 const $promptAnimatedContainer = Symbol('promptAnimatedContainer');
+const $fingerAnimatedContainers = Symbol('fingerAnimatedContainers');
 const $deferInteractionPrompt = Symbol('deferInteractionPrompt');
 const $updateAria = Symbol('updateAria');
 const $updateCameraForRadius = Symbol('updateCameraForRadius');
@@ -62207,7 +59448,7 @@ const $syncMaxCameraOrbit = Symbol('syncMaxCameraOrbit');
 const $syncMinFieldOfView = Symbol('syncMinFieldOfView');
 const $syncMaxFieldOfView = Symbol('syncMaxFieldOfView');
 const ControlsMixin = (ModelViewerElement) => {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t;
     class ControlsModelViewerElement extends ModelViewerElement {
         constructor() {
             super(...arguments);
@@ -62230,19 +59471,23 @@ const ControlsMixin = (ModelViewerElement) => {
             this.interpolationDecay = DECAY_MILLISECONDS;
             this.bounds = 'legacy';
             this[_a] = this.shadowRoot.querySelector('.interaction-prompt');
-            this[_b] = this.shadowRoot.querySelector('.interaction-prompt > .animated-container');
-            this[_c] = this.shadowRoot.querySelector('.pan-target');
-            this[_d] = Infinity;
-            this[_e] = 0;
-            this[_f] = Infinity;
-            this[_g] = false;
+            this[_b] = this.shadowRoot.querySelector('#prompt');
+            this[_c] = [
+                this.shadowRoot.querySelector('#finger0'),
+                this.shadowRoot.querySelector('#finger1')
+            ];
+            this[_d] = this.shadowRoot.querySelector('.pan-target');
+            this[_e] = Infinity;
+            this[_f] = 0;
+            this[_g] = Infinity;
             this[_h] = false;
-            this[_j] = new SmoothControls(this[$scene].camera, this[$userInputElement], this[$scene]);
-            this[_k] = new Spherical();
-            this[_l] = false;
+            this[_j] = false;
+            this[_k] = new SmoothControls(this[$scene].camera, this[$userInputElement], this[$scene]);
+            this[_l] = new Spherical();
             this[_m] = false;
             this[_o] = false;
-            this[_p] = () => {
+            this[_p] = false;
+            this[_q] = () => {
                 if (!isFinite(this[$focusedTime])) {
                     this[$focusedTime] = performance.now();
                 }
@@ -62255,7 +59500,7 @@ const ControlsMixin = (ModelViewerElement) => {
                     this[$waitingToPromptUser] = true;
                 }
             };
-            this[_q] = () => {
+            this[_r] = () => {
                 if (this.interactionPrompt !== InteractionPromptStrategy.WHEN_FOCUSED) {
                     return;
                 }
@@ -62264,7 +59509,7 @@ const ControlsMixin = (ModelViewerElement) => {
                 this[$promptElementVisibleTime] = Infinity;
                 this[$focusedTime] = Infinity;
             };
-            this[_r] = ({ source }) => {
+            this[_s] = ({ source }) => {
                 this[$updateAria]();
                 this[$needsRender]();
                 if (source === ChangeSource.USER_INTERACTION) {
@@ -62273,7 +59518,7 @@ const ControlsMixin = (ModelViewerElement) => {
                 }
                 this.dispatchEvent(new CustomEvent('camera-change', { detail: { source } }));
             };
-            this[_s] = (event) => {
+            this[_t] = (event) => {
                 if (event.type === 'pointer-change-start') {
                     this[$container].classList.add('pointer-tumbling');
                 }
@@ -62341,6 +59586,7 @@ const ControlsMixin = (ModelViewerElement) => {
         updated(changedProperties) {
             super.updated(changedProperties);
             const controls = this[$controls];
+            const scene = this[$scene];
             const input = this[$userInputElement];
             if (changedProperties.has('cameraControls')) {
                 if (this.cameraControls) {
@@ -62364,12 +59610,9 @@ const ControlsMixin = (ModelViewerElement) => {
             }
             if (changedProperties.has('enablePan')) {
                 controls.enablePan = this.enablePan;
-                this.oncontextmenu = this.enablePan ? function () {
-                    return false;
-                } : null;
             }
             if (changedProperties.has('bounds')) {
-                this[$scene].tightBounds = this.bounds === 'tight';
+                scene.tightBounds = this.bounds === 'tight';
             }
             if (changedProperties.has('interactionPrompt') ||
                 changedProperties.has('cameraControls') ||
@@ -62381,9 +59624,6 @@ const ControlsMixin = (ModelViewerElement) => {
                 else {
                     this[$deferInteractionPrompt]();
                 }
-            }
-            if (changedProperties.has('interactionPromptStyle')) {
-                this[$promptElement].classList.toggle('wiggle', this.interactionPromptStyle === InteractionPromptStyle.WIGGLE);
             }
             if (changedProperties.has('interactionPolicy')) {
                 const interactionPolicy = this.interactionPolicy;
@@ -62399,12 +59639,12 @@ const ControlsMixin = (ModelViewerElement) => {
             }
             if (changedProperties.has('interpolationDecay')) {
                 controls.setDamperDecayTime(this.interpolationDecay);
-                this[$scene].setTargetDamperDecayTime(this.interpolationDecay);
+                scene.setTargetDamperDecayTime(this.interpolationDecay);
             }
             if (this[$jumpCamera] === true) {
                 Promise.resolve().then(() => {
                     controls.jumpToGoal();
-                    this[$scene].jumpToGoal();
+                    scene.jumpToGoal();
                     this[$jumpCamera] = false;
                 });
             }
@@ -62421,21 +59661,97 @@ const ControlsMixin = (ModelViewerElement) => {
             this.requestUpdate('fieldOfView');
             this.requestUpdate('minCameraOrbit');
             this.requestUpdate('maxCameraOrbit');
-            await this.requestUpdate('cameraOrbit');
+            this.requestUpdate('cameraOrbit');
+            await this.updateComplete;
         }
-        [(_a = $promptElement, _b = $promptAnimatedContainer, _c = $panElement, _d = $focusedTime, _e = $lastPromptOffset, _f = $promptElementVisibleTime, _g = $userHasInteracted, _h = $waitingToPromptUser, _j = $controls, _k = $lastSpherical, _l = $jumpCamera, _m = $initialized, _o = $maintainThetaPhi, $syncFieldOfView)](style) {
+        interact(duration, finger0, finger1) {
+            const inputElement = this[$userInputElement];
+            const fingerElements = this[$fingerAnimatedContainers];
+            if (fingerElements[0].style.opacity === '1') {
+                console.warn('interact() failed because an existing interaction is running.');
+                return;
+            }
+            const xy = new Array();
+            xy.push({ x: timeline(finger0.x), y: timeline(finger0.y) });
+            const positions = [{ x: xy[0].x(0), y: xy[0].y(0) }];
+            if (finger1 != null) {
+                xy.push({ x: timeline(finger1.x), y: timeline(finger1.y) });
+                positions.push({ x: xy[1].x(0), y: xy[1].y(0) });
+            }
+            let startTime = performance.now();
+            const { width, height } = this[$scene];
+            const dispatchTouches = (type) => {
+                for (const [i, position] of positions.entries()) {
+                    const { style } = fingerElements[i];
+                    style.transform = `translateX(${width * position.x}px) translateY(${height * position.y}px)`;
+                    if (type === 'pointerdown') {
+                        style.opacity = '1';
+                    }
+                    else if (type === 'pointerup') {
+                        style.opacity = '0';
+                    }
+                    const init = {
+                        pointerId: i - 5678,
+                        pointerType: 'touch',
+                        target: inputElement,
+                        clientX: width * position.x,
+                        clientY: height * position.y,
+                        altKey: true // flag that this is not a user interaction
+                    };
+                    inputElement.dispatchEvent(new PointerEvent(type, init));
+                }
+            };
+            const moveTouches = () => {
+                // cancel interaction if user interacts
+                if (this[$controls].isUserChange) {
+                    for (const fingerElement of this[$fingerAnimatedContainers]) {
+                        fingerElement.style.opacity = '0';
+                    }
+                    dispatchTouches('pointercancel');
+                    return;
+                }
+                const time = Math.min(1, (performance.now() - startTime) / duration);
+                for (const [i, position] of positions.entries()) {
+                    position.x = xy[i].x(time);
+                    position.y = xy[i].y(time);
+                }
+                dispatchTouches('pointermove');
+                if (time < 1) {
+                    requestAnimationFrame(moveTouches);
+                }
+                else {
+                    dispatchTouches('pointerup');
+                    document.removeEventListener('visibilitychange', onVisibilityChange);
+                }
+            };
+            const onVisibilityChange = () => {
+                let elapsed = 0;
+                if (document.visibilityState === 'hidden') {
+                    elapsed = performance.now() - startTime;
+                }
+                else {
+                    startTime = performance.now() - elapsed;
+                }
+            };
+            document.addEventListener('visibilitychange', onVisibilityChange);
+            dispatchTouches('pointerdown');
+            requestAnimationFrame(moveTouches);
+        }
+        [(_a = $promptElement, _b = $promptAnimatedContainer, _c = $fingerAnimatedContainers, _d = $panElement, _e = $focusedTime, _f = $lastPromptOffset, _g = $promptElementVisibleTime, _h = $userHasInteracted, _j = $waitingToPromptUser, _k = $controls, _l = $lastSpherical, _m = $jumpCamera, _o = $initialized, _p = $maintainThetaPhi, $syncFieldOfView)](style) {
             const scene = this[$scene];
             scene.framedFoVDeg = style[0] * 180 / Math.PI;
             this[$controls].setFieldOfView(scene.adjustedFoV(scene.framedFoVDeg));
         }
         [$syncCameraOrbit](style) {
+            const controls = this[$controls];
             if (this[$maintainThetaPhi]) {
                 const { theta, phi } = this.getCameraOrbit();
                 style[0] = theta;
                 style[1] = phi;
                 this[$maintainThetaPhi] = false;
             }
-            this[$controls].setOrbit(style[0], style[1], style[2]);
+            controls.isUserChange = false;
+            controls.setOrbit(style[0], style[1], style[2]);
         }
         [$syncMinCameraOrbit](style) {
             this[$controls].applyOptions({
@@ -62468,6 +59784,7 @@ const ControlsMixin = (ModelViewerElement) => {
             if (!this[$renderer].arRenderer.isPresenting) {
                 this[$scene].setTarget(x, y, z);
             }
+            this[$controls].isUserChange = false;
             this[$renderer].arRenderer.updateTarget();
         }
         [$tick](time, delta) {
@@ -62475,6 +59792,8 @@ const ControlsMixin = (ModelViewerElement) => {
             if (this[$renderer].isPresenting || !this[$hasTransitioned]()) {
                 return;
             }
+            const controls = this[$controls];
+            const scene = this[$scene];
             const now = performance.now();
             if (this[$waitingToPromptUser]) {
                 const thresholdTime = this.interactionPrompt === InteractionPromptStrategy.AUTO ?
@@ -62489,7 +59808,6 @@ const ControlsMixin = (ModelViewerElement) => {
             }
             if (isFinite(this[$promptElementVisibleTime]) &&
                 this.interactionPromptStyle === InteractionPromptStyle.WIGGLE) {
-                const scene = this[$scene];
                 const animationTime = ((now - this[$promptElementVisibleTime]) / PROMPT_ANIMATION_TIME) %
                     1;
                 const offset = wiggle(animationTime);
@@ -62500,12 +59818,17 @@ const ControlsMixin = (ModelViewerElement) => {
                     const deltaTheta = (offset - this[$lastPromptOffset]) * Math.PI / 16;
                     this[$promptAnimatedContainer].style.transform =
                         `translateX(${xOffset}px)`;
-                    this[$controls].adjustOrbit(deltaTheta, 0, 0);
+                    controls.isUserChange = false;
+                    controls.adjustOrbit(deltaTheta, 0, 0);
                     this[$lastPromptOffset] = offset;
                 }
             }
-            this[$controls].update(time, delta);
-            this[$scene].updateTarget(delta);
+            controls.update(time, delta);
+            if (scene.updateTarget(delta)) {
+                const source = controls.isUserChange ? ChangeSource.USER_INTERACTION :
+                    ChangeSource.NONE;
+                this[$onChange]({ type: 'change', source });
+            }
         }
         [$deferInteractionPrompt]() {
             // Effectively cancel the timer waiting for user interaction:
@@ -62545,7 +59868,8 @@ const ControlsMixin = (ModelViewerElement) => {
             const fovRatio = scene.adjustedFoV(scene.framedFoVDeg) / oldFramedFoV;
             const fov = controls.getFieldOfView() * (isFinite(fovRatio) ? fovRatio : 1);
             controls.updateAspect(this[$scene].aspect);
-            await this.requestUpdate('maxFieldOfView', this.maxFieldOfView);
+            this.requestUpdate('maxFieldOfView', this.maxFieldOfView);
+            await this.updateComplete;
             this[$controls].setFieldOfView(fov);
             this.jumpCameraToGoal();
         }
@@ -62566,9 +59890,9 @@ const ControlsMixin = (ModelViewerElement) => {
             this.jumpCameraToGoal();
         }
     }
-    _p = $onFocus, _q = $onBlur, _r = $onChange, _s = $onPointerChange;
+    _q = $onFocus, _r = $onBlur, _s = $onChange, _t = $onPointerChange;
     __decorate$3([
-        property({ type: Boolean, attribute: 'camera-controls' })
+        e$3({ type: Boolean, attribute: 'camera-controls' })
     ], ControlsModelViewerElement.prototype, "cameraControls", void 0);
     __decorate$3([
         style({
@@ -62576,7 +59900,7 @@ const ControlsMixin = (ModelViewerElement) => {
             observeEffects: true,
             updateHandler: $syncCameraOrbit
         }),
-        property({ type: String, attribute: 'camera-orbit', hasChanged: () => true })
+        e$3({ type: String, attribute: 'camera-orbit', hasChanged: () => true })
     ], ControlsModelViewerElement.prototype, "cameraOrbit", void 0);
     __decorate$3([
         style({
@@ -62584,7 +59908,7 @@ const ControlsMixin = (ModelViewerElement) => {
             observeEffects: true,
             updateHandler: $syncCameraTarget
         }),
-        property({ type: String, attribute: 'camera-target', hasChanged: () => true })
+        e$3({ type: String, attribute: 'camera-target', hasChanged: () => true })
     ], ControlsModelViewerElement.prototype, "cameraTarget", void 0);
     __decorate$3([
         style({
@@ -62592,62 +59916,62 @@ const ControlsMixin = (ModelViewerElement) => {
             observeEffects: true,
             updateHandler: $syncFieldOfView
         }),
-        property({ type: String, attribute: 'field-of-view', hasChanged: () => true })
+        e$3({ type: String, attribute: 'field-of-view', hasChanged: () => true })
     ], ControlsModelViewerElement.prototype, "fieldOfView", void 0);
     __decorate$3([
         style({
             intrinsics: minCameraOrbitIntrinsics,
             updateHandler: $syncMinCameraOrbit
         }),
-        property({ type: String, attribute: 'min-camera-orbit', hasChanged: () => true })
+        e$3({ type: String, attribute: 'min-camera-orbit', hasChanged: () => true })
     ], ControlsModelViewerElement.prototype, "minCameraOrbit", void 0);
     __decorate$3([
         style({
             intrinsics: maxCameraOrbitIntrinsics,
             updateHandler: $syncMaxCameraOrbit
         }),
-        property({ type: String, attribute: 'max-camera-orbit', hasChanged: () => true })
+        e$3({ type: String, attribute: 'max-camera-orbit', hasChanged: () => true })
     ], ControlsModelViewerElement.prototype, "maxCameraOrbit", void 0);
     __decorate$3([
         style({
             intrinsics: minFieldOfViewIntrinsics,
             updateHandler: $syncMinFieldOfView
         }),
-        property({ type: String, attribute: 'min-field-of-view', hasChanged: () => true })
+        e$3({ type: String, attribute: 'min-field-of-view', hasChanged: () => true })
     ], ControlsModelViewerElement.prototype, "minFieldOfView", void 0);
     __decorate$3([
         style({ intrinsics: fieldOfViewIntrinsics, updateHandler: $syncMaxFieldOfView }),
-        property({ type: String, attribute: 'max-field-of-view', hasChanged: () => true })
+        e$3({ type: String, attribute: 'max-field-of-view', hasChanged: () => true })
     ], ControlsModelViewerElement.prototype, "maxFieldOfView", void 0);
     __decorate$3([
-        property({ type: Number, attribute: 'interaction-prompt-threshold' })
+        e$3({ type: Number, attribute: 'interaction-prompt-threshold' })
     ], ControlsModelViewerElement.prototype, "interactionPromptThreshold", void 0);
     __decorate$3([
-        property({ type: String, attribute: 'interaction-prompt-style' })
+        e$3({ type: String, attribute: 'interaction-prompt-style' })
     ], ControlsModelViewerElement.prototype, "interactionPromptStyle", void 0);
     __decorate$3([
-        property({ type: String, attribute: 'interaction-prompt' })
+        e$3({ type: String, attribute: 'interaction-prompt' })
     ], ControlsModelViewerElement.prototype, "interactionPrompt", void 0);
     __decorate$3([
-        property({ type: String, attribute: 'interaction-policy' })
+        e$3({ type: String, attribute: 'interaction-policy' })
     ], ControlsModelViewerElement.prototype, "interactionPolicy", void 0);
     __decorate$3([
-        property({ type: Number, attribute: 'orbit-sensitivity' })
+        e$3({ type: Number, attribute: 'orbit-sensitivity' })
     ], ControlsModelViewerElement.prototype, "orbitSensitivity", void 0);
     __decorate$3([
-        property({ type: String, attribute: 'touch-action' })
+        e$3({ type: String, attribute: 'touch-action' })
     ], ControlsModelViewerElement.prototype, "touchAction", void 0);
     __decorate$3([
-        property({ type: Boolean, attribute: 'disable-zoom' })
+        e$3({ type: Boolean, attribute: 'disable-zoom' })
     ], ControlsModelViewerElement.prototype, "disableZoom", void 0);
     __decorate$3([
-        property({ type: Boolean, attribute: 'enable-pan' })
+        e$3({ type: Boolean, attribute: 'enable-pan' })
     ], ControlsModelViewerElement.prototype, "enablePan", void 0);
     __decorate$3([
-        property({ type: Number, attribute: 'interpolation-decay' })
+        e$3({ type: Number, attribute: 'interpolation-decay' })
     ], ControlsModelViewerElement.prototype, "interpolationDecay", void 0);
     __decorate$3([
-        property({ type: String, attribute: 'bounds' })
+        e$3({ type: String, attribute: 'bounds' })
     ], ControlsModelViewerElement.prototype, "bounds", void 0);
     return ControlsModelViewerElement;
 };
@@ -63060,19 +60384,19 @@ const LoadingMixin = (ModelViewerElement) => {
         }
     }
     __decorate$2([
-        property({ type: String })
+        e$3({ type: String })
     ], LoadingModelViewerElement.prototype, "poster", void 0);
     __decorate$2([
-        property({ type: String })
+        e$3({ type: String })
     ], LoadingModelViewerElement.prototype, "reveal", void 0);
     __decorate$2([
-        property({ type: String })
+        e$3({ type: String })
     ], LoadingModelViewerElement.prototype, "loading", void 0);
     __decorate$2([
-        property({ type: Boolean, attribute: 'generate-schema' })
+        e$3({ type: Boolean, attribute: 'generate-schema' })
     ], LoadingModelViewerElement.prototype, "generateSchema", void 0);
     __decorate$2([
-        property({ type: Boolean, attribute: 'seamless-poster' })
+        e$3({ type: Boolean, attribute: 'seamless-poster' })
     ], LoadingModelViewerElement.prototype, "seamlessPoster", void 0);
     return LoadingModelViewerElement;
 };
@@ -63802,8 +61126,7 @@ class GLTFWriter {
 
 		const texture = reference.clone();
 
-		// TODO Use new Source() instead?
-		texture.source = new Texture$1( canvas ).source;
+		texture.source = new Source( canvas );
 
 		return texture;
 
@@ -67235,13 +64558,13 @@ const SceneGraphMixin = (ModelViewerElement) => {
         }
     }
     __decorate$1([
-        property({ type: String, attribute: 'variant-name' })
+        e$3({ type: String, attribute: 'variant-name' })
     ], SceneGraphModelViewerElement.prototype, "variantName", void 0);
     __decorate$1([
-        property({ type: String, attribute: 'orientation' })
+        e$3({ type: String, attribute: 'orientation' })
     ], SceneGraphModelViewerElement.prototype, "orientation", void 0);
     __decorate$1([
-        property({ type: String, attribute: 'scale' })
+        e$3({ type: String, attribute: 'scale' })
     ], SceneGraphModelViewerElement.prototype, "scale", void 0);
     return SceneGraphModelViewerElement;
 };
@@ -67337,14 +64660,14 @@ const StagingMixin = (ModelViewerElement) => {
     }
     _c = $onCameraChange;
     __decorate([
-        property({ type: Boolean, attribute: 'auto-rotate' })
+        e$3({ type: Boolean, attribute: 'auto-rotate' })
     ], StagingModelViewerElement.prototype, "autoRotate", void 0);
     __decorate([
-        property({ type: Number, attribute: 'auto-rotate-delay' })
+        e$3({ type: Number, attribute: 'auto-rotate-delay' })
     ], StagingModelViewerElement.prototype, "autoRotateDelay", void 0);
     __decorate([
         style({ intrinsics: rotationRateIntrinsics, updateHandler: $syncRotationRate }),
-        property({ type: String, attribute: 'rotation-per-second' })
+        e$3({ type: String, attribute: 'rotation-per-second' })
     ], StagingModelViewerElement.prototype, "rotationPerSecond", void 0);
     return StagingModelViewerElement;
 };
