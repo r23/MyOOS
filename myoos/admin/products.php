@@ -412,7 +412,7 @@ if ($action == 'new_product') {
                        'products_larger_images' => array(),
                        'products_price' => 0.0,
                        'products_base_price' => 1.0,
-					   'products_base_unit' => 0,
+                       'products_base_unit' => 0,
                        'products_product_quantity' => 1.0,
                        'products_base_quantity' => 1.0,
                        'products_weight' => '',
@@ -907,7 +907,7 @@ function calcBasePriceFactor() {
                         </fieldset>						
 <?php
   if (BASE_PRICE == 'true') {
-?>
+      ?>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY; ?></label>
@@ -949,8 +949,7 @@ function calcBasePriceFactor() {
                            </div>
                         </fieldset>
 <?php
-  } 
-?>
+  } ?>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_TAX_CLASS; ?></label>

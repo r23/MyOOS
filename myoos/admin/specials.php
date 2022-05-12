@@ -64,68 +64,68 @@ if (!empty($action)) {
             oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'sID=' . intval($_GET['id']) . '&page=' . intval($nPage)));
             break;
 
-		case 'insert':
-			if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
-				$products_id = oos_db_prepare_input($_POST['products_id']);
-				$products_price = oos_db_prepare_input($_POST['products_price']);
-				$specials_price = oos_db_prepare_input($_POST['specials_price']);
-				$expires_date = oos_db_prepare_input($_POST['expires_date']);
+        case 'insert':
+            if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
+                $products_id = oos_db_prepare_input($_POST['products_id']);
+                $products_price = oos_db_prepare_input($_POST['products_price']);
+                $specials_price = oos_db_prepare_input($_POST['specials_price']);
+                $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-				// insert a product on special
-				if (substr($_POST['specials_price'], -1) == '%') {
-					$productstable = $oostable['products'];
-					$new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
-					$new_special_insert = $new_special_insert_result->fields;
+                // insert a product on special
+                if (substr($_POST['specials_price'], -1) == '%') {
+                    $productstable = $oostable['products'];
+                    $new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
+                    $new_special_insert = $new_special_insert_result->fields;
 
-					$products_price = $new_special_insert['products_price'];
-					$specials_price = ($products_price - (($specials_price / 100) * $products_price));
-				}
+                    $products_price = $new_special_insert['products_price'];
+                    $specials_price = ($products_price - (($specials_price / 100) * $products_price));
+                }
 
-				$dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
-				// product price history
-				$sql_price_array = array('products_id' => intval($products_id),
-										'products_price' => oos_db_input($specials_price),
-										'date_added' => 'now()');
-				oos_db_perform($oostable['products_price_history'], $sql_price_array);
-			}
-			oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
-			break;
+                $dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+                // product price history
+                $sql_price_array = array('products_id' => intval($products_id),
+                                        'products_price' => oos_db_input($specials_price),
+                                        'date_added' => 'now()');
+                oos_db_perform($oostable['products_price_history'], $sql_price_array);
+            }
+            oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
+            break;
 
-		case 'update':
-			$specials_id = oos_db_prepare_input($_POST['specials_id']);
-			$products_price = oos_db_prepare_input($_POST['products_price']);
-			$specials_price = oos_db_prepare_input($_POST['specials_price']);
-			$expires_date = oos_db_prepare_input($_POST['expires_date']);
+        case 'update':
+            $specials_id = oos_db_prepare_input($_POST['specials_id']);
+            $products_price = oos_db_prepare_input($_POST['products_price']);
+            $specials_price = oos_db_prepare_input($_POST['specials_price']);
+            $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-			if (substr($specials_price, -1) == '%') {
-				$specials_price = ($products_price - (($specials_price / 100) * $products_price));
-			}
+            if (substr($specials_price, -1) == '%') {
+                $specials_price = ($products_price - (($specials_price / 100) * $products_price));
+            }
 
-			$dbconn->Execute("UPDATE " . $oostable['specials'] . " SET specials_new_products_price = '" . oos_db_input($specials_price) . "', specials_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "', date_status_change = now(), status = 1 WHERE specials_id = '" .intval($specials_id) . "'");
-         
-			$specialstable = $oostable['specials'];
-			$query = "SELECT products_id FROM $specialstable WHERE specials_id = '" . intval($specials_id) . "'";
-			$products_id = $dbconn->GetOne($query);
+            $dbconn->Execute("UPDATE " . $oostable['specials'] . " SET specials_new_products_price = '" . oos_db_input($specials_price) . "', specials_last_modified = now(), expires_date = '" . oos_db_input($expires_date) . "', date_status_change = now(), status = 1 WHERE specials_id = '" .intval($specials_id) . "'");
 
-			// product price history
-			$sql_price_array = array('products_id' => intval($products_id),
-									'products_price' => oos_db_input($specials_price),
-									'date_added' => 'now()');
-			oos_db_perform($oostable['products_price_history'], $sql_price_array);
+            $specialstable = $oostable['specials'];
+            $query = "SELECT products_id FROM $specialstable WHERE specials_id = '" . intval($specials_id) . "'";
+            $products_id = $dbconn->GetOne($query);
+
+            // product price history
+            $sql_price_array = array('products_id' => intval($products_id),
+                                    'products_price' => oos_db_input($specials_price),
+                                    'date_added' => 'now()');
+            oos_db_perform($oostable['products_price_history'], $sql_price_array);
 
 
-			oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . intval($specials_id)));
-			break;
+            oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . intval($specials_id)));
+            break;
 
-		case 'deleteconfirm':
-			$specials_id = oos_db_prepare_input($_GET['sID']);
+        case 'deleteconfirm':
+            $specials_id = oos_db_prepare_input($_GET['sID']);
 
-			$specialstable = $oostable['specials'];
-			$dbconn->Execute("DELETE FROM $specialstable WHERE specials_id = '" . oos_db_input($specials_id) . "'");
+            $specialstable = $oostable['specials'];
+            $dbconn->Execute("DELETE FROM $specialstable WHERE specials_id = '" . oos_db_input($specials_id) . "'");
 
-			oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
-			break;
-	}
+            oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
+            break;
+    }
 }
 
 require 'includes/header.php';
@@ -230,7 +230,7 @@ if (($action == 'new') || ($action == 'edit')) {
 				<form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post">
 					<?php if ($form_action == 'update') {
         echo oos_draw_hidden_field('specials_id', intval($sID));
-		echo oos_draw_hidden_field('products_price', (isset($sInfo->products_price) ? $sInfo->products_price : ''));
+        echo oos_draw_hidden_field('products_price', (isset($sInfo->products_price) ? $sInfo->products_price : ''));
     } ?>
 
 <?php
@@ -270,14 +270,12 @@ if (($action == 'new') || ($action == 'edit')) {
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SPECIALS_PRODUCT; ?></label>
                            <div class="col-md-10">
-								<?php echo oos_draw_products_pull_down('products_id', $specials_array);
-         ?>
+								<?php echo oos_draw_products_pull_down('products_id', $specials_array); ?>
                            </div>
                         </div>
                      </fieldset>
 <?php
-    } 
-?>
+    } ?>
                      <fieldset>
                         <div class="form-group row mb-2">
                            <label class="col-md-2 col-form-label" for="input-id-1"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?></label>
@@ -370,7 +368,7 @@ if (($action == 'new') || ($action == 'edit')) {
         if ($specials['status'] == '1') {
             echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['specials'], 'action=setflag&flag=0&id=' . $specials['specials_id']) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
         } else {
-			echo '<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $sInfo->specials_id . '&action=edit') . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+            echo '<a href="' . oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $sInfo->specials_id . '&action=edit') . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
         } ?></td>
                 <td class="text-right"><?php if (isset($sInfo) && is_object($sInfo) && ($specials['specials_id'] == $sInfo->specials_id)) {
             echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
