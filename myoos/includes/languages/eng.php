@@ -525,6 +525,8 @@ $aLang = [
 'price_reduced_from'   => 'Reduced from',
 'price_rrp'            => 'RRP',
 
+'only_until'           => 'Only until %s!',
+
 'in_stock'             => 'In Stock',
 'out_of_stock'         => 'available again',
 'available_from'       => 'available from approx. %s',

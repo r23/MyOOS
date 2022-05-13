@@ -33,7 +33,8 @@ $products_descriptiontable = $oostable['products_description'];
 $specialstable = $oostable['specials'];
 $sql = "SELECT p.products_id, pd.products_name, pd.products_short_description, p.products_price, p.products_tax_class_id, 
 				p.products_units_id, p.products_quantity_order_min, p.products_quantity_order_max,
-				p.products_product_quantity, p.products_image, p.products_base_price, p.products_base_unit, s.specials_new_products_price 
+				p.products_product_quantity, p.products_image, p.products_base_price, p.products_base_unit, 
+				s.specials_new_products_price, s.expires_date 
           FROM $productstable p,
                $products_descriptiontable pd,
                $specialstable s
@@ -66,6 +67,8 @@ if ($new_specials_result->RecordCount() >= MIN_DISPLAY_NEW_SPECILAS) {
         $aCategoryPath = [];
         $aCategoryPath = oos_get_category_path($new_specials['products_id']);
 
+		$only_until = sprintf($aLang['only_until'], oos_date_short($new_specials['expires_date']));
+
         $aSpecials[] = ['products_id' => $new_specials['products_id'],
                                     'products_image' => $new_specials['products_image'],
                                     'products_name' => $new_specials['products_name'],
@@ -79,6 +82,8 @@ if ($new_specials_result->RecordCount() >= MIN_DISPLAY_NEW_SPECILAS) {
                                     'products_base_price' => $new_specials['products_base_price'],
                                     'products_units' => $new_specials['products_units_id'],
                                     'products_price' => $new_specials_product_price,
+									'expires_date'  => $new_specials['expires_date'],
+									'only_until' => $only_until,
                                     'products_special_price' => $new_specials_product_special_price,
                                     'base_product_price' => $new_specials_base_product_price,
                                     'base_product_special_price' => $new_specials_base_product_special_price];

@@ -486,7 +486,7 @@ $aLang = [
 
 'text_tax_incl'        => 'Preisangaben inkl. gesetzl. MwSt.',
 'tax_incl_available_from'   => 'inkl. %s MwSt.',
-'text_tax_add'         => 'zzgl. gesetzl. MwSt.',
+'text_tax_add'          => 'zzgl. gesetzl. MwSt.',
 'tax_info_excl'         => 'exkl. MwSt.',
 'text_shipping'         => ' und zzgl. <a href="%s">Service- und Versandkosten</a>.',
 
@@ -496,17 +496,19 @@ $aLang = [
 
 
 'price'                => 'Preis',
-'price_from'          => 'Ab',
+'price_from'           => 'Ab',
 
 'price_reduced_from'   => 'Statt',
 'price_rrp'            => 'UVP',
 
-'in_stock' => 'sofort lieferbar',
+'only_until'   => 'Nur bis zum %s!',
+
+'in_stock'     => 'sofort lieferbar',
 'out_of_stock' => 'später wieder lieferbar',
 'available_from'	=> 'lieferbar ab ca. %s',
 
 'text_info_minimum_order_value' => 'Bitte beachten Sie den Mindestbestellwert von %s',
-'warning_minimum_order_value' => 'Der Mindestbestellwert von %s wurde noch nicht erreicht. Daher ist aktuell mit diesem Warenkorb keine Bestellung möglich.',
+'warning_minimum_order_value'   => 'Der Mindestbestellwert von %s wurde noch nicht erreicht. Daher ist aktuell mit diesem Warenkorb keine Bestellung möglich.',
 
 
 ];
