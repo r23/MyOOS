@@ -382,7 +382,7 @@ if ($result === false) {
     echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
-$result = $db->Execute("ALTER TABLE  " . $table . " ADD `specials_start_date` DATETIME NOT NULL AFTER `specials_date_added`");
+$result = $db->Execute("ALTER TABLE  " . $table . " ADD `specials_start_date` DATETIME NULL AFTER `specials_date_added`");
 if ($result === false) {
     echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
 } else {
