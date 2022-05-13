@@ -89,7 +89,7 @@ function oos_expire_specials()
 
     if ($result->RecordCount() > 0) {
         while ($specials = $result->fields) {
-            oos_set_specials_status($specials['specials_id'], '0');
+            oos_set_specials_status($specials['specials_id'], 0);
 
             // Move that ADOdb pointer!
             $result->MoveNext();
