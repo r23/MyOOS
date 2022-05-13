@@ -124,6 +124,11 @@ function oosDoUpgrade2446($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $d
     include("oos2446.php");
 }
 
+function oosDoUpgrade2447($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
+{
+    global $db, $currentlang, $update;
+    include("oos2447.php");
+}
 
 function print_SelectOOS()
 {
@@ -159,6 +164,8 @@ function print_SelectOOS()
        '   <label for="2445"> myOOS 2.4.45</label> ' . "\n" .
        '    <input type="radio" id="2446" name="op" value="myOOS 2.4.46">' . "\n" .
        '   <label for="2446"> myOOS 2.4.46</label> ' . "\n" .
+       '    <input type="radio" id="2447" name="op" value="myOOS 2.4.47">' . "\n" .
+       '   <label for="2447"> myOOS 2.4.47</label> ' . "\n" .	   
        ' </fieldset>' . "\n";
     print_FormHidden();
     echo '<table width="50%" align="center">' . "\n" .
