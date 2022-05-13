@@ -691,7 +691,6 @@ function DotTip(_ref) {
     position: position,
     noArrow: true,
     focusOnMount: "container",
-    shouldAnchorIncludePadding: true,
     role: "dialog",
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Editor tips'),
     onClick: onClick,

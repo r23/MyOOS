@@ -4181,12 +4181,7 @@ function ListViewSidebar() {
     })), (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "edit-widgets-editor__list-view-panel-content",
       ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([contentFocusReturnRef, focusOnMountRef])
-    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalListView, {
-      showNestedBlocks: true,
-      __experimentalHideContainerBlockActions: true,
-      __experimentalFeatures: true,
-      __experimentalPersistentListViewFeatures: true
-    })))
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalListView, null)))
   );
 }
 

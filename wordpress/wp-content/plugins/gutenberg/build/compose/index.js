@@ -3565,6 +3565,10 @@ function useDialog(options) {
  */
 
 
+/**
+ * Internal dependencies
+ */
+
 
 /**
  * Names of control nodes which qualify for disabled behavior.
@@ -3582,7 +3586,7 @@ const DISABLED_ELIGIBLE_NODE_NAMES = ['BUTTON', 'FIELDSET', 'INPUT', 'OPTGROUP',
  * (input fields, links, buttons, etc.) need to be disabled. This hook adds the
  * behavior to disable nested DOM elements to the returned ref.
  *
- * @return {import('react').RefObject<HTMLElement>} Element Ref.
+ * @return {import('react').RefCallback<HTMLElement>} Element Ref.
  *
  * @example
  * ```js
@@ -3600,55 +3604,51 @@ const DISABLED_ELIGIBLE_NODE_NAMES = ['BUTTON', 'FIELDSET', 'INPUT', 'OPTGROUP',
  */
 
 function useDisabled() {
-  /** @type {import('react').RefObject<HTMLElement>} */
-  const node = (0,external_wp_element_namespaceObject.useRef)(null);
+  return useRefEffect(node => {
+    const disable = () => {
+      node.style.setProperty('user-select', 'none');
+      node.style.setProperty('-webkit-user-select', 'none');
+      external_wp_dom_namespaceObject.focus.focusable.find(node).forEach(focusable => {
+        var _node$ownerDocument$d;
 
-  const disable = () => {
-    if (!node.current) {
-      return;
-    }
+        if ((0,external_lodash_namespaceObject.includes)(DISABLED_ELIGIBLE_NODE_NAMES, focusable.nodeName)) {
+          focusable.setAttribute('disabled', '');
+        }
 
-    external_wp_dom_namespaceObject.focus.focusable.find(node.current).forEach(focusable => {
-      if ((0,external_lodash_namespaceObject.includes)(DISABLED_ELIGIBLE_NODE_NAMES, focusable.nodeName)) {
-        focusable.setAttribute('disabled', '');
-      }
+        if (focusable.nodeName === 'A') {
+          focusable.setAttribute('tabindex', '-1');
+        }
 
-      if (focusable.nodeName === 'A') {
-        focusable.setAttribute('tabindex', '-1');
-      }
+        const tabIndex = focusable.getAttribute('tabindex');
 
-      const tabIndex = focusable.getAttribute('tabindex');
+        if (tabIndex !== null && tabIndex !== '-1') {
+          focusable.removeAttribute('tabindex');
+        }
 
-      if (tabIndex !== null && tabIndex !== '-1') {
-        focusable.removeAttribute('tabindex');
-      }
+        if (focusable.hasAttribute('contenteditable')) {
+          focusable.setAttribute('contenteditable', 'false');
+        }
 
-      if (focusable.hasAttribute('contenteditable')) {
-        focusable.setAttribute('contenteditable', 'false');
-      }
+        if ((_node$ownerDocument$d = node.ownerDocument.defaultView) !== null && _node$ownerDocument$d !== void 0 && _node$ownerDocument$d.HTMLElement && focusable instanceof node.ownerDocument.defaultView.HTMLElement) {
+          focusable.style.setProperty('pointer-events', 'none');
+        }
+      });
+    }; // Debounce re-disable since disabling process itself will incur
+    // additional mutations which should be ignored.
+
+
+    const debouncedDisable = (0,external_lodash_namespaceObject.debounce)(disable, undefined, {
+      leading: true
     });
-  }; // Debounce re-disable since disabling process itself will incur
-  // additional mutations which should be ignored.
-
-
-  const debouncedDisable = (0,external_wp_element_namespaceObject.useCallback)((0,external_lodash_namespaceObject.debounce)(disable, undefined, {
-    leading: true
-  }), []);
-  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
     disable();
     /** @type {MutationObserver | undefined} */
 
-    let observer;
-
-    if (node.current) {
-      observer = new window.MutationObserver(debouncedDisable);
-      observer.observe(node.current, {
-        childList: true,
-        attributes: true,
-        subtree: true
-      });
-    }
-
+    const observer = new window.MutationObserver(debouncedDisable);
+    observer.observe(node, {
+      childList: true,
+      attributes: true,
+      subtree: true
+    });
     return () => {
       if (observer) {
         observer.disconnect();
@@ -3657,7 +3657,6 @@ function useDisabled() {
       debouncedDisable.cancel();
     };
   }, []);
-  return node;
 }
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-isomorphic-layout-effect/index.js

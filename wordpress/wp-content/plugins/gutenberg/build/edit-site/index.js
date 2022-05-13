@@ -5511,14 +5511,14 @@ function GenericNavigationButton(_ref) {
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, children)), !icon && children);
 }
 
-function NavigationButton(props) {
+function NavigationButtonAsItem(props) {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorButton, extends_extends({
     as: GenericNavigationButton
   }, props));
 }
 
-function NavigationBackButton(props) {
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorBackButton, extends_extends({
+function NavigationBackButtonAsItem(props) {
+  return createElement(NavigatorBackButton, _extends({
     as: GenericNavigationButton
   }, props));
 }
@@ -6522,13 +6522,13 @@ function ContextMenu(_ref) {
   const hasBorderPanel = useHasBorderPanel(name);
   const hasDimensionsPanel = useHasDimensionsPanel(name);
   const hasLayoutPanel = hasBorderPanel || hasDimensionsPanel;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, null, hasTypographyPanel && (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, null, hasTypographyPanel && (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
     icon: library_typography,
     path: parentMenu + '/typography'
-  }, (0,external_wp_i18n_namespaceObject.__)('Typography')), hasColorPanel && (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+  }, (0,external_wp_i18n_namespaceObject.__)('Typography')), hasColorPanel && (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
     icon: library_color,
     path: parentMenu + '/colors'
-  }, (0,external_wp_i18n_namespaceObject.__)('Colors')), hasLayoutPanel && (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+  }, (0,external_wp_i18n_namespaceObject.__)('Colors')), hasLayoutPanel && (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
     icon: library_layout,
     path: parentMenu + '/layout'
   }, (0,external_wp_i18n_namespaceObject.__)('Layout')));
@@ -7344,14 +7344,24 @@ function ScreenRoot() {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Card, {
     size: "small"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CardBody, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalVStack, {
-    spacing: 2
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Card, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CardMedia, null, (0,external_wp_element_namespaceObject.createElement)(preview, null))), !!(variations !== null && variations !== void 0 && variations.length) && (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+    spacing: 4
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Card, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CardMedia, null, (0,external_wp_element_namespaceObject.createElement)(preview, null))), !!(variations !== null && variations !== void 0 && variations.length) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, null, (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
     path: "/variations"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     justify: "space-between"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_i18n_namespaceObject.__)('Browse styles')), (0,external_wp_element_namespaceObject.createElement)(IconWithCurrentColor, {
     icon: (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_left : chevron_right
-  }))))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CardBody, null, (0,external_wp_element_namespaceObject.createElement)(context_menu, null)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CardDivider, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CardBody, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItem, null, (0,external_wp_i18n_namespaceObject.__)('Customize the appearance of specific blocks for the whole site.')), (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+  })))), (0,external_wp_element_namespaceObject.createElement)(context_menu, null))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CardDivider, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CardBody, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
+    as: "p",
+    paddingTop: 2
+    /*
+     * 13px matches the text inset of the NavigationButton (12px padding, plus the width of the button's border).
+     * This is an ad hoc override for this particular instance only and should be reconsidered before making into a pattern.
+     */
+    ,
+    paddingX: "13px",
+    marginBottom: 4
+  }, (0,external_wp_i18n_namespaceObject.__)('Customize the appearance of specific blocks for the whole site.')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, null, (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
     path: "/blocks"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     justify: "space-between"
@@ -7371,11 +7381,6 @@ function ScreenRoot() {
 
 
 
-/**
- * Internal dependencies
- */
-
-
 
 function ScreenHeader(_ref) {
   let {
@@ -7383,16 +7388,26 @@ function ScreenHeader(_ref) {
     description
   } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalVStack, {
-    spacing: 2
+    spacing: 0
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalView, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
+    marginBottom: 0,
+    paddingX: 4,
+    paddingY: 3
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     spacing: 2
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalView, null, (0,external_wp_element_namespaceObject.createElement)(NavigationBackButton, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorBackButton, {
+    style: // TODO: This style override is also used in ToolsPanelHeader.
+    // It should be supported out-of-the-box by Button.
+    {
+      minWidth: 24,
+      padding: 0
+    },
     icon: (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_right : chevron_left,
-    size: "small",
+    isSmall: true,
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Navigate to the previous view')
-  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHeading, {
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHeading, {
     level: 5
-  }, title))), description && (0,external_wp_element_namespaceObject.createElement)("p", {
+  }, title))))), description && (0,external_wp_element_namespaceObject.createElement)("p", {
     className: "edit-site-global-styles-header__description"
   }, description));
 }
@@ -7466,7 +7481,7 @@ function BlockMenuItem(_ref) {
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+  return (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
     path: '/blocks/' + block.name
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     justify: "flex-start"
@@ -7619,7 +7634,7 @@ function Item(_ref) {
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+  return (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
     path: parentMenu + '/typography/' + element
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     justify: "flex-start"
@@ -7772,7 +7787,7 @@ function Palette(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(subtitle, null, (0,external_wp_i18n_namespaceObject.__)('Palette')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, {
     isBordered: true,
     isSeparated: true
-  }, (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+  }, (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
     path: screenPath
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     direction: colors.length === 0 ? 'row-reverse' : 'row'
@@ -7826,7 +7841,7 @@ function BackgroundColorItem(_ref) {
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+  return (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
     path: parentMenu + '/colors/background'
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     justify: "flex-start"
@@ -7850,7 +7865,7 @@ function TextColorItem(_ref2) {
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+  return (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
     path: parentMenu + '/colors/text'
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     justify: "flex-start"
@@ -7874,7 +7889,7 @@ function LinkColorItem(_ref3) {
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(NavigationButton, {
+  return (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
     path: parentMenu + '/colors/link'
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     justify: "flex-start"
@@ -8763,11 +8778,7 @@ function NavigationMenu(_ref) {
     });
   }, [updateBlockListSettings, innerBlocks]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalListView, {
-    id: id,
-    showNestedBlocks: true,
-    expandNested: false,
-    __experimentalFeatures: true,
-    __experimentalPersistentListViewFeatures: true
+    id: id
   }));
 }
 
@@ -9229,7 +9240,7 @@ function SidebarComplementaryAreaFills() {
   // See https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/feature-flags.md#dead-code-elimination.
 
 
-  let MaybeNavigationMenuSidebar = 'Fragment';
+  let MaybeNavigationMenuSidebar = external_wp_element_namespaceObject.Fragment;
 
   if (true) {
     MaybeNavigationMenuSidebar = NavigationMenuSidebar;
@@ -10411,7 +10422,7 @@ function BlockEditor(_ref) {
   // See https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/feature-flags.md#dead-code-elimination.
 
 
-  let MaybeNavMenuSidebarToggle = 'Fragment';
+  let MaybeNavMenuSidebarToggle = external_wp_element_namespaceObject.Fragment;
 
   if (true) {
     MaybeNavMenuSidebarToggle = NavMenuSidebarToggle;
@@ -10956,11 +10967,7 @@ function ListViewSidebar() {
     })), (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "edit-site-editor__list-view-panel-content",
       ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([contentFocusReturnRef, focusOnMountRef])
-    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalListView, {
-      showNestedBlocks: true,
-      __experimentalFeatures: true,
-      __experimentalPersistentListViewFeatures: true
-    })))
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalListView, null)))
   );
 }
 
@@ -11721,15 +11728,15 @@ const postAuthor = (0,external_wp_element_namespaceObject.createElement)(externa
  * WordPress dependencies
  */
 
-const blockDefault = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+const blockMeta = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  "fill-rule": "evenodd",
+  fillRule: "evenodd",
   d: "M8.95 11.25H4v1.5h4.95v4.5H13V18c0 1.1.9 2 2 2h3c1.1 0 2-.9 2-2v-3c0-1.1-.9-2-2-2h-3c-1.1 0-2 .9-2 2v.75h-2.55v-7.5H13V9c0 1.1.9 2 2 2h3c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3c-1.1 0-2 .9-2 2v.75H8.95v4.5ZM14.5 15v3c0 .3.2.5.5.5h3c.3 0 .5-.2.5-.5v-3c0-.3-.2-.5-.5-.5h-3c-.3 0-.5.2-.5.5Zm0-6V6c0-.3.2-.5.5-.5h3c.3 0 .5.2.5.5v3c0 .3-.2.5-.5.5h-3c-.3 0-.5-.2-.5-.5Z",
-  "clip-rule": "evenodd"
+  clipRule: "evenodd"
 }));
-/* harmony default export */ var block_meta = (blockDefault);
+/* harmony default export */ var block_meta = (blockMeta);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/post-date.js
 
@@ -13056,7 +13063,6 @@ function initializeEditor(id, settings) {
   settings.__experimentalFetchLinkSuggestions = (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings);
 
   settings.__experimentalFetchRichUrlData = external_wp_coreData_namespaceObject.__experimentalFetchUrlData;
-  settings.__experimentalSpotlightEntityBlocks = ['core/template-part'];
   const target = document.getElementById(id);
 
   (0,external_wp_data_namespaceObject.dispatch)(external_wp_blocks_namespaceObject.store).__experimentalReapplyBlockTypeFilters();

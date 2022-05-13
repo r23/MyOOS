@@ -6308,11 +6308,7 @@ function ListViewSidebar() {
     })), (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "edit-post-editor__list-view-panel-content",
       ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([contentFocusReturnRef, focusOnMountRef])
-    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalListView, {
-      showNestedBlocks: true,
-      __experimentalFeatures: true,
-      __experimentalPersistentListViewFeatures: true
-    })))
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalListView, null)))
   );
 }
 
@@ -6411,17 +6407,26 @@ const SettingsHeader = _ref => {
 
 
 
+
 function PostVisibility() {
+  const rowRef = (0,external_wp_element_namespaceObject.useRef)();
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostVisibilityCheck, {
     render: _ref => {
       let {
         canEdit
       } = _ref;
       return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, {
+        ref: rowRef,
         className: "edit-post-post-visibility"
       }, (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_i18n_namespaceObject.__)('Visibility')), !canEdit && (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostVisibilityLabel, null)), canEdit && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
         position: "bottom left",
         contentClassName: "edit-post-post-visibility__dialog",
+        popoverProps: {
+          // Anchor the popover to the middle of the
+          // entire row so that it doesn't move around
+          // when the label changes.
+          anchorRef: rowRef.current
+        },
         renderToggle: _ref2 => {
           let {
             isOpen,
@@ -6434,7 +6439,14 @@ function PostVisibility() {
             variant: "tertiary"
           }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostVisibilityLabel, null));
         },
-        renderContent: () => (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostVisibility, null)
+        renderContent: _ref3 => {
+          let {
+            onClose
+          } = _ref3;
+          return (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostVisibility, {
+            onClose: onClose
+          });
+        }
       }));
     }
   });
@@ -8561,11 +8573,6 @@ function PatternSelection(_ref) {
   const {
     resetEditorBlocks
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_editor_namespaceObject.store);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (blockPatterns.length <= 1) {
-      onChoosePattern();
-    }
-  }, [blockPatterns.length]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalBlockPatternsList, {
     blockPatterns: blockPatterns,
     shownPatterns: shownBlockPatterns,

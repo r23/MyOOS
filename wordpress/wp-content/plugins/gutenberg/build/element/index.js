@@ -55,6 +55,7 @@ __webpack_require__.d(__webpack_exports__, {
   "createRef": function() { return /* reexport */ external_React_namespaceObject.createRef; },
   "findDOMNode": function() { return /* reexport */ external_ReactDOM_namespaceObject.findDOMNode; },
   "forwardRef": function() { return /* reexport */ external_React_namespaceObject.forwardRef; },
+  "hydrate": function() { return /* reexport */ external_ReactDOM_namespaceObject.hydrate; },
   "isEmptyElement": function() { return /* reexport */ isEmptyElement; },
   "isValidElement": function() { return /* reexport */ external_React_namespaceObject.isValidElement; },
   "lazy": function() { return /* reexport */ external_React_namespaceObject.lazy; },
@@ -671,6 +672,14 @@ var external_ReactDOM_namespaceObject = window["ReactDOM"];
  *
  * @param {import('./react').WPElement} element Element to render.
  * @param {HTMLElement}                 target  DOM node into which element should be rendered.
+ */
+
+
+/**
+ * Hydrates a given element into the target DOM node.
+ *
+ * @param {import('./react').WPElement} element Element to hydrate.
+ * @param {HTMLElement}                 target  DOM node into which element should be hydrated.
  */
 
 

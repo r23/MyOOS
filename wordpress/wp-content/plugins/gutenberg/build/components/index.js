@@ -20479,7 +20479,6 @@ const ConnectedVisuallyHidden = contextConnect(VisuallyHidden, 'VisuallyHidden')
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -20613,8 +20612,8 @@ function Button(props, ref) {
   const shouldShowTooltip = !trulyDisabled && ( // An explicit tooltip is passed or...
   showTooltip && label || // There's a shortcut or...
   shortcut || // There's a label and...
-  !!label && ( // The children are empty and...
-  !children || (0,external_lodash_namespaceObject.isArray)(children) && !children.length) && // The tooltip is not explicitly disabled.
+  !!label && // The children are empty and...
+  !(children !== null && children !== void 0 && children.length) && // The tooltip is not explicitly disabled.
   false !== showTooltip);
   const descriptionId = describedBy ? instanceId : null;
   const describedById = additionalProps['aria-describedby'] || descriptionId;
@@ -20638,7 +20637,7 @@ function Button(props, ref) {
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(tooltip, {
-    text: describedBy ? describedBy : label,
+    text: children !== null && children !== void 0 && children.length && describedBy ? describedBy : label,
     shortcut: shortcut,
     position: tooltipPosition
   }, element), describedBy && (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, null, (0,external_wp_element_namespaceObject.createElement)("span", {
@@ -21651,8 +21650,7 @@ const slotNameContext = (0,external_wp_element_namespaceObject.createContext)();
 
 function computeAnchorRect(anchorRefFallback, anchorRect, getAnchorRect) {
   let anchorRef = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-  let shouldAnchorIncludePadding = arguments.length > 4 ? arguments[4] : undefined;
-  let container = arguments.length > 5 ? arguments[5] : undefined;
+  let container = arguments.length > 4 ? arguments[4] : undefined;
 
   if (anchorRect) {
     return anchorRect;
@@ -21684,12 +21682,7 @@ function computeAnchorRect(anchorRefFallback, anchorRect, getAnchorRect) {
 
     if (typeof (anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.getBoundingClientRect) === 'function') {
       const rect = offsetIframe(anchorRef.getBoundingClientRect(), anchorRef.ownerDocument, container);
-
-      if (shouldAnchorIncludePadding) {
-        return rect;
-      }
-
-      return withoutPadding(rect, anchorRef);
+      return rect;
     }
 
     const {
@@ -21698,13 +21691,7 @@ function computeAnchorRect(anchorRefFallback, anchorRect, getAnchorRect) {
     } = anchorRef;
     const topRect = top.getBoundingClientRect();
     const bottomRect = bottom.getBoundingClientRect();
-    const rect = offsetIframe(new window.DOMRect(topRect.left, topRect.top, topRect.width, bottomRect.bottom - topRect.top), top.ownerDocument, container);
-
-    if (shouldAnchorIncludePadding) {
-      return rect;
-    }
-
-    return withoutPadding(rect, anchorRef);
+    return offsetIframe(new window.DOMRect(topRect.left, topRect.top, topRect.width, bottomRect.bottom - topRect.top), top.ownerDocument, container);
   }
 
   if (!anchorRefFallback.current) {
@@ -21714,40 +21701,7 @@ function computeAnchorRect(anchorRefFallback, anchorRect, getAnchorRect) {
   const {
     parentNode
   } = anchorRefFallback.current;
-  const rect = offsetIframe(parentNode.getBoundingClientRect(), parentNode.ownerDocument, container);
-
-  if (shouldAnchorIncludePadding) {
-    return rect;
-  }
-
-  return withoutPadding(rect, parentNode);
-}
-
-function popover_getComputedStyle(node) {
-  return node.ownerDocument.defaultView.getComputedStyle(node);
-}
-
-function withoutPadding(rect, element) {
-  const {
-    paddingTop,
-    paddingBottom,
-    paddingLeft,
-    paddingRight
-  } = popover_getComputedStyle(element);
-  const top = paddingTop ? parseInt(paddingTop, 10) : 0;
-  const bottom = paddingBottom ? parseInt(paddingBottom, 10) : 0;
-  const left = paddingLeft ? parseInt(paddingLeft, 10) : 0;
-  const right = paddingRight ? parseInt(paddingRight, 10) : 0;
-  return {
-    x: rect.left + left,
-    y: rect.top + top,
-    width: rect.width - left - right,
-    height: rect.height - top - bottom,
-    left: rect.left + left,
-    right: rect.right - right,
-    top: rect.top + top,
-    bottom: rect.bottom - bottom
-  };
+  return offsetIframe(parentNode.getBoundingClientRect(), parentNode.ownerDocument, container);
 }
 /**
  * Sets or removes an element attribute.
@@ -21836,7 +21790,6 @@ const Popover = (_ref, ref) => {
     range,
     focusOnMount = 'firstElement',
     anchorRef,
-    shouldAnchorIncludePadding,
     anchorRect,
     getAnchorRect,
     expandOnMobile,
@@ -21883,7 +21836,7 @@ const Popover = (_ref, ref) => {
         return;
       }
 
-      let anchor = computeAnchorRect(anchorRefFallback, anchorRect, getAnchorRect, anchorRef, shouldAnchorIncludePadding, containerRef.current);
+      let anchor = computeAnchorRect(anchorRefFallback, anchorRect, getAnchorRect, anchorRef, containerRef.current);
 
       if (!anchor) {
         return;
@@ -22010,7 +21963,7 @@ const Popover = (_ref, ref) => {
         observer.disconnect();
       }
     };
-  }, [isExpanded, anchorRect, getAnchorRect, anchorRef, shouldAnchorIncludePadding, position, contentSize, __unstableStickyBoundaryElement, __unstableObserveElement, __unstableBoundaryParent]);
+  }, [isExpanded, anchorRect, getAnchorRect, anchorRef, position, contentSize, __unstableStickyBoundaryElement, __unstableObserveElement, __unstableBoundaryParent]);
 
   const onDialogClose = (type, event) => {
     // Ideally the popover should have just a single onClose prop and
@@ -35946,15 +35899,16 @@ const fontSizeStyles = _ref13 => {
 
 const sizeStyles = _ref14 => {
   let {
-    inputSize: size
+    inputSize: size,
+    __next36pxDefaultSize
   } = _ref14;
   const sizes = {
     default: {
-      height: 30,
+      height: 36,
       lineHeight: 1,
-      minHeight: 30,
-      paddingLeft: 8,
-      paddingRight: 8
+      minHeight: 36,
+      paddingLeft: 16,
+      paddingRight: 16
     },
     small: {
       height: 24,
@@ -35971,6 +35925,17 @@ const sizeStyles = _ref14 => {
       paddingRight: 16
     }
   };
+
+  if (!__next36pxDefaultSize) {
+    sizes.default = {
+      height: 30,
+      lineHeight: 1,
+      minHeight: 30,
+      paddingLeft: 8,
+      paddingRight: 8
+    };
+  }
+
   const style = sizes[size] || sizes.default;
   return /*#__PURE__*/emotion_react_browser_esm_css(style,  true ? "" : 0,  true ? "" : 0);
 };
@@ -38960,7 +38925,7 @@ function UnforwardedInputControl(_ref, ref) {
  * InputControl components let users enter and edit text. This is an experimental component
  * intended to (in time) merge with or replace `TextControl`.
  *
- * @example
+ * ```jsx
  * import { __experimentalInputControl as InputControl } from '@wordpress/components';
  * import { useState } from '@wordpress/compose';
  *
@@ -38970,10 +38935,11 @@ function UnforwardedInputControl(_ref, ref) {
  *   return (
  *  	<InputControl
  *  		value={ value }
- *  		onChange={ ( nextValue ) => setValue( nextValue ) }
+ *  		onChange={ ( nextValue ) => setValue( nextValue ?? '' ) }
  *  	/>
  *   );
  * };
+ * ```
  */
 
 const InputControl = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedInputControl);
@@ -39050,15 +39016,12 @@ function AngleCircle(_ref) {
     const {
       x: centerX,
       y: centerY
-    } = angleCircleCenter.current;
-    const {
-      ownerDocument
-    } = angleCircleRef.current; // Prevent (drag) mouse events from selecting and accidentally
+    } = angleCircleCenter.current; // Prevent (drag) mouse events from selecting and accidentally
     // triggering actions from other elements.
 
-    event.preventDefault(); // Ensure the input isn't focused as preventDefault would leave it.
+    event.preventDefault(); // Input control needs to lose focus and by preventDefault above, it doesn't.
 
-    ownerDocument.activeElement.blur();
+    event.target.focus();
     onChange(getAngle(centerX, centerY, event.clientX, event.clientY));
   };
 
@@ -39098,7 +39061,8 @@ function AngleCircle(_ref) {
       style: value ? {
         transform: `rotate(${value}deg)`
       } : undefined,
-      className: "components-angle-picker-control__angle-circle-indicator-wrapper"
+      className: "components-angle-picker-control__angle-circle-indicator-wrapper",
+      tabIndex: -1
     }, (0,external_wp_element_namespaceObject.createElement)(CircleIndicator, {
       className: "components-angle-picker-control__angle-circle-indicator"
     })))
@@ -40730,21 +40694,12 @@ const unit_control_styles_Root = emotion_styled_base_browser_esm("div",  true ? 
 
 const paddingStyles = _ref2 => {
   let {
-    disableUnits,
-    size
+    disableUnits
   } = _ref2;
-  const paddings = {
-    default: {
-      paddingRight: 8
-    },
-    small: {
-      paddingRight: 8
-    },
-    '__unstable-large': {
-      paddingRight: disableUnits ? 16 : 8
-    }
-  };
-  return /*#__PURE__*/emotion_react_browser_esm_css(rtl(paddings[size])(), ";" + ( true ? "" : 0),  true ? "" : 0);
+  if (disableUnits) return '';
+  return /*#__PURE__*/emotion_react_browser_esm_css(rtl({
+    paddingRight: 8
+  })(), ";" + ( true ? "" : 0),  true ? "" : 0);
 };
 
 var unit_control_styles_ref =  true ? {
@@ -41438,7 +41393,7 @@ const select_control_styles_disabledStyles = _ref => {
 
 const select_control_styles_fontSizeStyles = _ref2 => {
   let {
-    selectSize
+    selectSize = 'default'
   } = _ref2;
   const sizes = {
     default: '13px',
@@ -41453,7 +41408,7 @@ const select_control_styles_fontSizeStyles = _ref2 => {
 
 const select_control_styles_sizeStyles = _ref3 => {
   let {
-    selectSize
+    selectSize = 'default'
   } = _ref3;
   const sizes = {
     default: {
@@ -41472,7 +41427,7 @@ const select_control_styles_sizeStyles = _ref3 => {
       minHeight: 40
     }
   };
-  const style = sizes[selectSize] || sizes.default;
+  const style = sizes[selectSize];
   return /*#__PURE__*/emotion_react_browser_esm_css(style,  true ? "" : 0,  true ? "" : 0);
 };
 
@@ -41538,7 +41493,7 @@ function select_control_useUniqueId(idProp) {
   return idProp || id;
 }
 
-function SelectControl(_ref, ref) {
+function UnforwardedSelectControl(_ref, ref) {
   let {
     className,
     disabled = false,
@@ -41640,9 +41595,35 @@ function SelectControl(_ref, ref) {
   }))));
   /* eslint-enable jsx-a11y/no-onchange */
 }
+/**
+ * `SelectControl` allows users to select from a single or multiple option menu.
+ * It functions as a wrapper around the browser's native `<select>` element.
+ *
+ * @example
+ * import { SelectControl } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MySelectControl = () => {
+ *   const [ size, setSize ] = useState( '50%' );
+ *
+ *   return (
+ *     <SelectControl
+ *       label="Size"
+ *       value={ size }
+ *       options={ [
+ *         { label: 'Big', value: '100%' },
+ *         { label: 'Medium', value: '50%' },
+ *         { label: 'Small', value: '25%' },
+ *       ] }
+ *       onChange={ setSize }
+ *     />
+ *   );
+ * };
+ */
 
-const select_control_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(SelectControl);
-/* harmony default export */ var select_control = (select_control_ForwardedComponent);
+
+const SelectControl = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedSelectControl);
+/* harmony default export */ var select_control = (SelectControl);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-controlled-state.js
 /**
@@ -46391,8 +46372,7 @@ function ButtonAction(_ref4) {
   } = _ref4;
   return (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
     className: classnames_default()('components-circular-option-picker__clear', className),
-    isSmall: true,
-    variant: "secondary"
+    variant: "tertiary"
   }, additionalProps), children);
 }
 
@@ -47538,7 +47518,7 @@ function UnforwardedUnitControl(unitControlProps, forwardedRef) {
   const nonNullValueProp = valueProp !== null && valueProp !== void 0 ? valueProp : undefined;
   const units = (0,external_wp_element_namespaceObject.useMemo)(() => getUnitsWithCurrentUnit(nonNullValueProp, unitProp, unitsProp), [nonNullValueProp, unitProp, unitsProp]);
   const [parsedQuantity, parsedUnit] = getParsedQuantityAndUnit(nonNullValueProp, unitProp, units);
-  const [unit, setUnit] = use_controlled_state(unitProp, {
+  const [unit, setUnit] = use_controlled_state(units.length === 1 ? units[0].value : unitProp, {
     initial: parsedUnit,
     fallback: ''
   });
@@ -47595,8 +47575,8 @@ function UnforwardedUnitControl(unitControlProps, forwardedRef) {
       const changeProps = {
         event,
         data
-      };
-      onChangeProp === null || onChangeProp === void 0 ? void 0 : onChangeProp(`${validParsedQuantity !== null && validParsedQuantity !== void 0 ? validParsedQuantity : ''}${validParsedUnit}`, changeProps);
+      }; // The `onChange` callback already gets called, no need to call it explicitely.
+
       onUnitChange === null || onUnitChange === void 0 ? void 0 : onUnitChange(validParsedUnit, changeProps);
       setUnit(validParsedUnit);
     }
@@ -48764,12 +48744,6 @@ const DEFAULT_VALUES = {
   bottom: undefined,
   left: undefined
 };
-const DEFAULT_VISUALIZER_VALUES = {
-  top: false,
-  right: false,
-  bottom: false,
-  left: false
-};
 const ALL_SIDES = ['top', 'right', 'bottom', 'left'];
 /**
  * Gets an items with the most occurrence within an array
@@ -49458,225 +49432,6 @@ function LinkedButton(_ref) {
   }))));
 }
 
-;// CONCATENATED MODULE: ./packages/components/build-module/box-control/styles/box-control-visualizer-styles.js
-
-
-function box_control_visualizer_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
-/**
- * External dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-var box_control_visualizer_styles_ref =  true ? {
-  name: "11f5o9n",
-  styles: "bottom:0;left:0;pointer-events:none;position:absolute;right:0;top:0;z-index:1"
-} : 0;
-
-const containerPositionStyles = _ref2 => {
-  let {
-    isPositionAbsolute
-  } = _ref2;
-  if (!isPositionAbsolute) return '';
-  return box_control_visualizer_styles_ref;
-};
-
-const box_control_visualizer_styles_Container = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1df9b4q5"
-} : 0)("box-sizing:border-box;position:relative;", containerPositionStyles, ";" + ( true ? "" : 0));
-const Side = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1df9b4q4"
-} : 0)("box-sizing:border-box;background:", COLORS.blue.wordpress[700], ";background:", COLORS.ui.theme, ";filter:brightness( 1 );opacity:0;position:absolute;pointer-events:none;transition:opacity 120ms linear;z-index:1;", _ref3 => {
-  let {
-    isActive
-  } = _ref3;
-  return isActive && `
-		opacity: 0.3;
-	`;
-}, ";" + ( true ? "" : 0));
-const TopView = /*#__PURE__*/emotion_styled_base_browser_esm(Side,  true ? {
-  target: "e1df9b4q3"
-} : 0)( true ? {
-  name: "5i97ct",
-  styles: "top:0;left:0;right:0"
-} : 0);
-const RightView = /*#__PURE__*/emotion_styled_base_browser_esm(Side,  true ? {
-  target: "e1df9b4q2"
-} : 0)("top:0;bottom:0;", rtl({
-  right: 0
-}), ";" + ( true ? "" : 0));
-const BottomView = /*#__PURE__*/emotion_styled_base_browser_esm(Side,  true ? {
-  target: "e1df9b4q1"
-} : 0)( true ? {
-  name: "8cxke2",
-  styles: "bottom:0;left:0;right:0"
-} : 0);
-const LeftView = /*#__PURE__*/emotion_styled_base_browser_esm(Side,  true ? {
-  target: "e1df9b4q0"
-} : 0)("top:0;bottom:0;", rtl({
-  left: 0
-}), ";" + ( true ? "" : 0));
-
-;// CONCATENATED MODULE: ./packages/components/build-module/box-control/visualizer.js
-
-
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-function BoxControlVisualizer(_ref) {
-  let {
-    children,
-    showValues = DEFAULT_VISUALIZER_VALUES,
-    values: valuesProp = DEFAULT_VALUES,
-    ...props
-  } = _ref;
-  const isPositionAbsolute = !children;
-  return (0,external_wp_element_namespaceObject.createElement)(box_control_visualizer_styles_Container, extends_extends({}, props, {
-    isPositionAbsolute: isPositionAbsolute,
-    "aria-hidden": "true"
-  }), (0,external_wp_element_namespaceObject.createElement)(Sides, {
-    showValues: showValues,
-    values: valuesProp
-  }), children);
-}
-
-function Sides(_ref2) {
-  let {
-    showValues = DEFAULT_VISUALIZER_VALUES,
-    values
-  } = _ref2;
-  const {
-    top,
-    right,
-    bottom,
-    left
-  } = values;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(Top, {
-    isVisible: showValues.top,
-    value: top
-  }), (0,external_wp_element_namespaceObject.createElement)(Right, {
-    isVisible: showValues.right,
-    value: right
-  }), (0,external_wp_element_namespaceObject.createElement)(Bottom, {
-    isVisible: showValues.bottom,
-    value: bottom
-  }), (0,external_wp_element_namespaceObject.createElement)(Left, {
-    isVisible: showValues.left,
-    value: left
-  }));
-}
-
-function Top(_ref3) {
-  let {
-    isVisible = false,
-    value
-  } = _ref3;
-  const height = value;
-  const animationProps = useSideAnimation(height);
-  const isActive = animationProps.isActive || isVisible;
-  return (0,external_wp_element_namespaceObject.createElement)(TopView, {
-    isActive: isActive,
-    style: {
-      height
-    }
-  });
-}
-
-function Right(_ref4) {
-  let {
-    isVisible = false,
-    value
-  } = _ref4;
-  const width = value;
-  const animationProps = useSideAnimation(width);
-  const isActive = animationProps.isActive || isVisible;
-  return (0,external_wp_element_namespaceObject.createElement)(RightView, {
-    isActive: isActive,
-    style: {
-      width
-    }
-  });
-}
-
-function Bottom(_ref5) {
-  let {
-    isVisible = false,
-    value
-  } = _ref5;
-  const height = value;
-  const animationProps = useSideAnimation(height);
-  const isActive = animationProps.isActive || isVisible;
-  return (0,external_wp_element_namespaceObject.createElement)(BottomView, {
-    isActive: isActive,
-    style: {
-      height
-    }
-  });
-}
-
-function Left(_ref6) {
-  let {
-    isVisible = false,
-    value
-  } = _ref6;
-  const width = value;
-  const animationProps = useSideAnimation(width);
-  const isActive = animationProps.isActive || isVisible;
-  return (0,external_wp_element_namespaceObject.createElement)(LeftView, {
-    isActive: isActive,
-    style: {
-      width
-    }
-  });
-}
-/**
- * Custom hook that renders the "flash" animation whenever the value changes.
- *
- * @param {string} value Value of (box) side.
- */
-
-
-function useSideAnimation(value) {
-  const [isActive, setIsActive] = (0,external_wp_element_namespaceObject.useState)(false);
-  const valueRef = (0,external_wp_element_namespaceObject.useRef)(value);
-  const timeoutRef = (0,external_wp_element_namespaceObject.useRef)();
-
-  const clearTimer = () => {
-    if (timeoutRef.current) {
-      window.clearTimeout(timeoutRef.current);
-    }
-  };
-
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (value !== valueRef.current) {
-      setIsActive(true);
-      valueRef.current = value;
-      clearTimer();
-      timeoutRef.current = setTimeout(() => {
-        setIsActive(false);
-      }, 400);
-    }
-
-    return () => clearTimer();
-  }, [value]);
-  return {
-    isActive
-  };
-}
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/index.js
 
 
@@ -49708,7 +49463,6 @@ function useSideAnimation(value) {
 
 
 
-
 const defaultInputProps = {
   min: 0
 };
@@ -49723,7 +49477,6 @@ function BoxControl(_ref) {
     id: idProp,
     inputProps = defaultInputProps,
     onChange = external_lodash_namespaceObject.noop,
-    onChangeShowVisualizer = external_lodash_namespaceObject.noop,
     label = (0,external_wp_i18n_namespaceObject.__)('Box Control'),
     values: valuesProp,
     units,
@@ -49771,20 +49524,6 @@ function BoxControl(_ref) {
     setIsDirty(true);
   };
 
-  const handleOnHoverOn = function () {
-    let next = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    onChangeShowVisualizer({ ...DEFAULT_VISUALIZER_VALUES,
-      ...next
-    });
-  };
-
-  const handleOnHoverOff = function () {
-    let next = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-    onChangeShowVisualizer({ ...DEFAULT_VISUALIZER_VALUES,
-      ...next
-    });
-  };
-
   const handleOnReset = () => {
     onChange(resetValues);
     setValues(resetValues);
@@ -49795,8 +49534,6 @@ function BoxControl(_ref) {
   const inputControlProps = { ...inputProps,
     onChange: handleOnChange,
     onFocus: handleOnFocus,
-    onHoverOn: handleOnHoverOn,
-    onHoverOff: handleOnHoverOff,
     isLinked,
     units,
     selectedUnits,
@@ -49831,7 +49568,6 @@ function BoxControl(_ref) {
     isLinked: isLinked
   }))), !isLinked && !splitOnAxis && (0,external_wp_element_namespaceObject.createElement)(BoxInputControls, inputControlProps));
 }
-BoxControl.__Visualizer = BoxControlVisualizer;
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/button-group/index.js
 
@@ -59059,7 +58795,6 @@ const StyledWrapper = emotion_styled_base_browser_esm("div",  true ? {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -59076,17 +58811,6 @@ const {
   Consumer,
   Provider: disabled_Provider
 } = Context;
-/**
- * Names of control nodes which qualify for disabled behavior.
- *
- * See WHATWG HTML Standard: 4.10.18.5: "Enabling and disabling form controls: the disabled attribute".
- *
- * @see https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#enabling-and-disabling-form-controls:-the-disabled-attribute
- *
- * @type {string[]}
- */
-
-const DISABLED_ELIGIBLE_NODE_NAMES = ['BUTTON', 'FIELDSET', 'INPUT', 'OPTGROUP', 'OPTION', 'SELECT', 'TEXTAREA'];
 /**
  * @typedef OwnProps
  * @property {string}                    [className]       Classname for the disabled element.
@@ -59107,67 +58831,8 @@ function Disabled(_ref) {
     ...props
   } = _ref;
 
-  /** @type {import('react').RefObject<HTMLDivElement>} */
-  const node = (0,external_wp_element_namespaceObject.useRef)(null);
-
-  const disable = () => {
-    if (!node.current) {
-      return;
-    }
-
-    external_wp_dom_namespaceObject.focus.focusable.find(node.current).forEach(focusable => {
-      if ((0,external_lodash_namespaceObject.includes)(DISABLED_ELIGIBLE_NODE_NAMES, focusable.nodeName)) {
-        focusable.setAttribute('disabled', '');
-      }
-
-      if (focusable.nodeName === 'A') {
-        focusable.setAttribute('tabindex', '-1');
-      }
-
-      const tabIndex = focusable.getAttribute('tabindex');
-
-      if (tabIndex !== null && tabIndex !== '-1') {
-        focusable.removeAttribute('tabindex');
-      }
-
-      if (focusable.hasAttribute('contenteditable')) {
-        focusable.setAttribute('contenteditable', 'false');
-      }
-    });
-  }; // Debounce re-disable since disabling process itself will incur
-  // additional mutations which should be ignored.
-
-
-  const debouncedDisable = (0,external_wp_element_namespaceObject.useCallback)((0,external_lodash_namespaceObject.debounce)(disable, undefined, {
-    leading: true
-  }), []);
-  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
-    if (!isDisabled) {
-      return;
-    }
-
-    disable();
-    /** @type {MutationObserver | undefined} */
-
-    let observer;
-
-    if (node.current) {
-      observer = new window.MutationObserver(debouncedDisable);
-      observer.observe(node.current, {
-        childList: true,
-        attributes: true,
-        subtree: true
-      });
-    }
-
-    return () => {
-      if (observer) {
-        observer.disconnect();
-      }
-
-      debouncedDisable.cancel();
-    };
-  }, []);
+  /** @type {import('react').RefCallback<HTMLDivElement>} */
+  const ref = (0,external_wp_compose_namespaceObject.__experimentalUseDisabled)();
 
   if (!isDisabled) {
     return (0,external_wp_element_namespaceObject.createElement)(disabled_Provider, {
@@ -59178,7 +58843,7 @@ function Disabled(_ref) {
   return (0,external_wp_element_namespaceObject.createElement)(disabled_Provider, {
     value: true
   }, (0,external_wp_element_namespaceObject.createElement)(StyledWrapper, extends_extends({
-    ref: node,
+    ref: ref,
     className: classnames_default()(className, 'components-disabled')
   }, props), children));
 }
@@ -69903,6 +69568,10 @@ function TabPanel(_ref2) {
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
 
@@ -69912,27 +69581,9 @@ function TabPanel(_ref2) {
  */
 
 
-/**
- * @typedef OwnProps
- * @property {string}                  label                 Label for the control.
- * @property {boolean}                 [hideLabelFromVision] Whether to accessibly hide the label.
- * @property {string}                  value                 Value of the input.
- * @property {string}                  [help]                Optional help text for the control.
- * @property {string}                  [className]           Classname passed to BaseControl wrapper
- * @property {(value: string) => void} onChange              Handle changes.
- * @property {string}                  [type='text']         Type of the input.
- */
 
-/** @typedef {OwnProps & import('react').ComponentProps<'input'>} Props */
-
-/**
- *
- * @param {Props}                                          props Props
- * @param {import('react').ForwardedRef<HTMLInputElement>} ref
- */
-
-function TextControl(_ref, ref) {
-  let {
+function UnforwardedTextControl(props, ref) {
+  const {
     label,
     hideLabelFromVision,
     value,
@@ -69940,14 +69591,12 @@ function TextControl(_ref, ref) {
     className,
     onChange,
     type = 'text',
-    ...props
-  } = _ref;
+    ...additionalProps
+  } = props;
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(TextControl);
   const id = `inspector-text-control-${instanceId}`;
 
-  const onChangeValue = (
-  /** @type {import('react').ChangeEvent<HTMLInputElement>} */
-  event) => onChange(event.target.value);
+  const onChangeValue = event => onChange(event.target.value);
 
   return (0,external_wp_element_namespaceObject.createElement)(base_control, {
     label: label,
@@ -69963,10 +69612,34 @@ function TextControl(_ref, ref) {
     onChange: onChangeValue,
     "aria-describedby": !!help ? id + '__help' : undefined,
     ref: ref
-  }, props)));
+  }, additionalProps)));
 }
+/**
+ * TextControl components let users enter and edit text.
+ *
+ *
+ * @example
+ * ```jsx
+ * import { TextControl } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MyTextControl = () => {
+ *   const [ className, setClassName ] = useState( '' );
+ *
+ *   return (
+ *     <TextControl
+ *       label="Additional CSS Class"
+ *       value={ className }
+ *       onChange={ ( value ) => setClassName( value ) }
+ *     />
+ *   );
+ * };
+ * ```
+ */
 
-/* harmony default export */ var text_control = ((0,external_wp_element_namespaceObject.forwardRef)(TextControl));
+
+const TextControl = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedTextControl);
+/* harmony default export */ var text_control = (TextControl);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/input/base.js
 /**
@@ -70221,10 +69894,6 @@ function ToggleControl(_ref) {
 
 
 /**
- * WordPress dependencies
- */
-
-/**
  * Internal dependencies
  */
 
@@ -70234,7 +69903,7 @@ function ToggleGroupControlOptionIcon(props) {
     icon,
     ...restProps
   } = props;
-  return (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_option_base_component, restProps, (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
+  return (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_option_base_component, restProps, (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
     icon: icon
   }));
 }
@@ -70988,6 +70657,7 @@ function useToolsPanelHeader(props) {
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -71000,12 +70670,9 @@ function useToolsPanelHeader(props) {
 
 
 
-const tools_panel_header_component_noop = () => {};
-
 const DefaultControlsGroup = _ref => {
   let {
     items,
-    onClose,
     toggleItem
   } = _ref;
 
@@ -71015,20 +70682,28 @@ const DefaultControlsGroup = _ref => {
 
   return (0,external_wp_element_namespaceObject.createElement)(menu_group, null, items.map(_ref2 => {
     let [label, hasValue] = _ref2;
-    const icon = hasValue ? library_reset : library_check;
-    const itemLabel = hasValue ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: The name of the control being reset e.g. "Padding".
-    (0,external_wp_i18n_namespaceObject.__)('Reset %s'), label) : undefined;
+
+    if (hasValue) {
+      return (0,external_wp_element_namespaceObject.createElement)(menu_item, {
+        key: label,
+        role: "menuitem",
+        icon: library_reset,
+        label: (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: The name of the control being reset e.g. "Padding".
+        (0,external_wp_i18n_namespaceObject.__)('Reset %s'), label),
+        onClick: () => {
+          toggleItem(label);
+          (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: The name of the control being reset e.g. "Padding".
+          (0,external_wp_i18n_namespaceObject.__)('%s reset to default'), label), 'assertive');
+        }
+      }, label);
+    }
+
     return (0,external_wp_element_namespaceObject.createElement)(menu_item, {
       key: label,
-      icon: icon,
+      role: "menuitemcheckbox",
+      icon: library_check,
       isSelected: true,
-      disabled: !hasValue,
-      label: itemLabel,
-      onClick: () => {
-        toggleItem(label);
-        onClose();
-      },
-      role: "menuitemcheckbox"
+      "aria-disabled": true
     }, label);
   }));
 };
@@ -71036,7 +70711,6 @@ const DefaultControlsGroup = _ref => {
 const OptionalControlsGroup = _ref3 => {
   let {
     items,
-    onClose,
     toggleItem
   } = _ref3;
 
@@ -71055,8 +70729,15 @@ const OptionalControlsGroup = _ref3 => {
       isSelected: isSelected,
       label: itemLabel,
       onClick: () => {
+        if (isSelected) {
+          (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: The name of the control being reset e.g. "Padding".
+          (0,external_wp_i18n_namespaceObject.__)('%s hidden and reset to default'), label), 'assertive');
+        } else {
+          (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: The name of the control being reset e.g. "Padding".
+          (0,external_wp_i18n_namespaceObject.__)('%s is now visible'), label), 'assertive');
+        }
+
         toggleItem(label);
-        onClose();
       },
       role: "menuitemcheckbox"
     }, label);
@@ -71083,7 +70764,13 @@ const component_ToolsPanelHeader = (props, forwardedRef) => {
   const defaultItems = Object.entries((menuItems === null || menuItems === void 0 ? void 0 : menuItems.default) || {});
   const optionalItems = Object.entries((menuItems === null || menuItems === void 0 ? void 0 : menuItems.optional) || {});
   const dropDownMenuIcon = areAllOptionalControlsHidden ? library_plus : more_vertical;
-  const dropDownMenuLabelText = areAllOptionalControlsHidden ? (0,external_wp_i18n_namespaceObject._x)('View and add options', 'Button label to reveal tool panel options') : (0,external_wp_i18n_namespaceObject._x)('View options', 'Button label to reveal tool panel options');
+  const dropDownMenuLabelText = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: The name of the tool e.g. "Color" or "Typography".
+  (0,external_wp_i18n_namespaceObject._x)('%s options', 'Button label to reveal tool panel options'), labelText);
+  const dropdownMenuDescriptionText = areAllOptionalControlsHidden ? (0,external_wp_i18n_namespaceObject.__)('All options are currently hidden') : undefined;
+  const canResetAll = [...defaultItems, ...optionalItems].some(_ref5 => {
+    let [, isSelected] = _ref5;
+    return isSelected;
+  });
   return (0,external_wp_element_namespaceObject.createElement)(h_stack_component, extends_extends({}, headerProps, {
     ref: forwardedRef
   }), (0,external_wp_element_namespaceObject.createElement)(heading_component, {
@@ -71096,28 +70783,25 @@ const component_ToolsPanelHeader = (props, forwardedRef) => {
       className: dropdownMenuClassName
     },
     toggleProps: {
-      isSmall: true
+      isSmall: true,
+      describedBy: dropdownMenuDescriptionText
     }
-  }, _ref5 => {
-    let {
-      onClose = tools_panel_header_component_noop
-    } = _ref5;
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(DefaultControlsGroup, {
-      items: defaultItems,
-      onClose: onClose,
-      toggleItem: toggleItem
-    }), (0,external_wp_element_namespaceObject.createElement)(OptionalControlsGroup, {
-      items: optionalItems,
-      onClose: onClose,
-      toggleItem: toggleItem
-    }), (0,external_wp_element_namespaceObject.createElement)(menu_group, null, (0,external_wp_element_namespaceObject.createElement)(menu_item, {
-      variant: 'tertiary',
-      onClick: () => {
+  }, () => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(DefaultControlsGroup, {
+    items: defaultItems,
+    toggleItem: toggleItem
+  }), (0,external_wp_element_namespaceObject.createElement)(OptionalControlsGroup, {
+    items: optionalItems,
+    toggleItem: toggleItem
+  }), (0,external_wp_element_namespaceObject.createElement)(menu_group, null, (0,external_wp_element_namespaceObject.createElement)(menu_item, {
+    "aria-disabled": !canResetAll,
+    variant: 'tertiary',
+    onClick: () => {
+      if (canResetAll) {
         resetAll();
-        onClose();
+        (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('All options reset'), 'assertive');
       }
-    }, (0,external_wp_i18n_namespaceObject.__)('Reset all'))));
-  }));
+    }
+  }, (0,external_wp_i18n_namespaceObject.__)('Reset all'))))));
 };
 
 const ConnectedToolsPanelHeader = contextConnect(component_ToolsPanelHeader, 'ToolsPanelHeader');

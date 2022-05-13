@@ -51,6 +51,8 @@ function gutenberg_render_block_core_post_comments( $attributes, $content, $bloc
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $classes ) );
 	$output             = ob_get_clean();
 
+	wp_enqueue_script( 'comment-reply' );
+
 	return sprintf( '<div %1$s>%2$s</div>', $wrapper_attributes, $output );
 }
 

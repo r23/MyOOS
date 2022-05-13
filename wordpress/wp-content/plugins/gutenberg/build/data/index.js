@@ -3237,371 +3237,8 @@ function persistencePlugin(registry, pluginOptions) {
 
   };
 }
-/**
- * Move the 'features' object in local storage from the sourceStoreName to the
- * preferences store.
- *
- * @param {Object} persistence     The persistence interface.
- * @param {string} sourceStoreName The name of the store that has persisted
- *                                 preferences to migrate to the preferences
- *                                 package.
- */
 
-
-function migrateFeaturePreferencesToPreferencesStore(persistence, sourceStoreName) {
-  var _state$interfaceStore, _state$interfaceStore2, _state$interfaceStore3, _state$sourceStoreNam, _state$sourceStoreNam2;
-
-  const preferencesStoreName = 'core/preferences';
-  const interfaceStoreName = 'core/interface';
-  const state = persistence.get(); // Features most recently (and briefly) lived in the interface package.
-  // If data exists there, prioritize using that for the migration. If not
-  // also check the original package as the user may have updated from an
-  // older block editor version.
-
-  const interfaceFeatures = (_state$interfaceStore = state[interfaceStoreName]) === null || _state$interfaceStore === void 0 ? void 0 : (_state$interfaceStore2 = _state$interfaceStore.preferences) === null || _state$interfaceStore2 === void 0 ? void 0 : (_state$interfaceStore3 = _state$interfaceStore2.features) === null || _state$interfaceStore3 === void 0 ? void 0 : _state$interfaceStore3[sourceStoreName];
-  const sourceFeatures = (_state$sourceStoreNam = state[sourceStoreName]) === null || _state$sourceStoreNam === void 0 ? void 0 : (_state$sourceStoreNam2 = _state$sourceStoreNam.preferences) === null || _state$sourceStoreNam2 === void 0 ? void 0 : _state$sourceStoreNam2.features;
-  const featuresToMigrate = interfaceFeatures ? interfaceFeatures : sourceFeatures;
-
-  if (featuresToMigrate) {
-    var _state$preferencesSto;
-
-    const existingPreferences = (_state$preferencesSto = state[preferencesStoreName]) === null || _state$preferencesSto === void 0 ? void 0 : _state$preferencesSto.preferences; // Avoid migrating features again if they've previously been migrated.
-
-    if (!(existingPreferences !== null && existingPreferences !== void 0 && existingPreferences[sourceStoreName])) {
-      // Set the feature values in the interface store, the features
-      // object is keyed by 'scope', which matches the store name for
-      // the source.
-      persistence.set(preferencesStoreName, {
-        preferences: { ...existingPreferences,
-          [sourceStoreName]: featuresToMigrate
-        }
-      }); // Remove migrated feature preferences from `interface`.
-
-      if (interfaceFeatures) {
-        var _state$interfaceStore4, _state$interfaceStore5;
-
-        const otherInterfaceState = state[interfaceStoreName];
-        const otherInterfaceScopes = (_state$interfaceStore4 = state[interfaceStoreName]) === null || _state$interfaceStore4 === void 0 ? void 0 : (_state$interfaceStore5 = _state$interfaceStore4.preferences) === null || _state$interfaceStore5 === void 0 ? void 0 : _state$interfaceStore5.features;
-        persistence.set(interfaceStoreName, { ...otherInterfaceState,
-          preferences: {
-            features: { ...otherInterfaceScopes,
-              [sourceStoreName]: undefined
-            }
-          }
-        });
-      } // Remove migrated feature preferences from the source.
-
-
-      if (sourceFeatures) {
-        var _state$sourceStoreNam3;
-
-        const otherSourceState = state[sourceStoreName];
-        const sourcePreferences = (_state$sourceStoreNam3 = state[sourceStoreName]) === null || _state$sourceStoreNam3 === void 0 ? void 0 : _state$sourceStoreNam3.preferences;
-        persistence.set(sourceStoreName, { ...otherSourceState,
-          preferences: { ...sourcePreferences,
-            features: undefined
-          }
-        });
-      }
-    }
-  }
-}
-/**
- * Migrates an individual item inside the `preferences` object for a store.
- *
- * @param {Object}    persistence   The persistence interface.
- * @param {Object}    migrate       An options object that contains details of the migration.
- * @param {string}    migrate.from  The name of the store to migrate from.
- * @param {string}    migrate.scope The scope in the preferences store to migrate to.
- * @param {string}    key           The key in the preferences object to migrate.
- * @param {?Function} convert       A function that converts preferences from one format to another.
- */
-
-function migrateIndividualPreferenceToPreferencesStore(persistence, _ref, key) {
-  var _state$sourceStoreNam4, _state$sourceStoreNam5, _state$preferencesSto2, _state$preferencesSto3, _state$preferencesSto4, _state$preferencesSto5, _state$preferencesSto6, _state$preferencesSto7, _state$sourceStoreNam6;
-
-  let {
-    from: sourceStoreName,
-    scope
-  } = _ref;
-  let convert = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : external_lodash_namespaceObject.identity;
-  const preferencesStoreName = 'core/preferences';
-  const state = persistence.get();
-  const sourcePreference = (_state$sourceStoreNam4 = state[sourceStoreName]) === null || _state$sourceStoreNam4 === void 0 ? void 0 : (_state$sourceStoreNam5 = _state$sourceStoreNam4.preferences) === null || _state$sourceStoreNam5 === void 0 ? void 0 : _state$sourceStoreNam5[key]; // There's nothing to migrate, exit early.
-
-  if (sourcePreference === undefined) {
-    return;
-  }
-
-  const targetPreference = (_state$preferencesSto2 = state[preferencesStoreName]) === null || _state$preferencesSto2 === void 0 ? void 0 : (_state$preferencesSto3 = _state$preferencesSto2.preferences) === null || _state$preferencesSto3 === void 0 ? void 0 : (_state$preferencesSto4 = _state$preferencesSto3[scope]) === null || _state$preferencesSto4 === void 0 ? void 0 : _state$preferencesSto4[key]; // There's existing data at the target, so don't overwrite it, exit early.
-
-  if (targetPreference) {
-    return;
-  }
-
-  const otherScopes = (_state$preferencesSto5 = state[preferencesStoreName]) === null || _state$preferencesSto5 === void 0 ? void 0 : _state$preferencesSto5.preferences;
-  const otherPreferences = (_state$preferencesSto6 = state[preferencesStoreName]) === null || _state$preferencesSto6 === void 0 ? void 0 : (_state$preferencesSto7 = _state$preferencesSto6.preferences) === null || _state$preferencesSto7 === void 0 ? void 0 : _state$preferencesSto7[scope]; // Pass an object with the key and value as this allows the convert
-  // function to convert to a data structure that has different keys.
-
-  const convertedPreferences = convert({
-    [key]: sourcePreference
-  });
-  persistence.set(preferencesStoreName, {
-    preferences: { ...otherScopes,
-      [scope]: { ...otherPreferences,
-        ...convertedPreferences
-      }
-    }
-  }); // Remove migrated feature preferences from the source.
-
-  const otherSourceState = state[sourceStoreName];
-  const allSourcePreferences = (_state$sourceStoreNam6 = state[sourceStoreName]) === null || _state$sourceStoreNam6 === void 0 ? void 0 : _state$sourceStoreNam6.preferences;
-  persistence.set(sourceStoreName, { ...otherSourceState,
-    preferences: { ...allSourcePreferences,
-      [key]: undefined
-    }
-  });
-}
-/**
- * Convert from:
- * ```
- * {
- *     panels: {
- *         tags: {
- *             enabled: true,
- *             opened: true,
- *         },
- *         permalinks: {
- *             enabled: false,
- *             opened: false,
- *         },
- *     },
- * }
- * ```
- *
- * to:
- * {
- *     inactivePanels: [
- *         'permalinks',
- *     ],
- *     openPanels: [
- *         'tags',
- *     ],
- * }
- *
- * @param {Object} preferences A preferences object.
- *
- * @return {Object} The converted data.
- */
-
-function convertEditPostPanels(preferences) {
-  var _preferences$panels;
-
-  const panels = (_preferences$panels = preferences === null || preferences === void 0 ? void 0 : preferences.panels) !== null && _preferences$panels !== void 0 ? _preferences$panels : {};
-  return Object.keys(panels).reduce((convertedData, panelName) => {
-    const panel = panels[panelName];
-
-    if ((panel === null || panel === void 0 ? void 0 : panel.enabled) === false) {
-      convertedData.inactivePanels.push(panelName);
-    }
-
-    if ((panel === null || panel === void 0 ? void 0 : panel.opened) === true) {
-      convertedData.openPanels.push(panelName);
-    }
-
-    return convertedData;
-  }, {
-    inactivePanels: [],
-    openPanels: []
-  });
-}
-function migrateThirdPartyFeaturePreferencesToPreferencesStore(persistence) {
-  var _state$interfaceStore6, _state$interfaceStore7;
-
-  const interfaceStoreName = 'core/interface';
-  const preferencesStoreName = 'core/preferences';
-  let state = persistence.get();
-  const interfaceScopes = (_state$interfaceStore6 = state[interfaceStoreName]) === null || _state$interfaceStore6 === void 0 ? void 0 : (_state$interfaceStore7 = _state$interfaceStore6.preferences) === null || _state$interfaceStore7 === void 0 ? void 0 : _state$interfaceStore7.features;
-
-  for (const scope in interfaceScopes) {
-    var _state$preferencesSto8, _state$interfaceStore8, _state$interfaceStore9;
-
-    // Don't migrate any core 'scopes'.
-    if (scope.startsWith('core')) {
-      continue;
-    } // Skip this scope if there are no features to migrate.
-
-
-    const featuresToMigrate = interfaceScopes[scope];
-
-    if (!featuresToMigrate) {
-      continue;
-    }
-
-    const existingPreferences = (_state$preferencesSto8 = state[preferencesStoreName]) === null || _state$preferencesSto8 === void 0 ? void 0 : _state$preferencesSto8.preferences; // Add the data to the preferences store structure.
-
-    persistence.set(preferencesStoreName, {
-      preferences: { ...existingPreferences,
-        [scope]: featuresToMigrate
-      }
-    }); // Remove the data from the interface store structure.
-    // Call `persistence.get` again to make sure `state` is up-to-date with
-    // any changes from the previous iteration of this loop.
-
-    state = persistence.get();
-    const otherInterfaceState = state[interfaceStoreName];
-    const otherInterfaceScopes = (_state$interfaceStore8 = state[interfaceStoreName]) === null || _state$interfaceStore8 === void 0 ? void 0 : (_state$interfaceStore9 = _state$interfaceStore8.preferences) === null || _state$interfaceStore9 === void 0 ? void 0 : _state$interfaceStore9.features;
-    persistence.set(interfaceStoreName, { ...otherInterfaceState,
-      preferences: {
-        features: { ...otherInterfaceScopes,
-          [scope]: undefined
-        }
-      }
-    });
-  }
-}
-/**
- * Migrates interface 'enableItems' data to the preferences store.
- *
- * The interface package stores this data in this format:
- * ```js
- * {
- *     enableItems: {
- *         singleEnableItems: {
- * 	           complementaryArea: {
- *                 'core/edit-post': 'edit-post/document',
- *                 'core/edit-site': 'edit-site/global-styles',
- *             }
- *         },
- *         multipleEnableItems: {
- *             pinnedItems: {
- *                 'core/edit-post': {
- *                     'plugin-1': true,
- *                 },
- *                 'core/edit-site': {
- *                     'plugin-2': true,
- *                 },
- *             },
- *         }
- *     }
- * }
- * ```
- * and it should be migrated it to:
- * ```js
- * {
- *     'core/edit-post': {
- *         complementaryArea: 'edit-post/document',
- *         pinnedItems: {
- *             'plugin-1': true,
- *         },
- *     },
- *     'core/edit-site': {
- *         complementaryArea: 'edit-site/global-styles',
- *         pinnedItems: {
- *             'plugin-2': true,
- *         },
- *     },
- * }
- * ```
- *
- * @param {Object} persistence The persistence interface.
- */
-
-function migrateInterfaceEnableItemsToPreferencesStore(persistence) {
-  var _state$interfaceStore10, _state$preferencesSto9, _state$preferencesSto10, _sourceEnableItems$si, _sourceEnableItems$si2, _sourceEnableItems$mu, _sourceEnableItems$mu2;
-
-  const interfaceStoreName = 'core/interface';
-  const preferencesStoreName = 'core/preferences';
-  const state = persistence.get();
-  const sourceEnableItems = (_state$interfaceStore10 = state[interfaceStoreName]) === null || _state$interfaceStore10 === void 0 ? void 0 : _state$interfaceStore10.enableItems; // There's nothing to migrate, exit early.
-
-  if (!sourceEnableItems) {
-    return;
-  }
-
-  const allPreferences = (_state$preferencesSto9 = (_state$preferencesSto10 = state[preferencesStoreName]) === null || _state$preferencesSto10 === void 0 ? void 0 : _state$preferencesSto10.preferences) !== null && _state$preferencesSto9 !== void 0 ? _state$preferencesSto9 : {}; // First convert complementaryAreas into the right format.
-  // Use the existing preferences as the accumulator so that the data is
-  // merged.
-
-  const sourceComplementaryAreas = (_sourceEnableItems$si = sourceEnableItems === null || sourceEnableItems === void 0 ? void 0 : (_sourceEnableItems$si2 = sourceEnableItems.singleEnableItems) === null || _sourceEnableItems$si2 === void 0 ? void 0 : _sourceEnableItems$si2.complementaryArea) !== null && _sourceEnableItems$si !== void 0 ? _sourceEnableItems$si : {};
-  const convertedComplementaryAreas = Object.keys(sourceComplementaryAreas).reduce((accumulator, scope) => {
-    var _accumulator$scope;
-
-    const data = sourceComplementaryAreas[scope]; // Don't overwrite any existing data in the preferences store.
-
-    if ((_accumulator$scope = accumulator[scope]) !== null && _accumulator$scope !== void 0 && _accumulator$scope.complementaryArea) {
-      return accumulator;
-    }
-
-    return { ...accumulator,
-      [scope]: { ...accumulator[scope],
-        complementaryArea: data
-      }
-    };
-  }, allPreferences); // Next feed the converted complementary areas back into a reducer that
-  // converts the pinned items, resulting in the fully migrated data.
-
-  const sourcePinnedItems = (_sourceEnableItems$mu = sourceEnableItems === null || sourceEnableItems === void 0 ? void 0 : (_sourceEnableItems$mu2 = sourceEnableItems.multipleEnableItems) === null || _sourceEnableItems$mu2 === void 0 ? void 0 : _sourceEnableItems$mu2.pinnedItems) !== null && _sourceEnableItems$mu !== void 0 ? _sourceEnableItems$mu : {};
-  const allConvertedData = Object.keys(sourcePinnedItems).reduce((accumulator, scope) => {
-    var _accumulator$scope2;
-
-    const data = sourcePinnedItems[scope]; // Don't overwrite any existing data in the preferences store.
-
-    if ((_accumulator$scope2 = accumulator[scope]) !== null && _accumulator$scope2 !== void 0 && _accumulator$scope2.pinnedItems) {
-      return accumulator;
-    }
-
-    return { ...accumulator,
-      [scope]: { ...accumulator[scope],
-        pinnedItems: data
-      }
-    };
-  }, convertedComplementaryAreas);
-  persistence.set(preferencesStoreName, {
-    preferences: allConvertedData
-  }); // Remove migrated preferences.
-
-  const otherInterfaceItems = state[interfaceStoreName];
-  persistence.set(interfaceStoreName, { ...otherInterfaceItems,
-    enableItems: undefined
-  });
-}
-
-persistencePlugin.__unstableMigrate = pluginOptions => {
-  const persistence = createPersistenceInterface(pluginOptions); // Boolean feature preferences.
-
-  migrateFeaturePreferencesToPreferencesStore(persistence, 'core/edit-widgets');
-  migrateFeaturePreferencesToPreferencesStore(persistence, 'core/customize-widgets');
-  migrateFeaturePreferencesToPreferencesStore(persistence, 'core/edit-post');
-  migrateFeaturePreferencesToPreferencesStore(persistence, 'core/edit-site');
-  migrateThirdPartyFeaturePreferencesToPreferencesStore(persistence); // Other ad-hoc preferences.
-
-  migrateIndividualPreferenceToPreferencesStore(persistence, {
-    from: 'core/edit-post',
-    scope: 'core/edit-post'
-  }, 'hiddenBlockTypes');
-  migrateIndividualPreferenceToPreferencesStore(persistence, {
-    from: 'core/edit-post',
-    scope: 'core/edit-post'
-  }, 'editorMode');
-  migrateIndividualPreferenceToPreferencesStore(persistence, {
-    from: 'core/edit-post',
-    scope: 'core/edit-post'
-  }, 'preferredStyleVariations');
-  migrateIndividualPreferenceToPreferencesStore(persistence, {
-    from: 'core/edit-post',
-    scope: 'core/edit-post'
-  }, 'panels', convertEditPostPanels);
-  migrateIndividualPreferenceToPreferencesStore(persistence, {
-    from: 'core/editor',
-    scope: 'core/edit-post'
-  }, 'isPublishSidebarEnabled');
-  migrateIndividualPreferenceToPreferencesStore(persistence, {
-    from: 'core/edit-site',
-    scope: 'core/edit-site'
-  }, 'editorMode');
-  migrateInterfaceEnableItemsToPreferencesStore(persistence);
-};
+persistencePlugin.__unstableMigrate = () => {};
 
 /* harmony default export */ var persistence = (persistencePlugin);
 
@@ -3968,14 +3605,7 @@ function useSelect(mapSelect, deps) {
   const _mapSelect = hasMappingFunction ? callbackMapper : null;
 
   const registry = useRegistry();
-  const isAsync = useAsyncMode(); // React can sometimes clear the `useMemo` cache.
-  // We use the cache-stable `useMemoOne` to avoid
-  // losing queues.
-
-  const queueContext = useMemoOne(() => ({
-    queue: true
-  }), [registry]);
-  const [, forceRender] = (0,external_wp_element_namespaceObject.useReducer)(s => s + 1, 0);
+  const isAsync = useAsyncMode();
   const latestRegistry = (0,external_wp_element_namespaceObject.useRef)(registry);
   const latestMapSelect = (0,external_wp_element_namespaceObject.useRef)();
   const latestIsAsync = (0,external_wp_element_namespaceObject.useRef)(isAsync);
@@ -3995,9 +3625,10 @@ function useSelect(mapSelect, deps) {
     mapOutput = latestMapOutput.current;
     const hasReplacedRegistry = latestRegistry.current !== registry;
     const hasReplacedMapSelect = latestMapSelect.current !== _mapSelect;
+    const hasLeftAsyncMode = latestIsAsync.current && !isAsync;
     const lastMapSelectFailed = !!latestMapOutputError.current;
 
-    if (hasReplacedRegistry || hasReplacedMapSelect || lastMapSelectFailed) {
+    if (hasReplacedRegistry || hasReplacedMapSelect || hasLeftAsyncMode || lastMapSelectFailed) {
       try {
         mapOutput = wrapSelect(_mapSelect);
       } catch (error) {
@@ -4022,17 +3653,18 @@ function useSelect(mapSelect, deps) {
 
     latestRegistry.current = registry;
     latestMapSelect.current = _mapSelect;
+    latestIsAsync.current = isAsync;
     latestMapOutput.current = mapOutput;
-    latestMapOutputError.current = undefined; // This has to run after the other ref updates
-    // to avoid using stale values in the flushed
-    // callbacks or potentially overwriting a
-    // changed `latestMapOutput.current`.
+    latestMapOutputError.current = undefined;
+  }); // React can sometimes clear the `useMemo` cache.
+  // We use the cache-stable `useMemoOne` to avoid
+  // losing queues.
 
-    if (latestIsAsync.current !== isAsync) {
-      latestIsAsync.current = isAsync;
-      renderQueue.flush(queueContext);
-    }
-  });
+  const queueContext = useMemoOne(() => ({
+    queue: true
+  }), [registry]);
+  const [, forceRender] = (0,external_wp_element_namespaceObject.useReducer)(s => s + 1, 0);
+  const isMounted = (0,external_wp_element_namespaceObject.useRef)(false);
   (0,external_wp_compose_namespaceObject.useIsomorphicLayoutEffect)(() => {
     if (!hasMappingFunction) {
       return;
@@ -4055,6 +3687,10 @@ function useSelect(mapSelect, deps) {
     };
 
     const onChange = () => {
+      if (!isMounted.current) {
+        return;
+      }
+
       if (latestIsAsync.current) {
         renderQueue.add(queueContext, onStoreChange);
       } else {
@@ -4066,10 +3702,12 @@ function useSelect(mapSelect, deps) {
 
     onStoreChange();
     const unsubscribers = listeningStores.current.map(storeName => registry.__unstableSubscribeStore(storeName, onChange));
+    isMounted.current = true;
     return () => {
       // The return value of the subscribe function could be undefined if the store is a custom generic store.
       unsubscribers.forEach(unsubscribe => unsubscribe === null || unsubscribe === void 0 ? void 0 : unsubscribe());
       renderQueue.cancel(queueContext);
+      isMounted.current = false;
     }; // If you're tempted to eliminate the spread dependencies below don't do it!
     // We're passing these in from the calling function and want to make sure we're
     // examining every individual value inside the `deps` array.

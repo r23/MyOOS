@@ -7430,13 +7430,8 @@ const isPossibleTransformForSource = (transform, direction, blocks) => {
   } // If the transform has a `isMatch` function specified, check that it returns true.
 
 
-  if ((0,external_lodash_namespaceObject.isFunction)(transform.isMatch)) {
-    const attributes = transform.isMultiBlock ? blocks.map(block => block.attributes) : sourceBlock.attributes;
-    const block = transform.isMultiBlock ? blocks : sourceBlock;
-
-    if (!transform.isMatch(attributes, block)) {
-      return false;
-    }
+  if (!maybeCheckTransformIsMatch(transform, blocks)) {
+    return false;
   }
 
   if (transform.usingMobileTransformations && isWildcardBlockTransform(transform) && !isContainerGroupBlock(sourceBlock.name)) {
@@ -7624,6 +7619,25 @@ function getBlockTransforms(direction, blockTypeOrName) {
   }));
 }
 /**
+ * Checks that a given transforms isMatch method passes for given source blocks.
+ *
+ * @param {Object} transform A transform object.
+ * @param {Array}  blocks    Blocks array.
+ *
+ * @return {boolean} True if given blocks are a match for the transform.
+ */
+
+function maybeCheckTransformIsMatch(transform, blocks) {
+  if (typeof transform.isMatch !== 'function') {
+    return true;
+  }
+
+  const sourceBlock = (0,external_lodash_namespaceObject.first)(blocks);
+  const attributes = transform.isMultiBlock ? blocks.map(block => block.attributes) : sourceBlock.attributes;
+  const block = transform.isMultiBlock ? blocks : sourceBlock;
+  return transform.isMatch(attributes, block);
+}
+/**
  * Switch one or more blocks into one or more blocks of the new block type.
  *
  * @param {Array|Object} blocks Blocks array or block object.
@@ -7631,6 +7645,7 @@ function getBlockTransforms(direction, blockTypeOrName) {
  *
  * @return {?Array} Array of blocks or null.
  */
+
 
 function switchToBlockType(blocks, name) {
   const blocksArray = (0,external_lodash_namespaceObject.castArray)(blocks);
@@ -7641,7 +7656,7 @@ function switchToBlockType(blocks, name) {
 
   const transformationsFrom = getBlockTransforms('from', name);
   const transformationsTo = getBlockTransforms('to', sourceName);
-  const transformation = findTransform(transformationsTo, t => t.type === 'block' && (isWildcardBlockTransform(t) || t.blocks.indexOf(name) !== -1) && (!isMultiBlock || t.isMultiBlock)) || findTransform(transformationsFrom, t => t.type === 'block' && (isWildcardBlockTransform(t) || t.blocks.indexOf(sourceName) !== -1) && (!isMultiBlock || t.isMultiBlock)); // Stop if there is no valid transformation.
+  const transformation = findTransform(transformationsTo, t => t.type === 'block' && (isWildcardBlockTransform(t) || t.blocks.indexOf(name) !== -1) && (!isMultiBlock || t.isMultiBlock) && maybeCheckTransformIsMatch(t, blocksArray)) || findTransform(transformationsFrom, t => t.type === 'block' && (isWildcardBlockTransform(t) || t.blocks.indexOf(sourceName) !== -1) && (!isMultiBlock || t.isMultiBlock) && maybeCheckTransformIsMatch(t, blocksArray)); // Stop if there is no valid transformation.
 
   if (!transformation) {
     return null;
