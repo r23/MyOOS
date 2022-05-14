@@ -284,17 +284,7 @@ if (($action == 'new') || ($action == 'edit')) {
         echo '<br>' . TEXT_INFO_ORIGINAL_PRICE . ' ' . $currencies->format($in_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_price_netto);
         echo '<br>' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($in_new_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_new_price_netto);
         echo '<br>' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%';
-    } else {
-		
-		$products_price_historytable = $oostable['products_price_history'];
-		$sql = "SELECT min(products_price) as history_price
-				FROM $products_price_historytable
-				WHERE products_id = '" . intval($sInfo->products_id) . "'
-				AND date_added >= DATE_SUB(NOW(),INTERVAL 30 DAY)";
-		$price_result = $dbconn->Execute($sql);
-		$history_price = $price_result->fields;		
-		
-		
+    } 		
 ?>
                      <fieldset>
                         <div class="form-group row mb-2 mt-3">
@@ -305,7 +295,8 @@ if (($action == 'new') || ($action == 'edit')) {
                         </div>
                      </fieldset>
 <?php
-    } ?>
+    } 
+?>
                      <fieldset>
                         <div class="form-group row mb-2">
                            <label class="col-md-2 col-form-label" for="input-id-1"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?></label>
