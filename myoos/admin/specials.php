@@ -284,7 +284,7 @@ if (($action == 'new') || ($action == 'edit')) {
         echo '<br>' . TEXT_INFO_ORIGINAL_PRICE . ' ' . $currencies->format($in_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_price_netto);
         echo '<br>' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($in_new_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_new_price_netto);
         echo '<br>' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%';
-    } 		
+    } else {		
 ?>
                      <fieldset>
                         <div class="form-group row mb-2 mt-3">
