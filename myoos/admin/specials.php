@@ -221,7 +221,25 @@ if (($action == 'new') || ($action == 'edit')) {
             // Move that ADOdb pointer!
             $specials_result->MoveNext();
         }
-    } ?>
+    } 
+	
+	$products_price_historytable = $oostable['products_price_history'];
+	$sql = "SELECT min(products_price) as history_price
+			FROM $products_price_historytable
+			WHERE products_id = '" . intval($sInfo->products_id) . "'
+			AND date_added >= DATE_SUB(NOW(),INTERVAL 30 DAY)";
+	$history_price_result = $dbconn->Execute($sql);
+	if ($history_price_result->RecordCount()) {
+		$productstable = $oostable['products'];
+		$product_info_sql = "SELECT products_price as history_price
+                             FROM $productstable
+                             WHERE p.products_id = '" . intval($sInfo->products_id) . "'";
+        $product_info_result = $dbconn->Execute($product_info_sql);
+		$history_price = $product_info_result->fields;
+	} else {
+		$history_price = $history_price_result->fields;
+	}
+?>
 <!-- body_text //-->
 	<div class="card card-default">
 		<div class="card-header"><?php echo HEADING_TITLE; ?></div>
@@ -253,11 +271,11 @@ if (($action == 'new') || ($action == 'edit')) {
         $in_price = ($in_price_netto*($tax['tax_rate']+100)/100);
         $in_new_price = ($in_new_price_netto*($tax['tax_rate']+100)/100);
 
-        $in_price_netto = round($in_price_netto, TAX_DECIMAL_PLACES);
-        $in_new_price_netto = round($in_new_price_netto, TAX_DECIMAL_PLACES);
+        $in_price_netto = oos_round($in_price_netto, TAX_DECIMAL_PLACES);
+        $in_new_price_netto = oos_round($in_new_price_netto, TAX_DECIMAL_PLACES);
 
-        $in_price = round($in_price, TAX_DECIMAL_PLACES);
-        $in_new_price = round($in_new_price, TAX_DECIMAL_PLACES);
+        $in_price = oos_round($in_price, TAX_DECIMAL_PLACES);
+        $in_new_price = oos_round($in_new_price, TAX_DECIMAL_PLACES);
 
 
         echo $sInfo->products_name;
@@ -265,7 +283,17 @@ if (($action == 'new') || ($action == 'edit')) {
         echo '<br>' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($in_new_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_new_price_netto);
         echo '<br>' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%';
     } else {
-        ?>
+		
+		$products_price_historytable = $oostable['products_price_history'];
+		$sql = "SELECT min(products_price) as history_price
+				FROM $products_price_historytable
+				WHERE products_id = '" . intval($sInfo->products_id) . "'
+				AND date_added >= DATE_SUB(NOW(),INTERVAL 30 DAY)";
+		$price_result = $dbconn->Execute($sql);
+		$history_price = $price_result->fields;		
+		
+		
+?>
                      <fieldset>
                         <div class="form-group row mb-2 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SPECIALS_PRODUCT; ?></label>
