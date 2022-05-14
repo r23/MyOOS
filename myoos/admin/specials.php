@@ -223,21 +223,23 @@ if (($action == 'new') || ($action == 'edit')) {
         }
     } 
 	
-	$products_price_historytable = $oostable['products_price_history'];
-	$sql = "SELECT min(products_price) as history_price
-			FROM $products_price_historytable
-			WHERE products_id = '" . intval($sInfo->products_id) . "'
-			AND date_added >= DATE_SUB(NOW(),INTERVAL 30 DAY)";
-	$history_price_result = $dbconn->Execute($sql);
-	if ($history_price_result->RecordCount()) {
-		$productstable = $oostable['products'];
-		$product_info_sql = "SELECT products_price as history_price
-                             FROM $productstable
-                             WHERE p.products_id = '" . intval($sInfo->products_id) . "'";
-        $product_info_result = $dbconn->Execute($product_info_sql);
-		$history_price = $product_info_result->fields;
-	} else {
-		$history_price = $history_price_result->fields;
+	if (isset($sInfo->products_price)) {
+		$products_price_historytable = $oostable['products_price_history'];
+		$sql = "SELECT min(products_price) as history_price
+				FROM $products_price_historytable
+				WHERE products_id = '" . intval($sInfo->products_id) . "'
+				AND date_added >= DATE_SUB(NOW(),INTERVAL 30 DAY)";
+		$history_price_result = $dbconn->Execute($sql);
+		if ($history_price_result->RecordCount()) {
+			$productstable = $oostable['products'];
+			$product_info_sql = "SELECT products_price as history_price
+								FROM $productstable
+								WHERE p.products_id = '" . intval($sInfo->products_id) . "'";
+			$product_info_result = $dbconn->Execute($product_info_sql);
+			$history_price = $product_info_result->fields;
+		} else {
+			$history_price = $history_price_result->fields;
+		}
 	}
 ?>
 <!-- body_text //-->
