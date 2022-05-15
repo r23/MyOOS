@@ -29,7 +29,7 @@ define('TABLE_HEADING_ACTION', 'Action');
 define('TEXT_SPECIALS_PRODUCT', 'Product:');
 define('TEXT_SPECIALS_SPECIAL_PRICE', 'Special Price:');
 define('TEXT_SPECIALS_EXPIRES_DATE', 'Expiry Date:<br><small>(YYYY-MM-DD)</small>');
-define('TEXT_SPECIALS_PRICE_TIP', '<b>Specials Notes:</b><ul><li>You can enter a percentage to deduct in the Specials Price field, for example: <b>20%</b></li><li>If you enter a new price, the decimal separator must be a \'.\' (decimal-point), example: <b>49.99</b></li><li>Leave the expiry date empty for no expiration</li></ul>');
+define('TEXT_SPECIALS_PRICE_TIP', '<b>Specials Notes:</b><ul><li>You can enter a percentage to deduct in the Specials Price field, for example: <b>20%</b></li><li>If you enter a new price, the decimal separator must be a \'.\' (decimal-point), example: <b>49.99</b></li></ul>');
 
 define('TEXT_INFO_DATE_ADDED', 'Date Added:');
 define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
@@ -43,3 +43,6 @@ define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
 
 define('TEXT_INFO_HEADING_DELETE_SPECIALS', 'Delete Special');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete the special products price?');
+
+define('TEXT_EXPIRES_DATE_ERROR', '<strong>Error:</strong> The validity date is missing!');
+define('TEXT_PRODUCT_ERROR', '<strong>Error:</strong> The product has not yet been published in the online store for 30 days!');

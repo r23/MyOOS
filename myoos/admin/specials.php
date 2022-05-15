@@ -67,28 +67,32 @@ if (!empty($action)) {
         case 'insert':
             if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
                 $products_id = oos_db_prepare_input($_POST['products_id']);
-                $products_price = oos_db_prepare_input($_POST['products_price']);
+               # $products_price = oos_db_prepare_input($_POST['products_price']);
                 $specials_price = oos_db_prepare_input($_POST['specials_price']);
                 $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-                // insert a product on special
-                if (substr($_POST['specials_price'], -1) == '%') {
-                    $productstable = $oostable['products'];
-                    $new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
-                    $new_special_insert = $new_special_insert_result->fields;
+				if (strlen($expires_date) > 6) {
+					$messageStack->add(TEXT_EXPIRES_DATE_ERROR, 'error');
+				} else {
+					// insert a product on special
+					if (substr($_POST['specials_price'], -1) == '%') {
+						$productstable = $oostable['products'];
+						$new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
+						$new_special_insert = $new_special_insert_result->fields;
 
-                    $products_price = $new_special_insert['products_price'];
-                    $specials_price = ($products_price - (($specials_price / 100) * $products_price));
-                }
+						$products_price = $new_special_insert['products_price'];
+						$specials_price = ($products_price - (($specials_price / 100) * $products_price));
+					}
 
-                $dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
-                // product price history
-                $sql_price_array = array('products_id' => intval($products_id),
-                                        'products_price' => oos_db_input($specials_price),
-                                        'date_added' => 'now()');
-                oos_db_perform($oostable['products_price_history'], $sql_price_array);
-            }
-            oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
+					$dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+					// product price history
+					$sql_price_array = array('products_id' => intval($products_id),
+											'products_price' => oos_db_input($specials_price),
+											'date_added' => 'now()');
+					oos_db_perform($oostable['products_price_history'], $sql_price_array);
+				}
+				oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
+			}
             break;
 
         case 'update':
@@ -128,53 +132,6 @@ if (!empty($action)) {
     }
 }
 
-require 'includes/header.php';
-
-?>
-<!-- body //-->
-<div class="wrapper">
-	<!-- Header //-->
-	<header class="topnavbar-wrapper">
-		<!-- Top Navbar //-->
-		<?php require 'includes/menue.php'; ?>
-	</header>
-	<!-- END Header //-->
-	<aside class="aside">
-		<!-- Sidebar //-->
-		<div class="aside-inner">
-			<?php require 'includes/blocks.php'; ?>
-		</div>
-		<!-- END Sidebar (left) //-->
-	</aside>
-	
-	<!-- Main section //-->
-	<section>
-		<!-- Page content //-->
-		<div class="content-wrapper">
-		
-			<!-- Breadcrumbs //-->
-			<div class="content-heading">
-				<div class="col-lg-12">
-					<h2><?php echo HEADING_TITLE; ?></h2>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item active">
-							<strong><?php echo HEADING_TITLE; ?></strong>
-						</li>
-					</ol>
-				</div>
-			</div>
-			<!-- END Breadcrumbs //-->
-			
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">				
-<?php
 
 if (($action == 'new') || ($action == 'edit')) {
     $form_action = 'insert';
@@ -250,8 +207,62 @@ if (($action == 'new') || ($action == 'edit')) {
 		$product_check_result = $dbconn->Execute($product_check_sql);
 		if (!$product_check_result->RecordCount()) {
 			$price = '';
+			$messageStack->add(TEXT_PRODUCT_ERROR, 'error');	
 		}
 	}
+}
+
+
+require 'includes/header.php';
+
+?>
+<!-- body //-->
+<div class="wrapper">
+	<!-- Header //-->
+	<header class="topnavbar-wrapper">
+		<!-- Top Navbar //-->
+		<?php require 'includes/menue.php'; ?>
+	</header>
+	<!-- END Header //-->
+	<aside class="aside">
+		<!-- Sidebar //-->
+		<div class="aside-inner">
+			<?php require 'includes/blocks.php'; ?>
+		</div>
+		<!-- END Sidebar (left) //-->
+	</aside>
+	
+	<!-- Main section //-->
+	<section>
+		<!-- Page content //-->
+		<div class="content-wrapper">
+		
+			<!-- Breadcrumbs //-->
+			<div class="content-heading">
+				<div class="col-lg-12">
+					<h2><?php echo HEADING_TITLE; ?></h2>
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+						</li>
+						<li class="breadcrumb-item">
+							<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
+						</li>
+						<li class="breadcrumb-item active">
+							<strong><?php echo HEADING_TITLE; ?></strong>
+						</li>
+					</ol>
+				</div>
+			</div>
+			<!-- END Breadcrumbs //-->
+			
+			<div class="wrapper wrapper-content">
+				<div class="row">
+					<div class="col-lg-12">				
+<?php
+
+if (($action == 'new') || ($action == 'edit')) {
+
 ?>
 <!-- body_text //-->
 	<div class="card card-default">
@@ -279,22 +290,20 @@ if (($action == 'new') || ($action == 'edit')) {
         $tax = $tax_result->fields;
 
         $in_price_netto = $sInfo->products_price;
-        $in_new_price_netto = $sInfo->specials_new_products_price;
-
         $in_price = ($in_price_netto*($tax['tax_rate']+100)/100);
-        $in_new_price = ($in_new_price_netto*($tax['tax_rate']+100)/100);
-
         $in_price_netto = oos_round($in_price_netto, TAX_DECIMAL_PLACES);
-        $in_new_price_netto = oos_round($in_new_price_netto, TAX_DECIMAL_PLACES);
-
         $in_price = oos_round($in_price, TAX_DECIMAL_PLACES);
-        $in_new_price = oos_round($in_new_price, TAX_DECIMAL_PLACES);
-
 
         echo $sInfo->products_name;
         echo '<br>' . TEXT_INFO_ORIGINAL_PRICE . ' ' . $currencies->format($in_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_price_netto);
-        echo '<br>' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($in_new_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_new_price_netto);
-        echo '<br>' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%';
+		if (isset($sInfo->specials_new_products_price)) {
+			$in_new_price_netto = $sInfo->specials_new_products_price;
+			$in_new_price = ($in_new_price_netto*($tax['tax_rate']+100)/100);
+			$in_new_price_netto = oos_round($in_new_price_netto, TAX_DECIMAL_PLACES);
+			$in_new_price = oos_round($in_new_price, TAX_DECIMAL_PLACES);
+			echo '<br>' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($in_new_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_new_price_netto);
+			echo '<br>' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%';
+		}
     } else {		
 ?>
                      <fieldset>
