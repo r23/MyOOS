@@ -1704,7 +1704,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                 $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '">' . oos_button(BUTTON_MOVE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '">' . oos_button(IMAGE_COPY_TO) . '</a>');
                 $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=slave_products') . '">' . oos_button(IMAGE_SLAVE) . '</a>');
 
-                if (defined('MIN_DISPLAY_NEW_SPEZILAS')) {
+                if (defined('MIN_DISPLAY_NEW_SPECILAS')) {				
                     $productstable = $oostable['products'];
                     $specialstable = $oostable['specials'];
                     $query = "SELECT p.products_tax_class_id, p.products_id, s.specials_id, s.specials_new_products_price,
