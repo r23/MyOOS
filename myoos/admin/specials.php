@@ -210,6 +210,7 @@ if (($action == 'new') || ($action == 'edit')) {
 			$messageStack->add(TEXT_PRODUCT_ERROR, 'error');	
 		}
 	}
+
 }
 
 
@@ -270,17 +271,15 @@ if (($action == 'new') || ($action == 'edit')) {
 			<div class="card-body">
 
 				<form name="new_special" <?php echo 'action="' . oos_href_link_admin($aContents['specials'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post">
-					<?php if ($form_action == 'update') {
+<?php 
+	if ($form_action == 'update') {
         echo oos_draw_hidden_field('specials_id', intval($sID));
         echo oos_draw_hidden_field('products_price', (isset($sInfo->products_price) ? $sInfo->products_price : ''));
-    } ?>
+    } 
 
-<?php
-    if (isset($_GET['pID'])) {
-        echo '<input type="hidden" name="products_id" value="' . $sInfo->products_id . '">';
-    } else {
-        // echo '<input type="hidden" name="products_up_id" value="' . $sInfo->products_id . '">';
-    }
+    if (isset($sInfo->products_id)) {
+		echo oos_draw_hidden_field('products_id', intval($sInfo->products_id));
+    } 
 
     $in_new_price_netto = '';
     if (!empty($sInfo->products_name)) {
@@ -338,7 +337,21 @@ if (($action == 'new') || ($action == 'edit')) {
                            </div>
                         </div>
                      </fieldset>
-
+<?php
+	if (isset($price['history_price'])) {
+		$cross_out_price = $currencies->format(($price['history_price']*($tax['tax_rate']+100)/100)) . ' - ' . TEXT_TAX_INFO . $currencies->format($price['history_price']);
+?>
+                     <fieldset>
+                        <div class="form-group row mb-2">
+                           <label class="col-md-2 col-form-label" for="input-id-1"><?php echo TEXT_SPECIALS_CROSS_OUT_PRICE; ?></label>
+                           <div class="col-md-10">
+                              <?php echo oos_draw_input_field('cross_out_price', $cross_out_price, '', false, 'text', true, true); ?> 
+                           </div>
+                        </div>
+                     </fieldset>
+<?php
+	}
+?>					 
 		<div class="text-md-left mt-3">
 			<p><?php echo TEXT_SPECIALS_PRICE_TIP; ?></p>
 		</div>
