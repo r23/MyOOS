@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '583b5b68bd5c538cf20d321c701fc1c4d9d97379',
+        'reference' => '80475330f167bca0ad1d6b7b5bac4e94bf9014fb',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -178,7 +178,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '583b5b68bd5c538cf20d321c701fc1c4d9d97379',
+            'reference' => '80475330f167bca0ad1d6b7b5bac4e94bf9014fb',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -420,7 +420,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '2ed308386e65cafaadd54723f5b57775374c2ae8',
+            'reference' => 'c491d086242983f784b8af91cbb9de43d3374971',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
@@ -997,12 +997,12 @@
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
-            'pretty_version' => 'v3.3.10',
-            'version' => '3.3.10.0',
+            'pretty_version' => 'v3.4.0',
+            'version' => '3.4.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../twig/twig',
             'aliases' => array(),
-            'reference' => '8442df056c51b706793adf80a9fd363406dd3674',
+            'reference' => 'ed19f4bf9d19c4ef920b5d8243910bd32e85b9ba',
             'dev_requirement' => false,
         ),
         'videlalvaro/php-amqplib' => array(
