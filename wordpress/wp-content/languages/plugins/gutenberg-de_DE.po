@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-05-12 14:07:34+0000\n"
+"PO-Revision-Date: 2022-05-16 21:15:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2989,7 +2989,7 @@ msgid "Classic"
 msgstr "Classic"
 
 #: lib/compat/wordpress-5.9/block-template-utils.php:160
-#: build/block-editor/index.js:44528 build/blocks/index.js:5550
+#: build/block-editor/index.js:44529 build/blocks/index.js:5550
 #: build/core-data/index.js:2053
 msgid "Media"
 msgstr "Medien"
@@ -3298,8 +3298,8 @@ msgid "Categories"
 msgstr "Kategorien"
 
 #: build/block-library/blocks/comment-edit-link.php:42
-#: build/block-editor/index.js:43387 build/block-editor/index.js:44187
-#: build/block-editor/index.js:46729 build/block-library/index.js:8376
+#: build/block-editor/index.js:43388 build/block-editor/index.js:44188
+#: build/block-editor/index.js:46730 build/block-library/index.js:8376
 #: build/block-library/index.js:31021 build/block-library/index.js:31023
 #: build/block-library/index.js:32835 build/block-library/index.js:48515
 #: build/edit-navigation/index.js:3688 build/edit-post/index.js:7768
