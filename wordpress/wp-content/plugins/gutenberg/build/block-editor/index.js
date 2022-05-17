@@ -25138,7 +25138,8 @@ function BlockPopoverInbetween(_ref) {
     ,
     key: nextClientId + '--' + rootClientId
   }, props, {
-    className: classnames_default()('block-editor-block-popover', props.className)
+    className: classnames_default()('block-editor-block-popover', props.className),
+    __unstableForcePosition: true
   }), (0,external_wp_element_namespaceObject.createElement)("div", {
     style: style
   }, children));
