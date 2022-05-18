@@ -52,7 +52,7 @@ $currencies = new currencies();
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $sID = (isset($_GET['sID']) ? intval($_GET['sID']) : '');
-
+$pID = (isset($_GET['pID']) ? intval($_GET['pID']) : '');
 
 if (!empty($action)) {
     switch ($action) {
@@ -66,15 +66,47 @@ if (!empty($action)) {
 
         case 'insert':
             if (isset($_POST['products_id']) && is_numeric($_POST['products_id'])) {
+				$bError = false; // reset error flag
+				
                 $products_id = oos_db_prepare_input($_POST['products_id']);
-               # $products_price = oos_db_prepare_input($_POST['products_price']);
                 $specials_price = oos_db_prepare_input($_POST['specials_price']);
                 $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
 				if (strlen($expires_date) > 6) {
+					$bError = true;
 					$messageStack->add(TEXT_EXPIRES_DATE_ERROR, 'error');
+				} 
+					
+				$products_price_historytable = $oostable['products_price_history'];
+				$sql = "SELECT min(products_price) as history_price
+						FROM $products_price_historytable
+						WHERE products_id = '" . intval($products_id) . "'
+						AND date_added >= DATE_SUB(NOW(),INTERVAL 30 DAY)";
+				$history_price_result = $dbconn->Execute($sql);
+				if ($history_price_result->RecordCount()) {
+					$productstable = $oostable['products'];
+					$product_info_sql = "SELECT products_price as history_price
+										FROM $productstable
+										WHERE products_id = '" . intval($products_id) . "'";
+					$product_info_result = $dbconn->Execute($product_info_sql);
+					$price = $product_info_result->fields;
 				} else {
-					// insert a product on special
+					$price = $history_price_result->fields;
+				}
+		
+				// Check 30 Day
+				$productstable = $oostable['products'];
+				$product_check_sql = "SELECT products_status
+								FROM $productstable
+								WHERE products_id = '" . intval($products_id) . "'
+								AND products_date_added <= DATE_SUB(NOW(),INTERVAL 30 DAY)";
+				$product_check_result = $dbconn->Execute($product_check_sql);
+				if (!$product_check_result->RecordCount()) {
+		#			$price = '';	
+				}
+				
+				
+					
 					if (substr($_POST['specials_price'], -1) == '%') {
 						$productstable = $oostable['products'];
 						$new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
@@ -84,14 +116,27 @@ if (!empty($action)) {
 						$specials_price = ($products_price - (($specials_price / 100) * $products_price));
 					}
 
+                $old_products_price = $price['history_price'];
+
+                if ($old_products_price < $specials_price) {
+					$bError = true;
+					$messageStack->add('nicht kleiner', 'error');
+                }	
+
+				$pID = intval($products_id);
+				$action == 'new';
+				
+				if ($bError == false) {	
+					// insert a product on special
 					$dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
 					// product price history
 					$sql_price_array = array('products_id' => intval($products_id),
 											'products_price' => oos_db_input($specials_price),
 											'date_added' => 'now()');
 					oos_db_perform($oostable['products_price_history'], $sql_price_array);
-				}
-				oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
+					
+					oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
+				}	
 			}
             break;
 
@@ -133,7 +178,7 @@ if (!empty($action)) {
 }
 
 
-if (($action == 'new') || ($action == 'edit')) {
+if (($action == 'new') || ($action == 'edit'))) {
     $form_action = 'insert';
     if (($action == 'edit') && isset($_GET['sID'])) {
         $form_action = 'update';
@@ -153,7 +198,7 @@ if (($action == 'new') || ($action == 'edit')) {
         $product = $dbconn->GetRow($sql);
 
         $sInfo = new objectInfo($product);
-    } elseif (($action == 'new') && isset($_GET['pID'])) {
+    } elseif (($action == 'new') && isset($pID)) {
         $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
         $sql = "SELECT p.products_tax_class_id, p.products_id, p.products_image, pd.products_name, p.products_price
@@ -161,7 +206,7 @@ if (($action == 'new') || ($action == 'edit')) {
                    $products_descriptiontable pd
               WHERE p.products_id = pd.products_id AND
                     pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND
-                    p.products_id = '" . intval($_GET['pID']) . "'";
+                    p.products_id = '" . intval($pID) . "'";
         $product = $dbconn->GetRow($sql);
 
         $sInfo = new objectInfo($product);
@@ -180,24 +225,7 @@ if (($action == 'new') || ($action == 'edit')) {
         }
     } 
 	
-	if (isset($sInfo->products_id)) {
-		$products_price_historytable = $oostable['products_price_history'];
-		$sql = "SELECT min(products_price) as history_price
-				FROM $products_price_historytable
-				WHERE products_id = '" . intval($sInfo->products_id) . "'
-				AND date_added >= DATE_SUB(NOW(),INTERVAL 30 DAY)";
-		$history_price_result = $dbconn->Execute($sql);
-		if ($history_price_result->RecordCount()) {
-			$productstable = $oostable['products'];
-			$product_info_sql = "SELECT products_price as history_price
-								FROM $productstable
-								WHERE products_id = '" . intval($sInfo->products_id) . "'";
-			$product_info_result = $dbconn->Execute($product_info_sql);
-			$price = $product_info_result->fields;
-		} else {
-			$price = $history_price_result->fields;
-		}
-		
+	if (isset($sInfo->products_id)) {	
 		// Check 30 Day
 		$productstable = $oostable['products'];
 		$product_check_sql = "SELECT products_status
@@ -210,7 +238,6 @@ if (($action == 'new') || ($action == 'edit')) {
 			$messageStack->add(TEXT_PRODUCT_ERROR, 'error');	
 		}
 	}
-
 }
 
 
