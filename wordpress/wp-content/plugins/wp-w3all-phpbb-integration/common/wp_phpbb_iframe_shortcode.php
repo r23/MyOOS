@@ -84,38 +84,6 @@ var resp = '".__( 'You have ', 'wp-w3all-phpbb-integration' )."' + parseInt(res,
 }
 });
 }
-
-function w3allNormalize_phpBBUrl_onParent(href){
-// try to 'normalize' passed relative links: needed all after last slash /
-// exception are kind of passed urls like: /phpbb323/app.php/help/faq
-// and if SEO mods that may assign some different kind of links values
-// by the way, SEO absolute urls http(s) should be (all?) already considered here ...
-
-var boardU = '".$w3all_url_to_cms."';
-var phpbbRUrl = href.split(/^.+?(\w+.+)$/);
-if( href.indexOf('app.php') > -1 ){ // since the previous not 'normalize' this type of passed value (and may miss something else)
-   phpbburl = href.split(/^.+?(app\.php.+)$/);
-   w3allappend = phpbburl[1];
- } else if ( /^https?/ig.exec(href) !== null ){ // absolute http(s) passed: try to 'normalize' a possible seo mod
-   phpbburl = href.split(boardU);
-   w3allappend = phpbburl[1];
- } else if ( phpbbRUrl[1] && phpbbRUrl[1].length > 1 ){ // 'normalize' any other
-   w3allappend = phpbbRUrl[1];
- } else if ( phpbbRUrl[0].length > 1 ){
-   w3allappend = phpbbRUrl[0];
-   }
-// ... if still not normalized
-if(/^\W/ig.exec(w3allappend) !== null){
-  w3allappend = w3allappend.split(/^.+?(\w+.+)$/);
-  if(w3allappend[1]){
-    w3allappend = w3allappend[1];
-  }
-  if ( w3allappend[1] && w3allappend[1].charAt(0) == '/' ){
-    w3allappend = w3allappend[1].substr(1);
-  }
-}
-return w3allappend;
-}
 </script>
 <style type=\"text/css\" media=\"screen\">
 .w3preloadtext{

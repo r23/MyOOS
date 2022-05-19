@@ -1,5 +1,5 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-// 2022 - @axew3.com //
+// 2022 -> @axew3.com //
 
 // START (MAY) DO NOT MODIFY
 
@@ -8,8 +8,8 @@
     $phpBBuid2 = (isset($_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u']) && $_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u'] == 2) ? 2 : 0;
    } else { $phpBBuid2 = 0; }
   if(defined("WPW3ALL_NOT_ULINKED")) { $phpBBuid2 = 2; } // switch to be like it is uid2, so to avoid the reload of the page loop
-  // the shortcode homepage push has been excluded directly more below where: if(w3all_passed_url != '' && inhomepageShort != 'inhomepage-phpbbiframe'){
-  // exclude also if the passed url_push is set to 'no' more below
+  // the shortcode homepage push has been excluded more below where: if(w3all_passed_url != '' && inhomepageShort != 'inhomepage-phpbbiframe'){
+  // exclude also if the passed url_push is set to 'no'
 
 global $w3all_iframe_custom_w3fancyurl,$w3all_url_to_cms,$w3all_iframe_custom_top_gap,$w3cookie_domain,$wp_w3all_forum_folder_wp;
 $wp_w3all_forum_folder_wp = empty($ltm['wp_page_name']) ? $wp_w3all_forum_folder_wp : $ltm['wp_page_name'];
@@ -19,10 +19,10 @@ $w3allhomeurl = get_home_url();
 $current_user = wp_get_current_user();
 $w3all_url_to_cms_clean = $w3all_url_to_cms;
 $w3all_url_to_cms_clean0 = strpos($w3all_url_to_cms_clean, 'https://') !== false ? str_replace('https://', 'http://', $w3all_url_to_cms_clean) : str_replace('http://', 'https://', $w3all_url_to_cms_clean);
-// guess to get the domain.com to display into preloader // array order here, is !important
+// guess to get the domain.com to display into preloader // array order here is !important
 if(!empty($w3all_url_to_cms)){
-$w3guessdomaindisplay = str_replace(array("http://www.","https://www.","http://","https://"), array("","","",""), $w3all_url_to_cms);
-$spos = strpos($w3guessdomaindisplay,'/');
+ $w3guessdomaindisplay = str_replace(array("http://www.","https://www.","http://","https://"), array("","","",""), $w3all_url_to_cms);
+ $spos = strpos($w3guessdomaindisplay,'/');
 if($spos !== false)
 {
  $w3guessdomaindisplay = substr($w3guessdomaindisplay, 0, $spos);
@@ -43,7 +43,7 @@ $w3all_orig = strpos($w3all_url_to_cms,'https') !== false ? 'https://'. $documen
 $w3all_orig_www = strpos($w3all_url_to_cms,'https') !== false ? 'https://www.'. $document_domain : 'http://www.' . $document_domain;
 
 // security switch
-$w3all_url_to_cms0 = $w3all_url_to_cms;
+$w3all_url_to_cms0 = $w3all_url_to_cms_sw = $w3all_url_to_cms;
 
 if( isset($_GET["w3"]) ){ // default
  $phpbb_url = trim(base64_decode($_GET["w3"]));
@@ -66,7 +66,7 @@ $w3all_url_to_cms_sw = str_replace(array("%2F", "%23", "%2E"), array("/", "#", "
 // bug -> https://wordpress.org/support/topic/problem-using-iframe-feature-with-https/
 if( strlen($w3all_url_to_cms_sw) == strlen(get_option( 'w3all_url_to_cms' )) OR strlen($w3all_url_to_cms_sw) == strlen(get_option( 'w3all_url_to_cms' )) + 1 )
 {
-  // do not rewrite value of the global $w3all_url_to_cms or index.php will be may appended into widgets avatars urls, so that will make it fail image loads
+  // do not rewrite value of the global $w3all_url_to_cms or it will be may appended into widgets avatars urls, so that will make it fail image loads
  $w3all_url_to_cms_sw = $w3all_url_to_cms;
  $w3all_url_to_cms_sw .= (substr($w3all_url_to_cms, -1) == '/' ? '' : '/index.php');
 } else {  $w3all_url_to_cms_sw = $w3all_url_to_cms; }
@@ -80,7 +80,7 @@ echo'<!-- noscript warning and simple preloader -->
 <div class="ww3_loader"><div class="w3_loader"></div></div>
 </div>
 <!-- START iframe div -->
-<div id="w3all_wrap_phpbb_forum_shortcode_div_id" class="w3all_wrap_phpbb_forum_shortcode_div_class">
+<div style="width:100%;min-width:100%" id="w3all_wrap_phpbb_forum_shortcode_div_id" class="w3all_wrap_phpbb_forum_shortcode_div_class">
 <iframe id="w3all_phpbb_iframe" style="width:1px;min-width:100%;*width:100%;border:0;" scrolling="no" src="'.$w3all_url_to_cms_switch_phpbb_default_url.'"></iframe>
 ';
 echo "<script type=\"text/javascript\">
@@ -91,6 +91,19 @@ echo "<script type=\"text/javascript\">
     var inhomepageShort = '".$ltm['wp_page_name']."';
     var w3urlpush = '".$ltm['url_push']."';
     var w3scrolldefault = '".$ltm['scroll_default']."';
+    var w3allhomeurl = '".$w3allhomeurl."';
+    var wp_w3all_forum_folder_wp = '".$wp_w3all_forum_folder_wp."';
+    var w3all_iframe_custom_w3fancyurl = '".$w3all_iframe_custom_w3fancyurl."';
+
+ function w3all_phpbb_pushUrlToParentOnBackForward(w3ER){
+   if(w3ER != ''){
+   var rem = w3ER.slice(-1);
+   if(rem == '#'){ w3ER = w3ER.substring(0, w3ER.length - 1); }
+    w3ER = window.btoa(unescape(encodeURIComponent(w3ER)));
+    var w3all_url_pushER = w3allhomeurl + '/' + wp_w3all_forum_folder_wp + '/?' + w3all_iframe_custom_w3fancyurl + '=' + w3ER;
+    window.history.replaceState({}, \"\", w3all_url_pushER);
+   }
+  }
 
  function w3all_ajaxup_from_phpbb(res){
       var w3all_phpbb_u_logged  = /#w3all_phpbb_u_logged=1/ig.exec(res);
@@ -159,10 +172,9 @@ echo "<script type=\"text/javascript\">
   } // end // onMessage
 ,
 onScroll: function(x,y){
-return false;
+//return false;
 }
 });
 </script>";
 
-echo'</div><!-- END iframe div -->
-';
+echo'</div><!-- END iframe div -->';

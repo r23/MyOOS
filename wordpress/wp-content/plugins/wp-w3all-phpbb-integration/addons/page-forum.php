@@ -9,13 +9,13 @@
  */
 // @2022 axew3.com //
 
-// START MAY DO NOT MODIFY 
+// START MAY DO NOT MODIFY
 
   if(defined("W3PHPBBCONFIG")){
-    // detect if it is the uid2 in phpBB and avoid iframe loop 
+    // detect if it is the uid2 in phpBB and avoid iframe loop
     $phpBBuid2 = (isset($_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u']) && $_COOKIE[W3PHPBBCONFIG["cookie_name"].'_u'] == 2) ? 2 : 0;
    } else { $phpBBuid2 = 0; }
-   // detect if running as no linked users mode and avoid iframe loop	
+   // detect if running as no linked users mode and avoid iframe loop
   if(defined("WPW3ALL_NOT_ULINKED")) { $phpBBuid2 = 0; }
 
 global $w3all_iframe_custom_w3fancyurl,$w3all_url_to_cms,$w3all_iframe_custom_top_gap,$w3cookie_domain,$wp_w3all_forum_folder_wp;
@@ -110,38 +110,6 @@ var resp = '".__( 'You have ', 'wp-w3all-phpbb-integration' )."' + parseInt(res,
 }
 });
 }
-
-function w3allNormalize_phpBBUrl_onParent(href){
-// try to 'normalize' passed relative links: needed all after last slash /
-// exception are kind of passed urls like: /phpbb323/app.php/help/faq
-// and if SEO mods that may assign some different kind of links values
-// by the way, SEO absolute urls http(s) should be (all?) already considered here ...
-
-var boardU = '".$w3all_url_to_cms_sw."';
-var phpbbRUrl = href.split(/^.+?(\w+.+)$/);
-if( href.indexOf('app.php') > -1 ){ // since the previous not 'normalize' this type of passed value (and may miss something else)
-   phpbburl = href.split(/^.+?(app\.php.+)$/);
-   w3allappend = phpbburl[1];
- } else if ( /^https?/ig.exec(href) !== null ){ // absolute http(s) passed: try to 'normalize' a possible seo mod
-   phpbburl = href.split(boardU);
-   w3allappend = phpbburl[1];
- } else if ( phpbbRUrl[1] && phpbbRUrl[1].length > 1 ){ // 'normalize' any other
-   w3allappend = phpbbRUrl[1];
- } else if ( phpbbRUrl[0].length > 1 ){
-   w3allappend = phpbbRUrl[0];
-   }
-// ... if still not normalized
-if(/^\W/ig.exec(w3allappend) !== null){
-  w3allappend = w3allappend.split(/^.+?(\w+.+)$/);
-  if(w3allappend[1]){
-    w3allappend = w3allappend[1];
-  }
-  if ( w3allappend[1] && w3allappend[1].charAt(0) == '/' ){
-    w3allappend = w3allappend[1].substr(1);
-  }
-}
-return w3allappend;
-}
 </script>
 <style type=\"text/css\" media=\"screen\">
 .w3preloadtext{
@@ -227,7 +195,7 @@ get_header();
 <div class="ww3_loader"><div class="w3_loader"></div></div>
 </div>
 <!-- START iframe div -->
-<div id="" class="">
+<div style="width:100%;min-width:100%" id="" class="">
 <iframe id="w3all_phpbb_iframe" style="width:1px;min-width:100%;*width:100%;border:0;" scrolling="no" src="<?php echo $w3all_url_to_cms; ?>"></iframe>
 <?php
     echo "<script>
@@ -235,6 +203,19 @@ get_header();
      //document.domain = '192.168.1.6'; // NOTE: reset/setup this with domain (like mysite.co.uk) if js error when WP is installed like on mysite.domain.com and phpBB on domain.com: js origin error can come out for example when WordPress is on subdomain install and phpBB on domain. The origin fix is needed: (do this also on phpBB overall_footer.html added code, it need to match)
     var wp_u_logged = ".$current_user->ID.";
     var phpBBuid2 = ".$phpBBuid2.";
+    var w3allhomeurl = '".$w3allhomeurl."';
+    var wp_w3all_forum_folder_wp = '".$wp_w3all_forum_folder_wp."';
+    var w3all_iframe_custom_w3fancyurl = '".$w3all_iframe_custom_w3fancyurl."';
+
+ function w3all_phpbb_pushUrlToParentOnBackForward(w3ER){
+   if(w3ER != ''){
+   var rem = w3ER.slice(-1);
+   if(rem == '#'){ w3ER = w3ER.substring(0, w3ER.length - 1); }
+    w3ER = window.btoa(unescape(encodeURIComponent(w3ER)));
+    var w3all_url_pushER = w3allhomeurl + '/' + wp_w3all_forum_folder_wp + '/?' + w3all_iframe_custom_w3fancyurl + '=' + w3ER;
+    window.history.replaceState({}, \"\", w3all_url_pushER);
+   }
+  }
 
  function w3all_ajaxup_from_phpbb(res){
       var w3all_phpbb_u_logged  = /#w3all_phpbb_u_logged=1/ig.exec(res);
@@ -296,12 +277,12 @@ get_header();
    if(w3all_passed_url != ''){
     w3all_passed_url = window.btoa(unescape(encodeURIComponent(w3all_passed_url)));
     var w3all_passed_url_push = '".$w3allhomeurl."/".$wp_w3all_forum_folder_wp."/?".$w3all_iframe_custom_w3fancyurl."=' + w3all_passed_url;
-    history.replaceState({w3all_passed_url: w3all_passed_url}, \"\", w3all_passed_url_push);
+    history.replaceState({}, \"\", w3all_passed_url_push);
    }
   } // end // onMessage
 ,
 onScroll: function(x,y){
-return false;
+//return false;
 }
 });
 </script>";

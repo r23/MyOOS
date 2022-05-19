@@ -47,11 +47,11 @@ public function form( $instance ) {
 public function wp_w3all_to_phpbb_form($display_phpbb_user_info_yn = 0) {
 
       global $w3all_url_to_cms,$w3all_phpbb_usession,$w3all_custom_output_files,$wp,$w3all_last_t_avatar_dim,$w3cookie_domain;
-     
+
     if ( is_user_logged_in() && !empty($w3all_phpbb_usession) ) { // maintain compatibility with old way for views file
         $phpbb_user_session[0] = $w3all_phpbb_usession;
      }
-  
+
 // see wp_w3all.php
 //if(isset($_POST['w3all_username']) && isset($_POST['w3all_password'])){
 
@@ -192,8 +192,10 @@ class WP_w3all_widget_phpbb_onlineStats extends WP_Widget
 
 public function widget( $args, $instance ) {
 
-  global $phpbb_online_udata,$w3all_url_to_cms,$w3all_custom_output_files,$w3all_last_t_avatar_dim;
+  global $phpbb_online_udata,$phpbb_config,$w3all_url_to_cms,$w3all_custom_output_files,$w3all_last_t_avatar_dim;
   $guests_num = $reg_num = 0;
+
+  if(empty($phpbb_online_udata)){ return; }
 
    foreach($phpbb_online_udata as $v){
     if($v['user_id'] < 2){ $guests_num++; } else { $reg_num++; }
@@ -241,12 +243,12 @@ public function form( $instance ) {
     <label for="<?php echo $this->get_field_id( 'ava_or_ulinks' ); ?>"><?php _e( 'Display/list online usernames as text links or avatars', 'wp-w3all-phpbb-integration'); ?></label>
     <p><label""><input class="widefat" name="<?php echo $this->get_field_name( 'ava_or_ulinks' ); ?>" id="<?php echo $this->get_field_id( 'ava_or_ulinks' ); ?>" type="radio" value="links" <?php if ( 'links' == $instance['ava_or_ulinks'] ) echo 'checked="checked"'; ?> /> <?php esc_html_e('Links', 'wp-w3all-phpbb-integration'); ?></label></p>
     <p><label""><input class="widefat" name="<?php echo $this->get_field_name( 'ava_or_ulinks' ); ?>" id="<?php echo $this->get_field_id( 'ava_or_ulinks' ); ?>" type="radio" value="avatars" <?php if ( 'avatars' == $instance['ava_or_ulinks'] ) echo 'checked="checked"'; ?> /> <?php esc_html_e('Avatars', 'wp-w3all-phpbb-integration'); ?></label></p>
-    </p>     
+    </p>
      <p>
     <label for="<?php echo $this->get_field_id( 'online_ulink_yn' ); ?>"><?php _e( 'Display the username as link that point to the phpBB user profile under avatars:', 'wp-w3all-phpbb-integration'); ?></label>
     <p><label""><input class="widefat" name="<?php echo $this->get_field_name( 'online_ulink_yn' ); ?>" id="<?php echo $this->get_field_id( 'online_ulink_yn' ); ?>" type="radio" value="0" <?php if ( 0 == $instance['online_ulink_yn'] ) echo 'checked="checked"'; ?> /> <?php esc_html_e('No', 'wp-w3all-phpbb-integration'); ?></label></p>
     <p><label""><input class="widefat" name="<?php echo $this->get_field_name( 'online_ulink_yn' ); ?>" id="<?php echo $this->get_field_id( 'online_ulink_yn' ); ?>" type="radio" value="1" <?php if ( 1 == $instance['online_ulink_yn'] ) echo 'checked="checked"'; ?> /> <?php esc_html_e('Yes', 'wp-w3all-phpbb-integration'); ?></label></p>
-    </p>   
+    </p>
     <p>
     <label for="<?php echo $this->get_field_id( 'ava_dimension' ); ?>"><?php _e( 'Avatar dimension - example 20 (parsed in pixel). If empty the default WP value will be used:' ); ?></label>
       <input class="widefat" id="<?php echo $this->get_field_id( 'ava_dimension' ); ?>" name="<?php echo $this->get_field_name( 'ava_dimension' ); ?>" type="text" value="<?php echo esc_attr( $instance['ava_dimension'] ); ?>">

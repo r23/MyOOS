@@ -2,10 +2,10 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, users
-Stable tag: 2.6.2
+Stable tag: 2.6.3
 License: GPLv2 or later
 Requires at least: 5.0.0
-Tested up to: 5.9.3
+Tested up to: 6.0
 Requires PHP: 7.0
 
 WordPress w3all phpBB integration - easy, light, secure, powerful
@@ -72,6 +72,19 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.6.3 =
+*Release Date - 18 May, 2022*
+
+* Fix: optimize the query that retrieve config values, retrieve now only 21 values and not 63
+* Fix: PHP Warning: Undefined array key "switch_wpu_uemail" in /wp-content/plugins/wp-w3all-phpbb-integration/admin/wp_w3all_phpbb_common_tasks.php on line 49
+* Fix: Definitively remove the username/user_login param from the WP login hook function
+* Fix: function w3all_get_phpbb_onlineStats() that get the correct number of users online
+* Fix: PHP Warning:  Undefined variable $w3all_url_to_cms_sw in /wp/wp-content/plugins/wp-w3all-phpbb-integration/views/wp_w3all_phpbb_iframe_short.php on line 64
+* Fix: Clean up several hints into the main admin plugin page, and set as Enabled by default the option: Enable/Disable check of the email in phpBB before it is updated in WordPress (front-end plugins pages)
+* Change: constant W3PHPBBCONFIG has been deprecated and replaced by the var $phpbb_config (but it is still defined)
+* Minor fixes
+* Release Logs: https://www.axew3.com/w3/forums/viewtopic.php?t=1729
 
 = 2.6.2 =
 *Release Date - 4 Apr, 2022*

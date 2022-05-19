@@ -21,10 +21,11 @@
   {
 
    $phpbb_conn = WP_w3all_phpbb::wp_w3all_phpbb_conn_init();
-   $uname = esc_sql($_POST['switch_phpbbu_uname']);
-   $_POST['switch_phpbbu_email'] = trim($_POST['switch_phpbbu_email']);
-   $qr = $phpbb_conn->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_email = '".$_POST['switch_phpbbu_email']."' WHERE username = '".$_POST['switch_phpbbu_uname']."'");
-    if( empty($qr) )
+   $uname = esc_sql(trim($_POST['switch_phpbbu_uname']));
+
+   $_POST['switch_phpbbu_email'] = trim(strtolower($_POST['switch_phpbbu_email']));
+   $qr = $phpbb_conn->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_email = '".$_POST['switch_phpbbu_email']."' WHERE username = '".$uname."'");
+   if( empty($qr) )
      { $w3warn = '<h4 style="color:#FF0000">Error: email update failed. Seem that this username do not exist into phpBB</h4>';
     } else { $w3warn = '<h4 style="color:green">phpBB user '.$_POST['switch_phpbbu_uname'].' has been updated with email '.$_POST['switch_phpbbu_email'].'</h4>'; }
 
@@ -40,14 +41,14 @@
  if( !empty($_POST['switch_wpu_email']) && !empty($_POST['switch_wpu_uname']) )
  {
 
-  if ( is_email(trim($_POST['switch_wpu_email'])) && !empty(trim($_POST['switch_wpu_uname'])) && strlen($_POST['switch_wpu_uname']) < 255 )
+  if ( isset($_POST['switch_wpu_email']) && is_email(trim($_POST['switch_wpu_email'])) && !empty($_POST['switch_wpu_uname']) && strlen($_POST['switch_wpu_uname']) < 255 )
   {
    if( !email_exists( $_POST['switch_wpu_email']) )
    {
     $phpbb_conn = WP_w3all_phpbb::wp_w3all_phpbb_conn_init();
     $uname = esc_sql(trim($_POST['switch_wpu_uname']));
-    $_POST['switch_wpu_uemail'] = trim($_POST['switch_wpu_uemail']);
-    $qr = $wpdb->query("UPDATE $wpu_db_utab SET user_email = '".$_POST['switch_wpu_email']."' WHERE user_login = '".$_POST['switch_wpu_uname']."'");
+    $_POST['switch_wpu_email'] = strtolower(trim($_POST['switch_wpu_email']));
+    $qr = $wpdb->query("UPDATE $wpu_db_utab SET user_email = '".$_POST['switch_wpu_email']."' WHERE user_login = '".$uname."'");
     if( empty($qr) )
      { $w3warn0 = '<h4 style="color:#FF0000">Error: email update failed. Seem that this username do not exist into WordPress</h4>';
      } else { $w3warn0 = '<h4 style="color:green">WordPress user '.$_POST['switch_wpu_uname'].' has been updated with email '.$_POST['switch_wpu_email'].'</h4>';

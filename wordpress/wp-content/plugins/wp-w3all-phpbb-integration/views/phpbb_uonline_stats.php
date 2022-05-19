@@ -1,10 +1,10 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
 
 // remove adding // or activate by removing //
-echo '<div>'.__( 'Most users ever online was: ', 'wp-w3all-phpbb-integration' ) . W3PHPBBCONFIG['record_online_users'] . '</div>'
-. '<div>'.__( 'Registered users: ', 'wp-w3all-phpbb-integration' ) . W3PHPBBCONFIG['num_users'] . '</div>'
-. '<div>'.__( 'Topics: ', 'wp-w3all-phpbb-integration' ) . W3PHPBBCONFIG['num_topics'] . '</div>'
-. '<div>'.__( 'Posts: ', 'wp-w3all-phpbb-integration' ) . W3PHPBBCONFIG['num_posts'] . '</div>'
+echo '<div>'.__( 'Most users ever online was: ', 'wp-w3all-phpbb-integration' ) . $phpbb_config['record_online_users'] . '</div>'
+. '<div>'.__( 'Registered users: ', 'wp-w3all-phpbb-integration' ) . $phpbb_config['num_users'] . '</div>'
+. '<div>'.__( 'Topics: ', 'wp-w3all-phpbb-integration' ) . $phpbb_config['num_topics'] . '</div>'
+. '<div>'.__( 'Posts: ', 'wp-w3all-phpbb-integration' ) . $phpbb_config['num_posts'] . '</div>'
 . '<div>'.__( 'There are', 'wp-w3all-phpbb-integration' ) . ' ' .$guests_num. ' '. __( 'guests ', 'wp-w3all-phpbb-integration' ) . __( 'and', 'wp-w3all-phpbb-integration' ) . ' ' .$reg_num. ' ' . __( 'users online ', 'wp-w3all-phpbb-integration' )
 //. __( '<br />(based on users active over the past', 'wp-w3all-phpbb-integration' ).' '.W3PHPBBCONFIG['load_online_time']. ' ' .__( 'minutes)', 'wp-w3all-phpbb-integration' ).'</div>'
 .'<br />';
