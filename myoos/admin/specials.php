@@ -450,7 +450,7 @@ function updateNet() {
 	  
 <?php
 } else {
-        ?>
+?>
 	<div class="table-responsive">
 		<table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
@@ -469,8 +469,8 @@ function updateNet() {
     $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
         $specialstable = $oostable['specials'];
-        $specials_sql_raw = "SELECT p.products_tax_class_id, p.products_id, pd.products_name, p.products_price,
-                               s.specials_id, s.specials_new_products_price, s.specials_date_added,
+        $specials_sql_raw = "SELECT p.products_tax_class_id, p.products_id, pd.products_name, s.specials_id, 
+								s.specials_new_products_price, s.specials_cross_out_price, s.specials_date_added,
                                s.specials_last_modified, s.expires_date, s.date_status_change, s.status
                            FROM $productstable p,
                                 $specialstable s,
@@ -496,10 +496,22 @@ function updateNet() {
                 echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID=' . $specials['specials_id']) . '\'">' . "\n";
             }
 
-            # $in_price = $sInfo->products_price;
-            # $in_new_price = $sInfo->specials_new_products_price;?>
+			
+			$tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . $specials['products_tax_class_id'] . "' ");
+			$tax = $tax_result->fields;
+
+			$specials_cross_out_price = $specials['specials_cross_out_price'];
+			$specials_new_products_price = $specials['specials_new_products_price'];
+
+			$cross_out_price = ($specials_cross_out_price*($tax['tax_rate']+100)/100);
+			$specials_price = ($specials_new_products_price*($tax['tax_rate']+100)/100);
+
+			$cross_out_price = oos_round($cross_out_price, TAX_DECIMAL_PLACES);
+			$specials_price = oos_round($specials_price, TAX_DECIMAL_PLACES);
+
+?>			
                 <td><?php echo $specials['products_name']; ?></td>
-                <td  align="right"><s><?php echo $currencies->format($specials['products_price']); ?></s> <span><?php echo $currencies->format($specials['specials_new_products_price']); ?></span></td>
+                <td  align="right"><s><?php echo $currencies->format($cross_out_price); ?></s> <span><?php echo $currencies->format($specials_price); ?></span></td>
                 <td  align="right">
 <?php
         if ($specials['status'] == '1') {
@@ -561,21 +573,21 @@ function updateNet() {
           $tax_result = $dbconn->Execute("SELECT tax_rate FROM " . $oostable['tax_rates'] . " WHERE tax_class_id = '" . $sInfo->products_tax_class_id . "' ");
           $tax = $tax_result->fields;
 
-          $in_price_netto = $sInfo->products_price;
+          $in_price_netto = $sInfo->specials_cross_out_price;
           $in_new_price_netto = $sInfo->specials_new_products_price;
 
           $in_price = ($in_price_netto*($tax['tax_rate']+100)/100);
           $in_new_price = ($in_new_price_netto*($tax['tax_rate']+100)/100);
 
-          $in_price_netto = round($in_price_netto, TAX_DECIMAL_PLACES);
-          $in_new_price_netto = round($in_new_price_netto, TAX_DECIMAL_PLACES);
+          $in_price_netto = oos_round($in_price_netto, TAX_DECIMAL_PLACES);
+          $in_new_price_netto = oos_round($in_new_price_netto, TAX_DECIMAL_PLACES);
 
-          $in_price = round($in_price, TAX_DECIMAL_PLACES);
-          $in_new_price = round($in_new_price, TAX_DECIMAL_PLACES);
+          $in_price = oos_round($in_price, TAX_DECIMAL_PLACES);
+          $in_new_price = oos_round($in_new_price, TAX_DECIMAL_PLACES);
 
-          $contents[] = array('text' => '<br>' . TEXT_INFO_ORIGINAL_PRICE . ' ' . $currencies->format($in_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_price_netto));
+          $contents[] = array('text' => '<br>' . TEXT_SPECIALS_CROSS_OUT_PRICE . ' ' . $currencies->format($in_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_price_netto));
           $contents[] = array('text' => '' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($in_new_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_new_price_netto) );
-          $contents[] = array('text' => '' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%');
+          $contents[] = array('text' => '' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->specials_cross_out_price) * 100)) . '%');
 
           if (date('Y-m-d') < $sInfo->expires_date) {
               $contents[] = array('text' => '<br>' . TEXT_INFO_EXPIRES_DATE . ' <b>' . oos_date_short($sInfo->expires_date) . '</b>');
