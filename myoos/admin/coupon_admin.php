@@ -397,7 +397,7 @@ case 'voucherreport':
         #  $contents[] = array('text' => TEXT_REDEMPTIONS_CUSTOMER . '=' . $count_customers->RecordCount();
         $contents[] = array('text' => '');
 ?>
-    <td class="w-25">
+    <td class="w-25" valign="top">
 		<table class="table table-striped">
 <?php
         $box = new box();
@@ -1196,7 +1196,7 @@ case 'voucherreport':
         break;
     }
 ?>
-	<td class="w-25">
+	<td class="w-25" valign="top">
 		<table class="table table-striped">
 <?php
         $box = new box();

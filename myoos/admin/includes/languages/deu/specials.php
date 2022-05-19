@@ -27,10 +27,12 @@ define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Aktion');
 define('TEXT_TAX_INFO', 'Netto:');
 define('TEXT_SPECIALS_PRODUCT', 'Produkt:');
-define('TEXT_SPECIALS_SPECIAL_PRICE', 'Angebotspreis:');
+define('TEXT_SPECIALS_SPECIAL_PRICE', 'Angebotspreis (Netto):');
+define('TEXT_SPECIALS_SPECIAL_PRICE_WITH_TAX', 'Angebotspreis (Brutto):');
+
 define('TEXT_SPECIALS_CROSS_OUT_PRICE', 'Streichpreis:');
 define('TEXT_SPECIALS_EXPIRES_DATE', 'Gültig bis:<br><small>(YYYY-MM-DD)</small>');
-define('TEXT_SPECIALS_PRICE_TIP', '<b>Bemerkung:</b><ul><li>Sie können im Feld Angebotspreis auch prozentuale Werte angeben, z.B.: <b>20%</b></li><li>Wenn Sie einen neuen Preis eingeben, müssen die Nachkommastellen mit einem \'.\' getrennt werden, z.B.: <b>49.99</b></li></ul>');
+define('TEXT_SPECIALS_PRICE_TIP', '<b>Bemerkung:</b><ul><li>Sie können im Feld Angebotspreis (Netto) auch prozentuale Werte angeben, z.B.: <b>20%</b></li><li>Wenn Sie einen neuen Preis eingeben, müssen die Nachkommastellen mit einem \'.\' getrennt werden, z.B.: <b>49.99</b></li></ul>');
 
 define('TEXT_INFO_DATE_ADDED', 'hinzugefügt am:');
 define('TEXT_INFO_LAST_MODIFIED', 'letzte Änderung:');
@@ -46,3 +48,4 @@ define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie das Sonderangebot l�
 
 define('TEXT_EXPIRES_DATE_ERROR', '<strong>Fehler:</strong> Das Gültigkeitsdatum fehlt!');
 define('TEXT_PRODUCT_ERROR', '<strong>Fehler:</strong> Das Produkt ist noch keine 30 Tage im Onlineshop veröffentlicht!');
+define('TEXT_PRICE_ERROR', '<strong>Fehler:</strong> Der Preis vom Sonderangebot ist nicht kleiner als der der niedrigste Gesamtpreis der letzten 30 Tage!');

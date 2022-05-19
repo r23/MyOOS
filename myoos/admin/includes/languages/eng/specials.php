@@ -27,10 +27,11 @@ define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Action');
 define('TEXT_SPECIALS_PRODUCT', 'Product:');
 define('TEXT_TAX_INFO', ' ex VAT:');
-define('TEXT_SPECIALS_SPECIAL_PRICE', 'Special Price:');
-define('TEXT_SPECIALS_CROSS_OUT_PRICE', 'Streichpreis:');
+define('TEXT_SPECIALS_SPECIAL_PRICE', 'Special Price (Net):');
+define('TEXT_SPECIALS_SPECIAL_PRICE_WITH_TAX', 'Special Price (Gross):');
+define('TEXT_SPECIALS_CROSS_OUT_PRICE', 'Strike price:');
 define('TEXT_SPECIALS_EXPIRES_DATE', 'Expiry Date:<br><small>(YYYY-MM-DD)</small>');
-define('TEXT_SPECIALS_PRICE_TIP', '<b>Specials Notes:</b><ul><li>You can enter a percentage to deduct in the Specials Price field, for example: <b>20%</b></li><li>If you enter a new price, the decimal separator must be a \'.\' (decimal-point), example: <b>49.99</b></li></ul>');
+define('TEXT_SPECIALS_PRICE_TIP', '<b>Specials Notes:</b><ul><li>You can enter a percentage to deduct in the Specials Price (Net) field, for example: <b>20%</b></li><li>If you enter a new price, the decimal separator must be a \'.\' (decimal-point), example: <b>49.99</b></li></ul>');
 
 define('TEXT_INFO_DATE_ADDED', 'Date Added:');
 define('TEXT_INFO_LAST_MODIFIED', 'Last Modified:');
@@ -46,3 +47,4 @@ define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete the special pr
 
 define('TEXT_EXPIRES_DATE_ERROR', '<strong>Error:</strong> The validity date is missing!');
 define('TEXT_PRODUCT_ERROR', '<strong>Error:</strong> The product has not yet been published in the online store for 30 days!');
+define('TEXT_PRICE_ERROR', '<strong>Fehler:</strong> The price of the special offer is not lower than the lowest total price of the last 30 days!');

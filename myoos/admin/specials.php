@@ -72,9 +72,9 @@ if (!empty($action)) {
                 $specials_price = oos_db_prepare_input($_POST['specials_price']);
                 $expires_date = oos_db_prepare_input($_POST['expires_date']);
 
-				if (strlen($expires_date) > 6) {
+				if (strlen($expires_date) < 6) {
 					$bError = true;
-					$messageStack->add(TEXT_EXPIRES_DATE_ERROR, 'error');
+					$messageStack->add_session(TEXT_EXPIRES_DATE_ERROR, 'error');
 				} 
 					
 				$products_price_historytable = $oostable['products_price_history'];
@@ -102,41 +102,41 @@ if (!empty($action)) {
 								AND products_date_added <= DATE_SUB(NOW(),INTERVAL 30 DAY)";
 				$product_check_result = $dbconn->Execute($product_check_sql);
 				if (!$product_check_result->RecordCount()) {
-		#			$price = '';	
+					$bError = true;	
 				}
-				
-				
-					
-					if (substr($_POST['specials_price'], -1) == '%') {
-						$productstable = $oostable['products'];
-						$new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
-						$new_special_insert = $new_special_insert_result->fields;
 
-						$products_price = $new_special_insert['products_price'];
-						$specials_price = ($products_price - (($specials_price / 100) * $products_price));
-					}
+				if (substr($_POST['specials_price'], -1) == '%') {
+					$productstable = $oostable['products'];
+					$new_special_insert_result = $dbconn->Execute("SELECT products_id, products_price FROM $productstable WHERE products_id = '" . intval($products_id) . "'");
+					$new_special_insert = $new_special_insert_result->fields;
+
+					$products_price = $new_special_insert['products_price'];
+					$specials_price = ($products_price - (($specials_price / 100) * $products_price));
+				}
 
                 $old_products_price = $price['history_price'];
 
                 if ($old_products_price < $specials_price) {
-					$bError = true;
-					$messageStack->add('nicht kleiner', 'error');
+					$old_products_price = '';
+					$messageStack->add_session(TEXT_PRICE_ERROR, 'error');
                 }	
 
-				$pID = intval($products_id);
-				$action == 'new';
-				
-				if ($bError == false) {	
+			
+				if ($bError == false) {					
 					// insert a product on special
-					$dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+					$dbconn->Execute("INSERT INTO " . $oostable['specials'] . " (products_id, specials_new_products_price, specials_cross_out_price, specials_date_added, expires_date, status) VALUES ('" . intval($products_id) . "', '" . oos_db_input($specials_price) . "', '" . oos_db_input($old_products_price) . "', now(), '" . oos_db_input($expires_date) . "', '1')");
+					$sID = $dbconn->Insert_ID();
+					
 					// product price history
 					$sql_price_array = array('products_id' => intval($products_id),
 											'products_price' => oos_db_input($specials_price),
 											'date_added' => 'now()');
 					oos_db_perform($oostable['products_price_history'], $sql_price_array);
-					
-					oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage)));
-				}	
+
+					oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&sID='. intval($sID)));
+				} else {
+					oos_redirect_admin(oos_href_link_admin($aContents['specials'], 'page=' . intval($nPage) . '&pID='. intval($products_id)  . '&action=new'));
+				}
 			}
             break;
 
@@ -178,7 +178,7 @@ if (!empty($action)) {
 }
 
 
-if (($action == 'new') || ($action == 'edit'))) {
+if (($action == 'new') || ($action == 'edit')) {
     $form_action = 'insert';
     if (($action == 'edit') && isset($_GET['sID'])) {
         $form_action = 'update';
@@ -198,7 +198,7 @@ if (($action == 'new') || ($action == 'edit'))) {
         $product = $dbconn->GetRow($sql);
 
         $sInfo = new objectInfo($product);
-    } elseif (($action == 'new') && isset($pID)) {
+    } elseif (($action == 'new') && isset($pID) && is_numeric($pID)) {
         $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
         $sql = "SELECT p.products_tax_class_id, p.products_id, p.products_image, pd.products_name, p.products_price
@@ -290,7 +290,7 @@ require 'includes/header.php';
 <?php
 
 if (($action == 'new') || ($action == 'edit')) {
-
+	
 ?>
 <!-- body_text //-->
 	<div class="card card-default">
@@ -308,7 +308,6 @@ if (($action == 'new') || ($action == 'edit')) {
 		echo oos_draw_hidden_field('products_id', intval($sInfo->products_id));
     } 
 
-    $in_new_price_netto = '';
     if (!empty($sInfo->products_name)) {
         echo '<br><a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $sInfo->products_id) . '" target="_blank" rel="noopener">' . product_info_image($sInfo->products_image, $sInfo->products_name) . '</a><br>';
 
@@ -330,7 +329,42 @@ if (($action == 'new') || ($action == 'edit')) {
 			echo '<br>' . TEXT_INFO_NEW_PRICE . ' ' . $currencies->format($in_new_price) . ' - ' . TEXT_TAX_INFO . $currencies->format($in_new_price_netto);
 			echo '<br>' . TEXT_INFO_PERCENTAGE . ' ' . number_format(100 - (($sInfo->specials_new_products_price / $sInfo->products_price) * 100)) . '%';
 		}
-    } else {		
+
+		echo "\n";
+		echo '<script type="text/javascript"><!--' . "\n";
+		echo 'var taxRate = ' . $tax['tax_rate'] . ';' . "\n";
+
+?>
+function doRound(x, places) {
+  num = Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
+  return num.toFixed(places);    
+}
+
+
+function updateWithTax() {
+  var grossValue = document.forms["new_special"].specials_price.value;
+  
+  if (taxRate > 0) {
+    grossValue = grossValue * ((taxRate / 100) + 1);
+  }
+
+  document.forms["new_special"].specials_price_gross.value = doRound(grossValue, 2);
+}
+
+function updateNet() {
+  var netValue = document.forms["new_special"].specials_price_gross.value;
+  
+  if (taxRate > 0) {
+    netValue = netValue / ((taxRate / 100) + 1);
+  }
+
+  document.forms["new_special"].specials_price.value = doRound(netValue, 4);
+}
+
+
+//--></script>
+<?php				
+    } else {
 ?>
                      <fieldset>
                         <div class="form-group row mb-2 mt-3">
@@ -342,15 +376,37 @@ if (($action == 'new') || ($action == 'edit')) {
                      </fieldset>
 <?php
     } 
+?>				 
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?></label>
+                              <div class="col-lg-10">
+                                <?php
+	if (!empty($sInfo->products_name)) {
+		echo oos_draw_input_field('specials_price', '', 'onkeyup="updateWithTax()"'); 
+	} else {
+		echo oos_draw_input_field('specials_price', ''); 
+	}
 ?>
-                     <fieldset>
-                        <div class="form-group row mb-2">
-                           <label class="col-md-2 col-form-label" for="input-id-1"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?></label>
-                           <div class="col-md-10">
-                              <?php echo oos_draw_input_field('specials_price', $in_new_price_netto); ?> 
+							
+                              </div>
                            </div>
-                        </div>
-                     </fieldset>
+                        </fieldset>
+<?php
+	if (!empty($sInfo->products_name)) {
+?>		
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_SPECIALS_SPECIAL_PRICE_WITH_TAX; ?></label>
+                              <div class="col-lg-10">
+                                <?php			
+    echo oos_draw_input_field('specials_price_gross', '', 'onkeyup="updateNet()"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>					 
+<?php
+    } 
+?>					 
                      <fieldset>
                         <div class="form-group row mb-2">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?></label>
@@ -532,7 +588,7 @@ if (($action == 'new') || ($action == 'edit')) {
     }
         if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
             ?>
-	<td class="w-25">
+	<td class="w-25" valign="top">
 		<table class="table table-striped">
 <?php
         $box = new box();

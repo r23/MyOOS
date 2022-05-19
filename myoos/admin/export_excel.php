@@ -303,7 +303,7 @@ if ($dir_ok) {
 
     if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
         ?>
-	<td class="w-25">
+	<td class="w-25" valign="top">
 		<table class="table table-striped">
 <?php
         $box = new box();
