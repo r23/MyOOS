@@ -724,24 +724,24 @@
         },
         {
             "name": "hisune/echarts-php",
-            "version": "1.1.1",
-            "version_normalized": "1.1.1.0",
+            "version": "1.1.2",
+            "version_normalized": "1.1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/hisune/Echarts-PHP.git",
-                "reference": "3939489d2c97826c03ebbeced481dbd4ec2693fd"
+                "reference": "b14ebe37736c08353b956eca66cde6a5a2a801c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/hisune/Echarts-PHP/zipball/3939489d2c97826c03ebbeced481dbd4ec2693fd",
-                "reference": "3939489d2c97826c03ebbeced481dbd4ec2693fd",
+                "url": "https://api.github.com/repos/hisune/Echarts-PHP/zipball/b14ebe37736c08353b956eca66cde6a5a2a801c5",
+                "reference": "b14ebe37736c08353b956eca66cde6a5a2a801c5",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "php": ">=5.4.0"
             },
-            "time": "2022-03-03T09:58:13+00:00",
+            "time": "2022-05-20T02:41:03+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {

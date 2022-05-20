@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '95b1e057debc1f79fe5a80bccf5977949bc2ffa8',
+        'reference' => '10fefe871f3e6cebd96066e8aeadaca716d871fb',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -101,12 +101,12 @@
             'dev_requirement' => false,
         ),
         'hisune/echarts-php' => array(
-            'pretty_version' => '1.1.1',
-            'version' => '1.1.1.0',
+            'pretty_version' => '1.1.2',
+            'version' => '1.1.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../hisune/echarts-php',
             'aliases' => array(),
-            'reference' => '3939489d2c97826c03ebbeced481dbd4ec2693fd',
+            'reference' => 'b14ebe37736c08353b956eca66cde6a5a2a801c5',
             'dev_requirement' => false,
         ),
         'laminas/laminas-code' => array(
@@ -178,7 +178,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '95b1e057debc1f79fe5a80bccf5977949bc2ffa8',
+            'reference' => '10fefe871f3e6cebd96066e8aeadaca716d871fb',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
