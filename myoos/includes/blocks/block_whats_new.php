@@ -39,16 +39,21 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
     $whats_new_product_discount_price = null;
     $whats_new_base_product_price = null;
     $whats_new_special_price = null;
-
+    $whats_new_cross_out_price = null;
     $base_product_price = $random_product['products_price'];
 
     if ($aUser['show_price'] == 1) {
-        $whats_new_special_price = oos_get_products_special_price($random_product['products_id']);
+        $whats_new_special_price = oos_get_products_special($random_product['products_id']);
         $whats_new_product_price = $oCurrencies->display_price($random_product['products_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
 
-        if (oos_is_not_null($whats_new_special_price)) {
-            $base_product_price = $whats_new_special_price;
-            $whats_new_product_special_price = $oCurrencies->display_price($whats_new_special_price, oos_get_tax_rate($random_product['products_tax_class_id']));
+        if ($whats_new_special_price['specials_new_products_price'] > 0) {
+            $base_product_price = $whats_new_special_price['specials_new_products_price'];
+            $whats_new_product_special_price = $oCurrencies->display_price($whats_new_special_price['specials_new_products_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
+
+			if ($whats_new_special_price['specials_cross_out_price'] > 0) {
+				$whats_new_cross_out_price = $oCurrencies->display_price($whats_new_special_price['specials_cross_out_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
+				$smarty->assign('whats_new_cross_out_price', $whats_new_cross_out_price);		
+			}
         }
 
         if ($random_product['products_base_price'] != 1) {
@@ -61,7 +66,7 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
             'whats_new_product_discount_price'     => $whats_new_product_discount_price,
             'whats_new_base_product_price'         => $whats_new_base_product_price,
             'whats_new_special_price'              => $whats_new_special_price,
-            'whats_new_product_price'				=> $whats_new_product_price,
+            'whats_new_product_price'              => $whats_new_product_price,
 
             'random_product'          => $random_product,
             'block_heading_whats_new' => $block_heading
