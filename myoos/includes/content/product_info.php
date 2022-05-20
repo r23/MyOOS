@@ -141,6 +141,7 @@ if (!$product_info_result->RecordCount()) {
     $info_base_product_price = null;
     $info_product_price_list = null;
     $schema_product_price = null;
+	$cross_out_price = null;
     $base_product_price = $product_info['products_price'];
 
     // Selector
@@ -173,11 +174,15 @@ if (!$product_info_result->RecordCount()) {
     $schema_product_price = $oCurrencies->schema_price($product_info['products_price'], oos_get_tax_rate($product_info['products_tax_class_id']), 1, false);
     $calculate_price = $product_info['products_price'];
 
-    if ($info_special_price = oos_get_products_special_price($product_info['products_id'])) {
-        $calculate_price = $info_special_price;
-        $base_product_price = $info_special_price;
-        $info_product_special_price = $oCurrencies->display_price($info_special_price, oos_get_tax_rate($product_info['products_tax_class_id']));
-    }
+    if ($special_price = oos_get_products_special($product_info['products_id'])) {
+        $calculate_price = $special_price['specials_new_products_price'];
+        $base_product_price = $special_price['specials_new_products_price'];
+        $info_product_special_price = $oCurrencies->display_price($special_price['specials_new_products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));	
+		if ($special_price['specials_cross_out_price'] > 0) {
+			$cross_out_price = $oCurrencies->display_price($special_price['specials_cross_out_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
+			$smarty->assign('cross_out_price', $cross_out_price);
+		}
+	}
 
 
     // Minimum Order Value
@@ -194,7 +199,7 @@ if (!$product_info_result->RecordCount()) {
 
 
     $discounts_price = false;
-    if ((oos_empty($info_special_price)) && (($product_info['products_discount4_qty'] > 0
+    if ((oos_empty($special_price)) && (($product_info['products_discount4_qty'] > 0
         || $product_info['products_discount3_qty'] > 0
         || $product_info['products_discount2_qty'] > 0
         || $product_info['products_discount1_qty'] > 0))) {

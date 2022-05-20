@@ -319,6 +319,31 @@ function oos_get_products_status($nProductID)
   }
 
 
+/**
+ * Return Products Special Price 
+ *
+ * @param $nProductID
+ * @return array
+ */
+function oos_get_products_special($nProductID)
+{
+	$aSpecial = [];
+
+    // Get database information
+	$dbconn =& oosDBGetConn();
+	$oostable =& oosDBGetTables();
+
+	$specialstable = $oostable['specials'];
+	$query = "SELECT specials_new_products_price, specials_cross_out_price
+              FROM $specialstable
+              WHERE products_id = '" . intval($nProductID) . "'
+                AND status = 1";
+	$aSpecial = $dbconn->GetRow($query);
+	
+	return $aSpecial;
+}
+
+
  /**
   * Return Products Quantity
   *
