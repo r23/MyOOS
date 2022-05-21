@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-05-05 12:47:34+0000\n"
+"PO-Revision-Date: 2022-05-20 12:34:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,66 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.1\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
+
+#. translators: The settings page link
+#: includes/modules/sitemap/settings/post-types.php:24
+#: includes/settings/titles/post-types.php:21
+msgid "disable redirect attachments"
+msgstr "Umleitungsanhänge deaktivieren"
+
+#. translators: The settings page link
+#: includes/modules/sitemap/settings/post-types.php:24
+#: includes/settings/titles/post-types.php:21
+msgid "To configure meta tags for your media attachment pages, you need to first %s to parent."
+msgstr "Um Meta-Tags für deine Medienanhangsseiten zu konfigurieren, mussr du zuerst das übergeordnete Element %s."
+
+#: includes/modules/seo-analysis/class-seo-analyzer.php:278
+msgid "Click here to learn more"
+msgstr "Hier klicken, um mehr zu erfahren"
+
+#: includes/modules/seo-analysis/class-seo-analyzer.php:278
+msgid "The Site-Wide Analysis is unavailable on localhost."
+msgstr "Die Seitenweite Analyse ist auf localhost nicht verfügbar."
+
+#: includes/admin/wizard/views/compatibility.php:116
+msgid "Base64 encode &amp; decode functions missing"
+msgstr "Base64 Kodierungs- und Dekodierungsfunktionen fehlen"
+
+#: includes/admin/wizard/views/compatibility.php:116
+msgid "Base64 encode &amp; decode functions available"
+msgstr "Base64-Kodierungs- und Dekodierungsfunktionen verfügbar"
+
+#: includes/admin/class-admin-helper.php:152
+msgid "[3. Unable to Encrypt]"
+msgstr "[3. Verschlüsselung nicht möglich]"
+
+#: includes/admin/class-admin-helper.php:152
+msgid "If the issue persists, please try the solution described in our Knowledge Base article: %s"
+msgstr "Wenn das Problem weiterhin besteht, versuche es mit unserer Lösung in unserem Artikel der Wissensdatenbank: %s"
+
+#: includes/admin/class-admin-helper.php:151
+msgid "Please try reconnecting."
+msgstr "Bitte versuche die Verbindung wiederherzustellen."
+
+#: includes/admin/class-admin-helper.php:150
+msgid "Unable to validate Rank Math SEO registration data."
+msgstr "Die Rank Math SEO-Registrierungsdaten können nicht validiert werden."
+
+#. Translators: %s is "Article" inside a <code> tag.
+#: includes/settings/titles/post-types.php:162
+msgctxt "Schema type name in a field description"
+msgid "Article"
+msgstr "Artikel"
+
+#. Translators: %s is "Article" inside a <code> tag.
+#: includes/settings/titles/post-types.php:161
+msgid "Default rich snippet selected when creating a new post of this type. If %s is selected, it will be applied for all existing posts with no Schema selected."
+msgstr "Standard-Rich-Snippet, das beim Erstellen eines neuen Beitrags dieses Typs ausgewählt wurde. Wenn %s ausgewählt ist, wird es auf alle vorhandenen Beiträge angewendet, für die kein Schema ausgewählt ist."
+
+#. translators: %1$s: opening tag of the link, %2$s: the closing tag
+#: includes/modules/seo-analysis/seo-analysis-tests.php:490
+msgid "Navigate to %1$sSettings > Reading%2$s and turn off this option: \"Discourage search engines from indexing this site\"."
+msgstr "Navigiere zu %1$sEinstellungen > Lese%2$s und deaktiviere diese Option: \"Suchmaschinen davon abhalten, diese Website zu indizieren\"."
 
 #: includes/modules/database-tools/class-database-tools.php:360
 msgid "Fix Collations"
@@ -92,11 +152,11 @@ msgstr "Aktivieren der Registerkarte Indexstatus"
 msgid "Warning: you have more than %d active redirections. Exporting them to your .htaccess file may cause performance issues."
 msgstr "Warnung: Du hast mehr als %d aktive Umleitungen. Das Exportieren in deine .htaccess-Datei kann zu Leistungsproblemen führen."
 
-#: includes/admin/wizard/views/compatibility.php:97
+#: includes/admin/wizard/views/compatibility.php:98
 msgid "PHP GD or Imagick Extension missing"
 msgstr "PHP GD oder Imagick Erweiterung fehlt"
 
-#: includes/admin/wizard/views/compatibility.php:97
+#: includes/admin/wizard/views/compatibility.php:98
 msgid "PHP GD or Imagick Extension installed"
 msgstr "PHP GD oder Imagick Erweiterung fehlt"
 
@@ -404,11 +464,11 @@ msgstr "Diesen Anhang von der Sitemap ausschließen"
 msgid "When the option is enabled and a term from this taxonomy is shared on Slack, additional information will be shown (the total number of items with this term)."
 msgstr "Wenn die Option aktiviert ist und ein Begriff aus dieser Taxonomie auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (die Gesamtzahl der Elemente mit diesem Begriff)."
 
-#: includes/settings/titles/post-types.php:55
+#: includes/settings/titles/post-types.php:56
 msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price)."
 msgstr "Wenn die Option aktiviert ist und ein Produkt auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Preis)."
 
-#: includes/settings/titles/post-types.php:53
+#: includes/settings/titles/post-types.php:54
 msgid "When the option is enabled and a product is shared on Slack, additional information will be shown (price & availability)."
 msgstr "Wenn die Option aktiviert ist und ein Produkt auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (Preis und Verfügbarkeit)."
 
@@ -436,17 +496,13 @@ msgid "Written by"
 msgstr "Verfasst von"
 
 #. Translators: Post type name.
-#: includes/settings/titles/post-types.php:49
+#: includes/settings/titles/post-types.php:50
 msgid "When the option is enabled and a %s is shared on Slack, additional information will be shown (estimated time to read and author)."
 msgstr "Wenn die Option aktiviert ist und ein %s auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (geschätzte Zeit zum Lesen und Autor)."
 
-#: includes/settings/titles/post-types.php:51
+#: includes/settings/titles/post-types.php:52
 msgid "When the option is enabled and a page is shared on Slack, additional information will be shown (estimated time to read)."
 msgstr "Wenn die Option aktiviert ist und eine Seite auf Slack geteilt wird, werden zusätzliche Informationen angezeigt (geschätzte Zeit zum Lesen)."
-
-#: includes/settings/titles/post-types.php:151
-msgid "Local Business"
-msgstr "Lokales Unternehmen"
 
 #. Translators: placeholder is a link to "Read more".
 #: includes/settings/general/others.php:20
@@ -526,171 +582,171 @@ msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselwörter, Fra
 msgid "Content AI"
 msgstr "Inhalts-KI"
 
-#: includes/helpers/class-choices.php:849
+#: includes/helpers/class-choices.php:851
 msgid "Viet Nam"
 msgstr "Vietnam"
 
-#: includes/helpers/class-choices.php:848
+#: includes/helpers/class-choices.php:850
 msgid "Venezuela, Bolivarian Republic Of"
 msgstr "Venezuela"
 
-#: includes/helpers/class-choices.php:847
+#: includes/helpers/class-choices.php:849
 msgid "Uruguay"
 msgstr "Uruguay"
 
-#: includes/helpers/class-choices.php:846
+#: includes/helpers/class-choices.php:848
 msgid "United States Of America"
 msgstr "Vereinigte Staaten von Amerika"
 
-#: includes/helpers/class-choices.php:844
+#: includes/helpers/class-choices.php:846
 msgid "United Arab Emirates"
 msgstr "Vereinigte Arabische Emirate"
 
-#: includes/helpers/class-choices.php:841
+#: includes/helpers/class-choices.php:843
 msgid "Tunisia"
 msgstr "Tunesien"
 
-#: includes/helpers/class-choices.php:836
+#: includes/helpers/class-choices.php:838
 msgid "Sri Lanka"
 msgstr "Sri Lanka"
 
-#: includes/helpers/class-choices.php:833
+#: includes/helpers/class-choices.php:835
 msgid "Slovenia"
 msgstr "Slowenien"
 
-#: includes/helpers/class-choices.php:832
+#: includes/helpers/class-choices.php:834
 msgid "Slovakia"
 msgstr "Slowakei"
 
-#: includes/helpers/class-choices.php:830
+#: includes/helpers/class-choices.php:832
 msgid "Serbia"
 msgstr "Serbien"
 
-#: includes/helpers/class-choices.php:829
+#: includes/helpers/class-choices.php:831
 msgid "Senegal"
 msgstr "Senegal"
 
-#: includes/helpers/class-choices.php:827
+#: includes/helpers/class-choices.php:829
 msgid "Russian Federation"
 msgstr "Russische Föderation"
 
-#: includes/helpers/class-choices.php:822
+#: includes/helpers/class-choices.php:824
 msgid "Peru"
 msgstr "Peru"
 
-#: includes/helpers/class-choices.php:821
+#: includes/helpers/class-choices.php:823
 msgid "Paraguay"
 msgstr "Paraguay"
 
-#: includes/helpers/class-choices.php:820
+#: includes/helpers/class-choices.php:822
 msgid "Pakistan"
 msgstr "Pakistan"
 
-#: includes/helpers/class-choices.php:817
+#: includes/helpers/class-choices.php:819
 msgid "Nicaragua"
 msgstr "Nicaragua"
 
-#: includes/helpers/class-choices.php:814
+#: includes/helpers/class-choices.php:816
 msgid "Myanmar"
 msgstr "Myanmar"
 
-#: includes/helpers/class-choices.php:813
+#: includes/helpers/class-choices.php:815
 msgid "Morocco"
 msgstr "Marokko"
 
-#: includes/helpers/class-choices.php:811
+#: includes/helpers/class-choices.php:813
 msgid "Malta"
 msgstr "Malta"
 
-#: includes/helpers/class-choices.php:809
+#: includes/helpers/class-choices.php:811
 msgid "Macedonia, The Former Yugoslav Republic Of"
 msgstr "Nordmazedonien"
 
-#: includes/helpers/class-choices.php:808
+#: includes/helpers/class-choices.php:810
 msgid "Lithuania"
 msgstr "Litauen"
 
-#: includes/helpers/class-choices.php:807
+#: includes/helpers/class-choices.php:809
 msgid "Latvia"
 msgstr "Lettland"
 
-#: includes/helpers/class-choices.php:806
+#: includes/helpers/class-choices.php:808
 msgid "Korea, Republic Of"
 msgstr "Südkorea"
 
-#: includes/helpers/class-choices.php:804
+#: includes/helpers/class-choices.php:806
 msgid "Kazakhstan"
 msgstr "Kasachstan"
 
-#: includes/helpers/class-choices.php:803
+#: includes/helpers/class-choices.php:805
 msgid "Jordan"
 msgstr "Jordanien"
 
-#: includes/helpers/class-choices.php:794
+#: includes/helpers/class-choices.php:796
 msgid "Guatemala"
 msgstr "Guatemala"
 
-#: includes/helpers/class-choices.php:792
+#: includes/helpers/class-choices.php:794
 msgid "Ghana"
 msgstr "Ghana"
 
-#: includes/helpers/class-choices.php:788
+#: includes/helpers/class-choices.php:790
 msgid "Estonia"
 msgstr "Estland"
 
-#: includes/helpers/class-choices.php:787
+#: includes/helpers/class-choices.php:789
 msgid "El Salvador"
 msgstr "El Salvador"
 
-#: includes/helpers/class-choices.php:785
+#: includes/helpers/class-choices.php:787
 msgid "Ecuador"
 msgstr "Ecuador"
 
-#: includes/helpers/class-choices.php:782
+#: includes/helpers/class-choices.php:784
 msgid "Cyprus"
 msgstr "Zypern"
 
-#: includes/helpers/class-choices.php:781
+#: includes/helpers/class-choices.php:783
 msgid "Croatia"
 msgstr "Kroatien"
 
-#: includes/helpers/class-choices.php:780
+#: includes/helpers/class-choices.php:782
 msgid "Costa Rica"
 msgstr "Costa Rica"
 
-#: includes/helpers/class-choices.php:776
+#: includes/helpers/class-choices.php:778
 msgid "Cambodia"
 msgstr "Kambodscha"
 
-#: includes/helpers/class-choices.php:775
+#: includes/helpers/class-choices.php:777
 msgid "Bulgaria"
 msgstr "Bulgarien"
 
-#: includes/helpers/class-choices.php:773
+#: includes/helpers/class-choices.php:775
 msgid "Bolivia, Plurinational State Of"
 msgstr "Bolivien"
 
-#: includes/helpers/class-choices.php:771
+#: includes/helpers/class-choices.php:773
 msgid "Belarus"
 msgstr "Weißrussland"
 
-#: includes/helpers/class-choices.php:770
+#: includes/helpers/class-choices.php:772
 msgid "Bangladesh"
 msgstr "Bangladesh"
 
-#: includes/helpers/class-choices.php:769
+#: includes/helpers/class-choices.php:771
 msgid "Bahrain"
 msgstr "Bahrain"
 
-#: includes/helpers/class-choices.php:768
+#: includes/helpers/class-choices.php:770
 msgid "Azerbaijan"
 msgstr "Aserbaidschan"
 
-#: includes/helpers/class-choices.php:765
+#: includes/helpers/class-choices.php:767
 msgid "Armenia"
 msgstr "Armenien"
 
-#: includes/helpers/class-choices.php:763
+#: includes/helpers/class-choices.php:765
 msgid "Algeria"
 msgstr "Algerien"
 
@@ -744,7 +800,7 @@ msgstr "Die hochgeladene Datei konnte nicht gelesen werden."
 msgid "When a featured image or an OpenGraph Image is not set for individual posts/pages/CPTs, this image will be used as a fallback thumbnail when your post is shared on Facebook. <strong>The recommended image size is 1200 x 630 pixels.</strong>"
 msgstr "Wenn für einzelne Beiträge/Seiten/CPTs kein Ausgewähltes Bild oder OpenGraph Bild eingestellt ist, wird dieses Bild als Ersatzminiaturbild verwendet, wenn dein Beitrag auf Facebook geteilt wird. <strong>Die empfohlene Bildgröße ist 1200 x 630 Pixel.</strong>"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:293
+#: includes/modules/seo-analysis/seo-analysis-tests.php:295
 msgid "Could not check Focus Keywords in posts - the post meta table exceeds the size limit."
 msgstr "Fokus-Schlüsselwörter in Beiträgen konnten nicht überprüft werden - die Beitrag-Meta-Tabelle überschreitet die Größenbegrenzung."
 
@@ -759,9 +815,9 @@ msgid_plural "Blocks successfully converted in %d posts."
 msgstr[0] "Blöcke erfolgreich umgewandelt in %d Beitrag."
 msgstr[1] "Blöcke in %d Stellen erfolgreich umgewandelt."
 
-#: includes/helpers/class-choices.php:665
-#: includes/helpers/class-choices.php:725
-#: includes/helpers/class-choices.php:835
+#: includes/helpers/class-choices.php:667
+#: includes/helpers/class-choices.php:727
+#: includes/helpers/class-choices.php:837
 msgid "Spain"
 msgstr "Spanien"
 
@@ -948,7 +1004,7 @@ msgstr "Diese Option kann nicht geändert werden, da dein Theme die Unterstützu
 msgid "<b>Rank Math Warning:</b> Changing the permalinks on a live, indexed site may result in serious loss of traffic if done incorrectly. Consider adding a new redirection from the old URL format to the new one."
 msgstr "<b>Rank Math Warnung:</b> Das Ändern der Permalinks auf einer lebenden, indizierten Website kann zu ernsthaften Traffic-Verlusten führen, wenn es falsch gemacht wird. Ziehe in Erwägung, eine neue Umleitung vom alten URL-Format zum neuen hinzuzufügen."
 
-#: includes/modules/seo-analysis/class-seo-analyzer.php:305
+#: includes/modules/seo-analysis/class-seo-analyzer.php:312
 msgid "Rank Math SEO Analysis error: "
 msgstr "Rank Math SEO Analysefehler: "
 
@@ -1322,7 +1378,7 @@ msgstr "Datenbank-Tabelle: Schlüsselwort-Manager"
 msgid "Select this if you have a custom Rank Math settings file you want to use."
 msgstr "Wähle dies, wenn du eine benutzerdefinierte Rank-Math-Einstellungsdatei hast, die du verwenden möchtest."
 
-#: includes/admin/importers/class-status.php:110
+#: includes/admin/importers/class-status.php:108
 msgid "Video Settings imported successfully."
 msgstr "Videoeinstellungen erfolgreich importiert."
 
@@ -1369,7 +1425,7 @@ msgstr "Neueste Blog-Beiträge von Rank Math"
 msgid "Rank Math Overview"
 msgstr "Rank Math Übersicht"
 
-#: includes/frontend/class-head.php:385
+#: includes/frontend/class-head.php:384
 msgid "Search Engine Optimization by Rank Math PRO - https://s.rankmath.com/home"
 msgstr "Suchmaschinen-Optimierung durch Rank Math PRO - https://s.rankmath.com/home"
 
@@ -1501,7 +1557,7 @@ msgstr "Gibt an, wie oft deine Website in den Suchergbnissen angezeigt wurde."
 msgid "Import News Settings"
 msgstr "Nachrichten-Einstellungen importieren"
 
-#: includes/admin/importers/class-status.php:109
+#: includes/admin/importers/class-status.php:107
 msgid "News Settings imported successfully."
 msgstr "Nachrichten-Einstellungen erfolgreich importiert."
 
@@ -1564,287 +1620,287 @@ msgstr "Ortseinstellungen aus Yoast importieren."
 msgid "Benefits of Connecting Google Account"
 msgstr "Vorteile der Googl-Konto-Verbindung"
 
-#: includes/helpers/class-choices.php:674
-#: includes/helpers/class-choices.php:734
+#: includes/helpers/class-choices.php:676
+#: includes/helpers/class-choices.php:736
 msgid "Vietnam"
 msgstr "Vietnam"
 
-#: includes/helpers/class-choices.php:673
-#: includes/helpers/class-choices.php:733
+#: includes/helpers/class-choices.php:675
+#: includes/helpers/class-choices.php:735
 msgid "United States"
 msgstr "Vereinigte Staaten"
 
-#: includes/helpers/class-choices.php:672
-#: includes/helpers/class-choices.php:732
-#: includes/helpers/class-choices.php:845
+#: includes/helpers/class-choices.php:674
+#: includes/helpers/class-choices.php:734
+#: includes/helpers/class-choices.php:847
 msgid "United Kingdom"
 msgstr "Vereinigtes Königreich"
 
-#: includes/helpers/class-choices.php:671
-#: includes/helpers/class-choices.php:731
-#: includes/helpers/class-choices.php:843
+#: includes/helpers/class-choices.php:673
+#: includes/helpers/class-choices.php:733
+#: includes/helpers/class-choices.php:845
 msgid "Ukraine"
 msgstr "Ukraine"
 
-#: includes/helpers/class-choices.php:670
-#: includes/helpers/class-choices.php:730
-#: includes/helpers/class-choices.php:842
+#: includes/helpers/class-choices.php:672
+#: includes/helpers/class-choices.php:732
+#: includes/helpers/class-choices.php:844
 msgid "Turkey"
 msgstr "Türkei"
 
-#: includes/helpers/class-choices.php:669
-#: includes/helpers/class-choices.php:729
-#: includes/helpers/class-choices.php:840
+#: includes/helpers/class-choices.php:671
+#: includes/helpers/class-choices.php:731
+#: includes/helpers/class-choices.php:842
 msgid "Thailand"
 msgstr "Thailand"
+
+#: includes/helpers/class-choices.php:663
+#: includes/helpers/class-choices.php:723
+#: includes/helpers/class-choices.php:830
+msgid "Saudi Arabia"
+msgstr "Saudi Arabien"
+
+#: includes/helpers/class-choices.php:662
+#: includes/helpers/class-choices.php:722
+msgid "Russia"
+msgstr "Russland"
 
 #: includes/helpers/class-choices.php:661
 #: includes/helpers/class-choices.php:721
 #: includes/helpers/class-choices.php:828
-msgid "Saudi Arabia"
-msgstr "Saudi Arabien"
+msgid "Romania"
+msgstr "Rumänien"
 
 #: includes/helpers/class-choices.php:660
 #: includes/helpers/class-choices.php:720
-msgid "Russia"
-msgstr "Russland"
+#: includes/helpers/class-choices.php:827
+msgid "Portugal"
+msgstr "Portugal"
 
 #: includes/helpers/class-choices.php:659
 #: includes/helpers/class-choices.php:719
 #: includes/helpers/class-choices.php:826
-msgid "Romania"
-msgstr "Rumänien"
+msgid "Poland"
+msgstr "Polen"
 
 #: includes/helpers/class-choices.php:658
 #: includes/helpers/class-choices.php:718
 #: includes/helpers/class-choices.php:825
-msgid "Portugal"
-msgstr "Portugal"
-
-#: includes/helpers/class-choices.php:657
-#: includes/helpers/class-choices.php:717
-#: includes/helpers/class-choices.php:824
-msgid "Poland"
-msgstr "Polen"
-
-#: includes/helpers/class-choices.php:656
-#: includes/helpers/class-choices.php:716
-#: includes/helpers/class-choices.php:823
 msgid "Philippines"
 msgstr "Philippinen"
 
-#: includes/helpers/class-choices.php:655
-#: includes/helpers/class-choices.php:715
-#: includes/helpers/class-choices.php:819
+#: includes/helpers/class-choices.php:657
+#: includes/helpers/class-choices.php:717
+#: includes/helpers/class-choices.php:821
 msgid "Norway"
 msgstr "Norwegen"
 
-#: includes/helpers/class-choices.php:654
-#: includes/helpers/class-choices.php:714
-#: includes/helpers/class-choices.php:818
+#: includes/helpers/class-choices.php:656
+#: includes/helpers/class-choices.php:716
+#: includes/helpers/class-choices.php:820
 msgid "Nigeria"
 msgstr "Nigeria"
 
-#: includes/helpers/class-choices.php:653
-#: includes/helpers/class-choices.php:713
-#: includes/helpers/class-choices.php:816
+#: includes/helpers/class-choices.php:655
+#: includes/helpers/class-choices.php:715
+#: includes/helpers/class-choices.php:818
 msgid "New Zealand"
 msgstr "Neuseeland"
 
-#: includes/helpers/class-choices.php:652
-#: includes/helpers/class-choices.php:712
-#: includes/helpers/class-choices.php:815
+#: includes/helpers/class-choices.php:654
+#: includes/helpers/class-choices.php:714
+#: includes/helpers/class-choices.php:817
 msgid "Netherlands"
 msgstr "Niederlande"
 
-#: includes/helpers/class-choices.php:651
-#: includes/helpers/class-choices.php:711
-#: includes/helpers/class-choices.php:812
+#: includes/helpers/class-choices.php:653
+#: includes/helpers/class-choices.php:713
+#: includes/helpers/class-choices.php:814
 msgid "Mexico"
 msgstr "Mexiko"
 
-#: includes/helpers/class-choices.php:650
-#: includes/helpers/class-choices.php:710
-#: includes/helpers/class-choices.php:810
+#: includes/helpers/class-choices.php:652
+#: includes/helpers/class-choices.php:712
+#: includes/helpers/class-choices.php:812
 msgid "Malaysia"
 msgstr "Malaysia"
 
-#: includes/helpers/class-choices.php:649
-#: includes/helpers/class-choices.php:709
-#: includes/helpers/class-choices.php:805
+#: includes/helpers/class-choices.php:651
+#: includes/helpers/class-choices.php:711
+#: includes/helpers/class-choices.php:807
 msgid "Kenya"
 msgstr "Kenia"
 
-#: includes/helpers/class-choices.php:648
-#: includes/helpers/class-choices.php:708
-#: includes/helpers/class-choices.php:802
+#: includes/helpers/class-choices.php:650
+#: includes/helpers/class-choices.php:710
+#: includes/helpers/class-choices.php:804
 msgid "Japan"
 msgstr "Japan"
 
-#: includes/helpers/class-choices.php:647
-#: includes/helpers/class-choices.php:707
-#: includes/helpers/class-choices.php:801
+#: includes/helpers/class-choices.php:649
+#: includes/helpers/class-choices.php:709
+#: includes/helpers/class-choices.php:803
 msgid "Italy"
 msgstr "Italien"
-
-#: includes/helpers/class-choices.php:631
-#: includes/helpers/class-choices.php:691
-#: includes/helpers/class-choices.php:777
-msgid "Canada"
-msgstr "Kanada"
-
-#: includes/helpers/class-choices.php:630
-#: includes/helpers/class-choices.php:690
-#: includes/helpers/class-choices.php:774
-msgid "Brazil"
-msgstr "Brasilien"
-
-#: includes/helpers/class-choices.php:629
-#: includes/helpers/class-choices.php:689
-#: includes/helpers/class-choices.php:772
-msgid "Belgium"
-msgstr "Belgien"
-
-#: includes/helpers/class-choices.php:628
-#: includes/helpers/class-choices.php:688
-#: includes/helpers/class-choices.php:767
-msgid "Austria"
-msgstr "Österreich"
-
-#: includes/helpers/class-choices.php:627
-#: includes/helpers/class-choices.php:687
-#: includes/helpers/class-choices.php:766
-msgid "Australia"
-msgstr "Australien"
-
-#: includes/helpers/class-choices.php:626
-#: includes/helpers/class-choices.php:686
-#: includes/helpers/class-choices.php:764
-msgid "Argentina"
-msgstr "Argentinien"
-
-#: includes/helpers/class-choices.php:625
-#: includes/helpers/class-choices.php:685
-#: includes/helpers/class-choices.php:762
-msgid "Worldwide"
-msgstr "Weltweit"
-
-#: includes/helpers/class-choices.php:646
-#: includes/helpers/class-choices.php:706
-#: includes/helpers/class-choices.php:800
-msgid "Israel"
-msgstr "Israel"
-
-#: includes/helpers/class-choices.php:645
-#: includes/helpers/class-choices.php:705
-#: includes/helpers/class-choices.php:799
-msgid "Ireland"
-msgstr "Irland"
-
-#: includes/helpers/class-choices.php:644
-#: includes/helpers/class-choices.php:704
-#: includes/helpers/class-choices.php:798
-msgid "Indonesia"
-msgstr "Indonesien"
-
-#: includes/helpers/class-choices.php:643
-#: includes/helpers/class-choices.php:703
-#: includes/helpers/class-choices.php:797
-msgid "India"
-msgstr "Indien"
-
-#: includes/helpers/class-choices.php:642
-#: includes/helpers/class-choices.php:702
-#: includes/helpers/class-choices.php:796
-msgid "Hungary"
-msgstr "Ungarn"
-
-#: includes/helpers/class-choices.php:640
-#: includes/helpers/class-choices.php:700
-#: includes/helpers/class-choices.php:793
-msgid "Greece"
-msgstr "Griechenland"
-
-#: includes/helpers/class-choices.php:639
-#: includes/helpers/class-choices.php:699
-#: includes/helpers/class-choices.php:791
-msgid "Germany"
-msgstr "Deutschland"
-
-#: includes/helpers/class-choices.php:638
-#: includes/helpers/class-choices.php:698
-#: includes/helpers/class-choices.php:790
-msgid "France"
-msgstr "Frankreich"
-
-#: includes/helpers/class-choices.php:637
-#: includes/helpers/class-choices.php:697
-#: includes/helpers/class-choices.php:789
-msgid "Finland"
-msgstr "Finnland"
-
-#: includes/helpers/class-choices.php:636
-#: includes/helpers/class-choices.php:696
-#: includes/helpers/class-choices.php:786
-msgid "Egypt"
-msgstr "Ägypten"
-
-#: includes/helpers/class-choices.php:635
-#: includes/helpers/class-choices.php:695
-#: includes/helpers/class-choices.php:784
-msgid "Denmark"
-msgstr "Dänemark"
-
-#: includes/helpers/class-choices.php:634
-#: includes/helpers/class-choices.php:694
-#: includes/helpers/class-choices.php:783
-msgid "Czechia"
-msgstr "Tschechien"
 
 #: includes/helpers/class-choices.php:633
 #: includes/helpers/class-choices.php:693
 #: includes/helpers/class-choices.php:779
-msgid "Colombia"
-msgstr "Kolumbien"
+msgid "Canada"
+msgstr "Kanada"
 
 #: includes/helpers/class-choices.php:632
 #: includes/helpers/class-choices.php:692
-#: includes/helpers/class-choices.php:778
+#: includes/helpers/class-choices.php:776
+msgid "Brazil"
+msgstr "Brasilien"
+
+#: includes/helpers/class-choices.php:631
+#: includes/helpers/class-choices.php:691
+#: includes/helpers/class-choices.php:774
+msgid "Belgium"
+msgstr "Belgien"
+
+#: includes/helpers/class-choices.php:630
+#: includes/helpers/class-choices.php:690
+#: includes/helpers/class-choices.php:769
+msgid "Austria"
+msgstr "Österreich"
+
+#: includes/helpers/class-choices.php:629
+#: includes/helpers/class-choices.php:689
+#: includes/helpers/class-choices.php:768
+msgid "Australia"
+msgstr "Australien"
+
+#: includes/helpers/class-choices.php:628
+#: includes/helpers/class-choices.php:688
+#: includes/helpers/class-choices.php:766
+msgid "Argentina"
+msgstr "Argentinien"
+
+#: includes/helpers/class-choices.php:627
+#: includes/helpers/class-choices.php:687
+#: includes/helpers/class-choices.php:764
+msgid "Worldwide"
+msgstr "Weltweit"
+
+#: includes/helpers/class-choices.php:648
+#: includes/helpers/class-choices.php:708
+#: includes/helpers/class-choices.php:802
+msgid "Israel"
+msgstr "Israel"
+
+#: includes/helpers/class-choices.php:647
+#: includes/helpers/class-choices.php:707
+#: includes/helpers/class-choices.php:801
+msgid "Ireland"
+msgstr "Irland"
+
+#: includes/helpers/class-choices.php:646
+#: includes/helpers/class-choices.php:706
+#: includes/helpers/class-choices.php:800
+msgid "Indonesia"
+msgstr "Indonesien"
+
+#: includes/helpers/class-choices.php:645
+#: includes/helpers/class-choices.php:705
+#: includes/helpers/class-choices.php:799
+msgid "India"
+msgstr "Indien"
+
+#: includes/helpers/class-choices.php:644
+#: includes/helpers/class-choices.php:704
+#: includes/helpers/class-choices.php:798
+msgid "Hungary"
+msgstr "Ungarn"
+
+#: includes/helpers/class-choices.php:642
+#: includes/helpers/class-choices.php:702
+#: includes/helpers/class-choices.php:795
+msgid "Greece"
+msgstr "Griechenland"
+
+#: includes/helpers/class-choices.php:641
+#: includes/helpers/class-choices.php:701
+#: includes/helpers/class-choices.php:793
+msgid "Germany"
+msgstr "Deutschland"
+
+#: includes/helpers/class-choices.php:640
+#: includes/helpers/class-choices.php:700
+#: includes/helpers/class-choices.php:792
+msgid "France"
+msgstr "Frankreich"
+
+#: includes/helpers/class-choices.php:639
+#: includes/helpers/class-choices.php:699
+#: includes/helpers/class-choices.php:791
+msgid "Finland"
+msgstr "Finnland"
+
+#: includes/helpers/class-choices.php:638
+#: includes/helpers/class-choices.php:698
+#: includes/helpers/class-choices.php:788
+msgid "Egypt"
+msgstr "Ägypten"
+
+#: includes/helpers/class-choices.php:637
+#: includes/helpers/class-choices.php:697
+#: includes/helpers/class-choices.php:786
+msgid "Denmark"
+msgstr "Dänemark"
+
+#: includes/helpers/class-choices.php:636
+#: includes/helpers/class-choices.php:696
+#: includes/helpers/class-choices.php:785
+msgid "Czechia"
+msgstr "Tschechien"
+
+#: includes/helpers/class-choices.php:635
+#: includes/helpers/class-choices.php:695
+#: includes/helpers/class-choices.php:781
+msgid "Colombia"
+msgstr "Kolumbien"
+
+#: includes/helpers/class-choices.php:634
+#: includes/helpers/class-choices.php:694
+#: includes/helpers/class-choices.php:780
 msgid "Chile"
 msgstr "Chile"
+
+#: includes/helpers/class-choices.php:670
+#: includes/helpers/class-choices.php:730
+#: includes/helpers/class-choices.php:841
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: includes/helpers/class-choices.php:669
+#: includes/helpers/class-choices.php:729
+#: includes/helpers/class-choices.php:840
+msgid "Switzerland"
+msgstr "Schweiz"
 
 #: includes/helpers/class-choices.php:668
 #: includes/helpers/class-choices.php:728
 #: includes/helpers/class-choices.php:839
-msgid "Taiwan"
-msgstr "Taiwan"
-
-#: includes/helpers/class-choices.php:667
-#: includes/helpers/class-choices.php:727
-#: includes/helpers/class-choices.php:838
-msgid "Switzerland"
-msgstr "Schweiz"
-
-#: includes/helpers/class-choices.php:666
-#: includes/helpers/class-choices.php:726
-#: includes/helpers/class-choices.php:837
 msgid "Sweden"
 msgstr "Schweden"
 
-#: includes/helpers/class-choices.php:664
-#: includes/helpers/class-choices.php:724
+#: includes/helpers/class-choices.php:666
+#: includes/helpers/class-choices.php:726
 msgid "South Korea"
 msgstr "Südkorea"
 
-#: includes/helpers/class-choices.php:663
-#: includes/helpers/class-choices.php:723
-#: includes/helpers/class-choices.php:834
+#: includes/helpers/class-choices.php:665
+#: includes/helpers/class-choices.php:725
+#: includes/helpers/class-choices.php:836
 msgid "South Africa"
 msgstr "Südafrika"
 
-#: includes/helpers/class-choices.php:662
-#: includes/helpers/class-choices.php:722
-#: includes/helpers/class-choices.php:831
+#: includes/helpers/class-choices.php:664
+#: includes/helpers/class-choices.php:724
+#: includes/helpers/class-choices.php:833
 msgid "Singapore"
 msgstr "Singapur"
 
@@ -2016,9 +2072,9 @@ msgstr "Rank Math automatisiert das alles, benutze den Button unten, um deine We
 msgid "Rank Math is importing latest data from connected Google Services, %1$s remaining."
 msgstr "Rank Math importiert die neuesten Daten aus den verbundenen Google-Diensten, %1$s verbleiben."
 
-#: includes/helpers/class-choices.php:641
-#: includes/helpers/class-choices.php:701
-#: includes/helpers/class-choices.php:795
+#: includes/helpers/class-choices.php:643
+#: includes/helpers/class-choices.php:703
+#: includes/helpers/class-choices.php:797
 msgid "Hong Kong"
 msgstr "Hongkong"
 
@@ -2036,7 +2092,7 @@ msgid "Delete data"
 msgstr "Daten löschen"
 
 #: includes/helpers/class-schema.php:93
-#: includes/settings/titles/post-types.php:134
+#: includes/settings/titles/post-types.php:135
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:5829
@@ -2044,7 +2100,7 @@ msgid "EDD Product"
 msgstr "EDD-Produkt"
 
 #: includes/helpers/class-schema.php:89
-#: includes/settings/titles/post-types.php:134
+#: includes/settings/titles/post-types.php:135
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/cache.js:127
@@ -2122,7 +2178,7 @@ msgstr "Daten importieren"
 msgid "Import Locations"
 msgstr "Orte importieren"
 
-#: includes/admin/wizard/views/compatibility.php:78
+#: includes/admin/wizard/views/compatibility.php:79
 msgid "You are using the recommended WordPress version."
 msgstr "Du verwendest die mindestens empfohlene WordPress-Version."
 
@@ -2164,12 +2220,12 @@ msgstr "Sichere deine Plugin-Einstellungen, falls du sie später einmal wiederhe
 msgid "Plugin Settings"
 msgstr "Plugin-Einstellungen"
 
-#: includes/modules/seo-analysis/class-seo-analyzer.php:427
+#: includes/modules/seo-analysis/class-seo-analyzer.php:434
 msgid "Unexpected API response."
 msgstr "Unerwartete API-Antwort."
 
 #. Translators: placeholder is a HTTP error code.
-#: includes/modules/seo-analysis/class-seo-analyzer.php:420
+#: includes/modules/seo-analysis/class-seo-analyzer.php:427
 msgid "HTTP %d error."
 msgstr "HTTP-Fehler %d."
 
@@ -2182,11 +2238,11 @@ msgstr "Importiere oder exportiere deine Rank Math Einstellungen. Diese Option i
 msgid "SEO Score: Ok"
 msgstr "SEO Score: In Ordnung"
 
-#: includes/admin/wizard/views/compatibility.php:109
+#: includes/admin/wizard/views/compatibility.php:110
 msgid "PHP OpenSSL Extension installed"
 msgstr "PHP OpenSSL-Erweiterung installiert"
 
-#: includes/admin/wizard/views/compatibility.php:109
+#: includes/admin/wizard/views/compatibility.php:110
 msgid "PHP OpenSSL Extension missing"
 msgstr "PHP OpenSSL-Erweiterung fehlt"
 
@@ -2203,18 +2259,9 @@ msgstr "Bitte aktiviere das Plugin Web Stories, um dieses Modul zu verwenden."
 msgid "Analyze your site by %1$s linking your Rank Math account %2$s"
 msgstr "Analysiere deine Website durch %1$s Verbinden deines Rank Math-Kontos %2$s"
 
-#: includes/settings/titles/post-types.php:20
-msgid "To configure attachment-related meta tags disable attachment redirection to parent."
-msgstr "Um eine Sitemap für Anhänge zu erstellen, deaktiviere die Weiterleitung von Anhängen an übergeordnete Elemente."
-
 #: includes/module/class-manager.php:323
 msgid "Make any Story created with the Web Stories WordPress plugin SEO-Ready with automatic support for Schema and Meta tags."
 msgstr "Mach jede Story, die mit dem WordPress-Plugin Web Stories erstellt wurde, mit automatischer Unterstützung für Schema und Meta-Tags SEO-ready."
-
-#. translators: link to title setting screen
-#: includes/settings/titles/post-types.php:148
-msgid "Default rich snippet selected when creating a new location."
-msgstr "Standard-Rich-Snippet bei der Erstellung eines neuen Standorts ausgewählt."
 
 #: includes/admin/views/plugin-activation.php:39
 #: includes/modules/content-ai/assets/js/content-ai.js:1
@@ -2222,11 +2269,11 @@ msgstr "Standard-Rich-Snippet bei der Erstellung eines neuen Standorts ausgewäh
 msgid "Connect Now"
 msgstr "Jetzt verbinden"
 
-#: includes/admin/wizard/views/compatibility.php:103
+#: includes/admin/wizard/views/compatibility.php:104
 msgid "PHP MBstring Extension missing"
 msgstr "PHP MBstring-Erweiterung fehlt"
 
-#: includes/admin/wizard/views/compatibility.php:103
+#: includes/admin/wizard/views/compatibility.php:104
 msgid "PHP MBstring Extension installed"
 msgstr "PHP MBstring-Erweiterung installiert"
 
@@ -2554,7 +2601,7 @@ msgstr "Wenn du die SEO-Scores im Front-End anzeigt, fügt diese Option einen %1
 msgid "Remove prefix like %1$s from product URL chosen at %2$s"
 msgstr "Entferne ein Präfix wie %1$s aus in %2$s ausgewählten Produkt-URLs"
 
-#: includes/modules/seo-analysis/class-seo-analyzer.php:503
+#: includes/modules/seo-analysis/class-seo-analyzer.php:510
 msgid "Priority"
 msgstr "Priorität"
 
@@ -2567,7 +2614,7 @@ msgstr "Automatische Aktualisierungen"
 msgid "Enable Auto Updates"
 msgstr "Automatische Aktualisierungen einschalten"
 
-#: includes/modules/seo-analysis/class-seo-analyzer.php:355
+#: includes/modules/seo-analysis/class-seo-analyzer.php:362
 #: includes/modules/seo-analysis/seo-analysis-tests.php:164
 #: includes/modules/seo-analysis/seo-analysis-tests.php:176
 msgid "Rank Math auto-update option is enabled on your site."
@@ -2624,44 +2671,45 @@ msgstr "Veranstaltungsteilnahme-Modus"
 msgid "Online Event URL"
 msgstr "URL der Online-Veranstaltung"
 
-#: includes/modules/schema/blocks/class-block-howto.php:444
+#: includes/modules/schema/blocks/class-block-howto.php:441
 msgid "Total Time:"
 msgstr "Gesamtzeit:"
 
-#. translators: %s expands to a unit of time (e.g. 1 minute).
+#. translators: %d is the number of minutes.
 #. translators: %d: minutes
-#: includes/modules/schema/blocks/class-block-howto.php:429
+#: includes/modules/schema/blocks/class-block-howto.php:426
 #: includes/opengraph/class-slack.php:300
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] "%d Minute"
 msgstr[1] "%d Minuten"
 
-#. translators: %s expands to a unit of time (e.g. 1 day).
-#: includes/modules/schema/blocks/class-block-howto.php:419
+#. translators: %d is the number of days.
+#: includes/modules/schema/blocks/class-block-howto.php:416
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d Tag"
 msgstr[1] "%d Tage"
 
-#. translators: %s expands to a unit of time (e.g. 1 hour).
-#: includes/modules/schema/blocks/class-block-howto.php:424
+#. translators: %d is the number of hours.
+#: includes/modules/schema/blocks/class-block-howto.php:421
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d Stunde"
 msgstr[1] "%d Stunden"
 
-#. translators: %s expands to a unit of time (e.g. 1 day).
-#: includes/modules/schema/blocks/class-block-howto.php:438
+#. translators: placeholders are units of time, e.g. '1 day, 8 hours and 30
+#. minutes'
+#: includes/modules/schema/blocks/class-block-howto.php:435
 msgid "%1$s, %2$s and %3$s"
 msgstr "%1$s, %2$s und %3$s"
 
-#. translators: %s expands to a unit of time (e.g. 1 day).
-#: includes/modules/schema/blocks/class-block-howto.php:436
+#. translators: placeholders are units of time, e.g. '1 hour and 30 minutes'
+#: includes/modules/schema/blocks/class-block-howto.php:433
 msgid "%1$s and %2$s"
 msgstr "%1$s und %2$s"
 
-#: includes/admin/importers/class-status.php:131
+#: includes/admin/importers/class-status.php:129
 msgid "Blocks import failed."
 msgstr "Blöcke-Import fehlgeschlagen."
 
@@ -2678,7 +2726,7 @@ msgid "No post found."
 msgstr "Es wurden keine Beiträge gefunden."
 
 #. translators: start, end, total
-#: includes/admin/importers/class-status.php:121
+#: includes/admin/importers/class-status.php:119
 msgid "Imported blocks from posts %1$s - %2$s out of %3$s "
 msgstr "Importierte Blöcke aus den Beiträgen %1$s - %2$s von %3$s "
 
@@ -2893,9 +2941,8 @@ msgid "Schema (Structured Data)"
 msgstr "Schema (Strukturierte Daten)"
 
 #: includes/admin/wizard/class-schema-markup.php:58
-#: includes/settings/titles/post-types.php:129
-#: includes/settings/titles/post-types.php:146
-#: includes/settings/titles/post-types.php:162
+#: includes/settings/titles/post-types.php:130
+#: includes/settings/titles/post-types.php:158
 msgid "Schema Type"
 msgstr "Schema-Typ"
 
@@ -2913,7 +2960,7 @@ msgstr "Es wurden keine Meta-Zeilen zur Aktualisierung gefunden."
 msgid "SEO Description"
 msgstr "SEO-Beschreibung"
 
-#: includes/helpers/class-choices.php:452
+#: includes/helpers/class-choices.php:453
 msgid "Review (Unsupported)"
 msgstr "Rezension (Nicht unterstützt)"
 
@@ -3637,7 +3684,7 @@ msgstr "Diese XML-Sitemap wird generiert von <a href=\"%s\" target=\"_blank\">Ra
 msgid "Last Mod."
 msgstr "Zuletzt geändert."
 
-#: includes/frontend/class-head.php:383
+#: includes/frontend/class-head.php:382
 msgid "Search Engine Optimization by Rank Math - https://s.rankmath.com/home"
 msgstr "Suchmaschinenoptimierung von Rank Math - https://s.rankmath.com/home"
 
@@ -3667,7 +3714,7 @@ msgid "Module state either on or off"
 msgstr "Modulstatus ist entweder ein oder aus"
 
 #. translators: API error
-#: includes/modules/seo-analysis/class-seo-analyzer.php:278
+#: includes/modules/seo-analysis/class-seo-analyzer.php:285
 msgid "<strong>API Error:</strong> %s"
 msgstr "<strong>API-Fehler:</strong> %s"
 
@@ -3719,20 +3766,17 @@ msgstr "Benutzerdefiniert (Shortcode verwenden)"
 msgid "Blog Public"
 msgstr "Öffentlicher Blog"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:496
+#: includes/modules/seo-analysis/seo-analysis-tests.php:498
 msgid "Your site is accessible by search engine."
 msgstr "Deine Website ist über eine Suchmaschine zugänglich."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:485
+#: includes/modules/seo-analysis/seo-analysis-tests.php:487
 msgid "Attention: Search Engines can't see your website."
 msgstr "Achtung: Suchmaschinen können deine Website nicht sehen."
 
 #. translators: %1$s link to the reading settings, %2$s closing tag for the
 #. link
-#. translators: %1$s resolves to the opening tag of the link to the reading
-#. settings, %1$s resolves to the closing tag for the link
 #: includes/modules/seo-analysis/seo-analysis-tests.php:48
-#: includes/modules/seo-analysis/seo-analysis-tests.php:488
 msgid "You must %1$sgo to your Reading Settings%2$s and uncheck the box for Search Engine Visibility."
 msgstr "Du müsst %1$sgo zu deinen Leseeinstellungen%2$s gehen und das Kontrollkästchen für Suchmaschinensichtbarkeit deaktivieren."
 
@@ -3753,7 +3797,7 @@ msgid "Price Valid Until"
 msgstr "Preis gültig bis"
 
 #. translators: %s expands to the current page number
-#: includes/frontend/class-breadcrumbs.php:578
+#: includes/frontend/class-breadcrumbs.php:580
 msgid "Page %s"
 msgstr "Seite %s"
 
@@ -3840,22 +3884,22 @@ msgid "%s Robots Meta"
 msgstr "%s Robots-Meta"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:114
+#: includes/settings/titles/post-types.php:115
 msgid "Description for %s archive pages."
 msgstr "Beschreibung für %s Archiv-Seiten."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:112
+#: includes/settings/titles/post-types.php:113
 msgid "%s Archive Description"
 msgstr "%s Archiv-Beschreibung"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:99
+#: includes/settings/titles/post-types.php:100
 msgid "Title for %s archive pages."
 msgstr "Titel für %s Archiv-Seiten."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:97
+#: includes/settings/titles/post-types.php:98
 msgid "%s Archive Title"
 msgstr "%s Archiv-Titel"
 
@@ -3899,12 +3943,12 @@ msgid "Twitter Username"
 msgstr "Twitter-Benutzername"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:80
+#: includes/settings/titles/post-types.php:81
 msgid "Default description for single %s pages. This can be changed on a per-post basis on the post editor screen."
 msgstr "Standardbeschreibung für einzelne %s-Seiten. Dies kann auf dem Beitragsbildschirm pro Beitrag geändert werden."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:63
+#: includes/settings/titles/post-types.php:64
 msgid "Single %s Title"
 msgstr "Einzelner %s Titel"
 
@@ -3921,7 +3965,7 @@ msgid "Prevent search results pages from getting indexed by search engines. Sear
 msgstr "Verhindern, dass Suchergebnisseiten von Suchmaschinen indiziert werden. Suchergebnisse können als dünner Inhalt betrachtet werden und zu Problemen mit doppelten Inhalten führen."
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:78
+#: includes/settings/titles/post-types.php:79
 msgid "Single %s Description"
 msgstr "Einzelne %s Beschreibung"
 
@@ -3937,7 +3981,7 @@ msgid "%s Archives Robots Meta"
 msgstr "%s Archive Roboter-Meta"
 
 #. translators: post type name
-#: includes/settings/titles/post-types.php:65
+#: includes/settings/titles/post-types.php:66
 msgid "Default title tag for single %s pages. This can be changed on a per-post basis on the post editor screen."
 msgstr "Standard-Titel-Tag für einzelne %s-Seiten. Dies kann auf dem Bildschirm des Beitrag-Editors pro Beitrag geändert werden."
 
@@ -4176,15 +4220,15 @@ msgid "Add <code>alt</code> attributes for <code>images</code> without <code>alt
 msgstr "Füge <code>alt</code> Attribute für <code>Bilder</code> ohne <code>alt</code> Attribute automatisch hinzu. Das Attribut wird dynamisch angewendet, wenn der Inhalt angezeigt wird, und der gespeicherte Inhalt wird nicht geändert."
 
 #. translators: permalink structure
-#: includes/modules/seo-analysis/seo-analysis-tests.php:254
+#: includes/modules/seo-analysis/seo-analysis-tests.php:256
 msgid "Post permalink structure is set to %s."
 msgstr "Die Post Permalink-Struktur ist auf %s gesetzt."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:247
+#: includes/modules/seo-analysis/seo-analysis-tests.php:249
 msgid "Permalinks are set to a custom structure but the post titles do not appear in the permalinks."
 msgstr "Permalinks sind auf eine benutzerdefinierte Struktur eingestellt, aber die Post-Titel erscheinen nicht in den Permalinks."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:240
+#: includes/modules/seo-analysis/seo-analysis-tests.php:242
 msgid "Permalinks are set to the default value. <em>Pretty permalinks</em> are disabled. "
 msgstr "Permalinks werden auf den Standardwert gesetzt. <em>Pretty Permalinks</em> sind deaktiviert. "
 
@@ -4300,11 +4344,11 @@ msgstr "Produktpreis."
 msgid "Include Empty Terms"
 msgstr "Leere Begriffe einbeziehen"
 
-#: includes/modules/sitemap/settings/post-types.php:45
+#: includes/modules/sitemap/settings/post-types.php:46
 msgid "Image Custom Fields"
 msgstr "Benutzerdefinierte Bildfelder"
 
-#: includes/modules/sitemap/settings/post-types.php:33
+#: includes/modules/sitemap/settings/post-types.php:34
 #: includes/modules/sitemap/settings/taxonomies.php:19
 msgid "Include in Sitemap"
 msgstr "In die Sitemap aufnehmen"
@@ -4399,15 +4443,15 @@ msgstr "Ausgewählte Seite: %s"
 msgid "What is this?"
 msgstr "Was ist das hier?"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:476
+#: includes/modules/seo-analysis/seo-analysis-tests.php:478
 msgid "No sitemaps found."
 msgstr "Keine Sitemaps gefunden."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:476
+#: includes/modules/seo-analysis/seo-analysis-tests.php:478
 msgid "Your site has one or more sitemaps."
 msgstr "Deine Seite hat eine oder mehrere Sitemaps."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:277
+#: includes/modules/seo-analysis/seo-analysis-tests.php:279
 msgid "Google Search Console has been linked."
 msgstr "Die Google Search Console wurde verlinkt."
 
@@ -4419,11 +4463,11 @@ msgstr "Die Standard Permalink-Struktur ist ziemlich hässlich - WordPress gener
 msgid "Permalink Structure"
 msgstr "Permalink-Struktur"
 
-#: includes/modules/seo-analysis/class-seo-analyzer.php:507
+#: includes/modules/seo-analysis/class-seo-analyzer.php:514
 msgid "Security"
 msgstr "Sicherheit"
 
-#: includes/modules/seo-analysis/class-seo-analyzer.php:506
+#: includes/modules/seo-analysis/class-seo-analyzer.php:513
 msgid "Performance"
 msgstr "Leistung"
 
@@ -4457,7 +4501,7 @@ msgstr "Bilder"
 msgid "Links"
 msgstr "Links"
 
-#. translators: 1: current page number, 2: total number of pages.
+#. translators: %1$d: current page number, %2$d: max pages.
 #. translators: current page and page count
 #: includes/replace-variables/class-advanced-variables.php:209
 #: includes/modules/analytics/assets/js/stats.js:1
@@ -4469,7 +4513,7 @@ msgstr "Seite %1$d von %2$d"
 msgid "Info"
 msgstr "Info"
 
-#: includes/modules/seo-analysis/class-seo-analyzer.php:504
+#: includes/modules/seo-analysis/class-seo-analyzer.php:511
 msgid "Advanced SEO"
 msgstr "Fortgeschrittenes SEO"
 
@@ -4497,7 +4541,7 @@ msgid "Edit .htaccess"
 msgstr ".htaccess Datei bearbeiten"
 
 #. translators: post ID count
-#: includes/modules/seo-analysis/seo-analysis-tests.php:372
+#: includes/modules/seo-analysis/seo-analysis-tests.php:374
 msgid "+%d More..."
 msgstr "+%d Mehr..."
 
@@ -4722,7 +4766,7 @@ msgid "Blog Post"
 msgstr "Blog Beitrag"
 
 #: includes/admin/wizard/class-schema-markup.php:82
-#: includes/helpers/class-choices.php:436 includes/helpers/class-schema.php:85
+#: includes/helpers/class-choices.php:437 includes/helpers/class-schema.php:85
 #: includes/settings/titles/post-types.php:166
 #: includes/settings/titles/post-types.php:213
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
@@ -4788,15 +4832,15 @@ msgstr "Kein Plugin mit importierbaren Daten erkannt."
 msgid "Export"
 msgstr "Exportieren"
 
-#: includes/admin/wizard/views/compatibility.php:42
+#: includes/admin/wizard/views/compatibility.php:43
 msgid "Less"
 msgstr "Weniger"
 
-#: includes/admin/wizard/views/compatibility.php:41
+#: includes/admin/wizard/views/compatibility.php:42
 msgid "More"
 msgstr "Mehr"
 
-#: includes/admin/wizard/views/compatibility.php:61
+#: includes/admin/wizard/views/compatibility.php:62
 msgid "More information"
 msgstr "Weitere Informationen"
 
@@ -4913,7 +4957,7 @@ msgid "Sitemaps"
 msgstr "Sitemaps"
 
 #: includes/admin/wizard/class-schema-markup.php:162
-#: includes/helpers/class-choices.php:442
+#: includes/helpers/class-choices.php:443
 #: includes/replace-variables/class-advanced-variables.php:126
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
@@ -4936,11 +4980,11 @@ msgstr "Öffentliche Taxonomien"
 msgid "Import Settings"
 msgstr "Importeinstellungen"
 
-#: includes/admin/importers/class-status.php:111
+#: includes/admin/importers/class-status.php:109
 msgid "Plugin deactivated successfully."
 msgstr "Plugin wurde erfolgreich deaktiviert."
 
-#: includes/admin/importers/class-status.php:108
+#: includes/admin/importers/class-status.php:106
 msgid "Settings imported successfully."
 msgstr "Einstellungen erfolgreich importiert."
 
@@ -4952,19 +4996,19 @@ msgstr "Diesmal kann keine Aktion ausgeführt werden."
 msgid "Local SEO"
 msgstr "Lokales SEO"
 
-#: includes/admin/wizard/views/compatibility.php:91
+#: includes/admin/wizard/views/compatibility.php:92
 msgid "PHP SimpleXML Extension missing"
 msgstr "PHP SimpleXML Erweiterung fehlt"
 
-#: includes/admin/wizard/views/compatibility.php:91
+#: includes/admin/wizard/views/compatibility.php:92
 msgid "PHP SimpleXML Extension installed"
 msgstr "PHP SimpleXML Erweiterung installiert"
 
-#: includes/admin/wizard/views/compatibility.php:85
+#: includes/admin/wizard/views/compatibility.php:86
 msgid "PHP DOM Extension missing"
 msgstr "PHP DOM Erweiterung fehlt"
 
-#: includes/admin/wizard/views/compatibility.php:85
+#: includes/admin/wizard/views/compatibility.php:86
 msgid "PHP DOM Extension installed"
 msgstr "PHP DOM Erweiterung installiert"
 
@@ -5423,39 +5467,39 @@ msgstr "Preisspanne"
 msgid "Format: +1-401-555-1212"
 msgstr "Format: +1-401-555-1212"
 
-#: includes/helpers/class-choices.php:614
+#: includes/helpers/class-choices.php:616
 msgid "Package Tracking"
 msgstr "Paketverfolgung"
 
-#: includes/helpers/class-choices.php:613
+#: includes/helpers/class-choices.php:615
 msgid "Roadside Assistance"
 msgstr "Pannenhilfe"
 
-#: includes/helpers/class-choices.php:612
+#: includes/helpers/class-choices.php:614
 msgid "Baggage Tracking"
 msgstr "Gepäckverfolgung"
 
-#: includes/helpers/class-choices.php:611
+#: includes/helpers/class-choices.php:613
 msgid "Emergency"
 msgstr "Notfall"
 
-#: includes/helpers/class-choices.php:610
+#: includes/helpers/class-choices.php:612
 msgid "Credit Card Support"
 msgstr "Kreditkarten-Support"
 
-#: includes/helpers/class-choices.php:609
+#: includes/helpers/class-choices.php:611
 msgid "Reservations"
 msgstr "Reservierungen"
 
-#: includes/helpers/class-choices.php:608
+#: includes/helpers/class-choices.php:610
 msgid "Sales"
 msgstr "Verkäufe"
 
-#: includes/helpers/class-choices.php:607
+#: includes/helpers/class-choices.php:609
 msgid "Bill Payment"
 msgstr "Rechnungszahlung"
 
-#: includes/helpers/class-choices.php:606
+#: includes/helpers/class-choices.php:608
 msgid "Billing Support"
 msgstr "Abrechnungsunterstützung"
 
@@ -5535,6 +5579,16 @@ msgstr "Umleitungen verwalten"
 msgid "Create and edit redirections"
 msgstr "Erstellen und Bearbeiten von Umleitungen"
 
+#: includes/modules/redirections/class-metabox.php:115
+#: includes/modules/redirections/class-metabox.php:119
+msgid "New redirection created."
+msgstr "Neue Umleitung erstellt."
+
+#: includes/modules/redirections/class-metabox.php:77
+#: includes/modules/redirections/class-metabox.php:81
+msgid "Redirection successfully deleted."
+msgstr "Umleitung erfolgreich gelöscht."
+
 #: includes/settings/titles/post-types.php:178
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
@@ -5553,22 +5607,12 @@ msgstr "Erstellen und Bearbeiten von Umleitungen"
 msgid "Headline"
 msgstr "Überschrift"
 
-#: includes/modules/redirections/class-metabox.php:115
-#: includes/modules/redirections/class-metabox.php:119
-msgid "New redirection created."
-msgstr "Neue Umleitung erstellt."
-
-#: includes/modules/redirections/class-metabox.php:77
-#: includes/modules/redirections/class-metabox.php:81
-msgid "Redirection successfully deleted."
-msgstr "Umleitung erfolgreich gelöscht."
-
 #. translators: source pattern
 #: includes/modules/redirections/class-redirection.php:364
 msgid "Invalid regex pattern: %s"
 msgstr "Ungültiges Regex-Muster: %s"
 
-#: includes/helpers/class-choices.php:604
+#: includes/helpers/class-choices.php:606
 msgid "Customer Service"
 msgstr "Kundenservice"
 
@@ -5824,10 +5868,6 @@ msgstr "E-Mail"
 msgid "Phone"
 msgstr "Telefon"
 
-#: includes/modules/local-seo/views/titles-options.php:91
-msgid "Address Format"
-msgstr "Adressformat"
-
 #: includes/modules/local-seo/views/titles-options.php:83
 #: includes/modules/schema/shortcode/event.php:62
 #: includes/modules/schema/shortcode/person.php:27
@@ -5844,6 +5884,10 @@ msgstr "Adressformat"
 msgid "Address"
 msgstr "﻿Adresse"
 
+#: includes/modules/local-seo/views/titles-options.php:91
+msgid "Address Format"
+msgstr "Adressformat"
+
 #: includes/settings/titles/global.php:101 assets/admin/js/rank-math-app.js:1
 msgid "Summary Card"
 msgstr "Übersichtskarte"
@@ -5852,7 +5896,7 @@ msgstr "Übersichtskarte"
 msgid "Summary Card with Large Image"
 msgstr "Übersichtskarte mit großem Bild"
 
-#: includes/admin/class-admin-helper.php:287
+#: includes/admin/class-admin-helper.php:323
 msgid "Share"
 msgstr "Teilen"
 
@@ -5888,14 +5932,14 @@ msgstr "Dieses Feld darf nicht leer sein."
 msgid "URL of the item."
 msgstr "URL des Artikels."
 
-#: includes/helpers/class-choices.php:447
+#: includes/helpers/class-choices.php:448
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:5046
 msgid "Service"
 msgstr "Service"
 
-#: includes/helpers/class-choices.php:446
+#: includes/helpers/class-choices.php:447
 #: includes/modules/local-seo/views/titles-options.php:22
 #: includes/settings/titles/local.php:17
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
@@ -5904,7 +5948,7 @@ msgstr "Service"
 msgid "Person"
 msgstr "Person"
 
-#: includes/helpers/class-choices.php:445 includes/helpers/class-schema.php:97
+#: includes/helpers/class-choices.php:446 includes/helpers/class-schema.php:97
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:1133
@@ -5913,35 +5957,35 @@ msgstr "Person"
 msgid "Video"
 msgstr "Video"
 
-#: includes/helpers/class-choices.php:444
+#: includes/helpers/class-choices.php:445
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:4722
 msgid "Restaurant"
 msgstr "Restaurant"
 
-#: includes/helpers/class-choices.php:443
+#: includes/helpers/class-choices.php:444
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:4120
 msgid "Recipe"
 msgstr "Rezept"
 
-#: includes/helpers/class-choices.php:441 includes/helpers/class-schema.php:109
+#: includes/helpers/class-choices.php:442 includes/helpers/class-schema.php:109
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:3374
 msgid "Music"
 msgstr "Musik"
 
-#: includes/helpers/class-choices.php:440 includes/helpers/class-schema.php:101
+#: includes/helpers/class-choices.php:441 includes/helpers/class-schema.php:101
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:2932
 msgid "Job Posting"
 msgstr "Stellenausschreibung"
 
-#: includes/helpers/class-choices.php:439
+#: includes/helpers/class-choices.php:440
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:2214
@@ -6026,7 +6070,7 @@ msgstr "Name"
 msgid "Overview"
 msgstr "Übersicht"
 
-#: includes/helpers/class-choices.php:437
+#: includes/helpers/class-choices.php:438
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:1618
@@ -6127,15 +6171,15 @@ msgstr "Einrichtungsanleitung"
 msgid "Sitemap"
 msgstr "Sitemap"
 
-#: includes/admin/wizard/views/compatibility.php:151
+#: includes/admin/wizard/views/compatibility.php:158
 msgid "Deactivate Plugin"
 msgstr "Plugin deaktivieren"
 
-#: includes/admin/importers/class-status.php:130
+#: includes/admin/importers/class-status.php:128
 msgid "There are no redirection to import."
 msgstr "Es ist keine Umleitung zum Importieren vorhanden."
 
-#: includes/admin/importers/class-status.php:126
+#: includes/admin/importers/class-status.php:124
 msgid "Settings import failed."
 msgstr "Einstellungsimport fehlgeschlagen."
 
@@ -6156,11 +6200,11 @@ msgstr "Wie man seine Beiträge alle Tests bestehen lässt"
 msgid "How to Properly Setup Rank Math"
 msgstr "Wie man die Rank Math richtig einstellt"
 
-#: includes/admin/importers/class-status.php:129
+#: includes/admin/importers/class-status.php:127
 msgid "User meta import failed."
 msgstr "Benutzer-Meta-Import fehlgeschlagen."
 
-#: includes/admin/importers/class-status.php:128
+#: includes/admin/importers/class-status.php:126
 msgid "Term meta import failed."
 msgstr "Term-Meta-Import fehlgeschlagen."
 
@@ -6178,7 +6222,7 @@ msgstr "Verfügbare Aktionen"
 msgid "Screen Content"
 msgstr "Bildschirminhalt"
 
-#: includes/admin/class-admin-helper.php:284
+#: includes/admin/class-admin-helper.php:320
 msgid "Tweet"
 msgstr "Tweet"
 
@@ -6190,7 +6234,7 @@ msgstr "404 Monitorprotokoll"
 msgid "Titles & Meta Settings"
 msgstr "Titel & Meta Einstellungen"
 
-#: includes/admin/class-admin-helper.php:277
+#: includes/admin/class-admin-helper.php:313
 msgid "SEO by Rank Math"
 msgstr "SEO von Rank Math"
 
@@ -6214,7 +6258,7 @@ msgstr "On-Page Analyse"
 msgid "Site-Wide Analysis"
 msgstr "Standortübergreifende Analyse"
 
-#: includes/helpers/class-choices.php:438
+#: includes/helpers/class-choices.php:439
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:1914
@@ -6394,12 +6438,12 @@ msgstr "Ergebnisse für %s"
 msgid "Archives for %s"
 msgstr "Archiv für %s"
 
-#: includes/frontend/class-head.php:391
+#: includes/frontend/class-head.php:390
 msgid "Rank Math WordPress SEO plugin"
 msgstr "Rank Math WordPress SEO Plugin"
 
 #: includes/frontend/paper/class-error-404.php:26
-#: includes/frontend/paper/class-singular.php:129
+#: includes/frontend/paper/class-singular.php:128
 #: includes/frontend/paper/class-taxonomy.php:31
 msgid "Page not found"
 msgstr "Seite nicht gefunden"
@@ -6438,7 +6482,7 @@ msgstr "SEO Optimierungen"
 msgid "Import SEO Settings"
 msgstr "SEO-Einstellungen importieren"
 
-#: includes/admin/wizard/views/compatibility.php:160
+#: includes/admin/wizard/views/compatibility.php:167
 msgid "No known conflicting plugins found."
 msgstr "Es wurden keine in Konflikt stehenden Plugins gefunden."
 
@@ -6476,43 +6520,43 @@ msgstr "Google Maps Einbettungs-API"
 msgid "<strong>Delete</strong> permanently removes the item from the list."
 msgstr "<strong>Löschen</strong> entfernt das Element dauerhaft aus der Liste."
 
-#: includes/helpers/class-choices.php:497
+#: includes/helpers/class-choices.php:499
 msgid "Regex"
 msgstr "Regex"
 
-#: includes/helpers/class-choices.php:495
+#: includes/helpers/class-choices.php:497
 msgid "Starts With"
 msgstr "Beginnt mit"
 
-#: includes/helpers/class-choices.php:494
+#: includes/helpers/class-choices.php:496
 msgid "Contains"
 msgstr "Enthält"
 
-#: includes/helpers/class-choices.php:493
+#: includes/helpers/class-choices.php:495
 msgid "Exact"
 msgstr "Exakt"
 
-#: includes/helpers/class-choices.php:480 assets/admin/js/rank-math-app.js:1
+#: includes/helpers/class-choices.php:482 assets/admin/js/rank-math-app.js:1
 msgid "451 Content Unavailable for Legal Reasons"
 msgstr "451 Inhalt aus rechtlichen Gründen nicht verfügbar"
 
-#: includes/helpers/class-choices.php:479 assets/admin/js/rank-math-app.js:1
+#: includes/helpers/class-choices.php:481 assets/admin/js/rank-math-app.js:1
 msgid "410 Content Deleted"
 msgstr "410 Inhalt gelöscht"
 
-#: includes/helpers/class-choices.php:478 assets/admin/js/rank-math-app.js:1
+#: includes/helpers/class-choices.php:480 assets/admin/js/rank-math-app.js:1
 msgid "307 Temporary Redirect"
 msgstr "307 Temporäre Umleitung"
 
-#: includes/helpers/class-choices.php:477 assets/admin/js/rank-math-app.js:1
+#: includes/helpers/class-choices.php:479 assets/admin/js/rank-math-app.js:1
 msgid "302 Temporary Move"
 msgstr "302 Temporäre Umleitung"
 
-#: includes/helpers/class-choices.php:476 assets/admin/js/rank-math-app.js:1
+#: includes/helpers/class-choices.php:478 assets/admin/js/rank-math-app.js:1
 msgid "301 Permanent Move"
 msgstr "301 Permanente Umleitung"
 
-#: includes/helpers/class-choices.php:448 includes/helpers/class-schema.php:105
+#: includes/helpers/class-choices.php:449 includes/helpers/class-schema.php:105
 msgid "Software Application"
 msgstr "Softwareanwendungen"
 
@@ -6606,7 +6650,7 @@ msgstr "Autoren-Meta importieren"
 
 #. translators: link to title setting screen
 #: includes/admin/wizard/class-schema-markup.php:159
-#: includes/settings/titles/post-types.php:131
+#: includes/settings/titles/post-types.php:132
 msgid "Default rich snippet selected when creating a new product."
 msgstr "Standard Rich-Snippet, das beim Erstellen eines neuen Produkts ausgewählt wurde."
 
@@ -6701,12 +6745,12 @@ msgid "Top Admin Bar"
 msgstr "Obere Admin-Leiste"
 
 #. translators: sitename
-#: includes/admin/class-admin-helper.php:263
+#: includes/admin/class-admin-helper.php:299
 msgid "I just installed Rank Math SEO WordPress Plugin. It looks promising!"
 msgstr "Ich habe gerade das Rank Math SEO WordPress Plugin installiert. Es sieht vielversprechend aus!"
 
 #. translators: sitename
-#: includes/admin/class-admin-helper.php:261
+#: includes/admin/class-admin-helper.php:297
 msgid "I just installed @RankMathSEO #WordPress Plugin. It looks great! %s"
 msgstr "Ich habe gerade @RankMathSEO #WordPress Plugin installiert. Es sieht Klasse aus! %s"
 
@@ -6785,7 +6829,7 @@ msgid "Products tagged &ldquo;%s&rdquo;"
 msgstr "Produkte mit dem Tag &ldquo;%s&rdquo;"
 
 #. translators: start, end, total
-#: includes/admin/importers/class-status.php:117
+#: includes/admin/importers/class-status.php:115
 msgid "Imported user meta for users %1$s - %2$s out of %3$s "
 msgstr "Importierte Benutzer-Meta für Benutzer %1$s - %2$s von %3$s "
 
@@ -6860,7 +6904,7 @@ msgstr "Standard: /produkt-kategorie/zubehoer/aktions-figuren/ - geändert: /pro
 msgid "Custom values for robots meta tag on homepage."
 msgstr "Benutzerdefinierte Werte für Roboter-Meta Tag auf der Startseite."
 
-#: includes/helpers/class-choices.php:605
+#: includes/helpers/class-choices.php:607
 msgid "Technical Support"
 msgstr "Technische Unterstützung"
 
@@ -6894,7 +6938,7 @@ msgid "Facebook Debugger"
 msgstr "Facebook Fehlersuchprogramm"
 
 #. translators: total
-#: includes/admin/importers/class-status.php:115
+#: includes/admin/importers/class-status.php:113
 msgid "Imported term meta for %s terms."
 msgstr "Importierte Term-Meta für %s Bedingungen."
 
@@ -6907,7 +6951,7 @@ msgstr "Term-Meta importieren"
 msgid "As Pillar Content"
 msgstr "Als Säuleninhalt"
 
-#: includes/admin/wizard/views/compatibility.php:169
+#: includes/admin/wizard/views/compatibility.php:176
 msgid "Start Wizard"
 msgstr "Starten"
 
@@ -6915,7 +6959,7 @@ msgstr "Starten"
 msgid "Site Tagline"
 msgstr "Slogan der Seite"
 
-#: includes/admin/importers/class-status.php:127
+#: includes/admin/importers/class-status.php:125
 msgid "Posts meta import failed."
 msgstr "Der Meta-Import der Beiträge ist fehlgeschlagen."
 
@@ -7020,8 +7064,8 @@ msgstr "Deine Seite"
 msgid "Google does not allow Person as the Publisher for articles. Organization will be used instead. You can read more about this <a href=\"%s\" target=\"_blank\">here</a>."
 msgstr "Google erlaubt Person nicht als Publisher für Artikel. Organisation wird stattdessen verwendet. Weitere Informationen zu diesem Thema findest du <a href=\"%s\" target=\"_blank\">hier</a>."
 
-#: includes/admin/wizard/class-schema-markup.php:174
-#: includes/settings/titles/post-types.php:167
+#: includes/admin/wizard/class-schema-markup.php:168
+#: includes/settings/titles/post-types.php:143
 msgid "None (Click here to set one)"
 msgstr "Keine (Klicke hier, um eine einzustellen)"
 
@@ -7071,11 +7115,11 @@ msgid "Connect Your Account"
 msgstr "Verbinde dein Konto"
 
 #. translators: php version
-#: includes/admin/wizard/views/compatibility.php:54
+#: includes/admin/wizard/views/compatibility.php:55
 msgid "Your PHP Version: %s"
 msgstr "Deine PHP Version: %s"
 
-#: includes/admin/wizard/views/compatibility.php:39
+#: includes/admin/wizard/views/compatibility.php:40
 msgid "Your website is compatible to run Rank Math SEO"
 msgstr "Deine Website ist kompatibel mit Rank Math SEO"
 
@@ -7115,6 +7159,10 @@ msgstr "Das Attribut <code>nofollow</code> <strong> wird für den Link nicht hin
 msgid "Only add <code>nofollow</code> attribute for the link if target domain is in this list. Add one per line. Leave empty to apply nofollow for <strong>ALL</strong> external domains."
 msgstr "Füge nur dann ein <code>nofollow</code>-Attribut für den Link hinzu, wenn sich die Zieldomäne in dieser Liste befindet. Füge einen pro Zeile hinzu. Lass das Feld leer, um nofollow für <strong>ALL</strong> externe Domänen anzuwenden."
 
+#: includes/settings/general/htaccess.php:52
+msgid "Be careful when editing the htaccess file, it is easy to make mistakes and break your site. If that happens, you can restore the file to its state <strong>before the last edit</strong> by replacing the htaccess file with the backup copy created by Rank Math in the same directory (<em>.htaccess_back_xxxxxx</em>) using an FTP client."
+msgstr "Sei vorsichtig beim Bearbeiten der htaccess-Datei, es ist leicht, Fehler zu machen und deine Website zu zerstören. Wenn dies der Fall ist, kannst du die Datei in ihren Zustand <strong>vor der letzten Bearbeitung</strong> zurücksetzen, indem du die htaccess-Datei durch die Sicherungskopie ersetzen, die von Rank Math im gleichen Verzeichnis (<em>.htaccess_back_xxxxxx</em>) mit einem FTP-Client erstellt wurde."
+
 #: includes/settings/general/links.php:29
 msgid "Please enable Redirections module."
 msgstr "Bitte aktiviere das Modul Umleitungen."
@@ -7126,10 +7174,6 @@ msgstr "Die Suchkonsole von Google ist eine wichtige Informationsquelle für dei
 #: includes/settings/general/links.php:49
 msgid "Redirect attachments without a parent post to this URL. Leave empty for no redirection."
 msgstr "Leiten die Anhänge ohne übergeordneten Beitrag an diese URL weiter. Lass das Feld leer, um keine Umleitung vorzunehmen."
-
-#: includes/settings/general/htaccess.php:52
-msgid "Be careful when editing the htaccess file, it is easy to make mistakes and break your site. If that happens, you can restore the file to its state <strong>before the last edit</strong> by replacing the htaccess file with the backup copy created by Rank Math in the same directory (<em>.htaccess_back_xxxxxx</em>) using an FTP client."
-msgstr "Sei vorsichtig beim Bearbeiten der htaccess-Datei, es ist leicht, Fehler zu machen und deine Website zu zerstören. Wenn dies der Fall ist, kannst du die Datei in ihren Zustand <strong>vor der letzten Bearbeitung</strong> zurücksetzen, indem du die htaccess-Datei durch die Sicherungskopie ersetzen, die von Rank Math im gleichen Verzeichnis (<em>.htaccess_back_xxxxxx</em>) mit einem FTP-Client erstellt wurde."
 
 #. translators: Link to kb article
 #: includes/settings/general/links.php:38
@@ -7144,7 +7188,7 @@ msgstr "Entferne das Präfix aus der Kategorie-URL."
 msgid "Automatically add <code>target=\"_blank\"</code> attribute for external links appearing in your posts, pages, and other post types to make them open in a new browser tab or window. The attribute is dynamically applied when the content is displayed, and the stored content is not changed."
 msgstr "Füge automatisch das Attribut <code>target=\"_blank\"</code> für externe Links hinzu, die in deinen Beiträgen, Seiten und anderen Beitragstypen erscheinen, damit sie in einem neuen Browser-Tab oder Fenster geöffnet werden. Das Attribut wird dynamisch angewendet, wenn der Inhalt angezeigt wird, und der gespeicherte Inhalt wird nicht geändert."
 
-#: includes/modules/sitemap/settings/post-types.php:46
+#: includes/modules/sitemap/settings/post-types.php:47
 msgid "Insert custom field (post meta) names which contain image URLs to include them in the sitemaps. Add one per line."
 msgstr "Füge benutzerdefinierte Feldnamen (Post-Meta-Namen) ein, die Bild-URLs enthalten, um sie in die Sitemaps aufzunehmen. Füge einen pro Zeile hinzu."
 
@@ -7152,7 +7196,7 @@ msgstr "Füge benutzerdefinierte Feldnamen (Post-Meta-Namen) ein, die Bild-URLs 
 msgid "Include archive pages of terms that have no posts associated."
 msgstr "Füge Archivseiten von Begriffen ein, denen keine Beiträge zugeordnet sind."
 
-#: includes/modules/sitemap/settings/post-types.php:34
+#: includes/modules/sitemap/settings/post-types.php:35
 msgid "Include this post type in the XML sitemap."
 msgstr "Füge diesen Beitrags-Typ in die XML-Sitemap ein."
 
@@ -7160,7 +7204,7 @@ msgstr "Füge diesen Beitrags-Typ in die XML-Sitemap ein."
 msgid "If you don't have an XML sitemap, the best option is to install a plugin that creates sitemaps for you. That way you'll know the sitemap will always be up-to-date. Plugins can also automatically ping the search engines when the XML file is updated. The Rank Math WordPress plugin gives you complete control over your site's XML sitemaps. You can control the settings for each page as you write or edit it, and Rank Math will ping Google as soon as you submit your edits. This results in fast crawls and indexing."
 msgstr "Wenn du keine XML-Sitemap hast, ist die beste Option, ein Plugin zu installieren, das Sitemaps für dich erstellt. Auf diese Weise weisst du, dass die Sitemap immer aktuell ist. Plugins können auch automatisch die Suchmaschinen pingen, wenn die XML-Datei aktualisiert wird. Das Rank Math WordPress Plugin gibt dir die volle Kontrolle über die XML-Sitemaps deiner Website. Du kannst die Einstellungen für jede Seite steuern, während du sie schreibst oder bearbeitest, und Rank Math wird Google an pingen, sobald deine Änderungen übermittelt sind. Dies führt zu schnellen Crawls und Indexierungen."
 
-#: includes/helpers/class-choices.php:496
+#: includes/helpers/class-choices.php:498
 msgid "End With"
 msgstr "Endet mit"
 
@@ -7420,35 +7464,35 @@ msgstr "Zeichnet die URLs auf, unter denen Besucher und Suchmaschinen auf 404-Fe
 msgid "Select taxonomies to enable SEO options for them and include them in the sitemap."
 msgstr "Wähle Taxonomien aus, um die SEO-Optionen für sie zu aktivieren und sie in die Sitemap aufzunehmen."
 
-#: includes/admin/wizard/views/compatibility.php:61
+#: includes/admin/wizard/views/compatibility.php:62
 msgid "Rank Math is compatible with your PHP version but we recommend updating to PHP 7.2 for increased speed and security."
 msgstr "Rank Math ist mit deiner PHP-Version kompatibel, wir empfehlen jedoch ein Update auf PHP 7.2, um die Geschwindigkeit und Sicherheit zu erhöhen."
 
-#: includes/admin/wizard/views/compatibility.php:150
+#: includes/admin/wizard/views/compatibility.php:157
 msgid "You can import settings in the next step."
 msgstr "Du kannst die Einstellungen im nächsten Schritt importieren."
 
-#: includes/admin/wizard/views/compatibility.php:143
+#: includes/admin/wizard/views/compatibility.php:150
 msgid "The following active plugins on your site may cause conflict issues when used alongside this plugin: "
 msgstr "Die folgenden aktiven Plugins auf deiner Website können bei der Verwendung neben diesem Plugin zu Konfliktproblemen führen: "
 
-#: includes/admin/wizard/views/compatibility.php:142
+#: includes/admin/wizard/views/compatibility.php:149
 msgid "The following active plugins on your site may cause conflict issues when used alongside Rank Math: "
 msgstr "Die folgenden aktiven Plugins auf deiner Website können bei der Verwendung neben Rank Math zu Konfliktproblemen führen: "
 
-#: includes/admin/wizard/views/compatibility.php:126
+#: includes/admin/wizard/views/compatibility.php:133
 msgid "Please resolve the issues above to be able to use all features of Rank Math plugin. If you are not sure how to do it, please contact your hosting provider."
 msgstr "Bitte löse die oben genannten Probleme, um alle Funktionen des Rank Math Plugins nutzen zu können. Wenn du dir sicher sind bist, wie es geht, wende dich an deinen Hosting-Anbieter."
 
-#: includes/admin/wizard/views/compatibility.php:127
+#: includes/admin/wizard/views/compatibility.php:134
 msgid "Please resolve the issues above to be able to use all SEO features. If you are not sure how to do it, please contact your hosting provider."
 msgstr "Bitte behebe die oben genannten Probleme, um alle SEO-Funktionen nutzen zu können. Wenn du dir nicht sicher bist, wie du es machen sollst, wenden dich bitte an deinen Hosting-Provider."
 
-#: includes/admin/wizard/views/compatibility.php:119
+#: includes/admin/wizard/views/compatibility.php:126
 msgid "Your server is correctly configured to use this plugin."
 msgstr "Dein Server ist richtig konfiguriert, um dieses Plugin zu verwenden."
 
-#: includes/admin/wizard/views/compatibility.php:118
+#: includes/admin/wizard/views/compatibility.php:125
 msgid "Your server is correctly configured to use Rank Math."
 msgstr "Dein Server ist richtig konfiguriert, um dieses Plugin zu verwenden."
 
@@ -7573,7 +7617,7 @@ msgid "Learn more about Redirections."
 msgstr "Erfahre mehr über Weiterleitungen."
 
 #. translators: total
-#: includes/admin/importers/class-status.php:119
+#: includes/admin/importers/class-status.php:117
 msgid "Imported %s redirections."
 msgstr "%s importierte Weiterleitungen."
 
@@ -7670,12 +7714,11 @@ msgid "Importing: "
 msgstr "Importieren: "
 
 #. translators: start, end, total
-#: includes/admin/importers/class-status.php:113
+#: includes/admin/importers/class-status.php:111
 msgid "Imported post meta for posts %1$s - %2$s out of %3$s "
 msgstr "Importierte Beitrag-Meta für Beiträge %1$s - %2$s von %3$s "
 
-#: includes/admin/wizard/class-schema-markup.php:173
-#: includes/settings/titles/post-types.php:163
+#: includes/admin/wizard/class-schema-markup.php:184
 msgid "Default rich snippet selected when creating a new post of this type. "
 msgstr "Standard Rich-Snippet, das beim Erstellen eines neuen Beitrag dieses Typs ausgewählt wurde. "
 
@@ -7752,11 +7795,7 @@ msgstr "Entferne das WooCommerce Generator-Tag aus dem Quellcode."
 msgid "Remove parent slugs from category URL."
 msgstr "Entferne übergeordnete Slugs aus der Kategorie-URL."
 
-#: includes/modules/sitemap/settings/post-types.php:23
-msgid "To generate attachment sitemap disable attachment redirection to parent."
-msgstr "Um eine Sitemap für Anhänge zu erstellen, deaktiviere die Weiterleitung von Anhängen an übergeordnete Elemente."
-
-#: includes/modules/seo-analysis/seo-analysis-tests.php:277
+#: includes/modules/seo-analysis/seo-analysis-tests.php:279
 msgid "You have not linked Google Search Console yet."
 msgstr "Du hast die Google Search Console noch nicht verlinkt."
 
@@ -7786,16 +7825,16 @@ msgstr "Bearbeite die SEO-Einstellungen für die Suchergebnisseite"
 msgid "Edit default SEO settings for this post type"
 msgstr "Bearbeite die Standard-SEO-Einstellungen für diesen Beitragstyp"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:357
+#: includes/modules/seo-analysis/seo-analysis-tests.php:359
 msgid "Focus keywords appear in the titles of published posts where it is set."
 msgstr "Fokus-Schlüsselwörter erscheinen in den Titeln der veröffentlichten Beiträge, wo sie gesetzt sind."
 
 #. translators: post type links
-#: includes/modules/seo-analysis/seo-analysis-tests.php:340
+#: includes/modules/seo-analysis/seo-analysis-tests.php:342
 msgid "There are %s with no focus keyword set."
 msgstr "Es gibt %s ohne Fokus-Schlüsselwort."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:330
+#: includes/modules/seo-analysis/seo-analysis-tests.php:332
 msgid "All published posts have focus keywords set."
 msgstr "Alle veröffentlichten Beiträge haben Fokus-Schlüsselwörter gesetzt."
 
@@ -7879,7 +7918,7 @@ msgstr "Erweiterte Optionen"
 msgid "Not found"
 msgstr "Nicht gefunden"
 
-#: includes/admin/wizard/views/compatibility.php:62
+#: includes/admin/wizard/views/compatibility.php:63
 msgid "This plugin is compatible with your PHP version but we recommend updating to PHP 7.2 for increased speed and security."
 msgstr "Dieses Plugin ist mit deiner PHP-Version kompatibel. Wir empfehlen jedoch, ein Update auf PHP 7.2 durchzuführen, um die Geschwindigkeit und Sicherheit zu erhöhen."
 
@@ -7900,10 +7939,6 @@ msgstr "Deine Produkt %s Seiten"
 msgid "XML sitemaps are a special type of text file that tells search engines about the structure of your site. They're a list of all the resources (pages and files) you would like the search engine to index. You can assign different priorities, so certain pages will be crawled first. Before XML sitemaps, search engines were limited to indexing the content they could find by following links. That's still an important feature for search engine spiders, but XML sitemaps have made it easier for content creators and search engines to collaborate."
 msgstr "XML-Sitemaps sind eine spezielle Art von Textdatei, die Suchmaschinen über die Struktur deiner Website informiert. Es handelt sich um eine Liste aller Ressourcen (Seiten und Dateien), die die Suchmaschine indizieren soll. du kannst verschiedene Prioritäten vergeben, so dass bestimmte Seiten zuerst durchsucht werden. Vor XML-Sitemaps beschränkten sich Suchmaschinen auf die Indizierung von Inhalten, die sie über folgende Links finden konnten. Das ist immer noch ein wichtiges Feature für Suchmaschinen-Spider, aber XML-Sitemaps haben es für Inhaltsersteller und Suchmaschinen einfacher gemacht, zusammenzuarbeiten."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:79
-msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
-msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Fokus-Schlüsselwort hinzufügst, überprüft Rank Math, ob du das Schlüsselwort im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Schlüsselwort im Titel fehlt, wird es dir hier mitgeteilt."
-
 #: includes/modules/seo-analysis/seo-analysis-tests.php:71
 msgid "Rank Math uses these focus keywords to analyze your on-page content.  It can tell if you've done a good job of optimizing your text to rank for these keywords."
 msgstr "Rank Math verwendet diese Fokus-Schlüsselwörter, um deinen Inhalt auf der Seite zu analysieren. Es kann erkennen, ob du gute Arbeit geleistet habst, indem du deinen Text optimiert habst, um ihn für diese Schlüsselwort zu bewerten."
@@ -7915,6 +7950,10 @@ msgstr "Das Setzen von Fokus-Schlüsselwörter für deine Beiträge ermöglicht 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:64
 msgid "This looks nice for readers - and it gets your keywords into the URL (keywords in the URL is a ranking factor)."
 msgstr "Das ist Benutzerfreundlich und bringt die Schlüsselwörter in die URL. Schlüsselwörter in der URL sind ein Rankingfaktor."
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:79
+msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
+msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Fokus-Schlüsselwort hinzufügst, überprüft Rank Math, ob du das Schlüsselwort im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Schlüsselwort im Titel fehlt, wird es dir hier mitgeteilt."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:60
 msgid "It's not very kind on the eyes, and it does nothing for your site's SEO.  In fact, it can hurt it - Google's bot is quite cautious about crawling pages that look auto-generated."
@@ -7941,15 +7980,6 @@ msgstr "Leider ist die Standardmarke von WordPress \"Nur eine weitere WordPress 
 msgid "Total Keywords"
 msgstr "Schlüsselwörter insgesamt"
 
-#: includes/modules/redirections/views/help-tab-overview.php:18
-msgid "Redirections can be exported to your .htaccess file for faster redirections, in SEO > Settings > Import/Export."
-msgstr "Weiterleitungen können zur schnelleren Weiterleitung in deine .htaccess-Datei exportiert werden. Wähle dazu SEO> Einstellungen> Import/Export."
-
-#: includes/modules/local-seo/views/titles-options.php:35
-#: includes/settings/titles/local.php:30
-msgid "Your name or company name"
-msgstr "Dein Name oder Firmenname"
-
 #: includes/modules/schema/shortcode/recipe.php:34
 #: includes/modules/analytics/assets/js/stats.js:1
 #: includes/modules/analytics/assets/src/App.js:86
@@ -7967,6 +7997,15 @@ msgstr "Dein Name oder Firmenname"
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:4309
 msgid "Keywords"
 msgstr "Schlüsselwörter"
+
+#: includes/modules/redirections/views/help-tab-overview.php:18
+msgid "Redirections can be exported to your .htaccess file for faster redirections, in SEO > Settings > Import/Export."
+msgstr "Weiterleitungen können zur schnelleren Weiterleitung in deine .htaccess-Datei exportiert werden. Wähle dazu SEO> Einstellungen> Import/Export."
+
+#: includes/modules/local-seo/views/titles-options.php:35
+#: includes/settings/titles/local.php:30
+msgid "Your name or company name"
+msgstr "Dein Name oder Firmenname"
 
 #: includes/modules/404-monitor/views/options.php:55
 msgid "Enter URIs or keywords you wish to prevent from getting logged by the 404 monitor."
@@ -7990,11 +8029,11 @@ msgid "Homepage"
 msgstr "Homepage"
 
 #. translators: php version
-#: includes/admin/wizard/views/compatibility.php:69
+#: includes/admin/wizard/views/compatibility.php:70
 msgid "Your PHP Version: %s | Recommended version: 7.4 | Minimal required: 7.2"
 msgstr "Deine PHP-Version: %s | Empfohlene Version: 7.2 | Mindestanforderung: 5.4"
 
-#: includes/admin/wizard/views/compatibility.php:57
+#: includes/admin/wizard/views/compatibility.php:58
 msgid "Recommended: PHP 7.4 or later"
 msgstr "Empfohlen: PHP 7.2 oder höher"
 
@@ -8003,9 +8042,13 @@ msgid "Update data manually"
 msgstr "Daten manuell aktualisieren"
 
 #. translators: post type links
-#: includes/modules/seo-analysis/seo-analysis-tests.php:378
+#: includes/modules/seo-analysis/seo-analysis-tests.php:380
 msgid "There are %s published posts where the primary focus keyword does not appear in the post title."
 msgstr "Es gibt %s veröffentlichte Beiträge, bei denen das Fokus-Schlüsselwort nicht im Beitragstitel erscheint."
+
+#: includes/modules/seo-analysis/class-seo-analyzer.php:278
+msgid "API Error:"
+msgstr "API-Fehler:"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
@@ -8034,8 +8077,7 @@ msgstr "Beschreibung"
 #: includes/admin/class-cmb2-fields.php:281
 #: includes/admin/wizard/class-schema-markup.php:161
 #: includes/helpers/class-taxonomy.php:152
-#: includes/settings/titles/post-types.php:133
-#: includes/settings/titles/post-types.php:150
+#: includes/settings/titles/post-types.php:134
 #: includes/settings/titles/post-types.php:165 assets/admin/js/blocks.js:1
 #: assets/admin/js/rank-math-app.js:1
 #: includes/modules/analytics/assets/js/admin-bar.js:1
@@ -8457,7 +8499,7 @@ msgstr "Webshop"
 msgid "Personal Portfolio"
 msgstr "Persönliches Portfolio"
 
-#: includes/modules/seo-analysis/class-seo-analyzer.php:505
+#: includes/modules/seo-analysis/class-seo-analyzer.php:512
 #: assets/admin/js/rank-math-app.js:1
 msgid "Basic SEO"
 msgstr "Grundlegende SEO"
