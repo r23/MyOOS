@@ -333,15 +333,16 @@ class ContentAI extends Component {
 export default compose(
 	withSelect( ( select ) => {
 		const researcher = rankMathEditor.assessor.analyzer.researcher
+		const paper = researcher.paper
 		return {
 			data: select( 'rank-math' ).getKeywordsData(),
 			keyword: get( rankMath.ca_keyword, 'keyword', select( 'rank-math' ).getKeywords().split( ',' )[ 0 ] ),
 			country: get( rankMath.ca_keyword, 'country', rankMath.contentAiCountry ),
 			researcher,
-			content: researcher.paper.getTextLower(),
-			title: researcher.paper.getTitle().toLowerCase(),
-			description: researcher.paper.getDescription().toLowerCase(),
-			hasThumbnail: researcher.paper.hasThumbnail(),
+			content: ! isUndefined( paper ) ? paper.getTextLower() : '',
+			title: ! isUndefined( paper ) ? paper.getTitle().toLowerCase() : '',
+			description: ! isUndefined( paper ) ? paper.getDescription().toLowerCase() : '',
+			hasThumbnail: ! isUndefined( paper ) ? paper.hasThumbnail() : '',
 			score: select( 'rank-math' ).getContentAIScore(),
 		}
 	} ),

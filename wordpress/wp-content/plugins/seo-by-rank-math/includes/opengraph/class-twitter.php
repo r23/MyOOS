@@ -1,6 +1,6 @@
 <?php
 /**
- * This class handles the Twitter card functionality.
+ * Twitter cards functionality.
  *
  * @since      0.9.0
  * @package    RankMath

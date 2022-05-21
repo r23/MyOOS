@@ -111,12 +111,24 @@ class Image {
 	}
 
 	/**
+	 * Generate secret key for safer image URLs.
+	 *
+	 * @param int    $id   The attachment ID.
+	 * @param string $type Overlay type.
+	 */
+	private function generate_secret( $id, $type ) {
+		return md5( $id . $type . wp_salt( 'nonce' ) );
+	}
+
+	/**
 	 * Outputs an image tag based on whether it's https or not.
 	 *
 	 * @param array $image_meta Image metadata.
 	 */
 	private function image_tag( $image_meta ) {
-		$og_image = $this->opengraph->get_overlay_image() && ! empty( $image_meta['id'] ) ? admin_url( "admin-ajax.php?action=rank_math_overlay_thumb&id={$image_meta['id']}&type={$this->opengraph->get_overlay_image()}" ) : $image_meta['url'];
+		$overlay  = $this->opengraph->get_overlay_image();
+		$secret   = $this->generate_secret( $image_meta['id'], $overlay );
+		$og_image = $overlay && ! empty( $image_meta['id'] ) ? admin_url( "admin-ajax.php?action=rank_math_overlay_thumb&id={$image_meta['id']}&type={$overlay}&secret={$secret}" ) : $image_meta['url'];
 		$this->opengraph->tag( 'og:image', esc_url_raw( $og_image ) );
 
 		// Add secure URL if detected. Not all services implement this, so the regular one also needs to be rendered.

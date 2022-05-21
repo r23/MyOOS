@@ -97,6 +97,9 @@ class Block_FAQ extends Block {
 				continue;
 			}
 
+			$question['title']   = do_shortcode( $question['title'] );
+			$question['content'] = do_shortcode( $question['content'] );
+			
 			if ( empty( $question['id'] ) ) {
 				$question['id'] = 'rm-faq-' . md5( $question['title'] );
 			}
@@ -162,7 +165,7 @@ class Block_FAQ extends Block {
 			$out[] = sprintf(
 				'<div class="rank-math-answer %1$s">%3$s%2$s</div>',
 				$attributes['contentCssClasses'],
-				wpautop( $question['content'] ),
+				$this->normalize_text( $question['content'], 'faq' ),
 				$this->get_image( $question, $attributes['sizeSlug'] )
 			);
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Parses images from the given post.
+ * Parse images from a post.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -20,7 +20,6 @@ use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Url;
 use MyThemeShop\Helpers\Arr;
-use MyThemeShop\Helpers\Attachment;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -151,8 +150,6 @@ class Image_Parser {
 		foreach ( $this->parse_galleries( $term->description ) as $attachment ) {
 			$images[] = [
 				'src'   => $this->get_absolute_url( $this->image_url( $attachment->ID ) ),
-				'title' => $attachment->post_title,
-				'alt'   => Attachment::get_alt_tag( $attachment->ID ),
 			];
 		}
 
@@ -171,11 +168,7 @@ class Image_Parser {
 			return;
 		}
 
-		$this->get_image_item(
-			$this->get_absolute_url( $this->image_url( $thumbnail_id ) ),
-			get_post_field( 'post_title', $thumbnail_id ),
-			Attachment::get_alt_tag( $thumbnail_id )
-		);
+		$this->get_image_item( $this->get_absolute_url( $this->image_url( $thumbnail_id ) ) );
 	}
 
 	/**
@@ -191,7 +184,7 @@ class Image_Parser {
 		$content = $this->do_filter( 'sitemap/content_before_parse_html_images', $this->post->post_content, $this->post->ID );
 
 		foreach ( $this->parse_html_images( $content ) as $image ) {
-			$this->get_image_item( $image['src'], $image['title'], $image['alt'] );
+			$this->get_image_item( $image['src'] );
 		}
 	}
 
@@ -200,11 +193,7 @@ class Image_Parser {
 	 */
 	private function get_post_galleries() {
 		foreach ( $this->parse_galleries( $this->post->post_content, $this->post->ID ) as $attachment ) {
-			$this->get_image_item(
-				$this->get_absolute_url( $this->image_url( $attachment->ID ) ),
-				$attachment->post_title,
-				Attachment::get_alt_tag( $attachment->ID )
-			);
+			$this->get_image_item( $this->get_absolute_url( $this->image_url( $attachment->ID ) ) );
 		}
 	}
 
@@ -213,11 +202,7 @@ class Image_Parser {
 	 */
 	private function get_is_attachment() {
 		if ( 'attachment' === $this->post->post_type && wp_attachment_is_image( $this->post ) ) {
-			$this->get_image_item(
-				$this->get_absolute_url( $this->image_url( $this->post->ID ) ),
-				$this->post->post_title,
-				Attachment::get_alt_tag( $this->post->ID )
-			);
+			$this->get_image_item( $this->get_absolute_url( $this->image_url( $this->post->ID ) ) );
 		}
 	}
 
@@ -234,7 +219,7 @@ class Image_Parser {
 		foreach ( $customs as $key ) {
 			$src = get_post_meta( $this->post->ID, $key, true );
 			if ( Str::is_non_empty( $src ) && preg_match( '/\.(jpg|jpeg|png|gif)$/i', $src ) ) {
-				$this->get_image_item( $src, $this->post->post_title );
+				$this->get_image_item( $src );
 			}
 		}
 	}
@@ -259,11 +244,7 @@ class Image_Parser {
 				continue;
 			}
 
-			$images[] = [
-				'src'   => $src,
-				'title' => $img->getAttribute( 'title' ),
-				'alt'   => $img->getAttribute( 'alt' ),
-			];
+			$images[] = [ 'src' => $src ];
 		}
 
 		return $images;
@@ -383,11 +364,9 @@ class Image_Parser {
 	/**
 	 * Set image item array with filters applied.
 	 *
-	 * @param string $src   Image URL.
-	 * @param string $title Optional image title.
-	 * @param string $alt   Optional image alt text.
+	 * @param string $src Image URL.
 	 */
-	private function get_image_item( $src, $title = '', $alt = '' ) {
+	private function get_image_item( $src ) {
 		$image = [];
 
 		/**
@@ -401,21 +380,11 @@ class Image_Parser {
 			return;
 		}
 
-		if ( ! empty( $title ) ) {
-			$image['title'] = $title;
-		}
-
-		if ( ! empty( $alt ) ) {
-			$image['alt'] = $alt;
-		}
-
 		/**
 		 * Filter image data to be included in XML sitemap for the post.
 		 *
 		 * @param array  $image Array of image data. {
-		 *     @type string  $src   Image URL.
-		 *     @type string  $title Image title attribute (optional).
-		 *     @type string  $alt   Image alt attribute (optional).
+		 *     @type string $src Image URL.
 		 * }
 		 * @param object $post  Post object.
 		 */

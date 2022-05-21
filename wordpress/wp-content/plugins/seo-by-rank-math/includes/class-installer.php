@@ -130,7 +130,7 @@ class Installer {
 	}
 
 	/**
-	 * Runs on activation of the plugin.
+	 * Plugin activation callback.
 	 */
 	private function activate() {
 		// Init to use the common filters.
@@ -166,7 +166,7 @@ class Installer {
 		$watcher->check_activated_plugin();
 
 		$this->clear_rewrite_rules( true );
-		Helper::clear_cache();
+		Helper::clear_cache( 'activate' );
 
 		$this->do_action( 'activate' );
 	}
@@ -177,7 +177,7 @@ class Installer {
 	private function deactivate() {
 		$this->clear_rewrite_rules( false );
 		$this->remove_cron_jobs();
-		Helper::clear_cache();
+		Helper::clear_cache( 'deactivate' );
 		Admin_Helper::deregister_user();
 		$this->do_action( 'deactivate' );
 	}
@@ -545,6 +545,9 @@ class Installer {
 
 			$sitemap[ 'tax_' . $taxonomy . '_sitemap' ] = 'category' === $taxonomy ? 'on' : 'off';
 		}
+
+		$titles['remove_product_cat_snippet_data'] = 'on';
+		$titles['remove_product_tag_snippet_data'] = 'on';
 	}
 
 	/**

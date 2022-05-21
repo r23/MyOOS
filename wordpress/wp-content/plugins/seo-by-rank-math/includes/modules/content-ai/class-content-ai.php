@@ -193,9 +193,9 @@ class Content_AI {
 		$country = empty( $keyword['country'] ) ? '' : $keyword['country'];
 		if (
 			! empty( $data[ $country ] ) &&
-			! empty( $data[ $country ][ $keyword['keyword'] ] )
+			! empty( $data[ $country ][ mb_strtolower( $keyword['keyword'] ) ] )
 		) {
-			$values['ca_data'] = $data[ $country ][ $keyword['keyword'] ];
+			$values['ca_data'] = $data[ $country ][ mb_strtolower( $keyword['keyword'] ) ];
 		}
 
 		$values['ca_keyword'] = $keyword;

@@ -10,6 +10,8 @@
 
 namespace RankMath\Google;
 
+use MyThemeShop\Helpers\Str;
+
 defined( 'ABSPATH' ) || exit;
 
 /**
@@ -277,6 +279,11 @@ class Console extends Analytics {
 			$default            = trailingslashit( strtolower( home_url() ) );
 			$rank_math_site_url = get_option( 'rank_math_google_analytic_profile', [ 'profile' => $default ] );
 			$rank_math_site_url = empty( $rank_math_site_url['profile'] ) ? $default : $rank_math_site_url['profile'];
+
+			if ( Str::contains( 'sc-domain:', $rank_math_site_url ) ) {
+				$rank_math_site_url = str_replace( 'sc-domain:', '', $rank_math_site_url );
+				$rank_math_site_url = ( is_ssl() ? 'https' : 'http' ) . $rank_math_site_url;
+			}
 		}
 
 		return $rank_math_site_url;

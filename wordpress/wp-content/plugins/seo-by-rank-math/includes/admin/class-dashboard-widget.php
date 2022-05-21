@@ -39,9 +39,9 @@ class Dashboard_Widget {
 	public function add_dashboard_widgets() {
 		// Early Bail if action is not registered for the dashboard widget hook.
 		if (
-			! Helper::is_module_active( '404-monitor' ) &&
-			! Helper::is_module_active( 'redirections' ) &&
-			! Helper::is_module_active( 'analytics' )
+			( ! Helper::is_module_active( '404-monitor' ) || ! Helper::has_cap( '404_monitor' ) ) &&
+			( ! Helper::is_module_active( 'redirections' ) || ! Helper::has_cap( 'redirections' ) ) &&
+			( ! Helper::is_module_active( 'analytics' ) || ! Helper::has_cap( 'analytics' ) )
 		) {
 			return;
 		}

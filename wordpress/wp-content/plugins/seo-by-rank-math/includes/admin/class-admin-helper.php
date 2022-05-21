@@ -141,7 +141,43 @@ class Admin_Helper {
 			}
 		}
 
+		if ( ! self::is_valid_registration( $options ) ) {
+			// Delete invalid registration data.
+			delete_option( $row );
+
+			// Ask the user to reconnect.
+			Helper::add_notification( 
+				__( 'Unable to validate Rank Math SEO registration data.', 'rank-math') .
+				' <a href="' . esc_url( Admin_Helper::get_activate_url() ) . '">' . __( 'Please try reconnecting.', 'rank-math' ) . '</a> ' .
+				sprintf( __('If the issue persists, please try the solution described in our Knowledge Base article: %s', 'rank-math' ), '<a href="https://rankmath.com/kb/fix-automatic-update-unavailable-for-this-plugin/#unable-to-encrypt" target="_blank">' . __( '[3. Unable to Encrypt]', 'rank-math' ) . '</a>' ), [ 'type' => 'error' ] );
+
+			return false;
+		}
+
 		return $options;
+	}
+
+	/**
+	 * Check if registration data is valid.
+	 * 
+	 * @param array $data Registration data.
+	 * 
+	 * @return bool
+	 */
+	public static function is_valid_registration( $data ) {
+		if ( empty( $data['username'] ) || empty( $data['email'] ) || empty( $data['api_key'] ) || empty( $data['plan'] ) ) {
+			return false;
+		}
+
+		if ( ! filter_var( $data['email'], FILTER_VALIDATE_EMAIL ) ) {
+			return false;
+		}
+
+		if ( strlen( $data['plan'] ) > 32 ) { // This can happen when the decryption fails for some reason.
+			return false;
+		}
+
+		return true;
 	}
 
 	/**

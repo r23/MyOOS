@@ -160,12 +160,34 @@ class Monitor {
 		}
 
 		foreach ( $excludes as $rule ) {
+			$rule['exclude'] = empty( $rule['exclude'] ) ? '' : $this->sanitize_exclude_pattern( $rule['exclude'], $rule['comparison'] );
+
 			if ( ! empty( $rule['exclude'] ) && Str::comparison( $rule['exclude'], $uri, $rule['comparison'] ) ) {
 				return true;
 			}
 		}
 
 		return false;
+	}
+
+	/**
+	 * Check if regex pattern has delimiters or not, and add them if not.
+	 *
+	 * @param string $pattern The pattern to check.
+	 * @param string $comparison The comparison type.
+	 *
+	 * @return string
+	 */
+	private function sanitize_exclude_pattern( $pattern, $comparison ) {
+		if ( 'regex' !== $comparison ) {
+			return $pattern;
+		}
+
+		if ( preg_match( '[^(?:([^a-zA-Z0-9\\\\]).*\\1|\\(.*\\)|\\{.*\\}|\\[.*\\]|<.*>)[imsxADSUXJu]*$]', $pattern ) ) {
+			return $pattern;
+		}
+
+		return '[' . addslashes( $pattern ) . ']';
 	}
 
 	/**

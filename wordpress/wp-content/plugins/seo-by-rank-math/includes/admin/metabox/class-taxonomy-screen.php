@@ -149,9 +149,10 @@ class Taxonomy_Screen implements IScreen {
 	}
 
 	/**
-	 * Adds custom category description editor.
+	 * Add the description field to the edit taxonomy screen if the metabox is
+	 * enabled for the current taxonomy.
 	 *
-	 * @return {void}
+	 * @return void
 	 */
 	private function description_field_editor() {
 		$taxonomy = $this->get_taxonomy();
@@ -159,7 +160,7 @@ class Taxonomy_Screen implements IScreen {
 			return;
 		}
 
-		add_action( "{$taxonomy}_edit_form_fields", [ $this, 'category_description_editor' ], 1 );
+		$this->action( "{$taxonomy}_edit_form_fields", 'category_description_editor', 1 );
 	}
 
 	/**

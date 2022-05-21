@@ -1,6 +1,6 @@
 <?php
 /**
- * Renders XML output for sitemaps.
+ * Render XML output for sitemaps.
  *
  * @since      0.9.0
  * @package    RankMath
@@ -119,7 +119,6 @@ class Sitemap_XML extends XML {
 		echo "\n<!-- {$template} -->"; // phpcs:ignore
 
 		if ( defined( 'SAVEQUERIES' ) && SAVEQUERIES ) {
-
 			$queries = print_r( $GLOBALS['wpdb']->queries, true ); // phpcs:ignore
 			echo "\n<!-- {$queries} -->"; // phpcs:ignore
 		}

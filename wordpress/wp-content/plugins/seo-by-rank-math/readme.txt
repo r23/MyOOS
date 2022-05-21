@@ -2,10 +2,10 @@
 Contributors: rankmath
 Plugin link: https://rankmath.com/?utm_source=LP&utm_campaign=WP
 Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
-Tested up to: 5.9
+Tested up to: 6.0
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.88.1
+Stable tag: 1.0.89
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -185,7 +185,7 @@ Even with significantly more features than other plugins, Rank Math SEO loads am
 ### Take a sneak peek into Rank Math SEO’s features ###
 
 #### Detailed Setup Tutorial ####
-[youtube https://www.youtube.com/watch?v=dTvZuMRzW4w]
+[youtube https://www.youtube.com/watch?v=cQLvCBVev3I]
 
 ### List of Best Rank Math SEO Features ###
 
@@ -580,23 +580,25 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.88.1 [May 04, 2022] =
-* Fixed: [GA4 Data stream](https://rankmath.com/kb/using-ga4/#datastream-and-country) dropdown was not showing any value even if it was working fine
-
-= 1.0.88 [May 04, 2022] =
-* Added: [HUGE!] Rank Math now supports [Google Analytics 4](https://rankmath.com/kb/using-ga4/)
-* Added: Option to create GA4 property with one click
-* Added: New option in [Database Tools](https://rankmath.com/kb/rank-math-status-and-tools/#fix-analytics-table-collations) to match the collations of all Analytics tables
-* Fixed: [Content AI](https://rankmath.com/kb/how-to-use-content-ai/) was not working on secondary language posts created using the WPML plugin
-* Fixed: [Search form on the Settings page](https://rankmath.com/kb/general-settings/) was showing irrelevant items in the dropdown 
-* Fixed: Both `index` & `noindex` options could be selected in the [Date Archive Robots settings](https://rankmath.com/kb/titles-and-meta/#date-robots-meta)
-* Fixed: Dashboard widget was showing 403 error to the Shop Manager user role
-* Fixed: Dashboard widget was showing an error when the site couldn't load the Blog posts from rankmath.com/blog/
-* Fixed: "Exclude this attachment from the Sitemap" option on the attachment details popup was showing to all the users
-* Fixed: [Content Analysis](https://rankmath.com/blog/divi-seo/) was also analyzing the global Header & Footer content added in the Divi's Theme Builder
-* Fixed: On Divi's frontend editor, the SEO modal was getting closed after clicking on the Schema generator button
-* Fixed: In [Easy Mode](https://rankmath.com/kb/switch-from-easy-to-advanced-mode/), [Instant Indexing](https://rankmath.com/kb/how-to-use-indexnow/#submit-urls-manually) settings were linked to the wrong page
-* Fixed: [Update data manually](https://rankmath.com/kb/general-settings/#analytics-database) option was not working well on some setups in the Analytics Module
-* Fixed: Invalid `%searchphrase%` variable was used as a default value on the Search page
+= 1.0.89 [May 20, 2022] =
+* Added: Support for shortcodes in the [FAQ](https://rankmath.com/kb/faq-schema-block/) & [HowTo](https://rankmath.com/blog/howto-schema/) block content
+* Added: [New filter](https://rankmath.com/kb/filters-hooks-api-developer/#allow-line-breaks) to allow line breaks in the FAQ & HowTo block content
+* Added: [Compatibility check](https://rankmath.com/kb/how-to-setup/#compatibility-check) to check if the `base64_*` functions are available
+* Improved: Description for [Schema Type Titles & Meta option](https://rankmath.com/kb/titles-and-meta/#rich-snippet-type) to make it easy to understand
+* Improved: Error messages on different pages to make it easy to understand
+* Improved: The code that generates [Thumbnail overlay](https://rankmath.com/kb/meta-box-social-tab/#add-icon-overlay-to-thumbnails)
+* Improved: Optimized and improved the overall code
+* Removed: The `image:caption` & `image:title` properties from the sitemap as Google no longer uses them. You can read more about it [here](https://developers.google.com/search/blog/2022/05/spring-cleaning-sitemap-extensions)
+* Fixed: [Google Search Console](https://rankmath.com/kb/general-settings/#search-console) data import was not working well with the domain property
+* Fixed: [Content Analysis](https://rankmath.com/kb/score-100-in-tests/) was not working when a comma was used in the [Focus keyword](https://rankmath.com/kb/what-is-a-focus-keyword/)
+* Fixed: Link Suggestion was not working well when the 'AMP for WP' plugin is active
+* Fixed: WP Super Cache plugin's cache was completely getting cleared after updating the WooCommerce Product
+* Fixed: PHP warning when invalid regex was used in the [404 Monitor Exclude Path](https://rankmath.com/kb/general-settings/#exclude-paths) setting
+* Fixed: Content AI was not working well on the posts created using the 'Builder by SiteOrigin' plugin
+* Fixed: Dashboard widget was showing without any content to the users who didn't have the required capability
+* Fixed: Links pointing to the media files were also counted as internal links by the [Link Counter](https://rankmath.com/kb/link-counter/)
+* Fixed: Missing tooltips in the Content Analysis tests
+* Fixed: Improved the styling of the [Classic Editor Metabox](https://rankmath.com/kb/on-page-seo/#num-3-in-classic-editor) when it is moved to the editor's sidebar
+* Fixed: [Remove Snippet Data](https://rankmath.com/kb/titles-and-meta/#product-categories-remove-snippet-data) option was not working on some setups
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

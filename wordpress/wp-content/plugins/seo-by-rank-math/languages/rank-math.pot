@@ -221,6 +221,18 @@ msgstr ""
 msgid "None"
 msgstr ""
 
+msgid "Unable to validate Rank Math SEO registration data."
+msgstr ""
+
+msgid "Please try reconnecting."
+msgstr ""
+
+msgid "If the issue persists, please try the solution described in our Knowledge Base article: %s"
+msgstr ""
+
+msgid "[3. Unable to Encrypt]"
+msgstr ""
+
 #. translators: sitename
 msgid "I just installed @RankMathSEO #WordPress Plugin. It looks great! %s"
 msgstr ""
@@ -2309,10 +2321,10 @@ msgstr ""
 msgid "Default rich snippet selected when creating a new product."
 msgstr ""
 
-msgid "Default rich snippet selected when creating a new post of this type. "
+msgid "None (Click here to set one)"
 msgstr ""
 
-msgid "None (Click here to set one)"
+msgid "Default rich snippet selected when creating a new post of this type. "
 msgstr ""
 
 msgid "Connect Google&trade; Services"
@@ -3246,6 +3258,15 @@ msgid "Analyze this Page"
 msgstr ""
 
 msgid "SEO Analysis for this page"
+msgstr ""
+
+msgid "API Error:"
+msgstr ""
+
+msgid "The Site-Wide Analysis is unavailable on localhost."
+msgstr ""
+
+msgid "Click here to learn more"
 msgstr ""
 
 #. translators: API error
@@ -4271,7 +4292,12 @@ msgstr ""
 msgid "Prevent password protected pages & posts from getting indexed by search engines."
 msgstr ""
 
-msgid "To configure attachment-related meta tags disable attachment redirection to parent."
+#. translators: The settings page link
+#. translators: The settings page link
+msgid "To configure meta tags for your media attachment pages, you need to first %s to parent."
+msgstr ""
+
+msgid "disable redirect attachments"
 msgstr ""
 
 #. translators: Post type name.
@@ -4319,13 +4345,15 @@ msgstr ""
 msgid "Description for %s archive pages."
 msgstr ""
 
+#. translators: %s is "Article" inside a <code> tag.
+msgid "Default rich snippet selected when creating a new post of this type. If %s is selected, it will be applied for all existing posts with no Schema selected."
+msgstr ""
+
+msgctxt "Schema type name in a field description"
+msgid "Article"
+msgstr ""
+
 msgid "Headline"
-msgstr ""
-
-msgid "Default rich snippet selected when creating a new location."
-msgstr ""
-
-msgid "Local Business"
 msgstr ""
 
 #. translators: post type name
@@ -4588,6 +4616,12 @@ msgid "PHP OpenSSL Extension installed"
 msgstr ""
 
 msgid "PHP OpenSSL Extension missing"
+msgstr ""
+
+msgid "Base64 encode &amp; decode functions available"
+msgstr ""
+
+msgid "Base64 encode &amp; decode functions missing"
 msgstr ""
 
 msgid "Please resolve the issues above to be able to use all features of Rank Math plugin. If you are not sure how to do it, please contact your hosting provider."
@@ -5566,9 +5600,6 @@ msgid "Ping Search Engines"
 msgstr ""
 
 msgid "Automatically notify Google &amp; Bing when a sitemap gets updated."
-msgstr ""
-
-msgid "To generate attachment sitemap disable attachment redirection to parent."
 msgstr ""
 
 msgid "Include in Sitemap"

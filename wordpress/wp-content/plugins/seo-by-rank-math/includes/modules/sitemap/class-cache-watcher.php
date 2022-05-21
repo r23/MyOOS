@@ -48,7 +48,7 @@ class Cache_Watcher {
 	protected static $clear_types = [];
 
 	/**
-	 * Hook methods for invalidation on necessary events.
+	 * The constructor.
 	 */
 	public function __construct() {
 		$this->action( 'save_post', 'save_post' );
@@ -181,7 +181,7 @@ class Cache_Watcher {
 			do_action( 'rank_math/sitemap/hit_index' );
 		}
 
-		Sitemap::ping_search_engines();
+		Sitemap::ping_google_bing();
 	}
 
 	/**

@@ -198,7 +198,7 @@ function rank_math_analyze_site_description() {
 		];
 	}
 
-	if ( rank_math_has_default_tagline() ) { // phpcs:ignore
+	if ( rank_math_is_default_tagline() ) { // phpcs:ignore
 		return [
 			'status'  => 'fail',
 			'message' => wp_kses_post( __( 'Your Site Tagline is set to the default value <em>Just another WordPress site</em>.', 'rank-math' ) ),
@@ -212,18 +212,20 @@ function rank_math_analyze_site_description() {
 }
 
 /**
- * Returns whether or not the site has the default tagline.
+ * Check if the site uses the default WP tagline.
  *
  * @return bool
  */
-function rank_math_has_default_tagline() {
-	$description         = get_bloginfo( 'description' );
-	$default_description = 'Just another WordPress site';
-
-	// We are checking against the WordPress internal translation.
+function rank_math_is_default_tagline() {
+	$description            = get_bloginfo( 'description' );
 	$translated_description = translate( 'Just another WordPress site' ); // phpcs:ignore
 
-	return $translated_description === $description || $default_description === $description;
+	if ( $description === $translated_description ) {
+		return true;
+	}
+
+	// Also check untranslated version.
+	return $description === 'Just another WordPress site';
 }
 
 /**
@@ -241,7 +243,7 @@ function rank_math_analyze_permalink_structure() {
 		];
 	}
 
-	if ( ! rank_math_has_postname_in_permalink() ) {
+	if ( ! rank_math_is_postname_in_permalink() ) {
 		return [
 			'status'  => 'fail',
 			'message' => wp_kses_post( __( 'Permalinks are set to a custom structure but the post titles do not appear in the permalinks.', 'rank-math' ) ),
@@ -256,11 +258,11 @@ function rank_math_analyze_permalink_structure() {
 }
 
 /**
- * Check if the permalink uses %postname%.
+ * Check if the post permalink includes %postname%.
  *
  * @return bool
  */
-function rank_math_has_postname_in_permalink() {
+function rank_math_is_postname_in_permalink() {
 	return ( false !== strpos( get_option( 'permalink_structure' ), '%postname%' ) );
 }
 
@@ -479,29 +481,20 @@ function rank_math_analyze_sitemap( $analyzer ) {
 
 
 /**
- * Add an alert if the blog is not publicly visible
+ * Check if the site is globally set to noindex.
  */
 function rank_math_analyze_blog_public() {
 	$info_message  = '<strong>' . esc_html__( 'Attention: Search Engines can\'t see your website.', 'rank-math' ) . '</strong> ';
 	$info_message .= sprintf(
-		/* translators: %1$s resolves to the opening tag of the link to the reading settings, %1$s resolves to the closing tag for the link */
-		esc_html__( 'You must %1$sgo to your Reading Settings%2$s and uncheck the box for Search Engine Visibility.', 'rank-math' ),
+		/* translators: %1$s: opening tag of the link, %2$s: the closing tag */
+		esc_html__( 'Navigate to %1$sSettings > Reading%2$s and turn off this option: "Discourage search engines from indexing this site".', 'rank-math' ),
 		'<a href="' . esc_url( admin_url( 'options-reading.php' ) ) . '">',
 		'</a>'
 	);
 
-	$public = rank_math_is_blog_public();
+	$public = (bool) get_option( 'blog_public' );
 	return [
 		'status'  => $public ? 'ok' : 'fail',
 		'message' => $public ? esc_html__( 'Your site is accessible by search engine.', 'rank-math' ) : $info_message,
 	];
-}
-
-/**
- * Check if the site is set to be publicly visible.
- *
- * @return bool
- */
-function rank_math_is_blog_public() {
-	return '1' === (string) get_option( 'blog_public' );
 }

@@ -39,12 +39,12 @@ class Watcher {
 	private $updated_terms = [];
 
 	/**
-	 * Hook methods for invalidation on necessary events.
+	 * The constructor.
 	 */
 	public function __construct() {
 
 		// Post.
-		// Only monitor if permalinks enabled.
+		// Only monitor if pretty permalinks are enabled.
 		if ( get_option( 'permalink_structure' ) ) {
 			if ( Helper::get_settings( 'general.redirections_post_redirect' ) ) {
 				$this->action( 'pre_post_update', 'pre_post_update' );

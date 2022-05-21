@@ -10,9 +10,7 @@
 
 namespace RankMath\Schema;
 
-use RankMath\Helper;
 use RankMath\Paper\Paper;
-use RankMath\Traits\Hooker;
 use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Attachment;
 
@@ -124,7 +122,7 @@ class Block_HowTo extends Block {
 			$data['howto'] = [
 				'@type'       => 'HowTo',
 				'name'        => Paper::get()->get_title(),
-				'description' => isset( $attrs['description'] ) ? $this->clean_text( $attrs['description'] ) : '',
+				'description' => isset( $attrs['description'] ) ? $this->clean_text( do_shortcode( $attrs['description'] ) ) : '',
 				'totalTime'   => '',
 				'step'        => [],
 			];
@@ -175,7 +173,7 @@ class Block_HowTo extends Block {
 		// HeaderContent.
 		$out[] = '<div class="rank-math-howto-description">';
 		$out[] = $this->get_image( $attributes, $attributes['mainSizeSlug'], '' );
-		$out[] = wpautop( $attributes['description'] );
+		$out[] = $this->normalize_text( $attributes['description'], 'howto' );
 		$out[] = '</div>';
 
 		$out[] = $this->build_duration( $attributes );
@@ -204,7 +202,7 @@ class Block_HowTo extends Block {
 					'<div class="rank-math-step-content %2$s">%4$s%3$s</div>',
 					$attributes['titleWrapper'],
 					$attributes['contentCssClasses'],
-					wpautop( $step['content'] ),
+					$this->normalize_text( $step['content'], 'howto' ),
 					$this->get_image( $step, $attributes['sizeSlug'], '' )
 				);
 			}
@@ -225,8 +223,8 @@ class Block_HowTo extends Block {
 	 * @param string $permalink Permalink.
 	 */
 	private function add_step( $step, $permalink ) {
-		$name = wp_strip_all_tags( $step['title'] );
-		$text = $this->clean_text( $step['content'] );
+		$name = wp_strip_all_tags( do_shortcode( $step['title'] ) );
+		$text = $this->clean_text( do_shortcode( $step['content'] ) );
 
 		if ( empty( $name ) && empty( $text ) ) {
 			return false;
@@ -244,7 +242,6 @@ class Block_HowTo extends Block {
 				$this->add_step_image_from_content( $schema_step, $step );
 			}
 
-			// If there is no text and no image, don't output the step.
 			if ( empty( $text ) && empty( $schema_step['image'] ) ) {
 				return false;
 			}
@@ -345,10 +342,10 @@ class Block_HowTo extends Block {
 	}
 
 	/**
-	 * Add Caption.
+	 * Add caption to schema.
 	 *
-	 * @param [type] $schema_image [description].
-	 * @param [type] $image_id     [description].
+	 * @param array $schema_image Our Schema output for the Image.
+	 * @param int   $image_id     The image ID.
 	 */
 	private function add_caption( &$schema_image, $image_id ) {
 		$caption = wp_get_attachment_caption( $image_id );
@@ -364,10 +361,10 @@ class Block_HowTo extends Block {
 	}
 
 	/**
-	 * Add Image Size.
+	 * Add image size to schema.
 	 *
-	 * @param [type] $schema_image [description].
-	 * @param [type] $image_id     [description].
+	 * @param array $schema_image Our Schema output for the Image.
+	 * @param int   $image_id     The image ID.
 	 */
 	private function add_image_size( &$schema_image, $image_id ) {
 		$image_meta = wp_get_attachment_metadata( $image_id );
@@ -380,16 +377,16 @@ class Block_HowTo extends Block {
 	}
 
 	/**
-	 * Add Duration.
+	 * Add duration to schema.
 	 *
-	 * @param [type] $data  [description].
-	 * @param [type] $attrs [description].
+	 * @param array $data  Our Schema output.
+	 * @param array $attrs The block attributes.
 	 */
 	private function add_duration( &$data, $attrs ) {
-		if ( ! empty( $attrs['hasDuration'] ) && $attrs['hasDuration'] ) {
-			$days    = empty( $attrs['days'] ) ? 0 : $attrs['days'];
-			$hours   = empty( $attrs['hours'] ) ? 0 : $attrs['hours'];
-			$minutes = empty( $attrs['minutes'] ) ? 0 : $attrs['minutes'];
+		if ( ! empty( $attrs['hasDuration'] ) ) {
+			$days    = $attrs['days'] ?? 0;
+			$hours   = $attrs['hours'] ?? 0;
+			$minutes = $attrs['minutes'] ?? 0;
 
 			if ( ( $days + $hours + $minutes ) > 0 ) {
 				$data['totalTime'] = esc_attr( 'P' . $days . 'DT' . $hours . 'H' . $minutes . 'M' );
@@ -398,11 +395,11 @@ class Block_HowTo extends Block {
 	}
 
 	/**
-	 * HowTo Duration
+	 * Generate HowTo duration property.
 	 *
-	 * @param [type] $attrs [description].
+	 * @param array $attrs The block attributes.
 	 *
-	 * @return [type]        [description]
+	 * @return string
 	 */
 	private function build_duration( $attrs ) {
 		if ( ! isset( $attrs['hasDuration'] ) || ! $attrs['hasDuration'] ) {
@@ -415,26 +412,26 @@ class Block_HowTo extends Block {
 
 		$elements = [];
 		if ( $days > 0 ) {
-			/* translators: %s expands to a unit of time (e.g. 1 day). */
+			/* translators: %d is the number of days. */
 			$elements[] = sprintf( _n( '%d day', '%d days', $days, 'rank-math' ), $days );
 		}
 
 		if ( $hours > 0 ) {
-			/* translators: %s expands to a unit of time (e.g. 1 hour). */
+			/* translators: %d is the number of hours. */
 			$elements[] = sprintf( _n( '%d hour', '%d hours', $hours, 'rank-math' ), $hours );
 		}
 
 		if ( $minutes > 0 ) {
-			/* translators: %s expands to a unit of time (e.g. 1 minute). */
+			/* translators: %d is the number of minutes. */
 			$elements[] = sprintf( _n( '%d minute', '%d minutes', $minutes, 'rank-math' ), $minutes );
 		}
 
 		$count   = count( $elements );
 		$formats = [
 			1 => '%1$s',
-			/* translators: %s expands to a unit of time (e.g. 1 day). */
+			/* translators: placeholders are units of time, e.g. '1 hour and 30 minutes' */
 			2 => __( '%1$s and %2$s', 'rank-math' ),
-			/* translators: %s expands to a unit of time (e.g. 1 day). */
+			/* translators: placeholders are units of time, e.g. '1 day, 8 hours and 30 minutes' */
 			3 => __( '%1$s, %2$s and %3$s', 'rank-math' ),
 		];
 

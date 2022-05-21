@@ -126,7 +126,7 @@ class Frontend {
 		wp_enqueue_script( 'rank-math', rank_math()->assets() . 'js/rank-math.js', [ 'jquery' ], rank_math()->version, true );
 
 		if ( is_singular() ) {
-			Helper::add_json( 'objectID', Post::get_simple_page_id() );
+			Helper::add_json( 'objectID', Post::get_page_id() );
 			Helper::add_json( 'objectType', 'post' );
 		} elseif ( is_category() || is_tag() || is_tax() ) {
 			Helper::add_json( 'objectID', get_queried_object_id() );
@@ -161,7 +161,7 @@ class Frontend {
 	}
 
 	/**
-	 * When certain archives are disabled, this redirects those to the homepage.
+	 * Redirect date & author archives if the setting is enabled.
 	 */
 	public function archive_redirect() {
 		global $wp_query;

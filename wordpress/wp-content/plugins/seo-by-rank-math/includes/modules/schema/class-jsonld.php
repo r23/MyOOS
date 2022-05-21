@@ -1,6 +1,6 @@
 <?php
 /**
- * Outputs schema code specific for Google's JSON LD stuff
+ * Output the Schema.org markup in JSON-LD format.
  *
  * @since      0.9.0
  * @package    RankMath

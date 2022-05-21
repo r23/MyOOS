@@ -45,12 +45,17 @@ class Thumbnail_Overlay {
 	public function generate_overlay_thumbnail() {
 		$thumbnail_id = Param::request( 'id', 0, FILTER_VALIDATE_INT );
 		$type         = Param::request( 'type', 'play' );
+		$secret       = Param::request( 'secret', '' );
 		$choices      = Helper::choices_overlay_images();
 		if ( ! isset( $choices[ $type ] ) ) {
 			die();
 		}
 		$overlay_image = $choices[ $type ]['path'];
 		$image         = Helper::get_scaled_image_path( $thumbnail_id, 'large' );
+
+		if ( ! $this->is_secret_valid( $thumbnail_id, $type, $secret ) ) {
+			die();
+		}
 
 		// If 'large' thumbnail is not found, fall back to full size.
 		if ( empty( $image ) ) {
@@ -246,5 +251,18 @@ class Thumbnail_Overlay {
 
 		$stamp->clear();
 		$stamp->destroy();
+	}
+
+	/**
+	 * Check if secret key is valid.
+	 *
+	 * @param int    $id     The ID of the attachment.
+	 * @param string $type   Overlay type.
+	 * @param string $secret Secret key.
+	 *
+	 * @return boolean
+	 */
+	private function is_secret_valid( $id, $type, $secret ) {
+		return md5( $id . $type . wp_salt( 'nonce' ) ) === $secret;
 	}
 }

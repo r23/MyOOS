@@ -82,7 +82,7 @@ class Capability_Manager {
 	}
 
 	/**
-	 * Returns the list of registered capabilitities.
+	 * Get all registered capabilitities.
 	 *
 	 * @param bool $caps Capabilities as keys.
 	 *

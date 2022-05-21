@@ -428,10 +428,11 @@ trait Choices {
 	 *
 	 * @codeCoverageIgnore
 	 *
-	 * @param  bool $none Add none option to the list.
+	 * @param  bool   $none      Add none option to the list.
+	 * @param  string $post_type Post type.
 	 * @return array
 	 */
-	public static function choices_rich_snippet_types( $none = false ) {
+	public static function choices_rich_snippet_types( $none = false, $post_type = '' ) {
 		$types = [
 			'article'    => esc_html__( 'Article', 'rank-math' ),
 			'book'       => esc_html__( 'Book', 'rank-math' ),
@@ -459,9 +460,10 @@ trait Choices {
 		/**
 		 * Allow developers to add/remove Schema type choices.
 		 *
-		 * @param array $types Schema types.
+		 * @param array  $types     Schema types.
+		 * @param string $post_type Post type.
 		 */
-		return apply_filters( 'rank_math/settings/snippet/types', $types );
+		return apply_filters( 'rank_math/settings/snippet/types', $types, $post_type );
 	}
 
 	/**

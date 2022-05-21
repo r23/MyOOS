@@ -294,10 +294,9 @@ class Request {
 	}
 
 	/**
-	 * Revoke an OAuth2 access token or refresh token. This method will revoke the current access
-	 * token, if a token isn't provided.
+	 * Revoke an OAuth2 token.
 	 *
-	 * @return boolean Returns True if the revocation was successful, otherwise False.
+	 * @return boolean Whether the token was revoked successfully.
 	 */
 	public function revoke_token() {
 		$tokens = Authentication::tokens();
