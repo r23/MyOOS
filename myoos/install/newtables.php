@@ -1221,7 +1221,8 @@ $table = $prefix_table . 'products_units';
 $flds = "
   products_units_id I DEFAULT '0' NOTNULL PRIMARY,
   languages_id I NOTNULL DEFAULT '1' PRIMARY,
-  products_unit_name C(60) NOTNULL
+  products_unit_name C(60) NOTNULL,
+  unit_of_measure C(30) NOTNULL
 ";
 dosql($table, $flds);
 
