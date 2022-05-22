@@ -112,7 +112,7 @@ if (!empty($action)) {
                                     'products_status' => $nProductsStatus,
                                     'products_setting' => oos_db_prepare_input($_POST['products_setting']),
                                     'products_tax_class_id' => oos_db_prepare_input($_POST['products_tax_class_id']),
-                                    'products_units_id' => (isset($_POST['products_units_id']) ? intval($_POST['products_units_id']) : DEFAULT_PRODUCTS_UNITS_ID),
+                                    'products_units_id' => (isset($_POST['products_units_id']) ? intval($_POST['products_units_id']) : 0),
                                     'products_old_electrical_equipment' => (isset($_POST['products_old_electrical_equipment']) ? 1 : 0),
                                     'products_used_goods' => (isset($_POST['products_used_goods']) ? 1 : 0),
                                     'manufacturers_id' => oos_db_prepare_input($_POST['manufacturers_id']),
@@ -422,7 +422,7 @@ if ($action == 'new_product') {
                        'products_setting' => DEFAULT_SETTING_ID,
                        'products_status' => DEFAULT_PRODUTS_STATUS_ID,
                        'products_tax_class_id' => DEFAULT_TAX_CLASS_ID,
-                       'products_units_id' => DEFAULT_PRODUCTS_UNITS_ID,
+                       'products_units_id' => 0,
                        'products_old_electrical_equipment' => 0,
                        'products_used_goods' => 0,
                        'manufacturers_id' => '');

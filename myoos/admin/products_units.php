@@ -116,23 +116,12 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
             }
         }
 
-        if (isset($_POST['default']) && ($_POST['default'] == 'on')) {
-            $configurationtable = $oostable['configuration'];
-            $dbconn->Execute("UPDATE $configurationtable SET configuration_value = '" . intval($products_units_id) . "' WHERE configuration_key = 'DEFAULT_PRODUCTS_UNITS_ID'");
-        }
-
         oos_redirect_admin(oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $products_units_id));
         break;
 
     case 'deleteconfirm':
         $uID = oos_db_prepare_input($_GET['uID']);
 
-        $configurationtable = $oostable['configuration'];
-        $products_units_result = $dbconn->Execute("SELECT configuration_value FROM $configurationtable WHERE configuration_key = 'DEFAULT_PRODUCTS_UNITS_ID'");
-        $products_units = $products_units_result->fields;
-        if ($products_units['configuration_value'] == $uID) {
-            $dbconn->Execute("UPDATE " . $oostable['configuration'] . " SET configuration_value = '' WHERE configuration_key = 'DEFAULT_PRODUCTS_UNITS_ID'");
-        }
 
         $products_unitstable = $oostable['products_units'];
         $dbconn->Execute("DELETE FROM $products_unitstable WHERE products_units_id = '" . intval($uID) . "'");
@@ -148,10 +137,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         $status = $status_result->fields;
 
         $remove_status = true;
-        if ($uID == DEFAULT_PRODUCTS_UNITS_ID) {
-            $remove_status = false;
-            $messageStack->add(ERROR_REMOVE_DEFAULT_PRODUCTS_UNITS, 'error');
-        } elseif ($status['total'] > 0) {
+        if ($status['total'] > 0) {
             $remove_status = false;
             $messageStack->add(ERROR_STATUS_USED_IN_PRODUCTS, 'error');
         }
@@ -235,22 +221,19 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
           echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $products_units['products_units_id']) . '\'">' . "\n";
       }
 
-      if (DEFAULT_PRODUCTS_UNITS_ID == $products_units['products_units_id']) {
-          echo '                <td><b>' . $products_units['products_unit_name'] . ' (' . TEXT_DEFAULT . ')</b></td>' . "\n";
-      } else {
-          echo '                <td>' . $products_units['products_unit_name'] . '</td>' . "\n";
-      } ?>
+		echo '                <td>' . $products_units['products_unit_name'] . '</td>' . "\n";
+?>
 
                 <td class="text-right"><?php if (isset($oInfo) && is_object($oInfo) && ($products_units['products_units_id'] == $oInfo->products_units_id)) {
-          echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-      } else {
-          echo '<a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $products_units['products_units_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-      } ?>&nbsp;</td>
+		echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+	} else {
+		echo '<a href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $products_units['products_units_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+	} ?>&nbsp;</td>
               </tr>
 <?php
-    // Move that ADOdb pointer!
-    $products_units_result->MoveNext();
-  }
+	// Move that ADOdb pointer!
+	$products_units_result->MoveNext();
+}
 ?>
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -305,9 +288,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       }
 
       $contents[] = array('text' => '<br>' . TEXT_INFO_PRODUCTS_UNITS_NAME . $products_units_inputs_string);
-      if (DEFAULT_PRODUCTS_UNITS_ID != $oInfo->products_units_id) {
-          $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
-      }
+
       $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['products_units'], 'page=' . $nPage . '&uID=' . $oInfo->products_units_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
       break;
