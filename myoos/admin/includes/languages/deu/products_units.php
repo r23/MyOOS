@@ -22,13 +22,15 @@
 define('HEADING_TITLE', 'Produkteinheiten');
 
 define('TABLE_HEADING_PRODUCTS_UNITS', 'Produkteinheit');
+define('TABLE_HEADING_UNIT_OF_MEASURE', 'Mengeneinheit');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
 define('TEXT_INFO_EDIT_INTRO', 'Bitte führen Sie alle notwendigen Änderungen durch');
 define('TEXT_INFO_PRODUCTS_UNITS_NAME', 'Produkteinheit:');
-define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue MaßProdukteinheit oder GewichtsProdukteinheit ein');
+define('TEXT_INFO_UNIT_OF_MEASURE', 'Mengeneinheit');
+define('TEXT_INFO_INSERT_INTRO', 'Bitte geben Sie die neue Maß Produkteinheit oder Gewichts Produkteinheit ein');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Produkteinheit löschen möchten?');
-define('TEXT_INFO_HEADING_NEW_PRODUCTS_UNITS', 'Neue MaßProdukteinheit oder GewichtsProdukteinheit');
+define('TEXT_INFO_HEADING_NEW_PRODUCTS_UNITS', 'Neue Maß Produkteinheit oder Gewichts Produkteinheit');
 define('TEXT_INFO_HEADING_EDIT_PRODUCTS_UNITS', 'Produkteinheit bearbeiten');
 define('TEXT_INFO_HEADING_DELETE_PRODUCTS_UNITS', 'Produkteinheit löschen');
 

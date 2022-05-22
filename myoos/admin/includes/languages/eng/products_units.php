@@ -22,10 +22,12 @@
 define('HEADING_TITLE', 'Packing unit');
 
 define('TABLE_HEADING_PRODUCTS_UNITS', 'Packing unit');
+define('TABLE_HEADING_UNIT_OF_MEASURE', 'Unit of measure');
 define('TABLE_HEADING_ACTION', 'Action');
 
 define('TEXT_INFO_EDIT_INTRO', 'Please make any necessary changes');
 define('TEXT_INFO_PRODUCTS_UNITS_NAME', 'Packing unit:');
+define('TEXT_INFO_UNIT_OF_MEASURE', 'Unit of measure');
 define('TEXT_INFO_INSERT_INTRO', 'Please enter the new orders status with its related data');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this order status?');
 define('TEXT_INFO_HEADING_NEW_PRODUCTS_UNITS', 'New packing unit');

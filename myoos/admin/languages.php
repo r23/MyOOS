@@ -461,6 +461,26 @@ if (!empty($action)) {
             $products_status_result->MoveNext();
         }
 
+		// products_units
+		$products_units_result = $dbconn->Execute("SELECT products_units_id, products_unit_name, unit_of_measure
+													FROM " . $oostable['products_units'] . "
+													WHERE languages_id = '" . intval($_SESSION['language_id']) . "'");
+        while ($products_units = $products_units_result->fields) {
+            $dbconn->Execute("INSERT INTO " . $oostable['products_units'] . "
+                      (products_units_id,
+                       languages_id,
+                       products_unit_name,
+					   unit_of_measure)
+                       VALUES ('" . $products_units['products_units_id'] . "',
+                               '" . intval($insert_id) . "',
+							   '" . oos_db_input($products_units['products_unit_name']) . "',
+                               '" . oos_db_input($products_units['unit_of_measure']) . "')");
+
+            // Move that ADOdb pointer!
+            $products_units_result->MoveNext();
+        }
+
+
         // setting
         $setting_result = $dbconn->Execute("SELECT setting_id, setting_name
                                               FROM " . $oostable['setting'] . "
@@ -543,6 +563,8 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_types'] . " WHERE products_options_types_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_values'] . " WHERE products_options_values_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_status'] . " WHERE products_status_languages_id = '" . intval($lID) . "'");
+		$dbconn->Execute("DELETE FROM " . $oostable['products_units'] . " WHERE languages_id = '" . intval($lID) . "'");
+
         $dbconn->Execute("DELETE FROM " . $oostable['setting'] . " WHERE setting_languages_id = '" . intval($lID) . "'");
 
         oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $nPage));
