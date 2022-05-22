@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 6.0
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.89
+Stable tag: 1.0.89.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -579,6 +579,11 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 13. Rank Math SEO Comes with 15+ FREE modules.
 
 == Changelog ==
+
+= 1.0.89.1 [May 21, 2022] =
+* Fixed: [Content AI](https://rankmath.com/kb/how-to-use-content-ai/#num-6-5-media-count) was not detecting the images present in the content area
+* Fixed: Content AI was crashing the editor on some setups when the site was not connected to Rank Math account
+* Fixed: Some sites were showing PHP warning after the last update
 
 = 1.0.89 [May 20, 2022] =
 * Added: Support for shortcodes in the [FAQ](https://rankmath.com/kb/faq-schema-block/) & [HowTo](https://rankmath.com/blog/howto-schema/) block content

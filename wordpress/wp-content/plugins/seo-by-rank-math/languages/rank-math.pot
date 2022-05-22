@@ -1487,7 +1487,7 @@ msgid "Buy"
 msgstr ""
 
 #. translators: %d: minutes
-#. translators: %s expands to a unit of time (e.g. 1 minute).
+#. translators: %d is the number of minutes.
 msgid "%d minute"
 msgid_plural "%d minutes"
 msgstr[0] ""
@@ -1556,7 +1556,7 @@ msgstr ""
 msgid "Products"
 msgstr ""
 
-#. translators: 1: current page number, 2: total number of pages.
+#. translators: %1$d: current page number, %2$d: max pages.
 msgid "Page %1$d of %2$d"
 msgstr ""
 
@@ -3329,7 +3329,6 @@ msgid "Your site may not be visible to search engine."
 msgstr ""
 
 #. translators: %1$s link to the reading settings, %2$s closing tag for the link
-#. translators: %1$s resolves to the opening tag of the link to the reading settings, %1$s resolves to the closing tag for the link
 msgid "You must %1$sgo to your Reading Settings%2$s and uncheck the box for Search Engine Visibility."
 msgstr ""
 
@@ -3474,6 +3473,10 @@ msgid "No sitemaps found."
 msgstr ""
 
 msgid "Attention: Search Engines can't see your website."
+msgstr ""
+
+#. translators: %1$s: opening tag of the link, %2$s: the closing tag
+msgid "Navigate to %1$sSettings > Reading%2$s and turn off this option: \"Discourage search engines from indexing this site\"."
 msgstr ""
 
 msgid "Your site is accessible by search engine."
@@ -5307,23 +5310,23 @@ msgstr ""
 msgid "Toggle All"
 msgstr ""
 
-#. translators: %s expands to a unit of time (e.g. 1 day).
+#. translators: %d is the number of days.
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] ""
 msgstr[1] ""
 
-#. translators: %s expands to a unit of time (e.g. 1 hour).
+#. translators: %d is the number of hours.
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#. translators: %s expands to a unit of time (e.g. 1 day).
+#. translators: placeholders are units of time, e.g. '1 hour and 30 minutes'
 msgid "%1$s and %2$s"
 msgstr ""
 
-#. translators: %s expands to a unit of time (e.g. 1 day).
+#. translators: placeholders are units of time, e.g. '1 day, 8 hours and 30 minutes'
 msgid "%1$s, %2$s and %3$s"
 msgstr ""
 
