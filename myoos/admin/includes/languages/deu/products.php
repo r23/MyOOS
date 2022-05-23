@@ -47,7 +47,7 @@ define('TEXT_PRODUCT_DATE_AVAILABLE', 'Dieser Artikel ist erhältlich ab %s.');
 define('TEXT_TAX_INFO', 'Netto:');
 
 define('TEXT_PRODUCTS_BASE_PRICE', 'Grundpreis ');
-define('TEXT_PRODUCTS_BASE_UNIT', 'Grundpreiseinheiten:');
+define('TEXT_PRODUCTS_BASE_UNIT', 'Mengeneinheit:');
 define('TEXT_PRODUCTS_BASE_PRICE_FACTOR', 'Faktor zum Berechnen des Grundpreises:');
 define('TEXT_PRODUCTS_BASE_QUANTITY', 'Basismenge:');
 define('TEXT_PRODUCTS_PRODUCT_QUANTITY', 'Artikelmenge:');
