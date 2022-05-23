@@ -9,13 +9,14 @@
 		<div class="col-lg-3 col-md-4 col-sm-6">
 			<div class="product-card mb-4">
 				<div class="product-thumb">
-					<a class="product-thumb-link" href="{html_href_link content=$page_file action=add_wishlist products_id=$featur.products_id}"><span class="product-wishlist-btn" data-bs-toggle="tooltip" data-placement="left" title="{$lang.button_add_wishlist}"><i data-feather="heart"></i></span></a>{product_image dir=medium src=$featur.products_image alt=$featur.products_name}
+					<a href="{html_href_link content=$page_file action=add_wishlist products_id=$featur.products_id}" class="product-wishlist-btn" data-bs-toggle="tooltip" data-placement="left" title="{$lang.button_add_wishlist}"><i data-feather="heart"></i></a>
+					<a href="{product_link products_id=$featur.products_id}">{product_image dir=medium src=$featur.products_image alt=$featur.products_name}</a>
 				</div>
 				<div class="product-card-body text-center"><a class="product-meta" href="{html_href_link content=$filename.shop category=$featur.products_path}" title="{$featur.categories_name}">{$featur.categories_name}</a>
 					<h3 class="product-card-title"><a href="{product_link products_id=$featur.products_id}">{$featur.products_name|truncate:18:"":true|close_tags}</a></h3>
-			  
-					<div class="product-price clearfix">
+
 					{if $myUser.show_price eq 1 }
+					<div class="product-price clearfix">
 						{if (!empty($featur.featured_product_special_price))}
 							<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$featur.featured_product_price}</span></span><br>
 							<span class="price-offer">{$featur.featured_product_special_price}</span>
@@ -32,13 +33,18 @@
 							{/if}	
 						{/if}					
 
-						{if $featur.products_base_price != 1}<br>{$featur.product_quantity} {$products_units[$featur.featured_product_units]} <span class="base_price">({$featur.featured_base_product_price}/{$products_units[$featur.products_base_unit]})</span><br>{/if}
+						</div>
+
+						{if $featur.products_base_price != 1}
+							<p>{$featur.product_quantity}&nbsp;{$products_units[$featur.products_units].0}<br>
+							<span class="base_price">({$products_units[$featur.products_units].1} = {$featur.featured_base_product_price})</span></p>
+						{/if}
+						
 					{/if}			  
-					</div>
 				</div>
+				
 				<div class="d-grid gap-2 product-card-body body-hidden">
 					<a href="{html_href_link content=$page_file oos_get=$get_params action=buy_now cart_quantity=$featur.order_min  products_id=$featur.products_id}" class="btn btn-primary btn-sm" role="button" data-bs-toggle="toast" data-bs-target="#cart-toast">{$lang.button_hp_buy}</a><a class="quick-view-btn" href="{product_link products_id=$featur.products_id}"><i class="mr-1" data-feather="eye"></i>{$lang.button_hp_more}</a>
-
 				</div>
 			</div>
 		</div>

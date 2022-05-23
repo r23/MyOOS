@@ -14,7 +14,6 @@
 				</div>
 				<div class="product-card-body text-center"><a class="product-meta" href="{html_href_link content=$filename.shop category=$new_product.products_path}" title="{$new_product.categories_name}">{$new_product.categories_name}</a>
 					<h3 class="product-card-title"><a href="{product_link products_id=$new_product.products_id}">{$new_product.products_name|truncate:18:"":true|close_tags}</a></h3>
-			  
 
 					{if $myUser.show_price eq 1 }
 					<div class="product-price clearfix">
