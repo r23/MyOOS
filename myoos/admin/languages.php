@@ -42,12 +42,12 @@ if (!empty($action)) {
         break;
 
       case 'insert':
-        $name = oos_db_prepare_input($_POST['name']);
-        $iso_639_2 = oos_db_prepare_input($_POST['iso_639_2']);
-        $iso_639_1 = oos_db_prepare_input($_POST['iso_639_1']);
-        $iso_3166_1 = oos_db_prepare_input($_POST['iso_3166_1']);
-        $sort_order = (int)oos_db_prepare_input($_POST['sort_order']);
-
+        $name = isset($_POST['name']) ? oos_db_prepare_input($_POST['name']) : '';
+        $iso_639_2 = isset($_POST['iso_639_2']) ? oos_db_prepare_input($_POST['iso_639_2']) : '';
+        $iso_639_1 = isset($_POST['iso_639_1']) ? oos_db_prepare_input($_POST['iso_639_1']) : '';
+        $iso_3166_1 = isset($_POST['iso_3166_1']) ? oos_db_prepare_input($_POST['iso_3166_1']) : '';
+        $sort_order = isset($_POST['sort_order']) ? intval($_POST['sort_order']) : 1;
+		
         $sql = "INSERT INTO " . $oostable['languages'] . "
                 (name,
                  iso_639_2,
@@ -85,6 +85,7 @@ if (!empty($action)) {
                                                " . $oostable['categories_description'] . " cd
                                              ON c.categories_id = cd.categories_id
                                           WHERE cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'");
+									  
         while ($categories = $categories_result->fields) {
             $dbconn->Execute("INSERT INTO " . $oostable['categories_description'] . "
                       (categories_id,
@@ -105,11 +106,12 @@ if (!empty($action)) {
         }
 
         // categories_images
-        $categories_images_result = $dbconn->Execute("SELECT ci.categories_images_id, cid.categories_images_title, cid.categories_images_caption, cid.categories_description
+        $categories_images_result = $dbconn->Execute("SELECT ci.categories_images_id, cid.categories_images_title, 
+												cid.categories_images_caption, cid.categories_images_description
                                           FROM " . $oostable['categories_images'] . " ci LEFT JOIN
                                                " . $oostable['categories_images_description'] . " cid
                                              ON ci.categories_images_id = cid.categories_images_id
-                                          WHERE cid.categories_images_languages_id = '" . intval($_SESSION['language_id']) . "'");
+                                          WHERE cid.categories_images_languages_id = '" . intval($_SESSION['language_id']) . "'");								  
         while ($categories_images = $categories_images_result->fields) {
             $dbconn->Execute("INSERT INTO " . $oostable['categories_images_description'] . "
                       (categories_images_id,
@@ -160,7 +162,7 @@ if (!empty($action)) {
                                           FROM " . $oostable['categories_panorama_scene_hotspot'] . " sh LEFT JOIN
                                                " . $oostable['categories_panorama_scene_hotspot_text'] . " sht
                                              ON sh.hotspot_id = sht.hotspot_id
-                                          WHERE cpd.hotspot_languages_id = '" . intval($_SESSION['language_id']) . "'");
+                                          WHERE sht.hotspot_languages_id = '" . intval($_SESSION['language_id']) . "'");									  
         while ($scene_hotspot = $scene_hotspot_result->fields) {
             $dbconn->Execute("INSERT INTO " . $oostable['categories_panorama_scene_hotspot_text'] . "
                       (hotspot_id, 
@@ -173,7 +175,6 @@ if (!empty($action)) {
             // Move that ADOdb pointer!
             $scene_hotspot_result->MoveNext();
         }
-
 
         //coupons_description
         $coupon_result = $dbconn->Execute("SELECT c.coupon_id, cd.coupon_name, cd.coupon_description
@@ -308,7 +309,7 @@ if (!empty($action)) {
 
         //products_description
         $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, pd.products_title, pd.products_description, pd.products_short_description, pd.products_essential_characteristics, 
-													pd.products_old_electrical_equipment_description, pd.products_used_goods_description, pd.products_url, pd.products_description_meta,  pd.products_keywords
+													pd.products_old_electrical_equipment_description, pd.products_used_goods_description, pd.products_url, pd.products_description_meta, pd.products_keywords
                                          FROM " . $oostable['products'] . " p LEFT JOIN
                                               " . $oostable['products_description'] . " pd
                                             ON p.products_id = pd.products_id
