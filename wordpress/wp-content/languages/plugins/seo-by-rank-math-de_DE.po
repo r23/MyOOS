@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-05-20 12:34:46+0000\n"
+"PO-Revision-Date: 2022-05-22 18:36:17+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -519,7 +519,7 @@ msgstr "URL zum Abrufen von HTML-Tags."
 
 #: includes/modules/content-ai/views/options.php:43
 #: includes/modules/content-ai/assets/js/content-ai.js:1
-#: includes/modules/content-ai/assets/src/ContentAI.js:229
+#: includes/modules/content-ai/assets/src/ContentAI.js:230
 msgid "Click to refresh the available credits."
 msgstr "Klicke auf aktualisieren, um das verfügbare Guthaben zu aktualisieren."
 
@@ -573,9 +573,9 @@ msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselwörter, Fra
 #: includes/modules/content-ai/class-content-ai.php:89
 #: includes/modules/role-manager/class-capability-manager.php:70
 #: includes/modules/content-ai/assets/js/content-ai.js:1
-#: includes/modules/content-ai/assets/src/ContentAI.js:105
-#: includes/modules/content-ai/assets/src/ContentAI.js:263
-#: includes/modules/content-ai/assets/src/ContentAI.js:281
+#: includes/modules/content-ai/assets/src/ContentAI.js:106
+#: includes/modules/content-ai/assets/src/ContentAI.js:264
+#: includes/modules/content-ai/assets/src/ContentAI.js:282
 #: includes/modules/content-ai/assets/src/index.js:34
 #: includes/modules/content-ai/assets/src/index.js:52
 #: includes/modules/content-ai/assets/src/index.js:83
@@ -2265,7 +2265,7 @@ msgstr "Mach jede Story, die mit dem WordPress-Plugin Web Stories erstellt wurde
 
 #: includes/admin/views/plugin-activation.php:39
 #: includes/modules/content-ai/assets/js/content-ai.js:1
-#: includes/modules/content-ai/assets/src/ContentAI.js:269
+#: includes/modules/content-ai/assets/src/ContentAI.js:270
 msgid "Connect Now"
 msgstr "Jetzt verbinden"
 
@@ -6967,11 +6967,6 @@ msgstr "Der Meta-Import der Beiträge ist fehlgeschlagen."
 msgid "Alt attribute format"
 msgstr "Alt Attribut Format"
 
-#: includes/modules/404-monitor/class-admin.php:137
-#: includes/modules/redirections/class-admin.php:133
-msgid "Bulk Actions"
-msgstr "Massen-Aktionen"
-
 #: includes/modules/redirections/class-import-export.php:62
 msgid "Export to .htaccess"
 msgstr "In .htaccess exportieren"
@@ -7876,7 +7871,7 @@ msgstr "Fokus-Schlüsselwort des aktuellen Beitrags"
 #: includes/replace-variables/class-advanced-variables.php:44
 #: assets/admin/js/rank-math-app.js:1
 #: includes/modules/content-ai/assets/js/content-ai.js:1
-#: includes/modules/content-ai/assets/src/ContentAI.js:193
+#: includes/modules/content-ai/assets/src/ContentAI.js:194
 msgid "Focus Keyword"
 msgstr "Fokus-Schlüsselwort"
 
@@ -8049,6 +8044,11 @@ msgstr "Es gibt %s veröffentlichte Beiträge, bei denen das Fokus-Schlüsselwor
 #: includes/modules/seo-analysis/class-seo-analyzer.php:278
 msgid "API Error:"
 msgstr "API-Fehler:"
+
+#: includes/modules/404-monitor/class-admin.php:137
+#: includes/modules/redirections/class-admin.php:133
+msgid "Bulk Actions"
+msgstr "Mehrfachaktionen"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
