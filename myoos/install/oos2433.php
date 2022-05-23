@@ -176,6 +176,14 @@ if ($result === false) {
     echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
+// products
+$table = $prefix_table . 'products';
+$result = $db->Execute("ALTER TABLE  " . $table . " CHANGE `products_product_quantity` `products_product_quantity` DECIMAL(8.4) NULL DEFAULT NULL");
+if ($result === false) {
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
 
 // products_units
 $table = $prefix_table . 'products_units';

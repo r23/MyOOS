@@ -192,6 +192,14 @@ if ($result === false) {
     echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
 
+
+$result = $db->Execute("ALTER TABLE  " . $table . " CHANGE `products_product_quantity` `products_product_quantity` DECIMAL(8.4) NULL DEFAULT NULL");
+if ($result === false) {
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
+
 // customers_basket
 $table = $prefix_table . 'customers_basket';
 $result = $db->Execute("ALTER TABLE  " . $table . " ADD `free_redemption` VARCHAR(1) NOT NULL DEFAULT ''  AFTER `customers_basket_quantity`");

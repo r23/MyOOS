@@ -930,7 +930,6 @@ $idxflds = 'page_type_name';
 idxsql($idxname, $table, $idxflds);
 
 
-
 $table = $prefix_table . 'products';
 $flds = "
   products_id I NOTNULL AUTO PRIMARY,
@@ -943,7 +942,7 @@ $flds = "
   products_average_rating N '10.2', 
   products_price N '10.4' NOTNULL DEFAULT '0.0000',
   products_base_price N '10.6' NOTNULL DEFAULT '1.000000',
-  products_product_quantity I2 NOTNULL DEFAULT '1', 
+  products_product_quantity N '8.4' NULL DEFAULT NULL,
   products_base_quantity I2 NOTNULL DEFAULT '1', 
   products_base_unit C(12) NULL,
   products_date_added T,

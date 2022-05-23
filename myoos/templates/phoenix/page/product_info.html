@@ -68,34 +68,10 @@
 						<div class="quantity">
 							<span itemprop="weight" itemscope itemtype="https://schema.org/QuantitativeValue">
 								<meta itemprop="value" content="{$product_info.products_product_quantity}"/>
-								<meta itemprop="unitText" content="{$products_units[$product_info.products_units_id]|strtoupper}"/>
+								<meta itemprop="unitText" content="{$products_units[$product_info.products_units_id].0|strtoupper}"/>
 							</span>
-							{if $product_info.products_base_price != 1}<p>{$product_info.products_product_quantity}&nbsp;{$products_units[$product_info.products_units_id]}</p>{/if}
 						</div>							
 					{/if}
-
-					{if $oEvent->installed_plugin('reviews')}				
-						<!-- rating -->
-						<div class="product_details_ratings mb-15">
-						{if $reviews_total gt 0}
-							<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-								<meta itemprop="ratingCount" content="{$reviews_total}" />
-								<meta itemprop="ratingValue" content="{$average_rating}" />
-							</span>						
-						
-							<div class="rating rating-{$average_rating|round:0} fs-13"><!-- rating-0 ... rating-5 --></div> ({$reviews_total})
-							<a href="{html_href_link content=$filename.product_reviews products_id=$product_info.products_id}" class="btn btn-primary-filled" role="button">
-								<i class="fa fa-commenting"  aria-hidden="true"></i> {$lang.button_reviews}
-							</a>
-						{else}						
-							<a href="{html_href_link content=$filename.product_reviews_write products_id=$product_info.products_id}" class="btn btn-secondary-filled" role="button">
-								<i class="fa fa-pencil" aria-hidden="true"></i> {$lang.button_write_first_review}
-							</a>
-						{/if}
-						</div>
-						<!-- /rating -->
-					{/if}
-
 
                         <div class="product-model">
 							<p><span id="item_model" itemprop="model">{$product_info.products_model}</span></p>
@@ -153,7 +129,11 @@
 		{/if}
 	{/if}
 
-	{if $product_info.products_base_price != 1}<span class="base_price">({$info_base_product_price}/{$products_units[$product_info.products_base_unit]})</span><br>{/if}
+	{if $product_info.products_base_price != 1}
+		<p>{$product_info.products_product_quantity}&nbsp;{$products_units[$product_info.products_units_id].0}<br>
+		<span class="base_price">({$products_units[$product_info.products_units_id].1} = {$info_base_product_price})</span></p>
+	{/if}
+
 
 	<p><small>{$tax_plus_shipping}</small></p>  
 	{if $info_product_price_list > 0}
@@ -250,6 +230,32 @@
 							<span class="text-danger"><i class="fa fa-remove"></i> {$lang.out_of_stock}</span>
 						</div>					
 					{/if}
+
+
+
+
+					{if $oEvent->installed_plugin('reviews')}				
+						<!-- rating -->
+						<div class="product_details_ratings mb-15">
+						{if $reviews_total gt 0}
+							<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
+								<meta itemprop="ratingCount" content="{$reviews_total}" />
+								<meta itemprop="ratingValue" content="{$average_rating}" />
+							</span>						
+						
+							<div class="rating rating-{$average_rating|round:0} fs-13"><!-- rating-0 ... rating-5 --></div> ({$reviews_total})
+							<a href="{html_href_link content=$filename.product_reviews products_id=$product_info.products_id}" class="btn btn-primary-filled" role="button">
+								<i class="fa fa-commenting"  aria-hidden="true"></i> {$lang.button_reviews}
+							</a>
+						{else}						
+							<a href="{html_href_link content=$filename.product_reviews_write products_id=$product_info.products_id}" class="btn btn-secondary-filled" role="button">
+								<i class="fa fa-pencil" aria-hidden="true"></i> {$lang.button_write_first_review}
+							</a>
+						{/if}
+						</div>
+						<!-- /rating -->
+					{/if}
+
 											
 				</div>
 			</div>

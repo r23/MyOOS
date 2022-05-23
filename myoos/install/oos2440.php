@@ -53,6 +53,14 @@ if ($result === false) {
 }
 
 
+$result = $db->Execute("ALTER TABLE  " . $table . " CHANGE `products_product_quantity` `products_product_quantity` DECIMAL(8.4) NULL DEFAULT NULL");
+if ($result === false) {
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
+
+
 // products_description
 $table = $prefix_table . 'products_description';
 $result = $db->Execute("ALTER TABLE " . $table . " ADD `products_used_goods_description`  TEXT NULL DEFAULT NULL AFTER `products_old_electrical_equipment_description`");
