@@ -95,6 +95,7 @@ if (!empty($action)) {
 				}
 		
 				// Check 30 Day
+				/*
 				$productstable = $oostable['products'];
 				$product_check_sql = "SELECT products_status
 								FROM $productstable
@@ -104,6 +105,7 @@ if (!empty($action)) {
 				if (!$product_check_result->RecordCount()) {
 					$bError = true;	
 				}
+				*/
 
 				if (substr($_POST['specials_price'], -1) == '%') {
 					$productstable = $oostable['products'];
@@ -224,7 +226,8 @@ if (($action == 'new') || ($action == 'edit')) {
             $specials_result->MoveNext();
         }
     } 
-	
+
+/*	
 	if (isset($sInfo->products_id)) {	
 		// Check 30 Day
 		$productstable = $oostable['products'];
@@ -238,6 +241,7 @@ if (($action == 'new') || ($action == 'edit')) {
 			$messageStack->add(TEXT_PRODUCT_ERROR, 'error');	
 		}
 	}
+*/
 }
 
 
