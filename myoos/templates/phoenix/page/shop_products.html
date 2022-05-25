@@ -130,8 +130,12 @@
 								<!-- price -->
 								<div class="product-price">
 									{if (!empty($product.listing_product_special_price))}
-										<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$product.listing_product_price}</span></span><br>
-										<span class="price-offer">{$product.listing_product_special_price}</span>
+										<span class="price-offer">{$product.listing_until}</span><br>
+										<span class="price-offer">{$product.listing_product_special_price}</span>									
+
+										{if $product.listing_cross_out_price > 0}						
+											<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$product.listing_cross_out_price}</span></span>
+										{/if}	
 									{elseif $product.listing_product_price_list ne 0}
 										<span class="price-old">{$lang.price_rrp} <span class="line-through">{$product.listing_product_price_list}</span></span><br>
 										{$product.listing_product_price}

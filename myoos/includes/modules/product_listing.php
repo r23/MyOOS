@@ -56,6 +56,9 @@ if ($listing_split->number_of_rows > 0) {
         $listing_product_special_price = null;
         $listing_base_product_price = null;
         $base_product_price = $listing['products_price'];
+		$listing_until = null;
+        $listing_new_cross_out_price = null;
+
 
         if ($aUser['show_price'] == 1) {
             $listing_product_price = $oCurrencies->display_price($listing['products_price'], oos_get_tax_rate($listing['products_tax_class_id']));
@@ -79,10 +82,19 @@ if ($listing_split->number_of_rows > 0) {
                 $listing_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($listing['products_tax_class_id']));
             }
 
-            if (oos_is_not_null($listing['specials_new_products_price'])) {
-                $base_product_price = $listing['specials_new_products_price'];
-                $listing_product_special_price = $oCurrencies->display_price($listing['specials_new_products_price'], oos_get_tax_rate($listing['products_tax_class_id']));
-            }
+			if ($listing['specials_new_products_price'] > 0) {
+	
+				$base_product_price = $listing['specials_new_products_price'];
+				$listing_product_special_price = $oCurrencies->display_price($listing['specials_new_products_price'], oos_get_tax_rate($listing['products_tax_class_id']));
+
+				if ($listing['specials_cross_out_price'] > 0) {
+					$listing_cross_out_price = $oCurrencies->display_price($listing['specials_cross_out_price'], oos_get_tax_rate($listing['products_tax_class_id']));
+				}
+echo $listing_cross_out_price;
+echo '<br>';
+echo 'ralf';			
+				$listing_until = sprintf($aLang['only_until'], oos_date_short($listing['expires_date']));			
+			}
 
             if ($listing['products_base_price'] != 1) {
                 $listing_base_product_price = $oCurrencies->display_price($base_product_price * $listing['products_base_price'], oos_get_tax_rate($listing['products_tax_class_id']));
@@ -105,6 +117,8 @@ if ($listing_split->number_of_rows > 0) {
                         'products_base_price' => $listing['products_base_price'],
                         'products_base_unit' => $listing['products_base_unit'],
                         'products_units' => $listing['products_units_id'],
+						'listing_until' => $listing_until,
+						'listing_cross_out_price'	=> $listing_cross_out_price,					
                         'listing_product_price' => $listing_product_price,
                         'listing_product_price_list' => $listing_product_price_list,
                         'listing_discount_price' => $listing_discount_price,

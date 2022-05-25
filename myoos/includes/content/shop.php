@@ -342,6 +342,8 @@ if ($category_depth == 'nested') {
                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
                                  p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_sort_order,
                                  IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
+								IF(s.status, s.specials_cross_out_price, null) AS specials_cross_out_price,			   
+								IF(s.status, s.expires_date, null) AS expires_date,								 
                                  IF(s.status, s.specials_new_products_price, p.products_price) AS final_price
                           FROM $productstable p LEFT JOIN
                                $specialstable s ON p.products_id = s.products_id,
@@ -368,6 +370,8 @@ if ($category_depth == 'nested') {
                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
                                  p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_sort_order,
                                  IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
+								IF(s.status, s.specials_cross_out_price, null) AS specials_cross_out_price,			   
+								IF(s.status, s.expires_date, null) AS expires_date,				 
                                  IF(s.status, s.specials_new_products_price, p.products_price) AS final_price
                           FROM $productstable p LEFT JOIN
                                $specialstable s ON p.products_id = s.products_id,
@@ -412,6 +416,8 @@ if ($category_depth == 'nested') {
                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
                                  p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_sort_order,
                                  IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
+								IF(s.status, s.specials_cross_out_price, null) AS specials_cross_out_price,			   
+								IF(s.status, s.expires_date, null) AS expires_date,						 
                                  IF(s.status, s.specials_new_products_price, p.products_price) AS final_price
                           FROM $productstable p LEFT JOIN
                                $specialstable s on p.products_id = s.products_id,
@@ -439,6 +445,8 @@ if ($category_depth == 'nested') {
                                  p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty,
                                  p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_sort_order,
                                  IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
+								IF(s.status, s.specials_cross_out_price, null) AS specials_cross_out_price,			   
+								IF(s.status, s.expires_date, null) AS expires_date,						 
                                  IF(s.status, s.specials_new_products_price, p.products_price) AS final_price
                           FROM $products_descriptiontable pd,
                                $productstable p LEFT JOIN
