@@ -11,17 +11,17 @@
 	<div class="text-center">
 		<a href="{product_link products_id=$random_product.products_id}">{$random_product.products_name|truncate:18:"":true|close_tags}</a>
 	</div>
-##
+
 	{if $myUser.show_price eq 1 }
-		<div class="product-price clearfix">
+		<div class="product-price text-center">
 			{if (!empty($whats_new_product_special_price))}
 				<span class="price-offer">{$whats_new_until}</span><br>
 				<span class="price-offer">{$whats_new_product_special_price}</span> 			
 				{if $whats_new_cross_out_price > 0}						
 					<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$whats_new_cross_out_price}</span></span>
 				{/if}
-			{elseif $random_product.new_product_price_list ne 0}
-				<span class="price-old">{$lang.price_rrp} <span class="line-through">{$random_product.new_product_price_list}</span></span>
+			{elseif $whats_new_product_price_list ne 0}
+				<span class="price-old">{$lang.price_rrp} <span class="line-through">{$whats_new_product_price_list}</span></span>
 				{$random_product.new_product_price}										
 			{else}
 				{if (!empty($random_product.new_product_discount_price))}
@@ -34,26 +34,11 @@
 			{/if}
 		</div>
 
+		<div class="text-center">
 		{if $random_product.products_base_price != 1}
-			<p>{$random_product.product_quantity}&nbsp;{$products_units[$random_product.new_product_units].0}<br>
-			<span class="base_price">({$products_units[$random_product.new_product_units].1} = {$random_product.new_base_product_price})</span></p>
+			<p>{$random_product.products_product_quantity}&nbsp;{$products_units[$random_product.products_units_id].0}<br>
+			<span class="base_price">({$products_units[$random_product.products_units_id].1} = {$whats_new_base_product_price})</span></p>
 		{/if}
-
-	{/if}
-
-
-	{if $myUser.show_price eq 1 }
-		<div class="product-price text-center">
-		{if (!empty($whats_new_product_special_price))}
-			<span class="price-offer">{$whats_new_until}</span><br>
-			<span class="price-offer">{$whats_new_product_special_price}</span> 
-			{if $whats_new_cross_out_price > 0}
-				<span class="price-old">{$lang.price_reduced_from} 	<span class="line-through">{$whats_new_cross_out_price}</span></span>
-			{/if}
-		{else}
-			{$whats_new_product_price}
-		{/if}
-			{if $random_product.products_base_price != 1}<br>{$random_product.products_product_quantity}{$products_units[$random_product.products_units_id]} <span class="base_price">({$whats_new_base_product_price}/{$products_units[$random_product.products_base_unit]})</span>{/if}
 		</div>
 	{/if}
 </div>

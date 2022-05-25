@@ -26,7 +26,7 @@ $whats_new_block = false;
 
 $productstable = $oostable['products'];
 $query = "SELECT products_id, products_image, products_tax_class_id, products_units_id, products_price,
-                   products_base_price, products_base_unit, products_product_quantity
+				products_price_list, products_base_price, products_base_unit, products_product_quantity
             FROM $productstable
             WHERE products_setting = '2'
             ORDER BY products_date_added DESC";
@@ -35,6 +35,7 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
 
     $random_product['products_name'] = oos_get_products_name($random_product['products_id']);
     $whats_new_product_price = null;
+	$whats_newt_price_list = null;
     $whats_new_product_special_price = null;
     $whats_new_product_discount_price = null;
     $whats_new_base_product_price = null;
@@ -45,6 +46,11 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
     if ($aUser['show_price'] == 1) {
         $whats_new_special = oos_get_products_special($random_product['products_id']);
         $whats_new_product_price = $oCurrencies->display_price($random_product['products_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
+
+		if ($random_product['products_price_list'] > 0) {
+			$whats_newt_price_list = $oCurrencies->display_price($random_product['products_price_list'], oos_get_tax_rate($random_product['products_tax_class_id']));
+		}
+
 
         if ($whats_new_special['specials_new_products_price'] > 0) {
             $base_product_price = $whats_new_special['specials_new_products_price'];
@@ -67,8 +73,10 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
             'whats_new_product_discount_price'	=> $whats_new_product_discount_price,
             'whats_new_base_product_price'		=> $whats_new_base_product_price,
             'whats_new_product_price'			=> $whats_new_product_price,
+			'whats_new_product_price_list' 		=> $whats_newt_price_list,
             'whats_new_cross_out_price'			=> $whats_new_cross_out_price,
             'whats_new_until'					=> $whats_new_until,
+			
 
             'random_product'          => $random_product,
             'block_heading_whats_new' => $block_heading
