@@ -7,16 +7,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/3.0.0-alpha.2\n"
+"X-Generator: GlotPress/4.0.0-alpha.1\n"
 "Language: de\n"
 "Project-Id-Version: Themes - Twenty Twenty\n"
 
 #. Description of the theme
+#, gp-priority: high
 msgid "Our default theme for 2020 is designed to take full advantage of the flexibility of the block editor. Organizations and businesses have the ability to create dynamic landing pages with endless layouts using the group and column blocks. The centered content column and fine-tuned typography also makes it perfect for traditional blogs. Complete editor styles give you a good idea of what your content will look like, even before you publish. You can give your site a personal touch by changing the background colors and the accent color in the Customizer. The colors of all elements on your site are automatically calculated based on the colors you pick, ensuring a high, accessible color contrast for your visitors."
 msgstr "Unser Standard-Theme für 2020 ist so konzipiert, dass es die Flexibilität des Block-Editors voll ausschöpft. Unternehmen und Organisationen bietet es die Möglichkeit, dynamische Landing-Pages mit unzähligen Layouts durch Nutzung der Gruppen- und Spaltenblöcke zu erstellen. Die zentrierte Inhaltsspalte und aufeinander abgestimmte Typografie machen es auch für traditionelle Blogs perfekt. Umfassende Editor-Styles geben eine gute Vorstellung davon, wie die Inhalte aussehen werden, noch bevor man sie veröffentlicht. Du kannst deiner Website eine persönliche Note verleihen, indem du die Hintergrundfarben und die Akzentfarbe im Customizer änderst. Das Farbspektrum aller Elemente auf deiner Website wird automatisch auf der Grundlage der von dir gewählten Farben berechnet, was auch hohen Farbkontrast - und somit barierrefreie Zugänglichkeit - für deine Besucher gewährleistet."
 
 #. Theme Name of the theme
 #: inc/block-patterns.php:20
+#, gp-priority: high
 msgid "Twenty Twenty"
 msgstr "Twenty Twenty"
 
@@ -404,6 +406,10 @@ msgstr "Primär"
 msgid "Menu"
 msgstr "Menü"
 
+#: template-parts/modal-search.php:11
+msgid "Search"
+msgstr "Suche"
+
 #: template-parts/content.php:36
 msgid "Continue reading"
 msgstr "Weiterlesen"
@@ -627,13 +633,16 @@ msgstr "Die Seite konnte nicht gefunden werden"
 
 #. Author URI of the theme
 #: footer.php:38
+#, gp-priority: low
 msgid "https://wordpress.org/"
 msgstr "https://de.wordpress.org/"
 
 #. Author of the theme
+#, gp-priority: low
 msgid "the WordPress team"
 msgstr "WordPress-Team"
 
 #. Theme URI of the theme
+#, gp-priority: low
 msgid "https://wordpress.org/themes/twentytwenty/"
 msgstr "https://de.wordpress.org/themes/twentytwenty/"
