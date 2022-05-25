@@ -53,23 +53,30 @@ if ($featured_result->RecordCount() >= 1) {
         $featured_price_list = null;
         $featured_product_special_price = null;
         $featured_base_product_price = null;
-        $featured_special_price = null;
+		$featured_cross_out_price  = null;
+		$featured_until = null;
+        $featured_new_cross_out_price = null;
+
 
         if ($aUser['show_price'] == 1) {
-            $base_product_price = $featured['products_price'];
-
-            $featured_product_price = $oCurrencies->display_price($featured['products_price'], oos_get_tax_rate($featured['products_tax_class_id']));
-
+			$base_product_price = $featured['products_price'];
+			$featured_product_price = $oCurrencies->display_price($featured['products_price'], oos_get_tax_rate($featured['products_tax_class_id']));	
+			
             if ($featured['products_price_list'] > 0) {
                 $featured_price_list = $oCurrencies->display_price($featured['products_price_list'], oos_get_tax_rate($featured['products_tax_class_id']));
             }
 
-            $featured_special_price = oos_get_products_special_price($featured['products_id']);
+			$featured_special = oos_get_products_special($featured['products_id']);
+			if ($featured_special['specials_new_products_price'] > 0) {
+				$base_product_price = $featured_special['specials_new_products_price'];
+				$featured_product_special_price = $oCurrencies->display_price($featured_special['specials_new_products_price'], oos_get_tax_rate($featured['products_tax_class_id']));
 
-            if (oos_is_not_null($featured_special_price)) {
-                $base_product_price = $featured_special_price;
-                $featured_product_special_price = $oCurrencies->display_price($featured_special_price, oos_get_tax_rate($featured['products_tax_class_id']));
-            }
+				if ($featured_special['specials_cross_out_price'] > 0) {
+					$featured_cross_out_price = $oCurrencies->display_price($featured_special['specials_cross_out_price'], oos_get_tax_rate($featured['products_tax_class_id']));
+				}
+			
+				$featured_until = sprintf($aLang['only_until'], oos_date_short($featured_special['expires_date']));			
+			}
 
             if ($featured['products_base_price'] != 1) {
                 $featured_base_product_price = $oCurrencies->display_price($base_product_price * $featured['products_base_price'], oos_get_tax_rate($featured['products_tax_class_id']));
@@ -94,6 +101,8 @@ if ($featured_result->RecordCount() >= 1) {
                             'products_base_price' => $featured['products_base_price'],
                             'products_base_unit' => $featured['products_base_unit'],
                             'products_units' => $featured['products_units_id'],
+							'featured_until' => $featured_until,
+							'featured_cross_out_price'	=> $featured_cross_out_price,
                             'featured_product_price_list' => $featured_price_list,
                             'featured_product_price' => $featured_product_price,
                             'featured_product_special_price' => $featured_product_special_price,

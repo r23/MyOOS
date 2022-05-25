@@ -40,7 +40,9 @@ if ((!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == 0)) {
 					p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, 
 					p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty,					   
 				   p.products_quantity_order_min, p.products_quantity_order_max,
-                   IF(s.status, s.specials_new_products_price, null) AS specials_new_products_price
+                   IF(s.status, s.specials_new_products_price, null) AS specials_new_products_price,
+                   IF(s.status, s.specials_cross_out_price, null) AS specials_cross_out_price,				   
+				   IF(s.status, s.expires_date, null) AS expires_date
             FROM $productstable p LEFT JOIN
                  $specialstable s ON p.products_id = s.products_id,
                  $products_descriptiontable pd 
@@ -59,7 +61,9 @@ if ((!isset($nCurrentCategoryID)) || ($nCurrentCategoryID == 0)) {
 					p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, 
 					p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty,	
 				   p.products_quantity_order_min, p.products_quantity_order_max,
-                   IF(s.status, s.specials_new_products_price, null) AS specials_new_products_price
+                   IF(s.status, s.specials_new_products_price, null) AS specials_new_products_price,
+                   IF(s.status, s.specials_cross_out_price, null) AS specials_cross_out_price,			   
+				   IF(s.status, s.expires_date, null) AS expires_date				   
             FROM $productstable p LEFT JOIN
                  $specialstable s ON p.products_id = s.products_id,
                  $products_descriptiontable pd, 
@@ -130,24 +134,28 @@ while ($new_products = $new_products_result->fields) {
     $aCategoryPath = [];
     $aCategoryPath = oos_get_category_path($new_products['products_id']);
 
+	$only_until = sprintf($aLang['only_until'], oos_date_short($new_products['expires_date']));
+
     $aNewProducts[] = ['products_id' => $new_products['products_id'],
-                            'products_image' => $new_products['products_image'],
-                            'products_name' => $new_products['products_name'],
-                            'products_short_description' => $new_products['products_short_description'],
-                            'products_path' => $aCategoryPath['path'],
-                            'categories_name' => $aCategoryPath['name'],
-                            'order_min' => $order_min,
-                            'order_max' => $order_max,
-                            'product_quantity' => $new_products['products_product_quantity'],
-                            'products_base_price' => $new_products['products_base_price'],
-                            'products_base_unit' => $new_products['products_base_unit'],
-                            'new_product_units' => $new_products['products_units_id'],
-                            'new_product_price' => $new_product_price,
-                            'new_product_price_list' => $new_product_price_list,
-                            'new_product_special_price' => $new_product_special_price,
-                            'new_product_discount_price' => $new_product_discount_price,
-                            'new_base_product_price' => $new_base_product_price,
-                            'new_special_price' => $new_special_price];
+						'products_image' => $new_products['products_image'],
+						'products_name' => $new_products['products_name'],
+						'products_short_description' => $new_products['products_short_description'],
+						'products_path' => $aCategoryPath['path'],
+						'categories_name' => $aCategoryPath['name'],
+						'order_min' => $order_min,
+						'order_max' => $order_max,
+						'product_quantity' => $new_products['products_product_quantity'],
+						'products_base_price' => $new_products['products_base_price'],
+						'products_base_unit' => $new_products['products_base_unit'],
+						'new_product_units' => $new_products['products_units_id'],
+						'new_product_price' => $new_product_price,
+						'new_product_price_list' => $new_product_price_list,
+						'new_product_special_price' => $new_product_special_price,
+						'expires_date'  => $new_products['expires_date'],
+						'only_until' => $only_until,						
+						'new_product_discount_price' => $new_product_discount_price,
+						'new_base_product_price' => $new_base_product_price,
+						'new_special_price' => $new_special_price];
 
     // Move that ADOdb pointer!
     $new_products_result->MoveNext();

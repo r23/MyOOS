@@ -118,9 +118,9 @@ if ($listing_split->number_of_rows > 0) {
 }
 
 $smarty->assign(['page_split' 		=> $listing_split->display_count($aLang['text_display_number_of_products']),
-                        'display_links' => $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-                        'numrows' 		=> $listing_split->number_of_rows,
-                        'numpages' 		=> $listing_split->number_of_pages]);
+				'display_links' => $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+				'numrows' 		=> $listing_split->number_of_rows,
+				'numpages' 		=> $listing_split->number_of_pages]);
 
 $smarty->assign('get_params', $all_get_listing);
 $smarty->assign('listing', $aListing);
