@@ -47,7 +47,7 @@ if (!empty($action)) {
         $iso_639_1 = isset($_POST['iso_639_1']) ? oos_db_prepare_input($_POST['iso_639_1']) : '';
         $iso_3166_1 = isset($_POST['iso_3166_1']) ? oos_db_prepare_input($_POST['iso_3166_1']) : '';
         $sort_order = isset($_POST['sort_order']) ? intval($_POST['sort_order']) : 1;
-		
+
         $sql = "INSERT INTO " . $oostable['languages'] . "
                 (name,
                  iso_639_2,
@@ -85,7 +85,7 @@ if (!empty($action)) {
                                                " . $oostable['categories_description'] . " cd
                                              ON c.categories_id = cd.categories_id
                                           WHERE cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'");
-									  
+
         while ($categories = $categories_result->fields) {
             $dbconn->Execute("INSERT INTO " . $oostable['categories_description'] . "
                       (categories_id,
@@ -111,7 +111,7 @@ if (!empty($action)) {
                                           FROM " . $oostable['categories_images'] . " ci LEFT JOIN
                                                " . $oostable['categories_images_description'] . " cid
                                              ON ci.categories_images_id = cid.categories_images_id
-                                          WHERE cid.categories_images_languages_id = '" . intval($_SESSION['language_id']) . "'");								  
+                                          WHERE cid.categories_images_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($categories_images = $categories_images_result->fields) {
             $dbconn->Execute("INSERT INTO " . $oostable['categories_images_description'] . "
                       (categories_images_id,
@@ -162,7 +162,7 @@ if (!empty($action)) {
                                           FROM " . $oostable['categories_panorama_scene_hotspot'] . " sh LEFT JOIN
                                                " . $oostable['categories_panorama_scene_hotspot_text'] . " sht
                                              ON sh.hotspot_id = sht.hotspot_id
-                                          WHERE sht.hotspot_languages_id = '" . intval($_SESSION['language_id']) . "'");									  
+                                          WHERE sht.hotspot_languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($scene_hotspot = $scene_hotspot_result->fields) {
             $dbconn->Execute("INSERT INTO " . $oostable['categories_panorama_scene_hotspot_text'] . "
                       (hotspot_id, 
@@ -462,8 +462,8 @@ if (!empty($action)) {
             $products_status_result->MoveNext();
         }
 
-		// products_units
-		$products_units_result = $dbconn->Execute("SELECT products_units_id, products_unit_name, unit_of_measure
+        // products_units
+        $products_units_result = $dbconn->Execute("SELECT products_units_id, products_unit_name, unit_of_measure
 													FROM " . $oostable['products_units'] . "
 													WHERE languages_id = '" . intval($_SESSION['language_id']) . "'");
         while ($products_units = $products_units_result->fields) {
@@ -564,7 +564,7 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_types'] . " WHERE products_options_types_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_values'] . " WHERE products_options_values_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_status'] . " WHERE products_status_languages_id = '" . intval($lID) . "'");
-		$dbconn->Execute("DELETE FROM " . $oostable['products_units'] . " WHERE languages_id = '" . intval($lID) . "'");
+        $dbconn->Execute("DELETE FROM " . $oostable['products_units'] . " WHERE languages_id = '" . intval($lID) . "'");
 
         $dbconn->Execute("DELETE FROM " . $oostable['setting'] . " WHERE setting_languages_id = '" . intval($lID) . "'");
 

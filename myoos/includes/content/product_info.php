@@ -141,7 +141,7 @@ if (!$product_info_result->RecordCount()) {
     $info_base_product_price = null;
     $info_product_price_list = null;
     $schema_product_price = null;
-	$cross_out_price = null;
+    $cross_out_price = null;
     $base_product_price = $product_info['products_price'];
 
     // Selector
@@ -177,12 +177,12 @@ if (!$product_info_result->RecordCount()) {
     if ($special_price = oos_get_products_special($product_info['products_id'])) {
         $calculate_price = $special_price['specials_new_products_price'];
         $base_product_price = $special_price['specials_new_products_price'];
-        $info_product_special_price = $oCurrencies->display_price($special_price['specials_new_products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));	
-		if ($special_price['specials_cross_out_price'] > 0) {
-			$cross_out_price = $oCurrencies->display_price($special_price['specials_cross_out_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
-			$smarty->assign('cross_out_price', $cross_out_price);
-		}
-	}
+        $info_product_special_price = $oCurrencies->display_price($special_price['specials_new_products_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
+        if ($special_price['specials_cross_out_price'] > 0) {
+            $cross_out_price = $oCurrencies->display_price($special_price['specials_cross_out_price'], oos_get_tax_rate($product_info['products_tax_class_id']));
+            $smarty->assign('cross_out_price', $cross_out_price);
+        }
+    }
 
 
     // Minimum Order Value

@@ -490,16 +490,16 @@ if ($action == 'new_product') {
 
 
     $products_units_array = [];
-	$unit_of_measure = [];
+    $unit_of_measure = [];
     $products_units_array = array(array('id' => '0', 'text' => TEXT_NONE));
     $products_unitstable = $oostable['products_units'];
     $products_units_result = $dbconn->Execute("SELECT products_units_id, products_unit_name, unit_of_measure FROM $products_unitstable WHERE languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_unit_name");
     while ($products_units = $products_units_result->fields) {
         $products_units_array[] = array('id' => $products_units['products_units_id'],
                                       'text' => $products_units['products_unit_name']);
-		if ( (!empty($products_units['unit_of_measure'])) && (!in_array($products_units['unit_of_measure'], $unit_of_measure)) ) {
-			$unit_of_measure[] = $products_units['unit_of_measure'];
-		}
+        if ((!empty($products_units['unit_of_measure'])) && (!in_array($products_units['unit_of_measure'], $unit_of_measure))) {
+            $unit_of_measure[] = $products_units['unit_of_measure'];
+        }
 
         // Move that ADOdb pointer!
         $products_units_result->MoveNext();

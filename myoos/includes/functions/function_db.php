@@ -156,8 +156,8 @@ function oosDB_importTables($tables)
 
 function oos_db_input($sStr)
 {
-	$sStr = (string)$sStr;
-	
+    $sStr = (string)$sStr;
+
     if (function_exists('mysqli::escape_string ')) {
         return mysqli::escape_string($sStr);
     }
