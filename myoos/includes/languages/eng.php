@@ -526,6 +526,9 @@ $aLang = [
 'price_rrp'            => 'RRP',
 
 'only_until'           => 'Only until %s!',
+'text_content' 		=> 'Content',
+'text_base_price'	=> 'Base price',
+
 
 'in_stock'             => 'In Stock',
 'out_of_stock'         => 'available again',

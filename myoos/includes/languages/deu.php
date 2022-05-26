@@ -501,7 +501,9 @@ $aLang = [
 'price_reduced_from'   => 'Statt',
 'price_rrp'            => 'UVP',
 
-'only_until'   => 'Nur bis zum %s!',
+'only_until'		=> 'Nur bis zum %s!',
+'text_content' 		=> 'Inhalt',
+'text_base_price'	=> 'Grundpreis',
 
 'in_stock'     => 'sofort lieferbar',
 'out_of_stock' => 'später wieder lieferbar',
