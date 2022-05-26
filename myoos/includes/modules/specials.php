@@ -34,7 +34,7 @@ $specialstable = $oostable['specials'];
 $sql = "SELECT p.products_id, pd.products_name, pd.products_short_description, p.products_price, p.products_tax_class_id, 
 				p.products_units_id, p.products_quantity_order_min, p.products_quantity_order_max,
 				p.products_product_quantity, p.products_image, p.products_base_price, p.products_base_unit, 
-				s.specials_new_products_price, s.expires_date 
+				s.specials_new_products_price, s.specials_cross_out_price, s.expires_date 
           FROM $productstable p,
                $products_descriptiontable pd,
                $specialstable s
@@ -50,10 +50,17 @@ if ($new_specials_result->RecordCount() >= MIN_DISPLAY_NEW_SPECILAS) {
     while ($new_specials = $new_specials_result->fields) {
         $new_specials_base_product_price = null;
         $new_specials_base_product_special_price = null;
+		$new_specials_product_special_price = null;
+		$only_until = null;
 
         if ($aUser['show_price'] == 1) {
             $new_specials_product_price = $oCurrencies->display_price($new_specials['products_price'], oos_get_tax_rate($new_specials['products_tax_class_id']));
             $new_specials_product_special_price = $oCurrencies->display_price($new_specials['specials_new_products_price'], oos_get_tax_rate($new_specials['products_tax_class_id']));
+
+            if ($new_specials['specials_cross_out_price'] > 0) {
+                $new_special_cross_out_price = $oCurrencies->display_price($new_specials['specials_cross_out_price'], oos_get_tax_rate($new_specials['products_tax_class_id']));
+            }
+
 
             if ($new_specials['products_base_price'] != 1) {
                 $new_specials_base_product_price = $oCurrencies->display_price($new_specials['products_price'] * $new_specials['products_base_price'], oos_get_tax_rate($new_specials['products_tax_class_id']));
@@ -85,6 +92,7 @@ if ($new_specials_result->RecordCount() >= MIN_DISPLAY_NEW_SPECILAS) {
                                     'expires_date'  => $new_specials['expires_date'],
                                     'only_until' => $only_until,
                                     'products_special_price' => $new_specials_product_special_price,
+									'new_special_cross_out_price' => $new_special_cross_out_price,
                                     'base_product_price' => $new_specials_base_product_price,
                                     'base_product_special_price' => $new_specials_base_product_special_price];
 

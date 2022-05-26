@@ -19,7 +19,12 @@
 					<div class="product-price clearfix">
 						{if (!empty($new_product.new_product_special_price))}
 							<span class="price-offer">{$new_product.only_until}</span><br>
-							<span class="price-offer">{$new_product.new_product_special_price}</span> <span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$new_product.new_product_price}</span></span>
+							<span class="price-offer">{$new_product.new_product_special_price}</span>	
+							
+							{if $new_product.new_special_cross_out_price > 0}						
+								<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$new_product.new_special_cross_out_price}</span></span>
+							{/if}					
+
 						{elseif $new_product.new_product_price_list ne 0}
 							<span class="price-old">{$lang.price_rrp} <span class="line-through">{$new_product.new_product_price_list}</span></span>
 							{$new_product.new_product_price}										

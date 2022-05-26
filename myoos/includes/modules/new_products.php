@@ -90,8 +90,9 @@ while ($new_products = $new_products_result->fields) {
     $new_product_discount_price = null;
     $new_base_product_price = null;
     $new_special_price = null;
-
-
+	$new_special_cross_out_price  = null;
+	$only_until = null;
+	
     if ($aUser['show_price'] == 1) {
         $base_product_price = $new_products['products_price'];
 
@@ -118,9 +119,15 @@ while ($new_products = $new_products_result->fields) {
 
         $new_special_price = $new_products['specials_new_products_price'];
 
-        if (oos_is_not_null($new_special_price)) {
-            $base_product_price = $new_special_price;
-            $new_product_special_price = $oCurrencies->display_price($new_special_price, oos_get_tax_rate($new_products['products_tax_class_id']));
+        if ($new_products['specials_new_products_price'] > 0) {
+            $base_product_price = $new_products['specials_new_products_price'];
+            $new_product_special_price = $oCurrencies->display_price($new_products['specials_new_products_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
+
+            if ($new_products['specials_cross_out_price'] > 0) {
+                $new_special_cross_out_price = $oCurrencies->display_price($new_products['specials_cross_out_price'], oos_get_tax_rate($new_products['products_tax_class_id']));
+            }
+
+            $only_until = sprintf($aLang['only_until'], oos_date_short($new_products['expires_date']));
         }
 
         if ($new_products['products_base_price'] != 1) {
@@ -134,7 +141,7 @@ while ($new_products = $new_products_result->fields) {
     $aCategoryPath = [];
     $aCategoryPath = oos_get_category_path($new_products['products_id']);
 
-    $only_until = sprintf($aLang['only_until'], oos_date_short($new_products['expires_date']));
+    
 
     $aNewProducts[] = ['products_id' => $new_products['products_id'],
                         'products_image' => $new_products['products_image'],
@@ -151,6 +158,7 @@ while ($new_products = $new_products_result->fields) {
                         'new_product_price' => $new_product_price,
                         'new_product_price_list' => $new_product_price_list,
                         'new_product_special_price' => $new_product_special_price,
+						'new_special_cross_out_price' => $new_special_cross_out_price,
                         'expires_date'  => $new_products['expires_date'],
                         'only_until' => $only_until,
                         'new_product_discount_price' => $new_product_discount_price,

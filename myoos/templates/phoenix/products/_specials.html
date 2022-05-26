@@ -18,7 +18,12 @@
 					{if $myUser.show_price eq 1 }
 					<div class="product-price clearfix">
 						<span class="price-offer">{$special.only_until}</span><br>						
-						<span class="price-offer">{$special.products_special_price}</span> <span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$special.products_price}</span></span> 						
+						<span class="price-offer">{$special.products_special_price}</span> 
+						
+						{if $special.new_special_cross_out_price > 0}						
+							<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$special.new_special_cross_out_price}</span></span>
+						{/if}		
+						
 					</div>
 						{if $special.products_base_price != 1}
 							<p>{$special.product_quantity}&nbsp;{$products_units[$special.products_units].0}<br>
