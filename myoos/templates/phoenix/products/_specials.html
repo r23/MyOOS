@@ -26,7 +26,7 @@
 						
 					</div>
 						{if $special.products_base_price != 1}
-							<p>{$special.product_quantity}&nbsp;{$products_units[$special.products_units].0}<br>
+							<p>{$special.product_quantity|cut_number}&nbsp;{$products_units[$special.products_units].0}<br>
 							<span class="base_price">({$products_units[$special.products_units].1} = {$special.base_product_special_price})</span></p>
 						{/if}
 	
