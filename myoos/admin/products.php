@@ -81,10 +81,12 @@ if (!empty($action)) {
             if (isset($_POST['products_base_price'])) {
                 $products_base_price = oos_db_prepare_input($_POST['products_base_price']);
                 $products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
-            } else {
+                $products_base_quantity = oos_db_prepare_input($_POST['products_base_quantity']);
+			} else {
                 $products_base_price = 1.0;
                 $products_product_quantity = 1;
-            }
+                $products_base_quantity = 1;
+			}
 
 
             if ((date('Y-m-d') < $products_date_available) && ($nProductsStatus == 3)) {
@@ -101,6 +103,8 @@ if (!empty($action)) {
                                     'products_price' => oos_db_prepare_input($_POST['products_price']),
                                     'products_base_price' => $products_base_price,
                                     'products_product_quantity' => $products_product_quantity,
+                                    'products_base_quantity' => $products_base_quantity,
+                                    'products_base_unit' => $products_base_unit,
                                     'products_date_available' => $products_date_available,
                                     'products_weight' => oos_db_prepare_input($_POST['products_weight']),
                                     'products_status' => $nProductsStatus,
@@ -633,9 +637,10 @@ function updateNet() {
 
 function calcBasePriceFactor() {
   var pqty = document.forms["new_product"].products_product_quantity.value;
+  var bqty = document.forms["new_product"].products_base_quantity.value;
 
-  if (pqty != 0) {
-     document.forms["new_product"].products_base_price.value = doRound(1 / pqty, 6);
+  if ((pqty != 0) || (bqty != 0)) {
+     document.forms["new_product"].products_base_price.value = doRound(bqty / pqty, 6);
   } else {
      document.forms["new_product"].products_base_price.value = 1.000000;
   }
@@ -924,6 +929,14 @@ function calcBasePriceFactor() {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_QUANTITY; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>					
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></label>
                               <div class="col-lg-10">
                                  <?php echo implode(", ", array_values($unit_of_measure)); ?>
                               </div>
