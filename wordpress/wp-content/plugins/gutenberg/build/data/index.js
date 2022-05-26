@@ -469,10 +469,12 @@ __webpack_require__.d(__webpack_exports__, {
   "resolveSelect": function() { return /* binding */ build_module_resolveSelect; },
   "select": function() { return /* binding */ build_module_select; },
   "subscribe": function() { return /* binding */ subscribe; },
+  "suspendSelect": function() { return /* binding */ suspendSelect; },
   "use": function() { return /* binding */ use; },
   "useDispatch": function() { return /* reexport */ use_dispatch; },
   "useRegistry": function() { return /* reexport */ useRegistry; },
   "useSelect": function() { return /* reexport */ useSelect; },
+  "useSuspenseSelect": function() { return /* reexport */ useSuspenseSelect; },
   "withDispatch": function() { return /* reexport */ with_dispatch; },
   "withRegistry": function() { return /* reexport */ with_registry; },
   "withSelect": function() { return /* reexport */ with_select; }
@@ -2281,12 +2283,15 @@ function createReduxStore(key, options) {
       }
 
       const resolveSelectors = mapResolveSelectors(selectors, store);
+      const suspendSelectors = mapSuspendSelectors(selectors, store);
 
       const getSelectors = () => selectors;
 
       const getActions = () => actions;
 
-      const getResolveSelectors = () => resolveSelectors; // We have some modules monkey-patching the store object
+      const getResolveSelectors = () => resolveSelectors;
+
+      const getSuspendSelectors = () => suspendSelectors; // We have some modules monkey-patching the store object
       // It's wrong to do so but until we refactor all of our effects to controls
       // We need to keep the same "store" instance here.
 
@@ -2322,6 +2327,7 @@ function createReduxStore(key, options) {
         resolvers,
         getSelectors,
         getResolveSelectors,
+        getSuspendSelectors,
         getActions,
         subscribe
       };
@@ -2486,6 +2492,49 @@ function mapResolveSelectors(selectors, store) {
   });
 }
 /**
+ * Maps selectors to functions that throw a suspense promise if not yet resolved.
+ *
+ * @param {Object} selectors Selectors to map.
+ * @param {Object} store     The redux store the selectors select from.
+ *
+ * @return {Object} Selectors mapped to their suspense functions.
+ */
+
+
+function mapSuspendSelectors(selectors, store) {
+  return (0,external_lodash_namespaceObject.mapValues)(selectors, (selector, selectorName) => {
+    // Selector without a resolver doesn't have any extra suspense behavior.
+    if (!selector.hasResolver) {
+      return selector;
+    }
+
+    return function () {
+      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        args[_key5] = arguments[_key5];
+      }
+
+      const result = selector.apply(null, args);
+
+      if (selectors.hasFinishedResolution(selectorName, args)) {
+        if (selectors.hasResolutionFailed(selectorName, args)) {
+          throw selectors.getResolutionError(selectorName, args);
+        }
+
+        return result;
+      }
+
+      throw new Promise(resolve => {
+        const unsubscribe = store.subscribe(() => {
+          if (selectors.hasFinishedResolution(selectorName, args)) {
+            resolve();
+            unsubscribe();
+          }
+        });
+      });
+    };
+  });
+}
+/**
  * Returns resolvers with matched selectors for a given namespace.
  * Resolvers are side effects invoked once per argument set of a given selector call,
  * used in ensuring that the data needs for the selector are satisfied.
@@ -2522,8 +2571,8 @@ function mapResolvers(resolvers, selectors, store, resolversCache) {
     }
 
     const selectorResolver = function () {
-      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
-        args[_key5] = arguments[_key5];
+      for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+        args[_key6] = arguments[_key6];
       }
 
       async function fulfillSelector() {
@@ -2585,8 +2634,8 @@ async function fulfillResolver(store, resolvers, selectorName) {
     return;
   }
 
-  for (var _len6 = arguments.length, args = new Array(_len6 > 3 ? _len6 - 3 : 0), _key6 = 3; _key6 < _len6; _key6++) {
-    args[_key6 - 3] = arguments[_key6];
+  for (var _len7 = arguments.length, args = new Array(_len7 > 3 ? _len7 - 3 : 0), _key7 = 3; _key7 < _len7; _key7++) {
+    args[_key7 - 3] = arguments[_key7];
   }
 
   const action = resolver.fulfill(...args);
@@ -2746,14 +2795,17 @@ function createRegistry() {
       return store.getSelectors();
     }
 
-    return parent && parent.select(storeName);
+    return parent === null || parent === void 0 ? void 0 : parent.select(storeName);
   }
 
   function __unstableMarkListeningStores(callback, ref) {
     listeningStores.clear();
-    const result = callback.call(this);
-    ref.current = Array.from(listeningStores);
-    return result;
+
+    try {
+      return callback.call(this);
+    } finally {
+      ref.current = Array.from(listeningStores);
+    }
   }
   /**
    * Given the name of a registered store, returns an object containing the store's
@@ -2778,6 +2830,29 @@ function createRegistry() {
     }
 
     return parent && parent.resolveSelect(storeName);
+  }
+  /**
+   * Given the name of a registered store, returns an object containing the store's
+   * selectors pre-bound to state so that you only need to supply additional arguments,
+   * and modified so that they throw promises in case the selector is not resolved yet.
+   *
+   * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
+   *                                                       or the store descriptor.
+   *
+   * @return {Object} Object containing the store's suspense-wrapped selectors.
+   */
+
+
+  function suspendSelect(storeNameOrDescriptor) {
+    const storeName = (0,external_lodash_namespaceObject.isObject)(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
+    listeningStores.add(storeName);
+    const store = stores[storeName];
+
+    if (store) {
+      return store.getSuspendSelectors();
+    }
+
+    return parent && parent.suspendSelect(storeName);
   }
   /**
    * Returns the available actions for a part of the state.
@@ -2938,6 +3013,7 @@ function createRegistry() {
     subscribe,
     select,
     resolveSelect,
+    suspendSelect,
     dispatch,
     use,
     register,
@@ -3714,6 +3790,117 @@ function useSelect(mapSelect, deps) {
   }, [registry, wrapSelect, hasMappingFunction, depsChangedFlag]);
   return hasMappingFunction ? mapOutput : registry.select(mapSelect);
 }
+/**
+ * A variant of the `useSelect` hook that has the same API, but will throw a
+ * suspense Promise if any of the called selectors is in an unresolved state.
+ *
+ * @param {Function} mapSelect Function called on every state change. The
+ *                             returned value is exposed to the component
+ *                             using this hook. The function receives the
+ *                             `registry.suspendSelect` method as the first
+ *                             argument and the `registry` as the second one.
+ * @param {Array}    deps      A dependency array used to memoize the `mapSelect`
+ *                             so that the same `mapSelect` is invoked on every
+ *                             state change unless the dependencies change.
+ *
+ * @return {Object} Data object returned by the `mapSelect` function.
+ */
+
+function useSuspenseSelect(mapSelect, deps) {
+  const _mapSelect = (0,external_wp_element_namespaceObject.useCallback)(mapSelect, deps);
+
+  const registry = useRegistry();
+  const isAsync = useAsyncMode();
+  const latestRegistry = (0,external_wp_element_namespaceObject.useRef)(registry);
+  const latestMapSelect = (0,external_wp_element_namespaceObject.useRef)();
+  const latestIsAsync = (0,external_wp_element_namespaceObject.useRef)(isAsync);
+  const latestMapOutput = (0,external_wp_element_namespaceObject.useRef)();
+  const latestMapOutputError = (0,external_wp_element_namespaceObject.useRef)(); // Keep track of the stores being selected in the `mapSelect` function,
+  // and only subscribe to those stores later.
+
+  const listeningStores = (0,external_wp_element_namespaceObject.useRef)([]);
+  const wrapSelect = (0,external_wp_element_namespaceObject.useCallback)(callback => registry.__unstableMarkListeningStores(() => callback(registry.suspendSelect, registry), listeningStores), [registry]); // Generate a "flag" for used in the effect dependency array.
+  // It's different than just using `mapSelect` since deps could be undefined,
+  // in that case, we would still want to memoize it.
+
+  const depsChangedFlag = (0,external_wp_element_namespaceObject.useMemo)(() => ({}), deps || []);
+  let mapOutput = latestMapOutput.current;
+  let mapOutputError = latestMapOutputError.current;
+  const hasReplacedRegistry = latestRegistry.current !== registry;
+  const hasReplacedMapSelect = latestMapSelect.current !== _mapSelect;
+  const hasLeftAsyncMode = latestIsAsync.current && !isAsync;
+
+  if (hasReplacedRegistry || hasReplacedMapSelect || hasLeftAsyncMode) {
+    try {
+      mapOutput = wrapSelect(_mapSelect);
+    } catch (error) {
+      mapOutputError = error;
+    }
+  }
+
+  (0,external_wp_compose_namespaceObject.useIsomorphicLayoutEffect)(() => {
+    latestRegistry.current = registry;
+    latestMapSelect.current = _mapSelect;
+    latestIsAsync.current = isAsync;
+    latestMapOutput.current = mapOutput;
+    latestMapOutputError.current = mapOutputError;
+  }); // React can sometimes clear the `useMemo` cache.
+  // We use the cache-stable `useMemoOne` to avoid
+  // losing queues.
+
+  const queueContext = useMemoOne(() => ({
+    queue: true
+  }), [registry]);
+  const [, forceRender] = (0,external_wp_element_namespaceObject.useReducer)(s => s + 1, 0);
+  const isMounted = (0,external_wp_element_namespaceObject.useRef)(false);
+  (0,external_wp_compose_namespaceObject.useIsomorphicLayoutEffect)(() => {
+    const onStoreChange = () => {
+      try {
+        const newMapOutput = wrapSelect(latestMapSelect.current);
+
+        if (external_wp_isShallowEqual_default()(latestMapOutput.current, newMapOutput)) {
+          return;
+        }
+
+        latestMapOutput.current = newMapOutput;
+      } catch (error) {
+        latestMapOutputError.current = error;
+      }
+
+      forceRender();
+    };
+
+    const onChange = () => {
+      if (!isMounted.current) {
+        return;
+      }
+
+      if (latestIsAsync.current) {
+        renderQueue.add(queueContext, onStoreChange);
+      } else {
+        onStoreChange();
+      }
+    }; // catch any possible state changes during mount before the subscription
+    // could be set.
+
+
+    onStoreChange();
+    const unsubscribers = listeningStores.current.map(storeName => registry.__unstableSubscribeStore(storeName, onChange));
+    isMounted.current = true;
+    return () => {
+      // The return value of the subscribe function could be undefined if the store is a custom generic store.
+      unsubscribers.forEach(unsubscribe => unsubscribe === null || unsubscribe === void 0 ? void 0 : unsubscribe());
+      renderQueue.cancel(queueContext);
+      isMounted.current = false;
+    };
+  }, [registry, wrapSelect, depsChangedFlag]);
+
+  if (mapOutputError) {
+    throw mapOutputError;
+  }
+
+  return mapOutput;
+}
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/with-select/index.js
 
@@ -4133,6 +4320,18 @@ const build_module_select = default_registry.select;
  */
 
 const build_module_resolveSelect = default_registry.resolveSelect;
+/**
+ * Given the name of a registered store, returns an object containing the store's
+ * selectors pre-bound to state so that you only need to supply additional arguments,
+ * and modified so that they throw promises in case the selector is not resolved yet.
+ *
+ * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
+ *                                                       or the store descriptor.
+ *
+ * @return {Object} Object containing the store's suspense-wrapped selectors.
+ */
+
+const suspendSelect = default_registry.suspendSelect;
 /**
  * Given the name of a registered store, returns an object of the store's action creators.
  * Calling an action creator will cause it to be dispatched, updating the state value accordingly.

@@ -6439,7 +6439,8 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
   backgroundColor: {
     value: ['color', 'background'],
     support: ['color', 'background'],
-    requiresOptOut: true
+    requiresOptOut: true,
+    useEngine: true
   },
   borderColor: {
     value: ['border', 'color'],
@@ -6514,7 +6515,8 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
   color: {
     value: ['color', 'text'],
     support: ['color', 'text'],
-    requiresOptOut: true
+    requiresOptOut: true,
+    useEngine: true
   },
   filter: {
     value: ['filter', 'duotone'],
@@ -6530,19 +6532,23 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
   },
   fontSize: {
     value: ['typography', 'fontSize'],
-    support: ['typography', 'fontSize']
+    support: ['typography', 'fontSize'],
+    useEngine: true
   },
   fontStyle: {
     value: ['typography', 'fontStyle'],
-    support: ['typography', '__experimentalFontStyle']
+    support: ['typography', '__experimentalFontStyle'],
+    useEngine: true
   },
   fontWeight: {
     value: ['typography', 'fontWeight'],
-    support: ['typography', '__experimentalFontWeight']
+    support: ['typography', '__experimentalFontWeight'],
+    useEngine: true
   },
   lineHeight: {
     value: ['typography', 'lineHeight'],
-    support: ['typography', 'lineHeight']
+    support: ['typography', 'lineHeight'],
+    useEngine: true
   },
   margin: {
     value: ['spacing', 'margin'],
@@ -6568,15 +6574,18 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
   },
   textDecoration: {
     value: ['typography', 'textDecoration'],
-    support: ['typography', '__experimentalTextDecoration']
+    support: ['typography', '__experimentalTextDecoration'],
+    useEngine: true
   },
   textTransform: {
     value: ['typography', 'textTransform'],
-    support: ['typography', '__experimentalTextTransform']
+    support: ['typography', '__experimentalTextTransform'],
+    useEngine: true
   },
   letterSpacing: {
     value: ['typography', 'letterSpacing'],
-    support: ['typography', '__experimentalLetterSpacing']
+    support: ['typography', '__experimentalLetterSpacing'],
+    useEngine: true
   },
   '--wp--style--block-gap': {
     value: ['spacing', 'blockGap'],

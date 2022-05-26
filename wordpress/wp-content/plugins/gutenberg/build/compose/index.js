@@ -1,7 +1,7 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 8294:
+/***/ 5188:
 /***/ (function(module) {
 
 /*!
@@ -2073,22 +2073,6 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*global define:false */
 }) (typeof Mousetrap !== "undefined" ? Mousetrap : undefined);
 
 
-/***/ }),
-
-/***/ 235:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var e=__webpack_require__(9196),n={display:"block",opacity:0,position:"absolute",top:0,left:0,height:"100%",width:"100%",overflow:"hidden",pointerEvents:"none",zIndex:-1},t=function(t){var r=t.onResize,u=e.useRef();return function(n,t){var r=function(){return n.current&&n.current.contentDocument&&n.current.contentDocument.defaultView};function u(){t();var e=r();e&&e.addEventListener("resize",t)}e.useEffect((function(){return r()?u():n.current&&n.current.addEventListener&&n.current.addEventListener("load",u),function(){var e=r();e&&"function"==typeof e.removeEventListener&&e.removeEventListener("resize",t)}}),[])}(u,(function(){return r(u)})),e.createElement("iframe",{style:n,src:"about:blank",ref:u,"aria-hidden":!0,tabIndex:-1,frameBorder:0})},r=function(e){return{width:null!=e?e.offsetWidth:null,height:null!=e?e.offsetHeight:null}};module.exports=function(n){void 0===n&&(n=r);var u=e.useState(n(null)),o=u[0],i=u[1],c=e.useCallback((function(e){return i(n(e.current))}),[n]);return[e.useMemo((function(){return e.createElement(t,{onResize:c})}),[c]),o]};
-
-
-/***/ }),
-
-/***/ 9196:
-/***/ (function(module) {
-
-"use strict";
-module.exports = window["React"];
-
 /***/ })
 
 /******/ 	});
@@ -2169,7 +2153,6 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "__experimentalUseDialog": function() { return /* reexport */ use_dialog; },
-  "__experimentalUseDisabled": function() { return /* reexport */ useDisabled; },
   "__experimentalUseDragging": function() { return /* reexport */ useDragging; },
   "__experimentalUseDropZone": function() { return /* reexport */ useDropZone; },
   "__experimentalUseFixedWindowList": function() { return /* reexport */ useFixedWindowList; },
@@ -2183,6 +2166,7 @@ __webpack_require__.d(__webpack_exports__, {
   "useCopyOnClick": function() { return /* reexport */ useCopyOnClick; },
   "useCopyToClipboard": function() { return /* reexport */ useCopyToClipboard; },
   "useDebounce": function() { return /* reexport */ useDebounce; },
+  "useDisabled": function() { return /* reexport */ useDisabled; },
   "useFocusOnMount": function() { return /* reexport */ useFocusOnMount; },
   "useFocusReturn": function() { return /* reexport */ use_focus_return; },
   "useFocusableIframe": function() { return /* reexport */ useFocusableIframe; },
@@ -2194,7 +2178,7 @@ __webpack_require__.d(__webpack_exports__, {
   "usePrevious": function() { return /* reexport */ usePrevious; },
   "useReducedMotion": function() { return /* reexport */ use_reduced_motion; },
   "useRefEffect": function() { return /* reexport */ useRefEffect; },
-  "useResizeObserver": function() { return /* reexport */ use_resize_observer; },
+  "useResizeObserver": function() { return /* reexport */ useResizeAware; },
   "useThrottle": function() { return /* reexport */ useThrottle; },
   "useViewportMatch": function() { return /* reexport */ use_viewport_match; },
   "useWarnOnChange": function() { return /* reexport */ use_warn_on_change; },
@@ -2853,7 +2837,7 @@ function useConstrainedTabbing() {
 /* harmony default export */ var use_constrained_tabbing = (useConstrainedTabbing);
 
 // EXTERNAL MODULE: ./node_modules/clipboard/dist/clipboard.js
-var dist_clipboard = __webpack_require__(8294);
+var dist_clipboard = __webpack_require__(5188);
 var clipboard_default = /*#__PURE__*/__webpack_require__.n(dist_clipboard);
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-copy-on-click/index.js
 /**
@@ -3068,7 +3052,12 @@ function useFocusOnMount() {
       }
     }
 
-    target.focus();
+    target.focus({
+      // When focusing newly mounted dialogs,
+      // the position of the popover is often not right on the first render
+      // This prevents the layout shifts when focusing the dialogs.
+      preventScroll: true
+    });
   }, []);
 }
 
@@ -3586,11 +3575,13 @@ const DISABLED_ELIGIBLE_NODE_NAMES = ['BUTTON', 'FIELDSET', 'INPUT', 'OPTGROUP',
  * (input fields, links, buttons, etc.) need to be disabled. This hook adds the
  * behavior to disable nested DOM elements to the returned ref.
  *
+ * @param {Object}   config            Configuration object.
+ * @param {boolean=} config.isDisabled Whether the element should be disabled.
  * @return {import('react').RefCallback<HTMLElement>} Element Ref.
  *
  * @example
  * ```js
- * import { __experimentalUseDisabled as useDisabled } from '@wordpress/compose';
+ * import { useDisabled } from '@wordpress/compose';
  * const DisabledExample = () => {
  * 	const disabledRef = useDisabled();
  *	return (
@@ -3604,33 +3595,101 @@ const DISABLED_ELIGIBLE_NODE_NAMES = ['BUTTON', 'FIELDSET', 'INPUT', 'OPTGROUP',
  */
 
 function useDisabled() {
+  let {
+    isDisabled: isDisabledProp = false
+  } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return useRefEffect(node => {
+    if (isDisabledProp) {
+      return;
+    }
+    /** A variable keeping track of the previous updates in order to restore them. */
+
+    /** @type {Function[]} */
+
+
+    const updates = [];
+
     const disable = () => {
-      node.style.setProperty('user-select', 'none');
-      node.style.setProperty('-webkit-user-select', 'none');
+      if (node.style.getPropertyValue('user-select') !== 'none') {
+        const previousValue = node.style.getPropertyValue('user-select');
+        node.style.setProperty('user-select', 'none');
+        node.style.setProperty('-webkit-user-select', 'none');
+        updates.push(() => {
+          if (!node.isConnected) {
+            return;
+          }
+
+          node.style.setProperty('user-select', previousValue);
+          node.style.setProperty('-webkit-user-select', previousValue);
+        });
+      }
+
       external_wp_dom_namespaceObject.focus.focusable.find(node).forEach(focusable => {
         var _node$ownerDocument$d;
 
-        if ((0,external_lodash_namespaceObject.includes)(DISABLED_ELIGIBLE_NODE_NAMES, focusable.nodeName)) {
+        if ((0,external_lodash_namespaceObject.includes)(DISABLED_ELIGIBLE_NODE_NAMES, focusable.nodeName) && // @ts-ignore
+        !focusable.disabled) {
           focusable.setAttribute('disabled', '');
+          updates.push(() => {
+            if (!focusable.isConnected) {
+              return;
+            } // @ts-ignore
+
+
+            focusable.disabled = false;
+          });
         }
 
-        if (focusable.nodeName === 'A') {
+        if (focusable.nodeName === 'A' && focusable.getAttribute('tabindex') !== '-1') {
+          const previousValue = focusable.getAttribute('tabindex');
           focusable.setAttribute('tabindex', '-1');
+          updates.push(() => {
+            if (!focusable.isConnected) {
+              return;
+            }
+
+            if (!previousValue) {
+              focusable.removeAttribute('tabindex');
+            } else {
+              focusable.setAttribute('tabindex', previousValue);
+            }
+          });
         }
 
         const tabIndex = focusable.getAttribute('tabindex');
 
         if (tabIndex !== null && tabIndex !== '-1') {
           focusable.removeAttribute('tabindex');
+          updates.push(() => {
+            if (!focusable.isConnected) {
+              return;
+            }
+
+            focusable.setAttribute('tabindex', tabIndex);
+          });
         }
 
-        if (focusable.hasAttribute('contenteditable')) {
+        if (focusable.hasAttribute('contenteditable') && focusable.getAttribute('contenteditable') !== 'false') {
           focusable.setAttribute('contenteditable', 'false');
+          updates.push(() => {
+            if (!focusable.isConnected) {
+              return;
+            }
+
+            focusable.setAttribute('contenteditable', 'true');
+          });
         }
 
         if ((_node$ownerDocument$d = node.ownerDocument.defaultView) !== null && _node$ownerDocument$d !== void 0 && _node$ownerDocument$d.HTMLElement && focusable instanceof node.ownerDocument.defaultView.HTMLElement) {
+          const previousValue = focusable.style.getPropertyValue('pointer-events');
           focusable.style.setProperty('pointer-events', 'none');
+          updates.push(() => {
+            if (!focusable.isConnected) {
+              return;
+            }
+
+            focusable.style.setProperty('pointer-events', previousValue);
+          });
         }
       });
     }; // Debounce re-disable since disabling process itself will incur
@@ -3655,8 +3714,9 @@ function useDisabled() {
       }
 
       debouncedDisable.cancel();
+      updates.forEach(update => update());
     };
-  }, []);
+  }, [isDisabledProp]);
 }
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-isomorphic-layout-effect/index.js
@@ -4022,22 +4082,208 @@ const useViewportMatch = function (breakpoint) {
 useViewportMatch.__experimentalWidthProvider = ViewportMatchWidthContext.Provider;
 /* harmony default export */ var use_viewport_match = (useViewportMatch);
 
-// EXTERNAL MODULE: ./node_modules/react-resize-aware/dist/index.js
-var dist = __webpack_require__(235);
-var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-resize-observer/index.js
+
+
 /**
  * External dependencies
  */
 
 /**
+ * WordPress dependencies
+ */
+
+
+// This of course could've been more streamlined with internal state instead of
+// refs, but then host hooks / components could not opt out of renders.
+// This could've been exported to its own module, but the current build doesn't
+// seem to work with module imports and I had no more time to spend on this...
+function useResolvedElement(subscriber, refOrElement) {
+  const callbackRefElement = (0,external_wp_element_namespaceObject.useRef)(null);
+  const lastReportRef = (0,external_wp_element_namespaceObject.useRef)(null);
+  const cleanupRef = (0,external_wp_element_namespaceObject.useRef)();
+  const callSubscriber = (0,external_wp_element_namespaceObject.useCallback)(() => {
+    let element = null;
+
+    if (callbackRefElement.current) {
+      element = callbackRefElement.current;
+    } else if (refOrElement) {
+      if (refOrElement instanceof HTMLElement) {
+        element = refOrElement;
+      } else {
+        element = refOrElement.current;
+      }
+    }
+
+    if (lastReportRef.current && lastReportRef.current.element === element && lastReportRef.current.reporter === callSubscriber) {
+      return;
+    }
+
+    if (cleanupRef.current) {
+      cleanupRef.current(); // Making sure the cleanup is not called accidentally multiple times.
+
+      cleanupRef.current = null;
+    }
+
+    lastReportRef.current = {
+      reporter: callSubscriber,
+      element
+    }; // Only calling the subscriber, if there's an actual element to report.
+
+    if (element) {
+      cleanupRef.current = subscriber(element);
+    }
+  }, [refOrElement, subscriber]); // On each render, we check whether a ref changed, or if we got a new raw
+  // element.
+
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // With this we're *technically* supporting cases where ref objects' current value changes, but only if there's a
+    // render accompanying that change as well.
+    // To guarantee we always have the right element, one must use the ref callback provided instead, but we support
+    // RefObjects to make the hook API more convenient in certain cases.
+    callSubscriber();
+  }, [callSubscriber]);
+  return (0,external_wp_element_namespaceObject.useCallback)(element => {
+    callbackRefElement.current = element;
+    callSubscriber();
+  }, [callSubscriber]);
+}
+
+// We're only using the first element of the size sequences, until future versions of the spec solidify on how
+// exactly it'll be used for fragments in multi-column scenarios:
+// From the spec:
+// > The box size properties are exposed as FrozenArray in order to support elements that have multiple fragments,
+// > which occur in multi-column scenarios. However the current definitions of content rect and border box do not
+// > mention how those boxes are affected by multi-column layout. In this spec, there will only be a single
+// > ResizeObserverSize returned in the FrozenArray, which will correspond to the dimensions of the first column.
+// > A future version of this spec will extend the returned FrozenArray to contain the per-fragment size information.
+// (https://drafts.csswg.org/resize-observer/#resize-observer-entry-interface)
+//
+// Also, testing these new box options revealed that in both Chrome and FF everything is returned in the callback,
+// regardless of the "box" option.
+// The spec states the following on this:
+// > This does not have any impact on which box dimensions are returned to the defined callback when the event
+// > is fired, it solely defines which box the author wishes to observe layout changes on.
+// (https://drafts.csswg.org/resize-observer/#resize-observer-interface)
+// I'm not exactly clear on what this means, especially when you consider a later section stating the following:
+// > This section is non-normative. An author may desire to observe more than one CSS box.
+// > In this case, author will need to use multiple ResizeObservers.
+// (https://drafts.csswg.org/resize-observer/#resize-observer-interface)
+// Which is clearly not how current browser implementations behave, and seems to contradict the previous quote.
+// For this reason I decided to only return the requested size,
+// even though it seems we have access to results for all box types.
+// This also means that we get to keep the current api, being able to return a simple { width, height } pair,
+// regardless of box option.
+const extractSize = (entry, boxProp, sizeType) => {
+  if (!entry[boxProp]) {
+    if (boxProp === 'contentBoxSize') {
+      // The dimensions in `contentBoxSize` and `contentRect` are equivalent according to the spec.
+      // See the 6th step in the description for the RO algorithm:
+      // https://drafts.csswg.org/resize-observer/#create-and-populate-resizeobserverentry-h
+      // > Set this.contentRect to logical this.contentBoxSize given target and observedBox of "content-box".
+      // In real browser implementations of course these objects differ, but the width/height values should be equivalent.
+      return entry.contentRect[sizeType === 'inlineSize' ? 'width' : 'height'];
+    }
+
+    return undefined;
+  } // A couple bytes smaller than calling Array.isArray() and just as effective here.
+
+
+  return entry[boxProp][0] ? entry[boxProp][0][sizeType] : // TS complains about this, because the RO entry type follows the spec and does not reflect Firefox's current
+  // behaviour of returning objects instead of arrays for `borderBoxSize` and `contentBoxSize`.
+  // @ts-ignore
+  entry[boxProp][sizeType];
+};
+
+function useResizeObserver() {
+  let opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  // Saving the callback as a ref. With this, I don't need to put onResize in the
+  // effect dep array, and just passing in an anonymous function without memoising
+  // will not reinstantiate the hook's ResizeObserver.
+  const onResize = opts.onResize;
+  const onResizeRef = (0,external_wp_element_namespaceObject.useRef)(undefined);
+  onResizeRef.current = onResize;
+  const round = opts.round || Math.round; // Using a single instance throughout the hook's lifetime
+
+  const resizeObserverRef = (0,external_wp_element_namespaceObject.useRef)();
+  const [size, setSize] = (0,external_wp_element_namespaceObject.useState)({
+    width: undefined,
+    height: undefined
+  }); // In certain edge cases the RO might want to report a size change just after
+  // the component unmounted.
+
+  const didUnmount = (0,external_wp_element_namespaceObject.useRef)(false);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    return () => {
+      didUnmount.current = true;
+    };
+  }, []); // Using a ref to track the previous width / height to avoid unnecessary renders.
+
+  const previous = (0,external_wp_element_namespaceObject.useRef)({
+    width: undefined,
+    height: undefined
+  }); // This block is kinda like a useEffect, only it's called whenever a new
+  // element could be resolved based on the ref option. It also has a cleanup
+  // function.
+
+  const refCallback = useResolvedElement((0,external_wp_element_namespaceObject.useCallback)(element => {
+    // We only use a single Resize Observer instance, and we're instantiating it on demand, only once there's something to observe.
+    // This instance is also recreated when the `box` option changes, so that a new observation is fired if there was a previously observed element with a different box option.
+    if (!resizeObserverRef.current || resizeObserverRef.current.box !== opts.box || resizeObserverRef.current.round !== round) {
+      resizeObserverRef.current = {
+        box: opts.box,
+        round,
+        instance: new ResizeObserver(entries => {
+          const entry = entries[0];
+          let boxProp = 'borderBoxSize';
+
+          if (opts.box === 'border-box') {
+            boxProp = 'borderBoxSize';
+          } else {
+            boxProp = opts.box === 'device-pixel-content-box' ? 'devicePixelContentBoxSize' : 'contentBoxSize';
+          }
+
+          const reportedWidth = extractSize(entry, boxProp, 'inlineSize');
+          const reportedHeight = extractSize(entry, boxProp, 'blockSize');
+          const newWidth = reportedWidth ? round(reportedWidth) : undefined;
+          const newHeight = reportedHeight ? round(reportedHeight) : undefined;
+
+          if (previous.current.width !== newWidth || previous.current.height !== newHeight) {
+            const newSize = {
+              width: newWidth,
+              height: newHeight
+            };
+            previous.current.width = newWidth;
+            previous.current.height = newHeight;
+
+            if (onResizeRef.current) {
+              onResizeRef.current(newSize);
+            } else if (!didUnmount.current) {
+              setSize(newSize);
+            }
+          }
+        })
+      };
+    }
+
+    resizeObserverRef.current.instance.observe(element, {
+      box: opts.box
+    });
+    return () => {
+      if (resizeObserverRef.current) {
+        resizeObserverRef.current.instance.unobserve(element);
+      }
+    };
+  }, [opts.box, round]), opts.ref);
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    ref: refCallback,
+    width: size.width,
+    height: size.height
+  }), [refCallback, size ? size.width : null, size ? size.height : null]);
+}
+/**
  * Hook which allows to listen the resize event of any target element when it changes sizes.
- * _Note: `useResizeObserver` will report `null` until after first render_
- *
- * Simply a re-export of `react-resize-aware` so refer to its documentation <https://github.com/FezVrasta/react-resize-aware>
- * for more details.
- *
- * @see https://github.com/FezVrasta/react-resize-aware
+ * _Note: `useResizeObserver` will report `null` until after first render.
  *
  * @example
  *
@@ -4053,10 +4299,38 @@ var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
  * 	);
  * };
  * ```
- *
  */
 
-/* harmony default export */ var use_resize_observer = ((dist_default()));
+
+function useResizeAware() {
+  const {
+    ref,
+    width,
+    height
+  } = useResizeObserver();
+  const sizes = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return {
+      width: width !== null && width !== void 0 ? width : null,
+      height: height !== null && height !== void 0 ? height : null
+    };
+  }, [width, height]);
+  const resizeListener = (0,external_wp_element_namespaceObject.createElement)("div", {
+    style: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      pointerEvents: 'none',
+      opacity: 0,
+      overflow: 'hidden',
+      zIndex: -1
+    },
+    "aria-hidden": "true",
+    ref: ref
+  });
+  return [resizeListener, sizes];
+}
 
 ;// CONCATENATED MODULE: external ["wp","priorityQueue"]
 var external_wp_priorityQueue_namespaceObject = window["wp"]["priorityQueue"];
@@ -4187,8 +4461,8 @@ function useWarnOnChange(object) {
 
 /* harmony default export */ var use_warn_on_change = (useWarnOnChange);
 
-// EXTERNAL MODULE: external "React"
-var external_React_ = __webpack_require__(9196);
+;// CONCATENATED MODULE: external "React"
+var external_React_namespaceObject = window["React"];
 ;// CONCATENATED MODULE: ./node_modules/use-memo-one/dist/use-memo-one.esm.js
 
 
@@ -4207,19 +4481,19 @@ function areInputsEqual(newInputs, lastInputs) {
 }
 
 function useMemoOne(getResult, inputs) {
-  var initial = (0,external_React_.useState)(function () {
+  var initial = (0,external_React_namespaceObject.useState)(function () {
     return {
       inputs: inputs,
       result: getResult()
     };
   })[0];
-  var committed = (0,external_React_.useRef)(initial);
+  var committed = (0,external_React_namespaceObject.useRef)(initial);
   var isInputMatch = Boolean(inputs && committed.current.inputs && areInputsEqual(inputs, committed.current.inputs));
   var cache = isInputMatch ? committed.current : {
     inputs: inputs,
     result: getResult()
   };
-  (0,external_React_.useEffect)(function () {
+  (0,external_React_namespaceObject.useEffect)(function () {
     committed.current = cache;
   }, [cache]);
   return cache.result;

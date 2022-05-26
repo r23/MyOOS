@@ -836,7 +836,7 @@ function Form(_ref) {
     }, title), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
       focusOnMount: false,
       position: "middle right",
-      __unstableForceXAlignment: true
+      __unstableForcePosition: true
     }, (0,external_wp_element_namespaceObject.createElement)("div", {
       ref: ref,
       className: "wp-block-legacy-widget__edit-form",
@@ -1121,7 +1121,7 @@ function NotEmpty(_ref3) {
   const {
     record: widgetType,
     hasResolved: hasResolvedWidgetType
-  } = (0,external_wp_coreData_namespaceObject.__experimentalUseEntityRecord)('root', 'widgetType', widgetTypeId);
+  } = (0,external_wp_coreData_namespaceObject.useEntityRecord)('root', 'widgetType', widgetTypeId);
   const isNavigationMode = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_blockEditor_namespaceObject.store).isNavigationMode(), []);
   const setInstance = (0,external_wp_element_namespaceObject.useCallback)(nextInstance => {
     setAttributes({

@@ -492,8 +492,6 @@ var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_w
 ;// CONCATENATED MODULE: external ["wp","blob"]
 var external_wp_blob_namespaceObject = window["wp"]["blob"];
 ;// CONCATENATED MODULE: ./packages/media-utils/build-module/utils/upload-media.js
-
-
 /**
  * External dependencies
  */
@@ -588,14 +586,6 @@ async function uploadMedia(_ref) {
 
   const isAllowedMimeTypeForUser = fileType => {
     return (0,external_lodash_namespaceObject.includes)(allowedMimeTypesForUser, fileType);
-  }; // Build the error message including the filename.
-
-
-  const triggerError = error => {
-    error.message = [(0,external_wp_element_namespaceObject.createElement)("strong", {
-      key: "filename"
-    }, error.file.name), ': ', error.message];
-    onError(error);
   };
 
   const validFiles = [];
@@ -604,9 +594,10 @@ async function uploadMedia(_ref) {
     // Verify if user is allowed to upload this mime type.
     // Defer to the server when type not detected.
     if (allowedMimeTypesForUser && mediaFile.type && !isAllowedMimeTypeForUser(mediaFile.type)) {
-      triggerError({
+      onError({
         code: 'MIME_TYPE_NOT_ALLOWED_FOR_USER',
-        message: (0,external_wp_i18n_namespaceObject.__)('Sorry, you are not allowed to upload this file type.'),
+        message: (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: file name.
+        (0,external_wp_i18n_namespaceObject.__)('%s: Sorry, you are not allowed to upload this file type.'), mediaFile.name),
         file: mediaFile
       });
       continue;
@@ -615,9 +606,10 @@ async function uploadMedia(_ref) {
 
 
     if (mediaFile.type && !isAllowedType(mediaFile.type)) {
-      triggerError({
+      onError({
         code: 'MIME_TYPE_NOT_SUPPORTED',
-        message: (0,external_wp_i18n_namespaceObject.__)('Sorry, this file type is not supported here.'),
+        message: (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: file name.
+        (0,external_wp_i18n_namespaceObject.__)('%s: Sorry, this file type is not supported here.'), mediaFile.name),
         file: mediaFile
       });
       continue;
@@ -625,9 +617,10 @@ async function uploadMedia(_ref) {
 
 
     if (maxUploadFileSize && mediaFile.size > maxUploadFileSize) {
-      triggerError({
+      onError({
         code: 'SIZE_ABOVE_LIMIT',
-        message: (0,external_wp_i18n_namespaceObject.__)('This file exceeds the maximum upload size for this site.'),
+        message: (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: file name.
+        (0,external_wp_i18n_namespaceObject.__)('%s: This file exceeds the maximum upload size for this site.'), mediaFile.name),
         file: mediaFile
       });
       continue;
@@ -635,9 +628,10 @@ async function uploadMedia(_ref) {
 
 
     if (mediaFile.size <= 0) {
-      triggerError({
+      onError({
         code: 'EMPTY_FILE',
-        message: (0,external_wp_i18n_namespaceObject.__)('This file is empty.'),
+        message: (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: file name.
+        (0,external_wp_i18n_namespaceObject.__)('%s: This file is empty.'), mediaFile.name),
         file: mediaFile
       });
       continue;

@@ -802,10 +802,38 @@ function convertLegacyLocalStorageData(userId) {
   return convertLegacyData(data);
 }
 
+;// CONCATENATED MODULE: ./packages/preferences-persistence/build-module/migrations/preferences-package-data/convert-complementary-areas.js
+function convertComplementaryAreas(state) {
+  return Object.keys(state).reduce((stateAccumulator, scope) => {
+    const scopeData = state[scope]; // If a complementary area is truthy, convert it to the `isComplementaryAreaVisible` boolean.
+
+    if (scopeData !== null && scopeData !== void 0 && scopeData.complementaryArea) {
+      const updatedScopeData = { ...scopeData
+      };
+      delete updatedScopeData.complementaryArea;
+      updatedScopeData.isComplementaryAreaVisible = true;
+      stateAccumulator[scope] = updatedScopeData;
+      return stateAccumulator;
+    }
+
+    return stateAccumulator;
+  }, state);
+}
+
+;// CONCATENATED MODULE: ./packages/preferences-persistence/build-module/migrations/preferences-package-data/index.js
+/**
+ * Internal dependencies
+ */
+
+function convertPreferencesPackageData(data) {
+  return convertComplementaryAreas(data);
+}
+
 ;// CONCATENATED MODULE: ./packages/preferences-persistence/build-module/index.js
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -834,9 +862,9 @@ function __unstableCreatePersistenceLayer(serverData, userId) {
   let preloadedData;
 
   if (serverData && serverModified >= localModified) {
-    preloadedData = serverData;
+    preloadedData = convertPreferencesPackageData(serverData);
   } else if (localData) {
-    preloadedData = localData;
+    preloadedData = convertPreferencesPackageData(localData);
   } else {
     // Check if there is data in the legacy format from the old persistence system.
     preloadedData = convertLegacyLocalStorageData(userId);

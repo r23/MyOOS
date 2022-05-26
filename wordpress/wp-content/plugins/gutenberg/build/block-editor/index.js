@@ -2204,7 +2204,6 @@ __webpack_require__.d(__webpack_exports__, {
   "Warning": function() { return /* reexport */ warning; },
   "WritingFlow": function() { return /* reexport */ writing_flow; },
   "__experimentalBlockAlignmentMatrixControl": function() { return /* reexport */ block_alignment_matrix_control; },
-  "__experimentalBlockContentOverlay": function() { return /* reexport */ BlockContentOverlay; },
   "__experimentalBlockFullHeightAligmentControl": function() { return /* reexport */ block_full_height_alignment_control; },
   "__experimentalBlockPatternSetup": function() { return /* reexport */ block_pattern_setup; },
   "__experimentalBlockPatternsList": function() { return /* reexport */ block_patterns_list; },
@@ -2240,8 +2239,8 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalResponsiveBlockControl": function() { return /* reexport */ responsive_block_control; },
   "__experimentalTextDecorationControl": function() { return /* reexport */ TextDecorationControl; },
   "__experimentalTextTransformControl": function() { return /* reexport */ TextTransformControl; },
-  "__experimentalToolsPanelColorDropdown": function() { return /* reexport */ ToolsPanelColorDropdown; },
   "__experimentalUnitControl": function() { return /* reexport */ UnitControl; },
+  "__experimentalUseBlockOverlayActive": function() { return /* reexport */ useBlockOverlayActive; },
   "__experimentalUseBlockPreview": function() { return /* reexport */ useBlockPreview; },
   "__experimentalUseBorderProps": function() { return /* reexport */ useBorderProps; },
   "__experimentalUseColorProps": function() { return /* reexport */ useColorProps; },
@@ -9711,8 +9710,6 @@ InspectorAdvancedControls.slotName = 'InspectorAdvancedControls';
 ;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
 var external_wp_isShallowEqual_namespaceObject = window["wp"]["isShallowEqual"];
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_namespaceObject);
-;// CONCATENATED MODULE: external ["wp","dom"]
-var external_wp_dom_namespaceObject = window["wp"]["dom"];
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-popover/use-popover-scroll.js
 /**
  * WordPress dependencies
@@ -9768,7 +9765,6 @@ function usePopoverScroll(scrollableRef) {
 
 
 
-
 /**
  * Internal dependencies
  */
@@ -9809,28 +9805,18 @@ function BlockPopover(_ref) {
     top: selectedElement,
     bottom: lastSelectedElement
   };
-  const {
-    ownerDocument
-  } = selectedElement;
-  const stickyBoundaryElement = ownerDocument.defaultView.frameElement || (0,external_wp_dom_namespaceObject.getScrollContainer)(selectedElement) || ownerDocument.body;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, _extends({
     ref: popoverScrollRef,
-    noArrow: true,
     animate: false,
     position: "top right left",
     focusOnMount: false,
-    anchorRef: anchorRef,
-    __unstableStickyBoundaryElement: __unstableCoverTarget ? undefined : stickyBoundaryElement // Render in the old slot if needed for backward compatibility,
+    anchorRef: anchorRef // Render in the old slot if needed for backward compatibility,
     // otherwise render in place (not in the the default popover slot).
     ,
-    __unstableSlotName: __unstablePopoverSlot || null,
-    __unstableBoundaryParent: true // Observe movement for block animations (especially horizontal).
+    __unstableSlotName: __unstablePopoverSlot || null // Observe movement for block animations (especially horizontal).
     ,
-    __unstableObserveElement: selectedElement // Used to safeguard sticky position behavior against cases where it would permanently
-    // obscure specific sections of a block.
-    ,
-    __unstableEditorCanvasWrapper: __unstableContentRef === null || __unstableContentRef === void 0 ? void 0 : __unstableContentRef.current,
-    __unstableForcePosition: __unstableCoverTarget
+    __unstableObserveElement: selectedElement,
+    __unstableForcePosition: true
   }, props, {
     className: classnames_default()('block-editor-block-popover', props.className)
   }), __unstableCoverTarget && (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -12361,6 +12347,11 @@ function addGeneratedClassName(extraProps, blockType) {
 }
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.getSaveContent.extraProps', 'core/generated-class-name/save-props', addGeneratedClassName);
 
+;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/constants.js
+const VARIABLE_REFERENCE_PREFIX = 'var:';
+const VARIABLE_PATH_SEPARATOR_TOKEN_ATTRIBUTE = '|';
+const VARIABLE_PATH_SEPARATOR_TOKEN_STYLE = '--';
+
 ;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/utils.js
 /**
  * External dependencies
@@ -12368,6 +12359,37 @@ function addGeneratedClassName(extraProps, blockType) {
 
 /**
  * Internal dependencies
+ */
+
+
+/**
+ * Returns a JSON representation of the generated CSS rules.
+ *
+ * @param  style   Style object.
+ * @param  options Options object with settings to adjust how the styles are generated.
+ * @param  path    An array of strings representing the path to the style value in the style object.
+ * @param  ruleKey A CSS property key.
+ *
+ * @return GeneratedCSSRule[] CSS rules.
+ */
+
+function generateRule(style, options, path, ruleKey) {
+  const styleValue = (0,external_lodash_namespaceObject.get)(style, path);
+  return styleValue ? [{
+    selector: options === null || options === void 0 ? void 0 : options.selector,
+    key: ruleKey,
+    value: getCSSVarFromStyleValue(styleValue)
+  }] : [];
+}
+/**
+ * Returns a JSON representation of the generated CSS rules taking into account box model properties, top, right, bottom, left.
+ *
+ * @param  style   Style object.
+ * @param  options Options object with settings to adjust how the styles are generated.
+ * @param  path    An array of strings representing the path to the style value in the style object.
+ * @param  ruleKey A CSS property key.
+ *
+ * @return GeneratedCSSRule[] CSS rules.
  */
 
 function generateBoxRules(style, options, path, ruleKey) {
@@ -12381,7 +12403,7 @@ function generateBoxRules(style, options, path, ruleKey) {
 
   if (typeof boxStyle === 'string') {
     rules.push({
-      selector: options.selector,
+      selector: options === null || options === void 0 ? void 0 : options.selector,
       key: ruleKey,
       value: boxStyle
     });
@@ -12391,7 +12413,7 @@ function generateBoxRules(style, options, path, ruleKey) {
 
       if (value) {
         acc.push({
-          selector: options.selector,
+          selector: options === null || options === void 0 ? void 0 : options.selector,
           key: `${ruleKey}${(0,external_lodash_namespaceObject.upperFirst)(side)}`,
           value
         });
@@ -12404,8 +12426,72 @@ function generateBoxRules(style, options, path, ruleKey) {
 
   return rules;
 }
+/**
+ * Returns a CSS var value from incoming style value following the pattern `var:description|context|slug`.
+ *
+ * @param  styleValue A raw style value.
+ *
+ * @return string A CSS var value.
+ */
 
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/padding.js
+function getCSSVarFromStyleValue(styleValue) {
+  if (typeof styleValue === 'string' && styleValue.startsWith(VARIABLE_REFERENCE_PREFIX)) {
+    const variable = styleValue.slice(VARIABLE_REFERENCE_PREFIX.length).split(VARIABLE_PATH_SEPARATOR_TOKEN_ATTRIBUTE).join(VARIABLE_PATH_SEPARATOR_TOKEN_STYLE);
+    return `var(--wp--${variable})`;
+  }
+
+  return styleValue;
+}
+
+;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/color/background.js
+/**
+ * Internal dependencies
+ */
+
+const background = {
+  name: 'background',
+  generate: (style, options) => {
+    return generateRule(style, options, ['color', 'background'], 'backgroundColor');
+  }
+};
+/* harmony default export */ var color_background = (background);
+
+;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/color/gradient.js
+/**
+ * Internal dependencies
+ */
+
+const gradient = {
+  name: 'gradient',
+  generate: (style, options) => {
+    return generateRule(style, options, ['color', 'gradient'], 'background');
+  }
+};
+/* harmony default export */ var color_gradient = (gradient);
+
+;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/color/text.js
+/**
+ * Internal dependencies
+ */
+
+const text_text = {
+  name: 'text',
+  generate: (style, options) => {
+    return generateRule(style, options, ['color', 'text'], 'color');
+  }
+};
+/* harmony default export */ var color_text = (text_text);
+
+;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/color/index.js
+/**
+ * Internal dependencies
+ */
+
+
+
+/* harmony default export */ var color = ([color_text, color_gradient, color_background]);
+
+;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/spacing/padding.js
 /**
  * Internal dependencies
  */
@@ -12416,9 +12502,9 @@ const padding = {
     return generateBoxRules(style, options, ['spacing', 'padding'], 'padding');
   }
 };
-/* harmony default export */ var styles_padding = (padding);
+/* harmony default export */ var spacing_padding = (padding);
 
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/margin.js
+;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/spacing/margin.js
 /**
  * Internal dependencies
  */
@@ -12429,7 +12515,64 @@ const margin = {
     return generateBoxRules(style, options, ['spacing', 'margin'], 'margin');
   }
 };
-/* harmony default export */ var styles_margin = (margin);
+/* harmony default export */ var spacing_margin = (margin);
+
+;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/spacing/index.js
+/**
+ * Internal dependencies
+ */
+
+
+/* harmony default export */ var spacing = ([spacing_margin, spacing_padding]);
+
+;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/typography/index.js
+/**
+ * Internal dependencies
+ */
+
+const fontSize = {
+  name: 'fontSize',
+  generate: (style, options) => {
+    return generateRule(style, options, ['typography', 'fontSize'], 'fontSize');
+  }
+};
+const fontStyle = {
+  name: 'fontStyle',
+  generate: (style, options) => {
+    return generateRule(style, options, ['typography', 'fontStyle'], 'fontStyle');
+  }
+};
+const fontWeight = {
+  name: 'fontWeight',
+  generate: (style, options) => {
+    return generateRule(style, options, ['typography', 'fontWeight'], 'fontWeight');
+  }
+};
+const letterSpacing = {
+  name: 'letterSpacing',
+  generate: (style, options) => {
+    return generateRule(style, options, ['typography', 'letterSpacing'], 'letterSpacing');
+  }
+};
+const lineHeight = {
+  name: 'letterSpacing',
+  generate: (style, options) => {
+    return generateRule(style, options, ['typography', 'lineHeight'], 'lineHeight');
+  }
+};
+const textDecoration = {
+  name: 'textDecoration',
+  generate: (style, options) => {
+    return generateRule(style, options, ['typography', 'textDecoration'], 'textDecoration');
+  }
+};
+const textTransform = {
+  name: 'textTransform',
+  generate: (style, options) => {
+    return generateRule(style, options, ['typography', 'textTransform'], 'textTransform');
+  }
+};
+/* harmony default export */ var typography = ([fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textDecoration, textTransform]);
 
 ;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/index.js
 /**
@@ -12437,7 +12580,8 @@ const margin = {
  */
 
 
-const styleDefinitions = [styles_margin, styles_padding];
+
+const styleDefinitions = [...color, ...spacing, ...typography];
 
 ;// CONCATENATED MODULE: ./packages/style-engine/build-module/index.js
 /**
@@ -12459,7 +12603,16 @@ const styleDefinitions = [styles_margin, styles_padding];
  */
 
 function generate(style, options) {
-  const rules = getCSSRules(style, options);
+  const rules = getCSSRules(style, options); // If no selector is provided, treat generated rules as inline styles to be returned as a single string.
+
+  if (!(options !== null && options !== void 0 && options.selector)) {
+    const inlineRules = [];
+    rules.forEach(rule => {
+      inlineRules.push(`${kebabCase(rule.key)}: ${rule.value};`);
+    });
+    return inlineRules.join(' ');
+  }
+
   const groupedRules = groupBy(rules, 'selector');
   const selectorRules = Object.keys(groupedRules).reduce((acc, subSelector) => {
     acc.push(`${subSelector} { ${groupedRules[subSelector].map(rule => `${kebabCase(rule.key)}: ${rule.value};`).join(' ')} }`);
@@ -12479,11 +12632,15 @@ function generate(style, options) {
 function getCSSRules(style, options) {
   const rules = [];
   styleDefinitions.forEach(definition => {
-    rules.push(...definition.generate(style, options));
+    if (typeof definition.generate === 'function') {
+      rules.push(...definition.generate(style, options));
+    }
   });
   return rules;
 }
 
+;// CONCATENATED MODULE: external ["wp","dom"]
+var external_wp_dom_namespaceObject = window["wp"]["dom"];
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-context/index.js
 
 
@@ -12677,6 +12834,11 @@ function Warning(_ref) {
     secondaryActions
   } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)("div", {
+    style: {
+      display: 'contents',
+      all: 'initial'
+    }
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: classnames_default()(className, 'block-editor-warning')
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-warning__contents"
@@ -12699,7 +12861,7 @@ function Warning(_ref) {
   }, () => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, secondaryActions.map((item, pos) => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
     onClick: item.onClick,
     key: pos
-  }, item.title)))))));
+  }, item.title))))))));
 }
 /**
  * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/block-editor/src/components/warning/README.md
@@ -17935,10 +18097,11 @@ const BLOCK_ANIMATION_THRESHOLD = 200;
  * also pass any other props through this hook, and they will be merged and
  * returned.
  *
- * @param {Object}  props                    Optional. Props to pass to the element. Must contain
- *                                           the ref if one is defined.
- * @param {Object}  options                  Options for internal use only.
+ * @param {Object}  props                        Optional. Props to pass to the element. Must contain
+ *                                               the ref if one is defined.
+ * @param {Object}  options                      Options for internal use only.
  * @param {boolean} options.__unstableIsHtml
+ * @param {boolean} options.__unstableIsDisabled Whether the block should be disabled.
  *
  * @return {Object} Props to pass to the element to mark as a block.
  */
@@ -17946,7 +18109,8 @@ const BLOCK_ANIMATION_THRESHOLD = 200;
 function useBlockProps() {
   let props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   let {
-    __unstableIsHtml
+    __unstableIsHtml,
+    __unstableIsDisabled = false
   } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   const {
     clientId,
@@ -17998,6 +18162,8 @@ function useBlockProps() {
     adjustScrolling,
     enableAnimation,
     triggerAnimationOnChange: index
+  }), (0,external_wp_compose_namespaceObject.useDisabled)({
+    isDisabled: !__unstableIsDisabled
   })]);
   const blockEditContext = useBlockEditContext(); // Ensures it warns only inside the `edit` implementation for the block.
 
@@ -22075,7 +22241,7 @@ function useBlockPreview(_ref2) {
     __experimentalLayout
   } = _ref2;
   const originalSettings = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).getSettings(), []);
-  const disabledRef = (0,external_wp_compose_namespaceObject.__experimentalUseDisabled)();
+  const disabledRef = (0,external_wp_compose_namespaceObject.useDisabled)();
   const ref = (0,external_wp_compose_namespaceObject.useMergeRefs)([props.ref, disabledRef]);
   const settings = (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...originalSettings,
     __experimentalBlockPatterns: []
@@ -25080,6 +25246,8 @@ function BlockPopoverInbetween(_ref) {
           left: previousRect ? previousRect.right : nextRect.right,
           right: previousRect ? previousRect.left : nextRect.left,
           bottom: nextRect ? nextRect.top : previousRect.bottom,
+          height: 0,
+          width: 0,
           ownerDocument
         };
       }
@@ -25089,6 +25257,8 @@ function BlockPopoverInbetween(_ref) {
         left: previousRect ? previousRect.left : nextRect.left,
         right: previousRect ? previousRect.right : nextRect.right,
         bottom: nextRect ? nextRect.top : previousRect.bottom,
+        height: 0,
+        width: 0,
         ownerDocument
       };
     }
@@ -25099,6 +25269,8 @@ function BlockPopoverInbetween(_ref) {
         left: previousRect ? previousRect.left : nextRect.right,
         right: nextRect ? nextRect.right : previousRect.left,
         bottom: previousRect ? previousRect.bottom : nextRect.bottom,
+        height: 0,
+        width: 0,
         ownerDocument
       };
     }
@@ -25108,6 +25280,8 @@ function BlockPopoverInbetween(_ref) {
       left: previousRect ? previousRect.right : nextRect.left,
       right: nextRect ? nextRect.left : previousRect.right,
       bottom: previousRect ? previousRect.bottom : nextRect.bottom,
+      height: 0,
+      width: 0,
       ownerDocument
     };
   }, [previousElement, nextElement]);
@@ -25127,7 +25301,6 @@ function BlockPopoverInbetween(_ref) {
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, _extends({
     ref: popoverScrollRef,
-    noArrow: true,
     animate: false,
     getAnchorRect: getAnchorRect,
     focusOnMount: false // Render in the old slot if needed for backward compatibility,
@@ -25469,7 +25642,7 @@ function useInBetweenInserter() {
       // See https://github.com/WordPress/gutenberg/pull/34012#pullrequestreview-727762337
 
 
-      const parentOverlay = (_element$parentElemen = element.parentElement) === null || _element$parentElemen === void 0 ? void 0 : _element$parentElemen.closest('.block-editor-block-content-overlay.overlay-active');
+      const parentOverlay = (_element$parentElemen = element.parentElement) === null || _element$parentElemen === void 0 ? void 0 : _element$parentElemen.closest('.block-editor-block-content-overlay');
 
       if (parentOverlay) {
         return;
@@ -26241,7 +26414,12 @@ function focusFirstTabbableIn(container) {
   const [firstTabbable] = external_wp_dom_namespaceObject.focus.tabbable.find(container);
 
   if (firstTabbable) {
-    firstTabbable.focus();
+    firstTabbable.focus({
+      // When focusing newly mounted toolbars,
+      // the position of the popover is often not right on the first render
+      // This prevents the layout shifts when focusing the dialogs.
+      preventScroll: true
+    });
   }
 }
 
@@ -26318,7 +26496,12 @@ function useToolbarFocus(ref, focusOnMount, isAccessibleToolbar, defaultIndex, o
         const index = initialIndex || 0;
 
         if (items[index] && hasFocusWithin(ref.current)) {
-          items[index].focus();
+          items[index].focus({
+            // When focusing newly mounted toolbars,
+            // the position of the popover is often not right on the first render
+            // This prevents the layout shifts when focusing the dialogs.
+            preventScroll: true
+          });
         }
       });
     }
@@ -29766,7 +29949,6 @@ function BlockContextualToolbar(_ref) {
 
 
 
-
 function selected_block_popover_selector(select) {
   const {
     isNavigationMode,
@@ -29818,7 +30000,6 @@ function SelectedBlockPopover(_ref) {
   }, [clientId]);
   const isLargeViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium');
   const isToolbarForced = (0,external_wp_element_namespaceObject.useRef)(false);
-  const [isInserterShown, setIsInserterShown] = (0,external_wp_element_namespaceObject.useState)(false);
   const {
     stopTyping
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
@@ -29843,14 +30024,6 @@ function SelectedBlockPopover(_ref) {
     return null;
   }
 
-  function onFocus() {
-    setIsInserterShown(true);
-  }
-
-  function onBlur() {
-    setIsInserterShown(false);
-  }
-
   return (0,external_wp_element_namespaceObject.createElement)(BlockPopover, {
     clientId: capturingClientId || clientId,
     bottomClientId: lastClientId,
@@ -29859,24 +30032,7 @@ function SelectedBlockPopover(_ref) {
     }),
     __unstablePopoverSlot: __unstablePopoverSlot,
     __unstableContentRef: __unstableContentRef
-  }, shouldShowContextualToolbar && (0,external_wp_element_namespaceObject.createElement)("div", {
-    onFocus: onFocus,
-    onBlur: onBlur // While ideally it would be enough to capture the
-    // bubbling focus event from the Inserter, due to the
-    // characteristics of click focusing of `button`s in
-    // Firefox and Safari, it is not reliable.
-    //
-    // See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
-    ,
-    tabIndex: -1,
-    className: classnames_default()('block-editor-block-list__block-popover-inserter', {
-      'is-visible': isInserterShown
-    })
-  }, (0,external_wp_element_namespaceObject.createElement)(inserter, {
-    clientId: clientId,
-    rootClientId: rootClientId,
-    __experimentalIsQuick: true
-  })), shouldShowContextualToolbar && (0,external_wp_element_namespaceObject.createElement)(block_contextual_toolbar // If the toolbar is being shown because of being forced
+  }, shouldShowContextualToolbar && (0,external_wp_element_namespaceObject.createElement)(block_contextual_toolbar // If the toolbar is being shown because of being forced
   // it should focus the toolbar right after the mount.
   , {
     focusOnMount: isToolbarForced.current,
@@ -31225,17 +31381,24 @@ function BoxInputControls(_ref) {
     bottomLeft: valuesProp,
     bottomRight: valuesProp
   }; // Controls are wrapped in tooltips as visible labels aren't desired here.
+  // Tooltip rendering also requires the UnitControl to be wrapped. See:
+  // https://github.com/WordPress/gutenberg/pull/24966#issuecomment-685875026
 
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-border-radius-control__input-controls-wrapper"
   }, Object.entries(CORNERS).map(_ref2 => {
     let [key, label] = _ref2;
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalUnitControl, _extends({}, props, {
-      key: key,
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Tooltip, {
+      text: label,
+      position: "top",
+      key: key
+    }, (0,external_wp_element_namespaceObject.createElement)("div", {
+      className: "components-border-radius-control__tooltip-wrapper"
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalUnitControl, _extends({}, props, {
       "aria-label": label,
       value: values[key],
       onChange: createHandleOnChange(key)
-    }));
+    }))));
   }));
 }
 
@@ -31957,13 +32120,8 @@ function BorderPanel(props) {
     colors: colors,
     enableAlpha: true,
     onChange: onBorderChange,
-    popoverClassNames: {
-      linked: 'block-editor__border-box-control__popover',
-      top: 'block-editor__border-box-control__popover-top',
-      right: 'block-editor__border-box-control__popover-right',
-      bottom: 'block-editor__border-box-control__popover-bottom',
-      left: 'block-editor__border-box-control__popover-left'
-    },
+    popoverPlacement: "left-start",
+    popoverOffset: 40,
     showStyle: isStyleSupported,
     value: hydratedBorder,
     __experimentalHasMultipleOrigins: true,
@@ -32331,6 +32489,301 @@ function __experimentalUseGradient() {
   };
 }
 
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/control.js
+
+
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+const colorsAndGradientKeys = ['colors', 'disableCustomColors', 'gradients', 'disableCustomGradients'];
+
+function ColorGradientControlInner(_ref) {
+  let {
+    colors,
+    gradients,
+    disableCustomColors,
+    disableCustomGradients,
+    __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar,
+    className,
+    label,
+    onColorChange,
+    onGradientChange,
+    colorValue,
+    gradientValue,
+    clearable,
+    showTitle = true,
+    enableAlpha
+  } = _ref;
+  const canChooseAColor = onColorChange && (!(0,external_lodash_namespaceObject.isEmpty)(colors) || !disableCustomColors);
+  const canChooseAGradient = onGradientChange && (!(0,external_lodash_namespaceObject.isEmpty)(gradients) || !disableCustomGradients);
+  const [currentTab, setCurrentTab] = (0,external_wp_element_namespaceObject.useState)(gradientValue ? 'gradient' : !!canChooseAColor && 'color');
+
+  if (!canChooseAColor && !canChooseAGradient) {
+    return null;
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.BaseControl, {
+    className: classnames_default()('block-editor-color-gradient-control', className)
+  }, (0,external_wp_element_namespaceObject.createElement)("fieldset", {
+    className: "block-editor-color-gradient-control__fieldset"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalVStack, {
+    spacing: 1
+  }, showTitle && (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "block-editor-color-gradient-control__color-indicator"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.BaseControl.VisualLabel, null, label))), canChooseAColor && canChooseAGradient && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
+    value: currentTab,
+    onChange: setCurrentTab,
+    label: (0,external_wp_i18n_namespaceObject.__)('Select color type'),
+    hideLabelFromVision: true,
+    isBlock: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "color",
+    label: (0,external_wp_i18n_namespaceObject.__)('Solid')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "gradient",
+    label: (0,external_wp_i18n_namespaceObject.__)('Gradient')
+  })), (currentTab === 'color' || !canChooseAGradient) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorPalette, {
+    value: colorValue,
+    onChange: canChooseAGradient ? newColor => {
+      onColorChange(newColor);
+      onGradientChange();
+    } : onColorChange,
+    colors,
+    disableCustomColors,
+    __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
+    clearable: clearable,
+    enableAlpha: enableAlpha
+  }), (currentTab === 'gradient' || !canChooseAColor) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.GradientPicker, {
+    value: gradientValue,
+    onChange: canChooseAColor ? newGradient => {
+      onGradientChange(newGradient);
+      onColorChange();
+    } : onGradientChange,
+    gradients,
+    disableCustomGradients,
+    __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
+    clearable: clearable
+  }))));
+}
+
+function ColorGradientControlSelect(props) {
+  const colorGradientSettings = {};
+  colorGradientSettings.colors = useSetting('color.palette');
+  colorGradientSettings.gradients = useSetting('color.gradients');
+  colorGradientSettings.disableCustomColors = !useSetting('color.custom');
+  colorGradientSettings.disableCustomGradients = !useSetting('color.customGradient');
+  return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlInner, _extends({}, colorGradientSettings, props));
+}
+
+function ColorGradientControl(props) {
+  if ((0,external_lodash_namespaceObject.every)(colorsAndGradientKeys, key => props.hasOwnProperty(key))) {
+    return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlInner, props);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlSelect, props);
+}
+
+/* harmony default export */ var control = (ColorGradientControl);
+
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/dropdown.js
+
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+ // Conditionally wraps the `ColorGradientSettingsDropdown` color controls in an
+// `ItemGroup` allowing for a standalone group of controls to be
+// rendered semantically.
+
+const WithItemGroup = _ref => {
+  let {
+    __experimentalIsItemGroup,
+    children
+  } = _ref;
+
+  if (!__experimentalIsItemGroup) {
+    return children;
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, {
+    isBordered: true,
+    isSeparated: true,
+    className: "block-editor-panel-color-gradient-settings__item-group"
+  }, children);
+}; // When the `ColorGradientSettingsDropdown` controls are being rendered to a
+// `ToolsPanel` they must be wrapped in a `ToolsPanelItem`.
+
+
+const WithToolsPanelItem = _ref2 => {
+  let {
+    __experimentalIsItemGroup,
+    settings,
+    children,
+    ...props
+  } = _ref2;
+
+  if (__experimentalIsItemGroup) {
+    return children;
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, _extends({
+    hasValue: settings.hasValue,
+    label: settings.label,
+    onDeselect: settings.onDeselect,
+    isShownByDefault: settings.isShownByDefault,
+    resetAllFilter: settings.resetAllFilter
+  }, props, {
+    className: "block-editor-tools-panel-color-gradient-settings__item"
+  }), children);
+};
+
+const LabeledColorIndicator = _ref3 => {
+  let {
+    colorValue,
+    label
+  } = _ref3;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    justify: "flex-start"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
+    className: "block-editor-panel-color-gradient-settings__color-indicator",
+    colorValue: colorValue
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, label));
+}; // Renders a color dropdown's toggle as an `Item` if it is within an `ItemGroup`
+// or as a `Button` if it isn't e.g. the controls are being rendered in
+// a `ToolsPanel`.
+
+
+const renderToggle = settings => _ref4 => {
+  let {
+    onToggle,
+    isOpen
+  } = _ref4;
+  const {
+    __experimentalIsItemGroup,
+    colorValue,
+    label
+  } = settings; // Determine component, `Item` or `Button`, to wrap color indicator with.
+
+  const ToggleComponent = __experimentalIsItemGroup ? external_wp_components_namespaceObject.__experimentalItem : external_wp_components_namespaceObject.Button;
+  const toggleClassName = __experimentalIsItemGroup ? 'block-editor-panel-color-gradient-settings__item' : 'block-editor-panel-color-gradient-settings__dropdown';
+  const toggleProps = {
+    onClick: onToggle,
+    className: classnames_default()(toggleClassName, {
+      'is-open': isOpen
+    }),
+    'aria-expanded': __experimentalIsItemGroup ? undefined : isOpen
+  };
+  return (0,external_wp_element_namespaceObject.createElement)(ToggleComponent, toggleProps, (0,external_wp_element_namespaceObject.createElement)(LabeledColorIndicator, {
+    colorValue: colorValue,
+    label: label
+  }));
+}; // Renders a collection of color controls as dropdowns. Depending upon the
+// context in which these dropdowns are being rendered, they may be wrapped
+// in an `ItemGroup` with each dropdown's toggle as an `Item`, or alternatively,
+// the may be individually wrapped in a `ToolsPanelItem` with the toggle as
+// a regular `Button`.
+//
+// For more context see: https://github.com/WordPress/gutenberg/pull/40084
+
+
+function ColorGradientSettingsDropdown(_ref5) {
+  let {
+    colors,
+    disableCustomColors,
+    disableCustomGradients,
+    enableAlpha,
+    gradients,
+    __experimentalIsItemGroup = true,
+    settings,
+    __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar,
+    ...props
+  } = _ref5;
+  const dropdownClassName = __experimentalIsItemGroup ? 'block-editor-panel-color-gradient-settings__dropdown' : 'block-editor-tools-panel-color-gradient-settings__dropdown';
+  let popoverProps;
+
+  if (__experimentalIsRenderedInSidebar) {
+    popoverProps = {
+      placement: 'left-start',
+      offset: 36
+    };
+  }
+
+  return (// Only wrap with `ItemGroup` if these controls are being rendered
+    // semantically.
+    (0,external_wp_element_namespaceObject.createElement)(WithItemGroup, {
+      __experimentalIsItemGroup: __experimentalIsItemGroup
+    }, settings.map((setting, index) => {
+      var _setting$gradientValu;
+
+      const controlProps = {
+        clearable: __experimentalIsItemGroup ? undefined : false,
+        colorValue: setting.colorValue,
+        colors,
+        disableCustomColors,
+        disableCustomGradients,
+        enableAlpha,
+        gradientValue: setting.gradientValue,
+        gradients,
+        label: setting.label,
+        onColorChange: setting.onColorChange,
+        onGradientChange: setting.onGradientChange,
+        showTitle: false,
+        __experimentalHasMultipleOrigins,
+        __experimentalIsRenderedInSidebar,
+        ...setting
+      };
+      const toggleSettings = {
+        colorValue: (_setting$gradientValu = setting.gradientValue) !== null && _setting$gradientValu !== void 0 ? _setting$gradientValu : setting.colorValue,
+        __experimentalIsItemGroup,
+        label: setting.label
+      };
+      return setting && // If not in an `ItemGroup` wrap the dropdown in a
+      // `ToolsPanelItem`
+      (0,external_wp_element_namespaceObject.createElement)(WithToolsPanelItem, _extends({
+        key: index,
+        __experimentalIsItemGroup: __experimentalIsItemGroup,
+        settings: setting
+      }, props), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
+        popoverProps: popoverProps,
+        className: dropdownClassName,
+        contentClassName: "block-editor-panel-color-gradient-settings__dropdown-content",
+        renderToggle: renderToggle(toggleSettings),
+        renderContent: () => (0,external_wp_element_namespaceObject.createElement)(control, controlProps)
+      }));
+    }))
+  );
+}
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/contrast-checker/index.js
 
 
@@ -32449,199 +32902,10 @@ function ContrastChecker(_ref) {
 
 /* harmony default export */ var contrast_checker = (ContrastChecker);
 
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/control.js
-
-
-
-/**
- * External dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-const colorsAndGradientKeys = ['colors', 'disableCustomColors', 'gradients', 'disableCustomGradients'];
-
-function ColorGradientControlInner(_ref) {
-  let {
-    colors,
-    gradients,
-    disableCustomColors,
-    disableCustomGradients,
-    __experimentalHasMultipleOrigins,
-    __experimentalIsRenderedInSidebar,
-    className,
-    label,
-    onColorChange,
-    onGradientChange,
-    colorValue,
-    gradientValue,
-    clearable,
-    showTitle = true,
-    enableAlpha
-  } = _ref;
-  const canChooseAColor = onColorChange && (!(0,external_lodash_namespaceObject.isEmpty)(colors) || !disableCustomColors);
-  const canChooseAGradient = onGradientChange && (!(0,external_lodash_namespaceObject.isEmpty)(gradients) || !disableCustomGradients);
-  const [currentTab, setCurrentTab] = (0,external_wp_element_namespaceObject.useState)(gradientValue ? 'gradient' : !!canChooseAColor && 'color');
-
-  if (!canChooseAColor && !canChooseAGradient) {
-    return null;
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.BaseControl, {
-    className: classnames_default()('block-editor-color-gradient-control', className)
-  }, (0,external_wp_element_namespaceObject.createElement)("fieldset", {
-    className: "block-editor-color-gradient-control__fieldset"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalVStack, {
-    spacing: 1
-  }, showTitle && (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "block-editor-color-gradient-control__color-indicator"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.BaseControl.VisualLabel, null, label))), canChooseAColor && canChooseAGradient && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
-    value: currentTab,
-    onChange: setCurrentTab,
-    label: (0,external_wp_i18n_namespaceObject.__)('Select color type'),
-    hideLabelFromVision: true,
-    isBlock: true
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "color",
-    label: (0,external_wp_i18n_namespaceObject.__)('Solid')
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "gradient",
-    label: (0,external_wp_i18n_namespaceObject.__)('Gradient')
-  })), (currentTab === 'color' || !canChooseAGradient) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorPalette, {
-    value: colorValue,
-    onChange: canChooseAGradient ? newColor => {
-      onColorChange(newColor);
-      onGradientChange();
-    } : onColorChange,
-    colors,
-    disableCustomColors,
-    __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
-    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
-    clearable: clearable,
-    enableAlpha: enableAlpha
-  }), (currentTab === 'gradient' || !canChooseAColor) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.GradientPicker, {
-    value: gradientValue,
-    onChange: canChooseAColor ? newGradient => {
-      onGradientChange(newGradient);
-      onColorChange();
-    } : onGradientChange,
-    gradients,
-    disableCustomGradients,
-    __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
-    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
-    clearable: clearable
-  }))));
-}
-
-function ColorGradientControlSelect(props) {
-  const colorGradientSettings = {};
-  colorGradientSettings.colors = useSetting('color.palette');
-  colorGradientSettings.gradients = useSetting('color.gradients');
-  colorGradientSettings.disableCustomColors = !useSetting('color.custom');
-  colorGradientSettings.disableCustomGradients = !useSetting('color.customGradient');
-  return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlInner, _extends({}, colorGradientSettings, props));
-}
-
-function ColorGradientControl(props) {
-  if ((0,external_lodash_namespaceObject.every)(colorsAndGradientKeys, key => props.hasOwnProperty(key))) {
-    return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlInner, props);
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(ColorGradientControlSelect, props);
-}
-
-/* harmony default export */ var control = (ColorGradientControl);
-
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/tools-panel-color-dropdown.js
-
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-function ToolsPanelColorDropdown(_ref) {
-  var _settings$gradientVal;
-
-  let {
-    settings,
-    enableAlpha,
-    ...otherProps
-  } = _ref;
-  const colorGradientSettings = useMultipleOriginColorsAndGradients();
-  const controlSettings = { ...colorGradientSettings,
-    clearable: false,
-    enableAlpha,
-    label: settings.label,
-    onColorChange: settings.onColorChange,
-    onGradientChange: settings.onGradientChange,
-    colorValue: settings.colorValue,
-    gradientValue: settings.gradientValue
-  };
-  const selectedColor = (_settings$gradientVal = settings.gradientValue) !== null && _settings$gradientVal !== void 0 ? _settings$gradientVal : settings.colorValue;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, _extends({
-    hasValue: settings.hasValue,
-    label: settings.label,
-    onDeselect: settings.onDeselect,
-    isShownByDefault: settings.isShownByDefault,
-    resetAllFilter: settings.resetAllFilter
-  }, otherProps, {
-    className: "block-editor-tools-panel-color-gradient-settings__item"
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
-    className: "block-editor-tools-panel-color-dropdown",
-    contentClassName: "block-editor-panel-color-gradient-settings__dropdown-content",
-    renderToggle: _ref2 => {
-      let {
-        isOpen,
-        onToggle
-      } = _ref2;
-      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-        onClick: onToggle,
-        "aria-expanded": isOpen,
-        className: classnames_default()('block-editor-panel-color-gradient-settings__dropdown', {
-          'is-open': isOpen
-        })
-      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
-        justify: "flex-start"
-      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
-        className: "block-editor-panel-color-gradient-settings__color-indicator",
-        colorValue: selectedColor
-      }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, settings.label)));
-    },
-    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(control, _extends({
-      showTitle: false,
-      __experimentalHasMultipleOrigins: true,
-      __experimentalIsRenderedInSidebar: true,
-      enableAlpha: true
-    }, controlSettings))
-  }));
-}
-
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/color-panel.js
 
 
+
 /**
  * WordPress dependencies
  */
@@ -32649,6 +32913,7 @@ function ToolsPanelColorDropdown(_ref) {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -32698,14 +32963,17 @@ function ColorPanel(_ref) {
 
     setDetectedBackgroundColor(backgroundColor);
   });
+  const colorGradientSettings = useMultipleOriginColorsAndGradients();
   return (0,external_wp_element_namespaceObject.createElement)(inspector_controls, {
     __experimentalGroup: "color"
-  }, settings.map((setting, index) => (0,external_wp_element_namespaceObject.createElement)(ToolsPanelColorDropdown, {
-    key: index,
-    settings: setting,
+  }, (0,external_wp_element_namespaceObject.createElement)(ColorGradientSettingsDropdown, _extends({
+    enableAlpha: enableAlpha,
     panelId: clientId,
-    enableAlpha: enableAlpha
-  })), enableContrastChecking && (0,external_wp_element_namespaceObject.createElement)(contrast_checker, {
+    settings: settings,
+    __experimentalIsItemGroup: false,
+    __experimentalHasMultipleOrigins: true,
+    __experimentalIsRenderedInSidebar: true
+  }, colorGradientSettings)), enableContrastChecking && (0,external_wp_element_namespaceObject.createElement)(contrast_checker, {
     backgroundColor: detectedBackgroundColor,
     textColor: detectedColor,
     enableAlphaChecker: enableAlpha,
@@ -35106,7 +35374,9 @@ function TypographyPanel(props) {
     }),
     panelId: clientId
   }, (0,external_wp_element_namespaceObject.createElement)(FontFamilyEdit, props)), !isFontSizeDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
-    hasValue: () => hasFontSizeValue(props),
+    hasValue: () => hasFontSizeValue(props)
+    /* translators: Ensure translation is distinct from "Letter case" */
+    ,
     label: (0,external_wp_i18n_namespaceObject.__)('Font size'),
     onDeselect: () => resetFontSize(props),
     isShownByDefault: defaultControls === null || defaultControls === void 0 ? void 0 : defaultControls.fontSize,
@@ -35160,7 +35430,9 @@ function TypographyPanel(props) {
     panelId: clientId
   }, (0,external_wp_element_namespaceObject.createElement)(TextDecorationEdit, props)), !isTextTransformDisabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
     className: "single-column",
-    hasValue: () => hasTextTransformValue(props),
+    hasValue: () => hasTextTransformValue(props)
+    /* translators: Ensure translation is distinct from "Font size" */
+    ,
     label: (0,external_wp_i18n_namespaceObject.__)('Letter case'),
     onDeselect: () => resetTextTransform(props),
     isShownByDefault: defaultControls === null || defaultControls === void 0 ? void 0 : defaultControls.textTransform,
@@ -35219,13 +35491,15 @@ const styleSupportKeys = [...TYPOGRAPHY_SUPPORT_KEYS, BORDER_SUPPORT_KEY, COLOR_
 
 const hasStyleSupport = blockType => styleSupportKeys.some(key => (0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockType, key));
 
-const VARIABLE_REFERENCE_PREFIX = 'var:';
-const VARIABLE_PATH_SEPARATOR_TOKEN_ATTRIBUTE = '|';
-const VARIABLE_PATH_SEPARATOR_TOKEN_STYLE = '--';
+const style_VARIABLE_REFERENCE_PREFIX = 'var:';
+const style_VARIABLE_PATH_SEPARATOR_TOKEN_ATTRIBUTE = '|';
+const style_VARIABLE_PATH_SEPARATOR_TOKEN_STYLE = '--';
 
 function compileStyleValue(uncompiledValue) {
-  if ((0,external_lodash_namespaceObject.startsWith)(uncompiledValue, VARIABLE_REFERENCE_PREFIX)) {
-    const variable = uncompiledValue.slice(VARIABLE_REFERENCE_PREFIX.length).split(VARIABLE_PATH_SEPARATOR_TOKEN_ATTRIBUTE).join(VARIABLE_PATH_SEPARATOR_TOKEN_STYLE);
+  var _uncompiledValue$star;
+
+  if (uncompiledValue !== null && uncompiledValue !== void 0 && (_uncompiledValue$star = uncompiledValue.startsWith) !== null && _uncompiledValue$star !== void 0 && _uncompiledValue$star.call(uncompiledValue, style_VARIABLE_REFERENCE_PREFIX)) {
+    const variable = uncompiledValue.slice(style_VARIABLE_REFERENCE_PREFIX.length).split(style_VARIABLE_PATH_SEPARATOR_TOKEN_ATTRIBUTE).join(style_VARIABLE_PATH_SEPARATOR_TOKEN_STYLE);
     return `var(--wp--${variable})`;
   }
 
@@ -35248,13 +35522,13 @@ function getInlineStyles() {
     const path = external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[propKey].value;
     const subPaths = external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[propKey].properties; // Ignore styles on elements because they are handled on the server.
 
-    if ((0,external_lodash_namespaceObject.has)(styles, path) && 'elements' !== (0,external_lodash_namespaceObject.first)(path)) {
+    if ((0,external_lodash_namespaceObject.has)(styles, path) && 'elements' !== (path === null || path === void 0 ? void 0 : path[0])) {
       // Checking if style value is a string allows for shorthand css
       // option and backwards compatibility for border radius support.
       const styleValue = (0,external_lodash_namespaceObject.get)(styles, path);
 
       if (!external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[propKey].useEngine) {
-        if (!!subPaths && !(0,external_lodash_namespaceObject.isString)(styleValue)) {
+        if (!!subPaths && typeof styleValue !== 'string') {
           Object.entries(subPaths).forEach(entry => {
             const [name, subPath] = entry;
             const value = (0,external_lodash_namespaceObject.get)(styleValue, [subPath]);
@@ -35271,14 +35545,8 @@ function getInlineStyles() {
   }); // The goal is to move everything to server side generated engine styles
   // This is temporary as we absorb more and more styles into the engine.
 
-  const extraRules = getCSSRules(styles, {
-    selector: 'self'
-  });
+  const extraRules = getCSSRules(styles);
   extraRules.forEach(rule => {
-    if (rule.selector !== 'self') {
-      throw "This style can't be added as inline style";
-    }
-
     output[rule.key] = rule.value;
   });
   return output;
@@ -35286,14 +35554,18 @@ function getInlineStyles() {
 
 function compileElementsStyles(selector) {
   let elements = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  return (0,external_lodash_namespaceObject.map)(elements, (styles, element) => {
+  return Object.entries(elements).map(_ref => {
+    let [element, styles] = _ref;
     const elementStyles = getInlineStyles(styles);
 
     if (!(0,external_lodash_namespaceObject.isEmpty)(elementStyles)) {
       // The .editor-styles-wrapper selector is required on elements styles. As it is
       // added to all other editor styles, not providing it causes reset and global
       // styles to override element styles because of higher specificity.
-      return [`.editor-styles-wrapper .${selector} ${external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS[element]}{`, ...(0,external_lodash_namespaceObject.map)(elementStyles, (value, property) => `\t${(0,external_lodash_namespaceObject.kebabCase)(property)}: ${value};`), '}'].join('\n');
+      return [`.editor-styles-wrapper .${selector} ${external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS[element]}{`, ...Object.entries(elementStyles).map(_ref2 => {
+        let [cssProperty, value] = _ref2;
+        return `\t${(0,external_lodash_namespaceObject.kebabCase)(cssProperty)}: ${value};`;
+      }), '}'].join('\n');
     }
 
     return '';
@@ -35391,7 +35663,8 @@ function style_addSaveProps(props, blockType, attributes) {
   let {
     style
   } = attributes;
-  (0,external_lodash_namespaceObject.forEach)(skipPaths, (path, indicator) => {
+  Object.entries(skipPaths).forEach(_ref3 => {
+    let [indicator, path] = _ref3;
     const skipSerialization = (0,external_wp_blocks_namespaceObject.getBlockSupport)(blockType, indicator);
 
     if (skipSerialization === true) {
@@ -37275,15 +37548,10 @@ function BlockAlignmentMatrixControl(props) {
   const icon = (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalAlignmentMatrixControl.Icon, {
     value: value
   });
-  const className = 'block-editor-block-alignment-matrix-control';
-  const popoverClassName = `${className}__popover`;
-  const isAlternate = true;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
     position: "bottom right",
-    className: className,
     popoverProps: {
-      className: popoverClassName,
-      isAlternate
+      isAlternate: true
     },
     renderToggle: _ref => {
       let {
@@ -37433,100 +37701,25 @@ function BlockBreadcrumb(_ref) {
 /* harmony default export */ var block_breadcrumb = (BlockBreadcrumb);
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-content-overlay/index.js
-
-
-
 /**
  * WordPress dependencies
  */
-
 
 /**
  * Internal dependencies
  */
 
 
-/**
- * External dependencies
- */
-
-
-function BlockContentOverlay(_ref) {
-  let {
-    clientId,
-    tagName: TagName = 'div',
-    wrapperProps,
-    className
-  } = _ref;
-  const baseClassName = 'block-editor-block-content-overlay';
-  const [isOverlayActive, setIsOverlayActive] = (0,external_wp_element_namespaceObject.useState)(true);
-  const [isHovered, setIsHovered] = (0,external_wp_element_namespaceObject.useState)(false);
-  const {
-    canEdit,
-    isParentSelected,
-    hasChildSelected,
-    isDraggingBlocks,
-    isParentHighlighted
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+function useBlockOverlayActive(clientId) {
+  return (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       isBlockSelected,
       hasSelectedInnerBlock,
-      isDraggingBlocks: _isDraggingBlocks,
-      isBlockHighlighted,
       canEditBlock
     } = select(store);
-    return {
-      canEdit: canEditBlock(clientId),
-      isParentSelected: isBlockSelected(clientId),
-      hasChildSelected: hasSelectedInnerBlock(clientId, true),
-      isDraggingBlocks: _isDraggingBlocks(),
-      isParentHighlighted: isBlockHighlighted(clientId)
-    };
+    return !canEditBlock(clientId) || !isBlockSelected(clientId) && !hasSelectedInnerBlock(clientId, true);
   }, [clientId]);
-  const classes = classnames_default()(baseClassName, wrapperProps === null || wrapperProps === void 0 ? void 0 : wrapperProps.className, className, {
-    'overlay-active': isOverlayActive,
-    'parent-highlighted': isParentHighlighted,
-    'is-dragging-blocks': isDraggingBlocks
-  });
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    // The overlay is always active when editing is locked.
-    if (!canEdit) {
-      setIsOverlayActive(true);
-      return;
-    } // Reenable when blocks are not in use.
-
-
-    if (!isParentSelected && !hasChildSelected && !isOverlayActive) {
-      setIsOverlayActive(true);
-    } // Disable if parent selected by another means (such as list view).
-    // We check hover to ensure the overlay click interaction is not taking place.
-    // Trying to click the overlay will select the parent block via its 'focusin'
-    // listener on the wrapper, so if the block is selected while hovered we will
-    // let the mouseup disable the overlay instead.
-
-
-    if (isParentSelected && !isHovered && isOverlayActive) {
-      setIsOverlayActive(false);
-    } // Ensure overlay is disabled if a child block is selected.
-
-
-    if (hasChildSelected && isOverlayActive) {
-      setIsOverlayActive(false);
-    }
-  }, [isParentSelected, hasChildSelected, isOverlayActive, isHovered, canEdit]); // Disabled because the overlay div doesn't actually have a role or functionality
-  // as far as the a11y is concerned. We're just catching the first click so that
-  // the block can be selected without interacting with its contents.
-
-  /* eslint-disable jsx-a11y/no-static-element-interactions */
-
-  return (0,external_wp_element_namespaceObject.createElement)(TagName, _extends({}, wrapperProps, {
-    className: classes,
-    onMouseEnter: () => setIsHovered(true),
-    onMouseLeave: () => setIsHovered(false),
-    onMouseUp: isOverlayActive && canEdit ? () => setIsOverlayActive(false) : undefined
-  }), wrapperProps === null || wrapperProps === void 0 ? void 0 : wrapperProps.children);
 }
-/* eslint-enable jsx-a11y/no-static-element-interactions */
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/color-style-selector/index.js
 
@@ -38465,7 +38658,6 @@ function ListViewDropIndicator(_ref) {
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
-    noArrow: true,
     animate: false,
     getAnchorRect: getAnchorRect,
     focusOnMount: false,
@@ -40089,82 +40281,6 @@ function NonDefaultControls(_ref2) {
   }));
 }
 
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/dropdown.js
-
-
-
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-function ColorGradientSettingsDropdown(_ref) {
-  let {
-    colors,
-    gradients,
-    disableCustomColors,
-    disableCustomGradients,
-    __experimentalHasMultipleOrigins,
-    __experimentalIsRenderedInSidebar,
-    enableAlpha,
-    settings
-  } = _ref;
-  let dropdownPosition;
-
-  if (__experimentalIsRenderedInSidebar) {
-    dropdownPosition = 'bottom left';
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, {
-    isBordered: true,
-    isSeparated: true,
-    className: "block-editor-panel-color-gradient-settings__item-group"
-  }, settings.map((setting, index) => setting && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
-    key: index,
-    position: dropdownPosition,
-    className: "block-editor-panel-color-gradient-settings__dropdown",
-    contentClassName: "block-editor-panel-color-gradient-settings__dropdown-content",
-    renderToggle: _ref2 => {
-      var _setting$gradientValu;
-
-      let {
-        isOpen,
-        onToggle
-      } = _ref2;
-      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItem, {
-        onClick: onToggle,
-        className: classnames_default()('block-editor-panel-color-gradient-settings__item', {
-          'is-open': isOpen
-        })
-      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
-        justify: "flex-start"
-      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
-        className: "block-editor-panel-color-gradient-settings__color-indicator",
-        colorValue: (_setting$gradientValu = setting.gradientValue) !== null && _setting$gradientValu !== void 0 ? _setting$gradientValu : setting.colorValue
-      }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, setting.label)));
-    },
-    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(control, _extends({
-      showTitle: false,
-      colors,
-      gradients,
-      disableCustomColors,
-      disableCustomGradients,
-      __experimentalHasMultipleOrigins,
-      __experimentalIsRenderedInSidebar,
-      enableAlpha
-    }, setting))
-  })));
-}
-
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/panel-color-gradient-settings.js
 
 
@@ -41280,6 +41396,7 @@ const image_editor_constants_POPOVER_PROPS = {
 
 
 
+
 function useSaveImage(_ref) {
   let {
     crop,
@@ -41327,7 +41444,7 @@ function useSaveImage(_ref) {
     }).catch(error => {
       createErrorNotice((0,external_wp_i18n_namespaceObject.sprintf)(
       /* translators: 1. Error message */
-      (0,external_wp_i18n_namespaceObject.__)('Could not edit image. %s'), error.message), {
+      (0,external_wp_i18n_namespaceObject.__)('Could not edit image. %s'), (0,external_wp_dom_namespaceObject.__unstableStripHTML)(error.message)), {
         id: 'image-editing-error',
         type: 'snackbar'
       });
@@ -42368,6 +42485,8 @@ class URLInput extends external_wp_element_namespaceObject.Component {
 
         case external_wp_keycodes_namespaceObject.ENTER:
           {
+            event.preventDefault();
+
             if (this.props.onSubmit) {
               this.props.onSubmit(null, event);
             }
@@ -42415,6 +42534,8 @@ class URLInput extends external_wp_element_namespaceObject.Component {
 
       case external_wp_keycodes_namespaceObject.ENTER:
         {
+          event.preventDefault();
+
           if (this.state.selectedSuggestion !== null) {
             this.selectLink(suggestion);
 
@@ -42575,7 +42696,6 @@ class URLInput extends external_wp_element_namespaceObject.Component {
     if (!(0,external_lodash_namespaceObject.isFunction)(renderSuggestions) && showSuggestions && !!suggestions.length) {
       return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
         position: "bottom",
-        noArrow: true,
         focusOnMount: false
       }, (0,external_wp_element_namespaceObject.createElement)("div", _extends({}, suggestionsListProps, {
         className: classnames_default()('block-editor-url-input__suggestions', `${className}__suggestions`)
@@ -42756,6 +42876,11 @@ function getVisualTypeName(suggestion) {
 // order to handle it as a unique case.
 
 const CREATE_TYPE = '__CREATE__';
+const TEL_TYPE = 'tel';
+const URL_TYPE = 'URL';
+const MAILTO_TYPE = 'mailto';
+const INTERNAL_TYPE = 'internal';
+const LINK_ENTRY_TYPES = [URL_TYPE, MAILTO_TYPE, TEL_TYPE, INTERNAL_TYPE];
 const DEFAULT_LINK_SETTINGS = [{
   id: 'opensInNewTab',
   title: (0,external_wp_i18n_namespaceObject.__)('Open in new tab')
@@ -42800,8 +42925,7 @@ function LinkControlSearchResults(_ref) {
   const resultsListClasses = classnames_default()('block-editor-link-control__search-results', {
     'is-loading': isLoading
   });
-  const directLinkEntryTypes = ['url', 'mailto', 'tel', 'internal'];
-  const isSingleDirectEntryResult = suggestions.length === 1 && directLinkEntryTypes.includes(suggestions[0].type.toLowerCase());
+  const isSingleDirectEntryResult = suggestions.length === 1 && LINK_ENTRY_TYPES.includes(suggestions[0].type);
   const shouldShowCreateSuggestion = withCreateSuggestion && !isSingleDirectEntryResult && !isInitialSuggestions; // If the query has a specified type, then we can skip showing them in the result. See #24839.
 
   const shouldShowSuggestionsTypes = !(suggestionsQuery !== null && suggestionsQuery !== void 0 && suggestionsQuery.type); // According to guidelines aria-label should be added if the label
@@ -42855,7 +42979,7 @@ function LinkControlSearchResults(_ref) {
         handleSuggestionClick(suggestion);
       },
       isSelected: index === selectedSuggestion,
-      isURL: directLinkEntryTypes.includes(suggestion.type.toLowerCase()),
+      isURL: LINK_ENTRY_TYPES.includes(suggestion.type),
       searchTerm: currentInputValue,
       shouldShowType: shouldShowSuggestionsTypes,
       isFrontPage: suggestion === null || suggestion === void 0 ? void 0 : suggestion.isFrontPage
@@ -42911,19 +43035,19 @@ function isURLLike(val) {
 
 const handleNoop = () => Promise.resolve([]);
 const handleDirectEntry = val => {
-  let type = 'URL';
+  let type = URL_TYPE;
   const protocol = (0,external_wp_url_namespaceObject.getProtocol)(val) || '';
 
   if (protocol.includes('mailto')) {
-    type = 'mailto';
+    type = MAILTO_TYPE;
   }
 
   if (protocol.includes('tel')) {
-    type = 'tel';
+    type = TEL_TYPE;
   }
 
   if ((0,external_lodash_namespaceObject.startsWith)(val, '#')) {
-    type = 'internal';
+    type = INTERNAL_TYPE;
   }
 
   return Promise.resolve([{
@@ -44796,7 +44920,6 @@ const FormatToolbarContainer = _ref => {
   if (inline) {
     // Render in popover.
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
-      noArrow: true,
       position: "top center",
       focusOnMount: false,
       anchorRef: anchorRef,
@@ -46249,7 +46372,7 @@ function RichTextWrapper(_ref, forwardedRef) {
     forwardedRef: anchorRef
   })))), isSelected && hasFormats && (0,external_wp_element_namespaceObject.createElement)(format_toolbar_container, {
     inline: inlineToolbar,
-    anchorRef: anchorRef.current
+    anchorRef: anchorRef
   }), (0,external_wp_element_namespaceObject.createElement)(TagName // Overridable props.
   , _extends({
     role: "textbox",
@@ -48461,7 +48584,6 @@ function useNoRecursiveRenders(uniqueId) {
 /*
  * Block Creation Components
  */
-
 
 
 

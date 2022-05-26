@@ -1,6 +1,532 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 3720:
+/***/ (function(module) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 9822:
+/***/ (function(module) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 1588:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(3720);
+
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return arrayLikeToArray(arr);
+}
+
+module.exports = _arrayWithoutHoles;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 9168:
+/***/ (function(module) {
+
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return self;
+}
+
+module.exports = _assertThisInitialized;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 8239:
+/***/ (function(module) {
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+module.exports = _defineProperty;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 6164:
+/***/ (function(module) {
+
+function _extends() {
+  module.exports = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+  return _extends.apply(this, arguments);
+}
+
+module.exports = _extends;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 6856:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var setPrototypeOf = __webpack_require__(4307);
+
+function _inheritsLoose(subClass, superClass) {
+  subClass.prototype = Object.create(superClass.prototype);
+  subClass.prototype.constructor = subClass;
+  setPrototypeOf(subClass, superClass);
+}
+
+module.exports = _inheritsLoose;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 9736:
+/***/ (function(module) {
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : {
+    "default": obj
+  };
+}
+
+module.exports = _interopRequireDefault;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 3805:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var _typeof = (__webpack_require__(8630)["default"]);
+
+function _getRequireWildcardCache(nodeInterop) {
+  if (typeof WeakMap !== "function") return null;
+  var cacheBabelInterop = new WeakMap();
+  var cacheNodeInterop = new WeakMap();
+  return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) {
+    return nodeInterop ? cacheNodeInterop : cacheBabelInterop;
+  })(nodeInterop);
+}
+
+function _interopRequireWildcard(obj, nodeInterop) {
+  if (!nodeInterop && obj && obj.__esModule) {
+    return obj;
+  }
+
+  if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") {
+    return {
+      "default": obj
+    };
+  }
+
+  var cache = _getRequireWildcardCache(nodeInterop);
+
+  if (cache && cache.has(obj)) {
+    return cache.get(obj);
+  }
+
+  var newObj = {};
+  var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor;
+
+  for (var key in obj) {
+    if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) {
+      var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null;
+
+      if (desc && (desc.get || desc.set)) {
+        Object.defineProperty(newObj, key, desc);
+      } else {
+        newObj[key] = obj[key];
+      }
+    }
+  }
+
+  newObj["default"] = obj;
+
+  if (cache) {
+    cache.set(obj, newObj);
+  }
+
+  return newObj;
+}
+
+module.exports = _interopRequireWildcard;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 1325:
+/***/ (function(module) {
+
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+
+module.exports = _iterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 8616:
+/***/ (function(module) {
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 533:
+/***/ (function(module) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 333:
+/***/ (function(module) {
+
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableSpread;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 7509:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var objectWithoutPropertiesLoose = __webpack_require__(9446);
+
+function _objectWithoutProperties(source, excluded) {
+  if (source == null) return {};
+  var target = objectWithoutPropertiesLoose(source, excluded);
+  var key, i;
+
+  if (Object.getOwnPropertySymbols) {
+    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
+
+    for (i = 0; i < sourceSymbolKeys.length; i++) {
+      key = sourceSymbolKeys[i];
+      if (excluded.indexOf(key) >= 0) continue;
+      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
+      target[key] = source[key];
+    }
+  }
+
+  return target;
+}
+
+module.exports = _objectWithoutProperties;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 9446:
+/***/ (function(module) {
+
+function _objectWithoutPropertiesLoose(source, excluded) {
+  if (source == null) return {};
+  var target = {};
+  var sourceKeys = Object.keys(source);
+  var key, i;
+
+  for (i = 0; i < sourceKeys.length; i++) {
+    key = sourceKeys[i];
+    if (excluded.indexOf(key) >= 0) continue;
+    target[key] = source[key];
+  }
+
+  return target;
+}
+
+module.exports = _objectWithoutPropertiesLoose;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 4307:
+/***/ (function(module) {
+
+function _setPrototypeOf(o, p) {
+  module.exports = _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  module.exports["default"] = module.exports, module.exports.__esModule = true;
+  return _setPrototypeOf(o, p);
+}
+
+module.exports = _setPrototypeOf;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 6739:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(9822);
+
+var iterableToArrayLimit = __webpack_require__(8616);
+
+var unsupportedIterableToArray = __webpack_require__(7698);
+
+var nonIterableRest = __webpack_require__(533);
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 8669:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var arrayWithoutHoles = __webpack_require__(1588);
+
+var iterableToArray = __webpack_require__(1325);
+
+var unsupportedIterableToArray = __webpack_require__(7698);
+
+var nonIterableSpread = __webpack_require__(333);
+
+function _toConsumableArray(arr) {
+  return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
+}
+
+module.exports = _toConsumableArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 8630:
+/***/ (function(module) {
+
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    module.exports = _typeof = function _typeof(obj) {
+      return typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  } else {
+    module.exports = _typeof = function _typeof(obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+
+    module.exports["default"] = module.exports, module.exports.__esModule = true;
+  }
+
+  return _typeof(obj);
+}
+
+module.exports = _typeof;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 7698:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(3720);
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray;
+module.exports["default"] = module.exports, module.exports.__esModule = true;
+
+/***/ }),
+
+/***/ 2424:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getComponentName;
+
+var _functionPrototype = _interopRequireDefault(__webpack_require__(2763));
+
+var _reactIs = __webpack_require__(5053);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function getComponentName(Component) {
+  if (typeof Component === 'string') {
+    return Component;
+  }
+
+  if (typeof Component === 'function') {
+    return Component.displayName || (0, _functionPrototype["default"])(Component);
+  }
+
+  if ((0, _reactIs.isForwardRef)({
+    type: Component,
+    $$typeof: _reactIs.Element
+  })) {
+    return Component.displayName;
+  }
+
+  if ((0, _reactIs.isMemo)(Component)) {
+    return getComponentName(Component.type);
+  }
+
+  return null;
+}
+
+
+/***/ }),
+
+/***/ 814:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _isPlainObject = _interopRequireDefault(__webpack_require__(4530));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var _default = _isPlainObject["default"];
+exports["default"] = _default;
+
+
+/***/ }),
+
+/***/ 8622:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = wrapValidator;
+
+var _object = _interopRequireDefault(__webpack_require__(4011));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function wrapValidator(validator, typeName) {
+  var typeChecker = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+  return (0, _object["default"])(validator.bind(), {
+    typeName: typeName,
+    typeChecker: typeChecker,
+    isRequired: (0, _object["default"])(validator.isRequired.bind(), {
+      typeName: typeName,
+      typeChecker: typeChecker,
+      typeRequired: true
+    })
+  });
+}
+
+
+/***/ }),
+
 /***/ 5096:
 /***/ (function(module) {
 
@@ -59,11 +585,408 @@ module.exports = {
 
 /***/ }),
 
+/***/ 9549:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _react = __webpack_require__(9196);
+
+var _isPlainObject = _interopRequireDefault(__webpack_require__(814));
+
+var _wrapValidator = _interopRequireDefault(__webpack_require__(8622));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+var isPrototypeOf = Object.prototype.isPrototypeOf;
+
+function isNewRef(prop) {
+  if (!(0, _isPlainObject["default"])(prop)) {
+    return false;
+  }
+
+  var ownProperties = Object.keys(prop);
+  return ownProperties.length === 1 && ownProperties[0] === 'current';
+}
+
+function isCallbackRef(prop) {
+  return typeof prop === 'function' && !isPrototypeOf.call(_react.Component, prop) && (!_react.PureComponent || !isPrototypeOf.call(_react.PureComponent, prop));
+}
+
+function requiredRef(props, propName, componentName) {
+  var propValue = props[propName];
+
+  if (isCallbackRef(propValue) || isNewRef(propValue)) {
+    return null;
+  }
+
+  return new TypeError("".concat(propName, " in ").concat(componentName, " must be a ref"));
+}
+
+function ref(props, propName, componentName) {
+  var propValue = props[propName];
+
+  if (propValue == null) {
+    return null;
+  }
+
+  for (var _len = arguments.length, rest = new Array(_len > 3 ? _len - 3 : 0), _key = 3; _key < _len; _key++) {
+    rest[_key - 3] = arguments[_key];
+  }
+
+  return requiredRef.apply(void 0, [props, propName, componentName].concat(rest));
+}
+
+ref.isRequired = requiredRef;
+
+var _default = function _default() {
+  return (0, _wrapValidator["default"])(ref, 'ref');
+};
+
+exports["default"] = _default;
+
+
+/***/ }),
+
 /***/ 4882:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 module.exports =  true ? __webpack_require__(5096) : 0;
 
+
+
+/***/ }),
+
+/***/ 2507:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var keys = __webpack_require__(806);
+var hasSymbols = typeof Symbol === 'function' && typeof Symbol('foo') === 'symbol';
+
+var toStr = Object.prototype.toString;
+var concat = Array.prototype.concat;
+var origDefineProperty = Object.defineProperty;
+
+var isFunction = function (fn) {
+	return typeof fn === 'function' && toStr.call(fn) === '[object Function]';
+};
+
+var arePropertyDescriptorsSupported = function () {
+	var obj = {};
+	try {
+		origDefineProperty(obj, 'x', { enumerable: false, value: obj });
+		// eslint-disable-next-line no-unused-vars, no-restricted-syntax
+		for (var _ in obj) { // jscs:ignore disallowUnusedVariables
+			return false;
+		}
+		return obj.x === obj;
+	} catch (e) { /* this is IE 8. */
+		return false;
+	}
+};
+var supportsDescriptors = origDefineProperty && arePropertyDescriptorsSupported();
+
+var defineProperty = function (object, name, value, predicate) {
+	if (name in object && (!isFunction(predicate) || !predicate())) {
+		return;
+	}
+	if (supportsDescriptors) {
+		origDefineProperty(object, name, {
+			configurable: true,
+			enumerable: false,
+			value: value,
+			writable: true
+		});
+	} else {
+		object[name] = value;
+	}
+};
+
+var defineProperties = function (object, map) {
+	var predicates = arguments.length > 2 ? arguments[2] : {};
+	var props = keys(map);
+	if (hasSymbols) {
+		props = concat.call(props, Object.getOwnPropertySymbols(map));
+	}
+	for (var i = 0; i < props.length; i += 1) {
+		defineProperty(object, props[i], map[props[i]], predicates[props[i]]);
+	}
+};
+
+defineProperties.supportsDescriptors = !!supportsDescriptors;
+
+module.exports = defineProperties;
+
+
+/***/ }),
+
+/***/ 6003:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var IsCallable = __webpack_require__(1535);
+var functionsHaveNames = __webpack_require__(7105)();
+var callBound = __webpack_require__(7615);
+var $functionToString = callBound('Function.prototype.toString');
+var $stringMatch = callBound('String.prototype.match');
+
+var classRegex = /^class /;
+
+var isClass = function isClassConstructor(fn) {
+	if (IsCallable(fn)) {
+		return false;
+	}
+	if (typeof fn !== 'function') {
+		return false;
+	}
+	try {
+		var match = $stringMatch($functionToString(fn), classRegex);
+		return !!match;
+	} catch (e) {}
+	return false;
+};
+
+var regex = /\s*function\s+([^(\s]*)\s*/;
+
+var functionProto = Function.prototype;
+
+module.exports = function getName() {
+	if (!isClass(this) && !IsCallable(this)) {
+		throw new TypeError('Function.prototype.name sham getter called on non-function');
+	}
+	if (functionsHaveNames) {
+		return this.name;
+	}
+	if (this === functionProto) {
+		return '';
+	}
+	var str = $functionToString(this);
+	var match = $stringMatch(str, regex);
+	var name = match && match[1];
+	return name;
+};
+
+
+/***/ }),
+
+/***/ 2763:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var define = __webpack_require__(2507);
+var callBind = __webpack_require__(2550);
+
+var implementation = __webpack_require__(6003);
+var getPolyfill = __webpack_require__(9154);
+var shim = __webpack_require__(8722);
+
+var bound = callBind(implementation);
+
+define(bound, {
+	getPolyfill: getPolyfill,
+	implementation: implementation,
+	shim: shim
+});
+
+module.exports = bound;
+
+
+/***/ }),
+
+/***/ 1535:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+// http://ecma-international.org/ecma-262/5.1/#sec-9.11
+
+module.exports = __webpack_require__(7720);
+
+
+/***/ }),
+
+/***/ 9154:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var implementation = __webpack_require__(6003);
+
+module.exports = function getPolyfill() {
+	return implementation;
+};
+
+
+/***/ }),
+
+/***/ 8722:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var supportsDescriptors = (__webpack_require__(2507).supportsDescriptors);
+var functionsHaveNames = __webpack_require__(7105)();
+var getPolyfill = __webpack_require__(9154);
+var defineProperty = Object.defineProperty;
+var TypeErr = TypeError;
+
+module.exports = function shimName() {
+	var polyfill = getPolyfill();
+	if (functionsHaveNames) {
+		return polyfill;
+	}
+	if (!supportsDescriptors) {
+		throw new TypeErr('Shimming Function.prototype.name support requires ES5 property descriptor support.');
+	}
+	var functionProto = Function.prototype;
+	defineProperty(functionProto, 'name', {
+		configurable: true,
+		enumerable: false,
+		get: function () {
+			var name = polyfill.call(this);
+			if (this !== functionProto) {
+				defineProperty(this, 'name', {
+					configurable: true,
+					enumerable: false,
+					value: name,
+					writable: false
+				});
+			}
+			return name;
+		}
+	});
+	return polyfill;
+};
+
+
+/***/ }),
+
+/***/ 7720:
+/***/ (function(module) {
+
+"use strict";
+
+
+var fnToStr = Function.prototype.toString;
+var reflectApply = typeof Reflect === 'object' && Reflect !== null && Reflect.apply;
+var badArrayLike;
+var isCallableMarker;
+if (typeof reflectApply === 'function' && typeof Object.defineProperty === 'function') {
+	try {
+		badArrayLike = Object.defineProperty({}, 'length', {
+			get: function () {
+				throw isCallableMarker;
+			}
+		});
+		isCallableMarker = {};
+		// eslint-disable-next-line no-throw-literal
+		reflectApply(function () { throw 42; }, null, badArrayLike);
+	} catch (_) {
+		if (_ !== isCallableMarker) {
+			reflectApply = null;
+		}
+	}
+} else {
+	reflectApply = null;
+}
+
+var constructorRegex = /^\s*class\b/;
+var isES6ClassFn = function isES6ClassFunction(value) {
+	try {
+		var fnStr = fnToStr.call(value);
+		return constructorRegex.test(fnStr);
+	} catch (e) {
+		return false; // not a function
+	}
+};
+
+var tryFunctionObject = function tryFunctionToStr(value) {
+	try {
+		if (isES6ClassFn(value)) { return false; }
+		fnToStr.call(value);
+		return true;
+	} catch (e) {
+		return false;
+	}
+};
+var toStr = Object.prototype.toString;
+var fnClass = '[object Function]';
+var genClass = '[object GeneratorFunction]';
+var hasToStringTag = typeof Symbol === 'function' && typeof Symbol.toStringTag === 'symbol';
+
+module.exports = reflectApply
+	? function isCallable(value) {
+		if (!value) { return false; }
+		if (typeof value !== 'function' && typeof value !== 'object') { return false; }
+		if (typeof value === 'function' && !value.prototype) { return true; }
+		try {
+			reflectApply(value, null, badArrayLike);
+		} catch (e) {
+			if (e !== isCallableMarker) { return false; }
+		}
+		return !isES6ClassFn(value);
+	}
+	: function isCallable(value) {
+		if (!value) { return false; }
+		if (typeof value !== 'function' && typeof value !== 'object') { return false; }
+		if (typeof value === 'function' && !value.prototype) { return true; }
+		if (hasToStringTag) { return tryFunctionObject(value); }
+		if (isES6ClassFn(value)) { return false; }
+		var strClass = toStr.call(value);
+		return strClass === fnClass || strClass === genClass;
+	};
+
+
+/***/ }),
+
+/***/ 4536:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+/** @license React v16.13.1
+ * react-is.production.min.js
+ *
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?
+Symbol.for("react.suspense_list"):60120,r=b?Symbol.for("react.memo"):60115,t=b?Symbol.for("react.lazy"):60116,v=b?Symbol.for("react.block"):60121,w=b?Symbol.for("react.fundamental"):60117,x=b?Symbol.for("react.responder"):60118,y=b?Symbol.for("react.scope"):60119;
+function z(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case t:case r:case h:return a;default:return u}}case d:return u}}}function A(a){return z(a)===m}exports.AsyncMode=l;exports.ConcurrentMode=m;exports.ContextConsumer=k;exports.ContextProvider=h;exports.Element=c;exports.ForwardRef=n;exports.Fragment=e;exports.Lazy=t;exports.Memo=r;exports.Portal=d;
+exports.Profiler=g;exports.StrictMode=f;exports.Suspense=p;exports.isAsyncMode=function(a){return A(a)||z(a)===l};exports.isConcurrentMode=A;exports.isContextConsumer=function(a){return z(a)===k};exports.isContextProvider=function(a){return z(a)===h};exports.isElement=function(a){return"object"===typeof a&&null!==a&&a.$$typeof===c};exports.isForwardRef=function(a){return z(a)===n};exports.isFragment=function(a){return z(a)===e};exports.isLazy=function(a){return z(a)===t};
+exports.isMemo=function(a){return z(a)===r};exports.isPortal=function(a){return z(a)===d};exports.isProfiler=function(a){return z(a)===g};exports.isStrictMode=function(a){return z(a)===f};exports.isSuspense=function(a){return z(a)===p};
+exports.isValidElementType=function(a){return"string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||a===q||"object"===typeof a&&null!==a&&(a.$$typeof===t||a.$$typeof===r||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n||a.$$typeof===w||a.$$typeof===x||a.$$typeof===y||a.$$typeof===v)};exports.typeOf=z;
+
+
+/***/ }),
+
+/***/ 5053:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+if (true) {
+  module.exports = __webpack_require__(4536);
+} else {}
 
 
 /***/ }),
@@ -1426,6 +2349,93 @@ __webpack_unused_export__=y;
 if (true) {
   /* unused reexport */ __webpack_require__(9214);
 } else {}
+
+
+/***/ }),
+
+/***/ 1980:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports["default"] = shallowEqual;
+
+var _objectIs = __webpack_require__(3803);
+
+var _objectIs2 = _interopRequireDefault(_objectIs);
+
+var _has = __webpack_require__(9284);
+
+var _has2 = _interopRequireDefault(_has);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// adapted from https://github.com/facebook/react/blob/144328fe81719e916b946e22660479e31561bb0b/packages/shared/shallowEqual.js#L36-L68
+function shallowEqual(objA, objB) {
+  if ((0, _objectIs2['default'])(objA, objB)) {
+    return true;
+  }
+
+  if (!objA || !objB || (typeof objA === 'undefined' ? 'undefined' : _typeof(objA)) !== 'object' || (typeof objB === 'undefined' ? 'undefined' : _typeof(objB)) !== 'object') {
+    return false;
+  }
+
+  var keysA = Object.keys(objA);
+  var keysB = Object.keys(objB);
+
+  if (keysA.length !== keysB.length) {
+    return false;
+  }
+
+  keysA.sort();
+  keysB.sort();
+
+  // Test for A's keys different from B.
+  for (var i = 0; i < keysA.length; i += 1) {
+    if (!(0, _has2['default'])(objB, keysA[i]) || !(0, _objectIs2['default'])(objA[keysA[i]], objB[keysA[i]])) {
+      return false;
+    }
+  }
+
+  return true;
+}
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbmRleC5qcyJdLCJuYW1lcyI6WyJzaGFsbG93RXF1YWwiLCJvYmpBIiwib2JqQiIsImtleXNBIiwiT2JqZWN0Iiwia2V5cyIsImtleXNCIiwibGVuZ3RoIiwic29ydCIsImkiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7O3FCQUl3QkEsWTs7QUFKeEI7Ozs7QUFDQTs7Ozs7O0FBRUE7QUFDZSxTQUFTQSxZQUFULENBQXNCQyxJQUF0QixFQUE0QkMsSUFBNUIsRUFBa0M7QUFDL0MsTUFBSSwyQkFBR0QsSUFBSCxFQUFTQyxJQUFULENBQUosRUFBb0I7QUFDbEIsV0FBTyxJQUFQO0FBQ0Q7O0FBRUQsTUFBSSxDQUFDRCxJQUFELElBQVMsQ0FBQ0MsSUFBVixJQUFrQixRQUFPRCxJQUFQLHlDQUFPQSxJQUFQLE9BQWdCLFFBQWxDLElBQThDLFFBQU9DLElBQVAseUNBQU9BLElBQVAsT0FBZ0IsUUFBbEUsRUFBNEU7QUFDMUUsV0FBTyxLQUFQO0FBQ0Q7O0FBRUQsTUFBTUMsUUFBUUMsT0FBT0MsSUFBUCxDQUFZSixJQUFaLENBQWQ7QUFDQSxNQUFNSyxRQUFRRixPQUFPQyxJQUFQLENBQVlILElBQVosQ0FBZDs7QUFFQSxNQUFJQyxNQUFNSSxNQUFOLEtBQWlCRCxNQUFNQyxNQUEzQixFQUFtQztBQUNqQyxXQUFPLEtBQVA7QUFDRDs7QUFFREosUUFBTUssSUFBTjtBQUNBRixRQUFNRSxJQUFOOztBQUVBO0FBQ0EsT0FBSyxJQUFJQyxJQUFJLENBQWIsRUFBZ0JBLElBQUlOLE1BQU1JLE1BQTFCLEVBQWtDRSxLQUFLLENBQXZDLEVBQTBDO0FBQ3hDLFFBQUksQ0FBQyxzQkFBSVAsSUFBSixFQUFVQyxNQUFNTSxDQUFOLENBQVYsQ0FBRCxJQUF3QixDQUFDLDJCQUFHUixLQUFLRSxNQUFNTSxDQUFOLENBQUwsQ0FBSCxFQUFtQlAsS0FBS0MsTUFBTU0sQ0FBTixDQUFMLENBQW5CLENBQTdCLEVBQWlFO0FBQy9ELGFBQU8sS0FBUDtBQUNEO0FBQ0Y7O0FBRUQsU0FBTyxJQUFQO0FBQ0QiLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgaXMgZnJvbSAnb2JqZWN0LWlzJztcbmltcG9ydCBoYXMgZnJvbSAnaGFzJztcblxuLy8gYWRhcHRlZCBmcm9tIGh0dHBzOi8vZ2l0aHViLmNvbS9mYWNlYm9vay9yZWFjdC9ibG9iLzE0NDMyOGZlODE3MTllOTE2Yjk0NmUyMjY2MDQ3OWUzMTU2MWJiMGIvcGFja2FnZXMvc2hhcmVkL3NoYWxsb3dFcXVhbC5qcyNMMzYtTDY4XG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBzaGFsbG93RXF1YWwob2JqQSwgb2JqQikge1xuICBpZiAoaXMob2JqQSwgb2JqQikpIHtcbiAgICByZXR1cm4gdHJ1ZTtcbiAgfVxuXG4gIGlmICghb2JqQSB8fCAhb2JqQiB8fCB0eXBlb2Ygb2JqQSAhPT0gJ29iamVjdCcgfHwgdHlwZW9mIG9iakIgIT09ICdvYmplY3QnKSB7XG4gICAgcmV0dXJuIGZhbHNlO1xuICB9XG5cbiAgY29uc3Qga2V5c0EgPSBPYmplY3Qua2V5cyhvYmpBKTtcbiAgY29uc3Qga2V5c0IgPSBPYmplY3Qua2V5cyhvYmpCKTtcblxuICBpZiAoa2V5c0EubGVuZ3RoICE9PSBrZXlzQi5sZW5ndGgpIHtcbiAgICByZXR1cm4gZmFsc2U7XG4gIH1cblxuICBrZXlzQS5zb3J0KCk7XG4gIGtleXNCLnNvcnQoKTtcblxuICAvLyBUZXN0IGZvciBBJ3Mga2V5cyBkaWZmZXJlbnQgZnJvbSBCLlxuICBmb3IgKGxldCBpID0gMDsgaSA8IGtleXNBLmxlbmd0aDsgaSArPSAxKSB7XG4gICAgaWYgKCFoYXMob2JqQiwga2V5c0FbaV0pIHx8ICFpcyhvYmpBW2tleXNBW2ldXSwgb2JqQltrZXlzQVtpXV0pKSB7XG4gICAgICByZXR1cm4gZmFsc2U7XG4gICAgfVxuICB9XG5cbiAgcmV0dXJuIHRydWU7XG59XG4iXX0=
+
+
+/***/ }),
+
+/***/ 3803:
+/***/ (function(module) {
+
+"use strict";
+
+
+// http://www.ecma-international.org/ecma-262/6.0/#sec-object.is
+
+var numberIsNaN = function (value) {
+	return value !== value;
+};
+
+module.exports = function is(a, b) {
+	if (a === 0 && b === 0) {
+		return 1 / a === 1 / b;
+	}
+	if (a === b) {
+		return true;
+	}
+	if (numberIsNaN(a) && numberIsNaN(b)) {
+		return true;
+	}
+	return false;
+};
+
 
 
 /***/ }),
@@ -3088,6 +4098,41 @@ module.exports = Function.prototype.bind || implementation;
 
 /***/ }),
 
+/***/ 7105:
+/***/ (function(module) {
+
+"use strict";
+
+
+var functionsHaveNames = function functionsHaveNames() {
+	return typeof function f() {}.name === 'string';
+};
+
+var gOPD = Object.getOwnPropertyDescriptor;
+if (gOPD) {
+	try {
+		gOPD([], 'length');
+	} catch (e) {
+		// IE 8 has a broken gOPD
+		gOPD = null;
+	}
+}
+
+functionsHaveNames.functionsHaveConfigurableNames = function functionsHaveConfigurableNames() {
+	return functionsHaveNames() && gOPD && !!gOPD(function () {}, 'name').configurable;
+};
+
+var $bind = Function.prototype.bind;
+
+functionsHaveNames.boundFunctionsHaveNames = function boundFunctionsHaveNames() {
+	return functionsHaveNames() && typeof $bind === 'function' && function f() {}.bind().name !== '';
+};
+
+module.exports = functionsHaveNames;
+
+
+/***/ }),
+
 /***/ 1801:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
@@ -4744,7 +5789,7 @@ module.exports = trimmedEndIndex;
 
 var isObject = __webpack_require__(3619),
     now = __webpack_require__(8253),
-    toNumber = __webpack_require__(5053);
+    toNumber = __webpack_require__(4360);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -5153,7 +6198,7 @@ module.exports = throttle;
 
 /***/ }),
 
-/***/ 5053:
+/***/ 4360:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 var baseTrim = __webpack_require__(2383),
@@ -5930,6 +6975,66 @@ module.exports = function shimValues() {
 
 /***/ }),
 
+/***/ 6279:
+/***/ (function(module) {
+
+// Generated by CoffeeScript 1.12.2
+(function() {
+  var getNanoSeconds, hrtime, loadTime, moduleLoadTime, nodeLoadTime, upTime;
+
+  if ((typeof performance !== "undefined" && performance !== null) && performance.now) {
+    module.exports = function() {
+      return performance.now();
+    };
+  } else if ((typeof process !== "undefined" && process !== null) && process.hrtime) {
+    module.exports = function() {
+      return (getNanoSeconds() - nodeLoadTime) / 1e6;
+    };
+    hrtime = process.hrtime;
+    getNanoSeconds = function() {
+      var hr;
+      hr = hrtime();
+      return hr[0] * 1e9 + hr[1];
+    };
+    moduleLoadTime = getNanoSeconds();
+    upTime = process.uptime() * 1e9;
+    nodeLoadTime = moduleLoadTime - upTime;
+  } else if (Date.now) {
+    module.exports = function() {
+      return Date.now() - loadTime;
+    };
+    loadTime = Date.now();
+  } else {
+    module.exports = function() {
+      return new Date().getTime() - loadTime;
+    };
+    loadTime = new Date().getTime();
+  }
+
+}).call(this);
+
+
+
+/***/ }),
+
+/***/ 4530:
+/***/ (function(module, exports) {
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports["default"] = isPlainObject;
+function isPlainObject(x) {
+  return x && (typeof x === 'undefined' ? 'undefined' : _typeof(x)) === 'object' && !Array.isArray(x);
+}
+module.exports = exports['default'];
+
+
+/***/ }),
+
 /***/ 5372:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
@@ -6041,7211 +7146,85 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 
-/***/ 2541:
-/***/ (function(module) {
+/***/ 1666:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
-"use strict";
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * @providesModule shallowCompare
- */
+var now = __webpack_require__(6279)
+  , root = typeof window === 'undefined' ? __webpack_require__.g : window
+  , vendors = ['moz', 'webkit']
+  , suffix = 'AnimationFrame'
+  , raf = root['request' + suffix]
+  , caf = root['cancel' + suffix] || root['cancelRequest' + suffix]
 
-
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-/**
- * inlined Object.is polyfill to avoid requiring consumers ship their own
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
- */
-function is(x, y) {
-  // SameValue algorithm
-  if (x === y) {
-    // Steps 1-5, 7-10
-    // Steps 6.b-6.e: +0 != -0
-    // Added the nonzero y check to make Flow happy, but it is redundant
-    return x !== 0 || y !== 0 || 1 / x === 1 / y;
-  } else {
-    // Step 6.a: NaN == NaN
-    return x !== x && y !== y;
-  }
+for(var i = 0; !raf && i < vendors.length; i++) {
+  raf = root[vendors[i] + 'Request' + suffix]
+  caf = root[vendors[i] + 'Cancel' + suffix]
+      || root[vendors[i] + 'CancelRequest' + suffix]
 }
 
-/**
- * Performs equality by iterating through keys on an object and returning false
- * when any key has values which are not strictly equal between the arguments.
- * Returns true when the values of all keys are strictly equal.
- */
-function shallowEqual(objA, objB) {
-  if (is(objA, objB)) {
-    return true;
-  }
-
-  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
-    return false;
-  }
-
-  var keysA = Object.keys(objA);
-  var keysB = Object.keys(objB);
-
-  if (keysA.length !== keysB.length) {
-    return false;
-  }
-
-  // Test for A's keys different from B.
-  for (var i = 0; i < keysA.length; i++) {
-    if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-/**
- * Does a shallow comparison for props and state.
- * See ReactComponentWithPureRenderMixin
- * See also https://facebook.github.io/react/docs/shallow-compare.html
- */
-function shallowCompare(instance, nextProps, nextState) {
-  return (
-    !shallowEqual(instance.props, nextProps) ||
-    !shallowEqual(instance.state, nextState)
-  );
-}
-
-module.exports = shallowCompare;
-
-
-/***/ }),
-
-/***/ 4185:
-/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
-
-// eslint-disable-next-line import/no-unresolved
-__webpack_require__(17);
-
-
-/***/ }),
-
-/***/ 7617:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.PureCalendarDay = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _object = __webpack_require__(4011);
-
-var _object2 = _interopRequireDefault(_object);
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactAddonsShallowCompare = __webpack_require__(2541);
-
-var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
-
-var _reactMomentProptypes = __webpack_require__(6150);
-
-var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
-
-var _airbnbPropTypes = __webpack_require__(4882);
-
-var _reactWithStyles = __webpack_require__(3576);
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _defaultPhrases = __webpack_require__(6030);
-
-var _getPhrasePropTypes = __webpack_require__(2893);
-
-var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
-
-var _getCalendarDaySettings = __webpack_require__(7475);
-
-var _getCalendarDaySettings2 = _interopRequireDefault(_getCalendarDaySettings);
-
-var _ModifiersShape = __webpack_require__(6747);
-
-var _ModifiersShape2 = _interopRequireDefault(_ModifiersShape);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var propTypes = (0, _airbnbPropTypes.forbidExtraProps)((0, _object2['default'])({}, _reactWithStyles.withStylesPropTypes, {
-  day: _reactMomentProptypes2['default'].momentObj,
-  daySize: _airbnbPropTypes.nonNegativeInteger,
-  isOutsideDay: _propTypes2['default'].bool,
-  modifiers: _ModifiersShape2['default'],
-  isFocused: _propTypes2['default'].bool,
-  tabIndex: _propTypes2['default'].oneOf([0, -1]),
-  onDayClick: _propTypes2['default'].func,
-  onDayMouseEnter: _propTypes2['default'].func,
-  onDayMouseLeave: _propTypes2['default'].func,
-  renderDayContents: _propTypes2['default'].func,
-  ariaLabelFormat: _propTypes2['default'].string,
-
-  // internationalization
-  phrases: _propTypes2['default'].shape((0, _getPhrasePropTypes2['default'])(_defaultPhrases.CalendarDayPhrases))
-}));
-
-var defaultProps = {
-  day: (0, _moment2['default'])(),
-  daySize: _constants.DAY_SIZE,
-  isOutsideDay: false,
-  modifiers: new Set(),
-  isFocused: false,
-  tabIndex: -1,
-  onDayClick: function () {
-    function onDayClick() {}
-
-    return onDayClick;
-  }(),
-  onDayMouseEnter: function () {
-    function onDayMouseEnter() {}
-
-    return onDayMouseEnter;
-  }(),
-  onDayMouseLeave: function () {
-    function onDayMouseLeave() {}
-
-    return onDayMouseLeave;
-  }(),
-
-  renderDayContents: null,
-  ariaLabelFormat: 'dddd, LL',
-
-  // internationalization
-  phrases: _defaultPhrases.CalendarDayPhrases
-};
-
-var CalendarDay = function (_React$Component) {
-  _inherits(CalendarDay, _React$Component);
-
-  function CalendarDay() {
-    var _ref;
-
-    _classCallCheck(this, CalendarDay);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    var _this = _possibleConstructorReturn(this, (_ref = CalendarDay.__proto__ || Object.getPrototypeOf(CalendarDay)).call.apply(_ref, [this].concat(args)));
-
-    _this.setButtonRef = _this.setButtonRef.bind(_this);
-    return _this;
-  }
-
-  _createClass(CalendarDay, [{
-    key: 'shouldComponentUpdate',
-    value: function () {
-      function shouldComponentUpdate(nextProps, nextState) {
-        return (0, _reactAddonsShallowCompare2['default'])(this, nextProps, nextState);
-      }
-
-      return shouldComponentUpdate;
-    }()
-  }, {
-    key: 'componentDidUpdate',
-    value: function () {
-      function componentDidUpdate(prevProps) {
-        var _props = this.props,
-            isFocused = _props.isFocused,
-            tabIndex = _props.tabIndex;
-
-        if (tabIndex === 0) {
-          if (isFocused || tabIndex !== prevProps.tabIndex) {
-            this.buttonRef.focus();
-          }
-        }
-      }
-
-      return componentDidUpdate;
-    }()
-  }, {
-    key: 'onDayClick',
-    value: function () {
-      function onDayClick(day, e) {
-        var onDayClick = this.props.onDayClick;
-
-        onDayClick(day, e);
-      }
-
-      return onDayClick;
-    }()
-  }, {
-    key: 'onDayMouseEnter',
-    value: function () {
-      function onDayMouseEnter(day, e) {
-        var onDayMouseEnter = this.props.onDayMouseEnter;
-
-        onDayMouseEnter(day, e);
-      }
-
-      return onDayMouseEnter;
-    }()
-  }, {
-    key: 'onDayMouseLeave',
-    value: function () {
-      function onDayMouseLeave(day, e) {
-        var onDayMouseLeave = this.props.onDayMouseLeave;
-
-        onDayMouseLeave(day, e);
-      }
-
-      return onDayMouseLeave;
-    }()
-  }, {
-    key: 'onKeyDown',
-    value: function () {
-      function onKeyDown(day, e) {
-        var onDayClick = this.props.onDayClick;
-        var key = e.key;
-
-        if (key === 'Enter' || key === ' ') {
-          onDayClick(day, e);
-        }
-      }
-
-      return onKeyDown;
-    }()
-  }, {
-    key: 'setButtonRef',
-    value: function () {
-      function setButtonRef(ref) {
-        this.buttonRef = ref;
-      }
-
-      return setButtonRef;
-    }()
-  }, {
-    key: 'render',
-    value: function () {
-      function render() {
-        var _this2 = this;
-
-        var _props2 = this.props,
-            day = _props2.day,
-            ariaLabelFormat = _props2.ariaLabelFormat,
-            daySize = _props2.daySize,
-            isOutsideDay = _props2.isOutsideDay,
-            modifiers = _props2.modifiers,
-            renderDayContents = _props2.renderDayContents,
-            tabIndex = _props2.tabIndex,
-            styles = _props2.styles,
-            phrases = _props2.phrases;
-
-
-        if (!day) return _react2['default'].createElement('td', null);
-
-        var _getCalendarDaySettin = (0, _getCalendarDaySettings2['default'])(day, ariaLabelFormat, daySize, modifiers, phrases),
-            daySizeStyles = _getCalendarDaySettin.daySizeStyles,
-            useDefaultCursor = _getCalendarDaySettin.useDefaultCursor,
-            selected = _getCalendarDaySettin.selected,
-            hoveredSpan = _getCalendarDaySettin.hoveredSpan,
-            isOutsideRange = _getCalendarDaySettin.isOutsideRange,
-            ariaLabel = _getCalendarDaySettin.ariaLabel;
-
-        return _react2['default'].createElement(
-          'td',
-          _extends({}, (0, _reactWithStyles.css)(styles.CalendarDay, useDefaultCursor && styles.CalendarDay__defaultCursor, styles.CalendarDay__default, isOutsideDay && styles.CalendarDay__outside, modifiers.has('today') && styles.CalendarDay__today, modifiers.has('first-day-of-week') && styles.CalendarDay__firstDayOfWeek, modifiers.has('last-day-of-week') && styles.CalendarDay__lastDayOfWeek, modifiers.has('hovered-offset') && styles.CalendarDay__hovered_offset, modifiers.has('highlighted-calendar') && styles.CalendarDay__highlighted_calendar, modifiers.has('blocked-minimum-nights') && styles.CalendarDay__blocked_minimum_nights, modifiers.has('blocked-calendar') && styles.CalendarDay__blocked_calendar, hoveredSpan && styles.CalendarDay__hovered_span, modifiers.has('selected-span') && styles.CalendarDay__selected_span, modifiers.has('last-in-range') && styles.CalendarDay__last_in_range, modifiers.has('selected-start') && styles.CalendarDay__selected_start, modifiers.has('selected-end') && styles.CalendarDay__selected_end, selected && styles.CalendarDay__selected, isOutsideRange && styles.CalendarDay__blocked_out_of_range, daySizeStyles), {
-            role: 'button' // eslint-disable-line jsx-a11y/no-noninteractive-element-to-interactive-role
-            , ref: this.setButtonRef,
-            'aria-label': ariaLabel,
-            onMouseEnter: function () {
-              function onMouseEnter(e) {
-                _this2.onDayMouseEnter(day, e);
-              }
-
-              return onMouseEnter;
-            }(),
-            onMouseLeave: function () {
-              function onMouseLeave(e) {
-                _this2.onDayMouseLeave(day, e);
-              }
-
-              return onMouseLeave;
-            }(),
-            onMouseUp: function () {
-              function onMouseUp(e) {
-                e.currentTarget.blur();
-              }
-
-              return onMouseUp;
-            }(),
-            onClick: function () {
-              function onClick(e) {
-                _this2.onDayClick(day, e);
-              }
-
-              return onClick;
-            }(),
-            onKeyDown: function () {
-              function onKeyDown(e) {
-                _this2.onKeyDown(day, e);
-              }
-
-              return onKeyDown;
-            }(),
-            tabIndex: tabIndex
-          }),
-          renderDayContents ? renderDayContents(day, modifiers) : day.format('D')
-        );
-      }
-
-      return render;
-    }()
-  }]);
-
-  return CalendarDay;
-}(_react2['default'].Component);
-
-CalendarDay.propTypes = propTypes;
-CalendarDay.defaultProps = defaultProps;
-
-exports.PureCalendarDay = CalendarDay;
-exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
-  var _ref2$reactDates = _ref2.reactDates,
-      color = _ref2$reactDates.color,
-      font = _ref2$reactDates.font;
-  return {
-    CalendarDay: {
-      boxSizing: 'border-box',
-      cursor: 'pointer',
-      fontSize: font.size,
-      textAlign: 'center',
-
-      ':active': {
-        outline: 0
-      }
-    },
-
-    CalendarDay__defaultCursor: {
-      cursor: 'default'
-    },
-
-    CalendarDay__default: {
-      border: '1px solid ' + String(color.core.borderLight),
-      color: color.text,
-      background: color.background,
-
-      ':hover': {
-        background: color.core.borderLight,
-        border: '1px double ' + String(color.core.borderLight),
-        color: 'inherit'
-      }
-    },
-
-    CalendarDay__hovered_offset: {
-      background: color.core.borderBright,
-      border: '1px double ' + String(color.core.borderLight),
-      color: 'inherit'
-    },
-
-    CalendarDay__outside: {
-      border: 0,
-      background: color.outside.backgroundColor,
-      color: color.outside.color,
-
-      ':hover': {
-        border: 0
-      }
-    },
-
-    CalendarDay__blocked_minimum_nights: {
-      background: color.minimumNights.backgroundColor,
-      border: '1px solid ' + String(color.minimumNights.borderColor),
-      color: color.minimumNights.color,
-
-      ':hover': {
-        background: color.minimumNights.backgroundColor_hover,
-        color: color.minimumNights.color_active
-      },
-
-      ':active': {
-        background: color.minimumNights.backgroundColor_active,
-        color: color.minimumNights.color_active
-      }
-    },
-
-    CalendarDay__highlighted_calendar: {
-      background: color.highlighted.backgroundColor,
-      color: color.highlighted.color,
-
-      ':hover': {
-        background: color.highlighted.backgroundColor_hover,
-        color: color.highlighted.color_active
-      },
-
-      ':active': {
-        background: color.highlighted.backgroundColor_active,
-        color: color.highlighted.color_active
-      }
-    },
-
-    CalendarDay__selected_span: {
-      background: color.selectedSpan.backgroundColor,
-      border: '1px solid ' + String(color.selectedSpan.borderColor),
-      color: color.selectedSpan.color,
-
-      ':hover': {
-        background: color.selectedSpan.backgroundColor_hover,
-        border: '1px solid ' + String(color.selectedSpan.borderColor),
-        color: color.selectedSpan.color_active
-      },
-
-      ':active': {
-        background: color.selectedSpan.backgroundColor_active,
-        border: '1px solid ' + String(color.selectedSpan.borderColor),
-        color: color.selectedSpan.color_active
-      }
-    },
-
-    CalendarDay__last_in_range: {
-      borderRight: color.core.primary
-    },
-
-    CalendarDay__selected: {
-      background: color.selected.backgroundColor,
-      border: '1px solid ' + String(color.selected.borderColor),
-      color: color.selected.color,
-
-      ':hover': {
-        background: color.selected.backgroundColor_hover,
-        border: '1px solid ' + String(color.selected.borderColor),
-        color: color.selected.color_active
-      },
-
-      ':active': {
-        background: color.selected.backgroundColor_active,
-        border: '1px solid ' + String(color.selected.borderColor),
-        color: color.selected.color_active
-      }
-    },
-
-    CalendarDay__hovered_span: {
-      background: color.hoveredSpan.backgroundColor,
-      border: '1px solid ' + String(color.hoveredSpan.borderColor),
-      color: color.hoveredSpan.color,
-
-      ':hover': {
-        background: color.hoveredSpan.backgroundColor_hover,
-        border: '1px solid ' + String(color.hoveredSpan.borderColor),
-        color: color.hoveredSpan.color_active
-      },
-
-      ':active': {
-        background: color.hoveredSpan.backgroundColor_active,
-        border: '1px solid ' + String(color.hoveredSpan.borderColor),
-        color: color.hoveredSpan.color_active
-      }
-    },
-
-    CalendarDay__blocked_calendar: {
-      background: color.blocked_calendar.backgroundColor,
-      border: '1px solid ' + String(color.blocked_calendar.borderColor),
-      color: color.blocked_calendar.color,
-
-      ':hover': {
-        background: color.blocked_calendar.backgroundColor_hover,
-        border: '1px solid ' + String(color.blocked_calendar.borderColor),
-        color: color.blocked_calendar.color_active
-      },
-
-      ':active': {
-        background: color.blocked_calendar.backgroundColor_active,
-        border: '1px solid ' + String(color.blocked_calendar.borderColor),
-        color: color.blocked_calendar.color_active
-      }
-    },
-
-    CalendarDay__blocked_out_of_range: {
-      background: color.blocked_out_of_range.backgroundColor,
-      border: '1px solid ' + String(color.blocked_out_of_range.borderColor),
-      color: color.blocked_out_of_range.color,
-
-      ':hover': {
-        background: color.blocked_out_of_range.backgroundColor_hover,
-        border: '1px solid ' + String(color.blocked_out_of_range.borderColor),
-        color: color.blocked_out_of_range.color_active
-      },
-
-      ':active': {
-        background: color.blocked_out_of_range.backgroundColor_active,
-        border: '1px solid ' + String(color.blocked_out_of_range.borderColor),
-        color: color.blocked_out_of_range.color_active
-      }
-    },
-
-    CalendarDay__selected_start: {},
-    CalendarDay__selected_end: {},
-    CalendarDay__today: {},
-    CalendarDay__firstDayOfWeek: {},
-    CalendarDay__lastDayOfWeek: {}
-  };
-})(CalendarDay);
-
-/***/ }),
-
-/***/ 5986:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _object = __webpack_require__(4011);
-
-var _object2 = _interopRequireDefault(_object);
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactAddonsShallowCompare = __webpack_require__(2541);
-
-var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
-
-var _reactMomentProptypes = __webpack_require__(6150);
-
-var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
-
-var _airbnbPropTypes = __webpack_require__(4882);
-
-var _reactWithStyles = __webpack_require__(3576);
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _defaultPhrases = __webpack_require__(6030);
-
-var _getPhrasePropTypes = __webpack_require__(2893);
-
-var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
-
-var _CalendarWeek = __webpack_require__(4604);
-
-var _CalendarWeek2 = _interopRequireDefault(_CalendarWeek);
-
-var _CalendarDay = __webpack_require__(7617);
-
-var _CalendarDay2 = _interopRequireDefault(_CalendarDay);
-
-var _calculateDimension = __webpack_require__(8607);
-
-var _calculateDimension2 = _interopRequireDefault(_calculateDimension);
-
-var _getCalendarMonthWeeks = __webpack_require__(5644);
-
-var _getCalendarMonthWeeks2 = _interopRequireDefault(_getCalendarMonthWeeks);
-
-var _isSameDay = __webpack_require__(3923);
-
-var _isSameDay2 = _interopRequireDefault(_isSameDay);
-
-var _toISODateString = __webpack_require__(1688);
-
-var _toISODateString2 = _interopRequireDefault(_toISODateString);
-
-var _ModifiersShape = __webpack_require__(6747);
-
-var _ModifiersShape2 = _interopRequireDefault(_ModifiersShape);
-
-var _ScrollableOrientationShape = __webpack_require__(6553);
-
-var _ScrollableOrientationShape2 = _interopRequireDefault(_ScrollableOrientationShape);
-
-var _DayOfWeekShape = __webpack_require__(243);
-
-var _DayOfWeekShape2 = _interopRequireDefault(_DayOfWeekShape);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint react/no-array-index-key: 0 */
-
-var propTypes = (0, _airbnbPropTypes.forbidExtraProps)((0, _object2['default'])({}, _reactWithStyles.withStylesPropTypes, {
-  month: _reactMomentProptypes2['default'].momentObj,
-  horizontalMonthPadding: _airbnbPropTypes.nonNegativeInteger,
-  isVisible: _propTypes2['default'].bool,
-  enableOutsideDays: _propTypes2['default'].bool,
-  modifiers: _propTypes2['default'].objectOf(_ModifiersShape2['default']),
-  orientation: _ScrollableOrientationShape2['default'],
-  daySize: _airbnbPropTypes.nonNegativeInteger,
-  onDayClick: _propTypes2['default'].func,
-  onDayMouseEnter: _propTypes2['default'].func,
-  onDayMouseLeave: _propTypes2['default'].func,
-  onMonthSelect: _propTypes2['default'].func,
-  onYearSelect: _propTypes2['default'].func,
-  renderMonthText: (0, _airbnbPropTypes.mutuallyExclusiveProps)(_propTypes2['default'].func, 'renderMonthText', 'renderMonthElement'),
-  renderCalendarDay: _propTypes2['default'].func,
-  renderDayContents: _propTypes2['default'].func,
-  renderMonthElement: (0, _airbnbPropTypes.mutuallyExclusiveProps)(_propTypes2['default'].func, 'renderMonthText', 'renderMonthElement'),
-  firstDayOfWeek: _DayOfWeekShape2['default'],
-  setMonthTitleHeight: _propTypes2['default'].func,
-  verticalBorderSpacing: _airbnbPropTypes.nonNegativeInteger,
-
-  focusedDate: _reactMomentProptypes2['default'].momentObj, // indicates focusable day
-  isFocused: _propTypes2['default'].bool, // indicates whether or not to move focus to focusable day
-
-  // i18n
-  monthFormat: _propTypes2['default'].string,
-  phrases: _propTypes2['default'].shape((0, _getPhrasePropTypes2['default'])(_defaultPhrases.CalendarDayPhrases)),
-  dayAriaLabelFormat: _propTypes2['default'].string
-}));
-
-var defaultProps = {
-  month: (0, _moment2['default'])(),
-  horizontalMonthPadding: 13,
-  isVisible: true,
-  enableOutsideDays: false,
-  modifiers: {},
-  orientation: _constants.HORIZONTAL_ORIENTATION,
-  daySize: _constants.DAY_SIZE,
-  onDayClick: function () {
-    function onDayClick() {}
-
-    return onDayClick;
-  }(),
-  onDayMouseEnter: function () {
-    function onDayMouseEnter() {}
-
-    return onDayMouseEnter;
-  }(),
-  onDayMouseLeave: function () {
-    function onDayMouseLeave() {}
-
-    return onDayMouseLeave;
-  }(),
-  onMonthSelect: function () {
-    function onMonthSelect() {}
-
-    return onMonthSelect;
-  }(),
-  onYearSelect: function () {
-    function onYearSelect() {}
-
-    return onYearSelect;
-  }(),
-
-  renderMonthText: null,
-  renderCalendarDay: function () {
-    function renderCalendarDay(props) {
-      return _react2['default'].createElement(_CalendarDay2['default'], props);
-    }
-
-    return renderCalendarDay;
-  }(),
-  renderDayContents: null,
-  renderMonthElement: null,
-  firstDayOfWeek: null,
-  setMonthTitleHeight: null,
-
-  focusedDate: null,
-  isFocused: false,
-
-  // i18n
-  monthFormat: 'MMMM YYYY', // english locale
-  phrases: _defaultPhrases.CalendarDayPhrases,
-  dayAriaLabelFormat: undefined,
-  verticalBorderSpacing: undefined
-};
-
-var CalendarMonth = function (_React$Component) {
-  _inherits(CalendarMonth, _React$Component);
-
-  function CalendarMonth(props) {
-    _classCallCheck(this, CalendarMonth);
-
-    var _this = _possibleConstructorReturn(this, (CalendarMonth.__proto__ || Object.getPrototypeOf(CalendarMonth)).call(this, props));
-
-    _this.state = {
-      weeks: (0, _getCalendarMonthWeeks2['default'])(props.month, props.enableOutsideDays, props.firstDayOfWeek == null ? _moment2['default'].localeData().firstDayOfWeek() : props.firstDayOfWeek)
-    };
-
-    _this.setCaptionRef = _this.setCaptionRef.bind(_this);
-    _this.setMonthTitleHeight = _this.setMonthTitleHeight.bind(_this);
-    return _this;
-  }
-
-  _createClass(CalendarMonth, [{
-    key: 'componentDidMount',
-    value: function () {
-      function componentDidMount() {
-        this.setMonthTitleHeightTimeout = setTimeout(this.setMonthTitleHeight, 0);
-      }
-
-      return componentDidMount;
-    }()
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function () {
-      function componentWillReceiveProps(nextProps) {
-        var month = nextProps.month,
-            enableOutsideDays = nextProps.enableOutsideDays,
-            firstDayOfWeek = nextProps.firstDayOfWeek;
-        var _props = this.props,
-            prevMonth = _props.month,
-            prevEnableOutsideDays = _props.enableOutsideDays,
-            prevFirstDayOfWeek = _props.firstDayOfWeek;
-
-        if (!month.isSame(prevMonth) || enableOutsideDays !== prevEnableOutsideDays || firstDayOfWeek !== prevFirstDayOfWeek) {
-          this.setState({
-            weeks: (0, _getCalendarMonthWeeks2['default'])(month, enableOutsideDays, firstDayOfWeek == null ? _moment2['default'].localeData().firstDayOfWeek() : firstDayOfWeek)
-          });
-        }
-      }
-
-      return componentWillReceiveProps;
-    }()
-  }, {
-    key: 'shouldComponentUpdate',
-    value: function () {
-      function shouldComponentUpdate(nextProps, nextState) {
-        return (0, _reactAddonsShallowCompare2['default'])(this, nextProps, nextState);
-      }
-
-      return shouldComponentUpdate;
-    }()
-  }, {
-    key: 'componentWillUnmount',
-    value: function () {
-      function componentWillUnmount() {
-        if (this.setMonthTitleHeightTimeout) {
-          clearTimeout(this.setMonthTitleHeightTimeout);
-        }
-      }
-
-      return componentWillUnmount;
-    }()
-  }, {
-    key: 'setMonthTitleHeight',
-    value: function () {
-      function setMonthTitleHeight() {
-        var setMonthTitleHeight = this.props.setMonthTitleHeight;
-
-        if (setMonthTitleHeight) {
-          var captionHeight = (0, _calculateDimension2['default'])(this.captionRef, 'height', true, true);
-          setMonthTitleHeight(captionHeight);
-        }
-      }
-
-      return setMonthTitleHeight;
-    }()
-  }, {
-    key: 'setCaptionRef',
-    value: function () {
-      function setCaptionRef(ref) {
-        this.captionRef = ref;
-      }
-
-      return setCaptionRef;
-    }()
-  }, {
-    key: 'render',
-    value: function () {
-      function render() {
-        var _props2 = this.props,
-            dayAriaLabelFormat = _props2.dayAriaLabelFormat,
-            daySize = _props2.daySize,
-            focusedDate = _props2.focusedDate,
-            horizontalMonthPadding = _props2.horizontalMonthPadding,
-            isFocused = _props2.isFocused,
-            isVisible = _props2.isVisible,
-            modifiers = _props2.modifiers,
-            month = _props2.month,
-            monthFormat = _props2.monthFormat,
-            onDayClick = _props2.onDayClick,
-            onDayMouseEnter = _props2.onDayMouseEnter,
-            onDayMouseLeave = _props2.onDayMouseLeave,
-            onMonthSelect = _props2.onMonthSelect,
-            onYearSelect = _props2.onYearSelect,
-            orientation = _props2.orientation,
-            phrases = _props2.phrases,
-            renderCalendarDay = _props2.renderCalendarDay,
-            renderDayContents = _props2.renderDayContents,
-            renderMonthElement = _props2.renderMonthElement,
-            renderMonthText = _props2.renderMonthText,
-            styles = _props2.styles,
-            verticalBorderSpacing = _props2.verticalBorderSpacing;
-        var weeks = this.state.weeks;
-
-        var monthTitle = renderMonthText ? renderMonthText(month) : month.format(monthFormat);
-
-        var verticalScrollable = orientation === _constants.VERTICAL_SCROLLABLE;
-
-        return _react2['default'].createElement(
-          'div',
-          _extends({}, (0, _reactWithStyles.css)(styles.CalendarMonth, { padding: '0 ' + String(horizontalMonthPadding) + 'px' }), {
-            'data-visible': isVisible
-          }),
-          _react2['default'].createElement(
-            'div',
-            _extends({
-              ref: this.setCaptionRef
-            }, (0, _reactWithStyles.css)(styles.CalendarMonth_caption, verticalScrollable && styles.CalendarMonth_caption__verticalScrollable)),
-            renderMonthElement ? renderMonthElement({ month: month, onMonthSelect: onMonthSelect, onYearSelect: onYearSelect }) : _react2['default'].createElement(
-              'strong',
-              null,
-              monthTitle
-            )
-          ),
-          _react2['default'].createElement(
-            'table',
-            _extends({}, (0, _reactWithStyles.css)(!verticalBorderSpacing && styles.CalendarMonth_table, verticalBorderSpacing && styles.CalendarMonth_verticalSpacing, verticalBorderSpacing && { borderSpacing: '0px ' + String(verticalBorderSpacing) + 'px' }), {
-              role: 'presentation'
-            }),
-            _react2['default'].createElement(
-              'tbody',
-              null,
-              weeks.map(function (week, i) {
-                return _react2['default'].createElement(
-                  _CalendarWeek2['default'],
-                  { key: i },
-                  week.map(function (day, dayOfWeek) {
-                    return renderCalendarDay({
-                      key: dayOfWeek,
-                      day: day,
-                      daySize: daySize,
-                      isOutsideDay: !day || day.month() !== month.month(),
-                      tabIndex: isVisible && (0, _isSameDay2['default'])(day, focusedDate) ? 0 : -1,
-                      isFocused: isFocused,
-                      onDayMouseEnter: onDayMouseEnter,
-                      onDayMouseLeave: onDayMouseLeave,
-                      onDayClick: onDayClick,
-                      renderDayContents: renderDayContents,
-                      phrases: phrases,
-                      modifiers: modifiers[(0, _toISODateString2['default'])(day)],
-                      ariaLabelFormat: dayAriaLabelFormat
-                    });
-                  })
-                );
-              })
-            )
-          )
-        );
-      }
-
-      return render;
-    }()
-  }]);
-
-  return CalendarMonth;
-}(_react2['default'].Component);
-
-CalendarMonth.propTypes = propTypes;
-CalendarMonth.defaultProps = defaultProps;
-
-exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref) {
-  var _ref$reactDates = _ref.reactDates,
-      color = _ref$reactDates.color,
-      font = _ref$reactDates.font,
-      spacing = _ref$reactDates.spacing;
-  return {
-    CalendarMonth: {
-      background: color.background,
-      textAlign: 'center',
-      verticalAlign: 'top',
-      userSelect: 'none'
-    },
-
-    CalendarMonth_table: {
-      borderCollapse: 'collapse',
-      borderSpacing: 0
-    },
-
-    CalendarMonth_verticalSpacing: {
-      borderCollapse: 'separate'
-    },
-
-    CalendarMonth_caption: {
-      color: color.text,
-      fontSize: font.captionSize,
-      textAlign: 'center',
-      paddingTop: spacing.captionPaddingTop,
-      paddingBottom: spacing.captionPaddingBottom,
-      captionSide: 'initial'
-    },
-
-    CalendarMonth_caption__verticalScrollable: {
-      paddingTop: 12,
-      paddingBottom: 7
-    }
-  };
-})(CalendarMonth);
-
-/***/ }),
-
-/***/ 7938:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _object = __webpack_require__(4011);
-
-var _object2 = _interopRequireDefault(_object);
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactAddonsShallowCompare = __webpack_require__(2541);
-
-var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
-
-var _reactMomentProptypes = __webpack_require__(6150);
-
-var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
-
-var _airbnbPropTypes = __webpack_require__(4882);
-
-var _reactWithStyles = __webpack_require__(3576);
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _consolidatedEvents = __webpack_require__(8495);
-
-var _defaultPhrases = __webpack_require__(6030);
-
-var _getPhrasePropTypes = __webpack_require__(2893);
-
-var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
-
-var _CalendarMonth = __webpack_require__(5986);
-
-var _CalendarMonth2 = _interopRequireDefault(_CalendarMonth);
-
-var _isTransitionEndSupported = __webpack_require__(7978);
-
-var _isTransitionEndSupported2 = _interopRequireDefault(_isTransitionEndSupported);
-
-var _getTransformStyles = __webpack_require__(8304);
-
-var _getTransformStyles2 = _interopRequireDefault(_getTransformStyles);
-
-var _getCalendarMonthWidth = __webpack_require__(8964);
-
-var _getCalendarMonthWidth2 = _interopRequireDefault(_getCalendarMonthWidth);
-
-var _toISOMonthString = __webpack_require__(2705);
-
-var _toISOMonthString2 = _interopRequireDefault(_toISOMonthString);
-
-var _isPrevMonth = __webpack_require__(3858);
-
-var _isPrevMonth2 = _interopRequireDefault(_isPrevMonth);
-
-var _isNextMonth = __webpack_require__(1310);
-
-var _isNextMonth2 = _interopRequireDefault(_isNextMonth);
-
-var _ModifiersShape = __webpack_require__(6747);
-
-var _ModifiersShape2 = _interopRequireDefault(_ModifiersShape);
-
-var _ScrollableOrientationShape = __webpack_require__(6553);
-
-var _ScrollableOrientationShape2 = _interopRequireDefault(_ScrollableOrientationShape);
-
-var _DayOfWeekShape = __webpack_require__(243);
-
-var _DayOfWeekShape2 = _interopRequireDefault(_DayOfWeekShape);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var propTypes = (0, _airbnbPropTypes.forbidExtraProps)((0, _object2['default'])({}, _reactWithStyles.withStylesPropTypes, {
-  enableOutsideDays: _propTypes2['default'].bool,
-  firstVisibleMonthIndex: _propTypes2['default'].number,
-  horizontalMonthPadding: _airbnbPropTypes.nonNegativeInteger,
-  initialMonth: _reactMomentProptypes2['default'].momentObj,
-  isAnimating: _propTypes2['default'].bool,
-  numberOfMonths: _propTypes2['default'].number,
-  modifiers: _propTypes2['default'].objectOf(_propTypes2['default'].objectOf(_ModifiersShape2['default'])),
-  orientation: _ScrollableOrientationShape2['default'],
-  onDayClick: _propTypes2['default'].func,
-  onDayMouseEnter: _propTypes2['default'].func,
-  onDayMouseLeave: _propTypes2['default'].func,
-  onMonthTransitionEnd: _propTypes2['default'].func,
-  onMonthChange: _propTypes2['default'].func,
-  onYearChange: _propTypes2['default'].func,
-  renderMonthText: (0, _airbnbPropTypes.mutuallyExclusiveProps)(_propTypes2['default'].func, 'renderMonthText', 'renderMonthElement'),
-  renderCalendarDay: _propTypes2['default'].func,
-  renderDayContents: _propTypes2['default'].func,
-  translationValue: _propTypes2['default'].number,
-  renderMonthElement: (0, _airbnbPropTypes.mutuallyExclusiveProps)(_propTypes2['default'].func, 'renderMonthText', 'renderMonthElement'),
-  daySize: _airbnbPropTypes.nonNegativeInteger,
-  focusedDate: _reactMomentProptypes2['default'].momentObj, // indicates focusable day
-  isFocused: _propTypes2['default'].bool, // indicates whether or not to move focus to focusable day
-  firstDayOfWeek: _DayOfWeekShape2['default'],
-  setMonthTitleHeight: _propTypes2['default'].func,
-  isRTL: _propTypes2['default'].bool,
-  transitionDuration: _airbnbPropTypes.nonNegativeInteger,
-  verticalBorderSpacing: _airbnbPropTypes.nonNegativeInteger,
-
-  // i18n
-  monthFormat: _propTypes2['default'].string,
-  phrases: _propTypes2['default'].shape((0, _getPhrasePropTypes2['default'])(_defaultPhrases.CalendarDayPhrases)),
-  dayAriaLabelFormat: _propTypes2['default'].string
-}));
-
-var defaultProps = {
-  enableOutsideDays: false,
-  firstVisibleMonthIndex: 0,
-  horizontalMonthPadding: 13,
-  initialMonth: (0, _moment2['default'])(),
-  isAnimating: false,
-  numberOfMonths: 1,
-  modifiers: {},
-  orientation: _constants.HORIZONTAL_ORIENTATION,
-  onDayClick: function () {
-    function onDayClick() {}
-
-    return onDayClick;
-  }(),
-  onDayMouseEnter: function () {
-    function onDayMouseEnter() {}
-
-    return onDayMouseEnter;
-  }(),
-  onDayMouseLeave: function () {
-    function onDayMouseLeave() {}
-
-    return onDayMouseLeave;
-  }(),
-  onMonthChange: function () {
-    function onMonthChange() {}
-
-    return onMonthChange;
-  }(),
-  onYearChange: function () {
-    function onYearChange() {}
-
-    return onYearChange;
-  }(),
-  onMonthTransitionEnd: function () {
-    function onMonthTransitionEnd() {}
-
-    return onMonthTransitionEnd;
-  }(),
-
-  renderMonthText: null,
-  renderCalendarDay: undefined,
-  renderDayContents: null,
-  translationValue: null,
-  renderMonthElement: null,
-  daySize: _constants.DAY_SIZE,
-  focusedDate: null,
-  isFocused: false,
-  firstDayOfWeek: null,
-  setMonthTitleHeight: null,
-  isRTL: false,
-  transitionDuration: 200,
-  verticalBorderSpacing: undefined,
-
-  // i18n
-  monthFormat: 'MMMM YYYY', // english locale
-  phrases: _defaultPhrases.CalendarDayPhrases,
-  dayAriaLabelFormat: undefined
-};
-
-function getMonths(initialMonth, numberOfMonths, withoutTransitionMonths) {
-  var month = initialMonth.clone();
-  if (!withoutTransitionMonths) month = month.subtract(1, 'month');
-
-  var months = [];
-  for (var i = 0; i < (withoutTransitionMonths ? numberOfMonths : numberOfMonths + 2); i += 1) {
-    months.push(month);
-    month = month.clone().add(1, 'month');
-  }
-
-  return months;
-}
-
-var CalendarMonthGrid = function (_React$Component) {
-  _inherits(CalendarMonthGrid, _React$Component);
-
-  function CalendarMonthGrid(props) {
-    _classCallCheck(this, CalendarMonthGrid);
-
-    var _this = _possibleConstructorReturn(this, (CalendarMonthGrid.__proto__ || Object.getPrototypeOf(CalendarMonthGrid)).call(this, props));
-
-    var withoutTransitionMonths = props.orientation === _constants.VERTICAL_SCROLLABLE;
-    _this.state = {
-      months: getMonths(props.initialMonth, props.numberOfMonths, withoutTransitionMonths)
-    };
-
-    _this.isTransitionEndSupported = (0, _isTransitionEndSupported2['default'])();
-    _this.onTransitionEnd = _this.onTransitionEnd.bind(_this);
-    _this.setContainerRef = _this.setContainerRef.bind(_this);
-
-    _this.locale = _moment2['default'].locale();
-    _this.onMonthSelect = _this.onMonthSelect.bind(_this);
-    _this.onYearSelect = _this.onYearSelect.bind(_this);
-    return _this;
-  }
-
-  _createClass(CalendarMonthGrid, [{
-    key: 'componentDidMount',
-    value: function () {
-      function componentDidMount() {
-        this.removeEventListener = (0, _consolidatedEvents.addEventListener)(this.container, 'transitionend', this.onTransitionEnd);
-      }
-
-      return componentDidMount;
-    }()
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function () {
-      function componentWillReceiveProps(nextProps) {
-        var _this2 = this;
-
-        var initialMonth = nextProps.initialMonth,
-            numberOfMonths = nextProps.numberOfMonths,
-            orientation = nextProps.orientation;
-        var months = this.state.months;
-        var _props = this.props,
-            prevInitialMonth = _props.initialMonth,
-            prevNumberOfMonths = _props.numberOfMonths;
-
-        var hasMonthChanged = !prevInitialMonth.isSame(initialMonth, 'month');
-        var hasNumberOfMonthsChanged = prevNumberOfMonths !== numberOfMonths;
-        var newMonths = months;
-
-        if (hasMonthChanged && !hasNumberOfMonthsChanged) {
-          if ((0, _isNextMonth2['default'])(prevInitialMonth, initialMonth)) {
-            newMonths = months.slice(1);
-            newMonths.push(months[months.length - 1].clone().add(1, 'month'));
-          } else if ((0, _isPrevMonth2['default'])(prevInitialMonth, initialMonth)) {
-            newMonths = months.slice(0, months.length - 1);
-            newMonths.unshift(months[0].clone().subtract(1, 'month'));
-          } else {
-            var withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
-            newMonths = getMonths(initialMonth, numberOfMonths, withoutTransitionMonths);
-          }
-        }
-
-        if (hasNumberOfMonthsChanged) {
-          var _withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
-          newMonths = getMonths(initialMonth, numberOfMonths, _withoutTransitionMonths);
-        }
-
-        var momentLocale = _moment2['default'].locale();
-        if (this.locale !== momentLocale) {
-          this.locale = momentLocale;
-          newMonths = newMonths.map(function (m) {
-            return m.locale(_this2.locale);
-          });
-        }
-
-        this.setState({
-          months: newMonths
-        });
-      }
-
-      return componentWillReceiveProps;
-    }()
-  }, {
-    key: 'shouldComponentUpdate',
-    value: function () {
-      function shouldComponentUpdate(nextProps, nextState) {
-        return (0, _reactAddonsShallowCompare2['default'])(this, nextProps, nextState);
-      }
-
-      return shouldComponentUpdate;
-    }()
-  }, {
-    key: 'componentDidUpdate',
-    value: function () {
-      function componentDidUpdate() {
-        var _props2 = this.props,
-            isAnimating = _props2.isAnimating,
-            transitionDuration = _props2.transitionDuration,
-            onMonthTransitionEnd = _props2.onMonthTransitionEnd;
-
-        // For IE9, immediately call onMonthTransitionEnd instead of
-        // waiting for the animation to complete. Similarly, if transitionDuration
-        // is set to 0, also immediately invoke the onMonthTransitionEnd callback
-
-        if ((!this.isTransitionEndSupported || !transitionDuration) && isAnimating) {
-          onMonthTransitionEnd();
-        }
-      }
-
-      return componentDidUpdate;
-    }()
-  }, {
-    key: 'componentWillUnmount',
-    value: function () {
-      function componentWillUnmount() {
-        if (this.removeEventListener) this.removeEventListener();
-      }
-
-      return componentWillUnmount;
-    }()
-  }, {
-    key: 'onTransitionEnd',
-    value: function () {
-      function onTransitionEnd() {
-        var onMonthTransitionEnd = this.props.onMonthTransitionEnd;
-
-        onMonthTransitionEnd();
-      }
-
-      return onTransitionEnd;
-    }()
-  }, {
-    key: 'onMonthSelect',
-    value: function () {
-      function onMonthSelect(currentMonth, newMonthVal) {
-        var newMonth = currentMonth.clone();
-        var _props3 = this.props,
-            onMonthChange = _props3.onMonthChange,
-            orientation = _props3.orientation;
-        var months = this.state.months;
-
-        var withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
-        var initialMonthSubtraction = months.indexOf(currentMonth);
-        if (!withoutTransitionMonths) {
-          initialMonthSubtraction -= 1;
-        }
-        newMonth.set('month', newMonthVal).subtract(initialMonthSubtraction, 'months');
-        onMonthChange(newMonth);
-      }
-
-      return onMonthSelect;
-    }()
-  }, {
-    key: 'onYearSelect',
-    value: function () {
-      function onYearSelect(currentMonth, newYearVal) {
-        var newMonth = currentMonth.clone();
-        var _props4 = this.props,
-            onYearChange = _props4.onYearChange,
-            orientation = _props4.orientation;
-        var months = this.state.months;
-
-        var withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
-        var initialMonthSubtraction = months.indexOf(currentMonth);
-        if (!withoutTransitionMonths) {
-          initialMonthSubtraction -= 1;
-        }
-        newMonth.set('year', newYearVal).subtract(initialMonthSubtraction, 'months');
-        onYearChange(newMonth);
-      }
-
-      return onYearSelect;
-    }()
-  }, {
-    key: 'setContainerRef',
-    value: function () {
-      function setContainerRef(ref) {
-        this.container = ref;
-      }
-
-      return setContainerRef;
-    }()
-  }, {
-    key: 'render',
-    value: function () {
-      function render() {
-        var _this3 = this;
-
-        var _props5 = this.props,
-            enableOutsideDays = _props5.enableOutsideDays,
-            firstVisibleMonthIndex = _props5.firstVisibleMonthIndex,
-            horizontalMonthPadding = _props5.horizontalMonthPadding,
-            isAnimating = _props5.isAnimating,
-            modifiers = _props5.modifiers,
-            numberOfMonths = _props5.numberOfMonths,
-            monthFormat = _props5.monthFormat,
-            orientation = _props5.orientation,
-            translationValue = _props5.translationValue,
-            daySize = _props5.daySize,
-            onDayMouseEnter = _props5.onDayMouseEnter,
-            onDayMouseLeave = _props5.onDayMouseLeave,
-            onDayClick = _props5.onDayClick,
-            renderMonthText = _props5.renderMonthText,
-            renderCalendarDay = _props5.renderCalendarDay,
-            renderDayContents = _props5.renderDayContents,
-            renderMonthElement = _props5.renderMonthElement,
-            onMonthTransitionEnd = _props5.onMonthTransitionEnd,
-            firstDayOfWeek = _props5.firstDayOfWeek,
-            focusedDate = _props5.focusedDate,
-            isFocused = _props5.isFocused,
-            isRTL = _props5.isRTL,
-            styles = _props5.styles,
-            phrases = _props5.phrases,
-            dayAriaLabelFormat = _props5.dayAriaLabelFormat,
-            transitionDuration = _props5.transitionDuration,
-            verticalBorderSpacing = _props5.verticalBorderSpacing,
-            setMonthTitleHeight = _props5.setMonthTitleHeight;
-        var months = this.state.months;
-
-        var isVertical = orientation === _constants.VERTICAL_ORIENTATION;
-        var isVerticalScrollable = orientation === _constants.VERTICAL_SCROLLABLE;
-        var isHorizontal = orientation === _constants.HORIZONTAL_ORIENTATION;
-
-        var calendarMonthWidth = (0, _getCalendarMonthWidth2['default'])(daySize, horizontalMonthPadding);
-
-        var width = isVertical || isVerticalScrollable ? calendarMonthWidth : (numberOfMonths + 2) * calendarMonthWidth;
-
-        var transformType = isVertical || isVerticalScrollable ? 'translateY' : 'translateX';
-        var transformValue = transformType + '(' + String(translationValue) + 'px)';
-
-        return _react2['default'].createElement(
-          'div',
-          _extends({}, (0, _reactWithStyles.css)(styles.CalendarMonthGrid, isHorizontal && styles.CalendarMonthGrid__horizontal, isVertical && styles.CalendarMonthGrid__vertical, isVerticalScrollable && styles.CalendarMonthGrid__vertical_scrollable, isAnimating && styles.CalendarMonthGrid__animating, isAnimating && transitionDuration && {
-            transition: 'transform ' + String(transitionDuration) + 'ms ease-in-out'
-          }, (0, _object2['default'])({}, (0, _getTransformStyles2['default'])(transformValue), {
-            width: width
-          })), {
-            ref: this.setContainerRef,
-            onTransitionEnd: onMonthTransitionEnd
-          }),
-          months.map(function (month, i) {
-            var isVisible = i >= firstVisibleMonthIndex && i < firstVisibleMonthIndex + numberOfMonths;
-            var hideForAnimation = i === 0 && !isVisible;
-            var showForAnimation = i === 0 && isAnimating && isVisible;
-            var monthString = (0, _toISOMonthString2['default'])(month);
-            return _react2['default'].createElement(
-              'div',
-              _extends({
-                key: monthString
-              }, (0, _reactWithStyles.css)(isHorizontal && styles.CalendarMonthGrid_month__horizontal, hideForAnimation && styles.CalendarMonthGrid_month__hideForAnimation, showForAnimation && !isVertical && !isRTL && {
-                position: 'absolute',
-                left: -calendarMonthWidth
-              }, showForAnimation && !isVertical && isRTL && {
-                position: 'absolute',
-                right: 0
-              }, showForAnimation && isVertical && {
-                position: 'absolute',
-                top: -translationValue
-              }, !isVisible && !isAnimating && styles.CalendarMonthGrid_month__hidden)),
-              _react2['default'].createElement(_CalendarMonth2['default'], {
-                month: month,
-                isVisible: isVisible,
-                enableOutsideDays: enableOutsideDays,
-                modifiers: modifiers[monthString],
-                monthFormat: monthFormat,
-                orientation: orientation,
-                onDayMouseEnter: onDayMouseEnter,
-                onDayMouseLeave: onDayMouseLeave,
-                onDayClick: onDayClick,
-                onMonthSelect: _this3.onMonthSelect,
-                onYearSelect: _this3.onYearSelect,
-                renderMonthText: renderMonthText,
-                renderCalendarDay: renderCalendarDay,
-                renderDayContents: renderDayContents,
-                renderMonthElement: renderMonthElement,
-                firstDayOfWeek: firstDayOfWeek,
-                daySize: daySize,
-                focusedDate: isVisible ? focusedDate : null,
-                isFocused: isFocused,
-                phrases: phrases,
-                setMonthTitleHeight: setMonthTitleHeight,
-                dayAriaLabelFormat: dayAriaLabelFormat,
-                verticalBorderSpacing: verticalBorderSpacing,
-                horizontalMonthPadding: horizontalMonthPadding
-              })
-            );
-          })
-        );
-      }
-
-      return render;
-    }()
-  }]);
-
-  return CalendarMonthGrid;
-}(_react2['default'].Component);
-
-CalendarMonthGrid.propTypes = propTypes;
-CalendarMonthGrid.defaultProps = defaultProps;
-
-exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref) {
-  var _ref$reactDates = _ref.reactDates,
-      color = _ref$reactDates.color,
-      noScrollBarOnVerticalScrollable = _ref$reactDates.noScrollBarOnVerticalScrollable,
-      spacing = _ref$reactDates.spacing,
-      zIndex = _ref$reactDates.zIndex;
-  return {
-    CalendarMonthGrid: {
-      background: color.background,
-      textAlign: 'left',
-      zIndex: zIndex
-    },
-
-    CalendarMonthGrid__animating: {
-      zIndex: zIndex + 1
-    },
-
-    CalendarMonthGrid__horizontal: {
-      position: 'absolute',
-      left: spacing.dayPickerHorizontalPadding
-    },
-
-    CalendarMonthGrid__vertical: {
-      margin: '0 auto'
-    },
-
-    CalendarMonthGrid__vertical_scrollable: (0, _object2['default'])({
-      margin: '0 auto',
-      overflowY: 'scroll'
-    }, noScrollBarOnVerticalScrollable && {
-      '-webkitOverflowScrolling': 'touch',
-      '::-webkit-scrollbar': {
-        '-webkit-appearance': 'none',
-        display: 'none'
-      }
-    }),
-
-    CalendarMonthGrid_month__horizontal: {
-      display: 'inline-block',
-      verticalAlign: 'top',
-      minHeight: '100%'
-    },
-
-    CalendarMonthGrid_month__hideForAnimation: {
-      position: 'absolute',
-      zIndex: zIndex - 1,
-      opacity: 0,
-      pointerEvents: 'none'
-    },
-
-    CalendarMonthGrid_month__hidden: {
-      visibility: 'hidden'
-    }
-  };
-})(CalendarMonthGrid);
-
-/***/ }),
-
-/***/ 4604:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = CalendarWeek;
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _airbnbPropTypes = __webpack_require__(4882);
-
-var _CalendarDay = __webpack_require__(7617);
-
-var _CalendarDay2 = _interopRequireDefault(_CalendarDay);
-
-var _CustomizableCalendarDay = __webpack_require__(6698);
-
-var _CustomizableCalendarDay2 = _interopRequireDefault(_CustomizableCalendarDay);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var propTypes = (0, _airbnbPropTypes.forbidExtraProps)({
-  children: (0, _airbnbPropTypes.or)([(0, _airbnbPropTypes.childrenOfType)(_CalendarDay2['default']), (0, _airbnbPropTypes.childrenOfType)(_CustomizableCalendarDay2['default'])]).isRequired
-});
-
-function CalendarWeek(_ref) {
-  var children = _ref.children;
-
-  return _react2['default'].createElement(
-    'tr',
-    null,
-    children
-  );
-}
-
-CalendarWeek.propTypes = propTypes;
-
-/***/ }),
-
-/***/ 9588:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var ChevronDown = function () {
-  function ChevronDown(props) {
-    return _react2['default'].createElement(
-      'svg',
-      props,
-      _react2['default'].createElement('path', {
-        d: 'M967.5 288.5L514.3 740.7c-11 11-21 11-32 0L29.1 288.5c-4-5-6-11-6-16 0-13 10-23 23-23 6 0 11 2 15 7l437.2 436.2 437.2-436.2c4-5 9-7 16-7 6 0 11 2 16 7 9 10.9 9 21 0 32z'
-      })
-    );
-  }
-
-  return ChevronDown;
-}();
-
-ChevronDown.defaultProps = {
-  viewBox: '0 0 1000 1000'
-};
-exports["default"] = ChevronDown;
-
-/***/ }),
-
-/***/ 1809:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var ChevronUp = function () {
-  function ChevronUp(props) {
-    return _react2['default'].createElement(
-      'svg',
-      props,
-      _react2['default'].createElement('path', {
-        d: 'M32.1 712.6l453.2-452.2c11-11 21-11 32 0l453.2 452.2c4 5 6 10 6 16 0 13-10 23-22 23-7 0-12-2-16-7L501.3 308.5 64.1 744.7c-4 5-9 7-15 7-7 0-12-2-17-7-9-11-9-21 0-32.1z'
-      })
-    );
-  }
-
-  return ChevronUp;
-}();
-
-ChevronUp.defaultProps = {
-  viewBox: '0 0 1000 1000'
-};
-exports["default"] = ChevronUp;
-
-/***/ }),
-
-/***/ 6973:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var CloseButton = function () {
-  function CloseButton(props) {
-    return _react2['default'].createElement(
-      'svg',
-      props,
-      _react2['default'].createElement('path', {
-        fillRule: 'evenodd',
-        d: 'M11.53.47a.75.75 0 0 0-1.061 0l-4.47 4.47L1.529.47A.75.75 0 1 0 .468 1.531l4.47 4.47-4.47 4.47a.75.75 0 1 0 1.061 1.061l4.47-4.47 4.47 4.47a.75.75 0 1 0 1.061-1.061l-4.47-4.47 4.47-4.47a.75.75 0 0 0 0-1.061z'
-      })
-    );
-  }
-
-  return CloseButton;
-}();
-
-CloseButton.defaultProps = {
-  viewBox: '0 0 12 12'
-};
-exports["default"] = CloseButton;
-
-/***/ }),
-
-/***/ 6698:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.PureCustomizableCalendarDay = exports.selectedStyles = exports.lastInRangeStyles = exports.selectedSpanStyles = exports.hoveredSpanStyles = exports.blockedOutOfRangeStyles = exports.blockedCalendarStyles = exports.blockedMinNightsStyles = exports.highlightedCalendarStyles = exports.outsideStyles = exports.defaultStyles = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _object = __webpack_require__(4011);
-
-var _object2 = _interopRequireDefault(_object);
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactAddonsShallowCompare = __webpack_require__(2541);
-
-var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
-
-var _reactMomentProptypes = __webpack_require__(6150);
-
-var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
-
-var _airbnbPropTypes = __webpack_require__(4882);
-
-var _reactWithStyles = __webpack_require__(3576);
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _defaultPhrases = __webpack_require__(6030);
-
-var _getPhrasePropTypes = __webpack_require__(2893);
-
-var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
-
-var _getCalendarDaySettings = __webpack_require__(7475);
-
-var _getCalendarDaySettings2 = _interopRequireDefault(_getCalendarDaySettings);
-
-var _constants = __webpack_require__(257);
-
-var _DefaultTheme = __webpack_require__(8158);
-
-var _DefaultTheme2 = _interopRequireDefault(_DefaultTheme);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var color = _DefaultTheme2['default'].reactDates.color;
-
-
-function getStyles(stylesObj, isHovered) {
-  if (!stylesObj) return null;
-
-  var hover = stylesObj.hover;
-
-  if (isHovered && hover) {
-    return hover;
-  }
-
-  return stylesObj;
-}
-
-var DayStyleShape = _propTypes2['default'].shape({
-  background: _propTypes2['default'].string,
-  border: (0, _airbnbPropTypes.or)([_propTypes2['default'].string, _propTypes2['default'].number]),
-  color: _propTypes2['default'].string,
-
-  hover: _propTypes2['default'].shape({
-    background: _propTypes2['default'].string,
-    border: (0, _airbnbPropTypes.or)([_propTypes2['default'].string, _propTypes2['default'].number]),
-    color: _propTypes2['default'].string
-  })
-});
-
-var propTypes = (0, _airbnbPropTypes.forbidExtraProps)((0, _object2['default'])({}, _reactWithStyles.withStylesPropTypes, {
-  day: _reactMomentProptypes2['default'].momentObj,
-  daySize: _airbnbPropTypes.nonNegativeInteger,
-  isOutsideDay: _propTypes2['default'].bool,
-  modifiers: _propTypes2['default'].instanceOf(Set),
-  isFocused: _propTypes2['default'].bool,
-  tabIndex: _propTypes2['default'].oneOf([0, -1]),
-  onDayClick: _propTypes2['default'].func,
-  onDayMouseEnter: _propTypes2['default'].func,
-  onDayMouseLeave: _propTypes2['default'].func,
-  renderDayContents: _propTypes2['default'].func,
-  ariaLabelFormat: _propTypes2['default'].string,
-
-  // style overrides
-  defaultStyles: DayStyleShape,
-  outsideStyles: DayStyleShape,
-  todayStyles: DayStyleShape,
-  firstDayOfWeekStyles: DayStyleShape,
-  lastDayOfWeekStyles: DayStyleShape,
-  highlightedCalendarStyles: DayStyleShape,
-  blockedMinNightsStyles: DayStyleShape,
-  blockedCalendarStyles: DayStyleShape,
-  blockedOutOfRangeStyles: DayStyleShape,
-  hoveredSpanStyles: DayStyleShape,
-  selectedSpanStyles: DayStyleShape,
-  lastInRangeStyles: DayStyleShape,
-  selectedStyles: DayStyleShape,
-  selectedStartStyles: DayStyleShape,
-  selectedEndStyles: DayStyleShape,
-  afterHoveredStartStyles: DayStyleShape,
-
-  // internationalization
-  phrases: _propTypes2['default'].shape((0, _getPhrasePropTypes2['default'])(_defaultPhrases.CalendarDayPhrases))
-}));
-
-var defaultStyles = exports.defaultStyles = {
-  border: '1px solid ' + String(color.core.borderLight),
-  color: color.text,
-  background: color.background,
-
-  hover: {
-    background: color.core.borderLight,
-    border: '1px double ' + String(color.core.borderLight),
-    color: 'inherit'
-  }
-};
-
-var outsideStyles = exports.outsideStyles = {
-  background: color.outside.backgroundColor,
-  border: 0,
-  color: color.outside.color
-};
-
-var highlightedCalendarStyles = exports.highlightedCalendarStyles = {
-  background: color.highlighted.backgroundColor,
-  color: color.highlighted.color,
-
-  hover: {
-    background: color.highlighted.backgroundColor_hover,
-    color: color.highlighted.color_active
-  }
-};
-
-var blockedMinNightsStyles = exports.blockedMinNightsStyles = {
-  background: color.minimumNights.backgroundColor,
-  border: '1px solid ' + String(color.minimumNights.borderColor),
-  color: color.minimumNights.color,
-
-  hover: {
-    background: color.minimumNights.backgroundColor_hover,
-    color: color.minimumNights.color_active
-  }
-};
-
-var blockedCalendarStyles = exports.blockedCalendarStyles = {
-  background: color.blocked_calendar.backgroundColor,
-  border: '1px solid ' + String(color.blocked_calendar.borderColor),
-  color: color.blocked_calendar.color,
-
-  hover: {
-    background: color.blocked_calendar.backgroundColor_hover,
-    border: '1px solid ' + String(color.blocked_calendar.borderColor),
-    color: color.blocked_calendar.color_active
-  }
-};
-
-var blockedOutOfRangeStyles = exports.blockedOutOfRangeStyles = {
-  background: color.blocked_out_of_range.backgroundColor,
-  border: '1px solid ' + String(color.blocked_out_of_range.borderColor),
-  color: color.blocked_out_of_range.color,
-
-  hover: {
-    background: color.blocked_out_of_range.backgroundColor_hover,
-    border: '1px solid ' + String(color.blocked_out_of_range.borderColor),
-    color: color.blocked_out_of_range.color_active
-  }
-};
-
-var hoveredSpanStyles = exports.hoveredSpanStyles = {
-  background: color.hoveredSpan.backgroundColor,
-  border: '1px solid ' + String(color.hoveredSpan.borderColor),
-  color: color.hoveredSpan.color,
-
-  hover: {
-    background: color.hoveredSpan.backgroundColor_hover,
-    border: '1px solid ' + String(color.hoveredSpan.borderColor),
-    color: color.hoveredSpan.color_active
-  }
-};
-
-var selectedSpanStyles = exports.selectedSpanStyles = {
-  background: color.selectedSpan.backgroundColor,
-  border: '1px solid ' + String(color.selectedSpan.borderColor),
-  color: color.selectedSpan.color,
-
-  hover: {
-    background: color.selectedSpan.backgroundColor_hover,
-    border: '1px solid ' + String(color.selectedSpan.borderColor),
-    color: color.selectedSpan.color_active
-  }
-};
-
-var lastInRangeStyles = exports.lastInRangeStyles = {
-  borderRight: color.core.primary
-};
-
-var selectedStyles = exports.selectedStyles = {
-  background: color.selected.backgroundColor,
-  border: '1px solid ' + String(color.selected.borderColor),
-  color: color.selected.color,
-
-  hover: {
-    background: color.selected.backgroundColor_hover,
-    border: '1px solid ' + String(color.selected.borderColor),
-    color: color.selected.color_active
-  }
-};
-
-var defaultProps = {
-  day: (0, _moment2['default'])(),
-  daySize: _constants.DAY_SIZE,
-  isOutsideDay: false,
-  modifiers: new Set(),
-  isFocused: false,
-  tabIndex: -1,
-  onDayClick: function () {
-    function onDayClick() {}
-
-    return onDayClick;
-  }(),
-  onDayMouseEnter: function () {
-    function onDayMouseEnter() {}
-
-    return onDayMouseEnter;
-  }(),
-  onDayMouseLeave: function () {
-    function onDayMouseLeave() {}
-
-    return onDayMouseLeave;
-  }(),
-
-  renderDayContents: null,
-  ariaLabelFormat: 'dddd, LL',
-
-  // style defaults
-  defaultStyles: defaultStyles,
-  outsideStyles: outsideStyles,
-  todayStyles: {},
-  highlightedCalendarStyles: highlightedCalendarStyles,
-  blockedMinNightsStyles: blockedMinNightsStyles,
-  blockedCalendarStyles: blockedCalendarStyles,
-  blockedOutOfRangeStyles: blockedOutOfRangeStyles,
-  hoveredSpanStyles: hoveredSpanStyles,
-  selectedSpanStyles: selectedSpanStyles,
-  lastInRangeStyles: lastInRangeStyles,
-  selectedStyles: selectedStyles,
-  selectedStartStyles: {},
-  selectedEndStyles: {},
-  afterHoveredStartStyles: {},
-  firstDayOfWeekStyles: {},
-  lastDayOfWeekStyles: {},
-
-  // internationalization
-  phrases: _defaultPhrases.CalendarDayPhrases
-};
-
-var CustomizableCalendarDay = function (_React$Component) {
-  _inherits(CustomizableCalendarDay, _React$Component);
-
-  function CustomizableCalendarDay() {
-    var _ref;
-
-    _classCallCheck(this, CustomizableCalendarDay);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    var _this = _possibleConstructorReturn(this, (_ref = CustomizableCalendarDay.__proto__ || Object.getPrototypeOf(CustomizableCalendarDay)).call.apply(_ref, [this].concat(args)));
-
-    _this.state = {
-      isHovered: false
-    };
-
-    _this.setButtonRef = _this.setButtonRef.bind(_this);
-    return _this;
-  }
-
-  _createClass(CustomizableCalendarDay, [{
-    key: 'shouldComponentUpdate',
-    value: function () {
-      function shouldComponentUpdate(nextProps, nextState) {
-        return (0, _reactAddonsShallowCompare2['default'])(this, nextProps, nextState);
-      }
-
-      return shouldComponentUpdate;
-    }()
-  }, {
-    key: 'componentDidUpdate',
-    value: function () {
-      function componentDidUpdate(prevProps) {
-        var _props = this.props,
-            isFocused = _props.isFocused,
-            tabIndex = _props.tabIndex;
-
-        if (tabIndex === 0) {
-          if (isFocused || tabIndex !== prevProps.tabIndex) {
-            this.buttonRef.focus();
-          }
-        }
-      }
-
-      return componentDidUpdate;
-    }()
-  }, {
-    key: 'onDayClick',
-    value: function () {
-      function onDayClick(day, e) {
-        var onDayClick = this.props.onDayClick;
-
-        onDayClick(day, e);
-      }
-
-      return onDayClick;
-    }()
-  }, {
-    key: 'onDayMouseEnter',
-    value: function () {
-      function onDayMouseEnter(day, e) {
-        var onDayMouseEnter = this.props.onDayMouseEnter;
-
-        this.setState({ isHovered: true });
-        onDayMouseEnter(day, e);
-      }
-
-      return onDayMouseEnter;
-    }()
-  }, {
-    key: 'onDayMouseLeave',
-    value: function () {
-      function onDayMouseLeave(day, e) {
-        var onDayMouseLeave = this.props.onDayMouseLeave;
-
-        this.setState({ isHovered: false });
-        onDayMouseLeave(day, e);
-      }
-
-      return onDayMouseLeave;
-    }()
-  }, {
-    key: 'onKeyDown',
-    value: function () {
-      function onKeyDown(day, e) {
-        var onDayClick = this.props.onDayClick;
-        var key = e.key;
-
-        if (key === 'Enter' || key === ' ') {
-          onDayClick(day, e);
-        }
-      }
-
-      return onKeyDown;
-    }()
-  }, {
-    key: 'setButtonRef',
-    value: function () {
-      function setButtonRef(ref) {
-        this.buttonRef = ref;
-      }
-
-      return setButtonRef;
-    }()
-  }, {
-    key: 'render',
-    value: function () {
-      function render() {
-        var _this2 = this;
-
-        var _props2 = this.props,
-            day = _props2.day,
-            ariaLabelFormat = _props2.ariaLabelFormat,
-            daySize = _props2.daySize,
-            isOutsideDay = _props2.isOutsideDay,
-            modifiers = _props2.modifiers,
-            tabIndex = _props2.tabIndex,
-            renderDayContents = _props2.renderDayContents,
-            styles = _props2.styles,
-            phrases = _props2.phrases,
-            defaultStylesWithHover = _props2.defaultStyles,
-            outsideStylesWithHover = _props2.outsideStyles,
-            todayStylesWithHover = _props2.todayStyles,
-            firstDayOfWeekStylesWithHover = _props2.firstDayOfWeekStyles,
-            lastDayOfWeekStylesWithHover = _props2.lastDayOfWeekStyles,
-            highlightedCalendarStylesWithHover = _props2.highlightedCalendarStyles,
-            blockedMinNightsStylesWithHover = _props2.blockedMinNightsStyles,
-            blockedCalendarStylesWithHover = _props2.blockedCalendarStyles,
-            blockedOutOfRangeStylesWithHover = _props2.blockedOutOfRangeStyles,
-            hoveredSpanStylesWithHover = _props2.hoveredSpanStyles,
-            selectedSpanStylesWithHover = _props2.selectedSpanStyles,
-            lastInRangeStylesWithHover = _props2.lastInRangeStyles,
-            selectedStylesWithHover = _props2.selectedStyles,
-            selectedStartStylesWithHover = _props2.selectedStartStyles,
-            selectedEndStylesWithHover = _props2.selectedEndStyles,
-            afterHoveredStartStylesWithHover = _props2.afterHoveredStartStyles;
-        var isHovered = this.state.isHovered;
-
-
-        if (!day) return _react2['default'].createElement('td', null);
-
-        var _getCalendarDaySettin = (0, _getCalendarDaySettings2['default'])(day, ariaLabelFormat, daySize, modifiers, phrases),
-            daySizeStyles = _getCalendarDaySettin.daySizeStyles,
-            useDefaultCursor = _getCalendarDaySettin.useDefaultCursor,
-            selected = _getCalendarDaySettin.selected,
-            hoveredSpan = _getCalendarDaySettin.hoveredSpan,
-            isOutsideRange = _getCalendarDaySettin.isOutsideRange,
-            ariaLabel = _getCalendarDaySettin.ariaLabel;
-
-        return _react2['default'].createElement(
-          'td',
-          _extends({}, (0, _reactWithStyles.css)(styles.CalendarDay, useDefaultCursor && styles.CalendarDay__defaultCursor, daySizeStyles, getStyles(defaultStylesWithHover, isHovered), isOutsideDay && getStyles(outsideStylesWithHover, isHovered), modifiers.has('today') && getStyles(todayStylesWithHover, isHovered), modifiers.has('first-day-of-week') && getStyles(firstDayOfWeekStylesWithHover, isHovered), modifiers.has('last-day-of-week') && getStyles(lastDayOfWeekStylesWithHover, isHovered), modifiers.has('highlighted-calendar') && getStyles(highlightedCalendarStylesWithHover, isHovered), modifiers.has('blocked-minimum-nights') && getStyles(blockedMinNightsStylesWithHover, isHovered), modifiers.has('blocked-calendar') && getStyles(blockedCalendarStylesWithHover, isHovered), hoveredSpan && getStyles(hoveredSpanStylesWithHover, isHovered), modifiers.has('after-hovered-start') && getStyles(afterHoveredStartStylesWithHover, isHovered), modifiers.has('selected-span') && getStyles(selectedSpanStylesWithHover, isHovered), modifiers.has('last-in-range') && getStyles(lastInRangeStylesWithHover, isHovered), selected && getStyles(selectedStylesWithHover, isHovered), modifiers.has('selected-start') && getStyles(selectedStartStylesWithHover, isHovered), modifiers.has('selected-end') && getStyles(selectedEndStylesWithHover, isHovered), isOutsideRange && getStyles(blockedOutOfRangeStylesWithHover, isHovered)), {
-            role: 'button' // eslint-disable-line jsx-a11y/no-noninteractive-element-to-interactive-role
-            , ref: this.setButtonRef,
-            'aria-label': ariaLabel,
-            onMouseEnter: function () {
-              function onMouseEnter(e) {
-                _this2.onDayMouseEnter(day, e);
-              }
-
-              return onMouseEnter;
-            }(),
-            onMouseLeave: function () {
-              function onMouseLeave(e) {
-                _this2.onDayMouseLeave(day, e);
-              }
-
-              return onMouseLeave;
-            }(),
-            onMouseUp: function () {
-              function onMouseUp(e) {
-                e.currentTarget.blur();
-              }
-
-              return onMouseUp;
-            }(),
-            onClick: function () {
-              function onClick(e) {
-                _this2.onDayClick(day, e);
-              }
-
-              return onClick;
-            }(),
-            onKeyDown: function () {
-              function onKeyDown(e) {
-                _this2.onKeyDown(day, e);
-              }
-
-              return onKeyDown;
-            }(),
-            tabIndex: tabIndex
-          }),
-          renderDayContents ? renderDayContents(day, modifiers) : day.format('D')
-        );
-      }
-
-      return render;
-    }()
-  }]);
-
-  return CustomizableCalendarDay;
-}(_react2['default'].Component);
-
-CustomizableCalendarDay.propTypes = propTypes;
-CustomizableCalendarDay.defaultProps = defaultProps;
-
-exports.PureCustomizableCalendarDay = CustomizableCalendarDay;
-exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
-  var font = _ref2.reactDates.font;
-  return {
-    CalendarDay: {
-      boxSizing: 'border-box',
-      cursor: 'pointer',
-      fontSize: font.size,
-      textAlign: 'center',
-
-      ':active': {
-        outline: 0
-      }
-    },
-
-    CalendarDay__defaultCursor: {
-      cursor: 'default'
-    }
-  };
-})(CustomizableCalendarDay);
-
-/***/ }),
-
-/***/ 8665:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.PureDayPicker = exports.defaultProps = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _object = __webpack_require__(4011);
-
-var _object2 = _interopRequireDefault(_object);
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactAddonsShallowCompare = __webpack_require__(2541);
-
-var _reactAddonsShallowCompare2 = _interopRequireDefault(_reactAddonsShallowCompare);
-
-var _airbnbPropTypes = __webpack_require__(4882);
-
-var _reactWithStyles = __webpack_require__(3576);
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _throttle = __webpack_require__(8172);
-
-var _throttle2 = _interopRequireDefault(_throttle);
-
-var _isTouchDevice = __webpack_require__(5834);
-
-var _isTouchDevice2 = _interopRequireDefault(_isTouchDevice);
-
-var _reactOutsideClickHandler = __webpack_require__(6606);
-
-var _reactOutsideClickHandler2 = _interopRequireDefault(_reactOutsideClickHandler);
-
-var _defaultPhrases = __webpack_require__(6030);
-
-var _getPhrasePropTypes = __webpack_require__(2893);
-
-var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
-
-var _CalendarMonthGrid = __webpack_require__(7938);
-
-var _CalendarMonthGrid2 = _interopRequireDefault(_CalendarMonthGrid);
-
-var _DayPickerNavigation = __webpack_require__(3895);
-
-var _DayPickerNavigation2 = _interopRequireDefault(_DayPickerNavigation);
-
-var _DayPickerKeyboardShortcuts = __webpack_require__(600);
-
-var _DayPickerKeyboardShortcuts2 = _interopRequireDefault(_DayPickerKeyboardShortcuts);
-
-var _getNumberOfCalendarMonthWeeks = __webpack_require__(4112);
-
-var _getNumberOfCalendarMonthWeeks2 = _interopRequireDefault(_getNumberOfCalendarMonthWeeks);
-
-var _getCalendarMonthWidth = __webpack_require__(8964);
-
-var _getCalendarMonthWidth2 = _interopRequireDefault(_getCalendarMonthWidth);
-
-var _calculateDimension = __webpack_require__(8607);
-
-var _calculateDimension2 = _interopRequireDefault(_calculateDimension);
-
-var _getActiveElement = __webpack_require__(5814);
-
-var _getActiveElement2 = _interopRequireDefault(_getActiveElement);
-
-var _isDayVisible = __webpack_require__(5713);
-
-var _isDayVisible2 = _interopRequireDefault(_isDayVisible);
-
-var _ModifiersShape = __webpack_require__(6747);
-
-var _ModifiersShape2 = _interopRequireDefault(_ModifiersShape);
-
-var _ScrollableOrientationShape = __webpack_require__(6553);
-
-var _ScrollableOrientationShape2 = _interopRequireDefault(_ScrollableOrientationShape);
-
-var _DayOfWeekShape = __webpack_require__(243);
-
-var _DayOfWeekShape2 = _interopRequireDefault(_DayOfWeekShape);
-
-var _CalendarInfoPositionShape = __webpack_require__(8182);
-
-var _CalendarInfoPositionShape2 = _interopRequireDefault(_CalendarInfoPositionShape);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var MONTH_PADDING = 23;
-var PREV_TRANSITION = 'prev';
-var NEXT_TRANSITION = 'next';
-var MONTH_SELECTION_TRANSITION = 'month_selection';
-var YEAR_SELECTION_TRANSITION = 'year_selection';
-
-var propTypes = (0, _airbnbPropTypes.forbidExtraProps)((0, _object2['default'])({}, _reactWithStyles.withStylesPropTypes, {
-
-  // calendar presentation props
-  enableOutsideDays: _propTypes2['default'].bool,
-  numberOfMonths: _propTypes2['default'].number,
-  orientation: _ScrollableOrientationShape2['default'],
-  withPortal: _propTypes2['default'].bool,
-  onOutsideClick: _propTypes2['default'].func,
-  hidden: _propTypes2['default'].bool,
-  initialVisibleMonth: _propTypes2['default'].func,
-  firstDayOfWeek: _DayOfWeekShape2['default'],
-  renderCalendarInfo: _propTypes2['default'].func,
-  calendarInfoPosition: _CalendarInfoPositionShape2['default'],
-  hideKeyboardShortcutsPanel: _propTypes2['default'].bool,
-  daySize: _airbnbPropTypes.nonNegativeInteger,
-  isRTL: _propTypes2['default'].bool,
-  verticalHeight: _airbnbPropTypes.nonNegativeInteger,
-  noBorder: _propTypes2['default'].bool,
-  transitionDuration: _airbnbPropTypes.nonNegativeInteger,
-  verticalBorderSpacing: _airbnbPropTypes.nonNegativeInteger,
-  horizontalMonthPadding: _airbnbPropTypes.nonNegativeInteger,
-
-  // navigation props
-  navPrev: _propTypes2['default'].node,
-  navNext: _propTypes2['default'].node,
-  noNavButtons: _propTypes2['default'].bool,
-  onPrevMonthClick: _propTypes2['default'].func,
-  onNextMonthClick: _propTypes2['default'].func,
-  onMonthChange: _propTypes2['default'].func,
-  onYearChange: _propTypes2['default'].func,
-  onMultiplyScrollableMonths: _propTypes2['default'].func, // VERTICAL_SCROLLABLE daypickers only
-
-  // month props
-  renderMonthText: (0, _airbnbPropTypes.mutuallyExclusiveProps)(_propTypes2['default'].func, 'renderMonthText', 'renderMonthElement'),
-  renderMonthElement: (0, _airbnbPropTypes.mutuallyExclusiveProps)(_propTypes2['default'].func, 'renderMonthText', 'renderMonthElement'),
-
-  // day props
-  modifiers: _propTypes2['default'].objectOf(_propTypes2['default'].objectOf(_ModifiersShape2['default'])),
-  renderCalendarDay: _propTypes2['default'].func,
-  renderDayContents: _propTypes2['default'].func,
-  onDayClick: _propTypes2['default'].func,
-  onDayMouseEnter: _propTypes2['default'].func,
-  onDayMouseLeave: _propTypes2['default'].func,
-
-  // accessibility props
-  isFocused: _propTypes2['default'].bool,
-  getFirstFocusableDay: _propTypes2['default'].func,
-  onBlur: _propTypes2['default'].func,
-  showKeyboardShortcuts: _propTypes2['default'].bool,
-
-  // internationalization
-  monthFormat: _propTypes2['default'].string,
-  weekDayFormat: _propTypes2['default'].string,
-  phrases: _propTypes2['default'].shape((0, _getPhrasePropTypes2['default'])(_defaultPhrases.DayPickerPhrases)),
-  dayAriaLabelFormat: _propTypes2['default'].string
-}));
-
-var defaultProps = exports.defaultProps = {
-  // calendar presentation props
-  enableOutsideDays: false,
-  numberOfMonths: 2,
-  orientation: _constants.HORIZONTAL_ORIENTATION,
-  withPortal: false,
-  onOutsideClick: function () {
-    function onOutsideClick() {}
-
-    return onOutsideClick;
-  }(),
-
-  hidden: false,
-  initialVisibleMonth: function () {
-    function initialVisibleMonth() {
-      return (0, _moment2['default'])();
-    }
-
-    return initialVisibleMonth;
-  }(),
-  firstDayOfWeek: null,
-  renderCalendarInfo: null,
-  calendarInfoPosition: _constants.INFO_POSITION_BOTTOM,
-  hideKeyboardShortcutsPanel: false,
-  daySize: _constants.DAY_SIZE,
-  isRTL: false,
-  verticalHeight: null,
-  noBorder: false,
-  transitionDuration: undefined,
-  verticalBorderSpacing: undefined,
-  horizontalMonthPadding: 13,
-
-  // navigation props
-  navPrev: null,
-  navNext: null,
-  noNavButtons: false,
-  onPrevMonthClick: function () {
-    function onPrevMonthClick() {}
-
-    return onPrevMonthClick;
-  }(),
-  onNextMonthClick: function () {
-    function onNextMonthClick() {}
-
-    return onNextMonthClick;
-  }(),
-  onMonthChange: function () {
-    function onMonthChange() {}
-
-    return onMonthChange;
-  }(),
-  onYearChange: function () {
-    function onYearChange() {}
-
-    return onYearChange;
-  }(),
-  onMultiplyScrollableMonths: function () {
-    function onMultiplyScrollableMonths() {}
-
-    return onMultiplyScrollableMonths;
-  }(),
-
-
-  // month props
-  renderMonthText: null,
-  renderMonthElement: null,
-
-  // day props
-  modifiers: {},
-  renderCalendarDay: undefined,
-  renderDayContents: null,
-  onDayClick: function () {
-    function onDayClick() {}
-
-    return onDayClick;
-  }(),
-  onDayMouseEnter: function () {
-    function onDayMouseEnter() {}
-
-    return onDayMouseEnter;
-  }(),
-  onDayMouseLeave: function () {
-    function onDayMouseLeave() {}
-
-    return onDayMouseLeave;
-  }(),
-
-
-  // accessibility props
-  isFocused: false,
-  getFirstFocusableDay: null,
-  onBlur: function () {
-    function onBlur() {}
-
-    return onBlur;
-  }(),
-
-  showKeyboardShortcuts: false,
-
-  // internationalization
-  monthFormat: 'MMMM YYYY',
-  weekDayFormat: 'dd',
-  phrases: _defaultPhrases.DayPickerPhrases,
-  dayAriaLabelFormat: undefined
-};
-
-var DayPicker = function (_React$Component) {
-  _inherits(DayPicker, _React$Component);
-
-  function DayPicker(props) {
-    _classCallCheck(this, DayPicker);
-
-    var _this = _possibleConstructorReturn(this, (DayPicker.__proto__ || Object.getPrototypeOf(DayPicker)).call(this, props));
-
-    var currentMonth = props.hidden ? (0, _moment2['default'])() : props.initialVisibleMonth();
-
-    var focusedDate = currentMonth.clone().startOf('month');
-    if (props.getFirstFocusableDay) {
-      focusedDate = props.getFirstFocusableDay(currentMonth);
-    }
-
-    var horizontalMonthPadding = props.horizontalMonthPadding;
-
-
-    var translationValue = props.isRTL && _this.isHorizontal() ? -(0, _getCalendarMonthWidth2['default'])(props.daySize, horizontalMonthPadding) : 0;
-
-    _this.hasSetInitialVisibleMonth = !props.hidden;
-    _this.state = {
-      currentMonth: currentMonth,
-      monthTransition: null,
-      translationValue: translationValue,
-      scrollableMonthMultiple: 1,
-      calendarMonthWidth: (0, _getCalendarMonthWidth2['default'])(props.daySize, horizontalMonthPadding),
-      focusedDate: !props.hidden || props.isFocused ? focusedDate : null,
-      nextFocusedDate: null,
-      showKeyboardShortcuts: props.showKeyboardShortcuts,
-      onKeyboardShortcutsPanelClose: function () {
-        function onKeyboardShortcutsPanelClose() {}
-
-        return onKeyboardShortcutsPanelClose;
-      }(),
-
-      isTouchDevice: (0, _isTouchDevice2['default'])(),
-      withMouseInteractions: true,
-      calendarInfoWidth: 0,
-      monthTitleHeight: null,
-      hasSetHeight: false
-    };
-
-    _this.setCalendarMonthWeeks(currentMonth);
-
-    _this.calendarMonthGridHeight = 0;
-    _this.setCalendarInfoWidthTimeout = null;
-
-    _this.onKeyDown = _this.onKeyDown.bind(_this);
-    _this.throttledKeyDown = (0, _throttle2['default'])(_this.onFinalKeyDown, 200, { trailing: false });
-    _this.onPrevMonthClick = _this.onPrevMonthClick.bind(_this);
-    _this.onNextMonthClick = _this.onNextMonthClick.bind(_this);
-    _this.onMonthChange = _this.onMonthChange.bind(_this);
-    _this.onYearChange = _this.onYearChange.bind(_this);
-
-    _this.multiplyScrollableMonths = _this.multiplyScrollableMonths.bind(_this);
-    _this.updateStateAfterMonthTransition = _this.updateStateAfterMonthTransition.bind(_this);
-
-    _this.openKeyboardShortcutsPanel = _this.openKeyboardShortcutsPanel.bind(_this);
-    _this.closeKeyboardShortcutsPanel = _this.closeKeyboardShortcutsPanel.bind(_this);
-
-    _this.setCalendarInfoRef = _this.setCalendarInfoRef.bind(_this);
-    _this.setContainerRef = _this.setContainerRef.bind(_this);
-    _this.setTransitionContainerRef = _this.setTransitionContainerRef.bind(_this);
-    _this.setMonthTitleHeight = _this.setMonthTitleHeight.bind(_this);
-    return _this;
-  }
-
-  _createClass(DayPicker, [{
-    key: 'componentDidMount',
-    value: function () {
-      function componentDidMount() {
-        var currentMonth = this.state.currentMonth;
-
-        if (this.calendarInfo) {
-          this.setState({
-            isTouchDevice: (0, _isTouchDevice2['default'])(),
-            calendarInfoWidth: (0, _calculateDimension2['default'])(this.calendarInfo, 'width', true, true)
-          });
-        } else {
-          this.setState({ isTouchDevice: (0, _isTouchDevice2['default'])() });
-        }
-
-        this.setCalendarMonthWeeks(currentMonth);
-      }
-
-      return componentDidMount;
-    }()
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function () {
-      function componentWillReceiveProps(nextProps) {
-        var hidden = nextProps.hidden,
-            isFocused = nextProps.isFocused,
-            showKeyboardShortcuts = nextProps.showKeyboardShortcuts,
-            onBlur = nextProps.onBlur,
-            renderMonthText = nextProps.renderMonthText,
-            horizontalMonthPadding = nextProps.horizontalMonthPadding;
-        var currentMonth = this.state.currentMonth;
-
-
-        if (!hidden) {
-          if (!this.hasSetInitialVisibleMonth) {
-            this.hasSetInitialVisibleMonth = true;
-            this.setState({
-              currentMonth: nextProps.initialVisibleMonth()
-            });
-          }
-        }
-
-        var _props = this.props,
-            daySize = _props.daySize,
-            prevIsFocused = _props.isFocused,
-            prevRenderMonthText = _props.renderMonthText;
-
-
-        if (nextProps.daySize !== daySize) {
-          this.setState({
-            calendarMonthWidth: (0, _getCalendarMonthWidth2['default'])(nextProps.daySize, horizontalMonthPadding)
-          });
-        }
-
-        if (isFocused !== prevIsFocused) {
-          if (isFocused) {
-            var focusedDate = this.getFocusedDay(currentMonth);
-
-            var onKeyboardShortcutsPanelClose = this.state.onKeyboardShortcutsPanelClose;
-
-            if (nextProps.showKeyboardShortcuts) {
-              // the ? shortcut came from the input and we should return input there once it is close
-              onKeyboardShortcutsPanelClose = onBlur;
-            }
-
-            this.setState({
-              showKeyboardShortcuts: showKeyboardShortcuts,
-              onKeyboardShortcutsPanelClose: onKeyboardShortcutsPanelClose,
-              focusedDate: focusedDate,
-              withMouseInteractions: false
-            });
-          } else {
-            this.setState({ focusedDate: null });
-          }
-        }
-
-        if (renderMonthText !== prevRenderMonthText) {
-          this.setState({
-            monthTitleHeight: null
-          });
-        }
-      }
-
-      return componentWillReceiveProps;
-    }()
-  }, {
-    key: 'shouldComponentUpdate',
-    value: function () {
-      function shouldComponentUpdate(nextProps, nextState) {
-        return (0, _reactAddonsShallowCompare2['default'])(this, nextProps, nextState);
-      }
-
-      return shouldComponentUpdate;
-    }()
-  }, {
-    key: 'componentWillUpdate',
-    value: function () {
-      function componentWillUpdate() {
-        var _this2 = this;
-
-        var transitionDuration = this.props.transitionDuration;
-
-        // Calculating the dimensions trigger a DOM repaint which
-        // breaks the CSS transition.
-        // The setTimeout will wait until the transition ends.
-
-        if (this.calendarInfo) {
-          this.setCalendarInfoWidthTimeout = setTimeout(function () {
-            var calendarInfoWidth = _this2.state.calendarInfoWidth;
-
-            var calendarInfoPanelWidth = (0, _calculateDimension2['default'])(_this2.calendarInfo, 'width', true, true);
-            if (calendarInfoWidth !== calendarInfoPanelWidth) {
-              _this2.setState({
-                calendarInfoWidth: calendarInfoPanelWidth
-              });
-            }
-          }, transitionDuration);
-        }
-      }
-
-      return componentWillUpdate;
-    }()
-  }, {
-    key: 'componentDidUpdate',
-    value: function () {
-      function componentDidUpdate(prevProps) {
-        var _props2 = this.props,
-            orientation = _props2.orientation,
-            daySize = _props2.daySize,
-            isFocused = _props2.isFocused,
-            numberOfMonths = _props2.numberOfMonths;
-        var _state = this.state,
-            focusedDate = _state.focusedDate,
-            monthTitleHeight = _state.monthTitleHeight;
-
-
-        if (this.isHorizontal() && (orientation !== prevProps.orientation || daySize !== prevProps.daySize)) {
-          var visibleCalendarWeeks = this.calendarMonthWeeks.slice(1, numberOfMonths + 1);
-          var calendarMonthWeeksHeight = Math.max.apply(Math, [0].concat(_toConsumableArray(visibleCalendarWeeks))) * (daySize - 1);
-          var newMonthHeight = monthTitleHeight + calendarMonthWeeksHeight + 1;
-          this.adjustDayPickerHeight(newMonthHeight);
-        }
-
-        if (!prevProps.isFocused && isFocused && !focusedDate) {
-          this.container.focus();
-        }
-      }
-
-      return componentDidUpdate;
-    }()
-  }, {
-    key: 'componentWillUnmount',
-    value: function () {
-      function componentWillUnmount() {
-        clearTimeout(this.setCalendarInfoWidthTimeout);
-      }
-
-      return componentWillUnmount;
-    }()
-  }, {
-    key: 'onKeyDown',
-    value: function () {
-      function onKeyDown(e) {
-        e.stopPropagation();
-        if (!_constants.MODIFIER_KEY_NAMES.has(e.key)) {
-          this.throttledKeyDown(e);
-        }
-      }
-
-      return onKeyDown;
-    }()
-  }, {
-    key: 'onFinalKeyDown',
-    value: function () {
-      function onFinalKeyDown(e) {
-        this.setState({ withMouseInteractions: false });
-
-        var _props3 = this.props,
-            onBlur = _props3.onBlur,
-            isRTL = _props3.isRTL;
-        var _state2 = this.state,
-            focusedDate = _state2.focusedDate,
-            showKeyboardShortcuts = _state2.showKeyboardShortcuts;
-
-        if (!focusedDate) return;
-
-        var newFocusedDate = focusedDate.clone();
-
-        var didTransitionMonth = false;
-
-        // focus might be anywhere when the keyboard shortcuts panel is opened so we want to
-        // return it to wherever it was before when the panel was opened
-        var activeElement = (0, _getActiveElement2['default'])();
-        var onKeyboardShortcutsPanelClose = function () {
-          function onKeyboardShortcutsPanelClose() {
-            if (activeElement) activeElement.focus();
-          }
-
-          return onKeyboardShortcutsPanelClose;
-        }();
-
-        switch (e.key) {
-          case 'ArrowUp':
-            e.preventDefault();
-            newFocusedDate.subtract(1, 'week');
-            didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
-            break;
-          case 'ArrowLeft':
-            e.preventDefault();
-            if (isRTL) {
-              newFocusedDate.add(1, 'day');
-            } else {
-              newFocusedDate.subtract(1, 'day');
-            }
-            didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
-            break;
-          case 'Home':
-            e.preventDefault();
-            newFocusedDate.startOf('week');
-            didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
-            break;
-          case 'PageUp':
-            e.preventDefault();
-            newFocusedDate.subtract(1, 'month');
-            didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
-            break;
-
-          case 'ArrowDown':
-            e.preventDefault();
-            newFocusedDate.add(1, 'week');
-            didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
-            break;
-          case 'ArrowRight':
-            e.preventDefault();
-            if (isRTL) {
-              newFocusedDate.subtract(1, 'day');
-            } else {
-              newFocusedDate.add(1, 'day');
-            }
-            didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
-            break;
-          case 'End':
-            e.preventDefault();
-            newFocusedDate.endOf('week');
-            didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
-            break;
-          case 'PageDown':
-            e.preventDefault();
-            newFocusedDate.add(1, 'month');
-            didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
-            break;
-
-          case '?':
-            this.openKeyboardShortcutsPanel(onKeyboardShortcutsPanelClose);
-            break;
-
-          case 'Escape':
-            if (showKeyboardShortcuts) {
-              this.closeKeyboardShortcutsPanel();
-            } else {
-              onBlur();
-            }
-            break;
-
-          default:
-            break;
-        }
-
-        // If there was a month transition, do not update the focused date until the transition has
-        // completed. Otherwise, attempting to focus on a DOM node may interrupt the CSS animation. If
-        // didTransitionMonth is true, the focusedDate gets updated in #updateStateAfterMonthTransition
-        if (!didTransitionMonth) {
-          this.setState({
-            focusedDate: newFocusedDate
-          });
-        }
-      }
-
-      return onFinalKeyDown;
-    }()
-  }, {
-    key: 'onPrevMonthClick',
-    value: function () {
-      function onPrevMonthClick(nextFocusedDate, e) {
-        var _props4 = this.props,
-            daySize = _props4.daySize,
-            isRTL = _props4.isRTL,
-            numberOfMonths = _props4.numberOfMonths;
-        var _state3 = this.state,
-            calendarMonthWidth = _state3.calendarMonthWidth,
-            monthTitleHeight = _state3.monthTitleHeight;
-
-
-        if (e) e.preventDefault();
-
-        var translationValue = void 0;
-        if (this.isVertical()) {
-          var calendarMonthWeeksHeight = this.calendarMonthWeeks[0] * (daySize - 1);
-          translationValue = monthTitleHeight + calendarMonthWeeksHeight + 1;
-        } else if (this.isHorizontal()) {
-          translationValue = calendarMonthWidth;
-          if (isRTL) {
-            translationValue = -2 * calendarMonthWidth;
-          }
-
-          var visibleCalendarWeeks = this.calendarMonthWeeks.slice(0, numberOfMonths);
-          var _calendarMonthWeeksHeight = Math.max.apply(Math, [0].concat(_toConsumableArray(visibleCalendarWeeks))) * (daySize - 1);
-          var newMonthHeight = monthTitleHeight + _calendarMonthWeeksHeight + 1;
-          this.adjustDayPickerHeight(newMonthHeight);
-        }
-
-        this.setState({
-          monthTransition: PREV_TRANSITION,
-          translationValue: translationValue,
-          focusedDate: null,
-          nextFocusedDate: nextFocusedDate
-        });
-      }
-
-      return onPrevMonthClick;
-    }()
-  }, {
-    key: 'onMonthChange',
-    value: function () {
-      function onMonthChange(currentMonth) {
-        this.setCalendarMonthWeeks(currentMonth);
-        this.calculateAndSetDayPickerHeight();
-
-        // Translation value is a hack to force an invisible transition that
-        // properly rerenders the CalendarMonthGrid
-        this.setState({
-          monthTransition: MONTH_SELECTION_TRANSITION,
-          translationValue: 0.00001,
-          focusedDate: null,
-          nextFocusedDate: currentMonth,
-          currentMonth: currentMonth
-        });
-      }
-
-      return onMonthChange;
-    }()
-  }, {
-    key: 'onYearChange',
-    value: function () {
-      function onYearChange(currentMonth) {
-        this.setCalendarMonthWeeks(currentMonth);
-        this.calculateAndSetDayPickerHeight();
-
-        // Translation value is a hack to force an invisible transition that
-        // properly rerenders the CalendarMonthGrid
-        this.setState({
-          monthTransition: YEAR_SELECTION_TRANSITION,
-          translationValue: 0.0001,
-          focusedDate: null,
-          nextFocusedDate: currentMonth,
-          currentMonth: currentMonth
-        });
-      }
-
-      return onYearChange;
-    }()
-  }, {
-    key: 'onNextMonthClick',
-    value: function () {
-      function onNextMonthClick(nextFocusedDate, e) {
-        var _props5 = this.props,
-            isRTL = _props5.isRTL,
-            numberOfMonths = _props5.numberOfMonths,
-            daySize = _props5.daySize;
-        var _state4 = this.state,
-            calendarMonthWidth = _state4.calendarMonthWidth,
-            monthTitleHeight = _state4.monthTitleHeight;
-
-
-        if (e) e.preventDefault();
-
-        var translationValue = void 0;
-
-        if (this.isVertical()) {
-          var firstVisibleMonthWeeks = this.calendarMonthWeeks[1];
-          var calendarMonthWeeksHeight = firstVisibleMonthWeeks * (daySize - 1);
-          translationValue = -(monthTitleHeight + calendarMonthWeeksHeight + 1);
-        }
-
-        if (this.isHorizontal()) {
-          translationValue = -calendarMonthWidth;
-          if (isRTL) {
-            translationValue = 0;
-          }
-
-          var visibleCalendarWeeks = this.calendarMonthWeeks.slice(2, numberOfMonths + 2);
-          var _calendarMonthWeeksHeight2 = Math.max.apply(Math, [0].concat(_toConsumableArray(visibleCalendarWeeks))) * (daySize - 1);
-          var newMonthHeight = monthTitleHeight + _calendarMonthWeeksHeight2 + 1;
-          this.adjustDayPickerHeight(newMonthHeight);
-        }
-
-        this.setState({
-          monthTransition: NEXT_TRANSITION,
-          translationValue: translationValue,
-          focusedDate: null,
-          nextFocusedDate: nextFocusedDate
-        });
-      }
-
-      return onNextMonthClick;
-    }()
-  }, {
-    key: 'getFirstDayOfWeek',
-    value: function () {
-      function getFirstDayOfWeek() {
-        var firstDayOfWeek = this.props.firstDayOfWeek;
-
-        if (firstDayOfWeek == null) {
-          return _moment2['default'].localeData().firstDayOfWeek();
-        }
-
-        return firstDayOfWeek;
-      }
-
-      return getFirstDayOfWeek;
-    }()
-  }, {
-    key: 'getFirstVisibleIndex',
-    value: function () {
-      function getFirstVisibleIndex() {
-        var orientation = this.props.orientation;
-        var monthTransition = this.state.monthTransition;
-
-
-        if (orientation === _constants.VERTICAL_SCROLLABLE) return 0;
-
-        var firstVisibleMonthIndex = 1;
-        if (monthTransition === PREV_TRANSITION) {
-          firstVisibleMonthIndex -= 1;
-        } else if (monthTransition === NEXT_TRANSITION) {
-          firstVisibleMonthIndex += 1;
-        }
-
-        return firstVisibleMonthIndex;
-      }
-
-      return getFirstVisibleIndex;
-    }()
-  }, {
-    key: 'getFocusedDay',
-    value: function () {
-      function getFocusedDay(newMonth) {
-        var _props6 = this.props,
-            getFirstFocusableDay = _props6.getFirstFocusableDay,
-            numberOfMonths = _props6.numberOfMonths;
-
-
-        var focusedDate = void 0;
-        if (getFirstFocusableDay) {
-          focusedDate = getFirstFocusableDay(newMonth);
-        }
-
-        if (newMonth && (!focusedDate || !(0, _isDayVisible2['default'])(focusedDate, newMonth, numberOfMonths))) {
-          focusedDate = newMonth.clone().startOf('month');
-        }
-
-        return focusedDate;
-      }
-
-      return getFocusedDay;
-    }()
-  }, {
-    key: 'setMonthTitleHeight',
-    value: function () {
-      function setMonthTitleHeight(monthTitleHeight) {
-        var _this3 = this;
-
-        this.setState({
-          monthTitleHeight: monthTitleHeight
-        }, function () {
-          _this3.calculateAndSetDayPickerHeight();
-        });
-      }
-
-      return setMonthTitleHeight;
-    }()
-  }, {
-    key: 'setCalendarMonthWeeks',
-    value: function () {
-      function setCalendarMonthWeeks(currentMonth) {
-        var numberOfMonths = this.props.numberOfMonths;
-
-
-        this.calendarMonthWeeks = [];
-        var month = currentMonth.clone().subtract(1, 'months');
-        var firstDayOfWeek = this.getFirstDayOfWeek();
-        for (var i = 0; i < numberOfMonths + 2; i += 1) {
-          var numberOfWeeks = (0, _getNumberOfCalendarMonthWeeks2['default'])(month, firstDayOfWeek);
-          this.calendarMonthWeeks.push(numberOfWeeks);
-          month = month.add(1, 'months');
-        }
-      }
-
-      return setCalendarMonthWeeks;
-    }()
-  }, {
-    key: 'setContainerRef',
-    value: function () {
-      function setContainerRef(ref) {
-        this.container = ref;
-      }
-
-      return setContainerRef;
-    }()
-  }, {
-    key: 'setCalendarInfoRef',
-    value: function () {
-      function setCalendarInfoRef(ref) {
-        this.calendarInfo = ref;
-      }
-
-      return setCalendarInfoRef;
-    }()
-  }, {
-    key: 'setTransitionContainerRef',
-    value: function () {
-      function setTransitionContainerRef(ref) {
-        this.transitionContainer = ref;
-      }
-
-      return setTransitionContainerRef;
-    }()
-  }, {
-    key: 'maybeTransitionNextMonth',
-    value: function () {
-      function maybeTransitionNextMonth(newFocusedDate) {
-        var numberOfMonths = this.props.numberOfMonths;
-        var _state5 = this.state,
-            currentMonth = _state5.currentMonth,
-            focusedDate = _state5.focusedDate;
-
-
-        var newFocusedDateMonth = newFocusedDate.month();
-        var focusedDateMonth = focusedDate.month();
-        var isNewFocusedDateVisible = (0, _isDayVisible2['default'])(newFocusedDate, currentMonth, numberOfMonths);
-        if (newFocusedDateMonth !== focusedDateMonth && !isNewFocusedDateVisible) {
-          this.onNextMonthClick(newFocusedDate);
-          return true;
-        }
-
-        return false;
-      }
-
-      return maybeTransitionNextMonth;
-    }()
-  }, {
-    key: 'maybeTransitionPrevMonth',
-    value: function () {
-      function maybeTransitionPrevMonth(newFocusedDate) {
-        var numberOfMonths = this.props.numberOfMonths;
-        var _state6 = this.state,
-            currentMonth = _state6.currentMonth,
-            focusedDate = _state6.focusedDate;
-
-
-        var newFocusedDateMonth = newFocusedDate.month();
-        var focusedDateMonth = focusedDate.month();
-        var isNewFocusedDateVisible = (0, _isDayVisible2['default'])(newFocusedDate, currentMonth, numberOfMonths);
-        if (newFocusedDateMonth !== focusedDateMonth && !isNewFocusedDateVisible) {
-          this.onPrevMonthClick(newFocusedDate);
-          return true;
-        }
-
-        return false;
-      }
-
-      return maybeTransitionPrevMonth;
-    }()
-  }, {
-    key: 'multiplyScrollableMonths',
-    value: function () {
-      function multiplyScrollableMonths(e) {
-        var onMultiplyScrollableMonths = this.props.onMultiplyScrollableMonths;
-
-        if (e) e.preventDefault();
-
-        if (onMultiplyScrollableMonths) onMultiplyScrollableMonths(e);
-
-        this.setState(function (_ref) {
-          var scrollableMonthMultiple = _ref.scrollableMonthMultiple;
-          return {
-            scrollableMonthMultiple: scrollableMonthMultiple + 1
-          };
-        });
-      }
-
-      return multiplyScrollableMonths;
-    }()
-  }, {
-    key: 'isHorizontal',
-    value: function () {
-      function isHorizontal() {
-        var orientation = this.props.orientation;
-
-        return orientation === _constants.HORIZONTAL_ORIENTATION;
-      }
-
-      return isHorizontal;
-    }()
-  }, {
-    key: 'isVertical',
-    value: function () {
-      function isVertical() {
-        var orientation = this.props.orientation;
-
-        return orientation === _constants.VERTICAL_ORIENTATION || orientation === _constants.VERTICAL_SCROLLABLE;
-      }
-
-      return isVertical;
-    }()
-  }, {
-    key: 'updateStateAfterMonthTransition',
-    value: function () {
-      function updateStateAfterMonthTransition() {
-        var _this4 = this;
-
-        var _props7 = this.props,
-            onPrevMonthClick = _props7.onPrevMonthClick,
-            onNextMonthClick = _props7.onNextMonthClick,
-            numberOfMonths = _props7.numberOfMonths,
-            onMonthChange = _props7.onMonthChange,
-            onYearChange = _props7.onYearChange,
-            isRTL = _props7.isRTL;
-        var _state7 = this.state,
-            currentMonth = _state7.currentMonth,
-            monthTransition = _state7.monthTransition,
-            focusedDate = _state7.focusedDate,
-            nextFocusedDate = _state7.nextFocusedDate,
-            withMouseInteractions = _state7.withMouseInteractions,
-            calendarMonthWidth = _state7.calendarMonthWidth;
-
-
-        if (!monthTransition) return;
-
-        var newMonth = currentMonth.clone();
-        var firstDayOfWeek = this.getFirstDayOfWeek();
-        if (monthTransition === PREV_TRANSITION) {
-          newMonth.subtract(1, 'month');
-          if (onPrevMonthClick) onPrevMonthClick(newMonth);
-          var newInvisibleMonth = newMonth.clone().subtract(1, 'month');
-          var numberOfWeeks = (0, _getNumberOfCalendarMonthWeeks2['default'])(newInvisibleMonth, firstDayOfWeek);
-          this.calendarMonthWeeks = [numberOfWeeks].concat(_toConsumableArray(this.calendarMonthWeeks.slice(0, -1)));
-        } else if (monthTransition === NEXT_TRANSITION) {
-          newMonth.add(1, 'month');
-          if (onNextMonthClick) onNextMonthClick(newMonth);
-          var _newInvisibleMonth = newMonth.clone().add(numberOfMonths, 'month');
-          var _numberOfWeeks = (0, _getNumberOfCalendarMonthWeeks2['default'])(_newInvisibleMonth, firstDayOfWeek);
-          this.calendarMonthWeeks = [].concat(_toConsumableArray(this.calendarMonthWeeks.slice(1)), [_numberOfWeeks]);
-        } else if (monthTransition === MONTH_SELECTION_TRANSITION) {
-          if (onMonthChange) onMonthChange(newMonth);
-        } else if (monthTransition === YEAR_SELECTION_TRANSITION) {
-          if (onYearChange) onYearChange(newMonth);
-        }
-
-        var newFocusedDate = null;
-        if (nextFocusedDate) {
-          newFocusedDate = nextFocusedDate;
-        } else if (!focusedDate && !withMouseInteractions) {
-          newFocusedDate = this.getFocusedDay(newMonth);
-        }
-
-        this.setState({
-          currentMonth: newMonth,
-          monthTransition: null,
-          translationValue: isRTL && this.isHorizontal() ? -calendarMonthWidth : 0,
-          nextFocusedDate: null,
-          focusedDate: newFocusedDate
-        }, function () {
-          // we don't want to focus on the relevant calendar day after a month transition
-          // if the user is navigating around using a mouse
-          if (withMouseInteractions) {
-            var activeElement = (0, _getActiveElement2['default'])();
-            if (activeElement && activeElement !== document.body && _this4.container.contains(activeElement)) {
-              activeElement.blur();
+// Some versions of FF have rAF but not cAF
+if(!raf || !caf) {
+  var last = 0
+    , id = 0
+    , queue = []
+    , frameDuration = 1000 / 60
+
+  raf = function(callback) {
+    if(queue.length === 0) {
+      var _now = now()
+        , next = Math.max(0, frameDuration - (_now - last))
+      last = next + _now
+      setTimeout(function() {
+        var cp = queue.slice(0)
+        // Clear queue here to prevent
+        // callbacks from appending listeners
+        // to the current frame's queue
+        queue.length = 0
+        for(var i = 0; i < cp.length; i++) {
+          if(!cp[i].cancelled) {
+            try{
+              cp[i].callback(last)
+            } catch(e) {
+              setTimeout(function() { throw e }, 0)
             }
           }
-        });
-      }
-
-      return updateStateAfterMonthTransition;
-    }()
-  }, {
-    key: 'adjustDayPickerHeight',
-    value: function () {
-      function adjustDayPickerHeight(newMonthHeight) {
-        var _this5 = this;
-
-        var monthHeight = newMonthHeight + MONTH_PADDING;
-        if (monthHeight !== this.calendarMonthGridHeight) {
-          this.transitionContainer.style.height = String(monthHeight) + 'px';
-          if (!this.calendarMonthGridHeight) {
-            setTimeout(function () {
-              _this5.setState({ hasSetHeight: true });
-            }, 0);
-          }
-          this.calendarMonthGridHeight = monthHeight;
         }
-      }
-
-      return adjustDayPickerHeight;
-    }()
-  }, {
-    key: 'calculateAndSetDayPickerHeight',
-    value: function () {
-      function calculateAndSetDayPickerHeight() {
-        var _props8 = this.props,
-            daySize = _props8.daySize,
-            numberOfMonths = _props8.numberOfMonths;
-        var monthTitleHeight = this.state.monthTitleHeight;
-
-
-        var visibleCalendarWeeks = this.calendarMonthWeeks.slice(1, numberOfMonths + 1);
-        var calendarMonthWeeksHeight = Math.max.apply(Math, [0].concat(_toConsumableArray(visibleCalendarWeeks))) * (daySize - 1);
-        var newMonthHeight = monthTitleHeight + calendarMonthWeeksHeight + 1;
-
-        if (this.isHorizontal()) {
-          this.adjustDayPickerHeight(newMonthHeight);
-        }
-      }
-
-      return calculateAndSetDayPickerHeight;
-    }()
-  }, {
-    key: 'openKeyboardShortcutsPanel',
-    value: function () {
-      function openKeyboardShortcutsPanel(onCloseCallBack) {
-        this.setState({
-          showKeyboardShortcuts: true,
-          onKeyboardShortcutsPanelClose: onCloseCallBack
-        });
-      }
-
-      return openKeyboardShortcutsPanel;
-    }()
-  }, {
-    key: 'closeKeyboardShortcutsPanel',
-    value: function () {
-      function closeKeyboardShortcutsPanel() {
-        var onKeyboardShortcutsPanelClose = this.state.onKeyboardShortcutsPanelClose;
-
-
-        if (onKeyboardShortcutsPanelClose) {
-          onKeyboardShortcutsPanelClose();
-        }
-
-        this.setState({
-          onKeyboardShortcutsPanelClose: null,
-          showKeyboardShortcuts: false
-        });
-      }
-
-      return closeKeyboardShortcutsPanel;
-    }()
-  }, {
-    key: 'renderNavigation',
-    value: function () {
-      function renderNavigation() {
-        var _this6 = this;
-
-        var _props9 = this.props,
-            navPrev = _props9.navPrev,
-            navNext = _props9.navNext,
-            noNavButtons = _props9.noNavButtons,
-            orientation = _props9.orientation,
-            phrases = _props9.phrases,
-            isRTL = _props9.isRTL;
-
-
-        if (noNavButtons) {
-          return null;
-        }
-
-        var onNextMonthClick = void 0;
-        if (orientation === _constants.VERTICAL_SCROLLABLE) {
-          onNextMonthClick = this.multiplyScrollableMonths;
-        } else {
-          onNextMonthClick = function () {
-            function onNextMonthClick(e) {
-              _this6.onNextMonthClick(null, e);
-            }
-
-            return onNextMonthClick;
-          }();
-        }
-
-        return _react2['default'].createElement(_DayPickerNavigation2['default'], {
-          onPrevMonthClick: function () {
-            function onPrevMonthClick(e) {
-              _this6.onPrevMonthClick(null, e);
-            }
-
-            return onPrevMonthClick;
-          }(),
-          onNextMonthClick: onNextMonthClick,
-          navPrev: navPrev,
-          navNext: navNext,
-          orientation: orientation,
-          phrases: phrases,
-          isRTL: isRTL
-        });
-      }
-
-      return renderNavigation;
-    }()
-  }, {
-    key: 'renderWeekHeader',
-    value: function () {
-      function renderWeekHeader(index) {
-        var _props10 = this.props,
-            daySize = _props10.daySize,
-            horizontalMonthPadding = _props10.horizontalMonthPadding,
-            orientation = _props10.orientation,
-            weekDayFormat = _props10.weekDayFormat,
-            styles = _props10.styles;
-        var calendarMonthWidth = this.state.calendarMonthWidth;
-
-        var verticalScrollable = orientation === _constants.VERTICAL_SCROLLABLE;
-        var horizontalStyle = {
-          left: index * calendarMonthWidth
-        };
-        var verticalStyle = {
-          marginLeft: -calendarMonthWidth / 2
-        };
-
-        var weekHeaderStyle = {}; // no styles applied to the vertical-scrollable orientation
-        if (this.isHorizontal()) {
-          weekHeaderStyle = horizontalStyle;
-        } else if (this.isVertical() && !verticalScrollable) {
-          weekHeaderStyle = verticalStyle;
-        }
-
-        var firstDayOfWeek = this.getFirstDayOfWeek();
-
-        var header = [];
-        for (var i = 0; i < 7; i += 1) {
-          header.push(_react2['default'].createElement(
-            'li',
-            _extends({ key: i }, (0, _reactWithStyles.css)(styles.DayPicker_weekHeader_li, { width: daySize })),
-            _react2['default'].createElement(
-              'small',
-              null,
-              (0, _moment2['default'])().day((i + firstDayOfWeek) % 7).format(weekDayFormat)
-            )
-          ));
-        }
-
-        return _react2['default'].createElement(
-          'div',
-          _extends({}, (0, _reactWithStyles.css)(styles.DayPicker_weekHeader, this.isVertical() && styles.DayPicker_weekHeader__vertical, verticalScrollable && styles.DayPicker_weekHeader__verticalScrollable, weekHeaderStyle, { padding: '0 ' + String(horizontalMonthPadding) + 'px' }), {
-            key: 'week-' + String(index)
-          }),
-          _react2['default'].createElement(
-            'ul',
-            (0, _reactWithStyles.css)(styles.DayPicker_weekHeader_ul),
-            header
-          )
-        );
-      }
-
-      return renderWeekHeader;
-    }()
-  }, {
-    key: 'render',
-    value: function () {
-      function render() {
-        var _this7 = this;
-
-        var _state8 = this.state,
-            calendarMonthWidth = _state8.calendarMonthWidth,
-            currentMonth = _state8.currentMonth,
-            monthTransition = _state8.monthTransition,
-            translationValue = _state8.translationValue,
-            scrollableMonthMultiple = _state8.scrollableMonthMultiple,
-            focusedDate = _state8.focusedDate,
-            showKeyboardShortcuts = _state8.showKeyboardShortcuts,
-            isTouch = _state8.isTouchDevice,
-            hasSetHeight = _state8.hasSetHeight,
-            calendarInfoWidth = _state8.calendarInfoWidth,
-            monthTitleHeight = _state8.monthTitleHeight;
-        var _props11 = this.props,
-            enableOutsideDays = _props11.enableOutsideDays,
-            numberOfMonths = _props11.numberOfMonths,
-            orientation = _props11.orientation,
-            modifiers = _props11.modifiers,
-            withPortal = _props11.withPortal,
-            onDayClick = _props11.onDayClick,
-            onDayMouseEnter = _props11.onDayMouseEnter,
-            onDayMouseLeave = _props11.onDayMouseLeave,
-            firstDayOfWeek = _props11.firstDayOfWeek,
-            renderMonthText = _props11.renderMonthText,
-            renderCalendarDay = _props11.renderCalendarDay,
-            renderDayContents = _props11.renderDayContents,
-            renderCalendarInfo = _props11.renderCalendarInfo,
-            renderMonthElement = _props11.renderMonthElement,
-            calendarInfoPosition = _props11.calendarInfoPosition,
-            hideKeyboardShortcutsPanel = _props11.hideKeyboardShortcutsPanel,
-            onOutsideClick = _props11.onOutsideClick,
-            monthFormat = _props11.monthFormat,
-            daySize = _props11.daySize,
-            isFocused = _props11.isFocused,
-            isRTL = _props11.isRTL,
-            styles = _props11.styles,
-            theme = _props11.theme,
-            phrases = _props11.phrases,
-            verticalHeight = _props11.verticalHeight,
-            dayAriaLabelFormat = _props11.dayAriaLabelFormat,
-            noBorder = _props11.noBorder,
-            transitionDuration = _props11.transitionDuration,
-            verticalBorderSpacing = _props11.verticalBorderSpacing,
-            horizontalMonthPadding = _props11.horizontalMonthPadding;
-        var dayPickerHorizontalPadding = theme.reactDates.spacing.dayPickerHorizontalPadding;
-
-
-        var isHorizontal = this.isHorizontal();
-
-        var numOfWeekHeaders = this.isVertical() ? 1 : numberOfMonths;
-        var weekHeaders = [];
-        for (var i = 0; i < numOfWeekHeaders; i += 1) {
-          weekHeaders.push(this.renderWeekHeader(i));
-        }
-
-        var verticalScrollable = orientation === _constants.VERTICAL_SCROLLABLE;
-        var height = void 0;
-        if (isHorizontal) {
-          height = this.calendarMonthGridHeight;
-        } else if (this.isVertical() && !verticalScrollable && !withPortal) {
-          // If the user doesn't set a desired height,
-          // we default back to this kind of made-up value that generally looks good
-          height = verticalHeight || 1.75 * calendarMonthWidth;
-        }
-
-        var isCalendarMonthGridAnimating = monthTransition !== null;
-
-        var shouldFocusDate = !isCalendarMonthGridAnimating && isFocused;
-
-        var keyboardShortcutButtonLocation = _DayPickerKeyboardShortcuts.BOTTOM_RIGHT;
-        if (this.isVertical()) {
-          keyboardShortcutButtonLocation = withPortal ? _DayPickerKeyboardShortcuts.TOP_LEFT : _DayPickerKeyboardShortcuts.TOP_RIGHT;
-        }
-
-        var shouldAnimateHeight = isHorizontal && hasSetHeight;
-
-        var calendarInfoPositionTop = calendarInfoPosition === _constants.INFO_POSITION_TOP;
-        var calendarInfoPositionBottom = calendarInfoPosition === _constants.INFO_POSITION_BOTTOM;
-        var calendarInfoPositionBefore = calendarInfoPosition === _constants.INFO_POSITION_BEFORE;
-        var calendarInfoPositionAfter = calendarInfoPosition === _constants.INFO_POSITION_AFTER;
-        var calendarInfoIsInline = calendarInfoPositionBefore || calendarInfoPositionAfter;
-
-        var calendarInfo = renderCalendarInfo && _react2['default'].createElement(
-          'div',
-          _extends({
-            ref: this.setCalendarInfoRef
-          }, (0, _reactWithStyles.css)(calendarInfoIsInline && styles.DayPicker_calendarInfo__horizontal)),
-          renderCalendarInfo()
-        );
-
-        var calendarInfoPanelWidth = renderCalendarInfo && calendarInfoIsInline ? calendarInfoWidth : 0;
-
-        var firstVisibleMonthIndex = this.getFirstVisibleIndex();
-        var wrapperHorizontalWidth = calendarMonthWidth * numberOfMonths + 2 * dayPickerHorizontalPadding;
-        // Adding `1px` because of whitespace between 2 inline-block
-        var fullHorizontalWidth = wrapperHorizontalWidth + calendarInfoPanelWidth + 1;
-
-        var transitionContainerStyle = {
-          width: isHorizontal && wrapperHorizontalWidth,
-          height: height
-        };
-
-        var dayPickerWrapperStyle = {
-          width: isHorizontal && wrapperHorizontalWidth
-        };
-
-        var dayPickerStyle = {
-          width: isHorizontal && fullHorizontalWidth,
-
-          // These values are to center the datepicker (approximately) on the page
-          marginLeft: isHorizontal && withPortal ? -fullHorizontalWidth / 2 : null,
-          marginTop: isHorizontal && withPortal ? -calendarMonthWidth / 2 : null
-        };
-
-        return _react2['default'].createElement(
-          'div',
-          _extends({
-            role: 'application',
-            'aria-label': phrases.calendarLabel
-          }, (0, _reactWithStyles.css)(styles.DayPicker, isHorizontal && styles.DayPicker__horizontal, verticalScrollable && styles.DayPicker__verticalScrollable, isHorizontal && withPortal && styles.DayPicker_portal__horizontal, this.isVertical() && withPortal && styles.DayPicker_portal__vertical, dayPickerStyle, !monthTitleHeight && styles.DayPicker__hidden, !noBorder && styles.DayPicker__withBorder)),
-          _react2['default'].createElement(
-            _reactOutsideClickHandler2['default'],
-            { onOutsideClick: onOutsideClick },
-            (calendarInfoPositionTop || calendarInfoPositionBefore) && calendarInfo,
-            _react2['default'].createElement(
-              'div',
-              (0, _reactWithStyles.css)(dayPickerWrapperStyle, calendarInfoIsInline && isHorizontal && styles.DayPicker_wrapper__horizontal),
-              _react2['default'].createElement(
-                'div',
-                _extends({}, (0, _reactWithStyles.css)(styles.DayPicker_weekHeaders, isHorizontal && styles.DayPicker_weekHeaders__horizontal), {
-                  'aria-hidden': 'true',
-                  role: 'presentation'
-                }),
-                weekHeaders
-              ),
-              _react2['default'].createElement(
-                'div',
-                _extends({}, (0, _reactWithStyles.css)(styles.DayPicker_focusRegion), {
-                  ref: this.setContainerRef,
-                  onClick: function () {
-                    function onClick(e) {
-                      e.stopPropagation();
-                    }
-
-                    return onClick;
-                  }(),
-                  onKeyDown: this.onKeyDown,
-                  onMouseUp: function () {
-                    function onMouseUp() {
-                      _this7.setState({ withMouseInteractions: true });
-                    }
-
-                    return onMouseUp;
-                  }(),
-                  role: 'region',
-                  tabIndex: -1
-                }),
-                !verticalScrollable && this.renderNavigation(),
-                _react2['default'].createElement(
-                  'div',
-                  _extends({}, (0, _reactWithStyles.css)(styles.DayPicker_transitionContainer, shouldAnimateHeight && styles.DayPicker_transitionContainer__horizontal, this.isVertical() && styles.DayPicker_transitionContainer__vertical, verticalScrollable && styles.DayPicker_transitionContainer__verticalScrollable, transitionContainerStyle), {
-                    ref: this.setTransitionContainerRef
-                  }),
-                  _react2['default'].createElement(_CalendarMonthGrid2['default'], {
-                    setMonthTitleHeight: !monthTitleHeight ? this.setMonthTitleHeight : undefined,
-                    translationValue: translationValue,
-                    enableOutsideDays: enableOutsideDays,
-                    firstVisibleMonthIndex: firstVisibleMonthIndex,
-                    initialMonth: currentMonth,
-                    isAnimating: isCalendarMonthGridAnimating,
-                    modifiers: modifiers,
-                    orientation: orientation,
-                    numberOfMonths: numberOfMonths * scrollableMonthMultiple,
-                    onDayClick: onDayClick,
-                    onDayMouseEnter: onDayMouseEnter,
-                    onDayMouseLeave: onDayMouseLeave,
-                    onMonthChange: this.onMonthChange,
-                    onYearChange: this.onYearChange,
-                    renderMonthText: renderMonthText,
-                    renderCalendarDay: renderCalendarDay,
-                    renderDayContents: renderDayContents,
-                    renderMonthElement: renderMonthElement,
-                    onMonthTransitionEnd: this.updateStateAfterMonthTransition,
-                    monthFormat: monthFormat,
-                    daySize: daySize,
-                    firstDayOfWeek: firstDayOfWeek,
-                    isFocused: shouldFocusDate,
-                    focusedDate: focusedDate,
-                    phrases: phrases,
-                    isRTL: isRTL,
-                    dayAriaLabelFormat: dayAriaLabelFormat,
-                    transitionDuration: transitionDuration,
-                    verticalBorderSpacing: verticalBorderSpacing,
-                    horizontalMonthPadding: horizontalMonthPadding
-                  }),
-                  verticalScrollable && this.renderNavigation()
-                ),
-                !isTouch && !hideKeyboardShortcutsPanel && _react2['default'].createElement(_DayPickerKeyboardShortcuts2['default'], {
-                  block: this.isVertical() && !withPortal,
-                  buttonLocation: keyboardShortcutButtonLocation,
-                  showKeyboardShortcutsPanel: showKeyboardShortcuts,
-                  openKeyboardShortcutsPanel: this.openKeyboardShortcutsPanel,
-                  closeKeyboardShortcutsPanel: this.closeKeyboardShortcutsPanel,
-                  phrases: phrases
-                })
-              )
-            ),
-            (calendarInfoPositionBottom || calendarInfoPositionAfter) && calendarInfo
-          )
-        );
-      }
-
-      return render;
-    }()
-  }]);
-
-  return DayPicker;
-}(_react2['default'].Component);
-
-DayPicker.propTypes = propTypes;
-DayPicker.defaultProps = defaultProps;
-
-exports.PureDayPicker = DayPicker;
-exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
-  var _ref2$reactDates = _ref2.reactDates,
-      color = _ref2$reactDates.color,
-      font = _ref2$reactDates.font,
-      noScrollBarOnVerticalScrollable = _ref2$reactDates.noScrollBarOnVerticalScrollable,
-      spacing = _ref2$reactDates.spacing,
-      zIndex = _ref2$reactDates.zIndex;
-  return {
-    DayPicker: {
-      background: color.background,
-      position: 'relative',
-      textAlign: 'left'
-    },
-
-    DayPicker__horizontal: {
-      background: color.background
-    },
-
-    DayPicker__verticalScrollable: {
-      height: '100%'
-    },
-
-    DayPicker__hidden: {
-      visibility: 'hidden'
-    },
-
-    DayPicker__withBorder: {
-      boxShadow: '0 2px 6px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.07)',
-      borderRadius: 3
-    },
-
-    DayPicker_portal__horizontal: {
-      boxShadow: 'none',
-      position: 'absolute',
-      left: '50%',
-      top: '50%'
-    },
-
-    DayPicker_portal__vertical: {
-      position: 'initial'
-    },
-
-    DayPicker_focusRegion: {
-      outline: 'none'
-    },
-
-    DayPicker_calendarInfo__horizontal: {
-      display: 'inline-block',
-      verticalAlign: 'top'
-    },
-
-    DayPicker_wrapper__horizontal: {
-      display: 'inline-block',
-      verticalAlign: 'top'
-    },
-
-    DayPicker_weekHeaders: {
-      position: 'relative'
-    },
-
-    DayPicker_weekHeaders__horizontal: {
-      marginLeft: spacing.dayPickerHorizontalPadding
-    },
-
-    DayPicker_weekHeader: {
-      color: color.placeholderText,
-      position: 'absolute',
-      top: 62,
-      zIndex: zIndex + 2,
-      textAlign: 'left'
-    },
-
-    DayPicker_weekHeader__vertical: {
-      left: '50%'
-    },
-
-    DayPicker_weekHeader__verticalScrollable: {
-      top: 0,
-      display: 'table-row',
-      borderBottom: '1px solid ' + String(color.core.border),
-      background: color.background,
-      marginLeft: 0,
-      left: 0,
-      width: '100%',
-      textAlign: 'center'
-    },
-
-    DayPicker_weekHeader_ul: {
-      listStyle: 'none',
-      margin: '1px 0',
-      paddingLeft: 0,
-      paddingRight: 0,
-      fontSize: font.size
-    },
-
-    DayPicker_weekHeader_li: {
-      display: 'inline-block',
-      textAlign: 'center'
-    },
-
-    DayPicker_transitionContainer: {
-      position: 'relative',
-      overflow: 'hidden',
-      borderRadius: 3
-    },
-
-    DayPicker_transitionContainer__horizontal: {
-      transition: 'height 0.2s ease-in-out'
-    },
-
-    DayPicker_transitionContainer__vertical: {
-      width: '100%'
-    },
-
-    DayPicker_transitionContainer__verticalScrollable: (0, _object2['default'])({
-      paddingTop: 20,
-      height: '100%',
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      right: 0,
-      left: 0,
-      overflowY: 'scroll'
-    }, noScrollBarOnVerticalScrollable && {
-      '-webkitOverflowScrolling': 'touch',
-      '::-webkit-scrollbar': {
-        '-webkit-appearance': 'none',
-        display: 'none'
-      }
+      }, Math.round(next))
+    }
+    queue.push({
+      handle: ++id,
+      callback: callback,
+      cancelled: false
     })
-  };
-})(DayPicker);
-
-/***/ }),
-
-/***/ 600:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports.BOTTOM_RIGHT = exports.TOP_RIGHT = exports.TOP_LEFT = undefined;
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _object = __webpack_require__(4011);
-
-var _object2 = _interopRequireDefault(_object);
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _airbnbPropTypes = __webpack_require__(4882);
-
-var _reactWithStyles = __webpack_require__(3576);
-
-var _defaultPhrases = __webpack_require__(6030);
-
-var _getPhrasePropTypes = __webpack_require__(2893);
-
-var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
-
-var _KeyboardShortcutRow = __webpack_require__(5820);
-
-var _KeyboardShortcutRow2 = _interopRequireDefault(_KeyboardShortcutRow);
-
-var _CloseButton = __webpack_require__(6973);
-
-var _CloseButton2 = _interopRequireDefault(_CloseButton);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var TOP_LEFT = exports.TOP_LEFT = 'top-left';
-var TOP_RIGHT = exports.TOP_RIGHT = 'top-right';
-var BOTTOM_RIGHT = exports.BOTTOM_RIGHT = 'bottom-right';
-
-var propTypes = (0, _airbnbPropTypes.forbidExtraProps)((0, _object2['default'])({}, _reactWithStyles.withStylesPropTypes, {
-  block: _propTypes2['default'].bool,
-  buttonLocation: _propTypes2['default'].oneOf([TOP_LEFT, TOP_RIGHT, BOTTOM_RIGHT]),
-  showKeyboardShortcutsPanel: _propTypes2['default'].bool,
-  openKeyboardShortcutsPanel: _propTypes2['default'].func,
-  closeKeyboardShortcutsPanel: _propTypes2['default'].func,
-  phrases: _propTypes2['default'].shape((0, _getPhrasePropTypes2['default'])(_defaultPhrases.DayPickerKeyboardShortcutsPhrases))
-}));
-
-var defaultProps = {
-  block: false,
-  buttonLocation: BOTTOM_RIGHT,
-  showKeyboardShortcutsPanel: false,
-  openKeyboardShortcutsPanel: function () {
-    function openKeyboardShortcutsPanel() {}
-
-    return openKeyboardShortcutsPanel;
-  }(),
-  closeKeyboardShortcutsPanel: function () {
-    function closeKeyboardShortcutsPanel() {}
-
-    return closeKeyboardShortcutsPanel;
-  }(),
-
-  phrases: _defaultPhrases.DayPickerKeyboardShortcutsPhrases
-};
-
-function getKeyboardShortcuts(phrases) {
-  return [{
-    unicode: '↵',
-    label: phrases.enterKey,
-    action: phrases.selectFocusedDate
-  }, {
-    unicode: '←/→',
-    label: phrases.leftArrowRightArrow,
-    action: phrases.moveFocusByOneDay
-  }, {
-    unicode: '↑/↓',
-    label: phrases.upArrowDownArrow,
-    action: phrases.moveFocusByOneWeek
-  }, {
-    unicode: 'PgUp/PgDn',
-    label: phrases.pageUpPageDown,
-    action: phrases.moveFocusByOneMonth
-  }, {
-    unicode: 'Home/End',
-    label: phrases.homeEnd,
-    action: phrases.moveFocustoStartAndEndOfWeek
-  }, {
-    unicode: 'Esc',
-    label: phrases.escape,
-    action: phrases.returnFocusToInput
-  }, {
-    unicode: '?',
-    label: phrases.questionMark,
-    action: phrases.openThisPanel
-  }];
-}
-
-var DayPickerKeyboardShortcuts = function (_React$Component) {
-  _inherits(DayPickerKeyboardShortcuts, _React$Component);
-
-  function DayPickerKeyboardShortcuts() {
-    var _ref;
-
-    _classCallCheck(this, DayPickerKeyboardShortcuts);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    var _this = _possibleConstructorReturn(this, (_ref = DayPickerKeyboardShortcuts.__proto__ || Object.getPrototypeOf(DayPickerKeyboardShortcuts)).call.apply(_ref, [this].concat(args)));
-
-    var phrases = _this.props.phrases;
-
-    _this.keyboardShortcuts = getKeyboardShortcuts(phrases);
-
-    _this.onShowKeyboardShortcutsButtonClick = _this.onShowKeyboardShortcutsButtonClick.bind(_this);
-    _this.setShowKeyboardShortcutsButtonRef = _this.setShowKeyboardShortcutsButtonRef.bind(_this);
-    _this.setHideKeyboardShortcutsButtonRef = _this.setHideKeyboardShortcutsButtonRef.bind(_this);
-    _this.handleFocus = _this.handleFocus.bind(_this);
-    _this.onKeyDown = _this.onKeyDown.bind(_this);
-    return _this;
+    return id
   }
 
-  _createClass(DayPickerKeyboardShortcuts, [{
-    key: 'componentWillReceiveProps',
-    value: function () {
-      function componentWillReceiveProps(nextProps) {
-        var phrases = this.props.phrases;
-
-        if (nextProps.phrases !== phrases) {
-          this.keyboardShortcuts = getKeyboardShortcuts(nextProps.phrases);
-        }
-      }
-
-      return componentWillReceiveProps;
-    }()
-  }, {
-    key: 'componentDidUpdate',
-    value: function () {
-      function componentDidUpdate() {
-        this.handleFocus();
-      }
-
-      return componentDidUpdate;
-    }()
-  }, {
-    key: 'onKeyDown',
-    value: function () {
-      function onKeyDown(e) {
-        e.stopPropagation();
-
-        var closeKeyboardShortcutsPanel = this.props.closeKeyboardShortcutsPanel;
-        // Because the close button is the only focusable element inside of the panel, this
-        // amounts to a very basic focus trap. The user can exit the panel by "pressing" the
-        // close button or hitting escape
-
-        switch (e.key) {
-          case 'Enter':
-          case ' ':
-          case 'Spacebar': // for older browsers
-          case 'Escape':
-            closeKeyboardShortcutsPanel();
-            break;
-
-          // do nothing - this allows the up and down arrows continue their
-          // default behavior of scrolling the content of the Keyboard Shortcuts Panel
-          // which is needed when only a single month is shown for instance.
-          case 'ArrowUp':
-          case 'ArrowDown':
-            break;
-
-          // completely block the rest of the keys that have functionality outside of this panel
-          case 'Tab':
-          case 'Home':
-          case 'End':
-          case 'PageUp':
-          case 'PageDown':
-          case 'ArrowLeft':
-          case 'ArrowRight':
-            e.preventDefault();
-            break;
-
-          default:
-            break;
-        }
-      }
-
-      return onKeyDown;
-    }()
-  }, {
-    key: 'onShowKeyboardShortcutsButtonClick',
-    value: function () {
-      function onShowKeyboardShortcutsButtonClick() {
-        var _this2 = this;
-
-        var openKeyboardShortcutsPanel = this.props.openKeyboardShortcutsPanel;
-
-        // we want to return focus to this button after closing the keyboard shortcuts panel
-
-        openKeyboardShortcutsPanel(function () {
-          _this2.showKeyboardShortcutsButton.focus();
-        });
-      }
-
-      return onShowKeyboardShortcutsButtonClick;
-    }()
-  }, {
-    key: 'setShowKeyboardShortcutsButtonRef',
-    value: function () {
-      function setShowKeyboardShortcutsButtonRef(ref) {
-        this.showKeyboardShortcutsButton = ref;
-      }
-
-      return setShowKeyboardShortcutsButtonRef;
-    }()
-  }, {
-    key: 'setHideKeyboardShortcutsButtonRef',
-    value: function () {
-      function setHideKeyboardShortcutsButtonRef(ref) {
-        this.hideKeyboardShortcutsButton = ref;
-      }
-
-      return setHideKeyboardShortcutsButtonRef;
-    }()
-  }, {
-    key: 'handleFocus',
-    value: function () {
-      function handleFocus() {
-        if (this.hideKeyboardShortcutsButton) {
-          // automatically move focus into the dialog by moving
-          // to the only interactive element, the hide button
-          this.hideKeyboardShortcutsButton.focus();
-        }
-      }
-
-      return handleFocus;
-    }()
-  }, {
-    key: 'render',
-    value: function () {
-      function render() {
-        var _this3 = this;
-
-        var _props = this.props,
-            block = _props.block,
-            buttonLocation = _props.buttonLocation,
-            showKeyboardShortcutsPanel = _props.showKeyboardShortcutsPanel,
-            closeKeyboardShortcutsPanel = _props.closeKeyboardShortcutsPanel,
-            styles = _props.styles,
-            phrases = _props.phrases;
-
-
-        var toggleButtonText = showKeyboardShortcutsPanel ? phrases.hideKeyboardShortcutsPanel : phrases.showKeyboardShortcutsPanel;
-
-        var bottomRight = buttonLocation === BOTTOM_RIGHT;
-        var topRight = buttonLocation === TOP_RIGHT;
-        var topLeft = buttonLocation === TOP_LEFT;
-
-        return _react2['default'].createElement(
-          'div',
-          null,
-          _react2['default'].createElement(
-            'button',
-            _extends({
-              ref: this.setShowKeyboardShortcutsButtonRef
-            }, (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_buttonReset, styles.DayPickerKeyboardShortcuts_show, bottomRight && styles.DayPickerKeyboardShortcuts_show__bottomRight, topRight && styles.DayPickerKeyboardShortcuts_show__topRight, topLeft && styles.DayPickerKeyboardShortcuts_show__topLeft), {
-              type: 'button',
-              'aria-label': toggleButtonText,
-              onClick: this.onShowKeyboardShortcutsButtonClick,
-              onKeyDown: function () {
-                function onKeyDown(e) {
-                  if (e.key === 'Enter') {
-                    e.preventDefault();
-                  } else if (e.key === 'Space') {
-                    _this3.onShowKeyboardShortcutsButtonClick(e);
-                  }
-                }
-
-                return onKeyDown;
-              }(),
-              onMouseUp: function () {
-                function onMouseUp(e) {
-                  e.currentTarget.blur();
-                }
-
-                return onMouseUp;
-              }()
-            }),
-            _react2['default'].createElement(
-              'span',
-              (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_showSpan, bottomRight && styles.DayPickerKeyboardShortcuts_showSpan__bottomRight, topRight && styles.DayPickerKeyboardShortcuts_showSpan__topRight, topLeft && styles.DayPickerKeyboardShortcuts_showSpan__topLeft),
-              '?'
-            )
-          ),
-          showKeyboardShortcutsPanel && _react2['default'].createElement(
-            'div',
-            _extends({}, (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_panel), {
-              role: 'dialog',
-              'aria-labelledby': 'DayPickerKeyboardShortcuts_title',
-              'aria-describedby': 'DayPickerKeyboardShortcuts_description'
-            }),
-            _react2['default'].createElement(
-              'div',
-              _extends({}, (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_title), {
-                id: 'DayPickerKeyboardShortcuts_title'
-              }),
-              phrases.keyboardShortcuts
-            ),
-            _react2['default'].createElement(
-              'button',
-              _extends({
-                ref: this.setHideKeyboardShortcutsButtonRef
-              }, (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_buttonReset, styles.DayPickerKeyboardShortcuts_close), {
-                type: 'button',
-                tabIndex: '0',
-                'aria-label': phrases.hideKeyboardShortcutsPanel,
-                onClick: closeKeyboardShortcutsPanel,
-                onKeyDown: this.onKeyDown
-              }),
-              _react2['default'].createElement(_CloseButton2['default'], (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_closeSvg))
-            ),
-            _react2['default'].createElement(
-              'ul',
-              _extends({}, (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_list), {
-                id: 'DayPickerKeyboardShortcuts_description'
-              }),
-              this.keyboardShortcuts.map(function (_ref2) {
-                var unicode = _ref2.unicode,
-                    label = _ref2.label,
-                    action = _ref2.action;
-                return _react2['default'].createElement(_KeyboardShortcutRow2['default'], {
-                  key: label,
-                  unicode: unicode,
-                  label: label,
-                  action: action,
-                  block: block
-                });
-              })
-            )
-          )
-        );
-      }
-
-      return render;
-    }()
-  }]);
-
-  return DayPickerKeyboardShortcuts;
-}(_react2['default'].Component);
-
-DayPickerKeyboardShortcuts.propTypes = propTypes;
-DayPickerKeyboardShortcuts.defaultProps = defaultProps;
-
-exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref3) {
-  var _ref3$reactDates = _ref3.reactDates,
-      color = _ref3$reactDates.color,
-      font = _ref3$reactDates.font,
-      zIndex = _ref3$reactDates.zIndex;
-  return {
-    DayPickerKeyboardShortcuts_buttonReset: {
-      background: 'none',
-      border: 0,
-      borderRadius: 0,
-      color: 'inherit',
-      font: 'inherit',
-      lineHeight: 'normal',
-      overflow: 'visible',
-      padding: 0,
-      cursor: 'pointer',
-      fontSize: font.size,
-
-      ':active': {
-        outline: 'none'
-      }
-    },
-
-    DayPickerKeyboardShortcuts_show: {
-      width: 22,
-      position: 'absolute',
-      zIndex: zIndex + 2
-    },
-
-    DayPickerKeyboardShortcuts_show__bottomRight: {
-      borderTop: '26px solid transparent',
-      borderRight: '33px solid ' + String(color.core.primary),
-      bottom: 0,
-      right: 0,
-
-      ':hover': {
-        borderRight: '33px solid ' + String(color.core.primary_dark)
-      }
-    },
-
-    DayPickerKeyboardShortcuts_show__topRight: {
-      borderBottom: '26px solid transparent',
-      borderRight: '33px solid ' + String(color.core.primary),
-      top: 0,
-      right: 0,
-
-      ':hover': {
-        borderRight: '33px solid ' + String(color.core.primary_dark)
-      }
-    },
-
-    DayPickerKeyboardShortcuts_show__topLeft: {
-      borderBottom: '26px solid transparent',
-      borderLeft: '33px solid ' + String(color.core.primary),
-      top: 0,
-      left: 0,
-
-      ':hover': {
-        borderLeft: '33px solid ' + String(color.core.primary_dark)
-      }
-    },
-
-    DayPickerKeyboardShortcuts_showSpan: {
-      color: color.core.white,
-      position: 'absolute'
-    },
-
-    DayPickerKeyboardShortcuts_showSpan__bottomRight: {
-      bottom: 0,
-      right: -28
-    },
-
-    DayPickerKeyboardShortcuts_showSpan__topRight: {
-      top: 1,
-      right: -28
-    },
-
-    DayPickerKeyboardShortcuts_showSpan__topLeft: {
-      top: 1,
-      left: -28
-    },
-
-    DayPickerKeyboardShortcuts_panel: {
-      overflow: 'auto',
-      background: color.background,
-      border: '1px solid ' + String(color.core.border),
-      borderRadius: 2,
-      position: 'absolute',
-      top: 0,
-      bottom: 0,
-      right: 0,
-      left: 0,
-      zIndex: zIndex + 2,
-      padding: 22,
-      margin: 33
-    },
-
-    DayPickerKeyboardShortcuts_title: {
-      fontSize: 16,
-      fontWeight: 'bold',
-      margin: 0
-    },
-
-    DayPickerKeyboardShortcuts_list: {
-      listStyle: 'none',
-      padding: 0,
-      fontSize: font.size
-    },
-
-    DayPickerKeyboardShortcuts_close: {
-      position: 'absolute',
-      right: 22,
-      top: 22,
-      zIndex: zIndex + 2,
-
-      ':active': {
-        outline: 'none'
-      }
-    },
-
-    DayPickerKeyboardShortcuts_closeSvg: {
-      height: 15,
-      width: 15,
-      fill: color.core.grayLighter,
-
-      ':hover': {
-        fill: color.core.grayLight
-      },
-
-      ':focus': {
-        fill: color.core.grayLight
-      }
-    }
-  };
-})(DayPickerKeyboardShortcuts);
-
-/***/ }),
-
-/***/ 3895:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _object = __webpack_require__(4011);
-
-var _object2 = _interopRequireDefault(_object);
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _airbnbPropTypes = __webpack_require__(4882);
-
-var _reactWithStyles = __webpack_require__(3576);
-
-var _defaultPhrases = __webpack_require__(6030);
-
-var _getPhrasePropTypes = __webpack_require__(2893);
-
-var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
-
-var _LeftArrow = __webpack_require__(8);
-
-var _LeftArrow2 = _interopRequireDefault(_LeftArrow);
-
-var _RightArrow = __webpack_require__(4921);
-
-var _RightArrow2 = _interopRequireDefault(_RightArrow);
-
-var _ChevronUp = __webpack_require__(1809);
-
-var _ChevronUp2 = _interopRequireDefault(_ChevronUp);
-
-var _ChevronDown = __webpack_require__(9588);
-
-var _ChevronDown2 = _interopRequireDefault(_ChevronDown);
-
-var _ScrollableOrientationShape = __webpack_require__(6553);
-
-var _ScrollableOrientationShape2 = _interopRequireDefault(_ScrollableOrientationShape);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var propTypes = (0, _airbnbPropTypes.forbidExtraProps)((0, _object2['default'])({}, _reactWithStyles.withStylesPropTypes, {
-  navPrev: _propTypes2['default'].node,
-  navNext: _propTypes2['default'].node,
-  orientation: _ScrollableOrientationShape2['default'],
-
-  onPrevMonthClick: _propTypes2['default'].func,
-  onNextMonthClick: _propTypes2['default'].func,
-
-  // internationalization
-  phrases: _propTypes2['default'].shape((0, _getPhrasePropTypes2['default'])(_defaultPhrases.DayPickerNavigationPhrases)),
-
-  isRTL: _propTypes2['default'].bool
-}));
-
-var defaultProps = {
-  navPrev: null,
-  navNext: null,
-  orientation: _constants.HORIZONTAL_ORIENTATION,
-
-  onPrevMonthClick: function () {
-    function onPrevMonthClick() {}
-
-    return onPrevMonthClick;
-  }(),
-  onNextMonthClick: function () {
-    function onNextMonthClick() {}
-
-    return onNextMonthClick;
-  }(),
-
-
-  // internationalization
-  phrases: _defaultPhrases.DayPickerNavigationPhrases,
-  isRTL: false
-};
-
-function DayPickerNavigation(_ref) {
-  var navPrev = _ref.navPrev,
-      navNext = _ref.navNext,
-      onPrevMonthClick = _ref.onPrevMonthClick,
-      onNextMonthClick = _ref.onNextMonthClick,
-      orientation = _ref.orientation,
-      phrases = _ref.phrases,
-      isRTL = _ref.isRTL,
-      styles = _ref.styles;
-
-  var isHorizontal = orientation === _constants.HORIZONTAL_ORIENTATION;
-  var isVertical = orientation !== _constants.HORIZONTAL_ORIENTATION;
-  var isVerticalScrollable = orientation === _constants.VERTICAL_SCROLLABLE;
-
-  var navPrevIcon = navPrev;
-  var navNextIcon = navNext;
-  var isDefaultNavPrev = false;
-  var isDefaultNavNext = false;
-  if (!navPrevIcon) {
-    isDefaultNavPrev = true;
-    var Icon = isVertical ? _ChevronUp2['default'] : _LeftArrow2['default'];
-    if (isRTL && !isVertical) {
-      Icon = _RightArrow2['default'];
-    }
-    navPrevIcon = _react2['default'].createElement(Icon, (0, _reactWithStyles.css)(isHorizontal && styles.DayPickerNavigation_svg__horizontal, isVertical && styles.DayPickerNavigation_svg__vertical));
-  }
-
-  if (!navNextIcon) {
-    isDefaultNavNext = true;
-    var _Icon = isVertical ? _ChevronDown2['default'] : _RightArrow2['default'];
-    if (isRTL && !isVertical) {
-      _Icon = _LeftArrow2['default'];
-    }
-    navNextIcon = _react2['default'].createElement(_Icon, (0, _reactWithStyles.css)(isHorizontal && styles.DayPickerNavigation_svg__horizontal, isVertical && styles.DayPickerNavigation_svg__vertical));
-  }
-
-  var isDefaultNav = isVerticalScrollable ? isDefaultNavNext : isDefaultNavNext || isDefaultNavPrev;
-
-  return _react2['default'].createElement(
-    'div',
-    _reactWithStyles.css.apply(undefined, [styles.DayPickerNavigation, isHorizontal && styles.DayPickerNavigation__horizontal].concat(_toConsumableArray(isVertical && [styles.DayPickerNavigation__vertical, isDefaultNav && styles.DayPickerNavigation__verticalDefault]), _toConsumableArray(isVerticalScrollable && [styles.DayPickerNavigation__verticalScrollable, isDefaultNav && styles.DayPickerNavigation__verticalScrollableDefault]))),
-    !isVerticalScrollable && _react2['default'].createElement(
-      'div',
-      _extends({
-        role: 'button',
-        tabIndex: '0'
-      }, _reactWithStyles.css.apply(undefined, [styles.DayPickerNavigation_button, isDefaultNavPrev && styles.DayPickerNavigation_button__default].concat(_toConsumableArray(isHorizontal && [styles.DayPickerNavigation_button__horizontal].concat(_toConsumableArray(isDefaultNavPrev && [styles.DayPickerNavigation_button__horizontalDefault, !isRTL && styles.DayPickerNavigation_leftButton__horizontalDefault, isRTL && styles.DayPickerNavigation_rightButton__horizontalDefault]))), _toConsumableArray(isVertical && [styles.DayPickerNavigation_button__vertical].concat(_toConsumableArray(isDefaultNavPrev && [styles.DayPickerNavigation_button__verticalDefault, styles.DayPickerNavigation_prevButton__verticalDefault]))))), {
-        'aria-label': phrases.jumpToPrevMonth,
-        onClick: onPrevMonthClick,
-        onKeyUp: function () {
-          function onKeyUp(e) {
-            var key = e.key;
-
-            if (key === 'Enter' || key === ' ') onPrevMonthClick(e);
-          }
-
-          return onKeyUp;
-        }(),
-        onMouseUp: function () {
-          function onMouseUp(e) {
-            e.currentTarget.blur();
-          }
-
-          return onMouseUp;
-        }()
-      }),
-      navPrevIcon
-    ),
-    _react2['default'].createElement(
-      'div',
-      _extends({
-        role: 'button',
-        tabIndex: '0'
-      }, _reactWithStyles.css.apply(undefined, [styles.DayPickerNavigation_button, isDefaultNavNext && styles.DayPickerNavigation_button__default].concat(_toConsumableArray(isHorizontal && [styles.DayPickerNavigation_button__horizontal].concat(_toConsumableArray(isDefaultNavNext && [styles.DayPickerNavigation_button__horizontalDefault, isRTL && styles.DayPickerNavigation_leftButton__horizontalDefault, !isRTL && styles.DayPickerNavigation_rightButton__horizontalDefault]))), _toConsumableArray(isVertical && [styles.DayPickerNavigation_button__vertical, styles.DayPickerNavigation_nextButton__vertical].concat(_toConsumableArray(isDefaultNavNext && [styles.DayPickerNavigation_button__verticalDefault, styles.DayPickerNavigation_nextButton__verticalDefault, isVerticalScrollable && styles.DayPickerNavigation_nextButton__verticalScrollableDefault]))))), {
-        'aria-label': phrases.jumpToNextMonth,
-        onClick: onNextMonthClick,
-        onKeyUp: function () {
-          function onKeyUp(e) {
-            var key = e.key;
-
-            if (key === 'Enter' || key === ' ') onNextMonthClick(e);
-          }
-
-          return onKeyUp;
-        }(),
-        onMouseUp: function () {
-          function onMouseUp(e) {
-            e.currentTarget.blur();
-          }
-
-          return onMouseUp;
-        }()
-      }),
-      navNextIcon
-    )
-  );
-}
-
-DayPickerNavigation.propTypes = propTypes;
-DayPickerNavigation.defaultProps = defaultProps;
-
-exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
-  var _ref2$reactDates = _ref2.reactDates,
-      color = _ref2$reactDates.color,
-      zIndex = _ref2$reactDates.zIndex;
-  return {
-    DayPickerNavigation: {
-      position: 'relative',
-      zIndex: zIndex + 2
-    },
-
-    DayPickerNavigation__horizontal: {
-      height: 0
-    },
-
-    DayPickerNavigation__vertical: {},
-    DayPickerNavigation__verticalScrollable: {},
-
-    DayPickerNavigation__verticalDefault: {
-      position: 'absolute',
-      width: '100%',
-      height: 52,
-      bottom: 0,
-      left: 0
-    },
-
-    DayPickerNavigation__verticalScrollableDefault: {
-      position: 'relative'
-    },
-
-    DayPickerNavigation_button: {
-      cursor: 'pointer',
-      userSelect: 'none',
-      border: 0,
-      padding: 0,
-      margin: 0
-    },
-
-    DayPickerNavigation_button__default: {
-      border: '1px solid ' + String(color.core.borderLight),
-      backgroundColor: color.background,
-      color: color.placeholderText,
-
-      ':focus': {
-        border: '1px solid ' + String(color.core.borderMedium)
-      },
-
-      ':hover': {
-        border: '1px solid ' + String(color.core.borderMedium)
-      },
-
-      ':active': {
-        background: color.backgroundDark
-      }
-    },
-
-    DayPickerNavigation_button__horizontal: {},
-
-    DayPickerNavigation_button__horizontalDefault: {
-      position: 'absolute',
-      top: 18,
-      lineHeight: 0.78,
-      borderRadius: 3,
-      padding: '6px 9px'
-    },
-
-    DayPickerNavigation_leftButton__horizontalDefault: {
-      left: 22
-    },
-
-    DayPickerNavigation_rightButton__horizontalDefault: {
-      right: 22
-    },
-
-    DayPickerNavigation_button__vertical: {},
-
-    DayPickerNavigation_button__verticalDefault: {
-      padding: 5,
-      background: color.background,
-      boxShadow: '0 0 5px 2px rgba(0, 0, 0, 0.1)',
-      position: 'relative',
-      display: 'inline-block',
-      height: '100%',
-      width: '50%'
-    },
-
-    DayPickerNavigation_prevButton__verticalDefault: {},
-
-    DayPickerNavigation_nextButton__verticalDefault: {
-      borderLeft: 0
-    },
-
-    DayPickerNavigation_nextButton__verticalScrollableDefault: {
-      width: '100%'
-    },
-
-    DayPickerNavigation_svg__horizontal: {
-      height: 19,
-      width: 19,
-      fill: color.core.grayLight,
-      display: 'block'
-    },
-
-    DayPickerNavigation_svg__vertical: {
-      height: 42,
-      width: 42,
-      fill: color.text,
-      display: 'block'
-    }
-  };
-})(DayPickerNavigation);
-
-/***/ }),
-
-/***/ 6302:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-var __webpack_unused_export__;
-
-
-__webpack_unused_export__ = ({
-  value: true
-});
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _object = __webpack_require__(4011);
-
-var _object2 = _interopRequireDefault(_object);
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactMomentProptypes = __webpack_require__(6150);
-
-var _reactMomentProptypes2 = _interopRequireDefault(_reactMomentProptypes);
-
-var _airbnbPropTypes = __webpack_require__(4882);
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _object3 = __webpack_require__(5861);
-
-var _object4 = _interopRequireDefault(_object3);
-
-var _isTouchDevice = __webpack_require__(5834);
-
-var _isTouchDevice2 = _interopRequireDefault(_isTouchDevice);
-
-var _defaultPhrases = __webpack_require__(6030);
-
-var _getPhrasePropTypes = __webpack_require__(2893);
-
-var _getPhrasePropTypes2 = _interopRequireDefault(_getPhrasePropTypes);
-
-var _isSameDay = __webpack_require__(3923);
-
-var _isSameDay2 = _interopRequireDefault(_isSameDay);
-
-var _isAfterDay = __webpack_require__(7365);
-
-var _isAfterDay2 = _interopRequireDefault(_isAfterDay);
-
-var _getVisibleDays = __webpack_require__(3268);
-
-var _getVisibleDays2 = _interopRequireDefault(_getVisibleDays);
-
-var _isDayVisible = __webpack_require__(5713);
-
-var _isDayVisible2 = _interopRequireDefault(_isDayVisible);
-
-var _toISODateString = __webpack_require__(1688);
-
-var _toISODateString2 = _interopRequireDefault(_toISODateString);
-
-var _toISOMonthString = __webpack_require__(2705);
-
-var _toISOMonthString2 = _interopRequireDefault(_toISOMonthString);
-
-var _ScrollableOrientationShape = __webpack_require__(6553);
-
-var _ScrollableOrientationShape2 = _interopRequireDefault(_ScrollableOrientationShape);
-
-var _DayOfWeekShape = __webpack_require__(243);
-
-var _DayOfWeekShape2 = _interopRequireDefault(_DayOfWeekShape);
-
-var _CalendarInfoPositionShape = __webpack_require__(8182);
-
-var _CalendarInfoPositionShape2 = _interopRequireDefault(_CalendarInfoPositionShape);
-
-var _constants = __webpack_require__(257);
-
-var _DayPicker = __webpack_require__(8665);
-
-var _DayPicker2 = _interopRequireDefault(_DayPicker);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var propTypes = (0, _airbnbPropTypes.forbidExtraProps)({
-  date: _reactMomentProptypes2['default'].momentObj,
-  onDateChange: _propTypes2['default'].func,
-
-  focused: _propTypes2['default'].bool,
-  onFocusChange: _propTypes2['default'].func,
-  onClose: _propTypes2['default'].func,
-
-  keepOpenOnDateSelect: _propTypes2['default'].bool,
-  isOutsideRange: _propTypes2['default'].func,
-  isDayBlocked: _propTypes2['default'].func,
-  isDayHighlighted: _propTypes2['default'].func,
-
-  // DayPicker props
-  renderMonthText: (0, _airbnbPropTypes.mutuallyExclusiveProps)(_propTypes2['default'].func, 'renderMonthText', 'renderMonthElement'),
-  renderMonthElement: (0, _airbnbPropTypes.mutuallyExclusiveProps)(_propTypes2['default'].func, 'renderMonthText', 'renderMonthElement'),
-  enableOutsideDays: _propTypes2['default'].bool,
-  numberOfMonths: _propTypes2['default'].number,
-  orientation: _ScrollableOrientationShape2['default'],
-  withPortal: _propTypes2['default'].bool,
-  initialVisibleMonth: _propTypes2['default'].func,
-  firstDayOfWeek: _DayOfWeekShape2['default'],
-  hideKeyboardShortcutsPanel: _propTypes2['default'].bool,
-  daySize: _airbnbPropTypes.nonNegativeInteger,
-  verticalHeight: _airbnbPropTypes.nonNegativeInteger,
-  noBorder: _propTypes2['default'].bool,
-  verticalBorderSpacing: _airbnbPropTypes.nonNegativeInteger,
-  transitionDuration: _airbnbPropTypes.nonNegativeInteger,
-  horizontalMonthPadding: _airbnbPropTypes.nonNegativeInteger,
-
-  navPrev: _propTypes2['default'].node,
-  navNext: _propTypes2['default'].node,
-
-  onPrevMonthClick: _propTypes2['default'].func,
-  onNextMonthClick: _propTypes2['default'].func,
-  onOutsideClick: _propTypes2['default'].func,
-  renderCalendarDay: _propTypes2['default'].func,
-  renderDayContents: _propTypes2['default'].func,
-  renderCalendarInfo: _propTypes2['default'].func,
-  calendarInfoPosition: _CalendarInfoPositionShape2['default'],
-
-  // accessibility
-  onBlur: _propTypes2['default'].func,
-  isFocused: _propTypes2['default'].bool,
-  showKeyboardShortcuts: _propTypes2['default'].bool,
-
-  // i18n
-  monthFormat: _propTypes2['default'].string,
-  weekDayFormat: _propTypes2['default'].string,
-  phrases: _propTypes2['default'].shape((0, _getPhrasePropTypes2['default'])(_defaultPhrases.DayPickerPhrases)),
-  dayAriaLabelFormat: _propTypes2['default'].string,
-
-  isRTL: _propTypes2['default'].bool
-});
-
-var defaultProps = {
-  date: undefined, // TODO: use null
-  onDateChange: function () {
-    function onDateChange() {}
-
-    return onDateChange;
-  }(),
-
-
-  focused: false,
-  onFocusChange: function () {
-    function onFocusChange() {}
-
-    return onFocusChange;
-  }(),
-  onClose: function () {
-    function onClose() {}
-
-    return onClose;
-  }(),
-
-
-  keepOpenOnDateSelect: false,
-  isOutsideRange: function () {
-    function isOutsideRange() {}
-
-    return isOutsideRange;
-  }(),
-  isDayBlocked: function () {
-    function isDayBlocked() {}
-
-    return isDayBlocked;
-  }(),
-  isDayHighlighted: function () {
-    function isDayHighlighted() {}
-
-    return isDayHighlighted;
-  }(),
-
-
-  // DayPicker props
-  renderMonthText: null,
-  enableOutsideDays: false,
-  numberOfMonths: 1,
-  orientation: _constants.HORIZONTAL_ORIENTATION,
-  withPortal: false,
-  hideKeyboardShortcutsPanel: false,
-  initialVisibleMonth: null,
-  firstDayOfWeek: null,
-  daySize: _constants.DAY_SIZE,
-  verticalHeight: null,
-  noBorder: false,
-  verticalBorderSpacing: undefined,
-  transitionDuration: undefined,
-  horizontalMonthPadding: 13,
-
-  navPrev: null,
-  navNext: null,
-
-  onPrevMonthClick: function () {
-    function onPrevMonthClick() {}
-
-    return onPrevMonthClick;
-  }(),
-  onNextMonthClick: function () {
-    function onNextMonthClick() {}
-
-    return onNextMonthClick;
-  }(),
-  onOutsideClick: function () {
-    function onOutsideClick() {}
-
-    return onOutsideClick;
-  }(),
-
-
-  renderCalendarDay: undefined,
-  renderDayContents: null,
-  renderCalendarInfo: null,
-  renderMonthElement: null,
-  calendarInfoPosition: _constants.INFO_POSITION_BOTTOM,
-
-  // accessibility
-  onBlur: function () {
-    function onBlur() {}
-
-    return onBlur;
-  }(),
-
-  isFocused: false,
-  showKeyboardShortcuts: false,
-
-  // i18n
-  monthFormat: 'MMMM YYYY',
-  weekDayFormat: 'dd',
-  phrases: _defaultPhrases.DayPickerPhrases,
-  dayAriaLabelFormat: undefined,
-
-  isRTL: false
-};
-
-var DayPickerSingleDateController = function (_React$Component) {
-  _inherits(DayPickerSingleDateController, _React$Component);
-
-  function DayPickerSingleDateController(props) {
-    _classCallCheck(this, DayPickerSingleDateController);
-
-    var _this = _possibleConstructorReturn(this, (DayPickerSingleDateController.__proto__ || Object.getPrototypeOf(DayPickerSingleDateController)).call(this, props));
-
-    _this.isTouchDevice = false;
-    _this.today = (0, _moment2['default'])();
-
-    _this.modifiers = {
-      today: function () {
-        function today(day) {
-          return _this.isToday(day);
-        }
-
-        return today;
-      }(),
-      blocked: function () {
-        function blocked(day) {
-          return _this.isBlocked(day);
-        }
-
-        return blocked;
-      }(),
-      'blocked-calendar': function () {
-        function blockedCalendar(day) {
-          return props.isDayBlocked(day);
-        }
-
-        return blockedCalendar;
-      }(),
-      'blocked-out-of-range': function () {
-        function blockedOutOfRange(day) {
-          return props.isOutsideRange(day);
-        }
-
-        return blockedOutOfRange;
-      }(),
-      'highlighted-calendar': function () {
-        function highlightedCalendar(day) {
-          return props.isDayHighlighted(day);
-        }
-
-        return highlightedCalendar;
-      }(),
-      valid: function () {
-        function valid(day) {
-          return !_this.isBlocked(day);
-        }
-
-        return valid;
-      }(),
-      hovered: function () {
-        function hovered(day) {
-          return _this.isHovered(day);
-        }
-
-        return hovered;
-      }(),
-      selected: function () {
-        function selected(day) {
-          return _this.isSelected(day);
-        }
-
-        return selected;
-      }(),
-      'first-day-of-week': function () {
-        function firstDayOfWeek(day) {
-          return _this.isFirstDayOfWeek(day);
-        }
-
-        return firstDayOfWeek;
-      }(),
-      'last-day-of-week': function () {
-        function lastDayOfWeek(day) {
-          return _this.isLastDayOfWeek(day);
-        }
-
-        return lastDayOfWeek;
-      }()
-    };
-
-    var _this$getStateForNewM = _this.getStateForNewMonth(props),
-        currentMonth = _this$getStateForNewM.currentMonth,
-        visibleDays = _this$getStateForNewM.visibleDays;
-
-    _this.state = {
-      hoverDate: null,
-      currentMonth: currentMonth,
-      visibleDays: visibleDays
-    };
-
-    _this.onDayMouseEnter = _this.onDayMouseEnter.bind(_this);
-    _this.onDayMouseLeave = _this.onDayMouseLeave.bind(_this);
-    _this.onDayClick = _this.onDayClick.bind(_this);
-
-    _this.onPrevMonthClick = _this.onPrevMonthClick.bind(_this);
-    _this.onNextMonthClick = _this.onNextMonthClick.bind(_this);
-    _this.onMonthChange = _this.onMonthChange.bind(_this);
-    _this.onYearChange = _this.onYearChange.bind(_this);
-
-    _this.getFirstFocusableDay = _this.getFirstFocusableDay.bind(_this);
-    return _this;
-  }
-
-  _createClass(DayPickerSingleDateController, [{
-    key: 'componentDidMount',
-    value: function () {
-      function componentDidMount() {
-        this.isTouchDevice = (0, _isTouchDevice2['default'])();
-      }
-
-      return componentDidMount;
-    }()
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function () {
-      function componentWillReceiveProps(nextProps) {
-        var _this2 = this;
-
-        var date = nextProps.date,
-            focused = nextProps.focused,
-            isOutsideRange = nextProps.isOutsideRange,
-            isDayBlocked = nextProps.isDayBlocked,
-            isDayHighlighted = nextProps.isDayHighlighted,
-            initialVisibleMonth = nextProps.initialVisibleMonth,
-            numberOfMonths = nextProps.numberOfMonths,
-            enableOutsideDays = nextProps.enableOutsideDays;
-        var _props = this.props,
-            prevIsOutsideRange = _props.isOutsideRange,
-            prevIsDayBlocked = _props.isDayBlocked,
-            prevIsDayHighlighted = _props.isDayHighlighted,
-            prevNumberOfMonths = _props.numberOfMonths,
-            prevEnableOutsideDays = _props.enableOutsideDays,
-            prevInitialVisibleMonth = _props.initialVisibleMonth,
-            prevFocused = _props.focused,
-            prevDate = _props.date;
-        var visibleDays = this.state.visibleDays;
-
-
-        var recomputeOutsideRange = false;
-        var recomputeDayBlocked = false;
-        var recomputeDayHighlighted = false;
-
-        if (isOutsideRange !== prevIsOutsideRange) {
-          this.modifiers['blocked-out-of-range'] = function (day) {
-            return isOutsideRange(day);
-          };
-          recomputeOutsideRange = true;
-        }
-
-        if (isDayBlocked !== prevIsDayBlocked) {
-          this.modifiers['blocked-calendar'] = function (day) {
-            return isDayBlocked(day);
-          };
-          recomputeDayBlocked = true;
-        }
-
-        if (isDayHighlighted !== prevIsDayHighlighted) {
-          this.modifiers['highlighted-calendar'] = function (day) {
-            return isDayHighlighted(day);
-          };
-          recomputeDayHighlighted = true;
-        }
-
-        var recomputePropModifiers = recomputeOutsideRange || recomputeDayBlocked || recomputeDayHighlighted;
-
-        if (numberOfMonths !== prevNumberOfMonths || enableOutsideDays !== prevEnableOutsideDays || initialVisibleMonth !== prevInitialVisibleMonth && !prevFocused && focused) {
-          var newMonthState = this.getStateForNewMonth(nextProps);
-          var currentMonth = newMonthState.currentMonth;
-          visibleDays = newMonthState.visibleDays;
-
-          this.setState({
-            currentMonth: currentMonth,
-            visibleDays: visibleDays
-          });
-        }
-
-        var didDateChange = date !== prevDate;
-        var didFocusChange = focused !== prevFocused;
-
-        var modifiers = {};
-
-        if (didDateChange) {
-          modifiers = this.deleteModifier(modifiers, prevDate, 'selected');
-          modifiers = this.addModifier(modifiers, date, 'selected');
-        }
-
-        if (didFocusChange || recomputePropModifiers) {
-          (0, _object4['default'])(visibleDays).forEach(function (days) {
-            Object.keys(days).forEach(function (day) {
-              var momentObj = (0, _moment2['default'])(day);
-              if (_this2.isBlocked(momentObj)) {
-                modifiers = _this2.addModifier(modifiers, momentObj, 'blocked');
-              } else {
-                modifiers = _this2.deleteModifier(modifiers, momentObj, 'blocked');
-              }
-
-              if (didFocusChange || recomputeOutsideRange) {
-                if (isOutsideRange(momentObj)) {
-                  modifiers = _this2.addModifier(modifiers, momentObj, 'blocked-out-of-range');
-                } else {
-                  modifiers = _this2.deleteModifier(modifiers, momentObj, 'blocked-out-of-range');
-                }
-              }
-
-              if (didFocusChange || recomputeDayBlocked) {
-                if (isDayBlocked(momentObj)) {
-                  modifiers = _this2.addModifier(modifiers, momentObj, 'blocked-calendar');
-                } else {
-                  modifiers = _this2.deleteModifier(modifiers, momentObj, 'blocked-calendar');
-                }
-              }
-
-              if (didFocusChange || recomputeDayHighlighted) {
-                if (isDayHighlighted(momentObj)) {
-                  modifiers = _this2.addModifier(modifiers, momentObj, 'highlighted-calendar');
-                } else {
-                  modifiers = _this2.deleteModifier(modifiers, momentObj, 'highlighted-calendar');
-                }
-              }
-            });
-          });
-        }
-
-        var today = (0, _moment2['default'])();
-        if (!(0, _isSameDay2['default'])(this.today, today)) {
-          modifiers = this.deleteModifier(modifiers, this.today, 'today');
-          modifiers = this.addModifier(modifiers, today, 'today');
-          this.today = today;
-        }
-
-        if (Object.keys(modifiers).length > 0) {
-          this.setState({
-            visibleDays: (0, _object2['default'])({}, visibleDays, modifiers)
-          });
-        }
-      }
-
-      return componentWillReceiveProps;
-    }()
-  }, {
-    key: 'componentWillUpdate',
-    value: function () {
-      function componentWillUpdate() {
-        this.today = (0, _moment2['default'])();
-      }
-
-      return componentWillUpdate;
-    }()
-  }, {
-    key: 'onDayClick',
-    value: function () {
-      function onDayClick(day, e) {
-        if (e) e.preventDefault();
-        if (this.isBlocked(day)) return;
-        var _props2 = this.props,
-            onDateChange = _props2.onDateChange,
-            keepOpenOnDateSelect = _props2.keepOpenOnDateSelect,
-            onFocusChange = _props2.onFocusChange,
-            onClose = _props2.onClose;
-
-
-        onDateChange(day);
-        if (!keepOpenOnDateSelect) {
-          onFocusChange({ focused: false });
-          onClose({ date: day });
-        }
-      }
-
-      return onDayClick;
-    }()
-  }, {
-    key: 'onDayMouseEnter',
-    value: function () {
-      function onDayMouseEnter(day) {
-        if (this.isTouchDevice) return;
-        var _state = this.state,
-            hoverDate = _state.hoverDate,
-            visibleDays = _state.visibleDays;
-
-
-        var modifiers = this.deleteModifier({}, hoverDate, 'hovered');
-        modifiers = this.addModifier(modifiers, day, 'hovered');
-
-        this.setState({
-          hoverDate: day,
-          visibleDays: (0, _object2['default'])({}, visibleDays, modifiers)
-        });
-      }
-
-      return onDayMouseEnter;
-    }()
-  }, {
-    key: 'onDayMouseLeave',
-    value: function () {
-      function onDayMouseLeave() {
-        var _state2 = this.state,
-            hoverDate = _state2.hoverDate,
-            visibleDays = _state2.visibleDays;
-
-        if (this.isTouchDevice || !hoverDate) return;
-
-        var modifiers = this.deleteModifier({}, hoverDate, 'hovered');
-
-        this.setState({
-          hoverDate: null,
-          visibleDays: (0, _object2['default'])({}, visibleDays, modifiers)
-        });
-      }
-
-      return onDayMouseLeave;
-    }()
-  }, {
-    key: 'onPrevMonthClick',
-    value: function () {
-      function onPrevMonthClick() {
-        var _props3 = this.props,
-            onPrevMonthClick = _props3.onPrevMonthClick,
-            numberOfMonths = _props3.numberOfMonths,
-            enableOutsideDays = _props3.enableOutsideDays;
-        var _state3 = this.state,
-            currentMonth = _state3.currentMonth,
-            visibleDays = _state3.visibleDays;
-
-
-        var newVisibleDays = {};
-        Object.keys(visibleDays).sort().slice(0, numberOfMonths + 1).forEach(function (month) {
-          newVisibleDays[month] = visibleDays[month];
-        });
-
-        var prevMonth = currentMonth.clone().subtract(1, 'month');
-        var prevMonthVisibleDays = (0, _getVisibleDays2['default'])(prevMonth, 1, enableOutsideDays);
-
-        this.setState({
-          currentMonth: prevMonth,
-          visibleDays: (0, _object2['default'])({}, newVisibleDays, this.getModifiers(prevMonthVisibleDays))
-        }, function () {
-          onPrevMonthClick(prevMonth.clone());
-        });
-      }
-
-      return onPrevMonthClick;
-    }()
-  }, {
-    key: 'onNextMonthClick',
-    value: function () {
-      function onNextMonthClick() {
-        var _props4 = this.props,
-            onNextMonthClick = _props4.onNextMonthClick,
-            numberOfMonths = _props4.numberOfMonths,
-            enableOutsideDays = _props4.enableOutsideDays;
-        var _state4 = this.state,
-            currentMonth = _state4.currentMonth,
-            visibleDays = _state4.visibleDays;
-
-
-        var newVisibleDays = {};
-        Object.keys(visibleDays).sort().slice(1).forEach(function (month) {
-          newVisibleDays[month] = visibleDays[month];
-        });
-
-        var nextMonth = currentMonth.clone().add(numberOfMonths, 'month');
-        var nextMonthVisibleDays = (0, _getVisibleDays2['default'])(nextMonth, 1, enableOutsideDays);
-
-        var newCurrentMonth = currentMonth.clone().add(1, 'month');
-        this.setState({
-          currentMonth: newCurrentMonth,
-          visibleDays: (0, _object2['default'])({}, newVisibleDays, this.getModifiers(nextMonthVisibleDays))
-        }, function () {
-          onNextMonthClick(newCurrentMonth.clone());
-        });
-      }
-
-      return onNextMonthClick;
-    }()
-  }, {
-    key: 'onMonthChange',
-    value: function () {
-      function onMonthChange(newMonth) {
-        var _props5 = this.props,
-            numberOfMonths = _props5.numberOfMonths,
-            enableOutsideDays = _props5.enableOutsideDays,
-            orientation = _props5.orientation;
-
-        var withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
-        var newVisibleDays = (0, _getVisibleDays2['default'])(newMonth, numberOfMonths, enableOutsideDays, withoutTransitionMonths);
-
-        this.setState({
-          currentMonth: newMonth.clone(),
-          visibleDays: this.getModifiers(newVisibleDays)
-        });
-      }
-
-      return onMonthChange;
-    }()
-  }, {
-    key: 'onYearChange',
-    value: function () {
-      function onYearChange(newMonth) {
-        var _props6 = this.props,
-            numberOfMonths = _props6.numberOfMonths,
-            enableOutsideDays = _props6.enableOutsideDays,
-            orientation = _props6.orientation;
-
-        var withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
-        var newVisibleDays = (0, _getVisibleDays2['default'])(newMonth, numberOfMonths, enableOutsideDays, withoutTransitionMonths);
-
-        this.setState({
-          currentMonth: newMonth.clone(),
-          visibleDays: this.getModifiers(newVisibleDays)
-        });
-      }
-
-      return onYearChange;
-    }()
-  }, {
-    key: 'getFirstFocusableDay',
-    value: function () {
-      function getFirstFocusableDay(newMonth) {
-        var _this3 = this;
-
-        var _props7 = this.props,
-            date = _props7.date,
-            numberOfMonths = _props7.numberOfMonths;
-
-
-        var focusedDate = newMonth.clone().startOf('month');
-        if (date) {
-          focusedDate = date.clone();
-        }
-
-        if (this.isBlocked(focusedDate)) {
-          var days = [];
-          var lastVisibleDay = newMonth.clone().add(numberOfMonths - 1, 'months').endOf('month');
-          var currentDay = focusedDate.clone();
-          while (!(0, _isAfterDay2['default'])(currentDay, lastVisibleDay)) {
-            currentDay = currentDay.clone().add(1, 'day');
-            days.push(currentDay);
-          }
-
-          var viableDays = days.filter(function (day) {
-            return !_this3.isBlocked(day) && (0, _isAfterDay2['default'])(day, focusedDate);
-          });
-          if (viableDays.length > 0) {
-            var _viableDays = _slicedToArray(viableDays, 1);
-
-            focusedDate = _viableDays[0];
-          }
-        }
-
-        return focusedDate;
-      }
-
-      return getFirstFocusableDay;
-    }()
-  }, {
-    key: 'getModifiers',
-    value: function () {
-      function getModifiers(visibleDays) {
-        var _this4 = this;
-
-        var modifiers = {};
-        Object.keys(visibleDays).forEach(function (month) {
-          modifiers[month] = {};
-          visibleDays[month].forEach(function (day) {
-            modifiers[month][(0, _toISODateString2['default'])(day)] = _this4.getModifiersForDay(day);
-          });
-        });
-
-        return modifiers;
-      }
-
-      return getModifiers;
-    }()
-  }, {
-    key: 'getModifiersForDay',
-    value: function () {
-      function getModifiersForDay(day) {
-        var _this5 = this;
-
-        return new Set(Object.keys(this.modifiers).filter(function (modifier) {
-          return _this5.modifiers[modifier](day);
-        }));
-      }
-
-      return getModifiersForDay;
-    }()
-  }, {
-    key: 'getStateForNewMonth',
-    value: function () {
-      function getStateForNewMonth(nextProps) {
-        var _this6 = this;
-
-        var initialVisibleMonth = nextProps.initialVisibleMonth,
-            date = nextProps.date,
-            numberOfMonths = nextProps.numberOfMonths,
-            enableOutsideDays = nextProps.enableOutsideDays;
-
-        var initialVisibleMonthThunk = initialVisibleMonth || (date ? function () {
-          return date;
-        } : function () {
-          return _this6.today;
-        });
-        var currentMonth = initialVisibleMonthThunk();
-        var visibleDays = this.getModifiers((0, _getVisibleDays2['default'])(currentMonth, numberOfMonths, enableOutsideDays));
-        return { currentMonth: currentMonth, visibleDays: visibleDays };
-      }
-
-      return getStateForNewMonth;
-    }()
-  }, {
-    key: 'addModifier',
-    value: function () {
-      function addModifier(updatedDays, day, modifier) {
-        var _props8 = this.props,
-            numberOfVisibleMonths = _props8.numberOfMonths,
-            enableOutsideDays = _props8.enableOutsideDays,
-            orientation = _props8.orientation;
-        var _state5 = this.state,
-            firstVisibleMonth = _state5.currentMonth,
-            visibleDays = _state5.visibleDays;
-
-
-        var currentMonth = firstVisibleMonth;
-        var numberOfMonths = numberOfVisibleMonths;
-        if (orientation === _constants.VERTICAL_SCROLLABLE) {
-          numberOfMonths = Object.keys(visibleDays).length;
-        } else {
-          currentMonth = currentMonth.clone().subtract(1, 'month');
-          numberOfMonths += 2;
-        }
-        if (!day || !(0, _isDayVisible2['default'])(day, currentMonth, numberOfMonths, enableOutsideDays)) {
-          return updatedDays;
-        }
-
-        var iso = (0, _toISODateString2['default'])(day);
-
-        var updatedDaysAfterAddition = (0, _object2['default'])({}, updatedDays);
-        if (enableOutsideDays) {
-          var monthsToUpdate = Object.keys(visibleDays).filter(function (monthKey) {
-            return Object.keys(visibleDays[monthKey]).indexOf(iso) > -1;
-          });
-
-          updatedDaysAfterAddition = monthsToUpdate.reduce(function (days, monthIso) {
-            var month = updatedDays[monthIso] || visibleDays[monthIso];
-            var modifiers = new Set(month[iso]);
-            modifiers.add(modifier);
-            return (0, _object2['default'])({}, days, _defineProperty({}, monthIso, (0, _object2['default'])({}, month, _defineProperty({}, iso, modifiers))));
-          }, updatedDaysAfterAddition);
-        } else {
-          var monthIso = (0, _toISOMonthString2['default'])(day);
-          var month = updatedDays[monthIso] || visibleDays[monthIso];
-
-          var modifiers = new Set(month[iso]);
-          modifiers.add(modifier);
-          updatedDaysAfterAddition = (0, _object2['default'])({}, updatedDaysAfterAddition, _defineProperty({}, monthIso, (0, _object2['default'])({}, month, _defineProperty({}, iso, modifiers))));
-        }
-
-        return updatedDaysAfterAddition;
-      }
-
-      return addModifier;
-    }()
-  }, {
-    key: 'deleteModifier',
-    value: function () {
-      function deleteModifier(updatedDays, day, modifier) {
-        var _props9 = this.props,
-            numberOfVisibleMonths = _props9.numberOfMonths,
-            enableOutsideDays = _props9.enableOutsideDays,
-            orientation = _props9.orientation;
-        var _state6 = this.state,
-            firstVisibleMonth = _state6.currentMonth,
-            visibleDays = _state6.visibleDays;
-
-
-        var currentMonth = firstVisibleMonth;
-        var numberOfMonths = numberOfVisibleMonths;
-        if (orientation === _constants.VERTICAL_SCROLLABLE) {
-          numberOfMonths = Object.keys(visibleDays).length;
-        } else {
-          currentMonth = currentMonth.clone().subtract(1, 'month');
-          numberOfMonths += 2;
-        }
-        if (!day || !(0, _isDayVisible2['default'])(day, currentMonth, numberOfMonths, enableOutsideDays)) {
-          return updatedDays;
-        }
-
-        var iso = (0, _toISODateString2['default'])(day);
-
-        var updatedDaysAfterDeletion = (0, _object2['default'])({}, updatedDays);
-        if (enableOutsideDays) {
-          var monthsToUpdate = Object.keys(visibleDays).filter(function (monthKey) {
-            return Object.keys(visibleDays[monthKey]).indexOf(iso) > -1;
-          });
-
-          updatedDaysAfterDeletion = monthsToUpdate.reduce(function (days, monthIso) {
-            var month = updatedDays[monthIso] || visibleDays[monthIso];
-            var modifiers = new Set(month[iso]);
-            modifiers['delete'](modifier);
-            return (0, _object2['default'])({}, days, _defineProperty({}, monthIso, (0, _object2['default'])({}, month, _defineProperty({}, iso, modifiers))));
-          }, updatedDaysAfterDeletion);
-        } else {
-          var monthIso = (0, _toISOMonthString2['default'])(day);
-          var month = updatedDays[monthIso] || visibleDays[monthIso];
-
-          var modifiers = new Set(month[iso]);
-          modifiers['delete'](modifier);
-          updatedDaysAfterDeletion = (0, _object2['default'])({}, updatedDaysAfterDeletion, _defineProperty({}, monthIso, (0, _object2['default'])({}, month, _defineProperty({}, iso, modifiers))));
-        }
-
-        return updatedDaysAfterDeletion;
-      }
-
-      return deleteModifier;
-    }()
-  }, {
-    key: 'isBlocked',
-    value: function () {
-      function isBlocked(day) {
-        var _props10 = this.props,
-            isDayBlocked = _props10.isDayBlocked,
-            isOutsideRange = _props10.isOutsideRange;
-
-        return isDayBlocked(day) || isOutsideRange(day);
-      }
-
-      return isBlocked;
-    }()
-  }, {
-    key: 'isHovered',
-    value: function () {
-      function isHovered(day) {
-        var _ref = this.state || {},
-            hoverDate = _ref.hoverDate;
-
-        return (0, _isSameDay2['default'])(day, hoverDate);
-      }
-
-      return isHovered;
-    }()
-  }, {
-    key: 'isSelected',
-    value: function () {
-      function isSelected(day) {
-        var date = this.props.date;
-
-        return (0, _isSameDay2['default'])(day, date);
-      }
-
-      return isSelected;
-    }()
-  }, {
-    key: 'isToday',
-    value: function () {
-      function isToday(day) {
-        return (0, _isSameDay2['default'])(day, this.today);
-      }
-
-      return isToday;
-    }()
-  }, {
-    key: 'isFirstDayOfWeek',
-    value: function () {
-      function isFirstDayOfWeek(day) {
-        var firstDayOfWeek = this.props.firstDayOfWeek;
-
-        return day.day() === (firstDayOfWeek || _moment2['default'].localeData().firstDayOfWeek());
-      }
-
-      return isFirstDayOfWeek;
-    }()
-  }, {
-    key: 'isLastDayOfWeek',
-    value: function () {
-      function isLastDayOfWeek(day) {
-        var firstDayOfWeek = this.props.firstDayOfWeek;
-
-        return day.day() === ((firstDayOfWeek || _moment2['default'].localeData().firstDayOfWeek()) + 6) % 7;
-      }
-
-      return isLastDayOfWeek;
-    }()
-  }, {
-    key: 'render',
-    value: function () {
-      function render() {
-        var _props11 = this.props,
-            numberOfMonths = _props11.numberOfMonths,
-            orientation = _props11.orientation,
-            monthFormat = _props11.monthFormat,
-            renderMonthText = _props11.renderMonthText,
-            navPrev = _props11.navPrev,
-            navNext = _props11.navNext,
-            onOutsideClick = _props11.onOutsideClick,
-            withPortal = _props11.withPortal,
-            focused = _props11.focused,
-            enableOutsideDays = _props11.enableOutsideDays,
-            hideKeyboardShortcutsPanel = _props11.hideKeyboardShortcutsPanel,
-            daySize = _props11.daySize,
-            firstDayOfWeek = _props11.firstDayOfWeek,
-            renderCalendarDay = _props11.renderCalendarDay,
-            renderDayContents = _props11.renderDayContents,
-            renderCalendarInfo = _props11.renderCalendarInfo,
-            renderMonthElement = _props11.renderMonthElement,
-            calendarInfoPosition = _props11.calendarInfoPosition,
-            isFocused = _props11.isFocused,
-            isRTL = _props11.isRTL,
-            phrases = _props11.phrases,
-            dayAriaLabelFormat = _props11.dayAriaLabelFormat,
-            onBlur = _props11.onBlur,
-            showKeyboardShortcuts = _props11.showKeyboardShortcuts,
-            weekDayFormat = _props11.weekDayFormat,
-            verticalHeight = _props11.verticalHeight,
-            noBorder = _props11.noBorder,
-            transitionDuration = _props11.transitionDuration,
-            verticalBorderSpacing = _props11.verticalBorderSpacing,
-            horizontalMonthPadding = _props11.horizontalMonthPadding;
-        var _state7 = this.state,
-            currentMonth = _state7.currentMonth,
-            visibleDays = _state7.visibleDays;
-
-
-        return _react2['default'].createElement(_DayPicker2['default'], {
-          orientation: orientation,
-          enableOutsideDays: enableOutsideDays,
-          modifiers: visibleDays,
-          numberOfMonths: numberOfMonths,
-          onDayClick: this.onDayClick,
-          onDayMouseEnter: this.onDayMouseEnter,
-          onDayMouseLeave: this.onDayMouseLeave,
-          onPrevMonthClick: this.onPrevMonthClick,
-          onNextMonthClick: this.onNextMonthClick,
-          onMonthChange: this.onMonthChange,
-          onYearChange: this.onYearChange,
-          monthFormat: monthFormat,
-          withPortal: withPortal,
-          hidden: !focused,
-          hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
-          initialVisibleMonth: function () {
-            function initialVisibleMonth() {
-              return currentMonth;
-            }
-
-            return initialVisibleMonth;
-          }(),
-          firstDayOfWeek: firstDayOfWeek,
-          onOutsideClick: onOutsideClick,
-          navPrev: navPrev,
-          navNext: navNext,
-          renderMonthText: renderMonthText,
-          renderCalendarDay: renderCalendarDay,
-          renderDayContents: renderDayContents,
-          renderCalendarInfo: renderCalendarInfo,
-          renderMonthElement: renderMonthElement,
-          calendarInfoPosition: calendarInfoPosition,
-          isFocused: isFocused,
-          getFirstFocusableDay: this.getFirstFocusableDay,
-          onBlur: onBlur,
-          phrases: phrases,
-          daySize: daySize,
-          isRTL: isRTL,
-          showKeyboardShortcuts: showKeyboardShortcuts,
-          weekDayFormat: weekDayFormat,
-          dayAriaLabelFormat: dayAriaLabelFormat,
-          verticalHeight: verticalHeight,
-          noBorder: noBorder,
-          transitionDuration: transitionDuration,
-          verticalBorderSpacing: verticalBorderSpacing,
-          horizontalMonthPadding: horizontalMonthPadding
-        });
-      }
-
-      return render;
-    }()
-  }]);
-
-  return DayPickerSingleDateController;
-}(_react2['default'].Component);
-
-exports.Z = DayPickerSingleDateController;
-
-
-DayPickerSingleDateController.propTypes = propTypes;
-DayPickerSingleDateController.defaultProps = defaultProps;
-
-/***/ }),
-
-/***/ 5820:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _object = __webpack_require__(4011);
-
-var _object2 = _interopRequireDefault(_object);
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _airbnbPropTypes = __webpack_require__(4882);
-
-var _reactWithStyles = __webpack_require__(3576);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var propTypes = (0, _airbnbPropTypes.forbidExtraProps)((0, _object2['default'])({}, _reactWithStyles.withStylesPropTypes, {
-  unicode: _propTypes2['default'].string.isRequired,
-  label: _propTypes2['default'].string.isRequired,
-  action: _propTypes2['default'].string.isRequired,
-  block: _propTypes2['default'].bool
-}));
-
-var defaultProps = {
-  block: false
-};
-
-function KeyboardShortcutRow(_ref) {
-  var unicode = _ref.unicode,
-      label = _ref.label,
-      action = _ref.action,
-      block = _ref.block,
-      styles = _ref.styles;
-
-  return _react2['default'].createElement(
-    'li',
-    (0, _reactWithStyles.css)(styles.KeyboardShortcutRow, block && styles.KeyboardShortcutRow__block),
-    _react2['default'].createElement(
-      'div',
-      (0, _reactWithStyles.css)(styles.KeyboardShortcutRow_keyContainer, block && styles.KeyboardShortcutRow_keyContainer__block),
-      _react2['default'].createElement(
-        'span',
-        _extends({}, (0, _reactWithStyles.css)(styles.KeyboardShortcutRow_key), {
-          role: 'img',
-          'aria-label': String(label) + ',' // add comma so screen readers will pause before reading action
-        }),
-        unicode
-      )
-    ),
-    _react2['default'].createElement(
-      'div',
-      (0, _reactWithStyles.css)(styles.KeyboardShortcutRow_action),
-      action
-    )
-  );
-}
-
-KeyboardShortcutRow.propTypes = propTypes;
-KeyboardShortcutRow.defaultProps = defaultProps;
-
-exports["default"] = (0, _reactWithStyles.withStyles)(function (_ref2) {
-  var color = _ref2.reactDates.color;
-  return {
-    KeyboardShortcutRow: {
-      listStyle: 'none',
-      margin: '6px 0'
-    },
-
-    KeyboardShortcutRow__block: {
-      marginBottom: 16
-    },
-
-    KeyboardShortcutRow_keyContainer: {
-      display: 'inline-block',
-      whiteSpace: 'nowrap',
-      textAlign: 'right',
-      marginRight: 6
-    },
-
-    KeyboardShortcutRow_keyContainer__block: {
-      textAlign: 'left',
-      display: 'inline'
-    },
-
-    KeyboardShortcutRow_key: {
-      fontFamily: 'monospace',
-      fontSize: 12,
-      textTransform: 'uppercase',
-      background: color.core.grayLightest,
-      padding: '2px 6px'
-    },
-
-    KeyboardShortcutRow_action: {
-      display: 'inline',
-      wordBreak: 'break-word',
-      marginLeft: 8
-    }
-  };
-})(KeyboardShortcutRow);
-
-/***/ }),
-
-/***/ 8:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var LeftArrow = function () {
-  function LeftArrow(props) {
-    return _react2['default'].createElement(
-      'svg',
-      props,
-      _react2['default'].createElement('path', {
-        d: 'M336.2 274.5l-210.1 210h805.4c13 0 23 10 23 23s-10 23-23 23H126.1l210.1 210.1c11 11 11 21 0 32-5 5-10 7-16 7s-11-2-16-7l-249.1-249c-11-11-11-21 0-32l249.1-249.1c21-21.1 53 10.9 32 32z'
-      })
-    );
-  }
-
-  return LeftArrow;
-}();
-
-LeftArrow.defaultProps = {
-  viewBox: '0 0 1000 1000'
-};
-exports["default"] = LeftArrow;
-
-/***/ }),
-
-/***/ 4921:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var RightArrow = function () {
-  function RightArrow(props) {
-    return _react2['default'].createElement(
-      'svg',
-      props,
-      _react2['default'].createElement('path', {
-        d: 'M694.4 242.4l249.1 249.1c11 11 11 21 0 32L694.4 772.7c-5 5-10 7-16 7s-11-2-16-7c-11-11-11-21 0-32l210.1-210.1H67.1c-13 0-23-10-23-23s10-23 23-23h805.4L662.4 274.5c-21-21.1 11-53.1 32-32.1z'
-      })
-    );
-  }
-
-  return RightArrow;
-}();
-
-RightArrow.defaultProps = {
-  viewBox: '0 0 1000 1000'
-};
-exports["default"] = RightArrow;
-
-/***/ }),
-
-/***/ 257:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-var DISPLAY_FORMAT = exports.DISPLAY_FORMAT = 'L';
-var ISO_FORMAT = exports.ISO_FORMAT = 'YYYY-MM-DD';
-var ISO_MONTH_FORMAT = exports.ISO_MONTH_FORMAT = 'YYYY-MM';
-
-var START_DATE = exports.START_DATE = 'startDate';
-var END_DATE = exports.END_DATE = 'endDate';
-
-var HORIZONTAL_ORIENTATION = exports.HORIZONTAL_ORIENTATION = 'horizontal';
-var VERTICAL_ORIENTATION = exports.VERTICAL_ORIENTATION = 'vertical';
-var VERTICAL_SCROLLABLE = exports.VERTICAL_SCROLLABLE = 'verticalScrollable';
-
-var ICON_BEFORE_POSITION = exports.ICON_BEFORE_POSITION = 'before';
-var ICON_AFTER_POSITION = exports.ICON_AFTER_POSITION = 'after';
-
-var INFO_POSITION_TOP = exports.INFO_POSITION_TOP = 'top';
-var INFO_POSITION_BOTTOM = exports.INFO_POSITION_BOTTOM = 'bottom';
-var INFO_POSITION_BEFORE = exports.INFO_POSITION_BEFORE = 'before';
-var INFO_POSITION_AFTER = exports.INFO_POSITION_AFTER = 'after';
-
-var ANCHOR_LEFT = exports.ANCHOR_LEFT = 'left';
-var ANCHOR_RIGHT = exports.ANCHOR_RIGHT = 'right';
-
-var OPEN_DOWN = exports.OPEN_DOWN = 'down';
-var OPEN_UP = exports.OPEN_UP = 'up';
-
-var DAY_SIZE = exports.DAY_SIZE = 39;
-var BLOCKED_MODIFIER = exports.BLOCKED_MODIFIER = 'blocked';
-var WEEKDAYS = exports.WEEKDAYS = [0, 1, 2, 3, 4, 5, 6];
-
-var FANG_WIDTH_PX = exports.FANG_WIDTH_PX = 20;
-var FANG_HEIGHT_PX = exports.FANG_HEIGHT_PX = 10;
-var DEFAULT_VERTICAL_SPACING = exports.DEFAULT_VERTICAL_SPACING = 22;
-
-var MODIFIER_KEY_NAMES = exports.MODIFIER_KEY_NAMES = new Set(['Shift', 'Control', 'Alt', 'Meta']);
-
-/***/ }),
-
-/***/ 6030:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-var calendarLabel = 'Calendar';
-var closeDatePicker = 'Close';
-var focusStartDate = 'Interact with the calendar and add the check-in date for your trip.';
-var clearDate = 'Clear Date';
-var clearDates = 'Clear Dates';
-var jumpToPrevMonth = 'Move backward to switch to the previous month.';
-var jumpToNextMonth = 'Move forward to switch to the next month.';
-var keyboardShortcuts = 'Keyboard Shortcuts';
-var showKeyboardShortcutsPanel = 'Open the keyboard shortcuts panel.';
-var hideKeyboardShortcutsPanel = 'Close the shortcuts panel.';
-var openThisPanel = 'Open this panel.';
-var enterKey = 'Enter key';
-var leftArrowRightArrow = 'Right and left arrow keys';
-var upArrowDownArrow = 'up and down arrow keys';
-var pageUpPageDown = 'page up and page down keys';
-var homeEnd = 'Home and end keys';
-var escape = 'Escape key';
-var questionMark = 'Question mark';
-var selectFocusedDate = 'Select the date in focus.';
-var moveFocusByOneDay = 'Move backward (left) and forward (right) by one day.';
-var moveFocusByOneWeek = 'Move backward (up) and forward (down) by one week.';
-var moveFocusByOneMonth = 'Switch months.';
-var moveFocustoStartAndEndOfWeek = 'Go to the first or last day of a week.';
-var returnFocusToInput = 'Return to the date input field.';
-var keyboardNavigationInstructions = 'Press the down arrow key to interact with the calendar and\n  select a date. Press the question mark key to get the keyboard shortcuts for changing dates.';
-
-var chooseAvailableStartDate = function chooseAvailableStartDate(_ref) {
-  var date = _ref.date;
-  return 'Choose ' + String(date) + ' as your check-in date. It\u2019s available.';
-};
-var chooseAvailableEndDate = function chooseAvailableEndDate(_ref2) {
-  var date = _ref2.date;
-  return 'Choose ' + String(date) + ' as your check-out date. It\u2019s available.';
-};
-var chooseAvailableDate = function chooseAvailableDate(_ref3) {
-  var date = _ref3.date;
-  return date;
-};
-var dateIsUnavailable = function dateIsUnavailable(_ref4) {
-  var date = _ref4.date;
-  return 'Not available. ' + String(date);
-};
-var dateIsSelected = function dateIsSelected(_ref5) {
-  var date = _ref5.date;
-  return 'Selected. ' + String(date);
-};
-
-exports["default"] = {
-  calendarLabel: calendarLabel,
-  closeDatePicker: closeDatePicker,
-  focusStartDate: focusStartDate,
-  clearDate: clearDate,
-  clearDates: clearDates,
-  jumpToPrevMonth: jumpToPrevMonth,
-  jumpToNextMonth: jumpToNextMonth,
-  keyboardShortcuts: keyboardShortcuts,
-  showKeyboardShortcutsPanel: showKeyboardShortcutsPanel,
-  hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
-  openThisPanel: openThisPanel,
-  enterKey: enterKey,
-  leftArrowRightArrow: leftArrowRightArrow,
-  upArrowDownArrow: upArrowDownArrow,
-  pageUpPageDown: pageUpPageDown,
-  homeEnd: homeEnd,
-  escape: escape,
-  questionMark: questionMark,
-  selectFocusedDate: selectFocusedDate,
-  moveFocusByOneDay: moveFocusByOneDay,
-  moveFocusByOneWeek: moveFocusByOneWeek,
-  moveFocusByOneMonth: moveFocusByOneMonth,
-  moveFocustoStartAndEndOfWeek: moveFocustoStartAndEndOfWeek,
-  returnFocusToInput: returnFocusToInput,
-  keyboardNavigationInstructions: keyboardNavigationInstructions,
-
-  chooseAvailableStartDate: chooseAvailableStartDate,
-  chooseAvailableEndDate: chooseAvailableEndDate,
-  dateIsUnavailable: dateIsUnavailable,
-  dateIsSelected: dateIsSelected
-};
-var DateRangePickerPhrases = exports.DateRangePickerPhrases = {
-  calendarLabel: calendarLabel,
-  closeDatePicker: closeDatePicker,
-  clearDates: clearDates,
-  focusStartDate: focusStartDate,
-  jumpToPrevMonth: jumpToPrevMonth,
-  jumpToNextMonth: jumpToNextMonth,
-  keyboardShortcuts: keyboardShortcuts,
-  showKeyboardShortcutsPanel: showKeyboardShortcutsPanel,
-  hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
-  openThisPanel: openThisPanel,
-  enterKey: enterKey,
-  leftArrowRightArrow: leftArrowRightArrow,
-  upArrowDownArrow: upArrowDownArrow,
-  pageUpPageDown: pageUpPageDown,
-  homeEnd: homeEnd,
-  escape: escape,
-  questionMark: questionMark,
-  selectFocusedDate: selectFocusedDate,
-  moveFocusByOneDay: moveFocusByOneDay,
-  moveFocusByOneWeek: moveFocusByOneWeek,
-  moveFocusByOneMonth: moveFocusByOneMonth,
-  moveFocustoStartAndEndOfWeek: moveFocustoStartAndEndOfWeek,
-  returnFocusToInput: returnFocusToInput,
-  keyboardNavigationInstructions: keyboardNavigationInstructions,
-  chooseAvailableStartDate: chooseAvailableStartDate,
-  chooseAvailableEndDate: chooseAvailableEndDate,
-  dateIsUnavailable: dateIsUnavailable,
-  dateIsSelected: dateIsSelected
-};
-
-var DateRangePickerInputPhrases = exports.DateRangePickerInputPhrases = {
-  focusStartDate: focusStartDate,
-  clearDates: clearDates,
-  keyboardNavigationInstructions: keyboardNavigationInstructions
-};
-
-var SingleDatePickerPhrases = exports.SingleDatePickerPhrases = {
-  calendarLabel: calendarLabel,
-  closeDatePicker: closeDatePicker,
-  clearDate: clearDate,
-  jumpToPrevMonth: jumpToPrevMonth,
-  jumpToNextMonth: jumpToNextMonth,
-  keyboardShortcuts: keyboardShortcuts,
-  showKeyboardShortcutsPanel: showKeyboardShortcutsPanel,
-  hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
-  openThisPanel: openThisPanel,
-  enterKey: enterKey,
-  leftArrowRightArrow: leftArrowRightArrow,
-  upArrowDownArrow: upArrowDownArrow,
-  pageUpPageDown: pageUpPageDown,
-  homeEnd: homeEnd,
-  escape: escape,
-  questionMark: questionMark,
-  selectFocusedDate: selectFocusedDate,
-  moveFocusByOneDay: moveFocusByOneDay,
-  moveFocusByOneWeek: moveFocusByOneWeek,
-  moveFocusByOneMonth: moveFocusByOneMonth,
-  moveFocustoStartAndEndOfWeek: moveFocustoStartAndEndOfWeek,
-  returnFocusToInput: returnFocusToInput,
-  keyboardNavigationInstructions: keyboardNavigationInstructions,
-  chooseAvailableDate: chooseAvailableDate,
-  dateIsUnavailable: dateIsUnavailable,
-  dateIsSelected: dateIsSelected
-};
-
-var SingleDatePickerInputPhrases = exports.SingleDatePickerInputPhrases = {
-  clearDate: clearDate,
-  keyboardNavigationInstructions: keyboardNavigationInstructions
-};
-
-var DayPickerPhrases = exports.DayPickerPhrases = {
-  calendarLabel: calendarLabel,
-  jumpToPrevMonth: jumpToPrevMonth,
-  jumpToNextMonth: jumpToNextMonth,
-  keyboardShortcuts: keyboardShortcuts,
-  showKeyboardShortcutsPanel: showKeyboardShortcutsPanel,
-  hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
-  openThisPanel: openThisPanel,
-  enterKey: enterKey,
-  leftArrowRightArrow: leftArrowRightArrow,
-  upArrowDownArrow: upArrowDownArrow,
-  pageUpPageDown: pageUpPageDown,
-  homeEnd: homeEnd,
-  escape: escape,
-  questionMark: questionMark,
-  selectFocusedDate: selectFocusedDate,
-  moveFocusByOneDay: moveFocusByOneDay,
-  moveFocusByOneWeek: moveFocusByOneWeek,
-  moveFocusByOneMonth: moveFocusByOneMonth,
-  moveFocustoStartAndEndOfWeek: moveFocustoStartAndEndOfWeek,
-  returnFocusToInput: returnFocusToInput,
-  chooseAvailableStartDate: chooseAvailableStartDate,
-  chooseAvailableEndDate: chooseAvailableEndDate,
-  chooseAvailableDate: chooseAvailableDate,
-  dateIsUnavailable: dateIsUnavailable,
-  dateIsSelected: dateIsSelected
-};
-
-var DayPickerKeyboardShortcutsPhrases = exports.DayPickerKeyboardShortcutsPhrases = {
-  keyboardShortcuts: keyboardShortcuts,
-  showKeyboardShortcutsPanel: showKeyboardShortcutsPanel,
-  hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
-  openThisPanel: openThisPanel,
-  enterKey: enterKey,
-  leftArrowRightArrow: leftArrowRightArrow,
-  upArrowDownArrow: upArrowDownArrow,
-  pageUpPageDown: pageUpPageDown,
-  homeEnd: homeEnd,
-  escape: escape,
-  questionMark: questionMark,
-  selectFocusedDate: selectFocusedDate,
-  moveFocusByOneDay: moveFocusByOneDay,
-  moveFocusByOneWeek: moveFocusByOneWeek,
-  moveFocusByOneMonth: moveFocusByOneMonth,
-  moveFocustoStartAndEndOfWeek: moveFocustoStartAndEndOfWeek,
-  returnFocusToInput: returnFocusToInput
-};
-
-var DayPickerNavigationPhrases = exports.DayPickerNavigationPhrases = {
-  jumpToPrevMonth: jumpToPrevMonth,
-  jumpToNextMonth: jumpToNextMonth
-};
-
-var CalendarDayPhrases = exports.CalendarDayPhrases = {
-  chooseAvailableDate: chooseAvailableDate,
-  dateIsUnavailable: dateIsUnavailable,
-  dateIsSelected: dateIsSelected
-};
-
-/***/ }),
-
-/***/ 17:
-/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
-
-"use strict";
-
-
-var _registerCSSInterfaceWithDefaultTheme = __webpack_require__(9305);
-
-var _registerCSSInterfaceWithDefaultTheme2 = _interopRequireDefault(_registerCSSInterfaceWithDefaultTheme);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-(0, _registerCSSInterfaceWithDefaultTheme2['default'])();
-
-/***/ }),
-
-/***/ 8182:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports["default"] = _propTypes2['default'].oneOf([_constants.INFO_POSITION_TOP, _constants.INFO_POSITION_BOTTOM, _constants.INFO_POSITION_BEFORE, _constants.INFO_POSITION_AFTER]);
-
-/***/ }),
-
-/***/ 243:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports["default"] = _propTypes2['default'].oneOf(_constants.WEEKDAYS);
-
-/***/ }),
-
-/***/ 6747:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _airbnbPropTypes = __webpack_require__(4882);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-exports["default"] = (0, _airbnbPropTypes.and)([_propTypes2['default'].instanceOf(Set), function () {
-  function modifiers(props, propName) {
-    for (var _len = arguments.length, rest = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-      rest[_key - 2] = arguments[_key];
-    }
-
-    var propValue = props[propName];
-
-    var firstError = void 0;
-    [].concat(_toConsumableArray(propValue)).some(function (v, i) {
-      var _PropTypes$string;
-
-      var fakePropName = String(propName) + ': index ' + String(i);
-      firstError = (_PropTypes$string = _propTypes2['default'].string).isRequired.apply(_PropTypes$string, [_defineProperty({}, fakePropName, v), fakePropName].concat(rest));
-      return firstError != null;
-    });
-    return firstError == null ? null : firstError;
-  }
-
-  return modifiers;
-}()], 'Modifiers (Set of Strings)');
-
-/***/ }),
-
-/***/ 6553:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports["default"] = _propTypes2['default'].oneOf([_constants.HORIZONTAL_ORIENTATION, _constants.VERTICAL_ORIENTATION, _constants.VERTICAL_SCROLLABLE]);
-
-/***/ }),
-
-/***/ 8158:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-var core = {
-  white: '#fff',
-  gray: '#484848',
-  grayLight: '#82888a',
-  grayLighter: '#cacccd',
-  grayLightest: '#f2f2f2',
-
-  borderMedium: '#c4c4c4',
-  border: '#dbdbdb',
-  borderLight: '#e4e7e7',
-  borderLighter: '#eceeee',
-  borderBright: '#f4f5f5',
-
-  primary: '#00a699',
-  primaryShade_1: '#33dacd',
-  primaryShade_2: '#66e2da',
-  primaryShade_3: '#80e8e0',
-  primaryShade_4: '#b2f1ec',
-  primary_dark: '#008489',
-
-  secondary: '#007a87',
-
-  yellow: '#ffe8bc',
-  yellow_dark: '#ffce71'
-};
-
-exports["default"] = {
-  reactDates: {
-    zIndex: 0,
-    border: {
-      input: {
-        border: 0,
-        borderTop: 0,
-        borderRight: 0,
-        borderBottom: '2px solid transparent',
-        borderLeft: 0,
-        outlineFocused: 0,
-        borderFocused: 0,
-        borderTopFocused: 0,
-        borderLeftFocused: 0,
-        borderBottomFocused: '2px solid ' + String(core.primary_dark),
-        borderRightFocused: 0,
-        borderRadius: 0
-      },
-      pickerInput: {
-        borderWidth: 1,
-        borderStyle: 'solid',
-        borderRadius: 2
-      }
-    },
-
-    color: {
-      core: core,
-
-      disabled: core.grayLightest,
-
-      background: core.white,
-      backgroundDark: '#f2f2f2',
-      backgroundFocused: core.white,
-      border: 'rgb(219, 219, 219)',
-      text: core.gray,
-      textDisabled: core.border,
-      textFocused: '#007a87',
-      placeholderText: '#757575',
-
-      outside: {
-        backgroundColor: core.white,
-        backgroundColor_active: core.white,
-        backgroundColor_hover: core.white,
-        color: core.gray,
-        color_active: core.gray,
-        color_hover: core.gray
-      },
-
-      highlighted: {
-        backgroundColor: core.yellow,
-        backgroundColor_active: core.yellow_dark,
-        backgroundColor_hover: core.yellow_dark,
-        color: core.gray,
-        color_active: core.gray,
-        color_hover: core.gray
-      },
-
-      minimumNights: {
-        backgroundColor: core.white,
-        backgroundColor_active: core.white,
-        backgroundColor_hover: core.white,
-        borderColor: core.borderLighter,
-        color: core.grayLighter,
-        color_active: core.grayLighter,
-        color_hover: core.grayLighter
-      },
-
-      hoveredSpan: {
-        backgroundColor: core.primaryShade_4,
-        backgroundColor_active: core.primaryShade_3,
-        backgroundColor_hover: core.primaryShade_4,
-        borderColor: core.primaryShade_3,
-        borderColor_active: core.primaryShade_3,
-        borderColor_hover: core.primaryShade_3,
-        color: core.secondary,
-        color_active: core.secondary,
-        color_hover: core.secondary
-      },
-
-      selectedSpan: {
-        backgroundColor: core.primaryShade_2,
-        backgroundColor_active: core.primaryShade_1,
-        backgroundColor_hover: core.primaryShade_1,
-        borderColor: core.primaryShade_1,
-        borderColor_active: core.primary,
-        borderColor_hover: core.primary,
-        color: core.white,
-        color_active: core.white,
-        color_hover: core.white
-      },
-
-      selected: {
-        backgroundColor: core.primary,
-        backgroundColor_active: core.primary,
-        backgroundColor_hover: core.primary,
-        borderColor: core.primary,
-        borderColor_active: core.primary,
-        borderColor_hover: core.primary,
-        color: core.white,
-        color_active: core.white,
-        color_hover: core.white
-      },
-
-      blocked_calendar: {
-        backgroundColor: core.grayLighter,
-        backgroundColor_active: core.grayLighter,
-        backgroundColor_hover: core.grayLighter,
-        borderColor: core.grayLighter,
-        borderColor_active: core.grayLighter,
-        borderColor_hover: core.grayLighter,
-        color: core.grayLight,
-        color_active: core.grayLight,
-        color_hover: core.grayLight
-      },
-
-      blocked_out_of_range: {
-        backgroundColor: core.white,
-        backgroundColor_active: core.white,
-        backgroundColor_hover: core.white,
-        borderColor: core.borderLight,
-        borderColor_active: core.borderLight,
-        borderColor_hover: core.borderLight,
-        color: core.grayLighter,
-        color_active: core.grayLighter,
-        color_hover: core.grayLighter
-      }
-    },
-
-    spacing: {
-      dayPickerHorizontalPadding: 9,
-      captionPaddingTop: 22,
-      captionPaddingBottom: 37,
-      inputPadding: 0,
-      displayTextPaddingVertical: undefined,
-      displayTextPaddingTop: 11,
-      displayTextPaddingBottom: 9,
-      displayTextPaddingHorizontal: undefined,
-      displayTextPaddingLeft: 11,
-      displayTextPaddingRight: 11,
-      displayTextPaddingVertical_small: undefined,
-      displayTextPaddingTop_small: 7,
-      displayTextPaddingBottom_small: 5,
-      displayTextPaddingHorizontal_small: undefined,
-      displayTextPaddingLeft_small: 7,
-      displayTextPaddingRight_small: 7
-    },
-
-    sizing: {
-      inputWidth: 130,
-      inputWidth_small: 97,
-      arrowWidth: 24
-    },
-
-    noScrollBarOnVerticalScrollable: false,
-
-    font: {
-      size: 14,
-      captionSize: 18,
-      input: {
-        size: 19,
-        lineHeight: '24px',
-        size_small: 15,
-        lineHeight_small: '18px',
-        letterSpacing_small: '0.2px',
-        styleDisabled: 'italic'
+  caf = function(handle) {
+    for(var i = 0; i < queue.length; i++) {
+      if(queue[i].handle === handle) {
+        queue[i].cancelled = true
       }
     }
   }
-};
+}
 
-/***/ }),
-
-/***/ 8607:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = calculateDimension;
-function calculateDimension(el, axis) {
-  var borderBox = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-  var withMargin = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-
-  if (!el) {
-    return 0;
+module.exports = function(fn) {
+  // Wrap in a new function to prevent
+  // `cancel` potentially being assigned
+  // to the native rAF function
+  return raf.call(root, fn)
+}
+module.exports.cancel = function() {
+  caf.apply(root, arguments)
+}
+module.exports.polyfill = function(object) {
+  if (!object) {
+    object = root;
   }
-
-  var axisStart = axis === 'width' ? 'Left' : 'Top';
-  var axisEnd = axis === 'width' ? 'Right' : 'Bottom';
-
-  // Only read styles if we need to
-  var style = !borderBox || withMargin ? window.getComputedStyle(el) : null;
-
-  // Offset includes border and padding
-  var offsetWidth = el.offsetWidth,
-      offsetHeight = el.offsetHeight;
-
-  var size = axis === 'width' ? offsetWidth : offsetHeight;
-
-  // Get the inner size
-  if (!borderBox) {
-    size -= parseFloat(style['padding' + axisStart]) + parseFloat(style['padding' + axisEnd]) + parseFloat(style['border' + axisStart + 'Width']) + parseFloat(style['border' + axisEnd + 'Width']);
-  }
-
-  // Apply margin
-  if (withMargin) {
-    size += parseFloat(style['margin' + axisStart]) + parseFloat(style['margin' + axisEnd]);
-  }
-
-  return size;
+  object.requestAnimationFrame = raf
+  object.cancelAnimationFrame = caf
 }
 
-/***/ }),
-
-/***/ 5814:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = getActiveElement;
-function getActiveElement() {
-  return typeof document !== 'undefined' && document.activeElement;
-}
-
-/***/ }),
-
-/***/ 7475:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = getCalendarDaySettings;
-
-var _getPhrase = __webpack_require__(7098);
-
-var _getPhrase2 = _interopRequireDefault(_getPhrase);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function getCalendarDaySettings(day, ariaLabelFormat, daySize, modifiers, phrases) {
-  var chooseAvailableDate = phrases.chooseAvailableDate,
-      dateIsUnavailable = phrases.dateIsUnavailable,
-      dateIsSelected = phrases.dateIsSelected;
-
-
-  var daySizeStyles = {
-    width: daySize,
-    height: daySize - 1
-  };
-
-  var useDefaultCursor = modifiers.has('blocked-minimum-nights') || modifiers.has('blocked-calendar') || modifiers.has('blocked-out-of-range');
-
-  var selected = modifiers.has('selected') || modifiers.has('selected-start') || modifiers.has('selected-end');
-
-  var hoveredSpan = !selected && (modifiers.has('hovered-span') || modifiers.has('after-hovered-start'));
-
-  var isOutsideRange = modifiers.has('blocked-out-of-range');
-
-  var formattedDate = { date: day.format(ariaLabelFormat) };
-
-  var ariaLabel = (0, _getPhrase2['default'])(chooseAvailableDate, formattedDate);
-  if (modifiers.has(_constants.BLOCKED_MODIFIER)) {
-    ariaLabel = (0, _getPhrase2['default'])(dateIsUnavailable, formattedDate);
-  } else if (selected) {
-    ariaLabel = (0, _getPhrase2['default'])(dateIsSelected, formattedDate);
-  }
-
-  return {
-    daySizeStyles: daySizeStyles,
-    useDefaultCursor: useDefaultCursor,
-    selected: selected,
-    hoveredSpan: hoveredSpan,
-    isOutsideRange: isOutsideRange,
-    ariaLabel: ariaLabel
-  };
-}
-
-/***/ }),
-
-/***/ 5644:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = getCalendarMonthWeeks;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function getCalendarMonthWeeks(month, enableOutsideDays) {
-  var firstDayOfWeek = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _moment2['default'].localeData().firstDayOfWeek();
-
-  if (!_moment2['default'].isMoment(month) || !month.isValid()) {
-    throw new TypeError('`month` must be a valid moment object');
-  }
-  if (_constants.WEEKDAYS.indexOf(firstDayOfWeek) === -1) {
-    throw new TypeError('`firstDayOfWeek` must be an integer between 0 and 6');
-  }
-
-  // set utc offset to get correct dates in future (when timezone changes)
-  var firstOfMonth = month.clone().startOf('month').hour(12);
-  var lastOfMonth = month.clone().endOf('month').hour(12);
-
-  // calculate the exact first and last days to fill the entire matrix
-  // (considering days outside month)
-  var prevDays = (firstOfMonth.day() + 7 - firstDayOfWeek) % 7;
-  var nextDays = (firstDayOfWeek + 6 - lastOfMonth.day()) % 7;
-  var firstDay = firstOfMonth.clone().subtract(prevDays, 'day');
-  var lastDay = lastOfMonth.clone().add(nextDays, 'day');
-
-  var totalDays = lastDay.diff(firstDay, 'days') + 1;
-
-  var currentDay = firstDay.clone();
-  var weeksInMonth = [];
-
-  for (var i = 0; i < totalDays; i += 1) {
-    if (i % 7 === 0) {
-      weeksInMonth.push([]);
-    }
-
-    var day = null;
-    if (i >= prevDays && i < totalDays - nextDays || enableOutsideDays) {
-      day = currentDay.clone();
-    }
-
-    weeksInMonth[weeksInMonth.length - 1].push(day);
-
-    currentDay.add(1, 'day');
-  }
-
-  return weeksInMonth;
-}
-
-/***/ }),
-
-/***/ 8964:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = getCalendarMonthWidth;
-function getCalendarMonthWidth(daySize, calendarMonthPadding) {
-  return 7 * daySize + 2 * calendarMonthPadding + 1;
-}
-
-/***/ }),
-
-/***/ 4112:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = getNumberOfCalendarMonthWeeks;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function getBlankDaysBeforeFirstDay(firstDayOfMonth, firstDayOfWeek) {
-  var weekDayDiff = firstDayOfMonth.day() - firstDayOfWeek;
-  return (weekDayDiff + 7) % 7;
-}
-
-function getNumberOfCalendarMonthWeeks(month) {
-  var firstDayOfWeek = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _moment2['default'].localeData().firstDayOfWeek();
-
-  var firstDayOfMonth = month.clone().startOf('month');
-  var numBlankDays = getBlankDaysBeforeFirstDay(firstDayOfMonth, firstDayOfWeek);
-  return Math.ceil((numBlankDays + month.daysInMonth()) / 7);
-}
-
-/***/ }),
-
-/***/ 7098:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = getPhrase;
-function getPhrase(phrase, args) {
-  if (typeof phrase === 'string') return phrase;
-
-  if (typeof phrase === 'function') {
-    return phrase(args);
-  }
-
-  return '';
-}
-
-/***/ }),
-
-/***/ 2893:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = getPhrasePropTypes;
-
-var _object = __webpack_require__(4011);
-
-var _object2 = _interopRequireDefault(_object);
-
-var _propTypes = __webpack_require__(2652);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function getPhrasePropTypes(defaultPhrases) {
-  return Object.keys(defaultPhrases).reduce(function (phrases, key) {
-    return (0, _object2['default'])({}, phrases, _defineProperty({}, key, _propTypes2['default'].oneOfType([_propTypes2['default'].string, _propTypes2['default'].func, _propTypes2['default'].node])));
-  }, {});
-}
-
-/***/ }),
-
-/***/ 8304:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = getTransformStyles;
-function getTransformStyles(transformValue) {
-  return {
-    transform: transformValue,
-    msTransform: transformValue,
-    MozTransform: transformValue,
-    WebkitTransform: transformValue
-  };
-}
-
-/***/ }),
-
-/***/ 3268:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = getVisibleDays;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _toISOMonthString = __webpack_require__(2705);
-
-var _toISOMonthString2 = _interopRequireDefault(_toISOMonthString);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function getVisibleDays(month, numberOfMonths, enableOutsideDays, withoutTransitionMonths) {
-  if (!_moment2['default'].isMoment(month)) return {};
-
-  var visibleDaysByMonth = {};
-  var currentMonth = withoutTransitionMonths ? month.clone() : month.clone().subtract(1, 'month');
-  for (var i = 0; i < (withoutTransitionMonths ? numberOfMonths : numberOfMonths + 2); i += 1) {
-    var visibleDays = [];
-
-    // set utc offset to get correct dates in future (when timezone changes)
-    var baseDate = currentMonth.clone();
-    var firstOfMonth = baseDate.clone().startOf('month').hour(12);
-    var lastOfMonth = baseDate.clone().endOf('month').hour(12);
-
-    var currentDay = firstOfMonth.clone();
-
-    // days belonging to the previous month
-    if (enableOutsideDays) {
-      for (var j = 0; j < currentDay.weekday(); j += 1) {
-        var prevDay = currentDay.clone().subtract(j + 1, 'day');
-        visibleDays.unshift(prevDay);
-      }
-    }
-
-    while (currentDay < lastOfMonth) {
-      visibleDays.push(currentDay.clone());
-      currentDay.add(1, 'day');
-    }
-
-    if (enableOutsideDays) {
-      // weekday() returns the index of the day of the week according to the locale
-      // this means if the week starts on Monday, weekday() will return 0 for a Monday date, not 1
-      if (currentDay.weekday() !== 0) {
-        // days belonging to the next month
-        for (var k = currentDay.weekday(), count = 0; k < 7; k += 1, count += 1) {
-          var nextDay = currentDay.clone().add(count, 'day');
-          visibleDays.push(nextDay);
-        }
-      }
-    }
-
-    visibleDaysByMonth[(0, _toISOMonthString2['default'])(currentMonth)] = visibleDays;
-    currentMonth = currentMonth.clone().add(1, 'month');
-  }
-
-  return visibleDaysByMonth;
-}
-
-/***/ }),
-
-/***/ 7365:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = isAfterDay;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _isBeforeDay = __webpack_require__(862);
-
-var _isBeforeDay2 = _interopRequireDefault(_isBeforeDay);
-
-var _isSameDay = __webpack_require__(3923);
-
-var _isSameDay2 = _interopRequireDefault(_isSameDay);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function isAfterDay(a, b) {
-  if (!_moment2['default'].isMoment(a) || !_moment2['default'].isMoment(b)) return false;
-  return !(0, _isBeforeDay2['default'])(a, b) && !(0, _isSameDay2['default'])(a, b);
-}
-
-/***/ }),
-
-/***/ 862:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = isBeforeDay;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function isBeforeDay(a, b) {
-  if (!_moment2['default'].isMoment(a) || !_moment2['default'].isMoment(b)) return false;
-
-  var aYear = a.year();
-  var aMonth = a.month();
-
-  var bYear = b.year();
-  var bMonth = b.month();
-
-  var isSameYear = aYear === bYear;
-  var isSameMonth = aMonth === bMonth;
-
-  if (isSameYear && isSameMonth) return a.date() < b.date();
-  if (isSameYear) return aMonth < bMonth;
-  return aYear < bYear;
-}
-
-/***/ }),
-
-/***/ 5713:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = isDayVisible;
-
-var _isBeforeDay = __webpack_require__(862);
-
-var _isBeforeDay2 = _interopRequireDefault(_isBeforeDay);
-
-var _isAfterDay = __webpack_require__(7365);
-
-var _isAfterDay2 = _interopRequireDefault(_isAfterDay);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function isDayVisible(day, month, numberOfMonths, enableOutsideDays) {
-  var firstDayOfFirstMonth = month.clone().startOf('month');
-  if (enableOutsideDays) firstDayOfFirstMonth = firstDayOfFirstMonth.startOf('week');
-  if ((0, _isBeforeDay2['default'])(day, firstDayOfFirstMonth)) return false;
-
-  var lastDayOfLastMonth = month.clone().add(numberOfMonths - 1, 'months').endOf('month');
-  if (enableOutsideDays) lastDayOfLastMonth = lastDayOfLastMonth.endOf('week');
-  return !(0, _isAfterDay2['default'])(day, lastDayOfLastMonth);
-}
-
-/***/ }),
-
-/***/ 1310:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = isNextMonth;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _isSameMonth = __webpack_require__(4669);
-
-var _isSameMonth2 = _interopRequireDefault(_isSameMonth);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function isNextMonth(a, b) {
-  if (!_moment2['default'].isMoment(a) || !_moment2['default'].isMoment(b)) return false;
-  return (0, _isSameMonth2['default'])(a.clone().add(1, 'month'), b);
-}
-
-/***/ }),
-
-/***/ 3858:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = isPrevMonth;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _isSameMonth = __webpack_require__(4669);
-
-var _isSameMonth2 = _interopRequireDefault(_isSameMonth);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function isPrevMonth(a, b) {
-  if (!_moment2['default'].isMoment(a) || !_moment2['default'].isMoment(b)) return false;
-  return (0, _isSameMonth2['default'])(a.clone().subtract(1, 'month'), b);
-}
-
-/***/ }),
-
-/***/ 3923:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = isSameDay;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function isSameDay(a, b) {
-  if (!_moment2['default'].isMoment(a) || !_moment2['default'].isMoment(b)) return false;
-  // Compare least significant, most likely to change units first
-  // Moment's isSame clones moment inputs and is a tad slow
-  return a.date() === b.date() && a.month() === b.month() && a.year() === b.year();
-}
-
-/***/ }),
-
-/***/ 4669:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = isSameMonth;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function isSameMonth(a, b) {
-  if (!_moment2['default'].isMoment(a) || !_moment2['default'].isMoment(b)) return false;
-  // Compare least significant, most likely to change units first
-  // Moment's isSame clones moment inputs and is a tad slow
-  return a.month() === b.month() && a.year() === b.year();
-}
-
-/***/ }),
-
-/***/ 7978:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = isTransitionEndSupported;
-function isTransitionEndSupported() {
-  return !!(typeof window !== 'undefined' && 'TransitionEvent' in window);
-}
-
-/***/ }),
-
-/***/ 9305:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = registerCSSInterfaceWithDefaultTheme;
-
-var _reactWithStylesInterfaceCss = __webpack_require__(5553);
-
-var _reactWithStylesInterfaceCss2 = _interopRequireDefault(_reactWithStylesInterfaceCss);
-
-var _registerInterfaceWithDefaultTheme = __webpack_require__(1980);
-
-var _registerInterfaceWithDefaultTheme2 = _interopRequireDefault(_registerInterfaceWithDefaultTheme);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function registerCSSInterfaceWithDefaultTheme() {
-  (0, _registerInterfaceWithDefaultTheme2['default'])(_reactWithStylesInterfaceCss2['default']);
-}
-
-/***/ }),
-
-/***/ 1980:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = registerInterfaceWithDefaultTheme;
-
-var _ThemedStyleSheet = __webpack_require__(9349);
-
-var _ThemedStyleSheet2 = _interopRequireDefault(_ThemedStyleSheet);
-
-var _DefaultTheme = __webpack_require__(8158);
-
-var _DefaultTheme2 = _interopRequireDefault(_DefaultTheme);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function registerInterfaceWithDefaultTheme(reactWithStylesInterface) {
-  _ThemedStyleSheet2['default'].registerInterface(reactWithStylesInterface);
-  _ThemedStyleSheet2['default'].registerTheme(_DefaultTheme2['default']);
-}
-
-/***/ }),
-
-/***/ 1688:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = toISODateString;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _toMomentObject = __webpack_require__(2008);
-
-var _toMomentObject2 = _interopRequireDefault(_toMomentObject);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function toISODateString(date, currentFormat) {
-  var dateObj = _moment2['default'].isMoment(date) ? date : (0, _toMomentObject2['default'])(date, currentFormat);
-  if (!dateObj) return null;
-
-  return dateObj.format(_constants.ISO_FORMAT);
-}
-
-/***/ }),
-
-/***/ 2705:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = toISOMonthString;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _toMomentObject = __webpack_require__(2008);
-
-var _toMomentObject2 = _interopRequireDefault(_toMomentObject);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function toISOMonthString(date, currentFormat) {
-  var dateObj = _moment2['default'].isMoment(date) ? date : (0, _toMomentObject2['default'])(date, currentFormat);
-  if (!dateObj) return null;
-
-  return dateObj.format(_constants.ISO_MONTH_FORMAT);
-}
-
-/***/ }),
-
-/***/ 2008:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = toMomentObject;
-
-var _moment = __webpack_require__(6292);
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _constants = __webpack_require__(257);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function toMomentObject(dateString, customFormat) {
-  var dateFormats = customFormat ? [customFormat, _constants.DISPLAY_FORMAT, _constants.ISO_FORMAT] : [_constants.DISPLAY_FORMAT, _constants.ISO_FORMAT];
-
-  var date = (0, _moment2['default'])(dateString, dateFormats, true);
-  return date.isValid() ? date.hour(12) : null;
-}
 
 /***/ }),
 
@@ -13733,14 +7712,6 @@ module.exports = __webpack_require__(2239);
 
 /***/ }),
 
-/***/ 235:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-var e=__webpack_require__(9196),n={display:"block",opacity:0,position:"absolute",top:0,left:0,height:"100%",width:"100%",overflow:"hidden",pointerEvents:"none",zIndex:-1},t=function(t){var r=t.onResize,u=e.useRef();return function(n,t){var r=function(){return n.current&&n.current.contentDocument&&n.current.contentDocument.defaultView};function u(){t();var e=r();e&&e.addEventListener("resize",t)}e.useEffect((function(){return r()?u():n.current&&n.current.addEventListener&&n.current.addEventListener("load",u),function(){var e=r();e&&"function"==typeof e.removeEventListener&&e.removeEventListener("resize",t)}}),[])}(u,(function(){return r(u)})),e.createElement("iframe",{style:n,src:"about:blank",ref:u,"aria-hidden":!0,tabIndex:-1,frameBorder:0})},r=function(e){return{width:null!=e?e.offsetWidth:null,height:null!=e?e.offsetHeight:null}};module.exports=function(n){void 0===n&&(n=r);var u=e.useState(n(null)),o=u[0],i=u[1],c=e.useCallback((function(e){return i(n(e.current))}),[n]);return[e.useMemo((function(){return e.createElement(t,{onResize:c})}),[c]),o]};
-
-
-/***/ }),
-
 /***/ 5080:
 /***/ (function(__unused_webpack_module, exports) {
 
@@ -13783,284 +7754,7 @@ exports["default"] = _propTypes2['default'].shape({
 
 /***/ }),
 
-/***/ 3688:
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-var __webpack_unused_export__;
-__webpack_unused_export__ = ({
-  value: true
-});
-
-var _arrayPrototype = __webpack_require__(116);
-
-var _arrayPrototype2 = _interopRequireDefault(_arrayPrototype);
-
-var _globalCache = __webpack_require__(5371);
-
-var _globalCache2 = _interopRequireDefault(_globalCache);
-
-var _constants = __webpack_require__(6930);
-
-var _getClassName = __webpack_require__(1689);
-
-var _getClassName2 = _interopRequireDefault(_getClassName);
-
-var _separateStyles2 = __webpack_require__(1881);
-
-var _separateStyles3 = _interopRequireDefault(_separateStyles2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- * Function required as part of the react-with-styles interface. Parses the styles provided by
- * react-with-styles to produce class names based on the style name and optionally the namespace if
- * available.
- *
- * stylesObject {Object} The styles object passed to withStyles.
- *
- * Return an object mapping style names to class names.
- */
-function create(stylesObject) {
-  var stylesToClasses = {};
-  var styleNames = Object.keys(stylesObject);
-  var sharedState = _globalCache2['default'].get(_constants.GLOBAL_CACHE_KEY) || {};
-  var _sharedState$namespac = sharedState.namespace,
-      namespace = _sharedState$namespac === undefined ? '' : _sharedState$namespac;
-
-  styleNames.forEach(function (styleName) {
-    var className = (0, _getClassName2['default'])(namespace, styleName);
-    stylesToClasses[styleName] = className;
-  });
-  return stylesToClasses;
-}
-
-/**
- * Process styles to be consumed by a component.
- *
- * stylesArray {Array} Array of the following: values returned by create, plain JavaScript objects
- * representing inline styles, or arrays thereof.
- *
- * Return an object with optional className and style properties to be spread on a component.
- */
-function resolve(stylesArray) {
-  var flattenedStyles = (0, _arrayPrototype2['default'])(stylesArray, Infinity);
-
-  var _separateStyles = (0, _separateStyles3['default'])(flattenedStyles),
-      classNames = _separateStyles.classNames,
-      hasInlineStyles = _separateStyles.hasInlineStyles,
-      inlineStyles = _separateStyles.inlineStyles;
-
-  var specificClassNames = classNames.map(function (name, index) {
-    return String(name) + ' ' + String(name) + '_' + String(index + 1);
-  });
-  var className = specificClassNames.join(' ');
-
-  var result = { className: className };
-  if (hasInlineStyles) result.style = inlineStyles;
-  return result;
-}
-
-exports["default"] = { create: create, resolve: resolve };
-
-/***/ }),
-
-/***/ 6930:
-/***/ (function(__unused_webpack_module, exports) {
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-var GLOBAL_CACHE_KEY = 'reactWithStylesInterfaceCSS';
-var MAX_SPECIFICITY = 20;
-
-exports.GLOBAL_CACHE_KEY = GLOBAL_CACHE_KEY;
-exports.MAX_SPECIFICITY = MAX_SPECIFICITY;
-
-/***/ }),
-
-/***/ 1689:
-/***/ (function(__unused_webpack_module, exports) {
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-exports["default"] = getClassName;
-/**
- * Construct a class name.
- *
- * namespace {String} Used to construct unique class names.
- * styleName {String} Name identifying the specific style.
- *
- * Return the class name.
- */
-function getClassName(namespace, styleName) {
-  var namespaceSegment = namespace.length > 0 ? String(namespace) + '__' : '';
-  return '' + namespaceSegment + String(styleName);
-}
-
-/***/ }),
-
-/***/ 1881:
-/***/ (function(__unused_webpack_module, exports) {
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-// This function takes an array of styles and separates them into styles that
-// are handled by Aphrodite and inline styles.
-function separateStyles(stylesArray) {
-  var classNames = [];
-
-  // Since determining if an Object is empty requires collecting all of its
-  // keys, and we want the best performance in this code because we are in the
-  // render path, we are going to do a little bookkeeping ourselves.
-  var hasInlineStyles = false;
-  var inlineStyles = {};
-
-  // This is run on potentially every node in the tree when rendering, where
-  // performance is critical. Normally we would prefer using `forEach`, but
-  // old-fashioned for loops are faster so that's what we have chosen here.
-  for (var i = 0; i < stylesArray.length; i++) {
-    // eslint-disable-line no-plusplus
-    var style = stylesArray[i];
-
-    // If this  style is falsy, we just want to disregard it. This allows for
-    // syntax like:
-    //
-    //   css(isFoo && styles.foo)
-    if (style) {
-      if (typeof style === 'string') {
-        classNames.push(style);
-      } else {
-        Object.assign(inlineStyles, style);
-        hasInlineStyles = true;
-      }
-    }
-  }
-
-  return {
-    classNames: classNames,
-    hasInlineStyles: hasInlineStyles,
-    inlineStyles: inlineStyles
-  };
-}
-
-exports["default"] = separateStyles;
-
-/***/ }),
-
-/***/ 5553:
-/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
-
-// eslint-disable-next-line import/no-unresolved
-module.exports = __webpack_require__(3688)["default"];
-
-
-/***/ }),
-
-/***/ 9349:
-/***/ (function(__unused_webpack_module, exports) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", ({
-  value: true
-}));
-var styleInterface = void 0;
-var styleTheme = void 0;
-
-var START_MARK = 'react-with-styles.resolve.start';
-var END_MARK = 'react-with-styles.resolve.end';
-var MEASURE_MARK = '\uD83D\uDC69\u200D\uD83C\uDFA8 [resolve]';
-
-function registerTheme(theme) {
-  styleTheme = theme;
-}
-
-function registerInterface(interfaceToRegister) {
-  styleInterface = interfaceToRegister;
-}
-
-function create(makeFromTheme, createWithDirection) {
-  var styles = createWithDirection(makeFromTheme(styleTheme));
-  return function () {
-    return styles;
-  };
-}
-
-function createLTR(makeFromTheme) {
-  return create(makeFromTheme, styleInterface.createLTR || styleInterface.create);
-}
-
-function createRTL(makeFromTheme) {
-  return create(makeFromTheme, styleInterface.createRTL || styleInterface.create);
-}
-
-function get() {
-  return styleTheme;
-}
-
-function resolve() {
-  if (false) {}
-
-  for (var _len = arguments.length, styles = Array(_len), _key = 0; _key < _len; _key++) {
-    styles[_key] = arguments[_key];
-  }
-
-  var result = styleInterface.resolve(styles);
-
-  if (false) {}
-
-  return result;
-}
-
-function resolveLTR() {
-  for (var _len2 = arguments.length, styles = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-    styles[_key2] = arguments[_key2];
-  }
-
-  if (styleInterface.resolveLTR) {
-    return styleInterface.resolveLTR(styles);
-  }
-
-  return resolve(styles);
-}
-
-function resolveRTL() {
-  for (var _len3 = arguments.length, styles = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-    styles[_key3] = arguments[_key3];
-  }
-
-  if (styleInterface.resolveRTL) {
-    return styleInterface.resolveRTL(styles);
-  }
-
-  return resolve(styles);
-}
-
-function flush() {
-  if (styleInterface.flush) {
-    styleInterface.flush();
-  }
-}
-
-exports["default"] = {
-  registerTheme: registerTheme,
-  registerInterface: registerInterface,
-  create: createLTR,
-  createLTR: createLTR,
-  createRTL: createRTL,
-  get: get,
-  resolve: resolveLTR,
-  resolveLTR: resolveLTR,
-  resolveRTL: resolveRTL,
-  flush: flush
-};
-
-/***/ }),
-
-/***/ 3576:
+/***/ 1601:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14069,29 +7763,55 @@ exports["default"] = {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.withStylesPropTypes = exports.css = undefined;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-exports.withStyles = withStyles;
-
-var _object = __webpack_require__(4011);
+var _object = __webpack_require__(5861);
 
 var _object2 = _interopRequireDefault(_object);
-
-var _react = __webpack_require__(9196);
-
-var _react2 = _interopRequireDefault(_react);
 
 var _propTypes = __webpack_require__(2652);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _hoistNonReactStatics = __webpack_require__(3166);
+var _constants = __webpack_require__(5080);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports["default"] = _propTypes2['default'].oneOf((0, _object2['default'])(_constants.DIRECTIONS));
+
+/***/ }),
+
+/***/ 7818:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.withDirectionPropTypes = exports.DIRECTIONS = undefined;
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+exports["default"] = withDirection;
+
+var _react = __webpack_require__(9196);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _hoistNonReactStatics = __webpack_require__(7015);
 
 var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
+
+var _deepmerge = __webpack_require__(3933);
+
+var _deepmerge2 = _interopRequireDefault(_deepmerge);
+
+var _getComponentName = __webpack_require__(2424);
+
+var _getComponentName2 = _interopRequireDefault(_getComponentName);
 
 var _constants = __webpack_require__(5080);
 
@@ -14099,9 +7819,9 @@ var _brcast = __webpack_require__(6640);
 
 var _brcast2 = _interopRequireDefault(_brcast);
 
-var _ThemedStyleSheet = __webpack_require__(9349);
+var _direction = __webpack_require__(1601);
 
-var _ThemedStyleSheet2 = _interopRequireDefault(_ThemedStyleSheet);
+var _direction2 = _interopRequireDefault(_direction);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -14111,211 +7831,210 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /* eslint react/forbid-foreign-prop-types: off */
-
-// Add some named exports to assist in upgrading and for convenience
-var css = exports.css = _ThemedStyleSheet2['default'].resolveLTR;
-var withStylesPropTypes = exports.withStylesPropTypes = {
-  styles: _propTypes2['default'].object.isRequired, // eslint-disable-line react/forbid-prop-types
-  theme: _propTypes2['default'].object.isRequired, // eslint-disable-line react/forbid-prop-types
-  css: _propTypes2['default'].func.isRequired
-};
-
-var EMPTY_STYLES = {};
-var EMPTY_STYLES_FN = function EMPTY_STYLES_FN() {
-  return EMPTY_STYLES;
-};
-
-var START_MARK = 'react-with-styles.createStyles.start';
-var END_MARK = 'react-with-styles.createStyles.end';
-
-function baseClass(pureComponent) {
-  if (pureComponent) {
-    if (!_react2['default'].PureComponent) {
-      throw new ReferenceError('withStyles() pureComponent option requires React 15.3.0 or later');
-    }
-
-    return _react2['default'].PureComponent;
-  }
-
-  return _react2['default'].Component;
-}
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } /* eslint-disable react/forbid-foreign-prop-types */
+// This higher-order component consumes a string from React context that is
+// provided by the DirectionProvider component.
+// We can use this to conditionally switch layout/direction for right-to-left layouts.
 
 var contextTypes = _defineProperty({}, _constants.CHANNEL, _brcast2['default']);
 
+exports.DIRECTIONS = _constants.DIRECTIONS;
+
+// set a default direction so that a component wrapped with this HOC can be
+// used even without a DirectionProvider ancestor in its react tree.
+
 var defaultDirection = _constants.DIRECTIONS.LTR;
 
-function withStyles(styleFn) {
-  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
-      _ref$stylesPropName = _ref.stylesPropName,
-      stylesPropName = _ref$stylesPropName === undefined ? 'styles' : _ref$stylesPropName,
-      _ref$themePropName = _ref.themePropName,
-      themePropName = _ref$themePropName === undefined ? 'theme' : _ref$themePropName,
-      _ref$cssPropName = _ref.cssPropName,
-      cssPropName = _ref$cssPropName === undefined ? 'css' : _ref$cssPropName,
-      _ref$flushBefore = _ref.flushBefore,
-      flushBefore = _ref$flushBefore === undefined ? false : _ref$flushBefore,
-      _ref$pureComponent = _ref.pureComponent,
-      pureComponent = _ref$pureComponent === undefined ? false : _ref$pureComponent;
+// export for convenience, in order for components to spread these onto their propTypes
+var withDirectionPropTypes = exports.withDirectionPropTypes = {
+  direction: _direction2['default'].isRequired
+};
 
-  var styleDefLTR = void 0;
-  var styleDefRTL = void 0;
-  var currentThemeLTR = void 0;
-  var currentThemeRTL = void 0;
-  var BaseClass = baseClass(pureComponent);
+function withDirection(WrappedComponent) {
+  var WithDirection = function (_React$Component) {
+    _inherits(WithDirection, _React$Component);
 
-  function getResolveMethod(direction) {
-    return direction === _constants.DIRECTIONS.LTR ? _ThemedStyleSheet2['default'].resolveLTR : _ThemedStyleSheet2['default'].resolveRTL;
-  }
+    function WithDirection(props, context) {
+      _classCallCheck(this, WithDirection);
 
-  function getCurrentTheme(direction) {
-    return direction === _constants.DIRECTIONS.LTR ? currentThemeLTR : currentThemeRTL;
-  }
+      var _this = _possibleConstructorReturn(this, (WithDirection.__proto__ || Object.getPrototypeOf(WithDirection)).call(this, props, context));
 
-  function getStyleDef(direction, wrappedComponentName) {
-    var currentTheme = getCurrentTheme(direction);
-    var styleDef = direction === _constants.DIRECTIONS.LTR ? styleDefLTR : styleDefRTL;
-
-    var registeredTheme = _ThemedStyleSheet2['default'].get();
-
-    // Return the existing styles if they've already been defined
-    // and if the theme used to create them corresponds to the theme
-    // registered with ThemedStyleSheet
-    if (styleDef && currentTheme === registeredTheme) {
-      return styleDef;
+      _this.state = {
+        direction: context[_constants.CHANNEL] ? context[_constants.CHANNEL].getState() : defaultDirection
+      };
+      return _this;
     }
 
-    if (false) {}
+    _createClass(WithDirection, [{
+      key: 'componentDidMount',
+      value: function () {
+        function componentDidMount() {
+          var _this2 = this;
 
-    var isRTL = direction === _constants.DIRECTIONS.RTL;
-
-    if (isRTL) {
-      styleDefRTL = styleFn ? _ThemedStyleSheet2['default'].createRTL(styleFn) : EMPTY_STYLES_FN;
-
-      currentThemeRTL = registeredTheme;
-      styleDef = styleDefRTL;
-    } else {
-      styleDefLTR = styleFn ? _ThemedStyleSheet2['default'].createLTR(styleFn) : EMPTY_STYLES_FN;
-
-      currentThemeLTR = registeredTheme;
-      styleDef = styleDefLTR;
-    }
-
-    if (false) { var measureName; }
-
-    return styleDef;
-  }
-
-  function getState(direction, wrappedComponentName) {
-    return {
-      resolveMethod: getResolveMethod(direction),
-      styleDef: getStyleDef(direction, wrappedComponentName)
-    };
-  }
-
-  return function () {
-    function withStylesHOC(WrappedComponent) {
-      var wrappedComponentName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
-
-      // NOTE: Use a class here so components are ref-able if need be:
-      // eslint-disable-next-line react/prefer-stateless-function
-
-      var WithStyles = function (_BaseClass) {
-        _inherits(WithStyles, _BaseClass);
-
-        function WithStyles(props, context) {
-          _classCallCheck(this, WithStyles);
-
-          var _this = _possibleConstructorReturn(this, (WithStyles.__proto__ || Object.getPrototypeOf(WithStyles)).call(this, props, context));
-
-          var direction = _this.context[_constants.CHANNEL] ? _this.context[_constants.CHANNEL].getState() : defaultDirection;
-
-          _this.state = getState(direction, wrappedComponentName);
-          return _this;
+          if (this.context[_constants.CHANNEL]) {
+            // subscribe to future direction changes
+            this.channelUnsubscribe = this.context[_constants.CHANNEL].subscribe(function (direction) {
+              _this2.setState({ direction: direction });
+            });
+          }
         }
 
-        _createClass(WithStyles, [{
-          key: 'componentDidMount',
-          value: function () {
-            function componentDidMount() {
-              var _this2 = this;
+        return componentDidMount;
+      }()
+    }, {
+      key: 'componentWillUnmount',
+      value: function () {
+        function componentWillUnmount() {
+          if (this.channelUnsubscribe) {
+            this.channelUnsubscribe();
+          }
+        }
 
-              if (this.context[_constants.CHANNEL]) {
-                // subscribe to future direction changes
-                this.channelUnsubscribe = this.context[_constants.CHANNEL].subscribe(function (direction) {
-                  _this2.setState(getState(direction, wrappedComponentName));
-                });
-              }
-            }
-
-            return componentDidMount;
-          }()
-        }, {
-          key: 'componentWillUnmount',
-          value: function () {
-            function componentWillUnmount() {
-              if (this.channelUnsubscribe) {
-                this.channelUnsubscribe();
-              }
-            }
-
-            return componentWillUnmount;
-          }()
-        }, {
-          key: 'render',
-          value: function () {
-            function render() {
-              var _ref2;
-
-              // As some components will depend on previous styles in
-              // the component tree, we provide the option of flushing the
-              // buffered styles (i.e. to a style tag) **before** the rendering
-              // cycle begins.
-              //
-              // The interfaces provide the optional "flush" method which
-              // is run in turn by ThemedStyleSheet.flush.
-              if (flushBefore) {
-                _ThemedStyleSheet2['default'].flush();
-              }
-
-              var _state = this.state,
-                  resolveMethod = _state.resolveMethod,
-                  styleDef = _state.styleDef;
+        return componentWillUnmount;
+      }()
+    }, {
+      key: 'render',
+      value: function () {
+        function render() {
+          var direction = this.state.direction;
 
 
-              return _react2['default'].createElement(WrappedComponent, _extends({}, this.props, (_ref2 = {}, _defineProperty(_ref2, themePropName, _ThemedStyleSheet2['default'].get()), _defineProperty(_ref2, stylesPropName, styleDef()), _defineProperty(_ref2, cssPropName, resolveMethod), _ref2)));
-            }
+          return _react2['default'].createElement(WrappedComponent, _extends({}, this.props, {
+            direction: direction
+          }));
+        }
 
-            return render;
-          }()
-        }]);
+        return render;
+      }()
+    }]);
 
-        return WithStyles;
-      }(BaseClass);
+    return WithDirection;
+  }(_react2['default'].Component);
 
-      WithStyles.WrappedComponent = WrappedComponent;
-      WithStyles.displayName = 'withStyles(' + String(wrappedComponentName) + ')';
-      WithStyles.contextTypes = contextTypes;
-      if (WrappedComponent.propTypes) {
-        WithStyles.propTypes = (0, _object2['default'])({}, WrappedComponent.propTypes);
-        delete WithStyles.propTypes[stylesPropName];
-        delete WithStyles.propTypes[themePropName];
-        delete WithStyles.propTypes[cssPropName];
-      }
-      if (WrappedComponent.defaultProps) {
-        WithStyles.defaultProps = (0, _object2['default'])({}, WrappedComponent.defaultProps);
-      }
+  var wrappedComponentName = (0, _getComponentName2['default'])(WrappedComponent) || 'Component';
 
-      return (0, _hoistNonReactStatics2['default'])(WithStyles, WrappedComponent);
-    }
+  WithDirection.WrappedComponent = WrappedComponent;
+  WithDirection.contextTypes = contextTypes;
+  WithDirection.displayName = 'withDirection(' + String(wrappedComponentName) + ')';
+  if (WrappedComponent.propTypes) {
+    WithDirection.propTypes = (0, _deepmerge2['default'])({}, WrappedComponent.propTypes);
+    delete WithDirection.propTypes.direction;
+  }
+  if (WrappedComponent.defaultProps) {
+    WithDirection.defaultProps = (0, _deepmerge2['default'])({}, WrappedComponent.defaultProps);
+  }
 
-    return withStylesHOC;
-  }();
+  return (0, _hoistNonReactStatics2['default'])(WithDirection, WrappedComponent);
 }
 
 /***/ }),
 
-/***/ 3166:
+/***/ 3933:
+/***/ (function(module) {
+
+"use strict";
+
+
+var isMergeableObject = function isMergeableObject(value) {
+	return isNonNullObject(value)
+		&& !isSpecial(value)
+};
+
+function isNonNullObject(value) {
+	return !!value && typeof value === 'object'
+}
+
+function isSpecial(value) {
+	var stringValue = Object.prototype.toString.call(value);
+
+	return stringValue === '[object RegExp]'
+		|| stringValue === '[object Date]'
+		|| isReactElement(value)
+}
+
+// see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
+var canUseSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7;
+
+function isReactElement(value) {
+	return value.$$typeof === REACT_ELEMENT_TYPE
+}
+
+function emptyTarget(val) {
+    return Array.isArray(val) ? [] : {}
+}
+
+function cloneIfNecessary(value, optionsArgument) {
+    var clone = optionsArgument && optionsArgument.clone === true;
+    return (clone && isMergeableObject(value)) ? deepmerge(emptyTarget(value), value, optionsArgument) : value
+}
+
+function defaultArrayMerge(target, source, optionsArgument) {
+    var destination = target.slice();
+    source.forEach(function(e, i) {
+        if (typeof destination[i] === 'undefined') {
+            destination[i] = cloneIfNecessary(e, optionsArgument);
+        } else if (isMergeableObject(e)) {
+            destination[i] = deepmerge(target[i], e, optionsArgument);
+        } else if (target.indexOf(e) === -1) {
+            destination.push(cloneIfNecessary(e, optionsArgument));
+        }
+    });
+    return destination
+}
+
+function mergeObject(target, source, optionsArgument) {
+    var destination = {};
+    if (isMergeableObject(target)) {
+        Object.keys(target).forEach(function(key) {
+            destination[key] = cloneIfNecessary(target[key], optionsArgument);
+        });
+    }
+    Object.keys(source).forEach(function(key) {
+        if (!isMergeableObject(source[key]) || !target[key]) {
+            destination[key] = cloneIfNecessary(source[key], optionsArgument);
+        } else {
+            destination[key] = deepmerge(target[key], source[key], optionsArgument);
+        }
+    });
+    return destination
+}
+
+function deepmerge(target, source, optionsArgument) {
+    var sourceIsArray = Array.isArray(source);
+    var targetIsArray = Array.isArray(target);
+    var options = optionsArgument || { arrayMerge: defaultArrayMerge };
+    var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
+
+    if (!sourceAndTargetTypesMatch) {
+        return cloneIfNecessary(source, optionsArgument)
+    } else if (sourceIsArray) {
+        var arrayMerge = options.arrayMerge || defaultArrayMerge;
+        return arrayMerge(target, source, optionsArgument)
+    } else {
+        return mergeObject(target, source, optionsArgument)
+    }
+}
+
+deepmerge.all = function deepmergeAll(array, optionsArgument) {
+    if (!Array.isArray(array) || array.length < 2) {
+        throw new Error('first argument should be an array with at least two elements')
+    }
+
+    // we are sure there are at least 2 values, so it is safe to have no initial value
+    return array.reduce(function(prev, next) {
+        return deepmerge(prev, next, optionsArgument)
+    })
+};
+
+var deepmerge_1 = deepmerge;
+
+module.exports = deepmerge_1;
+
+
+/***/ }),
+
+/***/ 7015:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
@@ -14426,6 +8145,6487 @@ module.exports = hoistNonReactStatics;
 
 /***/ }),
 
+/***/ 2150:
+/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+
+// eslint-disable-next-line import/no-unresolved
+__webpack_require__(8039);
+
+
+/***/ }),
+
+/***/ 5293:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = exports.PureCalendarDay = void 0;
+
+var _enzymeShallowEqual = _interopRequireDefault(__webpack_require__(1980));
+
+var _extends2 = _interopRequireDefault(__webpack_require__(6164));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(9168));
+
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(6856));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _reactMomentProptypes = _interopRequireDefault(__webpack_require__(6150));
+
+var _airbnbPropTypes = __webpack_require__(4882);
+
+var _reactWithStyles = __webpack_require__(7928);
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _raf = _interopRequireDefault(__webpack_require__(1666));
+
+var _defaultPhrases = __webpack_require__(1764);
+
+var _getPhrasePropTypes = _interopRequireDefault(__webpack_require__(3312));
+
+var _getCalendarDaySettings = _interopRequireDefault(__webpack_require__(4246));
+
+var _ModifiersShape = _interopRequireDefault(__webpack_require__(975));
+
+var _constants = __webpack_require__(5724);
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var propTypes =  false ? 0 : {};
+var defaultProps = {
+  day: (0, _moment["default"])(),
+  daySize: _constants.DAY_SIZE,
+  isOutsideDay: false,
+  modifiers: new Set(),
+  isFocused: false,
+  tabIndex: -1,
+  onDayClick: function onDayClick() {},
+  onDayMouseEnter: function onDayMouseEnter() {},
+  onDayMouseLeave: function onDayMouseLeave() {},
+  renderDayContents: null,
+  ariaLabelFormat: 'dddd, LL',
+  // internationalization
+  phrases: _defaultPhrases.CalendarDayPhrases
+};
+
+var CalendarDay =
+/*#__PURE__*/
+function (_ref) {
+  (0, _inheritsLoose2["default"])(CalendarDay, _ref);
+  var _proto = CalendarDay.prototype;
+
+  _proto[!_react["default"].PureComponent && "shouldComponentUpdate"] = function (nextProps, nextState) {
+    return !(0, _enzymeShallowEqual["default"])(this.props, nextProps) || !(0, _enzymeShallowEqual["default"])(this.state, nextState);
+  };
+
+  function CalendarDay() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _ref.call.apply(_ref, [this].concat(args)) || this;
+    _this.setButtonRef = _this.setButtonRef.bind((0, _assertThisInitialized2["default"])(_this));
+    return _this;
+  }
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps) {
+    var _this2 = this;
+
+    var _this$props = this.props,
+        isFocused = _this$props.isFocused,
+        tabIndex = _this$props.tabIndex;
+
+    if (tabIndex === 0) {
+      if (isFocused || tabIndex !== prevProps.tabIndex) {
+        (0, _raf["default"])(function () {
+          if (_this2.buttonRef) {
+            _this2.buttonRef.focus();
+          }
+        });
+      }
+    }
+  };
+
+  _proto.onDayClick = function onDayClick(day, e) {
+    var onDayClick = this.props.onDayClick;
+    onDayClick(day, e);
+  };
+
+  _proto.onDayMouseEnter = function onDayMouseEnter(day, e) {
+    var onDayMouseEnter = this.props.onDayMouseEnter;
+    onDayMouseEnter(day, e);
+  };
+
+  _proto.onDayMouseLeave = function onDayMouseLeave(day, e) {
+    var onDayMouseLeave = this.props.onDayMouseLeave;
+    onDayMouseLeave(day, e);
+  };
+
+  _proto.onKeyDown = function onKeyDown(day, e) {
+    var onDayClick = this.props.onDayClick;
+    var key = e.key;
+
+    if (key === 'Enter' || key === ' ') {
+      onDayClick(day, e);
+    }
+  };
+
+  _proto.setButtonRef = function setButtonRef(ref) {
+    this.buttonRef = ref;
+  };
+
+  _proto.render = function render() {
+    var _this3 = this;
+
+    var _this$props2 = this.props,
+        day = _this$props2.day,
+        ariaLabelFormat = _this$props2.ariaLabelFormat,
+        daySize = _this$props2.daySize,
+        isOutsideDay = _this$props2.isOutsideDay,
+        modifiers = _this$props2.modifiers,
+        renderDayContents = _this$props2.renderDayContents,
+        tabIndex = _this$props2.tabIndex,
+        styles = _this$props2.styles,
+        phrases = _this$props2.phrases;
+    if (!day) return _react["default"].createElement("td", null);
+
+    var _getCalendarDaySettin = (0, _getCalendarDaySettings["default"])(day, ariaLabelFormat, daySize, modifiers, phrases),
+        daySizeStyles = _getCalendarDaySettin.daySizeStyles,
+        useDefaultCursor = _getCalendarDaySettin.useDefaultCursor,
+        selected = _getCalendarDaySettin.selected,
+        hoveredSpan = _getCalendarDaySettin.hoveredSpan,
+        isOutsideRange = _getCalendarDaySettin.isOutsideRange,
+        ariaLabel = _getCalendarDaySettin.ariaLabel;
+
+    return _react["default"].createElement("td", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(styles.CalendarDay, useDefaultCursor && styles.CalendarDay__defaultCursor, styles.CalendarDay__default, isOutsideDay && styles.CalendarDay__outside, modifiers.has('today') && styles.CalendarDay__today, modifiers.has('first-day-of-week') && styles.CalendarDay__firstDayOfWeek, modifiers.has('last-day-of-week') && styles.CalendarDay__lastDayOfWeek, modifiers.has('hovered-offset') && styles.CalendarDay__hovered_offset, modifiers.has('hovered-start-first-possible-end') && styles.CalendarDay__hovered_start_first_possible_end, modifiers.has('hovered-start-blocked-minimum-nights') && styles.CalendarDay__hovered_start_blocked_min_nights, modifiers.has('highlighted-calendar') && styles.CalendarDay__highlighted_calendar, modifiers.has('blocked-minimum-nights') && styles.CalendarDay__blocked_minimum_nights, modifiers.has('blocked-calendar') && styles.CalendarDay__blocked_calendar, hoveredSpan && styles.CalendarDay__hovered_span, modifiers.has('after-hovered-start') && styles.CalendarDay__after_hovered_start, modifiers.has('selected-span') && styles.CalendarDay__selected_span, modifiers.has('selected-start') && styles.CalendarDay__selected_start, modifiers.has('selected-end') && styles.CalendarDay__selected_end, selected && !modifiers.has('selected-span') && styles.CalendarDay__selected, modifiers.has('before-hovered-end') && styles.CalendarDay__before_hovered_end, modifiers.has('no-selected-start-before-selected-end') && styles.CalendarDay__no_selected_start_before_selected_end, modifiers.has('selected-start-in-hovered-span') && styles.CalendarDay__selected_start_in_hovered_span, modifiers.has('selected-end-in-hovered-span') && styles.CalendarDay__selected_end_in_hovered_span, modifiers.has('selected-start-no-selected-end') && styles.CalendarDay__selected_start_no_selected_end, modifiers.has('selected-end-no-selected-start') && styles.CalendarDay__selected_end_no_selected_start, isOutsideRange && styles.CalendarDay__blocked_out_of_range, daySizeStyles), {
+      role: "button" // eslint-disable-line jsx-a11y/no-noninteractive-element-to-interactive-role
+      ,
+      ref: this.setButtonRef,
+      "aria-disabled": modifiers.has('blocked'),
+      "aria-label": ariaLabel,
+      onMouseEnter: function onMouseEnter(e) {
+        _this3.onDayMouseEnter(day, e);
+      },
+      onMouseLeave: function onMouseLeave(e) {
+        _this3.onDayMouseLeave(day, e);
+      },
+      onMouseUp: function onMouseUp(e) {
+        e.currentTarget.blur();
+      },
+      onClick: function onClick(e) {
+        _this3.onDayClick(day, e);
+      },
+      onKeyDown: function onKeyDown(e) {
+        _this3.onKeyDown(day, e);
+      },
+      tabIndex: tabIndex
+    }), renderDayContents ? renderDayContents(day, modifiers) : day.format('D'));
+  };
+
+  return CalendarDay;
+}(_react["default"].PureComponent || _react["default"].Component);
+
+exports.PureCalendarDay = CalendarDay;
+CalendarDay.propTypes =  false ? 0 : {};
+CalendarDay.defaultProps = defaultProps;
+
+var _default = (0, _reactWithStyles.withStyles)(function (_ref2) {
+  var _ref2$reactDates = _ref2.reactDates,
+      color = _ref2$reactDates.color,
+      font = _ref2$reactDates.font;
+  return {
+    CalendarDay: {
+      boxSizing: 'border-box',
+      cursor: 'pointer',
+      fontSize: font.size,
+      textAlign: 'center',
+      ':active': {
+        outline: 0
+      }
+    },
+    CalendarDay__defaultCursor: {
+      cursor: 'default'
+    },
+    CalendarDay__default: {
+      border: "1px solid ".concat(color.core.borderLight),
+      color: color.text,
+      background: color.background,
+      ':hover': {
+        background: color.core.borderLight,
+        border: "1px solid ".concat(color.core.borderLight),
+        color: 'inherit'
+      }
+    },
+    CalendarDay__hovered_offset: {
+      background: color.core.borderBright,
+      border: "1px double ".concat(color.core.borderLight),
+      color: 'inherit'
+    },
+    CalendarDay__outside: {
+      border: 0,
+      background: color.outside.backgroundColor,
+      color: color.outside.color,
+      ':hover': {
+        border: 0
+      }
+    },
+    CalendarDay__blocked_minimum_nights: {
+      background: color.minimumNights.backgroundColor,
+      border: "1px solid ".concat(color.minimumNights.borderColor),
+      color: color.minimumNights.color,
+      ':hover': {
+        background: color.minimumNights.backgroundColor_hover,
+        color: color.minimumNights.color_active
+      },
+      ':active': {
+        background: color.minimumNights.backgroundColor_active,
+        color: color.minimumNights.color_active
+      }
+    },
+    CalendarDay__highlighted_calendar: {
+      background: color.highlighted.backgroundColor,
+      color: color.highlighted.color,
+      ':hover': {
+        background: color.highlighted.backgroundColor_hover,
+        color: color.highlighted.color_active
+      },
+      ':active': {
+        background: color.highlighted.backgroundColor_active,
+        color: color.highlighted.color_active
+      }
+    },
+    CalendarDay__selected_span: {
+      background: color.selectedSpan.backgroundColor,
+      border: "1px double ".concat(color.selectedSpan.borderColor),
+      color: color.selectedSpan.color,
+      ':hover': {
+        background: color.selectedSpan.backgroundColor_hover,
+        border: "1px double ".concat(color.selectedSpan.borderColor),
+        color: color.selectedSpan.color_active
+      },
+      ':active': {
+        background: color.selectedSpan.backgroundColor_active,
+        border: "1px double ".concat(color.selectedSpan.borderColor),
+        color: color.selectedSpan.color_active
+      }
+    },
+    CalendarDay__selected: {
+      background: color.selected.backgroundColor,
+      border: "1px double ".concat(color.selected.borderColor),
+      color: color.selected.color,
+      ':hover': {
+        background: color.selected.backgroundColor_hover,
+        border: "1px double ".concat(color.selected.borderColor),
+        color: color.selected.color_active
+      },
+      ':active': {
+        background: color.selected.backgroundColor_active,
+        border: "1px double ".concat(color.selected.borderColor),
+        color: color.selected.color_active
+      }
+    },
+    CalendarDay__hovered_span: {
+      background: color.hoveredSpan.backgroundColor,
+      border: "1px double ".concat(color.hoveredSpan.borderColor),
+      color: color.hoveredSpan.color,
+      ':hover': {
+        background: color.hoveredSpan.backgroundColor_hover,
+        border: "1px double ".concat(color.hoveredSpan.borderColor),
+        color: color.hoveredSpan.color_active
+      },
+      ':active': {
+        background: color.hoveredSpan.backgroundColor_active,
+        border: "1px double ".concat(color.hoveredSpan.borderColor),
+        color: color.hoveredSpan.color_active
+      }
+    },
+    CalendarDay__blocked_calendar: {
+      background: color.blocked_calendar.backgroundColor,
+      border: "1px solid ".concat(color.blocked_calendar.borderColor),
+      color: color.blocked_calendar.color,
+      ':hover': {
+        background: color.blocked_calendar.backgroundColor_hover,
+        border: "1px solid ".concat(color.blocked_calendar.borderColor),
+        color: color.blocked_calendar.color_active
+      },
+      ':active': {
+        background: color.blocked_calendar.backgroundColor_active,
+        border: "1px solid ".concat(color.blocked_calendar.borderColor),
+        color: color.blocked_calendar.color_active
+      }
+    },
+    CalendarDay__blocked_out_of_range: {
+      background: color.blocked_out_of_range.backgroundColor,
+      border: "1px solid ".concat(color.blocked_out_of_range.borderColor),
+      color: color.blocked_out_of_range.color,
+      ':hover': {
+        background: color.blocked_out_of_range.backgroundColor_hover,
+        border: "1px solid ".concat(color.blocked_out_of_range.borderColor),
+        color: color.blocked_out_of_range.color_active
+      },
+      ':active': {
+        background: color.blocked_out_of_range.backgroundColor_active,
+        border: "1px solid ".concat(color.blocked_out_of_range.borderColor),
+        color: color.blocked_out_of_range.color_active
+      }
+    },
+    CalendarDay__hovered_start_first_possible_end: {
+      background: color.core.borderLighter,
+      border: "1px double ".concat(color.core.borderLighter)
+    },
+    CalendarDay__hovered_start_blocked_min_nights: {
+      background: color.core.borderLighter,
+      border: "1px double ".concat(color.core.borderLight)
+    },
+    CalendarDay__selected_start: {},
+    CalendarDay__selected_end: {},
+    CalendarDay__today: {},
+    CalendarDay__firstDayOfWeek: {},
+    CalendarDay__lastDayOfWeek: {},
+    CalendarDay__after_hovered_start: {},
+    CalendarDay__before_hovered_end: {},
+    CalendarDay__no_selected_start_before_selected_end: {},
+    CalendarDay__selected_start_in_hovered_span: {},
+    CalendarDay__selected_end_in_hovered_span: {},
+    CalendarDay__selected_start_no_selected_end: {},
+    CalendarDay__selected_end_no_selected_start: {}
+  };
+}, {
+  pureComponent: typeof _react["default"].PureComponent !== 'undefined'
+})(CalendarDay);
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 3105:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _enzymeShallowEqual = _interopRequireDefault(__webpack_require__(1980));
+
+var _extends2 = _interopRequireDefault(__webpack_require__(6164));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(9168));
+
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(6856));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _reactMomentProptypes = _interopRequireDefault(__webpack_require__(6150));
+
+var _airbnbPropTypes = __webpack_require__(4882);
+
+var _reactWithStyles = __webpack_require__(7928);
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _defaultPhrases = __webpack_require__(1764);
+
+var _getPhrasePropTypes = _interopRequireDefault(__webpack_require__(3312));
+
+var _CalendarWeek = _interopRequireDefault(__webpack_require__(7485));
+
+var _CalendarDay = _interopRequireDefault(__webpack_require__(5293));
+
+var _calculateDimension = _interopRequireDefault(__webpack_require__(7399));
+
+var _getCalendarMonthWeeks = _interopRequireDefault(__webpack_require__(2793));
+
+var _isSameDay = _interopRequireDefault(__webpack_require__(2455));
+
+var _toISODateString = _interopRequireDefault(__webpack_require__(6135));
+
+var _ModifiersShape = _interopRequireDefault(__webpack_require__(975));
+
+var _ScrollableOrientationShape = _interopRequireDefault(__webpack_require__(2302));
+
+var _DayOfWeekShape = _interopRequireDefault(__webpack_require__(135));
+
+var _constants = __webpack_require__(5724);
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var propTypes =  false ? 0 : {};
+var defaultProps = {
+  month: (0, _moment["default"])(),
+  horizontalMonthPadding: 13,
+  isVisible: true,
+  enableOutsideDays: false,
+  modifiers: {},
+  orientation: _constants.HORIZONTAL_ORIENTATION,
+  daySize: _constants.DAY_SIZE,
+  onDayClick: function onDayClick() {},
+  onDayMouseEnter: function onDayMouseEnter() {},
+  onDayMouseLeave: function onDayMouseLeave() {},
+  onMonthSelect: function onMonthSelect() {},
+  onYearSelect: function onYearSelect() {},
+  renderMonthText: null,
+  renderCalendarDay: function renderCalendarDay(props) {
+    return _react["default"].createElement(_CalendarDay["default"], props);
+  },
+  renderDayContents: null,
+  renderMonthElement: null,
+  firstDayOfWeek: null,
+  setMonthTitleHeight: null,
+  focusedDate: null,
+  isFocused: false,
+  // i18n
+  monthFormat: 'MMMM YYYY',
+  // english locale
+  phrases: _defaultPhrases.CalendarDayPhrases,
+  dayAriaLabelFormat: undefined,
+  verticalBorderSpacing: undefined
+};
+
+var CalendarMonth =
+/*#__PURE__*/
+function (_ref) {
+  (0, _inheritsLoose2["default"])(CalendarMonth, _ref);
+  var _proto = CalendarMonth.prototype;
+
+  _proto[!_react["default"].PureComponent && "shouldComponentUpdate"] = function (nextProps, nextState) {
+    return !(0, _enzymeShallowEqual["default"])(this.props, nextProps) || !(0, _enzymeShallowEqual["default"])(this.state, nextState);
+  };
+
+  function CalendarMonth(props) {
+    var _this;
+
+    _this = _ref.call(this, props) || this;
+    _this.state = {
+      weeks: (0, _getCalendarMonthWeeks["default"])(props.month, props.enableOutsideDays, props.firstDayOfWeek == null ? _moment["default"].localeData().firstDayOfWeek() : props.firstDayOfWeek)
+    };
+    _this.setCaptionRef = _this.setCaptionRef.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.setMonthTitleHeight = _this.setMonthTitleHeight.bind((0, _assertThisInitialized2["default"])(_this));
+    return _this;
+  }
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.setMonthTitleHeightTimeout = setTimeout(this.setMonthTitleHeight, 0);
+  };
+
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var month = nextProps.month,
+        enableOutsideDays = nextProps.enableOutsideDays,
+        firstDayOfWeek = nextProps.firstDayOfWeek;
+    var _this$props = this.props,
+        prevMonth = _this$props.month,
+        prevEnableOutsideDays = _this$props.enableOutsideDays,
+        prevFirstDayOfWeek = _this$props.firstDayOfWeek;
+
+    if (!month.isSame(prevMonth) || enableOutsideDays !== prevEnableOutsideDays || firstDayOfWeek !== prevFirstDayOfWeek) {
+      this.setState({
+        weeks: (0, _getCalendarMonthWeeks["default"])(month, enableOutsideDays, firstDayOfWeek == null ? _moment["default"].localeData().firstDayOfWeek() : firstDayOfWeek)
+      });
+    }
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    if (this.setMonthTitleHeightTimeout) {
+      clearTimeout(this.setMonthTitleHeightTimeout);
+    }
+  };
+
+  _proto.setMonthTitleHeight = function setMonthTitleHeight() {
+    var setMonthTitleHeight = this.props.setMonthTitleHeight;
+
+    if (setMonthTitleHeight) {
+      var captionHeight = (0, _calculateDimension["default"])(this.captionRef, 'height', true, true);
+      setMonthTitleHeight(captionHeight);
+    }
+  };
+
+  _proto.setCaptionRef = function setCaptionRef(ref) {
+    this.captionRef = ref;
+  };
+
+  _proto.render = function render() {
+    var _this$props2 = this.props,
+        dayAriaLabelFormat = _this$props2.dayAriaLabelFormat,
+        daySize = _this$props2.daySize,
+        focusedDate = _this$props2.focusedDate,
+        horizontalMonthPadding = _this$props2.horizontalMonthPadding,
+        isFocused = _this$props2.isFocused,
+        isVisible = _this$props2.isVisible,
+        modifiers = _this$props2.modifiers,
+        month = _this$props2.month,
+        monthFormat = _this$props2.monthFormat,
+        onDayClick = _this$props2.onDayClick,
+        onDayMouseEnter = _this$props2.onDayMouseEnter,
+        onDayMouseLeave = _this$props2.onDayMouseLeave,
+        onMonthSelect = _this$props2.onMonthSelect,
+        onYearSelect = _this$props2.onYearSelect,
+        orientation = _this$props2.orientation,
+        phrases = _this$props2.phrases,
+        renderCalendarDay = _this$props2.renderCalendarDay,
+        renderDayContents = _this$props2.renderDayContents,
+        renderMonthElement = _this$props2.renderMonthElement,
+        renderMonthText = _this$props2.renderMonthText,
+        styles = _this$props2.styles,
+        verticalBorderSpacing = _this$props2.verticalBorderSpacing;
+    var weeks = this.state.weeks;
+    var monthTitle = renderMonthText ? renderMonthText(month) : month.format(monthFormat);
+    var verticalScrollable = orientation === _constants.VERTICAL_SCROLLABLE;
+    return _react["default"].createElement("div", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(styles.CalendarMonth, {
+      padding: "0 ".concat(horizontalMonthPadding, "px")
+    }), {
+      "data-visible": isVisible
+    }), _react["default"].createElement("div", (0, _extends2["default"])({
+      ref: this.setCaptionRef
+    }, (0, _reactWithStyles.css)(styles.CalendarMonth_caption, verticalScrollable && styles.CalendarMonth_caption__verticalScrollable)), renderMonthElement ? renderMonthElement({
+      month: month,
+      onMonthSelect: onMonthSelect,
+      onYearSelect: onYearSelect,
+      isVisible: isVisible
+    }) : _react["default"].createElement("strong", null, monthTitle)), _react["default"].createElement("table", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(!verticalBorderSpacing && styles.CalendarMonth_table, verticalBorderSpacing && styles.CalendarMonth_verticalSpacing, verticalBorderSpacing && {
+      borderSpacing: "0px ".concat(verticalBorderSpacing, "px")
+    }), {
+      role: "presentation"
+    }), _react["default"].createElement("tbody", null, weeks.map(function (week, i) {
+      return _react["default"].createElement(_CalendarWeek["default"], {
+        key: i
+      }, week.map(function (day, dayOfWeek) {
+        return renderCalendarDay({
+          key: dayOfWeek,
+          day: day,
+          daySize: daySize,
+          isOutsideDay: !day || day.month() !== month.month(),
+          tabIndex: isVisible && (0, _isSameDay["default"])(day, focusedDate) ? 0 : -1,
+          isFocused: isFocused,
+          onDayMouseEnter: onDayMouseEnter,
+          onDayMouseLeave: onDayMouseLeave,
+          onDayClick: onDayClick,
+          renderDayContents: renderDayContents,
+          phrases: phrases,
+          modifiers: modifiers[(0, _toISODateString["default"])(day)],
+          ariaLabelFormat: dayAriaLabelFormat
+        });
+      }));
+    }))));
+  };
+
+  return CalendarMonth;
+}(_react["default"].PureComponent || _react["default"].Component);
+
+CalendarMonth.propTypes =  false ? 0 : {};
+CalendarMonth.defaultProps = defaultProps;
+
+var _default = (0, _reactWithStyles.withStyles)(function (_ref2) {
+  var _ref2$reactDates = _ref2.reactDates,
+      color = _ref2$reactDates.color,
+      font = _ref2$reactDates.font,
+      spacing = _ref2$reactDates.spacing;
+  return {
+    CalendarMonth: {
+      background: color.background,
+      textAlign: 'center',
+      verticalAlign: 'top',
+      userSelect: 'none'
+    },
+    CalendarMonth_table: {
+      borderCollapse: 'collapse',
+      borderSpacing: 0
+    },
+    CalendarMonth_verticalSpacing: {
+      borderCollapse: 'separate'
+    },
+    CalendarMonth_caption: {
+      color: color.text,
+      fontSize: font.captionSize,
+      textAlign: 'center',
+      paddingTop: spacing.captionPaddingTop,
+      paddingBottom: spacing.captionPaddingBottom,
+      captionSide: 'initial'
+    },
+    CalendarMonth_caption__verticalScrollable: {
+      paddingTop: 12,
+      paddingBottom: 7
+    }
+  };
+}, {
+  pureComponent: typeof _react["default"].PureComponent !== 'undefined'
+})(CalendarMonth);
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 4624:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _enzymeShallowEqual = _interopRequireDefault(__webpack_require__(1980));
+
+var _extends2 = _interopRequireDefault(__webpack_require__(6164));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(9168));
+
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(6856));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _reactMomentProptypes = _interopRequireDefault(__webpack_require__(6150));
+
+var _airbnbPropTypes = __webpack_require__(4882);
+
+var _reactWithStyles = __webpack_require__(7928);
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _consolidatedEvents = __webpack_require__(8495);
+
+var _defaultPhrases = __webpack_require__(1764);
+
+var _getPhrasePropTypes = _interopRequireDefault(__webpack_require__(3312));
+
+var _noflip = _interopRequireDefault(__webpack_require__(9780));
+
+var _CalendarMonth = _interopRequireDefault(__webpack_require__(3105));
+
+var _isTransitionEndSupported = _interopRequireDefault(__webpack_require__(336));
+
+var _getTransformStyles = _interopRequireDefault(__webpack_require__(8421));
+
+var _getCalendarMonthWidth = _interopRequireDefault(__webpack_require__(5127));
+
+var _toISOMonthString = _interopRequireDefault(__webpack_require__(2476));
+
+var _isPrevMonth = _interopRequireDefault(__webpack_require__(4302));
+
+var _isNextMonth = _interopRequireDefault(__webpack_require__(2831));
+
+var _ModifiersShape = _interopRequireDefault(__webpack_require__(975));
+
+var _ScrollableOrientationShape = _interopRequireDefault(__webpack_require__(2302));
+
+var _DayOfWeekShape = _interopRequireDefault(__webpack_require__(135));
+
+var _constants = __webpack_require__(5724);
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var propTypes =  false ? 0 : {};
+var defaultProps = {
+  enableOutsideDays: false,
+  firstVisibleMonthIndex: 0,
+  horizontalMonthPadding: 13,
+  initialMonth: (0, _moment["default"])(),
+  isAnimating: false,
+  numberOfMonths: 1,
+  modifiers: {},
+  orientation: _constants.HORIZONTAL_ORIENTATION,
+  onDayClick: function onDayClick() {},
+  onDayMouseEnter: function onDayMouseEnter() {},
+  onDayMouseLeave: function onDayMouseLeave() {},
+  onMonthChange: function onMonthChange() {},
+  onYearChange: function onYearChange() {},
+  onMonthTransitionEnd: function onMonthTransitionEnd() {},
+  renderMonthText: null,
+  renderCalendarDay: undefined,
+  renderDayContents: null,
+  translationValue: null,
+  renderMonthElement: null,
+  daySize: _constants.DAY_SIZE,
+  focusedDate: null,
+  isFocused: false,
+  firstDayOfWeek: null,
+  setMonthTitleHeight: null,
+  isRTL: false,
+  transitionDuration: 200,
+  verticalBorderSpacing: undefined,
+  // i18n
+  monthFormat: 'MMMM YYYY',
+  // english locale
+  phrases: _defaultPhrases.CalendarDayPhrases,
+  dayAriaLabelFormat: undefined
+};
+
+function getMonths(initialMonth, numberOfMonths, withoutTransitionMonths) {
+  var month = initialMonth.clone();
+  if (!withoutTransitionMonths) month = month.subtract(1, 'month');
+  var months = [];
+
+  for (var i = 0; i < (withoutTransitionMonths ? numberOfMonths : numberOfMonths + 2); i += 1) {
+    months.push(month);
+    month = month.clone().add(1, 'month');
+  }
+
+  return months;
+}
+
+var CalendarMonthGrid =
+/*#__PURE__*/
+function (_ref) {
+  (0, _inheritsLoose2["default"])(CalendarMonthGrid, _ref);
+  var _proto = CalendarMonthGrid.prototype;
+
+  _proto[!_react["default"].PureComponent && "shouldComponentUpdate"] = function (nextProps, nextState) {
+    return !(0, _enzymeShallowEqual["default"])(this.props, nextProps) || !(0, _enzymeShallowEqual["default"])(this.state, nextState);
+  };
+
+  function CalendarMonthGrid(props) {
+    var _this;
+
+    _this = _ref.call(this, props) || this;
+    var withoutTransitionMonths = props.orientation === _constants.VERTICAL_SCROLLABLE;
+    _this.state = {
+      months: getMonths(props.initialMonth, props.numberOfMonths, withoutTransitionMonths)
+    };
+    _this.isTransitionEndSupported = (0, _isTransitionEndSupported["default"])();
+    _this.onTransitionEnd = _this.onTransitionEnd.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.setContainerRef = _this.setContainerRef.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.locale = _moment["default"].locale();
+    _this.onMonthSelect = _this.onMonthSelect.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onYearSelect = _this.onYearSelect.bind((0, _assertThisInitialized2["default"])(_this));
+    return _this;
+  }
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.removeEventListener = (0, _consolidatedEvents.addEventListener)(this.container, 'transitionend', this.onTransitionEnd);
+  };
+
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var _this2 = this;
+
+    var initialMonth = nextProps.initialMonth,
+        numberOfMonths = nextProps.numberOfMonths,
+        orientation = nextProps.orientation;
+    var months = this.state.months;
+    var _this$props = this.props,
+        prevInitialMonth = _this$props.initialMonth,
+        prevNumberOfMonths = _this$props.numberOfMonths;
+    var hasMonthChanged = !prevInitialMonth.isSame(initialMonth, 'month');
+    var hasNumberOfMonthsChanged = prevNumberOfMonths !== numberOfMonths;
+    var newMonths = months;
+
+    if (hasMonthChanged && !hasNumberOfMonthsChanged) {
+      if ((0, _isNextMonth["default"])(prevInitialMonth, initialMonth)) {
+        newMonths = months.slice(1);
+        newMonths.push(months[months.length - 1].clone().add(1, 'month'));
+      } else if ((0, _isPrevMonth["default"])(prevInitialMonth, initialMonth)) {
+        newMonths = months.slice(0, months.length - 1);
+        newMonths.unshift(months[0].clone().subtract(1, 'month'));
+      } else {
+        var withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
+        newMonths = getMonths(initialMonth, numberOfMonths, withoutTransitionMonths);
+      }
+    }
+
+    if (hasNumberOfMonthsChanged) {
+      var _withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
+
+      newMonths = getMonths(initialMonth, numberOfMonths, _withoutTransitionMonths);
+    }
+
+    var momentLocale = _moment["default"].locale();
+
+    if (this.locale !== momentLocale) {
+      this.locale = momentLocale;
+      newMonths = newMonths.map(function (m) {
+        return m.locale(_this2.locale);
+      });
+    }
+
+    this.setState({
+      months: newMonths
+    });
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate() {
+    var _this$props2 = this.props,
+        isAnimating = _this$props2.isAnimating,
+        transitionDuration = _this$props2.transitionDuration,
+        onMonthTransitionEnd = _this$props2.onMonthTransitionEnd; // For IE9, immediately call onMonthTransitionEnd instead of
+    // waiting for the animation to complete. Similarly, if transitionDuration
+    // is set to 0, also immediately invoke the onMonthTransitionEnd callback
+
+    if ((!this.isTransitionEndSupported || !transitionDuration) && isAnimating) {
+      onMonthTransitionEnd();
+    }
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    if (this.removeEventListener) this.removeEventListener();
+  };
+
+  _proto.onTransitionEnd = function onTransitionEnd() {
+    var onMonthTransitionEnd = this.props.onMonthTransitionEnd;
+    onMonthTransitionEnd();
+  };
+
+  _proto.onMonthSelect = function onMonthSelect(currentMonth, newMonthVal) {
+    var newMonth = currentMonth.clone();
+    var _this$props3 = this.props,
+        onMonthChange = _this$props3.onMonthChange,
+        orientation = _this$props3.orientation;
+    var months = this.state.months;
+    var withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
+    var initialMonthSubtraction = months.indexOf(currentMonth);
+
+    if (!withoutTransitionMonths) {
+      initialMonthSubtraction -= 1;
+    }
+
+    newMonth.set('month', newMonthVal).subtract(initialMonthSubtraction, 'months');
+    onMonthChange(newMonth);
+  };
+
+  _proto.onYearSelect = function onYearSelect(currentMonth, newYearVal) {
+    var newMonth = currentMonth.clone();
+    var _this$props4 = this.props,
+        onYearChange = _this$props4.onYearChange,
+        orientation = _this$props4.orientation;
+    var months = this.state.months;
+    var withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
+    var initialMonthSubtraction = months.indexOf(currentMonth);
+
+    if (!withoutTransitionMonths) {
+      initialMonthSubtraction -= 1;
+    }
+
+    newMonth.set('year', newYearVal).subtract(initialMonthSubtraction, 'months');
+    onYearChange(newMonth);
+  };
+
+  _proto.setContainerRef = function setContainerRef(ref) {
+    this.container = ref;
+  };
+
+  _proto.render = function render() {
+    var _this3 = this;
+
+    var _this$props5 = this.props,
+        enableOutsideDays = _this$props5.enableOutsideDays,
+        firstVisibleMonthIndex = _this$props5.firstVisibleMonthIndex,
+        horizontalMonthPadding = _this$props5.horizontalMonthPadding,
+        isAnimating = _this$props5.isAnimating,
+        modifiers = _this$props5.modifiers,
+        numberOfMonths = _this$props5.numberOfMonths,
+        monthFormat = _this$props5.monthFormat,
+        orientation = _this$props5.orientation,
+        translationValue = _this$props5.translationValue,
+        daySize = _this$props5.daySize,
+        onDayMouseEnter = _this$props5.onDayMouseEnter,
+        onDayMouseLeave = _this$props5.onDayMouseLeave,
+        onDayClick = _this$props5.onDayClick,
+        renderMonthText = _this$props5.renderMonthText,
+        renderCalendarDay = _this$props5.renderCalendarDay,
+        renderDayContents = _this$props5.renderDayContents,
+        renderMonthElement = _this$props5.renderMonthElement,
+        onMonthTransitionEnd = _this$props5.onMonthTransitionEnd,
+        firstDayOfWeek = _this$props5.firstDayOfWeek,
+        focusedDate = _this$props5.focusedDate,
+        isFocused = _this$props5.isFocused,
+        isRTL = _this$props5.isRTL,
+        styles = _this$props5.styles,
+        phrases = _this$props5.phrases,
+        dayAriaLabelFormat = _this$props5.dayAriaLabelFormat,
+        transitionDuration = _this$props5.transitionDuration,
+        verticalBorderSpacing = _this$props5.verticalBorderSpacing,
+        setMonthTitleHeight = _this$props5.setMonthTitleHeight;
+    var months = this.state.months;
+    var isVertical = orientation === _constants.VERTICAL_ORIENTATION;
+    var isVerticalScrollable = orientation === _constants.VERTICAL_SCROLLABLE;
+    var isHorizontal = orientation === _constants.HORIZONTAL_ORIENTATION;
+    var calendarMonthWidth = (0, _getCalendarMonthWidth["default"])(daySize, horizontalMonthPadding);
+    var width = isVertical || isVerticalScrollable ? calendarMonthWidth : (numberOfMonths + 2) * calendarMonthWidth;
+    var transformType = isVertical || isVerticalScrollable ? 'translateY' : 'translateX';
+    var transformValue = "".concat(transformType, "(").concat(translationValue, "px)");
+    return _react["default"].createElement("div", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(styles.CalendarMonthGrid, isHorizontal && styles.CalendarMonthGrid__horizontal, isVertical && styles.CalendarMonthGrid__vertical, isVerticalScrollable && styles.CalendarMonthGrid__vertical_scrollable, isAnimating && styles.CalendarMonthGrid__animating, isAnimating && transitionDuration && {
+      transition: "transform ".concat(transitionDuration, "ms ease-in-out")
+    }, _objectSpread({}, (0, _getTransformStyles["default"])(transformValue), {
+      width: width
+    })), {
+      ref: this.setContainerRef,
+      onTransitionEnd: onMonthTransitionEnd
+    }), months.map(function (month, i) {
+      var isVisible = i >= firstVisibleMonthIndex && i < firstVisibleMonthIndex + numberOfMonths;
+      var hideForAnimation = i === 0 && !isVisible;
+      var showForAnimation = i === 0 && isAnimating && isVisible;
+      var monthString = (0, _toISOMonthString["default"])(month);
+      return _react["default"].createElement("div", (0, _extends2["default"])({
+        key: monthString
+      }, (0, _reactWithStyles.css)(isHorizontal && styles.CalendarMonthGrid_month__horizontal, hideForAnimation && styles.CalendarMonthGrid_month__hideForAnimation, showForAnimation && !isVertical && !isRTL && {
+        position: 'absolute',
+        left: -calendarMonthWidth
+      }, showForAnimation && !isVertical && isRTL && {
+        position: 'absolute',
+        right: 0
+      }, showForAnimation && isVertical && {
+        position: 'absolute',
+        top: -translationValue
+      }, !isVisible && !isAnimating && styles.CalendarMonthGrid_month__hidden)), _react["default"].createElement(_CalendarMonth["default"], {
+        month: month,
+        isVisible: isVisible,
+        enableOutsideDays: enableOutsideDays,
+        modifiers: modifiers[monthString],
+        monthFormat: monthFormat,
+        orientation: orientation,
+        onDayMouseEnter: onDayMouseEnter,
+        onDayMouseLeave: onDayMouseLeave,
+        onDayClick: onDayClick,
+        onMonthSelect: _this3.onMonthSelect,
+        onYearSelect: _this3.onYearSelect,
+        renderMonthText: renderMonthText,
+        renderCalendarDay: renderCalendarDay,
+        renderDayContents: renderDayContents,
+        renderMonthElement: renderMonthElement,
+        firstDayOfWeek: firstDayOfWeek,
+        daySize: daySize,
+        focusedDate: isVisible ? focusedDate : null,
+        isFocused: isFocused,
+        phrases: phrases,
+        setMonthTitleHeight: setMonthTitleHeight,
+        dayAriaLabelFormat: dayAriaLabelFormat,
+        verticalBorderSpacing: verticalBorderSpacing,
+        horizontalMonthPadding: horizontalMonthPadding
+      }));
+    }));
+  };
+
+  return CalendarMonthGrid;
+}(_react["default"].PureComponent || _react["default"].Component);
+
+CalendarMonthGrid.propTypes =  false ? 0 : {};
+CalendarMonthGrid.defaultProps = defaultProps;
+
+var _default = (0, _reactWithStyles.withStyles)(function (_ref2) {
+  var _ref2$reactDates = _ref2.reactDates,
+      color = _ref2$reactDates.color,
+      spacing = _ref2$reactDates.spacing,
+      zIndex = _ref2$reactDates.zIndex;
+  return {
+    CalendarMonthGrid: {
+      background: color.background,
+      textAlign: (0, _noflip["default"])('left'),
+      zIndex: zIndex
+    },
+    CalendarMonthGrid__animating: {
+      zIndex: zIndex + 1
+    },
+    CalendarMonthGrid__horizontal: {
+      position: 'absolute',
+      left: (0, _noflip["default"])(spacing.dayPickerHorizontalPadding)
+    },
+    CalendarMonthGrid__vertical: {
+      margin: '0 auto'
+    },
+    CalendarMonthGrid__vertical_scrollable: {
+      margin: '0 auto'
+    },
+    CalendarMonthGrid_month__horizontal: {
+      display: 'inline-block',
+      verticalAlign: 'top',
+      minHeight: '100%'
+    },
+    CalendarMonthGrid_month__hideForAnimation: {
+      position: 'absolute',
+      zIndex: zIndex - 1,
+      opacity: 0,
+      pointerEvents: 'none'
+    },
+    CalendarMonthGrid_month__hidden: {
+      visibility: 'hidden'
+    }
+  };
+}, {
+  pureComponent: typeof _react["default"].PureComponent !== 'undefined'
+})(CalendarMonthGrid);
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 7485:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = CalendarWeek;
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _airbnbPropTypes = __webpack_require__(4882);
+
+var propTypes =  false ? 0 : {};
+
+function CalendarWeek(_ref) {
+  var children = _ref.children;
+  return _react["default"].createElement("tr", null, children);
+}
+
+CalendarWeek.propTypes =  false ? 0 : {};
+
+/***/ }),
+
+/***/ 8294:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var ChevronDown = function ChevronDown(props) {
+  return _react["default"].createElement("svg", props, _react["default"].createElement("path", {
+    d: "M968 289L514 741c-11 11-21 11-32 0L29 289c-4-5-6-11-6-16 0-13 10-23 23-23 6 0 11 2 15 7l437 436 438-436c4-5 9-7 16-7 6 0 11 2 16 7 9 10 9 21 0 32z"
+  }));
+};
+
+ChevronDown.defaultProps = {
+  focusable: "false",
+  viewBox: "0 0 1000 1000"
+};
+var _default = ChevronDown;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 7287:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var ChevronUp = function ChevronUp(props) {
+  return _react["default"].createElement("svg", props, _react["default"].createElement("path", {
+    d: "M32 713l453-453c11-11 21-11 32 0l453 453c5 5 7 10 7 16 0 13-10 23-22 23-7 0-12-2-16-7L501 309 64 745c-4 5-9 7-15 7-7 0-12-2-17-7-9-11-9-21 0-32z"
+  }));
+};
+
+ChevronUp.defaultProps = {
+  focusable: "false",
+  viewBox: "0 0 1000 1000"
+};
+var _default = ChevronUp;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 4718:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var CloseButton = function CloseButton(props) {
+  return _react["default"].createElement("svg", props, _react["default"].createElement("path", {
+    fillRule: "evenodd",
+    d: "M11.53.47a.75.75 0 0 0-1.061 0l-4.47 4.47L1.529.47A.75.75 0 1 0 .468 1.531l4.47 4.47-4.47 4.47a.75.75 0 1 0 1.061 1.061l4.47-4.47 4.47 4.47a.75.75 0 1 0 1.061-1.061l-4.47-4.47 4.47-4.47a.75.75 0 0 0 0-1.061z"
+  }));
+};
+
+CloseButton.defaultProps = {
+  focusable: "false",
+  viewBox: "0 0 12 12"
+};
+var _default = CloseButton;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 5618:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireWildcard = __webpack_require__(3805);
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = exports.PureDayPicker = exports.defaultProps = void 0;
+
+var _enzymeShallowEqual = _interopRequireDefault(__webpack_require__(1980));
+
+var _extends2 = _interopRequireDefault(__webpack_require__(6164));
+
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(8669));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(9168));
+
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(6856));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _airbnbPropTypes = __webpack_require__(4882);
+
+var _reactWithStyles = __webpack_require__(7928);
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _throttle = _interopRequireDefault(__webpack_require__(8172));
+
+var _isTouchDevice = _interopRequireDefault(__webpack_require__(5834));
+
+var _reactOutsideClickHandler = _interopRequireDefault(__webpack_require__(6606));
+
+var _defaultPhrases = __webpack_require__(1764);
+
+var _getPhrasePropTypes = _interopRequireDefault(__webpack_require__(3312));
+
+var _noflip = _interopRequireDefault(__webpack_require__(9780));
+
+var _CalendarMonthGrid = _interopRequireDefault(__webpack_require__(4624));
+
+var _DayPickerNavigation = _interopRequireDefault(__webpack_require__(3768));
+
+var _DayPickerKeyboardShortcuts = _interopRequireWildcard(__webpack_require__(4185));
+
+var _getNumberOfCalendarMonthWeeks = _interopRequireDefault(__webpack_require__(3472));
+
+var _getCalendarMonthWidth = _interopRequireDefault(__webpack_require__(5127));
+
+var _calculateDimension = _interopRequireDefault(__webpack_require__(7399));
+
+var _getActiveElement = _interopRequireDefault(__webpack_require__(1268));
+
+var _isDayVisible = _interopRequireDefault(__webpack_require__(6979));
+
+var _isSameMonth = _interopRequireDefault(__webpack_require__(4387));
+
+var _ModifiersShape = _interopRequireDefault(__webpack_require__(975));
+
+var _NavPositionShape = _interopRequireDefault(__webpack_require__(3476));
+
+var _ScrollableOrientationShape = _interopRequireDefault(__webpack_require__(2302));
+
+var _DayOfWeekShape = _interopRequireDefault(__webpack_require__(135));
+
+var _CalendarInfoPositionShape = _interopRequireDefault(__webpack_require__(5547));
+
+var _constants = __webpack_require__(5724);
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var MONTH_PADDING = 23;
+var PREV_TRANSITION = 'prev';
+var NEXT_TRANSITION = 'next';
+var MONTH_SELECTION_TRANSITION = 'month_selection';
+var YEAR_SELECTION_TRANSITION = 'year_selection';
+var PREV_NAV = 'prev_nav';
+var NEXT_NAV = 'next_nav';
+var propTypes =  false ? 0 : {};
+var defaultProps = {
+  // calendar presentation props
+  enableOutsideDays: false,
+  numberOfMonths: 2,
+  orientation: _constants.HORIZONTAL_ORIENTATION,
+  withPortal: false,
+  onOutsideClick: function onOutsideClick() {},
+  hidden: false,
+  initialVisibleMonth: function initialVisibleMonth() {
+    return (0, _moment["default"])();
+  },
+  firstDayOfWeek: null,
+  renderCalendarInfo: null,
+  calendarInfoPosition: _constants.INFO_POSITION_BOTTOM,
+  hideKeyboardShortcutsPanel: false,
+  daySize: _constants.DAY_SIZE,
+  isRTL: false,
+  verticalHeight: null,
+  noBorder: false,
+  transitionDuration: undefined,
+  verticalBorderSpacing: undefined,
+  horizontalMonthPadding: 13,
+  renderKeyboardShortcutsButton: undefined,
+  renderKeyboardShortcutsPanel: undefined,
+  // navigation props
+  dayPickerNavigationInlineStyles: null,
+  disablePrev: false,
+  disableNext: false,
+  navPosition: _constants.NAV_POSITION_TOP,
+  navPrev: null,
+  navNext: null,
+  renderNavPrevButton: null,
+  renderNavNextButton: null,
+  noNavButtons: false,
+  noNavNextButton: false,
+  noNavPrevButton: false,
+  onPrevMonthClick: function onPrevMonthClick() {},
+  onNextMonthClick: function onNextMonthClick() {},
+  onMonthChange: function onMonthChange() {},
+  onYearChange: function onYearChange() {},
+  onGetNextScrollableMonths: function onGetNextScrollableMonths() {},
+  onGetPrevScrollableMonths: function onGetPrevScrollableMonths() {},
+  // month props
+  renderMonthText: null,
+  renderMonthElement: null,
+  renderWeekHeaderElement: null,
+  // day props
+  modifiers: {},
+  renderCalendarDay: undefined,
+  renderDayContents: null,
+  onDayClick: function onDayClick() {},
+  onDayMouseEnter: function onDayMouseEnter() {},
+  onDayMouseLeave: function onDayMouseLeave() {},
+  // accessibility props
+  isFocused: false,
+  getFirstFocusableDay: null,
+  onBlur: function onBlur() {},
+  showKeyboardShortcuts: false,
+  onTab: function onTab() {},
+  onShiftTab: function onShiftTab() {},
+  // internationalization
+  monthFormat: 'MMMM YYYY',
+  weekDayFormat: 'dd',
+  phrases: _defaultPhrases.DayPickerPhrases,
+  dayAriaLabelFormat: undefined
+};
+exports.defaultProps = defaultProps;
+
+var DayPicker =
+/*#__PURE__*/
+function (_ref) {
+  (0, _inheritsLoose2["default"])(DayPicker, _ref);
+  var _proto = DayPicker.prototype;
+
+  _proto[!_react["default"].PureComponent && "shouldComponentUpdate"] = function (nextProps, nextState) {
+    return !(0, _enzymeShallowEqual["default"])(this.props, nextProps) || !(0, _enzymeShallowEqual["default"])(this.state, nextState);
+  };
+
+  function DayPicker(props) {
+    var _this;
+
+    _this = _ref.call(this, props) || this;
+    var currentMonth = props.hidden ? (0, _moment["default"])() : props.initialVisibleMonth();
+    var focusedDate = currentMonth.clone().startOf('month');
+
+    if (props.getFirstFocusableDay) {
+      focusedDate = props.getFirstFocusableDay(currentMonth);
+    }
+
+    var horizontalMonthPadding = props.horizontalMonthPadding;
+    var translationValue = props.isRTL && _this.isHorizontal() ? -(0, _getCalendarMonthWidth["default"])(props.daySize, horizontalMonthPadding) : 0;
+    _this.hasSetInitialVisibleMonth = !props.hidden;
+    _this.state = {
+      currentMonthScrollTop: null,
+      currentMonth: currentMonth,
+      monthTransition: null,
+      translationValue: translationValue,
+      scrollableMonthMultiple: 1,
+      calendarMonthWidth: (0, _getCalendarMonthWidth["default"])(props.daySize, horizontalMonthPadding),
+      focusedDate: !props.hidden || props.isFocused ? focusedDate : null,
+      nextFocusedDate: null,
+      showKeyboardShortcuts: props.showKeyboardShortcuts,
+      onKeyboardShortcutsPanelClose: function onKeyboardShortcutsPanelClose() {},
+      isTouchDevice: (0, _isTouchDevice["default"])(),
+      withMouseInteractions: true,
+      calendarInfoWidth: 0,
+      monthTitleHeight: null,
+      hasSetHeight: false
+    };
+
+    _this.setCalendarMonthWeeks(currentMonth);
+
+    _this.calendarMonthGridHeight = 0;
+    _this.setCalendarInfoWidthTimeout = null;
+    _this.setCalendarMonthGridHeightTimeout = null;
+    _this.onKeyDown = _this.onKeyDown.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.throttledKeyDown = (0, _throttle["default"])(_this.onFinalKeyDown, 200, {
+      trailing: false
+    });
+    _this.onPrevMonthClick = _this.onPrevMonthClick.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onPrevMonthTransition = _this.onPrevMonthTransition.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onNextMonthClick = _this.onNextMonthClick.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onNextMonthTransition = _this.onNextMonthTransition.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onMonthChange = _this.onMonthChange.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onYearChange = _this.onYearChange.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.getNextScrollableMonths = _this.getNextScrollableMonths.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.getPrevScrollableMonths = _this.getPrevScrollableMonths.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.updateStateAfterMonthTransition = _this.updateStateAfterMonthTransition.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.openKeyboardShortcutsPanel = _this.openKeyboardShortcutsPanel.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.closeKeyboardShortcutsPanel = _this.closeKeyboardShortcutsPanel.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.setCalendarInfoRef = _this.setCalendarInfoRef.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.setContainerRef = _this.setContainerRef.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.setTransitionContainerRef = _this.setTransitionContainerRef.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.setMonthTitleHeight = _this.setMonthTitleHeight.bind((0, _assertThisInitialized2["default"])(_this));
+    return _this;
+  }
+
+  _proto.componentDidMount = function componentDidMount() {
+    var orientation = this.props.orientation;
+    var currentMonth = this.state.currentMonth;
+    var calendarInfoWidth = this.calendarInfo ? (0, _calculateDimension["default"])(this.calendarInfo, 'width', true, true) : 0;
+    var currentMonthScrollTop = this.transitionContainer && orientation === _constants.VERTICAL_SCROLLABLE ? this.transitionContainer.scrollHeight - this.transitionContainer.scrollTop : null;
+    this.setState({
+      isTouchDevice: (0, _isTouchDevice["default"])(),
+      calendarInfoWidth: calendarInfoWidth,
+      currentMonthScrollTop: currentMonthScrollTop
+    });
+    this.setCalendarMonthWeeks(currentMonth);
+  };
+
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps, nextState) {
+    var hidden = nextProps.hidden,
+        isFocused = nextProps.isFocused,
+        showKeyboardShortcuts = nextProps.showKeyboardShortcuts,
+        onBlur = nextProps.onBlur,
+        orientation = nextProps.orientation,
+        renderMonthText = nextProps.renderMonthText,
+        horizontalMonthPadding = nextProps.horizontalMonthPadding;
+    var currentMonth = this.state.currentMonth;
+    var nextCurrentMonth = nextState.currentMonth;
+
+    if (!hidden) {
+      if (!this.hasSetInitialVisibleMonth) {
+        this.hasSetInitialVisibleMonth = true;
+        this.setState({
+          currentMonth: nextProps.initialVisibleMonth()
+        });
+      }
+    }
+
+    var _this$props = this.props,
+        daySize = _this$props.daySize,
+        prevIsFocused = _this$props.isFocused,
+        prevRenderMonthText = _this$props.renderMonthText;
+
+    if (nextProps.daySize !== daySize) {
+      this.setState({
+        calendarMonthWidth: (0, _getCalendarMonthWidth["default"])(nextProps.daySize, horizontalMonthPadding)
+      });
+    }
+
+    if (isFocused !== prevIsFocused) {
+      if (isFocused) {
+        var focusedDate = this.getFocusedDay(currentMonth);
+        var onKeyboardShortcutsPanelClose = this.state.onKeyboardShortcutsPanelClose;
+
+        if (nextProps.showKeyboardShortcuts) {
+          // the ? shortcut came from the input and we should return input there once it is close
+          onKeyboardShortcutsPanelClose = onBlur;
+        }
+
+        this.setState({
+          showKeyboardShortcuts: showKeyboardShortcuts,
+          onKeyboardShortcutsPanelClose: onKeyboardShortcutsPanelClose,
+          focusedDate: focusedDate,
+          withMouseInteractions: false
+        });
+      } else {
+        this.setState({
+          focusedDate: null
+        });
+      }
+    }
+
+    if (renderMonthText !== prevRenderMonthText) {
+      this.setState({
+        monthTitleHeight: null
+      });
+    } // Capture the scroll position so when previous months are rendered above the current month
+    // we can adjust scroll after the component has updated and the previous current month
+    // stays in view.
+
+
+    if (orientation === _constants.VERTICAL_SCROLLABLE && this.transitionContainer && !(0, _isSameMonth["default"])(currentMonth, nextCurrentMonth)) {
+      this.setState({
+        currentMonthScrollTop: this.transitionContainer.scrollHeight - this.transitionContainer.scrollTop
+      });
+    }
+  };
+
+  _proto.componentWillUpdate = function componentWillUpdate() {
+    var _this2 = this;
+
+    var transitionDuration = this.props.transitionDuration; // Calculating the dimensions trigger a DOM repaint which
+    // breaks the CSS transition.
+    // The setTimeout will wait until the transition ends.
+
+    if (this.calendarInfo) {
+      this.setCalendarInfoWidthTimeout = setTimeout(function () {
+        var calendarInfoWidth = _this2.state.calendarInfoWidth;
+        var calendarInfoPanelWidth = (0, _calculateDimension["default"])(_this2.calendarInfo, 'width', true, true);
+
+        if (calendarInfoWidth !== calendarInfoPanelWidth) {
+          _this2.setState({
+            calendarInfoWidth: calendarInfoPanelWidth
+          });
+        }
+      }, transitionDuration);
+    }
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate(prevProps, prevState) {
+    var _this$props2 = this.props,
+        orientation = _this$props2.orientation,
+        daySize = _this$props2.daySize,
+        isFocused = _this$props2.isFocused,
+        numberOfMonths = _this$props2.numberOfMonths;
+    var _this$state = this.state,
+        currentMonth = _this$state.currentMonth,
+        currentMonthScrollTop = _this$state.currentMonthScrollTop,
+        focusedDate = _this$state.focusedDate,
+        monthTitleHeight = _this$state.monthTitleHeight;
+
+    if (this.isHorizontal() && (orientation !== prevProps.orientation || daySize !== prevProps.daySize)) {
+      var visibleCalendarWeeks = this.calendarMonthWeeks.slice(1, numberOfMonths + 1);
+      var calendarMonthWeeksHeight = Math.max.apply(Math, [0].concat((0, _toConsumableArray2["default"])(visibleCalendarWeeks))) * (daySize - 1);
+      var newMonthHeight = monthTitleHeight + calendarMonthWeeksHeight + 1;
+      this.adjustDayPickerHeight(newMonthHeight);
+    }
+
+    if (!prevProps.isFocused && isFocused && !focusedDate) {
+      this.container.focus();
+    } // If orientation is VERTICAL_SCROLLABLE and currentMonth has changed adjust scrollTop so the
+    // new months rendered above the current month don't push the current month out of view.
+
+
+    if (orientation === _constants.VERTICAL_SCROLLABLE && !(0, _isSameMonth["default"])(prevState.currentMonth, currentMonth) && currentMonthScrollTop && this.transitionContainer) {
+      this.transitionContainer.scrollTop = this.transitionContainer.scrollHeight - currentMonthScrollTop;
+    }
+  };
+
+  _proto.componentWillUnmount = function componentWillUnmount() {
+    clearTimeout(this.setCalendarInfoWidthTimeout);
+    clearTimeout(this.setCalendarMonthGridHeightTimeout);
+  };
+
+  _proto.onKeyDown = function onKeyDown(e) {
+    e.stopPropagation();
+
+    if (!_constants.MODIFIER_KEY_NAMES.has(e.key)) {
+      this.throttledKeyDown(e);
+    }
+  };
+
+  _proto.onFinalKeyDown = function onFinalKeyDown(e) {
+    this.setState({
+      withMouseInteractions: false
+    });
+    var _this$props3 = this.props,
+        onBlur = _this$props3.onBlur,
+        onTab = _this$props3.onTab,
+        onShiftTab = _this$props3.onShiftTab,
+        isRTL = _this$props3.isRTL;
+    var _this$state2 = this.state,
+        focusedDate = _this$state2.focusedDate,
+        showKeyboardShortcuts = _this$state2.showKeyboardShortcuts;
+    if (!focusedDate) return;
+    var newFocusedDate = focusedDate.clone();
+    var didTransitionMonth = false; // focus might be anywhere when the keyboard shortcuts panel is opened so we want to
+    // return it to wherever it was before when the panel was opened
+
+    var activeElement = (0, _getActiveElement["default"])();
+
+    var onKeyboardShortcutsPanelClose = function onKeyboardShortcutsPanelClose() {
+      if (activeElement) activeElement.focus();
+    };
+
+    switch (e.key) {
+      case 'ArrowUp':
+        e.preventDefault();
+        newFocusedDate.subtract(1, 'week');
+        didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
+        break;
+
+      case 'ArrowLeft':
+        e.preventDefault();
+
+        if (isRTL) {
+          newFocusedDate.add(1, 'day');
+        } else {
+          newFocusedDate.subtract(1, 'day');
+        }
+
+        didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
+        break;
+
+      case 'Home':
+        e.preventDefault();
+        newFocusedDate.startOf('week');
+        didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
+        break;
+
+      case 'PageUp':
+        e.preventDefault();
+        newFocusedDate.subtract(1, 'month');
+        didTransitionMonth = this.maybeTransitionPrevMonth(newFocusedDate);
+        break;
+
+      case 'ArrowDown':
+        e.preventDefault();
+        newFocusedDate.add(1, 'week');
+        didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
+        break;
+
+      case 'ArrowRight':
+        e.preventDefault();
+
+        if (isRTL) {
+          newFocusedDate.subtract(1, 'day');
+        } else {
+          newFocusedDate.add(1, 'day');
+        }
+
+        didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
+        break;
+
+      case 'End':
+        e.preventDefault();
+        newFocusedDate.endOf('week');
+        didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
+        break;
+
+      case 'PageDown':
+        e.preventDefault();
+        newFocusedDate.add(1, 'month');
+        didTransitionMonth = this.maybeTransitionNextMonth(newFocusedDate);
+        break;
+
+      case '?':
+        this.openKeyboardShortcutsPanel(onKeyboardShortcutsPanelClose);
+        break;
+
+      case 'Escape':
+        if (showKeyboardShortcuts) {
+          this.closeKeyboardShortcutsPanel();
+        } else {
+          onBlur(e);
+        }
+
+        break;
+
+      case 'Tab':
+        if (e.shiftKey) {
+          onShiftTab();
+        } else {
+          onTab(e);
+        }
+
+        break;
+
+      default:
+        break;
+    } // If there was a month transition, do not update the focused date until the transition has
+    // completed. Otherwise, attempting to focus on a DOM node may interrupt the CSS animation. If
+    // didTransitionMonth is true, the focusedDate gets updated in #updateStateAfterMonthTransition
+
+
+    if (!didTransitionMonth) {
+      this.setState({
+        focusedDate: newFocusedDate
+      });
+    }
+  };
+
+  _proto.onPrevMonthClick = function onPrevMonthClick(e) {
+    if (e) e.preventDefault();
+    this.onPrevMonthTransition();
+  };
+
+  _proto.onPrevMonthTransition = function onPrevMonthTransition(nextFocusedDate) {
+    var _this$props4 = this.props,
+        daySize = _this$props4.daySize,
+        isRTL = _this$props4.isRTL,
+        numberOfMonths = _this$props4.numberOfMonths;
+    var _this$state3 = this.state,
+        calendarMonthWidth = _this$state3.calendarMonthWidth,
+        monthTitleHeight = _this$state3.monthTitleHeight;
+    var translationValue;
+
+    if (this.isVertical()) {
+      var calendarMonthWeeksHeight = this.calendarMonthWeeks[0] * (daySize - 1);
+      translationValue = monthTitleHeight + calendarMonthWeeksHeight + 1;
+    } else if (this.isHorizontal()) {
+      translationValue = calendarMonthWidth;
+
+      if (isRTL) {
+        translationValue = -2 * calendarMonthWidth;
+      }
+
+      var visibleCalendarWeeks = this.calendarMonthWeeks.slice(0, numberOfMonths);
+
+      var _calendarMonthWeeksHeight = Math.max.apply(Math, [0].concat((0, _toConsumableArray2["default"])(visibleCalendarWeeks))) * (daySize - 1);
+
+      var newMonthHeight = monthTitleHeight + _calendarMonthWeeksHeight + 1;
+      this.adjustDayPickerHeight(newMonthHeight);
+    }
+
+    this.setState({
+      monthTransition: PREV_TRANSITION,
+      translationValue: translationValue,
+      focusedDate: null,
+      nextFocusedDate: nextFocusedDate
+    });
+  };
+
+  _proto.onMonthChange = function onMonthChange(currentMonth) {
+    this.setCalendarMonthWeeks(currentMonth);
+    this.calculateAndSetDayPickerHeight(); // Translation value is a hack to force an invisible transition that
+    // properly rerenders the CalendarMonthGrid
+
+    this.setState({
+      monthTransition: MONTH_SELECTION_TRANSITION,
+      translationValue: 0.00001,
+      focusedDate: null,
+      nextFocusedDate: currentMonth,
+      currentMonth: currentMonth
+    });
+  };
+
+  _proto.onYearChange = function onYearChange(currentMonth) {
+    this.setCalendarMonthWeeks(currentMonth);
+    this.calculateAndSetDayPickerHeight(); // Translation value is a hack to force an invisible transition that
+    // properly rerenders the CalendarMonthGrid
+
+    this.setState({
+      monthTransition: YEAR_SELECTION_TRANSITION,
+      translationValue: 0.0001,
+      focusedDate: null,
+      nextFocusedDate: currentMonth,
+      currentMonth: currentMonth
+    });
+  };
+
+  _proto.onNextMonthClick = function onNextMonthClick(e) {
+    if (e) e.preventDefault();
+    this.onNextMonthTransition();
+  };
+
+  _proto.onNextMonthTransition = function onNextMonthTransition(nextFocusedDate) {
+    var _this$props5 = this.props,
+        isRTL = _this$props5.isRTL,
+        numberOfMonths = _this$props5.numberOfMonths,
+        daySize = _this$props5.daySize;
+    var _this$state4 = this.state,
+        calendarMonthWidth = _this$state4.calendarMonthWidth,
+        monthTitleHeight = _this$state4.monthTitleHeight;
+    var translationValue;
+
+    if (this.isVertical()) {
+      var firstVisibleMonthWeeks = this.calendarMonthWeeks[1];
+      var calendarMonthWeeksHeight = firstVisibleMonthWeeks * (daySize - 1);
+      translationValue = -(monthTitleHeight + calendarMonthWeeksHeight + 1);
+    }
+
+    if (this.isHorizontal()) {
+      translationValue = -calendarMonthWidth;
+
+      if (isRTL) {
+        translationValue = 0;
+      }
+
+      var visibleCalendarWeeks = this.calendarMonthWeeks.slice(2, numberOfMonths + 2);
+
+      var _calendarMonthWeeksHeight2 = Math.max.apply(Math, [0].concat((0, _toConsumableArray2["default"])(visibleCalendarWeeks))) * (daySize - 1);
+
+      var newMonthHeight = monthTitleHeight + _calendarMonthWeeksHeight2 + 1;
+      this.adjustDayPickerHeight(newMonthHeight);
+    }
+
+    this.setState({
+      monthTransition: NEXT_TRANSITION,
+      translationValue: translationValue,
+      focusedDate: null,
+      nextFocusedDate: nextFocusedDate
+    });
+  };
+
+  _proto.getFirstDayOfWeek = function getFirstDayOfWeek() {
+    var firstDayOfWeek = this.props.firstDayOfWeek;
+
+    if (firstDayOfWeek == null) {
+      return _moment["default"].localeData().firstDayOfWeek();
+    }
+
+    return firstDayOfWeek;
+  };
+
+  _proto.getWeekHeaders = function getWeekHeaders() {
+    var weekDayFormat = this.props.weekDayFormat;
+    var currentMonth = this.state.currentMonth;
+    var firstDayOfWeek = this.getFirstDayOfWeek();
+    var weekHeaders = [];
+
+    for (var i = 0; i < 7; i += 1) {
+      weekHeaders.push(currentMonth.clone().day((i + firstDayOfWeek) % 7).format(weekDayFormat));
+    }
+
+    return weekHeaders;
+  };
+
+  _proto.getFirstVisibleIndex = function getFirstVisibleIndex() {
+    var orientation = this.props.orientation;
+    var monthTransition = this.state.monthTransition;
+    if (orientation === _constants.VERTICAL_SCROLLABLE) return 0;
+    var firstVisibleMonthIndex = 1;
+
+    if (monthTransition === PREV_TRANSITION) {
+      firstVisibleMonthIndex -= 1;
+    } else if (monthTransition === NEXT_TRANSITION) {
+      firstVisibleMonthIndex += 1;
+    }
+
+    return firstVisibleMonthIndex;
+  };
+
+  _proto.getFocusedDay = function getFocusedDay(newMonth) {
+    var _this$props6 = this.props,
+        getFirstFocusableDay = _this$props6.getFirstFocusableDay,
+        numberOfMonths = _this$props6.numberOfMonths;
+    var focusedDate;
+
+    if (getFirstFocusableDay) {
+      focusedDate = getFirstFocusableDay(newMonth);
+    }
+
+    if (newMonth && (!focusedDate || !(0, _isDayVisible["default"])(focusedDate, newMonth, numberOfMonths))) {
+      focusedDate = newMonth.clone().startOf('month');
+    }
+
+    return focusedDate;
+  };
+
+  _proto.setMonthTitleHeight = function setMonthTitleHeight(monthTitleHeight) {
+    var _this3 = this;
+
+    this.setState({
+      monthTitleHeight: monthTitleHeight
+    }, function () {
+      _this3.calculateAndSetDayPickerHeight();
+    });
+  };
+
+  _proto.setCalendarMonthWeeks = function setCalendarMonthWeeks(currentMonth) {
+    var numberOfMonths = this.props.numberOfMonths;
+    this.calendarMonthWeeks = [];
+    var month = currentMonth.clone().subtract(1, 'months');
+    var firstDayOfWeek = this.getFirstDayOfWeek();
+
+    for (var i = 0; i < numberOfMonths + 2; i += 1) {
+      var numberOfWeeks = (0, _getNumberOfCalendarMonthWeeks["default"])(month, firstDayOfWeek);
+      this.calendarMonthWeeks.push(numberOfWeeks);
+      month = month.add(1, 'months');
+    }
+  };
+
+  _proto.setContainerRef = function setContainerRef(ref) {
+    this.container = ref;
+  };
+
+  _proto.setCalendarInfoRef = function setCalendarInfoRef(ref) {
+    this.calendarInfo = ref;
+  };
+
+  _proto.setTransitionContainerRef = function setTransitionContainerRef(ref) {
+    this.transitionContainer = ref;
+  };
+
+  _proto.getNextScrollableMonths = function getNextScrollableMonths(e) {
+    var onGetNextScrollableMonths = this.props.onGetNextScrollableMonths;
+    if (e) e.preventDefault();
+    if (onGetNextScrollableMonths) onGetNextScrollableMonths(e);
+    this.setState(function (_ref2) {
+      var scrollableMonthMultiple = _ref2.scrollableMonthMultiple;
+      return {
+        scrollableMonthMultiple: scrollableMonthMultiple + 1
+      };
+    });
+  };
+
+  _proto.getPrevScrollableMonths = function getPrevScrollableMonths(e) {
+    var _this$props7 = this.props,
+        numberOfMonths = _this$props7.numberOfMonths,
+        onGetPrevScrollableMonths = _this$props7.onGetPrevScrollableMonths;
+    if (e) e.preventDefault();
+    if (onGetPrevScrollableMonths) onGetPrevScrollableMonths(e);
+    this.setState(function (_ref3) {
+      var currentMonth = _ref3.currentMonth,
+          scrollableMonthMultiple = _ref3.scrollableMonthMultiple;
+      return {
+        currentMonth: currentMonth.clone().subtract(numberOfMonths, 'month'),
+        scrollableMonthMultiple: scrollableMonthMultiple + 1
+      };
+    });
+  };
+
+  _proto.maybeTransitionNextMonth = function maybeTransitionNextMonth(newFocusedDate) {
+    var numberOfMonths = this.props.numberOfMonths;
+    var _this$state5 = this.state,
+        currentMonth = _this$state5.currentMonth,
+        focusedDate = _this$state5.focusedDate;
+    var newFocusedDateMonth = newFocusedDate.month();
+    var focusedDateMonth = focusedDate.month();
+    var isNewFocusedDateVisible = (0, _isDayVisible["default"])(newFocusedDate, currentMonth, numberOfMonths);
+
+    if (newFocusedDateMonth !== focusedDateMonth && !isNewFocusedDateVisible) {
+      this.onNextMonthTransition(newFocusedDate);
+      return true;
+    }
+
+    return false;
+  };
+
+  _proto.maybeTransitionPrevMonth = function maybeTransitionPrevMonth(newFocusedDate) {
+    var numberOfMonths = this.props.numberOfMonths;
+    var _this$state6 = this.state,
+        currentMonth = _this$state6.currentMonth,
+        focusedDate = _this$state6.focusedDate;
+    var newFocusedDateMonth = newFocusedDate.month();
+    var focusedDateMonth = focusedDate.month();
+    var isNewFocusedDateVisible = (0, _isDayVisible["default"])(newFocusedDate, currentMonth, numberOfMonths);
+
+    if (newFocusedDateMonth !== focusedDateMonth && !isNewFocusedDateVisible) {
+      this.onPrevMonthTransition(newFocusedDate);
+      return true;
+    }
+
+    return false;
+  };
+
+  _proto.isHorizontal = function isHorizontal() {
+    var orientation = this.props.orientation;
+    return orientation === _constants.HORIZONTAL_ORIENTATION;
+  };
+
+  _proto.isVertical = function isVertical() {
+    var orientation = this.props.orientation;
+    return orientation === _constants.VERTICAL_ORIENTATION || orientation === _constants.VERTICAL_SCROLLABLE;
+  };
+
+  _proto.updateStateAfterMonthTransition = function updateStateAfterMonthTransition() {
+    var _this4 = this;
+
+    var _this$props8 = this.props,
+        onPrevMonthClick = _this$props8.onPrevMonthClick,
+        onNextMonthClick = _this$props8.onNextMonthClick,
+        numberOfMonths = _this$props8.numberOfMonths,
+        onMonthChange = _this$props8.onMonthChange,
+        onYearChange = _this$props8.onYearChange,
+        isRTL = _this$props8.isRTL;
+    var _this$state7 = this.state,
+        currentMonth = _this$state7.currentMonth,
+        monthTransition = _this$state7.monthTransition,
+        focusedDate = _this$state7.focusedDate,
+        nextFocusedDate = _this$state7.nextFocusedDate,
+        withMouseInteractions = _this$state7.withMouseInteractions,
+        calendarMonthWidth = _this$state7.calendarMonthWidth;
+    if (!monthTransition) return;
+    var newMonth = currentMonth.clone();
+    var firstDayOfWeek = this.getFirstDayOfWeek();
+
+    if (monthTransition === PREV_TRANSITION) {
+      newMonth.subtract(1, 'month');
+      if (onPrevMonthClick) onPrevMonthClick(newMonth);
+      var newInvisibleMonth = newMonth.clone().subtract(1, 'month');
+      var numberOfWeeks = (0, _getNumberOfCalendarMonthWeeks["default"])(newInvisibleMonth, firstDayOfWeek);
+      this.calendarMonthWeeks = [numberOfWeeks].concat((0, _toConsumableArray2["default"])(this.calendarMonthWeeks.slice(0, -1)));
+    } else if (monthTransition === NEXT_TRANSITION) {
+      newMonth.add(1, 'month');
+      if (onNextMonthClick) onNextMonthClick(newMonth);
+
+      var _newInvisibleMonth = newMonth.clone().add(numberOfMonths, 'month');
+
+      var _numberOfWeeks = (0, _getNumberOfCalendarMonthWeeks["default"])(_newInvisibleMonth, firstDayOfWeek);
+
+      this.calendarMonthWeeks = [].concat((0, _toConsumableArray2["default"])(this.calendarMonthWeeks.slice(1)), [_numberOfWeeks]);
+    } else if (monthTransition === MONTH_SELECTION_TRANSITION) {
+      if (onMonthChange) onMonthChange(newMonth);
+    } else if (monthTransition === YEAR_SELECTION_TRANSITION) {
+      if (onYearChange) onYearChange(newMonth);
+    }
+
+    var newFocusedDate = null;
+
+    if (nextFocusedDate) {
+      newFocusedDate = nextFocusedDate;
+    } else if (!focusedDate && !withMouseInteractions) {
+      newFocusedDate = this.getFocusedDay(newMonth);
+    }
+
+    this.setState({
+      currentMonth: newMonth,
+      monthTransition: null,
+      translationValue: isRTL && this.isHorizontal() ? -calendarMonthWidth : 0,
+      nextFocusedDate: null,
+      focusedDate: newFocusedDate
+    }, function () {
+      // we don't want to focus on the relevant calendar day after a month transition
+      // if the user is navigating around using a mouse
+      if (withMouseInteractions) {
+        var activeElement = (0, _getActiveElement["default"])();
+
+        if (activeElement && activeElement !== document.body && _this4.container.contains(activeElement) && activeElement.blur) {
+          activeElement.blur();
+        }
+      }
+    });
+  };
+
+  _proto.adjustDayPickerHeight = function adjustDayPickerHeight(newMonthHeight) {
+    var _this5 = this;
+
+    var monthHeight = newMonthHeight + MONTH_PADDING;
+
+    if (monthHeight !== this.calendarMonthGridHeight) {
+      this.transitionContainer.style.height = "".concat(monthHeight, "px");
+
+      if (!this.calendarMonthGridHeight) {
+        this.setCalendarMonthGridHeightTimeout = setTimeout(function () {
+          _this5.setState({
+            hasSetHeight: true
+          });
+        }, 0);
+      }
+
+      this.calendarMonthGridHeight = monthHeight;
+    }
+  };
+
+  _proto.calculateAndSetDayPickerHeight = function calculateAndSetDayPickerHeight() {
+    var _this$props9 = this.props,
+        daySize = _this$props9.daySize,
+        numberOfMonths = _this$props9.numberOfMonths;
+    var monthTitleHeight = this.state.monthTitleHeight;
+    var visibleCalendarWeeks = this.calendarMonthWeeks.slice(1, numberOfMonths + 1);
+    var calendarMonthWeeksHeight = Math.max.apply(Math, [0].concat((0, _toConsumableArray2["default"])(visibleCalendarWeeks))) * (daySize - 1);
+    var newMonthHeight = monthTitleHeight + calendarMonthWeeksHeight + 1;
+
+    if (this.isHorizontal()) {
+      this.adjustDayPickerHeight(newMonthHeight);
+    }
+  };
+
+  _proto.openKeyboardShortcutsPanel = function openKeyboardShortcutsPanel(onCloseCallBack) {
+    this.setState({
+      showKeyboardShortcuts: true,
+      onKeyboardShortcutsPanelClose: onCloseCallBack
+    });
+  };
+
+  _proto.closeKeyboardShortcutsPanel = function closeKeyboardShortcutsPanel() {
+    var onKeyboardShortcutsPanelClose = this.state.onKeyboardShortcutsPanelClose;
+
+    if (onKeyboardShortcutsPanelClose) {
+      onKeyboardShortcutsPanelClose();
+    }
+
+    this.setState({
+      onKeyboardShortcutsPanelClose: null,
+      showKeyboardShortcuts: false
+    });
+  };
+
+  _proto.renderNavigation = function renderNavigation(navDirection) {
+    var _this$props10 = this.props,
+        dayPickerNavigationInlineStyles = _this$props10.dayPickerNavigationInlineStyles,
+        disablePrev = _this$props10.disablePrev,
+        disableNext = _this$props10.disableNext,
+        navPosition = _this$props10.navPosition,
+        navPrev = _this$props10.navPrev,
+        navNext = _this$props10.navNext,
+        noNavButtons = _this$props10.noNavButtons,
+        noNavNextButton = _this$props10.noNavNextButton,
+        noNavPrevButton = _this$props10.noNavPrevButton,
+        orientation = _this$props10.orientation,
+        phrases = _this$props10.phrases,
+        renderNavPrevButton = _this$props10.renderNavPrevButton,
+        renderNavNextButton = _this$props10.renderNavNextButton,
+        isRTL = _this$props10.isRTL;
+
+    if (noNavButtons) {
+      return null;
+    }
+
+    var onPrevMonthClick = orientation === _constants.VERTICAL_SCROLLABLE ? this.getPrevScrollableMonths : this.onPrevMonthClick;
+    var onNextMonthClick = orientation === _constants.VERTICAL_SCROLLABLE ? this.getNextScrollableMonths : this.onNextMonthClick;
+    return _react["default"].createElement(_DayPickerNavigation["default"], {
+      disablePrev: disablePrev,
+      disableNext: disableNext,
+      inlineStyles: dayPickerNavigationInlineStyles,
+      onPrevMonthClick: onPrevMonthClick,
+      onNextMonthClick: onNextMonthClick,
+      navPosition: navPosition,
+      navPrev: navPrev,
+      navNext: navNext,
+      renderNavPrevButton: renderNavPrevButton,
+      renderNavNextButton: renderNavNextButton,
+      orientation: orientation,
+      phrases: phrases,
+      isRTL: isRTL,
+      showNavNextButton: !(noNavNextButton || orientation === _constants.VERTICAL_SCROLLABLE && navDirection === PREV_NAV),
+      showNavPrevButton: !(noNavPrevButton || orientation === _constants.VERTICAL_SCROLLABLE && navDirection === NEXT_NAV)
+    });
+  };
+
+  _proto.renderWeekHeader = function renderWeekHeader(index) {
+    var _this$props11 = this.props,
+        daySize = _this$props11.daySize,
+        horizontalMonthPadding = _this$props11.horizontalMonthPadding,
+        orientation = _this$props11.orientation,
+        renderWeekHeaderElement = _this$props11.renderWeekHeaderElement,
+        styles = _this$props11.styles;
+    var calendarMonthWidth = this.state.calendarMonthWidth;
+    var verticalScrollable = orientation === _constants.VERTICAL_SCROLLABLE;
+    var horizontalStyle = {
+      left: index * calendarMonthWidth
+    };
+    var verticalStyle = {
+      marginLeft: -calendarMonthWidth / 2
+    };
+    var weekHeaderStyle = {}; // no styles applied to the vertical-scrollable orientation
+
+    if (this.isHorizontal()) {
+      weekHeaderStyle = horizontalStyle;
+    } else if (this.isVertical() && !verticalScrollable) {
+      weekHeaderStyle = verticalStyle;
+    }
+
+    var weekHeaders = this.getWeekHeaders();
+    var header = weekHeaders.map(function (day) {
+      return _react["default"].createElement("li", (0, _extends2["default"])({
+        key: day
+      }, (0, _reactWithStyles.css)(styles.DayPicker_weekHeader_li, {
+        width: daySize
+      })), renderWeekHeaderElement ? renderWeekHeaderElement(day) : _react["default"].createElement("small", null, day));
+    });
+    return _react["default"].createElement("div", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(styles.DayPicker_weekHeader, this.isVertical() && styles.DayPicker_weekHeader__vertical, verticalScrollable && styles.DayPicker_weekHeader__verticalScrollable, weekHeaderStyle, {
+      padding: "0 ".concat(horizontalMonthPadding, "px")
+    }), {
+      key: "week-".concat(index)
+    }), _react["default"].createElement("ul", (0, _reactWithStyles.css)(styles.DayPicker_weekHeader_ul), header));
+  };
+
+  _proto.render = function render() {
+    var _this6 = this;
+
+    var _this$state8 = this.state,
+        calendarMonthWidth = _this$state8.calendarMonthWidth,
+        currentMonth = _this$state8.currentMonth,
+        monthTransition = _this$state8.monthTransition,
+        translationValue = _this$state8.translationValue,
+        scrollableMonthMultiple = _this$state8.scrollableMonthMultiple,
+        focusedDate = _this$state8.focusedDate,
+        showKeyboardShortcuts = _this$state8.showKeyboardShortcuts,
+        isTouch = _this$state8.isTouchDevice,
+        hasSetHeight = _this$state8.hasSetHeight,
+        calendarInfoWidth = _this$state8.calendarInfoWidth,
+        monthTitleHeight = _this$state8.monthTitleHeight;
+    var _this$props12 = this.props,
+        enableOutsideDays = _this$props12.enableOutsideDays,
+        numberOfMonths = _this$props12.numberOfMonths,
+        orientation = _this$props12.orientation,
+        modifiers = _this$props12.modifiers,
+        withPortal = _this$props12.withPortal,
+        onDayClick = _this$props12.onDayClick,
+        onDayMouseEnter = _this$props12.onDayMouseEnter,
+        onDayMouseLeave = _this$props12.onDayMouseLeave,
+        firstDayOfWeek = _this$props12.firstDayOfWeek,
+        renderMonthText = _this$props12.renderMonthText,
+        renderCalendarDay = _this$props12.renderCalendarDay,
+        renderDayContents = _this$props12.renderDayContents,
+        renderCalendarInfo = _this$props12.renderCalendarInfo,
+        renderMonthElement = _this$props12.renderMonthElement,
+        renderKeyboardShortcutsButton = _this$props12.renderKeyboardShortcutsButton,
+        renderKeyboardShortcutsPanel = _this$props12.renderKeyboardShortcutsPanel,
+        calendarInfoPosition = _this$props12.calendarInfoPosition,
+        hideKeyboardShortcutsPanel = _this$props12.hideKeyboardShortcutsPanel,
+        onOutsideClick = _this$props12.onOutsideClick,
+        monthFormat = _this$props12.monthFormat,
+        daySize = _this$props12.daySize,
+        isFocused = _this$props12.isFocused,
+        isRTL = _this$props12.isRTL,
+        styles = _this$props12.styles,
+        theme = _this$props12.theme,
+        phrases = _this$props12.phrases,
+        verticalHeight = _this$props12.verticalHeight,
+        dayAriaLabelFormat = _this$props12.dayAriaLabelFormat,
+        noBorder = _this$props12.noBorder,
+        transitionDuration = _this$props12.transitionDuration,
+        verticalBorderSpacing = _this$props12.verticalBorderSpacing,
+        horizontalMonthPadding = _this$props12.horizontalMonthPadding,
+        navPosition = _this$props12.navPosition;
+    var dayPickerHorizontalPadding = theme.reactDates.spacing.dayPickerHorizontalPadding;
+    var isHorizontal = this.isHorizontal();
+    var numOfWeekHeaders = this.isVertical() ? 1 : numberOfMonths;
+    var weekHeaders = [];
+
+    for (var i = 0; i < numOfWeekHeaders; i += 1) {
+      weekHeaders.push(this.renderWeekHeader(i));
+    }
+
+    var verticalScrollable = orientation === _constants.VERTICAL_SCROLLABLE;
+    var height;
+
+    if (isHorizontal) {
+      height = this.calendarMonthGridHeight;
+    } else if (this.isVertical() && !verticalScrollable && !withPortal) {
+      // If the user doesn't set a desired height,
+      // we default back to this kind of made-up value that generally looks good
+      height = verticalHeight || 1.75 * calendarMonthWidth;
+    }
+
+    var isCalendarMonthGridAnimating = monthTransition !== null;
+    var shouldFocusDate = !isCalendarMonthGridAnimating && isFocused;
+    var keyboardShortcutButtonLocation = _DayPickerKeyboardShortcuts.BOTTOM_RIGHT;
+
+    if (this.isVertical()) {
+      keyboardShortcutButtonLocation = withPortal ? _DayPickerKeyboardShortcuts.TOP_LEFT : _DayPickerKeyboardShortcuts.TOP_RIGHT;
+    }
+
+    var shouldAnimateHeight = isHorizontal && hasSetHeight;
+    var calendarInfoPositionTop = calendarInfoPosition === _constants.INFO_POSITION_TOP;
+    var calendarInfoPositionBottom = calendarInfoPosition === _constants.INFO_POSITION_BOTTOM;
+    var calendarInfoPositionBefore = calendarInfoPosition === _constants.INFO_POSITION_BEFORE;
+    var calendarInfoPositionAfter = calendarInfoPosition === _constants.INFO_POSITION_AFTER;
+    var calendarInfoIsInline = calendarInfoPositionBefore || calendarInfoPositionAfter;
+
+    var calendarInfo = renderCalendarInfo && _react["default"].createElement("div", (0, _extends2["default"])({
+      ref: this.setCalendarInfoRef
+    }, (0, _reactWithStyles.css)(calendarInfoIsInline && styles.DayPicker_calendarInfo__horizontal)), renderCalendarInfo());
+
+    var calendarInfoPanelWidth = renderCalendarInfo && calendarInfoIsInline ? calendarInfoWidth : 0;
+    var firstVisibleMonthIndex = this.getFirstVisibleIndex();
+    var wrapperHorizontalWidth = calendarMonthWidth * numberOfMonths + 2 * dayPickerHorizontalPadding; // Adding `1px` because of whitespace between 2 inline-block
+
+    var fullHorizontalWidth = wrapperHorizontalWidth + calendarInfoPanelWidth + 1;
+    var transitionContainerStyle = {
+      width: isHorizontal && wrapperHorizontalWidth,
+      height: height
+    };
+    var dayPickerWrapperStyle = {
+      width: isHorizontal && wrapperHorizontalWidth
+    };
+    var dayPickerStyle = {
+      width: isHorizontal && fullHorizontalWidth,
+      // These values are to center the datepicker (approximately) on the page
+      marginLeft: isHorizontal && withPortal ? -fullHorizontalWidth / 2 : null,
+      marginTop: isHorizontal && withPortal ? -calendarMonthWidth / 2 : null
+    };
+    return _react["default"].createElement("div", (0, _reactWithStyles.css)(styles.DayPicker, isHorizontal && styles.DayPicker__horizontal, verticalScrollable && styles.DayPicker__verticalScrollable, isHorizontal && withPortal && styles.DayPicker_portal__horizontal, this.isVertical() && withPortal && styles.DayPicker_portal__vertical, dayPickerStyle, !monthTitleHeight && styles.DayPicker__hidden, !noBorder && styles.DayPicker__withBorder), _react["default"].createElement(_reactOutsideClickHandler["default"], {
+      onOutsideClick: onOutsideClick
+    }, (calendarInfoPositionTop || calendarInfoPositionBefore) && calendarInfo, _react["default"].createElement("div", (0, _reactWithStyles.css)(dayPickerWrapperStyle, calendarInfoIsInline && isHorizontal && styles.DayPicker_wrapper__horizontal), _react["default"].createElement("div", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(styles.DayPicker_weekHeaders, isHorizontal && styles.DayPicker_weekHeaders__horizontal), {
+      "aria-hidden": "true",
+      role: "presentation"
+    }), weekHeaders), _react["default"].createElement("div", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(styles.DayPicker_focusRegion), {
+      ref: this.setContainerRef,
+      onClick: function onClick(e) {
+        e.stopPropagation();
+      },
+      onKeyDown: this.onKeyDown,
+      onMouseUp: function onMouseUp() {
+        _this6.setState({
+          withMouseInteractions: true
+        });
+      },
+      tabIndex: -1,
+      role: "application",
+      "aria-roledescription": phrases.roleDescription,
+      "aria-label": phrases.calendarLabel
+    }), !verticalScrollable && navPosition === _constants.NAV_POSITION_TOP && this.renderNavigation(), _react["default"].createElement("div", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(styles.DayPicker_transitionContainer, shouldAnimateHeight && styles.DayPicker_transitionContainer__horizontal, this.isVertical() && styles.DayPicker_transitionContainer__vertical, verticalScrollable && styles.DayPicker_transitionContainer__verticalScrollable, transitionContainerStyle), {
+      ref: this.setTransitionContainerRef
+    }), verticalScrollable && this.renderNavigation(PREV_NAV), _react["default"].createElement(_CalendarMonthGrid["default"], {
+      setMonthTitleHeight: !monthTitleHeight ? this.setMonthTitleHeight : undefined,
+      translationValue: translationValue,
+      enableOutsideDays: enableOutsideDays,
+      firstVisibleMonthIndex: firstVisibleMonthIndex,
+      initialMonth: currentMonth,
+      isAnimating: isCalendarMonthGridAnimating,
+      modifiers: modifiers,
+      orientation: orientation,
+      numberOfMonths: numberOfMonths * scrollableMonthMultiple,
+      onDayClick: onDayClick,
+      onDayMouseEnter: onDayMouseEnter,
+      onDayMouseLeave: onDayMouseLeave,
+      onMonthChange: this.onMonthChange,
+      onYearChange: this.onYearChange,
+      renderMonthText: renderMonthText,
+      renderCalendarDay: renderCalendarDay,
+      renderDayContents: renderDayContents,
+      renderMonthElement: renderMonthElement,
+      onMonthTransitionEnd: this.updateStateAfterMonthTransition,
+      monthFormat: monthFormat,
+      daySize: daySize,
+      firstDayOfWeek: firstDayOfWeek,
+      isFocused: shouldFocusDate,
+      focusedDate: focusedDate,
+      phrases: phrases,
+      isRTL: isRTL,
+      dayAriaLabelFormat: dayAriaLabelFormat,
+      transitionDuration: transitionDuration,
+      verticalBorderSpacing: verticalBorderSpacing,
+      horizontalMonthPadding: horizontalMonthPadding
+    }), verticalScrollable && this.renderNavigation(NEXT_NAV)), !verticalScrollable && navPosition === _constants.NAV_POSITION_BOTTOM && this.renderNavigation(), !isTouch && !hideKeyboardShortcutsPanel && _react["default"].createElement(_DayPickerKeyboardShortcuts["default"], {
+      block: this.isVertical() && !withPortal,
+      buttonLocation: keyboardShortcutButtonLocation,
+      showKeyboardShortcutsPanel: showKeyboardShortcuts,
+      openKeyboardShortcutsPanel: this.openKeyboardShortcutsPanel,
+      closeKeyboardShortcutsPanel: this.closeKeyboardShortcutsPanel,
+      phrases: phrases,
+      renderKeyboardShortcutsButton: renderKeyboardShortcutsButton,
+      renderKeyboardShortcutsPanel: renderKeyboardShortcutsPanel
+    }))), (calendarInfoPositionBottom || calendarInfoPositionAfter) && calendarInfo));
+  };
+
+  return DayPicker;
+}(_react["default"].PureComponent || _react["default"].Component);
+
+exports.PureDayPicker = DayPicker;
+DayPicker.propTypes =  false ? 0 : {};
+DayPicker.defaultProps = defaultProps;
+
+var _default = (0, _reactWithStyles.withStyles)(function (_ref4) {
+  var _ref4$reactDates = _ref4.reactDates,
+      color = _ref4$reactDates.color,
+      font = _ref4$reactDates.font,
+      noScrollBarOnVerticalScrollable = _ref4$reactDates.noScrollBarOnVerticalScrollable,
+      spacing = _ref4$reactDates.spacing,
+      zIndex = _ref4$reactDates.zIndex;
+  return {
+    DayPicker: {
+      background: color.background,
+      position: 'relative',
+      textAlign: (0, _noflip["default"])('left')
+    },
+    DayPicker__horizontal: {
+      background: color.background
+    },
+    DayPicker__verticalScrollable: {
+      height: '100%'
+    },
+    DayPicker__hidden: {
+      visibility: 'hidden'
+    },
+    DayPicker__withBorder: {
+      boxShadow: (0, _noflip["default"])('0 2px 6px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.07)'),
+      borderRadius: 3
+    },
+    DayPicker_portal__horizontal: {
+      boxShadow: 'none',
+      position: 'absolute',
+      left: (0, _noflip["default"])('50%'),
+      top: '50%'
+    },
+    DayPicker_portal__vertical: {
+      position: 'initial'
+    },
+    DayPicker_focusRegion: {
+      outline: 'none'
+    },
+    DayPicker_calendarInfo__horizontal: {
+      display: 'inline-block',
+      verticalAlign: 'top'
+    },
+    DayPicker_wrapper__horizontal: {
+      display: 'inline-block',
+      verticalAlign: 'top'
+    },
+    DayPicker_weekHeaders: {
+      position: 'relative'
+    },
+    DayPicker_weekHeaders__horizontal: {
+      marginLeft: (0, _noflip["default"])(spacing.dayPickerHorizontalPadding)
+    },
+    DayPicker_weekHeader: {
+      color: color.placeholderText,
+      position: 'absolute',
+      top: 62,
+      zIndex: zIndex + 2,
+      textAlign: (0, _noflip["default"])('left')
+    },
+    DayPicker_weekHeader__vertical: {
+      left: (0, _noflip["default"])('50%')
+    },
+    DayPicker_weekHeader__verticalScrollable: {
+      top: 0,
+      display: 'table-row',
+      borderBottom: "1px solid ".concat(color.core.border),
+      background: color.background,
+      marginLeft: (0, _noflip["default"])(0),
+      left: (0, _noflip["default"])(0),
+      width: '100%',
+      textAlign: 'center'
+    },
+    DayPicker_weekHeader_ul: {
+      listStyle: 'none',
+      margin: '1px 0',
+      paddingLeft: (0, _noflip["default"])(0),
+      paddingRight: (0, _noflip["default"])(0),
+      fontSize: font.size
+    },
+    DayPicker_weekHeader_li: {
+      display: 'inline-block',
+      textAlign: 'center'
+    },
+    DayPicker_transitionContainer: {
+      position: 'relative',
+      overflow: 'hidden',
+      borderRadius: 3
+    },
+    DayPicker_transitionContainer__horizontal: {
+      transition: 'height 0.2s ease-in-out'
+    },
+    DayPicker_transitionContainer__vertical: {
+      width: '100%'
+    },
+    DayPicker_transitionContainer__verticalScrollable: _objectSpread({
+      paddingTop: 20,
+      height: '100%',
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      right: (0, _noflip["default"])(0),
+      left: (0, _noflip["default"])(0),
+      overflowY: 'scroll'
+    }, noScrollBarOnVerticalScrollable && {
+      '-webkitOverflowScrolling': 'touch',
+      '::-webkit-scrollbar': {
+        '-webkit-appearance': 'none',
+        display: 'none'
+      }
+    })
+  };
+}, {
+  pureComponent: typeof _react["default"].PureComponent !== 'undefined'
+})(DayPicker);
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 4185:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = exports.BOTTOM_RIGHT = exports.TOP_RIGHT = exports.TOP_LEFT = void 0;
+
+var _enzymeShallowEqual = _interopRequireDefault(__webpack_require__(1980));
+
+var _extends2 = _interopRequireDefault(__webpack_require__(6164));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(9168));
+
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(6856));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _airbnbPropTypes = __webpack_require__(4882);
+
+var _reactWithStyles = __webpack_require__(7928);
+
+var _defaultPhrases = __webpack_require__(1764);
+
+var _getPhrasePropTypes = _interopRequireDefault(__webpack_require__(3312));
+
+var _KeyboardShortcutRow = _interopRequireDefault(__webpack_require__(1726));
+
+var _CloseButton = _interopRequireDefault(__webpack_require__(4718));
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var TOP_LEFT = 'top-left';
+exports.TOP_LEFT = TOP_LEFT;
+var TOP_RIGHT = 'top-right';
+exports.TOP_RIGHT = TOP_RIGHT;
+var BOTTOM_RIGHT = 'bottom-right';
+exports.BOTTOM_RIGHT = BOTTOM_RIGHT;
+var propTypes =  false ? 0 : {};
+var defaultProps = {
+  block: false,
+  buttonLocation: BOTTOM_RIGHT,
+  showKeyboardShortcutsPanel: false,
+  openKeyboardShortcutsPanel: function openKeyboardShortcutsPanel() {},
+  closeKeyboardShortcutsPanel: function closeKeyboardShortcutsPanel() {},
+  phrases: _defaultPhrases.DayPickerKeyboardShortcutsPhrases,
+  renderKeyboardShortcutsButton: undefined,
+  renderKeyboardShortcutsPanel: undefined
+};
+
+function getKeyboardShortcuts(phrases) {
+  return [{
+    unicode: '↵',
+    label: phrases.enterKey,
+    action: phrases.selectFocusedDate
+  }, {
+    unicode: '←/→',
+    label: phrases.leftArrowRightArrow,
+    action: phrases.moveFocusByOneDay
+  }, {
+    unicode: '↑/↓',
+    label: phrases.upArrowDownArrow,
+    action: phrases.moveFocusByOneWeek
+  }, {
+    unicode: 'PgUp/PgDn',
+    label: phrases.pageUpPageDown,
+    action: phrases.moveFocusByOneMonth
+  }, {
+    unicode: 'Home/End',
+    label: phrases.homeEnd,
+    action: phrases.moveFocustoStartAndEndOfWeek
+  }, {
+    unicode: 'Esc',
+    label: phrases.escape,
+    action: phrases.returnFocusToInput
+  }, {
+    unicode: '?',
+    label: phrases.questionMark,
+    action: phrases.openThisPanel
+  }];
+}
+
+var DayPickerKeyboardShortcuts =
+/*#__PURE__*/
+function (_ref) {
+  (0, _inheritsLoose2["default"])(DayPickerKeyboardShortcuts, _ref);
+  var _proto = DayPickerKeyboardShortcuts.prototype;
+
+  _proto[!_react["default"].PureComponent && "shouldComponentUpdate"] = function (nextProps, nextState) {
+    return !(0, _enzymeShallowEqual["default"])(this.props, nextProps) || !(0, _enzymeShallowEqual["default"])(this.state, nextState);
+  };
+
+  function DayPickerKeyboardShortcuts() {
+    var _this;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = _ref.call.apply(_ref, [this].concat(args)) || this;
+    var phrases = _this.props.phrases;
+    _this.keyboardShortcuts = getKeyboardShortcuts(phrases);
+    _this.onShowKeyboardShortcutsButtonClick = _this.onShowKeyboardShortcutsButtonClick.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.setShowKeyboardShortcutsButtonRef = _this.setShowKeyboardShortcutsButtonRef.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.setHideKeyboardShortcutsButtonRef = _this.setHideKeyboardShortcutsButtonRef.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.handleFocus = _this.handleFocus.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onKeyDown = _this.onKeyDown.bind((0, _assertThisInitialized2["default"])(_this));
+    return _this;
+  }
+
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var phrases = this.props.phrases;
+
+    if (nextProps.phrases !== phrases) {
+      this.keyboardShortcuts = getKeyboardShortcuts(nextProps.phrases);
+    }
+  };
+
+  _proto.componentDidUpdate = function componentDidUpdate() {
+    this.handleFocus();
+  };
+
+  _proto.onKeyDown = function onKeyDown(e) {
+    e.stopPropagation();
+    var closeKeyboardShortcutsPanel = this.props.closeKeyboardShortcutsPanel; // Because the close button is the only focusable element inside of the panel, this
+    // amounts to a very basic focus trap. The user can exit the panel by "pressing" the
+    // close button or hitting escape
+
+    switch (e.key) {
+      case 'Escape':
+        closeKeyboardShortcutsPanel();
+        break;
+      // do nothing - this allows the up and down arrows continue their
+      // default behavior of scrolling the content of the Keyboard Shortcuts Panel
+      // which is needed when only a single month is shown for instance.
+
+      case 'ArrowUp':
+      case 'ArrowDown':
+        break;
+      // completely block the rest of the keys that have functionality outside of this panel
+
+      case 'Tab':
+      case 'Home':
+      case 'End':
+      case 'PageUp':
+      case 'PageDown':
+      case 'ArrowLeft':
+      case 'ArrowRight':
+        e.preventDefault();
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  _proto.onShowKeyboardShortcutsButtonClick = function onShowKeyboardShortcutsButtonClick() {
+    var _this2 = this;
+
+    var openKeyboardShortcutsPanel = this.props.openKeyboardShortcutsPanel; // we want to return focus to this button after closing the keyboard shortcuts panel
+
+    openKeyboardShortcutsPanel(function () {
+      _this2.showKeyboardShortcutsButton.focus();
+    });
+  };
+
+  _proto.setShowKeyboardShortcutsButtonRef = function setShowKeyboardShortcutsButtonRef(ref) {
+    this.showKeyboardShortcutsButton = ref;
+  };
+
+  _proto.setHideKeyboardShortcutsButtonRef = function setHideKeyboardShortcutsButtonRef(ref) {
+    this.hideKeyboardShortcutsButton = ref;
+  };
+
+  _proto.handleFocus = function handleFocus() {
+    if (this.hideKeyboardShortcutsButton) {
+      // automatically move focus into the dialog by moving
+      // to the only interactive element, the hide button
+      this.hideKeyboardShortcutsButton.focus();
+    }
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        block = _this$props.block,
+        buttonLocation = _this$props.buttonLocation,
+        showKeyboardShortcutsPanel = _this$props.showKeyboardShortcutsPanel,
+        closeKeyboardShortcutsPanel = _this$props.closeKeyboardShortcutsPanel,
+        styles = _this$props.styles,
+        phrases = _this$props.phrases,
+        renderKeyboardShortcutsButton = _this$props.renderKeyboardShortcutsButton,
+        renderKeyboardShortcutsPanel = _this$props.renderKeyboardShortcutsPanel;
+    var toggleButtonText = showKeyboardShortcutsPanel ? phrases.hideKeyboardShortcutsPanel : phrases.showKeyboardShortcutsPanel;
+    var bottomRight = buttonLocation === BOTTOM_RIGHT;
+    var topRight = buttonLocation === TOP_RIGHT;
+    var topLeft = buttonLocation === TOP_LEFT;
+    return _react["default"].createElement("div", null, renderKeyboardShortcutsButton && renderKeyboardShortcutsButton({
+      // passing in context-specific props
+      ref: this.setShowKeyboardShortcutsButtonRef,
+      onClick: this.onShowKeyboardShortcutsButtonClick,
+      ariaLabel: toggleButtonText
+    }), !renderKeyboardShortcutsButton && _react["default"].createElement("button", (0, _extends2["default"])({
+      ref: this.setShowKeyboardShortcutsButtonRef
+    }, (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_buttonReset, styles.DayPickerKeyboardShortcuts_show, bottomRight && styles.DayPickerKeyboardShortcuts_show__bottomRight, topRight && styles.DayPickerKeyboardShortcuts_show__topRight, topLeft && styles.DayPickerKeyboardShortcuts_show__topLeft), {
+      type: "button",
+      "aria-label": toggleButtonText,
+      onClick: this.onShowKeyboardShortcutsButtonClick,
+      onMouseUp: function onMouseUp(e) {
+        e.currentTarget.blur();
+      }
+    }), _react["default"].createElement("span", (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_showSpan, bottomRight && styles.DayPickerKeyboardShortcuts_showSpan__bottomRight, topRight && styles.DayPickerKeyboardShortcuts_showSpan__topRight, topLeft && styles.DayPickerKeyboardShortcuts_showSpan__topLeft), "?")), showKeyboardShortcutsPanel && (renderKeyboardShortcutsPanel ? renderKeyboardShortcutsPanel({
+      closeButtonAriaLabel: phrases.hideKeyboardShortcutsPanel,
+      keyboardShortcuts: this.keyboardShortcuts,
+      onCloseButtonClick: closeKeyboardShortcutsPanel,
+      onKeyDown: this.onKeyDown,
+      title: phrases.keyboardShortcuts
+    }) : _react["default"].createElement("div", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_panel), {
+      role: "dialog",
+      "aria-labelledby": "DayPickerKeyboardShortcuts_title",
+      "aria-describedby": "DayPickerKeyboardShortcuts_description"
+    }), _react["default"].createElement("div", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_title), {
+      id: "DayPickerKeyboardShortcuts_title"
+    }), phrases.keyboardShortcuts), _react["default"].createElement("button", (0, _extends2["default"])({
+      ref: this.setHideKeyboardShortcutsButtonRef
+    }, (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_buttonReset, styles.DayPickerKeyboardShortcuts_close), {
+      type: "button",
+      tabIndex: "0",
+      "aria-label": phrases.hideKeyboardShortcutsPanel,
+      onClick: closeKeyboardShortcutsPanel,
+      onKeyDown: this.onKeyDown
+    }), _react["default"].createElement(_CloseButton["default"], (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_closeSvg))), _react["default"].createElement("ul", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(styles.DayPickerKeyboardShortcuts_list), {
+      id: "DayPickerKeyboardShortcuts_description"
+    }), this.keyboardShortcuts.map(function (_ref2) {
+      var unicode = _ref2.unicode,
+          label = _ref2.label,
+          action = _ref2.action;
+      return _react["default"].createElement(_KeyboardShortcutRow["default"], {
+        key: label,
+        unicode: unicode,
+        label: label,
+        action: action,
+        block: block
+      });
+    })))));
+  };
+
+  return DayPickerKeyboardShortcuts;
+}(_react["default"].PureComponent || _react["default"].Component);
+
+DayPickerKeyboardShortcuts.propTypes =  false ? 0 : {};
+DayPickerKeyboardShortcuts.defaultProps = defaultProps;
+
+var _default = (0, _reactWithStyles.withStyles)(function (_ref3) {
+  var _ref3$reactDates = _ref3.reactDates,
+      color = _ref3$reactDates.color,
+      font = _ref3$reactDates.font,
+      zIndex = _ref3$reactDates.zIndex;
+  return {
+    DayPickerKeyboardShortcuts_buttonReset: {
+      background: 'none',
+      border: 0,
+      borderRadius: 0,
+      color: 'inherit',
+      font: 'inherit',
+      lineHeight: 'normal',
+      overflow: 'visible',
+      padding: 0,
+      cursor: 'pointer',
+      fontSize: font.size,
+      ':active': {
+        outline: 'none'
+      }
+    },
+    DayPickerKeyboardShortcuts_show: {
+      width: 33,
+      height: 26,
+      position: 'absolute',
+      zIndex: zIndex + 2,
+      '::before': {
+        content: '""',
+        display: 'block',
+        position: 'absolute'
+      }
+    },
+    DayPickerKeyboardShortcuts_show__bottomRight: {
+      bottom: 0,
+      right: 0,
+      '::before': {
+        borderTop: '26px solid transparent',
+        borderRight: "33px solid ".concat(color.core.primary),
+        bottom: 0,
+        right: 0
+      },
+      ':hover::before': {
+        borderRight: "33px solid ".concat(color.core.primary_dark)
+      }
+    },
+    DayPickerKeyboardShortcuts_show__topRight: {
+      top: 0,
+      right: 0,
+      '::before': {
+        borderBottom: '26px solid transparent',
+        borderRight: "33px solid ".concat(color.core.primary),
+        top: 0,
+        right: 0
+      },
+      ':hover::before': {
+        borderRight: "33px solid ".concat(color.core.primary_dark)
+      }
+    },
+    DayPickerKeyboardShortcuts_show__topLeft: {
+      top: 0,
+      left: 0,
+      '::before': {
+        borderBottom: '26px solid transparent',
+        borderLeft: "33px solid ".concat(color.core.primary),
+        top: 0,
+        left: 0
+      },
+      ':hover::before': {
+        borderLeft: "33px solid ".concat(color.core.primary_dark)
+      }
+    },
+    DayPickerKeyboardShortcuts_showSpan: {
+      color: color.core.white,
+      position: 'absolute'
+    },
+    DayPickerKeyboardShortcuts_showSpan__bottomRight: {
+      bottom: 0,
+      right: 5
+    },
+    DayPickerKeyboardShortcuts_showSpan__topRight: {
+      top: 1,
+      right: 5
+    },
+    DayPickerKeyboardShortcuts_showSpan__topLeft: {
+      top: 1,
+      left: 5
+    },
+    DayPickerKeyboardShortcuts_panel: {
+      overflow: 'auto',
+      background: color.background,
+      border: "1px solid ".concat(color.core.border),
+      borderRadius: 2,
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 0,
+      zIndex: zIndex + 2,
+      padding: 22,
+      margin: 33,
+      textAlign: 'left' // TODO: investigate use of text-align throughout the library
+
+    },
+    DayPickerKeyboardShortcuts_title: {
+      fontSize: 16,
+      fontWeight: 'bold',
+      margin: 0
+    },
+    DayPickerKeyboardShortcuts_list: {
+      listStyle: 'none',
+      padding: 0,
+      fontSize: font.size
+    },
+    DayPickerKeyboardShortcuts_close: {
+      position: 'absolute',
+      right: 22,
+      top: 22,
+      zIndex: zIndex + 2,
+      ':active': {
+        outline: 'none'
+      }
+    },
+    DayPickerKeyboardShortcuts_closeSvg: {
+      height: 15,
+      width: 15,
+      fill: color.core.grayLighter,
+      ':hover': {
+        fill: color.core.grayLight
+      },
+      ':focus': {
+        fill: color.core.grayLight
+      }
+    }
+  };
+}, {
+  pureComponent: typeof _react["default"].PureComponent !== 'undefined'
+})(DayPickerKeyboardShortcuts);
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 3768:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _enzymeShallowEqual = _interopRequireDefault(__webpack_require__(1980));
+
+var _extends2 = _interopRequireDefault(__webpack_require__(6164));
+
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(8669));
+
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(6856));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _airbnbPropTypes = __webpack_require__(4882);
+
+var _reactWithStyles = __webpack_require__(7928);
+
+var _defaultPhrases = __webpack_require__(1764);
+
+var _getPhrasePropTypes = _interopRequireDefault(__webpack_require__(3312));
+
+var _noflip = _interopRequireDefault(__webpack_require__(9780));
+
+var _LeftArrow = _interopRequireDefault(__webpack_require__(2300));
+
+var _RightArrow = _interopRequireDefault(__webpack_require__(7360));
+
+var _ChevronUp = _interopRequireDefault(__webpack_require__(7287));
+
+var _ChevronDown = _interopRequireDefault(__webpack_require__(8294));
+
+var _NavPositionShape = _interopRequireDefault(__webpack_require__(3476));
+
+var _ScrollableOrientationShape = _interopRequireDefault(__webpack_require__(2302));
+
+var _constants = __webpack_require__(5724);
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var propTypes =  false ? 0 : {};
+var defaultProps = {
+  disablePrev: false,
+  disableNext: false,
+  inlineStyles: null,
+  isRTL: false,
+  navPosition: _constants.NAV_POSITION_TOP,
+  navPrev: null,
+  navNext: null,
+  orientation: _constants.HORIZONTAL_ORIENTATION,
+  onPrevMonthClick: function onPrevMonthClick() {},
+  onNextMonthClick: function onNextMonthClick() {},
+  // internationalization
+  phrases: _defaultPhrases.DayPickerNavigationPhrases,
+  renderNavPrevButton: null,
+  renderNavNextButton: null,
+  showNavPrevButton: true,
+  showNavNextButton: true
+};
+
+var DayPickerNavigation =
+/*#__PURE__*/
+function (_ref) {
+  (0, _inheritsLoose2["default"])(DayPickerNavigation, _ref);
+
+  function DayPickerNavigation() {
+    return _ref.apply(this, arguments) || this;
+  }
+
+  var _proto = DayPickerNavigation.prototype;
+
+  _proto[!_react["default"].PureComponent && "shouldComponentUpdate"] = function (nextProps, nextState) {
+    return !(0, _enzymeShallowEqual["default"])(this.props, nextProps) || !(0, _enzymeShallowEqual["default"])(this.state, nextState);
+  };
+
+  _proto.render = function render() {
+    var _this$props = this.props,
+        inlineStyles = _this$props.inlineStyles,
+        isRTL = _this$props.isRTL,
+        disablePrev = _this$props.disablePrev,
+        disableNext = _this$props.disableNext,
+        navPosition = _this$props.navPosition,
+        navPrev = _this$props.navPrev,
+        navNext = _this$props.navNext,
+        onPrevMonthClick = _this$props.onPrevMonthClick,
+        onNextMonthClick = _this$props.onNextMonthClick,
+        orientation = _this$props.orientation,
+        phrases = _this$props.phrases,
+        renderNavPrevButton = _this$props.renderNavPrevButton,
+        renderNavNextButton = _this$props.renderNavNextButton,
+        showNavPrevButton = _this$props.showNavPrevButton,
+        showNavNextButton = _this$props.showNavNextButton,
+        styles = _this$props.styles;
+
+    if (!showNavNextButton && !showNavPrevButton) {
+      return null;
+    }
+
+    var isHorizontal = orientation === _constants.HORIZONTAL_ORIENTATION;
+    var isVertical = orientation !== _constants.HORIZONTAL_ORIENTATION;
+    var isVerticalScrollable = orientation === _constants.VERTICAL_SCROLLABLE;
+    var isBottomNavPosition = navPosition === _constants.NAV_POSITION_BOTTOM;
+    var hasInlineStyles = !!inlineStyles;
+    var navPrevIcon = navPrev;
+    var navNextIcon = navNext;
+    var isDefaultNavPrev = false;
+    var isDefaultNavNext = false;
+    var navPrevTabIndex = {};
+    var navNextTabIndex = {};
+
+    if (!navPrevIcon && !renderNavPrevButton && showNavPrevButton) {
+      navPrevTabIndex = {
+        tabIndex: '0'
+      };
+      isDefaultNavPrev = true;
+      var Icon = isVertical ? _ChevronUp["default"] : _LeftArrow["default"];
+
+      if (isRTL && !isVertical) {
+        Icon = _RightArrow["default"];
+      }
+
+      navPrevIcon = _react["default"].createElement(Icon, (0, _reactWithStyles.css)(isHorizontal && styles.DayPickerNavigation_svg__horizontal, isVertical && styles.DayPickerNavigation_svg__vertical, disablePrev && styles.DayPickerNavigation_svg__disabled));
+    }
+
+    if (!navNextIcon && !renderNavNextButton && showNavNextButton) {
+      navNextTabIndex = {
+        tabIndex: '0'
+      };
+      isDefaultNavNext = true;
+
+      var _Icon = isVertical ? _ChevronDown["default"] : _RightArrow["default"];
+
+      if (isRTL && !isVertical) {
+        _Icon = _LeftArrow["default"];
+      }
+
+      navNextIcon = _react["default"].createElement(_Icon, (0, _reactWithStyles.css)(isHorizontal && styles.DayPickerNavigation_svg__horizontal, isVertical && styles.DayPickerNavigation_svg__vertical, disableNext && styles.DayPickerNavigation_svg__disabled));
+    }
+
+    var isDefaultNav = isDefaultNavNext || isDefaultNavPrev;
+    return _react["default"].createElement("div", _reactWithStyles.css.apply(void 0, [styles.DayPickerNavigation, isHorizontal && styles.DayPickerNavigation__horizontal].concat((0, _toConsumableArray2["default"])(isVertical ? [styles.DayPickerNavigation__vertical, isDefaultNav && styles.DayPickerNavigation__verticalDefault] : []), (0, _toConsumableArray2["default"])(isVerticalScrollable ? [styles.DayPickerNavigation__verticalScrollable, isDefaultNav && styles.DayPickerNavigation__verticalScrollableDefault, showNavPrevButton && styles.DayPickerNavigation__verticalScrollable_prevNav] : []), (0, _toConsumableArray2["default"])(isBottomNavPosition ? [styles.DayPickerNavigation__bottom, isDefaultNav && styles.DayPickerNavigation__bottomDefault] : []), [hasInlineStyles && inlineStyles])), showNavPrevButton && (renderNavPrevButton ? renderNavPrevButton({
+      ariaLabel: phrases.jumpToPrevMonth,
+      disabled: disablePrev,
+      onClick: disablePrev ? undefined : onPrevMonthClick,
+      onKeyUp: disablePrev ? undefined : function (e) {
+        var key = e.key;
+
+        if (key === 'Enter' || key === ' ') {
+          onPrevMonthClick(e);
+        }
+      },
+      onMouseUp: disablePrev ? undefined : function (e) {
+        e.currentTarget.blur();
+      }
+    }) : _react["default"].createElement("div", (0, _extends2["default"])({
+      // eslint-disable-line jsx-a11y/interactive-supports-focus
+      role: "button"
+    }, navPrevTabIndex, _reactWithStyles.css.apply(void 0, [styles.DayPickerNavigation_button, isDefaultNavPrev && styles.DayPickerNavigation_button__default, disablePrev && styles.DayPickerNavigation_button__disabled].concat((0, _toConsumableArray2["default"])(isHorizontal ? [styles.DayPickerNavigation_button__horizontal].concat((0, _toConsumableArray2["default"])(isDefaultNavPrev ? [styles.DayPickerNavigation_button__horizontalDefault, isBottomNavPosition && styles.DayPickerNavigation_bottomButton__horizontalDefault, !isRTL && styles.DayPickerNavigation_leftButton__horizontalDefault, isRTL && styles.DayPickerNavigation_rightButton__horizontalDefault] : [])) : []), (0, _toConsumableArray2["default"])(isVertical ? [styles.DayPickerNavigation_button__vertical].concat((0, _toConsumableArray2["default"])(isDefaultNavPrev ? [styles.DayPickerNavigation_button__verticalDefault, styles.DayPickerNavigation_prevButton__verticalDefault, isVerticalScrollable && styles.DayPickerNavigation_prevButton__verticalScrollableDefault] : [])) : []))), {
+      "aria-disabled": disablePrev ? true : undefined,
+      "aria-label": phrases.jumpToPrevMonth,
+      onClick: disablePrev ? undefined : onPrevMonthClick,
+      onKeyUp: disablePrev ? undefined : function (e) {
+        var key = e.key;
+
+        if (key === 'Enter' || key === ' ') {
+          onPrevMonthClick(e);
+        }
+      },
+      onMouseUp: disablePrev ? undefined : function (e) {
+        e.currentTarget.blur();
+      }
+    }), navPrevIcon)), showNavNextButton && (renderNavNextButton ? renderNavNextButton({
+      ariaLabel: phrases.jumpToNextMonth,
+      disabled: disableNext,
+      onClick: disableNext ? undefined : onNextMonthClick,
+      onKeyUp: disableNext ? undefined : function (e) {
+        var key = e.key;
+
+        if (key === 'Enter' || key === ' ') {
+          onNextMonthClick(e);
+        }
+      },
+      onMouseUp: disableNext ? undefined : function (e) {
+        e.currentTarget.blur();
+      }
+    }) : _react["default"].createElement("div", (0, _extends2["default"])({
+      // eslint-disable-line jsx-a11y/interactive-supports-focus
+      role: "button"
+    }, navNextTabIndex, _reactWithStyles.css.apply(void 0, [styles.DayPickerNavigation_button, isDefaultNavNext && styles.DayPickerNavigation_button__default, disableNext && styles.DayPickerNavigation_button__disabled].concat((0, _toConsumableArray2["default"])(isHorizontal ? [styles.DayPickerNavigation_button__horizontal].concat((0, _toConsumableArray2["default"])(isDefaultNavNext ? [styles.DayPickerNavigation_button__horizontalDefault, isBottomNavPosition && styles.DayPickerNavigation_bottomButton__horizontalDefault, isRTL && styles.DayPickerNavigation_leftButton__horizontalDefault, !isRTL && styles.DayPickerNavigation_rightButton__horizontalDefault] : [])) : []), (0, _toConsumableArray2["default"])(isVertical ? [styles.DayPickerNavigation_button__vertical].concat((0, _toConsumableArray2["default"])(isDefaultNavNext ? [styles.DayPickerNavigation_button__verticalDefault, styles.DayPickerNavigation_nextButton__verticalDefault, isVerticalScrollable && styles.DayPickerNavigation_nextButton__verticalScrollableDefault] : [])) : []))), {
+      "aria-disabled": disableNext ? true : undefined,
+      "aria-label": phrases.jumpToNextMonth,
+      onClick: disableNext ? undefined : onNextMonthClick,
+      onKeyUp: disableNext ? undefined : function (e) {
+        var key = e.key;
+
+        if (key === 'Enter' || key === ' ') {
+          onNextMonthClick(e);
+        }
+      },
+      onMouseUp: disableNext ? undefined : function (e) {
+        e.currentTarget.blur();
+      }
+    }), navNextIcon)));
+  };
+
+  return DayPickerNavigation;
+}(_react["default"].PureComponent || _react["default"].Component);
+
+DayPickerNavigation.propTypes =  false ? 0 : {};
+DayPickerNavigation.defaultProps = defaultProps;
+
+var _default = (0, _reactWithStyles.withStyles)(function (_ref2) {
+  var _ref2$reactDates = _ref2.reactDates,
+      color = _ref2$reactDates.color,
+      zIndex = _ref2$reactDates.zIndex;
+  return {
+    DayPickerNavigation: {
+      position: 'relative',
+      zIndex: zIndex + 2
+    },
+    DayPickerNavigation__horizontal: {
+      height: 0
+    },
+    DayPickerNavigation__vertical: {},
+    DayPickerNavigation__verticalScrollable: {},
+    DayPickerNavigation__verticalScrollable_prevNav: {
+      zIndex: zIndex + 1 // zIndex + 2 causes the button to show on top of the day of week headers
+
+    },
+    DayPickerNavigation__verticalDefault: {
+      position: 'absolute',
+      width: '100%',
+      height: 52,
+      bottom: 0,
+      left: (0, _noflip["default"])(0)
+    },
+    DayPickerNavigation__verticalScrollableDefault: {
+      position: 'relative'
+    },
+    DayPickerNavigation__bottom: {
+      height: 'auto'
+    },
+    DayPickerNavigation__bottomDefault: {
+      display: 'flex',
+      justifyContent: 'space-between'
+    },
+    DayPickerNavigation_button: {
+      cursor: 'pointer',
+      userSelect: 'none',
+      border: 0,
+      padding: 0,
+      margin: 0
+    },
+    DayPickerNavigation_button__default: {
+      border: "1px solid ".concat(color.core.borderLight),
+      backgroundColor: color.background,
+      color: color.placeholderText,
+      ':focus': {
+        border: "1px solid ".concat(color.core.borderMedium)
+      },
+      ':hover': {
+        border: "1px solid ".concat(color.core.borderMedium)
+      },
+      ':active': {
+        background: color.backgroundDark
+      }
+    },
+    DayPickerNavigation_button__disabled: {
+      cursor: 'default',
+      border: "1px solid ".concat(color.disabled),
+      ':focus': {
+        border: "1px solid ".concat(color.disabled)
+      },
+      ':hover': {
+        border: "1px solid ".concat(color.disabled)
+      },
+      ':active': {
+        background: 'none'
+      }
+    },
+    DayPickerNavigation_button__horizontal: {},
+    DayPickerNavigation_button__horizontalDefault: {
+      position: 'absolute',
+      top: 18,
+      lineHeight: 0.78,
+      borderRadius: 3,
+      padding: '6px 9px'
+    },
+    DayPickerNavigation_bottomButton__horizontalDefault: {
+      position: 'static',
+      marginLeft: 22,
+      marginRight: 22,
+      marginBottom: 30,
+      marginTop: -10
+    },
+    DayPickerNavigation_leftButton__horizontalDefault: {
+      left: (0, _noflip["default"])(22)
+    },
+    DayPickerNavigation_rightButton__horizontalDefault: {
+      right: (0, _noflip["default"])(22)
+    },
+    DayPickerNavigation_button__vertical: {},
+    DayPickerNavigation_button__verticalDefault: {
+      padding: 5,
+      background: color.background,
+      boxShadow: (0, _noflip["default"])('0 0 5px 2px rgba(0, 0, 0, 0.1)'),
+      position: 'relative',
+      display: 'inline-block',
+      textAlign: 'center',
+      height: '100%',
+      width: '50%'
+    },
+    DayPickerNavigation_prevButton__verticalDefault: {},
+    DayPickerNavigation_nextButton__verticalDefault: {
+      borderLeft: (0, _noflip["default"])(0)
+    },
+    DayPickerNavigation_nextButton__verticalScrollableDefault: {
+      width: '100%'
+    },
+    DayPickerNavigation_prevButton__verticalScrollableDefault: {
+      width: '100%'
+    },
+    DayPickerNavigation_svg__horizontal: {
+      height: 19,
+      width: 19,
+      fill: color.core.grayLight,
+      display: 'block'
+    },
+    DayPickerNavigation_svg__vertical: {
+      height: 42,
+      width: 42,
+      fill: color.text
+    },
+    DayPickerNavigation_svg__disabled: {
+      fill: color.disabled
+    }
+  };
+}, {
+  pureComponent: typeof _react["default"].PureComponent !== 'undefined'
+})(DayPickerNavigation);
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 4916:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports.Z = void 0;
+
+var _enzymeShallowEqual = _interopRequireDefault(__webpack_require__(1980));
+
+var _slicedToArray2 = _interopRequireDefault(__webpack_require__(6739));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _assertThisInitialized2 = _interopRequireDefault(__webpack_require__(9168));
+
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(6856));
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _reactMomentProptypes = _interopRequireDefault(__webpack_require__(6150));
+
+var _airbnbPropTypes = __webpack_require__(4882);
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _object = _interopRequireDefault(__webpack_require__(5861));
+
+var _isTouchDevice = _interopRequireDefault(__webpack_require__(5834));
+
+var _defaultPhrases = __webpack_require__(1764);
+
+var _getPhrasePropTypes = _interopRequireDefault(__webpack_require__(3312));
+
+var _isSameDay = _interopRequireDefault(__webpack_require__(2455));
+
+var _isAfterDay = _interopRequireDefault(__webpack_require__(9720));
+
+var _getVisibleDays = _interopRequireDefault(__webpack_require__(9867));
+
+var _toISODateString = _interopRequireDefault(__webpack_require__(6135));
+
+var _modifiers = __webpack_require__(1887);
+
+var _ScrollableOrientationShape = _interopRequireDefault(__webpack_require__(2302));
+
+var _DayOfWeekShape = _interopRequireDefault(__webpack_require__(135));
+
+var _CalendarInfoPositionShape = _interopRequireDefault(__webpack_require__(5547));
+
+var _NavPositionShape = _interopRequireDefault(__webpack_require__(3476));
+
+var _constants = __webpack_require__(5724);
+
+var _DayPicker = _interopRequireDefault(__webpack_require__(5618));
+
+var _getPooledMoment = _interopRequireDefault(__webpack_require__(5550));
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var propTypes =  false ? 0 : {};
+var defaultProps = {
+  date: undefined,
+  // TODO: use null
+  onDateChange: function onDateChange() {},
+  focused: false,
+  onFocusChange: function onFocusChange() {},
+  onClose: function onClose() {},
+  keepOpenOnDateSelect: false,
+  isOutsideRange: function isOutsideRange() {},
+  isDayBlocked: function isDayBlocked() {},
+  isDayHighlighted: function isDayHighlighted() {},
+  // DayPicker props
+  renderMonthText: null,
+  renderWeekHeaderElement: null,
+  enableOutsideDays: false,
+  numberOfMonths: 1,
+  orientation: _constants.HORIZONTAL_ORIENTATION,
+  withPortal: false,
+  hideKeyboardShortcutsPanel: false,
+  initialVisibleMonth: null,
+  firstDayOfWeek: null,
+  daySize: _constants.DAY_SIZE,
+  verticalHeight: null,
+  noBorder: false,
+  verticalBorderSpacing: undefined,
+  transitionDuration: undefined,
+  horizontalMonthPadding: 13,
+  dayPickerNavigationInlineStyles: null,
+  navPosition: _constants.NAV_POSITION_TOP,
+  navPrev: null,
+  navNext: null,
+  renderNavPrevButton: null,
+  renderNavNextButton: null,
+  noNavButtons: false,
+  noNavNextButton: false,
+  noNavPrevButton: false,
+  onPrevMonthClick: function onPrevMonthClick() {},
+  onNextMonthClick: function onNextMonthClick() {},
+  onOutsideClick: function onOutsideClick() {},
+  renderCalendarDay: undefined,
+  renderDayContents: null,
+  renderCalendarInfo: null,
+  renderMonthElement: null,
+  calendarInfoPosition: _constants.INFO_POSITION_BOTTOM,
+  // accessibility
+  onBlur: function onBlur() {},
+  isFocused: false,
+  showKeyboardShortcuts: false,
+  onTab: function onTab() {},
+  onShiftTab: function onShiftTab() {},
+  // i18n
+  monthFormat: 'MMMM YYYY',
+  weekDayFormat: 'dd',
+  phrases: _defaultPhrases.DayPickerPhrases,
+  dayAriaLabelFormat: undefined,
+  isRTL: false
+};
+
+var DayPickerSingleDateController =
+/*#__PURE__*/
+function (_ref) {
+  (0, _inheritsLoose2["default"])(DayPickerSingleDateController, _ref);
+  var _proto = DayPickerSingleDateController.prototype;
+
+  _proto[!_react["default"].PureComponent && "shouldComponentUpdate"] = function (nextProps, nextState) {
+    return !(0, _enzymeShallowEqual["default"])(this.props, nextProps) || !(0, _enzymeShallowEqual["default"])(this.state, nextState);
+  };
+
+  function DayPickerSingleDateController(props) {
+    var _this;
+
+    _this = _ref.call(this, props) || this;
+    _this.isTouchDevice = false;
+    _this.today = (0, _moment["default"])();
+    _this.modifiers = {
+      today: function today(day) {
+        return _this.isToday(day);
+      },
+      blocked: function blocked(day) {
+        return _this.isBlocked(day);
+      },
+      'blocked-calendar': function blockedCalendar(day) {
+        return props.isDayBlocked(day);
+      },
+      'blocked-out-of-range': function blockedOutOfRange(day) {
+        return props.isOutsideRange(day);
+      },
+      'highlighted-calendar': function highlightedCalendar(day) {
+        return props.isDayHighlighted(day);
+      },
+      valid: function valid(day) {
+        return !_this.isBlocked(day);
+      },
+      hovered: function hovered(day) {
+        return _this.isHovered(day);
+      },
+      selected: function selected(day) {
+        return _this.isSelected(day);
+      },
+      'first-day-of-week': function firstDayOfWeek(day) {
+        return _this.isFirstDayOfWeek(day);
+      },
+      'last-day-of-week': function lastDayOfWeek(day) {
+        return _this.isLastDayOfWeek(day);
+      }
+    };
+
+    var _this$getStateForNewM = _this.getStateForNewMonth(props),
+        currentMonth = _this$getStateForNewM.currentMonth,
+        visibleDays = _this$getStateForNewM.visibleDays;
+
+    _this.state = {
+      hoverDate: null,
+      currentMonth: currentMonth,
+      visibleDays: visibleDays
+    };
+    _this.onDayMouseEnter = _this.onDayMouseEnter.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onDayMouseLeave = _this.onDayMouseLeave.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onDayClick = _this.onDayClick.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onPrevMonthClick = _this.onPrevMonthClick.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onNextMonthClick = _this.onNextMonthClick.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onMonthChange = _this.onMonthChange.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onYearChange = _this.onYearChange.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onGetNextScrollableMonths = _this.onGetNextScrollableMonths.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.onGetPrevScrollableMonths = _this.onGetPrevScrollableMonths.bind((0, _assertThisInitialized2["default"])(_this));
+    _this.getFirstFocusableDay = _this.getFirstFocusableDay.bind((0, _assertThisInitialized2["default"])(_this));
+    return _this;
+  }
+
+  _proto.componentDidMount = function componentDidMount() {
+    this.isTouchDevice = (0, _isTouchDevice["default"])();
+  };
+
+  _proto.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
+    var _this2 = this;
+
+    var date = nextProps.date,
+        focused = nextProps.focused,
+        isOutsideRange = nextProps.isOutsideRange,
+        isDayBlocked = nextProps.isDayBlocked,
+        isDayHighlighted = nextProps.isDayHighlighted,
+        initialVisibleMonth = nextProps.initialVisibleMonth,
+        numberOfMonths = nextProps.numberOfMonths,
+        enableOutsideDays = nextProps.enableOutsideDays;
+    var _this$props = this.props,
+        prevIsOutsideRange = _this$props.isOutsideRange,
+        prevIsDayBlocked = _this$props.isDayBlocked,
+        prevIsDayHighlighted = _this$props.isDayHighlighted,
+        prevNumberOfMonths = _this$props.numberOfMonths,
+        prevEnableOutsideDays = _this$props.enableOutsideDays,
+        prevInitialVisibleMonth = _this$props.initialVisibleMonth,
+        prevFocused = _this$props.focused,
+        prevDate = _this$props.date;
+    var visibleDays = this.state.visibleDays;
+    var recomputeOutsideRange = false;
+    var recomputeDayBlocked = false;
+    var recomputeDayHighlighted = false;
+
+    if (isOutsideRange !== prevIsOutsideRange) {
+      this.modifiers['blocked-out-of-range'] = function (day) {
+        return isOutsideRange(day);
+      };
+
+      recomputeOutsideRange = true;
+    }
+
+    if (isDayBlocked !== prevIsDayBlocked) {
+      this.modifiers['blocked-calendar'] = function (day) {
+        return isDayBlocked(day);
+      };
+
+      recomputeDayBlocked = true;
+    }
+
+    if (isDayHighlighted !== prevIsDayHighlighted) {
+      this.modifiers['highlighted-calendar'] = function (day) {
+        return isDayHighlighted(day);
+      };
+
+      recomputeDayHighlighted = true;
+    }
+
+    var recomputePropModifiers = recomputeOutsideRange || recomputeDayBlocked || recomputeDayHighlighted;
+
+    if (numberOfMonths !== prevNumberOfMonths || enableOutsideDays !== prevEnableOutsideDays || initialVisibleMonth !== prevInitialVisibleMonth && !prevFocused && focused) {
+      var newMonthState = this.getStateForNewMonth(nextProps);
+      var currentMonth = newMonthState.currentMonth;
+      visibleDays = newMonthState.visibleDays;
+      this.setState({
+        currentMonth: currentMonth,
+        visibleDays: visibleDays
+      });
+    }
+
+    var didDateChange = date !== prevDate;
+    var didFocusChange = focused !== prevFocused;
+    var modifiers = {};
+
+    if (didDateChange) {
+      modifiers = this.deleteModifier(modifiers, prevDate, 'selected');
+      modifiers = this.addModifier(modifiers, date, 'selected');
+    }
+
+    if (didFocusChange || recomputePropModifiers) {
+      (0, _object["default"])(visibleDays).forEach(function (days) {
+        Object.keys(days).forEach(function (day) {
+          var momentObj = (0, _getPooledMoment["default"])(day);
+
+          if (_this2.isBlocked(momentObj)) {
+            modifiers = _this2.addModifier(modifiers, momentObj, 'blocked');
+          } else {
+            modifiers = _this2.deleteModifier(modifiers, momentObj, 'blocked');
+          }
+
+          if (didFocusChange || recomputeOutsideRange) {
+            if (isOutsideRange(momentObj)) {
+              modifiers = _this2.addModifier(modifiers, momentObj, 'blocked-out-of-range');
+            } else {
+              modifiers = _this2.deleteModifier(modifiers, momentObj, 'blocked-out-of-range');
+            }
+          }
+
+          if (didFocusChange || recomputeDayBlocked) {
+            if (isDayBlocked(momentObj)) {
+              modifiers = _this2.addModifier(modifiers, momentObj, 'blocked-calendar');
+            } else {
+              modifiers = _this2.deleteModifier(modifiers, momentObj, 'blocked-calendar');
+            }
+          }
+
+          if (didFocusChange || recomputeDayHighlighted) {
+            if (isDayHighlighted(momentObj)) {
+              modifiers = _this2.addModifier(modifiers, momentObj, 'highlighted-calendar');
+            } else {
+              modifiers = _this2.deleteModifier(modifiers, momentObj, 'highlighted-calendar');
+            }
+          }
+        });
+      });
+    }
+
+    var today = (0, _moment["default"])();
+
+    if (!(0, _isSameDay["default"])(this.today, today)) {
+      modifiers = this.deleteModifier(modifiers, this.today, 'today');
+      modifiers = this.addModifier(modifiers, today, 'today');
+      this.today = today;
+    }
+
+    if (Object.keys(modifiers).length > 0) {
+      this.setState({
+        visibleDays: _objectSpread({}, visibleDays, {}, modifiers)
+      });
+    }
+  };
+
+  _proto.componentWillUpdate = function componentWillUpdate() {
+    this.today = (0, _moment["default"])();
+  };
+
+  _proto.onDayClick = function onDayClick(day, e) {
+    if (e) e.preventDefault();
+    if (this.isBlocked(day)) return;
+    var _this$props2 = this.props,
+        onDateChange = _this$props2.onDateChange,
+        keepOpenOnDateSelect = _this$props2.keepOpenOnDateSelect,
+        onFocusChange = _this$props2.onFocusChange,
+        onClose = _this$props2.onClose;
+    onDateChange(day);
+
+    if (!keepOpenOnDateSelect) {
+      onFocusChange({
+        focused: false
+      });
+      onClose({
+        date: day
+      });
+    }
+  };
+
+  _proto.onDayMouseEnter = function onDayMouseEnter(day) {
+    if (this.isTouchDevice) return;
+    var _this$state = this.state,
+        hoverDate = _this$state.hoverDate,
+        visibleDays = _this$state.visibleDays;
+    var modifiers = this.deleteModifier({}, hoverDate, 'hovered');
+    modifiers = this.addModifier(modifiers, day, 'hovered');
+    this.setState({
+      hoverDate: day,
+      visibleDays: _objectSpread({}, visibleDays, {}, modifiers)
+    });
+  };
+
+  _proto.onDayMouseLeave = function onDayMouseLeave() {
+    var _this$state2 = this.state,
+        hoverDate = _this$state2.hoverDate,
+        visibleDays = _this$state2.visibleDays;
+    if (this.isTouchDevice || !hoverDate) return;
+    var modifiers = this.deleteModifier({}, hoverDate, 'hovered');
+    this.setState({
+      hoverDate: null,
+      visibleDays: _objectSpread({}, visibleDays, {}, modifiers)
+    });
+  };
+
+  _proto.onPrevMonthClick = function onPrevMonthClick() {
+    var _this$props3 = this.props,
+        onPrevMonthClick = _this$props3.onPrevMonthClick,
+        numberOfMonths = _this$props3.numberOfMonths,
+        enableOutsideDays = _this$props3.enableOutsideDays;
+    var _this$state3 = this.state,
+        currentMonth = _this$state3.currentMonth,
+        visibleDays = _this$state3.visibleDays;
+    var newVisibleDays = {};
+    Object.keys(visibleDays).sort().slice(0, numberOfMonths + 1).forEach(function (month) {
+      newVisibleDays[month] = visibleDays[month];
+    });
+    var prevMonth = currentMonth.clone().subtract(1, 'month');
+    var prevMonthVisibleDays = (0, _getVisibleDays["default"])(prevMonth, 1, enableOutsideDays);
+    this.setState({
+      currentMonth: prevMonth,
+      visibleDays: _objectSpread({}, newVisibleDays, {}, this.getModifiers(prevMonthVisibleDays))
+    }, function () {
+      onPrevMonthClick(prevMonth.clone());
+    });
+  };
+
+  _proto.onNextMonthClick = function onNextMonthClick() {
+    var _this$props4 = this.props,
+        onNextMonthClick = _this$props4.onNextMonthClick,
+        numberOfMonths = _this$props4.numberOfMonths,
+        enableOutsideDays = _this$props4.enableOutsideDays;
+    var _this$state4 = this.state,
+        currentMonth = _this$state4.currentMonth,
+        visibleDays = _this$state4.visibleDays;
+    var newVisibleDays = {};
+    Object.keys(visibleDays).sort().slice(1).forEach(function (month) {
+      newVisibleDays[month] = visibleDays[month];
+    });
+    var nextMonth = currentMonth.clone().add(numberOfMonths, 'month');
+    var nextMonthVisibleDays = (0, _getVisibleDays["default"])(nextMonth, 1, enableOutsideDays);
+    var newCurrentMonth = currentMonth.clone().add(1, 'month');
+    this.setState({
+      currentMonth: newCurrentMonth,
+      visibleDays: _objectSpread({}, newVisibleDays, {}, this.getModifiers(nextMonthVisibleDays))
+    }, function () {
+      onNextMonthClick(newCurrentMonth.clone());
+    });
+  };
+
+  _proto.onMonthChange = function onMonthChange(newMonth) {
+    var _this$props5 = this.props,
+        numberOfMonths = _this$props5.numberOfMonths,
+        enableOutsideDays = _this$props5.enableOutsideDays,
+        orientation = _this$props5.orientation;
+    var withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
+    var newVisibleDays = (0, _getVisibleDays["default"])(newMonth, numberOfMonths, enableOutsideDays, withoutTransitionMonths);
+    this.setState({
+      currentMonth: newMonth.clone(),
+      visibleDays: this.getModifiers(newVisibleDays)
+    });
+  };
+
+  _proto.onYearChange = function onYearChange(newMonth) {
+    var _this$props6 = this.props,
+        numberOfMonths = _this$props6.numberOfMonths,
+        enableOutsideDays = _this$props6.enableOutsideDays,
+        orientation = _this$props6.orientation;
+    var withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
+    var newVisibleDays = (0, _getVisibleDays["default"])(newMonth, numberOfMonths, enableOutsideDays, withoutTransitionMonths);
+    this.setState({
+      currentMonth: newMonth.clone(),
+      visibleDays: this.getModifiers(newVisibleDays)
+    });
+  };
+
+  _proto.onGetNextScrollableMonths = function onGetNextScrollableMonths() {
+    var _this$props7 = this.props,
+        numberOfMonths = _this$props7.numberOfMonths,
+        enableOutsideDays = _this$props7.enableOutsideDays;
+    var _this$state5 = this.state,
+        currentMonth = _this$state5.currentMonth,
+        visibleDays = _this$state5.visibleDays;
+    var numberOfVisibleMonths = Object.keys(visibleDays).length;
+    var nextMonth = currentMonth.clone().add(numberOfVisibleMonths, 'month');
+    var newVisibleDays = (0, _getVisibleDays["default"])(nextMonth, numberOfMonths, enableOutsideDays, true);
+    this.setState({
+      visibleDays: _objectSpread({}, visibleDays, {}, this.getModifiers(newVisibleDays))
+    });
+  };
+
+  _proto.onGetPrevScrollableMonths = function onGetPrevScrollableMonths() {
+    var _this$props8 = this.props,
+        numberOfMonths = _this$props8.numberOfMonths,
+        enableOutsideDays = _this$props8.enableOutsideDays;
+    var _this$state6 = this.state,
+        currentMonth = _this$state6.currentMonth,
+        visibleDays = _this$state6.visibleDays;
+    var firstPreviousMonth = currentMonth.clone().subtract(numberOfMonths, 'month');
+    var newVisibleDays = (0, _getVisibleDays["default"])(firstPreviousMonth, numberOfMonths, enableOutsideDays, true);
+    this.setState({
+      currentMonth: firstPreviousMonth.clone(),
+      visibleDays: _objectSpread({}, visibleDays, {}, this.getModifiers(newVisibleDays))
+    });
+  };
+
+  _proto.getFirstFocusableDay = function getFirstFocusableDay(newMonth) {
+    var _this3 = this;
+
+    var _this$props9 = this.props,
+        date = _this$props9.date,
+        numberOfMonths = _this$props9.numberOfMonths;
+    var focusedDate = newMonth.clone().startOf('month');
+
+    if (date) {
+      focusedDate = date.clone();
+    }
+
+    if (this.isBlocked(focusedDate)) {
+      var days = [];
+      var lastVisibleDay = newMonth.clone().add(numberOfMonths - 1, 'months').endOf('month');
+      var currentDay = focusedDate.clone();
+
+      while (!(0, _isAfterDay["default"])(currentDay, lastVisibleDay)) {
+        currentDay = currentDay.clone().add(1, 'day');
+        days.push(currentDay);
+      }
+
+      var viableDays = days.filter(function (day) {
+        return !_this3.isBlocked(day) && (0, _isAfterDay["default"])(day, focusedDate);
+      });
+
+      if (viableDays.length > 0) {
+        var _viableDays = (0, _slicedToArray2["default"])(viableDays, 1);
+
+        focusedDate = _viableDays[0];
+      }
+    }
+
+    return focusedDate;
+  };
+
+  _proto.getModifiers = function getModifiers(visibleDays) {
+    var _this4 = this;
+
+    var modifiers = {};
+    Object.keys(visibleDays).forEach(function (month) {
+      modifiers[month] = {};
+      visibleDays[month].forEach(function (day) {
+        modifiers[month][(0, _toISODateString["default"])(day)] = _this4.getModifiersForDay(day);
+      });
+    });
+    return modifiers;
+  };
+
+  _proto.getModifiersForDay = function getModifiersForDay(day) {
+    var _this5 = this;
+
+    return new Set(Object.keys(this.modifiers).filter(function (modifier) {
+      return _this5.modifiers[modifier](day);
+    }));
+  };
+
+  _proto.getStateForNewMonth = function getStateForNewMonth(nextProps) {
+    var _this6 = this;
+
+    var initialVisibleMonth = nextProps.initialVisibleMonth,
+        date = nextProps.date,
+        numberOfMonths = nextProps.numberOfMonths,
+        orientation = nextProps.orientation,
+        enableOutsideDays = nextProps.enableOutsideDays;
+    var initialVisibleMonthThunk = initialVisibleMonth || (date ? function () {
+      return date;
+    } : function () {
+      return _this6.today;
+    });
+    var currentMonth = initialVisibleMonthThunk();
+    var withoutTransitionMonths = orientation === _constants.VERTICAL_SCROLLABLE;
+    var visibleDays = this.getModifiers((0, _getVisibleDays["default"])(currentMonth, numberOfMonths, enableOutsideDays, withoutTransitionMonths));
+    return {
+      currentMonth: currentMonth,
+      visibleDays: visibleDays
+    };
+  };
+
+  _proto.addModifier = function addModifier(updatedDays, day, modifier) {
+    return (0, _modifiers.addModifier)(updatedDays, day, modifier, this.props, this.state);
+  };
+
+  _proto.deleteModifier = function deleteModifier(updatedDays, day, modifier) {
+    return (0, _modifiers.deleteModifier)(updatedDays, day, modifier, this.props, this.state);
+  };
+
+  _proto.isBlocked = function isBlocked(day) {
+    var _this$props10 = this.props,
+        isDayBlocked = _this$props10.isDayBlocked,
+        isOutsideRange = _this$props10.isOutsideRange;
+    return isDayBlocked(day) || isOutsideRange(day);
+  };
+
+  _proto.isHovered = function isHovered(day) {
+    var _ref2 = this.state || {},
+        hoverDate = _ref2.hoverDate;
+
+    return (0, _isSameDay["default"])(day, hoverDate);
+  };
+
+  _proto.isSelected = function isSelected(day) {
+    var date = this.props.date;
+    return (0, _isSameDay["default"])(day, date);
+  };
+
+  _proto.isToday = function isToday(day) {
+    return (0, _isSameDay["default"])(day, this.today);
+  };
+
+  _proto.isFirstDayOfWeek = function isFirstDayOfWeek(day) {
+    var firstDayOfWeek = this.props.firstDayOfWeek;
+    return day.day() === (firstDayOfWeek || _moment["default"].localeData().firstDayOfWeek());
+  };
+
+  _proto.isLastDayOfWeek = function isLastDayOfWeek(day) {
+    var firstDayOfWeek = this.props.firstDayOfWeek;
+    return day.day() === ((firstDayOfWeek || _moment["default"].localeData().firstDayOfWeek()) + 6) % 7;
+  };
+
+  _proto.render = function render() {
+    var _this$props11 = this.props,
+        numberOfMonths = _this$props11.numberOfMonths,
+        orientation = _this$props11.orientation,
+        monthFormat = _this$props11.monthFormat,
+        renderMonthText = _this$props11.renderMonthText,
+        renderWeekHeaderElement = _this$props11.renderWeekHeaderElement,
+        dayPickerNavigationInlineStyles = _this$props11.dayPickerNavigationInlineStyles,
+        navPosition = _this$props11.navPosition,
+        navPrev = _this$props11.navPrev,
+        navNext = _this$props11.navNext,
+        renderNavPrevButton = _this$props11.renderNavPrevButton,
+        renderNavNextButton = _this$props11.renderNavNextButton,
+        noNavButtons = _this$props11.noNavButtons,
+        noNavPrevButton = _this$props11.noNavPrevButton,
+        noNavNextButton = _this$props11.noNavNextButton,
+        onOutsideClick = _this$props11.onOutsideClick,
+        onShiftTab = _this$props11.onShiftTab,
+        onTab = _this$props11.onTab,
+        withPortal = _this$props11.withPortal,
+        focused = _this$props11.focused,
+        enableOutsideDays = _this$props11.enableOutsideDays,
+        hideKeyboardShortcutsPanel = _this$props11.hideKeyboardShortcutsPanel,
+        daySize = _this$props11.daySize,
+        firstDayOfWeek = _this$props11.firstDayOfWeek,
+        renderCalendarDay = _this$props11.renderCalendarDay,
+        renderDayContents = _this$props11.renderDayContents,
+        renderCalendarInfo = _this$props11.renderCalendarInfo,
+        renderMonthElement = _this$props11.renderMonthElement,
+        calendarInfoPosition = _this$props11.calendarInfoPosition,
+        isFocused = _this$props11.isFocused,
+        isRTL = _this$props11.isRTL,
+        phrases = _this$props11.phrases,
+        dayAriaLabelFormat = _this$props11.dayAriaLabelFormat,
+        onBlur = _this$props11.onBlur,
+        showKeyboardShortcuts = _this$props11.showKeyboardShortcuts,
+        weekDayFormat = _this$props11.weekDayFormat,
+        verticalHeight = _this$props11.verticalHeight,
+        noBorder = _this$props11.noBorder,
+        transitionDuration = _this$props11.transitionDuration,
+        verticalBorderSpacing = _this$props11.verticalBorderSpacing,
+        horizontalMonthPadding = _this$props11.horizontalMonthPadding;
+    var _this$state7 = this.state,
+        currentMonth = _this$state7.currentMonth,
+        visibleDays = _this$state7.visibleDays;
+    return _react["default"].createElement(_DayPicker["default"], {
+      orientation: orientation,
+      enableOutsideDays: enableOutsideDays,
+      modifiers: visibleDays,
+      numberOfMonths: numberOfMonths,
+      onDayClick: this.onDayClick,
+      onDayMouseEnter: this.onDayMouseEnter,
+      onDayMouseLeave: this.onDayMouseLeave,
+      onPrevMonthClick: this.onPrevMonthClick,
+      onNextMonthClick: this.onNextMonthClick,
+      onMonthChange: this.onMonthChange,
+      onYearChange: this.onYearChange,
+      onGetNextScrollableMonths: this.onGetNextScrollableMonths,
+      onGetPrevScrollableMonths: this.onGetPrevScrollableMonths,
+      monthFormat: monthFormat,
+      withPortal: withPortal,
+      hidden: !focused,
+      hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
+      initialVisibleMonth: function initialVisibleMonth() {
+        return currentMonth;
+      },
+      firstDayOfWeek: firstDayOfWeek,
+      onOutsideClick: onOutsideClick,
+      dayPickerNavigationInlineStyles: dayPickerNavigationInlineStyles,
+      navPosition: navPosition,
+      navPrev: navPrev,
+      navNext: navNext,
+      renderNavPrevButton: renderNavPrevButton,
+      renderNavNextButton: renderNavNextButton,
+      noNavButtons: noNavButtons,
+      noNavNextButton: noNavNextButton,
+      noNavPrevButton: noNavPrevButton,
+      renderMonthText: renderMonthText,
+      renderWeekHeaderElement: renderWeekHeaderElement,
+      renderCalendarDay: renderCalendarDay,
+      renderDayContents: renderDayContents,
+      renderCalendarInfo: renderCalendarInfo,
+      renderMonthElement: renderMonthElement,
+      calendarInfoPosition: calendarInfoPosition,
+      isFocused: isFocused,
+      getFirstFocusableDay: this.getFirstFocusableDay,
+      onBlur: onBlur,
+      onTab: onTab,
+      onShiftTab: onShiftTab,
+      phrases: phrases,
+      daySize: daySize,
+      isRTL: isRTL,
+      showKeyboardShortcuts: showKeyboardShortcuts,
+      weekDayFormat: weekDayFormat,
+      dayAriaLabelFormat: dayAriaLabelFormat,
+      verticalHeight: verticalHeight,
+      noBorder: noBorder,
+      transitionDuration: transitionDuration,
+      verticalBorderSpacing: verticalBorderSpacing,
+      horizontalMonthPadding: horizontalMonthPadding
+    });
+  };
+
+  return DayPickerSingleDateController;
+}(_react["default"].PureComponent || _react["default"].Component);
+
+exports.Z = DayPickerSingleDateController;
+DayPickerSingleDateController.propTypes =  false ? 0 : {};
+DayPickerSingleDateController.defaultProps = defaultProps;
+
+/***/ }),
+
+/***/ 1726:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(6164));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _airbnbPropTypes = __webpack_require__(4882);
+
+var _reactWithStyles = __webpack_require__(7928);
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var propTypes =  false ? 0 : {};
+var defaultProps = {
+  block: false
+};
+
+function KeyboardShortcutRow(_ref) {
+  var unicode = _ref.unicode,
+      label = _ref.label,
+      action = _ref.action,
+      block = _ref.block,
+      styles = _ref.styles;
+  return _react["default"].createElement("li", (0, _reactWithStyles.css)(styles.KeyboardShortcutRow, block && styles.KeyboardShortcutRow__block), _react["default"].createElement("div", (0, _reactWithStyles.css)(styles.KeyboardShortcutRow_keyContainer, block && styles.KeyboardShortcutRow_keyContainer__block), _react["default"].createElement("span", (0, _extends2["default"])({}, (0, _reactWithStyles.css)(styles.KeyboardShortcutRow_key), {
+    role: "img",
+    "aria-label": "".concat(label, ",") // add comma so screen readers will pause before reading action
+
+  }), unicode)), _react["default"].createElement("div", (0, _reactWithStyles.css)(styles.KeyboardShortcutRow_action), action));
+}
+
+KeyboardShortcutRow.propTypes =  false ? 0 : {};
+KeyboardShortcutRow.defaultProps = defaultProps;
+
+var _default = (0, _reactWithStyles.withStyles)(function (_ref2) {
+  var color = _ref2.reactDates.color;
+  return {
+    KeyboardShortcutRow: {
+      listStyle: 'none',
+      margin: '6px 0'
+    },
+    KeyboardShortcutRow__block: {
+      marginBottom: 16
+    },
+    KeyboardShortcutRow_keyContainer: {
+      display: 'inline-block',
+      whiteSpace: 'nowrap',
+      textAlign: 'right',
+      // is not handled by isRTL
+      marginRight: 6 // is not handled by isRTL
+
+    },
+    KeyboardShortcutRow_keyContainer__block: {
+      textAlign: 'left',
+      // is not handled by isRTL
+      display: 'inline'
+    },
+    KeyboardShortcutRow_key: {
+      fontFamily: 'monospace',
+      fontSize: 12,
+      textTransform: 'uppercase',
+      background: color.core.grayLightest,
+      padding: '2px 6px'
+    },
+    KeyboardShortcutRow_action: {
+      display: 'inline',
+      wordBreak: 'break-word',
+      marginLeft: 8 // is not handled by isRTL
+
+    }
+  };
+}, {
+  pureComponent: typeof _react["default"].PureComponent !== 'undefined'
+})(KeyboardShortcutRow);
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 2300:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var LeftArrow = function LeftArrow(props) {
+  return _react["default"].createElement("svg", props, _react["default"].createElement("path", {
+    d: "M336 275L126 485h806c13 0 23 10 23 23s-10 23-23 23H126l210 210c11 11 11 21 0 32-5 5-10 7-16 7s-11-2-16-7L55 524c-11-11-11-21 0-32l249-249c21-22 53 10 32 32z"
+  }));
+};
+
+LeftArrow.defaultProps = {
+  focusable: "false",
+  viewBox: "0 0 1000 1000"
+};
+var _default = LeftArrow;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 7360:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var RightArrow = function RightArrow(props) {
+  return _react["default"].createElement("svg", props, _react["default"].createElement("path", {
+    d: "M694 242l249 250c12 11 12 21 1 32L694 773c-5 5-10 7-16 7s-11-2-16-7c-11-11-11-21 0-32l210-210H68c-13 0-23-10-23-23s10-23 23-23h806L662 275c-21-22 11-54 32-33z"
+  }));
+};
+
+RightArrow.defaultProps = {
+  focusable: "false",
+  viewBox: "0 0 1000 1000"
+};
+var _default = RightArrow;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 5724:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.MODIFIER_KEY_NAMES = exports.DEFAULT_VERTICAL_SPACING = exports.FANG_HEIGHT_PX = exports.FANG_WIDTH_PX = exports.WEEKDAYS = exports.BLOCKED_MODIFIER = exports.DAY_SIZE = exports.OPEN_UP = exports.OPEN_DOWN = exports.ANCHOR_RIGHT = exports.ANCHOR_LEFT = exports.INFO_POSITION_AFTER = exports.INFO_POSITION_BEFORE = exports.INFO_POSITION_BOTTOM = exports.INFO_POSITION_TOP = exports.ICON_AFTER_POSITION = exports.ICON_BEFORE_POSITION = exports.NAV_POSITION_TOP = exports.NAV_POSITION_BOTTOM = exports.VERTICAL_SCROLLABLE = exports.VERTICAL_ORIENTATION = exports.HORIZONTAL_ORIENTATION = exports.END_DATE = exports.START_DATE = exports.ISO_MONTH_FORMAT = exports.ISO_FORMAT = exports.DISPLAY_FORMAT = void 0;
+var DISPLAY_FORMAT = 'L';
+exports.DISPLAY_FORMAT = DISPLAY_FORMAT;
+var ISO_FORMAT = 'YYYY-MM-DD';
+exports.ISO_FORMAT = ISO_FORMAT;
+var ISO_MONTH_FORMAT = 'YYYY-MM'; // TODO delete this line of dead code on next breaking change
+
+exports.ISO_MONTH_FORMAT = ISO_MONTH_FORMAT;
+var START_DATE = 'startDate';
+exports.START_DATE = START_DATE;
+var END_DATE = 'endDate';
+exports.END_DATE = END_DATE;
+var HORIZONTAL_ORIENTATION = 'horizontal';
+exports.HORIZONTAL_ORIENTATION = HORIZONTAL_ORIENTATION;
+var VERTICAL_ORIENTATION = 'vertical';
+exports.VERTICAL_ORIENTATION = VERTICAL_ORIENTATION;
+var VERTICAL_SCROLLABLE = 'verticalScrollable';
+exports.VERTICAL_SCROLLABLE = VERTICAL_SCROLLABLE;
+var NAV_POSITION_BOTTOM = 'navPositionBottom';
+exports.NAV_POSITION_BOTTOM = NAV_POSITION_BOTTOM;
+var NAV_POSITION_TOP = 'navPositionTop';
+exports.NAV_POSITION_TOP = NAV_POSITION_TOP;
+var ICON_BEFORE_POSITION = 'before';
+exports.ICON_BEFORE_POSITION = ICON_BEFORE_POSITION;
+var ICON_AFTER_POSITION = 'after';
+exports.ICON_AFTER_POSITION = ICON_AFTER_POSITION;
+var INFO_POSITION_TOP = 'top';
+exports.INFO_POSITION_TOP = INFO_POSITION_TOP;
+var INFO_POSITION_BOTTOM = 'bottom';
+exports.INFO_POSITION_BOTTOM = INFO_POSITION_BOTTOM;
+var INFO_POSITION_BEFORE = 'before';
+exports.INFO_POSITION_BEFORE = INFO_POSITION_BEFORE;
+var INFO_POSITION_AFTER = 'after';
+exports.INFO_POSITION_AFTER = INFO_POSITION_AFTER;
+var ANCHOR_LEFT = 'left';
+exports.ANCHOR_LEFT = ANCHOR_LEFT;
+var ANCHOR_RIGHT = 'right';
+exports.ANCHOR_RIGHT = ANCHOR_RIGHT;
+var OPEN_DOWN = 'down';
+exports.OPEN_DOWN = OPEN_DOWN;
+var OPEN_UP = 'up';
+exports.OPEN_UP = OPEN_UP;
+var DAY_SIZE = 39;
+exports.DAY_SIZE = DAY_SIZE;
+var BLOCKED_MODIFIER = 'blocked';
+exports.BLOCKED_MODIFIER = BLOCKED_MODIFIER;
+var WEEKDAYS = [0, 1, 2, 3, 4, 5, 6];
+exports.WEEKDAYS = WEEKDAYS;
+var FANG_WIDTH_PX = 20;
+exports.FANG_WIDTH_PX = FANG_WIDTH_PX;
+var FANG_HEIGHT_PX = 10;
+exports.FANG_HEIGHT_PX = FANG_HEIGHT_PX;
+var DEFAULT_VERTICAL_SPACING = 22;
+exports.DEFAULT_VERTICAL_SPACING = DEFAULT_VERTICAL_SPACING;
+var MODIFIER_KEY_NAMES = new Set(['Shift', 'Control', 'Alt', 'Meta']);
+exports.MODIFIER_KEY_NAMES = MODIFIER_KEY_NAMES;
+
+/***/ }),
+
+/***/ 1764:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.CalendarDayPhrases = exports.DayPickerNavigationPhrases = exports.DayPickerKeyboardShortcutsPhrases = exports.DayPickerPhrases = exports.SingleDatePickerInputPhrases = exports.SingleDatePickerPhrases = exports.DateRangePickerInputPhrases = exports.DateRangePickerPhrases = exports["default"] = void 0;
+var calendarLabel = 'Calendar';
+var roleDescription = 'datepicker';
+var closeDatePicker = 'Close';
+var focusStartDate = 'Interact with the calendar and add the check-in date for your trip.';
+var clearDate = 'Clear Date';
+var clearDates = 'Clear Dates';
+var jumpToPrevMonth = 'Move backward to switch to the previous month.';
+var jumpToNextMonth = 'Move forward to switch to the next month.';
+var keyboardShortcuts = 'Keyboard Shortcuts';
+var showKeyboardShortcutsPanel = 'Open the keyboard shortcuts panel.';
+var hideKeyboardShortcutsPanel = 'Close the shortcuts panel.';
+var openThisPanel = 'Open this panel.';
+var enterKey = 'Enter key';
+var leftArrowRightArrow = 'Right and left arrow keys';
+var upArrowDownArrow = 'up and down arrow keys';
+var pageUpPageDown = 'page up and page down keys';
+var homeEnd = 'Home and end keys';
+var escape = 'Escape key';
+var questionMark = 'Question mark';
+var selectFocusedDate = 'Select the date in focus.';
+var moveFocusByOneDay = 'Move backward (left) and forward (right) by one day.';
+var moveFocusByOneWeek = 'Move backward (up) and forward (down) by one week.';
+var moveFocusByOneMonth = 'Switch months.';
+var moveFocustoStartAndEndOfWeek = 'Go to the first or last day of a week.';
+var returnFocusToInput = 'Return to the date input field.';
+var keyboardForwardNavigationInstructions = 'Navigate forward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.';
+var keyboardBackwardNavigationInstructions = 'Navigate backward to interact with the calendar and select a date. Press the question mark key to get the keyboard shortcuts for changing dates.';
+
+var chooseAvailableStartDate = function chooseAvailableStartDate(_ref) {
+  var date = _ref.date;
+  return "Choose ".concat(date, " as your check-in date. It\u2019s available.");
+};
+
+var chooseAvailableEndDate = function chooseAvailableEndDate(_ref2) {
+  var date = _ref2.date;
+  return "Choose ".concat(date, " as your check-out date. It\u2019s available.");
+};
+
+var chooseAvailableDate = function chooseAvailableDate(_ref3) {
+  var date = _ref3.date;
+  return date;
+};
+
+var dateIsUnavailable = function dateIsUnavailable(_ref4) {
+  var date = _ref4.date;
+  return "Not available. ".concat(date);
+};
+
+var dateIsSelected = function dateIsSelected(_ref5) {
+  var date = _ref5.date;
+  return "Selected. ".concat(date);
+};
+
+var dateIsSelectedAsStartDate = function dateIsSelectedAsStartDate(_ref6) {
+  var date = _ref6.date;
+  return "Selected as start date. ".concat(date);
+};
+
+var dateIsSelectedAsEndDate = function dateIsSelectedAsEndDate(_ref7) {
+  var date = _ref7.date;
+  return "Selected as end date. ".concat(date);
+};
+
+var _default = {
+  calendarLabel: calendarLabel,
+  roleDescription: roleDescription,
+  closeDatePicker: closeDatePicker,
+  focusStartDate: focusStartDate,
+  clearDate: clearDate,
+  clearDates: clearDates,
+  jumpToPrevMonth: jumpToPrevMonth,
+  jumpToNextMonth: jumpToNextMonth,
+  keyboardShortcuts: keyboardShortcuts,
+  showKeyboardShortcutsPanel: showKeyboardShortcutsPanel,
+  hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
+  openThisPanel: openThisPanel,
+  enterKey: enterKey,
+  leftArrowRightArrow: leftArrowRightArrow,
+  upArrowDownArrow: upArrowDownArrow,
+  pageUpPageDown: pageUpPageDown,
+  homeEnd: homeEnd,
+  escape: escape,
+  questionMark: questionMark,
+  selectFocusedDate: selectFocusedDate,
+  moveFocusByOneDay: moveFocusByOneDay,
+  moveFocusByOneWeek: moveFocusByOneWeek,
+  moveFocusByOneMonth: moveFocusByOneMonth,
+  moveFocustoStartAndEndOfWeek: moveFocustoStartAndEndOfWeek,
+  returnFocusToInput: returnFocusToInput,
+  keyboardForwardNavigationInstructions: keyboardForwardNavigationInstructions,
+  keyboardBackwardNavigationInstructions: keyboardBackwardNavigationInstructions,
+  chooseAvailableStartDate: chooseAvailableStartDate,
+  chooseAvailableEndDate: chooseAvailableEndDate,
+  dateIsUnavailable: dateIsUnavailable,
+  dateIsSelected: dateIsSelected,
+  dateIsSelectedAsStartDate: dateIsSelectedAsStartDate,
+  dateIsSelectedAsEndDate: dateIsSelectedAsEndDate
+};
+exports["default"] = _default;
+var DateRangePickerPhrases = {
+  calendarLabel: calendarLabel,
+  roleDescription: roleDescription,
+  closeDatePicker: closeDatePicker,
+  clearDates: clearDates,
+  focusStartDate: focusStartDate,
+  jumpToPrevMonth: jumpToPrevMonth,
+  jumpToNextMonth: jumpToNextMonth,
+  keyboardShortcuts: keyboardShortcuts,
+  showKeyboardShortcutsPanel: showKeyboardShortcutsPanel,
+  hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
+  openThisPanel: openThisPanel,
+  enterKey: enterKey,
+  leftArrowRightArrow: leftArrowRightArrow,
+  upArrowDownArrow: upArrowDownArrow,
+  pageUpPageDown: pageUpPageDown,
+  homeEnd: homeEnd,
+  escape: escape,
+  questionMark: questionMark,
+  selectFocusedDate: selectFocusedDate,
+  moveFocusByOneDay: moveFocusByOneDay,
+  moveFocusByOneWeek: moveFocusByOneWeek,
+  moveFocusByOneMonth: moveFocusByOneMonth,
+  moveFocustoStartAndEndOfWeek: moveFocustoStartAndEndOfWeek,
+  returnFocusToInput: returnFocusToInput,
+  keyboardForwardNavigationInstructions: keyboardForwardNavigationInstructions,
+  keyboardBackwardNavigationInstructions: keyboardBackwardNavigationInstructions,
+  chooseAvailableStartDate: chooseAvailableStartDate,
+  chooseAvailableEndDate: chooseAvailableEndDate,
+  dateIsUnavailable: dateIsUnavailable,
+  dateIsSelected: dateIsSelected,
+  dateIsSelectedAsStartDate: dateIsSelectedAsStartDate,
+  dateIsSelectedAsEndDate: dateIsSelectedAsEndDate
+};
+exports.DateRangePickerPhrases = DateRangePickerPhrases;
+var DateRangePickerInputPhrases = {
+  focusStartDate: focusStartDate,
+  clearDates: clearDates,
+  keyboardForwardNavigationInstructions: keyboardForwardNavigationInstructions,
+  keyboardBackwardNavigationInstructions: keyboardBackwardNavigationInstructions
+};
+exports.DateRangePickerInputPhrases = DateRangePickerInputPhrases;
+var SingleDatePickerPhrases = {
+  calendarLabel: calendarLabel,
+  roleDescription: roleDescription,
+  closeDatePicker: closeDatePicker,
+  clearDate: clearDate,
+  jumpToPrevMonth: jumpToPrevMonth,
+  jumpToNextMonth: jumpToNextMonth,
+  keyboardShortcuts: keyboardShortcuts,
+  showKeyboardShortcutsPanel: showKeyboardShortcutsPanel,
+  hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
+  openThisPanel: openThisPanel,
+  enterKey: enterKey,
+  leftArrowRightArrow: leftArrowRightArrow,
+  upArrowDownArrow: upArrowDownArrow,
+  pageUpPageDown: pageUpPageDown,
+  homeEnd: homeEnd,
+  escape: escape,
+  questionMark: questionMark,
+  selectFocusedDate: selectFocusedDate,
+  moveFocusByOneDay: moveFocusByOneDay,
+  moveFocusByOneWeek: moveFocusByOneWeek,
+  moveFocusByOneMonth: moveFocusByOneMonth,
+  moveFocustoStartAndEndOfWeek: moveFocustoStartAndEndOfWeek,
+  returnFocusToInput: returnFocusToInput,
+  keyboardForwardNavigationInstructions: keyboardForwardNavigationInstructions,
+  keyboardBackwardNavigationInstructions: keyboardBackwardNavigationInstructions,
+  chooseAvailableDate: chooseAvailableDate,
+  dateIsUnavailable: dateIsUnavailable,
+  dateIsSelected: dateIsSelected
+};
+exports.SingleDatePickerPhrases = SingleDatePickerPhrases;
+var SingleDatePickerInputPhrases = {
+  clearDate: clearDate,
+  keyboardForwardNavigationInstructions: keyboardForwardNavigationInstructions,
+  keyboardBackwardNavigationInstructions: keyboardBackwardNavigationInstructions
+};
+exports.SingleDatePickerInputPhrases = SingleDatePickerInputPhrases;
+var DayPickerPhrases = {
+  calendarLabel: calendarLabel,
+  roleDescription: roleDescription,
+  jumpToPrevMonth: jumpToPrevMonth,
+  jumpToNextMonth: jumpToNextMonth,
+  keyboardShortcuts: keyboardShortcuts,
+  showKeyboardShortcutsPanel: showKeyboardShortcutsPanel,
+  hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
+  openThisPanel: openThisPanel,
+  enterKey: enterKey,
+  leftArrowRightArrow: leftArrowRightArrow,
+  upArrowDownArrow: upArrowDownArrow,
+  pageUpPageDown: pageUpPageDown,
+  homeEnd: homeEnd,
+  escape: escape,
+  questionMark: questionMark,
+  selectFocusedDate: selectFocusedDate,
+  moveFocusByOneDay: moveFocusByOneDay,
+  moveFocusByOneWeek: moveFocusByOneWeek,
+  moveFocusByOneMonth: moveFocusByOneMonth,
+  moveFocustoStartAndEndOfWeek: moveFocustoStartAndEndOfWeek,
+  returnFocusToInput: returnFocusToInput,
+  chooseAvailableStartDate: chooseAvailableStartDate,
+  chooseAvailableEndDate: chooseAvailableEndDate,
+  chooseAvailableDate: chooseAvailableDate,
+  dateIsUnavailable: dateIsUnavailable,
+  dateIsSelected: dateIsSelected,
+  dateIsSelectedAsStartDate: dateIsSelectedAsStartDate,
+  dateIsSelectedAsEndDate: dateIsSelectedAsEndDate
+};
+exports.DayPickerPhrases = DayPickerPhrases;
+var DayPickerKeyboardShortcutsPhrases = {
+  keyboardShortcuts: keyboardShortcuts,
+  showKeyboardShortcutsPanel: showKeyboardShortcutsPanel,
+  hideKeyboardShortcutsPanel: hideKeyboardShortcutsPanel,
+  openThisPanel: openThisPanel,
+  enterKey: enterKey,
+  leftArrowRightArrow: leftArrowRightArrow,
+  upArrowDownArrow: upArrowDownArrow,
+  pageUpPageDown: pageUpPageDown,
+  homeEnd: homeEnd,
+  escape: escape,
+  questionMark: questionMark,
+  selectFocusedDate: selectFocusedDate,
+  moveFocusByOneDay: moveFocusByOneDay,
+  moveFocusByOneWeek: moveFocusByOneWeek,
+  moveFocusByOneMonth: moveFocusByOneMonth,
+  moveFocustoStartAndEndOfWeek: moveFocustoStartAndEndOfWeek,
+  returnFocusToInput: returnFocusToInput
+};
+exports.DayPickerKeyboardShortcutsPhrases = DayPickerKeyboardShortcutsPhrases;
+var DayPickerNavigationPhrases = {
+  jumpToPrevMonth: jumpToPrevMonth,
+  jumpToNextMonth: jumpToNextMonth
+};
+exports.DayPickerNavigationPhrases = DayPickerNavigationPhrases;
+var CalendarDayPhrases = {
+  chooseAvailableDate: chooseAvailableDate,
+  dateIsUnavailable: dateIsUnavailable,
+  dateIsSelected: dateIsSelected,
+  dateIsSelectedAsStartDate: dateIsSelectedAsStartDate,
+  dateIsSelectedAsEndDate: dateIsSelectedAsEndDate
+};
+exports.CalendarDayPhrases = CalendarDayPhrases;
+
+/***/ }),
+
+/***/ 8039:
+/***/ (function(__unused_webpack_module, __unused_webpack_exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+var _registerCSSInterfaceWithDefaultTheme = _interopRequireDefault(__webpack_require__(5479));
+
+(0, _registerCSSInterfaceWithDefaultTheme["default"])();
+
+/***/ }),
+
+/***/ 5547:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _constants = __webpack_require__(5724);
+
+var _default = _propTypes["default"].oneOf([_constants.INFO_POSITION_TOP, _constants.INFO_POSITION_BOTTOM, _constants.INFO_POSITION_BEFORE, _constants.INFO_POSITION_AFTER]);
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 135:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _constants = __webpack_require__(5724);
+
+var _default = _propTypes["default"].oneOf(_constants.WEEKDAYS);
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 975:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(8669));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _airbnbPropTypes = __webpack_require__(4882);
+
+var _default = (0, _airbnbPropTypes.and)([_propTypes["default"].instanceOf(Set), function modifiers(props, propName) {
+  for (var _len = arguments.length, rest = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+    rest[_key - 2] = arguments[_key];
+  }
+
+  var propValue = props[propName];
+  var firstError;
+  (0, _toConsumableArray2["default"])(propValue).some(function (v, i) {
+    var _PropTypes$string;
+
+    var fakePropName = "".concat(propName, ": index ").concat(i);
+    firstError = (_PropTypes$string = _propTypes["default"].string).isRequired.apply(_PropTypes$string, [(0, _defineProperty2["default"])({}, fakePropName, v), fakePropName].concat(rest));
+    return firstError != null;
+  });
+  return firstError == null ? null : firstError;
+}], 'Modifiers (Set of Strings)');
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 3476:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _constants = __webpack_require__(5724);
+
+var _default = _propTypes["default"].oneOf([_constants.NAV_POSITION_BOTTOM, _constants.NAV_POSITION_TOP]);
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 2302:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _constants = __webpack_require__(5724);
+
+var _default = _propTypes["default"].oneOf([_constants.HORIZONTAL_ORIENTATION, _constants.VERTICAL_ORIENTATION, _constants.VERTICAL_SCROLLABLE]);
+
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 2251:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var core = {
+  white: '#fff',
+  gray: '#484848',
+  grayLight: '#82888a',
+  grayLighter: '#cacccd',
+  grayLightest: '#f2f2f2',
+  borderMedium: '#c4c4c4',
+  border: '#dbdbdb',
+  borderLight: '#e4e7e7',
+  borderLighter: '#eceeee',
+  borderBright: '#f4f5f5',
+  primary: '#00a699',
+  primaryShade_1: '#33dacd',
+  primaryShade_2: '#66e2da',
+  primaryShade_3: '#80e8e0',
+  primaryShade_4: '#b2f1ec',
+  primary_dark: '#008489',
+  secondary: '#007a87',
+  yellow: '#ffe8bc',
+  yellow_dark: '#ffce71'
+};
+var _default = {
+  reactDates: {
+    zIndex: 0,
+    border: {
+      input: {
+        border: 0,
+        borderTop: 0,
+        borderRight: 0,
+        borderBottom: '2px solid transparent',
+        borderLeft: 0,
+        outlineFocused: 0,
+        borderFocused: 0,
+        borderTopFocused: 0,
+        borderLeftFocused: 0,
+        borderBottomFocused: "2px solid ".concat(core.primary_dark),
+        borderRightFocused: 0,
+        borderRadius: 0
+      },
+      pickerInput: {
+        borderWidth: 1,
+        borderStyle: 'solid',
+        borderRadius: 2
+      }
+    },
+    color: {
+      core: core,
+      disabled: core.grayLightest,
+      background: core.white,
+      backgroundDark: '#f2f2f2',
+      backgroundFocused: core.white,
+      border: 'rgb(219, 219, 219)',
+      text: core.gray,
+      textDisabled: core.border,
+      textFocused: '#007a87',
+      placeholderText: '#757575',
+      outside: {
+        backgroundColor: core.white,
+        backgroundColor_active: core.white,
+        backgroundColor_hover: core.white,
+        color: core.gray,
+        color_active: core.gray,
+        color_hover: core.gray
+      },
+      highlighted: {
+        backgroundColor: core.yellow,
+        backgroundColor_active: core.yellow_dark,
+        backgroundColor_hover: core.yellow_dark,
+        color: core.gray,
+        color_active: core.gray,
+        color_hover: core.gray
+      },
+      minimumNights: {
+        backgroundColor: core.white,
+        backgroundColor_active: core.white,
+        backgroundColor_hover: core.white,
+        borderColor: core.borderLighter,
+        color: core.grayLighter,
+        color_active: core.grayLighter,
+        color_hover: core.grayLighter
+      },
+      hoveredSpan: {
+        backgroundColor: core.primaryShade_4,
+        backgroundColor_active: core.primaryShade_3,
+        backgroundColor_hover: core.primaryShade_4,
+        borderColor: core.primaryShade_3,
+        borderColor_active: core.primaryShade_3,
+        borderColor_hover: core.primaryShade_3,
+        color: core.secondary,
+        color_active: core.secondary,
+        color_hover: core.secondary
+      },
+      selectedSpan: {
+        backgroundColor: core.primaryShade_2,
+        backgroundColor_active: core.primaryShade_1,
+        backgroundColor_hover: core.primaryShade_1,
+        borderColor: core.primaryShade_1,
+        borderColor_active: core.primary,
+        borderColor_hover: core.primary,
+        color: core.white,
+        color_active: core.white,
+        color_hover: core.white
+      },
+      selected: {
+        backgroundColor: core.primary,
+        backgroundColor_active: core.primary,
+        backgroundColor_hover: core.primary,
+        borderColor: core.primary,
+        borderColor_active: core.primary,
+        borderColor_hover: core.primary,
+        color: core.white,
+        color_active: core.white,
+        color_hover: core.white
+      },
+      blocked_calendar: {
+        backgroundColor: core.grayLighter,
+        backgroundColor_active: core.grayLighter,
+        backgroundColor_hover: core.grayLighter,
+        borderColor: core.grayLighter,
+        borderColor_active: core.grayLighter,
+        borderColor_hover: core.grayLighter,
+        color: core.grayLight,
+        color_active: core.grayLight,
+        color_hover: core.grayLight
+      },
+      blocked_out_of_range: {
+        backgroundColor: core.white,
+        backgroundColor_active: core.white,
+        backgroundColor_hover: core.white,
+        borderColor: core.borderLight,
+        borderColor_active: core.borderLight,
+        borderColor_hover: core.borderLight,
+        color: core.grayLighter,
+        color_active: core.grayLighter,
+        color_hover: core.grayLighter
+      }
+    },
+    spacing: {
+      dayPickerHorizontalPadding: 9,
+      captionPaddingTop: 22,
+      captionPaddingBottom: 37,
+      inputPadding: 0,
+      displayTextPaddingVertical: undefined,
+      displayTextPaddingTop: 11,
+      displayTextPaddingBottom: 9,
+      displayTextPaddingHorizontal: undefined,
+      displayTextPaddingLeft: 11,
+      displayTextPaddingRight: 11,
+      displayTextPaddingVertical_small: undefined,
+      displayTextPaddingTop_small: 7,
+      displayTextPaddingBottom_small: 5,
+      displayTextPaddingHorizontal_small: undefined,
+      displayTextPaddingLeft_small: 7,
+      displayTextPaddingRight_small: 7
+    },
+    sizing: {
+      inputWidth: 130,
+      inputWidth_small: 97,
+      arrowWidth: 24
+    },
+    noScrollBarOnVerticalScrollable: false,
+    font: {
+      size: 14,
+      captionSize: 18,
+      input: {
+        size: 19,
+        weight: 200,
+        lineHeight: '24px',
+        size_small: 15,
+        lineHeight_small: '18px',
+        letterSpacing_small: '0.2px',
+        styleDisabled: 'italic'
+      }
+    }
+  }
+};
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 7399:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = calculateDimension;
+
+function calculateDimension(el, axis) {
+  var borderBox = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  var withMargin = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+
+  if (!el) {
+    return 0;
+  }
+
+  var axisStart = axis === 'width' ? 'Left' : 'Top';
+  var axisEnd = axis === 'width' ? 'Right' : 'Bottom'; // Only read styles if we need to
+
+  var style = !borderBox || withMargin ? window.getComputedStyle(el) : null; // Offset includes border and padding
+
+  var offsetWidth = el.offsetWidth,
+      offsetHeight = el.offsetHeight;
+  var size = axis === 'width' ? offsetWidth : offsetHeight; // Get the inner size
+
+  if (!borderBox) {
+    size -= parseFloat(style["padding".concat(axisStart)]) + parseFloat(style["padding".concat(axisEnd)]) + parseFloat(style["border".concat(axisStart, "Width")]) + parseFloat(style["border".concat(axisEnd, "Width")]);
+  } // Apply margin
+
+
+  if (withMargin) {
+    size += parseFloat(style["margin".concat(axisStart)]) + parseFloat(style["margin".concat(axisEnd)]);
+  }
+
+  return size;
+}
+
+/***/ }),
+
+/***/ 1268:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getActiveElement;
+
+function getActiveElement() {
+  return typeof document !== 'undefined' && document.activeElement;
+}
+
+/***/ }),
+
+/***/ 4246:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getCalendarDaySettings;
+
+var _getPhrase = _interopRequireDefault(__webpack_require__(5064));
+
+var _constants = __webpack_require__(5724);
+
+function isSelected(modifiers) {
+  return modifiers.has('selected') || modifiers.has('selected-span') || modifiers.has('selected-start') || modifiers.has('selected-end');
+}
+
+function shouldUseDefaultCursor(modifiers) {
+  return modifiers.has('blocked-minimum-nights') || modifiers.has('blocked-calendar') || modifiers.has('blocked-out-of-range');
+}
+
+function isHoveredSpan(modifiers) {
+  if (isSelected(modifiers)) return false;
+  return modifiers.has('hovered-span') || modifiers.has('after-hovered-start') || modifiers.has('before-hovered-end');
+}
+
+function getAriaLabel(phrases, modifiers, day, ariaLabelFormat) {
+  var chooseAvailableDate = phrases.chooseAvailableDate,
+      dateIsUnavailable = phrases.dateIsUnavailable,
+      dateIsSelected = phrases.dateIsSelected,
+      dateIsSelectedAsStartDate = phrases.dateIsSelectedAsStartDate,
+      dateIsSelectedAsEndDate = phrases.dateIsSelectedAsEndDate;
+  var formattedDate = {
+    date: day.format(ariaLabelFormat)
+  };
+
+  if (modifiers.has('selected-start') && dateIsSelectedAsStartDate) {
+    return (0, _getPhrase["default"])(dateIsSelectedAsStartDate, formattedDate);
+  }
+
+  if (modifiers.has('selected-end') && dateIsSelectedAsEndDate) {
+    return (0, _getPhrase["default"])(dateIsSelectedAsEndDate, formattedDate);
+  }
+
+  if (isSelected(modifiers) && dateIsSelected) {
+    return (0, _getPhrase["default"])(dateIsSelected, formattedDate);
+  }
+
+  if (modifiers.has(_constants.BLOCKED_MODIFIER)) {
+    return (0, _getPhrase["default"])(dateIsUnavailable, formattedDate);
+  }
+
+  return (0, _getPhrase["default"])(chooseAvailableDate, formattedDate);
+}
+
+function getCalendarDaySettings(day, ariaLabelFormat, daySize, modifiers, phrases) {
+  return {
+    ariaLabel: getAriaLabel(phrases, modifiers, day, ariaLabelFormat),
+    hoveredSpan: isHoveredSpan(modifiers),
+    isOutsideRange: modifiers.has('blocked-out-of-range'),
+    selected: isSelected(modifiers),
+    useDefaultCursor: shouldUseDefaultCursor(modifiers),
+    daySizeStyles: {
+      width: daySize,
+      height: daySize - 1
+    }
+  };
+}
+
+/***/ }),
+
+/***/ 2793:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getCalendarMonthWeeks;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _constants = __webpack_require__(5724);
+
+function getCalendarMonthWeeks(month, enableOutsideDays) {
+  var firstDayOfWeek = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : _moment["default"].localeData().firstDayOfWeek();
+
+  if (!_moment["default"].isMoment(month) || !month.isValid()) {
+    throw new TypeError('`month` must be a valid moment object');
+  }
+
+  if (_constants.WEEKDAYS.indexOf(firstDayOfWeek) === -1) {
+    throw new TypeError('`firstDayOfWeek` must be an integer between 0 and 6');
+  } // set utc offset to get correct dates in future (when timezone changes)
+
+
+  var firstOfMonth = month.clone().startOf('month').hour(12);
+  var lastOfMonth = month.clone().endOf('month').hour(12); // calculate the exact first and last days to fill the entire matrix
+  // (considering days outside month)
+
+  var prevDays = (firstOfMonth.day() + 7 - firstDayOfWeek) % 7;
+  var nextDays = (firstDayOfWeek + 6 - lastOfMonth.day()) % 7;
+  var firstDay = firstOfMonth.clone().subtract(prevDays, 'day');
+  var lastDay = lastOfMonth.clone().add(nextDays, 'day');
+  var totalDays = lastDay.diff(firstDay, 'days') + 1;
+  var currentDay = firstDay.clone();
+  var weeksInMonth = [];
+
+  for (var i = 0; i < totalDays; i += 1) {
+    if (i % 7 === 0) {
+      weeksInMonth.push([]);
+    }
+
+    var day = null;
+
+    if (i >= prevDays && i < totalDays - nextDays || enableOutsideDays) {
+      day = currentDay.clone();
+    }
+
+    weeksInMonth[weeksInMonth.length - 1].push(day);
+    currentDay.add(1, 'day');
+  }
+
+  return weeksInMonth;
+}
+
+/***/ }),
+
+/***/ 5127:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getCalendarMonthWidth;
+
+function getCalendarMonthWidth(daySize) {
+  var calendarMonthPadding = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  return 7 * daySize + 2 * calendarMonthPadding + 1;
+}
+
+/***/ }),
+
+/***/ 3472:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getNumberOfCalendarMonthWeeks;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+function getBlankDaysBeforeFirstDay(firstDayOfMonth, firstDayOfWeek) {
+  var weekDayDiff = firstDayOfMonth.day() - firstDayOfWeek;
+  return (weekDayDiff + 7) % 7;
+}
+
+function getNumberOfCalendarMonthWeeks(month) {
+  var firstDayOfWeek = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _moment["default"].localeData().firstDayOfWeek();
+  var firstDayOfMonth = month.clone().startOf('month');
+  var numBlankDays = getBlankDaysBeforeFirstDay(firstDayOfMonth, firstDayOfWeek);
+  return Math.ceil((numBlankDays + month.daysInMonth()) / 7);
+}
+
+/***/ }),
+
+/***/ 5064:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getPhrase;
+
+function getPhrase(phrase, args) {
+  if (typeof phrase === 'string') return phrase;
+
+  if (typeof phrase === 'function') {
+    return phrase(args);
+  }
+
+  return '';
+}
+
+/***/ }),
+
+/***/ 3312:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getPhrasePropTypes;
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function getPhrasePropTypes(defaultPhrases) {
+  return Object.keys(defaultPhrases).reduce(function (phrases, key) {
+    return _objectSpread({}, phrases, (0, _defineProperty2["default"])({}, key, _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].func, _propTypes["default"].node])));
+  }, {});
+}
+
+/***/ }),
+
+/***/ 5550:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getPooledMoment;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var momentPool = new Map();
+
+function getPooledMoment(dayString) {
+  if (!momentPool.has(dayString)) {
+    momentPool.set(dayString, (0, _moment["default"])(dayString));
+  }
+
+  return momentPool.get(dayString);
+}
+
+/***/ }),
+
+/***/ 4641:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getPreviousMonthMemoLast;
+var getPreviousMonthMemoKey;
+var getPreviousMonthMemoValue;
+
+function getPreviousMonthMemoLast(month) {
+  if (month !== getPreviousMonthMemoKey) {
+    getPreviousMonthMemoKey = month;
+    getPreviousMonthMemoValue = month.clone().subtract(1, 'month');
+  }
+
+  return getPreviousMonthMemoValue;
+}
+
+/***/ }),
+
+/***/ 8421:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getTransformStyles;
+
+function getTransformStyles(transformValue) {
+  return {
+    transform: transformValue,
+    msTransform: transformValue,
+    MozTransform: transformValue,
+    WebkitTransform: transformValue
+  };
+}
+
+/***/ }),
+
+/***/ 9867:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getVisibleDays;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _toISOMonthString = _interopRequireDefault(__webpack_require__(2476));
+
+function getVisibleDays(month, numberOfMonths, enableOutsideDays, withoutTransitionMonths) {
+  if (!_moment["default"].isMoment(month)) return {};
+  var visibleDaysByMonth = {};
+  var currentMonth = withoutTransitionMonths ? month.clone() : month.clone().subtract(1, 'month');
+
+  for (var i = 0; i < (withoutTransitionMonths ? numberOfMonths : numberOfMonths + 2); i += 1) {
+    var visibleDays = []; // set utc offset to get correct dates in future (when timezone changes)
+
+    var baseDate = currentMonth.clone();
+    var firstOfMonth = baseDate.clone().startOf('month').hour(12);
+    var lastOfMonth = baseDate.clone().endOf('month').hour(12);
+    var currentDay = firstOfMonth.clone(); // days belonging to the previous month
+
+    if (enableOutsideDays) {
+      for (var j = 0; j < currentDay.weekday(); j += 1) {
+        var prevDay = currentDay.clone().subtract(j + 1, 'day');
+        visibleDays.unshift(prevDay);
+      }
+    }
+
+    while (currentDay < lastOfMonth) {
+      visibleDays.push(currentDay.clone());
+      currentDay.add(1, 'day');
+    }
+
+    if (enableOutsideDays) {
+      // weekday() returns the index of the day of the week according to the locale
+      // this means if the week starts on Monday, weekday() will return 0 for a Monday date, not 1
+      if (currentDay.weekday() !== 0) {
+        // days belonging to the next month
+        for (var k = currentDay.weekday(), count = 0; k < 7; k += 1, count += 1) {
+          var nextDay = currentDay.clone().add(count, 'day');
+          visibleDays.push(nextDay);
+        }
+      }
+    }
+
+    visibleDaysByMonth[(0, _toISOMonthString["default"])(currentMonth)] = visibleDays;
+    currentMonth = currentMonth.clone().add(1, 'month');
+  }
+
+  return visibleDaysByMonth;
+}
+
+/***/ }),
+
+/***/ 9720:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = isAfterDay;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _isBeforeDay = _interopRequireDefault(__webpack_require__(443));
+
+var _isSameDay = _interopRequireDefault(__webpack_require__(2455));
+
+function isAfterDay(a, b) {
+  if (!_moment["default"].isMoment(a) || !_moment["default"].isMoment(b)) return false;
+  return !(0, _isBeforeDay["default"])(a, b) && !(0, _isSameDay["default"])(a, b);
+}
+
+/***/ }),
+
+/***/ 443:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = isBeforeDay;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+function isBeforeDay(a, b) {
+  if (!_moment["default"].isMoment(a) || !_moment["default"].isMoment(b)) return false;
+  var aYear = a.year();
+  var aMonth = a.month();
+  var bYear = b.year();
+  var bMonth = b.month();
+  var isSameYear = aYear === bYear;
+  var isSameMonth = aMonth === bMonth;
+  if (isSameYear && isSameMonth) return a.date() < b.date();
+  if (isSameYear) return aMonth < bMonth;
+  return aYear < bYear;
+}
+
+/***/ }),
+
+/***/ 6979:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = isDayVisible;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _isBeforeDay = _interopRequireDefault(__webpack_require__(443));
+
+var _isAfterDay = _interopRequireDefault(__webpack_require__(9720));
+
+var _toISOMonthString = _interopRequireDefault(__webpack_require__(2476));
+
+var startCacheOutsideDays = new Map();
+var endCacheOutsideDays = new Map();
+var startCacheInsideDays = new Map();
+var endCacheInsideDays = new Map();
+
+function isDayVisible(day, month, numberOfMonths, enableOutsideDays) {
+  if (!_moment["default"].isMoment(day)) return false; // Cloning is a little expensive, so we want to do it as little as possible.
+
+  var startKey = (0, _toISOMonthString["default"])(month); // eslint-disable-next-line prefer-template
+
+  var endKey = startKey + '+' + numberOfMonths;
+
+  if (enableOutsideDays) {
+    if (!startCacheOutsideDays.has(startKey)) {
+      startCacheOutsideDays.set(startKey, month.clone().startOf('month').startOf('week'));
+    }
+
+    if ((0, _isBeforeDay["default"])(day, startCacheOutsideDays.get(startKey))) return false;
+
+    if (!endCacheOutsideDays.has(endKey)) {
+      endCacheOutsideDays.set(endKey, month.clone().endOf('week').add(numberOfMonths - 1, 'months').endOf('month').endOf('week'));
+    }
+
+    return !(0, _isAfterDay["default"])(day, endCacheOutsideDays.get(endKey));
+  } // !enableOutsideDays
+
+
+  if (!startCacheInsideDays.has(startKey)) {
+    startCacheInsideDays.set(startKey, month.clone().startOf('month'));
+  }
+
+  if ((0, _isBeforeDay["default"])(day, startCacheInsideDays.get(startKey))) return false;
+
+  if (!endCacheInsideDays.has(endKey)) {
+    endCacheInsideDays.set(endKey, month.clone().add(numberOfMonths - 1, 'months').endOf('month'));
+  }
+
+  return !(0, _isAfterDay["default"])(day, endCacheInsideDays.get(endKey));
+}
+
+/***/ }),
+
+/***/ 2831:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = isNextMonth;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _isSameMonth = _interopRequireDefault(__webpack_require__(4387));
+
+function isNextMonth(a, b) {
+  if (!_moment["default"].isMoment(a) || !_moment["default"].isMoment(b)) return false;
+  return (0, _isSameMonth["default"])(a.clone().add(1, 'month'), b);
+}
+
+/***/ }),
+
+/***/ 4302:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = isPrevMonth;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _isSameMonth = _interopRequireDefault(__webpack_require__(4387));
+
+function isPrevMonth(a, b) {
+  if (!_moment["default"].isMoment(a) || !_moment["default"].isMoment(b)) return false;
+  return (0, _isSameMonth["default"])(a.clone().subtract(1, 'month'), b);
+}
+
+/***/ }),
+
+/***/ 2455:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = isSameDay;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+function isSameDay(a, b) {
+  if (!_moment["default"].isMoment(a) || !_moment["default"].isMoment(b)) return false; // Compare least significant, most likely to change units first
+  // Moment's isSame clones moment inputs and is a tad slow
+
+  return a.date() === b.date() && a.month() === b.month() && a.year() === b.year();
+}
+
+/***/ }),
+
+/***/ 4387:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = isSameMonth;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+function isSameMonth(a, b) {
+  if (!_moment["default"].isMoment(a) || !_moment["default"].isMoment(b)) return false; // Compare least significant, most likely to change units first
+  // Moment's isSame clones moment inputs and is a tad slow
+
+  return a.month() === b.month() && a.year() === b.year();
+}
+
+/***/ }),
+
+/***/ 336:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = isTransitionEndSupported;
+
+function isTransitionEndSupported() {
+  return !!(typeof window !== 'undefined' && 'TransitionEvent' in window);
+}
+
+/***/ }),
+
+/***/ 1887:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.addModifier = addModifier;
+exports.deleteModifier = deleteModifier;
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _isDayVisible = _interopRequireDefault(__webpack_require__(6979));
+
+var _toISODateString = _interopRequireDefault(__webpack_require__(6135));
+
+var _toISOMonthString = _interopRequireDefault(__webpack_require__(2476));
+
+var _getPreviousMonthMemoLast = _interopRequireDefault(__webpack_require__(4641));
+
+var _constants = __webpack_require__(5724);
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function addModifier(updatedDays, day, modifier, props, state) {
+  var numberOfVisibleMonths = props.numberOfMonths,
+      enableOutsideDays = props.enableOutsideDays,
+      orientation = props.orientation;
+  var firstVisibleMonth = state.currentMonth,
+      visibleDays = state.visibleDays;
+  var currentMonth = firstVisibleMonth;
+  var numberOfMonths = numberOfVisibleMonths;
+
+  if (orientation === _constants.VERTICAL_SCROLLABLE) {
+    numberOfMonths = Object.keys(visibleDays).length;
+  } else {
+    currentMonth = (0, _getPreviousMonthMemoLast["default"])(currentMonth);
+    numberOfMonths += 2;
+  }
+
+  if (!day || !(0, _isDayVisible["default"])(day, currentMonth, numberOfMonths, enableOutsideDays)) {
+    return updatedDays;
+  }
+
+  var iso = (0, _toISODateString["default"])(day);
+
+  var updatedDaysAfterAddition = _objectSpread({}, updatedDays);
+
+  if (enableOutsideDays) {
+    var monthsToUpdate = Object.keys(visibleDays).filter(function (monthKey) {
+      return Object.keys(visibleDays[monthKey]).indexOf(iso) > -1;
+    });
+    updatedDaysAfterAddition = monthsToUpdate.reduce(function (acc, monthIso) {
+      var month = updatedDays[monthIso] || visibleDays[monthIso];
+
+      if (!month[iso] || !month[iso].has(modifier)) {
+        var modifiers = new Set(month[iso]);
+        modifiers.add(modifier);
+        acc[monthIso] = _objectSpread({}, month, (0, _defineProperty2["default"])({}, iso, modifiers));
+      }
+
+      return acc;
+    }, updatedDaysAfterAddition);
+  } else {
+    var monthIso = (0, _toISOMonthString["default"])(day);
+    var month = updatedDays[monthIso] || visibleDays[monthIso] || {};
+
+    if (!month[iso] || !month[iso].has(modifier)) {
+      var modifiers = new Set(month[iso]);
+      modifiers.add(modifier);
+      updatedDaysAfterAddition[monthIso] = _objectSpread({}, month, (0, _defineProperty2["default"])({}, iso, modifiers));
+    }
+  }
+
+  return updatedDaysAfterAddition;
+}
+
+function deleteModifier(updatedDays, day, modifier, props, state) {
+  var numberOfVisibleMonths = props.numberOfMonths,
+      enableOutsideDays = props.enableOutsideDays,
+      orientation = props.orientation;
+  var firstVisibleMonth = state.currentMonth,
+      visibleDays = state.visibleDays;
+  var currentMonth = firstVisibleMonth;
+  var numberOfMonths = numberOfVisibleMonths;
+
+  if (orientation === _constants.VERTICAL_SCROLLABLE) {
+    numberOfMonths = Object.keys(visibleDays).length;
+  } else {
+    currentMonth = (0, _getPreviousMonthMemoLast["default"])(currentMonth);
+    numberOfMonths += 2;
+  }
+
+  if (!day || !(0, _isDayVisible["default"])(day, currentMonth, numberOfMonths, enableOutsideDays)) {
+    return updatedDays;
+  }
+
+  var iso = (0, _toISODateString["default"])(day);
+
+  var updatedDaysAfterDeletion = _objectSpread({}, updatedDays);
+
+  if (enableOutsideDays) {
+    var monthsToUpdate = Object.keys(visibleDays).filter(function (monthKey) {
+      return Object.keys(visibleDays[monthKey]).indexOf(iso) > -1;
+    });
+    updatedDaysAfterDeletion = monthsToUpdate.reduce(function (acc, monthIso) {
+      var month = updatedDays[monthIso] || visibleDays[monthIso];
+
+      if (month[iso] && month[iso].has(modifier)) {
+        var modifiers = new Set(month[iso]);
+        modifiers["delete"](modifier);
+        acc[monthIso] = _objectSpread({}, month, (0, _defineProperty2["default"])({}, iso, modifiers));
+      }
+
+      return acc;
+    }, updatedDaysAfterDeletion);
+  } else {
+    var monthIso = (0, _toISOMonthString["default"])(day);
+    var month = updatedDays[monthIso] || visibleDays[monthIso] || {};
+
+    if (month[iso] && month[iso].has(modifier)) {
+      var modifiers = new Set(month[iso]);
+      modifiers["delete"](modifier);
+      updatedDaysAfterDeletion[monthIso] = _objectSpread({}, month, (0, _defineProperty2["default"])({}, iso, modifiers));
+    }
+  }
+
+  return updatedDaysAfterDeletion;
+}
+
+/***/ }),
+
+/***/ 9780:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = noflip;
+var NOFLIP = '/* @noflip */'; // Appends a noflip comment to a style rule in order to prevent it from being automatically
+// flipped in RTL contexts. This should be used only in situations where the style must remain
+// unflipped regardless of direction context. See: https://github.com/kentcdodds/rtl-css-js#usage
+
+function noflip(value) {
+  if (typeof value === 'number') return "".concat(value, "px ").concat(NOFLIP);
+  if (typeof value === 'string') return "".concat(value, " ").concat(NOFLIP);
+  throw new TypeError('noflip expects a string or a number');
+}
+
+/***/ }),
+
+/***/ 5479:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = registerCSSInterfaceWithDefaultTheme;
+
+var _reactWithStylesInterfaceCss = _interopRequireDefault(__webpack_require__(6331));
+
+var _registerInterfaceWithDefaultTheme = _interopRequireDefault(__webpack_require__(9979));
+
+function registerCSSInterfaceWithDefaultTheme() {
+  (0, _registerInterfaceWithDefaultTheme["default"])(_reactWithStylesInterfaceCss["default"]);
+}
+
+/***/ }),
+
+/***/ 9979:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = registerInterfaceWithDefaultTheme;
+
+var _ThemedStyleSheet = _interopRequireDefault(__webpack_require__(9997));
+
+var _DefaultTheme = _interopRequireDefault(__webpack_require__(2251));
+
+function registerInterfaceWithDefaultTheme(reactWithStylesInterface) {
+  _ThemedStyleSheet["default"].registerInterface(reactWithStylesInterface);
+
+  _ThemedStyleSheet["default"].registerTheme(_DefaultTheme["default"]);
+}
+
+/***/ }),
+
+/***/ 6135:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = toISODateString;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _toMomentObject = _interopRequireDefault(__webpack_require__(7526));
+
+function toISODateString(date, currentFormat) {
+  var dateObj = _moment["default"].isMoment(date) ? date : (0, _toMomentObject["default"])(date, currentFormat);
+  if (!dateObj) return null; // Template strings compiled in strict mode uses concat, which is slow. Since
+  // this code is in a hot path and we want it to be as fast as possible, we
+  // want to use old-fashioned +.
+  // eslint-disable-next-line prefer-template
+
+  return dateObj.year() + '-' + String(dateObj.month() + 1).padStart(2, '0') + '-' + String(dateObj.date()).padStart(2, '0');
+}
+
+/***/ }),
+
+/***/ 2476:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = toISOMonthString;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _toMomentObject = _interopRequireDefault(__webpack_require__(7526));
+
+function toISOMonthString(date, currentFormat) {
+  var dateObj = _moment["default"].isMoment(date) ? date : (0, _toMomentObject["default"])(date, currentFormat);
+  if (!dateObj) return null; // Template strings compiled in strict mode uses concat, which is slow. Since
+  // this code is in a hot path and we want it to be as fast as possible, we
+  // want to use old-fashioned +.
+  // eslint-disable-next-line prefer-template
+
+  return dateObj.year() + '-' + String(dateObj.month() + 1).padStart(2, '0');
+}
+
+/***/ }),
+
+/***/ 7526:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = toMomentObject;
+
+var _moment = _interopRequireDefault(__webpack_require__(6292));
+
+var _constants = __webpack_require__(5724);
+
+function toMomentObject(dateString, customFormat) {
+  var dateFormats = customFormat ? [customFormat, _constants.DISPLAY_FORMAT, _constants.ISO_FORMAT] : [_constants.DISPLAY_FORMAT, _constants.ISO_FORMAT];
+  var date = (0, _moment["default"])(dateString, dateFormats, true);
+  return date.isValid() ? date.hour(12) : null;
+}
+
+/***/ }),
+
+/***/ 5930:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+var __webpack_unused_export__;
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+__webpack_unused_export__ = ({
+  value: true
+});
+exports["default"] = void 0;
+
+var _arrayPrototype = _interopRequireDefault(__webpack_require__(116));
+
+var _globalCache = _interopRequireDefault(__webpack_require__(5371));
+
+var _constants = __webpack_require__(9486);
+
+var _getClassName = _interopRequireDefault(__webpack_require__(3848));
+
+var _separateStyles2 = _interopRequireDefault(__webpack_require__(6526));
+
+/**
+ * Function required as part of the react-with-styles interface. Parses the styles provided by
+ * react-with-styles to produce class names based on the style name and optionally the namespace if
+ * available.
+ *
+ * stylesObject {Object} The styles object passed to withStyles.
+ *
+ * Return an object mapping style names to class names.
+ */
+function create(stylesObject) {
+  var stylesToClasses = {};
+  var styleNames = Object.keys(stylesObject);
+  var sharedState = _globalCache["default"].get(_constants.GLOBAL_CACHE_KEY) || {};
+  var _sharedState$namespac = sharedState.namespace,
+      namespace = _sharedState$namespac === void 0 ? '' : _sharedState$namespac;
+  styleNames.forEach(function (styleName) {
+    var className = (0, _getClassName["default"])(namespace, styleName);
+    stylesToClasses[styleName] = className;
+  });
+  return stylesToClasses;
+}
+/**
+ * Process styles to be consumed by a component.
+ *
+ * stylesArray {Array} Array of the following: values returned by create, plain JavaScript objects
+ * representing inline styles, or arrays thereof.
+ *
+ * Return an object with optional className and style properties to be spread on a component.
+ */
+
+
+function resolve(stylesArray) {
+  var flattenedStyles = (0, _arrayPrototype["default"])(stylesArray, Infinity);
+
+  var _separateStyles = (0, _separateStyles2["default"])(flattenedStyles),
+      classNames = _separateStyles.classNames,
+      hasInlineStyles = _separateStyles.hasInlineStyles,
+      inlineStyles = _separateStyles.inlineStyles;
+
+  var specificClassNames = classNames.map(function (name, index) {
+    return "".concat(name, " ").concat(name, "_").concat(index + 1);
+  });
+  var className = specificClassNames.join(' ');
+  var result = {
+    className: className
+  };
+  if (hasInlineStyles) result.style = inlineStyles;
+  return result;
+}
+
+var _default = {
+  create: create,
+  resolve: resolve
+};
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 9486:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.MAX_SPECIFICITY = exports.GLOBAL_CACHE_KEY = void 0;
+var GLOBAL_CACHE_KEY = 'reactWithStylesInterfaceCSS';
+exports.GLOBAL_CACHE_KEY = GLOBAL_CACHE_KEY;
+var MAX_SPECIFICITY = 20;
+exports.MAX_SPECIFICITY = MAX_SPECIFICITY;
+
+/***/ }),
+
+/***/ 3848:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = getClassName;
+
+/**
+ * Construct a class name.
+ *
+ * namespace {String} Used to construct unique class names.
+ * styleName {String} Name identifying the specific style.
+ *
+ * Return the class name.
+ */
+function getClassName(namespace, styleName) {
+  var namespaceSegment = namespace.length > 0 ? "".concat(namespace, "__") : '';
+  return "".concat(namespaceSegment).concat(styleName);
+}
+
+/***/ }),
+
+/***/ 6526:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+
+// This function takes an array of styles and separates them into styles that
+// are handled by Aphrodite and inline styles.
+function separateStyles(stylesArray) {
+  var classNames = []; // Since determining if an Object is empty requires collecting all of its
+  // keys, and we want the best performance in this code because we are in the
+  // render path, we are going to do a little bookkeeping ourselves.
+
+  var hasInlineStyles = false;
+  var inlineStyles = {}; // This is run on potentially every node in the tree when rendering, where
+  // performance is critical. Normally we would prefer using `forEach`, but
+  // old-fashioned for loops are faster so that's what we have chosen here.
+
+  for (var i = 0; i < stylesArray.length; i++) {
+    // eslint-disable-line no-plusplus
+    var style = stylesArray[i]; // If this  style is falsy, we just want to disregard it. This allows for
+    // syntax like:
+    //
+    //   css(isFoo && styles.foo)
+
+    if (style) {
+      if (typeof style === 'string') {
+        classNames.push(style);
+      } else {
+        Object.assign(inlineStyles, style);
+        hasInlineStyles = true;
+      }
+    }
+  }
+
+  return {
+    classNames: classNames,
+    hasInlineStyles: hasInlineStyles,
+    inlineStyles: inlineStyles
+  };
+}
+
+var _default = separateStyles;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 6331:
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
+
+// eslint-disable-next-line import/no-unresolved
+module.exports = __webpack_require__(5930)["default"];
+
+
+/***/ }),
+
+/***/ 9997:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports._getInterface = _getInterface;
+exports._getTheme = get;
+exports["default"] = void 0;
+var styleInterface;
+var styleTheme;
+var START_MARK = 'react-with-styles.resolve.start';
+var END_MARK = 'react-with-styles.resolve.end';
+var MEASURE_MARK = "\uD83D\uDC69\u200D\uD83C\uDFA8 [resolve]";
+
+function registerTheme(theme) {
+  styleTheme = theme;
+}
+
+function registerInterface(interfaceToRegister) {
+  styleInterface = interfaceToRegister;
+}
+
+function create(makeFromTheme, createWithDirection) {
+  var styles = createWithDirection(makeFromTheme(styleTheme));
+  return function () {
+    return styles;
+  };
+}
+
+function createLTR(makeFromTheme) {
+  return create(makeFromTheme, styleInterface.createLTR || styleInterface.create);
+}
+
+function createRTL(makeFromTheme) {
+  return create(makeFromTheme, styleInterface.createRTL || styleInterface.create);
+}
+
+function get() {
+  return styleTheme;
+}
+
+function resolve() {
+  if (false) {}
+
+  for (var _len = arguments.length, styles = new Array(_len), _key = 0; _key < _len; _key++) {
+    styles[_key] = arguments[_key];
+  }
+
+  var result = styleInterface.resolve(styles);
+
+  if (false) {}
+
+  return result;
+}
+
+function resolveLTR() {
+  for (var _len2 = arguments.length, styles = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    styles[_key2] = arguments[_key2];
+  }
+
+  if (styleInterface.resolveLTR) {
+    return styleInterface.resolveLTR(styles);
+  }
+
+  return resolve(styles);
+}
+
+function resolveRTL() {
+  for (var _len3 = arguments.length, styles = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+    styles[_key3] = arguments[_key3];
+  }
+
+  if (styleInterface.resolveRTL) {
+    return styleInterface.resolveRTL(styles);
+  }
+
+  return resolve(styles);
+}
+
+function flush() {
+  if (styleInterface.flush) {
+    styleInterface.flush();
+  }
+} // Exported until we deprecate this API completely
+// eslint-disable-next-line no-underscore-dangle
+
+
+function _getInterface() {
+  return styleInterface;
+} // Exported until we deprecate this API completely
+
+
+var _default = {
+  registerTheme: registerTheme,
+  registerInterface: registerInterface,
+  create: createLTR,
+  createLTR: createLTR,
+  createRTL: createRTL,
+  get: get,
+  resolve: resolveLTR,
+  resolveLTR: resolveLTR,
+  resolveRTL: resolveRTL,
+  flush: flush
+};
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 2258:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+Object.defineProperty(exports, "DIRECTIONS", ({
+  enumerable: true,
+  get: function get() {
+    return _reactWithDirection.DIRECTIONS;
+  }
+}));
+exports["default"] = void 0;
+
+var _react = __webpack_require__(9196);
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var _reactWithDirection = __webpack_require__(7818);
+
+function detectAndCreateContext(defaultValue) {
+  if (_react.createContext) {
+    return /*#__PURE__*/(0, _react.createContext)(defaultValue);
+  }
+
+  return {
+    Provider: function Provider() {
+      throw new ReferenceError('WithStylesContext requires React 16.3 or later');
+    },
+    Consumer: function Consumer() {
+      throw new ReferenceError('WithStylesContext requires React 16.3 or later');
+    }
+  };
+}
+
+var WithStylesContext = detectAndCreateContext({
+  stylesInterface: null,
+  stylesTheme: null,
+  direction: null
+});
+WithStylesContext.Provider.propTypes = {
+  stylesInterface: _propTypes["default"].object,
+  // eslint-disable-line react/forbid-prop-types
+  stylesTheme: _propTypes["default"].object,
+  // eslint-disable-line react/forbid-prop-types
+  direction: _propTypes["default"].oneOf([_reactWithDirection.DIRECTIONS.LTR, _reactWithDirection.DIRECTIONS.RTL])
+};
+var _default = WithStylesContext;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 3174:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = void 0;
+var EMPTY_STYLES = {};
+
+var EMPTY_STYLES_FN = function EMPTY_STYLES_FN() {
+  return EMPTY_STYLES;
+};
+
+var _default = EMPTY_STYLES_FN;
+exports["default"] = _default;
+
+/***/ }),
+
+/***/ 6161:
+/***/ (function(__unused_webpack_module, exports) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.perfStart = perfStart;
+exports.perfEnd = perfEnd;
+exports["default"] = withPerf;
+
+function perfStart(startMark) {
+  if (typeof performance !== 'undefined' && performance.mark !== undefined && typeof performance.clearMarks === 'function' && startMark) {
+    performance.clearMarks(startMark);
+    performance.mark(startMark);
+  }
+}
+
+function perfEnd(startMark, endMark, measureName) {
+  if (typeof performance !== 'undefined' && performance.mark !== undefined && typeof performance.clearMarks === 'function') {
+    performance.clearMarks(endMark);
+    performance.mark(endMark);
+    performance.measure(measureName, startMark, endMark);
+    performance.clearMarks(measureName);
+  }
+}
+
+function withPerf(methodName) {
+  var startMark = "react-with-styles.".concat(methodName, ".start");
+  var endMark = "react-with-styles.".concat(methodName, ".end");
+  var measureName = "\uD83D\uDC69\u200D\uD83C\uDFA8 [".concat(methodName, "]");
+  return function (fn) {
+    return function () {
+      if (false) {}
+
+      var result = fn.apply(void 0, arguments);
+
+      if (false) {}
+
+      return result;
+    };
+  };
+}
+
+/***/ }),
+
+/***/ 7928:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireWildcard = __webpack_require__(3805);
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.withStyles = withStyles;
+Object.defineProperty(exports, "withStylesPropTypes", ({
+  enumerable: true,
+  get: function get() {
+    return _withStylesPropTypes.withStylesPropTypes;
+  }
+}));
+exports.css = exports["default"] = void 0;
+
+var _extends2 = _interopRequireDefault(__webpack_require__(6164));
+
+var _defineProperty2 = _interopRequireDefault(__webpack_require__(8239));
+
+var _objectWithoutProperties2 = _interopRequireDefault(__webpack_require__(7509));
+
+var _inheritsLoose2 = _interopRequireDefault(__webpack_require__(6856));
+
+var _react = _interopRequireDefault(__webpack_require__(9196));
+
+var _hoistNonReactStatics = _interopRequireDefault(__webpack_require__(1281));
+
+var _getComponentName = _interopRequireDefault(__webpack_require__(2424));
+
+var _ref3 = _interopRequireDefault(__webpack_require__(9549));
+
+var _emptyStylesFn = _interopRequireDefault(__webpack_require__(3174));
+
+var _perf = _interopRequireDefault(__webpack_require__(6161));
+
+var _WithStylesContext = _interopRequireWildcard(__webpack_require__(2258));
+
+var _ThemedStyleSheet = _interopRequireWildcard(__webpack_require__(9997));
+
+var _withStylesPropTypes = __webpack_require__(9351);
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+/**
+ * A higher order function that returns a higher order class component that injects
+ * CSS-in-JS props derived from the react-with-styles theme, interface, and
+ * direction provided through the WithStylesContext provider.
+ *
+ * The function should be used as follows:
+ * `withStyles((theme) => styles, options)(Component)`
+ *
+ * Options can be used to rename the injected props, memoize the component, and flush
+ * the styles to the styles tag (or whatever the interface implements as flush) before
+ * rendering.
+ *
+ * @export
+ * @param {Function|null|undefined} [stylesFn=EMPTY_STYLES_FN]
+ * @param {Object} [{
+ *     stylesPropName = 'styles',
+ *     themePropName = 'theme',
+ *     cssPropName = 'css',
+ *     flushBefore = false,
+ *     pureComponent = false,
+ *   }={}]
+ * @returns a higher order component that wraps the provided component and injects
+ * the react-with-styles css, styles, and theme props.
+ */
+function withStyles() {
+  var stylesFn = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _emptyStylesFn["default"];
+
+  var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+      _ref$stylesPropName = _ref.stylesPropName,
+      stylesPropName = _ref$stylesPropName === void 0 ? 'styles' : _ref$stylesPropName,
+      _ref$themePropName = _ref.themePropName,
+      themePropName = _ref$themePropName === void 0 ? 'theme' : _ref$themePropName,
+      _ref$cssPropName = _ref.cssPropName,
+      cssPropName = _ref$cssPropName === void 0 ? 'css' : _ref$cssPropName,
+      _ref$flushBefore = _ref.flushBefore,
+      flushBefore = _ref$flushBefore === void 0 ? false : _ref$flushBefore,
+      _ref$pureComponent = _ref.pureComponent,
+      pureComponent = _ref$pureComponent === void 0 ? false : _ref$pureComponent;
+
+  stylesFn = stylesFn || _emptyStylesFn["default"];
+  var BaseClass = pureComponent ? _react["default"].PureComponent : _react["default"].Component;
+  /** Cache for storing the result of stylesFn(theme) for all themes. */
+
+  var stylesFnResultCacheMap = typeof WeakMap === 'undefined' ? new Map() : new WeakMap();
+
+  function getOrCreateStylesFnResultCache(theme) {
+    // Get and store the result in the stylesFnResultsCache for the component
+    // -- not the instance -- so we only apply the theme to the stylesFn
+    // once per theme for this component.
+    var cachedResultForTheme = stylesFnResultCacheMap.get(theme);
+    var stylesFnResult = cachedResultForTheme || stylesFn(theme) || {};
+    stylesFnResultCacheMap.set(theme, stylesFnResult); // cache the result of stylesFn(theme)
+
+    return stylesFnResult;
+  }
+  /**
+   * Cache for storing the results of computations:
+   * `WeakMap<Theme, WeakMap<typeof WithStyles, { ltr: {}, rtl: {} }>>`
+   * Falling back to `Map` whenever `WeakMap` is not supported
+   */
+
+
+  var withStylesCache = typeof WeakMap === 'undefined' ? new Map() : new WeakMap();
+
+  function getComponentCache(theme, component, direction) {
+    var themeCache = withStylesCache.get(theme);
+
+    if (!themeCache) {
+      return null;
+    }
+
+    var componentCache = themeCache.get(component);
+
+    if (!componentCache) {
+      return null;
+    }
+
+    return componentCache[direction];
+  }
+
+  function updateComponentCache(theme, component, direction, results) {
+    var themeCache = withStylesCache.get(theme);
+
+    if (!themeCache) {
+      themeCache = typeof WeakMap === 'undefined' ? new Map() : new WeakMap();
+      withStylesCache.set(theme, themeCache);
+    }
+
+    var componentCache = themeCache.get(component);
+
+    if (!componentCache) {
+      componentCache = {
+        ltr: {},
+        rtl: {}
+      };
+      themeCache.set(component, componentCache);
+    }
+
+    componentCache[direction] = results;
+  }
+  /** Derive the create function from the interface and direction */
+
+
+  function makeCreateFn(direction, stylesInterface) {
+    var directionSelector = direction === _WithStylesContext.DIRECTIONS.RTL ? 'RTL' : 'LTR';
+    var create = stylesInterface["create".concat(directionSelector)] || stylesInterface.create;
+    var original = create;
+
+    if (false) {}
+
+    return {
+      create: create,
+      original: original
+    };
+  }
+  /** Derive the resolve function from the interface and direction */
+
+
+  function makeResolveFn(direction, stylesInterface) {
+    var directionSelector = direction === _WithStylesContext.DIRECTIONS.RTL ? 'RTL' : 'LTR';
+    var resolve = stylesInterface["resolve".concat(directionSelector)] || stylesInterface.resolve;
+    var original = resolve;
+
+    if (false) {}
+
+    return {
+      resolve: resolve,
+      original: original
+    };
+  } // The function that wraps the provided component in a wrapper
+  // component that injects the withStyles props
+
+
+  return function withStylesHOC(WrappedComponent) {
+    var wrappedComponentName = (0, _getComponentName["default"])(WrappedComponent); // The wrapper component that injects the withStyles props
+
+    var WithStyles = /*#__PURE__*/function (_BaseClass) {
+      (0, _inheritsLoose2["default"])(WithStyles, _BaseClass);
+
+      function WithStyles() {
+        return _BaseClass.apply(this, arguments) || this;
+      }
+
+      var _proto = WithStyles.prototype;
+
+      _proto.getCurrentInterface = function getCurrentInterface() {
+        // Fallback to the singleton implementation
+        return this.context && this.context.stylesInterface || (0, _ThemedStyleSheet._getInterface)();
+      };
+
+      _proto.getCurrentTheme = function getCurrentTheme() {
+        // Fallback to the singleton implementation
+        return this.context && this.context.stylesTheme || (0, _ThemedStyleSheet._getTheme)();
+      };
+
+      _proto.getCurrentDirection = function getCurrentDirection() {
+        return this.context && this.context.direction || _WithStylesContext.DIRECTIONS.LTR;
+      };
+
+      _proto.getProps = function getProps() {
+        // Get the styles interface, theme, and direction from context
+        var stylesInterface = this.getCurrentInterface();
+        var theme = this.getCurrentTheme();
+        var direction = this.getCurrentDirection(); // Use a cache to store the interface methods and created styles by direction.
+        // This way, if the theme and the interface don't change, we do not recalculate
+        // styles or any other interface derivations. They are effectively only calculated
+        // once per direction, until the theme or interface change.
+        // Assume: always an object.
+
+        var componentCache = getComponentCache(theme, WithStyles, direction); // Determine what's changed
+
+        var interfaceChanged = !componentCache || !componentCache.stylesInterface || stylesInterface && componentCache.stylesInterface !== stylesInterface;
+        var themeChanged = !componentCache || componentCache.theme !== theme; // If the interface and theme haven't changed for this direction,
+        // we return the cached props immediately.
+
+        if (!interfaceChanged && !themeChanged) {
+          return componentCache.props;
+        } // If the theme or the interface changed, then there are some values
+        // we need to recalculate. We avoid recalculating the ones we already
+        // calculated in the past if the objects they're derived from have not
+        // changed.
+
+
+        var createFn = interfaceChanged && makeCreateFn(direction, stylesInterface) || componentCache.create;
+        var resolveFn = interfaceChanged && makeResolveFn(direction, stylesInterface) || componentCache.resolve;
+        var create = createFn.create;
+        var resolve = resolveFn.resolve; // Determine if create or resolve functions have changed, which will then
+        // determine if we need to create new styles or css props
+
+        var createChanged = !componentCache || !componentCache.create || createFn.original !== componentCache.create.original;
+        var resolveChanged = !componentCache || !componentCache.resolve || resolveFn.original !== componentCache.resolve.original; // Derive the css function prop: recalculate it if resolve changed
+
+        var css = resolveChanged && function () {
+          for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+          }
+
+          return resolve(args);
+        } || componentCache.props.css; // Get or calculate the themed styles from the stylesFn:
+        // Uses a separate cache at the component level, not at the instance level,
+        // to only apply the theme to the stylesFn once per component class per theme.
+
+
+        var stylesFnResult = getOrCreateStylesFnResultCache(theme); // Derive the styles prop: recalculate it if create changed, or stylesFnResult changed
+
+        var styles = (createChanged || stylesFnResult !== componentCache.stylesFnResult) && create(stylesFnResult) || componentCache.props.styles; // Put the new props together
+
+        var props = {
+          css: css,
+          styles: styles,
+          theme: theme
+        }; // Update the cache with all the new values
+
+        updateComponentCache(theme, WithStyles, direction, {
+          stylesInterface: stylesInterface,
+          theme: theme,
+          create: createFn,
+          resolve: resolveFn,
+          stylesFnResult: stylesFnResult,
+          props: props
+        });
+        return props;
+      };
+
+      _proto.flush = function flush() {
+        var stylesInterface = this.getCurrentInterface();
+
+        if (stylesInterface && stylesInterface.flush) {
+          stylesInterface.flush();
+        }
+      };
+
+      _proto.render = function render() {
+        var _ref2;
+
+        // We only want to re-render if the theme, stylesInterface, or direction change.
+        // These values are in context so we're listening for their updates.
+        // this.getProps() derives the props from the theme, stylesInterface, and direction in
+        // context, and memoizes them on the instance per direction.
+        var _this$getProps = this.getProps(),
+            theme = _this$getProps.theme,
+            styles = _this$getProps.styles,
+            css = _this$getProps.css; // Flush if specified
+
+
+        if (flushBefore) {
+          this.flush();
+        }
+
+        var _this$props = this.props,
+            forwardedRef = _this$props.forwardedRef,
+            rest = (0, _objectWithoutProperties2["default"])(_this$props, ["forwardedRef"]);
+        return /*#__PURE__*/_react["default"].createElement(WrappedComponent // TODO: remove conditional once breaking change to only support React 16.3+
+        // ref: https://github.com/airbnb/react-with-styles/pull/240#discussion_r533497857
+        , (0, _extends2["default"])({
+          ref: typeof _react["default"].forwardRef === 'undefined' ? undefined : forwardedRef
+        }, typeof _react["default"].forwardRef === 'undefined' ? this.props : rest, (_ref2 = {}, (0, _defineProperty2["default"])(_ref2, themePropName, theme), (0, _defineProperty2["default"])(_ref2, stylesPropName, styles), (0, _defineProperty2["default"])(_ref2, cssPropName, css), _ref2)));
+      };
+
+      return WithStyles;
+    }(BaseClass); // TODO: remove conditional once breaking change to only support React 16.3+
+    // ref: https://github.com/airbnb/react-with-styles/pull/240#discussion_r533497857
+
+
+    if (typeof _react["default"].forwardRef !== 'undefined') {
+      WithStyles.propTypes = {
+        forwardedRef: (0, _ref3["default"])()
+      };
+    } // TODO: remove conditional once breaking change to only support React 16.3+
+    // ref: https://github.com/airbnb/react-with-styles/pull/240#discussion_r533497857
+
+
+    var ForwardedWithStyles = typeof _react["default"].forwardRef === 'undefined' ? WithStyles : /*#__PURE__*/_react["default"].forwardRef(function (props, forwardedRef) {
+      return /*#__PURE__*/_react["default"].createElement(WithStyles, (0, _extends2["default"])({}, props, {
+        forwardedRef: forwardedRef
+      }));
+    }); // Copy the wrapped component's prop types and default props on WithStyles
+
+    if (WrappedComponent.propTypes) {
+      ForwardedWithStyles.propTypes = _objectSpread({}, WrappedComponent.propTypes);
+      delete ForwardedWithStyles.propTypes[stylesPropName];
+      delete ForwardedWithStyles.propTypes[themePropName];
+      delete ForwardedWithStyles.propTypes[cssPropName];
+    }
+
+    if (WrappedComponent.defaultProps) {
+      ForwardedWithStyles.defaultProps = _objectSpread({}, WrappedComponent.defaultProps);
+    }
+
+    WithStyles.contextType = _WithStylesContext["default"];
+    ForwardedWithStyles.WrappedComponent = WrappedComponent;
+    ForwardedWithStyles.displayName = "withStyles(".concat(wrappedComponentName, ")");
+    return (0, _hoistNonReactStatics["default"])(ForwardedWithStyles, WrappedComponent);
+  };
+}
+
+var _default = withStyles;
+/**
+ * Deprecated: Do not use directly. Please wrap your component in `withStyles` and use the `css`
+ * prop injected via props instead.
+ */
+
+exports["default"] = _default;
+var css = _ThemedStyleSheet["default"].resolveLTR;
+exports.css = css;
+
+/***/ }),
+
+/***/ 9351:
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(9736);
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports["default"] = exports.withStylesPropTypes = void 0;
+
+var _propTypes = _interopRequireDefault(__webpack_require__(2652));
+
+var withStylesPropTypes = {
+  styles: _propTypes["default"].object.isRequired,
+  theme: _propTypes["default"].object.isRequired,
+  css: _propTypes["default"].func.isRequired
+};
+exports.withStylesPropTypes = withStylesPropTypes;
+var _default = withStylesPropTypes;
+exports["default"] = _default;
+
+/***/ }),
+
 /***/ 9196:
 /***/ (function(module) {
 
@@ -14462,7 +14662,7 @@ module.exports = window["moment"];
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -14544,7 +14744,7 @@ __webpack_require__.d(__webpack_exports__, {
   "CardFooter": function() { return /* reexport */ card_footer_component; },
   "CardHeader": function() { return /* reexport */ card_header_component; },
   "CardMedia": function() { return /* reexport */ card_media_component; },
-  "CheckboxControl": function() { return /* reexport */ CheckboxControl; },
+  "CheckboxControl": function() { return /* reexport */ checkbox_control; },
   "Circle": function() { return /* reexport */ external_wp_primitives_namespaceObject.Circle; },
   "ClipboardButton": function() { return /* reexport */ ClipboardButton; },
   "ColorIndicator": function() { return /* reexport */ color_indicator; },
@@ -14640,7 +14840,6 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalDimensionControl": function() { return /* reexport */ dimension_control; },
   "__experimentalDivider": function() { return /* reexport */ divider_component; },
   "__experimentalElevation": function() { return /* reexport */ elevation_component; },
-  "__experimentalFlyout": function() { return /* reexport */ flyout_component; },
   "__experimentalGrid": function() { return /* reexport */ grid_component; },
   "__experimentalHStack": function() { return /* reexport */ h_stack_component; },
   "__experimentalHasSplitBorders": function() { return /* reexport */ hasSplitBorders; },
@@ -17250,8 +17449,201 @@ var CompositeItem = createComponent({
 
 
 
-;// CONCATENATED MODULE: external ["wp","dom"]
-var external_wp_dom_namespaceObject = window["wp"]["dom"];
+;// CONCATENATED MODULE: ./node_modules/@floating-ui/core/dist/floating-ui.core.esm.min.js
+function t(t){return t.split("-")[0]}function floating_ui_core_esm_min_e(t){return t.split("-")[1]}function floating_ui_core_esm_min_n(e){return["top","bottom"].includes(t(e))?"x":"y"}function r(t){return"y"===t?"height":"width"}function i(i,o,a){let{reference:l,floating:s}=i;const c=l.x+l.width/2-s.width/2,f=l.y+l.height/2-s.height/2,u=floating_ui_core_esm_min_n(o),m=r(u),g=l[m]/2-s[m]/2,d="x"===u;let p;switch(t(o)){case"top":p={x:c,y:l.y-s.height};break;case"bottom":p={x:c,y:l.y+l.height};break;case"right":p={x:l.x+l.width,y:f};break;case"left":p={x:l.x-s.width,y:f};break;default:p={x:l.x,y:l.y}}switch(floating_ui_core_esm_min_e(o)){case"start":p[u]-=g*(a&&d?-1:1);break;case"end":p[u]+=g*(a&&d?-1:1)}return p}const floating_ui_core_esm_min_o=async(t,e,n)=>{const{placement:r="bottom",strategy:o="absolute",middleware:a=[],platform:l}=n,s=await(null==l.isRTL?void 0:l.isRTL(e));let c=await l.getElementRects({reference:t,floating:e,strategy:o}),{x:f,y:u}=i(c,r,s),m=r,g={};for(let n=0;n<a.length;n++){const{name:d,fn:p}=a[n],{x:h,y:y,data:x,reset:w}=await p({x:f,y:u,initialPlacement:r,placement:m,strategy:o,middlewareData:g,rects:c,platform:l,elements:{reference:t,floating:e}});f=null!=h?h:f,u=null!=y?y:u,g={...g,[d]:{...g[d],...x}},w&&("object"==typeof w&&(w.placement&&(m=w.placement),w.rects&&(c=!0===w.rects?await l.getElementRects({reference:t,floating:e,strategy:o}):w.rects),({x:f,y:u}=i(c,m,s))),n=-1)}return{x:f,y:u,placement:m,strategy:o,middlewareData:g}};function floating_ui_core_esm_min_a(t){return"number"!=typeof t?function(t){return{top:0,right:0,bottom:0,left:0,...t}}(t):{top:t,right:t,bottom:t,left:t}}function l(t){return{...t,top:t.y,left:t.x,right:t.x+t.width,bottom:t.y+t.height}}async function s(t,e){var n;void 0===e&&(e={});const{x:r,y:i,platform:o,rects:s,elements:c,strategy:f}=t,{boundary:u="clippingAncestors",rootBoundary:m="viewport",elementContext:g="floating",altBoundary:d=!1,padding:p=0}=e,h=floating_ui_core_esm_min_a(p),y=c[d?"floating"===g?"reference":"floating":g],x=l(await o.getClippingRect({element:null==(n=await(null==o.isElement?void 0:o.isElement(y)))||n?y:y.contextElement||await(null==o.getDocumentElement?void 0:o.getDocumentElement(c.floating)),boundary:u,rootBoundary:m,strategy:f})),w=l(o.convertOffsetParentRelativeRectToViewportRelativeRect?await o.convertOffsetParentRelativeRectToViewportRelativeRect({rect:"floating"===g?{...s.floating,x:r,y:i}:s.reference,offsetParent:await(null==o.getOffsetParent?void 0:o.getOffsetParent(c.floating)),strategy:f}):s[g]);return{top:x.top-w.top+h.top,bottom:w.bottom-x.bottom+h.bottom,left:x.left-w.left+h.left,right:w.right-x.right+h.right}}const c=Math.min,f=Math.max;function u(t,e,n){return f(t,c(e,n))}const m=t=>({name:"arrow",options:t,async fn(e){const{element:i,padding:o=0}=null!=t?t:{},{x:l,y:s,placement:c,rects:f,platform:m}=e;if(null==i)return{};const g=floating_ui_core_esm_min_a(o),d={x:l,y:s},p=floating_ui_core_esm_min_n(c),h=r(p),y=await m.getDimensions(i),x="y"===p?"top":"left",w="y"===p?"bottom":"right",v=f.reference[h]+f.reference[p]-d[p]-f.floating[h],b=d[p]-f.reference[p],R=await(null==m.getOffsetParent?void 0:m.getOffsetParent(i)),A=R?"y"===p?R.clientHeight||0:R.clientWidth||0:0,P=v/2-b/2,T=g[x],O=A-y[h]-g[w],D=A/2-y[h]/2+P,L=u(T,D,O);return{data:{[p]:L,centerOffset:D-L}}}}),g={left:"right",right:"left",bottom:"top",top:"bottom"};function d(t){return t.replace(/left|right|bottom|top/g,(t=>g[t]))}function p(t,i,o){void 0===o&&(o=!1);const a=floating_ui_core_esm_min_e(t),l=floating_ui_core_esm_min_n(t),s=r(l);let c="x"===l?a===(o?"end":"start")?"right":"left":"start"===a?"bottom":"top";return i.reference[s]>i.floating[s]&&(c=d(c)),{main:c,cross:d(c)}}const h={start:"end",end:"start"};function y(t){return t.replace(/start|end/g,(t=>h[t]))}const x=["top","right","bottom","left"],w=x.reduce(((t,e)=>t.concat(e,e+"-start",e+"-end")),[]);const v=function(n){return void 0===n&&(n={}),{name:"autoPlacement",options:n,async fn(r){var i,o,a,l,c;const{x:f,y:u,rects:m,middlewareData:g,placement:d,platform:h,elements:x}=r,{alignment:v=null,allowedPlacements:b=w,autoAlignment:R=!0,...A}=n,P=function(n,r,i){return(n?[...i.filter((t=>floating_ui_core_esm_min_e(t)===n)),...i.filter((t=>floating_ui_core_esm_min_e(t)!==n))]:i.filter((e=>t(e)===e))).filter((t=>!n||floating_ui_core_esm_min_e(t)===n||!!r&&y(t)!==t))}(v,R,b),T=await s(r,A),O=null!=(i=null==(o=g.autoPlacement)?void 0:o.index)?i:0,D=P[O];if(null==D)return{};const{main:L,cross:k}=p(D,m,await(null==h.isRTL?void 0:h.isRTL(x.floating)));if(d!==D)return{x:f,y:u,reset:{placement:P[0]}};const E=[T[t(D)],T[L],T[k]],C=[...null!=(a=null==(l=g.autoPlacement)?void 0:l.overflows)?a:[],{placement:D,overflows:E}],B=P[O+1];if(B)return{data:{index:O+1,overflows:C},reset:{placement:B}};const H=C.slice().sort(((t,e)=>t.overflows[0]-e.overflows[0])),V=null==(c=H.find((t=>{let{overflows:e}=t;return e.every((t=>t<=0))})))?void 0:c.placement,F=null!=V?V:H[0].placement;return F!==d?{data:{index:O+1,overflows:C},reset:{placement:F}}:{}}}};const b=function(e){return void 0===e&&(e={}),{name:"flip",options:e,async fn(n){var r;const{placement:i,middlewareData:o,rects:a,initialPlacement:l,platform:c,elements:f}=n,{mainAxis:u=!0,crossAxis:m=!0,fallbackPlacements:g,fallbackStrategy:h="bestFit",flipAlignment:x=!0,...w}=e,v=t(i),b=g||(v===l||!x?[d(l)]:function(t){const e=d(t);return[y(t),e,y(e)]}(l)),R=[l,...b],A=await s(n,w),P=[];let T=(null==(r=o.flip)?void 0:r.overflows)||[];if(u&&P.push(A[v]),m){const{main:t,cross:e}=p(i,a,await(null==c.isRTL?void 0:c.isRTL(f.floating)));P.push(A[t],A[e])}if(T=[...T,{placement:i,overflows:P}],!P.every((t=>t<=0))){var O,D;const t=(null!=(O=null==(D=o.flip)?void 0:D.index)?O:0)+1,e=R[t];if(e)return{data:{index:t,overflows:T},reset:{placement:e}};let n="bottom";switch(h){case"bestFit":{var L;const t=null==(L=T.map((t=>[t,t.overflows.filter((t=>t>0)).reduce(((t,e)=>t+e),0)])).sort(((t,e)=>t[1]-e[1]))[0])?void 0:L[0].placement;t&&(n=t);break}case"initialPlacement":n=l}if(i!==n)return{reset:{placement:n}}}return{}}}};function R(t,e){return{top:t.top-e.height,right:t.right-e.width,bottom:t.bottom-e.height,left:t.left-e.width}}function A(t){return x.some((e=>t[e]>=0))}const P=function(t){let{strategy:e="referenceHidden",...n}=void 0===t?{}:t;return{name:"hide",async fn(t){const{rects:r}=t;switch(e){case"referenceHidden":{const e=R(await s(t,{...n,elementContext:"reference"}),r.reference);return{data:{referenceHiddenOffsets:e,referenceHidden:A(e)}}}case"escaped":{const e=R(await s(t,{...n,altBoundary:!0}),r.floating);return{data:{escapedOffsets:e,escaped:A(e)}}}default:return{}}}}};const T=function(r){return void 0===r&&(r=0),{name:"offset",options:r,async fn(i){const{x:o,y:a,placement:l,rects:s,platform:c,elements:f}=i,u=function(r,i,o,a){void 0===a&&(a=!1);const l=t(r),s=floating_ui_core_esm_min_e(r),c="x"===floating_ui_core_esm_min_n(r),f=["left","top"].includes(l)?-1:1,u=a&&c?-1:1,m="function"==typeof o?o({...i,placement:r}):o;let{mainAxis:g,crossAxis:d,alignmentAxis:p}="number"==typeof m?{mainAxis:m,crossAxis:0,alignmentAxis:null}:{mainAxis:0,crossAxis:0,alignmentAxis:null,...m};return s&&"number"==typeof p&&(d="end"===s?-1*p:p),c?{x:d*u,y:g*f}:{x:g*f,y:d*u}}(l,s,r,await(null==c.isRTL?void 0:c.isRTL(f.floating)));return{x:o+u.x,y:a+u.y,data:u}}}};function O(t){return"x"===t?"y":"x"}const D=function(e){return void 0===e&&(e={}),{name:"shift",options:e,async fn(r){const{x:i,y:o,placement:a}=r,{mainAxis:l=!0,crossAxis:c=!1,limiter:f={fn:t=>{let{x:e,y:n}=t;return{x:e,y:n}}},...m}=e,g={x:i,y:o},d=await s(r,m),p=floating_ui_core_esm_min_n(t(a)),h=O(p);let y=g[p],x=g[h];if(l){const t="y"===p?"bottom":"right";y=u(y+d["y"===p?"top":"left"],y,y-d[t])}if(c){const t="y"===h?"bottom":"right";x=u(x+d["y"===h?"top":"left"],x,x-d[t])}const w=f.fn({...r,[p]:y,[h]:x});return{...w,data:{x:w.x-i,y:w.y-o}}}}},L=function(e){return void 0===e&&(e={}),{options:e,fn(r){const{x:i,y:o,placement:a,rects:l,middlewareData:s}=r,{offset:c=0,mainAxis:f=!0,crossAxis:u=!0}=e,m={x:i,y:o},g=floating_ui_core_esm_min_n(a),d=O(g);let p=m[g],h=m[d];const y="function"==typeof c?c({...l,placement:a}):c,x="number"==typeof y?{mainAxis:y,crossAxis:0}:{mainAxis:0,crossAxis:0,...y};if(f){const t="y"===g?"height":"width",e=l.reference[g]-l.floating[t]+x.mainAxis,n=l.reference[g]+l.reference[t]-x.mainAxis;p<e?p=e:p>n&&(p=n)}if(u){var w,v,b,R;const e="y"===g?"width":"height",n=["top","left"].includes(t(a)),r=l.reference[d]-l.floating[e]+(n&&null!=(w=null==(v=s.offset)?void 0:v[d])?w:0)+(n?0:x.crossAxis),i=l.reference[d]+l.reference[e]+(n?0:null!=(b=null==(R=s.offset)?void 0:R[d])?b:0)-(n?x.crossAxis:0);h<r?h=r:h>i&&(h=i)}return{[g]:p,[d]:h}}}},k=function(n){return void 0===n&&(n={}),{name:"size",options:n,async fn(r){const{placement:i,rects:o,platform:a,elements:l}=r,{apply:c,...u}=n,m=await s(r,u),g=t(i),d=floating_ui_core_esm_min_e(i);let p,h;"top"===g||"bottom"===g?(p=g,h=d===(await(null==a.isRTL?void 0:a.isRTL(l.floating))?"start":"end")?"left":"right"):(h=g,p="end"===d?"top":"bottom");const y=f(m.left,0),x=f(m.right,0),w=f(m.top,0),v=f(m.bottom,0),b={height:o.floating.height-(["left","right"].includes(i)?2*(0!==w||0!==v?w+v:f(m.top,m.bottom)):m[p]),width:o.floating.width-(["top","bottom"].includes(i)?2*(0!==y||0!==x?y+x:f(m.left,m.right)):m[h])},R=await a.getDimensions(l.floating);null==c||c({...b,...o});const A=await a.getDimensions(l.floating);return R.width!==A.width||R.height!==A.height?{reset:{rects:!0}}:{}}}},E=function(e){return void 0===e&&(e={}),{name:"inline",options:e,async fn(r){var i;const{placement:o,elements:s,rects:u,platform:m,strategy:g}=r,{padding:d=2,x:p,y:h}=e,y=l(m.convertOffsetParentRelativeRectToViewportRelativeRect?await m.convertOffsetParentRelativeRectToViewportRelativeRect({rect:u.reference,offsetParent:await(null==m.getOffsetParent?void 0:m.getOffsetParent(s.floating)),strategy:g}):u.reference),x=null!=(i=await(null==m.getClientRects?void 0:m.getClientRects(s.reference)))?i:[],w=floating_ui_core_esm_min_a(d);const v=await m.getElementRects({reference:{getBoundingClientRect:function(){var e;if(2===x.length&&x[0].left>x[1].right&&null!=p&&null!=h)return null!=(e=x.find((t=>p>t.left-w.left&&p<t.right+w.right&&h>t.top-w.top&&h<t.bottom+w.bottom)))?e:y;if(x.length>=2){if("x"===floating_ui_core_esm_min_n(o)){const e=x[0],n=x[x.length-1],r="top"===t(o),i=e.top,a=n.bottom,l=r?e.left:n.left,s=r?e.right:n.right;return{top:i,bottom:a,left:l,right:s,width:s-l,height:a-i,x:l,y:i}}const e="left"===t(o),r=f(...x.map((t=>t.right))),i=c(...x.map((t=>t.left))),a=x.filter((t=>e?t.left===i:t.right===r)),l=a[0].top,s=a[a.length-1].bottom;return{top:l,bottom:s,left:i,right:r,width:r-i,height:s-l,x:i,y:l}}return y}},floating:s.floating,strategy:g});return u.reference.x!==v.reference.x||u.reference.y!==v.reference.y||u.reference.width!==v.reference.width||u.reference.height!==v.reference.height?{reset:{rects:v}}:{}}}};
+
+;// CONCATENATED MODULE: ./node_modules/@floating-ui/dom/dist/floating-ui.dom.esm.min.js
+function floating_ui_dom_esm_min_n(t){return t&&t.document&&t.location&&t.alert&&t.setInterval}function floating_ui_dom_esm_min_o(t){if(null==t)return window;if(!floating_ui_dom_esm_min_n(t)){const e=t.ownerDocument;return e&&e.defaultView||window}return t}function floating_ui_dom_esm_min_i(t){return floating_ui_dom_esm_min_o(t).getComputedStyle(t)}function floating_ui_dom_esm_min_r(t){return floating_ui_dom_esm_min_n(t)?"":t?(t.nodeName||"").toLowerCase():""}function floating_ui_dom_esm_min_l(t){return t instanceof floating_ui_dom_esm_min_o(t).HTMLElement}function floating_ui_dom_esm_min_c(t){return t instanceof floating_ui_dom_esm_min_o(t).Element}function floating_ui_dom_esm_min_f(t){if("undefined"==typeof ShadowRoot)return!1;return t instanceof floating_ui_dom_esm_min_o(t).ShadowRoot||t instanceof ShadowRoot}function floating_ui_dom_esm_min_s(t){const{overflow:e,overflowX:n,overflowY:o}=floating_ui_dom_esm_min_i(t);return/auto|scroll|overlay|hidden/.test(e+o+n)}function floating_ui_dom_esm_min_u(t){return["table","td","th"].includes(floating_ui_dom_esm_min_r(t))}function floating_ui_dom_esm_min_d(t){const e=navigator.userAgent.toLowerCase().includes("firefox"),n=floating_ui_dom_esm_min_i(t);return"none"!==n.transform||"none"!==n.perspective||"paint"===n.contain||["transform","perspective"].includes(n.willChange)||e&&"filter"===n.willChange||e&&!!n.filter&&"none"!==n.filter}function floating_ui_dom_esm_min_h(){return!/^((?!chrome|android).)*safari/i.test(navigator.userAgent)}const floating_ui_dom_esm_min_a=Math.min,floating_ui_dom_esm_min_g=Math.max,floating_ui_dom_esm_min_p=Math.round;function floating_ui_dom_esm_min_m(t,e,n){var i,r,f,s;void 0===e&&(e=!1),void 0===n&&(n=!1);const u=t.getBoundingClientRect();let d=1,a=1;e&&floating_ui_dom_esm_min_l(t)&&(d=t.offsetWidth>0&&floating_ui_dom_esm_min_p(u.width)/t.offsetWidth||1,a=t.offsetHeight>0&&floating_ui_dom_esm_min_p(u.height)/t.offsetHeight||1);const g=floating_ui_dom_esm_min_c(t)?floating_ui_dom_esm_min_o(t):window,m=!floating_ui_dom_esm_min_h()&&n,w=(u.left+(m&&null!=(i=null==(r=g.visualViewport)?void 0:r.offsetLeft)?i:0))/d,v=(u.top+(m&&null!=(f=null==(s=g.visualViewport)?void 0:s.offsetTop)?f:0))/a,y=u.width/d,x=u.height/a;return{width:y,height:x,top:v,right:w+y,bottom:v+x,left:w,x:w,y:v}}function floating_ui_dom_esm_min_w(t){return(e=t,(e instanceof floating_ui_dom_esm_min_o(e).Node?t.ownerDocument:t.document)||window.document).documentElement;var e}function floating_ui_dom_esm_min_v(t){return floating_ui_dom_esm_min_c(t)?{scrollLeft:t.scrollLeft,scrollTop:t.scrollTop}:{scrollLeft:t.pageXOffset,scrollTop:t.pageYOffset}}function floating_ui_dom_esm_min_y(t){return floating_ui_dom_esm_min_m(floating_ui_dom_esm_min_w(t)).left+floating_ui_dom_esm_min_v(t).scrollLeft}function floating_ui_dom_esm_min_x(t,e,n){const o=floating_ui_dom_esm_min_l(e),i=floating_ui_dom_esm_min_w(e),c=floating_ui_dom_esm_min_m(t,o&&function(t){const e=floating_ui_dom_esm_min_m(t);return floating_ui_dom_esm_min_p(e.width)!==t.offsetWidth||floating_ui_dom_esm_min_p(e.height)!==t.offsetHeight}(e),"fixed"===n);let f={scrollLeft:0,scrollTop:0};const u={x:0,y:0};if(o||!o&&"fixed"!==n)if(("body"!==floating_ui_dom_esm_min_r(e)||floating_ui_dom_esm_min_s(i))&&(f=floating_ui_dom_esm_min_v(e)),floating_ui_dom_esm_min_l(e)){const t=floating_ui_dom_esm_min_m(e,!0);u.x=t.x+e.clientLeft,u.y=t.y+e.clientTop}else i&&(u.x=floating_ui_dom_esm_min_y(i));return{x:c.left+f.scrollLeft-u.x,y:c.top+f.scrollTop-u.y,width:c.width,height:c.height}}function floating_ui_dom_esm_min_L(t){return"html"===floating_ui_dom_esm_min_r(t)?t:t.assignedSlot||t.parentNode||(floating_ui_dom_esm_min_f(t)?t.host:null)||floating_ui_dom_esm_min_w(t)}function floating_ui_dom_esm_min_b(t){return floating_ui_dom_esm_min_l(t)&&"fixed"!==getComputedStyle(t).position?t.offsetParent:null}function floating_ui_dom_esm_min_R(t){const e=floating_ui_dom_esm_min_o(t);let n=floating_ui_dom_esm_min_b(t);for(;n&&floating_ui_dom_esm_min_u(n)&&"static"===getComputedStyle(n).position;)n=floating_ui_dom_esm_min_b(n);return n&&("html"===floating_ui_dom_esm_min_r(n)||"body"===floating_ui_dom_esm_min_r(n)&&"static"===getComputedStyle(n).position&&!floating_ui_dom_esm_min_d(n))?e:n||function(t){let e=floating_ui_dom_esm_min_L(t);for(floating_ui_dom_esm_min_f(e)&&(e=e.host);floating_ui_dom_esm_min_l(e)&&!["html","body"].includes(floating_ui_dom_esm_min_r(e));){if(floating_ui_dom_esm_min_d(e))return e;e=e.parentNode}return null}(t)||e}function floating_ui_dom_esm_min_T(t){if(floating_ui_dom_esm_min_l(t))return{width:t.offsetWidth,height:t.offsetHeight};const e=floating_ui_dom_esm_min_m(t);return{width:e.width,height:e.height}}function W(t){const e=floating_ui_dom_esm_min_L(t);return["html","body","#document"].includes(floating_ui_dom_esm_min_r(e))?t.ownerDocument.body:floating_ui_dom_esm_min_l(e)&&floating_ui_dom_esm_min_s(e)?e:W(e)}function C(t,e){var n;void 0===e&&(e=[]);const i=W(t),r=i===(null==(n=t.ownerDocument)?void 0:n.body),l=floating_ui_dom_esm_min_o(i),c=r?[l].concat(l.visualViewport||[],floating_ui_dom_esm_min_s(i)?i:[]):i,f=e.concat(c);return r?f:f.concat(C(c))}function floating_ui_dom_esm_min_E(e,n,r){return"viewport"===n?l(function(t,e){const n=floating_ui_dom_esm_min_o(t),i=floating_ui_dom_esm_min_w(t),r=n.visualViewport;let l=i.clientWidth,c=i.clientHeight,f=0,s=0;if(r){l=r.width,c=r.height;const t=floating_ui_dom_esm_min_h();(t||!t&&"fixed"===e)&&(f=r.offsetLeft,s=r.offsetTop)}return{width:l,height:c,x:f,y:s}}(e,r)):floating_ui_dom_esm_min_c(n)?function(t,e){const n=floating_ui_dom_esm_min_m(t,!1,"fixed"===e),o=n.top+t.clientTop,i=n.left+t.clientLeft;return{top:o,left:i,x:i,y:o,right:i+t.clientWidth,bottom:o+t.clientHeight,width:t.clientWidth,height:t.clientHeight}}(n,r):l(function(t){var e;const n=floating_ui_dom_esm_min_w(t),o=floating_ui_dom_esm_min_v(t),r=null==(e=t.ownerDocument)?void 0:e.body,l=floating_ui_dom_esm_min_g(n.scrollWidth,n.clientWidth,r?r.scrollWidth:0,r?r.clientWidth:0),c=floating_ui_dom_esm_min_g(n.scrollHeight,n.clientHeight,r?r.scrollHeight:0,r?r.clientHeight:0);let f=-o.scrollLeft+floating_ui_dom_esm_min_y(t);const s=-o.scrollTop;return"rtl"===floating_ui_dom_esm_min_i(r||n).direction&&(f+=floating_ui_dom_esm_min_g(n.clientWidth,r?r.clientWidth:0)-l),{width:l,height:c,x:f,y:s}}(floating_ui_dom_esm_min_w(e)))}function H(t){const e=C(t),n=["absolute","fixed"].includes(floating_ui_dom_esm_min_i(t).position)&&floating_ui_dom_esm_min_l(t)?floating_ui_dom_esm_min_R(t):t;return floating_ui_dom_esm_min_c(n)?e.filter((t=>floating_ui_dom_esm_min_c(t)&&function(t,e){const n=null==e||null==e.getRootNode?void 0:e.getRootNode();if(null!=t&&t.contains(e))return!0;if(n&&floating_ui_dom_esm_min_f(n)){let n=e;do{if(n&&t===n)return!0;n=n.parentNode||n.host}while(n)}return!1}(t,n)&&"body"!==floating_ui_dom_esm_min_r(t))):[]}const S={getClippingRect:function(t){let{element:e,boundary:n,rootBoundary:o,strategy:i}=t;const r=[..."clippingAncestors"===n?H(e):[].concat(n),o],l=r[0],c=r.reduce(((t,n)=>{const o=floating_ui_dom_esm_min_E(e,n,i);return t.top=floating_ui_dom_esm_min_g(o.top,t.top),t.right=floating_ui_dom_esm_min_a(o.right,t.right),t.bottom=floating_ui_dom_esm_min_a(o.bottom,t.bottom),t.left=floating_ui_dom_esm_min_g(o.left,t.left),t}),floating_ui_dom_esm_min_E(e,l,i));return{width:c.right-c.left,height:c.bottom-c.top,x:c.left,y:c.top}},convertOffsetParentRelativeRectToViewportRelativeRect:function(t){let{rect:e,offsetParent:n,strategy:o}=t;const i=floating_ui_dom_esm_min_l(n),c=floating_ui_dom_esm_min_w(n);if(n===c)return e;let f={scrollLeft:0,scrollTop:0};const u={x:0,y:0};if((i||!i&&"fixed"!==o)&&(("body"!==floating_ui_dom_esm_min_r(n)||floating_ui_dom_esm_min_s(c))&&(f=floating_ui_dom_esm_min_v(n)),floating_ui_dom_esm_min_l(n))){const t=floating_ui_dom_esm_min_m(n,!0);u.x=t.x+n.clientLeft,u.y=t.y+n.clientTop}return{...e,x:e.x-f.scrollLeft+u.x,y:e.y-f.scrollTop+u.y}},isElement:floating_ui_dom_esm_min_c,getDimensions:floating_ui_dom_esm_min_T,getOffsetParent:floating_ui_dom_esm_min_R,getDocumentElement:floating_ui_dom_esm_min_w,getElementRects:t=>{let{reference:e,floating:n,strategy:o}=t;return{reference:floating_ui_dom_esm_min_x(e,floating_ui_dom_esm_min_R(n),o),floating:{...floating_ui_dom_esm_min_T(n),x:0,y:0}}},getClientRects:t=>Array.from(t.getClientRects()),isRTL:t=>"rtl"===floating_ui_dom_esm_min_i(t).direction};function floating_ui_dom_esm_min_D(t,e,n,o){void 0===o&&(o={});const{ancestorScroll:i=!0,ancestorResize:r=!0,elementResize:l=!0,animationFrame:f=!1}=o;let s=!1;const u=i&&!f,d=r&&!f,h=l&&!f,a=u||d?[...floating_ui_dom_esm_min_c(t)?C(t):[],...C(e)]:[];a.forEach((t=>{u&&t.addEventListener("scroll",n,{passive:!0}),d&&t.addEventListener("resize",n)}));let g,p=null;h&&(p=new ResizeObserver(n),floating_ui_dom_esm_min_c(t)&&p.observe(t),p.observe(e));let w=f?floating_ui_dom_esm_min_m(t):null;return f&&function e(){if(s)return;const o=floating_ui_dom_esm_min_m(t);!w||o.x===w.x&&o.y===w.y&&o.width===w.width&&o.height===w.height||n();w=o,g=requestAnimationFrame(e)}(),()=>{var t;s=!0,a.forEach((t=>{u&&t.removeEventListener("scroll",n),d&&t.removeEventListener("resize",n)})),null==(t=p)||t.disconnect(),p=null,f&&cancelAnimationFrame(g)}}const N=(t,n,o)=>floating_ui_core_esm_min_o(t,n,{platform:S,...o});
+
+;// CONCATENATED MODULE: external "ReactDOM"
+var external_ReactDOM_namespaceObject = window["ReactDOM"];
+;// CONCATENATED MODULE: ./node_modules/@floating-ui/react-dom/dist/floating-ui.react-dom.esm.js
+
+
+
+
+
+var index = typeof document !== 'undefined' ? external_React_.useLayoutEffect : external_React_.useEffect;
+
+// Fork of `fast-deep-equal` that only does the comparisons we need and compares
+// functions
+// @ts-nocheck
+function deepEqual(a, b) {
+  if (a === b) {
+    return true;
+  }
+
+  if (typeof a !== typeof b) {
+    return false;
+  }
+
+  if (typeof a === 'function' && a.toString() === b.toString()) {
+    return true;
+  }
+
+  let length, i, keys;
+
+  if (a && b && typeof a == 'object') {
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+
+      for (i = length; i-- !== 0;) {
+        if (!deepEqual(a[i], b[i])) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    keys = Object.keys(a);
+    length = keys.length;
+
+    if (length !== Object.keys(b).length) {
+      return false;
+    }
+
+    for (i = length; i-- !== 0;) {
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) {
+        return false;
+      }
+    }
+
+    for (i = length; i-- !== 0;) {
+      const key = keys[i];
+
+      if (key === '_owner' && a.$$typeof) {
+        continue;
+      }
+
+      if (!deepEqual(a[key], b[key])) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  return a !== a && b !== b;
+}
+
+function useFloating(_temp) {
+  let {
+    middleware,
+    placement = 'bottom',
+    strategy = 'absolute'
+  } = _temp === void 0 ? {} : _temp;
+  const reference = (0,external_React_.useRef)(null);
+  const floating = (0,external_React_.useRef)(null);
+  const [data, setData] = (0,external_React_.useState)({
+    // Setting these to `null` will allow the consumer to determine if
+    // `computePosition()` has run yet
+    x: null,
+    y: null,
+    strategy,
+    placement,
+    middlewareData: {}
+  });
+  const [latestMiddleware, setLatestMiddleware] = (0,external_React_.useState)(middleware);
+
+  if (!deepEqual(latestMiddleware == null ? void 0 : latestMiddleware.map(_ref => {
+    let {
+      options
+    } = _ref;
+    return options;
+  }), middleware == null ? void 0 : middleware.map(_ref2 => {
+    let {
+      options
+    } = _ref2;
+    return options;
+  }))) {
+    setLatestMiddleware(middleware);
+  }
+
+  const isMountedRef = (0,external_React_.useRef)(true);
+  index(() => {
+    isMountedRef.current = true;
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, []);
+  const update = (0,external_React_.useCallback)(() => {
+    if (!reference.current || !floating.current) {
+      return;
+    }
+
+    N(reference.current, floating.current, {
+      middleware: latestMiddleware,
+      placement,
+      strategy
+    }).then(data => {
+      if (isMountedRef.current) {
+        (0,external_ReactDOM_namespaceObject.flushSync)(() => {
+          setData(data);
+        });
+      }
+    });
+  }, [latestMiddleware, placement, strategy]);
+  index(update, [update]);
+  const setReference = (0,external_React_.useCallback)(node => {
+    reference.current = node;
+    update();
+  }, [update]);
+  const setFloating = (0,external_React_.useCallback)(node => {
+    floating.current = node;
+    update();
+  }, [update]);
+  const refs = (0,external_React_.useMemo)(() => ({
+    reference,
+    floating
+  }), []);
+  return (0,external_React_.useMemo)(() => ({ ...data,
+    update,
+    refs,
+    reference: setReference,
+    floating: setFloating
+  }), [data, update, refs, setReference, setFloating]);
+}
+const arrow = options => {
+  const {
+    element,
+    padding
+  } = options;
+
+  function isRef(value) {
+    return Object.prototype.hasOwnProperty.call(value, 'current');
+  }
+
+  return {
+    name: 'arrow',
+    options,
+
+    fn(args) {
+      if (isRef(element)) {
+        if (element.current != null) {
+          return m({
+            element: element.current,
+            padding
+          }).fn(args);
+        }
+
+        return {};
+      } else if (element) {
+        return m({
+          element,
+          padding
+        }).fn(args);
+      }
+
+      return {};
+    }
+
+  };
+};
+
+
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/close.js
 
 
@@ -17266,315 +17658,6 @@ const close_close = (0,external_wp_element_namespaceObject.createElement)(extern
   d: "M13 11.8l6.1-6.3-1-1-6.1 6.2-6.1-6.2-1 1 6.1 6.3-6.5 6.7 1 1 6.5-6.6 6.5 6.6 1-1z"
 }));
 /* harmony default export */ var library_close = (close_close);
-
-;// CONCATENATED MODULE: ./packages/components/build-module/popover/utils.js
-// @ts-nocheck
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Module constants
- */
-
-const HEIGHT_OFFSET = 10; // Used by the arrow and a bit of empty space.
-
-/**
- * Utility used to compute the popover position over the xAxis
- *
- * @param {Object}  anchorRect            Anchor Rect.
- * @param {Object}  contentSize           Content Size.
- * @param {string}  xAxis                 Desired xAxis.
- * @param {string}  corner                Desired corner.
- * @param {boolean} stickyBoundaryElement The boundary element to use when
- *                                        switching between sticky and normal
- *                                        position.
- * @param {string}  chosenYAxis           yAxis to be used.
- * @param {Element} boundaryElement       Boundary element.
- * @param {boolean} forcePosition         Don't adjust position based on anchor.
- * @param {boolean} forceXAlignment       Don't adjust alignment based on YAxis
- *
- * @return {Object} Popover xAxis position and constraints.
- */
-
-function computePopoverXAxisPosition(anchorRect, contentSize, xAxis, corner, stickyBoundaryElement, chosenYAxis, boundaryElement, forcePosition, forceXAlignment) {
-  const {
-    width
-  } = contentSize; // Correct xAxis for RTL support.
-
-  if (xAxis === 'left' && (0,external_wp_i18n_namespaceObject.isRTL)()) {
-    xAxis = 'right';
-  } else if (xAxis === 'right' && (0,external_wp_i18n_namespaceObject.isRTL)()) {
-    xAxis = 'left';
-  }
-
-  if (corner === 'left' && (0,external_wp_i18n_namespaceObject.isRTL)()) {
-    corner = 'right';
-  } else if (corner === 'right' && (0,external_wp_i18n_namespaceObject.isRTL)()) {
-    corner = 'left';
-  } // X axis alignment choices.
-
-
-  const anchorMidPoint = Math.round(anchorRect.left + anchorRect.width / 2);
-  const centerAlignment = {
-    popoverLeft: anchorMidPoint,
-    contentWidth: (anchorMidPoint - width / 2 > 0 ? width / 2 : anchorMidPoint) + (anchorMidPoint + width / 2 > window.innerWidth ? window.innerWidth - anchorMidPoint : width / 2)
-  };
-  let leftAlignmentX = anchorRect.left;
-
-  if (corner === 'right') {
-    leftAlignmentX = anchorRect.right;
-  } else if (chosenYAxis !== 'middle' && !forceXAlignment) {
-    leftAlignmentX = anchorMidPoint;
-  }
-
-  let rightAlignmentX = anchorRect.right;
-
-  if (corner === 'left') {
-    rightAlignmentX = anchorRect.left;
-  } else if (chosenYAxis !== 'middle' && !forceXAlignment) {
-    rightAlignmentX = anchorMidPoint;
-  }
-
-  const leftAlignment = {
-    popoverLeft: leftAlignmentX,
-    contentWidth: leftAlignmentX - width > 0 ? width : leftAlignmentX
-  };
-  const rightAlignment = {
-    popoverLeft: rightAlignmentX,
-    contentWidth: rightAlignmentX + width > window.innerWidth ? window.innerWidth - rightAlignmentX : width
-  }; // Choosing the x axis.
-
-  let chosenXAxis = xAxis;
-  let contentWidth = null;
-
-  if (!stickyBoundaryElement && !forcePosition) {
-    if (xAxis === 'center' && centerAlignment.contentWidth === width) {
-      chosenXAxis = 'center';
-    } else if (xAxis === 'left' && leftAlignment.contentWidth === width) {
-      chosenXAxis = 'left';
-    } else if (xAxis === 'right' && rightAlignment.contentWidth === width) {
-      chosenXAxis = 'right';
-    } else {
-      chosenXAxis = leftAlignment.contentWidth > rightAlignment.contentWidth ? 'left' : 'right';
-      const chosenWidth = chosenXAxis === 'left' ? leftAlignment.contentWidth : rightAlignment.contentWidth; // Limit width of the content to the viewport width
-
-      if (width > window.innerWidth) {
-        contentWidth = window.innerWidth;
-      } // If we can't find any alignment options that could fit
-      // our content, then let's fallback to the center of the viewport.
-
-
-      if (chosenWidth !== width) {
-        chosenXAxis = 'center';
-        centerAlignment.popoverLeft = window.innerWidth / 2;
-      }
-    }
-  }
-
-  let popoverLeft;
-
-  if (chosenXAxis === 'center') {
-    popoverLeft = centerAlignment.popoverLeft;
-  } else if (chosenXAxis === 'left') {
-    popoverLeft = leftAlignment.popoverLeft;
-  } else {
-    popoverLeft = rightAlignment.popoverLeft;
-  }
-
-  if (boundaryElement) {
-    popoverLeft = Math.min(popoverLeft, boundaryElement.offsetLeft + boundaryElement.offsetWidth - width); // Avoid the popover being position beyond the left boundary if the
-    // direction is left to right.
-
-    if (!(0,external_wp_i18n_namespaceObject.isRTL)()) {
-      popoverLeft = Math.max(popoverLeft, 0);
-    }
-  }
-
-  return {
-    xAxis: chosenXAxis,
-    popoverLeft,
-    contentWidth
-  };
-}
-/**
- * Utility used to compute the popover position over the yAxis
- *
- * @param {Object}       anchorRect            Anchor Rect.
- * @param {Object}       contentSize           Content Size.
- * @param {string}       yAxis                 Desired yAxis.
- * @param {string}       corner                Desired corner.
- * @param {boolean}      stickyBoundaryElement The boundary element to use when switching between sticky
- *                                             and normal position.
- * @param {Element}      anchorRef             The anchor element.
- * @param {Element}      relativeOffsetTop     If applicable, top offset of the relative positioned
- *                                             parent container.
- * @param {boolean}      forcePosition         Don't adjust position based on anchor.
- * @param {Element|null} editorWrapper         Element that wraps the editor content. Used to access
- *                                             scroll position to determine sticky behavior.
- * @return {Object} Popover xAxis position and constraints.
- */
-
-function computePopoverYAxisPosition(anchorRect, contentSize, yAxis, corner, stickyBoundaryElement, anchorRef, relativeOffsetTop, forcePosition, editorWrapper) {
-  const {
-    height
-  } = contentSize;
-
-  if (stickyBoundaryElement) {
-    const stickyRect = stickyBoundaryElement.getBoundingClientRect();
-    const stickyPositionTop = stickyRect.top + height - relativeOffsetTop;
-    const stickyPositionBottom = stickyRect.bottom - height - relativeOffsetTop;
-
-    if (anchorRect.top <= stickyPositionTop) {
-      if (editorWrapper) {
-        // If a popover cannot be positioned above the anchor, even after scrolling, we must
-        // ensure we use the bottom position instead of the popover slot.  This prevents the
-        // popover from always restricting block content and interaction while selected if the
-        // block is near the top of the site editor.
-        const isRoomAboveInCanvas = height + HEIGHT_OFFSET < editorWrapper.scrollTop + anchorRect.top;
-
-        if (!isRoomAboveInCanvas) {
-          return {
-            yAxis: 'bottom',
-            // If the bottom of the block is also below the bottom sticky position (ex -
-            // block is also taller than the editor window), return the bottom sticky
-            // position instead.  We do this instead of the top sticky position both to
-            // allow a smooth transition and more importantly to ensure every section of
-            // the block can be free from popover obscuration at some point in the
-            // scroll position.
-            popoverTop: Math.min(anchorRect.bottom, stickyPositionBottom)
-          };
-        }
-      } // Default sticky behavior.
-
-
-      return {
-        yAxis,
-        popoverTop: Math.min(anchorRect.bottom, stickyPositionTop)
-      };
-    }
-  } // Y axis alignment choices.
-
-
-  let anchorMidPoint = anchorRect.top + anchorRect.height / 2;
-
-  if (corner === 'bottom') {
-    anchorMidPoint = anchorRect.bottom;
-  } else if (corner === 'top') {
-    anchorMidPoint = anchorRect.top;
-  }
-
-  const middleAlignment = {
-    popoverTop: anchorMidPoint,
-    contentHeight: (anchorMidPoint - height / 2 > 0 ? height / 2 : anchorMidPoint) + (anchorMidPoint + height / 2 > window.innerHeight ? window.innerHeight - anchorMidPoint : height / 2)
-  };
-  const topAlignment = {
-    popoverTop: anchorRect.top,
-    contentHeight: anchorRect.top - HEIGHT_OFFSET - height > 0 ? height : anchorRect.top - HEIGHT_OFFSET
-  };
-  const bottomAlignment = {
-    popoverTop: anchorRect.bottom,
-    contentHeight: anchorRect.bottom + HEIGHT_OFFSET + height > window.innerHeight ? window.innerHeight - HEIGHT_OFFSET - anchorRect.bottom : height
-  }; // Choosing the y axis.
-
-  let chosenYAxis = yAxis;
-  let contentHeight = null;
-
-  if (!stickyBoundaryElement && !forcePosition) {
-    if (yAxis === 'middle' && middleAlignment.contentHeight === height) {
-      chosenYAxis = 'middle';
-    } else if (yAxis === 'top' && topAlignment.contentHeight === height) {
-      chosenYAxis = 'top';
-    } else if (yAxis === 'bottom' && bottomAlignment.contentHeight === height) {
-      chosenYAxis = 'bottom';
-    } else {
-      chosenYAxis = topAlignment.contentHeight > bottomAlignment.contentHeight ? 'top' : 'bottom';
-      const chosenHeight = chosenYAxis === 'top' ? topAlignment.contentHeight : bottomAlignment.contentHeight;
-      contentHeight = chosenHeight !== height ? chosenHeight : null;
-    }
-  }
-
-  let popoverTop;
-
-  if (chosenYAxis === 'middle') {
-    popoverTop = middleAlignment.popoverTop;
-  } else if (chosenYAxis === 'top') {
-    popoverTop = topAlignment.popoverTop;
-  } else {
-    popoverTop = bottomAlignment.popoverTop;
-  }
-
-  return {
-    yAxis: chosenYAxis,
-    popoverTop,
-    contentHeight
-  };
-}
-/**
- * Utility used to compute the popover position and the content max width/height for a popover given
- * its anchor rect and its content size.
- *
- * @param {Object}       anchorRect            Anchor Rect.
- * @param {Object}       contentSize           Content Size.
- * @param {string}       position              Position.
- * @param {boolean}      stickyBoundaryElement The boundary element to use when switching between
- *                                             sticky and normal position.
- * @param {Element}      anchorRef             The anchor element.
- * @param {number}       relativeOffsetTop     If applicable, top offset of the relative positioned
- *                                             parent container.
- * @param {Element}      boundaryElement       Boundary element.
- * @param {boolean}      forcePosition         Don't adjust position based on anchor.
- * @param {boolean}      forceXAlignment       Don't adjust alignment based on YAxis
- * @param {Element|null} editorWrapper         Element that wraps the editor content. Used to access
- *                                             scroll position to determine sticky behavior.
- * @return {Object} Popover position and constraints.
- */
-
-function computePopoverPosition(anchorRect, contentSize) {
-  let position = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'top';
-  let stickyBoundaryElement = arguments.length > 3 ? arguments[3] : undefined;
-  let anchorRef = arguments.length > 4 ? arguments[4] : undefined;
-  let relativeOffsetTop = arguments.length > 5 ? arguments[5] : undefined;
-  let boundaryElement = arguments.length > 6 ? arguments[6] : undefined;
-  let forcePosition = arguments.length > 7 ? arguments[7] : undefined;
-  let forceXAlignment = arguments.length > 8 ? arguments[8] : undefined;
-  let editorWrapper = arguments.length > 9 ? arguments[9] : undefined;
-  const [yAxis, xAxis = 'center', corner] = position.split(' ');
-  const yAxisPosition = computePopoverYAxisPosition(anchorRect, contentSize, yAxis, corner, stickyBoundaryElement, anchorRef, relativeOffsetTop, forcePosition, editorWrapper);
-  const xAxisPosition = computePopoverXAxisPosition(anchorRect, contentSize, xAxis, corner, stickyBoundaryElement, yAxisPosition.yAxis, boundaryElement, forcePosition, forceXAlignment);
-  return { ...xAxisPosition,
-    ...yAxisPosition
-  };
-}
-/**
- * Offsets the given rect by the position of the iframe that contains the
- * element. If the owner document is not in an iframe then it returns with the
- * original rect. If the popover container document and the anchor document are
- * the same, the original rect will also be returned.
- *
- * @param {DOMRect}  rect          bounds of the element
- * @param {Document} ownerDocument document of the element
- * @param {Element}  container     The popover container to position.
- *
- * @return {DOMRect} offsetted bounds
- */
-
-function offsetIframe(rect, ownerDocument, container) {
-  const {
-    defaultView
-  } = ownerDocument;
-  const {
-    frameElement
-  } = defaultView;
-
-  if (!frameElement || ownerDocument === container.ownerDocument) {
-    return rect;
-  }
-
-  const iframeRect = frameElement.getBoundingClientRect();
-  return new defaultView.DOMRect(rect.left + iframeRect.left, rect.top + iframeRect.top, rect.width, rect.height);
-}
 
 ;// CONCATENATED MODULE: external ["wp","deprecated"]
 var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
@@ -21044,8 +21127,8 @@ function validate(uuid) {
 
 var byteToHex = [];
 
-for (var i = 0; i < 256; ++i) {
-  byteToHex.push((i + 0x100).toString(16).substr(1));
+for (var stringify_i = 0; stringify_i < 256; ++stringify_i) {
+  byteToHex.push((stringify_i + 0x100).toString(16).substr(1));
 }
 
 function stringify_stringify(arr) {
@@ -21622,6 +21705,7 @@ function Animate(_ref) {
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
@@ -21638,7 +21722,6 @@ function Animate(_ref) {
 
 
 
-
 /**
  * Name of slot in which popover should fill.
  *
@@ -21648,322 +21731,167 @@ function Animate(_ref) {
 const SLOT_NAME = 'Popover';
 const slotNameContext = (0,external_wp_element_namespaceObject.createContext)();
 
-function computeAnchorRect(anchorRefFallback, anchorRect, getAnchorRect) {
-  let anchorRef = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
-  let container = arguments.length > 4 ? arguments[4] : undefined;
+const positionToPlacement = position => {
+  const [x, y, z] = position.split(' ');
 
-  if (anchorRect) {
-    return anchorRect;
-  }
+  if (['top', 'bottom'].includes(x)) {
+    let suffix = '';
 
-  if (getAnchorRect) {
-    if (!anchorRefFallback.current) {
-      return;
+    if (!!z && z === 'left' || y === 'right') {
+      suffix = '-start';
+    } else if (!!z && z === 'right' || y === 'left') {
+      suffix = '-end';
     }
 
-    const rect = getAnchorRect(anchorRefFallback.current);
-    return offsetIframe(rect, rect.ownerDocument || anchorRefFallback.current.ownerDocument, container);
+    return x + suffix;
   }
 
-  if (anchorRef !== false) {
-    if (!anchorRef || !window.Range || !window.Element || !window.DOMRect) {
-      return;
-    } // Duck-type to check if `anchorRef` is an instance of Range
-    // `anchorRef instanceof window.Range` checks will break across document boundaries
-    // such as in an iframe.
+  return y;
+};
 
+const placementToAnimationOrigin = placement => {
+  const [a, b] = placement.split('-');
+  let x, y;
 
-    if (typeof (anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.cloneRange) === 'function') {
-      return offsetIframe((0,external_wp_dom_namespaceObject.getRectangleFromRange)(anchorRef), anchorRef.endContainer.ownerDocument, container);
-    } // Duck-type to check if `anchorRef` is an instance of Element
-    // `anchorRef instanceof window.Element` checks will break across document boundaries
-    // such as in an iframe.
+  if (a === 'top' || a === 'bottom') {
+    x = a === 'top' ? 'bottom' : 'top';
+    y = 'middle';
 
-
-    if (typeof (anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.getBoundingClientRect) === 'function') {
-      const rect = offsetIframe(anchorRef.getBoundingClientRect(), anchorRef.ownerDocument, container);
-      return rect;
+    if (b === 'start') {
+      y = 'left';
+    } else if (b === 'end') {
+      y = 'right';
     }
-
-    const {
-      top,
-      bottom
-    } = anchorRef;
-    const topRect = top.getBoundingClientRect();
-    const bottomRect = bottom.getBoundingClientRect();
-    return offsetIframe(new window.DOMRect(topRect.left, topRect.top, topRect.width, bottomRect.bottom - topRect.top), top.ownerDocument, container);
   }
 
-  if (!anchorRefFallback.current) {
-    return;
-  }
+  if (a === 'left' || a === 'right') {
+    x = 'center';
+    y = a === 'left' ? 'right' : 'left';
 
-  const {
-    parentNode
-  } = anchorRefFallback.current;
-  return offsetIframe(parentNode.getBoundingClientRect(), parentNode.ownerDocument, container);
-}
-/**
- * Sets or removes an element attribute.
- *
- * @param {Element} element The element to modify.
- * @param {string}  name    The attribute name to set or remove.
- * @param {?string} value   The value to set. A falsy value will remove the
- *                          attribute.
- */
-
-
-function setAttribute(element, name, value) {
-  if (!value) {
-    if (element.hasAttribute(name)) {
-      element.removeAttribute(name);
+    if (b === 'start') {
+      x = 'top';
+    } else if (b === 'end') {
+      x = 'bottom';
     }
-  } else if (element.getAttribute(name) !== value) {
-    element.setAttribute(name, value);
-  }
-}
-/**
- * Sets or removes an element style property.
- *
- * @param {Element} element  The element to modify.
- * @param {string}  property The property to set or remove.
- * @param {?string} value    The value to set. A falsy value will remove the
- *                           property.
- */
-
-
-function setStyle(element, property) {
-  let value = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
-
-  if (element.style[property] !== value) {
-    element.style[property] = value;
-  }
-}
-/**
- * Sets or removes an element class.
- *
- * @param {Element} element The element to modify.
- * @param {string}  name    The class to set or remove.
- * @param {boolean} toggle  True to set the class, false to remove.
- */
-
-
-function setClass(element, name, toggle) {
-  if (toggle) {
-    if (!element.classList.contains(name)) {
-      element.classList.add(name);
-    }
-  } else if (element.classList.contains(name)) {
-    element.classList.remove(name);
-  }
-}
-
-function getAnchorDocument(anchor) {
-  if (!anchor) {
-    return;
   }
 
-  if (anchor.endContainer) {
-    return anchor.endContainer.ownerDocument;
-  }
-
-  if (anchor.top) {
-    return anchor.top.ownerDocument;
-  }
-
-  return anchor.ownerDocument;
-}
+  return x + ' ' + y;
+};
 
 const Popover = (_ref, ref) => {
   let {
+    range,
+    animate = true,
     headerTitle,
     onClose,
     children,
     className,
     noArrow = true,
     isAlternate,
-    // Disable reason: We generate the `...contentProps` rest as remainder
-    // of props which aren't explicitly handled by this component.
-
-    /* eslint-disable no-unused-vars */
-    position = 'bottom right',
-    range,
+    position,
+    placement = 'bottom-start',
+    offset,
     focusOnMount = 'firstElement',
     anchorRef,
     anchorRect,
     getAnchorRect,
     expandOnMobile,
-    animate = true,
     onFocusOutside,
-    __unstableStickyBoundaryElement,
     __unstableSlotName = SLOT_NAME,
     __unstableObserveElement,
-    __unstableBoundaryParent,
     __unstableForcePosition,
-    __unstableForceXAlignment,
-    __unstableEditorCanvasWrapper,
-
-    /* eslint-enable no-unused-vars */
     ...contentProps
   } = _ref;
-  const anchorRefFallback = (0,external_wp_element_namespaceObject.useRef)(null);
-  const contentRef = (0,external_wp_element_namespaceObject.useRef)(null);
-  const containerRef = (0,external_wp_element_namespaceObject.useRef)();
+
+  if (range) {
+    external_wp_deprecated_default()('range prop in Popover component', {
+      since: '6.1',
+      version: '6.3'
+    });
+  }
+
+  const arrowRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const isMobileViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium', '<');
-  const [animateOrigin, setAnimateOrigin] = (0,external_wp_element_namespaceObject.useState)();
+  const isExpanded = expandOnMobile && isMobileViewport;
+  const hasArrow = !isExpanded && !noArrow;
+  const usedPlacement = position ? positionToPlacement(position) : placement;
+  /**
+   * Offsets the the position of the popover when the anchor is inside an iframe.
+   */
+
+  const frameOffset = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    let ownerDocument = document;
+
+    if (anchorRef !== null && anchorRef !== void 0 && anchorRef.top) {
+      ownerDocument = anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.top.ownerDocument;
+    } else if (anchorRef !== null && anchorRef !== void 0 && anchorRef.startContainer) {
+      ownerDocument = anchorRef.startContainer.ownerDocument;
+    } else if (anchorRef !== null && anchorRef !== void 0 && anchorRef.current) {
+      ownerDocument = anchorRef.current.ownerDocument;
+    } else if (anchorRef) {
+      // This one should be deprecated.
+      ownerDocument = anchorRef.ownerDocument;
+    } else if (anchorRect && anchorRect !== null && anchorRect !== void 0 && anchorRect.ownerDocument) {
+      ownerDocument = anchorRect.ownerDocument;
+    } else if (getAnchorRect) {
+      var _getAnchorRect$ownerD, _getAnchorRect;
+
+      ownerDocument = (_getAnchorRect$ownerD = (_getAnchorRect = getAnchorRect()) === null || _getAnchorRect === void 0 ? void 0 : _getAnchorRect.ownerDocument) !== null && _getAnchorRect$ownerD !== void 0 ? _getAnchorRect$ownerD : document;
+    }
+
+    const {
+      defaultView
+    } = ownerDocument;
+    const {
+      frameElement
+    } = defaultView;
+
+    if (!frameElement || ownerDocument === document) {
+      return undefined;
+    }
+
+    const iframeRect = frameElement.getBoundingClientRect();
+    return {
+      name: 'iframeOffset',
+
+      fn(_ref2) {
+        let {
+          x,
+          y
+        } = _ref2;
+        return {
+          x: x + iframeRect.left,
+          y: y + iframeRect.top
+        };
+      }
+
+    };
+  }, [anchorRef, anchorRect, getAnchorRect]);
+  const middlewares = [frameOffset, offset ? T(offset) : undefined, __unstableForcePosition ? undefined : b(), __unstableForcePosition ? undefined : k({
+    apply(_ref3) {
+      let {
+        width,
+        height
+      } = _ref3;
+      if (!refs.floating.current) return;
+      Object.assign(refs.floating.current.firstChild.style, {
+        maxWidth: `${width}px`,
+        maxHeight: `${height}px`,
+        overflow: 'auto'
+      });
+    }
+
+  }),, D({
+    crossAxis: true,
+    limiter: L()
+  }), hasArrow ? arrow({
+    element: arrowRef
+  }) : undefined].filter(m => !!m);
+  const anchorRefFallback = (0,external_wp_element_namespaceObject.useRef)(null);
 
   const slotName = (0,external_wp_element_namespaceObject.useContext)(slotNameContext) || __unstableSlotName;
 
   const slot = use_slot_useSlot(slotName);
-  const isExpanded = expandOnMobile && isMobileViewport;
-  const [containerResizeListener, contentSize] = (0,external_wp_compose_namespaceObject.useResizeObserver)();
-  noArrow = isExpanded || noArrow;
-  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
-    if (isExpanded) {
-      setClass(containerRef.current, 'is-without-arrow', noArrow);
-      setClass(containerRef.current, 'is-alternate', isAlternate);
-      setAttribute(containerRef.current, 'data-x-axis');
-      setAttribute(containerRef.current, 'data-y-axis');
-      setStyle(containerRef.current, 'top');
-      setStyle(containerRef.current, 'left');
-      setStyle(contentRef.current, 'maxHeight');
-      setStyle(contentRef.current, 'maxWidth');
-      return;
-    }
-
-    const refresh = () => {
-      if (!containerRef.current || !contentRef.current) {
-        return;
-      }
-
-      let anchor = computeAnchorRect(anchorRefFallback, anchorRect, getAnchorRect, anchorRef, containerRef.current);
-
-      if (!anchor) {
-        return;
-      }
-
-      const {
-        offsetParent,
-        ownerDocument
-      } = containerRef.current;
-      let relativeOffsetTop = 0; // If there is a positioned ancestor element that is not the body,
-      // subtract the position from the anchor rect. If the position of
-      // the popover is fixed, the offset parent is null or the body
-      // element, in which case the position is relative to the viewport.
-      // See https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/offsetParent
-
-      if (offsetParent && offsetParent !== ownerDocument.body) {
-        const offsetParentRect = offsetParent.getBoundingClientRect();
-        relativeOffsetTop = offsetParentRect.top;
-        anchor = new window.DOMRect(anchor.left - offsetParentRect.left, anchor.top - offsetParentRect.top, anchor.width, anchor.height);
-      }
-
-      let boundaryElement;
-
-      if (__unstableBoundaryParent) {
-        boundaryElement = containerRef.current.parentElement;
-      }
-
-      const usedContentSize = !contentSize.height ? contentRef.current.getBoundingClientRect() : contentSize;
-      const {
-        popoverTop,
-        popoverLeft,
-        xAxis,
-        yAxis,
-        contentHeight,
-        contentWidth
-      } = computePopoverPosition(anchor, usedContentSize, position, __unstableStickyBoundaryElement, containerRef.current, relativeOffsetTop, boundaryElement, __unstableForcePosition, __unstableForceXAlignment, __unstableEditorCanvasWrapper);
-
-      if (typeof popoverTop === 'number' && typeof popoverLeft === 'number') {
-        setStyle(containerRef.current, 'top', popoverTop + 'px');
-        setStyle(containerRef.current, 'left', popoverLeft + 'px');
-      }
-
-      setClass(containerRef.current, 'is-without-arrow', noArrow || xAxis === 'center' && yAxis === 'middle');
-      setClass(containerRef.current, 'is-alternate', isAlternate);
-      setAttribute(containerRef.current, 'data-x-axis', xAxis);
-      setAttribute(containerRef.current, 'data-y-axis', yAxis);
-      setStyle(contentRef.current, 'maxHeight', typeof contentHeight === 'number' ? contentHeight + 'px' : '');
-      setStyle(contentRef.current, 'maxWidth', typeof contentWidth === 'number' ? contentWidth + 'px' : ''); // Compute the animation position.
-
-      const yAxisMapping = {
-        top: 'bottom',
-        bottom: 'top'
-      };
-      const xAxisMapping = {
-        left: 'right',
-        right: 'left'
-      };
-      const animateYAxis = yAxisMapping[yAxis] || 'middle';
-      const animateXAxis = xAxisMapping[xAxis] || 'center';
-      setAnimateOrigin(animateXAxis + ' ' + animateYAxis);
-    };
-
-    refresh();
-    const {
-      ownerDocument
-    } = containerRef.current;
-    const {
-      defaultView
-    } = ownerDocument;
-    /*
-     * There are sometimes we need to reposition or resize the popover that
-     * are not handled by the resize/scroll window events (i.e. CSS changes
-     * in the layout that changes the position of the anchor).
-     *
-     * For these situations, we refresh the popover every 0.5s
-     */
-
-    const intervalHandle = defaultView.setInterval(refresh, 500);
-    let rafId;
-
-    const refreshOnAnimationFrame = () => {
-      defaultView.cancelAnimationFrame(rafId);
-      rafId = defaultView.requestAnimationFrame(refresh);
-    }; // Sometimes a click trigger a layout change that affects the popover
-    // position. This is an opportunity to immediately refresh rather than
-    // at the interval.
-
-
-    defaultView.addEventListener('click', refreshOnAnimationFrame);
-    defaultView.addEventListener('resize', refresh);
-    defaultView.addEventListener('scroll', refresh, true);
-    const anchorDocument = getAnchorDocument(anchorRef); // If the anchor is within an iframe, the popover position also needs
-    // to refrest when the iframe content is scrolled or resized.
-
-    if (anchorDocument && anchorDocument !== ownerDocument) {
-      anchorDocument.defaultView.addEventListener('resize', refresh);
-      anchorDocument.defaultView.addEventListener('scroll', refresh, true);
-    }
-
-    let observer;
-
-    if (__unstableObserveElement) {
-      observer = new defaultView.MutationObserver(refresh);
-      observer.observe(__unstableObserveElement, {
-        attributes: true
-      });
-    }
-
-    return () => {
-      defaultView.clearInterval(intervalHandle);
-      defaultView.removeEventListener('resize', refresh);
-      defaultView.removeEventListener('scroll', refresh, true);
-      defaultView.removeEventListener('click', refreshOnAnimationFrame);
-      defaultView.cancelAnimationFrame(rafId);
-
-      if (anchorDocument && anchorDocument !== ownerDocument) {
-        var _anchorDocument$defau, _anchorDocument$defau2;
-
-        (_anchorDocument$defau = anchorDocument.defaultView) === null || _anchorDocument$defau === void 0 ? void 0 : _anchorDocument$defau.removeEventListener('resize', refresh);
-        (_anchorDocument$defau2 = anchorDocument.defaultView) === null || _anchorDocument$defau2 === void 0 ? void 0 : _anchorDocument$defau2.removeEventListener('scroll', refresh, true);
-      }
-
-      if (observer) {
-        observer.disconnect();
-      }
-    };
-  }, [isExpanded, anchorRect, getAnchorRect, anchorRef, position, contentSize, __unstableStickyBoundaryElement, __unstableObserveElement, __unstableBoundaryParent]);
 
   const onDialogClose = (type, event) => {
     // Ideally the popover should have just a single onClose prop and
@@ -21980,12 +21908,104 @@ const Popover = (_ref, ref) => {
     __unstableOnClose: onDialogClose,
     onClose: onDialogClose
   });
-  const mergedRefs = (0,external_wp_compose_namespaceObject.useMergeRefs)([containerRef, dialogRef, ref]);
+  const {
+    x,
+    y,
+    reference,
+    floating,
+    strategy,
+    refs,
+    update,
+    placement: placementData,
+    middlewareData: {
+      arrow: arrowData = {}
+    }
+  } = useFloating({
+    placement: usedPlacement,
+    middleware: middlewares
+  });
+  const staticSide = {
+    top: 'bottom',
+    right: 'left',
+    bottom: 'top',
+    left: 'right'
+  }[placementData.split('-')[0]];
+  const mergedRefs = (0,external_wp_compose_namespaceObject.useMergeRefs)([floating, dialogRef, ref]); // Updates references
+
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    // No ref or position have been passed
+    let usedRef;
+
+    if (anchorRef !== null && anchorRef !== void 0 && anchorRef.top) {
+      usedRef = {
+        getBoundingClientRect() {
+          const topRect = anchorRef.top.getBoundingClientRect();
+          const bottomRect = anchorRef.bottom.getBoundingClientRect();
+          return new window.DOMRect(topRect.x, topRect.y, topRect.width, bottomRect.bottom - topRect.top);
+        }
+
+      };
+    } else if (anchorRef !== null && anchorRef !== void 0 && anchorRef.current) {
+      usedRef = anchorRef.current;
+    } else if (anchorRef) {
+      usedRef = anchorRef;
+    } else if (anchorRect) {
+      usedRef = {
+        getBoundingClientRect() {
+          return anchorRect;
+        }
+
+      };
+    } else if (getAnchorRect) {
+      usedRef = {
+        getBoundingClientRect() {
+          var _rect$x, _rect$y, _rect$height, _rect$width;
+
+          const rect = getAnchorRect();
+          return { ...rect,
+            x: (_rect$x = rect.x) !== null && _rect$x !== void 0 ? _rect$x : rect.left,
+            y: (_rect$y = rect.y) !== null && _rect$y !== void 0 ? _rect$y : rect.top,
+            height: (_rect$height = rect.height) !== null && _rect$height !== void 0 ? _rect$height : rect.bottom - rect.top,
+            width: (_rect$width = rect.width) !== null && _rect$width !== void 0 ? _rect$width : rect.right - rect.left
+          };
+        }
+
+      };
+    } else if (anchorRefFallback.current) {
+      usedRef = anchorRefFallback.current;
+    }
+
+    if (!usedRef) {
+      return;
+    }
+
+    reference(usedRef);
+
+    if (!refs.floating.current) {
+      return;
+    }
+
+    return floating_ui_dom_esm_min_D(usedRef, refs.floating.current, update);
+  }, [anchorRef, anchorRect, getAnchorRect]); // This is only needed for a smoth transition when moving blocks.
+
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    if (!__unstableObserveElement) {
+      return;
+    }
+
+    const observer = new window.MutationObserver(update);
+    observer.observe(__unstableObserveElement, {
+      attributes: true
+    });
+    return () => {
+      observer.disconnect();
+    };
+  }, [__unstableObserveElement]);
   /** @type {false | string} */
 
-  const animateClassName = Boolean(animate && animateOrigin) && getAnimateClassName({
+  const animateClassName = !!animate && getAnimateClassName({
     type: 'appear',
-    origin: animateOrigin
+    origin: placementToAnimationOrigin(placementData)
   }); // Disable reason: We care to capture the _bubbled_ events from inputs
   // within popover as inferring close intent.
 
@@ -21994,13 +22014,17 @@ const Popover = (_ref, ref) => {
   (0,external_wp_element_namespaceObject.createElement)("div", extends_extends({
     className: classnames_default()('components-popover', className, animateClassName, {
       'is-expanded': isExpanded,
-      'is-without-arrow': noArrow,
       'is-alternate': isAlternate
     })
   }, contentProps, {
     ref: mergedRefs
   }, dialogProps, {
-    tabIndex: "-1"
+    tabIndex: "-1",
+    style: isExpanded ? undefined : {
+      position: strategy,
+      left: Number.isNaN(x) ? 0 : x,
+      top: Number.isNaN(y) ? 0 : y
+    }
   }), isExpanded && (0,external_wp_element_namespaceObject.createElement)(ScrollLock, null), isExpanded && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-popover__header"
   }, (0,external_wp_element_namespaceObject.createElement)("span", {
@@ -22010,13 +22034,18 @@ const Popover = (_ref, ref) => {
     icon: library_close,
     onClick: onClose
   })), (0,external_wp_element_namespaceObject.createElement)("div", {
-    ref: contentRef,
     className: "components-popover__content"
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, children), hasArrow && (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-popover__arrow",
+    ref: arrowRef,
     style: {
-      position: 'relative'
+      left: !(arrowData !== null && arrowData !== void 0 && arrowData.x) || Number.isNaN(arrowData === null || arrowData === void 0 ? void 0 : arrowData.x) ? 0 : arrowData.x,
+      top: !(arrowData !== null && arrowData !== void 0 && arrowData.y) || Number.isNaN(arrowData === null || arrowData === void 0 ? void 0 : arrowData.y) ? 0 : arrowData.y,
+      right: undefined,
+      bottom: undefined,
+      [staticSide]: '-4px'
     }
-  }, containerResizeListener, children)));
+  }));
 
   if (slot.ref) {
     content = (0,external_wp_element_namespaceObject.createElement)(slot_fill_Fill, {
@@ -22035,10 +22064,10 @@ const Popover = (_ref, ref) => {
 
 const PopoverContainer = (0,external_wp_element_namespaceObject.forwardRef)(Popover);
 
-function PopoverSlot(_ref2, ref) {
+function PopoverSlot(_ref4, ref) {
   let {
     name = SLOT_NAME
-  } = _ref2;
+  } = _ref4;
   return (0,external_wp_element_namespaceObject.createElement)(slot_fill_Slot, {
     bubblesVirtually: true,
     name: name,
@@ -22170,7 +22199,7 @@ const addPopoverToGrandchildren = _ref3 => {
     className: "components-tooltip",
     "aria-hidden": "true",
     animate: false,
-    noArrow: true
+    offset: 12
   }, text, (0,external_wp_element_namespaceObject.createElement)(build_module_shortcut, {
     className: "components-tooltip__shortcut",
     shortcut: shortcut
@@ -22196,7 +22225,7 @@ const emitToChild = (children, eventName, event) => {
 function Tooltip(props) {
   const {
     children,
-    position,
+    position = 'bottom middle',
     text,
     shortcut,
     delay = TOOLTIP_DELAY
@@ -22712,7 +22741,7 @@ if (false) { var globalKey, globalContext, isJest, emotion_react_browser_esm_isB
 
 
 ;// CONCATENATED MODULE: ./packages/components/node_modules/colord/index.mjs
-var r={grad:.9,turn:360,rad:360/(2*Math.PI)},t=function(r){return"string"==typeof r?r.length>0:"number"==typeof r},colord_n=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=Math.pow(10,t)),Math.round(n*r)/n+0},colord_e=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=1),r>n?n:r>t?r:t},u=function(r){return(r=isFinite(r)?r%360:0)>0?r:r+360},colord_a=function(r){return{r:colord_e(r.r,0,255),g:colord_e(r.g,0,255),b:colord_e(r.b,0,255),a:colord_e(r.a)}},colord_o=function(r){return{r:colord_n(r.r),g:colord_n(r.g),b:colord_n(r.b),a:colord_n(r.a,3)}},colord_i=/^#([0-9a-f]{3,8})$/i,s=function(r){var t=r.toString(16);return t.length<2?"0"+t:t},h=function(r){var t=r.r,n=r.g,e=r.b,u=r.a,a=Math.max(t,n,e),o=a-Math.min(t,n,e),i=o?a===t?(n-e)/o:a===n?2+(e-t)/o:4+(t-n)/o:0;return{h:60*(i<0?i+6:i),s:a?o/a*100:0,v:a/255*100,a:u}},b=function(r){var t=r.h,n=r.s,e=r.v,u=r.a;t=t/360*6,n/=100,e/=100;var a=Math.floor(t),o=e*(1-n),i=e*(1-(t-a)*n),s=e*(1-(1-t+a)*n),h=a%6;return{r:255*[e,i,o,o,s,e][h],g:255*[s,e,e,i,o,o][h],b:255*[o,o,s,e,e,i][h],a:u}},g=function(r){return{h:u(r.h),s:colord_e(r.s,0,100),l:colord_e(r.l,0,100),a:colord_e(r.a)}},d=function(r){return{h:colord_n(r.h),s:colord_n(r.s),l:colord_n(r.l),a:colord_n(r.a,3)}},f=function(r){return b((n=(t=r).s,{h:t.h,s:(n*=((e=t.l)<50?e:100-e)/100)>0?2*n/(e+n)*100:0,v:e+n,a:t.a}));var t,n,e},c=function(r){return{h:(t=h(r)).h,s:(u=(200-(n=t.s))*(e=t.v)/100)>0&&u<200?n*e/100/(u<=100?u:200-u)*100:0,l:u/2,a:t.a};var t,n,e,u},l=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,p=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,v=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,m=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,y={string:[[function(r){var t=colord_i.exec(r);return t?(r=t[1]).length<=4?{r:parseInt(r[0]+r[0],16),g:parseInt(r[1]+r[1],16),b:parseInt(r[2]+r[2],16),a:4===r.length?colord_n(parseInt(r[3]+r[3],16)/255,2):1}:6===r.length||8===r.length?{r:parseInt(r.substr(0,2),16),g:parseInt(r.substr(2,2),16),b:parseInt(r.substr(4,2),16),a:8===r.length?colord_n(parseInt(r.substr(6,2),16)/255,2):1}:null:null},"hex"],[function(r){var t=v.exec(r)||m.exec(r);return t?t[2]!==t[4]||t[4]!==t[6]?null:colord_a({r:Number(t[1])/(t[2]?100/255:1),g:Number(t[3])/(t[4]?100/255:1),b:Number(t[5])/(t[6]?100/255:1),a:void 0===t[7]?1:Number(t[7])/(t[8]?100:1)}):null},"rgb"],[function(t){var n=l.exec(t)||p.exec(t);if(!n)return null;var e,u,a=g({h:(e=n[1],u=n[2],void 0===u&&(u="deg"),Number(e)*(r[u]||1)),s:Number(n[3]),l:Number(n[4]),a:void 0===n[5]?1:Number(n[5])/(n[6]?100:1)});return f(a)},"hsl"]],object:[[function(r){var n=r.r,e=r.g,u=r.b,o=r.a,i=void 0===o?1:o;return t(n)&&t(e)&&t(u)?colord_a({r:Number(n),g:Number(e),b:Number(u),a:Number(i)}):null},"rgb"],[function(r){var n=r.h,e=r.s,u=r.l,a=r.a,o=void 0===a?1:a;if(!t(n)||!t(e)||!t(u))return null;var i=g({h:Number(n),s:Number(e),l:Number(u),a:Number(o)});return f(i)},"hsl"],[function(r){var n=r.h,a=r.s,o=r.v,i=r.a,s=void 0===i?1:i;if(!t(n)||!t(a)||!t(o))return null;var h=function(r){return{h:u(r.h),s:colord_e(r.s,0,100),v:colord_e(r.v,0,100),a:colord_e(r.a)}}({h:Number(n),s:Number(a),v:Number(o),a:Number(s)});return b(h)},"hsv"]]},N=function(r,t){for(var n=0;n<t.length;n++){var e=t[n][0](r);if(e)return[e,t[n][1]]}return[null,void 0]},x=function(r){return"string"==typeof r?N(r.trim(),y.string):"object"==typeof r&&null!==r?N(r,y.object):[null,void 0]},I=function(r){return x(r)[1]},M=function(r,t){var n=c(r);return{h:n.h,s:colord_e(n.s+100*t,0,100),l:n.l,a:n.a}},H=function(r){return(299*r.r+587*r.g+114*r.b)/1e3/255},$=function(r,t){var n=c(r);return{h:n.h,s:n.s,l:colord_e(n.l+100*t,0,100),a:n.a}},j=function(){function r(r){this.parsed=x(r)[0],this.rgba=this.parsed||{r:0,g:0,b:0,a:1}}return r.prototype.isValid=function(){return null!==this.parsed},r.prototype.brightness=function(){return colord_n(H(this.rgba),2)},r.prototype.isDark=function(){return H(this.rgba)<.5},r.prototype.isLight=function(){return H(this.rgba)>=.5},r.prototype.toHex=function(){return r=colord_o(this.rgba),t=r.r,e=r.g,u=r.b,i=(a=r.a)<1?s(colord_n(255*a)):"","#"+s(t)+s(e)+s(u)+i;var r,t,e,u,a,i},r.prototype.toRgb=function(){return colord_o(this.rgba)},r.prototype.toRgbString=function(){return r=colord_o(this.rgba),t=r.r,n=r.g,e=r.b,(u=r.a)<1?"rgba("+t+", "+n+", "+e+", "+u+")":"rgb("+t+", "+n+", "+e+")";var r,t,n,e,u},r.prototype.toHsl=function(){return d(c(this.rgba))},r.prototype.toHslString=function(){return r=d(c(this.rgba)),t=r.h,n=r.s,e=r.l,(u=r.a)<1?"hsla("+t+", "+n+"%, "+e+"%, "+u+")":"hsl("+t+", "+n+"%, "+e+"%)";var r,t,n,e,u},r.prototype.toHsv=function(){return r=h(this.rgba),{h:colord_n(r.h),s:colord_n(r.s),v:colord_n(r.v),a:colord_n(r.a,3)};var r},r.prototype.invert=function(){return w({r:255-(r=this.rgba).r,g:255-r.g,b:255-r.b,a:r.a});var r},r.prototype.saturate=function(r){return void 0===r&&(r=.1),w(M(this.rgba,r))},r.prototype.desaturate=function(r){return void 0===r&&(r=.1),w(M(this.rgba,-r))},r.prototype.grayscale=function(){return w(M(this.rgba,-1))},r.prototype.lighten=function(r){return void 0===r&&(r=.1),w($(this.rgba,r))},r.prototype.darken=function(r){return void 0===r&&(r=.1),w($(this.rgba,-r))},r.prototype.rotate=function(r){return void 0===r&&(r=15),this.hue(this.hue()+r)},r.prototype.alpha=function(r){return"number"==typeof r?w({r:(t=this.rgba).r,g:t.g,b:t.b,a:r}):colord_n(this.rgba.a,3);var t},r.prototype.hue=function(r){var t=c(this.rgba);return"number"==typeof r?w({h:r,s:t.s,l:t.l,a:t.a}):colord_n(t.h)},r.prototype.isEqual=function(r){return this.toHex()===w(r).toHex()},r}(),w=function(r){return r instanceof j?r:new j(r)},S=[],k=function(r){r.forEach(function(r){S.indexOf(r)<0&&(r(j,y),S.push(r))})},E=function(){return new j({r:255*Math.random(),g:255*Math.random(),b:255*Math.random()})};
+var colord_r={grad:.9,turn:360,rad:360/(2*Math.PI)},colord_t=function(r){return"string"==typeof r?r.length>0:"number"==typeof r},colord_n=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=Math.pow(10,t)),Math.round(n*r)/n+0},colord_e=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=1),r>n?n:r>t?r:t},colord_u=function(r){return(r=isFinite(r)?r%360:0)>0?r:r+360},colord_a=function(r){return{r:colord_e(r.r,0,255),g:colord_e(r.g,0,255),b:colord_e(r.b,0,255),a:colord_e(r.a)}},colord_o=function(r){return{r:colord_n(r.r),g:colord_n(r.g),b:colord_n(r.b),a:colord_n(r.a,3)}},colord_i=/^#([0-9a-f]{3,8})$/i,colord_s=function(r){var t=r.toString(16);return t.length<2?"0"+t:t},colord_h=function(r){var t=r.r,n=r.g,e=r.b,u=r.a,a=Math.max(t,n,e),o=a-Math.min(t,n,e),i=o?a===t?(n-e)/o:a===n?2+(e-t)/o:4+(t-n)/o:0;return{h:60*(i<0?i+6:i),s:a?o/a*100:0,v:a/255*100,a:u}},colord_b=function(r){var t=r.h,n=r.s,e=r.v,u=r.a;t=t/360*6,n/=100,e/=100;var a=Math.floor(t),o=e*(1-n),i=e*(1-(t-a)*n),s=e*(1-(1-t+a)*n),h=a%6;return{r:255*[e,i,o,o,s,e][h],g:255*[s,e,e,i,o,o][h],b:255*[o,o,s,e,e,i][h],a:u}},colord_g=function(r){return{h:colord_u(r.h),s:colord_e(r.s,0,100),l:colord_e(r.l,0,100),a:colord_e(r.a)}},colord_d=function(r){return{h:colord_n(r.h),s:colord_n(r.s),l:colord_n(r.l),a:colord_n(r.a,3)}},colord_f=function(r){return colord_b((n=(t=r).s,{h:t.h,s:(n*=((e=t.l)<50?e:100-e)/100)>0?2*n/(e+n)*100:0,v:e+n,a:t.a}));var t,n,e},colord_c=function(r){return{h:(t=colord_h(r)).h,s:(u=(200-(n=t.s))*(e=t.v)/100)>0&&u<200?n*e/100/(u<=100?u:200-u)*100:0,l:u/2,a:t.a};var t,n,e,u},colord_l=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,colord_p=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,colord_v=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,colord_m=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,colord_y={string:[[function(r){var t=colord_i.exec(r);return t?(r=t[1]).length<=4?{r:parseInt(r[0]+r[0],16),g:parseInt(r[1]+r[1],16),b:parseInt(r[2]+r[2],16),a:4===r.length?colord_n(parseInt(r[3]+r[3],16)/255,2):1}:6===r.length||8===r.length?{r:parseInt(r.substr(0,2),16),g:parseInt(r.substr(2,2),16),b:parseInt(r.substr(4,2),16),a:8===r.length?colord_n(parseInt(r.substr(6,2),16)/255,2):1}:null:null},"hex"],[function(r){var t=colord_v.exec(r)||colord_m.exec(r);return t?t[2]!==t[4]||t[4]!==t[6]?null:colord_a({r:Number(t[1])/(t[2]?100/255:1),g:Number(t[3])/(t[4]?100/255:1),b:Number(t[5])/(t[6]?100/255:1),a:void 0===t[7]?1:Number(t[7])/(t[8]?100:1)}):null},"rgb"],[function(t){var n=colord_l.exec(t)||colord_p.exec(t);if(!n)return null;var e,u,a=colord_g({h:(e=n[1],u=n[2],void 0===u&&(u="deg"),Number(e)*(colord_r[u]||1)),s:Number(n[3]),l:Number(n[4]),a:void 0===n[5]?1:Number(n[5])/(n[6]?100:1)});return colord_f(a)},"hsl"]],object:[[function(r){var n=r.r,e=r.g,u=r.b,o=r.a,i=void 0===o?1:o;return colord_t(n)&&colord_t(e)&&colord_t(u)?colord_a({r:Number(n),g:Number(e),b:Number(u),a:Number(i)}):null},"rgb"],[function(r){var n=r.h,e=r.s,u=r.l,a=r.a,o=void 0===a?1:a;if(!colord_t(n)||!colord_t(e)||!colord_t(u))return null;var i=colord_g({h:Number(n),s:Number(e),l:Number(u),a:Number(o)});return colord_f(i)},"hsl"],[function(r){var n=r.h,a=r.s,o=r.v,i=r.a,s=void 0===i?1:i;if(!colord_t(n)||!colord_t(a)||!colord_t(o))return null;var h=function(r){return{h:colord_u(r.h),s:colord_e(r.s,0,100),v:colord_e(r.v,0,100),a:colord_e(r.a)}}({h:Number(n),s:Number(a),v:Number(o),a:Number(s)});return colord_b(h)},"hsv"]]},colord_N=function(r,t){for(var n=0;n<t.length;n++){var e=t[n][0](r);if(e)return[e,t[n][1]]}return[null,void 0]},colord_x=function(r){return"string"==typeof r?colord_N(r.trim(),colord_y.string):"object"==typeof r&&null!==r?colord_N(r,colord_y.object):[null,void 0]},I=function(r){return colord_x(r)[1]},M=function(r,t){var n=colord_c(r);return{h:n.h,s:colord_e(n.s+100*t,0,100),l:n.l,a:n.a}},colord_H=function(r){return(299*r.r+587*r.g+114*r.b)/1e3/255},$=function(r,t){var n=colord_c(r);return{h:n.h,s:n.s,l:colord_e(n.l+100*t,0,100),a:n.a}},j=function(){function r(r){this.parsed=colord_x(r)[0],this.rgba=this.parsed||{r:0,g:0,b:0,a:1}}return r.prototype.isValid=function(){return null!==this.parsed},r.prototype.brightness=function(){return colord_n(colord_H(this.rgba),2)},r.prototype.isDark=function(){return colord_H(this.rgba)<.5},r.prototype.isLight=function(){return colord_H(this.rgba)>=.5},r.prototype.toHex=function(){return r=colord_o(this.rgba),t=r.r,e=r.g,u=r.b,i=(a=r.a)<1?colord_s(colord_n(255*a)):"","#"+colord_s(t)+colord_s(e)+colord_s(u)+i;var r,t,e,u,a,i},r.prototype.toRgb=function(){return colord_o(this.rgba)},r.prototype.toRgbString=function(){return r=colord_o(this.rgba),t=r.r,n=r.g,e=r.b,(u=r.a)<1?"rgba("+t+", "+n+", "+e+", "+u+")":"rgb("+t+", "+n+", "+e+")";var r,t,n,e,u},r.prototype.toHsl=function(){return colord_d(colord_c(this.rgba))},r.prototype.toHslString=function(){return r=colord_d(colord_c(this.rgba)),t=r.h,n=r.s,e=r.l,(u=r.a)<1?"hsla("+t+", "+n+"%, "+e+"%, "+u+")":"hsl("+t+", "+n+"%, "+e+"%)";var r,t,n,e,u},r.prototype.toHsv=function(){return r=colord_h(this.rgba),{h:colord_n(r.h),s:colord_n(r.s),v:colord_n(r.v),a:colord_n(r.a,3)};var r},r.prototype.invert=function(){return colord_w({r:255-(r=this.rgba).r,g:255-r.g,b:255-r.b,a:r.a});var r},r.prototype.saturate=function(r){return void 0===r&&(r=.1),colord_w(M(this.rgba,r))},r.prototype.desaturate=function(r){return void 0===r&&(r=.1),colord_w(M(this.rgba,-r))},r.prototype.grayscale=function(){return colord_w(M(this.rgba,-1))},r.prototype.lighten=function(r){return void 0===r&&(r=.1),colord_w($(this.rgba,r))},r.prototype.darken=function(r){return void 0===r&&(r=.1),colord_w($(this.rgba,-r))},r.prototype.rotate=function(r){return void 0===r&&(r=15),this.hue(this.hue()+r)},r.prototype.alpha=function(r){return"number"==typeof r?colord_w({r:(t=this.rgba).r,g:t.g,b:t.b,a:r}):colord_n(this.rgba.a,3);var t},r.prototype.hue=function(r){var t=colord_c(this.rgba);return"number"==typeof r?colord_w({h:r,s:t.s,l:t.l,a:t.a}):colord_n(t.h)},r.prototype.isEqual=function(r){return this.toHex()===colord_w(r).toHex()},r}(),colord_w=function(r){return r instanceof j?r:new j(r)},colord_S=[],colord_k=function(r){r.forEach(function(r){colord_S.indexOf(r)<0&&(r(j,colord_y),colord_S.push(r))})},colord_E=function(){return new j({r:255*Math.random(),g:255*Math.random(),b:255*Math.random()})};
 
 ;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/names.mjs
 /* harmony default export */ function names(e,f){var a={white:"#ffffff",bisque:"#ffe4c4",blue:"#0000ff",cadetblue:"#5f9ea0",chartreuse:"#7fff00",chocolate:"#d2691e",coral:"#ff7f50",antiquewhite:"#faebd7",aqua:"#00ffff",azure:"#f0ffff",whitesmoke:"#f5f5f5",papayawhip:"#ffefd5",plum:"#dda0dd",blanchedalmond:"#ffebcd",black:"#000000",gold:"#ffd700",goldenrod:"#daa520",gainsboro:"#dcdcdc",cornsilk:"#fff8dc",cornflowerblue:"#6495ed",burlywood:"#deb887",aquamarine:"#7fffd4",beige:"#f5f5dc",crimson:"#dc143c",cyan:"#00ffff",darkblue:"#00008b",darkcyan:"#008b8b",darkgoldenrod:"#b8860b",darkkhaki:"#bdb76b",darkgray:"#a9a9a9",darkgreen:"#006400",darkgrey:"#a9a9a9",peachpuff:"#ffdab9",darkmagenta:"#8b008b",darkred:"#8b0000",darkorchid:"#9932cc",darkorange:"#ff8c00",darkslateblue:"#483d8b",gray:"#808080",darkslategray:"#2f4f4f",darkslategrey:"#2f4f4f",deeppink:"#ff1493",deepskyblue:"#00bfff",wheat:"#f5deb3",firebrick:"#b22222",floralwhite:"#fffaf0",ghostwhite:"#f8f8ff",darkviolet:"#9400d3",magenta:"#ff00ff",green:"#008000",dodgerblue:"#1e90ff",grey:"#808080",honeydew:"#f0fff0",hotpink:"#ff69b4",blueviolet:"#8a2be2",forestgreen:"#228b22",lawngreen:"#7cfc00",indianred:"#cd5c5c",indigo:"#4b0082",fuchsia:"#ff00ff",brown:"#a52a2a",maroon:"#800000",mediumblue:"#0000cd",lightcoral:"#f08080",darkturquoise:"#00ced1",lightcyan:"#e0ffff",ivory:"#fffff0",lightyellow:"#ffffe0",lightsalmon:"#ffa07a",lightseagreen:"#20b2aa",linen:"#faf0e6",mediumaquamarine:"#66cdaa",lemonchiffon:"#fffacd",lime:"#00ff00",khaki:"#f0e68c",mediumseagreen:"#3cb371",limegreen:"#32cd32",mediumspringgreen:"#00fa9a",lightskyblue:"#87cefa",lightblue:"#add8e6",midnightblue:"#191970",lightpink:"#ffb6c1",mistyrose:"#ffe4e1",moccasin:"#ffe4b5",mintcream:"#f5fffa",lightslategray:"#778899",lightslategrey:"#778899",navajowhite:"#ffdead",navy:"#000080",mediumvioletred:"#c71585",powderblue:"#b0e0e6",palegoldenrod:"#eee8aa",oldlace:"#fdf5e6",paleturquoise:"#afeeee",mediumturquoise:"#48d1cc",mediumorchid:"#ba55d3",rebeccapurple:"#663399",lightsteelblue:"#b0c4de",mediumslateblue:"#7b68ee",thistle:"#d8bfd8",tan:"#d2b48c",orchid:"#da70d6",mediumpurple:"#9370db",purple:"#800080",pink:"#ffc0cb",skyblue:"#87ceeb",springgreen:"#00ff7f",palegreen:"#98fb98",red:"#ff0000",yellow:"#ffff00",slateblue:"#6a5acd",lavenderblush:"#fff0f5",peru:"#cd853f",palevioletred:"#db7093",violet:"#ee82ee",teal:"#008080",slategray:"#708090",slategrey:"#708090",aliceblue:"#f0f8ff",darkseagreen:"#8fbc8f",darkolivegreen:"#556b2f",greenyellow:"#adff2f",seagreen:"#2e8b57",seashell:"#fff5ee",tomato:"#ff6347",silver:"#c0c0c0",sienna:"#a0522d",lavender:"#e6e6fa",lightgreen:"#90ee90",orange:"#ffa500",orangered:"#ff4500",steelblue:"#4682b4",royalblue:"#4169e1",turquoise:"#40e0d0",yellowgreen:"#9acd32",salmon:"#fa8072",saddlebrown:"#8b4513",sandybrown:"#f4a460",rosybrown:"#bc8f8f",darksalmon:"#e9967a",lightgoldenrodyellow:"#fafad2",snow:"#fffafa",lightgrey:"#d3d3d3",lightgray:"#d3d3d3",dimgray:"#696969",dimgrey:"#696969",olivedrab:"#6b8e23",olive:"#808000"},r={};for(var d in a)r[a[d]]=d;var l={};e.prototype.toName=function(f){if(!(this.rgba.a||this.rgba.r||this.rgba.g||this.rgba.b))return"transparent";var d,i,n=r[this.toHex()];if(n)return n;if(null==f?void 0:f.closest){var o=this.toRgb(),t=1/0,b="black";if(!l.length)for(var c in a)l[c]=new e(a[c]).toRgb();for(var g in a){var u=(d=o,i=l[g],Math.pow(d.r-i.r,2)+Math.pow(d.g-i.g,2)+Math.pow(d.b-i.b,2));u<t&&(t=u,b=g)}return b}};f.string.push([function(f){var r=f.toLowerCase(),d="transparent"===r?"#0000":a[r];return d?new e(d).toRgb():null},"name"])}
@@ -22723,7 +22752,7 @@ var r={grad:.9,turn:360,rad:360/(2*Math.PI)},t=function(r){return"string"==typeo
  */
 
 
-k([names]);
+colord_k([names]);
 /**
  * Generating a CSS compliant rgba() color value.
  *
@@ -22739,7 +22768,7 @@ k([names]);
 function rgba() {
   let hexValue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   let alpha = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
-  return w(hexValue).alpha(alpha).toRgbString();
+  return colord_w(hexValue).alpha(alpha).toRgbString();
 }
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/colors-values.js
@@ -35126,7 +35155,7 @@ function useTruncate(props) {
 /** @type {HTMLDivElement} */
 
 let colorComputationNode;
-k([names]);
+colord_k([names]);
 /**
  * @return {HTMLDivElement | undefined} The HTML element for color computation.
  */
@@ -35154,7 +35183,7 @@ function getColorComputationNode() {
 
 function isColor(value) {
   if (typeof value !== 'string') return false;
-  const test = w(value);
+  const test = colord_w(value);
   return test.isValid();
 }
 /**
@@ -35196,7 +35225,7 @@ const getComputedBackgroundColor = memize_default()(_getComputedBackgroundColor)
 
 function getOptimalTextColor(backgroundColor) {
   const background = getComputedBackgroundColor(backgroundColor);
-  return w(background).isLight() ? '#000000' : '#ffffff';
+  return colord_w(background).isLight() ? '#000000' : '#ffffff';
 }
 /**
  * Get the text shade optimized for readability, based on a background color.
@@ -40033,10 +40062,9 @@ const LinkedBorderControl =  true ? {
   name: "82a6rk",
   styles: "flex:1"
 } : 0;
-const BorderBoxControlLinkedButton =  true ? {
-  name: "3gg0za",
-  styles: "flex:0;flex-basis:36px;margin-top:7px"
-} : 0;
+const BorderBoxControlLinkedButton = __next36pxDefaultSize => {
+  return /*#__PURE__*/emotion_react_browser_esm_css("flex:0;flex-basis:36px;margin-top:", __next36pxDefaultSize ? '6px' : '3px', ";" + ( true ? "" : 0),  true ? "" : 0);
+};
 
 const BorderBoxStyleWithFallback = border => {
   const {
@@ -40050,8 +40078,8 @@ const BorderBoxStyleWithFallback = border => {
   return `${color} ${borderStyle} ${clampedWidth}`;
 };
 
-const BorderBoxControlVisualizer = borders => {
-  return /*#__PURE__*/emotion_react_browser_esm_css("position:absolute;top:20px;right:30px;bottom:20px;left:30px;border-top:", BorderBoxStyleWithFallback(borders === null || borders === void 0 ? void 0 : borders.top), ";border-bottom:", BorderBoxStyleWithFallback(borders === null || borders === void 0 ? void 0 : borders.bottom), ";", rtl({
+const BorderBoxControlVisualizer = (borders, __next36pxDefaultSize) => {
+  return /*#__PURE__*/emotion_react_browser_esm_css("position:absolute;top:", __next36pxDefaultSize ? '18px' : '15px', ";right:30px;bottom:", __next36pxDefaultSize ? '18px' : '15px', ";left:30px;border-top:", BorderBoxStyleWithFallback(borders === null || borders === void 0 ? void 0 : borders.top), ";border-bottom:", BorderBoxStyleWithFallback(borders === null || borders === void 0 ? void 0 : borders.bottom), ";", rtl({
     borderLeft: BorderBoxStyleWithFallback(borders === null || borders === void 0 ? void 0 : borders.left)
   })(), " ", rtl({
     borderRight: BorderBoxStyleWithFallback(borders === null || borders === void 0 ? void 0 : borders.right)
@@ -40082,13 +40110,14 @@ const CenteredBorderControl =  true ? {
 function useBorderBoxControlLinkedButton(props) {
   const {
     className,
+    __next36pxDefaultSize = false,
     ...otherProps
   } = useContextSystem(props, 'BorderBoxControlLinkedButton'); // Generate class names.
 
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return cx(BorderBoxControlLinkedButton, className);
-  }, [className]);
+    return cx(BorderBoxControlLinkedButton(__next36pxDefaultSize), className);
+  }, [className, cx, __next36pxDefaultSize]);
   return { ...otherProps,
     className: classes
   };
@@ -40153,13 +40182,14 @@ function useBorderBoxControlVisualizer(props) {
   const {
     className,
     value,
+    __next36pxDefaultSize = false,
     ...otherProps
   } = useContextSystem(props, 'BorderBoxControlVisualizer'); // Generate class names.
 
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return cx(BorderBoxControlVisualizer(value), className);
-  }, [className, value, rtl.watch()]);
+    return cx(BorderBoxControlVisualizer(value, __next36pxDefaultSize), className);
+  }, [className, value, __next36pxDefaultSize, rtl.watch()]);
   return { ...otherProps,
     className: classes,
     value
@@ -40751,23 +40781,36 @@ const styles_labelStyles =  true ? {
   name: "f3vz0n",
   styles: "font-weight:500"
 } : 0;
+const focusBoxShadow = /*#__PURE__*/emotion_react_browser_esm_css("box-shadow:inset 0 0 0 ", config_values.borderWidth, " ", COLORS.ui.borderFocus, ";" + ( true ? "" : 0),  true ? "" : 0);
 const borderControl =  true ? {
   name: "bjn8wh",
   styles: "position:relative"
 } : 0;
-const innerWrapper = () => /*#__PURE__*/emotion_react_browser_esm_css("border:", config_values.borderWidth, " solid ", COLORS.gray[200], ";border-radius:2px;flex:1 0 40%;background:#fff;", unit_control_styles_Root, "{flex:1;", rtl({
+const innerWrapper = () => /*#__PURE__*/emotion_react_browser_esm_css("flex:1 0 40%;background:#fff;", unit_control_styles_Root, "{flex:1;", rtl({
+  marginLeft: -1
+})(), ";}&& ", UnitSelect, "{min-height:0;", rtl({
+  borderRadius: '0 1px 1px 0',
+  marginRight: 0
+}, {
+  borderRadius: '1px 0 0 1px',
   marginLeft: 0
-})(), ";}" + ( true ? "" : 0),  true ? "" : 0);
+})(), " transition:box-shadow 0.1s linear,border 0.1s linear;&:focus{z-index:1;", focusBoxShadow, " border:1px solid ", COLORS.ui.borderFocus, ";}}" + ( true ? "" : 0),  true ? "" : 0);
 const styles_wrapperWidth = width => {
   return /*#__PURE__*/emotion_react_browser_esm_css("width:", width, ";flex:0 0 auto;" + ( true ? "" : 0),  true ? "" : 0);
 };
-const borderControlDropdown = () => /*#__PURE__*/emotion_react_browser_esm_css("background:#fff;", rtl({
-  borderRadius: `1px 0 0 1px`,
-  borderRight: `${config_values.borderWidth} solid ${COLORS.gray[200]}`
+/*
+ * When default control height is 36px the following should be removed.
+ * See: InputControl and __next36pxDefaultSize.
+ */
+
+const wrapperHeight = __next36pxDefaultSize => {
+  return /*#__PURE__*/emotion_react_browser_esm_css("height:", __next36pxDefaultSize ? '36px' : '30px', ";" + ( true ? "" : 0),  true ? "" : 0);
+};
+const borderControlDropdown = () => /*#__PURE__*/emotion_react_browser_esm_css("background:#fff;&&>button{height:100%;padding:", space(0.75), ";", rtl({
+  borderRadius: `2px 0 0 2px`
 }, {
-  borderRadius: `0 1px 1px 0`,
-  borderLeft: `${config_values.borderWidth} solid ${COLORS.gray[200]}`
-})(), " &&>button{padding:", space(1), ";border-radius:inherit;}" + ( true ? "" : 0),  true ? "" : 0);
+  borderRadius: `0 2px 2px 0`
+})(), " border:", config_values.borderWidth, " solid ", COLORS.ui.border, ";position:relative;&:focus,&:hover:not( :disabled ){", focusBoxShadow, " border-color:", COLORS.ui.borderFocus, ";z-index:1;position:relative;}}" + ( true ? "" : 0),  true ? "" : 0);
 const colorIndicatorBorder = border => {
   const {
     color,
@@ -40776,21 +40819,30 @@ const colorIndicatorBorder = border => {
   const fallbackColor = !!style && style !== 'none' ? COLORS.gray[300] : undefined;
   return /*#__PURE__*/emotion_react_browser_esm_css("border-style:", style === 'none' ? 'solid' : style, ";border-color:", color || fallbackColor, ";" + ( true ? "" : 0),  true ? "" : 0);
 };
-const colorIndicatorWrapper = border => {
+
+var styles_ref =  true ? {
+  name: "6g24ce",
+  styles: "height:16px;width:16px"
+} : 0;
+
+const colorIndicatorWrapper = (border, __next36pxDefaultSize) => {
   const {
     style
   } = border || {};
-  return /*#__PURE__*/emotion_react_browser_esm_css("border-radius:9999px;border:2px solid transparent;", style ? colorIndicatorBorder(border) : undefined, " width:28px;height:28px;padding:2px;&>span{background:linear-gradient(\n\t\t\t\t-45deg,\n\t\t\t\ttransparent 48%,\n\t\t\t\trgb( 0 0 0 / 20% ) 48%,\n\t\t\t\trgb( 0 0 0 / 20% ) 52%,\n\t\t\t\ttransparent 52%\n\t\t\t);}" + ( true ? "" : 0),  true ? "" : 0);
+  return /*#__PURE__*/emotion_react_browser_esm_css("border-radius:9999px;border:2px solid transparent;", style ? colorIndicatorBorder(border) : undefined, " width:", __next36pxDefaultSize ? '28px' : '22px', ";height:", __next36pxDefaultSize ? '28px' : '22px', ";padding:", __next36pxDefaultSize ? '2px' : '1px', ";&>span{", !__next36pxDefaultSize ? styles_ref : '', " background:linear-gradient(\n\t\t\t\t-45deg,\n\t\t\t\ttransparent 48%,\n\t\t\t\trgb( 0 0 0 / 20% ) 48%,\n\t\t\t\trgb( 0 0 0 / 20% ) 52%,\n\t\t\t\ttransparent 52%\n\t\t\t);}" + ( true ? "" : 0),  true ? "" : 0);
 };
 const borderControlPopover =  true ? {
-  name: "1phacrs",
-  styles: "&&>div>div{padding:0;}"
+  name: "16nchol",
+  styles: "&& .components-popover__content{padding:0;width:264px;}"
 } : 0;
 const borderControlPopoverControls = /*#__PURE__*/emotion_react_browser_esm_css("padding:", space(2), ";>div:first-of-type>", StyledLabel, "{margin-bottom:0;", styles_labelStyles, ";}&& ", StyledLabel, "+button:not( .has-text ){min-width:24px;padding:0;}" + ( true ? "" : 0),  true ? "" : 0);
 const borderControlPopoverContent = /*#__PURE__*/emotion_react_browser_esm_css( true ? "" : 0,  true ? "" : 0);
 const borderColorIndicator = /*#__PURE__*/emotion_react_browser_esm_css( true ? "" : 0,  true ? "" : 0);
 const resetButton = /*#__PURE__*/emotion_react_browser_esm_css("justify-content:center;width:100%;&&{border-top:", config_values.borderWidth, " solid ", COLORS.gray[200], ";height:46px;}" + ( true ? "" : 0),  true ? "" : 0);
-const borderWidthControl = () => /*#__PURE__*/emotion_react_browser_esm_css("&&& ", BackdropUI, "{border:none;}&&& input{", rtl({
+const borderWidthControl = () => /*#__PURE__*/emotion_react_browser_esm_css("&&& ", BackdropUI, "{", rtl({
+  borderTopLeftRadius: 0,
+  borderBottomLeftRadius: 0
+})(), " transition:box-shadow 0.1s linear;}&&& input{", rtl({
   paddingRight: 0
 })(), ";}" + ( true ? "" : 0),  true ? "" : 0);
 const borderControlStylePicker = /*#__PURE__*/emotion_react_browser_esm_css(StyledLabel, "{", styles_labelStyles, ";}" + ( true ? "" : 0),  true ? "" : 0);
@@ -40976,17 +41028,15 @@ function useObservableState(initialState, onStateChange) {
 }
 
 function Dropdown(props) {
-  var _popoverProps$anchorR;
-
   const {
     renderContent,
     renderToggle,
-    position = 'bottom right',
     className,
     contentClassName,
     expandOnMobile,
     headerTitle,
     focusOnMount,
+    position,
     popoverProps,
     onClose,
     onToggle
@@ -41034,6 +41084,7 @@ function Dropdown(props) {
     onToggle: toggle,
     onClose: close
   };
+  const hasAnchorRef = !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.anchorRef) || !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.getAnchorRect) || !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.anchorRect);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: classnames_default()('components-dropdown', className),
     ref: containerRef // Some UAs focus the closest focusable parent when the toggle is
@@ -41047,9 +41098,12 @@ function Dropdown(props) {
     onFocusOutside: closeIfFocusOutside,
     expandOnMobile: expandOnMobile,
     headerTitle: headerTitle,
-    focusOnMount: focusOnMount
+    focusOnMount: focusOnMount // This value is used to ensure that the dropdowns
+    // align with the editor header by default.
+    ,
+    offset: 13,
+    anchorRef: !hasAnchorRef ? containerRef : undefined
   }, popoverProps, {
-    anchorRef: (_popoverProps$anchorR = popoverProps === null || popoverProps === void 0 ? void 0 : popoverProps.anchorRef) !== null && _popoverProps$anchorR !== void 0 ? _popoverProps$anchorR : containerRef.current,
     className: classnames_default()('components-dropdown__content', popoverProps ? popoverProps.className : undefined, contentClassName)
   }), renderContent(args)));
 }
@@ -41413,18 +41467,21 @@ const select_control_styles_sizeStyles = _ref3 => {
   const sizes = {
     default: {
       height: 30,
-      lineHeight: 1,
-      minHeight: 30
+      minHeight: 30,
+      paddingTop: 0,
+      paddingBottom: 0
     },
     small: {
       height: 24,
-      lineHeight: 1,
-      minHeight: 24
+      minHeight: 24,
+      paddingTop: 0,
+      paddingBottom: 0
     },
     '__unstable-large': {
       height: 40,
-      lineHeight: 1,
-      minHeight: 40
+      minHeight: 40,
+      paddingTop: 0,
+      paddingBottom: 0
     }
   };
   const style = sizes[selectSize];
@@ -44370,7 +44427,7 @@ function preventOverflow(_ref) {
 
  // eslint-disable-next-line import/no-unused-modules
 
-function arrow(_ref) {
+function arrow_arrow(_ref) {
   var _state$modifiersData$;
 
   var state = _ref.state,
@@ -44447,7 +44504,7 @@ function arrow_effect(_ref2) {
   name: 'arrow',
   enabled: true,
   phase: 'main',
-  fn: arrow,
+  fn: arrow_arrow,
   effect: arrow_effect,
   requires: ['popperOffsets'],
   requiresIfExists: ['preventOverflow']
@@ -45196,8 +45253,6 @@ var DisclosureContent = createComponent({
 
 
 
-;// CONCATENATED MODULE: external "ReactDOM"
-var external_ReactDOM_namespaceObject = window["ReactDOM"];
 ;// CONCATENATED MODULE: ./node_modules/reakit/es/Portal/Portal.js
 
 
@@ -45804,7 +45859,7 @@ const RgbInput = _ref => {
     label: "Red",
     abbreviation: "R",
     value: r,
-    onChange: nextR => onChange(w({
+    onChange: nextR => onChange(colord_w({
       r: nextR,
       g,
       b,
@@ -45816,7 +45871,7 @@ const RgbInput = _ref => {
     label: "Green",
     abbreviation: "G",
     value: g,
-    onChange: nextG => onChange(w({
+    onChange: nextG => onChange(colord_w({
       r,
       g: nextG,
       b,
@@ -45828,7 +45883,7 @@ const RgbInput = _ref => {
     label: "Blue",
     abbreviation: "B",
     value: b,
-    onChange: nextB => onChange(w({
+    onChange: nextB => onChange(colord_w({
       r,
       g,
       b: nextB,
@@ -45840,7 +45895,7 @@ const RgbInput = _ref => {
     label: "Alpha",
     abbreviation: "A",
     value: Math.trunc(a * 100),
-    onChange: nextA => onChange(w({
+    onChange: nextA => onChange(colord_w({
       r,
       g,
       b,
@@ -45880,7 +45935,7 @@ const HslInput = _ref => {
     abbreviation: "H",
     value: h,
     onChange: nextH => {
-      onChange(w({
+      onChange(colord_w({
         h: nextH,
         s,
         l,
@@ -45894,7 +45949,7 @@ const HslInput = _ref => {
     abbreviation: "S",
     value: s,
     onChange: nextS => {
-      onChange(w({
+      onChange(colord_w({
         h,
         s: nextS,
         l,
@@ -45908,7 +45963,7 @@ const HslInput = _ref => {
     abbreviation: "L",
     value: l,
     onChange: nextL => {
-      onChange(w({
+      onChange(colord_w({
         h,
         s,
         l: nextL,
@@ -45922,7 +45977,7 @@ const HslInput = _ref => {
     abbreviation: "A",
     value: Math.trunc(100 * a),
     onChange: nextA => {
-      onChange(w({
+      onChange(colord_w({
         h,
         s,
         l,
@@ -45963,7 +46018,7 @@ const HexInput = _ref => {
   const handleChange = nextValue => {
     if (!nextValue) return;
     const hexValue = nextValue.startsWith('#') ? nextValue : '#' + nextValue;
-    onChange(w(hexValue));
+    onChange(colord_w(hexValue));
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(ColorHexInputControl, {
@@ -46021,7 +46076,7 @@ const ColorInput = _ref => {
 };
 
 ;// CONCATENATED MODULE: ./node_modules/react-colorful/dist/index.module.js
-function index_module_u(){return(index_module_u=Object.assign||function(e){for(var r=1;r<arguments.length;r++){var t=arguments[r];for(var o in t)Object.prototype.hasOwnProperty.call(t,o)&&(e[o]=t[o])}return e}).apply(this,arguments)}function index_module_c(e,r){if(null==e)return{};var t,o,n={},a=Object.keys(e);for(o=0;o<a.length;o++)r.indexOf(t=a[o])>=0||(n[t]=e[t]);return n}function index_module_s(e){var t=(0,external_React_.useRef)(e),o=(0,external_React_.useRef)(function(e){t.current&&t.current(e)});return t.current=e,o.current}var index_module_i=function(e,r,t){return void 0===r&&(r=0),void 0===t&&(t=1),e>t?t:e<r?r:e},index_module_f=function(e){return"touches"in e},index_module_v=function(e,r){var t=e.getBoundingClientRect(),o=index_module_f(r)?r.touches[0]:r;return{left:index_module_i((o.pageX-(t.left+window.pageXOffset))/t.width),top:index_module_i((o.pageY-(t.top+window.pageYOffset))/t.height)}},index_module_d=function(e){!index_module_f(e)&&e.preventDefault()},index_module_h=external_React_default().memo(function(n){var a=n.onMove,l=n.onKey,i=index_module_c(n,["onMove","onKey"]),h=(0,external_React_.useRef)(null),m=index_module_s(a),g=index_module_s(l),p=(0,external_React_.useRef)(!1),b=(0,external_React_.useMemo)(function(){var e=function(e){index_module_d(e),(index_module_f(e)?e.touches.length>0:e.buttons>0)&&h.current?m(index_module_v(h.current,e)):t(!1)},r=function(){return t(!1)};function t(t){var o=p.current,n=t?self.addEventListener:self.removeEventListener;n(o?"touchmove":"mousemove",e),n(o?"touchend":"mouseup",r)}return[function(e){var r=e.nativeEvent,o=h.current;o&&(index_module_d(r),!function(e,r){return r&&!index_module_f(e)}(r,p.current)&&o&&(p.current=index_module_f(r),o.focus(),m(index_module_v(o,r)),t(!0)))},function(e){var r=e.which||e.keyCode;r<37||r>40||(e.preventDefault(),g({left:39===r?.05:37===r?-.05:0,top:40===r?.05:38===r?-.05:0}))},t]},[g,m]),_=b[0],C=b[1],x=b[2];return (0,external_React_.useEffect)(function(){return x},[x]),external_React_default().createElement("div",index_module_u({},i,{onTouchStart:_,onMouseDown:_,className:"react-colorful__interactive",ref:h,onKeyDown:C,tabIndex:0,role:"slider"}))}),index_module_m=function(e){return e.filter(Boolean).join(" ")},index_module_g=function(r){var t=r.color,o=r.left,n=r.top,a=void 0===n?.5:n,l=index_module_m(["react-colorful__pointer",r.className]);return external_React_default().createElement("div",{className:l,style:{top:100*a+"%",left:100*o+"%"}},external_React_default().createElement("div",{className:"react-colorful__pointer-fill",style:{backgroundColor:t}}))},index_module_p=function(e,r,t){return void 0===r&&(r=0),void 0===t&&(t=Math.pow(10,r)),Math.round(t*e)/t},index_module_b={grad:.9,turn:360,rad:360/(2*Math.PI)},_=function(e){return"#"===e[0]&&(e=e.substr(1)),e.length<6?{r:parseInt(e[0]+e[0],16),g:parseInt(e[1]+e[1],16),b:parseInt(e[2]+e[2],16),a:1}:{r:parseInt(e.substr(0,2),16),g:parseInt(e.substr(2,2),16),b:parseInt(e.substr(4,2),16),a:1}},C=function(e,r){return void 0===r&&(r="deg"),Number(e)*(index_module_b[r]||1)},index_module_x=function(e){var r=/hsla?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?index_module_H({h:C(r[1],r[2]),s:Number(r[3]),l:Number(r[4]),a:void 0===r[5]?1:Number(r[5])/(r[6]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_E=index_module_x,index_module_H=function(e){var r=e.s,t=e.l;return{h:e.h,s:(r*=(t<50?t:100-t)/100)>0?2*r/(t+r)*100:0,v:t+r,a:e.a}},index_module_M=function(e){var r=e.s,t=e.v,o=e.a,n=(200-r)*t/100;return{h:index_module_p(e.h),s:index_module_p(n>0&&n<200?r*t/100/(n<=100?n:200-n)*100:0),l:index_module_p(n/2),a:index_module_p(o,2)}},index_module_N=function(e){var r=index_module_M(e);return"hsl("+r.h+", "+r.s+"%, "+r.l+"%)"},index_module_w=function(e){var r=index_module_M(e);return"hsla("+r.h+", "+r.s+"%, "+r.l+"%, "+r.a+")"},index_module_y=function(e){var r=e.h,t=e.s,o=e.v,n=e.a;r=r/360*6,t/=100,o/=100;var a=Math.floor(r),l=o*(1-t),u=o*(1-(r-a)*t),c=o*(1-(1-r+a)*t),s=a%6;return{r:index_module_p(255*[o,u,l,l,c,o][s]),g:index_module_p(255*[c,o,o,u,l,l][s]),b:index_module_p(255*[l,l,c,o,o,u][s]),a:index_module_p(n,2)}},q=function(e){var r=/hsva?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?B({h:C(r[1],r[2]),s:Number(r[3]),v:Number(r[4]),a:void 0===r[5]?1:Number(r[5])/(r[6]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_k=q,O=function(e){var r=/rgba?\(?\s*(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?z({r:Number(r[1])/(r[2]?100/255:1),g:Number(r[3])/(r[4]?100/255:1),b:Number(r[5])/(r[6]?100/255:1),a:void 0===r[7]?1:Number(r[7])/(r[8]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_I=O,index_module_j=function(e){var r=e.toString(16);return r.length<2?"0"+r:r},z=function(e){var r=e.r,t=e.g,o=e.b,n=e.a,a=Math.max(r,t,o),l=a-Math.min(r,t,o),u=l?a===r?(t-o)/l:a===t?2+(o-r)/l:4+(r-t)/l:0;return{h:index_module_p(60*(u<0?u+6:u)),s:index_module_p(a?l/a*100:0),v:index_module_p(a/255*100),a:n}},B=function(e){return{h:index_module_p(e.h),s:index_module_p(e.s),v:index_module_p(e.v),a:index_module_p(e.a,2)}},K=external_React_default().memo(function(r){var t=r.hue,o=r.onChange,n=index_module_m(["react-colorful__hue",r.className]);return external_React_default().createElement("div",{className:n},external_React_default().createElement(index_module_h,{onMove:function(e){o({h:360*e.left})},onKey:function(e){o({h:index_module_i(t+360*e.left,0,360)})},"aria-label":"Hue","aria-valuetext":index_module_p(t)},external_React_default().createElement(index_module_g,{className:"react-colorful__hue-pointer",left:t/360,color:index_module_N({h:t,s:100,v:100,a:1})})))}),A=external_React_default().memo(function(r){var t=r.hsva,o=r.onChange,n={backgroundColor:index_module_N({h:t.h,s:100,v:100,a:1})};return external_React_default().createElement("div",{className:"react-colorful__saturation",style:n},external_React_default().createElement(index_module_h,{onMove:function(e){o({s:100*e.left,v:100-100*e.top})},onKey:function(e){o({s:index_module_i(t.s+100*e.left,0,100),v:index_module_i(t.v-100*e.top,0,100)})},"aria-label":"Color","aria-valuetext":"Saturation "+index_module_p(t.s)+"%, Brightness "+index_module_p(t.v)+"%"},external_React_default().createElement(index_module_g,{className:"react-colorful__saturation-pointer",top:1-t.v/100,left:t.s/100,color:index_module_N(t)})))}),L=function(e,r){if(e===r)return!0;for(var t in e)if(e[t]!==r[t])return!1;return!0},D=function(e,r){return e.replace(/\s/g,"")===r.replace(/\s/g,"")};function F(e,t,l){var u=index_module_s(l),c=(0,external_React_.useState)(function(){return e.toHsva(t)}),i=c[0],f=c[1],v=(0,external_React_.useRef)({color:t,hsva:i});(0,external_React_.useEffect)(function(){if(!e.equal(t,v.current.color)){var r=e.toHsva(t);v.current={hsva:r,color:t},f(r)}},[t,e]),(0,external_React_.useEffect)(function(){var r;L(i,v.current.hsva)||e.equal(r=e.fromHsva(i),v.current.color)||(v.current={hsva:i,color:r},u(r))},[i,e,u]);var d=(0,external_React_.useCallback)(function(e){f(function(r){return Object.assign({},r,e)})},[]);return[i,d]}var index_module_S,P,T="undefined"!=typeof window?external_React_.useLayoutEffect:external_React_.useEffect,X=function(){return index_module_S||( true?__webpack_require__.nc:0)},Y=function(e){index_module_S=e},index_module_$=function(){T(function(){if("undefined"!=typeof document&&!P){(P=document.createElement("style")).innerHTML='.react-colorful{position:relative;display:flex;flex-direction:column;width:200px;height:200px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.react-colorful__saturation{position:relative;flex-grow:1;border-color:transparent;border-bottom:12px solid #000;border-radius:8px 8px 0 0;background-image:linear-gradient(0deg,#000,transparent),linear-gradient(90deg,#fff,hsla(0,0%,100%,0))}.react-colorful__alpha-gradient,.react-colorful__pointer-fill{content:"";position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;border-radius:inherit}.react-colorful__alpha-gradient,.react-colorful__saturation{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}.react-colorful__alpha,.react-colorful__hue{position:relative;height:24px}.react-colorful__hue{background:linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)}.react-colorful__last-control{border-radius:0 0 8px 8px}.react-colorful__interactive{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;outline:none;touch-action:none}.react-colorful__pointer{position:absolute;z-index:1;box-sizing:border-box;width:28px;height:28px;transform:translate(-50%,-50%);background-color:#fff;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2)}.react-colorful__interactive:focus .react-colorful__pointer{transform:translate(-50%,-50%) scale(1.1)}.react-colorful__alpha,.react-colorful__alpha-pointer{background-color:#fff;background-image:url(\'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><path d="M8 0h8v8H8zM0 8h8v8H0z"/></svg>\')}.react-colorful__saturation-pointer{z-index:3}.react-colorful__hue-pointer{z-index:2}';var e=X();e&&P.setAttribute("nonce",e),document.head.appendChild(P)}},[])},R=function(r){var t=r.className,o=r.colorModel,n=r.color,a=void 0===n?o.defaultColor:n,l=r.onChange,s=index_module_c(r,["className","colorModel","color","onChange"]);index_module_$();var i=F(o,a,l),f=i[0],v=i[1],d=index_module_m(["react-colorful",t]);return external_React_default().createElement("div",index_module_u({},s,{className:d}),external_React_default().createElement(A,{hsva:f,onChange:v}),external_React_default().createElement(K,{hue:f.h,onChange:v,className:"react-colorful__last-control"}))},G={defaultColor:"000",toHsva:function(e){return z(_(e))},fromHsva:function(e){return t=(r=index_module_y(e)).g,o=r.b,"#"+index_module_j(r.r)+index_module_j(t)+index_module_j(o);var r,t,o},equal:function(e,r){return e.toLowerCase()===r.toLowerCase()||L(_(e),_(r))}},J=function(r){return e.createElement(R,index_module_u({},r,{colorModel:G}))},Q=function(r){var t=r.className,o=r.hsva,n=r.onChange,a={backgroundImage:"linear-gradient(90deg, "+index_module_w(Object.assign({},o,{a:0}))+", "+index_module_w(Object.assign({},o,{a:1}))+")"},l=index_module_m(["react-colorful__alpha",t]);return external_React_default().createElement("div",{className:l},external_React_default().createElement("div",{className:"react-colorful__alpha-gradient",style:a}),external_React_default().createElement(index_module_h,{onMove:function(e){n({a:e.left})},onKey:function(e){n({a:index_module_i(o.a+e.left)})},"aria-label":"Alpha","aria-valuetext":index_module_p(100*o.a)+"%"},external_React_default().createElement(index_module_g,{className:"react-colorful__alpha-pointer",left:o.a,color:index_module_w(o)})))},U=function(r){var t=r.className,o=r.colorModel,n=r.color,a=void 0===n?o.defaultColor:n,l=r.onChange,s=index_module_c(r,["className","colorModel","color","onChange"]);index_module_$();var i=F(o,a,l),f=i[0],v=i[1],d=index_module_m(["react-colorful",t]);return external_React_default().createElement("div",index_module_u({},s,{className:d}),external_React_default().createElement(A,{hsva:f,onChange:v}),external_React_default().createElement(K,{hue:f.h,onChange:v}),external_React_default().createElement(Q,{hsva:f,onChange:v,className:"react-colorful__last-control"}))},index_module_V={defaultColor:{h:0,s:0,l:0,a:1},toHsva:index_module_H,fromHsva:index_module_M,equal:L},W=function(r){return e.createElement(U,index_module_u({},r,{colorModel:index_module_V}))},Z={defaultColor:"hsla(0, 0%, 0%, 1)",toHsva:index_module_x,fromHsva:index_module_w,equal:D},ee=function(r){return e.createElement(U,index_module_u({},r,{colorModel:Z}))},re={defaultColor:{h:0,s:0,l:0},toHsva:function(e){return index_module_H({h:e.h,s:e.s,l:e.l,a:1})},fromHsva:function(e){return{h:(r=index_module_M(e)).h,s:r.s,l:r.l};var r},equal:L},te=function(r){return e.createElement(R,index_module_u({},r,{colorModel:re}))},oe={defaultColor:"hsl(0, 0%, 0%)",toHsva:index_module_E,fromHsva:index_module_N,equal:D},ne=function(r){return e.createElement(R,index_module_u({},r,{colorModel:oe}))},ae={defaultColor:{h:0,s:0,v:0,a:1},toHsva:function(e){return e},fromHsva:B,equal:L},le=function(r){return e.createElement(U,index_module_u({},r,{colorModel:ae}))},ue={defaultColor:"hsva(0, 0%, 0%, 1)",toHsva:q,fromHsva:function(e){var r=B(e);return"hsva("+r.h+", "+r.s+"%, "+r.v+"%, "+r.a+")"},equal:D},ce=function(r){return e.createElement(U,index_module_u({},r,{colorModel:ue}))},se={defaultColor:{h:0,s:0,v:0},toHsva:function(e){return{h:e.h,s:e.s,v:e.v,a:1}},fromHsva:function(e){var r=B(e);return{h:r.h,s:r.s,v:r.v}},equal:L},ie=function(r){return e.createElement(R,index_module_u({},r,{colorModel:se}))},fe={defaultColor:"hsv(0, 0%, 0%)",toHsva:index_module_k,fromHsva:function(e){var r=B(e);return"hsv("+r.h+", "+r.s+"%, "+r.v+"%)"},equal:D},ve=function(r){return e.createElement(R,index_module_u({},r,{colorModel:fe}))},de={defaultColor:{r:0,g:0,b:0,a:1},toHsva:z,fromHsva:index_module_y,equal:L},he=function(r){return e.createElement(U,index_module_u({},r,{colorModel:de}))},me={defaultColor:"rgba(0, 0, 0, 1)",toHsva:O,fromHsva:function(e){var r=index_module_y(e);return"rgba("+r.r+", "+r.g+", "+r.b+", "+r.a+")"},equal:D},ge=function(r){return external_React_default().createElement(U,index_module_u({},r,{colorModel:me}))},pe={defaultColor:{r:0,g:0,b:0},toHsva:function(e){return z({r:e.r,g:e.g,b:e.b,a:1})},fromHsva:function(e){return{r:(r=index_module_y(e)).r,g:r.g,b:r.b};var r},equal:L},be=function(r){return e.createElement(R,index_module_u({},r,{colorModel:pe}))},_e={defaultColor:"rgb(0, 0, 0)",toHsva:index_module_I,fromHsva:function(e){var r=index_module_y(e);return"rgb("+r.r+", "+r.g+", "+r.b+")"},equal:D},Ce=function(r){return external_React_default().createElement(R,index_module_u({},r,{colorModel:_e}))},xe=/^#?[0-9A-F]{3}$/i,Ee=/^#?[0-9A-F]{6}$/i,He=function(e){return Ee.test(e)||xe.test(e)},Me=function(e){return e.replace(/([^0-9A-F]+)/gi,"").substr(0,6)},Ne=function(r){var t=r.color,l=void 0===t?"":t,i=r.onChange,f=r.onBlur,v=r.prefixed,d=index_module_c(r,["color","onChange","onBlur","prefixed"]),h=n(function(){return Me(l)}),m=h[0],g=h[1],p=index_module_s(i),b=index_module_s(f),_=a(function(e){var r=Me(e.target.value);g(r),He(r)&&p("#"+r)},[p]),C=a(function(e){He(e.target.value)||g(Me(l)),b(e)},[l,b]);return o(function(){g(Me(l))},[l]),e.createElement("input",index_module_u({},d,{value:(v?"#":"")+m,spellCheck:"false",onChange:_,onBlur:C}))};
+function index_module_u(){return(index_module_u=Object.assign||function(e){for(var r=1;r<arguments.length;r++){var t=arguments[r];for(var o in t)Object.prototype.hasOwnProperty.call(t,o)&&(e[o]=t[o])}return e}).apply(this,arguments)}function index_module_c(e,r){if(null==e)return{};var t,o,n={},a=Object.keys(e);for(o=0;o<a.length;o++)r.indexOf(t=a[o])>=0||(n[t]=e[t]);return n}function index_module_s(e){var t=(0,external_React_.useRef)(e),o=(0,external_React_.useRef)(function(e){t.current&&t.current(e)});return t.current=e,o.current}var index_module_i=function(e,r,t){return void 0===r&&(r=0),void 0===t&&(t=1),e>t?t:e<r?r:e},index_module_f=function(e){return"touches"in e},index_module_v=function(e,r){var t=e.getBoundingClientRect(),o=index_module_f(r)?r.touches[0]:r;return{left:index_module_i((o.pageX-(t.left+window.pageXOffset))/t.width),top:index_module_i((o.pageY-(t.top+window.pageYOffset))/t.height)}},index_module_d=function(e){!index_module_f(e)&&e.preventDefault()},index_module_h=external_React_default().memo(function(n){var a=n.onMove,l=n.onKey,i=index_module_c(n,["onMove","onKey"]),h=(0,external_React_.useRef)(null),m=index_module_s(a),g=index_module_s(l),p=(0,external_React_.useRef)(!1),b=(0,external_React_.useMemo)(function(){var e=function(e){index_module_d(e),(index_module_f(e)?e.touches.length>0:e.buttons>0)&&h.current?m(index_module_v(h.current,e)):t(!1)},r=function(){return t(!1)};function t(t){var o=p.current,n=t?self.addEventListener:self.removeEventListener;n(o?"touchmove":"mousemove",e),n(o?"touchend":"mouseup",r)}return[function(e){var r=e.nativeEvent,o=h.current;o&&(index_module_d(r),!function(e,r){return r&&!index_module_f(e)}(r,p.current)&&o&&(p.current=index_module_f(r),o.focus(),m(index_module_v(o,r)),t(!0)))},function(e){var r=e.which||e.keyCode;r<37||r>40||(e.preventDefault(),g({left:39===r?.05:37===r?-.05:0,top:40===r?.05:38===r?-.05:0}))},t]},[g,m]),_=b[0],C=b[1],x=b[2];return (0,external_React_.useEffect)(function(){return x},[x]),external_React_default().createElement("div",index_module_u({},i,{onTouchStart:_,onMouseDown:_,className:"react-colorful__interactive",ref:h,onKeyDown:C,tabIndex:0,role:"slider"}))}),index_module_m=function(e){return e.filter(Boolean).join(" ")},index_module_g=function(r){var t=r.color,o=r.left,n=r.top,a=void 0===n?.5:n,l=index_module_m(["react-colorful__pointer",r.className]);return external_React_default().createElement("div",{className:l,style:{top:100*a+"%",left:100*o+"%"}},external_React_default().createElement("div",{className:"react-colorful__pointer-fill",style:{backgroundColor:t}}))},index_module_p=function(e,r,t){return void 0===r&&(r=0),void 0===t&&(t=Math.pow(10,r)),Math.round(t*e)/t},index_module_b={grad:.9,turn:360,rad:360/(2*Math.PI)},_=function(e){return"#"===e[0]&&(e=e.substr(1)),e.length<6?{r:parseInt(e[0]+e[0],16),g:parseInt(e[1]+e[1],16),b:parseInt(e[2]+e[2],16),a:1}:{r:parseInt(e.substr(0,2),16),g:parseInt(e.substr(2,2),16),b:parseInt(e.substr(4,2),16),a:1}},index_module_C=function(e,r){return void 0===r&&(r="deg"),Number(e)*(index_module_b[r]||1)},index_module_x=function(e){var r=/hsla?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?index_module_H({h:index_module_C(r[1],r[2]),s:Number(r[3]),l:Number(r[4]),a:void 0===r[5]?1:Number(r[5])/(r[6]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_E=index_module_x,index_module_H=function(e){var r=e.s,t=e.l;return{h:e.h,s:(r*=(t<50?t:100-t)/100)>0?2*r/(t+r)*100:0,v:t+r,a:e.a}},index_module_M=function(e){var r=e.s,t=e.v,o=e.a,n=(200-r)*t/100;return{h:index_module_p(e.h),s:index_module_p(n>0&&n<200?r*t/100/(n<=100?n:200-n)*100:0),l:index_module_p(n/2),a:index_module_p(o,2)}},index_module_N=function(e){var r=index_module_M(e);return"hsl("+r.h+", "+r.s+"%, "+r.l+"%)"},index_module_w=function(e){var r=index_module_M(e);return"hsla("+r.h+", "+r.s+"%, "+r.l+"%, "+r.a+")"},index_module_y=function(e){var r=e.h,t=e.s,o=e.v,n=e.a;r=r/360*6,t/=100,o/=100;var a=Math.floor(r),l=o*(1-t),u=o*(1-(r-a)*t),c=o*(1-(1-r+a)*t),s=a%6;return{r:index_module_p(255*[o,u,l,l,c,o][s]),g:index_module_p(255*[c,o,o,u,l,l][s]),b:index_module_p(255*[l,l,c,o,o,u][s]),a:index_module_p(n,2)}},q=function(e){var r=/hsva?\(?\s*(-?\d*\.?\d+)(deg|rad|grad|turn)?[,\s]+(-?\d*\.?\d+)%?[,\s]+(-?\d*\.?\d+)%?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?B({h:index_module_C(r[1],r[2]),s:Number(r[3]),v:Number(r[4]),a:void 0===r[5]?1:Number(r[5])/(r[6]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_k=q,index_module_O=function(e){var r=/rgba?\(?\s*(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?[,\s]+(-?\d*\.?\d+)(%)?,?\s*[/\s]*(-?\d*\.?\d+)?(%)?\s*\)?/i.exec(e);return r?z({r:Number(r[1])/(r[2]?100/255:1),g:Number(r[3])/(r[4]?100/255:1),b:Number(r[5])/(r[6]?100/255:1),a:void 0===r[7]?1:Number(r[7])/(r[8]?100:1)}):{h:0,s:0,v:0,a:1}},index_module_I=index_module_O,index_module_j=function(e){var r=e.toString(16);return r.length<2?"0"+r:r},z=function(e){var r=e.r,t=e.g,o=e.b,n=e.a,a=Math.max(r,t,o),l=a-Math.min(r,t,o),u=l?a===r?(t-o)/l:a===t?2+(o-r)/l:4+(r-t)/l:0;return{h:index_module_p(60*(u<0?u+6:u)),s:index_module_p(a?l/a*100:0),v:index_module_p(a/255*100),a:n}},B=function(e){return{h:index_module_p(e.h),s:index_module_p(e.s),v:index_module_p(e.v),a:index_module_p(e.a,2)}},K=external_React_default().memo(function(r){var t=r.hue,o=r.onChange,n=index_module_m(["react-colorful__hue",r.className]);return external_React_default().createElement("div",{className:n},external_React_default().createElement(index_module_h,{onMove:function(e){o({h:360*e.left})},onKey:function(e){o({h:index_module_i(t+360*e.left,0,360)})},"aria-label":"Hue","aria-valuetext":index_module_p(t)},external_React_default().createElement(index_module_g,{className:"react-colorful__hue-pointer",left:t/360,color:index_module_N({h:t,s:100,v:100,a:1})})))}),index_module_A=external_React_default().memo(function(r){var t=r.hsva,o=r.onChange,n={backgroundColor:index_module_N({h:t.h,s:100,v:100,a:1})};return external_React_default().createElement("div",{className:"react-colorful__saturation",style:n},external_React_default().createElement(index_module_h,{onMove:function(e){o({s:100*e.left,v:100-100*e.top})},onKey:function(e){o({s:index_module_i(t.s+100*e.left,0,100),v:index_module_i(t.v-100*e.top,0,100)})},"aria-label":"Color","aria-valuetext":"Saturation "+index_module_p(t.s)+"%, Brightness "+index_module_p(t.v)+"%"},external_React_default().createElement(index_module_g,{className:"react-colorful__saturation-pointer",top:1-t.v/100,left:t.s/100,color:index_module_N(t)})))}),index_module_L=function(e,r){if(e===r)return!0;for(var t in e)if(e[t]!==r[t])return!1;return!0},index_module_D=function(e,r){return e.replace(/\s/g,"")===r.replace(/\s/g,"")};function F(e,t,l){var u=index_module_s(l),c=(0,external_React_.useState)(function(){return e.toHsva(t)}),i=c[0],f=c[1],v=(0,external_React_.useRef)({color:t,hsva:i});(0,external_React_.useEffect)(function(){if(!e.equal(t,v.current.color)){var r=e.toHsva(t);v.current={hsva:r,color:t},f(r)}},[t,e]),(0,external_React_.useEffect)(function(){var r;index_module_L(i,v.current.hsva)||e.equal(r=e.fromHsva(i),v.current.color)||(v.current={hsva:i,color:r},u(r))},[i,e,u]);var d=(0,external_React_.useCallback)(function(e){f(function(r){return Object.assign({},r,e)})},[]);return[i,d]}var index_module_S,index_module_P,index_module_T="undefined"!=typeof window?external_React_.useLayoutEffect:external_React_.useEffect,X=function(){return index_module_S||( true?__webpack_require__.nc:0)},Y=function(e){index_module_S=e},index_module_$=function(){index_module_T(function(){if("undefined"!=typeof document&&!index_module_P){(index_module_P=document.createElement("style")).innerHTML='.react-colorful{position:relative;display:flex;flex-direction:column;width:200px;height:200px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.react-colorful__saturation{position:relative;flex-grow:1;border-color:transparent;border-bottom:12px solid #000;border-radius:8px 8px 0 0;background-image:linear-gradient(0deg,#000,transparent),linear-gradient(90deg,#fff,hsla(0,0%,100%,0))}.react-colorful__alpha-gradient,.react-colorful__pointer-fill{content:"";position:absolute;left:0;top:0;right:0;bottom:0;pointer-events:none;border-radius:inherit}.react-colorful__alpha-gradient,.react-colorful__saturation{box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}.react-colorful__alpha,.react-colorful__hue{position:relative;height:24px}.react-colorful__hue{background:linear-gradient(90deg,red 0,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,red)}.react-colorful__last-control{border-radius:0 0 8px 8px}.react-colorful__interactive{position:absolute;left:0;top:0;right:0;bottom:0;border-radius:inherit;outline:none;touch-action:none}.react-colorful__pointer{position:absolute;z-index:1;box-sizing:border-box;width:28px;height:28px;transform:translate(-50%,-50%);background-color:#fff;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 4px rgba(0,0,0,.2)}.react-colorful__interactive:focus .react-colorful__pointer{transform:translate(-50%,-50%) scale(1.1)}.react-colorful__alpha,.react-colorful__alpha-pointer{background-color:#fff;background-image:url(\'data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill-opacity=".05"><path d="M8 0h8v8H8zM0 8h8v8H0z"/></svg>\')}.react-colorful__saturation-pointer{z-index:3}.react-colorful__hue-pointer{z-index:2}';var e=X();e&&index_module_P.setAttribute("nonce",e),document.head.appendChild(index_module_P)}},[])},index_module_R=function(r){var t=r.className,o=r.colorModel,n=r.color,a=void 0===n?o.defaultColor:n,l=r.onChange,s=index_module_c(r,["className","colorModel","color","onChange"]);index_module_$();var i=F(o,a,l),f=i[0],v=i[1],d=index_module_m(["react-colorful",t]);return external_React_default().createElement("div",index_module_u({},s,{className:d}),external_React_default().createElement(index_module_A,{hsva:f,onChange:v}),external_React_default().createElement(K,{hue:f.h,onChange:v,className:"react-colorful__last-control"}))},G={defaultColor:"000",toHsva:function(e){return z(_(e))},fromHsva:function(e){return t=(r=index_module_y(e)).g,o=r.b,"#"+index_module_j(r.r)+index_module_j(t)+index_module_j(o);var r,t,o},equal:function(e,r){return e.toLowerCase()===r.toLowerCase()||index_module_L(_(e),_(r))}},J=function(r){return e.createElement(index_module_R,index_module_u({},r,{colorModel:G}))},Q=function(r){var t=r.className,o=r.hsva,n=r.onChange,a={backgroundImage:"linear-gradient(90deg, "+index_module_w(Object.assign({},o,{a:0}))+", "+index_module_w(Object.assign({},o,{a:1}))+")"},l=index_module_m(["react-colorful__alpha",t]);return external_React_default().createElement("div",{className:l},external_React_default().createElement("div",{className:"react-colorful__alpha-gradient",style:a}),external_React_default().createElement(index_module_h,{onMove:function(e){n({a:e.left})},onKey:function(e){n({a:index_module_i(o.a+e.left)})},"aria-label":"Alpha","aria-valuetext":index_module_p(100*o.a)+"%"},external_React_default().createElement(index_module_g,{className:"react-colorful__alpha-pointer",left:o.a,color:index_module_w(o)})))},U=function(r){var t=r.className,o=r.colorModel,n=r.color,a=void 0===n?o.defaultColor:n,l=r.onChange,s=index_module_c(r,["className","colorModel","color","onChange"]);index_module_$();var i=F(o,a,l),f=i[0],v=i[1],d=index_module_m(["react-colorful",t]);return external_React_default().createElement("div",index_module_u({},s,{className:d}),external_React_default().createElement(index_module_A,{hsva:f,onChange:v}),external_React_default().createElement(K,{hue:f.h,onChange:v}),external_React_default().createElement(Q,{hsva:f,onChange:v,className:"react-colorful__last-control"}))},index_module_V={defaultColor:{h:0,s:0,l:0,a:1},toHsva:index_module_H,fromHsva:index_module_M,equal:index_module_L},index_module_W=function(r){return e.createElement(U,index_module_u({},r,{colorModel:index_module_V}))},Z={defaultColor:"hsla(0, 0%, 0%, 1)",toHsva:index_module_x,fromHsva:index_module_w,equal:index_module_D},ee=function(r){return e.createElement(U,index_module_u({},r,{colorModel:Z}))},re={defaultColor:{h:0,s:0,l:0},toHsva:function(e){return index_module_H({h:e.h,s:e.s,l:e.l,a:1})},fromHsva:function(e){return{h:(r=index_module_M(e)).h,s:r.s,l:r.l};var r},equal:index_module_L},te=function(r){return e.createElement(index_module_R,index_module_u({},r,{colorModel:re}))},oe={defaultColor:"hsl(0, 0%, 0%)",toHsva:index_module_E,fromHsva:index_module_N,equal:index_module_D},ne=function(r){return e.createElement(index_module_R,index_module_u({},r,{colorModel:oe}))},ae={defaultColor:{h:0,s:0,v:0,a:1},toHsva:function(e){return e},fromHsva:B,equal:index_module_L},le=function(r){return e.createElement(U,index_module_u({},r,{colorModel:ae}))},ue={defaultColor:"hsva(0, 0%, 0%, 1)",toHsva:q,fromHsva:function(e){var r=B(e);return"hsva("+r.h+", "+r.s+"%, "+r.v+"%, "+r.a+")"},equal:index_module_D},ce=function(r){return e.createElement(U,index_module_u({},r,{colorModel:ue}))},se={defaultColor:{h:0,s:0,v:0},toHsva:function(e){return{h:e.h,s:e.s,v:e.v,a:1}},fromHsva:function(e){var r=B(e);return{h:r.h,s:r.s,v:r.v}},equal:index_module_L},ie=function(r){return e.createElement(index_module_R,index_module_u({},r,{colorModel:se}))},fe={defaultColor:"hsv(0, 0%, 0%)",toHsva:index_module_k,fromHsva:function(e){var r=B(e);return"hsv("+r.h+", "+r.s+"%, "+r.v+"%)"},equal:index_module_D},ve=function(r){return e.createElement(index_module_R,index_module_u({},r,{colorModel:fe}))},de={defaultColor:{r:0,g:0,b:0,a:1},toHsva:z,fromHsva:index_module_y,equal:index_module_L},he=function(r){return e.createElement(U,index_module_u({},r,{colorModel:de}))},me={defaultColor:"rgba(0, 0, 0, 1)",toHsva:index_module_O,fromHsva:function(e){var r=index_module_y(e);return"rgba("+r.r+", "+r.g+", "+r.b+", "+r.a+")"},equal:index_module_D},ge=function(r){return external_React_default().createElement(U,index_module_u({},r,{colorModel:me}))},pe={defaultColor:{r:0,g:0,b:0},toHsva:function(e){return z({r:e.r,g:e.g,b:e.b,a:1})},fromHsva:function(e){return{r:(r=index_module_y(e)).r,g:r.g,b:r.b};var r},equal:index_module_L},be=function(r){return e.createElement(index_module_R,index_module_u({},r,{colorModel:pe}))},_e={defaultColor:"rgb(0, 0, 0)",toHsva:index_module_I,fromHsva:function(e){var r=index_module_y(e);return"rgb("+r.r+", "+r.g+", "+r.b+")"},equal:index_module_D},Ce=function(r){return external_React_default().createElement(index_module_R,index_module_u({},r,{colorModel:_e}))},xe=/^#?[0-9A-F]{3}$/i,Ee=/^#?[0-9A-F]{6}$/i,He=function(e){return Ee.test(e)||xe.test(e)},Me=function(e){return e.replace(/([^0-9A-F]+)/gi,"").substr(0,6)},Ne=function(r){var t=r.color,l=void 0===t?"":t,i=r.onChange,f=r.onBlur,v=r.prefixed,d=index_module_c(r,["color","onChange","onBlur","prefixed"]),h=n(function(){return Me(l)}),m=h[0],g=h[1],p=index_module_s(i),b=index_module_s(f),_=a(function(e){var r=Me(e.target.value);g(r),He(r)&&p("#"+r)},[p]),C=a(function(e){He(e.target.value)||g(Me(l)),b(e)},[l,b]);return o(function(){g(Me(l))},[l]),e.createElement("input",index_module_u({},d,{value:(v?"#":"")+m,spellCheck:"false",onChange:_,onBlur:C}))};
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/picker.js
 
@@ -46047,7 +46102,7 @@ const Picker = _ref => {
   return (0,external_wp_element_namespaceObject.createElement)(Component, {
     color: rgbColor,
     onChange: nextColor => {
-      onChange(w(nextColor));
+      onChange(colord_w(nextColor));
     }
   });
 };
@@ -46122,7 +46177,7 @@ function useControlledValue(_ref) {
 
 
 
-k([names]);
+colord_k([names]);
 const options = [{
   label: 'RGB',
   value: 'rgb'
@@ -46150,7 +46205,7 @@ const ColorPicker = (props, forwardedRef) => {
     defaultValue
   });
   const safeColordColor = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return w(color || '');
+    return colord_w(color || '');
   }, [color]);
   const debouncedSetColor = (0,external_wp_compose_namespaceObject.useDebounce)(setColor);
   const handleChange = (0,external_wp_element_namespaceObject.useCallback)(nextValue => {
@@ -46233,7 +46288,7 @@ function getColorFromLegacyProps(props) {
 }
 
 const transformColorStringToLegacyColor = memize_default()(color => {
-  const colordColor = w(color);
+  const colordColor = colord_w(color);
   const hex = colordColor.toHex();
   const rgb = colordColor.toRgb();
   const hsv = colordColor.toHsv();
@@ -46623,7 +46678,6 @@ const ColorHeading = /*#__PURE__*/emotion_styled_base_browser_esm(heading_compon
 
 
 
-
 /**
  * WordPress dependencies
  */
@@ -46641,7 +46695,7 @@ const ColorHeading = /*#__PURE__*/emotion_styled_base_browser_esm(heading_compon
 
 
 
-k([names, a11y]);
+colord_k([names, a11y]);
 
 function SinglePalette(_ref) {
   let {
@@ -46658,7 +46712,7 @@ function SinglePalette(_ref) {
         color,
         name
       } = _ref2;
-      const colordColor = w(color);
+      const colordColor = colord_w(color);
       return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
         key: color,
         isSelected: value === color,
@@ -46721,9 +46775,11 @@ function CustomColorPickerDropdown(_ref5) {
     ...props
   } = _ref5;
   return (0,external_wp_element_namespaceObject.createElement)(Dropdown, extends_extends({
-    contentClassName: classnames_default()('components-color-palette__custom-color-dropdown-content', {
-      'is-rendered-in-sidebar': isRenderedInSidebar
-    })
+    contentClassName: "components-color-palette__custom-color-dropdown-content",
+    popoverProps: isRenderedInSidebar ? {
+      placement: 'left-start',
+      offset: 20
+    } : undefined
   }, props));
 }
 
@@ -46747,7 +46803,7 @@ const extractColorNameFromCurrentValue = function (currentValue) {
       name: colorName,
       color: colorValue
     } of paletteColors) {
-      if (w(currentValue).toHex() === w(colorValue).toHex()) {
+      if (colord_w(currentValue).toHex() === colord_w(colorValue).toHex()) {
         return colorName;
       }
     }
@@ -46779,13 +46835,7 @@ function ColorPalette(_ref6) {
     enableAlpha: enableAlpha
   });
 
-  let dropdownPosition;
-
-  if (__experimentalIsRenderedInSidebar) {
-    dropdownPosition = 'bottom left';
-  }
-
-  const colordColor = w(value);
+  const colordColor = colord_w(value);
   const valueWithoutLeadingHash = value !== null && value !== void 0 && value.startsWith('#') ? value.substring(1) : value !== null && value !== void 0 ? value : '';
   const buttonLabelName = (0,external_wp_element_namespaceObject.useMemo)(() => extractColorNameFromCurrentValue(value, colors, showMultiplePalettes), [value, colors, showMultiplePalettes]);
   const customColorAccessibleLabel = !!valueWithoutLeadingHash ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %1$s: The name of the color e.g: "vivid red". %2$s: The color's hex code e.g: "#f00".
@@ -46794,7 +46844,6 @@ function ColorPalette(_ref6) {
     spacing: 3,
     className: className
   }, !disableCustomColors && (0,external_wp_element_namespaceObject.createElement)(CustomColorPickerDropdown, {
-    position: dropdownPosition,
     isRenderedInSidebar: __experimentalIsRenderedInSidebar,
     renderContent: renderCustomColorPicker,
     renderToggle: _ref7 => {
@@ -47157,9 +47206,9 @@ function useBorderControlDropdown(props) {
     border,
     className,
     colors,
-    contentClassName,
     onChange,
     previousStyleSelection,
+    __next36pxDefaultSize,
     ...otherProps
   } = useContextSystem(props, 'BorderControlDropdown');
   const [widthValue] = parseQuantityAndUnitFromRawValue(border === null || border === void 0 ? void 0 : border.width);
@@ -47199,11 +47248,11 @@ function useBorderControlDropdown(props) {
     return cx(borderColorIndicator);
   }, [cx]);
   const indicatorWrapperClassName = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return cx(colorIndicatorWrapper(border));
-  }, [border, cx]);
+    return cx(colorIndicatorWrapper(border, __next36pxDefaultSize));
+  }, [border, cx, __next36pxDefaultSize]);
   const popoverClassName = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return cx(borderControlPopover, contentClassName);
-  }, [cx, contentClassName]);
+    return cx(borderControlPopover);
+  }, [cx]);
   const popoverControlsClassName = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return cx(borderControlPopoverControls);
   }, [cx]);
@@ -47329,6 +47378,7 @@ const BorderControlDropdown = (props, forwardedRef) => {
     resetButtonClassName,
     showDropdownHeader,
     enableStyle = true,
+    __unstablePopoverProps,
     ...otherProps
   } = useBorderControlDropdown(props);
   const {
@@ -47337,6 +47387,7 @@ const BorderControlDropdown = (props, forwardedRef) => {
   } = border || {};
   const colorObject = getColorObject(color, colors, !!__experimentalHasMultipleOrigins);
   const toggleAriaLabel = getToggleAriaLabel(color, colorObject, style, enableStyle);
+  const showResetButton = color || style && style !== 'none';
   const dropdownPosition = __experimentalIsRenderedInSidebar ? 'bottom left' : undefined;
 
   const renderToggle = _ref => {
@@ -47382,7 +47433,7 @@ const BorderControlDropdown = (props, forwardedRef) => {
       label: (0,external_wp_i18n_namespaceObject.__)('Style'),
       value: style,
       onChange: onStyleChange
-    })), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    })), showResetButton && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
       className: resetButtonClassName,
       variant: "tertiary",
       onClick: () => {
@@ -47395,7 +47446,9 @@ const BorderControlDropdown = (props, forwardedRef) => {
   return (0,external_wp_element_namespaceObject.createElement)(Dropdown, extends_extends({
     renderToggle: renderToggle,
     renderContent: renderContent,
-    contentClassName: popoverClassName
+    popoverProps: { ...__unstablePopoverProps,
+      className: popoverClassName
+    }
   }, otherProps, {
     ref: forwardedRef
   }));
@@ -47739,6 +47792,7 @@ function useBorderControl(props) {
     shouldSanitizeBorder = true,
     value: border,
     width,
+    __next36pxDefaultSize = false,
     ...otherProps
   } = useContextSystem(props, 'BorderControl');
   const [widthValue, originalWidthUnit] = parseQuantityAndUnitFromRawValue(border === null || border === void 0 ? void 0 : border.width);
@@ -47799,8 +47853,9 @@ function useBorderControl(props) {
   const innerWrapperClassName = (0,external_wp_element_namespaceObject.useMemo)(() => {
     const wrapperWidth = isCompact ? '90px' : width;
     const widthStyle = !!wrapperWidth && styles_wrapperWidth(wrapperWidth);
-    return cx(innerWrapper(), widthStyle);
-  }, [isCompact, width, cx]);
+    const heightStyle = wrapperHeight(__next36pxDefaultSize);
+    return cx(innerWrapper(), widthStyle, heightStyle);
+  }, [isCompact, width, cx, __next36pxDefaultSize]);
   const widthControlClassName = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return cx(borderWidthControl());
   }, [cx]);
@@ -47818,7 +47873,8 @@ function useBorderControl(props) {
     value: border,
     widthControlClassName,
     widthUnit,
-    widthValue
+    widthValue,
+    __next36pxDefaultSize
   };
 }
 
@@ -47867,7 +47923,7 @@ const BorderControl = (props, forwardedRef) => {
     onSliderChange,
     onWidthChange,
     placeholder,
-    popoverContentClassName,
+    __unstablePopoverProps,
     previousStyleSelection,
     showDropdownHeader,
     sliderClassName,
@@ -47878,6 +47934,7 @@ const BorderControl = (props, forwardedRef) => {
     withSlider,
     __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar,
+    __next36pxDefaultSize,
     ...otherProps
   } = useBorderControl(props);
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, otherProps, {
@@ -47893,7 +47950,7 @@ const BorderControl = (props, forwardedRef) => {
   }, (0,external_wp_element_namespaceObject.createElement)(border_control_dropdown_component, {
     border: border,
     colors: colors,
-    contentClassName: popoverContentClassName,
+    __unstablePopoverProps: __unstablePopoverProps,
     disableCustomColors: disableCustomColors,
     enableAlpha: enableAlpha,
     enableStyle: enableStyle,
@@ -47901,7 +47958,8 @@ const BorderControl = (props, forwardedRef) => {
     previousStyleSelection: previousStyleSelection,
     showDropdownHeader: showDropdownHeader,
     __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
-    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar
+    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
+    __next36pxDefaultSize: __next36pxDefaultSize
   }), (0,external_wp_element_namespaceObject.createElement)(unit_control, {
     className: widthControlClassName,
     min: 0,
@@ -48135,6 +48193,8 @@ function useBorderBoxControlSplitControls(props) {
  * WordPress dependencies
  */
 
+
+
 /**
  * Internal dependencies
  */
@@ -48153,12 +48213,21 @@ const component_BorderBoxControlSplitControls = (props, forwardedRef) => {
     enableAlpha,
     enableStyle,
     onChange,
-    popoverClassNames,
+    popoverPlacement,
+    popoverOffset,
     value,
     __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar,
+    __next36pxDefaultSize,
     ...otherProps
   } = useBorderBoxControlSplitControls(props);
+  const containerRef = (0,external_wp_element_namespaceObject.useRef)();
+  const mergedRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([containerRef, forwardedRef]);
+  const popoverProps = popoverPlacement ? {
+    placement: popoverPlacement,
+    offset: popoverOffset,
+    anchorRef: containerRef
+  } : undefined;
   const sharedBorderControlProps = {
     colors,
     disableCustomColors,
@@ -48166,38 +48235,40 @@ const component_BorderBoxControlSplitControls = (props, forwardedRef) => {
     enableStyle,
     isCompact: true,
     __experimentalHasMultipleOrigins,
-    __experimentalIsRenderedInSidebar
+    __experimentalIsRenderedInSidebar,
+    __next36pxDefaultSize
   };
   return (0,external_wp_element_namespaceObject.createElement)(grid_component, extends_extends({}, otherProps, {
-    ref: forwardedRef,
+    ref: mergedRef,
     gap: 4
   }), (0,external_wp_element_namespaceObject.createElement)(border_box_control_visualizer_component, {
-    value: value
+    value: value,
+    __next36pxDefaultSize: __next36pxDefaultSize
   }), (0,external_wp_element_namespaceObject.createElement)(border_control_component, extends_extends({
     className: centeredClassName,
     hideLabelFromVision: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Top border'),
     onChange: newBorder => onChange(newBorder, 'top'),
-    popoverContentClassName: popoverClassNames === null || popoverClassNames === void 0 ? void 0 : popoverClassNames.top,
+    __unstablePopoverProps: popoverProps,
     value: value === null || value === void 0 ? void 0 : value.top
   }, sharedBorderControlProps)), (0,external_wp_element_namespaceObject.createElement)(border_control_component, extends_extends({
     hideLabelFromVision: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Left border'),
     onChange: newBorder => onChange(newBorder, 'left'),
-    popoverContentClassName: popoverClassNames === null || popoverClassNames === void 0 ? void 0 : popoverClassNames.left,
+    __unstablePopoverProps: popoverProps,
     value: value === null || value === void 0 ? void 0 : value.left
   }, sharedBorderControlProps)), (0,external_wp_element_namespaceObject.createElement)(border_control_component, extends_extends({
     hideLabelFromVision: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Right border'),
     onChange: newBorder => onChange(newBorder, 'right'),
-    popoverContentClassName: popoverClassNames === null || popoverClassNames === void 0 ? void 0 : popoverClassNames.right,
+    __unstablePopoverProps: popoverProps,
     value: value === null || value === void 0 ? void 0 : value.right
   }, sharedBorderControlProps)), (0,external_wp_element_namespaceObject.createElement)(border_control_component, extends_extends({
     className: centeredClassName,
     hideLabelFromVision: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Bottom border'),
     onChange: newBorder => onChange(newBorder, 'bottom'),
-    popoverContentClassName: popoverClassNames === null || popoverClassNames === void 0 ? void 0 : popoverClassNames.bottom,
+    __unstablePopoverProps: popoverProps,
     value: value === null || value === void 0 ? void 0 : value.bottom
   }, sharedBorderControlProps)));
 };
@@ -48439,6 +48510,8 @@ function useBorderBoxControl(props) {
  * WordPress dependencies
  */
 
+
+
 /**
  * Internal dependencies
  */
@@ -48483,17 +48556,26 @@ const component_BorderBoxControl = (props, forwardedRef) => {
     linkedValue,
     onLinkedChange,
     onSplitChange,
-    popoverClassNames,
+    popoverPlacement,
+    popoverOffset,
     splitValue,
     toggleLinked,
     __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar,
+    __next36pxDefaultSize = false,
     ...otherProps
   } = useBorderBoxControl(props);
+  const containerRef = (0,external_wp_element_namespaceObject.useRef)();
+  const mergedRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([containerRef, forwardedRef]);
+  const popoverProps = popoverPlacement ? {
+    placement: popoverPlacement,
+    offset: popoverOffset,
+    anchorRef: containerRef
+  } : undefined;
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
     className: className
   }, otherProps, {
-    ref: forwardedRef
+    ref: mergedRef
   }), (0,external_wp_element_namespaceObject.createElement)(component_BorderLabel, {
     label: label,
     hideLabelFromVision: hideLabelFromVision
@@ -48509,27 +48591,31 @@ const component_BorderBoxControl = (props, forwardedRef) => {
     enableStyle: enableStyle,
     onChange: onLinkedChange,
     placeholder: hasMixedBorders ? (0,external_wp_i18n_namespaceObject.__)('Mixed') : undefined,
-    popoverContentClassName: popoverClassNames === null || popoverClassNames === void 0 ? void 0 : popoverClassNames.linked,
+    __unstablePopoverProps: popoverProps,
     shouldSanitizeBorder: false // This component will handle that.
     ,
     value: linkedValue,
     withSlider: true,
     width: '110px',
     __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
-    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar
+    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
+    __next36pxDefaultSize: __next36pxDefaultSize
   }) : (0,external_wp_element_namespaceObject.createElement)(border_box_control_split_controls_component, {
     colors: colors,
     disableCustomColors: disableCustomColors,
     enableAlpha: enableAlpha,
     enableStyle: enableStyle,
     onChange: onSplitChange,
-    popoverClassNames: popoverClassNames,
+    popoverPlacement: popoverPlacement,
+    popoverOffset: popoverOffset,
     value: splitValue,
     __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
-    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar
+    __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
+    __next36pxDefaultSize: __next36pxDefaultSize
   }), (0,external_wp_element_namespaceObject.createElement)(border_box_control_linked_button_component, {
     onClick: toggleLinked,
-    isLinked: isLinked
+    isLinked: isLinked,
+    __next36pxDefaultSize: __next36pxDefaultSize
   })));
 };
 
@@ -49577,26 +49663,46 @@ function BoxControl(_ref) {
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
 
+/**
+ * Internal dependencies
+ */
 
-
-function ButtonGroup(_ref, ref) {
-  let {
+function UnforwardedButtonGroup(props, ref) {
+  const {
     className,
-    ...props
-  } = _ref;
+    ...restProps
+  } = props;
   const classes = classnames_default()('components-button-group', className);
   return (0,external_wp_element_namespaceObject.createElement)("div", extends_extends({
     ref: ref,
     role: "group",
     className: classes
-  }, props));
+  }, restProps));
 }
+/**
+ * ButtonGroup can be used to group any related buttons together. To emphasize
+ * related buttons, a group should share a common container.
+ *
+ * ```jsx
+ * import { Button, ButtonGroup } from '@wordpress/components';
+ *
+ * const MyButtonGroup = () => (
+ *   <ButtonGroup>
+ *     <Button variant="primary">Button 1</Button>
+ *     <Button variant="primary">Button 2</Button>
+ *   </ButtonGroup>
+ * );
+ * ```
+ */
 
-/* harmony default export */ var button_group = ((0,external_wp_element_namespaceObject.forwardRef)(ButtonGroup));
+
+const ButtonGroup = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedButtonGroup);
+/* harmony default export */ var button_group = (ButtonGroup);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/elevation/styles.js
 function elevation_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
@@ -50437,7 +50543,7 @@ const renderMargin = _ref2 => {
   })(),  true ? "" : 0,  true ? "" : 0);
 };
 
-var styles_ref =  true ? {
+var divider_styles_ref =  true ? {
   name: "1u4hpl4",
   styles: "display:inline"
 } : 0;
@@ -50446,7 +50552,7 @@ const renderDisplay = _ref3 => {
   let {
     'aria-orientation': orientation = 'horizontal'
   } = _ref3;
-  return orientation === 'vertical' ? styles_ref : undefined;
+  return orientation === 'vertical' ? divider_styles_ref : undefined;
 };
 
 const renderBorder = _ref4 => {
@@ -50832,10 +50938,10 @@ const reset_reset = (0,external_wp_element_namespaceObject.createElement)(extern
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
-
 
 
 
@@ -50845,8 +50951,31 @@ const reset_reset = (0,external_wp_element_namespaceObject.createElement)(extern
  */
 
 
-function CheckboxControl(_ref) {
-  let {
+
+/**
+ * Checkboxes allow the user to select one or more items from a set.
+ *
+ * ```jsx
+ * import { CheckboxControl } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MyCheckboxControl = () => {
+ *   const [ isChecked, setChecked ] = useState( true );
+ *   return (
+ *     <CheckboxControl
+ *       label="Is author"
+ *       help="Is the user a author or not?"
+ *       checked={ isChecked }
+ *       onChange={ setChecked }
+ *     />
+ *   );
+ * };
+ * ```
+ */
+function CheckboxControl( // ref is omitted until we have `WordPressComponentPropsWithoutRef` or add
+// ref forwarding to CheckboxControl.
+props) {
+  const {
     label,
     className,
     heading,
@@ -50854,8 +50983,8 @@ function CheckboxControl(_ref) {
     indeterminate,
     help,
     onChange,
-    ...props
-  } = _ref;
+    ...additionalProps
+  } = props;
 
   if (heading) {
     external_wp_deprecated_default()('`heading` prop in `CheckboxControl`', {
@@ -50865,7 +50994,7 @@ function CheckboxControl(_ref) {
   }
 
   const [showCheckedIcon, setShowCheckedIcon] = (0,external_wp_element_namespaceObject.useState)(false);
-  const [showIndeterminateIcon, setShowIndeterminateIcon] = (0,external_wp_element_namespaceObject.useState)(false); // Run the following callback everytime the `ref` (and the additional
+  const [showIndeterminateIcon, setShowIndeterminateIcon] = (0,external_wp_element_namespaceObject.useState)(false); // Run the following callback every time the `ref` (and the additional
   // dependencies) change.
 
   const ref = (0,external_wp_compose_namespaceObject.useRefEffect)(node => {
@@ -50899,7 +51028,7 @@ function CheckboxControl(_ref) {
     onChange: onChangeValue,
     checked: checked,
     "aria-describedby": !!help ? id + '__help' : undefined
-  }, props)), showIndeterminateIcon ? (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
+  }, additionalProps)), showIndeterminateIcon ? (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
     icon: library_reset,
     className: "components-checkbox-control__indeterminate",
     role: "presentation"
@@ -50912,6 +51041,7 @@ function CheckboxControl(_ref) {
     htmlFor: id
   }, label));
 }
+/* harmony default export */ var checkbox_control = (CheckboxControl);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/clipboard-button/index.js
 
@@ -51515,7 +51645,7 @@ function ControlPoints(_ref3) {
           enableAlpha: !disableAlpha,
           color: point.color,
           onChange: color => {
-            onChange(updateControlPointColor(controlPoints, index, w(color).toRgbString()));
+            onChange(updateControlPointColor(controlPoints, index, colord_w(color).toRgbString()));
           }
         }), !disableRemove && controlPoints.length > 2 && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
           className: "components-custom-gradient-picker__remove-control-point",
@@ -51578,10 +51708,10 @@ function InsertPoint(_ref6) {
       enableAlpha: !disableAlpha,
       onChange: color => {
         if (!alreadyInsertedPoint) {
-          onChange(addControlPoint(controlPoints, insertPosition, w(color).toRgbString()));
+          onChange(addControlPoint(controlPoints, insertPosition, colord_w(color).toRgbString()));
           setAlreadyInsertedPoint(true);
         } else {
-          onChange(updateControlPointColorByPosition(controlPoints, insertPosition, w(color).toRgbString()));
+          onChange(updateControlPointColorByPosition(controlPoints, insertPosition, colord_w(color).toRgbString()));
         }
       }
     })
@@ -51884,7 +52014,7 @@ function serializeGradient(_ref3) {
 
 
 
-k([names]);
+colord_k([names]);
 function getLinearGradientRepresentation(gradientAST) {
   return serializeGradient({
     type: 'linear-gradient',
@@ -51945,7 +52075,7 @@ function getGradientAstWithControlPoints(gradientAST, newControlPoints) {
         g,
         b,
         a
-      } = w(color).toRgb();
+      } = colord_w(color).toRgb();
       return {
         length: {
           type: '%',
@@ -52281,6 +52411,8 @@ const menu = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
 }));
 /* harmony default export */ var library_menu = (menu);
 
+;// CONCATENATED MODULE: external ["wp","dom"]
+var external_wp_dom_namespaceObject = window["wp"]["dom"];
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/container.js
 
 
@@ -52775,11 +52907,39 @@ function NameInput(_ref) {
     onChange: onChange
   });
 }
+/**
+ * Returns a temporary name for a palette item in the format "Color + id".
+ * To ensure there are no duplicate ids, this function checks all slugs for temporary names.
+ * It expects slugs to be in the format: slugPrefix + color- + number.
+ * It then sets the id component of the new name based on the incremented id of the highest existing slug id.
+ *
+ * @param {string} elements   An array of color palette items.
+ * @param {string} slugPrefix The slug prefix used to match the element slug.
+ *
+ * @return {string} A unique name for a palette item.
+ */
 
-function getNameForPosition(position) {
+
+function getNameForPosition(elements, slugPrefix) {
+  const temporaryNameRegex = new RegExp(`^${slugPrefix}color-([\\d]+)$`);
+  const position = elements.reduce((previousValue, currentValue) => {
+    if (typeof (currentValue === null || currentValue === void 0 ? void 0 : currentValue.slug) === 'string') {
+      const matches = currentValue === null || currentValue === void 0 ? void 0 : currentValue.slug.match(temporaryNameRegex);
+
+      if (matches) {
+        const id = parseInt(matches[1], 10);
+
+        if (id >= previousValue) {
+          return id + 1;
+        }
+      }
+    }
+
+    return previousValue;
+  }, 1);
   return (0,external_wp_i18n_namespaceObject.sprintf)(
   /* translators: %s: is a temporary id for a custom color */
-  (0,external_wp_i18n_namespaceObject.__)('Color %s '), position + 1);
+  (0,external_wp_i18n_namespaceObject.__)('Color %s'), position);
 }
 
 function palette_edit_Option(_ref2) {
@@ -52825,7 +52985,8 @@ function palette_edit_Option(_ref2) {
     label: (0,external_wp_i18n_namespaceObject.__)('Remove color'),
     onClick: onRemove
   }))), isEditing && (0,external_wp_element_namespaceObject.createElement)(popover, {
-    position: "bottom left",
+    placement: "left-start",
+    offset: 20,
     className: "components-palette-edit__popover"
   }, !isGradient && (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
     color: value,
@@ -52841,13 +53002,14 @@ function palette_edit_Option(_ref2) {
   })));
 }
 
-function isTemporaryElement(slugPrefix, _ref3, index) {
+function isTemporaryElement(slugPrefix, _ref3) {
   let {
     slug,
     color,
     gradient
   } = _ref3;
-  return slug === slugPrefix + (0,external_lodash_namespaceObject.kebabCase)(getNameForPosition(index)) && (!!color && color === DEFAULT_COLOR || !!gradient && gradient === DEFAULT_GRADIENT);
+  const regex = new RegExp(`^${slugPrefix}color-([\\d]+)$`);
+  return regex.test(slug) && (!!color && color === DEFAULT_COLOR || !!gradient && gradient === DEFAULT_GRADIENT);
 }
 
 function PaletteEditListView(_ref4) {
@@ -52868,7 +53030,7 @@ function PaletteEditListView(_ref4) {
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     return () => {
       if (elementsReference.current.some((element, index) => isTemporaryElement(slugPrefix, element, index))) {
-        const newElements = elementsReference.current.filter((element, index) => !isTemporaryElement(slugPrefix, element, index));
+        const newElements = elementsReference.current.filter(element => !isTemporaryElement(slugPrefix, element));
         onChange(newElements.length ? newElements : undefined);
       }
     };
@@ -52949,7 +53111,7 @@ function PaletteEdit(_ref5) {
     icon: library_plus,
     label: isGradient ? (0,external_wp_i18n_namespaceObject.__)('Add gradient') : (0,external_wp_i18n_namespaceObject.__)('Add color'),
     onClick: () => {
-      const tempOptionName = getNameForPosition(elementsLength);
+      const tempOptionName = getNameForPosition(elements, slugPrefix);
       onChange([...elements, { ...(isGradient ? {
           gradient: DEFAULT_GRADIENT
         } : {
@@ -58049,24 +58211,26 @@ function CustomSelectControl(_ref3) {
   })))));
 }
 
-// EXTERNAL MODULE: ./node_modules/react-dates/initialize.js
-var initialize = __webpack_require__(4185);
+// EXTERNAL MODULE: ./packages/components/node_modules/react-dates/initialize.js
+var initialize = __webpack_require__(2150);
 // EXTERNAL MODULE: external "moment"
 var external_moment_ = __webpack_require__(6292);
 var external_moment_default = /*#__PURE__*/__webpack_require__.n(external_moment_);
-// EXTERNAL MODULE: ./node_modules/react-dates/lib/components/DayPickerSingleDateController.js
-var DayPickerSingleDateController = __webpack_require__(6302);
+// EXTERNAL MODULE: ./packages/components/node_modules/react-dates/lib/components/DayPickerSingleDateController.js
+var DayPickerSingleDateController = __webpack_require__(4916);
 ;// CONCATENATED MODULE: ./packages/components/build-module/date-time/utils.js
 /**
  * External dependencies
  */
 
 /**
- * Create a Moment object from a date string. With no date supplied, default to a Moment
- * object representing now. If a null value is passed, return a null value.
+ * Create a Moment object from a date string. With no date supplied, default to
+ * a Moment object representing now. If a null value is passed, return a null
+ * value.
  *
- * @param {?string} date Date representing the currently selected date or null to signify no selection.
- * @return {?moment.Moment} Moment object for selected date or null.
+ * @param  [date] Date representing the currently selected
+ *                date or null to signify no selection.
+ * @return Moment object for selected date or null.
  */
 
 const getMomentDate = date => {
@@ -58084,10 +58248,15 @@ const getMomentDate = date => {
  * External dependencies
  */
 
- // react-dates doesn't tree-shake correctly, so we import from the individual
-// component here, to avoid including too much of the library
+
+ // `react-dates` doesn't tree-shake correctly, so we import from the individual
+// component here.
+// @ts-expect-error TypeScript won't find any type declarations at
+// `react-dates/lib/components/DayPickerSingleDateController` as they're located
+// at `react-dates`.
 
 
+const TypedDayPickerSingleDateController = DayPickerSingleDateController/* default */.Z;
 /**
  * WordPress dependencies
  */
@@ -58099,10 +58268,6 @@ const getMomentDate = date => {
  */
 
 
-/**
- * Module Constants
- */
-
 const TIMEZONELESS_FORMAT = 'YYYY-MM-DDTHH:mm:ss';
 const ARIAL_LABEL_TIME_FORMAT = 'dddd, LL';
 
@@ -58111,7 +58276,7 @@ function DatePickerDay(_ref) {
     day,
     events = []
   } = _ref;
-  const ref = (0,external_wp_element_namespaceObject.useRef)();
+  const ref = (0,external_wp_element_namespaceObject.useRef)(null);
   /*
    * a11y hack to make the `There is/are n events` string
    * available speaking for readers,
@@ -58123,7 +58288,7 @@ function DatePickerDay(_ref) {
     var _ref$current;
 
     // Bail when no parent node.
-    if (!(ref !== null && ref !== void 0 && (_ref$current = ref.current) !== null && _ref$current !== void 0 && _ref$current.parentNode)) {
+    if (!((ref === null || ref === void 0 ? void 0 : (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.parentNode) instanceof Element)) {
       return;
     }
 
@@ -58149,6 +58314,26 @@ function DatePickerDay(_ref) {
     })
   }, day.format('D'));
 }
+/**
+ * DatePicker is a React component that renders a calendar for date selection.
+ *
+ * ```jsx
+ * import { DatePicker } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MyDatePicker = () => {
+ *   const [ date, setDate ] = useState( new Date() );
+ *
+ *   return (
+ *     <DatePicker
+ *       currentDate={ date }
+ *       onChange={ ( newDate ) => setDate( newDate ) }
+ *     />
+ *   );
+ * };
+ * ```
+ */
+
 
 function DatePicker(_ref2) {
   let {
@@ -58158,7 +58343,7 @@ function DatePicker(_ref2) {
     isInvalidDate,
     onMonthPreviewed
   } = _ref2;
-  const nodeRef = (0,external_wp_element_namespaceObject.useRef)();
+  const nodeRef = (0,external_wp_element_namespaceObject.useRef)(null);
 
   const onMonthPreviewedHandler = newMonthDate => {
     onMonthPreviewed === null || onMonthPreviewed === void 0 ? void 0 : onMonthPreviewed(newMonthDate.toISOString());
@@ -58188,7 +58373,7 @@ function DatePicker(_ref2) {
       // Retrieve the focus region div.
       const focusRegion = nodeRef.current.querySelector('.DayPicker_focusRegion');
 
-      if (!focusRegion) {
+      if (!(focusRegion instanceof HTMLElement)) {
         return;
       } // Keep the focus on focus region.
 
@@ -58198,14 +58383,18 @@ function DatePicker(_ref2) {
   };
 
   const onChangeMoment = newDate => {
-    // If currentDate is null, use now as momentTime to designate hours, minutes, seconds.
+    if (!newDate) {
+      return;
+    } // If currentDate is null, use now as momentTime to designate hours, minutes, seconds.
+
+
     const momentDate = currentDate ? external_moment_default()(currentDate) : external_moment_default()();
     const momentTime = {
       hours: momentDate.hours(),
       minutes: momentDate.minutes(),
       seconds: 0
     };
-    onChange(newDate.set(momentTime).format(TIMEZONELESS_FORMAT)); // Keep focus on the date picker.
+    onChange === null || onChange === void 0 ? void 0 : onChange(newDate.set(momentTime).format(TIMEZONELESS_FORMAT)); // Keep focus on the date picker.
 
     keepFocusInside();
   };
@@ -58222,7 +58411,7 @@ function DatePicker(_ref2) {
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-datetime__date",
     ref: nodeRef
-  }, (0,external_wp_element_namespaceObject.createElement)(DayPickerSingleDateController/* default */.Z, {
+  }, (0,external_wp_element_namespaceObject.createElement)(TypedDayPickerSingleDateController, {
     date: momentDate,
     daySize: 30,
     focused: true,
@@ -58238,17 +58427,17 @@ function DatePicker(_ref2) {
     dayAriaLabelFormat: ARIAL_LABEL_TIME_FORMAT,
     isRTL: (0,external_wp_i18n_namespaceObject.isRTL)(),
     isOutsideRange: date => {
-      return isInvalidDate && isInvalidDate(date.toDate());
+      return !!isInvalidDate && isInvalidDate(date.toDate());
     },
     onPrevMonthClick: onMonthPreviewedHandler,
     onNextMonthClick: onMonthPreviewedHandler,
     renderDayContents: day => (0,external_wp_element_namespaceObject.createElement)(DatePickerDay, {
       day: day,
       events: getEventsPerDay(day)
-    })
+    }),
+    onFocusChange: external_lodash_namespaceObject.noop
   }));
 }
-
 /* harmony default export */ var date = (DatePicker);
 
 ;// CONCATENATED MODULE: external ["wp","date"]
@@ -58267,7 +58456,8 @@ var external_wp_date_namespaceObject = window["wp"]["date"];
 
 
 /**
- * Displays timezone information when user timezone is different from site timezone.
+ * Displays timezone information when user timezone is different from site
+ * timezone.
  */
 
 const TimeZone = () => {
@@ -58282,8 +58472,8 @@ const TimeZone = () => {
     return null;
   }
 
-  const offsetSymbol = timezone.offset >= 0 ? '+' : '';
-  const zoneAbbr = '' !== timezone.abbr && isNaN(timezone.abbr) ? timezone.abbr : `UTC${offsetSymbol}${timezone.offset}`;
+  const offsetSymbol = Number(timezone.offset) >= 0 ? '+' : '';
+  const zoneAbbr = '' !== timezone.abbr && isNaN(Number(timezone.abbr)) ? timezone.abbr : `UTC${offsetSymbol}${timezone.offset}`;
   const timezoneDetail = 'UTC' === timezone.string ? (0,external_wp_i18n_namespaceObject.__)('Coordinated Universal Time') : `(${zoneAbbr}) ${timezone.string.replace('_', ' ')}`;
   return (0,external_wp_element_namespaceObject.createElement)(tooltip, {
     position: "top center",
@@ -58304,10 +58494,10 @@ const TimeZone = () => {
 
 
 
+
 /**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -58317,24 +58507,14 @@ const TimeZone = () => {
 
 
 
-/**
- * Module Constants
- */
-
 const time_TIMEZONELESS_FORMAT = 'YYYY-MM-DDTHH:mm:ss';
 
 function from12hTo24h(hours, isPm) {
   return isPm ? (hours % 12 + 12) % 24 : hours % 12;
 }
 /**
- * <UpdateOnBlurAsIntegerField>
- * A shared component to parse, validate, and handle remounting of the underlying form field element like <input> and <select>.
- *
- * @param {Object}        props             Component props.
- * @param {string}        props.as          Render the component as specific element tag, defaults to "input".
- * @param {number|string} props.value       The default value of the component which will be parsed to integer.
- * @param {Function}      props.onUpdate    Call back when blurred and validated.
- * @param {string}        [props.className]
+ * A shared component to parse, validate, and handle remounting of the
+ * underlying form field element like <input> and <select>.
  */
 
 
@@ -58352,7 +58532,7 @@ function UpdateOnBlurAsIntegerField(_ref) {
       target
     } = event;
 
-    if (value === target.value) {
+    if (String(value) === target.value) {
       return;
     }
 
@@ -58360,10 +58540,10 @@ function UpdateOnBlurAsIntegerField(_ref) {
 
     if (!(0,external_lodash_namespaceObject.isInteger)(parsedValue) || typeof props.max !== 'undefined' && parsedValue > props.max || typeof props.min !== 'undefined' && parsedValue < props.min) {
       // If validation failed, reset the value to the previous valid value.
-      target.value = value;
+      target.value = String(value);
     } else {
       // Otherwise, it's valid, call onUpdate.
-      onUpdate(target.name, parsedValue);
+      onUpdate(parsedValue);
     }
   }
 
@@ -58377,14 +58557,24 @@ function UpdateOnBlurAsIntegerField(_ref) {
   });
 }
 /**
- * <TimePicker>
+ * TimePicker is a React component that renders a clock for time selection.
  *
- * @typedef {Date|string|number} WPValidDateTimeFormat
+ * ```jsx
+ * import { TimePicker } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
  *
- * @param {Object}                props             Component props.
- * @param {boolean}               props.is12Hour    Should the time picker showed in 12 hour format or 24 hour format.
- * @param {WPValidDateTimeFormat} props.currentTime The initial current time the time picker should render.
- * @param {Function}              props.onChange    Callback function when the date changed.
+ * const MyTimePicker = () => {
+ *   const [ time, setTime ] = useState( new Date() );
+ *
+ *   return (
+ *     <TimePicker
+ *       currentTime={ date }
+ *       onChange={ ( newTime ) => setTime( newTime ) }
+ *       is12Hour
+ *     />
+ *   );
+ * };
+ * ```
  */
 
 
@@ -58395,7 +58585,7 @@ function TimePicker(_ref2) {
     onChange
   } = _ref2;
   const [date, setDate] = (0,external_wp_element_namespaceObject.useState)(() => // Truncate the date at the minutes, see: #15495.
-  external_moment_default()(currentTime).startOf('minutes')); // Reset the state when currentTime changed.
+  currentTime ? external_moment_default()(currentTime).startOf('minutes') : external_moment_default()()); // Reset the state when currentTime changed.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     setDate(currentTime ? external_moment_default()(currentTime).startOf('minutes') : external_moment_default()());
@@ -58413,33 +58603,35 @@ function TimePicker(_ref2) {
     year: date.format('YYYY'),
     minutes: date.format('mm'),
     hours: date.format(is12Hour ? 'hh' : 'HH'),
-    am: date.format('H') <= 11 ? 'AM' : 'PM'
+    am: Number(date.format('H')) <= 11 ? 'AM' : 'PM'
   }), [date, is12Hour]);
   /**
    * Function that sets the date state and calls the onChange with a new date.
    * The date is truncated at the minutes.
    *
-   * @param {Object} newDate The date object.
+   * @param {Moment} newDate The date object.
    */
 
   function changeDate(newDate) {
     setDate(newDate);
-    onChange(newDate.format(time_TIMEZONELESS_FORMAT));
+    onChange === null || onChange === void 0 ? void 0 : onChange(newDate.format(time_TIMEZONELESS_FORMAT));
   }
 
-  function update(name, value) {
-    // If the 12-hour format is being used and the 'PM' period is selected, then
-    // the incoming value (which ranges 1-12) should be increased by 12 to match
-    // the expected 24-hour format.
-    let adjustedValue = value;
+  function update(name) {
+    return value => {
+      // If the 12-hour format is being used and the 'PM' period is selected, then
+      // the incoming value (which ranges 1-12) should be increased by 12 to match
+      // the expected 24-hour format.
+      let adjustedValue = value;
 
-    if (name === 'hours' && is12Hour) {
-      adjustedValue = from12hTo24h(value, am === 'PM');
-    } // Clone the date and call the specific setter function according to `name`.
+      if (name === 'hours' && is12Hour) {
+        adjustedValue = from12hTo24h(value, am === 'PM');
+      } // Clone the date and call the specific setter function according to `name`.
 
 
-    const newDate = date.clone()[name](adjustedValue);
-    changeDate(newDate);
+      const newDate = date.clone()[name](adjustedValue);
+      changeDate(newDate);
+    };
   }
 
   function updateAmPm(value) {
@@ -58466,7 +58658,7 @@ function TimePicker(_ref2) {
     step: 1,
     min: 1,
     max: 31,
-    onUpdate: update
+    onUpdate: update('date')
   }));
   const monthFormat = (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-datetime__time-field components-datetime__time-field-month"
@@ -58477,7 +58669,7 @@ function TimePicker(_ref2) {
     name: "month",
     value: month // The value starts from 0, so we have to -1 when setting month.
     ,
-    onUpdate: (key, value) => update(key, value - 1)
+    onUpdate: value => update('month')(value - 1)
   }, (0,external_wp_element_namespaceObject.createElement)("option", {
     value: "01"
   }, (0,external_wp_i18n_namespaceObject.__)('January')), (0,external_wp_element_namespaceObject.createElement)("option", {
@@ -58521,7 +58713,7 @@ function TimePicker(_ref2) {
     min: 0,
     max: 9999,
     value: year,
-    onUpdate: update
+    onUpdate: update('year')
   })))), (0,external_wp_element_namespaceObject.createElement)("fieldset", null, (0,external_wp_element_namespaceObject.createElement)("legend", {
     className: "components-datetime__time-legend invisible"
   }, (0,external_wp_i18n_namespaceObject.__)('Time')), (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -58537,7 +58729,7 @@ function TimePicker(_ref2) {
     min: is12Hour ? 1 : 0,
     max: is12Hour ? 12 : 23,
     value: hours,
-    onUpdate: update
+    onUpdate: update('hours')
   }), (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "components-datetime__time-separator",
     "aria-hidden": "true"
@@ -58550,7 +58742,7 @@ function TimePicker(_ref2) {
     min: 0,
     max: 59,
     value: minutes,
-    onUpdate: update
+    onUpdate: update('minutes')
   })), is12Hour && (0,external_wp_element_namespaceObject.createElement)(button_group, {
     className: "components-datetime__time-field components-datetime__time-field-am-pm"
   }, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
@@ -58575,10 +58767,10 @@ function TimePicker(_ref2) {
 // See: https://github.com/airbnb/react-dates#initialize
 
 
+
 /**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -58590,7 +58782,7 @@ function TimePicker(_ref2) {
 
 
 
-function DateTimePicker(_ref, ref) {
+function UnforwardedDateTimePicker(_ref, ref) {
   let {
     currentDate,
     is12Hour,
@@ -58645,15 +58837,39 @@ function DateTimePicker(_ref, ref) {
   }, !calendarHelpIsVisible && currentDate && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     className: "components-datetime__date-reset-button",
     variant: "link",
-    onClick: () => onChange(null)
+    onClick: () => onChange === null || onChange === void 0 ? void 0 : onChange(null)
   }, (0,external_wp_i18n_namespaceObject.__)('Reset')), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     className: "components-datetime__date-help-toggle",
     variant: "link",
     onClick: onClickDescriptionToggle
   }, calendarHelpIsVisible ? (0,external_wp_i18n_namespaceObject.__)('Close') : (0,external_wp_i18n_namespaceObject.__)('Calendar Help'))));
 }
+/**
+ * DateTimePicker is a React component that renders a calendar and clock for
+ * date and time selection. The calendar and clock components can be accessed
+ * individually using the `DatePicker` and `TimePicker` components respectively.
+ *
+ * ```jsx
+ * import { DateTimePicker } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MyDateTimePicker = () => {
+ *   const [ date, setDate ] = useState( new Date() );
+ *
+ *   return (
+ *     <DateTimePicker
+ *       currentDate={ date }
+ *       onChange={ ( newDate ) => setDate( newDate ) }
+ *       is12Hour
+ *     />
+ *   );
+ * };
+ * ```
+ */
 
-/* harmony default export */ var date_time = ((0,external_wp_element_namespaceObject.forwardRef)(DateTimePicker));
+
+const DateTimePicker = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedDateTimePicker);
+/* harmony default export */ var date_time = (DateTimePicker);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/dimension-control/sizes.js
 /**
@@ -58832,7 +59048,7 @@ function Disabled(_ref) {
   } = _ref;
 
   /** @type {import('react').RefCallback<HTMLDivElement>} */
-  const ref = (0,external_wp_compose_namespaceObject.__experimentalUseDisabled)();
+  const ref = (0,external_wp_compose_namespaceObject.useDisabled)();
 
   if (!isDisabled) {
     return (0,external_wp_element_namespaceObject.createElement)(disabled_Provider, {
@@ -59569,7 +59785,7 @@ function Swatch(_ref) {
  */
 
 
-k([names]);
+colord_k([names]);
 /**
  * Object representation for a color.
  *
@@ -59596,7 +59812,7 @@ function getDefaultColors(palette) {
     } = _ref;
     return {
       color,
-      brightness: w(color).brightness()
+      brightness: colord_w(color).brightness()
     };
   }).reduce((_ref2, current) => {
     let [min, max] = _ref2;
@@ -59958,1698 +60174,6 @@ function ExternalLink(_ref, ref) {
   );
 }
 /* harmony default export */ var external_link = ((0,external_wp_element_namespaceObject.forwardRef)(ExternalLink));
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-26bb1730.js
-// Automatically generated
-var POPOVER_STATE_KEYS = ["baseId", "unstable_idCountRef", "visible", "animated", "animating", "setBaseId", "show", "hide", "toggle", "setVisible", "setAnimated", "stopAnimation", "modal", "unstable_disclosureRef", "setModal", "unstable_referenceRef", "unstable_popoverRef", "unstable_arrowRef", "unstable_popoverStyles", "unstable_arrowStyles", "unstable_originalPlacement", "unstable_update", "placement", "place"];
-var POPOVER_KEYS = POPOVER_STATE_KEYS;
-var POPOVER_ARROW_KEYS = [].concat(POPOVER_KEYS, ["size"]);
-var POPOVER_BACKDROP_KEYS = POPOVER_KEYS;
-var POPOVER_DISCLOSURE_KEYS = POPOVER_BACKDROP_KEYS;
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/__keys-ed7b48af.js
-// Automatically generated
-var DIALOG_STATE_KEYS = ["baseId", "unstable_idCountRef", "visible", "animated", "animating", "setBaseId", "show", "hide", "toggle", "setVisible", "setAnimated", "stopAnimation", "modal", "unstable_disclosureRef", "setModal"];
-var DIALOG_KEYS = [].concat(DIALOG_STATE_KEYS, ["hideOnEsc", "hideOnClickOutside", "preventBodyScroll", "unstable_initialFocusRef", "unstable_finalFocusRef", "unstable_orphan", "unstable_autoFocusOnShow", "unstable_autoFocusOnHide"]);
-var DIALOG_BACKDROP_KEYS = DIALOG_STATE_KEYS;
-var DIALOG_DISCLOSURE_KEYS = DIALOG_BACKDROP_KEYS;
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Button/Button.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Automatically generated
-var BUTTON_KEYS = [];
-
-var useButton = createHook({
-  name: "Button",
-  compose: useClickable,
-  keys: BUTTON_KEYS,
-  useProps: function useProps(_, _ref) {
-    var htmlRef = _ref.ref,
-        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["ref"]);
-
-    var ref = (0,external_React_.useRef)(null);
-
-    var _React$useState = (0,external_React_.useState)(undefined),
-        role = _React$useState[0],
-        setRole = _React$useState[1];
-
-    var _React$useState2 = (0,external_React_.useState)("button"),
-        type = _React$useState2[0],
-        setType = _React$useState2[1];
-
-    (0,external_React_.useEffect)(function () {
-      var element = ref.current;
-
-      if (!element) {
-         false ? 0 : void 0;
-        return;
-      }
-
-      if (!isButton(element)) {
-        if (element.tagName !== "A") {
-          setRole("button");
-        }
-
-        setType(undefined);
-      }
-    }, []);
-    return _objectSpread2({
-      ref: useForkRef(ref, htmlRef),
-      role: role,
-      type: type
-    }, htmlProps);
-  }
-});
-var Button_Button = createComponent({
-  as: "button",
-  memo: true,
-  useHook: useButton
-});
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Disclosure/Disclosure.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var useDisclosure = createHook({
-  name: "Disclosure",
-  compose: useButton,
-  keys: DISCLOSURE_KEYS,
-  useProps: function useProps(options, _ref) {
-    var htmlOnClick = _ref.onClick,
-        ariaControls = _ref["aria-controls"],
-        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["onClick", "aria-controls"]);
-
-    var onClickRef = useLiveRef(htmlOnClick);
-    var controls = ariaControls ? ariaControls + " " + options.baseId : options.baseId;
-    var onClick = (0,external_React_.useCallback)(function (event) {
-      var _onClickRef$current, _options$toggle;
-
-      (_onClickRef$current = onClickRef.current) === null || _onClickRef$current === void 0 ? void 0 : _onClickRef$current.call(onClickRef, event);
-      if (event.defaultPrevented) return;
-      (_options$toggle = options.toggle) === null || _options$toggle === void 0 ? void 0 : _options$toggle.call(options);
-    }, [options.toggle]);
-    return _objectSpread2({
-      "aria-expanded": !!options.visible,
-      "aria-controls": controls,
-      onClick: onClick
-    }, htmlProps);
-  }
-});
-var Disclosure = createComponent({
-  as: "button",
-  memo: true,
-  useHook: useDisclosure
-});
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Dialog/DialogDisclosure.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var useDialogDisclosure = createHook({
-  name: "DialogDisclosure",
-  compose: useDisclosure,
-  keys: DIALOG_DISCLOSURE_KEYS,
-  useProps: function useProps(options, _ref) {
-    var htmlRef = _ref.ref,
-        htmlOnClick = _ref.onClick,
-        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["ref", "onClick"]);
-
-    var ref = (0,external_React_.useRef)(null);
-    var onClickRef = useLiveRef(htmlOnClick);
-
-    var _React$useState = (0,external_React_.useState)(false),
-        expanded = _React$useState[0],
-        setExpanded = _React$useState[1];
-
-    var disclosureRef = options.unstable_disclosureRef; // aria-expanded may be used for styling purposes, so we useLayoutEffect
-
-    useIsomorphicEffect(function () {
-      var element = ref.current;
-       false ? 0 : void 0;
-
-      if (disclosureRef && !disclosureRef.current) {
-        disclosureRef.current = element;
-      }
-
-      var isCurrentDisclosure = !(disclosureRef !== null && disclosureRef !== void 0 && disclosureRef.current) || disclosureRef.current === element;
-      setExpanded(!!options.visible && isCurrentDisclosure);
-    }, [options.visible, disclosureRef]);
-    var onClick = (0,external_React_.useCallback)(function (event) {
-      var _onClickRef$current;
-
-      (_onClickRef$current = onClickRef.current) === null || _onClickRef$current === void 0 ? void 0 : _onClickRef$current.call(onClickRef, event);
-      if (event.defaultPrevented) return;
-
-      if (disclosureRef) {
-        disclosureRef.current = event.currentTarget;
-      }
-    }, [disclosureRef]);
-    return _objectSpread2({
-      ref: useForkRef(ref, htmlRef),
-      "aria-haspopup": "dialog",
-      "aria-expanded": expanded,
-      onClick: onClick
-    }, htmlProps);
-  }
-});
-var DialogDisclosure = createComponent({
-  as: "button",
-  memo: true,
-  useHook: useDialogDisclosure
-});
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Popover/PopoverDisclosure.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var usePopoverDisclosure = createHook({
-  name: "PopoverDisclosure",
-  compose: useDialogDisclosure,
-  keys: POPOVER_DISCLOSURE_KEYS,
-  useProps: function useProps(options, _ref) {
-    var htmlRef = _ref.ref,
-        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["ref"]);
-
-    return _objectSpread2({
-      ref: useForkRef(options.unstable_referenceRef, htmlRef)
-    }, htmlProps);
-  }
-});
-var PopoverDisclosure = createComponent({
-  as: "button",
-  memo: true,
-  useHook: usePopoverDisclosure
-});
-
-
-
-;// CONCATENATED MODULE: ./packages/components/build-module/flyout/context.js
-/**
- * WordPress dependencies
- */
-
-/**
- * @type {import('react').Context<import('./types').Context>}
- */
-
-const FlyoutContext = (0,external_wp_element_namespaceObject.createContext)({});
-const useFlyoutContext = () => (0,external_wp_element_namespaceObject.useContext)(FlyoutContext);
-
-// EXTERNAL MODULE: ./node_modules/react-resize-aware/dist/index.js
-var react_resize_aware_dist = __webpack_require__(235);
-var react_resize_aware_dist_default = /*#__PURE__*/__webpack_require__.n(react_resize_aware_dist);
-;// CONCATENATED MODULE: ./packages/components/build-module/flyout/utils.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- *
- * @param { { onResize?: () => any } } onResize
- */
-
-function useFlyoutResizeUpdater(_ref) {
-  let {
-    onResize
-  } = _ref;
-  const [resizeListener, sizes] = react_resize_aware_dist_default()();
-  (0,external_wp_compose_namespaceObject.useIsomorphicLayoutEffect)(() => {
-    onResize === null || onResize === void 0 ? void 0 : onResize();
-  }, [sizes.width, sizes.height]);
-  return resizeListener;
-}
-
-;// CONCATENATED MODULE: ./node_modules/reakit-utils/es/useUpdateEffect.js
-
-
-/**
- * A `React.useEffect` that will not run on the first render.
- */
-
-function useUpdateEffect_useUpdateEffect(effect, deps) {
-  var mounted = (0,external_React_.useRef)(false);
-  (0,external_React_.useEffect)(function () {
-    if (mounted.current) {
-      return effect();
-    }
-
-    mounted.current = true;
-    return undefined;
-  }, deps);
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit-utils/es/removeIndexFromArray.js
-/**
- * Immutably removes an index from an array.
- *
- * @example
- * import { removeIndexFromArray } from "reakit-utils";
- *
- * removeIndexFromArray(["a", "b", "c"], 1); // ["a", "c"]
- *
- * @returns {Array} A new array without the item in the passed index.
- */
-function removeIndexFromArray(array, index) {
-  if (index === -1) return array;
-  return [].concat(array.slice(0, index), array.slice(index + 1));
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit-utils/es/removeItemFromArray.js
-
-
-/**
- * Immutably removes an item from an array.
- *
- * @example
- * import { removeItemFromArray } from "reakit-utils";
- *
- * removeItemFromArray(["a", "b", "c"], "b"); // ["a", "c"]
- *
- * // This only works by reference
- * const obj = {};
- * removeItemFromArray([obj], {}); // [obj]
- * removeItemFromArray([obj], obj); // []
- *
- * @returns {Array} A new array without the passed item.
- */
-
-function removeItemFromArray_removeItemFromArray(array, item) {
-  var index = array.indexOf(item);
-  return removeIndexFromArray(array, index);
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/MenuContext-6af6cf92.js
-
-
-
-var MenuContext = /*#__PURE__*/(0,external_React_.createContext)(null);
-function useMenuContext(menuRef, role, options) {
-  var orphan = "unstable_orphan" in options && options.unstable_orphan;
-  var parent = useContext(MenuContext);
-
-  var _React$useState = useState([]),
-      children = _React$useState[0],
-      setChildren = _React$useState[1];
-
-  var _ref = parent || {},
-      addChildToParent = _ref.addChild,
-      removeChildFromParent = _ref.removeChild;
-
-  var addChild = useCallback(function (ref) {
-    return setChildren(function (refs) {
-      return [].concat(refs, [ref]);
-    });
-  }, []);
-  var removeChild = useCallback(function (ref) {
-    return setChildren(function (refs) {
-      return removeItemFromArray(refs, ref);
-    });
-  }, []); // If it's a nested menu, add it to parent
-
-  useEffect(function () {
-    if (!addChildToParent || orphan) return undefined;
-    addChildToParent(menuRef);
-    return function () {
-      removeChildFromParent === null || removeChildFromParent === void 0 ? void 0 : removeChildFromParent(menuRef);
-    };
-  }, [menuRef, addChildToParent, removeChildFromParent, orphan]);
-  var providerValue = useMemo(function () {
-    return {
-      orientation: options.orientation,
-      next: options.next,
-      previous: options.previous,
-      ref: menuRef,
-      role: role,
-      parent: parent,
-      children: children,
-      addChild: addChild,
-      removeChild: removeChild
-    };
-  }, [options.orientation, options.next, options.previous, menuRef, role, parent, children, addChild, removeChild]);
-  var wrapElement = useCallback(function (element) {
-    return /*#__PURE__*/createElement(MenuContext.Provider, {
-      value: providerValue
-    }, element);
-  }, [providerValue]);
-  return wrapElement;
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/body-scroll-lock/lib/bodyScrollLock.esm.js
-function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-// Older browsers don't support event options, feature detect it.
-
-// Adopted and modified solution from Bohdan Didukh (2017)
-// https://stackoverflow.com/questions/41594997/ios-10-safari-prevent-scrolling-behind-a-fixed-overlay-and-maintain-scroll-posi
-
-var hasPassiveEvents = false;
-if (typeof window !== 'undefined') {
-  var passiveTestOptions = {
-    get passive() {
-      hasPassiveEvents = true;
-      return undefined;
-    }
-  };
-  window.addEventListener('testPassive', null, passiveTestOptions);
-  window.removeEventListener('testPassive', null, passiveTestOptions);
-}
-
-var isIosDevice = typeof window !== 'undefined' && window.navigator && window.navigator.platform && (/iP(ad|hone|od)/.test(window.navigator.platform) || window.navigator.platform === 'MacIntel' && window.navigator.maxTouchPoints > 1);
-
-
-var locks = [];
-var documentListenerAdded = false;
-var initialClientY = -1;
-var previousBodyOverflowSetting = void 0;
-var previousBodyPaddingRight = void 0;
-
-// returns true if `el` should be allowed to receive touchmove events.
-var allowTouchMove = function allowTouchMove(el) {
-  return locks.some(function (lock) {
-    if (lock.options.allowTouchMove && lock.options.allowTouchMove(el)) {
-      return true;
-    }
-
-    return false;
-  });
-};
-
-var preventDefault = function preventDefault(rawEvent) {
-  var e = rawEvent || window.event;
-
-  // For the case whereby consumers adds a touchmove event listener to document.
-  // Recall that we do document.addEventListener('touchmove', preventDefault, { passive: false })
-  // in disableBodyScroll - so if we provide this opportunity to allowTouchMove, then
-  // the touchmove event on document will break.
-  if (allowTouchMove(e.target)) {
-    return true;
-  }
-
-  // Do not prevent if the event has more than one touch (usually meaning this is a multi touch gesture like pinch to zoom).
-  if (e.touches.length > 1) return true;
-
-  if (e.preventDefault) e.preventDefault();
-
-  return false;
-};
-
-var setOverflowHidden = function setOverflowHidden(options) {
-  // If previousBodyPaddingRight is already set, don't set it again.
-  if (previousBodyPaddingRight === undefined) {
-    var _reserveScrollBarGap = !!options && options.reserveScrollBarGap === true;
-    var scrollBarGap = window.innerWidth - document.documentElement.clientWidth;
-
-    if (_reserveScrollBarGap && scrollBarGap > 0) {
-      previousBodyPaddingRight = document.body.style.paddingRight;
-      document.body.style.paddingRight = scrollBarGap + 'px';
-    }
-  }
-
-  // If previousBodyOverflowSetting is already set, don't set it again.
-  if (previousBodyOverflowSetting === undefined) {
-    previousBodyOverflowSetting = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-  }
-};
-
-var restoreOverflowSetting = function restoreOverflowSetting() {
-  if (previousBodyPaddingRight !== undefined) {
-    document.body.style.paddingRight = previousBodyPaddingRight;
-
-    // Restore previousBodyPaddingRight to undefined so setOverflowHidden knows it
-    // can be set again.
-    previousBodyPaddingRight = undefined;
-  }
-
-  if (previousBodyOverflowSetting !== undefined) {
-    document.body.style.overflow = previousBodyOverflowSetting;
-
-    // Restore previousBodyOverflowSetting to undefined
-    // so setOverflowHidden knows it can be set again.
-    previousBodyOverflowSetting = undefined;
-  }
-};
-
-// https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollHeight#Problems_and_solutions
-var isTargetElementTotallyScrolled = function isTargetElementTotallyScrolled(targetElement) {
-  return targetElement ? targetElement.scrollHeight - targetElement.scrollTop <= targetElement.clientHeight : false;
-};
-
-var handleScroll = function handleScroll(event, targetElement) {
-  var clientY = event.targetTouches[0].clientY - initialClientY;
-
-  if (allowTouchMove(event.target)) {
-    return false;
-  }
-
-  if (targetElement && targetElement.scrollTop === 0 && clientY > 0) {
-    // element is at the top of its scroll.
-    return preventDefault(event);
-  }
-
-  if (isTargetElementTotallyScrolled(targetElement) && clientY < 0) {
-    // element is at the bottom of its scroll.
-    return preventDefault(event);
-  }
-
-  event.stopPropagation();
-  return true;
-};
-
-var disableBodyScroll = function disableBodyScroll(targetElement, options) {
-  // targetElement must be provided
-  if (!targetElement) {
-    // eslint-disable-next-line no-console
-    console.error('disableBodyScroll unsuccessful - targetElement must be provided when calling disableBodyScroll on IOS devices.');
-    return;
-  }
-
-  // disableBodyScroll must not have been called on this targetElement before
-  if (locks.some(function (lock) {
-    return lock.targetElement === targetElement;
-  })) {
-    return;
-  }
-
-  var lock = {
-    targetElement: targetElement,
-    options: options || {}
-  };
-
-  locks = [].concat(_toConsumableArray(locks), [lock]);
-
-  if (isIosDevice) {
-    targetElement.ontouchstart = function (event) {
-      if (event.targetTouches.length === 1) {
-        // detect single touch.
-        initialClientY = event.targetTouches[0].clientY;
-      }
-    };
-    targetElement.ontouchmove = function (event) {
-      if (event.targetTouches.length === 1) {
-        // detect single touch.
-        handleScroll(event, targetElement);
-      }
-    };
-
-    if (!documentListenerAdded) {
-      document.addEventListener('touchmove', preventDefault, hasPassiveEvents ? { passive: false } : undefined);
-      documentListenerAdded = true;
-    }
-  } else {
-    setOverflowHidden(options);
-  }
-};
-
-var clearAllBodyScrollLocks = function clearAllBodyScrollLocks() {
-  if (isIosDevice) {
-    // Clear all locks ontouchstart/ontouchmove handlers, and the references.
-    locks.forEach(function (lock) {
-      lock.targetElement.ontouchstart = null;
-      lock.targetElement.ontouchmove = null;
-    });
-
-    if (documentListenerAdded) {
-      document.removeEventListener('touchmove', preventDefault, hasPassiveEvents ? { passive: false } : undefined);
-      documentListenerAdded = false;
-    }
-
-    // Reset initial clientY.
-    initialClientY = -1;
-  } else {
-    restoreOverflowSetting();
-  }
-
-  locks = [];
-};
-
-var enableBodyScroll = function enableBodyScroll(targetElement) {
-  if (!targetElement) {
-    // eslint-disable-next-line no-console
-    console.error('enableBodyScroll unsuccessful - targetElement must be provided when calling enableBodyScroll on IOS devices.');
-    return;
-  }
-
-  locks = locks.filter(function (lock) {
-    return lock.targetElement !== targetElement;
-  });
-
-  if (isIosDevice) {
-    targetElement.ontouchstart = null;
-    targetElement.ontouchmove = null;
-
-    if (documentListenerAdded && locks.length === 0) {
-      document.removeEventListener('touchmove', preventDefault, hasPassiveEvents ? { passive: false } : undefined);
-      documentListenerAdded = false;
-    }
-  } else if (!locks.length) {
-    restoreOverflowSetting();
-  }
-};
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit-utils/es/closest.js
-
-
-/**
- * Ponyfill for `Element.prototype.closest`
- *
- * @example
- * import { closest } from "reakit-utils";
- *
- * closest(document.getElementById("id"), "div");
- * // same as
- * document.getElementById("id").closest("div");
- */
-function closest_closest(element, selectors) {
-  if ("closest" in element) return element.closest(selectors);
-
-  do {
-    if (matches(element, selectors)) return element;
-    element = element.parentElement || element.parentNode;
-  } while (element !== null && element.nodeType === 1);
-
-  return null;
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/DialogBackdropContext-8775f78b.js
-
-
-var DialogBackdropContext = /*#__PURE__*/(0,external_React_.createContext)(undefined);
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit-utils/es/isEmpty.js
-
-
-/**
- * Checks whether `arg` is empty or not.
- *
- * @example
- * import { isEmpty } from "reakit-utils";
- *
- * isEmpty([]); // true
- * isEmpty(["a"]); // false
- * isEmpty({}); // true
- * isEmpty({ a: "a" }); // false
- * isEmpty(); // true
- * isEmpty(null); // true
- * isEmpty(undefined); // true
- * isEmpty(""); // true
- */
-
-function isEmpty(arg) {
-  if (Array.isArray(arg)) return !arg.length;
-  if (isObject_isObject(arg)) return !Object.keys(arg).length;
-  if (arg == null) return true;
-  if (arg === "") return true;
-  return false;
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Dialog/Dialog.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-function useDisclosureRef(dialogRef, options) {
-  var ref = (0,external_React_.useRef)(null);
-  var animating = !!(options.animated && options.animating);
-  (0,external_React_.useEffect)(function () {
-    if (options.visible || animating) return undefined; // We get the last focused element before the dialog opens, so we can move
-    // focus back to it when the dialog closes.
-
-    var onFocus = function onFocus(event) {
-      var target = event.target;
-
-      if ("focus" in target) {
-        ref.current = target;
-
-        if (options.unstable_disclosureRef) {
-          options.unstable_disclosureRef.current = target;
-        }
-      }
-    };
-
-    var document = getDocument(dialogRef.current);
-    document.addEventListener("focusin", onFocus);
-    return function () {
-      return document.removeEventListener("focusin", onFocus);
-    };
-  }, [options.visible, animating, options.unstable_disclosureRef, dialogRef]);
-  (0,external_React_.useEffect)(function () {
-    var _options$unstable_dis;
-
-    if (!options.visible || animating) return undefined; // Safari and Firefox on MacOS don't focus on buttons on mouse down.
-    // Instead, they focus on the closest focusable parent (ultimately, the
-    // body element). This works around that by preventing that behavior and
-    // forcing focus on the disclosure button. Otherwise, we wouldn't be able
-    // to close the dialog by clicking again on the disclosure.
-
-    var onMouseDown = function onMouseDown(event) {
-      var element = event.currentTarget;
-      if (!isButton(element)) return;
-      event.preventDefault();
-      element.focus();
-    };
-
-    var disclosure = ((_options$unstable_dis = options.unstable_disclosureRef) === null || _options$unstable_dis === void 0 ? void 0 : _options$unstable_dis.current) || ref.current;
-    disclosure === null || disclosure === void 0 ? void 0 : disclosure.addEventListener("mousedown", onMouseDown);
-    return function () {
-      return disclosure === null || disclosure === void 0 ? void 0 : disclosure.removeEventListener("mousedown", onMouseDown);
-    };
-  }, [options.visible, animating, options.unstable_disclosureRef]);
-  return options.unstable_disclosureRef || ref;
-}
-
-function usePreventBodyScroll(targetRef, options) {
-  var shouldPrevent = Boolean(options.preventBodyScroll && options.visible);
-  (0,external_React_.useEffect)(function () {
-    var element = targetRef.current;
-    if (!element || !shouldPrevent) return undefined;
-    disableBodyScroll(element, {
-      reserveScrollBarGap: true
-    });
-    return function () {
-      return enableBodyScroll(element);
-    };
-  }, [targetRef, shouldPrevent]);
-}
-
-function useFocusOnShow(dialogRef, nestedDialogs, options) {
-  var initialFocusRef = options.unstable_initialFocusRef;
-  var shouldFocus = options.visible && options.unstable_autoFocusOnShow;
-  var animating = !!(options.animated && options.animating);
-  useUpdateEffect_useUpdateEffect(function () {
-    var dialog = dialogRef.current;
-     false ? 0 : void 0;
-    if (!shouldFocus) return;
-    if (!dialog) return;
-    if (animating) return; // If there're nested open dialogs, let them handle focus
-
-    if (nestedDialogs.some(function (child) {
-      return child.current && !child.current.hidden;
-    })) {
-      return;
-    }
-
-    if (initialFocusRef !== null && initialFocusRef !== void 0 && initialFocusRef.current) {
-      initialFocusRef.current.focus({
-        preventScroll: true
-      });
-    } else {
-      var tabbable = getFirstTabbableIn(dialog, true);
-
-      var isActive = function isActive() {
-        return hasFocusWithin(dialog);
-      };
-
-      if (tabbable) {
-        ensureFocus(tabbable, {
-          preventScroll: true,
-          isActive: isActive
-        });
-      } else {
-        ensureFocus(dialog, {
-          preventScroll: true,
-          isActive: isActive
-        });
-         false ? 0 : void 0;
-      }
-    }
-  }, [dialogRef, shouldFocus, animating, nestedDialogs, initialFocusRef]);
-}
-
-function usePortalRef(dialogRef, options) {
-  var portalRef = (0,external_React_.useRef)(null);
-  (0,external_React_.useEffect)(function () {
-    var dialog = dialogRef.current;
-    if (!dialog || !options.visible) return;
-    portalRef.current = closest_closest(dialog, Portal.__selector);
-  }, [dialogRef, options.visible]);
-  return portalRef;
-}
-
-function removeFromDOM(element) {
-  if (element.parentNode == null) return;
-  element.parentNode.removeChild(element);
-}
-
-var focusTrapClassName = "__reakit-focus-trap";
-function isFocusTrap(element) {
-  var _element$classList;
-
-  return (_element$classList = element.classList) === null || _element$classList === void 0 ? void 0 : _element$classList.contains(focusTrapClassName);
-}
-function useFocusTrap(dialogRef, visibleModals, options) {
-  var portalRef = usePortalRef(dialogRef, options);
-  var shouldTrap = options.visible && options.modal;
-  var beforeElement = (0,external_React_.useRef)(null);
-  var afterElement = (0,external_React_.useRef)(null); // Create before and after elements
-  // https://github.com/w3c/aria-practices/issues/545
-
-  (0,external_React_.useEffect)(function () {
-    if (!shouldTrap) return undefined;
-    var portal = portalRef.current;
-
-    if (!portal) {
-       false ? 0 : void 0;
-      return undefined;
-    }
-
-    if (!beforeElement.current) {
-      var document = getDocument(portal);
-      beforeElement.current = document.createElement("div");
-      beforeElement.current.className = focusTrapClassName;
-      beforeElement.current.tabIndex = 0;
-      beforeElement.current.style.position = "fixed";
-      beforeElement.current.setAttribute("aria-hidden", "true");
-    }
-
-    if (!afterElement.current) {
-      afterElement.current = beforeElement.current.cloneNode();
-    }
-
-    portal.insertAdjacentElement("beforebegin", beforeElement.current);
-    portal.insertAdjacentElement("afterend", afterElement.current);
-    return function () {
-      if (beforeElement.current) removeFromDOM(beforeElement.current);
-      if (afterElement.current) removeFromDOM(afterElement.current);
-    };
-  }, [portalRef, shouldTrap]); // Focus trap
-
-  (0,external_React_.useEffect)(function () {
-    var before = beforeElement.current;
-    var after = afterElement.current;
-    if (!shouldTrap || !before || !after) return undefined;
-
-    var handleFocus = function handleFocus(event) {
-      var dialog = dialogRef.current;
-      if (!dialog || visibleModals.length) return;
-      event.preventDefault();
-      var isAfter = event.target === after;
-      var tabbable = isAfter ? getFirstTabbableIn(dialog) : getLastTabbableIn(dialog);
-
-      if (tabbable) {
-        tabbable.focus();
-      } else {
-        // fallback to dialog
-        dialog.focus();
-      }
-    };
-
-    before.addEventListener("focus", handleFocus);
-    after.addEventListener("focus", handleFocus);
-    return function () {
-      before.removeEventListener("focus", handleFocus);
-      after.removeEventListener("focus", handleFocus);
-    };
-  }, [dialogRef, visibleModals, shouldTrap]);
-}
-
-function hidByFocusingAnotherElement(dialogRef) {
-  var dialog = dialogRef.current;
-  if (!dialog) return false;
-  var activeElement = getActiveElement_getActiveElement(dialog);
-  if (!activeElement) return false;
-  if (contains(dialog, activeElement)) return false;
-  if (isTabbable(activeElement)) return true;
-  if (activeElement.getAttribute("data-dialog") === "true") return true;
-  return false;
-}
-
-function useFocusOnHide(dialogRef, disclosureRef, options) {
-  var shouldFocus = options.unstable_autoFocusOnHide && !options.visible;
-  var animating = !!(options.animated && options.animating);
-  useUpdateEffect_useUpdateEffect(function () {
-    var _options$unstable_fin;
-
-    if (!shouldFocus) return;
-    if (animating) return; // Hide was triggered by a click/focus on a tabbable element outside
-    // the dialog or on another dialog. We won't change focus then.
-
-    if (hidByFocusingAnotherElement(dialogRef)) {
-      return;
-    }
-
-    var finalFocusEl = ((_options$unstable_fin = options.unstable_finalFocusRef) === null || _options$unstable_fin === void 0 ? void 0 : _options$unstable_fin.current) || disclosureRef.current;
-
-    if (finalFocusEl) {
-      if (finalFocusEl.id) {
-        var document = getDocument(finalFocusEl);
-        var compositeElement = document.querySelector("[aria-activedescendant='" + finalFocusEl.id + "']");
-
-        if (compositeElement) {
-          ensureFocus(compositeElement);
-          return;
-        }
-      }
-
-      ensureFocus(finalFocusEl);
-      return;
-    }
-
-     false ? 0 : void 0;
-  }, [shouldFocus, animating, dialogRef, disclosureRef]);
-}
-
-var DialogContext = /*#__PURE__*/(0,external_React_.createContext)({});
-function useNestedDialogs(dialogRef, options) {
-  var context = (0,external_React_.useContext)(DialogContext);
-
-  var _React$useState = (0,external_React_.useState)([]),
-      dialogs = _React$useState[0],
-      setDialogs = _React$useState[1];
-
-  var _React$useState2 = (0,external_React_.useState)(dialogs),
-      visibleModals = _React$useState2[0],
-      setVisibleModals = _React$useState2[1];
-
-  var addDialog = (0,external_React_.useCallback)(function (ref) {
-    var _context$addDialog;
-
-    (_context$addDialog = context.addDialog) === null || _context$addDialog === void 0 ? void 0 : _context$addDialog.call(context, ref);
-    setDialogs(function (prevDialogs) {
-      return [].concat(prevDialogs, [ref]);
-    });
-  }, [context.addDialog]);
-  var removeDialog = (0,external_React_.useCallback)(function (ref) {
-    var _context$removeDialog;
-
-    (_context$removeDialog = context.removeDialog) === null || _context$removeDialog === void 0 ? void 0 : _context$removeDialog.call(context, ref);
-    setDialogs(function (prevDialogs) {
-      return removeItemFromArray_removeItemFromArray(prevDialogs, ref);
-    });
-  }, [context.removeDialog]);
-  var showDialog = (0,external_React_.useCallback)(function (ref) {
-    var _context$showDialog;
-
-    (_context$showDialog = context.showDialog) === null || _context$showDialog === void 0 ? void 0 : _context$showDialog.call(context, ref);
-    setVisibleModals(function (prevDialogs) {
-      return [].concat(prevDialogs, [ref]);
-    });
-  }, [context.showDialog]);
-  var hideDialog = (0,external_React_.useCallback)(function (ref) {
-    var _context$hideDialog;
-
-    (_context$hideDialog = context.hideDialog) === null || _context$hideDialog === void 0 ? void 0 : _context$hideDialog.call(context, ref);
-    setVisibleModals(function (prevDialogs) {
-      return removeItemFromArray_removeItemFromArray(prevDialogs, ref);
-    });
-  }, [context.hideDialog]); // If it's a nested dialog, add it to context
-
-  (0,external_React_.useEffect)(function () {
-    var _context$addDialog2;
-
-    if (options.unstable_orphan) return undefined;
-    (_context$addDialog2 = context.addDialog) === null || _context$addDialog2 === void 0 ? void 0 : _context$addDialog2.call(context, dialogRef);
-    return function () {
-      var _context$removeDialog2;
-
-      (_context$removeDialog2 = context.removeDialog) === null || _context$removeDialog2 === void 0 ? void 0 : _context$removeDialog2.call(context, dialogRef);
-    };
-  }, [options.unstable_orphan, context.addDialog, dialogRef, context.removeDialog]);
-  (0,external_React_.useEffect)(function () {
-    var _context$showDialog2;
-
-    if (options.unstable_orphan) return undefined;
-    if (!options.modal) return undefined;
-    if (!options.visible) return undefined;
-    (_context$showDialog2 = context.showDialog) === null || _context$showDialog2 === void 0 ? void 0 : _context$showDialog2.call(context, dialogRef);
-    return function () {
-      var _context$hideDialog2;
-
-      (_context$hideDialog2 = context.hideDialog) === null || _context$hideDialog2 === void 0 ? void 0 : _context$hideDialog2.call(context, dialogRef);
-    };
-  }, [options.unstable_orphan, options.modal, options.visible, context.showDialog, dialogRef, context.hideDialog]); // Close all nested dialogs when parent dialog closes
-
-  (0,external_React_.useEffect)(function () {
-    if (context.visible === false && options.visible && !options.unstable_orphan) {
-      var _options$hide;
-
-      (_options$hide = options.hide) === null || _options$hide === void 0 ? void 0 : _options$hide.call(options);
-    }
-  }, [context.visible, options.visible, options.hide, options.unstable_orphan]); // Provider
-
-  var providerValue = (0,external_React_.useMemo)(function () {
-    return {
-      visible: options.visible,
-      addDialog: addDialog,
-      removeDialog: removeDialog,
-      showDialog: showDialog,
-      hideDialog: hideDialog
-    };
-  }, [options.visible, addDialog, removeDialog, showDialog, hideDialog]);
-  var wrap = (0,external_React_.useCallback)(function (element) {
-    return /*#__PURE__*/(0,external_React_.createElement)(DialogContext.Provider, {
-      value: providerValue
-    }, element);
-  }, [providerValue]);
-  return {
-    dialogs: dialogs,
-    visibleModals: visibleModals,
-    wrap: wrap
-  };
-}
-
-function dialogContains(target) {
-  return function (dialogRef) {
-    var dialog = dialogRef.current;
-    if (!dialog) return false;
-    if (contains(dialog, target)) return true;
-    var document = getDocument(dialog);
-    var backdrop = document.querySelector("[data-dialog-ref=\"" + dialog.id + "\"]");
-
-    if (backdrop) {
-      return contains(backdrop, target);
-    }
-
-    return false;
-  };
-}
-
-function isDisclosure(target, disclosure) {
-  return contains(disclosure, target);
-}
-
-function isInDocument(target) {
-  var document = getDocument(target);
-
-  if (target.tagName === "HTML") {
-    return true;
-  }
-
-  return contains(document.body, target);
-}
-
-function useEventListenerOutside(containerRef, disclosureRef, nestedDialogs, eventType, listener, shouldListen, capture) {
-  var listenerRef = useLiveRef(listener);
-  (0,external_React_.useEffect)(function () {
-    if (!shouldListen) return undefined;
-
-    var onEvent = function onEvent(event) {
-      if (!listenerRef.current) return;
-      var container = containerRef.current;
-      var disclosure = disclosureRef.current;
-      var target = event.target;
-
-      if (!container) {
-         false ? 0 : void 0;
-        return;
-      } // When an element is unmounted right after it receives focus, the focus
-      // event is triggered after that, when the element isn't part of the
-      // current document anymore. So we ignore it.
-
-
-      if (!isInDocument(target)) return; // Event inside dialog
-
-      if (contains(container, target)) return; // Event on disclosure
-
-      if (disclosure && isDisclosure(target, disclosure)) return; // Event inside a nested dialog or focus trap
-
-      if (isFocusTrap(target) || nestedDialogs.some(dialogContains(target))) {
-        return;
-      }
-
-      listenerRef.current(event);
-    };
-
-    var document = getDocument(containerRef.current);
-    document.addEventListener(eventType, onEvent, capture);
-    return function () {
-      return document.removeEventListener(eventType, onEvent, capture);
-    };
-  }, [containerRef, disclosureRef, nestedDialogs, eventType, shouldListen, listenerRef]);
-}
-
-function useMouseDownRef(dialogRef, options) {
-  var mouseDownRef = (0,external_React_.useRef)();
-  (0,external_React_.useEffect)(function () {
-    if (!options.visible) return undefined;
-    if (!options.hideOnClickOutside) return undefined;
-    var document = getDocument(dialogRef.current);
-
-    var onMouseDown = function onMouseDown(event) {
-      mouseDownRef.current = event.target;
-    };
-
-    document.addEventListener("mousedown", onMouseDown);
-    return function () {
-      return document.removeEventListener("mousedown", onMouseDown);
-    };
-  }, [options.visible, options.hideOnClickOutside, dialogRef]);
-  return mouseDownRef;
-}
-
-function useHideOnClickOutside(dialogRef, disclosureRef, nestedDialogs, options) {
-  var mouseDownRef = useMouseDownRef(dialogRef, options);
-  useEventListenerOutside(dialogRef, disclosureRef, nestedDialogs, "click", function (event) {
-    // Make sure the element that has been clicked is the same that last
-    // triggered the mousedown event. This prevents the dialog from closing
-    // by dragging the cursor (for example, selecting some text inside the
-    // dialog and releasing the mouse outside of it).
-    if (mouseDownRef.current === event.target) {
-      var _options$hide;
-
-      (_options$hide = options.hide) === null || _options$hide === void 0 ? void 0 : _options$hide.call(options);
-    }
-  }, options.visible && options.hideOnClickOutside);
-  useEventListenerOutside(dialogRef, disclosureRef, nestedDialogs, "focusin", function (event) {
-    var document = getDocument(dialogRef.current); // Fix for https://github.com/reakit/reakit/issues/619
-    // On IE11, calling element.blur() triggers the focus event on
-    // document.body, so we make sure to ignore it as well.
-
-    if (event.target !== document && event.target !== document.body) {
-      var _options$hide2;
-
-      (_options$hide2 = options.hide) === null || _options$hide2 === void 0 ? void 0 : _options$hide2.call(options);
-    }
-  }, options.visible && options.hideOnClickOutside);
-}
-
-function useDisableHoverOutside(portalRef, nestedDialogs, options) {
-  var useEvent = function useEvent(eventType) {
-    return useEventListenerOutside(portalRef, {
-      current: null
-    }, nestedDialogs, eventType, function (event) {
-      event.stopPropagation();
-      event.preventDefault();
-    }, options.visible && options.modal, true);
-  };
-
-  useEvent("mouseover");
-  useEvent("mousemove");
-  useEvent("mouseout");
-}
-
-/**
- * When the focused child gets removed from the DOM, we make sure to move focus
- * to the dialog.
- */
-function useFocusOnChildUnmount(dialogRef, options) {
-  (0,external_React_.useEffect)(function () {
-    var dialog = dialogRef.current;
-    if (!options.visible || !dialog) return undefined;
-    var observer = new MutationObserver(function (mutations) {
-      var target = mutations[0].target; // If target is not this dialog, then this observer was triggered by a
-      // nested dialog, so we just ignore it here and let the nested dialog
-      // handle it there.
-
-      if (target !== dialog) return;
-      var document = getDocument(dialog);
-      var activeElement = getActiveElement_getActiveElement(dialog); // We can check if the current focused element is the document body. On
-      // IE 11, it's an empty object when the current document is in a frame or
-      // iframe.
-
-      if (activeElement === document.body || isEmpty(activeElement)) {
-        dialog.focus();
-      }
-    });
-    observer.observe(dialog, {
-      childList: true,
-      subtree: true
-    });
-    return function () {
-      observer.disconnect();
-    };
-  }, [options.visible, dialogRef]);
-}
-
-function isActualElement(element) {
-  return element && element.tagName && element.tagName !== "HTML" && element !== getDocument(element).body;
-}
-
-function useFocusOnBlur(dialogRef, options) {
-  var _React$useReducer = (0,external_React_.useReducer)(function (n) {
-    return n + 1;
-  }, 0),
-      blurred = _React$useReducer[0],
-      scheduleFocus = _React$useReducer[1];
-
-  useIsomorphicEffect(function () {
-    var dialog = dialogRef.current;
-    if (!options.visible) return;
-    if (!blurred) return; // After blur, if the active element isn't an actual element, this probably
-    // means that element.blur() was called on an element inside the dialog.
-    // In this case, the browser will automatically focus the body element.
-    // So we move focus back to the dialog.
-
-    if (!isActualElement(getActiveElement_getActiveElement(dialog))) {
-       false ? 0 : void 0;
-      dialog === null || dialog === void 0 ? void 0 : dialog.focus();
-    }
-  }, [blurred, dialogRef]);
-  var onBlur = (0,external_React_.useCallback)(function (event) {
-    if (!options.visible) return;
-    var nextActiveElement = getNextActiveElementOnBlur(event);
-
-    if (!isActualElement(nextActiveElement)) {
-      scheduleFocus();
-    }
-  }, [options.visible]);
-  return onBlur;
-}
-
-var useDialog = createHook({
-  name: "Dialog",
-  compose: useDisclosureContent,
-  keys: DIALOG_KEYS,
-  useOptions: function useOptions(_ref) {
-    var _ref$modal = _ref.modal,
-        modal = _ref$modal === void 0 ? true : _ref$modal,
-        _ref$hideOnEsc = _ref.hideOnEsc,
-        hideOnEsc = _ref$hideOnEsc === void 0 ? true : _ref$hideOnEsc,
-        _ref$hideOnClickOutsi = _ref.hideOnClickOutside,
-        hideOnClickOutside = _ref$hideOnClickOutsi === void 0 ? true : _ref$hideOnClickOutsi,
-        _ref$preventBodyScrol = _ref.preventBodyScroll,
-        preventBodyScroll = _ref$preventBodyScrol === void 0 ? modal : _ref$preventBodyScrol,
-        _ref$unstable_autoFoc = _ref.unstable_autoFocusOnShow,
-        unstable_autoFocusOnShow = _ref$unstable_autoFoc === void 0 ? true : _ref$unstable_autoFoc,
-        _ref$unstable_autoFoc2 = _ref.unstable_autoFocusOnHide,
-        unstable_autoFocusOnHide = _ref$unstable_autoFoc2 === void 0 ? true : _ref$unstable_autoFoc2,
-        unstable_orphan = _ref.unstable_orphan,
-        options = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["modal", "hideOnEsc", "hideOnClickOutside", "preventBodyScroll", "unstable_autoFocusOnShow", "unstable_autoFocusOnHide", "unstable_orphan"]);
-
-    return _objectSpread2({
-      modal: modal,
-      hideOnEsc: hideOnEsc,
-      hideOnClickOutside: hideOnClickOutside,
-      preventBodyScroll: modal && preventBodyScroll,
-      unstable_autoFocusOnShow: unstable_autoFocusOnShow,
-      unstable_autoFocusOnHide: unstable_autoFocusOnHide,
-      unstable_orphan: modal && unstable_orphan
-    }, options);
-  },
-  useProps: function useProps(options, _ref2) {
-    var htmlRef = _ref2.ref,
-        htmlOnKeyDown = _ref2.onKeyDown,
-        htmlOnBlur = _ref2.onBlur,
-        htmlWrapElement = _ref2.wrapElement,
-        tabIndex = _ref2.tabIndex,
-        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref2, ["ref", "onKeyDown", "onBlur", "wrapElement", "tabIndex"]);
-
-    var dialog = (0,external_React_.useRef)(null);
-    var backdrop = (0,external_React_.useContext)(DialogBackdropContext);
-    var hasBackdrop = backdrop && backdrop === options.baseId;
-    var disclosure = useDisclosureRef(dialog, options);
-    var onKeyDownRef = useLiveRef(htmlOnKeyDown);
-    var onBlurRef = useLiveRef(htmlOnBlur);
-    var focusOnBlur = useFocusOnBlur(dialog, options);
-
-    var _useNestedDialogs = useNestedDialogs(dialog, options),
-        dialogs = _useNestedDialogs.dialogs,
-        visibleModals = _useNestedDialogs.visibleModals,
-        wrap = _useNestedDialogs.wrap; // VoiceOver/Safari accepts only one `aria-modal` container, so if there
-    // are visible child modals, then we don't want to set aria-modal on the
-    // parent modal (this component).
-
-
-    var modal = options.modal && !visibleModals.length ? true : undefined;
-    usePreventBodyScroll(dialog, options);
-    useFocusTrap(dialog, visibleModals, options);
-    useFocusOnChildUnmount(dialog, options);
-    useFocusOnShow(dialog, dialogs, options);
-    useFocusOnHide(dialog, disclosure, options);
-    useHideOnClickOutside(dialog, disclosure, dialogs, options);
-    useDisableHoverOutside(dialog, dialogs, options);
-    var onKeyDown = (0,external_React_.useCallback)(function (event) {
-      var _onKeyDownRef$current;
-
-      (_onKeyDownRef$current = onKeyDownRef.current) === null || _onKeyDownRef$current === void 0 ? void 0 : _onKeyDownRef$current.call(onKeyDownRef, event);
-      if (event.defaultPrevented) return;
-      if (event.key !== "Escape") return;
-      if (!options.hideOnEsc) return;
-
-      if (!options.hide) {
-         false ? 0 : void 0;
-        return;
-      }
-
-      event.stopPropagation();
-      options.hide();
-    }, [options.hideOnEsc, options.hide]);
-    var onBlur = (0,external_React_.useCallback)(function (event) {
-      var _onBlurRef$current;
-
-      (_onBlurRef$current = onBlurRef.current) === null || _onBlurRef$current === void 0 ? void 0 : _onBlurRef$current.call(onBlurRef, event);
-      focusOnBlur(event);
-    }, [focusOnBlur]);
-    var wrapElement = (0,external_React_.useCallback)(function (element) {
-      element = wrap(element);
-
-      if (options.modal && !hasBackdrop) {
-        element = /*#__PURE__*/(0,external_React_.createElement)(Portal, null, element);
-      }
-
-      if (htmlWrapElement) {
-        element = htmlWrapElement(element);
-      }
-
-      return (
-        /*#__PURE__*/
-        // Prevents Menu > Dialog > Menu to behave as a sub menu
-        (0,external_React_.createElement)(MenuContext.Provider, {
-          value: null
-        }, element)
-      );
-    }, [wrap, options.modal, hasBackdrop, htmlWrapElement]);
-    return _objectSpread2({
-      ref: useForkRef(dialog, htmlRef),
-      role: "dialog",
-      tabIndex: tabIndex != null ? tabIndex : -1,
-      "aria-modal": modal,
-      "data-dialog": true,
-      onKeyDown: onKeyDown,
-      onBlur: onBlur,
-      wrapElement: wrapElement
-    }, htmlProps);
-  }
-});
-var Dialog = createComponent({
-  as: "div",
-  useHook: useDialog,
-  useCreateElement: function useCreateElement$1(type, props, children) {
-     false ? 0 : void 0;
-    return useCreateElement(type, props, children);
-  }
-});
-
-
-
-;// CONCATENATED MODULE: ./node_modules/reakit/es/Popover/Popover.js
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var usePopover = createHook({
-  name: "Popover",
-  compose: useDialog,
-  keys: POPOVER_KEYS,
-  useOptions: function useOptions(_ref) {
-    var _ref$modal = _ref.modal,
-        modal = _ref$modal === void 0 ? false : _ref$modal,
-        options = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref, ["modal"]);
-
-    return _objectSpread2({
-      modal: modal
-    }, options);
-  },
-  useProps: function useProps(options, _ref2) {
-    var htmlRef = _ref2.ref,
-        htmlStyle = _ref2.style,
-        htmlProps = _rollupPluginBabelHelpers_1f0bf8c2_objectWithoutPropertiesLoose(_ref2, ["ref", "style"]);
-
-    return _objectSpread2({
-      ref: useForkRef(options.unstable_popoverRef, htmlRef),
-      style: _objectSpread2(_objectSpread2({}, options.unstable_popoverStyles), htmlStyle)
-    }, htmlProps);
-  }
-});
-var Popover_Popover = createComponent({
-  as: "div",
-  useHook: usePopover,
-  useCreateElement: function useCreateElement$1(type, props, children) {
-     false ? 0 : void 0;
-    return useCreateElement(type, props, children);
-  }
-});
-
-
-
-;// CONCATENATED MODULE: ./packages/components/build-module/flyout/styles.js
-
-
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * Internal dependencies
- */
-
-
-
-
-const FlyoutContentView = /*#__PURE__*/emotion_styled_base_browser_esm(Popover_Popover,  true ? {
-  target: "e1vtu5161"
-} : 0)("z-index:", Flyout, ";box-sizing:border-box;opacity:0;outline:none;position:relative;transform-origin:center center;transition:opacity ", config_values.transitionDurationFastest, " linear;width:100%;&[data-enter]{opacity:1;}&::before,&::after{display:none;}" + ( true ? "" : 0));
-const CardView = /*#__PURE__*/emotion_styled_base_browser_esm(card_component,  true ? {
-  target: "e1vtu5160"
-} : 0)(card_body_component.selector, "{max-height:80vh;}" + ( true ? "" : 0));
-
-;// CONCATENATED MODULE: ./packages/components/build-module/flyout/flyout-content/component.js
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-/**
- *
- * @param {import('../../ui/context').WordPressComponentProps<import('../types').ContentProps, 'div', false>} props
- * @param {import('react').ForwardedRef<any>}                                                                 forwardedRef forwardedRef
- */
-
-function FlyoutContent(props, forwardedRef) {
-  const {
-    children,
-    elevation,
-    maxWidth,
-    style = {},
-    ...otherProps
-  } = useContextSystem(props, 'FlyoutContent');
-  const {
-    label,
-    flyoutState
-  } = useFlyoutContext();
-
-  if (!flyoutState) {
-    throw new Error('`FlyoutContent` must only be used inside a `Flyout`.');
-  }
-
-  const showContent = flyoutState.visible || flyoutState.animating;
-  return (0,external_wp_element_namespaceObject.createElement)(FlyoutContentView, extends_extends({
-    "aria-label": label // maxWidth is applied via inline styles in order to avoid the `React does
-    // not recognize the maxWidth prop on a DOM element` error that comes from
-    // passing `maxWidth` as a prop to `FlyoutContentView`
-    ,
-    style: {
-      maxWidth,
-      ...style
-    }
-  }, otherProps, flyoutState), showContent && (0,external_wp_element_namespaceObject.createElement)(CardView, {
-    elevation: elevation,
-    ref: forwardedRef
-  }, children));
-}
-
-const ConnectedFlyoutContent = contextConnect(FlyoutContent, 'FlyoutContent');
-/* harmony default export */ var flyout_content_component = (ConnectedFlyoutContent);
-
-;// CONCATENATED MODULE: ./packages/components/build-module/flyout/flyout/hook.js
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * Internal dependencies
- */
-
-
-/**
- * @param {import('../../ui/context').WordPressComponentProps<import('../types').Props, 'div', false>} props
- */
-
-function useFlyout(props) {
-  const {
-    animated = true,
-    animationDuration = 160,
-    baseId,
-    elevation = 5,
-    id,
-    maxWidth = 360,
-    placement,
-    state,
-    visible,
-    ...otherProps
-  } = useContextSystem(props, 'Flyout');
-
-  const _flyoutState = usePopoverState({
-    animated: animated ? animationDuration : undefined,
-    baseId: baseId || id,
-    placement,
-    visible,
-    ...otherProps
-  });
-
-  const flyoutState = state || _flyoutState;
-  return { ...otherProps,
-    elevation,
-    maxWidth,
-    flyoutState
-  };
-}
-
-;// CONCATENATED MODULE: ./packages/components/build-module/flyout/flyout/component.js
-
-
-
-/**
- * External dependencies
- */
-// eslint-disable-next-line no-restricted-imports
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-
-
-/**
- *
- * @param {import('../../ui/context').WordPressComponentProps<import('../types').Props, 'div', false>} props
- * @param {import('react').ForwardedRef<any>}                                                          forwardedRef
- */
-
-function component_Flyout(props, forwardedRef) {
-  const {
-    children,
-    elevation,
-    label,
-    maxWidth,
-    onVisibleChange,
-    trigger,
-    flyoutState,
-    ...otherProps
-  } = useFlyout(props);
-  const resizeListener = useFlyoutResizeUpdater({
-    onResize: flyoutState.unstable_update
-  });
-  const uniqueId = `flyout-${flyoutState.baseId}`;
-  const labelId = label || uniqueId;
-  const contextProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
-    label: labelId,
-    flyoutState
-  }), [labelId, flyoutState]);
-  const triggerContent = (0,external_wp_element_namespaceObject.useCallback)(triggerProps => {
-    return (0,external_wp_element_namespaceObject.cloneElement)(trigger, triggerProps);
-  }, [trigger]);
-  use_update_effect(() => {
-    onVisibleChange === null || onVisibleChange === void 0 ? void 0 : onVisibleChange(flyoutState.visible);
-  }, [flyoutState.visible]);
-  return (0,external_wp_element_namespaceObject.createElement)(FlyoutContext.Provider, {
-    value: contextProps
-  }, trigger && (0,external_wp_element_namespaceObject.createElement)(PopoverDisclosure, extends_extends({}, flyoutState, {
-    ref: trigger.ref
-  }, trigger.props), triggerContent), (0,external_wp_element_namespaceObject.createElement)(Portal, null, (0,external_wp_element_namespaceObject.createElement)(flyout_content_component, extends_extends({
-    ref: forwardedRef
-  }, otherProps, {
-    elevation: elevation,
-    maxWidth: maxWidth
-  }), resizeListener, children)));
-}
-/**
- * `Flyout` is a component to render a floating content modal.
- * It is similar in purpose to a tooltip, but renders content of any sort,
- * not only simple text.
- *
- * @example
- * ```jsx
- * import { Button, __experimentalFlyout as Flyout, __experimentalText as } from '@wordpress/components';
- *
- * function Example() {
- * 	return (
- * 		<Flyout trigger={ <Button>Show/Hide content</Button> }>
- *			<Text>Code is Poetry</Text>
- * 		</Flyout>
- * 	);
- * }
- * ```
- */
-
-
-const ConnectedFlyout = contextConnect(component_Flyout, 'Flyout');
-/* harmony default export */ var flyout_component = (ConnectedFlyout);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/styles/focal-point-picker-style.js
 
@@ -62709,7 +61233,6 @@ const useToggleGroupControlContext = () => (0,external_wp_element_namespaceObjec
  */
 // eslint-disable-next-line no-restricted-imports
 
-
 /**
  * WordPress dependencies
  */
@@ -62745,7 +61268,7 @@ function component_ToggleGroupControl(props, forwardedRef) {
   } = useContextSystem(props, 'ToggleGroupControl');
   const cx = useCx();
   const containerRef = (0,external_wp_element_namespaceObject.useRef)();
-  const [resizeListener, sizes] = react_resize_aware_dist_default()();
+  const [resizeListener, sizes] = (0,external_wp_compose_namespaceObject.useResizeObserver)();
   const baseId = (0,external_wp_compose_namespaceObject.useInstanceId)(component_ToggleGroupControl, 'toggle-group-control').toString();
   const radio = useRadioState({
     baseId,
@@ -68347,10 +66870,10 @@ var Resizable = /** @class */ (function (_super) {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
+
 
 
 const {
@@ -68385,11 +66908,10 @@ function useResizeLabel(_ref) {
   } = _ref;
 
   /*
-   * The width/height values derive from this special useResizeAware hook.
-   * This custom hook uses injects an iFrame into the element, allowing it
-   * to tap into the onResize (window) callback events.
+   * The width/height values derive from this special useResizeObserver hook.
+   * This custom hook uses the ResizeObserver API to listen for resize events.
    */
-  const [resizeListener, sizes] = react_resize_aware_dist_default()();
+  const [resizeListener, sizes] = (0,external_wp_compose_namespaceObject.useResizeObserver)();
   /*
    * Indicates if the x/y axis is preferred.
    * If set, we will avoid resetting the moveX and moveY values.
@@ -72284,7 +70806,6 @@ const with_focus_return_Provider = _ref => {
 ;// CONCATENATED MODULE: ./packages/components/build-module/index.js
 // Primitives.
  // Components.
-
 
 
 

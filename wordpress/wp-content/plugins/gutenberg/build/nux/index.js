@@ -689,7 +689,6 @@ function DotTip(_ref) {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
     className: "nux-dot-tip",
     position: position,
-    noArrow: true,
     focusOnMount: "container",
     role: "dialog",
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Editor tips'),

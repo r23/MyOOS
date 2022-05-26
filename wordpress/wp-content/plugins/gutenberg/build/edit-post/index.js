@@ -164,6 +164,7 @@ __webpack_require__.d(actions_namespaceObject, {
   "disableComplementaryArea": function() { return disableComplementaryArea; },
   "enableComplementaryArea": function() { return enableComplementaryArea; },
   "pinItem": function() { return pinItem; },
+  "setDefaultComplementaryArea": function() { return setDefaultComplementaryArea; },
   "setFeatureDefaults": function() { return setFeatureDefaults; },
   "setFeatureValue": function() { return setFeatureValue; },
   "toggleFeature": function() { return toggleFeature; },
@@ -816,6 +817,20 @@ var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external
 
 
 /**
+ * Set a default complementary area.
+ *
+ * @param {string} scope Complementary area scope.
+ * @param {string} area  Area identifier.
+ *
+ * @return {Object} Action object.
+ */
+
+const setDefaultComplementaryArea = (scope, area) => ({
+  type: 'SET_DEFAULT_COMPLEMENTARY_AREA',
+  scope,
+  area
+});
+/**
  * Enable the complementary area.
  *
  * @param {string} scope Complementary area scope.
@@ -824,7 +839,8 @@ var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external
 
 const enableComplementaryArea = (scope, area) => _ref => {
   let {
-    registry
+    registry,
+    dispatch
   } = _ref;
 
   // Return early if there's no area.
@@ -832,7 +848,17 @@ const enableComplementaryArea = (scope, area) => _ref => {
     return;
   }
 
-  registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, 'complementaryArea', area);
+  const isComplementaryAreaVisible = registry.select(external_wp_preferences_namespaceObject.store).get(scope, 'isComplementaryAreaVisible');
+
+  if (!isComplementaryAreaVisible) {
+    registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, 'isComplementaryAreaVisible', true);
+  }
+
+  dispatch({
+    type: 'ENABLE_COMPLEMENTARY_AREA',
+    scope,
+    area
+  });
 };
 /**
  * Disable the complementary area.
@@ -844,7 +870,11 @@ const disableComplementaryArea = scope => _ref2 => {
   let {
     registry
   } = _ref2;
-  registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, 'complementaryArea', null);
+  const isComplementaryAreaVisible = registry.select(external_wp_preferences_namespaceObject.store).get(scope, 'isComplementaryAreaVisible');
+
+  if (isComplementaryAreaVisible) {
+    registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, 'isComplementaryAreaVisible', false);
+  }
 };
 /**
  * Pins an item.
@@ -909,9 +939,9 @@ function toggleFeature(scope, featureName) {
     let {
       registry
     } = _ref5;
-    external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).toggleFeature`, {
+    external_wp_deprecated_default()(`dispatch( 'core/interface' ).toggleFeature`, {
       since: '6.0',
-      alternative: `wp.dispatch( 'core/preferences' ).toggle`
+      alternative: `dispatch( 'core/preferences' ).toggle`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).toggle(scope, featureName);
   };
@@ -932,9 +962,9 @@ function setFeatureValue(scope, featureName, value) {
     let {
       registry
     } = _ref6;
-    external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureValue`, {
+    external_wp_deprecated_default()(`dispatch( 'core/interface' ).setFeatureValue`, {
       since: '6.0',
-      alternative: `wp.dispatch( 'core/preferences' ).set`
+      alternative: `dispatch( 'core/preferences' ).set`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).set(scope, featureName, !!value);
   };
@@ -953,9 +983,9 @@ function setFeatureDefaults(scope, defaults) {
     let {
       registry
     } = _ref7;
-    external_wp_deprecated_default()(`wp.dispatch( 'core/interface' ).setFeatureDefaults`, {
+    external_wp_deprecated_default()(`dispatch( 'core/interface' ).setFeatureDefaults`, {
       since: '6.0',
-      alternative: `wp.dispatch( 'core/preferences' ).setDefaults`
+      alternative: `dispatch( 'core/preferences' ).setDefaults`
     });
     registry.dispatch(external_wp_preferences_namespaceObject.store).setDefaults(scope, defaults);
   };
@@ -974,11 +1004,26 @@ function setFeatureDefaults(scope, defaults) {
  * @param {Object} state Global application state.
  * @param {string} scope Item scope.
  *
- * @return {string} The complementary area that is active in the given scope.
+ * @return {string | null | undefined} The complementary area that is active in the given scope.
  */
 
 const getActiveComplementaryArea = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, scope) => {
-  return select(external_wp_preferences_namespaceObject.store).get(scope, 'complementaryArea');
+  var _state$complementaryA;
+
+  const isComplementaryAreaVisible = select(external_wp_preferences_namespaceObject.store).get(scope, 'isComplementaryAreaVisible'); // Return `undefined` to indicate that the user has never toggled
+  // visibility, this is the vanilla default. Other code relies on this
+  // nuance in the return value.
+
+  if (isComplementaryAreaVisible === undefined) {
+    return undefined;
+  } // Return `null` to indicate the user hid the complementary area.
+
+
+  if (!isComplementaryAreaVisible) {
+    return null;
+  }
+
+  return state === null || state === void 0 ? void 0 : (_state$complementaryA = state.complementaryAreas) === null || _state$complementaryA === void 0 ? void 0 : _state$complementaryA[scope];
 });
 /**
  * Returns a boolean indicating if an item is pinned or not.
@@ -1008,12 +1053,56 @@ const isItemPinned = (0,external_wp_data_namespaceObject.createRegistrySelector)
  */
 
 const isFeatureActive = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, scope, featureName) => {
-  external_wp_deprecated_default()(`wp.select( 'core/interface' ).isFeatureActive( scope, featureName )`, {
+  external_wp_deprecated_default()(`select( 'core/interface' ).isFeatureActive( scope, featureName )`, {
     since: '6.0',
-    alternative: `!! wp.select( 'core/preferences' ).isFeatureActive( scope, featureName )`
+    alternative: `select( 'core/preferences' ).get( scope, featureName )`
   });
   return !!select(external_wp_preferences_namespaceObject.store).get(scope, featureName);
 });
+
+;// CONCATENATED MODULE: ./packages/interface/build-module/store/reducer.js
+/**
+ * WordPress dependencies
+ */
+
+function complementaryAreas() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'SET_DEFAULT_COMPLEMENTARY_AREA':
+      {
+        const {
+          scope,
+          area
+        } = action; // If there's already an area, don't overwrite it.
+
+        if (state[scope]) {
+          return state;
+        }
+
+        return { ...state,
+          [scope]: area
+        };
+      }
+
+    case 'ENABLE_COMPLEMENTARY_AREA':
+      {
+        const {
+          scope,
+          area
+        } = action;
+        return { ...state,
+          [scope]: area
+        };
+      }
+  }
+
+  return state;
+}
+/* harmony default export */ var store_reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
+  complementaryAreas
+}));
 
 ;// CONCATENATED MODULE: ./packages/interface/build-module/store/constants.js
 /**
@@ -1035,6 +1124,7 @@ const STORE_NAME = 'core/interface';
 
 
 
+
 /**
  * Store definition for the interface namespace.
  *
@@ -1044,7 +1134,7 @@ const STORE_NAME = 'core/interface';
  */
 
 const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, {
-  reducer: () => {},
+  reducer: store_reducer,
   actions: actions_namespaceObject,
   selectors: selectors_namespaceObject
 }); // Once we build a more generic persistence plugin that works across types of stores
@@ -2959,9 +3049,9 @@ function convertPanelsToOldFormat(inactivePanels, openPanels) {
 
 
 const getPreferences = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => () => {
-  external_wp_deprecated_default()(`wp.data.select( 'core/edit-post' ).getPreferences`, {
+  external_wp_deprecated_default()(`select( 'core/edit-post' ).getPreferences`, {
     since: '6.0',
-    alternative: `wp.data.select( 'core/preferences' ).get`
+    alternative: `select( 'core/preferences' ).get`
   }); // These preferences now exist in the preferences store.
   // Fetch them so that they can be merged into the post
   // editor preferences.
@@ -2993,9 +3083,9 @@ const getPreferences = (0,external_wp_data_namespaceObject.createRegistrySelecto
  */
 
 function getPreference(state, preferenceKey, defaultValue) {
-  external_wp_deprecated_default()(`wp.data.select( 'core/edit-post' ).getPreference`, {
+  external_wp_deprecated_default()(`select( 'core/edit-post' ).getPreference`, {
     since: '6.0',
-    alternative: `wp.data.select( 'core/preferences' ).get`
+    alternative: `select( 'core/preferences' ).get`
   }); // Avoid using the `getPreferences` registry selector where possible.
 
   const preferences = getPreferences(state);
@@ -3496,41 +3586,30 @@ var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortc
 
 
 
-
 /**
  * Internal dependencies
  */
 
 
-
-function TextEditor(_ref) {
-  let {
-    onExit,
-    isRichEditingEnabled
-  } = _ref;
+function TextEditor() {
+  const isRichEditingEnabled = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    return select(external_wp_editor_namespaceObject.store).getEditorSettings().richEditingEnabled;
+  }, []);
+  const {
+    switchEditorMode
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-post-text-editor"
-  }, isRichEditingEnabled && (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.TextEditorGlobalKeyboardShortcuts, null), isRichEditingEnabled && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-post-text-editor__toolbar"
   }, (0,external_wp_element_namespaceObject.createElement)("h2", null, (0,external_wp_i18n_namespaceObject.__)('Editing code')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     variant: "tertiary",
-    onClick: onExit,
+    onClick: () => switchEditorMode('visual'),
     shortcut: external_wp_keycodes_namespaceObject.displayShortcut.secondary('m')
-  }, (0,external_wp_i18n_namespaceObject.__)('Exit code editor')), (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.TextEditorGlobalKeyboardShortcuts, null)), (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, (0,external_wp_i18n_namespaceObject.__)('Exit code editor'))), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-post-text-editor__body"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostTitle, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostTextEditor, null)));
 }
-
-/* harmony default export */ var text_editor = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => ({
-  isRichEditingEnabled: select(external_wp_editor_namespaceObject.store).getEditorSettings().richEditingEnabled
-})), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => {
-  return {
-    onExit() {
-      dispatch(store_store).switchEditorMode('visual');
-    }
-
-  };
-}))(TextEditor));
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/arrow-left.js
 
@@ -4847,17 +4926,21 @@ function EditPostPreferencesModal() {
       title: (0,external_wp_i18n_namespaceObject.__)('Appearance'),
       description: (0,external_wp_i18n_namespaceObject.__)('Customize options related to the block editor interface and editing flow.')
     }, (0,external_wp_element_namespaceObject.createElement)(enable_feature, {
-      featureName: "reducedUI",
-      help: (0,external_wp_i18n_namespaceObject.__)('Compacts options and outlines in the toolbar.'),
-      label: (0,external_wp_i18n_namespaceObject.__)('Reduce the interface')
-    }), (0,external_wp_element_namespaceObject.createElement)(enable_feature, {
       featureName: "focusMode",
       help: (0,external_wp_i18n_namespaceObject.__)('Highlights the current block and fades other content.'),
       label: (0,external_wp_i18n_namespaceObject.__)('Spotlight mode')
     }), (0,external_wp_element_namespaceObject.createElement)(enable_feature, {
       featureName: "showIconLabels",
-      help: (0,external_wp_i18n_namespaceObject.__)('Shows text instead of icons.'),
-      label: (0,external_wp_i18n_namespaceObject.__)('Display button labels')
+      label: (0,external_wp_i18n_namespaceObject.__)('Show button text labels'),
+      help: (0,external_wp_i18n_namespaceObject.__)('Show text instead of icons on buttons.')
+    }), (0,external_wp_element_namespaceObject.createElement)(enable_feature, {
+      featureName: "showListViewByDefault",
+      help: (0,external_wp_i18n_namespaceObject.__)('Opens the block list view sidebar by default.'),
+      label: (0,external_wp_i18n_namespaceObject.__)('Always open list view')
+    }), (0,external_wp_element_namespaceObject.createElement)(enable_feature, {
+      featureName: "reducedUI",
+      help: (0,external_wp_i18n_namespaceObject.__)('Compacts options and outlines in the toolbar.'),
+      label: (0,external_wp_i18n_namespaceObject.__)('Reduce the interface')
     }), (0,external_wp_element_namespaceObject.createElement)(enable_feature, {
       featureName: "themeStyles",
       help: (0,external_wp_i18n_namespaceObject.__)('Make the editor look like your theme.'),
@@ -5663,8 +5746,14 @@ function PostPublishButtonOrToggle(_ref) {
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
+
+
 
 
 
@@ -5681,13 +5770,24 @@ function DevicePreview() {
     hasActiveMetaboxes,
     isPostSaveable,
     isSaving,
+    isViewable,
     deviceType
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
-    hasActiveMetaboxes: select(store_store).hasMetaBoxes(),
-    isSaving: select(store_store).isSavingMetaBoxes(),
-    isPostSaveable: select(external_wp_editor_namespaceObject.store).isEditedPostSaveable(),
-    deviceType: select(store_store).__experimentalGetPreviewDeviceType()
-  }), []);
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getEditedPostAttribute
+    } = select(external_wp_editor_namespaceObject.store);
+    const {
+      getPostType
+    } = select(external_wp_coreData_namespaceObject.store);
+    const postType = getPostType(getEditedPostAttribute('type'));
+    return {
+      hasActiveMetaboxes: select(store_store).hasMetaBoxes(),
+      isSaving: select(store_store).isSavingMetaBoxes(),
+      isPostSaveable: select(external_wp_editor_namespaceObject.store).isEditedPostSaveable(),
+      isViewable: (0,external_lodash_namespaceObject.get)(postType, ['viewable'], false),
+      deviceType: select(store_store).__experimentalGetPreviewDeviceType()
+    };
+  }, []);
   const {
     __experimentalSetPreviewDeviceType: setPreviewDeviceType
   } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
@@ -5696,7 +5796,7 @@ function DevicePreview() {
     className: "edit-post-post-preview-dropdown",
     deviceType: deviceType,
     setDeviceType: setPreviewDeviceType
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, isViewable && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-post-header-preview__grouping-external"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostPreviewButton, {
     className: 'edit-post-header-preview__button-external',
@@ -5823,6 +5923,8 @@ function DeleteTemplate() {
     templateTitle = template.title;
   }
 
+  const isRevertable = template === null || template === void 0 ? void 0 : template.has_theme_file;
+
   const onDelete = () => {
     clearSelectedBlock();
     setIsEditingTemplate(false);
@@ -5846,13 +5948,12 @@ function DeleteTemplate() {
     className: "edit-post-template-top-area__second-menu-group"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
     className: "edit-post-template-top-area__delete-template-button",
-    isDestructive: true,
-    variant: "secondary",
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Delete template'),
+    isDestructive: !isRevertable,
     onClick: () => {
       setShowConfirmDialog(true);
-    }
-  }, (0,external_wp_i18n_namespaceObject.__)('Delete template')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalConfirmDialog, {
+    },
+    info: isRevertable ? (0,external_wp_i18n_namespaceObject.__)('Restore template to default state') : undefined
+  }, isRevertable ? (0,external_wp_i18n_namespaceObject.__)('Clear customizations') : (0,external_wp_i18n_namespaceObject.__)('Delete template')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalConfirmDialog, {
     isOpen: showConfirmDialog,
     onConfirm: onDelete,
     onCancel: () => {
@@ -5903,9 +6004,9 @@ function EditTemplateTitle() {
   } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_editor_namespaceObject.store);
   const {
     updateEditorSettings
-  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_editor_namespaceObject.store);
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_editor_namespaceObject.store); // Only user-created and non-default templates can change the name.
 
-  if (template.has_theme_file) {
+  if (!template.is_custom || template.has_theme_file) {
     return null;
   }
 
@@ -5917,7 +6018,9 @@ function EditTemplateTitle() {
     templateTitle = template.slug;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-site-template-details__group"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Title'),
     value: templateTitle,
     help: (0,external_wp_i18n_namespaceObject.__)('Give the template a title that indicates its purpose, e.g. "Full Width".'),
@@ -5937,7 +6040,7 @@ function EditTemplateTitle() {
         title: newTitle
       });
     }
-  });
+  }));
 }
 
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/header/template-title/template-description.js
@@ -5971,7 +6074,9 @@ function TemplateDescription() {
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHeading, {
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-site-template-details__group"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHeading, {
     level: 4,
     weight: 600
   }, title), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalText, {
@@ -6482,7 +6587,7 @@ function PostSchedule() {
     ref: anchorRef
   }, (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_i18n_namespaceObject.__)('Publish')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
     popoverProps: {
-      anchorRef: anchorRef.current
+      anchorRef
     },
     position: "bottom left",
     contentClassName: "edit-post-post-schedule__dialog",
@@ -8822,7 +8927,7 @@ function Layout(_ref) {
       scope: "core/edit-post"
     })),
     notices: (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.EditorSnackbars, null),
-    content: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.EditorNotices, null), (mode === 'text' || !isRichEditingEnabled) && (0,external_wp_element_namespaceObject.createElement)(text_editor, null), isRichEditingEnabled && mode === 'visual' && (0,external_wp_element_namespaceObject.createElement)(VisualEditor, {
+    content: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.EditorNotices, null), (mode === 'text' || !isRichEditingEnabled) && (0,external_wp_element_namespaceObject.createElement)(TextEditor, null), isRichEditingEnabled && mode === 'visual' && (0,external_wp_element_namespaceObject.createElement)(VisualEditor, {
       styles: styles
     }), !isTemplateMode && (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "edit-post-layout__metaboxes"
@@ -9449,12 +9554,18 @@ function initializeEditor(id, postType, postId, settings, initialEdits) {
     preferredStyleVariations: {},
     showBlockBreadcrumbs: true,
     showIconLabels: false,
+    showListViewByDefault: false,
     themeStyles: true,
     welcomeGuide: true,
     welcomeGuideTemplate: true
   });
 
-  (0,external_wp_data_namespaceObject.dispatch)(external_wp_blocks_namespaceObject.store).__experimentalReapplyBlockTypeFilters();
+  (0,external_wp_data_namespaceObject.dispatch)(external_wp_blocks_namespaceObject.store).__experimentalReapplyBlockTypeFilters(); // Check if the block list view should be open by default.
+
+
+  if ((0,external_wp_data_namespaceObject.select)(store_store).isFeatureActive('showListViewByDefault')) {
+    (0,external_wp_data_namespaceObject.dispatch)(store_store).setIsListViewOpened(true);
+  }
 
   (0,external_wp_blockLibrary_namespaceObject.registerCoreBlocks)();
 

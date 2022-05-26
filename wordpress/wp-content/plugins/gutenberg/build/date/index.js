@@ -1333,7 +1333,7 @@ function setSettings(dateSettings) {
 /**
  * Returns the currently defined date settings.
  *
- * @return {Object} Settings, including locale data.
+ * @return {DateSettings} Settings, including locale data.
  */
 
 function __experimentalGetSettings() {

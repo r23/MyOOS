@@ -569,7 +569,9 @@ __webpack_require__.d(__webpack_exports__, {
   "store": function() { return /* binding */ store; },
   "useEntityBlockEditor": function() { return /* reexport */ useEntityBlockEditor; },
   "useEntityId": function() { return /* reexport */ useEntityId; },
-  "useEntityProp": function() { return /* reexport */ useEntityProp; }
+  "useEntityProp": function() { return /* reexport */ useEntityProp; },
+  "useEntityRecord": function() { return /* reexport */ useEntityRecord; },
+  "useEntityRecords": function() { return /* reexport */ useEntityRecords; }
 });
 
 // NAMESPACE OBJECT: ./packages/core-data/build-module/actions.js
@@ -3845,6 +3847,7 @@ function isRawAttribute(entity, attribute) {
 
 
 
+
 /**
  * Shared reference to an empty object for cases where it is important to avoid
  * returning a new object reference on every invocation, as in a connected or
@@ -3852,16 +3855,15 @@ function isRawAttribute(entity, attribute) {
  * This should be used as a last resort, since the normalized data should be
  * maintained by the reducer result in state.
  */
-
 const EMPTY_OBJECT = {};
 /**
  * Returns true if a request is in progress for embed preview data, or false
  * otherwise.
  *
- * @param {Object} state Data state.
- * @param {string} url   URL the preview would be for.
+ * @param  state Data state.
+ * @param  url   URL the preview would be for.
  *
- * @return {boolean} Whether a request is in progress for an embed preview.
+ * @return Whether a request is in progress for an embed preview.
  */
 
 const isRequestingEmbedPreview = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, url) => {
@@ -3872,10 +3874,10 @@ const isRequestingEmbedPreview = (0,external_wp_data_namespaceObject.createRegis
  *
  * @deprecated since 11.3. Callers should use `select( 'core' ).getUsers({ who: 'authors' })` instead.
  *
- * @param {Object}           state Data state.
- * @param {Object|undefined} query Optional object of query parameters to
- *                                 include with request.
- * @return {Array} Authors list.
+ * @param  state Data state.
+ * @param  query Optional object of query parameters to
+ *               include with request.
+ * @return Authors list.
  */
 
 function getAuthors(state, query) {
@@ -3889,9 +3891,9 @@ function getAuthors(state, query) {
 /**
  * Returns the current user.
  *
- * @param {Object} state Data state.
+ * @param  state Data state.
  *
- * @return {Object} Current user object.
+ * @return Current user object.
  */
 
 function getCurrentUser(state) {
@@ -3900,10 +3902,10 @@ function getCurrentUser(state) {
 /**
  * Returns all the users returned by a query ID.
  *
- * @param {Object} state   Data state.
- * @param {string} queryID Query ID.
+ * @param  state   Data state.
+ * @param  queryID Query ID.
  *
- * @return {Array} Users list.
+ * @return Users list.
  */
 
 const getUserQueryResults = rememo((state, queryID) => {
@@ -3914,10 +3916,10 @@ const getUserQueryResults = rememo((state, queryID) => {
  * Returns the loaded entities for the given kind.
  *
  * @deprecated since WordPress 6.0. Use getEntitiesConfig instead
- * @param {Object} state Data state.
- * @param {string} kind  Entity kind.
+ * @param  state Data state.
+ * @param  kind  Entity kind.
  *
- * @return {Array<Object>} Array of entities with config matching kind.
+ * @return Array of entities with config matching kind.
  */
 
 function getEntitiesByKind(state, kind) {
@@ -3930,10 +3932,10 @@ function getEntitiesByKind(state, kind) {
 /**
  * Returns the loaded entities for the given kind.
  *
- * @param {Object} state Data state.
- * @param {string} kind  Entity kind.
+ * @param  state Data state.
+ * @param  kind  Entity kind.
  *
- * @return {Array<Object>} Array of entities with config matching kind.
+ * @return Array of entities with config matching kind.
  */
 
 function getEntitiesConfig(state, kind) {
@@ -3945,11 +3947,11 @@ function getEntitiesConfig(state, kind) {
  * Returns the entity config given its kind and name.
  *
  * @deprecated since WordPress 6.0. Use getEntityConfig instead
- * @param {Object} state Data state.
- * @param {string} kind  Entity kind.
- * @param {string} name  Entity name.
+ * @param  state Data state.
+ * @param  kind  Entity kind.
+ * @param  name  Entity name.
  *
- * @return {Object} Entity config
+ * @return Entity config
  */
 
 function getEntity(state, kind, name) {
@@ -3962,11 +3964,11 @@ function getEntity(state, kind, name) {
 /**
  * Returns the entity config given its kind and name.
  *
- * @param {Object} state Data state.
- * @param {string} kind  Entity kind.
- * @param {string} name  Entity name.
+ * @param  state Data state.
+ * @param  kind  Entity kind.
+ * @param  name  Entity name.
  *
- * @return {Object} Entity config
+ * @return Entity config
  */
 
 function getEntityConfig(state, kind, name) {
@@ -3980,13 +3982,13 @@ function getEntityConfig(state, kind, name) {
  * yet received, undefined if the value entity is known to not exist, or the
  * entity object if it exists and is received.
  *
- * @param {Object}  state State tree
- * @param {string}  kind  Entity kind.
- * @param {string}  name  Entity name.
- * @param {number}  key   Record's key
- * @param {?Object} query Optional query.
+ * @param  state State tree
+ * @param  kind  Entity kind.
+ * @param  name  Entity name.
+ * @param  key   Record's key
+ * @param  query Optional query.
  *
- * @return {Object|undefined} Record.
+ * @return Record.
  */
 
 const getEntityRecord = rememo((state, kind, name, key, query) => {
@@ -4038,12 +4040,12 @@ const getEntityRecord = rememo((state, kind, name, key, query) => {
 /**
  * Returns the Entity's record object by key. Doesn't trigger a resolver nor requests the entity records from the API if the entity record isn't available in the local state.
  *
- * @param {Object} state State tree
- * @param {string} kind  Entity kind.
- * @param {string} name  Entity name.
- * @param {number} key   Record's key
+ * @param  state State tree
+ * @param  kind  Entity kind.
+ * @param  name  Entity name.
+ * @param  key   Record's key
  *
- * @return {Object|null} Record.
+ * @return Record.
  */
 
 function __experimentalGetEntityRecordNoResolver(state, kind, name, key) {
@@ -4053,12 +4055,12 @@ function __experimentalGetEntityRecordNoResolver(state, kind, name, key) {
  * Returns the entity's record object by key,
  * with its attributes mapped to their raw values.
  *
- * @param {Object} state State tree.
- * @param {string} kind  Entity kind.
- * @param {string} name  Entity name.
- * @param {number} key   Record's key.
+ * @param  state State tree.
+ * @param  kind  Entity kind.
+ * @param  name  Entity name.
+ * @param  key   Record's key.
  *
- * @return {Object?} Object with the entity's raw attributes.
+ * @return Object with the entity's raw attributes.
  */
 
 const getRawEntityRecord = rememo((state, kind, name, key) => {
@@ -4085,12 +4087,12 @@ const getRawEntityRecord = rememo((state, kind, name, key) => {
  * Returns true if records have been received for the given set of parameters,
  * or false otherwise.
  *
- * @param {Object}  state State tree
- * @param {string}  kind  Entity kind.
- * @param {string}  name  Entity name.
- * @param {?Object} query Optional terms query.
+ * @param  state State tree
+ * @param  kind  Entity kind.
+ * @param  name  Entity name.
+ * @param  query Optional terms query.
  *
- * @return {boolean} Whether entity records have been received.
+ * @return  Whether entity records have been received.
  */
 
 function hasEntityRecords(state, kind, name, query) {
@@ -4099,12 +4101,12 @@ function hasEntityRecords(state, kind, name, query) {
 /**
  * Returns the Entity's records.
  *
- * @param {Object}  state State tree
- * @param {string}  kind  Entity kind.
- * @param {string}  name  Entity name.
- * @param {?Object} query Optional terms query.
+ * @param  state State tree
+ * @param  kind  Entity kind.
+ * @param  name  Entity name.
+ * @param  query Optional terms query.
  *
- * @return {?Array} Records.
+ * @return Records.
  */
 
 function getEntityRecords(state, kind, name, query) {
@@ -4118,14 +4120,14 @@ function getEntityRecords(state, kind, name, query) {
 
   return getQueriedItems(queriedState, query);
 }
+
 /**
  * Returns the list of dirty entity records.
  *
- * @param {Object} state State tree.
+ * @param  state State tree.
  *
- * @return {[{ title: string, key: string, name: string, kind: string }]} The list of updated records
+ * @return The list of updated records
  */
-
 const __experimentalGetDirtyEntityRecords = rememo(state => {
   const {
     entities: {
@@ -4162,9 +4164,9 @@ const __experimentalGetDirtyEntityRecords = rememo(state => {
 /**
  * Returns the list of entities currently being saved.
  *
- * @param {Object} state State tree.
+ * @param  state State tree.
  *
- * @return {[{ title: string, key: string, name: string, kind: string }]} The list of records being saved.
+ * @return The list of records being saved.
  */
 
 const __experimentalGetEntitiesBeingSaved = rememo(state => {
@@ -4201,12 +4203,12 @@ const __experimentalGetEntitiesBeingSaved = rememo(state => {
 /**
  * Returns the specified entity record's edits.
  *
- * @param {Object} state    State tree.
- * @param {string} kind     Entity kind.
- * @param {string} name     Entity name.
- * @param {number} recordId Record ID.
+ * @param  state    State tree.
+ * @param  kind     Entity kind.
+ * @param  name     Entity name.
+ * @param  recordId Record ID.
  *
- * @return {Object?} The entity record's edits.
+ * @return The entity record's edits.
  */
 
 function getEntityRecordEdits(state, kind, name, recordId) {
@@ -4219,12 +4221,12 @@ function getEntityRecordEdits(state, kind, name, recordId) {
  * are not considered for change detection.
  * They are defined in the entity's config.
  *
- * @param {Object} state    State tree.
- * @param {string} kind     Entity kind.
- * @param {string} name     Entity name.
- * @param {number} recordId Record ID.
+ * @param  state    State tree.
+ * @param  kind     Entity kind.
+ * @param  name     Entity name.
+ * @param  recordId Record ID.
  *
- * @return {Object?} The entity record's non transient edits.
+ * @return The entity record's non transient edits.
  */
 
 const getEntityRecordNonTransientEdits = rememo((state, kind, name, recordId) => {
@@ -4249,12 +4251,12 @@ const getEntityRecordNonTransientEdits = rememo((state, kind, name, recordId) =>
  * Returns true if the specified entity record has edits,
  * and false otherwise.
  *
- * @param {Object}        state    State tree.
- * @param {string}        kind     Entity kind.
- * @param {string}        name     Entity name.
- * @param {number|string} recordId Record ID.
+ * @param  state    State tree.
+ * @param  kind     Entity kind.
+ * @param  name     Entity name.
+ * @param  recordId Record ID.
  *
- * @return {boolean} Whether the entity record has edits or not.
+ * @return Whether the entity record has edits or not.
  */
 
 function hasEditsForEntityRecord(state, kind, name, recordId) {
@@ -4263,12 +4265,12 @@ function hasEditsForEntityRecord(state, kind, name, recordId) {
 /**
  * Returns the specified entity record, merged with its edits.
  *
- * @param {Object}        state    State tree.
- * @param {string}        kind     Entity kind.
- * @param {string}        name     Entity name.
- * @param {number|string} recordId Record ID.
+ * @param  state    State tree.
+ * @param  kind     Entity kind.
+ * @param  name     Entity name.
+ * @param  recordId Record ID.
  *
- * @return {Object?} The entity record, merged with its edits.
+ * @return The entity record, merged with its edits.
  */
 
 const getEditedEntityRecord = rememo((state, kind, name, recordId) => ({ ...getRawEntityRecord(state, kind, name, recordId),
@@ -4282,12 +4284,12 @@ const getEditedEntityRecord = rememo((state, kind, name, recordId) => ({ ...getR
 /**
  * Returns true if the specified entity record is autosaving, and false otherwise.
  *
- * @param {Object} state    State tree.
- * @param {string} kind     Entity kind.
- * @param {string} name     Entity name.
- * @param {number} recordId Record ID.
+ * @param  state    State tree.
+ * @param  kind     Entity kind.
+ * @param  name     Entity name.
+ * @param  recordId Record ID.
  *
- * @return {boolean} Whether the entity record is autosaving or not.
+ * @return Whether the entity record is autosaving or not.
  */
 
 function isAutosavingEntityRecord(state, kind, name, recordId) {
@@ -4300,12 +4302,12 @@ function isAutosavingEntityRecord(state, kind, name, recordId) {
 /**
  * Returns true if the specified entity record is saving, and false otherwise.
  *
- * @param {Object}        state    State tree.
- * @param {string}        kind     Entity kind.
- * @param {string}        name     Entity name.
- * @param {number|string} recordId Record ID.
+ * @param  state    State tree.
+ * @param  kind     Entity kind.
+ * @param  name     Entity name.
+ * @param  recordId Record ID.
  *
- * @return {boolean} Whether the entity record is saving or not.
+ * @return Whether the entity record is saving or not.
  */
 
 function isSavingEntityRecord(state, kind, name, recordId) {
@@ -4314,12 +4316,12 @@ function isSavingEntityRecord(state, kind, name, recordId) {
 /**
  * Returns true if the specified entity record is deleting, and false otherwise.
  *
- * @param {Object} state    State tree.
- * @param {string} kind     Entity kind.
- * @param {string} name     Entity name.
- * @param {number} recordId Record ID.
+ * @param  state    State tree.
+ * @param  kind     Entity kind.
+ * @param  name     Entity name.
+ * @param  recordId Record ID.
  *
- * @return {boolean} Whether the entity record is deleting or not.
+ * @return Whether the entity record is deleting or not.
  */
 
 function isDeletingEntityRecord(state, kind, name, recordId) {
@@ -4328,12 +4330,12 @@ function isDeletingEntityRecord(state, kind, name, recordId) {
 /**
  * Returns the specified entity record's last save error.
  *
- * @param {Object} state    State tree.
- * @param {string} kind     Entity kind.
- * @param {string} name     Entity name.
- * @param {number} recordId Record ID.
+ * @param  state    State tree.
+ * @param  kind     Entity kind.
+ * @param  name     Entity name.
+ * @param  recordId Record ID.
  *
- * @return {Object?} The entity record's save error.
+ * @return The entity record's save error.
  */
 
 function getLastEntitySaveError(state, kind, name, recordId) {
@@ -4342,12 +4344,12 @@ function getLastEntitySaveError(state, kind, name, recordId) {
 /**
  * Returns the specified entity record's last delete error.
  *
- * @param {Object} state    State tree.
- * @param {string} kind     Entity kind.
- * @param {string} name     Entity name.
- * @param {number} recordId Record ID.
+ * @param  state    State tree.
+ * @param  kind     Entity kind.
+ * @param  name     Entity name.
+ * @param  recordId Record ID.
  *
- * @return {Object?} The entity record's save error.
+ * @return The entity record's save error.
  */
 
 function getLastEntityDeleteError(state, kind, name, recordId) {
@@ -4360,9 +4362,9 @@ function getLastEntityDeleteError(state, kind, name, recordId) {
  * of the history stack we are at. 0 is the
  * last edit, -1 is the second last, and so on.
  *
- * @param {Object} state State tree.
+ * @param  state State tree.
  *
- * @return {number} The current undo offset.
+ * @return The current undo offset.
  */
 
 function getCurrentUndoOffset(state) {
@@ -4372,9 +4374,9 @@ function getCurrentUndoOffset(state) {
  * Returns the previous edit from the current undo offset
  * for the entity records edits history, if any.
  *
- * @param {Object} state State tree.
+ * @param  state State tree.
  *
- * @return {Object?} The edit.
+ * @return The edit.
  */
 
 
@@ -4385,9 +4387,9 @@ function getUndoEdit(state) {
  * Returns the next edit from the current undo offset
  * for the entity records edits history, if any.
  *
- * @param {Object} state State tree.
+ * @param  state State tree.
  *
- * @return {Object?} The edit.
+ * @return The edit.
  */
 
 function getRedoEdit(state) {
@@ -4397,9 +4399,9 @@ function getRedoEdit(state) {
  * Returns true if there is a previous edit from the current undo offset
  * for the entity records edits history, and false otherwise.
  *
- * @param {Object} state State tree.
+ * @param  state State tree.
  *
- * @return {boolean} Whether there is a previous edit or not.
+ * @return Whether there is a previous edit or not.
  */
 
 function hasUndo(state) {
@@ -4409,9 +4411,9 @@ function hasUndo(state) {
  * Returns true if there is a next edit from the current undo offset
  * for the entity records edits history, and false otherwise.
  *
- * @param {Object} state State tree.
+ * @param  state State tree.
  *
- * @return {boolean} Whether there is a next edit or not.
+ * @return Whether there is a next edit or not.
  */
 
 function hasRedo(state) {
@@ -4420,9 +4422,9 @@ function hasRedo(state) {
 /**
  * Return the current theme.
  *
- * @param {Object} state Data state.
+ * @param  state Data state.
  *
- * @return {Object} The current theme.
+ * @return The current theme.
  */
 
 function getCurrentTheme(state) {
@@ -4431,9 +4433,9 @@ function getCurrentTheme(state) {
 /**
  * Return the ID of the current global styles object.
  *
- * @param {Object} state Data state.
+ * @param  state Data state.
  *
- * @return {string} The current global styles ID.
+ * @return The current global styles ID.
  */
 
 function __experimentalGetCurrentGlobalStylesId(state) {
@@ -4442,9 +4444,9 @@ function __experimentalGetCurrentGlobalStylesId(state) {
 /**
  * Return theme supports data in the index.
  *
- * @param {Object} state Data state.
+ * @param  state Data state.
  *
- * @return {*} Index data.
+ * @return Index data.
  */
 
 function getThemeSupports(state) {
@@ -4455,10 +4457,10 @@ function getThemeSupports(state) {
 /**
  * Returns the embed preview for the given URL.
  *
- * @param {Object} state Data state.
- * @param {string} url   Embedded URL.
+ * @param  state Data state.
+ * @param  url   Embedded URL.
  *
- * @return {*} Undefined if the preview has not been fetched, otherwise, the preview fetched from the embed preview API.
+ * @return Undefined if the preview has not been fetched, otherwise, the preview fetched from the embed preview API.
  */
 
 function getEmbedPreview(state, url) {
@@ -4471,10 +4473,10 @@ function getEmbedPreview(state, url) {
  * We need to be able to determine if a URL is embeddable or not, based on what we
  * get back from the oEmbed preview API.
  *
- * @param {Object} state Data state.
- * @param {string} url   Embedded URL.
+ * @param  state Data state.
+ * @param  url   Embedded URL.
  *
- * @return {boolean} Is the preview for the URL an oEmbed link fallback.
+ * @return Is the preview for the URL an oEmbed link fallback.
  */
 
 function isPreviewEmbedFallback(state, url) {
@@ -4496,12 +4498,12 @@ function isPreviewEmbedFallback(state, url) {
  *
  * https://developer.wordpress.org/rest-api/reference/
  *
- * @param {Object}  state    Data state.
- * @param {string}  action   Action to check. One of: 'create', 'read', 'update', 'delete'.
- * @param {string}  resource REST resource to check, e.g. 'media' or 'posts'.
- * @param {string=} id       Optional ID of the rest resource to check.
+ * @param  state    Data state.
+ * @param  action   Action to check. One of: 'create', 'read', 'update', 'delete'.
+ * @param  resource REST resource to check, e.g. 'media' or 'posts'.
+ * @param  id       Optional ID of the rest resource to check.
  *
- * @return {boolean|undefined} Whether or not the user can perform the action,
+ * @return Whether or not the user can perform the action,
  *                             or `undefined` if the OPTIONS request is still being made.
  */
 
@@ -4517,11 +4519,11 @@ function canUser(state, action, resource, id) {
  *
  * https://developer.wordpress.org/rest-api/reference/
  *
- * @param {Object} state    Data state.
- * @param {string} kind     Entity kind.
- * @param {string} name     Entity name.
- * @param {string} recordId Record's id.
- * @return {boolean|undefined} Whether or not the user can edit,
+ * @param  state    Data state.
+ * @param  kind     Entity kind.
+ * @param  name     Entity name.
+ * @param  recordId Record's id.
+ * @return Whether or not the user can edit,
  * or `undefined` if the OPTIONS request is still being made.
  */
 
@@ -4541,11 +4543,11 @@ function canUserEditEntityRecord(state, kind, name, recordId) {
  * May return multiple autosaves since the backend stores one autosave per
  * author for each post.
  *
- * @param {Object} state    State tree.
- * @param {string} postType The type of the parent post.
- * @param {number} postId   The id of the parent post.
+ * @param  state    State tree.
+ * @param  postType The type of the parent post.
+ * @param  postId   The id of the parent post.
  *
- * @return {?Array} An array of autosaves for the post, or undefined if there is none.
+ * @return An array of autosaves for the post, or undefined if there is none.
  */
 
 function getAutosaves(state, postType, postId) {
@@ -4554,12 +4556,12 @@ function getAutosaves(state, postType, postId) {
 /**
  * Returns the autosave for the post and author.
  *
- * @param {Object} state    State tree.
- * @param {string} postType The type of the parent post.
- * @param {number} postId   The id of the parent post.
- * @param {number} authorId The id of the author.
+ * @param  state    State tree.
+ * @param  postType The type of the parent post.
+ * @param  postId   The id of the parent post.
+ * @param  authorId The id of the author.
  *
- * @return {?Object} The autosave for the post and author.
+ * @return The autosave for the post and author.
  */
 
 function getAutosave(state, postType, postId, authorId) {
@@ -4575,11 +4577,11 @@ function getAutosave(state, postType, postId, authorId) {
 /**
  * Returns true if the REST request for autosaves has completed.
  *
- * @param {Object} state    State tree.
- * @param {string} postType The type of the parent post.
- * @param {number} postId   The id of the parent post.
+ * @param  state    State tree.
+ * @param  postType The type of the parent post.
+ * @param  postId   The id of the parent post.
  *
- * @return {boolean} True if the REST request was completed. False otherwise.
+ * @return True if the REST request was completed. False otherwise.
  */
 
 const hasFetchedAutosaves = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, postType, postId) => {
@@ -4599,19 +4601,20 @@ const hasFetchedAutosaves = (0,external_wp_data_namespaceObject.createRegistrySe
  * );
  * ```
  *
- * @param {Object} state Editor state.
+ * @param  state Editor state.
  *
- * @return {*} A value whose reference will change only when an edit occurs.
+ * @return A value whose reference will change only when an edit occurs.
  */
 
-const getReferenceByDistinctEdits = rememo(() => [], state => [state.undo.length, state.undo.offset, state.undo.flattenedUndo]);
+const getReferenceByDistinctEdits = rememo( // This unused state argument is listed here for the documentation generating tool (docgen).
+state => [], state => [state.undo.length, state.undo.offset, state.undo.flattenedUndo]);
 /**
  * Retrieve the frontend template used for a given link.
  *
- * @param {Object} state Editor state.
- * @param {string} link  Link.
+ * @param  state Editor state.
+ * @param  link  Link.
  *
- * @return {Object?} The template record.
+ * @return The template record.
  */
 
 function __experimentalGetTemplateForLink(state, link) {
@@ -4629,9 +4632,9 @@ function __experimentalGetTemplateForLink(state, link) {
 /**
  * Retrieve the current theme's base global styles
  *
- * @param {Object} state Editor state.
+ * @param  state Editor state.
  *
- * @return {Object|null} The Global Styles object.
+ * @return The Global Styles object.
  */
 
 function __experimentalGetCurrentThemeBaseGlobalStyles(state) {
@@ -4646,9 +4649,9 @@ function __experimentalGetCurrentThemeBaseGlobalStyles(state) {
 /**
  * Return the ID of the current global styles object.
  *
- * @param {Object} state Data state.
+ * @param  state Data state.
  *
- * @return {string|null} The current global styles ID.
+ * @return The current global styles ID.
  */
 
 function __experimentalGetCurrentThemeGlobalStylesVariations(state) {
@@ -4663,9 +4666,9 @@ function __experimentalGetCurrentThemeGlobalStylesVariations(state) {
 /**
  * Retrieve the list of registered block patterns.
  *
- * @param {Object} state Data state.
+ * @param  state Data state.
  *
- * @return {Array} Block pattern list.
+ * @return Block pattern list.
  */
 
 function getBlockPatterns(state) {
@@ -4674,9 +4677,9 @@ function getBlockPatterns(state) {
 /**
  * Retrieve the list of registered block pattern categories.
  *
- * @param {Object} state Data state.
+ * @param  state Data state.
  *
- * @return {Array} Block pattern category list.
+ * @return Block pattern category list.
  */
 
 function getBlockPatternCategories(state) {
@@ -5727,283 +5730,6 @@ function useEntityBlockEditor(kind, name) {
   return [blocks !== null && blocks !== void 0 ? blocks : EMPTY_ARRAY, onInput, onChange];
 }
 
-// EXTERNAL MODULE: ./node_modules/memize/index.js
-var memize = __webpack_require__(9756);
-var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
-;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/memoize.js
-/**
- * External dependencies
- */
- // re-export due to restrictive esModuleInterop setting
-
-/* harmony default export */ var memoize = ((memize_default()));
-
-;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/constants.js
-/* eslint-disable-next-line no-shadow */
-let Status;
-
-(function (Status) {
-  Status["Idle"] = "IDLE";
-  Status["Resolving"] = "RESOLVING";
-  Status["Error"] = "ERROR";
-  Status["Success"] = "SUCCESS";
-})(Status || (Status = {}));
-
-;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/use-query-select.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-const META_SELECTORS = ['getIsResolving', 'hasStartedResolution', 'hasFinishedResolution', 'isResolving', 'getCachedResolvers'];
-
-/**
- * Like useSelect, but the selectors return objects containing
- * both the original data AND the resolution info.
- *
- * @param {Function} mapQuerySelect see useSelect
- * @param {Array}    deps           see useSelect
- *
- * @example
- * ```js
- * import { useQuerySelect } from '@wordpress/data';
- * import { store as coreDataStore } from '@wordpress/core-data';
- *
- * function PageTitleDisplay( { id } ) {
- *   const { data: page, isResolving } = useQuerySelect( ( query ) => {
- *     return query( coreDataStore ).getEntityRecord( 'postType', 'page', id )
- *   }, [ id ] );
- *
- *   if ( isResolving ) {
- *     return 'Loading...';
- *   }
- *
- *   return page.title;
- * }
- *
- * // Rendered in the application:
- * // <PageTitleDisplay id={ 10 } />
- * ```
- *
- * In the above example, when `PageTitleDisplay` is rendered into an
- * application, the page and the resolution details will be retrieved from
- * the store state using the `mapSelect` callback on `useQuerySelect`.
- *
- * If the id prop changes then any page in the state for that id is
- * retrieved. If the id prop doesn't change and other props are passed in
- * that do change, the title will not change because the dependency is just
- * the id.
- * @see useSelect
- *
- * @return {QuerySelectResponse} Queried data.
- */
-function __experimentalUseQuerySelect(mapQuerySelect, deps) {
-  return (0,external_wp_data_namespaceObject.useSelect)((select, registry) => {
-    const resolve = store => enrichSelectors(select(store));
-
-    return mapQuerySelect(resolve, registry);
-  }, deps);
-}
-
-/**
- * Transform simple selectors into ones that return an object with the
- * original return value AND the resolution info.
- *
- * @param {Object} selectors Selectors to enrich
- * @return {EnrichedSelectors} Enriched selectors
- */
-const enrichSelectors = memoize(selectors => {
-  const resolvers = {};
-
-  for (const selectorName in selectors) {
-    if (META_SELECTORS.includes(selectorName)) {
-      continue;
-    }
-
-    Object.defineProperty(resolvers, selectorName, {
-      get: () => function () {
-        const {
-          getIsResolving,
-          hasFinishedResolution
-        } = selectors;
-
-        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-
-        const isResolving = !!getIsResolving(selectorName, args);
-        const hasResolved = !isResolving && hasFinishedResolution(selectorName, args);
-        const data = selectors[selectorName](...args);
-        let status;
-
-        if (isResolving) {
-          status = Status.Resolving;
-        } else if (hasResolved) {
-          if (data) {
-            status = Status.Success;
-          } else {
-            status = Status.Error;
-          }
-        } else {
-          status = Status.Idle;
-        }
-
-        return {
-          data,
-          status,
-          isResolving,
-          hasResolved
-        };
-      }
-    });
-  }
-
-  return resolvers;
-});
-
-;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/use-entity-record.js
-/**
- * Internal dependencies
- */
-
-
-
-/**
- * Resolves the specified entity record.
- *
- * @param  kind                   Kind of the requested entity.
- * @param  name                   Name of the requested  entity.
- * @param  recordId               Record ID of the requested entity.
- * @param  options                Hook options.
- * @param  [options.enabled=true] Whether to run the query or short-circuit and return null. Defaults to true.
- * @example
- * ```js
- * import { useEntityRecord } from '@wordpress/core-data';
- *
- * function PageTitleDisplay( { id } ) {
- *   const { record, isResolving } = useEntityRecord( 'postType', 'page', id );
- *
- *   if ( isResolving ) {
- *     return 'Loading...';
- *   }
- *
- *   return record.title;
- * }
- *
- * // Rendered in the application:
- * // <PageTitleDisplay id={ 1 } />
- * ```
- *
- * In the above example, when `PageTitleDisplay` is rendered into an
- * application, the page and the resolution details will be retrieved from
- * the store state using `getEntityRecord()`, or resolved if missing.
- *
- * @return {EntityRecordResolution<RecordType>} Entity record data.
- * @template RecordType
- */
-function __experimentalUseEntityRecord(kind, name, recordId) {
-  let options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
-    enabled: true
-  };
-  const {
-    data: record,
-    ...rest
-  } = __experimentalUseQuerySelect(query => {
-    if (!options.enabled) {
-      return null;
-    }
-
-    return query(store).getEntityRecord(kind, name, recordId);
-  }, [kind, name, recordId, options.enabled]);
-  return {
-    record,
-    ...rest
-  };
-}
-
-;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/use-entity-records.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-/**
- * Resolves the specified entity records.
- *
- * @param  kind      Kind of the requested entities.
- * @param  name      Name of the requested entities.
- * @param  queryArgs HTTP query for the requested entities.
- * @param  options   Hook options.
- * @example
- * ```js
- * import { useEntityRecord } from '@wordpress/core-data';
- *
- * function PageTitlesList() {
- *   const { records, isResolving } = useEntityRecords( 'postType', 'page' );
- *
- *   if ( isResolving ) {
- *     return 'Loading...';
- *   }
- *
- *   return (
- *     <ul>
- *       {records.map(( page ) => (
- *         <li>{ page.title }</li>
- *       ))}
- *     </ul>
- *   );
- * }
- *
- * // Rendered in the application:
- * // <PageTitlesList />
- * ```
- *
- * In the above example, when `PageTitlesList` is rendered into an
- * application, the list of records and the resolution details will be retrieved from
- * the store state using `getEntityRecords()`, or resolved if missing.
- *
- * @return Entity records data.
- * @template RecordType
- */
-function __experimentalUseEntityRecords(kind, name) {
-  let queryArgs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  let options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
-    enabled: true
-  };
-  // Serialize queryArgs to a string that can be safely used as a React dep.
-  // We can't just pass queryArgs as one of the deps, because if it is passed
-  // as an object literal, then it will be a different object on each call even
-  // if the values remain the same.
-  const queryAsString = (0,external_wp_url_namespaceObject.addQueryArgs)('', queryArgs);
-  const {
-    data: records,
-    ...rest
-  } = __experimentalUseQuerySelect(query => {
-    if (!options.enabled) {
-      return {
-        data: []
-      };
-    }
-
-    return query(store).getEntityRecords(kind, name, queryArgs);
-  }, [kind, name, queryAsString, options.enabled]);
-  return {
-    records,
-    ...rest
-  };
-}
-
 ;// CONCATENATED MODULE: external ["wp","htmlEntities"]
 var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/__experimental-fetch-link-suggestions.js
@@ -6299,6 +6025,307 @@ const fetchUrlData = async function (url) {
 
 
 
+// EXTERNAL MODULE: ./node_modules/memize/index.js
+var memize = __webpack_require__(9756);
+var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/memoize.js
+/**
+ * External dependencies
+ */
+ // re-export due to restrictive esModuleInterop setting
+
+/* harmony default export */ var memoize = ((memize_default()));
+
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/constants.js
+let Status;
+
+(function (Status) {
+  Status["Idle"] = "IDLE";
+  Status["Resolving"] = "RESOLVING";
+  Status["Error"] = "ERROR";
+  Status["Success"] = "SUCCESS";
+})(Status || (Status = {}));
+
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/use-query-select.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const META_SELECTORS = ['getIsResolving', 'hasStartedResolution', 'hasFinishedResolution', 'isResolving', 'getCachedResolvers'];
+
+/**
+ * Like useSelect, but the selectors return objects containing
+ * both the original data AND the resolution info.
+ *
+ * @param {Function} mapQuerySelect see useSelect
+ * @param {Array}    deps           see useSelect
+ *
+ * @example
+ * ```js
+ * import { useQuerySelect } from '@wordpress/data';
+ * import { store as coreDataStore } from '@wordpress/core-data';
+ *
+ * function PageTitleDisplay( { id } ) {
+ *   const { data: page, isResolving } = useQuerySelect( ( query ) => {
+ *     return query( coreDataStore ).getEntityRecord( 'postType', 'page', id )
+ *   }, [ id ] );
+ *
+ *   if ( isResolving ) {
+ *     return 'Loading...';
+ *   }
+ *
+ *   return page.title;
+ * }
+ *
+ * // Rendered in the application:
+ * // <PageTitleDisplay id={ 10 } />
+ * ```
+ *
+ * In the above example, when `PageTitleDisplay` is rendered into an
+ * application, the page and the resolution details will be retrieved from
+ * the store state using the `mapSelect` callback on `useQuerySelect`.
+ *
+ * If the id prop changes then any page in the state for that id is
+ * retrieved. If the id prop doesn't change and other props are passed in
+ * that do change, the title will not change because the dependency is just
+ * the id.
+ * @see useSelect
+ *
+ * @return {QuerySelectResponse} Queried data.
+ */
+function __experimentalUseQuerySelect(mapQuerySelect, deps) {
+  return (0,external_wp_data_namespaceObject.useSelect)((select, registry) => {
+    const resolve = store => enrichSelectors(select(store));
+
+    return mapQuerySelect(resolve, registry);
+  }, deps);
+}
+
+/**
+ * Transform simple selectors into ones that return an object with the
+ * original return value AND the resolution info.
+ *
+ * @param {Object} selectors Selectors to enrich
+ * @return {EnrichedSelectors} Enriched selectors
+ */
+const enrichSelectors = memoize(selectors => {
+  const resolvers = {};
+
+  for (const selectorName in selectors) {
+    if (META_SELECTORS.includes(selectorName)) {
+      continue;
+    }
+
+    Object.defineProperty(resolvers, selectorName, {
+      get: () => function () {
+        const {
+          getIsResolving,
+          hasFinishedResolution
+        } = selectors;
+
+        for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+          args[_key] = arguments[_key];
+        }
+
+        const isResolving = !!getIsResolving(selectorName, args);
+        const hasResolved = !isResolving && hasFinishedResolution(selectorName, args);
+        const data = selectors[selectorName](...args);
+        let status;
+
+        if (isResolving) {
+          status = Status.Resolving;
+        } else if (hasResolved) {
+          if (data) {
+            status = Status.Success;
+          } else {
+            status = Status.Error;
+          }
+        } else {
+          status = Status.Idle;
+        }
+
+        return {
+          data,
+          status,
+          isResolving,
+          hasResolved
+        };
+      }
+    });
+  }
+
+  return resolvers;
+});
+
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/use-entity-record.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+/**
+ * Resolves the specified entity record.
+ *
+ * @param  kind     Kind of the entity, e.g. `root` or a `postType`. See rootEntitiesConfig in ../entities.ts for a list of available kinds.
+ * @param  name     Name of the entity, e.g. `plugin` or a `post`. See rootEntitiesConfig in ../entities.ts for a list of available names.
+ * @param  recordId ID of the requested entity record.
+ * @param  options  Optional hook options.
+ * @example
+ * ```js
+ * import { useEntityRecord } from '@wordpress/core-data';
+ *
+ * function PageTitleDisplay( { id } ) {
+ *   const { record, isResolving } = useEntityRecord( 'postType', 'page', id );
+ *
+ *   if ( isResolving ) {
+ *     return 'Loading...';
+ *   }
+ *
+ *   return record.title;
+ * }
+ *
+ * // Rendered in the application:
+ * // <PageTitleDisplay id={ 1 } />
+ * ```
+ *
+ * In the above example, when `PageTitleDisplay` is rendered into an
+ * application, the page and the resolution details will be retrieved from
+ * the store state using `getEntityRecord()`, or resolved if missing.
+ *
+ * @return Entity record data.
+ * @template RecordType
+ */
+function useEntityRecord(kind, name, recordId) {
+  let options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
+    enabled: true
+  };
+  const {
+    data: record,
+    ...rest
+  } = __experimentalUseQuerySelect(query => {
+    if (!options.enabled) {
+      return null;
+    }
+
+    return query(store).getEntityRecord(kind, name, recordId);
+  }, [kind, name, recordId, options.enabled]);
+  return {
+    record,
+    ...rest
+  };
+}
+function __experimentalUseEntityRecord(kind, name, recordId, options) {
+  external_wp_deprecated_default()(`wp.data.__experimentalUseEntityRecord`, {
+    alternative: 'wp.data.useEntityRecord',
+    since: '6.1'
+  });
+  return useEntityRecord(kind, name, recordId, options);
+}
+
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/use-entity-records.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const use_entity_records_EMPTY_ARRAY = [];
+/**
+ * Resolves the specified entity records.
+ *
+ * @param  kind      Kind of the entity, e.g. `root` or a `postType`. See rootEntitiesConfig in ../entities.ts for a list of available kinds.
+ * @param  name      Name of the entity, e.g. `plugin` or a `post`. See rootEntitiesConfig in ../entities.ts for a list of available names.
+ * @param  queryArgs Optional HTTP query description for how to fetch the data, passed to the requested API endpoint.
+ * @param  options   Optional hook options.
+ * @example
+ * ```js
+ * import { useEntityRecord } from '@wordpress/core-data';
+ *
+ * function PageTitlesList() {
+ *   const { records, isResolving } = useEntityRecords( 'postType', 'page' );
+ *
+ *   if ( isResolving ) {
+ *     return 'Loading...';
+ *   }
+ *
+ *   return (
+ *     <ul>
+ *       {records.map(( page ) => (
+ *         <li>{ page.title }</li>
+ *       ))}
+ *     </ul>
+ *   );
+ * }
+ *
+ * // Rendered in the application:
+ * // <PageTitlesList />
+ * ```
+ *
+ * In the above example, when `PageTitlesList` is rendered into an
+ * application, the list of records and the resolution details will be retrieved from
+ * the store state using `getEntityRecords()`, or resolved if missing.
+ *
+ * @return Entity records data.
+ * @template RecordType
+ */
+
+function useEntityRecords(kind, name) {
+  let queryArgs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  let options = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {
+    enabled: true
+  };
+  // Serialize queryArgs to a string that can be safely used as a React dep.
+  // We can't just pass queryArgs as one of the deps, because if it is passed
+  // as an object literal, then it will be a different object on each call even
+  // if the values remain the same.
+  const queryAsString = (0,external_wp_url_namespaceObject.addQueryArgs)('', queryArgs);
+  const {
+    data: records,
+    ...rest
+  } = __experimentalUseQuerySelect(query => {
+    if (!options.enabled) {
+      return {
+        // Avoiding returning a new reference on every execution.
+        data: use_entity_records_EMPTY_ARRAY
+      };
+    }
+
+    return query(store).getEntityRecords(kind, name, queryArgs);
+  }, [kind, name, queryAsString, options.enabled]);
+  return {
+    records,
+    ...rest
+  };
+}
+function __experimentalUseEntityRecords(kind, name, queryArgs, options) {
+  external_wp_deprecated_default()(`wp.data.__experimentalUseEntityRecords`, {
+    alternative: 'wp.data.useEntityRecords',
+    since: '6.1'
+  });
+  return useEntityRecords(kind, name, queryArgs, options);
+}
+
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/index.js
+
+
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/index.js
 /**
  * WordPress dependencies
@@ -6390,7 +6417,6 @@ const storeConfig = () => ({
 
 const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, storeConfig());
 (0,external_wp_data_namespaceObject.register)(store);
-
 
 
 
