@@ -835,13 +835,13 @@ $flds = "
   products_image C(255),
   products_serial_number C(250),
   products_free_redemption C(1) DEFAULT '',
+  products_old_electrical_equipment C(1) DEFAULT '',
   products_price N '10.4' NOTNULL DEFAULT '0.0000',
   final_price N '10.4' NOTNULL DEFAULT '0.0000',
   products_tax N '7.4' NOTNULL DEFAULT '0.0000',
   products_quantity I2 NOTNULL DEFAULT '1'
 ";
 dosql($table, $flds);
-
 
 
 $table = $prefix_table . 'orders_status';
