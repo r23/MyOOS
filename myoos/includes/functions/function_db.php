@@ -214,6 +214,7 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
         }
         $query = substr($query, 0, -2) . ' where ' . $parameters;
     }
+	
     return $dbconn->Execute($query);
 }
 

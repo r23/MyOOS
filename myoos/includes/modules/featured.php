@@ -29,7 +29,7 @@ if (!is_numeric(MAX_DISPLAY_FEATURED_PRODUCTS)) {
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
 $featuredtable = $oostable['featured'];
-$sql = "SELECT p.products_id, p.products_image, p.products_price ,p.products_price_list, p.products_tax_class_id,
+$sql = "SELECT p.products_id, p.products_image, p.products_price, p.products_price_list, p.products_tax_class_id,
                  p.products_units_id, p.products_base_price, p.products_base_unit, 
 				 p.products_quantity_order_min, p.products_quantity_order_max,
 				 p.products_product_quantity, pd.products_name,

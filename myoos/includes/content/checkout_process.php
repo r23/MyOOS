@@ -228,6 +228,7 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
                             'final_price' => $oOrder->products[$i]['final_price'],
                             'products_tax' => $oOrder->products[$i]['tax'],
                             'products_quantity' => $oOrder->products[$i]['qty']);
+							
     oos_db_perform($oostable['orders_products'], $sql_data_array);
     $order_products_id = $dbconn->Insert_ID();
 
@@ -396,13 +397,13 @@ if (is_object(${$_SESSION['payment']})) {
 
 
 if (!isset($_SESSION['man_key'])) {
-    oos_mail($oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], $aLang['email_text_subject'], nl2br($email_order), nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+   oos_mail($oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address'], $aLang['email_text_subject'], nl2br($email_order), nl2br($email_order), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 }
 
 
 // send emails to other people
 if (defined('SEND_EXTRA_ORDER_EMAILS_TO') && SEND_EXTRA_ORDER_EMAILS_TO != '') {
-    oos_mail('', SEND_EXTRA_ORDER_EMAILS_TO, $aLang['email_text_subject'], nl2br($email_order), nl2br($email_order), $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address']);
+   oos_mail('', SEND_EXTRA_ORDER_EMAILS_TO, $aLang['email_text_subject'], nl2br($email_order), nl2br($email_order), $oOrder->customer['firstname'] . ' ' . $oOrder->customer['lastname'], $oOrder->customer['email_address']);
 }
 
 
