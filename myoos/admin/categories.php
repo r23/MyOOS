@@ -433,15 +433,16 @@ if (!empty($action)) {
                     } else {
                         $messageStack->add_session(ERROR_CANNOT_LINK_TO_SAME_CATEGORY, 'error');
                     }
-                } elseif ($_POST['copy_as'] == 'duplicate') {
+                } elseif ($_POST['copy_as'] == 'duplicate') {					
                     $product_result = $dbconn->Execute("SELECT products_quantity, products_reorder_level, products_model,
 														products_replacement_product_id, products_ean, products_image,
-														products_price, products_base_price, products_base_unit,
+														products_average_rating, products_price, products_base_price, 
+														products_product_quantity, products_base_quantity, products_base_unit,														
                                                        products_date_available, products_weight, products_status,
 													   products_setting, products_tax_class_id,
                                                        products_units_id, products_old_electrical_equipment, products_used_goods, 
 													   manufacturers_id, products_price_list,
-                                                       products_quantity_order_min,  products_quantity_order_max,
+                                                       products_quantity_order_min, products_quantity_order_max,
                                                        products_quantity_order_units, products_discount1, products_discount2,
                                                        products_discount3, products_discount4, products_discount1_qty,
                                                        products_discount2_qty, products_discount3_qty, products_discount4_qty,
@@ -457,8 +458,11 @@ if (!empty($action)) {
 						  products_replacement_product_id,
                           products_ean,
                           products_image,
+						  products_average_rating,
                           products_price,
                           products_base_price,
+                          products_product_quantity,
+                          products_base_quantity,					  
                           products_base_unit,
                           products_date_added,
                           products_date_available,
@@ -491,8 +495,11 @@ if (!empty($action)) {
 								  '" . $product['products_replacement_product_id'] . "',
                                   '" . $product['products_ean'] . "',
                                   '" . $product['products_image'] . "',
+								  '" . $product['products_average_rating'] . "',
                                   '" . $product['products_price'] . "',
                                   '" . $product['products_base_price'] . "',
+                                  '" . $product['products_product_quantity'] . "',
+                                  '" . $product['products_base_quantity'] . "',								  								  
                                   '" . $product['products_base_unit'] . "',
                                   now(),
 								  '" . (empty($product['products_date_available']) ? null : "'" . oos_db_input($product['products_date_available']) . "'") . "',
