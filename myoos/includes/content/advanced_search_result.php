@@ -183,6 +183,8 @@ $select_str = "SELECT DISTINCT " . $select_column_list . " m.manufacturers_id, p
                           p.products_discount4_qty, p.products_tax_class_id, p.products_units_id, p.products_quantity_order_min, p.products_quantity_order_max,
                           p.products_price, p.products_price_list, p.products_base_price, p.products_base_unit, p.products_product_quantity,
                           IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
+						IF(s.status, s.specials_cross_out_price, null) AS specials_cross_out_price,			   
+						IF(s.status, s.expires_date, null) AS expires_date,							  
                           IF(s.status, s.specials_new_products_price, s.specials_cross_out_price) AS final_price ";
 
 if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($pto) && oos_is_not_null($pto)))) {

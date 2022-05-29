@@ -65,6 +65,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 										p.products_quantity_order_max, p.products_quantity_order_units,
                                        p.products_tax_class_id, pd.products_short_description,
                                        IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
+										IF(s.status, s.specials_cross_out_price, null) AS specials_cross_out_price,			   
+										IF(s.status, s.expires_date, null) AS expires_date,										   
                                        p.products_date_added, p.manufacturers_id, m.manufacturers_name
                                FROM $productstable p LEFT JOIN
                                     $manufacturersstable m ON p.manufacturers_id = m.manufacturers_id LEFT JOIN
@@ -85,36 +87,45 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
         $new_product_special_price = null;
         $new_product_discount_price = null;
         $new_base_product_price = null;
+		$products_new_until = null;
+		$products_new_cross_out_price = null;
+		$products_new_base_product_price = null;
         $base_product_price = $products_new['products_price'];
 
         if ($aUser['show_price'] == 1) {
             $new_product_price = $oCurrencies->display_price($products_new['products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
             $new_product_price_list = $oCurrencies->display_price($products_new['products_price_list'], oos_get_tax_rate($products_new['products_tax_class_id']));
 
-            if ($listing['products_discount4'] > 0) {
-                $discount = $listing['products_discount4'];
-            } elseif ($listing['products_discount3'] > 0) {
-                $discount = $listing['products_discount3'];
-            } elseif ($listing['products_discount2'] > 0) {
-                $discount = $listing['products_discount2'];
-            } elseif ($listing['products_discount1'] > 0) {
-                $discount = $listing['products_discount1'];
+            if ($products_new['products_discount4'] > 0) {
+                $discount = $products_new['products_discount4'];
+            } elseif ($products_new['products_discount3'] > 0) {
+                $discount = $products_new['products_discount3'];
+            } elseif ($products_new['products_discount2'] > 0) {
+                $discount = $products_new['products_discount2'];
+            } elseif ($products_new['products_discount1'] > 0) {
+                $discount = $products_new['products_discount1'];
             }
 
             if ($discount > 0) {
                 $base_product_price = $discount;
-                $listing_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($listing['products_tax_class_id']));
+                $products_new_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($products_new['products_tax_class_id']));
             }
 
-
-            if (isset($products_new['specials_new_products_price'])) {
+            if ($products_new['specials_new_products_price'] > 0) {
                 $base_product_price = $products_new['specials_new_products_price'];
                 $new_product_special_price = $oCurrencies->display_price($products_new['specials_new_products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
+
+                if ($products_new['specials_cross_out_price'] > 0) {
+                    $products_new_cross_out_price = $oCurrencies->display_price($products_new['specials_cross_out_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
+                }
+
+                $products_new_until = sprintf($aLang['only_until'], oos_date_short($products_new['expires_date']));
             }
 
             if ($products_new['products_base_price'] != 1) {
-                $new_base_product_price = $oCurrencies->display_price($base_product_price * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
+                $products_new_base_product_price = $oCurrencies->display_price($base_product_price * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
             }
+
         }
 
         $order_min = number_format($products_new['products_quantity_order_min']);
@@ -134,6 +145,9 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                                     'new_product_special_price' => $new_product_special_price,
                                     'new_product_discount_price' => $new_product_discount_price,
                                     'new_base_product_price' => $new_base_product_price,
+									'listing_until' => $products_new_until,
+									'products_new_base_product_price' => $products_new_base_product_price,
+									'products_new_cross_out_price'	=> $products_new_cross_out_price,									
                                     'products_base_price' => $products_new['products_base_price'],
                                     'new_products_base_unit' => $products_new['products_base_unit'],
                                     'date_added' => $products_new['products_date_added'],
