@@ -106,6 +106,8 @@ foreach ($aDefineList as $column => $value) {
                          p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty,
                          p.products_tax_class_id, p.products_units_id, 
                          IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
+						IF(s.status, s.specials_cross_out_price, null) AS specials_cross_out_price,			   
+						IF(s.status, s.expires_date, null) AS expires_date,							 
                          IF(s.status, s.specials_new_products_price, p.products_price) AS final_price,
                          pm.master_id, pm.slave_id
                   FROM $productstable p LEFT JOIN
