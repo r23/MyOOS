@@ -76,7 +76,6 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
 			'whats_new_product_price_list' 		=> $whats_newt_price_list,
             'whats_new_cross_out_price'			=> $whats_new_cross_out_price,
             'whats_new_until'					=> $whats_new_until,
-			
 
             'random_product'          => $random_product,
             'block_heading_whats_new' => $block_heading
