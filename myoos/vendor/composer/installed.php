@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'e07351be119b14c8447b35808ef5e83de3d99d24',
+        'reference' => 'c0179a8904da6db7defa2a7b4131bee16d8873f1',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -178,7 +178,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'e07351be119b14c8447b35808ef5e83de3d99d24',
+            'reference' => 'c0179a8904da6db7defa2a7b4131bee16d8873f1',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
