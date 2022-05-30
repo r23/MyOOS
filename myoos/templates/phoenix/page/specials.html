@@ -59,19 +59,37 @@
 										
 							<div class="product-summary text-center">
 								<h2><a href="{product_link products_id=$specials[i].products_id}">{$specials[i].products_name}</a></h2>
-											
+
+								{if $myUser.show_price eq 1 }
 								<!-- price -->
 								<div class="product-price">
-									{$lang.price_reduced_from} <span class="line-through">{$specials[i].products_price}</span>
-									{$specials[i].products_special_price}
-																		
-									{if $specials[i].products_base_price != 1}
-										<span class="base_price">{$lang.text_products_base_price}: </span>
-										<span class="special_base_price">{$specials[i].products_base_unit} = {$specials[i].base_product_special_price}</span><br>
-									{/if}								
-									
+									{if (!empty($specials[i].specials_product_special_price))}
+										<span class="price-offer">{$specials[i].specials_until}</span><br>
+										<span class="price-offer">{$specials[i].specials_product_special_price}</span>									
+
+										{if $specials[i].specials_cross_out_price > 0}						
+											<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$specials[i].specials_cross_out_price}</span></span>
+										{/if}	
+									{elseif $specials[i].specials_product_price_list ne 0}
+										<span class="price-old">{$lang.price_rrp} <span class="line-through">{$specials[i].specials_product_price_list}</span></span><br>
+										{$specials[i].specials_product_price}
+									{else}
+										{if (!empty($specials[i].specials_discount_price))}
+											<p class="clearfix"></p>
+											{$lang.price_from} {$specials[i].specials_discount_price}
+										{else}
+											<p class="clearfix"></p>
+											{$specials[i].specials_product_price}
+										{/if}
+									{/if}
 								</div>
-								<!-- end price -->											
+
+									{if $specials[i].products_base_price != 1}
+										<p>{$specials[i].product_quantity|cut_number}&nbsp;{$products_units[$specials[i].products_units].0}<br>
+										<span class="base_price">({$products_units[$specials[i].products_units].1} = {$specials[i].specials_base_product_price})</span></p>
+									{/if}
+								{/if}
+								<!-- /price -->
 																				
 										
 								{if $myUser.show_price eq 1 }

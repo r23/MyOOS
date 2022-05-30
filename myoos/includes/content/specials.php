@@ -56,7 +56,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $specialstable = $oostable['specials'];
     $products_descriptiontable = $oostable['products_description'];
     $specials_result_raw = "SELECT p.products_id, pd.products_name,  pd.products_short_description, p.products_image, p.products_price,
-                                   p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_units_id, 
+                                   p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_units_id,
+									p.products_quantity_order_min, p.products_quantity_order_max, p.products_product_quantity,
 								   p.products_image, s.specials_new_products_price, s.specials_cross_out_price, s.expires_date 
                             FROM $productstable p,
                                  $products_descriptiontable pd,
@@ -72,16 +73,33 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
     $aSpecials = [];
     while ($specials = $specials_result->fields) {
-        $specials_base_product_price = '';
-        $specials_base_product_special_price = '';
+        $specials_special_price = null;
+        $specials_base_product_price = null;
+        $specials_base_product_special_price = null;
+		$specials_cross_out_price = null;
+		$specials_price_list = null;
+		$specials_until = null;
 
-        $specials_product_price = $oCurrencies->display_price($specials['products_price'], oos_get_tax_rate($specials['products_tax_class_id']));
-        $specials_product_special_price = $oCurrencies->display_price($specials['specials_new_products_price'], oos_get_tax_rate($specials['products_tax_class_id']));
+        if ($aUser['show_price'] == 1) {
+			$base_product_price = $specials['specials_new_products_price'];
+			$specials_special_price = $oCurrencies->display_price($specials['specials_new_products_price'], oos_get_tax_rate($specials['products_tax_class_id']));
 
-        if ($specials['products_base_price'] != 1) {
-            $specials_base_product_price = $oCurrencies->display_price($specials['products_price'] * $specials['products_base_price'], oos_get_tax_rate($specials['products_tax_class_id']));
-            $specials_base_product_special_price = $oCurrencies->display_price($specials['specials_new_products_price'] * $specials['products_base_price'], oos_get_tax_rate($specials['products_tax_class_id']));
+			if ($specials['products_price_list'] > 0) {
+				$specials_price_list = $oCurrencies->display_price($specials['products_price_list'], oos_get_tax_rate($specials['products_tax_class_id']));
+			}
+
+			if ($specials['specials_cross_out_price'] > 0) {
+				$specials_cross_out_price = $oCurrencies->display_price($specials['specials_cross_out_price'], oos_get_tax_rate($specials['products_tax_class_id']));
+			}
+
+			$specials_until = sprintf($aLang['only_until'], oos_date_short($specials['expires_date']));
+
+			if ($specials['products_base_price'] != 1) {
+				$specials_base_product_price = $oCurrencies->display_price($base_product_price * $specials['products_base_price'], oos_get_tax_rate($specials['products_tax_class_id']));
+			}
         }
+
+
 
         $aSpecials[] = array(
                          'products_id'                => $specials['products_id'],
@@ -90,10 +108,14 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                          'products_description'       => $specials['products_description'],
                          'products_base_unit'         => $specials['products_base_unit'],
                          'products_base_price'        => $specials['products_base_price'],
-                         'products_price'             => $specials_product_price,
-                         'products_special_price'     => $specials_product_special_price,
-                         'base_product_price'         => $specials_base_product_price,
-                         'base_product_special_price' => $specials_base_product_special_price
+						 'products_units'				=> $specials['products_units_id'],
+						 'product_quantity'				=> $specials['products_product_quantity'],
+                         'specials_product_special_price'	=> $specials_special_price,
+                         'specials_base_product_price'		=> $specials_base_product_price,					 
+                         'specials_cross_out_price'			=> $specials_cross_out_price,
+                         'specials_product_price_list'		=> $specials_price_list,
+                         'specials_until'					=> $specials_until,						 
+                         'base_product_special_price'		=> $specials_base_product_special_price
                      );
         $specials_result->MoveNext();
     }
