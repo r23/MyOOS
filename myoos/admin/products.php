@@ -82,11 +82,11 @@ if (!empty($action)) {
                 $products_base_price = oos_db_prepare_input($_POST['products_base_price']);
                 $products_product_quantity = oos_db_prepare_input($_POST['products_product_quantity']);
                 $products_base_quantity = oos_db_prepare_input($_POST['products_base_quantity']);
-			} else {
+            } else {
                 $products_base_price = 1.0;
                 $products_product_quantity = 1;
                 $products_base_quantity = 1;
-			}
+            }
 
 
             if ((date('Y-m-d') < $products_date_available) && ($nProductsStatus == 3)) {

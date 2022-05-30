@@ -50,8 +50,8 @@ if ($new_specials_result->RecordCount() >= MIN_DISPLAY_NEW_SPECILAS) {
     while ($new_specials = $new_specials_result->fields) {
         $new_specials_base_product_price = null;
         $new_specials_base_product_special_price = null;
-		$new_specials_product_special_price = null;
-		$only_until = null;
+        $new_specials_product_special_price = null;
+        $only_until = null;
 
         if ($aUser['show_price'] == 1) {
             $new_specials_product_price = $oCurrencies->display_price($new_specials['products_price'], oos_get_tax_rate($new_specials['products_tax_class_id']));
@@ -92,7 +92,7 @@ if ($new_specials_result->RecordCount() >= MIN_DISPLAY_NEW_SPECILAS) {
                                     'expires_date'  => $new_specials['expires_date'],
                                     'only_until' => $only_until,
                                     'products_special_price' => $new_specials_product_special_price,
-									'new_special_cross_out_price' => $new_special_cross_out_price,
+                                    'new_special_cross_out_price' => $new_special_cross_out_price,
                                     'base_product_price' => $new_specials_base_product_price,
                                     'base_product_special_price' => $new_specials_base_product_special_price];
 

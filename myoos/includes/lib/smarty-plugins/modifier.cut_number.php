@@ -17,12 +17,11 @@
  */
 function smarty_modifier_cut_number($number)
 {
-	$number = explode(".", $number, 2);
+    $number = explode(".", $number, 2);
 
-	if ($number[1] == '0000') {
-		return $number[0];
-	}	
-  
-	return $number;
+    if ($number[1] == '0000') {
+        return $number[0];
+    }
 
+    return $number;
 }

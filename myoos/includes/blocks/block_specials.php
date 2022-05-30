@@ -54,28 +54,28 @@ if ($sContent != $aContents['specials']) {
         $specials_random_product_special_price = null;
         $specials_random_base_product_price = null;
         $specials_random_base_product_special_price = null;
-		$specials_random_cross_out_price = null;
-		$specials_random_product_price_list = null;
-		$specials_random_until = null;
+        $specials_random_cross_out_price = null;
+        $specials_random_product_price_list = null;
+        $specials_random_until = null;
 
 
         if ($aUser['show_price'] == 1) {
-			$base_product_price = $specials_random_product['specials_new_products_price'];
-			$specials_random_product_special_price = $oCurrencies->display_price($specials_random_product['specials_new_products_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
+            $base_product_price = $specials_random_product['specials_new_products_price'];
+            $specials_random_product_special_price = $oCurrencies->display_price($specials_random_product['specials_new_products_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
 
-			if ($specials_random_product['products_price_list'] > 0) {
-				$specials_random_product_price_list = $oCurrencies->display_price($specials_random_product['products_price_list'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
-			}
+            if ($specials_random_product['products_price_list'] > 0) {
+                $specials_random_product_price_list = $oCurrencies->display_price($specials_random_product['products_price_list'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
+            }
 
-			if ($specials_random_product['specials_cross_out_price'] > 0) {
-				$specials_random_cross_out_price = $oCurrencies->display_price($specials_random_product['specials_cross_out_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
-			}
+            if ($specials_random_product['specials_cross_out_price'] > 0) {
+                $specials_random_cross_out_price = $oCurrencies->display_price($specials_random_product['specials_cross_out_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
+            }
 
-			$specials_random_until = sprintf($aLang['only_until'], oos_date_short($specials_random_product['expires_date']));
+            $specials_random_until = sprintf($aLang['only_until'], oos_date_short($specials_random_product['expires_date']));
 
-			if ($specials_random_product['products_base_price'] != 1) {
-				$specials_random_base_product_price = $oCurrencies->display_price($base_product_price * $specials_random_product['products_base_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
-			}
+            if ($specials_random_product['products_base_price'] != 1) {
+                $specials_random_base_product_price = $oCurrencies->display_price($base_product_price * $specials_random_product['products_base_price'], oos_get_tax_rate($specials_random_product['products_tax_class_id']));
+            }
         }
 
         $smarty->assign(
@@ -84,11 +84,11 @@ if ($sContent != $aContents['specials']) {
                 'specials_random_product_special_price'      => $specials_random_product_special_price,
                 'specials_random_base_product_price'         => $specials_random_base_product_price,
 
-				'specials_random_cross_out_price'			 => $specials_random_cross_out_price,				
-				'specials_random_product_price_list'		 => $specials_random_product_price_list,	
-				'specials_random_until'						 => $specials_random_until,
+                'specials_random_cross_out_price'			 => $specials_random_cross_out_price,
+                'specials_random_product_price_list'		 => $specials_random_product_price_list,
+                'specials_random_until'						 => $specials_random_until,
 
-				'specials_random'          => $specials_random_product			
+                'specials_random'          => $specials_random_product
 
             )
         );

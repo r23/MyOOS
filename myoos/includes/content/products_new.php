@@ -87,9 +87,9 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
         $new_product_special_price = null;
         $new_product_discount_price = null;
         $new_base_product_price = null;
-		$products_new_until = null;
-		$products_new_cross_out_price = null;
-		$products_new_base_product_price = null;
+        $products_new_until = null;
+        $products_new_cross_out_price = null;
+        $products_new_base_product_price = null;
         $base_product_price = $products_new['products_price'];
 
         if ($aUser['show_price'] == 1) {
@@ -125,7 +125,6 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
             if ($products_new['products_base_price'] != 1) {
                 $products_new_base_product_price = $oCurrencies->display_price($base_product_price * $products_new['products_base_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
             }
-
         }
 
         $order_min = number_format($products_new['products_quantity_order_min']);
@@ -145,9 +144,9 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                                     'new_product_special_price' => $new_product_special_price,
                                     'new_product_discount_price' => $new_product_discount_price,
                                     'new_base_product_price' => $new_base_product_price,
-									'listing_until' => $products_new_until,
-									'products_new_base_product_price' => $products_new_base_product_price,
-									'products_new_cross_out_price'	=> $products_new_cross_out_price,									
+                                    'listing_until' => $products_new_until,
+                                    'products_new_base_product_price' => $products_new_base_product_price,
+                                    'products_new_cross_out_price'	=> $products_new_cross_out_price,
                                     'products_base_price' => $products_new['products_base_price'],
                                     'new_products_base_unit' => $products_new['products_base_unit'],
                                     'date_added' => $products_new['products_date_added'],

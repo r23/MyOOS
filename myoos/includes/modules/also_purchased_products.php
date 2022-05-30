@@ -50,7 +50,7 @@ if (isset($_GET['products_id']) && is_numeric(MAX_DISPLAY_ALSO_PURCHASED)) {
     $orders_result = $dbconn->SelectLimit($sql, MAX_DISPLAY_ALSO_PURCHASED);
 
     $num_products_ordered = $orders_result->RecordCount();
-	if ($num_products_ordered >= MIN_DISPLAY_ALSO_PURCHASED) {
+    if ($num_products_ordered >= MIN_DISPLAY_ALSO_PURCHASED) {
         while ($orders = $orders_result->fields) {
             $aPurchased[] = array('products_name' => $orders['products_name'],
                               'products_id' => $orders['products_id'],

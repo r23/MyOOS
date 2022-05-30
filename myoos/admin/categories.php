@@ -433,7 +433,7 @@ if (!empty($action)) {
                     } else {
                         $messageStack->add_session(ERROR_CANNOT_LINK_TO_SAME_CATEGORY, 'error');
                     }
-                } elseif ($_POST['copy_as'] == 'duplicate') {					
+                } elseif ($_POST['copy_as'] == 'duplicate') {
                     $product_result = $dbconn->Execute("SELECT products_quantity, products_reorder_level, products_model,
 														products_replacement_product_id, products_ean, products_image,
 														products_average_rating, products_price, products_base_price, 
