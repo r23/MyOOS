@@ -101,6 +101,18 @@ if (!isset($option)) {
     require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
+$informationtable = $oostable['information'];
+$information_descriptiontable = $oostable['information_description'];
+$sql = "SELECT i.information_id, id.information_name,
+		id.information_description, id.information_heading_title
+FROM $informationtable i,
+	$information_descriptiontable id
+WHERE i.information_id = '7'
+AND id.information_id = i.information_id
+AND id.information_languages_id = '" .  intval($nLanguageID) . "'";
+$reviews_information = $dbconn->GetRow($sql);
+$smarty->assign('reviews_information', $reviews_information);
+
 
 $smarty->assign(
     array(
