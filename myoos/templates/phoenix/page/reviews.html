@@ -22,6 +22,12 @@
 					<!-- end pagination -->
 				</div>
 
+				<div class="clearfix shop-list-options mb-20">
+					<h5>{$reviews_information.information_heading_title}</h5>
+						
+					{$reviews_information.information_description}
+				</div>
+
 				{section name=i loop=$reviews}
 					{if $smarty.section.i.first}
 						<ul class="product-list row list-inline m-0">

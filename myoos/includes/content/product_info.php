@@ -262,6 +262,19 @@ if (!$product_info_result->RecordCount()) {
 
 
     if ($oEvent->installed_plugin('reviews')) {
+		
+		$informationtable = $oostable['information'];
+		$information_descriptiontable = $oostable['information_description'];
+		$sql = "SELECT i.information_id, id.information_name,
+						id.information_description, id.information_heading_title
+				FROM $informationtable i,
+					$information_descriptiontable id
+				WHERE i.information_id = '7'
+				AND id.information_id = i.information_id
+				AND id.information_languages_id = '" .  intval($nLanguageID) . "'";
+		$reviews_information = $dbconn->GetRow($sql);
+		$smarty->assign('reviews_information', $reviews_information);
+		
         $reviewstable = $oostable['reviews'];
         $reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "' AND reviews_status = '1'";
         $reviews = $dbconn->Execute($reviews_sql);

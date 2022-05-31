@@ -66,6 +66,20 @@ if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
     $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
+
+$informationtable = $oostable['information'];
+$information_descriptiontable = $oostable['information_description'];
+$sql = "SELECT i.information_id, id.information_name,
+		id.information_description, id.information_heading_title
+FROM $informationtable i,
+	$information_descriptiontable id
+WHERE i.information_id = '7'
+AND id.information_id = i.information_id
+AND id.information_languages_id = '" .  intval($nLanguageID) . "'";
+$reviews_information = $dbconn->GetRow($sql);
+$smarty->assign('reviews_information', $reviews_information);
+
+
 if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     $reviewstable  = $oostable['reviews'];
     $productstable = $oostable['products'];
