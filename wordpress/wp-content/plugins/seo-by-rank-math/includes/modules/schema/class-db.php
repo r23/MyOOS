@@ -37,6 +37,7 @@ class DB {
 	 *
 	 * @param int    $object_id  Object ID.
 	 * @param string $table      Meta table name.
+	 * @param bool   $from_db    If set to true, the schema will be retrieved from the database.
 	 *
 	 * @return array
 	 */
@@ -78,11 +79,25 @@ class DB {
 	 *
 	 * @param int  $object_id Object ID.
 	 * @param bool $sanitize  Sanitize schema types.
+	 * @param bool $translate Whether to get the schema name.
 	 *
 	 * @return array
 	 */
 	public static function get_schema_types( $object_id, $sanitize = false, $translate = true ) {
 		$schemas = self::get_schemas( $object_id );
+
+		if ( empty( $schemas ) && Helper::get_default_schema_type( $object_id ) ) {
+			$schemas[] = [ '@type' => ucfirst( Helper::get_default_schema_type( $object_id ) ) ];
+		}
+
+		if ( has_block( 'rank-math/faq-block', $object_id ) ) {
+			$schemas[] = [ '@type' => 'FAQPage' ];
+		}
+
+		if ( has_block( 'rank-math/howto-block', $object_id ) ) {
+			$schemas[] = [ '@type' => 'HowTo' ];
+		}
+
 		if ( empty( $schemas ) ) {
 			return false;
 		}
@@ -99,6 +114,8 @@ class DB {
 			},
 			[]
 		);
+
+		$types = array_unique( $types );
 
 		if ( $sanitize ) {
 			$types = array_map(

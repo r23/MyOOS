@@ -546,4 +546,12 @@ class Paper {
 
 		return apply_filters( 'rank_math/paper/auto_generated_description/apply_shortcode', false );
 	}
+
+	/**
+	 * Clears and reinitializes the object.
+	 */
+	public static function reset() {
+		self::$instance = null;
+		return self::get();
+	}
 }

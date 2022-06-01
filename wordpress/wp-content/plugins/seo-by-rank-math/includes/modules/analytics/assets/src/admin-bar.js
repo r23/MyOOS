@@ -182,6 +182,6 @@ class AnalyticsAdminBar {
 	}
 }
 
-jQuery( document ).on( 'ready', () => {
+jQuery( () => {
 	new AnalyticsAdminBar()
 } )

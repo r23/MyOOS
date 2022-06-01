@@ -227,10 +227,17 @@ msgstr ""
 msgid "Please try reconnecting."
 msgstr ""
 
+#. translators: KB Link
 msgid "If the issue persists, please try the solution described in our Knowledge Base article: %s"
 msgstr ""
 
 msgid "[3. Unable to Encrypt]"
+msgstr ""
+
+msgid "Your site URL has changed since you connected to Rank Math."
+msgstr ""
+
+msgid "Click here to reconnect."
 msgstr ""
 
 #. translators: sitename
@@ -397,13 +404,21 @@ msgstr ""
 msgid "Are you sure you want to import settings into Rank Math? Don't worry, your current configuration will be saved as a backup."
 msgstr ""
 
+#. translators: %s is the plugin name.
+msgid "Are you sure you want to import data from %s?"
+msgstr ""
+
+msgid "Select data to import."
+msgstr ""
+
 msgid "Are you sure you want to restore this backup? Your current configuration will be overwritten."
 msgstr ""
 
 msgid "Are you sure you want to delete this backup?"
 msgstr ""
 
-msgid "Are you sure you want erase all traces of this plugin?"
+#. translators: %s is the plugin name.
+msgid "Are you sure you want erase all traces of %s?"
 msgstr ""
 
 #. translators: Plugin name
@@ -4277,16 +4292,16 @@ msgstr ""
 msgid "Prevent search results pages from getting indexed by search engines. Search results could be considered to be thin content and prone to duplicate content issues."
 msgstr ""
 
-msgid "Noindex Paginated Pages"
+msgid "Noindex Subpages"
 msgstr ""
 
-msgid "Set this to on to prevent /page/2 and further of any archive to show up in the search results."
+msgid "Prevent all paginated pages from getting indexed by search engines."
 msgstr ""
 
-msgid "Noindex Archive Subpages"
+msgid "Noindex Paginated Single Pages"
 msgstr ""
 
-msgid "Prevent paginated archive pages from getting indexed by search engines."
+msgid "Prevent paginated pages of single pages and posts to show up in the search results. This also applies for the Blog page."
 msgstr ""
 
 msgid "Noindex Password Protected Pages"
@@ -5602,7 +5617,7 @@ msgstr ""
 msgid "Ping Search Engines"
 msgstr ""
 
-msgid "Automatically notify Google &amp; Bing when a sitemap gets updated."
+msgid "Automatically notify Google when a sitemap gets updated."
 msgstr ""
 
 msgid "Include in Sitemap"

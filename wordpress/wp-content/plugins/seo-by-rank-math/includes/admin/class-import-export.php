@@ -143,10 +143,16 @@ class Import_Export implements Runner {
 		wp_enqueue_style( 'rank-math-common' );
 		wp_enqueue_style( 'rank-math-cmb2' );
 
-		Helper::add_json( 'importConfirm', esc_html__( 'Are you sure you want to import settings into Rank Math? Don\'t worry, your current configuration will be saved as a backup.', 'rank-math' ) );
+		Helper::add_json( 'importSettingsConfirm', esc_html__( 'Are you sure you want to import settings into Rank Math? Don\'t worry, your current configuration will be saved as a backup.', 'rank-math' ) );
+
+		// Translators: %s is the plugin name.
+		Helper::add_json( 'importPluginConfirm', esc_html__( 'Are you sure you want to import data from %s?', 'rank-math' ) );
+		Helper::add_json( 'importPluginSelectAction', esc_html__( 'Select data to import.', 'rank-math' ) );
 		Helper::add_json( 'restoreConfirm', esc_html__( 'Are you sure you want to restore this backup? Your current configuration will be overwritten.', 'rank-math' ) );
 		Helper::add_json( 'deleteBackupConfirm', esc_html__( 'Are you sure you want to delete this backup?', 'rank-math' ) );
-		Helper::add_json( 'cleanPluginConfirm', esc_html__( 'Are you sure you want erase all traces of this plugin?', 'rank-math' ) );
+
+		// Translators: %s is the plugin name.
+		Helper::add_json( 'cleanPluginConfirm', esc_html__( 'Are you sure you want erase all traces of %s?', 'rank-math' ) );
 	}
 
 	/**

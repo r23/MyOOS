@@ -203,7 +203,7 @@ class Pagination extends Component {
 			showPagePicker,
 			showPerPagePicker,
 		} = this.props
-		this.pageCount = Math.ceil( total / perPage )
+		this.pageCount = Math.ceil( total / perPage ) || 0
 
 		const classes = classNames( 'rank-math-pagination', className )
 

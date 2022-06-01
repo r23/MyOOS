@@ -275,7 +275,9 @@ class Table extends Component {
 						</tr>
 						{ hasData ? (
 							rows.map( ( row, i ) => (
-								<>
+								<Fragment
+									key={ i }
+								>
 									<tr
 										onClick={ () => {
 											if ( includes( this.state.showIndexingData, i ) ) {
@@ -289,7 +291,6 @@ class Table extends Component {
 												} )
 											}
 										} }
-										key={ i }
 									>
 										{ row.map( ( cell, j ) => {
 											const {
@@ -315,7 +316,7 @@ class Table extends Component {
 													scope={
 														isHeader ? 'row' : null
 													}
-													rowspan={ isHeader && ( indexingData && 0 === i ) ? '2' : '' }
+													rowSpan={ isHeader && ( indexingData && 0 === i ) ? '2' : '' }
 													key={ j }
 													className={ cellClasses }
 												>
@@ -346,7 +347,7 @@ class Table extends Component {
 										indexingData && this.state.showIndexingData.includes( i ) &&
 										<IndexingDataToggle data={ indexingData[ i ] } />
 									}
-								</>
+								</Fragment>
 							) )
 						) : (
 							<tr>

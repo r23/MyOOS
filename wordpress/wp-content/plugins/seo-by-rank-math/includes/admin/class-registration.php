@@ -125,6 +125,7 @@ class Registration {
 					'api_key'   => $auth_data['api_key'],
 					'plan'      => $auth_data['plan'],
 					'connected' => true,
+					'site_url'  => home_url(),
 				]
 			);
 

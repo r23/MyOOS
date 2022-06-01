@@ -116,7 +116,7 @@ class Image {
 	 * @param int    $id   The attachment ID.
 	 * @param string $type Overlay type.
 	 */
-	private function generate_secret( $id, $type ) {
+	public function generate_secret( $id, $type ) {
 		return md5( $id . $type . wp_salt( 'nonce' ) );
 	}
 
@@ -128,9 +128,9 @@ class Image {
 	private function image_tag( $image_meta ) {
 		$overlay  = $this->opengraph->get_overlay_image();
 		$og_image = $image_meta['url'];
-		if ( ! empty( $image_meta['id'] ) ) {
+		if ( $overlay && ! empty( $image_meta['id'] ) ) {
 			$secret   = $this->generate_secret( $image_meta['id'], $overlay );
-			$og_image = $overlay ? admin_url( "admin-ajax.php?action=rank_math_overlay_thumb&id={$image_meta['id']}&type={$overlay}&secret={$secret}" ) : $og_image;
+			$og_image = admin_url( "admin-ajax.php?action=rank_math_overlay_thumb&id={$image_meta['id']}&type={$overlay}&secret={$secret}" );
 		}
 		$this->opengraph->tag( 'og:image', esc_url_raw( $og_image ) );
 

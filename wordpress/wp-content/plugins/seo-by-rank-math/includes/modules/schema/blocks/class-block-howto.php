@@ -384,10 +384,9 @@ class Block_HowTo extends Block {
 	 */
 	private function add_duration( &$data, $attrs ) {
 		if ( ! empty( $attrs['hasDuration'] ) ) {
-			$days    = $attrs['days'] ?? 0;
-			$hours   = $attrs['hours'] ?? 0;
-			$minutes = $attrs['minutes'] ?? 0;
-
+			$days    = absint( $attrs['days'] ?? 0 );
+			$hours   = absint( $attrs['hours'] ?? 0 );
+			$minutes = absint( $attrs['minutes'] ?? 0 );
 			if ( ( $days + $hours + $minutes ) > 0 ) {
 				$data['totalTime'] = esc_attr( 'P' . $days . 'DT' . $hours . 'H' . $minutes . 'M' );
 			}

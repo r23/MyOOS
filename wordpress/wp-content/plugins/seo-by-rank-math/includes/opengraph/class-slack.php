@@ -109,7 +109,7 @@ class Slack extends OpenGraph {
 	}
 
 	/**
-	 * Get product data
+	 * Get product data.
 	 *
 	 * @return array
 	 */
@@ -288,9 +288,17 @@ class Slack extends OpenGraph {
 	 * @return string
 	 */
 	private function calculate_time_to_read( $post ) {
-		$words_per_minute = 200;
 
-		$content = wp_strip_all_tags( $post->post_content );
+		/**
+		 * Filter: 'rank_math/frontend/time_to_read_content' - Change the text to calculate the time to read.
+		 */
+		$content = $this->do_filter( 'frontend/time_to_read_content', wp_strip_all_tags( $post->post_content ) );
+
+		/**
+		 * Filter: 'rank_math/frontend/time_to_read_wpm' - Change the words per minute to calculate the time to read.
+		 */
+		$words_per_minute = absint( $this->do_filter( 'frontend/time_to_read_wpm', 200 ) );
+
 		$words   = str_word_count( $content );
 		$minutes = floor( $words / $words_per_minute );
 

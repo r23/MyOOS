@@ -90,7 +90,7 @@ class Database_Tools {
 		$transients = $wpdb->get_col(
 			"SELECT `option_name` AS `name`
 			FROM  $wpdb->options
-			WHERE `option_name` LIKE '%_transient_rank_math%'
+			WHERE `option_name` LIKE '%\\_transient\\_rank_math%'
 			ORDER BY `option_name`"
 		);
 

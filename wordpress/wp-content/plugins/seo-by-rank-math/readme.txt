@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 6.0
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.89.1
+Stable tag: 1.0.90
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -580,30 +580,27 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.89.1 [May 21, 2022] =
-* Fixed: [Content AI](https://rankmath.com/kb/how-to-use-content-ai/#num-6-5-media-count) was not detecting the images present in the content area
-* Fixed: Content AI was crashing the editor on some setups when the site was not connected to Rank Math account
-* Fixed: Some sites were showing PHP warning after the last update
-
-= 1.0.89 [May 20, 2022] =
-* Added: Support for shortcodes in the [FAQ](https://rankmath.com/kb/faq-schema-block/) & [HowTo](https://rankmath.com/blog/howto-schema/) block content
-* Added: [New filter](https://rankmath.com/kb/filters-hooks-api-developer/#allow-line-breaks) to allow line breaks in the FAQ & HowTo block content
-* Added: [Compatibility check](https://rankmath.com/kb/how-to-setup/#compatibility-check) to check if the `base64_*` functions are available
-* Improved: Description for [Schema Type Titles & Meta option](https://rankmath.com/kb/titles-and-meta/#rich-snippet-type) to make it easy to understand
-* Improved: Error messages on different pages to make it easy to understand
-* Improved: The code that generates [Thumbnail overlay](https://rankmath.com/kb/meta-box-social-tab/#add-icon-overlay-to-thumbnails)
-* Improved: Optimized and improved the overall code
-* Removed: The `image:caption` & `image:title` properties from the sitemap as Google no longer uses them. You can read more about it [here](https://developers.google.com/search/blog/2022/05/spring-cleaning-sitemap-extensions)
-* Fixed: [Google Search Console](https://rankmath.com/kb/general-settings/#search-console) data import was not working well with the domain property
-* Fixed: [Content Analysis](https://rankmath.com/kb/score-100-in-tests/) was not working when a comma was used in the [Focus keyword](https://rankmath.com/kb/what-is-a-focus-keyword/)
-* Fixed: Link Suggestion was not working well when the 'AMP for WP' plugin is active
-* Fixed: WP Super Cache plugin's cache was completely getting cleared after updating the WooCommerce Product
-* Fixed: PHP warning when invalid regex was used in the [404 Monitor Exclude Path](https://rankmath.com/kb/general-settings/#exclude-paths) setting
-* Fixed: Content AI was not working well on the posts created using the 'Builder by SiteOrigin' plugin
-* Fixed: Dashboard widget was showing without any content to the users who didn't have the required capability
-* Fixed: Links pointing to the media files were also counted as internal links by the [Link Counter](https://rankmath.com/kb/link-counter/)
-* Fixed: Missing tooltips in the Content Analysis tests
-* Fixed: Improved the styling of the [Classic Editor Metabox](https://rankmath.com/kb/on-page-seo/#num-3-in-classic-editor) when it is moved to the editor's sidebar
-* Fixed: [Remove Snippet Data](https://rankmath.com/kb/titles-and-meta/#product-categories-remove-snippet-data) option was not working on some setups
+= 1.0.90 [Jun 01, 2022] =
+* Added: New [filter to modify](https://rankmath.com/kb/filters-hooks-api-developer/#change-time-to-read-text) the text of [Time to Read](https://rankmath.com/kb/slack-enhanced-sharing/#enhanced-sharing) label
+* Added: New filter to modify [Words Per Minute](https://rankmath.com/kb/filters-hooks-api-developer/#change-words-per-minute) in the Slack enhanced sharing
+* Added: New function in Paper class to reset the main post instance. You can now use `\RankMath\Paper\Paper::reset();` code to reset the current Paper instance
+* Improved: Made several significant code improvements that make the plugin even FASTER and lighter
+* Improved: Optimized the query that [imports data from other plugins](https://rankmath.com/kb/import-export-settings/#plugin-importers-section)
+* Improved: Log details of the error when [collation fixer function](https://rankmath.com/kb/rank-math-status-and-tools/#fix-analytics-table-collations) is executed
+* Improved: Description for [Noindex Paginated Pages](https://rankmath.com/kb/titles-and-meta/#noindex-paginated-pages) & [Noindex Archive Subpages](https://rankmath.com/kb/titles-and-meta/#noindex-archive-subpages) to make it easy to understand
+* Improved: Confirm dialog messages when [importing](https://rankmath.com/kb/import-export-settings/) or [cleaning the plugin data](https://rankmath.com/kb/remove-yoast/) to make it easy to understand
+* Removed: Code that [ping sitemaps](https://rankmath.com/kb/configure-sitemaps/#ping-search-engines) to Bing as it no longer supports it. You can read more about it here: https://www.seroundtable.com/bings-anonymous-sitemap-submissions-deprecated-33414.html
+* Fixed: jQuery Migrate warnings on some setups
+* Fixed: [Link Counter](https://rankmath.com/kb/link-counter/) was not working correctly on some setups
+* Fixed: Twitter overlay image option was not working when the [Use Data from Facebook tab](https://rankmath.com/kb/meta-box-social-tab/#use-data-from-facebook-tab) option was enabled
+* Fixed: [Auto Post Redirect](https://rankmath.com/kb/general-settings/#auto-post-redirect) was not working on a subdomain installation
+* Fixed: PHP error on some setups when [HowTo block](https://rankmath.com/kb/howto-schema/#num-1-2-add-the-howto-block-to-the-post) was used in the post
+* Fixed: JS console warnings when using the [HowTo](https://rankmath.com/blog/howto-schema/) block
+* Fixed: JS console warnings on[Analytics pages](https://rankmath.com/kb/analytics/)
+* Fixed: Posts list column & [Post Analytics](https://rankmath.com/kb/analytics/#post-analytics) was not showing the FAQ & HowTo schema when those were added using the blocks
+* Fixed: Duplicated rows were stored in the redirections_cache table on some setups
+* Fixed: Duplicate code that used to ping sitemaps to Google twice on some setups
+* Fixed: Missing Rank Math icon in Block editor when Display Button Label option was enabled in the Preferences settings
+* Fixed: Permalink in Classic Editor was not updating after publishing the post on some setups
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

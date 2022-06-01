@@ -45,7 +45,7 @@ TablePlaceholder.propTypes = {
 	/**
 	 * A label for the content in this table.
 	 */
-	caption: PropTypes.string.isRequired,
+	caption: PropTypes.oneOfType( [ PropTypes.string, PropTypes.object ] ),
 	/**
 	 * An array of column headers (see `Table` props).
 	 */

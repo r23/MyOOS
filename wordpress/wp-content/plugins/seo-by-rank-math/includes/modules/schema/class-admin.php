@@ -41,16 +41,17 @@ class Admin extends Base {
 
 		$this->action( 'cmb2_admin_init', 'add_kb_links', 50 );
 		$this->action( 'rank_math/admin/editor_scripts', 'enqueue' );
-		$this->action( 'rank_math/post/column/seo_details', 'display_schema_type' );
+		$this->action( 'rank_math/post/column/seo_details', 'display_schema_type', 10, 2 );
 	}
 
 	/**
 	 * Display schema type in the `seo_details` column on the posts.
 	 *
-	 * @param int $post_id The current post ID.
+	 * @param int   $post_id The current post ID.
+	 * @param array $data    SEO data of current post.
 	 */
-	public function display_schema_type( $post_id ) {
-		$schema = absint( get_option( 'page_for_posts' ) ) !== $post_id ? $this->get_schema_types( $post_id ) : 'CollectionPage';
+	public function display_schema_type( $post_id, $data ) {
+		$schema = absint( get_option( 'page_for_posts' ) ) !== $post_id ? $this->get_schema_types( $data, $post_id ) : 'CollectionPage';
 		$schema = ! empty( $schema ) ? $schema : Helper::get_default_schema_type( $post_id, true, true );
 		$schema = $schema ? $schema : esc_html__( 'Off', 'rank-math' );
 		?>
@@ -183,18 +184,23 @@ class Admin extends Base {
 	/**
 	 * Get schema types for current post.
 	 *
-	 * @param int $post_id The current post ID.
+	 * @param array $data    Current post SEO data.
+	 * @param int   $post_id Current post ID.
 	 *
 	 * @return string Comma separated schema types.
 	 */
-	private function get_schema_types( $post_id ) {
-		$schemas = DB::get_schemas( $post_id );
-		if ( empty( $schemas ) ) {
+	private function get_schema_types( $data, $post_id ) {
+		if ( empty( $data ) ) {
 			return false;
 		}
 
 		$types = [];
-		foreach ( $schemas as $schema ) {
+		foreach ( $data as $key => $value ) {
+			if ( ! Str::starts_with( 'rank_math_schema_', $key ) ) {
+				continue;
+			}
+
+			$schema = maybe_unserialize( $value );
 			if ( ! is_array( $schema['@type'] ) ) {
 				$types[] = Helper::sanitize_schema_title( $schema['@type'] );
 				continue;
@@ -211,7 +217,19 @@ class Admin extends Base {
 			);
 		}
 
-		return implode( ', ', $types );
+		if ( empty( $types ) && Helper::get_default_schema_type( $post_id ) ) {
+			$types[] = ucfirst( Helper::get_default_schema_type( $post_id ) );
+		}
+
+		if ( has_block( 'rank-math/faq-block', $post_id ) ) {
+			$types[] = 'FAQPage';
+		}
+
+		if ( has_block( 'rank-math/howto-block', $post_id ) ) {
+			$types[] = 'HowTo';
+		}
+
+		return empty( $types ) ? false : implode( ', ', $types );
 	}
 
 	/**

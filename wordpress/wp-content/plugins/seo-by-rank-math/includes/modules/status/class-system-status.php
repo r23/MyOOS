@@ -157,7 +157,7 @@ class System_Status {
 				AND table_name LIKE %s
 				ORDER BY name ASC;",
 				DB_NAME,
-				'%rank_math%'
+				'%rank\\_math%'
 			)
 		);
 

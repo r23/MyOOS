@@ -436,7 +436,7 @@ class Redirection {
 			return $this->domain;
 		}
 
-		$this->domain = Url::get_domain( home_url() );
+		$this->domain = Url::get_host( home_url() );
 
 		return $this->domain;
 	}

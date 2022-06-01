@@ -562,7 +562,7 @@ trait WordPress {
 
 	/**
 	 * An helper function get the home_url without the WPML language parameter.
-	 * 
+	 *
 	 * @param string $path   Path relative to the home URL.
 	 * @param string $scheme Scheme to give the home URL context.
 	 *

@@ -88,6 +88,22 @@ class Cache {
 			]
 		);
 
+		// Check if already exists.
+		$exists = self::table()->where(
+			[
+				[ 'from_url', '=', $args['from_url'] ],
+				[ 'redirection_id', '=', $args['redirection_id'] ],
+				[ 'object_id', '=', $args['object_id'] ],
+				[ 'object_type', '=', $args['object_type'] ],
+				[ 'is_redirected', '=', $args['is_redirected'] ],
+			],
+			'and'
+		)->one();
+
+		if ( ! empty( $exists ) ) {
+			return false;
+		}
+
 		return self::table()->insert( $args, [ '%s', '%d', '%d', '%s', '%d' ] );
 	}
 

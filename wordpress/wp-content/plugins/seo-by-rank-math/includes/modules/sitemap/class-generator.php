@@ -167,7 +167,7 @@ class Generator extends XML {
 			}
 
 			$links = $provider->get_sitemap_links( $type, $this->max_entries, $page );
-			if ( empty( $links ) ) {
+			if ( empty( $links ) && ( empty( $provider->should_show_empty ) || $page > 1 ) ) {
 				continue;
 			}
 
