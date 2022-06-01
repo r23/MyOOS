@@ -37,7 +37,7 @@ $aLang['products_order_qty_text'] = 'Qty.';
 $aLang['text_product_notifications'] = 'My Product Notifications';
 $aLang['text_product_notifications_introduction'] = 'The product notification list allows you to stay up to date on the products we have available, which gives you the chance to take advantage of our products on special.';
 $aLang['text_test_it'] = 'Test it on your mobile device!';
-$aLang['text_product_review_login'] = 'You must be logged in to write a review - log in now.';
+$aLang['text_product_review_login'] = 'You must be logged in to write a review - <a href="%s">log in now</a>';
 
 $aLang['text_configurator'] = 'Configurator';
 $aLang['text_b_ware'] = 'B - Ware';
