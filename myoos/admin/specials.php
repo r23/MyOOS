@@ -382,29 +382,28 @@ function updateNet() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_SPECIALS_SPECIAL_PRICE; ?></label>
                               <div class="col-lg-10">
                                 <?php
-    if (!empty($sInfo->products_name)) {
-        echo oos_draw_input_field('specials_price', '', 'onkeyup="updateWithTax()"');
+
+	if (isset($sInfo->specials_new_products_price)) {	
+        echo oos_draw_input_field('specials_price', $sInfo->specials_new_products_price, 'onkeyup="updateWithTax()"');
     } else {
-        echo oos_draw_input_field('specials_price', '');
-    } ?>
-							
+        echo oos_draw_input_field('specials_price', '', 'onkeyup="updateWithTax()"');
+    } ?>						
                               </div>
                            </div>
                         </fieldset>
-<?php
-    if (!empty($sInfo->products_name)) {
-        ?>		
-                        <fieldset>
+          <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_SPECIALS_SPECIAL_PRICE_WITH_TAX; ?></label>
                               <div class="col-lg-10">
                                 <?php
-    echo oos_draw_input_field('specials_price_gross', '', 'onkeyup="updateNet()"'); ?>
+	if (isset($sInfo->specials_new_products_price)) {
+		echo oos_draw_input_field('specials_price_gross', $in_new_price, 'onkeyup="updateNet()"'); 
+	} else {	
+		echo oos_draw_input_field('specials_price_gross', '', 'onkeyup="updateNet()"'); 
+    } ?>
                               </div>
                            </div>
-                        </fieldset>					 
-<?php
-    } ?>					 
+                        </fieldset>					 				 
                      <fieldset>
                         <div class="form-group row mb-2">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SPECIALS_EXPIRES_DATE; ?></label>
