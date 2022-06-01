@@ -238,6 +238,15 @@
 					{if $oEvent->installed_plugin('reviews')}				
 						<!-- rating -->
 						<div class="product_details_ratings mb-15">
+
+							<h5>{$reviews_information.information_heading_title}</h5>
+						
+							{$reviews_information.information_description}
+						
+						{if (!isset($smarty.session.customer_id)) }
+							<p>{$reviews_write_link|string_format:$lang.text_product_review_login}</p>
+						{/if}
+	
 						{if $reviews_total gt 0}
 							<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
 								<meta itemprop="ratingCount" content="{$reviews_total}" />
@@ -253,12 +262,8 @@
 								<i class="fa fa-pencil" aria-hidden="true"></i> {$lang.button_write_first_review}
 							</a>
 						{/if}
-						
-						
-						<h5>{$reviews_information.information_heading_title}</h5>
-						
-						{$reviews_information.information_description}
-					
+
+	
 						</div>
 						<!-- /rating -->
 					{/if}

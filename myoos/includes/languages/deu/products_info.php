@@ -37,7 +37,7 @@ $aLang['products_order_qty_text'] = 'Menge';
 $aLang['text_product_notifications'] = 'Ihre Produkt Benachrichtigungen';
 $aLang['text_product_notifications_introduction'] = 'Mit der Benachrichtigungsfunktion ermöglichen wir es Ihnen, über alle unsere Produkte informiert zu sein. Sie erhalten zeitnah die aktuellsten Informationen über unsere Produkte und Sonderangebote.';
 $aLang['text_test_it'] = 'Testen Sie es auf Ihrem mobilen Gerät!';
-
+$aLang['text_product_review_login'] = 'Sie müssen angemeldet sein, um eine Bewertung schreiben zu können - <a href="%s">jetzt anmelden.</a>.';
 
 $aLang['text_configurator'] = 'Konfigurator';
 $aLang['text_b_ware'] = 'B - Ware';

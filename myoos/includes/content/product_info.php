@@ -274,6 +274,10 @@ if (!$product_info_result->RecordCount()) {
 				AND id.information_languages_id = '" .  intval($nLanguageID) . "'";
 		$reviews_information = $dbconn->GetRow($sql);
 		$smarty->assign('reviews_information', $reviews_information);
+
+
+		$smarty->assign('reviews_write_link', oos_href_link($aContents['product_reviews_write'], 'products_id=' . intval($nProductsID)));
+
 		
         $reviewstable = $oostable['reviews'];
         $reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "' AND reviews_status = '1'";

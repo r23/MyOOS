@@ -74,6 +74,8 @@
           $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_RANDOM_SELECT_REVIEWS', '10', 6, 1, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
           $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('MAX_DISPLAY_NEW_REVIEWS', '6', 6, 2, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
 
+          $dbconn->Execute("UPDATE " . $oostable['information'] . " SET status = '1' WHERE information_id = '7'");
+
           return true;
       }
 
@@ -84,8 +86,16 @@
           $dbconn =& oosDBGetConn();
           $oostable =& oosDBGetTables();
 
+          $blocktable = $oostable['block'];
+          $dbconn->Execute("UPDATE $blocktable
+                        SET block_status = 1
+                        WHERE block_file = 'reviews'");
+
+
           $configurationtable = $oostable['configuration'];
           $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->config_item()) . "')");
+
+          $dbconn->Execute("UPDATE " . $oostable['information'] . " SET status = '0' WHERE information_id = '7'");
 
           return true;
       }
