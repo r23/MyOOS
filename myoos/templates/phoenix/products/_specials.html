@@ -21,15 +21,14 @@
 						<span class="price-offer">{$special.products_special_price}</span> 
 						
 						{if $special.new_special_cross_out_price > 0}						
-							<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$special.new_special_cross_out_price}</span></span>
+							<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$special.new_special_cross_out_price}</span></span><br>
 						{/if}		
 						
-					</div>
 						{if $special.products_base_price != 1}
-							<p>{$special.product_quantity|cut_number}&nbsp;{$products_units[$special.products_units].0}<br>
-							<span class="base_price">({$products_units[$special.products_units].1} = {$special.base_product_special_price})</span></p>
+							<span class="units-desc">{$special.product_quantity|cut_number}&nbsp;{$products_units[$special.products_units].0}</span><br>
+							<span class="base_price">({$products_units[$special.products_units].1} = {$special.base_product_special_price})</span>
 						{/if}
-	
+					</div>	
 					{/if}		  
 				</div>
 		

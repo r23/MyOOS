@@ -85,13 +85,13 @@
 											{$products_new[i].new_product_price}
 										{/if}
 									{/if}
-								</div>
 
 									{if $products_new[i].products_base_price != 1}
-										<p>{$products_new[i].new_product_quantity|cut_number}&nbsp;{$products_units[$products_new[i].new_product_units].0}<br>
-										<span class="base_price">({$products_units[$products_new[i].new_product_units].1} = {$products_new[i].products_new_base_product_price})</span></p>
+										<span class="units-desc">{$products_new[i].new_product_quantity|cut_number}&nbsp;{$products_units[$products_new[i].new_product_units].0}</span><br>
+										<span class="base_price">({$products_units[$products_new[i].new_product_units].1} = {$products_new[i].products_new_base_product_price})</span>
 									{/if}	
-								<!-- end price -->
+								<!-- end price -->							
+								</div>
 								{/if}
 
 

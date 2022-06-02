@@ -59,7 +59,7 @@
 	color:#ef4135;
 	font-size:14px;
 	padding-right:5px;
-	font-weight: bold
+	font-weight: bold;
 }
 
 
@@ -81,8 +81,27 @@
 	color:#808080;
 }
 
+.product-price  span.units-desc {
+	color:#999;
+	font-size:12px;
+	padding-right:5px;
+}
+
+.product-price  span.base_price {
+	color:#999;
+	font-size:12px;
+	padding-right:5px;
+}
+
 .product-price p {
   margin-bottom: 38px;
+}
+
+.product_details_desc span.price-desc {
+	color:#ef4135;
+	font-size:14px;
+	padding-right:5px;
+	font-weight: bold;
 }
 
 .total_price {
