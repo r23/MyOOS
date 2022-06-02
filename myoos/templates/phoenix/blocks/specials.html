@@ -15,7 +15,7 @@
 	{if $myUser.show_price eq 1 }
 		<div class="product-price text-center">
 			{if (!empty($specials_random_product_special_price))}
-				<span class="price-offer">{$specials_random_until}</span><br>
+				<span class="price-desc">{$specials_random_until}</span><br>
 				<span class="price-offer">{$specials_random_product_special_price}</span> 			
 				{if $specials_random_cross_out_price > 0}						
 					<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$specials_random_cross_out_price}</span></span>

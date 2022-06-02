@@ -109,8 +109,9 @@
 					{/if}
 				
 {if $myUser.show_price eq 1}
+
 	{if (!empty($info_product_special_price))}
-		<span class="price-offer">{$info_product_only_until}</span><br>
+		<span class="price-desc">{$info_product_only_until}</span><br>
 	
 		{if $cross_out_price > 0}
 			<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$cross_out_price}</span></span><br>
@@ -130,6 +131,7 @@
 			</div>
 		{/if}
 	{/if}
+
 
 	{if $product_info.products_base_price != 1}
 		<p>{$lang.text_content} {$product_info.products_product_quantity|cut_number}&nbsp;{$products_units[$product_info.products_units_id].0}<br>
