@@ -38,7 +38,6 @@
 }
 %tableData{
 	vertical-align: middle;
-	text-transform: uppercase;
 	font-weight: 700;
 	@include add-border(3px, $m-color-light, bottom);
 	border-top: none;

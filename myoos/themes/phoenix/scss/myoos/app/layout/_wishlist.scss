@@ -44,7 +44,6 @@
 					td{
 						@extend %tableData;
 						font-size: 16px;
-						text-transform: capitalize;
 						font-weight: 400;
 						@include mobile{
 							padding: 10px;
