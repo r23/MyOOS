@@ -94,7 +94,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         if (!oos_validate_password($password, $check_customer['customers_password'])) {
             $bError = true;
         } else {
-            $optionen = [
+            $options = [
                 'cost' => COST
             ];
 
