@@ -9,6 +9,7 @@ echo '<div>'.__( 'Most users ever online was: ', 'wp-w3all-phpbb-integration' ) 
 //. __( '<br />(based on users active over the past', 'wp-w3all-phpbb-integration' ).' '.W3PHPBBCONFIG['load_online_time']. ' ' .__( 'minutes)', 'wp-w3all-phpbb-integration' ).'</div>'
 .'<br />';
 
+if(!empty($phpbb_online_udata)){
 echo'<div id="" class="w3_widget_online_udata" style="display:flex;flex-wrap:wrap;padding:0;">';
 
 if( $ava_or_ulinks == 'avatars' ){ // avatars
@@ -44,3 +45,4 @@ if( $ava_or_ulinks == 'links' ){ // usernames text links
 } // END with usernames text links
 
 echo '</div>';
+}

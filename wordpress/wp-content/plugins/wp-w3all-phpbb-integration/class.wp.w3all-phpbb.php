@@ -767,14 +767,12 @@ private static function phpBB_user_session_set($wp_user_data){
      if($w3all_anti_brute_force_yn == 1 && !empty($w3all_bruteblock_phpbbulist)){
 
       if( is_array($w3all_bruteblock_phpbbulist) && $tot > 4000 ){
-            unset($w3all_bruteblock_phpbbulist[$phpbb_user_id]); // Remove this uid
-            $w3all_bruteblock_phpbbulist = array_slice($w3all_bruteblock_phpbbulist, 100, $tot, true); // reduce of 100 removing olders
-            update_option( 'w3all_bruteblock_phpbbulist', $w3all_bruteblock_phpbbulist );
-          } else {
-             unset($w3all_bruteblock_phpbbulist[$phpbb_user_id]); // Remove this uid
-             $w3all_bruteblock_phpbbulist = empty($w3all_bruteblock_phpbbulist) ? '' : $w3all_bruteblock_phpbbulist;
-             update_option( 'w3all_bruteblock_phpbbulist', $w3all_bruteblock_phpbbulist );
-            }
+       $w3all_bruteblock_phpbbulist = array_slice($w3all_bruteblock_phpbbulist, 100, $tot, true); // reduce of 100 removing olders
+      }
+
+       unset($w3all_bruteblock_phpbbulist[$phpbb_user_id]); // Remove this uid
+       $w3all_bruteblock_phpbbulist = empty($w3all_bruteblock_phpbbulist) ? '' : $w3all_bruteblock_phpbbulist;
+       update_option( 'w3all_bruteblock_phpbbulist', $w3all_bruteblock_phpbbulist );
 
        // Remove cookie msg that fire on wp login if it exist
         setcookie ("w3all_bruteblock", "", time() - 31622400, "/", "$w3cookie_domain");

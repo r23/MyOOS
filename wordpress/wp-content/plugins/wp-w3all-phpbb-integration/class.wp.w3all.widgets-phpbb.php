@@ -195,12 +195,11 @@ public function widget( $args, $instance ) {
   global $phpbb_online_udata,$phpbb_config,$w3all_url_to_cms,$w3all_custom_output_files,$w3all_last_t_avatar_dim;
   $guests_num = $reg_num = 0;
 
-  if(empty($phpbb_online_udata)){ return; }
-
+ if(!empty($phpbb_online_udata)){
    foreach($phpbb_online_udata as $v){
     if($v['user_id'] < 2){ $guests_num++; } else { $reg_num++; }
    }
-
+ }
   echo $args['before_widget'];
 
     if ( ! empty( $instance['title'] ) ) {

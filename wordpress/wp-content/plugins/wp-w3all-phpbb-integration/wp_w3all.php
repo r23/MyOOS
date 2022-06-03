@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.6.3
+Version: 2.6.4
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -34,7 +34,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden, something goes wrong' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.6.3' );
+define( 'WPW3ALL_VERSION', '2.6.4' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -582,7 +582,6 @@ function wp_w3all_phpbb_registration_save2($user_id) {
  function wp_w3all_phpbb_login($user_login, $user = '') {
 
    if( ! defined("PHPBBAUTHCOOKIEREL") ){
-
      $phpBB_user_session_set = WP_w3all_phpbb::phpBB_user_session_set_res($user);
    }
  }
@@ -643,8 +642,8 @@ function w3all_filter_pre_user_email($raw_user_email) {
       if( !empty($ck) && $w3all_oninsert_wp_user != 1 ){
         $wpu = get_user_by('ID',get_current_user_id());
         $raw_user_email = $wpu->user_email; // Not so elegant: reset to the old one, instead to stop with an error that will go to broke ajax calls or something else (ex in woocommerce transactions)
-        //the user will not be updated but (maybe, it depend by plugins) no message will be thrown, and the user's email notification (email changed), may will fire, even the email not changed at all
-        //the email notification should be suppressed here in case
+        //the user will not be updated but (maybe, it depend by plugins) no message will be thrown, and the user's email notification (email changed), may will fire, even if the email do not changed at all
+        //the email notification action should be suppressed here in case
       }
     }
   }
@@ -1323,7 +1322,7 @@ function w3all_add_phpbb_user() {
     if (empty($phpbb_config)){
      $phpbb_config = WP_w3all_phpbb::w3all_get_phpbb_config_res();
     }
-    
+
    // check that the presented token match or return
 
       if(!empty($phpbb_config["avatar_salt"]))
@@ -1502,7 +1501,7 @@ endif;
  function w3all_get_phpbb_onlineStats() {
 
     global $w3all_config,$phpbb_config,$w3all_phpbb_connection,$phpbb_online_udata;
-    
+
     if (empty($phpbb_config)){
      $phpbb_config = WP_w3all_phpbb::w3all_get_phpbb_config_res();
     }
@@ -1512,12 +1511,22 @@ endif;
    if( $phpbb_config['load_online_time'] > 0 )
    {
     $losTime = time()-($phpbb_config['load_online_time']*60);
-    $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_id, S.session_time, S.session_ip, U.user_id, U.username, U.user_email
+    // this include sessions from same IP, existing (may) due to same user, navigating our forum with different browsers
+    $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_id, S.session_user_id, MAX(S.session_time) AS session_time, S.session_ip, U.user_id, U.username, U.user_email
      FROM ".$w3all_config["table_prefix"]."sessions AS S
      JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = S.session_user_id
      WHERE S.session_time > $losTime
      GROUP BY S.session_id
      ORDER BY U.username",ARRAY_A);
+   // if 'Guests from same IP should be purged' so it should be done here
+   
+   /* Or may the query should be this:
+    $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_id, S.session_user_id, MAX(S.session_time) AS session_time, S.session_ip, U.user_id, U.username, U.user_email
+     FROM ".$w3all_config["table_prefix"]."sessions AS S
+     JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = S.session_user_id
+     WHERE S.session_time > $losTime
+     GROUP BY S.session_ip
+     ORDER BY U.username",ARRAY_A);*/ 
    }
 
   $phpbb_online_udata = empty($phpbb_uonline_udata) ? array() : $phpbb_uonline_udata;
