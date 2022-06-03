@@ -809,8 +809,8 @@ function oos_add_tax($price, $tax)
 {
     global $aUser;
 
-    if (($aUser['price_with_tax'] == 1) && ($tax > 0)) {
-        return $price + oos_calculate_tax($price, $tax);
+    if (($aUser['price_with_tax'] == '1') && ($tax > 0)) {
+		return $price + oos_calculate_tax($price, $tax);
     } else {
         return $price;
     }

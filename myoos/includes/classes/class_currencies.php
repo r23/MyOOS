@@ -73,7 +73,7 @@ class currencies
 
     public function calculate_price($products_price, $products_tax, $quantity = 1)
     {
-        $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
+        $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);	
         return oos_round(oos_add_tax($products_price, $products_tax), $this->currencies[$currency_type]['decimal_places']) * $quantity;
     }
 

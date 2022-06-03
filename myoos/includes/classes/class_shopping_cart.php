@@ -830,7 +830,8 @@ class shoppingCart
     {
         $this->calculate();
 
-        return $this->info;
+		return $this->info['total'];
+      # return $this->info;
     }
 
 

@@ -18,15 +18,15 @@
 				<span class="price-desc">{$specials_random_until}</span><br>
 				<span class="price-offer">{$specials_random_product_special_price}</span> 			
 				{if $specials_random_cross_out_price > 0}						
-					<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$specials_random_cross_out_price}</span></span>
+					<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$specials_random_cross_out_price}</span></span><br>
 				{/if}
 			{elseif $specials_random_product_price_list ne 0}
-				<span class="price-old">{$lang.price_rrp} <span class="line-through">{$specials_random_product_price_list}</span></span>
+				<span class="price-old">{$lang.price_rrp} <span class="line-through">{$specials_random_product_price_list}</span></span><br>
 				{$random_product.new_product_price}	<br>									
 			{/if}
 
 		{if $specials_random.products_base_price != 1}
-			<span class="units-desc">{$specials_random.products_product_quantity|cut_number}&nbsp;{$products_units[$specials_random.products_units_id].0}</span><br>
+			<span class="units-desc">{$specials_random.products_product_quantity|cut_number}&nbsp;{$products_units[$specials_random.products_units_id].0}</span>
 			<span class="base_price">({$products_units[$specials_random.products_units_id].1} = {$specials_random_base_product_price})</span>
 		{/if}
 		</div>
