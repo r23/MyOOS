@@ -3967,12 +3967,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "bff7ded3457ec730ad872ebb19cf46a96970e342"
+                "reference": "e44f8ca7996a2573a10b7f1f8baff9c9caf7db09"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/bff7ded3457ec730ad872ebb19cf46a96970e342",
-                "reference": "bff7ded3457ec730ad872ebb19cf46a96970e342",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e44f8ca7996a2573a10b7f1f8baff9c9caf7db09",
+                "reference": "e44f8ca7996a2573a10b7f1f8baff9c9caf7db09",
                 "shasum": ""
             },
             "conflict": {
@@ -4157,7 +4157,7 @@
                 "league/commonmark": "<0.18.3",
                 "league/flysystem": "<1.1.4|>=2,<2.1.1",
                 "lexik/jwt-authentication-bundle": "<2.10.7|>=2.11,<2.11.3",
-                "librenms/librenms": "<22.2.2",
+                "librenms/librenms": "<22.4",
                 "limesurvey/limesurvey": "<3.27.19",
                 "livehelperchat/livehelperchat": "<=3.91",
                 "livewire/livewire": ">2.2.4,<2.2.6",
@@ -4456,7 +4456,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-02T21:04:08+00:00"
+            "time": "2022-06-03T23:04:18+00:00"
         }
     ],
     "aliases": [],
