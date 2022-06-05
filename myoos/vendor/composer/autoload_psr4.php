@@ -29,6 +29,7 @@ return array(
     'Symfony\\Bridge\\Doctrine\\' => array($vendorDir . '/symfony/symfony/src/Symfony/Bridge/Doctrine'),
     'Svg\\' => array($vendorDir . '/phenx/php-svg-lib/src/Svg'),
     'Stripe\\' => array($vendorDir . '/stripe/stripe-php/lib'),
+    'Spatie\\TemporaryDirectory\\' => array($vendorDir . '/spatie/temporary-directory/src'),
     'Sabberworm\\CSS\\' => array($vendorDir . '/sabberworm/php-css-parser/src'),
     'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
@@ -50,6 +51,7 @@ return array(
     'Laminas\\Code\\' => array($vendorDir . '/laminas/laminas-code/src'),
     'Hisune\\EchartsPHP\\' => array($vendorDir . '/hisune/echarts-php/src'),
     'FontLib\\' => array($vendorDir . '/phenx/php-font-lib/src/FontLib'),
+    'FFMpeg\\' => array($vendorDir . '/php-ffmpeg/php-ffmpeg/src/FFMpeg'),
     'Endroid\\QrCode\\' => array($vendorDir . '/endroid/qr-code/src'),
     'Dompdf\\' => array($vendorDir . '/dompdf/dompdf/src'),
     'Doctrine\\Persistence\\' => array($vendorDir . '/doctrine/persistence/src/Persistence'),
@@ -59,4 +61,5 @@ return array(
     'Complex\\' => array($vendorDir . '/markbaker/complex/classes/src'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'BaconQrCode\\' => array($vendorDir . '/bacon/bacon-qr-code/src'),
+    'Alchemy\\BinaryDriver\\' => array($vendorDir . '/php-ffmpeg/php-ffmpeg/src/Alchemy/BinaryDriver'),
 );

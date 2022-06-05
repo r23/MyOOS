@@ -61,6 +61,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'Symfony\\Bridge\\Doctrine\\' => 24,
             'Svg\\' => 4,
             'Stripe\\' => 7,
+            'Spatie\\TemporaryDirectory\\' => 26,
             'Sabberworm\\CSS\\' => 15,
         ),
         'P' => 
@@ -97,6 +98,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'F' => 
         array (
             'FontLib\\' => 8,
+            'FFMpeg\\' => 7,
         ),
         'E' => 
         array (
@@ -118,6 +120,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'B' => 
         array (
             'BaconQrCode\\' => 12,
+        ),
+        'A' => 
+        array (
+            'Alchemy\\BinaryDriver\\' => 21,
         ),
     );
 
@@ -214,6 +220,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
         ),
+        'Spatie\\TemporaryDirectory\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/temporary-directory/src',
+        ),
         'Sabberworm\\CSS\\' => 
         array (
             0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
@@ -299,6 +309,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
         ),
+        'FFMpeg\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-ffmpeg/php-ffmpeg/src/FFMpeg',
+        ),
         'Endroid\\QrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/endroid/qr-code/src',
@@ -335,6 +349,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
         ),
+        'Alchemy\\BinaryDriver\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-ffmpeg/php-ffmpeg/src/Alchemy/BinaryDriver',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -350,6 +368,13 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'HTMLPurifier' => 
             array (
                 0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
+            ),
+        ),
+        'E' => 
+        array (
+            'Evenement' => 
+            array (
+                0 => __DIR__ . '/..' . '/evenement/evenement/src',
             ),
         ),
         'D' => 
