@@ -306,6 +306,7 @@ define('BUTTON_UNTRASH', 'Untrash');
 define('BUTTON_UPDATE', 'Update');
 define('IMAGE_UPDATE_CURRENCIES', 'Update Exchange Rate');
 define('IMAGE_UPLOAD', 'Upload');
+define('BUTTON_VIDEO', 'Video');
 define('IMAGE_WISHLIST', 'Wishlist');
 
 // coupon_admin

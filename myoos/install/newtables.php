@@ -1226,6 +1226,30 @@ $flds = "
 dosql($table, $flds);
 
 
+$table = $prefix_table . 'products_video';
+$flds = "
+  video_id I I NOTNULL AUTO PRIMARY,
+  products_id I NOTNULL DEFAULT '1' PRIMARY,
+  video_source C(255) NULL,
+  video_poster C(255) NULL,
+  video_preload C(5) DEFAULT 'auto',
+  video_data-setup C(255) NULL,
+  video_date_added T,
+  video_last_modified T 
+";
+dosql($table, $flds);
+
+
+$table = $prefix_table . 'products_video_description';
+$flds = "
+  video_id I DEFAULT '0' NOTNULL PRIMARY,
+  video_languages_id I NOTNULL DEFAULT '1' PRIMARY,
+  video_title C(255) NULL,
+  video_description X, 
+  video_viewed I2 DEFAULT '0'
+";
+dosql($table, $flds);
+
 
 $table = $prefix_table . 'reviews';
 $flds = "

@@ -1582,6 +1582,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
 							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=move_product') . '"><i class="fa fa-share" title="' . BUTTON_MOVE . '"></i></a>
 							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=copy_to') . '"><i class="fa fa-copy" title="' . IMAGE_COPY_TO . '"></i></a>
 							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=slave_products') . '"><i class="fa fa-sticky-note" title="' . IMAGE_SLAVE . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['product_video'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=edit_video') . '"><i class="fas fa-film" title="' .  BUTTON_VIDEO . '"></i></a>
 							<a href="' . oos_href_link_admin($aContents['product_model_viewer'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=edit_3d') . '"><i class="fas fa-hand-spock" title="' .  BUTTON_AR . '"></i></a>
 							<a href="' . oos_href_link_admin($aContents['product_webgl_gltf'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=edit_3d') . '"><i class="fa fa-cube" title="' .  BUTTON_CUBE . '"></i></a>'; ?>&nbsp;</td>
               </tr>

@@ -309,6 +309,7 @@ define('BUTTON_UNTRASH', 'Wiederherstellen');
 define('BUTTON_UPDATE', 'Aktualisieren');
 define('IMAGE_UPDATE_CURRENCIES', 'Wechselkurse aktualisieren');
 define('IMAGE_UPLOAD', 'Hochladen');
+define('BUTTON_VIDEO', 'Video');
 define('IMAGE_WISHLIST', 'Wunschzettel');
 
 // coupon_admin
