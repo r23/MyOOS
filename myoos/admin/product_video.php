@@ -207,7 +207,7 @@ if ($action == 'edit_video') {
                                                  $products_video_descriptiontable vd
                                            WHERE v.products_id = '" . intval($product['products_id']) . "' AND
                                                  v.video_id = vd.video_id AND
-                                                 md.video_languages_id = '" . intval($_SESSION['language_id']) . "'");
+                                                 vd.video_languages_id = '" . intval($_SESSION['language_id']) . "'");
 
         if (!$products_videos_result->RecordCount()) {
             $pInfo->products_videos[] = array('products_id' => $product['products_id'],
