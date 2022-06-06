@@ -56,7 +56,7 @@ $flds = "
   products_id I NOTNULL DEFAULT '1' PRIMARY,
   video_source C(255) NULL,
   video_poster C(255) NULL,
-  video_preload C(5) DEFAULT 'auto',
+  video_preload C(10) DEFAULT 'auto',
   video_data-setup C(255) NULL,
   video_date_added T,
   video_last_modified T 

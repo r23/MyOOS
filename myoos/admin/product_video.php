@@ -109,25 +109,25 @@ if (!empty($action)) {
 
                     // video
                     if (isset($_FILES['video'])) {
-                        if ($_FILES["glb"]["error"] == UPLOAD_ERR_OK) {
+                        if ($_FILES["video"]["error"] == UPLOAD_ERR_OK) {
                             $filename = oos_db_prepare_input($_FILES['video']['name']);
                             $source = $_FILES['video']['tmp_name'];
                             $type = oos_db_prepare_input($_FILES['video']['type']);
 
                             $name = oos_strip_suffix($filename);
                             $ext = oos_get_suffix($filename);
-                            if ($ext == 'video') {
-                                $check =  OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/' . oos_var_prep_for_os($name);
-                                if (is_dir($check)) {
-                                    oos_remove($check);
-                                }
+                            if ($ext == 'mpg') {
+								
+								$poster = $name . 'jpg';
+								
+                                $sql_data_array = array('video_source' => oos_db_prepare_input($name),
+														'video_poster' => oos_db_prepare_input($$poster));
 
-                                $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/' . oos_var_prep_for_os($name) . '/glTF-Binary/';
+                                oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');								
+								
+                                $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
                                 $targetdir = $path;  // target directory
-                                $uploadfile = $path . $filename; // target zip file
-
-                                mkdir($check, 0755);
-                                mkdir($targetdir, 0755);
+                                $uploadfile = $path . $filename; // target mpg file
 
                                 if (move_uploaded_file($source, $uploadfile)) {
                                     $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_GLB, 'success');
@@ -135,9 +135,34 @@ if (!empty($action)) {
                                     $messageStack->add_session(ERROR_PROBLEM_WITH_GLB_FILE, 'error');
                                 }
 
-                                $sql_data_array = array('video_source' => oos_db_prepare_input($filename));
+								if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+									$ffmpeg = FFMpeg\FFMpeg::create(array(
+										'ffmpeg.binaries'  => 'C:/tools/ffmpeg/bin/ffmpeg.exe',
+										'ffprobe.binaries' => 'C:/tools/ffmpeg/bin/ffprobe.exe',
+										'timeout'          => 3600, // The timeout for the underlying process
+										'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
+									));
+								} else {
+									$ffmpeg = FFMpeg\FFMpeg::create();
+								}
 
-                                oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');
+								$video = $ffmpeg->open($uploadfile);
+								/*
+								$video
+									->filters()
+									->resize(new FFMpeg\Coordinate\Dimension(320, 240))
+									->synchronize();
+								*/
+								$dir_video_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/';
+								$frame = $dir_video_images . $poster;
+								$video		
+									->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+									->save($frame);
+								$video
+									->save(new FFMpeg\Format\Video\X264(), $path . $name . '-x264.mp4')
+									->save(new FFMpeg\Format\Video\Ogg(), $path . $name . '-ogg.ogv')
+									->save(new FFMpeg\Format\Video\WebM(), $path .$name . '-webm.webm');
+
                             } else {
                                 $messageStack->add_session(ERROR_NO_GLB_FILE, 'error');
                             }
@@ -270,10 +295,10 @@ if ($action == 'edit_video') {
                         <a class="nav-link active" href="#product" aria-controls="product" role="tab" data-toggle="tab"><?php echo TEXT_PRODUCTS; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="#model" aria-controls="model" role="tab" data-toggle="tab"><?php echo TEXT_MODELS_video; ?></a>
+                        <a class="nav-link" href="#video" aria-controls="video" role="tab" data-toggle="tab"><?php echo TEXT_VIDEO_SOURCE; ?></a>
                      </li>
                      <li class="nav-item" role="presentation">
-                        <a class="nav-link" href="#uplaod" aria-controls="picture" role="tab" data-toggle="tab"><?php echo TEXT_UPLOAD_videoS; ?></a>
+                        <a class="nav-link" href="#uplaod" aria-controls="picture" role="tab" data-toggle="tab"><?php echo TEXT_UPLOAD_VIDEO; ?></a>
                      </li>
                   </ul>
                   <div class="tab-content">
@@ -295,7 +320,7 @@ if ($action == 'edit_video') {
 					 
                      </div>
 			 
-                     <div class="tab-pane" id="model" role="tabpanel">
+                     <div class="tab-pane" id="video" role="tabpanel">
 						<div class="col-9">
 <?php
     if (is_array($pInfo->products_videos) || is_object($pInfo->products_videos)) {
@@ -306,7 +331,7 @@ if ($action == 'edit_video') {
                 echo oos_draw_hidden_field('video_id['. $nCounter . ']', $video['video_id']); ?>
 						<fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_GLB; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_VIDEO_GLB; ?></label>
                               <div class="col-lg-10">
 								<?php echo oos_draw_input_field('video_source['. $nCounter . ']', $video['video_source'], '', false, 'text', true, true); ?>
 								<?php echo oos_draw_hidden_field('video_source['. $nCounter . ']', $video['video_source']); ?>
@@ -318,7 +343,7 @@ if ($action == 'edit_video') {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"></label>
                               <div class="col-lg-10">
-								<?php echo oos_draw_checkbox_field('remove_products_video['. $nCounter . ']', 'yes') . ' ' . TEXT_MODELS_REMOVE; ?>
+								<?php echo oos_draw_checkbox_field('remove_products_video['. $nCounter . ']', 'yes') . ' ' . TEXT_VIDEO_REMOVE; ?>
                               </div>
                            </div>
                         </fieldset>	
@@ -333,7 +358,7 @@ if ($action == 'edit_video') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                    echo TEXT_MODELS_TITLE;
+                    echo TEXT_VIDEO_TITLE;
                 } ?></label>
 							  <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
@@ -351,7 +376,7 @@ if ($action == 'edit_video') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                    echo TEXT_MODELS_DESCRIPTION;
+                    echo TEXT_VIDEO_DESCRIPTION;
                 } ?></label>
 							  <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
@@ -368,87 +393,54 @@ if ($action == 'edit_video') {
 <?php
             } ?>
 
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_BACKGROUND_COLOR; ?></label>
-                              <div class="col-lg-10">
-								<input class="form-control" id="color_selectors" type="text" data-format="hex" data-color="<?php echo $video['video_background_color']; ?>" name="video_background_color[<?php echo $nCounter; ?>]" value="<?php echo $video['video_background_color']; ?>" /> 
-                              </div>
-                           </div>
-                        </fieldset>
-						
+				
 
                        <fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_OBJECT_SCALING; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_VIDEO_OBJECT_SCALING; ?></label>
 
 								<div class="col-lg-2">
 									<div class="c-radio c-radio-nofont">
 										<label>
 										<?php
-                                            echo '<input type="radio" name="video_scale['. $nCounter . ']" value="auto"';
-            if ($video['video_scale'] == 'auto') {
+                                            echo '<input type="radio" name="video_preload['. $nCounter . ']" value="auto"';
+            if ($video['video_preload'] == 'auto') {
                 echo ' checked="checked"';
             }
             echo  '>&nbsp;'; ?>
 											<span class="badge badge-success float-right">auto</span>
 										</label>
 									</div>
-								<div class="c-radio c-radio-nofont">
-									<label>
-										<?php
-                                            echo '<input type="radio" name="video_scale['. $nCounter . ']" value="fixed"';
-            if ($video['video_scale'] == 'fixed') {
-                echo ' checked="checked"';
-            }
-            echo  '>&nbsp;'; ?>
-										<span class="badge badge-danger float-right">fixed</span>
-									</label>
-								</div>
-							</div>
-							
-							<div class="col-lg-8">
-									<p><?php echo TEXT_MODELS_OBJECT_SCALING_HELP; ?></p>
-							</div>							
-						</div>							  
-                        </fieldset>		
-
-
-
-
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_OBJECT_ROTATION; ?></label>
-
-								<div class="col-lg-10">
 									<div class="c-radio c-radio-nofont">
 										<label>
 										<?php
-                                            echo '<input type="radio" name="video_auto_rotate['. $nCounter . ']" value="true"';
-            if ($video['video_auto_rotate'] == 'true') {
+                                            echo '<input type="radio" name="video_preload['. $nCounter . ']" value="auto"';
+            if ($video['video_preload'] == 'metadata') {
                 echo ' checked="checked"';
             }
             echo  '>&nbsp;'; ?>
-											<span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
+											<span class="badge badge-success float-right">metadata</span>
+										</label>
+									</div>									
+									<div class="c-radio c-radio-nofont">
+										<label>
+										<?php
+                                            echo '<input type="radio" name="video_preload['. $nCounter . ']" value=""';
+            if ($video['video_preload'] == 'none') {
+                echo ' checked="checked"';
+            }
+            echo  '>&nbsp;'; ?>
+											<span class="badge badge-danger float-right">none</span>
 										</label>
 									</div>
-								<div class="c-radio c-radio-nofont">
-									<label>
-										<?php
-                                            echo '<input type="radio" name="video_auto_rotate['. $nCounter . ']" value="false"';
-            if ($video['video_auto_rotate'] == 'false') {
-                echo ' checked="checked"';
-            }
-            echo  '>&nbsp;'; ?>
-										<span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
-									</label>
 								</div>
-							</div>
-						</div>							  
-                        </fieldset>						
-					
-							  
-							 
+							
+								<div class="col-lg-8">
+									<?php echo TEXT_VIDEO_OBJECT_SCALING_HELP; ?>
+								</div>							
+							</div>							  
+                        </fieldset>		
+
 				</div>
 
 <?php
@@ -462,7 +454,7 @@ if ($action == 'edit_video') {
 
 				<fieldset>
 					<div class="form-group row">
-						<label class="col-lg-3 col-form-label"><?php echo TEXT_MODELS_GLB; ?></label>
+						<label class="col-lg-3 col-form-label"><?php echo TEXT_VIDEO_GLB; ?></label>
 						<div class="col-lg-9">
 							<input type="file" name="glb" />
 						</div>

@@ -1452,3 +1452,67 @@ function oos_remove_panorama($panorama_id)
     $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_description'] . " WHERE panorama_id = '" . intval($panorama_id) . "'");
     $dbconn->Execute("DELETE FROM " . $oostable['categories_panorama_scene'] . " WHERE panorama_id = '" . intval($panorama_id) . "'");
 }
+
+
+ /**
+  * Return Video Title 
+  *
+  * @param $video_id
+  * @param $language
+  * @return string
+  */
+function oos_get_video_title($video_id, $language_id = '')
+{
+    if (empty($video_id) || !is_numeric($video_id)) {
+        return '';
+    }
+
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $products_video_descriptiontable = $oostable['products_video_description'];
+    $query = "SELECT video_title
+              FROM $products_video_descriptiontable
+              WHERE video_id = '" . intval($video_id) . "'
+                AND video_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $video_title = isset($result->fields['video_title']) ? $result->fields['video_title'] : '';
+
+    return $video_title;
+}
+
+
+ /**
+  * Return Video Description
+  *
+  * @param $video_id
+  * @param $language
+  * @return string
+  */
+function oos_get_video_description($video_id, $language_id = '')
+{
+    if (empty($language_id) || !is_numeric($language_id)) {
+        $language_id = intval($_SESSION['language_id']);
+    }
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $products_video_descriptiontable = $oostable['products_video_description'];
+    $query = "SELECT video_description
+              FROM $products_video_descriptiontable
+              WHERE video_id = '" . intval($video_id) . "'
+                AND video_languages_id = '" . intval($language_id) . "'";
+    $result = $dbconn->Execute($query);
+
+    $video_description = isset($result->fields['video_description']) ? $result->fields['video_description'] : '';
+
+    return $video_description;
+}

@@ -20,34 +20,27 @@
    ---------------------------------------------------------------------- */
 
 
-define('HEADING_TITLE', 'Augmented Reality');
+define('HEADING_TITLE', 'Produkt Video');
 
-define('TEXT_NEW_PRODUCT', 'Augmented Reality &quot;%s&quot;');
+define('TEXT_NEW_PRODUCT', 'Produkt Video über &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Artikel');
-define('TEXT_MODELS_MODEL', '3D-Modell');
+define('TEXT_VIDEO_SOURCE', 'Video');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
-define('TEXT_MODELS_GLB', '3D-Modell .glb Format');
-define('TEXT_MODELS_USDZ', '3D-Modell .usdz Format optional für Apple');
+define('TEXT_VIDEO_GLB', '3D-Modell .glb Format');
 
-define('TEXT_MODELS_TITLE', 'Alternativtext für ALT-Attribut:');
-define('TEXT_MODELS_DESCRIPTION', '3D-Modellbeschreibung:');
-define('TEXT_MODELS_BACKGROUND_COLOR', 'Hintergrundfarbe:');
-define('TEXT_MODELS_OBJECT_SCALING', 'Skalierungsverhalten:');
-define('TEXT_MODELS_OBJECT_SCALING_HELP', 'Steuert das Skalierungsverhalten im AR-Modus im Scene Viewer. Setzen Sie auf "fixed", um die Skalierung des Modells zu deaktivieren, wodurch das Modell immer auf 100 % Maßstab gesetzt wird. Auf "auto" gesetzt, was eine Größenänderung des Modells ermöglicht.');
-define('TEXT_MODELS_OBJECT_ROTATION', 'Objekt-Rotation:');
+define('TEXT_VIDEO_TITLE', 'Überschrift, Video-Titel:');
+define('TEXT_VIDEO_DESCRIPTION', 'Videobeschreibung:');
 
-define('TEXT_MODELS_HDR', 'Panorama Hintergrundbild');
-define('TEXT_MODELS_HDR_NONE', 'Kein Hintergrundbild verwenden');
+define('TEXT_VIDEO_OBJECT_SCALING', 'Mit dem Herunterladen der Videodaten beginnen:');
+define('TEXT_VIDEO_OBJECT_SCALING_HELP', 'Schlägt dem Browser vor, ob das Herunterladen der Videodaten beginnen soll, sobald das &lt;video&gt;-Element geladen ist. Unterstützte Werte sind: <ul><li><b>auto</b>: Mit dem Laden des Videos sofort beginnen (wenn der Browser dies unterstützt).</li> <li><b>metadata</b>: Laden Sie nur die Metadaten des Videos, die Informationen wie die Dauer und die Abmessungen des Videos enthalten.</li><li><b>none</b>: Es werden keine Daten vorgeladen. Der Browser wartet, bis der Benutzer auf "Play" drückt, um mit dem Herunterladen zu beginnen.</li></ul>');
+
 
 define('TEXT_MODEL_REMOVE', '3D-Modell löschen');
-define('TEXT_MODELS_EXTENSIONS', 'glTF-Formt auswählen');
+define('TEXT_VIDEO_EXTENSIONS', 'glTF-Formt auswählen');
 
-define('TEXT_UPLOAD_MODELS', 'Upload 3D-Modell');
+define('TEXT_UPLOAD_VIDEO', 'Upload Video');
 
 define('ERROR_NO_GLB_FILE', 'Die Datei, die Sie hochladen möchten, ist keine .glb-Datei. Bitte versuchen Sie es erneut.');
 define('TEXT_SUCCESSFULLY_UPLOADED_GLB', 'Ihre .glb-Datei wurde hochgeladen.');
 define('ERROR_PROBLEM_WITH_GLB_FILE', 'Es gab ein Problem mit dem Upload. Bitte versuchen Sie es erneut.');
 
-define('ERROR_NO_USDZ_FILE', 'Die Datei, die Sie hochladen möchten, ist keine .usdz-Datei. Bitte versuchen Sie es erneut.');
-define('TEXT_SUCCESSFULLY_UPLOADED_USDZ', 'Ihre usdz-Datei wurde hochgeladen.');
-define('ERROR_PROBLEM_WITH_USDZ_FILE', 'Es gab ein Problem mit dem Upload der usdz-Datei. Bitte versuchen Sie es erneut.');
