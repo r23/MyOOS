@@ -161,3 +161,8 @@ r23_3d_model.zip
 *.bak
 *.glb
 /myoos/admin/export/*.cvs
+/myoos/images/video/*.jpg
+/myoos/media/video/*.mp4
+/myoos/media/video/*.webm
+/myoos/media/video/*.ogv
+/myoos/media/video/*.mpg
