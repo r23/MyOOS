@@ -118,7 +118,7 @@ if (!empty($action)) {
                             $ext = oos_get_suffix($filename);
                             if ($ext == 'mpg') {
 								
-								$poster = $name . 'jpg';
+								$poster = $name . '.jpg';
 								
                                 $sql_data_array = array('video_source' => oos_db_prepare_input($name),
 														'video_poster' => oos_db_prepare_input($$poster));
@@ -331,7 +331,7 @@ if ($action == 'edit_video') {
                 echo oos_draw_hidden_field('video_id['. $nCounter . ']', $video['video_id']); ?>
 						<fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_VIDEO_GLB; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_VIDEO_FILE; ?></label>
                               <div class="col-lg-10">
 								<?php echo oos_draw_input_field('video_source['. $nCounter . ']', $video['video_source'], '', false, 'text', true, true); ?>
 								<?php echo oos_draw_hidden_field('video_source['. $nCounter . ']', $video['video_source']); ?>
@@ -397,7 +397,7 @@ if ($action == 'edit_video') {
 
                        <fieldset>
                            <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_VIDEO_OBJECT_SCALING; ?></label>
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_VIDEO_PRELOAD; ?></label>
 
 								<div class="col-lg-2">
 									<div class="c-radio c-radio-nofont">
@@ -436,7 +436,7 @@ if ($action == 'edit_video') {
 								</div>
 							
 								<div class="col-lg-8">
-									<?php echo TEXT_VIDEO_OBJECT_SCALING_HELP; ?>
+									<?php echo TEXT_VIDEO_PRELOAD; ?>
 								</div>							
 							</div>							  
                         </fieldset>		
@@ -454,9 +454,9 @@ if ($action == 'edit_video') {
 
 				<fieldset>
 					<div class="form-group row">
-						<label class="col-lg-3 col-form-label"><?php echo TEXT_VIDEO_GLB; ?></label>
+						<label class="col-lg-3 col-form-label"><?php echo TEXT_VIDEO_FILE; ?></label>
 						<div class="col-lg-9">
-							<input type="file" name="glb" />
+							<input type="file" name="video" />
 						</div>
 					</div>
 				</fieldset>

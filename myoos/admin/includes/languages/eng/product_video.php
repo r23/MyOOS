@@ -26,17 +26,14 @@ define('TEXT_NEW_PRODUCT', 'Product Video for &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Products');
 define('TEXT_VIDEO_SOURCE', 'Video');
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
-define('TEXT_VIDEO_GLB', '3D-Modell .glb File format');
+define('TEXT_VIDEO_FILE', 'Video .mpg File format:');
 
 define('TEXT_VIDEO_TITLE', 'Headline, video title:');
 define('TEXT_VIDEO_DESCRIPTION', 'Video description');
-define('TEXT_VIDEO_OBJECT_SCALING', 'Mit dem Herunterladen der Videodaten beginnen:');
-define('TEXT_VIDEO_OBJECT_SCALING_HELP', 'Suggests to the browser whether to start downloading video data once the &lt;video&gt; element is loaded. Supported values are: <ul><li>auto: Start loading the video immediately (if the browser supports it).</li><li>metadata: Load only the metadata of the video, which includes information such as the duration and dimensions of the video.</li><li><b>none</b>: No data is preloaded. The browser waits until the user presses play to start downloading.</li></ul>');
+define('TEXT_VIDEO_PRELOAD', 'Mit dem Herunterladen der Videodaten beginnen:');
+define('TEXT_VIDEO_PRELOAD_HELP', 'Suggests to the browser whether to start downloading video data once the &lt;video&gt; element is loaded. Supported values are: <ul><li>auto: Start loading the video immediately (if the browser supports it).</li><li>metadata: Load only the metadata of the video, which includes information such as the duration and dimensions of the video.</li><li><b>none</b>: No data is preloaded. The browser waits until the user presses play to start downloading.</li></ul>');
 
-define('TEXT_VIDEO_HDR', 'Panorama Wallpaper');
-define('TEXT_VIDEO_HDR_NONE', 'Do not use a background image');
-
-define('TEXT_MODEL_REMOVE', 'Remove 3D-Model');
+define('TEXT_VIDEO_REMOVE', 'Remove Video');
 
 define('TEXT_UPLOAD_VIDEO', 'Upload file');
 

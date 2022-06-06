@@ -26,16 +26,14 @@ define('TEXT_NEW_PRODUCT', 'Produkt Video über &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Artikel');
 define('TEXT_VIDEO_SOURCE', 'Video');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
-define('TEXT_VIDEO_GLB', '3D-Modell .glb Format');
+define('TEXT_VIDEO_FILE', 'Video im .mpg Format:');
 
 define('TEXT_VIDEO_TITLE', 'Überschrift, Video-Titel:');
 define('TEXT_VIDEO_DESCRIPTION', 'Videobeschreibung:');
+define('TEXT_VIDEO_PRELOAD', 'Mit dem Herunterladen der Videodaten beginnen:');
+define('TEXT_VIDEO_PRELOAD_HELP', 'Schlägt dem Browser vor, ob das Herunterladen der Videodaten beginnen soll, sobald das &lt;video&gt;-Element geladen ist. Unterstützte Werte sind: <ul><li><b>auto</b>: Mit dem Laden des Videos sofort beginnen (wenn der Browser dies unterstützt).</li> <li><b>metadata</b>: Laden Sie nur die Metadaten des Videos, die Informationen wie die Dauer und die Abmessungen des Videos enthalten.</li><li><b>none</b>: Es werden keine Daten vorgeladen. Der Browser wartet, bis der Benutzer auf "Play" drückt, um mit dem Herunterladen zu beginnen.</li></ul>');
 
-define('TEXT_VIDEO_OBJECT_SCALING', 'Mit dem Herunterladen der Videodaten beginnen:');
-define('TEXT_VIDEO_OBJECT_SCALING_HELP', 'Schlägt dem Browser vor, ob das Herunterladen der Videodaten beginnen soll, sobald das &lt;video&gt;-Element geladen ist. Unterstützte Werte sind: <ul><li><b>auto</b>: Mit dem Laden des Videos sofort beginnen (wenn der Browser dies unterstützt).</li> <li><b>metadata</b>: Laden Sie nur die Metadaten des Videos, die Informationen wie die Dauer und die Abmessungen des Videos enthalten.</li><li><b>none</b>: Es werden keine Daten vorgeladen. Der Browser wartet, bis der Benutzer auf "Play" drückt, um mit dem Herunterladen zu beginnen.</li></ul>');
-
-
-define('TEXT_MODEL_REMOVE', '3D-Modell löschen');
+define('TEXT_VIDEO_REMOVE', 'Video löschen');
 define('TEXT_VIDEO_EXTENSIONS', 'glTF-Formt auswählen');
 
 define('TEXT_UPLOAD_VIDEO', 'Upload Video');
