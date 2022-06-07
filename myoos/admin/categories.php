@@ -571,7 +571,7 @@ if (!empty($action)) {
 
                     $products_images_copy_result= $dbconn->Execute("SELECT image_name, sort_order FROM " . $oostable['products_gallery'] . " WHERE products_id='" . intval($products_id_from) . "'");
                     while ($products_images_copy = $products_images_copy_result->fields) {
-                        $sql = "INSERT INTO " . $oostable['products_images'] . "
+                        $sql = "INSERT INTO " . $oostable['products_gallery'] . "
 							(products_id,
 							image_name,
 							sort_order)
@@ -623,47 +623,50 @@ if (!empty($action)) {
 
                     // products_model_viewer
                     $products_model_viewer_copy_result = $dbconn->Execute("SELECT model_viewer_id, products_id, model_viewer_glb, model_viewer_usdz, model_viewer_background_color, model_viewer_auto_rotate, model_viewer_scale, model_viewer_hdr FROM " . $oostable['products_model_viewer'] . " WHERE products_id='" . intval($products_id_from) . "'");
-                    $products_models_copy = $products_model_viewer_copy_result->fields;
-                    $sql = "INSERT INTO " . $oostable['products_model_viewer'] . "
-							(products_id,
-							model_viewer_glb,
-							model_viewer_usdz,
-							model_viewer_background_color,
-							model_viewer_auto_rotate,
-							model_viewer_scale,
-							model_viewer_hdr,
-							model_viewer_date_added
-							VALUES ('" . intval($products_id_to) . "',
-									'" . $products_models_copy['model_viewer_glb'] . "',
-									'" . $products_models_copy['model_viewer_usdz'] . "',
-									'" . $products_models_copy['model_viewer_background_color'] . "',
-									'" . $products_models_copy['model_viewer_auto_rotate'] . "',
-									'" . $products_models_copy['model_viewer_scale'] . "',									
-									'" . $products_models_copy['model_viewer_hdr']. "
-									now() . ')";
-                    $dbconn->Execute($sql);
-                    $dup_model_viewer_id = $dbconn->Insert_ID();
 
-                    $model_viewer_description_result = $dbconn->Execute("SELECT model_viewer_languages_id, model_viewer_title, model_viewer_description, model_viewer_viewed, model_viewer_keywords FROM " . $oostable['products_model_viewer_description'] . " WHERE model_viewer_id = '" . intval($products_models_copy['model_viewer_id']) . "'");
-                    while ($description = $model_viewer_description_result->fields) {
-                        $dbconn->Execute("INSERT INTO " . $oostable['products_model_viewer_description'] . "
-									(model_viewer_id,
-									model_viewer_languages_id,
-									model_viewer_title,
-									model_viewer_description,
-									model_viewer_viewed,
-									model_viewer_keywords)
-									VALUES ('" . intval($dup_model_viewer_id) . "',
-											'" . intval($description['model_viewer_languages_id']) . "',
-											'" . oos_db_input($description['model_viewer_title']) . "',
-											'" . oos_db_input($description['model_viewer_description']) . "',
-											'" . oos_db_input($description['model_viewer_viewed']) . "',
-											'" . oos_db_input($description['model_viewer_keywords']). "')");
+					if ($products_model_viewer_copy_result->RecordCount()) {
+						$products_models_copy = $products_model_viewer_copy_result->fields;			
+						$sql = "INSERT INTO " . $oostable['products_model_viewer'] . "
+								(products_id,
+								model_viewer_glb,
+								model_viewer_usdz,
+								model_viewer_background_color,
+								model_viewer_auto_rotate,
+								model_viewer_scale,
+								model_viewer_hdr,
+								model_viewer_date_added
+								VALUES ('" . intval($products_id_to) . "',
+										'" . $products_models_copy['model_viewer_glb'] . "',
+										'" . $products_models_copy['model_viewer_usdz'] . "',
+										'" . $products_models_copy['model_viewer_background_color'] . "',
+										'" . $products_models_copy['model_viewer_auto_rotate'] . "',
+										'" . $products_models_copy['model_viewer_scale'] . "',									
+										'" . $products_models_copy['model_viewer_hdr']. "
+										now() . ')";
+						$dbconn->Execute($sql);
+						$dup_model_viewer_id = $dbconn->Insert_ID();
 
-                        // Move that ADOdb pointer!
-                        $model_viewer_description_result->MoveNext();
+						$model_viewer_description_result = $dbconn->Execute("SELECT model_viewer_languages_id, model_viewer_title, model_viewer_description, model_viewer_viewed, model_viewer_keywords FROM " . $oostable['products_model_viewer_description'] . " WHERE model_viewer_id = '" . intval($products_models_copy['model_viewer_id']) . "'");
+						while ($description = $model_viewer_description_result->fields) {
+							$dbconn->Execute("INSERT INTO " . $oostable['products_model_viewer_description'] . "
+										(model_viewer_id,
+										model_viewer_languages_id,
+										model_viewer_title,
+										model_viewer_description,
+										model_viewer_viewed,
+										model_viewer_keywords)
+										VALUES ('" . intval($dup_model_viewer_id) . "',
+												'" . intval($description['model_viewer_languages_id']) . "',
+												'" . oos_db_input($description['model_viewer_title']) . "',
+												'" . oos_db_input($description['model_viewer_description']) . "',
+												'" . oos_db_input($description['model_viewer_viewed']) . "',
+												'" . oos_db_input($description['model_viewer_keywords']). "')");
+
+							// Move that ADOdb pointer!
+							$model_viewer_description_result->MoveNext();
+						}
                     }
-
+exit;
                     // product_webgl_gltf
                     $products_model_copy_result = $dbconn->Execute("SELECT models_id, products_id, models_webgl_gltf, models_author, models_author_url, models_camera_pos, models_object_rotation, models_add_lights, models_add_ground, models_shadows, models_add_env_map, models_extensions, models_hdr FROM " . $oostable['products_models'] . " WHERE products_id='" . intval($products_id_from) . "'");
                     $products_models_copy = $products_model_copy_result->fields;
@@ -717,6 +720,43 @@ if (!empty($action)) {
 
                         // Move that ADOdb pointer!
                         $models_description_result->MoveNext();
+                    }
+
+                    // products_video
+                    $products_video_copy_result = $dbconn->Execute("SELECT video_id, products_id, video_source, video_poster, video_preload, video_data-setup FROM " . $oostable['products_video'] . " WHERE products_id='" . intval($products_id_from) . "'");
+                    $products_video_copy = $products_video_copy_result->fields;
+                    $sql = "INSERT INTO " . $oostable['products_video'] . "
+							(products_id,
+							video_source,
+							video_poster,
+							video_preload,
+							video_data-setup,
+							video_date_added
+							VALUES ('" . intval($products_id_to) . "',
+									'" . $products_video_copy['video_source'] . "',
+									'" . $products_video_copy['video_poster'] . "',
+									'" . $products_video_copy['video_preload'] . "',
+									'" . $products_video_copy['video_data-setup'] . "',
+									now() . ')";
+                    $dbconn->Execute($sql);
+                    $dup_video_viewer_id = $dbconn->Insert_ID();
+
+                    $products_video_description_result = $dbconn->Execute("SELECT video_languages_id, video_title, video_description, video_viewed FROM " . $oostable['products_video_description'] . " WHERE video_id = '" . intval($products_video_copy['video_id']) . "'");
+                    while ($description = $products_video_description_result->fields) {
+                        $dbconn->Execute("INSERT INTO " . $oostable['products_video_description'] . "
+									(video_id,
+									video_languages_id,
+									video_title,
+									video_description,
+									video_viewed)
+									VALUES ('" . intval($dup_video_viewer_id) . "',
+											'" . intval($description['video_languages_id']) . "',
+											'" . oos_db_input($description['video_title']) . "',
+											'" . oos_db_input($description['video_description']) . "',
+											'" . oos_db_input($description['video_viewed']). "')");
+
+                        // Move that ADOdb pointer!
+                        $products_video_description_result->MoveNext();
                     }
                 }
             }
