@@ -30,14 +30,13 @@ define('TEXT_VIDEO_FILE', 'Video .mpg File format:');
 
 define('TEXT_VIDEO_TITLE', 'Headline, video title:');
 define('TEXT_VIDEO_DESCRIPTION', 'Video description');
-define('TEXT_VIDEO_PRELOAD', 'Mit dem Herunterladen der Videodaten beginnen:');
+define('TEXT_VIDEO_PRELOAD', 'Start downloading the video data:');
 define('TEXT_VIDEO_PRELOAD_HELP', 'Suggests to the browser whether to start downloading video data once the &lt;video&gt; element is loaded. Supported values are: <ul><li>auto: Start loading the video immediately (if the browser supports it).</li><li>metadata: Load only the metadata of the video, which includes information such as the duration and dimensions of the video.</li><li><b>none</b>: No data is preloaded. The browser waits until the user presses play to start downloading.</li></ul>');
 
 define('TEXT_VIDEO_REMOVE', 'Remove Video');
-
 define('TEXT_UPLOAD_VIDEO', 'Upload file');
 
-define('ERROR_NO_GLB_FILE', 'The file you are trying to upload is not a .glb file. Please try again.');
-define('TEXT_SUCCESSFULLY_UPLOADED_GLB', 'Your .glb file was uploaded.');
-define('ERROR_PROBLEM_WITH_GLB_FILE', 'There was a problem with the upload. Please try again.');
+define('ERROR_NO_VIDEO_FILE', 'The file you are trying to upload is not a .mpg file. Please try again.');
+define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO', 'Your video file was uploaded.');
+define('ERROR_PROBLEM_WITH_VIDEO_FILE', 'There was a problem with the upload. Please try again.');
 

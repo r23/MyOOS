@@ -136,6 +136,9 @@ $smarty->assign(
         'facebook_description'	=> $facebook_description,
         'twitter_description'	=> $twitter_description,
 
+		'oos_css'			=> $oos_css,
+		'oos_js'			=> $oos_js,
+
         'part'				=> $part
     )
 );

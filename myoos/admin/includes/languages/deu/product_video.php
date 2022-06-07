@@ -34,11 +34,9 @@ define('TEXT_VIDEO_PRELOAD', 'Mit dem Herunterladen der Videodaten beginnen:');
 define('TEXT_VIDEO_PRELOAD_HELP', 'Schlägt dem Browser vor, ob das Herunterladen der Videodaten beginnen soll, sobald das &lt;video&gt;-Element geladen ist. Unterstützte Werte sind: <ul><li><b>auto</b>: Mit dem Laden des Videos sofort beginnen (wenn der Browser dies unterstützt).</li> <li><b>metadata</b>: Laden Sie nur die Metadaten des Videos, die Informationen wie die Dauer und die Abmessungen des Videos enthalten.</li><li><b>none</b>: Es werden keine Daten vorgeladen. Der Browser wartet, bis der Benutzer auf "Play" drückt, um mit dem Herunterladen zu beginnen.</li></ul>');
 
 define('TEXT_VIDEO_REMOVE', 'Video löschen');
-define('TEXT_VIDEO_EXTENSIONS', 'glTF-Formt auswählen');
-
 define('TEXT_UPLOAD_VIDEO', 'Upload Video');
 
-define('ERROR_NO_GLB_FILE', 'Die Datei, die Sie hochladen möchten, ist keine .glb-Datei. Bitte versuchen Sie es erneut.');
-define('TEXT_SUCCESSFULLY_UPLOADED_GLB', 'Ihre .glb-Datei wurde hochgeladen.');
-define('ERROR_PROBLEM_WITH_GLB_FILE', 'Es gab ein Problem mit dem Upload. Bitte versuchen Sie es erneut.');
+define('ERROR_NO_VIDEO_FILE', 'Die Datei, die Sie hochladen möchten, ist keine .mpg-Datei. Bitte versuchen Sie es erneut.');
+define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO', 'Ihr Video wurde hochgeladen.');
+define('ERROR_PROBLEM_WITH_VIDEO_FILE', 'Es gab ein Problem mit dem Upload. Bitte versuchen Sie es erneut.');
 

@@ -431,6 +431,54 @@ if (!$product_info_result->RecordCount()) {
     // End AR
 
 
+    // Video
+    $products_videotable = $oostable['products_video'];
+    $products_video_descriptiontable = $oostable['products_video_description'];
+    $products_video_sql = "SELECT v.video_id, v.products_id, v.video_source,
+								v.video_poster, v.video_preload, 
+								vd.video_title, vd.video_description
+						FROM $products_videotable v,
+							$products_video_descriptiontable vd
+						WHERE v.products_id = '" . intval($nProductsID) . "'
+						AND v.video_id = vd.video_id
+						AND vd.video_languages_id = '" . intval($nLanguageID) . "'";
+    $products_video_result = $dbconn->Execute($products_video_sql);
+    if ($products_video_result->RecordCount()) {
+		$oos_js .= '<script src="' . OOS_HTTPS_SERVER . OOS_SHOP . '/js/videojs/dist/video.min.js"></script>';
+		$oos_css .= '<link rel="stylesheet" href="' . OOS_HTTPS_SERVER . OOS_SHOP . '/js/videojs/dist/video-js.min.css">';
+        $aVideo = [];
+        while ($video = $products_video_result->fields) {
+            $products_video_descriptiontable = $oostable['products_video_description'];
+            $query = "UPDATE $products_video_descriptiontable"
+                . " SET video_viewed = video_viewed+1"
+                . " WHERE video_id = ?"
+                . "   AND video_languages_id = ?";
+            $result = $dbconn->Execute($query, array((int)$video['video_id'], (int)$nLanguageID));
+
+            $name = oos_strip_suffix($video['video_glb']);
+            $url_glb = $name . '/glTF-Binary/' . $video['video_glb'];
+ 
+            $aVideo[] = array('video_id' => $video['video_id'],
+                           'video_source' => $video['video_source'],
+                           'video_poster' => $video_poster,
+                           'video_preload' => $video['video_preload'],
+                           'video_title' => $video['video_title'],
+                           'video_description' => $video['video_description']);
+
+            // Move that ADOdb pointer!
+            $products_video_result->MoveNext();
+        }
+
+		$smarty->assign(
+			array(
+				'video_array'		=> $aVideo,
+				'oos_css'			=> $oos_css,
+				'oos_js'			=> $oos_js
+			)
+		);
+	}
+
+
     // assign Smarty variables;
     $smarty->assign(
         array(

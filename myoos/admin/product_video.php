@@ -56,7 +56,7 @@ if (!empty($action)) {
 
                     $sql_data_array = array('products_id' => intval($products_id),
                                             'video_source' => oos_db_prepare_input($_POST['video_source'][$i]),
-                                            'video_poster' => oos_db_prepare_input($_POST['video_poster'][$i]),
+                                            'video_poster' => oos_db_prepare_input($_POST['video_source'][$i]),
                                             'video_preload' => oos_db_prepare_input($_POST['video_preload'][$i])
                                             );
 
@@ -97,8 +97,7 @@ if (!empty($action)) {
                         }
                     }
 
-
-                    if ((isset($_POST['remove_products_video']) && ($_POST['remove_products_video'] == 'yes')) && (isset($_POST['video_source'][$i]))) {
+                    if ((isset($_POST['remove_products_video'][$i]) && ($_POST['remove_products_video'][$i] == 'yes')) && (isset($_POST['video_source'][$i]))) {
                         $video_source = oos_db_prepare_input($_POST['video_source'][$i]);
 
                         $dbconn->Execute("DELETE FROM " . $oostable['products_video'] . " WHERE video_id = '" . intval($_POST['video_id'][$i]) . "'");
@@ -118,10 +117,9 @@ if (!empty($action)) {
                             $ext = oos_get_suffix($filename);
                             if ($ext == 'mpg') {
 								
-								$poster = $name . '.jpg';
-								
+								$poster = $name . '.jpg';							
                                 $sql_data_array = array('video_source' => oos_db_prepare_input($name),
-														'video_poster' => oos_db_prepare_input($$poster));
+														'video_poster' => oos_db_prepare_input($poster));
 
                                 oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');								
 								
@@ -130,9 +128,9 @@ if (!empty($action)) {
                                 $uploadfile = $path . $filename; // target mpg file
 
                                 if (move_uploaded_file($source, $uploadfile)) {
-                                    $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_GLB, 'success');
+                                    $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
                                 } else {
-                                    $messageStack->add_session(ERROR_PROBLEM_WITH_GLB_FILE, 'error');
+                                    $messageStack->add_session(ERROR_PROBLEM_WITH_VIDEO_FILE, 'error');
                                 }
 
 								if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
@@ -164,7 +162,7 @@ if (!empty($action)) {
 									->save(new FFMpeg\Format\Video\WebM(), $path .$name . '-webm.webm');
 
                             } else {
-                                $messageStack->add_session(ERROR_NO_GLB_FILE, 'error');
+                                $messageStack->add_session(ERROR_NO_VIDEO_FILE, 'error');
                             }
                         }
                     }
@@ -436,7 +434,7 @@ if ($action == 'edit_video') {
 								</div>
 							
 								<div class="col-lg-8">
-									<?php echo TEXT_VIDEO_PRELOAD; ?>
+									<?php echo TEXT_VIDEO_PRELOAD_HELP; ?>
 								</div>							
 							</div>							  
                         </fieldset>		

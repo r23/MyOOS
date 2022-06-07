@@ -102,7 +102,7 @@ if (!empty($action)) {
                     }
 
 
-                    if ((isset($_POST['remove_products_model_viewer']) && ($_POST['remove_products_model_viewer'] == 'yes')) && (isset($_POST['model_viewer_glb'][$i]))) {
+                    if ((isset($_POST['remove_products_model_viewer'][$i]) && ($_POST['remove_products_model_viewer'][$i] == 'yes')) && (isset($_POST['model_viewer_glb'][$i]))) {
                         $model_viewer_glb = oos_db_prepare_input($_POST['model_viewer_glb'][$i]);
                         $model_viewer_usds =  oos_db_prepare_input($_POST['model_viewer_usdz'][$i]);
 

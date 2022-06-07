@@ -300,3 +300,8 @@ if (isset($_GET['action']) || isset($_POST['action'])) {
 // templates selection
 $sTheme = STORE_TEMPLATES;
 $aTemplate = [];
+
+// JavaScript with css add header
+$oos_css = '';
+$oos_js = '';
+

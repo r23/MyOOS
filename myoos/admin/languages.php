@@ -481,6 +481,32 @@ if (!empty($action)) {
             $products_units_result->MoveNext();
         }
 
+        //products_video_description
+        $products_video_result = $dbconn->Execute("SELECT v.video_id, vd.video_title, vd.video_description
+                                         FROM " . $oostable['products_video'] . " v LEFT JOIN
+                                              " . $oostable['products_video_description'] . " vd
+                                            ON v.video_id = vd.video_id
+                                        WHERE vd.video_languages_id = '" . intval($_SESSION['language_id']) . "'");
+        while ($video = $products_video_result->fields) {
+            $dbconn->Execute("INSERT INTO " . $oostable['products_video_description'] . "
+                      (video_id,
+                       video_languages_id,
+                       video_title,
+					   video_description,
+					   video_viewed) 
+                       VALUES ('" . $video['video_id'] . "',
+                               '" . intval($insert_id) . "',
+                               '" . oos_db_input($video['video_title']) . "',
+							   '" . oos_db_input($video['video_description']) . "',							   
+                               '0')");
+
+            // Move that ADOdb pointer!
+            $products_video_result->MoveNext();
+        }
+
+
+
+
 
         // setting
         $setting_result = $dbconn->Execute("SELECT setting_id, setting_name
@@ -565,7 +591,7 @@ if (!empty($action)) {
         $dbconn->Execute("DELETE FROM " . $oostable['products_options_values'] . " WHERE products_options_values_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_status'] . " WHERE products_status_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['products_units'] . " WHERE languages_id = '" . intval($lID) . "'");
-
+		$dbconn->Execute("DELETE FROM " . $oostable['products_video_description'] . " WHERE video_languages_id = '" . intval($lID) . "'");
         $dbconn->Execute("DELETE FROM " . $oostable['setting'] . " WHERE setting_languages_id = '" . intval($lID) . "'");
 
         oos_redirect_admin(oos_href_link_admin($aContents['languages'], 'page=' . $nPage));
