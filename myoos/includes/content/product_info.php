@@ -455,11 +455,12 @@ if (!$product_info_result->RecordCount()) {
                 . "   AND video_languages_id = ?";
             $result = $dbconn->Execute($query, array((int)$video['video_id'], (int)$nLanguageID));
 
-            $name = oos_strip_suffix($video['video_glb']);
-            $url_glb = $name . '/glTF-Binary/' . $video['video_glb'];
+			$video_source = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . 'video/' . $video['video_source'];
+            $video_poster = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'video/' . $video['video_poster']; 
+
  
             $aVideo[] = array('video_id' => $video['video_id'],
-                           'video_source' => $video['video_source'],
+                           'video_source' => $video_source,
                            'video_poster' => $video_poster,
                            'video_preload' => $video['video_preload'],
                            'video_title' => $video['video_title'],

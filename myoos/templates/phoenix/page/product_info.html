@@ -389,21 +389,28 @@
 		</div>		
 	{/if}
 
-
+	{if $video_array}
 		<div class="container">
 			<div class="row">
 				<div class="col-12">
 
+				{foreach $video_array as $video}
+				
+					<h2>{$video.video_title}</h2>
+
 <video
     id="my-player"
-    class="video-js"
+    class="ratio video-js"
     controls
-    preload="auto"
-    poster="//vjs.zencdn.net/v/oceans.png"
+    preload="{$video.video_preload}"
+    poster="{$video.video_poster}"
+	allowfullscreen
+	autoplay loop muted playsinline
     data-setup='{}'>
-  <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
-  <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
-  <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source>
+	<source src="{$video.video_source}-x264.mp4" type="video/mp4"></source>
+	<source src="{$video.video_source}-webm.webm" type="video/webm"></source>
+	<source src="{$video.video_source}-ogg.ogv" type="video/ogg"></source>
+
   <p class="vjs-no-js">
     To view this video please enable JavaScript, and consider upgrading to a
     web browser that
@@ -414,10 +421,19 @@
 </video>
 
 
+						{if $video.video_description}		
+							<div class="product_details_desc clearfix">
+								{$video.video_description}	
+							</div>
+						{/if}
+
+
+					{/foreach}
+
 				</div>
 			</div>
 		</div>	
-
+	{/if}
 
 		<div class="container">
             <div class="row">
