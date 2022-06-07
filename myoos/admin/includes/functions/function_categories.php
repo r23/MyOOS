@@ -1063,6 +1063,40 @@ function oos_remove_model_usds($model)
 }
 
 
+
+function oos_remove_products_video($video)
+{
+    if (empty($video)) {
+        return;
+    }
+
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
+
+    $products_videotable = $oostable['products_video'];
+    $product_videos_query = "SELECT video_id
+                            FROM $products_videotable
+                            WHERE video_source =  '" . oos_db_input($video) . "'";
+    $videos_result = $dbconn->Execute($product_videos_query);
+    if (!$videos_result->RecordCount()) {
+		$name = oos_var_prep_for_os($video);
+        $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
+		
+		@unlink($path . $name . '-x264.mp4');
+		@unlink($path . $name . '-ogg.ogv');
+		@unlink($path . $name . '-webm.webm');
+		@unlink($path . $name . '.mpg');		
+			
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/' . $name . '.jpg');	
+    }
+
+    return;
+}
+
+
+
+
 /**
  * Return a product's manufacturer
  *
