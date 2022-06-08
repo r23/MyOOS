@@ -2642,12 +2642,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "e9efa06fbfa1dc84b9d6475eb7270aec6ee9a841"
+                "reference": "961eba35293ca2e5b37bc281a63836243b35058a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e9efa06fbfa1dc84b9d6475eb7270aec6ee9a841",
-                "reference": "e9efa06fbfa1dc84b9d6475eb7270aec6ee9a841",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/961eba35293ca2e5b37bc281a63836243b35058a",
+                "reference": "961eba35293ca2e5b37bc281a63836243b35058a",
                 "shasum": ""
             },
             "conflict": {
@@ -2908,7 +2908,7 @@
                 "pimcore/data-hub": "<1.2.4",
                 "pimcore/pimcore": "<10.4",
                 "pocketmine/bedrock-protocol": "<8.0.2",
-                "pocketmine/pocketmine-mp": "<4.2.10",
+                "pocketmine/pocketmine-mp": ">= 4.0.0-BETA5, < 4.4.2|<4.2.10",
                 "pressbooks/pressbooks": "<5.18",
                 "prestashop/autoupgrade": ">=4,<4.10.1",
                 "prestashop/contactform": ">1.0.1,<4.3",
@@ -3099,7 +3099,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<6.0.22"
             },
-            "time": "2022-06-06T22:04:51+00:00",
+            "time": "2022-06-07T22:04:20+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
