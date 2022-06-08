@@ -202,10 +202,11 @@ require 'includes/header.php';
 					<div class="col-lg-12">
 <?php
 if ($action == 'edit_video') {
-    $parameters = array('products_id' => '',
+    $parameters = ['products_id' => '',
                         'products_name' => '',
                         'products_image' => '',
-                        'products_videos' => array());
+                        'products_videos' => []];
+
 
     $pInfo = new objectInfo($parameters);
 

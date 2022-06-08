@@ -1501,31 +1501,57 @@ function editorSettings() {
 ;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
 
 
-var LEAF_KEY, hasWeakMap;
+/** @typedef {(...args: any[]) => *[]} GetDependants */
+
+/** @typedef {() => void} Clear */
+
+/**
+ * @typedef {{
+ *   getDependants: GetDependants,
+ *   clear: Clear
+ * }} EnhancedSelector
+ */
+
+/**
+ * Internal cache entry.
+ *
+ * @typedef CacheNode
+ *
+ * @property {?CacheNode|undefined} [prev] Previous node.
+ * @property {?CacheNode|undefined} [next] Next node.
+ * @property {*[]} args Function arguments for cache entry.
+ * @property {*} val Function result.
+ */
+
+/**
+ * @typedef Cache
+ *
+ * @property {Clear} clear Function to clear cache.
+ * @property {boolean} [isUniqueByDependants] Whether dependants are valid in
+ * considering cache uniqueness. A cache is unique if dependents are all arrays
+ * or objects.
+ * @property {CacheNode?} [head] Cache head.
+ * @property {*[]} [lastDependants] Dependants from previous invocation.
+ */
 
 /**
  * Arbitrary value used as key for referencing cache object in WeakMap tree.
  *
- * @type {Object}
+ * @type {{}}
  */
-LEAF_KEY = {};
-
-/**
- * Whether environment supports WeakMap.
- *
- * @type {boolean}
- */
-hasWeakMap = typeof WeakMap !== 'undefined';
+var LEAF_KEY = {};
 
 /**
  * Returns the first argument as the sole entry in an array.
  *
- * @param {*} value Value to return.
+ * @template T
  *
- * @return {Array} Value returned as entry in array.
+ * @param {T} value Value to return.
+ *
+ * @return {[T]} Value returned as entry in array.
  */
-function arrayOf( value ) {
-	return [ value ];
+function arrayOf(value) {
+	return [value];
 }
 
 /**
@@ -1536,18 +1562,19 @@ function arrayOf( value ) {
  *
  * @return {boolean} Whether value is object-like.
  */
-function isObjectLike( value ) {
-	return !! value && 'object' === typeof value;
+function isObjectLike(value) {
+	return !!value && 'object' === typeof value;
 }
 
 /**
  * Creates and returns a new cache object.
  *
- * @return {Object} Cache object.
+ * @return {Cache} Cache object.
  */
 function createCache() {
+	/** @type {Cache} */
 	var cache = {
-		clear: function() {
+		clear: function () {
 			cache.head = null;
 		},
 	};
@@ -1559,21 +1586,21 @@ function createCache() {
  * Returns true if entries within the two arrays are strictly equal by
  * reference from a starting index.
  *
- * @param {Array}  a         First array.
- * @param {Array}  b         Second array.
+ * @param {*[]} a First array.
+ * @param {*[]} b Second array.
  * @param {number} fromIndex Index from which to start comparison.
  *
  * @return {boolean} Whether arrays are shallowly equal.
  */
-function isShallowEqual( a, b, fromIndex ) {
+function isShallowEqual(a, b, fromIndex) {
 	var i;
 
-	if ( a.length !== b.length ) {
+	if (a.length !== b.length) {
 		return false;
 	}
 
-	for ( i = fromIndex; i < a.length; i++ ) {
-		if ( a[ i ] !== b[ i ] ) {
+	for (i = fromIndex; i < a.length; i++) {
+		if (a[i] !== b[i]) {
 			return false;
 		}
 	}
@@ -1589,31 +1616,18 @@ function isShallowEqual( a, b, fromIndex ) {
  * dependant references remain the same. If getDependants returns a different
  * reference(s), the cache is cleared and the selector value regenerated.
  *
- * @param {Function} selector      Selector function.
- * @param {Function} getDependants Dependant getter returning an immutable
- *                                 reference or array of reference used in
- *                                 cache bust consideration.
+ * @template {(...args: *[]) => *} S
  *
- * @return {Function} Memoized selector.
+ * @param {S} selector Selector function.
+ * @param {GetDependants=} getDependants Dependant getter returning an array of
+ * references used in cache bust consideration.
  */
-/* harmony default export */ function rememo(selector, getDependants ) {
-	var rootCache, getCache;
+/* harmony default export */ function rememo(selector, getDependants) {
+	/** @type {WeakMap<*,*>} */
+	var rootCache;
 
-	// Use object source as dependant if getter not provided
-	if ( ! getDependants ) {
-		getDependants = arrayOf;
-	}
-
-	/**
-	 * Returns the root cache. If WeakMap is supported, this is assigned to the
-	 * root WeakMap cache set, otherwise it is a shared instance of the default
-	 * cache object.
-	 *
-	 * @return {(WeakMap|Object)} Root cache object.
-	 */
-	function getRootCache() {
-		return rootCache;
-	}
+	/** @type {GetDependants} */
+	var normalizedGetDependants = getDependants ? getDependants : arrayOf;
 
 	/**
 	 * Returns the cache for a given dependants array. When possible, a WeakMap
@@ -1629,85 +1643,93 @@ function isShallowEqual( a, b, fromIndex ) {
 	 *
 	 * @see isObjectLike
 	 *
-	 * @param {Array} dependants Selector dependants.
+	 * @param {*[]} dependants Selector dependants.
 	 *
-	 * @return {Object} Cache object.
+	 * @return {Cache} Cache object.
 	 */
-	function getWeakMapCache( dependants ) {
+	function getCache(dependants) {
 		var caches = rootCache,
 			isUniqueByDependants = true,
-			i, dependant, map, cache;
+			i,
+			dependant,
+			map,
+			cache;
 
-		for ( i = 0; i < dependants.length; i++ ) {
-			dependant = dependants[ i ];
+		for (i = 0; i < dependants.length; i++) {
+			dependant = dependants[i];
 
 			// Can only compose WeakMap from object-like key.
-			if ( ! isObjectLike( dependant ) ) {
+			if (!isObjectLike(dependant)) {
 				isUniqueByDependants = false;
 				break;
 			}
 
 			// Does current segment of cache already have a WeakMap?
-			if ( caches.has( dependant ) ) {
+			if (caches.has(dependant)) {
 				// Traverse into nested WeakMap.
-				caches = caches.get( dependant );
+				caches = caches.get(dependant);
 			} else {
 				// Create, set, and traverse into a new one.
 				map = new WeakMap();
-				caches.set( dependant, map );
+				caches.set(dependant, map);
 				caches = map;
 			}
 		}
 
 		// We use an arbitrary (but consistent) object as key for the last item
 		// in the WeakMap to serve as our running cache.
-		if ( ! caches.has( LEAF_KEY ) ) {
+		if (!caches.has(LEAF_KEY)) {
 			cache = createCache();
 			cache.isUniqueByDependants = isUniqueByDependants;
-			caches.set( LEAF_KEY, cache );
+			caches.set(LEAF_KEY, cache);
 		}
 
-		return caches.get( LEAF_KEY );
+		return caches.get(LEAF_KEY);
 	}
-
-	// Assign cache handler by availability of WeakMap
-	getCache = hasWeakMap ? getWeakMapCache : getRootCache;
 
 	/**
 	 * Resets root memoization cache.
 	 */
 	function clear() {
-		rootCache = hasWeakMap ? new WeakMap() : createCache();
+		rootCache = new WeakMap();
 	}
 
-	// eslint-disable-next-line jsdoc/check-param-names
+	/* eslint-disable jsdoc/check-param-names */
 	/**
 	 * The augmented selector call, considering first whether dependants have
 	 * changed before passing it to underlying memoize function.
 	 *
-	 * @param {Object} source    Source object for derivation.
-	 * @param {...*}   extraArgs Additional arguments to pass to selector.
+	 * @param {*}    source    Source object for derivation.
+	 * @param {...*} extraArgs Additional arguments to pass to selector.
 	 *
 	 * @return {*} Selector result.
 	 */
-	function callSelector( /* source, ...extraArgs */ ) {
+	/* eslint-enable jsdoc/check-param-names */
+	function callSelector(/* source, ...extraArgs */) {
 		var len = arguments.length,
-			cache, node, i, args, dependants;
+			cache,
+			node,
+			i,
+			args,
+			dependants;
 
 		// Create copy of arguments (avoid leaking deoptimization).
-		args = new Array( len );
-		for ( i = 0; i < len; i++ ) {
-			args[ i ] = arguments[ i ];
+		args = new Array(len);
+		for (i = 0; i < len; i++) {
+			args[i] = arguments[i];
 		}
 
-		dependants = getDependants.apply( null, args );
-		cache = getCache( dependants );
+		dependants = normalizedGetDependants.apply(null, args);
+		cache = getCache(dependants);
 
-		// If not guaranteed uniqueness by dependants (primitive type or lack
-		// of WeakMap support), shallow compare against last dependants and, if
-		// references have changed, destroy cache to recalculate result.
-		if ( ! cache.isUniqueByDependants ) {
-			if ( cache.lastDependants && ! isShallowEqual( dependants, cache.lastDependants, 0 ) ) {
+		// If not guaranteed uniqueness by dependants (primitive type), shallow
+		// compare against last dependants and, if references have changed,
+		// destroy cache to recalculate result.
+		if (!cache.isUniqueByDependants) {
+			if (
+				cache.lastDependants &&
+				!isShallowEqual(dependants, cache.lastDependants, 0)
+			) {
 				cache.clear();
 			}
 
@@ -1715,9 +1737,9 @@ function isShallowEqual( a, b, fromIndex ) {
 		}
 
 		node = cache.head;
-		while ( node ) {
+		while (node) {
 			// Check whether node arguments match arguments
-			if ( ! isShallowEqual( node.args, args, 1 ) ) {
+			if (!isShallowEqual(node.args, args, 1)) {
 				node = node.next;
 				continue;
 			}
@@ -1725,16 +1747,16 @@ function isShallowEqual( a, b, fromIndex ) {
 			// At this point we can assume we've found a match
 
 			// Surface matched node to head if not already
-			if ( node !== cache.head ) {
+			if (node !== cache.head) {
 				// Adjust siblings to point to each other.
-				node.prev.next = node.next;
-				if ( node.next ) {
+				/** @type {CacheNode} */ (node.prev).next = node.next;
+				if (node.next) {
 					node.next.prev = node.prev;
 				}
 
 				node.next = cache.head;
 				node.prev = null;
-				cache.head.prev = node;
+				/** @type {CacheNode} */ (cache.head).prev = node;
 				cache.head = node;
 			}
 
@@ -1744,20 +1766,20 @@ function isShallowEqual( a, b, fromIndex ) {
 
 		// No cached value found. Continue to insertion phase:
 
-		node = {
+		node = /** @type {CacheNode} */ ({
 			// Generate the result from original function
-			val: selector.apply( null, args ),
-		};
+			val: selector.apply(null, args),
+		});
 
 		// Avoid including the source object in the cache.
-		args[ 0 ] = null;
+		args[0] = null;
 		node.args = args;
 
 		// Don't need to check whether node is already head, since it would
 		// have been returned above already if it was
 
 		// Shift existing head down list
-		if ( cache.head ) {
+		if (cache.head) {
 			cache.head.prev = node;
 			node.next = cache.head;
 		}
@@ -1767,11 +1789,11 @@ function isShallowEqual( a, b, fromIndex ) {
 		return node.val;
 	}
 
-	callSelector.getDependants = getDependants;
+	callSelector.getDependants = normalizedGetDependants;
 	callSelector.clear = clear;
 	clear();
 
-	return callSelector;
+	return /** @type {S & EnhancedSelector} */ (callSelector);
 }
 
 ;// CONCATENATED MODULE: external ["wp","date"]
@@ -3335,7 +3357,7 @@ function __experimentalGetTemplateInfo(state, template) {
   }
 
   const {
-    excerpt,
+    description,
     slug,
     title,
     area
@@ -3347,7 +3369,7 @@ function __experimentalGetTemplateInfo(state, template) {
   } = __experimentalGetDefaultTemplateType(state, slug);
 
   const templateTitle = (0,external_lodash_namespaceObject.isString)(title) ? title : title === null || title === void 0 ? void 0 : title.rendered;
-  const templateDescription = (0,external_lodash_namespaceObject.isString)(excerpt) ? excerpt : excerpt === null || excerpt === void 0 ? void 0 : excerpt.raw;
+  const templateDescription = (0,external_lodash_namespaceObject.isString)(description) ? description : description === null || description === void 0 ? void 0 : description.raw;
   const templateIcon = ((_experimentalGetDefa = __experimentalGetDefaultTemplatePartAreas(state).find(item => area === item.area)) === null || _experimentalGetDefa === void 0 ? void 0 : _experimentalGetDefa.icon) || library_layout;
   return {
     title: templateTitle && templateTitle !== slug ? templateTitle : defaultTitle || slug,
@@ -8520,7 +8542,10 @@ function getDayOfTheMonth() {
   return new Date(d.getFullYear(), d.getMonth() + (firstDay ? 0 : 1), firstDay ? 1 : 0).toISOString();
 }
 
-function PostSchedule() {
+function PostSchedule(_ref) {
+  let {
+    onClose
+  } = _ref;
   const {
     postDate,
     postType
@@ -8544,19 +8569,18 @@ function PostSchedule() {
     before: getDayOfTheMonth(previewedMonth, false),
     exclude: [select(store_store).getCurrentPostId()]
   }), [previewedMonth, postType]);
-  const events = (0,external_wp_element_namespaceObject.useMemo)(() => (eventsByPostType || []).map(_ref => {
+  const events = (0,external_wp_element_namespaceObject.useMemo)(() => (eventsByPostType || []).map(_ref2 => {
     let {
       title,
       type,
       date: eventDate
-    } = _ref;
+    } = _ref2;
     return {
       title: title === null || title === void 0 ? void 0 : title.rendered,
       type,
       date: new Date(eventDate)
     };
   }), [eventsByPostType]);
-  const ref = (0,external_wp_element_namespaceObject.useRef)();
 
   const settings = (0,external_wp_date_namespaceObject.__experimentalGetSettings)(); // To know if the current timezone is a 12 hour time with look for "a" in the time format
   // We also make sure this a is not escaped by a "/"
@@ -8566,22 +8590,13 @@ function PostSchedule() {
   .replace(/\\\\/g, '') // Replace "//" with empty strings.
   .split('').reverse().join('') // Reverse the string and test for "a" not followed by a slash.
   );
-
-  function onChange(newDate) {
-    onUpdateDate(newDate);
-    const {
-      ownerDocument
-    } = ref.current;
-    ownerDocument.activeElement.blur();
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DateTimePicker, {
-    ref: ref,
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalPublishDateTimePicker, {
     currentDate: postDate,
-    onChange: onChange,
+    onChange: onUpdateDate,
     is12Hour: is12HourTime,
     events: events,
-    onMonthPreviewed: setPreviewedMonth
+    onMonthPreviewed: setPreviewedMonth,
+    onClose: onClose
   });
 }
 

@@ -2961,7 +2961,7 @@ function useUpdatedRef(value) {
 
 
 function useCopyToClipboard(text, onSuccess) {
-  // Store the dependencies as refs and continuesly update them so they're
+  // Store the dependencies as refs and continuously update them so they're
   // fresh when the callback is called.
   const textRef = useUpdatedRef(text);
   const onSuccessRef = useUpdatedRef(onSuccess);

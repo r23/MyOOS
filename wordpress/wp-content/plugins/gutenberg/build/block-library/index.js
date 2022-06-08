@@ -3420,6 +3420,146 @@ const blockAttributes = {
     selector: 'a'
   }
 };
+const v11 = {
+  attributes: {
+    url: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'href'
+    },
+    title: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'title'
+    },
+    text: {
+      type: 'string',
+      source: 'html',
+      selector: 'a'
+    },
+    linkTarget: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'target'
+    },
+    rel: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'rel'
+    },
+    placeholder: {
+      type: 'string'
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    textColor: {
+      type: 'string'
+    },
+    gradient: {
+      type: 'string'
+    },
+    width: {
+      type: 'number'
+    }
+  },
+  supports: {
+    anchor: true,
+    align: true,
+    alignWide: false,
+    color: {
+      __experimentalSkipSerialization: true,
+      gradients: true,
+      __experimentalDefaultControls: {
+        background: true,
+        text: true
+      }
+    },
+    typography: {
+      fontSize: true,
+      __experimentalFontFamily: true,
+      __experimentalDefaultControls: {
+        fontSize: true
+      }
+    },
+    reusable: false,
+    spacing: {
+      __experimentalSkipSerialization: true,
+      padding: ['horizontal', 'vertical'],
+      __experimentalDefaultControls: {
+        padding: true
+      }
+    },
+    __experimentalBorder: {
+      radius: true,
+      __experimentalSkipSerialization: true,
+      __experimentalDefaultControls: {
+        radius: true
+      }
+    },
+    __experimentalSelector: '.wp-block-button__link'
+  },
+
+  save(_ref) {
+    var _style$border, _style$typography;
+
+    let {
+      attributes,
+      className
+    } = _ref;
+    const {
+      fontSize,
+      linkTarget,
+      rel,
+      style,
+      text,
+      title,
+      url,
+      width
+    } = attributes;
+
+    if (!text) {
+      return null;
+    }
+
+    const borderProps = (0,external_wp_blockEditor_namespaceObject.__experimentalGetBorderClassesAndStyles)(attributes);
+    const colorProps = (0,external_wp_blockEditor_namespaceObject.__experimentalGetColorClassesAndStyles)(attributes);
+    const spacingProps = (0,external_wp_blockEditor_namespaceObject.__experimentalGetSpacingClassesAndStyles)(attributes);
+    const buttonClasses = classnames_default()('wp-block-button__link', colorProps.className, borderProps.className, {
+      // For backwards compatibility add style that isn't provided via
+      // block support.
+      'no-border-radius': (style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border.radius) === 0
+    });
+    const buttonStyle = { ...borderProps.style,
+      ...colorProps.style,
+      ...spacingProps.style
+    }; // The use of a `title` attribute here is soft-deprecated, but still applied
+    // if it had already been assigned, for the sake of backward-compatibility.
+    // A title will no longer be assigned for new or updated button block links.
+
+    const wrapperClasses = classnames_default()(className, {
+      [`has-custom-width wp-block-button__width-${width}`]: width,
+      [`has-custom-font-size`]: fontSize || (style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontSize)
+    });
+    return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
+      className: wrapperClasses
+    }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText.Content, {
+      tagName: "a",
+      className: buttonClasses,
+      href: url,
+      title: title,
+      style: buttonStyle,
+      value: text,
+      target: linkTarget,
+      rel: rel
+    }));
+  }
+
+};
 const v10 = {
   attributes: {
     url: {
@@ -3494,13 +3634,13 @@ const v10 = {
     __experimentalSelector: '.wp-block-button__link'
   },
 
-  save(_ref) {
-    var _style$border, _style$typography;
+  save(_ref2) {
+    var _style$border2, _style$typography2;
 
     let {
       attributes,
       className
-    } = _ref;
+    } = _ref2;
     const {
       fontSize,
       linkTarget,
@@ -3522,7 +3662,7 @@ const v10 = {
     const buttonClasses = classnames_default()('wp-block-button__link', colorProps.className, borderProps.className, {
       // For backwards compatibility add style that isn't provided via
       // block support.
-      'no-border-radius': (style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border.radius) === 0
+      'no-border-radius': (style === null || style === void 0 ? void 0 : (_style$border2 = style.border) === null || _style$border2 === void 0 ? void 0 : _style$border2.radius) === 0
     });
     const buttonStyle = { ...borderProps.style,
       ...colorProps.style,
@@ -3533,7 +3673,7 @@ const v10 = {
 
     const wrapperClasses = classnames_default()(className, {
       [`has-custom-width wp-block-button__width-${width}`]: width,
-      [`has-custom-font-size`]: fontSize || (style === null || style === void 0 ? void 0 : (_style$typography = style.typography) === null || _style$typography === void 0 ? void 0 : _style$typography.fontSize)
+      [`has-custom-font-size`]: fontSize || (style === null || style === void 0 ? void 0 : (_style$typography2 = style.typography) === null || _style$typography2 === void 0 ? void 0 : _style$typography2.fontSize)
     });
     return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
       className: wrapperClasses
@@ -3551,17 +3691,17 @@ const v10 = {
 
   migrate: migrate_font_family,
 
-  isEligible(_ref2) {
-    var _style$typography2;
+  isEligible(_ref3) {
+    var _style$typography3;
 
     let {
       style
-    } = _ref2;
-    return style === null || style === void 0 ? void 0 : (_style$typography2 = style.typography) === null || _style$typography2 === void 0 ? void 0 : _style$typography2.fontFamily;
+    } = _ref3;
+    return style === null || style === void 0 ? void 0 : (_style$typography3 = style.typography) === null || _style$typography3 === void 0 ? void 0 : _style$typography3.fontFamily;
   }
 
 };
-const deprecated_deprecated = [v10, {
+const deprecated_deprecated = [v11, v10, {
   supports: {
     anchor: true,
     align: true,
@@ -3607,22 +3747,22 @@ const deprecated_deprecated = [v10, {
     }
   },
 
-  isEligible(_ref3) {
-    var _style$border2;
+  isEligible(_ref4) {
+    var _style$border3;
 
     let {
       style
-    } = _ref3;
-    return typeof (style === null || style === void 0 ? void 0 : (_style$border2 = style.border) === null || _style$border2 === void 0 ? void 0 : _style$border2.radius) === 'number';
+    } = _ref4;
+    return typeof (style === null || style === void 0 ? void 0 : (_style$border3 = style.border) === null || _style$border3 === void 0 ? void 0 : _style$border3.radius) === 'number';
   },
 
-  save(_ref4) {
-    var _style$border3, _style$border4, _style$typography3;
+  save(_ref5) {
+    var _style$border4, _style$border5, _style$typography4;
 
     let {
       attributes,
       className
-    } = _ref4;
+    } = _ref5;
     const {
       fontSize,
       linkTarget,
@@ -3638,10 +3778,10 @@ const deprecated_deprecated = [v10, {
       return null;
     }
 
-    const borderRadius = style === null || style === void 0 ? void 0 : (_style$border3 = style.border) === null || _style$border3 === void 0 ? void 0 : _style$border3.radius;
+    const borderRadius = style === null || style === void 0 ? void 0 : (_style$border4 = style.border) === null || _style$border4 === void 0 ? void 0 : _style$border4.radius;
     const colorProps = (0,external_wp_blockEditor_namespaceObject.__experimentalGetColorClassesAndStyles)(attributes);
     const buttonClasses = classnames_default()('wp-block-button__link', colorProps.className, {
-      'no-border-radius': (style === null || style === void 0 ? void 0 : (_style$border4 = style.border) === null || _style$border4 === void 0 ? void 0 : _style$border4.radius) === 0
+      'no-border-radius': (style === null || style === void 0 ? void 0 : (_style$border5 = style.border) === null || _style$border5 === void 0 ? void 0 : _style$border5.radius) === 0
     });
     const buttonStyle = {
       borderRadius: borderRadius ? borderRadius : undefined,
@@ -3652,97 +3792,7 @@ const deprecated_deprecated = [v10, {
 
     const wrapperClasses = classnames_default()(className, {
       [`has-custom-width wp-block-button__width-${width}`]: width,
-      [`has-custom-font-size`]: fontSize || (style === null || style === void 0 ? void 0 : (_style$typography3 = style.typography) === null || _style$typography3 === void 0 ? void 0 : _style$typography3.fontSize)
-    });
-    return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
-      className: wrapperClasses
-    }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText.Content, {
-      tagName: "a",
-      className: buttonClasses,
-      href: url,
-      title: title,
-      style: buttonStyle,
-      value: text,
-      target: linkTarget,
-      rel: rel
-    }));
-  },
-
-  migrate: (0,external_wp_compose_namespaceObject.compose)(migrate_font_family, migrateBorderRadius)
-}, {
-  supports: {
-    anchor: true,
-    align: true,
-    alignWide: false,
-    color: {
-      __experimentalSkipSerialization: true
-    },
-    reusable: false,
-    __experimentalSelector: '.wp-block-button__link'
-  },
-  attributes: { ...blockAttributes,
-    linkTarget: {
-      type: 'string',
-      source: 'attribute',
-      selector: 'a',
-      attribute: 'target'
-    },
-    rel: {
-      type: 'string',
-      source: 'attribute',
-      selector: 'a',
-      attribute: 'rel'
-    },
-    placeholder: {
-      type: 'string'
-    },
-    borderRadius: {
-      type: 'number'
-    },
-    backgroundColor: {
-      type: 'string'
-    },
-    textColor: {
-      type: 'string'
-    },
-    gradient: {
-      type: 'string'
-    },
-    style: {
-      type: 'object'
-    },
-    width: {
-      type: 'number'
-    }
-  },
-
-  save(_ref5) {
-    let {
-      attributes,
-      className
-    } = _ref5;
-    const {
-      borderRadius,
-      linkTarget,
-      rel,
-      text,
-      title,
-      url,
-      width
-    } = attributes;
-    const colorProps = (0,external_wp_blockEditor_namespaceObject.__experimentalGetColorClassesAndStyles)(attributes);
-    const buttonClasses = classnames_default()('wp-block-button__link', colorProps.className, {
-      'no-border-radius': borderRadius === 0
-    });
-    const buttonStyle = {
-      borderRadius: borderRadius ? borderRadius + 'px' : undefined,
-      ...colorProps.style
-    }; // The use of a `title` attribute here is soft-deprecated, but still applied
-    // if it had already been assigned, for the sake of backward-compatibility.
-    // A title will no longer be assigned for new or updated button block links.
-
-    const wrapperClasses = classnames_default()(className, {
-      [`has-custom-width wp-block-button__width-${width}`]: width
+      [`has-custom-font-size`]: fontSize || (style === null || style === void 0 ? void 0 : (_style$typography4 = style.typography) === null || _style$typography4 === void 0 ? void 0 : _style$typography4.fontSize)
     });
     return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
       className: wrapperClasses
@@ -3851,6 +3901,96 @@ const deprecated_deprecated = [v10, {
   migrate: (0,external_wp_compose_namespaceObject.compose)(migrate_font_family, migrateBorderRadius)
 }, {
   supports: {
+    anchor: true,
+    align: true,
+    alignWide: false,
+    color: {
+      __experimentalSkipSerialization: true
+    },
+    reusable: false,
+    __experimentalSelector: '.wp-block-button__link'
+  },
+  attributes: { ...blockAttributes,
+    linkTarget: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'target'
+    },
+    rel: {
+      type: 'string',
+      source: 'attribute',
+      selector: 'a',
+      attribute: 'rel'
+    },
+    placeholder: {
+      type: 'string'
+    },
+    borderRadius: {
+      type: 'number'
+    },
+    backgroundColor: {
+      type: 'string'
+    },
+    textColor: {
+      type: 'string'
+    },
+    gradient: {
+      type: 'string'
+    },
+    style: {
+      type: 'object'
+    },
+    width: {
+      type: 'number'
+    }
+  },
+
+  save(_ref7) {
+    let {
+      attributes,
+      className
+    } = _ref7;
+    const {
+      borderRadius,
+      linkTarget,
+      rel,
+      text,
+      title,
+      url,
+      width
+    } = attributes;
+    const colorProps = (0,external_wp_blockEditor_namespaceObject.__experimentalGetColorClassesAndStyles)(attributes);
+    const buttonClasses = classnames_default()('wp-block-button__link', colorProps.className, {
+      'no-border-radius': borderRadius === 0
+    });
+    const buttonStyle = {
+      borderRadius: borderRadius ? borderRadius + 'px' : undefined,
+      ...colorProps.style
+    }; // The use of a `title` attribute here is soft-deprecated, but still applied
+    // if it had already been assigned, for the sake of backward-compatibility.
+    // A title will no longer be assigned for new or updated button block links.
+
+    const wrapperClasses = classnames_default()(className, {
+      [`has-custom-width wp-block-button__width-${width}`]: width
+    });
+    return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
+      className: wrapperClasses
+    }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText.Content, {
+      tagName: "a",
+      className: buttonClasses,
+      href: url,
+      title: title,
+      style: buttonStyle,
+      value: text,
+      target: linkTarget,
+      rel: rel
+    }));
+  },
+
+  migrate: (0,external_wp_compose_namespaceObject.compose)(migrate_font_family, migrateBorderRadius)
+}, {
+  supports: {
     align: true,
     alignWide: false,
     color: {
@@ -3890,10 +4030,10 @@ const deprecated_deprecated = [v10, {
     }
   },
 
-  save(_ref7) {
+  save(_ref8) {
     let {
       attributes
-    } = _ref7;
+    } = _ref8;
     const {
       borderRadius,
       linkTarget,
@@ -3967,10 +4107,10 @@ const deprecated_deprecated = [v10, {
   isEligible: attributes => !!attributes.customTextColor || !!attributes.customBackgroundColor || !!attributes.customGradient,
   migrate: (0,external_wp_compose_namespaceObject.compose)(migrateBorderRadius, migrateCustomColorsAndGradients),
 
-  save(_ref8) {
+  save(_ref9) {
     let {
       attributes
-    } = _ref8;
+    } = _ref9;
     const {
       backgroundColor,
       borderRadius,
@@ -4071,10 +4211,10 @@ const deprecated_deprecated = [v10, {
     }));
   },
 
-  save(_ref9) {
+  save(_ref10) {
     let {
       attributes
-    } = _ref9;
+    } = _ref10;
     const {
       backgroundColor,
       customBackgroundColor,
@@ -4131,10 +4271,10 @@ const deprecated_deprecated = [v10, {
   },
   migrate: oldColorsMigration,
 
-  save(_ref10) {
+  save(_ref11) {
     let {
       attributes
-    } = _ref10;
+    } = _ref11;
     const {
       url,
       text,
@@ -4180,10 +4320,10 @@ const deprecated_deprecated = [v10, {
     }
   },
 
-  save(_ref11) {
+  save(_ref12) {
     let {
       attributes
-    } = _ref11;
+    } = _ref12;
     const {
       url,
       text,
@@ -4224,10 +4364,10 @@ const deprecated_deprecated = [v10, {
     }
   },
 
-  save(_ref12) {
+  save(_ref13) {
     let {
       attributes
-    } = _ref12;
+    } = _ref13;
     const {
       url,
       text,
@@ -4446,7 +4586,7 @@ function ButtonEdit(props) {
       // For backwards compatibility add style that isn't
       // provided via block support.
       'no-border-radius': (style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border.radius) === 0
-    }),
+    }, external_wp_blockEditor_namespaceObject.__experimentalElementButtonClassName),
     style: { ...borderProps.style,
       ...colorProps.style,
       ...spacingProps.style
@@ -4564,7 +4704,7 @@ function save_save(_ref) {
     // For backwards compatibility add style that isn't provided via
     // block support.
     'no-border-radius': (style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border.radius) === 0
-  });
+  }, external_wp_blockEditor_namespaceObject.__experimentalElementButtonClassName);
   const buttonStyle = { ...borderProps.style,
     ...colorProps.style,
     ...spacingProps.style
@@ -7314,7 +7454,9 @@ const columns_metadata = {
       }
     },
     spacing: {
-      blockGap: true,
+      blockGap: {
+        __experimentalDefault: "2em"
+      },
       margin: ["top", "bottom"],
       padding: true,
       __experimentalDefaultControls: {
@@ -10117,12 +10259,18 @@ const VIDEO_BACKGROUND_TYPE = 'video';
 const COVER_MIN_HEIGHT = 50;
 const COVER_MAX_HEIGHT = 1000;
 const COVER_DEFAULT_HEIGHT = 300;
-function backgroundImageStyles(url) {
-  return url ? {
-    backgroundImage: `url(${url})`
-  } : {};
-}
+const DEFAULT_FOCAL_POINT = {
+  x: 0.5,
+  y: 0.5
+};
 const shared_ALLOWED_MEDIA_TYPES = ['image', 'video'];
+function mediaPosition() {
+  let {
+    x,
+    y
+  } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : DEFAULT_FOCAL_POINT;
+  return `${Math.round(x * 100)}% ${Math.round(y * 100)}%`;
+}
 function dimRatioToClass(ratio) {
   return ratio === 50 || !ratio === undefined ? null : 'has-background-dim-' + 10 * Math.round(ratio / 10);
 }
@@ -10197,13 +10345,6 @@ function getPositionClassName(contentPosition) {
   if (isContentPositionCenter(contentPosition)) return '';
   return POSITION_CLASSNAMES[contentPosition];
 }
-function mediaPosition(_ref) {
-  let {
-    x,
-    y
-  } = _ref;
-  return `${Math.round(x * 100)}% ${Math.round(y * 100)}%`;
-}
 
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/cover/deprecated.js
 
@@ -10225,6 +10366,12 @@ function mediaPosition(_ref) {
  */
 
 
+
+function backgroundImageStyles(url) {
+  return url ? {
+    backgroundImage: `url(${url})`
+  } : {};
+}
 /**
  * Original function to determine the background opacity classname
  *
@@ -10233,6 +10380,7 @@ function mediaPosition(_ref) {
  * @param {number} ratio ratio to use for opacity.
  * @return {string}       background opacity class   .
  */
+
 
 function dimRatioToClassV1(ratio) {
   return ratio === 0 || ratio === 50 || !ratio ? null : 'has-background-dim-' + 10 * Math.round(ratio / 10);
@@ -10272,96 +10420,192 @@ const deprecated_blockAttributes = {
   focalPoint: {
     type: 'object'
   }
-}; // Deprecation for blocks with `minHeightUnit` set but no `minHeight`.
+};
+const v8ToV10BlockAttributes = {
+  url: {
+    type: 'string'
+  },
+  id: {
+    type: 'number'
+  },
+  alt: {
+    type: 'string',
+    source: 'attribute',
+    selector: 'img',
+    attribute: 'alt',
+    default: ''
+  },
+  hasParallax: {
+    type: 'boolean',
+    default: false
+  },
+  isRepeated: {
+    type: 'boolean',
+    default: false
+  },
+  dimRatio: {
+    type: 'number',
+    default: 100
+  },
+  overlayColor: {
+    type: 'string'
+  },
+  customOverlayColor: {
+    type: 'string'
+  },
+  backgroundType: {
+    type: 'string',
+    default: 'image'
+  },
+  focalPoint: {
+    type: 'object'
+  },
+  minHeight: {
+    type: 'number'
+  },
+  minHeightUnit: {
+    type: 'string'
+  },
+  gradient: {
+    type: 'string'
+  },
+  customGradient: {
+    type: 'string'
+  },
+  contentPosition: {
+    type: 'string'
+  },
+  isDark: {
+    type: 'boolean',
+    default: true
+  },
+  allowedBlocks: {
+    type: 'array'
+  },
+  templateLock: {
+    type: ['string', 'boolean'],
+    enum: ['all', 'insert', false]
+  }
+};
+const v7toV10BlockSupports = {
+  anchor: true,
+  align: true,
+  html: false,
+  spacing: {
+    padding: true,
+    __experimentalDefaultControls: {
+      padding: true
+    }
+  },
+  color: {
+    __experimentalDuotone: '> .wp-block-cover__image-background, > .wp-block-cover__video-background',
+    text: false,
+    background: false
+  }
+}; // Deprecation for blocks that renders fixed background as backgroud from the main block container.
 
-const v9 = {
-  attributes: {
-    url: {
-      type: 'string'
-    },
-    id: {
-      type: 'number'
-    },
-    alt: {
-      type: 'string',
-      source: 'attribute',
-      selector: 'img',
-      attribute: 'alt',
-      default: ''
-    },
-    hasParallax: {
-      type: 'boolean',
-      default: false
-    },
-    isRepeated: {
-      type: 'boolean',
-      default: false
-    },
-    dimRatio: {
-      type: 'number',
-      default: 100
-    },
-    overlayColor: {
-      type: 'string'
-    },
-    customOverlayColor: {
-      type: 'string'
-    },
-    backgroundType: {
-      type: 'string',
-      default: 'image'
-    },
-    focalPoint: {
-      type: 'object'
-    },
-    minHeight: {
-      type: 'number'
-    },
-    minHeightUnit: {
-      type: 'string'
-    },
-    gradient: {
-      type: 'string'
-    },
-    customGradient: {
-      type: 'string'
-    },
-    contentPosition: {
-      type: 'string'
-    },
-    isDark: {
-      type: 'boolean',
-      default: true
-    },
-    allowedBlocks: {
-      type: 'array'
-    },
-    templateLock: {
-      type: ['string', 'boolean'],
-      enum: ['all', 'insert', false]
-    }
-  },
-  supports: {
-    anchor: true,
-    align: true,
-    html: false,
-    spacing: {
-      padding: true,
-      __experimentalDefaultControls: {
-        padding: true
-      }
-    },
-    color: {
-      __experimentalDuotone: '> .wp-block-cover__image-background, > .wp-block-cover__video-background',
-      text: false,
-      background: false
-    }
-  },
+const deprecated_v10 = {
+  attributes: v8ToV10BlockAttributes,
+  supports: v7toV10BlockSupports,
 
   save(_ref) {
     let {
       attributes
     } = _ref;
+    const {
+      backgroundType,
+      gradient,
+      contentPosition,
+      customGradient,
+      customOverlayColor,
+      dimRatio,
+      focalPoint,
+      useFeaturedImage,
+      hasParallax,
+      isDark,
+      isRepeated,
+      overlayColor,
+      url,
+      alt,
+      id,
+      minHeight: minHeightProp,
+      minHeightUnit
+    } = attributes;
+    const overlayColorClass = (0,external_wp_blockEditor_namespaceObject.getColorClassName)('background-color', overlayColor);
+
+    const gradientClass = (0,external_wp_blockEditor_namespaceObject.__experimentalGetGradientClass)(gradient);
+
+    const minHeight = minHeightProp && minHeightUnit ? `${minHeightProp}${minHeightUnit}` : minHeightProp;
+    const isImageBackground = IMAGE_BACKGROUND_TYPE === backgroundType;
+    const isVideoBackground = VIDEO_BACKGROUND_TYPE === backgroundType;
+    const isImgElement = !(hasParallax || isRepeated);
+    const style = { ...(isImageBackground && !isImgElement && !useFeaturedImage ? backgroundImageStyles(url) : {}),
+      minHeight: minHeight || undefined
+    };
+    const bgStyle = {
+      backgroundColor: !overlayColorClass ? customOverlayColor : undefined,
+      background: customGradient ? customGradient : undefined
+    };
+    const objectPosition = // prettier-ignore
+    focalPoint && isImgElement ? `${Math.round(focalPoint.x * 100)}% ${Math.round(focalPoint.y * 100)}%` : undefined;
+    const classes = classnames_default()({
+      'is-light': !isDark,
+      'has-parallax': hasParallax,
+      'is-repeated': isRepeated,
+      'has-custom-content-position': !isContentPositionCenter(contentPosition)
+    }, getPositionClassName(contentPosition));
+    const gradientValue = gradient || customGradient;
+    return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
+      className: classes,
+      style
+    }), (0,external_wp_element_namespaceObject.createElement)("span", {
+      "aria-hidden": "true",
+      className: classnames_default()('wp-block-cover__background', overlayColorClass, dimRatioToClass(dimRatio), {
+        'has-background-dim': dimRatio !== undefined,
+        // For backwards compatibility. Former versions of the Cover Block applied
+        // `.wp-block-cover__gradient-background` in the presence of
+        // media, a gradient and a dim.
+        'wp-block-cover__gradient-background': url && gradientValue && dimRatio !== 0,
+        'has-background-gradient': gradientValue,
+        [gradientClass]: gradientClass
+      }),
+      style: bgStyle
+    }), !useFeaturedImage && isImageBackground && isImgElement && url && (0,external_wp_element_namespaceObject.createElement)("img", {
+      className: classnames_default()('wp-block-cover__image-background', id ? `wp-image-${id}` : null),
+      alt: alt,
+      src: url,
+      style: {
+        objectPosition
+      },
+      "data-object-fit": "cover",
+      "data-object-position": objectPosition
+    }), isVideoBackground && url && (0,external_wp_element_namespaceObject.createElement)("video", {
+      className: classnames_default()('wp-block-cover__video-background', 'intrinsic-ignore'),
+      autoPlay: true,
+      muted: true,
+      loop: true,
+      playsInline: true,
+      src: url,
+      style: {
+        objectPosition
+      },
+      "data-object-fit": "cover",
+      "data-object-position": objectPosition
+    }), (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useInnerBlocksProps.save({
+      className: 'wp-block-cover__inner-container'
+    })));
+  }
+
+}; // Deprecation for blocks with `minHeightUnit` set but no `minHeight`.
+
+const v9 = {
+  attributes: v8ToV10BlockAttributes,
+  supports: v7toV10BlockSupports,
+
+  save(_ref2) {
+    let {
+      attributes
+    } = _ref2;
     const {
       backgroundType,
       gradient,
@@ -10448,93 +10692,13 @@ const v9 = {
 }; // v8: deprecated to remove duplicated gradient classes and swap `wp-block-cover__gradient-background` for `wp-block-cover__background`.
 
 const v8 = {
-  attributes: {
-    url: {
-      type: 'string'
-    },
-    id: {
-      type: 'number'
-    },
-    alt: {
-      type: 'string',
-      source: 'attribute',
-      selector: 'img',
-      attribute: 'alt',
-      default: ''
-    },
-    hasParallax: {
-      type: 'boolean',
-      default: false
-    },
-    isRepeated: {
-      type: 'boolean',
-      default: false
-    },
-    dimRatio: {
-      type: 'number',
-      default: 100
-    },
-    overlayColor: {
-      type: 'string'
-    },
-    customOverlayColor: {
-      type: 'string'
-    },
-    backgroundType: {
-      type: 'string',
-      default: 'image'
-    },
-    focalPoint: {
-      type: 'object'
-    },
-    minHeight: {
-      type: 'number'
-    },
-    minHeightUnit: {
-      type: 'string'
-    },
-    gradient: {
-      type: 'string'
-    },
-    customGradient: {
-      type: 'string'
-    },
-    contentPosition: {
-      type: 'string'
-    },
-    isDark: {
-      type: 'boolean',
-      default: true
-    },
-    allowedBlocks: {
-      type: 'array'
-    },
-    templateLock: {
-      type: ['string', 'boolean'],
-      enum: ['all', 'insert', false]
-    }
-  },
-  supports: {
-    anchor: true,
-    align: true,
-    html: false,
-    spacing: {
-      padding: true,
-      __experimentalDefaultControls: {
-        padding: true
-      }
-    },
-    color: {
-      __experimentalDuotone: '> .wp-block-cover__image-background, > .wp-block-cover__video-background',
-      text: false,
-      background: false
-    }
-  },
+  attributes: v8ToV10BlockAttributes,
+  supports: v7toV10BlockSupports,
 
-  save(_ref2) {
+  save(_ref3) {
     let {
       attributes
-    } = _ref2;
+    } = _ref3;
     const {
       backgroundType,
       gradient,
@@ -10643,27 +10807,12 @@ const v7 = {
       default: ''
     }
   },
-  supports: {
-    anchor: true,
-    align: true,
-    html: false,
-    spacing: {
-      padding: true,
-      __experimentalDefaultControls: {
-        padding: true
-      }
-    },
-    color: {
-      __experimentalDuotone: '> .wp-block-cover__image-background, > .wp-block-cover__video-background',
-      text: false,
-      background: false
-    }
-  },
+  supports: v7toV10BlockSupports,
 
-  save(_ref3) {
+  save(_ref4) {
     let {
       attributes
-    } = _ref3;
+    } = _ref4;
     const {
       backgroundType,
       gradient,
@@ -10767,10 +10916,10 @@ const v6 = {
     align: true
   },
 
-  save(_ref4) {
+  save(_ref5) {
     let {
       attributes
-    } = _ref4;
+    } = _ref5;
     const {
       backgroundType,
       gradient,
@@ -10867,10 +11016,10 @@ const v5 = {
     align: true
   },
 
-  save(_ref5) {
+  save(_ref6) {
     let {
       attributes
-    } = _ref5;
+    } = _ref6;
     const {
       backgroundType,
       gradient,
@@ -10946,10 +11095,10 @@ const v4 = {
     align: true
   },
 
-  save(_ref6) {
+  save(_ref7) {
     let {
       attributes
-    } = _ref6;
+    } = _ref7;
     const {
       backgroundType,
       gradient,
@@ -11025,10 +11174,10 @@ const v3 = {
     align: true
   },
 
-  save(_ref7) {
+  save(_ref8) {
     let {
       attributes
-    } = _ref7;
+    } = _ref8;
     const {
       backgroundType,
       contentAlign,
@@ -11104,10 +11253,10 @@ const v2 = {
     className: false
   },
 
-  save(_ref8) {
+  save(_ref9) {
     let {
       attributes
-    } = _ref8;
+    } = _ref9;
     const {
       url,
       title,
@@ -11172,10 +11321,10 @@ const cover_deprecated_v1 = {
     className: false
   },
 
-  save(_ref9) {
+  save(_ref10) {
     let {
       attributes
-    } = _ref9;
+    } = _ref10;
     const {
       url,
       title,
@@ -11210,7 +11359,7 @@ const cover_deprecated_v1 = {
   }
 
 };
-/* harmony default export */ var cover_deprecated = ([v9, v8, v7, v6, v5, v4, v3, v2, cover_deprecated_v1]);
+/* harmony default export */ var cover_deprecated = ([deprecated_v10, v9, v8, v7, v6, v5, v4, v3, v2, cover_deprecated_v1]);
 
 ;// CONCATENATED MODULE: ./packages/block-library/node_modules/colord/index.mjs
 var r={grad:.9,turn:360,rad:360/(2*Math.PI)},t=function(r){return"string"==typeof r?r.length>0:"number"==typeof r},n=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=Math.pow(10,t)),Math.round(n*r)/n+0},e=function(r,t,n){return void 0===t&&(t=0),void 0===n&&(n=1),r>n?n:r>t?r:t},u=function(r){return(r=isFinite(r)?r%360:0)>0?r:r+360},a=function(r){return{r:e(r.r,0,255),g:e(r.g,0,255),b:e(r.b,0,255),a:e(r.a)}},o=function(r){return{r:n(r.r),g:n(r.g),b:n(r.b),a:n(r.a,3)}},i=/^#([0-9a-f]{3,8})$/i,s=function(r){var t=r.toString(16);return t.length<2?"0"+t:t},h=function(r){var t=r.r,n=r.g,e=r.b,u=r.a,a=Math.max(t,n,e),o=a-Math.min(t,n,e),i=o?a===t?(n-e)/o:a===n?2+(e-t)/o:4+(t-n)/o:0;return{h:60*(i<0?i+6:i),s:a?o/a*100:0,v:a/255*100,a:u}},b=function(r){var t=r.h,n=r.s,e=r.v,u=r.a;t=t/360*6,n/=100,e/=100;var a=Math.floor(t),o=e*(1-n),i=e*(1-(t-a)*n),s=e*(1-(1-t+a)*n),h=a%6;return{r:255*[e,i,o,o,s,e][h],g:255*[s,e,e,i,o,o][h],b:255*[o,o,s,e,e,i][h],a:u}},g=function(r){return{h:u(r.h),s:e(r.s,0,100),l:e(r.l,0,100),a:e(r.a)}},d=function(r){return{h:n(r.h),s:n(r.s),l:n(r.l),a:n(r.a,3)}},f=function(r){return b((n=(t=r).s,{h:t.h,s:(n*=((e=t.l)<50?e:100-e)/100)>0?2*n/(e+n)*100:0,v:e+n,a:t.a}));var t,n,e},c=function(r){return{h:(t=h(r)).h,s:(u=(200-(n=t.s))*(e=t.v)/100)>0&&u<200?n*e/100/(u<=100?u:200-u)*100:0,l:u/2,a:t.a};var t,n,e,u},l=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s*,\s*([+-]?\d*\.?\d+)%\s*,\s*([+-]?\d*\.?\d+)%\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,p=/^hsla?\(\s*([+-]?\d*\.?\d+)(deg|rad|grad|turn)?\s+([+-]?\d*\.?\d+)%\s+([+-]?\d*\.?\d+)%\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,v=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*,\s*([+-]?\d*\.?\d+)(%)?\s*(?:,\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,m=/^rgba?\(\s*([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s+([+-]?\d*\.?\d+)(%)?\s*(?:\/\s*([+-]?\d*\.?\d+)(%)?\s*)?\)$/i,y={string:[[function(r){var t=i.exec(r);return t?(r=t[1]).length<=4?{r:parseInt(r[0]+r[0],16),g:parseInt(r[1]+r[1],16),b:parseInt(r[2]+r[2],16),a:4===r.length?n(parseInt(r[3]+r[3],16)/255,2):1}:6===r.length||8===r.length?{r:parseInt(r.substr(0,2),16),g:parseInt(r.substr(2,2),16),b:parseInt(r.substr(4,2),16),a:8===r.length?n(parseInt(r.substr(6,2),16)/255,2):1}:null:null},"hex"],[function(r){var t=v.exec(r)||m.exec(r);return t?t[2]!==t[4]||t[4]!==t[6]?null:a({r:Number(t[1])/(t[2]?100/255:1),g:Number(t[3])/(t[4]?100/255:1),b:Number(t[5])/(t[6]?100/255:1),a:void 0===t[7]?1:Number(t[7])/(t[8]?100:1)}):null},"rgb"],[function(t){var n=l.exec(t)||p.exec(t);if(!n)return null;var e,u,a=g({h:(e=n[1],u=n[2],void 0===u&&(u="deg"),Number(e)*(r[u]||1)),s:Number(n[3]),l:Number(n[4]),a:void 0===n[5]?1:Number(n[5])/(n[6]?100:1)});return f(a)},"hsl"]],object:[[function(r){var n=r.r,e=r.g,u=r.b,o=r.a,i=void 0===o?1:o;return t(n)&&t(e)&&t(u)?a({r:Number(n),g:Number(e),b:Number(u),a:Number(i)}):null},"rgb"],[function(r){var n=r.h,e=r.s,u=r.l,a=r.a,o=void 0===a?1:a;if(!t(n)||!t(e)||!t(u))return null;var i=g({h:Number(n),s:Number(e),l:Number(u),a:Number(o)});return f(i)},"hsl"],[function(r){var n=r.h,a=r.s,o=r.v,i=r.a,s=void 0===i?1:i;if(!t(n)||!t(a)||!t(o))return null;var h=function(r){return{h:u(r.h),s:e(r.s,0,100),v:e(r.v,0,100),a:e(r.a)}}({h:Number(n),s:Number(a),v:Number(o),a:Number(s)});return b(h)},"hsv"]]},N=function(r,t){for(var n=0;n<t.length;n++){var e=t[n][0](r);if(e)return[e,t[n][1]]}return[null,void 0]},x=function(r){return"string"==typeof r?N(r.trim(),y.string):"object"==typeof r&&null!==r?N(r,y.object):[null,void 0]},I=function(r){return x(r)[1]},M=function(r,t){var n=c(r);return{h:n.h,s:e(n.s+100*t,0,100),l:n.l,a:n.a}},H=function(r){return(299*r.r+587*r.g+114*r.b)/1e3/255},$=function(r,t){var n=c(r);return{h:n.h,s:n.s,l:e(n.l+100*t,0,100),a:n.a}},j=function(){function r(r){this.parsed=x(r)[0],this.rgba=this.parsed||{r:0,g:0,b:0,a:1}}return r.prototype.isValid=function(){return null!==this.parsed},r.prototype.brightness=function(){return n(H(this.rgba),2)},r.prototype.isDark=function(){return H(this.rgba)<.5},r.prototype.isLight=function(){return H(this.rgba)>=.5},r.prototype.toHex=function(){return r=o(this.rgba),t=r.r,e=r.g,u=r.b,i=(a=r.a)<1?s(n(255*a)):"","#"+s(t)+s(e)+s(u)+i;var r,t,e,u,a,i},r.prototype.toRgb=function(){return o(this.rgba)},r.prototype.toRgbString=function(){return r=o(this.rgba),t=r.r,n=r.g,e=r.b,(u=r.a)<1?"rgba("+t+", "+n+", "+e+", "+u+")":"rgb("+t+", "+n+", "+e+")";var r,t,n,e,u},r.prototype.toHsl=function(){return d(c(this.rgba))},r.prototype.toHslString=function(){return r=d(c(this.rgba)),t=r.h,n=r.s,e=r.l,(u=r.a)<1?"hsla("+t+", "+n+"%, "+e+"%, "+u+")":"hsl("+t+", "+n+"%, "+e+"%)";var r,t,n,e,u},r.prototype.toHsv=function(){return r=h(this.rgba),{h:n(r.h),s:n(r.s),v:n(r.v),a:n(r.a,3)};var r},r.prototype.invert=function(){return w({r:255-(r=this.rgba).r,g:255-r.g,b:255-r.b,a:r.a});var r},r.prototype.saturate=function(r){return void 0===r&&(r=.1),w(M(this.rgba,r))},r.prototype.desaturate=function(r){return void 0===r&&(r=.1),w(M(this.rgba,-r))},r.prototype.grayscale=function(){return w(M(this.rgba,-1))},r.prototype.lighten=function(r){return void 0===r&&(r=.1),w($(this.rgba,r))},r.prototype.darken=function(r){return void 0===r&&(r=.1),w($(this.rgba,-r))},r.prototype.rotate=function(r){return void 0===r&&(r=15),this.hue(this.hue()+r)},r.prototype.alpha=function(r){return"number"==typeof r?w({r:(t=this.rgba).r,g:t.g,b:t.b,a:r}):n(this.rgba.a,3);var t},r.prototype.hue=function(r){var t=c(this.rgba);return"number"==typeof r?w({h:r,s:t.s,l:t.l,a:t.a}):n(t.h)},r.prototype.isEqual=function(r){return this.toHex()===w(r).toHex()},r}(),w=function(r){return r instanceof j?r:new j(r)},S=[],k=function(r){r.forEach(function(r){S.indexOf(r)<0&&(r(j,y),S.push(r))})},E=function(){return new j({r:255*Math.random(),g:255*Math.random(),b:255*Math.random()})};
@@ -11857,9 +12006,11 @@ function CoverEdit(_ref) {
   const isVideoBackground = VIDEO_BACKGROUND_TYPE === backgroundType;
   const minHeightWithUnit = minHeight && minHeightUnit ? `${minHeight}${minHeightUnit}` : minHeight;
   const isImgElement = !(hasParallax || isRepeated);
-  const style = { ...(isImageBackground && !isImgElement ? backgroundImageStyles(url) : undefined),
+  const style = {
     minHeight: minHeightWithUnit || undefined
   };
+  const backgroundImage = url ? `url(${url})` : undefined;
+  const backgroundPosition = mediaPosition(focalPoint);
   const bgStyle = {
     backgroundColor: overlayColor.color
   };
@@ -12008,13 +12159,21 @@ function CoverEdit(_ref) {
       backgroundImage: gradientValue,
       ...bgStyle
     }
-  }), url && isImageBackground && isImgElement && (0,external_wp_element_namespaceObject.createElement)("img", {
+  }), url && isImageBackground && (isImgElement ? (0,external_wp_element_namespaceObject.createElement)("img", {
     ref: mediaElement,
     className: "wp-block-cover__image-background",
     alt: alt,
     src: url,
     style: mediaStyle
-  }), url && isVideoBackground && (0,external_wp_element_namespaceObject.createElement)("video", {
+  }) : (0,external_wp_element_namespaceObject.createElement)("div", {
+    ref: mediaElement,
+    role: "img",
+    className: classnames_default()(classes, 'wp-block-cover__image-background'),
+    style: {
+      backgroundImage,
+      backgroundPosition
+    }
+  })), url && isVideoBackground && (0,external_wp_element_namespaceObject.createElement)("video", {
     ref: mediaElement,
     className: "wp-block-cover__video-background",
     autoPlay: true,
@@ -12081,7 +12240,7 @@ function cover_save_save(_ref) {
   const isImageBackground = IMAGE_BACKGROUND_TYPE === backgroundType;
   const isVideoBackground = VIDEO_BACKGROUND_TYPE === backgroundType;
   const isImgElement = !(hasParallax || isRepeated);
-  const style = { ...(isImageBackground && !isImgElement && !useFeaturedImage ? backgroundImageStyles(url) : {}),
+  const style = {
     minHeight: minHeight || undefined
   };
   const bgStyle = {
@@ -12089,13 +12248,19 @@ function cover_save_save(_ref) {
     background: customGradient ? customGradient : undefined
   };
   const objectPosition = // prettier-ignore
-  focalPoint && isImgElement ? `${Math.round(focalPoint.x * 100)}% ${Math.round(focalPoint.y * 100)}%` : undefined;
+  focalPoint && isImgElement ? mediaPosition(focalPoint) : undefined;
+  const backgroundImage = url ? `url(${url})` : undefined;
+  const backgroundPosition = mediaPosition(focalPoint);
   const classes = classnames_default()({
     'is-light': !isDark,
     'has-parallax': hasParallax,
     'is-repeated': isRepeated,
     'has-custom-content-position': !isContentPositionCenter(contentPosition)
   }, getPositionClassName(contentPosition));
+  const imgClasses = classnames_default()('wp-block-cover__image-background', id ? `wp-image-${id}` : null, {
+    'has-parallax': hasParallax,
+    'is-repeated': isRepeated
+  });
   const gradientValue = gradient || customGradient;
   return (0,external_wp_element_namespaceObject.createElement)("div", external_wp_blockEditor_namespaceObject.useBlockProps.save({
     className: classes,
@@ -12112,8 +12277,8 @@ function cover_save_save(_ref) {
       [gradientClass]: gradientClass
     }),
     style: bgStyle
-  }), !useFeaturedImage && isImageBackground && isImgElement && url && (0,external_wp_element_namespaceObject.createElement)("img", {
-    className: classnames_default()('wp-block-cover__image-background', id ? `wp-image-${id}` : null),
+  }), !useFeaturedImage && isImageBackground && url && (isImgElement ? (0,external_wp_element_namespaceObject.createElement)("img", {
+    className: imgClasses,
     alt: alt,
     src: url,
     style: {
@@ -12121,7 +12286,14 @@ function cover_save_save(_ref) {
     },
     "data-object-fit": "cover",
     "data-object-position": objectPosition
-  }), isVideoBackground && url && (0,external_wp_element_namespaceObject.createElement)("video", {
+  }) : (0,external_wp_element_namespaceObject.createElement)("div", {
+    role: "img",
+    className: imgClasses,
+    style: {
+      backgroundPosition,
+      backgroundImage
+    }
+  })), isVideoBackground && url && (0,external_wp_element_namespaceObject.createElement)("video", {
     className: classnames_default()('wp-block-cover__video-background', 'intrinsic-ignore'),
     autoPlay: true,
     muted: true,
@@ -14518,7 +14690,7 @@ function FileEdit(_ref2) {
     tagName: "div" // Must be block-level or else cursor disappears.
     ,
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Download button text'),
-    className: 'wp-block-file__button',
+    className: classnames_default()('wp-block-file__button', external_wp_blockEditor_namespaceObject.__experimentalElementButtonClassName),
     value: downloadButtonText,
     withoutInteractiveFormatting: true,
     placeholder: (0,external_wp_i18n_namespaceObject.__)('Add text…'),
@@ -14532,8 +14704,13 @@ function FileEdit(_ref2) {
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
+
 
 
 function file_save_save(_ref) {
@@ -14576,7 +14753,7 @@ function file_save_save(_ref) {
     value: fileName
   })), showDownloadButton && (0,external_wp_element_namespaceObject.createElement)("a", {
     href: href,
-    className: "wp-block-file__button",
+    className: classnames_default()('wp-block-file__button', external_wp_blockEditor_namespaceObject.__experimentalElementButtonClassName),
     download: true,
     "aria-describedby": describedById
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText.Content, {
@@ -16335,10 +16512,20 @@ function GapStyles(_ref) {
   const styleElement = (0,external_wp_element_namespaceObject.useContext)(external_wp_blockEditor_namespaceObject.BlockList.__unstableElementContext); // --gallery-block--gutter-size is deprecated. --wp--style--gallery-gap-default should be used by themes that want to set a default
   // gap on the gallery.
 
-  const gapValue = blockGap ? blockGap : `var( --wp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --wp--style--block-gap, 0.5em ) ) )`;
-  const gap = `#block-${clientId} { 
-		--wp--style--unstable-gallery-gap: ${gapValue};
-		gap: ${gapValue} 
+  const fallbackValue = `var( --wp--style--gallery-gap-default, var( --gallery-block--gutter-size, var( --wp--style--block-gap, 0.5em ) ) )`;
+  let gapValue = fallbackValue;
+  let column = fallbackValue;
+  let row; // Check for the possibility of split block gap values. See: https://github.com/WordPress/gutenberg/pull/37736
+
+  if (!!blockGap) {
+    row = typeof blockGap === 'string' ? blockGap : (blockGap === null || blockGap === void 0 ? void 0 : blockGap.top) || fallbackValue;
+    column = typeof blockGap === 'string' ? blockGap : (blockGap === null || blockGap === void 0 ? void 0 : blockGap.left) || fallbackValue;
+    gapValue = row === column ? row : `${row} ${column}`;
+  }
+
+  const gap = `#block-${clientId} {
+		--wp--style--unstable-gallery-gap: ${column};
+		gap: ${gapValue}
 	}`;
 
   const GapStyle = () => {
@@ -18336,7 +18523,7 @@ const gallery_metadata = {
     html: false,
     units: ["px", "em", "rem", "vh", "vw"],
     spacing: {
-      blockGap: true,
+      blockGap: ["horizontal", "vertical"],
       __experimentalSkipSerialization: ["blockGap"],
       __experimentalDefaultControls: {
         blockGap: true
@@ -20560,14 +20747,12 @@ function Image(_ref) {
     isSelected,
     insertBlocksAfter,
     onReplace,
-    onCloseModal,
     onSelectImage,
     onSelectURL,
     onUploadError,
     containerRef,
     context,
-    clientId,
-    onImageLoadError
+    clientId
   } = _ref;
   const imageRef = (0,external_wp_element_namespaceObject.useRef)();
   const captionRef = (0,external_wp_element_namespaceObject.useRef)();
@@ -20700,13 +20885,10 @@ function Image(_ref) {
         url
       }
     });
-    const shouldReplace = undefined !== embedBlock;
 
-    if (shouldReplace) {
+    if (undefined !== embedBlock) {
       onReplace(embedBlock);
     }
-
-    onImageLoadError(shouldReplace);
   }
 
   function onSetHref(props) {
@@ -20785,10 +20967,6 @@ function Image(_ref) {
     if (!isSelected) {
       setIsEditingImage(false);
     }
-
-    if (isSelected && isMediaDestroyed(id)) {
-      onImageLoadError();
-    }
   }, [isSelected]);
   const canEditImage = id && naturalWidth && naturalHeight && imageEditing;
   const allowCrop = !multiImageSelection && canEditImage && !isEditingImage;
@@ -20832,8 +21010,7 @@ function Image(_ref) {
     accept: "image/*",
     onSelect: onSelectImage,
     onSelectURL: onSelectURL,
-    onError: onUploadError,
-    onCloseModal: onCloseModal
+    onError: onUploadError
   })), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
     title: (0,external_wp_i18n_namespaceObject.__)('Settings')
   }, !multiImageSelection && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextareaControl, {
@@ -21089,23 +21266,7 @@ const isExternalImage = (id, url) => url && !id && !(0,external_wp_blob_namespac
 function hasDefaultSize(image, defaultSize) {
   return (0,external_lodash_namespaceObject.has)(image, ['sizes', defaultSize, 'url']) || (0,external_lodash_namespaceObject.has)(image, ['media_details', 'sizes', defaultSize, 'source_url']);
 }
-/**
- * Checks if a media attachment object has been "destroyed",
- * that is, removed from the media library. The core Media Library
- * adds a `destroyed` property to a deleted attachment object in the media collection.
- *
- * @param {number} id The attachment id.
- *
- * @return {boolean} Whether the image has been destroyed.
- */
 
-
-function isMediaDestroyed(id) {
-  var _window, _window$wp, _window$wp$media;
-
-  const attachment = ((_window = window) === null || _window === void 0 ? void 0 : (_window$wp = _window.wp) === null || _window$wp === void 0 ? void 0 : (_window$wp$media = _window$wp.media) === null || _window$wp$media === void 0 ? void 0 : _window$wp$media.attachment(id)) || {};
-  return attachment.destroyed;
-}
 function ImageEdit(_ref) {
   let {
     attributes,
@@ -21147,39 +21308,7 @@ function ImageEdit(_ref) {
       getSettings
     } = select(external_wp_blockEditor_namespaceObject.store);
     return (0,external_lodash_namespaceObject.pick)(getSettings(), ['imageDefaultSize', 'mediaUpload']);
-  }, []); // A callback passed to MediaUpload,
-  // fired when the media modal closes.
-
-  function onCloseModal() {
-    if (isMediaDestroyed(attributes === null || attributes === void 0 ? void 0 : attributes.id)) {
-      setAttributes({
-        url: undefined,
-        id: undefined
-      });
-    }
-  }
-  /*
-  	 Runs an error callback if the image does not load.
-  	 If the error callback is triggered, we infer that that image
-  	 has been deleted.
-  */
-
-
-  function onImageError() {
-    let isReplaced = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-    noticeOperations.removeAllNotices();
-    noticeOperations.createErrorNotice((0,external_wp_i18n_namespaceObject.sprintf)(
-    /* translators: %s url or missing image */
-    (0,external_wp_i18n_namespaceObject.__)('Error loading image: %s'), url)); // If the image block was not replaced with an embed,
-    // clear the attributes and trigger the placeholder.
-
-    if (!isReplaced) {
-      setAttributes({
-        url: undefined,
-        id: undefined
-      });
-    }
-  }
+  }, []);
 
   function onUploadError(message) {
     noticeOperations.removeAllNotices();
@@ -21193,7 +21322,7 @@ function ImageEdit(_ref) {
   }
 
   function onSelectImage(media) {
-    var _window2, _window2$wp, _window2$wp$media, _window2$wp$media$vie, _window2$wp$media$vie2, _window2$wp$media$vie3;
+    var _window, _window$wp, _window$wp$media, _window$wp$media$view, _window$wp$media$view2, _window$wp$media$view3;
 
     if (!media || !media.url) {
       setAttributes({
@@ -21244,7 +21373,7 @@ function ImageEdit(_ref) {
       // Use the WordPress option to determine the proper default.
       // The constants used in Gutenberg do not match WP options so a little more complicated than ideal.
       // TODO: fix this in a follow up PR, requires updating media-text and ui component.
-      switch (((_window2 = window) === null || _window2 === void 0 ? void 0 : (_window2$wp = _window2.wp) === null || _window2$wp === void 0 ? void 0 : (_window2$wp$media = _window2$wp.media) === null || _window2$wp$media === void 0 ? void 0 : (_window2$wp$media$vie = _window2$wp$media.view) === null || _window2$wp$media$vie === void 0 ? void 0 : (_window2$wp$media$vie2 = _window2$wp$media$vie.settings) === null || _window2$wp$media$vie2 === void 0 ? void 0 : (_window2$wp$media$vie3 = _window2$wp$media$vie2.defaultProps) === null || _window2$wp$media$vie3 === void 0 ? void 0 : _window2$wp$media$vie3.link) || constants_LINK_DESTINATION_NONE) {
+      switch (((_window = window) === null || _window === void 0 ? void 0 : (_window$wp = _window.wp) === null || _window$wp === void 0 ? void 0 : (_window$wp$media = _window$wp.media) === null || _window$wp$media === void 0 ? void 0 : (_window$wp$media$view = _window$wp$media.view) === null || _window$wp$media$view === void 0 ? void 0 : (_window$wp$media$view2 = _window$wp$media$view.settings) === null || _window$wp$media$view2 === void 0 ? void 0 : (_window$wp$media$view3 = _window$wp$media$view2.defaultProps) === null || _window$wp$media$view3 === void 0 ? void 0 : _window$wp$media$view3.link) || constants_LINK_DESTINATION_NONE) {
         case 'file':
         case constants_LINK_DESTINATION_MEDIA:
           linkDestination = constants_LINK_DESTINATION_MEDIA;
@@ -21370,9 +21499,7 @@ function ImageEdit(_ref) {
     onUploadError: onUploadError,
     containerRef: ref,
     context: context,
-    clientId: clientId,
-    onCloseModal: onCloseModal,
-    onImageLoadError: onImageError
+    clientId: clientId
   }), !url && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, {
     group: "block"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockAlignmentControl, {
@@ -21386,7 +21513,6 @@ function ImageEdit(_ref) {
     onSelectURL: onSelectURL,
     notices: noticeUI,
     onError: onUploadError,
-    onClose: onCloseModal,
     accept: "image/*",
     allowedTypes: constants_ALLOWED_MEDIA_TYPES,
     value: {
@@ -24345,14 +24471,28 @@ function useSpace(clientId) {
 
 
 function useSplit(clientId) {
+  // We can not rely on the isAfterOriginal parameter of the callback,
+  // because if the value after the split is empty isAfterOriginal is false
+  // while the value is in fact after the original. So to avoid that issue we use
+  // a flag where the first execution of the callback is false (it is the before value)
+  // and the second execution is true, it is the after value.
+  const isAfter = (0,external_wp_element_namespaceObject.useRef)(false);
   const {
     getBlock
   } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_blockEditor_namespaceObject.store);
-  return (0,external_wp_element_namespaceObject.useCallback)((value, isAfterOriginal) => {
+  return (0,external_wp_element_namespaceObject.useCallback)(value => {
     const block = getBlock(clientId);
-    return (0,external_wp_blocks_namespaceObject.cloneBlock)(block, {
+
+    if (isAfter.current) {
+      return (0,external_wp_blocks_namespaceObject.cloneBlock)(block, {
+        content: value
+      });
+    }
+
+    isAfter.current = true;
+    return (0,external_wp_blocks_namespaceObject.createBlock)(block.name, { ...block.attributes,
       content: value
-    }, isAfterOriginal ? [] : block.innerBlocks);
+    });
   }, [clientId, getBlock]);
 }
 
@@ -29136,6 +29276,7 @@ const addSubmenu = (0,external_wp_element_namespaceObject.createElement)(externa
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -29403,7 +29544,16 @@ const updateNavigationLinkBlockAttributes = function () {
   } = updatedValue;
   const normalizedTitle = title.replace(/http(s?):\/\//gi, '');
   const normalizedURL = url.replace(/http(s?):\/\//gi, '');
-  const escapeTitle = title !== '' && normalizedTitle !== normalizedURL && originalLabel !== title;
+  const escapeTitle = title !== '' && normalizedTitle !== normalizedURL && originalLabel !== title; // Unfortunately this causes the escaping model to be inverted.
+  // The escaped content is stored in the block attributes (and ultimately in the database),
+  // and then the raw data is "recovered" when outputting into the DOM.
+  // It would be preferable to store the **raw** data in the block attributes and escape it in JS.
+  // Why? Because there isn't one way to escape data. Depending on the context, you need to do
+  // different transforms. It doesn't make sense to me to choose one of them for the purposes of storage.
+  // See also:
+  // - https://github.com/WordPress/gutenberg/pull/41063
+  // - https://github.com/WordPress/gutenberg/pull/18617.
+
   const label = escapeTitle ? (0,external_lodash_namespaceObject.escape)(title) : originalLabel || (0,external_lodash_namespaceObject.escape)(normalizedURL); // In https://github.com/WordPress/gutenberg/pull/24670 we decided to use "tag" in favor of "post_tag"
 
   const type = newType === 'post_tag' ? 'tag' : newType.replace('-', '_');
@@ -29742,7 +29892,17 @@ function NavigationLinkEdit(_ref2) {
     return {
       id: page.id,
       type: postType,
-      title: page.title.rendered,
+      // Make `title` property consistent with that in `fetchLinkSuggestions` where the `rendered` title (containing HTML entities)
+      // is also being decoded. By being consistent in both locations we avoid having to branch in the rendering output code.
+      // Ideally in the future we will update both APIs to utilise the "raw" form of the title which is better suited to edit contexts.
+      // e.g.
+      // - title.raw = "Yes & No"
+      // - title.rendered = "Yes &#038; No"
+      // - decodeEntities( title.rendered ) = "Yes & No"
+      // See:
+      // - https://github.com/WordPress/gutenberg/pull/41063
+      // - https://github.com/WordPress/gutenberg/blob/a1e1fdc0e6278457e9f4fc0b31ac6d2095f5450b/packages/core-data/src/fetch/__experimental-fetch-link-suggestions.js#L212-L218
+      title: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(page.title.rendered),
       url: page.link,
       kind: 'post-type'
     };
@@ -29872,9 +30032,14 @@ function NavigationLinkEdit(_ref2) {
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Tooltip, {
     position: "top center",
     text: tooltipText
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("span", null,
-  /* Trim to avoid trailing white space when the placeholder text is not present */
-  `${label} ${placeholderText}`.trim()), (0,external_wp_element_namespaceObject.createElement)("span", {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("span", {
+    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Navigation link text')
+  }, // Some attributes are stored in an escaped form. It's a legacy issue.
+  // Ideally they would be stored in a raw, unescaped form.
+  // Unescape is used here to "recover" the escaped characters
+  // so they display without encoding.
+  // See `updateNavigationLinkBlockAttributes` for more details.
+  `${(0,external_lodash_namespaceObject.unescape)(label)} ${placeholderText}`.trim()), (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "wp-block-navigation-link__missing_text-tooltip"
   }, tooltipText))))), isLinkOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
     position: "bottom center",
@@ -32943,6 +33108,39 @@ function PostAuthorNameEdit(_ref) {
 
 /* harmony default export */ var post_author_name_edit = (PostAuthorNameEdit);
 
+;// CONCATENATED MODULE: ./packages/block-library/build-module/post-author-name/transforms.js
+/**
+ * WordPress dependencies
+ */
+
+const post_author_name_transforms_transforms = {
+  from: [{
+    type: 'block',
+    blocks: ['core/post-author'],
+    transform: _ref => {
+      let {
+        textAlign
+      } = _ref;
+      return (0,external_wp_blocks_namespaceObject.createBlock)('core/post-author-name', {
+        textAlign
+      });
+    }
+  }],
+  to: [{
+    type: 'block',
+    blocks: ['core/post-author'],
+    transform: _ref2 => {
+      let {
+        textAlign
+      } = _ref2;
+      return (0,external_wp_blocks_namespaceObject.createBlock)('core/post-author', {
+        textAlign
+      });
+    }
+  }]
+};
+/* harmony default export */ var post_author_name_transforms = (post_author_name_transforms_transforms);
+
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/post-author-name/index.js
 /**
  * Internal dependencies
@@ -32997,6 +33195,7 @@ const post_author_name_metadata = {
   }
 };
 
+
 /**
  * WordPress dependencies
  */
@@ -33008,6 +33207,7 @@ const {
 
 const post_author_name_settings = {
   icon: post_author,
+  transforms: post_author_name_transforms,
   edit: post_author_name_edit
 };
 
@@ -33259,8 +33459,14 @@ const post_comment_settings = {
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
+
+
 
 
 
@@ -33287,7 +33493,7 @@ const CommentsForm = () => {
   }, (0,external_wp_element_namespaceObject.createElement)("input", {
     name: "submit",
     type: "submit",
-    className: "submit wp-block-button__link",
+    className: classnames_default()('submit', 'wp-block-button__link', external_wp_blockEditor_namespaceObject.__experimentalElementButtonClassName),
     label: (0,external_wp_i18n_namespaceObject.__)('Post Comment'),
     value: (0,external_wp_i18n_namespaceObject.__)('Post Comment')
   }))));
@@ -34211,16 +34417,22 @@ function PostDateEdit(_ref) {
     popoverProps: {
       anchorRef: timeRef.current
     },
-    renderContent: () => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DateTimePicker, {
-      currentDate: date,
-      onChange: setDate,
-      is12Hour: is12HourFormat(siteTimeFormat)
-    }),
-    renderToggle: _ref2 => {
+    renderContent: _ref2 => {
+      let {
+        onClose
+      } = _ref2;
+      return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalPublishDateTimePicker, {
+        currentDate: date,
+        onChange: setDate,
+        is12Hour: is12HourFormat(siteTimeFormat),
+        onClose: onClose
+      });
+    },
+    renderToggle: _ref3 => {
       let {
         isOpen,
         onToggle
-      } = _ref2;
+      } = _ref3;
 
       const openOnArrowDown = event => {
         if (!isOpen && event.keyCode === external_wp_keycodes_namespaceObject.DOWN) {
@@ -41474,7 +41686,7 @@ function SearchEdit(_ref) {
 
   const renderButton = () => {
     // If the button is inside the wrapper, the wrapper gets the border color styles/classes, not the button.
-    const buttonClasses = classnames_default()('wp-block-search__button', colorProps.className, isButtonPositionInside ? undefined : borderProps.className, buttonUseIcon ? 'has-icon' : undefined);
+    const buttonClasses = classnames_default()('wp-block-search__button', colorProps.className, isButtonPositionInside ? undefined : borderProps.className, buttonUseIcon ? 'has-icon' : undefined, external_wp_blockEditor_namespaceObject.__experimentalElementButtonClassName);
     const buttonStyles = { ...colorProps.style,
       ...(isButtonPositionInside ? {
         borderRadius
@@ -41709,6 +41921,10 @@ const search_metadata = {
     buttonUseIcon: {
       type: "boolean",
       "default": false
+    },
+    query: {
+      type: "object",
+      "default": {}
     }
   },
   supports: {
@@ -44974,11 +45190,11 @@ function SocialLinksEdit(props) {
     __experimentalIsRenderedInSidebar: true,
     title: (0,external_wp_i18n_namespaceObject.__)('Color'),
     colorSettings: colorSettings
-  }), !logosOnly && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.ContrastChecker, {
+  }, !logosOnly && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.ContrastChecker, {
     textColor: iconColorValue,
     backgroundColor: iconBackgroundColorValue,
     isLargeText: false
-  })), (0,external_wp_element_namespaceObject.createElement)("ul", innerBlocksProps));
+  }))), (0,external_wp_element_namespaceObject.createElement)("ul", innerBlocksProps));
 }
 const iconColorAttributes = {
   iconColor: 'icon-color',
@@ -47490,7 +47706,14 @@ function TableOfContentsEdit(_ref) {
   } = _ref;
   const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)();
   const disabledRef = (0,external_wp_compose_namespaceObject.useDisabled)();
-  const listBlockExists = (0,external_wp_data_namespaceObject.useSelect)(select => !!select(external_wp_blocks_namespaceObject.store).getBlockType('core/list'), []);
+  const canInsertList = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getBlockRootClientId,
+      canInsertBlockType
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    const rootClientId = getBlockRootClientId(clientId);
+    return canInsertBlockType('core/list', rootClientId);
+  }, [clientId]);
   const {
     __unstableMarkNextChangeAsNotPersistent,
     replaceBlocks
@@ -47597,7 +47820,8 @@ function TableOfContentsEdit(_ref) {
           const canBeLinked = typeof headingPageLink === 'string' && typeof headingAttributes.anchor === 'string' && headingAttributes.anchor !== '';
 
           _latestHeadings.push({
-            content: (0,external_wp_dom_namespaceObject.__unstableStripHTML)(headingAttributes.content),
+            // Convert line breaks to spaces, and get rid of HTML tags in the headings.
+            content: (0,external_wp_dom_namespaceObject.__unstableStripHTML)(headingAttributes.content.replace(/(<br *\/?>)+/g, ' ')),
             level: headingAttributes.level,
             link: canBeLinked ? `${headingPageLink}#${headingAttributes.anchor}` : null
           });
@@ -47623,7 +47847,7 @@ function TableOfContentsEdit(_ref) {
     }
   }, [latestHeadings]);
   const headingTree = linearToNestedHeadingList(headings);
-  const toolbarControls = listBlockExists && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
+  const toolbarControls = canInsertList && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
     onClick: () => replaceBlocks(clientId, (0,external_wp_blocks_namespaceObject.createBlock)('core/list', {
       ordered: true,
       values: (0,external_wp_element_namespaceObject.renderToString)((0,external_wp_element_namespaceObject.createElement)(TableOfContentsList, {

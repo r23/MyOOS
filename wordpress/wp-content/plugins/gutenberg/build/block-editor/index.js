@@ -2214,6 +2214,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalColorGradientSettingsDropdown": function() { return /* reexport */ ColorGradientSettingsDropdown; },
   "__experimentalDateFormatPicker": function() { return /* reexport */ DateFormatPicker; },
   "__experimentalDuotoneControl": function() { return /* reexport */ duotone_control; },
+  "__experimentalElementButtonClassName": function() { return /* reexport */ __experimentalElementButtonClassName; },
   "__experimentalFontAppearanceControl": function() { return /* reexport */ FontAppearanceControl; },
   "__experimentalFontFamilyControl": function() { return /* reexport */ FontFamilyControl; },
   "__experimentalGetBorderClassesAndStyles": function() { return /* reexport */ getBorderClassesAndStyles; },
@@ -2236,6 +2237,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalListView": function() { return /* reexport */ components_list_view; },
   "__experimentalPanelColorGradientSettings": function() { return /* reexport */ panel_color_gradient_settings; },
   "__experimentalPreviewOptions": function() { return /* reexport */ PreviewOptions; },
+  "__experimentalPublishDateTimePicker": function() { return /* reexport */ publish_date_time_picker; },
   "__experimentalResponsiveBlockControl": function() { return /* reexport */ responsive_block_control; },
   "__experimentalTextDecorationControl": function() { return /* reexport */ TextDecorationControl; },
   "__experimentalTextTransformControl": function() { return /* reexport */ TextTransformControl; },
@@ -2304,6 +2306,7 @@ __webpack_require__.d(selectors_namespaceObject, {
   "__unstableGetClientIdWithClientIdsTree": function() { return __unstableGetClientIdWithClientIdsTree; },
   "__unstableGetClientIdsTree": function() { return __unstableGetClientIdsTree; },
   "__unstableGetSelectedBlocksWithPartialSelection": function() { return __unstableGetSelectedBlocksWithPartialSelection; },
+  "__unstableGetVisibleBlocks": function() { return __unstableGetVisibleBlocks; },
   "__unstableIsFullySelected": function() { return __unstableIsFullySelected; },
   "__unstableIsLastBlockChangeIgnored": function() { return __unstableIsLastBlockChangeIgnored; },
   "__unstableIsSelectionCollapsed": function() { return __unstableIsSelectionCollapsed; },
@@ -2374,6 +2377,7 @@ __webpack_require__.d(selectors_namespaceObject, {
   "isBlockMultiSelected": function() { return isBlockMultiSelected; },
   "isBlockSelected": function() { return isBlockSelected; },
   "isBlockValid": function() { return isBlockValid; },
+  "isBlockVisible": function() { return isBlockVisible; },
   "isBlockWithinSelection": function() { return isBlockWithinSelection; },
   "isCaretWithinFormattedText": function() { return isCaretWithinFormattedText; },
   "isDraggingBlocks": function() { return isDraggingBlocks; },
@@ -2428,6 +2432,7 @@ __webpack_require__.d(actions_namespaceObject, {
   "selectPreviousBlock": function() { return selectPreviousBlock; },
   "selectionChange": function() { return selectionChange; },
   "setBlockMovingClientId": function() { return setBlockMovingClientId; },
+  "setBlockVisibility": function() { return setBlockVisibility; },
   "setHasControlledInnerBlocks": function() { return setHasControlledInnerBlocks; },
   "setNavigationMode": function() { return setNavigationMode; },
   "setTemplateValidity": function() { return setTemplateValidity; },
@@ -3279,7 +3284,8 @@ const withBlockReset = reducer => (state, action) => {
       attributes: getFlattenedBlockAttributes(action.blocks),
       order: mapBlockOrder(action.blocks),
       parents: mapBlockParents(action.blocks),
-      controlledInnerBlocks: {}
+      controlledInnerBlocks: {},
+      visibility: {}
     };
     const subTree = buildBlockTree(newState, action.blocks);
     newState.tree = { ...subTree,
@@ -3743,6 +3749,19 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetCont
     if (type === 'SET_HAS_CONTROLLED_INNER_BLOCKS') {
       return { ...state,
         [clientId]: hasControlledInnerBlocks
+      };
+    }
+
+    return state;
+  },
+
+  visibility() {
+    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    let action = arguments.length > 1 ? arguments[1] : undefined;
+
+    if (action.type === 'SET_BLOCK_VISIBILITY') {
+      return { ...state,
+        ...action.updates
       };
     }
 
@@ -4338,8 +4357,9 @@ function automaticChangeStatus(state, action) {
 
       return;
     // Undoing an automatic change should still be possible after mouse
-    // move.
+    // move or after visibility change.
 
+    case 'SET_BLOCK_VISIBILITY':
     case 'START_TYPING':
     case 'STOP_TYPING':
       return state;
@@ -4439,31 +4459,57 @@ function lastBlockInserted() {
 ;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
 
 
-var LEAF_KEY, hasWeakMap;
+/** @typedef {(...args: any[]) => *[]} GetDependants */
+
+/** @typedef {() => void} Clear */
+
+/**
+ * @typedef {{
+ *   getDependants: GetDependants,
+ *   clear: Clear
+ * }} EnhancedSelector
+ */
+
+/**
+ * Internal cache entry.
+ *
+ * @typedef CacheNode
+ *
+ * @property {?CacheNode|undefined} [prev] Previous node.
+ * @property {?CacheNode|undefined} [next] Next node.
+ * @property {*[]} args Function arguments for cache entry.
+ * @property {*} val Function result.
+ */
+
+/**
+ * @typedef Cache
+ *
+ * @property {Clear} clear Function to clear cache.
+ * @property {boolean} [isUniqueByDependants] Whether dependants are valid in
+ * considering cache uniqueness. A cache is unique if dependents are all arrays
+ * or objects.
+ * @property {CacheNode?} [head] Cache head.
+ * @property {*[]} [lastDependants] Dependants from previous invocation.
+ */
 
 /**
  * Arbitrary value used as key for referencing cache object in WeakMap tree.
  *
- * @type {Object}
+ * @type {{}}
  */
-LEAF_KEY = {};
-
-/**
- * Whether environment supports WeakMap.
- *
- * @type {boolean}
- */
-hasWeakMap = typeof WeakMap !== 'undefined';
+var LEAF_KEY = {};
 
 /**
  * Returns the first argument as the sole entry in an array.
  *
- * @param {*} value Value to return.
+ * @template T
  *
- * @return {Array} Value returned as entry in array.
+ * @param {T} value Value to return.
+ *
+ * @return {[T]} Value returned as entry in array.
  */
-function arrayOf( value ) {
-	return [ value ];
+function arrayOf(value) {
+	return [value];
 }
 
 /**
@@ -4474,18 +4520,19 @@ function arrayOf( value ) {
  *
  * @return {boolean} Whether value is object-like.
  */
-function isObjectLike( value ) {
-	return !! value && 'object' === typeof value;
+function isObjectLike(value) {
+	return !!value && 'object' === typeof value;
 }
 
 /**
  * Creates and returns a new cache object.
  *
- * @return {Object} Cache object.
+ * @return {Cache} Cache object.
  */
 function createCache() {
+	/** @type {Cache} */
 	var cache = {
-		clear: function() {
+		clear: function () {
 			cache.head = null;
 		},
 	};
@@ -4497,21 +4544,21 @@ function createCache() {
  * Returns true if entries within the two arrays are strictly equal by
  * reference from a starting index.
  *
- * @param {Array}  a         First array.
- * @param {Array}  b         Second array.
+ * @param {*[]} a First array.
+ * @param {*[]} b Second array.
  * @param {number} fromIndex Index from which to start comparison.
  *
  * @return {boolean} Whether arrays are shallowly equal.
  */
-function isShallowEqual( a, b, fromIndex ) {
+function isShallowEqual(a, b, fromIndex) {
 	var i;
 
-	if ( a.length !== b.length ) {
+	if (a.length !== b.length) {
 		return false;
 	}
 
-	for ( i = fromIndex; i < a.length; i++ ) {
-		if ( a[ i ] !== b[ i ] ) {
+	for (i = fromIndex; i < a.length; i++) {
+		if (a[i] !== b[i]) {
 			return false;
 		}
 	}
@@ -4527,31 +4574,18 @@ function isShallowEqual( a, b, fromIndex ) {
  * dependant references remain the same. If getDependants returns a different
  * reference(s), the cache is cleared and the selector value regenerated.
  *
- * @param {Function} selector      Selector function.
- * @param {Function} getDependants Dependant getter returning an immutable
- *                                 reference or array of reference used in
- *                                 cache bust consideration.
+ * @template {(...args: *[]) => *} S
  *
- * @return {Function} Memoized selector.
+ * @param {S} selector Selector function.
+ * @param {GetDependants=} getDependants Dependant getter returning an array of
+ * references used in cache bust consideration.
  */
-/* harmony default export */ function rememo(selector, getDependants ) {
-	var rootCache, getCache;
+/* harmony default export */ function rememo(selector, getDependants) {
+	/** @type {WeakMap<*,*>} */
+	var rootCache;
 
-	// Use object source as dependant if getter not provided
-	if ( ! getDependants ) {
-		getDependants = arrayOf;
-	}
-
-	/**
-	 * Returns the root cache. If WeakMap is supported, this is assigned to the
-	 * root WeakMap cache set, otherwise it is a shared instance of the default
-	 * cache object.
-	 *
-	 * @return {(WeakMap|Object)} Root cache object.
-	 */
-	function getRootCache() {
-		return rootCache;
-	}
+	/** @type {GetDependants} */
+	var normalizedGetDependants = getDependants ? getDependants : arrayOf;
 
 	/**
 	 * Returns the cache for a given dependants array. When possible, a WeakMap
@@ -4567,85 +4601,93 @@ function isShallowEqual( a, b, fromIndex ) {
 	 *
 	 * @see isObjectLike
 	 *
-	 * @param {Array} dependants Selector dependants.
+	 * @param {*[]} dependants Selector dependants.
 	 *
-	 * @return {Object} Cache object.
+	 * @return {Cache} Cache object.
 	 */
-	function getWeakMapCache( dependants ) {
+	function getCache(dependants) {
 		var caches = rootCache,
 			isUniqueByDependants = true,
-			i, dependant, map, cache;
+			i,
+			dependant,
+			map,
+			cache;
 
-		for ( i = 0; i < dependants.length; i++ ) {
-			dependant = dependants[ i ];
+		for (i = 0; i < dependants.length; i++) {
+			dependant = dependants[i];
 
 			// Can only compose WeakMap from object-like key.
-			if ( ! isObjectLike( dependant ) ) {
+			if (!isObjectLike(dependant)) {
 				isUniqueByDependants = false;
 				break;
 			}
 
 			// Does current segment of cache already have a WeakMap?
-			if ( caches.has( dependant ) ) {
+			if (caches.has(dependant)) {
 				// Traverse into nested WeakMap.
-				caches = caches.get( dependant );
+				caches = caches.get(dependant);
 			} else {
 				// Create, set, and traverse into a new one.
 				map = new WeakMap();
-				caches.set( dependant, map );
+				caches.set(dependant, map);
 				caches = map;
 			}
 		}
 
 		// We use an arbitrary (but consistent) object as key for the last item
 		// in the WeakMap to serve as our running cache.
-		if ( ! caches.has( LEAF_KEY ) ) {
+		if (!caches.has(LEAF_KEY)) {
 			cache = createCache();
 			cache.isUniqueByDependants = isUniqueByDependants;
-			caches.set( LEAF_KEY, cache );
+			caches.set(LEAF_KEY, cache);
 		}
 
-		return caches.get( LEAF_KEY );
+		return caches.get(LEAF_KEY);
 	}
-
-	// Assign cache handler by availability of WeakMap
-	getCache = hasWeakMap ? getWeakMapCache : getRootCache;
 
 	/**
 	 * Resets root memoization cache.
 	 */
 	function clear() {
-		rootCache = hasWeakMap ? new WeakMap() : createCache();
+		rootCache = new WeakMap();
 	}
 
-	// eslint-disable-next-line jsdoc/check-param-names
+	/* eslint-disable jsdoc/check-param-names */
 	/**
 	 * The augmented selector call, considering first whether dependants have
 	 * changed before passing it to underlying memoize function.
 	 *
-	 * @param {Object} source    Source object for derivation.
-	 * @param {...*}   extraArgs Additional arguments to pass to selector.
+	 * @param {*}    source    Source object for derivation.
+	 * @param {...*} extraArgs Additional arguments to pass to selector.
 	 *
 	 * @return {*} Selector result.
 	 */
-	function callSelector( /* source, ...extraArgs */ ) {
+	/* eslint-enable jsdoc/check-param-names */
+	function callSelector(/* source, ...extraArgs */) {
 		var len = arguments.length,
-			cache, node, i, args, dependants;
+			cache,
+			node,
+			i,
+			args,
+			dependants;
 
 		// Create copy of arguments (avoid leaking deoptimization).
-		args = new Array( len );
-		for ( i = 0; i < len; i++ ) {
-			args[ i ] = arguments[ i ];
+		args = new Array(len);
+		for (i = 0; i < len; i++) {
+			args[i] = arguments[i];
 		}
 
-		dependants = getDependants.apply( null, args );
-		cache = getCache( dependants );
+		dependants = normalizedGetDependants.apply(null, args);
+		cache = getCache(dependants);
 
-		// If not guaranteed uniqueness by dependants (primitive type or lack
-		// of WeakMap support), shallow compare against last dependants and, if
-		// references have changed, destroy cache to recalculate result.
-		if ( ! cache.isUniqueByDependants ) {
-			if ( cache.lastDependants && ! isShallowEqual( dependants, cache.lastDependants, 0 ) ) {
+		// If not guaranteed uniqueness by dependants (primitive type), shallow
+		// compare against last dependants and, if references have changed,
+		// destroy cache to recalculate result.
+		if (!cache.isUniqueByDependants) {
+			if (
+				cache.lastDependants &&
+				!isShallowEqual(dependants, cache.lastDependants, 0)
+			) {
 				cache.clear();
 			}
 
@@ -4653,9 +4695,9 @@ function isShallowEqual( a, b, fromIndex ) {
 		}
 
 		node = cache.head;
-		while ( node ) {
+		while (node) {
 			// Check whether node arguments match arguments
-			if ( ! isShallowEqual( node.args, args, 1 ) ) {
+			if (!isShallowEqual(node.args, args, 1)) {
 				node = node.next;
 				continue;
 			}
@@ -4663,16 +4705,16 @@ function isShallowEqual( a, b, fromIndex ) {
 			// At this point we can assume we've found a match
 
 			// Surface matched node to head if not already
-			if ( node !== cache.head ) {
+			if (node !== cache.head) {
 				// Adjust siblings to point to each other.
-				node.prev.next = node.next;
-				if ( node.next ) {
+				/** @type {CacheNode} */ (node.prev).next = node.next;
+				if (node.next) {
 					node.next.prev = node.prev;
 				}
 
 				node.next = cache.head;
 				node.prev = null;
-				cache.head.prev = node;
+				/** @type {CacheNode} */ (cache.head).prev = node;
 				cache.head = node;
 			}
 
@@ -4682,20 +4724,20 @@ function isShallowEqual( a, b, fromIndex ) {
 
 		// No cached value found. Continue to insertion phase:
 
-		node = {
+		node = /** @type {CacheNode} */ ({
 			// Generate the result from original function
-			val: selector.apply( null, args ),
-		};
+			val: selector.apply(null, args),
+		});
 
 		// Avoid including the source object in the cache.
-		args[ 0 ] = null;
+		args[0] = null;
 		node.args = args;
 
 		// Don't need to check whether node is already head, since it would
 		// have been returned above already if it was
 
 		// Shift existing head down list
-		if ( cache.head ) {
+		if (cache.head) {
 			cache.head.prev = node;
 			node.next = cache.head;
 		}
@@ -4705,11 +4747,11 @@ function isShallowEqual( a, b, fromIndex ) {
 		return node.val;
 	}
 
-	callSelector.getDependants = getDependants;
+	callSelector.getDependants = normalizedGetDependants;
 	callSelector.clear = clear;
 	clear();
 
-	return callSelector;
+	return /** @type {S & EnhancedSelector} */ (callSelector);
 }
 
 ;// CONCATENATED MODULE: external ["wp","primitives"]
@@ -7181,6 +7223,29 @@ function wasBlockJustInserted(state, clientId, source) {
   } = state;
   return lastBlockInserted.clientId === clientId && lastBlockInserted.source === source;
 }
+/**
+ * Tells if the block is visible on the canvas or not.
+ *
+ * @param {Object} state    Global application state.
+ * @param {Object} clientId Client Id of the block.
+ * @return {boolean} True if the block is visible.
+ */
+
+function isBlockVisible(state, clientId) {
+  var _state$blocks$visibil, _state$blocks$visibil2;
+
+  return (_state$blocks$visibil = (_state$blocks$visibil2 = state.blocks.visibility) === null || _state$blocks$visibil2 === void 0 ? void 0 : _state$blocks$visibil2[clientId]) !== null && _state$blocks$visibil !== void 0 ? _state$blocks$visibil : true;
+}
+/**
+ * Returns the list of all hidden blocks.
+ *
+ * @param {Object} state Global application state.
+ * @return {[string]} List of hidden blocks.
+ */
+
+const __unstableGetVisibleBlocks = rememo(state => {
+  return new Set(Object.keys(state.blocks.visibility).filter(key => state.blocks.visibility[key]));
+}, state => [state.blocks.visibility]);
 
 ;// CONCATENATED MODULE: external ["wp","a11y"]
 var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
@@ -8694,6 +8759,18 @@ function setHasControlledInnerBlocks(clientId, hasControlledInnerBlocks) {
     clientId
   };
 }
+/**
+ * Action that sets whether given blocks are visible on the canvas.
+ *
+ * @param {Record<string,boolean>} updates For each block's clientId, its new visibility setting.
+ */
+
+function setBlockVisibility(updates) {
+  return {
+    type: 'SET_BLOCK_VISIBILITY',
+    updates
+  };
+}
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/store/constants.js
 const STORE_NAME = 'core/block-editor';
@@ -9816,7 +9893,8 @@ function BlockPopover(_ref) {
     __unstableSlotName: __unstablePopoverSlot || null // Observe movement for block animations (especially horizontal).
     ,
     __unstableObserveElement: selectedElement,
-    __unstableForcePosition: true
+    __unstableForcePosition: true,
+    __unstableShift: true
   }, props, {
     className: classnames_default()('block-editor-block-popover', props.className)
   }), __unstableCoverTarget && (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -10320,7 +10398,7 @@ const useIsDimensionsDisabled = function () {
   return gapDisabled && paddingDisabled && marginDisabled;
 };
 /**
- * Custom hook to retrieve which padding/margin is supported
+ * Custom hook to retrieve which padding/margin/blockGap is supported
  * e.g. top, right, bottom or left.
  *
  * Sides are opted into by default. It is only if a specific side is set to
@@ -10329,18 +10407,28 @@ const useIsDimensionsDisabled = function () {
  * @param {string} blockName Block name.
  * @param {string} feature   The feature custom sides relate to e.g. padding or margins.
  *
- * @return {Object} Sides supporting custom margin.
+ * @return {?string[]} Strings representing the custom sides available.
  */
 
 
 function useCustomSides(blockName, feature) {
+  var _support$feature;
+
   const support = (0,external_wp_blocks_namespaceObject.getBlockSupport)(blockName, SPACING_SUPPORT_KEY); // Skip when setting is boolean as theme isn't setting arbitrary sides.
 
   if (!support || typeof support[feature] === 'boolean') {
     return;
-  }
+  } // Return if the setting is an array of sides (e.g. `[ 'top', 'bottom' ]`).
 
-  return support[feature];
+
+  if (Array.isArray(support[feature])) {
+    return support[feature];
+  } // Finally, attempt to return `.sides` if the setting is an object.
+
+
+  if ((_support$feature = support[feature]) !== null && _support$feature !== void 0 && _support$feature.sides) {
+    return support[feature].sides;
+  }
 }
 /**
  * Custom hook to determine whether the sides configured in the
@@ -10816,6 +10904,7 @@ const JustifyToolbar = props => {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -10907,10 +10996,11 @@ const flexWrapOptions = ['wrap', 'nowrap'];
       orientation = 'horizontal'
     } = layout;
     const blockGapSupport = useSetting('spacing.blockGap');
+    const fallbackValue = (0,external_wp_blocks_namespaceObject.getBlockSupport)(blockName, ['spacing', 'blockGap', '__experimentalDefault']) || '0.5em';
     const hasBlockGapStylesSupport = blockGapSupport !== null; // If a block's block.json skips serialization for spacing or spacing.blockGap,
     // don't apply the user-defined value to the styles.
 
-    const blockGapValue = style !== null && style !== void 0 && (_style$spacing = style.spacing) !== null && _style$spacing !== void 0 && _style$spacing.blockGap && !shouldSkipSerialization(blockName, 'spacing', 'blockGap') ? getGapCSSValue(style === null || style === void 0 ? void 0 : (_style$spacing2 = style.spacing) === null || _style$spacing2 === void 0 ? void 0 : _style$spacing2.blockGap, '0.5em') : 'var( --wp--style--block-gap, 0.5em )';
+    const blockGapValue = style !== null && style !== void 0 && (_style$spacing = style.spacing) !== null && _style$spacing !== void 0 && _style$spacing.blockGap && !shouldSkipSerialization(blockName, 'spacing', 'blockGap') ? getGapCSSValue(style === null || style === void 0 ? void 0 : (_style$spacing2 = style.spacing) === null || _style$spacing2 === void 0 ? void 0 : _style$spacing2.blockGap, fallbackValue) : `var( --wp--style--block-gap, ${fallbackValue} )`;
     const justifyContent = justifyContentMap[layout.justifyContent] || justifyContentMap.left;
     const flexWrap = flexWrapOptions.includes(layout.flexWrap) ? layout.flexWrap : 'wrap';
     const verticalAlignment = verticalAlignmentMap[layout.verticalAlignment] || verticalAlignmentMap.center;
@@ -10928,7 +11018,7 @@ const flexWrapOptions = ['wrap', 'nowrap'];
 				${appendSelectors(selector)} {
 					display: flex;
 					flex-wrap: ${flexWrap};
-					gap: ${hasBlockGapStylesSupport ? blockGapValue : '0.5em'};
+					gap: ${hasBlockGapStylesSupport ? blockGapValue : fallbackValue};
 					${orientation === 'horizontal' ? rowOrientation : columnOrientation}
 				}
 
@@ -13226,7 +13316,7 @@ function BlockHTML(_ref) {
 
 /* harmony default export */ var block_html = (BlockHTML);
 
-;// CONCATENATED MODULE: ./node_modules/@react-spring/rafz/dist/react-spring-rafz.esm.js
+;// CONCATENATED MODULE: ./packages/block-editor/node_modules/@react-spring/rafz/dist/react-spring-rafz.esm.js
 let updateQueue = makeQueue();
 const raf = fn => schedule(fn, updateQueue);
 let writeQueue = makeQueue();
@@ -13253,7 +13343,7 @@ raf.setTimeout = (handler, ms) => {
   let cancel = () => {
     let i = timeouts.findIndex(t => t.cancel == cancel);
     if (~i) timeouts.splice(i, 1);
-    __raf.count -= ~i ? 1 : 0;
+    pendingCount -= ~i ? 1 : 0;
   };
 
   let timeout = {
@@ -13262,7 +13352,7 @@ raf.setTimeout = (handler, ms) => {
     cancel
   };
   timeouts.splice(findTimeout(time), 0, timeout);
-  __raf.count += 1;
+  pendingCount += 1;
   start();
   return timeout;
 };
@@ -13270,8 +13360,11 @@ raf.setTimeout = (handler, ms) => {
 let findTimeout = time => ~(~timeouts.findIndex(t => t.time > time) || ~timeouts.length);
 
 raf.cancel = fn => {
+  onStartQueue.delete(fn);
+  onFrameQueue.delete(fn);
   updateQueue.delete(fn);
   writeQueue.delete(fn);
+  onFinishQueue.delete(fn);
 };
 
 raf.sync = fn => {
@@ -13326,6 +13419,7 @@ raf.advance = () => {
 };
 
 let ts = -1;
+let pendingCount = 0;
 let sync = false;
 
 function schedule(fn, queue) {
@@ -13348,6 +13442,10 @@ function start() {
   }
 }
 
+function stop() {
+  ts = -1;
+}
+
 function loop() {
   if (~ts) {
     nativeRaf(loop);
@@ -13362,7 +13460,7 @@ function update() {
 
   if (count) {
     eachSafely(timeouts.splice(0, count), t => t.handler());
-    __raf.count -= count;
+    pendingCount -= count;
   }
 
   onStartQueue.flush();
@@ -13370,6 +13468,10 @@ function update() {
   onFrameQueue.flush();
   writeQueue.flush();
   onFinishQueue.flush();
+
+  if (!pendingCount) {
+    stop();
+  }
 }
 
 function makeQueue() {
@@ -13377,21 +13479,21 @@ function makeQueue() {
   let current = next;
   return {
     add(fn) {
-      __raf.count += current == next && !next.has(fn) ? 1 : 0;
+      pendingCount += current == next && !next.has(fn) ? 1 : 0;
       next.add(fn);
     },
 
     delete(fn) {
-      __raf.count -= current == next && next.has(fn) ? 1 : 0;
+      pendingCount -= current == next && next.has(fn) ? 1 : 0;
       return next.delete(fn);
     },
 
     flush(arg) {
       if (current.size) {
         next = new Set();
-        __raf.count -= current.size;
+        pendingCount -= current.size;
         eachSafely(current, fn => fn(arg) && next.add(fn));
-        __raf.count += next.size;
+        pendingCount += next.size;
         current = next;
       }
     }
@@ -13410,7 +13512,13 @@ function eachSafely(values, each) {
 }
 
 const __raf = {
-  count: 0,
+  count() {
+    return pendingCount;
+  },
+
+  isRunning() {
+    return ts >= 0;
+  },
 
   clear() {
     ts = -1;
@@ -13420,7 +13528,7 @@ const __raf = {
     onFrameQueue = makeQueue();
     writeQueue = makeQueue();
     onFinishQueue = makeQueue();
-    __raf.count = 0;
+    pendingCount = 0;
   }
 
 };
@@ -13430,7 +13538,7 @@ const __raf = {
 // EXTERNAL MODULE: external "React"
 var external_React_ = __webpack_require__(9196);
 var external_React_default = /*#__PURE__*/__webpack_require__.n(external_React_);
-;// CONCATENATED MODULE: ./node_modules/@react-spring/shared/dist/react-spring-shared.esm.js
+;// CONCATENATED MODULE: ./packages/block-editor/node_modules/@react-spring/shared/dist/react-spring-shared.esm.js
 
 
 
@@ -13465,6 +13573,14 @@ function isEqual(a, b) {
 }
 const react_spring_shared_esm_each = (obj, fn) => obj.forEach(fn);
 function eachProp(obj, fn, ctx) {
+  if (react_spring_shared_esm_is.arr(obj)) {
+    for (let i = 0; i < obj.length; i++) {
+      fn.call(ctx, obj[i], `${i}`);
+    }
+
+    return;
+  }
+
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
       fn.call(ctx, obj[key], key);
@@ -13480,6 +13596,7 @@ function flush(queue, iterator) {
   }
 }
 const flushCalls = (queue, ...args) => flush(queue, fn => fn(...args));
+const isSSR = () => typeof window === 'undefined' || !window.navigator || /ServerSideRendering|^Deno\//.test(window.navigator.userAgent);
 
 let createStringInterpolator$1;
 let to;
@@ -14021,14 +14138,54 @@ const setHidden = (target, key, value) => Object.defineProperty(target, key, {
 
 const numberRegex = /[+\-]?(?:0|[1-9]\d*)(?:\.\d*)?(?:[eE][+\-]?\d+)?/g;
 const colorRegex = /(#(?:[0-9a-f]{2}){2,4}|(#[0-9a-f]{3})|(rgb|hsl)a?\((-?\d+%?[,\s]+){2,3}\s*[\d\.]+%?\))/gi;
-let namedColorRegex;
+const unitRegex = new RegExp(`(${numberRegex.source})(%|[a-z]+)`, 'i');
 const rgbaRegex = /rgba\(([0-9\.-]+), ([0-9\.-]+), ([0-9\.-]+), ([0-9\.-]+)\)/gi;
+const cssVariableRegex = /var\((--[a-zA-Z0-9-_]+),? ?([a-zA-Z0-9 ()%#.,-]+)?\)/;
+
+const variableToRgba = input => {
+  const [token, fallback] = parseCSSVariable(input);
+
+  if (!token || isSSR()) {
+    return input;
+  }
+
+  const value = window.getComputedStyle(document.documentElement).getPropertyValue(token);
+
+  if (value) {
+    return value.trim();
+  } else if (fallback && fallback.startsWith('--')) {
+    const _value = window.getComputedStyle(document.documentElement).getPropertyValue(fallback);
+
+    if (_value) {
+      return _value;
+    } else {
+      return input;
+    }
+  } else if (fallback && cssVariableRegex.test(fallback)) {
+    return variableToRgba(fallback);
+  } else if (fallback) {
+    return fallback;
+  }
+
+  return input;
+};
+
+const parseCSSVariable = current => {
+  const match = cssVariableRegex.exec(current);
+  if (!match) return [,];
+  const [, token, fallback] = match;
+  return [token, fallback];
+};
+
+let namedColorRegex;
 
 const rgbaRound = (_, p1, p2, p3, p4) => `rgba(${Math.round(p1)}, ${Math.round(p2)}, ${Math.round(p3)}, ${p4})`;
 
 const createStringInterpolator = config => {
   if (!namedColorRegex) namedColorRegex = colors$1 ? new RegExp(`(${Object.keys(colors$1).join('|')})(?!\\w)`, 'g') : /^\b$/;
-  const output = config.output.map(value => getFluidValue(value).replace(colorRegex, colorToRgba).replace(namedColorRegex, colorToRgba));
+  const output = config.output.map(value => {
+    return getFluidValue(value).replace(cssVariableRegex, variableToRgba).replace(colorRegex, colorToRgba).replace(namedColorRegex, colorToRgba);
+  });
   const keyframes = output.map(value => value.match(numberRegex).map(Number));
   const outputRanges = keyframes[0].map((_, i) => keyframes.map(values => {
     if (!(i in values)) {
@@ -14041,8 +14198,11 @@ const createStringInterpolator = config => {
     output
   })));
   return input => {
+    var _output$find;
+
+    const missingUnit = !unitRegex.test(output[0]) && ((_output$find = output.find(value => unitRegex.test(value))) == null ? void 0 : _output$find.replace(numberRegex, ''));
     let i = 0;
-    return output[0].replace(numberRegex, () => String(interpolators[i++](input))).replace(rgbaRegex, rgbaRound);
+    return output[0].replace(numberRegex, () => `${interpolators[i++](input)}${missingUnit || ''}`).replace(rgbaRegex, rgbaRound);
   };
 };
 
@@ -14074,31 +14234,30 @@ function deprecateDirectCall() {
 }
 
 function isAnimatedString(value) {
-  return react_spring_shared_esm_is.str(value) && (value[0] == '#' || /\d/.test(value) || value in (colors$1 || {}));
+  return react_spring_shared_esm_is.str(value) && (value[0] == '#' || /\d/.test(value) || !isSSR() && cssVariableRegex.test(value) || value in (colors$1 || {}));
 }
 
-const react_spring_shared_esm_useOnce = effect => (0,external_React_.useEffect)(effect, emptyDeps);
-const emptyDeps = [];
+const react_spring_shared_esm_useLayoutEffect = typeof window !== 'undefined' && window.document && window.document.createElement ? external_React_.useLayoutEffect : external_React_.useEffect;
+
+const useIsMounted = () => {
+  const isMounted = (0,external_React_.useRef)(false);
+  react_spring_shared_esm_useLayoutEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
+  return isMounted;
+};
 
 function react_spring_shared_esm_useForceUpdate() {
   const update = (0,external_React_.useState)()[1];
-  const mounted = (0,external_React_.useState)(makeMountedRef)[0];
-  react_spring_shared_esm_useOnce(mounted.unmount);
+  const isMounted = useIsMounted();
   return () => {
-    if (mounted.current) {
-      update({});
+    if (isMounted.current) {
+      update(Math.random());
     }
   };
-}
-
-function makeMountedRef() {
-  const mounted = {
-    current: true,
-    unmount: () => () => {
-      mounted.current = false;
-    }
-  };
-  return mounted;
 }
 
 function useMemoOne(getResult, inputs) {
@@ -14147,6 +14306,9 @@ function areInputsEqual(next, prev) {
   return true;
 }
 
+const react_spring_shared_esm_useOnce = effect => (0,external_React_.useEffect)(effect, emptyDeps);
+const emptyDeps = [];
+
 function react_spring_shared_esm_usePrev(value) {
   const prevRef = (0,external_React_.useRef)();
   (0,external_React_.useEffect)(() => {
@@ -14155,11 +14317,9 @@ function react_spring_shared_esm_usePrev(value) {
   return prevRef.current;
 }
 
-const react_spring_shared_esm_useLayoutEffect = typeof window !== 'undefined' && window.document && window.document.createElement ? external_React_.useLayoutEffect : external_React_.useEffect;
 
 
-
-;// CONCATENATED MODULE: ./node_modules/@react-spring/animated/dist/react-spring-animated.esm.js
+;// CONCATENATED MODULE: ./packages/block-editor/node_modules/@react-spring/animated/dist/react-spring-animated.esm.js
 
 
 
@@ -14435,14 +14595,14 @@ const withAnimated = (Component, host) => {
     const observer = new PropsObserver(callback, deps);
     const observerRef = (0,external_React_.useRef)();
     react_spring_shared_esm_useLayoutEffect(() => {
-      const lastObserver = observerRef.current;
       observerRef.current = observer;
       react_spring_shared_esm_each(deps, dep => addFluidObserver(dep, observer));
-
-      if (lastObserver) {
-        react_spring_shared_esm_each(lastObserver.deps, dep => removeFluidObserver(dep, lastObserver));
-        raf.cancel(lastObserver.update);
-      }
+      return () => {
+        if (observerRef.current) {
+          react_spring_shared_esm_each(observerRef.current.deps, dep => removeFluidObserver(dep, observerRef.current));
+          raf.cancel(observerRef.current.update);
+        }
+      };
     });
     (0,external_React_.useEffect)(callback, []);
     react_spring_shared_esm_useOnce(() => () => {
@@ -14530,7 +14690,7 @@ const getDisplayName = arg => react_spring_shared_esm_is.str(arg) ? arg : arg &&
 
 
 
-;// CONCATENATED MODULE: ./node_modules/@react-spring/core/dist/react-spring-core.esm.js
+;// CONCATENATED MODULE: ./packages/block-editor/node_modules/@react-spring/core/dist/react-spring-core.esm.js
 
 
 
@@ -14697,8 +14857,8 @@ function useChain(refs, timeSteps, timeFrame = 1000) {
 
               props.delay = key => delay + callProp(memoizedDelayProp || 0, key);
             });
-            ctrl.start();
           });
+          ref.start();
         }
       });
     } else {
@@ -14714,7 +14874,7 @@ function useChain(refs, timeSteps, timeFrame = 1000) {
           });
           p = p.then(() => {
             each(controllers, (ctrl, i) => each(queues[i] || [], update => ctrl.queue.push(update)));
-            return ref.start();
+            return Promise.all(ref.start());
           });
         }
       });
@@ -14748,13 +14908,65 @@ const config = {
     friction: 120
   }
 };
+const c1 = 1.70158;
+const c2 = c1 * 1.525;
+const c3 = c1 + 1;
+const c4 = 2 * Math.PI / 3;
+const c5 = 2 * Math.PI / 4.5;
 
-const linear = t => t;
+const bounceOut = x => {
+  const n1 = 7.5625;
+  const d1 = 2.75;
+
+  if (x < 1 / d1) {
+    return n1 * x * x;
+  } else if (x < 2 / d1) {
+    return n1 * (x -= 1.5 / d1) * x + 0.75;
+  } else if (x < 2.5 / d1) {
+    return n1 * (x -= 2.25 / d1) * x + 0.9375;
+  } else {
+    return n1 * (x -= 2.625 / d1) * x + 0.984375;
+  }
+};
+
+const easings = {
+  linear: x => x,
+  easeInQuad: x => x * x,
+  easeOutQuad: x => 1 - (1 - x) * (1 - x),
+  easeInOutQuad: x => x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2,
+  easeInCubic: x => x * x * x,
+  easeOutCubic: x => 1 - Math.pow(1 - x, 3),
+  easeInOutCubic: x => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2,
+  easeInQuart: x => x * x * x * x,
+  easeOutQuart: x => 1 - Math.pow(1 - x, 4),
+  easeInOutQuart: x => x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2,
+  easeInQuint: x => x * x * x * x * x,
+  easeOutQuint: x => 1 - Math.pow(1 - x, 5),
+  easeInOutQuint: x => x < 0.5 ? 16 * x * x * x * x * x : 1 - Math.pow(-2 * x + 2, 5) / 2,
+  easeInSine: x => 1 - Math.cos(x * Math.PI / 2),
+  easeOutSine: x => Math.sin(x * Math.PI / 2),
+  easeInOutSine: x => -(Math.cos(Math.PI * x) - 1) / 2,
+  easeInExpo: x => x === 0 ? 0 : Math.pow(2, 10 * x - 10),
+  easeOutExpo: x => x === 1 ? 1 : 1 - Math.pow(2, -10 * x),
+  easeInOutExpo: x => x === 0 ? 0 : x === 1 ? 1 : x < 0.5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2,
+  easeInCirc: x => 1 - Math.sqrt(1 - Math.pow(x, 2)),
+  easeOutCirc: x => Math.sqrt(1 - Math.pow(x - 1, 2)),
+  easeInOutCirc: x => x < 0.5 ? (1 - Math.sqrt(1 - Math.pow(2 * x, 2))) / 2 : (Math.sqrt(1 - Math.pow(-2 * x + 2, 2)) + 1) / 2,
+  easeInBack: x => c3 * x * x * x - c1 * x * x,
+  easeOutBack: x => 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2),
+  easeInOutBack: x => x < 0.5 ? Math.pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2) / 2 : (Math.pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2,
+  easeInElastic: x => x === 0 ? 0 : x === 1 ? 1 : -Math.pow(2, 10 * x - 10) * Math.sin((x * 10 - 10.75) * c4),
+  easeOutElastic: x => x === 0 ? 0 : x === 1 ? 1 : Math.pow(2, -10 * x) * Math.sin((x * 10 - 0.75) * c4) + 1,
+  easeInOutElastic: x => x === 0 ? 0 : x === 1 ? 1 : x < 0.5 ? -(Math.pow(2, 20 * x - 10) * Math.sin((20 * x - 11.125) * c5)) / 2 : Math.pow(2, -20 * x + 10) * Math.sin((20 * x - 11.125) * c5) / 2 + 1,
+  easeInBounce: x => 1 - bounceOut(1 - x),
+  easeOutBounce: bounceOut,
+  easeInOutBounce: x => x < 0.5 ? (1 - bounceOut(1 - 2 * x)) / 2 : (1 + bounceOut(2 * x - 1)) / 2
+};
 
 const defaults = react_spring_core_esm_extends({}, config.default, {
   mass: 1,
   damping: 1,
-  easing: linear,
+  easing: easings.linear,
   clamp: false
 });
 
@@ -14889,7 +15101,8 @@ function scheduleProps(callId, {
     }
 
     function onResume() {
-      if (delay > 0) {
+      if (delay > 0 && !globals.skipAnimation) {
+        state.delayed = true;
         timeout = raf.setTimeout(onStart, delay);
         state.pauseQueue.add(onPause);
         state.timeouts.add(timeout);
@@ -14899,6 +15112,10 @@ function scheduleProps(callId, {
     }
 
     function onStart() {
+      if (state.delayed) {
+        state.delayed = false;
+      }
+
       state.pauseQueue.delete(onPause);
       state.timeouts.delete(timeout);
 
@@ -15166,6 +15383,7 @@ class SpringValue extends FrameValue {
     this.defaultProps = {};
     this._state = {
       paused: false,
+      delayed: false,
       pauseQueue: new Set(),
       resumeQueue: new Set(),
       timeouts: new Set()
@@ -15211,6 +15429,10 @@ class SpringValue extends FrameValue {
 
   get isPaused() {
     return isPaused(this);
+  }
+
+  get isDelayed() {
+    return this._state.delayed;
   }
 
   advance(dt) {
@@ -15416,7 +15638,11 @@ class SpringValue extends FrameValue {
       this.queue = [];
     }
 
-    return Promise.all(queue.map(props => this._update(props))).then(results => getCombinedResult(this, results));
+    return Promise.all(queue.map(props => {
+      const up = this._update(props);
+
+      return up;
+    })).then(results => getCombinedResult(this, results));
   }
 
   stop(cancel) {
@@ -15949,7 +16175,9 @@ class Controller {
   }
 
   get idle() {
-    return !this._state.asyncTo && Object.values(this.springs).every(spring => spring.idle);
+    return !this._state.asyncTo && Object.values(this.springs).every(spring => {
+      return spring.idle && !spring.isDelayed && !spring.isPaused;
+    });
   }
 
   get item() {
@@ -16512,21 +16740,30 @@ const initSpringRef = () => SpringRef();
 const useSpringRef = () => useState(initSpringRef)[0];
 
 function useTrail(length, propsArg, deps) {
+  var _passedRef;
+
   const propsFn = is.fun(propsArg) && propsArg;
   if (propsFn && !deps) deps = [];
   let reverse = true;
+  let passedRef = undefined;
   const result = useSprings(length, (i, ctrl) => {
     const props = propsFn ? propsFn(i, ctrl) : propsArg;
+    passedRef = props.ref;
     reverse = reverse && props.reverse;
     return props;
   }, deps || [{}]);
-  const ref = result[1];
+  const ref = (_passedRef = passedRef) != null ? _passedRef : result[1];
   useLayoutEffect(() => {
     each(ref.current, (ctrl, i) => {
       const parent = ref.current[i + (reverse ? 1 : -1)];
-      if (parent) ctrl.start({
-        to: parent.springs
-      });
+
+      if (parent) {
+        ctrl.start({
+          to: parent.springs
+        });
+      } else {
+        ctrl.start();
+      }
     });
   }, deps);
 
@@ -16543,6 +16780,23 @@ function useTrail(length, propsArg, deps) {
 
     return result;
   }
+
+  ref['start'] = propsArg => {
+    const results = [];
+    each(ref.current, (ctrl, i) => {
+      const props = is.fun(propsArg) ? propsArg(i, ctrl) : propsArg;
+      const parent = ref.current[i + (reverse ? 1 : -1)];
+
+      if (parent) {
+        results.push(ctrl.start(react_spring_core_esm_extends({}, props, {
+          to: parent.springs
+        })));
+      } else {
+        results.push(ctrl.start(react_spring_core_esm_extends({}, props)));
+      }
+    });
+    return results;
+  };
 
   return result[0];
 }
@@ -16563,6 +16817,7 @@ function useTransition(data, props, deps) {
     sort,
     trail = 0,
     expires = true,
+    exitBeforeEnter = false,
     onDestroyed,
     ref: propsRef,
     config: propsConfig
@@ -16575,14 +16830,28 @@ function useTransition(data, props, deps) {
   useLayoutEffect(() => {
     usedTransitions.current = transitions;
   });
-  useOnce(() => () => each(usedTransitions.current, t => {
-    if (t.expired) {
-      clearTimeout(t.expirationId);
-    }
+  useOnce(() => {
+    each(usedTransitions.current, t => {
+      var _t$ctrl$ref;
 
-    detachRefs(t.ctrl, ref);
-    t.ctrl.stop(true);
-  }));
+      (_t$ctrl$ref = t.ctrl.ref) == null ? void 0 : _t$ctrl$ref.add(t.ctrl);
+      const change = changes.get(t);
+
+      if (change) {
+        t.ctrl.start(change.payload);
+      }
+    });
+    return () => {
+      each(usedTransitions.current, t => {
+        if (t.expired) {
+          clearTimeout(t.expirationId);
+        }
+
+        detachRefs(t.ctrl, ref);
+        t.ctrl.stop(true);
+      });
+    };
+  });
   const keys = getKeys(items, propsFn ? propsFn() : props, prevTransitions);
   const expired = reset && usedTransitions.current || [];
   useLayoutEffect(() => each(expired, ({
@@ -16642,6 +16911,8 @@ function useTransition(data, props, deps) {
   const forceUpdate = useForceUpdate();
   const defaultProps = getDefaultProps(props);
   const changes = new Map();
+  const exitingTransitions = useRef(new Map());
+  const forceChange = useRef(false);
   each(transitions, (t, i) => {
     const key = t.key;
     const prevPhase = t.phase;
@@ -16727,30 +16998,53 @@ function useTransition(data, props, deps) {
         }
 
         if (idle && transitions.some(t => t.expired)) {
+          exitingTransitions.current.delete(t);
+
+          if (exitBeforeEnter) {
+            forceChange.current = true;
+          }
+
           forceUpdate();
         }
       }
     };
 
     const springs = getSprings(t.ctrl, payload);
-    changes.set(t, {
-      phase,
-      springs,
-      payload
-    });
+
+    if (phase === TransitionPhase.LEAVE && exitBeforeEnter) {
+      exitingTransitions.current.set(t, {
+        phase,
+        springs,
+        payload
+      });
+    } else {
+      changes.set(t, {
+        phase,
+        springs,
+        payload
+      });
+    }
   });
   const context = useContext(SpringContext);
   const prevContext = usePrev(context);
   const hasContext = context !== prevContext && hasProps(context);
   useLayoutEffect(() => {
-    if (hasContext) each(transitions, t => {
-      t.ctrl.start({
-        default: context
+    if (hasContext) {
+      each(transitions, t => {
+        t.ctrl.start({
+          default: context
+        });
       });
-    });
+    }
   }, [context]);
+  each(changes, (_, t) => {
+    if (exitingTransitions.current.size) {
+      const ind = transitions.findIndex(state => state.key === t.key);
+      transitions.splice(ind, 1);
+    }
+  });
   useLayoutEffect(() => {
-    each(changes, ({
+    each(exitingTransitions.current.size ? exitingTransitions.current : changes, ({
       phase,
       payload
     }, t) => {
@@ -16769,10 +17063,14 @@ function useTransition(data, props, deps) {
       if (payload) {
         replaceRef(ctrl, payload.ref);
 
-        if (ctrl.ref) {
+        if (ctrl.ref && !forceChange.current) {
           ctrl.update(payload);
         } else {
           ctrl.start(payload);
+
+          if (forceChange.current) {
+            forceChange.current = false;
+          }
         }
       }
     });
@@ -16987,7 +17285,7 @@ const react_spring_core_esm_update = frameLoop.advance;
 
 ;// CONCATENATED MODULE: external "ReactDOM"
 var external_ReactDOM_namespaceObject = window["ReactDOM"];
-;// CONCATENATED MODULE: ./node_modules/@react-spring/web/dist/react-spring-web.esm.js
+;// CONCATENATED MODULE: ./packages/block-editor/node_modules/@react-spring/web/dist/react-spring-web.esm.js
 
 
 
@@ -20123,6 +20421,19 @@ function useInput() {
     __unstableExpandSelection
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   return (0,external_wp_compose_namespaceObject.useRefEffect)(node => {
+    function onBeforeInput(event) {
+      var _event$inputType;
+
+      if (!hasMultiSelection()) {
+        return;
+      } // Prevent the browser to format something when we have multiselection.
+
+
+      if ((_event$inputType = event.inputType) !== null && _event$inputType !== void 0 && _event$inputType.startsWith('format')) {
+        event.preventDefault();
+      }
+    }
+
     function onKeyDown(event) {
       if (event.defaultPrevented) {
         return;
@@ -20187,9 +20498,11 @@ function useInput() {
       }
     }
 
+    node.addEventListener('beforeinput', onBeforeInput);
     node.addEventListener('keydown', onKeyDown);
     node.addEventListener('compositionstart', onCompositionStart);
     return () => {
+      node.removeEventListener('beforeinput', onBeforeInput);
       node.removeEventListener('keydown', onKeyDown);
       node.removeEventListener('compositionstart', onCompositionStart);
     };
@@ -25183,27 +25496,30 @@ function BlockPopoverInbetween(_ref) {
   } = _ref;
   const {
     orientation,
-    rootClientId
+    rootClientId,
+    isVisible
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     var _getBlockListSettings;
 
     const {
       getBlockListSettings,
-      getBlockRootClientId
+      getBlockRootClientId,
+      isBlockVisible
     } = select(store);
 
     const _rootClientId = getBlockRootClientId(previousClientId);
 
     return {
       orientation: ((_getBlockListSettings = getBlockListSettings(_rootClientId)) === null || _getBlockListSettings === void 0 ? void 0 : _getBlockListSettings.orientation) || 'vertical',
-      rootClientId: _rootClientId
+      rootClientId: _rootClientId,
+      isVisible: isBlockVisible(previousClientId) && isBlockVisible(nextClientId)
     };
   }, [previousClientId]);
   const previousElement = useBlockElement(previousClientId);
   const nextElement = useBlockElement(nextClientId);
   const isVertical = orientation === 'vertical';
   const style = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    if (!previousElement && !nextElement) {
+    if (!previousElement && !nextElement || !isVisible) {
       return {};
     }
 
@@ -25229,7 +25545,7 @@ function BlockPopoverInbetween(_ref) {
     };
   }, [previousElement, nextElement, isVertical]);
   const getAnchorRect = (0,external_wp_element_namespaceObject.useCallback)(() => {
-    if (!previousElement && !nextElement) {
+    if (!previousElement && !nextElement || !isVisible) {
       return {};
     }
 
@@ -25287,7 +25603,7 @@ function BlockPopoverInbetween(_ref) {
   }, [previousElement, nextElement]);
   const popoverScrollRef = use_popover_scroll(__unstableContentRef);
 
-  if (!previousElement || !nextElement) {
+  if (!previousElement || !nextElement || !isVisible) {
     return null;
   }
   /* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */
@@ -26375,6 +26691,7 @@ function BlockSelectionButton(_ref) {
     onClick: () => setNavigationMode(false),
     onKeyDown: onKeyDown,
     label: label,
+    showTooltip: false,
     className: "block-selection-button_select-button"
   }, (0,external_wp_element_namespaceObject.createElement)(BlockTitle, {
     clientId: clientId,
@@ -29632,15 +29949,20 @@ function BlockGroupToolbar() {
     replaceBlocks
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   const {
-    canRemove
+    canRemove,
+    variations
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       canRemoveBlocks
     } = select(store);
+    const {
+      getBlockVariations
+    } = select(external_wp_blocks_namespaceObject.store);
     return {
-      canRemove: canRemoveBlocks(clientIds)
+      canRemove: canRemoveBlocks(clientIds),
+      variations: getBlockVariations(groupingBlockName, 'transform')
     };
-  }, [clientIds]);
+  }, [clientIds, groupingBlockName]);
 
   const onConvertToGroup = function () {
     let layout = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'group';
@@ -29666,15 +29988,27 @@ function BlockGroupToolbar() {
     return null;
   }
 
+  const canInsertRow = !!variations.find(_ref => {
+    let {
+      name
+    } = _ref;
+    return name === 'group-row';
+  });
+  const canInsertStack = !!variations.find(_ref2 => {
+    let {
+      name
+    } = _ref2;
+    return name === 'group-stack';
+  });
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
     icon: library_group,
     label: (0,external_wp_i18n_namespaceObject._x)('Group', 'verb'),
     onClick: onConvertToGroup
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
+  }), canInsertRow && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
     icon: library_row,
     label: (0,external_wp_i18n_namespaceObject._x)('Row', 'single horizontal line'),
     onClick: onConvertToRow
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
+  }), canInsertStack && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
     icon: library_stack,
     label: (0,external_wp_i18n_namespaceObject._x)('Stack', 'verb'),
     onClick: onConvertToStack
@@ -31101,6 +31435,29 @@ function Root(_ref) {
       isNavigationMode: _isNavigationMode()
     };
   }, []);
+  const {
+    setBlockVisibility
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  const intersectionObserver = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const {
+      IntersectionObserver: Observer
+    } = window;
+
+    if (!Observer) {
+      return;
+    }
+
+    return new Observer(entries => {
+      const updates = {};
+
+      for (const entry of entries) {
+        const clientId = entry.target.getAttribute('data-block');
+        updates[clientId] = entry.isIntersecting;
+      }
+
+      setBlockVisibility(updates);
+    });
+  }, []);
   const innerBlocksProps = useInnerBlocksProps({
     ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([useBlockSelectionClearer(), useInBetweenInserter(), setElement]),
     className: classnames_default()('is-root-container', className, {
@@ -31111,7 +31468,9 @@ function Root(_ref) {
   }, settings);
   return (0,external_wp_element_namespaceObject.createElement)(elementContext.Provider, {
     value: element
-  }, (0,external_wp_element_namespaceObject.createElement)("div", innerBlocksProps));
+  }, (0,external_wp_element_namespaceObject.createElement)(IntersectionObserver.Provider, {
+    value: intersectionObserver
+  }, (0,external_wp_element_namespaceObject.createElement)("div", innerBlocksProps)));
 }
 
 function BlockList(settings) {
@@ -31130,56 +31489,33 @@ function Items(_ref2) {
     __experimentalAppenderTagName,
     __experimentalLayout: layout = defaultLayout
   } = _ref2;
-  const [intersectingBlocks, setIntersectingBlocks] = (0,external_wp_element_namespaceObject.useState)(new Set());
-  const intersectionObserver = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    const {
-      IntersectionObserver: Observer
-    } = window;
-
-    if (!Observer) {
-      return;
-    }
-
-    return new Observer(entries => {
-      setIntersectingBlocks(oldIntersectingBlocks => {
-        const newIntersectingBlocks = new Set(oldIntersectingBlocks);
-
-        for (const entry of entries) {
-          const clientId = entry.target.getAttribute('data-block');
-          const action = entry.isIntersecting ? 'add' : 'delete';
-          newIntersectingBlocks[action](clientId);
-        }
-
-        return newIntersectingBlocks;
-      });
-    });
-  }, [setIntersectingBlocks]);
   const {
     order,
-    selectedBlocks
+    selectedBlocks,
+    visibleBlocks
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       getBlockOrder,
-      getSelectedBlockClientIds
+      getSelectedBlockClientIds,
+      __unstableGetVisibleBlocks
     } = select(store);
     return {
       order: getBlockOrder(rootClientId),
-      selectedBlocks: getSelectedBlockClientIds()
+      selectedBlocks: getSelectedBlockClientIds(),
+      visibleBlocks: __unstableGetVisibleBlocks()
     };
   }, [rootClientId]);
   return (0,external_wp_element_namespaceObject.createElement)(LayoutProvider, {
     value: layout
-  }, (0,external_wp_element_namespaceObject.createElement)(IntersectionObserver.Provider, {
-    value: intersectionObserver
   }, order.map(clientId => (0,external_wp_element_namespaceObject.createElement)(external_wp_data_namespaceObject.AsyncModeProvider, {
     key: clientId,
     value: // Only provide data asynchronously if the block is
     // not visible and not selected.
-    !intersectingBlocks.has(clientId) && !selectedBlocks.includes(clientId)
+    !visibleBlocks.has(clientId) && !selectedBlocks.includes(clientId)
   }, (0,external_wp_element_namespaceObject.createElement)(block, {
     rootClientId: rootClientId,
     clientId: clientId
-  })))), order.length < 1 && placeholder, (0,external_wp_element_namespaceObject.createElement)(block_list_appender, {
+  }))), order.length < 1 && placeholder, (0,external_wp_element_namespaceObject.createElement)(block_list_appender, {
     tagName: __experimentalAppenderTagName,
     rootClientId: rootClientId,
     renderAppender: renderAppender
@@ -32620,57 +32956,46 @@ function ColorGradientControl(props) {
  * Internal dependencies
  */
 
- // Conditionally wraps the `ColorGradientSettingsDropdown` color controls in an
-// `ItemGroup` allowing for a standalone group of controls to be
-// rendered semantically.
-
-const WithItemGroup = _ref => {
-  let {
-    __experimentalIsItemGroup,
-    children
-  } = _ref;
-
-  if (!__experimentalIsItemGroup) {
-    return children;
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, {
-    isBordered: true,
-    isSeparated: true,
-    className: "block-editor-panel-color-gradient-settings__item-group"
-  }, children);
-}; // When the `ColorGradientSettingsDropdown` controls are being rendered to a
+ // When the `ColorGradientSettingsDropdown` controls are being rendered to a
 // `ToolsPanel` they must be wrapped in a `ToolsPanelItem`.
 
-
-const WithToolsPanelItem = _ref2 => {
+const WithToolsPanelItem = _ref => {
   let {
-    __experimentalIsItemGroup,
-    settings,
+    setting,
     children,
+    panelId,
     ...props
-  } = _ref2;
+  } = _ref;
 
-  if (__experimentalIsItemGroup) {
-    return children;
-  }
+  const clearValue = () => {
+    if (setting.colorValue) {
+      setting.onColorChange();
+    } else if (setting.gradientValue) {
+      setting.onGradientChange();
+    }
+  };
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, _extends({
-    hasValue: settings.hasValue,
-    label: settings.label,
-    onDeselect: settings.onDeselect,
-    isShownByDefault: settings.isShownByDefault,
-    resetAllFilter: settings.resetAllFilter
+    hasValue: () => {
+      return !!setting.colorValue || !!setting.gradientValue;
+    },
+    label: setting.label,
+    onDeselect: clearValue,
+    isShownByDefault: setting.isShownByDefault !== undefined ? setting.isShownByDefault : true
   }, props, {
-    className: "block-editor-tools-panel-color-gradient-settings__item"
+    className: "block-editor-tools-panel-color-gradient-settings__item",
+    panelId: panelId // Pass resetAllFilter if supplied due to rendering via SlotFill
+    // into parent ToolsPanel.
+    ,
+    resetAllFilter: setting.resetAllFilter
   }), children);
 };
 
-const LabeledColorIndicator = _ref3 => {
+const LabeledColorIndicator = _ref2 => {
   let {
     colorValue,
     label
-  } = _ref3;
+  } = _ref2;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     justify: "flex-start"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
@@ -32682,27 +33007,23 @@ const LabeledColorIndicator = _ref3 => {
 // a `ToolsPanel`.
 
 
-const renderToggle = settings => _ref4 => {
+const renderToggle = settings => _ref3 => {
   let {
     onToggle,
     isOpen
-  } = _ref4;
+  } = _ref3;
   const {
-    __experimentalIsItemGroup,
     colorValue,
     label
-  } = settings; // Determine component, `Item` or `Button`, to wrap color indicator with.
-
-  const ToggleComponent = __experimentalIsItemGroup ? external_wp_components_namespaceObject.__experimentalItem : external_wp_components_namespaceObject.Button;
-  const toggleClassName = __experimentalIsItemGroup ? 'block-editor-panel-color-gradient-settings__item' : 'block-editor-panel-color-gradient-settings__dropdown';
+  } = settings;
   const toggleProps = {
     onClick: onToggle,
-    className: classnames_default()(toggleClassName, {
+    className: classnames_default()('block-editor-panel-color-gradient-settings__dropdown', {
       'is-open': isOpen
     }),
-    'aria-expanded': __experimentalIsItemGroup ? undefined : isOpen
+    'aria-expanded': isOpen
   };
-  return (0,external_wp_element_namespaceObject.createElement)(ToggleComponent, toggleProps, (0,external_wp_element_namespaceObject.createElement)(LabeledColorIndicator, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, toggleProps, (0,external_wp_element_namespaceObject.createElement)(LabeledColorIndicator, {
     colorValue: colorValue,
     label: label
   }));
@@ -32715,20 +33036,18 @@ const renderToggle = settings => _ref4 => {
 // For more context see: https://github.com/WordPress/gutenberg/pull/40084
 
 
-function ColorGradientSettingsDropdown(_ref5) {
+function ColorGradientSettingsDropdown(_ref4) {
   let {
     colors,
     disableCustomColors,
     disableCustomGradients,
     enableAlpha,
     gradients,
-    __experimentalIsItemGroup = true,
     settings,
     __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar,
     ...props
-  } = _ref5;
-  const dropdownClassName = __experimentalIsItemGroup ? 'block-editor-panel-color-gradient-settings__dropdown' : 'block-editor-tools-panel-color-gradient-settings__dropdown';
+  } = _ref4;
   let popoverProps;
 
   if (__experimentalIsRenderedInSidebar) {
@@ -32738,50 +33057,43 @@ function ColorGradientSettingsDropdown(_ref5) {
     };
   }
 
-  return (// Only wrap with `ItemGroup` if these controls are being rendered
-    // semantically.
-    (0,external_wp_element_namespaceObject.createElement)(WithItemGroup, {
-      __experimentalIsItemGroup: __experimentalIsItemGroup
-    }, settings.map((setting, index) => {
-      var _setting$gradientValu;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, settings.map((setting, index) => {
+    var _setting$gradientValu;
 
-      const controlProps = {
-        clearable: __experimentalIsItemGroup ? undefined : false,
-        colorValue: setting.colorValue,
-        colors,
-        disableCustomColors,
-        disableCustomGradients,
-        enableAlpha,
-        gradientValue: setting.gradientValue,
-        gradients,
-        label: setting.label,
-        onColorChange: setting.onColorChange,
-        onGradientChange: setting.onGradientChange,
-        showTitle: false,
-        __experimentalHasMultipleOrigins,
-        __experimentalIsRenderedInSidebar,
-        ...setting
-      };
-      const toggleSettings = {
-        colorValue: (_setting$gradientValu = setting.gradientValue) !== null && _setting$gradientValu !== void 0 ? _setting$gradientValu : setting.colorValue,
-        __experimentalIsItemGroup,
-        label: setting.label
-      };
-      return setting && // If not in an `ItemGroup` wrap the dropdown in a
-      // `ToolsPanelItem`
-      (0,external_wp_element_namespaceObject.createElement)(WithToolsPanelItem, _extends({
-        key: index,
-        __experimentalIsItemGroup: __experimentalIsItemGroup,
-        settings: setting
-      }, props), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
-        popoverProps: popoverProps,
-        className: dropdownClassName,
-        contentClassName: "block-editor-panel-color-gradient-settings__dropdown-content",
-        renderToggle: renderToggle(toggleSettings),
-        renderContent: () => (0,external_wp_element_namespaceObject.createElement)(control, controlProps)
-      }));
-    }))
-  );
+    const controlProps = {
+      clearable: false,
+      colorValue: setting.colorValue,
+      colors,
+      disableCustomColors,
+      disableCustomGradients,
+      enableAlpha,
+      gradientValue: setting.gradientValue,
+      gradients,
+      label: setting.label,
+      onColorChange: setting.onColorChange,
+      onGradientChange: setting.onGradientChange,
+      showTitle: false,
+      __experimentalHasMultipleOrigins,
+      __experimentalIsRenderedInSidebar,
+      ...setting
+    };
+    const toggleSettings = {
+      colorValue: (_setting$gradientValu = setting.gradientValue) !== null && _setting$gradientValu !== void 0 ? _setting$gradientValu : setting.colorValue,
+      label: setting.label
+    };
+    return setting && // If not in an `ItemGroup` wrap the dropdown in a
+    // `ToolsPanelItem`
+    (0,external_wp_element_namespaceObject.createElement)(WithToolsPanelItem, _extends({
+      key: index,
+      setting: setting
+    }, props), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
+      popoverProps: popoverProps,
+      className: "block-editor-tools-panel-color-gradient-settings__dropdown",
+      contentClassName: "block-editor-panel-color-gradient-settings__dropdown-content",
+      renderToggle: renderToggle(toggleSettings),
+      renderContent: () => (0,external_wp_element_namespaceObject.createElement)(control, controlProps)
+    }));
+  }));
 }
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/contrast-checker/index.js
@@ -33039,33 +33351,6 @@ const hasTextColorSupport = blockType => {
   return colorSupport && colorSupport.text !== false;
 };
 /**
- * Checks whether a color has been set either with a named preset color in
- * a top level block attribute or as a custom value within the style attribute
- * object.
- *
- * @param {string} name Name of the color to check.
- * @return {boolean} Whether or not a color has a value.
- */
-
-
-const hasColor = name => props => {
-  var _props$attributes$sty9, _props$attributes$sty10;
-
-  if (name === 'background') {
-    var _props$attributes$sty, _props$attributes$sty2, _props$attributes$sty3, _props$attributes$sty4;
-
-    return !!props.attributes.backgroundColor || !!((_props$attributes$sty = props.attributes.style) !== null && _props$attributes$sty !== void 0 && (_props$attributes$sty2 = _props$attributes$sty.color) !== null && _props$attributes$sty2 !== void 0 && _props$attributes$sty2.background) || !!props.attributes.gradient || !!((_props$attributes$sty3 = props.attributes.style) !== null && _props$attributes$sty3 !== void 0 && (_props$attributes$sty4 = _props$attributes$sty3.color) !== null && _props$attributes$sty4 !== void 0 && _props$attributes$sty4.gradient);
-  }
-
-  if (name === 'link') {
-    var _props$attributes$sty5, _props$attributes$sty6, _props$attributes$sty7, _props$attributes$sty8;
-
-    return !!((_props$attributes$sty5 = props.attributes.style) !== null && _props$attributes$sty5 !== void 0 && (_props$attributes$sty6 = _props$attributes$sty5.elements) !== null && _props$attributes$sty6 !== void 0 && (_props$attributes$sty7 = _props$attributes$sty6.link) !== null && _props$attributes$sty7 !== void 0 && (_props$attributes$sty8 = _props$attributes$sty7.color) !== null && _props$attributes$sty8 !== void 0 && _props$attributes$sty8.text);
-  }
-
-  return !!props.attributes[`${name}Color`] || !!((_props$attributes$sty9 = props.attributes.style) !== null && _props$attributes$sty9 !== void 0 && (_props$attributes$sty10 = _props$attributes$sty9.color) !== null && _props$attributes$sty10 !== void 0 && _props$attributes$sty10[name]);
-};
-/**
  * Clears a single color property from a style object.
  *
  * @param {Array}  path  Path to color property to clear within styles object.
@@ -33075,25 +33360,6 @@ const hasColor = name => props => {
 
 
 const clearColorFromStyles = (path, style) => cleanEmptyObject(immutableSet(style, path, undefined));
-/**
- * Resets the block attributes for text color.
- *
- * @param {Object}   props               Current block props.
- * @param {Object}   props.attributes    Block attributes.
- * @param {Function} props.setAttributes Block's setAttributes prop used to apply reset.
- */
-
-
-const resetTextColor = _ref => {
-  let {
-    attributes,
-    setAttributes
-  } = _ref;
-  setAttributes({
-    textColor: undefined,
-    style: clearColorFromStyles(['color', 'text'], attributes.style)
-  });
-};
 /**
  * Clears text color related properties from supplied attributes.
  *
@@ -33106,25 +33372,6 @@ const resetAllTextFilter = attributes => ({
   textColor: undefined,
   style: clearColorFromStyles(['color', 'text'], attributes.style)
 });
-/**
- * Resets the block attributes for link color.
- *
- * @param {Object}   props               Current block props.
- * @param {Object}   props.attributes    Block attributes.
- * @param {Function} props.setAttributes Block's setAttributes prop used to apply reset.
- */
-
-
-const resetLinkColor = _ref2 => {
-  let {
-    attributes,
-    setAttributes
-  } = _ref2;
-  const path = ['elements', 'link', 'color', 'text'];
-  setAttributes({
-    style: clearColorFromStyles(path, attributes.style)
-  });
-};
 /**
  * Clears link color related properties from supplied attributes.
  *
@@ -33158,22 +33405,6 @@ const clearBackgroundAndGradient = attributes => {
       }
     }
   };
-};
-/**
- * Resets the block attributes for both background color and gradient.
- *
- * @param {Object}   props               Current block props.
- * @param {Object}   props.attributes    Block attributes.
- * @param {Function} props.setAttributes Block's setAttributes prop used to apply reset.
- */
-
-
-const resetBackgroundAndGradient = _ref3 => {
-  let {
-    attributes,
-    setAttributes
-  } = _ref3;
-  setAttributes(clearBackgroundAndGradient(attributes));
 };
 /**
  * Filters registered block settings, extending attributes to include
@@ -33432,12 +33663,19 @@ function ColorEdit(props) {
   };
 
   const onChangeLinkColor = value => {
+    var _localAttributes$curr9;
+
     const colorObject = getColorObjectByColorValue(allSolids, value);
     const newLinkColorValue = colorObject !== null && colorObject !== void 0 && colorObject.slug ? `var:preset|color|${colorObject.slug}` : value;
-    const newStyle = cleanEmptyObject(immutableSet(style, ['elements', 'link', 'color', 'text'], newLinkColorValue));
+    const newStyle = cleanEmptyObject(immutableSet((_localAttributes$curr9 = localAttributes.current) === null || _localAttributes$curr9 === void 0 ? void 0 : _localAttributes$curr9.style, ['elements', 'link', 'color', 'text'], newLinkColorValue));
     props.setAttributes({
       style: newStyle
     });
+    localAttributes.current = { ...localAttributes.current,
+      ...{
+        style: newStyle
+      }
+    };
   };
 
   const enableContrastChecking = external_wp_element_namespaceObject.Platform.OS === 'web' && !gradient && !(style !== null && style !== void 0 && (_style$color6 = style.color) !== null && _style$color6 !== void 0 && _style$color6.gradient);
@@ -33451,8 +33689,6 @@ function ColorEdit(props) {
       onColorChange: onChangeColor('text'),
       colorValue: getColorObjectByAttributeValues(allSolids, textColor, style === null || style === void 0 ? void 0 : (_style$color7 = style.color) === null || _style$color7 === void 0 ? void 0 : _style$color7.text).color,
       isShownByDefault: defaultColorControls === null || defaultColorControls === void 0 ? void 0 : defaultColorControls.text,
-      hasValue: () => hasColor('text')(props),
-      onDeselect: () => resetTextColor(props),
       resetAllFilter: resetAllTextFilter
     }] : []), ...(hasBackgroundColor || hasGradientColor ? [{
       label: (0,external_wp_i18n_namespaceObject.__)('Background'),
@@ -33461,8 +33697,6 @@ function ColorEdit(props) {
       gradientValue,
       onGradientChange: hasGradientColor ? onChangeGradient : undefined,
       isShownByDefault: defaultColorControls === null || defaultColorControls === void 0 ? void 0 : defaultColorControls.background,
-      hasValue: () => hasColor('background')(props),
-      onDeselect: () => resetBackgroundAndGradient(props),
       resetAllFilter: clearBackgroundAndGradient
     }] : []), ...(hasLinkColor ? [{
       label: (0,external_wp_i18n_namespaceObject.__)('Link'),
@@ -33470,8 +33704,6 @@ function ColorEdit(props) {
       colorValue: getLinkColorFromAttributeValue(allSolids, style === null || style === void 0 ? void 0 : (_style$elements2 = style.elements) === null || _style$elements2 === void 0 ? void 0 : (_style$elements2$link = _style$elements2.link) === null || _style$elements2$link === void 0 ? void 0 : (_style$elements2$link2 = _style$elements2$link.color) === null || _style$elements2$link2 === void 0 ? void 0 : _style$elements2$link2.text),
       clearable: !!(style !== null && style !== void 0 && (_style$elements3 = style.elements) !== null && _style$elements3 !== void 0 && (_style$elements3$link = _style$elements3.link) !== null && _style$elements3$link !== void 0 && (_style$elements3$link2 = _style$elements3$link.color) !== null && _style$elements3$link2 !== void 0 && _style$elements3$link2.text),
       isShownByDefault: defaultColorControls === null || defaultColorControls === void 0 ? void 0 : defaultColorControls.link,
-      hasValue: () => hasColor('link')(props),
-      onDeselect: () => resetLinkColor(props),
       resetAllFilter: resetAllLinkFilter
     }] : [])]
   });
@@ -39964,6 +40196,7 @@ const BlockPatternSetup = _ref4 => {
 
 
 
+
 function VariationsButtons(_ref) {
   let {
     className,
@@ -39977,7 +40210,10 @@ function VariationsButtons(_ref) {
     as: "legend"
   }, (0,external_wp_i18n_namespaceObject.__)('Transform to variation')), variations.map(variation => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     key: variation.name,
-    icon: variation.icon,
+    icon: (0,external_wp_element_namespaceObject.createElement)(block_icon, {
+      icon: variation.icon,
+      showColors: true
+    }),
     isPressed: selectedValue === variation.name,
     label: selectedValue === variation.name ? variation.title : (0,external_wp_i18n_namespaceObject.sprintf)(
     /* translators: %s: Name of the block variation */
@@ -40057,9 +40293,16 @@ function __experimentalBlockVariationTransforms(_ref4) {
 
   const hasUniqueIcons = (0,external_wp_element_namespaceObject.useMemo)(() => {
     const variationIcons = new Set();
+
+    if (!variations) {
+      return false;
+    }
+
     variations.forEach(variation => {
       if (variation.icon) {
-        variationIcons.add(variation.icon);
+        var _variation$icon;
+
+        variationIcons.add(((_variation$icon = variation.icon) === null || _variation$icon === void 0 ? void 0 : _variation$icon.src) || variation.icon);
       }
     });
     return variationIcons.size === variations.length;
@@ -40296,6 +40539,7 @@ function NonDefaultControls(_ref2) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -40304,55 +40548,8 @@ function NonDefaultControls(_ref2) {
 
 
 
-
- // translators: first %s: The type of color or gradient (e.g. background, overlay...), second %s: the color name or value (e.g. red or #ff0000)
-
-const colorIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(%s: color %s)'); // translators: first %s: The type of color or gradient (e.g. background, overlay...), second %s: the color name or value (e.g. red or #ff0000)
-
-
-const gradientIndicatorAriaLabel = (0,external_wp_i18n_namespaceObject.__)('(%s: gradient %s)');
-
 const panel_color_gradient_settings_colorsAndGradientKeys = ['colors', 'disableCustomColors', 'gradients', 'disableCustomGradients'];
-
-const Indicators = _ref => {
-  let {
-    colors,
-    gradients,
-    settings
-  } = _ref;
-  return settings.map((_ref2, index) => {
-    let {
-      colorValue,
-      gradientValue,
-      label,
-      colors: availableColors,
-      gradients: availableGradients
-    } = _ref2;
-
-    if (!colorValue && !gradientValue) {
-      return null;
-    }
-
-    let ariaLabel;
-
-    if (colorValue) {
-      const colorObject = getColorObjectByColorValue(availableColors || colors, colorValue);
-      ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(colorIndicatorAriaLabel, label.toLowerCase(), colorObject && colorObject.name || colorValue);
-    } else {
-      const gradientObject = __experimentalGetGradientObjectByGradientValue(availableGradients || gradients, colorValue);
-
-      ariaLabel = (0,external_wp_i18n_namespaceObject.sprintf)(gradientIndicatorAriaLabel, label.toLowerCase(), gradientObject && gradientObject.name || gradientValue);
-    }
-
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
-      key: index,
-      colorValue: colorValue || gradientValue,
-      "aria-label": ariaLabel
-    });
-  });
-};
-
-const PanelColorGradientSettingsInner = _ref3 => {
+const PanelColorGradientSettingsInner = _ref => {
   let {
     className,
     colors,
@@ -40365,26 +40562,44 @@ const PanelColorGradientSettingsInner = _ref3 => {
     showTitle = true,
     __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar,
-    enableAlpha,
-    ...props
-  } = _ref3;
+    enableAlpha
+  } = _ref;
+  const panelId = (0,external_wp_compose_namespaceObject.useInstanceId)(PanelColorGradientSettingsInner);
+  const {
+    batch
+  } = (0,external_wp_data_namespaceObject.useRegistry)();
 
   if ((0,external_lodash_namespaceObject.isEmpty)(colors) && (0,external_lodash_namespaceObject.isEmpty)(gradients) && disableCustomColors && disableCustomGradients && (0,external_lodash_namespaceObject.every)(settings, setting => (0,external_lodash_namespaceObject.isEmpty)(setting.colors) && (0,external_lodash_namespaceObject.isEmpty)(setting.gradients) && (setting.disableCustomColors === undefined || setting.disableCustomColors) && (setting.disableCustomGradients === undefined || setting.disableCustomGradients))) {
     return null;
   }
 
-  const titleElement = (0,external_wp_element_namespaceObject.createElement)("span", {
-    className: "block-editor-panel-color-gradient-settings__panel-title"
-  }, title, (0,external_wp_element_namespaceObject.createElement)(Indicators, {
-    colors: colors,
-    gradients: gradients,
-    settings: settings
-  }));
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, _extends({
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanel, {
     className: classnames_default()('block-editor-panel-color-gradient-settings', className),
-    title: showTitle ? titleElement : undefined
-  }, props), (0,external_wp_element_namespaceObject.createElement)(ColorGradientSettingsDropdown, {
+    label: showTitle ? title : undefined,
+    resetAll: () => {
+      batch(() => {
+        settings.forEach(_ref2 => {
+          let {
+            colorValue,
+            gradientValue,
+            onColorChange,
+            onGradientChange
+          } = _ref2;
+
+          if (colorValue) {
+            onColorChange();
+          } else if (gradientValue) {
+            onGradientChange();
+          }
+        });
+      });
+    },
+    panelId: panelId,
+    __experimentalFirstVisibleItemClass: "first",
+    __experimentalLastVisibleItemClass: "last"
+  }, (0,external_wp_element_namespaceObject.createElement)(ColorGradientSettingsDropdown, {
     settings: settings,
+    panelId: panelId,
     colors,
     gradients,
     disableCustomColors,
@@ -44057,7 +44272,6 @@ const MediaReplaceFlow = _ref => {
     onSelect,
     onSelectURL,
     onFilesUpload = external_lodash_namespaceObject.noop,
-    onCloseModal = external_lodash_namespaceObject.noop,
     name = (0,external_wp_i18n_namespaceObject.__)('Replace'),
     createNotice,
     removeNotice,
@@ -44173,7 +44387,6 @@ const MediaReplaceFlow = _ref => {
         value: multiple ? mediaIds : mediaId,
         onSelect: media => selectMedia(media, onClose),
         allowedTypes: allowedTypes,
-        onClose: onCloseModal,
         render: _ref5 => {
           let {
             open
@@ -44494,7 +44707,6 @@ function MediaPlaceholder(_ref2) {
     onDoubleClick,
     onFilesPreUpload = external_lodash_namespaceObject.noop,
     onHTMLDrop = external_lodash_namespaceObject.noop,
-    onClose = external_lodash_namespaceObject.noop,
     children,
     mediaLibraryButton,
     placeholder,
@@ -44734,7 +44946,6 @@ function MediaPlaceholder(_ref2) {
       gallery: multiple && onlyAllowsImages(),
       multiple: multiple,
       onSelect: onSelect,
-      onClose: onClose,
       allowedTypes: allowedTypes,
       value: Array.isArray(value) ? value.map(_ref7 => {
         let {
@@ -46123,7 +46334,7 @@ const inputEventContext = (0,external_wp_element_namespaceObject.createContext)(
  */
 
 function removeNativeProps(props) {
-  return (0,external_lodash_namespaceObject.omit)(props, ['__unstableMobileNoFocusOnMount', 'deleteEnter', 'placeholderTextColor', 'textAlign', 'selectionColor', 'tagsToEliminate', 'rootTagsToEliminate', 'disableEditingMenu', 'fontSize', 'fontFamily', 'fontWeight', 'fontStyle', 'minWidth', 'maxWidth', 'setRef']);
+  return (0,external_lodash_namespaceObject.omit)(props, ['__unstableMobileNoFocusOnMount', 'deleteEnter', 'placeholderTextColor', 'textAlign', 'selectionColor', 'tagsToEliminate', 'rootTagsToEliminate', 'disableEditingMenu', 'fontSize', 'fontFamily', 'fontWeight', 'fontStyle', 'minWidth', 'maxWidth', 'setRef', 'disableSuggestions', 'disableAutocorrection']);
 }
 
 function RichTextWrapper(_ref, forwardedRef) {
@@ -48580,6 +48791,64 @@ function useNoRecursiveRenders(uniqueId) {
   return [hasAlreadyRendered, Provider];
 }
 
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/close-small.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const closeSmall = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"
+}));
+/* harmony default export */ var close_small = (closeSmall);
+
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/publish-date-time-picker/index.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+function PublishDateTimePicker(_ref, ref) {
+  let {
+    onClose,
+    onChange,
+    ...additionalProps
+  } = _ref;
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    ref: ref,
+    className: "block-editor-publish-date-time-picker"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    className: "block-editor-publish-date-time-picker__header"
+  }, (0,external_wp_element_namespaceObject.createElement)("h2", {
+    className: "block-editor-publish-date-time-picker__heading"
+  }, (0,external_wp_i18n_namespaceObject.__)('Publish')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    className: "block-editor-publish-date-time-picker__reset",
+    variant: "tertiary",
+    onClick: () => onChange === null || onChange === void 0 ? void 0 : onChange(null)
+  }, (0,external_wp_i18n_namespaceObject.__)('Now')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    className: "block-editor-publish-date-time-picker__close",
+    icon: close_small,
+    label: (0,external_wp_i18n_namespaceObject.__)('Close'),
+    onClick: onClose
+  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DateTimePicker, _extends({
+    __nextRemoveHelpButton: true,
+    __nextRemoveResetButton: true,
+    onChange: onChange
+  }, additionalProps)));
+}
+
+/* harmony default export */ var publish_date_time_picker = ((0,external_wp_element_namespaceObject.forwardRef)(PublishDateTimePicker));
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/index.js
 /*
  * Block Creation Components
@@ -48685,12 +48954,16 @@ function useNoRecursiveRenders(uniqueId) {
 
 
 
+
 /*
  * State Related Components
  */
 
 
 
+
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/elements/index.js
+const __experimentalElementButtonClassName = 'wp-element-button';
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/utils/block-variation-transforms.js
 /**
@@ -49023,6 +49296,7 @@ function hashOptions(options) {
 /**
  * Internal dependencies
  */
+
 
 
 

@@ -14755,7 +14755,7 @@ __webpack_require__.d(__webpack_exports__, {
   "CustomSelectControl": function() { return /* reexport */ CustomSelectControl; },
   "Dashicon": function() { return /* reexport */ dashicon; },
   "DatePicker": function() { return /* reexport */ date; },
-  "DateTimePicker": function() { return /* reexport */ date_time; },
+  "DateTimePicker": function() { return /* reexport */ build_module_date_time; },
   "Disabled": function() { return /* reexport */ disabled; },
   "Draggable": function() { return /* reexport */ Draggable; },
   "DropZone": function() { return /* reexport */ DropZoneComponent; },
@@ -14820,7 +14820,7 @@ __webpack_require__.d(__webpack_exports__, {
   "TabbableContainer": function() { return /* reexport */ tabbable; },
   "TextControl": function() { return /* reexport */ text_control; },
   "TextHighlight": function() { return /* reexport */ text_highlight; },
-  "TextareaControl": function() { return /* reexport */ TextareaControl; },
+  "TextareaControl": function() { return /* reexport */ textarea_control; },
   "TimePicker": function() { return /* reexport */ time; },
   "Tip": function() { return /* reexport */ build_module_tip; },
   "ToggleControl": function() { return /* reexport */ ToggleControl; },
@@ -21800,6 +21800,7 @@ const Popover = (_ref, ref) => {
     __unstableSlotName = SLOT_NAME,
     __unstableObserveElement,
     __unstableForcePosition,
+    __unstableShift = false,
     ...contentProps
   } = _ref;
 
@@ -21815,30 +21816,31 @@ const Popover = (_ref, ref) => {
   const isExpanded = expandOnMobile && isMobileViewport;
   const hasArrow = !isExpanded && !noArrow;
   const usedPlacement = position ? positionToPlacement(position) : placement;
+  const ownerDocument = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    if (anchorRef !== null && anchorRef !== void 0 && anchorRef.top) {
+      return anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.top.ownerDocument;
+    } else if (anchorRef !== null && anchorRef !== void 0 && anchorRef.startContainer) {
+      return anchorRef.startContainer.ownerDocument;
+    } else if (anchorRef !== null && anchorRef !== void 0 && anchorRef.current) {
+      return anchorRef.current.ownerDocument;
+    } else if (anchorRef) {
+      // This one should be deprecated.
+      return anchorRef.ownerDocument;
+    } else if (anchorRect && anchorRect !== null && anchorRect !== void 0 && anchorRect.ownerDocument) {
+      return anchorRect.ownerDocument;
+    } else if (getAnchorRect) {
+      var _getAnchorRect$ownerD, _getAnchorRect;
+
+      return (_getAnchorRect$ownerD = (_getAnchorRect = getAnchorRect()) === null || _getAnchorRect === void 0 ? void 0 : _getAnchorRect.ownerDocument) !== null && _getAnchorRect$ownerD !== void 0 ? _getAnchorRect$ownerD : document;
+    }
+
+    return document;
+  }, [anchorRef, anchorRect, getAnchorRect]);
   /**
    * Offsets the the position of the popover when the anchor is inside an iframe.
    */
 
   const frameOffset = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    let ownerDocument = document;
-
-    if (anchorRef !== null && anchorRef !== void 0 && anchorRef.top) {
-      ownerDocument = anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.top.ownerDocument;
-    } else if (anchorRef !== null && anchorRef !== void 0 && anchorRef.startContainer) {
-      ownerDocument = anchorRef.startContainer.ownerDocument;
-    } else if (anchorRef !== null && anchorRef !== void 0 && anchorRef.current) {
-      ownerDocument = anchorRef.current.ownerDocument;
-    } else if (anchorRef) {
-      // This one should be deprecated.
-      ownerDocument = anchorRef.ownerDocument;
-    } else if (anchorRect && anchorRect !== null && anchorRect !== void 0 && anchorRect.ownerDocument) {
-      ownerDocument = anchorRect.ownerDocument;
-    } else if (getAnchorRect) {
-      var _getAnchorRect$ownerD, _getAnchorRect;
-
-      ownerDocument = (_getAnchorRect$ownerD = (_getAnchorRect = getAnchorRect()) === null || _getAnchorRect === void 0 ? void 0 : _getAnchorRect.ownerDocument) !== null && _getAnchorRect$ownerD !== void 0 ? _getAnchorRect$ownerD : document;
-    }
-
     const {
       defaultView
     } = ownerDocument;
@@ -21866,25 +21868,26 @@ const Popover = (_ref, ref) => {
       }
 
     };
-  }, [anchorRef, anchorRect, getAnchorRect]);
+  }, [ownerDocument]);
   const middlewares = [frameOffset, offset ? T(offset) : undefined, __unstableForcePosition ? undefined : b(), __unstableForcePosition ? undefined : k({
-    apply(_ref3) {
-      let {
-        width,
+    apply(sizeProps) {
+      const {
         height
-      } = _ref3;
-      if (!refs.floating.current) return;
+      } = sizeProps;
+      if (!refs.floating.current) return; // Reduce the height of the popover to the available space.
+
       Object.assign(refs.floating.current.firstChild.style, {
-        maxWidth: `${width}px`,
         maxHeight: `${height}px`,
         overflow: 'auto'
       });
     }
 
-  }),, D({
+  }), __unstableShift ? D({
     crossAxis: true,
-    limiter: L()
-  }), hasArrow ? arrow({
+    limiter: L(),
+    padding: 1 // Necessary to avoid flickering at the edge of the viewport.
+
+  }) : undefined, hasArrow ? arrow({
     element: arrowRef
   }) : undefined].filter(m => !!m);
   const anchorRefFallback = (0,external_wp_element_namespaceObject.useRef)(null);
@@ -21959,15 +21962,10 @@ const Popover = (_ref, ref) => {
     } else if (getAnchorRect) {
       usedRef = {
         getBoundingClientRect() {
-          var _rect$x, _rect$y, _rect$height, _rect$width;
+          var _rect$x, _rect$y, _rect$width, _rect$height;
 
           const rect = getAnchorRect();
-          return { ...rect,
-            x: (_rect$x = rect.x) !== null && _rect$x !== void 0 ? _rect$x : rect.left,
-            y: (_rect$y = rect.y) !== null && _rect$y !== void 0 ? _rect$y : rect.top,
-            height: (_rect$height = rect.height) !== null && _rect$height !== void 0 ? _rect$height : rect.bottom - rect.top,
-            width: (_rect$width = rect.width) !== null && _rect$width !== void 0 ? _rect$width : rect.right - rect.left
-          };
+          return new window.DOMRect((_rect$x = rect.x) !== null && _rect$x !== void 0 ? _rect$x : rect.left, (_rect$y = rect.y) !== null && _rect$y !== void 0 ? _rect$y : rect.top, (_rect$width = rect.width) !== null && _rect$width !== void 0 ? _rect$width : rect.right - rect.left, (_rect$height = rect.height) !== null && _rect$height !== void 0 ? _rect$height : rect.bottom - rect.top);
         }
 
       };
@@ -22000,7 +21998,16 @@ const Popover = (_ref, ref) => {
     return () => {
       observer.disconnect();
     };
-  }, [__unstableObserveElement]);
+  }, [__unstableObserveElement]); // If we're using getAnchorRect, we need to update the position as we scroll the iframe.
+
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    if (ownerDocument === document) {
+      return;
+    }
+
+    ownerDocument.addEventListener('scroll', update);
+    return () => ownerDocument.removeEventListener('scroll', update);
+  }, [ownerDocument]);
   /** @type {false | string} */
 
   const animateClassName = !!animate && getAnimateClassName({
@@ -22064,10 +22071,10 @@ const Popover = (_ref, ref) => {
 
 const PopoverContainer = (0,external_wp_element_namespaceObject.forwardRef)(Popover);
 
-function PopoverSlot(_ref4, ref) {
+function PopoverSlot(_ref3, ref) {
   let {
     name = SLOT_NAME
-  } = _ref4;
+  } = _ref3;
   return (0,external_wp_element_namespaceObject.createElement)(slot_fill_Slot, {
     bubblesVirtually: true,
     name: name,
@@ -24882,11 +24889,14 @@ function AlignmentMatrixControl(_ref) {
     onChange(nextValue);
   };
 
+  const {
+    setCurrentId
+  } = composite;
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (typeof value !== 'undefined') {
-      composite.setCurrentId(getItemId(baseId, value));
+      setCurrentId(getItemId(baseId, value));
     }
-  }, [value, composite.setCurrentId]);
+  }, [value, setCurrentId, baseId]);
   const classes = classnames_default()('component-alignment-matrix-control', className);
   return (0,external_wp_element_namespaceObject.createElement)(Composite, extends_extends({}, props, composite, {
     "aria-label": label,
@@ -38278,7 +38288,15 @@ function useGesture(handlers, config = {}) {
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/utils.js
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
  */
 
 /**
@@ -38287,7 +38305,6 @@ function useGesture(handlers, config = {}) {
  * @param  dragDirection The drag direction.
  * @return  The CSS cursor value.
  */
-
 function getDragCursor(dragDirection) {
   let dragCursor = 'ns-resize';
 
@@ -38326,6 +38343,45 @@ function useDragCursor(isDragging, dragDirection) {
   }, [isDragging]);
   return dragCursor;
 }
+function useDraft(props) {
+  const refPreviousValue = (0,external_wp_element_namespaceObject.useRef)(props.value);
+  const [draft, setDraft] = (0,external_wp_element_namespaceObject.useState)({});
+  const value = draft.value !== undefined ? draft.value : props.value; // Determines when to discard the draft value to restore controlled status.
+  // To do so, it tracks the previous value and marks the draft value as stale
+  // after each render.
+
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    const {
+      current: previousValue
+    } = refPreviousValue;
+    refPreviousValue.current = props.value;
+    if (draft.value !== undefined && !draft.isStale) setDraft({ ...draft,
+      isStale: true
+    });else if (draft.isStale && props.value !== previousValue) setDraft({});
+  }, [props.value, draft]);
+
+  const onChange = (nextValue, extra) => {
+    // Mutates the draft value to avoid an extra effect run.
+    setDraft(current => Object.assign(current, {
+      value: nextValue,
+      isStale: false
+    }));
+    props.onChange(nextValue, extra);
+  };
+
+  const onBlur = event => {
+    var _props$onBlur;
+
+    setDraft({});
+    (_props$onBlur = props.onBlur) === null || _props$onBlur === void 0 ? void 0 : _props$onBlur.call(props, event);
+  };
+
+  return {
+    value,
+    onBlur,
+    onChange
+  };
+}
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/reducer/state.js
 /**
@@ -38337,7 +38393,6 @@ function useDragCursor(isDragging, dragDirection) {
  */
 const initialStateReducer = state => state;
 const initialInputControlState = {
-  _event: {},
   error: null,
   initialValue: '',
   isDirty: false,
@@ -38381,13 +38436,13 @@ const RESET = 'RESET';
 
 
 
+
 /**
  * Prepares initialState for the reducer.
  *
  * @param  initialState The initial state.
  * @return Prepared initialState for the reducer
  */
-
 function mergeInitialState() {
   let initialState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialInputControlState;
   const {
@@ -38473,15 +38528,12 @@ function inputControlStateReducer(composedStateReducers) {
         break;
     }
 
-    if (action.payload.event) {
-      nextState._event = action.payload.event;
-    }
+    nextState._event = action.payload.event;
     /**
      * Send the nextState + action to the composedReducers via
      * this "bridge" mechanism. This allows external stateReducers
      * to hook into actions, and modify state if needed.
      */
-
 
     return composedStateReducers(nextState, action);
   };
@@ -38496,8 +38548,9 @@ function inputControlStateReducer(composedStateReducers) {
  * This technique uses the "stateReducer" design pattern:
  * https://kentcdodds.com/blog/the-state-reducer-pattern/
  *
- * @param  stateReducer An external state reducer.
- * @param  initialState The initial state for the reducer.
+ * @param  stateReducer    An external state reducer.
+ * @param  initialState    The initial state for the reducer.
+ * @param  onChangeHandler A handler for the onChange event.
  * @return State, dispatch, and a collection of actions.
  */
 
@@ -38505,18 +38558,10 @@ function inputControlStateReducer(composedStateReducers) {
 function useInputControlStateReducer() {
   let stateReducer = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialStateReducer;
   let initialState = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : initialInputControlState;
+  let onChangeHandler = arguments.length > 2 ? arguments[2] : undefined;
   const [state, dispatch] = (0,external_wp_element_namespaceObject.useReducer)(inputControlStateReducer(stateReducer), mergeInitialState(initialState));
 
   const createChangeEvent = type => (nextValue, event) => {
-    /**
-     * Persist allows for the (Synthetic) event to be used outside of
-     * this function call.
-     * https://reactjs.org/docs/events.html#event-pooling
-     */
-    if (event && event.persist) {
-      event.persist();
-    }
-
     dispatch({
       type,
       payload: {
@@ -38527,15 +38572,6 @@ function useInputControlStateReducer() {
   };
 
   const createKeyEvent = type => event => {
-    /**
-     * Persist allows for the (Synthetic) event to be used outside of
-     * this function call.
-     * https://reactjs.org/docs/events.html#event-pooling
-     */
-    if (event && event.persist) {
-      event.persist();
-    }
-
     dispatch({
       type,
       payload: {
@@ -38573,6 +38609,37 @@ function useInputControlStateReducer() {
   const pressUp = createKeyEvent(PRESS_UP);
   const pressDown = createKeyEvent(PRESS_DOWN);
   const pressEnter = createKeyEvent(PRESS_ENTER);
+  const currentState = (0,external_wp_element_namespaceObject.useRef)(state);
+  const refProps = (0,external_wp_element_namespaceObject.useRef)({
+    value: initialState.value,
+    onChangeHandler
+  });
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    currentState.current = state;
+    refProps.current = {
+      value: initialState.value,
+      onChangeHandler
+    };
+  });
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    if (currentState.current._event !== undefined && state.value !== refProps.current.value && !state.isDirty) {
+      var _state$value;
+
+      refProps.current.onChangeHandler((_state$value = state.value) !== null && _state$value !== void 0 ? _state$value : '', {
+        event: currentState.current._event
+      });
+    }
+  }, [state.value, state.isDirty]);
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    if (initialState.value !== currentState.current.value && !currentState.current.isDirty) {
+      dispatch({
+        type: RESET,
+        payload: {
+          value: initialState.value
+        }
+      });
+    }
+  }, [initialState.value]);
   return {
     change,
     commit,
@@ -38588,34 +38655,6 @@ function useInputControlStateReducer() {
     state
   };
 }
-
-;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-update-effect.js
-/**
- * WordPress dependencies
- */
-
-/**
- * A `React.useEffect` that will not run on the first render.
- * Source:
- * https://github.com/reakit/reakit/blob/HEAD/packages/reakit-utils/src/useUpdateEffect.ts
- *
- * @param {import('react').EffectCallback} effect
- * @param {import('react').DependencyList} deps
- */
-
-function use_update_effect_useUpdateEffect(effect, deps) {
-  const mounted = (0,external_wp_element_namespaceObject.useRef)(false);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (mounted.current) {
-      return effect();
-    }
-
-    mounted.current = true;
-    return undefined;
-  }, deps);
-}
-
-/* harmony default export */ var use_update_effect = (use_update_effect_useUpdateEffect);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/input-field.js
 
@@ -38634,7 +38673,6 @@ function use_update_effect_useUpdateEffect(effect, deps) {
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -38682,37 +38720,14 @@ function InputField(_ref, ref) {
     isDragEnabled,
     value: valueProp,
     isPressEnterToChange
-  });
+  }, onChange);
   const {
-    _event,
     value,
     isDragging,
     isDirty
   } = state;
   const wasDirtyOnBlur = (0,external_wp_element_namespaceObject.useRef)(false);
   const dragCursor = useDragCursor(isDragging, dragDirection);
-  /*
-   * Handles synchronization of external and internal value state.
-   * If not focused and did not hold a dirty value[1] on blur
-   * updates the value from the props. Otherwise if not holding
-   * a dirty value[1] propagates the value and event through onChange.
-   * [1] value is only made dirty if isPressEnterToChange is true
-   */
-
-  use_update_effect(() => {
-    if (valueProp === value) {
-      return;
-    }
-
-    if (!isFocused && !wasDirtyOnBlur.current) {
-      commit(valueProp, _event);
-    } else if (!isDirty) {
-      onChange(value, {
-        event: _event
-      });
-      wasDirtyOnBlur.current = false;
-    }
-  }, [value, isDirty, isFocused, valueProp]);
 
   const handleOnBlur = event => {
     onBlur(event);
@@ -38891,6 +38906,7 @@ const ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(In
 
 
 
+
 function input_control_useUniqueId(idProp) {
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(InputControl);
   const id = `inspector-input-control-${instanceId}`;
@@ -38920,6 +38936,11 @@ function UnforwardedInputControl(_ref, ref) {
   const [isFocused, setIsFocused] = (0,external_wp_element_namespaceObject.useState)(false);
   const id = input_control_useUniqueId(idProp);
   const classes = classnames_default()('components-input-control', className);
+  const draftHookProps = useDraft({
+    value,
+    onBlur: props.onBlur,
+    onChange
+  });
   return (0,external_wp_element_namespaceObject.createElement)(input_base, {
     __unstableInputWidth: __unstableInputWidth,
     className: classes,
@@ -38940,15 +38961,13 @@ function UnforwardedInputControl(_ref, ref) {
     id: id,
     isFocused: isFocused,
     isPressEnterToChange: isPressEnterToChange,
-    onChange: onChange,
     onKeyDown: onKeyDown,
     onValidate: onValidate,
     ref: ref,
     setIsFocused: setIsFocused,
     size: size,
-    stateReducer: stateReducer,
-    value: value
-  })));
+    stateReducer: stateReducer
+  }, draftHookProps)));
 }
 /**
  * InputControl components let users enter and edit text. This is an experimental component
@@ -39150,7 +39169,15 @@ function useSpacer(props) {
     ...otherProps
   } = useContextSystem(props, 'Spacer');
   const cx = useCx();
-  const classes = cx(isDefined(margin) && /*#__PURE__*/emotion_react_browser_esm_css("margin:", space(margin), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginY) && /*#__PURE__*/emotion_react_browser_esm_css("margin-bottom:", space(marginY), ";margin-top:", space(marginY), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginX) && /*#__PURE__*/emotion_react_browser_esm_css("margin-left:", space(marginX), ";margin-right:", space(marginX), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginTop) && /*#__PURE__*/emotion_react_browser_esm_css("margin-top:", space(marginTop), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginBottom) && /*#__PURE__*/emotion_react_browser_esm_css("margin-bottom:", space(marginBottom), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginLeft) && /*#__PURE__*/emotion_react_browser_esm_css("margin-left:", space(marginLeft), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginRight) && /*#__PURE__*/emotion_react_browser_esm_css("margin-right:", space(marginRight), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(padding) && /*#__PURE__*/emotion_react_browser_esm_css("padding:", space(padding), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingY) && /*#__PURE__*/emotion_react_browser_esm_css("padding-bottom:", space(paddingY), ";padding-top:", space(paddingY), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingX) && /*#__PURE__*/emotion_react_browser_esm_css("padding-left:", space(paddingX), ";padding-right:", space(paddingX), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingTop) && /*#__PURE__*/emotion_react_browser_esm_css("padding-top:", space(paddingTop), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingBottom) && /*#__PURE__*/emotion_react_browser_esm_css("padding-bottom:", space(paddingBottom), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingLeft) && /*#__PURE__*/emotion_react_browser_esm_css("padding-left:", space(paddingLeft), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingRight) && /*#__PURE__*/emotion_react_browser_esm_css("padding-right:", space(paddingRight), ";" + ( true ? "" : 0),  true ? "" : 0), className);
+  const classes = cx(isDefined(margin) && /*#__PURE__*/emotion_react_browser_esm_css("margin:", space(margin), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginY) && /*#__PURE__*/emotion_react_browser_esm_css("margin-bottom:", space(marginY), ";margin-top:", space(marginY), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginX) && /*#__PURE__*/emotion_react_browser_esm_css("margin-left:", space(marginX), ";margin-right:", space(marginX), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginTop) && /*#__PURE__*/emotion_react_browser_esm_css("margin-top:", space(marginTop), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginBottom) && /*#__PURE__*/emotion_react_browser_esm_css("margin-bottom:", space(marginBottom), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginLeft) && rtl({
+    marginLeft: space(marginLeft)
+  })(), isDefined(marginRight) && rtl({
+    marginRight: space(marginRight)
+  })(), isDefined(padding) && /*#__PURE__*/emotion_react_browser_esm_css("padding:", space(padding), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingY) && /*#__PURE__*/emotion_react_browser_esm_css("padding-bottom:", space(paddingY), ";padding-top:", space(paddingY), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingX) && /*#__PURE__*/emotion_react_browser_esm_css("padding-left:", space(paddingX), ";padding-right:", space(paddingX), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingTop) && /*#__PURE__*/emotion_react_browser_esm_css("padding-top:", space(paddingTop), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingBottom) && /*#__PURE__*/emotion_react_browser_esm_css("padding-bottom:", space(paddingBottom), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingLeft) && rtl({
+    paddingLeft: space(paddingLeft)
+  })(), isDefined(paddingRight) && rtl({
+    paddingRight: space(paddingRight)
+  })(), className);
   return { ...otherProps,
     className: classes
   };
@@ -39420,7 +39447,7 @@ function getAutoCompleterUI(autocompleter) {
     });
     (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
       onChangeOptions(items);
-    }, [items]);
+    }, [onChangeOptions, items]);
 
     if (!items.length > 0) {
       return null;
@@ -39565,7 +39592,7 @@ function useAutocomplete(_ref) {
   const [filterValue, setFilterValue] = (0,external_wp_element_namespaceObject.useState)('');
   const [autocompleter, setAutocompleter] = (0,external_wp_element_namespaceObject.useState)(null);
   const [AutocompleterUI, setAutocompleterUI] = (0,external_wp_element_namespaceObject.useState)(null);
-  const [backspacing, setBackspacing] = (0,external_wp_element_namespaceObject.useState)(false);
+  const backspacing = (0,external_wp_element_namespaceObject.useRef)(false);
 
   function insertCompletion(replacement) {
     const end = record.start;
@@ -39645,7 +39672,7 @@ function useAutocomplete(_ref) {
   }
 
   function handleKeyDown(event) {
-    setBackspacing(event.keyCode === external_wp_keycodes_namespaceObject.BACKSPACE);
+    backspacing.current = event.keyCode === external_wp_keycodes_namespaceObject.BACKSPACE;
 
     if (!autocompleter) {
       return;
@@ -39690,14 +39717,16 @@ function useAutocomplete(_ref) {
 
 
     event.preventDefault();
-  }
+  } // textContent is a primitive (string), memoizing is not strictly necessary
+  // but this is a preemptive performance improvement, since the autocompleter
+  // is a potential bottleneck for the editor type metric.
 
-  let textContent;
 
-  if ((0,external_wp_richText_namespaceObject.isCollapsed)(record)) {
-    textContent = (0,external_wp_richText_namespaceObject.getTextContent)((0,external_wp_richText_namespaceObject.slice)(record, 0));
-  }
-
+  const textContent = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    if ((0,external_wp_richText_namespaceObject.isCollapsed)(record)) {
+      return (0,external_wp_richText_namespaceObject.getTextContent)((0,external_wp_richText_namespaceObject.slice)(record, 0));
+    }
+  }, [record]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (!textContent) {
       reset();
@@ -39745,7 +39774,7 @@ function useAutocomplete(_ref) {
       // Ex: "Some text @marcelo sekkkk" <--- "kkkk" caused a mismatch, but
       // if the user presses backspace here, it will show the completion popup again.
 
-      const matchingWhileBackspacing = backspacing && textWithoutTrigger.split(/\s/).length <= 3;
+      const matchingWhileBackspacing = backspacing.current && textWithoutTrigger.split(/\s/).length <= 3;
 
       if (mismatch && !(matchingWhileBackspacing || hasOneTriggerWord)) {
         return false;
@@ -39773,7 +39802,7 @@ function useAutocomplete(_ref) {
     setAutocompleter(completer);
     setAutocompleterUI(() => completer !== autocompleter ? getAutoCompleterUI(completer) : AutocompleterUI);
     setFilterValue(query);
-  }, [textContent]);
+  }, [textContent, AutocompleterUI, autocompleter, completers, record, filteredOptions.length]);
   const {
     key: selectedKey = ''
   } = filteredOptions[selectedIndex] || {};
@@ -40078,14 +40107,14 @@ const BorderBoxStyleWithFallback = border => {
   return `${color} ${borderStyle} ${clampedWidth}`;
 };
 
-const BorderBoxControlVisualizer = (borders, __next36pxDefaultSize) => {
+const borderBoxControlVisualizer = (borders, __next36pxDefaultSize) => {
   return /*#__PURE__*/emotion_react_browser_esm_css("position:absolute;top:", __next36pxDefaultSize ? '18px' : '15px', ";right:30px;bottom:", __next36pxDefaultSize ? '18px' : '15px', ";left:30px;border-top:", BorderBoxStyleWithFallback(borders === null || borders === void 0 ? void 0 : borders.top), ";border-bottom:", BorderBoxStyleWithFallback(borders === null || borders === void 0 ? void 0 : borders.bottom), ";", rtl({
     borderLeft: BorderBoxStyleWithFallback(borders === null || borders === void 0 ? void 0 : borders.left)
   })(), " ", rtl({
     borderRight: BorderBoxStyleWithFallback(borders === null || borders === void 0 ? void 0 : borders.right)
   })(), ";" + ( true ? "" : 0),  true ? "" : 0);
 };
-const BorderBoxControlSplitControls = /*#__PURE__*/emotion_react_browser_esm_css("position:relative;flex:1;", rtl({
+const borderBoxControlSplitControls = () => /*#__PURE__*/emotion_react_browser_esm_css("position:relative;flex:1;", rtl({
   marginRight: space(3)
 }, {
   marginLeft: space(3)
@@ -40094,6 +40123,11 @@ const CenteredBorderControl =  true ? {
   name: "1nwbfnf",
   styles: "grid-column:span 2;margin:0 auto"
 } : 0;
+const rightBorderControl = () => /*#__PURE__*/emotion_react_browser_esm_css(rtl({
+  marginLeft: 'auto'
+}, {
+  marginRight: 'auto'
+})(), ";" + ( true ? "" : 0),  true ? "" : 0);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/border-box-control/border-box-control-linked-button/hook.js
 /**
@@ -40187,9 +40221,11 @@ function useBorderBoxControlVisualizer(props) {
   } = useContextSystem(props, 'BorderBoxControlVisualizer'); // Generate class names.
 
   const cx = useCx();
+  const rtlWatchResult = rtl.watch();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return cx(BorderBoxControlVisualizer(value, __next36pxDefaultSize), className);
-  }, [className, value, __next36pxDefaultSize, rtl.watch()]);
+    return cx(borderBoxControlVisualizer(value, __next36pxDefaultSize), className); // rtlWatchResult is needed to refresh styles when the writing direction changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cx, className, value, __next36pxDefaultSize, rtlWatchResult]);
   return { ...otherProps,
     className: classes,
     value
@@ -40211,7 +40247,7 @@ function useBorderBoxControlVisualizer(props) {
 
 
 
-const component_BorderBoxControlVisualizer = (props, forwardedRef) => {
+const BorderBoxControlVisualizer = (props, forwardedRef) => {
   const {
     value,
     ...otherProps
@@ -40221,7 +40257,7 @@ const component_BorderBoxControlVisualizer = (props, forwardedRef) => {
   }));
 };
 
-const ConnectedBorderBoxControlVisualizer = contextConnect(component_BorderBoxControlVisualizer, 'BorderBoxControlVisualizer');
+const ConnectedBorderBoxControlVisualizer = contextConnect(BorderBoxControlVisualizer, 'BorderBoxControlVisualizer');
 /* harmony default export */ var border_box_control_visualizer_component = (ConnectedBorderBoxControlVisualizer);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/close-small.js
@@ -41028,6 +41064,8 @@ function useObservableState(initialState, onStateChange) {
 }
 
 function Dropdown(props) {
+  var _containerRef$current;
+
   const {
     renderContent,
     renderToggle,
@@ -41102,26 +41140,12 @@ function Dropdown(props) {
     // align with the editor header by default.
     ,
     offset: 13,
-    anchorRef: !hasAnchorRef ? containerRef : undefined
+    anchorRef: !hasAnchorRef ? containerRef === null || containerRef === void 0 ? void 0 : (_containerRef$current = containerRef.current) === null || _containerRef$current === void 0 ? void 0 : _containerRef$current.firstChild // Anchor to the rendered toggle.
+    : undefined
   }, popoverProps, {
     className: classnames_default()('components-dropdown__content', popoverProps ? popoverProps.className : undefined, contentClassName)
   }), renderContent(args)));
 }
-
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/settings.js
-
-
-/**
- * WordPress dependencies
- */
-
-const settings = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M14.5 13.8c-1.1 0-2.1.7-2.4 1.8H4V17h8.1c.3 1 1.3 1.8 2.4 1.8s2.1-.7 2.4-1.8H20v-1.5h-3.1c-.3-1-1.3-1.7-2.4-1.7zM11.9 7c-.3-1-1.3-1.8-2.4-1.8S7.4 6 7.1 7H4v1.5h3.1c.3 1 1.3 1.8 2.4 1.8s2.1-.7 2.4-1.8H20V7h-8.1z"
-}));
-/* harmony default export */ var library_settings = (settings);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/utils.js
 /**
@@ -41569,6 +41593,7 @@ function UnforwardedSelectControl(_ref, ref) {
     children,
     prefix,
     suffix,
+    __nextHasNoMarginBottom = false,
     ...props
   } = _ref;
   const [isFocused, setIsFocused] = (0,external_wp_element_namespaceObject.useState)(false);
@@ -41615,7 +41640,8 @@ function UnforwardedSelectControl(_ref, ref) {
 
   return (0,external_wp_element_namespaceObject.createElement)(base_control, {
     help: help,
-    id: id
+    id: id,
+    __nextHasNoMarginBottom: __nextHasNoMarginBottom
   }, (0,external_wp_element_namespaceObject.createElement)(input_base, {
     className: classes,
     disabled: disabled,
@@ -42724,15 +42750,30 @@ const AuxiliaryColorArtefactWrapper = emotion_styled_base_browser_esm("div",  tr
 const ColorfulWrapper = emotion_styled_base_browser_esm("div",  true ? {
   target: "ez9hsf42"
 } : 0)("width:216px;.react-colorful{display:flex;flex-direction:column;align-items:center;width:216px;height:auto;}.react-colorful__saturation{width:100%;border-radius:0;height:216px;margin-bottom:", space(4), ";border-bottom:none;}.react-colorful__hue,.react-colorful__alpha{width:184px;height:16px;border-radius:16px;margin-bottom:", space(2), ";}.react-colorful__pointer{height:16px;width:16px;border:none;box-shadow:0 0 2px 0 rgba( 0, 0, 0, 0.25 );outline:2px solid transparent;}.react-colorful__pointer-fill{box-shadow:inset 0 0 0 ", config_values.borderWidthFocus, " #fff;}", interactiveHueStyles, " ", StyledField, "{margin-bottom:0;}", inputHeightStyle, ";" + ( true ? "" : 0));
-const DetailsControlButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
+const CopyButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
   target: "ez9hsf41"
-} : 0)("&&&&&{min-width:", space(6), ";padding:0;}" + ( true ? "" : 0));
+} : 0)("&&&&&{min-width:", space(6), ";padding:0;>svg{margin-right:0;}}" + ( true ? "" : 0));
 const ColorHexInputControl = /*#__PURE__*/emotion_styled_base_browser_esm(input_control,  true ? {
   target: "ez9hsf40"
 } : 0)( true ? {
   name: "1287a6j",
   styles: "width:8em"
 } : 0);
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/copy.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const copy_copy = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M20.2 8v11c0 .7-.6 1.2-1.2 1.2H6v1.5h13c1.5 0 2.7-1.2 2.7-2.8V8zM18 16.4V4.6c0-.9-.7-1.6-1.6-1.6H4.6C3.7 3 3 3.7 3 4.6v11.8c0 .9.7 1.6 1.6 1.6h11.8c.9 0 1.6-.7 1.6-1.6zm-13.5 0V4.6c0-.1.1-.1.1-.1h11.8c.1 0 .1.1.1.1v11.8c0 .1-.1.1-.1.1H4.6l-.1-.1z"
+}));
+/* harmony default export */ var library_copy = (copy_copy);
 
 ;// CONCATENATED MODULE: ./node_modules/@popperjs/core/lib/dom-utils/getBoundingClientRect.js
 function getBoundingClientRect(element) {
@@ -45609,16 +45650,13 @@ function component_Tooltip(props, forwardedRef) {
 const ConnectedTooltip = contextConnect(component_Tooltip, 'Tooltip');
 /* harmony default export */ var tooltip_component = (ConnectedTooltip);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/color-display.js
+;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/color-copy-button.js
 
-
-/**
- * External dependencies
- */
 
 /**
  * WordPress dependencies
  */
+
 
 
 
@@ -45629,106 +45667,13 @@ const ConnectedTooltip = contextConnect(component_Tooltip, 'Tooltip');
 
 
 
-
-
-
-const ValueDisplay = _ref => {
-  let {
-    values
-  } = _ref;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, values.map(_ref2 => {
-    let [value, abbreviation] = _ref2;
-    return (0,external_wp_element_namespaceObject.createElement)(flex_item_component, {
-      key: abbreviation,
-      isBlock: true,
-      display: "flex"
-    }, (0,external_wp_element_namespaceObject.createElement)(text_component, {
-      color: COLORS.ui.theme
-    }, abbreviation), (0,external_wp_element_namespaceObject.createElement)(text_component, null, value));
-  }));
-};
-
-const HslDisplay = _ref3 => {
-  let {
-    color,
-    enableAlpha
-  } = _ref3;
+const ColorCopyButton = props => {
   const {
-    h,
-    s,
-    l,
-    a
-  } = color.toHsl();
-  const values = [[Math.floor(h), 'H'], [Math.round(s * 100), 'S'], [Math.round(l * 100), 'L']];
-
-  if (enableAlpha) {
-    values.push([Math.round(a * 100), 'A']);
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(ValueDisplay, {
-    values: values
-  });
-};
-
-const RgbDisplay = _ref4 => {
-  let {
     color,
-    enableAlpha
-  } = _ref4;
-  const {
-    r,
-    g,
-    b,
-    a
-  } = color.toRgb();
-  const values = [[r, 'R'], [g, 'G'], [b, 'B']];
-
-  if (enableAlpha) {
-    values.push([Math.round(a * 100), 'A']);
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(ValueDisplay, {
-    values: values
-  });
-};
-
-const HexDisplay = _ref5 => {
-  let {
-    color
-  } = _ref5;
-  const colorWithoutHash = color.toHex().slice(1).toUpperCase();
-  return (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(text_component, {
-    color: COLORS.ui.theme
-  }, "#"), (0,external_wp_element_namespaceObject.createElement)(text_component, null, colorWithoutHash));
-};
-
-const getComponent = colorType => {
-  switch (colorType) {
-    case 'hsl':
-      return HslDisplay;
-
-    case 'rgb':
-      return RgbDisplay;
-
-    default:
-    case 'hex':
-      return HexDisplay;
-  }
-};
-
-const ColorDisplay = _ref6 => {
-  let {
-    color,
-    colorType,
-    enableAlpha
-  } = _ref6;
+    colorType
+  } = props;
   const [copiedColor, setCopiedColor] = (0,external_wp_element_namespaceObject.useState)(null);
   const copyTimer = (0,external_wp_element_namespaceObject.useRef)();
-  const props = {
-    color,
-    enableAlpha
-  };
-  const Component = getComponent(colorType);
   const copyRef = (0,external_wp_compose_namespaceObject.useCopyToClipboard)(() => {
     switch (colorType) {
       case 'hsl':
@@ -45769,15 +45714,14 @@ const ColorDisplay = _ref6 => {
   return (0,external_wp_element_namespaceObject.createElement)(tooltip_component, {
     content: (0,external_wp_element_namespaceObject.createElement)(text_component, {
       color: "white"
-    }, copiedColor === color.toHex() ? (0,external_wp_i18n_namespaceObject.__)('Copied!') : (0,external_wp_i18n_namespaceObject.__)('Copy'))
-  }, (0,external_wp_element_namespaceObject.createElement)(flex_component, {
-    justify: "flex-start",
-    gap: space(1),
+    }, copiedColor === color.toHex() ? (0,external_wp_i18n_namespaceObject.__)('Copied!') : (0,external_wp_i18n_namespaceObject.__)('Copy')),
+    placement: "bottom"
+  }, (0,external_wp_element_namespaceObject.createElement)(CopyButton, {
+    isSmall: true,
     ref: copyRef,
-    style: {
-      height: 30
-    }
-  }, (0,external_wp_element_namespaceObject.createElement)(Component, props)));
+    icon: library_copy,
+    showTooltip: false
+  }));
 };
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/input-with-slider.js
@@ -46021,6 +45965,22 @@ const HexInput = _ref => {
     onChange(colord_w(hexValue));
   };
 
+  const stateReducer = (state, action) => {
+    var _action$payload, _action$payload$event, _state$value, _state$value2;
+
+    const nativeEvent = (_action$payload = action.payload) === null || _action$payload === void 0 ? void 0 : (_action$payload$event = _action$payload.event) === null || _action$payload$event === void 0 ? void 0 : _action$payload$event.nativeEvent;
+
+    if ('insertFromPaste' !== (nativeEvent === null || nativeEvent === void 0 ? void 0 : nativeEvent.inputType)) {
+      return { ...state
+      };
+    }
+
+    const value = (_state$value = state.value) !== null && _state$value !== void 0 && _state$value.startsWith('#') ? state.value.slice(1).toUpperCase() : (_state$value2 = state.value) === null || _state$value2 === void 0 ? void 0 : _state$value2.toUpperCase();
+    return { ...state,
+      value
+    };
+  };
+
   return (0,external_wp_element_namespaceObject.createElement)(ColorHexInputControl, {
     prefix: (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
       as: text_component,
@@ -46032,7 +45992,8 @@ const HexInput = _ref => {
     onChange: handleChange,
     maxLength: enableAlpha ? 9 : 7,
     label: (0,external_wp_i18n_namespaceObject.__)('Hex color'),
-    hideLabelFromVision: true
+    hideLabelFromVision: true,
+    __unstableStateReducer: stateReducer
   });
 };
 
@@ -46164,7 +46125,6 @@ function useControlledValue(_ref) {
 
 
 
-
 /**
  * Internal dependencies
  */
@@ -46211,7 +46171,6 @@ const ColorPicker = (props, forwardedRef) => {
   const handleChange = (0,external_wp_element_namespaceObject.useCallback)(nextValue => {
     debouncedSetColor(nextValue.toHex());
   }, [debouncedSetColor]);
-  const [showInputs, setShowInputs] = (0,external_wp_element_namespaceObject.useState)(false);
   const [colorType, setColorType] = (0,external_wp_element_namespaceObject.useState)(copyFormat || 'hex');
   return (0,external_wp_element_namespaceObject.createElement)(ColorfulWrapper, extends_extends({
     ref: forwardedRef
@@ -46221,25 +46180,18 @@ const ColorPicker = (props, forwardedRef) => {
     enableAlpha: enableAlpha
   }), (0,external_wp_element_namespaceObject.createElement)(AuxiliaryColorArtefactWrapper, null, (0,external_wp_element_namespaceObject.createElement)(h_stack_component, {
     justify: "space-between"
-  }, showInputs ? (0,external_wp_element_namespaceObject.createElement)(styles_SelectControl, {
+  }, (0,external_wp_element_namespaceObject.createElement)(styles_SelectControl, {
     options: options,
     value: colorType,
     onChange: nextColorType => setColorType(nextColorType),
     label: (0,external_wp_i18n_namespaceObject.__)('Color format'),
     hideLabelFromVision: true
-  }) : (0,external_wp_element_namespaceObject.createElement)(ColorDisplay, {
+  }), (0,external_wp_element_namespaceObject.createElement)(ColorCopyButton, {
     color: safeColordColor,
-    colorType: copyFormat || colorType,
-    enableAlpha: enableAlpha
-  }), (0,external_wp_element_namespaceObject.createElement)(DetailsControlButton, {
-    isSmall: true,
-    onClick: () => setShowInputs(!showInputs),
-    icon: library_settings,
-    isPressed: showInputs,
-    label: showInputs ? (0,external_wp_i18n_namespaceObject.__)('Hide detailed inputs') : (0,external_wp_i18n_namespaceObject.__)('Show detailed inputs')
+    colorType: copyFormat || colorType
   })), (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
     margin: 4
-  }), showInputs && (0,external_wp_element_namespaceObject.createElement)(ColorInput, {
+  }), (0,external_wp_element_namespaceObject.createElement)(ColorInput, {
     colorType: colorType,
     color: safeColordColor,
     onChange: handleChange,
@@ -46782,15 +46734,16 @@ function CustomColorPickerDropdown(_ref5) {
     } : undefined
   }, props));
 }
-
 const extractColorNameFromCurrentValue = function (currentValue) {
   let colors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
   let showMultiplePalettes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
   if (!currentValue) {
     return '';
-  } // Normalize format of `colors` to simplify the following loop
+  }
 
+  const currentValueIsCssVariable = /^var\(/.test(currentValue);
+  const normalizedCurrentValue = currentValueIsCssVariable ? currentValue : colord_w(currentValue).toHex(); // Normalize format of `colors` to simplify the following loop
 
   const colorPalettes = showMultiplePalettes ? colors : [{
     colors
@@ -46803,7 +46756,9 @@ const extractColorNameFromCurrentValue = function (currentValue) {
       name: colorName,
       color: colorValue
     } of paletteColors) {
-      if (colord_w(currentValue).toHex() === colord_w(colorValue).toHex()) {
+      const normalizedColorValue = currentValueIsCssVariable ? colorValue : colord_w(colorValue).toHex();
+
+      if (normalizedCurrentValue === normalizedColorValue) {
         return colorName;
       }
     }
@@ -46812,7 +46767,6 @@ const extractColorNameFromCurrentValue = function (currentValue) {
 
   return (0,external_wp_i18n_namespaceObject.__)('Custom');
 };
-
 function ColorPalette(_ref6) {
   let {
     clearable = true,
@@ -47806,7 +47760,7 @@ function useBorderControl(props) {
     }
 
     onChange(newBorder);
-  }, [onChange, shouldSanitizeBorder, sanitizeBorder]);
+  }, [onChange, shouldSanitizeBorder]);
   const onWidthChange = (0,external_wp_element_namespaceObject.useCallback)(newWidth => {
     const newWidthValue = newWidth === '' ? undefined : newWidth;
     const [parsedValue] = parseQuantityAndUnitFromRawValue(newWidth);
@@ -47841,7 +47795,7 @@ function useBorderControl(props) {
     }
 
     onBorderChange(updatedBorder);
-  }, [border, hadPreviousZeroWidth, onBorderChange]);
+  }, [border, hadPreviousZeroWidth, colorSelection, styleSelection, onBorderChange]);
   const onSliderChange = (0,external_wp_element_namespaceObject.useCallback)(value => {
     onWidthChange(`${value}${widthUnit}`);
   }, [onWidthChange, widthUnit]); // Generate class names.
@@ -48173,15 +48127,22 @@ function useBorderBoxControlSplitControls(props) {
   } = useContextSystem(props, 'BorderBoxControlSplitControls'); // Generate class names.
 
   const cx = useCx();
+  const rtlWatchResult = rtl.watch();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return cx(BorderBoxControlSplitControls, className);
-  }, [className, rtl.watch()]);
+    return cx(borderBoxControlSplitControls(), className); // rtlWatchResult is needed to refresh styles when the writing direction changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cx, className, rtlWatchResult]);
   const centeredClassName = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return cx(CenteredBorderControl, className);
-  }, []);
+  }, [cx, className]);
+  const rightAlignedClassName = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return cx(rightBorderControl(), className); // rtlWatchResult is needed to refresh styles when the writing direction changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cx, className, rtlWatchResult]);
   return { ...otherProps,
     centeredClassName,
-    className: classes
+    className: classes,
+    rightAlignedClassName
   };
 }
 
@@ -48205,7 +48166,7 @@ function useBorderBoxControlSplitControls(props) {
 
 
 
-const component_BorderBoxControlSplitControls = (props, forwardedRef) => {
+const BorderBoxControlSplitControls = (props, forwardedRef) => {
   const {
     centeredClassName,
     colors,
@@ -48215,6 +48176,7 @@ const component_BorderBoxControlSplitControls = (props, forwardedRef) => {
     onChange,
     popoverPlacement,
     popoverOffset,
+    rightAlignedClassName,
     value,
     __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar,
@@ -48258,6 +48220,7 @@ const component_BorderBoxControlSplitControls = (props, forwardedRef) => {
     __unstablePopoverProps: popoverProps,
     value: value === null || value === void 0 ? void 0 : value.left
   }, sharedBorderControlProps)), (0,external_wp_element_namespaceObject.createElement)(border_control_component, extends_extends({
+    className: rightAlignedClassName,
     hideLabelFromVision: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Right border'),
     onChange: newBorder => onChange(newBorder, 'right'),
@@ -48273,7 +48236,7 @@ const component_BorderBoxControlSplitControls = (props, forwardedRef) => {
   }, sharedBorderControlProps)));
 };
 
-const ConnectedBorderBoxControlSplitControls = contextConnect(component_BorderBoxControlSplitControls, 'BorderBoxControlSplitControls');
+const ConnectedBorderBoxControlSplitControls = contextConnect(BorderBoxControlSplitControls, 'BorderBoxControlSplitControls');
 /* harmony default export */ var border_box_control_split_controls_component = (ConnectedBorderBoxControlSplitControls);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/border-box-control/utils.js
@@ -48485,10 +48448,10 @@ function useBorderBoxControl(props) {
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return cx(BorderBoxControl, className);
-  }, [className]);
+  }, [cx, className]);
   const linkedControlClassName = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return cx(LinkedBorderControl);
-  }, []);
+  }, [cx]);
   return { ...otherProps,
     className: classes,
     hasMixedBorders: mixedBorders,
@@ -49934,14 +49897,6 @@ const shady = /*#__PURE__*/emotion_react_browser_esm_css("background-color:", CO
 
 const Surface = /*#__PURE__*/emotion_react_browser_esm_css("background-color:", config_values.surfaceColor, ";color:", COLORS.gray[900], ";position:relative;" + ( true ? "" : 0),  true ? "" : 0);
 const background = /*#__PURE__*/emotion_react_browser_esm_css("background-color:", config_values.surfaceBackgroundColor, ";" + ( true ? "" : 0),  true ? "" : 0);
-/**
- * @param {Object}  props
- * @param {boolean} [props.borderBottom]
- * @param {boolean} [props.borderLeft]
- * @param {boolean} [props.borderRight]
- * @param {boolean} [props.borderTop]
- */
-
 function getBorders(_ref) {
   let {
     borderBottom,
@@ -49960,54 +49915,22 @@ function getBorders(_ref) {
 const primary = /*#__PURE__*/emotion_react_browser_esm_css( true ? "" : 0,  true ? "" : 0);
 const secondary = /*#__PURE__*/emotion_react_browser_esm_css("background:", config_values.surfaceBackgroundTintColor, ";" + ( true ? "" : 0),  true ? "" : 0);
 const tertiary = /*#__PURE__*/emotion_react_browser_esm_css("background:", config_values.surfaceBackgroundTertiaryColor, ";" + ( true ? "" : 0),  true ? "" : 0);
-/**
- * @param {string} surfaceBackgroundSize
- */
 
 const customBackgroundSize = surfaceBackgroundSize => [surfaceBackgroundSize, surfaceBackgroundSize].join(' ');
-/**
- * @param {string} surfaceBackgroundSizeDotted
- */
-
 
 const dottedBackground1 = surfaceBackgroundSizeDotted => ['90deg', [config_values.surfaceBackgroundColor, surfaceBackgroundSizeDotted].join(' '), 'transparent 1%'].join(',');
-/**
- * @param {string} surfaceBackgroundSizeDotted
- */
-
 
 const dottedBackground2 = surfaceBackgroundSizeDotted => [[config_values.surfaceBackgroundColor, surfaceBackgroundSizeDotted].join(' '), 'transparent 1%'].join(',');
-/**
- * @param {string} surfaceBackgroundSizeDotted
- */
-
 
 const dottedBackgroundCombined = surfaceBackgroundSizeDotted => [`linear-gradient( ${dottedBackground1(surfaceBackgroundSizeDotted)} ) center`, `linear-gradient( ${dottedBackground2(surfaceBackgroundSizeDotted)} ) center`, config_values.surfaceBorderBoldColor].join(',');
-/**
- *
- * @param {string} surfaceBackgroundSize
- * @param {string} surfaceBackgroundSizeDotted
- */
-
 
 const getDotted = (surfaceBackgroundSize, surfaceBackgroundSizeDotted) => /*#__PURE__*/emotion_react_browser_esm_css("background:", dottedBackgroundCombined(surfaceBackgroundSizeDotted), ";background-size:", customBackgroundSize(surfaceBackgroundSize), ";" + ( true ? "" : 0),  true ? "" : 0);
 const gridBackground1 = [`${config_values.surfaceBorderSubtleColor} 1px`, 'transparent 1px'].join(',');
 const gridBackground2 = ['90deg', `${config_values.surfaceBorderSubtleColor} 1px`, 'transparent 1px'].join(',');
 const gridBackgroundCombined = [`linear-gradient( ${gridBackground1} )`, `linear-gradient( ${gridBackground2} )`].join(',');
-/**
- * @param {string} surfaceBackgroundSize
- * @return {import('@emotion/react').SerializedStyles} CSS.
- */
-
 const getGrid = surfaceBackgroundSize => {
   return /*#__PURE__*/emotion_react_browser_esm_css("background:", config_values.surfaceBackgroundColor, ";background-image:", gridBackgroundCombined, ";background-size:", customBackgroundSize(surfaceBackgroundSize), ";" + ( true ? "" : 0),  true ? "" : 0);
 };
-/**
- * @param {'dotted' | 'grid' | 'primary' | 'secondary' | 'tertiary'} variant
- * @param {string}                                                   surfaceBackgroundSize
- * @param {string}                                                   surfaceBackgroundSizeDotted
- */
-
 const getVariant = (variant, surfaceBackgroundSize, surfaceBackgroundSizeDotted) => {
   switch (variant) {
     case 'dotted':
@@ -50049,10 +49972,6 @@ const getVariant = (variant, surfaceBackgroundSize, surfaceBackgroundSizeDotted)
 
 
 
-/**
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- */
-
 function useSurface(props) {
   const {
     backgroundSize = 12,
@@ -50066,13 +49985,14 @@ function useSurface(props) {
   } = useContextSystem(props, 'Surface');
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    const sx = {};
-    sx.borders = getBorders({
-      borderBottom,
-      borderLeft,
-      borderRight,
-      borderTop
-    });
+    const sx = {
+      borders: getBorders({
+        borderBottom,
+        borderLeft,
+        borderRight,
+        borderTop
+      })
+    };
     return cx(Surface, sx.borders, getVariant(variant, `${backgroundSize}px`, `${backgroundSize - 1}px`), className);
   }, [backgroundSize, borderBottom, borderLeft, borderRight, borderTop, className, cx, variant]);
   return { ...otherProps,
@@ -52079,7 +51999,7 @@ function getGradientAstWithControlPoints(gradientAST, newControlPoints) {
       return {
         length: {
           type: '%',
-          value: position.toString()
+          value: position === null || position === void 0 ? void 0 : position.toString()
         },
         type: a < 1 ? 'rgba' : 'rgb',
         value: a < 1 ? [r, g, b, a] : [r, g, b]
@@ -58211,14 +58131,44 @@ function CustomSelectControl(_ref3) {
   })))));
 }
 
-// EXTERNAL MODULE: ./packages/components/node_modules/react-dates/initialize.js
-var initialize = __webpack_require__(2150);
 // EXTERNAL MODULE: external "moment"
 var external_moment_ = __webpack_require__(6292);
 var external_moment_default = /*#__PURE__*/__webpack_require__.n(external_moment_);
+// EXTERNAL MODULE: ./packages/components/node_modules/react-dates/initialize.js
+var initialize = __webpack_require__(2150);
 // EXTERNAL MODULE: ./packages/components/node_modules/react-dates/lib/components/DayPickerSingleDateController.js
 var DayPickerSingleDateController = __webpack_require__(4916);
-;// CONCATENATED MODULE: ./packages/components/build-module/date-time/utils.js
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/arrow-left.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const arrowLeft = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M20 10.8H6.7l4.1-4.5-1.1-1.1-5.8 6.3 5.8 5.8 1.1-1.1-4-3.9H20z"
+}));
+/* harmony default export */ var arrow_left = (arrowLeft);
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/arrow-right.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const arrowRight = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M14.3 6.7l-1.1 1.1 4 4H4v1.5h13.3l-4.1 4.4 1.1 1.1 5.8-6.3z"
+}));
+/* harmony default export */ var arrow_right = (arrowRight);
+
+;// CONCATENATED MODULE: ./packages/components/build-module/date-time/date/utils.js
 /**
  * External dependencies
  */
@@ -58241,31 +58191,80 @@ const getMomentDate = date => {
   return date ? external_moment_default()(date) : external_moment_default()();
 };
 
-;// CONCATENATED MODULE: ./packages/components/build-module/date-time/date.js
+;// CONCATENATED MODULE: ./packages/components/build-module/date-time/date/styles.js
+
+
+function date_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+ // Styles that overrides the calendar styling provided by react-dates go in
+// style.scss. Everything else goes here.
+
+const Day = /*#__PURE__*/emotion_styled_base_browser_esm(v_stack_component,  true ? {
+  target: "e105ri6r2"
+} : 0)("height:100%;position:relative;", props => props.hasEvents && `
+		::before {
+			background: var(--wp-admin-theme-color);
+			border-radius: 2px;
+			bottom: 0;
+			content: " ";
+			height: 4px;
+			left: 50%;
+			margin-left: -2px;
+			position: absolute;
+			width: 4px;
+
+			.CalendarDay__selected & {
+				background: ${COLORS.white};
+			}
+		}
+		`, ";" + ( true ? "" : 0));
+const baseNavButton =  true ? {
+  name: "1zok93",
+  styles: "position:absolute;top:15px"
+} : 0;
+const NavPrevButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
+  target: "e105ri6r1"
+} : 0)(baseNavButton, " left:0;" + ( true ? "" : 0));
+const NavNextButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
+  target: "e105ri6r0"
+} : 0)(baseNavButton, " right:0;" + ( true ? "" : 0));
+
+;// CONCATENATED MODULE: ./packages/components/build-module/date-time/date/index.js
+
 
 
 /**
  * External dependencies
  */
 
+ // Needed to initialise the default datepicker styles.
+// See: https://github.com/airbnb/react-dates#initialize
 
  // `react-dates` doesn't tree-shake correctly, so we import from the individual
 // component here.
-// @ts-expect-error TypeScript won't find any type declarations at
-// `react-dates/lib/components/DayPickerSingleDateController` as they're located
-// at `react-dates`.
 
 
-const TypedDayPickerSingleDateController = DayPickerSingleDateController/* default */.Z;
 /**
  * WordPress dependencies
  */
 
 
 
+
 /**
  * Internal dependencies
  */
+
 
 
 const TIMEZONELESS_FORMAT = 'YYYY-MM-DDTHH:mm:ss';
@@ -58307,11 +58306,12 @@ function DatePickerDay(_ref) {
     (0,external_wp_i18n_namespaceObject._n)('%1$s. There is %2$d event.', '%1$s. There are %2$d events.', events.length), dayAriaLabel, events.length);
     parentNode.setAttribute('aria-label', dayWithEventsDescription);
   }, [events.length]);
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
+  return (0,external_wp_element_namespaceObject.createElement)(Day, {
     ref: ref,
-    className: classnames_default()('components-datetime__date__day', {
-      'has-events': events === null || events === void 0 ? void 0 : events.length
-    })
+    className: "components-datetime__date__day" // Unused, for backwards compatibility.
+    ,
+    hasEvents: !!(events !== null && events !== void 0 && events.length),
+    alignment: "center"
   }, day.format('D'));
 }
 /**
@@ -58411,9 +58411,11 @@ function DatePicker(_ref2) {
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-datetime__date",
     ref: nodeRef
-  }, (0,external_wp_element_namespaceObject.createElement)(TypedDayPickerSingleDateController, {
+  }, (0,external_wp_element_namespaceObject.createElement)(DayPickerSingleDateController/* default */.Z, {
     date: momentDate,
+    initialVisibleMonth: null,
     daySize: 30,
+    horizontalMonthPadding: 0,
     focused: true,
     hideKeyboardShortcutsPanel: true // This is a hack to force the calendar to update on month or year change
     // https://github.com/airbnb/react-dates/issues/240#issuecomment-361776665
@@ -58435,6 +58437,34 @@ function DatePicker(_ref2) {
       day: day,
       events: getEventsPerDay(day)
     }),
+    renderMonthElement: _ref3 => {
+      let {
+        month
+      } = _ref3;
+      return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("strong", null, month.format('MMMM')), ' ', month.format('YYYY'));
+    },
+    renderNavPrevButton: _ref4 => {
+      let {
+        ariaLabel,
+        ...props
+      } = _ref4;
+      return (0,external_wp_element_namespaceObject.createElement)(NavPrevButton, extends_extends({
+        icon: arrow_left,
+        variant: "tertiary",
+        "aria-label": ariaLabel
+      }, props));
+    },
+    renderNavNextButton: _ref5 => {
+      let {
+        ariaLabel,
+        ...props
+      } = _ref5;
+      return (0,external_wp_element_namespaceObject.createElement)(NavNextButton, extends_extends({
+        icon: arrow_right,
+        variant: "tertiary",
+        "aria-label": ariaLabel
+      }, props));
+    },
     onFocusChange: external_lodash_namespaceObject.noop
   }));
 }
@@ -58442,7 +58472,75 @@ function DatePicker(_ref2) {
 
 ;// CONCATENATED MODULE: external ["wp","date"]
 var external_wp_date_namespaceObject = window["wp"]["date"];
-;// CONCATENATED MODULE: ./packages/components/build-module/date-time/timezone.js
+;// CONCATENATED MODULE: ./packages/components/build-module/date-time/time/styles.js
+
+
+function time_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+
+
+const styles_Wrapper = emotion_styled_base_browser_esm("div",  true ? {
+  target: "evcr23111"
+} : 0)( true ? "" : 0);
+const Fieldset = emotion_styled_base_browser_esm("fieldset",  true ? {
+  target: "evcr23110"
+} : 0)("border:0;margin:0 0 ", space(2 * 2), " 0;padding:0;&:last-child{margin-bottom:0;}" + ( true ? "" : 0));
+const Legend = emotion_styled_base_browser_esm("legend",  true ? {
+  target: "evcr2319"
+} : 0)("margin-bottom:", space(2), ";padding:0;" + ( true ? "" : 0));
+const TimeWrapper = emotion_styled_base_browser_esm("div",  true ? {
+  target: "evcr2318"
+} : 0)( true ? {
+  name: "pd0mhc",
+  styles: "direction:ltr;display:flex"
+} : 0);
+const baseInput = /*#__PURE__*/emotion_react_browser_esm_css("&&& ", Input, "{padding-left:", space(2), ";padding-right:", space(2), ";text-align:center;}" + ( true ? "" : 0),  true ? "" : 0);
+const HoursInput = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
+  target: "evcr2317"
+} : 0)(baseInput, " width:", space(9), ";&&& ", Input, "{padding-right:0;}&&& ", BackdropUI, "{border-right:0;border-top-right-radius:0;border-bottom-right-radius:0;}" + ( true ? "" : 0));
+const TimeSeparator = emotion_styled_base_browser_esm("span",  true ? {
+  target: "evcr2316"
+} : 0)("border-top:", config_values.borderWidth, " solid ", COLORS.gray[700], ";border-bottom:", config_values.borderWidth, " solid ", COLORS.gray[700], ";line-height:calc(\n\t\t", config_values.controlHeight, " - ", config_values.borderWidth, " * 2\n\t);display:inline-block;" + ( true ? "" : 0));
+const MinutesInput = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
+  target: "evcr2315"
+} : 0)(baseInput, " width:", space(9), ";&&& ", Input, "{padding-left:0;}&&& ", BackdropUI, "{border-left:0;border-top-left-radius:0;border-bottom-left-radius:0;}" + ( true ? "" : 0)); // Ideally we wouldn't need a wrapper, but can't otherwise target the
+// <BaseControl> in <SelectControl>
+
+const MonthSelectWrapper = emotion_styled_base_browser_esm("div",  true ? {
+  target: "evcr2314"
+} : 0)( true ? {
+  name: "1ff36h2",
+  styles: "flex-grow:1"
+} : 0);
+const MonthSelect = /*#__PURE__*/emotion_styled_base_browser_esm(select_control,  true ? {
+  target: "evcr2313"
+} : 0)("height:36px;", Select, "{line-height:30px;}" + ( true ? "" : 0));
+const DayInput = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
+  target: "evcr2312"
+} : 0)(baseInput, " width:", space(9), ";" + ( true ? "" : 0));
+const YearInput = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
+  target: "evcr2311"
+} : 0)(baseInput, " width:", space(14), ";" + ( true ? "" : 0));
+const TimeZone = emotion_styled_base_browser_esm("div",  true ? {
+  target: "evcr2310"
+} : 0)( true ? {
+  name: "ebu3jh",
+  styles: "text-decoration:underline dotted"
+} : 0);
+
+;// CONCATENATED MODULE: ./packages/components/build-module/date-time/time/timezone.js
 
 
 /**
@@ -58455,12 +58553,13 @@ var external_wp_date_namespaceObject = window["wp"]["date"];
  */
 
 
+
 /**
  * Displays timezone information when user timezone is different from site
  * timezone.
  */
 
-const TimeZone = () => {
+const timezone_TimeZone = () => {
   const {
     timezone
   } = (0,external_wp_date_namespaceObject.__experimentalGetSettings)(); // Convert timezone offset to hours.
@@ -58478,31 +58577,33 @@ const TimeZone = () => {
   return (0,external_wp_element_namespaceObject.createElement)(tooltip, {
     position: "top center",
     text: timezoneDetail
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, (0,external_wp_element_namespaceObject.createElement)(TimeZone, {
     className: "components-datetime__timezone"
   }, zoneAbbr));
 };
 
-/* harmony default export */ var timezone = (TimeZone);
+/* harmony default export */ var timezone = (timezone_TimeZone);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/date-time/time.js
+;// CONCATENATED MODULE: ./packages/components/build-module/date-time/time/index.js
 
 
 /**
  * External dependencies
  */
 
-
-
-
 /**
  * WordPress dependencies
  */
 
 
+
 /**
  * Internal dependencies
  */
+
+
+
+
 
 
 
@@ -58513,48 +58614,27 @@ function from12hTo24h(hours, isPm) {
   return isPm ? (hours % 12 + 12) % 24 : hours % 12;
 }
 /**
- * A shared component to parse, validate, and handle remounting of the
- * underlying form field element like <input> and <select>.
+ * Creates an InputControl reducer used to pad an input so that it is always a
+ * given width. For example, the hours and minutes inputs are padded to 2 so
+ * that '4' appears as '04'.
+ *
+ * @param  pad How many digits the value should be.
  */
 
 
-function UpdateOnBlurAsIntegerField(_ref) {
-  let {
-    as,
-    value,
-    onUpdate,
-    className,
-    ...props
-  } = _ref;
+function buildPadInputStateReducer(pad) {
+  return (state, action) => {
+    const nextState = { ...state
+    };
 
-  function handleBlur(event) {
-    const {
-      target
-    } = event;
-
-    if (String(value) === target.value) {
-      return;
+    if (action.type === COMMIT || action.type === PRESS_UP || action.type === PRESS_DOWN) {
+      if (nextState.value !== undefined) {
+        nextState.value = nextState.value.toString().padStart(pad, '0');
+      }
     }
 
-    const parsedValue = parseInt(target.value, 10); // Run basic number validation on the input.
-
-    if (!(0,external_lodash_namespaceObject.isInteger)(parsedValue) || typeof props.max !== 'undefined' && parsedValue > props.max || typeof props.min !== 'undefined' && parsedValue < props.min) {
-      // If validation failed, reset the value to the previous valid value.
-      target.value = String(value);
-    } else {
-      // Otherwise, it's valid, call onUpdate.
-      onUpdate(parsedValue);
-    }
-  }
-
-  return (0,external_wp_element_namespaceObject.createElement)(as || 'input', {
-    // Re-mount the input value to accept the latest value as the defaultValue.
-    key: value,
-    defaultValue: value,
-    onBlur: handleBlur,
-    className: classnames_default()('components-datetime__time-field-integer-field', className),
-    ...props
-  });
+    return nextState;
+  };
 }
 /**
  * TimePicker is a React component that renders a clock for time selection.
@@ -58578,12 +58658,12 @@ function UpdateOnBlurAsIntegerField(_ref) {
  */
 
 
-function TimePicker(_ref2) {
+function TimePicker(_ref) {
   let {
     is12Hour,
     currentTime,
     onChange
-  } = _ref2;
+  } = _ref;
   const [date, setDate] = (0,external_wp_element_namespaceObject.useState)(() => // Truncate the date at the minutes, see: #15495.
   currentTime ? external_moment_default()(currentTime).startOf('minutes') : external_moment_default()()); // Reset the state when currentTime changed.
 
@@ -58605,36 +58685,39 @@ function TimePicker(_ref2) {
     hours: date.format(is12Hour ? 'hh' : 'HH'),
     am: Number(date.format('H')) <= 11 ? 'AM' : 'PM'
   }), [date, is12Hour]);
-  /**
-   * Function that sets the date state and calls the onChange with a new date.
-   * The date is truncated at the minutes.
-   *
-   * @param {Moment} newDate The date object.
-   */
 
-  function changeDate(newDate) {
-    setDate(newDate);
-    onChange === null || onChange === void 0 ? void 0 : onChange(newDate.format(time_TIMEZONELESS_FORMAT));
-  }
+  const buildNumberControlChangeCallback = method => {
+    const callback = (value, _ref2) => {
+      let {
+        event
+      } = _ref2;
 
-  function update(name) {
-    return value => {
-      // If the 12-hour format is being used and the 'PM' period is selected, then
-      // the incoming value (which ranges 1-12) should be increased by 12 to match
-      // the expected 24-hour format.
-      let adjustedValue = value;
+      if (!(event.target instanceof HTMLInputElement)) {
+        return;
+      }
 
-      if (name === 'hours' && is12Hour) {
-        adjustedValue = from12hTo24h(value, am === 'PM');
-      } // Clone the date and call the specific setter function according to `name`.
+      if (!event.target.validity.valid) {
+        return;
+      } // We can safely assume value is a number if target is valid.
 
 
-      const newDate = date.clone()[name](adjustedValue);
-      changeDate(newDate);
+      let numberValue = Number(value); // If the 12-hour format is being used and the 'PM' period is
+      // selected, then the incoming value (which ranges 1-12) should be
+      // increased by 12 to match the expected 24-hour format.
+
+      if (method === 'hours' && is12Hour) {
+        numberValue = from12hTo24h(numberValue, am === 'PM');
+      }
+
+      const newDate = date.clone()[method](numberValue);
+      setDate(newDate);
+      onChange === null || onChange === void 0 ? void 0 : onChange(newDate.format(time_TIMEZONELESS_FORMAT));
     };
-  }
 
-  function updateAmPm(value) {
+    return callback;
+  };
+
+  function buildAmPmChangeCallback(value) {
     return () => {
       if (am === value) {
         return;
@@ -58642,130 +58725,189 @@ function TimePicker(_ref2) {
 
       const parsedHours = parseInt(hours, 10);
       const newDate = date.clone().hours(from12hTo24h(parsedHours, value === 'PM'));
-      changeDate(newDate);
+      setDate(newDate);
+      onChange === null || onChange === void 0 ? void 0 : onChange(newDate.format(time_TIMEZONELESS_FORMAT));
     };
   }
 
-  const dayFormat = (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-datetime__time-field components-datetime__time-field-day"
-  }, (0,external_wp_element_namespaceObject.createElement)(UpdateOnBlurAsIntegerField, {
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Day'),
-    className: "components-datetime__time-field-day-input",
-    type: "number" // The correct function to call in moment.js is "date" not "day".
+  const dayField = (0,external_wp_element_namespaceObject.createElement)(DayInput, {
+    className: "components-datetime__time-field components-datetime__time-field-day" // Unused, for backwards compatibility.
     ,
-    name: "date",
+    label: (0,external_wp_i18n_namespaceObject.__)('Day'),
+    hideLabelFromVision: true,
+    __next36pxDefaultSize: true,
     value: day,
     step: 1,
     min: 1,
     max: 31,
-    onUpdate: update('date')
-  }));
-  const monthFormat = (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-datetime__time-field components-datetime__time-field-month"
-  }, (0,external_wp_element_namespaceObject.createElement)(UpdateOnBlurAsIntegerField, {
-    as: "select",
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Month'),
-    className: "components-datetime__time-field-month-select",
-    name: "month",
-    value: month // The value starts from 0, so we have to -1 when setting month.
+    required: true,
+    hideHTMLArrows: true,
+    isPressEnterToChange: true,
+    isDragEnabled: false,
+    isShiftStepEnabled: false,
+    onChange: buildNumberControlChangeCallback('date')
+  });
+  const monthField = (0,external_wp_element_namespaceObject.createElement)(MonthSelectWrapper, null, (0,external_wp_element_namespaceObject.createElement)(MonthSelect, {
+    className: "components-datetime__time-field components-datetime__time-field-month" // Unused, for backwards compatibility.
     ,
-    onUpdate: value => update('month')(value - 1)
-  }, (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "01"
-  }, (0,external_wp_i18n_namespaceObject.__)('January')), (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "02"
-  }, (0,external_wp_i18n_namespaceObject.__)('February')), (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "03"
-  }, (0,external_wp_i18n_namespaceObject.__)('March')), (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "04"
-  }, (0,external_wp_i18n_namespaceObject.__)('April')), (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "05"
-  }, (0,external_wp_i18n_namespaceObject.__)('May')), (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "06"
-  }, (0,external_wp_i18n_namespaceObject.__)('June')), (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "07"
-  }, (0,external_wp_i18n_namespaceObject.__)('July')), (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "08"
-  }, (0,external_wp_i18n_namespaceObject.__)('August')), (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "09"
-  }, (0,external_wp_i18n_namespaceObject.__)('September')), (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "10"
-  }, (0,external_wp_i18n_namespaceObject.__)('October')), (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "11"
-  }, (0,external_wp_i18n_namespaceObject.__)('November')), (0,external_wp_element_namespaceObject.createElement)("option", {
-    value: "12"
-  }, (0,external_wp_i18n_namespaceObject.__)('December'))));
-  const dayMonthFormat = is12Hour ? (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, monthFormat, dayFormat) : (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, dayFormat, monthFormat);
-  return (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: classnames_default()('components-datetime__time')
-  }, (0,external_wp_element_namespaceObject.createElement)("fieldset", null, (0,external_wp_element_namespaceObject.createElement)("legend", {
-    className: "components-datetime__time-legend invisible"
-  }, (0,external_wp_i18n_namespaceObject.__)('Date')), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-datetime__time-wrapper"
-  }, dayMonthFormat, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-datetime__time-field components-datetime__time-field-year"
-  }, (0,external_wp_element_namespaceObject.createElement)(UpdateOnBlurAsIntegerField, {
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Year'),
-    className: "components-datetime__time-field-year-input",
-    type: "number",
-    name: "year",
-    step: 1,
-    min: 0,
-    max: 9999,
-    value: year,
-    onUpdate: update('year')
-  })))), (0,external_wp_element_namespaceObject.createElement)("fieldset", null, (0,external_wp_element_namespaceObject.createElement)("legend", {
-    className: "components-datetime__time-legend invisible"
-  }, (0,external_wp_i18n_namespaceObject.__)('Time')), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-datetime__time-wrapper"
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-datetime__time-field components-datetime__time-field-time"
-  }, (0,external_wp_element_namespaceObject.createElement)(UpdateOnBlurAsIntegerField, {
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Hours'),
-    className: "components-datetime__time-field-hours-input",
-    type: "number",
-    name: "hours",
+    label: (0,external_wp_i18n_namespaceObject.__)('Month'),
+    hideLabelFromVision: true,
+    __nextHasNoMarginBottom: true,
+    value: month,
+    options: [{
+      value: '01',
+      label: (0,external_wp_i18n_namespaceObject.__)('January')
+    }, {
+      value: '02',
+      label: (0,external_wp_i18n_namespaceObject.__)('February')
+    }, {
+      value: '03',
+      label: (0,external_wp_i18n_namespaceObject.__)('March')
+    }, {
+      value: '04',
+      label: (0,external_wp_i18n_namespaceObject.__)('April')
+    }, {
+      value: '05',
+      label: (0,external_wp_i18n_namespaceObject.__)('May')
+    }, {
+      value: '06',
+      label: (0,external_wp_i18n_namespaceObject.__)('June')
+    }, {
+      value: '07',
+      label: (0,external_wp_i18n_namespaceObject.__)('July')
+    }, {
+      value: '08',
+      label: (0,external_wp_i18n_namespaceObject.__)('August')
+    }, {
+      value: '09',
+      label: (0,external_wp_i18n_namespaceObject.__)('September')
+    }, {
+      value: '10',
+      label: (0,external_wp_i18n_namespaceObject.__)('October')
+    }, {
+      value: '11',
+      label: (0,external_wp_i18n_namespaceObject.__)('November')
+    }, {
+      value: '12',
+      label: (0,external_wp_i18n_namespaceObject.__)('December')
+    }],
+    onChange: value => {
+      const newDate = date.clone().month(Number(value) - 1);
+      setDate(newDate);
+      onChange === null || onChange === void 0 ? void 0 : onChange(newDate.format(time_TIMEZONELESS_FORMAT));
+    }
+  }));
+  return (0,external_wp_element_namespaceObject.createElement)(styles_Wrapper, {
+    className: "components-datetime__time" // Unused, for backwards compatibility.
+
+  }, (0,external_wp_element_namespaceObject.createElement)(Fieldset, null, (0,external_wp_element_namespaceObject.createElement)(Legend, {
+    className: "components-datetime__time-legend" // Unused, for backwards compatibility.
+
+  }, (0,external_wp_i18n_namespaceObject.__)('Time')), (0,external_wp_element_namespaceObject.createElement)(h_stack_component, {
+    className: "components-datetime__time-wrapper" // Unused, for backwards compatibility.
+
+  }, (0,external_wp_element_namespaceObject.createElement)(TimeWrapper, {
+    className: "components-datetime__time-field components-datetime__time-field-time" // Unused, for backwards compatibility.
+
+  }, (0,external_wp_element_namespaceObject.createElement)(HoursInput, {
+    className: "components-datetime__time-field-hours-input" // Unused, for backwards compatibility.
+    ,
+    label: (0,external_wp_i18n_namespaceObject.__)('Hours'),
+    hideLabelFromVision: true,
+    __next36pxDefaultSize: true,
+    value: hours,
     step: 1,
     min: is12Hour ? 1 : 0,
     max: is12Hour ? 12 : 23,
-    value: hours,
-    onUpdate: update('hours')
-  }), (0,external_wp_element_namespaceObject.createElement)("span", {
-    className: "components-datetime__time-separator",
+    required: true,
+    hideHTMLArrows: true,
+    isPressEnterToChange: true,
+    isDragEnabled: false,
+    isShiftStepEnabled: false,
+    onChange: buildNumberControlChangeCallback('hours'),
+    __unstableStateReducer: buildPadInputStateReducer(2)
+  }), (0,external_wp_element_namespaceObject.createElement)(TimeSeparator, {
+    className: "components-datetime__time-separator" // Unused, for backwards compatibility.
+    ,
     "aria-hidden": "true"
-  }, ":"), (0,external_wp_element_namespaceObject.createElement)(UpdateOnBlurAsIntegerField, {
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Minutes'),
-    className: "components-datetime__time-field-minutes-input",
-    type: "number",
-    name: "minutes",
+  }, ":"), (0,external_wp_element_namespaceObject.createElement)(MinutesInput, {
+    className: "components-datetime__time-field-minutes-input" // Unused, for backwards compatibility.
+    ,
+    label: (0,external_wp_i18n_namespaceObject.__)('Minutes'),
+    hideLabelFromVision: true,
+    __next36pxDefaultSize: true,
+    value: minutes,
     step: 1,
     min: 0,
     max: 59,
-    value: minutes,
-    onUpdate: update('minutes')
+    required: true,
+    hideHTMLArrows: true,
+    isPressEnterToChange: true,
+    isDragEnabled: false,
+    isShiftStepEnabled: false,
+    onChange: buildNumberControlChangeCallback('minutes'),
+    __unstableStateReducer: buildPadInputStateReducer(2)
   })), is12Hour && (0,external_wp_element_namespaceObject.createElement)(button_group, {
-    className: "components-datetime__time-field components-datetime__time-field-am-pm"
+    className: "components-datetime__time-field components-datetime__time-field-am-pm" // Unused, for backwards compatibility.
+
   }, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    className: "components-datetime__time-am-button" // Unused, for backwards compatibility.
+    ,
     variant: am === 'AM' ? 'primary' : 'secondary',
-    onClick: updateAmPm('AM'),
-    className: "components-datetime__time-am-button"
+    onClick: buildAmPmChangeCallback('AM')
   }, (0,external_wp_i18n_namespaceObject.__)('AM')), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    className: "components-datetime__time-pm-button" // Unused, for backwards compatibility.
+    ,
     variant: am === 'PM' ? 'primary' : 'secondary',
-    onClick: updateAmPm('PM'),
-    className: "components-datetime__time-pm-button"
-  }, (0,external_wp_i18n_namespaceObject.__)('PM'))), (0,external_wp_element_namespaceObject.createElement)(timezone, null))));
+    onClick: buildAmPmChangeCallback('PM')
+  }, (0,external_wp_i18n_namespaceObject.__)('PM'))), (0,external_wp_element_namespaceObject.createElement)(spacer_component, null), (0,external_wp_element_namespaceObject.createElement)(timezone, null))), (0,external_wp_element_namespaceObject.createElement)(Fieldset, null, (0,external_wp_element_namespaceObject.createElement)(Legend, {
+    className: "components-datetime__time-legend" // Unused, for backwards compatibility.
+
+  }, (0,external_wp_i18n_namespaceObject.__)('Date')), (0,external_wp_element_namespaceObject.createElement)(h_stack_component, {
+    className: "components-datetime__time-wrapper" // Unused, for backwards compatibility.
+
+  }, is12Hour ? (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, monthField, dayField) : (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, dayField, monthField), (0,external_wp_element_namespaceObject.createElement)(YearInput, {
+    className: "components-datetime__time-field components-datetime__time-field-year" // Unused, for backwards compatibility.
+    ,
+    label: (0,external_wp_i18n_namespaceObject.__)('Year'),
+    hideLabelFromVision: true,
+    __next36pxDefaultSize: true,
+    value: year,
+    step: 1,
+    min: 1,
+    max: 9999,
+    required: true,
+    hideHTMLArrows: true,
+    isPressEnterToChange: true,
+    isDragEnabled: false,
+    isShiftStepEnabled: false,
+    onChange: buildNumberControlChangeCallback('year'),
+    __unstableStateReducer: buildPadInputStateReducer(4)
+  }))));
 }
 /* harmony default export */ var time = (TimePicker);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/date-time/index.js
+;// CONCATENATED MODULE: ./packages/components/build-module/date-time/date-time/styles.js
+
+
+function date_time_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+const CalendarHelp = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e1p5onf00"
+} : 0)( true ? {
+  name: "l0rwn2",
+  styles: "min-width:260px"
+} : 0);
+
+;// CONCATENATED MODULE: ./packages/components/build-module/date-time/date-time/index.js
 
 
 /**
  * External dependencies
  */
-// Needed to initialise the default datepicker styles.
-// See: https://github.com/airbnb/react-dates#initialize
-
 
 
 /**
@@ -58773,9 +58915,14 @@ function TimePicker(_ref2) {
  */
 
 
+
 /**
  * Internal dependencies
  */
+
+
+
+
 
 
 
@@ -58789,8 +58936,29 @@ function UnforwardedDateTimePicker(_ref, ref) {
     isInvalidDate,
     onMonthPreviewed = external_lodash_namespaceObject.noop,
     onChange,
-    events
+    events,
+    __nextRemoveHelpButton = false,
+    __nextRemoveResetButton = false
   } = _ref;
+
+  if (!__nextRemoveHelpButton) {
+    external_wp_deprecated_default()('Help button in wp.components.DateTimePicker', {
+      since: '13.4',
+      version: '14.6',
+      // Six months of plugin releases.
+      hint: 'Set the `__nextRemoveHelpButton` prop to `true` to remove this warning and opt in to the new behaviour, which will become the default in a future version.'
+    });
+  }
+
+  if (!__nextRemoveResetButton) {
+    external_wp_deprecated_default()('Reset button in wp.components.DateTimePicker', {
+      since: '13.4',
+      version: '14.6',
+      // Six months of plugin releases.
+      hint: 'Set the `__nextRemoveResetButton` prop to `true` to remove this warning and opt in to the new behaviour, which will become the default in a future version.'
+    });
+  }
+
   const [calendarHelpIsVisible, setCalendarHelpIsVisible] = (0,external_wp_element_namespaceObject.useState)(false);
 
   function onClickDescriptionToggle() {
@@ -58810,9 +58978,14 @@ function UnforwardedDateTimePicker(_ref, ref) {
     isInvalidDate: isInvalidDate,
     events: events,
     onMonthPreviewed: onMonthPreviewed
-  })), calendarHelpIsVisible && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-datetime__calendar-help"
-  }, (0,external_wp_element_namespaceObject.createElement)("h4", null, (0,external_wp_i18n_namespaceObject.__)('Click to Select')), (0,external_wp_element_namespaceObject.createElement)("ul", null, (0,external_wp_element_namespaceObject.createElement)("li", null, (0,external_wp_i18n_namespaceObject.__)('Click the right or left arrows to select other months in the past or the future.')), (0,external_wp_element_namespaceObject.createElement)("li", null, (0,external_wp_i18n_namespaceObject.__)('Click the desired day to select it.'))), (0,external_wp_element_namespaceObject.createElement)("h4", null, (0,external_wp_i18n_namespaceObject.__)('Navigating with a keyboard')), (0,external_wp_element_namespaceObject.createElement)("ul", null, (0,external_wp_element_namespaceObject.createElement)("li", null, (0,external_wp_element_namespaceObject.createElement)("abbr", {
+  })), calendarHelpIsVisible && (0,external_wp_element_namespaceObject.createElement)(CalendarHelp, {
+    className: "components-datetime__calendar-help" // Unused, for backwards compatibility.
+
+  }, (0,external_wp_element_namespaceObject.createElement)(heading_component, {
+    level: 4
+  }, (0,external_wp_i18n_namespaceObject.__)('Click to Select')), (0,external_wp_element_namespaceObject.createElement)("ul", null, (0,external_wp_element_namespaceObject.createElement)("li", null, (0,external_wp_i18n_namespaceObject.__)('Click the right or left arrows to select other months in the past or the future.')), (0,external_wp_element_namespaceObject.createElement)("li", null, (0,external_wp_i18n_namespaceObject.__)('Click the desired day to select it.'))), (0,external_wp_element_namespaceObject.createElement)(heading_component, {
+    level: 4
+  }, (0,external_wp_i18n_namespaceObject.__)('Navigating with a keyboard')), (0,external_wp_element_namespaceObject.createElement)("ul", null, (0,external_wp_element_namespaceObject.createElement)("li", null, (0,external_wp_element_namespaceObject.createElement)("abbr", {
     "aria-label": (0,external_wp_i18n_namespaceObject._x)('Enter', 'keyboard button')
   }, "\u21B5"), ' '
   /* JSX removes whitespace, but a space is required for screen readers. */
@@ -58832,14 +59005,17 @@ function UnforwardedDateTimePicker(_ref, ref) {
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Home and End')
   }, (0,external_wp_i18n_namespaceObject.__)('Home/End')), ' '
   /* JSX removes whitespace, but a space is required for screen readers. */
-  , (0,external_wp_i18n_namespaceObject.__)('Go to the first (Home) or last (End) day of a week.'))))), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "components-datetime__buttons"
-  }, !calendarHelpIsVisible && currentDate && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    className: "components-datetime__date-reset-button",
+  , (0,external_wp_i18n_namespaceObject.__)('Go to the first (Home) or last (End) day of a week.')))), (!__nextRemoveResetButton || !__nextRemoveHelpButton) && (0,external_wp_element_namespaceObject.createElement)(h_stack_component, {
+    className: "components-datetime__buttons" // Unused, for backwards compatibility.
+
+  }, !__nextRemoveResetButton && !calendarHelpIsVisible && currentDate && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    className: "components-datetime__date-reset-button" // Unused, for backwards compatibility.
+    ,
     variant: "link",
     onClick: () => onChange === null || onChange === void 0 ? void 0 : onChange(null)
-  }, (0,external_wp_i18n_namespaceObject.__)('Reset')), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-    className: "components-datetime__date-help-toggle",
+  }, (0,external_wp_i18n_namespaceObject.__)('Reset')), (0,external_wp_element_namespaceObject.createElement)(spacer_component, null), !__nextRemoveHelpButton && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    className: "components-datetime__date-help-toggle" // Unused, for backwards compatibility.
+    ,
     variant: "link",
     onClick: onClickDescriptionToggle
   }, calendarHelpIsVisible ? (0,external_wp_i18n_namespaceObject.__)('Close') : (0,external_wp_i18n_namespaceObject.__)('Calendar Help'))));
@@ -58870,6 +59046,16 @@ function UnforwardedDateTimePicker(_ref, ref) {
 
 const DateTimePicker = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedDateTimePicker);
 /* harmony default export */ var date_time = (DateTimePicker);
+
+;// CONCATENATED MODULE: ./packages/components/build-module/date-time/index.js
+/**
+ * Internal dependencies
+ */
+
+
+
+
+/* harmony default export */ var build_module_date_time = (date_time);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/dimension-control/sizes.js
 /**
@@ -60445,6 +60631,34 @@ function FocalPoint(_ref) {
   })));
 }
 
+;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-update-effect.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * A `React.useEffect` that will not run on the first render.
+ * Source:
+ * https://github.com/reakit/reakit/blob/HEAD/packages/reakit-utils/src/useUpdateEffect.ts
+ *
+ * @param {import('react').EffectCallback} effect
+ * @param {import('react').DependencyList} deps
+ */
+
+function use_update_effect_useUpdateEffect(effect, deps) {
+  const mounted = (0,external_wp_element_namespaceObject.useRef)(false);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (mounted.current) {
+      return effect();
+    }
+
+    mounted.current = true;
+    return undefined;
+  }, deps);
+}
+
+/* harmony default export */ var use_update_effect = (use_update_effect_useUpdateEffect);
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/grid.js
 
 
@@ -60999,6 +61213,21 @@ function FocusableIframe(_ref) {
     ref: ref
   }, props));
 }
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/settings.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const settings = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M14.5 13.8c-1.1 0-2.1.7-2.4 1.8H4V17h8.1c.3 1 1.3 1.8 2.4 1.8s2.1-.7 2.4-1.8H20v-1.5h-3.1c-.3-1-1.3-1.7-2.4-1.7zM11.9 7c-.3-1-1.3-1.8-2.4-1.8S7.4 6 7.1 7H4v1.5h3.1c.3 1 1.3 1.8 2.4 1.8s2.1-.7 2.4-1.8H20V7h-8.1z"
+}));
+/* harmony default export */ var library_settings = (settings);
 
 ;// CONCATENATED MODULE: ./node_modules/reakit/es/Radio/RadioState.js
 
@@ -63483,35 +63712,6 @@ const search = (0,external_wp_element_namespaceObject.createElement)(external_wp
 }));
 /* harmony default export */ var library_search = (search);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-combined-ref.js
-/**
- * WordPress dependencies
- */
-
-/**
- * External dependencies
- */
-
-function useCombinedRef() {
-  for (var _len = arguments.length, refs = new Array(_len), _key = 0; _key < _len; _key++) {
-    refs[_key] = arguments[_key];
-  }
-
-  const targetRef = (0,external_wp_element_namespaceObject.useRef)(null);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    refs.forEach(ref => {
-      if (!ref) return;
-
-      if (typeof ref === 'function') {
-        ref(targetRef.current);
-      } else {
-        ref.current = targetRef.current;
-      }
-    });
-  }, [refs]);
-  return targetRef;
-}
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/search-control/index.js
 
 
@@ -63534,8 +63734,7 @@ function useCombinedRef() {
 
 
 
-
-function SearchControl(_ref, ref) {
+function SearchControl(_ref, forwardedRef) {
   let {
     className,
     onChange,
@@ -63547,8 +63746,8 @@ function SearchControl(_ref, ref) {
     help,
     onClose
   } = _ref;
+  const searchRef = (0,external_wp_element_namespaceObject.useRef)();
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(SearchControl);
-  const searchInput = useCombinedRef(ref);
   const id = `components-search-control-${instanceId}`;
 
   const renderRightButton = () => {
@@ -63566,7 +63765,7 @@ function SearchControl(_ref, ref) {
         label: (0,external_wp_i18n_namespaceObject.__)('Reset search'),
         onClick: () => {
           onChange('');
-          searchInput.current.focus();
+          searchRef.current.focus();
         }
       });
     }
@@ -63585,7 +63784,7 @@ function SearchControl(_ref, ref) {
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-search-control__input-wrapper"
   }, (0,external_wp_element_namespaceObject.createElement)("input", {
-    ref: searchInput,
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([searchRef, forwardedRef]),
     className: "components-search-control__input",
     id: id,
     type: "search",
@@ -67943,17 +68142,17 @@ function Spinner(_ref) {
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * Internal dependencies
  */
 
 
 
-/**
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').ForwardedRef<any>}                                               forwardedRef
- */
 
-function component_Surface(props, forwardedRef) {
+function UnconnectedSurface(props, forwardedRef) {
   const surfaceProps = useSurface(props);
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, surfaceProps, {
     ref: forwardedRef
@@ -67981,8 +68180,8 @@ function component_Surface(props, forwardedRef) {
  */
 
 
-const ConnectedSurface = contextConnect(component_Surface, 'Surface');
-/* harmony default export */ var surface_component = (ConnectedSurface);
+const component_Surface = contextConnect(UnconnectedSurface, 'Surface');
+/* harmony default export */ var surface_component = (component_Surface);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/tab-panel/index.js
 
@@ -68231,12 +68430,16 @@ const inputControl = /*#__PURE__*/emotion_react_browser_esm_css("font-family:", 
  */
 
 const StyledTextarea = emotion_styled_base_browser_esm("textarea",  true ? {
-  target: "ebk7yr50"
+  target: "e1w5nnrk0"
 } : 0)("width:100%;", inputControl, ";" + ( true ? "" : 0));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/textarea-control/index.js
 
 
+
+/**
+ * External dependencies
+ */
 
 /**
  * WordPress dependencies
@@ -68248,8 +68451,34 @@ const StyledTextarea = emotion_styled_base_browser_esm("textarea",  true ? {
 
 
 
-function TextareaControl(_ref) {
-  let {
+
+/**
+ * TextareaControls are TextControls that allow for multiple lines of text, and
+ * wrap overflow text onto a new line. They are a fixed height and scroll
+ * vertically when the cursor reaches the bottom of the field.
+ *
+ * ```jsx
+ * import { TextareaControl } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MyTextareaControl = () => {
+ *   const [ text, setText ] = useState( '' );
+ *
+ *   return (
+ *     <TextareaControl
+ *       label="Text"
+ *       help="Enter some text"
+ *       value={ text }
+ *       onChange={ ( value ) => setText( value ) }
+ *     />
+ *   );
+ * };
+ * ```
+ */
+function TextareaControl( // ref is omitted until we have `WordPressComponentPropsWithoutRef` or add
+// ref forwarding to TextareaControl.
+props) {
+  const {
     label,
     hideLabelFromVision,
     value,
@@ -68257,8 +68486,8 @@ function TextareaControl(_ref) {
     onChange,
     rows = 4,
     className,
-    ...props
-  } = _ref;
+    ...additionalProps
+  } = props;
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(TextareaControl);
   const id = `inspector-textarea-control-${instanceId}`;
 
@@ -68277,8 +68506,9 @@ function TextareaControl(_ref) {
     onChange: onChangeValue,
     "aria-describedby": !!help ? id + '__help' : undefined,
     value: value
-  }, props)));
+  }, additionalProps)));
 }
+/* harmony default export */ var textarea_control = (TextareaControl);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/text-highlight/index.js
 
