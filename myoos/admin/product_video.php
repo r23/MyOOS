@@ -54,21 +54,20 @@ if (!empty($action)) {
                 for ($i = 0, $n = $nVideoCounter; $i < $n; $i++) {
                     $action = (!isset($_POST['video_id'][$i]) || !is_numeric($_POST['video_id'][$i])) ? 'insert_video' : 'update_video';
 
-                    $sql_data_array = array('products_id' => intval($products_id),
+                    $sql_data_array = ['products_id' => intval($products_id),
                                             'video_source' => oos_db_prepare_input($_POST['video_source'][$i]),
                                             'video_poster' => oos_db_prepare_input($_POST['video_source'][$i]),
-                                            'video_preload' => oos_db_prepare_input($_POST['video_preload'][$i])
-                                            );
+                                            'video_preload' => oos_db_prepare_input($_POST['video_preload'][$i])];
 
                     if ($action == 'insert_video') {
-                        $insert_sql_data = array('video_date_added' => 'now()');
+                        $insert_sql_data = ['video_date_added' => 'now()'];
 
                         $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
                         oos_db_perform($oostable['products_video'], $sql_data_array);
                         $video_id = $dbconn->Insert_ID();
                     } elseif ($action == 'update_video') {
-                        $update_sql_data = array('video_last_modified' => 'now()');
+                        $update_sql_data = ['video_last_modified' => 'now()'];
                         $video_id = intval($_POST['video_id'][$i]);
 
                         $sql_data_array = array_merge($sql_data_array, $update_sql_data);
@@ -82,12 +81,12 @@ if (!empty($action)) {
                     for ($li = 0, $l = $nLanguages; $li < $l; $li++) {
                         $language_id = $aLanguages[$li]['id'];
 
-                        $sql_data_array = array('video_title' => oos_db_prepare_input($_POST['video_title'][$i][$language_id]),
-                                                'video_description' => oos_db_prepare_input($_POST['video_description_'. $i . '_'  . $aLanguages[$li]['id']]));
+                        $sql_data_array = ['video_title' => oos_db_prepare_input($_POST['video_title'][$i][$language_id]),
+                                                'video_description' => oos_db_prepare_input($_POST['video_description_'. $i . '_'  . $aLanguages[$li]['id']])];
 
                         if ($action == 'insert_video') {
-                            $insert_sql_data = array('video_id' => $video_id,
-                                                    'video_languages_id' => $language_id);
+                            $insert_sql_data = ['video_id' => $video_id,
+                                                    'video_languages_id' => $language_id];
 
                             $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
@@ -118,8 +117,8 @@ if (!empty($action)) {
                             if ($ext == 'mpg') {
 								
 								$poster = $name . '.jpg';							
-                                $sql_data_array = array('video_source' => oos_db_prepare_input($name),
-														'video_poster' => oos_db_prepare_input($poster));
+                                $sql_data_array = ['video_source' => oos_db_prepare_input($name),
+													'video_poster' => oos_db_prepare_input($poster)];
 
                                 oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');								
 								
@@ -134,12 +133,12 @@ if (!empty($action)) {
                                 }
 
 								if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-									$ffmpeg = FFMpeg\FFMpeg::create(array(
+									$ffmpeg = FFMpeg\FFMpeg::create([
 										'ffmpeg.binaries'  => 'C:/tools/ffmpeg/bin/ffmpeg.exe',
 										'ffprobe.binaries' => 'C:/tools/ffmpeg/bin/ffprobe.exe',
 										'timeout'          => 3600, // The timeout for the underlying process
 										'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
-									));
+									]);
 								} else {
 									$ffmpeg = FFMpeg\FFMpeg::create();
 								}
@@ -203,9 +202,9 @@ require 'includes/header.php';
 <?php
 if ($action == 'edit_video') {
     $parameters = ['products_id' => '',
-                        'products_name' => '',
-                        'products_image' => '',
-                        'products_videos' => []];
+					'products_name' => '',
+					'products_image' => '',
+					'products_videos' => []];
 
 
     $pInfo = new objectInfo($parameters);
@@ -234,17 +233,17 @@ if ($action == 'edit_video') {
                                                  vd.video_languages_id = '" . intval($_SESSION['language_id']) . "'");
 
         if (!$products_videos_result->RecordCount()) {
-            $pInfo->products_videos[] = array('products_id' => $product['products_id'],
+            $pInfo->products_videos[] = ['products_id' => $product['products_id'],
                                             'video_source' => '',
                                             'video_poster' => '',
-                                            'video_preload' => '');
+                                            'video_preload' => ''];
         } else {
             while ($products_videos = $products_videos_result->fields) {
-                $pInfo->products_videos[] = array('video_id' => $products_videos['video_id'],
+                $pInfo->products_videos[] = ['video_id' => $products_videos['video_id'],
                                             'products_id' => $products_videos['products_id'],
                                             'video_source' => $products_videos['video_source'],
                                             'video_poster' => $products_videos['video_poster'],
-                                            'video_preload' => $products_videos['video_preload']);
+                                            'video_preload' => $products_videos['video_preload']];
                 // Move that ADOdb pointer!
                 $products_videos_result->MoveNext();
             }
