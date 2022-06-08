@@ -399,7 +399,7 @@
 					<h2>{$video.video_title}</h2>
 
 <video
-    id="my-player"
+    id="my-player{@index}"
     class="ratio video-js"
     controls
     preload="{$video.video_preload}"
@@ -410,13 +410,8 @@
 	<source src="{$video.video_source}-x264.mp4" type="video/mp4"></source>
 	<source src="{$video.video_source}-webm.webm" type="video/webm"></source>
 	<source src="{$video.video_source}-ogg.ogv" type="video/ogg"></source>
-
   <p class="vjs-no-js">
-    To view this video please enable JavaScript, and consider upgrading to a
-    web browser that
-    <a href="https://videojs.com/html5-video-support/" target="_blank">
-      supports HTML5 video
-    </a>
+    {$lang.text_nojs_help}
   </p>
 </video>
 

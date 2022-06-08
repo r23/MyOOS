@@ -67,4 +67,6 @@ $aLang['text_year'] = 'Jahr';
 $aLang['text_buy'] = '1 x \'';
 $aLang['text_now'] = '\' bestellen!';
 
+$aLang['text_nojs_help'] = 'Um dieses Video zu sehen, aktivieren Sie bitte JavaScript und verwenden Sie einen Webbrowser, der HTML5-Video unterstützt.';
 $aLang['navigation_help'] = '<h2>Navigationshilfe</h2><p>3D-Modell drehen: Drücken der linken Maustaste und bewegen der Maus<br>Vergrößern/Verkleinern: Mausrad drehen<br>Verschieben: Dr&uuml;cken der rechten Maustaste und bewegen der Maus</p>';
+

@@ -67,4 +67,5 @@ $aLang['text_year'] = 'year';
 $aLang['text_buy'] = 'Buy 1 \'';
 $aLang['text_now'] = '\' now';
 
+$aLang['text_nojs_help'] = 'To view this Video, please enable JavaScript, and consider upgrading to a  web browser that supports HTML5 video.';
 $aLang['navigation_help'] = '<h2>Navigation Help</h2><p>Rotate 3D model: Press the left mouse button and move the mouse.<br>Zoom in/out: Rotate mouse wheel<br>Move: Press the right mouse button and move the mouse.</p>';
