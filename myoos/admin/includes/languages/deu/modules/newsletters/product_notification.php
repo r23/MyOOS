@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: product_notification.php,v 1.3 2007/06/13 16:15:14 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -18,7 +19,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('TEXT_COUNT_CUSTOMERS', 'Anzahl der Kunden, welche das Rundschreiben erhalten: %s');
 define('TEXT_PRODUCTS', 'Produkte');

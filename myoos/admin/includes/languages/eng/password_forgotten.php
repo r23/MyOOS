@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: password_forgotten.php,v 1.3 2007/06/13 16:38:21 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -18,7 +19,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('ADMIN_PASSWORD_SUBJECT', STORE_NAME . ' - New Password');
 define('ADMIN_PASSWORD_EMAIL_TEXT', 'A new password was requested from ' . oos_server_get_var('REMOTE_ADDR') . '.' . "\n\n" . 'Your new password to \'' . STORE_NAME . '\' is:' . "\n\n" . '   %s' . "\n\n");

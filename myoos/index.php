@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+   ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -14,12 +15,13 @@
    Copyright (c) 2001 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ----------------------------------------------------------------------
+*/
+
 /**
  * Set the error reporting level. Unless you have a special need, E_ALL is a
  * good level for error reporting.
  */
-
 # error_reporting(0);
 error_reporting(E_ALL & ~E_STRICT);
 

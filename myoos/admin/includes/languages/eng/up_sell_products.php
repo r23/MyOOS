@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: up_sell_products.php,v 1.3 2007/06/13 16:38:21 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -22,7 +23,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('UP_SELL_SUCCESS', 'UP Sell Items Successfully Update For UP Sell Product #'.$_GET['add_related_product_ID']);
 define('SORT_UP_SELL_SUCCESS', 'Sort Order Successfully Update For UP Sell Product #'.$_GET['add_related_product_ID']);

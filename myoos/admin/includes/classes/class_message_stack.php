@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: class_message_stack.php,v 1.1 2007/06/08 14:58:10 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -24,7 +25,8 @@
    $messageStack->add('Error: Error 1', 'error');
    $messageStack->add('Error: Error 2', 'warning');
    if ($messageStack->size > 0) echo $messageStack->output();
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 /**
  * ensure this file is being included by a parent file 

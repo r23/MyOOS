@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: itransact.php,v 1.3 2007/06/13 16:15:14 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -18,7 +19,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('HEADING_TITLE', 'Öffnen Sie die Transaction Systemsteuerung');
 define('SUB_BAR_TITLE', 'Klicken Sie auf das Bild unten.  Sie benötigen Ihr Gateway ID und Passwort.');
