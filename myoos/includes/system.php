@@ -1,5 +1,5 @@
 <?php
-/* ----------------------------------------------------------------------
+/** ---------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -16,9 +16,7 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/**
- * ensure this file is being included by a parent file 
- */
+/** ensure this file is being included by a parent file */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 //smarty
@@ -38,10 +36,10 @@ $smarty->assignByRef("oEvent", $oEvent);
 $smarty->assignByRef("oNavMenu", $oNavMenu);
 
 // cache_id
-$sCacheID            = $sTheme . '|block|' . $sLanguage;
-$sSystemCacheID        = $sTheme . '|block|' . $sLanguage;
-$sCategoriesCacheID    = $sTheme . '|block|categories|' . $sLanguage . '|' . $sCategory;
-$sModulesCacheID    = $sTheme . '|modules|' . $sLanguage . '|' . $sCurrency;
+$sCacheID			= $sTheme . '|block|' . $sLanguage;
+$sSystemCacheID		= $sTheme . '|block|' . $sLanguage;
+$sCategoriesCacheID	= $sTheme . '|block|categories|' . $sLanguage . '|' . $sCategory;
+$sModulesCacheID	= $sTheme . '|modules|' . $sLanguage . '|' . $sCurrency;
 
 
 if (isset($_GET['manufacturers_id']) && is_numeric($_GET['manufacturers_id'])) {
@@ -105,7 +103,7 @@ $part = [
             '@context'            => 'http://schema.org',
             'headline'         => $sPagetitle,
             'name'             => $sPagetitle,
-            'description'       => $sDescription,
+            'description'	   => $sDescription,
             'url'              => $sCanonical,
             'mainEntityOfPage' => $sCanonical,
             'image'            => $og_image,
@@ -114,34 +112,34 @@ $part = [
 
 $smarty->assign(
     array(
-        'filename'        => $aContents,
-        'page_file'        => $sContent,
+        'filename'		=> $aContents,
+        'page_file'		=> $sContent,
 
-        'theme_set'        => $sTheme,
-        'theme_image'    => 'themes/' . $sTheme . '/images',
-        'theme'            => 'themes/' . $sTheme,
+        'theme_set'		=> $sTheme,
+        'theme_image'	=> 'themes/' . $sTheme . '/images',
+        'theme'			=> 'themes/' . $sTheme,
 
-        'lang'                => $aLang,
-        'language'            => $sLanguage,
-        'language_id'        => $nLanguageID,
-        'content_language'    => $sLanguageCode,
-        'language_name'        => $sLanguageName,
-        'currency'            => $sCurrency,
+        'lang'				=> $aLang,
+        'language'			=> $sLanguage,
+        'language_id'		=> $nLanguageID,
+        'content_language'	=> $sLanguageCode,
+        'language_name'		=> $sLanguageName,
+        'currency'			=> $sCurrency,
 
-        'locale'            => $locale,
-        'pagetitle'            => $sPagetitle,
-        'facebook_title'    => $facebook_title,
-        'site_name'            => $site_name,
-        'twitter_title'        => $twitter_title,
-        'twitter_card'        => $twitter_card,
-        'meta_description'    => $sDescription,
-        'facebook_description'    => $facebook_description,
-        'twitter_description'    => $twitter_description,
+        'locale'			=> $locale,
+        'pagetitle'			=> $sPagetitle,
+        'facebook_title'	=> $facebook_title,
+        'site_name'			=> $site_name,
+        'twitter_title'		=> $twitter_title,
+        'twitter_card'		=> $twitter_card,
+        'meta_description'	=> $sDescription,
+        'facebook_description'	=> $facebook_description,
+        'twitter_description'	=> $twitter_description,
 
-        'oos_css'            => $oos_css,
-        'oos_js'            => $oos_js,
+		'oos_css'			=> $oos_css,
+		'oos_js'			=> $oos_js,
 
-        'part'                => $part
+        'part'				=> $part
     )
 );
 
@@ -170,7 +168,7 @@ if (isset($_SESSION)) {
 
 
     $aSystem = array(
-        'sed'    => true,
+        'sed'	=> true,
         'formid' => $sFormid,
         'session_name' => $session->getName(),
         'session_id' => $session->getId()
@@ -186,27 +184,25 @@ if (isset($_SESSION)) {
         $cart_show_total = $oCurrencies->format($_SESSION['cart']->info['total']);
     }
 
-    // counter for wishlist
+    # counter for wishlist
     $customers_wishlisttable = $oostable['customers_wishlist'];
-    $wishlist_count_result = $dbconn->Execute(
-        "SELECT COUNT(*) AS total 
+    $wishlist_count_result = $dbconn->Execute("SELECT COUNT(*) AS total 
                           FROM $customers_wishlisttable
                           WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
-                            AND customers_wishlist_link_id = '" . oos_db_input($_SESSION['customer_wishlist_link_id']) . "'"
-    );
+                            AND customers_wishlist_link_id = '" . oos_db_input($_SESSION['customer_wishlist_link_id']) . "'");
     $wishlist_count = $wishlist_count_result->fields;
     $wishlist_count_contents = $wishlist_count['total'];
 }
 
 $smarty->assign(
     array(
-        'mySystem'                  => $aSystem,
-        'myUser'                    => $aUser,
-        'cart_products'             => $cart_products,
-        'cart_show_subtotal'        => $cart_show_subtotal,
-        'cart_show_total'            => $cart_show_total,
-        'cart_count_contents'        => $cart_count_contents,
-        'wishlist_count_contents'    => $wishlist_count_contents
+        'mySystem'              	=> $aSystem,
+        'myUser'					=> $aUser,
+        'cart_products' 			=> $cart_products,
+        'cart_show_subtotal'		=> $cart_show_subtotal,
+        'cart_show_total'			=> $cart_show_total,
+        'cart_count_contents'		=> $cart_count_contents,
+        'wishlist_count_contents'	=> $wishlist_count_contents
     )
 );
 
@@ -231,7 +227,7 @@ if (isset($_SESSION)) {
            $coupon = $dbconn->GetRow($query);
            $gv_coupon_show = $oCurrencies->format($coupon['coupon_amount']);
        }
-    */
+*/
 }
 
 
@@ -281,20 +277,20 @@ $smarty->assign(
 $hideEffect = isset($hideEffect) ? oos_prepare_input($hideEffect) : 'none';
 $aCookie = [];
 $aCookie = array(
-                'hideEffect'            => $hideEffect,
-                'onScroll'                => 'no',
-                'onScrollOffset'        => '100',
-                'cookieName'            => 'cookie_notice_accepted',
-                'cookieValue'            => 'true',
-                'cookieTime'            => '31536000',
-                'cookiePath'            => '',
-                'cookieDomain'            => '',
-                'redirection'            => '',
-                'cache'                    => '',
-                'refuse'                => 'no',
-                'revoke_cookies'        => '0',
-                'revoke_cookies_opt'    => 'automatic',
-                'secure'                => '0'
+                'hideEffect'			=> $hideEffect,
+                'onScroll'				=> 'no',
+                'onScrollOffset'		=> '100',
+                'cookieName'			=> 'cookie_notice_accepted',
+                'cookieValue'			=> 'true',
+                'cookieTime'			=> '31536000',
+                'cookiePath'			=> '',
+                'cookieDomain'			=> '',
+                'redirection'			=> '',
+                'cache'					=> '',
+                'refuse'				=> 'no',
+                'revoke_cookies'		=> '0',
+                'revoke_cookies_opt'	=> 'automatic',
+                'secure'				=> '0'
         );
 $smarty->assign('cookiearray', $aCookie);
 
