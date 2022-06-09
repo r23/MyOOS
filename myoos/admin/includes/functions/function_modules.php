@@ -18,14 +18,16 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
 /**
  * Returns Zone Class Name
  *
- * @param $zone_class_id
+ * @param  $zone_class_id
  * @return string
  */
 function oos_cfg_get_zone_class_title($zone_class_id)
@@ -51,8 +53,8 @@ function oos_cfg_get_zone_class_title($zone_class_id)
 /**
  * Returns Order Status Name
  *
- * @param $order_status_id
- * @param $language
+ * @param  $order_status_id
+ * @param  $language
  * @return string
  */
 function oos_cfg_get_order_status_name($order_status_id, $language_id = '')
@@ -82,7 +84,7 @@ function oos_cfg_get_order_status_name($order_status_id, $language_id = '')
 /**
  * Returns Tax Class Name
  *
- * @param $tax_class_id
+ * @param  $tax_class_id
  * @return string
  */
 function oos_cfg_get_tax_class_title($tax_class_id)
@@ -108,7 +110,7 @@ function oos_cfg_get_tax_class_title($tax_class_id)
 /**
  * Returns Zone Name
  *
- * @param $zone_id
+ * @param  $zone_id
  * @return string
  */
 function oos_cfg_get_zone_name($zone_id)
@@ -134,7 +136,7 @@ function oos_cfg_get_zone_name($zone_id)
 /**
  * Function to read in text area in admin
  *
- * @param $text
+ * @param  $text
  * @return string
  */
 function oos_cfg_textarea($text)
@@ -146,10 +148,10 @@ function oos_cfg_textarea($text)
 /**
  * Output a selection field
  *
- * @param $select_array
+ * @param     $select_array
  * @key_value
  * @key
- * @return string
+ * @return    string
  */
 function oos_cfg_select_option($select_array, $key_value, $key = '')
 {
@@ -175,7 +177,7 @@ function oos_cfg_select_option($select_array, $key_value, $key = '')
 /**
  * Alias function to oos_get_country_name, which also returns the country name
  *
- * @param $country_id
+ * @param  $country_id
  * @return string
  */
 function oos_cfg_get_country_name($country_id)
@@ -187,7 +189,7 @@ function oos_cfg_get_country_name($country_id)
 /**
  * Alias function for Store configuration values in the Administration Tool
  *
- * @param $country_id
+ * @param  $country_id
  * @return string
  */
 function oos_cfg_pull_down_country_list($country_id)
@@ -199,7 +201,7 @@ function oos_cfg_pull_down_country_list($country_id)
 /**
  * Alias function for Store configuration values in the Administration Tool
  *
- * @param $zone_id
+ * @param  $zone_id
  * @return string
  */
 function oos_cfg_pull_down_zone_list($zone_id)
@@ -211,8 +213,8 @@ function oos_cfg_pull_down_zone_list($zone_id)
 /**
  * Output a form pull down menu
  *
- * @param $zone_class_id
- * @param $key
+ * @param  $zone_class_id
+ * @param  $key
  * @return string
  */
 function oos_cfg_pull_down_zone_classes($zone_class_id, $key = '')
@@ -245,8 +247,8 @@ function oos_cfg_pull_down_zone_classes($zone_class_id, $key = '')
 /**
  * Output a form pull down menu
  *
- * @param $order_status_id
- * @param $key
+ * @param  $order_status_id
+ * @param  $key
  * @return string
  */
 function oos_cfg_pull_down_order_statuses($order_status_id, $key = '')
@@ -280,8 +282,8 @@ function oos_cfg_pull_down_order_statuses($order_status_id, $key = '')
 /**
  * Output a form pull down menu
  *
- * @param $tax_class_id
- * @param $key
+ * @param  $tax_class_id
+ * @param  $key
  * @return string
  */
 function oos_cfg_pull_down_tax_classes($tax_class_id, $key = '')

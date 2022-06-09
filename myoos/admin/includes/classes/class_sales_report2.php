@@ -21,7 +21,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class sales_report
@@ -100,27 +102,27 @@ class sales_report
         $this->queryShipping = "SELECT sum(ot.value) as shipping FROM " . $oostable['orders'] . " o, " . $oostable['orders_total'] . " ot WHERE ot.orders_id = o.orders_id AND  ot.class = 'ot_shipping'";
 
         switch ($sort) {
-            case '0':
-                $this->sortString = "";
-                break;
-            case '1':
-                $this->sortString = " ORDER BY pname ASC ";
-                break;
-            case '2':
-                $this->sortString = " ORDER BY pname DESC";
-                break;
-            case '3':
-                $this->sortString = " ORDER BY pquant ASC, pname ASC";
-                break;
-            case '4':
-                $this->sortString = " ORDER BY pquant DESC, pname ASC";
-                break;
-            case '5':
-                $this->sortString = " ORDER BY psum ASC, pname ASC";
-                break;
-            case '6':
-                $this->sortString = " ORDER BY psum DESC, pname ASC";
-                break;
+        case '0':
+            $this->sortString = "";
+            break;
+        case '1':
+            $this->sortString = " ORDER BY pname ASC ";
+            break;
+        case '2':
+            $this->sortString = " ORDER BY pname DESC";
+            break;
+        case '3':
+            $this->sortString = " ORDER BY pquant ASC, pname ASC";
+            break;
+        case '4':
+            $this->sortString = " ORDER BY pquant DESC, pname ASC";
+            break;
+        case '5':
+            $this->sortString = " ORDER BY psum ASC, pname ASC";
+            break;
+        case '6':
+            $this->sortString = " ORDER BY psum DESC, pname ASC";
+            break;
         }
     }
 
@@ -133,25 +135,25 @@ class sales_report
 
         switch ($this->mode) {
             // yearly
-            case '1':
-                $sd = $this->actDate;
-                $ed = mktime(0, 0, 0, date("m", $sd), date("d", $sd), date("Y", $sd) + 1);
-                break;
+        case '1':
+            $sd = $this->actDate;
+            $ed = mktime(0, 0, 0, date("m", $sd), date("d", $sd), date("Y", $sd) + 1);
+            break;
             // monthly
-            case '2':
-                $sd = $this->actDate;
-                $ed = mktime(0, 0, 0, date("m", $sd) + 1, 1, date("Y", $sd));
-                break;
+        case '2':
+            $sd = $this->actDate;
+            $ed = mktime(0, 0, 0, date("m", $sd) + 1, 1, date("Y", $sd));
+            break;
             // weekly
-            case '3':
-                $sd = $this->actDate;
-                $ed = mktime(0, 0, 0, date("m", $sd), date("d", $sd) + 7, date("Y", $sd));
-                break;
+        case '3':
+            $sd = $this->actDate;
+            $ed = mktime(0, 0, 0, date("m", $sd), date("d", $sd) + 7, date("Y", $sd));
+            break;
             // daily
-            case '4':
-                $sd = $this->actDate;
-                $ed = mktime(0, 0, 0, date("m", $sd), date("d", $sd) + 1, date("Y", $sd));
-                break;
+        case '4':
+            $sd = $this->actDate;
+            $ed = mktime(0, 0, 0, date("m", $sd), date("d", $sd) + 1, date("Y", $sd));
+            break;
         }
         if ($ed > $this->endDate) {
             $ed = $this->endDate;

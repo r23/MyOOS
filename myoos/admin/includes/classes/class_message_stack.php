@@ -26,7 +26,9 @@
    if ($messageStack->size > 0) echo $messageStack->output();
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class messageStack
@@ -77,12 +79,12 @@ class messageStack
 
     public function output()
     {
-        $sMessageBox =	'';
+        $sMessageBox =    '';
 
         $aContents = $this->errors;
 
         for ($i = 0, $n = count($aContents); $i < $n; $i++) {
-            $sMessageBox .=	'<div class="alert';
+            $sMessageBox .=    '<div class="alert';
             if (isset($aContents[$i]['params']) && oos_is_not_null($aContents[$i]['params'])) {
                 $sMessageBox .= ' ' . $aContents[$i]['params'];
             }

@@ -19,7 +19,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being required by a parent file */
+/**
+ * ensure this file is being required by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
@@ -41,7 +43,7 @@ if (function_exists('ini_set')) {
 
 // Set the local configuration parameters - mainly for developers
 if (file_exists('../includes/local/configure.php')) {
-    include('../includes/local/configure.php');
+    include '../includes/local/configure.php';
 } else {
     // Include application configuration parameters
     include '../includes/configure.php';
@@ -61,7 +63,7 @@ if (!defined('MYOOS_INCLUDE_PATH')) {
 
 use Symfony\Component\HttpFoundation\Request;
 
-$autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
+$autoloader = include_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 $request = Request::createFromGLOBALs();
 
 require 'includes/filename.php';
@@ -140,7 +142,7 @@ require 'includes/languages/' . $sLanguage . '.php';
 require 'includes/languages/' . $sLanguage . '/configuration_group.php';
 $current_page = oos_var_prep_for_os(basename($_SERVER['SCRIPT_NAME']));
 if (file_exists('includes/languages/' . $sLanguage . '/' . $current_page)) {
-    require 'includes/languages/' . $sLanguage . '/' . $current_page;
+    include 'includes/languages/' . $sLanguage . '/' . $current_page;
 }
 
 
@@ -191,7 +193,8 @@ if (!defined('DEFAULT_LANGUAGE')) {
 }
 
 if (basename($_SERVER['SCRIPT_NAME']) != $aContents['login']
-   && basename($_SERVER['SCRIPT_NAME']) != $aContents['password_forgotten']) {
+    && basename($_SERVER['SCRIPT_NAME']) != $aContents['password_forgotten']
+) {
     oos_admin_check_login();
 
     $is_htaccess = (file_exists(OOS_ABSOLUTE_PATH . OOS_ADMIN . '.htaccess'));

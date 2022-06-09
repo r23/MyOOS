@@ -19,7 +19,9 @@
    Released under the GNU General Public License
    ----------------------------------------------------------------------  */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /*
@@ -104,8 +106,9 @@ if (is_array($aBlocks)) {
                  '	<li class="sidebar-subnav-header">' . $panels['heading'] . '</li>' . "\n";
             foreach ($panels['contents'] as $contents) {
                 if (($php_self == $contents['code'])
-                        || ((isset($_GET['gID'])) && ($_GET['gID'] == $contents['code']))
-                        || ((isset($_GET['set'])) && ($_GET['set'] == $contents['code']))) {
+                    || ((isset($_GET['gID'])) && ($_GET['gID'] == $contents['code']))
+                    || ((isset($_GET['set'])) && ($_GET['set'] == $contents['code']))
+                ) {
                     echo '<li class="active">' . "\n";
                 } else {
                     echo '<li class=" ">' . "\n";

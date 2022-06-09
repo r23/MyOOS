@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
@@ -104,7 +106,7 @@ class upload
                 .'://'
                 .parse_url($this->get_server_var('HTTP_REFERER'), PHP_URL_HOST)
                 .'/', // Trailing slash to not match subdomains by mistake
-              '/' // preg_quote delimiter param
+                '/' // preg_quote delimiter param
             ).'/',
             // Enable to provide file downloads via GET requests to the PHP script:
             //     1. Set to 1 to download files via readfile method through PHP
@@ -304,13 +306,13 @@ class upload
     public function set_output_messages($location)
     {
         switch ($location) {
-            case 'session':
-                $this->message_location = 'session';
-                break;
-            case 'direct':
-            default:
-                $this->message_location = 'direct';
-                break;
+        case 'session':
+            $this->message_location = 'session';
+            break;
+        case 'direct':
+        default:
+            $this->message_location = 'direct';
+            break;
         }
     }
 
@@ -397,10 +399,14 @@ class upload
         if (!is_dir($upload_dir)) {
             return array();
         }
-        return array_values(array_filter(array_map(
-            array($this, $iteration_method),
-            scandir($upload_dir)
-        )));
+        return array_values(
+            array_filter(
+                array_map(
+                    array($this, $iteration_method),
+                    scandir($upload_dir)
+                )
+            )
+        );
     }
 
     protected function count_file_objects()
@@ -420,14 +426,14 @@ class upload
         $last = strtolower($val[strlen($val)-1]);
         $val = (int)$val;
         switch ($last) {
-            case 'g':
-                $val *= 1024;
-                // no break
-            case 'm':
-                $val *= 1024;
-                // no break
-            case 'k':
-                $val *= 1024;
+        case 'g':
+            $val *= 1024;
+            // no break
+        case 'm':
+            $val *= 1024;
+            // no break
+        case 'k':
+            $val *= 1024;
         }
         return $this->fix_integer_overflow($val);
     }
@@ -455,23 +461,23 @@ class upload
         } else {
             $file_size = $content_length;
         }
-        if ($this->options['max_file_size'] && (
-            $file_size > $this->options['max_file_size'] ||
-                $file->size > $this->options['max_file_size']
-        )
-            ) {
+        if ($this->options['max_file_size'] && ($file_size > $this->options['max_file_size'] 
+            || $file->size > $this->options['max_file_size']            )
+        ) {
             $file->error = $this->get_error_message('max_file_size');
             return false;
         }
-        if ($this->options['min_file_size'] &&
-            $file_size < $this->options['min_file_size']) {
+        if ($this->options['min_file_size'] 
+            && $file_size < $this->options['min_file_size']
+        ) {
             $file->error = $this->get_error_message('min_file_size');
             return false;
         }
-        if (is_int($this->options['max_number_of_files']) &&
-                ($this->count_file_objects() >= $this->options['max_number_of_files']) &&
-                // Ignore additional chunks of existing files:
-                !is_file($this->get_upload_path($file->name))) {
+        if (is_int($this->options['max_number_of_files']) 
+            && ($this->count_file_objects() >= $this->options['max_number_of_files']) 
+            // Ignore additional chunks of existing files:
+            && !is_file($this->get_upload_path($file->name))
+        ) {
             $file->error = $this->get_error_message('max_number_of_files');
             return false;
         }
@@ -480,15 +486,15 @@ class upload
         $min_width = @$this->options['min_width'];
         $min_height = @$this->options['min_height'];
         if (($max_width || $max_height || $min_width || $min_height)
-            && $this->is_valid_image_file($uploaded_file)) {
+            && $this->is_valid_image_file($uploaded_file)
+        ) {
             list($img_width, $img_height) = $this->get_image_size($uploaded_file);
             // If we are auto rotating the image by default, do the checks on
             // the correct orientation
-            if (
-                @$this->options['image_versions']['']['auto_orient'] &&
-                function_exists('exif_read_data') &&
-                ($exif = @exif_read_data($uploaded_file)) &&
-                (((int) @$exif['Orientation']) >= 5)
+            if (@$this->options['image_versions']['']['auto_orient'] 
+                && function_exists('exif_read_data') 
+                && ($exif = @exif_read_data($uploaded_file)) 
+                && (((int) @$exif['Orientation']) >= 5)
             ) {
                 $tmp = $img_width;
                 $img_width = $img_height;
@@ -551,7 +557,8 @@ class upload
         while (is_file($this->get_upload_path($name))) {
             if ($uploaded_bytes === $this->get_file_size(
                 $this->get_upload_path($name)
-            )) {
+            )
+            ) {
                 break;
             }
             $name = $this->upcount_name($name);
@@ -569,24 +576,25 @@ class upload
         $content_range
     ) {
         // Add missing file extension for known image types:
-        if (strpos($name, '.') === false &&
-                preg_match('/^image\/(gif|jpe?g|png|webp)/', $type, $matches)) {
+        if (strpos($name, '.') === false 
+            && preg_match('/^image\/(gif|jpe?g|png|webp)/', $type, $matches)
+        ) {
             $name .= '.'.$matches[1];
         }
         if ($this->options['correct_image_extensions']) {
             switch ($this->imagetype($file_path)) {
-                case self::IMAGETYPE_WEBP:
-                    $extensions = array('webp');
-                    break;
-                case self::IMAGETYPE_JPEG:
-                    $extensions = array('jpg', 'jpeg');
-                    break;
-                case self::IMAGETYPE_PNG:
-                    $extensions = array('png');
-                    break;
-                case self::IMAGETYPE_GIF:
-                    $extensions = array('gif');
-                    break;
+            case self::IMAGETYPE_WEBP:
+                $extensions = array('webp');
+                break;
+            case self::IMAGETYPE_JPEG:
+                $extensions = array('jpg', 'jpeg');
+                break;
+            case self::IMAGETYPE_PNG:
+                $extensions = array('png');
+                break;
+            case self::IMAGETYPE_GIF:
+                $extensions = array('gif');
+                break;
             }
             // Adjust incorrect image file extensions:
             if (!empty($extensions)) {
@@ -717,22 +725,22 @@ class upload
         $src_x = 0;
         $src_y = 0;
         switch ($mode) {
-            case '1': // flip on the horizontal axis
-                $src_y = $new_height - 1;
-                $src_height = -$new_height;
-                break;
-            case '2': // flip on the vertical axis
-                $src_x  = $new_width - 1;
-                $src_width = -$new_width;
-                break;
-            case '3': // flip on both axes
-                $src_y = $new_height - 1;
-                $src_height = -$new_height;
-                $src_x  = $new_width - 1;
-                $src_width = -$new_width;
-                break;
-            default:
-                return $image;
+        case '1': // flip on the horizontal axis
+            $src_y = $new_height - 1;
+            $src_height = -$new_height;
+            break;
+        case '2': // flip on the vertical axis
+            $src_x  = $new_width - 1;
+            $src_width = -$new_width;
+            break;
+        case '3': // flip on both axes
+            $src_y = $new_height - 1;
+            $src_height = -$new_height;
+            $src_x  = $new_width - 1;
+            $src_width = -$new_width;
+            break;
+        default:
+            return $image;
         }
         imagecopyresampled(
             $new_img,
@@ -763,45 +771,45 @@ class upload
             return false;
         }
         switch ($orientation) {
-            case 2:
-                $new_img = $this->gd_imageflip(
-                    $src_img,
-                    defined('IMG_FLIP_VERTICAL') ? IMG_FLIP_VERTICAL : 2
-                );
-                break;
-            case 3:
-                $new_img = imagerotate($src_img, 180, 0);
-                break;
-            case 4:
-                $new_img = $this->gd_imageflip(
-                    $src_img,
-                    defined('IMG_FLIP_HORIZONTAL') ? IMG_FLIP_HORIZONTAL : 1
-                );
-                break;
-            case 5:
-                $tmp_img = $this->gd_imageflip(
-                    $src_img,
-                    defined('IMG_FLIP_HORIZONTAL') ? IMG_FLIP_HORIZONTAL : 1
-                );
-                $new_img = imagerotate($tmp_img, 270, 0);
-                imagedestroy($tmp_img);
-                break;
-            case 6:
-                $new_img = imagerotate($src_img, 270, 0);
-                break;
-            case 7:
-                $tmp_img = $this->gd_imageflip(
-                    $src_img,
-                    defined('IMG_FLIP_VERTICAL') ? IMG_FLIP_VERTICAL : 2
-                );
-                $new_img = imagerotate($tmp_img, 270, 0);
-                imagedestroy($tmp_img);
-                break;
-            case 8:
-                $new_img = imagerotate($src_img, 90, 0);
-                break;
-            default:
-                return false;
+        case 2:
+            $new_img = $this->gd_imageflip(
+                $src_img,
+                defined('IMG_FLIP_VERTICAL') ? IMG_FLIP_VERTICAL : 2
+            );
+            break;
+        case 3:
+            $new_img = imagerotate($src_img, 180, 0);
+            break;
+        case 4:
+            $new_img = $this->gd_imageflip(
+                $src_img,
+                defined('IMG_FLIP_HORIZONTAL') ? IMG_FLIP_HORIZONTAL : 1
+            );
+            break;
+        case 5:
+            $tmp_img = $this->gd_imageflip(
+                $src_img,
+                defined('IMG_FLIP_HORIZONTAL') ? IMG_FLIP_HORIZONTAL : 1
+            );
+            $new_img = imagerotate($tmp_img, 270, 0);
+            imagedestroy($tmp_img);
+            break;
+        case 6:
+            $new_img = imagerotate($src_img, 270, 0);
+            break;
+        case 7:
+            $tmp_img = $this->gd_imageflip(
+                $src_img,
+                defined('IMG_FLIP_VERTICAL') ? IMG_FLIP_VERTICAL : 2
+            );
+            $new_img = imagerotate($tmp_img, 270, 0);
+            imagedestroy($tmp_img);
+            break;
+        case 8:
+            $new_img = imagerotate($src_img, 90, 0);
+            break;
+        default:
+            return false;
         }
         $this->gd_set_image_object($file_path, $new_img);
         return true;
@@ -817,32 +825,32 @@ class upload
             $this->get_scaled_image_file_paths($file_name, $version);
         $type = strtolower(substr(strrchr($file_name, '.'), 1));
         switch ($type) {
-            case 'jpg':
-            case 'jpeg':
-                $src_func = 'imagecreatefromjpeg';
-                $write_func = 'imagejpeg';
-                $image_quality = isset($options['jpeg_quality']) ?
-                    $options['jpeg_quality'] : 92;
-                break;
-            case 'gif':
-                $src_func = 'imagecreatefromgif';
-                $write_func = 'imagegif';
-                $image_quality = null;
-                break;
-            case 'png':
-                $src_func = 'imagecreatefrompng';
-                $write_func = 'imagepng';
-                $image_quality = isset($options['png_quality']) ?
-                    $options['png_quality'] : 9;
-                break;
-            case 'webp':
-                $src_func = 'imagecreatefromwebp';
-                $write_func = 'imagewebp';
-                $image_quality = isset($options['webp_quality']) ?
-                    $options['webp_quality'] : 100;
-                break;
-            default:
-                return false;
+        case 'jpg':
+        case 'jpeg':
+            $src_func = 'imagecreatefromjpeg';
+            $write_func = 'imagejpeg';
+            $image_quality = isset($options['jpeg_quality']) ?
+                $options['jpeg_quality'] : 92;
+            break;
+        case 'gif':
+            $src_func = 'imagecreatefromgif';
+            $write_func = 'imagegif';
+            $image_quality = null;
+            break;
+        case 'png':
+            $src_func = 'imagecreatefrompng';
+            $write_func = 'imagepng';
+            $image_quality = isset($options['png_quality']) ?
+                $options['png_quality'] : 9;
+            break;
+        case 'webp':
+            $src_func = 'imagecreatefromwebp';
+            $write_func = 'imagewebp';
+            $image_quality = isset($options['webp_quality']) ?
+                $options['webp_quality'] : 100;
+            break;
+        default:
+            return false;
         }
         $src_img = $this->gd_get_image_object(
             $file_path,
@@ -853,7 +861,8 @@ class upload
         if (!empty($options['auto_orient']) && $this->gd_orient_image(
             $file_path,
             $src_img
-        )) {
+        )
+        ) {
             $image_oriented = true;
             $src_img = $this->gd_get_image_object(
                 $file_path,
@@ -901,14 +910,14 @@ class upload
         }
         // Handle transparency in GIF and PNG images:
         switch ($type) {
-            case 'gif':
-            case 'png':
-                imagecolortransparent($new_img, imagecolorallocate($new_img, 0, 0, 0));
-                // no break
-            case 'png':
-                imagealphablending($new_img, false);
-                imagesavealpha($new_img, true);
-                break;
+        case 'gif':
+        case 'png':
+            imagecolortransparent($new_img, imagecolorallocate($new_img, 0, 0, 0));
+            // no break
+        case 'png':
+            imagealphablending($new_img, false);
+            imagesavealpha($new_img, true);
+            break;
         }
         $success = imagecopyresampled(
             $new_img,
@@ -959,31 +968,31 @@ class upload
         $orientation = $image->getImageOrientation();
         $background = new \ImagickPixel('none');
         switch ($orientation) {
-            case \imagick::ORIENTATION_TOPRIGHT: // 2
-                $image->flopImage(); // horizontal flop around y-axis
-                break;
-            case \imagick::ORIENTATION_BOTTOMRIGHT: // 3
-                $image->rotateImage($background, 180);
-                break;
-            case \imagick::ORIENTATION_BOTTOMLEFT: // 4
-                $image->flipImage(); // vertical flip around x-axis
-                break;
-            case \imagick::ORIENTATION_LEFTTOP: // 5
-                $image->flopImage(); // horizontal flop around y-axis
-                $image->rotateImage($background, 270);
-                break;
-            case \imagick::ORIENTATION_RIGHTTOP: // 6
-                $image->rotateImage($background, 90);
-                break;
-            case \imagick::ORIENTATION_RIGHTBOTTOM: // 7
-                $image->flipImage(); // vertical flip around x-axis
-                $image->rotateImage($background, 270);
-                break;
-            case \imagick::ORIENTATION_LEFTBOTTOM: // 8
-                $image->rotateImage($background, 270);
-                break;
-            default:
-                return false;
+        case \imagick::ORIENTATION_TOPRIGHT: // 2
+            $image->flopImage(); // horizontal flop around y-axis
+            break;
+        case \imagick::ORIENTATION_BOTTOMRIGHT: // 3
+            $image->rotateImage($background, 180);
+            break;
+        case \imagick::ORIENTATION_BOTTOMLEFT: // 4
+            $image->flipImage(); // vertical flip around x-axis
+            break;
+        case \imagick::ORIENTATION_LEFTTOP: // 5
+            $image->flopImage(); // horizontal flop around y-axis
+            $image->rotateImage($background, 270);
+            break;
+        case \imagick::ORIENTATION_RIGHTTOP: // 6
+            $image->rotateImage($background, 90);
+            break;
+        case \imagick::ORIENTATION_RIGHTBOTTOM: // 7
+            $image->flipImage(); // vertical flip around x-axis
+            $image->rotateImage($background, 270);
+            break;
+        case \imagick::ORIENTATION_LEFTBOTTOM: // 8
+            $image->rotateImage($background, 270);
+            break;
+        default:
+            return false;
         }
         $image->setImageOrientation(\imagick::ORIENTATION_TOPLEFT); // 1
         return true;
@@ -1066,13 +1075,13 @@ class upload
         }
         $type = strtolower(substr(strrchr($file_name, '.'), 1));
         switch ($type) {
-            case 'jpg':
-            case 'jpeg':
-                if (!empty($options['jpeg_quality'])) {
-                    $image->setImageCompression(\imagick::COMPRESSION_JPEG);
-                    $image->setImageCompressionQuality($options['jpeg_quality']);
-                }
-                break;
+        case 'jpg':
+        case 'jpeg':
+            if (!empty($options['jpeg_quality'])) {
+                $image->setImageCompression(\imagick::COMPRESSION_JPEG);
+                $image->setImageCompressionQuality($options['jpeg_quality']);
+            }
+            break;
         }
         if ($image_strip) {
             $image->stripImage();
@@ -1387,17 +1396,17 @@ class upload
     protected function get_file_type($file_path)
     {
         switch (strtolower(pathinfo($file_path, PATHINFO_EXTENSION))) {
-            case 'jpeg':
-            case 'jpg':
-                return 'image/jpeg';
-            case 'png':
-                return 'image/png';
-            case 'gif':
-                return 'image/gif';
-            case 'webp':
-                return 'image/webp';
-            default:
-                return '';
+        case 'jpeg':
+        case 'jpg':
+            return 'image/jpeg';
+        case 'png':
+            return 'image/png';
+        case 'gif':
+            return 'image/gif';
+        case 'webp':
+            return 'image/webp';
+        default:
+            return '';
         }
     }
 
@@ -1443,11 +1452,13 @@ class upload
         // Parse the Content-Disposition header, if available:
         $content_disposition_header = $this->get_server_var('HTTP_CONTENT_DISPOSITION');
         $file_name = $content_disposition_header ?
-            rawurldecode(preg_replace(
-                '/(^[^"]+")|("$)/',
-                '',
-                $content_disposition_header
-            )) : null;
+            rawurldecode(
+                preg_replace(
+                    '/(^[^"]+")|("$)/',
+                    '',
+                    $content_disposition_header
+                )
+            ) : null;
         // Parse the Content-Range header, which has the following form:
         // Content-Range: bytes 0-524287/2000000
         $content_range_header = $this->get_server_var('HTTP_CONTENT_RANGE');

@@ -18,16 +18,18 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
  /**
   * The HTML href link wrapper function
   *
-  * @param $page
-  * @param $parameters
-  * @param $connection
+  * @param  $page
+  * @param  $parameters
+  * @param  $connection
   * @return string
   */
 function oos_href_link_admin($page = '', $parameters = '', $connection = 'SSL', $add_session_id = true)
@@ -57,10 +59,10 @@ function oos_href_link_admin($page = '', $parameters = '', $connection = 'SSL', 
  /**
   * The HTML catalog href link wrapper function
   *
-  * @param $modul
-  * @param $page
-  * @param $parameters
-  * @param $connection
+  * @param  $modul
+  * @param  $page
+  * @param  $parameters
+  * @param  $connection
   * @return string
   */
 function oos_catalog_link($page = '', $parameters = '')
@@ -91,11 +93,11 @@ function oos_catalog_link($page = '', $parameters = '')
  /**
   * The HTML catalog href link wrapper function
   *
-  * @param $src
-  * @param $alt
-  * @param $width
-  * @param $height
-  * @param $params
+  * @param  $src
+  * @param  $alt
+  * @param  $width
+  * @param  $height
+  * @param  $params
   * @return string
   */
 function oos_image($src, $alt = '', $width = '', $height = '', $params = '')
@@ -157,7 +159,7 @@ function oos_black_line()
 /**
  * Output a function button in the selected language
  *
- * @param $title
+ * @param  $title
  * @return string
  */
 function oos_button($title = '')
@@ -168,7 +170,7 @@ function oos_button($title = '')
 /**
  * Outputs a submit button
  *
- * @param $title
+ * @param  $title
  * @return string
  */
 function oos_submit_button($title = '')
@@ -180,7 +182,7 @@ function oos_submit_button($title = '')
 /**
  * Outputs a submit button
  *
- * @param $title
+ * @param  $title
  * @return string
  */
 function oos_preview_button($title = '', $value = '')
@@ -191,7 +193,7 @@ function oos_preview_button($title = '', $value = '')
 /**
  * Outputs a submit button
  *
- * @param $title
+ * @param  $title
  * @return string
  */
 function oos_cancel_button($title = '', $value = '')
@@ -204,7 +206,7 @@ function oos_cancel_button($title = '', $value = '')
 /**
  * Outputs a reset button
  *
- * @param $title
+ * @param  $title
  * @return string
  */
 function oos_reset_button($title = '')
@@ -215,7 +217,7 @@ function oos_reset_button($title = '')
 /**
  * Outputs a back button
  *
- * @param $title
+ * @param  $title
  * @return string
  */
 function oos_back_button($title = '')
@@ -226,9 +228,9 @@ function oos_back_button($title = '')
  /**
   * javascript to dynamically update the states/provinces list when the country is changed
   *
-  * @param $country
-  * @param $form
-  * @param $field
+  * @param  $country
+  * @param  $form
+  * @param  $field
   * @return string
   */
 function oos_is_zone_list($country, $form, $field)
@@ -285,11 +287,11 @@ function oos_is_zone_list($country, $form, $field)
  /**
   * Output a form
   *
-  * @param $name
-  * @param $action
-  * @param $parameters
-  * @param $method
-  * @param $params
+  * @param  $name
+  * @param  $action
+  * @param  $parameters
+  * @param  $method
+  * @param  $params
   * @return string
   */
 function oos_draw_form($id, $name, $action, $parameters = '', $method = 'post', $parsley_validate = true, $params = '')
@@ -318,13 +320,13 @@ function oos_draw_form($id, $name, $action, $parameters = '', $method = 'post', 
  /**
   * Output a form input field
   *
-  * @param $name
-  * @param $value
-  * @param $parameters
-  * @param $required
-  * @param $type
-  * @param $reinsert_value
-  * @param $placeholder
+  * @param  $name
+  * @param  $value
+  * @param  $parameters
+  * @param  $required
+  * @param  $type
+  * @param  $reinsert_value
+  * @param  $placeholder
   * @return string
   */
 function oos_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true, $disabled = false, $placeholder = '')
@@ -367,9 +369,9 @@ function oos_draw_input_field($name, $value = '', $parameters = '', $required = 
  /**
   * Output a form password field
   *
-  * @param $name
-  * @param $value
-  * @param $required
+  * @param  $name
+  * @param  $value
+  * @param  $required
   * @return string
   */
 function oos_draw_password_field($name, $value = '', $parameters = 'maxlength="40"', $required = false)
@@ -383,21 +385,21 @@ function oos_draw_password_field($name, $value = '', $parameters = 'maxlength="4
  /**
   * Output a form filefield
   *
-  * @param $name
-  * @param $required
+  * @param  $name
+  * @param  $required
   * @return string
   */
 function oos_draw_file_field($name, $required = false)
 {
     $field = '<div class="fileinput fileinput-new" data-provides="fileinput">' . "\n" .
-  '<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>' . "\n" .
-  '<div>' . "\n" .
+    '<div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 200px; height: 150px;"></div>' . "\n" .
+    '<div>' . "\n" .
 
     '<span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em>' . BUTTON_SELECT_IMAGE . '</span><span class="fileinput-exists">' . BUTTON_CHANGE . '</span>' . "\n" .
     '<input type="file" size="40" name="' . $name . '"></span>' . "\n" .
     '<a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em>' . BUTTON_DELETE . '</a>' . "\n" .
-  '</div>' . "\n" .
-'</div>';
+    '</div>' . "\n" .
+    '</div>';
 
     return $field;
 }
@@ -406,12 +408,12 @@ function oos_draw_file_field($name, $required = false)
  /**
   * Output a selection field - alias function for oos_draw_checkbox_field() and oos_draw_radio_field()
   *
-  * @param $name
-  * @param $type
-  * @param $value
-  * @param $checked
-  * @param $compare
-  * @param $parameter
+  * @param  $name
+  * @param  $type
+  * @param  $value
+  * @param  $checked
+  * @param  $compare
+  * @param  $parameter
   * @return string
   */
 function oos_draw_selection_field($name, $type, $value = '', $checked = false, $compare = '', $parameter = '')
@@ -435,11 +437,11 @@ function oos_draw_selection_field($name, $type, $value = '', $checked = false, $
  /**
   * Output a form checkbox field
   *
-  * @param $name
-  * @param $value
-  * @param $checked
-  * @param $compare
-  * @param $parameter
+  * @param  $name
+  * @param  $value
+  * @param  $checked
+  * @param  $compare
+  * @param  $parameter
   * @return string
   */
 function oos_draw_checkbox_field($name, $value = '', $checked = false, $compare = '', $parameter = '')
@@ -451,11 +453,11 @@ function oos_draw_checkbox_field($name, $value = '', $checked = false, $compare 
  /**
   * Output a form radio field
   *
-  * @param $name
-  * @param $value
-  * @param $checked
-  * @param $compare
-  * @param $parameter
+  * @param  $name
+  * @param  $value
+  * @param  $checked
+  * @param  $compare
+  * @param  $parameter
   * @return string
   */
 function oos_draw_radio_field($name, $value = '', $checked = false, $compare = '', $parameter = '')
@@ -467,13 +469,13 @@ function oos_draw_radio_field($name, $value = '', $checked = false, $compare = '
  /**
   * Output a form textarea field
   *
-  * @param $name
-  * @param $wrap
-  * @param $width
-  * @param $height
-  * @param $text
-  * @param $params
-  * @param $reinsert_value
+  * @param  $name
+  * @param  $wrap
+  * @param  $width
+  * @param  $height
+  * @param  $text
+  * @param  $params
+  * @param  $reinsert_value
   * @return string
   */
 function oos_draw_textarea_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true)
@@ -510,13 +512,13 @@ function oos_draw_textarea_field($name, $wrap, $width, $height, $text = '', $par
  /**
   * Output a form textarea field
   *
-  * @param $name
-  * @param $wrap
-  * @param $width
-  * @param $height
-  * @param $text
-  * @param $params
-  * @param $reinsert_value
+  * @param  $name
+  * @param  $wrap
+  * @param  $width
+  * @param  $height
+  * @param  $text
+  * @param  $params
+  * @param  $reinsert_value
   * @return string
   */
 function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $params = '', $reinsert_value = true)
@@ -545,8 +547,8 @@ function oos_draw_editor_field($name, $wrap, $width, $height, $text = '', $param
  /**
   * Output a form hidden field
   *
-  * @param $name
-  * @param $value
+  * @param  $name
+  * @param  $value
   * @return string
   */
 function oos_draw_hidden_field($name, $value = '')
@@ -582,12 +584,12 @@ function oos_hide_session_id()
  /**
   * Output a login form
   *
-  * @param $name
-  * @param $modul
-  * @param $page
-  * @param $parameters
-  * @param $method
-  * @param $params
+  * @param  $name
+  * @param  $modul
+  * @param  $page
+  * @param  $parameters
+  * @param  $method
+  * @param  $params
   * @return string
   */
 function oos_draw_login_form($name, $page, $parameters = '', $method = 'post', $params = '')
@@ -612,11 +614,11 @@ function oos_draw_login_form($name, $page, $parameters = '', $method = 'post', $
  /**
   * Output a form pull down menu
   *
-  * @param $name
-  * @param $values
-  * @param $default
-  * @param $params
-  * @param $required
+  * @param  $name
+  * @param  $values
+  * @param  $default
+  * @param  $params
+  * @param  $required
   * @return string
   */
 function oos_draw_pull_down_menu($name, $values, $default = '', $params = '', $required = false)
@@ -656,11 +658,11 @@ function oos_draw_pull_down_menu($name, $values, $default = '', $params = '', $r
  /**
   * Output a form pull down menu
   *
-  * @param $name
-  * @param $values
-  * @param $default
-  * @param $params
-  * @param $required
+  * @param  $name
+  * @param  $values
+  * @param  $default
+  * @param  $params
+  * @param  $required
   * @return string
   */
 function oos_draw_select_menu($name, $values, $default = '', $params = '', $required = false)
@@ -703,11 +705,11 @@ function oos_draw_select_menu($name, $values, $default = '', $params = '', $requ
  /**
   * Output a form pull down menu
   *
-  * @param $name
-  * @param $values
-  * @param $default
-  * @param $params
-  * @param $required
+  * @param  $name
+  * @param  $values
+  * @param  $default
+  * @param  $params
+  * @param  $required
   * @return string
   */
 function oos_draw_extensions_menu($name, $values, $default = '', $params = '', $required = false)
@@ -749,8 +751,8 @@ function oos_draw_extensions_menu($name, $values, $default = '', $params = '', $
 /**
  * Output a form pull down menu
  *
- * @param $name
- * @param $exclude
+ * @param  $name
+ * @param  $exclude
  * @return string
  */
 function oos_draw_products_pull_down($name, $exclude, $default = null, $id = 1)

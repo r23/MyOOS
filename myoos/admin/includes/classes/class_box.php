@@ -32,40 +32,42 @@
    echo $box->infoBox($heading, $contents);
    ---------------------------------------------------------------------- */
 
-  /** ensure this file is being included by a parent file */
+  /**
+   * ensure this file is being included by a parent file 
+   */
   defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-  class box extends tableBlock
-  {
-      public function __construct()
-      {
-          $this->heading = [];
-          $this->contents = [];
-      }
+class box extends tableBlock
+{
+    public function __construct()
+    {
+        $this->heading = [];
+        $this->contents = [];
+    }
 
-      public function infoBox($heading, $contents)
-      {
-          $this->heading = '<thead class="thead-dark">' . $this->tableThead($heading) . '</thead>';
+    public function infoBox($heading, $contents)
+    {
+        $this->heading = '<thead class="thead-dark">' . $this->tableThead($heading) . '</thead>';
 
-          $this->contents = '<tbody>' .  $this->tableBlock($contents) . '</tbody>';
+        $this->contents = '<tbody>' .  $this->tableBlock($contents) . '</tbody>';
 
-          return $this->heading . $this->contents;
-      }
+        return $this->heading . $this->contents;
+    }
 
-      public function menuBox($heading, $contents)
-      {
-          $this->table_data_parameters = 'class="menuBoxHeading"';
-          if ($heading[0]['link']) {
-              $this->table_data_parameters .= ' onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . $heading[0]['link'] . '\'"';
-              $heading[0]['text'] = '&nbsp;<a href="' . $heading[0]['link'] . '" class="menuBoxHeadingLink">' . $heading[0]['text'] . '</a>&nbsp;';
-          } else {
-              $heading[0]['text'] = '&nbsp;' . $heading[0]['text'] . '&nbsp;';
-          }
-          $this->heading = $this->tableBlock($heading);
+    public function menuBox($heading, $contents)
+    {
+        $this->table_data_parameters = 'class="menuBoxHeading"';
+        if ($heading[0]['link']) {
+            $this->table_data_parameters .= ' onmouseover="this.style.cursor=\'hand\'" onclick="document.location.href=\'' . $heading[0]['link'] . '\'"';
+            $heading[0]['text'] = '&nbsp;<a href="' . $heading[0]['link'] . '" class="menuBoxHeadingLink">' . $heading[0]['text'] . '</a>&nbsp;';
+        } else {
+            $heading[0]['text'] = '&nbsp;' . $heading[0]['text'] . '&nbsp;';
+        }
+        $this->heading = $this->tableBlock($heading);
 
-          $this->table_data_parameters = 'class="menuBoxContent"';
-          $this->contents = $this->tableBlock($contents);
+        $this->table_data_parameters = 'class="menuBoxContent"';
+        $this->contents = $this->tableBlock($contents);
 
-          return $this->heading . $this->contents;
-      }
-  }
+        return $this->heading . $this->contents;
+    }
+}

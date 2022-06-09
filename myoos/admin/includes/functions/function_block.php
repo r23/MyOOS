@@ -16,15 +16,17 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
  /**
   * Return Block Side (left right)
   *
-  * @param $block_id
-  * @param $language
+  * @param  $block_id
+  * @param  $language
   * @return string
   */
 function oos_block_select_option($select_array, $key_value)
@@ -43,8 +45,8 @@ function oos_block_select_option($select_array, $key_value)
  /**
   * Return Block Name
   *
-  * @param $block_id
-  * @param $language
+  * @param  $block_id
+  * @param  $language
   * @return string
   */
 function oos_get_block_name($block_id, $language_id = '')
@@ -72,8 +74,8 @@ function oos_get_block_name($block_id, $language_id = '')
  /**
   * Return Block To Page
   *
-  * @param $block_id
-  * @param $language
+  * @param  $block_id
+  * @param  $language
   * @return string
   */
 function oos_show_block_to_page($block_id = '', $language_id = '')
@@ -134,8 +136,8 @@ function oos_show_block_to_page($block_id = '', $language_id = '')
  /**
   * Return Select Block To Page
   *
-  * @param $block_id
-  * @param $language
+  * @param  $block_id
+  * @param  $language
   * @return string
   */
 function oos_select_block_to_page($language_id = '')
@@ -169,8 +171,8 @@ function oos_select_block_to_page($language_id = '')
  /**
   * Return Info Block To Page
   *
-  * @param $block_id
-  * @param $language
+  * @param  $block_id
+  * @param  $language
   * @return string
   */
 function oos_info_block_to_page($block_id = '', $language_id = '')

@@ -23,13 +23,15 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
  /**
   * Return the country_id based on the country's name
   *
-  * @param $country_name string
+  * @param  $country_name string
   * @return integer
   */
 function oos_get_country_id($country_name)
@@ -54,7 +56,7 @@ function oos_get_country_id($country_name)
 /**
  * Return the country_iso_code_2 based on the country's id
  *
- * @param $country_id integer
+ * @param  $country_id integer
  * @return string
  */
 function oos_get_country_isocode2($country_id)
@@ -79,8 +81,8 @@ function oos_get_country_isocode2($country_id)
 /**
  * Return the zone_id based on the zone's name
  *
- * @param $country_id integer
- * @param $zone_name string
+ * @param  $country_id integer
+ * @param  $zone_name  string
  * @return integer
  */
 function oos_get_zone_id($country_id, $zone_name)
@@ -106,8 +108,8 @@ function oos_get_zone_id($country_id, $zone_name)
  /**
   * Return result of check the existence of a database field
   *
-  * @param $table string
-  * @param $field string
+  * @param  $table string
+  * @param  $field string
   * @return boolean
   */
 function oos_field_exists($table, $field)
@@ -131,7 +133,7 @@ function oos_field_exists($table, $field)
 /**
  * Return string with changed quotes to HTML equivalents for form inputs.
  *
- * @param $string string
+ * @param  $string string
  * @return string
  */
 function oos_html_quotes($string)
@@ -142,7 +144,7 @@ function oos_html_quotes($string)
 /**
  * Return string with changed HTML equivalents back to quotes
  *
- * @param $string string
+ * @param  $string string
  * @return string
  */
 function oos_html_unquote($string)

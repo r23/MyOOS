@@ -46,18 +46,18 @@
   * $date should be in format mm/dd/yyyy
   * raw date is in format YYYYMMDD, or DDMMYYYY
   *
-  * @param $date
-  * @param $reverse
+  * @param  $date
+  * @param  $reverse
   * @return string
   */
-  function oos_date_raw($date, $reverse = false)
-  {
-      if ($reverse) {
-          return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
-      } else {
-          return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
-      }
-  }
+function oos_date_raw($date, $reverse = false)
+{
+    if ($reverse) {
+        return substr($date, 0, 2) . substr($date, 3, 2) . substr($date, 6, 4);
+    } else {
+        return substr($date, 6, 4) . substr($date, 3, 2) . substr($date, 0, 2);
+    }
+}
 
 // GLOBAL entries for the <html> tag
 define('HTML_PARAMS', ' lang="de"');

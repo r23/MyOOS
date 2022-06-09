@@ -19,7 +19,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // todo:
@@ -46,7 +48,7 @@ class newsletter
     public function confirm()
     {
 
-      // Get database information
+        // Get database information
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
@@ -89,8 +91,8 @@ class newsletter
 
         // (Re)create it, if it's gone missing
         if (!is_object($mail) || !is_a($mail, 'PHPMailer')) {
-            require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
-            require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
+            include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.phpmailer.php';
+            include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/class.smtp.php';
             // Instantiate a new mail object
             $mail = new PHPMailer(true);
         }

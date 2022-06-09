@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 function oos_admin_check_login()
@@ -194,13 +196,14 @@ function oos_get_all_get_params($exclude_array = '')
   * Gets a variable, cleaning it up such that any attempts
   * to access files outside of the scope of the PostNuke
   * system is not allowed
+  *
   * @author    PostNuke Content Management System
   * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
-  * @version Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
-  * @access private
-  * @param var variable to prepare
-  * @param ...
-  * @returns string/array
+  * @version   Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
+  * @access    private
+  * @param     var variable to prepare
+  * @param     ...
+  * @returns   string/array
   * in, otherwise an array of prepared variables
   */
 function oos_var_prep_for_os()
@@ -303,8 +306,8 @@ function oos_browser_detect($component)
 /**
  * Parse and output a user submited value
  *
- * @param string $sStr The string to parse and output
- * @param array $aTranslate An array containing the characters to parse
+ * @param  string $sStr       The string to parse and output
+ * @param  array  $aTranslate An array containing the characters to parse
  * @access public
  */
 function oos_output_string($sStr, $aTranslate = null)
@@ -477,8 +480,8 @@ function oos_get_languages()
  /**
   * Return Products Name
   *
-  * @param $product_id
-  * @param $language
+  * @param  $product_id
+  * @param  $language
   * @return string
   */
 function oos_get_products_name($product_id, $language_id = '')
@@ -507,8 +510,8 @@ function oos_get_products_name($product_id, $language_id = '')
  /**
   * Return Products Page Title for SEO
   *
-  * @param $product_id
-  * @param $language
+  * @param  $product_id
+  * @param  $language
   * @return string
   */
 function oos_get_products_title($product_id, $language_id = '')
@@ -1003,14 +1006,14 @@ function oos_get_serialized_variable(&$serialization_data, $variable_name, $vari
     $serialized_variable = '';
 
     switch ($variable_type) {
-      case 'string':
+    case 'string':
         $start_position = strpos($serialization_data, $variable_name . '|s');
 
         $serialized_variable = substr($serialization_data, strpos($serialization_data, '|', $start_position) + 1, strpos($serialization_data, '|', $start_position) - 1);
         break;
 
-      case 'array':
-      case 'object':
+    case 'array':
+    case 'object':
         if ($variable_type == 'array') {
             $start_position = strpos($serialization_data, $variable_name . '|a');
         } else {
@@ -1064,7 +1067,7 @@ function oos_sanitize_string($sStr)
 /**
  * Returns the suffix of a file name
  *
- * @param string $filename
+ * @param  string $filename
  * @return string
  */
 function oos_get_suffix($filename)
@@ -1121,10 +1124,10 @@ function oos_set_review_status($reviews_id, $status)
 function parse_size($size)
 {
     $suffixes = array(
-                    ''	 => 1,
-                    'k'	 => 1024,
-                    'm'	 => 1048576, // 1024 * 1024
-                    'g'	 => 1073741824, // 1024 * 1024 * 1024
+                    ''     => 1,
+                    'k'     => 1024,
+                    'm'     => 1048576, // 1024 * 1024
+                    'g'     => 1073741824, // 1024 * 1024 * 1024
     );
     if (preg_match('/([0-9]+)\s*(k|m|g)?(b?(ytes?)?)/i', $size, $match)) {
         return $match[1] * $suffixes[strtolower($match[2])];
@@ -1136,7 +1139,7 @@ function parse_size($size)
 /**
  * Checks for a zip file
  *
- * @param string $filename name of the file
+ * @param  string $filename name of the file
  * @return bool
  */
 function is_zip($filename)
@@ -1148,7 +1151,7 @@ function is_zip($filename)
 /**
  * Checking the file extension
  *
- * @param string $filename name of the file
+ * @param  string $filename name of the file
  * @return bool
  */
 function is_image($filename)
@@ -1192,9 +1195,9 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 
     // (Re)create it, if it's gone missing
     if (! ($phpmailer instanceof PHPMailer\PHPMailer\PHPMailer)) {
-        require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
-        require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
-        require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/Exception.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/Exception.php';
         $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
 
         $phpmailer::$validator = static function ($to_email_address) {

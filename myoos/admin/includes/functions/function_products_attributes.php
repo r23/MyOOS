@@ -16,13 +16,15 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
  * Return options name
  *
- * @param $options_id
+ * @param  $options_id
  * @return string
  */
 function oos_options_name($options_id)
@@ -52,7 +54,7 @@ function oos_options_name($options_id)
  /**
   * Return values name
   *
-  * @param $values_id
+  * @param  $values_id
   * @return string
   */
 function oos_values_name($values_id)

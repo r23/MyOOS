@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 function oos_get_path($current_category_id = '')
@@ -1080,15 +1082,15 @@ function oos_remove_products_video($video)
                             WHERE video_source =  '" . oos_db_input($video) . "'";
     $videos_result = $dbconn->Execute($product_videos_query);
     if (!$videos_result->RecordCount()) {
-		$name = oos_var_prep_for_os($video);
+        $name = oos_var_prep_for_os($video);
         $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
-		
-		@unlink($path . $name . '-x264.mp4');
-		@unlink($path . $name . '-ogg.ogv');
-		@unlink($path . $name . '-webm.webm');
-		@unlink($path . $name . '.mpg');		
-			
-        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/' . $name . '.jpg');	
+        
+        @unlink($path . $name . '-x264.mp4');
+        @unlink($path . $name . '-ogg.ogv');
+        @unlink($path . $name . '-webm.webm');
+        @unlink($path . $name . '.mpg');        
+            
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/' . $name . '.jpg');    
     }
 
     return;
@@ -1100,7 +1102,7 @@ function oos_remove_products_video($video)
 /**
  * Return a product's manufacturer
  *
- * @param $products_id
+ * @param  $products_id
  * @return string
  */
 function oos_get_manufacturers_name($product_id)
@@ -1131,7 +1133,7 @@ function oos_get_manufacturers_name($product_id)
 /**
  * Return Products Special Price
  *
- * @param $nProductID
+ * @param  $nProductID
  * @return string
  */
 function oos_get_products_special_price($nProductID)
@@ -1155,7 +1157,7 @@ function oos_get_products_special_price($nProductID)
 /**
  * Find a Categories Name
  *
- * @param $who_am_i
+ * @param  $who_am_i
  * @return string
  */
 function oos_get_categories_name($who_am_i, $language_id = '')
@@ -1185,8 +1187,8 @@ function oos_get_categories_name($who_am_i, $language_id = '')
  /**
   * Return 3D Model Name
   *
-  * @param $model_id
-  * @param $language
+  * @param  $model_id
+  * @param  $language
   * @return string
   */
 function oos_get_models_name($model_id, $language_id = '')
@@ -1216,8 +1218,8 @@ function oos_get_models_name($model_id, $language_id = '')
  /**
   * Return 3D Model Page Title for SEO
   *
-  * @param $model_id
-  * @param $language
+  * @param  $model_id
+  * @param  $language
   * @return string
   */
 function oos_get_models_title($model_id, $language_id = '')
@@ -1272,8 +1274,8 @@ function oos_get_models_description_meta($model_id, $language_id = '')
  /**
   * Return Panorama Name
   *
-  * @param $panorama_id
-  * @param $language
+  * @param  $panorama_id
+  * @param  $language
   * @return string
   */
 function oos_get_panorama_name($panorama_id, $language_id = '')
@@ -1303,8 +1305,8 @@ function oos_get_panorama_name($panorama_id, $language_id = '')
  /**
   * Return Panorama Title for SEO
   *
-  * @param $panorama_id
-  * @param $language
+  * @param  $panorama_id
+  * @param  $language
   * @return string
   */
 function oos_get_panorama_title($panorama_id, $language_id = '')
@@ -1357,8 +1359,8 @@ function oos_get_panorama_description_meta($panorama_id, $language_id = '')
  /**
   * Return 3D Model Page for ALT-TAG
   *
-  * @param $model_viewer_id
-  * @param $language
+  * @param  $model_viewer_id
+  * @param  $language
   * @return string
   */
 function oos_get_model_viewer_title($model_viewer_id, $language_id = '')
@@ -1415,8 +1417,8 @@ function oos_get_model_viewer_description($model_viewer_id, $language_id = '')
  /**
   * Return Hotspot Text
   *
-  * @param $hotspot_id
-  * @param $language
+  * @param  $hotspot_id
+  * @param  $language
   * @return string
   */
 function oos_get_hotspot_text($hotspot_id, $language_id = '')
@@ -1491,8 +1493,8 @@ function oos_remove_panorama($panorama_id)
  /**
   * Return Video Title 
   *
-  * @param $video_id
-  * @param $language
+  * @param  $video_id
+  * @param  $language
   * @return string
   */
 function oos_get_video_title($video_id, $language_id = '')
@@ -1525,8 +1527,8 @@ function oos_get_video_title($video_id, $language_id = '')
  /**
   * Return Video Description
   *
-  * @param $video_id
-  * @param $language
+  * @param  $video_id
+  * @param  $language
   * @return string
   */
 function oos_get_video_description($video_id, $language_id = '')

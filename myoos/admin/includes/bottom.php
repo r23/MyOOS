@@ -9,7 +9,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (isset($bForm) && ($bForm == true)) {
@@ -18,9 +20,9 @@ if (isset($bForm) && ($bForm == true)) {
 <script src="js/plugins/parsley/parsley.min.js"></script>
 <script src="js/plugins/parsley/i18n/<?php echo $_SESSION['iso_639_1']; ?>.js"></script>
 <script >
-	window.Parsley.setLocale('<?php echo $_SESSION['iso_639_1']; ?>');
+    window.Parsley.setLocale('<?php echo $_SESSION['iso_639_1']; ?>');
 </script>
-<?php
+    <?php
 }
 ?>
 <!-- JS GLOBAL Compulsory -->      

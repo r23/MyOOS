@@ -91,9 +91,9 @@ function checkSub(obj) {
 //-->
 </script>
 
-<?php
+    <?php
 } else {
-        ?>
+    ?>
 
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -141,6 +141,6 @@ function validateForm() {
 //-->
 </script>
 
-<?php
-    }
+    <?php
+}
 ?>
