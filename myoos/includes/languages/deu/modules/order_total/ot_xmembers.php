@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: ot_xmembers.php,v 1.5 2008/08/29 10:25:21 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_XMEMBERS_STATUS_TITLE', 'Kundenrabatt');
 define('MODULE_XMEMBERS_STATUS_DESC', 'Möchten Sie Kundenrabatt verwenden?');

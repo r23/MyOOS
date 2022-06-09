@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: item.php,v 1.3 2007/08/04 04:53:51 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_SHIPPING_ITEM_STATUS_TITLE', 'Versandkosten pro Stück aktivieren');
 define('MODULE_SHIPPING_ITEM_STATUS_DESC', 'Möchten Sie Versandkosten pro Stück anbieten?');

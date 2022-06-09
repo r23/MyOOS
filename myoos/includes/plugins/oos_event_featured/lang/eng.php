@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: eng.php,v 1.1 2007/06/08 15:02:12 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -8,7 +9,8 @@
    Copyright (c) 2003 - 2022 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('PLUGIN_EVENT_FEATURED_NAME', 'Display Featured Products');
 define('PLUGIN_EVENT_FEATURED_DESC', 'Set to true or false in order to display featured.');

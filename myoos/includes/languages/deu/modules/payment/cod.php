@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: cod.php,v 1.6 2008/08/25 14:28:07 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_PAYMENT_COD_STATUS_TITLE', 'Nachnahme Modul aktivieren');
 define('MODULE_PAYMENT_COD_STATUS_DESC', 'Möchten Sie Zahlungen per Nachnahme akzeptieren?');

@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: ap.php,v 1.4 2008/08/12 22:18:07 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -39,7 +40,8 @@
    USA
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_SHIPPING_AP_STATUS_TITLE', 'Österreichische Post AG');
 define('MODULE_SHIPPING_AP_STATUS_DESC', 'Wollen Sie den Versand über die Österreichische Post AG anbieten?');

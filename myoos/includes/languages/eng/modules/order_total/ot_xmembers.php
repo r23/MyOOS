@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: ot_xmembers.php,v 1.3 2007/06/14 16:16:10 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -18,7 +19,8 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_XMEMBERS_STATUS_TITLE', 'Display Total');
 define('MODULE_XMEMBERS_STATUS_DESC', 'Do you want to enable the Order Discount?');

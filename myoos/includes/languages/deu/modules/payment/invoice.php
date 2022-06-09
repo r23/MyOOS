@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: invoice.php,v 1.4 2008/08/25 14:28:07 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_PAYMENT_INVOICE_STATUS_TITLE', 'Rechnung');
 define('MODULE_PAYMENT_INVOICE_STATUS_DESC', 'Wollen Sie Zahlungen per Rechnung anbieten?');

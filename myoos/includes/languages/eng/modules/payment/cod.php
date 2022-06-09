@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: cod.php,v 1.3 2007/06/14 16:15:58 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -18,7 +19,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_PAYMENT_COD_STATUS_TITLE', 'Enable Cash On Delivery Module');
 define('MODULE_PAYMENT_COD_STATUS_DESC', 'Do you want to accept Cash On Delevery payments?');

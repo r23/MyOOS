@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: eng.php,v 1.1 2007/06/12 17:11:55 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -8,7 +9,8 @@
    Copyright (c) 2003 - 2022 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('PLUGIN_EVENT_MANUFACTURERS_NAME', 'Display Manufacturers');
 define('PLUGIN_EVENT_MANUFACTURERS_DESC', 'Set to true or false to display manufacturers.');

@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: dp.php,v 1.5 2007/10/10 15:43:56 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_SHIPPING_DP_STATUS_TITLE', 'DHL');
 define('MODULE_SHIPPING_DP_STATUS_DESC', 'Wollen Sie den Versand über die Deutsche Post anbieten?');

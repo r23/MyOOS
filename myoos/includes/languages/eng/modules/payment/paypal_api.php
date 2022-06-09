@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: paypal.php,v 1.3 2007/06/14 16:15:58 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -18,7 +19,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_PAYMENT_PAYPAL_API_STATUS_TITLE', 'Enable PayPal Module');
 define('MODULE_PAYMENT_PAYPAL_API_STATUS_DESC', 'Do you want to accept PayPal payments?');

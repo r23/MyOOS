@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: ot_loworderfee.php,v 1.6 2008/10/03 15:38:16 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS_TITLE', 'Mindermengenzuschlag');
 define('MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS_DESC', 'Möchten Sie sich den Mindermengenzuschlag ansehen?');

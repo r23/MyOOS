@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -23,7 +24,8 @@
    $oMessage->add('error', 'Error: Error 1');
    $oMessage->add('warning', 'Error: Error 2');
    if ($oMessage->size > 0) echo $oMessage->output();
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 /**
  * ensure this file is being included by a parent file 

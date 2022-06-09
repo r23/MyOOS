@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -33,12 +34,12 @@
    ----------------------------------------------------------------------
 
  /**
-  * security
-  *
-  * @link http://www.postnuke.com/
-  * @package security
-  * @version $Revision: 1.2 $ - changed by $Author: r23 $ on $Date: 2008/08/15 16:28:30 $
-  */
+ * security
+ *
+ * @link    http://www.postnuke.com/
+ * @package security
+ * @version $Revision: 1.2 $ - changed by $Author: r23 $ on $Date: 2008/08/15 16:28:30 $
+ */
 
   /**
    * ensure this file is being included by a parent file 

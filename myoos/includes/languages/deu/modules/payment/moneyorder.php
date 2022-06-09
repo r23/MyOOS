@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: moneyorder.php,v 1.5 2008/08/25 14:28:07 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_PAYMENT_MONEYORDER_STATUS_TITLE', 'Vorkasse/Bank&uuml;berweisung');
 define('MODULE_PAYMENT_MONEYORDER_STATUS_DESC', 'Möchten Sie Zahlungen per Vorkasse/Bank&uuml;berweisung akzeptieren?');

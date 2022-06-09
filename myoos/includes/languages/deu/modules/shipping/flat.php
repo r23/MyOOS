@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: flat.php,v 1.4 2007/10/26 22:47:37 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_SHIPPING_FLAT_STATUS_TITLE', 'Pauschale Versandkosten aktivieren');
 define('MODULE_SHIPPING_FLAT_STATUS_DESC', 'Möchten Sie Pauschale Versandkosten anbieten?');

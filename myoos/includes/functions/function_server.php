@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -11,7 +12,8 @@
    File: xarServer.php 1.62 03/10/28 19:11:18+01:00 mikespub
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
   /**
    * HTTP Protocol Server/Request/Response utilities
@@ -264,15 +266,15 @@ function oos_server_get_remote()
  */
 function oos_max_upload_size()
 {
-	$u_bytes = oos_convert_hr_to_bytes( ini_get( 'upload_max_filesize' ) );
-	$p_bytes = oos_convert_hr_to_bytes( ini_get( 'post_max_size' ) );
+    $u_bytes = oos_convert_hr_to_bytes(ini_get('upload_max_filesize'));
+    $p_bytes = oos_convert_hr_to_bytes(ini_get('post_max_size'));
 
-	/**
-	 * @param int $size    Max upload size limit in bytes.
-	 * @param int $u_bytes Maximum upload filesize in bytes.
-	 * @param int $p_bytes Maximum size of POST data in bytes.
-	 */
-	return min( $u_bytes, $p_bytes );
+    /**
+     * @param int $size    Max upload size limit in bytes.
+     * @param int $u_bytes Maximum upload filesize in bytes.
+     * @param int $p_bytes Maximum size of POST data in bytes.
+     */
+    return min($u_bytes, $p_bytes);
 }
 
 
@@ -285,24 +287,24 @@ function oos_max_upload_size()
  * @link https://www.php.net/manual/en/function.ini-get.php
  * @link https://www.php.net/manual/en/faq.using.php#faq.using.shorthandbytes
  *
- * @param string $value A (PHP ini) byte value, either shorthand or ordinary.
+ * @param  string $value A (PHP ini) byte value, either shorthand or ordinary.
  * @return int An integer byte value.
  */
 function oos_convert_hr_to_bytes( $value )
 {
-	$value = strtolower( trim( $value ) );
-	$bytes = (int) $value;
+    $value = strtolower(trim($value));
+    $bytes = (int) $value;
 
-	if ( false !== strpos( $value, 'g' ) ) {
-		$bytes *= GB_IN_BYTES;
-	} elseif ( false !== strpos( $value, 'm' ) ) {
-		$bytes *= MB_IN_BYTES;
-	} elseif ( false !== strpos( $value, 'k' ) ) {
-		$bytes *= KB_IN_BYTES;
-	}
+    if (false !== strpos($value, 'g') ) {
+        $bytes *= GB_IN_BYTES;
+    } elseif (false !== strpos($value, 'm') ) {
+        $bytes *= MB_IN_BYTES;
+    } elseif (false !== strpos($value, 'k') ) {
+        $bytes *= KB_IN_BYTES;
+    }
 
-	// Deal with large (float) values which run into the maximum integer size.
-	return min( $bytes, PHP_INT_MAX );
+    // Deal with large (float) values which run into the maximum integer size.
+    return min($bytes, PHP_INT_MAX);
 }
 
 
@@ -311,9 +313,9 @@ function oos_convert_hr_to_bytes( $value )
  *
  * @link https://gist.github.com/ffraenz/ec58809debb210b4567e53a9d9f413ce
  
- * @param int $size File size in bytes
- * @param int $decimals Optional: Precision of the number of decimal places
- * @param string $point Optional: Sets the separator for the decimal point.
+ * @param  int    $size     File size in bytes
+ * @param  int    $decimals Optional: Precision of the number of decimal places
+ * @param  string $point    Optional: Sets the separator for the decimal point.
  * @return string Formatted number
  */
 function size_format(int $size, int $decimals = 0, string $decimal_separator = '.', string $thousands_separator = ','): string
@@ -322,4 +324,4 @@ function size_format(int $size, int $decimals = 0, string $decimal_separator = '
     for($index = 0; $index < count($units) - 1, $size > 1000; $index++, $size /= 1000);
     $number = number_format($size, $decimals, $decimal_separator, $thousands_separator);
     return $number . ' ' . $units[$index];
-}	
+}    

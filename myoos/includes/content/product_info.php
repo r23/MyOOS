@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -16,9 +17,12 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
-/** ensure this file is being required by a parent file */
+/**
+ * ensure this file is being required by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 use Endroid\QrCode\Color\Color;
@@ -71,10 +75,10 @@ if (!$product_info_result->RecordCount()) {
     $sPagetitle = '404 Not Found ' . OOS_META_TITLE;
     $sCanonical = oos_href_link($aContents['product_info'], 'products_id='. $nProductsID, false, true);
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/system.php';
     if (!isset($option)) {
-        require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-        require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
     }
 
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
@@ -83,8 +87,8 @@ if (!$product_info_result->RecordCount()) {
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['text_product_not_found'],
-            'robots'		=> 'noindex,follow,noodp,noydir',
-            'canonical'		=> $sCanonical
+            'robots'        => 'noindex,follow,noodp,noydir',
+            'canonical'        => $sCanonical
         )
     );
 } else {
@@ -122,10 +126,10 @@ if (!$product_info_result->RecordCount()) {
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/system.php';
     if (!isset($option)) {
-        require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-        require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
     }
 
     // breadcrumb
@@ -161,7 +165,7 @@ if (!$product_info_result->RecordCount()) {
                          AND popt.products_options_languages_id = '" . intval($nLanguageID) . "'";
     $products_attributes = $dbconn->Execute($attributes_sql);
     if ($products_attributes->fields['total'] > 0) {
-        require_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/modules/products_options.php';
     }
 
     $smarty->assign('selector_array', $aSelector);
@@ -205,10 +209,11 @@ if (!$product_info_result->RecordCount()) {
     if ((oos_empty($special_price)) && (($product_info['products_discount4_qty'] > 0
         || $product_info['products_discount3_qty'] > 0
         || $product_info['products_discount2_qty'] > 0
-        || $product_info['products_discount1_qty'] > 0))) {
+        || $product_info['products_discount1_qty'] > 0))
+    ) {
         if (($aUser['show_price'] == 1) && ($aUser['qty_discounts'] == 1)) {
             $discounts_price = true;
-            require_once MYOOS_INCLUDE_PATH . '/includes/modules/discounts_price.php';
+            include_once MYOOS_INCLUDE_PATH . '/includes/modules/discounts_price.php';
 
             if ($product_info['products_discount4'] > 0) {
                 $price_discount = $product_info['products_discount4'];
@@ -233,11 +238,11 @@ if (!$product_info_result->RecordCount()) {
     // assign Smarty variables;
     $smarty->assign(
         array(
-            'info_product_price'			=> $info_product_price,
-            'schema_product_price'			=> $schema_product_price,
-            'info_product_special_price'	=> $info_product_special_price,
-            'info_base_product_price'		=> $info_base_product_price,
-            'discounts_price' 				=> $discounts_price
+            'info_product_price'            => $info_product_price,
+            'schema_product_price'            => $schema_product_price,
+            'info_product_special_price'    => $info_product_special_price,
+            'info_base_product_price'        => $info_base_product_price,
+            'discounts_price'                 => $discounts_price
         )
     );
 
@@ -262,23 +267,23 @@ if (!$product_info_result->RecordCount()) {
 
 
     if ($oEvent->installed_plugin('reviews')) {
-		
-		$informationtable = $oostable['information'];
-		$information_descriptiontable = $oostable['information_description'];
-		$sql = "SELECT i.information_id, id.information_name,
+        
+        $informationtable = $oostable['information'];
+        $information_descriptiontable = $oostable['information_description'];
+        $sql = "SELECT i.information_id, id.information_name,
 						id.information_description, id.information_heading_title
 				FROM $informationtable i,
 					$information_descriptiontable id
 				WHERE i.information_id = '7'
 				AND id.information_id = i.information_id
 				AND id.information_languages_id = '" .  intval($nLanguageID) . "'";
-		$reviews_information = $dbconn->GetRow($sql);
-		$smarty->assign('reviews_information', $reviews_information);
+        $reviews_information = $dbconn->GetRow($sql);
+        $smarty->assign('reviews_information', $reviews_information);
 
 
-		$smarty->assign('reviews_write_link', oos_href_link($aContents['product_reviews_write'], 'products_id=' . intval($nProductsID)));
+        $smarty->assign('reviews_write_link', oos_href_link($aContents['product_reviews_write'], 'products_id=' . intval($nProductsID)));
 
-		
+        
         $reviewstable = $oostable['reviews'];
         $reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "' AND reviews_status = '1'";
         $reviews = $dbconn->Execute($reviews_sql);
@@ -444,8 +449,8 @@ if (!$product_info_result->RecordCount()) {
 						AND vd.video_languages_id = '" . intval($nLanguageID) . "'";
     $products_video_result = $dbconn->Execute($products_video_sql);
     if ($products_video_result->RecordCount()) {
-		$oos_js .= '<script src="' . OOS_HTTPS_SERVER . OOS_SHOP . '/js/videojs/dist/video.min.js"></script>';
-		$oos_css .= '<link rel="stylesheet" href="' . OOS_HTTPS_SERVER . OOS_SHOP . '/js/videojs/dist/video-js.min.css">';
+        $oos_js .= '<script src="' . OOS_HTTPS_SERVER . OOS_SHOP . '/js/videojs/dist/video.min.js"></script>';
+        $oos_css .= '<link rel="stylesheet" href="' . OOS_HTTPS_SERVER . OOS_SHOP . '/js/videojs/dist/video-js.min.css">';
         $aVideo = [];
         while ($video = $products_video_result->fields) {
             $products_video_descriptiontable = $oostable['products_video_description'];
@@ -455,7 +460,7 @@ if (!$product_info_result->RecordCount()) {
                 . "   AND video_languages_id = ?";
             $result = $dbconn->Execute($query, array((int)$video['video_id'], (int)$nLanguageID));
 
-			$video_source = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . 'video/' . $video['video_source'];
+            $video_source = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . 'video/' . $video['video_source'];
             $video_poster = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'video/' . $video['video_poster']; 
 
  
@@ -470,21 +475,21 @@ if (!$product_info_result->RecordCount()) {
             $products_video_result->MoveNext();
         }
 
-		$smarty->assign(
-			array(
-				'video_array'		=> $aVideo,
-				'oos_css'			=> $oos_css,
-				'oos_js'			=> $oos_js
-			)
-		);
-	}
+        $smarty->assign(
+            array(
+            'video_array'        => $aVideo,
+            'oos_css'            => $oos_css,
+            'oos_js'            => $oos_js
+            )
+        );
+    }
 
 
     // assign Smarty variables;
     $smarty->assign(
         array(
             'breadcrumb' => $oBreadcrumb->trail(),
-            'canonical'	 => $sCanonical
+            'canonical'     => $sCanonical
         )
     );
 
@@ -494,7 +499,7 @@ if (!$product_info_result->RecordCount()) {
     // Price History Chart
     if ($aUser['show_price'] == 1) {
         ob_start();
-        require_once MYOOS_INCLUDE_PATH . '/includes/content/chart/line.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/content/chart/line.php';
         $chart = ob_get_contents();
         ob_end_clean();
         $smarty->assign('chart', $chart);
@@ -541,14 +546,14 @@ if (!$product_info_result->RecordCount()) {
     }
 
     if (!$smarty->isCached($aTemplate['slavery_products'], $sProductsInfoCacheID)) {
-        require_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/modules/slavery_products.php';
     }
     $smarty->assign('slavery_products', $smarty->fetch($aTemplate['slavery_products'], $sProductsInfoCacheID));
 
 
     // also purchased products
     if (!$smarty->isCached($aTemplate['also_purchased_products'], $sProductsInfoCacheID)) {
-        require_once MYOOS_INCLUDE_PATH . '/includes/modules/also_purchased_products.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/modules/also_purchased_products.php';
         $smarty->assign('also_purchased', $aPurchased);
     }
     $smarty->assign('also_purchased_products', $smarty->fetch($aTemplate['also_purchased_products'], $sProductsInfoCacheID));

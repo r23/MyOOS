@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: dp.php,v 1.3 2007/06/13 16:42:27 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -18,7 +19,8 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_SHIPPING_DP_STATUS_TITLE', 'German Post - Worldwide Shipping Module');
 define('MODULE_SHIPPING_DP_STATUS_DESC', 'Do you want to offer German Post shipping?');

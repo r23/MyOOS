@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: cash.php,v 1.5 2008/08/25 14:28:07 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -39,7 +40,8 @@
    USA
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_PAYMENT_CASH_STATUS_TITLE', 'Barzahlungsmodul aktivieren');
 define('MODULE_PAYMENT_CASH_STATUS_DESC', 'Möchten Sie Zahlungen per Barzahlung akzeptieren?');

@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: info_down_for_maintenance.php,v 1.3 2007/06/12 16:36:39 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -15,7 +16,8 @@
    http://www.thewebmakerscorner.com
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 $aLang['navbar_title'] = 'Wir arbeiten mit Hochdruck an den Updates';
 $aLang['heading_title'] = 'Wir arbeiten mit Hochdruck';

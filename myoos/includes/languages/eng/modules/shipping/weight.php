@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: weight.php,v 1.3 2007/06/13 16:42:27 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -18,7 +19,8 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_SHIPPING_WEIGHT_STATUS_TITLE', 'Enable weight-dependent shipping costs?');
 define('MODULE_SHIPPING_WEIGHT_STATUS_DESC', 'Would you like to offer weight-based shipping costs?');

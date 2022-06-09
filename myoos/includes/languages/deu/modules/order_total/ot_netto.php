@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: ot_netto.php,v 1.6 2008/08/29 10:25:21 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_ORDER_TOTAL_NETTO_STATUS_TITLE', 'Netto-Rechnungsbetrag');
 define('MODULE_ORDER_TOTAL_NETTO_STATUS_DESC', 'Möchten Sie den Netto-Rechnungsbetrag anzeigen?');

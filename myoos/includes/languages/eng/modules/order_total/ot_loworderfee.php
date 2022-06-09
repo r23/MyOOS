@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: ot_loworderfee.php,v 1.3 2007/06/14 16:16:10 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -18,7 +19,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS_TITLE', 'Display Low Order Fee');
 define('MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS_DESC', 'Do you want to display the low order fee?');

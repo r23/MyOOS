@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: selfpickup.php,v 1.3 2007/06/13 16:42:27 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_SHIPPING_SELFPICKUP_STATUS_TITLE', 'Enable Self Pickup');
 define('MODULE_SHIPPING_SELFPICKUP_STATUS_DESC', 'Do you want to offer per item rate shipping?');

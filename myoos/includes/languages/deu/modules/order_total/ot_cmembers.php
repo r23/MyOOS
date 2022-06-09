@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: ot_cmembers.php,v 1.6 2008/10/03 15:38:16 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_CMEMBERS_STATUS_TITLE', 'Kundenrabatt nach Menge');
 define('MODULE_CMEMBERS_STATUS_DESC', 'Möchten Sie Kundenrabatt nach Menge verwenden?');

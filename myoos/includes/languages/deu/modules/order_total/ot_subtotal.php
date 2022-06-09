@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: ot_subtotal.php,v 1.6 2009/01/15 02:58:18 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -17,7 +18,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_ORDER_TOTAL_SUBTOTAL_STATUS_TITLE', 'Zwischensumme');
 define('MODULE_ORDER_TOTAL_SUBTOTAL_STATUS_DESC', 'Möchten Sie die Zwischensumme anzeigen?');

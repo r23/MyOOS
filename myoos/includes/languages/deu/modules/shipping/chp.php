@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: chp.php,v 1.3 2007/08/04 04:53:51 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -39,7 +40,8 @@
    USA
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_SHIPPING_CHP_STATUS_TITLE', 'Schweizerische Post');
 define('MODULE_SHIPPING_CHP_STATUS_DESC', 'Wollen Sie den Versand ber die schweizerische Post anbieten?');

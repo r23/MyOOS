@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
    $Id: ot_netto.php,v 1.3 2007/06/14 16:16:10 r23 Exp $
 
    MyOOS [Shopsystem]
@@ -18,7 +19,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('MODULE_ORDER_TOTAL_NETTO_STATUS_TITLE', 'Display net');
 define('MODULE_ORDER_TOTAL_NETTO_STATUS_DESC', 'Do you want to display the net amount?');
