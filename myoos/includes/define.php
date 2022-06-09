@@ -14,6 +14,16 @@
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
+/**#@+
+ * Constants for expressing human-readable data sizes in their respective number of bytes.
+ */
+define( 'KB_IN_BYTES', 1024 );
+define( 'MB_IN_BYTES', 1024 * KB_IN_BYTES );
+define( 'GB_IN_BYTES', 1024 * MB_IN_BYTES );
+/**#@-*/
+
+
+
 define('COST', '14');
 define('PEPPER', '.m3h-RL=^XM/72;tSdU\Bz');
 

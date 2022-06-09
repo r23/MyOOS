@@ -114,7 +114,7 @@ if (!empty($action)) {
 
                             $name = oos_strip_suffix($filename);
                             $ext = oos_get_suffix($filename);
-                            if ($ext == 'mpg') {
+                            if ($ext == 'avi') {
 								
 								$poster = $name . '.jpg';							
                                 $sql_data_array = ['video_source' => oos_db_prepare_input($name),
@@ -124,7 +124,7 @@ if (!empty($action)) {
 								
                                 $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
                                 $targetdir = $path;  // target directory
-                                $uploadfile = $path . $filename; // target mpg file
+                                $uploadfile = $path . $filename; // target avi file
 
                                 if (move_uploaded_file($source, $uploadfile)) {
                                     $messageStack->add_session(TEXT_SUCCESSFULLY_UPLOADED_VIDEO, 'success');
@@ -134,8 +134,8 @@ if (!empty($action)) {
 
 								if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 									$ffmpeg = FFMpeg\FFMpeg::create([
-										'ffmpeg.binaries'  => 'C:/tools/ffmpeg/bin/ffmpeg.exe',
-										'ffprobe.binaries' => 'C:/tools/ffmpeg/bin/ffprobe.exe',
+										'ffmpeg.binaries'  => 'C:/ffmpeg/bin/ffmpeg.exe',
+										'ffprobe.binaries' => 'C:/ffmpeg/bin/ffprobe.exe',
 										'timeout'          => 3600, // The timeout for the underlying process
 										'ffmpeg.threads'   => 12,   // The number of threads that FFMpeg should use
 									]);
@@ -153,7 +153,7 @@ if (!empty($action)) {
 								$dir_video_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/';
 								$frame = $dir_video_images . $poster;
 								$video		
-									->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(10))
+									->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(4))
 									->save($frame);
 								$video
 									->save(new FFMpeg\Format\Video\X264(), $path . $name . '-x264.mp4')
@@ -449,6 +449,24 @@ if ($action == 'edit_video') {
 
 			</div>
             <div class="tab-pane" id="uplaod" role="tabpanel">
+
+				<div class="col-9">
+					<h2>Neues .avi Video hochladen</h2>
+
+					<h3><?php echo $pInfo->products_name; ?></h2>
+
+					<p>Sie verwenden den im Browser integrierten Datei-Uploader.</p>
+
+<?php	
+	$max_upload_size = wp_max_upload_size();
+	if ( ! $max_upload_size ) {
+		$max_upload_size = 0;
+	}
+?>
+
+					<p>Maximale Dateigröße für Uploads: <?php echo size_format($max_upload_size); ?></p>					
+				</div>
+
 
 				<fieldset>
 					<div class="form-group row">
