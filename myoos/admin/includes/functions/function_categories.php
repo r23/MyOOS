@@ -1090,7 +1090,7 @@ function oos_remove_products_video($video)
         @unlink($path . $name . '-x264.mp4');
         @unlink($path . $name . '-ogg.ogv');
         @unlink($path . $name . '-webm.webm');
-        @unlink($path . $name . '.mpg');        
+        @unlink($path . $name . '.avi');        
             
         @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/' . $name . '.jpg');    
     }

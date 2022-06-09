@@ -299,7 +299,7 @@
                             findMax(
                                 this._get(
                                     inst, (dateFormat.match(/MM/) ?
-                            "monthNames" : "monthNamesShort")
+                        "monthNames" : "monthNamesShort")
                                 )
                             )
                         );
@@ -307,7 +307,7 @@
                             findMax(
                                 this._get(
                                     inst, (dateFormat.match(/DD/) ?
-                            "dayNames" : "dayNamesShort")
+                        "dayNames" : "dayNamesShort")
                                 )
                             ) + 20 - date.getDay()
                         );
@@ -633,7 +633,7 @@
                     case 13: sel = $(
                         "td." + $.datepicker._dayOverClass + ":not(." +
                            $.datepicker._currentClass + ")", inst.dpDiv
-                    );
+                        );
                         if (sel[0]) {
                             $.datepicker._selectDay(event.target, inst.selectedMonth, inst.selectedYear, sel[0]);
                         }
@@ -655,13 +655,13 @@
                         event.target, (event.ctrlKey ?
                         -$.datepicker._get(inst, "stepBigMonths") :
                         -$.datepicker._get(inst, "stepMonths")), "M"
-                    );
+                        );
                         break; // previous month/year on page up/+ ctrl
                     case 34: $.datepicker._adjustDate(
                         event.target, (event.ctrlKey ?
                         +$.datepicker._get(inst, "stepBigMonths") :
                         +$.datepicker._get(inst, "stepMonths")), "M"
-                    );
+                        );
                         break; // next month/year on page down/+ ctrl
                     case 35: if (event.ctrlKey || event.metaKey) {
                             $.datepicker._clearDate(event.target);

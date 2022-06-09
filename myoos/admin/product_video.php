@@ -1,6 +1,6 @@
 <?php
 /**
- * ---------------------------------------------------------------------
+   ---------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -459,20 +459,25 @@ if ($action == 'edit_video') {
             <div class="tab-pane" id="uplaod" role="tabpanel">
 
                 <div class="col-9">
-                    <h2>Neues .avi Video hochladen</h2>
+                    <h2><?php echo TEXT_VIDEO_UPLAOD_TITLE; ?></h2>
 
                     <h3><?php echo $pInfo->products_name; ?></h2>
 
-                    <p>Sie verwenden den im Browser integrierten Datei-Uploader.</p>
+                    <p><?php echo TEXT_VIDEO_BROWSER_UPLOADER; ?></p>
 
     <?php	
-    $max_upload_size = wp_max_upload_size();
+    $max_upload_size = oos_max_upload_size();
     if (! $max_upload_size ) {
         $max_upload_size = 0;
     }
     ?>
+	
+                    <p><?php echo sprintf(TEXT_VIDEO_MAX_UPLOAD, size_format($max_upload_size)); ?></p>
 
-                    <p>Maximale Dateigröße für Uploads: <?php echo size_format($max_upload_size); ?></p>                    
+					<p><?php echo TEXT_VIDEO_UPLAOD_PATIENCE; ?></p> 
+
+					<p><?php echo TEXT_VIDEO_UPLAOD_HELP; ?></p>
+					
                 </div>
 
 

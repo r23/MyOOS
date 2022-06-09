@@ -1,6 +1,6 @@
 <?php
 /**
- * ---------------------------------------------------------------------
+   ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -281,7 +281,7 @@ if (($action == 'new') || ($action == 'edit')) {
                 <td class="text-right">
         <?php
         if (isset($sInfo) && is_object($sInfo) && ($featured['featured_id'] == $sInfo->featured_id)) {
-            echo  $featured['featured_id'] . '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
+            echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=edit') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
 				<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $sInfo->featured_id . '&action=delete') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>';
         } else {
             echo '<a href="' . oos_href_link_admin($aContents['featured'], 'page=' . $nPage . '&fID=' . $featured['featured_id']. '&action=edit') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>

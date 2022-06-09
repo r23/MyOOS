@@ -27,8 +27,6 @@ define('GB_IN_BYTES', 1024 * MB_IN_BYTES);
 * #@-
 */
 
-
-
 define('COST', '14');
 define('PEPPER', '.m3h-RL=^XM/72;tSdU\Bz');
 

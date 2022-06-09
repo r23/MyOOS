@@ -15,7 +15,9 @@
    Copyright (c) 2001 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+*/
+
 /**
  * Set the error reporting level. Unless you have a special need, E_ALL is a
  * good level for error reporting.
