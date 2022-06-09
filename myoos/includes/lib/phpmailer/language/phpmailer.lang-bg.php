@@ -2,8 +2,9 @@
 
 /**
  * Bulgarian PHPMailer language file: refer to English translation for definitive list
+ *
  * @package PHPMailer
- * @author Mikhail Kyosev <mialygk@gmail.com>
+ * @author  Mikhail Kyosev <mialygk@gmail.com>
  */
 
 $PHPMAILER_LANG['authenticate']         = 'SMTP грешка: Не може да се удостовери пред сървъра.';

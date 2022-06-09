@@ -19,13 +19,15 @@
 /**
  * global
  *
- * @package global
+ * @package   global
  * @copyright (C) 2022 by the MyOOS Development Team.
- * @license GPL <http://www.gnu.org/licenses/gpl.html>
- * @link https://www.oos-shop.de
-*/
+ * @license   GPL <http://www.gnu.org/licenses/gpl.html>
+ * @link      https://www.oos-shop.de
+ */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
@@ -33,7 +35,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
  * Output a raw date string in the selected locale date format
  * $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
  *
- * @param $raw_date
+ * @param  $raw_date
  * @return string
  */
 function oos_date_long($raw_date)
@@ -56,7 +58,7 @@ function oos_date_long($raw_date)
  * Output a raw date string in the selected locale date format
  * $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
  *
- * @param $raw_date
+ * @param  $raw_date
  * @return string
  */
 function oos_date_short($raw_date)
@@ -84,7 +86,7 @@ function oos_date_short($raw_date)
  * Output a raw date string in the selected locale date format
  * $raw_date needs to be in this format: YYYY-MM-DD HH:MM:SS
  *
- * @param $raw_date
+ * @param  $raw_date
  * @return string
  */
 function oos_date_short_schema($raw_date)
@@ -111,7 +113,7 @@ function oos_date_short_schema($raw_date)
 /**
  * Return a local directory path (without trailing slash)
  *
- * @param $sPath
+ * @param  $sPath
  * @return string
  */
 function oos_get_local_path($sPath)
@@ -127,7 +129,7 @@ function oos_get_local_path($sPath)
 /**
  * Return a product ID from a product ID with attributes
  *
- * @param $uprid
+ * @param  $uprid
  * @return string
  */
 function oos_get_product_id($uprid)
@@ -182,8 +184,8 @@ function oos_empty($value)
 /**
  * Return a random value
  *
- * @param $min
- * @param $max
+ * @param  $min
+ * @param  $max
  * @return string
  */
 function oos_rand($min = null, $max = null)
@@ -241,9 +243,9 @@ function oos_create_random_value($length, $type = 'mixed')
 /**
  * Return XML
  *
- * @param $url
+ * @param  $url
  * @return xml
-*/
+ */
 function oos_load_xml($url)
 {
     if (empty($url)) {

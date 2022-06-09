@@ -20,7 +20,8 @@
    ---------------------------------------------------------------------- */
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -30,7 +31,8 @@
  *
  * Type:     function
  * Name:     html_href_link
- * @Version:  $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 13:34:16 $
+ *
+ * @Version: $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 13:34:16 $
  * -------------------------------------------------------------
  */
 
@@ -38,7 +40,7 @@ function smarty_function_html_href_link($params, &$smarty)
 {
     global $session, $oEvent, $spider_kill_sid, $debug;
 
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
 
 
     $content = '';
@@ -50,12 +52,12 @@ function smarty_function_html_href_link($params, &$smarty)
         switch ($_key) {
 
         case 'content':
-          if (!is_array($_val)) {
-              $$_key = smarty_function_escape_special_chars($_val);
-          } else {
-              throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
-          }
-          break;
+            if (!is_array($_val)) {
+                $$_key = smarty_function_escape_special_chars($_val);
+            } else {
+                throw new SmartyException("html_href_link: Unable to determine the page link!", E_USER_NOTICE);
+            }
+            break;
 
         case 'oos_get':
         case 'addentry_id':
@@ -69,13 +71,13 @@ function smarty_function_html_href_link($params, &$smarty)
             break;
 
         default:
-          if (!is_array($_val)) {
-              $parameters .= $_key.'='.smarty_function_escape_special_chars($_val).'&amp;';
-          } else {
-              throw new SmartyException("html_href_link: parameters '$_key' cannot be an array", E_USER_NOTICE);
-          }
-          break;
-       }
+            if (!is_array($_val)) {
+                $parameters .= $_key.'='.smarty_function_escape_special_chars($_val).'&amp;';
+            } else {
+                throw new SmartyException("html_href_link: parameters '$_key' cannot be an array", E_USER_NOTICE);
+            }
+            break;
+        }
     }
 
     if (empty($content) && ($debug == 1)) {

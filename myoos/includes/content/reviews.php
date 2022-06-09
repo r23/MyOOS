@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!$oEvent->installed_plugin('reviews')) {
@@ -32,8 +34,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/review
 /**
  * Get the number of times a word/character is present in a string
  *
- * @param $sStr
- * @param $sNeedle
+ * @param  $sStr
+ * @param  $sNeedle
  * @return number
  */
 function oosWordCount($sStr, $sNeedle = ' ')
@@ -58,8 +60,8 @@ $sCanonical = oos_href_link($aContents['reviews'], 'page=' . $nPage, false, true
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
@@ -124,14 +126,14 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['heading_title'],
-            'canonical'		=> $sCanonical,
+            'canonical'        => $sCanonical,
 
             'page_split'    => $reviews_split->display_count($aLang['text_display_number_of_reviews']),
             'display_links' => $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-            'numrows' 		=> $reviews_split->number_of_rows,
-            'numpages' 		=> $reviews_split->number_of_pages,
-            'page'			=> $nPage,
-            'reviews' 		=> $aReviews
+            'numrows'         => $reviews_split->number_of_rows,
+            'numpages'         => $reviews_split->number_of_pages,
+            'page'            => $nPage,
+            'reviews'         => $aReviews
         )
     );
 }

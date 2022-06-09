@@ -1,7 +1,8 @@
 <?php
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -20,16 +21,17 @@
  *
  * Examples: {small_product_image file="images/masthead.gif"}
  * Output:   <img src="images/masthead.gif" border=0 width=100 height=80>
- * @author   r23 <info@r23.de>
- * @version  1.0
- * @param array
- * @param Smarty
- * @return string
- * @uses smarty_function_escape_special_chars()
+ *
+ * @author  r23 <info@r23.de>
+ * @version 1.0
+ * @param   array
+ * @param   Smarty
+ * @return  string
+ * @uses    smarty_function_escape_special_chars()
  */
 function smarty_function_product_gallery_image($params, &$smarty)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
 
     $basedir = OOS_SHOP_IMAGES . 'product/';
     $dir = 'large';
@@ -43,21 +45,21 @@ function smarty_function_product_gallery_image($params, &$smarty)
         case 'basedir':
         case 'dir':
         case 'alt':
-           if (!is_array($_val)) {
-               $$_key = smarty_function_escape_special_chars($_val);
-           } else {
-               throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-           }
-           break;
+            if (!is_array($_val)) {
+                $$_key = smarty_function_escape_special_chars($_val);
+            } else {
+                throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+            }
+            break;
 
         default:
-           if (!is_array($_val)) {
-               $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
-           } else {
-               throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-           }
-           break;
-      }
+            if (!is_array($_val)) {
+                $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+            } else {
+                throw new SmartyException("small_product_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+            }
+            break;
+        }
     }
 
 

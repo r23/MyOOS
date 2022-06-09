@@ -16,7 +16,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $aContentBlock = [];
@@ -82,12 +84,12 @@ $n = count($aContentBlock);
 for ($i = 0, $n; $i < $n; $i++) {
     switch ($aContentBlock[$i]['side']) {
 
-        case 'sidebar':
-            $smarty->append('sidebar', array('content' => $aContentBlock[$i]['block_content']));
-            break;
+    case 'sidebar':
+        $smarty->append('sidebar', array('content' => $aContentBlock[$i]['block_content']));
+        break;
 
-        default:
-            break;
+    default:
+        break;
 
     }
 }

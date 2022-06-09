@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /*
@@ -39,7 +41,8 @@ if (WARN_INSTALL_EXISTENCE == 'true') {
 // check if the configure.php file is writeable
 if (WARN_CONFIG_WRITEABLE == 'true') {
     if ((file_exists(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php'))
-            && (is_writeable(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php'))) {
+        && (is_writeable(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php'))
+    ) {
         $aInfoMessage[] = ['type' => 'danger',
                             'text' => $aLang['warning_config_file_writeable']];
     }

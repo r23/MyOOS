@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/shopping_cart.php';
@@ -33,15 +35,16 @@ if (isset($_SESSION)) {
         if ($_SESSION['cart']->count_contents() > 0) {
 
             // Add Shipping Cost
-            require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
-            require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php';
-            require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
-            require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
+            include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
+            include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php';
+            include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
+            include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
 
             $country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
 
-            if (isset($_GET['action']) && ($_GET['action'] == 'shipping') &&
-                (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+            if (isset($_GET['action']) && ($_GET['action'] == 'shipping') 
+                && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+            ) {
                 $country = oos_db_prepare_input($_POST['country']);
                 if (is_numeric($country) == false) {
                     $oMessage->add('danger', $aLang['entry_country_error']);
@@ -78,7 +81,7 @@ if (isset($_SESSION)) {
 
             // if no shipping destination address was selected, use the customers own address as default
             if (!isset($_SESSION['sendto'])) {
-                # $_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
+                // $_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
             } else {
                 // verify the selected shipping address
                 $address_booktable = $oostable['address_book'];
@@ -90,7 +93,7 @@ if (isset($_SESSION)) {
                 $check_address = $check_address_result->fields;
 
                 if ($check_address['total'] != '1') {
-                    # $_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
+                    // $_SESSION['sendto'] = intval($_SESSION['customer_default_address_id']);
                 }
             }
 
@@ -111,7 +114,7 @@ if (isset($_SESSION)) {
             list($module, $method) = explode('_', $shipping);
 
             // load all enabled shipping modules
-            require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
+            include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
             $shipping_modules = new shipping($module);
 
             // shipping quotes
@@ -124,13 +127,14 @@ if (isset($_SESSION)) {
             }
 
             // load all enabled order total modules
-            require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
+            include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order_total.php';
             $order_total_modules = new order_total();
 
             // Redeem coupons
-            if (isset($_GET['action']) && ($_GET['action'] == 'promocode') &&
-                (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) &&
-                (isset($_POST['gv_redeem_code']) && is_string($_POST['gv_redeem_code']))) {
+            if (isset($_GET['action']) && ($_GET['action'] == 'promocode') 
+                && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) 
+                && (isset($_POST['gv_redeem_code']) && is_string($_POST['gv_redeem_code']))
+            ) {
                 $order_total_modules->shopping_cart_collect_posts();
             }
 
@@ -245,28 +249,28 @@ $sPagetitle = $aLang['heading_title_cart'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 
 // assign Smarty variables;
 $smarty->assign(
     array(
-        'breadcrumb'	=> $oBreadcrumb->trail(),
-        'heading_title'	=> $aLang['heading_title_cart'],
-        'robots'		=> 'noindex,follow,noodp,noydir',
-        'cart_active' 	=> 1,
-        'canonical'		=> $sCanonical,
+        'breadcrumb'    => $oBreadcrumb->trail(),
+        'heading_title'    => $aLang['heading_title_cart'],
+        'robots'        => 'noindex,follow,noodp,noydir',
+        'cart_active'     => 1,
+        'canonical'        => $sCanonical,
 
-        'hidden_field'			=> $hidden_field,
-        'products'				=> $products,
-        'error'					=> $nError,
-        'any_out_of_stock'		=> $any_out_of_stock,
-        'order_total_output'	=> $order_total_output,
-        'country'				=> $country,
-        'city'					=> $city,
-        'postcode'				=> $postcode
+        'hidden_field'            => $hidden_field,
+        'products'                => $products,
+        'error'                    => $nError,
+        'any_out_of_stock'        => $any_out_of_stock,
+        'order_total_output'    => $order_total_output,
+        'country'                => $country,
+        'city'                    => $city,
+        'postcode'                => $postcode
        )
 );
 

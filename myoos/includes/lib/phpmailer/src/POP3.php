@@ -66,6 +66,7 @@ class POP3
      * POP3 class debug output mode.
      * Debug output level.
      * Options:
+     *
      * @see POP3::DEBUG_OFF: No output
      * @see POP3::DEBUG_SERVER: Server messages, connection/server errors
      * @see POP3::DEBUG_CLIENT: Client and Server messages, connection/server errors

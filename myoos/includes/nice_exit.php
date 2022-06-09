@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    --------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
@@ -34,7 +36,7 @@ if ($debug == 1) {
     echo '<br />';
     echo '</pre>';
 
-    # echo "<p><pre>" . var_export($oObject, TRUE). "</pre></p>";
+    // echo "<p><pre>" . var_export($oObject, TRUE). "</pre></p>";
 }
 
 

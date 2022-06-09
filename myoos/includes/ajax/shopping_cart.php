@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/shopping_cart.php';
@@ -65,7 +67,7 @@ if (isset($_SESSION)) {
                 $n = count($products);
                 for ($i=0, $n; $i<$n; $i++) {
 
-                // Display marker if stock quantity insufficient
+                    // Display marker if stock quantity insufficient
                     if (STOCK_CHECK == 'true') {
                         $stock_left = $products[$i]['stock'] - $products[$i]['quantity'];
                         if ($stock_left < 0) {

@@ -19,139 +19,139 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-  class weight
-  {
-      public $code;
-      public $title;
-      public $description;
-      public $icon;
-      public $enabled = false;
+class weight
+{
+    public $code;
+    public $title;
+    public $description;
+    public $icon;
+    public $enabled = false;
 
-      // class constructor
-      public function __construct()
-      {
-          global $oOrder, $aLang;
+    // class constructor
+    public function __construct()
+    {
+        global $oOrder, $aLang;
 
-          $this->code = 'weight';
-          $this->title = $aLang['module_shipping_weight_text_title'];
-          $this->description = $aLang['module_shipping_weight_text_description'];
-          $this->sort_order = (defined('MODULE_SHIPPING_WEIGHT_SORT_ORDER') ? MODULE_SHIPPING_WEIGHT_SORT_ORDER : null);
-          $this->icon = '';
-          $this->enabled = (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true') ? true : false);
+        $this->code = 'weight';
+        $this->title = $aLang['module_shipping_weight_text_title'];
+        $this->description = $aLang['module_shipping_weight_text_description'];
+        $this->sort_order = (defined('MODULE_SHIPPING_WEIGHT_SORT_ORDER') ? MODULE_SHIPPING_WEIGHT_SORT_ORDER : null);
+        $this->icon = '';
+        $this->enabled = (defined('MODULE_SHIPPING_WEIGHT_STATUS') && (MODULE_SHIPPING_WEIGHT_STATUS == 'true') ? true : false);
 
-          if (($this->enabled == true) && ((defined('MODULE_SHIPPING_WEIGHT_ZONE') && (int)MODULE_SHIPPING_WEIGHT_ZONE > 0))) {
-              $check_flag = false;
+        if (($this->enabled == true) && ((defined('MODULE_SHIPPING_WEIGHT_ZONE') && (int)MODULE_SHIPPING_WEIGHT_ZONE > 0))) {
+            $check_flag = false;
 
-              if (!is_object($oOrder)) {
-                  $dest_country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
-              } else {
-                  $dest_country = $oOrder->delivery['country']['id'];
-              }
-
-
-              // Get database information
-              $dbconn =& oosDBGetConn();
-              $oostable =& oosDBGetTables();
-
-              $check_result = $dbconn->Execute("SELECT zone_id FROM " . $oostable['zones_to_geo_zones'] . " WHERE geo_zone_id = '" . MODULE_SHIPPING_WEIGHT_ZONE . "' AND zone_country_id = '" . intval($dest_country) . "' ORDER BY zone_id");
-              while ($check = $check_result->fields) {
-                  if ($check['zone_id'] < 1) {
-                      $check_flag = true;
-                      break;
-                  } elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
-                      $check_flag = true;
-                      break;
-                  }
-
-                  // Move that ADOdb pointer!
-                  $check_result->MoveNext();
-              }
-
-              // Close result set
-              $check_result->Close();
-
-              if ($check_flag == false) {
-                  $this->enabled = false;
-              }
-          }
-      }
-
-      // class methods
-      public function quote($method = '')
-      {
-          global $oOrder, $aLang, $shipping_weight;
-
-          $weight_cost = preg_split("/[:,]/", MODULE_SHIPPING_WEIGHT_COST);
-
-          if ($shipping_weight > $weight_cost[count($weight_cost)-2]) {
-              $shipping = ($shipping_weight-$weight_cost[count($weight_cost)-2])* MODULE_SHIPPING_WEIGHT_STEP +$weight_cost[count($weight_cost)-1];
-          }
-          for ($i = 0; $i < count($weight_cost); $i+=2) {
-              if ($shipping_weight <= $weight_cost[$i]) {
-                  $shipping = $weight_cost[$i+1];
-                  break;
-              }
-          }
-
-          $this->quotes = array('id' => $this->code,
-                            'module' => $aLang['module_shipping_weight_text_title'],
-                            'methods' => array(array('id' => $this->code,
-                                                     'title' => $aLang['module_shipping_weight_text_way'],
-                                                     'cost' => $shipping + MODULE_SHIPPING_WEIGHT_HANDLING)));
+            if (!is_object($oOrder)) {
+                $dest_country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
+            } else {
+                $dest_country = $oOrder->delivery['country']['id'];
+            }
 
 
-          if (oos_is_not_null($this->icon)) {
-              $this->quotes['icon'] = oos_image($this->icon, $this->title);
-          }
+            // Get database information
+            $dbconn =& oosDBGetConn();
+            $oostable =& oosDBGetTables();
 
-          return $this->quotes;
-      }
+            $check_result = $dbconn->Execute("SELECT zone_id FROM " . $oostable['zones_to_geo_zones'] . " WHERE geo_zone_id = '" . MODULE_SHIPPING_WEIGHT_ZONE . "' AND zone_country_id = '" . intval($dest_country) . "' ORDER BY zone_id");
+            while ($check = $check_result->fields) {
+                if ($check['zone_id'] < 1) {
+                    $check_flag = true;
+                    break;
+                } elseif ($check['zone_id'] == $oOrder->delivery['zone_id']) {
+                    $check_flag = true;
+                    break;
+                }
+
+                // Move that ADOdb pointer!
+                $check_result->MoveNext();
+            }
+
+            // Close result set
+            $check_result->Close();
+
+            if ($check_flag == false) {
+                $this->enabled = false;
+            }
+        }
+    }
+
+    // class methods
+    public function quote($method = '')
+    {
+        global $oOrder, $aLang, $shipping_weight;
+
+        $weight_cost = preg_split("/[:,]/", MODULE_SHIPPING_WEIGHT_COST);
+
+        if ($shipping_weight > $weight_cost[count($weight_cost)-2]) {
+            $shipping = ($shipping_weight-$weight_cost[count($weight_cost)-2])* MODULE_SHIPPING_WEIGHT_STEP +$weight_cost[count($weight_cost)-1];
+        }
+        for ($i = 0; $i < count($weight_cost); $i+=2) {
+            if ($shipping_weight <= $weight_cost[$i]) {
+                $shipping = $weight_cost[$i+1];
+                break;
+            }
+        }
+
+        $this->quotes = array('id' => $this->code,
+                          'module' => $aLang['module_shipping_weight_text_title'],
+                          'methods' => array(array('id' => $this->code,
+                                                   'title' => $aLang['module_shipping_weight_text_way'],
+                                                   'cost' => $shipping + MODULE_SHIPPING_WEIGHT_HANDLING)));
 
 
-      public function check()
-      {
-          if (!isset($this->_check)) {
-              $this->_check = defined('MODULE_SHIPPING_WEIGHT_STATUS');
-          }
+        if (oos_is_not_null($this->icon)) {
+            $this->quotes['icon'] = oos_image($this->icon, $this->title);
+        }
 
-          return $this->_check;
-      }
+        return $this->quotes;
+    }
 
 
-      public function install()
-      {
+    public function check()
+    {
+        if (!isset($this->_check)) {
+            $this->_check = defined('MODULE_SHIPPING_WEIGHT_STATUS');
+        }
 
-      // Get database information
-          $dbconn =& oosDBGetConn();
-          $oostable =& oosDBGetTables();
-
-          $configurationtable = $oostable['configuration'];
-          $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
-          $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_HANDLING', '5', '6', '0', now())");
-          $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_ZONE', '0', '6', '0', '', now())");
-
-          $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_SORT_ORDER', '0', '6', '0', now())");
-          $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_COST', '31:15,40:28,50:30.5,100:33', '6', '0', now())");
-          $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_STEP', '0.28', '6', '0', 'currencies->format', now())");
-
-          $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_MODE', 'weight', '6', '0', 'oos_cfg_select_option(array(\'weight\', \'price\'), ', now())");
-      }
+        return $this->_check;
+    }
 
 
-      public function remove()
-      {
+    public function install()
+    {
 
-      // Get database information
-          $dbconn =& oosDBGetConn();
-          $oostable =& oosDBGetTables();
+        // Get database information
+        $dbconn =& oosDBGetConn();
+        $oostable =& oosDBGetTables();
 
-          $configurationtable = $oostable['configuration'];
-          $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
-      }
+        $configurationtable = $oostable['configuration'];
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_STATUS', 'true', '6', '0', 'oos_cfg_select_option(array(\'true\', \'false\'), ', now())");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_HANDLING', '5', '6', '0', now())");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_ZONE', '0', '6', '0', '', now())");
+
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_SORT_ORDER', '0', '6', '0', now())");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_COST', '31:15,40:28,50:30.5,100:33', '6', '0', now())");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, use_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_STEP', '0.28', '6', '0', 'currencies->format', now())");
+
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, set_function, date_added) VALUES ('MODULE_SHIPPING_WEIGHT_MODE', 'weight', '6', '0', 'oos_cfg_select_option(array(\'weight\', \'price\'), ', now())");
+    }
 
 
-      public function keys()
-      {
-          return array('MODULE_SHIPPING_WEIGHT_STATUS', 'MODULE_SHIPPING_WEIGHT_HANDLING', 'MODULE_SHIPPING_WEIGHT_COST', 'MODULE_SHIPPING_WEIGHT_STEP', 'MODULE_SHIPPING_WEIGHT_ZONE', 'MODULE_SHIPPING_WEIGHT_SORT_ORDER', 'MODULE_SHIPPING_WEIGHT_MODE');
-      }
-  }
+    public function remove()
+    {
+
+        // Get database information
+        $dbconn =& oosDBGetConn();
+        $oostable =& oosDBGetTables();
+
+        $configurationtable = $oostable['configuration'];
+        $dbconn->Execute("DELETE FROM $configurationtable WHERE configuration_key in ('" . implode("', '", $this->keys()) . "')");
+    }
+
+
+    public function keys()
+    {
+        return array('MODULE_SHIPPING_WEIGHT_STATUS', 'MODULE_SHIPPING_WEIGHT_HANDLING', 'MODULE_SHIPPING_WEIGHT_COST', 'MODULE_SHIPPING_WEIGHT_STEP', 'MODULE_SHIPPING_WEIGHT_ZONE', 'MODULE_SHIPPING_WEIGHT_SORT_ORDER', 'MODULE_SHIPPING_WEIGHT_MODE');
+    }
+}

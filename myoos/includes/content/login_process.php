@@ -20,7 +20,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // require  the password crypto functions
@@ -62,8 +64,9 @@ if ($_SESSION['login_count'] > 20) {
 }
 
 
-if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_GET['formid']))) {
+if (isset($_GET['action']) && ($_GET['action'] == 'process') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_GET['formid']))
+) {
     $customerstable = $oostable['customers'];
     $sql = "SELECT customers_id, customers_gender, customers_firstname, customers_lastname,
                    customers_password, customers_wishlist_link_id, customers_language,
@@ -91,9 +94,11 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
 
             if ($check_customer['customers_language'] == '') {
                 $customerstable = $oostable['customers'];
-                $dbconn->Execute("UPDATE $customerstable
+                $dbconn->Execute(
+                    "UPDATE $customerstable
 									SET customers_language = '" . oos_db_input($sLanguage) . "'
-								WHERE customers_id = '" . intval($check_customer['customers_id']) . "'");
+								WHERE customers_id = '" . intval($check_customer['customers_id']) . "'"
+                );
             }
 
 
@@ -118,10 +123,12 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
             $aUser = $_SESSION['user']->group;
 
             $customers_infotable = $oostable['customers_info'];
-            $dbconn->Execute("UPDATE $customers_infotable
+            $dbconn->Execute(
+                "UPDATE $customers_infotable
 								SET customers_info_date_of_last_logon = now(),
 									customers_info_number_of_logons = customers_info_number_of_logons+1
-								WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'");
+								WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'"
+            );
 
             // coupon
             $coupon_gv_customertable = $oostable['coupon_gv_customer'];

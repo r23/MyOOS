@@ -17,7 +17,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class oos_event_specials
@@ -33,8 +35,8 @@ class oos_event_specials
 
 
     /**
-    *  class constructor
-    */
+     *  class constructor
+     */
     public function __construct()
     {
         $this->name          = PLUGIN_EVENT_SPECILAS_NAME;
@@ -66,9 +68,11 @@ class oos_event_specials
         $oostable =& oosDBGetTables();
 
         $blocktable = $oostable['block'];
-        $dbconn->Execute("UPDATE $blocktable
+        $dbconn->Execute(
+            "UPDATE $blocktable
                         SET block_status = 1
-                        WHERE block_file = 'specials'");
+                        WHERE block_file = 'specials'"
+        );
 
         $today = date("Y-m-d H:i:s");
 

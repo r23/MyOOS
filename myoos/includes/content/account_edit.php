@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // cookie-notice
@@ -48,8 +50,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_edit.php';
 
 
-if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_POST['action']) && ($_POST['action'] == 'process') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+) {
     if (ACCOUNT_GENDER == 'true') {
         if (isset($_POST['gender'])) {
             $gender = oos_db_prepare_input($_POST['gender']);
@@ -97,9 +100,10 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     }
 
     if (ACCOUNT_DOB == 'true') {
-        if ((strlen($dob) < ENTRY_DOB_MIN_LENGTH) || (!empty($dob) &&
-            (!is_numeric(oos_date_raw($dob)) ||
-            !checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))) {
+        if ((strlen($dob) < ENTRY_DOB_MIN_LENGTH) || (!empty($dob) 
+            && (!is_numeric(oos_date_raw($dob)) 
+            || !checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))
+        ) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_date_of_birth_error']);
         }
@@ -277,8 +281,8 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
@@ -286,13 +290,13 @@ $smarty->assign(
     array(
         'breadcrumb'    => $oBreadcrumb->trail(),
         'heading_title' => $aLang['heading_title'],
-        'robots'		=> 'noindex,nofollow,noodp,noydir',
+        'robots'        => 'noindex,nofollow,noodp,noydir',
 
-        'account_active'	=> 1,
+        'account_active'    => 1,
         'account'           => $account,
-        'female'			=> $female,
-         'male' 				=> $male,
-        'bNewsletter'		=> $bNewsletter
+        'female'            => $female,
+         'male'                 => $male,
+        'bNewsletter'        => $bNewsletter
     )
 );
 

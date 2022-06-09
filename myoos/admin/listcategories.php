@@ -47,8 +47,8 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
    $get_result = $coupon_get->fields;
    echo "<tr><th>Category ID</th><th>Category Name</th></tr><tr>";
    $cat_ids = preg_split("/[,]/", $get_result['restrict_to_categories']);
-   for ($i = 0; $i < count($cat_ids); $i++) {
-       $sql = "SELECT 
+for ($i = 0; $i < count($cat_ids); $i++) {
+    $sql = "SELECT 
                  c.categories_id, c.categories_status, cd.categories_name
              FROM
                  " . $oostable['categories'] . " c, 
@@ -58,13 +58,13 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
                  c.categories_id = cd.categories_id AND
                  cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' 
                  c.categories_id = '" . $cat_ids[$i] . "'";
-       $result = $dbconn->Execute($sql);
-       if ($row = $result->fields) {
-           echo "<td>".$row["categories_id"]."</td>\n";
-           echo "<td>".$row["categories_name"]."</td>\n";
-           echo "</tr>\n";
-       }
-   }
+    $result = $dbconn->Execute($sql);
+    if ($row = $result->fields) {
+        echo "<td>".$row["categories_id"]."</td>\n";
+        echo "<td>".$row["categories_name"]."</td>\n";
+        echo "</tr>\n";
+    }
+}
     echo "</table>\n";
 ?>
 <br>

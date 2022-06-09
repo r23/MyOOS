@@ -143,7 +143,7 @@ class invoice
     public function install()
     {
 
-      // Get database information
+        // Get database information
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
@@ -157,7 +157,7 @@ class invoice
     public function remove()
     {
 
-      // Get database information
+        // Get database information
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 

@@ -21,7 +21,8 @@
    ---------------------------------------------------------------------- */
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -37,7 +38,7 @@
 
 function smarty_function_oos_check_stock($params, &$smarty)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
 
     $products_id = '';
     $products_quantity = '';

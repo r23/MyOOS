@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class nav_menu
@@ -113,28 +115,28 @@ class nav_menu
 
 
                 switch ($level) {
-                    case 0:
-                        $result .= $this->root_start_string;
-                        break;
+                case 0:
+                    $result .= $this->root_start_string;
+                    break;
 
-                    case 1:
-                        if ($submenu == 0) {
-                            $submenu++;
-                            $this->count = 0;
-                            $this->submenu = 1;
-                            $this->count_col++;
+                case 1:
+                    if ($submenu == 0) {
+                        $submenu++;
+                        $this->count = 0;
+                        $this->submenu = 1;
+                        $this->count_col++;
 
-                            $result .= '<div class="main-nav-submenu">
+                        $result .= '<div class="main-nav-submenu">
 											<div class="row"><div class="col-md-3"><ul class="list-unstyled"><li>';
-                        } else {
-                            $this->count+2;
-                            $result .=  '<ul class="list-unstyled"><li>';
-                        }
-                        break;
+                    } else {
+                        $this->count+2;
+                        $result .=  '<ul class="list-unstyled"><li>';
+                    }
+                    break;
 
-                    case 2:
-                        $result .= $this->parent_start_string . "\n";
-                        break;
+                case 2:
+                    $result .= $this->parent_start_string . "\n";
+                    break;
                 }
 
 
@@ -145,13 +147,13 @@ class nav_menu
                 }
 
                 switch ($category['menu_type']) {
-                    case 'NEW':
-                        $result .= '<span class="badge badge-danger float-right">NEW</span>';
-                        break;
+                case 'NEW':
+                    $result .= '<span class="badge badge-danger float-right">NEW</span>';
+                    break;
 
-                    case 'PROMO':
-                        $result .= '<span class="badge badge-success float-right">PROMO</span>';
-                        break;
+                case 'PROMO':
+                    $result .= '<span class="badge badge-success float-right">PROMO</span>';
+                    break;
                 }
 
 
@@ -191,39 +193,39 @@ class nav_menu
                 }
 
                 switch ($level) {
-                    case 0:
-                        if ($this->submenu > 0) {
-                            if (($this->banner_image != '') && ($this->count_col <= 3)) {
-                                if ($this->count_col == 1) {
-                                    $result .= '</div><div class="col-md-9 text-right hidden-sm-down">';
-                                } elseif ($this->count_col == 2) {
-                                    $result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
-                                } elseif ($this->count_col == 3) {
-                                    $result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
-                                }
-                                $result .= '<a class="mt-15 block" href="'. $this->banner_link . '">
+                case 0:
+                    if ($this->submenu > 0) {
+                        if (($this->banner_image != '') && ($this->count_col <= 3)) {
+                            if ($this->count_col == 1) {
+                                $result .= '</div><div class="col-md-9 text-right hidden-sm-down">';
+                            } elseif ($this->count_col == 2) {
+                                $result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
+                            } elseif ($this->count_col == 3) {
+                                $result .= '</div><div class="col-md-6 text-right hidden-sm-down">';
+                            }
+                            $result .= '<a class="mt-15 block" href="'. $this->banner_link . '">
 												<img class="img-fluid" src="' . $this->banner_image . '" alt="' . $this->banner_name .'">
 											</a>';
-                            }
-
-                            $result .=  '</div></div></div>'  . "\n";
                         }
-                        $this->submenu = 0;
 
-                        $result .= $this->root_end_string;
-                        break;
+                        $result .=  '</div></div></div>'  . "\n";
+                    }
+                    $this->submenu = 0;
 
-                    case 1:
-                        if ($this->count > 0) {
-                            $result .= 	'</ul>';
-                        }
-                        break;
+                    $result .= $this->root_end_string;
+                    break;
 
-                    case 2:
-                        if ($this->count > 0) {
-                            $result .=  $this->parent_end_string;
-                        }
-                        break;
+                case 1:
+                    if ($this->count > 0) {
+                        $result .=     '</ul>';
+                    }
+                    break;
+
+                case 2:
+                    if ($this->count > 0) {
+                        $result .=  $this->parent_end_string;
+                    }
+                    break;
                 }
             }
         }

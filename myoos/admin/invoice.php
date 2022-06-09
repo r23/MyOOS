@@ -26,7 +26,7 @@
 
   $oID = oos_db_prepare_input($_GET['oID']);
 
-  include '../includes/classes/class_order.php';
+  require '../includes/classes/class_order.php';
   $order = new order($oID);
 
 ?>
@@ -107,62 +107,62 @@
   </tr>
   <tr>
     <td>
-	
-	<table class="table table-striped w-100">
-			<tr>
-				<td colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
-				<td><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></td>
-				<td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
-				<td class="text-right"><?php echo TABLE_HEADING_TAX; ?></td>
-				<td class="text-right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
-				<td class="text-right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
-				<td class="text-right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
-				<td class="text-right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
-			</tr>	
-		</thead>
+    
+    <table class="table table-striped w-100">
+            <tr>
+                <td colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></td>
+                <td><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></td>
+                <td><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></td>
+                <td class="text-right"><?php echo TABLE_HEADING_TAX; ?></td>
+                <td class="text-right"><?php echo TABLE_HEADING_PRICE_EXCLUDING_TAX; ?></td>
+                <td class="text-right"><?php echo TABLE_HEADING_PRICE_INCLUDING_TAX; ?></td>
+                <td class="text-right"><?php echo TABLE_HEADING_TOTAL_EXCLUDING_TAX; ?></td>
+                <td class="text-right"><?php echo TABLE_HEADING_TOTAL_INCLUDING_TAX; ?></td>
+            </tr>    
+        </thead>
 <?php
-    for ($i = 0, $n = count($order->products); $i < $n; $i++) {
-        echo '      <tr class="dataTableRow">' . "\n" .
-           '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
-           '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
+for ($i = 0, $n = count($order->products); $i < $n; $i++) {
+    echo '      <tr class="dataTableRow">' . "\n" .
+       '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
+       '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
-        if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
-            $k = count($order->products[$i]['attributes']);
-            for ($j = 0; $j < $k; $j++) {
-                echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
-                if ($order->products[$i]['attributes'][$j]['price'] != '0') {
-                    echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
-                }
-                echo '</i></small></nobr>';
+    if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
+        $k = count($order->products[$i]['attributes']);
+        for ($j = 0; $j < $k; $j++) {
+            echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
+            if ($order->products[$i]['attributes'][$j]['price'] != '0') {
+                echo ' (' . $order->products[$i]['attributes'][$j]['prefix'] . $currencies->format($order->products[$i]['attributes'][$j]['price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . ')';
             }
+            echo '</i></small></nobr>';
         }
-
-        echo '        </td>' . "\n";
-
-        $serial_number = "";
-        if (oos_is_not_null($order->products[$i]['serial_number'])) {
-            $serial_number = $order->products[$i]['serial_number'];
-        }
-
-        echo '        <td class="dataTableContent" valign="top">' . $serial_number . '</td>' . "\n" .
-           '        <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n";
-        echo '        <td class="dataTableContent" align="right" valign="top">' . oos_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
-           '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format(oos_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
-           '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format(oos_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n";
-        echo '      </tr>' . "\n";
     }
+
+    echo '        </td>' . "\n";
+
+    $serial_number = "";
+    if (oos_is_not_null($order->products[$i]['serial_number'])) {
+        $serial_number = $order->products[$i]['serial_number'];
+    }
+
+    echo '        <td class="dataTableContent" valign="top">' . $serial_number . '</td>' . "\n" .
+       '        <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n";
+    echo '        <td class="dataTableContent" align="right" valign="top">' . oos_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n" .
+       '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
+       '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format(oos_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']), true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
+       '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format($order->products[$i]['final_price'] * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n" .
+       '        <td class="dataTableContent" align="right" valign="top"><b>' . $currencies->format(oos_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</b></td>' . "\n";
+    echo '      </tr>' . "\n";
+}
 ?>
       <tr>
         <td align="right" colspan="9"><table border="0" cellspacing="0" cellpadding="2">
 <?php
-  for ($i = 0, $n = count($order->totals); $i < $n; $i++) {
-      echo '          <tr>' . "\n" .
-         '            <td align="right" class="smallText">' . $order->totals[$i]['title'] . '</td>' . "\n" .
-         '            <td align="right" class="smallText">' . $order->totals[$i]['text'] . '</td>' . "\n" .
-         '          </tr>' . "\n";
-  }
+for ($i = 0, $n = count($order->totals); $i < $n; $i++) {
+    echo '          <tr>' . "\n" .
+       '            <td align="right" class="smallText">' . $order->totals[$i]['title'] . '</td>' . "\n" .
+       '            <td align="right" class="smallText">' . $order->totals[$i]['text'] . '</td>' . "\n" .
+       '          </tr>' . "\n";
+}
 ?>
         </table></td>
       </tr>

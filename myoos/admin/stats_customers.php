@@ -31,65 +31,65 @@ $rows = 0;
 require 'includes/header.php';
 ?>
 <div class="wrapper">
-	<!-- Header //-->
-	<header class="topnavbar-wrapper">
-		<!-- Top Navbar //-->
-		<?php require 'includes/menue.php'; ?>
-	</header>
-	<!-- END Header //-->
-	<aside class="aside">
-		<!-- Sidebar //-->
-		<div class="aside-inner">
-			<?php require 'includes/blocks.php'; ?>
-		</div>
-		<!-- END Sidebar (left) //-->
-	</aside>
-	
-	<!-- Main section //-->
-	<section>
-		<!-- Page content //-->
-		<div class="content-wrapper">
+    <!-- Header //-->
+    <header class="topnavbar-wrapper">
+        <!-- Top Navbar //-->
+        <?php require 'includes/menue.php'; ?>
+    </header>
+    <!-- END Header //-->
+    <aside class="aside">
+        <!-- Sidebar //-->
+        <div class="aside-inner">
+            <?php require 'includes/blocks.php'; ?>
+        </div>
+        <!-- END Sidebar (left) //-->
+    </aside>
+    
+    <!-- Main section //-->
+    <section>
+        <!-- Page content //-->
+        <div class="content-wrapper">
 
-			<!-- Breadcrumbs //-->
-			<div class="content-heading">
-				<div class="col-lg-12">
-					<h2><?php echo HEADING_TITLE; ?></h2>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports') . '">' . BOX_HEADING_REPORTS . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item active">
-							<strong><?php echo HEADING_TITLE; ?></strong>
-						</li>
-					</ol>
-				</div>
-			</div>
-			<!-- END Breadcrumbs //-->
-			
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">				
+            <!-- Breadcrumbs //-->
+            <div class="content-heading">
+                <div class="col-lg-12">
+                    <h2><?php echo HEADING_TITLE; ?></h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports') . '">' . BOX_HEADING_REPORTS . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong><?php echo HEADING_TITLE; ?></strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- END Breadcrumbs //-->
+            
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">                
 <!-- body_text //-->
-	<div class="table-responsive">
-		<table class="table w-100">
+    <div class="table-responsive">
+        <table class="table w-100">
           <tr>
             <td valign="top">
-				<table class="table table-striped table-hover w-100">
-					<thead class="thead-dark">
-						<tr>
-							<th><?php echo TABLE_HEADING_NUMBER; ?></th>
-							<th><?php echo TABLE_HEADING_CUSTOMERS; ?></th>
-							<th class="text-right"><?php echo TABLE_HEADING_TOTAL_PURCHASED; ?>&nbsp;</th>
-						</tr>	
-					</thead>			
-			
+                <table class="table table-striped table-hover w-100">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th><?php echo TABLE_HEADING_NUMBER; ?></th>
+                            <th><?php echo TABLE_HEADING_CUSTOMERS; ?></th>
+                            <th class="text-right"><?php echo TABLE_HEADING_TOTAL_PURCHASED; ?>&nbsp;</th>
+                        </tr>    
+                    </thead>            
+            
 <?php
-  if (isset($nPage) && ($nPage > 1)) {
-      $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
-  }
+if (isset($nPage) && ($nPage > 1)) {
+    $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+}
   $customerstable = $oostable['customers'];
   $orders_productstable = $oostable['orders_products'];
   $orderstable = $oostable['orders'];
@@ -105,27 +105,29 @@ require 'includes/header.php';
   $customers_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $customers_sql_raw, $customers_result_numrows);
 // fix counted customers
   $orderstable = $oostable['orders'];
-  $customers_result_numrows = $dbconn->Execute("SELECT customers_id
+$customers_result_numrows = $dbconn->Execute(
+    "SELECT customers_id
                                                 FROM $orderstable
-                                               GROUP BY customers_id");
+                                               GROUP BY customers_id"
+);
   $customers_result_numrows = $customers_result_numrows->RecordCount();
 
   $customers_result = $dbconn->Execute($customers_sql_raw);
-  while ($customers = $customers_result->fields) {
-      $rows++;
+while ($customers = $customers_result->fields) {
+    $rows++;
 
-      if (strlen($rows) < 2) {
-          $rows = '0' . $rows;
-      } ?>
+    if (strlen($rows) < 2) {
+        $rows = '0' . $rows;
+    } ?>
               <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['customers'], 'search=' . $customers['customers_lastname']); ?>'">
                 <td><?php echo $rows; ?>.</td>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['customers'], 'search=' . $customers['customers_lastname']) . '">' . $customers['customers_firstname'] . ' ' . $customers['customers_lastname'] . '</a>'; ?></td>
                 <td class="text-right"><?php echo $currencies->format($customers['ordersum']); ?>&nbsp;</td>
               </tr>
-<?php
-    // Move that ADOdb pointer!
-    $customers_result->MoveNext();
-  }
+      <?php
+        // Move that ADOdb pointer!
+        $customers_result->MoveNext();
+}
 ?>
             </table></td>
           </tr>
@@ -138,19 +140,19 @@ require 'includes/header.php';
             </table></td>
           </tr>
         </table>
-	</div>
+    </div>
 <!-- body_text_eof //-->
 
-				</div>
-			</div>
+                </div>
+            </div>
         </div>
 
-		</div>
-	</section>
-	<!-- Page footer //-->
-	<footer>
-		<span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
-	</footer>
+        </div>
+    </section>
+    <!-- Page footer //-->
+    <footer>
+        <span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
+    </footer>
 </div>
 
 

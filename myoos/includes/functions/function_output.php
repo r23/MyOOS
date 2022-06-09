@@ -22,22 +22,24 @@
  /**
   * html output
   *
-  * @link https://www.oos-shop.de
+  * @link    https://www.oos-shop.de
   * @package html output
   * @version $Revision: 1.3 $ - changed by $Author: r23 $ on $Date: 2008/08/14 10:24:05 $
   */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
  /**
   * The HTML href link wrapper function
   *
-  * @param $modul
-  * @param $page
-  * @param $parameters
-  * @param $add_session_id
-  * @param $search_engine_safe
+  * @param  $modul
+  * @param  $page
+  * @param  $parameters
+  * @param  $add_session_id
+  * @param  $search_engine_safe
   * @return string
   */
 function oos_href_link($page = '', $parameters = '', $add_session_id = true, $search_engine_safe = true)
@@ -100,11 +102,11 @@ function oos_href_link($page = '', $parameters = '', $add_session_id = true, $se
  /**
   * It begets a link to get data
   *
-  * @param $modul
-  * @param $page
-  * @param $parameters
-  * @param $add_session_id
-  * @param $search_engine_safe
+  * @param  $modul
+  * @param  $page
+  * @param  $parameters
+  * @param  $add_session_id
+  * @param  $search_engine_safe
   * @return string
   */
 function oos_get_data($page = '', $parameters = '', $add_session_id = true, $search_engine_safe = true)
@@ -168,11 +170,11 @@ function oos_get_data($page = '', $parameters = '', $add_session_id = true, $sea
  /**
   * The HTML image wrapper function
   *
-  * @param $src
-  * @param $title
-  * @param $width
-  * @param $height
-  * @param $parameters
+  * @param  $src
+  * @param  $title
+  * @param  $width
+  * @param  $height
+  * @param  $parameters
   * @return string
   */
 function oos_image($src, $title = null, $parameters = null)
@@ -201,11 +203,11 @@ function oos_image($src, $title = null, $parameters = null)
  /**
   * Output a form input field
   *
-  * @param $name
-  * @param $value
-  * @param $parameters
-  * @param $type
-  * @param $reinsert_value
+  * @param  $name
+  * @param  $value
+  * @param  $parameters
+  * @param  $type
+  * @param  $reinsert_value
   * @return string
   */
 function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'text', $reinsert_value = true)
@@ -239,11 +241,11 @@ function oos_draw_input_field($name, $value = '', $parameters = '', $type = 'tex
 /**
  * Output a selection field - alias function for oos_draw_checkbox_field() and oos_draw_radio_field()
  *
- * @param $name
- * @param $type
- * @param $value
- * @param $checked
- * @param $parameters
+ * @param  $name
+ * @param  $type
+ * @param  $value
+ * @param  $checked
+ * @param  $parameters
  * @return string
  */
 function oos_draw_select_field($name, $type, $value = null, $checked = false, $parameters = null)

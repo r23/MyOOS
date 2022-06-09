@@ -19,7 +19,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $whats_new_block = false;
@@ -35,11 +37,11 @@ $query = "SELECT products_id, products_image, products_tax_class_id, products_un
             ORDER BY products_date_added DESC";
 if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
     $whats_new_block = true;
-	
+    
     $random_product['products_name'] = oos_get_products_name($random_product['products_id']);
-	
-	$discount = null;
-	
+    
+    $discount = null;
+    
     $whats_new_product_price = null;
     $whats_new_price_list = null;
     $whats_new_product_special_price = null;
@@ -47,10 +49,10 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
     $whats_new_base_product_price = null;
     $whats_new_cross_out_price = null;
     $whats_new_until = null;
-	$base_product_price = null;
+    $base_product_price = null;
 
     if ($aUser['show_price'] == 1) {
-	    $base_product_price = $random_product['products_price'];
+        $base_product_price = $random_product['products_price'];
         $whats_new_special = oos_get_products_special($random_product['products_id']);
         $whats_new_product_price = $oCurrencies->display_price($random_product['products_price'], oos_get_tax_rate($random_product['products_tax_class_id']));
 
@@ -58,20 +60,20 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
             $whats_new_price_list = $oCurrencies->display_price($random_product['products_price_list'], oos_get_tax_rate($random_product['products_tax_class_id']));
         }
 
-		if ($random_product['products_discount4'] > 0) {
-			$discount = $random_product['products_discount4'];
-		} elseif ($random_product['products_discount3'] > 0) {
-			$discount = $random_product['products_discount3'];
-		} elseif ($random_product['products_discount2'] > 0) {
-			$discount = $random_product['products_discount2'];
-		} elseif ($random_product['products_discount1'] > 0) {
-			$discount = $random_product['products_discount1'];
-		}
+        if ($random_product['products_discount4'] > 0) {
+            $discount = $random_product['products_discount4'];
+        } elseif ($random_product['products_discount3'] > 0) {
+            $discount = $random_product['products_discount3'];
+        } elseif ($random_product['products_discount2'] > 0) {
+            $discount = $random_product['products_discount2'];
+        } elseif ($random_product['products_discount1'] > 0) {
+            $discount = $random_product['products_discount1'];
+        }
 
-		if ($discount > 0) {
-			$base_product_price = $discount;
-			$whats_new_product_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($random_product['products_tax_class_id']));
-		}
+        if ($discount > 0) {
+            $base_product_price = $discount;
+            $whats_new_product_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($random_product['products_tax_class_id']));
+        }
 
 
         if ($whats_new_special['specials_new_products_price'] > 0) {
@@ -91,13 +93,13 @@ if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
     }
     $smarty->assign(
         array(
-            'whats_new_product_special_price'	=> $whats_new_product_special_price,
-            'whats_new_product_discount_price'	=> $whats_new_product_discount_price,
-            'whats_new_base_product_price'		=> $whats_new_base_product_price,
-            'whats_new_product_price'			=> $whats_new_product_price,
-            'whats_new_product_price_list' 		=> $whats_new_price_list,
-            'whats_new_cross_out_price'			=> $whats_new_cross_out_price,
-            'whats_new_until'					=> $whats_new_until,
+            'whats_new_product_special_price'    => $whats_new_product_special_price,
+            'whats_new_product_discount_price'    => $whats_new_product_discount_price,
+            'whats_new_base_product_price'        => $whats_new_base_product_price,
+            'whats_new_product_price'            => $whats_new_product_price,
+            'whats_new_product_price_list'         => $whats_new_price_list,
+            'whats_new_cross_out_price'            => $whats_new_cross_out_price,
+            'whats_new_until'                    => $whats_new_until,
 
             'random_product'          => $random_product,
             'block_heading_whats_new' => $block_heading

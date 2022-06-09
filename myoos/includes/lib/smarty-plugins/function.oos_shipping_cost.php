@@ -39,7 +39,7 @@ function smarty_function_oos_cost($params, &$smarty)
 {
     global $oCurrencies;
 
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
 
     $price = '';
     $tax = '';

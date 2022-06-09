@@ -27,146 +27,146 @@ $currencies = new currencies();
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if ($action == 'confirmrelease' && isset($_GET['gid'])) {
-      $coupon_gv_queuetable = $oostable['coupon_gv_queue'];
-      $gv_result = $dbconn->Execute("SELECT release_flag FROM $coupon_gv_queuetable WHERE unique_id='".$_GET['gid']."'");
-      $gv_result = $gv_result->fields;
-      if ($gv_result['release_flag'] == 'N') {
-          $coupon_gv_queuetable = $oostable['coupon_gv_queue'];
-          $gv_result = $dbconn->Execute("SELECT customer_id, amount FROM $coupon_gv_queuetable WHERE unique_id='".$_GET['gid']."'");
-          if ($gv_resulta = $gv_result->fields) {
-              $gv_amount = $gv_resulta['amount'];
-              //Let's build a message object using the email class
-              $customerstable = $oostable['customers'];
-              $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address FROM $customerstable WHERE customers_id = '" . $gv_resulta['customer_id'] . "'");
-              $mail = $mail_result->fields;
+if ($action == 'confirmrelease' && isset($_GET['gid'])) {
+    $coupon_gv_queuetable = $oostable['coupon_gv_queue'];
+    $gv_result = $dbconn->Execute("SELECT release_flag FROM $coupon_gv_queuetable WHERE unique_id='".$_GET['gid']."'");
+    $gv_result = $gv_result->fields;
+    if ($gv_result['release_flag'] == 'N') {
+        $coupon_gv_queuetable = $oostable['coupon_gv_queue'];
+        $gv_result = $dbconn->Execute("SELECT customer_id, amount FROM $coupon_gv_queuetable WHERE unique_id='".$_GET['gid']."'");
+        if ($gv_resulta = $gv_result->fields) {
+            $gv_amount = $gv_resulta['amount'];
+            //Let's build a message object using the email class
+            $customerstable = $oostable['customers'];
+            $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address FROM $customerstable WHERE customers_id = '" . $gv_resulta['customer_id'] . "'");
+            $mail = $mail_result->fields;
 
-              $message = TEXT_REDEEM_COUPON_MESSAGE_HEADER;
-              $message .= sprintf(TEXT_REDEEM_COUPON_MESSAGE_AMOUNT, $currencies->format($gv_amount));
-              $message .= TEXT_REDEEM_COUPON_MESSAGE_BODY;
-              $message .= TEXT_REDEEM_COUPON_MESSAGE_FOOTER;
+            $message = TEXT_REDEEM_COUPON_MESSAGE_HEADER;
+            $message .= sprintf(TEXT_REDEEM_COUPON_MESSAGE_AMOUNT, $currencies->format($gv_amount));
+            $message .= TEXT_REDEEM_COUPON_MESSAGE_BODY;
+            $message .= TEXT_REDEEM_COUPON_MESSAGE_FOOTER;
 
-              // Instantiate a new mail object
-              $send_mail = new PHPMailer();
+            // Instantiate a new mail object
+            $send_mail = new PHPMailer();
 
-              $send_mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
+            $send_mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
 
-              $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
-              $send_mail->SetLanguage($sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/');
+            $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
+            $send_mail->SetLanguage($sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/');
 
-              $send_mail->CharSet = CHARSET;
-              $send_mail->IsMail();
+            $send_mail->CharSet = CHARSET;
+            $send_mail->IsMail();
 
-              $send_mail->From = STORE_OWNER_EMAIL_ADDRESS;
-              $send_mail->FromName = STORE_OWNER;
-              $send_mail->Mailer = EMAIL_TRANSPORT;
+            $send_mail->From = STORE_OWNER_EMAIL_ADDRESS;
+            $send_mail->FromName = STORE_OWNER;
+            $send_mail->Mailer = EMAIL_TRANSPORT;
 
-              // Add smtp values if needed
-              if (EMAIL_TRANSPORT == 'smtp') {
-                  $send_mail->IsSMTP(); // set mailer to use SMTP
-          $send_mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
-          $send_mail->Username = OOS_SMTPUSER; // SMTP username
-          $send_mail->Password = OOS_SMTPPASS; // SMTP password
-          $send_mail->Host     = OOS_SMTPHOST; // specify main and backup server
-              } elseif // Set sendmail path
-          (EMAIL_TRANSPORT == 'sendmail') {
-                  if (!oos_empty(OOS_SENDMAIL)) {
-                      $send_mail->Sendmail = OOS_SENDMAIL;
-                      $send_mail->IsSendmail();
-                  }
-              }
+            // Add smtp values if needed
+            if (EMAIL_TRANSPORT == 'smtp') {
+                $send_mail->IsSMTP(); // set mailer to use SMTP
+                $send_mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
+                $send_mail->Username = OOS_SMTPUSER; // SMTP username
+                $send_mail->Password = OOS_SMTPPASS; // SMTP password
+                $send_mail->Host     = OOS_SMTPHOST; // specify main and backup server
+            } elseif // Set sendmail path
+            (EMAIL_TRANSPORT == 'sendmail') {
+                if (!oos_empty(OOS_SENDMAIL)) {
+                    $send_mail->Sendmail = OOS_SENDMAIL;
+                    $send_mail->IsSendmail();
+                }
+            }
 
-              $send_mail->Subject = TEXT_REDEEM_COUPON_SUBJECT;
-              $send_mail->Body = $message;
-              $send_mail->AddAddress($mail['customers_email_address'], $mail['customers_firstname'] . ' ' . $mail['customers_lastname']);
-              $send_mail->Send();
-              $send_mail->ClearAddresses();
-              $send_mail->ClearAttachments();
+            $send_mail->Subject = TEXT_REDEEM_COUPON_SUBJECT;
+            $send_mail->Body = $message;
+            $send_mail->AddAddress($mail['customers_email_address'], $mail['customers_firstname'] . ' ' . $mail['customers_lastname']);
+            $send_mail->Send();
+            $send_mail->ClearAddresses();
+            $send_mail->ClearAttachments();
 
-              $gv_amount = $gv_resulta['amount'];
+            $gv_amount = $gv_resulta['amount'];
 
-              $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-              $gv_result = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id='".$gv_resulta['customer_id']."'");
-              $customer_gv = false;
-              $total_gv_amount = 0;
-              if ($gv_result = $gv_result->fields) {
-                  $total_gv_amount=$gv_result['amount'];
-                  $customer_gv = true;
-              }
-              $total_gv_amount=$total_gv_amount+$gv_amount;
-              if ($customer_gv) {
-                  $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-                  $gv_update = $dbconn->Execute("UPDATE $coupon_gv_customertable SET amount='".$total_gv_amount."' WHERE customer_id='".$gv_resulta['customer_id']."'");
-              } else {
-                  $coupon_gv_customertable = $oostable['coupon_gv_customer'];
-                  $gv_insert = $dbconn->Execute("INSERT INTO $coupon_gv_customertable (customer_id, amount) VALUES ('".$gv_resulta['customer_id']."','".$total_gv_amount."')");
-              }
-              $coupon_gv_queuetable = $oostable['coupon_gv_queue'];
-              $gv_update = $dbconn->Execute("UPDATE $coupon_gv_queuetable SET release_flag='Y' WHERE unique_id='".$_GET['gid']."'");
-          }
-      }
-  }
+            $coupon_gv_customertable = $oostable['coupon_gv_customer'];
+            $gv_result = $dbconn->Execute("SELECT amount FROM $coupon_gv_customertable WHERE customer_id='".$gv_resulta['customer_id']."'");
+            $customer_gv = false;
+            $total_gv_amount = 0;
+            if ($gv_result = $gv_result->fields) {
+                $total_gv_amount=$gv_result['amount'];
+                $customer_gv = true;
+            }
+            $total_gv_amount=$total_gv_amount+$gv_amount;
+            if ($customer_gv) {
+                $coupon_gv_customertable = $oostable['coupon_gv_customer'];
+                $gv_update = $dbconn->Execute("UPDATE $coupon_gv_customertable SET amount='".$total_gv_amount."' WHERE customer_id='".$gv_resulta['customer_id']."'");
+            } else {
+                $coupon_gv_customertable = $oostable['coupon_gv_customer'];
+                $gv_insert = $dbconn->Execute("INSERT INTO $coupon_gv_customertable (customer_id, amount) VALUES ('".$gv_resulta['customer_id']."','".$total_gv_amount."')");
+            }
+            $coupon_gv_queuetable = $oostable['coupon_gv_queue'];
+            $gv_update = $dbconn->Execute("UPDATE $coupon_gv_queuetable SET release_flag='Y' WHERE unique_id='".$_GET['gid']."'");
+        }
+    }
+}
 
   require 'includes/header.php';
 ?>
 <div class="wrapper">
-	<!-- Header //-->
-	<header class="topnavbar-wrapper">
-		<!-- Top Navbar //-->
-		<?php require 'includes/menue.php'; ?>
-	</header>
-	<!-- END Header //-->
-	<aside class="aside">
-		<!-- Sidebar //-->
-		<div class="aside-inner">
-			<?php require 'includes/blocks.php'; ?>
-		</div>
-		<!-- END Sidebar (left) //-->
-	</aside>
-	
-	<!-- Main section //-->
-	<section>
-		<!-- Page content //-->
-		<div class="content-wrapper">
-			
-			<!-- Breadcrumbs //-->
-			<div class="content-heading">
-				<div class="col-lg-12">
-					<h2><?php echo HEADING_TITLE; ?></h2>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item active">
-							<strong><?php echo HEADING_TITLE; ?></strong>
-						</li>
-					</ol>
-				</div>
-			</div>
-			<!-- END Breadcrumbs //-->
-			
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">	
+    <!-- Header //-->
+    <header class="topnavbar-wrapper">
+        <!-- Top Navbar //-->
+        <?php require 'includes/menue.php'; ?>
+    </header>
+    <!-- END Header //-->
+    <aside class="aside">
+        <!-- Sidebar //-->
+        <div class="aside-inner">
+            <?php require 'includes/blocks.php'; ?>
+        </div>
+        <!-- END Sidebar (left) //-->
+    </aside>
+    
+    <!-- Main section //-->
+    <section>
+        <!-- Page content //-->
+        <div class="content-wrapper">
+            
+            <!-- Breadcrumbs //-->
+            <div class="content-heading">
+                <div class="col-lg-12">
+                    <h2><?php echo HEADING_TITLE; ?></h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong><?php echo HEADING_TITLE; ?></strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- END Breadcrumbs //-->
+            
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">    
 <!-- body_text //-->
-	<div class="table-responsive">
-		<table class="table w-100">
+    <div class="table-responsive">
+        <table class="table w-100">
           <tr>
             <td valign="top">
-			
-				<table class="table table-striped table-hover w-100">
-					<thead class="thead-dark">
-						<tr>
-							<th><?php echo TABLE_HEADING_CUSTOMERS; ?></th>
-							<th class="text-center"><?php echo TABLE_HEADING_ORDERS_ID; ?></th>
-							<th class="text-right"><?php echo TABLE_HEADING_VOUCHER_VALUE; ?></th>
-							<th class="text-right"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></th>
-							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
-						</tr>	
-					</thead>
+            
+                <table class="table table-striped table-hover w-100">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th><?php echo TABLE_HEADING_CUSTOMERS; ?></th>
+                            <th class="text-center"><?php echo TABLE_HEADING_ORDERS_ID; ?></th>
+                            <th class="text-right"><?php echo TABLE_HEADING_VOUCHER_VALUE; ?></th>
+                            <th class="text-right"><?php echo TABLE_HEADING_DATE_PURCHASED; ?></th>
+                            <th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
+                        </tr>    
+                    </thead>
 <?php
   $customerstable = $oostable['customers'];
   $coupon_gv_queuetable = $oostable['coupon_gv_queue'];
@@ -177,29 +177,29 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
                    WHERE (gv.customer_id = c.customers_id AND gv.release_flag = 'N')";
   $gv_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $gv_result_raw, $gv_result_numrows);
   $gv_result = $dbconn->Execute($gv_result_raw);
-  while ($gv_list = $gv_result->fields) {
-      if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['unique_id']))) && !isset($gInfo)) {
-          $gInfo = new objectInfo($gv_list);
-      }
-      if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id)) {
-          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->unique_id . '&action=edit') . '\'">' . "\n";
-      } else {
-          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['unique_id']) . '\'">' . "\n";
-      } ?>
+while ($gv_list = $gv_result->fields) {
+    if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['unique_id']))) && !isset($gInfo)) {
+        $gInfo = new objectInfo($gv_list);
+    }
+    if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id)) {
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->unique_id . '&action=edit') . '\'">' . "\n";
+    } else {
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['gv_queue'], oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['unique_id']) . '\'">' . "\n";
+    } ?>
                 <td><?php echo $gv_list['customers_firstname'] . ' ' . $gv_list['customers_lastname']; ?></td>
                 <td class="text-center"><?php echo $gv_list['order_id']; ?></td>
                 <td class="text-right"><?php echo $currencies->format($gv_list['amount']); ?></td>
                 <td class="text-right"><?php echo oos_datetime_short($gv_list['date_created']); ?></td>
                 <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id)) {
-          echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-      } else {
-          echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-      } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+} else {
+                                           echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                                       } ?>&nbsp;</td>
               </tr>
-<?php
+    <?php
     // Move that ADOdb pointer!
     $gv_result->MoveNext();
-  }
+}
 ?>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -218,46 +218,46 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   $heading = [];
   $contents = [];
   switch ($action) {
-    case 'release':
-      $heading[] = array('text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount));
+case 'release':
+    $heading[] = array('text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount));
 
-      $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=confirmrelease&gid=' . $unique_id) . '">'.oos_button(BUTTON_CONFIRM) . '</a> <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['gv_queue'], 'action=cancel&gid=' . $unique_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
-      break;
+    $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=confirmrelease&gid=' . $unique_id) . '">'.oos_button(BUTTON_CONFIRM) . '</a> <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['gv_queue'], 'action=cancel&gid=' . $unique_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+    break;
 
-    default:
-      $heading[] = array('text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount));
+default:
+    $heading[] = array('text' => '[' . $unique_id . '] ' . oos_datetime_short($date_created) . ' ' . $currencies->format($amount));
 
-      $contents[] = array('align' => 'center','text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=release&gid=' . $unique_id) . '">' . oos_button(IMAGE_RELEASE) . '</a>');
-      break;
-   }
+    $contents[] = array('align' => 'center','text' => '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'action=release&gid=' . $unique_id) . '">' . oos_button(IMAGE_RELEASE) . '</a>');
+    break;
+  }
 
-    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+  if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
         ?>
-	<td class="w-25" valign="top">
-		<table class="table table-striped">
-<?php
+    <td class="w-25" valign="top">
+        <table class="table table-striped">
+      <?php
         $box = new box();
         echo $box->infoBox($heading, $contents); ?>
-		</table> 
-	</td> 
-<?php
-    }
-?>
+        </table> 
+    </td> 
+      <?php
+  }
+    ?>
           </tr>
         </table>
-	</div>
+    </div>
 <!-- body_text_eof //-->
 
-				</div>
-			</div>
+                </div>
+            </div>
         </div>
 
-		</div>
-	</section>
-	<!-- Page footer //-->
-	<footer>
-		<span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
-	</footer>
+        </div>
+    </section>
+    <!-- Page footer //-->
+    <footer>
+        <span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
+    </footer>
 </div>
 
 <?php

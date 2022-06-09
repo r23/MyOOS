@@ -3,8 +3,8 @@
 /**
  * Tagalog PHPMailer language file: refer to English translation for definitive list
  *
- *   @package PHPMailer
- *   @author Adriane Justine Tan <eidoriantan@gmail.com>
+ * @package PHPMailer
+ * @author  Adriane Justine Tan <eidoriantan@gmail.com>
  */
 
 $PHPMAILER_LANG['authenticate']         = 'SMTP Error: Hindi mapatotohanan.';

@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!$oEvent->installed_plugin('specials')) {
@@ -43,8 +45,8 @@ $sCanonical = oos_href_link($aContents['specials'], 'page='. $nPage, false, true
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
@@ -108,14 +110,14 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                          'products_description'       => $specials['products_description'],
                          'products_base_unit'         => $specials['products_base_unit'],
                          'products_base_price'        => $specials['products_base_price'],
-                         'products_units'				=> $specials['products_units_id'],
-                         'product_quantity'				=> $specials['products_product_quantity'],
-                         'specials_product_special_price'	=> $specials_special_price,
-                         'specials_base_product_price'		=> $specials_base_product_price,
-                         'specials_cross_out_price'			=> $specials_cross_out_price,
-                         'specials_product_price_list'		=> $specials_price_list,
-                         'specials_until'					=> $specials_until,
-                         'base_product_special_price'		=> $specials_base_product_special_price
+                         'products_units'                => $specials['products_units_id'],
+                         'product_quantity'                => $specials['products_product_quantity'],
+                         'specials_product_special_price'    => $specials_special_price,
+                         'specials_base_product_price'        => $specials_base_product_price,
+                         'specials_cross_out_price'            => $specials_cross_out_price,
+                         'specials_product_price_list'        => $specials_price_list,
+                         'specials_until'                    => $specials_until,
+                         'base_product_special_price'        => $specials_base_product_special_price
                      );
         $specials_result->MoveNext();
     }
@@ -126,17 +128,17 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
     // assign Smarty variables;
     $smarty->assign(
         array(
-            'breadcrumb'		=> $oBreadcrumb->trail(),
-            'heading_title'		=> $aLang['heading_title'],
-            'canonical'			=> $sCanonical,
+            'breadcrumb'        => $oBreadcrumb->trail(),
+            'heading_title'        => $aLang['heading_title'],
+            'canonical'            => $sCanonical,
 
-            'page_split'		=> $specials_split->display_count($aLang['text_display_number_of_specials']),
-            'display_links'		=> $specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-            'numrows' 			=> $specials_split->number_of_rows,
-            'numpages' 			=> $specials_split->number_of_pages,
+            'page_split'        => $specials_split->display_count($aLang['text_display_number_of_specials']),
+            'display_links'        => $specials_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+            'numrows'             => $specials_split->number_of_rows,
+            'numpages'             => $specials_split->number_of_pages,
 
-            'page'				=> $nPage,
-            'specials'			=> $aSpecials
+            'page'                => $nPage,
+            'specials'            => $aSpecials
         )
     );
 }

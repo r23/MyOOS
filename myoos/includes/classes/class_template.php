@@ -9,21 +9,23 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
- * @see libs/Smarty/Smarty.class.php
+ * @see  libs/Smarty/Smarty.class.php
  * @link http://smarty.net
  */
 
 /**
  * Smarty class
  *
- * @package myOOS
+ * @package    myOOS
  * @subpackage myOOS_Smarty
- * @see Smarty, libs/Smarty/Smarty.class.php
- * @link http://smarty.net/manual/en/
+ * @see        Smarty, libs/Smarty/Smarty.class.php
+ * @link       http://smarty.net/manual/en/
  */
 class myOOS_Smarty extends Smarty
 {
@@ -54,10 +56,12 @@ class myOOS_Smarty extends Smarty
 
 
         // set multiple directories where plugins are stored
-        $this->setPluginsDir(array(
+        $this->setPluginsDir(
+            array(
             MYOOS_INCLUDE_PATH . '/vendor/smarty/smarty/libs/plugins',
             MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins'
-        ));
+            )
+        );
 
 
         $this->use_sub_dirs = false;

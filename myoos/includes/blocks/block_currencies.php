@@ -19,7 +19,9 @@
    ---------------------------------------------------------------------- */
 
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
@@ -42,9 +44,11 @@ if (isset($oCurrencies) && is_object($oCurrencies)) {
         $smarty->assign('currency_get_parameters', $currency_all_get_parameters);
     } else {
         $blockstable = $oostable['block'];
-        $dbconn->Execute("UPDATE " . $blockstable . "
+        $dbconn->Execute(
+            "UPDATE " . $blockstable . "
 							SET block_status = 0
-							WHERE block_file = 'currencies'");
+							WHERE block_file = 'currencies'"
+        );
     }
 }
 

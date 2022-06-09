@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // cookie-notice
@@ -64,15 +66,15 @@ while ($address_book = $address_book_result->fields) {
         $state = oos_get_zone_code($country_id, $zone_id, $state);
     }
 
-    $aAddressBook[] = array('address_book_id'	=> $address_book['address_book_id'],
-                            'company' 			=> $address_book['entry_company'],
-                            'firstname' 		=> $address_book['entry_firstname'],
-                            'lastname' 			=> $address_book['entry_lastname'],
-                            'street_address'	=> $address_book['entry_street_address'],
-                            'postcode'			=> $address_book['entry_postcode'],
-                            'city'				=> $address_book['entry_city'],
-                            'country'			=> $country,
-                            'state'				=> $state);
+    $aAddressBook[] = array('address_book_id'    => $address_book['address_book_id'],
+                            'company'             => $address_book['entry_company'],
+                            'firstname'         => $address_book['entry_firstname'],
+                            'lastname'             => $address_book['entry_lastname'],
+                            'street_address'    => $address_book['entry_street_address'],
+                            'postcode'            => $address_book['entry_postcode'],
+                            'city'                => $address_book['entry_city'],
+                            'country'            => $country,
+                            'state'                => $state);
     $address_book_result->MoveNext();
 }
 
@@ -87,19 +89,19 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
 $smarty->assign(
     array(
-        'breadcrumb'		=> $oBreadcrumb->trail(),
-        'heading_title'		=> $aLang['heading_title'],
-        'robots'			=> 'noindex,nofollow,noodp,noydir',
-        'account_active'	=> 1,
+        'breadcrumb'        => $oBreadcrumb->trail(),
+        'heading_title'        => $aLang['heading_title'],
+        'robots'            => 'noindex,nofollow,noodp,noydir',
+        'account_active'    => 1,
 
-        'address_book' 		=> $aAddressBook
+        'address_book'         => $aAddressBook
     )
 );
 

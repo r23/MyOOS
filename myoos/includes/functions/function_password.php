@@ -18,15 +18,17 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
  * This funstion validates a plain text password with an
  * encrpyted password
  *
- * @param $password
- * @param $sEncrypted
+ * @param  $password
+ * @param  $sEncrypted
  * @return boolean
  */
 function oos_validate_password($password, $hash)
@@ -42,7 +44,7 @@ function oos_validate_password($password, $hash)
 /**
  * This function makes a new password from a plaintext password.
  *
- * @param $password
+ * @param  $password
  * @return string
  */
 function oos_encrypt_password($password)

@@ -20,7 +20,8 @@
    ---------------------------------------------------------------------- */
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -40,7 +41,7 @@ function smarty_function_oos_get_zone_name($params, &$smarty)
     $zone_id = '';
     $default_zone = '';
 
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
 
     foreach ($params as $_key => $_val) {
         $$_key = smarty_function_escape_special_chars($_val);

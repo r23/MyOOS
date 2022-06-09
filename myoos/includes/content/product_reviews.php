@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!$oEvent->installed_plugin('reviews')) {
@@ -97,8 +99,8 @@ $sPagetitle = sprintf($aLang['heading_title'], $product_info['products_name']) .
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 $informationtable = $oostable['information'];
@@ -118,16 +120,16 @@ $smarty->assign(
     array(
         'breadcrumb'    => $oBreadcrumb->trail(),
         'heading_title' => sprintf($aLang['heading_title'], $product_info['products_name']),
-        'canonical'		=> $sCanonical,
+        'canonical'        => $sCanonical,
 
 
-        'page_split'		=> $reviews_split->display_count($aLang['text_display_number_of_reviews']),
-        'display_links'		=> $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-        'numrows' 			=> $reviews_split->number_of_rows,
-        'numpages' 			=> $reviews_split->number_of_pages,
+        'page_split'        => $reviews_split->display_count($aLang['text_display_number_of_reviews']),
+        'display_links'        => $reviews_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+        'numrows'             => $reviews_split->number_of_rows,
+        'numpages'             => $reviews_split->number_of_pages,
 
 
-        'reviews' 		=> $aReviews
+        'reviews'         => $aReviews
 
       )
 );

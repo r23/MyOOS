@@ -1,7 +1,8 @@
 <?php
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -15,7 +16,8 @@
  *           aim:mschinckel<br>
  *           http://schinckel.net<br>
  * Purpose:  convert email address to gravatar
- * @param string
+ *
+ * @param  string
  * @return string
  */
 function smarty_modifier_gravatar($email, $default=false, $size=false, $rating=false, $border=false)

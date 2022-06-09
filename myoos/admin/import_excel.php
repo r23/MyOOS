@@ -122,7 +122,7 @@ function walk($item1)
 
         $epsilon = 0.00001;
 
-        # https://www.php.net/manual/en/language.types.float.php#language.types.float.casting
+        // https://www.php.net/manual/en/language.types.float.php#language.types.float.casting
         if (abs($old_products_price-$new_products_price) > $epsilon) {
             $sql_price_array = array('products_id' => intval($products_id),
                                     'products_price' => oos_db_input($products_net_price),
@@ -131,11 +131,13 @@ function walk($item1)
         }
 
         $productstable = $oostable['products'];
-        $dbconn->Execute("UPDATE $productstable 
+        $dbconn->Execute(
+            "UPDATE $productstable 
 							SET products_price = '" . oos_db_input($products_net_price) . "', 
 								products_model = '" . oos_db_input($products_model) . "',
 								products_status = '" . intval($products_status) . "' 
-							WHERE products_id = '" . intval($products_id) . "'");
+							WHERE products_id = '" . intval($products_id) . "'"
+        );
     }
 }
 
@@ -160,49 +162,49 @@ if (isset($_FILES['files'])) {
 require 'includes/header.php';
 ?>
 <div class="wrapper">
-	<!-- Header //-->
-	<header class="topnavbar-wrapper">
-		<!-- Top Navbar //-->
-		<?php require 'includes/menue.php'; ?>
-	</header>
-	<!-- END Header //-->
-	<aside class="aside">
-		<!-- Sidebar //-->
-		<div class="aside-inner">
-			<?php require 'includes/blocks.php'; ?>
-		</div>
-		<!-- END Sidebar (left) //-->
-	</aside>
-	
-	<!-- Main section //-->
-	<section>
-		<!-- Page content //-->
-		<div class="content-wrapper">
-					
-			<!-- Breadcrumbs //-->
-			<div class="content-heading">
-				<div class="col-lg-12">
-					<h2><?php echo HEADING_TITLE; ?></h2>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item active">
-							<strong><?php echo HEADING_TITLE; ?></strong>
-						</li>
-					</ol>
-				</div>
-			</div>
-			<!-- END Breadcrumbs //-->
-			
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">					
+    <!-- Header //-->
+    <header class="topnavbar-wrapper">
+        <!-- Top Navbar //-->
+        <?php require 'includes/menue.php'; ?>
+    </header>
+    <!-- END Header //-->
+    <aside class="aside">
+        <!-- Sidebar //-->
+        <div class="aside-inner">
+            <?php require 'includes/blocks.php'; ?>
+        </div>
+        <!-- END Sidebar (left) //-->
+    </aside>
+    
+    <!-- Main section //-->
+    <section>
+        <!-- Page content //-->
+        <div class="content-wrapper">
+                    
+            <!-- Breadcrumbs //-->
+            <div class="content-heading">
+                <div class="col-lg-12">
+                    <h2><?php echo HEADING_TITLE; ?></h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['categories'], 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong><?php echo HEADING_TITLE; ?></strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- END Breadcrumbs //-->
+            
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">                    
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="2">
+    <table border="0" width="100%" cellspacing="0" cellpadding="2">
       <tr>
         <td>
 
@@ -217,7 +219,7 @@ if (isset($_FILES['usrfl'])) {
         echo TEXT_USER_FILENAME . $_FILES['usrfl']['name'] . '<br>';
         echo TEXT_SIZE . $_FILES['usrfl']['size'] . '<br>';
         echo '<br>';
-        #		echo '<br>products_id | products_model | products_name | products_tax_class_id | products_status | products_net_price | products_gross_price';
+        // echo '<br>products_id | products_model | products_name | products_tax_class_id | products_status | products_net_price | products_gross_price';
         echo '<br>';
 
         // get the entire file into an array
@@ -255,16 +257,16 @@ if (isset($_FILES['usrfl'])) {
     </table>
 <!-- body_text_eof //-->
 
-				</div>
-			</div>
+                </div>
+            </div>
         </div>
 
-		</div>
-	</section>
-	<!-- Page footer //-->
-	<footer>
-		<span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
-	</footer>
+        </div>
+    </section>
+    <!-- Page footer //-->
+    <footer>
+        <span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
+    </footer>
 </div>
 
 

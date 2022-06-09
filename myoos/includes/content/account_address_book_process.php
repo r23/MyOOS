@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // cookie-notice
@@ -44,8 +46,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
 
-if (isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($_POST['entry_id']) && is_numeric($_POST['entry_id'])  &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($_POST['entry_id']) && is_numeric($_POST['entry_id'])  
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+) {
     $entry_id = oos_db_prepare_input($_POST['entry_id']);
 
     if ($entry_id == $_SESSION['customer_default_address_id']) {
@@ -65,8 +68,9 @@ if (isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($_
 
 // Post-entry error checking when updating or adding an entry
 $bProcess = false;
-if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['action'] == 'update') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['action'] == 'update') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+) {
     $bProcess = true;
 
     if (isset($_POST['entry_id']) && is_numeric($_POST['entry_id'])) {
@@ -380,8 +384,8 @@ $sPagetitle = $aLang['navbar_title_1'] . ' ' . $aLang['navbar_title_2'] . ' ' . 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 
@@ -413,8 +417,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'edit') {
 
 $smarty->assign(
     array(
-        'robots'			=> 'noindex,nofollow,noodp,noydir',
-        'account_active'	=> 1,
+        'robots'            => 'noindex,nofollow,noodp,noydir',
+        'account_active'    => 1,
 
           'gender'         => $gender,
           'firstname'      => $firstname,
@@ -428,26 +432,26 @@ $smarty->assign(
 );
 
 
-  if ($state_has_zones == 'true') {
-      $aZonesNames = [];
-      $aZonesValues = [];
-      $zonestable = $oostable['zones'];
-      $zones_query = "SELECT zone_name FROM $zonestable
+if ($state_has_zones == 'true') {
+    $aZonesNames = [];
+    $aZonesValues = [];
+    $zonestable = $oostable['zones'];
+    $zones_query = "SELECT zone_name FROM $zonestable
                      WHERE zone_country_id = '" . oos_db_input($country) . "'
                      ORDER BY zone_name";
-      $zones_result = $dbconn->Execute($zones_query);
-      while ($zones = $zones_result->fields) {
-          $aZonesNames[] =  $zones['zone_name'];
-          $aZonesValues[] = $zones['zone_name'];
-          $zones_result->MoveNext();
-      }
-      $smarty->assign('zones_names', $aZonesNames);
-      $smarty->assign('zones_values', $aZonesValues);
-  } else {
-      $state = oos_get_zone_name($country, $zone_id, $state);
-      $smarty->assign('state', $state);
-      $smarty->assign('zone_id', $zone_id);
-  }
+    $zones_result = $dbconn->Execute($zones_query);
+    while ($zones = $zones_result->fields) {
+        $aZonesNames[] =  $zones['zone_name'];
+        $aZonesValues[] = $zones['zone_name'];
+        $zones_result->MoveNext();
+    }
+    $smarty->assign('zones_names', $aZonesNames);
+    $smarty->assign('zones_values', $aZonesValues);
+} else {
+    $state = oos_get_zone_name($country, $zone_id, $state);
+    $smarty->assign('state', $state);
+    $smarty->assign('zone_id', $zone_id);
+}
    $country_name = oos_get_country_name($country);
    $smarty->assign('country_name', $country_name);
 

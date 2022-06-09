@@ -67,12 +67,14 @@ if (isset($_GET['subscribe']) && ($_GET['subscribe'] == 'confirm')) {
     $dbconn->Execute($sql);
 
     $newsletter_recipients_history = $oostable['newsletter_recipients_history'];
-    $dbconn->Execute("INSERT INTO $newsletter_recipients_history 
+    $dbconn->Execute(
+        "INSERT INTO $newsletter_recipients_history 
 					(recipients_id,
 					new_value,
 					date_added) VALUES ('" . intval($sID) . "',
 									  '1',
-                                      now())");
+                                      now())"
+    );
     oos_redirect(oos_href_link($aContents['newsletter'], 'subscribe=success'));
 }
 
@@ -86,16 +88,16 @@ $nPageType = OOS_PAGE_TYPE_SERVICE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
 $smarty->assign(
     array(
-        'breadcrumb' 	=> $oBreadcrumb->trail(),
+        'breadcrumb'     => $oBreadcrumb->trail(),
         'heading_title' => $aLang['navbar_title'],
-        'canonical'		=> $sCanonical
+        'canonical'        => $sCanonical
     )
 );
 

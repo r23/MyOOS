@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!$oEvent->installed_plugin('reviews')) {
@@ -56,9 +58,11 @@ if (!$reviews_result->RecordCount()) {
 }
 $reviews = $reviews_result->fields;
 
-$dbconn->Execute("UPDATE " . $oostable['reviews'] . "
+$dbconn->Execute(
+    "UPDATE " . $oostable['reviews'] . "
                 SET reviews_read = reviews_read+1
-                WHERE reviews_id = '" . $reviews['reviews_id'] . "'");
+                WHERE reviews_id = '" . $reviews['reviews_id'] . "'"
+);
 
 // add the products model or products_name to the breadcrumb trail
 // links breadcrumb
@@ -73,8 +77,8 @@ $sPagetitle = sprintf($aLang['heading_title'], $reviews['products_name']) . ' ' 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 $informationtable = $oostable['information'];
@@ -92,11 +96,11 @@ $smarty->assign('reviews_information', $reviews_information);
 
 $smarty->assign(
     array(
-            'breadcrumb'	=> $oBreadcrumb->trail(),
-            'heading_title'	=> sprintf($aLang['heading_title'], $reviews['products_name']),
-            'canonical'		=> $sCanonical,
+            'breadcrumb'    => $oBreadcrumb->trail(),
+            'heading_title'    => sprintf($aLang['heading_title'], $reviews['products_name']),
+            'canonical'        => $sCanonical,
 
-            'reviews'		=> $reviews
+            'reviews'        => $reviews
        )
 );
 

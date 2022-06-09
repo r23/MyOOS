@@ -19,13 +19,15 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $nPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
-include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_listing.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_listing.php';
 
 $listing_split = new splitPageResults($listing_sql, MAX_DISPLAY_SEARCH_RESULTS);
 
@@ -43,11 +45,11 @@ if ($listing_split->number_of_rows > 0) {
     $listing_result = $dbconn->Execute($listing_split->sql_query);
     while ($listing = $listing_result->fields) {
 
-/*
+        /*
           case 'PRODUCT_LIST_MANUFACTURER':
             $lc_text = '&nbsp;<a href="' . oos_href_link($aContents['shop'], 'manufacturers_id=' . $listing['manufacturers_id']) . '">' . $listing['manufacturers_name'] . '</a>&nbsp;';
             break;
-*/
+        */
 
         $discount = null;
 
@@ -107,7 +109,7 @@ if ($listing_split->number_of_rows > 0) {
                         'products_model' => $listing['products_model'],
                         'products_short_description' => $listing['products_short_description'],
                         'manufacturers_id' => $listing['manufacturers_id'],
-                        'manufacturers_name' =>	$listing['manufacturers_name'],
+                        'manufacturers_name' =>    $listing['manufacturers_name'],
                         'order_min' => $order_min,
                         'order_max' => $order_max,
                         'product_quantity' => $listing['products_product_quantity'],
@@ -115,7 +117,7 @@ if ($listing_split->number_of_rows > 0) {
                         'products_base_unit' => $listing['products_base_unit'],
                         'products_units' => $listing['products_units_id'],
                         'listing_until' => $listing_until,
-                        'listing_cross_out_price'	=> $listing_cross_out_price,
+                        'listing_cross_out_price'    => $listing_cross_out_price,
                         'listing_product_price' => $listing_product_price,
                         'listing_product_price_list' => $listing_product_price_list,
                         'listing_discount_price' => $listing_discount_price,
@@ -128,10 +130,12 @@ if ($listing_split->number_of_rows > 0) {
     }
 }
 
-$smarty->assign(['page_split' 		=> $listing_split->display_count($aLang['text_display_number_of_products']),
+$smarty->assign(
+    ['page_split'         => $listing_split->display_count($aLang['text_display_number_of_products']),
                 'display_links' => $listing_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-                'numrows' 		=> $listing_split->number_of_rows,
-                'numpages' 		=> $listing_split->number_of_pages]);
+                'numrows'         => $listing_split->number_of_rows,
+    'numpages'         => $listing_split->number_of_pages]
+);
 
 $smarty->assign('get_params', $all_get_listing);
 $smarty->assign('listing', $aListing);

@@ -4,7 +4,7 @@
  * PHPMailer RFC821 SMTP email transport class.
  * PHP Version 5.5.
  *
- * @see       https://github.com/PHPMailer/PHPMailer/ The PHPMailer GitHub project
+ * @see https://github.com/PHPMailer/PHPMailer/ The PHPMailer GitHub project
  *
  * @author    Marcus Bointon (Synchro/coolbru) <phpmailer@synchromedia.co.uk>
  * @author    Jim Jagielski (jimjag) <jimjag@gmail.com>
@@ -270,34 +270,34 @@ class SMTP
             return;
         }
         switch ($this->Debugoutput) {
-            case 'error_log':
-                //Don't output, just log
-                error_log($str);
-                break;
-            case 'html':
-                //Cleans up output a bit for a better looking, HTML-safe output
-                echo gmdate('Y-m-d H:i:s'), ' ', htmlentities(
-                    preg_replace('/[\r\n]+/', '', $str),
-                    ENT_QUOTES,
-                    'UTF-8'
-                ), "<br>\n";
-                break;
-            case 'echo':
-            default:
-                //Normalize line breaks
-                $str = preg_replace('/\r\n|\r/m', "\n", $str);
-                echo gmdate('Y-m-d H:i:s'),
-                "\t",
-                    //Trim trailing space
-                trim(
-                    //Indent for readability, except for trailing break
-                    str_replace(
-                        "\n",
-                        "\n                   \t                  ",
-                        trim($str)
-                    )
-                ),
-                "\n";
+        case 'error_log':
+            //Don't output, just log
+            error_log($str);
+            break;
+        case 'html':
+            //Cleans up output a bit for a better looking, HTML-safe output
+            echo gmdate('Y-m-d H:i:s'), ' ', htmlentities(
+                preg_replace('/[\r\n]+/', '', $str),
+                ENT_QUOTES,
+                'UTF-8'
+            ), "<br>\n";
+            break;
+        case 'echo':
+        default:
+            //Normalize line breaks
+            $str = preg_replace('/\r\n|\r/m', "\n", $str);
+            echo gmdate('Y-m-d H:i:s'),
+            "\t",
+                //Trim trailing space
+            trim(
+                //Indent for readability, except for trailing break
+                str_replace(
+                    "\n",
+                    "\n                   \t                  ",
+                    trim($str)
+                )
+            ),
+            "\n";
         }
     }
 
@@ -478,7 +478,7 @@ class SMTP
      * Perform SMTP authentication.
      * Must be run after hello().
      *
-     * @see    hello()
+     * @see hello()
      *
      * @param string $username The user name
      * @param string $password The password
@@ -547,65 +547,64 @@ class SMTP
             $authtype = 'LOGIN';
         }
         switch ($authtype) {
-            case 'PLAIN':
-                //Start authentication
-                if (!$this->sendCommand('AUTH', 'AUTH PLAIN', 334)) {
-                    return false;
-                }
-                //Send encoded username and password
-                if (
-                    //Format from https://tools.ietf.org/html/rfc4616#section-2
-                    //We skip the first field (it's forgery), so the string starts with a null byte
-                    !$this->sendCommand(
-                        'User & Password',
-                        base64_encode("\0" . $username . "\0" . $password),
-                        235
-                    )
-                ) {
-                    return false;
-                }
-                break;
-            case 'LOGIN':
-                //Start authentication
-                if (!$this->sendCommand('AUTH', 'AUTH LOGIN', 334)) {
-                    return false;
-                }
-                if (!$this->sendCommand('Username', base64_encode($username), 334)) {
-                    return false;
-                }
-                if (!$this->sendCommand('Password', base64_encode($password), 235)) {
-                    return false;
-                }
-                break;
-            case 'CRAM-MD5':
-                //Start authentication
-                if (!$this->sendCommand('AUTH CRAM-MD5', 'AUTH CRAM-MD5', 334)) {
-                    return false;
-                }
-                //Get the challenge
-                $challenge = base64_decode(substr($this->last_reply, 4));
-
-                //Build the response
-                $response = $username . ' ' . $this->hmac($challenge, $password);
-
-                //send encoded credentials
-                return $this->sendCommand('Username', base64_encode($response), 235);
-            case 'XOAUTH2':
-                //The OAuth instance must be set up prior to requesting auth.
-                if (null === $OAuth) {
-                    return false;
-                }
-                $oauth = $OAuth->getOauth64();
-
-                //Start authentication
-                if (!$this->sendCommand('AUTH', 'AUTH XOAUTH2 ' . $oauth, 235)) {
-                    return false;
-                }
-                break;
-            default:
-                $this->setError("Authentication method \"$authtype\" is not supported");
-
+        case 'PLAIN':
+            //Start authentication
+            if (!$this->sendCommand('AUTH', 'AUTH PLAIN', 334)) {
                 return false;
+            }
+            //Send encoded username and password
+            if (//Format from https://tools.ietf.org/html/rfc4616#section-2
+                //We skip the first field (it's forgery), so the string starts with a null byte
+                !$this->sendCommand(
+                    'User & Password',
+                    base64_encode("\0" . $username . "\0" . $password),
+                    235
+                )
+            ) {
+                return false;
+            }
+            break;
+        case 'LOGIN':
+            //Start authentication
+            if (!$this->sendCommand('AUTH', 'AUTH LOGIN', 334)) {
+                return false;
+            }
+            if (!$this->sendCommand('Username', base64_encode($username), 334)) {
+                return false;
+            }
+            if (!$this->sendCommand('Password', base64_encode($password), 235)) {
+                return false;
+            }
+            break;
+        case 'CRAM-MD5':
+            //Start authentication
+            if (!$this->sendCommand('AUTH CRAM-MD5', 'AUTH CRAM-MD5', 334)) {
+                return false;
+            }
+            //Get the challenge
+            $challenge = base64_decode(substr($this->last_reply, 4));
+
+            //Build the response
+            $response = $username . ' ' . $this->hmac($challenge, $password);
+
+            //send encoded credentials
+            return $this->sendCommand('Username', base64_encode($response), 235);
+        case 'XOAUTH2':
+            //The OAuth instance must be set up prior to requesting auth.
+            if (null === $OAuth) {
+                return false;
+            }
+            $oauth = $OAuth->getOauth64();
+
+            //Start authentication
+            if (!$this->sendCommand('AUTH', 'AUTH XOAUTH2 ' . $oauth, 235)) {
+                return false;
+            }
+            break;
+        default:
+            $this->setError("Authentication method \"$authtype\" is not supported");
+
+            return false;
         }
 
         return true;
@@ -863,16 +862,16 @@ class SMTP
                 } else {
                     $name = array_shift($fields);
                     switch ($name) {
-                        case 'SIZE':
-                            $fields = ($fields ? $fields[0] : 0);
-                            break;
-                        case 'AUTH':
-                            if (!is_array($fields)) {
-                                $fields = [];
-                            }
-                            break;
-                        default:
-                            $fields = true;
+                    case 'SIZE':
+                        $fields = ($fields ? $fields[0] : 0);
+                        break;
+                    case 'AUTH':
+                        if (!is_array($fields)) {
+                            $fields = [];
+                        }
+                        break;
+                    default:
+                        $fields = true;
                     }
                 }
                 $this->server_caps[$name] = $fields;
@@ -1113,9 +1112,8 @@ class SMTP
     {
         //If SMTP transcripts are left enabled, or debug output is posted online
         //it can leak credentials, so hide credentials in all but lowest level
-        if (
-            self::DEBUG_LOWLEVEL > $this->do_debug &&
-            in_array($command, ['User & Password', 'Username', 'Password'], true)
+        if (self::DEBUG_LOWLEVEL > $this->do_debug 
+            && in_array($command, ['User & Password', 'Username', 'Password'], true)
         ) {
             $this->edebug('CLIENT -> SERVER: [credentials hidden]', self::DEBUG_CLIENT);
         } else {

@@ -2,10 +2,11 @@
 
 /**
  * Simplified Chinese PHPMailer language file: refer to English translation for definitive list
+ *
  * @package PHPMailer
- * @author liqwei <liqwei@liqwei.com>
- * @author young <masxy@foxmail.com>
- * @author Teddysun <i@teddysun.com>
+ * @author  liqwei <liqwei@liqwei.com>
+ * @author  young <masxy@foxmail.com>
+ * @author  Teddysun <i@teddysun.com>
  */
 
 $PHPMAILER_LANG['authenticate']         = 'SMTP 错误：登录失败。';

@@ -21,19 +21,21 @@
 /**
  * validations
  *
- * @package validations
+ * @package   validations
  * @copyright (C) 2013 by the MyOOS Development Team.
- * @license GPL <http://www.gnu.org/licenses/gpl.html>
- * @link https://www.oos-shop.de
+ * @license   GPL <http://www.gnu.org/licenses/gpl.html>
+ * @link      https://www.oos-shop.de
  */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
  * Valid e-Mail - Addresses
  *
- * @param $value
+ * @param  $value
  * @return boolean
  */
 function is_email($value)

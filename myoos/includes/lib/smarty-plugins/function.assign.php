@@ -1,7 +1,8 @@
 <?php
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -11,7 +12,8 @@
  * Type:     function<br>
  * Name:     assign<br>
  * Purpose:  assign a value to a template variable
- * @link http://smarty.php.net/manual/en/language.custom.functions.php#LANGUAGE.FUNCTION.ASSIGN {assign}
+ *
+ * @link  http://smarty.php.net/manual/en/language.custom.functions.php#LANGUAGE.FUNCTION.ASSIGN {assign}
  *       (Smarty online manual)
  * @param array Format: array('var' => variable name, 'value' => value to assign)
  * @param Smarty

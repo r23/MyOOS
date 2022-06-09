@@ -1,7 +1,8 @@
 <?php
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -21,20 +22,21 @@
  *
  * Examples: {html_oos_image file="images/masthead.gif"}
  * Output:   <img  class="img-fluid"src="images/masthead.gif" alt=" " />
- * @link http://smarty.php.net/manual/en/language.function.html.image.php {html_oos_image}
+ *
+ * @link    http://smarty.php.net/manual/en/language.function.html.image.php {html_oos_image}
  *      (Smarty online manual)
- * @author   Monte Ohrt <monte@ispi.net>
- * @author credits to Duda <duda@big.hu> - wrote first image function
+ * @author  Monte Ohrt <monte@ispi.net>
+ * @author  credits to Duda <duda@big.hu> - wrote first image function
  *           in repository, helped with lots of functionality
- * @version  2.0
- * @param array
- * @param Smarty
- * @return string
- * @uses smarty_function_escape_special_chars()
+ * @version 2.0
+ * @param   array
+ * @param   Smarty
+ * @return  string
+ * @uses    smarty_function_escape_special_chars()
  */
 function smarty_function_html_oos_image($params, &$smarty)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
 
     $alt = '';
     $image = '';
@@ -45,26 +47,26 @@ function smarty_function_html_oos_image($params, &$smarty)
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
-            case 'image':
-            case 'basedir':
-                $$_key = $_val;
-                break;
+        case 'image':
+        case 'basedir':
+            $$_key = $_val;
+            break;
 
-            case 'alt':
-                if (!is_array($_val)) {
-                    $$_key = smarty_function_escape_special_chars($_val);
-                } else {
-                    throw new SmartyException("html_oos_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-                }
-                break;
+        case 'alt':
+            if (!is_array($_val)) {
+                $$_key = smarty_function_escape_special_chars($_val);
+            } else {
+                throw new SmartyException("html_oos_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+            }
+            break;
 
-            default:
-                if (!is_array($_val)) {
-                    $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
-                } else {
-                    throw new SmartyException("html_oos_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-                }
-                break;
+        default:
+            if (!is_array($_val)) {
+                $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+            } else {
+                throw new SmartyException("html_oos_image: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+            }
+            break;
         }
     }
 

@@ -1,7 +1,8 @@
 <?php
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -15,8 +16,9 @@
  * Input:<br>
  *         - string: input block of text
  *         - br: change single \n to 'br' or not
- * @param string
- * @param string
+ *
+ * @param  string
+ * @param  string
  * @return string|void
  */
 function smarty_modifier_paragraph($string, $br=true)

@@ -2,8 +2,9 @@
 
 /**
  * Bosnian PHPMailer language file: refer to English translation for definitive list
+ *
  * @package PHPMailer
- * @author Ermin Islamagić <ermin@islamagic.com>
+ * @author  Ermin Islamagić <ermin@islamagic.com>
  */
 
 $PHPMAILER_LANG['authenticate']         = 'SMTP Greška: Neuspjela prijava.';

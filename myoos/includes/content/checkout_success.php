@@ -19,7 +19,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // cookie-notice
@@ -39,8 +41,9 @@ if (!isset($_SESSION['customer_id'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_success.php';
 
-if (isset($_POST['action']) && ($_POST['action'] == 'notify_process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_POST['action']) && ($_POST['action'] == 'notify_process') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+) {
     if (isset($_POST['notify']) && !empty($_POST['notify'])) {
         $notify = oos_db_prepare_input($_POST['notify']);
 
@@ -81,28 +84,28 @@ $oBreadcrumb->add($aLang['navbar_title_2']);
   $global_result = $dbconn->Execute($sql);
   $global = $global_result->fields;
 
-  if ($global['global_product_notifications'] != '1') {
-      $orderstable = $oostable['orders'];
-      $sql = "SELECT orders_id
+if ($global['global_product_notifications'] != '1') {
+    $orderstable = $oostable['orders'];
+    $sql = "SELECT orders_id
             FROM $orderstable
             WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
             ORDER BY date_purchased desc LIMIT 1";
-      $orders_result = $dbconn->Execute($sql);
-      $orders = $orders_result->fields;
+    $orders_result = $dbconn->Execute($sql);
+    $orders = $orders_result->fields;
 
-      $products_array = [];
-      $orders_productstable = $oostable['orders_products'];
-      $sql = "SELECT products_id, products_name
+    $products_array = [];
+    $orders_productstable = $oostable['orders_products'];
+    $sql = "SELECT products_id, products_name
             FROM $orders_productstable
             WHERE orders_id = '" . intval($orders['orders_id']) . "'
             ORDER BY products_name";
-      $products_result = $dbconn->Execute($sql);
-      while ($products = $products_result->fields) {
-          $products_array[] = array('id' => $products['products_id'],
-                                'text' => $products['products_name']);
-          $products_result->MoveNext();
-      }
-  }
+    $products_result = $dbconn->Execute($sql);
+    while ($products = $products_result->fields) {
+        $products_array[] = array('id' => $products['products_id'],
+                              'text' => $products['products_name']);
+        $products_result->MoveNext();
+    }
+}
 
 //ICW ADDED FOR ORDER_TOTAL CREDIT SYSTEM - Start Addition
 $coupon_gv_customertable = $oostable['coupon_gv_customer'];
@@ -135,19 +138,19 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
 $smarty->assign(
     array(
-        'breadcrumb'		=> $oBreadcrumb->trail(),
-        'heading_title'		=> $aLang['heading_title'],
-        'robots'			=> 'noindex,nofollow,noodp,noydir',
-        'checkout_active'	=> 1,
-        'gv_amount'			=> $gv_amount,
-        'products_notify'	=> $products_notify
+        'breadcrumb'        => $oBreadcrumb->trail(),
+        'heading_title'        => $aLang['heading_title'],
+        'robots'            => 'noindex,nofollow,noodp,noydir',
+        'checkout_active'    => 1,
+        'gv_amount'            => $gv_amount,
+        'products_notify'    => $products_notify
     )
 );
 

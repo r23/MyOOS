@@ -37,11 +37,11 @@ $aLang['text_shipping_estimates'] = 'Shipping estimates';
 $aLang['text_modify'] = 'Modify';
 $aLang['text_on_memo'] = 'On the memo';
 
-$aLang['text_free_redemption']			 	= 'Free redemption';
-$aLang['text_free_redemption_selection'] 	= 'Would you like to return an old device free of charge when the new device is delivered?';
-$aLang['text_yes']            			 	= 'Yes';
-$aLang['text_no']      	   					= 'No';
-$aLang['text_error'] 						= 'Please select: Would you like to return an old device free of charge when the new device is delivered?';
+$aLang['text_free_redemption']                 = 'Free redemption';
+$aLang['text_free_redemption_selection']     = 'Would you like to return an old device free of charge when the new device is delivered?';
+$aLang['text_yes']                             = 'Yes';
+$aLang['text_no']                                 = 'No';
+$aLang['text_error']                         = 'Please select: Would you like to return an old device free of charge when the new device is delivered?';
 
 
 $aLang['sub_title_sub_total'] = 'Sub-Total:';

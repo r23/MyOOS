@@ -1,7 +1,8 @@
 <?php
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -28,19 +29,20 @@
  * {oos_radios values=$ids name='box' separator='<br>' output=$names}
  * {oos_radios values=$ids checked=$checked separator='<br>' output=$names}
  * </pre>
- * @link http://smarty.php.net/manual/en/language.function.html.radios.php {oos_radios}
+ *
+ * @link    http://smarty.php.net/manual/en/language.function.html.radios.php {oos_radios}
  *      (Smarty online manual)
- * @author     Christopher Kvarme <christopher.kvarme@flashjab.com>
- * @author credits to Monte Ohrt <monte at ohrt dot com>
- * @version    1.0
- * @param array
- * @param Smarty
- * @return string
- * @uses smarty_function_escape_special_chars()
+ * @author  Christopher Kvarme <christopher.kvarme@flashjab.com>
+ * @author  credits to Monte Ohrt <monte at ohrt dot com>
+ * @version 1.0
+ * @param   array
+ * @param   Smarty
+ * @return  string
+ * @uses    smarty_function_escape_special_chars()
  */
 function smarty_function_oos_radios($params, &$smarty)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
 
     $name = 'radio';
     $values = null;
@@ -54,49 +56,49 @@ function smarty_function_oos_radios($params, &$smarty)
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
-            case 'name':
-            case 'separator':
-                $$_key = (string)$_val;
-                break;
+        case 'name':
+        case 'separator':
+            $$_key = (string)$_val;
+            break;
 
-            case 'checked':
-            case 'selected':
-                if (is_array($_val)) {
-                    throw new SmartyException('oos_radios: the "' . $_key . '" attribute cannot be an array', E_USER_WARNING);
-                } else {
-                    $selected = (string)$_val;
-                }
-                break;
+        case 'checked':
+        case 'selected':
+            if (is_array($_val)) {
+                throw new SmartyException('oos_radios: the "' . $_key . '" attribute cannot be an array', E_USER_WARNING);
+            } else {
+                $selected = (string)$_val;
+            }
+            break;
 
-            case 'labels':
-            case 'label_ids':
-                $$_key = (bool)$_val;
-                break;
+        case 'labels':
+        case 'label_ids':
+            $$_key = (bool)$_val;
+            break;
 
-            case 'options':
-                $$_key = (array)$_val;
-                break;
+        case 'options':
+            $$_key = (array)$_val;
+            break;
 
-            case 'values':
-            case 'output':
-                $$_key = array_values((array)$_val);
-                break;
+        case 'values':
+        case 'output':
+            $$_key = array_values((array)$_val);
+            break;
 
-            case 'radios':
-                throw new SmartyException('oos_radios: the use of the "radios" attribute is deprecated, use "options" instead', E_USER_WARNING);
+        case 'radios':
+            throw new SmartyException('oos_radios: the use of the "radios" attribute is deprecated, use "options" instead', E_USER_WARNING);
                 $options = (array)$_val;
                 break;
 
-            case 'assign':
-                break;
+        case 'assign':
+            break;
 
-            default:
-                if (!is_array($_val)) {
-                    $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
-                } else {
-                    throw new SmartyException("oos_radios: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
-                }
-                break;
+        default:
+            if (!is_array($_val)) {
+                $extra .= ' '.$_key.'="'.smarty_function_escape_special_chars($_val).'"';
+            } else {
+                throw new SmartyException("oos_radios: extra attribute '$_key' cannot be an array", E_USER_NOTICE);
+            }
+            break;
         }
     }
 

@@ -2,10 +2,10 @@
 
 /**
  * Danish PHPMailer language file: refer to English translation for definitive list
- * @package PHPMailer
- * @author John Sebastian <jms@iwb.dk>
- * Rewrite and extension of the work by Mikael Stokkebro <info@stokkebro.dk>
  *
+ * @package PHPMailer
+ * @author  John Sebastian <jms@iwb.dk>
+ * Rewrite and extension of the work by Mikael Stokkebro <info@stokkebro.dk>
  */
 
 $PHPMAILER_LANG['authenticate']         = 'SMTP fejl: Login mislykkedes.';

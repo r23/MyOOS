@@ -2,7 +2,8 @@
 
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -12,6 +13,7 @@
  *
  * Type:     function
  * Name:     html_get_link
+ *
  * @Version: $Revision: 1.1 $ - changed by $Author: r23 $ on $Date: 2007/06/08 13:34:16 $
  * -------------------------------------------------------------
  */

@@ -188,9 +188,11 @@ class ot_coupon
 
                 if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
                     $couponstable = $oostable['coupons'];
-                    $gv_update = $dbconn->Execute("UPDATE $couponstable
+                    $gv_update = $dbconn->Execute(
+                        "UPDATE $couponstable
 														SET coupon_active = 'N'
-														WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'");
+														WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'"
+                    );
                     $oMessage->add_session('danger', sprintf($aLang['error_invalid_uses_coupon'], $coupon_result['uses_per_coupon']));
                 }
 
@@ -216,7 +218,7 @@ class ot_coupon
                     $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
                     $currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 
-                    $coupon_minimum_order =	$oCurrencies->format($coupon_result['coupon_minimum_order'], true, $currency, $currency_value);
+                    $coupon_minimum_order =    $oCurrencies->format($coupon_result['coupon_minimum_order'], true, $currency, $currency_value);
                     $coupon_missing = $oCurrencies->format($missing, true, $currency, $currency_value);
 
                     $oMessage->add('danger', sprintf($aLang['error_coupon_minimum_order'], $coupon_minimum_order, $coupon_missing));
@@ -296,9 +298,11 @@ class ot_coupon
 
                 if ($coupon_count->RecordCount()>=$coupon_result['uses_per_coupon'] && $coupon_result['uses_per_coupon'] > 0) {
                     $couponstable = $oostable['coupons'];
-                    $gv_update = $dbconn->Execute("UPDATE $couponstable
+                    $gv_update = $dbconn->Execute(
+                        "UPDATE $couponstable
 														SET coupon_active = 'N'
-														WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'");
+														WHERE coupon_code = '" . oos_db_input($gv_redeem_code). "'"
+                    );
                     $oMessage->add('danger', sprintf($aLang['error_invalid_uses_coupon'], $coupon_result['uses_per_coupon']));
                 }
 
@@ -324,7 +328,7 @@ class ot_coupon
                     $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
                     $currency_value = $oCurrencies->currencies[$_SESSION['currency']]['value'];
 
-                    $coupon_minimum_order =	$oCurrencies->format($coupon_result['coupon_minimum_order'], true, $currency, $currency_value);
+                    $coupon_minimum_order =    $oCurrencies->format($coupon_result['coupon_minimum_order'], true, $currency, $currency_value);
                     $coupon_missing = $oCurrencies->format($missing, true, $currency, $currency_value);
 
                     $oMessage->add('danger', sprintf($aLang['error_coupon_minimum_order'], $coupon_minimum_order, $coupon_missing));
@@ -734,7 +738,7 @@ class ot_coupon
                 $specials = $specials_query->fields;
                 $products_price = $specials['specials_new_products_price'];
             }
-            #		$total_price += ($products_price + oos_calculate_tax($products_price, $products_tax)) * $qty;
+            // $total_price += ($products_price + oos_calculate_tax($products_price, $products_tax)) * $qty;
             $total_price += $products_price * $qty;
 
             // attributes price
@@ -745,11 +749,11 @@ class ot_coupon
                     $attribute_price_query = $dbconn->Execute("SELECT options_values_price, price_prefix FROM $products_attributestable WHERE products_id = '" . (int)$prid . "' AND options_id = '" . oos_db_input($option) . "' AND options_values_id = '" . oos_db_input($value) . "'");
                     $attribute_price = $attribute_price_query->fields;
                     if ($attribute_price['price_prefix'] == '+') {
-                        #			$total_price += $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
+                        // $total_price += $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
                         $total_price += $qty * ($attribute_price['options_values_price']);
                     } else {
 
-#				$total_price -= $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
+                        // $total_price -= $qty * ($attribute_price['options_values_price'] + oos_calculate_tax($attribute_price['options_values_price'], $products_tax));
                         $total_price -= $qty * ($attribute_price['options_values_price']);
                     }
                 }

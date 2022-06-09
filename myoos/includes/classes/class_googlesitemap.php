@@ -16,7 +16,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
@@ -29,11 +31,11 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
  *
  * Optimized for use with MyOOS by r23 (info@r23.de)
  *
- * @package Google-XML-Sitemap-Feed
- * @license http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link http://www.google.com/webmasters/sitemaps/docs/en/about.html About Google Sitemap
+ * @package   Google-XML-Sitemap-Feed
+ * @license   http://opensource.org/licenses/gpl-license.php GNU Public License
+ * @link      http://www.google.com/webmasters/sitemaps/docs/en/about.html About Google Sitemap
  * @copyright Copyright 2005, Bobby Easland
- * @author Bobby Easland
+ * @author    Bobby Easland
  */
 
 class GoogleSitemap
@@ -82,8 +84,8 @@ class GoogleSitemap
     /**
      * function to save the sitemap data to file as either XML or XML.GZ format
      *
-     * @param string $data XML data
-     * @param string $type Feed type (index, products, categories)
+     * @param  string $data XML data
+     * @param  string $type Feed type (index, products, categories)
      * @return boolean
      */
     public function SaveFile($data, $type)
@@ -95,42 +97,42 @@ class GoogleSitemap
         }
 
         switch ($compress) {
-            case 'true':
-                $filename .= '.xml.gz';
-                if ($gz = gzopen($filename, 'wb9')) {
-                    gzwrite($gz, $data);
-                    gzclose($gz);
-                    $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $filename, 'status' => 'success', 'file_exists' => 'true');
-                    return true;
-                } else {
-                    $file_check = file_exists($filename) ? 'true' : 'false';
-                    $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
-                    return false;
-                }
-                break;
+        case 'true':
+            $filename .= '.xml.gz';
+            if ($gz = gzopen($filename, 'wb9')) {
+                gzwrite($gz, $data);
+                gzclose($gz);
+                $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $filename, 'status' => 'success', 'file_exists' => 'true');
+                return true;
+            } else {
+                $file_check = file_exists($filename) ? 'true' : 'false';
+                $this->debug['SAVE_FILE_COMPRESS'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
+                return false;
+            }
+            break;
 
-         default:
-                $filename .= '.xml';
-                if ($fp = fopen($filename, 'w+')) {
-                    fwrite($fp, $data);
-                    fclose($fp);
-                    $this->debug['SAVE_FILE_XML'][] = array('file' => $filename, 'status' => 'success', 'file_exists' => 'true');
-                    return true;
-                } else {
-                    $file_check = file_exists($filename) ? 'true' : 'false';
-                    $this->debug['SAVE_FILE_XML'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
-                    return false;
-                }
-                break;
+        default:
+               $filename .= '.xml';
+            if ($fp = fopen($filename, 'w+')) {
+                fwrite($fp, $data);
+                fclose($fp);
+                $this->debug['SAVE_FILE_XML'][] = array('file' => $filename, 'status' => 'success', 'file_exists' => 'true');
+                return true;
+            } else {
+                $file_check = file_exists($filename) ? 'true' : 'false';
+                $this->debug['SAVE_FILE_XML'][] = array('file' => $filename, 'status' => 'failure', 'file_exists' => $file_check);
+                return false;
+            }
+            break;
 
-       }
+        }
     }
 
 
     /**
      * public function to compress a normal file
      *
-     * @param string $file
+     * @param  string $file
      * @return boolean
      */
     public function CompressFile($file)
@@ -162,7 +164,7 @@ class GoogleSitemap
     /**
      * public function to generate sitemap file from data
      *
-     * @param array $data
+     * @param array  $data
      * @param string $file
      */
     public function GenerateSitemap($data, $file)
@@ -324,7 +326,7 @@ class GoogleSitemap
     /**
      * public function to retrieve full cPath from category ID
      *
-     * @param mixed $cID Could contain cPath or single category_id
+     * @param  mixed $cID Could contain cPath or single category_id
      * @return string Full cPath string
      */
     public function GetFullcPath($cID)
@@ -345,7 +347,7 @@ class GoogleSitemap
     /**
      * Recursion public function to retrieve parent categories from category ID
      *
-     * @param mixed $categories Passed by reference
+     * @param mixed   $categories    Passed by reference
      * @param integer $categories_id
      */
     public function GetParentCategories(&$categories, $categories_id)
@@ -377,7 +379,7 @@ class GoogleSitemap
     /**
      * Utility public function to read and return the contents of a GZ formatted file
      *
-     * @param string $file File to open
+     * @param  string $file File to open
      * @return string
      */
     public function ReadGZ($file)

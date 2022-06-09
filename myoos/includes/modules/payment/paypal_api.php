@@ -22,7 +22,7 @@
 
 if (defined('IS_ADMIN_FLAG')) {
     $composerAutoload = MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
-    require $composerAutoload;
+    include $composerAutoload;
 }
 
 use PayPal\Api\Amount;
@@ -144,7 +144,9 @@ class paypal_api
         // \PayPal\Core\PayPalHttpConfig::$defaultCurlOptions[CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_2;
 
 
-        /** @var \Paypal\Rest\ApiContext $apiContext */
+        /**
+ * @var \Paypal\Rest\ApiContext $apiContext 
+*/
         $apiContext = getApiContext($clientId, $clientSecret);
 
 
@@ -259,7 +261,7 @@ class paypal_api
         // charges etc.
         $details = new Details();
         $details->setShipping($shipping)
-                ->setSubtotal($subtotal);
+            ->setSubtotal($subtotal);
 
         if ($aUser['price_with_tax'] != 1) {
             $details->setTax($tax);
@@ -280,9 +282,9 @@ class paypal_api
         // is fulfilling it.
         $transaction = new Transaction();
         $transaction->setAmount($amount)
-                    ->setItemList($itemList)
-                    ->setDescription("Payment description")
-                    ->setInvoiceNumber(uniqid());
+            ->setItemList($itemList)
+            ->setDescription("Payment description")
+            ->setInvoiceNumber(uniqid());
 
 
         // ### Redirect urls
@@ -297,14 +299,14 @@ class paypal_api
         // the above types and intent set to 'sale'
         $redirectUrls = new RedirectUrls();
         $redirectUrls->setReturnUrl($sReturnUrl)
-                    ->setCancelUrl($sCancelUrl);
+            ->setCancelUrl($sCancelUrl);
 
         $payment = new Payment();
         $payment->setIntent("sale")
-                ->setExperienceProfileId($web_profile_id)
-                ->setPayer($payer)
-                ->setRedirectUrls($redirectUrls)
-                ->setTransactions(array($transaction));
+            ->setExperienceProfileId($web_profile_id)
+            ->setPayer($payer)
+            ->setRedirectUrls($redirectUrls)
+            ->setTransactions(array($transaction));
 
 
         try {
@@ -312,11 +314,11 @@ class paypal_api
             $this->form_action_url = $payment->getApprovalLink();
         } catch (Exception $ex) {
 
-/*
-        echo $ex->getCode();
-        echo $ex->getData();
-        die($ex);
-*/
+            /*
+            echo $ex->getCode();
+            echo $ex->getData();
+            die($ex);
+            */
             $aContents = oos_get_content();
 
             $_SESSION['error_message'] = MODULE_PAYMENT_PAYPAL_API_ERROR;
@@ -338,7 +340,9 @@ class paypal_api
         // \PayPal\Core\PayPalHttpConfig::$defaultCurlOptions[CURLOPT_SSLVERSION] = CURL_SSLVERSION_TLSv1_2;
 
 
-        /** @var \Paypal\Rest\ApiContext $apiContext */
+        /**
+ * @var \Paypal\Rest\ApiContext $apiContext 
+*/
         $apiContext = getApiContext($clientId, $clientSecret);
 
 
@@ -395,7 +399,7 @@ class paypal_api
     public function install()
     {
 
-      // Get database information
+        // Get database information
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
@@ -413,7 +417,7 @@ class paypal_api
     public function remove()
     {
 
-      // Get database information
+        // Get database information
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
@@ -431,8 +435,9 @@ class paypal_api
 
 /**
  * Helper method for getting an APIContext for all calls
- * @param string $clientId Client ID
- * @param string $clientSecret Client Secret
+ *
+ * @param  string $clientId     Client ID
+ * @param  string $clientSecret Client Secret
  * @return PayPal\Rest\ApiContext
  */
 function getApiContext($clientId, $clientSecret)

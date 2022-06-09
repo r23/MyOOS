@@ -27,17 +27,17 @@ $sCustomer = isset($_GET['customer']) ? oos_prepare_input($_GET['customer']) : '
 
 if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']) && !isset($_POST['back_x'])) {
     switch ($_POST['customers_email_address']) {
-      case '***':
+    case '***':
         $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address FROM " . $oostable['customers']);
         $mail_sent_to = TEXT_ALL_CUSTOMERS;
         break;
-/* toto Newsletter
+    /* toto Newsletter
       case '**D':
         $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address FROM " . $oostable['customers'] . " WHERE customers_newsletter = '1'");
         $mail_sent_to = TEXT_NEWSLETTER_CUSTOMERS;
         break;
-*/
-      default:
+    */
+    default:
         $customers_email_address = oos_db_prepare_input($_POST['customers_email_address']);
 
         $mail_result = $dbconn->Execute("SELECT customers_firstname, customers_lastname, customers_email_address FROM " . $oostable['customers'] . " WHERE customers_email_address = '" . oos_db_input($customers_email_address) . "'");
@@ -63,10 +63,10 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
         $send_mail->IsSMTP(); // set mailer to use SMTP
-      $send_mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
-      $send_mail->Username = OOS_SMTPUSER; // SMTP username
-      $send_mail->Password = OOS_SMTPPASS; // SMTP password
-      $send_mail->Host     = OOS_SMTPHOST; // specify main and backup server
+        $send_mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
+        $send_mail->Username = OOS_SMTPUSER; // SMTP username
+        $send_mail->Password = OOS_SMTPPASS; // SMTP password
+        $send_mail->Host     = OOS_SMTPHOST; // specify main and backup server
     } elseif // Set sendmail path
       (EMAIL_TRANSPORT == 'sendmail') {
         if (!oos_empty(OOS_SENDMAIL)) {
@@ -90,74 +90,74 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
     oos_redirect_admin(oos_href_link_admin($aContents['mail'], 'mail_sent_to=' . urlencode($mail_sent_to)));
 }
 
-  if (($action == 'preview') && !isset($_POST['customers_email_address'])) {
-      $messageStack->add(ERROR_NO_CUSTOMER_SELECTED, 'error');
-  }
+if (($action == 'preview') && !isset($_POST['customers_email_address'])) {
+    $messageStack->add(ERROR_NO_CUSTOMER_SELECTED, 'error');
+}
 
-  if (isset($_GET['mail_sent_to'])) {
-      $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
-  }
+if (isset($_GET['mail_sent_to'])) {
+    $messageStack->add(sprintf(NOTICE_EMAIL_SENT_TO, $_GET['mail_sent_to']), 'notice');
+}
 
   require 'includes/header.php';
 ?>
 <div class="wrapper">
-	<!-- Header //-->
-	<header class="topnavbar-wrapper">
-		<!-- Top Navbar //-->
-		<?php require 'includes/menue.php'; ?>
-	</header>
-	<!-- END Header //-->
-	<aside class="aside">
-		<!-- Sidebar //-->
-		<div class="aside-inner">
-			<?php require 'includes/blocks.php'; ?>
-		</div>
-		<!-- END Sidebar (left) //-->
-	</aside>
-	
-	<!-- Main section //-->
-	<section>
-		<!-- Page content //-->
-		<div class="content-wrapper">
+    <!-- Header //-->
+    <header class="topnavbar-wrapper">
+        <!-- Top Navbar //-->
+        <?php require 'includes/menue.php'; ?>
+    </header>
+    <!-- END Header //-->
+    <aside class="aside">
+        <!-- Sidebar //-->
+        <div class="aside-inner">
+            <?php require 'includes/blocks.php'; ?>
+        </div>
+        <!-- END Sidebar (left) //-->
+    </aside>
+    
+    <!-- Main section //-->
+    <section>
+        <!-- Page content //-->
+        <div class="content-wrapper">
 
-			<!-- Breadcrumbs //-->
-			<div class="content-heading">
-				<div class="col-lg-12">
-					<h2><?php echo HEADING_TITLE; ?></h2>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['mail'], 'selected_box=tools') . '">' . BOX_HEADING_TOOLS . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item active">
-							<strong><?php echo HEADING_TITLE; ?></strong>
-						</li>
-					</ol>
-				</div>
-			</div>
-			<!-- END Breadcrumbs //-->
-			
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">			
+            <!-- Breadcrumbs //-->
+            <div class="content-heading">
+                <div class="col-lg-12">
+                    <h2><?php echo HEADING_TITLE; ?></h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['mail'], 'selected_box=tools') . '">' . BOX_HEADING_TOOLS . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong><?php echo HEADING_TITLE; ?></strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- END Breadcrumbs //-->
+            
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">            
 <!-- body_text //-->
-	<table border="0" width="100%" cellspacing="0" cellpadding="0">
+    <table border="0" width="100%" cellspacing="0" cellpadding="0">
       <tr>
         <td><table border="0" width="100%" cellspacing="0" cellpadding="2">
 <?php
-  if (($action == 'preview') && isset($_POST['customers_email_address'])) {
-      switch ($_POST['customers_email_address']) {
-      case '***':
+if (($action == 'preview') && isset($_POST['customers_email_address'])) {
+    switch ($_POST['customers_email_address']) {
+    case '***':
         $mail_sent_to = TEXT_ALL_CUSTOMERS;
         break;
 
-      case '**D':
+    case '**D':
         $mail_sent_to = TEXT_NEWSLETTER_CUSTOMERS;
         break;
 
-      default:
+    default:
         $mail_sent_to =  oos_db_prepare_input($_POST['customers_email_address']);
         break;
     } ?>
@@ -195,14 +195,14 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
               </tr>
               <tr>
                 <td>
-<?php
-/* Re-Post all POST'ed variables */
+    <?php
+    /* Re-Post all POST'ed variables */
     reset($_POST);
-      foreach ($_POST as $key => $value) {
-          if (!is_array($_POST[$key])) {
-              echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)), ENT_QUOTES, 'UTF-8');
-          }
-      } ?>
+    foreach ($_POST as $key => $value) {
+        if (!is_array($_POST[$key])) {
+            echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)), ENT_QUOTES, 'UTF-8');
+        }
+    } ?>
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
                     <td><?php echo oos_submit_button(BUTTON_BACK); ?></td>
@@ -212,27 +212,27 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
               </tr>
             </table></td>
           </form></tr>
-<?php
-  } else {
-      ?>
+    <?php
+} else {
+    ?>
           <tr><?php echo oos_draw_form('id', 'mail', $aContents['mail'], 'action=preview', 'post', false); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
                 <td colspan="2"></td>
               </tr>
-<?php
+    <?php
     $customers = [];
-      $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
-      $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
-      $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
-      $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM " . $oostable['customers'] . " ORDER BY customers_lastname");
-      while ($customers_values = $mail_result->fields) {
-          $customers[] = array('id' => $customers_values['customers_email_address'],
-                           'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
+    $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
+    $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
+    $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
+    $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM " . $oostable['customers'] . " ORDER BY customers_lastname");
+    while ($customers_values = $mail_result->fields) {
+        $customers[] = array('id' => $customers_values['customers_email_address'],
+                         'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
 
-          // Move that ADOdb pointer!
-          $mail_result->MoveNext();
-      } ?>
+        // Move that ADOdb pointer!
+        $mail_result->MoveNext();
+    } ?>
               <tr>
                 <td class="main"><?php echo TEXT_CUSTOMER; ?></td>
                 <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $sCustomer); ?></td>
@@ -270,24 +270,24 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
               </tr>
             </table></td>
           </form></tr>
-<?php
-  }
+    <?php
+}
 ?>
 
         </table></td>
       </tr>
     </table>
 <!-- body_text_eof //-->
-				</div>
-			</div>
+                </div>
+            </div>
         </div>
 
-		</div>
-	</section>
-	<!-- Page footer //-->
-	<footer>
-		<span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
-	</footer>
+        </div>
+    </section>
+    <!-- Page footer //-->
+    <footer>
+        <span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
+    </footer>
 </div>
 
 <?php

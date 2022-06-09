@@ -27,36 +27,36 @@
 
 require 'includes/header.php';
 ?>
-	<div class="wrapper wrapper-content">
+    <div class="wrapper wrapper-content">
 
 
-		<div class="login">
+        <div class="login">
 
-			<!-- begin login-content -->
-			<div class="login-content">
-					
-			
-				<div class="login-header text-center">
-					<i class="mdi mdi-radar"></i> <span>MyOOS [Shopsystem] </span>
-				</div>
+            <!-- begin login-content -->
+            <div class="login-content">
+                    
+            
+                <div class="login-header text-center">
+                    <i class="mdi mdi-radar"></i> <span>MyOOS [Shopsystem] </span>
+                </div>
 
-				<div class="alert alert-danger alert-dismissible fade show m-b-20" role="alert">
-					<?php echo TEXT_MAIN; ?>
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>	
+                <div class="alert alert-danger alert-dismissible fade show m-b-20" role="alert">
+                    <?php echo TEXT_MAIN; ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>    
 
-				<div class="form-group text-right m-t-20">
-					<div class="col-xs-12">
-						<?php echo '<a href="' . oos_href_link_admin($aContents['login']) . '">'; ?><button class="btn btn-primary btn-custom w-md" type="submit"><?php echo BUTTON_BACK; ?></button></a>
-					</div>
-				</div>	
-				
-			</div>
-		</div>
-		
-	</div>
+                <div class="form-group text-right m-t-20">
+                    <div class="col-xs-12">
+                        <?php echo '<a href="' . oos_href_link_admin($aContents['login']) . '">'; ?><button class="btn btn-primary btn-custom w-md" type="submit"><?php echo BUTTON_BACK; ?></button></a>
+                    </div>
+                </div>    
+                
+            </div>
+        </div>
+        
+    </div>
 
 <?php
     require 'includes/bottom.php';

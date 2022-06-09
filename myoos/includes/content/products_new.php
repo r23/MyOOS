@@ -19,7 +19,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // split-page-results
@@ -41,8 +43,8 @@ $sCanonical = oos_href_link($aContents['products_new'], 'page='. $nPage, false, 
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 
@@ -146,7 +148,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
                                     'new_base_product_price' => $new_base_product_price,
                                     'listing_until' => $products_new_until,
                                     'products_new_base_product_price' => $products_new_base_product_price,
-                                    'products_new_cross_out_price'	=> $products_new_cross_out_price,
+                                    'products_new_cross_out_price'    => $products_new_cross_out_price,
                                     'products_base_price' => $products_new['products_base_price'],
                                     'new_products_base_unit' => $products_new['products_base_unit'],
                                     'date_added' => $products_new['products_date_added'],
@@ -164,16 +166,16 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
         array(
            'breadcrumb'         => $oBreadcrumb->trail(),
            'heading_title'      => $aLang['heading_title'],
-           'robots'				=> 'noindex,follow,noodp,noydir',
-           'canonical'			=> $sCanonical,
+           'robots'                => 'noindex,follow,noodp,noydir',
+           'canonical'            => $sCanonical,
 
-           'page_split'			=> $products_new_split->display_count($aLang['text_display_number_of_products_new']),
-           'display_links'		=> $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-            'numrows' 			=> $products_new_split->number_of_rows,
-            'numpages' 			=> $products_new_split->number_of_pages,
+           'page_split'            => $products_new_split->display_count($aLang['text_display_number_of_products_new']),
+           'display_links'        => $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+            'numrows'             => $products_new_split->number_of_rows,
+            'numpages'             => $products_new_split->number_of_pages,
 
-            'page'				=> $nPage,
-           'products_new' 		=> $products_new_array
+            'page'                => $nPage,
+           'products_new'         => $products_new_array
         )
     );
 }

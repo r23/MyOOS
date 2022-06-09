@@ -38,65 +38,65 @@ if (isset($_GET['reset']) && ($_GET['reset'] == '1')) {
   require 'includes/header.php';
 ?>
 <div class="wrapper">
-	<!-- Header //-->
-	<header class="topnavbar-wrapper">
-		<!-- Top Navbar //-->
-		<?php require 'includes/menue.php'; ?>
-	</header>
-	<!-- END Header //-->
-	<aside class="aside">
-		<!-- Sidebar //-->
-		<div class="aside-inner">
-			<?php require 'includes/blocks.php'; ?>
-		</div>
-		<!-- END Sidebar (left) //-->
-	</aside>
-	
-	<!-- Main section //-->
-	<section>
-		<!-- Page content //-->
-		<div class="content-wrapper">
+    <!-- Header //-->
+    <header class="topnavbar-wrapper">
+        <!-- Top Navbar //-->
+        <?php require 'includes/menue.php'; ?>
+    </header>
+    <!-- END Header //-->
+    <aside class="aside">
+        <!-- Sidebar //-->
+        <div class="aside-inner">
+            <?php require 'includes/blocks.php'; ?>
+        </div>
+        <!-- END Sidebar (left) //-->
+    </aside>
+    
+    <!-- Main section //-->
+    <section>
+        <!-- Page content //-->
+        <div class="content-wrapper">
 
-			<!-- Breadcrumbs //-->
-			<div class="content-heading">
-				<div class="col-lg-12">
-					<h2><?php echo HEADING_TITLE; ?></h2>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports') . '">' . BOX_HEADING_REPORTS . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item active">
-							<strong><?php echo HEADING_TITLE; ?></strong>
-						</li>
-					</ol>
-				</div>
-			</div>
-			<!-- END Breadcrumbs //-->
-			
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">				
+            <!-- Breadcrumbs //-->
+            <div class="content-heading">
+                <div class="col-lg-12">
+                    <h2><?php echo HEADING_TITLE; ?></h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['stats_products_purchased'], 'selected_box=reports') . '">' . BOX_HEADING_REPORTS . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong><?php echo HEADING_TITLE; ?></strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- END Breadcrumbs //-->
+            
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">                
 <!-- body_text //-->
 <div class="table-responsive">
-	<table class="table w-100">
+    <table class="table w-100">
           <tr>
             <td valign="top">
-			
-				<table class="table table-striped table-hover w-100">
-					<thead class="thead-dark">
-						<tr>
-							<th><?php echo TABLE_HEADING_NUMBER; ?></th>
-							<th><?php echo TABLE_HEADING_PRODUCTS; ?></th>
-							<th align="center"><?php echo TABLE_HEADING_VIEWED; ?>&nbsp;</th>
-						</tr>	
-					</thead>	
+            
+                <table class="table table-striped table-hover w-100">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th><?php echo TABLE_HEADING_NUMBER; ?></th>
+                            <th><?php echo TABLE_HEADING_PRODUCTS; ?></th>
+                            <th align="center"><?php echo TABLE_HEADING_VIEWED; ?>&nbsp;</th>
+                        </tr>    
+                    </thead>    
 <?php
-  if (isset($nPage) && ($nPage > 1)) {
-      $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
-  }
+if (isset($nPage) && ($nPage > 1)) {
+    $rows = $nPage * MAX_DISPLAY_SEARCH_RESULTS - MAX_DISPLAY_SEARCH_RESULTS;
+}
 
   $productstable = $oostable['products'];
   $products_dscriptiontable = $oostable['products_description'];
@@ -111,21 +111,21 @@ if (isset($_GET['reset']) && ($_GET['reset'] == '1')) {
   $products_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $products_sql_raw, $products_numrows);
   $products_result = $dbconn->Execute($products_sql_raw);
 
-  while ($products = $products_result->fields) {
-      $rows++;
+while ($products = $products_result->fields) {
+    $rows++;
 
-      if (strlen($rows) < 2) {
-          $rows = '0' . $rows;
-      } ?>
+    if (strlen($rows) < 2) {
+        $rows = '0' . $rows;
+    } ?>
               <tr onclick="document.location.href='<?php echo oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage); ?>'">
                 <td><?php echo $rows; ?>.</td>
                 <td><?php echo '<a href="' . oos_href_link_admin($aContents['products'], 'action=new_product_preview&pID=' . $products['products_id'] . '&origin=' . $aContents['stats_products_viewed'] . '?page=' . $nPage) . '">' . $products['products_name'] . '</a> (' . $products['name'] . ')'; ?></td>
                 <td class="text-center"><?php echo $products['products_viewed']; ?>&nbsp;</td>
               </tr>
-<?php
-     // Move that ADOdb pointer!
+    <?php
+    // Move that ADOdb pointer!
     $products_result->MoveNext();
-  }
+}
 ?>
             </table></td>
           </tr>
@@ -145,19 +145,19 @@ if (isset($_GET['reset']) && ($_GET['reset'] == '1')) {
             </table></td>
           </tr>
         </table>
-	</div>
+    </div>
 <!-- body_text_eof //-->
 
-				</div>
-			</div>
+                </div>
+            </div>
         </div>
 
-		</div>
-	</section>
-	<!-- Page footer //-->
-	<footer>
-		<span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
-	</footer>
+        </div>
+    </section>
+    <!-- Page footer //-->
+    <footer>
+        <span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
+    </footer>
 </div>
 
 

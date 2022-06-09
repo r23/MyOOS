@@ -37,7 +37,7 @@
 
 function smarty_function_oos_address_format($params, &$smarty)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
 
     $address_format_id = '';
     $address = '';

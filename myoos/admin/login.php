@@ -21,8 +21,9 @@
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_GET['action']) && ($_GET['action'] == 'process') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+) {
     $email_address = oos_prepare_input($_POST['email_address']);
     $password = oos_prepare_input($_POST['password']);
 
@@ -56,9 +57,11 @@ if (isset($_GET['action']) && ($_GET['action'] == 'process') &&
             $login_modified = $check_admin['login_modified'];
 
             //$date_now = date('Ymd');
-            $dbconn->Execute("UPDATE " . $oostable['admin'] . "
+            $dbconn->Execute(
+                "UPDATE " . $oostable['admin'] . "
                         SET admin_logdate = now(), admin_lognum = admin_lognum+1
-                        WHERE admin_id = '" . intval($_SESSION['login_id']) . "'");
+                        WHERE admin_id = '" . intval($_SESSION['login_id']) . "'"
+            );
 
             oos_redirect_admin(oos_href_link_admin($aContents['default']));
         }
@@ -70,70 +73,70 @@ $_SESSION['formid'] = $sFormid;
 
 require 'includes/header.php';
 ?>
-	<div class="wrapper wrapper-content">
+    <div class="wrapper wrapper-content">
 
 
-		<div class="login">
+        <div class="login">
 
-			<!-- begin login-content -->
-			<div class="login-content">
-			
+            <!-- begin login-content -->
+            <div class="login-content">
+            
 <?php
-    if (isset($login) && $login == 'fail') {
-        ?>			
-				<div class="alert alert-danger alert-dismissible fade show" role="alert">
-					<?php echo TEXT_LOGIN_ERROR; ?>
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>			
-<?php
-    }
-?>			
-			
-				<div class="login-header text-center">
-					<i class="mdi mdi-radar"></i> <span>MyOOS [Shopsystem] </span>
-				</div>
+if (isset($login) && $login == 'fail') {
+    ?>            
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <?php echo TEXT_LOGIN_ERROR; ?>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>            
+    <?php
+}
+?>            
+            
+                <div class="login-header text-center">
+                    <i class="mdi mdi-radar"></i> <span>MyOOS [Shopsystem] </span>
+                </div>
 
 
-				<?php echo oos_draw_form('id', 'login', $aContents['login'], 'action=process', 'post', true); ?>
-					<?php echo oos_draw_hidden_field('formid', $sFormid); ?>
+                <?php echo oos_draw_form('id', 'login', $aContents['login'], 'action=process', 'post', true); ?>
+                    <?php echo oos_draw_hidden_field('formid', $sFormid); ?>
 
-					<div class="form-group m-b-20">
+                    <div class="form-group m-b-20">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="mdi mdi-account"></i></span>
                             </div>
-							<?php echo oos_draw_input_field('email_address', '', '', true, 'text', true, false, PLACEHOLDER_EMAIL_ADDRESS); ?>							
+                            <?php echo oos_draw_input_field('email_address', '', '', true, 'text', true, false, PLACEHOLDER_EMAIL_ADDRESS); ?>                            
                         </div>
                     </div>
 
-					<div class="form-group m-b-20">
+                    <div class="form-group m-b-20">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="mdi mdi-radar"></i></span>
                             </div>
-							<?php echo oos_draw_input_field('password', '', '', true, 'password', false, false, PLACEHOLDER_PASSWORD); ?>		
-						</div>
+                            <?php echo oos_draw_input_field('password', '', '', true, 'password', false, false, PLACEHOLDER_PASSWORD); ?>        
+                        </div>
                     </div>
 
-					<div class="form-group text-right m-t-20">
-						<div class="col-xs-12">
-							<button class="btn btn-primary btn-custom w-md" type="submit">Log In</button>
-						</div>
-					</div>
+                    <div class="form-group text-right m-t-20">
+                        <div class="col-xs-12">
+                            <button class="btn btn-primary btn-custom w-md" type="submit">Log In</button>
+                        </div>
+                    </div>
 
-					<div class="form-group row m-t-30">
-						<div class="col-sm-7  text-right">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['password_forgotten']) . '" class="text-muted"><i class="fa fa-lock"></i> ' . TEXT_PASSWORD_FORGOTTEN; ?></a>
-						</div>
-					</div>
-		
-				</form>
-			</div>
-		</div>
-		
-	</div>
+                    <div class="form-group row m-t-30">
+                        <div class="col-sm-7  text-right">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['password_forgotten']) . '" class="text-muted"><i class="fa fa-lock"></i> ' . TEXT_PASSWORD_FORGOTTEN; ?></a>
+                        </div>
+                    </div>
+        
+                </form>
+            </div>
+        </div>
+        
+    </div>
 
 <?php
     require 'includes/bottom.php';

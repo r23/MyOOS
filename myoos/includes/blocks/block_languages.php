@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $languages_block = false;
@@ -45,9 +47,11 @@ if ($languages_result->RecordCount() >= 2) {
     $smarty->assign('lang_get_parameters', $lang_all_get_parameters);
 } else {
     $blockstable = $oostable['block'];
-    $dbconn->Execute("UPDATE " . $blockstable . "
+    $dbconn->Execute(
+        "UPDATE " . $blockstable . "
                       SET block_status = 0
-                      WHERE block_file = 'languages'");
+                      WHERE block_file = 'languages'"
+    );
 }
 
 $smarty->assign('languages_block', $languages_block);

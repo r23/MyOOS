@@ -50,7 +50,9 @@
    All contributions are gladly accepted though Paypal.
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // check
@@ -93,8 +95,9 @@ if (isset($_SESSION['customer_id'])) {
 }
 
 
-if (isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_POST['action']) && ($_POST['action'] == 'login_process') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+) {
     $email_address = oos_db_prepare_input($_POST['email_address']);
     $keya = oos_db_prepare_input($_POST['keya']);
     $keyb = oos_db_prepare_input($_POST['keyb']);
@@ -116,10 +119,12 @@ if (isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
     $login_result = $dbconn->Execute($sql);
     if (!$login_result->RecordCount()) {
         $manual_infotable = $oostable['manual_info'];
-        $dbconn->Execute("UPDATE $manual_infotable
+        $dbconn->Execute(
+            "UPDATE $manual_infotable
 							SET man_key = '',
 								man_key2 = ''
-						WHERE man_info_id = '1'");
+						WHERE man_info_id = '1'"
+        );
         oos_redirect(oos_href_link($aContents['403']));
     }
 
@@ -135,9 +140,11 @@ if (isset($_POST['action']) && ($_POST['action'] == 'login_process') &&
 
     if (!$check_customer_result->RecordCount()) {
         $manual_infotable = $oostable['manual_info'];
-        $dbconn->Execute("UPDATE " . $oostable['manual_info'] . "
+        $dbconn->Execute(
+            "UPDATE " . $oostable['manual_info'] . "
 							SET man_key2  = ''
-						WHERE where man_info_id = '1'");
+						WHERE where man_info_id = '1'"
+        );
         oos_redirect(oos_href_link($aContents['403']));
     } else {
         $check_customer = $check_customer_result->fields;
@@ -202,8 +209,8 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
@@ -211,9 +218,9 @@ $smarty->assign(
     array(
         'breadcrumb'    => $oBreadcrumb->trail(),
         'heading_title' => $aLang['heading_title'],
-        'robots'		=> 'noindex,nofollow,noodp,noydir',
+        'robots'        => 'noindex,nofollow,noodp,noydir',
 
-        'canonical'		=> $sCanonical
+        'canonical'        => $sCanonical
     )
 );
 
@@ -235,10 +242,12 @@ if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
     $newkey2 = RandomPassword($passwordLength);
 
     $manual_infotable = $oostable['manual_info'];
-    $dbconn->Execute("UPDATE $manual_infotable
+    $dbconn->Execute(
+        "UPDATE $manual_infotable
                     SET man_key2  = '" . oos_db_input($newkey2) . "'
                     WHERE man_key = '" . oos_db_input($verif_key) . "' 
-					  AND man_info_id = '1'");
+					  AND man_info_id = '1'"
+    );
 
     $manual_infotable = $oostable['manual_info'];
     $login_query = "SELECT man_key2, man_key3, status FROM $manual_infotable WHERE man_key = '" . oos_db_input($verif_key) . "' AND status = '1'";
@@ -252,7 +261,7 @@ if (isset($_GET['action']) && ($_GET['action'] == 'login_admin')) {
               'email_address'       => $email_address,
               'verif_key'           => $verif_key,
               'login_result_values' => $login_result_values
-       )
+        )
     );
 }
 

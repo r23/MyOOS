@@ -20,7 +20,9 @@
    ---------------------------------------------------------------------- */
 
 
-/** ensure this file is being required by a parent file */
+/**
+ * ensure this file is being required by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/shop.php';
@@ -88,10 +90,10 @@ if ($category_depth == 'nested') {
     $sGroup = trim($aUser['text']);
     $sContentCacheID = $sTheme . '|shop|nested|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $sGroup . '|' . $sLanguage;
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/system.php';
     if (!isset($option)) {
-        require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-        require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
     }
 
     $smarty->assign('breadcrumb', $oBreadcrumb->trail());
@@ -147,9 +149,9 @@ if ($category_depth == 'nested') {
         while ($categories = $categories_result->fields) {
             $sCategoryNew = oos_get_path($categories['categories_id'], $categories['parent_id'], $categories['gparent_id']);
             $aCategoriesBoxs[] = array(
-                                    'image'	=> $categories['categories_image'],
-                                    'name'	=> $categories['categories_name'],
-                                    'path'	=> $sCategoryNew
+                                    'image'    => $categories['categories_image'],
+                                    'name'    => $categories['categories_name'],
+                                    'path'    => $sCategoryNew
                                     );
             // Move that ADOdb pointer!
             $categories_result->MoveNext();
@@ -157,7 +159,7 @@ if ($category_depth == 'nested') {
 
         if (!$smarty->isCached($aTemplate['new_products'], $sContentCacheID)) {
             $smarty->assign('cpath', $sCategory);
-            require_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
+            include_once MYOOS_INCLUDE_PATH . '/includes/modules/new_products.php';
         }
         $smarty->assign('new_products', $smarty->fetch($aTemplate['new_products'], $sContentCacheID));
 
@@ -181,7 +183,7 @@ if ($category_depth == 'nested') {
         $smarty->assign(
             array(
                 'category'      => $category,
-                'categories' 	=> $aCategoriesBoxs
+                'categories'     => $aCategoriesBoxs
             )
         );
     }
@@ -209,7 +211,7 @@ if ($category_depth == 'nested') {
         $aCategorySlider = [];
         while ($slider = $category_slider->fields) {
             $aCategorySlider[] = array(
-                                    'image'	=> $slider['categories_image']
+                                    'image'    => $slider['categories_image']
                                     );
             // Move that ADOdb pointer!
             $category_slider->MoveNext();
@@ -245,10 +247,10 @@ if ($category_depth == 'nested') {
     $sGroup = trim($aUser['text']);
     $sContentCacheID = $sTheme . '|shop|products|' . intval($nCurrentCategoryID) . '|' . $sCategory . '|' . $nManufacturersID . '|' . $nPage . '|' . $nFilterID . '|' . $sGroup . '|' . $sLanguage;
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/system.php';
     if (!isset($option)) {
-        require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-        require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
     }
 
     if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
@@ -261,13 +263,13 @@ if ($category_depth == 'nested') {
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $category['categories_name'],
             'canonical'     => $sCanonical,
-            'page'			=> $nPage
+            'page'            => $nPage
         )
     );
 
     if (!$smarty->isCached($aTemplate['page'], $sContentCacheID)) {
 
-// create column list
+        // create column list
         $aDefineList = [];
         $aDefineList = array('PRODUCT_LIST_MODEL' => 1,
                            'PRODUCT_LIST_NAME' => 2,
@@ -295,33 +297,33 @@ if ($category_depth == 'nested') {
             }
 
             switch ($aColumnList[$col]) {
-                case 'PRODUCT_LIST_MODEL':
-                    $select_column_list .= 'p.products_model, ';
-                    break;
+            case 'PRODUCT_LIST_MODEL':
+                $select_column_list .= 'p.products_model, ';
+                break;
 
-                case 'PRODUCT_LIST_NAME':
-                    $select_column_list .= 'pd.products_name, ';
-                    break;
+            case 'PRODUCT_LIST_NAME':
+                $select_column_list .= 'pd.products_name, ';
+                break;
 
-                case 'PRODUCT_LIST_MANUFACTURER':
-                    $select_column_list .= 'm.manufacturers_name, ';
-                    break;
+            case 'PRODUCT_LIST_MANUFACTURER':
+                $select_column_list .= 'm.manufacturers_name, ';
+                break;
 
-                case 'PRODUCT_LIST_QUANTITY':
-                    $select_column_list .= 'p.products_quantity, ';
-                    break;
+            case 'PRODUCT_LIST_QUANTITY':
+                $select_column_list .= 'p.products_quantity, ';
+                break;
 
-                case 'PRODUCT_LIST_IMAGE':
-                    $select_column_list .= 'p.products_image, ';
-                    break;
+            case 'PRODUCT_LIST_IMAGE':
+                $select_column_list .= 'p.products_image, ';
+                break;
 
-                case 'PRODUCT_LIST_WEIGHT':
-                    $select_column_list .= 'p.products_weight, ';
-                    break;
+            case 'PRODUCT_LIST_WEIGHT':
+                $select_column_list .= 'p.products_weight, ';
+                break;
 
-                case 'PRODUCT_LIST_SORT_ORDER':
-                    $select_column_list .= 'p.products_sort_order, ';
-                    break;
+            case 'PRODUCT_LIST_SORT_ORDER':
+                $select_column_list .= 'p.products_sort_order, ';
+                break;
             }
         }
 
@@ -491,37 +493,37 @@ if ($category_depth == 'nested') {
             $sort_order = substr($_GET['sort'], 1);
 
             switch ($aColumnList[$sort_col-1]) {
-                case 'PRODUCT_LIST_MODEL':
-                    $listing_sql .= " ORDER BY p.products_model " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
-                    break;
+            case 'PRODUCT_LIST_MODEL':
+                $listing_sql .= " ORDER BY p.products_model " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+                break;
 
-                case 'PRODUCT_LIST_NAME':
-                    $listing_sql .= " ORDER BY pd.products_name " . ($sort_order == 'd' ? 'desc' : '');
-                    break;
+            case 'PRODUCT_LIST_NAME':
+                $listing_sql .= " ORDER BY pd.products_name " . ($sort_order == 'd' ? 'desc' : '');
+                break;
 
-                case 'PRODUCT_LIST_MANUFACTURER':
-                    $listing_sql .= " ORDER BY m.manufacturers_name " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
-                    break;
+            case 'PRODUCT_LIST_MANUFACTURER':
+                $listing_sql .= " ORDER BY m.manufacturers_name " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+                break;
 
-                case 'PRODUCT_LIST_QUANTITY':
-                    $listing_sql .= " ORDER BY p.products_quantity " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
-                    break;
+            case 'PRODUCT_LIST_QUANTITY':
+                $listing_sql .= " ORDER BY p.products_quantity " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+                break;
 
-                case 'PRODUCT_LIST_IMAGE':
-                    $listing_sql .= " ORDER BY pd.products_name";
-                    break;
+            case 'PRODUCT_LIST_IMAGE':
+                $listing_sql .= " ORDER BY pd.products_name";
+                break;
 
-                case 'PRODUCT_LIST_WEIGHT':
-                    $listing_sql .= " ORDER BY p.products_weight " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
-                    break;
+            case 'PRODUCT_LIST_WEIGHT':
+                $listing_sql .= " ORDER BY p.products_weight " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+                break;
 
-                case 'PRODUCT_LIST_PRICE':
-                    $listing_sql .= " ORDER BY final_price " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
-                    break;
+            case 'PRODUCT_LIST_PRICE':
+                $listing_sql .= " ORDER BY final_price " . ($sort_order == 'd' ? 'desc' : '') . ", pd.products_name";
+                break;
 
-                case 'PRODUCT_LIST_SORT_ORDER':
-                    $listing_sql .= " ORDER BY p.products_sort_order " . ($sort_order == 'd' ? "desc" : '') . ", pd.products_name";
-                    break;
+            case 'PRODUCT_LIST_SORT_ORDER':
+                $listing_sql .= " ORDER BY p.products_sort_order " . ($sort_order == 'd' ? "desc" : '') . ", pd.products_name";
+                break;
 
             }
         }
@@ -585,7 +587,7 @@ if ($category_depth == 'nested') {
         }
 
         if ((isset($_GET['manufacturers_id'])) ||  (oos_total_products_in_category($nCurrentCategoryID) >= 1)) {
-            require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
+            include_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
         }
     }
     $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination'], $sContentCacheID));

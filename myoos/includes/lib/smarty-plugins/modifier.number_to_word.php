@@ -1,7 +1,8 @@
 <?php
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -11,7 +12,8 @@
  *
  * Type:     modifier<br>
  * Name:     number_to_word<br>
- * @param string
+ *
+ * @param  string
  * @return string
  */
 function smarty_modifier_number_to_word($number)

@@ -1,7 +1,8 @@
 <?php
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -17,16 +18,17 @@
  *
  * Examples: {categories_link category=17}
  * Output:   http:// ... index.php?content=shop&amp;category=17
- * @author   r23 <info@r23.de>
- * @version  1.0
- * @param array
- * @param Smarty
- * @return string
- * @uses smarty_function_html_href_link()
+ *
+ * @author  r23 <info@r23.de>
+ * @version 1.0
+ * @param   array
+ * @param   Smarty
+ * @return  string
+ * @uses    smarty_function_html_href_link()
  */
 function smarty_function_categories_link($params, &$smarty)
 {
-    require_once(MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.html_href_link.php');
+    include_once MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.html_href_link.php';
 
     $aContents =  oos_get_content();
 

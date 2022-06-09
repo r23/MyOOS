@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!$oEvent->installed_plugin('specials')) {
@@ -84,9 +86,9 @@ if ($sContent != $aContents['specials']) {
                 'specials_random_product_special_price'      => $specials_random_product_special_price,
                 'specials_random_base_product_price'         => $specials_random_base_product_price,
 
-                'specials_random_cross_out_price'			 => $specials_random_cross_out_price,
-                'specials_random_product_price_list'		 => $specials_random_product_price_list,
-                'specials_random_until'						 => $specials_random_until,
+                'specials_random_cross_out_price'             => $specials_random_cross_out_price,
+                'specials_random_product_price_list'         => $specials_random_product_price_list,
+                'specials_random_until'                         => $specials_random_until,
 
                 'specials_random'          => $specials_random_product
 

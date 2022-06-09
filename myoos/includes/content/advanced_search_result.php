@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_search.php';
@@ -137,8 +139,9 @@ $select_column_list = '';
 
 for ($col=0, $n=count($column_list); $col<$n; $col++) {
     if (($column_list[$col] == 'PRODUCT_LIST_BUY_NOW')
-          || ($column_list[$col] == 'PRODUCT_LIST_NAME')
-          || ($column_list[$col] == 'PRODUCT_LIST_PRICE')) {
+        || ($column_list[$col] == 'PRODUCT_LIST_NAME')
+        || ($column_list[$col] == 'PRODUCT_LIST_PRICE')
+    ) {
         continue;
     }
 
@@ -147,30 +150,30 @@ for ($col=0, $n=count($column_list); $col<$n; $col++) {
     }
 
     switch ($column_list[$col]) {
-        case 'PRODUCT_LIST_MODEL':
-          $select_column_list .= 'p.products_model';
-          break;
+    case 'PRODUCT_LIST_MODEL':
+        $select_column_list .= 'p.products_model';
+        break;
 
-        case 'PRODUCT_LIST_MANUFACTURER':
-          $select_column_list .= 'm.manufacturers_name';
-          break;
+    case 'PRODUCT_LIST_MANUFACTURER':
+        $select_column_list .= 'm.manufacturers_name';
+        break;
 
-        case 'PRODUCT_LIST_QUANTITY':
-          $select_column_list .= 'p.products_quantity';
-          break;
+    case 'PRODUCT_LIST_QUANTITY':
+        $select_column_list .= 'p.products_quantity';
+        break;
 
-        case 'PRODUCT_LIST_IMAGE':
-          $select_column_list .= 'p.products_image';
-          break;
+    case 'PRODUCT_LIST_IMAGE':
+        $select_column_list .= 'p.products_image';
+        break;
 
-        case 'PRODUCT_LIST_WEIGHT':
-          $select_column_list .= 'p.products_weight';
-          break;
+    case 'PRODUCT_LIST_WEIGHT':
+        $select_column_list .= 'p.products_weight';
+        break;
 
-        default:
-          $select_column_list .= "pd.products_name";
-          break;
-      }
+    default:
+        $select_column_list .= "pd.products_name";
+        break;
+    }
 }
 
 if (oos_is_not_null($select_column_list)) {
@@ -258,28 +261,28 @@ if (isset($search_keywords) && (count($search_keywords) > 0)) {
     $where_str .= " AND (";
     for ($i=0, $n=count($search_keywords); $i<$n; $i++) {
         switch ($search_keywords[$i]) {
-                case '(':
-                case ')':
-                case 'and':
-                case 'or':
-                    $where_str .= " " . $search_keywords[$i] . " ";
-                    break;
+        case '(':
+        case ')':
+        case 'and':
+        case 'or':
+            $where_str .= " " . $search_keywords[$i] . " ";
+            break;
 
-                default:
-                    $keyword = oos_db_prepare_input($search_keywords[$i]);
-                    $where_str .= "   (pd.products_name LIKE '%" . oos_db_input($keyword) . "%'
+        default:
+            $keyword = oos_db_prepare_input($search_keywords[$i]);
+            $where_str .= "   (pd.products_name LIKE '%" . oos_db_input($keyword) . "%'
 								OR p.products_model LIKE '%" . oos_db_input($keyword) . "%'
 								OR p.products_ean LIKE '%" . oos_db_input($keyword) . "%'
 								OR m.manufacturers_name LIKE '%" . oos_db_input($keyword) . "%'";
-                    if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) {
-                        $where_str .= " OR pd.products_short_description LIKE '%" . oos_db_input($keyword) . "%'";
-                    }
-                    if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) {
-                        $where_str .= " OR pd.products_description LIKE '%" . oos_db_input($keyword) . "%'";
-                    }
-                    $where_str .= ')';
-                    break;
+            if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) {
+                $where_str .= " OR pd.products_short_description LIKE '%" . oos_db_input($keyword) . "%'";
             }
+            if (isset($_GET['search_in_description']) && ($_GET['search_in_description'] == '1')) {
+                $where_str .= " OR pd.products_description LIKE '%" . oos_db_input($keyword) . "%'";
+            }
+            $where_str .= ')';
+            break;
+        }
     }
     $where_str .= " )";
 }
@@ -332,38 +335,38 @@ if ((!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (s
     $order_str = ' ORDER BY ';
 
     switch ($column_list[$sort_col-1]) {
-        case 'PRODUCT_LIST_MODEL':
-          $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-          break;
+    case 'PRODUCT_LIST_MODEL':
+        $order_str .= "p.products_model " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        break;
 
-        case 'PRODUCT_LIST_NAME':
-          $order_str .= "pd.products_name " . ($sort_order == 'd' ? "desc" : "");
-          break;
+    case 'PRODUCT_LIST_NAME':
+        $order_str .= "pd.products_name " . ($sort_order == 'd' ? "desc" : "");
+        break;
 
-        case 'PRODUCT_LIST_MANUFACTURER':
-          $order_str .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-          break;
+    case 'PRODUCT_LIST_MANUFACTURER':
+        $order_str .= "m.manufacturers_name " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        break;
 
-        case 'PRODUCT_LIST_QUANTITY':
-          $order_str .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-          break;
+    case 'PRODUCT_LIST_QUANTITY':
+        $order_str .= "p.products_quantity " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        break;
 
-        case 'PRODUCT_LIST_IMAGE':
-          $order_str .= "pd.products_name";
-          break;
+    case 'PRODUCT_LIST_IMAGE':
+        $order_str .= "pd.products_name";
+        break;
 
-        case 'PRODUCT_LIST_WEIGHT':
-          $order_str .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-          break;
+    case 'PRODUCT_LIST_WEIGHT':
+        $order_str .= "p.products_weight " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        break;
 
-        case 'PRODUCT_LIST_PRICE':
-          $order_str .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
-          break;
+    case 'PRODUCT_LIST_PRICE':
+        $order_str .= "final_price " . ($sort_order == 'd' ? "desc" : "") . ", pd.products_name";
+        break;
 
-        default:
-          $order_str .= "pd.products_name";
-          break;
-      }
+    default:
+        $order_str .= "pd.products_name";
+        break;
+    }
 }
 
 $listing_sql = $select_str . $from_str . $where_str . $order_str;
@@ -376,8 +379,8 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
@@ -385,7 +388,7 @@ $smarty->assign(
     array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['heading_title'],
-            'robots'		=> 'noindex,follow,noodp,noydir',
+            'robots'        => 'noindex,follow,noodp,noydir',
 
             'text_no_products' => sprintf($aLang['text_no_products'], $keywords)
     )

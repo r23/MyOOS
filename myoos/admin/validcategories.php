@@ -54,15 +54,15 @@ td {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: xx-small}
               AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "'
             ORDER BY categories_id";
     $result = $dbconn->Execute($sql);
-    while ($row = $result->fields) {
-        echo '<tr>' . "\n";
-        echo '<td>' . $row['categories_id']. '</td>' . "\n";
-        echo '<td>' . $row['categories_name']. '</td>' . "\n";
-        echo '</tr>' . "\n";
+while ($row = $result->fields) {
+    echo '<tr>' . "\n";
+    echo '<td>' . $row['categories_id']. '</td>' . "\n";
+    echo '<td>' . $row['categories_name']. '</td>' . "\n";
+    echo '</tr>' . "\n";
 
-        // Move that ADOdb pointer!
-        $result->MoveNext();
-    }
+    // Move that ADOdb pointer!
+    $result->MoveNext();
+}
 ?>
 </table>
 <br>

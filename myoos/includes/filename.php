@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $prefix_filename = '';
@@ -42,7 +44,7 @@ $aContents = [
 //gv
 'gv_faq'                          => $prefix_filename . 'gv_faq',
 'gv_redeem'                       => $prefix_filename . 'gv_redeem',
-'popup_coupon_help' 	          => $prefix_filename . 'popup_coupon_help',
+'popup_coupon_help'               => $prefix_filename . 'popup_coupon_help',
 //info
 'info_down_for_maintenance'       => $prefix_filename . 'info_down_for_maintenance',
 'info_max_order'                  => $prefix_filename . 'info_max_order',
@@ -61,7 +63,7 @@ $aContents = [
 'newsletter'                      => $prefix_filename . 'newsletter',
 //products
 'product_info'                    => $prefix_filename . 'product_info',
-'product_info_webgl_gltf'		  => $prefix_filename . 'product_info_webgl_gltf',
+'product_info_webgl_gltf'          => $prefix_filename . 'product_info_webgl_gltf',
 'products_new'                    => $prefix_filename . 'products_new',
 'specials'                        => $prefix_filename . 'specials',
 //pub

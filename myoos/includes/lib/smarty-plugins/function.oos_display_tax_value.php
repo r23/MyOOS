@@ -37,7 +37,7 @@
 
 function smarty_function_oos_display_tax_value($params, &$smarty)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
+    include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
 
     $value = '';
     $padding = TAX_DECIMAL_PLACES;

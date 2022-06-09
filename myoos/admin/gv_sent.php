@@ -34,63 +34,63 @@ $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GE
 require 'includes/header.php';
 ?>
 <div class="wrapper">
-	<!-- Header //-->
-	<header class="topnavbar-wrapper">
-		<!-- Top Navbar //-->
-		<?php require 'includes/menue.php'; ?>
-	</header>
-	<!-- END Header //-->
-	<aside class="aside">
-		<!-- Sidebar //-->
-		<div class="aside-inner">
-			<?php require 'includes/blocks.php'; ?>
-		</div>
-		<!-- END Sidebar (left) //-->
-	</aside>
-	
-	<!-- Main section //-->
-	<section>
-		<!-- Page content //-->
-		<div class="content-wrapper">		
+    <!-- Header //-->
+    <header class="topnavbar-wrapper">
+        <!-- Top Navbar //-->
+        <?php require 'includes/menue.php'; ?>
+    </header>
+    <!-- END Header //-->
+    <aside class="aside">
+        <!-- Sidebar //-->
+        <div class="aside-inner">
+            <?php require 'includes/blocks.php'; ?>
+        </div>
+        <!-- END Sidebar (left) //-->
+    </aside>
+    
+    <!-- Main section //-->
+    <section>
+        <!-- Page content //-->
+        <div class="content-wrapper">        
 
-			<!-- Breadcrumbs //-->
-			<div class="content-heading">
-				<div class="col-lg-12">
-					<h2><?php echo HEADING_TITLE; ?></h2>
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item">
-							<?php echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
-						</li>
-						<li class="breadcrumb-item active">
-							<strong><?php echo HEADING_TITLE; ?></strong>
-						</li>
-					</ol>
-				</div>
-			</div>
-			<!-- END Breadcrumbs //-->
-			
-			<div class="wrapper wrapper-content">
-				<div class="row">
-					<div class="col-lg-12">		
+            <!-- Breadcrumbs //-->
+            <div class="content-heading">
+                <div class="col-lg-12">
+                    <h2><?php echo HEADING_TITLE; ?></h2>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <?php echo '<a href="' . oos_href_link_admin($aContents['coupon_admin'], 'selected_box=gv_admin') . '">' . BOX_HEADING_GV_ADMIN . '</a>'; ?>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <strong><?php echo HEADING_TITLE; ?></strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <!-- END Breadcrumbs //-->
+            
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">        
 <!-- body_text //-->
-	<div class="table-responsive">
-		<table class="table w-100">
+    <div class="table-responsive">
+        <table class="table w-100">
           <tr>
             <td valign="top">
-			
-				<table class="table table-striped w-100">
-					<thead class="thead-dark">
-						<tr>
-							<th><?php echo TABLE_HEADING_SENDERS_NAME; ?></th>
-							<th class="text-center"><?php echo TABLE_HEADING_VOUCHER_VALUE; ?></th>
-							<th class="text-center"><?php echo TABLE_HEADING_VOUCHER_CODE; ?></th>
-							<th class="text-right"><?php echo TABLE_HEADING_DATE_SENT; ?></th>		
-							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
-						</tr>	
-					</thead>
+            
+                <table class="table table-striped w-100">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th><?php echo TABLE_HEADING_SENDERS_NAME; ?></th>
+                            <th class="text-center"><?php echo TABLE_HEADING_VOUCHER_VALUE; ?></th>
+                            <th class="text-center"><?php echo TABLE_HEADING_VOUCHER_CODE; ?></th>
+                            <th class="text-right"><?php echo TABLE_HEADING_DATE_SENT; ?></th>        
+                            <th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
+                        </tr>    
+                    </thead>
 <?php
   $couponstable = $oostable['coupons'];
   $coupon_email_tracktable = $oostable['coupon_email_track'];
@@ -101,29 +101,29 @@ require 'includes/header.php';
                     WHERE c.coupon_id = et.coupon_id";
   $gv_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $gv_result_raw, $gv_result_numrows);
   $gv_result = $dbconn->Execute($gv_result_raw);
-  while ($gv_list = $gv_result->fields) {
-      if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['coupon_id']))) && !isset($gInfo)) {
-          $gInfo = new objectInfo($gv_list);
-      }
-      if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id)) {
-          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->coupon_id . '&action=edit') . '\'">' . "\n";
-      } else {
-          echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['coupon_id']) . '\'">' . "\n";
-      } ?>
+while ($gv_list = $gv_result->fields) {
+    if ((!isset($_GET['gid']) || (isset($_GET['gid']) && ($_GET['gid'] == $gv_list['coupon_id']))) && !isset($gInfo)) {
+        $gInfo = new objectInfo($gv_list);
+    }
+    if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id)) {
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gInfo->coupon_id . '&action=edit') . '\'">' . "\n";
+    } else {
+        echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin('gv_sent.php', oos_get_all_get_params(array('gid', 'action')) . 'gid=' . $gv_list['coupon_id']) . '\'">' . "\n";
+    } ?>
                 <td><?php echo $gv_list['sent_firstname'] . ' ' . $gv_list['sent_lastname']; ?></td>
                 <td class="text-center"><?php echo $currencies->format($gv_list['coupon_amount']); ?></td>
                 <td class="text-center"><?php echo $gv_list['coupon_code']; ?></td>
                 <td class="text-right"><?php echo oos_date_short($gv_list['date_sent']); ?></td>
                 <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id)) {
-          echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-      } else {
-          echo '<a href="' . oos_href_link_admin($aContents['gv_sent'], 'page=' . $nPage . '&gid=' . $gv_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-      } ?>&nbsp;</td>
+                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+} else {
+                                           echo '<a href="' . oos_href_link_admin($aContents['gv_sent'], 'page=' . $nPage . '&gid=' . $gv_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+                                       } ?>&nbsp;</td>
               </tr>
-<?php
+    <?php
     // Move that ADOdb pointer!
     $gv_result->MoveNext();
-  }
+}
 ?>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
@@ -148,50 +148,50 @@ require 'includes/header.php';
   $heading[] = array('text' => '[' . $coupon_id . '] ' . ' ' . $currencies->format($coupon_amount));
   $redeem_result = $dbconn->Execute("SELECT * FROM " . $oostable['coupon_redeem_track'] . " WHERE coupon_id = '" . intval($coupon_id) . "'");
   $redeemed = 'No';
-  if ($redeem_result->RecordCount() > 0) {
-      $redeemed = 'Yes';
-  }
+if ($redeem_result->RecordCount() > 0) {
+    $redeemed = 'Yes';
+}
   $contents[] = array('text' => TEXT_INFO_SENDERS_ID . ' ' . $customer_id_sent);
   $contents[] = array('text' => TEXT_INFO_AMOUNT_SENT . ' ' . $currencies->format($coupon_amount));
   $contents[] = array('text' => TEXT_INFO_DATE_SENT . ' ' . oos_date_short($date_sent));
   $contents[] = array('text' => TEXT_INFO_VOUCHER_CODE . ' ' . $coupon_code);
   $contents[] = array('text' => TEXT_INFO_EMAIL_ADDRESS . ' ' . $emailed_to);
-  if ($redeemed=='Yes') {
-      $redeem = $redeem_result->fields;
-      $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_REDEEMED . ' ' . oos_date_short($redeem['redeem_date']));
-      $contents[] = array('text' => TEXT_INFO_IP_ADDRESS . ' ' . $redeem['redeem_ip']);
-      $contents[] = array('text' => TEXT_INFO_CUSTOMERS_ID . ' ' . $redeem['customer_id']);
-  } else {
-      $contents[] = array('text' => '<br>' . TEXT_INFO_NOT_REDEEMED);
-  }
+if ($redeemed=='Yes') {
+    $redeem = $redeem_result->fields;
+    $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_REDEEMED . ' ' . oos_date_short($redeem['redeem_date']));
+    $contents[] = array('text' => TEXT_INFO_IP_ADDRESS . ' ' . $redeem['redeem_ip']);
+    $contents[] = array('text' => TEXT_INFO_CUSTOMERS_ID . ' ' . $redeem['customer_id']);
+} else {
+    $contents[] = array('text' => '<br>' . TEXT_INFO_NOT_REDEEMED);
+}
 
-    if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-        ?>
-	<td class="w-25" valign="top">
-		<table class="table table-striped">
-<?php
-        $box = new box();
-        echo $box->infoBox($heading, $contents); ?>
-		</table> 
-	</td> 
-<?php
-    }
+if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
+    ?>
+    <td class="w-25" valign="top">
+        <table class="table table-striped">
+    <?php
+    $box = new box();
+    echo $box->infoBox($heading, $contents); ?>
+        </table> 
+    </td> 
+    <?php
+}
 ?>
           </tr>
         </table>
-	</div>
+    </div>
 <!-- body_text_eof //-->
 
-				</div>
-			</div>
+                </div>
+            </div>
         </div>
 
-		</div>
-	</section>
-	<!-- Page footer //-->
-	<footer>
-		<span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
-	</footer>
+        </div>
+    </section>
+    <!-- Page footer //-->
+    <footer>
+        <span>&copy; <?php echo date('Y'); ?> - <a href="https://www.oos-shop.de" target="_blank" rel="noopener">MyOOS [Shopsystem]</a></span>
+    </footer>
 </div>
 
 

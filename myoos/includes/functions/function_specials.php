@@ -19,7 +19,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
@@ -53,10 +55,12 @@ function oos_set_specials_status($nSpecialsId, $status)
                             'date_added' => 'now()');
     oos_db_perform($oostable['products_price_history'], $sql_price_array);
 
-    $dbconn->Execute("UPDATE $specialstable
+    $dbconn->Execute(
+        "UPDATE $specialstable
                              SET status = '" . oos_db_input($status) . "',
                                  date_status_change = now()
-                              WHERE specials_id = '" . intval($nSpecialsId) . "'");
+                              WHERE specials_id = '" . intval($nSpecialsId) . "'"
+    );
 
     return;
 }

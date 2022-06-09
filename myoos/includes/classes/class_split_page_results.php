@@ -18,14 +18,16 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
  * Page Navigation
  *
- * @package		kernel
- * @version		$Revision: 1.2 $ - changed by $Author: r23 $ on $Date: 2007/12/11 08:12:54 $
+ * @package kernel
+ * @version $Revision: 1.2 $ - changed by $Author: r23 $ on $Date: 2007/12/11 08:12:54 $
  */
 class splitPageResults
 {
@@ -104,7 +106,7 @@ class splitPageResults
             $this->current_page_number = 1;
         }
 
-        # $this->sql_query .= " LIMIT " . ($offset > 0 ? $offset . ", " : '') . $this->number_of_rows_per_page;
+        // $this->sql_query .= " LIMIT " . ($offset > 0 ? $offset . ", " : '') . $this->number_of_rows_per_page;
         $this->sql_query .= " LIMIT " . max($offset, 0) . ", " . $this->number_of_rows_per_page;
     }
 
@@ -112,11 +114,11 @@ class splitPageResults
     /**
      * display split-page-number-links
      *
-     * @param $this->number_of_rows
-     * @param $this->number_of_rows_per_page
-     * @param $max_page_links
-     * @param $current_page_number
-     * @param $parameters
+     * @param  $this->number_of_rows
+     * @param  $this->number_of_rows_per_page
+     * @param  $max_page_links
+     * @param  $current_page_number
+     * @param  $parameters
      * @return string
      */
     public function display_links($max_page_links, $parameters = '')

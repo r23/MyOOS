@@ -19,7 +19,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
@@ -34,7 +36,7 @@ function oos_exit()
 /**
  * Redirect to another page or site
  *
- * @param $sUrl
+ * @param  $sUrl
  * @return string
  */
 function oos_redirect($sUrl)
@@ -60,8 +62,8 @@ function oos_redirect($sUrl)
  /**
   * Return a random row from a database query
   *
-  * @param $query
-  * @param $limit
+  * @param  $query
+  * @param  $limit
   * @return string
   */
 function oos_random_select($query, $limit = '')
@@ -123,20 +125,21 @@ function oos_sanitize_string($sStr)
   *
   * stripslashes on multidimensional arrays.
   * Used in conjunction with pnVarCleanFromInput
+  *
   * @author    PostNuke Content Management System
   * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
-  * @version Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
-  * @access private
-  * @param any variables or arrays to be stripslashed
+  * @version   Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
+  * @access    private
+  * @param     any variables or arrays to be stripslashed
   */
-  function oos_stripslashes(&$value)
-  {
-      if (!is_array($value)) {
-          $value = stripslashes($value);
-      } else {
-          array_walk($value, 'oos_stripslashes');
-      }
-  }
+function oos_stripslashes(&$value)
+{
+    if (!is_array($value)) {
+        $value = stripslashes($value);
+    } else {
+        array_walk($value, 'oos_stripslashes');
+    }
+}
 
 
  /**
@@ -145,13 +148,14 @@ function oos_sanitize_string($sStr)
   * Gets a variable, cleaning it up such that any attempts
   * to access files outside of the scope of the PostNuke
   * system is not allowed
+  *
   * @author    PostNuke Content Management System
   * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
-  * @version Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
-  * @access private
-  * @param var variable to prepare
-  * @param ...
-  * @returns string/array
+  * @version   Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
+  * @access    private
+  * @param     var variable to prepare
+  * @param     ...
+  * @returns   string/array
   * in, otherwise an array of prepared variables
   */
 function oos_var_prep_for_os()
@@ -190,32 +194,32 @@ function oos_var_prep_for_os()
  /**
   * Return Product's Name
   *
-  * @param $nProductID
+  * @param  $nProductID
   * @return string
   */
-  function oos_get_products_name($nProductID)
-  {
+function oos_get_products_name($nProductID)
+{
 
     // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-      $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
+    $nLanguageID = isset($_SESSION['language_id']) ? intval($_SESSION['language_id']) : DEFAULT_LANGUAGE_ID;
 
-      $products_descriptiontable = $oostable['products_description'];
-      $query = "SELECT products_name
+    $products_descriptiontable = $oostable['products_description'];
+    $query = "SELECT products_name
               FROM $products_descriptiontable
               WHERE products_id = '" . intval($nProductID) . "'
                 AND products_languages_id = '" .  intval($nLanguageID) . "'";
-      $products_name = $dbconn->GetOne($query);
+    $products_name = $dbconn->GetOne($query);
 
-      return $products_name;
-  }
+    return $products_name;
+}
 
 /**
  * Return Product's StatusName
  *
- * @param $nProductID
+ * @param  $nProductID
  * @return string
  */
 function oos_get_products_status($nProductID)
@@ -238,91 +242,91 @@ function oos_get_products_status($nProductID)
  /**
   * Create a Wishlist Code. length may be between 1 and 16 Characters
   *
-  * @param $salt
-  * @param $length
+  * @param  $salt
+  * @param  $length
   * @return string
   */
-  function oos_create_wishlist_code($salt = "secret", $length = SECURITY_CODE_LENGTH)
-  {
+function oos_create_wishlist_code($salt = "secret", $length = SECURITY_CODE_LENGTH)
+{
 
     // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-      $ccid = md5(uniqid("", "salt"));
-      $ccid .= md5(uniqid("", "salt"));
-      $ccid .= md5(uniqid("", "salt"));
-      $ccid .= md5(uniqid("", "salt"));
-      srand((float)microtime()*1000000); // seed the random number generator
-      $random_start = @rand(0, (128-$length));
-      $good_result = 0;
-      while ($good_result == 0) {
-          $id1 = substr($ccid, $random_start, $length);
-          $customerstable = $oostable['customers'];
-          $sql = "SELECT customers_wishlist_link_id
+    $ccid = md5(uniqid("", "salt"));
+    $ccid .= md5(uniqid("", "salt"));
+    $ccid .= md5(uniqid("", "salt"));
+    $ccid .= md5(uniqid("", "salt"));
+    srand((float)microtime()*1000000); // seed the random number generator
+    $random_start = @rand(0, (128-$length));
+    $good_result = 0;
+    while ($good_result == 0) {
+        $id1 = substr($ccid, $random_start, $length);
+        $customerstable = $oostable['customers'];
+        $sql = "SELECT customers_wishlist_link_id
               FROM $customerstable
               WHERE customers_wishlist_link_id = '" . oos_db_input($id1) . "'";
-          $query = $dbconn->Execute($sql);
-          if ($query->RecordCount() == 0) {
-              $good_result = 1;
-          }
-      }
-      return $id1;
-  }
+        $query = $dbconn->Execute($sql);
+        if ($query->RecordCount() == 0) {
+            $good_result = 1;
+        }
+    }
+    return $id1;
+}
 
  /**
   * Return Wishlist Customer Name
   *
-  * @param $wlid
+  * @param  $wlid
   * @return string
   */
-  function oos_get_wishlist_name($wlid)
-  {
+function oos_get_wishlist_name($wlid)
+{
 
     // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-      $customerstable = $oostable['customers'];
-      $query = "SELECT customers_firstname, customers_lastname
+    $customerstable = $oostable['customers'];
+    $query = "SELECT customers_firstname, customers_lastname
               FROM $customerstable
               WHERE customers_wishlist_link_id = '" . oos_db_input($wlid) . "'";
-      $result = $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
-      $sCustomersName = $result->fields['customers_firstname'] . ' ' . $result->fields['customers_lastname'];
+    $sCustomersName = $result->fields['customers_firstname'] . ' ' . $result->fields['customers_lastname'];
 
-      return $sCustomersName;
-  }
+    return $sCustomersName;
+}
 
 
  /**
   * Return Products Special Price
   *
-  * @param $nProductID
+  * @param  $nProductID
   * @return string
   */
-  function oos_get_products_special_price($nProductID)
-  {
+function oos_get_products_special_price($nProductID)
+{
 
     // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-      $specialstable = $oostable['specials'];
-      $query = "SELECT specials_new_products_price
+    $specialstable = $oostable['specials'];
+    $query = "SELECT specials_new_products_price
               FROM $specialstable
               WHERE products_id = '" . intval($nProductID) . "'
                 AND status = 1";
-      $specials_new_products_price = $dbconn->GetOne($query);
+    $specials_new_products_price = $dbconn->GetOne($query);
 
-      return $specials_new_products_price;
-  }
+    return $specials_new_products_price;
+}
 
 
 /**
  * Return Products Special Price
  *
- * @param $nProductID
+ * @param  $nProductID
  * @return array
  */
 function oos_get_products_special($nProductID)
@@ -347,109 +351,111 @@ function oos_get_products_special($nProductID)
  /**
   * Return Products Quantity
   *
-  * @param $sProductsId
+  * @param  $sProductsId
   * @return string
   */
 // todo remove
-  function oos_get_products_stock($sProductsId)
-  {
-      $nProductID = oos_get_product_id($sProductsId);
+function oos_get_products_stock($sProductsId)
+{
+    $nProductID = oos_get_product_id($sProductsId);
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-      $productstable = $oostable['products'];
-      $query = "SELECT products_quantity
+    $productstable = $oostable['products'];
+    $query = "SELECT products_quantity
               FROM $productstable
               WHERE products_id = '" . intval($nProductID) . "'";
-      $products_quantity = $dbconn->GetOne($query);
+    $products_quantity = $dbconn->GetOne($query);
 
-      return $products_quantity;
-  }
+    return $products_quantity;
+}
 
 
  /**
   * Return a product's minimum quantity
   *
-  * @param $sProductsId
+  * @param  $sProductsId
   * @return string
   */
-  function oos_get_products_quantity_order_min($sProductsId)
-  {
-      $nProductID = oos_get_product_id($sProductsId);
+function oos_get_products_quantity_order_min($sProductsId)
+{
+    $nProductID = oos_get_product_id($sProductsId);
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-      $productstable = $oostable['products'];
-      $query = "SELECT products_quantity_order_min
+    $productstable = $oostable['products'];
+    $query = "SELECT products_quantity_order_min
               FROM $productstable
               WHERE products_id = '" . intval($nProductID) . "'";
-      $products_quantity_order_min = $dbconn->GetOne($query);
+    $products_quantity_order_min = $dbconn->GetOne($query);
 
-      return $products_quantity_order_min;
-  }
+    return $products_quantity_order_min;
+}
 
 
  /**
   * Return a product's minimum unit order
   *
-  * @param $sProductsId
+  * @param  $sProductsId
   * @return string
   */
-  function oos_get_products_quantity_order_units($sProductsId)
-  {
-      $nProductID = oos_get_product_id($sProductsId);
+function oos_get_products_quantity_order_units($sProductsId)
+{
+    $nProductID = oos_get_product_id($sProductsId);
 
-      // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+    // Get database information
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-      $productstable = $oostable['products'];
-      $query = "SELECT products_quantity_order_units
+    $productstable = $oostable['products'];
+    $query = "SELECT products_quantity_order_units
               FROM $productstable
               WHERE products_id = '" . intval($nProductID) . "'";
-      $products_quantity_order_units = $dbconn->GetOne($query);
+    $products_quantity_order_units = $dbconn->GetOne($query);
 
-      if ($products_quantity_order_units == 0) {
-          $productstable = $oostable['products'];
-          $dbconn->Execute("UPDATE $productstable
+    if ($products_quantity_order_units == 0) {
+        $productstable = $oostable['products'];
+        $dbconn->Execute(
+            "UPDATE $productstable
                     SET products_quantity_order_units = 1
-                    WHERE products_id = '" . intval($nProductID) . "'");
-          $products_quantity_order_units = 1;
-      }
+                    WHERE products_id = '" . intval($nProductID) . "'"
+        );
+        $products_quantity_order_units = 1;
+    }
 
-      return $products_quantity_order_units;
-  }
+    return $products_quantity_order_units;
+}
 
 
  /**
   * Find quantity discount
   *
-  * @param $product_id
-  * @param $qty
-  * @param $current_price
+  * @param  $product_id
+  * @param  $qty
+  * @param  $current_price
   * @return string
   */
-  function oos_get_product_qty_dis_price($product_id, $qty, $current_price = false)
-  {
+function oos_get_product_qty_dis_price($product_id, $qty, $current_price = false)
+{
 
     // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-      $productstable = $oostable['products'];
-      $query = "SELECT products_price, products_discount1, products_discount2, products_discount3,
+    $productstable = $oostable['products'];
+    $query = "SELECT products_price, products_discount1, products_discount2, products_discount3,
                      products_discount4, products_discount1_qty, products_discount2_qty, products_discount3_qty,
                      products_discount4_qty
               FROM $productstable
               WHERE products_id = '" . intval($product_id) . "'";
-      $product_discounts = $dbconn->GetRow($query);
+    $product_discounts = $dbconn->GetRow($query);
 
-      switch (true) {
-      case ($qty==1 or ($product_discounts['products_discount4_qty'] == 0 and $product_discounts['products_discount3_qty'] == 0 and $product_discounts['products_discount2_qty'] == 0 and $product_discounts['products_discount1_qty'] == 0)):
+    switch (true) {
+    case ($qty==1 or ($product_discounts['products_discount4_qty'] == 0 and $product_discounts['products_discount3_qty'] == 0 and $product_discounts['products_discount2_qty'] == 0 and $product_discounts['products_discount1_qty'] == 0)):
         if ($current_price) {
             $the_discount_price = $current_price;
         } else {
@@ -457,32 +463,32 @@ function oos_get_products_special($nProductID)
         }
         break;
 
-      case ($qty >= $product_discounts['products_discount4_qty'] and $product_discounts['products_discount4_qty'] !=0):
+    case ($qty >= $product_discounts['products_discount4_qty'] and $product_discounts['products_discount4_qty'] !=0):
         $the_discount_price = $product_discounts['products_discount4'];
         break;
 
-      case ($qty >= $product_discounts['products_discount3_qty'] and $product_discounts['products_discount3_qty'] !=0):
+    case ($qty >= $product_discounts['products_discount3_qty'] and $product_discounts['products_discount3_qty'] !=0):
         $the_discount_price = $product_discounts['products_discount3'];
         break;
 
-      case ($qty >= $product_discounts['products_discount2_qty'] and $product_discounts['products_discount2_qty'] !=0):
+    case ($qty >= $product_discounts['products_discount2_qty'] and $product_discounts['products_discount2_qty'] !=0):
         $the_discount_price = $product_discounts['products_discount2'];
         break;
 
-      case ($qty >= $product_discounts['products_discount1_qty'] and $product_discounts['products_discount1_qty'] !=0):
+    case ($qty >= $product_discounts['products_discount1_qty'] and $product_discounts['products_discount1_qty'] !=0):
         $the_discount_price = $product_discounts['products_discount1'];
         break;
 
-     default:
-       if ($current_price) {
-           $the_discount_price = $current_price;
-       } else {
-           $the_discount_price = $product_discounts['products_price'];
-       }
-       break;
+    default:
+        if ($current_price) {
+            $the_discount_price = $current_price;
+        } else {
+            $the_discount_price = $product_discounts['products_price'];
+        }
+        break;
     }
-      return $the_discount_price;
-  }
+    return $the_discount_price;
+}
 
 
 
@@ -490,21 +496,21 @@ function oos_get_products_special($nProductID)
   * Check if the required stock is available
   * If insufficent stock is available return an out of stock message
   *
-  * @param $sProductsId
-  * @param $nProductsQuantity
+  * @param  $sProductsId
+  * @param  $nProductsQuantity
   * @return boolean
   */
-  function oos_check_stock($sProductsId, $nProductsQuantity)
-  {
-      $stock_left = oos_get_products_stock($sProductsId) - $nProductsQuantity;
+function oos_check_stock($sProductsId, $nProductsQuantity)
+{
+    $stock_left = oos_get_products_stock($sProductsId) - $nProductsQuantity;
 
-      $bOutOfStock = false;
-      if ($stock_left < 0) {
-          $bOutOfStock = true;
-      }
+    $bOutOfStock = false;
+    if ($stock_left < 0) {
+        $bOutOfStock = true;
+    }
 
-      return $bOutOfStock;
-  }
+    return $bOutOfStock;
+}
 
 
  /**
@@ -513,42 +519,44 @@ function oos_get_products_special($nProductID)
   * @param  $aExclude
   * @return string
   */
-  function oos_get_all_get_parameters($aExclude = '')
-  {
-      global $session;
+function oos_get_all_get_parameters($aExclude = '')
+{
+    global $session;
 
-      if (!is_array($aExclude)) {
-          $aExclude = [];
-      }
-      $aParameters = ['p', 'error', 'rewrite', 'c', 'm', 'content', 'infex.php', 'history_back', 'formid', 'gclid', 'x', 'y'];
+    if (!is_array($aExclude)) {
+        $aExclude = [];
+    }
+    $aParameters = ['p', 'error', 'rewrite', 'c', 'm', 'content', 'infex.php', 'history_back', 'formid', 'gclid', 'x', 'y'];
 
-      $urlValues = [];
-      if (is_array($_GET)
-        && (count($_GET) > 0)) {
-          reset($_GET);
-          foreach ($_GET as $key => $value) {
-              if (empty($value)
-                || $value === false) {
-                  continue;
-              }
-              $urlValues[$key] = $value;
-          }
-      }
+    $urlValues = [];
+    if (is_array($_GET)
+        && (count($_GET) > 0)
+    ) {
+        reset($_GET);
+        foreach ($_GET as $key => $value) {
+            if (empty($value)
+                || $value === false
+            ) {
+                continue;
+            }
+            $urlValues[$key] = $value;
+        }
+    }
 
-      $sUrl = '';
-      if (is_array($urlValues) && (count($urlValues) > 0)) {
-          reset($urlValues);
-          foreach ($urlValues as $sKey => $sValue) {
-              if (!empty($sValue)) {
-                  if (($sKey != $session->getName()) && (!in_array($sKey, $aParameters)) && (!in_array($sKey, $aExclude))) {
-                      $sUrl .= $sKey . '=' . rawurlencode($sValue) . '&amp;';
-                  }
-              }
-          }
-      }
+    $sUrl = '';
+    if (is_array($urlValues) && (count($urlValues) > 0)) {
+        reset($urlValues);
+        foreach ($urlValues as $sKey => $sValue) {
+            if (!empty($sValue)) {
+                if (($sKey != $session->getName()) && (!in_array($sKey, $aParameters)) && (!in_array($sKey, $aExclude))) {
+                    $sUrl .= $sKey . '=' . rawurlencode($sValue) . '&amp;';
+                }
+            }
+        }
+    }
 
-      return $sUrl;
-  }
+    return $sUrl;
+}
 
 
  /**
@@ -557,106 +565,106 @@ function oos_get_products_special($nProductID)
   * @param  $aExclude
   * @return string
   */
-  function oos_get_all_post_parameters($aExclude = '')
-  {
-      global $session;
+function oos_get_all_post_parameters($aExclude = '')
+{
+    global $session;
 
-      if (!is_array($aExclude)) {
-          $aExclude = [];
-      }
+    if (!is_array($aExclude)) {
+        $aExclude = [];
+    }
 
-      $aParameters = ['formid', 'content', 'x', 'y'];
+    $aParameters = ['formid', 'content', 'x', 'y'];
 
-      $sUrl = '';
-      if (is_array($_POST) && (count($_POST) > 0)) {
-          reset($_POST);
-          foreach ($_POST as $sKey => $sValue) {
-              if ((!empty($sValue)) && (!is_array($sValue))) {
-                  if (($sKey != $session->getName())  && (!in_array($sKey, $aParameters))  && (!in_array($sKey, $aExclude))) {
-                      $sUrl .= $sKey . '=' . rawurlencode($sValue) . '&amp;';
-                  }
-              }
-          }
-      }
+    $sUrl = '';
+    if (is_array($_POST) && (count($_POST) > 0)) {
+        reset($_POST);
+        foreach ($_POST as $sKey => $sValue) {
+            if ((!empty($sValue)) && (!is_array($sValue))) {
+                if (($sKey != $session->getName())  && (!in_array($sKey, $aParameters))  && (!in_array($sKey, $aExclude))) {
+                    $sUrl .= $sKey . '=' . rawurlencode($sValue) . '&amp;';
+                }
+            }
+        }
+    }
 
-      return $sUrl;
-  }
+    return $sUrl;
+}
 
 
 
  /**
   * Returns an array with countries
   *
-  * @param $countries_id
-  * @param $bWithIsoCodes
+  * @param  $countries_id
+  * @param  $bWithIsoCodes
   * @return array
   */
-  function oos_get_countries($countries_id = '', $bWithIsoCodes = false)
-  {
+function oos_get_countries($countries_id = '', $bWithIsoCodes = false)
+{
 
     // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-      $aCountries = [];
-      if (!empty($countries_id)) {
-          if ($bWithIsoCodes == true) {
-              $countriestable = $oostable['countries'];
-              $query = "SELECT countries_name, countries_iso_code_2, countries_iso_code_3
+    $aCountries = [];
+    if (!empty($countries_id)) {
+        if ($bWithIsoCodes == true) {
+            $countriestable = $oostable['countries'];
+            $query = "SELECT countries_name, countries_iso_code_2, countries_iso_code_3
                       FROM $countriestable
                       WHERE countries_id = '" . intval($countries_id) . "'
                       ORDER BY countries_name";
-              $aCountries = $dbconn->GetRow($query);
-          } else {
-              $countriestable = $oostable['countries'];
-              $query = "SELECT countries_name
+            $aCountries = $dbconn->GetRow($query);
+        } else {
+            $countriestable = $oostable['countries'];
+            $query = "SELECT countries_name
                       FROM $countriestable
                       WHERE countries_id = '" . intval($countries_id) . "'";
-              $aCountries = $dbconn->GetRow($query);
-          }
-      } else {
-          $countriestable = $oostable['countries'];
-          $query = "SELECT countries_id, countries_name
+            $aCountries = $dbconn->GetRow($query);
+        }
+    } else {
+        $countriestable = $oostable['countries'];
+        $query = "SELECT countries_id, countries_name
                   FROM $countriestable
                   ORDER BY countries_name";
-          $aCountries = $dbconn->GetAll($query);
-      }
+        $aCountries = $dbconn->GetAll($query);
+    }
 
-      return $aCountries;
-  }
+    return $aCountries;
+}
 
 
  /**
   * Returns the country name
   *
-  * @param $country_id
+  * @param  $country_id
   * @return string
   */
-  function oos_get_country_name($country_id)
-  {
+function oos_get_country_name($country_id)
+{
 
     // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-      $countriestable = $oostable['countries'];
-      $query = "SELECT countries_name
+    $countriestable = $oostable['countries'];
+    $query = "SELECT countries_name
               FROM $countriestable
               WHERE countries_id = '" . intval($country_id) . "'";
-      $countries_name = $dbconn->GetOne($query);
+    $countries_name = $dbconn->GetOne($query);
 
-      return $countries_name;
-  }
+    return $countries_name;
+}
 
 
 /**
  * Returns the zone (State/Province) name
  *
- * @param $country_id
- * @param $zone_id
- * @param $default_zone
+ * @param  $country_id
+ * @param  $zone_id
+ * @param  $default_zone
  * @return string
-*/
+ */
 function oos_get_zone_name($country_id, $zone_id, $default_zone)
 {
 
@@ -810,7 +818,7 @@ function oos_add_tax($price, $tax)
     global $aUser;
 
     if (($aUser['price_with_tax'] == '1') && ($tax > 0)) {
-		return $price + oos_calculate_tax($price, $tax);
+        return $price + oos_calculate_tax($price, $tax);
     } else {
         return $price;
     }
@@ -932,7 +940,7 @@ function oos_get_parent_categories(&$categories, $categories_id)
  /**
   * Construct a category path to the product
   *
-  * @param $products_id
+  * @param  $products_id
   * @return string
   */
 function oos_get_product_path($products_id)
@@ -980,7 +988,7 @@ function oos_get_product_path($products_id)
  /**
   * Construct a category path to the product
   *
-  * @param $products_id
+  * @param  $products_id
   * @return array
   */
 function oos_get_category_path($nProductsId)
@@ -1037,28 +1045,28 @@ function oos_get_category_path($nProductsId)
  /**
   * Return string (without trailing &  &amp;)
   *
-  * @param $sParameters
+  * @param  $sParameters
   * @return string
   */
-  function oos_remove_trailing($sParameters)
-  {
-      if (substr($sParameters, -5) == '&amp;') {
-          $sParameters = substr($sParameters, 0, -5);
-      }
-      if (substr($sParameters, -1) == '&') {
-          $sParameters = substr($sParameters, 0, -1);
-      }
+function oos_remove_trailing($sParameters)
+{
+    if (substr($sParameters, -5) == '&amp;') {
+        $sParameters = substr($sParameters, 0, -5);
+    }
+    if (substr($sParameters, -1) == '&') {
+        $sParameters = substr($sParameters, 0, -1);
+    }
 
-      return $sParameters;
-  }
+    return $sParameters;
+}
 
 
 
  /**
   * Return a product ID with attributes
   *
-  * @param $prid
-  * @param $parameters
+  * @param  $prid
+  * @param  $parameters
   * @return string
   */
 function oos_get_uprid($prid, $parameters)
@@ -1126,7 +1134,7 @@ function oos_get_uprid($prid, $parameters)
  /**
   * Return attributes ID
   *
-  * @param $sProductsId
+  * @param  $sProductsId
   * @return array
   */
 function oos_get_attributes($sProductsId)
@@ -1170,7 +1178,7 @@ function oos_get_attributes($sProductsId)
  /**
   * Check if product has attributes
   *
-  * @param $sProductsId
+  * @param  $sProductsId
   * @return boolean
   */
 function oos_has_product_attributes($sProductsId)
@@ -1196,7 +1204,7 @@ function oos_has_product_attributes($sProductsId)
  /**
   * Check if product has information obligation
   *
-  * @param $sProductsId
+  * @param  $sProductsId
   * @return boolean
   */
 function oos_has_product_information_obligation($sProductsId)
@@ -1226,7 +1234,7 @@ function oos_has_product_information_obligation($sProductsId)
  /**
   * Check if the product is B-ware
   *
-  * @param $sProductsId
+  * @param  $sProductsId
   * @return boolean
   */
 function oos_is_the_product_b_ware($sProductsId)
@@ -1260,7 +1268,7 @@ function oos_is_the_product_b_ware($sProductsId)
  /**
   * Check if product has attributes
   *
-  * @param $nProductsId
+  * @param  $nProductsId
   * @return boolean
   */
 function get_options_values_price($nProductsId)
@@ -1341,8 +1349,8 @@ function rmdir_recursive($dir)
 /**
  * Parse and output a user submited value
  *
- * @param string $sStr The string to parse and output
- * @param array $aTranslate An array containing the characters to parse
+ * @param  string $sStr       The string to parse and output
+ * @param  array  $aTranslate An array containing the characters to parse
  * @access public
  */
 function oos_output_string($sStr, $aTranslate = null)
@@ -1358,100 +1366,100 @@ function oos_output_string($sStr, $aTranslate = null)
  /**
   * Strip forbidden tags
   *
-  * @param string
+  * @param  string
   * @return string
   */
-  function oos_remove_tags($sStr)
-  {
-      $allowedTags = '<h1><strong><i><a><ul><li><pre><hr><br><blockquote><p>';
-      $source = strip_tags($sStr, $allowedTags);
+function oos_remove_tags($sStr)
+{
+    $allowedTags = '<h1><strong><i><a><ul><li><pre><hr><br><blockquote><p>';
+    $source = strip_tags($sStr, $allowedTags);
 
-      return $source;
-  }
+    return $source;
+}
 
 
  /**
   * Replace international chars
   *
-  * @param string
+  * @param  string
   * @return string
   */
-  function oos_replace_chars($sStr)
-  {
-      return oos_make_filename($sStr);
-  }
+function oos_replace_chars($sStr)
+{
+    return oos_make_filename($sStr);
+}
 
 
  /**
   * Checks to see if the currency code exists as a currency
   */
-  function oos_currency_exits($code)
-  {
+function oos_currency_exits($code)
+{
 
     // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-      $currenciestable = $oostable['currencies'];
-      $query = "SELECT currencies_id
+    $currenciestable = $oostable['currencies'];
+    $query = "SELECT currencies_id
               FROM $currenciestable
               WHERE code = '" . oos_db_input($code) . "'";
-      $result = $dbconn->Execute($query);
+    $result = $dbconn->Execute($query);
 
-      if ($result->RecordCount() > 0) {
-          return $code;
-      } else {
-          return false;
-      }
-  }
+    if ($result->RecordCount() > 0) {
+        return $code;
+    } else {
+        return false;
+    }
+}
 
 
 
  /**
   * Return secure string
   *
-  * @param $sStr
+  * @param  $sStr
   * @return string
   */
-  function oos_string_to_int($sStr)
-  {
-      return intval($sStr);
-  }
+function oos_string_to_int($sStr)
+{
+    return intval($sStr);
+}
 
 
  /**
   * Return $aContents
   */
-  function oos_get_content()
-  {
-      global $aContents;
+function oos_get_content()
+{
+    global $aContents;
 
-      return $aContents;
-  }
+    return $aContents;
+}
 
 
 
  /**
   * Parse and secure the cPath parameter values
   *
-  * @param $sCategory
+  * @param  $sCategory
   * @return array
   */
-  function oos_parse_category_path($sCategory)
-  {
-      // make sure the category IDs are integers
-      $aCategoryPath = array_map('oos_string_to_int', explode('_', $sCategory));
+function oos_parse_category_path($sCategory)
+{
+    // make sure the category IDs are integers
+    $aCategoryPath = array_map('oos_string_to_int', explode('_', $sCategory));
 
-      // make sure no duplicate category IDs exist which could lock the server in a loop
-      $aTmp = [];
-      for ($i=0, $n=count($aCategoryPath); $i<$n; $i++) {
-          if (!in_array($aCategoryPath[$i], $aTmp)) {
-              $aTmp[] = $aCategoryPath[$i];
-          }
-      }
+    // make sure no duplicate category IDs exist which could lock the server in a loop
+    $aTmp = [];
+    for ($i=0, $n=count($aCategoryPath); $i<$n; $i++) {
+        if (!in_array($aCategoryPath[$i], $aTmp)) {
+            $aTmp[] = $aCategoryPath[$i];
+        }
+    }
 
-      return $aTmp;
-  }
+    return $aTmp;
+}
 
 
 /**
@@ -1462,212 +1470,212 @@ function oos_output_string($sStr, $aTranslate = null)
  *
  * Function from Contributors: rankmath Plugin link: https://s.rankmath.com/homepage
  *
- * @param string lang.
+ * @param  string lang.
  * @return string
  */
- function locale($locale)
- {
+function locale($locale)
+{
 
     // Catch some weird locales served out by WP that are not easily doubled up.
-     $fix_locales = [
-        'ca' => 'ca_ES',
-        'en' => 'en_US',
-        'el' => 'el_GR',
-        'et' => 'et_EE',
-        'ja' => 'ja_JP',
-        'sq' => 'sq_AL',
-        'uk' => 'uk_UA',
-        'vi' => 'vi_VN',
-        'zh' => 'zh_CN',
+    $fix_locales = [
+       'ca' => 'ca_ES',
+       'en' => 'en_US',
+       'el' => 'el_GR',
+       'et' => 'et_EE',
+       'ja' => 'ja_JP',
+       'sq' => 'sq_AL',
+       'uk' => 'uk_UA',
+       'vi' => 'vi_VN',
+       'zh' => 'zh_CN',
     ];
 
-     if (isset($fix_locales[ $locale ])) {
-         $locale = $fix_locales[ $locale ];
-     }
+    if (isset($fix_locales[ $locale ])) {
+        $locale = $fix_locales[ $locale ];
+    }
 
-     // Convert locales like "es" to "es_ES", in case that works for the given locale (sometimes it does).
-     if (2 === strlen($locale)) {
-         $locale = strtolower($locale) . '_' . strtoupper($locale);
-     }
+    // Convert locales like "es" to "es_ES", in case that works for the given locale (sometimes it does).
+    if (2 === strlen($locale)) {
+        $locale = strtolower($locale) . '_' . strtoupper($locale);
+    }
 
-     // These are the locales FB supports.
-     $fb_valid_fb_locales = [
-            'af_ZA', // Afrikaans.
-            'ak_GH', // Akan.
-            'am_ET', // Amharic.
-            'ar_AR', // Arabic.
-            'as_IN', // Assamese.
-            'ay_BO', // Aymara.
-            'az_AZ', // Azerbaijani.
-            'be_BY', // Belarusian.
-            'bg_BG', // Bulgarian.
-            'bn_IN', // Bengali.
-            'br_FR', // Breton.
-            'bs_BA', // Bosnian.
-            'ca_ES', // Catalan.
-            'cb_IQ', // Sorani Kurdish.
-            'ck_US', // Cherokee.
-            'co_FR', // Corsican.
-            'cs_CZ', // Czech.
-            'cx_PH', // Cebuano.
-            'cy_GB', // Welsh.
-            'da_DK', // Danish.
-            'de_DE', // German.
-            'el_GR', // Greek.
-            'en_GB', // English (UK).
-            'en_IN', // English (India).
-            'en_PI', // English (Pirate).
-            'en_UD', // English (Upside Down).
-            'en_US', // English (US).
-            'eo_EO', // Esperanto.
-            'es_CL', // Spanish (Chile).
-            'es_CO', // Spanish (Colombia).
-            'es_ES', // Spanish (Spain).
-            'es_LA', // Spanish.
-            'es_MX', // Spanish (Mexico).
-            'es_VE', // Spanish (Venezuela).
-            'et_EE', // Estonian.
-            'eu_ES', // Basque.
-            'fa_IR', // Persian.
-            'fb_LT', // Leet Speak.
-            'ff_NG', // Fulah.
-            'fi_FI', // Finnish.
-            'fo_FO', // Faroese.
-            'fr_CA', // French (Canada).
-            'fr_FR', // French (France).
-            'fy_NL', // Frisian.
-            'ga_IE', // Irish.
-            'gl_ES', // Galician.
-            'gn_PY', // Guarani.
-            'gu_IN', // Gujarati.
-            'gx_GR', // Classical Greek.
-            'ha_NG', // Hausa.
-            'he_IL', // Hebrew.
-            'hi_IN', // Hindi.
-            'hr_HR', // Croatian.
-            'hu_HU', // Hungarian.
-            'hy_AM', // Armenian.
-            'id_ID', // Indonesian.
-            'ig_NG', // Igbo.
-            'is_IS', // Icelandic.
-            'it_IT', // Italian.
-            'ja_JP', // Japanese.
-            'ja_KS', // Japanese (Kansai).
-            'jv_ID', // Javanese.
-            'ka_GE', // Georgian.
-            'kk_KZ', // Kazakh.
-            'km_KH', // Khmer.
-            'kn_IN', // Kannada.
-            'ko_KR', // Korean.
-            'ku_TR', // Kurdish (Kurmanji).
-            'ky_KG', // Kyrgyz.
-            'la_VA', // Latin.
-            'lg_UG', // Ganda.
-            'li_NL', // Limburgish.
-            'ln_CD', // Lingala.
-            'lo_LA', // Lao.
-            'lt_LT', // Lithuanian.
-            'lv_LV', // Latvian.
-            'mg_MG', // Malagasy.
-            'mi_NZ', // Maori.
-            'mk_MK', // Macedonian.
-            'ml_IN', // Malayalam.
-            'mn_MN', // Mongolian.
-            'mr_IN', // Marathi.
-            'ms_MY', // Malay.
-            'mt_MT', // Maltese.
-            'my_MM', // Burmese.
-            'nb_NO', // Norwegian (bokmal).
-            'nd_ZW', // Ndebele.
-            'ne_NP', // Nepali.
-            'nl_BE', // Dutch (Belgie).
-            'nl_NL', // Dutch.
-            'nn_NO', // Norwegian (nynorsk).
-            'ny_MW', // Chewa.
-            'or_IN', // Oriya.
-            'pa_IN', // Punjabi.
-            'pl_PL', // Polish.
-            'ps_AF', // Pashto.
-            'pt_BR', // Portuguese (Brazil).
-            'pt_PT', // Portuguese (Portugal).
-            'qu_PE', // Quechua.
-            'rm_CH', // Romansh.
-            'ro_RO', // Romanian.
-            'ru_RU', // Russian.
-            'rw_RW', // Kinyarwanda.
-            'sa_IN', // Sanskrit.
-            'sc_IT', // Sardinian.
-            'se_NO', // Northern Sami.
-            'si_LK', // Sinhala.
-            'sk_SK', // Slovak.
-            'sl_SI', // Slovenian.
-            'sn_ZW', // Shona.
-            'so_SO', // Somali.
-            'sq_AL', // Albanian.
-            'sr_RS', // Serbian.
-            'sv_SE', // Swedish.
-            'sw_KE', // Swahili.
-            'sy_SY', // Syriac.
-            'sz_PL', // Silesian.
-            'ta_IN', // Tamil.
-            'te_IN', // Telugu.
-            'tg_TJ', // Tajik.
-            'th_TH', // Thai.
-            'tk_TM', // Turkmen.
-            'tl_PH', // Filipino.
-            'tl_ST', // Klingon.
-            'tr_TR', // Turkish.
-            'tt_RU', // Tatar.
-            'tz_MA', // Tamazight.
-            'uk_UA', // Ukrainian.
-            'ur_PK', // Urdu.
-            'uz_UZ', // Uzbek.
-            'vi_VN', // Vietnamese.
-            'wo_SN', // Wolof.
-            'xh_ZA', // Xhosa.
-            'yi_DE', // Yiddish.
-            'yo_NG', // Yoruba.
-            'zh_CN', // Simplified Chinese (China).
-            'zh_HK', // Traditional Chinese (Hong Kong).
-            'zh_TW', // Traditional Chinese (Taiwan).
-            'zu_ZA', // Zulu.
-            'zz_TR', // Zazaki.
+    // These are the locales FB supports.
+    $fb_valid_fb_locales = [
+           'af_ZA', // Afrikaans.
+           'ak_GH', // Akan.
+           'am_ET', // Amharic.
+           'ar_AR', // Arabic.
+           'as_IN', // Assamese.
+           'ay_BO', // Aymara.
+           'az_AZ', // Azerbaijani.
+           'be_BY', // Belarusian.
+           'bg_BG', // Bulgarian.
+           'bn_IN', // Bengali.
+           'br_FR', // Breton.
+           'bs_BA', // Bosnian.
+           'ca_ES', // Catalan.
+           'cb_IQ', // Sorani Kurdish.
+           'ck_US', // Cherokee.
+           'co_FR', // Corsican.
+           'cs_CZ', // Czech.
+           'cx_PH', // Cebuano.
+           'cy_GB', // Welsh.
+           'da_DK', // Danish.
+           'de_DE', // German.
+           'el_GR', // Greek.
+           'en_GB', // English (UK).
+           'en_IN', // English (India).
+           'en_PI', // English (Pirate).
+           'en_UD', // English (Upside Down).
+           'en_US', // English (US).
+           'eo_EO', // Esperanto.
+           'es_CL', // Spanish (Chile).
+           'es_CO', // Spanish (Colombia).
+           'es_ES', // Spanish (Spain).
+           'es_LA', // Spanish.
+           'es_MX', // Spanish (Mexico).
+           'es_VE', // Spanish (Venezuela).
+           'et_EE', // Estonian.
+           'eu_ES', // Basque.
+           'fa_IR', // Persian.
+           'fb_LT', // Leet Speak.
+           'ff_NG', // Fulah.
+           'fi_FI', // Finnish.
+           'fo_FO', // Faroese.
+           'fr_CA', // French (Canada).
+           'fr_FR', // French (France).
+           'fy_NL', // Frisian.
+           'ga_IE', // Irish.
+           'gl_ES', // Galician.
+           'gn_PY', // Guarani.
+           'gu_IN', // Gujarati.
+           'gx_GR', // Classical Greek.
+           'ha_NG', // Hausa.
+           'he_IL', // Hebrew.
+           'hi_IN', // Hindi.
+           'hr_HR', // Croatian.
+           'hu_HU', // Hungarian.
+           'hy_AM', // Armenian.
+           'id_ID', // Indonesian.
+           'ig_NG', // Igbo.
+           'is_IS', // Icelandic.
+           'it_IT', // Italian.
+           'ja_JP', // Japanese.
+           'ja_KS', // Japanese (Kansai).
+           'jv_ID', // Javanese.
+           'ka_GE', // Georgian.
+           'kk_KZ', // Kazakh.
+           'km_KH', // Khmer.
+           'kn_IN', // Kannada.
+           'ko_KR', // Korean.
+           'ku_TR', // Kurdish (Kurmanji).
+           'ky_KG', // Kyrgyz.
+           'la_VA', // Latin.
+           'lg_UG', // Ganda.
+           'li_NL', // Limburgish.
+           'ln_CD', // Lingala.
+           'lo_LA', // Lao.
+           'lt_LT', // Lithuanian.
+           'lv_LV', // Latvian.
+           'mg_MG', // Malagasy.
+           'mi_NZ', // Maori.
+           'mk_MK', // Macedonian.
+           'ml_IN', // Malayalam.
+           'mn_MN', // Mongolian.
+           'mr_IN', // Marathi.
+           'ms_MY', // Malay.
+           'mt_MT', // Maltese.
+           'my_MM', // Burmese.
+           'nb_NO', // Norwegian (bokmal).
+           'nd_ZW', // Ndebele.
+           'ne_NP', // Nepali.
+           'nl_BE', // Dutch (Belgie).
+           'nl_NL', // Dutch.
+           'nn_NO', // Norwegian (nynorsk).
+           'ny_MW', // Chewa.
+           'or_IN', // Oriya.
+           'pa_IN', // Punjabi.
+           'pl_PL', // Polish.
+           'ps_AF', // Pashto.
+           'pt_BR', // Portuguese (Brazil).
+           'pt_PT', // Portuguese (Portugal).
+           'qu_PE', // Quechua.
+           'rm_CH', // Romansh.
+           'ro_RO', // Romanian.
+           'ru_RU', // Russian.
+           'rw_RW', // Kinyarwanda.
+           'sa_IN', // Sanskrit.
+           'sc_IT', // Sardinian.
+           'se_NO', // Northern Sami.
+           'si_LK', // Sinhala.
+           'sk_SK', // Slovak.
+           'sl_SI', // Slovenian.
+           'sn_ZW', // Shona.
+           'so_SO', // Somali.
+           'sq_AL', // Albanian.
+           'sr_RS', // Serbian.
+           'sv_SE', // Swedish.
+           'sw_KE', // Swahili.
+           'sy_SY', // Syriac.
+           'sz_PL', // Silesian.
+           'ta_IN', // Tamil.
+           'te_IN', // Telugu.
+           'tg_TJ', // Tajik.
+           'th_TH', // Thai.
+           'tk_TM', // Turkmen.
+           'tl_PH', // Filipino.
+           'tl_ST', // Klingon.
+           'tr_TR', // Turkish.
+           'tt_RU', // Tatar.
+           'tz_MA', // Tamazight.
+           'uk_UA', // Ukrainian.
+           'ur_PK', // Urdu.
+           'uz_UZ', // Uzbek.
+           'vi_VN', // Vietnamese.
+           'wo_SN', // Wolof.
+           'xh_ZA', // Xhosa.
+           'yi_DE', // Yiddish.
+           'yo_NG', // Yoruba.
+           'zh_CN', // Simplified Chinese (China).
+           'zh_HK', // Traditional Chinese (Hong Kong).
+           'zh_TW', // Traditional Chinese (Taiwan).
+           'zu_ZA', // Zulu.
+           'zz_TR', // Zazaki.
     ];
 
-     // Check to see if the locale is a valid FB one, if not, use en_US as a fallback.
-     if (! in_array($locale, $fb_valid_fb_locales, true)) {
-         $locale = strtolower(substr($locale, 0, 2)) . '_' . strtoupper(substr($locale, 0, 2));
-         if (!in_array($locale, $fb_valid_fb_locales, true)) {
-             $locale = 'en_US';
-         }
-     }
+    // Check to see if the locale is a valid FB one, if not, use en_US as a fallback.
+    if (! in_array($locale, $fb_valid_fb_locales, true)) {
+        $locale = strtolower(substr($locale, 0, 2)) . '_' . strtoupper(substr($locale, 0, 2));
+        if (!in_array($locale, $fb_valid_fb_locales, true)) {
+            $locale = 'en_US';
+        }
+    }
 
-     return $locale;
- }
+    return $locale;
+}
 
 
  /**
   * Return File Extension
   *
-  * @param $filename
+  * @param  $filename
   * @return string
   */
-  function oos_get_extension($filename)
-  {
-      $filename  = strtolower($filename);
-      $extension = explode("[/\\.]", $filename);
-      $n = count($extension)-1;
-      $extension = $extension[$n];
+function oos_get_extension($filename)
+{
+    $filename  = strtolower($filename);
+    $extension = explode("[/\\.]", $filename);
+    $n = count($extension)-1;
+    $extension = $extension[$n];
 
-      return $extension;
-  }
+    return $extension;
+}
 
 
 
 /**
  * Returns the suffix of a file name
  *
- * @param string $filename
+ * @param  string $filename
  * @return string
  */
 function oos_get_suffix($filename)
@@ -1678,7 +1686,7 @@ function oos_get_suffix($filename)
 /**
  * returns a file name sans the suffix
  *
- * @param string $filename
+ * @param  string $filename
  * @return string
  */
 function oos_strip_suffix($filename)
@@ -1691,7 +1699,7 @@ function oos_strip_suffix($filename)
 /**
  * Strip non-alpha & non-numeric except ._-:
  *
- * @param $sStr
+ * @param  $sStr
  * @return string
  */
 function oos_strip_all($sStr)
@@ -1751,9 +1759,9 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 
     // (Re)create it, if it's gone missing
     if (! ($phpmailer instanceof PHPMailer\PHPMailer\PHPMailer)) {
-        require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
-        require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
-        require_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/Exception.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/Exception.php';
         $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
 
         $phpmailer::$validator = static function ($to_email_address) {
@@ -1838,31 +1846,37 @@ function oos_newsletter_subscribe_mail($email_address)
         $sRandom = oos_create_random_value(25);
         $sBefor = oos_create_random_value(4);
 
-        $dbconn->Execute("INSERT INTO $newsletter_recipients 
+        $dbconn->Execute(
+            "INSERT INTO $newsletter_recipients 
                             (customers_email_address,
 							mail_key,
 							key_sent,
 							status) VALUES ('" . oos_db_input($email_address) . "',
 											'" . oos_db_input($sRandom) . "',
 											now(),
-											'0')");
+											'0')"
+        );
 
         $nInsert_ID = $dbconn->Insert_ID();
         $newsletter_recipients = $oostable['newsletter_recipients_history'];
-        $dbconn->Execute("INSERT INTO $newsletter_recipients 
+        $dbconn->Execute(
+            "INSERT INTO $newsletter_recipients 
                                     (recipients_id,
                                     date_added) VALUES ('" . intval($nInsert_ID) . "',
-                                                        now())");
+                                                        now())"
+        );
 
         $sStr =  $sBefor . $nInsert_ID . 'f00d';
         $sSha1 = sha1($sStr);
 
         $newsletter_recipients = $oostable['newsletter_recipients'];
-        $dbconn->Execute("UPDATE $newsletter_recipients
+        $dbconn->Execute(
+            "UPDATE $newsletter_recipients
                           SET mail_sha1 = '" . oos_db_input($sSha1) . "'
-                          WHERE recipients_id = '" . intval($nInsert_ID) . "'");
+                          WHERE recipients_id = '" . intval($nInsert_ID) . "'"
+        );
         //smarty
-        require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
         $smarty = new myOOS_Smarty();
 
         // dont allow cache
@@ -1870,13 +1884,13 @@ function oos_newsletter_subscribe_mail($email_address)
 
         $smarty->assign(
             [
-                    'shop_name'		=> STORE_NAME,
-                    'shop_url'		=> OOS_HTTPS_SERVER . OOS_SHOP,
-                    'shop_logo'		=> STORE_LOGO,
-                    'services_url'	=> PHPBB_URL,
-                    'blog_url'		=> BLOG_URL,
-                    'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', false, true),
-                    'subscribe'		=> oos_href_link($aContents['newsletter'], 'action=lists&subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, false, true)
+                    'shop_name'        => STORE_NAME,
+                    'shop_url'        => OOS_HTTPS_SERVER . OOS_SHOP,
+                    'shop_logo'        => STORE_LOGO,
+                    'services_url'    => PHPBB_URL,
+                    'blog_url'        => BLOG_URL,
+                    'imprint_url'    => oos_href_link($aContents['information'], 'information_id=1', false, true),
+                    'subscribe'        => oos_href_link($aContents['newsletter'], 'action=lists&subscribe=confirm&u=' .  $sSha1 . '&id=' . $sStr . '&e=' . $sRandom, false, true)
                 ]
         );
 

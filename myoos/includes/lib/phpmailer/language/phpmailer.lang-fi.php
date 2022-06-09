@@ -2,8 +2,9 @@
 
 /**
  * Finnish PHPMailer language file: refer to English translation for definitive list
+ *
  * @package PHPMailer
- * @author Jyry Kuukanen
+ * @author  Jyry Kuukanen
  */
 
 $PHPMAILER_LANG['authenticate']         = 'SMTP-virhe: käyttäjätunnistus epäonnistui.';

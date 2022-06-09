@@ -43,7 +43,7 @@ $aLang['heading_shooping_card'] = 'Bestellpositionen';
 $aLang['text_edit'] = 'Bearbeiten';
 $aLang['text_more'] = 'Detail ...';
 
-$aLang['text_free_redemption'] 				= 'Unentgeltliche Rücknahme';
+$aLang['text_free_redemption']                 = 'Unentgeltliche Rücknahme';
 $aLang['text_yes'] = 'Ja, ich möchte bei Auslieferung des neuen Gerätes ein Altgerät unentgeltlich zurückgeben.';
 $aLang['text_no'] = 'Nein, ich möchte bei Auslieferung des neuen Gerätes kein Altgerät unentgeltlich zurückgeben.';
 

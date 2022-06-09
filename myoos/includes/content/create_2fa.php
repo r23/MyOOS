@@ -9,7 +9,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // cookie-notice
@@ -48,11 +50,12 @@ use Endroid\QrCode\Writer\PngWriter;
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/create_2fa.php';
 
 
-# Create the 2FA class
+// Create the 2FA class
 $google2fa = new PragmaRX\Google2FA\Google2FA();
 
-if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_POST['action']) && ($_POST['action'] == 'process') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+) {
     $code = oos_db_prepare_input($_POST['code']);
     $sKey = oos_db_prepare_input($_SESSION['secretKey']);
 
@@ -148,21 +151,21 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
 $smarty->assign(
     array(
-          'breadcrumb'		=> $oBreadcrumb->trail(),
-          'heading_title'	=> $aLang['navbar_title'],
-          'robots'			=> 'noindex,follow,noodp,noydir',
-          'login_active'	=> 1,
+          'breadcrumb'        => $oBreadcrumb->trail(),
+          'heading_title'    => $aLang['navbar_title'],
+          'robots'            => 'noindex,follow,noodp,noydir',
+          'login_active'    => 1,
 
-          'canonical'		=> $sCanonical,
-          'secretKey'		=> $secretKey,
-          'qrcode' 			=> $dataUri
+          'canonical'        => $sCanonical,
+          'secretKey'        => $secretKey,
+          'qrcode'             => $dataUri
       )
 );
 

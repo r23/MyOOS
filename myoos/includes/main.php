@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being require d by a parent file */
+/**
+ * ensure this file is being require d by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // debug
@@ -28,9 +30,9 @@ date_default_timezone_set('Europe/Berlin');
 
 // Set the local configuration parameters - mainly for developers
 if (is_readable('includes/local/configure.php')) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/local/configure.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/local/configure.php';
 } else {
-    require_once MYOOS_INCLUDE_PATH . '/includes/configure.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/configure.php';
 }
 
 
@@ -176,10 +178,10 @@ if (!isset($_SESSION['language']) || isset($_GET['language']) && $bNecessary == 
         $_SESSION['languages_name'] = $oLang->language['name'];
     }
 }
-include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . oos_var_prep_for_os($sLanguage) . '.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . oos_var_prep_for_os($sLanguage) . '.php';
 
 // currency
-include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_currencies.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_currencies.php';
 $oCurrencies = new currencies();
 $sCurrency = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
 if ((!isset($_SESSION['currency']) || isset($_GET['currency'])) && $bNecessary == true) {
@@ -279,7 +281,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
 $oMessage = new messageStack();
 
 // Nav Menu
-include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_nav_menu.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_nav_menu.php';
 $oNavMenu = new nav_menu();
 
 
@@ -288,12 +290,13 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php'
 // Shopping cart actions
 if (isset($_GET['action']) || isset($_POST['action'])) {
     if (isset($_POST['action']) && ($_POST['action'] == 'lists')
-      || isset($_GET['action']) && ($_GET['action'] == 'lists')) {
+        || isset($_GET['action']) && ($_GET['action'] == 'lists')
+    ) {
         // require  validation functions (right now only email address)
-        require_once MYOOS_INCLUDE_PATH . '/includes/lists_actions.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/lists_actions.php';
     } else {
         // Shopping cart actions
-        require_once MYOOS_INCLUDE_PATH . '/includes/cart_actions.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/cart_actions.php';
     }
 }
 

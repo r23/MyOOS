@@ -93,25 +93,25 @@ $startDate_4 = mktime(0, 0, 0, date("m"), date("d")-365, date("Y"));
 
 
 switch ($startD) {
-    case '1':
-        $startDate = $startDate_1;
-        break;
+case '1':
+    $startDate = $startDate_1;
+    break;
 
-    case '2':
-        $startDate = $startDate_2;
-        break;
+case '2':
+    $startDate = $startDate_2;
+    break;
 
-    case '3':
-        $startDate = $startDate_3;
-        break;
+case '3':
+    $startDate = $startDate_3;
+    break;
 
-    case '4':
-        $startDate = $startDate_4;
-        break;
+case '4':
+    $startDate = $startDate_4;
+    break;
 
-    default:
-        $startDate = $startDate_2;
-        break;
+default:
+    $startDate = $startDate_2;
+    break;
 }
 
 $endDate = mktime(0, 0, 0, date("m"), date("d") + 1, date("Y"));

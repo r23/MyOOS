@@ -45,8 +45,8 @@
   * $date should be in format mm/dd/yyyy
   * raw date is in format YYYYMMDD, or DDMMYYYY
   *
-  * @param $date
-  * @param $reverse
+  * @param  $date
+  * @param  $reverse
   * @return string
   */
 function oos_date_raw($date, $reverse = false)
@@ -66,7 +66,7 @@ define('DOB_FORMAT_STRING', 'mm/dd/yyyy');
 $aLang = [
 'danger'                => 'Oh snap! You got an error!',
 'warning'               => 'Warning!',
-'info'               	=> 'Registration!',
+'info'                   => 'Registration!',
 
 // theme/system/_header.html
 'header_title_create_account'  => 'Create an Account',
@@ -137,7 +137,7 @@ $aLang = [
 'block_information_conditions'    => 'Conditions of Use',
 'block_information_shipping'      => 'Shipping & Returns',
 'block_information_gv'            => 'Gift Voucher FAQ',
-'block_cookie_settings'			  => 'Cookie settings',
+'block_cookie_settings'              => 'Cookie settings',
 
 // login
 'entry_email_address'             => 'E-Mail-Address',
@@ -152,16 +152,16 @@ $aLang = [
 'login_block_product_notifications'   => 'Product Notifications',
 'login_block_my_account'              => 'General Information',
 'login_block_logoff'                  => 'Log Off',
-'login_block_no_account_yet' 		=> 'No Account Yet?',
+'login_block_no_account_yet'         => 'No Account Yet?',
 'login_block_book_now'              => 'Book now %s',
 'text_password_forgotten'           => 'Lost your password?',
 'link_password_forgotten'           => 'Click <u>here</u> to recover.',
-'text_please_enter_a_password'		=> 'Please enter a password',
+'text_please_enter_a_password'        => 'Please enter a password',
 'text_please_provide_email_address' => 'Please provide email address',
 
 //offcanvas-cart
-'text_clear_cart' 				=> 'Clear cart',
-'text_item_successfull'			=> 'The item was successfully added to the shopping cart.',
+'text_clear_cart'                 => 'Clear cart',
+'text_item_successfull'            => 'The item was successfully added to the shopping cart.',
 
 
 // checkout procedure text
@@ -200,11 +200,11 @@ $aLang = [
 'block_service_shopping_cart'      => 'Cart Contents',
 'block_service_contact'            => 'Contact',
 
-'page_order_history' 		  	   => 'Order History',
+'page_order_history'                  => 'Order History',
 'page_products_new'                => 'New Products',
-'page_specials' 		           => 'Specials',
-'page_blog'  	     		       => 'Blog',
-'page_phpb3'  	     		       => 'Support Forum',
+'page_specials'                    => 'Specials',
+'page_blog'                          => 'Blog',
+'page_phpb3'                          => 'Support Forum',
 
 'review_text'       => 'The \'Review Text\' must have at least ' . REVIEW_TEXT_MIN_LENGTH . ' characters.',
 'review_rating'     => 'You must rate the product for your review.',
@@ -326,7 +326,7 @@ $aLang = [
 'button_apply_coupon'                => 'apply coupon',
 'button_back'                        => 'Back',
 'button_buy_it_again'                => 'Buy it Again',
-'button_calculate_shipping'			 => 'Calculate shipping',
+'button_calculate_shipping'             => 'Calculate shipping',
 'button_change_address'              => 'Change Address',
 'button_checkout'                    => 'Checkout',
 'button_clear_cart'                  => 'Clear Cart',
@@ -350,7 +350,7 @@ $aLang = [
 'button_update'                => 'Update',
 'button_update_cart'           => 'Update Cart',
 'button_write_review'          => 'Write a Product Review',
-'button_write_a_product_review'	 => 'Write a Product Review',
+'button_write_a_product_review'     => 'Write a Product Review',
 'button_write_first_review'    => 'Write the first customer opinion',
 'button_add_quick'             => 'Add a Quickie!',
 'image_wishlist_delete'        => 'delete',
@@ -401,16 +401,16 @@ $aLang = [
 'text_more'                => 'more...',
 'text_new'                 => 'NEW',
 'text_sale'                => 'SALE',
-'text_categories' 	       => 'CATEGORIES',
+'text_categories'            => 'CATEGORIES',
 
-'text_no_longer_available'	=> 'No longer available',
-'text_replacement_product'	=> 'There is a replacement product',
+'text_no_longer_available'    => 'No longer available',
+'text_replacement_product'    => 'There is a replacement product',
 
 'warning_install_directory_exists'  => 'Warning: Installation directory exists at: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Please remove this directory for security reasons.',
 'warning_config_file_writeable'     => 'Warning: I am able to write to the configuration file: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. This is a potential security risk - please set the right user permissions on this file.',
 'warning_download_directory_non_existent'  => 'Warning: The downloadable products directory does not exist: ' . OOS_DOWNLOAD_PATH . '. Downloadable products will not work until this directory is valid.',
 
-'info_login_for_wichlist' 			=> 'Would you like to save your articles permanently and use all the functions of the notepad? Then please log in and we will save your articles on your notepad in your customer account.',
+'info_login_for_wichlist'             => 'Would you like to save your articles permanently and use all the functions of the notepad? Then please log in and we will save your articles on your notepad in your customer account.',
 
 'text_ccval_error_invalid_date'    => 'The expiry date entered for the credit card is invalid.<br>Please check the date and try again.',
 'text_ccval_error_invalid_number'  => 'The credit card number entered is invalid.<br>Please check the number and try again.',
@@ -454,9 +454,9 @@ $aLang = [
 'error_products_quantity_invalid'            => 'Invalid Qty: ',
 'error_products_quantity_order_units_text'    => '',
 'error_products_units_invalid'             => 'Invalid Units: ',
-'error_product_has_attributes'				=> 'This product has variations. Please select the variation you want.',
-'error_product_information_obligation' 		=> 'With this product, you have the option of taking back your old device free of charge. You can find more information here in the product detials.',
-'error_product_information_used_goods' 		=> 'Please confirm that you have received the used goods (B-goods) notes.',
+'error_product_has_attributes'                => 'This product has variations. Please select the variation you want.',
+'error_product_information_obligation'         => 'With this product, you have the option of taking back your old device free of charge. You can find more information here in the product detials.',
+'error_product_information_used_goods'         => 'Please confirm that you have received the used goods (B-goods) notes.',
 
 
 
@@ -511,7 +511,7 @@ $aLang = [
 'text_tax_add'           => 'plus. Tax',
 'tax_info_excl'           => 'excl. Tax',
 'text_shipping'           => 'excl. <a href="%s">and plus service and shipping costs</a>.',
-'total_info'			  => 'all data in %s, incl. VAT',
+'total_info'              => 'all data in %s, incl. VAT',
 
 
 
@@ -526,8 +526,8 @@ $aLang = [
 'price_rrp'            => 'RRP',
 
 'only_until'           => 'Only until %s!',
-'text_content' 		=> 'Content',
-'text_base_price'	=> 'Base price',
+'text_content'         => 'Content',
+'text_base_price'    => 'Base price',
 
 
 'in_stock'             => 'In Stock',

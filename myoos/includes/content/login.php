@@ -20,7 +20,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $_SESSION['login_count'] = 0;
@@ -37,8 +39,9 @@ if ($bNecessary === false) {
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_login.php';
 
-if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_POST['action']) && ($_POST['action'] == 'process') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+) {
 
 
     // start the session
@@ -105,9 +108,11 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
                 // Update hash in DB
                 $customerstable = $oostable['customers'];
-                $dbconn->Execute("UPDATE $customerstable
+                $dbconn->Execute(
+                    "UPDATE $customerstable
                         SET customers_password = '" . oos_db_input($new_hash) . "'
-                        WHERE customers_id = '" . intval($check_customer['customers_id']) . "'");
+                        WHERE customers_id = '" . intval($check_customer['customers_id']) . "'"
+                );
             }
 
             $_SESSION['customer_2fa_id'] = $check_customer['customers_id'];
@@ -140,19 +145,19 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
 $smarty->assign(
     array(
-          'breadcrumb'		=> $oBreadcrumb->trail(),
-          'heading_title'	=> $aLang['navbar_title'],
-          'robots'			=> 'noindex,follow,noodp,noydir',
-          'login_active'	=> 1,
+          'breadcrumb'        => $oBreadcrumb->trail(),
+          'heading_title'    => $aLang['navbar_title'],
+          'robots'            => 'noindex,follow,noodp,noydir',
+          'login_active'    => 1,
 
-          'canonical'		=> $sCanonical
+          'canonical'        => $sCanonical
       )
 );
 

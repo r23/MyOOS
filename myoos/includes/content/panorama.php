@@ -9,7 +9,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
@@ -51,7 +53,7 @@ if (!$categories_panorama_result->RecordCount()) {
     $nPageType = OOS_PAGE_TYPE_MAINPAGE;
     $sPagetitle = '404 Not Found ' . OOS_META_TITLE;
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
 
@@ -60,8 +62,8 @@ if (!$categories_panorama_result->RecordCount()) {
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['text_model_not_found'],
-            'robots'		=> 'noindex,follow,noodp,noydir',
-            'canonical'		=> $sCanonical
+            'robots'        => 'noindex,follow,noodp,noydir',
+            'canonical'        => $sCanonical
         )
     );
 } else {
@@ -112,7 +114,7 @@ if (!$categories_panorama_result->RecordCount()) {
     $html .= '],' . "\n";
 
     ob_start();
-    require_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/panorama.js.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/panorama.js.php';
     $panorama = ob_get_contents();
     ob_end_clean();
 
@@ -125,7 +127,7 @@ if (!$categories_panorama_result->RecordCount()) {
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 
     $smarty->assign('canonical', $sCanonical);
     $smarty->assign('panorama', $panorama);

@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // cookie-notice
@@ -39,8 +41,9 @@ if (!isset($_SESSION['customer_id'])) {
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/disabled_2fa.php';
 
 
-if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_POST['action']) && ($_POST['action'] == 'process') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+) {
     $customerstable = $oostable['customers'];
     $sql = "SELECT customers_gender, customers_firstname, customers_lastname, 
                    customers_language, customers_email_address
@@ -57,7 +60,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
 
         //smarty
-        require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
         $smarty = new myOOS_Smarty();
 
         // dont allow cache
@@ -65,13 +68,13 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
 
         $smarty->assign(
             array(
-                'shop_name'		=> STORE_NAME,
-                'shop_url'		=> OOS_HTTPS_SERVER . OOS_SHOP,
-                'shop_logo'		=> STORE_LOGO,
-                'services_url'	=> PHPBB_URL,
-                'blog_url'		=> BLOG_URL,
-                'imprint_url'	=> oos_href_link($aContents['information'], 'information_id=1', false, true),
-                'login_url'		=> oos_href_link($aContents['login'], '', false, true)
+                'shop_name'        => STORE_NAME,
+                'shop_url'        => OOS_HTTPS_SERVER . OOS_SHOP,
+                'shop_logo'        => STORE_LOGO,
+                'services_url'    => PHPBB_URL,
+                'blog_url'        => BLOG_URL,
+                'imprint_url'    => oos_href_link($aContents['information'], 'information_id=1', false, true),
+                'login_url'        => oos_href_link($aContents['login'], '', false, true)
             )
         );
 
@@ -99,8 +102,8 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
@@ -108,8 +111,8 @@ $smarty->assign(
     array(
         'breadcrumb'    => $oBreadcrumb->trail(),
         'heading_title' => $aLang['heading_title'],
-        'robots'		=> 'noindex,follow,noodp,noydir',
-        'canonical'		=> $sCanonical
+        'robots'        => 'noindex,follow,noodp,noydir',
+        'canonical'        => $sCanonical
     )
 );
 

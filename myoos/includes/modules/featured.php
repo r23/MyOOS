@@ -16,7 +16,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!$oEvent->installed_plugin('featured')) {
@@ -102,7 +104,7 @@ if ($featured_result->RecordCount() >= 1) {
                             'products_base_unit' => $featured['products_base_unit'],
                             'products_units' => $featured['products_units_id'],
                             'featured_until' => $featured_until,
-                            'featured_cross_out_price'	=> $featured_cross_out_price,
+                            'featured_cross_out_price'    => $featured_cross_out_price,
                             'featured_product_price_list' => $featured_price_list,
                             'featured_product_price' => $featured_product_price,
                             'featured_product_special_price' => $featured_product_special_price,

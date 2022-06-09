@@ -4,7 +4,7 @@
  * PHPMailer - PHP email creation and transport class.
  * PHP Version 5.5.
  *
- * @see       https://github.com/PHPMailer/PHPMailer/ The PHPMailer GitHub project
+ * @see https://github.com/PHPMailer/PHPMailer/ The PHPMailer GitHub project
  *
  * @author    Marcus Bointon (Synchro/coolbru) <phpmailer@synchromedia.co.uk>
  * @author    Jim Jagielski (jimjag) <jimjag@gmail.com>
@@ -29,9 +29,9 @@ use League\OAuth2\Client\Token\AccessToken;
  * OAuth - OAuth2 authentication wrapper class.
  * Uses the oauth2-client package from the League of Extraordinary Packages.
  *
- * @see     http://oauth2-client.thephpleague.com
+ * @see http://oauth2-client.thephpleague.com
  *
- * @author  Marcus Bointon (Synchro/coolbru) <phpmailer@synchromedia.co.uk>
+ * @author Marcus Bointon (Synchro/coolbru) <phpmailer@synchromedia.co.uk>
  */
 class OAuth
 {

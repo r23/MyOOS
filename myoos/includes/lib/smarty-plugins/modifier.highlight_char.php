@@ -1,7 +1,8 @@
 <?php
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -21,18 +22,19 @@
  * Output:
  *   <span class="bigfont">x</span>xx
  *
- * {$xxx|highlight_char:none:b}	 {* you cannot leave a param empty, so none is no class *}
+ * {$xxx|highlight_char:none:b}     {* you cannot leave a param empty, so none is no class *}
  * Output:
  *   <strong>x</strong>xx
  *
  * </pre>
- * @author Mark Hewitt <mark at formfunction dot co dot za>
- * @version  1.0
- * @param string $string Text to modify
- * @param string $css_class CSS classname to put in span tags, use 'none' to ignore
- * @param string $tag_name (Optional) Tag to wrap first char in
- * @param Smarty
- * @return string|null
+ *
+ * @author  Mark Hewitt <mark at formfunction dot co dot za>
+ * @version 1.0
+ * @param   string $string    Text to modify
+ * @param   string $css_class CSS classname to put in span tags, use 'none' to ignore
+ * @param   string $tag_name  (Optional) Tag to wrap first char in
+ * @param   Smarty
+ * @return  string|null
  */
 function smarty_modifier_highlight_char($string, $css_class, $tag_name="span")
 {

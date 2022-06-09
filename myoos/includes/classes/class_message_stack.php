@@ -25,7 +25,9 @@
    if ($oMessage->size > 0) echo $oMessage->output();
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class messageStack

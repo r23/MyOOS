@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // cookie-notice
@@ -79,39 +81,39 @@ while ($wishlist = $wishlist_result->fields) {
               AND pd.products_languages_id = '" .  intval($nLanguageID) . "'";
     $wishlist_product = $dbconn->GetRow($sql);
 
-	$discount = null;
+    $discount = null;
 
     $wishlist_product_price = null;
     $wishlist_product_special_price = null;
     $wishlist_product_discount_price = null;
-	$wishlist_price_list = null;
+    $wishlist_price_list = null;
     $wishlist_base_product_price = null;
     $wishlist_special_price = null;
     $wishlist_cross_out_price = null;
     $wishlist_until = null;
-	
+    
     if ($aUser['show_price'] == 1) {
-		$base_product_price = $wishlist_product['products_price'];
+        $base_product_price = $wishlist_product['products_price'];
         $wishlist_special = oos_get_products_special($wishlist_product['products_id']);
 
         if ($wishlist_product['products_price_list'] > 0) {
             $wishlist_price_list = $oCurrencies->display_price($wishlist_product['products_price_list'], oos_get_tax_rate($wishlist_product['products_tax_class_id']));
         }
 
-		if ($wishlist_product['products_discount4'] > 0) {
-			$discount = $wishlist_product['products_discount4'];
-		} elseif ($wishlist_product['products_discount3'] > 0) {
-			$discount = $wishlist_product['products_discount3'];
-		} elseif ($wishlist_product['products_discount2'] > 0) {
-			$discount = $wishlist_product['products_discount2'];
-		} elseif ($wishlist_product['products_discount1'] > 0) {
-			$discount = $wishlist_product['products_discount1'];
-		}
+        if ($wishlist_product['products_discount4'] > 0) {
+            $discount = $wishlist_product['products_discount4'];
+        } elseif ($wishlist_product['products_discount3'] > 0) {
+            $discount = $wishlist_product['products_discount3'];
+        } elseif ($wishlist_product['products_discount2'] > 0) {
+            $discount = $wishlist_product['products_discount2'];
+        } elseif ($wishlist_product['products_discount1'] > 0) {
+            $discount = $wishlist_product['products_discount1'];
+        }
 
-		if ($discount > 0) {
-			$base_product_price = $discount;
-			$wishlist_product_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($wishlist_product['products_tax_class_id']));
-		}
+        if ($discount > 0) {
+            $base_product_price = $discount;
+            $wishlist_product_discount_price = $oCurrencies->display_price($discount, oos_get_tax_rate($wishlist_product['products_tax_class_id']));
+        }
 
 
         if ($wishlist_special['specials_new_products_price'] > 0) {
@@ -168,7 +170,7 @@ while ($wishlist = $wishlist_result->fields) {
         $attributes_print .=  '<li> - ' . $option_values['products_options_name'] . ' ' . $option_values['products_options_values_name'] . ' ';
 
         if ($option_values['options_values_price'] != 0) {
-            //	$attributes_print .=  $option_values['price_prefix'] . $oCurrencies->display_price($option_values['options_values_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id'])) . '</li>';
+            //    $attributes_print .=  $option_values['price_prefix'] . $oCurrencies->display_price($option_values['options_values_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id'])) . '</li>';
             $sAttributesPrice = $option_values['options_values_price'];
             if ($option_values['price_prefix'] == '+') {
                 $base_product_price += $sAttributesPrice;
@@ -188,13 +190,13 @@ while ($wishlist = $wishlist_result->fields) {
     $image = isset($attributes_image) ? $attributes_image : $wishlist_product['products_image'];
 
     if ($aUser['show_price'] == 1) {
-		// price wirth attribute price
-		$wishlist_product_price = $oCurrencies->display_price($base_product_price, oos_get_tax_rate($wishlist_product['products_tax_class_id']));
+        // price wirth attribute price
+        $wishlist_product_price = $oCurrencies->display_price($base_product_price, oos_get_tax_rate($wishlist_product['products_tax_class_id']));
 
 
-		if ($wishlist_product['products_base_price'] != 1) {
-			$wishlist_base_product_price = $oCurrencies->display_price($base_product_price * $wishlist_product['products_base_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id']));
-		}
+        if ($wishlist_product['products_base_price'] != 1) {
+            $wishlist_base_product_price = $oCurrencies->display_price($base_product_price * $wishlist_product['products_base_price'], oos_get_tax_rate($wishlist_product['products_tax_class_id']));
+        }
     }
 
     // price wirth attribute price
@@ -221,13 +223,13 @@ while ($wishlist = $wishlist_result->fields) {
                         'products_units_id' => $wishlist_product['products_units_id'],
                         'product_price' => $wishlist_product_price,
                         'product_special_price' => $wishlist_product_special_price,
-                        'product_discount_price' => $wishlist_product_discount_price,						
+                        'product_discount_price' => $wishlist_product_discount_price,                        
                         'base_product_price' => $wishlist_base_product_price,
                         'products_base_price' => $wishlist_product['products_base_price'],
                         'products_base_unit' => $wishlist_product['products_base_unit'],
-						'product_price_list'	=> $wishlist_price_list,
-						'cross_out_price'	=> $wishlist_cross_out_price,
-						'until'	=> $wishlist_until,		
+                        'product_price_list'    => $wishlist_price_list,
+                        'cross_out_price'    => $wishlist_cross_out_price,
+                        'until'    => $wishlist_until,        
                         'attributes_print' => $attributes_print,
                         'attributes_hidden' => $attributes_hidden_field);
     $wishlist_result->MoveNext();
@@ -245,26 +247,26 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 // assign Smarty variables;
 $smarty->assign(
     array(
-        'breadcrumb'		=> $oBreadcrumb->trail(),
-        'heading_title' 	=> $aLang['heading_title'],
-        'robots'			=> 'noindex,nofollow,noodp,noydir',
-        'canonical'			=> $sCanonical,
+        'breadcrumb'        => $oBreadcrumb->trail(),
+        'heading_title'     => $aLang['heading_title'],
+        'robots'            => 'noindex,nofollow,noodp,noydir',
+        'canonical'            => $sCanonical,
 
-        'account_active'	=> 1,
-        'page_split'		=> $wishlist_split->display_count($aLang['text_display_number_of_wishlist']),
-        'display_links' 	=> $wishlist_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-        'numrows' 			=> $wishlist_split->number_of_rows,
-        'numpages' 			=> $wishlist_split->number_of_pages,
+        'account_active'    => 1,
+        'page_split'        => $wishlist_split->display_count($aLang['text_display_number_of_wishlist']),
+        'display_links'     => $wishlist_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+        'numrows'             => $wishlist_split->number_of_rows,
+        'numpages'             => $wishlist_split->number_of_pages,
 
-        'page'				=> $nPage,
-        'wishlist'		 	=> $aWishlist
+        'page'                => $nPage,
+        'wishlist'             => $aWishlist
     )
 );
 

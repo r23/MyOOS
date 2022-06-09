@@ -20,7 +20,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 class shoppingCart
@@ -76,7 +78,8 @@ class shoppingCart
                 $product_result = $dbconn->Execute($product_sql);
                 if (!$product_result->RecordCount()) {
                     $customers_baskettable = $oostable['customers_basket'];
-                    $dbconn->Execute("INSERT INTO $customers_baskettable
+                    $dbconn->Execute(
+                        "INSERT INTO $customers_baskettable
 								(customers_id,
 								to_wishlist_id,
 								products_id,
@@ -87,13 +90,15 @@ class shoppingCart
                                                              '" . oos_db_input($products_id) . "',
                                                              '" . oos_db_input($qty) . "',
 															 '" . oos_db_input($free_redemption) . "',
-                                                             '" . oos_db_input(date('Ymd')) . "')");
+                                                             '" . oos_db_input(date('Ymd')) . "')"
+                    );
                     if (isset($this->contents[$products_id]['attributes'])) {
                         reset($this->contents[$products_id]['attributes']);
                         foreach ($this->contents[$products_id]['attributes'] as $option => $value) {
                             $attr_value = $this->contents[$products_id]['attributes_values'][$option];
                             $customers_basket_attributestable = $oostable['customers_basket_attributes'];
-                            $dbconn->Execute("INSERT INTO $customers_basket_attributestable
+                            $dbconn->Execute(
+                                "INSERT INTO $customers_basket_attributestable
 										(customers_id,
 										products_id,
 										products_options_id,
@@ -102,15 +107,18 @@ class shoppingCart
                                                                   '" . oos_db_input($products_id) . "',
                                                                   '" . oos_db_input($option) . "',
                                                                   '" . oos_db_input($value) . "',
-                                                                  '" . oos_db_input($attr_value) . "')");
+                                                                  '" . oos_db_input($attr_value) . "')"
+                            );
                         }
                     }
                 } else {
                     $customers_baskettable = $oostable['customers_basket'];
-                    $dbconn->Execute("UPDATE $customers_baskettable
+                    $dbconn->Execute(
+                        "UPDATE $customers_baskettable
 									SET customers_basket_quantity = '" . intval($qty) . "'
 									WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND
-										products_id = '" . oos_db_input($products_id) . "'");
+										products_id = '" . oos_db_input($products_id) . "'"
+                    );
                 }
             }
 
@@ -237,7 +245,8 @@ class shoppingCart
                     // insert into database
                     if (isset($_SESSION['customer_id'])) {
                         $customers_baskettable = $oostable['customers_basket'];
-                        $dbconn->Execute("INSERT INTO $customers_baskettable
+                        $dbconn->Execute(
+                            "INSERT INTO $customers_baskettable
                             (customers_id,
                              to_wishlist_id,
                              products_id,
@@ -248,7 +257,8 @@ class shoppingCart
                                                                     . $dbconn->qstr($sProductsId) . ','
                                                                     . $dbconn->qstr($nQuantity) . ','
                                                                     . $dbconn->qstr($free_redemption) . ','
-                                                                    . $dbconn->qstr(date('Ymd')) . ")");
+                            . $dbconn->qstr(date('Ymd')) . ")"
+                        );
                     }
 
                     if (is_array($attributes)) {
@@ -274,7 +284,8 @@ class shoppingCart
                                 // insert into database
                                 if (isset($_SESSION['customer_id'])) {
                                     $customers_basket_attributestable = $oostable['customers_basket_attributes'];
-                                    $dbconn->Execute("INSERT INTO $customers_basket_attributestable
+                                    $dbconn->Execute(
+                                        "INSERT INTO $customers_basket_attributestable
 													(customers_id,
 													products_id,
 													products_options_id,
@@ -283,7 +294,8 @@ class shoppingCart
                                                                                             . $dbconn->qstr($sProductsId) . ','
                                                                                             . $dbconn->qstr($option) . ','
                                                                                             . $dbconn->qstr($value) . ','
-                                                                                            . $dbconn->qstr($attr_value) . ")");
+                                        . $dbconn->qstr($attr_value) . ")"
+                                    );
                                 }
                             }
                         }
@@ -318,11 +330,13 @@ class shoppingCart
 
             if (isset($_SESSION['customer_id'])) {
                 $customers_baskettable = $oostable['customers_basket'];
-                $dbconn->Execute("UPDATE $customers_baskettable
+                $dbconn->Execute(
+                    "UPDATE $customers_baskettable
                             SET customers_basket_quantity = '" . oos_db_input($nQuantity) . "',
 								free_redemption = '" . oos_db_input($free_redemption) . "',
                             WHERE customers_id = '" . intval($_SESSION['customer_id']) . "' AND
-                                  products_id = '" . oos_db_input($sProductsId) . "'");
+                                  products_id = '" . oos_db_input($sProductsId) . "'"
+                );
             }
 
             if (is_array($attributes)) {
@@ -347,12 +361,14 @@ class shoppingCart
                         // update database
                         if (isset($_SESSION['customer_id'])) {
                             $customers_basket_attributestable = $oostable['customers_basket_attributes'];
-                            $dbconn->Execute("UPDATE $customers_basket_attributestable
+                            $dbconn->Execute(
+                                "UPDATE $customers_basket_attributestable
 									SET products_options_value_id = '" . oos_db_input($value) . "',
 										products_options_value_text = '" .  oos_db_input($attr_value) . "'
 									WHERE customers_id = '" . intval($_SESSION['customer_id']) . "'
 										AND products_id = '" . oos_db_input($sProductsId) . "'
-										AND products_options_id = '" . oos_db_input($option) . "'");
+										AND products_options_id = '" . oos_db_input($option) . "'"
+                            );
                         }
                     }
                 }
@@ -387,7 +403,8 @@ class shoppingCart
 
 
     public function count_contents()
-    {  // get total number of items in cart
+    {
+        // get total number of items in cart
         $total_items = 0;
         if (is_array($this->contents)) {
             reset($this->contents);
@@ -830,8 +847,8 @@ class shoppingCart
     {
         $this->calculate();
 
-		return $this->info['total'];
-      # return $this->info;
+        return $this->info['total'];
+        // return $this->info;
     }
 
 
@@ -883,25 +900,25 @@ class shoppingCart
 
                         if ($virtual_check['total'] > 0) {
                             switch ($this->content_type) {
-                                case 'physical':
-                                        $this->content_type = 'mixed';
+                            case 'physical':
+                                    $this->content_type = 'mixed';
 
-                                        return $this->content_type;
+                                return $this->content_type;
                                         break;
-                                default:
-                                        $this->content_type = 'virtual';
-                                        break;
+                            default:
+                                    $this->content_type = 'virtual';
+                                break;
                             }
                         } else {
                             switch ($this->content_type) {
-                                case 'virtual':
-                                        $this->content_type = 'mixed';
+                            case 'virtual':
+                                    $this->content_type = 'mixed';
 
-                                        return $this->content_type;
+                                return $this->content_type;
                                         break;
-                                default:
-                                        $this->content_type = 'physical';
-                                        break;
+                            default:
+                                    $this->content_type = 'physical';
+                                break;
                             }
                         }
                     }
@@ -916,38 +933,38 @@ class shoppingCart
                         $virtual_check = $virtual_check_result->fields;
                         if ($virtual_check['products_weight'] == 0) {
                             switch ($this->content_type) {
-                                case 'physical':
-                                        $this->content_type = 'mixed';
+                            case 'physical':
+                                    $this->content_type = 'mixed';
 
-                                        return $this->content_type;
+                                return $this->content_type;
                                         break;
-                                default:
-                                        $this->content_type = 'virtual_weight';
-                                        break;
+                            default:
+                                    $this->content_type = 'virtual_weight';
+                                break;
                             }
                         } else {
                             switch ($this->content_type) {
-                                case 'virtual':
-                                        $this->content_type = 'mixed';
+                            case 'virtual':
+                                    $this->content_type = 'mixed';
 
-                                        return $this->content_type;
+                                return $this->content_type;
                                         break;
-                                default:
-                                        $this->content_type = 'physical';
-                                        break;
+                            default:
+                                    $this->content_type = 'physical';
+                                break;
                             }
                         }
                     }
                 } else {
                     switch ($this->content_type) {
-                        case 'virtual':
-                                $this->content_type = 'mixed';
+                    case 'virtual':
+                            $this->content_type = 'mixed';
 
-                                return $this->content_type;
+                        return $this->content_type;
                                 break;
-                        default:
-                                $this->content_type = 'physical';
-                                break;
+                    default:
+                            $this->content_type = 'physical';
+                        break;
                     }
                 }
             }
@@ -965,7 +982,8 @@ class shoppingCart
      * otherwise we just don't count gift certificates
      */
     public function count_contents_virtual()
-    {  // get total number of items in cart disregard gift vouchers
+    {
+        // get total number of items in cart disregard gift vouchers
 
         // Get database information
         $dbconn =& oosDBGetConn();

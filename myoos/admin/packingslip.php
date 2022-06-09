@@ -26,7 +26,7 @@
 
   $oID = oos_db_prepare_input($_GET['oID']);
 
-  include '../includes/classes/class_order.php';
+  require '../includes/classes/class_order.php';
   $order = new order($oID);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -98,36 +98,36 @@
   </tr>
   <tr>
     <td>
-				<table class="table table-striped w-100">
-					<thead class="thead-dark">
-						<tr>
-							<th colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></th>
-							<th><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></th>
-							<th><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></th>
-						</tr>	
-					</thead>
+                <table class="table table-striped w-100">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th colspan="2"><?php echo TABLE_HEADING_PRODUCTS; ?></th>
+                            <th><?php echo TABLE_HEADING_PRODUCTS_SERIAL_NUMBER; ?></th>
+                            <th><?php echo TABLE_HEADING_PRODUCTS_MODEL; ?></th>
+                        </tr>    
+                    </thead>
 <?php
-    for ($i = 0, $n = count($order->products); $i < $n; $i++) {
-        echo '      <tr class="dataTableRow">' . "\n" .
-           '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
-           '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
+for ($i = 0, $n = count($order->products); $i < $n; $i++) {
+    echo '      <tr class="dataTableRow">' . "\n" .
+       '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
+       '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
-        if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
-            for ($j = 0, $k = count($order->products[$i]['attributes']); $j < $k; $j++) {
-                echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
-                echo '</i></small></nobr>';
-            }
+    if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
+        for ($j = 0, $k = count($order->products[$i]['attributes']); $j < $k; $j++) {
+            echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
+            echo '</i></small></nobr>';
         }
-        echo '        </td>' . "\n";
-
-        $serial_number = "";
-        if (oos_is_not_null($order->products[$i]['serial_number'])) {
-            $serial_number = $order->products[$i]['serial_number'];
-        }
-        echo '        <td class="dataTableContent" valign="top">' . $serial_number . '</td>' . "\n" .
-           '        <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n" .
-           '      </tr>' . "\n";
     }
+    echo '        </td>' . "\n";
+
+    $serial_number = "";
+    if (oos_is_not_null($order->products[$i]['serial_number'])) {
+        $serial_number = $order->products[$i]['serial_number'];
+    }
+    echo '        <td class="dataTableContent" valign="top">' . $serial_number . '</td>' . "\n" .
+       '        <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n" .
+       '      </tr>' . "\n";
+}
 ?>
     </table></td>
   </tr>

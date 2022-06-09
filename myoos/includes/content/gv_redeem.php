@@ -22,7 +22,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $b_gv_status = (defined('MODULE_ORDER_TOTAL_GV_STATUS') && (MODULE_ORDER_TOTAL_GV_STATUS == 'true') ? true : false);
@@ -80,18 +82,22 @@ if ((!$bError) && (isset($_SESSION['customer_id']))) {
     // Update redeem status
     $remote_addr = oos_server_get_remote();
     $coupon_redeem_tracktable = $oostable['coupon_redeem_track'];
-    $gv_result = $dbconn->Execute("INSERT INTO $coupon_redeem_tracktable
+    $gv_result = $dbconn->Execute(
+        "INSERT INTO $coupon_redeem_tracktable
                             (coupon_id,
                              customer_id,
                              redeem_date,
                              redeem_ip) VALUES ('" . $coupon['coupon_id'] . "',
                                                 '" . intval($_SESSION['customer_id']) . "',
                                                 now(),
-                                                '" . oos_db_input($remote_addr) . "')");
+                                                '" . oos_db_input($remote_addr) . "')"
+    );
     $couponstable = $oostable['coupons'];
-    $gv_update = $dbconn->Execute("UPDATE $couponstable
+    $gv_update = $dbconn->Execute(
+        "UPDATE $couponstable
                                SET coupon_active = 'N' 
-                               WHERE coupon_id = '" . $coupon['coupon_id'] . "'");
+                               WHERE coupon_id = '" . $coupon['coupon_id'] . "'"
+    );
     oos_gv_account_update($_SESSION['customer_id'], $coupon['coupon_id']);
 }
 
@@ -113,8 +119,8 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 $smarty->assign('text_information', sprintf($aLang['text_information'], oos_href_link($aContents['gv_faq'])));
@@ -122,11 +128,11 @@ $smarty->assign('text_information', sprintf($aLang['text_information'], oos_href
 // assign Smarty variables;
 $smarty->assign(
     array(
-          'breadcrumb'		=> $oBreadcrumb->trail(),
-          'heading_title'	=> $aLang['heading_title'],
-          'robots'			=> 'noindex,nofollow,noodp,noydir',
+          'breadcrumb'        => $oBreadcrumb->trail(),
+          'heading_title'    => $aLang['heading_title'],
+          'robots'            => 'noindex,nofollow,noodp,noydir',
 
-          'text_gift_voucher'	=> $sTextGiftVoucher
+          'text_gift_voucher'    => $sTextGiftVoucher
       )
 );
 

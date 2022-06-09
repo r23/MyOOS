@@ -20,7 +20,9 @@
    ---------------------------------------------------------------------- */
 
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_process.php';
@@ -198,23 +200,29 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
                 $stock_left = $stock_values['products_quantity'];
             }
             $productstable = $oostable['products'];
-            $dbconn->Execute("UPDATE $productstable
+            $dbconn->Execute(
+                "UPDATE $productstable
 							SET products_quantity = '" . oos_db_input($stock_left) . "'
-							WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'");
+							WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'"
+            );
             if ($stock_left < 1) {
                 $productstable = $oostable['products'];
-                $dbconn->Execute("UPDATE $productstable
+                $dbconn->Execute(
+                    "UPDATE $productstable
                         SET products_setting = '0' 
-                        WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'");
+                        WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'"
+                );
             }
         }
     }
 
     // Update products_ordered (for bestsellers list)
     $productstable = $oostable['products'];
-    $dbconn->Execute("UPDATE $productstable
+    $dbconn->Execute(
+        "UPDATE $productstable
                   SET products_ordered = products_ordered + " . sprintf('%d', intval($oOrder->products[$i]['qty'])) . " 
-                  WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'");
+                  WHERE products_id = '" . intval(oos_get_product_id($oOrder->products[$i]['id'])) . "'"
+    );
 
     $sql_data_array = array('orders_id' => $insert_id,
                             'products_id' => oos_get_product_id($oOrder->products[$i]['id']),

@@ -3,8 +3,8 @@
  * MyOOS [Shopsystem]
  * https://www.oos-shop.de
  *
- * @license GNU/LGPLv2 (or at your option, any later version).
- * @package Phoenix
+ * @license    GNU/LGPLv2 (or at your option, any later version).
+ * @package    Phoenix
  * @subpackage Phoenix_Session
  */
 
@@ -85,7 +85,7 @@ class Phoenix_Session extends Session
         $lifetime = 31536000;
         $config['cookie_lifetime'] = $lifetime;
 
-        # possible values: 'strict', 'lax' and null
+        // possible values: 'strict', 'lax' and null
         $config['cookie_samesite'] = 'strict';
 
         $options['cache_limiter'] = session_cache_limiter();

@@ -18,13 +18,15 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
  /**
   * Generate a path to categories
   *
-  * @param $current_category_id
+  * @param  $current_category_id
   * @return string
   */
 function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = '')
@@ -80,8 +82,8 @@ function oos_get_path($current_category_id = '', $parent_id = '', $gparent_id = 
  /**
   * Return the number of products in a category
   *
-  * @param $category_id
-  * @param $include_inactive
+  * @param  $category_id
+  * @param  $include_inactive
   * @return string
   */
 function oos_total_products_in_category($category_id)

@@ -45,17 +45,19 @@
    Purpose of file: The PostNuke API
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
  /**
   * ADODB Database Abstraction Layer API Helpers
   *
-  * @package database
-  * @copyright (C) 2022 by the MyOOS Development Team.
-  * @license GPL <http://www.gnu.org/licenses/gpl.html>
-  * @link https://www.oos-shop.de
+  * @package    database
+  * @copyright  (C) 2022 by the MyOOS Development Team.
+  * @license    GPL <http://www.gnu.org/licenses/gpl.html>
+  * @link       https://www.oos-shop.de
   * @subpackage adodb
   */
 
@@ -181,36 +183,36 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
         reset($data);
         foreach ($data as $value) {
             switch ((string)$value) {
-          case 'now()':
-            $query .= 'now(), ';
-            break;
+            case 'now()':
+                $query .= 'now(), ';
+                break;
 
-          case 'null':
-            $query .= 'null, ';
-            break;
+            case 'null':
+                $query .= 'null, ';
+                break;
 
-          default:
-            $query .= '\'' . oos_db_input($value) . '\', ';
-            break;
-        }
+            default:
+                $query .= '\'' . oos_db_input($value) . '\', ';
+                break;
+            }
         }
         $query = substr($query, 0, -2) . ')';
     } elseif ($action == 'UPDATE') {
         $query = 'UPDATE ' . $table . ' set ';
         foreach ($data as $columns => $value) {
             switch ((string)$value) {
-          case 'now()':
-            $query .= $columns . ' = now(), ';
-            break;
+            case 'now()':
+                $query .= $columns . ' = now(), ';
+                break;
 
-          case 'null':
-            $query .= $columns .= ' = null, ';
-            break;
+            case 'null':
+                $query .= $columns .= ' = null, ';
+                break;
 
-          default:
-            $query .= $columns . ' = \'' . oos_db_input($value) . '\', ';
-            break;
-        }
+            default:
+                $query .= $columns . ' = \'' . oos_db_input($value) . '\', ';
+                break;
+            }
         }
         $query = substr($query, 0, -2) . ' where ' . $parameters;
     }

@@ -18,14 +18,16 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
 class breadcrumb
 {
     /**
-     * @var array	Array of individual (linked) html strings created from crumbs
+     * @var array    Array of individual (linked) html strings created from crumbs
      */
     private $links = [];
 
@@ -58,7 +60,7 @@ class breadcrumb
     /**
      * Create a breadcrumb element string
      *
-     * @return	string
+     * @return string
      */
     public function trail()
     {

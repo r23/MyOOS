@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 // require  the password crypto functions
@@ -48,8 +50,9 @@ if ($_SESSION['login_count'] > 20) {
 }
 
 
-if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_POST['action']) && ($_POST['action'] == 'process') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+) {
     if (ACCOUNT_GENDER == 'true') {
         if (isset($_POST['gender'])) {
             $gender = oos_db_prepare_input($_POST['gender']);
@@ -124,9 +127,10 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
     }
 
     if (ACCOUNT_DOB == 'true') {
-        if ((strlen($dob) < ENTRY_DOB_MIN_LENGTH) || (!empty($dob) &&
-            (!is_numeric(oos_date_raw($dob)) ||
-            !checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))) {
+        if ((strlen($dob) < ENTRY_DOB_MIN_LENGTH) || (!empty($dob) 
+            && (!is_numeric(oos_date_raw($dob)) 
+            || !checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))
+        ) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_date_of_birth_error']);
         }
@@ -328,12 +332,14 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
         $dbconn->Execute("UPDATE $customers_table SET customers_default_address_id = '" . intval($address_id) . "' WHERE customers_id = '" . intval($customer_id) . "'");
 
         $customers_infotable = $oostable['customers_info'];
-        $dbconn->Execute("INSERT INTO $customers_infotable
+        $dbconn->Execute(
+            "INSERT INTO $customers_infotable
 						(customers_info_id,
 						customers_info_number_of_logons, 
 						customers_info_date_account_created) VALUES ('" . intval($customer_id) . "',
 																	'0',
-																	now())");
+																	now())"
+        );
 
 
         if (CUSTOMER_NOT_LOGIN != 'true') {
@@ -388,17 +394,20 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
                 if (NEW_SIGNUP_GIFT_VOUCHER_AMOUNT > 0) {
                     $coupon_code = oos_create_coupon_code();
                     $couponstable = $oostable['coupons'];
-                    $insert_result = $dbconn->Execute("INSERT INTO $couponstable
+                    $insert_result = $dbconn->Execute(
+                        "INSERT INTO $couponstable
                                     (coupon_code,
                                      coupon_type,
                                      coupon_amount,
                                      date_created) VALUES ('" . oos_db_input($coupon_code) . "',
                                                            'G',
                                                            '" . NEW_SIGNUP_GIFT_VOUCHER_AMOUNT . "',
-                                                           now())");
+                                                           now())"
+                    );
                     $insert_id = $dbconn->Insert_ID();
                     $coupon_email_tracktable = $oostable['coupon_email_track'];
-                    $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable
+                    $insert_result = $dbconn->Execute(
+                        "INSERT INTO $coupon_email_tracktable
                                     (coupon_id,
                                      customer_id_sent,
                                      sent_firstname,
@@ -407,7 +416,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
                                                         '0',
                                                         'Admin',
                                                         '" . $email_address . "',
-                                                        now() )");
+                                                        now() )"
+                    );
 
                     $email_text .= sprintf($aLang['email_gv_incentive_header'], $oCurrencies->format(NEW_SIGNUP_GIFT_VOUCHER_AMOUNT)) . "\n\n" .
                        sprintf($aLang['email_gv_redeem'], $coupon_code) . "\n\n" .
@@ -432,7 +442,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
                     $coupon = $coupon_result->fields;
                     $coupon_desc = $coupon_desc_result->fields;
                     $coupon_email_tracktable = $oostable['coupon_email_track'];
-                    $insert_result = $dbconn->Execute("INSERT INTO $coupon_email_tracktable
+                    $insert_result = $dbconn->Execute(
+                        "INSERT INTO $coupon_email_tracktable
                                           (coupon_id,
                                            customer_id_sent,
                                            sent_firstname,
@@ -441,7 +452,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
                                                               '0',
                                                               'Admin',
                                                               '" . oos_db_input($email_address) . "',
-                                                              now() )");
+                                                              now() )"
+                    );
 
                     $email_text .= $aLang['email_coupon_incentive_header'] .  "\n\n" .
                                 $coupon_desc['coupon_description'] .
@@ -552,18 +564,18 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 
 // assign Smarty variables;
 $smarty->assign(
     array(
-        'breadcrumb'	=> $oBreadcrumb->trail(),
+        'breadcrumb'    => $oBreadcrumb->trail(),
         'heading_title' => $aLang['heading_title'],
-        'robots'		=> 'noindex,follow,noodp,noydir',
-        'canonical'		=> $sCanonical
+        'robots'        => 'noindex,follow,noodp,noydir',
+        'canonical'        => $sCanonical
     )
 );
 

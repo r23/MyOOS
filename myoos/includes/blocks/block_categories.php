@@ -18,14 +18,16 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
  * Return the number of products in a category
  *
- * @param $category_id
- * @param $include_inactive
+ * @param  $category_id
+ * @param  $include_inactive
  * @return string
  */
 function oos_count_products_in_category($category_id, $include_inactive = false)
@@ -63,7 +65,7 @@ function oos_count_products_in_category($category_id, $include_inactive = false)
 /**
  * Return true if the category has subcategories
  *
- * @param $category_id
+ * @param  $category_id
  * @return boolean
  */
 function oos_has_category_subcategories($category_id)
@@ -86,7 +88,7 @@ function oos_has_category_subcategories($category_id)
 /**
  * Return Show Category
  *
- * @param $nCounter
+ * @param  $nCounter
  * @return string
  */
 function oos_show_category($nCounter)

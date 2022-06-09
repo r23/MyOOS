@@ -16,7 +16,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
  /**
@@ -30,10 +32,12 @@ function oos_set_featured_status($nFeaturedId, $status)
     $oostable =& oosDBGetTables();
 
     $featuredtable = $oostable['featured'];
-    return $dbconn->Execute("UPDATE $featuredtable
+    return $dbconn->Execute(
+        "UPDATE $featuredtable
                              SET status = '" . oos_db_input($status) . "',
                                  date_status_change = now()
-                             WHERE featured_id = '" . intval($nFeaturedId) . "'");
+                             WHERE featured_id = '" . intval($nFeaturedId) . "'"
+    );
 }
 
 

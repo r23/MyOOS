@@ -150,7 +150,7 @@ class eubanktransfer
     public function install()
     {
 
-      // Get database information
+        // Get database information
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
@@ -169,7 +169,7 @@ class eubanktransfer
     public function remove()
     {
 
-      // Get database information
+        // Get database information
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 

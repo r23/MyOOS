@@ -21,7 +21,8 @@
    ---------------------------------------------------------------------- */
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -39,8 +40,8 @@ function smarty_function_oos_get_cart_country_list($params, &$smarty)
 {
     global $aLang;
 
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-    require_once(SMARTY_PLUGINS_DIR . 'function.html_options.php');
+    include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
+    include_once SMARTY_PLUGINS_DIR . 'function.html_options.php';
 
     /* Set the name of the <select> tag. */
     $name  = 'country';

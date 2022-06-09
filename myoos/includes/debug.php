@@ -9,17 +9,19 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 /**
  * For debugging purposes
  *
- * @package  core
- * @access   public
+ * @package core
+ * @access  public
  *
- * @author   r23 <info@r23.de>
- * @since    OOS 1.3.1
+ * @author r23 <info@r23.de>
+ * @since  OOS 1.3.1
  */
 set_error_handler('oos_error_log_handler');
 
@@ -27,15 +29,15 @@ set_error_handler('oos_error_log_handler');
 /**
  * Error log handler
  *
- * @access  public
- * @param   string
- * @param   string
- * @param   string
- * @param   string
- * @return  boolean
+ * @access public
+ * @param  string
+ * @param  string
+ * @param  string
+ * @param  string
+ * @return boolean
  *
- * @author  r23 <info@r23.de>
- * @since   OOS 1.3.1
+ * @author r23 <info@r23.de>
+ * @since  OOS 1.3.1
  */
 function oos_error_log_handler($sErrNo, $sErrMsg, $sErrFile, $sErrLine)
 {

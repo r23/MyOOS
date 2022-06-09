@@ -39,8 +39,8 @@
   * $date should be in format mm/dd/yyyy
   * raw date is in format YYYYMMDD, or DDMMYYYY
   *
-  * @param $date
-  * @param $reverse
+  * @param  $date
+  * @param  $reverse
   * @return string
   */
 function oos_date_raw($date, $reverse = false)
@@ -59,7 +59,7 @@ define('DOB_FORMAT_STRING', 'tt.mm.jjjj');
 $aLang = [
 'danger'                => 'Oh nein! Es ist ein Fehler aufgetreten!',
 'warning'               => 'Warnung!',
-'info'               	=> 'Anmeldung!',
+'info'                   => 'Anmeldung!',
 
 // theme/system/_header.html
 'header_title_create_account'  => 'Neues Konto',
@@ -119,7 +119,7 @@ $aLang = [
 'block_information_conditions'      => 'AGB',
 'block_information_shipping'        => 'Liefer- und&nbsp;Versandkosten',
 'block_information_gv'              => 'Gutschein einlösen',
-'block_cookie_settings' 			=> 'Cookie-Einstellungen',
+'block_cookie_settings'             => 'Cookie-Einstellungen',
 
 //login
 'entry_email_address'               => 'eMail Adresse',
@@ -133,17 +133,17 @@ $aLang = [
 'login_block_product_notifications' => 'Benachrichtigungen',
 'login_block_my_account'            => 'Mein Konto',
 'login_block_logoff'                => 'Abmelden',
-'login_block_no_account_yet' 		=> 'Noch keinen Account?',
+'login_block_no_account_yet'         => 'Noch keinen Account?',
 'login_block_book_now'              => 'Buchen Sie jetzt %s',
 'text_password_forgotten'           => 'Sie haben Ihr Passwort vergessen?',
 'link_password_forgotten'           => 'Dann klicken Sie <u>hier</u>',
-'text_please_enter_a_password'		=> 'Bitte geben Sie Ihr Passwort ein',
+'text_please_enter_a_password'        => 'Bitte geben Sie Ihr Passwort ein',
 'text_please_provide_email_address' => 'Bitte geben Sie Ihre E-Mail Adresse ein',
 
 
 //offcanvas-cart
-'text_clear_cart' 				=> 'Warenkorb löschen',
-'text_item_successfull'			=> 'Der Artikel wurde erfolgreich in den Warenkorb gelegt.',
+'text_clear_cart'                 => 'Warenkorb löschen',
+'text_item_successfull'            => 'Der Artikel wurde erfolgreich in den Warenkorb gelegt.',
 
 
 // checkout procedure text
@@ -181,11 +181,11 @@ $aLang = [
 'block_service_shopping_cart'     => 'Warenkorb',
 'block_service_contact'           => 'Kontakt',
 
-'page_order_history'   		      => 'Meine Bestellungen',
+'page_order_history'                 => 'Meine Bestellungen',
 'page_products_new'               => 'Neue Produkte',
-'page_specials'      		      => 'Angebote',
-'page_blog'  	     		      => 'Blog',
-'page_phpb3'  	     		      => 'Support Forum',
+'page_specials'                    => 'Angebote',
+'page_blog'                         => 'Blog',
+'page_phpb3'                         => 'Support Forum',
 
 'review_text'                     => 'Die Rezension muss mindestens aus ' . REVIEW_TEXT_MIN_LENGTH . ' Buchstaben bestehen.',
 'review_rating'                   => 'Geben Sie Ihre Bewertung ein.',
@@ -307,7 +307,7 @@ $aLang = [
 'button_apply_coupon'                => 'Gutschein einlösen',
 'button_back'                        => 'Zurück',
 'button_buy_it_again'                => 'Nochmals kaufen',
-'button_calculate_shipping'			 => 'Versand berechnen',
+'button_calculate_shipping'             => 'Versand berechnen',
 'button_change_address'              => 'Adresse ändern',
 'button_checkout'                    => 'Kasse',
 'button_clear_cart'                  => 'Warenkorb löschen',
@@ -331,7 +331,7 @@ $aLang = [
 'button_update'                      => 'Aktualisieren',
 'button_update_cart'                 => 'Warenkorb aktualisieren',
 'button_write_review'                => 'Bewertung schreiben',
-'button_write_a_product_review'	     => 'Schreiben Sie eine Produktrezension',
+'button_write_a_product_review'         => 'Schreiben Sie eine Produktrezension',
 'button_write_first_review'          => 'Schreiben Sie die erste Produktrezension',
 'button_add_quick'                   => 'Schnellkauf!',
 'image_wishlist_delete'              => 'löschen',
@@ -378,16 +378,16 @@ $aLang = [
 'text_more'                  => 'mehr...',
 'text_new'                   => 'NEU',
 'text_sale'                   => 'SALE',
-'text_categories' 			 => 'Kategorien',
+'text_categories'              => 'Kategorien',
 
-'text_no_longer_available'	=> 'Nicht mehr verfügbar',
-'text_replacement_product'	=> 'Es gibt ein Ersatzprodukt',
+'text_no_longer_available'    => 'Nicht mehr verfügbar',
+'text_replacement_product'    => 'Es gibt ein Ersatzprodukt',
 
 'warning_install_directory_exists'           => 'Warnung: Das Installationverzeichnis ist noch vorhanden auf: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install. Bitte löschen Sie das Verzeichnis aus Gründen der Sicherheit!',
 'warning_config_file_writeable'              => 'Warnung: MyOOS [Shopsystem] kann in die Konfigurationsdatei schreiben: ' . dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php. Das stellt ein mögliches Sicherheitsrisiko dar - bitte korrigieren Sie die Benutzerberechtigungen zu dieser Datei!',
 'warning_download_directory_non_existent'    => 'Warnung: Das Verzeichnis für den Artikel Download existiert nicht: ' . OOS_DOWNLOAD_PATH . '. Diese Funktion wird nicht funktionieren bis das Verzeichnis erstellt wurde!',
 
-'info_login_for_wichlist' 			=> 'Sie möchten Ihre Artikel dauerhaft speichern und alle Funktionen des Merkzettels nutzen? Dann melden Sie sich bitte an und wir speichern Ihre Artikel auf Ihrem Merkzettel im Kundenkonto.',
+'info_login_for_wichlist'             => 'Sie möchten Ihre Artikel dauerhaft speichern und alle Funktionen des Merkzettels nutzen? Dann melden Sie sich bitte an und wir speichern Ihre Artikel auf Ihrem Merkzettel im Kundenkonto.',
 
 'text_ccval_error_invalid_date'         => 'Das \'Gültig bis\' Datum ist ungültig.<br>Bitte korrigieren Sie Ihre Angaben.',
 'text_ccval_error_invalid_number'       => 'Die \'KreditkarteNummer\', die Sie angegeben haben, ist ungültig.<br>Bitte korrigieren Sie Ihre Angaben.',
@@ -435,9 +435,9 @@ $aLang = [
 'error_products_quantity_invalid'           => 'Fehler: Menge: ',
 'error_products_quantity_order_units_text'  => '',
 'error_products_units_invalid'              => 'Fehler: Menge ',
-'error_product_has_attributes'				=> 'Dieses Produkt hat Variationen. Wählen Sie bitte die gewünschte Variation aus.',
-'error_product_information_obligation' 		=> 'Bei diesem Produkt haben Sie die Möglichkeit der unentgeltlichen Rücknahme Ihres Altgerätes. Weitere Informationen erhalten Sie hier in den Produktdetials.',
-'error_product_information_used_goods' 		=> 'Bitte bestätigen Sie, dass Sie die Gebrauchtware (B-Ware) Hinweise erhalten haben.',
+'error_product_has_attributes'                => 'Dieses Produkt hat Variationen. Wählen Sie bitte die gewünschte Variation aus.',
+'error_product_information_obligation'         => 'Bei diesem Produkt haben Sie die Möglichkeit der unentgeltlichen Rücknahme Ihres Altgerätes. Weitere Informationen erhalten Sie hier in den Produktdetials.',
+'error_product_information_used_goods'         => 'Bitte bestätigen Sie, dass Sie die Gebrauchtware (B-Ware) Hinweise erhalten haben.',
 
 
 'error_destination_does_not_exist'          => 'Fehler: Speicherort existiert nicht.',
@@ -501,13 +501,13 @@ $aLang = [
 'price_reduced_from'   => 'Statt',
 'price_rrp'            => 'UVP',
 
-'only_until'		=> 'Nur bis zum %s!',
-'text_content' 		=> 'Inhalt',
-'text_base_price'	=> 'Grundpreis',
+'only_until'        => 'Nur bis zum %s!',
+'text_content'         => 'Inhalt',
+'text_base_price'    => 'Grundpreis',
 
 'in_stock'     => 'sofort lieferbar',
 'out_of_stock' => 'später wieder lieferbar',
-'available_from'	=> 'lieferbar ab ca. %s',
+'available_from'    => 'lieferbar ab ca. %s',
 
 'text_info_minimum_order_value' => 'Bitte beachten Sie den Mindestbestellwert von %s',
 'warning_minimum_order_value'   => 'Der Mindestbestellwert von %s wurde noch nicht erreicht. Daher ist aktuell mit diesem Warenkorb keine Bestellung möglich.',

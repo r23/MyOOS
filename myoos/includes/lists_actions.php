@@ -16,7 +16,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $bError = false;
@@ -31,7 +33,7 @@ if (isset($_GET['email_address'])) {
 if (empty($email_address) || !is_string($email_address)) {
     $bError = true;
     $aInfoMessage[] = array('type' => 'danger',
-                'text' => $aLang['error_email_address']	);
+                'text' => $aLang['error_email_address']    );
 }
 
 if (($bError === false) && (!is_email($email_address))) {
@@ -42,7 +44,8 @@ if (($bError === false) && (!is_email($email_address))) {
 
 if (isset($_POST['newsletter'])
     && ($_POST['newsletter'] == 'subscriber')
-    && ($bError === false)) {
+    && ($bError === false)
+) {
     $newsletter_recipients = $oostable['newsletter_recipients'];
     $sql = "SELECT recipients_id
               FROM $newsletter_recipients
@@ -66,7 +69,8 @@ if (isset($_POST['newsletter'])
 
 if (isset($_GET['newsletter'])
     && ($_GET['newsletter'] == 'remove')
-    && ($bError === false)) {
+    && ($bError === false)
+) {
     $newsletter_recipients = $oostable['newsletter_recipients'];
     $sql = "SELECT recipients_id
               FROM $newsletter_recipients
@@ -84,12 +88,14 @@ if (isset($_GET['newsletter'])
         $dbconn->Execute($sql);
 
         $newsletter_recipients_history = $oostable['newsletter_recipients_history'];
-        $dbconn->Execute("INSERT INTO $newsletter_recipients_history 
+        $dbconn->Execute(
+            "INSERT INTO $newsletter_recipients_history 
 					(recipients_id,
 					new_value,
 					date_added) VALUES ('" . intval($recipients_id) . "',
 									  '0',
-                                      now())");
+                                      now())"
+        );
 
         oos_redirect(oos_href_link($aContents['newsletter'], 'unsubscribe=success'));
     } else {

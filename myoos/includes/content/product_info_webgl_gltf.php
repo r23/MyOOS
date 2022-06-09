@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being required by a parent file */
+/**
+ * ensure this file is being required by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (isset($_GET['models_id'])) {
@@ -58,7 +60,7 @@ if (!$products_models_result->RecordCount()) {
     $nPageType = OOS_PAGE_TYPE_MAINPAGE;
     $sPagetitle = '404 Not Found ' . OOS_META_TITLE;
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 
     $oBreadcrumb->add($aLang['navbar_title'], oos_href_link($aContents['products_new']));
 
@@ -67,8 +69,8 @@ if (!$products_models_result->RecordCount()) {
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['text_model_not_found'],
-            'robots'		=> 'noindex,follow,noodp,noydir',
-            'canonical'		=> $sCanonical
+            'robots'        => 'noindex,follow,noodp,noydir',
+            'canonical'        => $sCanonical
         )
     );
 } else {
@@ -84,7 +86,7 @@ if (!$products_models_result->RecordCount()) {
     $url = $name . '/' . $model_info['models_extensions'] . '/' . $model_info['models_webgl_gltf'];
 
     ob_start();
-    require_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/product_info_webgl_gltf.js.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/product_info_webgl_gltf.js.php';
     $webgl = ob_get_contents();
     ob_end_clean();
 
@@ -97,7 +99,7 @@ if (!$products_models_result->RecordCount()) {
 
     $nPageType = OOS_PAGE_TYPE_PRODUCTS;
 
-    require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 
     $smarty->assign('canonical', $sCanonical);
     $smarty->assign('webgl', $webgl);

@@ -21,361 +21,361 @@
 
 <script type="module">
 
-	import * as THREE from './js/three/three.module.js';
+    import * as THREE from './js/three/three.module.js';
 
-	import { GUI } from './jsm/libs/dat.gui.module.js';
-	import { OrbitControls } from './jsm/controls/OrbitControls.js';
-	import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
-	import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
-	import { RGBELoader } from './jsm/loaders/RGBELoader.js';
+    import { GUI } from './jsm/libs/dat.gui.module.js';
+    import { OrbitControls } from './jsm/controls/OrbitControls.js';
+    import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
+    import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
+    import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 
-	let orbitControls;
-	let container, camera, scene, renderer, loader;
-	let gltf, background, envMap, mixer, gui, extensionControls;
+    let orbitControls;
+    let container, camera, scene, renderer, loader;
+    let gltf, background, envMap, mixer, gui, extensionControls;
 
-	const clock = new THREE.Clock();
+    const clock = new THREE.Clock();
 
-			const scenes = {
-				Boombox: {
-					name: '<?php echo $name; ?>',
-					url: './media/models/gltf/<?php echo $url; ?>',
-					author: '<?php echo $model_info['models_author']; ?>',
-					authorURL: '<?php echo $model_info['models_author_url']; ?>',
-					cameraPos: new THREE.Vector3( <?php echo $model_info['models_camera_pos']; ?> ),
-					objectRotation: new THREE.Euler( <?php echo $model_info['models_object_rotation']; ?> ),
-					<?php if ($model_info['models_add_env_map'] == 'true') {
-    echo 'addEnvMap: true,';
-} ?>
-					extensions: [ 'glTF', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-Draco' ]
-				},
-			};
+            const scenes = {
+                Boombox: {
+                    name: '<?php echo $name; ?>',
+                    url: './media/models/gltf/<?php echo $url; ?>',
+                    author: '<?php echo $model_info['models_author']; ?>',
+                    authorURL: '<?php echo $model_info['models_author_url']; ?>',
+                    cameraPos: new THREE.Vector3( <?php echo $model_info['models_camera_pos']; ?> ),
+                    objectRotation: new THREE.Euler( <?php echo $model_info['models_object_rotation']; ?> ),
+                    <?php if ($model_info['models_add_env_map'] == 'true') {
+                        echo 'addEnvMap: true,';
+                    } ?>
+                    extensions: [ 'glTF', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-Draco' ]
+                },
+            };
 
-			const state = {
-				scene: Object.keys( scenes )[ 0 ],
-				extension: scenes[ Object.keys( scenes )[ 0 ] ].extensions[ 0 ],
-				playAnimation: true
-			};
+            const state = {
+                scene: Object.keys( scenes )[ 0 ],
+                extension: scenes[ Object.keys( scenes )[ 0 ] ].extensions[ 0 ],
+                playAnimation: true
+            };
 
-			function onload() {
+            function onload() {
 
-				container = document.getElementById( 'container' );
+                container = document.getElementById( 'container' );
 
-				renderer = new THREE.WebGLRenderer( { antialias: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				renderer.outputEncoding = THREE.sRGBEncoding;
-				renderer.toneMapping = THREE.ACESFilmicToneMapping;
-				renderer.toneMappingExposure = 1;
-				renderer.physicallyCorrectLights = true;
-				container.appendChild( renderer.domElement );
+                renderer = new THREE.WebGLRenderer( { antialias: true } );
+                renderer.setPixelRatio( window.devicePixelRatio );
+                renderer.setSize( window.innerWidth, window.innerHeight );
+                renderer.outputEncoding = THREE.sRGBEncoding;
+                renderer.toneMapping = THREE.ACESFilmicToneMapping;
+                renderer.toneMappingExposure = 1;
+                renderer.physicallyCorrectLights = true;
+                container.appendChild( renderer.domElement );
 
-				window.addEventListener( 'resize', onWindowResize, false );
+                window.addEventListener( 'resize', onWindowResize, false );
 
-				// Load background and generate envMap
+                // Load background and generate envMap
 
-				new RGBELoader()
-					.setPath( 'media/textures/equirectangular/' )
-					.load( '<?php echo $model_info['models_hdr']; ?>', function ( texture ) {
+                new RGBELoader()
+                    .setPath( 'media/textures/equirectangular/' )
+                    .load( '<?php echo $model_info['models_hdr']; ?>', function ( texture ) {
 
-						texture.mapping = THREE.EquirectangularReflectionMapping;
+                        texture.mapping = THREE.EquirectangularReflectionMapping;
 
-						envMap = texture;
-						background = texture;
+                        envMap = texture;
+                        background = texture;
 
-						//
+                        //
 
-						// buildGUI();
-						initScene( scenes[ state.scene ] );
-						animate();
+                        // buildGUI();
+                        initScene( scenes[ state.scene ] );
+                        animate();
 
-					} );
+                    } );
 
-			}
+            }
 
 
-			function initScene( sceneInfo ) {
+            function initScene( sceneInfo ) {
 
-				const descriptionEl = document.getElementById( 'description' );
+                const descriptionEl = document.getElementById( 'description' );
 
-				if ( sceneInfo.author && sceneInfo.authorURL ) {
+                if ( sceneInfo.author && sceneInfo.authorURL ) {
 
-					descriptionEl.innerHTML = sceneInfo.name + ' by <a href="' + sceneInfo.authorURL + '" target="_blank" rel="noopener">' + sceneInfo.author + '</a>';
+                    descriptionEl.innerHTML = sceneInfo.name + ' by <a href="' + sceneInfo.authorURL + '" target="_blank" rel="noopener">' + sceneInfo.author + '</a>';
 
-				}
+                }
 
-				scene = new THREE.Scene();
-				scene.background = new THREE.Color( 0x222222 );
+                scene = new THREE.Scene();
+                scene.background = new THREE.Color( 0x222222 );
 
-				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.001, 1000 );
-				scene.add( camera );
+                camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.001, 1000 );
+                scene.add( camera );
 
-				let spot1;
+                let spot1;
 
-				if ( sceneInfo.addLights ) {
+                if ( sceneInfo.addLights ) {
 
-					const ambient = new THREE.AmbientLight( 0x222222 );
-					scene.add( ambient );
+                    const ambient = new THREE.AmbientLight( 0x222222 );
+                    scene.add( ambient );
 
-					const directionalLight = new THREE.DirectionalLight( 0xdddddd, 4 );
-					directionalLight.position.set( 0, 0, 1 ).normalize();
-					scene.add( directionalLight );
+                    const directionalLight = new THREE.DirectionalLight( 0xdddddd, 4 );
+                    directionalLight.position.set( 0, 0, 1 ).normalize();
+                    scene.add( directionalLight );
 
-					spot1 = new THREE.SpotLight( 0xffffff, 1 );
-					spot1.position.set( 5, 10, 5 );
-					spot1.angle = 0.50;
-					spot1.penumbra = 0.75;
-					spot1.intensity = 100;
-					spot1.decay = 2;
+                    spot1 = new THREE.SpotLight( 0xffffff, 1 );
+                    spot1.position.set( 5, 10, 5 );
+                    spot1.angle = 0.50;
+                    spot1.penumbra = 0.75;
+                    spot1.intensity = 100;
+                    spot1.decay = 2;
 
-					if ( sceneInfo.shadows ) {
+                    if ( sceneInfo.shadows ) {
 
-						spot1.castShadow = true;
-						spot1.shadow.bias = 0.0001;
-						spot1.shadow.mapSize.width = 2048;
-						spot1.shadow.mapSize.height = 2048;
+                        spot1.castShadow = true;
+                        spot1.shadow.bias = 0.0001;
+                        spot1.shadow.mapSize.width = 2048;
+                        spot1.shadow.mapSize.height = 2048;
 
-					}
+                    }
 
-					scene.add( spot1 );
+                    scene.add( spot1 );
 
-				}
+                }
 
-				if ( sceneInfo.shadows ) {
+                if ( sceneInfo.shadows ) {
 
-					renderer.shadowMap.enabled = true;
-					renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+                    renderer.shadowMap.enabled = true;
+                    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-				}
+                }
 
-				// TODO: Reuse existing OrbitControls, GLTFLoaders, and so on
+                // TODO: Reuse existing OrbitControls, GLTFLoaders, and so on
 
-				orbitControls = new OrbitControls( camera, renderer.domElement );
+                orbitControls = new OrbitControls( camera, renderer.domElement );
 
-				if ( sceneInfo.addGround ) {
+                if ( sceneInfo.addGround ) {
 
-					const groundMaterial = new THREE.MeshPhongMaterial( { color: 0xFFFFFF } );
-					const ground = new THREE.Mesh( new THREE.PlaneGeometry( 512, 512 ), groundMaterial );
-					ground.receiveShadow = !! sceneInfo.shadows;
+                    const groundMaterial = new THREE.MeshPhongMaterial( { color: 0xFFFFFF } );
+                    const ground = new THREE.Mesh( new THREE.PlaneGeometry( 512, 512 ), groundMaterial );
+                    ground.receiveShadow = !! sceneInfo.shadows;
 
-					if ( sceneInfo.groundPos ) {
+                    if ( sceneInfo.groundPos ) {
 
-						ground.position.copy( sceneInfo.groundPos );
+                        ground.position.copy( sceneInfo.groundPos );
 
-					} else {
+                    } else {
 
-						ground.position.z = - 70;
+                        ground.position.z = - 70;
 
-					}
+                    }
 
-					ground.rotation.x = - Math.PI / 2;
+                    ground.rotation.x = - Math.PI / 2;
 
-					scene.add( ground );
+                    scene.add( ground );
 
-				}
+                }
 
-				loader = new GLTFLoader();
+                loader = new GLTFLoader();
 
-				const dracoLoader = new DRACOLoader();
-				dracoLoader.setDecoderPath( 'js/libs/draco/gltf/' );
-				loader.setDRACOLoader( dracoLoader );
+                const dracoLoader = new DRACOLoader();
+                dracoLoader.setDecoderPath( 'js/libs/draco/gltf/' );
+                loader.setDRACOLoader( dracoLoader );
 
-				// let url = sceneInfo.url.replace( /%s/g, state.extension );
-				let url = sceneInfo.url;
-				
-				if ( state.extension === 'glTF-Binary' ) {
+                // let url = sceneInfo.url.replace( /%s/g, state.extension );
+                let url = sceneInfo.url;
+                
+                if ( state.extension === 'glTF-Binary' ) {
 
-					url = url.replace( '.gltf', '.glb' );
+                    url = url.replace( '.gltf', '.glb' );
 
-				}
+                }
 
-				const loadStartTime = performance.now();
+                const loadStartTime = performance.now();
 
-				loader.load( url, function ( data ) {
+                loader.load( url, function ( data ) {
 
-					gltf = data;
+                    gltf = data;
 
-					const object = gltf.scene;
+                    const object = gltf.scene;
 
-					// console.info( 'Load time: ' + ( performance.now() - loadStartTime ).toFixed( 2 ) + ' ms.' );
+                    // console.info( 'Load time: ' + ( performance.now() - loadStartTime ).toFixed( 2 ) + ' ms.' );
 
-					if ( sceneInfo.cameraPos ) {
+                    if ( sceneInfo.cameraPos ) {
 
-						camera.position.copy( sceneInfo.cameraPos );
+                        camera.position.copy( sceneInfo.cameraPos );
 
-					}
+                    }
 
-					if ( sceneInfo.center ) {
+                    if ( sceneInfo.center ) {
 
-						orbitControls.target.copy( sceneInfo.center );
+                        orbitControls.target.copy( sceneInfo.center );
 
-					}
+                    }
 
-					if ( sceneInfo.objectPosition ) {
+                    if ( sceneInfo.objectPosition ) {
 
-						object.position.copy( sceneInfo.objectPosition );
+                        object.position.copy( sceneInfo.objectPosition );
 
-						if ( spot1 ) {
+                        if ( spot1 ) {
 
-							spot1.target.position.copy( sceneInfo.objectPosition );
+                            spot1.target.position.copy( sceneInfo.objectPosition );
 
-						}
+                        }
 
-					}
+                    }
 
-					if ( sceneInfo.objectRotation ) {
+                    if ( sceneInfo.objectRotation ) {
 
-						object.rotation.copy( sceneInfo.objectRotation );
+                        object.rotation.copy( sceneInfo.objectRotation );
 
-					}
+                    }
 
-					if ( sceneInfo.objectScale ) {
+                    if ( sceneInfo.objectScale ) {
 
-						object.scale.copy( sceneInfo.objectScale );
+                        object.scale.copy( sceneInfo.objectScale );
 
-					}
+                    }
 
-					if ( sceneInfo.addEnvMap ) {
+                    if ( sceneInfo.addEnvMap ) {
 
-						object.traverse( function ( node ) {
+                        object.traverse( function ( node ) {
 
-							if ( node.material && ( node.material.isMeshStandardMaterial ||
-								 ( node.material.isShaderMaterial && node.material.envMap !== undefined ) ) ) {
+                            if ( node.material && ( node.material.isMeshStandardMaterial ||
+                                 ( node.material.isShaderMaterial && node.material.envMap !== undefined ) ) ) {
 
-								node.material.envMap = envMap;
-								node.material.envMapIntensity = 1.5; // boombox seems too dark otherwise
+                                node.material.envMap = envMap;
+                                node.material.envMapIntensity = 1.5; // boombox seems too dark otherwise
 
-							}
+                            }
 
-						} );
+                        } );
 
-						scene.background = background;
+                        scene.background = background;
 
-					}
+                    }
 
-					object.traverse( function ( node ) {
+                    object.traverse( function ( node ) {
 
-						if ( node.isMesh || node.isLight ) node.castShadow = true;
+                        if ( node.isMesh || node.isLight ) node.castShadow = true;
 
-					} );
+                    } );
 
-					const animations = gltf.animations;				
+                    const animations = gltf.animations;                
 
-					if ( animations && animations.length ) {
+                    if ( animations && animations.length ) {
 
-						mixer = new THREE.AnimationMixer( object );
+                        mixer = new THREE.AnimationMixer( object );
 
-						for ( let i = 0; i < animations.length; i ++ ) {
+                        for ( let i = 0; i < animations.length; i ++ ) {
 
-							const animation = animations[ i ];
+                            const animation = animations[ i ];
 
-							// There's .3333 seconds junk at the tail of the Monster animation that
-							// keeps it from looping cleanly. Clip it at 3 seconds
-							if ( sceneInfo.animationTime ) {
+                            // There's .3333 seconds junk at the tail of the Monster animation that
+                            // keeps it from looping cleanly. Clip it at 3 seconds
+                            if ( sceneInfo.animationTime ) {
 
-								animation.duration = sceneInfo.animationTime;
+                                animation.duration = sceneInfo.animationTime;
 
-							}
+                            }
 
-							const action = mixer.clipAction( animation );
+                            const action = mixer.clipAction( animation );
 
-							if ( state.playAnimation ) action.play();
+                            if ( state.playAnimation ) action.play();
 
-						}
+                        }
 
-					}
+                    }
 
-					scene.add( object );
-					onWindowResize();
+                    scene.add( object );
+                    onWindowResize();
 
-				}, undefined, function ( error ) {
+                }, undefined, function ( error ) {
 
-					console.error( error );
+                    console.error( error );
 
-				} );
+                } );
 
-			}
-			
-			function onWindowResize() {
+            }
+            
+            function onWindowResize() {
 
-				camera.aspect = container.offsetWidth / container.offsetHeight;
-				camera.updateProjectionMatrix();
+                camera.aspect = container.offsetWidth / container.offsetHeight;
+                camera.updateProjectionMatrix();
 
-				renderer.setSize( window.innerWidth, window.innerHeight );
+                renderer.setSize( window.innerWidth, window.innerHeight );
 
-			}
+            }
 
-			function animate() {
+            function animate() {
 
-				requestAnimationFrame( animate );
+                requestAnimationFrame( animate );
 
-				if ( mixer ) mixer.update( clock.getDelta() );
+                if ( mixer ) mixer.update( clock.getDelta() );
 
-				orbitControls.update();
+                orbitControls.update();
 
-				render();
+                render();
 
-			}
+            }
 
-			function render() {
+            function render() {
 
-				renderer.render( scene, camera );
+                renderer.render( scene, camera );
 
-			}			
+            }            
 
-			function buildGUI() {
+            function buildGUI() {
 
-				gui = new GUI( { width: 0 } );
-				gui.domElement.parentElement.style.zIndex = 101;
+                gui = new GUI( { width: 0 } );
+                gui.domElement.parentElement.style.zIndex = 101;
 
-				const sceneCtrl = gui.add( state, 'scene', Object.keys( scenes ) );
-				sceneCtrl.onChange( reload );
+                const sceneCtrl = gui.add( state, 'scene', Object.keys( scenes ) );
+                sceneCtrl.onChange( reload );
 
-				const animCtrl = gui.add( state, 'playAnimation' );
-				animCtrl.onChange( toggleAnimations );
+                const animCtrl = gui.add( state, 'playAnimation' );
+                animCtrl.onChange( toggleAnimations );
 
-				updateGUI();
+                updateGUI();
 
-			}			
+            }            
 
-			function updateGUI() {
+            function updateGUI() {
 
-				if ( extensionControls ) extensionControls.remove();
+                if ( extensionControls ) extensionControls.remove();
 
-				const sceneInfo = scenes[ state.scene ];
+                const sceneInfo = scenes[ state.scene ];
 
-				if ( sceneInfo.extensions.indexOf( state.extension ) === - 1 ) {
+                if ( sceneInfo.extensions.indexOf( state.extension ) === - 1 ) {
 
-					state.extension = sceneInfo.extensions[ 0 ];
+                    state.extension = sceneInfo.extensions[ 0 ];
 
-				}
+                }
 
-				extensionControls = gui.add( state, 'extension', sceneInfo.extensions );
-				extensionControls.onChange( reload );
+                extensionControls = gui.add( state, 'extension', sceneInfo.extensions );
+                extensionControls.onChange( reload );
 
-			}
+            }
 
-			function toggleAnimations() {
+            function toggleAnimations() {
 
-				for ( let i = 0; i < gltf.animations.length; i ++ ) {
+                for ( let i = 0; i < gltf.animations.length; i ++ ) {
 
-					const clip = gltf.animations[ i ];
-					const action = mixer.existingAction( clip );
+                    const clip = gltf.animations[ i ];
+                    const action = mixer.existingAction( clip );
 
-					state.playAnimation ? action.play() : action.stop();
+                    state.playAnimation ? action.play() : action.stop();
 
-				}
+                }
 
-			}
+            }
 
-			function reload() {
+            function reload() {
 
-				if ( loader && mixer ) mixer.stopAllAction();
+                if ( loader && mixer ) mixer.stopAllAction();
 
-				// updateGUI();
-				initScene( scenes[ state.scene ] );
+                // updateGUI();
+                initScene( scenes[ state.scene ] );
 
-			}
+            }
 
-			onload();
+            onload();
 </script>
 

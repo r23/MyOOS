@@ -19,7 +19,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 
@@ -127,31 +129,35 @@ if ($oOrder->delivery['country']['iso_code_2'] != '') {
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_shipping.php';
 $shipping_modules = new shipping();
 
- # if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
+ // if ( defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING == 'true') ) {
 if (defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER') && (MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER > 0)) {
     switch (MODULE_ORDER_TOTAL_SHIPPING_DESTINATION) {
-      case 'national':
+    case 'national':
         if ($oOrder->delivery['country_id'] == STORE_COUNTRY) {
             $pass = true;
-        } break;
+        } 
+        break;
 
-      case 'international':
+    case 'international':
         if ($oOrder->delivery['country_id'] != STORE_COUNTRY) {
             $pass = true;
-        } break;
+        } 
+        break;
 
-      case 'both':
-        $pass = true; break;
+    case 'both':
+        $pass = true; 
+        break;
 
-      default:
-        $pass = false; break;
+    default:
+        $pass = false; 
+        break;
     }
 
     $free_shipping = false;
     if (($pass == true) && ($oOrder->info['subtotal'] >= MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER)) {
         $free_shipping = true;
 
-        require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/modules/order_total/ot_shipping.php';
     }
 } else {
     $free_shipping = false;
@@ -160,8 +166,9 @@ if (defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER') && (MODULE_ORDER_T
 
 
 // process the selected shipping method
-if (isset($_POST['action']) && ($_POST['action'] == 'process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))) {
+if (isset($_POST['action']) && ($_POST['action'] == 'process') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
+) {
     if ((isset($_POST['comments'])) && (is_string($_POST['comments']))) {
         $config = HTMLPurifier_Config::createDefault();
         $purifier = new HTMLPurifier($config);
@@ -234,8 +241,8 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 
@@ -243,17 +250,17 @@ if (!isset($option)) {
 // assign Smarty variables;
 $smarty->assign(
     array(
-        'breadcrumb'		=> $oBreadcrumb->trail(),
-        'heading_title'		=> $aLang['heading_title'],
-        'robots'			=> 'noindex,nofollow,noodp,noydir',
-        'checkout_active'	=> 1,
+        'breadcrumb'        => $oBreadcrumb->trail(),
+        'heading_title'        => $aLang['heading_title'],
+        'robots'            => 'noindex,nofollow,noodp,noydir',
+        'checkout_active'    => 1,
 
-        'sess_method'		=> $module,
+        'sess_method'        => $module,
 
         'counts_shipping_modules' => oos_count_shipping_modules(),
-        'quotes'			=> $quotes,
+        'quotes'            => $quotes,
 
-        'free_shipping'		=> $free_shipping,
+        'free_shipping'        => $free_shipping,
         'oos_free_shipping_description' => sprintf($aLang['free_shipping_description'], $oCurrencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER))
     )
 );

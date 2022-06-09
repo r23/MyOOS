@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (!$oEvent->installed_plugin('reviews')) {
@@ -78,9 +80,10 @@ $product_result = $dbconn->Execute($sql);
 $valid_product = ($product_result->RecordCount() > 0);
 $product_info = $product_result->fields;
 
-if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
-    (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) &&
-    ($valid_product == true)) {
+if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') 
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) 
+    && ($valid_product == true)
+) {
     $review = oos_db_prepare_input($_POST['review']);
     $rating = oos_db_prepare_input($_POST['rating']);
     $headline = oos_db_prepare_input($_POST['headline']);
@@ -135,7 +138,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
 
         $date_now = date('Ymd');
         $reviewstable  = $oostable['reviews'];
-        $dbconn->Execute("INSERT INTO $reviewstable
+        $dbconn->Execute(
+            "INSERT INTO $reviewstable
 							(products_id,
 							customers_id,
 							customers_name,
@@ -150,17 +154,20 @@ if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
 												'" . oos_db_input($rating) . "',
 												now(),
 												'0',
-												'0')");
+												'0')"
+        );
         $insert_id = $dbconn->Insert_ID();
         $reviews_descriptiontable  = $oostable['reviews_description'];
-        $dbconn->Execute("INSERT INTO $reviews_descriptiontable
+        $dbconn->Execute(
+            "INSERT INTO $reviews_descriptiontable
 							(reviews_id,
 							reviews_languages_id,
 							reviews_headline,
 							reviews_text) VALUES ('" . intval($insert_id) . "',
 												'" . intval($nLanguageID) . "',
 												'" . oos_db_input($headline) . "',
-												'" . oos_db_input($review) . "')");
+												'" . oos_db_input($review) . "')"
+        );
 
         $email_subject = 'Review: ' . $product_info['products_name'];
 
@@ -174,7 +181,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') &&
         oos_mail(STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, $email_subject, nl2br($email_text), nl2br($email_text), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS, '');
 
         // clear cache
-        require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
+        include_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
         $smarty = new myOOS_Smarty();
         $smarty->clearCache(null, $sTheme.'|products|reviews');
 
@@ -210,19 +217,19 @@ $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 $smarty->assign(
     array(
-        'breadcrumb'		=> $oBreadcrumb->trail(),
-        'heading_title'		=> $aLang['heading_title'],
-        'canonical'			=> $sCanonical,
+        'breadcrumb'        => $oBreadcrumb->trail(),
+        'heading_title'        => $aLang['heading_title'],
+        'canonical'            => $sCanonical,
 
         'valid_product'     => $valid_product,
         'product_info'      => $product_info,
-        'customers_name'	=> $customers_name
+        'customers_name'    => $customers_name
     )
 );
 

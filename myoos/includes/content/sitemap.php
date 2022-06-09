@@ -18,7 +18,9 @@
    Released under the GNU General Public License
    ---------------------------------------------------------------------- */
 
-/** ensure this file is being included by a parent file */
+/**
+ * ensure this file is being included by a parent file 
+ */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/sitemap.php';
@@ -33,8 +35,8 @@ $nContentCacheID = $sTheme . '|info|' . $sGroup . '|sitemap|' . $sLanguage;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';
 if (!isset($option)) {
-    require_once MYOOS_INCLUDE_PATH . '/includes/message.php';
-    require_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/message.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/blocks.php';
 }
 
 if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
@@ -54,7 +56,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
         array(
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['heading_title'],
-            'canonical'		=> $sCanonical
+            'canonical'        => $sCanonical
         )
     );
 

@@ -20,7 +20,8 @@
    ---------------------------------------------------------------------- */
 /**
  * Smarty plugin
- * @package Smarty
+ *
+ * @package    Smarty
  * @subpackage plugins
  */
 
@@ -36,8 +37,8 @@
 
 function smarty_function_oos_address_label($params, &$smarty)
 {
-    require_once(SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php');
-    require_once(MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.oos_address_format.php');
+    include_once SMARTY_PLUGINS_DIR . 'shared.escape_special_chars.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/lib/smarty-plugins/function.oos_address_format.php';
 
     $customers_id = '';
     $address_id = 1;
