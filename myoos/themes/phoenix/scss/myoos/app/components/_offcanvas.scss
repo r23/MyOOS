@@ -38,3 +38,51 @@
   margin: 0;
   font-size: $offcanvas-title-font-size;
 }
+
+// Cart Entries 
+.cart-entries {
+  .cart-entry-thumb {
+    display: block;
+    position: relative;
+    width: 4rem;
+    margin-right: .75rem;
+    > a {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+    }
+    .item-remove-btn {
+      position: absolute;
+      top: -($item-remove-btn-size / 3);
+      right: -($item-remove-btn-size / 3);
+    }
+  }
+  .cart-entry-title {
+    margin: 0.175rem 0 .25rem 0;
+    font: {
+      font-size: 0.9375rem;
+      weight: 600;
+    }
+    > a {
+      display: block;
+      color: #222;
+    }
+    & + .star-rating {
+      margin-top: -.75rem;
+      & + .featured-entry-meta {
+        margin-top: -.25rem;
+      }
+    }
+  }
+  .cart-entry-meta {
+    margin-bottom: 0;
+    font-size: 0.875rem;
+  }
+  .media {
+    margin-bottom: $spacer;
+    padding-top: .25rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
