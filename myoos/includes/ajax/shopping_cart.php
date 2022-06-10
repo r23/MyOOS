@@ -130,18 +130,15 @@ if (isset($_SESSION)) {
                 }
 
                 $aData['content'] .= '<div class="text-right"><button id="clear-cart" type="button" class="btn btn-link"><i class="fa fa-remove" aria-hidden="true"></i> ' . $aLang['text_clear_cart'] . '</button></div>' . "\n";
-                $aData['content'] .= '<div id="cart-item-refresh" class="widget widget-featured-entries pt-3">' . "\n";
+                $aData['content'] .= '<div id="cart-item-refresh" class="cart-entries pt-3">' . "\n";
 
                 for ($i=0, $n=count($products); $i<$n; $i++) {
                     $aData['content'] .= '<div class="media"><!-- cart item -->' . "\n";
-                    $aData['content'] .= '  <div class="featured-entry-thumb mr-3"><a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">' . "\n";
+                    $aData['content'] .= '  <div class="cart-entry-thumb mr-3"><a href="' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">' . "\n";
                     $aData['content'] .= '    ' . oos_image($basedir . $products[$i]['image'], $products[$i]['name']) . "\n";
                     $aData['content'] .= '     </a></div>' . "\n";
                     $aData['content'] .= '   <div class="media-body">' . "\n";
-                    $aData['content'] .= '     <h6 class="featured-entry-title"><a href=" ' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">' . $products[$i]['quantity'] . '<span class="text-muted">x</span>&nbsp;' . $products[$i]['name']  . '</a></h6>' . "\n";
-
-
-
+                    $aData['content'] .= '     <h6 class="cart-entry-title"><a href=" ' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">' . $products[$i]['quantity'] . '<span class="text-muted">x</span>&nbsp;' . $products[$i]['name']  . '</a></h6>' . "\n";
 
                     // Product options names
                     if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
@@ -160,8 +157,14 @@ if (isset($_SESSION)) {
                             }
                         }
                     }
-
-                    $aData['content'] .='     <p class="featured-entry-meta text-right">' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '*</p>' . "\n";
+					
+					/*
+							{if $cart_products.products_base_price != 1}
+						$aData['content'] .='     			<p class="cart-entry-meta">' . $aLang['text_content'] {$cart_products.products_product_quantity|cut_number}&nbsp;{$products_units[$cart_products.products_units_id].0}. '</p>' . "\n";
+						$aData['content'] .='     			<p class="cart-entry-meta">' . $aLang['text_base_price'] {$products_units[$cart_products.products_units_id].1} = {$cart_products.base_product_price}. '*</p>' . "\n";
+							{/if}
+					*/
+                    $aData['content'] .='     <p class="cart-entry-meta text-right">' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '*</p>' . "\n";
                     $aData['content'] .='   </div>' . "\n";
                     $aData['content'] .='   <div class="text-right"><span class="item-remove-btn" data-id="' . $products[$i]['id'] . '" role="button"> <i class="fa fa-trash" aria-hidden="true"></i></span></div>' . "\n";
                     $aData['content'] .='</div>	<!-- /cart item -->' . "\n";
