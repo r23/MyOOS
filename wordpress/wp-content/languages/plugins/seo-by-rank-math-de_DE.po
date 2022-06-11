@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-06-02 13:20:01+0000\n"
+"PO-Revision-Date: 2022-06-10 20:03:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4507,10 +4507,6 @@ msgstr "Andere"
 msgid "Webmaster Tools"
 msgstr "Webmaster-Tools"
 
-#: includes/admin/class-option-center.php:59
-msgid "Breadcrumbs"
-msgstr "Breadcrumbs"
-
 #: includes/modules/image-seo/class-admin.php:45
 #: includes/modules/sitemap/sitemap-xsl.php:308
 #: assets/admin/js/rank-math-app.js:1
@@ -8073,6 +8069,10 @@ msgstr "Mehrfachaktionen"
 #: assets/admin/js/rank-math-app.js:1
 msgid "Redirect"
 msgstr "Weiterleitung"
+
+#: includes/admin/class-option-center.php:59
+msgid "Breadcrumbs"
+msgstr "Brotkrümelnavigation"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
