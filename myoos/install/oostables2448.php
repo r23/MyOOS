@@ -49,12 +49,14 @@ function idxsql($idxname, $table, $idxflds)
 }
 
 
-
 $table = $prefix_table . 'products_video';
 $flds = "
   video_id I I NOTNULL AUTO PRIMARY,
   products_id I NOTNULL DEFAULT '1' PRIMARY,
   video_source C(255) NULL,
+  video_mp4 C(255) NULL,
+  video_webm C(255) NULL,
+  video_ogv C(255) NULL,  
   video_poster C(255) NULL,
   video_preload C(10) DEFAULT 'auto',
   video_data_setup C(255) NULL,
@@ -74,3 +76,7 @@ $flds = "
 ";
 dosql($table, $flds);
 
+
+$idxname = 'idx_video_title';
+$idxflds = 'video_title';
+idxsql($idxname, $table, $idxflds);

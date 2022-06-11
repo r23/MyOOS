@@ -118,9 +118,16 @@ if (!empty($action)) {
                         $ext = oos_get_suffix($filename);
                         if ($ext == 'avi') {
                                 
-                            $poster = $name . '.jpg';                            
+                            $poster = $name . '.jpg'; 
+							$video_mp4 = $name . '-x264.mp4';
+							$video_webm = $name . '-webm.webm';
+							$video_ogv = $name . '-ogg.ogv';
+							
                             $sql_data_array = ['video_source' => oos_db_prepare_input($name),
-                            'video_poster' => oos_db_prepare_input($poster)];
+												'video_mp4' => oos_db_prepare_input($video_mp4),
+												'video_webm' => oos_db_prepare_input($video_webm),
+												'video_ogv' => oos_db_prepare_input($video_ogv),
+												'video_poster' => oos_db_prepare_input($poster)];
 
                             oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');                                
                                 
