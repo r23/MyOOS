@@ -716,7 +716,7 @@ class shoppingCart
 
     public function get_products()
     {
-        global $aUser;
+        global $aUser, $oCurrencies;
 
         if (!is_array($this->contents)) {
             return false;
@@ -735,8 +735,9 @@ class shoppingCart
             $productstable = $oostable['products'];
             $products_descriptiontable = $oostable['products_description'];
             $sql = "SELECT p.products_id, pd.products_name, pd.products_essential_characteristics, p.products_image, p.products_model, 
-						p.products_ean, p.products_price, p.products_weight, p.products_tax_class_id, p.products_quantity, 
-						p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_old_electrical_equipment
+						p.products_ean, p.products_price, p.products_base_price,  p.products_product_quantity, p.products_units_id, 
+						p.products_base_unit, p.products_weight, p.products_tax_class_id, p.products_quantity, p.products_quantity_order_min, 
+						p.products_quantity_order_max, p.products_quantity_order_units, p.products_old_electrical_equipment
 					FROM $productstable p,
 						$products_descriptiontable pd
 					WHERE p.products_setting >= '1' AND 
@@ -790,27 +791,44 @@ class shoppingCart
 
                 $final_price = $products_price + $this->attributes_price($products_id);
 
+
+                $base_product_price = null;
+                $products_product_quantity = null;
+                $cart_base_product_price = null;
+
+
+                if ($products['products_base_price'] != 1) {
+                    $base_product_price = $products_price;
+                    $products_product_quantity = $products['products_product_quantity'];
+                    $cart_base_product_price = $oCurrencies->display_price($base_product_price * $products['products_base_price'], oos_get_tax_rate($products['products_tax_class_id']));
+                }
+
+
                 $aProducts[] = ['id' => $products_id,
-                                    'name' => $products['products_name'],
-                                    'essential_characteristics' => $products['products_essential_characteristics'],
-                                    'model' => $model,
-                                    'image' => $image,
-                                    'ean' => $products['products_ean'],
-                                    'products_quantity_order_min' => $products['products_quantity_order_min'],
-                                    'products_quantity_order_max' => $products['products_quantity_order_max'],
-                                    'products_quantity_order_units' => $products['products_quantity_order_units'],
-                                    'price' => $products_price,
-                                    'spezial' => $bSpezialPrice,
-                                    'quantity' => $this->contents[$products_id]['qty'],
-                                    'stock' => $products['products_quantity'],
-                                    'weight' => $products['products_weight'],
-                                    'final_price' => $final_price,
-                                    'tax_class_id' => $products['products_tax_class_id'],
-                                    'attributes' => (isset($this->contents[$products_id]['attributes']) ? $this->contents[$products_id]['attributes'] : ''),
-                                    'attributes_values' => (isset($this->contents[$products_id]['attributes_values']) ? $this->contents[$products_id]['attributes_values'] : ''),
-                                    'old_electrical_equipment' => $products['products_old_electrical_equipment'],
-                                    'return_free_of_charge' => (isset($this->contents[$products_id]['return_free_of_charge']) ? $this->contents[$products_id]['return_free_of_charge'] : ''),
-                                    'towlid' => $this->contents[$products_id]['towlid']];
+                'name' => $products['products_name'],
+                'essential_characteristics' => $products['products_essential_characteristics'],
+                'model' => $model,
+                'image' => $image,
+                'ean' => $products['products_ean'],
+                'products_quantity_order_min' => $products['products_quantity_order_min'],
+                'products_quantity_order_max' => $products['products_quantity_order_max'],
+                'products_quantity_order_units' => $products['products_quantity_order_units'],
+                'price' => $products_price,
+                'spezial' => $bSpezialPrice,
+                'quantity' => $this->contents[$products_id]['qty'],
+                'stock' => $products['products_quantity'],
+                'weight' => $products['products_weight'],
+                'final_price' => $final_price,
+                'tax_class_id' => $products['products_tax_class_id'],
+                'products_base_price' => $products['products_base_price'],
+                'base_product_price' => $cart_base_product_price,
+                'products_product_quantity' => $products_product_quantity,
+                'products_units_id' => $products['products_units_id'],
+                'attributes' => (isset($this->contents[$products_id]['attributes']) ? $this->contents[$products_id]['attributes'] : ''),
+                'attributes_values' => (isset($this->contents[$products_id]['attributes_values']) ? $this->contents[$products_id]['attributes_values'] : ''),
+                'old_electrical_equipment' => $products['products_old_electrical_equipment'],
+                'return_free_of_charge' => (isset($this->contents[$products_id]['return_free_of_charge']) ? $this->contents[$products_id]['return_free_of_charge'] : ''),
+                'towlid' => $this->contents[$products_id]['towlid']];
             } else {
                 // product not found
                 // remove from database

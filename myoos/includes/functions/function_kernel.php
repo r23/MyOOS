@@ -1697,7 +1697,6 @@ function oos_strip_suffix($filename)
 }
 
 
-
 /**
  * Strip non-alpha & non-numeric except ._-:
  *
@@ -1710,6 +1709,24 @@ function oos_strip_all($sStr)
     $sStr = strtolower($sStr);
 
     return preg_match("/[^[:alnum:]._-]/", "", $sStr);
+}
+
+
+/**
+ * remove digits after the comma
+ *
+ * @param  $number
+ * @return int
+ */
+function oos_cut_number($number)
+{
+    $number = explode(".", $number, 2);
+
+    if ($number[1] == '0000') {
+        return $number[0];
+    }
+
+    return $number;
 }
 
 

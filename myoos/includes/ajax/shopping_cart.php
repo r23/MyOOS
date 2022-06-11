@@ -157,14 +157,14 @@ if (isset($_SESSION)) {
                             }
                         }
                     }
-					
-					/*
-							{if $cart_products.products_base_price != 1}
-						$aData['content'] .='     			<p class="cart-entry-meta">' . $aLang['text_content'] {$cart_products.products_product_quantity|cut_number}&nbsp;{$products_units[$cart_products.products_units_id].0}. '</p>' . "\n";
-						$aData['content'] .='     			<p class="cart-entry-meta">' . $aLang['text_base_price'] {$products_units[$cart_products.products_units_id].1} = {$cart_products.base_product_price}. '*</p>' . "\n";
-							{/if}
-					*/
-                    $aData['content'] .='     <p class="cart-entry-meta text-right">' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '*</p>' . "\n";
+                    
+                    $products_product_quantity = null;
+                    if  ($products[$i]['products_base_price'] != 1) {
+                        $products_product_quantity = oos_cut_number($products[$i]['products_product_quantity'])
+                        $aData['content'] .='     			<p class="cart-entry-meta">' . $aLang['text_content']  . $products_product_quantity  .'&nbsp;' . {$products_units[$cart_products.products_units_id].0}. '</p>' . "\n";
+                        $aData['content'] .='     			<p class="cart-entry-meta">' . $aLang['text_base_price'] . {$products_units[$cart_products.products_units_id].1} . '=' . {$cart_products.base_product_price}. '*</p>' . "\n";
+                    }
+                    $aData['content'] .='     <p class="cart-entry-meta text-right"><strong>' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '*</strong></p>' . "\n";
                     $aData['content'] .='   </div>' . "\n";
                     $aData['content'] .='   <div class="text-right"><span class="item-remove-btn" data-id="' . $products[$i]['id'] . '" role="button"> <i class="fa fa-trash" aria-hidden="true"></i></span></div>' . "\n";
                     $aData['content'] .='</div>	<!-- /cart item -->' . "\n";
