@@ -38,35 +38,35 @@
    ---------------------------------------------------------------------- */
 
 
-  function oos_httpCoreDir()
-  {
-      if (!empty($_SERVER['SCRIPT_FILENAME'])) {
-          return dirname($_SERVER['SCRIPT_FILENAME']) . '/';
-      }
-      return $_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER['PHP_SELF']) . '/';
-  }
+function oos_httpCoreDir()
+{
+    if (!empty($_SERVER['SCRIPT_FILENAME'])) {
+        return dirname($_SERVER['SCRIPT_FILENAME']) . '/';
+    }
+    return $_SERVER['DOCUMENT_ROOT'] . dirname($_SERVER['PHP_SELF']) . '/';
+}
 
 
-  function oos_realpath($directory)
-  {
-      return str_replace('\\', '/', realpath($directory));
-  }
+function oos_realpath($directory)
+{
+    return str_replace('\\', '/', realpath($directory));
+}
 
 
-  function oos_guessInput($name, $values, $default='')
-  {
-      $selection = '<select name="'. $name .'">';
-      foreach ($values as $k=>$v) {
-          $selection .= '<option value="' . $k . '"';
-          if ($default == $k) {
-              $selection .= ' selected="selected"';
-          }
-          $selection .= '>'. $v . '</option> ';
-      }
-      $selection .= '</select>';
+function oos_guessInput($name, $values, $default='')
+{
+    $selection = '<select name="'. $name .'">';
+    foreach ($values as $k=>$v) {
+        $selection .= '<option value="' . $k . '"';
+        if ($default == $k) {
+            $selection .= ' selected="selected"';
+        }
+        $selection .= '>'. $v . '</option> ';
+    }
+    $selection .= '</select>';
 
-      return  $selection;
-  }
+    return  $selection;
+}
 
 
 
@@ -168,8 +168,8 @@ function print_FormTmpServer()
         ' </tr>' . "\n";
     if ($_POST['tmpsession'] == 'db') {
         echo  ' <tr>' . "\n" .
-     '   <td align="left"><font class="oos-normal">' . TMP_CONFIG_VIRTUAL_5 . '</font></td>' . "\n" .
-     '   <td><font class="oos-normal">' . $session_crypt . '</font></td>' . "\n" .
+        '   <td align="left"><font class="oos-normal">' . TMP_CONFIG_VIRTUAL_5 . '</font></td>' . "\n" .
+        '   <td><font class="oos-normal">' . $session_crypt . '</font></td>' . "\n" .
            ' </tr>' . "\n";
     }
     echo ' <tr>' . "\n" .
@@ -463,7 +463,7 @@ function print_oosFinish()
     echo '<form action="step.php" method="post">';
     echo '<center><textarea name="license" cols=50 rows=8>';
 
-    include("credits.txt");
+    include "credits.txt";
 
     echo '</textarea></form>';
     echo '<br /><br />' . FINISH_3 . '<br /></font>';

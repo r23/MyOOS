@@ -29,7 +29,7 @@ if (!$prefix_table == '') {
     $prefix_table = $prefix_table . '_';
 }
 
-include_once 'oostables2448.php';
+require_once 'oostables2448.php';
 
 $table = $prefix_table . 'orders_products';
 $result = $db->Execute("ALTER TABLE  " . $table . " ADD `products_old_electrical_equipment` TINYINT NOT NULL DEFAULT '0' AFTER `products_serial_number`");

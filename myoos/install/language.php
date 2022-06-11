@@ -37,7 +37,9 @@
    Purpose of file: Provide ML functionality for the installer.
    ---------------------------------------------------------------------- */
 
-/** Loads the required language file for the installer **/
+/**
+ * Loads the required language file for the installer 
+ **/
 function installer_get_language()
 {
     global $currentlang;
@@ -51,65 +53,65 @@ function installer_get_language()
 }
 
 // Make common language selection dropdown (from Tim Litwiller)
-   function lang_dropdown()
-   {
-       global $currentlang;
+function lang_dropdown()
+{
+    global $currentlang;
 
-       $locale_dir = './locales/';
-       $lang = languagelist();
-       $langlist = [];
+    $locale_dir = './locales/';
+    $lang = languagelist();
+    $langlist = [];
 
-       if (is_dir($locale_dir)) {
-           if ($dh = opendir($locale_dir)) {
-               while (($file = readdir($dh)) !== false) {
-                   if ($file == '.' || $file == '..' || $file == 'CVS' || filetype($locale_dir . $file) == 'dir') {
-                       continue;
-                   }
-                   $sContent = substr($file, 0, -4);
-                   if (is_file($locale_dir . $file) && @$lang[$sContent]) {
-                       $langlist[$sContent] = $lang[$sContent];
-                   }
-               }
-               closedir($dh);
-           }
-       }
-       asort($langlist);
+    if (is_dir($locale_dir)) {
+        if ($dh = opendir($locale_dir)) {
+            while (($file = readdir($dh)) !== false) {
+                if ($file == '.' || $file == '..' || $file == 'CVS' || filetype($locale_dir . $file) == 'dir') {
+                    continue;
+                }
+                $sContent = substr($file, 0, -4);
+                if (is_file($locale_dir . $file) && @$lang[$sContent]) {
+                    $langlist[$sContent] = $lang[$sContent];
+                }
+            }
+            closedir($dh);
+        }
+    }
+    asort($langlist);
 
-       $selection = '<select name="alanguage" class="ow-text">';
-       foreach ($langlist as $k=>$v) {
-           $selection .= '<option value="' . $k . '"';
-           if ($currentlang == $k) {
-               $selection .= ' selected';
-           }
-           $selection .= '>'. $v . '</option> ';
-       }
-       $selection .= '</select>';
+    $selection = '<select name="alanguage" class="ow-text">';
+    foreach ($langlist as $k=>$v) {
+        $selection .= '<option value="' . $k . '"';
+        if ($currentlang == $k) {
+            $selection .= ' selected';
+        }
+        $selection .= '>'. $v . '</option> ';
+    }
+    $selection .= '</select>';
 
-       return $selection;
-   }
+    return $selection;
+}
 
 
 // list of all availabe languages (from Patrick Kellum <webmaster@ctarl-ctarl.com>)
-   function languagelist()
-   {
-       $lang['en_US'] = LANGUAGE_ENG . ' (en_US)'; // English
+function languagelist()
+{
+    $lang['en_US'] = LANGUAGE_ENG . ' (en_US)'; // English
     $lang['de_DE'] = LANGUAGE_DEU . ' (de_DE)'; // German
     /*
-      $lang['nl_NL'] = LANGUAGE_NLD . ' (nl_NL)'; // Dutch
-      $lang['en_US'] = LANGUAGE_ENG . ' (en_US)'; // English
-      $lang['de_DE'] = LANGUAGE_DEU . ' (de_DE)'; // German
+    $lang['nl_NL'] = LANGUAGE_NLD . ' (nl_NL)'; // Dutch
+    $lang['en_US'] = LANGUAGE_ENG . ' (en_US)'; // English
+    $lang['de_DE'] = LANGUAGE_DEU . ' (de_DE)'; // German
 
-      $lang['dan'] = LANGUAGE_DAN; // Danish
-      $lang['fin'] = LANGUAGE_FIN; // Finnish
-      $lang['fra'] = LANGUAGE_FRA; // French
-      $lang['ita'] = LANGUAGE_ITA; // Italian
-      $lang['nor'] = LANGUAGE_NOR; // Norwegian
-      $lang['por'] = LANGUAGE_POR; // Portuguese
-      $lang['pol'] = LANGUAGE_POL; // Polish
-      $lang['slv'] = LANGUAGE_SLV; // Slovenian
-      $lang['spa'] = LANGUAGE_SPA; // Spanish
-      $lang['swe'] = LANGUAGE_SWE; // Swedish
+    $lang['dan'] = LANGUAGE_DAN; // Danish
+    $lang['fin'] = LANGUAGE_FIN; // Finnish
+    $lang['fra'] = LANGUAGE_FRA; // French
+    $lang['ita'] = LANGUAGE_ITA; // Italian
+    $lang['nor'] = LANGUAGE_NOR; // Norwegian
+    $lang['por'] = LANGUAGE_POR; // Portuguese
+    $lang['pol'] = LANGUAGE_POL; // Polish
+    $lang['slv'] = LANGUAGE_SLV; // Slovenian
+    $lang['spa'] = LANGUAGE_SPA; // Spanish
+    $lang['swe'] = LANGUAGE_SWE; // Swedish
     */
-//    end of list
-       return $lang;
-   }
+    //    end of list
+    return $lang;
+}

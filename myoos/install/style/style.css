@@ -77,11 +77,11 @@ A:hover {
 }
 
 .oos-title {
-	color: #009933;
-	FONT-WEIGHT: bold;
-	text-decoration: none;
-	font-size: 14px;
-	text-indent: 2px;
+    color: #009933;
+    FONT-WEIGHT: bold;
+    text-decoration: none;
+    font-size: 14px;
+    text-indent: 2px;
 }
 
 .oos-error {
@@ -137,29 +137,29 @@ TD.smallText, SPAN.smallText, P.smallText {
 }
 
 .block_head {
-	font-weight: bold;
-	color: #009900;
-	background-image: url(../images/bg.png);
-	background-repeat: repeat;
+    font-weight: bold;
+    color: #009900;
+    background-image: url(../images/bg.png);
+    background-repeat: repeat;
 }
 
 .block_head_background {
-	font-weight: bold;
-	color: #009900;
-	background-image: url(../images/tbl_head_background.png);
-	background-repeat: repeat;
+    font-weight: bold;
+    color: #009900;
+    background-image: url(../images/tbl_head_background.png);
+    background-repeat: repeat;
 }
 
 .block_content_backgr_left {
-	background-image: url(../images/tbl_inh_backgrd_left.png);
-	background-repeat: repeat;
-	background-position: left top;
+    background-image: url(../images/tbl_inh_backgrd_left.png);
+    background-repeat: repeat;
+    background-position: left top;
 }
 
 .block_content_backgr_right {
-	background-image: url(../images/tbl_inh_backgrd_right.png);
-	background-repeat: repeat;
-	background-position: right top;
+    background-image: url(../images/tbl_inh_backgrd_right.png);
+    background-repeat: repeat;
+    background-position: right top;
 }
 
 .licensetext {

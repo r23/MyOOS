@@ -37,19 +37,21 @@
    Purpose of file: Provide common db functions for the installer.
    ---------------------------------------------------------------------- */
 
-  /*** Connect to Database ***/
-  function oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype='mysql')
-  {
-      global $db;
+  /***
+   * Connect to Database 
+   ***/
+function oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype='mysql')
+{
+    global $db;
 
-      $db = ADONewConnection($dbtype);
-      $dbh = $db->Connect($dbhost, $dbuname, $dbpass, $dbname);
-      if (!$dbh) {
-          $dbpass = "";
-          die("$dbtype://$dbuname:$dbpass@$dbhost/$dbname failed to connect" . $db->ErrorMsg());
-      }
-      global $ADODB_FETCH_MODE;
-      $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
+    $db = ADONewConnection($dbtype);
+    $dbh = $db->Connect($dbhost, $dbuname, $dbpass, $dbname);
+    if (!$dbh) {
+        $dbpass = "";
+        die("$dbtype://$dbuname:$dbpass@$dbhost/$dbname failed to connect" . $db->ErrorMsg());
+    }
+    global $ADODB_FETCH_MODE;
+    $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
-      return true;
-  }
+    return true;
+}

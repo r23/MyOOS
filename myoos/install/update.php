@@ -58,9 +58,9 @@ require_once '../includes/version.php';
 
 // Set the local configuration parameters - mainly for developers
 if (is_readable('../includes/local/configure.php')) {
-    require_once '../includes/local/configure.php';
+    include_once '../includes/local/configure.php';
 } else {
-    require_once '../includes/configure.php';
+    include_once '../includes/configure.php';
 }
 
 
@@ -68,7 +68,7 @@ if (!defined('MYOOS_INCLUDE_PATH')) {
     define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
 }
 
-$autoloader = require_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
+$autoloader = include_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
 
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_kernel.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
@@ -86,19 +86,19 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
   $prefix_table = OOS_DB_PREFIX;
 
   // Decode encoded DB parameters
-  if (OOS_ENCODED == '1') {
-      $dbuname = base64_decode(OOS_DB_USERNAME);
-      $dbpass = base64_decode(OOS_DB_PASSWORD);
-  } else {
-      $dbuname = OOS_DB_USERNAME;
-      $dbpass = OOS_DB_PASSWORD;
-  }
+if (OOS_ENCODED == '1') {
+    $dbuname = base64_decode(OOS_DB_USERNAME);
+    $dbpass = base64_decode(OOS_DB_PASSWORD);
+} else {
+    $dbuname = OOS_DB_USERNAME;
+    $dbpass = OOS_DB_PASSWORD;
+}
 
-  if (isset($_POST)) {
-      foreach ($_POST as $k=>$v) {
-          $$k = oos_prepare_input($v);
-      }
-  }
+if (isset($_POST)) {
+    foreach ($_POST as $k=>$v) {
+        $$k = oos_prepare_input($v);
+    }
+}
 
   installer_get_language();
 
@@ -110,121 +110,121 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_template.php';
  */
  switch (@$op) {
 
-    case "Finish":
-      print_oosFinish();
-      break;
+case "Finish":
+    print_oosFinish();
+    break;
 
-    case "myOOS 2.4.48":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2448($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.48":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2448($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
 
-    case "myOOS 2.4.47":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2447($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.47":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2447($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
 
-    case "myOOS 2.4.46":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2446($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.46":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2446($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
 
-    case "myOOS 2.4.45":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2445($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.45":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2445($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
-    case "myOOS 2.4.40":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2440($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
-    break;
-
-
-    case "myOOS 2.4.39":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2439($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
-    break;
-
-    case "myOOS 2.4.38":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2438($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.40":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2440($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
 
-    case "myOOS 2.4.34":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2434($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.39":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2439($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
-    case "myOOS 2.4.33":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2433($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
-    break;
-
-
-    case "myOOS 2.4.26":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2426($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.38":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2438($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
 
-    case "myOOS 2.4.20":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2420($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.34":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2434($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
+    break;
+
+case "myOOS 2.4.33":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2433($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
 
-    case "myOOS 2.4.16":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2416($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.26":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2426($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
 
-    case "myOOS 2.4.3":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade243($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.20":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2420($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
 
-    case "myOOS 2.4.1":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade241($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.16":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2416($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
 
-    case "myOOS 2.3.12":
-      oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-      oosDoUpgrade2312($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-      print_Next();
+case "myOOS 2.4.3":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade243($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
     break;
 
-    default:
 
-        $smarty = new myOOS_Smarty();
+case "myOOS 2.4.1":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade241($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
+    break;
 
-        $smarty->force_compile   = true;
-        $smarty->clearAllCache();
-        $smarty->clearCompiledTemplate();
 
-        print_SelectOOS();
-        break;
-  }
+case "myOOS 2.3.12":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2312($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
+    break;
 
-require 'footer.php';
+default:
+
+    $smarty = new myOOS_Smarty();
+
+    $smarty->force_compile   = true;
+    $smarty->clearAllCache();
+    $smarty->clearCompiledTemplate();
+
+    print_SelectOOS();
+    break;
+ }
+
+ require 'footer.php';

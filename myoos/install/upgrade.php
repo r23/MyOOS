@@ -47,93 +47,93 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 function oosDoUpgrade2312($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2312.php");
+    include "oos2312.php";
 }
 
 function oosDoUpgrade241($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos241.php");
+    include "oos241.php";
 }
 
 function oosDoUpgrade243($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos243.php");
+    include "oos243.php";
 }
 
 function oosDoUpgrade2416($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2416.php");
+    include "oos2416.php";
 }
 
 function oosDoUpgrade2420($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2420.php");
+    include "oos2420.php";
 }
 
 function oosDoUpgrade2426($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2426.php");
+    include "oos2426.php";
 }
 
 
 function oosDoUpgrade2433($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2433.php");
+    include "oos2433.php";
 }
 
 function oosDoUpgrade2434($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2434.php");
+    include "oos2434.php";
 }
 
 function oosDoUpgrade2438($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2438.php");
+    include "oos2438.php";
 }
 
 function oosDoUpgrade2439($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2439.php");
+    include "oos2439.php";
 }
 
 
 function oosDoUpgrade2440($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2440.php");
+    include "oos2440.php";
 }
 
 function oosDoUpgrade2445($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2445.php");
+    include "oos2445.php";
 }
 
 function oosDoUpgrade2446($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2446.php");
+    include "oos2446.php";
 }
 
 function oosDoUpgrade2447($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2447.php");
+    include "oos2447.php";
 }
 
 function oosDoUpgrade2448($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype)
 {
     global $db, $currentlang, $update;
-    include("oos2448.php");
+    include "oos2448.php";
 }
 
 
@@ -174,7 +174,7 @@ function print_SelectOOS()
        '    <input type="radio" id="2447" name="op" value="myOOS 2.4.47">' . "\n" .
        '   <label for="2447"> myOOS 2.4.47</label> ' . "\n" .
        '    <input type="radio" id="2448" name="op" value="myOOS 2.4.48">' . "\n" .
-       '   <label for="2448"> myOOS 2.4.48</label> ' . "\n" .	   
+       '   <label for="2448"> myOOS 2.4.48</label> ' . "\n" .       
        ' </fieldset>' . "\n";
     print_FormHidden();
     echo '<table width="50%" align="center">' . "\n" .

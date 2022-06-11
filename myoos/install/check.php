@@ -108,7 +108,7 @@ function oosCheckPHP()
   <td>Session save path</td>
   <td align="left">
   <b><?php echo(($sp=ini_get('session.save_path')) ? $sp : 'Not set'); ?></b>,
-  <?php echo is_writable($sp) ? '<b><font color="green">Writeable</font></b>' : '<b><font color="red">Unwriteable</font></b>'; ?>
+    <?php echo is_writable($sp) ? '<b><font color="green">Writeable</font></b>' : '<b><font color="red">Unwriteable</font></b>'; ?>
   </td>
 </tr>
 </table>
@@ -124,16 +124,16 @@ function oosCheckPHP()
   <td>Safe Mode:</td>
   <td class="toggle">OFF</td>
   <td>
-<?php
-  if (oosGetPHPSetting('safe_mode') == 'OFF') {
-      ?>
+    <?php
+    if (oosGetPHPSetting('safe_mode') == 'OFF') {
+        ?>
     <font color="green"><b>
-<?php
-  } else {
-      ?>
+        <?php
+    } else {
+        ?>
     <font color="red"><b>
-<?php
-  }
+        <?php
+    }
     echo oosGetPHPSetting('safe_mode'); ?>
   </b></font><td>
 </tr>
@@ -141,16 +141,16 @@ function oosCheckPHP()
   <td>Display Errors:</td>
   <td class="toggle">OFF</td>
   <td>
-<?php
-  if (oosGetPHPSetting('display_errors') == 'OFF') {
-      ?>
+    <?php
+    if (oosGetPHPSetting('display_errors') == 'OFF') {
+        ?>
     <font color="green"><b>
-<?php
-  } else {
-      ?>
+        <?php
+    } else {
+        ?>
     <font color="red" style="bold"><b>
-<?php
-  }
+        <?php
+    }
     echo oosGetPHPSetting('display_errors'); ?>
   </b></font></td>
 </tr>
@@ -158,16 +158,16 @@ function oosCheckPHP()
   <td>File Uploads:</td>
   <td class="toggle">ON</td>
   <td>
-<?php
-  if (oosGetPHPSetting('file_uploads') == 'ON') {
-      ?>
+    <?php
+    if (oosGetPHPSetting('file_uploads') == 'ON') {
+        ?>
     <font color="green"><b>
-<?php
-  } else {
-      ?>
+        <?php
+    } else {
+        ?>
     <font color="red" style="bold"><b>
-<?php
-  }
+        <?php
+    }
     echo oosGetPHPSetting('file_uploads'); ?>
 
   </b></font></td>
@@ -178,16 +178,16 @@ function oosCheckPHP()
   </td>
   <td class="toggle">OFF</td>
   <td>
-<?php
-  if (oosGetPHPSetting('register_globals') == 'OFF') {
-      ?>
+    <?php
+    if (oosGetPHPSetting('register_globals') == 'OFF') {
+        ?>
     <font color="green"><b>
-<?php
-  } else {
-      ?>
+        <?php
+    } else {
+        ?>
     <font color="red" style="bold"><b>
-<?php
-  }
+        <?php
+    }
     echo oosGetPHPSetting('register_globals'); ?>
   </b></font></td>
 </tr>
@@ -195,16 +195,16 @@ function oosCheckPHP()
   <td>Output Buffering:</td>
   <td class="toggle">OFF</td>
   <td>
-<?php
-  if (oosGetPHPSetting('output_buffering') == 'OFF') {
-      ?>
+    <?php
+    if (oosGetPHPSetting('output_buffering') == 'OFF') {
+        ?>
     <font color="green"><b>
-<?php
-  } else {
-      ?>
+        <?php
+    } else {
+        ?>
     <font color="red" style="bold"><b>
-<?php
-  }
+        <?php
+    }
     echo oosGetPHPSetting('output_buffering'); ?>
   </b></font></td>
 </tr>
@@ -212,30 +212,30 @@ function oosCheckPHP()
   <td>Session auto start:</td>
   <td class="toggle">OFF</td>
   <td>
-<?php
-  if (oosGetPHPSetting('session.auto_start') == 'OFF') {
-      ?>
+    <?php
+    if (oosGetPHPSetting('session.auto_start') == 'OFF') {
+        ?>
     <font color="green"><b>
-<?php
-  } else {
-      //$check_php = false;
-?>
+        <?php
+    } else {
+        //$check_php = false;
+        ?>
     <font color="red" style="bold"><b>
-<?php
-  }
+        <?php
+    }
     echo oosGetPHPSetting('session.auto_start'); ?>
   </b></font></td>
 </tr>
 </table>
-<?php
-   if (!function_exists('imagetypes')) {
-       echo '<br /><font class="oos-error">' . PHP_CHECK_12 . '</font><br />';
-       echo '<font class="oos-title">' . PHP_CHECK_13 . '</font><br />';
-       $check_php = false;
-   } elseif (!function_exists('imagecreatetruecolor')) {
-       echo '<br /><font class="oos-error">' . PHP_CHECK_14 . '</font><br />';
-       echo '<font class="oos-title">' . PHP_CHECK_15 . '</font><br />';
-   }
+    <?php
+    if (!function_exists('imagetypes')) {
+        echo '<br /><font class="oos-error">' . PHP_CHECK_12 . '</font><br />';
+        echo '<font class="oos-title">' . PHP_CHECK_13 . '</font><br />';
+        $check_php = false;
+    } elseif (!function_exists('imagecreatetruecolor')) {
+        echo '<br /><font class="oos-error">' . PHP_CHECK_14 . '</font><br />';
+        echo '<font class="oos-title">' . PHP_CHECK_15 . '</font><br />';
+    }
 
     if (!isset($_SERVER['PHP_SELF'])) {
         echo '<br /><font class="oos-error">' . PHP_CHECK_16 . '</font><br />';
@@ -249,7 +249,7 @@ function oosCheckPHP()
             HTACCESS_ERROR,
             '<font class="oos-error"><b>chmod go+rwx ' . $oos_core . '</b></font>'
         );
-    // $check_php = false;
+        // $check_php = false;
     } else {
         fwrite($fp, 'ErrorDocument 404 ' . $oos_root . 'index.php');
         fclose($fp);

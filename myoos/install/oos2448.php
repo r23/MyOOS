@@ -29,7 +29,7 @@ if (!$prefix_table == '') {
     $prefix_table = $prefix_table . '_';
 }
 
-include_once 'oostables2448.php';
+require_once 'oostables2448.php';
 
 $table = $prefix_table . 'admin_files';
 $result = $db->Execute("INSERT INTO " . $table . " (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('product_video', 0, 3, 1)");

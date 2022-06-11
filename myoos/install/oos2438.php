@@ -29,7 +29,7 @@ if (!$prefix_table == '') {
     $prefix_table = $prefix_table . '_';
 }
 
-include_once 'oostables2445.php';
+require_once 'oostables2445.php';
 
 
 $today = date("Y-m-d H:i:s");
