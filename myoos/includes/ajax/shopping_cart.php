@@ -139,6 +139,7 @@ if (isset($_SESSION)) {
                     $aData['content'] .= '     </a></div>' . "\n";
                     $aData['content'] .= '   <div class="media-body">' . "\n";
                     $aData['content'] .= '     <h6 class="cart-entry-title"><a href=" ' . oos_href_link($aContents['product_info'], 'products_id=' . $products[$i]['id']) . '">' . $products[$i]['quantity'] . '<span class="text-muted">x</span>&nbsp;' . $products[$i]['name']  . '</a></h6>' . "\n";
+                    $aData['content'] .='     <p class="cart-entry-meta ">' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id'])) . '*</p>' . "\n";
 
                     // Product options names
                     if (isset($products[$i]['attributes']) && is_array($products[$i]['attributes'])) {
@@ -157,17 +158,23 @@ if (isset($_SESSION)) {
                             }
                         }
                     }
+
+
                     
                     $products_product_quantity = null;
                     if  ($products[$i]['products_base_price'] != 1) {
-                        $products_product_quantity = oos_cut_number($products[$i]['products_product_quantity'])
-                        $aData['content'] .='     			<p class="cart-entry-meta">' . $aLang['text_content']  . $products_product_quantity  .'&nbsp;' . {$products_units[$cart_products.products_units_id].0}. '</p>' . "\n";
-                        $aData['content'] .='     			<p class="cart-entry-meta">' . $aLang['text_base_price'] . {$products_units[$cart_products.products_units_id].1} . '=' . {$cart_products.base_product_price}. '*</p>' . "\n";
+                        $key = $products[$i]['products_units_id'];
+                        $aData['content'] .='     			<p class="cart-entry-meta">' . $products_units[$key][1] . '=' . $products[$i]['base_product_price'] . '*</p>' . "\n";
+                        
+                        $products_product_quantity = oos_cut_number($products[$i]['products_product_quantity']);
+                        $aData['content'] .='     			<p class="cart-entry-meta"><strong>' . $aLang['text_content'] . '</strong> '. $products_product_quantity  .'&nbsp;' . $products_units[$key][0] . '</p>' . "\n";
                     }
                     $aData['content'] .='     <p class="cart-entry-meta text-right"><strong>' . $oCurrencies->display_price($products[$i]['price'], oos_get_tax_rate($products[$i]['tax_class_id']), $products[$i]['quantity']) . '*</strong></p>' . "\n";
                     $aData['content'] .='   </div>' . "\n";
                     $aData['content'] .='   <div class="text-right"><span class="item-remove-btn" data-id="' . $products[$i]['id'] . '" role="button"> <i class="fa fa-trash" aria-hidden="true"></i></span></div>' . "\n";
-                    $aData['content'] .='</div>	<!-- /cart item -->' . "\n";
+                    $aData['content'] .='</div>' . "\n";
+                    $aData['content'] .='<hr>' . "\n";
+                    $aData['content'] .='<!-- /cart item -->' . "\n";                    
                 }
 
 
@@ -179,12 +186,16 @@ if (isset($_SESSION)) {
 
                 $aData['content'] .='</div>' . "\n";
                 $aData['content'] .='<p class="prices-tax">' . $tax_plus_shipping . '</p>' . "\n";
-                $aData['content'] .='<a class="btn btn-primary btn-sm btn-block" href="' . oos_href_link($aContents['checkout_shipping']) . '"><i class="fa fa-credit-card" aria-hidden="true"></i> '. $aLang['button_checkout'] . '</a></div>' . "\n";
+                
+                
+                $aData['content'] .='<div class="d-grid gap-2">' . "\n";
+                $aData['content'] .='<a class="btn btn-primary btn-sm" href="' . oos_href_link($aContents['checkout_shipping']) . '"><i class="fa fa-credit-card" aria-hidden="true"></i> '. $aLang['button_checkout'] . '</a>' . "\n";
                 $aData['content'] .='</div>' . "\n";
             }
         }
     }
 }
+
 
 if ($cart_count_contents == 0) {
     $aData['content'] = '<div class="container text-center m-py-60">

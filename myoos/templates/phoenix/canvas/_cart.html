@@ -31,13 +31,13 @@
 							{/if}
 							<p class="cart-entry-meta text-right"><strong>{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}*</strong></p>
 						</div>
-					</div>
+
 						<div class="text-right"><span class="item-remove-btn" data-id="{$products.id}" role="button"> <i class="fa fa-trash" aria-hidden="true"></i></span></div>
-				<!-- /cart item -->																
+
+					</div><!-- /cart item -->	
+					<hr>					
 				{/foreach}
-
-
-				<hr>
+				
 				<div class="d-flex justify-content-between align-items-center py-3">
 					<div class="font-size-sm"> <span class="mr-2">{$lang.sub_title_total}</span><span class="font-weight-semibold text-dark">{$cart_show_total}*</span></div><a class="btn btn-outline-secondary btn-sm" href="{html_href_link content=$filename.shopping_cart}">{$lang.header_title_cart_contents} <i class="fa fa-chevron-right" aria-hidden="true"></i></a>
 				</div>
@@ -52,3 +52,4 @@
 		</div>
 	</div>
 </div>
+
