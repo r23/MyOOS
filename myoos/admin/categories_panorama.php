@@ -304,15 +304,15 @@ if (!empty($action)) {
         if (!empty($preview)) {
             switch ($preview) {
             case 'scene':
-                    oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&page=' . $nPage . '&action=update_panorama#scene'));
+                    oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&page=' . $nPage . '&action=update_panorama#scene'));
                 break;
             case 'hotspot':
-                        oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $cID : '')  . '&page=' . $nPage . '&action=update_panorama#hotspot'));
+                        oos_redirect_admin(oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . (isset($_GET['cID']) ? '&cID=' . $cID : '')  . '&page=' . $nPage . '&action=update_panorama#hotspot'));
                 break;
             }
         }
 
-                oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id . '&page=' . $nPage));
+                oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories_id . '&page=' . $nPage));
 
         break;
 
@@ -323,7 +323,7 @@ if (!empty($action)) {
             oos_remove_panorama($panorama_id);
         }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $nPage));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . $nPage));
         break;
 
     }
@@ -441,7 +441,7 @@ require 'includes/header.php';
         <div class="row">
             <div class="col-lg-12">
         <?php
-                echo oos_draw_form('delete', 'panorama', $aContents['categories_panorama'], 'cPath=' . $cPath . '&cID=' . $cID . '&action=delete_panorama_confirm&page=' . $nPage, 'post', false);
+                echo oos_draw_form('delete', 'panorama', $aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $cID . '&action=delete_panorama_confirm&page=' . $nPage, 'post', false);
         echo oos_draw_hidden_field('panorama_id', $pInfo->panorama_id); ?>
                 <div class="row  mt-3 mb-5">
                     <div class="col-lg-12">
@@ -458,7 +458,7 @@ require 'includes/header.php';
                 <div class="row">
                     <div class="col-lg-12">
                         <p>        
-           <?php echo  oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . '&cID=' . $cID . '&page=' . $nPage . '&action=panorama') . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
+           <?php echo  oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $cID . '&page=' . $nPage . '&action=panorama') . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?>
                         </p>
                     </div>
                 </div>
@@ -476,7 +476,7 @@ require 'includes/header.php';
         $text_new_or_edit = ($form_action == 'insert_panorama') ? TEXT_INFO_HEADING_NEW_PANORAMA : TEXT_INFO_HEADING_EDIT_PANORAMA;
 
         $back_url = $aContents['categories'];
-        $back_url_params = 'cPath=' . $cPath . '&page=' . $nPage;
+        $back_url_params = 'cPath=' . oos_prepare_input($cPath) . '&page=' . $nPage;
         if (oos_is_not_null($pInfo->categories_id)) {
             $back_url_params .= '&cID=' . $pInfo->categories_id;
         }
@@ -506,7 +506,7 @@ require 'includes/header.php';
                 <div class="row">
                     <div class="col-lg-12">
         <?php
-        echo oos_draw_form('fileupload', 'panorama', $aContents['categories_panorama'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&action=' . $form_action, 'post', true, 'enctype="multipart/form-data"');
+        echo oos_draw_form('fileupload', 'panorama', $aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&action=' . $form_action, 'post', true, 'enctype="multipart/form-data"');
 
         $sFormid = md5(uniqid(rand(), true));
         $_SESSION['formid'] = $sFormid;
@@ -544,7 +544,7 @@ require 'includes/header.php';
                                 <div class="text-right">
           <?php
             if ($form_action == 'update_panorama') {
-                echo '<a href="' . oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . '&cID=' . $cID . '&page=' . $nPage . '&action=delete_panorama') . '"><i class="fa fa-trash" title="' . BUTTON_DELETE . '"></i> ' . TEXT_PANORAMA_DELETE . '</a>';
+                echo '<a href="' . oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $cID . '&page=' . $nPage . '&action=delete_panorama') . '"><i class="fa fa-trash" title="' . BUTTON_DELETE . '"></i> ' . TEXT_PANORAMA_DELETE . '</a>';
             } ?>
                                 </div>
                             </div>

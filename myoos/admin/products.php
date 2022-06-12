@@ -32,6 +32,8 @@ $currencies = new currencies();
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+
 
 if (!empty($action)) {
     switch ($action) {
@@ -352,7 +354,7 @@ if (!empty($action)) {
                 }
             }
 
-            oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
+            oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products_id));
         break;
 
     }
@@ -666,7 +668,7 @@ function calcBasePriceFactor() {
 	</div>
 	<!-- END Breadcrumbs //-->
 
-	<?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . $cPath . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
+	<?php echo oos_draw_form('id', 'new_product', $aContents['products'], 'cPath=' . oos_prepare_input($cPath) . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
 		<?php echo oos_draw_hidden_field('products_date_added', (($pInfo->products_date_added) ? $pInfo->products_date_added : date('Y-m-d')));
     echo oos_hide_session_id(); ?>
                <div role="tabpanel">

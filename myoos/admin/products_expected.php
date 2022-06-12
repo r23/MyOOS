@@ -113,7 +113,7 @@ while ($products = $products_result->fields) {
                 <td><?php echo $products['products_name']; ?></td>
                 <td class="text-center"><?php echo oos_date_short($products['products_date_available']); ?></td>
                 <td class="text-right"><?php echo
-                          '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product') . '"><i class="fas fa-pencil-alt" title="' .  BUTTON_EDIT . '"></i></a>'; ?>                
+                          '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products['products_id'] . '&action=new_product') . '"><i class="fas fa-pencil-alt" title="' .  BUTTON_EDIT . '"></i></a>'; ?>                
                 
               </tr>
     <?php

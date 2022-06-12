@@ -180,7 +180,7 @@ if (!empty($action)) {
                     }
                 }
             }
-            oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
+            oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products_id));
         }
         break;
 
@@ -304,7 +304,7 @@ if ($action == 'edit_3d') {
     </div>
     <!-- END Breadcrumbs //-->
 
-    <?php echo oos_draw_form('id', 'new_product', $aContents['product_model_viewer'], 'cPath=' . $cPath . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
+    <?php echo oos_draw_form('id', 'new_product', $aContents['product_model_viewer'], 'cPath=' . oos_prepare_input($cPath) . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
     <?php
 
                 $sFormid = md5(uniqid(rand(), true));

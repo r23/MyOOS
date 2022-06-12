@@ -29,6 +29,8 @@ require 'includes/functions/function_categories.php';
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
+$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+
 
 if (!empty($action)) {
     switch ($action) {
@@ -57,9 +59,8 @@ if (!empty($action)) {
                 $action = (!isset($_POST['video_id'][$i]) || !is_numeric($_POST['video_id'][$i])) ? 'insert_video' : 'update_video';
 
                 $sql_data_array = ['products_id' => intval($products_id),
-                                        'video_source' => oos_db_prepare_input($_POST['video_source'][$i]),
-                                        'video_poster' => oos_db_prepare_input($_POST['video_source'][$i]),
-                                        'video_preload' => oos_db_prepare_input($_POST['video_preload'][$i])];
+                                   'video_source' => oos_db_prepare_input($_POST['video_source'][$i]),
+                                   'video_preload' => oos_db_prepare_input($_POST['video_preload'][$i])];
 
                 if ($action == 'insert_video') {
                     $insert_sql_data = ['video_date_added' => 'now()'];
@@ -88,7 +89,7 @@ if (!empty($action)) {
 
                     if ($action == 'insert_video') {
                         $insert_sql_data = ['video_id' => $video_id,
-                                                'video_languages_id' => $language_id];
+                                            'video_languages_id' => $language_id];
 
                         $sql_data_array = array_merge($sql_data_array, $insert_sql_data);
 
@@ -100,11 +101,18 @@ if (!empty($action)) {
 
                 if ((isset($_POST['remove_products_video'][$i]) && ($_POST['remove_products_video'][$i] == 'yes')) && (isset($_POST['video_source'][$i]))) {
                     $video_source = oos_db_prepare_input($_POST['video_source'][$i]);
-
-                    $dbconn->Execute("DELETE FROM " . $oostable['products_video'] . " WHERE video_id = '" . intval($_POST['video_id'][$i]) . "'");
-                    $dbconn->Execute("DELETE FROM " . $oostable['products_video_description'] . " WHERE video_id = '" . intval($_POST['video_id'][$i]) . "'");
-
-                    oos_remove_products_video($video_source);
+					$video_id = intval($_POST['video_id'][$i]);
+					
+					$products_videotable = $oostable['products_video'];
+					$video_sql = "SELECT video_id, video_source, video_mp4, video_webm, video_ogv, video_poster
+								  FROM $products_videotable 
+								  WHERE video_id = '" . intval($video_id) . "'";
+					$video_files = $dbconn->GetRow($video_sql);					
+				
+					$dbconn->Execute("DELETE FROM " . $oostable['products_video'] . " WHERE video_id = '" . intval($video_id) . "'");
+                    $dbconn->Execute("DELETE FROM " . $oostable['products_video_description'] . " WHERE video_id = '" . intval($video_id) . "'");
+			
+                    oos_remove_products_video($video_files);					
                 }
 
                 // video
@@ -177,7 +185,7 @@ if (!empty($action)) {
                     }
                 }
             }
-            oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products_id));
+            oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products_id)));
         }
         break;
 
@@ -294,7 +302,7 @@ if ($action == 'edit_video') {
     </div>
     <!-- END Breadcrumbs //-->
 
-    <?php echo oos_draw_form('id', 'new_video', $aContents['product_video'], 'cPath=' . $cPath . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
+    <?php echo oos_draw_form('id', 'new_video', $aContents['product_video'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . (!empty($pID) ? '&pID=' . intval($pID) : '') . '&action=' . $form_action, 'post', false, 'enctype="multipart/form-data"'); ?>
     <?php
 
     $sFormid = md5(uniqid(rand(), true));
@@ -416,11 +424,7 @@ if ($action == 'edit_video') {
                                     <div class="c-radio c-radio-nofont">
                                         <label>
             <?php
-                                            echo '<input type="radio" name="video_preload['. $nCounter . ']" value="auto"';
-            if ($video['video_preload'] == 'auto') {
-                echo ' checked="checked"';
-            }
-            echo  '>&nbsp;'; ?>
+                                            echo '<input type="radio" name="video_preload['. $nCounter . ']" value="auto" checked="checked">&nbsp;'; ?>
                                             <span class="badge badge-success float-right">auto</span>
                                         </label>
                                     </div>

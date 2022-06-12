@@ -60,7 +60,7 @@ if (!empty($action)) {
         } else {
             $messageStack->add_session(TEXT_ERROR_SLAVE, 'error');
         }
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['pID']) . '&action=slave_products'));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($_GET['pID']) . '&action=slave_products'));
         break;
 
     case 'slave_delete':
@@ -70,12 +70,12 @@ if (!empty($action)) {
             $dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_slave_visible = '1' WHERE products_id = " . intval($_GET['slave_id']));
         }
         $messageStack->add_session('Slave Deleted', 'success');
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['master_id']) . '&action=slave_products'));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($_GET['master_id']) . '&action=slave_products'));
         break;
 
     case 'slave_visible':
         $dbconn->Execute("UPDATE " . $oostable['products'] . " SET products_slave_visible = " . intval($_GET['visible']) . " WHERE products_id = " . intval($_GET['slave_id']));
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['master_id']) . '&action=slave_products'));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($_GET['master_id']) . '&action=slave_products'));
         break;
 
     case 'setflag':
@@ -87,7 +87,7 @@ if (!empty($action)) {
             }
         }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . intval($_GET['pID']) . '&cID=' . intval($cID) . '&page=' . $nPage . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($_GET['pID']) . '&cID=' . intval($cID) . '&page=' . intval($nPage) . ((isset($_GET['search']) && !empty($_GET['search'])) ? '&search=' . $_GET['search'] : '')));
         break;
 
     case 'insert_category':
@@ -346,7 +346,7 @@ if (!empty($action)) {
             }
         }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&cID=' . $categories_id));
         break;
 
     case 'delete_category_confirm':
@@ -391,7 +391,7 @@ if (!empty($action)) {
             }
         }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $nPage));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage)));
         break;
 
     case 'delete_product_confirm':
@@ -400,7 +400,7 @@ if (!empty($action)) {
 
             product_move_to_trash($product_id);
         }
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&page=' . $nPage));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage)));
         break;
 
     case 'move_category_confirm':
@@ -410,7 +410,7 @@ if (!empty($action)) {
 
             $dbconn->Execute("UPDATE " . $oostable['categories'] . " SET parent_id = '" . intval($new_parent_id) . "', last_modified = now() WHERE categories_id = '" . intval($categories_id) . "'");
         }
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $new_parent_id . '&cID=' . $categories_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $new_parent_id . '&page=' . intval($nPage) . '&cID=' . $categories_id));
         break;
 
     case 'move_product_confirm':
@@ -423,7 +423,7 @@ if (!empty($action)) {
             $dbconn->Execute("UPDATE " . $oostable['products_to_categories'] . " SET categories_id = '" . intval($new_parent_id) . "' WHERE products_id = '" . intval($products_id) . "' and categories_id = '" . intval($current_category_id) . "'");
         }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $new_parent_id . '&pID=' . $products_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $new_parent_id . '&page=' . intval($nPage) . '&pID=' . $products_id));
         break;
 
     case 'copy_to_confirm':
@@ -785,7 +785,7 @@ if (!empty($action)) {
             }
         }
 
-        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $categories_id . '&pID=' . $products_id));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . $categories_id . '&page=' . intval($nPage) . '&pID=' . $products_id));
         break;
     }
 }
@@ -959,7 +959,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <div class="col-lg-12">
     <?php
     $form_action = (isset($_GET['cID'])) ? 'update_category' : 'insert_category';
-    echo oos_draw_form('fileupload', 'new_category', $aContents['categories'], 'cPath=' . $cPath . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&action=' . $form_action, 'post', true, 'enctype="multipart/form-data"');
+    echo oos_draw_form('fileupload', 'new_category', $aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . (isset($_GET['cID']) ? '&cID=' . $cID : '') . '&action=' . $form_action, 'post', true, 'enctype="multipart/form-data"');
     echo oos_draw_hidden_field('parent_id', $cInfo->parent_id);
     echo oos_hide_session_id(); ?>
 
@@ -1507,8 +1507,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
             <div class="float-right">
         <?php
         echo((isset($aPath) && count($aPath) > 1) ? '<a href="' . oos_href_link_admin($aContents['categories'], $cPath_back . 'cID=' . $current_category_id) . '">' . oos_button('<i class="fa fa-chevron-left"></i> ' . BUTTON_BACK) . '</a> ' : '') .
-        '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&action=new_category') . '">' . oos_button('<i class="fa fa-plus"></i> ' . IMAGE_NEW_CATEGORY) . '</a> ' .
-        '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&action=new_product') . '">' . oos_button('<i class="fa fa-plus"></i> ' . IMAGE_NEW_PRODUCT) . '</a>'; ?>
+        '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&action=new_category') . '">' . oos_button('<i class="fa fa-plus"></i> ' . IMAGE_NEW_CATEGORY) . '</a> ' .
+        '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . oos_prepare_input($cPath) . '&action=new_product') . '">' . oos_button('<i class="fa fa-plus"></i> ' . IMAGE_NEW_PRODUCT) . '</a>'; ?>
             </div>
         </div>
         <?php
@@ -1577,7 +1577,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id)) {
             echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '\'">' . "\n";
         } else {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
+            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
         } ?>
                 <td>&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-folder"></i></button></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
                 <td class="text-center">&nbsp;</td>
@@ -1590,10 +1590,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
         } ?></td>
                 <td class="text-center">&nbsp;<?php echo $categories['sort_order']; ?>&nbsp;</td>
                 <td class="text-right"><?php echo
-                '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=edit_category') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
-					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=delete_category') . '"><i class="fa fa-trash" title="' . BUTTON_DELETE . '"></i></a>
-					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=move_category') . '"><i class="fa fa-share" title="' .  BUTTON_MOVE  . '"></i></a>
-					<a href="' . oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . $cPath . '&cID=' . $categories['categories_id'] . '&page=' . $nPage . '&action=panorama') . '"><i class="fa fa-street-view" title="' .  BUTTON_PANORAMA  . '"></i></a>'; ?>                &nbsp;</td>
+                '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories['categories_id'] . '&page=' . intval($nPage) . '&action=edit_category') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
+					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories['categories_id'] . '&page=' . intval($nPage) . '&action=delete_category') . '"><i class="fa fa-trash" title="' . BUTTON_DELETE . '"></i></a>
+					<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories['categories_id'] . '&page=' . intval($nPage) . '&action=move_category') . '"><i class="fa fa-share" title="' .  BUTTON_MOVE  . '"></i></a>
+					<a href="' . oos_href_link_admin($aContents['categories_panorama'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories['categories_id'] . '&page=' . intval($nPage) . '&action=panorama') . '"><i class="fa fa-street-view" title="' .  BUTTON_PANORAMA  . '"></i></a>'; ?>                &nbsp;</td>
               </tr>
         <?php
         // Move that ADOdb pointer!
@@ -1628,7 +1628,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) {
             echo '              <tr>' . "\n";
         } else {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id']) . '\'">' . "\n";
+            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products['products_id']) . '\'">' . "\n";
         } ?>
                 <td><?php echo '<a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '" target="_blank" rel="noopener"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>
@@ -1641,14 +1641,14 @@ if ($action == 'new_category' || $action == 'edit_category') {
         } ?></td>
                 <td class="text-center"><?php echo $products['products_sort_order']; ?></td>
                 <td class="text-right"><?php echo
-                        '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=new_product') . '"><i class="fas fa-pencil-alt" title="' .  BUTTON_EDIT . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=delete_product') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=move_product') . '"><i class="fa fa-share" title="' . BUTTON_MOVE . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=copy_to') . '"><i class="fa fa-copy" title="' . IMAGE_COPY_TO . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=slave_products') . '"><i class="fa fa-sticky-note" title="' . IMAGE_SLAVE . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['product_video'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=edit_video') . '"><i class="fas fa-film" title="' .  BUTTON_VIDEO . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['product_model_viewer'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=edit_3d') . '"><i class="fas fa-hand-spock" title="' .  BUTTON_AR . '"></i></a>
-							<a href="' . oos_href_link_admin($aContents['product_webgl_gltf'], 'cPath=' . $cPath . '&pID=' . $products['products_id'] . '&action=edit_3d') . '"><i class="fa fa-cube" title="' .  BUTTON_CUBE . '"></i></a>'; ?>&nbsp;</td>
+                        '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products['products_id']) . '&action=new_product') . '"><i class="fas fa-pencil-alt" title="' .  BUTTON_EDIT . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products['products_id']) . '&action=delete_product') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products['products_id']) . '&action=move_product') . '"><i class="fa fa-share" title="' . BUTTON_MOVE . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products['products_id']) . '&action=copy_to') . '"><i class="fa fa-copy" title="' . IMAGE_COPY_TO . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products['products_id']) . '&action=slave_products') . '"><i class="fa fa-sticky-note" title="' . IMAGE_SLAVE . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['product_video'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products['products_id']) . '&action=edit_video') . '"><i class="fas fa-film" title="' .  BUTTON_VIDEO . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['product_model_viewer'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products['products_id']) . '&action=edit_3d') . '"><i class="fas fa-hand-spock" title="' .  BUTTON_AR . '"></i></a>
+							<a href="' . oos_href_link_admin($aContents['product_webgl_gltf'], 'cPath=' . oos_prepare_input($cPath) . '&page=' . intval($nPage) . '&pID=' . intval($products['products_id']) . '&action=edit_3d') . '"><i class="fa fa-cube" title="' .  BUTTON_CUBE . '"></i></a>'; ?>&nbsp;</td>
               </tr>
         <?php
         // Move that ADOdb pointer!
@@ -1671,9 +1671,9 @@ if ($action == 'new_category' || $action == 'edit_category') {
     case 'slave_products':
         $heading[] = array('text' => '<b>' . oos_get_products_name($pInfo->products_id, $_SESSION['language_id']) . '</b>');
 
-        $contents = array('form' => oos_draw_form('id', 'new_slave_product', $aContents['categories'], 'action=new_slave_product&cPath=' . $cPath . '&pID=' . $pInfo->products_id, 'post', false, 'enctype="multipart/form-data"'));
+        $contents = array('form' => oos_draw_form('id', 'new_slave_product', $aContents['categories'], 'action=new_slave_product&cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id, 'post', false, 'enctype="multipart/form-data"'));
         $contents[] = array('text' => '<br>' . TEXT_ADD_SLAVE_PRODUCT . '<br>' . oos_draw_input_field('slave_product_id', '', 'size="10"'));
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_SAVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
 
         $contents[] = array('text' => '<br>' . TEXT_CURRENT_SLAVE_PRODUCTS);
@@ -1707,7 +1707,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         if ($cInfo->products_count > 0) {
             $contents[] = array('text' => '<br>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $cInfo->products_count));
         }
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_DELETE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $cInfo->categories_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
         break;
 
@@ -1717,7 +1717,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents = array('form' => oos_draw_form('id', 'categories', $aContents['categories'], 'action=move_category_confirm', 'post', false) . oos_draw_hidden_field('categories_id', $cInfo->categories_id));
         $contents[] = array('text' => sprintf(TEXT_MOVE_CATEGORIES_INTRO, $cInfo->categories_name));
         $contents[] = array('text' => '<br>' . sprintf(TEXT_MOVE, $cInfo->categories_name) . '<br>' . oos_draw_pull_down_menu('move_to_category_id', oos_get_category_tree('0', '', $cInfo->categories_id), $current_category_id));
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_MOVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_MOVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $cInfo->categories_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
         break;
 
@@ -1728,7 +1728,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents[] = array('text' => TEXT_DELETE_PRODUCT_INTRO);
         $contents[] = array('text' => '<br><b>' . $pInfo->products_name . '</b>');
 
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_MOVE_TRASH) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_MOVE_TRASH) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
         break;
 
@@ -1739,7 +1739,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents[] = array('text' => sprintf(TEXT_MOVE_PRODUCTS_INTRO, $pInfo->products_name));
         $contents[] = array('text' => '<br>' . TEXT_INFO_CURRENT_CATEGORIES . '<br><b>' . oos_output_generated_category_path($pInfo->products_id, 'product') . '</b>');
         $contents[] = array('text' => '<br>' . sprintf(TEXT_MOVE, $pInfo->products_name) . '<br>' . oos_draw_pull_down_menu('move_to_category_id', oos_get_category_tree(), $current_category_id));
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_MOVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_MOVE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
         break;
 
@@ -1754,7 +1754,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $contents[] = array('text' => '<br>' . oos_image(OOS_IMAGES . 'pixel_black.gif', '', '100%', '3'));
         $contents[] = array('text' => '<br>' . TEXT_COPY_ATTRIBUTES_ONLY);
         $contents[] = array('text' => '<br>' . TEXT_COPY_ATTRIBUTES . '<br>' . oos_draw_radio_field('copy_attributes', 'copy_attributes_yes', true) . ' ' . TEXT_COPY_ATTRIBUTES_YES . '<br>' . oos_draw_radio_field('copy_attributes', 'copy_attributes_no') . ' ' . TEXT_COPY_ATTRIBUTES_NO);
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_COPY) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_COPY) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
         break;
 
@@ -1763,7 +1763,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             if (isset($cInfo) && is_object($cInfo)) { // category info box contents
                 $heading[] = array('text' => '<b>' . $cInfo->categories_name . '</b>');
 
-                $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&cID=' . $cInfo->categories_id . '&action=move_category') . '">' . oos_button(BUTTON_MOVE) . '</a>');
+                $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $cInfo->categories_id . '&action=edit_category') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $cInfo->categories_id . '&action=delete_category') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $cInfo->categories_id . '&action=move_category') . '">' . oos_button(BUTTON_MOVE) . '</a>');
                 $contents[] = array('text' =>  TEXT_CATEGORIES . ' ' . oos_get_categories_name($cPath) . ' ' . oos_get_categories_name($cID) . '<br>' . TEXT_DATE_ADDED . ' ' . oos_date_short($cInfo->date_added));
                 if (oos_is_not_null($cInfo->last_modified)) {
                     $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($cInfo->last_modified));
@@ -1773,8 +1773,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
             } elseif (isset($pInfo) && is_object($pInfo)) { // product info box contents
                 $heading[] = array('text' => '<b>' . $pInfo->products_name . '</b>');
 
-                $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=new_product') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=delete_product') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=move_product') . '">' . oos_button(BUTTON_MOVE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=copy_to') . '">' . oos_button(IMAGE_COPY_TO) . '</a>');
-                $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . $cPath . '&pID=' . $pInfo->products_id . '&action=slave_products') . '">' . oos_button(IMAGE_SLAVE) . '</a>');
+                $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['products'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id . '&action=new_product') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id . '&action=delete_product') . '">' . oos_button(BUTTON_DELETE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id . '&action=move_product') . '">' . oos_button(BUTTON_MOVE) . '</a> <a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id . '&action=copy_to') . '">' . oos_button(IMAGE_COPY_TO) . '</a>');
+                $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $pInfo->products_id . '&action=slave_products') . '">' . oos_button(IMAGE_SLAVE) . '</a>');
 
                 if (defined('MIN_DISPLAY_NEW_SPECILAS')) {
                     $productstable = $oostable['products'];

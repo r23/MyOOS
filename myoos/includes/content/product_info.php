@@ -440,6 +440,7 @@ if (!$product_info_result->RecordCount()) {
     $products_videotable = $oostable['products_video'];
     $products_video_descriptiontable = $oostable['products_video_description'];
     $products_video_sql = "SELECT v.video_id, v.products_id, v.video_source,
+								v.video_mp4, v.video_webm, v.video_ogv,
 								v.video_poster, v.video_preload, 
 								vd.video_title, vd.video_description
 						FROM $products_videotable v,
@@ -460,12 +461,19 @@ if (!$product_info_result->RecordCount()) {
                 . "   AND video_languages_id = ?";
             $result = $dbconn->Execute($query, array((int)$video['video_id'], (int)$nLanguageID));
 
-            $video_source = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . 'video/' . $video['video_source'];
+			$video_path = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . 'video/';
             $video_poster = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'video/' . $video['video_poster']; 
-
- 
+			
+			$video_source = (!empty($video['video_source'])) ? $video_path . $video['video_source'] : '';
+			$video_mp4 = (!empty($video['video_mp4'])) ? $video_path . $video['video_mp4'] : '';
+			$video_webm = (!empty($video['video_webm'])) ? $video_path . $video['video_webm'] : '';
+			$video_ogv = (!empty($video['video_ogv'])) ? $video_path . $video['video_ogv'] : '';
+			
             $aVideo[] = array('video_id' => $video['video_id'],
                            'video_source' => $video_source,
+                           'video_mp4' => $video_mp4,
+                           'video_webm' => $video_webm,
+                           'video_ogv' => $video_ogv,						   
                            'video_poster' => $video_poster,
                            'video_preload' => $video['video_preload'],
                            'video_title' => $video['video_title'],

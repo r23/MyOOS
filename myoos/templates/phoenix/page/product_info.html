@@ -407,9 +407,10 @@
 	allowfullscreen
 	autoplay loop muted playsinline
     data-setup='{}'>
-	<source src="{$video.video_source}-x264.mp4" type="video/mp4"></source>
-	<source src="{$video.video_source}-webm.webm" type="video/webm"></source>
-	<source src="{$video.video_source}-ogg.ogv" type="video/ogg"></source>
+	
+	{if $video.video_mp4}<source src="{$video.video_mp4}" type="video/mp4"></source>{/if}
+	{if $video.video_webm}<source src="{$video.video_webm}" type="video/webm"></source>{/if}
+	{if $video.video_ogv}<source src="{$video.video_ogv}" type="video/ogg"></source>{/if}
   <p class="vjs-no-js">
     {$lang.text_nojs_help}
   </p>

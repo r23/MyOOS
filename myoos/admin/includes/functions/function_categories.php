@@ -1068,7 +1068,7 @@ function oos_remove_model_usds($model)
 
 
 
-function oos_remove_products_video($video)
+function oos_remove_products_video($video_id)
 {
     if (empty($video)) {
         return;
