@@ -261,19 +261,19 @@ if ($result === false) {
 
 
 if (!function_exists('dosql')) {
-    dosql($table, $flds)
+    function dosql($table, $flds)
     {
-    global $db;
+        global $db;
 
-    $dict = NewDataDictionary($db);
+         $dict = NewDataDictionary($db);
 
-    // $dict->debug = 1;
-    $taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE');
+         // $dict->debug = 1;
+        $taboptarray = array('mysql' => 'ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;', 'REPLACE');
 
-    $sqlarray = $dict->createTableSQL($table, $flds, $taboptarray);
-    $dict->executeSqlArray($sqlarray);
+        $sqlarray = $dict->createTableSQL($table, $flds, $taboptarray);
+        $dict->executeSqlArray($sqlarray);
 
-    echo '<br><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
+        echo '<br><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $table . " " . MADE . '</font>';
     }
 }
 
