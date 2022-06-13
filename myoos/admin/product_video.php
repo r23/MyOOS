@@ -131,7 +131,7 @@ if (!empty($action)) {
 							$video_webm = $name . '-webm.webm';
 							$video_ogv = $name . '-ogg.ogv';
 							
-                            $sql_data_array = ['video_source' => oos_db_prepare_input($name),
+                            $sql_data_array = ['video_source' => oos_db_prepare_input($filename),
 												'video_mp4' => oos_db_prepare_input($video_mp4),
 												'video_webm' => oos_db_prepare_input($video_webm),
 												'video_ogv' => oos_db_prepare_input($video_ogv),
