@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '3b52ca25c310439fe03dab1641d7db54e55abfd2',
+        'reference' => '6a523f7c9d168820dc2c60d7e811befd7ffe5868',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -187,7 +187,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '3b52ca25c310439fe03dab1641d7db54e55abfd2',
+            'reference' => '6a523f7c9d168820dc2c60d7e811befd7ffe5868',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -206,12 +206,12 @@
             ),
         ),
         'paragonie/constant_time_encoding' => array(
-            'pretty_version' => 'v2.6.1',
-            'version' => '2.6.1.0',
+            'pretty_version' => 'v2.6.2',
+            'version' => '2.6.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../paragonie/constant_time_encoding',
             'aliases' => array(),
-            'reference' => 'd6e1d5d0fb2458dfdd7018ec2f74be120353a3b9',
+            'reference' => 'c1b1d82d109846ba58a4664dc5480c69ad2fc097',
             'dev_requirement' => false,
         ),
         'paypal/rest-api-sdk-php' => array(
