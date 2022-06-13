@@ -243,8 +243,9 @@ define('ACCOUNT_ACCOUNT_TELEPHONE_DESC', 'Do you need the phone number of your c
 define('NEWSLETTER_TITLE', 'Newsletter');
 define('NEWSLETTER_DESC', 'Would you like to send newsletter?');
 
-define('PRODUCTS_NOTIFICATIONS_TITLE', 'Products notifications');
-define('PRODUCTS_NOTIFICATIONS_DESC', 'Would you like to send Products notifications?');
+define('PRODUCTS_CHARTS_TITLE', 'Graph about price trend');
+define('PRODUCTS_CHARTS_DESC', 'Do you want to display the price development as a graph on the product info page?');
+
 
 define('STORE_ORIGIN_COUNTRY_TITLE', 'Country Code');
 define('STORE_ORIGIN_COUNTRY_DESC', 'Enter the &quot;ISO 3166&quot; Country Code of the Store to be used in shipping quotes.  To find your country code, visit the <A HREF=\"http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html\" TARGET=\"_blank\">ISO 3166 Maintenance Agency</A>.');

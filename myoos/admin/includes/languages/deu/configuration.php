@@ -237,8 +237,8 @@ define('ACCOUNT_TELEPHONE_DESC', 'Die Anzeige und Eingabe der Telefonnummer wird
 define('NEWSLETTER_TITLE', 'Newsletter');
 define('NEWSLETTER_DESC', 'Möchten Sie einen Newsletter anbieten?');
 
-define('PRODUCTS_NOTIFICATIONS_TITLE', 'Produkt-Meldungen');
-define('PRODUCTS_NOTIFICATIONS_DESC', 'Möchten Sie Produkt-Meldungen per Mail anbieten?');
+define('PRODUCTS_CHARTS_TITLE', 'Graph über Preisentwicklung');
+define('PRODUCTS_CHARTS_DESC', 'Would you like to display the price development as a graph on the product info page?');
 
 define('STORE_ORIGIN_COUNTRY_TITLE', 'Ländercode');
 define('STORE_ORIGIN_COUNTRY_DESC', 'Eingabe des &quot;ISO 3166&quot;-Ländercodes des Shops, der im Versandbereich benutzt werden soll. Zum Finden Ihres Ländercodes besuchen Sie die <a href="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html" target="_blank">ISO 3166');

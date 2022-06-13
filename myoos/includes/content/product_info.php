@@ -238,11 +238,11 @@ if (!$product_info_result->RecordCount()) {
     // assign Smarty variables;
     $smarty->assign(
         array(
-            'info_product_price'            => $info_product_price,
-            'schema_product_price'            => $schema_product_price,
-            'info_product_special_price'    => $info_product_special_price,
-            'info_base_product_price'        => $info_base_product_price,
-            'discounts_price'                 => $discounts_price
+            'info_product_price'          => $info_product_price,
+            'schema_product_price'        => $schema_product_price,
+            'info_product_special_price'  => $info_product_special_price,
+            'info_base_product_price'     => $info_base_product_price,
+            'discounts_price'             => $discounts_price
         )
     );
 
@@ -503,9 +503,9 @@ if (!$product_info_result->RecordCount()) {
 
     $today = date("Y-m-d H:i:s");
     $smarty->assign('today', $today);
-
-    // Price History Chart
-    if ($aUser['show_price'] == 1) {
+	
+	// Price History Chart
+	if ( (PRODUCTS_CHARTS == 'true') && ($aUser['show_price'] == 1) ) {
         ob_start();
         include_once MYOOS_INCLUDE_PATH . '/includes/content/chart/line.php';
         $chart = ob_get_contents();
