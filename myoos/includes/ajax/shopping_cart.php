@@ -182,7 +182,7 @@ if (isset($_SESSION)) {
 
                 $aData['content'] .='<hr>' . "\n";
                 $aData['content'] .='<div class="d-flex justify-content-between align-items-center py-3">' . "\n";
-                $aData['content'] .='<div class="font-size-sm"> <span class="mr-2">' . $aLang['sub_title_total'] . '*</span><span class="font-weight-semibold text-dark">' . $cart_show_total . '</span></div><a class="btn btn-outline-secondary btn-sm" href="' . oos_href_link($aContents['shopping_cart']). '">' . $aLang['header_title_cart_contents'] . ' <i class="fa fa-chevron-right" aria-hidden="true"></i></a>' . "\n";
+                $aData['content'] .='<div class="font-size-sm"> <span class="mr-2">' . $aLang['sub_title_total'] . '*</span><span class="font-weight-semibold text-dark">' . $cart_show_total . '*</span></div><a class="btn btn-outline-secondary btn-sm" href="' . oos_href_link($aContents['shopping_cart']). '">' . $aLang['header_title_cart_contents'] . ' <i class="fa fa-chevron-right" aria-hidden="true"></i></a>' . "\n";
 
                 $aData['content'] .='</div>' . "\n";
                 $aData['content'] .='<p class="prices-tax">' . $tax_plus_shipping . '</p>' . "\n";

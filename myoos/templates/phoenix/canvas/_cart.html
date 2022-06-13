@@ -26,7 +26,7 @@
 							<h6 class="cart-entry-title"><a href="{product_link products_id=$products.id}">{$products.quantity|quantity}<span class="text-muted">x</span>&nbsp;{$products.name}</a></h6>
 							<p class="cart-entry-meta">{display_price price=$products.price tax=$products.tax}*</p>
 							{if $products.products_base_price != 1}
-								<p class="cart-entry-meta">{$products_units[$products.products_units_id].1} = {$products.base_product_price}</p>
+								<p class="cart-entry-meta">{$products_units[$products.products_units_id].1} = {$products.base_product_price}*</p>
 								<p class="cart-entry-meta"><strong>{$lang.text_content}</strong> {$products.products_product_quantity|cut_number}&nbsp;{$products_units[$products.products_units_id].0}</p>
 							{/if}
 							<p class="cart-entry-meta text-right"><strong>{display_price price=$products.final_price tax=$products.tax quantity=$products.quantity}*</strong></p>
