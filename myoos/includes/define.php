@@ -30,11 +30,6 @@ define('GB_IN_BYTES', 1024 * MB_IN_BYTES);
 define('COST', '14');
 define('PEPPER', '.m3h-RL=^XM/72;tSdU\Bz');
 
-
-define('WARN_INSTALL_EXISTENCE', 'false');
-define('WARN_CONFIG_WRITEABLE', 'false');
-define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE', 'false');
-
 define('ACCOUNT_COMPANY_VAT_ID_CHECK', 'true');
 
 define('OOS_PAGE_TYPE_MAINPAGE', 1);

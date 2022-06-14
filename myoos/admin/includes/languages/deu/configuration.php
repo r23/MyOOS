@@ -238,7 +238,7 @@ define('NEWSLETTER_TITLE', 'Newsletter');
 define('NEWSLETTER_DESC', 'Möchten Sie einen Newsletter anbieten?');
 
 define('PRODUCTS_CHARTS_TITLE', 'Graph über Preisentwicklung');
-define('PRODUCTS_CHARTS_DESC', 'Would you like to display the price development as a graph on the product info page?');
+define('PRODUCTS_CHARTS_DESC', 'Möchten Sie die Preisentwicklung als Grafik auf der Produktinformationsseite anzeigen?');
 
 define('STORE_ORIGIN_COUNTRY_TITLE', 'Ländercode');
 define('STORE_ORIGIN_COUNTRY_DESC', 'Eingabe des &quot;ISO 3166&quot;-Ländercodes des Shops, der im Versandbereich benutzt werden soll. Zum Finden Ihres Ländercodes besuchen Sie die <a href="http://www.din.de/gremien/nas/nabd/iso3166ma/codlstp1/index.html" target="_blank">ISO 3166');
@@ -292,8 +292,16 @@ define('USE_CACHE_DESC', 'Soll die Seite zwischengespeichert werden?');
 define('BLOG_URL_TITLE', 'Blog');
 define('BLOG_URL_DESC', 'URL der Blog Seite');
 
-define('PHPBB_URL_TITLE', 'phpBB 3');
-define('PHPBB_URL_DESC', 'URL der phpBB 3 Seite');
+define('WARN_INSTALL_EXISTENCE_TITLE', 'Warnung: Das Installationsverzeichnis ist noch vorhanden');
+define('WARN_INSTALL_EXISTENCE_DESC', 'Der Shop warnt vor dem Installationsverzeichnis, wenn auf \'true\' gesetzt wird und das Verzeichnis vorhanden ist.');
+
+define('WARN_CONFIG_WRITEABLE_TITLE', 'Warnung: MyOOS [Shopsystem] kann in die Konfigurationsdatei schreiben');
+define('WARN_CONFIG_WRITEABLE_DESC', 'Der Shop warnt vor den Schreibrechten, wenn auf \'true\' gesetzt wird und die Konfigurationsdatei beschreibbar ist.');
+
+define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE_TITLE', 'Warnung: Das Verzeichnis für den Artikel Download existiert nicht');
+define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE_DESC', 'Der Shop warnt vor Verzeichnises, wenn auf \'true\' gesetzt wird und das Verzeichnis fehlt.');
+
+
 
 define('DOWNLOAD_ENABLED_TITLE', 'Ermögliche Download');
 define('DOWNLOAD_ENABLED_DESC', 'Aktiviert die Shop-Funktionen, die es ermöglichen Datei herunterzuladen.');
