@@ -5,11 +5,16 @@
 <section class="mainContent clearfix">
 
 {if $message}
-    {foreach $message as $info}
-        {include file="phoenix/system/_message.html"}
-    {/foreach}
+<div class="container">
+    <div class="row">
+		<div class="col-md-12 mt-70">    
+			{foreach $message as $info}
+				{include file="phoenix/system/_message.html"}
+			{/foreach}
+		</div>
+	</div>
+</div>
 {/if}
-
 
 	<div class="container">
 		<div class="row">

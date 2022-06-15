@@ -1,11 +1,5 @@
-<div class="container">
-    <div class="row">
-		<div class="col-md-12 mt-20">                              
-			<div class="alert alert-{$info.type} alert-dismissible fade show" role="alert">		
-				<h4>{$info.title}</h4>
-				<p>{$info.text}</p>
-				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-			</div>
-		</div>
-	</div>
+<div class="alert alert-{$info.type} alert-dismissible fade show" role="alert">		
+	<h4 class="alert-heading">{$info.title}</h4>
+	<p>{$info.text}</p>
+	<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
