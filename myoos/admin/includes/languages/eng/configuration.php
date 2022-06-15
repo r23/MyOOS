@@ -301,7 +301,6 @@ define('BLOG_URL_DESC', 'URL of the Blog 3 page:');
 define('PHPBB_URL_TITLE', 'phpBB 3');
 define('PHPBB_URL_DESC', 'URL of the phpBB 3 page:');
 
-
 define('WARN_INSTALL_EXISTENCE_TITLE', 'Warning: The installation directory still exists');
 define('WARN_INSTALL_EXISTENCE_DESC', 'The store warns about the installation directory if set to \'true\' and the directory exists.');
 
@@ -310,9 +309,6 @@ define('WARN_CONFIG_WRITEABLE_DESC', 'The store warns about the write permission
 
 define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE_TITLE', 'Warning: The directory for the article download does not exist');
 define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE_DESC', 'The store warns about directory if set to \'true\' and the directory is missing.');
-
-
-
 
 define('DOWNLOAD_ENABLED_TITLE', 'Enable download');
 define('DOWNLOAD_ENABLED_DESC', 'Enable the products download functions.');

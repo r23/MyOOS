@@ -163,9 +163,14 @@
 									{if $smarty.const.STOCK_CHECK eq 'true'}
 										{oos_check_stock products_id=$products.id products_quantity=$products.qty}
 									{/if}
-										<br>{$products.essential_characteristics}
-										<br><a href="{html_href_link content=$filename.product_info products_id=$products.id oos_get='con=1'}">{$lang.text_more}</a>
-										<br>
+										<p>{$products.essential_characteristics}</p>
+										<p><a href="{html_href_link content=$filename.product_info products_id=$products.id oos_get='con=1'}">{$lang.text_more}</a></p>
+
+										{if $products.products_base_price != 1}
+											<p class="cart-entry-meta"><strong>{$lang.text_content}</strong> {$products.products_product_quantity|cut_number}&nbsp;{$products_units[$products.products_units_id].0}</p>
+											<p class="cart-entry-meta">{$products_units[$products.products_units_id].1} = {$products.base_product_price}</p>
+										{/if}
+
 										{if ( isset($products.attributes) && sizeof($products.attributes) gt 0 ) }
 											{foreach item=attributes from=$products.attributes}
 												<br><nobr><small>&nbsp;<i> - {$attributes.option}: {$attributes.value}</i></small></nobr>

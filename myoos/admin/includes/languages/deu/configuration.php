@@ -292,6 +292,9 @@ define('USE_CACHE_DESC', 'Soll die Seite zwischengespeichert werden?');
 define('BLOG_URL_TITLE', 'Blog');
 define('BLOG_URL_DESC', 'URL der Blog Seite');
 
+define('PHPBB_URL_TITLE', 'phpBB 3');
+define('PHPBB_URL_DESC', 'URL der phpBB 3 Seite');
+
 define('WARN_INSTALL_EXISTENCE_TITLE', 'Warnung: Das Installationsverzeichnis ist noch vorhanden');
 define('WARN_INSTALL_EXISTENCE_DESC', 'Der Shop warnt vor dem Installationsverzeichnis, wenn auf \'true\' gesetzt wird und das Verzeichnis vorhanden ist.');
 
@@ -300,7 +303,6 @@ define('WARN_CONFIG_WRITEABLE_DESC', 'Der Shop warnt vor den Schreibrechten, wen
 
 define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE_TITLE', 'Warnung: Das Verzeichnis für den Artikel Download existiert nicht');
 define('WARN_DOWNLOAD_DIRECTORY_NOT_READABLE_DESC', 'Der Shop warnt vor Verzeichnises, wenn auf \'true\' gesetzt wird und das Verzeichnis fehlt.');
-
 
 
 define('DOWNLOAD_ENABLED_TITLE', 'Ermögliche Download');

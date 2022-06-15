@@ -39,6 +39,11 @@
   font-size: $offcanvas-title-font-size;
 }
 
+.cart-entry-meta {
+  margin-bottom: 0;
+  font-size: 0.875rem;
+}
+
 // Cart Entries 
 .cart-entries {
   .cart-entry-thumb {
@@ -74,10 +79,7 @@
       }
     }
   }
-  .cart-entry-meta {
-    margin-bottom: 0;
-    font-size: 0.875rem;
-  }
+
   .media {
     margin-bottom: $spacer;
     padding-top: .25rem;

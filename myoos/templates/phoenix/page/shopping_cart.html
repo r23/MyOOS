@@ -112,13 +112,22 @@
 											<p>{$lang.products_order_qty_unit_text} {$product.products_quantity_order_units|quantity}</p>
 										{/if}							
 	
-							
-										
+				
 										{if ( isset($product.attributes) && is_array($product.attributes) )}						
 											{foreach key=key item=item from=$product.attributes}
 												<br><nobr><small>&nbsp;<i> - {$product.$key.products_options_name} : {$product.$key.products_options_values_name}</i></small></nobr>
 											{/foreach}
 										{/if}
+
+										{if $product.essential_characteristics}
+											<p>{$product.essential_characteristics}</p>
+										{/if}
+
+										{if $product.products_base_price != 1}
+											<p class="cart-entry-meta"><strong>{$lang.text_content}</strong> {$product.products_product_quantity|cut_number}&nbsp;{$products_units[$product.products_units_id].0}</p>
+											<p class="cart-entry-meta">{$products_units[$product.products_units_id].1} = {$product.base_product_price}</p>
+										{/if}
+
 
 										{if $product.old_electrical_equipment eq 1 }
 											<h5>{$lang.text_free_redemption}</h5>

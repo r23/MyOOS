@@ -338,6 +338,7 @@ class order
                              'format_id' => $billing_address['address_format_id']);
         $index = 0;
         $products = $_SESSION['cart']->get_products();
+
         for ($i=0, $n=sizeof($products); $i<$n; $i++) {
             $this->products[$index] = array('qty' => $products[$i]['quantity'],
                                         'name' => $products[$i]['name'],
@@ -350,6 +351,10 @@ class order
                                         'final_price' => $products[$i]['price'] + $_SESSION['cart']->attributes_price($products[$i]['id']),
                                         'weight' => $products[$i]['weight'],
                                         'towlid' => $products[$i]['towlid'],
+                                        'products_base_price' => $products[$i]['products_base_price'],
+                                        'base_product_price' => $products[$i]['base_product_price'],
+                                        'products_units_id' => $products[$i]['products_units_id'],
+                                        'products_product_quantity' => $products[$i]['products_product_quantity'],									
                                         'old_electrical_equipment' => $products[$i]['old_electrical_equipment'],
                                         'return_free_of_charge' => $products[$i]['return_free_of_charge'],
                                         'id' => $products[$i]['id']);
