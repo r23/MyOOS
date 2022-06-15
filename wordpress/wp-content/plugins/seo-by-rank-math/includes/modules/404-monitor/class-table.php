@@ -15,6 +15,7 @@ use RankMath\Traits\Hooker;
 use RankMath\Redirections\DB as RedirectionsDB;
 use RankMath\Redirections\Cache as RedirectionsCache;
 use MyThemeShop\Admin\List_Table;
+use RankMath\Monitor\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,9 +30,9 @@ class Table extends List_Table {
 	 * The Constructor.
 	 */
 	public function __construct() {
-
 		parent::__construct(
 			[
+				'screen'   => Admin::get_screen(),
 				'singular' => 'event',
 				'plural'   => 'events',
 				'no_items' => esc_html__( 'The 404 error log is empty.', 'rank-math' ),
@@ -175,7 +176,7 @@ class Table extends List_Table {
 
 		if ( $redirection ) {
 			$redirection_array = (array) $redirection;
-			$url = esc_url(
+			$url               = esc_url(
 				Helper::get_admin_url(
 					'redirections',
 					[

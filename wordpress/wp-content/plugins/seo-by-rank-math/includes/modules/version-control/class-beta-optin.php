@@ -284,7 +284,7 @@ class Beta_Optin {
 			'plugins-network',
 		];
 
-		if ( ! in_array( $screen->base, $applicable_screens, true ) ) {
+		if ( empty( $screen->base ) || ! in_array( $screen->base, $applicable_screens, true ) ) {
 			return;
 		}
 

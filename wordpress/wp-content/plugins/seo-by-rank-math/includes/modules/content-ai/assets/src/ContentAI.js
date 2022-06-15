@@ -14,6 +14,7 @@ import { __ } from '@wordpress/i18n'
 import { Fragment, Component } from '@wordpress/element'
 import { compose } from '@wordpress/compose'
 import { withDispatch, withSelect } from '@wordpress/data'
+import { doAction } from '@wordpress/hooks'
 import apiFetch from '@wordpress/api-fetch'
 import {
 	PanelBody,
@@ -369,6 +370,8 @@ export default compose(
 						if ( ! isNull( response.credits ) && ! isUndefined( response.credits ) ) {
 							setState( { credits: response.credits, creditsValue: ! isNumber( response.credits ) ? 0 : response.credits } )
 						}
+
+						doAction( 'rank_math_content_ai_changed', response.keyword )
 					} )
 			},
 			updateAiScore( key, score ) {

@@ -129,7 +129,8 @@ class Rest extends WP_REST_Controller {
 			);
 
 			return [
-				'data' => $keyword_data[ $country ][ $keyword ],
+				'data'    => $keyword_data[ $country ][ $keyword ],
+				'keyword' => $keyword,
 			];
 		}
 
@@ -157,6 +158,7 @@ class Rest extends WP_REST_Controller {
 		return [
 			'data'    => $keyword_data[ $country ][ $keyword ],
 			'credits' => $credits,
+			'keyword' => $keyword,
 		];
 	}
 

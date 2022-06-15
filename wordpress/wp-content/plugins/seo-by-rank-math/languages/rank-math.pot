@@ -257,6 +257,19 @@ msgstr ""
 msgid "Share"
 msgstr ""
 
+#. translators: 1 is "WordPress Address (URL)", 2 is "Site Address (URL)", 3 is a link to the General Settings, with "WordPress General Settings" as anchor text.
+msgid "Rank Math cannot be connected because your site URL doesn't appear to be a valid URL. If the domain name contains special characters, please make sure to use the encoded version in the %1$s &amp; %2$s fields on the %3$s page."
+msgstr ""
+
+msgid "WordPress Address (URL)"
+msgstr ""
+
+msgid "Site Address (URL)"
+msgstr ""
+
+msgid "WordPress General Settings"
+msgstr ""
+
 msgid "Help &amp; Support"
 msgstr ""
 
@@ -3143,6 +3156,9 @@ msgstr ""
 msgid "Trash"
 msgstr ""
 
+msgid "View"
+msgstr ""
+
 msgid "From"
 msgstr ""
 
@@ -3150,6 +3166,9 @@ msgid "To"
 msgstr ""
 
 msgid "Type"
+msgstr ""
+
+msgid "Created"
 msgstr ""
 
 msgid "Last Accessed"
@@ -4767,9 +4786,6 @@ msgid "Property"
 msgstr ""
 
 msgid "Data Stream"
-msgstr ""
-
-msgid "View"
 msgstr ""
 
 msgid "Install analytics code"

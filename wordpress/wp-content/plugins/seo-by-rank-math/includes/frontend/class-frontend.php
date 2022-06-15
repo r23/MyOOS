@@ -96,7 +96,7 @@ class Frontend {
 	 */
 	public function integrations() {
 		$type = get_query_var( 'sitemap' );
-		if ( ! empty( $type ) || is_customize_preview() ) {
+		if ( $this->do_filter( 'frontend/disable_integration', ! empty( $type ) || is_customize_preview() ) ) {
 			return;
 		}
 

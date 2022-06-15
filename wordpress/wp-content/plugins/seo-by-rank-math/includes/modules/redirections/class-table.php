@@ -13,6 +13,7 @@ namespace RankMath\Redirections;
 use RankMath\Helper;
 use MyThemeShop\Helpers\Param;
 use MyThemeShop\Admin\List_Table;
+use RankMath\Redirections\Admin;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,6 +28,7 @@ class Table extends List_Table {
 	public function __construct() {
 		parent::__construct(
 			[
+				'screen'   => Admin::get_screen(),
 				'singular' => 'redirection',
 				'plural'   => 'redirections',
 				'no_items' => $this->is_trashed_page() ? esc_html__( 'No redirections found in Trash.', 'rank-math' ) : wp_kses_post( __( 'No redirections added yet. <a href="#" class="rank-math-add-new-redirection">Add New Redirection</a>', 'rank-math' ) ),
@@ -78,7 +80,18 @@ class Table extends List_Table {
 	 * @param object $item The current item.
 	 */
 	protected function column_sources( $item ) {
-		return $this->get_sources_html( maybe_unserialize( $item['sources'] ) ) . $this->column_actions( $item );
+		return $this->get_sources_html( $item ) . $this->column_actions( $item );
+	}
+
+	/**
+	 * Handle the created column.
+	 *
+	 * @param object $item The current item.
+	 */
+	protected function column_created( $item ) {
+		$no_created = ( empty( $item['created'] ) || '0000-00-00 00:00:00' === $item['created'] );
+
+		return $no_created ? '' : mysql2date( 'F j, Y, G:i', $item['created'] );
 	}
 
 	/**
@@ -99,6 +112,12 @@ class Table extends List_Table {
 	 * @param string $column_name The current column name.
 	 */
 	public function column_default( $item, $column_name ) {
+		/**
+		 * Filters the default column output. Pass non-empty value to enable.
+		 *
+		 * @param mixed $false The column value.
+		 * @param array $item  The current item.
+		 */
 		$default = apply_filters( "rank_math/redirection/admin_column_{$column_name}", false, $item );
 		if ( ! empty( $default ) ) {
 			return $default;
@@ -114,10 +133,12 @@ class Table extends List_Table {
 	/**
 	 * Get html for sources column
 	 *
-	 * @param  array $sources Array of sources.
+	 * @param  array $item Array of current redirection..
 	 * @return string
 	 */
-	private function get_sources_html( $sources ) {
+	private function get_sources_html( $item ) {
+		$sources = maybe_unserialize( $item['sources'] );
+
 		if ( empty( $sources ) ) {
 			return '';
 		}
@@ -125,7 +146,7 @@ class Table extends List_Table {
 		$comparison_hash = Helper::choices_comparison_types();
 
 		// First one.
-		$html = $this->get_source_html( $sources[0], $comparison_hash );
+		$html = $this->get_source_html( $sources[0], $comparison_hash, $item );
 		unset( $sources[0] );
 
 		if ( empty( $sources ) ) {
@@ -139,7 +160,7 @@ class Table extends List_Table {
 		// Loop remaining.
 		$parts = [];
 		foreach ( $sources as $source ) {
-			$parts[] = $this->get_source_html( $source, $comparison_hash );
+			$parts[] = $this->get_source_html( $source, $comparison_hash, $item );
 		}
 
 		$html .= join( '<br>', $parts );
@@ -154,14 +175,38 @@ class Table extends List_Table {
 	 *
 	 * @param  array $source          Source for which render html.
 	 * @param  array $comparison_hash Comparison array hash.
+	 * @param  array $item            Array of current redirection.
 	 * @return string
 	 */
-	private function get_source_html( $source, $comparison_hash ) {
-		$html = '<span class="value-url_from"><strong><a href="' . esc_url( Helper::get_home_url( $source['pattern'] ) ) . '" target="_blank">' . esc_html( stripslashes( $source['pattern'] ) ) . '</a></strong></span>';
+	private function get_source_html( $source, $comparison_hash, $item ) {
+		$edit_url = $this->get_url(
+			$item,
+			[
+				'action' => 'edit',
+			]
+		);
+		$html     = '<span class="value-url_from"><strong><a href="' . $edit_url . '">' . esc_html( stripslashes( $source['pattern'] ) ) . '</a></strong></span>';
 		if ( 'exact' !== $source['comparison'] ) {
 			$html .= ' <span class="value-source-comparison">(' . esc_html( $comparison_hash[ $source['comparison'] ] ) . ')</span>';
 		}
 		return $html;
+	}
+
+	/**
+	 * Generate admin action url.
+	 *
+	 * @param object $item      The current item.
+	 * @param array  $params Additional URL params.
+	 */
+	public function get_url( $item, $params = [] ) {
+		$defaults = [
+			'redirection' => $item['id'],
+			'security'    => wp_create_nonce( 'redirection_list_action' ),
+		];
+
+		$params = wp_parse_args( $params, $defaults );
+
+		return esc_url( Helper::get_admin_url( 'redirections', $params ) );
 	}
 
 	/**
@@ -170,14 +215,14 @@ class Table extends List_Table {
 	 * @param object $item The current item.
 	 */
 	public function column_actions( $item ) {
-		$url = esc_url(
-			Helper::get_admin_url(
-				'redirections',
-				[
-					'redirection' => $item['id'],
-					'security'    => wp_create_nonce( 'redirection_list_action' ),
-				]
-			)
+		$url      = $this->get_url( $item );
+		$sources  = maybe_unserialize( $item['sources'] );
+		$view_url = Helper::get_home_url( $sources[0]['pattern'] );
+		$edit_url = $this->get_url(
+			$item,
+			[
+				'action' => 'edit',
+			]
 		);
 
 		if ( $this->is_trashed_page() ) {
@@ -191,10 +236,11 @@ class Table extends List_Table {
 
 		return $this->row_actions(
 			[
-				'edit'       => '<a href="' . $url . '&action=edit" class="rank-math-redirection-edit">' . esc_html__( 'Edit', 'rank-math' ) . '</a>',
+				'edit'       => '<a href="' . $edit_url . '" class="rank-math-redirection-edit">' . esc_html__( 'Edit', 'rank-math' ) . '</a>',
 				'deactivate' => '<a href="' . $url . '" data-action="deactivate" class="rank-math-redirection-action">' . esc_html__( 'Deactivate', 'rank-math' ) . '</a>',
 				'activate'   => '<a href="' . $url . '" data-action="activate" class="rank-math-redirection-action">' . esc_html__( 'Activate', 'rank-math' ) . '</a>',
 				'trash'      => '<a href="' . $url . '" data-action="trash" class="rank-math-redirection-action">' . esc_html__( 'Trash', 'rank-math' ) . '</a>',
+				'view'       => '<a href="' . $view_url . '" rel="bookmark">' . esc_html__( 'View', 'rank-math' ) . '</a>',
 			]
 		);
 	}
@@ -205,6 +251,11 @@ class Table extends List_Table {
 	 * @return array
 	 */
 	public function get_columns() {
+		/**
+		 * Filters the columns displayed in the Redirections table.
+		 *
+		 * @param array $columns Array of columns.
+		 */
 		return apply_filters(
 			'rank_math/redirection/admin_columns',
 			[
@@ -213,6 +264,7 @@ class Table extends List_Table {
 				'url_to'        => esc_html__( 'To', 'rank-math' ),
 				'header_code'   => esc_html__( 'Type', 'rank-math' ),
 				'hits'          => esc_html__( 'Hits', 'rank-math' ),
+				'created'       => esc_html__( 'Created', 'rank-math' ),
 				'last_accessed' => esc_html__( 'Last Accessed', 'rank-math' ),
 			]
 		);
@@ -228,6 +280,7 @@ class Table extends List_Table {
 			'url_to'        => [ 'url_to', false ],
 			'header_code'   => [ 'header_code', false ],
 			'hits'          => [ 'hits', false ],
+			'created'       => [ 'created', false ],
 			'last_accessed' => [ 'last_accessed', false ],
 		];
 	}
@@ -252,6 +305,11 @@ class Table extends List_Table {
 			];
 		}
 
+		/**
+		 * Filters the list of bulk actions available on the Redirections table.
+		 *
+		 * @param array $actions Array of bulk actions.
+		 */
 		return apply_filters( 'rank_math/redirection/bulk_actions', $actions );
 	}
 
@@ -292,7 +350,16 @@ class Table extends List_Table {
 	 * @param object $item The current item.
 	 */
 	public function single_row( $item ) {
-		echo '<tr class="rank-math-redirection-' . ( 'inactive' === $item['status'] ? 'deactivated' : 'activated' ) . '">';
+		$classes = 'rank-math-redirection-' . ( 'inactive' === $item['status'] ? 'deactivated' : 'activated' );
+
+		/**
+		 * Filters the row class.
+		 *
+		 * @param string $classes The row class.
+		 */
+		$classes = apply_filters( 'rank_math/redirection/row_classes', $classes, $item );
+
+		echo '<tr class="' . esc_attr( $classes ) . '">';
 		$this->single_row_columns( $item );
 		echo '</tr>';
 	}

@@ -20,6 +20,7 @@ import { select } from '@wordpress/data'
  * Internal dependencies
  */
 import ContentAI from './ContentAI'
+import ContentAnalysis from './ContentAnalysis'
 
 const ContentAIButton = () => {
 	const className = classnames( 'button-secondary rank-math-content-ai', {
@@ -114,4 +115,6 @@ addAction( 'rank_math_loaded', 'rank-math', () => {
 			return false
 		} )
 	}
+
+	new ContentAnalysis()
 } )

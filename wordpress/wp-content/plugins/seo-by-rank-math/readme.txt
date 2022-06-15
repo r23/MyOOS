@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 6.0
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.90
+Stable tag: 1.0.91
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -580,27 +580,19 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.90 [Jun 01, 2022] =
-* Added: New [filter to modify](https://rankmath.com/kb/filters-hooks-api-developer/#change-time-to-read-text) the text of [Time to Read](https://rankmath.com/kb/slack-enhanced-sharing/#enhanced-sharing) label
-* Added: New filter to modify [Words Per Minute](https://rankmath.com/kb/filters-hooks-api-developer/#change-words-per-minute) in the Slack enhanced sharing
-* Added: New function in Paper class to reset the main post instance. You can now use `\RankMath\Paper\Paper::reset();` code to reset the current Paper instance
-* Improved: Made several significant code improvements that make the plugin even FASTER and lighter
-* Improved: Optimized the query that [imports data from other plugins](https://rankmath.com/kb/import-export-settings/#plugin-importers-section)
-* Improved: Log details of the error when [collation fixer function](https://rankmath.com/kb/rank-math-status-and-tools/#fix-analytics-table-collations) is executed
-* Improved: Description for [Noindex Paginated Pages](https://rankmath.com/kb/titles-and-meta/#noindex-paginated-pages) & [Noindex Archive Subpages](https://rankmath.com/kb/titles-and-meta/#noindex-archive-subpages) to make it easy to understand
-* Improved: Confirm dialog messages when [importing](https://rankmath.com/kb/import-export-settings/) or [cleaning the plugin data](https://rankmath.com/kb/remove-yoast/) to make it easy to understand
-* Removed: Code that [ping sitemaps](https://rankmath.com/kb/configure-sitemaps/#ping-search-engines) to Bing as it no longer supports it. You can read more about it here: https://www.seroundtable.com/bings-anonymous-sitemap-submissions-deprecated-33414.html
-* Fixed: jQuery Migrate warnings on some setups
-* Fixed: [Link Counter](https://rankmath.com/kb/link-counter/) was not working correctly on some setups
-* Fixed: Twitter overlay image option was not working when the [Use Data from Facebook tab](https://rankmath.com/kb/meta-box-social-tab/#use-data-from-facebook-tab) option was enabled
-* Fixed: [Auto Post Redirect](https://rankmath.com/kb/general-settings/#auto-post-redirect) was not working on a subdomain installation
-* Fixed: PHP error on some setups when [HowTo block](https://rankmath.com/kb/howto-schema/#num-1-2-add-the-howto-block-to-the-post) was used in the post
-* Fixed: JS console warnings when using the [HowTo](https://rankmath.com/blog/howto-schema/) block
-* Fixed: JS console warnings on[Analytics pages](https://rankmath.com/kb/analytics/)
-* Fixed: Posts list column & [Post Analytics](https://rankmath.com/kb/analytics/#post-analytics) was not showing the FAQ & HowTo schema when those were added using the blocks
-* Fixed: Duplicated rows were stored in the redirections_cache table on some setups
-* Fixed: Duplicate code that used to ping sitemaps to Google twice on some setups
-* Fixed: Missing Rank Math icon in Block editor when Display Button Label option was enabled in the Preferences settings
-* Fixed: Permalink in Classic Editor was not updating after publishing the post on some setups
+= 1.0.91 [Jun 15, 2022] =
+* Added: [HUGE!] Synced [Content Analysis tests](https://rankmath.com/kb/score-100-in-tests/) with the recommendations provided by the [Content AI](https://rankmath.com/kb/how-to-use-content-ai/)
+* Improved: Added a new column on the [Redirections page](https://rankmath.com/kb/setting-up-redirections/#redirections) to show the Created date of the redirect
+* Improved: [Search Preview & Mobile Search Preview](https://rankmath.com/kb/seo-analysis/#search-preview) shown in the SEO Analysis tool
+* Improved: Image SEO code to make it FASTER
+* Fixed: Some string translations were not working well
+* Fixed: Unable to connect account when WordPress is installed in a subfolder
+* Fixed: [Connect to Rank Math account](https://rankmath.com/kb/free-account-benefits/) was not working properly when the URL contained special characters
+* Fixed: [Debug Redirections option](https://rankmath.com/kb/general-settings/#debug-redirections) was not working well
+* Fixed: Some Schema properties were missing in the [EDD Product Schema](https://rankmath.com/kb/edd-product-schema/)
+* Fixed: Analytics data was not getting imported correctly when domain property was selected in the [Site Profile](https://rankmath.com/kb/general-settings/#search-console-settings)
+* Fixed: The maintenance page created using Elementor editor was not working well when the Rank Math plugin is active on the site
+* Fixed: Hash links added in the Elementor Accordion were counted as internal links
+* Fixed: JS errors on the Categories list page
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

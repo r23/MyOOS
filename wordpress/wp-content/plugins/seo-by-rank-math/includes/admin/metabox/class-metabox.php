@@ -86,8 +86,12 @@ class Metabox implements Runner {
 		$is_gutenberg = Helper::is_block_editor() && \rank_math_is_gutenberg();
 		$is_elementor = 'elementor' === Param::get( 'action' );
 		Helper::add_json( 'knowledgegraphType', Helper::get_settings( 'titles.knowledgegraph_type' ) );
-
-		if ( ! $is_gutenberg && ! $is_elementor && 'rank_math_schema' !== $screen->post_type ) {
+		if (
+			! $is_gutenberg &&
+			! $is_elementor &&
+			'rank_math_schema' !== $screen->post_type &&
+			'edit-tags' !== $screen->base
+		) {
 			\CMB2_Hookup::enqueue_cmb_css();
 			wp_enqueue_style(
 				'rank-math-metabox',
@@ -150,7 +154,7 @@ class Metabox implements Runner {
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			$this->filter( 'load_script_translation_file', 'load_script_translation_file', 10, 3 );
 			wp_set_script_translations( 'rank-math-analyzer', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
-			wp_set_script_translations( 'rank-math-gutenberg', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
+			wp_set_script_translations( 'rank-math-app', 'rank-math', rank_math()->plugin_dir() . 'languages/' );
 		}
 	}
 

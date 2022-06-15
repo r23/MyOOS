@@ -29,6 +29,7 @@ class Elementor {
 	public function __construct() {
 		$this->action( 'init', 'init' );
 		$this->filter( 'rank_math/frontend/robots', 'robots' );
+		$this->filter( 'rank_math/frontend/disable_integration', 'disable_frontend_integration' );
 	}
 
 	/**
@@ -44,6 +45,41 @@ class Elementor {
 		$this->action( 'elementor/editor/footer', 'start_capturing', 0 );
 		$this->action( 'elementor/editor/footer', 'end_capturing', 999 );
 		$this->filter( 'rank_math/sitemap/content_before_parse_html_images', 'apply_builder_in_content', 10, 2 );
+	}
+
+	/**
+	 * Disable frontend integration on Elementor Maintenance page.
+	 *
+	 * @since 1.0.91
+	 *
+	 * @param boolean $value Whether to run the frontend integration.
+	 */
+	public function disable_frontend_integration( $value ) {
+		$mode = get_option( 'elementor_maintenance_mode_mode' );
+		if ( ! in_array( $mode, [ 'maintenance', 'coming_soon' ], true ) ) {
+			return $value;
+		}
+
+		$exclude_mode = get_option( 'elementor_maintenance_mode_exclude_mode', [] );
+		if ( 'logged_in' === $exclude_mode && is_user_logged_in() ) {
+			return $value;
+		}
+
+		if ( 'custom' !== $exclude_mode ) {
+			return true;
+		}
+
+		$exclude_roles = get_option( 'elementor_maintenance_mode_exclude_roles', [] );
+		$user          = wp_get_current_user();
+		$user_roles    = $user->roles;
+
+		if ( is_multisite() && is_super_admin() ) {
+			$user_roles[] = 'super_admin';
+		}
+
+		$compare_roles = array_intersect( $user_roles, $exclude_roles );
+
+		return ! empty( $compare_roles ) ? $value : true;
 	}
 
 	/**

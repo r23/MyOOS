@@ -83,7 +83,7 @@ class DB {
 			$table->orWhereLike( 'url_to', $args['search'] );
 		}
 
-		if ( ! empty( $args['orderby'] ) && in_array( $args['orderby'], [ 'id', 'url_to', 'header_code', 'hits', 'last_accessed' ], true ) ) {
+		if ( ! empty( $args['orderby'] ) && in_array( $args['orderby'], [ 'id', 'url_to', 'header_code', 'hits', 'created', 'last_accessed' ], true ) ) {
 			$table->orderBy( $args['orderby'], $args['order'] );
 		}
 

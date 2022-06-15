@@ -302,6 +302,7 @@ class Redirector {
 		}
 
 		$this->filter( 'user_has_cap', 'filter_user_has_cap' );
+		add_action( 'admin_print_footer_scripts', '_wp_footer_scripts' );
 
 		require_once ABSPATH . 'wp-admin/includes/screen.php';
 
