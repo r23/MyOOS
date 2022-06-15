@@ -55,6 +55,7 @@ return array(
     'AMP_O2_Player_Sanitizer' => $baseDir . '/includes/sanitizers/class-amp-o2-player-sanitizer.php',
     'AMP_Object_Sanitizer' => $baseDir . '/includes/sanitizers/class-amp-object-sanitizer.php',
     'AMP_Options_Manager' => $baseDir . '/includes/options/class-amp-options-manager.php',
+    'AMP_PWA_Script_Sanitizer' => $baseDir . '/includes/sanitizers/class-amp-pwa-script-sanitizer.php',
     'AMP_Pinterest_Embed_Handler' => $baseDir . '/includes/embeds/class-amp-pinterest-embed-handler.php',
     'AMP_Playbuzz_Sanitizer' => $baseDir . '/includes/sanitizers/class-amp-playbuzz-sanitizer.php',
     'AMP_Playlist_Embed_Handler' => $baseDir . '/includes/embeds/class-amp-playlist-embed-handler.php',

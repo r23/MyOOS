@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7f0b05cab048d5d900f407b218d9ccf6
+class ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc
 {
     public static $files = array (
         '356506e5d3d2f49e680971cd925046fa' => __DIR__ . '/..' . '/ampproject/amp-toolbox/include/compatibility-fixes.php',
@@ -96,6 +96,7 @@ class ComposerStaticInit7f0b05cab048d5d900f407b218d9ccf6
         'AMP_O2_Player_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-o2-player-sanitizer.php',
         'AMP_Object_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-object-sanitizer.php',
         'AMP_Options_Manager' => __DIR__ . '/../..' . '/includes/options/class-amp-options-manager.php',
+        'AMP_PWA_Script_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-pwa-script-sanitizer.php',
         'AMP_Pinterest_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-pinterest-embed-handler.php',
         'AMP_Playbuzz_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-playbuzz-sanitizer.php',
         'AMP_Playlist_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-playlist-embed-handler.php',
@@ -1426,9 +1427,9 @@ class ComposerStaticInit7f0b05cab048d5d900f407b218d9ccf6
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7f0b05cab048d5d900f407b218d9ccf6::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7f0b05cab048d5d900f407b218d9ccf6::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit7f0b05cab048d5d900f407b218d9ccf6::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc::$classMap;
 
         }, null, ClassLoader::class);
     }

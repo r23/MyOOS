@@ -127,20 +127,18 @@ final class ServerSideRendering implements Transformer
             }
 
             /*
+             * Server-side rendering of an amp-audio element.
+             */
+            if ($ampElement->tagName === Extension::AUDIO) {
+                $this->ssrAmpAudio($document, $ampElement);
+            }
+
+            /*
              * amp-experiment is a render delaying extension iff the tag is used in the doc. We check for that here
              * rather than checking for the existence of the amp-experiment script in IsRenderDelayingExtension below.
              */
             if ($ampElement->tagName === Extension::EXPERIMENT && $this->isAmpExperimentUsed($ampElement)) {
                 $errors->add(Error\CannotRemoveBoilerplate::fromAmpExperiment($ampElement));
-                $canRemoveBoilerplate = false;
-            }
-
-            /*
-             * amp-audio requires knowing the dimensions of the browser. Do not remove the boilerplate or apply layout
-             * if amp-audio is present in the document.
-             */
-            if ($ampElement->tagName === Extension::AUDIO) {
-                $errors->add(Error\CannotRemoveBoilerplate::fromAmpAudio($ampElement));
                 $canRemoveBoilerplate = false;
             }
 
@@ -590,9 +588,15 @@ final class ServerSideRendering implements Transformer
         if ($layout === Layout::RESPONSIVE) {
             $elementId = $element->getAttribute(Attribute::ID);
             if (!empty($elementId) && array_key_exists($elementId, $this->customSizerStyles)) {
-                $sizer = $this->createResponsiveSizer($document, $width, $height, $this->customSizerStyles[$elementId]);
+                $sizer = $this->createResponsiveSizer(
+                    $document,
+                    $element,
+                    $width,
+                    $height,
+                    $this->customSizerStyles[$elementId]
+                );
             } else {
-                $sizer = $this->createResponsiveSizer($document, $width, $height);
+                $sizer = $this->createResponsiveSizer($document, $element, $width, $height);
             }
         } elseif ($layout === Layout::INTRINSIC) {
             $sizer = $this->createIntrinsicSizer($document, $width, $height);
@@ -607,6 +611,7 @@ final class ServerSideRendering implements Transformer
      * Create a sizer element for a responsive layout.
      *
      * @param Document  $document DOM document to create the sizer for.
+     * @param Element   $element  Element to add a sizer to.
      * @param CssLength $width    Calculated width of the element.
      * @param CssLength $height   Calculated height of the element.
      * @param string    $style    Style to use for the sizer. Defaults to padding-top in percentage.
@@ -614,18 +619,22 @@ final class ServerSideRendering implements Transformer
      */
     private function createResponsiveSizer(
         Document $document,
+        Element $element,
         CssLength $width,
         CssLength $height,
-        $style = 'padding-top:%s%%'
+        $style = ''
     ) {
         $padding       = $height->getNumeral() / $width->getNumeral() * 100;
         $paddingString = rtrim(rtrim(sprintf('%.4F', round($padding, 4)), '0'), '.');
+        $paddingStyle  = ! $element->hasAttribute(Attribute::HEIGHTS)
+            ? sprintf('padding-top:%s%%', $paddingString)
+            : '';
 
-        $style = empty($style) ? 'display:block' : "display:block;{$style}";
+        $style = "display:block;{$paddingStyle};{$style}";
 
         $sizer = $document->createElement(Amp::SIZER_ELEMENT);
         $sizer->setAttribute(Attribute::SLOT, Amp::SERVICE_SLOT);
-        $sizer->addInlineStyle(sprintf($style, $paddingString));
+        $sizer->addInlineStyle($style);
 
         return $sizer;
     }
@@ -1048,5 +1057,29 @@ final class ServerSideRendering implements Transformer
         }
 
         return abs($number) < self::FLOATING_POINT_EPSILON;
+    }
+
+    /**
+     * Server-side rendering of an amp-audio element.
+     *
+     * @param Document $document DOM document to apply the transformations to.
+     * @param Element  $element  Element to adapt.
+     */
+    private function ssrAmpAudio(Document $document, Element $element)
+    {
+        // Check if we already have a SSR-ed audio element.
+        if ($element->hasChildNodes()) {
+            foreach ($element->childNodes as $childNode) {
+                if ($childNode instanceof Element && $childNode->tagName === Tag::AUDIO) {
+                    return;
+                }
+            }
+        }
+
+        $audio    = $document->createElement(Tag::AUDIO);
+        $controls = $document->createAttribute(Attribute::CONTROLS);
+
+        $audio->setAttributeNode($controls);
+        $element->appendChild($audio);
     }
 }

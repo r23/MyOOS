@@ -1458,6 +1458,8 @@ function amp_is_dev_mode() {
  * @return bool Whether to use `img`.
  */
 function amp_is_native_img_used() {
+	$use_native_img_tag = AMP_Options_Manager::get_option( Option::USE_NATIVE_IMG_TAG );
+
 	/**
 	 * Filters whether to use the native `img` element rather than convert to `amp-img`.
 	 *
@@ -1469,7 +1471,7 @@ function amp_is_native_img_used() {
 	 *
 	 * @param bool $use_native Whether to use `img`.
 	 */
-	return (bool) apply_filters( 'amp_native_img_used', false );
+	return (bool) apply_filters( 'amp_native_img_used', $use_native_img_tag );
 }
 
 /**
@@ -1525,7 +1527,6 @@ function amp_get_content_sanitizers( $post = null ) {
 		],
 		AMP_O2_Player_Sanitizer::class         => [],
 		AMP_Playbuzz_Sanitizer::class          => [],
-
 		AMP_Core_Theme_Sanitizer::class        => [
 			'template'        => get_template(),
 			'stylesheet'      => get_stylesheet(),
@@ -1540,6 +1541,10 @@ function amp_get_content_sanitizers( $post = null ) {
 		],
 
 		AMP_Bento_Sanitizer::class             => [],
+
+		// The AMP_PWA_Script_Sanitizer run before AMP_Script_Sanitizer, to prevent the script tags
+		// from getting removed in PWA plugin offline/500 templates.
+		AMP_PWA_Script_Sanitizer::class        => [],
 
 		// The AMP_Script_Sanitizer runs here because based on whether it allows custom scripts
 		// to be kept, it may impact the behavior of other sanitizers. For example, if custom
@@ -1707,6 +1712,7 @@ function amp_get_content_sanitizers( $post = null ) {
 		AMP_Auto_Lightbox_Disable_Sanitizer::class,
 		AMP_Core_Theme_Sanitizer::class, // Must come before script sanitizer since onclick attributes are removed.
 		AMP_Bento_Sanitizer::class, // Bento scripts may be preserved here.
+		AMP_PWA_Script_Sanitizer::class, // Must come before script sanitizer since PWA offline page scripts are removed.
 		AMP_Script_Sanitizer::class, // Must come before sanitizers for images, videos, audios, comments, forms, and styles.
 		AMP_Form_Sanitizer::class, // Must come before comments sanitizer.
 		AMP_Comments_Sanitizer::class, // Also must come after the form sanitizer.
@@ -2068,7 +2074,11 @@ function amp_add_admin_bar_view_link( $wp_admin_bar ) {
  * @return string|null Script hash or null if the sha384 algorithm is not supported.
  */
 function amp_generate_script_hash( $script ) {
-	$sha384 = hash( 'sha384', $script, true );
+	try {
+		$sha384 = hash( 'sha384', $script, true );
+	} catch ( ValueError $e ) {
+		$sha384 = false;
+	}
 	if ( false === $sha384 ) {
 		return null;
 	}
