@@ -38,7 +38,7 @@ define('TEXT_VIDEO_PRELOAD_HELP', 'Schlägt dem Browser vor, ob das Herunterlade
 define('TEXT_VIDEO_UPLAOD_TITLE', 'Neue .avi Videodatei hochladen.');
 define('TEXT_VIDEO_BROWSER_UPLOADER', 'Sie verwenden den im Browser integrierten Datei-Uploader.');
 define('TEXT_VIDEO_MAX_UPLOAD', 'Maximale Dateigröße für Uploads: <strong>%s</strong>.');
-define('TEXT_VIDEO_UPLAOD_PATIENCE', 'Bitte haben Sie etwas Geduld. Beim Uplaod wird ein Bild von dem Video erstellt und das Vdieo wird automatisch in folgende Formate konvertiert: .mp4 .ogv und .webm.');
+define('TEXT_VIDEO_UPLAOD_PATIENCE', 'Bitte haben Sie etwas Geduld. Beim Uplaod wird ein Bild von dem Video erstellt und das Video wird automatisch in folgende Formate konvertiert: .mp4 .ogv und .webm.');
 define('TEXT_VIDEO_UPLAOD_HELP', 'Für die Videobearbeitung wird FFmpeg auf dem Server benötigt.');
 
 define('TEXT_VIDEO_REMOVE', 'Video löschen');
