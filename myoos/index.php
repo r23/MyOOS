@@ -16,13 +16,13 @@
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ----------------------------------------------------------------------
-*/
+ */
 
 /**
  * Set the error reporting level. Unless you have a special need, E_ALL is a
  * good level for error reporting.
  */
-# error_reporting(0);
+// error_reporting(0);
 error_reporting(E_ALL & ~E_STRICT);
 
 //setting basic configuration parameters
@@ -36,7 +36,7 @@ if (function_exists('ini_set')) {
 
 use Symfony\Component\HttpFoundation\Request;
 
-$autoloader = require_once __DIR__ . '/vendor/autoload.php';
+$autoloader = include_once __DIR__ . '/vendor/autoload.php';
 $request = Request::createFromGlobals();
 
 define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/' ? '' : dirname(__FILE__));
@@ -47,12 +47,12 @@ require 'includes/main.php';
 
 if (empty($sContent) || !is_string($sContent)) {
     $sContent = $aContents['403'];
-    require MYOOS_INCLUDE_PATH . '/includes/content/error403.php'; // 403 Forbidden
+    include MYOOS_INCLUDE_PATH . '/includes/content/error403.php'; // 403 Forbidden
 } elseif (is_readable('includes/content/' . $sContent . '.php')) {
-    require MYOOS_INCLUDE_PATH . '/includes/content/' . $sContent . '.php';
+    include MYOOS_INCLUDE_PATH . '/includes/content/' . $sContent . '.php';
 } else {
     $sContent = $aContents['404'];
-    require MYOOS_INCLUDE_PATH . '/includes/content/error404.php'; // Module not found
+    include MYOOS_INCLUDE_PATH . '/includes/content/error404.php'; // Module not found
 }
 
 require 'includes/nice_exit.php';

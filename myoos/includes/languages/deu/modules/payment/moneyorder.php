@@ -18,7 +18,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('MODULE_PAYMENT_MONEYORDER_STATUS_TITLE', 'Vorkasse/Bank&uuml;berweisung');

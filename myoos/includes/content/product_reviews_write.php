@@ -17,11 +17,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -82,8 +82,8 @@ $product_result = $dbconn->Execute($sql);
 $valid_product = ($product_result->RecordCount() > 0);
 $product_info = $product_result->fields;
 
-if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process') 
-    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) 
+if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process')
+    && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
     && ($valid_product == true)
 ) {
     $review = oos_db_prepare_input($_POST['review']);

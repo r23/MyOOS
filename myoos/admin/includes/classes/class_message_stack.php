@@ -25,11 +25,11 @@
    $messageStack->add('Error: Error 1', 'error');
    $messageStack->add('Error: Error 2', 'warning');
    if ($messageStack->size > 0) echo $messageStack->output();
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 

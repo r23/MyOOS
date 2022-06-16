@@ -143,7 +143,7 @@ case 'Change Login':
 
 case 'Login':
     if (($pwd == '') || ($email == '') || ($pwd != $repeatpwd)) {
-          print_ChangeLogin();
+        print_ChangeLogin();
     } else {
         print_Login();
     }
@@ -194,8 +194,8 @@ case 'DBSubmit':
 
 case 'PHP_Check':
     if (isset($_POST['agreecheck'])) {
-          writeable_oosConfigure();
-          oosCheckPHP();
+        writeable_oosConfigure();
+        oosCheckPHP();
     } else {
         print_select_language();
     }

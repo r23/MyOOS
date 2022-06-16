@@ -38,7 +38,7 @@
    ---------------------------------------------------------------------- */
 
   /***
-   * Connect to Database 
+   * Connect to Database
    ***/
 function oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype='mysql')
 {

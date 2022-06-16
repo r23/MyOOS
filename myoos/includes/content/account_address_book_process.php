@@ -17,11 +17,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -48,7 +48,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/account_address_book_process.php';
 
-if (isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($_POST['entry_id']) && is_numeric($_POST['entry_id'])  
+if (isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($_POST['entry_id']) && is_numeric($_POST['entry_id'])
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     $entry_id = oos_db_prepare_input($_POST['entry_id']);
@@ -70,7 +70,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'deleteconfirm') && isset($_
 
 // Post-entry error checking when updating or adding an entry
 $bProcess = false;
-if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['action'] == 'update') 
+if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['action'] == 'update')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     $bProcess = true;

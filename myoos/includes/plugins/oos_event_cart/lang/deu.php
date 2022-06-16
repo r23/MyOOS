@@ -9,7 +9,7 @@
    Copyright (c) 2003 - 2022 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('PLUGIN_EVENT_CART_NAME', 'Produkte im Warenkorb nach bestimmter Zeit automatisch löschen.');

@@ -19,7 +19,7 @@
    Copyright (c) 2007 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
@@ -33,7 +33,7 @@
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -144,79 +144,79 @@ if (!function_exists('http_response_code')) {
     {
         if ($code !== null) {
             switch ($code) {
-            case 100: $text = 'Continue'; 
+            case 100: $text = 'Continue';
                 break;
-            case 101: $text = 'Switching Protocols'; 
+            case 101: $text = 'Switching Protocols';
                 break;
-            case 200: $text = 'OK'; 
+            case 200: $text = 'OK';
                 break;
-            case 201: $text = 'Created'; 
+            case 201: $text = 'Created';
                 break;
-            case 202: $text = 'Accepted'; 
+            case 202: $text = 'Accepted';
                 break;
-            case 203: $text = 'Non-Authoritative Information'; 
+            case 203: $text = 'Non-Authoritative Information';
                 break;
-            case 204: $text = 'No Content'; 
+            case 204: $text = 'No Content';
                 break;
-            case 205: $text = 'Reset Content'; 
+            case 205: $text = 'Reset Content';
                 break;
-            case 206: $text = 'Partial Content'; 
+            case 206: $text = 'Partial Content';
                 break;
-            case 300: $text = 'Multiple Choices'; 
+            case 300: $text = 'Multiple Choices';
                 break;
-            case 301: $text = 'Moved Permanently'; 
+            case 301: $text = 'Moved Permanently';
                 break;
-            case 302: $text = 'Moved Temporarily'; 
+            case 302: $text = 'Moved Temporarily';
                 break;
-            case 303: $text = 'See Other'; 
+            case 303: $text = 'See Other';
                 break;
-            case 304: $text = 'Not Modified'; 
+            case 304: $text = 'Not Modified';
                 break;
-            case 305: $text = 'Use Proxy'; 
+            case 305: $text = 'Use Proxy';
                 break;
-            case 400: $text = 'Bad Request'; 
+            case 400: $text = 'Bad Request';
                 break;
-            case 401: $text = 'Unauthorized'; 
+            case 401: $text = 'Unauthorized';
                 break;
-            case 402: $text = 'Payment Required'; 
+            case 402: $text = 'Payment Required';
                 break;
-            case 403: $text = 'Forbidden'; 
+            case 403: $text = 'Forbidden';
                 break;
-            case 404: $text = 'Not Found'; 
+            case 404: $text = 'Not Found';
                 break;
-            case 405: $text = 'Method Not Allowed'; 
+            case 405: $text = 'Method Not Allowed';
                 break;
-            case 406: $text = 'Not Acceptable'; 
+            case 406: $text = 'Not Acceptable';
                 break;
-            case 407: $text = 'Proxy Authentication Required'; 
+            case 407: $text = 'Proxy Authentication Required';
                 break;
-            case 408: $text = 'Request Time-out'; 
+            case 408: $text = 'Request Time-out';
                 break;
-            case 409: $text = 'Conflict'; 
+            case 409: $text = 'Conflict';
                 break;
-            case 410: $text = 'Gone'; 
+            case 410: $text = 'Gone';
                 break;
-            case 411: $text = 'Length Required'; 
+            case 411: $text = 'Length Required';
                 break;
-            case 412: $text = 'Precondition Failed'; 
+            case 412: $text = 'Precondition Failed';
                 break;
-            case 413: $text = 'Request Entity Too Large'; 
+            case 413: $text = 'Request Entity Too Large';
                 break;
-            case 414: $text = 'Request-URI Too Large'; 
+            case 414: $text = 'Request-URI Too Large';
                 break;
-            case 415: $text = 'Unsupported Media Type'; 
+            case 415: $text = 'Unsupported Media Type';
                 break;
-            case 500: $text = 'Internal Server Error'; 
+            case 500: $text = 'Internal Server Error';
                 break;
-            case 501: $text = 'Not Implemented'; 
+            case 501: $text = 'Not Implemented';
                 break;
-            case 502: $text = 'Bad Gateway'; 
+            case 502: $text = 'Bad Gateway';
                 break;
-            case 503: $text = 'Service Unavailable'; 
+            case 503: $text = 'Service Unavailable';
                 break;
-            case 504: $text = 'Gateway Time-out'; 
+            case 504: $text = 'Gateway Time-out';
                 break;
-            case 505: $text = 'HTTP Version not supported'; 
+            case 505: $text = 'HTTP Version not supported';
                 break;
             default:
                 exit('Unknown http status code "' . htmlentities($code) . '"');

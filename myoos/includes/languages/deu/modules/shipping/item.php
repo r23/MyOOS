@@ -18,7 +18,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('MODULE_SHIPPING_ITEM_STATUS_TITLE', 'Versandkosten pro Stück aktivieren');

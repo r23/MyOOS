@@ -18,7 +18,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 
@@ -147,7 +147,7 @@ class paypal_api
 
 
         /**
- * @var \Paypal\Rest\ApiContext $apiContext 
+ * @var \Paypal\Rest\ApiContext $apiContext
 */
         $apiContext = getApiContext($clientId, $clientSecret);
 
@@ -343,7 +343,7 @@ class paypal_api
 
 
         /**
- * @var \Paypal\Rest\ApiContext $apiContext 
+ * @var \Paypal\Rest\ApiContext $apiContext
 */
         $apiContext = getApiContext($clientId, $clientSecret);
 

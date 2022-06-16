@@ -18,11 +18,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -137,21 +137,21 @@ if (defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER') && (MODULE_ORDER_T
     case 'national':
         if ($oOrder->delivery['country_id'] == STORE_COUNTRY) {
             $pass = true;
-        } 
+        }
         break;
 
     case 'international':
         if ($oOrder->delivery['country_id'] != STORE_COUNTRY) {
             $pass = true;
-        } 
+        }
         break;
 
     case 'both':
-        $pass = true; 
+        $pass = true;
         break;
 
     default:
-        $pass = false; 
+        $pass = false;
         break;
     }
 
@@ -168,7 +168,7 @@ if (defined('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER') && (MODULE_ORDER_T
 
 
 // process the selected shipping method
-if (isset($_POST['action']) && ($_POST['action'] == 'process') 
+if (isset($_POST['action']) && ($_POST['action'] == 'process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     if ((isset($_POST['comments'])) && (is_string($_POST['comments']))) {

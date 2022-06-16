@@ -240,17 +240,17 @@ if ($srExp < 2) {
                 <tr>
                   <td align="left" rowspan="2" class="menuBoxHeading">
                     <input type="radio" name="report" value="1" <?php if ($srView == 1) {
-                        echo "checked";
-} ?>><?php echo REPORT_TYPE_YEARLY; ?><br>
+            echo "checked";
+        } ?>><?php echo REPORT_TYPE_YEARLY; ?><br>
                     <input type="radio" name="report" value="2" <?php if ($srView == 2) {
-                        echo "checked";
-} ?>><?php echo REPORT_TYPE_MONTHLY; ?><br>
+            echo "checked";
+        } ?>><?php echo REPORT_TYPE_MONTHLY; ?><br>
                     <input type="radio" name="report" value="3" <?php if ($srView == 3) {
-                        echo "checked";
-} ?>><?php echo REPORT_TYPE_WEEKLY; ?><br>
+            echo "checked";
+        } ?>><?php echo REPORT_TYPE_WEEKLY; ?><br>
                     <input type="radio" name="report" value="4" <?php if ($srView == 4) {
-                        echo "checked";
-} ?>><?php echo REPORT_TYPE_DAILY; ?><br>
+            echo "checked";
+        } ?>><?php echo REPORT_TYPE_DAILY; ?><br>
                   </td>
                   <td class="menuBoxHeading">
         <?php echo REPORT_START_DATE; ?><br>
@@ -264,8 +264,8 @@ if ($srExp < 2) {
         for ($i = 1; $i < 32; $i++) {
             ?>
                         <option<?php if ($j == $i) {
-                            echo ' selected="selected"';
-} ?>><?php echo $i; ?></option>
+                echo ' selected="selected"';
+            } ?>><?php echo $i; ?></option>
             <?php
         } ?>
                     </select>
@@ -279,8 +279,8 @@ if ($srExp < 2) {
         for ($i = 1; $i < 13; $i++) {
             $monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); ?>
                       <option<?php if ($m == $i) {
-                            echo ' selected="selected"';
-} ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>
+                echo ' selected="selected"';
+            } ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>
             <?php
         } ?>
                     </select>
@@ -294,8 +294,8 @@ if ($srExp < 2) {
         for ($i = 10; $i >= 0; $i--) {
             ?>
                       <option<?php if ($y == $i) {
-                            echo ' selected="selected"';
-} ?>><?php echo date("Y") - $i; ?></option>
+                echo ' selected="selected"';
+            } ?>><?php echo date("Y") - $i; ?></option>
             <?php
         } ?>
                     </select>
@@ -304,36 +304,36 @@ if ($srExp < 2) {
                     <?php echo REPORT_DETAIL; ?><br>
                     <select name="detail" size="1">
                       <option value="0"<?php if ($srDetail == 0) {
-                            echo ' selected="selected"';
-} ?>><?php echo DET_HEAD_ONLY; ?></option>
+            echo ' selected="selected"';
+        } ?>><?php echo DET_HEAD_ONLY; ?></option>
                       <option value="1"<?php if ($srDetail == 1) {
-                            echo ' selected="selected"';
-} ?>><?php echo DET_DETAIL; ?></option>
+            echo ' selected="selected"';
+        } ?>><?php echo DET_DETAIL; ?></option>
                       <option value="2"<?php if ($srDetail == 2) {
-                            echo ' selected="selected"';
-} ?>><?php echo DET_DETAIL_ONLY; ?></option>
+            echo ' selected="selected"';
+        } ?>><?php echo DET_DETAIL_ONLY; ?></option>
                     </select><br>
         <?php echo REPORT_MAX; ?><br>
                     <select name="max" size="1">
                       <option value="0"><?php echo REPORT_ALL; ?></option>
                       <option<?php if ($srMax == 1) {
-                            echo ' selected="selected"';
-} ?>>1</option>
+            echo ' selected="selected"';
+        } ?>>1</option>
                       <option<?php if ($srMax == 3) {
-                            echo ' selected="selected"';
-} ?>>3</option>
+            echo ' selected="selected"';
+        } ?>>3</option>
                       <option<?php if ($srMax == 5) {
-                            echo ' selected="selected"';
-} ?>>5</option>
+            echo ' selected="selected"';
+        } ?>>5</option>
                       <option<?php if ($srMax == 10) {
-                            echo ' selected="selected"';
-} ?>>10</option>
+            echo ' selected="selected"';
+        } ?>>10</option>
                       <option<?php if ($srMax == 25) {
-                            echo ' selected="selected"';
-} ?>>25</option>
+            echo ' selected="selected"';
+        } ?>>25</option>
                       <option<?php if ($srMax == 50) {
-                            echo ' selected="selected"';
-} ?>>50</option>
+            echo ' selected="selected"';
+        } ?>>50</option>
                     </select>
                   </td>
                   <td rowspan="2" align="left" class="menuBoxHeading">
@@ -344,8 +344,8 @@ if ($srExp < 2) {
         foreach ($sr->status as $value) {
             ?>
                       <option value="<?php echo $value["orders_status_id"]?>"<?php if ($srStatus == $value["orders_status_id"]) {
-                            echo ' selected="selected"';
-} ?>><?php echo $value["orders_status_name"] ; ?></option>
+                echo ' selected="selected"';
+            } ?>><?php echo $value["orders_status_name"] ; ?></option>
             <?php
         } ?>
                     </select><br>
@@ -360,26 +360,26 @@ if ($srExp < 2) {
                     <?php echo REPORT_SORT; ?><br>
                     <select name="sort" size="1">
                       <option value="0"<?php if ($srSort == 0) {
-                            echo ' selected="selected"';
-} ?>><?php echo SORT_VAL0; ?></option>
+            echo ' selected="selected"';
+        } ?>><?php echo SORT_VAL0; ?></option>
                       <option value="1"<?php if ($srSort == 1) {
-                            echo ' selected="selected"';
-} ?>><?php echo SORT_VAL1; ?></option>
+            echo ' selected="selected"';
+        } ?>><?php echo SORT_VAL1; ?></option>
                       <option value="2"<?php if ($srSort == 2) {
-                            echo ' selected="selected"';
-} ?>><?php echo SORT_VAL2; ?></option>
+            echo ' selected="selected"';
+        } ?>><?php echo SORT_VAL2; ?></option>
                       <option value="3"<?php if ($srSort == 3) {
-                            echo ' selected="selected"';
-} ?>><?php echo SORT_VAL3; ?></option>
+            echo ' selected="selected"';
+        } ?>><?php echo SORT_VAL3; ?></option>
                       <option value="4"<?php if ($srSort == 4) {
-                            echo ' selected="selected"';
-} ?>><?php echo SORT_VAL4; ?></option>
+            echo ' selected="selected"';
+        } ?>><?php echo SORT_VAL4; ?></option>
                       <option value="5"<?php if ($srSort == 5) {
-                            echo ' selected="selected"';
-} ?>><?php echo SORT_VAL5; ?></option>
+            echo ' selected="selected"';
+        } ?>><?php echo SORT_VAL5; ?></option>
                       <option value="6"<?php if ($srSort == 6) {
-                            echo ' selected="selected"';
-} ?>><?php echo SORT_VAL6; ?></option>
+            echo ' selected="selected"';
+        } ?>><?php echo SORT_VAL6; ?></option>
                     </select><br>
                   </td>
                 </tr>
@@ -396,8 +396,8 @@ if ($srExp < 2) {
         for ($i = 1; $i < 32; $i++) {
             ?>
                       <option<?php if ($j == $i) {
-                            echo ' selected="selected"';
-} ?>><?php echo $i; ?></option>
+                echo ' selected="selected"';
+            } ?>><?php echo $i; ?></option>
             <?php
         } ?>
                     </select>
@@ -411,8 +411,8 @@ if ($srExp < 2) {
         for ($i = 1; $i < 13; $i++) {
             $monthName = (new Carbon())->setMonth($i)->isoFormat('MMMM'); ?>
                       <option<?php if ($m == $i) {
-                            echo ' selected="selected"';
-} ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>
+                echo ' selected="selected"';
+            } ?> value="<?php echo $i; ?>"><?php echo $monthName; ?></option>
             <?php
         } ?>
                     </select>
@@ -426,8 +426,8 @@ if ($srExp < 2) {
         for ($i = 10; $i >= 0; $i--) {
             ?>
                       <option<?php if ($y == $i) {
-                            echo ' selected="selected"';
-} ?>><?php echo date("Y") - $i; ?></option>
+                echo ' selected="selected"';
+            } ?>><?php echo date("Y") - $i; ?></option>
             <?php
         } ?>
                     </select>

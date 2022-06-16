@@ -18,7 +18,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('MODULE_ORDER_TOTAL_LOWORDERFEE_STATUS_TITLE', 'Mindermengenzuschlag');

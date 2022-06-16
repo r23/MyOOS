@@ -17,7 +17,7 @@
    Copyright (c) 2002 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('OOS_VALID_MOD', 'yes');
@@ -333,7 +333,7 @@ if (($action == 'preview') && ($_POST['customers_email_address'] || $_POST['emai
           </form></tr>
     <?php
 } else {
-    ?>
+        ?>
           <tr><?php echo oos_draw_form('id', 'mail', $aContents['gv_mail'], 'action=preview', 'post', false); ?>
             <td><table border="0" cellpadding="0" cellspacing="2">
               <tr>
@@ -341,19 +341,19 @@ if (($action == 'preview') && ($_POST['customers_email_address'] || $_POST['emai
               </tr>
     <?php
     $customers = [];
-    $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
-    $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
-    $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
+        $customers[] = array('id' => '', 'text' => TEXT_SELECT_CUSTOMER);
+        $customers[] = array('id' => '***', 'text' => TEXT_ALL_CUSTOMERS);
+        $customers[] = array('id' => '**D', 'text' => TEXT_NEWSLETTER_CUSTOMERS);
 
-    $customerstable = $oostable['customers'];
-    $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM $customerstable ORDER BY customers_lastname");
-    while ($customers_values = $mail_result->fields) {
-        $customers[] = array('id' => $customers_values['customers_email_address'],
+        $customerstable = $oostable['customers'];
+        $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM $customerstable ORDER BY customers_lastname");
+        while ($customers_values = $mail_result->fields) {
+            $customers[] = array('id' => $customers_values['customers_email_address'],
                          'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
 
-        // Move that ADOdb pointer!
-        $mail_result->MoveNext();
-    } ?>
+            // Move that ADOdb pointer!
+            $mail_result->MoveNext();
+        } ?>
               <tr>
                 <td class="main"><?php echo TEXT_CUSTOMER; ?></td>
                 <td><?php echo oos_draw_pull_down_menu('customers_email_address', $customers, $sCustomer); ?></td>
@@ -406,7 +406,7 @@ if (($action == 'preview') && ($_POST['customers_email_address'] || $_POST['emai
             </table></td>
           </form></tr>
     <?php
-}
+    }
 ?>
 
         </table>

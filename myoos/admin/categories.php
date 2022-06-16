@@ -640,7 +640,7 @@ if (!empty($action)) {
                 // products_model_viewer
                 $products_model_viewer_copy_result = $dbconn->Execute("SELECT model_viewer_id, products_id, model_viewer_glb, model_viewer_usdz, model_viewer_background_color, model_viewer_auto_rotate, model_viewer_scale, model_viewer_hdr FROM " . $oostable['products_model_viewer'] . " WHERE products_id='" . intval($products_id_from) . "'");
                 if ($products_model_viewer_copy_result->RecordCount()) {
-                    $products_models_copy = $products_model_viewer_copy_result->fields;            
+                    $products_models_copy = $products_model_viewer_copy_result->fields;
                     $sql = "INSERT INTO " . $oostable['products_model_viewer'] . "
 								(products_id,
 								model_viewer_glb,
@@ -742,7 +742,7 @@ if (!empty($action)) {
                         $models_description_result->MoveNext();
                     }
                 }
-                    
+
                 // products_video
                 $products_video_copy_result = $dbconn->Execute("SELECT video_id, products_id, video_source, video_poster, video_preload, video_data_setup FROM " . $oostable['products_video'] . " WHERE products_id='" . intval($products_id_from) . "'");
                 if ($products_video_copy_result->RecordCount()) {
@@ -760,7 +760,7 @@ if (!empty($action)) {
 										'" . $products_video_copy['video_preload'] . "',
 										'" . $products_video_copy['video_data_setup'] . "',
 										now())";
-                    $result = $dbconn->Execute($sql);                
+                    $result = $dbconn->Execute($sql);
                     $dup_video_viewer_id = $dbconn->Insert_ID();
                     $products_video_description_result = $dbconn->Execute("SELECT video_languages_id, video_title, video_description, video_viewed FROM " . $oostable['products_video_description'] . " WHERE video_id = '" . intval($products_video_copy['video_id']) . "'");
                     while ($description = $products_video_description_result->fields) {
@@ -993,10 +993,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_EDIT_CATEGORIES_NAME;
-} ?></label>
+            echo TEXT_EDIT_CATEGORIES_NAME;
+        } ?></label>
         <?php if ($nLanguages > 1) {
-                echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
                                 <?php echo oos_draw_input_field('categories_name[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_category_name($cInfo->categories_id, $aLanguages[$i]['id'])), '', false, 'text', true, false, ''); ?>
@@ -1010,8 +1010,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_EDIT_CATEGORIES_PAGE_TITLE;
-} ?></label>
+            echo TEXT_EDIT_CATEGORIES_PAGE_TITLE;
+        } ?></label>
         <?php if ($nLanguages > 1) {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
@@ -1027,8 +1027,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_EDIT_CATEGORIES_HEADING_TITLE;
-} ?></label>
+            echo TEXT_EDIT_CATEGORIES_HEADING_TITLE;
+        } ?></label>
         <?php if ($nLanguages > 1) {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
@@ -1044,8 +1044,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_EDIT_CATEGORIES_DESCRIPTION;
-} ?></label>
+            echo TEXT_EDIT_CATEGORIES_DESCRIPTION;
+        } ?></label>
         <?php if ($nLanguages > 1) {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
@@ -1064,8 +1064,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_EDIT_CATEGORIES_DESCRIPTION_META;
-} ?></label>
+            echo TEXT_EDIT_CATEGORIES_DESCRIPTION_META;
+        } ?></label>
         <?php if ($nLanguages > 1) {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
@@ -1109,7 +1109,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         if ($cInfo->color == $v) {
             echo ' checked="checked"';
         }
-            echo  '>'; ?>
+        echo  '>'; ?>
                                         <?php echo '<span class="' . $v . '">' . TEXT_CATEGORY . '</span>'; ?>
                                     </label>
                                 </div>
@@ -1130,10 +1130,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
                                     <label>
                                         <?php
                                             echo '<input type="radio" name="menu_type" value="NEW"';
-                                        if ($cInfo->menu_type == 'NEW') {
-                                            echo ' checked="checked"';
-                                        }
-                                        echo  '>&nbsp;'; ?>
+    if ($cInfo->menu_type == 'NEW') {
+        echo ' checked="checked"';
+    }
+    echo  '>&nbsp;'; ?>
                                         <span class="badge badge-danger float-right"><?php echo TEXT_EDIT_NEW; ?></span>
                                     </label>
                                 </div>
@@ -1141,10 +1141,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
                                     <label>
                                         <?php
                                             echo '<input type="radio" name="menu_type" value="PROMO"';
-                                        if ($cInfo->menu_type == 'PROMO') {
-                                            echo ' checked="checked"';
-                                        }
-                                        echo  '>&nbsp;'; ?>
+    if ($cInfo->menu_type == 'PROMO') {
+        echo ' checked="checked"';
+    }
+    echo  '>&nbsp;'; ?>
                                         <span class="badge badge-success float-right"><?php echo TEXT_EDIT_PROMO; ?></span>
                                     </label>
                                 </div>
@@ -1169,10 +1169,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_TITLE;
-} ?></label>
+            echo TEXT_TITLE;
+        } ?></label>
         <?php if ($nLanguages > 1) {
-                echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
                                 <?php echo oos_draw_input_field('categories_facebook_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_categories_facebook_title($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
@@ -1186,8 +1186,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_DESCRIPTION;
-} ?></label>
+            echo TEXT_DESCRIPTION;
+        } ?></label>
         <?php if ($nLanguages > 1) {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
@@ -1228,10 +1228,10 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_TITLE;
-} ?></label>
+            echo TEXT_TITLE;
+        } ?></label>
         <?php if ($nLanguages > 1) {
-                echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
                                 <?php echo oos_draw_input_field('categories_twitter_title[' . $aLanguages[$i]['id'] . ']', (empty($cInfo->categories_id) ? '' : oos_get_categories_twitter_title($cInfo->categories_id, $aLanguages[$i]['id']))); ?>
@@ -1245,8 +1245,8 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_DESCRIPTION;
-} ?></label>
+            echo TEXT_DESCRIPTION;
+        } ?></label>
         <?php if ($nLanguages > 1) {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
@@ -1471,13 +1471,13 @@ if ($action == 'new_category' || $action == 'edit_category') {
         $image_icon_status_array = [];
         $image_icon_status_array = array(array('id' => '0', 'text' => TEXT_PRODUCT_NOT_AVAILABLE));
         $image_icon_status_result = $dbconn->Execute("SELECT products_status_id, products_status_name FROM " . $oostable['products_status'] . " WHERE products_status_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_status_id");
-    while ($image_icon_status = $image_icon_status_result->fields) {
-        $image_icon_status_array[] = array('id' => $image_icon_status['products_status_id'],
+        while ($image_icon_status = $image_icon_status_result->fields) {
+            $image_icon_status_array[] = array('id' => $image_icon_status['products_status_id'],
                                         'text' => $image_icon_status['products_status_name']);
 
-        // Move that ADOdb pointer!
-        $image_icon_status_result->MoveNext();
-    } ?>
+            // Move that ADOdb pointer!
+            $image_icon_status_result->MoveNext();
+        } ?>
 
     <!-- Breadcrumbs //-->
     <div class="content-heading">
@@ -1552,33 +1552,33 @@ if ($action == 'new_category' || $action == 'edit_category') {
     <?php
     $categories_count = 0;
         $rows = 0;
-    if (isset($_GET['search'])) {
-        $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' AND cd.categories_name like '%" . oos_db_input($_GET['search']) . "%' ORDER BY c.sort_order, cd.categories_name");
-    } else {
-        $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.parent_id = '" . intval($current_category_id) . "' AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
-    }
-    while ($categories = $categories_result->fields) {
-        $categories_count++;
-        $rows++;
-
-        // Get parent_id for subcategories if search
         if (isset($_GET['search'])) {
-            $cPath = $categories['parent_id'];
-        }
-
-        if ((!isset($_GET['cID']) && !isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['cID'] == $categories['categories_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
-            $category_childs = array('childs_count' => oos_childs_in_category_count($categories['categories_id']));
-            $category_products = array('products_count' => oos_products_in_category_count($categories['categories_id']));
-
-            $cInfo_array = array_merge($categories, $category_childs, $category_products);
-            $cInfo = new objectInfo($cInfo_array);
-        }
-
-        if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id)) {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '\'">' . "\n";
+            $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' AND cd.categories_name like '%" . oos_db_input($_GET['search']) . "%' ORDER BY c.sort_order, cd.categories_name");
         } else {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
-        } ?>
+            $categories_result = $dbconn->Execute("SELECT c.categories_id, cd.categories_name, c.categories_image, c.parent_id, c.sort_order, c.date_added, c.last_modified, c.categories_status FROM " . $oostable['categories'] . " c, " . $oostable['categories_description'] . " cd WHERE c.categories_status != 0 AND c.parent_id = '" . intval($current_category_id) . "' AND c.categories_id = cd.categories_id AND cd.categories_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY c.sort_order, cd.categories_name");
+        }
+        while ($categories = $categories_result->fields) {
+            $categories_count++;
+            $rows++;
+
+            // Get parent_id for subcategories if search
+            if (isset($_GET['search'])) {
+                $cPath = $categories['parent_id'];
+            }
+
+            if ((!isset($_GET['cID']) && !isset($_GET['pID']) || (isset($_GET['cID']) && ($_GET['cID'] == $categories['categories_id']))) && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
+                $category_childs = array('childs_count' => oos_childs_in_category_count($categories['categories_id']));
+                $category_products = array('products_count' => oos_products_in_category_count($categories['categories_id']));
+
+                $cInfo_array = array_merge($categories, $category_childs, $category_products);
+                $cInfo = new objectInfo($cInfo_array);
+            }
+
+            if (isset($cInfo) && is_object($cInfo) && ($categories['categories_id'] == $cInfo->categories_id)) {
+                echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '\'">' . "\n";
+            } else {
+                echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories['categories_id']) . '\'">' . "\n";
+            } ?>
                 <td>&nbsp;<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], oos_get_path($categories['categories_id'])) . '"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-folder"></i></button></a>&nbsp;<b>' . ' #' . $categories['categories_id'] . ' ' . $categories['categories_name'] . '</b>'; ?></td>
                 <td class="text-center">&nbsp;</td>
                  <td class="text-center">
@@ -1598,38 +1598,38 @@ if ($action == 'new_category' || $action == 'edit_category') {
         <?php
         // Move that ADOdb pointer!
         $categories_result->MoveNext();
-    }
+        }
 
 
         $products_count = 0;
-    if (isset($_GET['search'])) {
-        $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_setting, p2c.categories_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id AND products_setting != 0 AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = p2c.products_id AND pd.products_name like '%" . oos_db_input($_GET['search']) . "%' OR p.products_model like '%" . oos_db_input($_GET['search']) . "%' ORDER BY pd.products_name");
-    } else {
-        $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price,p.products_base_price, p.products_base_unit, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_tax_class_id, p.products_setting, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id AND products_setting != 0 AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = p2c.products_id and p2c.categories_id = '" . intval($current_category_id) . "' ORDER BY pd.products_name");
-    }
-
-    while ($products = $products_result->fields) {
-        $products_count++;
-        $rows++;
-
-        // Get categories_id for product if search
         if (isset($_GET['search'])) {
-            $cPath=$products['categories_id'];
-        }
-
-        if ((!isset($_GET['pID']) && !isset($_GET['cID']) || (isset($_GET['pID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo)  && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
-            // find out the rating average from customer reviews
-            $reviews_result = $dbconn->Execute("SELECT (avg(reviews_rating) / 5 * 100) as average_rating FROM " . $oostable['reviews'] . " WHERE products_id = '" . $products['products_id'] . "'");
-            $reviews = $reviews_result->fields;
-            $pInfo_array = array_merge($products, $reviews);
-            $pInfo = new objectInfo($pInfo_array);
-        }
-
-        if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) {
-            echo '              <tr>' . "\n";
+            $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price, p.products_base_price, p.products_base_unit, p.products_tax_class_id, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_setting, p2c.categories_id, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id AND products_setting != 0 AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = p2c.products_id AND pd.products_name like '%" . oos_db_input($_GET['search']) . "%' OR p.products_model like '%" . oos_db_input($_GET['search']) . "%' ORDER BY pd.products_name");
         } else {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products['products_id']) . '\'">' . "\n";
-        } ?>
+            $products_result = $dbconn->Execute("SELECT p.products_id, pd.products_name, p.products_quantity, p.products_reorder_level, p.products_image, p.products_price,p.products_base_price, p.products_base_unit, p.products_date_added, p.products_last_modified, p.products_date_available, p.products_status, p.products_tax_class_id, p.products_setting, p.products_price_list, p.products_quantity_order_min, p.products_quantity_order_max, p.products_quantity_order_units, p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty, p.products_sort_order FROM " . $oostable['products'] . " p, " . $oostable['products_description'] . " pd, " . $oostable['products_to_categories'] . " p2c WHERE p.products_id = pd.products_id AND products_setting != 0 AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = p2c.products_id and p2c.categories_id = '" . intval($current_category_id) . "' ORDER BY pd.products_name");
+        }
+
+        while ($products = $products_result->fields) {
+            $products_count++;
+            $rows++;
+
+            // Get categories_id for product if search
+            if (isset($_GET['search'])) {
+                $cPath=$products['categories_id'];
+            }
+
+            if ((!isset($_GET['pID']) && !isset($_GET['cID']) || (isset($_GET['pID']) && ($_GET['pID'] == $products['products_id']))) && !isset($pInfo)  && !isset($cInfo) && (substr($action, 0, 3) != 'new')) {
+                // find out the rating average from customer reviews
+                $reviews_result = $dbconn->Execute("SELECT (avg(reviews_rating) / 5 * 100) as average_rating FROM " . $oostable['reviews'] . " WHERE products_id = '" . $products['products_id'] . "'");
+                $reviews = $reviews_result->fields;
+                $pInfo_array = array_merge($products, $reviews);
+                $pInfo = new objectInfo($pInfo_array);
+            }
+
+            if (isset($pInfo) && is_object($pInfo) && ($products['products_id'] == $pInfo->products_id)) {
+                echo '              <tr>' . "\n";
+            } else {
+                echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&pID=' . $products['products_id']) . '\'">' . "\n";
+            } ?>
                 <td><?php echo '<a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $products['products_id']) . '" target="_blank" rel="noopener"><button class="btn btn-white btn-sm" type="button"><i class="fa fa-search"></i></button></a>&nbsp;' . '#' . $products['products_id'] . ' ' . $products['products_name']; ?></td>
                 <td><?php echo oos_get_manufacturers_name($products['products_id']) ?></td>
                 <td class="text-center">
@@ -1653,7 +1653,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
         <?php
         // Move that ADOdb pointer!
         $products_result->MoveNext();
-    } ?>
+        } ?>
               <tr>
                 <td colspan="5"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
@@ -1907,7 +1907,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
     </div>
 <!-- body_text_eof //-->
     <?php
-}
+    }
 ?>
 
 

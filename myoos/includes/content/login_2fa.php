@@ -8,11 +8,11 @@
    Copyright (c) 2003 - 2022 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -47,7 +47,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/login_
 // Create the 2FA class
 $google2fa = new PragmaRX\Google2FA\Google2FA();
 
-if (isset($_POST['action']) && ($_POST['action'] == 'process') 
+if (isset($_POST['action']) && ($_POST['action'] == 'process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     $code = oos_db_prepare_input($_POST['code']);

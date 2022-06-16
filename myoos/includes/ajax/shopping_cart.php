@@ -17,11 +17,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -160,12 +160,12 @@ if (isset($_SESSION)) {
                     }
 
 
-                    
+
                     $products_product_quantity = null;
-                    if  ($products[$i]['products_base_price'] != 1) {
+                    if ($products[$i]['products_base_price'] != 1) {
                         $key = $products[$i]['products_units_id'];
                         $aData['content'] .='     			<p class="cart-entry-meta">' . $products_units[$key][1] . '=' . $products[$i]['base_product_price'] . '*</p>' . "\n";
-                        
+
                         $products_product_quantity = oos_cut_number($products[$i]['products_product_quantity']);
                         $aData['content'] .='     			<p class="cart-entry-meta"><strong>' . $aLang['text_content'] . '</strong> '. $products_product_quantity  .'&nbsp;' . $products_units[$key][0] . '</p>' . "\n";
                     }
@@ -174,7 +174,7 @@ if (isset($_SESSION)) {
                     $aData['content'] .='   <div class="text-right"><span class="item-remove-btn" data-id="' . $products[$i]['id'] . '" role="button"> <i class="fa fa-trash" aria-hidden="true"></i></span></div>' . "\n";
                     $aData['content'] .='</div>' . "\n";
                     $aData['content'] .='<hr>' . "\n";
-                    $aData['content'] .='<!-- /cart item -->' . "\n";                    
+                    $aData['content'] .='<!-- /cart item -->' . "\n";
                 }
 
 
@@ -186,8 +186,8 @@ if (isset($_SESSION)) {
 
                 $aData['content'] .='</div>' . "\n";
                 $aData['content'] .='<p class="prices-tax">' . $tax_plus_shipping . '</p>' . "\n";
-                
-                
+
+
                 $aData['content'] .='<div class="d-grid gap-2">' . "\n";
                 $aData['content'] .='<a class="btn btn-primary btn-sm" href="' . oos_href_link($aContents['checkout_shipping']) . '"><i class="fa fa-credit-card" aria-hidden="true"></i> '. $aLang['button_checkout'] . '</a>' . "\n";
                 $aData['content'] .='</div>' . "\n";

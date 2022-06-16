@@ -225,10 +225,10 @@ if ($action == 'new' || $action == 'edit') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_INFORMATION_NAME;
-} ?></label>
+            echo TEXT_INFORMATION_NAME;
+        } ?></label>
         <?php if ($nLanguages > 1) {
-                echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
+            echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
                             <div class="col-lg-9">
                                 <?php echo oos_draw_input_field('information_name[' . $aLanguages[$i]['id'] . ']', ((isset($information_name[$aLanguages[$i]['id']])) ? stripslashes($information_name[$aLanguages[$i]['id']]) : oos_get_informations_name($iInfo->information_id, $aLanguages[$i]['id'])), '', false, 'text', true, false); ?>
@@ -242,8 +242,8 @@ if ($action == 'new' || $action == 'edit') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_INFORMATION_HEADING_TITLE;
-} ?></label>
+            echo TEXT_INFORMATION_HEADING_TITLE;
+        } ?></label>
         <?php if ($nLanguages > 1) {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
@@ -259,8 +259,8 @@ if ($action == 'new' || $action == 'edit') {
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_INFORMATION_DESCRIPTION;
-} ?></label>
+            echo TEXT_INFORMATION_DESCRIPTION;
+        } ?></label>
         <?php if ($nLanguages > 1) {
             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
         } ?>
@@ -318,7 +318,7 @@ if ($action == 'new' || $action == 'edit') {
     </div>
     <?php
 } else {
-    ?>
+        ?>
             <!-- Breadcrumbs //-->
             <div class="content-heading">
                 <div class="col-lg-12">
@@ -367,17 +367,17 @@ if ($action == 'new' || $action == 'edit') {
                               ORDER BY i.sort_order, id.information_name";
         $information_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $information_result_raw, $information_result_numrows);
         $information_result = $dbconn->Execute($information_result_raw);
-    while ($information = $information_result->fields) {
-        if ((!isset($_GET['iID']) || (isset($_GET['iID']) && ($_GET['iID'] == $information['information_id']))) && !isset($iInfo) && (substr($action, 0, 3) != 'new')) {
-            $iInfo_array = array_merge($information);
-            $iInfo = new objectInfo($iInfo_array);
-        }
+        while ($information = $information_result->fields) {
+            if ((!isset($_GET['iID']) || (isset($_GET['iID']) && ($_GET['iID'] == $information['information_id']))) && !isset($iInfo) && (substr($action, 0, 3) != 'new')) {
+                $iInfo_array = array_merge($information);
+                $iInfo = new objectInfo($iInfo_array);
+            }
 
-        if (isset($iInfo) && is_object($iInfo) && ($information['information_id'] == $iInfo->information_id)) {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id'] . '&action=edit') . '\'">' . "\n";
-        } else {
-            echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id']) . '\'">' . "\n";
-        } ?>
+            if (isset($iInfo) && is_object($iInfo) && ($information['information_id'] == $iInfo->information_id)) {
+                echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id'] . '&action=edit') . '\'">' . "\n";
+            } else {
+                echo '              <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id']) . '\'">' . "\n";
+            } ?>
                 <td><?php echo $information['information_name']; ?></td>
                 <td>
         <?php
@@ -388,15 +388,15 @@ if ($action == 'new' || $action == 'edit') {
         } ?></td>
                 <td><?php echo $information['sort_order']; ?></td>
                 <td class="text-right"><?php if (isset($iInfo) && is_object($iInfo) && ($information['information_id'] == $iInfo->information_id)) {
-                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+            echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+        } else {
+            echo '<a href="' . oos_href_link_admin($aContents['information'], 'page=' . $nPage . '&iID=' . $information['information_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+        } ?>&nbsp;</td>
              </tr>
         <?php
         // Move that ADOdb pointer!
         $information_result->MoveNext();
-    } ?>
+        } ?>
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
@@ -463,7 +463,7 @@ if ($action == 'new' || $action == 'edit') {
     </div>
 <!-- body_text_eof //-->
     <?php
-}
+    }
 ?> 
                 </div>
             </div>

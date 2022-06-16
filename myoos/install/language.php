@@ -38,7 +38,7 @@
    ---------------------------------------------------------------------- */
 
 /**
- * Loads the required language file for the installer 
+ * Loads the required language file for the installer
  **/
 function installer_get_language()
 {

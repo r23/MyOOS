@@ -17,11 +17,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -44,7 +44,7 @@ if (isset($_SESSION)) {
 
             $country = (isset($_SESSION['delivery_country_id'])) ? intval($_SESSION['delivery_country_id']) : STORE_COUNTRY;
 
-            if (isset($_GET['action']) && ($_GET['action'] == 'shipping') 
+            if (isset($_GET['action']) && ($_GET['action'] == 'shipping')
                 && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
             ) {
                 $country = oos_db_prepare_input($_POST['country']);
@@ -133,8 +133,8 @@ if (isset($_SESSION)) {
             $order_total_modules = new order_total();
 
             // Redeem coupons
-            if (isset($_GET['action']) && ($_GET['action'] == 'promocode') 
-                && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid'])) 
+            if (isset($_GET['action']) && ($_GET['action'] == 'promocode')
+                && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
                 && (isset($_POST['gv_redeem_code']) && is_string($_POST['gv_redeem_code']))
             ) {
                 $order_total_modules->shopping_cart_collect_posts();

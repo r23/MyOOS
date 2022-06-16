@@ -18,11 +18,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -39,11 +39,11 @@ $query = "SELECT products_id, products_image, products_tax_class_id, products_un
             ORDER BY products_date_added DESC";
 if ($random_product = oos_random_select($query, MAX_RANDOM_SELECT_NEW)) {
     $whats_new_block = true;
-    
+
     $random_product['products_name'] = oos_get_products_name($random_product['products_id']);
-    
+
     $discount = null;
-    
+
     $whats_new_product_price = null;
     $whats_new_price_list = null;
     $whats_new_product_special_price = null;

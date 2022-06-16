@@ -23,7 +23,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('UP_SELL_SUCCESS', 'UP Sell Items Successfully Update For UP Sell Product #'.$_GET['add_related_product_ID']);

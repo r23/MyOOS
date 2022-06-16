@@ -17,7 +17,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 
@@ -29,7 +29,7 @@ if (!isset($_SESSION['log_times'])) {
 }
 
 $login = '';
-if (isset($_GET['action']) && ($_GET['action'] == 'process') 
+if (isset($_GET['action']) && ($_GET['action'] == 'process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     $_SESSION['log_times']++;
@@ -105,7 +105,7 @@ if (isset($_SESSION['password_forgotten'])) {
                 </div>    
     <?php
 } elseif ($login == 'success') {
-    ?>
+        ?>
 
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <?php echo TEXT_FORGOTTEN_SUCCESS; ?>
@@ -120,9 +120,9 @@ if (isset($_SESSION['password_forgotten'])) {
                     </div>
                 </div>    
     <?php
-} else {
-    if ($login == 'fail') {
-        ?>
+    } else {
+        if ($login == 'fail') {
+            ?>
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
         <?php echo TEXT_FORGOTTEN_ERROR; ?>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -131,7 +131,7 @@ if (isset($_SESSION['password_forgotten'])) {
                 </div>
 
         <?php
-    } ?>
+        } ?>
 
             
                 <div class="login-header text-center">
@@ -172,7 +172,7 @@ if (isset($_SESSION['password_forgotten'])) {
                 </form>
 
     <?php
-}
+    }
 ?>
             </div>
         </div>

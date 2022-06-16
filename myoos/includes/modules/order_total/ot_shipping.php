@@ -18,7 +18,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 class ot_shipping
@@ -61,18 +61,18 @@ class ot_shipping
             case 'national':
                 if ($oOrder->delivery['country_id'] == STORE_COUNTRY) {
                     $pass = true;
-                } 
+                }
                 break;
             case 'international':
                 if ($oOrder->delivery['country_id'] != STORE_COUNTRY) {
                     $pass = true;
-                } 
+                }
                 break;
             case 'both':
-                $pass = true; 
+                $pass = true;
                 break;
             default:
-                $pass = false; 
+                $pass = false;
                 break;
             }
 
@@ -152,21 +152,21 @@ class ot_shipping
             case 'national':
                 if ($delivery_country_id == STORE_COUNTRY) {
                     $pass = true;
-                } 
+                }
                 break;
 
             case 'international':
                 if ($delivery_country_id != STORE_COUNTRY) {
                     $pass = true;
-                } 
+                }
                 break;
 
             case 'both':
-                $pass = true; 
+                $pass = true;
                 break;
 
             default:
-                $pass = false; 
+                $pass = false;
                 break;
             }
 

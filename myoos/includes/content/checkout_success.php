@@ -18,11 +18,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -43,7 +43,7 @@ if (!isset($_SESSION['customer_id'])) {
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_success.php';
 
-if (isset($_POST['action']) && ($_POST['action'] == 'notify_process') 
+if (isset($_POST['action']) && ($_POST['action'] == 'notify_process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     if (isset($_POST['notify']) && !empty($_POST['notify'])) {

@@ -17,11 +17,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -463,20 +463,20 @@ class upload
         } else {
             $file_size = $content_length;
         }
-        if ($this->options['max_file_size'] && ($file_size > $this->options['max_file_size'] 
-            || $file->size > $this->options['max_file_size']            )
+        if ($this->options['max_file_size'] && ($file_size > $this->options['max_file_size']
+            || $file->size > $this->options['max_file_size'])
         ) {
             $file->error = $this->get_error_message('max_file_size');
             return false;
         }
-        if ($this->options['min_file_size'] 
+        if ($this->options['min_file_size']
             && $file_size < $this->options['min_file_size']
         ) {
             $file->error = $this->get_error_message('min_file_size');
             return false;
         }
-        if (is_int($this->options['max_number_of_files']) 
-            && ($this->count_file_objects() >= $this->options['max_number_of_files']) 
+        if (is_int($this->options['max_number_of_files'])
+            && ($this->count_file_objects() >= $this->options['max_number_of_files'])
             // Ignore additional chunks of existing files:
             && !is_file($this->get_upload_path($file->name))
         ) {
@@ -493,9 +493,9 @@ class upload
             list($img_width, $img_height) = $this->get_image_size($uploaded_file);
             // If we are auto rotating the image by default, do the checks on
             // the correct orientation
-            if (@$this->options['image_versions']['']['auto_orient'] 
-                && function_exists('exif_read_data') 
-                && ($exif = @exif_read_data($uploaded_file)) 
+            if (@$this->options['image_versions']['']['auto_orient']
+                && function_exists('exif_read_data')
+                && ($exif = @exif_read_data($uploaded_file))
                 && (((int) @$exif['Orientation']) >= 5)
             ) {
                 $tmp = $img_width;
@@ -578,7 +578,7 @@ class upload
         $content_range
     ) {
         // Add missing file extension for known image types:
-        if (strpos($name, '.') === false 
+        if (strpos($name, '.') === false
             && preg_match('/^image\/(gif|jpe?g|png|webp)/', $type, $matches)
         ) {
             $name .= '.'.$matches[1];

@@ -130,10 +130,10 @@ while ($classes = $classes_result->fields) {
     } ?>
                 <td><?php echo $classes['tax_class_title']; ?></td>
                 <td class="text-right"><?php if (isset($tcInfo) && is_object($tcInfo) && ($classes['tax_class_id'] == $tcInfo->tax_class_id)) {
-                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $classes['tax_class_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+        echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+    } else {
+        echo '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $classes['tax_class_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+    } ?>&nbsp;</td>
               </tr>
     <?php
     // Move that ADOdb pointer!
@@ -196,23 +196,23 @@ case 'delete':
 
 default:
     if (isset($tcInfo) && is_object($tcInfo)) {
-          $heading[] = array('text' => '<b>' . $tcInfo->tax_class_title . '</b>');
+        $heading[] = array('text' => '<b>' . $tcInfo->tax_class_title . '</b>');
 
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-          $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($tcInfo->date_added));
-          $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($tcInfo->last_modified));
-          $contents[] = array('text' => '<br>' . TEXT_INFO_CLASS_DESCRIPTION . '<br>' . $tcInfo->tax_class_description);
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['tax_classes'], 'page=' . $nPage . '&tID=' . $tcInfo->tax_class_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
+        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($tcInfo->date_added));
+        $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($tcInfo->last_modified));
+        $contents[] = array('text' => '<br>' . TEXT_INFO_CLASS_DESCRIPTION . '<br>' . $tcInfo->tax_class_description);
     }
     break;
   }
 
   if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-        ?>
+      ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
         $box = new box();
-        echo $box->infoBox($heading, $contents); ?>
+      echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
       <?php

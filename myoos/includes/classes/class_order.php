@@ -17,11 +17,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -354,7 +354,7 @@ class order
                                         'products_base_price' => $products[$i]['products_base_price'],
                                         'base_product_price' => $products[$i]['base_product_price'],
                                         'products_units_id' => $products[$i]['products_units_id'],
-                                        'products_product_quantity' => $products[$i]['products_product_quantity'],									
+                                        'products_product_quantity' => $products[$i]['products_product_quantity'],
                                         'old_electrical_equipment' => $products[$i]['old_electrical_equipment'],
                                         'return_free_of_charge' => $products[$i]['return_free_of_charge'],
                                         'id' => $products[$i]['id']);

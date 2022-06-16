@@ -191,10 +191,10 @@ while ($gv_list = $gv_result->fields) {
                 <td class="text-right"><?php echo $currencies->format($gv_list['amount']); ?></td>
                 <td class="text-right"><?php echo oos_datetime_short($gv_list['date_created']); ?></td>
                 <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['unique_id'] == $gInfo->unique_id)) {
-                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+        echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+    } else {
+        echo '<a href="' . oos_href_link_admin($aContents['gv_queue'], 'page=' . $nPage . '&gid=' . $gv_list['unique_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+    } ?>&nbsp;</td>
               </tr>
     <?php
     // Move that ADOdb pointer!
@@ -232,12 +232,12 @@ default:
   }
 
   if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-        ?>
+      ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
         $box = new box();
-        echo $box->infoBox($heading, $contents); ?>
+      echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
       <?php

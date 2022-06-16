@@ -17,11 +17,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being required by a parent file 
+ * ensure this file is being required by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -267,7 +267,6 @@ if (!$product_info_result->RecordCount()) {
 
 
     if ($oEvent->installed_plugin('reviews')) {
-        
         $informationtable = $oostable['information'];
         $information_descriptiontable = $oostable['information_description'];
         $sql = "SELECT i.information_id, id.information_name,
@@ -283,7 +282,7 @@ if (!$product_info_result->RecordCount()) {
 
         $smarty->assign('reviews_write_link', oos_href_link($aContents['product_reviews_write'], 'products_id=' . intval($nProductsID)));
 
-        
+
         $reviewstable = $oostable['reviews'];
         $reviews_sql = "SELECT COUNT(*) AS total FROM $reviewstable WHERE products_id = '" . intval($nProductsID) . "' AND reviews_status = '1'";
         $reviews = $dbconn->Execute($reviews_sql);
@@ -461,19 +460,19 @@ if (!$product_info_result->RecordCount()) {
                 . "   AND video_languages_id = ?";
             $result = $dbconn->Execute($query, array((int)$video['video_id'], (int)$nLanguageID));
 
-			$video_path = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . 'video/';
-            $video_poster = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'video/' . $video['video_poster']; 
-			
-			$video_source = (!empty($video['video_source'])) ? $video_path . $video['video_source'] : '';
-			$video_mp4 = (!empty($video['video_mp4'])) ? $video_path . $video['video_mp4'] : '';
-			$video_webm = (!empty($video['video_webm'])) ? $video_path . $video['video_webm'] : '';
-			$video_ogv = (!empty($video['video_ogv'])) ? $video_path . $video['video_ogv'] : '';
-			
+            $video_path = OOS_HTTPS_SERVER . OOS_SHOP . OOS_MEDIA . 'video/';
+            $video_poster = OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES . 'video/' . $video['video_poster'];
+
+            $video_source = (!empty($video['video_source'])) ? $video_path . $video['video_source'] : '';
+            $video_mp4 = (!empty($video['video_mp4'])) ? $video_path . $video['video_mp4'] : '';
+            $video_webm = (!empty($video['video_webm'])) ? $video_path . $video['video_webm'] : '';
+            $video_ogv = (!empty($video['video_ogv'])) ? $video_path . $video['video_ogv'] : '';
+
             $aVideo[] = array('video_id' => $video['video_id'],
                            'video_source' => $video_source,
                            'video_mp4' => $video_mp4,
                            'video_webm' => $video_webm,
-                           'video_ogv' => $video_ogv,						   
+                           'video_ogv' => $video_ogv,
                            'video_poster' => $video_poster,
                            'video_preload' => $video['video_preload'],
                            'video_title' => $video['video_title'],
@@ -503,9 +502,9 @@ if (!$product_info_result->RecordCount()) {
 
     $today = date("Y-m-d H:i:s");
     $smarty->assign('today', $today);
-	
-	// Price History Chart
-	if ( (PRODUCTS_CHARTS == 'true') && ($aUser['show_price'] == 1) ) {
+
+    // Price History Chart
+    if ((PRODUCTS_CHARTS == 'true') && ($aUser['show_price'] == 1)) {
         ob_start();
         include_once MYOOS_INCLUDE_PATH . '/includes/content/chart/line.php';
         $chart = ob_get_contents();

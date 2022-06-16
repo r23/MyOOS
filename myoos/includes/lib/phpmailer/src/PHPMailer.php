@@ -911,7 +911,7 @@ class PHPMailer
         case 'error_log':
             //Don't output, just log
             /**
- * @noinspection ForgottenDebugOutputInspection 
+ * @noinspection ForgottenDebugOutputInspection
 */
             error_log($str);
             break;
@@ -1200,13 +1200,13 @@ class PHPMailer
             // Clear any potential IMAP errors to get rid of notices being thrown at end of script.
             imap_errors();
             foreach ($list as $address) {
-                if ('.SYNTAX-ERROR.' !== $address->host 
+                if ('.SYNTAX-ERROR.' !== $address->host
                     && static::validateAddress($address->mailbox . '@' . $address->host)
                 ) {
                     //Decode the name part if it's present and encoded
-                    if (property_exists($address, 'personal') 
+                    if (property_exists($address, 'personal')
                         //Check for a Mbstring constant rather than using extension_loaded, which is sometimes disabled
-                        && defined('MB_CASE_UPPER') 
+                        && defined('MB_CASE_UPPER')
                         && preg_match('/^=\?.*\?=$/s', $address->personal)
                     ) {
                         $origCharset = mb_internal_encoding();
@@ -1437,8 +1437,8 @@ class PHPMailer
     {
         //Verify we have required functions, CharSet, and at-sign.
         $pos = strrpos($address, '@');
-        if (!empty($this->CharSet) 
-            && false !== $pos 
+        if (!empty($this->CharSet)
+            && false !== $pos
             && static::idnSupported()
         ) {
             $domain = substr($address, ++$pos);
@@ -1598,10 +1598,10 @@ class PHPMailer
             //Sign with DKIM if enabled
             if (!empty($this->DKIM_domain)
                 && !empty($this->DKIM_selector)
-                && (                !empty($this->DKIM_private_string)
-                || (                !empty($this->DKIM_private)
+                && (!empty($this->DKIM_private_string)
+                || (!empty($this->DKIM_private)
                 && static::isPermittedPath($this->DKIM_private)
-                && file_exists($this->DKIM_private)                ))
+                && file_exists($this->DKIM_private)))
             ) {
                 $header_dkim = $this->DKIM_Add(
                     $this->MIMEHeader . $this->mailHeader,
@@ -2109,9 +2109,9 @@ class PHPMailer
             }
             $host = $hostinfo[2];
             $port = $this->Port;
-            if (array_key_exists(3, $hostinfo) 
-                && is_numeric($hostinfo[3]) 
-                && $hostinfo[3] > 0 
+            if (array_key_exists(3, $hostinfo)
+                && is_numeric($hostinfo[3])
+                && $hostinfo[3] > 0
                 && $hostinfo[3] < 65536
             ) {
                 $port = (int) $hostinfo[3];
@@ -2293,7 +2293,7 @@ class PHPMailer
                         '/^\$PHPMAILER_LANG\[\'([a-z\d_]+)\'\]\s*=\s*(["\'])(.+)*?\2;/',
                         $line,
                         $matches
-                    ) 
+                    )
                         //Ignore unknown translation keys
                         && array_key_exists($matches[1], $PHPMAILER_LANG)
                     ) {
@@ -2567,7 +2567,7 @@ class PHPMailer
         }
 
         //sendmail and mail() extract Bcc from the header before sending
-        if ((            'sendmail' === $this->Mailer || 'qmail' === $this->Mailer || 'mail' === $this->Mailer)
+        if (('sendmail' === $this->Mailer || 'qmail' === $this->Mailer || 'mail' === $this->Mailer)
             && count($this->bcc) > 0
         ) {
             $result .= $this->addrAppend('Bcc', $this->bcc);
@@ -2584,7 +2584,7 @@ class PHPMailer
 
         //Only allow a custom message ID if it conforms to RFC 5322 section 3.6.4
         //https://tools.ietf.org/html/rfc5322#section-3.6.4
-        if ('' !== $this->MessageID 
+        if ('' !== $this->MessageID
             && preg_match(
                 '/^<((([a-z\d!#$%&\'*+\/=?^_`{|}~-]+(\.[a-z\d!#$%&\'*+\/=?^_`{|}~-]+)*)' .
                 '|("(([\x01-\x08\x0B\x0C\x0E-\x1F\x7F]|[\x21\x23-\x5B\x5D-\x7E])' .
@@ -2713,7 +2713,7 @@ class PHPMailer
             }
         } elseif (function_exists('openssl_random_pseudo_bytes')) {
             /**
- * @noinspection CryptographicallySecureRandomnessInspection 
+ * @noinspection CryptographicallySecureRandomnessInspection
 */
             $bytes = openssl_random_pseudo_bytes($len);
         }

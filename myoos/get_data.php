@@ -15,8 +15,8 @@
    Copyright (c) 2001 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
-*/
+   ----------------------------------------------------------------------
+ */
 
 /**
  * Set the error reporting level. Unless you have a special need, E_ALL is a
@@ -37,7 +37,7 @@ if (function_exists('ini_set')) {
 
 use Symfony\Component\HttpFoundation\Request;
 
-$autoloader = require_once __DIR__ . '/vendor/autoload.php';
+$autoloader = include_once __DIR__ . '/vendor/autoload.php';
 $request = Request::createFromGlobals();
 
 define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/' ? '' : dirname(__FILE__));
@@ -45,7 +45,7 @@ define('OOS_VALID_MOD', true);
 
 // Ajax request
 if ($request->isXmlHttpRequest()) {
-    require 'includes/main_ajax.php';
+    include 'includes/main_ajax.php';
 
     /*
        $headers = apache_request_headers();
@@ -60,7 +60,7 @@ if ($request->isXmlHttpRequest()) {
            header("Content-Type: application/json");
            exit(json_encode('No CSRF token.'));
        }
-*/
+    */
 
     if (isset($_POST['name']) || is_string($_POST['name'])) {
         $sContent = oos_var_prep_for_os($_POST['name']);
@@ -71,13 +71,13 @@ if ($request->isXmlHttpRequest()) {
         header("Content-Type: application/json");
         exit(json_encode('403 Forbidden'));
     } elseif (is_readable('includes/ajax/' . $sContent . '.php')) {
-        require MYOOS_INCLUDE_PATH . '/includes/ajax/' . $sContent . '.php';
+        include MYOOS_INCLUDE_PATH . '/includes/ajax/' . $sContent . '.php';
     } else {
         header("Content-Type: application/json");
         exit(json_encode(' Module not found'));
     }
 
-    require 'includes/nice_exit.php';
+    include 'includes/nice_exit.php';
 } else {
     http_response_code(403);
     echo 'Error 403 Forbidden';

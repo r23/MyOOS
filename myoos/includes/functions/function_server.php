@@ -12,7 +12,7 @@
    File: xarServer.php 1.62 03/10/28 19:11:18+01:00 mikespub
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
   /**
@@ -26,7 +26,7 @@
    */
 
   /**
-   * ensure this file is being included by a parent file 
+   * ensure this file is being included by a parent file
    */
   defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -258,7 +258,7 @@ function oos_server_get_remote()
 
 /**
  * Determines the maximum upload size allowed in php.ini.
- * 
+ *
  * @copyright (C) 2022 by WordPress
  * @link      https://wordpress.org/
  *
@@ -280,7 +280,7 @@ function oos_max_upload_size()
 
 /**
  * Converts a shorthand byte value to an integer byte value.
- * 
+ *
  * @copyright (C) 2022 by WordPress
  * @link      https://wordpress.org/
  *
@@ -290,16 +290,16 @@ function oos_max_upload_size()
  * @param  string $value A (PHP ini) byte value, either shorthand or ordinary.
  * @return int An integer byte value.
  */
-function oos_convert_hr_to_bytes( $value )
+function oos_convert_hr_to_bytes($value)
 {
     $value = strtolower(trim($value));
     $bytes = (int) $value;
 
-    if (false !== strpos($value, 'g') ) {
+    if (false !== strpos($value, 'g')) {
         $bytes *= GB_IN_BYTES;
-    } elseif (false !== strpos($value, 'm') ) {
+    } elseif (false !== strpos($value, 'm')) {
         $bytes *= MB_IN_BYTES;
-    } elseif (false !== strpos($value, 'k') ) {
+    } elseif (false !== strpos($value, 'k')) {
         $bytes *= KB_IN_BYTES;
     }
 
@@ -312,7 +312,7 @@ function oos_convert_hr_to_bytes( $value )
  * Composes human readable file size representation.
  *
  * @link https://gist.github.com/ffraenz/ec58809debb210b4567e53a9d9f413ce
- 
+
  * @param  int    $size     File size in bytes
  * @param  int    $decimals Optional: Precision of the number of decimal places
  * @param  string $point    Optional: Sets the separator for the decimal point.
@@ -321,7 +321,7 @@ function oos_convert_hr_to_bytes( $value )
 function size_format(int $size, int $decimals = 0, string $decimal_separator = '.', string $thousands_separator = ','): string
 {
     $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
-    for($index = 0; $index < count($units) - 1, $size > 1000; $index++, $size /= 1000);
+    for ($index = 0; $index < count($units) - 1, $size > 1000; $index++, $size /= 1000);
     $number = number_format($size, $decimals, $decimal_separator, $thousands_separator);
     return $number . ' ' . $units[$index];
-}    
+}

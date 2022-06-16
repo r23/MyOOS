@@ -17,11 +17,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -51,7 +51,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validate_vatid.p
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_word_cleaner.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_account.php';
 
-if (isset($_POST['action']) && ($_POST['action'] == 'process') 
+if (isset($_POST['action']) && ($_POST['action'] == 'process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     if (ACCOUNT_GENDER == 'true') {
@@ -100,8 +100,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     }
 
     if (ACCOUNT_DOB == 'true') {
-        if ((strlen($dob) < ENTRY_DOB_MIN_LENGTH) || (!empty($dob) 
-            && (!is_numeric(oos_date_raw($dob)) 
+        if ((strlen($dob) < ENTRY_DOB_MIN_LENGTH) || (!empty($dob)
+            && (!is_numeric(oos_date_raw($dob))
             || !checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))
         ) {
             $bError = true;

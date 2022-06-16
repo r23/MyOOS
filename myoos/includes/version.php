@@ -8,11 +8,11 @@
    Copyright (c) 2003 - 2022 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being require d by a parent file 
+ * ensure this file is being require d by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 

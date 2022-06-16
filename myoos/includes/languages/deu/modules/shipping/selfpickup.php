@@ -18,7 +18,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('MODULE_SHIPPING_SELFPICKUP_STATUS_TITLE', 'Selbstabholung aktivieren');

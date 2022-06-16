@@ -17,7 +17,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('OOS_VALID_MOD', 'yes');
@@ -558,8 +558,8 @@ require 'includes/header.php';
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_EDIT_PANORAMA_NAME;
-                                                                   } ?></label>
+                echo TEXT_EDIT_PANORAMA_NAME;
+            } ?></label>
             <?php if ($nLanguages > 1) {
                 echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
             } ?>
@@ -575,8 +575,8 @@ require 'includes/header.php';
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_EDIT_PANORAMA_TITLE;
-                                                                   } ?></label>
+                echo TEXT_EDIT_PANORAMA_TITLE;
+            } ?></label>
             <?php if ($nLanguages > 1) {
                 echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
             } ?>
@@ -592,8 +592,8 @@ require 'includes/header.php';
                     <fieldset>
                         <div class="form-group row">
                             <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                echo TEXT_EDIT_PANORAMA_DESCRIPTION_META;
-                                                                   } ?></label>
+                echo TEXT_EDIT_PANORAMA_DESCRIPTION_META;
+            } ?></label>
             <?php if ($nLanguages > 1) {
                 echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
             } ?>
@@ -651,10 +651,10 @@ require 'includes/header.php';
                                         <label>
                                         <?php
                                             echo '<input type="radio" name="panorama_autoload" value="true"';
-                                        if ((isset($panorama['panorama_autoload']) && $panorama['panorama_autoload'] == 'true')) {
-                                            echo ' checked="checked"';
-                                        }
-                                        echo  '>&nbsp;'; ?>
+        if ((isset($panorama['panorama_autoload']) && $panorama['panorama_autoload'] == 'true')) {
+            echo ' checked="checked"';
+        }
+        echo  '>&nbsp;'; ?>
                                             <span class="badge badge-success float-right"><?php echo ENTRY_ON; ?></span>
                                         </label>
                                     </div>
@@ -662,10 +662,10 @@ require 'includes/header.php';
                                         <label>
               <?php
                                             echo '<input type="radio" name="panorama_autoload" value="false"';
-                if ((isset($panorama['panorama_autoload']) && $panorama['panorama_autoload'] == 'false')) {
-                    echo ' checked="checked"';
-                }
-                echo  '>&nbsp;'; ?>
+        if ((isset($panorama['panorama_autoload']) && $panorama['panorama_autoload'] == 'false')) {
+            echo ' checked="checked"';
+        }
+        echo  '>&nbsp;'; ?>
                                         <span class="badge badge-danger float-right"><?php echo ENTRY_OFF; ?></span>
                                         </label>
                                     </div>
@@ -858,7 +858,7 @@ pannellum.viewer('panorama', {
             <li class="nav-item">
                 <a href="#hotspot<?php echo $i; ?>" data-toggle="tab" aria-expanded="true" class="nav-link <?php if ($i == 1) {
                         echo 'active';
-                                 } ?>">
+                    } ?>">
                     <i class="fa fa-dot-circle-o"></i> <?php echo $i; ?>
                 </a>
             </li>
@@ -902,8 +902,8 @@ pannellum.viewer('panorama', {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_HOTSPOT_TEXT;
-                                                                     } ?></label>
+                        echo TEXT_HOTSPOT_TEXT;
+                    } ?></label>
                     <?php if ($nLanguages > 1) {
                         echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                     } ?>
@@ -948,7 +948,7 @@ pannellum.viewer('panorama', {
                     $nHotspot = $id+1; ?>
                     <div class="tab-pane fade <?php if ($id == 0) {
                         echo 'show active';
-                                              } ?>" id="hotspot<?php echo $nHotspot; ?>">
+                    } ?>" id="hotspot<?php echo $nHotspot; ?>">
                         <div class="row  mt-3 mb-5">
                             <div class="col-lg-10">
                                 <h2>            
@@ -970,8 +970,8 @@ pannellum.viewer('panorama', {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_HOTSPOT_TEXT;
-                                                                     } ?></label>
+                            echo TEXT_HOTSPOT_TEXT;
+                        } ?></label>
                         <?php if ($nLanguages > 1) {
                             echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                         } ?>
@@ -1052,8 +1052,8 @@ pannellum.viewer('panorama', {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_HOTSPOT_TEXT;
-                                                                     } ?></label>
+                    echo TEXT_HOTSPOT_TEXT;
+                } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>

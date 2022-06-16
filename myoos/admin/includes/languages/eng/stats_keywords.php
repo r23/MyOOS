@@ -21,7 +21,7 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('HEADING_TITLE', 'Search Keyword: Statistics & Replacements');

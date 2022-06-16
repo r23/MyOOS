@@ -17,11 +17,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
   /**
-   * ensure this file is being included by a parent file 
+   * ensure this file is being included by a parent file
    */
   defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -186,13 +186,13 @@ function oos_parse_search_string($sSearch = '', &$objects)
     for ($i=0; $i<(count($objects)-1); $i++) {
         $temp[count($temp)] = $objects[$i];
 
-        if (($objects[$i] != 'and') 
-            && ($objects[$i] != 'or') 
-            && ($objects[$i] != '(') 
-            && ($objects[$i] != ')') 
-            && ($objects[$i+1] != 'and') 
-            && ($objects[$i+1] != 'or') 
-            && ($objects[$i+1] != '(') 
+        if (($objects[$i] != 'and')
+            && ($objects[$i] != 'or')
+            && ($objects[$i] != '(')
+            && ($objects[$i] != ')')
+            && ($objects[$i+1] != 'and')
+            && ($objects[$i+1] != 'or')
+            && ($objects[$i+1] != '(')
             && ($objects[$i+1] != ')')
         ) {
             $temp[count($temp)] = ADVANCED_SEARCH_DEFAULT_OPERATOR;

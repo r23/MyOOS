@@ -30,7 +30,7 @@ http://snoopy.sourceforge.net/
 class Snoopy
 {
     /****
-     * Public variables 
+     * Public variables
      ****/
 
     /* user definable vars */
@@ -95,7 +95,7 @@ class Snoopy
     // as of this Snoopy release.
 
     /****
-     * Private variables 
+     * Private variables
      ****/
 
     public $_maxlinelen    =    4096;                // max line length (headers)
@@ -593,7 +593,9 @@ class Snoopy
 						([\"\'])?					# find single or double quote
 						(?(1) (.*?)\\1 | ([^\s\>]+))		# if quote found, match up to next matching
 													# quote, otherwise match up to next space
-						'isx", $document, $links
+						'isx",
+            $document,
+            $links
         );
 
 

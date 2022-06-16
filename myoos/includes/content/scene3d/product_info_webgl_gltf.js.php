@@ -17,7 +17,7 @@
    Copyright © 2010-2021 three.js authors
    ----------------------------------------------------------------------
    The MIT License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 ?>
 
@@ -46,8 +46,8 @@
                     cameraPos: new THREE.Vector3( <?php echo $model_info['models_camera_pos']; ?> ),
                     objectRotation: new THREE.Euler( <?php echo $model_info['models_object_rotation']; ?> ),
                     <?php if ($model_info['models_add_env_map'] == 'true') {
-                        echo 'addEnvMap: true,';
-                    } ?>
+    echo 'addEnvMap: true,';
+} ?>
                     extensions: [ 'glTF', 'glTF-pbrSpecularGlossiness', 'glTF-Binary', 'glTF-Draco' ]
                 },
             };

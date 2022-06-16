@@ -19,11 +19,11 @@
    Max Order - 2003/04/27 JOHNSON - Copyright (c) 2003 Matti Ressler - mattifinn@optusnet.com.au
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -41,7 +41,7 @@ if ($bNecessary === false) {
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_password.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/user_login.php';
 
-if (isset($_POST['action']) && ($_POST['action'] == 'process') 
+if (isset($_POST['action']) && ($_POST['action'] == 'process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
 

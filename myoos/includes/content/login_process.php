@@ -19,11 +19,11 @@
    Max Order - 2003/04/27 JOHNSON - Copyright (c) 2003 Matti Ressler - mattifinn@optusnet.com.au
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -66,7 +66,7 @@ if ($_SESSION['login_count'] > 20) {
 }
 
 
-if (isset($_GET['action']) && ($_GET['action'] == 'process') 
+if (isset($_GET['action']) && ($_GET['action'] == 'process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_GET['formid']))
 ) {
     $customerstable = $oostable['customers'];

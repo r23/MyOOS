@@ -19,7 +19,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('HEADING_TITLE', 'Öffnen Sie die Transaction Systemsteuerung');

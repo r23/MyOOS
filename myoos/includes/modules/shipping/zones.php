@@ -100,7 +100,7 @@
 
    Lastly, there is a limit of 255 characters on each of the Zone
    Shipping Tables and Zone Countries.
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 

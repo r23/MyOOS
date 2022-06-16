@@ -42,7 +42,7 @@
  */
 
   /**
-   * ensure this file is being included by a parent file 
+   * ensure this file is being included by a parent file
    */
   defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -69,19 +69,19 @@ function oos_secure_input()
     if (count($_GET) > 0) {
         foreach ($_GET as $secvalue) {
             if (!is_array($secvalue)) {
-                if ((preg_match("/<[^>]*script*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/.*[[:space:]](or|and)[[:space:]].*(=|like).*/i", $secvalue)) 
-                    || (preg_match("/<[^>]*object*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*iframe*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*applet*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*meta*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*style*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*form*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*alert*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*img*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) 
+                if ((preg_match("/<[^>]*script*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/.*[[:space:]](or|and)[[:space:]].*(=|like).*/i", $secvalue))
+                    || (preg_match("/<[^>]*object*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*iframe*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*applet*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*meta*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*style*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*form*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*alert*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*img*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue))
                     || (preg_match("/\"/i", $secvalue))
                 ) {
                     oos_redirect(oos_href_link($aContents['home']));
@@ -97,14 +97,14 @@ function oos_secure_input()
     if (count($_POST) > 0) {
         foreach ($_POST as $secvalue) {
             if (!is_array($secvalue)) {
-                if ((preg_match("/<[^>]*script*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*object*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*iframe*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*applet*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*alert*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) 
+                if ((preg_match("/<[^>]*script*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*object*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*iframe*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*applet*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*alert*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue))
                     || (preg_match("/<[^>]*meta*\"?[^>]*>/i", $secvalue))
                 ) {
                     oos_redirect(oos_href_link($aContents['home']));
@@ -120,18 +120,18 @@ function oos_secure_input()
     if (count($_COOKIE) > 0) {
         foreach ($_COOKIE as $secvalue) {
             if (!is_array($secvalue)) {
-                if ((preg_match("/<[^>]*script*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/.*[[:space:]](or|and)[[:space:]].*(=|like).*/i", $secvalue)) 
-                    || (preg_match("/<[^>]*object*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*iframe*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*applet*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*meta*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*style*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*form*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*alert*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue)) 
-                    || (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue)) 
+                if ((preg_match("/<[^>]*script*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/.*[[:space:]](or|and)[[:space:]].*(=|like).*/i", $secvalue))
+                    || (preg_match("/<[^>]*object*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*iframe*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*applet*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*meta*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*style*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*form*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*window.*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*alert*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*document.*\"?[^>]*>/i", $secvalue))
+                    || (preg_match("/<[^>]*cookie*\"?[^>]*>/i", $secvalue))
                     || (preg_match("/<[^>]*img*\"?[^>]*>/i", $secvalue))
                 ) {
                     oos_redirect(oos_href_link($aContents['home']));

@@ -172,15 +172,15 @@ while ($palm_doa = $payment_dai_result->fields) {
                 <td class="text-center">
     <?php
     if ($palm_doa['status'] == '1') {
-          echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=0&id=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '</a>';
+        echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=0&id=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_green.gif', IMAGE_ICON_STATUS_GREEN, 10, 10) . '</a>';
     } else {
         echo '&nbsp;<a href="' . oos_href_link_admin($aContents['manual_loging'], 'action=setflag&flag=1&id=' . $palm_doa['man_info_id']) . '">' . oos_image(OOS_IMAGES . 'icon_status_red.gif', IMAGE_ICON_STATUS_RED, 10, 10) . '</a>';
     } ?></td>
                 <td class="text-right"><?php if (isset($sInfo) && is_object($sInfo) && ($palm_doa['man_info_id'] == $sInfo->man_info_id)) {
-                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $palm_doa['man_info_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+        echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+    } else {
+        echo '<a href="' . oos_href_link_admin($aContents['manual_loging'], 'page=' . $nPage . '&sID=' . $palm_doa['man_info_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+    } ?>&nbsp;</td>
       </tr>
     <?php
     // Move that ADOdb pointer!
@@ -216,22 +216,22 @@ case 'delete':
     break;
 default:
     if (isset($sInfo) && is_object($sInfo)) {
-          $heading[] = array('text' => '<b>' . $sInfo->man_name . '</b>');
-          $contents[] = array('align' => 'center', 'text' => '');
-          $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->manual_date_added));
-          $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->manual_last_modified));
-          $contents[] = array('text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change));
+        $heading[] = array('text' => '<b>' . $sInfo->man_name . '</b>');
+        $contents[] = array('align' => 'center', 'text' => '');
+        $contents[] = array('text' => '<br>' . TEXT_INFO_DATE_ADDED . ' ' . oos_date_short($sInfo->manual_date_added));
+        $contents[] = array('text' => '' . TEXT_INFO_LAST_MODIFIED . ' ' . oos_date_short($sInfo->manual_last_modified));
+        $contents[] = array('text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change));
     }
     break;
   }
 
   if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-        ?>
+      ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
         $box = new box();
-        echo $box->infoBox($heading, $contents); ?>
+      echo $box->infoBox($heading, $contents); ?>
         </table>
     </td>
       <?php

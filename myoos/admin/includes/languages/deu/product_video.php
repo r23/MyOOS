@@ -18,7 +18,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 
@@ -47,4 +47,3 @@ define('TEXT_UPLOAD_VIDEO', 'Upload Video');
 define('ERROR_NO_VIDEO_FILE', 'Die Datei, die Sie hochladen möchten, ist keine .mpg-Datei. Bitte versuchen Sie es erneut.');
 define('TEXT_SUCCESSFULLY_UPLOADED_VIDEO', 'Ihr Video wurde hochgeladen.');
 define('ERROR_PROBLEM_WITH_VIDEO_FILE', 'Es gab ein Problem mit dem Upload. Bitte versuchen Sie es erneut.');
-

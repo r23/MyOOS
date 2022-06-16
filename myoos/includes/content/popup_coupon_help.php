@@ -17,7 +17,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/gv_popup_coupon_help.php';

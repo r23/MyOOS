@@ -115,10 +115,10 @@ while ($gv_list = $gv_result->fields) {
                 <td class="text-center"><?php echo $gv_list['coupon_code']; ?></td>
                 <td class="text-right"><?php echo oos_date_short($gv_list['date_sent']); ?></td>
                 <td class="text-right"><?php if (isset($gInfo) && is_object($gInfo) && ($gv_list['coupon_id'] == $gInfo->coupon_id)) {
-                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['gv_sent'], 'page=' . $nPage . '&gid=' . $gv_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+        echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+    } else {
+        echo '<a href="' . oos_href_link_admin($aContents['gv_sent'], 'page=' . $nPage . '&gid=' . $gv_list['coupon_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+    } ?>&nbsp;</td>
               </tr>
     <?php
     // Move that ADOdb pointer!

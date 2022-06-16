@@ -17,7 +17,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('OOS_VALID_MOD', 'yes');
@@ -283,7 +283,7 @@ case 'delete_category':
     $contents[] = array('text' => TEXT_DELETE_CATEGORY_INTRO);
     $contents[] = array('text' => '<br><b>' . $cInfo->categories_name . '</b>');
     if ($cInfo->childs_count > 0) {
-            $contents[] = array('text' => '<br>' . sprintf(TEXT_DELETE_WARNING_CHILDS, $cInfo->childs_count));
+        $contents[] = array('text' => '<br>' . sprintf(TEXT_DELETE_WARNING_CHILDS, $cInfo->childs_count));
     }
     if ($cInfo->products_count > 0) {
         $contents[] = array('text' => '<br>' . sprintf(TEXT_DELETE_WARNING_PRODUCTS, $cInfo->products_count));
@@ -303,12 +303,12 @@ case 'delete_product':
     $product_categories_string = '';
     $product_categories = oos_generate_category_path($pInfo->products_id, 'product');
     for ($i = 0, $n = count($product_categories); $i < $n; $i++) {
-            $category_path = '';
+        $category_path = '';
         for ($j = 0, $k = count($product_categories[$i]); $j < $k; $j++) {
             $category_path .= $product_categories[$i][$j]['text'] . '&nbsp;&gt;&nbsp;';
         }
-            $category_path = substr($category_path, 0, -16);
-            $product_categories_string .= oos_draw_checkbox_field('product_categories[]', $product_categories[$i][count($product_categories[$i])-1]['id'], true) . '&nbsp;' . $category_path . '<br>';
+        $category_path = substr($category_path, 0, -16);
+        $product_categories_string .= oos_draw_checkbox_field('product_categories[]', $product_categories[$i][count($product_categories[$i])-1]['id'], true) . '&nbsp;' . $category_path . '<br>';
     }
           $product_categories_string = substr($product_categories_string, 0, -6);
 

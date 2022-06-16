@@ -391,8 +391,8 @@ if ($action == 'edit_3d') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_MODELS_TITLE;
-                                                                     } ?></label>
+                    echo TEXT_MODELS_TITLE;
+                } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -409,8 +409,8 @@ if ($action == 'edit_3d') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_MODELS_DESCRIPTION;
-                                                                     } ?></label>
+                    echo TEXT_MODELS_DESCRIPTION;
+                } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>

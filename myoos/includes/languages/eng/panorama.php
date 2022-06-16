@@ -9,7 +9,7 @@
    Copyright (c) 2003 - 2022 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 $aLang['text_model_not_found'] = 'Panorama Modell not found!';

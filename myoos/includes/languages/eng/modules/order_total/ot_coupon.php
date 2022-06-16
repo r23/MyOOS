@@ -19,7 +19,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('MODULE_ORDER_TOTAL_COUPON_STATUS_TITLE', 'Display Total');

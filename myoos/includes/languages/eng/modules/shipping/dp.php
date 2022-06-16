@@ -19,7 +19,7 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('MODULE_SHIPPING_DP_STATUS_TITLE', 'German Post - Worldwide Shipping Module');

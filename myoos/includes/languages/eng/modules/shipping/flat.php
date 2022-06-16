@@ -19,7 +19,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('MODULE_SHIPPING_FLAT_STATUS_TITLE', 'Enable Flat Shipping');

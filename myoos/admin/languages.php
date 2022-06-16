@@ -17,7 +17,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('OOS_VALID_MOD', 'yes');
@@ -806,10 +806,10 @@ while ($languages = $languages_result->fields) {
     } ?></td>
 
                 <td class="text-right"><?php if (isset($lInfo) && is_object($lInfo) && ($languages['languages_id'] == $lInfo->languages_id)) {
-                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+        echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+    } else {
+        echo '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $languages['languages_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+    } ?>&nbsp;</td>
               </tr>
     <?php
     // Move that ADOdb pointer!
@@ -863,7 +863,7 @@ case 'edit':
     $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . '<br>' . oos_draw_input_field('iso_3166_1', $lInfo->iso_3166_1));
     $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_SORT_ORDER . '<br>' . oos_draw_input_field('sort_order', $lInfo->sort_order));
     if (DEFAULT_LANGUAGE != $lInfo->iso_639_2 && $lInfo->status == '1') {
-          $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
+        $contents[] = array('text' => '<br>' . oos_draw_checkbox_field('default') . ' ' . TEXT_SET_DEFAULT);
     }
         $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
@@ -880,27 +880,27 @@ case 'delete':
 
 default:
     if (isset($lInfo) && is_object($lInfo)) {
-          $heading[] = array('text' => '<b>' . $lInfo->name . '</b>');
+        $heading[] = array('text' => '<b>' . $lInfo->name . '</b>');
 
-          $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
-          $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name);
-          $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_2 . ' ' . $lInfo->iso_639_2);
-          $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_1 . ' ' . $lInfo->iso_639_1);
-          $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . ' ' . $lInfo->iso_3166_1);
-          $contents[] = array('text' => '<div class="flag flag-icon flag-icon-' . $lInfo->iso_3166_1 . ' width-full"></div>');
-          $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br>' . OOS_SHOP . 'includes/languages/<b>' . $lInfo->iso_639_2 . '</b>');
-          $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_SORT_ORDER . ' ' . $lInfo->sort_order);
+        $contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=edit') . '">' . oos_button(BUTTON_EDIT) . '</a> <a href="' . oos_href_link_admin($aContents['languages'], 'page=' . $nPage . '&lID=' . $lInfo->languages_id . '&action=delete') . '">' . oos_button(BUTTON_DELETE) . '</a>');
+        $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_NAME . ' ' . $lInfo->name);
+        $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_2 . ' ' . $lInfo->iso_639_2);
+        $contents[] = array('text' => TEXT_INFO_LANGUAGE_ISO_639_1 . ' ' . $lInfo->iso_639_1);
+        $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_ISO_3166_1 . ' ' . $lInfo->iso_3166_1);
+        $contents[] = array('text' => '<div class="flag flag-icon flag-icon-' . $lInfo->iso_3166_1 . ' width-full"></div>');
+        $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_DIRECTORY . '<br>' . OOS_SHOP . 'includes/languages/<b>' . $lInfo->iso_639_2 . '</b>');
+        $contents[] = array('text' => '<br>' . TEXT_INFO_LANGUAGE_SORT_ORDER . ' ' . $lInfo->sort_order);
     }
     break;
   }
 
   if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-        ?>
+      ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
         $box = new box();
-        echo $box->infoBox($heading, $contents); ?>
+      echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
       <?php

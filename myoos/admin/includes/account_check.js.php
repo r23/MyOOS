@@ -18,7 +18,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 ?>
 
@@ -95,7 +95,7 @@ function checkSub(obj) {
 
     <?php
 } else {
-    ?>
+        ?>
 
 <script language="JavaScript" type="text/JavaScript">
 <!--
@@ -144,5 +144,5 @@ function validateForm() {
 </script>
 
     <?php
-}
+    }
 ?>

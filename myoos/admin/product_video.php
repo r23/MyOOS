@@ -18,7 +18,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('OOS_VALID_MOD', 'yes');
@@ -101,18 +101,18 @@ if (!empty($action)) {
 
                 if ((isset($_POST['remove_products_video'][$i]) && ($_POST['remove_products_video'][$i] == 'yes')) && (isset($_POST['video_source'][$i]))) {
                     $video_source = oos_db_prepare_input($_POST['video_source'][$i]);
-					$video_id = intval($_POST['video_id'][$i]);
-					
-					$products_videotable = $oostable['products_video'];
-					$video_sql = "SELECT video_id, video_source, video_mp4, video_webm, video_ogv, video_poster
+                    $video_id = intval($_POST['video_id'][$i]);
+
+                    $products_videotable = $oostable['products_video'];
+                    $video_sql = "SELECT video_id, video_source, video_mp4, video_webm, video_ogv, video_poster
 								  FROM $products_videotable 
 								  WHERE video_id = '" . intval($video_id) . "'";
-					$video_files = $dbconn->GetRow($video_sql);					
-				
-					$dbconn->Execute("DELETE FROM " . $oostable['products_video'] . " WHERE video_id = '" . intval($video_id) . "'");
+                    $video_files = $dbconn->GetRow($video_sql);
+
+                    $dbconn->Execute("DELETE FROM " . $oostable['products_video'] . " WHERE video_id = '" . intval($video_id) . "'");
                     $dbconn->Execute("DELETE FROM " . $oostable['products_video_description'] . " WHERE video_id = '" . intval($video_id) . "'");
-			
-                    oos_remove_products_video($video_files);					
+
+                    oos_remove_products_video($video_files);
                 }
 
                 // video
@@ -125,20 +125,19 @@ if (!empty($action)) {
                         $name = oos_strip_suffix($filename);
                         $ext = oos_get_suffix($filename);
                         if ($ext == 'avi') {
-                                
-                            $poster = $name . '.jpg'; 
-							$video_mp4 = $name . '-x264.mp4';
-							$video_webm = $name . '-webm.webm';
-							$video_ogv = $name . '-ogg.ogv';
-							
-                            $sql_data_array = ['video_source' => oos_db_prepare_input($filename),
-												'video_mp4' => oos_db_prepare_input($video_mp4),
-												'video_webm' => oos_db_prepare_input($video_webm),
-												'video_ogv' => oos_db_prepare_input($video_ogv),
-												'video_poster' => oos_db_prepare_input($poster)];
+                            $poster = $name . '.jpg';
+                            $video_mp4 = $name . '-x264.mp4';
+                            $video_webm = $name . '-webm.webm';
+                            $video_ogv = $name . '-ogg.ogv';
 
-                            oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');                                
-                                
+                            $sql_data_array = ['video_source' => oos_db_prepare_input($filename),
+                                                'video_mp4' => oos_db_prepare_input($video_mp4),
+                                                'video_webm' => oos_db_prepare_input($video_webm),
+                                                'video_ogv' => oos_db_prepare_input($video_ogv),
+                                                'video_poster' => oos_db_prepare_input($poster)];
+
+                            oos_db_perform($oostable['products_video'], $sql_data_array, 'UPDATE', 'video_id = \'' . intval($video_id) . '\'');
+
                             $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
                             $targetdir = $path;  // target directory
                             $uploadfile = $path . $filename; // target avi file
@@ -171,14 +170,13 @@ if (!empty($action)) {
                             */
                             $dir_video_images = OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/';
                             $frame = $dir_video_images . $poster;
-                            $video        
+                            $video
                                 ->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(4))
                                 ->save($frame);
                             $video
                                 ->save(new FFMpeg\Format\Video\X264(), $path . $name . '-x264.mp4')
                                 ->save(new FFMpeg\Format\Video\Ogg(), $path . $name . '-ogg.ogv')
                                 ->save(new FFMpeg\Format\Video\WebM(), $path .$name . '-webm.webm');
-
                         } else {
                             $messageStack->add_session(ERROR_NO_VIDEO_FILE, 'error');
                         }
@@ -379,8 +377,8 @@ if ($action == 'edit_video') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_VIDEO_TITLE;
-                                                                     } ?></label>
+                    echo TEXT_VIDEO_TITLE;
+                } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -397,8 +395,8 @@ if ($action == 'edit_video') {
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php if ($i == 0) {
-                                    echo TEXT_VIDEO_DESCRIPTION;
-                                                                     } ?></label>
+                    echo TEXT_VIDEO_DESCRIPTION;
+                } ?></label>
                 <?php if ($nLanguages > 1) {
                     echo '<div class="col-lg-1">' .  oos_flag_icon($aLanguages[$i]) . '</div>';
                 } ?>
@@ -476,12 +474,11 @@ if ($action == 'edit_video') {
 
                     <p><?php echo TEXT_VIDEO_BROWSER_UPLOADER; ?></p>
 
-    <?php	
+    <?php
     $max_upload_size = oos_max_upload_size();
-    if (! $max_upload_size ) {
+    if (! $max_upload_size) {
         $max_upload_size = 0;
-    }
-    ?>
+    } ?>
 	
                     <p><?php echo sprintf(TEXT_VIDEO_MAX_UPLOAD, size_format($max_upload_size)); ?></p>
 

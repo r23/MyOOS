@@ -383,7 +383,7 @@ function updateNet() {
                               <div class="col-lg-10">
                                 <?php
 
-	if (isset($sInfo->specials_new_products_price)) {	
+    if (isset($sInfo->specials_new_products_price)) {
         echo oos_draw_input_field('specials_price', $sInfo->specials_new_products_price, 'onkeyup="updateWithTax()"');
     } else {
         echo oos_draw_input_field('specials_price', '', 'onkeyup="updateWithTax()"');
@@ -396,10 +396,10 @@ function updateNet() {
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_SPECIALS_SPECIAL_PRICE_WITH_TAX; ?></label>
                               <div class="col-lg-10">
                                 <?php
-	if (isset($sInfo->specials_new_products_price)) {
-		echo oos_draw_input_field('specials_price_gross', $in_new_price, 'onkeyup="updateNet()"'); 
-	} else {	
-		echo oos_draw_input_field('specials_price_gross', '', 'onkeyup="updateNet()"'); 
+    if (isset($sInfo->specials_new_products_price)) {
+        echo oos_draw_input_field('specials_price_gross', $in_new_price, 'onkeyup="updateNet()"');
+    } else {
+        echo oos_draw_input_field('specials_price_gross', '', 'onkeyup="updateNet()"');
     } ?>
                               </div>
                            </div>
@@ -461,7 +461,7 @@ function updateNet() {
 						</tr>	
 					</thead>
 <?php
-		$productstable = $oostable['products'];
+        $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
         $specialstable = $oostable['specials'];
         $specials_sql_raw = "SELECT p.products_tax_class_id, p.products_id, pd.products_name, s.specials_id, 

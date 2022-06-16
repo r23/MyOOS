@@ -23,8 +23,8 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
-*/
+   ----------------------------------------------------------------------
+ */
 
 
 /**
@@ -46,7 +46,7 @@ if (function_exists('ini_set')) {
 
 use Symfony\Component\HttpFoundation\Request;
 
-$autoloader = require_once __DIR__ . '/vendor/autoload.php';
+$autoloader = include_once __DIR__ . '/vendor/autoload.php';
 $request = Request::createFromGlobals();
 
 define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/' ? '' : dirname(__FILE__));
@@ -60,10 +60,11 @@ class MyOOS_Utilities
 {
     /**
      * Opens a remote file using  Snoopy
-     * @param $url The URL to open
-     * @param $method get or post
-     * @param $postData An array with key=>value paris
-     * @param $timeout Timeout for the request, by default 10
+     *
+     * @param  $url      The URL to open
+     * @param  $method   get or post
+     * @param  $postData An array with key=>value paris
+     * @param  $timeout  Timeout for the request, by default 10
      * @return mixed False on error, the body of the response on success
      */
     public static function RemoteOpen($url, $method = 'get', $postData = null, $timeout = 10)

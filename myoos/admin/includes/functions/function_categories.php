@@ -17,11 +17,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -1077,60 +1077,60 @@ function oos_remove_products_video($video_files)
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
-	
-	$path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
-	$products_videotable = $oostable['products_video'];
-	
-	if (!empty($video_files['video_source'])) {
-		$product_videos_query = "SELECT video_source
+
+    $path = OOS_ABSOLUTE_PATH . OOS_MEDIA . 'video/';
+    $products_videotable = $oostable['products_video'];
+
+    if (!empty($video_files['video_source'])) {
+        $product_videos_query = "SELECT video_source
                             FROM $products_videotable
                             WHERE video_source =  '" . oos_db_input($video_files['video_source']) . "'";
-		$videos_result = $dbconn->Execute($product_videos_query);
-		if (!$videos_result->RecordCount()) {
-			@unlink($path . oos_var_prep_for_os($video_files['video_source']));
-		}
-	}
+        $videos_result = $dbconn->Execute($product_videos_query);
+        if (!$videos_result->RecordCount()) {
+            @unlink($path . oos_var_prep_for_os($video_files['video_source']));
+        }
+    }
 
-	if (!empty($video_files['video_mp4'])) {	
-		$product_videos_query = "SELECT video_mp4
+    if (!empty($video_files['video_mp4'])) {
+        $product_videos_query = "SELECT video_mp4
                             FROM $products_videotable
                             WHERE video_mp4 =  '" . oos_db_input($video_files['video_mp4']) . "'";
-		$videos_result = $dbconn->Execute($product_videos_query);
-		if (!$videos_result->RecordCount()) {
-			@unlink($path . oos_var_prep_for_os($video_files['video_mp4']));
-		}
-	}
-	
-	if (!empty($video_files['video_webm'])) {	
-		$product_videos_query = "SELECT video_webm
+        $videos_result = $dbconn->Execute($product_videos_query);
+        if (!$videos_result->RecordCount()) {
+            @unlink($path . oos_var_prep_for_os($video_files['video_mp4']));
+        }
+    }
+
+    if (!empty($video_files['video_webm'])) {
+        $product_videos_query = "SELECT video_webm
                             FROM $products_videotable
                             WHERE video_webm =  '" . oos_db_input($video_files['video_webm']) . "'";
-		$videos_result = $dbconn->Execute($product_videos_query);
-		if (!$videos_result->RecordCount()) {
-			@unlink($path . oos_var_prep_for_os($video_files['video_webm']));
-		}
-	}	
+        $videos_result = $dbconn->Execute($product_videos_query);
+        if (!$videos_result->RecordCount()) {
+            @unlink($path . oos_var_prep_for_os($video_files['video_webm']));
+        }
+    }
 
-	if (!empty($video_files['video_ogv'])) {	
-		$product_videos_query = "SELECT video_ogv
+    if (!empty($video_files['video_ogv'])) {
+        $product_videos_query = "SELECT video_ogv
                             FROM $products_videotable
                             WHERE video_ogv =  '" . oos_db_input($video_files['video_ogv']) . "'";
-		$videos_result = $dbconn->Execute($product_videos_query);
-		if (!$videos_result->RecordCount()) {
-			@unlink($path . oos_var_prep_for_os($video_files['video_ogv']));
-		}
-	}
-	
-	if (!empty($video_files['video_poster'])) {	
-		$product_videos_query = "SELECT video_poster
+        $videos_result = $dbconn->Execute($product_videos_query);
+        if (!$videos_result->RecordCount()) {
+            @unlink($path . oos_var_prep_for_os($video_files['video_ogv']));
+        }
+    }
+
+    if (!empty($video_files['video_poster'])) {
+        $product_videos_query = "SELECT video_poster
                             FROM $products_videotable
                             WHERE video_poster =  '" . oos_db_input($video_files['video_poster']) . "'";
-		$videos_result = $dbconn->Execute($product_videos_query);
-		if (!$videos_result->RecordCount()) {
-			@unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/' . oos_var_prep_for_os($video_files['video_poster']));
-		}
-	}	
-	
+        $videos_result = $dbconn->Execute($product_videos_query);
+        if (!$videos_result->RecordCount()) {
+            @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'video/' . oos_var_prep_for_os($video_files['video_poster']));
+        }
+    }
+
     return;
 }
 
@@ -1529,7 +1529,7 @@ function oos_remove_panorama($panorama_id)
 
 
  /**
-  * Return Video Title 
+  * Return Video Title
   *
   * @param  $video_id
   * @param  $language

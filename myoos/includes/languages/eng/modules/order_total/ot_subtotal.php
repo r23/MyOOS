@@ -19,7 +19,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('MODULE_ORDER_TOTAL_SUBTOTAL_STATUS_TITLE', 'Display net');

@@ -24,11 +24,11 @@
    $oMessage->add('error', 'Error: Error 1');
    $oMessage->add('warning', 'Error: Error 2');
    if ($oMessage->size > 0) echo $oMessage->output();
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 

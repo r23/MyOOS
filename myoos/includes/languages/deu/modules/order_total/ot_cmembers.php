@@ -18,7 +18,7 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('MODULE_CMEMBERS_STATUS_TITLE', 'Kundenrabatt nach Menge');

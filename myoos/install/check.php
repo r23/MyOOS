@@ -249,7 +249,7 @@ function oosCheckPHP()
             HTACCESS_ERROR,
             '<font class="oos-error"><b>chmod go+rwx ' . $oos_core . '</b></font>'
         );
-        // $check_php = false;
+    // $check_php = false;
     } else {
         fwrite($fp, 'ErrorDocument 404 ' . $oos_root . 'index.php');
         fclose($fp);

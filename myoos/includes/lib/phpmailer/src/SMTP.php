@@ -1112,7 +1112,7 @@ class SMTP
     {
         //If SMTP transcripts are left enabled, or debug output is posted online
         //it can leak credentials, so hide credentials in all but lowest level
-        if (self::DEBUG_LOWLEVEL > $this->do_debug 
+        if (self::DEBUG_LOWLEVEL > $this->do_debug
             && in_array($command, ['User & Password', 'Username', 'Password'], true)
         ) {
             $this->edebug('CLIENT -> SERVER: [credentials hidden]', self::DEBUG_CLIENT);

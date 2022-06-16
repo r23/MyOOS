@@ -19,7 +19,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 $aLang['navbar_title_1'] = 'Login';
@@ -34,4 +34,3 @@ $aLang['text_2fa_title_info'] = 'Every time you log in, use a unique code in add
 $aLang['text_2fa_app'] = 'You need an authentication app?';
 $aLang['text_2fa_app_info'] = 'You can easily download an authentication app. This will generate a unique security code that you can use in addition to your password to log in. However, these app providers will not have access to your account information.';
 $aLang['text_2fa_app_download'] = 'To download an app, open the App Store on your phone. Search for &quot;Google Authenticator&quot; and download this app.';
-

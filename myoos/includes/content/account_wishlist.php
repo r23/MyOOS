@@ -17,11 +17,11 @@
    Copyright (c) 2002 - 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -93,7 +93,7 @@ while ($wishlist = $wishlist_result->fields) {
     $wishlist_special_price = null;
     $wishlist_cross_out_price = null;
     $wishlist_until = null;
-    
+
     if ($aUser['show_price'] == 1) {
         $base_product_price = $wishlist_product['products_price'];
         $wishlist_special = oos_get_products_special($wishlist_product['products_id']);
@@ -225,13 +225,13 @@ while ($wishlist = $wishlist_result->fields) {
                         'products_units_id' => $wishlist_product['products_units_id'],
                         'product_price' => $wishlist_product_price,
                         'product_special_price' => $wishlist_product_special_price,
-                        'product_discount_price' => $wishlist_product_discount_price,                        
+                        'product_discount_price' => $wishlist_product_discount_price,
                         'base_product_price' => $wishlist_base_product_price,
                         'products_base_price' => $wishlist_product['products_base_price'],
                         'products_base_unit' => $wishlist_product['products_base_unit'],
                         'product_price_list'    => $wishlist_price_list,
                         'cross_out_price'    => $wishlist_cross_out_price,
-                        'until'    => $wishlist_until,        
+                        'until'    => $wishlist_until,
                         'attributes_print' => $attributes_print,
                         'attributes_hidden' => $attributes_hidden_field);
     $wishlist_result->MoveNext();

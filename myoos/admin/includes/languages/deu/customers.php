@@ -18,14 +18,14 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 /**
    ----------------------------------------------------------------------
    If you made a translation, please send to
       lang@oos-shop.de
    the translated file.
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('HEADING_TITLE', 'Kunden');
@@ -80,10 +80,12 @@ define('EMAIL_GV_INCENTIVE_HEADER', 'Um für Sie als Neukunden zu begrüßen, ha
 define('EMAIL_GV_REDEEM', 'Der Gutscheincode lautet: %s. Sie können diesen, beim Abschluß Ihrer Bestellung eingeben');
 define('EMAIL_GV_LINK', 'Oder Sie benutzen den folgenden Link: ');
 define(
-    'EMAIL_COUPON_INCENTIVE_HEADER', 'Herzlichen Glückwunsch! Um den ersten Besuch in unserm Shop attraktiver zu machen erhalten Sie diesen Gutschein!' . "\n" .
+    'EMAIL_COUPON_INCENTIVE_HEADER',
+    'Herzlichen Glückwunsch! Um den ersten Besuch in unserm Shop attraktiver zu machen erhalten Sie diesen Gutschein!' . "\n" .
     'Es folgen weitere Details über Ihren persönlichen Einkaufsgutschein.' . "\n\n"
 );
 define(
-    'EMAIL_COUPON_REDEEM', 'Um den Einkaufsgutschein zu nutzen geben Sie bitte den Gutscheincode %s ' . "\n" .
+    'EMAIL_COUPON_REDEEM',
+    'Um den Einkaufsgutschein zu nutzen geben Sie bitte den Gutscheincode %s ' . "\n" .
     'beim Beenden Ihrer Bestellung ein!'
 );

@@ -155,10 +155,10 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
         } ?>
                 <td>tt<?php echo $files['admin_files_name']; ?></td>
                 <td class="text-right"><?php if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id)) {
-                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+            echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+        } else {
+            echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id']) . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+        } ?>&nbsp;</td>
               </tr>
         <?php
         // Move that ADOdb pointer!
@@ -175,7 +175,7 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
             </table>
     <?php
 } else {
-    ?>
+        ?>
         <thead class="thead-dark">
             <thead class="thead-dark">
                 <tr>
@@ -186,57 +186,57 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
             </thead>              
     <?php
     $admin_filestable = $oostable['admin_files'];
-    $installed_boxes_query = "SELECT admin_files_name AS admin_boxes_name
+        $installed_boxes_query = "SELECT admin_files_name AS admin_boxes_name
                               FROM $admin_filestable
                               WHERE admin_files_is_boxes = 1
                               ORDER BY admin_files_name";
-    $installed_boxes_result = $dbconn->Execute($installed_boxes_query);
+        $installed_boxes_result = $dbconn->Execute($installed_boxes_query);
 
-    $installed_boxes = [];
-    while ($db_boxes = $installed_boxes_result->fields) {
-        $installed_boxes[] = $db_boxes['admin_boxes_name'];
+        $installed_boxes = [];
+        while ($db_boxes = $installed_boxes_result->fields) {
+            $installed_boxes[] = $db_boxes['admin_boxes_name'];
 
-        // Move that ADOdb pointer!
-        $installed_boxes_result->MoveNext();
-    }
+            // Move that ADOdb pointer!
+            $installed_boxes_result->MoveNext();
+        }
 
 
-    $none = 0;
-    $boxes = [];
-    $dir = dir(OOS_ABSOLUTE_PATH . 'admin/includes/boxes/');
-    while ($boxes_file = $dir->read()) {
-        if ((substr("$boxes_file", -4) == '.php') && !(in_array($boxes_file, $installed_boxes))) {
-            $boxes[] = array('admin_boxes_name' => $boxes_file,
+        $none = 0;
+        $boxes = [];
+        $dir = dir(OOS_ABSOLUTE_PATH . 'admin/includes/boxes/');
+        while ($boxes_file = $dir->read()) {
+            if ((substr("$boxes_file", -4) == '.php') && !(in_array($boxes_file, $installed_boxes))) {
+                $boxes[] = array('admin_boxes_name' => $boxes_file,
                        'admin_boxes_id' => 'b' . $none);
-        } elseif ((substr("$boxes_file", -4) == '.php') && (in_array($boxes_file, $installed_boxes))) {
-            $db_boxes_id_query = "SELECT admin_files_id AS admin_boxes_id FROM " . $oostable['admin_files'] . " WHERE admin_files_is_boxes = 1 AND admin_files_name = '" . intval($boxes_file) . "'";
-            $db_boxes_id = $dbconn->GetRow($db_boxes_id_query);
+            } elseif ((substr("$boxes_file", -4) == '.php') && (in_array($boxes_file, $installed_boxes))) {
+                $db_boxes_id_query = "SELECT admin_files_id AS admin_boxes_id FROM " . $oostable['admin_files'] . " WHERE admin_files_is_boxes = 1 AND admin_files_name = '" . intval($boxes_file) . "'";
+                $db_boxes_id = $dbconn->GetRow($db_boxes_id_query);
 
-            $boxes[] = array('admin_boxes_name' => $boxes_file,
+                $boxes[] = array('admin_boxes_name' => $boxes_file,
                        'admin_boxes_id' => isset($db_boxes_id['admin_boxes_id']) ? $db_boxes_id['admin_boxes_id'] : '');
-        }
-
-        $none++;
-    }
-    $dir->close();
-    sort($boxes);
-    reset($boxes);
-
-    $boxnum = count($boxes);
-    $i = 0;
-    while ($i < $boxnum) {
-        if ((!isset($_GET['cID']) || (isset($_GET['none']) &&  $_GET['none'] == $boxes[$i]['admin_boxes_id']) || ($_GET['cID'] == $boxes[$i]['admin_boxes_id'])) && !isset($cInfo)) {
-            $cInfo = new objectInfo($boxes[$i]);
-        }
-        if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id)) {
-            if (substr("$cInfo->admin_boxes_id", 0, 1) == 'b') {
-                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
-            } else {
-                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $boxes[$i]['admin_boxes_id'] . '&action=store_file') . '\'">' . "\n";
             }
-        } else {
-            echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
-        } ?>
+
+            $none++;
+        }
+        $dir->close();
+        sort($boxes);
+        reset($boxes);
+
+        $boxnum = count($boxes);
+        $i = 0;
+        while ($i < $boxnum) {
+            if ((!isset($_GET['cID']) || (isset($_GET['none']) &&  $_GET['none'] == $boxes[$i]['admin_boxes_id']) || ($_GET['cID'] == $boxes[$i]['admin_boxes_id'])) && !isset($cInfo)) {
+                $cInfo = new objectInfo($boxes[$i]);
+            }
+            if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id)) {
+                if (substr("$cInfo->admin_boxes_id", 0, 1) == 'b') {
+                    echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
+                } else {
+                    echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $boxes[$i]['admin_boxes_id'] . '&action=store_file') . '\'">' . "\n";
+                }
+            } else {
+                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
+            } ?>
                 <td><?php echo '<i class="fa fa-folder text-navy"></i> <b>' . ucfirst(substr_replace($boxes[$i]['admin_boxes_name'], '', -4)) . '</b>'; ?></td>
                 <td class="text-center">
         <?php
@@ -256,14 +256,14 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
         } ?>
                 </td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id)) {
-                    echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
-} else {
-                                           echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . isset($boxes[$i]['admin_boxes_id']) ? $boxes[$i]['admin_boxes_id'] : '') . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
-                                       } ?>&nbsp;</td>
+            echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
+        } else {
+            echo '<a href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . isset($boxes[$i]['admin_boxes_id']) ? $boxes[$i]['admin_boxes_id'] : '') . '"><button class="btn btn-default" type="button"><i class="fa fa-eye-slash"></i></button></a>';
+        } ?>&nbsp;</td>
               </tr>
         <?php
         $i++;
-    } ?>
+        } ?>
               <tr>
                 <td colspan="3"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
@@ -274,7 +274,7 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
               </tr>
             </table>
     <?php
-}
+    }
 ?>
             </td>
 <?php
@@ -290,10 +290,10 @@ case 'store_file':
     $file_query = "SELECT admin_files_name FROM $admin_filestable WHERE admin_files_is_boxes = '0' ";
     $file_result = $dbconn->Execute($file_query);
     while ($fetch_files = $file_result->fields) {
-          $files_array[] = $fetch_files['admin_files_name'];
+        $files_array[] = $fetch_files['admin_files_name'];
 
-          // Move that ADOdb pointer!
-          $file_result->MoveNext();
+        // Move that ADOdb pointer!
+        $file_result->MoveNext();
     }
 
         $file_dir = [];
@@ -339,7 +339,7 @@ case 'remove_file':
 
 default:
     if (isset($cInfo) && is_object($cInfo)) {
-          $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DEFAULT_BOXES . $cInfo->admin_boxes_name . '</b>');
+        $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DEFAULT_BOXES . $cInfo->admin_boxes_name . '</b>');
         if (substr($cInfo->admin_boxes_id, 0, 1) == 'b') {
             $contents[] = array('text' => '<b>' . $cInfo->admin_boxes_name . ' ' . TEXT_INFO_DEFAULT_BOXES_NOT_INSTALLED . '</b><br>&nbsp;');
             $contents[] = array('text' => TEXT_INFO_DEFAULT_BOXES_INTRO);
@@ -349,7 +349,7 @@ default:
             $contents[] = array('text' => oos_draw_hidden_field('this_category', $cInfo->admin_boxes_id));
             $contents[] = array('text' => '<br>' . TEXT_INFO_DEFAULT_BOXES_INTRO);
         }
-          $contents[] = array('text' => '<br>');
+        $contents[] = array('text' => '<br>');
     }
     if (isset($fInfo) && is_object($fInfo)) {
         $heading[] = array('text' => '<b>' . TEXT_INFO_NEW_FILE_BOX .  ucfirst(substr_replace($current_box['admin_box_name'], '', -4)) . '</b>');
@@ -360,12 +360,12 @@ default:
   }
 
   if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
-        ?>
+      ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
       <?php
         $box = new box();
-        echo $box->infoBox($heading, $contents); ?>
+      echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
       <?php

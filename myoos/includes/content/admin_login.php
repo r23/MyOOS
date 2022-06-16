@@ -49,11 +49,11 @@
    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
    All contributions are gladly accepted though Paypal.
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -97,7 +97,7 @@ if (isset($_SESSION['customer_id'])) {
 }
 
 
-if (isset($_POST['action']) && ($_POST['action'] == 'login_process') 
+if (isset($_POST['action']) && ($_POST['action'] == 'login_process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     $email_address = oos_db_prepare_input($_POST['email_address']);

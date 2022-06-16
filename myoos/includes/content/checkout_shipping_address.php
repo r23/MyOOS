@@ -17,11 +17,11 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 /**
- * ensure this file is being included by a parent file 
+ * ensure this file is being included by a parent file
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
@@ -64,7 +64,7 @@ if ($oOrder->content_type == 'virtual') {
 
 $bError = false; // reset error flag
 $bProcess = false;
-if (isset($_POST['action']) && ($_POST['action'] == 'submit') 
+if (isset($_POST['action']) && ($_POST['action'] == 'submit')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
 

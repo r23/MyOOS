@@ -17,13 +17,13 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
-if (isset($_GET['action']) && ($_GET['action'] == 'process') 
+if (isset($_GET['action']) && ($_GET['action'] == 'process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     $email_address = oos_prepare_input($_POST['email_address']);

@@ -19,7 +19,7 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- 
+   ----------------------------------------------------------------------
  */
 
 define('TEXT_COUNT_CUSTOMERS', 'Anzahl der Kunden, welche das Rundschreiben erhalten: %s');
