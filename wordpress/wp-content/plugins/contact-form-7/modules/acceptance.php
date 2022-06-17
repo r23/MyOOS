@@ -94,11 +94,13 @@ function wpcf7_acceptance_form_tag_handler( $tag ) {
 			$item_atts );
 	}
 
-	$atts = wpcf7_format_atts( $atts );
-
 	$html = sprintf(
-		'<span class="wpcf7-form-control-wrap %1$s"><span %2$s>%3$s</span>%4$s</span>',
-		sanitize_html_class( $tag->name ), $atts, $html, $validation_error );
+		'<span class="wpcf7-form-control-wrap" data-name="%1$s"><span %2$s>%3$s</span>%4$s</span>',
+		esc_attr( $tag->name ),
+		wpcf7_format_atts( $atts ),
+		$html,
+		$validation_error
+	);
 
 	return $html;
 }
@@ -176,12 +178,12 @@ function wpcf7_acceptance_filter( $accepted, $submission ) {
 add_filter( 'wpcf7_form_class_attr',
 	'wpcf7_acceptance_form_class_attr', 10, 1 );
 
-function wpcf7_acceptance_form_class_attr( $class ) {
+function wpcf7_acceptance_form_class_attr( $class_attr ) {
 	if ( wpcf7_acceptance_as_validation() ) {
-		return $class . ' wpcf7-acceptance-as-validation';
+		return $class_attr . ' wpcf7-acceptance-as-validation';
 	}
 
-	return $class;
+	return $class_attr;
 }
 
 function wpcf7_acceptance_as_validation() {

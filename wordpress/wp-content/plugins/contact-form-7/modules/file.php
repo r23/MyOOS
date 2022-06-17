@@ -38,7 +38,8 @@ function wpcf7_file_form_tag_handler( $tag ) {
 	$atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
 
 	$atts['accept'] = wpcf7_acceptable_filetypes(
-		$tag->get_option( 'filetypes' ), 'attr' );
+		$tag->get_option( 'filetypes' ), 'attr'
+	);
 
 	if ( $tag->is_required() ) {
 		$atts['aria-required'] = 'true';
@@ -56,35 +57,58 @@ function wpcf7_file_form_tag_handler( $tag ) {
 	$atts['type'] = 'file';
 	$atts['name'] = $tag->name;
 
-	$atts = wpcf7_format_atts( $atts );
-
 	$html = sprintf(
-		'<span class="wpcf7-form-control-wrap %1$s"><input %2$s />%3$s</span>',
-		sanitize_html_class( $tag->name ), $atts, $validation_error
+		'<span class="wpcf7-form-control-wrap" data-name="%1$s"><input %2$s />%3$s</span>',
+		esc_attr( $tag->name ),
+		wpcf7_format_atts( $atts ),
+		$validation_error
 	);
 
 	return $html;
 }
 
 
-/* Validation + upload handling filter */
+add_action(
+	'wpcf7_swv_create_schema',
+	'wpcf7_swv_add_file_rules',
+	10, 2
+);
 
-add_filter( 'wpcf7_validate_file', 'wpcf7_file_validation_filter', 10, 3 );
-add_filter( 'wpcf7_validate_file*', 'wpcf7_file_validation_filter', 10, 3 );
+function wpcf7_swv_add_file_rules( $schema, $contact_form ) {
+	$tags = $contact_form->scan_form_tags( array(
+		'basetype' => array( 'file' ),
+	) );
 
-function wpcf7_file_validation_filter( $result, $tag, $args ) {
-	$args = wp_parse_args( $args, array() );
-
-	if ( isset( $args['uploaded_files'] ) ) {
-		$maybe_error = $args['uploaded_files'];
-
-		if ( is_wp_error( $maybe_error ) ) {
-			$result->invalidate( $tag, $maybe_error->get_error_message() );
+	foreach ( $tags as $tag ) {
+		if ( $tag->is_required() ) {
+			$schema->add_rule(
+				wpcf7_swv_create_rule( 'requiredfile', array(
+					'field' => $tag->name,
+					'error' => wpcf7_get_message( 'invalid_required' ),
+				) )
+			);
 		}
-	}
 
-	return $result;
+		$schema->add_rule(
+			wpcf7_swv_create_rule( 'file', array(
+				'field' => $tag->name,
+				'accept' => explode( ',', wpcf7_acceptable_filetypes(
+					$tag->get_option( 'filetypes' ), 'attr'
+				) ),
+				'error' => wpcf7_get_message( 'upload_file_type_invalid' ),
+			) )
+		);
+
+		$schema->add_rule(
+			wpcf7_swv_create_rule( 'maxfilesize', array(
+				'field' => $tag->name,
+				'threshold' => $tag->get_limit_option(),
+				'error' => wpcf7_get_message( 'upload_file_too_large' ),
+			) )
+		);
+	}
 }
+
 
 add_filter( 'wpcf7_mail_tag_replaced_file', 'wpcf7_file_mail_tag', 10, 4 );
 add_filter( 'wpcf7_mail_tag_replaced_file*', 'wpcf7_file_mail_tag', 10, 4 );

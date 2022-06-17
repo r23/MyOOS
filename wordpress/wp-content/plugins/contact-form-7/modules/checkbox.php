@@ -172,36 +172,37 @@ function wpcf7_checkbox_form_tag_handler( $tag ) {
 		$html .= $item;
 	}
 
-	$atts = wpcf7_format_atts( $atts );
-
 	$html = sprintf(
-		'<span class="wpcf7-form-control-wrap %1$s"><span %2$s>%3$s</span>%4$s</span>',
-		sanitize_html_class( $tag->name ), $atts, $html, $validation_error
+		'<span class="wpcf7-form-control-wrap" data-name="%1$s"><span %2$s>%3$s</span>%4$s</span>',
+		esc_attr( $tag->name ),
+		wpcf7_format_atts( $atts ),
+		$html,
+		$validation_error
 	);
 
 	return $html;
 }
 
 
-/* Validation filter */
+add_action(
+	'wpcf7_swv_create_schema',
+	'wpcf7_swv_add_checkbox_rules',
+	10, 2
+);
 
-add_filter( 'wpcf7_validate_checkbox',
-	'wpcf7_checkbox_validation_filter', 10, 2 );
-add_filter( 'wpcf7_validate_checkbox*',
-	'wpcf7_checkbox_validation_filter', 10, 2 );
-add_filter( 'wpcf7_validate_radio',
-	'wpcf7_checkbox_validation_filter', 10, 2 );
+function wpcf7_swv_add_checkbox_rules( $schema, $contact_form ) {
+	$tags = $contact_form->scan_form_tags( array(
+		'type' => array( 'checkbox*', 'radio' ),
+	) );
 
-function wpcf7_checkbox_validation_filter( $result, $tag ) {
-	$name = $tag->name;
-	$is_required = $tag->is_required() || 'radio' == $tag->type;
-	$value = isset( $_POST[$name] ) ? (array) $_POST[$name] : array();
-
-	if ( $is_required and empty( $value ) ) {
-		$result->invalidate( $tag, wpcf7_get_message( 'invalid_required' ) );
+	foreach ( $tags as $tag ) {
+		$schema->add_rule(
+			wpcf7_swv_create_rule( 'required', array(
+				'field' => $tag->name,
+				'error' => wpcf7_get_message( 'invalid_required' ),
+			) )
+		);
 	}
-
-	return $result;
 }
 
 

@@ -127,17 +127,19 @@ class WPCF7_ContactFormTemplate {
 
 	public static function from_email() {
 		$admin_email = get_option( 'admin_email' );
-		$sitename = strtolower( $_SERVER['SERVER_NAME'] );
 
 		if ( wpcf7_is_localhost() ) {
 			return $admin_email;
 		}
 
-		if ( substr( $sitename, 0, 4 ) == 'www.' ) {
+		$sitename = wp_parse_url( network_home_url(), PHP_URL_HOST );
+		$sitename = strtolower( $sitename );
+
+		if ( 'www.' === substr( $sitename, 0, 4 ) ) {
 			$sitename = substr( $sitename, 4 );
 		}
 
-		if ( strpbrk( $admin_email, '@' ) == '@' . $sitename ) {
+		if ( strpbrk( $admin_email, '@' ) === '@' . $sitename ) {
 			return $admin_email;
 		}
 
@@ -196,22 +198,22 @@ function wpcf7_messages() {
 			'description'
 				=> __( "There is a field that the sender must fill in", 'contact-form-7' ),
 			'default'
-				=> __( "The field is required.", 'contact-form-7' ),
+				=> __( "Please fill out this field.", 'contact-form-7' ),
 		),
 
 		'invalid_too_long' => array(
 			'description'
 				=> __( "There is a field with input that is longer than the maximum allowed length", 'contact-form-7' ),
 			'default'
-				=> __( "The field is too long.", 'contact-form-7' ),
+				=> __( "This field has a too long input.", 'contact-form-7' ),
 		),
 
 		'invalid_too_short' => array(
 			'description'
 				=> __( "There is a field with input that is shorter than the minimum allowed length", 'contact-form-7' ),
 			'default'
-				=> __( "The field is too short.", 'contact-form-7' ),
-		)
+				=> __( "This field has a too short input.", 'contact-form-7' ),
+		),
 	);
 
 	return apply_filters( 'wpcf7_messages', $messages );

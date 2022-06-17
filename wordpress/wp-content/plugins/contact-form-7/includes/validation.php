@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Server-side user input validation manager.
+ */
 class WPCF7_Validation implements ArrayAccess {
 	private $invalid_fields = array();
 	private $container = array();
@@ -12,7 +15,15 @@ class WPCF7_Validation implements ArrayAccess {
 		);
 	}
 
-	public function invalidate( $context, $message ) {
+
+	/**
+	 * Marks a form control as an invalid field.
+	 *
+	 * @param WPCF7_FormTag|array|string $context Context representing the
+	 *                                   target field.
+	 * @param WP_Error|string $error The error of the field.
+	 */
+	public function invalidate( $context, $error ) {
 		if ( $context instanceof WPCF7_FormTag ) {
 			$tag = $context;
 		} elseif ( is_array( $context ) ) {
@@ -27,6 +38,12 @@ class WPCF7_Validation implements ArrayAccess {
 		if ( empty( $name )
 		or ! wpcf7_is_name( $name ) ) {
 			return;
+		}
+
+		if ( is_wp_error( $error ) ) {
+			$message = $error->get_error_message();
+		} else {
+			$message = $error;
 		}
 
 		if ( $this->is_valid( $name ) ) {
@@ -44,6 +61,16 @@ class WPCF7_Validation implements ArrayAccess {
 		}
 	}
 
+
+	/**
+	 * Returns true if the target field is valid.
+	 *
+	 * @param string|null $name Optional. If specified, this is the name of
+	 *                    the target field. Default null.
+	 * @return bool True if the target field has no error. If no target is
+	 *              specified, returns true if all fields are valid.
+	 *              Otherwise false.
+	 */
 	public function is_valid( $name = null ) {
 		if ( ! empty( $name ) ) {
 			return ! isset( $this->invalid_fields[$name] );
@@ -52,10 +79,22 @@ class WPCF7_Validation implements ArrayAccess {
 		}
 	}
 
+
+	/**
+	 * Retrieves an associative array of invalid fields.
+	 *
+	 * @return array The associative array of invalid fields.
+	 */
 	public function get_invalid_fields() {
 		return $this->invalid_fields;
 	}
 
+
+	/**
+	 * Assigns a value to the specified offset.
+	 *
+	 * @see https://www.php.net/manual/en/arrayaccess.offsetset.php
+	 */
 	public function offsetSet( $offset, $value ) {
 		if ( isset( $this->container[$offset] ) ) {
 			$this->container[$offset] = $value;
@@ -69,16 +108,35 @@ class WPCF7_Validation implements ArrayAccess {
 		}
 	}
 
+
+	/**
+	 * Returns the value at specified offset.
+	 *
+	 * @see https://www.php.net/manual/en/arrayaccess.offsetget.php
+	 */
 	public function offsetGet( $offset ) {
 		if ( isset( $this->container[$offset] ) ) {
 			return $this->container[$offset];
 		}
 	}
 
+
+	/**
+	 * Returns true if the specified offset exists.
+	 *
+	 * @see https://www.php.net/manual/en/arrayaccess.offsetexists.php
+	 */
 	public function offsetExists( $offset ) {
 		return isset( $this->container[$offset] );
 	}
 
+
+	/**
+	 * Unsets an offset.
+	 *
+	 * @see https://www.php.net/manual/en/arrayaccess.offsetunset.php
+	 */
 	public function offsetUnset( $offset ) {
 	}
+
 }

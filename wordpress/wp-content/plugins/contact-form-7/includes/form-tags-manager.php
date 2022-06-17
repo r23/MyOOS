@@ -1,23 +1,38 @@
 <?php
 
-function wpcf7_add_form_tag( $tag, $func, $features = '' ) {
+/**
+ * Wrapper function of WPCF7_FormTagsManager::add().
+ */
+function wpcf7_add_form_tag( $tag_types, $callback, $features = '' ) {
 	$manager = WPCF7_FormTagsManager::get_instance();
 
-	return $manager->add( $tag, $func, $features );
+	return $manager->add( $tag_types, $callback, $features );
 }
 
-function wpcf7_remove_form_tag( $tag ) {
+
+/**
+ * Wrapper function of WPCF7_FormTagsManager::remove().
+ */
+function wpcf7_remove_form_tag( $tag_type ) {
 	$manager = WPCF7_FormTagsManager::get_instance();
 
-	return $manager->remove( $tag );
+	return $manager->remove( $tag_type );
 }
 
+
+/**
+ * Wrapper function of WPCF7_FormTagsManager::replace_all().
+ */
 function wpcf7_replace_all_form_tags( $content ) {
 	$manager = WPCF7_FormTagsManager::get_instance();
 
 	return $manager->replace_all( $content );
 }
 
+
+/**
+ * Wrapper function of WPCF7_ContactForm::scan_form_tags().
+ */
 function wpcf7_scan_form_tags( $cond = null ) {
 	$contact_form = WPCF7_ContactForm::get_current();
 
@@ -28,12 +43,20 @@ function wpcf7_scan_form_tags( $cond = null ) {
 	return array();
 }
 
-function wpcf7_form_tag_supports( $tag, $feature ) {
+
+/**
+ * Wrapper function of WPCF7_FormTagsManager::tag_type_supports().
+ */
+function wpcf7_form_tag_supports( $tag_type, $feature ) {
 	$manager = WPCF7_FormTagsManager::get_instance();
 
-	return $manager->tag_type_supports( $tag, $feature );
+	return $manager->tag_type_supports( $tag_type, $feature );
 }
 
+
+/**
+ * The singleton instance of this class manages the collection of form-tags.
+ */
 class WPCF7_FormTagsManager {
 
 	private static $instance;
@@ -43,6 +66,12 @@ class WPCF7_FormTagsManager {
 
 	private function __construct() {}
 
+
+	/**
+	 * Returns the singleton instance.
+	 *
+	 * @return WPCF7_FormTagsManager The singleton manager.
+	 */
 	public static function get_instance() {
 		if ( empty( self::$instance ) ) {
 			self::$instance = new self;
@@ -51,12 +80,29 @@ class WPCF7_FormTagsManager {
 		return self::$instance;
 	}
 
+
+	/**
+	 * Returns scanned form-tags.
+	 *
+	 * @return array Array of WPCF7_FormTag objects.
+	 */
 	public function get_scanned_tags() {
 		return $this->scanned_tags;
 	}
 
-	public function add( $tag, $func, $features = '' ) {
-		if ( ! is_callable( $func ) ) {
+
+	/**
+	 * Registers form-tag types to the manager.
+	 *
+	 * @param string|array $tag_types The name of the form-tag type or
+	 *                     an array of the names.
+	 * @param callable $callback The callback to generates a form control HTML
+	 *                 for a form-tag in this type.
+	 * @param string|array $features Optional. Features a form-tag
+	 *                     in this type supports.
+	 */
+	public function add( $tag_types, $callback, $features = '' ) {
+		if ( ! is_callable( $callback ) ) {
 			return;
 		}
 
@@ -66,67 +112,103 @@ class WPCF7_FormTagsManager {
 
 		$features = wp_parse_args( $features, array() );
 
-		$tags = array_filter( array_unique( (array) $tag ) );
+		$tag_types = array_filter( array_unique( (array) $tag_types ) );
 
-		foreach ( $tags as $tag ) {
-			$tag = $this->sanitize_tag_type( $tag );
+		foreach ( $tag_types as $tag_type ) {
+			$tag_type = $this->sanitize_tag_type( $tag_type );
 
-			if ( ! $this->tag_type_exists( $tag ) ) {
-				$this->tag_types[$tag] = array(
-					'function' => $func,
+			if ( ! $this->tag_type_exists( $tag_type ) ) {
+				$this->tag_types[$tag_type] = array(
+					'function' => $callback,
 					'features' => $features,
 				);
 			}
 		}
 	}
 
-	public function tag_type_exists( $tag ) {
-		return isset( $this->tag_types[$tag] );
+
+	/**
+	 * Returns true if the given tag type exists.
+	 */
+	public function tag_type_exists( $tag_type ) {
+		return isset( $this->tag_types[$tag_type] );
 	}
 
-	public function tag_type_supports( $tag, $feature ) {
-		$feature = array_filter( (array) $feature );
 
-		if ( isset( $this->tag_types[$tag]['features'] ) ) {
+	/**
+	 * Returns true if the tag type supports the features.
+	 *
+	 * @param string $tag_type The name of the form-tag type.
+	 * @param array|string $features The feature to check or an array of features.
+	 * @return bool True if the form-tag type supports at least one of
+	 *              the given features, false otherwise.
+	 */
+	public function tag_type_supports( $tag_type, $features ) {
+		$features = array_filter( (array) $features );
+
+		if ( isset( $this->tag_types[$tag_type]['features'] ) ) {
 			return (bool) array_intersect(
-				array_keys( array_filter( $this->tag_types[$tag]['features'] ) ),
-				$feature
+				array_keys( array_filter( $this->tag_types[$tag_type]['features'] ) ),
+				$features
 			);
 		}
 
 		return false;
 	}
 
-	public function collect_tag_types( $feature = null, $invert = false ) {
+
+	/**
+	 * Returns form-tag types that support the given features.
+	 *
+	 * @param array|string $features Optional. The feature to check or
+	 *                     an array of features. Default empty array.
+	 * @param bool $invert Optional. If this value is true, returns form-tag
+	 *             types that do not support the given features. Default false.
+	 * @return array An array of form-tag types. If the $features param is empty,
+	 *               returns all form-tag types that have been registered.
+	 */
+	public function collect_tag_types( $features = array(), $invert = false ) {
 		$tag_types = array_keys( $this->tag_types );
 
-		if ( empty( $feature ) ) {
+		if ( empty( $features ) ) {
 			return $tag_types;
 		}
 
 		$output = array();
 
-		foreach ( $tag_types as $tag ) {
-			if ( ! $invert && $this->tag_type_supports( $tag, $feature )
-			|| $invert && ! $this->tag_type_supports( $tag, $feature ) ) {
-				$output[] = $tag;
+		foreach ( $tag_types as $tag_type ) {
+			if ( ! $invert && $this->tag_type_supports( $tag_type, $features )
+			|| $invert && ! $this->tag_type_supports( $tag_type, $features ) ) {
+				$output[] = $tag_type;
 			}
 		}
 
 		return $output;
 	}
 
-	private function sanitize_tag_type( $tag ) {
-		$tag = preg_replace( '/[^a-zA-Z0-9_*]+/', '_', $tag );
-		$tag = rtrim( $tag, '_' );
-		$tag = strtolower( $tag );
-		return $tag;
+
+	/**
+	 * Sanitizes the form-tag type name.
+	 */
+	private function sanitize_tag_type( $tag_type ) {
+		$tag_type = preg_replace( '/[^a-zA-Z0-9_*]+/', '_', $tag_type );
+		$tag_type = rtrim( $tag_type, '_' );
+		$tag_type = strtolower( $tag_type );
+		return $tag_type;
 	}
 
-	public function remove( $tag ) {
-		unset( $this->tag_types[$tag] );
+
+	/**
+	 * Deregisters the form-tag type.
+	 */
+	public function remove( $tag_type ) {
+		unset( $this->tag_types[$tag_type] );
 	}
 
+
+	/**
+	 * Normalizes the text content that includes form-tags.
+	 */
 	public function normalize( $content ) {
 		if ( empty( $this->tag_types ) ) {
 			return $content;
@@ -135,40 +217,62 @@ class WPCF7_FormTagsManager {
 		$content = preg_replace_callback(
 			'/' . $this->tag_regex() . '/s',
 			array( $this, 'normalize_callback' ),
-			$content );
+			$content
+		);
 
 		return $content;
 	}
 
-	private function normalize_callback( $m ) {
+
+	/**
+	 * The callback function used within normalize().
+	 */
+	private function normalize_callback( $matches ) {
 		// allow [[foo]] syntax for escaping a tag
-		if ( $m[1] == '['
-		and $m[6] == ']' ) {
-			return $m[0];
+		if ( $matches[1] == '['
+		and $matches[6] == ']' ) {
+			return $matches[0];
 		}
 
-		$tag = $m[2];
+		$tag = $matches[2];
 
-		$attr = trim( preg_replace( '/[\r\n\t ]+/', ' ', $m[3] ) );
+		$attr = trim( preg_replace( '/[\r\n\t ]+/', ' ', $matches[3] ) );
 		$attr = strtr( $attr, array( '<' => '&lt;', '>' => '&gt;' ) );
 
-		$content = trim( $m[5] );
+		$content = trim( $matches[5] );
 		$content = str_replace( "\n", '<WPPreserveNewline />', $content );
 
-		$result = $m[1] . '[' . $tag
+		$result = $matches[1] . '[' . $tag
 			. ( $attr ? ' ' . $attr : '' )
-			. ( $m[4] ? ' ' . $m[4] : '' )
+			. ( $matches[4] ? ' ' . $matches[4] : '' )
 			. ']'
 			. ( $content ? $content . '[/' . $tag . ']' : '' )
-			. $m[6];
+			. $matches[6];
 
 		return $result;
 	}
 
+
+	/**
+	 * Replaces all form-tags in the text content.
+	 *
+	 * @param string $content The text content including form-tags.
+	 * @return string The result of replacements.
+	 */
 	public function replace_all( $content ) {
 		return $this->scan( $content, true );
 	}
 
+
+	/**
+	 * Scans form-tags in the text content.
+	 *
+	 * @param string $content The text content including form-tags.
+	 * @param bool $replace Optional. Whether scanned form-tags will be
+	 *             replaced. Default false.
+	 * @return array|string An array of scanned form-tags if $replace is false.
+	 *                      Otherwise text that scanned form-tags are replaced.
+	 */
 	public function scan( $content, $replace = false ) {
 		$this->scanned_tags = array();
 
@@ -199,6 +303,15 @@ class WPCF7_FormTagsManager {
 		}
 	}
 
+
+	/**
+	 * Filters form-tags based on a condition array argument.
+	 *
+	 * @param array|string $input The original form-tags collection.
+	 *                     If it is a string, scans form-tags from it.
+	 * @param array $cond The conditions that filtering will be based on.
+	 * @return array The filtered form-tags collection.
+	 */
 	public function filter( $input, $cond ) {
 		if ( is_array( $input ) ) {
 			$tags = $input;
@@ -208,56 +321,62 @@ class WPCF7_FormTagsManager {
 			$tags = $this->scanned_tags;
 		}
 
-		if ( empty( $tags ) ) {
-			return array();
-		}
-
 		$cond = wp_parse_args( $cond, array(
 			'type' => array(),
+			'basetype' => array(),
 			'name' => array(),
-			'feature' => '',
+			'feature' => array(),
 		) );
 
-		$type = array_filter( (array) $cond['type'] );
-		$name = array_filter( (array) $cond['name'] );
-		$feature = is_string( $cond['feature'] ) ? trim( $cond['feature'] ) : '';
+		$cond = array_map( function ( $c ) {
+			return array_filter( array_map( 'trim', (array) $c ) );
+		}, $cond );
 
-		if ( '!' == substr( $feature, 0, 1 ) ) {
-			$feature_negative = true;
-			$feature = trim( substr( $feature, 1 ) );
-		} else {
-			$feature_negative = false;
-		}
+		$tags = array_filter(
+			(array) $tags,
+			function ( $tag ) use ( $cond ) {
+				$tag = new WPCF7_FormTag( $tag );
 
-		$output = array();
-
-		foreach ( $tags as $tag ) {
-			$tag = new WPCF7_FormTag( $tag );
-
-			if ( $type and ! in_array( $tag->type, $type, true ) ) {
-				continue;
-			}
-
-			if ( $name and ! in_array( $tag->name, $name, true ) ) {
-				continue;
-			}
-
-			if ( $feature ) {
-				if ( ! $this->tag_type_supports( $tag->type, $feature )
-				and ! $feature_negative ) {
-					continue;
-				} elseif ( $this->tag_type_supports( $tag->type, $feature )
-				and $feature_negative ) {
-					continue;
+				if ( $cond['type']
+				and ! in_array( $tag->type, $cond['type'], true ) ) {
+					return false;
 				}
+
+				if ( $cond['basetype']
+				and ! in_array( $tag->basetype, $cond['basetype'], true ) ) {
+					return false;
+				}
+
+				if ( $cond['name']
+				and ! in_array( $tag->name, $cond['name'], true ) ) {
+					return false;
+				}
+
+				foreach ( $cond['feature'] as $feature ) {
+					if ( '!' === substr( $feature, 0, 1 ) ) { // Negation
+						$feature = trim( substr( $feature, 1 ) );
+
+						if ( $this->tag_type_supports( $tag->type, $feature ) ) {
+							return false;
+						}
+					} else {
+						if ( ! $this->tag_type_supports( $tag->type, $feature ) ) {
+							return false;
+						}
+					}
+				}
+
+				return true;
 			}
+		);
 
-			$output[] = $tag;
-		}
-
-		return $output;
+		return array_values( $tags );
 	}
 
+
+	/**
+	 * Returns the regular expression for a form-tag.
+	 */
 	private function tag_regex() {
 		$tagnames = array_keys( $this->tag_types );
 		$tagregexp = implode( '|', array_map( 'preg_quote', $tagnames ) );
@@ -268,23 +387,31 @@ class WPCF7_FormTagsManager {
 			. '(\]?)';
 	}
 
-	private function replace_callback( $m ) {
-		return $this->scan_callback( $m, true );
+
+	/**
+	 * The callback function for the form-tag replacement.
+	 */
+	private function replace_callback( $matches ) {
+		return $this->scan_callback( $matches, true );
 	}
 
-	private function scan_callback( $m, $replace = false ) {
+
+	/**
+	 * The callback function for the form-tag scanning.
+	 */
+	private function scan_callback( $matches, $replace = false ) {
 		// allow [[foo]] syntax for escaping a tag
-		if ( $m[1] == '['
-		and $m[6] == ']' ) {
-			return substr( $m[0], 1, -1 );
+		if ( $matches[1] == '['
+		and $matches[6] == ']' ) {
+			return substr( $matches[0], 1, -1 );
 		}
 
-		$tag = $m[2];
-		$attr = $this->parse_atts( $m[3] );
+		$tag_type = $matches[2];
+		$attr = $this->parse_atts( $matches[3] );
 
 		$scanned_tag = array(
-			'type' => $tag,
-			'basetype' => trim( $tag, '*' ),
+			'type' => $tag_type,
+			'basetype' => trim( $tag_type, '*' ),
 			'raw_name' => '',
 			'name' => '',
 			'options' => array(),
@@ -296,20 +423,20 @@ class WPCF7_FormTagsManager {
 			'content' => '',
 		);
 
-		if ( $this->tag_type_supports( $tag, 'singular' )
-		and $this->filter( $this->scanned_tags, array( 'type' => $tag ) ) ) {
+		if ( $this->tag_type_supports( $tag_type, 'singular' )
+		and $this->filter( $this->scanned_tags, array( 'type' => $tag_type ) ) ) {
 			// Another tag in the same type already exists. Ignore this one.
-			return $m[0];
+			return $matches[0];
 		}
 
 		if ( is_array( $attr ) ) {
 			if ( is_array( $attr['options'] ) ) {
-				if ( $this->tag_type_supports( $tag, 'name-attr' )
+				if ( $this->tag_type_supports( $tag_type, 'name-attr' )
 				and ! empty( $attr['options'] ) ) {
 					$scanned_tag['raw_name'] = array_shift( $attr['options'] );
 
 					if ( ! wpcf7_is_name( $scanned_tag['raw_name'] ) ) {
-						return $m[0]; // Invalid name is used. Ignore this tag.
+						return $matches[0]; // Invalid name is used. Ignore this tag.
 					}
 
 					$scanned_tag['name'] = strtr( $scanned_tag['raw_name'], '.', '_' );
@@ -337,7 +464,7 @@ class WPCF7_FormTagsManager {
 		$scanned_tag['values'] = array_map( 'trim', $scanned_tag['values'] );
 		$scanned_tag['labels'] = array_map( 'trim', $scanned_tag['labels'] );
 
-		$content = trim( $m[5] );
+		$content = trim( $matches[5] );
 		$content = preg_replace( "/<br[\r\n\t ]*\/?>$/m", '', $content );
 		$scanned_tag['content'] = $content;
 
@@ -348,13 +475,23 @@ class WPCF7_FormTagsManager {
 		$this->scanned_tags[] = $scanned_tag;
 
 		if ( $replace ) {
-			$func = $this->tag_types[$tag]['function'];
-			return $m[1] . call_user_func( $func, $scanned_tag ) . $m[6];
+			$callback = $this->tag_types[$tag_type]['function'];
+			return $matches[1] . call_user_func( $callback, $scanned_tag ) . $matches[6];
 		} else {
-			return $m[0];
+			return $matches[0];
 		}
 	}
 
+
+	/**
+	 * Parses the attributes of a form-tag to extract the name,
+	 * options, and values.
+	 *
+	 * @param string $text Attributes of a form-tag.
+	 * @return array|string An associative array of the options and values
+	 *                      if the input is in the correct syntax,
+	 *                      otherwise the input text itself.
+	 */
 	private function parse_atts( $text ) {
 		$atts = array( 'options' => array(), 'values' => array() );
 		$text = preg_replace( "/[\x{00a0}\x{200b}]+/u", " ", $text );
@@ -362,13 +499,13 @@ class WPCF7_FormTagsManager {
 
 		$pattern = '%^([-+*=0-9a-zA-Z:.!?#$&@_/|\%\r\n\t ]*?)((?:[\r\n\t ]*"[^"]*"|[\r\n\t ]*\'[^\']*\')*)$%';
 
-		if ( preg_match( $pattern, $text, $match ) ) {
-			if ( ! empty( $match[1] ) ) {
-				$atts['options'] = preg_split( '/[\r\n\t ]+/', trim( $match[1] ) );
+		if ( preg_match( $pattern, $text, $matches ) ) {
+			if ( ! empty( $matches[1] ) ) {
+				$atts['options'] = preg_split( '/[\r\n\t ]+/', trim( $matches[1] ) );
 			}
 
-			if ( ! empty( $match[2] ) ) {
-				preg_match_all( '/"[^"]*"|\'[^\']*\'/', $match[2], $matched_values );
+			if ( ! empty( $matches[2] ) ) {
+				preg_match_all( '/"[^"]*"|\'[^\']*\'/', $matches[2], $matched_values );
 				$atts['values'] = wpcf7_strip_quote_deep( $matched_values[0] );
 			}
 		} else {
@@ -377,4 +514,5 @@ class WPCF7_FormTagsManager {
 
 		return $atts;
 	}
+	
 }

@@ -116,6 +116,18 @@ class WPCF7_REST_Controller {
 		);
 
 		register_rest_route( self::route_namespace,
+			'/contact-forms/(?P<id>\d+)/feedback/schema',
+			array(
+				array(
+					'methods' => WP_REST_Server::READABLE,
+					'callback' => array( $this, 'get_schema' ),
+					'permission_callback' => '__return_true',
+				),
+				'schema' => 'wpcf7_swv_get_meta_schema',
+			)
+		);
+
+		register_rest_route( self::route_namespace,
 			'/contact-forms/(?P<id>\d+)/refill',
 			array(
 				array(
@@ -314,6 +326,15 @@ class WPCF7_REST_Controller {
 	}
 
 	public function create_feedback( WP_REST_Request $request ) {
+		$content_type = $request->get_header( 'Content-Type' );
+
+		if ( ! str_starts_with( $content_type, 'multipart/form-data' ) ) {
+			return new WP_Error( 'wpcf7_unsupported_media_type',
+				__( "The request payload format is not supported.", 'contact-form-7' ),
+				array( 'status' => 415 )
+			);
+		}
+
 		$url_params = $request->get_url_params();
 
 		$item = null;
@@ -344,13 +365,14 @@ class WPCF7_REST_Controller {
 			$invalid_fields = array();
 
 			foreach ( (array) $result['invalid_fields'] as $name => $field ) {
-				$name = sanitize_html_class( $name );
+				if ( ! wpcf7_is_name( $name ) ) {
+					continue;
+				}
+
+				$name = strtr( $name, '.', '_' );
 
 				$invalid_fields[] = array(
-					'into' => sprintf(
-						'span.wpcf7-form-control-wrap.%s',
-						$name
-					),
+					'field' => $name,
 					'message' => $field['reason'],
 					'idref' => $field['idref'],
 					'error_id' => sprintf(
@@ -375,6 +397,31 @@ class WPCF7_REST_Controller {
 
 		return rest_ensure_response( $response );
 	}
+
+
+	public function get_schema( WP_REST_Request $request ) {
+		$url_params = $request->get_url_params();
+
+		$item = null;
+
+		if ( ! empty( $url_params['id'] ) ) {
+			$item = wpcf7_contact_form( $url_params['id'] );
+		}
+
+		if ( ! $item ) {
+			return new WP_Error( 'wpcf7_not_found',
+				__( "The requested contact form was not found.", 'contact-form-7' ),
+				array( 'status' => 404 )
+			);
+		}
+
+		$schema = $item->get_schema();
+
+		$response = isset( $schema ) ? $schema->to_array() : array();
+
+		return rest_ensure_response( $response );
+	}
+
 
 	public function get_refill( WP_REST_Request $request ) {
 		$id = (int) $request->get_param( 'id' );

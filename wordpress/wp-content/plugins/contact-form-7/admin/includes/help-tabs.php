@@ -8,18 +8,20 @@ class WPCF7_Help_Tabs {
 		$this->screen = $screen;
 	}
 
-	public function set_help_tabs( $type ) {
-		switch ( $type ) {
+	public function set_help_tabs( $screen_type ) {
+		switch ( $screen_type ) {
 			case 'list':
 				$this->screen->add_help_tab( array(
 					'id' => 'list_overview',
 					'title' => __( 'Overview', 'contact-form-7' ),
-					'content' => $this->content( 'list_overview' ) ) );
+					'content' => $this->content( 'list_overview' ),
+				) );
 
 				$this->screen->add_help_tab( array(
 					'id' => 'list_available_actions',
 					'title' => __( 'Available Actions', 'contact-form-7' ),
-					'content' => $this->content( 'list_available_actions' ) ) );
+					'content' => $this->content( 'list_available_actions' ),
+				) );
 
 				$this->sidebar();
 
@@ -28,17 +30,20 @@ class WPCF7_Help_Tabs {
 				$this->screen->add_help_tab( array(
 					'id' => 'edit_overview',
 					'title' => __( 'Overview', 'contact-form-7' ),
-					'content' => $this->content( 'edit_overview' ) ) );
+					'content' => $this->content( 'edit_overview' ),
+				) );
 
 				$this->screen->add_help_tab( array(
 					'id' => 'edit_form_tags',
 					'title' => __( 'Form-tags', 'contact-form-7' ),
-					'content' => $this->content( 'edit_form_tags' ) ) );
+					'content' => $this->content( 'edit_form_tags' ),
+				) );
 
 				$this->screen->add_help_tab( array(
 					'id' => 'edit_mail_tags',
 					'title' => __( 'Mail-tags', 'contact-form-7' ),
-					'content' => $this->content( 'edit_mail_tags' ) ) );
+					'content' => $this->content( 'edit_mail_tags' ),
+				) );
 
 				$this->sidebar();
 
@@ -47,7 +52,8 @@ class WPCF7_Help_Tabs {
 				$this->screen->add_help_tab( array(
 					'id' => 'integration_overview',
 					'title' => __( 'Overview', 'contact-form-7' ),
-					'content' => $this->content( 'integration_overview' ) ) );
+					'content' => $this->content( 'integration_overview' ),
+				) );
 
 				$this->sidebar();
 
@@ -73,10 +79,10 @@ class WPCF7_Help_Tabs {
 		$content['edit_overview'] .= '<p>' . __( "<strong>Additional Settings</strong> provides a place where you can customize the behavior of this contact form by adding code snippets.", 'contact-form-7' ) . '</p>';
 
 		$content['edit_form_tags'] = '<p>' . __( "A form-tag is a short code enclosed in square brackets used in a form content. A form-tag generally represents an input field, and its components can be separated into four parts: type, name, options, and values. Contact Form 7 supports several types of form-tags including text fields, number fields, date fields, checkboxes, radio buttons, menus, file-uploading fields, CAPTCHAs, and quiz fields.", 'contact-form-7' ) . '</p>';
-		$content['edit_form_tags'] .= '<p>' . __( "While form-tags have a comparatively complex syntax, you don&#8217;t need to know the syntax to add form-tags because you can use the straightforward tag generator (<strong>Generate Tag</strong> button on this screen).", 'contact-form-7' ) . '</p>';
+		$content['edit_form_tags'] .= '<p>' . __( "While form-tags have a comparatively complex syntax, you do not need to know the syntax to add form-tags because you can use the straightforward tag generator (<strong>Generate Tag</strong> button on this screen).", 'contact-form-7' ) . '</p>';
 
 		$content['edit_mail_tags'] = '<p>' . __( "A mail-tag is also a short code enclosed in square brackets that you can use in every Mail and Mail (2) field. A mail-tag represents a user input value through an input field of a corresponding form-tag.", 'contact-form-7' ) . '</p>';
-		$content['edit_mail_tags'] .= '<p>' . __( "There are also special mail-tags that have specific names, but don&#8217;t have corresponding form-tags. They are used to represent meta information of form submissions like the submitter&#8217;s IP address or the URL of the page.", 'contact-form-7' ) . '</p>';
+		$content['edit_mail_tags'] .= '<p>' . __( "There are also special mail-tags that have specific names, but do not have corresponding form-tags. They are used to represent meta information of form submissions like the submitter&#8217;s IP address or the URL of the page.", 'contact-form-7' ) . '</p>';
 
 		$content['integration_overview'] = '<p>' . __( "On this screen, you can manage services that are available through Contact Form 7. Using API will allow you to collaborate with any services that are available.", 'contact-form-7' ) . '</p>';
 		$content['integration_overview'] .= '<p>' . __( "You may need to first sign up for an account with the service that you plan to use. When you do so, you would need to authorize Contact Form 7 to access the service with your account.", 'contact-form-7' ) . '</p>';

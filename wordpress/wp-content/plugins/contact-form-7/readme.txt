@@ -2,9 +2,9 @@
 Contributors: takayukister
 Donate link: https://contactform7.com/donate/
 Tags: contact, form, contact form, feedback, email, ajax, captcha, akismet, multilingual
-Requires at least: 5.7
+Requires at least: 5.9
 Tested up to: 6.0
-Stable tag: 5.5.6.1
+Stable tag: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,7 +16,7 @@ Contact Form 7 can manage multiple contact forms, plus you can customize the for
 
 = Docs and support =
 
-You can find [docs](https://contactform7.com/docs/), [FAQ](https://contactform7.com/faq/) and more detailed information about Contact Form 7 on [contactform7.com](https://contactform7.com/). When you can't find the answer to your question on the FAQ or in any of the documentation, check the [support forum](https://wordpress.org/support/plugin/contact-form-7/) on WordPress.org. If you can't locate any topics that pertain to your particular issue, post a new topic for it.
+You can find [docs](https://contactform7.com/docs/), [FAQ](https://contactform7.com/faq/) and more detailed information about Contact Form 7 on [contactform7.com](https://contactform7.com/). When you cannot find the answer to your question on the FAQ or in any of the documentation, check the [support forum](https://wordpress.org/support/plugin/contact-form-7/) on WordPress.org. If you cannot locate any topics that pertain to your particular issue, post a new topic for it.
 
 = Contact Form 7 needs your support =
 
@@ -44,7 +44,7 @@ If you activate certain features in this plugin, the contact form submitter's pe
 The following plugins are recommended for Contact Form 7 users:
 
 * [Flamingo](https://wordpress.org/plugins/flamingo/) by Takayuki Miyoshi - With Flamingo, you can save submitted messages via contact forms in the database.
-* [Bogo](https://wordpress.org/plugins/bogo/) by Takayuki Miyoshi - Bogo is a straight-forward multilingual plugin that doesn't cause headaches.
+* [Bogo](https://wordpress.org/plugins/bogo/) by Takayuki Miyoshi - Bogo is a straight-forward multilingual plugin that does not cause headaches.
 
 = Translations =
 
@@ -77,6 +77,10 @@ Do you have questions or issues with Contact Form 7? Use these support channels 
 
 For more information, see [Releases](https://contactform7.com/category/releases/).
 
+= 5.6 =
+
+[https://contactform7.com/contact-form-7-56/](https://contactform7.com/contact-form-7-56/)
+
 = 5.5.6 =
 
 [https://contactform7.com/contact-form-7-556/](https://contactform7.com/contact-form-7-556/)
@@ -106,17 +110,5 @@ For more information, see [Releases](https://contactform7.com/category/releases/
 = 5.5 =
 
 [https://contactform7.com/contact-form-7-55/](https://contactform7.com/contact-form-7-55/)
-
-= 5.4.2 =
-
-[https://contactform7.com/contact-form-7-542/](https://contactform7.com/contact-form-7-542/)
-
-= 5.4.1 =
-
-[https://contactform7.com/contact-form-7-541/](https://contactform7.com/contact-form-7-541/)
-
-= 5.4 =
-
-[https://contactform7.com/contact-form-7-54/](https://contactform7.com/contact-form-7-54/)
 
 == Upgrade Notice ==
