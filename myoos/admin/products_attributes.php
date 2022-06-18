@@ -1262,6 +1262,7 @@ function calcBasePriceFactor() {
             </select>&nbsp;</td>
 			<td class="smallText"><?php
 
+			if(!is_array($attributes_values)) $attributes_values = [];
             $attributes_values['options_values_model'] = isset($attributes_values['options_values_model']) ? $attributes_values['options_values_model'] : '';
       echo oos_draw_input_field('options_values_model', $attributes_values['options_values_model']); ?></td>
             <td class="smallText">&nbsp;<select name="options_id">
@@ -1298,7 +1299,7 @@ function calcBasePriceFactor() {
           </tr>
 <?php
     if (BASE_PRICE == 'true') {
-		$options_values_base_price = (!empty($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
+		$options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
 ?>
 		<tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
 			<td>&nbsp;</td>
