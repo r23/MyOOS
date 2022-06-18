@@ -33,7 +33,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 */
 
 // check if the 'install' directory exists, and warn of its existence
-if (WARN_INSTALL_EXISTENCE == 'true') {
+if ((WARN_INSTALL_EXISTENCE == 'true') && ($_SERVER['HTTP_HOST'] != 'localhost')) {
     if (file_exists(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/install')) {
         $aInfoMessage[] = ['type' => 'danger',
                             'text' => $aLang['warning_install_directory_exists']];
@@ -41,7 +41,7 @@ if (WARN_INSTALL_EXISTENCE == 'true') {
 }
 
 // check if the configure.php file is writeable
-if (WARN_CONFIG_WRITEABLE == 'true') {
+if ((WARN_CONFIG_WRITEABLE == 'true') && ($_SERVER['HTTP_HOST'] != 'localhost')) {
     if ((file_exists(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php'))
         && (is_writeable(dirname(oos_server_get_var('SCRIPT_FILENAME')) . '/includes/configure.php'))
     ) {
@@ -51,7 +51,7 @@ if (WARN_CONFIG_WRITEABLE == 'true') {
 }
 
 
-if ((WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 'true')) {
+if ((WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 'true') && ($_SERVER['HTTP_HOST'] != 'localhost')) {
     if (!is_dir(OOS_DOWNLOAD_PATH)) {
         $aInfoMessage[] = ['type' => 'danger',
                             'text' => $aLang['warning_download_directory_non_existent']];
@@ -60,11 +60,13 @@ if ((WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 'tr
 
 
 if (isset($_SESSION)) {
-    if (isset($_SESSION['success_message']) && !empty($_SESSION['success_message'])) {
-        $aInfoMessage[] = ['type' => 'success',
-                    'title' => $aLang['success'],
-                    'text' => (string)$_SESSION['success_message']];
-        unset($_SESSION['success_message']);
+    if (isset($_SESSION['success_message']) && 
+		!empty($_SESSION['success_message']) && 
+		($_SERVER['HTTP_HOST'] != 'localhost')) {
+			$aInfoMessage[] = ['type' => 'success',
+						'title' => $aLang['success'],
+						'text' => (string)$_SESSION['success_message']];
+			unset($_SESSION['success_message']);
     }
 
     if (isset($_SESSION['info_message']) && !empty($_SESSION['info_message'])) {
