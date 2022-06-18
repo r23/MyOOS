@@ -1298,11 +1298,8 @@ function calcBasePriceFactor() {
           </tr>
 <?php
     if (BASE_PRICE == 'true') {
-        if ($attributes_values['options_values_base_price'] != '') {
-            $options_values_base_price = $attributes_values['options_values_base_price'];
-        } else {
-            $options_values_base_price = 1;
-        } ?>
+		$options_values_base_price = (!empty($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
+?>
 		<tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
