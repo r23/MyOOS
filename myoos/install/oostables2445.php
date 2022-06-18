@@ -94,3 +94,17 @@ dosql($table, $flds);
 $idxname = 'idx_video_title';
 $idxflds = 'video_title';
 idxsql($idxname, $table, $idxflds);
+
+
+$table = $prefix_table . 'categories_slider';
+$flds = "
+  slider_id I NOTNULL AUTO PRIMARY,
+  products_id I NOTNULL DEFAULT '0',
+  slider_image C(255),
+  slider_date_added T,
+  slider_last_modified T,
+  expires_date T,
+  date_status_change T,
+  status I1 NOTNULL DEFAULT '1'
+";
+dosql($table, $flds);

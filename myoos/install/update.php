@@ -114,6 +114,14 @@ case "Finish":
     print_oosFinish();
     break;
 
+case "myOOS 2.4.49":
+    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
+    oosDoUpgrade2449($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    print_Next();
+    break;
+
+
+
 case "myOOS 2.4.48":
     oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
     oosDoUpgrade2448($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);

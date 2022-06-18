@@ -31,9 +31,16 @@ if (!$prefix_table == '') {
 
 require_once 'oostables2445.php';
 
-
 $today = date("Y-m-d H:i:s");
 
+// admin_files
+$table = $prefix_table . 'admin_files';
+$result = $db->Execute("INSERT INTO " . $table . " (admin_files_name, admin_files_is_boxes, admin_files_to_boxes, admin_groups_id) VALUES ('categories_slider', 0, 3, 1)");
+if ($result === false) {
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
 
 // configuration
 $table = $prefix_table . 'configuration';

@@ -39,6 +39,7 @@ $aContents['admin_members'] = $prefix_filename . 'admin_members.php';
 $aContents['catalog_product_info'] = $prefix_filename . 'product_info.php';
 $aContents['categories'] = $prefix_filename . 'categories.php';
 $aContents['categories_panorama'] = $prefix_filename . 'categories_panorama.php';
+$aContents['categories_slider'] = $prefix_filename . 'categories_slider.php';
 $aContents['configuration'] = $prefix_filename . 'configuration.php';
 $aContents['content_block'] = $prefix_filename . 'content_block.php';
 $aContents['content_page_type'] = $prefix_filename . 'content_page_type.php';
