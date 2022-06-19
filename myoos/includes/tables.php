@@ -51,6 +51,7 @@ $oostable['categories_panorama_description'] = $prefix_table . 'categories_panor
 $oostable['categories_panorama_scene'] = $prefix_table . 'categories_panorama_scene';
 $oostable['categories_panorama_scene_hotspot'] = $prefix_table . 'categories_panorama_scene_hotspot';
 $oostable['categories_panorama_scene_hotspot_text'] = $prefix_table . 'categories_panorama_scene_hotspot_text';
+$oostable['categories_slider'] = $prefix_table . 'categories_slider';
 $oostable['configuration'] = $prefix_table . 'configuration';
 $oostable['configuration_group'] = $prefix_table . 'configuration_group';
 $oostable['countries'] = $prefix_table . 'countries';

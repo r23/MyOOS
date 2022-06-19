@@ -19,7 +19,7 @@
    ----------------------------------------------------------------------
  */
 
-define('HEADING_TITLE', 'Featured Products');
+define('HEADING_TITLE', 'Slide');
 
 define('TABLE_HEADING_PRODUCTS', 'Products');
 define('TABLE_HEADING_STATUS', 'Status');

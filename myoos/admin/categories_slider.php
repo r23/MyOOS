@@ -169,15 +169,15 @@ if (($action == 'new') || ($action == 'edit')) {
     } else {
         $sInfo = new objectInfo(array());
 
-        $featured_array = [];
+        $slider_array = [];
         $slidertable = $oostable['categories_slider'];
         $productstable = $oostable['products'];
-        $featured_result = $dbconn->Execute("SELECT p.products_id FROM $productstable p, $slidertable f WHERE f.products_id = p.products_id");
-        while ($featured = $featured_result->fields) {
-            $featured_array[] = $featured['products_id'];
+        $slider_result = $dbconn->Execute("SELECT p.products_id FROM $productstable p, $slidertable f WHERE f.products_id = p.products_id");
+        while ($slider = $slider_result->fields) {
+            $slider_array[] = $slider['products_id'];
 
             // Move that ADOdb pointer!
-            $featured_result->MoveNext();
+            $slider_result->MoveNext();
         }
     } ?>
 <!-- body_text //-->
@@ -202,7 +202,7 @@ if (($action == 'new') || ($action == 'edit')) {
                         <div class="form-group row mb-3 mt-3">
                            <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_slider_PRODUCT; ?></label>
                            <div class="col-md-10">
-                                <?php echo oos_draw_products_pull_down('products_id', $featured_array); ?>
+                                <?php echo oos_draw_products_pull_down('products_id', $slider_array); ?>
                            </div>
                         </div>
                      </fieldset>
@@ -252,59 +252,59 @@ if (($action == 'new') || ($action == 'edit')) {
                         </tr>    
                     </thead>
     <?php
-    $featured_result_raw = "SELECT p.products_id, pd.products_name, s.slider_id, s.slider_date_added, s.slider_last_modified, s.expires_date, s.date_status_change, s.status FROM " . $oostable['products'] . " p, " . $oostable['categories_slider'] . " s, " . $oostable['products_description'] . " pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = s.products_id ORDER BY pd.products_name";
-        $featured_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $featured_result_raw, $featured_result_numrows);
-        $featured_result = $dbconn->Execute($featured_result_raw);
-        while ($featured = $featured_result->fields) {
-            if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $featured['slider_id']))) && !isset($sInfo)) {
+    $slider_result_raw = "SELECT p.products_id, pd.products_name, s.slider_id, s.slider_date_added, s.slider_last_modified, s.expires_date, s.date_status_change, s.status FROM " . $oostable['products'] . " p, " . $oostable['categories_slider'] . " s, " . $oostable['products_description'] . " pd WHERE p.products_id = pd.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND p.products_id = s.products_id ORDER BY pd.products_name";
+        $slider_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $slider_result_raw, $slider_result_numrows);
+        $slider_result = $dbconn->Execute($slider_result_raw);
+        while ($slider = $slider_result->fields) {
+            if ((!isset($_GET['sID']) || (isset($_GET['sID']) && ($_GET['sID'] == $slider['slider_id']))) && !isset($sInfo)) {
                 $productstable = $oostable['products'];
-                $products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $featured['products_id'] . "'");
+                $products_result = $dbconn->Execute("SELECT products_image FROM " . $oostable['products'] . " WHERE products_id = '" . $slider['products_id'] . "'");
                 $products = $products_result->fields;
-                $sInfo_array = array_merge($featured, $products);
+                $sInfo_array = array_merge($slider, $products);
                 $sInfo = new objectInfo($sInfo_array);
             }
 
-            if (isset($sInfo) && is_object($sInfo) && ($featured['slider_id'] == $sInfo->slider_id)) {
+            if (isset($sInfo) && is_object($sInfo) && ($slider['slider_id'] == $sInfo->slider_id)) {
                 echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=edit') . '\'">' . "\n";
             } else {
-                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $featured['slider_id']) . '\'">' . "\n";
+                echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $slider['slider_id']) . '\'">' . "\n";
             } ?>
-                <td><?php echo $featured['products_name']; ?></td>
+                <td><?php echo $slider['products_name']; ?></td>
                 <td  align="right">&nbsp;</td>
                 <td  align="right">
         <?php
-        if ($featured['status'] == '1') {
-            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['categories_slider'], 'action=setflag&flag=0&id=' . $featured['slider_id']) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
+        if ($slider['status'] == '1') {
+            echo '<i class="fa fa-circle text-success" title="' . IMAGE_ICON_STATUS_GREEN . '"></i>&nbsp;<a href="' . oos_href_link_admin($aContents['categories_slider'], 'action=setflag&flag=0&id=' . $slider['slider_id']) . '"><i class="fa fa-circle-notch text-danger" title="' . IMAGE_ICON_STATUS_RED_LIGHT . '"></i></a>';
         } else {
-            echo '<a href="' . oos_href_link_admin($aContents['categories_slider'], 'action=setflag&flag=1&id=' . $featured['slider_id']) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
+            echo '<a href="' . oos_href_link_admin($aContents['categories_slider'], 'action=setflag&flag=1&id=' . $slider['slider_id']) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
         } ?></td>
                 <td class="text-right">
         <?php
-        if (isset($sInfo) && is_object($sInfo) && ($featured['slider_id'] == $sInfo->slider_id)) {
+        if (isset($sInfo) && is_object($sInfo) && ($slider['slider_id'] == $sInfo->slider_id)) {
             echo '<a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=edit') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
 				<a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=delete') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>';
         } else {
-            echo '<a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $featured['slider_id']. '&action=edit') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
-				<a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $featured['slider_id'] . '&action=delete') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>';
+            echo '<a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $slider['slider_id']. '&action=edit') . '"><i class="fas fa-pencil-alt" title="' . BUTTON_EDIT . '"></i></a>
+				<a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $slider['slider_id'] . '&action=delete') . '"><i class="fa fa-trash" title="' .  BUTTON_DELETE . '"></i></a>';
         } ?>
             &nbsp;</td>                
 
               </tr>
         <?php
         // Move that ADOdb pointer!
-        $featured_result->MoveNext();
+        $slider_result->MoveNext();
         } ?>
               <tr>
                 <td colspan="4"><table border="0" width="100%" cellpadding="0" cellspacing="2">
                   <tr>
-                    <td class="smallText" valign="top"><?php echo $featured_split->display_count($featured_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_FEATURED); ?></td>
-                    <td class="smallText" align="right"><?php echo $featured_split->display_links($featured_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
+                    <td class="smallText" valign="top"><?php echo $slider_split->display_count($slider_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_FEATURED); ?></td>
+                    <td class="smallText" align="right"><?php echo $slider_split->display_links($slider_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
     <?php
     if (empty($action)) {
         ?>
                   <tr> 
-                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_PRODUCT) . '</a>'; ?></td>
+                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['categories_slider'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_TAB) . '</a>'; ?></td>
                   </tr>
         <?php
     } ?>
