@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-06-17 07:52:15+0000\n"
+"PO-Revision-Date: 2022-06-18 09:50:48+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,67 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.1\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
+
+#: modules/text.php:204
+msgid "Please enter a telephone number."
+msgstr "Bitte gib eine Telefonnummer ein."
+
+#: modules/text.php:197
+msgid "Please enter a URL."
+msgstr "Bitte gib eine URL ein."
+
+#: modules/text.php:190
+msgid "Please enter an email address."
+msgstr "Bitte gib eine E-Mail-Adresse ein."
+
+#: modules/number.php:195
+msgid "This field has a too large number."
+msgstr "Die Zahl in diesem Feld ist zu groß."
+
+#: modules/number.php:190
+msgid "This field has a too small number."
+msgstr "Die Zahl in diesem Feld ist zu klein."
+
+#: modules/number.php:185
+msgid "Please enter a number."
+msgstr "Bitte gibt eine Zahl ein."
+
+#: modules/date.php:177
+msgid "This field has a too late date."
+msgstr "DasDatum in diesem Feld ist zu spät."
+
+#: modules/date.php:172
+msgid "This field has a too early date."
+msgstr "DasDatum in diesem Feld ist zu früh."
+
+#: modules/date.php:167
+msgid "Please enter a date in YYYY-MM-DD format."
+msgstr "Bitte gib das Datum im Format YYYY-MM-DD ein."
+
+#: includes/rest-api.php:333
+msgid "The request payload format is not supported."
+msgstr "Das Request-Payload-Format wird nicht unterstützt."
+
+#. translators: 1: WordPress hook name, 2: version number
+#: includes/functions.php:608
+msgid "Hook %1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s with no alternative available."
+msgstr "Der Hook %1$s ist seit Contact Form 7 Version %2$s <strong>veraltet</strong> und es ist keine Alternative verfügbar."
+
+#: includes/file.php:111
+msgid "The uploaded file is too large."
+msgstr "Die hochzuladende Datei ist zu groß."
+
+#: includes/contact-form-template.php:215
+msgid "This field has a too short input."
+msgstr "Die Eingabe in diesem Feld ist zu kurz."
+
+#: includes/contact-form-template.php:208
+msgid "This field has a too long input."
+msgstr "Die Eingabe in diesem Feld ist zu lang."
+
+#: includes/contact-form-template.php:201
+msgid "Please fill out this field."
+msgstr "Füll bitte dieses Feld aus."
 
 #. translators: 1: PHP function name, 2: version number, 3: alternative
 #. function name
@@ -683,11 +744,11 @@ msgstr "Beim Speichern des Kontaktformulars ist ein Fehler aufgetreten."
 
 #: admin/admin.php:155
 msgid "%d configuration errors detected in this tab panel"
-msgstr "%d Fehler in der Konfiguration dieses Reiters entdeckt"
+msgstr "%d Fehler in der Konfiguration dieses Tabs entdeckt"
 
 #: admin/admin.php:154
 msgid "1 configuration error detected in this tab panel"
-msgstr "1 Fehler in der Konfiguration dieses Reiters entdeckt"
+msgstr "1 Fehler in der Konfiguration dieses Tabs entdeckt"
 
 #: admin/admin.php:153
 msgid "%d configuration errors detected"
@@ -1096,15 +1157,15 @@ msgstr "Das Hochladen der Datei verursachte einen PHP-Fehler"
 
 #: includes/file.php:110
 msgid "Uploaded file is too large"
-msgstr "Die hochgeladene Datei ist zu groß."
+msgstr "Die hochgeladene Datei ist zu groß"
 
 #: includes/file.php:105
 msgid "Uploaded file is not allowed for file type"
-msgstr "Das Hochladen ist für den Dateityp nicht erlaubt."
+msgstr "Das Hochladen ist für den Dateityp nicht erlaubt"
 
 #: includes/file.php:100
 msgid "Uploading a file fails for any reason"
-msgstr "Das Hochladen einer Datei scheitert aus irgendeinem Grund."
+msgstr "Fehler aus unbekannten Gründen beim Hochladen der Datei"
 
 #: modules/date.php:240 modules/number.php:263
 msgid "Max"
