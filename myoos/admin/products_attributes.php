@@ -1320,7 +1320,9 @@ function calcBasePriceFactor() {
           </tr>
           <tr>
              <td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></td>
-             <td class="main"><?php echo oos_draw_input_field('options_values_base_unit', $attributes_values['options_values_base_unit']); ?></td>
+             <td class="main"><?php echo oos_draw_input_field('options_values_base_unit', isset($attributes_values['options_values_base_unit']) ? $attributes_values['options_values_base_unit'] : ''); ?>
+			 
+			 </td>
            </tr>
         </table>
             </td>
