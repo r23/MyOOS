@@ -25,8 +25,8 @@ define('TABLE_HEADING_PRODUCTS', 'Artikel');
 define('TABLE_HEADING_STATUS', 'Status');
 define('TABLE_HEADING_ACTION', 'Aktion');
 
-define('TEXT_FEATURED_PRODUCT', 'Artikel:');
-define('TEXT_FEATURED_EXPIRES_DATE', 'Gültig bis:<br><small>(YYYY-MM-DD)</small>');
+define('TEXT_SLIDER_PRODUCT', 'Artikel:');
+define('TEXT_SLIDER_EXPIRES_DATE', 'Gültig bis:<br><small>(YYYY-MM-DD)</small>');
 
 define('TEXT_INFO_DATE_ADDED', 'hinzugefügt am:');
 define('TEXT_INFO_LAST_MODIFIED', 'letzte Änderung:');

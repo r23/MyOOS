@@ -172,14 +172,15 @@ if (($action == 'new') || ($action == 'edit')) {
         $slider_array = [];
         $slidertable = $oostable['categories_slider'];
         $productstable = $oostable['products'];
-        $slider_result = $dbconn->Execute("SELECT p.products_id FROM $productstable p, $slidertable f WHERE f.products_id = p.products_id");
+        $slider_result = $dbconn->Execute("SELECT p.products_id FROM $productstable p, $slidertable s WHERE s.products_id = p.products_id");
         while ($slider = $slider_result->fields) {
             $slider_array[] = $slider['products_id'];
 
             // Move that ADOdb pointer!
             $slider_result->MoveNext();
         }
-    } ?>
+    } 
+?>
 <!-- body_text //-->
     <div class="card card-default">
         <div class="card-header"><?php echo HEADING_TITLE; ?></div>
@@ -200,7 +201,7 @@ if (($action == 'new') || ($action == 'edit')) {
         ?>
                     <fieldset>
                         <div class="form-group row mb-3 mt-3">
-                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_slider_PRODUCT; ?></label>
+                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SLIDER_PRODUCT; ?></label>
                            <div class="col-md-10">
                                 <?php echo oos_draw_products_pull_down('products_id', $slider_array); ?>
                            </div>
@@ -210,7 +211,7 @@ if (($action == 'new') || ($action == 'edit')) {
     } ?>
                      <fieldset>
                         <div class="form-group row mb-3">
-                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_slider_EXPIRES_DATE; ?></label>
+                           <label class="col-md-2 col-form-label mb-2"><?php echo TEXT_SLIDER_EXPIRES_DATE; ?></label>
                            <div class="col-xl-6 col-10">
                               <div class="input-group date" id="datetimepicker1">
                                  <input class="form-control" type="text" name="expires_date" value="<?php echo(isset($sInfo->expires_date) ? $sInfo->expires_date : ''); ?>">
