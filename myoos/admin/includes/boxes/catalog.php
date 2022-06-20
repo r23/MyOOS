@@ -48,12 +48,12 @@ $aBlocks[] = array(
             'code' => $aContents['featured'],
             'title' => BOX_CATALOG_PRODUCTS_FEATURED,
             'link' => oos_admin_files_boxes('featured', 'selected_box=catalog')
-        ),	
+        ),
         array(
             'code' => $aContents['categories_slider'],
             'title' => BOX_CATALOG_SLIDER,
             'link' => oos_admin_files_boxes('categories_slider', 'selected_box=catalog')
-        ),		
+        ),
         array(
             'code' => $aContents['products_expected'],
             'title' => BOX_CATALOG_PRODUCTS_EXPECTED,

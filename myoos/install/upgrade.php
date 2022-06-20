@@ -180,9 +180,9 @@ function print_SelectOOS()
        '    <input type="radio" id="2447" name="op" value="myOOS 2.4.47">' . "\n" .
        '   <label for="2447"> myOOS 2.4.47</label> ' . "\n" .
        '    <input type="radio" id="2448" name="op" value="myOOS 2.4.48">' . "\n" .
-       '   <label for="2448"> myOOS 2.4.48</label> ' . "\n" .	   
+       '   <label for="2448"> myOOS 2.4.48</label> ' . "\n" .
        '    <input type="radio" id="2449" name="op" value="myOOS 2.4.49">' . "\n" .
-       '   <label for="2449"> myOOS 2.4.49</label> ' . "\n" .   
+       '   <label for="2449"> myOOS 2.4.49</label> ' . "\n" .
        ' </fieldset>' . "\n";
     print_FormHidden();
     echo '<table width="50%" align="center">' . "\n" .
