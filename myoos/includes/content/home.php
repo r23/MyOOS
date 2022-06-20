@@ -33,6 +33,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_default.php';
 $sCanonical = OOS_HTTPS_SERVER . OOS_SHOP;
 
 $aTemplate['page'] = $sTheme . '/page/home.html';
+$aTemplate['slider'] = $sTheme . '/page/slider/_slider.html';
 if ($oEvent->installed_plugin('featured')) {
     $aTemplate['featured'] = $sTheme . '/products/_featured.html';
 }
@@ -60,8 +61,8 @@ $smarty->assign(
     array(
         'breadcrumb'    => $oBreadcrumb->trail(),
         'heading_title' => $aLang['heading_title'],
-        'home_active'    => 1,
-        'canonical'        => $sCanonical
+        'home_active'   => 1,
+        'canonical'     => $sCanonical
     )
 );
 
@@ -69,6 +70,10 @@ if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
     $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
 }
 
+if (!$smarty->isCached($aTemplate['slider'], $sModulesCacheID)) {
+	include_once MYOOS_INCLUDE_PATH . '/includes/modules/slider.php';
+}
+$smarty->assign('slider', $smarty->fetch($aTemplate['slider'], $sModulesCacheID));	
 
 if ($oEvent->installed_plugin('featured')) {
     if (!$smarty->isCached($aTemplate['featured'], $sModulesCacheID)) {
