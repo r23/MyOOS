@@ -1,5 +1,52 @@
 <section class="container-fluid bg-secondary px-0">
 	<div class="row no-gutters align-items-center">
+		<div class="col-md-6">
+			<div class="mx-auto bg-light my-sm-4" style="max-width: 37rem;">
+				<div class="owl-carousel trigger-carousel" data-owl-carousel="{ &quot;nav&quot;: true, &quot;dots&quot;: false, &quot;loop&quot;: true, &quot;autoHeight&quot;: true }" data-target-carousel="#target-carousel">
+				{foreach item=tab from=$slider}
+					<div class="py-5 px-3 px-sm-5"><img class="d-block mb-2" src="images/slider/slide-logo01.png" width="180" alt="logo">
+						<h2 class="mb-1">{$tab.products_name|truncate:18:"":true|close_tags}</h2>
+						
+					{if $myUser.show_price eq 1 }
+					<div class="product-price clearfix">
+						{if (!empty($tab.slider_product_special_price))}
+							<span class="price-desc">{$tab.slider_until}</span><br>
+							<span class="price-offer">{$tab.slider_product_special_price}</span> 
 
+							{if $tab.slider_cross_out_price > 0}						
+								<span class="price-old">{$lang.price_reduced_from} <span class="line-through">{$tab.slider_cross_out_price}</span></span><br>
+							{/if}							
+						{elseif $tab.slider_product_price_list ne 0}
+							<span class="price-old">{$lang.price_rrp} <span class="line-through">{$tab.slider_product_price_list}</span></span><br>
+							<h3 class="font-weight-light opacity-70 pb-3">{$tab.slider_product_price}</h3>								
+						{else}
+							{if (!empty($tab.slider_product_discount_price))}
+								<h3 class="font-weight-light opacity-70 pb-3">{$lang.price_from} {$tab.slider_product_discount_price}</h3>									
+							{else}
+								<h3 class="font-weight-light opacity-70 pb-3">{$tab.slider_product_price}</h3>
+							{/if}	
+						{/if}					
+
+						{if $tab.products_base_price != 1}
+							<span class="units-desc">{$tab.product_quantity|cut_number}&nbsp;{$products_units[$tab.products_units].0}</span>
+							<span class="base_price">({$products_units[$tab.products_units].1} = {$tab.slider_base_product_price})</span>
+						{/if}
+					</div>						
+					{/if}					
+						<a class="btn btn-primary" href="{product_link products_id=$tab.products_id}">Shop now<i class="ml-2" data-feather="arrow-right"></i></a>
+					</div>
+				{/foreach}	
+
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div class="owl-carousel" id="target-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: false, &quot;loop&quot;: true, &quot;mouseDrag&quot;: false, &quot;touchDrag&quot;: false, &quot;pullDrag&quot;: false, &quot;animateOut&quot;: &quot;fadeOut&quot; }">
+			{foreach item=tab from=$slider}
+				<img class="ml-auto mr-0" src="images/slider/slide01.jpg" alt="{$tab.products_name}">
+			{/foreach}
+			</div>
+		</div>
 	</div>
 </section>
+

@@ -146,7 +146,8 @@ if (($action == 'new') || ($action == 'edit')) {
                 FROM $productstable p,
                      $products_descriptiontable pd,
                      $slidertable f
-                WHERE p.products_id = pd.products_id AND
+                WHERE p.products_setting = '2' AND
+					p.products_id = pd.products_id AND
                      pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND
                       p.products_id = f.products_id AND
                       f.slider_id = '" . intval($sID) . "'
@@ -160,7 +161,8 @@ if (($action == 'new') || ($action == 'edit')) {
         $sql = "SELECT p.products_id, p.products_image, pd.products_name
               FROM $productstable p,
                    $products_descriptiontable pd
-              WHERE p.products_id = pd.products_id AND
+              WHERE p.products_setting = '2' AND
+					p.products_id = pd.products_id AND
                     pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND
                     p.products_id = '" . intval($_GET['pID']) . "'";
         $product = $dbconn->GetRow($sql);

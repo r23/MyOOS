@@ -25,7 +25,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
-$slidertable = $oostable['featured'];
+$slidertable = $oostable['categories_slider'];
 $sql = "SELECT p.products_id, p.products_image, p.products_price, p.products_price_list, p.products_tax_class_id,
                  p.products_units_id, p.products_base_price, p.products_base_unit, 
 				 p.products_quantity_order_min, p.products_quantity_order_max,
@@ -39,9 +39,8 @@ $sql = "SELECT p.products_id, p.products_image, p.products_price, p.products_pri
             AND p.products_id = pd.products_id
             AND pd.products_languages_id = '" . intval($nLanguageID) . "'
             AND f.status = '1'
-          ORDER BY f.featured_date_added DESC";
+          ORDER BY f.slider_date_added DESC";
 $slider_result = $dbconn->Execute($sql);
-
 
 if ($slider_result->RecordCount() >= 1) {
     $aSlider = [];
@@ -98,12 +97,12 @@ if ($slider_result->RecordCount() >= 1) {
                             'products_base_price' => $slider['products_base_price'],
                             'products_base_unit' => $slider['products_base_unit'],
                             'products_units' => $slider['products_units_id'],
-                            'featured_until' => $slider_until,
-                            'featured_cross_out_price'    => $slider_cross_out_price,
-                            'featured_product_price_list' => $slider_price_list,
-                            'featured_product_price' => $slider_product_price,
-                            'featured_product_special_price' => $slider_product_special_price,
-                            'featured_base_product_price' => $slider_base_product_price);
+                            'slider_until' => $slider_until,
+                            'slider_cross_out_price'    => $slider_cross_out_price,
+                            'slider_product_price_list' => $slider_price_list,
+                            'slider_product_price' => $slider_product_price,
+                            'slider_product_special_price' => $slider_product_special_price,
+                            'slider_base_product_price' => $slider_base_product_price);
         // Move that ADOdb pointer!
         $slider_result->MoveNext();
     }
