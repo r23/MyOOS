@@ -36,4 +36,9 @@ define('TEXT_INFO_STATUS_CHANGE', 'Status geändert:');
 define('TEXT_INFO_HEADING_DELETE_FEATURED', 'Top-Angebot löschen');
 define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie das Sonderangebot löschen möchten?');
 
+define('TEXT_SLIDER_IMAGE', 'Bild für Slider');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
+define('TEXT_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes?');
+
+define('TEXT_SUCCESSFULLY_UPLOADED', 'Bild erfolgreich hochgeladen.');
+define('ERROR_NO_IMAGE_FILE', 'Ungültige Dateiendung. Nur png, jpg, jpeg, webp und gif-Dateien sind erlaubt.');

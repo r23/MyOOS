@@ -36,4 +36,12 @@ define('TEXT_INFO_STATUS_CHANGE', 'Status Change:');
 define('TEXT_INFO_HEADING_DELETE_FEATURED', 'Delete Featured Product');
 define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this featured product?');
 
+define('TEXT_SLIDER_IMAGE', 'Image for Slider');
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
+define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image?');
+
+
+
+define('TEXT_SUCCESSFULLY_UPLOADED', 'Image successfully uploaded.');
+define('ERROR_NO_IMAGE_FILE', 'Invalid file extension. Only png, jpg, jpeg, webp and gif files are allowed.');
+

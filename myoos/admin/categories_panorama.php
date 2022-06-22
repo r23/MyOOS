@@ -235,7 +235,7 @@ if (!empty($action)) {
             }
         }
 
-                // HOTSPOT
+        // HOTSPOT
         if (isset($_POST['hotspot_count'])) {
             $nHotspots = count($_POST['hotspot_count']);
 
@@ -300,7 +300,7 @@ if (!empty($action)) {
             }
         }
 
-                $preview = (isset($_POST['preview']) ? $_POST['preview'] : '');
+        $preview = (isset($_POST['preview']) ? $_POST['preview'] : '');
         if (!empty($preview)) {
             switch ($preview) {
             case 'scene':
@@ -312,7 +312,7 @@ if (!empty($action)) {
             }
         }
 
-                oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories_id . '&page=' . $nPage));
+        oos_redirect_admin(oos_href_link_admin($aContents['categories'], 'cPath=' . oos_prepare_input($cPath) . '&cID=' . $categories_id . '&page=' . $nPage));
 
         break;
 
@@ -343,15 +343,6 @@ if (is_array($aPath) && count($aPath) > 0) {
 
 $cPath_back = (oos_is_not_null($cPath_back)) ? 'cPath=' . $cPath_back . '&' : '';
 
-
-// check if the catalog image directory exists
-if (is_dir(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
-    if (!is_writeable(OOS_ABSOLUTE_PATH . OOS_IMAGES)) {
-        $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_NOT_WRITEABLE, 'error');
-    }
-} else {
-    $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
-}
 
 require 'includes/header.php';
 ?>
