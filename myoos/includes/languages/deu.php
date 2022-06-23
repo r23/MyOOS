@@ -83,11 +83,15 @@ $aLang = [
 // text for gender
 'male'                         => 'Herr',
 'female'                       => 'Frau',
+'diverse'                      => 'Divers',
 'male_address'                 => 'Herr',
 'female_address'               => 'Frau',
+'diverse_address'              => '',
 'email_greet_mr'               => 'Sehr geehrter Herr %s,',
 'email_greet_ms'               => 'Sehr geehrte Frau %s,',
+'email_greet_diverse'          => 'Guten Tag %s,',
 'email_greet_none'             => 'Guten Tag!',
+
 // text for date of birth example
 'dob_format_string'            => 'tt.mm.jjjj',
 // search block text in tempalate/your theme/block/search.html

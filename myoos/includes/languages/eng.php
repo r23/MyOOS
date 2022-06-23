@@ -97,10 +97,13 @@ $aLang = [
 // text for gender
 'male'             => 'Male',
 'female'           => 'Female',
+'diverse'          => 'Diverse',
 'male_address'     => 'Mr.',
 'female_address'   => 'Ms.',
+'diverse_address'  => '',
 'email_greet_mr'   => 'Dear Mr. %s,',
 'email_greet_ms'   => 'Dear Ms. %s,',
+'email_greet_diverse' => 'Hi %s,',
 'email_greet_none' => 'Hi,',
 
 

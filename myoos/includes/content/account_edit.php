@@ -85,7 +85,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     $bError = false; // reset error flag
 
     if (ACCOUNT_GENDER == 'true') {
-        if (($gender != 'm') && ($gender != 'f')) {
+        if (($gender != 'm') && ($gender != 'f') && ($gender != 'd')) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_gender_error']);
         }
@@ -194,9 +194,11 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
             if (ACCOUNT_GENDER == 'true') {
                 if ($gender == 'm') {
                     $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['male'] . "\n";
-                } else {
+                } elseif ($gender == 'f') {
                     $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['female'] . "\n";
-                }
+                } else {
+                    $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['diverse'] . "\n";
+                }				
             }
 
             /*
@@ -245,10 +247,11 @@ $sql = "SELECT customers_gender, customers_firstname, customers_lastname, custom
 $account = $dbconn->GetRow($sql);
 
 if (ACCOUNT_GENDER == 'true') {
+	
     if (isset($gender)) {
-        $male = ($gender == 'm') ? true : false;
-    } else {
-        $male = ($account['customers_gender'] == 'm') ? true : false;
+        if (($gender == 'm') && ($gender == 'f') && ($gender == 'd')) {		
+			$account['customers_gender'] = $gender;
+		}
     }
     $female = !$male;
 }
@@ -296,8 +299,6 @@ $smarty->assign(
 
         'account_active'    => 1,
         'account'           => $account,
-        'female'            => $female,
-         'male'                 => $male,
         'bNewsletter'        => $bNewsletter
     )
 );

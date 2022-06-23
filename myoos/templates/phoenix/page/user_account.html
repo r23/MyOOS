@@ -59,7 +59,7 @@
 							<div class="col-md-6">
 								<div class="form-group">
 									<label for="account-fn">{$lang.entry_gender} *</label>
-									<input required type="radio" id="gender" name="gender" value="m" {if $male}checked="checked"{/if}> {$lang.male} <input required type="radio" id="gender" name="gender" value="f" {if $female}checked="checked"{/if}> {$lang.female}
+									<input required type="radio" id="gender" name="gender" value="m" {if $account.customers_gender eq m}checked="checked"{/if}> {$lang.male} <input required type="radio" id="gender" name="gender" value="f" {if $account.customers_gender eq f}checked="checked"{/if}> {$lang.female} <input required type="radio" id="gender" name="gender" value="d" {if $account.customers_gender eq d}checked="checked"{/if}> {$lang.diverse} 
 								</div>
 							</div>
 						{/if}

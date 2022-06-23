@@ -112,7 +112,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
     $bError = false; // reset error flag
     if (ACCOUNT_GENDER == 'true') {
-        if (($gender != 'm') && ($gender != 'f')) {
+        if (($gender != 'm') && ($gender != 'f') && ($gender != 'd')) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_gender_error']);
         }
@@ -378,8 +378,10 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         if (ACCOUNT_GENDER == 'true') {
             if ($gender == 'm') {
                 $email_text = $aLang['email_greet_mr'];
-            } else {
+            } elseif ($gender == 'f') {
                 $email_text = $aLang['email_greet_ms'];
+			} elseif ($gender == 'd') {
+				$email_text = $aLang['email_greet_diverse'];
             }
         } else {
             $email_text = $aLang['email_greet_none'];

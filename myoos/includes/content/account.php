@@ -83,7 +83,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     $bError = false; // reset error flag
 
     if (ACCOUNT_GENDER == 'true') {
-        if (($gender != 'm') && ($gender != 'f')) {
+        if (($gender != 'm') && ($gender != 'f') && ($gender != 'd')) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_gender_error']);
         }
@@ -194,8 +194,10 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
             if (ACCOUNT_GENDER == 'true') {
                 if ($gender == 'm') {
                     $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['male'] . "\n";
-                } else {
+                } elseif ($gender == 'f') { 
                     $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['female'] . "\n";
+				} else {
+                    $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['diverse'] . "\n";
                 }
             }
 
@@ -247,6 +249,8 @@ if ($account['customers_gender'] == 'm') {
     $gender = $aLang['male'];
 } elseif ($account['customers_gender'] == 'f') {
     $gender = $aLang['female'];
+} else {
+    $gender = $aLang['diverse'];
 }
 $sCountryName = oos_get_country_name($account['entry_country_id']);
 
