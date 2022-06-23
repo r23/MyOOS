@@ -4164,12 +4164,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "bd1c2ed6f37c9a9e81417b8367865c0bbeabed55"
+                "reference": "421c87fea10ccffa30d647dcda20e3f9f7cacef8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/bd1c2ed6f37c9a9e81417b8367865c0bbeabed55",
-                "reference": "bd1c2ed6f37c9a9e81417b8367865c0bbeabed55",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/421c87fea10ccffa30d647dcda20e3f9f7cacef8",
+                "reference": "421c87fea10ccffa30d647dcda20e3f9f7cacef8",
                 "shasum": ""
             },
             "conflict": {
@@ -4342,6 +4342,7 @@
                 "kevinpapst/kimai2": "<1.16.7",
                 "kitodo/presentation": "<3.1.2",
                 "klaviyo/magento2-extension": ">=1,<3",
+                "krayin/laravel-crm": "<1.2.2",
                 "kreait/firebase-php": ">=3.2,<3.8.1",
                 "la-haute-societe/tcpdf": "<6.2.22",
                 "laminas/laminas-form": "<2.17.1|>=3,<3.0.2|>=3.1,<3.1.1",
@@ -4431,7 +4432,7 @@
                 "phpwhois/phpwhois": "<=4.2.5",
                 "phpxmlrpc/extras": "<0.6.1",
                 "pimcore/data-hub": "<1.2.4",
-                "pimcore/pimcore": "<10.4",
+                "pimcore/pimcore": "<10.4.4",
                 "pocketmine/bedrock-protocol": "<8.0.2",
                 "pocketmine/pocketmine-mp": ">= 4.0.0-BETA5, < 4.4.2|<4.2.10",
                 "pressbooks/pressbooks": "<5.18",
@@ -4465,7 +4466,7 @@
                 "shopware/core": "<=6.4.9",
                 "shopware/platform": "<=6.4.9",
                 "shopware/production": "<=6.3.5.2",
-                "shopware/shopware": "<5.7.9",
+                "shopware/shopware": "<5.7.12",
                 "shopware/storefront": "<=6.4.8.1",
                 "shopxo/shopxo": "<2.2.6",
                 "showdoc/showdoc": "<2.10.4",
@@ -4657,7 +4658,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-21T17:12:40+00:00"
+            "time": "2022-06-22T19:04:00+00:00"
         }
     ],
     "aliases": [],

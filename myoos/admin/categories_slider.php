@@ -347,8 +347,6 @@ if (($action == 'new') || ($action == 'edit')) {
                             </div>
                         </div>
 
-
-   
                     <div class="clearfix mt-120"></div>
                     
                     <div class="text-right mt-3">
