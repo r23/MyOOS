@@ -1,4 +1,4 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 var __webpack_exports__ = {};
 const closeSubmenus = element => {
   element.querySelectorAll('[aria-expanded="true"]').forEach(toggle => {

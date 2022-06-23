@@ -1,36 +1,36 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	// The require scope
 /******/ 	var __webpack_require__ = {};
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 		__webpack_require__.d = (exports, definition) => {
 /******/ 			for(var key in definition) {
 /******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	!function() {
-/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
-/******/ 	}();
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	!function() {
+/******/ 	(() => {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = function(exports) {
+/******/ 		__webpack_require__.r = (exports) => {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	}();
+/******/ 	})();
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
@@ -39,68 +39,68 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "__UNSTABLE_LINE_SEPARATOR": function() { return /* reexport */ LINE_SEPARATOR; },
-  "__experimentalRichText": function() { return /* reexport */ __experimentalRichText; },
-  "__unstableCanIndentListItems": function() { return /* reexport */ canIndentListItems; },
-  "__unstableCanOutdentListItems": function() { return /* reexport */ canOutdentListItems; },
-  "__unstableChangeListType": function() { return /* reexport */ changeListType; },
-  "__unstableCreateElement": function() { return /* reexport */ createElement; },
-  "__unstableFormatEdit": function() { return /* reexport */ FormatEdit; },
-  "__unstableIndentListItems": function() { return /* reexport */ indentListItems; },
-  "__unstableInsertLineSeparator": function() { return /* reexport */ insertLineSeparator; },
-  "__unstableIsActiveListType": function() { return /* reexport */ isActiveListType; },
-  "__unstableIsEmptyLine": function() { return /* reexport */ isEmptyLine; },
-  "__unstableIsListRootSelected": function() { return /* reexport */ isListRootSelected; },
-  "__unstableOutdentListItems": function() { return /* reexport */ outdentListItems; },
-  "__unstableRemoveLineSeparator": function() { return /* reexport */ removeLineSeparator; },
-  "__unstableToDom": function() { return /* reexport */ toDom; },
-  "__unstableUseRichText": function() { return /* reexport */ useRichText; },
-  "applyFormat": function() { return /* reexport */ applyFormat; },
-  "concat": function() { return /* reexport */ concat; },
-  "create": function() { return /* reexport */ create; },
-  "getActiveFormat": function() { return /* reexport */ getActiveFormat; },
-  "getActiveObject": function() { return /* reexport */ getActiveObject; },
-  "getTextContent": function() { return /* reexport */ getTextContent; },
-  "insert": function() { return /* reexport */ insert; },
-  "insertObject": function() { return /* reexport */ insertObject; },
-  "isCollapsed": function() { return /* reexport */ isCollapsed; },
-  "isEmpty": function() { return /* reexport */ isEmpty; },
-  "join": function() { return /* reexport */ join; },
-  "registerFormatType": function() { return /* reexport */ registerFormatType; },
-  "remove": function() { return /* reexport */ remove; },
-  "removeFormat": function() { return /* reexport */ removeFormat; },
-  "replace": function() { return /* reexport */ replace_replace; },
-  "slice": function() { return /* reexport */ slice; },
-  "split": function() { return /* reexport */ split; },
-  "store": function() { return /* reexport */ store; },
-  "toHTMLString": function() { return /* reexport */ toHTMLString; },
-  "toggleFormat": function() { return /* reexport */ toggleFormat; },
-  "unregisterFormatType": function() { return /* reexport */ unregisterFormatType; },
-  "useAnchorRef": function() { return /* reexport */ useAnchorRef; }
+  "__UNSTABLE_LINE_SEPARATOR": () => (/* reexport */ LINE_SEPARATOR),
+  "__experimentalRichText": () => (/* reexport */ __experimentalRichText),
+  "__unstableCanIndentListItems": () => (/* reexport */ canIndentListItems),
+  "__unstableCanOutdentListItems": () => (/* reexport */ canOutdentListItems),
+  "__unstableChangeListType": () => (/* reexport */ changeListType),
+  "__unstableCreateElement": () => (/* reexport */ createElement),
+  "__unstableFormatEdit": () => (/* reexport */ FormatEdit),
+  "__unstableIndentListItems": () => (/* reexport */ indentListItems),
+  "__unstableInsertLineSeparator": () => (/* reexport */ insertLineSeparator),
+  "__unstableIsActiveListType": () => (/* reexport */ isActiveListType),
+  "__unstableIsEmptyLine": () => (/* reexport */ isEmptyLine),
+  "__unstableIsListRootSelected": () => (/* reexport */ isListRootSelected),
+  "__unstableOutdentListItems": () => (/* reexport */ outdentListItems),
+  "__unstableRemoveLineSeparator": () => (/* reexport */ removeLineSeparator),
+  "__unstableToDom": () => (/* reexport */ toDom),
+  "__unstableUseRichText": () => (/* reexport */ useRichText),
+  "applyFormat": () => (/* reexport */ applyFormat),
+  "concat": () => (/* reexport */ concat),
+  "create": () => (/* reexport */ create),
+  "getActiveFormat": () => (/* reexport */ getActiveFormat),
+  "getActiveObject": () => (/* reexport */ getActiveObject),
+  "getTextContent": () => (/* reexport */ getTextContent),
+  "insert": () => (/* reexport */ insert),
+  "insertObject": () => (/* reexport */ insertObject),
+  "isCollapsed": () => (/* reexport */ isCollapsed),
+  "isEmpty": () => (/* reexport */ isEmpty),
+  "join": () => (/* reexport */ join),
+  "registerFormatType": () => (/* reexport */ registerFormatType),
+  "remove": () => (/* reexport */ remove),
+  "removeFormat": () => (/* reexport */ removeFormat),
+  "replace": () => (/* reexport */ replace_replace),
+  "slice": () => (/* reexport */ slice),
+  "split": () => (/* reexport */ split),
+  "store": () => (/* reexport */ store),
+  "toHTMLString": () => (/* reexport */ toHTMLString),
+  "toggleFormat": () => (/* reexport */ toggleFormat),
+  "unregisterFormatType": () => (/* reexport */ unregisterFormatType),
+  "useAnchorRef": () => (/* reexport */ useAnchorRef)
 });
 
 // NAMESPACE OBJECT: ./packages/rich-text/build-module/store/selectors.js
 var selectors_namespaceObject = {};
 __webpack_require__.r(selectors_namespaceObject);
 __webpack_require__.d(selectors_namespaceObject, {
-  "getFormatType": function() { return getFormatType; },
-  "getFormatTypeForBareElement": function() { return getFormatTypeForBareElement; },
-  "getFormatTypeForClassName": function() { return getFormatTypeForClassName; },
-  "getFormatTypes": function() { return getFormatTypes; }
+  "getFormatType": () => (getFormatType),
+  "getFormatTypeForBareElement": () => (getFormatTypeForBareElement),
+  "getFormatTypeForClassName": () => (getFormatTypeForClassName),
+  "getFormatTypes": () => (getFormatTypes)
 });
 
 // NAMESPACE OBJECT: ./packages/rich-text/build-module/store/actions.js
 var actions_namespaceObject = {};
 __webpack_require__.r(actions_namespaceObject);
 __webpack_require__.d(actions_namespaceObject, {
-  "addFormatTypes": function() { return addFormatTypes; },
-  "removeFormatTypes": function() { return removeFormatTypes; }
+  "addFormatTypes": () => (addFormatTypes),
+  "removeFormatTypes": () => (removeFormatTypes)
 });
 
 ;// CONCATENATED MODULE: external ["wp","data"]
-var external_wp_data_namespaceObject = window["wp"]["data"];
+const external_wp_data_namespaceObject = window["wp"]["data"];
 ;// CONCATENATED MODULE: external "lodash"
-var external_lodash_namespaceObject = window["lodash"];
+const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/store/reducer.js
 /**
  * External dependencies
@@ -136,7 +136,7 @@ function formatTypes() {
 
   return state;
 }
-/* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
+/* harmony default export */ const reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
   formatTypes
 }));
 
@@ -3108,7 +3108,7 @@ function applySelection(_ref6, current) {
 }
 
 ;// CONCATENATED MODULE: external ["wp","escapeHtml"]
-var external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
+const external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/to-html-string.js
 /**
  * WordPress dependencies
@@ -3251,9 +3251,9 @@ function createChildrenHTML() {
 }
 
 ;// CONCATENATED MODULE: external ["wp","a11y"]
-var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
+const external_wp_a11y_namespaceObject = window["wp"]["a11y"];
 ;// CONCATENATED MODULE: external ["wp","i18n"]
-var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
+const external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/toggle-format.js
 /**
  * WordPress dependencies
@@ -3694,7 +3694,7 @@ function changeListType(value, newFormat) {
 }
 
 ;// CONCATENATED MODULE: external ["wp","element"]
-var external_wp_element_namespaceObject = window["wp"]["element"];
+const external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-anchor-ref.js
 /**
  * WordPress dependencies
@@ -3770,7 +3770,7 @@ function useAnchorRef(_ref) {
 }
 
 ;// CONCATENATED MODULE: external ["wp","compose"]
-var external_wp_compose_namespaceObject = window["wp"]["compose"];
+const external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-default-style.js
 /**
  * WordPress dependencies
@@ -3922,7 +3922,7 @@ function useCopyHandler(props) {
 }
 
 ;// CONCATENATED MODULE: external ["wp","keycodes"]
-var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
+const external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-format-boundaries.js
 /**
  * WordPress dependencies
