@@ -119,7 +119,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
 
     $bError = false; // reset error flag
     if (ACCOUNT_GENDER == 'true') {
-        if (($gender != 'm') && ($gender != 'f')) {
+        if (($gender != 'm') && ($gender != 'f') && ($gender != 'd')) {
             $bError = true;
             $oMessage->add_session('danger', $aLang['entry_gender_error']);
         }
@@ -231,7 +231,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
 
         if ($_POST['action'] == 'update') {
             $address_booktable = $oostable['address_book'];
-            $check_query = "SELECT address_book_id FROM $address_booktable WHERE address_book_id = '" . intval($entry_id) . "'' AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
+            $check_query = "SELECT address_book_id FROM $address_booktable WHERE address_book_id = '" . intval($entry_id) . "' AND customers_id = '" . intval($_SESSION['customer_id']) . "'";
             $check_result = $dbconn->Execute($check_query);
 
             if ($check_result->RecordCount()) {

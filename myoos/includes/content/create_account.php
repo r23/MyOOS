@@ -488,11 +488,16 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
                         $email_owner .= $aLang['entry_vat_id'] . ' ' . $vat_id . "\n";
                     }
                 }
+				
+		
+				
                 if (ACCOUNT_GENDER == 'true') {
                     if ($gender == 'm') {
                         $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['male'] . "\n";
-                    } else {
+                    } elseif ($gender == 'f') {
                         $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['female'] . "\n";
+					} else {
+						$email_owner .= $aLang['entry_gender'] . ' ' . $aLang['diverse'] . "\n";						
                     }
                 }
             }

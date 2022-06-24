@@ -103,7 +103,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
         $city = oos_remove_shouting($city);
 
         if (ACCOUNT_GENDER == 'true') {
-            if (($gender != 'm') && ($gender != 'f')) {
+            if (($gender != 'm') && ($gender != 'f') && ($gender != 'd')) {
                 $bError = true;
                 $oMessage->add('danger', $aLang['entry_gender_error']);
             }
