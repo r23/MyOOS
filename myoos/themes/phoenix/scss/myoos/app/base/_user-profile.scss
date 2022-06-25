@@ -286,7 +286,6 @@
 							font-weight: 700;
 							color: $m-color-secondary;
 							@include transition(all 0.3s ease-in-out);
-							text-transform: uppercase;
 							&:hover{
 								background-color: $m-color-primary;
 								color: $m-color-white;
@@ -423,7 +422,6 @@
 }
 %tableData{
 	vertical-align: middle;
-	text-transform: uppercase;
 	font-weight: 700;
 	@include add-border(3px, $m-color-light, bottom);
 	border-top: none;
