@@ -307,14 +307,14 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process') || ($_POST['actio
 									WHERE customers_info_id = '" . intval($_SESSION['customer_id']) . "'";
                 $dbconn->Execute($update_info_sql);
             }
-
-            $oMessage->add_session('success', $aLang['success_address_book_entry_updated']);
-            oos_redirect(oos_href_link($aContents['account_address_book']));
         }
+		$oMessage->add_session('success', $aLang['success_address_book_entry_updated']);
+		oos_redirect(oos_href_link($aContents['account_address_book']));		
     }
 }
 
 if (isset($_GET['edit']) && is_numeric($_GET['edit'])) {
+	$entry_id = oos_db_prepare_input($_GET['edit']);
     $address_booktable = $oostable['address_book'];
     $address_sql = "SELECT entry_gender, entry_company, entry_owner, entry_vat_id, entry_vat_id_status,
 						entry_firstname, entry_lastname, entry_street_address, entry_postcode, entry_city,
