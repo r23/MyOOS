@@ -198,7 +198,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
                     $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['female'] . "\n";
                 } else {
                     $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['diverse'] . "\n";
-                }				
+                }
             }
 
             /*
@@ -247,11 +247,10 @@ $sql = "SELECT customers_gender, customers_firstname, customers_lastname, custom
 $account = $dbconn->GetRow($sql);
 
 if (ACCOUNT_GENDER == 'true') {
-	
     if (isset($gender)) {
-        if (($gender == 'm') && ($gender == 'f') && ($gender == 'd')) {		
-			$account['customers_gender'] = $gender;
-		}
+        if (($gender == 'm') && ($gender == 'f') && ($gender == 'd')) {
+            $account['customers_gender'] = $gender;
+        }
     }
     $female = !$male;
 }

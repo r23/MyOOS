@@ -380,8 +380,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
                 $email_text = $aLang['email_greet_mr'];
             } elseif ($gender == 'f') {
                 $email_text = $aLang['email_greet_ms'];
-			} elseif ($gender == 'd') {
-				$email_text = $aLang['email_greet_diverse'];
+            } elseif ($gender == 'd') {
+                $email_text = $aLang['email_greet_diverse'];
             }
         } else {
             $email_text = $aLang['email_greet_none'];
@@ -488,16 +488,16 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
                         $email_owner .= $aLang['entry_vat_id'] . ' ' . $vat_id . "\n";
                     }
                 }
-				
-		
-				
+
+
+
                 if (ACCOUNT_GENDER == 'true') {
                     if ($gender == 'm') {
                         $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['male'] . "\n";
                     } elseif ($gender == 'f') {
                         $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['female'] . "\n";
-					} else {
-						$email_owner .= $aLang['entry_gender'] . ' ' . $aLang['diverse'] . "\n";						
+                    } else {
+                        $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['diverse'] . "\n";
                     }
                 }
             }

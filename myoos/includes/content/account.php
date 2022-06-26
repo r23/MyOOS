@@ -194,9 +194,9 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
             if (ACCOUNT_GENDER == 'true') {
                 if ($gender == 'm') {
                     $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['male'] . "\n";
-                } elseif ($gender == 'f') { 
+                } elseif ($gender == 'f') {
                     $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['female'] . "\n";
-				} else {
+                } else {
                     $email_owner .= $aLang['entry_gender'] . ' ' . $aLang['diverse'] . "\n";
                 }
             }

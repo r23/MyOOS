@@ -71,9 +71,9 @@ if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
 }
 
 if (!$smarty->isCached($aTemplate['slider'], $sModulesCacheID)) {
-	include_once MYOOS_INCLUDE_PATH . '/includes/modules/slider.php';
+    include_once MYOOS_INCLUDE_PATH . '/includes/modules/slider.php';
 }
-$smarty->assign('slider', $smarty->fetch($aTemplate['slider'], $sModulesCacheID));	
+$smarty->assign('slider', $smarty->fetch($aTemplate['slider'], $sModulesCacheID));
 
 if ($oEvent->installed_plugin('featured')) {
     if (!$smarty->isCached($aTemplate['featured'], $sModulesCacheID)) {

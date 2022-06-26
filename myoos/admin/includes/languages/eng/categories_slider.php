@@ -44,4 +44,3 @@ define('TEXT_IMAGE_REMOVE', '<b>Remove</b> this Image?');
 
 define('TEXT_SUCCESSFULLY_UPLOADED', 'Image successfully uploaded.');
 define('ERROR_NO_IMAGE_FILE', 'Invalid file extension. Only png, jpg, jpeg, webp and gif files are allowed.');
-
