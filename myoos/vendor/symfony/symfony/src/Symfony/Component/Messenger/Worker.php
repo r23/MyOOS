@@ -31,7 +31,6 @@ use Symfony\Component\Messenger\Stamp\ReceivedStamp;
 use Symfony\Component\Messenger\Transport\Receiver\QueueReceiverInterface;
 use Symfony\Component\Messenger\Transport\Receiver\ReceiverInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
-use Symfony\Contracts\Service\ResetInterface;
 
 /**
  * @author Samuel Roze <samuel.roze@gmail.com>
@@ -136,7 +135,6 @@ class Worker
 
         $this->flush(true);
         $this->dispatchEvent(new WorkerStoppedEvent($this));
-        $this->resetReceiverConnections();
     }
 
     private function handleMessage(Envelope $envelope, string $transportName): void
@@ -210,7 +208,6 @@ class Worker
             if (null !== $this->logger) {
                 $message = $envelope->getMessage();
                 $context = [
-                    'message' => $message,
                     'class' => \get_class($message),
                 ];
                 $this->logger->info('{class} was handled successfully (acknowledging to transport).', $context);
@@ -258,15 +255,6 @@ class Worker
     public function getMetadata(): WorkerMetadata
     {
         return $this->metadata;
-    }
-
-    private function resetReceiverConnections(): void
-    {
-        foreach ($this->receivers as $receiver) {
-            if ($receiver instanceof ResetInterface) {
-                $receiver->reset();
-            }
-        }
     }
 
     private function dispatchEvent(object $event): void

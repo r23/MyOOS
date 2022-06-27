@@ -4434,17 +4434,17 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.9",
-            "version_normalized": "5.4.9.0",
+            "version": "v5.4.10",
+            "version_normalized": "5.4.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "6e5280eac0a58404b33e6a20c9aedc8d4b7b2754"
+                "reference": "1fa210d33a57b982305bae55ee81f6593b2299f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/6e5280eac0a58404b33e6a20c9aedc8d4b7b2754",
-                "reference": "6e5280eac0a58404b33e6a20c9aedc8d4b7b2754",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/1fa210d33a57b982305bae55ee81f6593b2299f6",
+                "reference": "1fa210d33a57b982305bae55ee81f6593b2299f6",
                 "shasum": ""
             },
             "require": {
@@ -4594,7 +4594,7 @@
                 "twig/inky-extra": "^2.12|^3",
                 "twig/markdown-extra": "^2.12|^3"
             },
-            "time": "2022-05-27T07:09:22+00:00",
+            "time": "2022-06-26T16:58:12+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -4637,7 +4637,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.9"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.10"
             },
             "funding": [
                 {
