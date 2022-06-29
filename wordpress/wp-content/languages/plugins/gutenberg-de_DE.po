@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-06-08 19:56:24+0000\n"
+"PO-Revision-Date: 2022-06-27 12:41:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -27,15 +27,15 @@ msgstr "Die zugewiesene Taxonomie anzeigen: %s"
 
 #. translators: %s: Number of comments.
 #: build/block-library/blocks/comments-title.php:59
-#: build/block-library/index.js:10018
-msgid "%s responses"
+#: build/block-library/index.js:10456
+msgid "%s response"
 msgid_plural "%s responses"
 msgstr[0] "%s Antwort"
 msgstr[1] "%s Antworten"
 
 #. translators: 1: Number of comments, 2: Post title.
 #: build/block-library/blocks/comments-title.php:45
-#: build/block-library/index.js:10011
+#: build/block-library/index.js:10449
 msgid "%1$s response to %2$s"
 msgid_plural "%1$s responses to %2$s"
 msgstr[0] "%1$s Antwort zu %2$s"
@@ -53,7 +53,7 @@ msgstr "Kommentare"
 
 #. translators: %s: Post title.
 #: build/block-library/blocks/comments-title.php:66
-#: build/block-library/index.js:10023
+#: build/block-library/index.js:10461
 msgid "Response to %s"
 msgstr "Antwort auf %s"
 
@@ -62,7 +62,7 @@ msgid "The date and time the preferences were updated."
 msgstr "Das Datum und die Uhrzeit der Aktualisierung der Einstellungen."
 
 #: build/block-library/blocks/comments-title.php:72
-#: build/block-library/index.js:10029
+#: build/block-library/index.js:10467
 msgid "Response"
 msgstr "Antwort"
 
@@ -86,13 +86,13 @@ msgstr "Kommentartitel"
 
 #. translators: %s: Post title.
 #: build/block-library/blocks/comments-title.php:69
-#: build/block-library/index.js:10026
+#: build/block-library/index.js:10464
 msgid "Responses to %s"
 msgstr "Antworten auf %s"
 
 #. translators: %s: Post title.
 #: build/block-library/blocks/comments-title.php:41
-#: build/block-library/index.js:10007 build/block-library/index.js:33592
+#: build/block-library/index.js:10445 build/block-library/index.js:34179
 msgid "One response to %s"
 msgstr "Eine Antwort auf %s"
 
@@ -101,12 +101,12 @@ msgid "Determines whether the pattern is visible in inserter."
 msgstr "Bestimmt, ob die Vorlage im Inserter sichtbar ist."
 
 #: build/block-library/blocks/comments-title.php:74
-#: build/block-library/index.js:10031
+#: build/block-library/index.js:10469
 msgid "Responses"
 msgstr "Antworten"
 
 #: build/block-library/blocks/comments-title.php:55
-#: build/block-library/index.js:10014
+#: build/block-library/index.js:10452
 msgid "One response"
 msgstr "Eine Antwort"
 
@@ -337,14 +337,14 @@ msgid "Displays posts on the homepage, or on the Posts page if a static homepage
 msgstr "Zeigt Beiträge auf der Homepage oder auf der Seite „Beiträge“ an, wenn eine statische Homepage festgelegt wurde."
 
 #: build/block-library/blocks/comments-pagination-previous.php:18
-#: build/block-library/index.js:9290 build/block-library/index.js:33598
-#: build/block-library/index.js:33669
+#: build/block-library/index.js:9728 build/block-library/index.js:34185
+#: build/block-library/index.js:34256
 msgid "Older Comments"
 msgstr "Ältere Kommentare"
 
 #: build/block-library/blocks/comments-pagination-next.php:25
-#: build/block-library/index.js:9606 build/block-library/index.js:33602
-#: build/block-library/index.js:33673
+#: build/block-library/index.js:10044 build/block-library/index.js:34189
+#: build/block-library/index.js:34260
 msgid "Newer Comments"
 msgstr "Neuere Kommentare"
 
@@ -381,7 +381,7 @@ msgstr "Theme-Datei-Editor"
 msgid "Site icon."
 msgstr "Website-Icon."
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Font size name"
 msgid "Extra Large"
 msgstr "Extra groß"
@@ -511,7 +511,7 @@ msgstr "Templates anzeigen"
 msgid "View Template Parts"
 msgstr "Template-Teile anzeigen"
 
-#: lib/compat/wordpress-5.9/navigation.php:13 build/edit-site/index.js:9262
+#: lib/compat/wordpress-5.9/navigation.php:13 build/edit-site/index.js:9270
 msgid "Navigation Menus"
 msgstr "Navigationsmenüs"
 
@@ -651,7 +651,7 @@ msgstr "Navigationsmenüs"
 msgid "Editor %s"
 msgstr "Editor %s"
 
-#: lib/init.php:71 build/edit-site/index.js:11792
+#: lib/init.php:71 build/edit-site/index.js:11800
 msgid "Editor (beta)"
 msgstr "Editor (Beta)"
 
@@ -714,7 +714,7 @@ msgstr "Bezeichnung des Themes"
 #: build/block-library/blocks/avatar.php:85
 #: build/block-library/blocks/avatar.php:112
 #: build/block-library/blocks/comment-author-avatar.php:50
-#: build/block-library/index.js:1997 build/block-library/index.js:2040
+#: build/block-library/index.js:2423 build/block-library/index.js:2466
 msgid "%s Avatar"
 msgstr "Avatar von %s"
 
@@ -780,177 +780,177 @@ msgctxt "Block pattern title"
 msgid "Grid"
 msgstr "Raster"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Duotone name"
 msgid "Blue and orange"
 msgstr "Blau und Orange"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Duotone name"
 msgid "Purple and green"
 msgstr "Lila und Grün"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Duotone name"
 msgid "Magenta and yellow"
 msgstr "Magenta und Gelb"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Duotone name"
 msgid "Midnight"
 msgstr "Mitternacht"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Duotone name"
 msgid "Blue and red"
 msgstr "Blau und Rot"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Duotone name"
 msgid "Purple and yellow"
 msgstr "Lila und Gelb"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Duotone name"
 msgid "Grayscale"
 msgstr "Graustufen"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Duotone name"
 msgid "Dark grayscale"
 msgstr "Dunkle Graustufen"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Midnight"
 msgstr "Mitternacht"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Electric grass"
 msgstr "Elektrisches Gras"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Pale ocean"
 msgstr "Blasser Ozean"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Luminous dusk"
 msgstr "Leuchtende Dämmerung"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Blush bordeaux"
 msgstr "Errötendes Bordeaux"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Blush light purple"
 msgstr "Errötendes Hellviolett"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Cool to warm spectrum"
 msgstr "Kühles bis warmes Spektrum"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Very light gray to cyan bluish gray"
 msgstr "Sehr helles Grau bis bläuliches Cyangrau"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Luminous vivid orange to vivid red"
 msgstr "Leuchtendes, kräftiges Orange bis kräftiges Rot"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Luminous vivid amber to luminous vivid orange"
 msgstr "Leuchtendes, kräftiges Bernstein bis leuchtendes, kräftiges Orange"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Light green cyan to vivid green cyan"
 msgstr "Hellgrünes Cyan bis leuchtend grünes Cyan"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Gradient name"
 msgid "Vivid cyan blue to vivid purple"
 msgstr "Kräftiges Cyanblau bis kräftiges Lila"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "Vivid purple"
 msgstr "Kräftiges Lila"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "Vivid cyan blue"
 msgstr "Lebhaftes Cyanblau"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "Pale cyan blue"
 msgstr "Helles Cyanblau"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "Vivid green cyan"
 msgstr "Lebhaftes Grün-Cyan"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "Light green cyan"
 msgstr "Helles Grün-Cyan"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "Luminous vivid amber"
 msgstr "Leuchtendes, lebhaftes Bernstein"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "Luminous vivid orange"
 msgstr "Leuchtendes, kräftiges Orange"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "Vivid red"
 msgstr "Lebhaftes Rot"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "Pale pink"
 msgstr "Blasses Pink"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "White"
 msgstr "Weiß"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "Cyan bluish gray"
 msgstr "Zyan-bläuliches Grau"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
 msgid "Black"
 msgstr "Schwarz"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Font size name"
 msgid "Large"
 msgstr "Groß"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Font size name"
 msgid "Medium"
 msgstr "Mittelgroß"
 
-#: lib/compat/wordpress-6.0/theme.json
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Font size name"
 msgid "Small"
 msgstr "Klein"
@@ -1651,12 +1651,12 @@ msgid "(Home link, opens in a new tab)"
 msgstr "(Link zur Startseite, öffnet in einem neuen Tab)"
 
 #: build/block-library/blocks/navigation.php:631
-#: build/block-library/index.js:27007
+#: build/block-library/index.js:27585
 msgid "Close menu"
 msgstr "Menü schließen"
 
 #: build/block-library/blocks/navigation.php:630
-#: build/block-library/index.js:26993
+#: build/block-library/index.js:27571
 msgid "Open menu"
 msgstr "Menü öffnen"
 
@@ -1800,7 +1800,7 @@ msgstr "Beitragsformat-Link"
 
 #: build/block-library/blocks/latest-posts.php:147
 #: build/block-library/blocks/latest-posts.php:162
-#: build/block-library/index.js:34222
+#: build/block-library/index.js:34809
 msgid "This content is password protected."
 msgstr "Dieser Inhalt ist passwortgeschützt."
 
@@ -1831,12 +1831,12 @@ msgid "Skip to content"
 msgstr "Direkt zum Inhalt wechseln"
 
 #: lib/compat/wordpress-5.9/block-template-utils.php:84
-#: build/block-library/index.js:48882
+#: build/block-library/index.js:49494
 msgid "The Footer template defines a page area that typically contains site credits, social links, or any other combination of blocks."
 msgstr "Das Footer-Template definiert einen Seitenbereich, der typischerweise Impressum, Social Links oder jede andere Kombination von Blöcken enthält."
 
 #: lib/compat/wordpress-5.9/block-template-utils.php:74
-#: build/block-library/index.js:48873
+#: build/block-library/index.js:49485
 msgid "The Header template defines a page area that typically contains a title, logo, and main navigation."
 msgstr "Das Header-Template definiert einen Seitenbereich, der typischerweise Titel, Logo und Hauptnavigation enthält."
 
@@ -1950,19 +1950,19 @@ msgid "The URL to process."
 msgstr "Zu verarbeitende URL."
 
 #: build/block-library/blocks/query-pagination-previous.php:22
-#: build/block-library/index.js:39500
+#: build/block-library/index.js:40109
 msgid "Previous Page"
 msgstr "Vorherige Seite"
 
 #: build/block-library/blocks/query-pagination-next.php:23
-#: build/block-library/index.js:39323
+#: build/block-library/index.js:39932
 msgid "Next Page"
 msgstr "Nächste Seite"
 
 #. translators: %s: Template part slug.
 #. translators: %s: Template part slug
 #: build/block-library/blocks/template-part.php:118
-#: build/block-library/index.js:48771
+#: build/block-library/index.js:49383
 msgid "Template part has been deleted or is unavailable: %s"
 msgstr "Das Template-Teil wurde gelöscht oder ist nicht verfügbar: %s"
 
@@ -2021,13 +2021,13 @@ msgctxt "block title"
 msgid "Post Comments Count"
 msgstr "Beitrags-Kommentar-Anzahl"
 
-#: build/block-library/index.js:8342
+#: build/block-library/index.js:8780
 #: build/block-library/blocks/comment-date/block.json
 msgctxt "block title"
 msgid "Comment Date"
 msgstr "Kommentar-Datum"
 
-#: build/block-library/index.js:8198
+#: build/block-library/index.js:8636
 #: build/block-library/blocks/comment-content/block.json
 msgctxt "block title"
 msgid "Comment Content"
@@ -2393,7 +2393,7 @@ msgstr "Der Vorlagentitel in menschenlesbarem Format."
 #. translators: byline. %s: current author.
 #. translators: %s: the author.
 #: build/block-library/blocks/latest-posts.php:123
-#: build/block-library/blocks/rss.php:64 build/block-library/index.js:22675
+#: build/block-library/blocks/rss.php:64 build/block-library/index.js:23154
 msgid "by %s"
 msgstr "von %s"
 
@@ -2407,19 +2407,19 @@ msgstr "Navigations-Menüs."
 
 #. translators: accessibility text for the content landmark region.
 #: lib/experimental/navigation-theme-opt-in.php:349
-#: build/block-editor/index.js:11310 build/edit-navigation/index.js:2825
-#: build/edit-post/index.js:1712 build/edit-site/index.js:2055
-#: build/edit-widgets/index.js:1296 build/edit-navigation/index.min.js:2877
-#: build/edit-post/index.min.js:1566 build/edit-widgets/index.min.js:1193
+#: build/block-editor/index.js:11312 build/edit-navigation/index.js:2827
+#: build/edit-post/index.js:1714 build/edit-site/index.js:2057
+#: build/edit-widgets/index.js:1298 build/edit-navigation/index.min.js:2904
+#: build/edit-post/index.min.js:1569 build/edit-widgets/index.min.js:1196
 msgid "Content"
 msgstr "Inhalt"
 
 #. translators: accessibility text for the top bar landmark region.
 #: lib/compat/wordpress-5.9/block-template-utils.php:73
-#: build/block-library/index.js:48872 build/edit-navigation/index.js:2822
-#: build/edit-post/index.js:1709 build/edit-site/index.js:2052
-#: build/edit-widgets/index.js:1293 build/edit-navigation/index.min.js:2875
-#: build/edit-post/index.min.js:1564 build/edit-widgets/index.min.js:1191
+#: build/block-library/index.js:49484 build/edit-navigation/index.js:2824
+#: build/edit-post/index.js:1711 build/edit-site/index.js:2054
+#: build/edit-widgets/index.js:1295 build/edit-navigation/index.min.js:2902
+#: build/edit-post/index.min.js:1567 build/edit-widgets/index.min.js:1194
 msgid "Header"
 msgstr "Header"
 
@@ -2427,13 +2427,13 @@ msgstr "Header"
 #. translators: Text label for the Menu Settings Sidebar tab.
 #. translators: Data label for the Menu Settings Sidebar tab.
 #: build/block-library/blocks/navigation.php:635
-#: build/block-library/index.js:26988 build/block-library/index.js:26998
-#: build/block-library/index.js:28261 build/block-library/index.js:28427
+#: build/block-library/index.js:27566 build/block-library/index.js:27576
+#: build/block-library/index.js:28842 build/block-library/index.js:29008
 #: build/core-data/index.js:2126 build/edit-navigation/index.js:3504
 #: build/edit-navigation/index.js:3515 build/edit-navigation/index.js:3517
-#: build/edit-navigation/index.min.js:3636
-#: build/edit-navigation/index.min.js:3654
-#: build/edit-navigation/index.min.js:3658
+#: build/edit-navigation/index.min.js:3660
+#: build/edit-navigation/index.min.js:3678
+#: build/edit-navigation/index.min.js:3682
 msgid "Menu"
 msgstr "Menü"
 
@@ -2659,7 +2659,7 @@ msgid "No matching template found."
 msgstr "Kein passendes Template gefunden."
 
 #: lib/compat/wordpress-5.9/templates.php:83 build/blocks/index.js:5559
-#: build/edit-site/index.js:8254 build/edit-site/index.js:8308
+#: build/edit-site/index.js:8256 build/edit-site/index.js:8308
 msgid "Theme"
 msgstr "Theme"
 
@@ -2742,13 +2742,13 @@ msgid "Template Parts"
 msgstr "Template-Teile"
 
 #: lib/compat/wordpress-5.9/template-parts.php:23
-#: build/block-library/index.js:48351 build/editor/index.js:5438
-#: build/editor/index.min.js:5225
+#: build/block-library/index.js:48960 build/editor/index.js:5438
+#: build/editor/index.min.js:5238
 msgid "Template Part"
 msgstr "Template-Teil"
 
-#: lib/compat/wordpress-5.9/template-parts.php:22 build/edit-site/index.js:9725
-#: build/editor/index.js:5438 build/editor/index.min.js:5225
+#: lib/compat/wordpress-5.9/template-parts.php:22 build/edit-site/index.js:9733
+#: build/editor/index.js:5438 build/editor/index.min.js:5238
 msgid "Template Parts"
 msgstr "Template-Teile"
 
@@ -2828,14 +2828,14 @@ msgstr "Templates"
 
 #. translators: ARIA label for the Template Settings Sidebar tab, not selected.
 #. translators: Text label for the Template Settings Sidebar tab.
-#: lib/compat/wordpress-5.9/templates.php:23 build/edit-post/index.js:5003
-#: build/edit-post/index.js:6503 build/edit-post/index.js:6515
-#: build/edit-post/index.js:6516 build/edit-post/index.js:8056
-#: build/edit-site/index.js:9303 build/edit-site/index.js:9314
-#: build/edit-site/index.js:9316 build/edit-site/index.js:11840
-#: build/edit-site/index.js:12854 build/edit-post/index.min.js:5223
-#: build/edit-post/index.min.js:6848 build/edit-post/index.min.js:6871
-#: build/edit-post/index.min.js:6873 build/edit-post/index.min.js:8563
+#: lib/compat/wordpress-5.9/templates.php:23 build/edit-post/index.js:5011
+#: build/edit-post/index.js:6511 build/edit-post/index.js:6523
+#: build/edit-post/index.js:6524 build/edit-post/index.js:8069
+#: build/edit-site/index.js:9311 build/edit-site/index.js:9322
+#: build/edit-site/index.js:9324 build/edit-site/index.js:11848
+#: build/edit-site/index.js:12862 build/edit-post/index.min.js:5253
+#: build/edit-post/index.min.js:6862 build/edit-post/index.min.js:6885
+#: build/edit-post/index.min.js:6887 build/edit-post/index.min.js:8568
 msgid "Template"
 msgstr "Template"
 
@@ -2847,7 +2847,7 @@ msgstr "Kein passendes Template gefunden"
 msgid "Templates to include in your theme."
 msgstr "Templates, die in dein Theme eingefügt werden können."
 
-#: lib/compat/wordpress-5.9/templates.php:22 build/edit-site/index.js:9717
+#: lib/compat/wordpress-5.9/templates.php:22 build/edit-site/index.js:9725
 msgid "Templates"
 msgstr "Templates"
 
@@ -2866,10 +2866,10 @@ msgstr "Deine Website hat keine %s, also gibt es hier im Moment nichts zu sehen.
 
 #. translators: accessibility text for the footer landmark region.
 #: lib/compat/wordpress-5.9/block-template-utils.php:83
-#: build/block-library/index.js:48881 build/edit-navigation/index.js:2837
-#: build/edit-post/index.js:1724 build/edit-site/index.js:2067
-#: build/edit-widgets/index.js:1308 build/edit-navigation/index.min.js:2885
-#: build/edit-post/index.min.js:1574 build/edit-widgets/index.min.js:1201
+#: build/block-library/index.js:49493 build/edit-navigation/index.js:2839
+#: build/edit-post/index.js:1726 build/edit-site/index.js:2069
+#: build/edit-widgets/index.js:1310 build/edit-navigation/index.min.js:2912
+#: build/edit-post/index.min.js:1577 build/edit-widgets/index.min.js:1204
 msgid "Footer"
 msgstr "Footer"
 
@@ -2883,15 +2883,15 @@ msgstr "RSS-Fehler:"
 
 #: build/block-library/blocks/search.php:23
 #: build/block-library/blocks/search.php:24
-#: build/block-library/blocks/search.php:45 build/block-editor/index.js:23566
-#: build/block-editor/index.js:24628 build/block-editor/index.js:24747
-#: build/block-library/index.js:41699 build/block-library/index.js:41869
-#: build/block-library/index.js:41870 build/components/index.js:63744
-#: build/edit-site/index.js:7821
+#: build/block-library/blocks/search.php:45 build/block-editor/index.js:23572
+#: build/block-editor/index.js:24634 build/block-editor/index.js:24753
+#: build/block-library/index.js:42308 build/block-library/index.js:42478
+#: build/block-library/index.js:42479 build/components/index.js:63722
+#: build/edit-site/index.js:7823
 msgid "Search"
 msgstr "Suchen"
 
-#: build/block-library/index.js:13282
+#: build/block-library/index.js:13718
 #: build/block-library/blocks/embed/block.json
 msgctxt "block title"
 msgid "Embed"
@@ -2903,7 +2903,7 @@ msgid "Classic"
 msgstr "Classic"
 
 #: lib/compat/wordpress-5.9/block-template-utils.php:160
-#: build/block-editor/index.js:44865 build/blocks/index.js:5550
+#: build/block-editor/index.js:44965 build/blocks/index.js:5550
 #: build/core-data/index.js:2029
 msgid "Media"
 msgstr "Medien"
@@ -2919,8 +2919,8 @@ msgid "Introduce new sections and organize content to help visitors (and search 
 msgstr "Führe neue Abschnitte ein und organisiere Inhalte, damit Besucher (und Suchmaschinen) die Struktur deiner Inhalte besser verstehen können."
 
 #: lib/compat/wordpress-5.9/block-template-utils.php:63
-#: build/edit-post/index.js:4940 build/edit-site/index.js:4384
-#: build/edit-post/index.min.js:5089
+#: build/edit-post/index.js:4948 build/edit-site/index.js:4386
+#: build/edit-post/index.min.js:5119
 msgid "General"
 msgstr "Allgemein"
 
@@ -2954,7 +2954,7 @@ msgstr "Falls du mehr darüber erfahren willst, wie zusätzliche Blöcke erstell
 msgid "The WordPress community"
 msgstr "Die WordPress-Community"
 
-#: post-content.php:159 build/block-library/index.js:19977
+#: post-content.php:159 build/block-library/index.js:20451
 msgid "Code is Poetry"
 msgstr "Code ist Poesie"
 
@@ -3168,31 +3168,31 @@ msgstr "Seitennummerierung"
 #: lib/experimental/navigation-theme-opt-in.php:91
 #: lib/experimental/navigation-theme-opt-in.php:96
 #: build/edit-navigation/index.js:3507 build/edit-navigation/index.js:3522
-#: build/edit-navigation/index.js:3524 build/edit-post/index.js:6502
-#: build/edit-post/index.js:6521 build/edit-post/index.js:6523
-#: build/edit-site/index.js:9306 build/edit-site/index.js:9321
-#: build/edit-site/index.js:9323 build/edit-widgets/index.js:3290
-#: build/edit-navigation/index.min.js:3643
-#: build/edit-navigation/index.min.js:3668
-#: build/edit-navigation/index.min.js:3672 build/edit-post/index.min.js:6843
-#: build/edit-post/index.min.js:6883 build/edit-post/index.min.js:6887
+#: build/edit-navigation/index.js:3524 build/edit-post/index.js:6510
+#: build/edit-post/index.js:6529 build/edit-post/index.js:6531
+#: build/edit-site/index.js:9314 build/edit-site/index.js:9329
+#: build/edit-site/index.js:9331 build/edit-widgets/index.js:3291
+#: build/edit-navigation/index.min.js:3667
+#: build/edit-navigation/index.min.js:3692
+#: build/edit-navigation/index.min.js:3696 build/edit-post/index.min.js:6857
+#: build/edit-post/index.min.js:6897 build/edit-post/index.min.js:6901
 #: build/edit-widgets/index.min.js:3393
 msgid "Block"
 msgstr "Block"
 
 #: build/block-library/blocks/latest-comments.php:31
 #: build/block-library/blocks/latest-posts.php:72
-#: build/block-library/blocks/rss.php:35 build/block-library/index.js:22671
-#: build/core-data/index.js:5975 build/edit-navigation/index.js:1762
-#: build/edit-post/index.js:7786 build/editor/index.js:9777
-#: build/edit-navigation/index.min.js:1727 build/edit-post/index.min.js:8240
-#: build/editor/index.min.js:10028
+#: build/block-library/blocks/rss.php:35 build/block-library/index.js:23150
+#: build/core-data/index.js:6006 build/edit-navigation/index.js:1762
+#: build/edit-post/index.js:7794 build/editor/index.js:9762
+#: build/edit-navigation/index.min.js:1751 build/edit-post/index.min.js:8246
+#: build/editor/index.min.js:9993
 msgid "(no title)"
 msgstr "(kein Titel)"
 
 #: build/block-library/blocks/read-more.php:24
-#: build/block-library/index.js:22654 build/block-library/index.js:26326
-#: build/block-library/index.js:41043
+#: build/block-library/index.js:23133 build/block-library/index.js:26812
+#: build/block-library/index.js:41652
 msgid "Read more"
 msgstr "Weiterlesen"
 
@@ -3201,18 +3201,18 @@ msgid "Experiments"
 msgstr "Experimente"
 
 #: build/block-library/blocks/categories.php:35
-#: build/block-library/index.js:5537 build/block-library/index.js:5579
-#: build/components/index.js:66012
+#: build/block-library/index.js:5973 build/block-library/index.js:6015
+#: build/components/index.js:66088
 msgid "Categories"
 msgstr "Kategorien"
 
 #: build/block-library/blocks/comment-edit-link.php:42
-#: build/block-editor/index.js:43727 build/block-editor/index.js:44525
-#: build/block-editor/index.js:47064 build/block-library/index.js:8551
-#: build/block-library/index.js:31777 build/block-library/index.js:31779
-#: build/block-library/index.js:33647 build/block-library/index.js:49934
-#: build/edit-navigation/index.js:3778 build/edit-post/index.js:7902
-#: build/edit-navigation/index.min.js:3961 build/edit-post/index.min.js:8376
+#: build/block-editor/index.js:43795 build/block-editor/index.js:44624
+#: build/block-editor/index.js:47164 build/block-library/index.js:8989
+#: build/block-library/index.js:32364 build/block-library/index.js:32366
+#: build/block-library/index.js:34234 build/block-library/index.js:50546
+#: build/edit-navigation/index.js:3778 build/edit-post/index.js:7914
+#: build/edit-navigation/index.min.js:3984 build/edit-post/index.min.js:8384
 msgid "Edit"
 msgstr "Bearbeiten"
 
