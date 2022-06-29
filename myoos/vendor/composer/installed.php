@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '0facd13f4b3b546add674571fe9b663721bffa90',
+        'reference' => '6cbe357bfb6a73b514747375ff51902630515fb0',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -187,16 +187,16 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '0facd13f4b3b546add674571fe9b663721bffa90',
+            'reference' => '6cbe357bfb6a73b514747375ff51902630515fb0',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
-            'pretty_version' => '2.58.0',
-            'version' => '2.58.0.0',
+            'pretty_version' => '2.59.0',
+            'version' => '2.59.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nesbot/carbon',
             'aliases' => array(),
-            'reference' => '97a34af22bde8d0ac20ab34b29d7bfe360902055',
+            'reference' => '9cea2f72585a46d0651ee6d4c8c8f752e78c16c6',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -438,7 +438,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '880f953435f266cf634bb81fa8888e66fa7814f6',
+            'reference' => '82cfc4675f037cf8145d640a3f6da62dca474eb1',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
@@ -498,7 +498,7 @@
         'symfony/cache-contracts' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v2.5.1',
+                0 => 'v2.5.2',
             ),
         ),
         'symfony/cache-implementation' => array(
@@ -520,12 +520,12 @@
             ),
         ),
         'symfony/contracts' => array(
-            'pretty_version' => 'v2.5.1',
-            'version' => '2.5.1.0',
+            'pretty_version' => 'v2.5.2',
+            'version' => '2.5.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../symfony/contracts',
             'aliases' => array(),
-            'reference' => '3373e197760d9ca59c56ae508ce66bdc55da4f4d',
+            'reference' => 'd3da2932c17d3cc0d6cd167518cc63ab7b909f38',
             'dev_requirement' => false,
         ),
         'symfony/css-selector' => array(
@@ -549,7 +549,7 @@
         'symfony/deprecation-contracts' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v2.5.1',
+                0 => 'v2.5.2',
             ),
         ),
         'symfony/doctrine-bridge' => array(
@@ -585,7 +585,7 @@
         'symfony/event-dispatcher-contracts' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v2.5.1',
+                0 => 'v2.5.2',
             ),
         ),
         'symfony/event-dispatcher-implementation' => array(
@@ -633,7 +633,7 @@
         'symfony/http-client-contracts' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v2.5.1',
+                0 => 'v2.5.2',
             ),
         ),
         'symfony/http-client-implementation' => array(
@@ -900,7 +900,7 @@
         'symfony/service-contracts' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v2.5.1',
+                0 => 'v2.5.2',
             ),
         ),
         'symfony/service-implementation' => array(
@@ -945,7 +945,7 @@
         'symfony/translation-contracts' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v2.5.1',
+                0 => 'v2.5.2',
             ),
         ),
         'symfony/translation-implementation' => array(
