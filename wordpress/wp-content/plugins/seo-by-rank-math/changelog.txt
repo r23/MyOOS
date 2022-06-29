@@ -1,13 +1,1 @@
-* Added: [HUGE!] Synced [Content Analysis tests](https://rankmath.com/kb/score-100-in-tests/) with the recommendations provided by the [Content AI](https://rankmath.com/kb/how-to-use-content-ai/)
-* Improved: Added a new column on the [Redirections page](https://rankmath.com/kb/setting-up-redirections/#redirections) to show the Created date of the redirect
-* Improved: [Search Preview & Mobile Search Preview](https://rankmath.com/kb/seo-analysis/#search-preview) shown in the SEO Analysis tool
-* Improved: Image SEO code to make it FASTER
-* Fixed: Some string translations were not working well
-* Fixed: Unable to connect account when WordPress is installed in a subfolder
-* Fixed: [Connect to Rank Math account](https://rankmath.com/kb/free-account-benefits/) was not working properly when the URL contained special characters
-* Fixed: [Debug Redirections option](https://rankmath.com/kb/general-settings/#debug-redirections) was not working well
-* Fixed: Some Schema properties were missing in the [EDD Product Schema](https://rankmath.com/kb/edd-product-schema/)
-* Fixed: Analytics data was not getting imported correctly when domain property was selected in the [Site Profile](https://rankmath.com/kb/general-settings/#search-console-settings)
-* Fixed: The maintenance page created using Elementor editor was not working well when the Rank Math plugin is active on the site
-* Fixed: Hash links added in the Elementor Accordion were counted as internal links
-* Fixed: JS errors on the Categories list page
+* Fixed: PHP Fatal error on some installations where Elementor page builder and PHP v7.2 was used

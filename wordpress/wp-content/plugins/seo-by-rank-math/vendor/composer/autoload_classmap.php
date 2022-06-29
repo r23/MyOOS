@@ -184,6 +184,7 @@ return array(
     'RankMath\\Redirections\\Admin' => $baseDir . '/includes/modules/redirections/class-admin.php',
     'RankMath\\Redirections\\Cache' => $baseDir . '/includes/modules/redirections/class-cache.php',
     'RankMath\\Redirections\\DB' => $baseDir . '/includes/modules/redirections/class-db.php',
+    'RankMath\\Redirections\\Debugger' => $baseDir . '/includes/modules/redirections/class-debugger.php',
     'RankMath\\Redirections\\Export' => $baseDir . '/includes/modules/redirections/class-export.php',
     'RankMath\\Redirections\\Form' => $baseDir . '/includes/modules/redirections/class-form.php',
     'RankMath\\Redirections\\Import_Export' => $baseDir . '/includes/modules/redirections/class-import-export.php',

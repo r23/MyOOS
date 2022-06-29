@@ -1,8 +1,9 @@
 /**
  * External dependencies
  */
-import { isUndefined, map, get, isEmpty } from 'lodash'
+import { isUndefined, isEmpty, map, get } from 'lodash'
 import { withRouter } from 'react-router-dom'
+import { TableCard } from '@woocommerce/components'
 
 /**
  * WordPress dependencies
@@ -17,8 +18,8 @@ import { dispatch, withSelect } from '@wordpress/data'
  * Internal dependencies
  */
 import humanNumber from '@helpers/humanNumber'
-import TableCard from '@scShared/woocommerce/Table'
 import { processRows, getPageOffset, filterShownHeaders } from '../functions'
+import { noDataMessage } from '../helpers'
 
 const TABLE_PREF_KEY = 'keywords'
 
@@ -28,6 +29,9 @@ const KeywordsTable = ( props ) => {
 		return 'Loading'
 	}
 	const keywordRows = 'No Data' === rows.response ? [] : rows
+	if ( isEmpty( keywordRows ) ) {
+		return noDataMessage( __( 'Rest of the Keywords', 'rank-math' ) )
+	}
 
 	const headers = applyFilters(
 		'rankMath.analytics.keywordsHeaders',
@@ -101,12 +105,8 @@ const KeywordsTable = ( props ) => {
 		<Fragment>
 			<div className="rank-math-keyword-table">
 				<TableCard
-					className="rank-math-table"
-					title={
-						<Fragment>
-							{ __( 'Rest of the Keywords', 'rank-math' ) }
-						</Fragment>
-					}
+					className="rank-math-table rank-math-analytics__card"
+					title={ __( 'Rest of the Keywords', 'rank-math' ) }
 					headers={ filteredHeaders }
 					rows={ processRows(
 						keywordRows,

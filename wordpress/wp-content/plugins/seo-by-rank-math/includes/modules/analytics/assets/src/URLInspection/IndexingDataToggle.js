@@ -2,34 +2,40 @@
  * WordPress dependencies
  */
 import { __ } from '@wordpress/i18n'
+import { withFilters } from '@wordpress/components'
 import { Component } from '@wordpress/element'
 
 class IndexingDataToggle extends Component {
 	render() {
 		return (
-			<tr className="inner-elements">
-				<td></td>
-				<td colSpan="8">
-					<div className="indexing-data-wrapper">
-						{ this.getStatusResult() }
-						{ this.getReferringURLs() }
-						{ this.getMobileData() }
-						{ this.richResultsData() }
+			<div className="inner-elements hidden">
+				<table>
+					<tbody>
+						<tr>
+							<td colSpan="8">
+								<div className="indexing-data-wrapper">
+									{ this.getStatusResult() }
+									{ this.getReferringURLs() }
+									{ this.getMobileData() }
+									{ this.richResultsData() }
 
-						<div id="rank-math-pro-cta" className="center">
-							<div className="rank-math-cta-box blue-ticks top-20 width-50">
-								<h3>{ __( 'PRO Version offers Advanced Indexing Stats', 'rank-math' ) }</h3>
-								<ul>
-									<li>{ __( 'Monitor metrics like Index Status, Last Crawl date, etc', 'rank-math' ) }</li>
-									<li>{ __( 'All the Indexing statistics about your content in one place', 'rank-math' ) }</li>
-									<li>{ __( 'Use data provided by Google instead of 3rd party tools', 'rank-math' ) }</li>
-								</ul>
-								<a href="https://rankmath.com/pricing/?utm_source=Plugin&utm_medium=Index%20Status%20Tab%20Toggle&utm_campaign=WP" target="_blank" rel="noreferrer" className="button button-primary is-green">{ __( 'Upgrade', 'rank-math' ) }</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
+									<div id="rank-math-pro-cta" className="center">
+										<div className="rank-math-cta-box blue-ticks top-20 width-50">
+											<h3>{ __( 'PRO Version offers Advanced Indexing Stats', 'rank-math' ) }</h3>
+											<ul>
+												<li>{ __( 'Monitor metrics like Index Status, Last Crawl date, etc', 'rank-math' ) }</li>
+												<li>{ __( 'All the Indexing statistics about your content in one place', 'rank-math' ) }</li>
+												<li>{ __( 'Use data provided by Google instead of 3rd party tools', 'rank-math' ) }</li>
+											</ul>
+											<a href="https://rankmath.com/pricing/?utm_source=Plugin&utm_medium=Index%20Status%20Tab%20Toggle&utm_campaign=WP" target="_blank" rel="noreferrer" className="button button-primary is-green">{ __( 'Upgrade', 'rank-math' ) }</a>
+										</div>
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		)
 	}
 
@@ -174,4 +180,4 @@ class IndexingDataToggle extends Component {
 	}
 }
 
-export default IndexingDataToggle
+export default withFilters( 'rankMath.analytics.IndexingDataToggle' )( IndexingDataToggle )

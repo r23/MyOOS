@@ -3,6 +3,7 @@
  */
 import { map, isUndefined, isEmpty } from 'lodash'
 import { withRouter } from 'react-router-dom'
+import { TableCard } from '@woocommerce/components'
 
 /**
  * WordPress dependencies
@@ -16,8 +17,8 @@ import { withSelect, dispatch } from '@wordpress/data'
  * Internal dependencies
  */
 import humanNumber from '@helpers/humanNumber'
-import TableCard from '@scShared/woocommerce/Table'
 import { processRows, getPageOffset, filterShownHeaders } from '../functions'
+import { noDataMessage } from '../helpers'
 
 const TABLE_PREF_KEY = 'performance'
 
@@ -26,10 +27,16 @@ const PostsTable = ( props ) => {
 	if ( isUndefined( tableData ) || isUndefined( summary ) ) {
 		return 'Loading'
 	}
+
 	let postsRows = []
-	if ( false === isUndefined( tableData.rows ) ) {
+	if ( ! isUndefined( tableData.rows ) ) {
 		postsRows = 'No Data' === tableData.rows.response ? [] : tableData.rows
+
+		if ( isEmpty( postsRows ) ) {
+			return noDataMessage( __( 'Content', 'rank-math' ) )
+		}
 	}
+
 	const headers = applyFilters(
 		'rankMath.analytics.performanceHeaders',
 		[

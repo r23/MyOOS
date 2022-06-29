@@ -2,6 +2,7 @@
  * External dependencies
  */
 import { map } from 'lodash'
+import { TableCard } from '@woocommerce/components'
 
 /**
  * WordPress dependencies
@@ -13,7 +14,6 @@ import { withFilters } from '@wordpress/components'
 /**
  * Internal dependencies
  */
-import TableCard from '@scShared/woocommerce/Table'
 import { processRows } from '../functions'
 
 const KeywordsTracked = () => {

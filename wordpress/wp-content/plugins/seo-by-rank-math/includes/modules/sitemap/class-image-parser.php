@@ -149,7 +149,7 @@ class Image_Parser {
 		$images = $this->parse_html_images( $term->description );
 		foreach ( $this->parse_galleries( $term->description ) as $attachment ) {
 			$images[] = [
-				'src'   => $this->get_absolute_url( $this->image_url( $attachment->ID ) ),
+				'src' => $this->get_absolute_url( $this->image_url( $attachment->ID ) ),
 			];
 		}
 
@@ -182,6 +182,7 @@ class Image_Parser {
 		 * @param string $content The raw/unprocessed post content.
 		 */
 		$content = $this->do_filter( 'sitemap/content_before_parse_html_images', $this->post->post_content, $this->post->ID );
+		$content = apply_filters( 'the_content', $content );
 
 		foreach ( $this->parse_html_images( $content ) as $image ) {
 			$this->get_image_item( $image['src'] );

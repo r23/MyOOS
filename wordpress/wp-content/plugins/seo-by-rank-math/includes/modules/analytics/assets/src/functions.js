@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classnames from 'classnames'
-import { get, has, map, isArray, kebabCase, startCase, capitalize } from 'lodash'
+import { get, has, map, isArray, kebabCase, startCase, capitalize, isUndefined } from 'lodash'
 import { Link } from 'react-router-dom'
 import {
 	AreaChart,
@@ -30,6 +30,7 @@ import ActionListing from '@scShared/ActionListing'
 import KeywordButton from '@scShared/KeywordButton'
 import KeywordTitle from '@scShared/KeywordTitle'
 import KeywordDelete from '@scShared/KeywordDelete'
+import IndexingRow from './URLInspection/IndexingRow'
 import { translateText } from './helpers'
 
 /**
@@ -152,14 +153,18 @@ export function processRows( rows, columns, offset = 0, trackedKeywords, graphKe
 				/>
 			} else if ( 'title' === column ) {
 				value = value || rowID
-				display = (
-					<h4>
-						<Link to={ '/single/' + get( row, 'object_id', '' ) }>
-							<span>{ decodeEntities( value ) }</span>
-							<small>{ row.page }</small>
-						</Link>
-					</h4>
-				)
+				if ( ! isUndefined( row.index_verdict ) ) {
+					display = <IndexingRow row={ row } />
+				} else {
+					display = (
+						<h4>
+							<Link to={ '/single/' + get( row, 'object_id', '' ) }>
+								<span>{ decodeEntities( value ) }</span>
+								<small>{ row.page }</small>
+							</Link>
+						</h4>
+					)
+				}
 			} else if ( 'query' === column ) {
 				display = <KeywordTitle query={ value } />
 			} else if ( 'seo_score' === column ) {

@@ -60,6 +60,10 @@ class Elementor {
 			return $value;
 		}
 
+		if ( ! get_option( 'elementor_maintenance_mode_template_id' ) ) {
+			return $value;
+		}
+
 		$exclude_mode = get_option( 'elementor_maintenance_mode_exclude_mode', [] );
 		if ( 'logged_in' === $exclude_mode && is_user_logged_in() ) {
 			return $value;
@@ -129,18 +133,26 @@ class Elementor {
 		wp_enqueue_style( 'site-health' );
 		wp_enqueue_style( 'rank-math-editor', rank_math()->plugin_url() . 'assets/admin/css/elementor.css', [], rank_math()->version );
 		$media_query = '';
+
+		$dark_styles = $this->do_filter(
+			'elementor/dark_styles',
+			[
+				'rank-math-elementor-dark' => rank_math()->plugin_url() . 'assets/admin/css/elementor-dark.css',
+			]
+		);
+
 		if ( 'light' !== $mode ) {
 			$media_query = 'auto' === $mode ? '(prefers-color-scheme: dark)' : 'all';
-			wp_enqueue_style( 'rank-math-elementor-dark', rank_math()->plugin_url() . 'assets/admin/css/elementor-dark.css', [], rank_math()->version, $media_query );
+			foreach ( $dark_styles as $handle => $src ) {
+				wp_enqueue_style( $handle, $src, [], rank_math()->version, $media_query );
+			}
 		}
 
-		Helper::add_json( 'elementorDarkMode', rank_math()->plugin_url() . 'assets/admin/css/elementor-dark.css' );
+		Helper::add_json( 'elementorDarkMode', $dark_styles );
 
 		wp_enqueue_script( 'rank-math-editor', rank_math()->plugin_url() . 'assets/admin/js/elementor.js', $deps, rank_math()->version, true );
 		rank_math()->variables->setup();
 		rank_math()->variables->setup_json();
-
-		$this->content_ai_style( $media_query );
 	}
 
 	/**
@@ -160,20 +172,6 @@ class Elementor {
 		}
 
 		return $content;
-	}
-
-	/**
-	 * Enqueue Content AI style.
-	 *
-	 * @param string $media_query The media for which this stylesheet has been defined.
-	 */
-	private function content_ai_style( $media_query ) {
-		if ( ! Helper::is_module_active( 'content-ai' ) ) {
-			return;
-		}
-
-		wp_enqueue_style( 'rank-math-content-ai-dark', rank_math()->plugin_url() . 'includes/modules/content-ai/assets/css/content-ai-dark.css', [ 'rank-math-elementor-dark' ], rank_math()->version, $media_query );
-		Helper::add_json( 'elementorContentAI', rank_math()->plugin_url() . 'includes/modules/content-ai/assets/css/content-ai-dark.css' );
 	}
 
 	/**

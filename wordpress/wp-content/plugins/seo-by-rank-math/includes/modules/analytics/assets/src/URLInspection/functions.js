@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classnames from 'classnames'
-import { map, forEach, isUndefined, kebabCase, startCase, camelCase, lowerCase, includes, uniqueId } from 'lodash'
+import { map, forEach, isUndefined, kebabCase, startCase, camelCase, lowerCase, includes, uniqueId, unescape } from 'lodash'
 
 /**
  * WordPress dependencies
@@ -48,7 +48,7 @@ addFilter( 'rank_math_table_column_value', 'rank-math', ( data, display, value, 
 			display = (
 				<div className="schema-listing">
 					{ map( JSON.parse( value ), ( schema ) => {
-						const type = schema.richResultType
+						const type = unescape( schema.richResultType )
 						const icon = type.replace( / /g, '' )
 						let schemaClass = 'schema-item'
 						let errorType = __( 'Pass', 'rank-math' )

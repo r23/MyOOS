@@ -3,6 +3,7 @@
  */
 import { map, filter, isUndefined, isEmpty } from 'lodash'
 import { withRouter } from 'react-router-dom'
+import { TableCard } from '@woocommerce/components'
 
 /**
  * WordPress dependencies
@@ -15,7 +16,6 @@ import { withSelect, dispatch } from '@wordpress/data'
 /**
  * Internal dependencies
  */
-import TableCard from '@scShared/woocommerce/Table'
 import { processRows, getPageOffset, filterShownHeaders } from '../functions'
 
 const TABLE_PREF_KEY = 'indexing'

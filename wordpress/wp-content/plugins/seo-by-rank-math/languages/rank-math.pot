@@ -5243,6 +5243,9 @@ msgstr ""
 msgid "Multiple Locations are available in the %s."
 msgstr ""
 
+msgid "Rank Math SEO Redirection Debugger"
+msgstr ""
+
 msgid "Redirection Debugger"
 msgstr ""
 
@@ -5272,6 +5275,9 @@ msgid "Manage All Redirections"
 msgstr ""
 
 msgid "<strong>Note:</strong> This interstitial page is displayed only to administrators. Site visitors are redirected without delay."
+msgstr ""
+
+msgid "Served from cache"
 msgstr ""
 
 msgid "<strong>Edit</strong> redirection details: from/to URLs and the redirection type."

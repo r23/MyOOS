@@ -523,5 +523,23 @@
             width: 100%;
             margin-bottom: 1.5rem;
         }
+
+        .rank-math-child-row {
+            > td {
+                padding: 0;
+
+                table {
+                    width: 100%;
+                }
+            }
+        }
+
+        .woocommerce-ellipsis-menu__content {
+            .woocommerce-ellipsis-menu__item {
+                &:last-child, &:nth-last-child(2) {
+                    pointer-events: none;
+                }
+            }
+        }
     }
 }

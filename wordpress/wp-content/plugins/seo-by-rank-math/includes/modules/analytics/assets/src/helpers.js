@@ -6,7 +6,7 @@ import { has } from 'lodash'
 /**
  * WordPress dependencies
  */
-import { __ } from '@wordpress/i18n'
+import { __, sprintf } from '@wordpress/i18n'
 
 /**
  * Get schema object for builder based on data.
@@ -58,7 +58,32 @@ export function convertValue( value ) {
 	return value
 }
 
+export function noDataMessage( title, text = '' ) {
+	text = text ? text : sprintf(
+		/* translators: general settings */
+		__(
+			'No data to display. Check back later or try to update data manually from %s',
+			'rank-math'
+		),
+		'<a href="' + rankMath.adminurl + '?page=rank-math-options-general#setting-panel-analytics"><strong>' + __( "Rank Math > General Settings > Analytics > Click 'Update data manually' button.", 'rank-math' ) + '</strong></a>',
+	)
+	return (
+		<div id="rank-math-pro-cta" className="rank-math-analytics-notice">
+			<div className="rank-math-cta-table">
+				<div className="rank-math-cta-header">
+					<h2>{ title }</h2>
+				</div>
+				<div className="rank-math-cta-body"
+					dangerouslySetInnerHTML={ {
+						__html: text,
+					} }
+				/>
+			</div>
+		</div>
+	)
+}
+
 window.rankMath = window.rankMath || {}
 window.rankMath.analyticsHelpers = window.rankMath.analyticsHelpers || {}
 
-window.rankMath.analyticsHelpers = { translateText, convertValue }
+window.rankMath.analyticsHelpers = { translateText, convertValue, noDataMessage }

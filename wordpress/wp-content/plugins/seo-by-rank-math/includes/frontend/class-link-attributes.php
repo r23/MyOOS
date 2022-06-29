@@ -207,14 +207,15 @@ class Link_Attributes {
 		$include_domains = $this->get_nofollow_domains( 'include' );
 		$exclude_domains = $this->get_nofollow_domains( 'exclude' );
 		$parent_domain   = Url::get_domain( $url );
+		$parent_domain   = preg_replace( '/^www\./', '', $parent_domain );
 
 		// Check if domain is in list.
 		if ( ! empty( $include_domains ) ) {
-			return Str::contains( $parent_domain, $include_domains );
+			return in_array( $parent_domain, $include_domains, true );
 		}
 
-		// Check if domains is NOT in list.
-		if ( ! empty( $exclude_domains ) && Str::contains( $parent_domain, $exclude_domains ) ) {
+		// Check if domain is NOT in list.
+		if ( ! empty( $exclude_domains ) && in_array( $parent_domain, $exclude_domains, true ) ) {
 			return false;
 		}
 
@@ -238,7 +239,15 @@ class Link_Attributes {
 		$domains = Helper::get_settings( "general.{$setting}" );
 		$domains = Str::to_arr_no_empty( $domains );
 
-		$rank_math_nofollow_domains[ $type ] = empty( $domains ) ? false : join( ';', $domains );
+		// Strip off www. prefixes.
+		$domains = array_map(
+			function( $domain ) {
+				return preg_replace( '/^www\./', '', $domain );
+			},
+			$domains
+		);
+
+		$rank_math_nofollow_domains[ $type ] = $domains;
 
 		return $rank_math_nofollow_domains[ $type ];
 	}

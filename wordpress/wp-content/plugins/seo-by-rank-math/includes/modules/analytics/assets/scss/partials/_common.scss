@@ -73,6 +73,17 @@ html {
                 background: transparent;
             }
         }
+
+        .#{$namespace}-analytics-notice {
+            .#{$namespace}-cta-body {
+                justify-content: flex-start !important;
+
+                a {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                }
+            }
+        }
     }
 
     &-analyzer-header {

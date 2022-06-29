@@ -14,6 +14,7 @@ import {
 	Tooltip,
 	Label,
 } from 'recharts'
+import { List } from '@woocommerce/components'
 
 /**
  * WordPress dependencies
@@ -27,7 +28,6 @@ import { Button } from '@wordpress/components'
  * Internal dependencies
  */
 import { isPro } from '../functions'
-import List from '@scShared/woocommerce/List'
 
 const renderActiveShape = ( props ) => {
 	const {
