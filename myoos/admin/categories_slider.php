@@ -113,8 +113,6 @@ if (!empty($action)) {
                 //oos_remove_scene_image($slider_preview_image);
             }
 
-
-
             if (isset($_FILES['slider_image'])) {
                 if ($_FILES["slider_image"]["error"] == UPLOAD_ERR_OK) {
                     $filename = oos_db_prepare_input($_FILES['slider_image']['name']);
@@ -273,16 +271,30 @@ if (($action == 'new') || ($action == 'edit')) {
     <div class="card card-default">
         <div class="card-header"><?php echo HEADING_TITLE; ?></div>
             <div class="card-body">
+	
+<?php
 
-                <form name="new_feature" <?php echo 'action="' . oos_href_link_admin($aContents['categories_slider'], oos_get_all_get_params(array('action', 'info', 'sID')) . 'action=' . $form_action) . '"'; ?> method="post">
-    <?php
+	echo oos_draw_form('fileupload', 'new_slider', $aContents['categories_slider'], (isset($_GET['sID']) ? 'info=' . $sID : '') . '&action=' . $form_action, 'post', true, 'enctype="multipart/form-data"');
+
+    $sFormid = md5(uniqid(rand(), true));
+    $_SESSION['formid'] = $sFormid;
+    echo oos_draw_hidden_field('formid', $sFormid);
+    echo oos_hide_session_id();
+	
     if ($form_action == 'update') {
         echo oos_draw_hidden_field('slider_id', intval($sID));
+/*
     } elseif (isset($_GET['pID'])) {
         echo oos_draw_hidden_field('products_id', $sInfo->products_id);
-    } ?>
+*/
 
-    <?php
+		if (!empty($sInfo->products_id)) {
+			echo oos_draw_hidden_field('products_id', $sInfo->products_id);
+		} 
+    } elseif (isset($_GET['pID'])) {
+        echo oos_draw_hidden_field('products_id', $sInfo->products_id);
+	}
+
     if (!empty($sInfo->products_name)) {
         echo '<br><a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $sInfo->products_id) . '" target="_blank" rel="noopener">' . product_info_image($sInfo->products_image, $sInfo->products_name) . '</a><br>';
     } else {
