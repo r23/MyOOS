@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-06-15 11:31:24+0000\n"
+"PO-Revision-Date: 2022-06-29 15:27:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,25 +11,33 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
 
-#: includes/admin/class-admin-helper.php:450
+#: includes/modules/redirections/views/debugging.php:57
+msgid "Served from cache"
+msgstr "Aus dem Cache bedient"
+
+#: includes/modules/redirections/views/debugging.php:17
+msgid "Rank Math SEO Redirection Debugger"
+msgstr "Ranking Math SEO Umleitungs Fehlersuchprogramm"
+
+#: includes/admin/class-admin-helper.php:455
 msgid "WordPress General Settings"
 msgstr "WordPress Allgemeine Einstellungen"
 
-#: includes/admin/class-admin-helper.php:449
+#: includes/admin/class-admin-helper.php:454
 msgid "Site Address (URL)"
 msgstr "Website (URL)"
 
 #. Translators: 1 is "WordPress Address (URL)", 2 is "Site Address (URL)", 3 is
 #. a link to the General Settings, with "WordPress General Settings" as anchor
 #. text.
-#: includes/admin/class-admin-helper.php:448
+#: includes/admin/class-admin-helper.php:453
 msgid "WordPress Address (URL)"
 msgstr "WordPress-Adresse (URL)"
 
 #. Translators: 1 is "WordPress Address (URL)", 2 is "Site Address (URL)", 3 is
 #. a link to the General Settings, with "WordPress General Settings" as anchor
 #. text.
-#: includes/admin/class-admin-helper.php:447
+#: includes/admin/class-admin-helper.php:452
 msgid "Rank Math cannot be connected because your site URL doesn't appear to be a valid URL. If the domain name contains special characters, please make sure to use the encoded version in the %1$s &amp; %2$s fields on the %3$s page."
 msgstr "Rank Math kann nicht verbunden werden, da deine Website-URL keine gültige URL zu sein scheint. Wenn der Domainname Sonderzeichen enthält, stelle bitte sicher, dass du die codierte Version in den Feldern %1$s &amp; %2$s auf der %3$s Seite verwendest."
 
@@ -48,11 +56,11 @@ msgstr "Wähle die zu importierenden Daten aus."
 msgid "Are you sure you want to import data from %s?"
 msgstr "Möchtest du wirklich Daten aus %s importieren?"
 
-#: includes/admin/class-admin-helper.php:165
+#: includes/admin/class-admin-helper.php:170
 msgid "Click here to reconnect."
 msgstr "Klicke hier, um die Verbindung wiederherzustellen."
 
-#: includes/admin/class-admin-helper.php:165
+#: includes/admin/class-admin-helper.php:170
 msgid "Your site URL has changed since you connected to Rank Math."
 msgstr "Die URL deiner Website hat sich geändert, seit du sie mit Rank Math verbunden hast."
 
@@ -610,7 +618,7 @@ msgstr "Inhalts-KI ist für diesen Beitragstyp nicht aktiviert."
 msgid "Sorry, only authenticated users can research the keyword."
 msgstr "Leider können nur authentifizierte Benutzer das Schlüsselwort recherchieren."
 
-#: includes/modules/content-ai/class-content-ai.php:112
+#: includes/modules/content-ai/class-content-ai.php:125
 msgid "Rank Math Content AI"
 msgstr "Rang Math Inhalts-KI"
 
@@ -623,12 +631,12 @@ msgid "You cant access this page."
 msgstr "Du kannst diese Seite nicht aufrufen."
 
 #: includes/module/class-manager.php:177
-#: includes/modules/content-ai/class-content-ai.php:90
+#: includes/modules/content-ai/class-content-ai.php:103
 msgid "Get sophisticated AI suggestions for related Keywords, Questions & Links to include in the SEO meta & Content Area. Supports 80+ Countries."
 msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselwörter, Fragen und Links, die du in den SEO-Meta- und Inhaltsbereich aufnehmen können. Unterstützt 80+ Länder."
 
 #: includes/module/class-manager.php:176
-#: includes/modules/content-ai/class-content-ai.php:89
+#: includes/modules/content-ai/class-content-ai.php:102
 #: includes/modules/role-manager/class-capability-manager.php:70
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 #: includes/modules/content-ai/assets/src/ContentAI.js:107
@@ -1567,14 +1575,15 @@ msgid "Top 3 Positions"
 msgstr "Top-3-Positionen"
 
 #: includes/admin/metabox/class-screen.php:171
+#: includes/modules/analytics/assets/js/admin-bar.js:1
 #: includes/modules/analytics/assets/js/stats.js:1
 #: includes/modules/analytics/assets/src/Analytics/PostsTable.js:183
-#: includes/modules/analytics/assets/src/Dashboard/ManualKeywordTracking.js:99
+#: includes/modules/analytics/assets/src/Dashboard/ManualKeywordTracking.js:103
 #: includes/modules/analytics/assets/src/Dashboard/TopPosts.js:24
 #: includes/modules/analytics/assets/src/Keywords/KeywordsTracked.js:225
 #: includes/modules/analytics/assets/src/Keywords/TopKeywords.js:19
 #: includes/modules/analytics/assets/src/Single/Single.js:44
-#: includes/modules/analytics/assets/src/URLInspection/IndexingDataToggle.js:27
+#: includes/modules/analytics/assets/src/URLInspection/IndexingDataToggle.js:30
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Editor/code-validation/CodeValidation.js:72
@@ -1595,7 +1604,7 @@ msgstr "Dies ist die Anzahl der Seiten, die Besucher von Google aufgerufen haben
 #: includes/opengraph/class-slack.php:358
 #: includes/modules/analytics/assets/js/stats.js:1
 #: includes/modules/analytics/assets/src/Analytics/PostsTable.js:28
-#: includes/modules/analytics/assets/src/Performance/PostsTable.js:74
+#: includes/modules/analytics/assets/src/Performance/PostsTable.js:81
 #: includes/modules/analytics/assets/src/URLInspection/IndexingTable.js:93
 msgid "Posts"
 msgstr "Beiträge"
@@ -2216,15 +2225,15 @@ msgstr "Firmenname in Local-SEO-Einstellungen hinzugefügt."
 msgid "Organization Logo added in Local SEO Settings."
 msgstr "Firmenlogo in Local-SEO-Einstellungen hinzugefügt."
 
-#: includes/replace-variables/class-post-variables.php:113
+#: includes/replace-variables/class-post-variables.php:116
 msgid "Current Post Thumbnail"
 msgstr "Aktuelles Beitragsvorschaubild"
 
-#: includes/replace-variables/class-post-variables.php:102
+#: includes/replace-variables/class-post-variables.php:105
 msgid "URL of the current post/page"
 msgstr "URL des aktuellen Beitrags/der aktuellen Seite"
 
-#: includes/replace-variables/class-post-variables.php:101
+#: includes/replace-variables/class-post-variables.php:104
 msgid "Post URL"
 msgstr "Beitrags-URL"
 
@@ -2249,7 +2258,7 @@ msgstr "Du verwendest die mindestens empfohlene WordPress-Version."
 msgid "Organization Name"
 msgstr "Name des Unternehmens"
 
-#: includes/replace-variables/class-post-variables.php:112
+#: includes/replace-variables/class-post-variables.php:115
 msgid "Post Thumbnail"
 msgstr "Beitrags-Vorschaubild"
 
@@ -2784,7 +2793,7 @@ msgstr "Blöcke importieren"
 msgid "Import and convert all compatible blocks in post contents."
 msgstr "Importiere und konvertiere alle kompatiblen Blöcke in Beitragsinhalten."
 
-#: includes/admin/importers/class-yoast.php:1193
+#: includes/admin/importers/class-yoast.php:1192
 msgid "No post found."
 msgstr "Es wurden keine Beiträge gefunden."
 
@@ -3017,7 +3026,7 @@ msgstr "Diese Registerkarte enthält SEO-Optionen für BuddyPress-Gruppenseiten.
 msgid "No meta rows found to update."
 msgstr "Es wurden keine Meta-Zeilen zur Aktualisierung gefunden."
 
-#: includes/replace-variables/class-post-variables.php:90
+#: includes/replace-variables/class-post-variables.php:92
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 #: includes/modules/content-ai/assets/src/components/keywords.js:86
 msgid "SEO Description"
@@ -3027,11 +3036,11 @@ msgstr "SEO-Beschreibung"
 msgid "Review (Unsupported)"
 msgstr "Rezension (Nicht unterstützt)"
 
-#: includes/replace-variables/class-post-variables.php:80
+#: includes/replace-variables/class-post-variables.php:81
 msgid "Custom or Generated SEO Title of the current post/page"
 msgstr "Benutzerdefinierter oder generierter SEO-Titel des aktuellen Beitrags/der aktuellen Seite"
 
-#: includes/replace-variables/class-post-variables.php:91
+#: includes/replace-variables/class-post-variables.php:93
 msgid "Custom or Generated SEO Description of the current post/page"
 msgstr "Benutzerdefinierte oder generierte SEO Beschreibung des aktuellen Beitrags/der aktuellen Seite"
 
@@ -3168,7 +3177,7 @@ msgstr "Die $%1$s wird für die Variable %2$s benötigt."
 msgid "The $id variable is required."
 msgstr "Die Variable $id ist erforderlich."
 
-#: includes/replace-variables/class-post-variables.php:71
+#: includes/replace-variables/class-post-variables.php:72
 msgid "Post Excerpt Only"
 msgstr "Nur Beitrag Auszug"
 
@@ -3720,7 +3729,7 @@ msgstr "<a href=\"%s\">&#8592; Sitemap Index</a>"
 msgid "Learn more about <a href=\"%s\" target=\"_blank\">XML Sitemaps</a>."
 msgstr "Mehr über <a href=\"%s\" target=\"_blank\">XML Sitemaps</a> erfahren."
 
-#: includes/modules/redirections/views/debugging.php:97
+#: includes/modules/redirections/views/debugging.php:47
 msgid "or"
 msgstr "oder"
 
@@ -4549,10 +4558,7 @@ msgid "Links"
 msgstr "Links"
 
 #. translators: %1$d: current page number, %2$d: max pages.
-#. translators: current page and page count
 #: includes/replace-variables/class-advanced-variables.php:209
-#: includes/modules/analytics/assets/js/stats.js:1
-#: includes/modules/analytics/assets/src/shared/woocommerce/table/pagination.js:116
 msgid "Page %1$d of %2$d"
 msgstr "Seite %1$d von %2$d"
 
@@ -5868,15 +5874,15 @@ msgstr "<strong>Löschen</strong> entfernt die Umleitung dauerhaft."
 msgid "<strong>Edit</strong> redirection details: from/to URLs and the redirection type."
 msgstr "<strong>Bearbeiten</strong> Weiterleitungsdetails: Von/Zu URLs und Umleitungsgstyp."
 
-#: includes/modules/redirections/views/debugging.php:103
+#: includes/modules/redirections/views/debugging.php:53
 msgid "<strong>Note:</strong> This interstitial page is displayed only to administrators. Site visitors are redirected without delay."
 msgstr "<strong>Hinweis</strong> Diese Zwischen-Seite wird nur Administratoren angezeigt. Besucher der Website werden unverzüglich umgeleitet."
 
-#: includes/modules/redirections/views/debugging.php:99
+#: includes/modules/redirections/views/debugging.php:49
 msgid "Manage All Redirections"
 msgstr "Alle Umleitungen verwalten"
 
-#: includes/modules/redirections/views/debugging.php:96
+#: includes/modules/redirections/views/debugging.php:46
 msgid "Manage This Redirection"
 msgstr "Diese Umleitung verwalten"
 
@@ -5937,7 +5943,7 @@ msgstr "Übersichtskarte"
 msgid "Summary Card with Large Image"
 msgstr "Übersichtskarte mit großem Bild"
 
-#: includes/admin/class-admin-helper.php:344
+#: includes/admin/class-admin-helper.php:349
 msgid "Share"
 msgstr "Teilen"
 
@@ -6053,7 +6059,7 @@ msgstr "Wert des benutzerdefinierten Feldes"
 msgid "Custom field value."
 msgstr "Wert des benutzerdefinierten Feldes."
 
-#: includes/replace-variables/class-post-variables.php:154
+#: includes/replace-variables/class-post-variables.php:158
 msgid "Date Published (advanced)"
 msgstr "Veröffentlichungsdatum (erweitert)"
 
@@ -6065,16 +6071,16 @@ msgstr "Benutzerdefiniertes Feld (erweitert)"
 msgid "Products"
 msgstr "Produkte"
 
-#: includes/modules/redirections/views/debugging.php:90
+#: includes/modules/redirections/views/debugging.php:40
 msgid "Continue redirecting"
 msgstr "Weiter umleiten"
 
-#: includes/modules/redirections/views/debugging.php:87
+#: includes/modules/redirections/views/debugging.php:37
 msgid "Stop Redirection"
 msgstr "Umleitung stoppen"
 
 #. translators: countdown seconds
-#: includes/modules/redirections/views/debugging.php:86
+#: includes/modules/redirections/views/debugging.php:36
 msgid "Redirecting in %s seconds..."
 msgstr "Umleitung in %s Sekunden..."
 
@@ -6263,7 +6269,7 @@ msgstr "Verfügbare Aktionen"
 msgid "Screen Content"
 msgstr "Bildschirminhalt"
 
-#: includes/admin/class-admin-helper.php:341
+#: includes/admin/class-admin-helper.php:346
 msgid "Tweet"
 msgstr "Tweet"
 
@@ -6275,7 +6281,7 @@ msgstr "404 Monitorprotokoll"
 msgid "Titles & Meta Settings"
 msgstr "Titel & Meta Einstellungen"
 
-#: includes/admin/class-admin-helper.php:334
+#: includes/admin/class-admin-helper.php:339
 msgid "SEO by Rank Math"
 msgstr "SEO von Rank Math"
 
@@ -6348,11 +6354,11 @@ msgstr "Globale Meta"
 msgid "Current Time (advanced)"
 msgstr "Aktuelle Zeit (erweitert)"
 
-#: includes/replace-variables/class-post-variables.php:166
+#: includes/replace-variables/class-post-variables.php:170
 msgid "Modified date with custom formatting pattern."
 msgstr "Geändertes Datum mit benutzerdefiniertem Formatierungsmuster."
 
-#: includes/replace-variables/class-post-variables.php:165
+#: includes/replace-variables/class-post-variables.php:169
 msgid "Date Modified (advanced)"
 msgstr "Änderungsdatum (erweitert)"
 
@@ -6404,24 +6410,24 @@ msgstr "Beispiel Begriffsbeschreibung"
 msgid "Current term description"
 msgstr "Beschreibung des benutzerdefinierten Begriffs"
 
-#: includes/replace-variables/class-post-variables.php:197
-#: includes/replace-variables/class-post-variables.php:208
+#: includes/replace-variables/class-post-variables.php:201
+#: includes/replace-variables/class-post-variables.php:212
 msgid "Example Category 1, Example Category 2"
 msgstr "Beispiel Kategorie 1, Beispiel Kategorie 2"
 
-#: includes/replace-variables/class-post-variables.php:194
+#: includes/replace-variables/class-post-variables.php:198
 msgid "Post Categories"
 msgstr "Beitragskategorien"
 
-#: includes/replace-variables/class-post-variables.php:186
+#: includes/replace-variables/class-post-variables.php:190
 msgid "Example Category"
 msgstr "Beispielkategorie"
 
-#: includes/replace-variables/class-post-variables.php:183
+#: includes/replace-variables/class-post-variables.php:187
 msgid "Post Category"
 msgstr "Beitragskategorie"
 
-#: includes/replace-variables/class-post-variables.php:237
+#: includes/replace-variables/class-post-variables.php:242
 msgid "Example Tag 1, Example Tag 2"
 msgstr "Beispiel Tag 1, Beispiel Tag 2"
 
@@ -6439,11 +6445,11 @@ msgstr "Seitentitel"
 msgid "Separator Character"
 msgstr "Trennzeichen"
 
-#: includes/replace-variables/class-post-variables.php:47
+#: includes/replace-variables/class-post-variables.php:48
 msgid "Title of the parent page of the current post/page"
 msgstr "Titel der übergeordneten Seite des aktuellen Beitrags/Seite"
 
-#: includes/replace-variables/class-post-variables.php:46
+#: includes/replace-variables/class-post-variables.php:47
 msgid "Post Title of parent page"
 msgstr "Beitragstitel der übergeordneten Seite"
 
@@ -6605,15 +6611,15 @@ msgstr "Softwareanwendungen"
 msgid "Prevents a snippet from being shown in the search results"
 msgstr "Verhindert, dass ein Snippet in den Suchergebnissen angezeigt wird"
 
-#: includes/replace-variables/class-post-variables.php:245
+#: includes/replace-variables/class-post-variables.php:251
 msgid "Tags (advanced)"
 msgstr "Tags (erweitert)"
 
-#: includes/replace-variables/class-post-variables.php:206
+#: includes/replace-variables/class-post-variables.php:210
 msgid "Output list of categories associated to the current post, with customization options."
 msgstr "Ausgabeliste der Kategorien, die dem aktuellen Beitrag zugeordnet sind, mit Anpassungsoptionen."
 
-#: includes/replace-variables/class-post-variables.php:205
+#: includes/replace-variables/class-post-variables.php:209
 msgid "Categories (advanced)"
 msgstr "Kategorien (erweitert)"
 
@@ -6658,19 +6664,19 @@ msgstr "Zeigt den Benutzernamen des Autors des aktuellen Beitrags, der Seite ode
 msgid "Post Author"
 msgstr "Beitragsautor"
 
-#: includes/replace-variables/class-post-variables.php:195
+#: includes/replace-variables/class-post-variables.php:199
 msgid "Comma-separated list of categories associated to the current post"
 msgstr "Kommagetrennte Liste der Kategorien, die dem aktuellen Beitrag zugeordnet sind"
 
-#: includes/replace-variables/class-post-variables.php:184
+#: includes/replace-variables/class-post-variables.php:188
 msgid "First category (alphabetically) associated to the current post <strong>OR</strong> current category on category archives"
 msgstr "Erste Kategorie (alphabetisch), die dem aktuellen Beitrag zugeordnet ist <strong>ODER</strong>aktuelle Kategorie in Kategoriearchiven"
 
-#: includes/replace-variables/class-post-variables.php:235
+#: includes/replace-variables/class-post-variables.php:240
 msgid "Comma-separated list of tags associated to the current post"
 msgstr "Kommagetrennte Liste der Tags, die dem aktuellen Beitrag zugeordnet sind"
 
-#: includes/replace-variables/class-post-variables.php:234
+#: includes/replace-variables/class-post-variables.php:239
 msgid "Post Tags"
 msgstr "Beitragstags"
 
@@ -6749,24 +6755,24 @@ msgstr "Titel &amp; Meta"
 msgid "SEO Titles &amp; Meta"
 msgstr "SEO Titel &amp; Meta"
 
-#: includes/replace-variables/class-post-variables.php:223
+#: includes/replace-variables/class-post-variables.php:227
 msgid "Post Tag"
 msgstr "Beitrags-Tag"
 
-#: includes/replace-variables/class-post-variables.php:144
+#: includes/replace-variables/class-post-variables.php:148
 msgid "Last modification date of the current post/page"
 msgstr "Letztes Änderungsdatum des aktuellen Beitrags/Seite"
 
-#: includes/replace-variables/class-post-variables.php:143
+#: includes/replace-variables/class-post-variables.php:147
 msgid "Date Modified"
 msgstr "Änderungsdatum"
 
-#: includes/replace-variables/class-post-variables.php:133
+#: includes/replace-variables/class-post-variables.php:137
 msgid "Publication date of the current post/page <strong>OR</strong> specified date on date archives"
 msgstr "Veröffentlichungsdatum des aktuellen Beitrags/der aktuellen Seite <strong>ODER</strong> angegebenes Datum im Datumsarchiv"
 
 #: includes/modules/schema/shortcode/book.php:40
-#: includes/replace-variables/class-post-variables.php:132
+#: includes/replace-variables/class-post-variables.php:136
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:373
@@ -6786,20 +6792,20 @@ msgid "Top Admin Bar"
 msgstr "Obere Admin-Leiste"
 
 #. translators: sitename
-#: includes/admin/class-admin-helper.php:320
+#: includes/admin/class-admin-helper.php:325
 msgid "I just installed Rank Math SEO WordPress Plugin. It looks promising!"
 msgstr "Ich habe gerade das Rank Math SEO WordPress Plugin installiert. Es sieht vielversprechend aus!"
 
 #. translators: sitename
-#: includes/admin/class-admin-helper.php:318
+#: includes/admin/class-admin-helper.php:323
 msgid "I just installed @RankMathSEO #WordPress Plugin. It looks great! %s"
 msgstr "Ich habe gerade @RankMathSEO #WordPress Plugin installiert. Es sieht Klasse aus! %s"
 
-#: includes/replace-variables/class-post-variables.php:248
+#: includes/replace-variables/class-post-variables.php:254
 msgid "Example Tag 1 | Example Tag 2"
 msgstr "Beispiel Tag 1 | Beispiel Tag 2"
 
-#: includes/replace-variables/class-post-variables.php:246
+#: includes/replace-variables/class-post-variables.php:252
 msgid "Output list of tags associated to the current post, with customization options."
 msgstr "Ausgabe einer Liste von Tags, die dem aktuellen Beitrag zugeordnet sind, mit Anpassungsoptionen."
 
@@ -6823,24 +6829,24 @@ msgstr "Aktuelle Seitenzahl"
 msgid "Page number with context (i.e. page 2 of 4). Only displayed on page 2 and above."
 msgstr "Seitennummer mit Kontext (z.B. Seite 2 von 4). Wird nur auf Seite 2 und höher angezeigt."
 
-#: includes/replace-variables/class-post-variables.php:226
+#: includes/replace-variables/class-post-variables.php:230
 msgid "Example Tag"
 msgstr "Beispiel-Tag"
 
-#: includes/replace-variables/class-post-variables.php:224
+#: includes/replace-variables/class-post-variables.php:228
 msgid "First tag (alphabetically) associated to the current post <strong>OR</strong> current tag on tag archives"
 msgstr "Erster Tag (alphabetisch), das dem aktuellen Beitrag <strong>ODER</strong> des aktuellen Tags in Tag-Archiven zugeordnet ist"
 
-#: includes/replace-variables/class-post-variables.php:69
+#: includes/replace-variables/class-post-variables.php:70
 msgid "Excerpt of the current post (without auto-generation)"
 msgstr "Auszug aus dem aktuellen Beitrag (ohne automatische Generierung)"
 
-#: includes/replace-variables/class-post-variables.php:58
+#: includes/replace-variables/class-post-variables.php:59
 msgid "Excerpt of the current post (or auto-generated if it does not exist)"
 msgstr "Auszug aus dem aktuellen Beitrag (oder automatisch generiert, wenn er nicht existiert)"
 
-#: includes/replace-variables/class-post-variables.php:57
-#: includes/replace-variables/class-post-variables.php:68
+#: includes/replace-variables/class-post-variables.php:58
+#: includes/replace-variables/class-post-variables.php:69
 msgid "Post Excerpt"
 msgstr "Auszug aus dem Beitrag"
 
@@ -6904,7 +6910,7 @@ msgstr "Erweiterte Optionen einrichten"
 msgid "Proceed to Help Page"
 msgstr "Weiter zur Hilfe-Seite"
 
-#: includes/modules/redirections/views/debugging.php:75
+#: includes/modules/redirections/views/debugging.php:25
 msgid "Redirection Debugger"
 msgstr "Umleitungs-Fehlersuche"
 
@@ -7712,11 +7718,11 @@ msgstr "Benutzerdefinierte URL "
 msgid "Debug Redirections"
 msgstr "Debug-Umleitungen"
 
-#: includes/modules/redirections/views/debugging.php:78
+#: includes/modules/redirections/views/debugging.php:28
 msgid " To "
 msgstr " An "
 
-#: includes/modules/redirections/views/debugging.php:77
+#: includes/modules/redirections/views/debugging.php:27
 msgid "Redirecting from "
 msgstr "Umleitung von "
 
@@ -7849,7 +7855,7 @@ msgstr "Fehlerhafte Anfrage. Bitte überprüfe den Code."
 msgid "Control which user has access to which options of Rank Math. %s"
 msgstr "Steuere, welcher Benutzer Zugriff auf welche Optionen von Rank Math hat. %s"
 
-#: includes/replace-variables/class-post-variables.php:155
+#: includes/replace-variables/class-post-variables.php:159
 msgid "Publish date with custom formatting pattern."
 msgstr "Veröffentliche das Datum mit einem benutzerdefinierten Formatierungsmuster."
 
@@ -8021,8 +8027,8 @@ msgstr "Schlüsselwörter insgesamt"
 #: includes/modules/analytics/assets/src/App.js:86
 #: includes/modules/analytics/assets/src/App.js:88
 #: includes/modules/analytics/assets/src/Keywords/Keywords.js:38
-#: includes/modules/analytics/assets/src/Keywords/KeywordsTable.js:43
-#: includes/modules/analytics/assets/src/Keywords/KeywordsTable.js:72
+#: includes/modules/analytics/assets/src/Keywords/KeywordsTable.js:47
+#: includes/modules/analytics/assets/src/Keywords/KeywordsTable.js:76
 #: includes/modules/analytics/assets/src/Keywords/KeywordsTracked.js:29
 #: includes/modules/analytics/assets/src/Performance/Graph.js:60
 #: includes/modules/content-ai/assets/js/content-ai.js:1
@@ -8250,7 +8256,7 @@ msgstr "Allgemeine Einstellungen"
 #: includes/admin/class-post-columns.php:170 assets/admin/js/rank-math-app.js:1
 #: includes/modules/analytics/assets/js/stats.js:1
 #: includes/modules/analytics/assets/src/Analytics/PostsTable.js:146
-#: includes/modules/analytics/assets/src/Performance/PostsTable.js:44
+#: includes/modules/analytics/assets/src/Performance/PostsTable.js:51
 #: includes/modules/analytics/assets/src/URLInspection/IndexingTable.js:45
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
@@ -8660,7 +8666,7 @@ msgid "Add <code>rel=\"nofollow\"</code>"
 msgstr "Füge <code>rel=\"nofollow\"</code> hinzu"
 
 #: includes/admin/class-post-columns.php:142
-#: includes/replace-variables/class-post-variables.php:79
+#: includes/replace-variables/class-post-variables.php:80
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 #: includes/modules/content-ai/assets/src/components/keywords.js:82
 msgid "SEO Title"
