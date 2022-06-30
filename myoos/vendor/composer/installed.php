@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '6cbe357bfb6a73b514747375ff51902630515fb0',
+        'reference' => '7ce02c9b6b979389339ff4414208359a170f5921',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -187,16 +187,16 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '6cbe357bfb6a73b514747375ff51902630515fb0',
+            'reference' => '7ce02c9b6b979389339ff4414208359a170f5921',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
-            'pretty_version' => '2.59.0',
-            'version' => '2.59.0.0',
+            'pretty_version' => '2.59.1',
+            'version' => '2.59.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nesbot/carbon',
             'aliases' => array(),
-            'reference' => '9cea2f72585a46d0651ee6d4c8c8f752e78c16c6',
+            'reference' => 'a9000603ea337c8df16cc41f8b6be95a65f4d0f5',
             'dev_requirement' => false,
         ),
         'ocramius/proxy-manager' => array(
@@ -438,7 +438,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '82cfc4675f037cf8145d640a3f6da62dca474eb1',
+            'reference' => '7a8c86df136ffe6bd7bc4655d15629a87e5bd022',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
