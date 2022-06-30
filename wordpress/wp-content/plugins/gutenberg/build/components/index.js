@@ -39863,8 +39863,10 @@ function getAutoCompleterUI(autocompleter) {
       value
     });
     (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
-      onChangeOptions(items);
-    }, [onChangeOptions, items]);
+      onChangeOptions(items); // Temporarily disabling exhaustive-deps to avoid introducing unexpected side effecst.
+      // See https://github.com/WordPress/gutenberg/pull/41820
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [items]);
 
     if (!items.length > 0) {
       return null;
@@ -40218,8 +40220,10 @@ function useAutocomplete(_ref) {
     const query = match && match[1];
     setAutocompleter(completer);
     setAutocompleterUI(() => completer !== autocompleter ? getAutoCompleterUI(completer) : AutocompleterUI);
-    setFilterValue(query);
-  }, [textContent, AutocompleterUI, autocompleter, completers, record, filteredOptions.length]);
+    setFilterValue(query); // Temporarily disabling exhaustive-deps to avoid introducing unexpected side effecst.
+    // See https://github.com/WordPress/gutenberg/pull/41820
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [textContent]);
   const {
     key: selectedKey = ''
   } = filteredOptions[selectedIndex] || {};
