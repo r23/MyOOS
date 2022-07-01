@@ -4,7 +4,7 @@
 			<div class="mx-auto bg-light my-sm-4" style="max-width: 37rem;">
 				<div class="owl-carousel trigger-carousel" data-owl-carousel="{ &quot;nav&quot;: true, &quot;dots&quot;: false, &quot;loop&quot;: true, &quot;autoHeight&quot;: true }" data-target-carousel="#target-carousel">
 				{foreach item=tab from=$slider}
-					<div class="py-5 px-3 px-sm-5"><img class="d-block mb-2" src="images/slider/slide-logo01.png" width="180" alt="logo">
+					<div class="py-5 px-3 px-sm-5">
 						<h2 class="mb-1">{$tab.products_name|truncate:18:"":true|close_tags}</h2>
 						
 					{if $myUser.show_price eq 1 }
@@ -43,7 +43,7 @@
 		<div class="col-md-6">
 			<div class="owl-carousel" id="target-carousel" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: false, &quot;loop&quot;: true, &quot;mouseDrag&quot;: false, &quot;touchDrag&quot;: false, &quot;pullDrag&quot;: false, &quot;animateOut&quot;: &quot;fadeOut&quot; }">
 			{foreach item=tab from=$slider}
-				<img class="ml-auto mr-0" src="images/slider/slide01.jpg" alt="{$tab.products_name}">
+				<img class="ml-auto mr-0" src="images/slider/{$tab.slider_image}" alt="{$tab.products_name}">
 			{/foreach}
 			</div>
 		</div>

@@ -26,20 +26,20 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 $productstable = $oostable['products'];
 $products_descriptiontable = $oostable['products_description'];
 $slidertable = $oostable['categories_slider'];
-$sql = "SELECT p.products_id, p.products_image, p.products_price, p.products_price_list, p.products_tax_class_id,
+$sql = "SELECT p.products_id, s.slider_image, p.products_price, p.products_price_list, p.products_tax_class_id,
                  p.products_units_id, p.products_base_price, p.products_base_unit, 
 				 p.products_quantity_order_min, p.products_quantity_order_max,
 				 p.products_product_quantity, pd.products_name,
                  pd.products_short_description
           FROM $productstable p,
                $products_descriptiontable pd,
-               $slidertable f
+               $slidertable s
           WHERE p.products_setting = '2' 
-            AND f.products_id = p.products_id
+            AND s.products_id = p.products_id
             AND p.products_id = pd.products_id
             AND pd.products_languages_id = '" . intval($nLanguageID) . "'
-            AND f.status = '1'
-          ORDER BY f.slider_date_added DESC";
+            AND s.status = '1'
+          ORDER BY s.slider_date_added DESC";
 $slider_result = $dbconn->Execute($sql);
 
 if ($slider_result->RecordCount() >= 1) {
@@ -86,7 +86,7 @@ if ($slider_result->RecordCount() >= 1) {
         $aCategoryPath = oos_get_category_path($slider['products_id']);
 
         $aSlider[] = array('products_id' => $slider['products_id'],
-                            'products_image' => $slider['products_image'],
+                            'slider_image' => $slider['slider_image'],
                             'products_name' => $slider['products_name'],
                             'products_short_description' => $slider['products_short_description'],
                             'products_path' => $aCategoryPath['path'],
