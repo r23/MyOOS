@@ -110,7 +110,7 @@ if (!empty($action)) {
                 );
 
                 // todo remove file
-                //oos_remove_scene_image($slider_preview_image);
+                //oos_remove_slider_image($slider_preview_image);
             }
 
             if (isset($_FILES['slider_image'])) {
@@ -227,15 +227,15 @@ if (($action == 'new') || ($action == 'edit')) {
         $slidertable = $oostable['categories_slider'];
         $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
-        $query = "SELECT p.products_id, p.products_image, pd.products_name, f.expires_date
+        $query = "SELECT p.products_id, p.products_image, pd.products_name, s.slider_image, s.expires_date
                 FROM $productstable p,
                      $products_descriptiontable pd,
-                     $slidertable f
+                     $slidertable s
                 WHERE p.products_setting = '2' AND
 					p.products_id = pd.products_id AND
                      pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND
-                      p.products_id = f.products_id AND
-                      f.slider_id = '" . intval($sID) . "'
+                      p.products_id = s.products_id AND
+                      s.slider_id = '" . intval($sID) . "'
                    ORDER BY pd.products_name";
         $product = $dbconn->GetRow($query);
 
@@ -283,10 +283,6 @@ if (($action == 'new') || ($action == 'edit')) {
 	
     if ($form_action == 'update') {
         echo oos_draw_hidden_field('slider_id', intval($sID));
-/*
-    } elseif (isset($_GET['pID'])) {
-        echo oos_draw_hidden_field('products_id', $sInfo->products_id);
-*/
 
 		if (!empty($sInfo->products_id)) {
 			echo oos_draw_hidden_field('products_id', $sInfo->products_id);

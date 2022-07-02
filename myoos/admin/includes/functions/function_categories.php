@@ -843,6 +843,17 @@ function oos_remove_scene_image($image)
 }
 
 
+
+function oos_remove_slider_image($image)
+{
+    $sImage = oos_var_prep_for_os($image);
+
+    if (file_exists(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'slieder/' .$sImage)) {
+        @unlink(OOS_ABSOLUTE_PATH . OOS_IMAGES . 'slieder/' .$sImage);
+    }
+}
+
+
 function oos_remove_category($category_id)
 {
 
