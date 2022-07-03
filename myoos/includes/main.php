@@ -282,11 +282,6 @@ $aInfoMessage = [];
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_message_stack.php';
 $oMessage = new messageStack();
 
-// Nav Menu
-require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_nav_menu.php';
-$oNavMenu = new nav_menu();
-
-
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_validations.php';
 
 // Shopping cart actions
@@ -301,6 +296,15 @@ if (isset($_GET['action']) || isset($_POST['action'])) {
         include_once MYOOS_INCLUDE_PATH . '/includes/cart_actions.php';
     }
 }
+
+
+// Nav Menu
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_nav_menu.php';
+$oNavMenu = new nav_menu();
+
+// Slider
+include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_slider.php';
+oos_expire_slider();
 
 // templates selection
 $sTheme = STORE_TEMPLATES;
