@@ -328,19 +328,21 @@ if (($action == 'new') || ($action == 'edit')) {
 
 
         <?php
+		
         if (isset($sInfo->slider_image) && (!empty($sInfo->slider_image))) {
-            echo '<div class="text-center"><div class="d-block" style="width: 460px; height: 260px;">';
-            echo oos_info_image('slider/' . $sInfo->slider_image, $sInfo->products_name, '460px', '260px');
+            echo '<div class="text-center"><div class="d-block" style="width: 460px; height: 345px;">';
+            echo oos_info_image('slider/' . $sInfo->slider_image, $sInfo->products_name, '460px', '345px');
             echo '</div></div>';
 
             echo oos_draw_hidden_field('slider_preview_image', $sInfo->slider_image);
             echo '<br>';
             echo oos_draw_checkbox_field('slider_image', 'yes') . ' ' . TEXT_IMAGE_REMOVE;
         } else {
+	
             ?>
 
 <div class="fileinput fileinput-new" data-provides="fileinput">
-  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 460px; height: 260px;"></div>
+  <div class="fileinput-preview thumbnail" data-trigger="fileinput" style="width: 460px; height: 345px;"></div>
   <div>
     <span class="btn btn-warning btn-file"><span class="fileinput-new"><em class="fa fa-plus-circle fa-fw"></em><?php echo BUTTON_SELECT_IMAGE; ?></span><span class="fileinput-exists"><?php echo BUTTON_CHANGE; ?></span>
 
@@ -348,8 +350,12 @@ if (($action == 'new') || ($action == 'edit')) {
     <a href="#" class="btn btn-danger fileinput-exists" data-dismiss="fileinput"><em class="fa fa-times-circle fa-fw"></em><?php echo BUTTON_DELETE; ?></a>
   </div>
 </div>
+<p><?php echo TEXT_IMAGE_SIZE; ?></p>
+
+
             <?php
-        } ?>    
+        } ?>  
+		
                             </div>
                         </div>
 
@@ -447,7 +453,7 @@ if (($action == 'new') || ($action == 'edit')) {
 
             switch ($action) {
     case 'delete':
-        $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_FEATURED . '</b>');
+        $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_SLIDER . '</b>');
 
         $contents = array('form' => oos_draw_form('id', 'categories_slider', $aContents['categories_slider'], 'page=' . $nPage . '&sID=' . $sInfo->slider_id . '&action=deleteconfirm', 'post', false));
         $contents[] = array('text' => TEXT_INFO_DELETE_INTRO);

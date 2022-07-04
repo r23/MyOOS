@@ -19,7 +19,7 @@
    ----------------------------------------------------------------------
  */
 
-define('HEADING_TITLE', 'Slide');
+define('HEADING_TITLE', 'Slider Tab');
 
 define('TABLE_HEADING_PRODUCTS', 'Artikel');
 define('TABLE_HEADING_STATUS', 'Status');
@@ -33,12 +33,14 @@ define('TEXT_INFO_LAST_MODIFIED', 'letzte Änderung:');
 define('TEXT_INFO_EXPIRES_DATE', 'Gültig bis:');
 define('TEXT_INFO_STATUS_CHANGE', 'Status geändert:');
 
-define('TEXT_INFO_HEADING_DELETE_FEATURED', 'Top-Angebot löschen');
-define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie das Sonderangebot löschen möchten?');
+define('TEXT_INFO_HEADING_DELETE_SLIDER', 'Slider-Angebot löschen');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie das Slider-Angebot löschen möchten?');
 
 define('TEXT_SLIDER_IMAGE', 'Bild für Slider');
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 define('TEXT_IMAGE_REMOVE', '<b>Entfernen</b> des Bildes?');
+define('TEXT_IMAGE_SIZE', 'Das Bild sollte eine Größe von 920 x 690 Pixel haben.');
+
 
 define('TEXT_SUCCESSFULLY_UPLOADED', 'Bild erfolgreich hochgeladen.');
 define('ERROR_NO_IMAGE_FILE', 'Ungültige Dateiendung. Nur png, jpg, jpeg, webp und gif-Dateien sind erlaubt.');
