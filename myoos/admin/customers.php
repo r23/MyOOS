@@ -340,7 +340,7 @@ function check_form() {
   var customers_telephone = document.customers.customers_telephone.value;
 
 <?php if (ACCOUNT_GENDER == 'true') { ?>
-  if (document.customers.customers_gender[0].checked || document.customers.customers_gender[1].checked) {
+  if (document.customers.customers_gender[0].checked || document.customers.customers_gender[1].checked || document.customers.customers_gender[2].checked) {
   } else {
     error_message = error_message + "<?php echo JS_GENDER; ?>";
     error = 1;
@@ -506,7 +506,10 @@ function check_form() {
         ?>
           <tr>
             <td class="main"><?php echo ENTRY_GENDER; ?></td>
-            <td class="main"><?php echo oos_draw_radio_field('customers_gender', 'm', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;' . oos_draw_radio_field('customers_gender', 'f', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . FEMALE; ?></td>
+            <td class="main"><?php echo oos_draw_radio_field('customers_gender', 'm', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;'
+			. oos_draw_radio_field('customers_gender', 'f', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;&nbsp;'
+			. oos_draw_radio_field('customers_gender', 'd', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . DIVERSE; 	
+			?></td>
           </tr>
 <?php
     } ?>

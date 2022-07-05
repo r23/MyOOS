@@ -88,6 +88,7 @@ $aLang['header_title_logoff'] = 'Abmelden';
 // text for gender
 define('MALE', 'Herr');
 define('FEMALE', 'Frau');
+define('DIVERSE', 'Divers');
 
 // text for date of birth example
 define('DOB_FORMAT_STRING', 'tt.mm.jjjj');
