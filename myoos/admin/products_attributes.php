@@ -1091,7 +1091,7 @@ function calcBasePriceFactor() {
 			<td class="smallText">&nbsp;<?php echo $attributes_values['options_values_status']; ?></td>
 
 <?php
-      $in_price= $attributes_values['options_values_price'];
+        $in_price= $attributes_values['options_values_price'];
         $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
             <td align="right" class="smallText">&nbsp;<input type="text" name="value_price" value="<?php echo $in_price; ?>" size="6">&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<input type="text" name="price_prefix" value="<?php echo $attributes_values['price_prefix']; ?>" size="2">&nbsp;</td>
@@ -1127,6 +1127,54 @@ function calcBasePriceFactor() {
           </tr>	
 <?php
         }
+
+####
+  if (BASE_PRICE == 'true') {
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_UNIT; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_QUANTITY; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>					
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo implode(", ", array_values($unit_of_measure)); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?>
+                              </div>
+                           </div>
+                        </fieldset>
+  }
+####
+
+
+
 
         if (DOWNLOAD_ENABLED == 'true') {
             $products_attributes_downloadtable = $oostable['products_attributes_download'];

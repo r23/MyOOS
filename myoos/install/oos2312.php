@@ -184,6 +184,14 @@ if ($result === false) {
 }
 
 
+// products_attributes
+$table = $prefix_table . 'products_attributes';
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `options_values_units_id` INT( 11 ) DEFAULT '0' NOT NULL AFTER `options_values_base_unit`");
+if ($result === false) {
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+}
+
+
 // product_gallery
 $table = $prefix_table . 'products_images';
 $new_name = $prefix_table . 'products_gallery';

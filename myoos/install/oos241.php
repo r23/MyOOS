@@ -174,6 +174,12 @@ if ($result === false) {
 }
 
 
+$result = $db->Execute("ALTER TABLE " . $table . " ADD COLUMN `options_values_units_id` INT( 11 ) DEFAULT '0' NOT NULL AFTER `options_values_base_unit`");
+if ($result === false) {
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+}
+
+
 // customers
 $table = $prefix_table . 'customers';
 $result = $db->Execute("ALTER TABLE " . $table . " CHANGE COLUMN `customers_password` `customers_password` VARCHAR(255) NOT NULL");
