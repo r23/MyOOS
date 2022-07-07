@@ -63,8 +63,6 @@ __webpack_require__.d(selectors_namespaceObject, {
 
 ;// CONCATENATED MODULE: external ["wp","data"]
 const external_wp_data_namespaceObject = window["wp"]["data"];
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/notices/build-module/store/utils/on-sub-key.js
 /**
  * Higher-order reducer creator which creates a combined reducer object, keyed
@@ -101,13 +99,8 @@ const onSubKey = actionProperty => reducer => function () {
 
 ;// CONCATENATED MODULE: ./packages/notices/build-module/store/reducer.js
 /**
- * External dependencies
- */
-
-/**
  * Internal dependencies
  */
-
 
 /**
  * Reducer returning the next notices state. The notices state is an object
@@ -126,13 +119,19 @@ const notices = on_sub_key('context')(function () {
   switch (action.type) {
     case 'CREATE_NOTICE':
       // Avoid duplicates on ID.
-      return [...(0,external_lodash_namespaceObject.reject)(state, {
-        id: action.notice.id
+      return [...state.filter(_ref => {
+        let {
+          id
+        } = _ref;
+        return id !== action.notice.id;
       }), action.notice];
 
     case 'REMOVE_NOTICE':
-      return (0,external_lodash_namespaceObject.reject)(state, {
-        id: action.id
+      return state.filter(_ref2 => {
+        let {
+          id
+        } = _ref2;
+        return id !== action.id;
       });
   }
 
@@ -159,13 +158,8 @@ const DEFAULT_STATUS = 'info';
 
 ;// CONCATENATED MODULE: ./packages/notices/build-module/store/actions.js
 /**
- * External dependencies
- */
-
-/**
  * Internal dependencies
  */
-
 
 /**
  * @typedef {Object} WPNoticeAction Object describing a user action option associated with a notice.
@@ -178,6 +172,7 @@ const DEFAULT_STATUS = 'info';
  *
  */
 
+let uniqueId = 0;
 /**
  * Returns an action object used in signalling that a notice is to be created.
  *
@@ -217,7 +212,7 @@ function createNotice() {
     speak = true,
     isDismissible = true,
     context = DEFAULT_CONTEXT,
-    id = (0,external_lodash_namespaceObject.uniqueId)(context),
+    id = `${context}${++uniqueId}`,
     actions = [],
     type = 'default',
     __unstableHTML,

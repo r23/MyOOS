@@ -8145,6 +8145,432 @@ module.exports = hoistNonReactStatics;
 
 /***/ }),
 
+/***/ 4793:
+/***/ ((module) => {
+
+var characterMap = {
+	"À": "A",
+	"Á": "A",
+	"Â": "A",
+	"Ã": "A",
+	"Ä": "A",
+	"Å": "A",
+	"Ấ": "A",
+	"Ắ": "A",
+	"Ẳ": "A",
+	"Ẵ": "A",
+	"Ặ": "A",
+	"Æ": "AE",
+	"Ầ": "A",
+	"Ằ": "A",
+	"Ȃ": "A",
+	"Ç": "C",
+	"Ḉ": "C",
+	"È": "E",
+	"É": "E",
+	"Ê": "E",
+	"Ë": "E",
+	"Ế": "E",
+	"Ḗ": "E",
+	"Ề": "E",
+	"Ḕ": "E",
+	"Ḝ": "E",
+	"Ȇ": "E",
+	"Ì": "I",
+	"Í": "I",
+	"Î": "I",
+	"Ï": "I",
+	"Ḯ": "I",
+	"Ȋ": "I",
+	"Ð": "D",
+	"Ñ": "N",
+	"Ò": "O",
+	"Ó": "O",
+	"Ô": "O",
+	"Õ": "O",
+	"Ö": "O",
+	"Ø": "O",
+	"Ố": "O",
+	"Ṍ": "O",
+	"Ṓ": "O",
+	"Ȏ": "O",
+	"Ù": "U",
+	"Ú": "U",
+	"Û": "U",
+	"Ü": "U",
+	"Ý": "Y",
+	"à": "a",
+	"á": "a",
+	"â": "a",
+	"ã": "a",
+	"ä": "a",
+	"å": "a",
+	"ấ": "a",
+	"ắ": "a",
+	"ẳ": "a",
+	"ẵ": "a",
+	"ặ": "a",
+	"æ": "ae",
+	"ầ": "a",
+	"ằ": "a",
+	"ȃ": "a",
+	"ç": "c",
+	"ḉ": "c",
+	"è": "e",
+	"é": "e",
+	"ê": "e",
+	"ë": "e",
+	"ế": "e",
+	"ḗ": "e",
+	"ề": "e",
+	"ḕ": "e",
+	"ḝ": "e",
+	"ȇ": "e",
+	"ì": "i",
+	"í": "i",
+	"î": "i",
+	"ï": "i",
+	"ḯ": "i",
+	"ȋ": "i",
+	"ð": "d",
+	"ñ": "n",
+	"ò": "o",
+	"ó": "o",
+	"ô": "o",
+	"õ": "o",
+	"ö": "o",
+	"ø": "o",
+	"ố": "o",
+	"ṍ": "o",
+	"ṓ": "o",
+	"ȏ": "o",
+	"ù": "u",
+	"ú": "u",
+	"û": "u",
+	"ü": "u",
+	"ý": "y",
+	"ÿ": "y",
+	"Ā": "A",
+	"ā": "a",
+	"Ă": "A",
+	"ă": "a",
+	"Ą": "A",
+	"ą": "a",
+	"Ć": "C",
+	"ć": "c",
+	"Ĉ": "C",
+	"ĉ": "c",
+	"Ċ": "C",
+	"ċ": "c",
+	"Č": "C",
+	"č": "c",
+	"C̆": "C",
+	"c̆": "c",
+	"Ď": "D",
+	"ď": "d",
+	"Đ": "D",
+	"đ": "d",
+	"Ē": "E",
+	"ē": "e",
+	"Ĕ": "E",
+	"ĕ": "e",
+	"Ė": "E",
+	"ė": "e",
+	"Ę": "E",
+	"ę": "e",
+	"Ě": "E",
+	"ě": "e",
+	"Ĝ": "G",
+	"Ǵ": "G",
+	"ĝ": "g",
+	"ǵ": "g",
+	"Ğ": "G",
+	"ğ": "g",
+	"Ġ": "G",
+	"ġ": "g",
+	"Ģ": "G",
+	"ģ": "g",
+	"Ĥ": "H",
+	"ĥ": "h",
+	"Ħ": "H",
+	"ħ": "h",
+	"Ḫ": "H",
+	"ḫ": "h",
+	"Ĩ": "I",
+	"ĩ": "i",
+	"Ī": "I",
+	"ī": "i",
+	"Ĭ": "I",
+	"ĭ": "i",
+	"Į": "I",
+	"į": "i",
+	"İ": "I",
+	"ı": "i",
+	"Ĳ": "IJ",
+	"ĳ": "ij",
+	"Ĵ": "J",
+	"ĵ": "j",
+	"Ķ": "K",
+	"ķ": "k",
+	"Ḱ": "K",
+	"ḱ": "k",
+	"K̆": "K",
+	"k̆": "k",
+	"Ĺ": "L",
+	"ĺ": "l",
+	"Ļ": "L",
+	"ļ": "l",
+	"Ľ": "L",
+	"ľ": "l",
+	"Ŀ": "L",
+	"ŀ": "l",
+	"Ł": "l",
+	"ł": "l",
+	"Ḿ": "M",
+	"ḿ": "m",
+	"M̆": "M",
+	"m̆": "m",
+	"Ń": "N",
+	"ń": "n",
+	"Ņ": "N",
+	"ņ": "n",
+	"Ň": "N",
+	"ň": "n",
+	"ŉ": "n",
+	"N̆": "N",
+	"n̆": "n",
+	"Ō": "O",
+	"ō": "o",
+	"Ŏ": "O",
+	"ŏ": "o",
+	"Ő": "O",
+	"ő": "o",
+	"Œ": "OE",
+	"œ": "oe",
+	"P̆": "P",
+	"p̆": "p",
+	"Ŕ": "R",
+	"ŕ": "r",
+	"Ŗ": "R",
+	"ŗ": "r",
+	"Ř": "R",
+	"ř": "r",
+	"R̆": "R",
+	"r̆": "r",
+	"Ȓ": "R",
+	"ȓ": "r",
+	"Ś": "S",
+	"ś": "s",
+	"Ŝ": "S",
+	"ŝ": "s",
+	"Ş": "S",
+	"Ș": "S",
+	"ș": "s",
+	"ş": "s",
+	"Š": "S",
+	"š": "s",
+	"Ţ": "T",
+	"ţ": "t",
+	"ț": "t",
+	"Ț": "T",
+	"Ť": "T",
+	"ť": "t",
+	"Ŧ": "T",
+	"ŧ": "t",
+	"T̆": "T",
+	"t̆": "t",
+	"Ũ": "U",
+	"ũ": "u",
+	"Ū": "U",
+	"ū": "u",
+	"Ŭ": "U",
+	"ŭ": "u",
+	"Ů": "U",
+	"ů": "u",
+	"Ű": "U",
+	"ű": "u",
+	"Ų": "U",
+	"ų": "u",
+	"Ȗ": "U",
+	"ȗ": "u",
+	"V̆": "V",
+	"v̆": "v",
+	"Ŵ": "W",
+	"ŵ": "w",
+	"Ẃ": "W",
+	"ẃ": "w",
+	"X̆": "X",
+	"x̆": "x",
+	"Ŷ": "Y",
+	"ŷ": "y",
+	"Ÿ": "Y",
+	"Y̆": "Y",
+	"y̆": "y",
+	"Ź": "Z",
+	"ź": "z",
+	"Ż": "Z",
+	"ż": "z",
+	"Ž": "Z",
+	"ž": "z",
+	"ſ": "s",
+	"ƒ": "f",
+	"Ơ": "O",
+	"ơ": "o",
+	"Ư": "U",
+	"ư": "u",
+	"Ǎ": "A",
+	"ǎ": "a",
+	"Ǐ": "I",
+	"ǐ": "i",
+	"Ǒ": "O",
+	"ǒ": "o",
+	"Ǔ": "U",
+	"ǔ": "u",
+	"Ǖ": "U",
+	"ǖ": "u",
+	"Ǘ": "U",
+	"ǘ": "u",
+	"Ǚ": "U",
+	"ǚ": "u",
+	"Ǜ": "U",
+	"ǜ": "u",
+	"Ứ": "U",
+	"ứ": "u",
+	"Ṹ": "U",
+	"ṹ": "u",
+	"Ǻ": "A",
+	"ǻ": "a",
+	"Ǽ": "AE",
+	"ǽ": "ae",
+	"Ǿ": "O",
+	"ǿ": "o",
+	"Þ": "TH",
+	"þ": "th",
+	"Ṕ": "P",
+	"ṕ": "p",
+	"Ṥ": "S",
+	"ṥ": "s",
+	"X́": "X",
+	"x́": "x",
+	"Ѓ": "Г",
+	"ѓ": "г",
+	"Ќ": "К",
+	"ќ": "к",
+	"A̋": "A",
+	"a̋": "a",
+	"E̋": "E",
+	"e̋": "e",
+	"I̋": "I",
+	"i̋": "i",
+	"Ǹ": "N",
+	"ǹ": "n",
+	"Ồ": "O",
+	"ồ": "o",
+	"Ṑ": "O",
+	"ṑ": "o",
+	"Ừ": "U",
+	"ừ": "u",
+	"Ẁ": "W",
+	"ẁ": "w",
+	"Ỳ": "Y",
+	"ỳ": "y",
+	"Ȁ": "A",
+	"ȁ": "a",
+	"Ȅ": "E",
+	"ȅ": "e",
+	"Ȉ": "I",
+	"ȉ": "i",
+	"Ȍ": "O",
+	"ȍ": "o",
+	"Ȑ": "R",
+	"ȑ": "r",
+	"Ȕ": "U",
+	"ȕ": "u",
+	"B̌": "B",
+	"b̌": "b",
+	"Č̣": "C",
+	"č̣": "c",
+	"Ê̌": "E",
+	"ê̌": "e",
+	"F̌": "F",
+	"f̌": "f",
+	"Ǧ": "G",
+	"ǧ": "g",
+	"Ȟ": "H",
+	"ȟ": "h",
+	"J̌": "J",
+	"ǰ": "j",
+	"Ǩ": "K",
+	"ǩ": "k",
+	"M̌": "M",
+	"m̌": "m",
+	"P̌": "P",
+	"p̌": "p",
+	"Q̌": "Q",
+	"q̌": "q",
+	"Ř̩": "R",
+	"ř̩": "r",
+	"Ṧ": "S",
+	"ṧ": "s",
+	"V̌": "V",
+	"v̌": "v",
+	"W̌": "W",
+	"w̌": "w",
+	"X̌": "X",
+	"x̌": "x",
+	"Y̌": "Y",
+	"y̌": "y",
+	"A̧": "A",
+	"a̧": "a",
+	"B̧": "B",
+	"b̧": "b",
+	"Ḑ": "D",
+	"ḑ": "d",
+	"Ȩ": "E",
+	"ȩ": "e",
+	"Ɛ̧": "E",
+	"ɛ̧": "e",
+	"Ḩ": "H",
+	"ḩ": "h",
+	"I̧": "I",
+	"i̧": "i",
+	"Ɨ̧": "I",
+	"ɨ̧": "i",
+	"M̧": "M",
+	"m̧": "m",
+	"O̧": "O",
+	"o̧": "o",
+	"Q̧": "Q",
+	"q̧": "q",
+	"U̧": "U",
+	"u̧": "u",
+	"X̧": "X",
+	"x̧": "x",
+	"Z̧": "Z",
+	"z̧": "z",
+};
+
+var chars = Object.keys(characterMap).join('|');
+var allAccents = new RegExp(chars, 'g');
+var firstAccent = new RegExp(chars, '');
+
+var removeAccents = function(string) {	
+	return string.replace(allAccents, function(match) {
+		return characterMap[match];
+	});
+};
+
+var hasAccents = function(string) {
+	return !!string.match(firstAccent);
+};
+
+module.exports = removeAccents;
+module.exports.has = hasAccents;
+module.exports.remove = removeAccents;
+
+
+/***/ }),
+
 /***/ 2150:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -14815,7 +15241,7 @@ __webpack_require__.d(__webpack_exports__, {
   "SlotFillProvider": () => (/* reexport */ Provider),
   "Snackbar": () => (/* reexport */ snackbar),
   "SnackbarList": () => (/* reexport */ snackbar_list),
-  "Spinner": () => (/* reexport */ Spinner),
+  "Spinner": () => (/* reexport */ spinner),
   "TabPanel": () => (/* reexport */ TabPanel),
   "TabbableContainer": () => (/* reexport */ tabbable),
   "TextControl": () => (/* reexport */ text_control),
@@ -22372,13 +22798,8 @@ function Tooltip(props) {
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/alignment-matrix-control/utils.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 const GRID = [['top left', 'top center', 'top right'], ['center left', 'center center', 'center right'], ['bottom left', 'bottom center', 'bottom right']]; // Stored as map as i18n __() only accepts strings (not variables)
 
@@ -22394,7 +22815,7 @@ const ALIGNMENT_LABEL = {
   'bottom right': (0,external_wp_i18n_namespaceObject.__)('Bottom Right')
 }; // Transforms GRID into a flat Array of values.
 
-const ALIGNMENTS = (0,external_lodash_namespaceObject.flattenDeep)(GRID);
+const ALIGNMENTS = GRID.flat();
 /**
  * Parses and transforms an incoming value to better match the alignment values
  *
@@ -35014,9 +35435,106 @@ const Truncate =  true ? {
   styles: "display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"
 } : 0;
 
+;// CONCATENATED MODULE: ./packages/components/build-module/utils/values.js
+/* eslint-disable jsdoc/valid-types */
+
+/**
+ * Determines if a value is null or undefined.
+ *
+ * @template T
+ *
+ * @param {T | null | undefined} value The value to check.
+ * @return {value is T} Whether value is not null or undefined.
+ */
+function isValueDefined(value) {
+  return value !== undefined && value !== null;
+}
+/* eslint-enable jsdoc/valid-types */
+
+/* eslint-disable jsdoc/valid-types */
+
+/**
+ * Determines if a value is empty, null, or undefined.
+ *
+ * @template T
+ *
+ * @param {T | "" | null | undefined} value The value to check.
+ * @return {value is T} Whether value is empty.
+ */
+
+function isValueEmpty(value) {
+  const isEmptyString = value === '';
+  return !isValueDefined(value) || isEmptyString;
+}
+/* eslint-enable jsdoc/valid-types */
+
+/**
+ * Get the first defined/non-null value from an array.
+ *
+ * @template T
+ *
+ * @param {Array<T | null | undefined>} values        Values to derive from.
+ * @param {T}                           fallbackValue Fallback value if there are no defined values.
+ * @return {T} A defined value or the fallback value.
+ */
+
+function getDefinedValue() {
+  var _values$find;
+
+  let values = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  let fallbackValue = arguments.length > 1 ? arguments[1] : undefined;
+  return (_values$find = values.find(isValueDefined)) !== null && _values$find !== void 0 ? _values$find : fallbackValue;
+}
+/**
+ * @param {string} [locale]
+ * @return {[RegExp, RegExp]} The delimiter and decimal regexp
+ */
+
+const getDelimiterAndDecimalRegex = locale => {
+  const formatted = Intl.NumberFormat(locale).format(1000.1);
+  const delimiter = formatted[1];
+  const decimal = formatted[formatted.length - 2];
+  return [new RegExp(`\\${delimiter}`, 'g'), new RegExp(`\\${decimal}`, 'g')];
+}; // https://en.wikipedia.org/wiki/Decimal_separator#Current_standards
+
+
+const INTERNATIONAL_THOUSANDS_DELIMITER = / /g;
+const ARABIC_NUMERAL_LOCALES = (/* unused pure expression or super */ null && (['ar', 'fa', 'ur', 'ckb', 'ps']));
+const EASTERN_ARABIC_NUMBERS = /([۰-۹]|[٠-٩])/g;
+/**
+ * Checks to see if a value is a numeric value (`number` or `string`).
+ *
+ * Intentionally ignores whether the thousands delimiters are only
+ * in the thousands marks.
+ *
+ * @param {any}    value
+ * @param {string} [locale]
+ * @return {boolean} Whether value is numeric.
+ */
+
+function isValueNumeric(value) {
+  let locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : window.navigator.language;
+
+  if (ARABIC_NUMERAL_LOCALES.some(l => locale.startsWith(l))) {
+    locale = 'en-GB';
+
+    if (EASTERN_ARABIC_NUMBERS.test(value)) {
+      value = value.replace(/[٠-٩]/g, (
+      /** @type {string} */
+      d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g, (
+      /** @type {string} */
+      d) => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/٬/g, ',').replace(/٫/g, '.');
+    }
+  }
+
+  const [delimiterRegexp, decimalRegexp] = getDelimiterAndDecimalRegex(locale);
+  const valueToCheck = typeof value === 'string' ? value.replace(delimiterRegexp, '').replace(decimalRegexp, '.').replace(INTERNATIONAL_THOUSANDS_DELIMITER, '') : value;
+  return !isNaN(parseFloat(valueToCheck)) && isFinite(valueToCheck);
+}
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/truncate/utils.js
 /**
- * External dependencies
+ * Internal dependencies
  */
 
 const TRUNCATE_ELLIPSIS = '…';
@@ -35035,13 +35553,6 @@ const TRUNCATE_DEFAULT_PROPS = {
 }; // Source
 // https://github.com/kahwee/truncate-middle
 
-/**
- * @param {string} word
- * @param {number} headLength
- * @param {number} tailLength
- * @param {string} ellipsis
- */
-
 function truncateMiddle(word, headLength, tailLength, ellipsis) {
   if (typeof word !== 'string') {
     return '';
@@ -35056,7 +35567,7 @@ function truncateMiddle(word, headLength, tailLength, ellipsis) {
   const backLength = ~~tailLength;
   /* istanbul ignore next */
 
-  const truncateStr = !(0,external_lodash_namespaceObject.isNil)(ellipsis) ? ellipsis : TRUNCATE_ELLIPSIS;
+  const truncateStr = isValueDefined(ellipsis) ? ellipsis : TRUNCATE_ELLIPSIS;
 
   if (frontLength === 0 && backLength === 0 || frontLength >= wordLength || backLength >= wordLength || frontLength + backLength >= wordLength) {
     return word;
@@ -35066,12 +35577,6 @@ function truncateMiddle(word, headLength, tailLength, ellipsis) {
 
   return word.slice(0, frontLength) + truncateStr + word.slice(wordLength - backLength);
 }
-/**
- *
- * @param {string}                        words
- * @param {typeof TRUNCATE_DEFAULT_PROPS} props
- */
-
 function truncateContent() {
   let words = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   let props = arguments.length > 1 ? arguments[1] : undefined;
@@ -35129,10 +35634,6 @@ function truncateContent() {
 
 
 
-/**
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'span'>} props
- */
-
 function useTruncate(props) {
   const {
     className,
@@ -35144,9 +35645,7 @@ function useTruncate(props) {
     ...otherProps
   } = useContextSystem(props, 'Truncate');
   const cx = useCx();
-  const truncatedContent = truncateContent(typeof children === 'string' ?
-  /** @type {string} */
-  children : '', {
+  const truncatedContent = truncateContent(typeof children === 'string' ? children : '', {
     ellipsis,
     ellipsizeMode,
     limit,
@@ -35154,9 +35653,8 @@ function useTruncate(props) {
   });
   const shouldTruncate = ellipsizeMode === TRUNCATE_TYPE.auto;
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    const sx = {};
-    sx.numberOfLines = /*#__PURE__*/emotion_react_browser_esm_css("-webkit-box-orient:vertical;-webkit-line-clamp:", numberOfLines, ";display:-webkit-box;overflow:hidden;" + ( true ? "" : 0),  true ? "" : 0);
-    return cx(shouldTruncate && !numberOfLines && Truncate, shouldTruncate && !!numberOfLines && sx.numberOfLines, className);
+    const truncateLines = /*#__PURE__*/emotion_react_browser_esm_css("-webkit-box-orient:vertical;-webkit-line-clamp:", numberOfLines, ";display:-webkit-box;overflow:hidden;" + ( true ? "" : 0),  true ? "" : 0);
+    return cx(shouldTruncate && !numberOfLines && Truncate, shouldTruncate && !!numberOfLines && truncateLines, className);
   }, [className, cx, numberOfLines, shouldTruncate]);
   return { ...otherProps,
     className: classes,
@@ -39040,17 +39538,12 @@ const number_control_styles_Input = /*#__PURE__*/emotion_styled_base_browser_esm
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/math.js
 /**
- * External dependencies
- */
-
-/**
  * Parses and retrieves a number value.
  *
  * @param {unknown} value The incoming value.
  *
  * @return {number} The parsed number value.
  */
-
 function getNumber(value) {
   const number = Number(value);
   return isNaN(number) ? 0 : number;
@@ -39105,6 +39598,21 @@ function getPrecision(value) {
   return split[1] !== undefined ? split[1].length : 0;
 }
 /**
+ * Clamps a value based on a min/max range.
+ *
+ * @param {number} value The value.
+ * @param {number} min   The minimum range.
+ * @param {number} max   The maximum range.
+ *
+ * @return {number} The clamped value.
+ */
+
+
+function math_clamp(value, min, max) {
+  const baseValue = getNumber(value);
+  return Math.max(min, Math.min(baseValue, max));
+}
+/**
  * Clamps a value based on a min/max range with rounding
  *
  * @param {number} value The value.
@@ -39115,7 +39623,6 @@ function getPrecision(value) {
  * @return {number} The rounded and clamped value.
  */
 
-
 function roundClamp() {
   let value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
   let min = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : Infinity;
@@ -39125,7 +39632,7 @@ function roundClamp() {
   const stepValue = getNumber(step);
   const precision = getPrecision(step);
   const rounded = Math.round(baseValue / stepValue) * stepValue;
-  const clampedValue = (0,external_lodash_namespaceObject.clamp)(rounded, min, max);
+  const clampedValue = math_clamp(rounded, min, max);
   return precision ? getNumber(clampedValue.toFixed(precision)) : clampedValue;
 }
 /**
@@ -39138,103 +39645,6 @@ function roundClamp() {
 
 function roundClampString() {
   return roundClamp(...arguments).toString();
-}
-
-;// CONCATENATED MODULE: ./packages/components/build-module/utils/values.js
-/* eslint-disable jsdoc/valid-types */
-
-/**
- * Determines if a value is null or undefined.
- *
- * @template T
- *
- * @param {T | null | undefined} value The value to check.
- * @return {value is T} Whether value is not null or undefined.
- */
-function isValueDefined(value) {
-  return value !== undefined && value !== null;
-}
-/* eslint-enable jsdoc/valid-types */
-
-/* eslint-disable jsdoc/valid-types */
-
-/**
- * Determines if a value is empty, null, or undefined.
- *
- * @template T
- *
- * @param {T | "" | null | undefined} value The value to check.
- * @return {value is T} Whether value is empty.
- */
-
-function isValueEmpty(value) {
-  const isEmptyString = value === '';
-  return !isValueDefined(value) || isEmptyString;
-}
-/* eslint-enable jsdoc/valid-types */
-
-/**
- * Get the first defined/non-null value from an array.
- *
- * @template T
- *
- * @param {Array<T | null | undefined>} values        Values to derive from.
- * @param {T}                           fallbackValue Fallback value if there are no defined values.
- * @return {T} A defined value or the fallback value.
- */
-
-function getDefinedValue() {
-  var _values$find;
-
-  let values = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  let fallbackValue = arguments.length > 1 ? arguments[1] : undefined;
-  return (_values$find = values.find(isValueDefined)) !== null && _values$find !== void 0 ? _values$find : fallbackValue;
-}
-/**
- * @param {string} [locale]
- * @return {[RegExp, RegExp]} The delimiter and decimal regexp
- */
-
-const getDelimiterAndDecimalRegex = locale => {
-  const formatted = Intl.NumberFormat(locale).format(1000.1);
-  const delimiter = formatted[1];
-  const decimal = formatted[formatted.length - 2];
-  return [new RegExp(`\\${delimiter}`, 'g'), new RegExp(`\\${decimal}`, 'g')];
-}; // https://en.wikipedia.org/wiki/Decimal_separator#Current_standards
-
-
-const INTERNATIONAL_THOUSANDS_DELIMITER = / /g;
-const ARABIC_NUMERAL_LOCALES = (/* unused pure expression or super */ null && (['ar', 'fa', 'ur', 'ckb', 'ps']));
-const EASTERN_ARABIC_NUMBERS = /([۰-۹]|[٠-٩])/g;
-/**
- * Checks to see if a value is a numeric value (`number` or `string`).
- *
- * Intentionally ignores whether the thousands delimiters are only
- * in the thousands marks.
- *
- * @param {any}    value
- * @param {string} [locale]
- * @return {boolean} Whether value is numeric.
- */
-
-function isValueNumeric(value) {
-  let locale = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : window.navigator.language;
-
-  if (ARABIC_NUMERAL_LOCALES.some(l => locale.startsWith(l))) {
-    locale = 'en-GB';
-
-    if (EASTERN_ARABIC_NUMBERS.test(value)) {
-      value = value.replace(/[٠-٩]/g, (
-      /** @type {string} */
-      d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g, (
-      /** @type {string} */
-      d) => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/٬/g, ',').replace(/٫/g, '.');
-    }
-  }
-
-  const [delimiterRegexp, decimalRegexp] = getDelimiterAndDecimalRegex(locale);
-  const valueToCheck = typeof value === 'string' ? value.replace(delimiterRegexp, '').replace(decimalRegexp, '.').replace(INTERNATIONAL_THOUSANDS_DELIMITER, '') : value;
-  return !isNaN(parseFloat(valueToCheck)) && isFinite(valueToCheck);
 }
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/number-control/index.js
@@ -39615,7 +40025,7 @@ function useSpacer(props) {
 
 
 
-function Spacer(props, forwardedRef) {
+function UnconnectedSpacer(props, forwardedRef) {
   const spacerProps = useSpacer(props);
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, spacerProps, {
     ref: forwardedRef
@@ -39626,7 +40036,6 @@ function Spacer(props, forwardedRef) {
  *
  * `Spacer` comes with a bunch of shorthand props to adjust `margin` and `padding`. The values of these props work as a multiplier to the library's grid system (base of `4px`).
  *
- * @example
  * ```jsx
  * import { Spacer } from `@wordpress/components`
  *
@@ -39646,8 +40055,8 @@ function Spacer(props, forwardedRef) {
  */
 
 
-const ConnectedSpacer = contextConnect(Spacer, 'Spacer');
-/* harmony default export */ const spacer_component = (ConnectedSpacer);
+const Spacer = contextConnect(UnconnectedSpacer, 'Spacer');
+/* harmony default export */ const spacer_component = (Spacer);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/angle-picker-control/index.js
 
@@ -41021,27 +41430,48 @@ const ConnectedBorderControlStylePicker = contextConnect(BorderControlStylePicke
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-indicator/index.js
 
 
-// @ts-nocheck
 
 /**
  * External dependencies
  */
 
 
-const ColorIndicator = _ref => {
-  let {
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+function UnforwardedColorIndicator(props, forwardedRef) {
+  const {
     className,
     colorValue,
-    ...props
-  } = _ref;
+    ...additionalProps
+  } = props;
   return (0,external_wp_element_namespaceObject.createElement)("span", extends_extends({
     className: classnames_default()('component-color-indicator', className),
     style: {
       background: colorValue
-    }
-  }, props));
-};
+    },
+    ref: forwardedRef
+  }, additionalProps));
+}
+/**
+ * ColorIndicator is a React component that renders a specific color in a
+ * circle. It's often used to summarize a collection of used colors in a child
+ * component.
+ *
+ * ```jsx
+ * import { ColorIndicator } from '@wordpress/components';
+ *
+ * const MyColorIndicator = () => <ColorIndicator colorValue="#0073aa" />;
+ * ```
+ */
 
+
+const ColorIndicator = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedColorIndicator);
 /* harmony default export */ const color_indicator = (ColorIndicator);
 
 ;// CONCATENATED MODULE: ./packages/components/node_modules/colord/plugins/a11y.mjs
@@ -41161,258 +41591,6 @@ function Dropdown(props) {
     className: classnames_default()('components-dropdown__content', popoverProps ? popoverProps.className : undefined, contentClassName)
   }), renderContent(args)));
 }
-
-;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/utils.js
-/**
- * External dependencies
- */
-
-/** @type {import('./types').Alignments} */
-
-const utils_ALIGNMENTS = {
-  bottom: {
-    align: 'flex-end',
-    justify: 'center'
-  },
-  bottomLeft: {
-    align: 'flex-start',
-    justify: 'flex-end'
-  },
-  bottomRight: {
-    align: 'flex-end',
-    justify: 'flex-end'
-  },
-  center: {
-    align: 'center',
-    justify: 'center'
-  },
-  edge: {
-    align: 'center',
-    justify: 'space-between'
-  },
-  left: {
-    align: 'center',
-    justify: 'flex-start'
-  },
-  right: {
-    align: 'center',
-    justify: 'flex-end'
-  },
-  stretch: {
-    align: 'stretch'
-  },
-  top: {
-    align: 'flex-start',
-    justify: 'center'
-  },
-  topLeft: {
-    align: 'flex-start',
-    justify: 'flex-start'
-  },
-  topRight: {
-    align: 'flex-start',
-    justify: 'flex-end'
-  }
-};
-/** @type {import('./types').Alignments} */
-
-const V_ALIGNMENTS = {
-  bottom: {
-    justify: 'flex-end',
-    align: 'center'
-  },
-  bottomLeft: {
-    justify: 'flex-start',
-    align: 'flex-end'
-  },
-  bottomRight: {
-    justify: 'flex-end',
-    align: 'flex-end'
-  },
-  center: {
-    justify: 'center',
-    align: 'center'
-  },
-  edge: {
-    justify: 'space-between',
-    align: 'center'
-  },
-  left: {
-    justify: 'center',
-    align: 'flex-start'
-  },
-  right: {
-    justify: 'center',
-    align: 'flex-end'
-  },
-  stretch: {
-    justify: 'stretch'
-  },
-  top: {
-    justify: 'flex-start',
-    align: 'center'
-  },
-  topLeft: {
-    justify: 'flex-start',
-    align: 'flex-start'
-  },
-  topRight: {
-    justify: 'flex-start',
-    align: 'flex-end'
-  }
-};
-/* eslint-disable jsdoc/valid-types */
-
-/**
- * @param {import('./types').HStackAlignment | import('react').CSSProperties[ 'alignItems' ]} alignment         Where to align.
- * @param {import('../flex/types').FlexDirection}                                             [direction='row'] Direction to align.
- * @return {import('./types').AlignmentProps} Alignment props.
- */
-
-/* eslint-enable jsdoc/valid-types */
-
-function getAlignmentProps(alignment) {
-  let direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'row';
-
-  if ((0,external_lodash_namespaceObject.isNil)(alignment)) {
-    return {};
-  }
-
-  const isVertical = direction === 'column';
-  const props = isVertical ? V_ALIGNMENTS : utils_ALIGNMENTS;
-  const alignmentProps = alignment in props ? props[
-  /** @type {keyof typeof ALIGNMENTS} */
-  alignment] : {
-    align: alignment
-  };
-  return alignmentProps;
-}
-
-;// CONCATENATED MODULE: ./packages/components/build-module/ui/utils/get-valid-children.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Gets a collection of available children elements from a React component's children prop.
- *
- * @param  children
- *
- * @return An array of available children.
- */
-
-function getValidChildren(children) {
-  if (typeof children === 'string') return [children];
-  return external_wp_element_namespaceObject.Children.toArray(children).filter(child => (0,external_wp_element_namespaceObject.isValidElement)(child));
-}
-
-;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/hook.js
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-
-/**
- *
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- */
-
-function useHStack(props) {
-  const {
-    alignment = 'edge',
-    children,
-    direction,
-    spacing = 2,
-    ...otherProps
-  } = useContextSystem(props, 'HStack');
-  const align = getAlignmentProps(alignment, direction);
-  const validChildren = getValidChildren(children);
-  const clonedChildren = validChildren.map( // @ts-ignore
-  (
-  /** @type {import('react').ReactElement} */
-  child, index) => {
-    const _key = child.key || `hstack-${index}`;
-
-    const _isSpacer = hasConnectNamespace(child, ['Spacer']);
-
-    if (_isSpacer) {
-      return (0,external_wp_element_namespaceObject.createElement)(flex_item_component, extends_extends({
-        isBlock: true,
-        key: _key
-      }, child.props));
-    }
-
-    return child;
-  });
-  const propsForFlex = {
-    children: clonedChildren,
-    direction,
-    justify: 'center',
-    ...align,
-    ...otherProps,
-    gap: spacing
-  };
-  const flexProps = useFlex(propsForFlex);
-  return flexProps;
-}
-
-;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/component.js
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-/**
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').ForwardedRef<any>}                                               forwardedRef
- */
-
-function HStack(props, forwardedRef) {
-  const hStackProps = useHStack(props);
-  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, hStackProps, {
-    ref: forwardedRef
-  }));
-}
-/**
- * `HStack` (Horizontal Stack) arranges child elements in a horizontal line.
- *
- * `HStack` can render anything inside.
- *
- * @example
- * ```jsx
- * import {
- * 	__experimentalHStack as HStack,
- * 	__experimentalText as Text,
- * } from `@wordpress/components`;
- *
- * function Example() {
- * 	return (
- * 		<HStack>
- * 			<Text>Code</Text>
- * 			<Text>is</Text>
- * 			<Text>Poetry</Text>
- * 		</HStack>
- * 	);
- * }
- * ```
- */
-
-
-const ConnectedHStack = contextConnect(HStack, 'HStack');
-/* harmony default export */ const h_stack_component = (ConnectedHStack);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
 /**
@@ -41818,17 +41996,13 @@ function useControlledState(currentState) {
 // @ts-nocheck
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -41849,7 +42023,7 @@ function floatClamp(value, min, max) {
     return null;
   }
 
-  return parseFloat((0,external_lodash_namespaceObject.clamp)(value, min, max));
+  return parseFloat(math_clamp(value, min, max));
 }
 /**
  * Hook to store a clamped value, derived from props.
@@ -42451,7 +42625,6 @@ function useTooltipPosition(_ref2) {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -42462,6 +42635,7 @@ function useTooltipPosition(_ref2) {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -42545,7 +42719,7 @@ function RangeControl(_ref, ref) {
   const rangeFillValue = isValueReset ? (max - min) / 2 + min : value;
   const calculatedFillValue = (value - min) / (max - min) * 100;
   const fillValue = isValueReset ? 50 : calculatedFillValue;
-  const fillValueOffset = `${(0,external_lodash_namespaceObject.clamp)(fillValue, 0, 100)}%`;
+  const fillValueOffset = `${math_clamp(fillValue, 0, 100)}%`;
   const classes = classnames_default()('components-range-control', className);
   const wrapperClasses = classnames_default()('components-range-control__wrapper', !!marks && 'is-marked');
   const id = (0,external_wp_compose_namespaceObject.useInstanceId)(RangeControl, 'inspector-range-control');
@@ -42720,6 +42894,258 @@ function RangeControl(_ref, ref) {
 const range_control_ForwardedComponent = (0,external_wp_element_namespaceObject.forwardRef)(RangeControl);
 /* harmony default export */ const range_control = (range_control_ForwardedComponent);
 
+;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/utils.js
+/**
+ * Internal dependencies
+ */
+
+/** @type {import('./types').Alignments} */
+
+const utils_ALIGNMENTS = {
+  bottom: {
+    align: 'flex-end',
+    justify: 'center'
+  },
+  bottomLeft: {
+    align: 'flex-start',
+    justify: 'flex-end'
+  },
+  bottomRight: {
+    align: 'flex-end',
+    justify: 'flex-end'
+  },
+  center: {
+    align: 'center',
+    justify: 'center'
+  },
+  edge: {
+    align: 'center',
+    justify: 'space-between'
+  },
+  left: {
+    align: 'center',
+    justify: 'flex-start'
+  },
+  right: {
+    align: 'center',
+    justify: 'flex-end'
+  },
+  stretch: {
+    align: 'stretch'
+  },
+  top: {
+    align: 'flex-start',
+    justify: 'center'
+  },
+  topLeft: {
+    align: 'flex-start',
+    justify: 'flex-start'
+  },
+  topRight: {
+    align: 'flex-start',
+    justify: 'flex-end'
+  }
+};
+/** @type {import('./types').Alignments} */
+
+const V_ALIGNMENTS = {
+  bottom: {
+    justify: 'flex-end',
+    align: 'center'
+  },
+  bottomLeft: {
+    justify: 'flex-start',
+    align: 'flex-end'
+  },
+  bottomRight: {
+    justify: 'flex-end',
+    align: 'flex-end'
+  },
+  center: {
+    justify: 'center',
+    align: 'center'
+  },
+  edge: {
+    justify: 'space-between',
+    align: 'center'
+  },
+  left: {
+    justify: 'center',
+    align: 'flex-start'
+  },
+  right: {
+    justify: 'center',
+    align: 'flex-end'
+  },
+  stretch: {
+    justify: 'stretch'
+  },
+  top: {
+    justify: 'flex-start',
+    align: 'center'
+  },
+  topLeft: {
+    justify: 'flex-start',
+    align: 'flex-start'
+  },
+  topRight: {
+    justify: 'flex-start',
+    align: 'flex-end'
+  }
+};
+/* eslint-disable jsdoc/valid-types */
+
+/**
+ * @param {import('./types').HStackAlignment | import('react').CSSProperties[ 'alignItems' ]} alignment         Where to align.
+ * @param {import('../flex/types').FlexDirection}                                             [direction='row'] Direction to align.
+ * @return {import('./types').AlignmentProps} Alignment props.
+ */
+
+/* eslint-enable jsdoc/valid-types */
+
+function getAlignmentProps(alignment) {
+  let direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'row';
+
+  if (!isValueDefined(alignment)) {
+    return {};
+  }
+
+  const isVertical = direction === 'column';
+  const props = isVertical ? V_ALIGNMENTS : utils_ALIGNMENTS;
+  const alignmentProps = alignment in props ? props[
+  /** @type {keyof typeof ALIGNMENTS} */
+  alignment] : {
+    align: alignment
+  };
+  return alignmentProps;
+}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/ui/utils/get-valid-children.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Gets a collection of available children elements from a React component's children prop.
+ *
+ * @param  children
+ *
+ * @return An array of available children.
+ */
+
+function getValidChildren(children) {
+  if (typeof children === 'string') return [children];
+  return external_wp_element_namespaceObject.Children.toArray(children).filter(child => (0,external_wp_element_namespaceObject.isValidElement)(child));
+}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/hook.js
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+/**
+ *
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
+ */
+
+function useHStack(props) {
+  const {
+    alignment = 'edge',
+    children,
+    direction,
+    spacing = 2,
+    ...otherProps
+  } = useContextSystem(props, 'HStack');
+  const align = getAlignmentProps(alignment, direction);
+  const validChildren = getValidChildren(children);
+  const clonedChildren = validChildren.map( // @ts-ignore
+  (
+  /** @type {import('react').ReactElement} */
+  child, index) => {
+    const _key = child.key || `hstack-${index}`;
+
+    const _isSpacer = hasConnectNamespace(child, ['Spacer']);
+
+    if (_isSpacer) {
+      return (0,external_wp_element_namespaceObject.createElement)(flex_item_component, extends_extends({
+        isBlock: true,
+        key: _key
+      }, child.props));
+    }
+
+    return child;
+  });
+  const propsForFlex = {
+    children: clonedChildren,
+    direction,
+    justify: 'center',
+    ...align,
+    ...otherProps,
+    gap: spacing
+  };
+  const flexProps = useFlex(propsForFlex);
+  return flexProps;
+}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/h-stack/component.js
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
+ * @param {import('react').ForwardedRef<any>}                                               forwardedRef
+ */
+
+function HStack(props, forwardedRef) {
+  const hStackProps = useHStack(props);
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, hStackProps, {
+    ref: forwardedRef
+  }));
+}
+/**
+ * `HStack` (Horizontal Stack) arranges child elements in a horizontal line.
+ *
+ * `HStack` can render anything inside.
+ *
+ * @example
+ * ```jsx
+ * import {
+ * 	__experimentalHStack as HStack,
+ * 	__experimentalText as Text,
+ * } from `@wordpress/components`;
+ *
+ * function Example() {
+ * 	return (
+ * 		<HStack>
+ * 			<Text>Code</Text>
+ * 			<Text>is</Text>
+ * 			<Text>Poetry</Text>
+ * 		</HStack>
+ * 	);
+ * }
+ * ```
+ */
+
+
+const ConnectedHStack = contextConnect(HStack, 'HStack');
+/* harmony default export */ const h_stack_component = (ConnectedHStack);
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/styles.js
 
 
@@ -42741,15 +43167,17 @@ function color_picker_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have
 
 
 
+
+
 const NumberControlWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
-  target: "ez9hsf46"
+  target: "ez9hsf48"
 } : 0)(Container, "{width:", space(24), ";}" + ( true ? "" : 0));
 const styles_SelectControl = /*#__PURE__*/emotion_styled_base_browser_esm(select_control,  true ? {
-  target: "ez9hsf45"
+  target: "ez9hsf47"
 } : 0)("margin-left:", space(-2), ";width:5em;", BackdropUI, "{display:none;}" + ( true ? "" : 0));
 const styles_RangeControl = /*#__PURE__*/emotion_styled_base_browser_esm(range_control,  true ? {
-  target: "ez9hsf44"
-} : 0)("flex:1;", StyledField, "{margin-bottom:0;}" + ( true ? "" : 0)); // All inputs should be the same height so this should be changed at the component level.
+  target: "ez9hsf46"
+} : 0)("flex:1;margin-right:", space(2), ";", StyledField, "{margin-bottom:0;}" + ( true ? "" : 0)); // All inputs should be the same height so this should be changed at the component level.
 // That involves changing heights of multiple input types probably buttons too etc.
 // So until that is done we are already using the new height on the color picker so it matches the mockups.
 
@@ -42764,11 +43192,17 @@ const interactiveHueStyles = `
 	margin-left: ${space(1)};
 }`;
 const AuxiliaryColorArtefactWrapper = emotion_styled_base_browser_esm("div",  true ? {
+  target: "ez9hsf45"
+} : 0)("padding-top:", space(2), ";padding-right:0;padding-left:0;padding-bottom:0;" + ( true ? "" : 0));
+const AuxiliaryColorArtefactHStackHeader = /*#__PURE__*/emotion_styled_base_browser_esm(h_stack_component,  true ? {
+  target: "ez9hsf44"
+} : 0)("padding-left:", space(4), ";padding-right:", space(4), ";" + ( true ? "" : 0));
+const ColorInputWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_component,  true ? {
   target: "ez9hsf43"
-} : 0)("padding:", space(2), " ", space(4), ";" + ( true ? "" : 0));
+} : 0)("padding-top:", space(4), ";padding-left:", space(4), ";padding-right:", space(3), ";padding-bottom:", space(5), ";" + ( true ? "" : 0));
 const ColorfulWrapper = emotion_styled_base_browser_esm("div",  true ? {
   target: "ez9hsf42"
-} : 0)("width:216px;.react-colorful{display:flex;flex-direction:column;align-items:center;width:216px;height:auto;}.react-colorful__saturation{width:100%;border-radius:0;height:216px;margin-bottom:", space(4), ";border-bottom:none;}.react-colorful__hue,.react-colorful__alpha{width:184px;height:16px;border-radius:16px;margin-bottom:", space(2), ";}.react-colorful__pointer{height:16px;width:16px;border:none;box-shadow:0 0 2px 0 rgba( 0, 0, 0, 0.25 );outline:2px solid transparent;}.react-colorful__pointer-fill{box-shadow:inset 0 0 0 ", config_values.borderWidthFocus, " #fff;}", interactiveHueStyles, " ", StyledField, "{margin-bottom:0;}", inputHeightStyle, ";" + ( true ? "" : 0));
+} : 0)("width:216px;.react-colorful{display:flex;flex-direction:column;align-items:center;width:216px;height:auto;overflow:hidden;}.react-colorful__saturation{width:100%;border-radius:0;height:216px;margin-bottom:", space(4), ";border-bottom:none;}.react-colorful__hue,.react-colorful__alpha{width:184px;height:16px;border-radius:16px;margin-bottom:", space(2), ";}.react-colorful__pointer{height:16px;width:16px;border:none;box-shadow:0 0 2px 0 rgba( 0, 0, 0, 0.25 );outline:2px solid transparent;}.react-colorful__pointer-fill{box-shadow:inset 0 0 0 ", config_values.borderWidthFocus, " #fff;}", interactiveHueStyles, " ", StyledField, "{margin-bottom:0;}", inputHeightStyle, ";" + ( true ? "" : 0));
 const CopyButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
   target: "ez9hsf41"
 } : 0)("&&&&&{min-width:", space(6), ";padding:0;>svg{margin-right:0;}}" + ( true ? "" : 0));
@@ -45764,8 +46198,7 @@ const InputWithSlider = _ref => {
     onChange,
     value
   } = _ref;
-  return (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
-    as: h_stack_component,
+  return (0,external_wp_element_namespaceObject.createElement)(h_stack_component, {
     spacing: 4
   }, (0,external_wp_element_namespaceObject.createElement)(NumberControlWrapper, {
     min: min,
@@ -46154,8 +46587,6 @@ function useControlledValue(_ref) {
 
 
 
-
-
 colord_k([names]);
 const options = [{
   label: 'RGB',
@@ -46197,7 +46628,7 @@ const ColorPicker = (props, forwardedRef) => {
     onChange: handleChange,
     color: safeColordColor,
     enableAlpha: enableAlpha
-  }), (0,external_wp_element_namespaceObject.createElement)(AuxiliaryColorArtefactWrapper, null, (0,external_wp_element_namespaceObject.createElement)(h_stack_component, {
+  }), (0,external_wp_element_namespaceObject.createElement)(AuxiliaryColorArtefactWrapper, null, (0,external_wp_element_namespaceObject.createElement)(AuxiliaryColorArtefactHStackHeader, {
     justify: "space-between"
   }, (0,external_wp_element_namespaceObject.createElement)(styles_SelectControl, {
     options: options,
@@ -46208,14 +46639,15 @@ const ColorPicker = (props, forwardedRef) => {
   }), (0,external_wp_element_namespaceObject.createElement)(ColorCopyButton, {
     color: safeColordColor,
     colorType: copyFormat || colorType
-  })), (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
-    margin: 4
-  }), (0,external_wp_element_namespaceObject.createElement)(ColorInput, {
+  })), (0,external_wp_element_namespaceObject.createElement)(ColorInputWrapper, {
+    direction: "column",
+    gap: 2
+  }, (0,external_wp_element_namespaceObject.createElement)(ColorInput, {
     colorType: colorType,
     color: safeColordColor,
     onChange: handleChange,
     enableAlpha: enableAlpha
-  })));
+  }))));
 };
 
 const ConnectedColorPicker = contextConnect(ColorPicker, 'ColorPicker');
@@ -46427,11 +46859,6 @@ CircularOptionPicker.DropdownLinkAction = DropdownLinkAction;
  */
 
 
-/**
- *
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- */
-
 function useVStack(props) {
   const {
     expanded = false,
@@ -46450,28 +46877,28 @@ function useVStack(props) {
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * Internal dependencies
  */
 
 
 
-/**
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'div'>} props
- * @param {import('react').ForwardedRef<any>}                                               forwardedRef
- */
 
-function VStack(props, forwardedRef) {
+function UnconnectedVStack(props, forwardedRef) {
   const vStackProps = useVStack(props);
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, vStackProps, {
     ref: forwardedRef
   }));
 }
 /**
- * `VStack` (or Vertical Stack) is a layout component that arranges child elements in a vertical line.
+ * `VStack` (or Vertical Stack) is a layout component that arranges child
+ * elements in a vertical line.
  *
  * `VStack` can render anything inside.
  *
- * @example
  * ```jsx
  * import {
  * 	__experimentalText as Text,
@@ -46491,12 +46918,16 @@ function VStack(props, forwardedRef) {
  */
 
 
-const ConnectedVStack = contextConnect(VStack, 'VStack');
-/* harmony default export */ const v_stack_component = (ConnectedVStack);
+const VStack = contextConnect(UnconnectedVStack, 'VStack');
+/* harmony default export */ const v_stack_component = (VStack);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/truncate/component.js
 
 
+
+/**
+ * External dependencies
+ */
 
 /**
  * Internal dependencies
@@ -46504,12 +46935,8 @@ const ConnectedVStack = contextConnect(VStack, 'VStack');
 
 
 
-/**
- * @param {import('../ui/context').WordPressComponentProps<import('./types').Props, 'span'>} props
- * @param {import('react').ForwardedRef<any>}                                                forwardedRef
- */
 
-function component_Truncate(props, forwardedRef) {
+function UnconnectedTruncate(props, forwardedRef) {
   const truncateProps = useTruncate(props);
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
     as: "span"
@@ -46523,7 +46950,6 @@ function component_Truncate(props, forwardedRef) {
  * `Subheading` is used to render text content. However,`Truncate` is
  * available for custom implementations.
  *
- * @example
  * ```jsx
  * import { __experimentalTruncate as Truncate } from `@wordpress/components`;
  *
@@ -46540,8 +46966,8 @@ function component_Truncate(props, forwardedRef) {
  */
 
 
-const ConnectedTruncate = contextConnect(component_Truncate, 'Truncate');
-/* harmony default export */ const truncate_component = (ConnectedTruncate);
+const component_Truncate = contextConnect(UnconnectedTruncate, 'Truncate');
+/* harmony default export */ const truncate_component = (component_Truncate);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/heading/hook.js
 /**
@@ -46603,7 +47029,6 @@ function UnconnectedHeading(props, forwardedRef) {
 /**
  * `Heading` renders headings and titles using the library's typography system.
  *
- * @example
  * ```jsx
  * import { __experimentalHeading as Heading } from "@wordpress/components";
  *
@@ -46749,7 +47174,8 @@ function CustomColorPickerDropdown(_ref5) {
     contentClassName: "components-color-palette__custom-color-dropdown-content",
     popoverProps: isRenderedInSidebar ? {
       placement: 'left-start',
-      offset: 20
+      offset: 20,
+      __unstableShift: true
     } : undefined
   }, props));
 }
@@ -47883,7 +48309,7 @@ const BorderLabel = props => {
   }, label) : (0,external_wp_element_namespaceObject.createElement)(StyledLabel, null, label);
 };
 
-const BorderControl = (props, forwardedRef) => {
+const UnconnectedBorderControl = (props, forwardedRef) => {
   const {
     colors,
     disableCustomColors,
@@ -47950,9 +48376,44 @@ const BorderControl = (props, forwardedRef) => {
     withInputField: false
   })));
 };
+/**
+ * The `BorderControl` brings together internal sub-components which allow users to
+ * set the various properties of a border. The first sub-component, a
+ * `BorderDropdown` contains options representing border color and style. The
+ * border width is controlled via a `UnitControl` and an optional `RangeControl`.
+ *
+ * Border radius is not covered by this control as it may be desired separate to
+ * color, style, and width. For example, the border radius may be absorbed under
+ * a "shape" abstraction.
+ *
+ * ```jsx
+ * import { __experimentalBorderControl as BorderControl } from '@wordpress/components';
+ * import { __ } from '@wordpress/i18n';
+ *
+ * const colors = [
+ * 	{ name: 'Blue 20', color: '#72aee6' },
+ * 	// ...
+ * ];
+ *
+ * const MyBorderControl = () => {
+ * 	const [ border, setBorder ] = useState();
+ * 	const onChange = ( newBorder ) => setBorder( newBorder );
+ *
+ * 	return (
+ * 		<BorderControl
+ * 			colors={ colors }
+ * 			label={ __( 'Border' ) }
+ * 			onChange={ onChange }
+ * 			value={ border }
+ * 		/>
+ * 	);
+ * };
+ * ```
+ */
 
-const ConnectedBorderControl = contextConnect(BorderControl, 'BorderControl');
-/* harmony default export */ const border_control_component = (ConnectedBorderControl);
+
+const BorderControl = contextConnect(UnconnectedBorderControl, 'BorderControl');
+/* harmony default export */ const border_control_component = (BorderControl);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/grid/utils.js
 const grid_utils_ALIGNMENTS = {
@@ -48207,7 +48668,8 @@ const BorderBoxControlSplitControls = (props, forwardedRef) => {
   const popoverProps = popoverPlacement ? {
     placement: popoverPlacement,
     offset: popoverOffset,
-    anchorRef: containerRef
+    anchorRef: containerRef,
+    __unstableShift: true
   } : undefined;
   const sharedBorderControlProps = {
     colors,
@@ -48552,7 +49014,8 @@ const component_BorderBoxControl = (props, forwardedRef) => {
   const popoverProps = popoverPlacement ? {
     placement: popoverPlacement,
     offset: popoverOffset,
-    anchorRef: containerRef
+    anchorRef: containerRef,
+    __unstableShift: true
   } : undefined;
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
     className: className
@@ -48851,18 +49314,18 @@ function getAllValue() {
   const allParsedUnits = parsedQuantitiesAndUnits.map(value => value[1]);
   const commonQuantity = allParsedQuantities.every(v => v === allParsedQuantities[0]) ? allParsedQuantities[0] : '';
   /**
-   * The isNumber check is important. On reset actions, the incoming value
+   * The typeof === 'number' check is important. On reset actions, the incoming value
    * may be null or an empty string.
    *
    * Also, the value may also be zero (0), which is considered a valid unit value.
    *
-   * isNumber() is more specific for these cases, rather than relying on a
+   * typeof === 'number' is more specific for these cases, rather than relying on a
    * simple truthy check.
    */
 
   let commonUnit;
 
-  if ((0,external_lodash_namespaceObject.isNumber)(commonQuantity)) {
+  if (typeof commonQuantity === 'number') {
     commonUnit = mode(allParsedUnits);
   } else {
     var _getAllUnitFallback;
@@ -49698,7 +50161,6 @@ const Elevation =  true ? {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -49707,6 +50169,7 @@ const Elevation =  true ? {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -49742,14 +50205,14 @@ function useElevation(props) {
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
     /** @type {number | undefined} */
-    let hoverValue = !(0,external_lodash_namespaceObject.isNil)(hover) ? hover : value * 2;
+    let hoverValue = isValueDefined(hover) ? hover : value * 2;
     /** @type {number | undefined} */
 
-    let activeValue = !(0,external_lodash_namespaceObject.isNil)(active) ? active : value / 2;
+    let activeValue = isValueDefined(active) ? active : value / 2;
 
     if (!isInteractive) {
-      hoverValue = !(0,external_lodash_namespaceObject.isNil)(hover) ? hover : undefined;
-      activeValue = !(0,external_lodash_namespaceObject.isNil)(active) ? active : undefined;
+      hoverValue = isValueDefined(hover) ? hover : undefined;
+      activeValue = isValueDefined(active) ? active : undefined;
     }
 
     const transition = `box-shadow ${config_values.transitionDuration} ${config_values.transitionTimingFunction}`;
@@ -49765,15 +50228,15 @@ function useElevation(props) {
       transition
     }, reduceMotion('transition'),  true ? "" : 0,  true ? "" : 0);
 
-    if (!(0,external_lodash_namespaceObject.isNil)(hoverValue)) {
+    if (isValueDefined(hoverValue)) {
       sx.hover = /*#__PURE__*/emotion_react_browser_esm_css("*:hover>&{box-shadow:", getBoxShadow(hoverValue), ";}" + ( true ? "" : 0),  true ? "" : 0);
     }
 
-    if (!(0,external_lodash_namespaceObject.isNil)(activeValue)) {
+    if (isValueDefined(activeValue)) {
       sx.active = /*#__PURE__*/emotion_react_browser_esm_css("*:active>&{box-shadow:", getBoxShadow(activeValue), ";}" + ( true ? "" : 0),  true ? "" : 0);
     }
 
-    if (!(0,external_lodash_namespaceObject.isNil)(focus)) {
+    if (isValueDefined(focus)) {
       sx.focus = /*#__PURE__*/emotion_react_browser_esm_css("*:focus>&{box-shadow:", getBoxShadow(focus), ";}" + ( true ? "" : 0),  true ? "" : 0);
     }
 
@@ -51877,10 +52340,6 @@ const DIRECTIONAL_ORIENTATION_ANGLE_MAP = {
 };
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/serializer.js
-/**
- * External dependencies
- */
-
 function serializeGradientColor(_ref) {
   let {
     type,
@@ -51934,9 +52393,11 @@ function serializeGradient(_ref3) {
   } = _ref3;
   const serializedOrientation = serializeGradientOrientation(orientation);
   const serializedColorStops = colorStops.sort((colorStop1, colorStop2) => {
-    return (0,external_lodash_namespaceObject.get)(colorStop1, ['length', 'value'], 0) - (0,external_lodash_namespaceObject.get)(colorStop2, ['length', 'value'], 0);
+    var _colorStop1$length$va, _colorStop1$length, _colorStop2$length$va, _colorStop2$length;
+
+    return ((_colorStop1$length$va = colorStop1 === null || colorStop1 === void 0 ? void 0 : (_colorStop1$length = colorStop1.length) === null || _colorStop1$length === void 0 ? void 0 : _colorStop1$length.value) !== null && _colorStop1$length$va !== void 0 ? _colorStop1$length$va : 0) - ((_colorStop2$length$va = colorStop2 === null || colorStop2 === void 0 ? void 0 : (_colorStop2$length = colorStop2.length) === null || _colorStop2$length === void 0 ? void 0 : _colorStop2$length.value) !== null && _colorStop2$length$va !== void 0 ? _colorStop2$length$va : 0);
   }).map(serializeGradientColorStop);
-  return `${type}(${(0,external_lodash_namespaceObject.compact)([serializedOrientation, ...serializedColorStops]).join(',')})`;
+  return `${type}(${[serializedOrientation, ...serializedColorStops].filter(Boolean).join(',')})`;
 }
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/utils.js
@@ -52074,13 +52535,8 @@ const AccessoryWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_block
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 /**
  * Internal dependencies
@@ -52096,12 +52552,14 @@ const AccessoryWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_block
 
 
 const GradientAnglePicker = _ref => {
+  var _gradientAST$orientat, _gradientAST$orientat2;
+
   let {
     gradientAST,
     hasGradient,
     onChange
   } = _ref;
-  const angle = (0,external_lodash_namespaceObject.get)(gradientAST, ['orientation', 'value'], DEFAULT_LINEAR_GRADIENT_ANGLE);
+  const angle = (_gradientAST$orientat = gradientAST === null || gradientAST === void 0 ? void 0 : (_gradientAST$orientat2 = gradientAST.orientation) === null || _gradientAST$orientat2 === void 0 ? void 0 : _gradientAST$orientat2.value) !== null && _gradientAST$orientat !== void 0 ? _gradientAST$orientat : DEFAULT_LINEAR_GRADIENT_ANGLE;
 
   const onAngleChange = newAngle => {
     onChange(serializeGradient({ ...gradientAST,
@@ -52139,7 +52597,11 @@ const GradientTypePicker = _ref2 => {
   };
 
   const onSetRadialGradient = () => {
-    onChange(serializeGradient({ ...(0,external_lodash_namespaceObject.omit)(gradientAST, ['orientation']),
+    const {
+      orientation,
+      ...restGradientAST
+    } = gradientAST;
+    onChange(serializeGradient({ ...restGradientAST,
       type: 'radial-gradient'
     }));
   };
@@ -58371,7 +58833,8 @@ function DatePicker(_ref2) {
     onChange,
     events,
     isInvalidDate,
-    onMonthPreviewed
+    onMonthPreviewed,
+    startOfWeek = 0
   } = _ref2;
   const nodeRef = (0,external_wp_element_namespaceObject.useRef)(null);
 
@@ -58461,6 +58924,7 @@ function DatePicker(_ref2) {
     isOutsideRange: date => {
       return !!isInvalidDate && isInvalidDate(date.toDate());
     },
+    firstDayOfWeek: startOfWeek,
     onPrevMonthClick: onMonthPreviewedHandler,
     onNextMonthClick: onMonthPreviewedHandler,
     renderDayContents: day => (0,external_wp_element_namespaceObject.createElement)(DatePickerDay, {
@@ -58968,6 +59432,7 @@ function UnforwardedDateTimePicker(_ref, ref) {
     onMonthPreviewed = date_time_noop,
     onChange,
     events,
+    startOfWeek,
     __nextRemoveHelpButton = false,
     __nextRemoveResetButton = false
   } = _ref;
@@ -59008,7 +59473,8 @@ function UnforwardedDateTimePicker(_ref, ref) {
     onChange: onChange,
     isInvalidDate: isInvalidDate,
     events: events,
-    onMonthPreviewed: onMonthPreviewed
+    onMonthPreviewed: onMonthPreviewed,
+    startOfWeek: startOfWeek
   })), calendarHelpIsVisible && (0,external_wp_element_namespaceObject.createElement)(CalendarHelp, {
     className: "components-datetime__calendar-help" // Unused, for backwards compatibility.
 
@@ -60237,6 +60703,7 @@ function CustomDuotoneBar(_ref) {
 function DuotonePicker(_ref) {
   let {
     clearable = true,
+    unsetable = true,
     colorPalette,
     duotonePalette,
     disableCustomColors,
@@ -60245,44 +60712,56 @@ function DuotonePicker(_ref) {
     onChange
   } = _ref;
   const [defaultDark, defaultLight] = (0,external_wp_element_namespaceObject.useMemo)(() => getDefaultColors(colorPalette), [colorPalette]);
+  const isUnset = value === 'unset';
+  const unsetOption = (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
+    key: "unset",
+    value: "unset",
+    isSelected: isUnset,
+    tooltipText: (0,external_wp_i18n_namespaceObject.__)('Unset'),
+    className: "components-duotone-picker__color-indicator",
+    onClick: () => {
+      onChange(isUnset ? undefined : 'unset');
+    }
+  });
+  const options = duotonePalette.map(_ref2 => {
+    let {
+      colors,
+      slug,
+      name
+    } = _ref2;
+    const style = {
+      background: getGradientFromCSSColors(colors, '135deg'),
+      color: 'transparent'
+    };
+    const tooltipText = name !== null && name !== void 0 ? name : (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: duotone code e.g: "dark-grayscale" or "7f7f7f-ffffff".
+    (0,external_wp_i18n_namespaceObject.__)('Duotone code: %s'), slug);
+    const label = name ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: The name of the option e.g: "Dark grayscale".
+    (0,external_wp_i18n_namespaceObject.__)('Duotone: %s'), name) : tooltipText;
+    const isSelected = (0,external_lodash_namespaceObject.isEqual)(colors, value);
+    return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
+      key: slug,
+      value: colors,
+      isSelected: isSelected,
+      "aria-label": label,
+      tooltipText: tooltipText,
+      style: style,
+      onClick: () => {
+        onChange(isSelected ? undefined : colors);
+      }
+    });
+  });
   return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker, {
-    options: duotonePalette.map(_ref2 => {
-      let {
-        colors,
-        slug,
-        name
-      } = _ref2;
-      const style = {
-        background: getGradientFromCSSColors(colors, '135deg'),
-        color: 'transparent'
-      };
-      const tooltipText = name !== null && name !== void 0 ? name : (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: duotone code e.g: "dark-grayscale" or "7f7f7f-ffffff".
-      (0,external_wp_i18n_namespaceObject.__)('Duotone code: %s'), slug);
-      const label = name ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: The name of the option e.g: "Dark grayscale".
-      (0,external_wp_i18n_namespaceObject.__)('Duotone: %s'), name) : tooltipText;
-      const isSelected = (0,external_lodash_namespaceObject.isEqual)(colors, value);
-      return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
-        key: slug,
-        value: colors,
-        isSelected: isSelected,
-        "aria-label": label,
-        tooltipText: tooltipText,
-        style: style,
-        onClick: () => {
-          onChange(isSelected ? undefined : colors);
-        }
-      });
-    }),
+    options: unsetable ? [unsetOption, ...options] : options,
     actions: !!clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
       onClick: () => onChange(undefined)
     }, (0,external_wp_i18n_namespaceObject.__)('Clear'))
   }, !disableCustomColors && !disableCustomDuotone && (0,external_wp_element_namespaceObject.createElement)(CustomDuotoneBar, {
-    value: value,
+    value: isUnset ? undefined : value,
     onChange: onChange
   }), !disableCustomDuotone && (0,external_wp_element_namespaceObject.createElement)(color_list_picker, {
     labels: [(0,external_wp_i18n_namespaceObject.__)('Shadows'), (0,external_wp_i18n_namespaceObject.__)('Highlights')],
     colors: colorPalette,
-    value: value,
+    value: isUnset ? undefined : value,
     disableCustomColors: disableCustomColors,
     enableAlpha: true,
     onChange: newColors => {
@@ -62332,17 +62811,42 @@ function FormFileUpload(_ref) {
  * External dependencies
  */
 
-const form_toggle_noop = () => {};
+/**
+ * Internal dependencies
+ */
 
-function FormToggle(_ref) {
-  let {
+const form_toggle_noop = () => {};
+/**
+ * FormToggle switches a single setting on or off.
+ *
+ * ```jsx
+ * import { FormToggle } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MyFormToggle = () => {
+ *   const [ isChecked, setChecked ] = useState( true );
+ *
+ *   return (
+ *     <FormToggle
+ *       checked={ isChecked }
+ *       onChange={ () => setChecked( ( state ) => ! state ) }
+ *     />
+ *   );
+ * };
+ * ```
+ */
+
+function FormToggle( // ref is omitted until we have `WordPressComponentPropsWithoutRef` or add
+// ref forwarding to FormToggle.
+props) {
+  const {
     className,
     checked,
     id,
     disabled,
     onChange = form_toggle_noop,
-    ...props
-  } = _ref;
+    ...additionalProps
+  } = props;
   const wrapperClasses = classnames_default()('components-form-toggle', className, {
     'is-checked': checked,
     'is-disabled': disabled
@@ -62356,13 +62860,12 @@ function FormToggle(_ref) {
     checked: checked,
     onChange: onChange,
     disabled: disabled
-  }, props)), (0,external_wp_element_namespaceObject.createElement)("span", {
+  }, additionalProps)), (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "components-form-toggle__track"
   }), (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "components-form-toggle__thumb"
   }));
 }
-
 /* harmony default export */ const form_toggle = (FormToggle);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/form-token-field/token.js
@@ -63858,24 +64361,33 @@ const ItemTitleUI = /*#__PURE__*/emotion_styled_base_browser_esm(text_component,
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/use-navigation-tree-nodes.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 const useNavigationTreeNodes = () => {
   const [nodes, setNodes] = (0,external_wp_element_namespaceObject.useState)({});
 
   const getNode = key => nodes[key];
 
-  const addNode = (key, value) => setNodes(original => ({ ...original,
-    [key]: (0,external_lodash_namespaceObject.omit)(value, 'children')
-  }));
+  const addNode = (key, value) => {
+    const {
+      children,
+      ...newNode
+    } = value;
+    return setNodes(original => ({ ...original,
+      [key]: newNode
+    }));
+  };
 
-  const removeNode = key => setNodes(original => (0,external_lodash_namespaceObject.omit)(original, key));
+  const removeNode = key => {
+    return setNodes(original => {
+      const {
+        [key]: removedNode,
+        ...remainingNodes
+      } = original;
+      return remainingNodes;
+    });
+  };
 
   return {
     nodes,
@@ -64176,7 +64688,6 @@ const useNavigationGroupContext = () => (0,external_wp_element_namespaceObject.u
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -64189,13 +64700,14 @@ const useNavigationGroupContext = () => (0,external_wp_element_namespaceObject.u
 
 
 
+let uniqueId = 0;
 function NavigationGroup(_ref) {
   let {
     children,
     className,
     title
   } = _ref;
-  const [groupId] = (0,external_wp_element_namespaceObject.useState)((0,external_lodash_namespaceObject.uniqueId)('group-'));
+  const [groupId] = (0,external_wp_element_namespaceObject.useState)(`group-${++uniqueId}`);
   const {
     navigationTree: {
       items
@@ -64205,10 +64717,7 @@ function NavigationGroup(_ref) {
     group: groupId
   }; // Keep the children rendered to make sure invisible items are included in the navigation tree.
 
-  if (!(0,external_lodash_namespaceObject.find)(items, {
-    group: groupId,
-    _isVisible: true
-  })) {
+  if (!Object.values(items).some(item => item.group === groupId && item._isVisible)) {
     return (0,external_wp_element_namespaceObject.createElement)(NavigationGroupContext.Provider, {
       value: context
     }, children);
@@ -64262,13 +64771,16 @@ const NavigationMenuContext = (0,external_wp_element_namespaceObject.createConte
 });
 const useNavigationMenuContext = () => (0,external_wp_element_namespaceObject.useContext)(NavigationMenuContext);
 
+// EXTERNAL MODULE: ./node_modules/remove-accents/index.js
+var remove_accents = __webpack_require__(4793);
+var remove_accents_default = /*#__PURE__*/__webpack_require__.n(remove_accents);
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/utils.js
 /**
  * External dependencies
  */
  // @see packages/block-editor/src/components/inserter/search-items.js
 
-const normalizeInput = input => (0,external_lodash_namespaceObject.deburr)(input).replace(/^\//, '').toLowerCase();
+const normalizeInput = input => remove_accents_default()(input).replace(/^\//, '').toLowerCase();
 const normalizedSearch = (title, search) => -1 !== normalizeInput(title).indexOf(normalizeInput(search));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/item/use-navigation-tree-item.js
@@ -64309,7 +64821,8 @@ const useNavigationTreeItem = (itemId, props) => {
     });
     return () => {
       removeItem(itemId);
-    };
+    }; // Ignore exhaustive-deps rule for now. See https://github.com/WordPress/gutenberg/pull/41639
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeMenu, search]);
 };
 
@@ -64320,7 +64833,6 @@ const useNavigationTreeItem = (itemId, props) => {
 /**
  * External dependencies
  */
-
 
 /**
  * WordPress dependencies
@@ -64334,6 +64846,7 @@ const useNavigationTreeItem = (itemId, props) => {
 
 
 
+let base_uniqueId = 0;
 function NavigationItemBase(props) {
   var _navigationTree$getIt;
 
@@ -64342,7 +64855,7 @@ function NavigationItemBase(props) {
     className,
     ...restProps
   } = props;
-  const [itemId] = (0,external_wp_element_namespaceObject.useState)((0,external_lodash_namespaceObject.uniqueId)('item-'));
+  const [itemId] = (0,external_wp_element_namespaceObject.useState)(`item-${++base_uniqueId}`);
   useNavigationTreeItem(itemId, props);
   const {
     navigationTree
@@ -64507,13 +65020,8 @@ const useNavigationTreeMenu = props => {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -64559,7 +65067,7 @@ function MenuTitleSearch(_ref) {
       return;
     }
 
-    const count = (0,external_lodash_namespaceObject.filter)(items, '_isVisible').length;
+    const count = Object.values(items).filter(item => item._isVisible).length;
     const resultsFoundMessage = (0,external_wp_i18n_namespaceObject.sprintf)(
     /* translators: %d: number of results. */
     (0,external_wp_i18n_namespaceObject._n)('%d result found.', '%d results found.', count), count);
@@ -64683,13 +65191,8 @@ function NavigationMenuTitle(_ref) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 /**
  * Internal dependencies
@@ -64706,7 +65209,7 @@ function NavigationSearchNoResultsFound(_ref) {
       items
     }
   } = useNavigationContext();
-  const resultsCount = (0,external_lodash_namespaceObject.filter)(items, '_isVisible').length;
+  const resultsCount = Object.values(items).filter(item => item._isVisible).length;
 
   if (!search || !!resultsCount) {
     return null;
@@ -68193,17 +68696,17 @@ const spinAnimation = emotion_react_browser_esm_keyframes`
 	}
  `;
 const StyledSpinner = emotion_styled_base_browser_esm("svg",  true ? {
-  target: "e1bj2jdf2"
+  target: "ea4tfvq2"
 } : 0)("width:", config_values.spinnerSize, "px;height:", config_values.spinnerSize, "px;display:inline-block;margin:5px 11px 0;position:relative;color:var( --wp-admin-theme-color );overflow:visible;" + ( true ? "" : 0));
 const commonPathProps =  true ? {
   name: "9s4963",
   styles: "fill:transparent;stroke-width:1.5px"
 } : 0;
 const SpinnerTrack = emotion_styled_base_browser_esm("circle",  true ? {
-  target: "e1bj2jdf1"
+  target: "ea4tfvq1"
 } : 0)(commonPathProps, ";stroke:", COLORS.gray[300], ";" + ( true ? "" : 0));
 const SpinnerIndicator = emotion_styled_base_browser_esm("path",  true ? {
-  target: "e1bj2jdf0"
+  target: "ea4tfvq0"
 } : 0)(commonPathProps, ";stroke:currentColor;stroke-linecap:round;transform-origin:50% 50%;animation:1.4s linear infinite both ", spinAnimation, ";" + ( true ? "" : 0));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/spinner/index.js
@@ -68214,25 +68717,17 @@ const SpinnerIndicator = emotion_styled_base_browser_esm("path",  true ? {
  * External dependencies
  */
 
+
 /**
  * Internal dependencies
  */
 
 
 /**
- * @typedef OwnProps
- *
- * @property {string} [className] Class name
+ * WordPress dependencies
  */
 
-/** @typedef {import('react').ComponentPropsWithoutRef<'svg'> & OwnProps} Props */
-
-/**
- * @param {Props} props
- * @return {JSX.Element} Element
- */
-
-function Spinner(_ref) {
+function UnforwardedSpinner(_ref, forwardedRef) {
   let {
     className,
     ...props
@@ -68243,7 +68738,9 @@ function Spinner(_ref) {
     xmlns: "http://www.w3.org/2000/svg",
     role: "presentation",
     focusable: "false"
-  }, props), (0,external_wp_element_namespaceObject.createElement)(SpinnerTrack, {
+  }, props, {
+    ref: forwardedRef
+  }), (0,external_wp_element_namespaceObject.createElement)(SpinnerTrack, {
     cx: "50",
     cy: "50",
     r: "50",
@@ -68253,6 +68750,21 @@ function Spinner(_ref) {
     vectorEffect: "non-scaling-stroke"
   }));
 }
+/**
+ * `Spinner` is a component used to notify users that their action is being processed.
+ *
+ * @example
+ * ```js
+ *   import { Spinner } from '@wordpress/components';
+ *
+ *   function Example() {
+ *     return <Spinner />;
+ *   }
+ * ```
+ */
+
+const Spinner = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedSpinner);
+/* harmony default export */ const spinner = (Spinner);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/surface/component.js
 

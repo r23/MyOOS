@@ -325,13 +325,7 @@ const addAnnotationClassName = OriginalComponent => {
 
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockListBlock', 'core/annotations', addAnnotationClassName);
 
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/annotations/build-module/store/reducer.js
-/**
- * External dependencies
- */
-
 /**
  * Filters an array based on the predicate, but keeps the reference the same if
  * the array hasn't changed.
@@ -341,11 +335,26 @@ const external_lodash_namespaceObject = window["lodash"];
  *                              in the array.
  * @return {Array} Filtered array.
  */
-
 function filterWithReference(collection, predicate) {
   const filteredCollection = collection.filter(predicate);
   return collection.length === filteredCollection.length ? collection : filteredCollection;
 }
+/**
+ * Creates a new object with the same keys, but with `callback()` called as
+ * a transformer function on each of the values.
+ *
+ * @param {Object}   obj      The object to transform.
+ * @param {Function} callback The function to transform each object value.
+ * @return {Array} Transformed object.
+ */
+
+
+const mapValues = (obj, callback) => Object.entries(obj).reduce((acc, _ref) => {
+  let [key, value] = _ref;
+  return { ...acc,
+    [key]: callback(value)
+  };
+}, {});
 /**
  * Verifies whether the given annotations is a valid annotation.
  *
@@ -355,7 +364,7 @@ function filterWithReference(collection, predicate) {
 
 
 function isValidAnnotationRange(annotation) {
-  return (0,external_lodash_namespaceObject.isNumber)(annotation.start) && (0,external_lodash_namespaceObject.isNumber)(annotation.end) && annotation.start <= annotation.end;
+  return typeof annotation.start === 'number' && typeof annotation.end === 'number' && annotation.start <= annotation.end;
 }
 /**
  * Reducer managing annotations.
@@ -395,14 +404,14 @@ function annotations() {
       };
 
     case 'ANNOTATION_REMOVE':
-      return (0,external_lodash_namespaceObject.mapValues)(state, annotationsForBlock => {
+      return mapValues(state, annotationsForBlock => {
         return filterWithReference(annotationsForBlock, annotation => {
           return annotation.id !== action.annotationId;
         });
       });
 
     case 'ANNOTATION_UPDATE_RANGE':
-      return (0,external_lodash_namespaceObject.mapValues)(state, annotationsForBlock => {
+      return mapValues(state, annotationsForBlock => {
         let hasChangedRange = false;
         const newAnnotations = annotationsForBlock.map(annotation => {
           if (annotation.id === action.annotationId) {
@@ -421,7 +430,7 @@ function annotations() {
       });
 
     case 'ANNOTATION_REMOVE_SOURCE':
-      return (0,external_lodash_namespaceObject.mapValues)(state, annotationsForBlock => {
+      return mapValues(state, annotationsForBlock => {
         return filterWithReference(annotationsForBlock, annotation => {
           return annotation.source !== action.source;
         });
@@ -735,7 +744,6 @@ function isShallowEqual(a, b, fromIndex) {
  * External dependencies
  */
 
-
 /**
  * Shared reference to an empty array for cases where it is important to avoid
  * returning a new array reference on every invocation, as in a connected or
@@ -812,9 +820,7 @@ const __experimentalGetAnnotationsForRichText = rememo((state, blockClientId, ri
  */
 
 function __experimentalGetAnnotations(state) {
-  return (0,external_lodash_namespaceObject.flatMap)(state, annotations => {
-    return annotations;
-  });
+  return Object.values(state).flat();
 }
 
 ;// CONCATENATED MODULE: ./node_modules/uuid/dist/esm-browser/rng.js

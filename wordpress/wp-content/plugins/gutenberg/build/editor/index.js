@@ -906,7 +906,7 @@ __webpack_require__.d(__webpack_exports__, {
   "PostSavedState": () => (/* reexport */ PostSavedState),
   "PostSchedule": () => (/* reexport */ PostSchedule),
   "PostScheduleCheck": () => (/* reexport */ post_schedule_check),
-  "PostScheduleLabel": () => (/* reexport */ post_schedule_label),
+  "PostScheduleLabel": () => (/* reexport */ PostScheduleLabel),
   "PostSlug": () => (/* reexport */ post_slug),
   "PostSlugCheck": () => (/* reexport */ PostSlugCheck),
   "PostSticky": () => (/* reexport */ post_sticky),
@@ -953,6 +953,7 @@ __webpack_require__.d(__webpack_exports__, {
   "store": () => (/* reexport */ store_store),
   "storeConfig": () => (/* reexport */ storeConfig),
   "transformStyles": () => (/* reexport */ external_wp_blockEditor_namespaceObject.transformStyles),
+  "usePostScheduleLabel": () => (/* reexport */ usePostScheduleLabel),
   "userAutocompleter": () => (/* reexport */ user),
   "withColorContext": () => (/* reexport */ withColorContext),
   "withColors": () => (/* reexport */ withColors),
@@ -1243,7 +1244,7 @@ function getPostRawValue(value) {
  */
 
 function hasSameKeys(a, b) {
-  return isEqual(keys(a), keys(b));
+  return isEqual(Object.keys(a), Object.keys(b));
 }
 /**
  * Returns true if, given the currently dispatching action and the previously
@@ -3828,11 +3829,15 @@ const trashPost = () => async _ref5 => {
   const postTypeSlug = select.getCurrentPostType();
   const postType = await registry.resolveSelect(external_wp_coreData_namespaceObject.store).getPostType(postTypeSlug);
   registry.dispatch(external_wp_notices_namespaceObject.store).removeNotice(TRASH_POST_NOTICE_ID);
+  const {
+    rest_base: restBase,
+    rest_namespace: restNamespace = 'wp/v2'
+  } = postType;
 
   try {
     const post = select.getCurrentPost();
     await external_wp_apiFetch_default()({
-      path: `/wp/v2/${postType.rest_base}/${post.id}`,
+      path: `/${restNamespace}/${restBase}/${post.id}`,
       method: 'DELETE'
     });
     await dispatch.savePost();
@@ -5750,13 +5755,8 @@ class ErrorBoundary extends external_wp_element_namespaceObject.Component {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -5771,28 +5771,35 @@ class ErrorBoundary extends external_wp_element_namespaceObject.Component {
 
 
 const requestIdleCallback = window.requestIdleCallback ? window.requestIdleCallback : window.requestAnimationFrame;
+let hasStorageSupport;
+let uniqueId = 0;
 /**
  * Function which returns true if the current environment supports browser
  * sessionStorage, or false otherwise. The result of this function is cached and
  * reused in subsequent invocations.
  */
 
-const hasSessionStorageSupport = (0,external_lodash_namespaceObject.once)(() => {
-  try {
-    // Private Browsing in Safari 10 and earlier will throw an error when
-    // attempting to set into sessionStorage. The test here is intentional in
-    // causing a thrown error as condition bailing from local autosave.
-    window.sessionStorage.setItem('__wpEditorTestSessionStorage', '');
-    window.sessionStorage.removeItem('__wpEditorTestSessionStorage');
-    return true;
-  } catch (error) {
-    return false;
+const hasSessionStorageSupport = () => {
+  if (typeof hasStorageSupport === 'undefined') {
+    try {
+      // Private Browsing in Safari 10 and earlier will throw an error when
+      // attempting to set into sessionStorage. The test here is intentional in
+      // causing a thrown error as condition bailing from local autosave.
+      window.sessionStorage.setItem('__wpEditorTestSessionStorage', '');
+      window.sessionStorage.removeItem('__wpEditorTestSessionStorage');
+      hasStorageSupport = true;
+    } catch (error) {
+      hasStorageSupport = false;
+    }
   }
-});
+
+  return hasStorageSupport;
+};
 /**
  * Custom hook which manages the creation of a notice prompting the user to
  * restore a local autosave, if one exists.
  */
+
 
 function useAutosaveNotice() {
   const {
@@ -5857,14 +5864,18 @@ function useAutosaveNotice() {
       return;
     }
 
-    const noticeId = (0,external_lodash_namespaceObject.uniqueId)('wpEditorAutosaveRestore');
+    const noticeId = `wpEditorAutosaveRestore${++uniqueId}`;
     createWarningNotice((0,external_wp_i18n_namespaceObject.__)('The backup of this post in your browser is different from the version below.'), {
       id: noticeId,
       actions: [{
         label: (0,external_wp_i18n_namespaceObject.__)('Restore the backup'),
 
         onClick() {
-          editPost((0,external_lodash_namespaceObject.omit)(edits, ['content']));
+          const {
+            content: editsContent,
+            ...editsWithoutContent
+          } = edits;
+          editPost(editsWithoutContent);
           resetEditorBlocks((0,external_wp_blocks_namespaceObject.parse)(edits.content));
           removeNotice(noticeId);
         }
@@ -6282,7 +6293,7 @@ function PageAttributesParent() {
         const priorityB = getItemPriority(b.rawName, fieldValue);
         return priorityA >= priorityB ? 1 : -1;
       });
-      return (0,external_lodash_namespaceObject.flatten)(sortedNodes);
+      return sortedNodes.flat();
     };
 
     let tree = pageItems.map(item => ({
@@ -8411,7 +8422,9 @@ function PostVisibility(_ref) {
     });
   };
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalInspectorPopoverHeader, {
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "editor-post-visibility"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalInspectorPopoverHeader, {
     title: (0,external_wp_i18n_namespaceObject.__)('Visibility'),
     help: (0,external_wp_i18n_namespaceObject.__)('Control how this post is viewed.'),
     onClose: onClose
@@ -8597,22 +8610,99 @@ function PostSchedule(_ref) {
  */
 
 
-function PostScheduleLabel(_ref) {
+function PostScheduleLabel(props) {
+  return usePostScheduleLabel(props);
+}
+function usePostScheduleLabel(_ref) {
   let {
+    full
+  } = _ref;
+  const {
     date,
     isFloating
-  } = _ref;
-
-  const settings = (0,external_wp_date_namespaceObject.__experimentalGetSettings)();
-
-  return date && !isFloating ? (0,external_wp_date_namespaceObject.format)(`${settings.formats.date} ${settings.formats.time}`, date) : (0,external_wp_i18n_namespaceObject.__)('Immediately');
-}
-/* harmony default export */ const post_schedule_label = ((0,external_wp_data_namespaceObject.withSelect)(select => {
-  return {
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
     date: select(store_store).getEditedPostAttribute('date'),
     isFloating: select(store_store).isEditedPostDateFloating()
-  };
-})(PostScheduleLabel));
+  }), []);
+  return full ? getFullPostScheduleLabel(date) : getPostScheduleLabel(date, {
+    isFloating
+  });
+}
+function getFullPostScheduleLabel(dateAttribute) {
+  const date = (0,external_wp_date_namespaceObject.getDate)(dateAttribute);
+  const timezoneAbbreviation = getTimezoneAbbreviation();
+  const formattedDate = (0,external_wp_date_namespaceObject.dateI18n)( // translators: If using a space between 'g:i' and 'a', use a non-breaking sapce.
+  (0,external_wp_i18n_namespaceObject._x)('F j, Y g:i\xa0a', 'post schedule full date format'), date);
+  return (0,external_wp_i18n_namespaceObject.isRTL)() ? `${timezoneAbbreviation} ${formattedDate}` : `${formattedDate} ${timezoneAbbreviation}`;
+}
+function getPostScheduleLabel(dateAttribute) {
+  let {
+    isFloating = false,
+    now = new Date()
+  } = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  if (!dateAttribute || isFloating) {
+    return (0,external_wp_i18n_namespaceObject.__)('Immediately');
+  } // If the user timezone does not equal the site timezone then using words
+  // like 'tomorrow' is confusing, so show the full date.
+
+
+  if (!isTimezoneSameAsSiteTimezone(now)) {
+    return getFullPostScheduleLabel(dateAttribute);
+  }
+
+  const date = (0,external_wp_date_namespaceObject.getDate)(dateAttribute);
+
+  if (isSameDay(date, now)) {
+    return (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Time of day the post is scheduled for.
+    (0,external_wp_i18n_namespaceObject.__)('Today at %s'), // translators: If using a space between 'g:i' and 'a', use a non-breaking sapce.
+    (0,external_wp_date_namespaceObject.dateI18n)((0,external_wp_i18n_namespaceObject._x)('g:i\xa0a', 'post schedule time format'), date));
+  }
+
+  const tomorrow = new Date(now);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  if (isSameDay(date, tomorrow)) {
+    return (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Time of day the post is scheduled for.
+    (0,external_wp_i18n_namespaceObject.__)('Tomorrow at %s'), // translators: If using a space between 'g:i' and 'a', use a non-breaking sapce.
+    (0,external_wp_date_namespaceObject.dateI18n)((0,external_wp_i18n_namespaceObject._x)('g:i\xa0a', 'post schedule time format'), date));
+  }
+
+  if (date.getFullYear() === now.getFullYear()) {
+    return (0,external_wp_date_namespaceObject.dateI18n)( // translators: If using a space between 'g:i' and 'a', use a non-breaking sapce.
+    (0,external_wp_i18n_namespaceObject._x)('F j g:i\xa0a', 'post schedule date format without year'), date);
+  }
+
+  return (0,external_wp_date_namespaceObject.dateI18n)( // translators: Use a non-breaking space between 'g:i' and 'a' if appropriate.
+  (0,external_wp_i18n_namespaceObject._x)('F j, Y g:i\xa0a', 'post schedule full date format'), date);
+}
+
+function getTimezoneAbbreviation() {
+  const {
+    timezone
+  } = (0,external_wp_date_namespaceObject.__experimentalGetSettings)();
+
+  if (timezone.abbr && isNaN(Number(timezone.abbr))) {
+    return timezone.abbr;
+  }
+
+  const symbol = timezone.offset < 0 ? '' : '+';
+  return `UTC${symbol}${timezone.offset}`;
+}
+
+function isTimezoneSameAsSiteTimezone(date) {
+  const {
+    timezone
+  } = (0,external_wp_date_namespaceObject.__experimentalGetSettings)();
+
+  const siteOffset = Number(timezone.offset);
+  const dateOffset = -1 * (date.getTimezoneOffset() / 60);
+  return siteOffset === dateOffset;
+}
+
+function isSameDay(left, right) {
+  return left.getDate() === right.getDate() && left.getMonth() === right.getMonth() && left.getFullYear() === right.getFullYear();
+}
 
 ;// CONCATENATED MODULE: external ["wp","a11y"]
 const external_wp_a11y_namespaceObject = window["wp"]["a11y"];
@@ -8736,10 +8826,10 @@ const termNamesToIds = (names, terms) => {
 }; // Tries to create a term or fetch it if it already exists.
 
 
-function findOrCreateTerm(termName, restBase) {
+function findOrCreateTerm(termName, restBase, namespace) {
   const escapedTermName = (0,external_lodash_namespaceObject.escape)(termName);
   return external_wp_apiFetch_default()({
-    path: `/wp/v2/${restBase}`,
+    path: `/${namespace}/${restBase}`,
     method: 'POST',
     data: {
       name: escapedTermName
@@ -8750,7 +8840,7 @@ function findOrCreateTerm(termName, restBase) {
     if (errorCode === 'term_exists') {
       // If the terms exist, fetch it instead of creating a new one.
       const addRequest = external_wp_apiFetch_default()({
-        path: (0,external_wp_url_namespaceObject.addQueryArgs)(`/wp/v2/${restBase}`, { ...flat_term_selector_DEFAULT_QUERY,
+        path: (0,external_wp_url_namespaceObject.addQueryArgs)(`/${namespace}/${restBase}`, { ...flat_term_selector_DEFAULT_QUERY,
           search: escapedTermName
         })
       }).then(unescapeTerms);
@@ -8845,6 +8935,8 @@ function FlatTermSelector(_ref) {
   }
 
   function onChange(termNames) {
+    var _taxonomy$rest_namesp;
+
     const availableTerms = [...(terms !== null && terms !== void 0 ? terms : []), ...(searchResults !== null && searchResults !== void 0 ? searchResults : [])];
     const uniqueTerms = (0,external_lodash_namespaceObject.uniqBy)(termNames, term => term.toLowerCase());
     const newTermNames = uniqueTerms.filter(termName => !(0,external_lodash_namespaceObject.find)(availableTerms, term => isSameTermName(term.name, termName))); // Optimistically update term values.
@@ -8860,7 +8952,8 @@ function FlatTermSelector(_ref) {
       return;
     }
 
-    Promise.all(newTermNames.map(termName => findOrCreateTerm(termName, taxonomy.rest_base))).then(newTerms => {
+    const namespace = (_taxonomy$rest_namesp = taxonomy === null || taxonomy === void 0 ? void 0 : taxonomy.rest_namespace) !== null && _taxonomy$rest_namesp !== void 0 ? _taxonomy$rest_namesp : 'wp/v2';
+    Promise.all(newTermNames.map(termName => findOrCreateTerm(termName, taxonomy.rest_base, namespace))).then(newTerms => {
       const newAvailableTerms = availableTerms.concat(newTerms);
       return onUpdateTerms(termNamesToIds(uniqueTerms, newAvailableTerms));
     });
@@ -9480,14 +9573,14 @@ function HierarchicalTermSelector(_ref) {
 
 function MaybeCategoryPanel() {
   const hasNoCategory = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    var _select$getEntityReco;
+    var _select$getEntityReco, _select$getEntityReco2;
 
     const postType = select(store_store).getCurrentPostType();
     const categoriesTaxonomy = select(external_wp_coreData_namespaceObject.store).getTaxonomy('category');
-    const defaultCategorySlug = 'uncategorized';
-    const defaultCategory = (_select$getEntityReco = select(external_wp_coreData_namespaceObject.store).getEntityRecords('taxonomy', 'category', {
-      slug: defaultCategorySlug
-    })) === null || _select$getEntityReco === void 0 ? void 0 : _select$getEntityReco[0];
+    const defaultCategoryId = (_select$getEntityReco = select(external_wp_coreData_namespaceObject.store).getEntityRecord('root', 'site')) === null || _select$getEntityReco === void 0 ? void 0 : _select$getEntityReco.default_category;
+    const defaultCategory = (_select$getEntityReco2 = select(external_wp_coreData_namespaceObject.store).getEntityRecords('taxonomy', 'category', {
+      id: defaultCategoryId
+    })) === null || _select$getEntityReco2 === void 0 ? void 0 : _select$getEntityReco2[0];
     const postTypeSupportsCategories = categoriesTaxonomy && (0,external_lodash_namespaceObject.some)(categoriesTaxonomy.types, type => type === postType);
     const categories = categoriesTaxonomy && select(store_store).getEditedPostAttribute(categoriesTaxonomy.rest_base); // This boolean should return true if everything is loaded
     // ( categoriesTaxonomy, defaultCategory )
@@ -9635,7 +9728,7 @@ function PostPublishPanelPrepublish(_ref) {
     title: [(0,external_wp_i18n_namespaceObject.__)('Publish:'), (0,external_wp_element_namespaceObject.createElement)("span", {
       className: "editor-post-publish-panel__link",
       key: "label"
-    }, (0,external_wp_element_namespaceObject.createElement)(post_schedule_label, null))]
+    }, (0,external_wp_element_namespaceObject.createElement)(PostScheduleLabel, null))]
   }, (0,external_wp_element_namespaceObject.createElement)(PostSchedule, null))), (0,external_wp_element_namespaceObject.createElement)(PostFormatPanel, null), (0,external_wp_element_namespaceObject.createElement)(maybe_tags_panel, null), (0,external_wp_element_namespaceObject.createElement)(maybe_category_panel, null), children);
 }
 
@@ -9751,7 +9844,7 @@ class PostPublishPanelPostpublish extends external_wp_element_namespaceObject.Co
     const addLink = (0,external_wp_url_namespaceObject.addQueryArgs)('post-new.php', {
       post_type: post.type
     });
-    const postPublishNonLinkHeader = isScheduled ? (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_i18n_namespaceObject.__)('is now scheduled. It will go live on'), ' ', (0,external_wp_element_namespaceObject.createElement)(post_schedule_label, null), ".") : (0,external_wp_i18n_namespaceObject.__)('is now live.');
+    const postPublishNonLinkHeader = isScheduled ? (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_i18n_namespaceObject.__)('is now scheduled. It will go live on'), ' ', (0,external_wp_element_namespaceObject.createElement)(PostScheduleLabel, null), ".") : (0,external_wp_i18n_namespaceObject.__)('is now live.');
     return (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "post-publish-panel__postpublish"
     }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {

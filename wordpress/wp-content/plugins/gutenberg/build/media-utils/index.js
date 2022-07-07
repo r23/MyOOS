@@ -411,8 +411,13 @@ class MediaUpload extends external_wp_element_namespaceObject.Component {
   onOpen() {
     var _this$props$value;
 
-    this.updateCollection(); // Handle both this.props.value being either (number[]) multiple ids
+    this.updateCollection(); //Handle active tab in media model on model open.
+
+    if (this.props.mode) {
+      this.frame.content.mode(this.props.mode);
+    } // Handle both this.props.value being either (number[]) multiple ids
     // (for galleries) or a (number) singular id (e.g. image block).
+
 
     const hasMedia = Array.isArray(this.props.value) ? !!((_this$props$value = this.props.value) !== null && _this$props$value !== void 0 && _this$props$value.length) : !!this.props.value;
 

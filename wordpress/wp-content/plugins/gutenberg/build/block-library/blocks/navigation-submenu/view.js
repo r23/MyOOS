@@ -2,7 +2,9 @@
 var __webpack_exports__ = {};
 const closeSubmenus = element => {
   element.querySelectorAll('[aria-expanded="true"]').forEach(toggle => {
-    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-expanded', 'false'); // Always focus the trigger, this becomes especially useful in closing submenus with escape key to ensure focus doesn't get trapped.
+
+    toggle.focus();
   });
 };
 
@@ -38,12 +40,12 @@ document.addEventListener('click', function (event) {
       closeSubmenus(block);
     }
   });
-}); // Close on focus outside.
+}); // Close on focus outside or escape key.
 
 document.addEventListener('keyup', function (event) {
   const submenuBlocks = document.querySelectorAll('.wp-block-navigation-submenu');
   submenuBlocks.forEach(block => {
-    if (!block.contains(event.target)) {
+    if (!block.contains(event.target) || block.contains(event.target) && event.key === 'Escape') {
       closeSubmenus(block);
     }
   });

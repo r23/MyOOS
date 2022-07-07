@@ -515,13 +515,10 @@ function isShallowEqual(a, b, fromIndex) {
 	return /** @type {S & EnhancedSelector} */ (callSelector);
 }
 
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/nux/build-module/store/selectors.js
 /**
  * External dependencies
  */
-
 
 /**
  * An object containing information about a guide.
@@ -544,8 +541,8 @@ const external_lodash_namespaceObject = window["lodash"];
 
 const getAssociatedGuide = rememo((state, tipId) => {
   for (const tipIds of state.guides) {
-    if ((0,external_lodash_namespaceObject.includes)(tipIds, tipId)) {
-      const nonDismissedTips = (0,external_lodash_namespaceObject.difference)(tipIds, (0,external_lodash_namespaceObject.keys)(state.preferences.dismissedTips));
+    if (tipIds.includes(tipId)) {
+      const nonDismissedTips = tipIds.filter(tId => !Object.keys(state.preferences.dismissedTips).includes(tId));
       const [currentTipId = null, nextTipId = null] = nonDismissedTips;
       return {
         tipIds,
@@ -569,11 +566,13 @@ const getAssociatedGuide = rememo((state, tipId) => {
  */
 
 function isTipVisible(state, tipId) {
+  var _state$preferences$di;
+
   if (!state.preferences.areTipsEnabled) {
     return false;
   }
 
-  if ((0,external_lodash_namespaceObject.has)(state.preferences.dismissedTips, [tipId])) {
+  if ((_state$preferences$di = state.preferences.dismissedTips) !== null && _state$preferences$di !== void 0 && _state$preferences$di.hasOwnProperty(tipId)) {
     return false;
   }
 

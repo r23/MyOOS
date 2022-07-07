@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('lodash', 'wp-data', 'wp-element', 'wp-keycodes', 'wp-polyfill'), 'version' => '8baee219a2fbb9b60ea8');
+<?php return array('dependencies' => array('wp-data', 'wp-element', 'wp-keycodes', 'wp-polyfill'), 'version' => '9a77e75c0efd974c1503');

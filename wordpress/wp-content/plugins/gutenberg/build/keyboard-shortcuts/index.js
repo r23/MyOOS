@@ -68,13 +68,7 @@ __webpack_require__.d(selectors_namespaceObject, {
 
 ;// CONCATENATED MODULE: external ["wp","data"]
 const external_wp_data_namespaceObject = window["wp"]["data"];
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/store/reducer.js
-/**
- * External dependencies
- */
-
 /**
  * Reducer returning the registered shortcuts
  *
@@ -83,7 +77,6 @@ const external_lodash_namespaceObject = window["lodash"];
  *
  * @return {Object} Updated state.
  */
-
 function reducer() {
   let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   let action = arguments.length > 1 ? arguments[1] : undefined;
@@ -100,7 +93,11 @@ function reducer() {
       };
 
     case 'UNREGISTER_SHORTCUT':
-      return (0,external_lodash_namespaceObject.omit)(state, action.name);
+      const {
+        [action.name]: actionName,
+        ...remainingState
+      } = state;
+      return remainingState;
   }
 
   return state;
@@ -476,7 +473,6 @@ const external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -578,7 +574,7 @@ function getShortcutAliases(state, name) {
   return state[name] && state[name].aliases ? state[name].aliases : EMPTY_ARRAY;
 }
 const getAllShortcutKeyCombinations = rememo((state, name) => {
-  return (0,external_lodash_namespaceObject.compact)([getShortcutKeyCombination(state, name), ...getShortcutAliases(state, name)]);
+  return [getShortcutKeyCombination(state, name), ...getShortcutAliases(state, name)].filter(Boolean);
 }, (state, name) => [state[name]]);
 /**
  * Returns the raw representation of all the keyboard combinations of a given shortcut name.

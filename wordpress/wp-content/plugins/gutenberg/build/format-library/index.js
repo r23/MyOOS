@@ -192,13 +192,17 @@ const code_code = {
       onFocus();
     }
 
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichTextToolbarButton, {
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichTextShortcut, {
+      type: "access",
+      character: "x",
+      onUse: onClick
+    }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichTextToolbarButton, {
       icon: library_code,
       title: code_title,
       onClick: onClick,
       isActive: isActive,
       role: "menuitemcheckbox"
-    });
+    }));
   }
 
 };
@@ -484,17 +488,10 @@ const link_link = (0,external_wp_element_namespaceObject.createElement)(external
 const external_wp_a11y_namespaceObject = window["wp"]["a11y"];
 ;// CONCATENATED MODULE: external ["wp","data"]
 const external_wp_data_namespaceObject = window["wp"]["data"];
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/format-library/build-module/link/utils.js
-/**
- * External dependencies
- */
-
 /**
  * WordPress dependencies
  */
-
 
 /**
  * Check for issues with the provided href.
@@ -525,7 +522,7 @@ function isValidHref(href) {
     // This ensures URIs with an http protocol have exactly two forward slashes following the protocol.
 
 
-    if ((0,external_lodash_namespaceObject.startsWith)(protocol, 'http') && !/^https?:\/\/[^\/\s]/i.test(trimmedHref)) {
+    if (protocol.startsWith('http') && !/^https?:\/\/[^\/\s]/i.test(trimmedHref)) {
       return false;
     }
 
@@ -555,7 +552,7 @@ function isValidHref(href) {
   } // Validate anchor links.
 
 
-  if ((0,external_lodash_namespaceObject.startsWith)(trimmedHref, '#') && !(0,external_wp_url_namespaceObject.isValidFragment)(trimmedHref)) {
+  if (trimmedHref.startsWith('#') && !(0,external_wp_url_namespaceObject.isValidFragment)(trimmedHref)) {
     return false;
   }
 
@@ -612,6 +609,8 @@ function createLinkFormat(_ref) {
 /* eslint-enable jsdoc/no-undefined-types */
 
 function getFormatBoundary(value, format) {
+  var _newFormats$startInde, _newFormats$endIndex, _newFormats;
+
   let startIndex = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : value.start;
   let endIndex = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : value.end;
   const EMPTY_BOUNDARIES = {
@@ -630,14 +629,23 @@ function getFormatBoundary(value, format) {
 
 
   const newFormats = formats.slice();
-  const formatAtStart = (0,external_lodash_namespaceObject.find)(newFormats[startIndex], {
-    type: format.type
+  const formatAtStart = (_newFormats$startInde = newFormats[startIndex]) === null || _newFormats$startInde === void 0 ? void 0 : _newFormats$startInde.find(_ref2 => {
+    let {
+      type
+    } = _ref2;
+    return type === format.type;
   });
-  const formatAtEnd = (0,external_lodash_namespaceObject.find)(newFormats[endIndex], {
-    type: format.type
+  const formatAtEnd = (_newFormats$endIndex = newFormats[endIndex]) === null || _newFormats$endIndex === void 0 ? void 0 : _newFormats$endIndex.find(_ref3 => {
+    let {
+      type
+    } = _ref3;
+    return type === format.type;
   });
-  const formatAtEndMinusOne = (0,external_lodash_namespaceObject.find)(newFormats[endIndex - 1], {
-    type: format.type
+  const formatAtEndMinusOne = (_newFormats = newFormats[endIndex - 1]) === null || _newFormats === void 0 ? void 0 : _newFormats.find(_ref4 => {
+    let {
+      type
+    } = _ref4;
+    return type === format.type;
   });
 
   if (!!formatAtStart) {
@@ -705,8 +713,22 @@ function walkToBoundary(formats, initialIndex, targetFormatRef, formatIndex, dir
   return index;
 }
 
-const walkToStart = (0,external_lodash_namespaceObject.partialRight)(walkToBoundary, 'backwards');
-const walkToEnd = (0,external_lodash_namespaceObject.partialRight)(walkToBoundary, 'forwards');
+const partialRight = function (fn) {
+  for (var _len = arguments.length, partialArgs = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    partialArgs[_key - 1] = arguments[_key];
+  }
+
+  return function () {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+
+    return fn(...args, ...partialArgs);
+  };
+};
+
+const walkToStart = partialRight(walkToBoundary, 'backwards');
+const walkToEnd = partialRight(walkToBoundary, 'forwards');
 
 ;// CONCATENATED MODULE: ./packages/format-library/build-module/link/use-link-instance-key.js
 // Weakly referenced map allows unused ids to be garbage collected.
@@ -1171,13 +1193,17 @@ const strikethrough = {
       onFocus();
     }
 
-    return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichTextToolbarButton, {
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichTextShortcut, {
+      type: "access",
+      character: "d",
+      onUse: onClick
+    }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichTextToolbarButton, {
       icon: format_strikethrough,
       title: strikethrough_title,
       onClick: onClick,
       isActive: isActive,
       role: "menuitemcheckbox"
-    });
+    }));
   }
 
 };
@@ -1232,6 +1258,8 @@ const underline = {
 
 };
 
+;// CONCATENATED MODULE: external "lodash"
+const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
 /**
  * WordPress dependencies

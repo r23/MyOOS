@@ -2214,11 +2214,11 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalColorGradientSettingsDropdown": () => (/* reexport */ ColorGradientSettingsDropdown),
   "__experimentalDateFormatPicker": () => (/* reexport */ DateFormatPicker),
   "__experimentalDuotoneControl": () => (/* reexport */ duotone_control),
-  "__experimentalElementButtonClassName": () => (/* reexport */ __experimentalElementButtonClassName),
   "__experimentalFontAppearanceControl": () => (/* reexport */ FontAppearanceControl),
   "__experimentalFontFamilyControl": () => (/* reexport */ FontFamilyControl),
   "__experimentalGetBorderClassesAndStyles": () => (/* reexport */ getBorderClassesAndStyles),
   "__experimentalGetColorClassesAndStyles": () => (/* reexport */ getColorClassesAndStyles),
+  "__experimentalGetElementClassName": () => (/* reexport */ __experimentalGetElementClassName),
   "__experimentalGetGradientClass": () => (/* reexport */ __experimentalGetGradientClass),
   "__experimentalGetGradientObjectByGradientValue": () => (/* reexport */ __experimentalGetGradientObjectByGradientValue),
   "__experimentalGetMatchingVariation": () => (/* reexport */ __experimentalGetMatchingVariation),
@@ -2255,7 +2255,11 @@ __webpack_require__.d(__webpack_exports__, {
   "__unstableBlockNameContext": () => (/* reexport */ block_name_context),
   "__unstableBlockSettingsMenuFirstItem": () => (/* reexport */ block_settings_menu_first_item),
   "__unstableBlockToolbarLastItem": () => (/* reexport */ block_toolbar_last_item),
+  "__unstableDuotoneFilter": () => (/* reexport */ DuotoneFilter),
+  "__unstableDuotoneStylesheet": () => (/* reexport */ DuotoneStylesheet),
+  "__unstableDuotoneUnsetStylesheet": () => (/* reexport */ DuotoneUnsetStylesheet),
   "__unstableEditorStyles": () => (/* reexport */ EditorStyles),
+  "__unstableGetValuesFromColors": () => (/* reexport */ getValuesFromColors),
   "__unstableIframe": () => (/* reexport */ iframe),
   "__unstableInserterMenuExtension": () => (/* reexport */ inserter_menu_extension),
   "__unstablePresetDuotoneFilter": () => (/* reexport */ PresetDuotoneFilter),
@@ -2919,7 +2923,7 @@ function getMutateSafeObject(original, working) {
 
 
 function hasSameKeys(a, b) {
-  return (0,external_lodash_namespaceObject.isEqual)((0,external_lodash_namespaceObject.keys)(a), (0,external_lodash_namespaceObject.keys)(b));
+  return (0,external_lodash_namespaceObject.isEqual)(Object.keys(a), Object.keys(b));
 }
 /**
  * Returns true if, given the currently dispatching action and the previously
@@ -3101,14 +3105,12 @@ const withBlockTree = reducer => function () {
 
         if (action.fromRootClientId) {
           updatedBlockUids.push(action.fromRootClientId);
+        } else {
+          updatedBlockUids.push('');
         }
 
         if (action.toRootClientId) {
           updatedBlockUids.push(action.toRootClientId);
-        }
-
-        if (!action.fromRootClientId || !action.fromRootClientId) {
-          updatedBlockUids.push('');
         }
 
         newState.tree = updateParentInnerBlocksInTree(newState, newState.tree, updatedBlockUids, true);
@@ -3125,7 +3127,7 @@ const withBlockTree = reducer => function () {
 
     case 'SAVE_REUSABLE_BLOCK_SUCCESS':
       {
-        const updatedBlockUids = (0,external_lodash_namespaceObject.keys)((0,external_lodash_namespaceObject.omitBy)(newState.attributes, (attributes, clientId) => {
+        const updatedBlockUids = Object.keys((0,external_lodash_namespaceObject.omitBy)(newState.attributes, (attributes, clientId) => {
           return newState.byClientId[clientId].name !== 'core/block' || attributes.ref !== action.updatedId;
         }));
         newState.tree = updateParentInnerBlocksInTree(newState, { ...newState.tree,
@@ -3362,14 +3364,25 @@ const withReplaceInnerBlocks = reducer => (state, action) => {
     stateAfterInsert = reducer(stateAfterInsert, { ...action,
       type: 'INSERT_BLOCKS',
       index: 0
-    }); // We need to re-attach the block order of the controlled inner blocks.
-    // Otherwise, an inner block controller's blocks will be deleted entirely
-    // from its entity..
+    }); // We need to re-attach the controlled inner blocks to the blocks tree and
+    // preserve their block order. Otherwise, an inner block controller's blocks
+    // will be deleted entirely from its entity.
 
     stateAfterInsert.order = { ...stateAfterInsert.order,
       ...(0,external_lodash_namespaceObject.reduce)(nestedControllers, (result, value, key) => {
         if (state.order[key]) {
           result[key] = state.order[key];
+        }
+
+        return result;
+      }, {})
+    };
+    stateAfterInsert.tree = { ...stateAfterInsert.tree,
+      ...(0,external_lodash_namespaceObject.reduce)(nestedControllers, (result, value, _key) => {
+        const key = `controlled||${_key}`;
+
+        if (state.tree[key]) {
+          result[key] = state.tree[key];
         }
 
         return result;
@@ -7251,6 +7264,31 @@ const __unstableGetVisibleBlocks = rememo(state => {
 
 ;// CONCATENATED MODULE: external ["wp","a11y"]
 const external_wp_a11y_namespaceObject = window["wp"]["a11y"];
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/utils/selection.js
+/**
+ * A robust way to retain selection position through various
+ * transforms is to insert a special character at the position and
+ * then recover it.
+ */
+const START_OF_SELECTED_AREA = '\u0086';
+/**
+ * Retrieve the block attribute that contains the selection position.
+ *
+ * @param {Object} blockAttributes Block attributes.
+ * @return {string|void} The name of the block attribute that was previously selected.
+ */
+
+function retrieveSelectedAttribute(blockAttributes) {
+  if (!blockAttributes) {
+    return;
+  }
+
+  return Object.keys(blockAttributes).find(name => {
+    const value = blockAttributes[name];
+    return typeof value === 'string' && value.indexOf(START_OF_SELECTED_AREA) !== -1;
+  });
+}
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/store/actions.js
 /**
  * External dependencies
@@ -7268,6 +7306,7 @@ const external_wp_a11y_namespaceObject = window["wp"]["a11y"];
 /**
  * Internal dependencies
  */
+
 
 
 /**
@@ -7989,10 +8028,7 @@ const __unstableDeleteSelection = isForward => _ref12 => {
   let valueB = (0,external_wp_richText_namespaceObject.create)({
     html: htmlB,
     ...mapRichTextSettings(attributeDefinitionB)
-  }); // A robust way to retain selection position through various transforms
-  // is to insert a special character at the position and then recover it.
-
-  const START_OF_SELECTED_AREA = '\u0086';
+  });
   valueA = (0,external_wp_richText_namespaceObject.remove)(valueA, selectionA.offset, valueA.text.length);
   valueB = (0,external_wp_richText_namespaceObject.insert)(valueB, START_OF_SELECTED_AREA, 0, selectionB.offset); // Clone the blocks so we don't manipulate the original.
 
@@ -8027,7 +8063,7 @@ const __unstableDeleteSelection = isForward => _ref12 => {
     updatedAttributes = targetBlockType.merge(cloneA.attributes, blockToMerge.attributes);
   }
 
-  const newAttributeKey = (0,external_lodash_namespaceObject.findKey)(updatedAttributes, v => typeof v === 'string' && v.indexOf(START_OF_SELECTED_AREA) !== -1);
+  const newAttributeKey = retrieveSelectedAttribute(updatedAttributes);
   const convertedHtml = updatedAttributes[newAttributeKey];
   const convertedValue = (0,external_wp_richText_namespaceObject.create)({
     html: convertedHtml,
@@ -8195,11 +8231,8 @@ const mergeBlocks = (firstBlockClientId, secondBlockClientId) => _ref15 => {
     } else {
       window.console.error('The RichText identifier prop does not match any attributes defined by the block.');
     }
-  } // A robust way to retain selection position through various transforms
-  // is to insert a special character at the position and then recover it.
+  } // Clone the blocks so we don't insert the character in a "live" block.
 
-
-  const START_OF_SELECTED_AREA = '\u0086'; // Clone the blocks so we don't insert the character in a "live" block.
 
   const cloneA = (0,external_wp_blocks_namespaceObject.cloneBlock)(blockA);
   const cloneB = (0,external_wp_blocks_namespaceObject.cloneBlock)(blockB);
@@ -8229,7 +8262,7 @@ const mergeBlocks = (firstBlockClientId, secondBlockClientId) => _ref15 => {
   const updatedAttributes = blockAType.merge(cloneA.attributes, blocksWithTheSameType[0].attributes);
 
   if (canRestoreTextSelection) {
-    const newAttributeKey = (0,external_lodash_namespaceObject.findKey)(updatedAttributes, v => typeof v === 'string' && v.indexOf(START_OF_SELECTED_AREA) !== -1);
+    const newAttributeKey = retrieveSelectedAttribute(updatedAttributes);
     const convertedHtml = updatedAttributes[newAttributeKey];
     const convertedValue = (0,external_wp_richText_namespaceObject.create)({
       html: convertedHtml,
@@ -11194,14 +11227,14 @@ function OrientationControl(_ref8) {
   return (0,external_wp_element_namespaceObject.createElement)("fieldset", {
     className: "block-editor-hooks__flex-layout-orientation-controls"
   }, (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_i18n_namespaceObject.__)('Orientation')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    label: 'horizontal',
+    label: (0,external_wp_i18n_namespaceObject.__)('Horizontal'),
     icon: arrow_right,
     isPressed: orientation === 'horizontal',
     onClick: () => onChange({ ...layout,
       orientation: 'horizontal'
     })
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    label: 'vertical',
+    label: (0,external_wp_i18n_namespaceObject.__)('Vertical'),
     icon: arrow_down,
     isPressed: orientation === 'vertical',
     onClick: () => onChange({ ...layout,
@@ -12264,6 +12297,66 @@ function addSaveProps(extraProps, blockType, attributes) {
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockEdit', 'core/editor/anchor/with-inspector-control', withInspectorControl);
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.getSaveContent.extraProps', 'core/anchor/save-props', addSaveProps);
 
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/aria-label.js
+/**
+ * WordPress dependencies
+ */
+
+
+const ARIA_LABEL_SCHEMA = {
+  type: 'string',
+  source: 'attribute',
+  attribute: 'aria-label',
+  selector: '*'
+};
+/**
+ * Filters registered block settings, extending attributes with ariaLabel using aria-label
+ * of the first node.
+ *
+ * @param {Object} settings Original block settings.
+ *
+ * @return {Object} Filtered block settings.
+ */
+
+function aria_label_addAttribute(settings) {
+  var _settings$attributes, _settings$attributes$;
+
+  // Allow blocks to specify their own attribute definition with default values if needed.
+  if (settings !== null && settings !== void 0 && (_settings$attributes = settings.attributes) !== null && _settings$attributes !== void 0 && (_settings$attributes$ = _settings$attributes.ariaLabel) !== null && _settings$attributes$ !== void 0 && _settings$attributes$.type) {
+    return settings;
+  }
+
+  if ((0,external_wp_blocks_namespaceObject.hasBlockSupport)(settings, 'ariaLabel')) {
+    // Gracefully handle if settings.attributes is undefined.
+    settings.attributes = { ...settings.attributes,
+      ariaLabel: ARIA_LABEL_SCHEMA
+    };
+  }
+
+  return settings;
+}
+/**
+ * Override props assigned to save component to inject aria-label, if block
+ * supports ariaLabel. This is only applied if the block's save result is an
+ * element and not a markup string.
+ *
+ * @param {Object} extraProps Additional props applied to save element.
+ * @param {Object} blockType  Block type.
+ * @param {Object} attributes Current block attributes.
+ *
+ * @return {Object} Filtered props applied to save element.
+ */
+
+function aria_label_addSaveProps(extraProps, blockType, attributes) {
+  if ((0,external_wp_blocks_namespaceObject.hasBlockSupport)(blockType, 'ariaLabel')) {
+    extraProps['aria-label'] = attributes.ariaLabel === '' ? null : attributes.ariaLabel;
+  }
+
+  return extraProps;
+}
+(0,external_wp_hooks_namespaceObject.addFilter)('blocks.registerBlockType', 'core/ariaLabel/attribute', aria_label_addAttribute);
+(0,external_wp_hooks_namespaceObject.addFilter)('blocks.getSaveContent.extraProps', 'core/ariaLabel/save-props', aria_label_addSaveProps);
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/custom-class-name.js
 
 
@@ -12476,15 +12569,17 @@ function generateRule(style, options, path, ruleKey) {
 /**
  * Returns a JSON representation of the generated CSS rules taking into account box model properties, top, right, bottom, left.
  *
- * @param  style   Style object.
- * @param  options Options object with settings to adjust how the styles are generated.
- * @param  path    An array of strings representing the path to the style value in the style object.
- * @param  ruleKey A CSS property key.
+ * @param style                Style object.
+ * @param options              Options object with settings to adjust how the styles are generated.
+ * @param path                 An array of strings representing the path to the style value in the style object.
+ * @param ruleKeys             An array of CSS property keys and patterns.
+ * @param individualProperties The "sides" or individual properties for which to generate rules.
  *
- * @return GeneratedCSSRule[] CSS rules.
+ * @return GeneratedCSSRule[]  CSS rules.
  */
 
-function generateBoxRules(style, options, path, ruleKey) {
+function generateBoxRules(style, options, path, ruleKeys) {
+  let individualProperties = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : ['top', 'right', 'bottom', 'left'];
   const boxStyle = (0,external_lodash_namespaceObject.get)(style, path);
 
   if (!boxStyle) {
@@ -12496,17 +12591,17 @@ function generateBoxRules(style, options, path, ruleKey) {
   if (typeof boxStyle === 'string') {
     rules.push({
       selector: options === null || options === void 0 ? void 0 : options.selector,
-      key: ruleKey,
+      key: ruleKeys.default,
       value: boxStyle
     });
   } else {
-    const sideRules = ['top', 'right', 'bottom', 'left'].reduce((acc, side) => {
+    const sideRules = individualProperties.reduce((acc, side) => {
       const value = (0,external_lodash_namespaceObject.get)(boxStyle, [side]);
 
       if (value) {
         acc.push({
           selector: options === null || options === void 0 ? void 0 : options.selector,
-          key: `${ruleKey}${(0,external_lodash_namespaceObject.upperFirst)(side)}`,
+          key: ruleKeys === null || ruleKeys === void 0 ? void 0 : ruleKeys.individual.replace('%s', upperFirst(side)),
           value
         });
       }
@@ -12534,6 +12629,104 @@ function getCSSVarFromStyleValue(styleValue) {
 
   return styleValue;
 }
+/**
+ * Capitalizes the first letter in a string.
+ *
+ * @param {string} str The string whose first letter the function will capitalize.
+ *
+ * @return string A CSS var value.
+ */
+
+function upperFirst(_ref) {
+  let [firstLetter, ...rest] = _ref;
+  return firstLetter.toUpperCase() + rest.join('');
+}
+
+;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/border/index.js
+/**
+ * Internal dependencies
+ */
+
+const color = {
+  name: 'color',
+  generate: function (style, options) {
+    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['border', 'color'];
+    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'borderColor';
+    return generateRule(style, options, path, ruleKey);
+  }
+};
+const radius = {
+  name: 'radius',
+  generate: (style, options) => {
+    return generateBoxRules(style, options, ['border', 'radius'], {
+      default: 'borderRadius',
+      individual: 'border%sRadius'
+    }, ['topLeft', 'topRight', 'bottomLeft', 'bottomRight']);
+  }
+};
+const borderStyle = {
+  name: 'style',
+  generate: function (style, options) {
+    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['border', 'style'];
+    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'borderStyle';
+    return generateRule(style, options, path, ruleKey);
+  }
+};
+const width = {
+  name: 'width',
+  generate: function (style, options) {
+    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['border', 'width'];
+    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'borderWidth';
+    return generateRule(style, options, path, ruleKey);
+  }
+};
+const borderDefinitionsWithIndividualStyles = [color, borderStyle, width];
+/**
+ * Returns a curried generator function with the individual border property ('top' | 'right' | 'bottom' | 'left') baked in.
+ *
+ * @param  individualProperty Individual border property ('top' | 'right' | 'bottom' | 'left').
+ *
+ * @return StyleDefinition[ 'generate' ]
+ */
+
+const createBorderGenerateFunction = individualProperty => (style, options) => {
+  var _style$border;
+
+  const styleValue = style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border[individualProperty];
+
+  if (!styleValue) {
+    return [];
+  }
+
+  return borderDefinitionsWithIndividualStyles.reduce((acc, borderDefinition) => {
+    const key = borderDefinition.name;
+
+    if (styleValue.hasOwnProperty(key) && typeof borderDefinition.generate === 'function') {
+      const ruleKey = `border${upperFirst(individualProperty)}${upperFirst(key)}`;
+      acc.push(...borderDefinition.generate(style, options, ['border', individualProperty, key], ruleKey));
+    }
+
+    return acc;
+  }, []);
+};
+
+const borderTop = {
+  name: 'borderTop',
+  generate: createBorderGenerateFunction('top')
+};
+const borderRight = {
+  name: 'borderRight',
+  generate: createBorderGenerateFunction('right')
+};
+const borderBottom = {
+  name: 'borderBottom',
+  generate: createBorderGenerateFunction('bottom')
+};
+const borderLeft = {
+  name: 'borderLeft',
+  generate: createBorderGenerateFunction('left')
+};
+/* harmony default export */ const border = ([...borderDefinitionsWithIndividualStyles, radius, borderTop, borderRight, borderBottom, borderLeft]);
 
 ;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/color/background.js
 /**
@@ -12581,7 +12774,7 @@ const text_text = {
 
 
 
-/* harmony default export */ const color = ([color_text, color_gradient, color_background]);
+/* harmony default export */ const styles_color = ([color_text, color_gradient, color_background]);
 
 ;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/spacing/padding.js
 /**
@@ -12591,7 +12784,10 @@ const text_text = {
 const padding = {
   name: 'padding',
   generate: (style, options) => {
-    return generateBoxRules(style, options, ['spacing', 'padding'], 'padding');
+    return generateBoxRules(style, options, ['spacing', 'padding'], {
+      default: 'padding',
+      individual: 'padding%s'
+    });
   }
 };
 /* harmony default export */ const spacing_padding = (padding);
@@ -12604,7 +12800,10 @@ const padding = {
 const margin = {
   name: 'margin',
   generate: (style, options) => {
-    return generateBoxRules(style, options, ['spacing', 'margin'], 'margin');
+    return generateBoxRules(style, options, ['spacing', 'margin'], {
+      default: 'margin',
+      individual: 'margin%s'
+    });
   }
 };
 /* harmony default export */ const spacing_margin = (margin);
@@ -12673,7 +12872,8 @@ const textTransform = {
 
 
 
-const styleDefinitions = [...color, ...spacing, ...typography];
+
+const styleDefinitions = [...border, ...styles_color, ...spacing, ...typography];
 
 ;// CONCATENATED MODULE: ./packages/style-engine/build-module/index.js
 /**
@@ -22361,6 +22561,168 @@ function EditorStyles(_ref) {
   }, css)));
 }
 
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/duotone/utils.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Convert a list of colors to an object of R, G, and B values.
+ *
+ * @param {string[]} colors Array of RBG color strings.
+ *
+ * @return {Object} R, G, and B values.
+ */
+
+function getValuesFromColors() {
+  let colors = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  const values = {
+    r: [],
+    g: [],
+    b: [],
+    a: []
+  };
+  colors.forEach(color => {
+    const rgbColor = w(color).toRgb();
+    values.r.push(rgbColor.r / 255);
+    values.g.push(rgbColor.g / 255);
+    values.b.push(rgbColor.b / 255);
+    values.a.push(rgbColor.a);
+  });
+  return values;
+}
+
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/duotone/components.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * SVG and stylesheet needed for rendering the duotone filter.
+ *
+ * @param {Object}   props          Duotone props.
+ * @param {string}   props.selector Selector to apply the filter to.
+ * @param {string}   props.id       Unique id for this duotone filter.
+ *
+ * @return {WPElement} Duotone element.
+ */
+
+function DuotoneStylesheet(_ref) {
+  let {
+    selector,
+    id
+  } = _ref;
+  const css = `
+${selector} {
+	filter: url( #${id} );
+}
+`;
+  return (0,external_wp_element_namespaceObject.createElement)("style", null, css);
+}
+/**
+ * Stylesheet for disabling a global styles duotone filter.
+ *
+ * @param {Object}   props          Duotone props.
+ * @param {string}   props.selector Selector to disable the filter for.
+ *
+ * @return {WPElement} Filter none style element.
+ */
+
+function DuotoneUnsetStylesheet(_ref2) {
+  let {
+    selector
+  } = _ref2;
+  const css = `
+${selector} {
+	filter: none;
+}
+`;
+  return (0,external_wp_element_namespaceObject.createElement)("style", null, css);
+}
+/**
+ * The SVG part of the duotone filter.
+ *
+ * @param {Object}   props        Duotone props.
+ * @param {string}   props.id     Unique id for this duotone filter.
+ * @param {string[]} props.colors Color strings from dark to light.
+ *
+ * @return {WPElement} Duotone SVG.
+ */
+
+function DuotoneFilter(_ref3) {
+  let {
+    id,
+    colors
+  } = _ref3;
+  const values = getValuesFromColors(colors);
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SVG, {
+    xmlnsXlink: "http://www.w3.org/1999/xlink",
+    viewBox: "0 0 0 0",
+    width: "0",
+    height: "0",
+    focusable: "false",
+    role: "none",
+    style: {
+      visibility: 'hidden',
+      position: 'absolute',
+      left: '-9999px',
+      overflow: 'hidden'
+    }
+  }, (0,external_wp_element_namespaceObject.createElement)("defs", null, (0,external_wp_element_namespaceObject.createElement)("filter", {
+    id: id
+  }, (0,external_wp_element_namespaceObject.createElement)("feColorMatrix", {
+    // Use sRGB instead of linearRGB so transparency looks correct.
+    colorInterpolationFilters: "sRGB",
+    type: "matrix" // Use perceptual brightness to convert to grayscale.
+    ,
+    values: " .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "
+  }), (0,external_wp_element_namespaceObject.createElement)("feComponentTransfer", {
+    // Use sRGB instead of linearRGB to be consistent with how CSS gradients work.
+    colorInterpolationFilters: "sRGB"
+  }, (0,external_wp_element_namespaceObject.createElement)("feFuncR", {
+    type: "table",
+    tableValues: values.r.join(' ')
+  }), (0,external_wp_element_namespaceObject.createElement)("feFuncG", {
+    type: "table",
+    tableValues: values.g.join(' ')
+  }), (0,external_wp_element_namespaceObject.createElement)("feFuncB", {
+    type: "table",
+    tableValues: values.b.join(' ')
+  }), (0,external_wp_element_namespaceObject.createElement)("feFuncA", {
+    type: "table",
+    tableValues: values.a.join(' ')
+  })), (0,external_wp_element_namespaceObject.createElement)("feComposite", {
+    // Re-mask the image with the original transparency since the feColorMatrix above loses that information.
+    in2: "SourceGraphic",
+    operator: "in"
+  }))));
+}
+/**
+ * SVG from a duotone preset
+ *
+ * @param {Object} props        Duotone props.
+ * @param {Object} props.preset Duotone preset settings.
+ *
+ * @return {WPElement} Duotone element.
+ */
+
+function PresetDuotoneFilter(_ref4) {
+  let {
+    preset
+  } = _ref4;
+  return (0,external_wp_element_namespaceObject.createElement)(DuotoneFilter, {
+    id: `wp-duotone-${preset.slug}`,
+    colors: preset.colors
+  });
+}
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-preview/auto.js
 
 
@@ -22374,6 +22736,7 @@ function EditorStyles(_ref) {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -22397,12 +22760,16 @@ function AutoBlockPreview(_ref) {
   }] = (0,external_wp_compose_namespaceObject.useResizeObserver)();
   const {
     styles,
-    assets
+    assets,
+    duotone
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _settings$__experimen, _settings$__experimen2;
+
     const settings = select(store).getSettings();
     return {
       styles: settings.styles,
-      assets: settings.__unstableResolvedAssets
+      assets: settings.__unstableResolvedAssets,
+      duotone: (_settings$__experimen = settings.__experimentalFeatures) === null || _settings$__experimen === void 0 ? void 0 : (_settings$__experimen2 = _settings$__experimen.color) === null || _settings$__experimen2 === void 0 ? void 0 : _settings$__experimen2.duotone
     };
   }, []); // Avoid scrollbars for pattern previews.
 
@@ -22415,7 +22782,12 @@ function AutoBlockPreview(_ref) {
     }
 
     return styles;
-  }, [styles]); // Initialize on render instead of module top level, to avoid circular dependency issues.
+  }, [styles]);
+  const svgFilters = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    var _duotone$default, _duotone$theme;
+
+    return [...((_duotone$default = duotone === null || duotone === void 0 ? void 0 : duotone.default) !== null && _duotone$default !== void 0 ? _duotone$default : []), ...((_duotone$theme = duotone === null || duotone === void 0 ? void 0 : duotone.theme) !== null && _duotone$theme !== void 0 ? _duotone$theme : [])];
+  }, [duotone]); // Initialize on render instead of module top level, to avoid circular dependency issues.
 
   MemoizedBlockList = MemoizedBlockList || (0,external_wp_compose_namespaceObject.pure)(BlockList);
   const scale = containerWidth / viewportWidth;
@@ -22457,9 +22829,14 @@ function AutoBlockPreview(_ref) {
       // This is a catch-all max-height for patterns.
       // See: https://github.com/WordPress/gutenberg/pull/38175.
       maxHeight: MAX_HEIGHT,
-      minHeight: scale < 1 && __experimentalMinHeight ? __experimentalMinHeight / scale : __experimentalMinHeight
+      minHeight: scale !== 0 && scale < 1 && __experimentalMinHeight ? __experimentalMinHeight / scale : __experimentalMinHeight
     }
-  }, contentResizeListener, (0,external_wp_element_namespaceObject.createElement)(MemoizedBlockList, {
+  }, contentResizeListener,
+  /* Filters need to be rendered before children to avoid Safari rendering issues. */
+  svgFilters.map(preset => (0,external_wp_element_namespaceObject.createElement)(PresetDuotoneFilter, {
+    preset: preset,
+    key: preset.slug
+  })), (0,external_wp_element_namespaceObject.createElement)(MemoizedBlockList, {
     renderAppender: false
   }))));
 }
@@ -24778,7 +25155,6 @@ function QuickInserter(_ref) {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -24985,6 +25361,8 @@ class Inserter extends external_wp_element_namespaceObject.Component {
 }
 
 /* harmony default export */ const inserter = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)((select, _ref4) => {
+  var _getBlockVariations;
+
   let {
     clientId,
     rootClientId
@@ -25010,7 +25388,7 @@ class Inserter extends external_wp_element_namespaceObject.Component {
   const index = getBlockIndex(clientId);
   const blockCount = getBlockCount();
   const settings = getSettings();
-  const hasSingleBlockType = (0,external_lodash_namespaceObject.size)(allowedBlocks) === 1 && (0,external_lodash_namespaceObject.size)(getBlockVariations(allowedBlocks[0].name, 'inserter')) === 0;
+  const hasSingleBlockType = (allowedBlocks === null || allowedBlocks === void 0 ? void 0 : allowedBlocks.length) === 1 && ((_getBlockVariations = getBlockVariations(allowedBlocks[0].name, 'inserter')) === null || _getBlockVariations === void 0 ? void 0 : _getBlockVariations.length) === 0;
   let allowedBlockType = false;
 
   if (hasSingleBlockType) {
@@ -26146,13 +26524,8 @@ function useBlockDisplayInformation(clientId) {
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-title/use-block-display-title.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -26218,10 +26591,9 @@ function useBlockDisplayTitle(clientId, maximumLength) {
 
   const blockTitle = label && label !== blockType.title ? label : blockInformation.title;
 
-  if (maximumLength && maximumLength > 0) {
-    return (0,external_lodash_namespaceObject.truncate)(blockTitle, {
-      length: maximumLength
-    });
+  if (maximumLength && maximumLength > 0 && blockTitle.length > maximumLength) {
+    const omission = '...';
+    return blockTitle.slice(0, maximumLength - omission.length) + omission;
   }
 
   return blockTitle;
@@ -29237,36 +29609,6 @@ function useConvertToGroupButtonProps() {
   };
 }
 
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/unlock.js
-
-
-/**
- * WordPress dependencies
- */
-
-const unlock = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M17 10h-1.2V7c0-2.1-1.7-3.8-3.8-3.8-2.1 0-3.8 1.7-3.8 3.8h1.5c0-1.2 1-2.2 2.2-2.2s2.2 1 2.2 2.2v3H7c-.6 0-1 .4-1 1v8c0 .6.4 1 1 1h10c.6 0 1-.4 1-1v-8c0-.6-.4-1-1-1z"
-}));
-/* harmony default export */ const library_unlock = (unlock);
-
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/lock.js
-
-
-/**
- * WordPress dependencies
- */
-
-const lock = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M17 10h-1.2V7c0-2.1-1.7-3.8-3.8-3.8-2.1 0-3.8 1.7-3.8 3.8v3H7c-.6 0-1 .4-1 1v8c0 .6.4 1 1 1h10c.6 0 1-.4 1-1v-8c0-.6-.4-1-1-1zm-2.8 0H9.8V7c0-1.2 1-2.2 2.2-2.2s2.2 1 2.2 2.2v3z"
-}));
-/* harmony default export */ const library_lock = (lock);
-
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-lock/use-block-lock.js
 /**
  * WordPress dependencies
@@ -29308,6 +29650,36 @@ function useBlockLock(clientId) {
     };
   }, [clientId]);
 }
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/unlock.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const unlock = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M17 10h-1.2V7c0-2.1-1.7-3.8-3.8-3.8-2.1 0-3.8 1.7-3.8 3.8h1.5c0-1.2 1-2.2 2.2-2.2s2.2 1 2.2 2.2v3H7c-.6 0-1 .4-1 1v8c0 .6.4 1 1 1h10c.6 0 1-.4 1-1v-8c0-.6-.4-1-1-1z"
+}));
+/* harmony default export */ const library_unlock = (unlock);
+
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/lock.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const lock = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M17 10h-1.2V7c0-2.1-1.7-3.8-3.8-3.8-2.1 0-3.8 1.7-3.8 3.8v3H7c-.6 0-1 .4-1 1v8c0 .6.4 1 1 1h10c.6 0 1-.4 1-1v-8c0-.6-.4-1-1-1zm-2.8 0H9.8V7c0-1.2 1-2.2 2.2-2.2s2.2 1 2.2 2.2v3z"
+}));
+/* harmony default export */ const library_lock = (lock);
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-lock/modal.js
 
@@ -29536,7 +29908,10 @@ const BlockSettingsMenuControlsSlot = _ref => {
       canRemove: canRemoveBlocks(ids)
     };
   }, [clientIds]);
-  const showLockButton = selectedClientIds.length === 1; // Check if current selection of blocks is Groupable or Ungroupable
+  const {
+    canLock
+  } = useBlockLock(selectedClientIds[0]);
+  const showLockButton = selectedClientIds.length === 1 && canLock; // Check if current selection of blocks is Groupable or Ungroupable
   // and pass this props down to ConvertToGroupButton.
 
   const convertToGroupButtonProps = useConvertToGroupButtonProps();
@@ -29629,9 +30004,7 @@ function CopyMenuItem(_ref) {
     onCopy
   } = _ref;
   const ref = (0,external_wp_compose_namespaceObject.useCopyToClipboard)(() => (0,external_wp_blocks_namespaceObject.serialize)(blocks), onCopy);
-
-  const copyMenuItemLabel = (0,external_wp_i18n_namespaceObject._n)('Copy block', 'Copy blocks', blocks.length);
-
+  const copyMenuItemLabel = blocks.length > 1 ? (0,external_wp_i18n_namespaceObject.__)('Copy blocks') : (0,external_wp_i18n_namespaceObject.__)('Copy block');
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
     ref: ref
   }, copyMenuItemLabel);
@@ -29809,6 +30182,63 @@ function BlockSettingsDropdown(_ref2) {
 }
 /* harmony default export */ const block_settings_dropdown = (BlockSettingsDropdown);
 
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-settings-menu/block-edit-visually-button.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+function BlockEditVisuallyButton(_ref) {
+  let {
+    clientIds,
+    ...props
+  } = _ref;
+  const {
+    block,
+    shouldRender
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const firstBlockClientId = clientIds[0];
+    const {
+      isBlockMultiSelected,
+      getBlockMode,
+      getBlock
+    } = select(store);
+    const isSingleSelected = !isBlockMultiSelected(firstBlockClientId);
+    const isHtmlMode = getBlockMode(firstBlockClientId) === 'html';
+    return {
+      block: getBlock(firstBlockClientId),
+      shouldRender: isSingleSelected && isHtmlMode
+    };
+  }, [clientIds[0]]);
+  const {
+    replaceBlocks
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  const onClick = (0,external_wp_element_namespaceObject.useCallback)(() => {
+    replaceBlocks(block.clientId, (0,external_wp_blocks_namespaceObject.rawHandler)({
+      HTML: (0,external_wp_blocks_namespaceObject.getBlockContent)(block)
+    }));
+  }, [block]);
+
+  if (!shouldRender) {
+    return null;
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, _extends({
+    onClick: onClick
+  }, props), (0,external_wp_i18n_namespaceObject.__)('Edit visually')));
+}
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-settings-menu/index.js
 
 
@@ -29822,15 +30252,18 @@ function BlockSettingsDropdown(_ref2) {
  */
 
 
+
 function BlockSettingsMenu(_ref) {
   let {
     clientIds,
     ...props
   } = _ref;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, null, toggleProps => (0,external_wp_element_namespaceObject.createElement)(block_settings_dropdown, _extends({
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(BlockEditVisuallyButton, _extends({
+    clientIds: clientIds
+  }, props)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, null, toggleProps => (0,external_wp_element_namespaceObject.createElement)(block_settings_dropdown, _extends({
     clientIds: clientIds,
     toggleProps: toggleProps
-  }, props))));
+  }, props)))));
 }
 /* harmony default export */ const block_settings_menu = (BlockSettingsMenu);
 
@@ -33075,7 +33508,8 @@ function ColorGradientSettingsDropdown(_ref4) {
   if (__experimentalIsRenderedInSidebar) {
     popoverProps = {
       placement: 'left-start',
-      offset: 36
+      offset: 36,
+      __unstableShift: true
     };
   }
 
@@ -36076,6 +36510,22 @@ function DuotoneControl(_ref) {
     value,
     onChange
   } = _ref;
+  let toolbarIcon;
+
+  if (value === 'unset') {
+    toolbarIcon = (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
+      className: "block-editor-duotone-control__unset-indicator"
+    });
+  } else if (value) {
+    toolbarIcon = (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DuotoneSwatch, {
+      values: value
+    });
+  } else {
+    toolbarIcon = (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
+      icon: library_filter
+    });
+  }
+
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
     popoverProps: {
       className: 'block-editor-duotone-control__popover',
@@ -36102,11 +36552,7 @@ function DuotoneControl(_ref) {
         "aria-expanded": isOpen,
         onKeyDown: openOnArrowDown,
         label: (0,external_wp_i18n_namespaceObject.__)('Apply duotone filter'),
-        icon: value ? (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DuotoneSwatch, {
-          values: value
-        }) : (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
-          icon: library_filter
-        })
+        icon: toolbarIcon
       });
     },
     renderContent: () => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
@@ -36144,162 +36590,53 @@ function DuotoneControl(_ref) {
 
 
 
-
 /**
  * Internal dependencies
  */
 
 
 
+
 const duotone_EMPTY_ARRAY = [];
 k([names]);
 /**
- * Convert a list of colors to an object of R, G, and B values.
- *
- * @param {string[]} colors Array of RBG color strings.
- *
- * @return {Object} R, G, and B values.
- */
-
-function getValuesFromColors() {
-  let colors = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  const values = {
-    r: [],
-    g: [],
-    b: [],
-    a: []
-  };
-  colors.forEach(color => {
-    const rgbColor = w(color).toRgb();
-    values.r.push(rgbColor.r / 255);
-    values.g.push(rgbColor.g / 255);
-    values.b.push(rgbColor.b / 255);
-    values.a.push(rgbColor.a);
-  });
-  return values;
-}
-/**
- * Values for the SVG `feComponentTransfer`.
- *
- * @typedef Values {Object}
- * @property {number[]} r Red values.
- * @property {number[]} g Green values.
- * @property {number[]} b Blue values.
- * @property {number[]} a Alpha values.
- */
-
-/**
- * Stylesheet for rendering the duotone filter.
- *
- * @param {Object} props          Duotone props.
- * @param {string} props.selector Selector to apply the filter to.
- * @param {string} props.id       Unique id for this duotone filter.
- *
- * @return {WPElement} Duotone element.
- */
-
-function DuotoneStylesheet(_ref) {
-  let {
-    selector,
-    id
-  } = _ref;
-  const css = `
-${selector} {
-	filter: url( #${id} );
-}
-`;
-  return (0,external_wp_element_namespaceObject.createElement)("style", null, css);
-}
-/**
- * SVG for rendering the duotone filter.
- *
- * @param {Object} props        Duotone props.
- * @param {string} props.id     Unique id for this duotone filter.
- * @param {Values} props.values R, G, B, and A values to filter with.
- *
- * @return {WPElement} Duotone element.
- */
-
-
-function DuotoneFilter(_ref2) {
-  let {
-    id,
-    values
-  } = _ref2;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SVG, {
-    xmlnsXlink: "http://www.w3.org/1999/xlink",
-    viewBox: "0 0 0 0",
-    width: "0",
-    height: "0",
-    focusable: "false",
-    role: "none",
-    style: {
-      visibility: 'hidden',
-      position: 'absolute',
-      left: '-9999px',
-      overflow: 'hidden'
-    }
-  }, (0,external_wp_element_namespaceObject.createElement)("defs", null, (0,external_wp_element_namespaceObject.createElement)("filter", {
-    id: id
-  }, (0,external_wp_element_namespaceObject.createElement)("feColorMatrix", {
-    // Use sRGB instead of linearRGB so transparency looks correct.
-    colorInterpolationFilters: "sRGB",
-    type: "matrix" // Use perceptual brightness to convert to grayscale.
-    ,
-    values: " .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 .299 .587 .114 0 0 "
-  }), (0,external_wp_element_namespaceObject.createElement)("feComponentTransfer", {
-    // Use sRGB instead of linearRGB to be consistent with how CSS gradients work.
-    colorInterpolationFilters: "sRGB"
-  }, (0,external_wp_element_namespaceObject.createElement)("feFuncR", {
-    type: "table",
-    tableValues: values.r.join(' ')
-  }), (0,external_wp_element_namespaceObject.createElement)("feFuncG", {
-    type: "table",
-    tableValues: values.g.join(' ')
-  }), (0,external_wp_element_namespaceObject.createElement)("feFuncB", {
-    type: "table",
-    tableValues: values.b.join(' ')
-  }), (0,external_wp_element_namespaceObject.createElement)("feFuncA", {
-    type: "table",
-    tableValues: values.a.join(' ')
-  })), (0,external_wp_element_namespaceObject.createElement)("feComposite", {
-    // Re-mask the image with the original transparency since the feColorMatrix above loses that information.
-    in2: "SourceGraphic",
-    operator: "in"
-  }))));
-}
-/**
  * SVG and stylesheet needed for rendering the duotone filter.
  *
- * @param {Object} props          Duotone props.
+ * @param {Object} props Duotone props.
  * @param {string} props.selector Selector to apply the filter to.
- * @param {string} props.id       Unique id for this duotone filter.
- * @param {Values} props.values   R, G, B, and A values to filter with.
+ * @param {string} props.id Unique id for this duotone filter.
+ * @param {string[]|"unset"} props.colors Array of RGB color strings ordered from dark to light.
  *
  * @return {WPElement} Duotone element.
  */
 
-
-function InlineDuotone(_ref3) {
+function InlineDuotone(_ref) {
   let {
     selector,
     id,
-    values
-  } = _ref3;
+    colors
+  } = _ref;
+
+  if (colors === 'unset') {
+    return (0,external_wp_element_namespaceObject.createElement)(DuotoneUnsetStylesheet, {
+      selector: selector
+    });
+  }
+
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(DuotoneFilter, {
     id: id,
-    values: values
+    colors: colors
   }), (0,external_wp_element_namespaceObject.createElement)(DuotoneStylesheet, {
     id: id,
     selector: selector
   }));
 }
 
-function useMultiOriginPresets(_ref4) {
+function useMultiOriginPresets(_ref2) {
   let {
     presetSetting,
     defaultSetting
-  } = _ref4;
+  } = _ref2;
   const disableDefault = !useSetting(defaultSetting);
   const userPresets = useSetting(`${presetSetting}.custom`) || duotone_EMPTY_ARRAY;
   const themePresets = useSetting(`${presetSetting}.theme`) || duotone_EMPTY_ARRAY;
@@ -36307,13 +36644,13 @@ function useMultiOriginPresets(_ref4) {
   return (0,external_wp_element_namespaceObject.useMemo)(() => [...userPresets, ...themePresets, ...(disableDefault ? duotone_EMPTY_ARRAY : defaultPresets)], [disableDefault, userPresets, themePresets, defaultPresets]);
 }
 
-function DuotonePanel(_ref5) {
+function DuotonePanel(_ref3) {
   var _style$color;
 
   let {
     attributes,
     setAttributes
-  } = _ref5;
+  } = _ref3;
   const style = attributes === null || attributes === void 0 ? void 0 : attributes.style;
   const duotone = style === null || style === void 0 ? void 0 : (_style$color = style.color) === null || _style$color === void 0 ? void 0 : _style$color.duotone;
   const duotonePalette = useMultiOriginPresets({
@@ -36435,9 +36772,9 @@ const withDuotoneStyles = (0,external_wp_compose_namespaceObject.createHigherOrd
   var _props$attributes, _props$attributes$sty, _props$attributes$sty2;
 
   const duotoneSupport = (0,external_wp_blocks_namespaceObject.getBlockSupport)(props.name, 'color.__experimentalDuotone');
-  const values = props === null || props === void 0 ? void 0 : (_props$attributes = props.attributes) === null || _props$attributes === void 0 ? void 0 : (_props$attributes$sty = _props$attributes.style) === null || _props$attributes$sty === void 0 ? void 0 : (_props$attributes$sty2 = _props$attributes$sty.color) === null || _props$attributes$sty2 === void 0 ? void 0 : _props$attributes$sty2.duotone;
+  const colors = props === null || props === void 0 ? void 0 : (_props$attributes = props.attributes) === null || _props$attributes === void 0 ? void 0 : (_props$attributes$sty = _props$attributes.style) === null || _props$attributes$sty === void 0 ? void 0 : (_props$attributes$sty2 = _props$attributes$sty.color) === null || _props$attributes$sty2 === void 0 ? void 0 : _props$attributes$sty2.duotone;
 
-  if (!duotoneSupport || !values) {
+  if (!duotoneSupport || !colors) {
     return (0,external_wp_element_namespaceObject.createElement)(BlockListBlock, props);
   }
 
@@ -36451,20 +36788,11 @@ const withDuotoneStyles = (0,external_wp_compose_namespaceObject.createHigherOrd
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, element && (0,external_wp_element_namespaceObject.createPortal)((0,external_wp_element_namespaceObject.createElement)(InlineDuotone, {
     selector: selectorsGroup,
     id: id,
-    values: getValuesFromColors(values)
+    colors: colors
   }), element), (0,external_wp_element_namespaceObject.createElement)(BlockListBlock, _extends({}, props, {
     className: className
   })));
 }, 'withDuotoneStyles');
-function PresetDuotoneFilter(_ref6) {
-  let {
-    preset
-  } = _ref6;
-  return (0,external_wp_element_namespaceObject.createElement)(DuotoneFilter, {
-    id: `wp-duotone-${preset.slug}`,
-    values: getValuesFromColors(preset.colors)
-  });
-}
 (0,external_wp_hooks_namespaceObject.addFilter)('blocks.registerBlockType', 'core/editor/duotone/add-attributes', addDuotoneAttributes);
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockEdit', 'core/editor/duotone/with-editor-controls', withDuotoneControls);
 (0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockListBlock', 'core/editor/duotone/with-styles', withDuotoneStyles);
@@ -36598,15 +36926,17 @@ function LayoutPanel(_ref) {
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(inspector_controls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
     title: (0,external_wp_i18n_namespaceObject.__)('Layout')
-  }, showInheritToggle && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Inherit default layout'),
-    checked: !!inherit,
+  }, showInheritToggle && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Inner blocks use full width'),
+    checked: !inherit,
     onChange: () => setAttributes({
       layout: {
         inherit: !inherit
       }
     })
-  }), !inherit && allowSwitching && (0,external_wp_element_namespaceObject.createElement)(LayoutTypeSwitcher, {
+  }), (0,external_wp_element_namespaceObject.createElement)("p", {
+    className: "block-editor-hooks__layout-controls-helptext"
+  }, !!inherit ? (0,external_wp_i18n_namespaceObject.__)('Nested blocks use theme content width with options for full and wide widths.') : (0,external_wp_i18n_namespaceObject.__)('Nested blocks will fill the width of this container.'))), !inherit && allowSwitching && (0,external_wp_element_namespaceObject.createElement)(LayoutTypeSwitcher, {
     type: type,
     onChange: onChangeType
   }), !inherit && layoutType && (0,external_wp_element_namespaceObject.createElement)(layoutType.inspectorControls, {
@@ -37328,6 +37658,10 @@ const DEFAULT_FONT_SIZES = [];
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/font-sizes/index.js
 
+
+
+
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/duotone/index.js
 
 
 
@@ -39945,14 +40279,11 @@ const VIEWMODES = {
 
 const Actions = _ref => {
   let {
-    onStartBlank,
     onBlockPatternSelect
   } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-block-pattern-setup__actions"
-  }, onStartBlank && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    onClick: onStartBlank
-  }, (0,external_wp_i18n_namespaceObject.__)('Start blank')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     variant: "primary",
     onClick: onBlockPatternSelect
   }, (0,external_wp_i18n_namespaceObject.__)('Choose')));
@@ -39988,8 +40319,7 @@ const SetupToolbar = _ref3 => {
     handleNext,
     activeSlide,
     totalSlides,
-    onBlockPatternSelect,
-    onStartBlank
+    onBlockPatternSelect
   } = _ref3;
   const isCarouselView = viewMode === VIEWMODES.carousel;
   const displayControls = (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -40013,8 +40343,7 @@ const SetupToolbar = _ref3 => {
     activeSlide: activeSlide,
     totalSlides: totalSlides
   }), displayControls, isCarouselView && (0,external_wp_element_namespaceObject.createElement)(Actions, {
-    onBlockPatternSelect: onBlockPatternSelect,
-    onStartBlank: onStartBlank
+    onBlockPatternSelect: onBlockPatternSelect
   }));
 };
 
@@ -40180,12 +40509,10 @@ const BlockPatternSetup = _ref4 => {
     clientId,
     blockName,
     filterPatternsFn,
-    startBlankComponent = null,
     onBlockPatternSelect
   } = _ref4;
   const [viewMode, setViewMode] = (0,external_wp_element_namespaceObject.useState)(VIEWMODES.carousel);
   const [activeSlide, setActiveSlide] = (0,external_wp_element_namespaceObject.useState)(0);
-  const [showBlank, setShowBlank] = (0,external_wp_element_namespaceObject.useState)(false);
   const {
     replaceBlock
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
@@ -40194,8 +40521,8 @@ const BlockPatternSetup = _ref4 => {
     height: contentHeight
   }] = (0,external_wp_compose_namespaceObject.useResizeObserver)();
 
-  if (!(patterns !== null && patterns !== void 0 && patterns.length) || showBlank) {
-    return startBlankComponent;
+  if (!(patterns !== null && patterns !== void 0 && patterns.length)) {
+    return null;
   }
 
   const onBlockPatternSelectDefault = blocks => {
@@ -40204,9 +40531,6 @@ const BlockPatternSetup = _ref4 => {
   };
 
   const onPatternSelectCallback = onBlockPatternSelect || onBlockPatternSelectDefault;
-  const onStartBlank = startBlankComponent ? () => {
-    setShowBlank(true);
-  } : undefined;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, contentResizeListener, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: `block-editor-block-pattern-setup view-mode-${viewMode}`
   }, (0,external_wp_element_namespaceObject.createElement)(SetupContent, {
@@ -40228,8 +40552,7 @@ const BlockPatternSetup = _ref4 => {
     },
     onBlockPatternSelect: () => {
       onPatternSelectCallback(patterns[activeSlide].blocks);
-    },
-    onStartBlank: onStartBlank
+    }
   })));
 };
 
@@ -44319,13 +44642,8 @@ function MediaUploadCheck(_ref) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -44346,6 +44664,8 @@ function MediaUploadCheck(_ref) {
 
 
 const media_replace_flow_noop = () => {};
+
+let uniqueId = 0;
 
 const MediaReplaceFlow = _ref => {
   let {
@@ -44373,7 +44693,7 @@ const MediaReplaceFlow = _ref => {
     return select(store).getSettings().mediaUpload;
   }, []);
   const editMediaButtonRef = (0,external_wp_element_namespaceObject.useRef)();
-  const errorNoticeID = (0,external_lodash_namespaceObject.uniqueId)('block-editor/media-replace-flow/error-notice/');
+  const errorNoticeID = `block-editor/media-replace-flow/error-notice/${++uniqueId}`;
 
   const onUploadError = message => {
     const safeMessage = (0,external_wp_dom_namespaceObject.__unstableStripHTML)(message);
@@ -45047,6 +45367,7 @@ function MediaPlaceholder(_ref2) {
       multiple: multiple,
       onSelect: onSelect,
       allowedTypes: allowedTypes,
+      mode: 'browse',
       value: Array.isArray(value) ? value.map(_ref7 => {
         let {
           id
@@ -45748,17 +46069,32 @@ function usePasteHandler(props) {
   }, []);
 }
 /**
- * Normalizes a given string of HTML to remove the Windows specific "Fragment" comments
- * and any preceeding and trailing whitespace.
+ * Normalizes a given string of HTML to remove the Windows-specific "Fragment"
+ * comments and any preceeding and trailing content.
  *
  * @param {string} html the html to be normalized
  * @return {string} the normalized html
  */
 
 function removeWindowsFragments(html) {
-  const startReg = /.*<!--StartFragment-->/s;
-  const endReg = /<!--EndFragment-->.*/s;
-  return html.replace(startReg, '').replace(endReg, '');
+  const startStr = '<!--StartFragment-->';
+  const startIdx = html.indexOf(startStr);
+
+  if (startIdx > -1) {
+    html = html.substring(startIdx + startStr.length);
+  } else {
+    // No point looking for EndFragment
+    return html;
+  }
+
+  const endStr = '<!--EndFragment-->';
+  const endIdx = html.indexOf(endStr);
+
+  if (endIdx > -1) {
+    html = html.substring(0, endIdx);
+  }
+
+  return html;
 }
 /**
  * Removes the charset meta tag inserted by Chromium.
@@ -45809,13 +46145,8 @@ function preventEventDiscovery(value) {
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/rich-text/use-input-rules.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -45826,17 +46157,14 @@ function preventEventDiscovery(value) {
  */
 
 
- // A robust way to retain selection position through various
-// transforms is to insert a special character at the position and
-// then recover it.
 
-const START_OF_SELECTED_AREA = '\u0086';
+
 
 function findSelection(blocks) {
   let i = blocks.length;
 
   while (i--) {
-    const attributeKey = (0,external_lodash_namespaceObject.findKey)(blocks[i].attributes, v => typeof v === 'string' && v.indexOf(START_OF_SELECTED_AREA) !== -1);
+    const attributeKey = retrieveSelectedAttribute(blocks[i].attributes);
 
     if (attributeKey) {
       blocks[i].attributes[attributeKey] = blocks[i].attributes[attributeKey].replace(START_OF_SELECTED_AREA, '');
@@ -48964,6 +49292,7 @@ function InspectorPopoverHeader(_ref) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -48987,6 +49316,7 @@ function PublishDateTimePicker(_ref, ref) {
     }],
     onClose: onClose
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DateTimePicker, _extends({
+    startOfWeek: (0,external_wp_date_namespaceObject.__experimentalGetSettings)().l10n.startOfWeek,
     __nextRemoveHelpButton: true,
     __nextRemoveResetButton: true,
     onChange: onChange
@@ -48999,6 +49329,7 @@ function PublishDateTimePicker(_ref, ref) {
 /*
  * Block Creation Components
  */
+
 
 
 
@@ -49111,7 +49442,13 @@ function PublishDateTimePicker(_ref, ref) {
 
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/elements/index.js
-const __experimentalElementButtonClassName = 'wp-element-button';
+const ELEMENT_CLASS_NAMES = {
+  button: 'wp-element-button',
+  caption: 'wp-element-caption'
+};
+const __experimentalGetElementClassName = element => {
+  return ELEMENT_CLASS_NAMES[element] ? ELEMENT_CLASS_NAMES[element] : '';
+};
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/utils/block-variation-transforms.js
 /**

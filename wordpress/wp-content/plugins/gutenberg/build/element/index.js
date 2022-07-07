@@ -412,14 +412,11 @@ function closeOuterElement(endOffset) {
 
 /* harmony default export */ const create_interpolate_element = (createInterpolateElement);
 
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/element/build-module/react.js
 /**
  * External dependencies
  */
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
-
 
 /**
  * Object containing a React element.
@@ -625,7 +622,7 @@ function concatChildren() {
 
 function switchChildrenNodeName(children, nodeName) {
   return children && external_React_namespaceObject.Children.map(children, (elt, index) => {
-    if ((0,external_lodash_namespaceObject.isString)(elt)) {
+    if (typeof (elt === null || elt === void 0 ? void 0 : elt.valueOf()) === 'string') {
       return (0,external_React_namespaceObject.createElement)(nodeName, {
         key: index
       }, elt);
@@ -693,22 +690,17 @@ const external_ReactDOM_namespaceObject = window["ReactDOM"];
 
 ;// CONCATENATED MODULE: ./packages/element/build-module/utils.js
 /**
- * External dependencies
- */
-
-/**
  * Checks if the provided WP element is empty.
  *
  * @param {*} element WP element to check.
  * @return {boolean} True when an element is considered empty.
  */
-
 const isEmptyElement = element => {
-  if ((0,external_lodash_namespaceObject.isNumber)(element)) {
+  if (typeof element === 'number') {
     return false;
   }
 
-  if ((0,external_lodash_namespaceObject.isString)(element) || Array.isArray(element)) {
+  if (typeof (element === null || element === void 0 ? void 0 : element.valueOf()) === 'string' || Array.isArray(element)) {
     return !element.length;
   }
 
@@ -751,6 +743,8 @@ const Platform = {
 
 /* harmony default export */ const platform = (Platform);
 
+;// CONCATENATED MODULE: external "lodash"
+const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: external ["wp","escapeHtml"]
 const external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
 ;// CONCATENATED MODULE: ./packages/element/build-module/raw-html.js
@@ -1041,7 +1035,7 @@ function getNormalAttributeName(attribute) {
 
 
 function getNormalStylePropertyName(property) {
-  if ((0,external_lodash_namespaceObject.startsWith)(property, '--')) {
+  if (property.startsWith('--')) {
     return property;
   }
 
@@ -1116,7 +1110,7 @@ function renderElement(element, context) {
         children,
         ...wrapperProps
       } = props;
-      return renderNativeComponent((0,external_lodash_namespaceObject.isEmpty)(wrapperProps) ? null : 'div', { ...wrapperProps,
+      return renderNativeComponent(!Object.keys(wrapperProps).length ? null : 'div', { ...wrapperProps,
         dangerouslySetInnerHTML: {
           __html: children
         }
@@ -1169,7 +1163,11 @@ function renderNativeComponent(type, props, context) {
     // place of children. Ensure to omit so it is not assigned as attribute
     // as well.
     content = renderChildren(props.value, context, legacyContext);
-    props = (0,external_lodash_namespaceObject.omit)(props, 'value');
+    const {
+      value,
+      ...restProps
+    } = props;
+    props = restProps;
   } else if (props.dangerouslySetInnerHTML && typeof props.dangerouslySetInnerHTML.__html === 'string') {
     // Dangerous content is left unescaped.
     content = props.dangerouslySetInnerHTML.__html;
@@ -1234,7 +1232,7 @@ function renderComponent(Component, props, context) {
 function renderChildren(children, context) {
   let legacyContext = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   let result = '';
-  children = (0,external_lodash_namespaceObject.castArray)(children);
+  children = Array.isArray(children) ? children : [children];
 
   for (let i = 0; i < children.length; i++) {
     const child = children[i];

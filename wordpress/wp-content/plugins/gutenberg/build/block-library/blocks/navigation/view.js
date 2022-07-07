@@ -3,7 +3,9 @@ var __webpack_exports__ = {};
 // Open on click functionality.
 function closeSubmenus(element) {
   element.querySelectorAll('[aria-expanded="true"]').forEach(function (toggle) {
-    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-expanded', 'false'); // Always focus the trigger, this becomes especially useful in closing submenus with escape key to ensure focus doesn't get trapped.
+
+    toggle.focus();
   });
 }
 
@@ -42,12 +44,12 @@ window.addEventListener('load', () => {
         closeSubmenus(block);
       }
     });
-  }); // Close on focus outside.
+  }); // Close on focus outside or escape key.
 
   document.addEventListener('keyup', function (event) {
     const submenuBlocks = document.querySelectorAll('.wp-block-navigation-item.has-child');
     submenuBlocks.forEach(function (block) {
-      if (!block.contains(event.target)) {
+      if (!block.contains(event.target) || block.contains(event.target) && event.key === 'Escape') {
         closeSubmenus(block);
       }
     });

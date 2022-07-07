@@ -566,6 +566,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalFetchUrlData": () => (/* reexport */ _experimental_fetch_url_data),
   "__experimentalUseEntityRecord": () => (/* reexport */ __experimentalUseEntityRecord),
   "__experimentalUseEntityRecords": () => (/* reexport */ __experimentalUseEntityRecords),
+  "__experimentalUseResourcePermissions": () => (/* reexport */ __experimentalUseResourcePermissions),
   "store": () => (/* binding */ store),
   "useEntityBlockEditor": () => (/* reexport */ useEntityBlockEditor),
   "useEntityId": () => (/* reexport */ useEntityId),
@@ -963,13 +964,8 @@ function receiveQueriedItems(items) {
 
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/batch/default-processor.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 /**
  * Maximum number of requests to place in a single batch request. Obtained by
@@ -979,6 +975,17 @@ function receiveQueriedItems(items) {
  */
 
 let maxItems = null;
+
+function chunk(arr, chunkSize) {
+  const tmp = [...arr];
+  const cache = [];
+
+  while (tmp.length) {
+    cache.push(tmp.splice(0, chunkSize));
+  }
+
+  return cache;
+}
 /**
  * Default batch processor. Sends its input requests to /batch/v1.
  *
@@ -988,6 +995,7 @@ let maxItems = null;
  *                   either `output` (if that request was succesful) or `error`
  *                   (if not ).
  */
+
 
 async function defaultProcessor(requests) {
   if (maxItems === null) {
@@ -1000,7 +1008,7 @@ async function defaultProcessor(requests) {
 
   const results = []; // @ts-ignore We would have crashed or never gotten to this point if we hadn't received the maxItems count.
 
-  for (const batchRequests of (0,external_lodash_namespaceObject.chunk)(requests, maxItems)) {
+  for (const batchRequests of chunk(requests, maxItems)) {
     const batchResponse = await external_wp_apiFetch_default()({
       path: '/batch/v1',
       method: 'POST',
@@ -5130,10 +5138,11 @@ const resolvers_getAutosaves = (postType, postId) => async _ref9 => {
     resolveSelect
   } = _ref9;
   const {
-    rest_base: restBase
+    rest_base: restBase,
+    rest_namespace: restNamespace = 'wp/v2'
   } = await resolveSelect.getPostType(postType);
   const autosaves = await external_wp_apiFetch_default()({
-    path: `/wp/v2/${restBase}/${postId}/autosaves?context=edit`
+    path: `/${restNamespace}/${restBase}/${postId}/autosaves?context=edit`
   });
 
   if (autosaves && autosaves.length) {
@@ -5250,18 +5259,7 @@ const resolvers_getBlockPatterns = () => async _ref16 => {
   const restPatterns = await external_wp_apiFetch_default()({
     path: '/wp/v2/block-patterns/patterns'
   });
-  const patterns = (0,external_lodash_namespaceObject.map)(restPatterns, pattern => (0,external_lodash_namespaceObject.mapKeys)(pattern, (value, key) => {
-    switch (key) {
-      case 'block_types':
-        return 'blockTypes';
-
-      case 'viewport_width':
-        return 'viewportWidth';
-
-      default:
-        return key;
-    }
-  }));
+  const patterns = (0,external_lodash_namespaceObject.map)(restPatterns, pattern => (0,external_lodash_namespaceObject.mapKeys)(pattern, (value, key) => (0,external_lodash_namespaceObject.camelCase)(key)));
   dispatch({
     type: 'RECEIVE_BLOCK_PATTERNS',
     patterns
@@ -5797,301 +5795,6 @@ function useEntityBlockEditor(kind, name) {
   return [blocks !== null && blocks !== void 0 ? blocks : EMPTY_ARRAY, onInput, onChange];
 }
 
-;// CONCATENATED MODULE: external ["wp","htmlEntities"]
-const external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
-;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/__experimental-fetch-link-suggestions.js
-/**
- * WordPress dependencies
- */
-
-
-
-
-/**
- * Filters the search by type
- *
- * @typedef { 'attachment' | 'post' | 'term' | 'post-format' } WPLinkSearchType
- */
-
-/**
- * A link with an id may be of kind post-type or taxonomy
- *
- * @typedef { 'post-type' | 'taxonomy' } WPKind
- */
-
-/**
- * @typedef WPLinkSearchOptions
- *
- * @property {boolean}          [isInitialSuggestions] Displays initial search suggestions, when true.
- * @property {WPLinkSearchType} [type]                 Filters by search type.
- * @property {string}           [subtype]              Slug of the post-type or taxonomy.
- * @property {number}           [page]                 Which page of results to return.
- * @property {number}           [perPage]              Search results per page.
- */
-
-/**
- * @typedef WPLinkSearchResult
- *
- * @property {number} id     Post or term id.
- * @property {string} url    Link url.
- * @property {string} title  Title of the link.
- * @property {string} type   The taxonomy or post type slug or type URL.
- * @property {WPKind} [kind] Link kind of post-type or taxonomy
- */
-
-/**
- * @typedef WPLinkSearchResultAugments
- *
- * @property {{kind: WPKind}} [meta]    Contains kind information.
- * @property {WPKind}         [subtype] Optional subtype if it exists.
- */
-
-/**
- * @typedef {WPLinkSearchResult & WPLinkSearchResultAugments} WPLinkSearchResultAugmented
- */
-
-/**
- * @typedef WPEditorSettings
- *
- * @property {boolean} [ disablePostFormats ] Disables post formats, when true.
- */
-
-/**
- * Fetches link suggestions from the API.
- *
- * @async
- * @param {string}              search
- * @param {WPLinkSearchOptions} [searchOptions]
- * @param {WPEditorSettings}    [settings]
- *
- * @example
- * ```js
- * import { __experimentalFetchLinkSuggestions as fetchLinkSuggestions } from '@wordpress/core-data';
- *
- * //...
- *
- * export function initialize( id, settings ) {
- *
- * settings.__experimentalFetchLinkSuggestions = (
- *     search,
- *     searchOptions
- * ) => fetchLinkSuggestions( search, searchOptions, settings );
- * ```
- * @return {Promise< WPLinkSearchResult[] >} List of search suggestions
- */
-
-const fetchLinkSuggestions = async function (search) {
-  let searchOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  let settings = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  const {
-    isInitialSuggestions = false,
-    type = undefined,
-    subtype = undefined,
-    page = undefined,
-    perPage = isInitialSuggestions ? 3 : 20
-  } = searchOptions;
-  const {
-    disablePostFormats = false
-  } = settings;
-  /** @type {Promise<WPLinkSearchResult>[]} */
-
-  const queries = [];
-
-  if (!type || type === 'post') {
-    queries.push(external_wp_apiFetch_default()({
-      path: (0,external_wp_url_namespaceObject.addQueryArgs)('/wp/v2/search', {
-        search,
-        page,
-        per_page: perPage,
-        type: 'post',
-        subtype
-      })
-    }).then(results => {
-      return results.map(result => {
-        return { ...result,
-          meta: {
-            kind: 'post-type',
-            subtype
-          }
-        };
-      });
-    }).catch(() => []) // Fail by returning no results.
-    );
-  }
-
-  if (!type || type === 'term') {
-    queries.push(external_wp_apiFetch_default()({
-      path: (0,external_wp_url_namespaceObject.addQueryArgs)('/wp/v2/search', {
-        search,
-        page,
-        per_page: perPage,
-        type: 'term',
-        subtype
-      })
-    }).then(results => {
-      return results.map(result => {
-        return { ...result,
-          meta: {
-            kind: 'taxonomy',
-            subtype
-          }
-        };
-      });
-    }).catch(() => []) // Fail by returning no results.
-    );
-  }
-
-  if (!disablePostFormats && (!type || type === 'post-format')) {
-    queries.push(external_wp_apiFetch_default()({
-      path: (0,external_wp_url_namespaceObject.addQueryArgs)('/wp/v2/search', {
-        search,
-        page,
-        per_page: perPage,
-        type: 'post-format',
-        subtype
-      })
-    }).then(results => {
-      return results.map(result => {
-        return { ...result,
-          meta: {
-            kind: 'taxonomy',
-            subtype
-          }
-        };
-      });
-    }).catch(() => []) // Fail by returning no results.
-    );
-  }
-
-  if (!type || type === 'attachment') {
-    queries.push(external_wp_apiFetch_default()({
-      path: (0,external_wp_url_namespaceObject.addQueryArgs)('/wp/v2/media', {
-        search,
-        page,
-        per_page: perPage
-      })
-    }).then(results => {
-      return results.map(result => {
-        return { ...result,
-          meta: {
-            kind: 'media'
-          }
-        };
-      });
-    }).catch(() => []) // Fail by returning no results.
-    );
-  }
-
-  return Promise.all(queries).then(results => {
-    return results.reduce((
-    /** @type {WPLinkSearchResult[]} */
-    accumulator, current) => accumulator.concat(current), // Flatten list.
-    []).filter(
-    /**
-     * @param {{ id: number }} result
-     */
-    result => {
-      return !!result.id;
-    }).slice(0, perPage).map((
-    /** @type {WPLinkSearchResultAugmented} */
-    result) => {
-      var _result$meta;
-
-      const isMedia = result.type === 'attachment';
-      return {
-        id: result.id,
-        // @ts-ignore fix when we make this a TS file
-        url: isMedia ? result.source_url : result.url,
-        title: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(isMedia ? // @ts-ignore fix when we make this a TS file
-        result.title.rendered : result.title || '') || (0,external_wp_i18n_namespaceObject.__)('(no title)'),
-        type: result.subtype || result.type,
-        kind: result === null || result === void 0 ? void 0 : (_result$meta = result.meta) === null || _result$meta === void 0 ? void 0 : _result$meta.kind
-      };
-    });
-  });
-};
-
-/* harmony default export */ const _experimental_fetch_link_suggestions = (fetchLinkSuggestions);
-
-;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/__experimental-fetch-url-data.js
-/**
- * WordPress dependencies
- */
-
-
-/**
- * A simple in-memory cache for requests.
- * This avoids repeat HTTP requests which may be beneficial
- * for those wishing to preserve low-bandwidth.
- */
-
-const CACHE = new Map();
-/**
- * @typedef WPRemoteUrlData
- *
- * @property {string} title contents of the remote URL's `<title>` tag.
- */
-
-/**
- * Fetches data about a remote URL.
- * eg: <title> tag, favicon...etc.
- *
- * @async
- * @param {string}  url     the URL to request details from.
- * @param {Object?} options any options to pass to the underlying fetch.
- * @example
- * ```js
- * import { __experimentalFetchUrlData as fetchUrlData } from '@wordpress/core-data';
- *
- * //...
- *
- * export function initialize( id, settings ) {
- *
- * settings.__experimentalFetchUrlData = (
- * url
- * ) => fetchUrlData( url );
- * ```
- * @return {Promise< WPRemoteUrlData[] >} Remote URL data.
- */
-
-const fetchUrlData = async function (url) {
-  let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  const endpoint = '/wp-block-editor/v1/url-details';
-  const args = {
-    url: (0,external_wp_url_namespaceObject.prependHTTP)(url)
-  };
-
-  if (!(0,external_wp_url_namespaceObject.isURL)(url)) {
-    return Promise.reject(`${url} is not a valid URL.`);
-  } // Test for "http" based URL as it is possible for valid
-  // yet unusable URLs such as `tel:123456` to be passed.
-
-
-  const protocol = (0,external_wp_url_namespaceObject.getProtocol)(url);
-
-  if (!protocol || !(0,external_wp_url_namespaceObject.isValidProtocol)(protocol) || !protocol.startsWith('http') || !/^https?:\/\/[^\/\s]/i.test(url)) {
-    return Promise.reject(`${url} does not have a valid protocol. URLs must be "http" based`);
-  }
-
-  if (CACHE.has(url)) {
-    return CACHE.get(url);
-  }
-
-  return external_wp_apiFetch_default()({
-    path: (0,external_wp_url_namespaceObject.addQueryArgs)(endpoint, args),
-    ...options
-  }).then(res => {
-    CACHE.set(url, res);
-    return res;
-  });
-};
-
-/* harmony default export */ const _experimental_fetch_url_data = (fetchUrlData);
-
-;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/index.js
-
-
-
 // EXTERNAL MODULE: ./node_modules/memize/index.js
 var memize = __webpack_require__(9756);
 var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
@@ -6389,6 +6092,384 @@ function __experimentalUseEntityRecords(kind, name, queryArgs, options) {
   return useEntityRecords(kind, name, queryArgs, options);
 }
 
+;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/use-resource-permissions.js
+/**
+ * Internal dependencies
+ */
+
+
+
+
+/**
+ * Resolves resource permissions.
+ *
+ * @param  resource The resource in question, e.g. media.
+ * @param  id       ID of a specific resource entry, if needed, e.g. 10.
+ *
+ * @example
+ * ```js
+ * import { useResourcePermissions } from '@wordpress/core-data';
+ *
+ * function PagesList() {
+ *   const { canCreate, isResolving } = useResourcePermissions( 'pages' );
+ *
+ *   if ( isResolving ) {
+ *     return 'Loading ...';
+ *   }
+ *
+ *   return (
+ *     <div>
+ *       {canCreate ? (<button>+ Create a new page</button>) : false}
+ *       // ...
+ *     </div>
+ *   );
+ * }
+ *
+ * // Rendered in the application:
+ * // <PagesList />
+ * ```
+ *
+ * In the above example, when `PagesList` is rendered into an
+ * application, the appropriate permissions and the resolution details will be retrieved from
+ * the store state using `canUser()`, or resolved if missing.
+ *
+ * @return Entity records data.
+ * @template IdType
+ */
+function __experimentalUseResourcePermissions(resource, id) {
+  return __experimentalUseQuerySelect(resolve => {
+    const {
+      canUser
+    } = resolve(store);
+    const create = canUser('create', resource);
+
+    if (!id) {
+      return [create.hasResolved, {
+        status: create.status,
+        isResolving: create.isResolving,
+        canCreate: create.hasResolved && create.data
+      }];
+    }
+
+    const update = canUser('update', resource, id);
+
+    const _delete = canUser('delete', resource, id);
+
+    const isResolving = create.isResolving || update.isResolving || _delete.isResolving;
+    const hasResolved = create.hasResolved && update.hasResolved && _delete.hasResolved;
+    let status = Status.Idle;
+
+    if (isResolving) {
+      status = Status.Resolving;
+    } else if (hasResolved) {
+      status = Status.Success;
+    }
+
+    return [hasResolved, {
+      status,
+      isResolving,
+      canCreate: hasResolved && create.data,
+      canUpdate: hasResolved && update.data,
+      canDelete: hasResolved && _delete.data
+    }];
+  }, [resource, id]);
+}
+
+;// CONCATENATED MODULE: external ["wp","htmlEntities"]
+const external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
+;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/__experimental-fetch-link-suggestions.js
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Filters the search by type
+ *
+ * @typedef { 'attachment' | 'post' | 'term' | 'post-format' } WPLinkSearchType
+ */
+
+/**
+ * A link with an id may be of kind post-type or taxonomy
+ *
+ * @typedef { 'post-type' | 'taxonomy' } WPKind
+ */
+
+/**
+ * @typedef WPLinkSearchOptions
+ *
+ * @property {boolean}          [isInitialSuggestions] Displays initial search suggestions, when true.
+ * @property {WPLinkSearchType} [type]                 Filters by search type.
+ * @property {string}           [subtype]              Slug of the post-type or taxonomy.
+ * @property {number}           [page]                 Which page of results to return.
+ * @property {number}           [perPage]              Search results per page.
+ */
+
+/**
+ * @typedef WPLinkSearchResult
+ *
+ * @property {number} id     Post or term id.
+ * @property {string} url    Link url.
+ * @property {string} title  Title of the link.
+ * @property {string} type   The taxonomy or post type slug or type URL.
+ * @property {WPKind} [kind] Link kind of post-type or taxonomy
+ */
+
+/**
+ * @typedef WPLinkSearchResultAugments
+ *
+ * @property {{kind: WPKind}} [meta]    Contains kind information.
+ * @property {WPKind}         [subtype] Optional subtype if it exists.
+ */
+
+/**
+ * @typedef {WPLinkSearchResult & WPLinkSearchResultAugments} WPLinkSearchResultAugmented
+ */
+
+/**
+ * @typedef WPEditorSettings
+ *
+ * @property {boolean} [ disablePostFormats ] Disables post formats, when true.
+ */
+
+/**
+ * Fetches link suggestions from the API.
+ *
+ * @async
+ * @param {string}              search
+ * @param {WPLinkSearchOptions} [searchOptions]
+ * @param {WPEditorSettings}    [settings]
+ *
+ * @example
+ * ```js
+ * import { __experimentalFetchLinkSuggestions as fetchLinkSuggestions } from '@wordpress/core-data';
+ *
+ * //...
+ *
+ * export function initialize( id, settings ) {
+ *
+ * settings.__experimentalFetchLinkSuggestions = (
+ *     search,
+ *     searchOptions
+ * ) => fetchLinkSuggestions( search, searchOptions, settings );
+ * ```
+ * @return {Promise< WPLinkSearchResult[] >} List of search suggestions
+ */
+
+const fetchLinkSuggestions = async function (search) {
+  let searchOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  let settings = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  const {
+    isInitialSuggestions = false,
+    type = undefined,
+    subtype = undefined,
+    page = undefined,
+    perPage = isInitialSuggestions ? 3 : 20
+  } = searchOptions;
+  const {
+    disablePostFormats = false
+  } = settings;
+  /** @type {Promise<WPLinkSearchResult>[]} */
+
+  const queries = [];
+
+  if (!type || type === 'post') {
+    queries.push(external_wp_apiFetch_default()({
+      path: (0,external_wp_url_namespaceObject.addQueryArgs)('/wp/v2/search', {
+        search,
+        page,
+        per_page: perPage,
+        type: 'post',
+        subtype
+      })
+    }).then(results => {
+      return results.map(result => {
+        return { ...result,
+          meta: {
+            kind: 'post-type',
+            subtype
+          }
+        };
+      });
+    }).catch(() => []) // Fail by returning no results.
+    );
+  }
+
+  if (!type || type === 'term') {
+    queries.push(external_wp_apiFetch_default()({
+      path: (0,external_wp_url_namespaceObject.addQueryArgs)('/wp/v2/search', {
+        search,
+        page,
+        per_page: perPage,
+        type: 'term',
+        subtype
+      })
+    }).then(results => {
+      return results.map(result => {
+        return { ...result,
+          meta: {
+            kind: 'taxonomy',
+            subtype
+          }
+        };
+      });
+    }).catch(() => []) // Fail by returning no results.
+    );
+  }
+
+  if (!disablePostFormats && (!type || type === 'post-format')) {
+    queries.push(external_wp_apiFetch_default()({
+      path: (0,external_wp_url_namespaceObject.addQueryArgs)('/wp/v2/search', {
+        search,
+        page,
+        per_page: perPage,
+        type: 'post-format',
+        subtype
+      })
+    }).then(results => {
+      return results.map(result => {
+        return { ...result,
+          meta: {
+            kind: 'taxonomy',
+            subtype
+          }
+        };
+      });
+    }).catch(() => []) // Fail by returning no results.
+    );
+  }
+
+  if (!type || type === 'attachment') {
+    queries.push(external_wp_apiFetch_default()({
+      path: (0,external_wp_url_namespaceObject.addQueryArgs)('/wp/v2/media', {
+        search,
+        page,
+        per_page: perPage
+      })
+    }).then(results => {
+      return results.map(result => {
+        return { ...result,
+          meta: {
+            kind: 'media'
+          }
+        };
+      });
+    }).catch(() => []) // Fail by returning no results.
+    );
+  }
+
+  return Promise.all(queries).then(results => {
+    return results.reduce((
+    /** @type {WPLinkSearchResult[]} */
+    accumulator, current) => accumulator.concat(current), // Flatten list.
+    []).filter(
+    /**
+     * @param {{ id: number }} result
+     */
+    result => {
+      return !!result.id;
+    }).slice(0, perPage).map((
+    /** @type {WPLinkSearchResultAugmented} */
+    result) => {
+      var _result$meta;
+
+      const isMedia = result.type === 'attachment';
+      return {
+        id: result.id,
+        // @ts-ignore fix when we make this a TS file
+        url: isMedia ? result.source_url : result.url,
+        title: (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(isMedia ? // @ts-ignore fix when we make this a TS file
+        result.title.rendered : result.title || '') || (0,external_wp_i18n_namespaceObject.__)('(no title)'),
+        type: result.subtype || result.type,
+        kind: result === null || result === void 0 ? void 0 : (_result$meta = result.meta) === null || _result$meta === void 0 ? void 0 : _result$meta.kind
+      };
+    });
+  });
+};
+
+/* harmony default export */ const _experimental_fetch_link_suggestions = (fetchLinkSuggestions);
+
+;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/__experimental-fetch-url-data.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * A simple in-memory cache for requests.
+ * This avoids repeat HTTP requests which may be beneficial
+ * for those wishing to preserve low-bandwidth.
+ */
+
+const CACHE = new Map();
+/**
+ * @typedef WPRemoteUrlData
+ *
+ * @property {string} title contents of the remote URL's `<title>` tag.
+ */
+
+/**
+ * Fetches data about a remote URL.
+ * eg: <title> tag, favicon...etc.
+ *
+ * @async
+ * @param {string}  url     the URL to request details from.
+ * @param {Object?} options any options to pass to the underlying fetch.
+ * @example
+ * ```js
+ * import { __experimentalFetchUrlData as fetchUrlData } from '@wordpress/core-data';
+ *
+ * //...
+ *
+ * export function initialize( id, settings ) {
+ *
+ * settings.__experimentalFetchUrlData = (
+ * url
+ * ) => fetchUrlData( url );
+ * ```
+ * @return {Promise< WPRemoteUrlData[] >} Remote URL data.
+ */
+
+const fetchUrlData = async function (url) {
+  let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  const endpoint = '/wp-block-editor/v1/url-details';
+  const args = {
+    url: (0,external_wp_url_namespaceObject.prependHTTP)(url)
+  };
+
+  if (!(0,external_wp_url_namespaceObject.isURL)(url)) {
+    return Promise.reject(`${url} is not a valid URL.`);
+  } // Test for "http" based URL as it is possible for valid
+  // yet unusable URLs such as `tel:123456` to be passed.
+
+
+  const protocol = (0,external_wp_url_namespaceObject.getProtocol)(url);
+
+  if (!protocol || !(0,external_wp_url_namespaceObject.isValidProtocol)(protocol) || !protocol.startsWith('http') || !/^https?:\/\/[^\/\s]/i.test(url)) {
+    return Promise.reject(`${url} does not have a valid protocol. URLs must be "http" based`);
+  }
+
+  if (CACHE.has(url)) {
+    return CACHE.get(url);
+  }
+
+  return external_wp_apiFetch_default()({
+    path: (0,external_wp_url_namespaceObject.addQueryArgs)(endpoint, args),
+    ...options
+  }).then(res => {
+    CACHE.set(url, res);
+    return res;
+  });
+};
+
+/* harmony default export */ const _experimental_fetch_url_data = (fetchUrlData);
+
+;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/index.js
+
+
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/hooks/index.js
 
 
@@ -6484,6 +6565,9 @@ const storeConfig = () => ({
 
 const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, storeConfig());
 (0,external_wp_data_namespaceObject.register)(store);
+
+
+
 
 
 

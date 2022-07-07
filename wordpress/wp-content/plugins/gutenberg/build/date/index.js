@@ -1211,6 +1211,7 @@ __webpack_require__.r(__webpack_exports__);
  * @property {MomentLocaleSpecification['weekdaysShort']} weekdaysShort Locale weekdays short.
  * @property {MeridiemConfig}                             meridiem      Meridiem config.
  * @property {MomentLocaleSpecification['relativeTime']}  relative      Relative time config.
+ * @property {0|1|2|3|4|5|6}                              startOfWeek   Day that the week starts on.
  */
 
 /* eslint-enable jsdoc/valid-types */
@@ -1258,7 +1259,8 @@ let settings = {
       MM: '%d months',
       y: 'a year',
       yy: '%d years'
-    }
+    },
+    startOfWeek: 0
   },
   formats: {
     time: 'g: i a',

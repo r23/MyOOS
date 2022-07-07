@@ -6249,7 +6249,13 @@ function getActiveBlockVariation(state, blockName, attributes, scope) {
 
 function getDefaultBlockVariation(state, blockName, scope) {
   const variations = getBlockVariations(state, blockName, scope);
-  return (0,external_lodash_namespaceObject.findLast)(variations, 'isDefault') || (0,external_lodash_namespaceObject.first)(variations);
+  const defaultVariation = [...variations].reverse().find(_ref => {
+    let {
+      isDefault
+    } = _ref;
+    return !!isDefault;
+  });
+  return defaultVariation || variations[0];
 }
 /**
  * Returns all the available categories.
@@ -6329,10 +6335,10 @@ function getGroupingBlockName(state) {
 const getChildBlockNames = rememo((state, blockName) => {
   return (0,external_lodash_namespaceObject.map)((0,external_lodash_namespaceObject.filter)(state.blockTypes, blockType => {
     return (0,external_lodash_namespaceObject.includes)(blockType.parent, blockName);
-  }), _ref => {
+  }), _ref2 => {
     let {
       name
-    } = _ref;
+    } = _ref2;
     return name;
   });
 }, state => [state.blockTypes]);
@@ -6466,7 +6472,8 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
   },
   borderColor: {
     value: ['border', 'color'],
-    support: ['__experimentalBorder', 'color']
+    support: ['__experimentalBorder', 'color'],
+    useEngine: true
   },
   borderRadius: {
     value: ['border', 'radius'],
@@ -6476,63 +6483,78 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
       borderTopRightRadius: 'topRight',
       borderBottomLeftRadius: 'bottomLeft',
       borderBottomRightRadius: 'bottomRight'
-    }
+    },
+    useEngine: true
   },
   borderStyle: {
     value: ['border', 'style'],
-    support: ['__experimentalBorder', 'style']
+    support: ['__experimentalBorder', 'style'],
+    useEngine: true
   },
   borderWidth: {
     value: ['border', 'width'],
-    support: ['__experimentalBorder', 'width']
+    support: ['__experimentalBorder', 'width'],
+    useEngine: true
   },
   borderTopColor: {
     value: ['border', 'top', 'color'],
-    support: ['__experimentalBorder', 'color']
+    support: ['__experimentalBorder', 'color'],
+    useEngine: true
   },
   borderTopStyle: {
     value: ['border', 'top', 'style'],
-    support: ['__experimentalBorder', 'style']
+    support: ['__experimentalBorder', 'style'],
+    useEngine: true
   },
   borderTopWidth: {
     value: ['border', 'top', 'width'],
-    support: ['__experimentalBorder', 'width']
+    support: ['__experimentalBorder', 'width'],
+    useEngine: true
   },
   borderRightColor: {
     value: ['border', 'right', 'color'],
-    support: ['__experimentalBorder', 'color']
+    support: ['__experimentalBorder', 'color'],
+    useEngine: true
   },
   borderRightStyle: {
     value: ['border', 'right', 'style'],
-    support: ['__experimentalBorder', 'style']
+    support: ['__experimentalBorder', 'style'],
+    useEngine: true
   },
   borderRightWidth: {
     value: ['border', 'right', 'width'],
-    support: ['__experimentalBorder', 'width']
+    support: ['__experimentalBorder', 'width'],
+    useEngine: true
   },
   borderBottomColor: {
     value: ['border', 'bottom', 'color'],
-    support: ['__experimentalBorder', 'color']
+    support: ['__experimentalBorder', 'color'],
+    useEngine: true
   },
   borderBottomStyle: {
     value: ['border', 'bottom', 'style'],
-    support: ['__experimentalBorder', 'style']
+    support: ['__experimentalBorder', 'style'],
+    useEngine: true
   },
   borderBottomWidth: {
     value: ['border', 'bottom', 'width'],
-    support: ['__experimentalBorder', 'width']
+    support: ['__experimentalBorder', 'width'],
+    useEngine: true
   },
   borderLeftColor: {
     value: ['border', 'left', 'color'],
-    support: ['__experimentalBorder', 'color']
+    support: ['__experimentalBorder', 'color'],
+    useEngine: true
   },
   borderLeftStyle: {
     value: ['border', 'left', 'style'],
-    support: ['__experimentalBorder', 'style']
+    support: ['__experimentalBorder', 'style'],
+    useEngine: true
   },
   borderLeftWidth: {
     value: ['border', 'left', 'width'],
-    support: ['__experimentalBorder', 'width']
+    support: ['__experimentalBorder', 'width'],
+    useEngine: true
   },
   color: {
     value: ['color', 'text'],
@@ -6547,6 +6569,14 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
   linkColor: {
     value: ['elements', 'link', 'color', 'text'],
     support: ['color', 'link']
+  },
+  buttonColor: {
+    value: ['elements', 'button', 'color', 'text'],
+    support: ['color', 'button']
+  },
+  buttonBackgroundColor: {
+    value: ['elements', 'button', 'color', 'background'],
+    support: ['color', 'button']
   },
   fontFamily: {
     value: ['typography', 'fontFamily'],
@@ -6806,7 +6836,7 @@ function unstable__bootstrapServerSideBlockDefinitions(definitions) {
       continue;
     }
 
-    serverSideBlockDefinitions[blockName] = (0,external_lodash_namespaceObject.mapKeys)((0,external_lodash_namespaceObject.pickBy)(definitions[blockName], value => !(0,external_lodash_namespaceObject.isNil)(value)), (value, key) => (0,external_lodash_namespaceObject.camelCase)(key));
+    serverSideBlockDefinitions[blockName] = (0,external_lodash_namespaceObject.mapKeys)((0,external_lodash_namespaceObject.pickBy)(definitions[blockName], value => value !== null && value !== undefined), (value, key) => (0,external_lodash_namespaceObject.camelCase)(key));
   }
 }
 /**
@@ -8796,8 +8826,8 @@ function getCommentDelimitedContent(rawBlockName, attributes, content) {
  * Returns the content of a block, including comment delimiters, determining
  * serialized attributes and content form from the current state of the block.
  *
- * @param {WPBlock}                      block   Block instance.
- * @param {WPBlockSerializationOptions}  options Serialization options.
+ * @param {WPBlock}                     block   Block instance.
+ * @param {WPBlockSerializationOptions} options Serialization options.
  *
  * @return {string} Serialized block.
  */
@@ -10276,12 +10306,6 @@ function convertLegacyBlockNameAndAttributes(name, attributes) {
     }
 
     name = 'core/embed';
-  } // Convert 'core/query-loop' blocks in existing content to 'core/post-template'.
-  // TODO: Remove this check when WordPress 5.9 is released.
-
-
-  if (name === 'core/query-loop') {
-    name = 'core/post-template';
   } // Convert Post Comment blocks in existing content to Comment blocks.
   // TODO: Remove these checks when WordPress 6.0 is released.
 
