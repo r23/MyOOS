@@ -192,11 +192,13 @@ if (!empty($action)) {
             $options_values_quantity = oos_db_prepare_input($_POST['options_values_quantity']);
             $options_values_base_quantity = oos_db_prepare_input($_POST['options_values_base_quantity']);
             $options_values_base_unit = oos_db_prepare_input($_POST['options_values_base_unit']);
+			$options_values_units_id = intval($_POST['options_values_units_id']);
         } else {
             $options_values_base_price = 1;
             $options_values_quantity = 1;
             $options_values_base_quantity = 1;
             $options_values_base_unit = '';
+			$options_values_units_id = 0;
         }
 
         $products_attributestable = $oostable['products_attributes'];
@@ -212,6 +214,7 @@ if (!empty($action)) {
 						options_values_quantity,
 						options_values_base_quantity,
 						options_values_base_unit,
+						options_values_units_id,
 						price_prefix,
 						options_sort_order) 
 						VALUES ('', 
@@ -224,7 +227,8 @@ if (!empty($action)) {
 								'" . oos_db_prepare_input($options_values_base_price) . "',
 								'" . oos_db_prepare_input($options_values_quantity) . "',
 								'" . oos_db_prepare_input($options_values_base_quantity) . "',
-								'" . oos_db_prepare_input($options_values_base_unit) . "', 
+								'" . oos_db_prepare_input($options_values_base_unit) . "',
+								'" . oos_db_prepare_input($options_values_units_id) . "', 								
 								'" . oos_db_prepare_input($_POST['price_prefix']) . "', 
 								'" . oos_db_prepare_input($_POST['sort_order']) . "')");
 
@@ -331,11 +335,13 @@ if (!empty($action)) {
             $options_values_quantity = oos_db_prepare_input($_POST['options_values_quantity']);
             $options_values_base_quantity = oos_db_prepare_input($_POST['options_values_base_quantity']);
             $options_values_base_unit = oos_db_prepare_input($_POST['options_values_base_unit']);
+			$options_values_units_id = intval($_POST['options_values_units_id']);
         } else {
             $options_values_base_price = 1;
             $options_values_quantity = 1;
             $options_values_base_quantity = 1;
             $options_values_base_unit = '';
+			$options_values_units_id = 0;
         }
 
 
@@ -347,10 +353,11 @@ if (!empty($action)) {
 						options_values_image  = '" . oos_db_prepare_input($options_values_image) . "',
 						options_values_id = '" . oos_db_prepare_input($_POST['values_id']) . "',
 						options_values_price = '" . oos_db_prepare_input($_POST['value_price']) . "',
-						options_values_base_price= '" . oos_db_prepare_input($options_values_base_price) . "',
-						options_values_quantity= '" . oos_db_prepare_input($options_values_quantity) . "',
-						options_values_base_quantity= '" . oos_db_prepare_input($options_values_base_quantity) . "',
-						options_values_base_unit= '" . oos_db_prepare_input($options_values_base_unit) . "',
+						options_values_base_price = '" . oos_db_prepare_input($options_values_base_price) . "',
+						options_values_quantity = '" . oos_db_prepare_input($options_values_quantity) . "',
+						options_values_base_quantity = '" . oos_db_prepare_input($options_values_base_quantity) . "',
+						options_values_base_unit = '" . oos_db_prepare_input($options_values_base_unit) . "',
+						options_values_units_id = '" . oos_db_prepare_input($options_values_units_id) . "',						
 						price_prefix = '" . oos_db_prepare_input($_POST['price_prefix']) . "',
 						 options_sort_order = '" . oos_db_prepare_input($_POST['sort_order']) . "' WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'");
 
