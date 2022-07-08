@@ -440,13 +440,13 @@ if (!isset($attribute_page)) {
 
 require 'includes/header.php';
 ?>
-<script language="javascript"><!--
+<script>
 function go_option() {
   if (document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value != "none") {
     location = "<?php echo oos_href_link_admin($aContents['products_attributes'], 'option_page=' . (isset($_GET['option_page']) ? intval($_GET['option_page']) : 1)); ?>&option_order_by="+document.option_order_by.selected.options[document.option_order_by.selected.selectedIndex].value;
   }
 }
-//--></script>
+</script>
 
 <!-- body //-->
 <div class="wrapper">
@@ -942,7 +942,7 @@ function go_option() {
         $form_action = 'add_product_attributes';
     }
 ?>
-<script language="javascript"><!--
+<script>
 
 function doRound(x, places) {
   return Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
@@ -959,7 +959,7 @@ function calcBasePriceFactor() {
   }
 
 }
-//--></script>
+</script>
 
         <td><form name="attributes" action="<?php echo oos_href_link_admin($aContents['products_attributes'], 'action=' . $form_action . '&option_page=' . $option_page . '&value_page=' . $value_page . '&attribute_page=' . $attribute_page); ?>" method="post" enctype="multipart/form-data"><table border="0" width="100%" cellspacing="0" cellpadding="2">
           <tr>

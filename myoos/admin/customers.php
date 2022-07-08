@@ -287,7 +287,7 @@ if (!empty($action)) {
 
   if ($action == 'edit') {
       ?>
-<script language="javascript"><!--
+<script>
 function resetStateText(theForm) {
   theForm.entry_state.value = '';
   if (theForm.entry_zone_id.options.length > 1) {
@@ -412,7 +412,7 @@ function check_form() {
     return true;
   }
 }
-//--></script>
+</script>
 <?php
   }
 ?>

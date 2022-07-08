@@ -135,7 +135,7 @@ $saction = (isset($_GET['saction']) ? $_GET['saction'] : '');
 
   if (isset($_GET['zID'])  && (($saction == 'edit') || ($saction == 'new'))) {
       ?>
-<script language="javascript"><!--
+<script><!--
 function resetZoneSelected(theForm) {
   if (theForm.state.value != '') {
     theForm.zone_id.selectedIndex = '0';
@@ -159,7 +159,7 @@ function update_zone(theForm) {
 <?php echo oos_is_zone_list('SelectedCountry', 'theForm', 'zone_id'); ?>
 
 }
-//--></script>
+</script>
 <?php
   }
 ?>
