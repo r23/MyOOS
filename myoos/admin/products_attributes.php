@@ -399,29 +399,46 @@ if (!empty($action)) {
 }
 
 
-  $products_options_types_list = [];
-  $products_options_typestable = $oostable['products_options_types'];
-  $products_options_types_sql = "SELECT products_options_types_id, products_options_types_name
+$products_options_types_list = [];
+$products_options_typestable = $oostable['products_options_types'];
+$products_options_types_sql = "SELECT products_options_types_id, products_options_types_name
                                  FROM $products_options_typestable
                                  WHERE products_options_types_languages_id = '" . intval($_SESSION['language_id']) . "'
                                  ORDER BY products_options_types_id";
-  $products_options_types_result = $dbconn->Execute($products_options_types_sql);
-  while ($products_options_type_array = $products_options_types_result->fields) {
-      $products_options_types_list[$products_options_type_array['products_options_types_id']] = $products_options_type_array['products_options_types_name'];
+$products_options_types_result = $dbconn->Execute($products_options_types_sql);
+while ($products_options_type_array = $products_options_types_result->fields) {
+$products_options_types_list[$products_options_type_array['products_options_types_id']] = $products_options_type_array['products_options_types_name'];
 
-      // Move that ADOdb pointer!
-      $products_options_types_result->MoveNext();
-  }
+	// Move that ADOdb pointer!
+	$products_options_types_result->MoveNext();
+}
 
-  if (!isset($value_page)) {
-      $value_page = 1;
-  }
-  if (!isset($attribute_page)) {
-      $attribute_page = 1;
-  }
+$products_units_array = [];
+$unit_of_measure = [];
+$products_units_array = array(array('id' => '0', 'text' => TEXT_NONE));
+$products_unitstable = $oostable['products_units'];
+$products_units_result = $dbconn->Execute("SELECT products_units_id, products_unit_name, unit_of_measure FROM $products_unitstable WHERE languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_unit_name");
+while ($products_units = $products_units_result->fields) {
+	$products_units_array[] = array('id' => $products_units['products_units_id'],
+                                      'text' => $products_units['products_unit_name']);
+	if ((!empty($products_units['unit_of_measure'])) && (!in_array($products_units['unit_of_measure'], $unit_of_measure))) {
+		$unit_of_measure[] = $products_units['unit_of_measure'];
+	}
+
+	// Move that ADOdb pointer!
+	$products_units_result->MoveNext();
+}
+
+if (!isset($value_page)) {
+	$value_page = 1;
+}
+
+if (!isset($attribute_page)) {
+	$attribute_page = 1;
+}
 
 
-  require 'includes/header.php';
+require 'includes/header.php';
 ?>
 <script language="javascript"><!--
 function go_option() {
@@ -1036,7 +1053,7 @@ function calcBasePriceFactor() {
 			<?php echo '&nbsp;' . oos_draw_file_field('options_values_image') . oos_draw_hidden_field('products_previous_image', $attributes_values['options_values_image']); ?></td>
             <td class="smallText">&nbsp;<select name="products_id">
 <?php
-      $productstable = $oostable['products'];
+		$productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
         $products = $dbconn->Execute("SELECT p.products_id, pd.products_name FROM $productstable p, $products_descriptiontable pd WHERE pd.products_id = p.products_id AND pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY pd.products_name");
         while ($products_values = $products->fields) {
@@ -1128,14 +1145,35 @@ function calcBasePriceFactor() {
              <td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></td>
              <td class="main"><?php echo oos_draw_input_field('options_values_base_unit', $attributes_values['options_values_base_unit']); ?></td>
            </tr>
+		   
+		   
         </table>
             </td>
             <td>&nbsp;</td>
           </tr>	
+		  
 <?php
         }
 
-####
+/*
+
+	                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_QUANTITY; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
+                              </div>
+                           </div>
+                        </fieldset>					
+                        <fieldset>
+                           <div class="form-group row">
+                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></label>
+                              <div class="col-lg-10">
+                                 <?php echo implode(", ", array_values($unit_of_measure)); ?>
+                              </div>
+                           </div>
+                        </fieldset>	 
+
   if (BASE_PRICE == 'true') {
                         <fieldset>
                            <div class="form-group row">
@@ -1178,7 +1216,7 @@ function calcBasePriceFactor() {
                            </div>
                         </fieldset>
   }
-####
+*/
 
 
 

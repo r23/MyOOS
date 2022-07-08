@@ -51,3 +51,15 @@ define('TEXT_WARNING_OF_DELETE', 'This option has products and values linked to 
 define('TEXT_OK_TO_DELETE', 'This option has no products and values linked to it - it is safe to delete it.');
 define('TEXT_OPTION_ID', 'Option ID');
 define('TEXT_OPTION_NAME', 'Option Name');
+
+define('TEXT_PRODUCTS_BASE_PRICE', 'Base Price ');
+define('TEXT_PRODUCTS_BASE_UNIT', 'Packaging Unit:');
+define('TEXT_PRODUCTS_BASE_PRICE_FACTOR', 'Factor to calculate Base Price:');
+define('TEXT_PRODUCTS_BASE_QUANTITY', 'Base Quantity:');
+define('TEXT_PRODUCTS_QUANTITY', 'Product Quantity:');
+
+define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
+define('TEXT_PRODUCTS_IMAGE_DELETE', '<b>Remove</b> the image from the article?');
+
+
+
