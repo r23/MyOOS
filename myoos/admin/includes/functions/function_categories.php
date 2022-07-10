@@ -787,8 +787,8 @@ function oos_output_generated_category_path($id, $from = 'category')
         }
         $calculated_category_path_string = substr($calculated_category_path_string, 0, -16) . '<br>';
     }
-    $calculated_category_path_string = substr($calculated_category_path_string, 0, -6);
 
+	$calculated_category_path_string = substr($calculated_category_path_string, 0, -4);
     if (strlen($calculated_category_path_string) < 1) {
         $calculated_category_path_string = TEXT_TOP;
     }

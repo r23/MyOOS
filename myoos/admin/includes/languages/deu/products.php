@@ -24,6 +24,7 @@
 define('HEADING_TITLE', 'Neuer Artikel');
 
 define('TEXT_NEW_PRODUCT', 'Neuer Artikel in &quot;%s&quot;');
+define('TEXT_EDIT_PRODUCT', 'Artikel in &quot;%s&quot;');
 define('TEXT_PRODUCTS', 'Artikel');
 define('TEXT_PRODUCTS_DATA', 'Artikeldaten');
 define('TEXT_PRODUCTS_INFORMATION_OBLIGATIONS', 'Informationspflichten');

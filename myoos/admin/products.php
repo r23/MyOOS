@@ -395,9 +395,11 @@ require 'includes/header.php';
 				<div class="row">
 					<div class="col-lg-12">
 <?php
-if ($action == 'new_product') {
+if ($action == 'new_product' || $action == 'edit_product') {
     defined('DEFAULT_SETTING_ID') or define('DEFAULT_SETTING_ID', '2');
+	defined('DEFAULT_PRODUTS_STATUS_ID') or define('DEFAULT_PRODUTS_STATUS_ID', '3');
     defined('DEFAULT_TAX_CLASS_ID') or define('DEFAULT_TAX_CLASS_ID', '1');
+
 
     $parameters = array('products_id' => '',
                         'products_name' => '',
@@ -558,9 +560,9 @@ if ($action == 'new_product') {
             $back_url_params .= '&pID=' . $pInfo->products_id;
         }
     } ?>
-<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+<script src="js/ckeditor/ckeditor.js"></script>
 
-<script type="text/javascript"><!--
+<script>
 var tax_rates = new Array();
 <?php
     for ($i=0, $n=sizeof($tax_class_array); $i<$n; $i++) {
@@ -648,11 +650,18 @@ function calcBasePriceFactor() {
   }
 
 }
-//--></script>
+</script>
 	<!-- Breadcrumbs //-->
+<?php
+	if ($action == 'new_product') {
+		$sTitle = sprintf(TEXT_NEW_PRODUCT, oos_output_generated_category_path($current_category_id));
+	} else {
+		$sTitle = sprintf(TEXT_EDIT_PRODUCT, oos_output_generated_category_path($current_category_id));
+	}
+?>	
 	<div class="content-heading">
 		<div class="col-lg-12">
-			<h2><?php echo sprintf(TEXT_NEW_PRODUCT, oos_output_generated_category_path($current_category_id)); ?></h2>
+			<h2><?php echo $sTitle; ?></h2>
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
 					<?php echo '<a href="' . oos_href_link_admin($aContents['default']) . '">' . HEADER_TITLE_TOP . '</a>'; ?>
@@ -661,7 +670,8 @@ function calcBasePriceFactor() {
 					<?php echo '<a href="' . oos_href_link_admin($aContents['categories'], 'selected_box=catalog') . '">' . BOX_HEADING_CATALOG . '</a>'; ?>
 				</li>
 				<li class="breadcrumb-item active">
-					<strong><?php echo sprintf(TEXT_NEW_PRODUCT, oos_output_generated_category_path($current_category_id)); ?></strong>
+
+					<strong><?php echo $sTitle; ?></strong>
 				</li>
 			</ol>
 		</div>
@@ -1067,7 +1077,7 @@ updateWithTax();
                         </fieldset>
 <?php
     if (STOCK_CHECK == 'true') {
-        ?>
+?>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_REORDER_LEVEL; ?></label>

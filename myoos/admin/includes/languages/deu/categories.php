@@ -33,6 +33,7 @@ define('TABLE_HEADING_MANUFACTURERS', 'Hersteller');
 define('TABLE_HEADING_PRODUCT_SORT', 'Sort Order');
 
 define('TEXT_NEW_PRODUCT', 'Neuer Artikel in &quot;%s&quot;');
+define('TEXT_EDIT_PRODUCT', 'Artikel in &quot;%s&quot;');
 define('TEXT_CATEGORIES', 'Kategorien:');
 define('TEXT_CATEGORY', 'Kategorie');
 define('TEXT_SUBCATEGORIES', 'Unterkategorien:');
