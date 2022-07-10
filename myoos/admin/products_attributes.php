@@ -1123,103 +1123,35 @@ function calcBasePriceFactor() {
           </tr>
 <?php
         if (BASE_PRICE == 'true') {
-            ?>
+			$options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
+			$options_values_quantity = isset($attributes_values['options_values_quantity']) ? $attributes_values['options_values_quantity'] : '';
+			$options_values_base_quantity = isset($attributes_values['options_values_base_quantity']) ? $attributes_values['options_values_base_quantity'] : '';
+			$products_units_id = isset($attributes_values['products_units_id']) ? $attributes_values['products_units_id'] : '';			
+?>
 		<tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
-			<td colspan="8">
-	<table border=0>
-          <tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
-            <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></td>
-            <td class="main"><table border="0">
+			<td colspan="8"><table border="0">
                 <tr>
-                  <td class="main"><br><?php echo oos_draw_input_field('options_values_base_price', $attributes_values['options_values_base_price']); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR . '<br>' . oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
                   <td class="main"><br> <- </td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', $attributes_values['options_values_quantity'], 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br>' . oos_draw_input_field('options_values_base_quantity', $attributes_values['options_values_base_quantity'], 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', $options_values_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+				  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('products_units_id', $products_units_array, $products_units_id); ?></td>
                 </tr>
+				<tr>
+					<td class="main"></td>
+					<td class="main"></td>
+					<td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br>' . oos_draw_input_field('options_values_base_quantity', $options_values_base_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+					<td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT . '<br>' . implode(", ", array_values($unit_of_measure)); ?> </td>
+				</tr>
               </table>
-            </td>
-          </tr>
-          <tr>
-             <td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></td>
-             <td class="main"><?php echo oos_draw_input_field('options_values_base_unit', $attributes_values['options_values_base_unit']); ?></td>
-           </tr>
-		   
-		   
-        </table>
+
             </td>
             <td>&nbsp;</td>
           </tr>	
 		  
 <?php
         }
-
-/*
-
-	                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_QUANTITY; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
-                              </div>
-                           </div>
-                        </fieldset>					
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo implode(", ", array_values($unit_of_measure)); ?>
-                              </div>
-                           </div>
-                        </fieldset>	 
-
-  if (BASE_PRICE == 'true') {
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_PRODUCT_QUANTITY; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_product_quantity', $pInfo->products_product_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_UNIT; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_pull_down_menu('products_units_id', $products_units_array, $pInfo->products_units_id); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_QUANTITY; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_base_quantity', $pInfo->products_base_quantity, 'onkeyup="calcBasePriceFactor()"'); ?>
-                              </div>
-                           </div>
-                        </fieldset>					
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo implode(", ", array_values($unit_of_measure)); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-                        <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></label>
-                              <div class="col-lg-10">
-                                 <?php echo oos_draw_input_field('products_base_price', $pInfo->products_base_price); ?>
-                              </div>
-                           </div>
-                        </fieldset>
-  }
-*/
-
-
-
 
         if (DOWNLOAD_ENABLED == 'true') {
             $products_attributes_downloadtable = $oostable['products_attributes_download'];
@@ -1394,31 +1326,28 @@ function calcBasePriceFactor() {
           </tr>
 <?php
     if (BASE_PRICE == 'true') {
-        $options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price']; ?>
+        $options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
+		$products_units_id = isset($attributes_values['products_units_id']) ? $attributes_values['products_units_id'] : '';
+
+?>
 		<tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
 			<td>&nbsp;</td>
 			<td>&nbsp;</td>
-			<td colspan="8">
-	<table border=0>
-          <tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
-            <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR; ?></td>
-            <td class="main"><table border="0">
+			<td colspan="8"><table border="0">
                 <tr>
-                  <td class="main"><br><?php echo oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
+                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR . '<br>' . oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
                   <td class="main"><br> <- </td>
                   <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-                  <td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br>' . oos_draw_input_field('options_values_base_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+				  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('products_units_id', $products_units_array, $products_units_id); ?></td>
                 </tr>
+				<tr>
+					<td class="main"></td>
+					<td class="main"></td>
+					<td class="main"><?php echo TEXT_PRODUCTS_BASE_QUANTITY . '<br>' . oos_draw_input_field('options_values_base_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
+					<td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT . '<br>' . implode(", ", array_values($unit_of_measure)); ?> </td>
+				</tr>
               </table>
-            </td>
-          </tr>
-          <tr>
-             <td class="main"><?php echo TEXT_PRODUCTS_BASE_UNIT; ?></td>
-             <td class="main"><?php echo oos_draw_input_field('options_values_base_unit', isset($attributes_values['options_values_base_unit']) ? $attributes_values['options_values_base_unit'] : ''); ?>
-			 
-			 </td>
-           </tr>
-        </table>
+
             </td>
             <td>&nbsp;</td>
           </tr>		

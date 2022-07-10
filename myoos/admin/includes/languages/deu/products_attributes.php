@@ -55,10 +55,11 @@ define('TEXT_OPTION_NAME', 'Optionsname');
 
 
 define('TEXT_PRODUCTS_BASE_PRICE', 'Grundpreis ');
-define('TEXT_PRODUCTS_BASE_UNIT', 'Grundgr&ouml;&szlig;e:');
+define('TEXT_PRODUCTS_BASE_UNIT', 'Mengeneinheit:');
 define('TEXT_PRODUCTS_BASE_PRICE_FACTOR', 'Faktor zum Berechnen des Grundpreis:');
 define('TEXT_PRODUCTS_BASE_QUANTITY', 'Basismenge:');
 define('TEXT_PRODUCTS_QUANTITY', 'Artikelmenge:');
+define('TEXT_PRODUCTS_UNIT', 'Produkteinheit:');
 
 define('TEXT_IMAGE_NONEXISTENT', 'BILD EXISTIERT NICHT');
 define('TEXT_PRODUCTS_IMAGE_DELETE', '<b>Entfernen</b> des Bildes vom Artikel?');

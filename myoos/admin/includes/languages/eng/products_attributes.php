@@ -57,6 +57,7 @@ define('TEXT_PRODUCTS_BASE_UNIT', 'Packaging Unit:');
 define('TEXT_PRODUCTS_BASE_PRICE_FACTOR', 'Factor to calculate Base Price:');
 define('TEXT_PRODUCTS_BASE_QUANTITY', 'Base Quantity:');
 define('TEXT_PRODUCTS_QUANTITY', 'Product Quantity:');
+define('TEXT_PRODUCTS_UNIT', 'Product Unit');
 
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
 define('TEXT_PRODUCTS_IMAGE_DELETE', '<b>Remove</b> the image from the article?');
