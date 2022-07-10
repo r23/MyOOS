@@ -619,7 +619,7 @@ class Html extends BaseReader
     {
         foreach ($element->childNodes as $child) {
             if ($child instanceof DOMText) {
-                $domText = preg_replace('/\s+/u', ' ', trim($child->nodeValue ?: ''));
+                $domText = (string) preg_replace('/\s+/u', ' ', trim($child->nodeValue ?? ''));
                 if (is_string($cellContent)) {
                     //    simply append the text if the cell content is a plain text string
                     $cellContent .= $domText;
@@ -630,16 +630,6 @@ class Html extends BaseReader
                 $this->processDomElementBody($sheet, $row, $column, $cellContent, $child);
             }
         }
-    }
-
-    /**
-     * Make sure mb_convert_encoding returns string.
-     *
-     * @param mixed $result
-     */
-    private static function ensureString($result): string
-    {
-        return is_string($result) ? $result : '';
     }
 
     /**
@@ -660,8 +650,8 @@ class Html extends BaseReader
         $dom = new DOMDocument();
         // Reload the HTML file into the DOM object
         try {
-            $convert = mb_convert_encoding($this->securityScanner->scanFile($filename), 'HTML-ENTITIES', 'UTF-8');
-            $loaded = $dom->loadHTML(self::ensureString($convert));
+            $convert = $this->securityScanner->scanFile($filename);
+            $loaded = $dom->loadHTML($convert);
         } catch (Throwable $e) {
             $loaded = false;
         }
@@ -683,8 +673,8 @@ class Html extends BaseReader
         $dom = new DOMDocument();
         //    Reload the HTML file into the DOM object
         try {
-            $convert = mb_convert_encoding($this->securityScanner->scan($content), 'HTML-ENTITIES', 'UTF-8');
-            $loaded = $dom->loadHTML(self::ensureString($convert));
+            $convert = $this->securityScanner->scan($content);
+            $loaded = $dom->loadHTML($convert);
         } catch (Throwable $e) {
             $loaded = false;
         }
