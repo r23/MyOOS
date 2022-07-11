@@ -1512,7 +1512,7 @@ class upload
         }
     }
 
-    protected function basename($filepath, $suffix = null)
+    protected function basename($filepath, $suffix = '')
     {
         $splited = preg_split('/\//', rtrim($filepath, '/ '));
         return substr(basename('X'.$splited[count($splited)-1], $suffix), 1);
