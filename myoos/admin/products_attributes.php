@@ -186,18 +186,19 @@ if (!empty($action)) {
         $products_options_array = $products_options_result->fields;
         $values_id = (($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_TEXT) or ($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_FILE)) ? PRODUCTS_OPTIONS_VALUE_TEXT_ID : $_POST['values_id'];
         */
-
+		
+		// todo remove options_values_base_unit
+        $options_values_base_unit = '';
         if (isset($_POST['options_values_base_price'])) {
             $options_values_base_price = oos_db_prepare_input($_POST['options_values_base_price']);
             $options_values_quantity = oos_db_prepare_input($_POST['options_values_quantity']);
             $options_values_base_quantity = oos_db_prepare_input($_POST['options_values_base_quantity']);
-            $options_values_base_unit = oos_db_prepare_input($_POST['options_values_base_unit']);
 			$options_values_units_id = intval($_POST['options_values_units_id']);
         } else {
             $options_values_base_price = 1;
             $options_values_quantity = 1;
             $options_values_base_quantity = 1;
-            $options_values_base_unit = '';
+
 			$options_values_units_id = 0;
         }
 
@@ -237,7 +238,15 @@ if (!empty($action)) {
         $products_attributes_id = $dbconn->Insert_ID();
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
             $products_attributes_downloadtable = $oostable['products_attributes_download'];
-            $dbconn->Execute("INSERT INTO $products_attributes_downloadtable VALUES (" . $products_attributes_id . ", '" . $_POST['products_attributes_filename'] . "', '" . oos_db_input($_POST['products_attributes_maxdays']) . "', '" . oos_db_input($_POST['products_attributes_maxcount']) . "')");
+            $dbconn->Execute("INSERT INTO $products_attributes_downloadtable 
+							(products_attributes_id,
+							products_attributes_filename,
+							products_attributes_maxdays,
+							products_attributes_maxcount)
+							VALUES (" . oos_db_prepare_input($products_attributes_id) . ", 
+								'" . oos_db_prepare_input($_POST['products_attributes_filename']) . "', 
+								'" . oos_db_prepare_input($_POST['products_attributes_maxdays']) . "', 
+								'" . oos_db_prepare_input($_POST['products_attributes_maxcount']) . "')");
         }
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
@@ -278,7 +287,9 @@ if (!empty($action)) {
         break;
 
       case 'update_product_attribute':
-
+echo '<pre>';
+print_r($_POST);
+echo '</pre>';
             if (isset($_POST['products_previous_image'])) {
                 $options_values_image = oos_db_prepare_input($_POST['products_previous_image']);
             }
@@ -330,17 +341,18 @@ if (!empty($action)) {
             }
         }
 
+		// todo remove options_values_base_unit
+        $options_values_base_unit = '';
+
         if (isset($_POST['options_values_base_price'])) {
             $options_values_base_price = oos_db_prepare_input($_POST['options_values_base_price']);
             $options_values_quantity = oos_db_prepare_input($_POST['options_values_quantity']);
             $options_values_base_quantity = oos_db_prepare_input($_POST['options_values_base_quantity']);
-            $options_values_base_unit = oos_db_prepare_input($_POST['options_values_base_unit']);
 			$options_values_units_id = intval($_POST['options_values_units_id']);
         } else {
             $options_values_base_price = 1;
             $options_values_quantity = 1;
             $options_values_base_quantity = 1;
-            $options_values_base_unit = '';
 			$options_values_units_id = 0;
         }
 
@@ -364,11 +376,11 @@ if (!empty($action)) {
 
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
             $products_attributes_downloadtable = $oostable['products_attributes_download'];
-            $dbconn->Execute("UPDATE $products_attributes_downloadtable
-                        SET products_attributes_filename='" . oos_db_input($_POST['products_attributes_filename']) . "',
-                            products_attributes_maxdays='" . oos_db_input($_POST['products_attributes_maxdays']) . "',
-                            products_attributes_maxcount='" . oos_db_input($_POST['products_attributes_maxcount']) . "'
-                        WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'");
+            $result = $dbconn->Execute("UPDATE $products_attributes_downloadtable
+                        SET products_attributes_filename ='" . oos_db_input($_POST['products_attributes_filename']) . "',
+                            products_attributes_maxdays ='" . oos_db_input($_POST['products_attributes_maxdays']) . "',
+                            products_attributes_maxcount ='" . oos_db_input($_POST['products_attributes_maxcount']) . "'
+                        WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'");						
         }
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
@@ -1034,8 +1046,9 @@ function calcBasePriceFactor() {
 <?php
   $next_id = 1;
   $rows = 0;
+
   $attributes = $dbconn->Execute($attributes);
-  while ($attributes_values = $attributes->fields) {
+  while ($attributes_values = $attributes->fields) {  
       $products_name_only = oos_get_products_name($attributes_values['products_id']);
       $options_name = oos_options_name($attributes_values['options_id']);
       $values_name = oos_values_name($attributes_values['options_values_id']);
@@ -1126,7 +1139,7 @@ function calcBasePriceFactor() {
 			$options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
 			$options_values_quantity = isset($attributes_values['options_values_quantity']) ? $attributes_values['options_values_quantity'] : '';
 			$options_values_base_quantity = isset($attributes_values['options_values_base_quantity']) ? $attributes_values['options_values_base_quantity'] : '';
-			$products_units_id = isset($attributes_values['products_units_id']) ? $attributes_values['products_units_id'] : '';			
+			$options_values_units_id = isset($attributes_values['options_values_units_id']) ? $attributes_values['options_values_units_id'] : '';			
 ?>
 		<tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
 			<td>&nbsp;</td>
@@ -1136,7 +1149,7 @@ function calcBasePriceFactor() {
                   <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR . '<br>' . oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
                   <td class="main"><br> <- </td>
                   <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', $options_values_quantity, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-				  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('products_units_id', $products_units_array, $products_units_id); ?></td>
+				  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('options_values_units_id', $products_units_array, $options_values_units_id); ?></td>
                 </tr>
 				<tr>
 					<td class="main"></td>
@@ -1154,6 +1167,11 @@ function calcBasePriceFactor() {
         }
 
         if (DOWNLOAD_ENABLED == 'true') {
+			
+			$products_attributes_filename = '';
+			$products_attributes_maxdays  = DOWNLOAD_MAX_DAYS;
+			$products_attributes_maxcount = DOWNLOAD_MAX_COUNT;
+		  
             $products_attributes_downloadtable = $oostable['products_attributes_download'];
             $download_result_raw ="SELECT products_attributes_filename, products_attributes_maxdays, products_attributes_maxcount
 								FROM $products_attributes_downloadtable
@@ -1216,7 +1234,7 @@ function calcBasePriceFactor() {
         echo '<a href="' . oos_href_link_admin($aContents['products_attributes'], 'action=setflag&flag=1&aID=' . $attributes_values['products_attributes_id'] . '&attribute_page=' . $attribute_page) . '"><i class="fa fa-circle-notch text-success" title="' . IMAGE_ICON_STATUS_GREEN_LIGHT . '"></i></a>&nbsp;<i class="fa fa-circle text-danger" title="' . IMAGE_ICON_STATUS_RED . '"></i>';
     } ?></td>
 <?php
-      $in_price = $attributes_values['options_values_price'];
+		$in_price = $attributes_values['options_values_price'];
         $in_price = number_format($in_price, TAX_DECIMAL_PLACES, '.', ''); ?>
             <td align="right" class="smallText">&nbsp;<?php echo $in_price; ?>&nbsp;</td>
             <td align="center" class="smallText">&nbsp;<?php echo $attributes_values["price_prefix"]; ?>&nbsp;</td>
@@ -1327,7 +1345,7 @@ function calcBasePriceFactor() {
 <?php
     if (BASE_PRICE == 'true') {
         $options_values_base_price = (!isset($attributes_values['options_values_base_price'])) ? 1 : $attributes_values['options_values_base_price'];
-		$products_units_id = isset($attributes_values['products_units_id']) ? $attributes_values['products_units_id'] : '';
+		$options_values_units_id = isset($attributes_values['options_values_units_id']) ? $attributes_values['options_values_units_id'] : '';
 
 ?>
 		<tr class="<?php echo(!($rows % 2) ? 'attributes-even' : 'attributes-odd'); ?>">
@@ -1338,7 +1356,7 @@ function calcBasePriceFactor() {
                   <td class="main"><?php echo TEXT_PRODUCTS_BASE_PRICE_FACTOR . '<br>' . oos_draw_input_field('options_values_base_price', $options_values_base_price); ?></td>
                   <td class="main"><br> <- </td>
                   <td class="main"><?php echo TEXT_PRODUCTS_QUANTITY . '<br>' . oos_draw_input_field('options_values_quantity', 1, 'OnKeyUp="calcBasePriceFactor()"'); ?></td>
-				  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('products_units_id', $products_units_array, $products_units_id); ?></td>
+				  <td class="main"><?php echo TEXT_PRODUCTS_UNIT . '<br>' . oos_draw_pull_down_menu('options_values_units_id', $products_units_array, $options_values_units_id); ?></td>
                 </tr>
 				<tr>
 					<td class="main"></td>
