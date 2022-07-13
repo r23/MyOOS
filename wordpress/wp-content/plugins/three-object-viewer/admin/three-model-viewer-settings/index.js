@@ -1,36 +1,33 @@
-import React from "react";
-import { render } from "@wordpress/element";
-import App from "./App";
-import apiFetch from "@wordpress/api-fetch";
+import React from 'react';
+import { render } from '@wordpress/element';
+import App from './App';
+import apiFetch from '@wordpress/api-fetch';
 
-window.addEventListener("load", async function () {
+window.addEventListener( 'load', async function () {
 	//Endpoint URL
-	const path = "/three-object-viewer/v1/three-model-viewer-settings/";
+	const path = '/three-object-viewer/v1/three-model-viewer-settings/';
 
 	//Get settings from the REST API endpoint
 	const getSettings = async () => {
-		let data = await apiFetch({
+		let data = await apiFetch( {
 			path,
-			method: "GET",
-		});
+			method: 'GET',
+		} );
 		return data;
 	};
 
 	//Update settings via the REST API endpoint
-	const updateSettings = async (data) => {
-		let updatedData = apiFetch({
+	const updateSettings = async ( data ) => {
+		let updatedData = apiFetch( {
 			path,
 			data,
-			method: "POST",
-		});
+			method: 'POST',
+		} );
 		return updatedData;
 	};
 
 	render(
-		<App
-            getSettings={getSettings}
-            updateSettings={updateSettings}
-        />,
-		document.getElementById("three-model-viewer-settings")
+		<App getSettings={ getSettings } updateSettings={ updateSettings } />,
+		document.getElementById( 'three-model-viewer-settings' )
 	);
-});
+} );

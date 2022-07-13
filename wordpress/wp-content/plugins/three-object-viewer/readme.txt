@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 5.9
 Requires PHP: 7.2
-Stable tag: 0.5.0
+Stable tag: 0.6.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -43,6 +43,16 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+
+= 0.6.0 =
+
+*  Update react three fiber.
+*  Update three omi to factor in autoplaying prop name change.
+*  Fixes camera issues and sets better defaults. NOTE: default zoom has changed to 1. You will likely see visual regressions from this update if you have not changed the defaults. 
+*  Fixes color pallete default value.
+*  Support VRM Materials.
+*  Multi Block Support. You can now have as many Three Object Blocks as you want per post and archive.
+*  Rapier Physics in VR mode. This adds initial support for Rapier Physics. Soon to come is a proper physics character controller.
 
 = 0.5.0 =
 

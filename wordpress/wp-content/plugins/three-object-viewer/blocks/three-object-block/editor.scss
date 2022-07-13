@@ -11,12 +11,21 @@
  }
 
  .glb-preview-container button{
-	padding: 10px;
+	padding: 15px;
 	border-radius: 30px;
-	background-color:#333;
-	color: white;
 }
 
+.three-object-viewer-button {
+	background-color:rgb(199, 254, 0);
+	color: black;
+	border: solid 1.5px black;
+}
+
+.glb-preview-container button:hover{
+	border-radius: 30px;
+	background-color:rgb(156, 199, 0);
+	cursor: pointer;
+}
 .three-object-block-tip {
 	overflow-wrap: break-word;
 	background-color: black;
@@ -24,16 +33,16 @@
 	padding: 10px;
 	font-weight: 500;
 	max-width: 160px;
-	font-size: 14px;
+	font-size: 12px;
 	margin-top: 0px;
 	margin: 0 auto;
 	text-align: center;
 }
 
-.glb-preview-container button:hover{
-	padding: 10px;
-	border-radius: 30px;
-	background-color:rgb(69, 69, 69);
-	color: white;
-	cursor: pointer;
+.three-object-block-url-input {
+	padding-bottom: 20px;
+}
+
+.three-object-block-url-input input{
+	height: 40px;
 }

@@ -35,7 +35,7 @@ Download the release zip and install on your WordPress.
 
 PHP classes should be located in the "php" directory and follow the [PSR-4 standard](https://www.php-fig.org/psr/psr-4/).
 
-The root namespace is `3d-object-viewer`.
+The root namespace is `threeObjectViewer`.
 
 
 

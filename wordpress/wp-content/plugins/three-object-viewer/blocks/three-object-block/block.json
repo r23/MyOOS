@@ -9,7 +9,7 @@
         },
         "zoom": {
             "type": "integer",
-            "default": 90
+            "default": 1
         },
         "scale": {
             "type": "integer",
@@ -52,7 +52,7 @@
     "apiVersion": 2,
     "supports": {
         "html": false,
-        "multiple": false
+        "multiple": true
     },
     "editorScript": "file:../../build/block-three-object-block.js",
 	"editorStyle": "file:../../build/block-three-object-block.css",
