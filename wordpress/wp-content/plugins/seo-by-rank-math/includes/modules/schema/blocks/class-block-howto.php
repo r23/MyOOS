@@ -13,6 +13,7 @@ namespace RankMath\Schema;
 use RankMath\Paper\Paper;
 use MyThemeShop\Helpers\Str;
 use MyThemeShop\Helpers\Attachment;
+use WP_Block_Type_Registry;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -22,11 +23,44 @@ defined( 'ABSPATH' ) || exit;
 class Block_HowTo extends Block {
 
 	/**
+	 * Block type name.
+	 *
+	 * @var string
+	 */
+	private $block_type = 'rank-math/howto-block';
+
+	/**
+	 * The single instance of the class.
+	 *
+	 * @var Block_HowTo
+	 */
+	protected static $instance = null;
+
+	/**
+	 * Retrieve main Block_HowTo instance.
+	 *
+	 * Ensure only one instance is loaded or can be loaded.
+	 *
+	 * @return Block_HowTo
+	 */
+	public static function get() {
+		if ( is_null( self::$instance ) && ! ( self::$instance instanceof Block_HowTo ) ) {
+			self::$instance = new Block_HowTo();
+		}
+
+		return self::$instance;
+	}
+
+	/**
 	 * The Constructor.
 	 */
 	public function __construct() {
+		if ( WP_Block_Type_Registry::get_instance()->is_registered( $this->block_type ) ) {
+			return;
+		}
+
 		register_block_type(
-			'rank-math/howto-block',
+			$this->block_type,
 			[
 				'render_callback' => [ $this, 'render' ],
 				'editor_style'    => 'rank-math-block-admin',
@@ -150,17 +184,18 @@ class Block_HowTo extends Block {
 	 * Render block content.
 	 *
 	 * @param array $attributes Array of atributes.
-	 *
 	 * @return string
 	 */
-	public function render( $attributes ) {
-		// Early bail.
-		if ( ! $this->has_steps( $attributes ) ) {
-			return '';
-		}
+	public static function markup( $attributes = [] ) {
+		$list_style          = isset( $attributes['listStyle'] ) ? $attributes['listStyle'] : '';
+		$list_css_classes    = isset( $attributes['listCssClasses'] ) ? $attributes['listCssClasses'] : '';
+		$title_wrapper       = isset( $attributes['titleWrapper'] ) ? $attributes['titleWrapper'] : 'h2';
+		$title_css_classes   = isset( $attributes['titleCssClasses'] ) ? $attributes['titleCssClasses'] : '';
+		$content_css_classes = isset( $attributes['contentCssClasses'] ) ? $attributes['contentCssClasses'] : '';
+		$size_slug           = isset( $attributes['sizeSlug'] ) ? $attributes['sizeSlug'] : '';
 
-		$list_tag = $this->get_list_style( $attributes['listStyle'] );
-		$item_tag = $this->get_list_item_style( $attributes['listStyle'] );
+		$list_tag = self::get()->get_list_style( $list_style );
+		$item_tag = self::get()->get_list_item_style( $list_style );
 		$class    = 'rank-math-block';
 		if ( ! empty( $attributes['className'] ) ) {
 			$class .= ' ' . esc_attr( $attributes['className'] );
@@ -168,17 +203,26 @@ class Block_HowTo extends Block {
 
 		// HTML.
 		$out   = [];
-		$out[] = sprintf( '<div id="rank-math-howto" class="%1$s" %2$s>', $class, $this->get_styles( $attributes ) );
+		$out[] = sprintf( '<div id="rank-math-howto" class="%1$s" %2$s>', $class, self::get()->get_styles( $attributes ) );
 
 		// HeaderContent.
 		$out[] = '<div class="rank-math-howto-description">';
-		$out[] = $this->get_image( $attributes, $attributes['mainSizeSlug'], '' );
-		$out[] = $this->normalize_text( $attributes['description'], 'howto' );
+
+		if ( ! empty( $attributes['imageUrl'] ) ) {
+			$out[] = '<img src="' . esc_url( $attributes['imageUrl'] ) . '" />';
+		} elseif ( ! empty( $attributes['mainSizeSlug'] ) ) {
+			$out[] = self::get()->get_image( $attributes, $attributes['mainSizeSlug'], '' );
+		}
+
+		if ( ! empty( $attributes['description'] ) ) {
+			$out[] = self::get()->normalize_text( $attributes['description'], 'howto' );
+		}
+
 		$out[] = '</div>';
 
-		$out[] = $this->build_duration( $attributes );
+		$out[] = self::get()->build_duration( $attributes );
 
-		$out[] = sprintf( '<%1$s class="rank-math-steps %2$s">', $list_tag, $attributes['listCssClasses'] );
+		$out[] = sprintf( '<%1$s class="rank-math-steps %2$s">', $list_tag, $list_css_classes );
 
 		// Steps.
 		foreach ( $attributes['steps'] as $index => $step ) {
@@ -186,24 +230,32 @@ class Block_HowTo extends Block {
 				continue;
 			}
 
-			$out[] = sprintf( '<%1$s id="%2$s" class="rank-math-step">', $item_tag, $step['id'] );
+			$step_id = isset( $step['id'] ) ? $step['id'] : '';
+
+			$out[] = sprintf( '<%1$s id="%2$s" class="rank-math-step">', $item_tag, $step_id );
 
 			if ( ! empty( $step['title'] ) ) {
 				$out[] = sprintf(
 					'<%1$s class="rank-math-step-title %2$s">%3$s</%1$s>',
-					$attributes['titleWrapper'],
-					$attributes['titleCssClasses'],
+					$title_wrapper,
+					$title_css_classes,
 					$step['title']
 				);
 			}
 
 			if ( ! empty( $step['content'] ) ) {
+				if ( ! empty( $step['imageUrl'] ) ) {
+					$step_image = '<img src="' . esc_url( $step['imageUrl'] ) . '" />';
+				} else {
+					$step_image = self::get()->get_image( $step, $size_slug, '' );
+				}
+
 				$out[] = sprintf(
 					'<div class="rank-math-step-content %2$s">%4$s%3$s</div>',
-					$attributes['titleWrapper'],
-					$attributes['contentCssClasses'],
-					$this->normalize_text( $step['content'], 'howto' ),
-					$this->get_image( $step, $attributes['sizeSlug'], '' )
+					$title_wrapper,
+					$content_css_classes,
+					self::get()->normalize_text( $step['content'], 'howto' ),
+					$step_image
 				);
 			}
 
@@ -214,6 +266,22 @@ class Block_HowTo extends Block {
 		$out[] = '</div>';
 
 		return apply_filters( 'rank_math/schema/block/howto/content', join( "\n", $out ), $out, $attributes );
+	}
+
+	/**
+	 * Render block content.
+	 *
+	 * @param array $attributes Array of atributes.
+	 *
+	 * @return string
+	 */
+	public function render( $attributes ) {
+		// Early bail.
+		if ( ! $this->has_steps( $attributes ) ) {
+			return '';
+		}
+
+		return self::markup( $attributes );
 	}
 
 	/**

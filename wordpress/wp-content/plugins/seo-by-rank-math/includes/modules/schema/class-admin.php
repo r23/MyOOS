@@ -201,6 +201,10 @@ class Admin extends Base {
 			}
 
 			$schema = maybe_unserialize( $value );
+			if ( empty( $schema['@type'] ) ) {
+				continue;
+			}
+
 			if ( ! is_array( $schema['@type'] ) ) {
 				$types[] = Helper::sanitize_schema_title( $schema['@type'] );
 				continue;

@@ -279,6 +279,10 @@ class Product_WooCommerce {
 			return false;
 		}
 
+		if ( $this->set_single_variable_offer( $product, $entity, $seller ) ) {
+			return true;
+		}
+
 		$permalink = $product->get_permalink();
 		$lowest    = wc_format_decimal( $product->get_variation_price( 'min', false ), wc_get_price_decimals() );
 		$highest   = wc_format_decimal( $product->get_variation_price( 'max', false ), wc_get_price_decimals() );
@@ -309,6 +313,42 @@ class Product_WooCommerce {
 		];
 
 		$entity['offers'] = $offer;
+
+		return true;
+	}
+
+	/**
+	 * Set Single Variable Product offer.
+	 *
+	 * Credit @leewillis77: https://github.com/leewillis77/wc-structured-data-option-4
+	 *
+	 * @param object $product Product instance.
+	 * @param array  $entity  Array of JSON-LD entity.
+	 * @param array  $seller  Seller info.
+	 */
+	private function set_single_variable_offer( $product, &$entity, $seller ) {
+		$data_store   = \WC_Data_Store::load( 'product' );
+		$variation_id = $data_store->find_matching_product_variation( $product, wp_unslash( $_GET ) );
+		$variation    = $variation_id ? wc_get_product( $variation_id ) : false;
+		if ( empty( $variation ) ) {
+			return false;
+		}
+
+		$price_valid_until = date( 'Y-12-31', current_time( 'timestamp', true ) + YEAR_IN_SECONDS );
+		if ( $variation->is_on_sale() && $variation->get_date_on_sale_to() ) {
+			$price_valid_until = date( 'Y-m-d', $variation->get_date_on_sale_to()->getTimestamp() );
+		}
+
+		$entity['offers'] = [
+			'@type'           => 'Offer',
+			'url'             => $variation->get_permalink(),
+			'sku'             => $variation->get_sku(),
+			'price'           => wc_format_decimal( $variation->get_price(), wc_get_price_decimals() ),
+			'priceCurrency'   => get_woocommerce_currency(),
+			'priceValidUntil' => $price_valid_until,
+			'seller'          => $seller,
+			'availability'    => 'http://schema.org/' . ( $variation->is_in_stock() ? 'InStock' : 'OutOfStock' ),
+		];
 
 		return true;
 	}

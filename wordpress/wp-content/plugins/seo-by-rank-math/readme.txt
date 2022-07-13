@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 6.0
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.92.1
+Stable tag: 1.0.93
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -580,25 +580,14 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.92 [Jun 29, 2022] =
-* Added: New filter to [disable the domain checking functionality](https://rankmath.com/kb/filters-hooks-api-developer/#disable-domain-checking)
-* Improved: Made several significant code improvements in the [Analytics module](https://rankmath.com/kb/analytics) to make the plugin even FASTER and LIGHTER
-* Improved: Made changes in the Person entity of Schema to include it only on the pages where it is needed
-* Improved: Dark mode styling of the [Schema Generator](https://rankmath.com/kb/rich-snippets/#add-schema-posts-pages) in the Elementor editor
-* Removed: Old update routine files as most of those contained the deprecated code
-* Fixed: Heading tags used for representational purposes were getting counted in the [Content AI Heading count test](https://rankmath.com/kb/how-to-use-content-ai/#heading-count)
-* Fixed: [Focus keyword in the content test](https://rankmath.com/kb/score-100-in-tests/#focus-keyword-in-the-content-runs-of-all-focus-keywords) was not working well in the Elementor editor when the dash was used in the Focus keyword
-* Fixed: Autogeneration of permalink was not working well when German umlauts were used in the [SERP URL field](https://rankmath.com/kb/general-tab/#num-1-1-seo-title-permalink-and-description)
-* Fixed: RSS feed settings were not imported from the Yoast plugin
-* Fixed: Unable to search the pages in the [About & Contact page](https://rankmath.com/kb/local-seo/#about-page) dropdown due to the `minimumInputLength`
-* Fixed: Settings search bar was not working on the first-page load after updating the plugin
-* Fixed: Missing SEO tags on the frontend when Elementor Maintenance mode was partially configured
-* Fixed: [Redirection debugger](https://rankmath.com/kb/general-settings/#debug-redirections) was sending a 404 error code in the header
-* Fixed: PHP notices and warnings in the Redirection debugger on some setups
-* Fixed: [Nofollow Domains](https://rankmath.com/kb/general-settings/#nofollow-domains) &[ Nofollow Exclude Domains](https://rankmath.com/kb/general-settings/#no-follow-exclude-domains) options not working reliably
-* Fixed: Encoded characters were shown in the Rich Results section of the [Index Status](https://rankmath.com/kb/url-inspection-api-integration/#rich-result-types)
-
-= 1.0.92.1 [Jun 29, 2022] =
-* Fixed: PHP Fatal error on some installations where Elementor page builder and PHP v7.2 was used
+= 1.0.93 [July 13, 2022] =
+* Added: [Content Analysis](https://rankmath.com/kb/score-100-in-tests/) can now analyze the content added using the Reusable blocks
+* Improved: [Schema](https://rankmath.com/kb/woocommerce-product-schema/) on product variant pages to make it compatible with Google's Merchant Center
+* Improved: Increased the number of properties shown in the [Analytics Settings](https://rankmath.com/kb/general-settings/#analytics-settings)
+* Fixed: [Include](https://rankmath.com/kb/general-settings/#nofollow-domains) & [Exclude Nofollow domains](https://rankmath.com/kb/general-settings/#no-follow-exclude-domains) were not working well when values were added with `HTTP` protocol
+* Fixed: The `%seo_title%` & `%seo_description%` variables were not working well in the [Schema Generator](https://rankmath.com/kb/schema-generator/)
+* Fixed: Text added to [FAQ](https://rankmath.com/kb/faq-schema-block/#adding-faq-blocks-in-rank-math) & [HowTo](https://rankmath.com/kb/howto-schema/#num-1-2-add-the-howto-block-to-the-post) blocks in the dark theme was not visible
+* Fixed: PHP 8.0 errors on some setups where the Schema was not configured properly
+* Fixed: Compatibility issues with other plugins/themes that used the Tagify library
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**

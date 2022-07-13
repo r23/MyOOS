@@ -242,6 +242,7 @@ class Link_Attributes {
 		// Strip off www. prefixes.
 		$domains = array_map(
 			function( $domain ) {
+				$domain = preg_replace( '#^http(s)?://#', '', trim( $domain, '/' ) );
 				return preg_replace( '/^www\./', '', $domain );
 			},
 			$domains

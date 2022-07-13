@@ -1,1 +1,0 @@
-* Fixed: PHP Fatal error on some installations where Elementor page builder and PHP v7.2 was used
