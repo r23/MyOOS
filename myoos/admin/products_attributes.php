@@ -287,9 +287,6 @@ if (!empty($action)) {
         break;
 
       case 'update_product_attribute':
-echo '<pre>';
-print_r($_POST);
-echo '</pre>';
             if (isset($_POST['products_previous_image'])) {
                 $options_values_image = oos_db_prepare_input($_POST['products_previous_image']);
             }
@@ -375,6 +372,8 @@ echo '</pre>';
 
 
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
+						
+			
             $products_attributes_downloadtable = $oostable['products_attributes_download'];
             $result = $dbconn->Execute("UPDATE $products_attributes_downloadtable
                         SET products_attributes_filename ='" . oos_db_input($_POST['products_attributes_filename']) . "',
