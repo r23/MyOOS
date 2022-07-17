@@ -507,9 +507,8 @@ function check_form() {
           <tr>
             <td class="main"><?php echo ENTRY_GENDER; ?></td>
             <td class="main"><?php echo oos_draw_radio_field('customers_gender', 'm', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . MALE . '&nbsp;&nbsp;'
-			. oos_draw_radio_field('customers_gender', 'f', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;&nbsp;'
-			. oos_draw_radio_field('customers_gender', 'd', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . DIVERSE; 	
-			?></td>
+            . oos_draw_radio_field('customers_gender', 'f', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . FEMALE . '&nbsp;&nbsp;'
+            . oos_draw_radio_field('customers_gender', 'd', false, $cInfo->customers_gender) . '&nbsp;&nbsp;' . DIVERSE; ?></td>
           </tr>
 <?php
     } ?>

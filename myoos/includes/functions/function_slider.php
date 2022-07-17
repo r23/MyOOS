@@ -40,7 +40,7 @@ function oos_set_slider_status($nSliderId, $status)
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
 
-	$slidertable = $oostable['categories_slider'];
+    $slidertable = $oostable['categories_slider'];
     $dbconn->Execute(
         "UPDATE $slidertable
                              SET status = '" . oos_db_input($status) . "',

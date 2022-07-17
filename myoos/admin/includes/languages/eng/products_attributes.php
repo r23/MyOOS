@@ -61,6 +61,3 @@ define('TEXT_PRODUCTS_UNIT', 'Product Unit');
 
 define('TEXT_IMAGE_NONEXISTENT', 'IMAGE DOES NOT EXIST');
 define('TEXT_PRODUCTS_IMAGE_DELETE', '<b>Remove</b> the image from the article?');
-
-
-

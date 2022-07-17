@@ -274,22 +274,22 @@ if (($action == 'new') || ($action == 'edit')) {
 	
 <?php
 
-	echo oos_draw_form('fileupload', 'new_slider', $aContents['categories_slider'], (isset($_GET['sID']) ? 'info=' . $sID : '') . '&action=' . $form_action, 'post', true, 'enctype="multipart/form-data"');
+    echo oos_draw_form('fileupload', 'new_slider', $aContents['categories_slider'], (isset($_GET['sID']) ? 'info=' . $sID : '') . '&action=' . $form_action, 'post', true, 'enctype="multipart/form-data"');
 
     $sFormid = md5(uniqid(rand(), true));
     $_SESSION['formid'] = $sFormid;
     echo oos_draw_hidden_field('formid', $sFormid);
     echo oos_hide_session_id();
-	
+
     if ($form_action == 'update') {
         echo oos_draw_hidden_field('slider_id', intval($sID));
 
-		if (!empty($sInfo->products_id)) {
-			echo oos_draw_hidden_field('products_id', $sInfo->products_id);
-		} 
+        if (!empty($sInfo->products_id)) {
+            echo oos_draw_hidden_field('products_id', $sInfo->products_id);
+        }
     } elseif (isset($_GET['pID'])) {
         echo oos_draw_hidden_field('products_id', $sInfo->products_id);
-	}
+    }
 
     if (!empty($sInfo->products_name)) {
         echo '<br><a href="' . oos_catalog_link($aCatalog['product_info'], 'products_id=' . $sInfo->products_id) . '" target="_blank" rel="noopener">' . product_info_image($sInfo->products_image, $sInfo->products_name) . '</a><br>';
@@ -328,7 +328,7 @@ if (($action == 'new') || ($action == 'edit')) {
 
 
         <?php
-		
+
         if (isset($sInfo->slider_image) && (!empty($sInfo->slider_image))) {
             echo '<div class="text-center"><div class="d-block" style="width: 460px; height: 345px;">';
             echo oos_info_image('slider/' . $sInfo->slider_image, $sInfo->products_name, '460px', '345px');
@@ -338,7 +338,6 @@ if (($action == 'new') || ($action == 'edit')) {
             echo '<br>';
             echo oos_draw_checkbox_field('slider_image', 'yes') . ' ' . TEXT_IMAGE_REMOVE;
         } else {
-	
             ?>
 
 <div class="fileinput fileinput-new" data-provides="fileinput">

@@ -397,7 +397,7 @@ require 'includes/header.php';
 <?php
 if ($action == 'new_product' || $action == 'edit_product') {
     defined('DEFAULT_SETTING_ID') or define('DEFAULT_SETTING_ID', '2');
-	defined('DEFAULT_PRODUTS_STATUS_ID') or define('DEFAULT_PRODUTS_STATUS_ID', '3');
+    defined('DEFAULT_PRODUTS_STATUS_ID') or define('DEFAULT_PRODUTS_STATUS_ID', '3');
     defined('DEFAULT_TAX_CLASS_ID') or define('DEFAULT_TAX_CLASS_ID', '1');
 
 
@@ -653,12 +653,11 @@ function calcBasePriceFactor() {
 </script>
 	<!-- Breadcrumbs //-->
 <?php
-	if ($action == 'new_product') {
-		$sTitle = sprintf(TEXT_NEW_PRODUCT, oos_output_generated_category_path($current_category_id));
-	} else {
-		$sTitle = sprintf(TEXT_EDIT_PRODUCT, oos_output_generated_category_path($current_category_id));
-	}
-?>	
+    if ($action == 'new_product') {
+        $sTitle = sprintf(TEXT_NEW_PRODUCT, oos_output_generated_category_path($current_category_id));
+    } else {
+        $sTitle = sprintf(TEXT_EDIT_PRODUCT, oos_output_generated_category_path($current_category_id));
+    } ?>	
 	<div class="content-heading">
 		<div class="col-lg-12">
 			<h2><?php echo $sTitle; ?></h2>
@@ -1077,7 +1076,7 @@ updateWithTax();
                         </fieldset>
 <?php
     if (STOCK_CHECK == 'true') {
-?>
+        ?>
                         <fieldset>
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_PRODUCTS_REORDER_LEVEL; ?></label>
