@@ -232,11 +232,13 @@ if (!empty($action)) {
 								'" . oos_db_prepare_input($options_values_units_id) . "', 								
 								'" . oos_db_prepare_input($_POST['price_prefix']) . "', 
 								'" . oos_db_prepare_input($_POST['sort_order']) . "')");
-
-
-
         $products_attributes_id = $dbconn->Insert_ID();
+
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
+			
+			$products_attributes_maxdays  = (isset($_POST['products_attributes_maxdays'])) ? $_POST['products_attributes_maxdays'] : DOWNLOAD_MAX_DAYS;
+			$products_attributes_maxcount = (isset($_POST['products_attributes_maxcount'])) ? $_POST['products_attributes_maxcount'] : DOWNLOAD_MAX_COUNT;
+			
             $products_attributes_downloadtable = $oostable['products_attributes_download'];
             $dbconn->Execute("INSERT INTO $products_attributes_downloadtable 
 							(products_attributes_id,
@@ -245,8 +247,8 @@ if (!empty($action)) {
 							products_attributes_maxcount)
 							VALUES (" . oos_db_prepare_input($products_attributes_id) . ", 
 								'" . oos_db_prepare_input($_POST['products_attributes_filename']) . "', 
-								'" . oos_db_prepare_input($_POST['products_attributes_maxdays']) . "', 
-								'" . oos_db_prepare_input($_POST['products_attributes_maxcount']) . "')");
+								'" . oos_db_prepare_input($products_attributes_maxdays) . "', 
+								'" . oos_db_prepare_input($products_attributes_maxcount) . "')");
         }
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
@@ -372,14 +374,32 @@ if (!empty($action)) {
 
 
         if ((DOWNLOAD_ENABLED == 'true') && $_POST['products_attributes_filename'] != '') {
-						
 			
-            $products_attributes_downloadtable = $oostable['products_attributes_download'];
-            $result = $dbconn->Execute("UPDATE $products_attributes_downloadtable
+			$products_attributes_maxdays  = (isset($_POST['products_attributes_maxdays'])) ? $_POST['products_attributes_maxdays'] : DOWNLOAD_MAX_DAYS;
+			$products_attributes_maxcount = (isset($_POST['products_attributes_maxcount'])) ? $_POST['products_attributes_maxcount'] : DOWNLOAD_MAX_COUNT;
+			
+			$products_attributes_downloadtable = $oostable['products_attributes_download'];
+			$download_result = $dbconn->Execute("SELECT products_options_type FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'");			
+			if (!$download_result->RecordCount()) {
+				$dbconn->Execute("INSERT INTO $products_attributes_downloadtable 
+							(products_attributes_id,
+							products_attributes_filename,
+							products_attributes_maxdays,
+							products_attributes_maxcount)
+							VALUES (" . intval($_POST['attribute_id'] . ", 
+								'" . oos_db_prepare_input($_POST['products_attributes_filename']) . "', 
+								'" . oos_db_prepare_input($products_attributes_maxdays) . "', 
+								'" . oos_db_prepare_input($products_attributes_maxcount) . "')");
+
+
+			} else {
+				$products_attributes_downloadtable = $oostable['products_attributes_download'];
+				$dbconn->Execute("UPDATE $products_attributes_downloadtable
                         SET products_attributes_filename ='" . oos_db_input($_POST['products_attributes_filename']) . "',
-                            products_attributes_maxdays ='" . oos_db_input($_POST['products_attributes_maxdays']) . "',
-                            products_attributes_maxcount ='" . oos_db_input($_POST['products_attributes_maxcount']) . "'
-                        WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'");						
+                            products_attributes_maxdays ='" . oos_db_input($products_attributes_maxdays) . "',
+                            products_attributes_maxcount ='" . oos_db_input($products_attributes_maxcount) . "'
+                        WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'");	
+			}
         }
         oos_redirect_admin(oos_href_link_admin($aContents['products_attributes'], $page_info));
         break;
