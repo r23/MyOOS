@@ -1,0 +1,3 @@
+* Improved: A visual bug in [SEO Details column](https://rankmath.com/kb/titles-and-meta/#bulk-editing) in the Post list was incorrectly showing `Noindex` on the posts that were not configured with the Rank Math plugin. Nothing was impacted on anyone's website (especially for Google and other search engines) as it was just a visual bug in the backend and that too on the posts/pages that were not configured with Rank Math yet
+* Fixed: [Rank Math Account](https://rankmath.com/kb/free-account-benefits/) used to get automatically disconnected on some setups
+* Fixed: [Keyword Autosuggest](https://rankmath.com/kb/keyword-research-with-rank-math/#keyword-autosuggest) was not working after the last update

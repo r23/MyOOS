@@ -1,0 +1,15 @@
+// main: ../stats.scss
+
+@import 'score-bar';
+
+.#{$namespace} {
+    &-analytics-tab {
+        .woocommerce-table {
+            .components-card__header,
+            .components-card__body,
+            .woocommerce-pagination {
+                filter: blur(2px);
+            }
+        }
+    }
+}
