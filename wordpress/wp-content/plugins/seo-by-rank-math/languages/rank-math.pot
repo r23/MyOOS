@@ -234,7 +234,7 @@ msgstr ""
 msgid "[3. Unable to Encrypt]"
 msgstr ""
 
-msgid "Your site URL has changed since you connected to Rank Math."
+msgid "Seems like your site URL has changed since you connected to Rank Math."
 msgstr ""
 
 msgid "Click here to reconnect."

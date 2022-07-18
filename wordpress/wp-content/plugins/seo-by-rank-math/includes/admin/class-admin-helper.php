@@ -164,10 +164,9 @@ class Admin_Helper {
 		/**
 		 * Filter whether we need to check for URL mismatch or not.
 		 */
-		$do_url_check = apply_filters( 'rank_math/registration/do_url_check', true );
-
+		$do_url_check = apply_filters( 'rank_math/registration/do_url_check', ! get_option( 'rank_math_siteurl_mismatch_notice_dismissed' ) );
 		if ( $do_url_check && isset( $options['site_url'] ) && Helper::get_home_url() !== $options['site_url'] ) {
-			$message = esc_html__( 'Your site URL has changed since you connected to Rank Math.', 'rank-math' ) . ' <a href="' . self::get_activate_url() . '">' . esc_html__( 'Click here to reconnect.', 'rank-math' ) . '</a>';
+			$message = esc_html__( 'Seems like your site URL has changed since you connected to Rank Math.', 'rank-math' ) . ' <a href="' . self::get_activate_url() . '">' . esc_html__( 'Click here to reconnect.', 'rank-math' ) . '</a>';
 			Helper::add_notification(
 				$message,
 				[
@@ -175,9 +174,6 @@ class Admin_Helper {
 					'id'   => 'rank-math-site-url-mismatch',
 				]
 			);
-
-			delete_option( $row );
-			return false;
 		}
 
 		return $options;

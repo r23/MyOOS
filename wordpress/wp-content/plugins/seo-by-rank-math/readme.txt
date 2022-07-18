@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 6.0
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.93
+Stable tag: 1.0.93.1
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.txt
 
@@ -589,5 +589,10 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 * Fixed: Text added to [FAQ](https://rankmath.com/kb/faq-schema-block/#adding-faq-blocks-in-rank-math) & [HowTo](https://rankmath.com/kb/howto-schema/#num-1-2-add-the-howto-block-to-the-post) blocks in the dark theme was not visible
 * Fixed: PHP 8.0 errors on some setups where the Schema was not configured properly
 * Fixed: Compatibility issues with other plugins/themes that used the Tagify library
+
+= 1.0.93.1 [July 18, 2022] =
+* Improved: A visual bug in [SEO Details column](https://rankmath.com/kb/titles-and-meta/#bulk-editing) in the Post list was incorrectly showing `Noindex` on the posts that were not configured with the Rank Math plugin. Nothing was impacted on anyone's website (especially for Google and other search engines) as it was just a visual bug in the backend and that too on the posts/pages that were not configured with Rank Math yet
+* Fixed: [Rank Math Account](https://rankmath.com/kb/free-account-benefits/) used to get automatically disconnected on some setups
+* Fixed: [Keyword Autosuggest](https://rankmath.com/kb/keyword-research-with-rank-math/#keyword-autosuggest) was not working after the last update
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**
