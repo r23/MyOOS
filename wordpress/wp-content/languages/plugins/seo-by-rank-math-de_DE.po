@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-06-29 15:27:18+0000\n"
+"PO-Revision-Date: 2022-07-19 11:55:58+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,25 +19,25 @@ msgstr "Aus dem Cache bedient"
 msgid "Rank Math SEO Redirection Debugger"
 msgstr "Ranking Math SEO Umleitungs Fehlersuchprogramm"
 
-#: includes/admin/class-admin-helper.php:455
+#: includes/admin/class-admin-helper.php:451
 msgid "WordPress General Settings"
 msgstr "WordPress Allgemeine Einstellungen"
 
-#: includes/admin/class-admin-helper.php:454
+#: includes/admin/class-admin-helper.php:450
 msgid "Site Address (URL)"
 msgstr "Website (URL)"
 
 #. Translators: 1 is "WordPress Address (URL)", 2 is "Site Address (URL)", 3 is
 #. a link to the General Settings, with "WordPress General Settings" as anchor
 #. text.
-#: includes/admin/class-admin-helper.php:453
+#: includes/admin/class-admin-helper.php:449
 msgid "WordPress Address (URL)"
 msgstr "WordPress-Adresse (URL)"
 
 #. Translators: 1 is "WordPress Address (URL)", 2 is "Site Address (URL)", 3 is
 #. a link to the General Settings, with "WordPress General Settings" as anchor
 #. text.
-#: includes/admin/class-admin-helper.php:452
+#: includes/admin/class-admin-helper.php:448
 msgid "Rank Math cannot be connected because your site URL doesn't appear to be a valid URL. If the domain name contains special characters, please make sure to use the encoded version in the %1$s &amp; %2$s fields on the %3$s page."
 msgstr "Rank Math kann nicht verbunden werden, da deine Website-URL keine gültige URL zu sein scheint. Wenn der Domainname Sonderzeichen enthält, stelle bitte sicher, dass du die codierte Version in den Feldern %1$s &amp; %2$s auf der %3$s Seite verwendest."
 
@@ -56,13 +56,9 @@ msgstr "Wähle die zu importierenden Daten aus."
 msgid "Are you sure you want to import data from %s?"
 msgstr "Möchtest du wirklich Daten aus %s importieren?"
 
-#: includes/admin/class-admin-helper.php:170
+#: includes/admin/class-admin-helper.php:169
 msgid "Click here to reconnect."
 msgstr "Klicke hier, um die Verbindung wiederherzustellen."
-
-#: includes/admin/class-admin-helper.php:170
-msgid "Your site URL has changed since you connected to Rank Math."
-msgstr "Die URL deiner Website hat sich geändert, seit du sie mit Rank Math verbunden hast."
 
 #: includes/settings/titles/misc.php:142
 msgid "Prevent paginated pages of single pages and posts to show up in the search results. This also applies for the Blog page."
@@ -75,6 +71,10 @@ msgstr "Noindex Paginierte Einzelseiten"
 #: includes/settings/titles/misc.php:130
 msgid "Noindex Subpages"
 msgstr "Noindex-Unterseiten"
+
+#: includes/admin/class-admin-helper.php:169
+msgid "Seems like your site URL has changed since you connected to Rank Math."
+msgstr "Es scheint, dass sich die URL deiner Website geändert hat, seit du diese mit Rank Math verbunden hast."
 
 #. translators: The settings page link
 #: includes/modules/sitemap/settings/post-types.php:24
@@ -1066,7 +1066,7 @@ msgstr "SEO-Bericht deiner Website"
 msgid "This option cannot be changed since your theme has added the support for Rank Math Breadcrumbs using: %s"
 msgstr "Diese Option kann nicht geändert werden, da dein Theme die Unterstützung für Rank Math Breadcrumbs hinzugefügt hat mit: %s"
 
-#: includes/admin/class-notices.php:250
+#: includes/admin/class-notices.php:254
 msgid "<b>Rank Math Warning:</b> Changing the permalinks on a live, indexed site may result in serious loss of traffic if done incorrectly. Consider adding a new redirection from the old URL format to the new one."
 msgstr "<b>Rank Math Warnung:</b> Das Ändern der Permalinks auf einer lebenden, indizierten Website kann zu ernsthaften Traffic-Verlusten führen, wenn es falsch gemacht wird. Ziehe in Erwägung, eine neue Umleitung vom alten URL-Format zum neuen hinzuzufügen."
 
@@ -1075,12 +1075,12 @@ msgid "Rank Math SEO Analysis error: "
 msgstr "Rank Math SEO Analysefehler: "
 
 #. Translators: placeholder is the post type names separated with commas.
-#: includes/admin/class-notices.php:109
+#: includes/admin/class-notices.php:113
 msgid "Rank Math has detected new post types: %1$s. You may want to check the settings of the <a href=\"%2$s\">Titles &amp; Meta page</a>."
 msgstr "Rank Math hat neue Beitragstypen erkannt: %1$s. Du solltest die Einstellungen der <a href=\"%2$s\">Titel &amp; Meta-Seite</a> überprüfen."
 
 #. Translators: placeholder is the post type name.
-#: includes/admin/class-notices.php:105
+#: includes/admin/class-notices.php:109
 msgid "Rank Math has detected a new post type: %1$s. You may want to check the settings of the <a href=\"%2$s\">Titles &amp; Meta page</a>."
 msgstr "Rank Math hat einen neuen Beitragstyp erkannt: %1$s. Du solltest die Einstellungen der <a href=\"%2$s\">Titel &amp; Meta-Seite</a> überprüfen."
 
@@ -1448,7 +1448,7 @@ msgstr "Wähle dies, wenn du eine benutzerdefinierte Rank-Math-Einstellungsdatei
 msgid "Video Settings imported successfully."
 msgstr "Videoeinstellungen erfolgreich importiert."
 
-#: includes/modules/schema/class-snippet-shortcode.php:239
+#: includes/modules/schema/class-snippet-shortcode.php:242
 msgid "Days"
 msgstr "Tage"
 
@@ -2197,7 +2197,7 @@ msgstr "Schemas für neue oder aktualisierte Daten."
 msgid "No valid ID found."
 msgstr "Keine gültige ID gefunden."
 
-#: includes/modules/schema/class-snippet-shortcode.php:86
+#: includes/modules/schema/class-snippet-shortcode.php:87
 msgid "No schema found."
 msgstr "Kein Schema gefunden."
 
@@ -2368,7 +2368,7 @@ msgstr "Nicht verbunden"
 msgid "Connected"
 msgstr "Verbunden"
 
-#: includes/admin/class-notices.php:134
+#: includes/admin/class-notices.php:138
 msgid "Please activate the WPML String Translation plugin to convert Rank Math Setting values in different languages."
 msgstr "Aktiviere bitte das Modul WPML String Translation, um Einstellungen von Rank Math in verschiedene Sprachen zu konvertieren."
 
@@ -2743,13 +2743,13 @@ msgstr "Veranstaltungsteilnahme-Modus"
 msgid "Online Event URL"
 msgstr "URL der Online-Veranstaltung"
 
-#: includes/modules/schema/blocks/class-block-howto.php:440
+#: includes/modules/schema/blocks/class-block-howto.php:508
 msgid "Total Time:"
 msgstr "Gesamtzeit:"
 
 #. translators: %d is the number of minutes.
 #. translators: %d: minutes
-#: includes/modules/schema/blocks/class-block-howto.php:425
+#: includes/modules/schema/blocks/class-block-howto.php:493
 #: includes/opengraph/class-slack.php:308
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -2757,14 +2757,14 @@ msgstr[0] "%d Minute"
 msgstr[1] "%d Minuten"
 
 #. translators: %d is the number of days.
-#: includes/modules/schema/blocks/class-block-howto.php:415
+#: includes/modules/schema/blocks/class-block-howto.php:483
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d Tag"
 msgstr[1] "%d Tage"
 
 #. translators: %d is the number of hours.
-#: includes/modules/schema/blocks/class-block-howto.php:420
+#: includes/modules/schema/blocks/class-block-howto.php:488
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d Stunde"
@@ -2772,12 +2772,12 @@ msgstr[1] "%d Stunden"
 
 #. translators: placeholders are units of time, e.g. '1 day, 8 hours and 30
 #. minutes'
-#: includes/modules/schema/blocks/class-block-howto.php:434
+#: includes/modules/schema/blocks/class-block-howto.php:502
 msgid "%1$s, %2$s and %3$s"
 msgstr "%1$s, %2$s und %3$s"
 
 #. translators: placeholders are units of time, e.g. '1 hour and 30 minutes'
-#: includes/modules/schema/blocks/class-block-howto.php:432
+#: includes/modules/schema/blocks/class-block-howto.php:500
 msgid "%1$s and %2$s"
 msgstr "%1$s und %2$s"
 
@@ -3826,7 +3826,7 @@ msgstr "Ober- und unterhalb des Inhalts"
 msgid "Below Content"
 msgstr "Unterhalb des Inhalts"
 
-#: includes/modules/schema/class-snippet-shortcode.php:332
+#: includes/modules/schema/class-snippet-shortcode.php:335
 msgid "Editor's Rating:"
 msgstr "Bewertung des Redakteurs:"
 
@@ -5557,7 +5557,7 @@ msgid "Billing Support"
 msgstr "Abrechnungsunterstützung"
 
 #: includes/modules/local-seo/views/titles-options.php:133
-#: includes/modules/schema/class-snippet-shortcode.php:225
+#: includes/modules/schema/class-snippet-shortcode.php:228
 msgid "Opening Hours"
 msgstr "Öffnungszeiten"
 
@@ -5846,7 +5846,7 @@ msgstr "Gesamtzeit"
 msgid "Cooking Time"
 msgstr "Kochzeit"
 
-#: includes/modules/schema/class-snippet-shortcode.php:241
+#: includes/modules/schema/class-snippet-shortcode.php:244
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:1422
@@ -5854,7 +5854,7 @@ msgstr "Kochzeit"
 msgid "Closing Time"
 msgstr "Geschäftsschluss"
 
-#: includes/modules/schema/class-snippet-shortcode.php:240
+#: includes/modules/schema/class-snippet-shortcode.php:243
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 #: includes/modules/schema/assets/src/Functions/schemaMaps.js:1408
@@ -5943,7 +5943,7 @@ msgstr "Übersichtskarte"
 msgid "Summary Card with Large Image"
 msgstr "Übersichtskarte mit großem Bild"
 
-#: includes/admin/class-admin-helper.php:349
+#: includes/admin/class-admin-helper.php:345
 msgid "Share"
 msgstr "Teilen"
 
@@ -6269,7 +6269,7 @@ msgstr "Verfügbare Aktionen"
 msgid "Screen Content"
 msgstr "Bildschirminhalt"
 
-#: includes/admin/class-admin-helper.php:346
+#: includes/admin/class-admin-helper.php:342
 msgid "Tweet"
 msgstr "Tweet"
 
@@ -6281,7 +6281,7 @@ msgstr "404 Monitorprotokoll"
 msgid "Titles & Meta Settings"
 msgstr "Titel & Meta Einstellungen"
 
-#: includes/admin/class-admin-helper.php:339
+#: includes/admin/class-admin-helper.php:335
 msgid "SEO by Rank Math"
 msgstr "SEO von Rank Math"
 
@@ -6792,12 +6792,12 @@ msgid "Top Admin Bar"
 msgstr "Obere Admin-Leiste"
 
 #. translators: sitename
-#: includes/admin/class-admin-helper.php:325
+#: includes/admin/class-admin-helper.php:321
 msgid "I just installed Rank Math SEO WordPress Plugin. It looks promising!"
 msgstr "Ich habe gerade das Rank Math SEO WordPress Plugin installiert. Es sieht vielversprechend aus!"
 
 #. translators: sitename
-#: includes/admin/class-admin-helper.php:323
+#: includes/admin/class-admin-helper.php:319
 msgid "I just installed @RankMathSEO #WordPress Plugin. It looks great! %s"
 msgstr "Ich habe gerade @RankMathSEO #WordPress Plugin installiert. Es sieht Klasse aus! %s"
 
