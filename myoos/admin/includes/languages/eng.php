@@ -304,6 +304,7 @@ define('BUTTON_SELECT_IMAGE', 'Select image');
 define('IMAGE_SEND', 'Send');
 define('IMAGE_SEND_EMAIL', 'Send Email');
 define('BUTTON_SEND_PASSWORD', 'Send password');
+define('IMAGE_SLIDER', 'Slider');
 define('IMAGE_SPECIALS', 'Specials');
 define('IMAGE_STATUS', 'Customers Status');
 define('IMAGE_UNLOCK', 'Unlock');

@@ -1813,6 +1813,21 @@ if ($action == 'new_category' || $action == 'edit_category') {
                     }
                 }
 
+				#slider
+				$slidertable = $oostable['categories_slider'];
+				$query = "SELECT slider_id, products_id, status
+                         FROM $slidertable p
+                        WHERE status = '1' AND
+                              products_id = '" . $pInfo->products_id . "'";
+                $slider_result = $dbconn->Execute($query);
+				if (!$slider_result->RecordCount()) {
+					$contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories_slider'], 'pID=' . $pInfo->products_id . '&action=new') . '">' . oos_button(IMAGE_SLIDER) . '</a>');
+				} else {
+					$slider = $slider_result->fields;
+					$contents[] = array('align' => 'center', 'text' => '<a href="' . oos_href_link_admin($aContents['categories_slider'], 'sID=' . $slider['slider_id'] . '&action=edit') . '">' . oos_button(IMAGE_SLIDER) . '</a>');
+				}
+
+
                 $contents[] = array('text' => '#' . $pInfo->products_id . ' ' . TEXT_CATEGORIES . ' ' . oos_get_categories_name($current_category_id) . '<br>' . TEXT_DATE_ADDED . ' ' . oos_date_short($pInfo->products_date_added));
                 if (oos_is_not_null($pInfo->products_last_modified)) {
                     $contents[] = array('text' => TEXT_LAST_MODIFIED . ' ' . oos_date_short($pInfo->products_last_modified));
