@@ -5,6 +5,7 @@
 				<div class="owl-carousel trigger-carousel" data-owl-carousel="{ &quot;nav&quot;: true, &quot;dots&quot;: false, &quot;loop&quot;: true, &quot;autoHeight&quot;: true }" data-target-carousel="#target-carousel">
 				{foreach item=tab from=$slider}
 					<div class="py-5 px-3 px-sm-5">
+						<a class="product-meta" href="{html_href_link content=$filename.shop category=$tab.products_path}" title="{$tab.categories_name}">{$tab.categories_name}</a>
 						<h2 class="mb-1">{$tab.products_name|truncate:18:"":true|close_tags}</h2>
 						
 					{if $myUser.show_price eq 1 }
@@ -18,12 +19,12 @@
 							{/if}							
 						{elseif $tab.slider_product_price_list ne 0}
 							<span class="price-old">{$lang.price_rrp} <span class="line-through">{$tab.slider_product_price_list}</span></span><br>
-							<h3 class="font-weight-light opacity-70 pb-3">{$tab.slider_product_price}</h3>								
+							<h3 class="font-weight-light opacity-70 {if $tab.products_base_price == 1} pb-3{/if}">{$tab.slider_product_price}</h3>								
 						{else}
 							{if (!empty($tab.slider_product_discount_price))}
-								<h3 class="font-weight-light opacity-70 pb-3">{$lang.price_from} {$tab.slider_product_discount_price}</h3>									
+								<h3 class="font-weight-light opacity-70 {if $tab.products_base_price == 1} pb-3{/if}">{$lang.price_from} {$tab.slider_product_discount_price}</h3>									
 							{else}
-								<h3 class="font-weight-light opacity-70 pb-3">{$tab.slider_product_price}</h3>
+								<h3 class="font-weight-light opacity-70 {if $tab.products_base_price == 1} pb-3{/if}">{$tab.slider_product_price}</h3>
 							{/if}	
 						{/if}					
 
