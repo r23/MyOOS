@@ -921,6 +921,10 @@ function isDeepChild(query, container, propName) {
  */
 
 function isFormElement(element) {
+  if (!element) {
+    return false;
+  }
+
   const {
     tagName
   } = element;

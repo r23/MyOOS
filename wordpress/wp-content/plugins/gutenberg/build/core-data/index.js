@@ -2838,7 +2838,10 @@ function users() {
     case 'RECEIVE_USER_QUERY':
       return {
         byId: { ...state.byId,
-          ...(0,external_lodash_namespaceObject.keyBy)(action.users, 'id')
+          // Key users by their ID.
+          ...action.users.reduce((newUsers, user) => ({ ...newUsers,
+            [user.id]: user
+          }), {})
         },
         queries: { ...state.queries,
           [action.queryID]: (0,external_lodash_namespaceObject.map)(action.users, user => user.id)

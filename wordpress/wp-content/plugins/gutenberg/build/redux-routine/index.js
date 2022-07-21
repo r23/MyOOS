@@ -749,7 +749,7 @@ function isPromise(obj) {
  */
 
 function isAction(object) {
-  return (0,external_lodash_namespaceObject.isPlainObject)(object) && (0,external_lodash_namespaceObject.isString)(object.type);
+  return (0,external_lodash_namespaceObject.isPlainObject)(object) && typeof object.type === 'string';
 }
 /**
  * Returns true if the given object quacks like an action and has a specific

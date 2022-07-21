@@ -127,7 +127,10 @@ function formatTypes() {
   switch (action.type) {
     case 'ADD_FORMAT_TYPES':
       return { ...state,
-        ...(0,external_lodash_namespaceObject.keyBy)(action.formatTypes, 'name')
+        // Key format types by their name.
+        ...action.formatTypes.reduce((newFormatTypes, type) => ({ ...newFormatTypes,
+          [type.name]: type
+        }), {})
       };
 
     case 'REMOVE_FORMAT_TYPES':
@@ -668,13 +671,8 @@ function normaliseFormats(value) {
 
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/apply-format.js
 /**
- * External dependencies
- */
-
-/**
  * Internal dependencies
  */
-
 
 /** @typedef {import('./create').RichTextValue} RichTextValue */
 
@@ -709,8 +707,13 @@ function applyFormat(value, format) {
   const newFormats = formats.slice(); // The selection is collapsed.
 
   if (startIndex === endIndex) {
-    const startFormat = (0,external_lodash_namespaceObject.find)(newFormats[startIndex], {
-      type: format.type
+    var _newFormats$startInde;
+
+    const startFormat = (_newFormats$startInde = newFormats[startIndex]) === null || _newFormats$startInde === void 0 ? void 0 : _newFormats$startInde.find(_ref => {
+      let {
+        type
+      } = _ref;
+      return type === format.type;
     }); // If the caret is at a format of the same type, expand start and end to
     // the edges of the format. This is useful to apply new attributes.
 
@@ -735,10 +738,10 @@ function applyFormat(value, format) {
 
     for (let index = startIndex; index < endIndex; index++) {
       if (newFormats[index]) {
-        newFormats[index] = newFormats[index].filter(_ref => {
+        newFormats[index] = newFormats[index].filter(_ref2 => {
           let {
             type
-          } = _ref;
+          } = _ref2;
           return type !== format.type;
         });
         const length = newFormats[index].length;
@@ -762,9 +765,12 @@ function applyFormat(value, format) {
     // Always revise active formats. This serves as a placeholder for new
     // inputs with the format so new input appears with the format applied,
     // and ensures a format of the same type uses the latest values.
-    activeFormats: [...(0,external_lodash_namespaceObject.reject)(activeFormats, {
-      type: format.type
-    }), format]
+    activeFormats: [...((activeFormats === null || activeFormats === void 0 ? void 0 : activeFormats.filter(_ref3 => {
+      let {
+        type
+      } = _ref3;
+      return type !== format.type;
+    })) || []), format]
   });
 }
 
@@ -1919,13 +1925,8 @@ function registerFormatType(name, settings) {
 
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/remove-format.js
 /**
- * External dependencies
- */
-
-/**
  * Internal dependencies
  */
-
 
 /** @typedef {import('./create').RichTextValue} RichTextValue */
 
@@ -1953,19 +1954,28 @@ function removeFormat(value, formatType) {
   // format.
 
   if (startIndex === endIndex) {
-    const format = (0,external_lodash_namespaceObject.find)(newFormats[startIndex], {
-      type: formatType
+    var _newFormats$startInde;
+
+    const format = (_newFormats$startInde = newFormats[startIndex]) === null || _newFormats$startInde === void 0 ? void 0 : _newFormats$startInde.find(_ref => {
+      let {
+        type
+      } = _ref;
+      return type === formatType;
     });
 
     if (format) {
-      while ((0,external_lodash_namespaceObject.find)(newFormats[startIndex], format)) {
+      while ((_newFormats$startInde2 = newFormats[startIndex]) !== null && _newFormats$startInde2 !== void 0 && _newFormats$startInde2.find(newFormat => newFormat === format)) {
+        var _newFormats$startInde2;
+
         filterFormats(newFormats, startIndex, formatType);
         startIndex--;
       }
 
       endIndex++;
 
-      while ((0,external_lodash_namespaceObject.find)(newFormats[endIndex], format)) {
+      while ((_newFormats$endIndex = newFormats[endIndex]) !== null && _newFormats$endIndex !== void 0 && _newFormats$endIndex.find(newFormat => newFormat === format)) {
+        var _newFormats$endIndex;
+
         filterFormats(newFormats, endIndex, formatType);
         endIndex++;
       }
@@ -1980,17 +1990,20 @@ function removeFormat(value, formatType) {
 
   return normaliseFormats({ ...value,
     formats: newFormats,
-    activeFormats: (0,external_lodash_namespaceObject.reject)(activeFormats, {
-      type: formatType
-    })
+    activeFormats: (activeFormats === null || activeFormats === void 0 ? void 0 : activeFormats.filter(_ref2 => {
+      let {
+        type
+      } = _ref2;
+      return type !== formatType;
+    })) || []
   });
 }
 
 function filterFormats(formats, index, formatType) {
-  const newFormats = formats[index].filter(_ref => {
+  const newFormats = formats[index].filter(_ref3 => {
     let {
       type
-    } = _ref;
+    } = _ref3;
     return type !== formatType;
   });
 
@@ -4219,6 +4232,7 @@ function updateFormats(_ref) {
 
 const INSERTION_INPUT_TYPES_TO_IGNORE = new Set(['insertParagraph', 'insertOrderedList', 'insertUnorderedList', 'insertHorizontalRule', 'insertLink']);
 const use_input_and_selection_EMPTY_ACTIVE_FORMATS = [];
+const PLACEHOLDER_ATTR_NAME = 'data-rich-text-placeholder';
 /**
  * If the selection is set on the placeholder element, collapse the selection to
  * the start (before the placeholder).
@@ -4239,7 +4253,7 @@ function fixPlaceholderSelection(defaultView) {
 
   const targetNode = anchorNode.childNodes[anchorOffset];
 
-  if (!targetNode || targetNode.nodeType !== targetNode.ELEMENT_NODE || !targetNode.getAttribute('data-rich-text-placeholder')) {
+  if (!targetNode || targetNode.nodeType !== targetNode.ELEMENT_NODE || !targetNode.hasAttribute(PLACEHOLDER_ATTR_NAME)) {
     return;
   }
 
@@ -4428,7 +4442,12 @@ function useInputAndSelection(props) {
       // this rerenders the component and might destroy internal browser
       // editing state.
 
-      ownerDocument.removeEventListener('selectionchange', handleSelectionChange);
+      ownerDocument.removeEventListener('selectionchange', handleSelectionChange); // Remove the placeholder. Since the rich text value doesn't update
+      // during composition, the placeholder doesn't get removed. There's
+      // no need to re-add it, when the value is updated on compositionend
+      // it will be re-added when the value is empty.
+
+      element.querySelector(`[${PLACEHOLDER_ATTR_NAME}]`).remove();
     }
 
     function onCompositionEnd() {
@@ -4577,78 +4596,6 @@ function useDelete(props) {
   }, []);
 }
 
-;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-space.js
-/**
- * WordPress dependencies
- */
-
-
-/**
- * For some elements like BUTTON and SUMMARY, the space key doesn't insert a
- * space character in some browsers even though the element is editable. We have
- * to manually insert a space and prevent default behaviour.
- *
- * DO NOT limit this behaviour to specific tag names! It would mean that this
- * behaviour is not widely tested. If there's ever any problems, we should find
- * a different solution entirely or remove it entirely.
- */
-
-function useSpace() {
-  return (0,external_wp_compose_namespaceObject.useRefEffect)(element => {
-    function onKeyDown(event) {
-      // Don't insert a space if default behaviour is prevented.
-      if (event.defaultPrevented) {
-        return;
-      }
-
-      const {
-        keyCode,
-        altKey,
-        metaKey,
-        ctrlKey,
-        key
-      } = event; // Only consider the space key without modifiers pressed.
-
-      if (keyCode !== external_wp_keycodes_namespaceObject.SPACE || altKey || metaKey || ctrlKey) {
-        return;
-      } // Disregard character composition that involves the Space key.
-      //
-      // @see https://github.com/WordPress/gutenberg/issues/35086
-      //
-      // For example, to input a standalone diacritic (like ´ or `) using a
-      // keyboard with dead keys, one must first press the dead key and then
-      // press the Space key.
-      //
-      // Many operating systems handle this in such a way that the second
-      // KeyboardEvent contains the property `keyCode: 229`. According to the
-      // spec, 229 allows the system to indicate that an Input Method Editor
-      // (IDE) is processing some key input.
-      //
-      // However, Windows doesn't use `keyCode: 229` for dead key composition,
-      // instead emitting an event with values `keyCode: SPACE` and `key: '´'`.
-      // That is why checking the `key` property for values other than `SPACE`
-      // is important.
-      //
-      // This should serve as a reminder that the `KeyboardEvent.keyCode`
-      // attribute is officially deprecated and that we should consider more
-      // consistent interfaces.
-
-
-      if (key !== ' ') {
-        return;
-      }
-
-      event.target.ownerDocument.execCommand('insertText', false, ' ');
-      event.preventDefault();
-    }
-
-    element.addEventListener('keydown', onKeyDown);
-    return () => {
-      element.removeEventListener('keydown', onKeyDown);
-    };
-  }, []);
-}
-
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/index.js
 /**
  * WordPress dependencies
@@ -4659,7 +4606,6 @@ function useSpace() {
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -4894,7 +4840,7 @@ function useRichText(_ref) {
     handleChange,
     isSelected,
     onSelectionChange
-  }), useSpace(), (0,external_wp_compose_namespaceObject.useRefEffect)(() => {
+  }), (0,external_wp_compose_namespaceObject.useRefEffect)(() => {
     applyFromProps();
     didMount.current = true;
   }, [placeholder, ...__unstableDependencies])]);

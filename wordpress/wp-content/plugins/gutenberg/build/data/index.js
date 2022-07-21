@@ -1271,15 +1271,18 @@ var external_wp_reduxRoutine_default = /*#__PURE__*/__webpack_require__.n(extern
  *
  * @example
  * ```js
+ * import { store as coreStore } from '@wordpress/core-data';
+ * import { store as editorStore } from '@wordpress/editor';
+ *
  * const getCurrentPostId = createRegistrySelector( ( select ) => ( state ) => {
- *   return select( 'core/editor' ).getCurrentPostId();
+ *   return select( editorStore ).getCurrentPostId();
  * } );
  *
  * const getPostEdits = createRegistrySelector( ( select ) => ( state ) => {
  *   // calling another registry selector just like any other function
  *   const postType = getCurrentPostType( state );
  *   const postId = getCurrentPostId( state );
- *	 return select( 'core' ).getEntityRecordEdits( 'postType', postType, postId );
+ *	 return select( coreStore ).getEntityRecordEdits( 'postType', postType, postId );
  * } );
  * ```
  *
@@ -1340,19 +1343,18 @@ function createRegistryControl(registryControl) {
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/controls.js
 /**
- * External dependencies
- */
-
-/**
  * Internal dependencies
  */
-
 
 /** @typedef {import('./types').StoreDescriptor} StoreDescriptor */
 
 const SELECT = '@@data/SELECT';
 const RESOLVE_SELECT = '@@data/RESOLVE_SELECT';
 const DISPATCH = '@@data/DISPATCH';
+
+function isObject(object) {
+  return object !== null && typeof object === 'object';
+}
 /**
  * Dispatches a control action for triggering a synchronous registry select.
  *
@@ -1377,6 +1379,7 @@ const DISPATCH = '@@data/DISPATCH';
  * @return {Object} The control descriptor.
  */
 
+
 function controls_select(storeNameOrDescriptor, selectorName) {
   for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
     args[_key - 2] = arguments[_key];
@@ -1384,7 +1387,7 @@ function controls_select(storeNameOrDescriptor, selectorName) {
 
   return {
     type: SELECT,
-    storeKey: (0,external_lodash_namespaceObject.isObject)(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor,
+    storeKey: isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor,
     selectorName,
     args
   };
@@ -1422,7 +1425,7 @@ function resolveSelect(storeNameOrDescriptor, selectorName) {
 
   return {
     type: RESOLVE_SELECT,
-    storeKey: (0,external_lodash_namespaceObject.isObject)(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor,
+    storeKey: isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor,
     selectorName,
     args
   };
@@ -1456,7 +1459,7 @@ function dispatch(storeNameOrDescriptor, actionName) {
 
   return {
     type: DISPATCH,
-    storeKey: (0,external_lodash_namespaceObject.isObject)(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor,
+    storeKey: isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor,
     actionName,
     args
   };
@@ -2748,6 +2751,9 @@ function createEmitter() {
  * @property {Function} registerStore registers store.
  */
 
+function registry_isObject(object) {
+  return object !== null && typeof object === 'object';
+}
 /**
  * Creates a new store registry, given an optional object of initial store
  * configurations.
@@ -2757,6 +2763,7 @@ function createEmitter() {
  *
  * @return {WPDataRegistry} Data registry.
  */
+
 
 function createRegistry() {
   let storeConfigs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -2794,7 +2801,7 @@ function createRegistry() {
 
 
   function select(storeNameOrDescriptor) {
-    const storeName = (0,external_lodash_namespaceObject.isObject)(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
+    const storeName = registry_isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
     listeningStores.add(storeName);
     const store = stores[storeName];
 
@@ -2815,20 +2822,20 @@ function createRegistry() {
     }
   }
   /**
-   * Given the name of a registered store, returns an object containing the store's
-   * selectors pre-bound to state so that you only need to supply additional arguments,
-   * and modified so that they return promises that resolve to their eventual values,
-   * after any resolvers have ran.
+   * Given a store descriptor, returns an object containing the store's selectors pre-bound to
+   * state so that you only need to supply additional arguments, and modified so that they return
+   * promises that resolve to their eventual values, after any resolvers have ran.
    *
-   * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
-   *                                                       or the store descriptor.
+   * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
+   *                                                       convention of passing the store name is
+   *                                                       also supported.
    *
    * @return {Object} Each key of the object matches the name of a selector.
    */
 
 
   function resolveSelect(storeNameOrDescriptor) {
-    const storeName = (0,external_lodash_namespaceObject.isObject)(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
+    const storeName = registry_isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
     listeningStores.add(storeName);
     const store = stores[storeName];
 
@@ -2839,19 +2846,20 @@ function createRegistry() {
     return parent && parent.resolveSelect(storeName);
   }
   /**
-   * Given the name of a registered store, returns an object containing the store's
-   * selectors pre-bound to state so that you only need to supply additional arguments,
-   * and modified so that they throw promises in case the selector is not resolved yet.
+   * Given a store descriptor, returns an object containing the store's selectors pre-bound to
+   * state so that you only need to supply additional arguments, and modified so that they throw
+   * promises in case the selector is not resolved yet.
    *
-   * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
-   *                                                       or the store descriptor.
+   * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
+   *                                                       convention of passing the store name is
+   *                                                       also supported.
    *
    * @return {Object} Object containing the store's suspense-wrapped selectors.
    */
 
 
   function suspendSelect(storeNameOrDescriptor) {
-    const storeName = (0,external_lodash_namespaceObject.isObject)(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
+    const storeName = registry_isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
     listeningStores.add(storeName);
     const store = stores[storeName];
 
@@ -2872,7 +2880,7 @@ function createRegistry() {
 
 
   function dispatch(storeNameOrDescriptor) {
-    const storeName = (0,external_lodash_namespaceObject.isObject)(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
+    const storeName = registry_isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
     const store = stores[storeName];
 
     if (store) {
@@ -3533,10 +3541,11 @@ const AsyncModeConsumer = (/* unused pure expression or super */ null && (contex
  *
  * ```js
  * import { useSelect, AsyncModeProvider } from '@wordpress/data';
+ * import { store as blockEditorStore } from '@wordpress/block-editor';
  *
  * function BlockCount() {
  *   const count = useSelect( ( select ) => {
- *     return select( 'core/block-editor' ).getBlockCount()
+ *     return select( blockEditorStore ).getBlockCount()
  *   }, [] );
  *
  *   return count;
@@ -3636,10 +3645,11 @@ const renderQueue = (0,external_wp_priorityQueue_namespaceObject.createQueue)();
  * @example
  * ```js
  * import { useSelect } from '@wordpress/data';
+ * import { store as myCustomStore } from 'my-custom-store';
  *
  * function HammerPriceDisplay( { currency } ) {
  *   const price = useSelect( ( select ) => {
- *     return select( 'my-shop' ).getPrice( 'hammer', currency )
+ *     return select( myCustomStore ).getPrice( 'hammer', currency );
  *   }, [ currency ] );
  *   return new Intl.NumberFormat( 'en-US', {
  *     style: 'currency',
@@ -3666,9 +3676,10 @@ const renderQueue = (0,external_wp_priorityQueue_namespaceObject.createQueue)();
  *
  * ```js
  * import { useSelect } from '@wordpress/data';
+ * import { store as myCustomStore } from 'my-custom-store';
  *
  * function Paste( { children } ) {
- *   const { getSettings } = useSelect( 'my-shop' );
+ *   const { getSettings } = useSelect( myCustomStore );
  *   function onPaste() {
  *     // Do something with the settings.
  *     const settings = getSettings();
@@ -3805,6 +3816,7 @@ function useSelect(mapSelect, deps) {
     // We're passing these in from the calling function and want to make sure we're
     // examining every individual value inside the `deps` array.
   }, [registry, wrapSelect, hasMappingFunction, depsChangedFlag]);
+  (0,external_wp_element_namespaceObject.useDebugValue)(mapOutput);
   return hasMappingFunction ? mapOutput : registry.select(mapSelect);
 }
 /**
@@ -3943,6 +3955,7 @@ function useSuspenseSelect(mapSelect, deps) {
  * @example
  * ```js
  * import { withSelect } from '@wordpress/data';
+ * import { store as myCustomStore } from 'my-custom-store';
  *
  * function PriceDisplay( { price, currency } ) {
  * 	return new Intl.NumberFormat( 'en-US', {
@@ -3952,7 +3965,7 @@ function useSuspenseSelect(mapSelect, deps) {
  * }
  *
  * const HammerPriceDisplay = withSelect( ( select, ownProps ) => {
- * 	const { getPrice } = select( 'my-shop' );
+ * 	const { getPrice } = select( myCustomStore );
  * 	const { currency } = ownProps;
  *
  * 	return {
@@ -4066,9 +4079,10 @@ const useDispatchWithMap = (dispatchMap, deps) => {
  * }
  *
  * import { withDispatch } from '@wordpress/data';
+ * import { store as myCustomStore } from 'my-custom-store';
  *
  * const SaleButton = withDispatch( ( dispatch, ownProps ) => {
- *     const { startSale } = dispatch( 'my-shop' );
+ *     const { startSale } = dispatch( myCustomStore );
  *     const { discountPercent } = ownProps;
  *
  *     return {
@@ -4103,11 +4117,12 @@ const useDispatchWithMap = (dispatchMap, deps) => {
  * }
  *
  * import { withDispatch } from '@wordpress/data';
+ * import { store as myCustomStore } from 'my-custom-store';
  *
  * const SaleButton = withDispatch( ( dispatch, ownProps, { select } ) => {
  *    // Stock number changes frequently.
- *    const { getStockNumber } = select( 'my-shop' );
- *    const { startSale } = dispatch( 'my-shop' );
+ *    const { getStockNumber } = select( myCustomStore );
+ *    const { startSale } = dispatch( myCustomStore );
  *    return {
  *        onClick() {
  *            const discountPercent = getStockNumber() > 50 ? 10 : 20;
@@ -4191,6 +4206,7 @@ const withRegistry = (0,external_wp_compose_namespaceObject.createHigherOrderCom
  * ```jsx
  * import { useDispatch, useSelect } from '@wordpress/data';
  * import { useCallback } from '@wordpress/element';
+ * import { store as myCustomStore } from 'my-custom-store';
  *
  * function Button( { onClick, children } ) {
  *   return <button type="button" onClick={ onClick }>{ children }</button>
@@ -4198,10 +4214,10 @@ const withRegistry = (0,external_wp_compose_namespaceObject.createHigherOrderCom
  *
  * const SaleButton = ( { children } ) => {
  *   const { stockNumber } = useSelect(
- *     ( select ) => select( 'my-shop' ).getStockNumber(),
+ *     ( select ) => select( myCustomStore ).getStockNumber(),
  *     []
  *   );
- *   const { startSale } = useDispatch( 'my-shop' );
+ *   const { startSale } = useDispatch( myCustomStore );
  *   const onClick = useCallback( () => {
  *     const discountPercent = stockNumber > 50 ? 10: 20;
  *     startSale( discountPercent );
@@ -4299,18 +4315,20 @@ const useDispatch = storeNameOrDescriptor => {
 
 
 /**
- * Given the name or descriptor of a registered store, returns an object of the store's selectors.
+ * Given a store descriptor, returns an object of the store's selectors.
  * The selector functions are been pre-bound to pass the current state automatically.
  * As a consumer, you need only pass arguments of the selector, if applicable.
  *
- * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
- *                                                       or the store descriptor.
+ * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
+ *                                                       convention of passing the store name is
+ *                                                       also supported.
  *
  * @example
  * ```js
  * import { select } from '@wordpress/data';
+ * import { store as myCustomStore } from 'my-custom-store';
  *
- * select( 'my-shop' ).getPrice( 'hammer' );
+ * select( myCustomStore ).getPrice( 'hammer' );
  * ```
  *
  * @return {Object} Object containing the store's selectors.
@@ -4318,19 +4336,20 @@ const useDispatch = storeNameOrDescriptor => {
 
 const build_module_select = default_registry.select;
 /**
- * Given the name of a registered store, returns an object containing the store's
- * selectors pre-bound to state so that you only need to supply additional arguments,
- * and modified so that they return promises that resolve to their eventual values,
- * after any resolvers have ran.
+ * Given a store descriptor, returns an object containing the store's selectors pre-bound to state
+ * so that you only need to supply additional arguments, and modified so that they return promises
+ * that resolve to their eventual values, after any resolvers have ran.
  *
- * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
- *                                                       or the store descriptor.
+ * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
+ *                                                       convention of passing the store name is
+ *                                                       also supported.
  *
  * @example
  * ```js
  * import { resolveSelect } from '@wordpress/data';
+ * import { store as myCustomStore } from 'my-custom-store';
  *
- * resolveSelect( 'my-shop' ).getPrice( 'hammer' ).then(console.log)
+ * resolveSelect( myCustomStore ).getPrice( 'hammer' ).then(console.log)
  * ```
  *
  * @return {Object} Object containing the store's promise-wrapped selectors.
@@ -4338,32 +4357,35 @@ const build_module_select = default_registry.select;
 
 const build_module_resolveSelect = default_registry.resolveSelect;
 /**
- * Given the name of a registered store, returns an object containing the store's
- * selectors pre-bound to state so that you only need to supply additional arguments,
- * and modified so that they throw promises in case the selector is not resolved yet.
+ * Given a store descriptor, returns an object containing the store's selectors pre-bound to state
+ * so that you only need to supply additional arguments, and modified so that they throw promises
+ * in case the selector is not resolved yet.
  *
- * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
- *                                                       or the store descriptor.
+ * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
+ *                                                       convention of passing the store name is
+ *                                                       also supported.
  *
  * @return {Object} Object containing the store's suspense-wrapped selectors.
  */
 
 const suspendSelect = default_registry.suspendSelect;
 /**
- * Given the name of a registered store, returns an object of the store's action creators.
+ * Given a store descriptor, returns an object of the store's action creators.
  * Calling an action creator will cause it to be dispatched, updating the state value accordingly.
  *
  * Note: Action creators returned by the dispatch will return a promise when
  * they are called.
  *
- * @param {string|StoreDescriptor} storeNameOrDescriptor Unique namespace identifier for the store
- *                                                       or the store descriptor.
+ * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
+ *                                                       convention of passing the store name is
+ *                                                       also supported.
  *
  * @example
  * ```js
  * import { dispatch } from '@wordpress/data';
+ * import { store as myCustomStore } from 'my-custom-store';
  *
- * dispatch( 'my-shop' ).setPrice( 'hammer', 9.75 );
+ * dispatch( myCustomStore ).setPrice( 'hammer', 9.75 );
  * ```
  * @return {Object} Object containing the action creators.
  */
