@@ -1,8 +1,8 @@
 === Three Object Viewer ===
 Requires at least: 5.7
-Tested up to: 5.9
+Tested up to: 6.0
 Requires PHP: 7.2
-Stable tag: 0.6.0
+Stable tag: 0.6.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -44,6 +44,10 @@ It can also be installed manually using a zip file.
 
 == Changelog ==
 
+= 0.6.1 =
+
+*  Update rigibody types for vr objects. Sorry for the bouncy files! :)
+
 = 0.6.0 =
 
 *  Update react three fiber.
@@ -52,7 +56,6 @@ It can also be installed manually using a zip file.
 *  Fixes color pallete default value.
 *  Support VRM Materials.
 *  Multi Block Support. You can now have as many Three Object Blocks as you want per post and archive.
-*  Rapier Physics in VR mode. This adds initial support for Rapier Physics. Soon to come is a proper physics character controller.
 
 = 0.5.0 =
 

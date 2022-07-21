@@ -109,7 +109,7 @@ export default function ThreeObjectFront( props ) {
 							{ props.threeUrl && (
 								<>						
 									<TeleportTravel useNormal={ false }>
-										<RigidBody>
+										<RigidBody type="kinematicPosition">
 											<SavedObject
 											positionY={ props.positionY }
 											rotationY={ props.rotationY }
