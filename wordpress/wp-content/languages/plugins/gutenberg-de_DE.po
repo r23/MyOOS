@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-07-17 23:52:15+0000\n"
+"PO-Revision-Date: 2022-07-21 08:55:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,28 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.1\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Gutenberg - Stable (latest release)\n"
+
+#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1054
+msgid "Some of the theme.json settings.spacing.spacingScale values are invalid"
+msgstr "Einige der Werte in „theme.json settings.spacing.spacingScale“ sind ungültig"
+
+#. translators: %s: Muliple of t-shirt sizing, eg. 2X-Small
+#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1079
+msgid "%sX-Small"
+msgstr "%sXS"
+
+#. translators: %s: Muliple of t-shirt sizing, eg. 2X-Large
+#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1116
+msgid "%sX-Large"
+msgstr "%sXL"
+
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:279
+msgid "Active theme spacing sizes."
+msgstr "Abstandsgrößen des aktiven Themes."
+
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:284
+msgid "Active theme spacing scale."
+msgstr "Abstandsskalierung des aktiven Themes."
 
 #: lib/compat/wordpress-6.1/class-gutenberg-rest-block-patterns-controller.php:190
 msgid " An array of post types that the pattern is restricted to be used with."
@@ -24,14 +46,9 @@ msgctxt "block title"
 msgid "Categories List"
 msgstr "Kategorien-Liste"
 
-#. translators: %s: taxonomy's label
-#: build/block-library/blocks/post-terms.php:82
-msgid "Display the assigned taxonomy: %s"
-msgstr "Die zugewiesene Taxonomie anzeigen: %s"
-
 #. translators: %s: Number of comments.
 #: build/block-library/blocks/comments-title.php:59
-#: build/block-library/index.js:10448
+#: build/block-library/index.js:10509
 msgid "%s response"
 msgid_plural "%s responses"
 msgstr[0] "%s Antwort"
@@ -39,7 +56,7 @@ msgstr[1] "%s Antworten"
 
 #. translators: 1: Number of comments, 2: Post title.
 #: build/block-library/blocks/comments-title.php:45
-#: build/block-library/index.js:10441
+#: build/block-library/index.js:10502
 msgid "%1$s response to %2$s"
 msgid_plural "%1$s responses to %2$s"
 msgstr[0] "%1$s Antwort zu %2$s"
@@ -50,69 +67,74 @@ msgstr[1] "%1$s Antworten zu %2$s"
 msgid "&#8220;%s&#8221;"
 msgstr "&#8222;%s&#8220;"
 
+#. translators: %s: taxonomy's label
+#: build/block-library/blocks/post-terms.php:82
+msgid "Display the assigned taxonomy: %s"
+msgstr "Die zugewiesene Taxonomie anzeigen: %s"
+
 #: build/block-library/blocks/comments/block.json
 msgctxt "block title"
 msgid "Comments"
 msgstr "Kommentare"
 
-#. translators: %s: Post title.
-#: build/block-library/blocks/comments-title.php:66
-#: build/block-library/index.js:10453
-msgid "Response to %s"
-msgstr "Antwort auf %s"
-
-#: lib/compat/wordpress-6.1/persisted-preferences.php:31
-msgid "The date and time the preferences were updated."
-msgstr "Das Datum und die Uhrzeit der Aktualisierung der Einstellungen."
-
 #: build/block-library/blocks/comments-title.php:72
-#: build/block-library/index.js:10459
+#: build/block-library/index.js:10520
 msgid "Response"
 msgstr "Antwort"
-
-#: build/block-library/blocks/comment-content.php:44
-msgid "Your comment is awaiting moderation. This is a preview; your comment will be visible after it has been approved."
-msgstr "Dein Kommentar wartet auf Freischaltung. Dies ist eine Vorschau; dein Kommentar wird erst sichtbar, nachdem er freigegeben wurde."
 
 #: build/block-library/blocks/comment-content.php:42
 msgid "Your comment is awaiting moderation."
 msgstr "Dein Kommentar wartet auf Freischaltung."
 
-#: build/block-library/blocks/comments-title/block.json
-msgctxt "block description"
-msgid "Displays a title with the number of comments"
-msgstr "Zeigt einen Titel mit der Anzahl der Kommentare an"
+#: build/block-library/blocks/comment-content.php:44
+msgid "Your comment is awaiting moderation. This is a preview; your comment will be visible after it has been approved."
+msgstr "Dein Kommentar wartet auf Freischaltung. Dies ist eine Vorschau; dein Kommentar wird erst sichtbar, nachdem er freigegeben wurde."
+
+#: lib/compat/wordpress-6.1/persisted-preferences.php:31
+msgid "The date and time the preferences were updated."
+msgstr "Das Datum und die Uhrzeit der Aktualisierung der Einstellungen."
+
+#. translators: %s: Post title.
+#: build/block-library/blocks/comments-title.php:66
+#: build/block-library/index.js:10514
+msgid "Response to %s"
+msgstr "Antwort auf %s"
+
+#: build/block-library/blocks/comments-title.php:55
+#: build/block-library/index.js:10505
+msgid "One response"
+msgstr "Eine Antwort"
+
+#: build/block-library/blocks/comments-title.php:74
+#: build/block-library/index.js:10522
+msgid "Responses"
+msgstr "Antworten"
+
+#: lib/compat/wordpress-6.1/class-gutenberg-rest-block-patterns-controller.php:214
+msgid "Determines whether the pattern is visible in inserter."
+msgstr "Bestimmt, ob die Vorlage im Inserter sichtbar ist."
 
 #: build/block-library/blocks/comments-title/block.json
 msgctxt "block title"
 msgid "Comments Title"
 msgstr "Kommentartitel"
 
+#: build/block-library/blocks/comments-title/block.json
+msgctxt "block description"
+msgid "Displays a title with the number of comments"
+msgstr "Zeigt einen Titel mit der Anzahl der Kommentare an"
+
 #. translators: %s: Post title.
 #: build/block-library/blocks/comments-title.php:69
-#: build/block-library/index.js:10456
+#: build/block-library/index.js:10517
 msgid "Responses to %s"
 msgstr "Antworten auf %s"
 
 #. translators: %s: Post title.
 #: build/block-library/blocks/comments-title.php:41
-#: build/block-library/index.js:10437 build/block-library/index.js:34226
+#: build/block-library/index.js:10498 build/block-library/index.js:34152
 msgid "One response to %s"
 msgstr "Eine Antwort auf %s"
-
-#: lib/compat/wordpress-6.1/class-gutenberg-rest-block-patterns-controller.php:214
-msgid "Determines whether the pattern is visible in inserter."
-msgstr "Bestimmt, ob die Vorlage im Inserter sichtbar ist."
-
-#: build/block-library/blocks/comments-title.php:74
-#: build/block-library/index.js:10461
-msgid "Responses"
-msgstr "Antworten"
-
-#: build/block-library/blocks/comments-title.php:55
-#: build/block-library/index.js:10444
-msgid "One response"
-msgstr "Eine Antwort"
 
 #: build/block-library/blocks/post-comments/block.json
 msgctxt "block title"
@@ -134,11 +156,6 @@ msgctxt "block description"
 msgid "Displays the date on which the comment was posted."
 msgstr "Zeigt das Datum an, an dem der Kommentar veröffentlicht wurde."
 
-#: build/block-library/blocks/comment-author-name/block.json
-msgctxt "block description"
-msgid "Displays the name of the author of the comment."
-msgstr "Zeigt den Namen des Kommentarautors an."
-
 #: build/block-library/blocks/comment-author-avatar/block.json
 msgctxt "block description"
 msgid "This block is deprecated. Please use the Avatar block instead."
@@ -149,17 +166,14 @@ msgctxt "block title"
 msgid "Comment Author Avatar (deprecated)"
 msgstr "Kommentarautor-Avatar (veraltet)"
 
-#: lib/experiments-page.php:62
-msgid "Test a new quote block that allows nested blocks (Warning: The new block is not ready. You may experience content loss, avoid using it on production sites)"
-msgstr "Teste den neuen Zitat-Block, der das Verschachteln von Blöcken ermöglicht (Achtung: Der neue Block ist noch nicht fertig. Du könntest Inhalte verlieren, verwende ihn daher lieber nicht auf öffentlichen Websites)"
+#: build/block-library/blocks/comment-author-name/block.json
+msgctxt "block description"
+msgid "Displays the name of the author of the comment."
+msgstr "Zeigt den Namen des Kommentarautors an."
 
 #: lib/experiments-page.php:57
 msgid "Quote block v2"
 msgstr "Zitat-Block v2"
-
-#: lib/experimental/class-wp-webfonts.php:186
-msgid "Could not determine the font family name."
-msgstr "Der Name der Schriftfamilie konnte nicht ermittelt werden."
 
 #. translators: %s unique slug to identify the font family of the webfont
 #: lib/experimental/class-wp-webfonts.php:160
@@ -169,10 +183,6 @@ msgstr "Die Schriftfamilie „%s“ ist nicht registriert."
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:160
 msgid "Whether the V2 of the quote block that uses inner blocks should be enabled."
 msgstr "Ob die Version 2 des Zitat-Blocks mit verschachtelten Blöcken aktiviert werden soll."
-
-#: lib/compat/wordpress-6.1/class-gutenberg-rest-block-patterns-controller.php:202
-msgid "The pattern keywords."
-msgstr "Die Vorlagen-Stichwörter."
 
 #: lib/compat/wordpress-6.1/class-gutenberg-rest-block-patterns-controller.php:184
 msgid "Block types that the pattern is intended to be used with."
@@ -206,19 +216,36 @@ msgstr "Der Name der Kategorie."
 msgid "Sorry, you are not allowed to view the registered block pattern categories."
 msgstr "Du bist leider nicht berechtigt, die registrierten Block-Vorlagen-Kategorien anzuzeigen."
 
+#: lib/compat/wordpress-6.1/class-gutenberg-rest-block-patterns-controller.php:202
+msgid "The pattern keywords."
+msgstr "Die Vorlagen-Stichwörter."
+
+#: lib/experimental/class-wp-webfonts.php:186
+msgid "Could not determine the font family name."
+msgstr "Der Name der Schriftfamilie konnte nicht ermittelt werden."
+
+#: lib/experiments-page.php:62
+msgid "Test a new quote block that allows nested blocks (Warning: The new block is not ready. You may experience content loss, avoid using it on production sites)"
+msgstr "Teste den neuen Zitat-Block, der das Verschachteln von Blöcken ermöglicht (Achtung: Der neue Block ist noch nicht fertig. Du könntest Inhalte verlieren, verwende ihn daher lieber nicht auf öffentlichen Websites)"
+
 #: build/block-library/blocks/rss.php:17
 msgid "Adding an RSS feed to this site’s homepage is not supported, as it could lead to a loop that slows down your site. Try using another block, like the <strong>Latest Posts</strong> block, to list posts from the site."
 msgstr "Das Hinzufügen eines RSS-Feeds zur Homepage dieser Website wird nicht unterstützt, weil es zu einer Endlosschleife führen könnte, die deine Website ausbremst. Probiere stattdessen einen anderen Block, z. B. <strong>Letzte Beiträge</strong>, um Beiträge von der Website aufzulisten."
 
 #: build/block-library/blocks/query-no-results/block.json
-msgctxt "block description"
-msgid "Contains the block elements used to render content when no query results are found."
-msgstr "Enthält die Block-Elemente, mit denen Inhalte dargestellt werden, falls keine Abfrage-Ergebnisse gefunden wurden."
-
-#: build/block-library/blocks/query-no-results/block.json
 msgctxt "block title"
 msgid "No results"
 msgstr "Keine Ergebnisse"
+
+#: build/block-library/blocks/avatar/block.json
+msgctxt "block title"
+msgid "Avatar"
+msgstr "Avatar"
+
+#: build/block-library/blocks/query-no-results/block.json
+msgctxt "block description"
+msgid "Contains the block elements used to render content when no query results are found."
+msgstr "Enthält die Block-Elemente, mit denen Inhalte dargestellt werden, falls keine Abfrage-Ergebnisse gefunden wurden."
 
 #: build/block-library/blocks/list-item/block.json
 msgctxt "block description"
@@ -235,11 +262,6 @@ msgctxt "block description"
 msgid "Add a user's avatar."
 msgstr "Füge den Avatar eines Benutzers hinzu."
 
-#: build/block-library/blocks/avatar/block.json
-msgctxt "block title"
-msgid "Avatar"
-msgstr "Avatar"
-
 #: lib/experiments-page.php:51
 msgid "Test a new list block that uses nested list item blocks (Warning: The new block is not ready. You may experience content loss, avoid using it on production sites)"
 msgstr "Teste einen neuen Listen-Block, der verschachtelte Listen-Element-Blöcke verwendet (Warnung: Der neue Block ist noch nicht fertig. Du könntest Inhalte verlieren, setze ihn besser nicht auf Produktions-Websites ein)"
@@ -248,20 +270,20 @@ msgstr "Teste einen neuen Listen-Block, der verschachtelte Listen-Element-Blöck
 msgid "List block v2"
 msgstr "Listen-Block v2"
 
-#. translators: %1s: file name; %2s: slug value found.
-#: lib/compat/wordpress-6.1/block-patterns.php:109
-msgid "Could not register file \"%s\" as a block pattern (\"Title\" field missing)"
-msgstr "Die Datei „%s“ konnte nicht als Block-Vorlage registriert werden (Feld „Titel“ fehlt)"
+#. translators: %s: file name.
+#: lib/compat/wordpress-6.1/block-patterns.php:78
+msgid "Could not register file \"%s\" as a block pattern (\"Slug\" field missing)"
+msgstr "Die Datei „%s“ konnte nicht als Block-Vorlage registriert werden (Feld „Titelform“ fehlt)"
 
 #. translators: %1s: file name; %2s: slug value found.
 #: lib/compat/wordpress-6.1/block-patterns.php:91
 msgid "Could not register file \"%1$s\" as a block pattern (invalid slug \"%2$s\")"
 msgstr "Die Datei „%1$s“ konnte nicht als Block-Vorlage registriert werden (ungültige Titelform „%2$s“)"
 
-#. translators: %s: file name.
-#: lib/compat/wordpress-6.1/block-patterns.php:78
-msgid "Could not register file \"%s\" as a block pattern (\"Slug\" field missing)"
-msgstr "Die Datei „%s“ konnte nicht als Block-Vorlage registriert werden (Feld „Titelform“ fehlt)"
+#. translators: %1s: file name; %2s: slug value found.
+#: lib/compat/wordpress-6.1/block-patterns.php:109
+msgid "Could not register file \"%s\" as a block pattern (\"Title\" field missing)"
+msgstr "Die Datei „%s“ konnte nicht als Block-Vorlage registriert werden (Feld „Titel“ fehlt)"
 
 #. translators: %s is the Comment Author name.
 #: build/block-library/blocks/avatar.php:127
@@ -296,11 +318,6 @@ msgid "Webfont font family must be a non-empty string."
 msgstr "Die Webfont-Schriftfamilie muss eine nicht leere Zeichenfolge sein."
 
 #: build/block-library/blocks/read-more/block.json
-msgctxt "block description"
-msgid "Displays the link of a post, page, or any other content-type."
-msgstr "Zeigt den Link eines Beitrags, einer Seite oder eines anderen Inhaltstyps an."
-
-#: build/block-library/blocks/read-more/block.json
 msgctxt "block title"
 msgid "Read More"
 msgstr "Weiterlesen"
@@ -319,36 +336,20 @@ msgstr "Beitragsautor-Biografie"
 msgid "The ID of the page that should display the latest posts"
 msgstr "Die ID der Seite, auf der die neuesten Beiträge angezeigt werden sollen"
 
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:136
-msgid "Sorry, you are not allowed to view this global style."
-msgstr "Du bist leider nicht berechtigt, diesen globalen Stil anzuzeigen."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:128
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:191
-msgid "Sorry, you are not allowed to edit this global style."
-msgstr "Du bist leider nicht berechtigt, diesen globalen Stil zu bearbeiten."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:165
-msgid "Displays search results."
-msgstr "Zeigt Suchergebnisse an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:121
-msgid "Displays the homepage."
-msgstr "Zeigt die Homepage an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:117
-msgid "Displays posts on the homepage, or on the Posts page if a static homepage is set."
-msgstr "Zeigt Beiträge auf der Homepage oder auf der Seite „Beiträge“ an, wenn eine statische Homepage festgelegt wurde."
+#: build/block-library/blocks/read-more/block.json
+msgctxt "block description"
+msgid "Displays the link of a post, page, or any other content-type."
+msgstr "Zeigt den Link eines Beitrags, einer Seite oder eines anderen Inhaltstyps an."
 
 #: build/block-library/blocks/comments-pagination-previous.php:18
-#: build/block-library/index.js:9720 build/block-library/index.js:34232
-#: build/block-library/index.js:34303
+#: build/block-library/index.js:9780 build/block-library/index.js:34158
+#: build/block-library/index.js:34229
 msgid "Older Comments"
 msgstr "Ältere Kommentare"
 
 #: build/block-library/blocks/comments-pagination-next.php:25
-#: build/block-library/index.js:10036 build/block-library/index.js:34236
-#: build/block-library/index.js:34307
+#: build/block-library/index.js:10096 build/block-library/index.js:34162
+#: build/block-library/index.js:34233
 msgid "Newer Comments"
 msgstr "Neuere Kommentare"
 
@@ -377,23 +378,9 @@ msgctxt "block description"
 msgid "Displays the next comment's page link."
 msgstr "Zeit den nächsten Kommentar-Seiten-Link an."
 
-#: lib/compat/wordpress-5.9/move-theme-editor-menu-item.php:21
-msgid "Theme File Editor"
-msgstr "Theme-Datei-Editor"
-
 #: build/block-library/blocks/site-logo.php:85
 msgid "Site icon."
 msgstr "Website-Icon."
-
-#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
-msgctxt "Font size name"
-msgid "Extra Large"
-msgstr "Extra groß"
-
-#: build/block-library/blocks/query-pagination/block.json
-msgctxt "block title"
-msgid "Pagination"
-msgstr "Seitennummerierung"
 
 #: build/block-library/blocks/comments-pagination-previous/block.json
 #: build/block-library/blocks/query-pagination-previous/block.json
@@ -424,15 +411,25 @@ msgstr "Zeigt eine Liste von Seitenzahlen für die Kommentarpaginierung an."
 msgid "%s submenu"
 msgstr "Untermenü von %s"
 
-#: build/block-library/blocks/comments-pagination/block.json
-msgctxt "block description"
-msgid "Displays a paginated navigation to next/previous set of comments, when applicable."
-msgstr "Falls vorhanden, wird damit eine seitenweise Navigation zum nächsten/vorherigen Satz von Kommentaren angezeigt."
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
+msgctxt "Font size name"
+msgid "Extra Large"
+msgstr "Extra groß"
+
+#: build/block-library/blocks/query-pagination/block.json
+msgctxt "block title"
+msgid "Pagination"
+msgstr "Seitennummerierung"
 
 #: build/block-library/blocks/comments-pagination/block.json
 msgctxt "block title"
 msgid "Comments Pagination"
 msgstr "Seitennummerierung der Kommentare"
+
+#: build/block-library/blocks/comments-pagination/block.json
+msgctxt "block description"
+msgid "Displays a paginated navigation to next/previous set of comments, when applicable."
+msgstr "Falls vorhanden, wird damit eine seitenweise Navigation zum nächsten/vorherigen Satz von Kommentaren angezeigt."
 
 #: lib/compat/wordpress-6.0/class-gutenberg-rest-edit-site-export-controller.php:57
 msgid "Sorry, you are not allowed to export templates and template parts."
@@ -442,88 +439,28 @@ msgstr "Du bist leider nicht berechtigt, Templates und Template-Teile zu exporti
 msgid "Invalid author ID."
 msgstr "Ungültige Autoren-ID."
 
-#: lib/compat/wordpress-6.0/block-template-utils.php:50
-msgid "Unable to open export file (archive) for writing."
-msgstr "Die Export-Datei (Archiv) kann nicht zum Schreiben geöffnet werden."
-
 #: lib/compat/wordpress-6.0/block-template-utils.php:41
 msgid "Zip Export not supported."
 msgstr "Zip-Export wird nicht unterstützt."
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:173
-msgid "Displays when no content is found."
-msgstr "Wird angezeigt, wenn kein Inhalt gefunden wurde."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:169
-msgid "Displays the privacy policy page."
-msgstr "Zeigt die Seite mit der Datenschutzerklärung an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:161
-msgid "Displays individual media items or attachments."
-msgstr "Zeigt individuelle Medienelemente oder Anhänge an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:157
-msgid "Displays latest posts with a single post tag."
-msgstr "Zeigt die neuesten Beiträge mit nur einem Beitrags-Schlagwort an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:153
-msgid "Displays posts from a specific date."
-msgstr "Zeigt Beiträge mit einem bestimmten Datum an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:149
-msgid "Displays latest posts from a single post taxonomy."
-msgstr "Zeigt die neuesten Beiträge aus einer ausgewählten Taxonomie an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:145
-msgid "Displays latest posts in single post category."
-msgstr "Zeigt die neuesten Beiträge in einer ausgewählten Beitragskategorie an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:141
-msgid "Displays latest posts written by a single author."
-msgstr "Zeigt die neuesten Beiträge eines ausgewählten Autors an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:137
-msgid "Displays post categories, tags, and other archives."
-msgstr "Zeigt Kategorie-, Schlagwort- und andere Archive von Beiträgen an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:133
-msgid "Displays a single page."
-msgstr "Zeigt eine einzelne Seite an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:129
-msgid "Displays a single post."
-msgstr "Zeigt einen einzelnen Beitrag an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:125
-msgid "Displays a single post or page."
-msgstr "Zeigt einen einzelnen Beitrag oder eine einzelne Seite an."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:113
-msgid "Displays posts."
-msgstr "Zeigt die Beiträge an."
+#: lib/compat/wordpress-6.0/block-template-utils.php:50
+msgid "Unable to open export file (archive) for writing."
+msgstr "Die Export-Datei (Archiv) kann nicht zum Schreiben geöffnet werden."
 
 #. translators: %s: Minimum required version
-#: lib/compat/wordpress-5.9/block-gallery.php:47
+#: lib/compat/wordpress-6.0/block-gallery.php:47
 msgid "Gutenberg requires WordPress %s or later in order to enable the &#8220;Correct invalidly nested XHTML automatically&#8221; option. Please upgrade WordPress before enabling."
 msgstr "Gutenberg benötigt WordPress %s oder neuer, um die Option &#8222;Ungültig verschachteltes XHTML automatisch korrigieren&#8220; zu aktivieren. Bitte aktualisiere WordPress vor der Aktivierung."
 
-#: lib/compat/wordpress-5.9/templates.php:30
-msgid "View Templates"
-msgstr "Templates anzeigen"
+#: build/block-library/blocks/comment-template/block.json
+msgctxt "block title"
+msgid "Comment Template"
+msgstr "Kommentar-Template"
 
-#: lib/compat/wordpress-5.9/template-parts.php:30
-msgid "View Template Parts"
-msgstr "Template-Teile anzeigen"
-
-#: lib/compat/wordpress-5.9/navigation.php:13 build/edit-site/index.js:9598
-msgid "Navigation Menus"
-msgstr "Navigationsmenüs"
-
-#: build/block-library/blocks/post-comment/block.json
-#: build/block-library/blocks/post-comments/block.json
+#: build/block-library/blocks/comment-content/block.json
 msgctxt "block description"
-msgid "This block is deprecated. Please use the Comments block instead."
-msgstr "Dieser Block ist veraltet. Bitte verwende stattdessen den Kommentar-Block."
+msgid "Displays the contents of a comment."
+msgstr "Zeigt den Inhalt eines Kommentars an."
 
 #: build/block-library/blocks/post-comment/block.json
 msgctxt "block title"
@@ -531,24 +468,9 @@ msgid "Post Comment (deprecated)"
 msgstr "Kommentar veröffentlichen (veraltet)"
 
 #: build/block-library/blocks/pattern/block.json
-msgctxt "block description"
-msgid "Show a block pattern."
-msgstr "Block-Vorlage anzeigen."
-
-#: build/block-library/blocks/pattern/block.json
 msgctxt "block title"
 msgid "Pattern"
 msgstr "Vorlage"
-
-#: build/block-library/blocks/comment-template/block.json
-msgctxt "block description"
-msgid "Contains the block elements used to display a comment, like the title, date, author, avatar and more."
-msgstr "Enthält die Block-Elemente für das Anzeigen eines Kommentars wie Titel, Datum, Autor, Avatar und mehr."
-
-#: build/block-library/blocks/comment-template/block.json
-msgctxt "block title"
-msgid "Comment Template"
-msgstr "Kommentar-Template"
 
 #: build/block-library/blocks/comment-reply-link/block.json
 msgctxt "block description"
@@ -565,153 +487,44 @@ msgctxt "block description"
 msgid "Displays a link to edit the comment in the WordPress Dashboard. This link is only visible to users with the edit comment capability."
 msgstr "Zeigt einen Link an, um den Kommentar im WordPress-Dashboard zu bearbeiten. Dieser Link ist nur für Benutzer sichtbar, die Kommentare bearbeiten dürfen."
 
-#: build/block-library/blocks/comment-edit-link/block.json
-msgctxt "block title"
-msgid "Comment Edit Link"
-msgstr "Kommentar-bearbeiten-Link"
-
-#: build/block-library/blocks/comment-content/block.json
+#: build/block-library/blocks/pattern/block.json
 msgctxt "block description"
-msgid "Displays the contents of a comment."
-msgstr "Zeigt den Inhalt eines Kommentars an."
+msgid "Show a block pattern."
+msgstr "Block-Vorlage anzeigen."
 
 #: build/block-library/blocks/comment-author-name/block.json
 msgctxt "block title"
 msgid "Comment Author Name"
 msgstr "Kommentar-Autorenname"
 
-#: lib/compat/wordpress-5.9/navigation.php:32
-msgid "Navigation Menus list"
-msgstr "Liste der Navigationsmenüs"
+#: build/block-library/blocks/comment-edit-link/block.json
+msgctxt "block title"
+msgid "Comment Edit Link"
+msgstr "Kommentar-bearbeiten-Link"
 
-#: lib/compat/wordpress-5.9/navigation.php:31
-msgid "Navigation Menus list navigation"
-msgstr "Navigation der Navigationsmenüs-Liste"
+#: build/block-library/blocks/comment-template/block.json
+msgctxt "block description"
+msgid "Contains the block elements used to display a comment, like the title, date, author, avatar and more."
+msgstr "Enthält die Block-Elemente für das Anzeigen eines Kommentars wie Titel, Datum, Autor, Avatar und mehr."
 
-#: lib/compat/wordpress-5.9/navigation.php:30
-msgid "Filter Navigation Menu list"
-msgstr "Navigationsmenü-Liste filtern"
+#: build/block-library/blocks/post-comment/block.json
+#: build/block-library/blocks/post-comments/block.json
+msgctxt "block description"
+msgid "This block is deprecated. Please use the Comments block instead."
+msgstr "Dieser Block ist veraltet. Bitte verwende stattdessen den Kommentar-Block."
 
-#: lib/compat/wordpress-5.9/navigation.php:28
-msgid "Uploaded to this Navigation Menu"
-msgstr "In dieses Navigationsmenü hochgeladen"
-
-#: lib/compat/wordpress-5.9/navigation.php:27
-msgid "Insert into Navigation Menu"
-msgstr "Ins Navigationsmenü einfügen"
-
-#: lib/compat/wordpress-5.9/navigation.php:26
-msgid "Navigation Menu archives"
-msgstr "Navigationsmenü-Archive"
-
-#: lib/compat/wordpress-5.9/navigation.php:25
-msgid "No Navigation Menu found in Trash."
-msgstr "Kein Navigationsmenü im Papierkorb gefunden."
-
-#: lib/compat/wordpress-5.9/navigation.php:24
-msgid "No Navigation Menu found."
-msgstr "Kein Navigationsmenü gefunden."
-
-#: lib/compat/wordpress-5.9/navigation.php:23
-msgid "Parent Navigation Menu:"
-msgstr "Übergeordnetes Navigationsmenü:"
-
-#: lib/compat/wordpress-5.9/navigation.php:22
-msgid "Search Navigation Menus"
-msgstr "Navigationsmenüs durchsuchen"
-
-#: lib/compat/wordpress-5.9/navigation.php:21
-msgid "All Navigation Menus"
-msgstr "Alle Navigationsmenüs"
-
-#: lib/compat/wordpress-5.9/navigation.php:20
-msgid "View Navigation Menu"
-msgstr "Navigationsmenü anzeigen"
-
-#: lib/compat/wordpress-5.9/navigation.php:19
-msgid "Edit Navigation Menu"
-msgstr "Navigationsmenü bearbeiten"
-
-#: lib/compat/wordpress-5.9/navigation.php:18
-msgid "New Navigation Menu"
-msgstr "Neues Navigationsmenü"
-
-#: lib/compat/wordpress-5.9/navigation.php:17
-msgid "Add New Navigation Menu"
-msgstr "Neues Navigationsmenü hinzufügen"
-
-#: lib/compat/wordpress-5.9/navigation.php:16
-msgctxt "Navigation Menu"
-msgid "Add New"
-msgstr "Neues hinzufügen"
-
-#: lib/compat/wordpress-5.9/navigation.php:15
-msgctxt "Admin Menu text"
-msgid "Navigation Menus"
-msgstr "Navigationsmenüs"
-
-#. translators: %s: "beta" label.
-#: lib/init.php:74
-msgid "Editor %s"
-msgstr "Editor %s"
-
-#: lib/init.php:71 build/edit-site/index.js:12189
-msgid "Editor (beta)"
-msgstr "Editor (Beta)"
-
-#. translators: 1: Path to the JSON file, 2: Error message.
-#: lib/compat/wordpress-5.9/json-file-decode.php:44
-msgid "Error when decoding a JSON file at path %1$s: %2$s"
-msgstr "Fehler beim Dekodieren einer JSON-Datei unter %1$s: %2$s"
-
-#. translators: %s: Path to the JSON file.
-#: lib/compat/wordpress-5.9/json-file-decode.php:30
-msgid "File %s doesn't exist!"
-msgstr "Die Datei %s existiert nicht!"
-
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:553
-#: lib/compat/wordpress-6.0/class-gutenberg-rest-global-styles-controller.php:180
-#: lib/compat/wordpress-6.0/class-gutenberg-rest-global-styles-controller.php:220
-msgid "Theme not found."
-msgstr "Das Theme wurde nicht gefunden."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:501
-msgid "HTML title for the post, transformed for display."
-msgstr "HTML-Titel für den Beitrag, für die Anzeige transformiert."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:496
-msgid "Title for the global styles variation, as it exists in the database."
-msgstr "Titel für die globale Styles-Variation, wie er in der Datenbank existiert."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:490
-msgid "Title of the global styles variation."
-msgstr "Titel der globalen Styles-Variation."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:485
-msgid "Global settings."
-msgstr "Globale Einstellungen."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:480
-msgid "Global styles."
-msgstr "Globale Styles."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:474
-msgid "ID of global styles config."
-msgstr "ID der Globale-Styles-Konfiguration."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:374
-msgid "No global styles config exist with that id."
-msgstr "Es existiert keine Globale-Styles-Konfiguration mit dieser ID."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:530
 #: lib/compat/wordpress-6.0/class-gutenberg-rest-global-styles-controller.php:53
 msgid "Sorry, you are not allowed to access the global styles on this site."
 msgstr "Du bist leider nicht berechtigt, auf die globalen Styles auf dieser Website zuzugreifen."
 
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:60
 #: lib/compat/wordpress-6.0/class-gutenberg-rest-global-styles-controller.php:30
 msgid "The theme identifier"
 msgstr "Bezeichnung des Themes"
+
+#: lib/compat/wordpress-6.0/class-gutenberg-rest-global-styles-controller.php:180
+#: lib/compat/wordpress-6.0/class-gutenberg-rest-global-styles-controller.php:220
+msgid "Theme not found."
+msgstr "Das Theme wurde nicht gefunden."
 
 #. translators: %s is the Author name.
 #. translators: %s is the Comment Author name
@@ -737,14 +550,14 @@ msgid "Displays the name of this site. Update the block, and the changes apply e
 msgstr "Zeigt den Namen dieser Website an. Wenn du den Block aktualisierst, werden die Änderungen überall übernommen, wo er genutzt wird. Erscheint auch in der Browser-Titelzeile und in Suchergebnissen."
 
 #: build/block-library/blocks/post-navigation-link.php:64
-msgctxt "label before the title of the previous post"
-msgid "Previous:"
-msgstr "Zurück:"
-
-#: build/block-library/blocks/post-navigation-link.php:64
 msgctxt "label before the title of the next post"
 msgid "Next:"
 msgstr "Weiter:"
+
+#: build/block-library/blocks/post-navigation-link.php:64
+msgctxt "label before the title of the previous post"
+msgid "Previous:"
+msgstr "Zurück:"
 
 #: build/block-library/blocks/navigation-submenu/block.json
 msgctxt "block description"
@@ -760,14 +573,6 @@ msgstr "Untermenü"
 msgctxt "block description"
 msgid "Display content in multiple columns, with blocks added to each column."
 msgstr "Inhalte mehrspaltig darstellen, wobei jeder Spalte Blöcke hinzugefügt werden."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:85
-msgid "Required to be true, as terms do not support trashing."
-msgstr "Das Setzen auf true (wahr) ist erforderlich, denn Begriffe können nicht in den Papierkorb gelegt werden."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:59
-msgid "Unique identifier for the term."
-msgstr "Eindeutige Kennung für den Begriff."
 
 #: build/block-library/blocks/table/block.json
 msgctxt "block description"
@@ -896,33 +701,8 @@ msgstr "Lebhaftes Cyanblau"
 
 #: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
-msgid "Pale cyan blue"
-msgstr "Helles Cyanblau"
-
-#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
-msgctxt "Color name"
-msgid "Vivid green cyan"
-msgstr "Lebhaftes Grün-Cyan"
-
-#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
-msgctxt "Color name"
-msgid "Light green cyan"
-msgstr "Helles Grün-Cyan"
-
-#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
-msgctxt "Color name"
-msgid "Luminous vivid amber"
-msgstr "Leuchtendes, lebhaftes Bernstein"
-
-#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
-msgctxt "Color name"
 msgid "Luminous vivid orange"
 msgstr "Leuchtendes, kräftiges Orange"
-
-#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
-msgctxt "Color name"
-msgid "Vivid red"
-msgstr "Lebhaftes Rot"
 
 #: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
@@ -959,6 +739,31 @@ msgctxt "Font size name"
 msgid "Small"
 msgstr "Klein"
 
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
+msgctxt "Color name"
+msgid "Pale cyan blue"
+msgstr "Helles Cyanblau"
+
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
+msgctxt "Color name"
+msgid "Vivid green cyan"
+msgstr "Lebhaftes Grün-Cyan"
+
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
+msgctxt "Color name"
+msgid "Light green cyan"
+msgstr "Helles Grün-Cyan"
+
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
+msgctxt "Color name"
+msgid "Luminous vivid amber"
+msgstr "Leuchtendes, lebhaftes Bernstein"
+
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
+msgctxt "Color name"
+msgid "Vivid red"
+msgstr "Lebhaftes Rot"
+
 #: lib/compat/wordpress-6.0/block-patterns-update.php:156
 msgctxt "Block pattern title"
 msgid "Social links with a shared background color"
@@ -984,44 +789,40 @@ msgctxt "Block pattern title"
 msgid "Standard"
 msgstr "Standard"
 
-#: build/block-library/blocks/query/block.json
-msgctxt "block description"
-msgid "An advanced block that allows displaying post types based on different query parameters and visual configurations."
-msgstr "Ein erweiterter Block, der das Anzeigen von Inhaltstypen anhand verschiedener Abfrage-Parameter und visueller Konfigurationen erlaubt."
-
-#: build/block-library/blocks/post-template/block.json
-msgctxt "block description"
-msgid "Contains the block elements used to render a post, like the title, date, featured image, content or excerpt, and more."
-msgstr "Enthält die Blockelemente, die für die Ausgabe eines Beitrage benutzt werden, beispielsweise Titel, Datum, Beitragsbild, Inhalt oder Textauszug und mehr."
-
-#: build/block-library/blocks/post-template/block.json
-msgctxt "block title"
-msgid "Post Template"
-msgstr "Beitrags-Template"
-
 #: build/block-library/blocks/button/block.json
 #: build/block-library/blocks/buttons/block.json
 msgctxt "block keyword"
 msgid "link"
 msgstr "Link"
 
-#: lib/compat/wordpress-5.9/rest-api.php:139
-msgid "Limit result set to users who have published posts."
-msgstr "Ergebnisse auf Benutzer begrenzen, die Beiträge veröffentlicht haben."
+#: build/block-library/blocks/post-template/block.json
+msgctxt "block title"
+msgid "Post Template"
+msgstr "Beitrags-Template"
+
+#: build/block-library/blocks/post-template/block.json
+msgctxt "block description"
+msgid "Contains the block elements used to render a post, like the title, date, featured image, content or excerpt, and more."
+msgstr "Enthält die Blockelemente, die für die Ausgabe eines Beitrage benutzt werden, beispielsweise Titel, Datum, Beitragsbild, Inhalt oder Textauszug und mehr."
+
+#: build/block-library/blocks/query/block.json
+msgctxt "block description"
+msgid "An advanced block that allows displaying post types based on different query parameters and visual configurations."
+msgstr "Ein erweiterter Block, der das Anzeigen von Inhaltstypen anhand verschiedener Abfrage-Parameter und visueller Konfigurationen erlaubt."
 
 #: build/block-library/blocks/calendar.php:22
 msgid "The calendar block is hidden because there are no published posts."
 msgstr "Der Kalender-Block ist verborgen, weil es keine veröffentlichen Beiträge gibt."
 
 #: build/block-library/blocks/video/block.json
-msgctxt "block keyword"
-msgid "movie"
-msgstr "Film"
-
-#: build/block-library/blocks/video/block.json
 msgctxt "block description"
 msgid "Embed a video from your media library or upload a new one."
 msgstr "Ein Video aus deiner Mediathek einbetten oder ein neues hochladen."
+
+#: build/block-library/blocks/video/block.json
+msgctxt "block keyword"
+msgid "movie"
+msgstr "Film"
 
 #: build/block-library/blocks/verse/block.json
 msgctxt "block keyword"
@@ -1043,15 +844,20 @@ msgctxt "block description"
 msgid "This block is deprecated. Please use the Columns block instead."
 msgstr "Dieser Block ist veraltet. Bitte verwende stattdessen den Spalten-Block."
 
+#: build/block-library/blocks/table/block.json
+msgctxt "block style label"
+msgid "Stripes"
+msgstr "Streifen"
+
 #: build/block-library/blocks/tag-cloud/block.json
 msgctxt "block description"
 msgid "A cloud of your most used tags."
 msgstr "Eine Wolke deiner meist genutzten Schlagwörter."
 
-#: build/block-library/blocks/table/block.json
-msgctxt "block style label"
-msgid "Stripes"
-msgstr "Streifen"
+#: build/block-library/blocks/table-of-contents/block.json
+msgctxt "block description"
+msgid "Summarize your post with a list of headings. Add HTML anchors to Heading blocks to link them here."
+msgstr "Fasse deinen Beitrag mit einer Liste an Überschriften zusammen. Füge HTML-Anker zu Überschriftenblöcken hinzu, um sie hier zu verknüpfen."
 
 #: build/block-library/blocks/table-of-contents/block.json
 msgctxt "block keyword"
@@ -1063,25 +869,20 @@ msgctxt "block keyword"
 msgid "document outline"
 msgstr "Gliederung des Dokuments"
 
-#: build/block-library/blocks/table-of-contents/block.json
+#: build/block-library/blocks/spacer/block.json
 msgctxt "block description"
-msgid "Summarize your post with a list of headings. Add HTML anchors to Heading blocks to link them here."
-msgstr "Fasse deinen Beitrag mit einer Liste an Überschriften zusammen. Füge HTML-Anker zu Überschriftenblöcken hinzu, um sie hier zu verknüpfen."
+msgid "Add white space between blocks and customize its height."
+msgstr "Weißraum zwischen den Blöcken hinzufügen und dessen Höhe anpassen."
 
 #: build/block-library/blocks/table-of-contents/block.json
 msgctxt "block title"
 msgid "Table of Contents"
 msgstr "Inhaltsverzeichnis"
 
-#: build/block-library/blocks/spacer/block.json
+#: build/block-library/blocks/social-link/block.json
 msgctxt "block description"
-msgid "Add white space between blocks and customize its height."
-msgstr "Weißraum zwischen den Blöcken hinzufügen und dessen Höhe anpassen."
-
-#: build/block-library/blocks/social-links/block.json
-msgctxt "block style label"
-msgid "Pill Shape"
-msgstr "Pillenform"
+msgid "Display an icon linking to a social media profile or site."
+msgstr "Ein Icon anzeigen, das mit einem Social-Media-Profil oder einer Website verlinkt ist."
 
 #: build/block-library/blocks/social-links/block.json
 msgctxt "block style label"
@@ -1093,10 +894,10 @@ msgctxt "block description"
 msgid "Display icons linking to your social media profiles or sites."
 msgstr "Icons anzeigen, die mit deinen Social-Media-Profilen oder Websites verlinkt sind."
 
-#: build/block-library/blocks/social-link/block.json
-msgctxt "block description"
-msgid "Display an icon linking to a social media profile or site."
-msgstr "Ein Icon anzeigen, das mit einem Social-Media-Profil oder einer Website verlinkt ist."
+#: build/block-library/blocks/social-links/block.json
+msgctxt "block style label"
+msgid "Pill Shape"
+msgstr "Pillenform"
 
 #: build/block-library/blocks/site-tagline/block.json
 msgctxt "block keyword"
@@ -1114,19 +915,14 @@ msgid "Insert additional custom elements with a WordPress shortcode."
 msgstr "Zusätzliche individuelle Elemente über einen WordPress-Shortcode einfügen."
 
 #: build/block-library/blocks/separator/block.json
-msgctxt "block style label"
-msgid "Dots"
-msgstr "Punkte"
-
-#: build/block-library/blocks/separator/block.json
-msgctxt "block style label"
-msgid "Wide Line"
-msgstr "Breite Linie"
+msgctxt "block description"
+msgid "Create a break between ideas or sections with a horizontal separator."
+msgstr "Trenne deine Ideen oder Abschnitte mit einem horizontalen Trennelement."
 
 #: build/block-library/blocks/separator/block.json
 msgctxt "block keyword"
-msgid "divider"
-msgstr "Trennlinie"
+msgid "horizontal-line"
+msgstr "horizontale Linie"
 
 #: build/block-library/blocks/separator/block.json
 msgctxt "block keyword"
@@ -1135,23 +931,38 @@ msgstr "hr"
 
 #: build/block-library/blocks/separator/block.json
 msgctxt "block keyword"
-msgid "horizontal-line"
-msgstr "horizontale Linie"
+msgid "divider"
+msgstr "Trennlinie"
 
 #: build/block-library/blocks/separator/block.json
-msgctxt "block description"
-msgid "Create a break between ideas or sections with a horizontal separator."
-msgstr "Trenne deine Ideen oder Abschnitte mit einem horizontalen Trennelement."
+msgctxt "block style label"
+msgid "Wide Line"
+msgstr "Breite Linie"
 
-#: build/block-library/blocks/search/block.json
+#: build/block-library/blocks/separator/block.json
+msgctxt "block style label"
+msgid "Dots"
+msgstr "Punkte"
+
+#: build/block-library/blocks/quote/block.json
 msgctxt "block keyword"
-msgid "find"
-msgstr "finden"
+msgid "cite"
+msgstr "zitieren"
+
+#: build/block-library/blocks/rss/block.json
+msgctxt "block description"
+msgid "Display entries from any RSS or Atom feed."
+msgstr "Einträge von jedem RSS- oder Atom-Feed anzeigen."
 
 #: build/block-library/blocks/search/block.json
 msgctxt "block description"
 msgid "Help visitors find your content."
 msgstr "Hilf Besuchern, deine Inhalte zu finden."
+
+#: build/block-library/blocks/search/block.json
+msgctxt "block keyword"
+msgid "find"
+msgstr "finden"
 
 #: build/block-library/blocks/rss/block.json
 msgctxt "block keyword"
@@ -1163,35 +974,25 @@ msgctxt "block keyword"
 msgid "atom"
 msgstr "Atom"
 
-#: build/block-library/blocks/rss/block.json
-msgctxt "block description"
-msgid "Display entries from any RSS or Atom feed."
-msgstr "Einträge von jedem RSS- oder Atom-Feed anzeigen."
-
-#: build/block-library/blocks/quote/block.json
-msgctxt "block keyword"
-msgid "cite"
-msgstr "zitieren"
-
 #: build/block-library/blocks/quote/block.json
 msgctxt "block keyword"
 msgid "blockquote"
 msgstr "Blockquote"
 
-#: build/block-library/blocks/query-title/block.json
+#: build/block-library/blocks/query-pagination/block.json
 msgctxt "block description"
-msgid "Display the query title."
-msgstr "Abfrage-Titel anzeigen."
+msgid "Displays a paginated navigation to next/previous set of posts, when applicable."
+msgstr "Zeigt – falls verfügbar – eine seitenweise Navigation zum nächsten/vorherigen Satz von Beiträgen an."
 
 #: build/block-library/blocks/query-title/block.json
 msgctxt "block title"
 msgid "Query Title"
 msgstr "Abfrage-Titel"
 
-#: build/block-library/blocks/query-pagination/block.json
+#: build/block-library/blocks/query-title/block.json
 msgctxt "block description"
-msgid "Displays a paginated navigation to next/previous set of posts, when applicable."
-msgstr "Zeigt – falls verfügbar – eine seitenweise Navigation zum nächsten/vorherigen Satz von Beiträgen an."
+msgid "Display the query title."
+msgstr "Abfrage-Titel anzeigen."
 
 #: build/block-library/blocks/query-pagination-previous/block.json
 msgctxt "block description"
@@ -1203,6 +1004,11 @@ msgctxt "block description"
 msgid "Displays a list of page numbers for pagination"
 msgstr "Zeigt eine Liste von Seitenzahlen für die Seitennummerierung an"
 
+#: build/block-library/blocks/preformatted/block.json
+msgctxt "block description"
+msgid "Add text that respects your spacing and tabs, and also allows styling."
+msgstr "Füge Text hinzu, der deine Abstände und Tabulatoren respektiert und ebenfalls Styling erlaubt."
+
 #: build/block-library/blocks/query-pagination-next/block.json
 msgctxt "block description"
 msgid "Displays the next posts page link."
@@ -1213,20 +1019,15 @@ msgctxt "block description"
 msgid "Give special visual emphasis to a quote from your text."
 msgstr "Hebe ein Zitat aus deinem Text optisch besonders hervor."
 
-#: build/block-library/blocks/preformatted/block.json
+#: build/block-library/blocks/post-terms/block.json
 msgctxt "block description"
-msgid "Add text that respects your spacing and tabs, and also allows styling."
-msgstr "Füge Text hinzu, der deine Abstände und Tabulatoren respektiert und ebenfalls Styling erlaubt."
+msgid "Post terms."
+msgstr "Beitragsbegriffe."
 
 #: build/block-library/blocks/post-title/block.json
 msgctxt "block description"
 msgid "Displays the title of a post, page, or any other content-type."
 msgstr "Zeigt den Titel eine Beitrags, einer Seite oder eines anderen Inhaltstyps an."
-
-#: build/block-library/blocks/post-terms/block.json
-msgctxt "block description"
-msgid "Post terms."
-msgstr "Beitragsbegriffe."
 
 #: build/block-library/blocks/post-navigation-link/block.json
 msgctxt "block description"
@@ -1243,55 +1044,45 @@ msgctxt "block description"
 msgid "Display a post's featured image."
 msgstr "Beitragsbild eines Beitrags anzeigen."
 
-#: build/block-library/blocks/post-excerpt/block.json
+#: build/block-library/blocks/post-comments-link/block.json
 msgctxt "block description"
-msgid "Display a post's excerpt."
-msgstr "Einen Beitrags-Textauszug anzeigen."
-
-#: build/block-library/blocks/post-date/block.json
-msgctxt "block description"
-msgid "Add the date of this post."
-msgstr "Das Datum dieses Beitrags hinzufügen."
+msgid "Displays the link to the current post comments."
+msgstr "Zeigt den Link zu den aktuellen Beitragskommentaren an."
 
 #: build/block-library/blocks/post-content/block.json
 msgctxt "block description"
 msgid "Displays the contents of a post or page."
 msgstr "Zeigt die Inhalte eines Beitrags oder einer Seite an."
 
-#: build/block-library/blocks/post-comments-link/block.json
+#: build/block-library/blocks/post-date/block.json
 msgctxt "block description"
-msgid "Displays the link to the current post comments."
-msgstr "Zeigt den Link zu den aktuellen Beitragskommentaren an."
+msgid "Add the date of this post."
+msgstr "Das Datum dieses Beitrags hinzufügen."
 
-#: build/block-library/blocks/post-comments-form/block.json
+#: build/block-library/blocks/post-excerpt/block.json
 msgctxt "block description"
-msgid "Display a post's comments form."
-msgstr "Das Kommentarformular eines Beitrags anzeigen."
-
-#: build/block-library/blocks/post-comments-count/block.json
-msgctxt "block description"
-msgid "Display a post's comments count."
-msgstr "Die Anzahl der Kommentare eines Beitrags anzeigen."
+msgid "Display a post's excerpt."
+msgstr "Einen Beitrags-Textauszug anzeigen."
 
 #: build/block-library/blocks/paragraph/block.json
 msgctxt "block keyword"
 msgid "text"
 msgstr "Text"
 
-#: build/block-library/blocks/paragraph/block.json
+#: build/block-library/blocks/post-comments-count/block.json
 msgctxt "block description"
-msgid "Start with the basic building block of all narrative."
-msgstr "Starte mit dem Grundbaustein aller Erzählungen."
+msgid "Display a post's comments count."
+msgstr "Die Anzahl der Kommentare eines Beitrags anzeigen."
 
-#: build/block-library/blocks/page-list/block.json
+#: build/block-library/blocks/post-comments-form/block.json
 msgctxt "block description"
-msgid "Display a list of all pages."
-msgstr "Eine Liste aller Seiten anzeigen."
+msgid "Display a post's comments form."
+msgstr "Das Kommentarformular eines Beitrags anzeigen."
 
 #: build/block-library/blocks/nextpage/block.json
-msgctxt "block keyword"
-msgid "pagination"
-msgstr "Seitennummerierung"
+msgctxt "block description"
+msgid "Separate your content into a multi-page experience."
+msgstr "Trenne deinen Inhalt und präsentiere ihn auf mehreren Seiten."
 
 #: build/block-library/blocks/nextpage/block.json
 msgctxt "block keyword"
@@ -1299,15 +1090,29 @@ msgid "next page"
 msgstr "nächste Seite"
 
 #: build/block-library/blocks/nextpage/block.json
+msgctxt "block keyword"
+msgid "pagination"
+msgstr "Seitennummerierung"
+
+#: build/block-library/blocks/page-list/block.json
 msgctxt "block description"
-msgid "Separate your content into a multi-page experience."
-msgstr "Trenne deinen Inhalt und präsentiere ihn auf mehreren Seiten."
+msgid "Display a list of all pages."
+msgstr "Eine Liste aller Seiten anzeigen."
+
+#: build/block-library/blocks/paragraph/block.json
+msgctxt "block description"
+msgid "Start with the basic building block of all narrative."
+msgstr "Starte mit dem Grundbaustein aller Erzählungen."
+
+#: build/block-library/blocks/navigation-link/block.json
+msgctxt "block description"
+msgid "Add a page, link, or another item to your navigation."
+msgstr "Eine Seite, einen Link oder ein anderes Element zu deinem Navigationsmenü hinzufügen."
 
 #: build/block-library/blocks/navigation/block.json
-#: build/block-library/blocks/page-list/block.json
-msgctxt "block keyword"
-msgid "navigation"
-msgstr "Navigation"
+msgctxt "block description"
+msgid "A collection of blocks that allow visitors to get around your site."
+msgstr "Eine Sammlung von Blöcken, mit denen Besucher auf deiner Website navigieren können."
 
 #: build/block-library/blocks/navigation/block.json
 #: build/block-library/blocks/page-list/block.json
@@ -1316,49 +1121,30 @@ msgid "menu"
 msgstr "Menü"
 
 #: build/block-library/blocks/navigation/block.json
-msgctxt "block description"
-msgid "A collection of blocks that allow visitors to get around your site."
-msgstr "Eine Sammlung von Blöcken, mit denen Besucher auf deiner Website navigieren können."
-
-#: build/block-library/blocks/navigation-link/block.json
-msgctxt "block description"
-msgid "Add a page, link, or another item to your navigation."
-msgstr "Eine Seite, einen Link oder ein anderes Element zu deinem Navigationsmenü hinzufügen."
-
-#: build/block-library/blocks/more/block.json
+#: build/block-library/blocks/page-list/block.json
 msgctxt "block keyword"
-msgid "read more"
-msgstr "weiterlesen"
-
-#: build/block-library/blocks/more/block.json
-msgctxt "block description"
-msgid "Content before this block will be shown in the excerpt on your archives page."
-msgstr "Inhalte vor diesem Block werden im Textauszug auf der Archivseite angezeigt."
+msgid "navigation"
+msgstr "Navigation"
 
 #: build/block-library/blocks/missing/block.json
 msgctxt "block description"
 msgid "Your site doesn’t include support for this block."
 msgstr "Deine Website unterstützt diesen Block nicht."
 
-#: build/block-library/blocks/media-text/block.json
-msgctxt "block keyword"
-msgid "video"
-msgstr "Video"
-
-#: build/block-library/blocks/media-text/block.json
-msgctxt "block keyword"
-msgid "image"
-msgstr "Bild"
-
-#: build/block-library/blocks/media-text/block.json
+#: build/block-library/blocks/more/block.json
 msgctxt "block description"
-msgid "Set media and words side-by-side for a richer layout."
-msgstr "Setze Medien und Wörter für ein vielfältigeres Layout nebeneinander."
+msgid "Content before this block will be shown in the excerpt on your archives page."
+msgstr "Inhalte vor diesem Block werden im Textauszug auf der Archivseite angezeigt."
+
+#: build/block-library/blocks/more/block.json
+msgctxt "block keyword"
+msgid "read more"
+msgstr "weiterlesen"
 
 #: build/block-library/blocks/loginout/block.json
 msgctxt "block keyword"
-msgid "form"
-msgstr "Formular"
+msgid "login"
+msgstr "anmelden"
 
 #: build/block-library/blocks/loginout/block.json
 msgctxt "block keyword"
@@ -1367,8 +1153,53 @@ msgstr "abmelden"
 
 #: build/block-library/blocks/loginout/block.json
 msgctxt "block keyword"
-msgid "login"
-msgstr "anmelden"
+msgid "form"
+msgstr "Formular"
+
+#: build/block-library/blocks/media-text/block.json
+msgctxt "block keyword"
+msgid "image"
+msgstr "Bild"
+
+#: build/block-library/blocks/media-text/block.json
+msgctxt "block keyword"
+msgid "video"
+msgstr "Video"
+
+#: build/block-library/blocks/media-text/block.json
+msgctxt "block description"
+msgid "Set media and words side-by-side for a richer layout."
+msgstr "Setze Medien und Wörter für ein vielfältigeres Layout nebeneinander."
+
+#: build/block-library/blocks/latest-posts/block.json
+msgctxt "block keyword"
+msgid "recent posts"
+msgstr "Aktuelle Beiträge"
+
+#: build/widgets/blocks/legacy-widget/block.json
+msgctxt "block title"
+msgid "Legacy Widget"
+msgstr "Legacy-Widget"
+
+#: build/widgets/blocks/legacy-widget/block.json
+msgctxt "block description"
+msgid "Display a legacy widget."
+msgstr "Ein Legacy-Widget anzeigen."
+
+#: build/block-library/blocks/list/block.json
+msgctxt "block description"
+msgid "Create a bulleted or numbered list."
+msgstr "Eine Aufzählungs- oder nummerierte Liste erstellen."
+
+#: build/block-library/blocks/list/block.json
+msgctxt "block keyword"
+msgid "bullet list"
+msgstr "Aufzählungsliste"
+
+#: build/block-library/blocks/list/block.json
+msgctxt "block keyword"
+msgid "numbered list"
+msgstr "nummerierte Liste"
 
 #: build/block-library/blocks/loginout/block.json
 msgctxt "block description"
@@ -1377,59 +1208,33 @@ msgstr "Links zum An- und Abmelden anzeigen."
 
 #: build/block-library/blocks/list/block.json
 msgctxt "block keyword"
-msgid "numbered list"
-msgstr "nummerierte Liste"
-
-#: build/block-library/blocks/list/block.json
-msgctxt "block keyword"
 msgid "ordered list"
 msgstr "nummerierte Liste"
-
-#: build/block-library/blocks/list/block.json
-msgctxt "block keyword"
-msgid "bullet list"
-msgstr "Aufzählungsliste"
-
-#: build/block-library/blocks/list/block.json
-msgctxt "block description"
-msgid "Create a bulleted or numbered list."
-msgstr "Eine Aufzählungs- oder nummerierte Liste erstellen."
-
-#: build/widgets/blocks/legacy-widget/block.json
-msgctxt "block description"
-msgid "Display a legacy widget."
-msgstr "Ein Legacy-Widget anzeigen."
-
-#: build/widgets/blocks/legacy-widget/block.json
-msgctxt "block title"
-msgid "Legacy Widget"
-msgstr "Legacy-Widget"
-
-#: build/block-library/blocks/latest-posts/block.json
-msgctxt "block keyword"
-msgid "recent posts"
-msgstr "Aktuelle Beiträge"
 
 #: build/block-library/blocks/latest-posts/block.json
 msgctxt "block description"
 msgid "Display a list of your most recent posts."
 msgstr "Zeige eine Liste deiner neuesten Beiträge an."
 
-#: build/block-library/blocks/latest-comments/block.json
-msgctxt "block keyword"
-msgid "recent comments"
-msgstr "Letzte Kommentare"
-
-#: build/block-library/blocks/latest-comments/block.json
+#: build/block-library/blocks/image/block.json
 msgctxt "block description"
-msgid "Display a list of your most recent comments."
-msgstr "Eine Liste deiner letzten Kommentare anzeigen."
+msgid "Insert an image to make a visual statement."
+msgstr "Ein Bild einfügen, um eine visuelle Aussage zu treffen."
 
 #: build/block-library/blocks/image/block.json
-#: build/block-library/blocks/site-logo/block.json
-msgctxt "block style label"
-msgid "Rounded"
-msgstr "Abgerundet"
+msgctxt "block keyword"
+msgid "img"
+msgstr "img"
+
+#: build/block-library/blocks/image/block.json
+msgctxt "block keyword"
+msgid "photo"
+msgstr "Foto"
+
+#: build/block-library/blocks/image/block.json
+msgctxt "block keyword"
+msgid "picture"
+msgstr "Bild"
 
 #: build/block-library/blocks/image/block.json
 #: build/block-library/blocks/quote/block.json
@@ -1443,59 +1248,50 @@ msgid "Default"
 msgstr "Standard"
 
 #: build/block-library/blocks/image/block.json
-msgctxt "block keyword"
-msgid "picture"
-msgstr "Bild"
+#: build/block-library/blocks/site-logo/block.json
+msgctxt "block style label"
+msgid "Rounded"
+msgstr "Abgerundet"
 
-#: build/block-library/blocks/image/block.json
-msgctxt "block keyword"
-msgid "photo"
-msgstr "Foto"
-
-#: build/block-library/blocks/image/block.json
-msgctxt "block keyword"
-msgid "img"
-msgstr "img"
-
-#: build/block-library/blocks/image/block.json
+#: build/block-library/blocks/latest-comments/block.json
 msgctxt "block description"
-msgid "Insert an image to make a visual statement."
-msgstr "Ein Bild einfügen, um eine visuelle Aussage zu treffen."
+msgid "Display a list of your most recent comments."
+msgstr "Eine Liste deiner letzten Kommentare anzeigen."
 
-#: build/block-library/blocks/html/block.json
+#: build/block-library/blocks/latest-comments/block.json
 msgctxt "block keyword"
-msgid "embed"
-msgstr "einbetten"
+msgid "recent comments"
+msgstr "Letzte Kommentare"
 
 #: build/block-library/blocks/html/block.json
 msgctxt "block description"
 msgid "Add custom HTML code and preview it as you edit."
 msgstr "Individuellen HTML-Code hinzufügen, mit Voransicht während des Bearbeitens."
 
+#: build/block-library/blocks/html/block.json
+msgctxt "block keyword"
+msgid "embed"
+msgstr "einbetten"
+
 #: build/block-library/blocks/home-link/block.json
 msgctxt "block description"
 msgid "Create a link that always points to the homepage of the site. Usually not necessary if there is already a site title link present in the header."
 msgstr "Erzeuge einen Link, der stets auf die Homepage der Website verweist. Normalerweise unnötig, wenn es im Header bereits einen Seitentitel-Link gibt."
-
-#: build/block-library/blocks/home-link/block.json
-msgctxt "block title"
-msgid "Home Link"
-msgstr "Home-Link"
-
-#: build/block-library/blocks/heading/block.json
-msgctxt "block keyword"
-msgid "subtitle"
-msgstr "Untertitel"
 
 #: build/block-library/blocks/heading/block.json
 msgctxt "block keyword"
 msgid "title"
 msgstr "Titel"
 
-#: build/block-library/blocks/group/block.json
+#: build/block-library/blocks/heading/block.json
 msgctxt "block keyword"
-msgid "section"
-msgstr "Abschnitt"
+msgid "subtitle"
+msgstr "Untertitel"
+
+#: build/block-library/blocks/home-link/block.json
+msgctxt "block title"
+msgid "Home Link"
+msgstr "Home-Link"
 
 #: build/block-library/blocks/group/block.json
 msgctxt "block keyword"
@@ -1504,38 +1300,8 @@ msgstr "Zeile"
 
 #: build/block-library/blocks/group/block.json
 msgctxt "block keyword"
-msgid "wrapper"
-msgstr "Wrapper"
-
-#: build/block-library/blocks/group/block.json
-msgctxt "block keyword"
-msgid "container"
-msgstr "Container"
-
-#: build/block-library/blocks/gallery/block.json
-msgctxt "block keyword"
-msgid "photos"
-msgstr "Fotos"
-
-#: build/block-library/blocks/gallery/block.json
-msgctxt "block keyword"
-msgid "images"
-msgstr "Bilder"
-
-#: build/block-library/blocks/gallery/block.json
-msgctxt "block description"
-msgid "Display multiple images in a rich gallery."
-msgstr "Zeige mehrere Bilder in einer ansprechenden Galerie an."
-
-#: build/block-library/blocks/freeform/block.json
-msgctxt "block description"
-msgid "Use the classic WordPress editor."
-msgstr "Den klassischen WordPress-Editor verwenden."
-
-#: build/block-library/blocks/file/block.json
-msgctxt "block keyword"
-msgid "download"
-msgstr "Download"
+msgid "section"
+msgstr "Abschnitt"
 
 #: build/block-library/blocks/file/block.json
 msgctxt "block keyword"
@@ -1544,18 +1310,58 @@ msgstr "pdf"
 
 #: build/block-library/blocks/file/block.json
 msgctxt "block keyword"
-msgid "document"
-msgstr "Dokument"
+msgid "download"
+msgstr "Download"
+
+#: build/block-library/blocks/freeform/block.json
+msgctxt "block description"
+msgid "Use the classic WordPress editor."
+msgstr "Den klassischen WordPress-Editor verwenden."
+
+#: build/block-library/blocks/gallery/block.json
+msgctxt "block description"
+msgid "Display multiple images in a rich gallery."
+msgstr "Zeige mehrere Bilder in einer ansprechenden Galerie an."
+
+#: build/block-library/blocks/gallery/block.json
+msgctxt "block keyword"
+msgid "images"
+msgstr "Bilder"
+
+#: build/block-library/blocks/gallery/block.json
+msgctxt "block keyword"
+msgid "photos"
+msgstr "Fotos"
+
+#: build/block-library/blocks/group/block.json
+msgctxt "block keyword"
+msgid "container"
+msgstr "Container"
+
+#: build/block-library/blocks/group/block.json
+msgctxt "block keyword"
+msgid "wrapper"
+msgstr "Wrapper"
 
 #: build/block-library/blocks/file/block.json
 msgctxt "block description"
 msgid "Add a link to a downloadable file."
 msgstr "Einen Link zu einer Datei zum Herunterladen hinzufügen."
 
+#: build/block-library/blocks/file/block.json
+msgctxt "block keyword"
+msgid "document"
+msgstr "Dokument"
+
 #: build/block-library/blocks/cover/block.json
 msgctxt "block description"
 msgid "Add an image or video with a text overlay — great for headers."
 msgstr "Ein Bild oder Video mit Overlay-Text hinzufügen – ideal für Header."
+
+#: build/block-library/blocks/categories/block.json
+msgctxt "block description"
+msgid "Display a list of all categories."
+msgstr "Eine Liste aller Kategorien anzeigen."
 
 #: build/block-library/blocks/column/block.json
 msgctxt "block description"
@@ -1567,10 +1373,10 @@ msgctxt "block description"
 msgid "Display code snippets that respect your spacing and tabs."
 msgstr "Code-Schnipsel anzeigen, die deine Abstände und Tabs beibehalten."
 
-#: build/block-library/blocks/categories/block.json
-msgctxt "block description"
-msgid "Display a list of all categories."
-msgstr "Eine Liste aller Kategorien anzeigen."
+#: build/block-library/blocks/calendar/block.json
+msgctxt "block keyword"
+msgid "posts"
+msgstr "Beiträge"
 
 #: build/block-library/blocks/calendar/block.json
 msgctxt "block keyword"
@@ -1578,19 +1384,14 @@ msgid "archive"
 msgstr "Archiv"
 
 #: build/block-library/blocks/calendar/block.json
-msgctxt "block keyword"
-msgid "posts"
-msgstr "Beiträge"
-
-#: build/block-library/blocks/calendar/block.json
 msgctxt "block description"
 msgid "A calendar of your site’s posts."
 msgstr "Ein Kalender mit den Beiträgen deiner Website."
 
-#: build/block-library/blocks/buttons/block.json
-msgctxt "block description"
-msgid "Prompt visitors to take action with a group of button-style links."
-msgstr "Besucher mit einer Gruppe von Button-Links zum Handeln auffordern."
+#: build/block-library/blocks/button/block.json
+msgctxt "block style label"
+msgid "Fill"
+msgstr "Füllen"
 
 #: build/block-library/blocks/button/block.json
 #: build/block-library/blocks/tag-cloud/block.json
@@ -1598,10 +1399,10 @@ msgctxt "block style label"
 msgid "Outline"
 msgstr "Outline"
 
-#: build/block-library/blocks/button/block.json
-msgctxt "block style label"
-msgid "Fill"
-msgstr "Füllen"
+#: build/block-library/blocks/buttons/block.json
+msgctxt "block description"
+msgid "Prompt visitors to take action with a group of button-style links."
+msgstr "Besucher mit einer Gruppe von Button-Links zum Handeln auffordern."
 
 #: build/block-library/blocks/button/block.json
 msgctxt "block description"
@@ -1610,13 +1411,8 @@ msgstr "Besucher mit einem Link im Button-Stil auffordern, aktiv zu werden."
 
 #: build/block-library/blocks/audio/block.json
 msgctxt "block keyword"
-msgid "recording"
-msgstr "Aufnahme"
-
-#: build/block-library/blocks/audio/block.json
-msgctxt "block keyword"
-msgid "podcast"
-msgstr "Podcast"
+msgid "music"
+msgstr "Musik"
 
 #: build/block-library/blocks/audio/block.json
 msgctxt "block keyword"
@@ -1625,44 +1421,37 @@ msgstr "Sound"
 
 #: build/block-library/blocks/audio/block.json
 msgctxt "block keyword"
-msgid "music"
-msgstr "Musik"
+msgid "podcast"
+msgstr "Podcast"
 
 #: build/block-library/blocks/audio/block.json
-msgctxt "block description"
-msgid "Embed a simple audio player."
-msgstr "Einen einfachen Audio-Player einbetten."
+msgctxt "block keyword"
+msgid "recording"
+msgstr "Aufnahme"
 
 #: build/block-library/blocks/archives/block.json
 msgctxt "block description"
 msgid "Display a date archive of your posts."
 msgstr "Ein monatliches Archiv deiner Beiträge anzeigen."
 
-#: lib/compat/wordpress-5.9/class-wp-rest-url-details-controller.php:89
-msgid "The OG image link of the <meta property=\"og:image\"> or <meta property=\"og:image:url\"> element from the URL."
-msgstr "OG-Bild-Link des Elements <meta property=\"og:image\"> oder <meta property=\"og:image:url\"> aus der URL."
+#: build/block-library/blocks/audio/block.json
+msgctxt "block description"
+msgid "Embed a simple audio player."
+msgstr "Einen einfachen Audio-Player einbetten."
 
-#: lib/compat/wordpress-5.9/class-wp-rest-url-details-controller.php:83
-msgid "The content of the <meta name=\"description\"> element from the URL."
-msgstr "Inhalt des Elements <meta name=\"description\"> aus der URL."
+#: build/block-library/blocks/navigation.php:630
+#: build/block-library/index.js:27616
+msgid "Open menu"
+msgstr "Menü öffnen"
 
-#: lib/compat/wordpress-5.9/class-wp-rest-url-details-controller.php:76
-msgid "The favicon image link of the <link rel=\"icon\"> element from the URL."
-msgstr "Favicon-Bild-Link des Elements <link rel=\"icon\"> aus der URL."
+#: build/block-library/blocks/navigation.php:631
+#: build/block-library/index.js:27630
+msgid "Close menu"
+msgstr "Menü schließen"
 
 #: build/block-library/blocks/site-logo.php:42
 msgid "(Home link, opens in a new tab)"
 msgstr "(Link zur Startseite, öffnet in einem neuen Tab)"
-
-#: build/block-library/blocks/navigation.php:631
-#: build/block-library/index.js:27623
-msgid "Close menu"
-msgstr "Menü schließen"
-
-#: build/block-library/blocks/navigation.php:630
-#: build/block-library/index.js:27609
-msgid "Open menu"
-msgstr "Menü öffnen"
 
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:154
 msgid "Styles consolidated from core, theme, and user origins."
@@ -1672,13 +1461,13 @@ msgstr "Styles konsolidiert aus Core, Theme und Benutzerquellen."
 msgid "Settings consolidated from core, theme, and user origins."
 msgstr "Einstellungen konsolidiert aus Core, Theme und Benutzerquellen."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:274
-msgid "Active theme gradients."
-msgstr "Verläufe des aktiven Themes."
-
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:268
 msgid "Active theme font sizes."
 msgstr "Schriftgrößen des aktiven Themes."
+
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:274
+msgid "Active theme gradients."
+msgstr "Verläufe des aktiven Themes."
 
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:262
 msgid "Active theme color palette."
@@ -1695,6 +1484,10 @@ msgstr "Verfügbare Bildgrößen."
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:244
 msgid "Determines whether the image editing feature is enabled."
 msgstr "Stellt fest, ob die Bearbeitung von Bildern aktiviert ist."
+
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:184
+msgid "Returns all the categories for block types that will be shown in the block editor."
+msgstr "Gibt alle Kategorien für Block-Typen aus, die im Block-Editor angezeigt werden."
 
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:238
 msgid "Available image dimensions."
@@ -1716,22 +1509,18 @@ msgstr "Aktiviert individuelle Einheiten."
 msgid "Enables custom spacing."
 msgstr "Aktiviert individuelle Abstände."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:208
-msgid "Enables custom line height."
-msgstr "Aktiviert die individuelle Zeilenhöhe."
-
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:196
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:202
 msgid "Disables custom font size."
 msgstr "Deaktiviert die individuelle Schriftgröße."
 
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:208
+msgid "Enables custom line height."
+msgstr "Aktiviert die individuelle Zeilenhöhe."
+
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:190
 msgid "Disables custom colors."
 msgstr "Deaktiviert individuelle Farben."
-
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:184
-msgid "Returns all the categories for block types that will be shown in the block editor."
-msgstr "Gibt alle Kategorien für Block-Typen aus, die im Block-Editor angezeigt werden."
 
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:178
 msgid "List of allowed mime types and file extensions."
@@ -1741,10 +1530,6 @@ msgstr "Liste erlaubter MIME-Typen und Dateierweiterungen."
 msgid "List of allowed block types."
 msgstr "Liste erlaubter Block-Typen."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:166
-msgid "Enable/Disable Wide/Full Alignments."
-msgstr "Ausrichtungen für Gesamte oder Weite Breite de-/aktivieren."
-
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:142
 msgid "Widget types to hide from Legacy Widget block."
 msgstr "Widget-Typen, die für den Legacy-Widget-Block nicht sichtbar sein sollen."
@@ -1753,13 +1538,9 @@ msgstr "Widget-Typen, die für den Legacy-Widget-Block nicht sichtbar sein solle
 msgid "Enable/disable layouts support in container blocks."
 msgstr "Die Unterstützung für Layouts in Container-Blöcken de-/aktivieren."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:130
-msgid "Returns if the current theme is full site editing-enabled or not."
-msgstr "Gibt aus, ob das aktuelle Theme für Full Site Editing vorbereitet ist oder nicht."
-
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:124
-msgid "Editor styles"
-msgstr "Editor-Stile"
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:166
+msgid "Enable/Disable Wide/Full Alignments."
+msgstr "Ausrichtungen für Gesamte oder Weite Breite de-/aktivieren."
 
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:118
 msgid "Enables experimental Full Site Editing blocks"
@@ -1769,44 +1550,38 @@ msgstr "Aktiviert experimentelle Full-Site-Editing-Blöcke"
 msgid "Sorry, you are not allowed to read the block editor settings."
 msgstr "Du bist leider nicht berechtigt, die Block-Editor-Einstellungen zu lesen."
 
-#: build/block-library/blocks/term-description/block.json
-msgctxt "block description"
-msgid "Display the description of categories, tags and custom taxonomies when viewing an archive."
-msgstr "Kategoriebeschreibungen, Schlagwörter und individuelle Taxonomien beim Aufruf eines Archivs anzeigen."
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:130
+msgid "Returns if the current theme is full site editing-enabled or not."
+msgstr "Gibt aus, ob das aktuelle Theme für Full Site Editing vorbereitet ist oder nicht."
+
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:124
+msgid "Editor styles"
+msgstr "Editor-Stile"
 
 #: build/block-library/blocks/term-description/block.json
 msgctxt "block title"
 msgid "Term Description"
 msgstr "Begriffsbeschreibung"
 
+#: build/block-library/blocks/term-description/block.json
+msgctxt "block description"
+msgid "Display the description of categories, tags and custom taxonomies when viewing an archive."
+msgstr "Kategoriebeschreibungen, Schlagwörter und individuelle Taxonomien beim Aufruf eines Archivs anzeigen."
+
 #: build/block-library/blocks/post-comments-link/block.json
 msgctxt "block title"
 msgid "Post Comments Link"
 msgstr "Kommentar-Link veröffentlichen"
-
-#: build/block-library/blocks/loginout/block.json
-msgctxt "block title"
-msgid "Login/out"
-msgstr "An-/abmelden"
 
 #: build/block-library/blocks/navigation-link/block.json
 msgctxt "block title"
 msgid "Custom Link"
 msgstr "Individueller Link"
 
-#: build/block-library/blocks/navigation-link.php:275
-msgid "A link to a post format"
-msgstr "Ein Link zu einem Beitragsformat"
-
-#: build/block-library/blocks/navigation-link.php:274
-msgid "Post Format Link"
-msgstr "Beitragsformat-Link"
-
-#: build/block-library/blocks/latest-posts.php:147
-#: build/block-library/blocks/latest-posts.php:162
-#: build/block-library/index.js:34865
-msgid "This content is password protected."
-msgstr "Dieser Inhalt ist passwortgeschützt."
+#: build/block-library/blocks/loginout/block.json
+msgctxt "block title"
+msgid "Login/out"
+msgstr "An-/abmelden"
 
 #. translators: 1: Number of comments, 2: post title
 #: build/block-library/blocks/post-comments-link.php:41
@@ -1820,94 +1595,28 @@ msgstr[1] "%1$s Kommentare<span class=\"screen-reader-text\"> auf %2$s</span>"
 msgid "No comments<span class=\"screen-reader-text\"> on %s</span>"
 msgstr "Keine Kommentare<span class=\"screen-reader-text\"> auf %s</span>"
 
+#: build/block-library/blocks/navigation-link.php:275
+msgid "A link to a post format"
+msgstr "Ein Link zu einem Beitragsformat"
+
+#: build/block-library/blocks/navigation-link.php:274
+msgid "Post Format Link"
+msgstr "Beitragsformat-Link"
+
+#: build/block-library/blocks/latest-posts.php:147
+#: build/block-library/blocks/latest-posts.php:162
+#: build/block-library/index.js:34789
+msgid "This content is password protected."
+msgstr "Dieser Inhalt ist passwortgeschützt."
+
 #: lib/compat/wordpress-6.0/block-patterns-update.php:122
 msgctxt "Block pattern title"
 msgid "Offset"
 msgstr "Offset"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:128
-msgctxt "Template name"
-msgid "Single Post"
-msgstr "Einzelbeitrag"
-
-#: lib/compat/wordpress-5.9/templates.php:244
-msgid "Skip to content"
-msgstr "Direkt zum Inhalt wechseln"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:84
-#: build/block-library/index.js:49552
-msgid "The Footer template defines a page area that typically contains site credits, social links, or any other combination of blocks."
-msgstr "Das Footer-Template definiert einen Seitenbereich, der typischerweise Impressum, Social Links oder jede andere Kombination von Blöcken enthält."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:74
-#: build/block-library/index.js:49543
-msgid "The Header template defines a page area that typically contains a title, logo, and main navigation."
-msgstr "Das Header-Template definiert einen Seitenbereich, der typischerweise Titel, Logo und Hauptnavigation enthält."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:64
-msgid "General templates often perform a specific role like displaying post content, and are not tied to any particular area."
-msgstr "Allgemeine Templates übernehmen oft eine spezifische Aufgabe wie das Darstellen von Betragsinhalt und sind an keinen bestimmten Bereich gebunden."
-
-#. translators: %s: Template title
-#: lib/compat/wordpress-5.9/block-template.php:71
-msgid "Empty template: %s"
-msgstr "Leeres Template: %s"
-
-#: lib/compat/wordpress-5.9/class-wp-theme-json-resolver-5-9.php:257
+#: lib/compat/wordpress-6.0/class-wp-theme-json-resolver-6-0.php:206
 msgid "Custom Styles"
 msgstr "Individuelle Stile"
-
-#: lib/compat/wordpress-5.9/widget-render-api-endpoint/class-gb-rest-widget-render-endpoint-polyfill.php:44
-msgid "Current instance settings of the widget."
-msgstr "Aktuelle Instanz-Einstellungen des Widgets."
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:164
-msgctxt "Template name"
-msgid "Search"
-msgstr "Suche"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:156
-msgctxt "Template name"
-msgid "Tag"
-msgstr "Schlagwort"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:152
-msgctxt "Template name"
-msgid "Date"
-msgstr "Datum"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:148
-msgctxt "Template name"
-msgid "Taxonomy"
-msgstr "Taxonomie"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:144
-msgctxt "Template name"
-msgid "Category"
-msgstr "Kategorie"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:140
-msgctxt "Template name"
-msgid "Author"
-msgstr "Autor"
-
-#. translators: %1$s: Template area type, %2$s: the uncategorized template area
-#. value.
-#: lib/compat/wordpress-5.9/block-template-utils.php:209
-msgid "\"%1$s\" is not a supported wp_template_part area value and has been added as \"%2$s\"."
-msgstr "„%1$s“ ist ein nicht unterstützter wp_template_part-Bereichswert und wurde hinzugefügt als „%2$s“."
-
-#: lib/compat/wordpress-5.9/widget-render-api-endpoint/class-gb-rest-widget-render-endpoint-polyfill.php:39
-msgid "The widget type id."
-msgstr "Die Widget-Typ-ID."
-
-#: lib/compat/wordpress-5.9/template-parts.php:82
-msgid "Template Part Area"
-msgstr "Template-Teil-Bereich"
-
-#: lib/compat/wordpress-5.9/template-parts.php:81
-msgid "Template Part Areas"
-msgstr "Template-Teil-Bereiche"
 
 #: build/block-library/blocks/template-part/block.json
 msgctxt "block description"
@@ -1929,63 +1638,34 @@ msgctxt "label for next post link"
 msgid "Next"
 msgstr "Vorwärts"
 
-#: lib/compat/wordpress-5.9/class-wp-rest-url-details-controller.php:232
-msgid "Unable to retrieve body from response at this URL."
-msgstr "Body kann nicht von der Antwort unter dieser URL abgerufen werden."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-url-details-controller.php:226
-msgid "URL not found. Response returned a non-200 status code for this URL."
-msgstr "URL wurde nicht gefunden. Als Antwort kam ein Non-200-Status-Code für diese URL zurück."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-url-details-controller.php:182
-msgid "Sorry, you are not allowed to process remote urls."
-msgstr "Du bist leider nicht berechtigt, entfernte URLs zu verarbeiten."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-url-details-controller.php:114
-msgid "Invalid URL"
-msgstr "Ungültige URL"
-
-#: lib/compat/wordpress-5.9/class-wp-rest-url-details-controller.php:70
-msgid "The contents of the <title> element from the URL."
-msgstr "Inhalte des <title>-Elements aus der URL."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-url-details-controller.php:40
-msgid "The URL to process."
-msgstr "Zu verarbeitende URL."
-
 #: build/block-library/blocks/query-pagination-previous.php:22
-#: build/block-library/index.js:40165
+#: build/block-library/index.js:40090
 msgid "Previous Page"
 msgstr "Vorherige Seite"
 
 #: build/block-library/blocks/query-pagination-next.php:23
-#: build/block-library/index.js:39988
+#: build/block-library/index.js:39913
 msgid "Next Page"
 msgstr "Nächste Seite"
 
 #. translators: %s: Template part slug.
 #. translators: %s: Template part slug
 #: build/block-library/blocks/template-part.php:118
-#: build/block-library/index.js:49441
+#: build/block-library/index.js:49359
 msgid "Template part has been deleted or is unavailable: %s"
 msgstr "Das Template-Teil wurde gelöscht oder ist nicht verfügbar: %s"
 
-#: lib/compat/wordpress-6.1/class-gutenberg-rest-block-patterns-controller.php:196
-msgid "The pattern category slugs."
-msgstr "Kategorie-Titelformen der Vorlage."
+#: lib/compat/wordpress-6.0/class-gutenberg-rest-pattern-directory-controller.php:95
+msgid "https://wordpress.org/support/forums/"
+msgstr "https://de.wordpress.org/support/forums/"
 
 #: lib/compat/wordpress-6.1/class-gutenberg-rest-block-patterns-controller.php:208
 msgid "The pattern content."
 msgstr "Inhalt der Vorlage."
 
-#: lib/compat/wordpress-6.0/class-gutenberg-rest-pattern-directory-controller.php:108
-msgid "https://wordpress.org/support/forums/"
-msgstr "https://de.wordpress.org/support/forums/"
-
-#. translators: %s: Support forums URL.
-#: lib/compat/wordpress-6.0/class-gutenberg-rest-pattern-directory-controller.php:107
-msgid "An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href=\"%s\">support forums</a>."
-msgstr "Ein unerwarteter Fehler ist aufgetreten. Es scheint etwas mit WordPress.org oder dieser Serverkonfiguration nicht zu stimmen. Sollte das Problem weiter bestehen, nutze bitte die <a href=\"%s\">Support-Foren</a>."
+#: lib/compat/wordpress-6.1/class-gutenberg-rest-block-patterns-controller.php:196
+msgid "The pattern category slugs."
+msgstr "Kategorie-Titelformen der Vorlage."
 
 #. translators: Visible only in the front end, this warning takes the place of
 #. a faulty block.
@@ -1995,25 +1675,255 @@ msgstr "Ein unerwarteter Fehler ist aufgetreten. Es scheint etwas mit WordPress.
 msgid "[block rendering halted]"
 msgstr "[Block-Rendering wurde angehalten]"
 
-#: build/block-library/blocks/post-terms/block.json
-msgctxt "block title"
-msgid "Post Terms"
-msgstr "Beitragsbegriffe"
+#. translators: %s: Support forums URL.
+#: lib/compat/wordpress-6.0/class-gutenberg-rest-pattern-directory-controller.php:94
+msgid "An unexpected error occurred. Something may be wrong with WordPress.org or this server&#8217;s configuration. If you continue to have problems, please try the <a href=\"%s\">support forums</a>."
+msgstr "Ein unerwarteter Fehler ist aufgetreten. Es scheint etwas mit WordPress.org oder dieser Serverkonfiguration nicht zu stimmen. Sollte das Problem weiter bestehen, nutze bitte die <a href=\"%s\">Support-Foren</a>."
 
-#: build/block-library/blocks/post-featured-image/block.json
+#: build/block-library/blocks/file/block.json
 msgctxt "block title"
-msgid "Post Featured Image"
-msgstr "Beitragsbild"
+msgid "File"
+msgstr "Datei"
+
+#: build/block-library/blocks/html/block.json
+msgctxt "block title"
+msgid "Custom HTML"
+msgstr "Individuelles HTML"
+
+#: build/block-library/blocks/media-text/block.json
+msgctxt "block title"
+msgid "Media & Text"
+msgstr "Medien und Text"
+
+#: build/block-library/blocks/navigation/block.json
+msgctxt "block title"
+msgid "Navigation"
+msgstr "Navigation"
+
+#: build/block-library/blocks/latest-comments/block.json
+msgctxt "block title"
+msgid "Latest Comments"
+msgstr "Neueste Kommentare"
+
+#: build/block-library/blocks/latest-posts/block.json
+msgctxt "block title"
+msgid "Latest Posts"
+msgstr "Neueste Beiträge"
+
+#: build/block-library/blocks/list/block.json
+msgctxt "block title"
+msgid "List"
+msgstr "Liste"
+
+#: build/block-library/blocks/missing/block.json
+msgctxt "block title"
+msgid "Unsupported"
+msgstr "Nicht unterstützt"
+
+#: build/block-library/blocks/more/block.json
+msgctxt "block title"
+msgid "More"
+msgstr "Mehr"
+
+#: build/block-library/blocks/nextpage/block.json
+msgctxt "block title"
+msgid "Page Break"
+msgstr "Seitenumbruch"
+
+#: build/block-library/blocks/preformatted/block.json
+msgctxt "block title"
+msgid "Preformatted"
+msgstr "Vorformatiert"
+
+#: build/block-library/blocks/pullquote/block.json
+msgctxt "block title"
+msgid "Pullquote"
+msgstr "Pullquote"
+
+#: build/block-library/blocks/block/block.json
+msgctxt "block title"
+msgid "Reusable block"
+msgstr "Wiederverwendbarer Block"
+
+#: build/block-library/blocks/rss/block.json
+msgctxt "block title"
+msgid "RSS"
+msgstr "RSS"
+
+#: build/block-library/blocks/search/block.json
+msgctxt "block title"
+msgid "Search"
+msgstr "Suchen"
+
+#: build/block-library/blocks/group/block.json
+msgctxt "block title"
+msgid "Group"
+msgstr "Gruppe"
+
+#: build/block-library/blocks/shortcode/block.json
+msgctxt "block title"
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: build/block-library/blocks/spacer/block.json
+msgctxt "block title"
+msgid "Spacer"
+msgstr "Abstandshalter"
+
+#: build/block-library/blocks/table/block.json
+msgctxt "block title"
+msgid "Table"
+msgstr "Tabelle"
+
+#: build/block-library/blocks/text-columns/block.json
+msgctxt "block title"
+msgid "Text Columns (deprecated)"
+msgstr "Textspalten (veraltet)"
+
+#: build/block-library/blocks/verse/block.json
+msgctxt "block title"
+msgid "Verse"
+msgstr "Vers"
+
+#: build/block-library/blocks/video/block.json
+msgctxt "block title"
+msgid "Video"
+msgstr "Video"
+
+#: build/block-library/blocks/tag-cloud/block.json
+msgctxt "block title"
+msgid "Tag Cloud"
+msgstr "Schlagwort-Wolke"
+
+#: build/block-library/blocks/social-links/block.json
+msgctxt "block title"
+msgid "Social Icons"
+msgstr "Social-Icons"
+
+#: build/block-library/blocks/social-link/block.json
+msgctxt "block title"
+msgid "Social Icon"
+msgstr "Social-Icon"
+
+#: build/block-library/blocks/site-logo/block.json
+msgctxt "block title"
+msgid "Site Logo"
+msgstr "Website-Logo"
+
+#: build/block-library/blocks/site-tagline/block.json
+msgctxt "block title"
+msgid "Site Tagline"
+msgstr "Website-Untertitel"
+
+#: build/block-library/blocks/site-title/block.json
+msgctxt "block title"
+msgid "Site Title"
+msgstr "Seitentitel"
+
+#: build/block-library/blocks/query/block.json
+msgctxt "block title"
+msgid "Query Loop"
+msgstr "Abfrage-Loop"
+
+#: build/block-library/blocks/post-content/block.json
+msgctxt "block title"
+msgid "Post Content"
+msgstr "Beitragsinhalt"
+
+#: build/block-library/blocks/post-author/block.json
+msgctxt "block title"
+msgid "Post Author"
+msgstr "Beitragsautor"
+
+#: build/block-library/blocks/post-title/block.json
+msgctxt "block title"
+msgid "Post Title"
+msgstr "Beitragstitel"
+
+#: build/block-library/blocks/post-date/block.json
+msgctxt "block title"
+msgid "Post Date"
+msgstr "Beitragsdatum"
 
 #: build/block-library/blocks/post-excerpt/block.json
 msgctxt "block title"
 msgid "Post Excerpt"
 msgstr "Beitragsauszug"
 
-#: build/block-library/blocks/post-date/block.json
+#: build/block-library/blocks/post-featured-image/block.json
 msgctxt "block title"
-msgid "Post Date"
-msgstr "Beitragsdatum"
+msgid "Post Featured Image"
+msgstr "Beitragsbild"
+
+#: build/block-library/blocks/heading/block.json
+msgctxt "block title"
+msgid "Heading"
+msgstr "Überschrift"
+
+#: build/block-library/blocks/quote/block.json
+msgctxt "block title"
+msgid "Quote"
+msgstr "Zitat"
+
+#: build/block-library/blocks/gallery/block.json
+msgctxt "block title"
+msgid "Gallery"
+msgstr "Galerie"
+
+#: build/block-library/blocks/archives/block.json
+msgctxt "block title"
+msgid "Archives"
+msgstr "Archive"
+
+#: build/block-library/blocks/audio/block.json
+msgctxt "block title"
+msgid "Audio"
+msgstr "Audio"
+
+#: build/block-library/blocks/button/block.json
+msgctxt "block title"
+msgid "Button"
+msgstr "Button"
+
+#: build/block-library/blocks/buttons/block.json
+msgctxt "block title"
+msgid "Buttons"
+msgstr "Buttons"
+
+#: build/block-library/blocks/calendar/block.json
+msgctxt "block title"
+msgid "Calendar"
+msgstr "Kalender"
+
+#: build/block-library/blocks/code/block.json
+msgctxt "block title"
+msgid "Code"
+msgstr "Code"
+
+#: build/block-library/blocks/columns/block.json
+msgctxt "block title"
+msgid "Columns"
+msgstr "Spalten"
+
+#: build/block-library/blocks/column/block.json
+msgctxt "block title"
+msgid "Column"
+msgstr "Spalte"
+
+#: build/block-library/blocks/cover/block.json
+msgctxt "block title"
+msgid "Cover"
+msgstr "Cover"
+
+#: build/block-library/blocks/paragraph/block.json
+msgctxt "block title"
+msgid "Paragraph"
+msgstr "Absatz"
+
+#: build/block-library/blocks/image/block.json
+msgctxt "block title"
+msgid "Image"
+msgstr "Bild"
 
 #: build/block-library/blocks/post-comments-form/block.json
 msgctxt "block title"
@@ -2025,257 +1935,32 @@ msgctxt "block title"
 msgid "Post Comments Count"
 msgstr "Beitrags-Kommentar-Anzahl"
 
-#: build/block-library/index.js:8784
-#: build/block-library/blocks/comment-date/block.json
-msgctxt "block title"
-msgid "Comment Date"
-msgstr "Kommentar-Datum"
-
-#: build/block-library/index.js:8640
-#: build/block-library/blocks/comment-content/block.json
-msgctxt "block title"
-msgid "Comment Content"
-msgstr "Kommentar-Inhalt"
-
-#: build/block-library/blocks/post-author/block.json
-msgctxt "block title"
-msgid "Post Author"
-msgstr "Beitragsautor"
-
-#: build/block-library/blocks/post-content/block.json
-msgctxt "block title"
-msgid "Post Content"
-msgstr "Beitragsinhalt"
-
-#: build/block-library/blocks/post-title/block.json
-msgctxt "block title"
-msgid "Post Title"
-msgstr "Beitragstitel"
-
-#: build/block-library/blocks/query/block.json
-msgctxt "block title"
-msgid "Query Loop"
-msgstr "Abfrage-Loop"
-
-#: build/block-library/blocks/template-part/block.json
-msgctxt "block title"
-msgid "Template Part"
-msgstr "Template-Teil"
-
-#: build/block-library/blocks/site-title/block.json
-msgctxt "block title"
-msgid "Site Title"
-msgstr "Seitentitel"
-
-#: build/block-library/blocks/site-tagline/block.json
-msgctxt "block title"
-msgid "Site Tagline"
-msgstr "Website-Untertitel"
-
-#: build/block-library/blocks/site-logo/block.json
-msgctxt "block title"
-msgid "Site Logo"
-msgstr "Website-Logo"
-
-#: build/block-library/blocks/social-link/block.json
-msgctxt "block title"
-msgid "Social Icon"
-msgstr "Social-Icon"
-
-#: build/block-library/blocks/social-links/block.json
-msgctxt "block title"
-msgid "Social Icons"
-msgstr "Social-Icons"
-
-#: build/block-library/blocks/tag-cloud/block.json
-msgctxt "block title"
-msgid "Tag Cloud"
-msgstr "Schlagwort-Wolke"
-
-#: build/block-library/blocks/video/block.json
-msgctxt "block title"
-msgid "Video"
-msgstr "Video"
-
-#: build/block-library/blocks/verse/block.json
-msgctxt "block title"
-msgid "Verse"
-msgstr "Vers"
-
-#: build/block-library/blocks/text-columns/block.json
-msgctxt "block title"
-msgid "Text Columns (deprecated)"
-msgstr "Textspalten (veraltet)"
-
-#: build/block-library/blocks/table/block.json
-msgctxt "block title"
-msgid "Table"
-msgstr "Tabelle"
-
-#: build/block-library/blocks/spacer/block.json
-msgctxt "block title"
-msgid "Spacer"
-msgstr "Abstandshalter"
-
-#: build/block-library/blocks/shortcode/block.json
-msgctxt "block title"
-msgid "Shortcode"
-msgstr "Shortcode"
-
 #: build/block-library/blocks/separator/block.json
 msgctxt "block title"
 msgid "Separator"
 msgstr "Trennzeichen"
 
-#: build/block-library/blocks/group/block.json
+#: build/block-library/blocks/post-terms/block.json
 msgctxt "block title"
-msgid "Group"
-msgstr "Gruppe"
+msgid "Post Terms"
+msgstr "Beitragsbegriffe"
 
-#: build/block-library/blocks/search/block.json
+#: build/block-library/index.js:8844
+#: build/block-library/blocks/comment-date/block.json
 msgctxt "block title"
-msgid "Search"
-msgstr "Suchen"
+msgid "Comment Date"
+msgstr "Kommentar-Datum"
 
-#: build/block-library/blocks/rss/block.json
+#: build/block-library/index.js:8700
+#: build/block-library/blocks/comment-content/block.json
 msgctxt "block title"
-msgid "RSS"
-msgstr "RSS"
+msgid "Comment Content"
+msgstr "Kommentar-Inhalt"
 
-#: build/block-library/blocks/block/block.json
+#: build/block-library/blocks/template-part/block.json
 msgctxt "block title"
-msgid "Reusable block"
-msgstr "Wiederverwendbarer Block"
-
-#: build/block-library/blocks/pullquote/block.json
-msgctxt "block title"
-msgid "Pullquote"
-msgstr "Pullquote"
-
-#: build/block-library/blocks/preformatted/block.json
-msgctxt "block title"
-msgid "Preformatted"
-msgstr "Vorformatiert"
-
-#: build/block-library/blocks/nextpage/block.json
-msgctxt "block title"
-msgid "Page Break"
-msgstr "Seitenumbruch"
-
-#: build/block-library/blocks/more/block.json
-msgctxt "block title"
-msgid "More"
-msgstr "Mehr"
-
-#: build/block-library/blocks/missing/block.json
-msgctxt "block title"
-msgid "Unsupported"
-msgstr "Nicht unterstützt"
-
-#: build/block-library/blocks/list/block.json
-msgctxt "block title"
-msgid "List"
-msgstr "Liste"
-
-#: build/block-library/blocks/latest-posts/block.json
-msgctxt "block title"
-msgid "Latest Posts"
-msgstr "Neueste Beiträge"
-
-#: build/block-library/blocks/latest-comments/block.json
-msgctxt "block title"
-msgid "Latest Comments"
-msgstr "Neueste Kommentare"
-
-#: build/block-library/blocks/navigation/block.json
-msgctxt "block title"
-msgid "Navigation"
-msgstr "Navigation"
-
-#: build/block-library/blocks/media-text/block.json
-msgctxt "block title"
-msgid "Media & Text"
-msgstr "Medien und Text"
-
-#: build/block-library/blocks/html/block.json
-msgctxt "block title"
-msgid "Custom HTML"
-msgstr "Individuelles HTML"
-
-#: build/block-library/blocks/file/block.json
-msgctxt "block title"
-msgid "File"
-msgstr "Datei"
-
-#: build/block-library/blocks/cover/block.json
-msgctxt "block title"
-msgid "Cover"
-msgstr "Cover"
-
-#: build/block-library/blocks/column/block.json
-msgctxt "block title"
-msgid "Column"
-msgstr "Spalte"
-
-#: build/block-library/blocks/columns/block.json
-msgctxt "block title"
-msgid "Columns"
-msgstr "Spalten"
-
-#: build/block-library/blocks/code/block.json
-msgctxt "block title"
-msgid "Code"
-msgstr "Code"
-
-#: build/block-library/blocks/calendar/block.json
-msgctxt "block title"
-msgid "Calendar"
-msgstr "Kalender"
-
-#: build/block-library/blocks/buttons/block.json
-msgctxt "block title"
-msgid "Buttons"
-msgstr "Buttons"
-
-#: build/block-library/blocks/button/block.json
-msgctxt "block title"
-msgid "Button"
-msgstr "Button"
-
-#: build/block-library/blocks/audio/block.json
-msgctxt "block title"
-msgid "Audio"
-msgstr "Audio"
-
-#: build/block-library/blocks/archives/block.json
-msgctxt "block title"
-msgid "Archives"
-msgstr "Archive"
-
-#: build/block-library/blocks/gallery/block.json
-msgctxt "block title"
-msgid "Gallery"
-msgstr "Galerie"
-
-#: build/block-library/blocks/quote/block.json
-msgctxt "block title"
-msgid "Quote"
-msgstr "Zitat"
-
-#: build/block-library/blocks/heading/block.json
-msgctxt "block title"
-msgid "Heading"
-msgstr "Überschrift"
-
-#: build/block-library/blocks/image/block.json
-msgctxt "block title"
-msgid "Image"
-msgstr "Bild"
-
-#: build/block-library/blocks/paragraph/block.json
-msgctxt "block title"
-msgid "Paragraph"
-msgstr "Absatz"
+msgid "Template Part"
+msgstr "Template-Teil"
 
 #: lib/compat/wordpress-6.1/block-template-utils.php:254
 msgid "No theme is defined for this template."
@@ -2287,73 +1972,10 @@ msgstr "Für dieses Template ist kein Theme definiert."
 msgid "No templates exist with that id."
 msgstr "Es existieren keine Templates mit dieser ID."
 
-#: lib/compat/wordpress-5.9/class-wp-rest-global-styles-controller.php:80
-msgid "The id of a template"
-msgstr "Die ID eines Templates"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:124
-msgctxt "Template name"
-msgid "Singular"
-msgstr "Singular"
-
-#: lib/compat/wordpress-5.9/admin-menu.php:77
-msgid "Edit site"
-msgstr "Website bearbeiten"
-
-#: lib/compat/wordpress-5.9/templates.php:82 build/core-data/index.js:2175
-msgid "Themes"
-msgstr "Themes"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:172
-msgctxt "Template name"
-msgid "404"
-msgstr "404"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:168
-msgid "Privacy Policy"
-msgstr "Datenschutzerklärung"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:132
-msgctxt "Template name"
-msgid "Page"
-msgstr "Seite"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:116
-msgctxt "Template name"
-msgid "Home"
-msgstr "Startseite"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:112
-msgctxt "Template name"
-msgid "Index"
-msgstr "Index"
-
 #: lib/compat/wordpress-6.1/block-template-utils.php:23
 msgctxt "Template name"
 msgid "Single"
 msgstr "Singular"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:136
-msgctxt "Template name"
-msgid "Archive"
-msgstr "Archiv"
-
-#: lib/compat/wordpress-5.9/block-template-utils.php:120
-msgctxt "Template name"
-msgid "Front Page"
-msgstr "Startseite"
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:91
-msgid "Whether to bypass Trash and force deletion."
-msgstr "Ob der Papierkorb umgangen und das Löschen erzwungen werden soll."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:57
-msgid "The password for the post if it is password protected."
-msgstr "Das Passwort für den Beitrag, falls dieser passwortgeschützt ist."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:940
-msgid "HTML content to display for this block menu item."
-msgstr "HTML-Inhalt, der für diesen Blockmenüeintrag angezeigt werden soll."
 
 #: lib/compat/wordpress-6.0/rest-api.php:69
 msgid "The ID of the page that should be displayed on the front page"
@@ -2367,30 +1989,6 @@ msgstr "Was auf der Startseite angezeigt werden soll"
 msgid "Site logo."
 msgstr "Website-Logo."
 
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:686
-msgid "Whether to automatically add top level pages to this menu."
-msgstr "Ob Seiten der ersten Ebene automatisch zu diesem Menü hinzugefügt werden sollen."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:242
-msgid "Sorry, you are not allowed to set auto add pages."
-msgstr "Du bist leider nicht berechtigt, das automatische Hinzufügen von Seiten zu aktivieren."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:960
-msgid "Version of the block format used in the HTML content."
-msgstr "Version des Block-Formates, das im HTML-Inhalt genutzt wird."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:954
-msgid "HTML content, transformed for display."
-msgstr "HTML-Inhalt, transformiert für die Anzeige."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:949
-msgid "HTML content, as it exists in the database."
-msgstr "HTML-Inhalt, wie er in der Datenbank vorliegt."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:524
-msgid "Content required if menu item of type block."
-msgstr "Inhalt erforderlich, wenn Menüpunkt vom Typ Block ist."
-
 #: lib/compat/wordpress-6.1/class-gutenberg-rest-block-patterns-controller.php:166
 msgid "The pattern title, in human readable format."
 msgstr "Der Vorlagentitel in menschenlesbarem Format."
@@ -2398,7 +1996,7 @@ msgstr "Der Vorlagentitel in menschenlesbarem Format."
 #. translators: byline. %s: current author.
 #. translators: %s: the author.
 #: build/block-library/blocks/latest-posts.php:123
-#: build/block-library/blocks/rss.php:64 build/block-library/index.js:23213
+#: build/block-library/blocks/rss.php:64 build/block-library/index.js:23222
 msgid "by %s"
 msgstr "von %s"
 
@@ -2406,247 +2004,32 @@ msgstr "von %s"
 msgid "Query"
 msgstr "Abfrage"
 
-#: lib/compat/wordpress-5.9/navigation.php:37
-msgid "Navigation menus."
-msgstr "Navigations-Menüs."
-
 #. translators: accessibility text for the content landmark region.
 #: lib/experimental/navigation-theme-opt-in.php:349
-#: build/block-editor/index.js:11345 build/edit-navigation/index.js:2827
-#: build/edit-post/index.js:1714 build/edit-site/index.js:2057
-#: build/edit-widgets/index.js:1298 build/edit-navigation/index.min.js:2904
-#: build/edit-post/index.min.js:1569 build/edit-widgets/index.min.js:1196
+#: build/block-editor/index.js:11385 build/edit-navigation/index.js:2819
+#: build/edit-post/index.js:1706 build/edit-site/index.js:2047
+#: build/edit-widgets/index.js:1288 build/edit-navigation/index.min.js:2886
+#: build/edit-post/index.min.js:1551 build/edit-widgets/index.min.js:1177
 msgid "Content"
 msgstr "Inhalt"
-
-#. translators: accessibility text for the top bar landmark region.
-#: lib/compat/wordpress-5.9/block-template-utils.php:73
-#: build/block-library/index.js:49542 build/edit-navigation/index.js:2824
-#: build/edit-post/index.js:1711 build/edit-site/index.js:2054
-#: build/edit-widgets/index.js:1295 build/edit-navigation/index.min.js:2902
-#: build/edit-post/index.min.js:1567 build/edit-widgets/index.min.js:1194
-msgid "Header"
-msgstr "Header"
 
 #. translators: ARIA label for the Menu Settings Sidebar tab, not selected.
 #. translators: Text label for the Menu Settings Sidebar tab.
 #. translators: Data label for the Menu Settings Sidebar tab.
 #: build/block-library/blocks/navigation.php:635
-#: build/block-library/index.js:27604 build/block-library/index.js:27614
-#: build/block-library/index.js:28880 build/block-library/index.js:29046
-#: build/core-data/index.js:2134 build/edit-navigation/index.js:3504
-#: build/edit-navigation/index.js:3515 build/edit-navigation/index.js:3517
+#: build/block-library/index.js:27611 build/block-library/index.js:27621
+#: build/block-library/index.js:28887 build/block-library/index.js:29053
+#: build/core-data/index.js:2134 build/edit-navigation/index.js:3496
+#: build/edit-navigation/index.js:3507 build/edit-navigation/index.js:3509
+#: build/edit-navigation/index.min.js:3642
 #: build/edit-navigation/index.min.js:3660
-#: build/edit-navigation/index.min.js:3678
-#: build/edit-navigation/index.min.js:3682
+#: build/edit-navigation/index.min.js:3664
 msgid "Menu"
 msgstr "Menü"
 
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:1065
-msgid "Sort collection by object attribute."
-msgstr "Sammlung nach Objektattribut sortieren."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:1058
-msgid "Order sort attribute ascending or descending."
-msgstr "Sortierattribut aufsteigend oder absteigend."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:1053
-msgid "Limit result set to posts with a specific menu_order value."
-msgstr "Ergebnissatz auf Beiträge begrenzen, die einem bestimmten menu_order-Wert haben."
-
-#. translators: %s: taxonomy name
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:1019
-msgid "The terms assigned to the object in the %s taxonomy."
-msgstr "Die Begriffe, die dem Objekt in der Taxonomie %s zugewiesen sind."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:1007
-msgid "Whether the menu item represents an object that no longer exists."
-msgstr "Ob der Menüeintrag ein Objekt repräsentiert, das nicht mehr existiert."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:993
-msgid "The XFN relationship expressed in the link of this menu item."
-msgstr "Die XFN-Beziehung, die durch den Link dieses Menüeintrags beschrieben wird."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:986
-msgid "The URL to which this menu item points."
-msgstr "Die URL, auf die dieser Menüeintrag zeigt."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:979
-msgid "The singular label used to describe this type of menu item."
-msgstr "Das Label in Einzahl, um diese Art Menüpunkt zu beschreiben."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:969
-msgid "The target attribute of the link element for this menu item."
-msgstr "Das Zielattribut des Link-Elements für diesen Menüeintrag."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:932
-msgid "The DB ID of the original object this menu item represents, e . g . ID for posts and term_id for categories."
-msgstr "Die DB-ID des ursprünglichen Objekts, das dieser Menüpunkt repräsentiert, z.B. die ID für Beiträge oder die term_id für Kategorien."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:926
-msgid "The type of object originally represented, such as \"category,\" \"post\", or \"attachment.\""
-msgstr "Der ursprünglich repräsentierte Objekttyp, z.B. „category“, „post“ oder „attachment“."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:918
-msgid "The DB ID of the nav_menu_item that is this item's menu parent, if any, otherwise 0."
-msgstr "Die DB-ID vom nav_menu_item des Elternobjekts dieses Menüeintrags, falls es eines gibt, sonst 0."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:909
-msgid "The description of this menu item."
-msgstr "Die Beschreibung dieses Menüeintrags."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:895
-msgid "Class names for the link element of this menu item."
-msgstr "Klassennamen für das Link-Element dieses Menüeintrags."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:886
-msgid "Text for the title attribute of the link element for this menu item."
-msgstr "Text für das Titelattribut des Link-Elements dieses Menüeintrags."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:870
-msgid "A named status for the object."
-msgstr "Ein benannter Status für das Objekt."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:862
-msgid "The family of objects originally represented, such as \"post_type\" or \"taxonomy\"."
-msgstr "Die ursprünglich repräsentierte Objektfamilie, z.B. „post_type“ oder „taxonomy“."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:855
-msgid "Name of type."
-msgstr "Name des Typs."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:837
-msgid "HTML title for the object, transformed for display."
-msgstr "HTML-Titel für das Objekt, transformiert für die Anzeige."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:832
-msgid "Title for the object, as it exists in the database."
-msgstr "Titel für das Objekt, wie er in der Datenbank vorliegt."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:793
-msgid "Get linked object."
-msgstr "Verknüpftes Objekt abrufen."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:532
-msgid "Invalid URL."
-msgstr "Ungültige URL."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:518
-msgid "URL required if menu item of type custom."
-msgstr "Bei individuellen Menüeinträgen ist eine URL erforderlich."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:515
-msgid "Title required if menu item of type custom."
-msgstr "Bei individuellen Menüeinträgen ist ein Titel erforderlich."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:508
-#: lib/compat/wordpress-5.9/edit-site-page.php:97
-msgid "Invalid post type."
-msgstr "Ungültiger Inhaltstyp."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:497
-msgid "Invalid post ID."
-msgstr "Ungültige Beitrags-ID."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:347
-msgid "The post cannot be deleted."
-msgstr "Der Beitrag kann nicht gelöscht werden."
-
-#. translators: %s: force=true
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:339
-msgid "Menu items do not support trashing. Set '%s' to delete."
-msgstr "Menüeinträge unterstützen die Papierkorbfunktion nicht. Setze '%s', um sie zu löschen."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:173
-msgid "Cannot create existing post."
-msgstr "Kann den bestehenden Beitrag nicht erstellen."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:159
-msgid "Sorry, you cannot view these menu items, unless you have access to permission edit them. "
-msgstr "Du bist leider nicht berechtigt die Menüeinträge anzuzeigen, es sei denn, du hast die Berechtigung, sie zu bearbeiten. "
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:157
 #: lib/experimental/class-wp-rest-customizer-nonces.php:51
 msgid "Sorry, you are not allowed to edit posts in this post type."
 msgstr "Du bist leider nicht berechtigt, Beiträge dieses Inhaltstyps zu bearbeiten."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:141
-msgid "Sorry, you cannot view this menu item, unless you have access to permission edit it. "
-msgstr "Du bist leider nicht berechtigt, den Menüeintrag anzuzeigen, es sei denn, du hast die Berechtigung, ihn zu bearbeiten. "
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:677
-msgid "The locations assigned to the menu."
-msgstr "Die dem Menü zugeordneten Positionen."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:649
-msgid "Menu location does not exist."
-msgstr "Die Menü-Position existiert nicht."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:533
-msgid "The term cannot be deleted."
-msgstr "Der Begriff kann nicht gelöscht werden."
-
-#. translators: %s: force=true
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:523
-msgid "Terms do not support trashing. Set '%s' to delete."
-msgstr "Begriffe unterstützen die Papierkorbfunktion nicht. Setze '%s', um sie zu löschen."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:341
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:452
-msgid "Parent term does not exist."
-msgstr "Der übergeordnete Begriff existiert nicht."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:335
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:446
-msgid "Cannot set parent term, taxonomy is not hierarchical."
-msgstr "Kann den Eltern-Begriff nicht setzen, da die Taxonomie nicht hierarchisch ist."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:210
-msgid "Sorry, you are not allowed to assign the provided locations."
-msgstr "Du bist leider nicht berechtigt, die angegebenen Position zuzuordnen."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:131
-msgid "Sorry, you cannot view this menu, unless you have access to permission edit it. "
-msgstr "Du bist leider nicht berechtigt, das Menü anzuzeigen, es sei denn, du hast die Berechtigung, es zu bearbeiten. "
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:129
-msgid "Sorry, you are not allowed to edit this term."
-msgstr "Du bist leider nicht berechtigt, diesen Begriff zu bearbeiten."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:111
-msgid "Sorry, you cannot view these menus, unless you have access to permission edit them. "
-msgstr "Du bist leider nicht berechtigt, die Menüs anzuzeigen, es sei denn, du hast die Berechtigung, sie zu bearbeiten. "
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:109
-msgid "Sorry, you are not allowed to edit terms in this taxonomy."
-msgstr "Du bist leider nicht berechtigt, Begriffe in dieser Taxonomie zu bearbeiten."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-locations-controller.php:216
-msgid "The ID of the assigned menu."
-msgstr "Die ID des zugewiesenen Menüs."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-locations-controller.php:210
-msgid "The description of the menu location."
-msgstr "Die Beschreibung der Menü-Position."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-locations-controller.php:204
-msgid "The name of the menu location."
-msgstr "Der Name der Menü-Position."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-locations-controller.php:116
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-locations-controller.php:132
-#: lib/compat/wordpress-5.9/class-wp-rest-menus-controller.php:217
-msgid "Invalid menu location."
-msgstr "Ungültige Menü-Position."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-locations-controller.php:76
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-locations-controller.php:113
-msgid "Sorry, you are not allowed to view menu locations."
-msgstr "Du bist leider nicht berechtigt Menü-Positionen anzuzeigen."
-
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-locations-controller.php:50
-msgid "An alphanumeric identifier for the menu location."
-msgstr "Dies ist ein alphanumerischer Identifikator für die Menü-Position."
 
 #: build/block-library/blocks/navigation/block.json
 #: build/block-library/blocks/social-links/block.json
@@ -2654,210 +2037,9 @@ msgctxt "block keyword"
 msgid "links"
 msgstr "Links"
 
-#: lib/compat/wordpress-5.9/register-global-styles-cpt.php:23
-#: build/core-data/index.js:2159
-msgid "Global Styles"
-msgstr "Globale Stile"
-
-#: lib/compat/wordpress-5.9/block-template.php:87
-msgid "No matching template found."
-msgstr "Kein passendes Template gefunden."
-
-#: lib/compat/wordpress-5.9/templates.php:83 build/blocks/index.js:5559
-#: build/edit-site/index.js:8506 build/edit-site/index.js:8558
-msgid "Theme"
-msgstr "Theme"
-
 #: lib/experiments-page.php:99
 msgid "The block editor includes experimental features that are useable while they're in development. Select the ones you'd like to enable. These features are likely to change, so avoid using them in production."
 msgstr "Der Block-Editor enthält experimentelle Funktionen, die bereits während der Entwicklung nutzbar sind. Wähle die Funktionen aus, die du aktivieren möchtest. Diese Funktionen werden sich wahrscheinlich ändern, verwende sie daher nicht auf produktiven Seiten."
-
-#: lib/compat/wordpress-5.9/template-parts.php:46
-msgid "Template parts to include in your templates."
-msgstr "Template-Teile zum Einfügen in dein Template."
-
-#: lib/compat/wordpress-5.9/template-parts.php:41
-msgid "Template parts list"
-msgstr "Liste von Template-Teilen"
-
-#: lib/compat/wordpress-5.9/template-parts.php:40
-msgid "Template parts list navigation"
-msgstr "Listennavigation für Template-Teile"
-
-#: lib/compat/wordpress-5.9/template-parts.php:39
-msgid "Filter template parts list"
-msgstr "Liste von Template-Teilen filtern"
-
-#: lib/compat/wordpress-5.9/template-parts.php:38
-msgid "Uploaded to this template part"
-msgstr "Zu diesem Template-Teil hochgeladen"
-
-#: lib/compat/wordpress-5.9/template-parts.php:37
-msgid "Insert into template part"
-msgstr "In den Template-Teil einfügen"
-
-#: lib/compat/wordpress-5.9/template-parts.php:36
-msgid "Template part archives"
-msgstr "Template-Teil-Archive"
-
-#: lib/compat/wordpress-5.9/template-parts.php:35
-msgid "No template parts found in Trash."
-msgstr "Im Papierkorb wurden keine Template-Teile gefunden."
-
-#: lib/compat/wordpress-5.9/template-parts.php:34
-msgid "No template parts found."
-msgstr "Keine Template-Teile gefunden."
-
-#: lib/compat/wordpress-5.9/template-parts.php:33
-msgid "Parent Template Part:"
-msgstr "Übergeordnetes Template-Teil:"
-
-#: lib/compat/wordpress-5.9/template-parts.php:32
-msgid "Search Template Parts"
-msgstr "Template-Teil durchsuchen"
-
-#: lib/compat/wordpress-5.9/template-parts.php:31
-msgid "All Template Parts"
-msgstr "Alle Template-Teile"
-
-#: lib/compat/wordpress-5.9/template-parts.php:29
-msgid "View Template Part"
-msgstr "Template-Teil anzeigen"
-
-#: lib/compat/wordpress-5.9/template-parts.php:28
-msgid "Edit Template Part"
-msgstr "Template-Teil bearbeiten"
-
-#: lib/compat/wordpress-5.9/template-parts.php:27
-msgid "New Template Part"
-msgstr "Neues Template-Teil"
-
-#: lib/compat/wordpress-5.9/template-parts.php:26
-msgid "Add New Template Part"
-msgstr "Neues Template-Teil hinzufügen"
-
-#: lib/compat/wordpress-5.9/template-parts.php:25
-msgctxt "Template Part"
-msgid "Add New"
-msgstr "Hinzufügen"
-
-#: lib/compat/wordpress-5.9/template-parts.php:24
-msgctxt "Admin Menu text"
-msgid "Template Parts"
-msgstr "Template-Teile"
-
-#: lib/compat/wordpress-5.9/template-parts.php:23
-#: build/block-library/index.js:49018 build/editor/index.js:5443
-#: build/editor/index.min.js:5240
-msgid "Template Part"
-msgstr "Template-Teil"
-
-#: lib/compat/wordpress-5.9/template-parts.php:22
-#: build/edit-site/index.js:10122 build/editor/index.js:5443
-#: build/editor/index.min.js:5240
-msgid "Template Parts"
-msgstr "Template-Teile"
-
-#: lib/compat/wordpress-5.9/navigation.php:14
-msgid "Navigation Menu"
-msgstr "Navigationsmenü"
-
-#: lib/compat/wordpress-5.9/templates.php:41
-msgid "Templates list"
-msgstr "Templates-Liste"
-
-#: lib/compat/wordpress-5.9/templates.php:40
-msgid "Templates list navigation"
-msgstr "Templates-Listen-Navigation"
-
-#: lib/compat/wordpress-5.9/templates.php:39
-msgid "Filter templates list"
-msgstr "Template-Liste filtern"
-
-#: lib/compat/wordpress-5.9/templates.php:38
-msgid "Uploaded to this template"
-msgstr "Zu diesem Template hochgeladen"
-
-#: lib/compat/wordpress-5.9/templates.php:37
-msgid "Insert into template"
-msgstr "In das Template einfügen"
-
-#: lib/compat/wordpress-5.9/templates.php:36
-msgid "Template archives"
-msgstr "Template-Archive"
-
-#: lib/compat/wordpress-5.9/templates.php:35
-msgid "No templates found in Trash."
-msgstr "Kein Template im Papierkorb gefunden."
-
-#: lib/compat/wordpress-5.9/templates.php:34
-msgid "No templates found."
-msgstr "Kein Template gefunden."
-
-#: lib/compat/wordpress-5.9/templates.php:33
-msgid "Parent Template:"
-msgstr "Eltern-Template:"
-
-#: lib/compat/wordpress-5.9/templates.php:32
-msgid "Search Templates"
-msgstr "Template suchen"
-
-#: lib/compat/wordpress-5.9/templates.php:31
-msgid "All Templates"
-msgstr "Alle Templates"
-
-#: lib/compat/wordpress-5.9/templates.php:29
-msgid "View Template"
-msgstr "Template anzeigen"
-
-#: lib/compat/wordpress-5.9/templates.php:28
-msgid "Edit Template"
-msgstr "Template bearbeiten"
-
-#: lib/compat/wordpress-5.9/templates.php:27
-msgid "New Template"
-msgstr "Neues Template"
-
-#: lib/compat/wordpress-5.9/templates.php:26
-msgid "Add New Template"
-msgstr "Neues Template hinzufügen"
-
-#: lib/compat/wordpress-5.9/templates.php:25
-msgctxt "Template"
-msgid "Add New"
-msgstr "Hinzufügen"
-
-#: lib/compat/wordpress-5.9/templates.php:24
-msgctxt "Admin Menu text"
-msgid "Templates"
-msgstr "Templates"
-
-#. translators: ARIA label for the Template Settings Sidebar tab, not selected.
-#. translators: Text label for the Template Settings Sidebar tab.
-#: lib/compat/wordpress-5.9/templates.php:23 build/edit-post/index.js:5024
-#: build/edit-post/index.js:6524 build/edit-post/index.js:6536
-#: build/edit-post/index.js:6537 build/edit-post/index.js:7004
-#: build/edit-post/index.js:7018 build/edit-post/index.js:7079
-#: build/edit-site/index.js:9639 build/edit-site/index.js:9650
-#: build/edit-site/index.js:9652 build/edit-site/index.js:12237
-#: build/edit-site/index.js:13604 build/edit-post/index.min.js:5258
-#: build/edit-post/index.min.js:6867 build/edit-post/index.min.js:6890
-#: build/edit-post/index.min.js:6892 build/edit-post/index.min.js:7453
-#: build/edit-post/index.min.js:7481 build/edit-post/index.min.js:7552
-msgid "Template"
-msgstr "Template"
-
-#: lib/compat/wordpress-5.9/block-template.php:210
-msgid "No matching template found"
-msgstr "Kein passendes Template gefunden"
-
-#: lib/compat/wordpress-5.9/templates.php:46
-msgid "Templates to include in your theme."
-msgstr "Templates, die in dein Theme eingefügt werden können."
-
-#: lib/compat/wordpress-5.9/templates.php:22 build/edit-site/index.js:10114
-msgid "Templates"
-msgstr "Templates"
 
 #: lib/init.php:52
 msgid "Experiments Settings"
@@ -2872,34 +2054,25 @@ msgstr "Experimentelle Einstellungen"
 msgid "Your site doesn&#8217;t have any %s, so there&#8217;s nothing to display here at the moment."
 msgstr "Deine Website hat keine %s, also gibt es hier im Moment nichts zu sehen."
 
-#. translators: accessibility text for the footer landmark region.
-#: lib/compat/wordpress-5.9/block-template-utils.php:83
-#: build/block-library/index.js:49551 build/edit-navigation/index.js:2839
-#: build/edit-post/index.js:1726 build/edit-site/index.js:2069
-#: build/edit-widgets/index.js:1310 build/edit-navigation/index.min.js:2912
-#: build/edit-post/index.min.js:1577 build/edit-widgets/index.min.js:1204
-msgid "Footer"
-msgstr "Footer"
+#: build/block-library/blocks/rss.php:23
+msgid "RSS Error:"
+msgstr "RSS-Fehler:"
 
 #: build/block-library/blocks/rss.php:27
 msgid "An error has occurred, which probably means the feed is down. Try again later."
 msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zurzeit nicht. Versuche es später erneut."
 
-#: build/block-library/blocks/rss.php:23
-msgid "RSS Error:"
-msgstr "RSS-Fehler:"
-
 #: build/block-library/blocks/search.php:23
 #: build/block-library/blocks/search.php:24
-#: build/block-library/blocks/search.php:45 build/block-editor/index.js:23949
-#: build/block-editor/index.js:25011 build/block-editor/index.js:25130
-#: build/block-library/index.js:42364 build/block-library/index.js:42534
-#: build/block-library/index.js:42535 build/components/index.js:64229
-#: build/edit-site/index.js:8020
+#: build/block-library/blocks/search.php:45 build/block-editor/index.js:23983
+#: build/block-editor/index.js:25045 build/block-editor/index.js:25164
+#: build/block-library/index.js:42289 build/block-library/index.js:42459
+#: build/block-library/index.js:42460 build/components/index.js:64245
+#: build/edit-site/index.js:8145
 msgid "Search"
 msgstr "Suchen"
 
-#: build/block-library/index.js:13728
+#: build/block-library/index.js:13796
 #: build/block-library/blocks/embed/block.json
 msgctxt "block title"
 msgid "Embed"
@@ -2910,21 +2083,15 @@ msgctxt "block title"
 msgid "Classic"
 msgstr "Classic"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:160
-#: build/block-editor/index.js:45285 build/blocks/index.js:5550
-#: build/core-data/index.js:2037
-msgid "Media"
-msgstr "Medien"
+#: build/block-library/blocks/heading/block.json
+msgctxt "block description"
+msgid "Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content."
+msgstr "Führe neue Abschnitte ein und organisiere Inhalte, damit Besucher (und Suchmaschinen) die Struktur deiner Inhalte besser verstehen können."
 
 #: build/block-library/blocks/quote/block.json
 msgctxt "block description"
 msgid "Give quoted text visual emphasis. \"In quoting others, we cite ourselves.\" — Julio Cortázar"
 msgstr "Hebe Zitate visuell hervor. „Indem wir andere zitieren, zitieren wir uns selbst.“ — Julio Cortázar"
-
-#: build/block-library/blocks/heading/block.json
-msgctxt "block description"
-msgid "Introduce new sections and organize content to help visitors (and search engines) understand the structure of your content."
-msgstr "Führe neue Abschnitte ein und organisiere Inhalte, damit Besucher (und Suchmaschinen) die Struktur deiner Inhalte besser verstehen können."
 
 #. translators: Abbreviated date/time format, see
 #. https://www.php.net/manual/datetime.format.php
@@ -2932,11 +2099,10 @@ msgstr "Führe neue Abschnitte ein und organisiere Inhalte, damit Besucher (und 
 msgid "M j, Y g:i a"
 msgstr "j. M Y G:i"
 
-#: lib/compat/wordpress-5.9/block-template-utils.php:63
-#: build/edit-post/index.js:4961 build/edit-site/index.js:4403
-#: build/edit-post/index.min.js:5124
-msgid "General"
-msgstr "Allgemein"
+#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1098
+#: build/block-editor/index.js:2659
+msgid "Medium"
+msgstr "Mittel"
 
 #: build/block-library/blocks/archives.php:97
 msgid "No archives to show."
@@ -2959,86 +2125,66 @@ msgstr "Danke für das Testen von Gutenberg!"
 msgid "Help build Gutenberg"
 msgstr "Hilf, Gutenberg zu gestalten"
 
-#. translators: %s: Gutenberg GitHub repository URL
-#: post-content.php:168
-msgid "If you want to learn more about how to build additional blocks, or if you are interested in helping with the project, head over to the <a href=\"%s\">GitHub repository</a>."
-msgstr "Falls du mehr darüber erfahren willst, wie zusätzliche Blöcke erstellt werden oder falls du bei dem Projekt mithelfen möchtest, komm rüber zum <a href=\"%s\">GitHub repository</a>."
-
 #: post-content.php:159
 msgid "The WordPress community"
 msgstr "Die WordPress-Community"
 
-#: post-content.php:159 build/block-library/index.js:20480
+#: post-content.php:159 build/block-library/index.js:20484
 msgid "Code is Poetry"
 msgstr "Code ist Poesie"
-
-#: post-content.php:155
-msgid "You can build any block you like, static or dynamic, decorative or plain. Here&#8217;s a pullquote block:"
-msgstr "Du kannst jede Art von Block erstellen, die du magst, statisch oder dynamisch, dekorativ oder schlicht. Hier ist ein Block mit einem hervorgehobenen Zitat:"
-
-#: post-content.php:145
-msgid "Any block can opt into these alignments. The embed block has them also, and is responsive out of the box:"
-msgstr "Jeder Block kann sich an diese Ausrichtungen anpassen. Der Einbetten-Block hat sie auch und ist standardmäßig responsiv:"
-
-#: post-content.php:141
-msgid "The above is a gallery with just two images. It&#8217;s an easier way to create visually appealing layouts, without having to deal with floats. You can also easily convert the gallery back to individual images again, by using the block switcher."
-msgstr "Hier oben ist eine Galerie mit nur zwei Bildern. Das ist ein einfache Möglichkeit, optisch ansprechende Layouts zu erstellen, ohne dafür floats zu verwenden. Du kannst die Galerie mithilfe des Block-Umschalters auch wieder zurück in einzelne Bilder konvertieren."
-
-#: post-content.php:128
-msgid "Sure, the full-wide image can be pretty big. But sometimes the image is worth it."
-msgstr "Klar, ein Bild in ganzer Breite kann ganz schön groß sein. Aber manchmal ist das Bild es wert."
-
-#: post-content.php:124
-msgid "Accessibility is important &mdash; don&#8217;t forget image alt attribute"
-msgstr "Barrierefreiheit ist wichtig &ndash; vergiss das alt-Attribut des Bildes nicht"
-
-#: post-content.php:120
-msgid "If you combine the new <strong>wide</strong> and <strong>full-wide</strong> alignments with galleries, you can create a very media rich layout, very quickly:"
-msgstr "Wenn du die neuen <strong>Weite-Breite</strong> und <strong>Volle-Breite</strong>-Ausrichtungen mit Galerien kombinierst, kannst du sehr schnell ein umfangreiches, multimediales Layout erstellen:"
-
-#: post-content.php:116
-msgid "Media Rich"
-msgstr "Multimedial"
-
-#: post-content.php:112
-msgid "You can change the amount of columns in your galleries by dragging a slider in the block inspector in the sidebar."
-msgstr "Du kannst die Anzahl der Spalten in deinen Galerien ändern, indem du einen Schieberegler im Block-Inspektor in der Seitenleiste bewegst."
-
-#: post-content.php:98
-msgid "Blocks can be anything you need. For instance, you may want to add a subdued quote as part of the composition of your text, or you may prefer to display a giant stylized one. All of these options are available in the inserter."
-msgstr "Blöcke können alles sein, was du brauchst. Zum Beispiel willst du vielleicht ein dezentes Zitat als Teil deiner Textkomposition hinzufügen oder du bevorzugst einen gigantischen Stil. All diese Optionen sind im Inserter verfügbar."
-
-#: post-content.php:94
-msgid "The information corresponding to the source of the quote is a separate text field, similar to captions under images, so the structure of the quote is protected even if you select, modify, or remove the source. It&#8217;s always easy to add it back."
-msgstr "Die Quellenangabe des Zitats ist ein separates Textfeld, ähnlich wie bei den Bildunterschriften. Somit bleibt die Struktur des Zitats geschützt, auch wenn du die Quelle auswählst, veränderst oder entfernst. Sie kann jederzeit wieder hinzugefügt werden."
 
 #: post-content.php:89
 msgid "Matt Mullenweg, 2017"
 msgstr "Matt Mullenweg, 2017"
 
+#. translators: %s: Gutenberg GitHub repository URL
+#: post-content.php:168
+msgid "If you want to learn more about how to build additional blocks, or if you are interested in helping with the project, head over to the <a href=\"%s\">GitHub repository</a>."
+msgstr "Falls du mehr darüber erfahren willst, wie zusätzliche Blöcke erstellt werden oder falls du bei dem Projekt mithelfen möchtest, komm rüber zum <a href=\"%s\">GitHub repository</a>."
+
+#: post-content.php:128
+msgid "Sure, the full-wide image can be pretty big. But sometimes the image is worth it."
+msgstr "Klar, ein Bild in ganzer Breite kann ganz schön groß sein. Aber manchmal ist das Bild es wert."
+
+#: post-content.php:155
+msgid "You can build any block you like, static or dynamic, decorative or plain. Here&#8217;s a pullquote block:"
+msgstr "Du kannst jede Art von Block erstellen, die du magst, statisch oder dynamisch, dekorativ oder schlicht. Hier ist ein Block mit einem hervorgehobenen Zitat:"
+
+#: post-content.php:112
+msgid "You can change the amount of columns in your galleries by dragging a slider in the block inspector in the sidebar."
+msgstr "Du kannst die Anzahl der Spalten in deinen Galerien ändern, indem du einen Schieberegler im Block-Inspektor in der Seitenleiste bewegst."
+
 #: post-content.php:88
 msgid "The editor will endeavor to create a new page and post building experience that makes writing rich posts effortless, and has “blocks” to make it easy what today might take shortcodes, custom HTML, or “mystery meat” embed discovery."
 msgstr "Der Editor bietet ein neue Erfahrung beim Erstellen von Seiten und Beiträgen, die das mühelose Schreiben umfangreicher Inhalte ermöglicht. Er hat „Blöcke“, um das Einbetten von Inhalten, die bisher über Shortcodes, individuelles HTML oder „mysteriöse Praktiken“ eingebettet wurden, zu vereinfachen."
 
-#: post-content.php:83
-msgid "A huge benefit of blocks is that you can edit them in place and manipulate your content directly. Instead of having fields for editing things like the source of a quote, or the text of a button, you can directly change the content. Try editing the following quote:"
-msgstr "Ein großer Vorteil von Blöcken ist es, dass du sie direkt vor Ort bearbeiten und deinen Inhalt verändern kannst. Anstelle von Feldern, um beispielsweise die Quelle eines Zitats oder den Text eines Buttons zu bearbeiten, kannst du den Inhalt direkt ändern. Versuche, das folgende Zitat zu bearbeiten:"
+#: post-content.php:94
+msgid "The information corresponding to the source of the quote is a separate text field, similar to captions under images, so the structure of the quote is protected even if you select, modify, or remove the source. It&#8217;s always easy to add it back."
+msgstr "Die Quellenangabe des Zitats ist ein separates Textfeld, ähnlich wie bei den Bildunterschriften. Somit bleibt die Struktur des Zitats geschützt, auch wenn du die Quelle auswählst, veränderst oder entfernst. Sie kann jederzeit wieder hinzugefügt werden."
 
-#: post-content.php:79
-msgid "Visual Editing"
-msgstr "Visuelle Bearbeitung"
+#: post-content.php:145
+msgid "Any block can opt into these alignments. The embed block has them also, and is responsive out of the box:"
+msgstr "Jeder Block kann sich an diese Ausrichtungen anpassen. Der Einbetten-Block hat sie auch und ist standardmäßig responsiv:"
 
-#: post-content.php:70
-msgid "And <em>Lists</em> like this one of course :)"
-msgstr "Und natürlich <em>Listen</em> wie diese :)"
+#: post-content.php:116
+msgid "Media Rich"
+msgstr "Multimedial"
 
-#: post-content.php:69
-msgid "Layout blocks, like Buttons, Hero Images, Separators, etc."
-msgstr "Layout-Blöcke, wie Buttons, Hero-Bilder, Trennzeichen etc."
+#: post-content.php:98
+msgid "Blocks can be anything you need. For instance, you may want to add a subdued quote as part of the composition of your text, or you may prefer to display a giant stylized one. All of these options are available in the inserter."
+msgstr "Blöcke können alles sein, was du brauchst. Zum Beispiel willst du vielleicht ein dezentes Zitat als Teil deiner Textkomposition hinzufügen oder du bevorzugst einen gigantischen Stil. All diese Optionen sind im Inserter verfügbar."
 
-#: post-content.php:68
-msgid "Embeds, like YouTube, Tweets, or other WordPress posts."
-msgstr "Einbettungen, wie YouTube, Tweets, oder andere WordPress-Beiträge."
+#: post-content.php:120
+msgid "If you combine the new <strong>wide</strong> and <strong>full-wide</strong> alignments with galleries, you can create a very media rich layout, very quickly:"
+msgstr "Wenn du die neuen <strong>Weite-Breite</strong> und <strong>Volle-Breite</strong>-Ausrichtungen mit Galerien kombinierst, kannst du sehr schnell ein umfangreiches, multimediales Layout erstellen:"
+
+#: post-content.php:141
+msgid "The above is a gallery with just two images. It&#8217;s an easier way to create visually appealing layouts, without having to deal with floats. You can also easily convert the gallery back to individual images again, by using the block switcher."
+msgstr "Hier oben ist eine Galerie mit nur zwei Bildern. Das ist ein einfache Möglichkeit, optisch ansprechende Layouts zu erstellen, ohne dafür floats zu verwenden. Du kannst die Galerie mithilfe des Block-Umschalters auch wieder zurück in einzelne Bilder konvertieren."
+
+#: post-content.php:124
+msgid "Accessibility is important &mdash; don&#8217;t forget image alt attribute"
+msgstr "Barrierefreiheit ist wichtig &ndash; vergiss das alt-Attribut des Bildes nicht"
 
 #: post-content.php:67
 msgid "Galleries"
@@ -3052,70 +2198,83 @@ msgstr "Bilder und Videos"
 msgid "Text &amp; Headings"
 msgstr "Text und Überschriften"
 
-#: post-content.php:60
-msgid "Go give it a try, you may discover things WordPress can already add into your posts that you didn&#8217;t know about. Here&#8217;s a short list of what you can currently find there:"
-msgstr "Versuch es, du entdeckst womöglich Dinge, die WordPress bereits in deine Beiträge einfügen kann, von denen du nichts wusstest. Hier ist eine kurze Liste, was du aktuell dort findest:"
-
-#: post-content.php:56
-msgid "Imagine everything that WordPress can do is available to you quickly and in the same place on the interface. No need to figure out HTML tags, classes, or remember complicated shortcode syntax. That&#8217;s the spirit behind the inserter—the <code>(+)</code> button you&#8217;ll see around the editor—which allows you to browse all available content blocks and add them into your post. Plugins and themes are able to register their own, opening up all sort of possibilities for rich editing and publishing."
-msgstr "Stell dir vor, alles, was WordPress kann, steht dir direkt auf der Oberfläche zur Verfügung. Keine Notwendigkeit mehr, sich an HTML-Tags, Klassen oder komplizierte Shortcode-Syntax zu erinnern. Das ist der Grundgedanke hinter dem Inserter – der <code>(+)</code>-Button, den du um den Editor herum siehst – mit dem du alle verfügbaren Inhalts-Blöcke suchen und in deinen Beitrag einfügen kannst. Plugins und Themes sind in der Lage, ihre eigenen Blöcke zu registrieren, was alle Arten von Möglichkeiten für eine umfangreiche Bearbeitung und Veröffentlichung eröffnet."
-
-#: post-content.php:52
-msgid "The <em>Inserter</em> Tool"
-msgstr "Das <em>Inserter</em>-Werkzeug"
-
-#: post-content.php:48
-msgid "Try selecting and removing or editing the caption, now you don&#8217;t have to be careful about selecting the image or other text by mistake and ruining the presentation."
-msgstr "Versuche, die Bildunterschrift auszuwählen, zu bewegen oder zu bearbeiten. Jetzt musst du nicht mehr aufpassen, versehentlich ein Bild oder anderen Text auszuwählen und so die Präsentation zu ruinieren."
-
-#: post-content.php:42
-msgid "If your theme supports it, you&#8217;ll see the \"wide\" button on the image toolbar. Give it a try."
-msgstr "Falls dein Theme es unterstützt, siehst du das „Weite-Breite“-Icon in der Bild-Werkzeugleiste. Probiere es aus."
-
-#: post-content.php:36
-msgid "Handling images and media with the utmost care is a primary focus of the new editor. Hopefully, you&#8217;ll find aspects of adding captions or going full-width with your pictures much easier and robust than before."
-msgstr "Der Umgang mit Bildern und Medien mit der größten Sorgfalt ist ein primärer Schwerpunkt des neuen Editors. Hoffentlich empfindest du das Hinzufügen von Bildunterschriften oder das Anzeigen deiner Bilder in voller Breite viel einfacher und solider als bisher."
+#: post-content.php:68
+msgid "Embeds, like YouTube, Tweets, or other WordPress posts."
+msgstr "Einbettungen, wie YouTube, Tweets, oder andere WordPress-Beiträge."
 
 #: post-content.php:32
 msgid "A Picture is Worth a Thousand Words"
 msgstr "Ein Bild sagt mehr als tausend Worte"
 
-#: post-content.php:28
-msgid "Headings are separate blocks as well, which helps with the outline and organization of your content."
-msgstr "Überschriften sind selbst separate Blöcke, was bei der Gliederung und Organisation deiner Inhalte hilft."
+#: lib/demo.php:59
+msgid "Welcome to the Gutenberg Editor"
+msgstr "Willkommen beim Gutenberg-Editor"
 
-#: post-content.php:24
-msgid "... like this one, which is right aligned."
-msgstr "… wie dieser, der rechtsbündig ist."
+#: post-content.php:79
+msgid "Visual Editing"
+msgstr "Visuelle Bearbeitung"
 
-#: post-content.php:20
-msgid "What you are reading now is a <strong>text block</strong> the most basic block of all. The text block has its own controls to be moved freely around the post..."
-msgstr "Was du gerade liest, befindet sich in einem <strong>Text-Block</strong>, der einfachste Block von allen. Der Text-Block kann frei im Beitrag positioniert werden ..."
-
-#: post-content.php:16
-msgid "The goal of this new editor is to make adding rich content to WordPress simple and enjoyable. This whole post is composed of <em>pieces of content</em>—somewhat similar to LEGO bricks—that you can move around and interact with. Move your cursor around and you&#8217;ll notice the different blocks light up with outlines and arrows. Press the arrows to reposition blocks quickly, without fearing about losing things in the process of copying and pasting."
-msgstr "Das Ziel des neuen Editors ist es, das Hinzufügen von umfangreichen Inhalten in WordPress einfach und angenehm zu gestalten. Dieser ganze Beitrag besteht aus einzelnen <em>Inhalts-Elementen</em>, die LEGO-Steinen ähneln, die man bewegen und mit denen man interagieren kann. Lass den Mauszeiger kreisen und du wirst feststellen, dass um die verschiedenen Blöcke herum Umrisse und Pfeile aufleuchten. Drücke die Pfeile, um Blöcke schnell neu zu positionieren, ohne befürchten zu müssen, beim Kopieren und Einfügen etwas zu verlieren."
+#: post-content.php:70
+msgid "And <em>Lists</em> like this one of course :)"
+msgstr "Und natürlich <em>Listen</em> wie diese :)"
 
 #: post-content.php:11
 msgid "Of Mountains &amp; Printing Presses"
 msgstr "Von Bergen und Druckmaschinen"
 
-#: lib/demo.php:59
-msgid "Welcome to the Gutenberg Editor"
-msgstr "Willkommen beim Gutenberg-Editor"
+#: post-content.php:28
+msgid "Headings are separate blocks as well, which helps with the outline and organization of your content."
+msgstr "Überschriften sind selbst separate Blöcke, was bei der Gliederung und Organisation deiner Inhalte hilft."
 
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:821
-msgid "The title for the object."
-msgstr "Der Titel für das Objekt."
+#: post-content.php:36
+msgid "Handling images and media with the utmost care is a primary focus of the new editor. Hopefully, you&#8217;ll find aspects of adding captions or going full-width with your pictures much easier and robust than before."
+msgstr "Der Umgang mit Bildern und Medien mit der größten Sorgfalt ist ein primärer Schwerpunkt des neuen Editors. Hoffentlich empfindest du das Hinzufügen von Bildunterschriften oder das Anzeigen deiner Bilder in voller Breite viel einfacher und solider als bisher."
 
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:67
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:846
-msgid "Unique identifier for the object."
-msgstr "Eindeutige Kennung für das Objekt."
+#: post-content.php:83
+msgid "A huge benefit of blocks is that you can edit them in place and manipulate your content directly. Instead of having fields for editing things like the source of a quote, or the text of a button, you can directly change the content. Try editing the following quote:"
+msgstr "Ein großer Vorteil von Blöcken ist es, dass du sie direkt vor Ort bearbeiten und deinen Inhalt verändern kannst. Anstelle von Feldern, um beispielsweise die Quelle eines Zitats oder den Text eines Buttons zu bearbeiten, kannst du den Inhalt direkt ändern. Versuche, das folgende Zitat zu bearbeiten:"
 
-#: lib/init.php:39
-msgid "https://wordpress.org/support/plugin/gutenberg/"
-msgstr "https://wordpress.org/support/plugin/gutenberg/"
+#: post-content.php:60
+msgid "Go give it a try, you may discover things WordPress can already add into your posts that you didn&#8217;t know about. Here&#8217;s a short list of what you can currently find there:"
+msgstr "Versuch es, du entdeckst womöglich Dinge, die WordPress bereits in deine Beiträge einfügen kann, von denen du nichts wusstest. Hier ist eine kurze Liste, was du aktuell dort findest:"
+
+#: post-content.php:48
+msgid "Try selecting and removing or editing the caption, now you don&#8217;t have to be careful about selecting the image or other text by mistake and ruining the presentation."
+msgstr "Versuche, die Bildunterschrift auszuwählen, zu bewegen oder zu bearbeiten. Jetzt musst du nicht mehr aufpassen, versehentlich ein Bild oder anderen Text auszuwählen und so die Präsentation zu ruinieren."
+
+#: post-content.php:52
+msgid "The <em>Inserter</em> Tool"
+msgstr "Das <em>Inserter</em>-Werkzeug"
+
+#: post-content.php:56
+msgid "Imagine everything that WordPress can do is available to you quickly and in the same place on the interface. No need to figure out HTML tags, classes, or remember complicated shortcode syntax. That&#8217;s the spirit behind the inserter—the <code>(+)</code> button you&#8217;ll see around the editor—which allows you to browse all available content blocks and add them into your post. Plugins and themes are able to register their own, opening up all sort of possibilities for rich editing and publishing."
+msgstr "Stell dir vor, alles, was WordPress kann, steht dir direkt auf der Oberfläche zur Verfügung. Keine Notwendigkeit mehr, sich an HTML-Tags, Klassen oder komplizierte Shortcode-Syntax zu erinnern. Das ist der Grundgedanke hinter dem Inserter – der <code>(+)</code>-Button, den du um den Editor herum siehst – mit dem du alle verfügbaren Inhalts-Blöcke suchen und in deinen Beitrag einfügen kannst. Plugins und Themes sind in der Lage, ihre eigenen Blöcke zu registrieren, was alle Arten von Möglichkeiten für eine umfangreiche Bearbeitung und Veröffentlichung eröffnet."
+
+#: post-content.php:16
+msgid "The goal of this new editor is to make adding rich content to WordPress simple and enjoyable. This whole post is composed of <em>pieces of content</em>—somewhat similar to LEGO bricks—that you can move around and interact with. Move your cursor around and you&#8217;ll notice the different blocks light up with outlines and arrows. Press the arrows to reposition blocks quickly, without fearing about losing things in the process of copying and pasting."
+msgstr "Das Ziel des neuen Editors ist es, das Hinzufügen von umfangreichen Inhalten in WordPress einfach und angenehm zu gestalten. Dieser ganze Beitrag besteht aus einzelnen <em>Inhalts-Elementen</em>, die LEGO-Steinen ähneln, die man bewegen und mit denen man interagieren kann. Lass den Mauszeiger kreisen und du wirst feststellen, dass um die verschiedenen Blöcke herum Umrisse und Pfeile aufleuchten. Drücke die Pfeile, um Blöcke schnell neu zu positionieren, ohne befürchten zu müssen, beim Kopieren und Einfügen etwas zu verlieren."
+
+#: post-content.php:42
+msgid "If your theme supports it, you&#8217;ll see the \"wide\" button on the image toolbar. Give it a try."
+msgstr "Falls dein Theme es unterstützt, siehst du das „Weite-Breite“-Icon in der Bild-Werkzeugleiste. Probiere es aus."
+
+#: post-content.php:69
+msgid "Layout blocks, like Buttons, Hero Images, Separators, etc."
+msgstr "Layout-Blöcke, wie Buttons, Hero-Bilder, Trennzeichen etc."
+
+#: post-content.php:20
+msgid "What you are reading now is a <strong>text block</strong> the most basic block of all. The text block has its own controls to be moved freely around the post..."
+msgstr "Was du gerade liest, befindet sich in einem <strong>Text-Block</strong>, der einfachste Block von allen. Der Text-Block kann frei im Beitrag positioniert werden ..."
+
+#: post-content.php:24
+msgid "... like this one, which is right aligned."
+msgstr "… wie dieser, der rechtsbündig ist."
+
+#. translators: %s: Muliple of t-shirt sizing, eg. 2X-Small
+#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1079
+#: build/block-library/index.js:45601
+msgid "Small"
+msgstr "Klein"
 
 #: lib/init.php:36 lib/init.php:37
 msgid "Support"
@@ -3155,17 +2314,15 @@ msgstr "Jahr auswählen"
 msgid "Archives"
 msgstr "Archive"
 
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:489
-msgid "Invalid term ID."
-msgstr "Ungültige Begriffs-ID."
+#: lib/init.php:39
+msgid "https://wordpress.org/support/plugin/gutenberg/"
+msgstr "https://wordpress.org/support/plugin/gutenberg/"
 
-#: lib/compat/wordpress-5.9/class-wp-rest-menu-items-controller.php:878
-msgid "The ID for the parent of the object."
-msgstr "Die ID des übergeordneten Objekts."
-
-#: lib/init.php:75
-msgid "beta"
-msgstr "Beta"
+#. translators: %s: Muliple of t-shirt sizing, eg. 2X-Large
+#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1116
+#: build/block-editor/index.js:2662 build/block-library/index.js:45607
+msgid "Large"
+msgstr "Groß"
 
 #: build/block-library/blocks/embed/block.json
 msgctxt "block description"
@@ -3176,58 +2333,58 @@ msgstr "Füge einen Block hinzu, der Inhalte von anderen Websites wie Twitter od
 msgid "Pagination"
 msgstr "Seitennummerierung"
 
+#: build/block-library/blocks/read-more.php:24
+#: build/block-library/index.js:23201 build/block-library/index.js:26917
+#: build/block-library/index.js:41633
+msgid "Read more"
+msgstr "Weiterlesen"
+
+#: build/block-library/blocks/categories.php:35
+#: build/block-library/index.js:5978 build/block-library/index.js:6020
+#: build/components/index.js:66614
+msgid "Categories"
+msgstr "Kategorien"
+
+#: build/block-library/blocks/comment-edit-link.php:42
+#: build/block-editor/index.js:44236 build/block-editor/index.js:45059
+#: build/block-editor/index.js:47619 build/block-library/index.js:9049
+#: build/block-library/index.js:32337 build/block-library/index.js:32339
+#: build/block-library/index.js:34207 build/block-library/index.js:50461
+#: build/edit-navigation/index.js:3770 build/edit-navigation/index.min.js:3966
+msgid "Edit"
+msgstr "Bearbeiten"
+
 #. translators: ARIA label for the Block Settings Sidebar tab, not selected.
 #. translators: Text label for the Block Settings Sidebar tab.
 #. translators: Data label for the Block Settings Sidebar tab.
 #: lib/experimental/navigation-theme-opt-in.php:91
 #: lib/experimental/navigation-theme-opt-in.php:96
-#: build/edit-navigation/index.js:3507 build/edit-navigation/index.js:3522
-#: build/edit-navigation/index.js:3524 build/edit-post/index.js:6523
-#: build/edit-post/index.js:6542 build/edit-post/index.js:6544
-#: build/edit-site/index.js:9642 build/edit-site/index.js:9657
-#: build/edit-site/index.js:9659 build/edit-widgets/index.js:3291
-#: build/edit-navigation/index.min.js:3667
-#: build/edit-navigation/index.min.js:3692
-#: build/edit-navigation/index.min.js:3696 build/edit-post/index.min.js:6862
-#: build/edit-post/index.min.js:6902 build/edit-post/index.min.js:6906
-#: build/edit-widgets/index.min.js:3393
+#: build/edit-navigation/index.js:3499 build/edit-navigation/index.js:3514
+#: build/edit-navigation/index.js:3516 build/edit-post/index.js:6504
+#: build/edit-post/index.js:6523 build/edit-post/index.js:6525
+#: build/edit-site/index.js:9805 build/edit-site/index.js:9820
+#: build/edit-site/index.js:9822 build/edit-widgets/index.js:3282
+#: build/edit-navigation/index.min.js:3649
+#: build/edit-navigation/index.min.js:3674
+#: build/edit-navigation/index.min.js:3678 build/edit-post/index.min.js:6836
+#: build/edit-post/index.min.js:6876 build/edit-post/index.min.js:6880
+#: build/edit-widgets/index.min.js:3381
 msgid "Block"
 msgstr "Block"
 
 #: build/block-library/blocks/latest-comments.php:31
 #: build/block-library/blocks/latest-posts.php:72
-#: build/block-library/blocks/rss.php:35 build/block-library/index.js:23209
-#: build/core-data/index.js:6384 build/edit-navigation/index.js:1762
-#: build/edit-post/index.js:8150 build/editor/index.js:9855
-#: build/edit-navigation/index.min.js:1751 build/edit-post/index.min.js:8662
-#: build/editor/index.min.js:10098
+#: build/block-library/blocks/rss.php:35 build/block-library/index.js:23218
+#: build/core-data/index.js:6387 build/edit-navigation/index.js:1762
+#: build/edit-post/index.js:8063 build/editor/index.js:9855
+#: build/edit-navigation/index.min.js:1751 build/edit-post/index.min.js:8537
+#: build/editor/index.min.js:10090
 msgid "(no title)"
 msgstr "(kein Titel)"
-
-#: build/block-library/blocks/read-more.php:24
-#: build/block-library/index.js:23192 build/block-library/index.js:26908
-#: build/block-library/index.js:41708
-msgid "Read more"
-msgstr "Weiterlesen"
 
 #: lib/init.php:53
 msgid "Experiments"
 msgstr "Experimente"
-
-#: build/block-library/blocks/categories.php:35
-#: build/block-library/index.js:5975 build/block-library/index.js:6017
-#: build/components/index.js:66595
-msgid "Categories"
-msgstr "Kategorien"
-
-#: build/block-library/blocks/comment-edit-link.php:42
-#: build/block-editor/index.js:44118 build/block-editor/index.js:44944
-#: build/block-editor/index.js:47492 build/block-library/index.js:8989
-#: build/block-library/index.js:32411 build/block-library/index.js:32413
-#: build/block-library/index.js:34281 build/block-library/index.js:50604
-#: build/edit-navigation/index.js:3778 build/edit-navigation/index.min.js:3984
-msgid "Edit"
-msgstr "Bearbeiten"
 
 #. Description of the plugin
 msgid "Printing since 1440. This is the development plugin for the new block editor in core."
@@ -3236,6 +2393,14 @@ msgstr "Druck seit 1440. Einen Schritt voraus sein, mit dem Entwicklungs-Plugin 
 #: gutenberg.php:43
 msgid "Gutenberg development mode requires files to be built. Run <code>npm install</code> to install dependencies, <code>npm run build</code> to build the files or <code>npm run dev</code> to build the files and watch for changes. Read the <a href=\"https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/code/getting-started-with-code-contribution.md\">contributing</a> file for more information."
 msgstr "Im Gutenberg-Entwicklungsmodus müssen Dateien erstellt werden. Führe <code>npm install</code> aus, um Abhängigkeiten zu installieren, <code>npm run build</code>, um die Dateien zu erstellen oder <code>npm run dev</code>, um die Dateien zu erstellen und Änderungen zu beobachten. Weitere Informationen findest du in der Datei <a href=\"https://github.com/WordPress/gutenberg/blob/HEAD/docs/contributors/code/getting-started-with-code-contribution.md\">Mitwirken (engl.)</a>."
+
+#: lib/init.php:43 lib/init.php:44
+msgid "Documentation"
+msgstr "Dokumentation"
+
+#: build/block-library/blocks/categories.php:34
+msgid "Select Category"
+msgstr "Kategorie auswählen"
 
 #. Author of the plugin
 msgid "Gutenberg Team"
@@ -3249,21 +2414,14 @@ msgstr "https://github.com/WordPress/gutenberg"
 msgid "Gutenberg"
 msgstr "Gutenberg"
 
-#. translators: Date/Time format, see
-#. https://www.php.net/manual/datetime.format.php
-#: lib/compat/wordpress-6.1/date-settings.php:67
-msgid "F j, Y g:i a"
-msgstr "j. F Y G:i"
+#: lib/init.php:27 lib/init.php:28
+msgid "Demo"
+msgstr "Demo"
 
 #. translators: Date format, see https://www.php.net/manual/datetime.format.php
 #: lib/compat/wordpress-6.1/date-settings.php:65
 msgid "F j, Y"
 msgstr "j. F Y"
-
-#. translators: Time format, see https://www.php.net/manual/datetime.format.php
-#: lib/compat/wordpress-6.1/date-settings.php:63
-msgid "g:i a"
-msgstr "G:i"
 
 #. translators: %s: Duration.
 #: lib/compat/wordpress-6.1/date-settings.php:57
@@ -3275,19 +2433,18 @@ msgstr "vor %s"
 msgid "%s from now"
 msgstr "%s ab jetzt"
 
+#. translators: Time format, see https://www.php.net/manual/datetime.format.php
+#: lib/compat/wordpress-6.1/date-settings.php:63
+msgid "g:i a"
+msgstr "G:i"
+
+#. translators: Date/Time format, see
+#. https://www.php.net/manual/datetime.format.php
+#: lib/compat/wordpress-6.1/date-settings.php:67
+msgid "F j, Y g:i a"
+msgstr "j. F Y G:i"
+
 #. translators: %s: Minimum required version
 #: gutenberg.php:30
 msgid "Gutenberg requires WordPress %s or later to function properly. Please upgrade WordPress before activating Gutenberg."
 msgstr "Gutenberg erfordert WordPress %s oder aktueller, um korrekt zu funktionieren. Bitte aktualisiere WordPress, bevor du Gutenberg aktivierst."
-
-#: lib/init.php:43 lib/init.php:44
-msgid "Documentation"
-msgstr "Dokumentation"
-
-#: lib/init.php:27 lib/init.php:28
-msgid "Demo"
-msgstr "Demo"
-
-#: build/block-library/blocks/categories.php:34
-msgid "Select Category"
-msgstr "Kategorie auswählen"
