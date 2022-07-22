@@ -11449,7 +11449,7 @@ const stretchWide = (0,external_wp_element_namespaceObject.createElement)(extern
 
     const blockGapValue = blockGapStyleValue !== null && blockGapStyleValue !== void 0 && blockGapStyleValue.top && !shouldSkipSerialization(blockName, 'spacing', 'blockGap') ? blockGapStyleValue === null || blockGapStyleValue === void 0 ? void 0 : blockGapStyleValue.top : '';
     let output = !!contentSize || !!wideSize ? `
-					${appendSelectors(selector, '> :where(:not(.alignleft):not(.alignright))')} {
+					${appendSelectors(selector, '> :where(:not(.alignleft):not(.alignright):not(.alignfull))')} {
 						max-width: ${contentSize !== null && contentSize !== void 0 ? contentSize : wideSize};
 						margin-left: auto !important;
 						margin-right: auto !important;
