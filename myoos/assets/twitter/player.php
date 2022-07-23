@@ -19,9 +19,9 @@ define('OOS_VALID_MOD', true);
 
 
 if (is_readable('../../includes/local/configure.php')) {
-    include_once '../..//includes/local/configure.php';
+    include_once '../../includes/local/configure.php';
 } else {
-    include_once '../..//includes/configure.php';
+    include_once '../../includes/configure.php';
 }
 
 
