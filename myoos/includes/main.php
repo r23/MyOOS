@@ -212,6 +212,7 @@ if (empty($sContent) || !is_string($sContent)) {
 }
 $sContent = oos_var_prep_for_os($sContent);
 
+
 if ($session->hasStarted() === true) {
     if (!(preg_match('/^[a-z0-9]{26}$/i', $session->getId()) || preg_match('/^[a-z0-9]{32}$/i', $session->getId()))) {
         $session->regenerate(true);
@@ -271,8 +272,6 @@ if ($session->hasStarted() === true) {
     $_SESSION['cart']->calculate();
 }
 
-
-
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_plugin_event.php';
 $oEvent = new plugin_event();
 $oEvent->getInstance();
@@ -298,6 +297,7 @@ if (isset($_GET['action']) || isset($_POST['action'])) {
 }
 
 
+
 // Nav Menu
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_nav_menu.php';
 $oNavMenu = new nav_menu();
@@ -313,3 +313,4 @@ $aTemplate = [];
 // JavaScript with css add header
 $oos_css = '';
 $oos_js = '';
+
