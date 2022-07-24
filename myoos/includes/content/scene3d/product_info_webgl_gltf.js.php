@@ -418,7 +418,8 @@
 
 		<!-- Import maps polyfill -->
 		<!-- Remove this when import maps will be widely supported -->
-		<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+		<script async src="<?php echo OOS_HTTPS_SERVER . OOS_SHOP . 'js/es-module-shims/dist/es-module-shims.js'; ?>"></script>
+
 
 		<script type="importmap">
 			{
@@ -435,6 +436,7 @@
 			import { OrbitControls } from './jsm/controls/OrbitControls.js';
 			import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
 			import { RGBELoader } from './jsm/loaders/RGBELoader.js';
+
 
 			let camera, scene, renderer;
 
