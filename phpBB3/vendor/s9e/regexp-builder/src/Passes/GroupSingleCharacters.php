@@ -2,12 +2,15 @@
 
 /**
 * @package   s9e\RegexpBuilder
-* @copyright Copyright (c) 2016-2021 The s9e authors
+* @copyright Copyright (c) 2016-2022 The s9e authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\RegexpBuilder\Passes;
 
+use function array_diff_key, array_filter, array_unshift, array_values, count;
+
 /**
+* Replaces (?:aa|b|cc|d) with (?:[bd]|aa|cc)
 * Enables other passes to replace (?:[xy]|a[xy]) with a?[xy]
 */
 class GroupSingleCharacters extends AbstractPass

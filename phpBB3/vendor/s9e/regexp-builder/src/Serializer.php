@@ -2,11 +2,12 @@
 
 /**
 * @package   s9e\RegexpBuilder
-* @copyright Copyright (c) 2016-2021 The s9e authors
+* @copyright Copyright (c) 2016-2022 The s9e authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\RegexpBuilder;
 
+use function array_diff_key, array_map, array_unshift, array_values, count, implode, is_array, is_int;
 use s9e\RegexpBuilder\MetaCharacters;
 use s9e\RegexpBuilder\Output\OutputInterface;
 
@@ -102,8 +103,8 @@ class Serializer
 	/**
 	* Return the portion of strings that are composed of a single character
 	*
-	* @param  array[]
-	* @return array   String key => value
+	* @param  array<int, array> $strings
+	* @return array<int, int>            String key => value
 	*/
 	protected function getChars(array $strings): array
 	{

@@ -113,7 +113,7 @@ $lang = array_merge($lang, array(
 	'ACP_HELP_PHPBB'			=> 'Unterstütze phpBB',
 
 	'ACP_ICONS'					=> 'Beitrags-Symbole',
-	'ACP_ICONS_SMILIES'			=> 'Beitrags-Symbole/Smilies',
+	'ACP_ICONS_SMILIES'			=> 'Beitrags-Symbole/Smileys',
 	'ACP_INACTIVE_USERS'		=> 'Inaktive Benutzer',
 	'ACP_INDEX'					=> 'Admin-Übersicht',
 
@@ -174,7 +174,7 @@ $lang = array_merge($lang, array(
 	'ACP_SERVER_CONFIGURATION'	=> 'Server-Konfiguration',
 	'ACP_SERVER_SETTINGS'		=> 'Server und Domain',
 	'ACP_SIGNATURE_SETTINGS'	=> 'Signaturen',
-	'ACP_SMILIES'				=> 'Smilies',
+	'ACP_SMILIES'				=> 'Smileys',
 	'ACP_STYLE_MANAGEMENT'		=> 'Style-Verwaltung',
 	'ACP_STYLES'				=> 'Styles',
 	'ACP_STYLES_CACHE'			=> 'Cache leeren',
@@ -291,7 +291,7 @@ $lang = array_merge($lang, array(
 	'ON'					=> 'An',
 
 	'PARSE_BBCODE'						=> 'BBCode erkennen',
-	'PARSE_SMILIES'						=> 'Smilies erkennen',
+	'PARSE_SMILIES'						=> 'Smileys erkennen',
 	'PARSE_URLS'						=> 'Links erkennen',
 	'PERMISSIONS_TRANSFERRED'			=> 'Berechtigungen übernommen',
 	'PERMISSIONS_TRANSFERRED_EXPLAIN'	=> 'Du hast die Berechtigungen von %1$s übernommen. Du kannst das Board mit den Rechten dieses Benutzers testen; du kannst jedoch nicht den Administrations-Bereich benutzen, da Administrations-Rechte nicht übernommen werden. Du kannst jederzeit <a href="%2$s"><strong>zu deinen Berechtigungen zurückkehren</strong></a>.',

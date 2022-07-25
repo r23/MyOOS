@@ -2,20 +2,22 @@
 
 /**
 * @package   s9e\RegexpBuilder
-* @copyright Copyright (c) 2016-2021 The s9e authors
+* @copyright Copyright (c) 2016-2022 The s9e authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\RegexpBuilder;
 
+use function str_split;
+
 class Escaper
 {
 	/**
-	* @var array Characters to escape in a character class
+	* @var array<string> Characters to escape in a character class
 	*/
 	public $inCharacterClass = ['-' => '\\-', '\\' => '\\\\', ']' => '\\]', '^' => '\\^'];
 
 	/**
-	* @var array Characters to escape outside of a character class
+	* @var array<string> Characters to escape outside of a character class
 	*/
 	public $inLiteral = [
 		'$'  => '\\$',  '(' => '\\(', ')' => '\\)', '*' => '\\*',

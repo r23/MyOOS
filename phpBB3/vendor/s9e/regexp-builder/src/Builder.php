@@ -2,11 +2,13 @@
 
 /**
 * @package   s9e\RegexpBuilder
-* @copyright Copyright (c) 2016-2021 The s9e authors
+* @copyright Copyright (c) 2016-2022 The s9e authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\RegexpBuilder;
 
+use const SORT_STRING;
+use function array_map, array_unique, sort;
 use s9e\RegexpBuilder\Input\InputInterface;
 use s9e\RegexpBuilder\Output\OutputInterface;
 use s9e\RegexpBuilder\Passes\CoalesceOptionalStrings;
@@ -68,7 +70,7 @@ class Builder
 	public function build(array $strings): string
 	{
 		$strings = array_unique($strings);
-		sort($strings);
+		sort($strings, SORT_STRING);
 		if ($this->isEmpty($strings))
 		{
 			return '';

@@ -2,10 +2,13 @@
 
 /**
 * @package   s9e\RegexpBuilder
-* @copyright Copyright (c) 2016-2021 The s9e authors
+* @copyright Copyright (c) 2016-2022 The s9e authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\RegexpBuilder\Passes;
+
+use const false, true;
+use function array_shift, array_unshift, count, end, is_array;
 
 abstract class AbstractPass implements PassInterface
 {
@@ -95,7 +98,7 @@ abstract class AbstractPass implements PassInterface
 	}
 
 	/**
-	* Test whether given string contains a single alternations made of single values
+	* Test whether given string contains a single alternation made of single values
 	*
 	* @param  array $string
 	* @return bool
@@ -108,7 +111,7 @@ abstract class AbstractPass implements PassInterface
 	/**
 	* Test whether given string contains one single element that is an alternation
 	*
-	* @param  array
+	* @param  array $string
 	* @return bool
 	*/
 	protected function isSingleAlternationString(array $string): bool

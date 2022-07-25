@@ -436,6 +436,7 @@ $lang = array_merge($lang, array(
 	'MESSAGE'				=> 'Nachricht',
 	'MESSAGES'				=> 'Nachrichten',
 	'MESSAGES_COUNT'		=> array(
+		0	=> 'beliebig vielen Nachrichten',
 		1	=> '%d Nachricht',
 		2	=> '%d Nachrichten',
 	),
@@ -610,7 +611,7 @@ $lang = array_merge($lang, array(
 	'POSTS_UNAPPROVED_FORUM'=> 'Mindestens ein Beitrag in diesem Forum wurde noch nicht freigegeben.',
 	'POST_BY_AUTHOR'		=> 'von',
 	'POST_BY_FOE'			=> 'Dieser Beitrag wurde von <strong>%1$s</strong>, einem von dir ignorierten Mitglied, erstellt.',
-	'POST_DISPLAY'			=> '%1$sDiesen Beitrag anzeigen%2$s.',
+	'POST_DISPLAY'			=> 'Diesen Beitrag anzeigen',
 	'POST_DAY'				=> '%.2f Beiträge pro Tag',
 	'POST_DELETED_ACTION'	=> 'Gelöschter Beitrag:',
 	'POST_DELETED'			=> 'Dieser Beitrag wurde gelöscht.',

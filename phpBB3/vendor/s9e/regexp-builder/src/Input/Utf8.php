@@ -2,12 +2,13 @@
 
 /**
 * @package   s9e\RegexpBuilder
-* @copyright Copyright (c) 2016-2021 The s9e authors
+* @copyright Copyright (c) 2016-2022 The s9e authors
 * @license   http://www.opensource.org/licenses/mit-license.php The MIT License
 */
 namespace s9e\RegexpBuilder\Input;
 
 use InvalidArgumentException;
+use function array_map, ord, preg_match_all;
 
 class Utf8 extends BaseImplementation
 {

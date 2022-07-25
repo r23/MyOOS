@@ -330,7 +330,7 @@ AddDefaultCharset utf-8
 # | Suppressing the `www.` at the beginning of URLs                    |
 # ----------------------------------------------------------------------
 
-# Rewrite www.example.com → example.com
+# Rewrite www.example.com ? example.com
 
 # The same content should never be available under two different URLs,
 # especially not with and without `www.` at the beginning.
@@ -371,7 +371,7 @@ AddDefaultCharset utf-8
 # | Forcing the `www.` at the beginning of URLs                        |
 # ----------------------------------------------------------------------
 
-# Rewrite example.com → www.example.com
+# Rewrite example.com ? www.example.com
 
 # The same content should never be available under two different URLs,
 # especially not with and without `www.` at the beginning.
@@ -702,7 +702,7 @@ AddDefaultCharset utf-8
 # Set strict a Cross Origin Policy to mitigate information leakage.
 #
 # (1) Cross-Origin-Embedder-Policy prevents a document from loading any
-#     cross-origin resources that don’t explicitly grant the document
+#     cross-origin resources that don�t explicitly grant the document
 #     permission.
 #     https://html.spec.whatwg.org/multipage/origin.html#coep
 #     https://owasp.org/www-project-secure-headers/#cross-origin-embedder-policy
