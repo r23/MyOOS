@@ -20,16 +20,9 @@
    ----------------------------------------------------------------------
  */
 ?>
-
+<?php
+/*
 <script type="module">
-
-    import * as THREE from './js/three/three.module.js';
-
-    import { GUI } from './jsm/libs/dat.gui.module.js';
-    import { OrbitControls } from './jsm/controls/OrbitControls.js';
-    import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
-    import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
-    import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 
     let orbitControls;
     let container, camera, scene, renderer, loader;
@@ -39,12 +32,12 @@
 
             const scenes = {
                 Boombox: {
-                    name: '<?php echo $name; ?>',
-                    url: './media/models/gltf/<?php echo $url; ?>',
-                    author: '<?php echo $model_info['models_author']; ?>',
-                    authorURL: '<?php echo $model_info['models_author_url']; ?>',
-                    cameraPos: new THREE.Vector3( <?php echo $model_info['models_camera_pos']; ?> ),
-                    objectRotation: new THREE.Euler( <?php echo $model_info['models_object_rotation']; ?> ),
+                    name: '<?php echo $name; .',
+                    url: './media/models/gltf/<?php echo $url; ..',
+                    author: '<?php echo $model_info['models_author']; .',
+                    authorURL: '<?php echo $model_info['models_author_url']; .',
+                    cameraPos: new THREE.Vector3( <?php echo $model_info['models_camera_pos']; . ),
+                    objectRotation: new THREE.Euler( <?php echo $model_info['models_object_rotation']; .),
                     <?php if ($model_info['models_add_env_map'] == 'true') {
     echo 'addEnvMap: true,';
 } ?>
@@ -380,6 +373,7 @@
 
             onload();
 </script>
+?>
 <?php
 /**
    ----------------------------------------------------------------------
@@ -403,19 +397,6 @@
    ----------------------------------------------------------------------
  */
 ?>
-
-
-##
-
-
-
-		<div id="info">
-			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - GLTFLoader<br />
-			Battle Damaged Sci-fi Helmet by
-			<a href="https://sketchfab.com/theblueturtle_" target="_blank" rel="noopener">theblueturtle_</a><br />
-			<a href="https://hdrihaven.com/hdri/?h=royal_esplanade" target="_blank" rel="noopener">Royal Esplanade</a> by <a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
-		</div>
-
 		<!-- Import maps polyfill -->
 		<!-- Remove this when import maps will be widely supported -->
 		<script async src="<?php echo OOS_HTTPS_SERVER . OOS_SHOP . 'js/es-module-shims/dist/es-module-shims.js'; ?>"></script>
@@ -424,7 +405,7 @@
 		<script type="importmap">
 			{
 				"imports": {
-					"three": "../build/three.module.js"
+					"three": "./js/three/three.module.js"
 				}
 			}
 		</script>
@@ -448,14 +429,14 @@
 				const container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
-				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.25, 20 );
-				camera.position.set( - 1.8, 0.6, 2.7 );
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.001, 1000 );
+				camera.position.set( <?php echo $model_info['models_camera_pos']; ?> );
 
 				scene = new THREE.Scene();
 
 				new RGBELoader()
-					.setPath( 'textures/equirectangular/' )
-					.load( 'royal_esplanade_1k.hdr', function ( texture ) {
+					.setPath( 'media/textures/equirectangular/' )
+					.load( '<?php echo $model_info['models_hdr']; ?>', function ( texture ) {
 
 						texture.mapping = THREE.EquirectangularReflectionMapping;
 
@@ -466,7 +447,7 @@
 
 						// model
 
-						const loader = new GLTFLoader().setPath( 'models/gltf/DamagedHelmet/glTF/' );
+						const loader = new GLTFLoader().setPath( './media/models/gltf/DamagedHelmet/glTF/' );											
 						loader.load( 'DamagedHelmet.gltf', function ( gltf ) {
 
 							scene.add( gltf.scene );

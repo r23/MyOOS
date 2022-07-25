@@ -46,9 +46,6 @@ button {
 	text-transform: uppercase;
 }
 
-canvas {
-	display: block;
-}
 
 #info {
 	position: absolute;
@@ -57,11 +54,50 @@ canvas {
 	padding: 10px;
 	box-sizing: border-box;
 	text-align: center;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
 	z-index: 1; /* TODO Solve this in HTML */
 }
 
-.dg.ac {
-	z-index: 2 !important; /* TODO Solve this in HTML */
+a, button, input, select {
+	pointer-events: auto;
+}
+
+#overlay {
+	position: absolute;
+	font-size: 16px;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	background: rgba(0,0,0,0.7);
+}
+
+	#overlay button {
+		background: transparent;
+		border: 0;
+		border: 1px solid rgb(255, 255, 255);
+		border-radius: 4px;
+		color: #ffffff;
+		padding: 12px 18px;
+		text-transform: uppercase;
+		cursor: pointer;
+	}
+
+#notSupported {
+	width: 50%;
+	margin: auto;
+	background-color: #f00;
+	margin-top: 20px;
+	padding: 10px;
 }
 </style>
 
@@ -80,11 +116,14 @@ canvas {
 
 	<body>
 	
-	<div id="info">
-		<a href="http://threejs.org" target="_blank" rel="noopener">three.js</a> -
-		<a href="https://github.com/KhronosGroup/glTF" target="_blank" rel="noopener">glTF</a> 2.0 loader<br />
-		{$model.models_name} by <a href="{$model.models_author_url}" target="_blank" rel="noopener">{$model.models_author}</a>	
-	</div>
+		<div id="info">
+			<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a><br />
+			{$model.models_name} by <a href="{$model.models_author_url}" target="_blank" rel="noopener">{$model.models_author}</a>	
+			<a href="https://hdrihaven.com/hdri/?h=royal_esplanade" target="_blank" rel="noopener">Royal Esplanade</a> by <a href="https://hdrihaven.com/" target="_blank" rel="noopener">HDRI Haven</a>
+		</div>
+
+
+
 
 		<div id="container"></div>
 
