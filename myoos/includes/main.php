@@ -313,4 +313,3 @@ $aTemplate = [];
 // JavaScript with css add header
 $oos_css = '';
 $oos_js = '';
-
