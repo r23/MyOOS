@@ -72,7 +72,7 @@ if (!$products_models_result->RecordCount()) {
             'breadcrumb'    => $oBreadcrumb->trail(),
             'heading_title' => $aLang['text_model_not_found'],
             'robots'        => 'noindex,follow,noodp,noydir',
-            'canonical'        => $sCanonical
+            'canonical'     => $sCanonical
         )
     );
 } else {
@@ -85,7 +85,7 @@ if (!$products_models_result->RecordCount()) {
     $model_info = $products_models_result->fields;
 
     $name = oos_strip_suffix($model_info['models_webgl_gltf']);
-    $url = $name . '/' . $model_info['models_extensions'] . '/' . $model_info['models_webgl_gltf'];
+    $model_path = './media/models/gltf/' . $name . '/' . $model_info['models_extensions'] . '/';
 
     ob_start();
     include_once MYOOS_INCLUDE_PATH . '/includes/content/scene3d/product_info_webgl_gltf.js.php';

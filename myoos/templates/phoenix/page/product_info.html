@@ -36,13 +36,10 @@
 				</div>			
 			{else}
 				<!-- IMAGE -->
-				<div class="col-12 col-md-4">		
-					<div class="thumbnail relative mb-3">
-						<figure id="zoom-primary" class="zoom" data-mode="{$smarty.const.IMAGE_ZOOM|default:'mouseover'}">
-							<a class="lightbox {$smarty.const.ZOOM_BUTTON|default:'bottom-right'}" href="{product_image_link dir=large src=$product_info.products_image}" data-plugin-options='{literal}{"type":"image"}{/literal}'><i class="fa fa-search" aria-hidden="true"></i></a>					
-							{product_image dir=large src=$product_info.products_image alt=$product_info.products_name}
-						</figure>
-					</div>			
+				<div class="product-gallery">
+					<div class="product-carousel owl-carousel">
+						<a href="{product_image_link dir=large src=$product_info.products_image}" data-fancybox="prod-gallery" data-hash="one">{product_image dir=large src=$product_info.products_image alt=$product_info.products_name}</a>
+					</div>
 				</div>
 				<!-- /IMAGE -->	
 			{/if}		
@@ -281,34 +278,6 @@
 			</div>
 				
 	
-	{if $products_models_array}
-		<div class="container">
-            <div class="row">
-                <div class="col-12">
-				
-				{foreach $products_models_array as $model}					
-					<div class="product_details_desc clearfix">
-
-
-						<h2>{$model.name}</h2>
-						<div class="ratio ratio-16x9">
-							<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.product_info_webgl_gltf models_id=$model.models_id products_id=$product_info.products_id}" allowfullscreen="allowfullscreen"></iframe>			
-						</div>
-						
-						
-						<div class="description_area">
-							{$lang.navigation_help}
-						</div>
-
-					</div>
-				{/foreach}
-
-						
-				</div>
-			</div>
-		</div>
-	{/if}
-	
 		<div class="container">
             <div class="row">
                 <div class="col-12">
@@ -339,6 +308,37 @@
             </div>		
 		{/if}	
         </div>							
+
+
+	{if $products_models_array}
+		<div class="container">
+            <div class="row">
+                <div class="col-12">
+				
+				{foreach $products_models_array as $model}					
+					<div class="product_details_desc clearfix">
+
+
+						<h2>{$model.name}</h2>
+						<div class="ratio ratio-16x9">
+							<iframe  class="embed-responsive-item" src="{html_href_link content=$filename.product_info_webgl_gltf models_id=$model.models_id products_id=$product_info.products_id}" allowfullscreen="allowfullscreen"></iframe>			
+						</div>
+						
+						
+						<div class="description_area">
+							{$lang.navigation_help}
+						</div>
+
+					</div>
+				{/foreach}
+
+						
+				</div>
+			</div>
+		</div>
+	{/if}
+
+
 
 	{if $model_viewer_array}
 		<div class="container">

@@ -25,7 +25,6 @@
 <!-- Remove this when import maps will be widely supported -->
 <script async src="<?php echo OOS_HTTPS_SERVER . OOS_SHOP . 'js/es-module-shims/dist/es-module-shims.js'; ?>"></script>
 
-
 <script type="importmap">
 	{
 		"imports": {
@@ -71,8 +70,8 @@
 
 				// model
 
-				const loader = new GLTFLoader().setPath( './media/models/gltf/DamagedHelmet/glTF/' );											
-				loader.load( 'DamagedHelmet.gltf', function ( gltf ) {
+				const loader = new GLTFLoader().setPath( '<?php echo $model_path; ?>' );											
+				loader.load( '<?php echo $model_info['models_webgl_gltf']; ?>', function ( gltf ) {
 
 					scene.add( gltf.scene );
 
