@@ -54,12 +54,58 @@ if (!empty($action)) {
             for ($i = 0, $n = $nModelCounter; $i < $n; $i++) {
                 $action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_model' : 'update_model';
 
+
+				$models_hdr = (isset($_POST['models_hdr'][$i]) ? $_POST['models_hdr'][$i] : '');
+				
+				$models_hdr_name = '';
+				$models_hdr_url = '';
+				$models_hdr_author = '';
+				$models_hdr_author_url = '';
+
+				
+				if (!empty($models_hdr)) {
+					switch ($models_hdr) {
+						case 'venetian_crossroads_2k.hdr':
+							$models_hdr_name = 'Venetian Crossroads';
+							$models_hdr_url = 'https://polyhaven.com/a/venetian_crossroads';
+							$models_hdr_author = 'Greg Zaal';
+							$models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';					
+							break;
+
+						case 'vignaioli_2k.hdr':
+							$models_hdr_name = 'Vignaioli';
+							$models_hdr_url = 'https://polyhaven.com/a/vignaioli';
+							$models_hdr_author = 'Greg Zaal';;
+							$models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';					
+							break;
+
+
+						case 'venice_sunset.hdr':
+							$models_hdr_name = 'Venice Sunset';
+							$models_hdr_url = 'https://polyhaven.com/a/venice_sunset';
+							$models_hdr_author = 'Greg Zaal';;
+							$models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';				
+							break;
+					
+						case 'canary_wharf_2k.hdr':
+							$models_hdr_name = 'Canary Wharf';
+							$models_hdr_url = 'https://polyhaven.com/a/canary_wharf';
+							$models_hdr_author = 'Andreas Mischok';
+							$models_hdr_author_url = 'https://polyhaven.com/all?a=Andreas%20Mischok';				
+							break;
+					}
+				}
+
                 $sql_data_array = array('products_id' => intval($products_id),
                                         'models_author' => oos_db_prepare_input($_POST['models_author'][$i]),
                                         'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]),
                                         'models_camera_pos' => oos_db_prepare_input($_POST['models_camera_pos'][$i]),
                                         'models_object_rotation' => oos_db_prepare_input($_POST['models_object_rotation'][$i]),
                                         'models_hdr' => oos_db_prepare_input($_POST['models_hdr'][$i]),
+                                        'models_hdr_name' => oos_db_prepare_input($models_hdr_name),
+                                        'models_hdr_url' => oos_db_prepare_input($models_hdr_url),										
+                                        'models_hdr_author' => oos_db_prepare_input($models_hdr_author),
+                                        'models_hdr_author_url' => oos_db_prepare_input($models_hdr_author_url),										
                                         'models_add_lights' => oos_db_prepare_input($_POST['models_add_lights'][$i]),
                                         'models_add_ground' => oos_db_prepare_input($_POST['models_add_ground'][$i]),
                                         'models_shadows' => oos_db_prepare_input($_POST['models_shadows'][$i]),

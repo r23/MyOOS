@@ -1080,7 +1080,11 @@ $flds = "
   models_shadows C(5) DEFAULT 'true',
   models_add_env_map C(5) DEFAULT 'true',  
   models_extensions C(54) NULL,
-  models_hdr C(255) NULL,
+  models_hdr C(255) NULL, 
+  models_hdr_name C(255) NULL, 
+  models_hdr_url C(255) NULL,
+  models_hdr_author C(255) NULL,
+  models_hdr_author_url C(255) NULL,
   models_date_added T,
   models_last_modified T 
 ";
