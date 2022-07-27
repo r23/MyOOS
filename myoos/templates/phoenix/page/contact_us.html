@@ -21,25 +21,20 @@
 		
 			<!-- left column -->
 			<div class="col-lg-9 col-md-9 col-sm-9">
-				
 			
 				{if $smarty.get.action eq 'success' }
-
 					<!-- alert success -->
 					<div id="alert_success" class="alert alert-success mb-30">
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">&times;</button>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 						{$lang.text_success}
 					</div><!-- end alert success -->
-
-				{else}
-				
+				{else}			
 					{if $error}
 						<div id="alert_mandatory" class="alert alert-danger mb-30">
-							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-hidden="true">&times;</button>
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 							{$lang.form_error}
 						</div>				
 					{/if}
-
 				
 					<form name="contact_us" id="contact_us" class="form-horizontal" action="{html_get_link}" method="POST">
 
