@@ -32,8 +32,8 @@ define('TEXT_MODELS_NAME', '3D-Modellname:');
 define('TEXT_MODELS_TITLE', '3D-Modell-Titel für SEO:');
 define('TEXT_MODELS_DESCRIPTION_META', '3D-Modellbeschreibung für Description Tag (max. 250 Zeichen)');
 
-define('TEXT_MODELS_AUTHOR', '3-D Künstler');
-define('TEXT_MODELS_AUTHOR_URL', 'Die URL vom 3-D Künstler');
+define('TEXT_MODELS_AUTHOR', '3D Künstler');
+define('TEXT_MODELS_AUTHOR_URL', 'Die URL vom 3D Künstler');
 define('TEXT_MODELS_CAMERA_POS', 'Kameraposition');
 define('TEXT_MODELS_OBJECT_ROTATION', 'Objekt-Rotation');
 define('TEXT_MODELS_ADD_LIGHTS', 'Licht');

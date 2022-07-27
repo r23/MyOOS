@@ -506,18 +506,14 @@ if ($action == 'edit_3d') {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_CAMERA_POS; ?></label>
                               <div class="col-lg-10">
-            <?php echo oos_draw_input_field('models_camera_pos['. $nCounter . ']', $models['models_camera_pos']); ?>
+            <?php 
+					$models_camera_pos = (isset($models['models_camera_pos'])) ? $models['models_camera_pos'] : '0.02, 0.01, 0.03';			
+					echo oos_draw_input_field('models_camera_pos['. $nCounter . ']', $models_camera_pos);
+			?>
                               </div>
                            </div>
                         </fieldset>
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_OBJECT_ROTATION; ?></label>
-                              <div class="col-lg-10">
-            <?php echo oos_draw_input_field('models_object_rotation['. $nCounter . ']', $models['models_object_rotation']); ?>
-                              </div>
-                           </div>
-                        </fieldset>
+
 
                        <fieldset>
                            <div class="form-group row mt-5">
@@ -598,141 +594,14 @@ if ($action == 'edit_3d') {
                                     </div>
                                 </div>
                             </div>                       
-                        </fieldset>
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ADD_LIGHTS; ?></label>
-
-                                <div class="col-lg-10">
-                                    <div class="c-radio c-radio-nofont">
-                                        <label>
-            <?php
-                                            echo '<input type="radio" name="models_add_lights['. $nCounter . ']" value="true"';
-            if ($models['models_add_lights'] == 'true') {
-                echo ' checked="checked"';
-            }
-            echo  '>&nbsp;'; ?>
-                                            <span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
-                                        </label>
-                                    </div>
-                                <div class="c-radio c-radio-nofont">
-                                    <label>
-            <?php
-                                            echo '<input type="radio" name="models_add_lights['. $nCounter . ']" value="false"';
-            if ($models['models_add_lights'] == 'false') {
-                echo ' checked="checked"';
-            }
-            echo  '>&nbsp;'; ?>
-                                        <span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>                              
-                        </fieldset>    
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ADD_GROUND; ?></label>
-
-                                <div class="col-lg-10">
-                                    <div class="c-radio c-radio-nofont">
-                                        <label>
-            <?php
-                                            echo '<input type="radio" name="models_add_ground['. $nCounter . ']" value="true"';
-            if ($models['models_add_ground'] == 'true') {
-                echo ' checked="checked"';
-            }
-            echo  '>&nbsp;'; ?>
-                                            <span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
-                                        </label>
-                                    </div>
-                                <div class="c-radio c-radio-nofont">
-                                    <label>
-            <?php
-                                            echo '<input type="radio" name="models_add_ground['. $nCounter . ']" value="false"';
-            if ($models['models_add_ground'] == 'false') {
-                echo ' checked="checked"';
-            }
-            echo  '>&nbsp;'; ?>
-                                        <span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>                              
-                        </fieldset>    
-                        
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_SHADOWS; ?></label>
-
-                                <div class="col-lg-10">
-                                    <div class="c-radio c-radio-nofont">
-                                        <label>
-            <?php
-                                            echo '<input type="radio" name="models_shadows['. $nCounter . ']" value="true"';
-            if ($models['models_shadows'] == 'true') {
-                echo ' checked="checked"';
-            }
-            echo  '>&nbsp;'; ?>
-                                            <span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
-                                        </label>
-                                    </div>
-                                <div class="c-radio c-radio-nofont">
-                                    <label>
-            <?php
-                                            echo '<input type="radio" name="models_shadows['. $nCounter . ']" value="false"';
-            if ($models['models_shadows'] == 'false') {
-                echo ' checked="checked"';
-            }
-            echo  '>&nbsp;'; ?>
-                                        <span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>                              
-                        </fieldset>    
-                       <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_ENV_MAP; ?></label>
-
-                                <div class="col-lg-10">
-                                    <div class="c-radio c-radio-nofont">
-                                        <label>
-            <?php
-                                            echo '<input type="radio" name="models_add_env_map['. $nCounter . ']" value="true"';
-            if ($models['models_add_env_map'] == 'true') {
-                echo ' checked="checked"';
-            }
-            echo  '>&nbsp;'; ?>
-                                            <span class="badge badge-success float-right"><?php echo ENTRY_YES; ?></span>
-                                        </label>
-                                    </div>
-                                <div class="c-radio c-radio-nofont">
-                                    <label>
-            <?php
-                                            echo '<input type="radio" name="models_add_env_map['. $nCounter . ']" value="false"';
-            if ($models['models_add_env_map'] == 'false') {
-                echo ' checked="checked"';
-            }
-            echo  '>&nbsp;'; ?>
-                                        <span class="badge badge-danger float-right"><?php echo ENTRY_NO; ?></span>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>                              
-                        </fieldset>                        
-                    
-                          <fieldset>
-                           <div class="form-group row">
-                              <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_EXTENSIONS; ?></label>
-                              <div class="col-lg-10"><?php echo oos_draw_extensions_menu('models_extensions['. $nCounter . ']', $aExtensions, $models['models_extensions']); ?></div>
-                           </div>
-                        </fieldset>
-                              
-                             
+                        </fieldset>                             
                 </div>
 
             <?php
-                    $nCounter++;
+
+			echo oos_draw_hidden_field('models_extensions['. $nCounter . ']', 'glTF');
+
+			$nCounter++;
             echo oos_draw_hidden_field('model_counter', $nCounter);
         }
     } ?>
