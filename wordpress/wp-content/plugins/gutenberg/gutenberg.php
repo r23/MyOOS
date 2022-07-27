@@ -5,7 +5,7 @@
  * Description: Printing since 1440. This is the development plugin for the new block editor in core.
  * Requires at least: 5.9
  * Requires PHP: 5.6
- * Version: 13.7.2
+ * Version: 13.7.3
  * Author: Gutenberg Team
  * Text Domain: gutenberg
  *
@@ -13,8 +13,8 @@
  */
 
 ### BEGIN AUTO-GENERATED DEFINES
-define( 'GUTENBERG_VERSION', '13.7.2' );
-define( 'GUTENBERG_GIT_COMMIT', '63b8439062c294005287793783a7471d2999d727' );
+define( 'GUTENBERG_VERSION', '13.7.3' );
+define( 'GUTENBERG_GIT_COMMIT', '810adff74d3158eabbd65f4568bbde9e8d56b582' );
 ### END AUTO-GENERATED DEFINES
 
 gutenberg_pre_init();
