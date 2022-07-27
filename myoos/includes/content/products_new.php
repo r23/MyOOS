@@ -57,6 +57,11 @@ if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
 
 
 if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
+	
+	$config = HTMLPurifier_Config::createDefault();
+	$purifier = new HTMLPurifier($config);
+
+	
     $productstable  = $oostable['products'];
     $specialsstable = $oostable['specials'];
     $manufacturersstable = $oostable['manufacturers'];
@@ -66,8 +71,8 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 										p.products_discount1, p.products_discount2, p.products_discount3, p.products_discount4, 
 										p.products_discount1_qty, p.products_discount2_qty, p.products_discount3_qty, p.products_discount4_qty,									   
 									   p.products_product_quantity,  p.products_quantity_order_min, 
-										p.products_quantity_order_max, p.products_quantity_order_units,
-                                       p.products_tax_class_id, pd.products_short_description,
+										p.products_quantity_order_max, p.products_quantity_order_units, p.products_tax_class_id, 
+										left(pd.products_short_description, 230) AS products_short_description,
                                        IF(s.status, s.specials_new_products_price, NULL) AS specials_new_products_price,
 										IF(s.status, s.specials_cross_out_price, null) AS specials_cross_out_price,			   
 										IF(s.status, s.expires_date, null) AS expires_date,										   
@@ -98,8 +103,10 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
         if ($aUser['show_price'] == 1) {
             $new_product_price = $oCurrencies->display_price($products_new['products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
-            $new_product_price_list = $oCurrencies->display_price($products_new['products_price_list'], oos_get_tax_rate($products_new['products_tax_class_id']));
-
+			if ($products_new['products_price_list'] > 0) {
+				$new_product_price_list = $oCurrencies->display_price($products_new['products_price_list'], oos_get_tax_rate($products_new['products_tax_class_id']));
+			}
+			
             if ($products_new['products_discount4'] > 0) {
                 $discount = $products_new['products_discount4'];
             } elseif ($products_new['products_discount3'] > 0) {
@@ -134,11 +141,13 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
         $order_min = number_format($products_new['products_quantity_order_min']);
         $order_max = number_format($products_new['products_quantity_order_max']);
 
+		$products_short_description = $purifier->purify($products_new['products_short_description']);	
+
         $products_new_array[] = array(
                                     'id' => $products_new['products_id'],
                                     'name' => $products_new['products_name'],
                                     'image' => $products_new['products_image'],
-                                    'products_short_description' => $products_new['products_short_description'],
+                                    'products_short_description' => $products_short_description,
                                     'new_product_price' => $new_product_price,
                                     'new_product_price_list' => $new_product_price_list,
                                     'new_product_units' => $products_new['products_units_id'],
@@ -168,16 +177,16 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
         array(
            'breadcrumb'         => $oBreadcrumb->trail(),
            'heading_title'      => $aLang['heading_title'],
-           'robots'                => 'noindex,follow,noodp,noydir',
-           'canonical'            => $sCanonical,
+           'robots'             => 'noindex,follow,noodp,noydir',
+           'canonical'          => $sCanonical,
 
-           'page_split'            => $products_new_split->display_count($aLang['text_display_number_of_products_new']),
-           'display_links'        => $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
-            'numrows'             => $products_new_split->number_of_rows,
-            'numpages'             => $products_new_split->number_of_pages,
+           'page_split'         => $products_new_split->display_count($aLang['text_display_number_of_products_new']),
+           'display_links'      => $products_new_split->display_links(MAX_DISPLAY_PAGE_LINKS, oos_get_all_get_parameters(array('page', 'info'))),
+            'numrows'           => $products_new_split->number_of_rows,
+            'numpages'          => $products_new_split->number_of_pages,
 
-            'page'                => $nPage,
-           'products_new'         => $products_new_array
+            'page'              => $nPage,
+           'products_new'       => $products_new_array
         )
     );
 }
