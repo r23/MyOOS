@@ -8,6 +8,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Rank Math\n"
 "Last-Translator: Rank Math\n"
+"POT-Creation-Date: 2022-07-28 11:19+0000\n"
+"Project-Id-Version: undefined\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -1945,7 +1947,6 @@ msgid "Rank Math: Introducing SEO Performance Reports via Email. %1$sClick here 
 msgstr ""
 
 #. translators: %1$s: post type label, %2$s: edit redirection URL.
-#. translators: %1$s: post type label, %2$s: edit redirection URL.
 #. translators: %1$s: term name, %2$s: edit redirection URL.
 msgid "SEO Notice: you just changed the slug of a %1$s and Rank Math has automatically created a redirection. You can edit the redirection by <a href=\"%2$s\">clicking here</a>."
 msgstr ""
@@ -2329,7 +2330,6 @@ msgid "Use automatic structured data to mark up content, to help Google better u
 msgstr ""
 
 #. translators: Google article snippet doc link
-#. translators: Google article snippet doc link
 msgid "Google does not allow Person as the Publisher for articles. Organization will be used instead. You can read more about this <a href=\"%s\" target=\"_blank\">here</a>."
 msgstr ""
 
@@ -2712,6 +2712,10 @@ msgid "Group Description."
 msgstr ""
 
 msgid "Group description of the current group"
+msgstr ""
+
+#. translators: Link to kb article
+msgid "Get sophisticated AI suggestions for related Keywords, Questions & Links to include in the SEO meta & Content Area. %s."
 msgstr ""
 
 msgid "Rank Math Content AI"
@@ -3541,7 +3545,6 @@ msgid "single %s"
 msgstr ""
 
 #. translators: %1$s: thing, %2$s: Learn more link.
-#. translators: %1$s: thing, %2$s: Learn more link.
 msgid "Change Sitemap settings of %1$s. %2$s."
 msgstr ""
 
@@ -3607,7 +3610,6 @@ msgstr ""
 msgid "Learn more about <a href=\"%s\" target=\"_blank\">KML File</a>."
 msgstr ""
 
-#. translators: xsl value count
 #. translators: xsl value count
 msgid "<a href=\"%s\">&#8592; Sitemap Index</a>"
 msgstr ""
@@ -4330,7 +4332,6 @@ msgid "Prevent password protected pages & posts from getting indexed by search e
 msgstr ""
 
 #. translators: The settings page link
-#. translators: The settings page link
 msgid "To configure meta tags for your media attachment pages, you need to first %s to parent."
 msgstr ""
 
@@ -4393,7 +4394,6 @@ msgstr ""
 msgid "Headline"
 msgstr ""
 
-#. translators: post type name
 #. translators: post type name
 msgid "%s Robots Meta"
 msgstr ""
@@ -4508,7 +4508,6 @@ msgstr ""
 msgid "Description for %s archives"
 msgstr ""
 
-#. translators: taxonomy name
 #. translators: taxonomy name
 msgid "%s Archives Robots Meta"
 msgstr ""

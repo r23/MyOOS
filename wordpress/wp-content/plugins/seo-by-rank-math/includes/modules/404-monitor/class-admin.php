@@ -208,7 +208,7 @@ class Admin extends Base {
 
 		foreach ( $actions as $action_name => $action ) {
 			?>
-				<a class="<?php echo esc_attr( $action['class'] ); ?> rank-math-404-monitor-<?php echo esc_attr( $action_name ); ?>" href="<?php echo esc_attr( $action['href'] ); ?>"><?php echo esc_attr( $action['label'] ); ?></a>
+				<a class="<?php echo esc_attr( $action['class'] ); ?> rank-math-404-monitor-<?php echo esc_attr( $action_name ); ?>" href="<?php echo esc_attr( $action['href'] ); ?>" target="_blank"><?php echo esc_attr( $action['label'] ); ?></a>
 			<?php
 		}
 	}

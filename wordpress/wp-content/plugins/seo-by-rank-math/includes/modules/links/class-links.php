@@ -17,6 +17,7 @@ use WP_Post;
 use RankMath\Helper;
 use RankMath\Traits\Hooker;
 use MyThemeShop\Database\Database;
+use RankMath\Admin\Post_Columns;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -88,7 +89,7 @@ class Links {
 	 * @param array $data      All posts SEO data.
 	 */
 	public function post_column_content( $post_id, $post_data, $data ) {
-		if ( ! Helper::is_post_indexable( $post_id ) || empty( $data ) ) {
+		if ( ! Post_Columns::is_post_indexable( $post_id ) || empty( $data ) ) {
 			return;
 		}
 

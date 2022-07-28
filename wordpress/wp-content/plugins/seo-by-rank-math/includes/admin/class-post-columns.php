@@ -238,7 +238,7 @@ class Post_Columns implements Runner {
 		}
 
 		$data = isset( $this->data[ $post_id ] ) ? $this->data[ $post_id ] : [];
-		if ( ! Helper::is_post_indexable( $post_id ) ) {
+		if ( ! self::is_post_indexable( $post_id ) ) {
 			echo '<span class="rank-math-column-display seo-score no-score "><strong>N/A</strong></span>';
 			echo '<strong>' . esc_html__( 'No Index', 'rank-math' ) . '</strong>';
 			$this->do_action( 'post/column/seo_details', $post_id, $data, $this->data );
@@ -247,7 +247,7 @@ class Post_Columns implements Runner {
 
 		$keyword   = ! empty( $data['rank_math_focus_keyword'] ) ? $data['rank_math_focus_keyword'] : '';
 		$keyword   = explode( ',', $keyword )[0];
-		$is_pillar = ! empty( $data['rank_math_pillar_content'] );
+		$is_pillar = ! empty( $data['rank_math_pillar_content'] ) && 'on' === $data['rank_math_pillar_content'] ? true : false;
 
 		$score = empty( $keyword ) ? false : $this->get_seo_score( $data );
 		$class = ! $score ? 'no-score' : $this->get_seo_score_class( $score );
@@ -320,18 +320,27 @@ class Post_Columns implements Runner {
 	 */
 	private function get_seo_data() {
 		global $wp_query;
-		if ( empty( $wp_query->posts ) ) {
-			return false;
+		$post_ids = [];
+
+		if ( $wp_query->posts ) {
+			$post_ids = array_filter(
+				array_map(
+					function( $post ) {
+						return isset( $post->ID ) ? $post->ID : '';
+					},
+					$wp_query->posts
+				)
+			);
 		}
 
-		$post_ids = array_filter(
-			array_map(
-				function( $post ) {
-					return isset( $post->ID ) ? $post->ID : '';
-				},
-				$wp_query->posts
-			)
-		);
+		$post_id = (int) Param::post( 'post_ID' );
+		if ( $post_id ) {
+			$post_ids[] = $post_id;
+		}
+
+		if ( empty( $post_ids ) ) {
+			return false;
+		}
 
 		$results = Database::table( 'postmeta' )->select( [ 'post_id', 'meta_key', 'meta_value' ] )->whereIn( 'post_id', $post_ids )->whereLike( 'meta_key', 'rank_math' )->get( ARRAY_A );
 		if ( empty( $results ) ) {
@@ -379,5 +388,19 @@ class Post_Columns implements Runner {
 		}
 
 		return 'bad';
+	}
+
+	/**
+	 * Check post indexable status.
+	 *
+	 * @param int $post_id Post ID.
+	 */
+	public static function is_post_indexable( $post_id ) {
+		$robots = Param::post( 'rank_math_robots', false, FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		if ( ! empty( $robots ) ) {
+			return in_array( 'index', $robots, true ) ? true : false;
+		}
+
+		return Helper::is_post_indexable( $post_id );
 	}
 }

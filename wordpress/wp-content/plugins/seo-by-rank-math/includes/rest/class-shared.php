@@ -203,6 +203,8 @@ class Shared extends WP_REST_Controller {
 		$object_type = $request->get_param( 'objectType' );
 		$schemas     = $request->get_param( 'schemas' );
 		$new_ids     = [];
+
+		do_action( 'rank_math/pre_update_schema', $object_id, $object_type );
 		foreach ( $schemas as $meta_id => $schema ) {
 			$type     = is_array( $schema['@type'] ) ? $schema['@type'][0] : $schema['@type'];
 			$meta_key = 'rank_math_schema_' . $type;

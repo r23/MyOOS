@@ -44,7 +44,7 @@ $button_class   = 'button button-primary button-connect' . ( $site_url_valid ? '
 					<?php // translators: variables used to wrap the text in the strong tag. ?>
 					<p><?php printf( wp_kses_post( __( 'You have successfully activated Rank Math. If you find the plugin useful, %1$s feel free to recommend it to your friends or colleagues %2$s.', 'rank-math' ) ), '<strong>', '</strong>' ); ?><?php Admin_Helper::get_social_share(); ?></p>
 					<div class="frm-submit">
-						<button type="submit" class="button button-primary button-xlarge" name="button"><?php echo esc_html__( 'Disconnect Account', 'rank-math' ); ?></button>
+						<button type="submit" class="button button-link-delete button-xlarge" name="button"><?php echo esc_html__( 'Disconnect Account', 'rank-math' ); ?></button>
 					</div>
 				<?php endif; ?>
 			</form>

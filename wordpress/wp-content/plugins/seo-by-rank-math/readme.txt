@@ -5,9 +5,9 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 6.0
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.93.1
-License: GPL-2.0+
-License URI: https://www.gnu.org/licenses/gpl-2.0.txt
+Stable tag: 1.0.94
+License: GPLv3 or later
+License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
 Rank Math SEO is the Best WordPress SEO plugin combines the features of many SEO tools in a single package & helps you multiply your SEO traffic.
 
@@ -580,19 +580,17 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 
 == Changelog ==
 
-= 1.0.93 [July 13, 2022] =
-* Added: [Content Analysis](https://rankmath.com/kb/score-100-in-tests/) can now analyze the content added using the Reusable blocks
-* Improved: [Schema](https://rankmath.com/kb/woocommerce-product-schema/) on product variant pages to make it compatible with Google's Merchant Center
-* Improved: Increased the number of properties shown in the [Analytics Settings](https://rankmath.com/kb/general-settings/#analytics-settings)
-* Fixed: [Include](https://rankmath.com/kb/general-settings/#nofollow-domains) & [Exclude Nofollow domains](https://rankmath.com/kb/general-settings/#no-follow-exclude-domains) were not working well when values were added with `HTTP` protocol
-* Fixed: The `%seo_title%` & `%seo_description%` variables were not working well in the [Schema Generator](https://rankmath.com/kb/schema-generator/)
-* Fixed: Text added to [FAQ](https://rankmath.com/kb/faq-schema-block/#adding-faq-blocks-in-rank-math) & [HowTo](https://rankmath.com/kb/howto-schema/#num-1-2-add-the-howto-block-to-the-post) blocks in the dark theme was not visible
-* Fixed: PHP 8.0 errors on some setups where the Schema was not configured properly
-* Fixed: Compatibility issues with other plugins/themes that used the Tagify library
-
-= 1.0.93.1 [July 18, 2022] =
-* Improved: A visual bug in [SEO Details column](https://rankmath.com/kb/titles-and-meta/#bulk-editing) in the Post list was incorrectly showing `Noindex` on the posts that were not configured with the Rank Math plugin. Nothing was impacted on anyone's website (especially for Google and other search engines) as it was just a visual bug in the backend and that too on the posts/pages that were not configured with Rank Math yet
-* Fixed: [Rank Math Account](https://rankmath.com/kb/free-account-benefits/) used to get automatically disconnected on some setups
-* Fixed: [Keyword Autosuggest](https://rankmath.com/kb/keyword-research-with-rank-math/#keyword-autosuggest) was not working after the last update
+= 1.0.94 [July 28, 2022] =
+* Improved: [NEW!] Major improvement in the plugin's UI
+* Added: Hover effect on inactive radio button type fields like [Redirection Type](https://rankmath.com/kb/general-settings/#redirection-type) & [Breadcrumbs](https://rankmath.com/kb/general-settings/#breadcrumbs)
+* Improved: Show two Schema types in one row in the [Schema Generator](https://rankmath.com/kb/schema-generator/) popup for a better user experience
+* Improved: Disconnect account button styling
+* Improved: Variable dropdown description color for better readability
+* Improved: Width issue of [GSC and GA fields](https://rankmath.com/kb/general-settings/#search-console-settings) if there are no properties in it
+* Improved: Replaced Rank Math's SVG icon in the header of Settings page with the font icon
+* Updated: [Google preview](https://rankmath.com/kb/general-tab/#the-preview-section) as per the current Google design
+* Updated: Font icons in the plugin for better UX
+* Fixed: Adding incorrect [Source URL in Redirection](https://rankmath.com/kb/setting-up-redirections/#source-urls) was leading to a white screen of death
+* Fixed: Pillar icon was incorrectly showing in the [Post list](https://rankmath.com/kb/titles-and-meta/#bulk-editing)
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**
