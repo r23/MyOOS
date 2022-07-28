@@ -271,8 +271,8 @@ if (($action == 'new') || ($action == 'edit')) {
     <div class="card card-default">
         <div class="card-header"><?php echo HEADING_TITLE; ?></div>
             <div class="card-body">
-	
-<?php
+    
+    <?php
 
     echo oos_draw_form('fileupload', 'new_slider', $aContents['categories_slider'], (isset($_GET['sID']) ? 'info=' . $sID : '') . '&action=' . $form_action, 'post', true, 'enctype="multipart/form-data"');
 
@@ -354,7 +354,7 @@ if (($action == 'new') || ($action == 'edit')) {
 
             <?php
         } ?>  
-		
+        
                             </div>
                         </div>
 
@@ -473,18 +473,18 @@ if (($action == 'new') || ($action == 'edit')) {
             $contents[] = array('text' => '' . TEXT_INFO_STATUS_CHANGE . ' ' . oos_date_short($sInfo->date_status_change));
         }
         break;
-        }
+            }
 
             if ((oos_is_not_null($heading)) && (oos_is_not_null($contents))) {
                 ?>
     <td class="w-25" valign="top">
         <table class="table table-striped">
-            <?php
-            $box = new box();
+                <?php
+                $box = new box();
                 echo $box->infoBox($heading, $contents); ?>
         </table> 
     </td> 
-            <?php
+                <?php
             } ?>
           </tr>
         </table>

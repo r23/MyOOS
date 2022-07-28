@@ -1,5 +1,6 @@
 <?php
-/** ---------------------------------------------------------------------
+/**
+ * ---------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -17,7 +18,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ----------------------------------------------------------------------
+ */
 
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
@@ -55,46 +57,46 @@ if (!empty($action)) {
                 $action = (!isset($_POST['models_id'][$i]) || !is_numeric($_POST['models_id'][$i])) ? 'insert_model' : 'update_model';
 
 
-				$models_hdr = (isset($_POST['models_hdr'][$i]) ? $_POST['models_hdr'][$i] : '');
-				
-				$models_hdr_name = '';
-				$models_hdr_url = '';
-				$models_hdr_author = '';
-				$models_hdr_author_url = '';
+                $models_hdr = (isset($_POST['models_hdr'][$i]) ? $_POST['models_hdr'][$i] : '');
 
-				
-				if (!empty($models_hdr)) {
-					switch ($models_hdr) {
-						case 'venetian_crossroads_2k.hdr':
-							$models_hdr_name = 'Venetian Crossroads';
-							$models_hdr_url = 'https://polyhaven.com/a/venetian_crossroads';
-							$models_hdr_author = 'Greg Zaal';
-							$models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';					
-							break;
-
-						case 'vignaioli_2k.hdr':
-							$models_hdr_name = 'Vignaioli';
-							$models_hdr_url = 'https://polyhaven.com/a/vignaioli';
-							$models_hdr_author = 'Greg Zaal';;
-							$models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';					
-							break;
+                $models_hdr_name = '';
+                $models_hdr_url = '';
+                $models_hdr_author = '';
+                $models_hdr_author_url = '';
 
 
-						case 'venice_sunset.hdr':
-							$models_hdr_name = 'Venice Sunset';
-							$models_hdr_url = 'https://polyhaven.com/a/venice_sunset';
-							$models_hdr_author = 'Greg Zaal';;
-							$models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';				
-							break;
-					
-						case 'canary_wharf_2k.hdr':
-							$models_hdr_name = 'Canary Wharf';
-							$models_hdr_url = 'https://polyhaven.com/a/canary_wharf';
-							$models_hdr_author = 'Andreas Mischok';
-							$models_hdr_author_url = 'https://polyhaven.com/all?a=Andreas%20Mischok';				
-							break;
-					}
-				}
+                if (!empty($models_hdr)) {
+                    switch ($models_hdr) {
+                    case 'venetian_crossroads_2k.hdr':
+                        $models_hdr_name = 'Venetian Crossroads';
+                        $models_hdr_url = 'https://polyhaven.com/a/venetian_crossroads';
+                        $models_hdr_author = 'Greg Zaal';
+                        $models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';
+                        break;
+
+                    case 'vignaioli_2k.hdr':
+                        $models_hdr_name = 'Vignaioli';
+                        $models_hdr_url = 'https://polyhaven.com/a/vignaioli';
+                        $models_hdr_author = 'Greg Zaal';;
+                        $models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';
+                        break;
+
+
+                    case 'venice_sunset.hdr':
+                        $models_hdr_name = 'Venice Sunset';
+                        $models_hdr_url = 'https://polyhaven.com/a/venice_sunset';
+                        $models_hdr_author = 'Greg Zaal';;
+                        $models_hdr_author_url = 'https://polyhaven.com/all?a=Greg%20Zaal';
+                        break;
+
+                    case 'canary_wharf_2k.hdr':
+                        $models_hdr_name = 'Canary Wharf';
+                        $models_hdr_url = 'https://polyhaven.com/a/canary_wharf';
+                        $models_hdr_author = 'Andreas Mischok';
+                        $models_hdr_author_url = 'https://polyhaven.com/all?a=Andreas%20Mischok';
+                        break;
+                    }
+                }
 
                 $sql_data_array = array('products_id' => intval($products_id),
                                         'models_author' => oos_db_prepare_input($_POST['models_author'][$i]),
@@ -103,9 +105,9 @@ if (!empty($action)) {
                                         'models_object_rotation' => oos_db_prepare_input($_POST['models_object_rotation'][$i]),
                                         'models_hdr' => oos_db_prepare_input($_POST['models_hdr'][$i]),
                                         'models_hdr_name' => oos_db_prepare_input($models_hdr_name),
-                                        'models_hdr_url' => oos_db_prepare_input($models_hdr_url),										
+                                        'models_hdr_url' => oos_db_prepare_input($models_hdr_url),
                                         'models_hdr_author' => oos_db_prepare_input($models_hdr_author),
-                                        'models_hdr_author_url' => oos_db_prepare_input($models_hdr_author_url),										
+                                        'models_hdr_author_url' => oos_db_prepare_input($models_hdr_author_url),
                                         'models_add_lights' => oos_db_prepare_input($_POST['models_add_lights'][$i]),
                                         'models_add_ground' => oos_db_prepare_input($_POST['models_add_ground'][$i]),
                                         'models_shadows' => oos_db_prepare_input($_POST['models_shadows'][$i]),
@@ -506,10 +508,9 @@ if ($action == 'edit_3d') {
                            <div class="form-group row">
                               <label class="col-lg-2 col-form-label"><?php echo TEXT_MODELS_CAMERA_POS; ?></label>
                               <div class="col-lg-10">
-            <?php 
-					$models_camera_pos = (isset($models['models_camera_pos'])) ? $models['models_camera_pos'] : '0.02, 0.01, 0.03';			
-					echo oos_draw_input_field('models_camera_pos['. $nCounter . ']', $models_camera_pos);
-			?>
+            <?php
+                    $models_camera_pos = (isset($models['models_camera_pos'])) ? $models['models_camera_pos'] : '0.02, 0.01, 0.03';
+            echo oos_draw_input_field('models_camera_pos['. $nCounter . ']', $models_camera_pos); ?>
                               </div>
                            </div>
                         </fieldset>
@@ -599,9 +600,9 @@ if ($action == 'edit_3d') {
 
             <?php
 
-			echo oos_draw_hidden_field('models_extensions['. $nCounter . ']', 'glTF');
+            echo oos_draw_hidden_field('models_extensions['. $nCounter . ']', 'glTF');
 
-			$nCounter++;
+            $nCounter++;
             echo oos_draw_hidden_field('model_counter', $nCounter);
         }
     } ?>

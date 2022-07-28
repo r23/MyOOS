@@ -57,11 +57,10 @@ if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
 
 
 if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
-	
-	$config = HTMLPurifier_Config::createDefault();
-	$purifier = new HTMLPurifier($config);
+    $config = HTMLPurifier_Config::createDefault();
+    $purifier = new HTMLPurifier($config);
 
-	
+
     $productstable  = $oostable['products'];
     $specialsstable = $oostable['specials'];
     $manufacturersstable = $oostable['manufacturers'];
@@ -103,10 +102,10 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 
         if ($aUser['show_price'] == 1) {
             $new_product_price = $oCurrencies->display_price($products_new['products_price'], oos_get_tax_rate($products_new['products_tax_class_id']));
-			if ($products_new['products_price_list'] > 0) {
-				$new_product_price_list = $oCurrencies->display_price($products_new['products_price_list'], oos_get_tax_rate($products_new['products_tax_class_id']));
-			}
-			
+            if ($products_new['products_price_list'] > 0) {
+                $new_product_price_list = $oCurrencies->display_price($products_new['products_price_list'], oos_get_tax_rate($products_new['products_tax_class_id']));
+            }
+
             if ($products_new['products_discount4'] > 0) {
                 $discount = $products_new['products_discount4'];
             } elseif ($products_new['products_discount3'] > 0) {
@@ -141,7 +140,7 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
         $order_min = number_format($products_new['products_quantity_order_min']);
         $order_max = number_format($products_new['products_quantity_order_max']);
 
-		$products_short_description = $purifier->purify($products_new['products_short_description']);	
+        $products_short_description = $purifier->purify($products_new['products_short_description']);
 
         $products_new_array[] = array(
                                     'id' => $products_new['products_id'],

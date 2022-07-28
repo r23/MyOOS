@@ -303,7 +303,7 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_nav_menu.php';
 $oNavMenu = new nav_menu();
 
 // Slider
-include_once MYOOS_INCLUDE_PATH . '/includes/functions/function_slider.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_slider.php';
 oos_expire_slider();
 
 // templates selection

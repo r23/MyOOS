@@ -479,13 +479,13 @@ if ($action == 'edit_video') {
     if (! $max_upload_size) {
         $max_upload_size = 0;
     } ?>
-	
+    
                     <p><?php echo sprintf(TEXT_VIDEO_MAX_UPLOAD, size_format($max_upload_size)); ?></p>
 
-					<p><?php echo TEXT_VIDEO_UPLAOD_PATIENCE; ?></p> 
+                    <p><?php echo TEXT_VIDEO_UPLAOD_PATIENCE; ?></p> 
 
-					<p><?php echo TEXT_VIDEO_UPLAOD_HELP; ?></p>
-					
+                    <p><?php echo TEXT_VIDEO_UPLAOD_HELP; ?></p>
+                    
                 </div>
 
 

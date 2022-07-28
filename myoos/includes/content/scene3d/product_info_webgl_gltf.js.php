@@ -26,97 +26,97 @@
 <script async src="<?php echo OOS_HTTPS_SERVER . OOS_SHOP . 'js/es-module-shims/dist/es-module-shims.js'; ?>"></script>
 
 <script type="importmap">
-	{
-		"imports": {
-				"three": "./js/three/three.module.js"
-		}
-	}
+    {
+        "imports": {
+                "three": "./js/three/three.module.js"
+        }
+    }
 </script>
 
 <script type="module">
 
-	import * as THREE from 'three';
+    import * as THREE from 'three';
 
-	import { OrbitControls } from './jsm/controls/OrbitControls.js';
-	import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
-	import { RGBELoader } from './jsm/loaders/RGBELoader.js';
+    import { OrbitControls } from './jsm/controls/OrbitControls.js';
+    import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
+    import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 
 
-	let camera, scene, renderer;
+    let camera, scene, renderer;
 
-	init();
-	render();
+    init();
+    render();
 
-	function init() {
+    function init() {
 
-		const container = document.createElement( 'div' );
-		document.body.appendChild( container );
+        const container = document.createElement( 'div' );
+        document.body.appendChild( container );
 
-		camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.001, 1000 );
-		camera.position.set( <?php echo $model_info['models_camera_pos']; ?> );
+        camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.001, 1000 );
+        camera.position.set( <?php echo $model_info['models_camera_pos']; ?> );
 
-		scene = new THREE.Scene();
+        scene = new THREE.Scene();
 
-		new RGBELoader()
-			.setPath( 'media/textures/equirectangular/' )
-			.load( '<?php echo $model_info['models_hdr']; ?>', function ( texture ) {
+        new RGBELoader()
+            .setPath( 'media/textures/equirectangular/' )
+            .load( '<?php echo $model_info['models_hdr']; ?>', function ( texture ) {
 
-				texture.mapping = THREE.EquirectangularReflectionMapping;
+                texture.mapping = THREE.EquirectangularReflectionMapping;
 
-				scene.background = texture;
-				scene.environment = texture;
+                scene.background = texture;
+                scene.environment = texture;
 
-				render();
+                render();
 
-				// model
+                // model
 
-				const loader = new GLTFLoader().setPath( '<?php echo $model_path; ?>' );											
-				loader.load( '<?php echo $model_info['models_webgl_gltf']; ?>', function ( gltf ) {
+                const loader = new GLTFLoader().setPath( '<?php echo $model_path; ?>' );                                            
+                loader.load( '<?php echo $model_info['models_webgl_gltf']; ?>', function ( gltf ) {
 
-					scene.add( gltf.scene );
+                    scene.add( gltf.scene );
 
-					render();
+                    render();
 
-				} );
+                } );
 
-			} );
+            } );
 
-		renderer = new THREE.WebGLRenderer( { antialias: true } );
-		renderer.setPixelRatio( window.devicePixelRatio );
-		renderer.setSize( window.innerWidth, window.innerHeight );
-		renderer.toneMapping = THREE.ACESFilmicToneMapping;
-		renderer.toneMappingExposure = 1;
-		renderer.outputEncoding = THREE.sRGBEncoding;
-		container.appendChild( renderer.domElement );
+        renderer = new THREE.WebGLRenderer( { antialias: true } );
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        renderer.toneMappingExposure = 1;
+        renderer.outputEncoding = THREE.sRGBEncoding;
+        container.appendChild( renderer.domElement );
 
-		const controls = new OrbitControls( camera, renderer.domElement );
-		controls.addEventListener( 'change', render ); // use if there is no animation loop
-		controls.minDistance = 2;
-		controls.maxDistance = 10;
-		controls.target.set( 0, 0, - 0.2 );
-		controls.update();
+        const controls = new OrbitControls( camera, renderer.domElement );
+        controls.addEventListener( 'change', render ); // use if there is no animation loop
+        controls.minDistance = 2;
+        controls.maxDistance = 10;
+        controls.target.set( 0, 0, - 0.2 );
+        controls.update();
 
-		window.addEventListener( 'resize', onWindowResize );
+        window.addEventListener( 'resize', onWindowResize );
 
-	}
+    }
 
-	function onWindowResize() {
+    function onWindowResize() {
 
-		camera.aspect = window.innerWidth / window.innerHeight;
-		camera.updateProjectionMatrix();
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
 
-		renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.setSize( window.innerWidth, window.innerHeight );
 
-		render();
+        render();
 
-	}
+    }
 
-	//
+    //
 
-	function render() {
+    function render() {
 
-		renderer.render( scene, camera );
+        renderer.render( scene, camera );
 
-	}
+    }
 
 </script>

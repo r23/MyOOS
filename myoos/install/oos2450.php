@@ -61,5 +61,3 @@ if ($result === false) {
 } else {
     echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
-
- 

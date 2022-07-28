@@ -230,7 +230,7 @@ if (($action == 'preview') && isset($_POST['customers_email_address'])) {
         $mail_result = $dbconn->Execute("SELECT customers_email_address, customers_firstname, customers_lastname FROM " . $oostable['customers'] . " ORDER BY customers_lastname");
         while ($customers_values = $mail_result->fields) {
             $customers[] = array('id' => $customers_values['customers_email_address'],
-                         'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
+                     'text' => $customers_values['customers_lastname'] . ', ' . $customers_values['customers_firstname'] . ' (' . $customers_values['customers_email_address'] . ')');
 
             // Move that ADOdb pointer!
             $mail_result->MoveNext();

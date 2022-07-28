@@ -60,9 +60,10 @@ if ((WARN_DOWNLOAD_DIRECTORY_NOT_READABLE == 'true') && (DOWNLOAD_ENABLED == 'tr
 
 
 if (isset($_SESSION)) {
-    if (isset($_SESSION['success_message']) &&
-        !empty($_SESSION['success_message']) &&
-        ($_SERVER['HTTP_HOST'] != 'localhost')) {
+    if (isset($_SESSION['success_message'])
+        && !empty($_SESSION['success_message'])
+        && ($_SERVER['HTTP_HOST'] != 'localhost')
+    ) {
         $aInfoMessage[] = ['type' => 'success',
                         'title' => $aLang['success'],
                         'text' => (string)$_SESSION['success_message']];

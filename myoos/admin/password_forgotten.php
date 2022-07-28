@@ -142,15 +142,15 @@ if (isset($_SESSION['password_forgotten'])) {
                     <p><?php echo TEXT_PASSWORD_INFO; ?></p>
                 </div>                
         
-                <?php echo oos_draw_form('id', 'login', $aContents['password_forgotten'], 'action=process', 'post', true); ?>
-                    <?php echo oos_draw_hidden_field('formid', $sFormid); ?>
+            <?php echo oos_draw_form('id', 'login', $aContents['password_forgotten'], 'action=process', 'post', true); ?>
+                <?php echo oos_draw_hidden_field('formid', $sFormid); ?>
         
                     <div class="form-group m-b-20">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="mdi mdi-account"></i></span>
                             </div>
-                            <?php echo oos_draw_input_field('firstname', '', '', true, 'text', true, false, PLACEHOLDER_FIRST_NAME); ?>        
+                        <?php echo oos_draw_input_field('firstname', '', '', true, 'text', true, false, PLACEHOLDER_FIRST_NAME); ?>        
                         </div>
                     </div>
 
@@ -159,7 +159,7 @@ if (isset($_SESSION['password_forgotten'])) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="mdi mdi-email"></i></span>
                             </div>
-                            <?php echo oos_draw_input_field('email_address', '', '', true, 'text', true, false, PLACEHOLDER_EMAIL_ADDRESS); ?>                            
+                        <?php echo oos_draw_input_field('email_address', '', '', true, 'text', true, false, PLACEHOLDER_EMAIL_ADDRESS); ?>                            
                         </div>
                     </div>
 

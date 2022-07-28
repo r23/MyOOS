@@ -113,7 +113,7 @@ if (isset($_POST)) {
 case "Finish":
     print_oosFinish();
     break;
-	
+
 case "myOOS 2.4.50":
     oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
     oosDoUpgrade2450($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
