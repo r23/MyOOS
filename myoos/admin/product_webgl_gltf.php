@@ -82,7 +82,7 @@ if (!empty($action)) {
                         break;
 
 
-                    case 'venice_sunset.hdr':
+                    case 'venice_sunset_2k.hdr':
                         $models_hdr_name = 'Venice Sunset';
                         $models_hdr_url = 'https://polyhaven.com/a/venice_sunset';
                         $models_hdr_author = 'Greg Zaal';;
@@ -114,7 +114,6 @@ if (!empty($action)) {
                                         'models_add_env_map' => oos_db_prepare_input($_POST['models_add_env_map'][$i]),
                                         'models_extensions' => oos_db_prepare_input($_POST['models_extensions'][$i])
                                         );
-
 
                 if ($action == 'insert_model') {
                     $insert_sql_data = array('models_date_added' => 'now()');

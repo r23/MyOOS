@@ -25,6 +25,7 @@
 <!-- Remove this when import maps will be widely supported -->
 <script async src="<?php echo OOS_HTTPS_SERVER . OOS_SHOP . 'js/es-module-shims/dist/es-module-shims.js'; ?>"></script>
 
+
 <script type="importmap">
     {
         "imports": {
@@ -41,7 +42,6 @@
     import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
     import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 
-
     let camera, scene, renderer;
 
     init();
@@ -52,7 +52,7 @@
         const container = document.createElement( 'div' );
         document.body.appendChild( container );
 
-        camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.001, 1000 );
+        camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 1000 );
         camera.position.set( <?php echo $model_info['models_camera_pos']; ?> );
 
         scene = new THREE.Scene();
@@ -73,7 +73,13 @@
                 const loader = new GLTFLoader().setPath( '<?php echo $model_path; ?>' );                                            
                 loader.load( '<?php echo $model_info['models_webgl_gltf']; ?>', function ( gltf ) {
 
-                    scene.add( gltf.scene );
+					var model = gltf.scene;
+					model.rotation.y = Math.PI;
+					model.scale.setScalar( 150 );
+					scene.add( model );
+
+
+                   // scene.add( gltf.scene );
 
                     render();
 
@@ -91,14 +97,18 @@
 
         const controls = new OrbitControls( camera, renderer.domElement );
         controls.addEventListener( 'change', render ); // use if there is no animation loop
-        controls.minDistance = 2;
-        controls.maxDistance = 10;
-        controls.target.set( 0, 0, - 0.2 );
+		controls.minDistance = 2;
+		controls.maxDistance = 10;
+		controls.target.set( 0, 0.2, 0 );
+
+
         controls.update();
 
-        window.addEventListener( 'resize', onWindowResize );
 
-    }
+       window.addEventListener( 'resize', onWindowResize );
+
+	}
+	
 
     function onWindowResize() {
 
