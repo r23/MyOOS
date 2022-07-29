@@ -25,7 +25,6 @@
 <!-- Remove this when import maps will be widely supported -->
 <script async src="<?php echo OOS_HTTPS_SERVER . OOS_SHOP . 'js/es-module-shims/dist/es-module-shims.js'; ?>"></script>
 
-
 <script type="importmap">
     {
         "imports": {
@@ -41,6 +40,7 @@
     import { OrbitControls } from './jsm/controls/OrbitControls.js';
     import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
     import { RGBELoader } from './jsm/loaders/RGBELoader.js';
+	import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
 
     let camera, scene, renderer;
 
@@ -57,6 +57,8 @@
 
         scene = new THREE.Scene();
 
+
+
         new RGBELoader()
             .setPath( 'media/textures/equirectangular/' )
             .load( '<?php echo $model_info['models_hdr']; ?>', function ( texture ) {
@@ -70,7 +72,14 @@
 
                 // model
 
-                const loader = new GLTFLoader().setPath( '<?php echo $model_path; ?>' );                                            
+                const loader = new GLTFLoader().setPath( '<?php echo $model_path; ?>' );
+
+				// Optional: Provide a DRACOLoader instance to decode compressed mesh data
+				const dracoLoader = new DRACOLoader();
+				dracoLoader.setDecoderPath( './js/libs/draco/' );
+				loader.setDRACOLoader( dracoLoader );
+
+				
                 loader.load( '<?php echo $model_info['models_webgl_gltf']; ?>', function ( gltf ) {
 
 					var model = gltf.scene;
