@@ -17,7 +17,7 @@
         "laminas/laminas-coding-standard": "^2.3.0",
         "laminas/laminas-stdlib": "^3.6.1",
         "phpunit/phpunit": "^9.5.10",
-        "psalm/plugin-phpunit": "^0.16.1",
+        "psalm/plugin-phpunit": "^0.17.0",
         "vimeo/psalm": "^4.13.1"
     },
     "suggest": {
@@ -25,10 +25,13 @@
         "laminas/laminas-stdlib": "Laminas\\Stdlib component"
     },
     "config": {
-        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
         "platform": {
             "php": "7.4.99"
-        }
+        },
+        "sort-packages": true
     },
     "autoload": {
         "psr-4": {

@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '56c2e3abd61e02f46fd0254133fec4e88e293d47',
+        'reference' => 'b1e81effe5188dcd0392d3f7c0657434a6b98e90',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -119,12 +119,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-code' => array(
-            'pretty_version' => '4.5.2',
-            'version' => '4.5.2.0',
+            'pretty_version' => '4.6.0',
+            'version' => '4.6.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-code',
             'aliases' => array(),
-            'reference' => 'da01fb74c08f37e20e7ae49f1e3ee09aa401ebad',
+            'reference' => '16ec7577ff315d53ac2e1b1f03a344d8fe680a6e',
             'dev_requirement' => false,
         ),
         'laminas/laminas-escaper' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '56c2e3abd61e02f46fd0254133fec4e88e293d47',
+            'reference' => 'b1e81effe5188dcd0392d3f7c0657434a6b98e90',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
