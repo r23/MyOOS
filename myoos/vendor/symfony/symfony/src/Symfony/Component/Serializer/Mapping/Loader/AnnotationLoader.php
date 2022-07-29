@@ -100,6 +100,11 @@ class AnnotationLoader implements LoaderInterface
                 continue;
             }
 
+            $getAccessor = preg_match('/^(get|)(.+)$/i', $method->name);
+            if ($getAccessor && 0 !== $method->getNumberOfRequiredParameters()) {
+                continue; /*  matches the BC behavior in `Symfony\Component\Serializer\Normalizer\ObjectNormalizer::extractAttributes` */
+            }
+
             $accessorOrMutator = preg_match('/^(get|is|has|set)(.+)$/i', $method->name, $matches);
             if ($accessorOrMutator) {
                 $attributeName = lcfirst($matches[2]);
@@ -134,6 +139,10 @@ class AnnotationLoader implements LoaderInterface
 
                     $attributeMetadata->setSerializedName($annotation->getSerializedName());
                 } elseif ($annotation instanceof Ignore) {
+                    if (!$accessorOrMutator) {
+                        throw new MappingException(sprintf('Ignore on "%s::%s()" cannot be added. Ignore can only be added on methods beginning with "get", "is", "has" or "set".', $className, $method->name));
+                    }
+
                     $attributeMetadata->setIgnore(true);
                 } elseif ($annotation instanceof Context) {
                     if (!$accessorOrMutator) {

@@ -198,7 +198,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
 
             $attributeValue = $this->applyCallbacks($attributeValue, $object, $attribute, $format, $attributeContext);
 
-            if (null !== $attributeValue && !is_scalar($attributeValue)) {
+            if (null !== $attributeValue && !\is_scalar($attributeValue)) {
                 $stack[$attribute] = $attributeValue;
             }
 
@@ -350,6 +350,10 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
         }
 
         $this->validateCallbackContext($context);
+
+        if (null === $data && isset($context['value_type']) && $context['value_type'] instanceof Type && $context['value_type']->isNullable()) {
+            return null;
+        }
 
         $allowedAttributes = $this->getAllowedAttributes($type, $context, true);
         $normalizedData = $this->prepareForDenormalization($data);
@@ -524,6 +528,8 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                     if (\count($collectionKeyType = $type->getCollectionKeyTypes()) > 0) {
                         [$context['key_type']] = $collectionKeyType;
                     }
+
+                    $context['value_type'] = $collectionValueType;
                 } elseif ($type->isCollection() && \count($collectionValueType = $type->getCollectionValueTypes()) > 0 && Type::BUILTIN_TYPE_ARRAY === $collectionValueType[0]->getBuiltinType()) {
                     // get inner type for any nested array
                     [$innerType] = $collectionValueType;
