@@ -37,12 +37,12 @@
 
     import * as THREE from 'three';
 
-    import { OrbitControls } from './jsm/controls/OrbitControls.js';
-    import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
-    import { RGBELoader } from './jsm/loaders/RGBELoader.js';
+	import { OrbitControls } from './jsm/controls/OrbitControls.js';
+	import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
 	import { DRACOLoader } from './jsm/loaders/DRACOLoader.js';
+	import { RGBELoader } from './jsm/loaders/RGBELoader.js';
 
-    let camera, scene, renderer;
+	let camera, scene, renderer, loader;
 
     init();
     render();
@@ -76,9 +76,8 @@
 
 				// Optional: Provide a DRACOLoader instance to decode compressed mesh data
 				const dracoLoader = new DRACOLoader();
-				dracoLoader.setDecoderPath( './js/libs/draco/' );
+				dracoLoader.setDecoderPath( 'js/libs/draco/gltf/' );
 				loader.setDRACOLoader( dracoLoader );
-
 				
                 loader.load( '<?php echo $model_info['models_webgl_gltf']; ?>', function ( gltf ) {
 
