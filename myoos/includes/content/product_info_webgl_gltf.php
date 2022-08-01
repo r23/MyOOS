@@ -42,14 +42,13 @@ $products_modelstable = $oostable['products_models'];
 $products_models_descriptiontable = $oostable['products_models_description'];
 $products_models_sql = "SELECT m.models_id, m.products_id,  md.models_name, md.models_title, md.models_description_meta, 
 								md.models_keywords, m.models_webgl_gltf, m.models_author, m.models_author_url, m.models_camera_pos, 
-								m.models_object_rotation, m.models_add_lights, m.models_add_ground, m.models_shadows, m.models_add_env_map,
+								m.models_object_rotation, m.models_object_scalar, m.models_add_lights, m.models_add_ground, m.models_shadows, m.models_add_env_map,
 								m.models_extensions, m.models_hdr, models_hdr_name, models_hdr_url, models_hdr_author, models_hdr_author_url
                         FROM $products_modelstable m,
                              $products_models_descriptiontable md
 						WHERE m.models_id = '" . intval($nModelsID) . "'
                           AND md.models_id = m.models_id
                           AND md.models_languages_id = '" . intval($nLanguageID) . "'";
-
 $products_models_result = $dbconn->Execute($products_models_sql);
 
 if (!$products_models_result->RecordCount()) {
