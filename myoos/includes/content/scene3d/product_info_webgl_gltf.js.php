@@ -82,7 +82,7 @@
                 loader.load( '<?php echo $model_info['models_webgl_gltf']; ?>', function ( gltf ) {
 
 					var model = gltf.scene;
-					model.rotation.y = Math.PI;
+					model.rotation = <?php echo $model_info['models_object_rotation']; ?>;
 					model.scale.setScalar( <?php echo $model_info['models_object_scalar']; ?> );
 					scene.add( model );
 
