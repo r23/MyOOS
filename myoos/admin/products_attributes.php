@@ -386,7 +386,7 @@ if (!empty($action)) {
 							products_attributes_filename,
 							products_attributes_maxdays,
 							products_attributes_maxcount)
-							VALUES (" . intval($_POST['attribute_id'] . ", 
+							VALUES ('" . intval($_POST['attribute_id']) . "', 
 								'" . oos_db_prepare_input($_POST['products_attributes_filename']) . "', 
 								'" . oos_db_prepare_input($products_attributes_maxdays) . "', 
 								'" . oos_db_prepare_input($products_attributes_maxcount) . "')");
