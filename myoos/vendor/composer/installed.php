@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ed1c01d819a7c468b7f3c5bcf0dfda19b4f872db',
+        'reference' => 'bc8464b2a0e5572023c6798d63a992fe592f94d8',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ed1c01d819a7c468b7f3c5bcf0dfda19b4f872db',
+            'reference' => 'bc8464b2a0e5572023c6798d63a992fe592f94d8',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -460,12 +460,12 @@
             'dev_requirement' => false,
         ),
         'smarty/smarty' => array(
-            'pretty_version' => 'v4.1.1',
-            'version' => '4.1.1.0',
+            'pretty_version' => 'v4.2.0',
+            'version' => '4.2.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../smarty/smarty',
             'aliases' => array(),
-            'reference' => '71036be8be02bf93735c47b0b745f722efbc729f',
+            'reference' => '97aeb14c6fc2fb733938809926e2f9d6c581a70d',
             'dev_requirement' => false,
         ),
         'spatie/temporary-directory' => array(
