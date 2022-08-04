@@ -1442,7 +1442,9 @@ const external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
 
 function transformWidgetToBlock(widget) {
   if (widget.id_base === 'block') {
-    const parsedBlocks = (0,external_wp_blocks_namespaceObject.parse)(widget.instance.raw.content);
+    const parsedBlocks = (0,external_wp_blocks_namespaceObject.parse)(widget.instance.raw.content, {
+      __unstableSkipAutop: true
+    });
 
     if (!parsedBlocks.length) {
       return (0,external_wp_widgets_namespaceObject.addWidgetIdToBlock)((0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph', {}, []), widget.id);

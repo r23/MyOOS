@@ -1284,6 +1284,9 @@ const STORE_NAME = 'core';
 
 /**
  * Returns an action object used in signalling that authors have been received.
+ * Ignored from documentation as it's internal to the data store.
+ *
+ * @ignore
  *
  * @param {string}       queryID Query ID.
  * @param {Array|Object} users   Users received.
@@ -1300,6 +1303,9 @@ function receiveUserQuery(queryID, users) {
 }
 /**
  * Returns an action used in signalling that the current user has been received.
+ * Ignored from documentation as it's internal to the data store.
+ *
+ * @ignore
  *
  * @param {Object} currentUser Current user object.
  *
@@ -1366,6 +1372,9 @@ function receiveEntityRecords(kind, name, records, query) {
 }
 /**
  * Returns an action object used in signalling that the current theme has been received.
+ * Ignored from documentation as it's internal to the data store.
+ *
+ * @ignore
  *
  * @param {Object} currentTheme The current theme.
  *
@@ -1380,6 +1389,9 @@ function receiveCurrentTheme(currentTheme) {
 }
 /**
  * Returns an action object used in signalling that the current global styles id has been received.
+ * Ignored from documentation as it's internal to the data store.
+ *
+ * @ignore
  *
  * @param {string} currentGlobalStylesId The current global styles id.
  *
@@ -1394,6 +1406,9 @@ function __experimentalReceiveCurrentGlobalStylesId(currentGlobalStylesId) {
 }
 /**
  * Returns an action object used in signalling that the theme base global styles have been received
+ * Ignored from documentation as it's internal to the data store.
+ *
+ * @ignore
  *
  * @param {string} stylesheet   The theme's identifier
  * @param {Object} globalStyles The global styles object.
@@ -1410,6 +1425,9 @@ function __experimentalReceiveThemeBaseGlobalStyles(stylesheet, globalStyles) {
 }
 /**
  * Returns an action object used in signalling that the theme global styles variations have been received.
+ * Ignored from documentation as it's internal to the data store.
+ *
+ * @ignore
  *
  * @param {string} stylesheet The theme's identifier
  * @param {Array}  variations The global styles variations.
@@ -1443,6 +1461,9 @@ function receiveThemeSupports() {
 /**
  * Returns an action object used in signalling that the preview data for
  * a given URl has been received.
+ * Ignored from documentation as it's internal to the data store.
+ *
+ * @ignore
  *
  * @param {string} url     URL to preview the embed for.
  * @param {*}      preview Preview data.
@@ -1976,6 +1997,9 @@ function receiveUploadPermissions(hasUploadPermissions) {
 /**
  * Returns an action object used in signalling that the current user has
  * permission to perform an action on a REST resource.
+ * Ignored from documentation as it's internal to the data store.
+ *
+ * @ignore
  *
  * @param {string}  key       A key that represents the action and REST resource.
  * @param {boolean} isAllowed Whether or not the user can perform the action.
@@ -1993,6 +2017,9 @@ function receiveUserPermission(key, isAllowed) {
 /**
  * Returns an action object used in signalling that the autosaves for a
  * post have been received.
+ * Ignored from documentation as it's internal to the data store.
+ *
+ * @ignore
  *
  * @param {number}       postId    The id of the post that is parent to the autosave.
  * @param {Array|Object} autosaves An array of autosaves or singular autosave object.
@@ -4047,7 +4074,8 @@ function getEntityConfig(state, kind, name) {
  * @param  kind  Entity kind.
  * @param  name  Entity name.
  * @param  key   Record's key
- * @param  query Optional query.
+ * @param  query Optional query. If requesting specific
+ *               fields, fields must always include the ID.
  *
  * @return Record.
  */
@@ -4183,7 +4211,8 @@ function hasEntityRecords(state, kind, name, query) {
  * @param  state State tree
  * @param  kind  Entity kind.
  * @param  name  Entity name.
- * @param  query Optional terms query.
+ * @param  query Optional terms query. If requesting specific
+ *               fields, fields must always include the ID.
  *
  * @return Records.
  */
@@ -4586,7 +4615,7 @@ function isPreviewEmbedFallback(state, url) {
  */
 
 function canUser(state, action, resource, id) {
-  const key = (0,external_lodash_namespaceObject.compact)([action, resource, id]).join('/');
+  const key = [action, resource, id].filter(Boolean).join('/');
   return (0,external_lodash_namespaceObject.get)(state, ['userPermissions', key]);
 }
 /**
@@ -4842,7 +4871,8 @@ const resolvers_getCurrentUser = () => async _ref2 => {
  * @param {string}           name  Entity name.
  * @param {number|string}    key   Record's key
  * @param {Object|undefined} query Optional object of query parameters to
- *                                 include with request.
+ *                                 include with request. If requesting specific
+ *                                 fields, fields must always include the ID.
  */
 
 const resolvers_getEntityRecord = function (kind, name) {
@@ -4925,7 +4955,8 @@ const resolvers_getEditedEntityRecord = forward_resolver('getEntityRecord');
  *
  * @param {string}  kind  Entity kind.
  * @param {string}  name  Entity name.
- * @param {Object?} query Query Object.
+ * @param {Object?} query Query Object. If requesting specific fields, fields
+ *                        must always include the ID.
  */
 
 const resolvers_getEntityRecords = function (kind, name) {
@@ -5098,7 +5129,7 @@ const resolvers_canUser = (action, resource, id) => async _ref7 => {
 
 
   const allowHeader = (_response$headers = response.headers) === null || _response$headers === void 0 ? void 0 : _response$headers.get('allow');
-  const key = (0,external_lodash_namespaceObject.compact)([action, resource, id]).join('/');
+  const key = [action, resource, id].filter(Boolean).join('/');
   const isAllowed = (0,external_lodash_namespaceObject.includes)(allowHeader, method);
   dispatch.receiveUserPermission(key, isAllowed);
 };

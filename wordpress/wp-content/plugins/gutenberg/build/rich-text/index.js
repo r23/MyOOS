@@ -59,6 +59,7 @@ __webpack_require__.d(__webpack_exports__, {
   "concat": () => (/* reexport */ concat),
   "create": () => (/* reexport */ create),
   "getActiveFormat": () => (/* reexport */ getActiveFormat),
+  "getActiveFormats": () => (/* reexport */ getActiveFormats),
   "getActiveObject": () => (/* reexport */ getActiveObject),
   "getTextContent": () => (/* reexport */ getTextContent),
   "insert": () => (/* reexport */ insert),
@@ -4897,6 +4898,7 @@ function FormatEdit(_ref) {
 }
 
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/index.js
+
 
 
 

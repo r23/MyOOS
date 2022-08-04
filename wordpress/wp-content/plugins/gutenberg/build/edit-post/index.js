@@ -5418,6 +5418,11 @@ function HeaderToolbar() {
       setIsInserterOpened(true);
     }
   }, [isInserterOpened, setIsInserterOpened]);
+  /* translators: button label text should, if possible, be under 16 characters. */
+
+  const longLabel = (0,external_wp_i18n_namespaceObject._x)('Toggle block inserter', 'Generic label for block inserter button');
+
+  const shortLabel = !isInserterOpened ? (0,external_wp_i18n_namespaceObject.__)('Add') : (0,external_wp_i18n_namespaceObject.__)('Close');
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.NavigableToolbar, {
     className: "edit-post-header-toolbar",
     "aria-label": toolbarAriaLabel
@@ -5432,13 +5437,10 @@ function HeaderToolbar() {
     onMouseDown: preventDefault,
     onClick: openInserter,
     disabled: !isInserterEnabled,
-    icon: library_plus
-    /* translators: button label text should, if possible, be under 16
-    characters. */
-    ,
-    label: (0,external_wp_i18n_namespaceObject._x)('Toggle block inserter', 'Generic label for block inserter button'),
+    icon: library_plus,
+    label: showIconLabels ? shortLabel : longLabel,
     showTooltip: !showIconLabels
-  }, showIconLabels && (!isInserterOpened ? (0,external_wp_i18n_namespaceObject.__)('Add') : (0,external_wp_i18n_namespaceObject.__)('Close'))), (isWideViewport || !showIconLabels) && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, isLargeViewport && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, {
+  }), (isWideViewport || !showIconLabels) && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, isLargeViewport && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, {
     as: external_wp_blockEditor_namespaceObject.ToolSelector,
     showTooltip: !showIconLabels,
     variant: showIconLabels ? 'tertiary' : undefined,
@@ -7078,7 +7080,11 @@ function PostTemplate() {
     const settings = select(external_wp_editor_namespaceObject.store).getEditorSettings();
     const hasTemplates = !!settings.availableTemplates && Object.keys(settings.availableTemplates).length > 0;
 
-    if (!hasTemplates && !settings.supportsTemplateMode) {
+    if (hasTemplates) {
+      return true;
+    }
+
+    if (!settings.supportsTemplateMode) {
       return false;
     }
 
@@ -9113,6 +9119,7 @@ function Editor(_ref) {
     hasFixedToolbar,
     focusMode,
     hasReducedUI,
+    hasInlineToolbar,
     hasThemeStyles,
     post,
     preferredStyleVariations,
@@ -9134,7 +9141,8 @@ function Editor(_ref) {
     const {
       getEntityRecord,
       getPostType,
-      getEntityRecords
+      getEntityRecords,
+      canUser
     } = select(external_wp_coreData_namespaceObject.store);
     const {
       getEditorSettings
@@ -9158,17 +9166,19 @@ function Editor(_ref) {
 
     const supportsTemplateMode = getEditorSettings().supportsTemplateMode;
     const isViewable = (_getPostType$viewable = (_getPostType = getPostType(postType)) === null || _getPostType === void 0 ? void 0 : _getPostType.viewable) !== null && _getPostType$viewable !== void 0 ? _getPostType$viewable : false;
+    const canEditTemplate = canUser('create', 'templates');
     return {
       hasFixedToolbar: isFeatureActive('fixedToolbar') || __experimentalGetPreviewDeviceType() !== 'Desktop',
       focusMode: isFeatureActive('focusMode'),
       hasReducedUI: isFeatureActive('reducedUI'),
+      hasInlineToolbar: isFeatureActive('inlineToolbar'),
       hasThemeStyles: isFeatureActive('themeStyles'),
       preferredStyleVariations: select(external_wp_preferences_namespaceObject.store).get('core/edit-post', 'preferredStyleVariations'),
       hiddenBlockTypes: getHiddenBlockTypes(),
       blockTypes: getBlockTypes(),
       keepCaretInsideBlock: isFeatureActive('keepCaretInsideBlock'),
       isTemplateMode: isEditingTemplate(),
-      template: supportsTemplateMode && isViewable ? getEditedPostTemplate() : null,
+      template: supportsTemplateMode && isViewable && canEditTemplate ? getEditedPostTemplate() : null,
       post: postObject
     };
   }, [postType, postId]);
@@ -9185,6 +9195,7 @@ function Editor(_ref) {
       hasFixedToolbar,
       focusMode,
       hasReducedUI,
+      hasInlineToolbar,
       // This is marked as experimental to give time for the quick inserter to mature.
       __experimentalSetIsInserterOpened: setIsInserterOpened,
       keepCaretInsideBlock,

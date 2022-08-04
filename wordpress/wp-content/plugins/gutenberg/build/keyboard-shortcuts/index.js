@@ -651,7 +651,7 @@ const external_wp_element_namespaceObject = window["wp"]["element"];
 /**
  * Returns a function to check if a keyboard event matches a shortcut name.
  *
- * @return {Function} A function to to check if a keyboard event matches a
+ * @return {Function} A function to check if a keyboard event matches a
  *                    predefined shortcut combination.
  */
 

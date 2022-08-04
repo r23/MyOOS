@@ -961,7 +961,8 @@ function InlineLinkUI(_ref) {
     anchorRef: anchorRef,
     focusOnMount: focusOnMount.current,
     onClose: stopAddingLink,
-    position: "bottom center"
+    position: "bottom center",
+    __unstableShift: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLinkControl, {
     key: forceRemountKey,
     value: linkValue,
