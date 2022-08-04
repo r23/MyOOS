@@ -208,7 +208,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
       <tr>
         <td><table witdh="100%" border="0" cellspacing="0" cellpadding="0">
           <tr>
-            <td valign="top" class="main"><b><?php echo ENTRY_REVIEW; ?></b><br><br><?php echo nl2br(htmlspecialchars(oos_break_string($rInfo->reviews_text, 15))); ?></td>
+            <td valign="top" class="main"><b><?php echo ENTRY_REVIEW; ?></b><br><br><?php echo nl2br(htmlspecialchars(oos_break_string((string)$rInfo->reviews_text, 15))); ?></td>
           </tr>
         </table></td>
       </tr>
@@ -226,7 +226,7 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         /* Re-Post all POST'ed variables */
         reset($_POST);
         foreach ($_POST as $key => $value) {
-            echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars(stripslashes($value), ENT_QUOTES, 'UTF-8') . '">';
+            echo '<input type="hidden" name="' . $key . '" value="' . htmlspecialchars(stripslashes((string)$value), ENT_QUOTES, 'UTF-8') . '">';
         } ?>
       <tr>
         <td align="right" class="smallText"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id . '&action=edit') . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a> ' . oos_submit_button(BUTTON_UPDATE) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['reviews'], 'page=' . $nPage . '&rID=' . $rInfo->reviews_id) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>'; ?></td>

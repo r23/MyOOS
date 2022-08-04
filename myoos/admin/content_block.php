@@ -300,7 +300,7 @@ if (!empty($action)) {
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
           $block_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']', oos_get_block_name($bInfo->block_id, $languages[$i]['id']));
       }
-      eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars($bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
+      eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars((string)$bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
 
       $contents[] = array('text' => '<br>' . TEXT_BLOCK_NAME . $block_inputs_string);
       $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_FUNCTION . ':</b><br>' . oos_draw_input_field('function', $bInfo->block_file));

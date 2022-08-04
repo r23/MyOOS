@@ -274,7 +274,7 @@ class shoppingCart
                                 } else {
                                     $option = substr($option, strlen(TEXT_PREFIX));
 
-                                    $attr_value = htmlspecialchars(stripslashes($value), ENT_QUOTES, 'UTF-8');
+                                    $attr_value = htmlspecialchars(stripslashes((string)$value), ENT_QUOTES, 'UTF-8');
                                     $value = PRODUCTS_OPTIONS_VALUE_TEXT_ID;
                                     $this->contents[$sProductsId]['attributes_values'][$option] = $attr_value;
                                 }
@@ -351,7 +351,7 @@ class shoppingCart
                             $blank_value = true;
                         } else {
                             $option = substr($option, strlen(TEXT_PREFIX));
-                            // $attr_value = htmlspecialchars(stripslashes($value), ENT_QUOTES, 'UTF-8');
+                            // $attr_value = htmlspecialchars(stripslashes((string)$value), ENT_QUOTES, 'UTF-8');
                             $attr_value = stripslashes($value);
                             $value = PRODUCTS_OPTIONS_VALUE_TEXT_ID;
                             $this->contents[$sProductsId]['attributes_values'][$option] = $attr_value;

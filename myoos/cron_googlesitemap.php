@@ -80,7 +80,7 @@ class MyOOS_Utilities
         }
 
         if ($oS->status != "200") {
-            trigger_error('Snoopy Web Request failed: Status: ' . $oS->status . "; Content: " . htmlspecialchars($oS->results), E_USER_NOTICE);
+            trigger_error('Snoopy Web Request failed: Status: ' . $oS->status . "; Content: " . htmlspecialchars((string)$oS->results), E_USER_NOTICE);
         }
 
         return $oS->results;
@@ -159,14 +159,14 @@ if ($submit) {
     $pingres = MyOOS_Utilities::RemoteOpen($sPingUrl);
 
     if ($pingres == null || $pingres === false) {
-        trigger_error("Failed to ping Google: " . htmlspecialchars(strip_tags($pingres)), E_USER_NOTICE);
+        trigger_error("Failed to ping Google: " . htmlspecialchars(strip_tags((string)$pingres)), E_USER_NOTICE);
     }
 
     //Ping Bing
     $sPingUrl = "http://www.bing.com/webmaster/ping.aspx?siteMap=" . urlencode($pingUrl);
     $pingres = MyOOS_Utilities::RemoteOpen($sPingUrl);
     if ($pingres==null || $pingres===false || strpos($pingres, "Thanks for submitting your sitemap")===false) {
-        trigger_error("Failed to ping Bing: " . htmlspecialchars(strip_tags($pingres)), E_USER_NOTICE);
+        trigger_error("Failed to ping Bing: " . htmlspecialchars(strip_tags((string)$pingres)), E_USER_NOTICE);
     }
 } else {
     print_r($oSitemap->debug);

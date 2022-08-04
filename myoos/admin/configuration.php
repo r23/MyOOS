@@ -291,7 +291,7 @@ if (!empty($action)) {
           echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['configuration'], 'gID=' . $_GET['gID'] . '&cID=' . $configuration['configuration_id']) . '\'">' . "\n";
       } ?>
                 <td><?php echo constant(strtoupper($configuration['configuration_key'] . '_TITLE')); ?></td>
-                <td><?php echo htmlspecialchars($cfgValue, ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars((string)$cfgValue, ENT_QUOTES, 'UTF-8'); ?></td>
                 <td class="text-right"><?php if (isset($cInfo) && is_object($cInfo) && ($configuration['configuration_id'] == $cInfo->configuration_id)) {
           echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
       } else {
@@ -316,7 +316,7 @@ if (!empty($action)) {
             $value_field = oos_draw_file_field('site_image') . '<br>' . $cInfo->configuration_value;
         } else {
             if ($cInfo->set_function) {
-                eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars($cInfo->configuration_value, ENT_QUOTES, 'UTF-8') . '");');
+                eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars((string)$cInfo->configuration_value, ENT_QUOTES, 'UTF-8') . '");');
             } else {
                 $value_field = oos_draw_input_field('configuration_value', $cInfo->configuration_value);
             }

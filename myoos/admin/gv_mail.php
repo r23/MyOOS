@@ -286,28 +286,28 @@ if (($action == 'preview') && ($_POST['customers_email_address'] || $_POST['emai
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_FROM_NAME; ?></b><br><?php echo htmlspecialchars(stripslashes($_POST['from_name'])); ?></td>
+                <td class="smallText"><b><?php echo TEXT_FROM_NAME; ?></b><br><?php echo htmlspecialchars(stripslashes((string)$_POST['from_name'])); ?></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br><?php echo htmlspecialchars(stripslashes($_POST['from_mail'])); ?></td>
+                <td class="smallText"><b><?php echo TEXT_FROM_MAIL; ?></b><br><?php echo htmlspecialchars(stripslashes((string)$_POST['from_mail'])); ?></td>
               </tr> 
               <tr>
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_SUBJECT; ?></b><br><?php echo htmlspecialchars(stripslashes($_POST['subject'])); ?></td>
+                <td class="smallText"><b><?php echo TEXT_SUBJECT; ?></b><br><?php echo htmlspecialchars(stripslashes((string)$_POST['subject'])); ?></td>
               </tr>
               <tr>
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_AMOUNT; ?></b><br><?php echo nl2br(htmlspecialchars(stripslashes($_POST['amount']))); ?></td>
+                <td class="smallText"><b><?php echo TEXT_AMOUNT; ?></b><br><?php echo nl2br(htmlspecialchars(stripslashes((string)$_POST['amount']))); ?></td>
               </tr>
               <tr>
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br><?php echo nl2br(htmlspecialchars(stripslashes($_POST['message']))); ?></td>
+                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br><?php echo nl2br(htmlspecialchars(stripslashes((string)$_POST['message']))); ?></td>
               </tr>
               <tr>
                 <td></td>
@@ -319,7 +319,7 @@ if (($action == 'preview') && ($_POST['customers_email_address'] || $_POST['emai
     reset($_POST);
     foreach ($_POST as $key => $value) {
         if (!is_array($_POST[$key])) {
-            echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes($value)));
+            echo oos_draw_hidden_field($key, htmlspecialchars(stripslashes((string)$value)));
         }
     } ?>
                 <table border="0" width="100%" cellpadding="0" cellspacing="2">
