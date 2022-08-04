@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'bc8464b2a0e5572023c6798d63a992fe592f94d8',
+        'reference' => 'd41d054cb8f3cd209b22ceb6522c254c4619a5f7',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -182,12 +182,12 @@
             'dev_requirement' => false,
         ),
         'myclabs/php-enum' => array(
-            'pretty_version' => '1.8.3',
-            'version' => '1.8.3.0',
+            'pretty_version' => '1.8.4',
+            'version' => '1.8.4.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../myclabs/php-enum',
             'aliases' => array(),
-            'reference' => 'b942d263c641ddb5190929ff840c68f78713e937',
+            'reference' => 'a867478eae49c9f59ece437ae7f9506bfaa27483',
             'dev_requirement' => false,
         ),
         'myoos/myoos' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'bc8464b2a0e5572023c6798d63a992fe592f94d8',
+            'reference' => 'd41d054cb8f3cd209b22ceb6522c254c4619a5f7',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
