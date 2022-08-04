@@ -1074,7 +1074,7 @@ $flds = "
   models_author C(255) NULL,
   models_author_url C(255) NULL,
   models_camera_pos C(24) NULL,
-  models_object_rotation C(10) NULL,
+  models_object_rotation C(25) NULL,
   models_object_scalar C(4) NULL,
   models_add_lights C(5) DEFAULT 'true',
   models_add_ground C(5) DEFAULT 'true',

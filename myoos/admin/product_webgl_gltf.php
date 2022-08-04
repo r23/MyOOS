@@ -304,7 +304,7 @@ if ($action == 'edit_3d') {
                                             'models_author' => '',
                                             'models_author_url' => 'https://',
                                             'models_camera_pos' => '0.02, 0.01, 0.03',
-                                            'models_object_rotation' => '0, Math.PI, 0',
+                                            'models_object_rotation' => 'Math.PI',
 											'models_object_scalar' => '150',
                                             'models_add_lights' => 'false',
                                             'models_add_ground' => 'false',
