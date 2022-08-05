@@ -48,9 +48,16 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
     }
 
     // Instantiate a new mail object
-    $send_mail = new PHPMailer();
+	// (Re)create it, if it's gone missing.
+	if (! ($phpmailer instanceof PHPMailer\PHPMailer\PHPMailer)) {
+		include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
+		include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
+		include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
+		$send_mail = new PHPMailer\PHPMailer\PHPMailer(true);
+    }	
+	
+	
 
-    $send_mail->PluginDir = OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/';
 
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
     $send_mail->SetLanguage($sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/');
