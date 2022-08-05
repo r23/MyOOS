@@ -172,3 +172,4 @@ r23_3d_model.zip
 /myoos/download/*.zip
 /wordpress/wp-content/uploads/2022/07/*.jpg
 /myoos/images/slider/*.webp
+/myoos/vendor/ezyang/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/CSS/*.ser
