@@ -109,7 +109,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             'Dompdf\\' => 7,
             'Doctrine\\Persistence\\' => 21,
-            'Doctrine\\Common\\Collections\\' => 28,
             'Doctrine\\Common\\' => 16,
             'DASPRiD\\Enum\\' => 13,
         ),
@@ -329,10 +328,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Doctrine\\Persistence\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/persistence/src/Persistence',
-        ),
-        'Doctrine\\Common\\Collections\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/doctrine/collections/lib/Doctrine/Common/Collections',
         ),
         'Doctrine\\Common\\' => 
         array (
@@ -574,7 +569,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'Smarty_Template_Source' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_template_source.php',
         'Smarty_Undefined_Variable' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_undefined_variable.php',
         'Smarty_Variable' => __DIR__ . '/..' . '/smarty/smarty/libs/sysplugins/smarty_variable.php',
-        'Stringable' => __DIR__ . '/..' . '/myclabs/php-enum/stubs/Stringable.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'TCPDF' => __DIR__ . '/..' . '/tecnickcom/tcpdf/tcpdf.php',
         'TCPDF2DBarcode' => __DIR__ . '/..' . '/tecnickcom/tcpdf/tcpdf_barcodes_2d.php',
         'TCPDFBarcode' => __DIR__ . '/..' . '/tecnickcom/tcpdf/tcpdf_barcodes_1d.php',
