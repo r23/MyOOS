@@ -23,67 +23,67 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 
 
- /**
-  * Remove Order
-  *
-  * @param $order_id
-  * @param $restock
-  */
-  function oos_remove_order($order_id, $restock = false)
-  {
+/**
+* Remove Order
+*
+* @param $order_id
+* @param $restock
+*/
+function oos_remove_order($order_id, $restock = false)
+{
 
     // Get database information
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+	$dbconn =& oosDBGetConn();
+	$oostable =& oosDBGetTables();
 
-      if (is_numeric($order_id)) {
-          if ($restock == 'on') {
-              $orders_productstable = $oostable['orders_products'];
-              $order_sql = "SELECT products_id, products_quantity
+	if (is_numeric($order_id)) {
+		if ($restock == 'on') {
+			$orders_productstable = $oostable['orders_products'];
+			$order_sql = "SELECT products_id, products_quantity
                       FROM $orders_productstable
                       WHERE orders_id = '" . intval($order_id) . "'";
-              $order_result = $dbconn->Execute($order_sql);
-              while ($order = $order_result->fields) {
-                  $productstable = $oostable['products'];
-                  $dbconn->Execute("UPDATE $productstable
+			$order_result = $dbconn->Execute($order_sql);
+			while ($order = $order_result->fields) {
+				$productstable = $oostable['products'];
+				$dbconn->Execute("UPDATE $productstable
                             SET products_quantity = products_quantity + " . $order['products_quantity'] . ",
                                 products_ordered = products_ordered - " . $order['products_quantity'] . "
                           WHERE products_id = '" . $order['products_id'] . "'");
 
-                  // Move that ADOdb pointer!
-                  $order_result->MoveNext();
-              }
-          }
+				// Move that ADOdb pointer!
+				$order_result->MoveNext();
+			}
+		}
 
-          $orderstable = $oostable['orders'];
-          $dbconn->Execute("DELETE FROM $orderstable WHERE orders_id = '" . oos_db_input($order_id) . "'");
-          $orders_productstable = $oostable['orders_products'];
-          $dbconn->Execute("DELETE FROM $orders_productstable WHERE orders_id = '" . oos_db_input($order_id) . "'");
-          $orders_products_attributesstable = $oostable['orders_products_attributes'];
-          $dbconn->Execute("DELETE FROM $orders_products_attributesstable WHERE orders_id = '" . oos_db_input($order_id) . "'");
-          $orders_status_historytable = $oostable['orders_status_history'];
-          $dbconn->Execute("DELETE FROM $orders_status_historytable WHERE orders_id = '" . oos_db_input($order_id) . "'");
-          $orders_totaltable = $oostable['orders_total'];
-          $dbconn->Execute("DELETE FROM $orders_totaltable WHERE orders_id = '" . oos_db_input($order_id) . "'");
-      }
-  }
+		$orderstable = $oostable['orders'];
+		$dbconn->Execute("DELETE FROM $orderstable WHERE orders_id = '" . oos_db_input($order_id) . "'");
+		$orders_productstable = $oostable['orders_products'];
+		$dbconn->Execute("DELETE FROM $orders_productstable WHERE orders_id = '" . oos_db_input($order_id) . "'");
+		$orders_products_attributesstable = $oostable['orders_products_attributes'];
+		$dbconn->Execute("DELETE FROM $orders_products_attributesstable WHERE orders_id = '" . oos_db_input($order_id) . "'");
+		$orders_status_historytable = $oostable['orders_status_history'];
+		$dbconn->Execute("DELETE FROM $orders_status_historytable WHERE orders_id = '" . oos_db_input($order_id) . "'");
+		$orders_totaltable = $oostable['orders_total'];
+		$dbconn->Execute("DELETE FROM $orders_totaltable WHERE orders_id = '" . oos_db_input($order_id) . "'");
+	}
+}
 
 
-  function oos_get_languages_id($iso_639_2)
-  {
-      $dbconn =& oosDBGetConn();
-      $oostable =& oosDBGetTables();
+function oos_get_languages_id($iso_639_2)
+{
+	$dbconn =& oosDBGetConn();
+	$oostable =& oosDBGetTables();
 
-      $languagestable = $oostable['languages'];
-      $languages_result = $dbconn->Execute("SELECT languages_id, iso_639_2 FROM $languagestable WHERE iso_639_2 = '" . oos_db_input($iso_639_2) . "'");
-      if (!$languages_result->RecordCount()) {
-          $LangID = $_SESSION['language_id'];
-      } else {
-          $LangID = $languages_result->fields['languages_id'];
-      }
+	$languagestable = $oostable['languages'];
+	$languages_result = $dbconn->Execute("SELECT languages_id, iso_639_2 FROM $languagestable WHERE iso_639_2 = '" . oos_db_input($iso_639_2) . "'");
+	if (!$languages_result->RecordCount()) {
+		$LangID = $_SESSION['language_id'];
+	} else {
+		$LangID = $languages_result->fields['languages_id'];
+	}
 
-      return $LangID;
-  }
+	return $LangID;
+}
 
 
 require 'includes/classes/class_currencies.php';
@@ -105,8 +105,8 @@ while ($orders_status = $orders_status_result->fields) {
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
-  if (!empty($action)) {
-      switch ($action) {
+if (!empty($action)) {
+	switch ($action) {
       case 'update_order':
         $oID = oos_db_prepare_input($_GET['oID']);
         $comments = isset($_POST['comments']) ? oos_db_prepare_input($_POST['comments']) : '';
@@ -208,22 +208,23 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
         break;
 
     }
-  }
-  if (($action == 'edit') && isset($_GET['oID'])) {
-      $oID = oos_db_prepare_input($_GET['oID']);
+}
 
-      $orderstable = $oostable['orders'];
-      $orders_result = $dbconn->Execute("SELECT orders_id FROM $orderstable WHERE orders_id = '" . oos_db_input($oID) . "'");
-      $order_exists = true;
-      if (!$orders_result->RecordCount()) {
-          $order_exists = false;
-          $messageStack->add(sprintf(ERROR_ORDER_DOES_NOT_EXIST, $oID), 'error');
-      }
-  }
+if (($action == 'edit') && isset($_GET['oID'])) {
+	$oID = oos_db_prepare_input($_GET['oID']);
 
-  include '../includes/classes/class_order.php';
+	$orderstable = $oostable['orders'];
+	$orders_result = $dbconn->Execute("SELECT orders_id FROM $orderstable WHERE orders_id = '" . oos_db_input($oID) . "'");
+	$order_exists = true;
+	if (!$orders_result->RecordCount()) {
+		$order_exists = false;
+		$messageStack->add(sprintf(ERROR_ORDER_DOES_NOT_EXIST, $oID), 'error');
+	}
+}
 
-  require 'includes/header.php';
+include '../includes/classes/class_order.php';
+
+require 'includes/header.php';
 ?>
 <div class="wrapper">
 	<!-- Header //-->
