@@ -1,7 +1,6 @@
 <?php
 /**
    ----------------------------------------------------------------------
-
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
@@ -25,10 +24,10 @@
    ----------------------------------------------------------------------
  */
 
-  /**
-   * ensure this file is being included by a parent file
-   */
-  defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
+/**
+* ensure this file is being included by a parent file
+*/
+defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 if (oos_var_prep_for_os($sContent) != $aContents['account_history_info']) {
     // Get last order id for checkout_success
@@ -44,10 +43,10 @@ if (oos_var_prep_for_os($sContent) != $aContents['account_history_info']) {
 // BOF: WebMakers.com Added: Downloads Controller
 // DEFINE WHICH ORDERS_STATUS TO USE IN function_downloads_controller.php
 // USE last_modified instead of date_purchased
-  $orderstable = $oostable['orders'];
-  $orders_productstable = $oostable['orders_products'];
-  $orders_products_downloadtable = $oostable['orders_products_download'];
-  $sql = "SELECT o.orders_status, date_format(o.last_modified, '%Y-%m-%d') AS date_purchased_day,
+$orderstable = $oostable['orders'];
+$orders_productstable = $oostable['orders_products'];
+$orders_products_downloadtable = $oostable['orders_products_download'];
+$sql = "SELECT o.orders_status, date_format(o.last_modified, '%Y-%m-%d') AS date_purchased_day,
                  opd.download_maxdays, op.products_name, opd.orders_products_download_id,
                  opd.orders_products_filename, opd.download_count, opd.download_maxdays
           FROM $orderstable o,
@@ -59,7 +58,7 @@ if (oos_var_prep_for_os($sContent) != $aContents['account_history_info']) {
             AND o.orders_id = op.orders_id
             AND op.orders_products_id = opd.orders_products_id
             AND opd.orders_products_filename != ''";
-  $downloads_result = $dbconn->Execute($sql);
+$downloads_result = $dbconn->Execute($sql);
 if ($downloads_result->RecordCount() > 0) {
     $downloads_array = [];
     while ($downloads = $downloads_result->fields) {
@@ -81,8 +80,6 @@ if ($downloads_result->RecordCount() > 0) {
         // Move that ADOdb pointer!
         $downloads_result->MoveNext();
     }
-    // Close result set
-    $downloads_result->Close();
 
     $smarty->assign('downloads_array', $downloads_array);
 }

@@ -5,26 +5,21 @@
 				<div class="innerWrapper clearfix">
 
 
-<table width="870" border="0" align="center" cellspacing="0">
-      <tr>
-        <td class="main"><strong>{$lang.heading_download}</strong></td>
-      </tr>
-      <tr>
-        <td><table border="0" width="100%" cellspacing="1" cellpadding="2" class="infoBox">
+		<h2>{$lang.heading_download}</h2>
+
+		<table class="table table-success table-striped">
 {section name=i loop=$downloads_array}
-          <tr class="oos-BoxContents">
+			<tr>
     {if $downloads_array[i].show_download_link eq 'true'}
-            <td class="main" align="center"><a href="{html_href_link content=$filename.download order=$downloads_array[i].last_order id=$downloads_array[i].id}">{$downloads_array[i].products_name}</a><br><a href="{html_href_link content=$filename.download order=$downloads_array[i].last_order id=$downloads_array[i].id}" class="btn btn-primary-filled" role="button"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+				<td><a href="{html_href_link content=$filename.download order=$downloads_array[i].last_order id=$downloads_array[i].id}">{$downloads_array[i].products_name}</a><br><a href="{html_href_link content=$filename.download order=$downloads_array[i].last_order id=$downloads_array[i].id}" class="btn btn-primary-filled" role="button"><i class="fa fa-download" aria-hidden="true"></i></a></td>
     {else}
-            <td class="main" align="center">{$downloads_array[i].products_name}</td>
+				<td>{$downloads_array[i].products_name}</td>
     {/if}
-            <td class="main">{$lang.table_heading_download_date}<br>{$downloads_array[i].download_expiry|oos_date_long}</td>
-            <td class="main" align="right">{$downloads_array[i].download_count} {$lang.table_heading_download_count}</td>
-          </tr>
+				<td>{$lang.table_heading_download_date}<br>{$downloads_array[i].download_expiry|oos_date_long}</td>
+				<td>{$downloads_array[i].download_count} {$lang.table_heading_download_count}</td>
+			</tr>
 {/section}
-        </table></td>
-      </tr>
-</table>
+        </table>
 
 				</div>
 			</div>

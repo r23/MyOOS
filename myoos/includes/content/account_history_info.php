@@ -96,7 +96,7 @@ $smarty->assign(
         'heading_title'     => $aLang['heading_title'],
         'robots'            => 'noindex,nofollow,noodp,noydir',
         'account_active'    => 1,
-        'page'                => $nPage
+        'page'              => $nPage
     )
 );
 
