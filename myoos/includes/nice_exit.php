@@ -1,7 +1,6 @@
 <?php
 /**
    ----------------------------------------------------------------------
-
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
@@ -40,7 +39,6 @@ if ($debug == 1) {
 
     // echo "<p><pre>" . var_export($oObject, TRUE). "</pre></p>";
 }
-
 
 
 if (isset($_SESSION)) {

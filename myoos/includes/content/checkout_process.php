@@ -249,10 +249,17 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
     //------insert customer choosen option to order--------
     $attributes_exist = '0';
     $products_ordered_attributes = '';
+
+
+/*
+echo '<pre>';
+print_r($oOrder);
+echo '</pre>';
+*/
     if (isset($oOrder->products[$i]['attributes'])) {
         $attributes_exist = '1';
         for ($j=0, $n2=count($oOrder->products[$i]['attributes']); $j<$n2; $j++) {
-            if (DOWNLOAD_ENABLED == 'true') {
+            if (DOWNLOAD_ENABLED == 'true') {			
                 $products_optionstable = $oostable['products_options'];
                 $products_options_valuestable = $oostable['products_options_values'];
                 $products_attributestable = $oostable['products_attributes'];
@@ -330,12 +337,14 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
                                   'orders_products_filename' => $attributes_values['products_attributes_filename'],
                                   'download_maxdays' => $attributes_values['products_attributes_maxdays'],
                                   'download_count' => $attributes_values['products_attributes_maxcount']);
+
                 // insert
                 oos_db_perform($oostable['orders_products_download'], $sql_data_array);
             }
             $products_ordered_attributes .= "\n\t" . $attributes_values['products_options_name'] . ' ' . oos_decode_special_chars($oOrder->products[$i]['attributes'][$j]['value']);
         }
     }
+	
     //------insert customer choosen option eof ----
     $total_weight += ($oOrder->products[$i]['qty'] * $oOrder->products[$i]['weight']);
     $total_tax += oos_calculate_tax($total_products_price, $products_tax) * $oOrder->products[$i]['qty'];
