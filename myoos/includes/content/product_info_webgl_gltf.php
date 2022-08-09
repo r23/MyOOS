@@ -1,7 +1,6 @@
 <?php
 /**
    ----------------------------------------------------------------------
-
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
@@ -50,7 +49,6 @@ $products_models_sql = "SELECT m.models_id, m.products_id,  md.models_name, md.m
                           AND md.models_id = m.models_id
                           AND md.models_languages_id = '" . intval($nLanguageID) . "'";
 $products_models_result = $dbconn->Execute($products_models_sql);
-
 if (!$products_models_result->RecordCount()) {
     // product not found
     header('HTTP/1.0 404 Not Found');

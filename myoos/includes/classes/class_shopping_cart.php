@@ -258,7 +258,7 @@ class shoppingCart
                                                                     . $dbconn->qstr($sProductsId) . ','
                                                                     . $dbconn->qstr($nQuantity) . ','
                                                                     . $dbconn->qstr($free_redemption) . ','
-                            . $dbconn->qstr(date('Ymd')) . ")"
+                                                                    . $dbconn->qstr(date('Ymd')) . ")"
                         );
                     }
 
@@ -339,6 +339,19 @@ class shoppingCart
                                   products_id = '" . oos_db_input($sProductsId) . "'"
                 );
             }
+
+			if (DOWNLOAD_ENABLED == 'true') {
+                $products_attributestable = $oostable['products_attributes'];
+                $products_attributes_downloadtable = $oostable['products_attributes_download'];
+				$sql = "SELECT COUNT(*) AS total
+						FROM $products_attributestable pa,
+							 $products_attributes_downloadtable pad
+						WHERE pa.products_id = '" . intval($nProductsID) . "'
+						 AND pa.options_values_id = 0
+						 AND pa.products_attributes_id = pad.products_attributes_id";
+				$virtual_check = $dbconn->GetRow($sql);
+			}
+
 
             if (is_array($attributes)) {
                 reset($attributes);
