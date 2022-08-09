@@ -1,6 +1,5 @@
 <?php
 /** ---------------------------------------------------------------------
-
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
@@ -17,7 +16,8 @@
    Copyright (c) 2003 osCommerce
    ----------------------------------------------------------------------
    Released under the GNU General Public License
-   ---------------------------------------------------------------------- */
+   ---------------------------------------------------------------------- 
+ */
 
 define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
@@ -179,12 +179,15 @@ if (!empty($action)) {
             }
 
             $_POST['value_price'] = str_replace(',', '.', $_POST['value_price']);
+			
+			// 0 = Download id
+			$values_id = (isset($_POST['values_id'])) ? intval($_POST['values_id']) : 0;
 
         /*
         $products_optionstable = $oostable['products_options'];
         $products_options_result = $dbconn->Execute("SELECT products_options_type FROM $products_optionstable WHERE products_options_id = '" . intval($_POST['options_id']) . "'");
         $products_options_array = $products_options_result->fields;
-        $values_id = (($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_TEXT) or ($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_FILE)) ? PRODUCTS_OPTIONS_VALUE_TEXT_ID : $_POST['values_id'];
+        $values_id = (($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_TEXT) or ($products_options_array['products_options_type'] == PRODUCTS_OPTIONS_TYPE_FILE)) ? PRODUCTS_OPTIONS_VALUE_TEXT_ID : $values_id;
         */
 		
 		// todo remove options_values_base_unit
@@ -223,7 +226,7 @@ if (!empty($action)) {
 								'" . oos_db_prepare_input($_POST['options_id']) . "', 
 								'" . oos_db_prepare_input($_POST['options_values_model']) . "', 
 								'" . oos_db_prepare_input($options_values_image) . "',
-								'" . oos_db_prepare_input($_POST['values_id']) . "', 
+								'" . oos_db_prepare_input($values_id) . "', 
 								'" . oos_db_prepare_input($_POST['value_price']) . "', 
 								'" . oos_db_prepare_input($options_values_base_price) . "',
 								'" . oos_db_prepare_input($options_values_quantity) . "',
@@ -325,6 +328,7 @@ if (!empty($action)) {
         $_POST['value_price'] = str_replace(',', '.', $_POST['value_price']);
 
 
+/*
         $products_optionstable = $oostable['products_options'];
         $products_options_result = $dbconn->Execute("SELECT products_options_type FROM $products_optionstable WHERE products_options_id = '" . intval($_POST['options_id']) . "'");
         $products_options_array = $products_options_result->fields;
@@ -339,6 +343,9 @@ if (!empty($action)) {
                     $values_id = oos_db_prepare_input($_POST['values_id']);
             }
         }
+*/		
+		// 0 = Download id
+		$values_id = (isset($_POST['values_id'])) ? intval($_POST['values_id']) : 0;
 
 		// todo remove options_values_base_unit
         $options_values_base_unit = '';
@@ -362,7 +369,7 @@ if (!empty($action)) {
 						options_id = '" . oos_db_prepare_input($_POST['options_id']) . "',
 						options_values_model = '" . oos_db_prepare_input($_POST['options_values_model']) . "',
 						options_values_image  = '" . oos_db_prepare_input($options_values_image) . "',
-						options_values_id = '" . oos_db_prepare_input($_POST['values_id']) . "',
+						options_values_id = '" . oos_db_prepare_input($values_id) . "',
 						options_values_price = '" . oos_db_prepare_input($_POST['value_price']) . "',
 						options_values_base_price = '" . oos_db_prepare_input($options_values_base_price) . "',
 						options_values_quantity = '" . oos_db_prepare_input($options_values_quantity) . "',
@@ -379,8 +386,8 @@ if (!empty($action)) {
 			$products_attributes_maxcount = (isset($_POST['products_attributes_maxcount'])) ? $_POST['products_attributes_maxcount'] : DOWNLOAD_MAX_COUNT;
 			
 			$products_attributes_downloadtable = $oostable['products_attributes_download'];
-			$download_result = $dbconn->Execute("SELECT products_options_type FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'");			
-			if (!$download_result->RecordCount()) {
+			$download_result = $dbconn->Execute("SELECT products_attributes_filename FROM $products_attributes_downloadtable WHERE products_attributes_id = '" . intval($_POST['attribute_id']) . "'");				
+			if (!$download_result->RecordCount()) {	
 				$dbconn->Execute("INSERT INTO $products_attributes_downloadtable 
 							(products_attributes_id,
 							products_attributes_filename,
