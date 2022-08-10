@@ -41,7 +41,6 @@ if ($debug == 1) {
 }
 
 
-
 if (isset($_SESSION)) {
     // shopping_cart
     if (isset($_SESSION['new_products_id_in_cart'])) {

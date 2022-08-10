@@ -340,18 +340,6 @@ class shoppingCart
                 );
             }
 
-			if (DOWNLOAD_ENABLED == 'true') {
-                $products_attributestable = $oostable['products_attributes'];
-                $products_attributes_downloadtable = $oostable['products_attributes_download'];
-				$sql = "SELECT COUNT(*) AS total
-						FROM $products_attributestable pa,
-							 $products_attributes_downloadtable pad
-						WHERE pa.products_id = '" . intval($nProductsID) . "'
-						 AND pa.options_values_id = 0
-						 AND pa.products_attributes_id = pad.products_attributes_id";
-				$virtual_check = $dbconn->GetRow($sql);
-			}
-
 
             if (is_array($attributes)) {
                 reset($attributes);
@@ -914,89 +902,72 @@ class shoppingCart
         $dbconn =& oosDBGetConn();
         $oostable =& oosDBGetTables();
 
-        if ((DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0) || ($this->show_weight() == 0) && ($this->count_contents() > 0)) {
+        if ((DOWNLOAD_ENABLED == 'true') && ($this->count_contents() > 0)) {
             reset($this->contents);			
             foreach (array_keys($this->contents) as $products_id) {
-                if (isset($this->contents[$products_id]['attributes'])) {
-                    reset($this->contents[$products_id]['attributes']);
-                    foreach ($this->contents[$products_id]['attributes'] as $value) {
-                        $products_attributestable = $oostable['products_attributes'];
-                        $products_attributes_downloadtable = $oostable['products_attributes_download'];
-                        $sql = "SELECT COUNT(*) AS total
-								FROM $products_attributestable pa,
-								$products_attributes_downloadtable pad
-							WHERE pa.products_id = '" . intval($products_id) . "'
-								AND pa.options_values_id = '" . intval($value) . "'
-								AND pa.products_attributes_id = pad.products_attributes_id";
-                        $virtual_check = $dbconn->GetRow($sql);
+                $products_attributestable = $oostable['products_attributes'];
+                $products_attributes_downloadtable = $oostable['products_attributes_download'];
+                $sql = "SELECT COUNT(*) AS total
+						FROM $products_attributestable pa,
+							$products_attributes_downloadtable pad
+						WHERE pa.products_id = '" . intval($products_id) . "'
+						AND pa.options_values_id = 0
+						AND pa.products_attributes_id = pad.products_attributes_id";
+                $virtual_check = $dbconn->GetRow($sql);
 
-                        if ($virtual_check['total'] > 0) {
-                            switch ($this->content_type) {
-                            case 'physical':
-                                    $this->content_type = 'mixed';
+                if ($virtual_check['total'] > 0) {
+					switch ($this->content_type) {
+						case 'physical':
+							$this->content_type = 'mixed';
 
-                                return $this->content_type;
-                                        break;
-                            default:
-                                    $this->content_type = 'virtual';
-                                break;
-                            }
-                        } else {
-                            switch ($this->content_type) {
-                            case 'virtual':
-                                    $this->content_type = 'mixed';
-
-                                return $this->content_type;
-                                        break;
-                            default:
-                                    $this->content_type = 'physical';
-                                break;
-                            }
-                        }
-                    }
+							return $this->content_type;
+							break;
+					default:
+							$this->content_type = 'virtual';
+							break;
+					}
                 } elseif ($this->show_weight() == 0) {
-                    reset($this->contents);
-                    foreach (array_keys($this->contents) as $products_id) {
-                        $productstable = $oostable['products'];
-                        $sql = "SELECT products_weight
-								FROM $productstable
-								WHERE products_id = '" . intval($products_id) . "'";
-                        $virtual_check_result = $dbconn->Execute($sql);
-                        $virtual_check = $virtual_check_result->fields;
-                        if ($virtual_check['products_weight'] == 0) {
-                            switch ($this->content_type) {
-                            case 'physical':
-                                    $this->content_type = 'mixed';
 
-                                return $this->content_type;
-                                        break;
+					$productstable = $oostable['products'];
+					$sql = "SELECT products_weight
+							FROM $productstable
+							WHERE products_id = '" . intval($products_id) . "'";
+					$virtual_check_result = $dbconn->Execute($sql);
+					$virtual_check = $virtual_check_result->fields;
+		
+					if ($virtual_check['products_weight'] == 0) {
+						switch ($this->content_type) {
+							case 'physical':
+									$this->content_type = 'mixed';
+
+									return $this->content_type;
+									break;
                             default:
                                     $this->content_type = 'virtual_weight';
-                                break;
+									break;
                             }
                         } else {
                             switch ($this->content_type) {
                             case 'virtual':
                                     $this->content_type = 'mixed';
 
-                                return $this->content_type;
-                                        break;
+									return $this->content_type;
+                                    break;
                             default:
                                     $this->content_type = 'physical';
                                 break;
                             }
                         }
-                    }
                 } else {
                     switch ($this->content_type) {
-                    case 'virtual':
-                            $this->content_type = 'mixed';
+						case 'virtual':
+								$this->content_type = 'mixed';
 
-                        return $this->content_type;
+								return $this->content_type;
                                 break;
                     default:
                             $this->content_type = 'physical';
-                        break;
+							break;
                     }
                 }
             }
