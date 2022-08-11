@@ -361,3 +361,26 @@ if ($result === false) {
 } else {
     echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
 }
+
+
+$table = $prefix_table . 'products_attributes_download';
+$result = $db->Execute("ALTER TABLE  " . $table . "  ADD `download_id` INT(11) NOT NULL FIRST");
+if ($result === false) {
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
+
+$result = $db->Execute("ALTER TABLE  " . $table . "  DROP PRIMARY KEY");
+if ($result === false) {
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}
+
+$result = $db->Execute("ALTER TABLE  " . $table . "  CHANGE `download_id` `download_id` INT(11) NOT NULL AUTO_INCREMENT, add PRIMARY KEY (`download_id`)");
+if ($result === false) {
+    echo '<br /><img src="images/no.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-error">' .  $db->ErrorMsg() . NOTMADE . '</font>';
+} else {
+    echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle">&nbsp;<font class="oos-title">' . $table . ' ' . UPDATED .'</font>';
+}

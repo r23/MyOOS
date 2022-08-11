@@ -1020,7 +1020,8 @@ dosql($table, $flds);
 
 $table = $prefix_table . 'products_attributes_download';
 $flds = "
-  products_attributes_id I NOTNULL PRIMARY,
+  download_id I NOTNULL AUTO PRIMARY,
+  products_attributes_id I NOTNULL,
   products_attributes_filename C(255) NOTNULL,
   products_attributes_maxdays N '2.0' DEFAULT '0',
   products_attributes_maxcount N '2.0' DEFAULT '0'

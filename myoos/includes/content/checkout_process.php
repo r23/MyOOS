@@ -254,22 +254,27 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
 		$products_attributestable = $oostable['products_attributes'];
 		$products_attributes_downloadtable = $oostable['products_attributes_download'];
 
-		$attributes_sql = "SELECT pad.products_attributes_maxdays, pad.products_attributes_maxcount , pad.products_attributes_filename 
+		$download_sql = "SELECT pad.products_attributes_maxdays, pad.products_attributes_maxcount, pad.products_attributes_filename 
                                   FROM $products_attributestable pa,
                                        $products_attributes_downloadtable pad 
-                                    AND pa.options_values_id = 0
-                                    AND pa.products_attributes_id = pad.products_attributes_id";
-
-		$attributes_result = $dbconn->Execute($attributes_sql);
-		if ($attributes_result->RecordCount()) {
-            $sql_data_array = array('orders_id' => $insert_id,
+						WHERE pa.products_id = '" . ($oOrder->products[$i]['id']) . "'
+						AND pa.options_values_id = 0
+						AND pa.products_attributes_id = pad.products_attributes_id";
+		$download_result = $dbconn->Execute($download_sql);
+		if ($download_result->RecordCount()) {
+			while ($download = $download_result->fields) {			
+				$sql_data_array = array('orders_id' => $insert_id,
                                   'orders_products_id' => $order_products_id,
-                                  'orders_products_filename' => $attributes_result['products_attributes_filename'],
-                                  'download_maxdays' => $attributes_result['products_attributes_maxdays'],
-                                  'download_count' => $attributes_result['products_attributes_maxcount']);
-
-            // insert
-            oos_db_perform($oostable['orders_products_download'], $sql_data_array);
+                                  'orders_products_filename' => $download['products_attributes_filename'],
+                                  'download_maxdays' => $download['products_attributes_maxdays'],
+                                  'download_count' => $download['products_attributes_maxcount']);
+				// insert
+				oos_db_perform($oostable['orders_products_download'], $sql_data_array);
+			
+				// Move that ADOdb pointer!
+				$download_result->MoveNext();
+			}
+		}			
 	}
 
     if (isset($oOrder->products[$i]['attributes'])) {
