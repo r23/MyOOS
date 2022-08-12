@@ -3,8 +3,8 @@ Contributors: naa986
 Donate link: https://wphowto.net/
 Tags: videojs, video, player, embed, html5
 Requires at least: 4.2
-Tested up to: 5.8
-Stable tag: 1.1.6
+Tested up to: 6.0
+Stable tag: 1.1.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -29,12 +29,13 @@ https://www.youtube.com/watch?v=uF-V6qGvcu8&rel=0
 * Lightweight and compatible with the latest version of WordPress
 * Clean and sleek player with no watermark
 * fallbacks for other HTML5-supported filetypes (WebM, Ogv)
+* HTTP streaming
 
 === How to Use Video.js HTML5 Player ===
 
 In order to embed a video create a new post/page and use the following shortcode:
 
-`[videojs_video url="http://example.com/wp-content/uploads/videos/myvid.mp4"]`
+`[videojs_video url="https://example.com/wp-content/uploads/videos/myvid.mp4"]`
 
 Here, "url" is the location of the MP4 video source file (H.264 encoded). You need to replace the sample URL with the actual URL of the video file.
 
@@ -46,19 +47,19 @@ The following options are supported in the shortcode.
 
 You can specify a WebM video file in addition to the source MP4 video file. This parameter is optional.
 
-`[videojs_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" webm="http://example.com/wp-content/uploads/videos/myvid.webm"]`
+`[videojs_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" webm="https://example.com/wp-content/uploads/videos/myvid.webm"]`
 
 **Ogv**
 
 You can specify a Ogv video file in addition to the source MP4 & WebM video files. This parameter is optional.
 
-`[videojs_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" webm="http://example.com/wp-content/uploads/videos/myvid.webm" ogv="http://example.com/wp-content/uploads/videos/myvid.ogv"]`
+`[videojs_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" webm="https://example.com/wp-content/uploads/videos/myvid.webm" ogv="https://example.com/wp-content/uploads/videos/myvid.ogv"]`
 
 **Width**
 
 Defines the width of the video file (Height is automatically calculated). This option is not required unless you want to limit the maximum width of the video.
 
-`[videojs_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" width="480"]`
+`[videojs_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" width="480"]`
 
 **Preload**
 
@@ -67,13 +68,13 @@ Specifies if and how the video should be loaded when the page loads. Defaults to
 * "metadata" - only metadata should be loaded when the page loads
 * "none" - the video should not be loaded when the page loads
 
-`[videojs_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" preload="metadata"]`
+`[videojs_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" preload="metadata"]`
 
 **Controls**
 
 Specifies that video controls should be displayed. Defaults to "true". In order to hide controls set this parameter to "false".
 
-`[videojs_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" controls="false"]`
+`[videojs_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" controls="false"]`
 
 When you disable controls users will not be able to interact with your videos. So It is recommended that you enable autoplay for a video with no controls.
 
@@ -81,25 +82,32 @@ When you disable controls users will not be able to interact with your videos. S
 
 Causes the video file to automatically play when the page loads.
 
-`[videojs_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" autoplay="true"]`
+`[videojs_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" autoplay="true"]`
 
 **Poster**
 
 Defines image to show as placeholder before the video plays.
 
-`[videojs_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" poster="http://example.com/wp-content/uploads/poster.jpg"]`
+`[videojs_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" poster="https://example.com/wp-content/uploads/poster.jpg"]`
 
 **Loop**
 
 Causes the video file to loop to beginning when finished and automatically continue playing.
 
-`[videojs_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" loop="true"]`
+`[videojs_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" loop="true"]`
 
 **Muted**
 
 Specifies that the audio output of the video should be muted.
 
-`[videojs_video url="http://example.com/wp-content/uploads/videos/myvid.mp4" muted="true"]`
+`[videojs_video url="https://example.com/wp-content/uploads/videos/myvid.mp4" muted="true"]`
+<br>
+=== Video.js HTTP Streaming ===
+
+The plugin supports the m3u8 file format that can be used for Video.js HTTP Streaming. It allows you to play HLS, DASH, and other HTTP streaming protocols with Video.js, even where they are not natively supported.
+
+`[videojs_video url="https://example.com/wp-content/uploads/videos/myvid.m3u8"]`
+
 
 For detailed documentation please visit the [Videojs HTML5 Player](https://wphowto.net/videojs-html5-player-for-wordpress-757) plugin page
 
@@ -140,6 +148,9 @@ MP4, WebM and Ogv.
 none
 
 == Changelog ==
+
+= 1.1.7 =
+* Added support for Video.js HTTP Streaming.
 
 = 1.1.6 =
 * Updated Video.js to 7.14.3.
