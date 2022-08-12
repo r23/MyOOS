@@ -186,7 +186,7 @@ case 'add_product':
                 $nProductsID = intval($_POST['products_id']);
 
                 if ((oos_is_the_product_b_ware($nProductsID)) && (!isset($_POST['used_goods']))) {
-                    // prüfen ob abheackt ist
+                    // check if is chopped
                     $oMessage->add_session('danger', $aLang['error_product_information_used_goods']);
                 } else {
                     $cart_quantity = oos_prepare_input($_POST['cart_quantity']);
