@@ -12138,12 +12138,14 @@ function getRawTransforms() {
  * top-level tag. The HTML should be filtered to not have any text between
  * top-level tags and formatted in a way that blocks can handle the HTML.
  *
- * @param {string} html HTML to convert.
+ * @param {string}   html    HTML to convert.
+ * @param {Function} handler The handler calling htmlToBlocks: either rawHandler
+ *                           or pasteHandler.
  *
  * @return {Array} An array of blocks.
  */
 
-function htmlToBlocks(html) {
+function htmlToBlocks(html, handler) {
   const doc = document.implementation.createHTMLDocument('');
   doc.body.innerHTML = html;
   return Array.from(doc.body.children).flatMap(node => {
@@ -12165,7 +12167,7 @@ function htmlToBlocks(html) {
     } = rawTransform;
 
     if (transform) {
-      return transform(node);
+      return transform(node, handler);
     }
 
     return createBlock(blockName, getBlockAttributes(blockName, node.outerHTML));
@@ -12875,7 +12877,7 @@ function rawHandler(_ref) {
     blockquoteNormaliser];
     piece = deepFilterHTML(piece, filters, blockContentSchema);
     piece = normaliseBlocks(piece);
-    return htmlToBlocks(piece);
+    return htmlToBlocks(piece, rawHandler);
   }).flat().filter(Boolean);
 }
 
@@ -13365,6 +13367,30 @@ function emptyParagraphRemover(node) {
   node.parentNode.removeChild(node);
 }
 
+;// CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/slack-paragraph-corrector.js
+/**
+ * Replaces Slack paragraph markup with a double line break (later converted to
+ * a proper paragraph).
+ *
+ * @param {Element} node Node to check.
+ */
+function slackParagraphCorrector(node) {
+  if (node.nodeName !== 'SPAN') {
+    return;
+  }
+
+  if (node.getAttribute('data-stringify-type') !== 'paragraph-break') {
+    return;
+  }
+
+  const {
+    parentNode
+  } = node;
+  parentNode.insertBefore(node.ownerDocument.createElement('br'), node);
+  parentNode.insertBefore(node.ownerDocument.createElement('br'), node);
+  parentNode.removeChild(node);
+}
+
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/paste-handler.js
 /**
  * WordPress dependencies
@@ -13373,6 +13399,7 @@ function emptyParagraphRemover(node) {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -13501,9 +13528,11 @@ function pasteHandler(_ref) {
 
   if (mode === 'INLINE') {
     return filterInlineHTML(HTML, preserveWhiteSpace);
-  } // An array of HTML strings and block objects. The blocks replace matched
-  // shortcodes.
+  } // Must be run before checking if it's inline content.
 
+
+  HTML = deepFilterHTML(HTML, [slackParagraphCorrector]); // An array of HTML strings and block objects. The blocks replace matched
+  // shortcodes.
 
   const pieces = shortcode_converter(HTML); // The call to shortcodeConverter will always return more than one element
   // if shortcodes are matched. The reason is when shortcodes are matched
@@ -13534,7 +13563,7 @@ function pasteHandler(_ref) {
     piece = deepFilterHTML(piece, [htmlFormattingRemover, brRemover, emptyParagraphRemover], blockContentSchema); // Allows us to ask for this information when we get a report.
 
     paste_handler_console.log('Processed HTML piece:\n\n', piece);
-    return htmlToBlocks(piece);
+    return htmlToBlocks(piece, pasteHandler);
   }).flat().filter(Boolean); // If we're allowed to return inline content, and there is only one
   // inlineable block, and the original plain text content does not have any
   // line breaks, then treat it as inline paste.

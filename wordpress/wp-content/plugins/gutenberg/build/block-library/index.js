@@ -41303,13 +41303,13 @@ const quote_transforms_transforms = {
       }
     }),
     selector: 'blockquote',
-    transform: node => {
+    transform: (node, handler) => {
       return (0,external_wp_blocks_namespaceObject.createBlock)('core/quote', // Don't try to parse any `cite` out of this content.
       // * There may be more than one cite.
       // * There may be more attribution text than just the cite.
       // * If the cite is nested in the quoted text, it's wrong to
       //   remove it.
-      {}, (0,external_wp_blocks_namespaceObject.rawHandler)({
+      {}, handler({
         HTML: node.innerHTML,
         mode: 'BLOCKS'
       }));
