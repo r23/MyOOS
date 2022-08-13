@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 6.0
 Requires at least: 5.6
 Requires PHP: 7.2
-Stable tag: 1.0.95
+Stable tag: 1.0.95.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -591,5 +591,8 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 * Fixed: [Links Per Sitemap](https://rankmath.com/kb/configure-sitemaps/#links-per-sitemap) option was not working properly on some setups
 * Fixed: [URL Inspection API](https://rankmath.com/kb/url-inspection-api-integration/) was not working on some sites where the site locale didn't match with the language code required by the URL Inspection API
 * Fixed: PHP warning on BuddyPress Members page when Schema module is active
+
+= 1.0.95.1 [Aug 12, 2022] =
+* Fixed: Public REST endpoints blocked via `.htaccess` file were accessible through [Headless](https://rankmath.com/kb/headless-cms-support/) endpoint, when that option was active (props to [Yeraisci](https://twitter.com/yeraisci_))
 
 Full changelog can be found here - **[Rank Math SEO changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**
