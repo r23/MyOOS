@@ -313,7 +313,11 @@ require 'includes/header.php';
             <td valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="2">
               <tr>
                 <td class="main" valign="top"><b><?php echo ENTRY_SHIPPING_ADDRESS; ?></b></td>
-                <td class="main"><?php echo oos_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br>'); ?></td>
+                <td class="main"><?php 
+					if (!isset($order->delivery['name'])) {					
+						echo oos_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br>');
+					}
+				?></td>
               </tr>
 
             </table></td>
