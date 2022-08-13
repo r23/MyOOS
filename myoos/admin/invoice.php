@@ -79,7 +79,11 @@
             <td class="main"><b><?php echo ENTRY_SHIP_TO; ?></b></td>
           </tr>
           <tr>
-            <td class="main"><?php echo oos_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br>'); ?></td>
+                <td class="main"><?php 
+					if (!isset($order->delivery['name'])) {					
+						echo oos_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br>');
+					}
+				?></td>
           </tr>
         </table></td>
       </tr>
