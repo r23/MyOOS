@@ -36,21 +36,18 @@ require 'includes/functions/function_edit_orders.php';
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
-require_once OOS_ABSOLUTE_PATH . '/includes/classes/class_order.php';
+require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
+
+$language = oos_db_prepare_input($_SESSION['language']);
 
 
+$step = $_GET['step'] ?? $_POST['step'] ?? 1;
 
-  $language = $_SESSION['language'];
+$oID = isset($_GET['oID']) ? intval($_GET['oID']) : '';
 
-if (isset($_GET['step']) && !empty($_GET['step'])) {
-    $step = oos_db_prepare_input($_GET['step']);
-} elseif (isset($_POST['step']) && !empty($_POST['step'])) {
-    $step = oos_db_prepare_input($_POST['step']);
-}
-  $oID = intval($_GET['oID']);
-  $update_products = oos_db_prepare_input($_POST['update_products']);
-  $update_totals = oos_db_prepare_input($_POST['update_totals']);
-  $add_product_options = oos_db_prepare_input($_POST['add_product_options']);
+$update_products = isset($_POST['update_products']) ? oos_db_prepare_input($_POST['update_products']) : '';
+$update_totals = isset($_POST['update_totals']) ? oos_db_prepare_input($_POST['update_totals']) : '';
+$add_product_options = isset($_POST['add_product_options']) ? oos_db_prepare_input($_POST['add_product_options']) : '';
 
   // New "Status History" table has different format.
   $OldNewStatusValues = (oos_field_exists($oostable['orders_status_history'], "old_value") && oos_field_exists($oostable['orders_status_history'], "new_value"));
@@ -83,10 +80,9 @@ if (!empty($action)) {
     // Update Order
     case 'update_order':
 
-        $oID = oos_db_prepare_input($_GET['oID']);
         $order = new order($oID);
-        $status = oos_db_prepare_input($_POST['status']);
-
+		$status = isset($_POST['status']) ? oos_db_prepare_input($_POST['status']) : '';
+		
         // Update Order Info
         $UpdateOrders = "update " . $oostable['orders'] . " set 
       customers_name = '" . oos_db_input(stripslashes($update_customer_name)) . "',
