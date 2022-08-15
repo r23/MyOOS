@@ -26,30 +26,32 @@
    ----------------------------------------------------------------------
  */
 
-define('HEADING_TITLE', 'Editing Order');
-define('HEADING_TITLE_SEARCH', 'Order ID:');
+define('HEADING_TITLE', 'Bestellung bearbeiten');
+define('HEADING_TITLE_SEARCH', 'Bestell-Nr.:');
 define('HEADING_TITLE_STATUS', 'Status:');
-define('ADDING_TITLE', 'Adding a Product to Order');
+define('ADDING_TITLE', 'Ein Produkt zur Bestellung hinzufügen');
 
-define('ENTRY_UPDATE_TO_CC', '(Update to <b>Credit Card</b> to view CC fields.)');
-define('TABLE_HEADING_COMMENTS', 'Comments');
-define('TABLE_HEADING_CUSTOMERS', 'Customers');
-define('TABLE_HEADING_ORDER_TOTAL', 'Order Total');
-define('TABLE_HEADING_DATE_PURCHASED', 'Date Purchased');
+define('ENTRY_UPDATE_TO_CC', '(Aktualisieren Sie auf <b>Kreditkarte</b>, um die CC-Felder anzuzeigen.)');
+define('TABLE_HEADING_COMMENTS', 'Kommentar');
+define('TABLE_HEADING_CUSTOMERS', 'Kunde');
+define('TABLE_HEADING_ORDER_TOTAL', 'Gesamtwert');
+define('TABLE_HEADING_DATE_PURCHASED', 'Bestelldatum');
 define('TABLE_HEADING_STATUS', 'Status');
-define('TABLE_HEADING_ACTION', 'Action');
-define('TABLE_HEADING_QUANTITY', 'Qty.');
-define('TABLE_HEADING_PRODUCTS_MODEL', 'Model');
-define('TABLE_HEADING_PRODUCTS', 'Products');
-define('TABLE_HEADING_TAX', 'Tax');
-define('TABLE_HEADING_TOTAL', 'Total');
-define('TABLE_HEADING_UNIT_PRICE', 'Unit Price');
-define('TABLE_HEADING_TOTAL_PRICE', 'Total Price');
+define('TABLE_HEADING_ACTION', 'Aktion');
+define('TABLE_HEADING_QUANTITY', 'Anzahl.');
+define('TABLE_HEADING_PRODUCTS_SERIAL_NUMBER', 'SN');
+define('TABLE_HEADING_PRODUCTS_MODEL', 'Artikel-Nr.');
+define('TABLE_HEADING_PRODUCTS', 'Artikel');
+define('TABLE_HEADING_TAX', 'MwSt');
+define('TABLE_HEADING_TOTAL', 'Gesamtsumme');
+define('TABLE_HEADING_UNIT_PRICE', 'Preis pro Einheit');
+define('TABLE_HEADING_TOTAL_PRICE', 'Gesamtpreis');
 
-define('TABLE_HEADING_CUSTOMER_NOTIFIED', 'Customer Notified');
-define('TABLE_HEADING_DATE_ADDED', 'Date Added');
 
-define('ENTRY_CUSTOMER', 'Customer:');
+define('TABLE_HEADING_CUSTOMER_NOTIFIED', 'Kunde benachrichtigt');
+define('TABLE_HEADING_DATE_ADDED', 'hinzugefügt am:');
+
+define('ENTRY_CUSTOMER', 'Kunde:');
 define('ENTRY_CUSTOMER_NAME', 'Name');
 define('ENTRY_CUSTOMER_COMPANY', 'Company');
 define('ENTRY_CUSTOMER_ADDRESS', 'Address');
@@ -58,7 +60,7 @@ define('ENTRY_CUSTOMER_STATE', 'State');
 define('ENTRY_CUSTOMER_POSTCODE', 'Postcode');
 define('ENTRY_CUSTOMER_COUNTRY', 'Country');
 
-define('ENTRY_SOLD_TO', 'SOLD TO:');
+define('ENTRY_SOLD_TO', 'Kunde:');
 define('ENTRY_DELIVERY_TO', 'Delivery To:');
 define('ENTRY_SHIP_TO', 'SHIP TO:');
 define('ENTRY_SHIPPING_ADDRESS', 'Shipping Address:');
