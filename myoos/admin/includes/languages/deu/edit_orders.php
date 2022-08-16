@@ -1,8 +1,6 @@
 <?php
 /**
    ----------------------------------------------------------------------
-   $Id: edit_orders.php,v 1.3 2007/06/13 16:15:14 r23 Exp $
-
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
@@ -53,58 +51,59 @@ define('TABLE_HEADING_DATE_ADDED', 'hinzugefügt am:');
 
 define('ENTRY_CUSTOMER', 'Kunde:');
 define('ENTRY_CUSTOMER_NAME', 'Name');
-define('ENTRY_CUSTOMER_COMPANY', 'Company');
-define('ENTRY_CUSTOMER_ADDRESS', 'Address');
-define('ENTRY_CUSTOMER_CITY', 'City');
-define('ENTRY_CUSTOMER_STATE', 'State');
-define('ENTRY_CUSTOMER_POSTCODE', 'Postcode');
-define('ENTRY_CUSTOMER_COUNTRY', 'Country');
+define('ENTRY_CUSTOMER_COMPANY', 'Unternehmen');
+define('ENTRY_CUSTOMER_ADDRESS', 'Adresse');
+define('ENTRY_CUSTOMER_CITY', 'Stadt');
+define('ENTRY_CUSTOMER_STATE', 'Bundesland');
+define('ENTRY_CUSTOMER_POSTCODE', 'Postleitzahl');
+define('ENTRY_CUSTOMER_COUNTRY', 'Land');
 
 define('ENTRY_SOLD_TO', 'Kunde:');
-define('ENTRY_DELIVERY_TO', 'Delivery To:');
-define('ENTRY_SHIP_TO', 'SHIP TO:');
-define('ENTRY_SHIPPING_ADDRESS', 'Shipping Address:');
-define('ENTRY_BILLING_ADDRESS', 'Billing Address:');
-define('ENTRY_PAYMENT_METHOD', 'Payment Method:');
-define('ENTRY_SUB_TOTAL', 'Sub-Total:');
-define('ENTRY_TAX', 'Tax:');
-define('ENTRY_SHIPPING', 'Shipping:');
-define('ENTRY_TOTAL', 'Total:');
-define('ENTRY_DATE_PURCHASED', 'Date Purchased:');
+define('ENTRY_DELIVERY_TO', 'Lieferung an:');
+define('ENTRY_SHIP_TO', 'Versand an:');
+define('ENTRY_SHIPPING_ADDRESS', 'Lieferadresse:');
+define('ENTRY_BILLING_ADDRESS', 'Rechnungsadresse:');
+define('ENTRY_PAYMENT_METHOD', 'Zahlungsmethode:');
+define('ENTRY_SUB_TOTAL', 'Zwischensumme:');
+define('ENTRY_TAX', 'Steuer:');
+define('ENTRY_SHIPPING', 'Versand:');
+define('ENTRY_TOTAL', 'Gesamt:');
+define('ENTRY_DATE_PURCHASED', 'Kaufdatum:');
 define('ENTRY_STATUS', 'Status:');
-define('ENTRY_DATE_LAST_UPDATED', 'Date Last Updated:');
-define('ENTRY_NOTIFY_CUSTOMER', 'Notify Customer:');
-define('ENTRY_NOTIFY_COMMENTS', 'Append Comments:');
-define('ENTRY_PRINTABLE', 'Print Invoice');
+define('ENTRY_DATE_LAST_UPDATED', 'Datum der letzten Aktualisierung:');
+define('ENTRY_NOTIFY_CUSTOMER', 'Kunde benachrichtigen:');
+define('ENTRY_NOTIFY_COMMENTS', 'Kommentare anhängen:');
+define('ENTRY_PRINTABLE', 'Rechnung drucken');
 
-define('TEXT_INFO_HEADING_DELETE_ORDER', 'Delete Order');
-define('TEXT_INFO_DELETE_INTRO', 'Are you sure you want to delete this order?');
-define('TEXT_INFO_RESTOCK_PRODUCT_QUANTITY', 'Restock product quantity');
-define('TEXT_DATE_ORDER_CREATED', 'Date Created:');
-define('TEXT_DATE_ORDER_LAST_MODIFIED', 'Last Modified:');
-define('TEXT_DATE_ORDER_ADDNEW', 'Add product.');
-define('TEXT_INFO_PAYMENT_METHOD', 'Payment Method:');
+define('TEXT_INFO_HEADING_DELETE_ORDER', 'Auftrag löschen');
+define('TEXT_INFO_DELETE_INTRO', 'Sind Sie sicher, dass Sie diese Bestellung löschen wollen?');
+define('TEXT_INFO_RESTOCK_PRODUCT_QUANTITY', 'Produktmenge wieder einlagern');
+define('TEXT_DATE_ORDER_CREATED', 'Erstellungsdatum:');
+define('TEXT_DATE_ORDER_LAST_MODIFIED', 'Letzte Änderung:');
+define('TEXT_DATE_ORDER_ADDNEW', 'Produkt hinzufügen.');
+define('TEXT_INFO_PAYMENT_METHOD', 'Zahlungsmethode:');
 
-define('TEXT_ALL_ORDERS', 'All Orders');
-define('TEXT_NO_ORDER_HISTORY', 'No Order History Available');
+define('TEXT_ALL_ORDERS', 'Alle Bestellungen');
+define('TEXT_NO_ORDER_HISTORY', 'Keine Bestellhistorie verfügbar');
 
 define('EMAIL_SEPARATOR', '------------------------------------------------------');
-define('EMAIL_TEXT_SUBJECT', 'Order Update');
-define('EMAIL_TEXT_ORDER_NUMBER', 'Order Number:');
-define('EMAIL_TEXT_INVOICE_URL', 'Detailed Invoice:');
-define('EMAIL_TEXT_DATE_ORDERED', 'Date Ordered:');
-define('EMAIL_TEXT_STATUS_UPDATE', 'Your order has been updated to the following status.' . "\n\n" . 'New status: %s' . "\n\n" . 'Please reply to this email if you have any questions.' . "\n");
-define('EMAIL_TEXT_COMMENTS_UPDATE', 'The comments for your order are' . "\n\n%s\n\n");
+define('EMAIL_TEXT_SUBJECT', 'Aktualisierung der Bestellung');
+define('EMAIL_TEXT_ORDER_NUMBER', 'Bestellnummer:');
+define('EMAIL_TEXT_INVOICE_URL', 'Detaillierte Rechnung:');
+define('EMAIL_TEXT_DATE_ORDERED', 'Bestelltes Datum:');
+define('EMAIL_TEXT_STATUS_UPDATE', 'Ihre Bestellung wurde auf den folgenden Status aktualisiert.' . "\n\n" . 'Neuer Status: %s' . "\n\n" . 'Bitte antworten Sie auf diese E-Mail, wenn Sie Fragen haben.' . "\n");
+define('EMAIL_TEXT_COMMENTS_UPDATE', 'Die Kommentare zu Ihrer Bestellung sind' . "\n\n%s\n\n");
 
-define('ERROR_ORDER_DOES_NOT_EXIST', 'Error: Order does not exist.');
-define('SUCCESS_ORDER_UPDATED', 'Success: Order has been successfully updated.');
-define('WARNING_ORDER_NOT_UPDATED', 'Warning: Nothing to change. The order was not updated.');
+define('ERROR_ORDER_DOES_NOT_EXIST', 'Fehler: Bestellung existiert nicht.');
+define('SUCCESS_ORDER_UPDATED', 'Erfolg: Die Bestellung wurde erfolgreich aktualisiert.');
+define('WARNING_ORDER_NOT_UPDATED', 'Warnung: Nichts zu ändern. Die Bestellung wurde nicht aktualisiert.');
 
 define('ADDPRODUCT_TEXT_CATEGORY_CONFIRM', 'OK');
-define('ADDPRODUCT_TEXT_SELECT_PRODUCT', 'Choose product');
+define('ADDPRODUCT_TEXT_SELECT_PRODUCT', 'Produkt auswählen');
 define('ADDPRODUCT_TEXT_PRODUCT_CONFIRM', 'OK');
-define('ADDPRODUCT_TEXT_SELECT_OPTIONS', 'Choose options');
+define('ADDPRODUCT_TEXT_SELECT_OPTIONS', 'Optionen auswählen');
 define('ADDPRODUCT_TEXT_OPTIONS_CONFIRM', 'OK');
-define('ADDPRODUCT_TEXT_OPTIONS_NOTEXIST', 'No Options: Skipped..');
-define('ADDPRODUCT_TEXT_CONFIRM_QUANTITY', 'Qty.');
-define('ADDPRODUCT_TEXT_CONFIRM_ADDNOW', 'Add now');
+define('ADDPRODUCT_TEXT_OPTIONS_NOTEXIST', 'Keine Optionen: Übersprungen..');
+define('ADDPRODUCT_TEXT_CONFIRM_QUANTITY', 'Menge.');
+define('ADDPRODUCT_TEXT_CONFIRM_ADDNOW', 'Jetzt hinzufügen');
+
