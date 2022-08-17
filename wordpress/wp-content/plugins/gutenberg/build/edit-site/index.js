@@ -4171,8 +4171,6 @@ const listView = (0,external_wp_element_namespaceObject.createElement)(external_
 }));
 /* harmony default export */ const list_view = (listView);
 
-;// CONCATENATED MODULE: external ["wp","keycodes"]
-const external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/external.js
 
 
@@ -4188,6 +4186,8 @@ const external = (0,external_wp_element_namespaceObject.createElement)(external_
 }));
 /* harmony default export */ const library_external = (external);
 
+;// CONCATENATED MODULE: external ["wp","keycodes"]
+const external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/keyboard-shortcut-help-modal/config.js
 /**
  * WordPress dependencies
@@ -4929,15 +4929,14 @@ function SaveButton(_ref) {
     };
   }, []);
   const disabled = !isDirty || isSaving;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     variant: "primary",
     className: "edit-site-save-button__button",
     "aria-disabled": disabled,
     "aria-expanded": isEntitiesSavedStatesOpen,
-    disabled: disabled,
     isBusy: isSaving,
     onClick: disabled ? undefined : openEntitiesSavedStates
-  }, (0,external_wp_i18n_namespaceObject.__)('Save')));
+  }, (0,external_wp_i18n_namespaceObject.__)('Save'));
 }
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/undo.js
@@ -5021,6 +5020,7 @@ function UndoButton(props, ref) {
 
 
 function RedoButton(props, ref) {
+  const shortcut = (0,external_wp_keycodes_namespaceObject.isAppleOS)() ? external_wp_keycodes_namespaceObject.displayShortcut.primaryShift('z') : external_wp_keycodes_namespaceObject.displayShortcut.primary('y');
   const hasRedo = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).hasRedo(), []);
   const {
     redo
@@ -5029,7 +5029,7 @@ function RedoButton(props, ref) {
     ref: ref,
     icon: !(0,external_wp_i18n_namespaceObject.isRTL)() ? library_redo : library_undo,
     label: (0,external_wp_i18n_namespaceObject.__)('Redo'),
-    shortcut: external_wp_keycodes_namespaceObject.displayShortcut.primaryShift('z') // If there are no undo levels we don't want to actually disable this
+    shortcut: shortcut // If there are no undo levels we don't want to actually disable this
     // button, because it will remove focus for keyboard users.
     // See: https://github.com/WordPress/gutenberg/issues/3486
     ,
@@ -5245,7 +5245,7 @@ function TemplatePartItemMore(_ref) {
   }), (0,external_wp_i18n_namespaceObject.sprintf)(
   /* translators: %s: template part title */
   (0,external_wp_i18n_namespaceObject.__)('Edit %s'), (_templatePart$title = templatePart.title) === null || _templatePart$title === void 0 ? void 0 : _templatePart$title.rendered))), isTemplateRevertable(templatePart) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-    info: (0,external_wp_i18n_namespaceObject.__)('Restore template to default state'),
+    info: (0,external_wp_i18n_namespaceObject.__)('Use the template part as supplied by the theme.'),
     onClick: clearCustomizations
   }, (0,external_wp_i18n_namespaceObject.__)('Clear customizations'))));
 }
@@ -5429,7 +5429,7 @@ function TemplateDetails(_ref) {
     className: "edit-site-template-details__group edit-site-template-details__revert"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
     className: "edit-site-template-details__revert-button",
-    info: (0,external_wp_i18n_namespaceObject.__)('Restore template to default state'),
+    info: (0,external_wp_i18n_namespaceObject.__)('Use the template as supplied by the theme.'),
     onClick: revert
   }, (0,external_wp_i18n_namespaceObject.__)('Clear customizations'))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, extends_extends({
     className: "edit-site-template-details__show-all-button"
@@ -5485,7 +5485,8 @@ function Header(_ref) {
     isListViewOpen,
     listViewShortcut,
     isLoaded,
-    isVisualMode
+    isVisualMode,
+    settings
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       __experimentalGetPreviewDeviceType,
@@ -5493,7 +5494,8 @@ function Header(_ref) {
       getEditedPostId,
       isInserterOpened,
       isListViewOpened,
-      getEditorMode
+      getEditorMode,
+      getSettings
     } = select(store_store);
     const {
       getEditedEntityRecord
@@ -5519,7 +5521,8 @@ function Header(_ref) {
       isInserterOpen: isInserterOpened(),
       isListViewOpen: isListViewOpened(),
       listViewShortcut: getShortcutRepresentation('core/edit-site/toggle-list-view'),
-      isVisualMode: getEditorMode() === 'visual'
+      isVisualMode: getEditorMode() === 'visual',
+      settings: getSettings()
     };
   }, []);
   const {
@@ -5609,7 +5612,15 @@ function Header(_ref) {
   }, !isFocusMode && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalPreviewOptions, {
     deviceType: deviceType,
     setDeviceType: setPreviewDeviceType
-  }), (0,external_wp_element_namespaceObject.createElement)(SaveButton, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+    href: settings === null || settings === void 0 ? void 0 : settings.siteUrl,
+    target: "_blank",
+    icon: library_external
+  }, (0,external_wp_i18n_namespaceObject.__)('View site'), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
+    as: "span"
+  },
+  /* translators: accessibility text */
+  (0,external_wp_i18n_namespaceObject.__)('(opens in a new tab)'))))), (0,external_wp_element_namespaceObject.createElement)(SaveButton, {
     openEntitiesSavedStates: openEntitiesSavedStates,
     isEntitiesSavedStatesOpen: isEntitiesSavedStatesOpen
   }), (0,external_wp_element_namespaceObject.createElement)(pinned_items.Slot, {
@@ -5795,10 +5806,220 @@ const layout = (0,external_wp_element_namespaceObject.createElement)(external_wp
 }));
 /* harmony default export */ const library_layout = (layout);
 
+;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/typography-utils.js
+/**
+ * The fluid utilities must match the backend equivalent.
+ * See: gutenberg_get_typography_font_size_value() in lib/block-supports/typography.php
+ * ---------------------------------------------------------------
+ */
+
+/**
+ * Returns a font-size value based on a given font-size preset.
+ * Takes into account fluid typography parameters and attempts to return a css formula depending on available, valid values.
+ *
+ * @param {Object}           preset
+ * @param {string}           preset.size              A default font size.
+ * @param {string}           preset.name              A font size name, displayed in the UI.
+ * @param {string}           preset.slug              A font size slug.
+ * @param {Object}           preset.fluid
+ * @param {string|undefined} preset.fluid.max         A maximum font size value.
+ * @param {string|undefined} preset.fluid.min         A minimum font size value.
+ * @param {Object}           typographySettings
+ * @param {boolean}          typographySettings.fluid Whether fluid typography is enabled.
+ *
+ * @return {string} An font-size value
+ */
+function getTypographyFontSizeValue(preset, typographySettings) {
+  const {
+    size: defaultSize
+  } = preset;
+
+  if (true !== (typographySettings === null || typographySettings === void 0 ? void 0 : typographySettings.fluid)) {
+    return defaultSize;
+  } // Defaults.
+
+
+  const DEFAULT_MAXIMUM_VIEWPORT_WIDTH = '1600px';
+  const DEFAULT_MINIMUM_VIEWPORT_WIDTH = '768px';
+  const DEFAULT_MINIMUM_FONT_SIZE_FACTOR = 0.75;
+  const DEFAULT_MAXIMUM_FONT_SIZE_FACTOR = 1.5;
+  const DEFAULT_SCALE_FACTOR = 1; // Font sizes.
+  // A font size has explicitly bypassed fluid calculations.
+
+  if (false === (preset === null || preset === void 0 ? void 0 : preset.fluid)) {
+    return defaultSize;
+  }
+
+  const fluidFontSizeSettings = (preset === null || preset === void 0 ? void 0 : preset.fluid) || {}; // Try to grab explicit min and max fluid font sizes.
+
+  let minimumFontSizeRaw = fluidFontSizeSettings === null || fluidFontSizeSettings === void 0 ? void 0 : fluidFontSizeSettings.min;
+  let maximumFontSizeRaw = fluidFontSizeSettings === null || fluidFontSizeSettings === void 0 ? void 0 : fluidFontSizeSettings.max;
+  const preferredSize = getTypographyValueAndUnit(defaultSize); // Protect against unsupported units.
+
+  if (!(preferredSize !== null && preferredSize !== void 0 && preferredSize.unit)) {
+    return defaultSize;
+  } // If no fluid min or max font sizes are available, create some using min/max font size factors.
+
+
+  if (!minimumFontSizeRaw) {
+    minimumFontSizeRaw = preferredSize.value * DEFAULT_MINIMUM_FONT_SIZE_FACTOR + preferredSize.unit;
+  }
+
+  if (!maximumFontSizeRaw) {
+    maximumFontSizeRaw = preferredSize.value * DEFAULT_MAXIMUM_FONT_SIZE_FACTOR + preferredSize.unit;
+  }
+
+  const fluidFontSizeValue = getComputedFluidTypographyValue({
+    maximumViewPortWidth: DEFAULT_MAXIMUM_VIEWPORT_WIDTH,
+    minimumViewPortWidth: DEFAULT_MINIMUM_VIEWPORT_WIDTH,
+    maximumFontSize: maximumFontSizeRaw,
+    minimumFontSize: minimumFontSizeRaw,
+    scaleFactor: DEFAULT_SCALE_FACTOR
+  });
+
+  if (!!fluidFontSizeValue) {
+    return fluidFontSizeValue;
+  }
+
+  return defaultSize;
+}
+/**
+ * Internal implementation of clamp() based on available min/max viewport width, and min/max font sizes.
+ *
+ * @param {Object} args
+ * @param {string} args.maximumViewPortWidth Maximum size up to which type will have fluidity.
+ * @param {string} args.minimumViewPortWidth Minimum viewport size from which type will have fluidity.
+ * @param {string} args.maximumFontSize      Maximum font size for any clamp() calculation.
+ * @param {string} args.minimumFontSize      Minimum font size for any clamp() calculation.
+ * @param {number} args.scaleFactor          A scale factor to determine how fast a font scales within boundaries.
+ *
+ * @return {string|null} A font-size value using clamp().
+ */
+
+function getComputedFluidTypographyValue(_ref) {
+  let {
+    maximumViewPortWidth,
+    minimumViewPortWidth,
+    maximumFontSize,
+    minimumFontSize,
+    scaleFactor
+  } = _ref;
+  // Grab the minimum font size and normalize it in order to use the value for calculations.
+  const minimumFontSizeParsed = getTypographyValueAndUnit(minimumFontSize); // We get a 'preferred' unit to keep units consistent when calculating,
+  // otherwise the result will not be accurate.
+
+  const fontSizeUnit = (minimumFontSizeParsed === null || minimumFontSizeParsed === void 0 ? void 0 : minimumFontSizeParsed.unit) || 'rem'; // Grab the maximum font size and normalize it in order to use the value for calculations.
+
+  const maximumFontSizeParsed = getTypographyValueAndUnit(maximumFontSize, {
+    coerceTo: fontSizeUnit
+  }); // Protect against unsupported units.
+
+  if (!minimumFontSizeParsed || !maximumFontSizeParsed) {
+    return null;
+  } // Use rem for accessible fluid target font scaling.
+
+
+  const minimumFontSizeRem = getTypographyValueAndUnit(minimumFontSize, {
+    coerceTo: 'rem'
+  }); // Viewport widths defined for fluid typography. Normalize units
+
+  const maximumViewPortWidthParsed = getTypographyValueAndUnit(maximumViewPortWidth, {
+    coerceTo: fontSizeUnit
+  });
+  const minumumViewPortWidthParsed = getTypographyValueAndUnit(minimumViewPortWidth, {
+    coerceTo: fontSizeUnit
+  }); // Protect against unsupported units.
+
+  if (!maximumViewPortWidthParsed || !minumumViewPortWidthParsed || !minimumFontSizeRem) {
+    return null;
+  } // Build CSS rule.
+  // Borrowed from https://websemantics.uk/tools/responsive-font-calculator/.
+
+
+  const minViewPortWidthOffsetValue = roundToPrecision(minumumViewPortWidthParsed.value / 100, 3);
+  const viewPortWidthOffset = minViewPortWidthOffsetValue + fontSizeUnit;
+  let linearFactor = 100 * ((maximumFontSizeParsed.value - minimumFontSizeParsed.value) / (maximumViewPortWidthParsed.value - minumumViewPortWidthParsed.value));
+  linearFactor = roundToPrecision(linearFactor, 3) || 1;
+  const linearFactorScaled = linearFactor * scaleFactor;
+  const fluidTargetFontSize = `${minimumFontSizeRem.value}${minimumFontSizeRem.unit} + ((1vw - ${viewPortWidthOffset}) * ${linearFactorScaled})`;
+  return `clamp(${minimumFontSize}, ${fluidTargetFontSize}, ${maximumFontSize})`;
+}
+/**
+ *
+ * @param {string}           rawValue Raw size value from theme.json.
+ * @param {Object|undefined} options  Calculation options.
+ *
+ * @return {{ unit: string, value: number }|null} An object consisting of `'value'` and `'unit'` properties.
+ */
+
+function getTypographyValueAndUnit(rawValue) {
+  let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  if (!rawValue) {
+    return null;
+  }
+
+  const {
+    coerceTo,
+    rootSizeValue,
+    acceptableUnits
+  } = {
+    coerceTo: '',
+    // Default browser font size. Later we could inject some JS to compute this `getComputedStyle( document.querySelector( "html" ) ).fontSize`.
+    rootSizeValue: 16,
+    acceptableUnits: ['rem', 'px', 'em'],
+    ...options
+  };
+  const acceptableUnitsGroup = acceptableUnits === null || acceptableUnits === void 0 ? void 0 : acceptableUnits.join('|');
+  const regexUnits = new RegExp(`^(\\d*\\.?\\d+)(${acceptableUnitsGroup}){1,1}$`);
+  const matches = rawValue.match(regexUnits); // We need a number value and a unit.
+
+  if (!matches || matches.length < 3) {
+    return null;
+  }
+
+  let [, value, unit] = matches;
+  let returnValue = parseFloat(value);
+
+  if ('px' === coerceTo && ('em' === unit || 'rem' === unit)) {
+    returnValue = returnValue * rootSizeValue;
+    unit = coerceTo;
+  }
+
+  if ('px' === unit && ('em' === coerceTo || 'rem' === coerceTo)) {
+    returnValue = returnValue / rootSizeValue;
+    unit = coerceTo;
+  }
+
+  return {
+    value: returnValue,
+    unit
+  };
+}
+/**
+ * Returns a value rounded to defined precision.
+ * Returns `undefined` if the value is not a valid finite number.
+ *
+ * @param {number} value  Raw value.
+ * @param {number} digits The number of digits to appear after the decimal point
+ *
+ * @return {number|undefined} Value rounded to standard precision.
+ */
+
+function roundToPrecision(value) {
+  let digits = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
+  return Number.isFinite(value) ? parseFloat(value.toFixed(digits)) : undefined;
+}
+
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/utils.js
 /**
  * External dependencies
  */
+
+/**
+ * Internal dependencies
+ */
+
 
 /* Supporting data. */
 
@@ -5839,6 +6060,12 @@ const PRESET_METADATA = [{
   classes: []
 }, {
   path: ['typography', 'fontSizes'],
+  valueFunc: (preset, _ref2) => {
+    let {
+      typography: typographySettings
+    } = _ref2;
+    return getTypographyFontSizeValue(preset, typographySettings);
+  },
   valueKey: 'size',
   cssVarInfix: 'font-size',
   classes: [{
@@ -5860,6 +6087,9 @@ const STYLE_PATH_TO_CSS_VAR_INFIX = {
   'elements.link.color.text': 'color',
   'elements.button.color.text': 'color',
   'elements.button.backgroundColor': 'background-color',
+  'elements.heading.color': 'color',
+  'elements.heading.backgroundColor': 'background-color',
+  'elements.heading.gradient': 'gradient',
   'color.gradient': 'gradient',
   'typography.fontSize': 'font-size',
   'typography.fontFamily': 'font-family'
@@ -5929,8 +6159,8 @@ function getPresetVariableFromValue(features, blockName, variableStylePath, pres
   return `var:preset|${cssVarInfix}|${presetObject.slug}`;
 }
 
-function getValueFromPresetVariable(features, blockName, variable, _ref2) {
-  let [presetType, slug] = _ref2;
+function getValueFromPresetVariable(features, blockName, variable, _ref3) {
+  let [presetType, slug] = _ref3;
   const metadata = (0,external_lodash_namespaceObject.find)(PRESET_METADATA, ['cssVarInfix', presetType]);
 
   if (!metadata) {
@@ -6170,7 +6400,7 @@ function useStyle(path, blockName) {
 
   return [result, setStyle];
 }
-const hooks_ROOT_BLOCK_SUPPORTS = ['background', 'backgroundColor', 'color', 'linkColor', 'buttonColor', 'fontFamily', 'fontSize', 'fontStyle', 'fontWeight', 'lineHeight', 'textDecoration', 'textTransform', 'padding', 'contentSize', 'wideSize'];
+const hooks_ROOT_BLOCK_SUPPORTS = ['background', 'backgroundColor', 'color', 'linkColor', 'buttonColor', 'fontFamily', 'fontSize', 'fontStyle', 'fontWeight', 'lineHeight', 'textDecoration', 'textTransform', 'padding', 'contentSize', 'wideSize', 'blockGap'];
 function getSupportedGlobalStylesPanels(name) {
   var _blockType$supports, _blockType$supports$s, _blockType$supports2, _blockType$supports2$, _blockType$supports3, _blockType$supports3$, _blockType$supports3$2, _blockType$supports3$3;
 
@@ -6632,7 +6862,9 @@ function usePaddingProps(name) {
 
   const resetPaddingValue = () => setPaddingValues({});
 
-  const hasPaddingValue = () => !!paddingValues && Object.keys(paddingValues).length;
+  const [userSetPaddingValue] = useStyle('spacing.padding', name, 'user'); // The `hasPaddingValue` check does not need a parsed value, as `userSetPaddingValue` will be `undefined` if not set.
+
+  const hasPaddingValue = () => !!userSetPaddingValue;
 
   return {
     paddingValues,
@@ -6676,7 +6908,9 @@ function useBlockGapProps(name) {
 
   const resetGapValue = () => setGapValue(undefined);
 
-  const hasGapValue = () => !!gapValue;
+  const [userSetGapValue] = useStyle('spacing.blockGap', name, 'user');
+
+  const hasGapValue = () => !!userSetGapValue;
 
   return {
     gapValue,
@@ -6840,6 +7074,8 @@ function DimensionsPanel(_ref) {
  */
 
 
+
+
 /**
  * Internal dependencies
  */
@@ -6875,8 +7111,16 @@ function TypographyPanel(_ref) {
     name,
     element
   } = _ref;
+  const [selectedLevel, setCurrentTab] = (0,external_wp_element_namespaceObject.useState)('heading');
   const supports = getSupportedGlobalStylesPanels(name);
-  const prefix = element === 'text' || !element ? '' : `elements.${element}.`;
+  let prefix = '';
+
+  if (element === 'heading') {
+    prefix = `elements.${selectedLevel}.`;
+  } else if (element && element !== 'text') {
+    prefix = `elements.${element}.`;
+  }
+
   const [fontSizes] = useSetting('typography.fontSizes', name);
   const disableCustomFontSizes = !useSetting('typography.customFontSize', name)[0];
   const [fontFamilies] = useSetting('typography.fontFamilies', name);
@@ -6885,6 +7129,14 @@ function TypographyPanel(_ref) {
   const hasLineHeightEnabled = useHasLineHeightControl(name);
   const hasAppearanceControl = useHasAppearanceControl(name);
   const hasLetterSpacingControl = useHasLetterSpacingControl(name);
+  /* Disable font size controls when the option to style all headings is selected. */
+
+  let hasFontSizeEnabled = supports.includes('fontSize');
+
+  if (element === 'heading' && selectedLevel === 'heading') {
+    hasFontSizeEnabled = false;
+  }
+
   const [fontFamily, setFontFamily] = useStyle(prefix + 'typography.fontFamily', name);
   const [fontSize, setFontSize] = useStyle(prefix + 'typography.fontSize', name);
   const [fontStyle, setFontStyle] = useStyle(prefix + 'typography.fontStyle', name);
@@ -6912,22 +7164,59 @@ function TypographyPanel(_ref) {
       letterSpacing,
       ...extraStyles
     }
-  }, "Aa"), supports.includes('fontFamily') && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalFontFamilyControl, {
+  }, "Aa"), element === 'heading' && (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)("h4", null, (0,external_wp_i18n_namespaceObject.__)('Select heading level')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Select heading level'),
+    hideLabelFromVision: true,
+    value: selectedLevel,
+    onChange: setCurrentTab,
+    isBlock: true,
+    size: "__unstable-large"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "heading"
+    /* translators: 'All' refers to selecting all heading levels 
+    and applying the same style to h1-h6. */
+    ,
+    label: (0,external_wp_i18n_namespaceObject.__)('All')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h1",
+    label: (0,external_wp_i18n_namespaceObject.__)('H1')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h2",
+    label: (0,external_wp_i18n_namespaceObject.__)('H2')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h3",
+    label: (0,external_wp_i18n_namespaceObject.__)('H3')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h4",
+    label: (0,external_wp_i18n_namespaceObject.__)('H4')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h5",
+    label: (0,external_wp_i18n_namespaceObject.__)('H5')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h6",
+    label: (0,external_wp_i18n_namespaceObject.__)('H6')
+  }))), supports.includes('fontFamily') && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalFontFamilyControl, {
     fontFamilies: fontFamilies,
     value: fontFamily,
-    onChange: setFontFamily
-  }), supports.includes('fontSize') && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FontSizePicker, {
+    onChange: setFontFamily,
+    size: "__unstable-large"
+  }), hasFontSizeEnabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FontSizePicker, {
     value: fontSize,
     onChange: setFontSize,
     fontSizes: fontSizes,
-    disableCustomFontSizes: disableCustomFontSizes
-  }), hasLineHeightEnabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
+    disableCustomFontSizes: disableCustomFontSizes,
+    size: "__unstable-large"
+  }), hasLineHeightEnabled && (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-site-typography-panel__half-width-control"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
     marginBottom: 6
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.LineHeightControl, {
     __nextHasNoMarginBottom: true,
+    __unstableInputWidth: "auto",
     value: lineHeight,
-    onChange: setLineHeight
-  })), hasAppearanceControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalFontAppearanceControl, {
+    onChange: setLineHeight,
+    size: "__unstable-large"
+  }))), hasAppearanceControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalFontAppearanceControl, {
     value: {
       fontStyle,
       fontWeight
@@ -6941,11 +7230,17 @@ function TypographyPanel(_ref) {
       setFontWeight(newFontWeight);
     },
     hasFontStyles: hasFontStyles,
-    hasFontWeights: hasFontWeights
-  }), hasLetterSpacingControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLetterSpacingControl, {
+    hasFontWeights: hasFontWeights,
+    size: "__unstable-large",
+    __nextUnconstrainedWidth: true
+  }), hasLetterSpacingControl && (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-site-typography-panel__half-width-control"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLetterSpacingControl, {
     value: letterSpacing,
-    onChange: setLetterSpacing
-  }));
+    onChange: setLetterSpacing,
+    size: "__unstable-large",
+    __unstableInputWidth: "auto"
+  })));
 }
 
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/context-menu.js
@@ -7408,6 +7703,7 @@ function getCSSRules(style, options) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -7425,11 +7721,13 @@ const BLOCK_SUPPORT_FEATURE_LEVEL_SELECTORS = {
 };
 
 function compileStyleValue(uncompiledValue) {
+  var _uncompiledValue$star;
+
   const VARIABLE_REFERENCE_PREFIX = 'var:';
   const VARIABLE_PATH_SEPARATOR_TOKEN_ATTRIBUTE = '|';
   const VARIABLE_PATH_SEPARATOR_TOKEN_STYLE = '--';
 
-  if ((0,external_lodash_namespaceObject.startsWith)(uncompiledValue, VARIABLE_REFERENCE_PREFIX)) {
+  if (uncompiledValue !== null && uncompiledValue !== void 0 && (_uncompiledValue$star = uncompiledValue.startsWith) !== null && _uncompiledValue$star !== void 0 && _uncompiledValue$star.call(uncompiledValue, VARIABLE_REFERENCE_PREFIX)) {
     const variable = uncompiledValue.slice(VARIABLE_REFERENCE_PREFIX.length).split(VARIABLE_PATH_SEPARATOR_TOKEN_ATTRIBUTE).join(VARIABLE_PATH_SEPARATOR_TOKEN_STYLE);
     return `var(--wp--${variable})`;
   }
@@ -7440,13 +7738,15 @@ function compileStyleValue(uncompiledValue) {
  * Transform given preset tree into a set of style declarations.
  *
  * @param {Object} blockPresets
+ * @param {Object} mergedSettings Merged theme.json settings.
  *
- * @return {Array} An array of style declarations.
+ * @return {Array<Object>} An array of style declarations.
  */
 
 
 function getPresetsDeclarations() {
   let blockPresets = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let mergedSettings = arguments.length > 1 ? arguments[1] : undefined;
   return (0,external_lodash_namespaceObject.reduce)(PRESET_METADATA, (declarations, _ref) => {
     let {
       path,
@@ -7458,10 +7758,10 @@ function getPresetsDeclarations() {
     ['default', 'theme', 'custom'].forEach(origin => {
       if (presetByOrigin[origin]) {
         presetByOrigin[origin].forEach(value => {
-          if (valueKey) {
+          if (valueKey && !valueFunc) {
             declarations.push(`--wp--preset--${cssVarInfix}--${(0,external_lodash_namespaceObject.kebabCase)(value.slug)}: ${value[valueKey]}`);
           } else if (valueFunc && typeof valueFunc === 'function') {
-            declarations.push(`--wp--preset--${cssVarInfix}--${(0,external_lodash_namespaceObject.kebabCase)(value.slug)}: ${valueFunc(value)}`);
+            declarations.push(`--wp--preset--${cssVarInfix}--${(0,external_lodash_namespaceObject.kebabCase)(value.slug)}: ${valueFunc(value, mergedSettings)}`);
           }
         });
       }
@@ -7582,7 +7882,12 @@ function getStylesDeclarations() {
       return declarations;
     }
 
-    const styleValue = (0,external_lodash_namespaceObject.get)(blockStyles, pathToValue);
+    const styleValue = (0,external_lodash_namespaceObject.get)(blockStyles, pathToValue); // Root-level padding styles don't currently support strings with CSS shorthand values.
+    // This may change: https://github.com/WordPress/gutenberg/issues/40132.
+
+    if (key === '--wp--style--root--padding' && (typeof styleValue === 'string' || !useRootPaddingAlign)) {
+      return declarations;
+    }
 
     if (!!properties && typeof styleValue !== 'string') {
       Object.entries(properties).forEach(entry => {
@@ -7597,26 +7902,22 @@ function getStylesDeclarations() {
         const cssProperty = name.startsWith('--') ? name : (0,external_lodash_namespaceObject.kebabCase)(name);
         declarations.push(`${cssProperty}: ${compileStyleValue((0,external_lodash_namespaceObject.get)(styleValue, [prop]))}`);
       });
-    } else if (key === '--wp--style--root--padding' && typeof styleValue === 'string') {
-      // Root-level padding styles don't currently support strings with CSS shorthand values.
-      // This may change: https://github.com/WordPress/gutenberg/issues/40132.
-      return declarations;
     } else if ((0,external_lodash_namespaceObject.get)(blockStyles, pathToValue, false)) {
       const cssProperty = key.startsWith('--') ? key : (0,external_lodash_namespaceObject.kebabCase)(key);
       declarations.push(`${cssProperty}: ${compileStyleValue((0,external_lodash_namespaceObject.get)(blockStyles, pathToValue))}`);
     }
 
     return declarations;
-  }, []);
-
-  if (isRoot && useRootPaddingAlign) {
-    return output;
-  } // The goal is to move everything to server side generated engine styles
+  }, []); // The goal is to move everything to server side generated engine styles
   // This is temporary as we absorb more and more styles into the engine.
-
 
   const extraRules = getCSSRules(blockStyles);
   extraRules.forEach(rule => {
+    // Don't output padding properties if padding variables are set.
+    if (isRoot && useRootPaddingAlign && rule.key.startsWith('padding')) {
+      return;
+    }
+
     const cssProperty = rule.key.startsWith('--') ? rule.key : (0,external_lodash_namespaceObject.kebabCase)(rule.key);
     output.push(`${cssProperty}: ${compileStyleValue(rule.value)}`);
   });
@@ -7635,7 +7936,6 @@ function getStylesDeclarations() {
  * @param {?string} props.fallbackGapValue      An optional fallback gap value if no real gap value is available.
  * @return {string} Generated CSS rules for the layout styles.
  */
-
 
 function getLayoutStyles(_ref6) {
   var _style$spacing, _tree$settings, _tree$settings$layout, _tree$settings2, _tree$settings2$layou;
@@ -7742,7 +8042,7 @@ function getLayoutStyles(_ref6) {
   return ruleset;
 }
 const getNodesWithStyles = (tree, blockSelectors) => {
-  var _tree$styles, _tree$styles2;
+  var _tree$styles3;
 
   const nodes = [];
 
@@ -7762,16 +8062,20 @@ const getNodesWithStyles = (tree, blockSelectors) => {
     });
   }
 
-  (0,external_lodash_namespaceObject.forEach)((_tree$styles = tree.styles) === null || _tree$styles === void 0 ? void 0 : _tree$styles.elements, (value, key) => {
-    if (!!value && !!external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS[key]) {
+  (0,external_lodash_namespaceObject.forEach)(external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS, (selector, name) => {
+    var _tree$styles;
+
+    if (!!((_tree$styles = tree.styles) !== null && _tree$styles !== void 0 && _tree$styles.elements[name])) {
+      var _tree$styles2;
+
       nodes.push({
-        styles: value,
-        selector: external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS[key]
+        styles: (_tree$styles2 = tree.styles) === null || _tree$styles2 === void 0 ? void 0 : _tree$styles2.elements[name],
+        selector
       });
     }
   }); // Iterate over blocks: they can have styles & elements.
 
-  (0,external_lodash_namespaceObject.forEach)((_tree$styles2 = tree.styles) === null || _tree$styles2 === void 0 ? void 0 : _tree$styles2.blocks, (node, blockName) => {
+  (0,external_lodash_namespaceObject.forEach)((_tree$styles3 = tree.styles) === null || _tree$styles3 === void 0 ? void 0 : _tree$styles3.blocks, (node, blockName) => {
     var _blockSelectors$block;
 
     const blockStyles = pickStyleKeys(node);
@@ -7861,7 +8165,7 @@ const toCustomProperties = (tree, blockSelectors) => {
       custom,
       selector
     } = _ref12;
-    const declarations = getPresetsDeclarations(presets);
+    const declarations = getPresetsDeclarations(presets, tree === null || tree === void 0 ? void 0 : tree.settings);
     const customProps = flattenTree(custom, '--wp--custom--', '--');
 
     if (customProps.length > 0) {
@@ -7874,9 +8178,10 @@ const toCustomProperties = (tree, blockSelectors) => {
   });
   return ruleset;
 };
-const toStyles = (tree, blockSelectors, hasBlockGapSupport, hasFallbackGapSupport) => {
+const toStyles = function (tree, blockSelectors, hasBlockGapSupport, hasFallbackGapSupport) {
   var _tree$settings5;
 
+  let disableLayoutStyles = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
   const nodesWithStyles = getNodesWithStyles(tree, blockSelectors);
   const nodesWithSettings = getNodesWithSettings(tree, blockSelectors);
   const useRootPaddingAlign = tree === null || tree === void 0 ? void 0 : (_tree$settings5 = tree.settings) === null || _tree$settings5 === void 0 ? void 0 : _tree$settings5.useRootPaddingAwareAlignments;
@@ -7944,7 +8249,7 @@ const toStyles = (tree, blockSelectors, hasBlockGapSupport, hasFallbackGapSuppor
     } // Process blockGap and layout styles.
 
 
-    if (ROOT_BLOCK_SELECTOR === selector || hasLayoutSupport) {
+    if (!disableLayoutStyles && (ROOT_BLOCK_SELECTOR === selector || hasLayoutSupport)) {
       ruleset += getLayoutStyles({
         tree,
         style: styles,
@@ -7998,10 +8303,10 @@ const toStyles = (tree, blockSelectors, hasBlockGapSupport, hasFallbackGapSuppor
   ruleset = ruleset + '.wp-site-blocks > .aligncenter { justify-content: center; margin-left: auto; margin-right: auto; }';
 
   if (hasBlockGapSupport) {
-    var _tree$styles3, _tree$styles3$spacing;
+    var _tree$styles4, _tree$styles4$spacing;
 
     // Use fallback of `0.5em` just in case, however if there is blockGap support, there should nearly always be a real value.
-    const gapValue = (0,external_wp_blockEditor_namespaceObject.__experimentalGetGapCSSValue)(tree === null || tree === void 0 ? void 0 : (_tree$styles3 = tree.styles) === null || _tree$styles3 === void 0 ? void 0 : (_tree$styles3$spacing = _tree$styles3.spacing) === null || _tree$styles3$spacing === void 0 ? void 0 : _tree$styles3$spacing.blockGap) || '0.5em';
+    const gapValue = (0,external_wp_blockEditor_namespaceObject.__experimentalGetGapCSSValue)(tree === null || tree === void 0 ? void 0 : (_tree$styles4 = tree.styles) === null || _tree$styles4 === void 0 ? void 0 : (_tree$styles4$spacing = _tree$styles4.spacing) === null || _tree$styles4$spacing === void 0 ? void 0 : _tree$styles4$spacing.blockGap) || '0.5em';
     ruleset = ruleset + '.wp-site-blocks > * { margin-block-start: 0; margin-block-end: 0; }';
     ruleset = ruleset + `.wp-site-blocks > * + * { margin-block-start: ${gapValue}; }`;
   }
@@ -8068,9 +8373,6 @@ const getBlockSelectors = blockTypes => {
   return result;
 };
 function useGlobalStylesOutput() {
-  const [stylesheets, setStylesheets] = (0,external_wp_element_namespaceObject.useState)([]);
-  const [settings, setSettings] = (0,external_wp_element_namespaceObject.useState)({});
-  const [svgFilters, setSvgFilters] = (0,external_wp_element_namespaceObject.useState)({});
   const {
     merged: mergedConfig
   } = (0,external_wp_element_namespaceObject.useContext)(GlobalStylesContext);
@@ -8078,26 +8380,30 @@ function useGlobalStylesOutput() {
   const hasBlockGapSupport = blockGap !== null;
   const hasFallbackGapSupport = !hasBlockGapSupport; // This setting isn't useful yet: it exists as a placeholder for a future explicit fallback styles support.
 
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
+  const disableLayoutStyles = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      getSettings
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    return !!getSettings().disableLayoutStyles;
+  });
+  return (0,external_wp_element_namespaceObject.useMemo)(() => {
     if (!(mergedConfig !== null && mergedConfig !== void 0 && mergedConfig.styles) || !(mergedConfig !== null && mergedConfig !== void 0 && mergedConfig.settings)) {
-      return;
+      return [];
     }
 
     const blockSelectors = getBlockSelectors((0,external_wp_blocks_namespaceObject.getBlockTypes)());
     const customProperties = toCustomProperties(mergedConfig, blockSelectors);
-    const globalStyles = toStyles(mergedConfig, blockSelectors, hasBlockGapSupport, hasFallbackGapSupport);
+    const globalStyles = toStyles(mergedConfig, blockSelectors, hasBlockGapSupport, hasFallbackGapSupport, disableLayoutStyles);
     const filters = toSvgFilters(mergedConfig, blockSelectors);
-    setStylesheets([{
+    const stylesheets = [{
       css: customProperties,
       isGlobalStyles: true
     }, {
       css: globalStyles,
       isGlobalStyles: true
-    }]);
-    setSettings(mergedConfig.settings);
-    setSvgFilters(filters);
-  }, [hasBlockGapSupport, hasFallbackGapSupport, mergedConfig]);
-  return [stylesheets, settings, svgFilters, hasBlockGapSupport];
+    }];
+    return [stylesheets, mergedConfig.settings, filters];
+  }, [hasBlockGapSupport, hasFallbackGapSupport, mergedConfig, disableLayoutStyles]);
 }
 
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/preview.js
@@ -8673,6 +8979,11 @@ function ScreenTypography(_ref2) {
   }), (0,external_wp_element_namespaceObject.createElement)(Item, {
     name: name,
     parentMenu: parentMenu,
+    element: "heading",
+    label: (0,external_wp_i18n_namespaceObject.__)('Headings')
+  }), (0,external_wp_element_namespaceObject.createElement)(Item, {
+    name: name,
+    parentMenu: parentMenu,
     element: "button",
     label: (0,external_wp_i18n_namespaceObject.__)('Buttons')
   })))), !!name && (0,external_wp_element_namespaceObject.createElement)(TypographyPanel, {
@@ -8704,6 +9015,10 @@ const screen_typography_element_elements = {
   link: {
     description: (0,external_wp_i18n_namespaceObject.__)('Manage the fonts and typography used on the links.'),
     title: (0,external_wp_i18n_namespaceObject.__)('Links')
+  },
+  heading: {
+    description: (0,external_wp_i18n_namespaceObject.__)('Manage the fonts and typography used on headings.'),
+    title: (0,external_wp_i18n_namespaceObject.__)('Headings')
   },
   button: {
     description: (0,external_wp_i18n_namespaceObject.__)('Manage the fonts and typography used on buttons.'),
@@ -8854,7 +9169,9 @@ function BackgroundColorItem(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
     colorValue: gradientValue !== null && gradientValue !== void 0 ? gradientValue : backgroundColor,
     "data-testid": "background-color-indicator"
-  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_i18n_namespaceObject.__)('Background'))));
+  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, {
+    className: "edit-site-global-styles__color-label"
+  }, (0,external_wp_i18n_namespaceObject.__)('Background'))));
 }
 
 function TextColorItem(_ref2) {
@@ -8880,7 +9197,9 @@ function TextColorItem(_ref2) {
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
     colorValue: color,
     "data-testid": "text-color-indicator"
-  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_i18n_namespaceObject.__)('Text'))));
+  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, {
+    className: "edit-site-global-styles__color-label"
+  }, (0,external_wp_i18n_namespaceObject.__)('Text'))));
 }
 
 function LinkColorItem(_ref3) {
@@ -8913,14 +9232,49 @@ function LinkColorItem(_ref3) {
     expanded: false
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
     colorValue: colorHover
-  }))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_i18n_namespaceObject.__)('Links'))));
+  }))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, {
+    className: "edit-site-global-styles__color-label"
+  }, (0,external_wp_i18n_namespaceObject.__)('Links'))));
 }
 
-function ButtonColorItem(_ref4) {
+function HeadingColorItem(_ref4) {
   let {
     name,
     parentMenu
   } = _ref4;
+  const supports = getSupportedGlobalStylesPanels(name);
+  const hasSupport = supports.includes('color');
+  const [color] = useStyle('elements.heading.color.text', name);
+  const [bgColor] = useStyle('elements.heading.color.background', name);
+
+  if (!hasSupport) {
+    return null;
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(NavigationButtonAsItem, {
+    path: parentMenu + '/colors/heading',
+    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Colors heading styles')
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    justify: "flex-start"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalZStack, {
+    isLayered: false,
+    offset: -8
+  }, (0,external_wp_element_namespaceObject.createElement)(color_indicator_wrapper, {
+    expanded: false
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
+    colorValue: bgColor
+  })), (0,external_wp_element_namespaceObject.createElement)(color_indicator_wrapper, {
+    expanded: false
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
+    colorValue: color
+  }))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_i18n_namespaceObject.__)('Headings'))));
+}
+
+function ButtonColorItem(_ref5) {
+  let {
+    name,
+    parentMenu
+  } = _ref5;
   const supports = getSupportedGlobalStylesPanels(name);
   const hasSupport = supports.includes('buttonColor');
   const [color] = useStyle('elements.button.color.text', name);
@@ -8945,13 +9299,15 @@ function ButtonColorItem(_ref4) {
     expanded: false
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
     colorValue: color
-  }))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_i18n_namespaceObject.__)('Buttons'))));
+  }))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, {
+    className: "edit-site-global-styles__color-label"
+  }, (0,external_wp_i18n_namespaceObject.__)('Buttons'))));
 }
 
-function ScreenColors(_ref5) {
+function ScreenColors(_ref6) {
   let {
     name
-  } = _ref5;
+  } = _ref6;
   const parentMenu = name === undefined ? '' : '/blocks/' + name;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(header, {
     title: (0,external_wp_i18n_namespaceObject.__)('Colors'),
@@ -8974,6 +9330,9 @@ function ScreenColors(_ref5) {
     name: name,
     parentMenu: parentMenu
   }), (0,external_wp_element_namespaceObject.createElement)(LinkColorItem, {
+    name: name,
+    parentMenu: parentMenu
+  }), (0,external_wp_element_namespaceObject.createElement)(HeadingColorItem, {
     name: name,
     parentMenu: parentMenu
   }), (0,external_wp_element_namespaceObject.createElement)(ButtonColorItem, {
@@ -9117,7 +9476,7 @@ function ScreenColorPalette(_ref) {
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TabPanel, {
     tabs: [{
       name: 'solid',
-      title: 'Solid color',
+      title: 'Solid',
       value: 'solid'
     }, {
       name: 'gradient',
@@ -9353,6 +9712,150 @@ function ScreenLinkColor(_ref) {
 }
 
 /* harmony default export */ const screen_link_color = (ScreenLinkColor);
+
+;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/screen-heading-color.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function ScreenHeadingColor(_ref) {
+  let {
+    name
+  } = _ref;
+  const [selectedLevel, setCurrentTab] = (0,external_wp_element_namespaceObject.useState)('heading');
+  const supports = getSupportedGlobalStylesPanels(name);
+  const [solids] = useSetting('color.palette', name);
+  const [gradients] = useSetting('color.gradients', name);
+  const [areCustomSolidsEnabled] = useSetting('color.custom', name);
+  const [areCustomGradientsEnabled] = useSetting('color.customGradient', name);
+  const [isTextEnabled] = useSetting('color.text', name);
+  const [isBackgroundEnabled] = useSetting('color.background', name);
+  const colorsPerOrigin = useColorsPerOrigin(name);
+  const gradientsPerOrigin = useGradientsPerOrigin(name);
+  const hasTextColor = supports.includes('color') && isTextEnabled && (solids.length > 0 || areCustomSolidsEnabled);
+  const hasBackgroundColor = supports.includes('backgroundColor') && isBackgroundEnabled && (solids.length > 0 || areCustomSolidsEnabled);
+  const hasGradientColor = supports.includes('background') && (gradients.length > 0 || areCustomGradientsEnabled);
+  const [color, setColor] = useStyle('elements.' + selectedLevel + '.color.text', name);
+  const [userColor] = useStyle('elements.' + selectedLevel + '.color.text', name, 'user');
+  const [backgroundColor, setBackgroundColor] = useStyle('elements.' + selectedLevel + '.color.background', name);
+  const [userBackgroundColor] = useStyle('elements.' + selectedLevel + '.color.background', name, 'user');
+  const [gradient, setGradient] = useStyle('elements.' + selectedLevel + '.color.gradient', name);
+  const [userGradient] = useStyle('elements.' + selectedLevel + '.color.gradient', name, 'user');
+
+  if (!hasTextColor && !hasBackgroundColor && !hasGradientColor) {
+    return null;
+  }
+
+  let backgroundSettings = {};
+
+  if (hasBackgroundColor) {
+    backgroundSettings = {
+      colorValue: backgroundColor,
+      onColorChange: setBackgroundColor
+    };
+
+    if (backgroundColor) {
+      backgroundSettings.clearable = backgroundColor === userBackgroundColor;
+    }
+  }
+
+  let gradientSettings = {};
+
+  if (hasGradientColor) {
+    gradientSettings = {
+      gradientValue: gradient,
+      onGradientChange: setGradient
+    };
+
+    if (gradient) {
+      gradientSettings.clearable = gradient === userGradient;
+    }
+  }
+
+  const controlProps = { ...backgroundSettings,
+    ...gradientSettings
+  };
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(header, {
+    title: (0,external_wp_i18n_namespaceObject.__)('Headings'),
+    description: (0,external_wp_i18n_namespaceObject.__)('Set the default color used for headings across the site.')
+  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-site-global-styles-screen-heading-color"
+  }, (0,external_wp_element_namespaceObject.createElement)("h4", null, (0,external_wp_i18n_namespaceObject.__)('Select heading level')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Select heading level'),
+    hideLabelFromVision: true,
+    value: selectedLevel,
+    onChange: setCurrentTab,
+    isBlock: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "heading"
+    /* translators: 'All' refers to selecting all heading levels 
+    and applying the same style to h1-h6. */
+    ,
+    label: (0,external_wp_i18n_namespaceObject.__)('All')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h1",
+    label: (0,external_wp_i18n_namespaceObject.__)('H1')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h2",
+    label: (0,external_wp_i18n_namespaceObject.__)('H2')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h3",
+    label: (0,external_wp_i18n_namespaceObject.__)('H3')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h4",
+    label: (0,external_wp_i18n_namespaceObject.__)('H4')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h5",
+    label: (0,external_wp_i18n_namespaceObject.__)('H5')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h6",
+    label: (0,external_wp_i18n_namespaceObject.__)('H6')
+  }))), hasTextColor && (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-site-global-styles-screen-heading-color"
+  }, (0,external_wp_element_namespaceObject.createElement)("h4", null, selectedLevel === 'heading' ? (0,external_wp_i18n_namespaceObject.__)('Text color for all heading levels') : (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %s: heading level (h1-h6) */
+  (0,external_wp_i18n_namespaceObject.__)('Text color for %s'), selectedLevel.toUpperCase())), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalColorGradientControl, {
+    className: "edit-site-screen-heading-text-color__control",
+    colors: colorsPerOrigin,
+    disableCustomColors: !areCustomSolidsEnabled,
+    __experimentalHasMultipleOrigins: true,
+    showTitle: false,
+    enableAlpha: true,
+    __experimentalIsRenderedInSidebar: true,
+    colorValue: color,
+    onColorChange: setColor,
+    clearable: color === userColor
+  })), hasBackgroundColor && (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-site-global-styles-screen-heading-color"
+  }, (0,external_wp_element_namespaceObject.createElement)("h4", null, selectedLevel === 'heading' ? (0,external_wp_i18n_namespaceObject.__)('Background color for all heading levels') : (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %s: heading level (h1-h6) */
+  (0,external_wp_i18n_namespaceObject.__)('Background color for %s'), selectedLevel.toUpperCase())), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalColorGradientControl, extends_extends({
+    className: "edit-site-screen-heading-background-color__control",
+    colors: colorsPerOrigin,
+    gradients: gradientsPerOrigin,
+    disableCustomColors: !areCustomSolidsEnabled,
+    disableCustomGradients: !areCustomGradientsEnabled,
+    __experimentalHasMultipleOrigins: true,
+    showTitle: false,
+    enableAlpha: true,
+    __experimentalIsRenderedInSidebar: true
+  }, controlProps))));
+}
+
+/* harmony default export */ const screen_heading_color = (ScreenHeadingColor);
 
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/screen-button-color.js
 
@@ -9748,6 +10251,7 @@ function ScreenStyleVariations() {
 
 
 
+
 function GlobalStylesNavigationScreen(_ref) {
   let {
     className,
@@ -9778,6 +10282,11 @@ function ContextScreens(_ref2) {
     name: name,
     element: "link"
   })), (0,external_wp_element_namespaceObject.createElement)(GlobalStylesNavigationScreen, {
+    path: parentMenu + '/typography/heading'
+  }, (0,external_wp_element_namespaceObject.createElement)(screen_typography_element, {
+    name: name,
+    element: "heading"
+  })), (0,external_wp_element_namespaceObject.createElement)(GlobalStylesNavigationScreen, {
     path: parentMenu + '/typography/button'
   }, (0,external_wp_element_namespaceObject.createElement)(screen_typography_element, {
     name: name,
@@ -9801,6 +10310,10 @@ function ContextScreens(_ref2) {
   })), (0,external_wp_element_namespaceObject.createElement)(GlobalStylesNavigationScreen, {
     path: parentMenu + '/colors/link'
   }, (0,external_wp_element_namespaceObject.createElement)(screen_link_color, {
+    name: name
+  })), (0,external_wp_element_namespaceObject.createElement)(GlobalStylesNavigationScreen, {
+    path: parentMenu + '/colors/heading'
+  }, (0,external_wp_element_namespaceObject.createElement)(screen_heading_color, {
     name: name
   })), (0,external_wp_element_namespaceObject.createElement)(GlobalStylesNavigationScreen, {
     path: parentMenu + '/colors/button'
@@ -9940,9 +10453,9 @@ function NavigationMenu(_ref) {
       }
     });
   }, [updateBlockListSettings, innerBlocks]);
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalListView, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalListView, {
     id: id
-  }));
+  });
 }
 
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/sidebar/navigation-menu-sidebar/navigation-inspector.js
@@ -10244,7 +10757,7 @@ function Actions(_ref) {
       onClose
     } = _ref2;
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-      info: (0,external_wp_i18n_namespaceObject.__)('Restore to default state'),
+      info: (0,external_wp_i18n_namespaceObject.__)('Use the template as supplied by the theme.'),
       onClick: () => {
         revertTemplate(template);
         onClose();
@@ -11004,6 +11517,7 @@ function CreateTemplatePartModal(_ref) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -11050,10 +11564,11 @@ function ConvertToTemplatePart(_ref) {
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockSettingsMenuControls, null, () => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+    icon: symbol_filled,
     onClick: () => {
       setIsModalOpen(true);
     }
-  }, (0,external_wp_i18n_namespaceObject.__)('Make template part'))), isModalOpen && (0,external_wp_element_namespaceObject.createElement)(CreateTemplatePartModal, {
+  }, (0,external_wp_i18n_namespaceObject.__)('Create Template part'))), isModalOpen && (0,external_wp_element_namespaceObject.createElement)(CreateTemplatePartModal, {
     closeModal: () => {
       setIsModalOpen(false);
     },
@@ -13130,7 +13645,8 @@ const usePostTypeMenuItems = onClickMenuItem => {
       (0,external_wp_i18n_namespaceObject.__)('Single item: %1$s (%2$s)'), labels.singular_name, slug);
     }
 
-    const menuItem = defaultTemplateType ? { ...defaultTemplateType
+    const menuItem = defaultTemplateType ? { ...defaultTemplateType,
+      templatePrefix: templatePrefixes[slug]
     } : {
       slug: generalTemplateSlug,
       title: menuItemTitle,
@@ -13139,7 +13655,8 @@ const usePostTypeMenuItems = onClickMenuItem => {
       // `icon` is the `menu_icon` property of a post type. We
       // only handle `dashicons` for now, even if the `menu_icon`
       // also supports urls and svg as values.
-      icon: icon !== null && icon !== void 0 && icon.startsWith('dashicons-') ? icon.slice(10) : library_post
+      icon: icon !== null && icon !== void 0 && icon.startsWith('dashicons-') ? icon.slice(10) : library_post,
+      templatePrefix: templatePrefixes[slug]
     };
     const hasEntities = postTypesInfo === null || postTypesInfo === void 0 ? void 0 : (_postTypesInfo$slug = postTypesInfo[slug]) === null || _postTypesInfo$slug === void 0 ? void 0 : _postTypesInfo$slug.hasEntities; // We have a different template creation flow only if they have entities.
 
@@ -13168,13 +13685,14 @@ const usePostTypeMenuItems = onClickMenuItem => {
 
               if (_needsUniqueIdentifier) {
                 title = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: Represents the title of a user's custom template in the Site Editor, where %1$s is the template title and %2$s is the slug of the post type, e.g. "Project: Hello (project_type)"
-                (0,external_wp_i18n_namespaceObject.__)('%1$s %2$s'), title, `(${slug})`);
+                (0,external_wp_i18n_namespaceObject.__)('%1$s (%2$s)'), title, slug);
               }
 
               return {
                 title,
                 description,
-                slug: `${templatePrefixes[slug]}-${suggestion.slug}`
+                slug: `${templatePrefixes[slug]}-${suggestion.slug}`,
+                templatePrefix: templatePrefixes[slug]
               };
             }
           },
@@ -13290,13 +13808,15 @@ const useTaxonomiesMenuItems = onClickMenuItem => {
       (0,external_wp_i18n_namespaceObject.__)('%1$s (%2$s)'), labels.singular_name, slug);
     }
 
-    const menuItem = defaultTemplateType ? { ...defaultTemplateType
+    const menuItem = defaultTemplateType ? { ...defaultTemplateType,
+      templatePrefix: templatePrefixes[slug]
     } : {
       slug: generalTemplateSlug,
       title: menuItemTitle,
       description: (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Name of the taxonomy e.g: "Product Categories".
       (0,external_wp_i18n_namespaceObject.__)('Displays taxonomy: %s.'), labels.singular_name),
-      icon: block_meta
+      icon: block_meta,
+      templatePrefix: templatePrefixes[slug]
     };
     const hasEntities = taxonomiesInfo === null || taxonomiesInfo === void 0 ? void 0 : (_taxonomiesInfo$slug = taxonomiesInfo[slug]) === null || _taxonomiesInfo$slug === void 0 ? void 0 : _taxonomiesInfo$slug.hasEntities; // We have a different template creation flow only if they have entities.
 
@@ -13324,13 +13844,14 @@ const useTaxonomiesMenuItems = onClickMenuItem => {
 
               if (_needsUniqueIdentifier) {
                 title = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: Represents the title of a user's custom template in the Site Editor, where %1$s is the template title and %2$s is the slug of the taxonomy, e.g. "Category: shoes (product_tag)"
-                (0,external_wp_i18n_namespaceObject.__)('%1$s %2$s'), title, `(${slug})`);
+                (0,external_wp_i18n_namespaceObject.__)('%1$s (%2$s)'), title, slug);
               }
 
               return {
                 title,
                 description,
-                slug: `${templatePrefixes[slug]}-${suggestion.slug}`
+                slug: `${templatePrefixes[slug]}-${suggestion.slug}`,
+                templatePrefix: templatePrefixes[slug]
               };
             }
           },
@@ -13369,14 +13890,123 @@ const useTaxonomiesMenuItems = onClickMenuItem => {
   }), [menuItems]);
   return taxonomiesMenuItems;
 };
+
+function useAuthorNeedsUniqueIndentifier() {
+  const authors = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).getUsers({
+    who: 'authors',
+    per_page: -1
+  }), []);
+  const authorsCountByName = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return (authors || []).reduce((authorsCount, _ref13) => {
+      let {
+        name
+      } = _ref13;
+      authorsCount[name] = (authorsCount[name] || 0) + 1;
+      return authorsCount;
+    }, {});
+  }, [authors]);
+  return (0,external_wp_element_namespaceObject.useCallback)(name => {
+    return authorsCountByName[name] > 1;
+  }, [authorsCountByName]);
+}
+
+const USE_AUTHOR_MENU_ITEM_TEMPLATE_PREFIX = {
+  user: 'author'
+};
+const USE_AUTHOR_MENU_ITEM_QUERY_PARAMETERS = {
+  user: {
+    who: 'authors'
+  }
+};
+function useAuthorMenuItem(onClickMenuItem) {
+  var _authorInfo$user, _authorInfo$user2;
+
+  const existingTemplates = useExistingTemplates();
+  const defaultTemplateTypes = useDefaultTemplateTypes();
+  const authorInfo = useEntitiesInfo('root', USE_AUTHOR_MENU_ITEM_TEMPLATE_PREFIX, USE_AUTHOR_MENU_ITEM_QUERY_PARAMETERS);
+  const authorNeedsUniqueId = useAuthorNeedsUniqueIndentifier();
+  let authorMenuItem = defaultTemplateTypes === null || defaultTemplateTypes === void 0 ? void 0 : defaultTemplateTypes.find(_ref14 => {
+    let {
+      slug
+    } = _ref14;
+    return slug === 'author';
+  });
+
+  if (!authorMenuItem) {
+    authorMenuItem = {
+      description: (0,external_wp_i18n_namespaceObject.__)('Displays latest posts written by a single author.'),
+      slug: 'author',
+      title: 'Author'
+    };
+  }
+
+  const hasGeneralTemplate = !!(existingTemplates !== null && existingTemplates !== void 0 && existingTemplates.find(_ref15 => {
+    let {
+      slug
+    } = _ref15;
+    return slug === 'author';
+  }));
+
+  if ((_authorInfo$user = authorInfo.user) !== null && _authorInfo$user !== void 0 && _authorInfo$user.hasEntities) {
+    authorMenuItem = { ...authorMenuItem,
+      templatePrefix: 'author'
+    };
+
+    authorMenuItem.onClick = template => {
+      onClickMenuItem({
+        type: 'root',
+        slug: 'user',
+        config: {
+          queryArgs: _ref16 => {
+            let {
+              search
+            } = _ref16;
+            return {
+              _fields: 'id,name,slug,link',
+              orderBy: search ? 'name' : 'registered_date',
+              exclude: authorInfo.user.existingEntitiesIds,
+              who: 'authors'
+            };
+          },
+          getSpecificTemplate: suggestion => {
+            const needsUniqueId = authorNeedsUniqueId(suggestion.name);
+            const title = needsUniqueId ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %1$s: Represents the name of an author e.g: "Jorge", %2$s: Represents the slug of an author e.g: "author-jorge-slug".
+            (0,external_wp_i18n_namespaceObject.__)('Author: %1$s (%2$s)'), suggestion.name, suggestion.slug) : (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Represents the name of an author e.g: "Jorge".
+            (0,external_wp_i18n_namespaceObject.__)('Author: %s'), suggestion.name);
+            const description = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Represents the name of an author e.g: "Jorge".
+            (0,external_wp_i18n_namespaceObject.__)('Template for Author: %s'), suggestion.name);
+            return {
+              title,
+              description,
+              slug: `author-${suggestion.slug}`,
+              templatePrefix: 'author'
+            };
+          }
+        },
+        labels: {
+          singular_name: (0,external_wp_i18n_namespaceObject.__)('Author'),
+          search_items: (0,external_wp_i18n_namespaceObject.__)('Search Authors'),
+          not_found: (0,external_wp_i18n_namespaceObject.__)('No authors found.'),
+          all_items: (0,external_wp_i18n_namespaceObject.__)('All Authors')
+        },
+        hasGeneralTemplate,
+        template
+      });
+    };
+  }
+
+  if (!hasGeneralTemplate || (_authorInfo$user2 = authorInfo.user) !== null && _authorInfo$user2 !== void 0 && _authorInfo$user2.hasEntities) {
+    return authorMenuItem;
+  }
+}
 /**
  * Helper hook that filters all the existing templates by the given
  * object with the entity's slug as key and the template prefix as value.
  *
  * Example:
- * `existingTemplates` is: [ { slug: tag-apple }, { slug: page-about }, { slug: tag } ]
+ * `existingTemplates` is: [ { slug: 'tag-apple' }, { slug: 'page-about' }, { slug: 'tag' } ]
  * `templatePrefixes` is: { post_tag: 'tag' }
- * It will return: { post_tag: [apple] }
+ * It will return: { post_tag: ['apple'] }
  *
  * Note: We append the `-` to the given template prefix in this function for our checks.
  *
@@ -13387,8 +14017,8 @@ const useTaxonomiesMenuItems = onClickMenuItem => {
 const useExistingTemplateSlugs = templatePrefixes => {
   const existingTemplates = useExistingTemplates();
   const existingSlugs = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return Object.entries(templatePrefixes || {}).reduce((accumulator, _ref13) => {
-      let [slug, prefix] = _ref13;
+    return Object.entries(templatePrefixes || {}).reduce((accumulator, _ref17) => {
+      let [slug, prefix] = _ref17;
       const slugsWithTemplates = (existingTemplates || []).reduce((_accumulator, existingTemplate) => {
         const _prefix = `${prefix}-`;
 
@@ -13412,21 +14042,24 @@ const useExistingTemplateSlugs = templatePrefixes => {
  * Helper hook that finds the existing records with an associated template,
  * as they need to be excluded from the template suggestions.
  *
- * @param {string}                entityName       The entity's name.
- * @param {Record<string,string>} templatePrefixes An object with the entity's slug as key and the template prefix as value.
+ * @param {string}                entityName                The entity's name.
+ * @param {Record<string,string>} templatePrefixes          An object with the entity's slug as key and the template prefix as value.
+ * @param {Record<string,Object>} additionalQueryParameters An object with the entity's slug as key and additional query parameters as value.
  * @return {Record<string,EntitiesInfo>} An object with the entity's slug as key and the existing records as value.
  */
 
 
-const useTemplatesToExclude = (entityName, templatePrefixes) => {
+const useTemplatesToExclude = function (entityName, templatePrefixes) {
+  let additionalQueryParameters = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   const slugsToExcludePerEntity = useExistingTemplateSlugs(templatePrefixes);
   const recordsToExcludePerEntity = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    return Object.entries(slugsToExcludePerEntity || {}).reduce((accumulator, _ref14) => {
-      let [slug, slugsWithTemplates] = _ref14;
+    return Object.entries(slugsToExcludePerEntity || {}).reduce((accumulator, _ref18) => {
+      let [slug, slugsWithTemplates] = _ref18;
       const entitiesWithTemplates = select(external_wp_coreData_namespaceObject.store).getEntityRecords(entityName, slug, {
         _fields: 'id',
         context: 'view',
-        slug: slugsWithTemplates
+        slug: slugsWithTemplates,
+        ...additionalQueryParameters[slug]
       });
 
       if (entitiesWithTemplates !== null && entitiesWithTemplates !== void 0 && entitiesWithTemplates.length) {
@@ -13448,22 +14081,24 @@ const useTemplatesToExclude = (entityName, templatePrefixes) => {
  * First we need to find the existing records with an associated template,
  * to query afterwards for any remaining record, by excluding them.
  *
- * @param {string}                entityName       The entity's name.
- * @param {Record<string,string>} templatePrefixes An object with the entity's slug as key and the template prefix as value.
+ * @param {string}                entityName                The entity's name.
+ * @param {Record<string,string>} templatePrefixes          An object with the entity's slug as key and the template prefix as value.
+ * @param {Record<string,Object>} additionalQueryParameters An object with the entity's slug as key and additional query parameters as value.
  * @return {Record<string,EntitiesInfo>} An object with the entity's slug as key and the EntitiesInfo as value.
  */
 
 
-const useEntitiesInfo = (entityName, templatePrefixes) => {
-  const recordsToExcludePerEntity = useTemplatesToExclude(entityName, templatePrefixes);
+const useEntitiesInfo = function (entityName, templatePrefixes) {
+  let additionalQueryParameters = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  const recordsToExcludePerEntity = useTemplatesToExclude(entityName, templatePrefixes, additionalQueryParameters);
   const entitiesInfo = (0,external_wp_data_namespaceObject.useSelect)(select => {
     return Object.keys(templatePrefixes || {}).reduce((accumulator, slug) => {
       var _recordsToExcludePerE, _select$getEntityReco;
 
-      const existingEntitiesIds = (recordsToExcludePerEntity === null || recordsToExcludePerEntity === void 0 ? void 0 : (_recordsToExcludePerE = recordsToExcludePerEntity[slug]) === null || _recordsToExcludePerE === void 0 ? void 0 : _recordsToExcludePerE.map(_ref15 => {
+      const existingEntitiesIds = (recordsToExcludePerEntity === null || recordsToExcludePerEntity === void 0 ? void 0 : (_recordsToExcludePerE = recordsToExcludePerEntity[slug]) === null || _recordsToExcludePerE === void 0 ? void 0 : _recordsToExcludePerE.map(_ref19 => {
         let {
           id
-        } = _ref15;
+        } = _ref19;
         return id;
       })) || [];
       accumulator[slug] = {
@@ -13471,7 +14106,8 @@ const useEntitiesInfo = (entityName, templatePrefixes) => {
           per_page: 1,
           _fields: 'id',
           context: 'view',
-          exclude: existingEntitiesIds
+          exclude: existingEntitiesIds,
+          ...additionalQueryParameters[slug]
         })) !== null && _select$getEntityReco !== void 0 && _select$getEntityReco.length),
         existingEntitiesIds
       };
@@ -13637,12 +14273,14 @@ function AddCustomTemplateModal(_ref3) {
       const {
         slug,
         title,
-        description
+        description,
+        templatePrefix
       } = entityForSuggestions.template;
       onSelect({
         slug,
         title,
-        description
+        description,
+        templatePrefix
       });
     }
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalText, {
@@ -13762,6 +14400,8 @@ function AddCustomGenericTemplateModal(_ref) {
 
 
 
+
+
 /**
  * Internal dependencies
  */
@@ -13812,14 +14452,29 @@ function NewTemplate(_ref) {
       const {
         title,
         description,
-        slug
+        slug,
+        templatePrefix
       } = template;
+      let templateContent = template.content; // Try to find fallback content from existing templates.
+
+      if (!templateContent) {
+        const fallbackTemplate = await external_wp_apiFetch_default()({
+          path: (0,external_wp_url_namespaceObject.addQueryArgs)('/wp/v2/templates/lookup', {
+            slug,
+            is_custom: !isWPSuggestion,
+            template_prefix: templatePrefix
+          })
+        });
+        templateContent = fallbackTemplate.content;
+      }
+
       const newTemplate = await saveEntityRecord('postType', 'wp_template', {
         description,
         // Slugs need to be strings, so this is for template `404`
         slug: slug.toString(),
         status: 'publish',
         title,
+        content: templateContent,
         // This adds a post meta field in template that is part of `is_custom` value calculation.
         is_wp_suggestion: isWPSuggestion
       }, {
@@ -13921,7 +14576,8 @@ function useMissingTemplates(setEntityForSuggestions, setShowCustomTemplateModal
     defaultPostTypesMenuItems,
     postTypesMenuItems
   } = usePostTypeMenuItems(onClickMenuItem);
-  [...defaultTaxonomiesMenuItems, ...defaultPostTypesMenuItems].forEach(menuItem => {
+  const authorMenuItem = useAuthorMenuItem(onClickMenuItem);
+  [...defaultTaxonomiesMenuItems, ...defaultPostTypesMenuItems, authorMenuItem].forEach(menuItem => {
     if (!menuItem) {
       return;
     }
@@ -14296,7 +14952,7 @@ function actions_Actions(_ref) {
         onClose();
       }
     }, (0,external_wp_i18n_namespaceObject.__)('Delete'))), isRevertable && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-      info: (0,external_wp_i18n_namespaceObject.__)('Restore to default state'),
+      info: (0,external_wp_i18n_namespaceObject.__)('Use the template as supplied by the theme.'),
       onClick: () => {
         revertAndSaveTemplate();
         onClose();

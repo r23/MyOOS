@@ -4347,6 +4347,15 @@ function useInputAndSelection(props) {
 
 
       if (ownerDocument.activeElement !== element) {
+        // Only process if the active elment is contentEditable, either
+        // this rich text instance or the writing flow parent. Fixes a
+        // bug in Firefox where it strangely selects the closest
+        // contentEditable element, even though the click was outside
+        // any contentEditable element.
+        if (ownerDocument.activeElement.contentEditable !== 'true') {
+          return;
+        }
+
         if (!ownerDocument.activeElement.contains(element)) {
           return;
         }
@@ -4439,6 +4448,8 @@ function useInputAndSelection(props) {
     }
 
     function onCompositionStart() {
+      var _element$querySelecto;
+
       isComposing = true; // Do not update the selection when characters are being composed as
       // this rerenders the component and might destroy internal browser
       // editing state.
@@ -4448,7 +4459,7 @@ function useInputAndSelection(props) {
       // no need to re-add it, when the value is updated on compositionend
       // it will be re-added when the value is empty.
 
-      element.querySelector(`[${PLACEHOLDER_ATTR_NAME}]`).remove();
+      (_element$querySelecto = element.querySelector(`[${PLACEHOLDER_ATTR_NAME}]`)) === null || _element$querySelecto === void 0 ? void 0 : _element$querySelecto.remove();
     }
 
     function onCompositionEnd() {

@@ -28,6 +28,13 @@ class WP_Style_Engine_CSS_Rules_Store_Gutenberg {
 	protected static $stores = array();
 
 	/**
+	 * The store name.
+	 *
+	 * @var string
+	 */
+	protected $name = '';
+
+	/**
 	 * An array of CSS Rules objects assigned to the store.
 	 *
 	 * @var WP_Style_Engine_CSS_Rule_Gutenberg[]
@@ -44,9 +51,50 @@ class WP_Style_Engine_CSS_Rules_Store_Gutenberg {
 	public static function get_store( $store_name = 'default' ) {
 		if ( ! isset( static::$stores[ $store_name ] ) ) {
 			static::$stores[ $store_name ] = new static();
+			// Set the store name.
+			static::$stores[ $store_name ]->set_name( $store_name );
 		}
 		return static::$stores[ $store_name ];
 	}
+
+	/**
+	 * Get an array of all available stores.
+	 *
+	 * @return WP_Style_Engine_CSS_Rules_Store_Gutenberg[]
+	 */
+	public static function get_stores() {
+		return static::$stores;
+	}
+
+	/**
+	 * Clears all stores from static::$stores.
+	 *
+	 * @return void
+	 */
+	public static function remove_all_stores() {
+		static::$stores = array();
+	}
+
+	/**
+	 * Set the store name.
+	 *
+	 * @param string $name The store name.
+	 *
+	 * @return void
+	 */
+	public function set_name( $name ) {
+		$this->name = $name;
+	}
+
+	/**
+	 * Get the store name.
+	 *
+	 * @return string
+	 */
+	public function get_name() {
+		return $this->name;
+	}
+
 	/**
 	 * Get an array of all rules.
 	 *
@@ -65,7 +113,6 @@ class WP_Style_Engine_CSS_Rules_Store_Gutenberg {
 	 * @return WP_Style_Engine_CSS_Rule_Gutenberg|null Returns a WP_Style_Engine_CSS_Rule_Gutenberg object, or null if the selector is empty.
 	 */
 	public function add_rule( $selector ) {
-
 		$selector = trim( $selector );
 
 		// Bail early if there is no selector.

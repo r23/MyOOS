@@ -61,6 +61,7 @@ __webpack_require__.d(__webpack_exports__, {
   "ZERO": () => (/* binding */ ZERO),
   "displayShortcut": () => (/* binding */ displayShortcut),
   "displayShortcutList": () => (/* binding */ displayShortcutList),
+  "isAppleOS": () => (/* reexport */ isAppleOS),
   "isKeyboardEvent": () => (/* binding */ isKeyboardEvent),
   "modifiers": () => (/* binding */ modifiers),
   "rawShortcut": () => (/* binding */ rawShortcut),
@@ -248,6 +249,7 @@ const SHIFT = 'shift';
  */
 
 const ZERO = 48;
+
 /**
  * Object that contains functions that return the available modifier
  * depending on platform.

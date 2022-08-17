@@ -3071,6 +3071,16 @@ function createRegistry() {
 
 /* harmony default export */ const default_registry = (createRegistry());
 
+;// CONCATENATED MODULE: ./node_modules/is-plain-obj/index.js
+function is_plain_obj_isPlainObject(value) {
+	if (typeof value !== 'object' || value === null) {
+		return false;
+	}
+
+	const prototype = Object.getPrototypeOf(value);
+	return (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null) && !(Symbol.toStringTag in value) && !(Symbol.iterator in value);
+}
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/plugins/persistence/storage/object.js
 let objectStorage;
 const storage = {
@@ -3121,6 +3131,7 @@ try {
 /**
  * External dependencies
  */
+
 
 /**
  * Internal dependencies
@@ -3303,7 +3314,7 @@ function persistencePlugin(registry, pluginOptions) {
           type: '@@WP/PERSISTENCE_RESTORE'
         });
 
-        if ((0,external_lodash_namespaceObject.isPlainObject)(initialState) && (0,external_lodash_namespaceObject.isPlainObject)(persistedState)) {
+        if (is_plain_obj_isPlainObject(initialState) && is_plain_obj_isPlainObject(persistedState)) {
           // If state is an object, ensure that:
           // - Other keys are left intact when persisting only a
           //   subset of keys.

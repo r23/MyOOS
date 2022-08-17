@@ -15,7 +15,6 @@
  * @access private
  */
 class WP_Theme_JSON_6_1 extends WP_Theme_JSON_6_0 {
-
 	/**
 	 * Define which defines which pseudo selectors are enabled for
 	 * which elements.
@@ -1165,7 +1164,7 @@ class WP_Theme_JSON_6_1 extends WP_Theme_JSON_6_0 {
 			return null;
 		}
 
-		$unit            = sanitize_title( $spacing_scale['unit'] );
+		$unit            = '%' === $spacing_scale['unit'] ? '%' : sanitize_title( $spacing_scale['unit'] );
 		$current_step    = $spacing_scale['mediumStep'];
 		$steps_mid_point = round( ( ( $spacing_scale['steps'] ) / 2 ), 0 );
 		$x_small_count   = null;
@@ -1251,6 +1250,11 @@ class WP_Theme_JSON_6_1 extends WP_Theme_JSON_6_0 {
 	protected function get_layout_styles( $block_metadata ) {
 		$block_rules = '';
 		$block_type  = null;
+
+		// Skip outputting layout styles if explicitly disabled.
+		if ( current_theme_supports( 'disable-layout-styles' ) ) {
+			return $block_rules;
+		}
 
 		if ( isset( $block_metadata['name'] ) ) {
 			$block_type = WP_Block_Type_Registry::get_instance()->get_registered( $block_metadata['name'] );

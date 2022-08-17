@@ -1373,9 +1373,9 @@ function DownloadableBlocksNoResults() {
     icon: block_default
   }), (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('No results found.'))), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-inserter__tips"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Tip, null, (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Interested in creating your own block?')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Tip, null, (0,external_wp_i18n_namespaceObject.__)('Interested in creating your own block?'), (0,external_wp_element_namespaceObject.createElement)("br", null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
     href: "https://developer.wordpress.org/block-editor/"
-  }, (0,external_wp_i18n_namespaceObject.__)('Get started here'), ".")))));
+  }, (0,external_wp_i18n_namespaceObject.__)('Get started here'), "."))));
 }
 
 /* harmony default export */ const no_results = (DownloadableBlocksNoResults);

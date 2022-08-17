@@ -336,7 +336,7 @@ function ReusableBlockConvertButton(_ref) {
       onClick: () => {
         setIsModalOpen(true);
       }
-    }, (0,external_wp_i18n_namespaceObject.__)('Add to Reusable blocks')), isModalOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
+    }, (0,external_wp_i18n_namespaceObject.__)('Create Reusable block')), isModalOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
       title: (0,external_wp_i18n_namespaceObject.__)('Create Reusable block'),
       closeLabel: (0,external_wp_i18n_namespaceObject.__)('Close'),
       onRequestClose: () => {

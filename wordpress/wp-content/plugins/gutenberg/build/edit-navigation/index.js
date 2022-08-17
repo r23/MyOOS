@@ -561,10 +561,7 @@ function mapMenuItemsToBlocks(menuItems) {
 
     return (0,external_wp_blocks_namespaceObject.createBlock)(itemBlockName, attributes, nestedBlocks);
   });
-  return (0,external_lodash_namespaceObject.zip)(blocks, sortedItems).map(_ref2 => {
-    let [block, menuItem] = _ref2;
-    return addRecordIdToBlock(block, menuItem.id);
-  });
+  return blocks.map((block, blockIndex) => addRecordIdToBlock(block, sortedItems[blockIndex].id));
 } // A few parameters are using snake case, let's embrace that for convenience:
 
 /* eslint-disable camelcase */
@@ -577,7 +574,7 @@ function mapMenuItemsToBlocks(menuItems) {
  */
 
 
-function menuItemToBlockAttributes(_ref3) {
+function menuItemToBlockAttributes(_ref2) {
   var _object;
 
   let {
@@ -591,7 +588,7 @@ function menuItemToBlockAttributes(_ref3) {
     url,
     type: menuItemTypeField,
     target
-  } = _ref3;
+  } = _ref2;
 
   // For historical reasons, the `core/navigation-link` variation type is `tag`
   // whereas WP Core expects `post_tag` as the `object` type.
@@ -950,7 +947,7 @@ const batchInsertPlaceholderMenuItems = navigationBlock => async _ref4 => {
   });
   const results = await registry.dispatch(external_wp_coreData_namespaceObject.store).__experimentalBatch(tasks); // Return an updated navigation block with all the IDs in.
 
-  const blockToResult = new Map((0,external_lodash_namespaceObject.zip)(blocksWithoutRecordId, results));
+  const blockToResult = new Map(blocksWithoutRecordId.map((block, index) => [block, results[index]]));
   return mapBlocksTree(navigationBlock, block => {
     if (!blockToResult.has(block)) {
       return block;
@@ -4150,6 +4147,7 @@ function UndoButton() {
 
 
 function RedoButton() {
+  const shortcut = (0,external_wp_keycodes_namespaceObject.isAppleOS)() ? external_wp_keycodes_namespaceObject.displayShortcut.primaryShift('z') : external_wp_keycodes_namespaceObject.displayShortcut.primary('y');
   const hasRedo = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).hasRedo(), []);
   const {
     redo
@@ -4157,7 +4155,7 @@ function RedoButton() {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
     icon: !(0,external_wp_i18n_namespaceObject.isRTL)() ? library_redo : library_undo,
     label: (0,external_wp_i18n_namespaceObject.__)('Redo'),
-    shortcut: external_wp_keycodes_namespaceObject.displayShortcut.primaryShift('z') // If there are no undo levels we don't want to actually disable this
+    shortcut: shortcut // If there are no undo levels we don't want to actually disable this
     // button, because it will remove focus for keyboard users.
     // See: https://github.com/WordPress/gutenberg/issues/3486
     ,

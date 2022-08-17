@@ -1051,13 +1051,8 @@ async function defaultProcessor(requests) {
 
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/batch/create-batch.js
 /**
- * External dependencies
- */
-
-/**
  * Internal dependencies
  */
-
 
 /**
  * Creates a batch, which can be used to combine multiple API requests into one
@@ -1192,13 +1187,8 @@ function createBatch() {
       }
 
       let isSuccess = true;
-
-      for (const pair of (0,external_lodash_namespaceObject.zip)(results, queue)) {
-        /** @type {{error?: unknown, output?: unknown}} */
-        const result = pair[0];
-        /** @type {{resolve: (value: any) => void; reject: (error: any) => void} | undefined} */
-
-        const queueItem = pair[1];
+      results.forEach((result, key) => {
+        const queueItem = queue[key];
 
         if (result !== null && result !== void 0 && result.error) {
           queueItem === null || queueItem === void 0 ? void 0 : queueItem.reject(result.error);
@@ -1208,8 +1198,7 @@ function createBatch() {
 
           queueItem === null || queueItem === void 0 ? void 0 : queueItem.resolve((_result$output = result === null || result === void 0 ? void 0 : result.output) !== null && _result$output !== void 0 ? _result$output : result);
         }
-      }
-
+      });
       queue = [];
       return isSuccess;
     }
@@ -5972,6 +5961,8 @@ const enrichSelectors = memoize(selectors => {
  * WordPress dependencies
  */
 
+
+
 /**
  * Internal dependencies
  */
@@ -6008,6 +5999,58 @@ const enrichSelectors = memoize(selectors => {
  * application, the page and the resolution details will be retrieved from
  * the store state using `getEntityRecord()`, or resolved if missing.
  *
+ * @example
+ * ```js
+ * import { useState } from '@wordpress/data';
+ * import { useDispatch } from '@wordpress/data';
+ * import { __ } from '@wordpress/i18n';
+ * import { TextControl } from '@wordpress/components';
+ * import { store as noticeStore } from '@wordpress/notices';
+ * import { useEntityRecord } from '@wordpress/core-data';
+ *
+ * function PageRenameForm( { id } ) {
+ * 	const page = useEntityRecord( 'postType', 'page', id );
+ * 	const [ title, setTitle ] = useState( () => page.record.title.rendered );
+ * 	const { createSuccessNotice, createErrorNotice } =
+ * 		useDispatch( noticeStore );
+ *
+ * 	if ( page.isResolving ) {
+ * 		return 'Loading...';
+ * 	}
+ *
+ * 	async function onRename( event ) {
+ * 		event.preventDefault();
+ * 		page.edit( { title } );
+ * 		try {
+ * 			await page.save();
+ * 			createSuccessNotice( __( 'Page renamed.' ), {
+ * 				type: 'snackbar',
+ * 			} );
+ * 		} catch ( error ) {
+ * 			createErrorNotice( error.message, { type: 'snackbar' } );
+ * 		}
+ * 	}
+ *
+ * 	return (
+ * 		<form onSubmit={ onRename }>
+ * 			<TextControl
+ * 				label={ __( 'Name' ) }
+ * 				value={ title }
+ * 				onChange={ setTitle }
+ * 			/>
+ * 			<button type="submit">{ __( 'Save' ) }</button>
+ * 		</form>
+ * 	);
+ * }
+ *
+ * // Rendered in the application:
+ * // <PageRenameForm id={ 1 } />
+ * ```
+ *
+ * In the above example, updating and saving the page title is handled
+ * via the `edit()` and `save()` mutation helpers provided by
+ * `useEntityRecord()`;
+ *
  * @return Entity record data.
  * @template RecordType
  */
@@ -6016,8 +6059,29 @@ function useEntityRecord(kind, name, recordId) {
     enabled: true
   };
   const {
+    editEntityRecord,
+    saveEditedEntityRecord
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  const mutations = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    edit: record => editEntityRecord(kind, name, recordId, record),
+    save: function () {
+      let saveOptions = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      return saveEditedEntityRecord(kind, name, recordId, {
+        throwOnError: true,
+        ...saveOptions
+      });
+    }
+  }), [recordId]);
+  const {
+    editedRecord,
+    hasEdits
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
+    editedRecord: select(store).getEditedEntityRecord(),
+    hasEdits: select(store).hasEditsForEntityRecord()
+  }), [kind, name, recordId]);
+  const {
     data: record,
-    ...rest
+    ...querySelectRest
   } = __experimentalUseQuerySelect(query => {
     if (!options.enabled) {
       return null;
@@ -6027,7 +6091,10 @@ function useEntityRecord(kind, name, recordId) {
   }, [kind, name, recordId, options.enabled]);
   return {
     record,
-    ...rest
+    editedRecord,
+    hasEdits,
+    ...querySelectRest,
+    ...mutations
   };
 }
 function __experimentalUseEntityRecord(kind, name, recordId, options) {

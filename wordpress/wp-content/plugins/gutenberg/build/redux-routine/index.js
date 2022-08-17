@@ -733,6 +733,16 @@ function isPromise(obj) {
   return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
 }
 
+;// CONCATENATED MODULE: ./node_modules/is-plain-obj/index.js
+function isPlainObject(value) {
+	if (typeof value !== 'object' || value === null) {
+		return false;
+	}
+
+	const prototype = Object.getPrototypeOf(value);
+	return (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null) && !(Symbol.toStringTag in value) && !(Symbol.iterator in value);
+}
+
 ;// CONCATENATED MODULE: ./packages/redux-routine/build-module/is-action.js
 /**
  * External dependencies
@@ -749,7 +759,7 @@ function isPromise(obj) {
  */
 
 function isAction(object) {
-  return (0,external_lodash_namespaceObject.isPlainObject)(object) && typeof object.type === 'string';
+  return isPlainObject(object) && typeof object.type === 'string';
 }
 /**
  * Returns true if the given object quacks like an action and has a specific

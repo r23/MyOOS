@@ -218,17 +218,10 @@ function find(context) {
   });
 }
 
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/dom/build-module/tabbable.js
-/**
- * External dependencies
- */
-
 /**
  * Internal dependencies
  */
-
 
 /**
  * Returns the tab index of the given element. In contrast with the tabIndex
@@ -302,7 +295,7 @@ function createStatefulCollapseRadioGroup() {
 
     if (hasChosen) {
       const hadChosenElement = CHOSEN_RADIO_BY_NAME[name];
-      result = (0,external_lodash_namespaceObject.without)(result, hadChosenElement);
+      result = result.filter(e => e !== hadChosenElement);
     }
 
     CHOSEN_RADIO_BY_NAME[name] = element;
@@ -403,13 +396,16 @@ function findPrevious(element) {
 
 
   focusables.length = index;
-  return (0,external_lodash_namespaceObject.last)(filterTabbable(focusables));
+  const tabbable = filterTabbable(focusables);
+  return tabbable[tabbable.length - 1];
 }
 /**
  * Given a focusable element, find the next tabbable element.
  *
  * @param {Element} element The focusable element after which to look. Defaults
  *                          to the active element.
+ *
+ * @return {Element|undefined} Next tabbable element.
  */
 
 function findNext(element) {
@@ -417,7 +413,7 @@ function findNext(element) {
   const index = focusables.indexOf(element); // Remove all focusables before and including `element`.
 
   const remaining = focusables.slice(index + 1);
-  return (0,external_lodash_namespaceObject.first)(filterTabbable(remaining));
+  return filterTabbable(remaining)[0];
 }
 
 ;// CONCATENATED MODULE: ./packages/dom/build-module/utils/assert-is-defined.js
@@ -1666,10 +1662,6 @@ function isEmpty(element) {
 
 ;// CONCATENATED MODULE: ./packages/dom/build-module/phrasing-content.js
 /**
- * External dependencies
- */
-
-/**
  * All phrasing content elements.
  *
  * @see https://www.w3.org/TR/2011/WD-html5-20110525/content-models.html#phrasing-content-0
@@ -1692,7 +1684,6 @@ function isEmpty(element) {
  *
  * @type {ContentSchema}
  */
-
 const textContentSchema = {
   strong: {},
   em: {},
@@ -1746,8 +1737,13 @@ const textContentSchema = {
 // Possible: strong > em > strong.
 // Impossible: strong > strong.
 
-(0,external_lodash_namespaceObject.without)(Object.keys(textContentSchema), '#text', 'br').forEach(tag => {
-  textContentSchema[tag].children = (0,external_lodash_namespaceObject.omit)(textContentSchema, tag);
+const excludedElements = ['#text', 'br'];
+Object.keys(textContentSchema).filter(element => !excludedElements.includes(element)).forEach(tag => {
+  const {
+    [tag]: removedTag,
+    ...restSchema
+  } = textContentSchema;
+  textContentSchema[tag].children = restSchema;
 });
 /**
  * Embedded content elements.
@@ -1801,8 +1797,28 @@ function getPhrasingContentSchema(context) {
   if (context !== 'paste') {
     return phrasingContentSchema;
   }
+  /**
+   * @type {Partial<ContentSchema>}
+   */
 
-  return (0,external_lodash_namespaceObject.omit)({ ...phrasingContentSchema,
+
+  const {
+    u,
+    // Used to mark misspelling. Shouldn't be pasted.
+    abbr,
+    // Invisible.
+    data,
+    // Invisible.
+    time,
+    // Invisible.
+    wbr,
+    // Invisible.
+    bdi,
+    // Invisible.
+    bdo,
+    // Invisible.
+    ...remainingContentSchema
+  } = { ...phrasingContentSchema,
     // We shouldn't paste potentially sensitive information which is not
     // visible to the user when pasted, so strip the attributes.
     ins: {
@@ -1811,14 +1827,8 @@ function getPhrasingContentSchema(context) {
     del: {
       children: phrasingContentSchema.del.children
     }
-  }, ['u', // Used to mark misspelling. Shouldn't be pasted.
-  'abbr', // Invisible.
-  'data', // Invisible.
-  'time', // Invisible.
-  'wbr', // Invisible.
-  'bdi', // Invisible.
-  'bdo' // Invisible.
-  ]);
+  };
+  return remainingContentSchema;
 }
 /**
  * Find out whether or not the given node is phrasing content.
@@ -1858,13 +1868,8 @@ function isElement(node) {
 
 ;// CONCATENATED MODULE: ./packages/dom/build-module/dom/clean-node-list.js
 /**
- * External dependencies
- */
-
-/**
  * Internal dependencies
  */
-
 
 
 
@@ -1932,7 +1937,7 @@ function cleanNodeList(nodeList, doc, schema, inline) {
               name
             } = _ref;
 
-            if (name !== 'class' && !(0,external_lodash_namespaceObject.includes)(attributes, name)) {
+            if (name !== 'class' && !attributes.includes(name)) {
               node.removeAttribute(name);
             }
           }); // Strip invalid classes.

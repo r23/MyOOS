@@ -3848,6 +3848,7 @@ var mousetrap_global_bind = __webpack_require__(5538);
  */
 
 
+
 /**
  * A block selection object.
  *
@@ -3859,22 +3860,6 @@ var mousetrap_global_bind = __webpack_require__(5538);
  * @property {import('react').RefObject<HTMLElement>} [target]     React reference to the DOM element used to catch the keyboard event.
  */
 
-/**
- * Return true if platform is MacOS.
- *
- * @param {Window} [_window] window object by default; used for DI testing.
- *
- * @return {boolean} True if MacOS; false otherwise.
- */
-
-function isAppleOS() {
-  let _window = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : window;
-
-  const {
-    platform
-  } = _window.navigator;
-  return platform.indexOf('Mac') !== -1 || (0,external_lodash_namespaceObject.includes)(['iPad', 'iPhone'], platform);
-}
 /* eslint-disable jsdoc/valid-types */
 
 /**
@@ -3886,7 +3871,6 @@ function isAppleOS() {
  * @param {(e: import('mousetrap').ExtendedKeyboardEvent, combo: string) => void} callback  Shortcut callback.
  * @param {WPKeyboardShortcutConfig}                                              options   Shortcut options.
  */
-
 
 function useKeyboardShortcut(
 /* eslint-enable jsdoc/valid-types */
@@ -3924,7 +3908,7 @@ shortcuts, callback) {
       const hasAlt = modifiers.has('alt');
       const hasShift = modifiers.has('shift'); // This should be better moved to the shortcut registration instead.
 
-      if (isAppleOS() && (modifiers.size === 1 && hasAlt || modifiers.size === 2 && hasAlt && hasShift)) {
+      if ((0,external_wp_keycodes_namespaceObject.isAppleOS)() && (modifiers.size === 1 && hasAlt || modifiers.size === 2 && hasAlt && hasShift)) {
         throw new Error(`Cannot bind ${shortcut}. Alt and Shift+Alt modifiers are reserved for character input.`);
       }
 

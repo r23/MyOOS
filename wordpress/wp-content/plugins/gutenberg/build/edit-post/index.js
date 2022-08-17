@@ -3807,12 +3807,14 @@ function VisualEditor(_ref2) {
   } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_editor_namespaceObject.store);
   const hasMetaBoxes = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).hasMetaBoxes(), []);
   const {
+    themeHasDisabledLayoutStyles,
     themeSupportsLayout,
     assets
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const _settings = select(external_wp_blockEditor_namespaceObject.store).getSettings();
 
     return {
+      themeHasDisabledLayoutStyles: _settings.disableLayoutStyles,
       themeSupportsLayout: _settings.supportsLayout,
       assets: _settings.__unstableResolvedAssets
     };
@@ -3857,7 +3859,6 @@ function VisualEditor(_ref2) {
   const ref = (0,external_wp_element_namespaceObject.useRef)();
   const contentRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, (0,external_wp_blockEditor_namespaceObject.__unstableUseClipboardHandler)(), (0,external_wp_blockEditor_namespaceObject.__unstableUseTypewriter)(), (0,external_wp_blockEditor_namespaceObject.__unstableUseTypingObserver)(), (0,external_wp_blockEditor_namespaceObject.__unstableUseBlockSelectionClearer)()]);
   const blockSelectionClearerRef = (0,external_wp_blockEditor_namespaceObject.__unstableUseBlockSelectionClearer)();
-  const [, RecursionProvider] = (0,external_wp_blockEditor_namespaceObject.__experimentalUseNoRecursiveRenders)(wrapperUniqueId, wrapperBlockName);
   const layout = (0,external_wp_element_namespaceObject.useMemo)(() => {
     if (isTemplateMode) {
       return {
@@ -3911,7 +3912,7 @@ function VisualEditor(_ref2) {
     style: {
       paddingBottom
     }
-  }, themeSupportsLayout && !isTemplateMode && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLayoutStyle, {
+  }, themeSupportsLayout && !themeHasDisabledLayoutStyles && !isTemplateMode && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLayoutStyle, {
     selector: ".edit-post-visual-editor__post-title-wrapper, .block-editor-block-list__layout.is-root-container",
     layout: defaultLayout,
     layoutDefinitions: defaultLayout === null || defaultLayout === void 0 ? void 0 : defaultLayout.definitions
@@ -3920,7 +3921,10 @@ function VisualEditor(_ref2) {
     contentEditable: false
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostTitle, {
     ref: titleRef
-  })), (0,external_wp_element_namespaceObject.createElement)(RecursionProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockList, {
+  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalRecursionProvider, {
+    blockName: wrapperBlockName,
+    uniqueId: wrapperUniqueId
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockList, {
     className: isTemplateMode ? 'wp-site-blocks' : 'is-layout-flow' // Ensure root level blocks receive default/flow blockGap styling rules.
     ,
     __experimentalLayout: layout
@@ -5968,7 +5972,7 @@ function DeleteTemplate() {
     onClick: () => {
       setShowConfirmDialog(true);
     },
-    info: isRevertable ? (0,external_wp_i18n_namespaceObject.__)('Restore template to default state') : undefined
+    info: isRevertable ? (0,external_wp_i18n_namespaceObject.__)('Use the template as supplied by the theme.') : undefined
   }, isRevertable ? (0,external_wp_i18n_namespaceObject.__)('Clear customizations') : (0,external_wp_i18n_namespaceObject.__)('Delete template')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalConfirmDialog, {
     isOpen: showConfirmDialog,
     onConfirm: onDelete,
@@ -7065,6 +7069,7 @@ function PostTemplateForm(_ref) {
  */
 
 
+
 function PostTemplate() {
   const anchorRef = (0,external_wp_element_namespaceObject.useRef)();
   const isVisible = (0,external_wp_data_namespaceObject.useSelect)(select => {
@@ -7134,24 +7139,20 @@ function PostTemplateToggle(_ref3) {
     onClick
   } = _ref3;
   const templateTitle = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    var _select$getEntityReco;
+    var _template$title;
 
     const templateSlug = select(external_wp_editor_namespaceObject.store).getEditedPostAttribute('template');
-    const settings = select(external_wp_editor_namespaceObject.store).getEditorSettings();
+    const {
+      supportsTemplateMode,
+      availableTemplates
+    } = select(external_wp_editor_namespaceObject.store).getEditorSettings();
 
-    if (settings.availableTemplates[templateSlug]) {
-      return settings.availableTemplates[templateSlug];
+    if (!supportsTemplateMode && availableTemplates[templateSlug]) {
+      return availableTemplates[templateSlug];
     }
 
-    const template = (_select$getEntityReco = select(external_wp_coreData_namespaceObject.store).getEntityRecords('postType', 'wp_template', {
-      per_page: -1
-    })) === null || _select$getEntityReco === void 0 ? void 0 : _select$getEntityReco.find(_ref4 => {
-      let {
-        slug
-      } = _ref4;
-      return slug === templateSlug;
-    });
-    return template === null || template === void 0 ? void 0 : template.title.rendered;
+    const template = select(store_store).getEditedPostTemplate();
+    return (_template$title = template === null || template === void 0 ? void 0 : template.title) !== null && _template$title !== void 0 ? _template$title : template === null || template === void 0 ? void 0 : template.slug;
   }, []);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     className: "edit-post-post-template__toggle",
