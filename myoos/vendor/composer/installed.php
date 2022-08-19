@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f1f9f8454c18671102cefc5aa2e679e333309bd5',
+        'reference' => '084bb32dd2052c614c647abde47b2a89cbdeadba',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -155,12 +155,12 @@
             'dev_requirement' => false,
         ),
         'masterminds/html5' => array(
-            'pretty_version' => '2.7.5',
-            'version' => '2.7.5.0',
+            'pretty_version' => '2.7.6',
+            'version' => '2.7.6.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../masterminds/html5',
             'aliases' => array(),
-            'reference' => 'f640ac1bdddff06ea333a920c95bbad8872429ab',
+            'reference' => '897eb517a343a2281f11bc5556d6548db7d93947',
             'dev_requirement' => false,
         ),
         'mobiledetect/mobiledetectlib' => array(
@@ -187,7 +187,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f1f9f8454c18671102cefc5aa2e679e333309bd5',
+            'reference' => '084bb32dd2052c614c647abde47b2a89cbdeadba',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -438,7 +438,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '773292d413a97c357a0b49635afd5fdb1d4f314a',
+            'reference' => '4f051d70956e86d68c2ac3d078b803473c6d9426',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
