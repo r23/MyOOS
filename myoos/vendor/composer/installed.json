@@ -439,17 +439,17 @@
         },
         {
             "name": "endroid/qr-code",
-            "version": "4.4.9",
-            "version_normalized": "4.4.9.0",
+            "version": "4.5.0",
+            "version_normalized": "4.5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/endroid/qr-code.git",
-                "reference": "bf087fa1e93a1b7310e2d94d187e26ae51db199d"
+                "reference": "36681470bd10352b53bcb9731bdf2270e0d79b22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endroid/qr-code/zipball/bf087fa1e93a1b7310e2d94d187e26ae51db199d",
-                "reference": "bf087fa1e93a1b7310e2d94d187e26ae51db199d",
+                "url": "https://api.github.com/repos/endroid/qr-code/zipball/36681470bd10352b53bcb9731bdf2270e0d79b22",
+                "reference": "36681470bd10352b53bcb9731bdf2270e0d79b22",
                 "shasum": ""
             },
             "require": {
@@ -468,7 +468,7 @@
                 "roave/security-advisories": "Makes sure package versions with known security issues are not installed",
                 "setasign/fpdf": "Enables you to use the PDF writer"
             },
-            "time": "2022-05-10T07:25:08+00:00",
+            "time": "2022-08-21T09:22:43+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -502,7 +502,7 @@
             ],
             "support": {
                 "issues": "https://github.com/endroid/qr-code/issues",
-                "source": "https://github.com/endroid/qr-code/tree/4.4.9"
+                "source": "https://github.com/endroid/qr-code/tree/4.5.0"
             },
             "funding": [
                 {
