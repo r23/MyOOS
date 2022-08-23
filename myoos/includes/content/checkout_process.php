@@ -250,32 +250,32 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
     $attributes_exist = '0';
     $products_ordered_attributes = '';
 
-	if (DOWNLOAD_ENABLED == 'true') {			
-		$products_attributestable = $oostable['products_attributes'];
-		$products_attributes_downloadtable = $oostable['products_attributes_download'];
+    if (DOWNLOAD_ENABLED == 'true') {
+        $products_attributestable = $oostable['products_attributes'];
+        $products_attributes_downloadtable = $oostable['products_attributes_download'];
 
-		$download_sql = "SELECT pad.products_attributes_maxdays, pad.products_attributes_maxcount, pad.products_attributes_filename 
+        $download_sql = "SELECT pad.products_attributes_maxdays, pad.products_attributes_maxcount, pad.products_attributes_filename 
                                   FROM $products_attributestable pa,
                                        $products_attributes_downloadtable pad 
 						WHERE pa.products_id = '" . ($oOrder->products[$i]['id']) . "'
 						AND pa.options_values_id = 0
 						AND pa.products_attributes_id = pad.products_attributes_id";
-		$download_result = $dbconn->Execute($download_sql);
-		if ($download_result->RecordCount()) {
-			while ($download = $download_result->fields) {			
-				$sql_data_array = array('orders_id' => $insert_id,
+        $download_result = $dbconn->Execute($download_sql);
+        if ($download_result->RecordCount()) {
+            while ($download = $download_result->fields) {
+                $sql_data_array = array('orders_id' => $insert_id,
                                   'orders_products_id' => $order_products_id,
                                   'orders_products_filename' => $download['products_attributes_filename'],
                                   'download_maxdays' => $download['products_attributes_maxdays'],
                                   'download_count' => $download['products_attributes_maxcount']);
-				// insert
-				oos_db_perform($oostable['orders_products_download'], $sql_data_array);
-			
-				// Move that ADOdb pointer!
-				$download_result->MoveNext();
-			}
-		}			
-	}
+                // insert
+                oos_db_perform($oostable['orders_products_download'], $sql_data_array);
+
+                // Move that ADOdb pointer!
+                $download_result->MoveNext();
+            }
+        }
+    }
 
     if (isset($oOrder->products[$i]['attributes'])) {
         $attributes_exist = '1';
@@ -320,7 +320,7 @@ for ($i=0, $n=count($oOrder->products); $i<$n; $i++) {
             $products_ordered_attributes .= "\n\t" . $attributes_values['products_options_name'] . ' ' . oos_decode_special_chars($oOrder->products[$i]['attributes'][$j]['value']);
         }
     }
-	
+
     //------insert customer choosen option eof ----
     $total_weight += ($oOrder->products[$i]['qty'] * $oOrder->products[$i]['weight']);
     $total_tax += oos_calculate_tax($total_products_price, $products_tax) * $oOrder->products[$i]['qty'];

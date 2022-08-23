@@ -78,11 +78,11 @@
             <td class="main"><b><?php echo ENTRY_SHIP_TO; ?></b></td>
           </tr>
           <tr>
-                <td class="main"><?php 
-					if (!isset($order->delivery['name'])) {					
-						echo oos_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br>');
-					}
-				?></td>
+                <td class="main"><?php
+                    if (!isset($order->delivery['name'])) {
+                        echo oos_address_format($order->delivery['format_id'], $order->delivery, 1, '&nbsp;', '<br>');
+                    }
+                ?></td>
           </tr>
         </table></td>
       </tr>
@@ -114,26 +114,26 @@
                     </thead>
 <?php
 for ($i = 0, $n = count($order->products); $i < $n; $i++) {
-    echo '      <tr class="dataTableRow">' . "\n" .
+                    echo '      <tr class="dataTableRow">' . "\n" .
        '        <td class="dataTableContent" valign="top" align="right">' . $order->products[$i]['qty'] . '&nbsp;x</td>' . "\n" .
        '        <td class="dataTableContent" valign="top">' . $order->products[$i]['name'];
 
-    if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
-        for ($j = 0, $k = count($order->products[$i]['attributes']); $j < $k; $j++) {
-            echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
-            echo '</i></small></nobr>';
-        }
-    }
-    echo '        </td>' . "\n";
+                    if (isset($order->products[$i]['attributes']) && (count($order->products[$i]['attributes']) > 0)) {
+                        for ($j = 0, $k = count($order->products[$i]['attributes']); $j < $k; $j++) {
+                            echo '<br><nobr><small>&nbsp;<i> - ' . $order->products[$i]['attributes'][$j]['option'] . ': ' . $order->products[$i]['attributes'][$j]['value'];
+                            echo '</i></small></nobr>';
+                        }
+                    }
+                    echo '        </td>' . "\n";
 
-    $serial_number = "";
-    if (oos_is_not_null($order->products[$i]['serial_number'])) {
-        $serial_number = $order->products[$i]['serial_number'];
-    }
-    echo '        <td class="dataTableContent" valign="top">' . $serial_number . '</td>' . "\n" .
+                    $serial_number = "";
+                    if (oos_is_not_null($order->products[$i]['serial_number'])) {
+                        $serial_number = $order->products[$i]['serial_number'];
+                    }
+                    echo '        <td class="dataTableContent" valign="top">' . $serial_number . '</td>' . "\n" .
        '        <td class="dataTableContent" valign="top">' . $order->products[$i]['model'] . '</td>' . "\n" .
        '      </tr>' . "\n";
-}
+                }
 ?>
     </table></td>
   </tr>

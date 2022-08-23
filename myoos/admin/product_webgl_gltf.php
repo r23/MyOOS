@@ -58,7 +58,7 @@ if (!empty($action)) {
 
 
                 $models_hdr = (isset($_POST['models_hdr'][$i]) ? oos_db_prepare_input($_POST['models_hdr'][$i]) : '');
-				$models_object_scalar = (isset($_POST['models_object_scalar'][$i]) ? oos_db_prepare_input($_POST['models_object_scalar'][$i]) : '150');
+                $models_object_scalar = (isset($_POST['models_object_scalar'][$i]) ? oos_db_prepare_input($_POST['models_object_scalar'][$i]) : '150');
 
                 $models_hdr_name = '';
                 $models_hdr_url = '';
@@ -104,7 +104,7 @@ if (!empty($action)) {
                                         'models_author_url' => oos_db_prepare_input($_POST['models_author_url'][$i]),
                                         'models_camera_pos' => oos_db_prepare_input($_POST['models_camera_pos'][$i]),
                                         'models_object_rotation' => oos_db_prepare_input($_POST['models_object_rotation'][$i]),
-										'models_object_scalar' => oos_db_prepare_input($models_object_scalar),
+                                        'models_object_scalar' => oos_db_prepare_input($models_object_scalar),
                                         'models_hdr' => oos_db_prepare_input($_POST['models_hdr'][$i]),
                                         'models_hdr_name' => oos_db_prepare_input($models_hdr_name),
                                         'models_hdr_url' => oos_db_prepare_input($models_hdr_url),
@@ -305,7 +305,7 @@ if ($action == 'edit_3d') {
                                             'models_author_url' => 'https://',
                                             'models_camera_pos' => '0.02, 0.01, 0.03',
                                             'models_object_rotation' => 'Math.PI',
-											'models_object_scalar' => '150',
+                                            'models_object_scalar' => '150',
                                             'models_add_lights' => 'false',
                                             'models_add_ground' => 'false',
                                             'models_shadows' => 'false',
@@ -320,7 +320,7 @@ if ($action == 'edit_3d') {
                                             'models_author' => $products_models['models_author'],
                                             'models_author_url' => $products_models['models_author_url'],
                                             'models_camera_pos' => $products_models['models_camera_pos'],
-											'models_object_scalar' => $products_models['models_object_scalar'],
+                                            'models_object_scalar' => $products_models['models_object_scalar'],
                                             'models_object_rotation' => $products_models['models_object_rotation'],
                                             'models_add_lights' => $products_models['models_add_lights'],
                                             'models_add_ground' => $products_models['models_add_ground'],

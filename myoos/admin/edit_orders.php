@@ -81,8 +81,8 @@ if (!empty($action)) {
     case 'update_order':
 
         $order = new order($oID);
-		$status = isset($_POST['status']) ? oos_db_prepare_input($_POST['status']) : '';
-		
+        $status = isset($_POST['status']) ? oos_db_prepare_input($_POST['status']) : '';
+
         // Update Order Info
         $UpdateOrders = "update " . $oostable['orders'] . " set 
       customers_name = '" . oos_db_input(stripslashes($update_customer_name)) . "',

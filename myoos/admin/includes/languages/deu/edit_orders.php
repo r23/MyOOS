@@ -106,4 +106,3 @@ define('ADDPRODUCT_TEXT_OPTIONS_CONFIRM', 'OK');
 define('ADDPRODUCT_TEXT_OPTIONS_NOTEXIST', 'Keine Optionen: Übersprungen..');
 define('ADDPRODUCT_TEXT_CONFIRM_QUANTITY', 'Menge.');
 define('ADDPRODUCT_TEXT_CONFIRM_ADDNOW', 'Jetzt hinzufügen');
-

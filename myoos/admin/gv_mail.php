@@ -68,14 +68,14 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $
             include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
             $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
         }
-		
-		$sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
-		$phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
 
-		$phpmailer->IsMail();
+        $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
+        $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
 
-		$phpmailer->CharSet   = 'UTF-8';
-		$phpmailer->Encoding  = 'base64';
+        $phpmailer->IsMail();
+
+        $phpmailer->CharSet   = 'UTF-8';
+        $phpmailer->Encoding  = 'base64';
 
 
         while ($mail = $mail_result->fields) {
@@ -93,10 +93,10 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $
             // };
 
             // Empty out the values that may be set.
-			$phpmailer->clearAllRecipients();
-			$phpmailer->clearAttachments();
-			$phpmailer->clearCustomHeaders();
-			$phpmailer->clearReplyTos();
+            $phpmailer->clearAllRecipients();
+            $phpmailer->clearAttachments();
+            $phpmailer->clearCustomHeaders();
+            $phpmailer->clearReplyTos();
 
             $phpmailer->IsMail();
 

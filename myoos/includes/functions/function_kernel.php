@@ -1186,8 +1186,8 @@ function oos_get_attributes($sProductsId)
 function oos_has_product_attributes($sProductsId)
 {
     $nProductID = oos_get_product_id($sProductsId);
-	$return_value = false;
-	
+    $return_value = false;
+
     // Get database information
     $dbconn =& oosDBGetConn();
     $oostable =& oosDBGetTables();
@@ -1198,28 +1198,27 @@ function oos_has_product_attributes($sProductsId)
               WHERE products_id = '" . intval($nProductID) . "'";
     $attributes = $dbconn->Execute($query);
     if ($attributes->fields['total'] > 0) {
-		if (DOWNLOAD_ENABLED == 'true') {
-			$products_attributestable = $oostable['products_attributes'];
-			$products_attributes_downloadtable = $oostable['products_attributes_download'];			
-			$download_sql = "SELECT COUNT(*) AS total
+        if (DOWNLOAD_ENABLED == 'true') {
+            $products_attributestable = $oostable['products_attributes'];
+            $products_attributes_downloadtable = $oostable['products_attributes_download'];
+            $download_sql = "SELECT COUNT(*) AS total
                              FROM $products_attributestable pa,
                                   $products_attributes_downloadtable pad 
 						     WHERE pa.products_id = '" . intval($nProductID) . "'
 						       AND pa.options_values_id = 0
 						       AND pa.products_attributes_id = pad.products_attributes_id";
-		    $downloads = $dbconn->Execute($download_sql);
-			$nDownloads	= $downloads->fields['total'];
-			$nAattributes = $attributes->fields['total'];
-			if (($nAattributes - $nDownloads) > 0) {
-				$return_value = true;
-			} 
-		} else {
-			$return_value = true;
-		}
+            $downloads = $dbconn->Execute($download_sql);
+            $nDownloads	= $downloads->fields['total'];
+            $nAattributes = $attributes->fields['total'];
+            if (($nAattributes - $nDownloads) > 0) {
+                $return_value = true;
+            }
+        } else {
+            $return_value = true;
+        }
     }
-        
-	return $return_value;
 
+    return $return_value;
 }
 
  /**

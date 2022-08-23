@@ -47,21 +47,21 @@ if ($action == 'confirmrelease' && isset($_GET['gid'])) {
             $message .= TEXT_REDEEM_COUPON_MESSAGE_FOOTER;
 
             // Instantiate a new mail object
-			// (Re)create it, if it's gone missing.
-			if (! ($send_mail instanceof PHPMailer\PHPMailer\PHPMailer)) {
-				include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
-				include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
-				include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
-				$send_mail = new PHPMailer\PHPMailer\PHPMailer(true);
-			}	
-	
-			$sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
-			$send_mail->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
+            // (Re)create it, if it's gone missing.
+            if (! ($send_mail instanceof PHPMailer\PHPMailer\PHPMailer)) {
+                include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
+                include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
+                include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
+                $send_mail = new PHPMailer\PHPMailer\PHPMailer(true);
+            }
 
-			$send_mail->IsMail();
+            $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
+            $send_mail->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
 
-			$send_mail->CharSet   = 'UTF-8';
-			$send_mail->Encoding  = 'base64';
+            $send_mail->IsMail();
+
+            $send_mail->CharSet   = 'UTF-8';
+            $send_mail->Encoding  = 'base64';
 
             $send_mail->From = STORE_OWNER_EMAIL_ADDRESS;
             $send_mail->FromName = STORE_OWNER;

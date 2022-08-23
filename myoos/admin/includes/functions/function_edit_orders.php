@@ -120,7 +120,7 @@ function oos_field_exists($table, $field)
     // Get database information
     $dbconn =& oosDBGetConn();
     $describe_result = $dbconn->Execute("describe $table");
-    while ($d_row = $describe_result->fields) {	
+    while ($d_row = $describe_result->fields) {
         if ($d_row["field"] == "$field") {
             return true;
         }
