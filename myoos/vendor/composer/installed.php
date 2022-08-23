@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'd59b46ccda56f541b3a9cde5abe13e41b65c26d4',
+        'reference' => 'a1526e9629c3e94cc34533d384a027a9b78a5994',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -187,7 +187,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'd59b46ccda56f541b3a9cde5abe13e41b65c26d4',
+            'reference' => 'a1526e9629c3e94cc34533d384a027a9b78a5994',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -438,7 +438,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '4f051d70956e86d68c2ac3d078b803473c6d9426',
+            'reference' => 'bd4a45f60f097f0c44f77c6d72caa24ebc9b9f66',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
@@ -460,12 +460,12 @@
             'dev_requirement' => false,
         ),
         'spatie/temporary-directory' => array(
-            'pretty_version' => '2.1.0',
-            'version' => '2.1.0.0',
+            'pretty_version' => '2.1.1',
+            'version' => '2.1.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/temporary-directory',
             'aliases' => array(),
-            'reference' => '79f138f2b81adae583d04d3727a4538dd394023f',
+            'reference' => 'e2818d871783d520b319c2d38dc37c10ecdcde20',
             'dev_requirement' => false,
         ),
         'stripe/stripe-php' => array(
