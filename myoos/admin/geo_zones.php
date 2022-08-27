@@ -340,7 +340,7 @@ if (empty($saction)) {
         $contents[] = array('text' => TEXT_INFO_NEW_SUB_ZONE_INTRO);
         $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY . '<br>' . oos_draw_pull_down_menu('zone_country_id', oos_get_countries(TEXT_ALL_COUNTRIES), '', 'onChange="update_zone(this.form);"'));
         $contents[] = array('text' => '<br>' . TEXT_INFO_COUNTRY_ZONE . '<br>' . oos_draw_pull_down_menu('zone_id', oos_prepare_country_zones_pull_down()));
-        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . '&sID=' . $_GET['sID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
+        $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID'] . '&action=list&spage=' . $nsPage . (isset($_GET['sID']) ? '&sID=' . intval($_GET['sID']) : '')) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
 
         break;
 
