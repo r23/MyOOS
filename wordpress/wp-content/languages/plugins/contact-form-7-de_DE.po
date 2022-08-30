@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-06-18 09:50:48+0000\n"
+"PO-Revision-Date: 2022-08-30 12:14:02+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.1\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
+
+#: includes/config-validator.php:581
+msgid "Colons are used in form-tag names."
+msgstr "Doppelpunkte werden in Formular-Tag-Namen verwendet."
 
 #: modules/text.php:204
 msgid "Please enter a telephone number."
@@ -37,11 +41,11 @@ msgstr "Bitte gibt eine Zahl ein."
 
 #: modules/date.php:177
 msgid "This field has a too late date."
-msgstr "DasDatum in diesem Feld ist zu spät."
+msgstr "Das Datum in diesem Feld ist zu spät."
 
 #: modules/date.php:172
 msgid "This field has a too early date."
-msgstr "DasDatum in diesem Feld ist zu früh."
+msgstr "Das Datum in diesem Feld ist zu früh."
 
 #: modules/date.php:167
 msgid "Please enter a date in YYYY-MM-DD format."
@@ -172,7 +176,7 @@ msgstr "%1$s %2$s"
 msgid "Unique identifier for the contact form."
 msgstr "Eindeutiger Identifikator für das Kontaktformular."
 
-#: includes/config-validator.php:447
+#: includes/config-validator.php:553
 msgid "Dots are used in form-tag names."
 msgstr "Punkte werden im Namen des form-Tags verwendet."
 
@@ -367,7 +371,7 @@ msgstr "Es werden Wörter von der Sperrliste verwendet (%s)."
 msgid "Disallowed words are used."
 msgstr "Es werden Wörter von der Sperrliste verwendet."
 
-#: includes/contact-form-functions.php:142
+#: includes/contact-form-functions.php:223
 msgid "Not Found"
 msgstr "Nicht gefunden"
 
@@ -411,11 +415,11 @@ msgstr "Zusätzliche Einstellungen"
 msgid "Error"
 msgstr "Fehler"
 
-#: includes/config-validator.php:619
+#: includes/config-validator.php:772
 msgid "The total size of attachment files is too large."
 msgstr "Die Gesamtgröße aller Anhänge ist zu groß."
 
-#: includes/config-validator.php:426
+#: includes/config-validator.php:526
 msgid "Unavailable HTML elements are used in the form template."
 msgstr "In diesem Formular-Template werden nicht verfügbare HTML-Elemente verwendet."
 
@@ -427,11 +431,11 @@ msgstr "reCAPTCHA ist auf dieser Website aktiv."
 msgid "reCAPTCHA response token is empty."
 msgstr "reCaptcha-Antwort-Token ist leer."
 
-#: includes/submission.php:599
+#: includes/submission.php:716
 msgid "Submitted nonce is invalid."
 msgstr "Eingereichte Nonce ist ungültig."
 
-#: includes/submission.php:590
+#: includes/submission.php:707
 msgid "User-Agent string is unnaturally short."
 msgstr "Der User-Agent-String ist unnatürlich kurz."
 
@@ -439,7 +443,7 @@ msgstr "Der User-Agent-String ist unnatürlich kurz."
 msgid "reCAPTCHA score (%1$.2f) is lower than the threshold (%2$.2f)."
 msgstr "reCAPTCHA-Punktzahl (%1$.2f) liegt unterhalb der Schwelle (%2$.2f)."
 
-#: modules/akismet.php:64
+#: modules/akismet.php:66
 msgid "Akismet returns a spam response."
 msgstr "Akismet gibt eine Spam-Antwort zurück."
 
@@ -541,7 +545,7 @@ msgstr "Constant Contact"
 msgid "Email marketing"
 msgstr "E-Mail-Marketing"
 
-#: includes/config-validator.php:681
+#: includes/config-validator.php:858
 msgid "It is not allowed to use files outside the wp-content directory."
 msgstr "Es ist nicht erlaubt, Dateien außerhalb des Verzeichnisses „wp-content“ zu benutzen."
 
@@ -591,7 +595,7 @@ msgstr "Nicht zugestimmt"
 msgid "Consented"
 msgstr "Zugestimmt"
 
-#: includes/submission.php:95
+#: includes/submission.php:110
 msgid "Sending mail has been aborted."
 msgstr "Der E-Mail-Versand wurde abgebrochen."
 
@@ -659,11 +663,11 @@ msgstr "Wenn du gerne Contact Form 7 nutzt und es nützlich findest, dann erwäg
 msgid "It is hard to continue development and support for this plugin without contributions from users like you."
 msgstr "Es ist schwer, die Entwicklung und den Support für dieses Plugin ohne Beiträge von Nutzern wie dir fortzusetzen."
 
-#: includes/contact-form.php:521 includes/contact-form.php:1036
+#: includes/contact-form.php:521 includes/contact-form.php:1037
 msgid "This contact form is available only for logged in users."
 msgstr "Dieses Kontaktformular ist nur für angemeldete Benutzer verfügbar."
 
-#: includes/config-validator.php:152
+#: includes/config-validator.php:191
 msgid "Deprecated settings are used."
 msgstr "Es werden veraltete Einstellungen verwendet."
 
@@ -698,36 +702,36 @@ msgstr "Ein vorhandenes Kontaktformular kann nicht erstellt werden."
 msgid "You are not allowed to access contact forms."
 msgstr "Du hast keine Berechtigung, um auf Kontaktformulare zuzugreifen."
 
-#: includes/config-validator.php:663
+#: includes/config-validator.php:834
 msgid "Attachment file does not exist at %path%."
 msgstr "Datei für Anhang in folgendem Pfad nicht vorhanden: %path%."
 
-#: includes/config-validator.php:539
+#: includes/config-validator.php:691
 msgid "Invalid mailbox syntax is used in the %name% field."
 msgstr "Ungültige Postfachsyntax wird im Feld %name% verwendet."
 
 #. translators: %names%: a list of form control names
-#: includes/config-validator.php:409
+#: includes/config-validator.php:503
 msgid "Unavailable names (%names%) are used for form controls."
 msgstr "Nicht verfügbare Namen (%names%) werden für Formularfelder verwendet."
 
-#: includes/config-validator.php:150
+#: includes/config-validator.php:189
 msgid "There are invalid mail header fields."
 msgstr "Es gibt ungültige Mail-Header-Felder."
 
-#: includes/config-validator.php:146
+#: includes/config-validator.php:185
 msgid "HTML tags are used in a message."
 msgstr "In einer Nachricht werden HTML-Tags verwendet."
 
-#: includes/config-validator.php:144
+#: includes/config-validator.php:183
 msgid "Sender email address does not belong to the site domain."
 msgstr "Die Absender-E-Mail-Adresse gehört nicht zur Domain der Website."
 
-#: includes/config-validator.php:142
+#: includes/config-validator.php:181
 msgid "Invalid mailbox syntax is used."
 msgstr "Es wird eine ungültige Mailbox-Syntax verwendet."
 
-#: includes/config-validator.php:140
+#: includes/config-validator.php:179
 msgid "There is a possible empty field."
 msgstr "Es gibt möglicherweise ein leeres Eingabefeld."
 
@@ -799,7 +803,7 @@ msgstr "Spammer nehmen alles ins Visier; deine Kontaktformulare sind da keine Au
 msgid "Getting spammed? You have protection."
 msgstr "Wirst du zugespammt? Du bist geschützt."
 
-#: includes/config-validator.php:148
+#: includes/config-validator.php:187
 msgid "Multiple form controls are in a single label element."
 msgstr "Mehrere Formularfelder sind in einem einzigen Beschriftungselement platziert."
 
@@ -858,7 +862,7 @@ msgstr "Eine Fehlkonfiguration führt zu Fehlern bei der E-Mail-Zustellung oder 
 msgid "Validate Contact Form 7 Configuration"
 msgstr "Konfiguration von Contact Form 7 validieren"
 
-#: includes/config-validator.php:23
+#: includes/config-validator.php:36
 msgid "https://contactform7.com/configuration-errors/"
 msgstr "https://contactform7.com/configuration-errors/"
 
@@ -916,7 +920,7 @@ msgstr "Ungültige Schlüsselwerte."
 msgid "reCAPTCHA"
 msgstr "reCAPTCHA"
 
-#: modules/really-simple-captcha.php:256
+#: modules/really-simple-captcha.php:258
 msgid "CAPTCHA (Really Simple CAPTCHA)"
 msgstr "CAPTCHA (Really Simple CAPTCHA)"
 
@@ -1277,57 +1281,57 @@ msgstr "Radio-Buttons"
 msgid "checkboxes"
 msgstr "Checkboxen"
 
-#: modules/really-simple-captcha.php:377
+#: modules/really-simple-captcha.php:379
 msgid "This contact form contains CAPTCHA fields, but the necessary libraries (GD and FreeType) are not available on your server."
 msgstr "Dieses Kontaktformular enthält Captcha-Felder, aber die benötigten Bibliotheken (GD und FreeType) sind nicht auf deinem Server verfügbar."
 
-#: modules/really-simple-captcha.php:370
+#: modules/really-simple-captcha.php:372
 msgid "This contact form contains CAPTCHA fields, but the temporary folder for the files (%s) does not exist or is not writable. You can create the folder or change its permission manually."
 msgstr "Dieses Kontaktformular enthält CAPTCHA-Felder, aber der temporäre Ordner für die Dateien (%s) ist nicht vorhanden oder nicht beschreibbar. Du kannst den Ordner anlegen oder seine Berechtigung manuell ändern."
 
-#: modules/really-simple-captcha.php:315
+#: modules/really-simple-captcha.php:317
 msgid "Input field settings"
 msgstr "Eingabefeld-Einstellungen"
 
-#: modules/really-simple-captcha.php:300
+#: modules/really-simple-captcha.php:302
 msgid "Image settings"
 msgstr "Bildeinstellungen"
 
-#: modules/really-simple-captcha.php:283
+#: modules/really-simple-captcha.php:285
 msgid "https://contactform7.com/captcha/"
 msgstr "https://contactform7.com/captcha/"
 
-#: modules/really-simple-captcha.php:281
+#: modules/really-simple-captcha.php:283
 msgid "Generate form-tags for a CAPTCHA image and corresponding response input field. For more details, see %s."
 msgstr "Hiermit werden Formular-Tags für ein CAPTCHA-Bild und ein entsprechendes Eingabefeld generiert. Weitere Informationen unter %s (engl.)."
 
 #. translators: %s: link labeled 'Really Simple CAPTCHA'
-#: modules/really-simple-captcha.php:270
+#: modules/really-simple-captcha.php:272
 msgid "To use CAPTCHA, you first need to install and activate %s plugin."
 msgstr "Um CAPTCHA zu verwenden musst du zuerst das Plugin %s installieren und aktivieren."
 
-#: modules/really-simple-captcha.php:283
+#: modules/really-simple-captcha.php:285
 msgid "CAPTCHA"
 msgstr "Captcha"
 
-#: modules/really-simple-captcha.php:237
+#: modules/really-simple-captcha.php:239
 msgid "Your entered code is incorrect."
 msgstr "Dein eingegebener Code ist falsch."
 
-#: modules/really-simple-captcha.php:235
+#: modules/really-simple-captcha.php:237
 msgid "The code that sender entered does not match the CAPTCHA"
 msgstr "Der eingegebene Code stimmt nicht mit dem angezeigten Captcha-Code überein"
 
 #: modules/acceptance.php:301 modules/checkbox.php:297 modules/date.php:265
 #: modules/file.php:201 modules/number.php:288 modules/quiz.php:269
-#: modules/really-simple-captcha.php:335 modules/select.php:225
+#: modules/really-simple-captcha.php:337 modules/select.php:225
 #: modules/submit.php:88 modules/text.php:324 modules/textarea.php:202
 msgid "Insert Tag"
 msgstr "Tag einfügen"
 
 #: modules/acceptance.php:288 modules/checkbox.php:284 modules/date.php:253
 #: modules/file.php:188 modules/number.php:276 modules/quiz.php:256
-#: modules/really-simple-captcha.php:308 modules/really-simple-captcha.php:323
+#: modules/really-simple-captcha.php:310 modules/really-simple-captcha.php:325
 #: modules/select.php:212 modules/submit.php:75 modules/text.php:311
 #: modules/textarea.php:189
 msgid "Class attribute"
@@ -1335,7 +1339,7 @@ msgstr "Klassen-Attribut"
 
 #: modules/acceptance.php:283 modules/checkbox.php:279 modules/date.php:248
 #: modules/file.php:183 modules/number.php:271 modules/quiz.php:251
-#: modules/really-simple-captcha.php:303 modules/really-simple-captcha.php:318
+#: modules/really-simple-captcha.php:305 modules/really-simple-captcha.php:320
 #: modules/select.php:207 modules/submit.php:70 modules/text.php:306
 #: modules/textarea.php:184
 msgid "Id attribute"
@@ -1349,7 +1353,7 @@ msgstr "Optionen"
 
 #: modules/acceptance.php:263 modules/checkbox.php:258 modules/date.php:219
 #: modules/file.php:168 modules/number.php:242 modules/quiz.php:235
-#: modules/really-simple-captcha.php:293 modules/select.php:189
+#: modules/really-simple-captcha.php:295 modules/select.php:189
 #: modules/text.php:266 modules/textarea.php:173
 msgid "Name"
 msgstr "Name"
