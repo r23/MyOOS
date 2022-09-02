@@ -9,6 +9,9 @@ class WP_w3all_phpbb {
  //protected $phpbb_config = '';
  //protected $phpbb_user_session = '';
 
+ //static $w3all_phpbb_connection = '' ;
+
+
 public static function wp_w3all_phpbb_init() {
 
   global $phpbb_config,$w3all_get_phpbb_avatar_yn;
@@ -204,7 +207,7 @@ private static function verify_phpbb_credentials(){
     // before this
      if( $current_user->ID == 1 OR intval($_COOKIE[$u]) == 2 ){ return; } // exclude WP admin UID1 and phpBB admin UID2
     // then this
-    if ( intval($_COOKIE[$u]) < 2 && is_user_logged_in() ) { self::w3all_wp_logout(); }
+     if ( intval($_COOKIE[$u]) < 2 && is_user_logged_in() ) { self::w3all_wp_logout(); }
 
 // HERE INSIDE WE ARE SECURE //
      if ( $_COOKIE[$u] > 1 ){
@@ -216,12 +219,12 @@ private static function verify_phpbb_credentials(){
              $phpbb_sid = $_COOKIE[$sid];
              $phpbb_u   = $_COOKIE[$u];
 
- // user_type: 1=not active accounts: confirmation email, deactivated
+ // user_type: 1 = confirmation email, deactivated
 
  // Bruteforce phpBB session keys Prevention check
  // see -> w3all Brute Force Prevention (more below) //
 
- // The presented cookie uid is in the black list and the user is not logged in?
+ // The presented cookie uid is in the black list and the wp user is not logged in?
  if( $w3all_anti_brute_force_yn == 1 && ! is_user_logged_in() && isset($w3all_bruteblock_phpbbulist[$phpbb_u]) ){
       setcookie ("w3all_set_cmsg", "phpbb_sess_brutef_error", 0, "/", $w3cookie_domain, false); // expire session, removed on phpBB_user_session_set()
        self::w3all_wp_logout('not_logged_delete_only_cookie');
@@ -270,9 +273,19 @@ private static function verify_phpbb_credentials(){
      }
     }
 
+   // may phpBB session expired while the WP user is still logged in
+   // keep the user logged in resetting the user's phpBB session
+   // remove -> $noBFF = true; on next and -> !isset($noBFF) on following two instructions
+   // to let fire self::w3all_wp_logout(); instead, so to logout the logged WP user when no valid phpBB session found
+
+    if ( empty($phpbb_user_session) && $phpbb_u > 2 && is_user_logged_in() ) {
+        self::phpBB_user_session_set($current_user);
+        $noBFF = 1;
+       }
+
   // START // w3all Brute Force Prevention // record addition
-  if ( empty($phpbb_user_session) && $phpbb_u > 2 ){ // do not match any session
-    // should get only a value to know that the user exist, not all table values
+  if ( empty($phpbb_user_session) && $phpbb_u > 2 && !isset($noBFF) ){ // do not match any session
+    // may should get only required values, not all users values
     $phpbb_user = $w3all_phpbb_connection->get_row("SELECT * FROM ".$w3all_config["table_prefix"]."users WHERE user_id = '".$phpbb_u."'");
     // index uid
     // will contain phpBB uid as value, but everything else could be added to be used
@@ -289,7 +302,8 @@ private static function verify_phpbb_credentials(){
 
   } // END // w3all Brute Force Prevention // record addition
 
-  if ( empty( $phpbb_user_session ) && is_user_logged_in() ){
+  // so since the above, this should be not required, but leave in place
+  if ( empty( $phpbb_user_session ) && !isset($noBFF) && is_user_logged_in() ){
      self::w3all_wp_logout();
    }
 
@@ -307,6 +321,7 @@ private static function verify_phpbb_credentials(){
     // avoid going on that will cause an update to the same (and of the other) phpbb user email
     // reset the wp user, let login with presented phpBB session
      if(email_exists($phpbb_user_session[0]->user_email)){
+       clean_user_cache($current_user->ID);
        wp_destroy_current_session();
        wp_clear_auth_cookie();
        wp_set_current_user(0);
@@ -351,7 +366,6 @@ private static function verify_phpbb_credentials(){
   }
  } // end ban
 
- // if deactivated in phpBB, may flow will hardly arrive until here, since when user deactivated in phpBB, related user's sessions are also deleted
  if ( $phpbb_user_session[0]->user_type == 1 ){
     setcookie ("w3all_set_cmsg", "phpbb_deactivated", 0, "/", $w3cookie_domain, false);
      //$wpdb->query("UPDATE $wpu_db_utab SET meta_value = 'a:0:{}' WHERE user_id = '$wp_user_data->ID' AND meta_key = 'wp_capabilities'");
@@ -384,7 +398,7 @@ private static function verify_phpbb_credentials(){
        $phpbb_uurl = $phpbb_user_session[0]->pf_phpbb_website;
        $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '$phpbb_upass', user_email = '$phpbb_uemail', user_url = '$phpbb_uurl' WHERE ID = '$current_user->ID'");
 
-   if( $w3all_phpbb_lang_switch_yn == 1 )
+  if( $w3all_phpbb_lang_switch_yn == 1 )
    { // this impact the global performance
       $wp_umeta = get_user_meta($current_user->ID, '', false);
 
@@ -421,7 +435,7 @@ private static function verify_phpbb_credentials(){
         if (!isset($x_wp_locale)){
                 $x_wp_locale = empty($phpbb_user_session[0]->user_lang) ? get_locale() : $phpbb_user_session[0]->user_lang . '_' . strtoupper($phpbb_user_session[0]->user_lang); // should build to be WP compatible into something like it_IT or set emtpy for en WP default
            }
-                  update_user_meta($current_user->ID, 'locale', $x_wp_locale);
+        update_user_meta($current_user->ID, 'locale', $x_wp_locale);
       }
     }
 
@@ -770,7 +784,7 @@ private static function phpBB_user_session_set($wp_user_data){
        $w3all_bruteblock_phpbbulist = array_slice($w3all_bruteblock_phpbbulist, 100, $tot, true); // reduce of 100 removing olders
       }
 
-       unset($w3all_bruteblock_phpbbulist[$phpbb_user_id]); // Remove this uid
+       unset($w3all_bruteblock_phpbbulist[$phpbb_user_id]);
        $w3all_bruteblock_phpbbulist = empty($w3all_bruteblock_phpbbulist) ? '' : $w3all_bruteblock_phpbbulist;
        update_option( 'w3all_bruteblock_phpbbulist', $w3all_bruteblock_phpbbulist );
 

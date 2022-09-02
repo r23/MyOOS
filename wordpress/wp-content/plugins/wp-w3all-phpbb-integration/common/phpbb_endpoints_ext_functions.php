@@ -37,7 +37,7 @@
 
      if( count($emailist) > 25 ) // max 25 users per time
      {
-       echo __('<h4>ERROR: too much users to be deleted per time (max 50). Return back and disable the option you activated that allow to delete users in phpBB (if you wish to delete more than 25 users per time) into the WP_w3all integration plugin admin page. Remember deativating the option: in this case, deleted users in WP, are deactivated in phpBB and not deleted<.</h4>', 'wp-w3all-phpbb-integration');
+       echo __('<h4>ERROR: too much users to be deleted per time (max 25). Return back and disable the option you activated that allow to delete users in phpBB (if you wish to delete more than 25 users per time) into the WP_w3all integration plugin admin page. Remember deativating the option: in this case, deleted users in WP, are deactivated in phpBB and not deleted<.</h4>', 'wp-w3all-phpbb-integration');
        exit;
      }
 

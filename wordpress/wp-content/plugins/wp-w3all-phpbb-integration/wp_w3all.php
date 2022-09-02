@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.6.4
+Version: 2.6.5
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -31,10 +31,10 @@ if ( !function_exists( 'add_action' ) ) {
 }
 
 if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3PHPBBLASTOPICS' ) OR defined( 'W3PHPBBCONFIG' ) OR defined( 'W3UNREADTOPICS' ) OR defined( 'W3ALLPHPBBUAVA' ) OR defined("W3BANCKEXEC") ):
-  die( 'Forbidden, something goes wrong' );
+  die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.6.4' );
+define( 'WPW3ALL_VERSION', '2.6.5' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -153,18 +153,16 @@ if ( defined( 'WP_ADMIN' ) )
       $w3all_config_db = array( 'dbhost' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbhost'], 'dbport' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbport'], 'dbname' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbname'], 'dbuser' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbuser'], 'dbpasswd' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbpasswd'], 'table_prefix' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbtableprefix'] );
       $w3all_config = array( 'table_prefix' => $_POST['w3all_phpbb_dbconn']['w3all_phpbb_dbtableprefix'] );
 
-      $up_conf_w3all_url = admin_url() . 'options-general.php?page=wp-w3all-options';
-      wp_redirect($up_conf_w3all_url); exit();
+      $opt_w3all_url = admin_url() . 'options-general.php?page=wp-w3all-options';
+      wp_redirect($opt_w3all_url); exit();
     }
   } // END function w3all_VAR_IF_U_CAN(){
-
-  add_action( 'init', 'w3all_VAR_IF_U_CAN', 4 );
 
   // phpBB file config inclusion, or not
  if( !isset($_POST['w3all_phpbb_dbconn']) && empty($w3all_phpbb_dbconn) && !isset($w3deactivate_wp_w3all_plugin) )
  { // config file inclusion
 
-    if(!empty($w3all_path_to_cms)){   // or may will search for some config file elsewhere instead
+    if(!empty($w3all_path_to_cms)){   // or may will search for some config file elsewhere
 
       $config_file = get_option( 'w3all_path_to_cms' ) . '/config.php';
       if (file_exists($config_file)) {
@@ -207,10 +205,11 @@ if ( defined( 'WP_ADMIN' ) )
 
       add_action( 'init', array( 'WP_w3all_admin', 'wp_w3all_init' ) );
       add_action( 'init', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_init' ), 3 );
+      add_action( 'init', 'w3all_VAR_IF_U_CAN', 4 );
 
    if ( defined('W3PHPBBDBCONN') && !isset($w3deactivate_wp_w3all_plugin) OR defined('PHPBB_INSTALLED') && !isset($w3deactivate_wp_w3all_plugin) ){
 
-    function wp_w3all_phpbb_registration_save( $user_id ) {
+    function wp_w3all_phpbb_registration_save_adm( $user_id ) {
       global $w3all_oninsert_wp_user; // if 1 we are inserting an user and if wp_insert_user into function 'verify_phpbb_credentials()' do not return error, there is no need to delete or check the user: it is an user just inserted, the email would be found in phpBB!
      if ( is_multisite() OR defined('W3DISABLECKUINSERTRANSFER') ) { return; } // or get error on activating MUMS user ... msmu user will use a different way
      // the same transferring users from phpBB to Wp, the check in this case is done directly within the transfer process
@@ -251,17 +250,13 @@ function wp_w3all_up_phpbb_prof($user_id, $old_user_data) {
     if($phpBB_upp === true && current_user_can( 'manage_options' )){
         $redirect_to = admin_url() . 'user-edit.php?user_id='.$user_id;
      }
-     if($phpBB_upp === true){
-      //temp_wp_w3_error_on_update($redirect_to);
-      //exit;
-     }
 }
 
 if(! defined("WPW3ALL_NOT_ULINKED")){
 
  add_action( 'user_profile_update_errors', 'w3all_user_profile_update_errors', 10, 1 );
  add_action( 'profile_update', 'wp_w3all_up_phpbb_prof', 10, 2 );
- add_action( 'user_register', 'wp_w3all_phpbb_registration_save', 10, 1 );
+ add_action( 'user_register', 'wp_w3all_phpbb_registration_save_adm', 10, 1 );
  add_action( 'delete_user', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_delete_user' ) );
  // if these two fires because activated, may then the other add_action( 'delete_user' should not fire while this is active. It only deactivate in phpBB
  // Do not go to disable anyway, because if this will fail (it is one cURL call that will execute on start)
@@ -295,7 +290,7 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
 
  if( empty($w3all_phpbb_dbconn) && !isset($w3deactivate_wp_w3all_plugin) )
  {
-  // or will search for some config file elsewhere instead
+  // or will search for some config file elsewhere
   $w3all_path_to_cms = get_option( 'w3all_path_to_cms' );
   if(!empty($w3all_path_to_cms)){
    $config_file = get_option( 'w3all_path_to_cms' ) . '/config.php';
@@ -376,7 +371,7 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
     }
   }
 
-// mums allow only '[0-9A-Za-z]'
+// mums allow only '[0-9a-z]' // wp-includes/ms-functions.php -> function wpmu_validate_user_signup
 // default wp allow allow only [-0-9A-Za-z _.@] //  if( preg_match('/[^-0-9A-Za-z _.@]/',$phpbb_user[0]->username) ){
    $contains_cyrillic = (bool) preg_match('/[\p{Cyrillic}]/u', $user[0]->username);
   // if do not contain non latin chars, let wp create any wp user_login with this passed username
@@ -464,6 +459,7 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
 
         wp_set_current_user( $wpu->ID, $wpu->user_login );
         wp_set_auth_cookie( $wpu->ID, $remember, is_ssl() );
+        //update_user_caches(new WP_User($wpu->ID));
         do_action( 'wp_login', $wpu->user_login, $wpu );
        if(!defined("W3ALL_SESSION_ARELEASED")){
         $phpBB_user_session_set = WP_w3all_phpbb::phpBB_user_session_set_res($wpu);
@@ -537,7 +533,7 @@ if(isset($_COOKIE["w3all_set_cmsg"]) && !empty($_COOKIE["w3all_set_cmsg"])){
      return __('Notice: the specified username contains characters not allowed in this system. Please contact an administrator.', 'wp-w3all-phpbb-integration');
     }
     if(trim($_COOKIE["w3all_set_cmsg"]) == 'phpbb_sess_brutef_error'){
-     return __('Notice: mismatching session OR bruteforce login detected. Please login here again to unlock your account.', 'wp-w3all-phpbb-integration');
+     return __('Notice: mismatching session. Please login here to unlock your account.', 'wp-w3all-phpbb-integration');
     }
   }
   add_filter( 'login_message', 'w3all_msgs', 10, 1 );
@@ -558,7 +554,7 @@ function wp_w3all_check_fields($errors, $sanitized_user_login, $user_email) {
      $t = WP_w3all_phpbb::ck_phpbb_user_by_ue($sanitized_user_login, $user_email);
 
       if(!empty($t)){
-         $errors->add( 'w3all_user_exist', __( '<strong>Error</strong>: provided email or username already exist on our forum database.', 'wp-w3all-phpbb-integration' ) );
+         $errors->add( 'w3all_user_exist', __( '<strong>Error</strong>: provided email or username already exists on our forum database.', 'wp-w3all-phpbb-integration' ) );
          return $errors;
       }
 
@@ -571,7 +567,7 @@ function wp_w3all_wp_after_password_reset($user, $new_pass) {
 }
 
 
-function wp_w3all_phpbb_registration_save2($user_id) {
+function wp_w3all_phpbb_registration_save($user_id) {
 
      $wpu = get_user_by('ID', $user_id);
     if( empty( WP_w3all_phpbb::wp_w3all_get_phpbb_user_info($wpu->user_email )) ){
@@ -666,7 +662,7 @@ if(! defined("WPW3ALL_NOT_ULINKED")){
   add_filter( 'auth_cookie_expiration', 'w3all_rememberme_long' );
   // this is not required since 2.4.0, because registrations allowed only in phpBB OR WP. Anyway leave it here to may check for problems
   add_filter( 'registration_errors', 'wp_w3all_check_fields', 10, 3 ); // this prevent any user addition (may not external plugins) if phpBB email or username already exist in phpBB, into default wordpress flavors
-  add_action( 'user_register', 'wp_w3all_phpbb_registration_save2', 10, 1 );
+  add_action( 'user_register', 'wp_w3all_phpbb_registration_save', 10, 1 );
   add_action( 'password_reset', 'wp_w3all_wp_after_password_reset', 10, 2 );
   // a phpBB user not logged into phpBB, WP login first time, ) (may still) not existent in wp
   add_action( 'wp_authenticate', array( 'WP_w3all_phpbb', 'w3_check_phpbb_profile_wpnu' ), 10, 1 );
@@ -962,7 +958,7 @@ function wp_check_password($password, $hash, $user_id = '') {
        if( $w3all_add_into_phpBB_after_confirm == 1 )
        {
 
-      // this is for Ultimate Member plugin, but the logic flow can be the same for any other plugin
+      // this is for Ultimate Member plugin, but the logic can be the same for any other plugin
        if(defined( 'um_plugin' )){
           $umeta = get_user_meta($wpu->ID);
          if( isset($umeta['account_status'][0]) && $umeta['account_status'][0] != 'approved' ){
@@ -1010,11 +1006,11 @@ function wp_w3all_remove_bbcode_tags($post_str, $words){
 
   foreach ($post_string as $post_st) {
 
-    $i++;
-    if( $i < $b + 1 ){
+    if( $i < $b ){
 
       $post_std .= $post_st . ' ';
     }
+   $i++;
   }
 
  //$post_std = $post_std . ' ...'; // if should be a link to the post, do it on phpbb_last_topics
@@ -1372,7 +1368,7 @@ function w3all_add_phpbb_user() {
         return;
   }
 
-   // mums allow only '[0-9A-Za-z]'
+   // mums allow only '[0-9a-z]'
    // if do not contain non latin chars, let wp create any wp user_login with this passed username
   if ( is_multisite() && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$phpbb_user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$phpbb_user[0]->username) OR strlen($phpbb_user[0]->username) > 50 ){
 
@@ -1511,23 +1507,19 @@ endif;
    if( $phpbb_config['load_online_time'] > 0 )
    {
     $losTime = time()-($phpbb_config['load_online_time']*60);
-    // this include sessions from same IP, existing (may) due to same user, navigating our forum with different browsers
-    $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_id, S.session_user_id, MAX(S.session_time) AS session_time, S.session_ip, U.user_id, U.username, U.user_email
-     FROM ".$w3all_config["table_prefix"]."sessions AS S
-     JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = S.session_user_id
-     WHERE S.session_time > $losTime
-     GROUP BY S.session_id
-     ORDER BY U.username",ARRAY_A);
-   // if 'Guests from same IP should be purged' so it should be done here
-   
-   /* Or may the query should be this:
-    $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_id, S.session_user_id, MAX(S.session_time) AS session_time, S.session_ip, U.user_id, U.username, U.user_email
+    $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_id, S.session_user_id, S.session_time AS session_time, S.session_ip, U.user_id, U.username, U.user_email
      FROM ".$w3all_config["table_prefix"]."sessions AS S
      JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = S.session_user_id
      WHERE S.session_time > $losTime
      GROUP BY S.session_ip
-     ORDER BY U.username",ARRAY_A);*/ 
+     ORDER BY U.username",ARRAY_A);
    }
+    /*
+    // this include sessions from same IP, existing (may) due to same user, navigating the forum with different browsers
+      GROUP BY S.session_id
+      ORDER BY U.username",ARRAY_A);
+    // this way, Guests from same IP should be purged and so it should be done after.
+    */
 
   $phpbb_online_udata = empty($phpbb_uonline_udata) ? array() : $phpbb_uonline_udata;
 

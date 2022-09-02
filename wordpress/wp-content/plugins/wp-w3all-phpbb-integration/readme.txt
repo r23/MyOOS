@@ -2,10 +2,10 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, users
-Stable tag: 2.6.4
+Stable tag: 2.6.5
 License: GPLv2 or later
 Requires at least: 5.0.0
-Tested up to: 6.1
+Tested up to: 6.0.3
 Requires PHP: 7.0
 
 WordPress w3all phpBB integration - easy, light, secure, powerful
@@ -25,7 +25,7 @@ Integration cookie based between WordPress and phpBB installed on same and subdo
 WP w3all phpBB is capable of running in iframe mode and automatically embedding phpBB into WordPress template. Setup for the iframe responsive embedded procedure is quick and quite easy!
 
 = WP to phpBB and phpBB to WP users transfer =
-Transfer over pre-existing WP users into your phpBB forums (and vice versa) when integration first begins. After the setup and initialization of the plugin, WP users will automatically be added into phpBB upon their first login, and vice versa. But you could use the plugin just only to transfer users between phpBB and Wordpress by activating the plugin as not linked (read the help install page).
+Transfer over pre-existing WP users into your phpBB forums (and vice versa) when integration first begins. After the setup and initialization of the plugin, WP users will automatically be added into phpBB upon their first login, and vice versa. But you could use the plugin just only to transfer users between phpBB and Wordpress by activating the plugin as not linked (read the help install page), or to show phpBB posts into a WordPress hosted into another domain.
 
 = phpBB avatars into WordPress options =
 Option to use phpBB avatars to replace WP Gravatars.
@@ -53,9 +53,8 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 = Summary =
 * Download the WP w3all plugin onto your WP site and activate it.
 * Navigate to the WP w3all settings page underneath the settings tab in your WP admin dashboard.
-* Configure the path of the phpBB cookie to be available across the whole domain. This value is REQUIRED.
+* Configure phpBB database connection values. This is REQUIRED.
 * Configure the url of your phpBB forums. This value is REQUIRED.
-* Activate the WP w3all transfer importer. (You can deactivate it after you've finished transferring your users)
 * Navigate to the WP w3all tranfer settings page under the settings tab in your WP admin dashboard.
 * Follow the instructions to transfer all of your existing WP users over into phpBB.
 
@@ -72,6 +71,12 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.6.5 =
+*Release Date - 1 Sep, 2022*
+* Fix: keep the user logged in, resetting the user's phpBB session, if the user result to be logged in WordPress and the phpBB expired. This will fix several aspects and simplify phpBB configuration.
+* Release Logs: https://www.axew3.com/w3/forums/viewtopic.php?t=1758
+* Minor fixes
 
 = 2.6.4 =
 *Release Date - 2 Jun, 2022*
