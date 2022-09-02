@@ -455,7 +455,7 @@ __webpack_require__.d(__webpack_exports__, {
   "AsyncModeProvider": () => (/* reexport */ async_mode_provider_context),
   "RegistryConsumer": () => (/* reexport */ RegistryConsumer),
   "RegistryProvider": () => (/* reexport */ context),
-  "combineReducers": () => (/* reexport */ (turbo_combine_reducers_default())),
+  "combineReducers": () => (/* binding */ build_module_combineReducers),
   "controls": () => (/* reexport */ controls),
   "createReduxStore": () => (/* reexport */ createReduxStore),
   "createRegistry": () => (/* reexport */ createRegistry),
@@ -3071,15 +3071,41 @@ function createRegistry() {
 
 /* harmony default export */ const default_registry = (createRegistry());
 
-;// CONCATENATED MODULE: ./node_modules/is-plain-obj/index.js
-function is_plain_obj_isPlainObject(value) {
-	if (typeof value !== 'object' || value === null) {
-		return false;
-	}
+;// CONCATENATED MODULE: ./node_modules/is-plain-object/dist/is-plain-object.mjs
+/*!
+ * is-plain-object <https://github.com/jonschlinkert/is-plain-object>
+ *
+ * Copyright (c) 2014-2017, Jon Schlinkert.
+ * Released under the MIT License.
+ */
 
-	const prototype = Object.getPrototypeOf(value);
-	return (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null) && !(Symbol.toStringTag in value) && !(Symbol.iterator in value);
+function is_plain_object_isObject(o) {
+  return Object.prototype.toString.call(o) === '[object Object]';
 }
+
+function is_plain_object_isPlainObject(o) {
+  var ctor,prot;
+
+  if (is_plain_object_isObject(o) === false) return false;
+
+  // If has modified constructor
+  ctor = o.constructor;
+  if (ctor === undefined) return true;
+
+  // If has modified prototype
+  prot = ctor.prototype;
+  if (is_plain_object_isObject(prot) === false) return false;
+
+  // If constructor does not have an Object-specific method
+  if (prot.hasOwnProperty('isPrototypeOf') === false) {
+    return false;
+  }
+
+  // Most likely a plain Object
+  return true;
+}
+
+
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/plugins/persistence/storage/object.js
 let objectStorage;
@@ -3280,7 +3306,7 @@ function persistencePlugin(registry, pluginOptions) {
       const reducers = keys.reduce((accumulator, key) => Object.assign(accumulator, {
         [key]: (state, action) => action.nextState[key]
       }), {});
-      getPersistedState = withLazySameState(turbo_combine_reducers_default()(reducers));
+      getPersistedState = withLazySameState(build_module_combineReducers(reducers));
     } else {
       getPersistedState = (state, action) => action.nextState;
     }
@@ -3314,7 +3340,7 @@ function persistencePlugin(registry, pluginOptions) {
           type: '@@WP/PERSISTENCE_RESTORE'
         });
 
-        if (is_plain_obj_isPlainObject(initialState) && is_plain_obj_isPlainObject(persistedState)) {
+        if (is_plain_object_isPlainObject(initialState) && is_plain_object_isPlainObject(persistedState)) {
           // If state is an object, ensure that:
           // - Other keys are left intact when persisting only a
           //   subset of keys.
@@ -4289,6 +4315,7 @@ const useDispatch = storeNameOrDescriptor => {
  * The combineReducers helper function turns an object whose values are different
  * reducing functions into a single reducing function you can pass to registerReducer.
  *
+ * @type  {import('./types').combineReducers}
  * @param {Object} reducers An object whose values correspond to different reducing
  *                          functions that need to be combined into one.
  *
@@ -4324,7 +4351,7 @@ const useDispatch = storeNameOrDescriptor => {
  *                    object, and constructs a state object with the same shape.
  */
 
-
+const build_module_combineReducers = (turbo_combine_reducers_default());
 /**
  * Given a store descriptor, returns an object of the store's selectors.
  * The selector functions are been pre-bound to pass the current state automatically.

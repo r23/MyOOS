@@ -536,7 +536,7 @@ function menuItemsToBlocks(menuItems) {
 
 function mapMenuItemsToBlocks(menuItems) {
   // The menuItem should be in menu_order sort order.
-  const sortedItems = (0,external_lodash_namespaceObject.sortBy)(menuItems, 'menu_order');
+  const sortedItems = [...menuItems].sort((a, b) => a.menu_order - b.menu_order);
   const blocks = sortedItems.map(menuItem => {
     var _menuItem$children;
 
@@ -822,13 +822,8 @@ const STORE_NAME = 'core/edit-navigation';
 
 ;// CONCATENATED MODULE: ./packages/edit-navigation/build-module/store/actions.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -912,12 +907,12 @@ const batchSaveMenuItems = (navigationBlock, menuId) => async _ref2 => {
 
   const navBlockAfterUpdates = await dispatch(batchUpdateMenuItems(navBlockWithRecordIds, menuId)); // Delete menu items.
 
-  const deletedIds = (0,external_lodash_namespaceObject.difference)(oldMenuItems.map(_ref3 => {
+  const deletedIds = oldMenuItems.map(_ref3 => {
     let {
       id
     } = _ref3;
     return id;
-  }), blocksTreeToList(navBlockAfterUpdates).map(getRecordIdFromBlock));
+  }).filter(id => !blocksTreeToList(navBlockAfterUpdates).map(getRecordIdFromBlock).includes(id));
   await dispatch(batchDeleteMenuItems(deletedIds));
   return navBlockAfterUpdates;
 };
@@ -2765,10 +2760,6 @@ ComplementaryAreaWrapped.Slot = ComplementaryAreaSlot;
  * WordPress dependencies
  */
 
-/**
- * WordPress dependencies
- */
-
 
 
 
@@ -3003,10 +2994,10 @@ function NameDisplay() {
  * WordPress dependencies
  */
 
+
 /**
  * Internal dependencies
  */
-
 
 
 const addMenuNameEditor = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(BlockEdit => props => {

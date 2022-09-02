@@ -36,15 +36,21 @@ class WP_Style_Engine_Processor_Gutenberg {
 	 * Add a store to the processor.
 	 *
 	 * @param WP_Style_Engine_CSS_Rules_Store_Gutenberg $store The store to add.
+	 *
+	 * @return WP_Style_Engine_Processor_Gutenberg Returns the object to allow chaining methods.
 	 */
 	public function add_store( WP_Style_Engine_CSS_Rules_Store_Gutenberg $store ) {
 		$this->stores[ $store->get_name() ] = $store;
+
+		return $this;
 	}
 
 	/**
 	 * Adds rules to be processed.
 	 *
 	 * @param WP_Style_Engine_CSS_Rule_Gutenberg|WP_Style_Engine_CSS_Rule_Gutenberg[] $css_rules A single, or an array of, WP_Style_Engine_CSS_Rule_Gutenberg objects from a store or otherwise.
+	 *
+	 * @return WP_Style_Engine_Processor_Gutenberg Returns the object to allow chaining methods.
 	 */
 	public function add_rules( $css_rules ) {
 		if ( ! is_array( $css_rules ) ) {
@@ -58,6 +64,8 @@ class WP_Style_Engine_Processor_Gutenberg {
 			}
 			$this->css_rules[ $rule->get_selector() ] = $rule;
 		}
+
+		return $this;
 	}
 
 	/**

@@ -46,9 +46,12 @@ class WP_Style_Engine_CSS_Rules_Store_Gutenberg {
 	 *
 	 * @param string $store_name The name of the store.
 	 *
-	 * @return WP_Style_Engine_CSS_Rules_Store_Gutenberg
+	 * @return WP_Style_Engine_CSS_Rules_Store_Gutenberg|void
 	 */
 	public static function get_store( $store_name = 'default' ) {
+		if ( ! is_string( $store_name ) || empty( $store_name ) ) {
+			return;
+		}
 		if ( ! isset( static::$stores[ $store_name ] ) ) {
 			static::$stores[ $store_name ] = new static();
 			// Set the store name.
@@ -110,7 +113,7 @@ class WP_Style_Engine_CSS_Rules_Store_Gutenberg {
 	 *
 	 * @param string $selector The CSS selector.
 	 *
-	 * @return WP_Style_Engine_CSS_Rule_Gutenberg|null Returns a WP_Style_Engine_CSS_Rule_Gutenberg object, or null if the selector is empty.
+	 * @return WP_Style_Engine_CSS_Rule_Gutenberg|void Returns a WP_Style_Engine_CSS_Rule_Gutenberg object, or null if the selector is empty.
 	 */
 	public function add_rule( $selector ) {
 		$selector = trim( $selector );

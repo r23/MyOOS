@@ -835,8 +835,10 @@ function Form(_ref) {
       className: "wp-block-legacy-widget__edit-form-title"
     }, title), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
       focusOnMount: false,
-      position: "middle right",
-      __unstableForcePosition: true
+      placement: "right",
+      offset: 32,
+      __unstableForcePosition: true,
+      __unstableShift: true
     }, (0,external_wp_element_namespaceObject.createElement)("div", {
       ref: ref,
       className: "wp-block-legacy-widget__edit-form",
