@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { USDZLoader } from 'three/examples/jsm/loaders/USDZLoader';
 import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas, useLoader, useFrame, useThree } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
@@ -14,6 +15,7 @@ import { GLTFAudioEmitterExtension } from 'three-omi';
 
 function ThreeObject( props ) {
 	const [ url, set ] = useState( props.url );
+	const {scene} = useThree();
 	useEffect( () => {
 		setTimeout( () => set( props.url ), 2000 );
 	}, [] );
@@ -23,6 +25,14 @@ function ThreeObject( props ) {
 		camera.add( listener );
 	} );
 
+	// USDZ loader.
+	if(props.url.split(/[#?]/)[0].split('.').pop().trim() === "usdz") {
+
+		const usdz = useLoader( USDZLoader, url);
+
+        return <primitive scale={[ props.scale, props.scale, props.scale ]} position={[ 0, props.positionY, 0 ]} rotation={[ 0, props.rotationY, 0 ]} object={ usdz } />;
+	}
+
 	const gltf = useLoader( GLTFLoader, url, ( loader ) => {
 		loader.register(
 			( parser ) => new GLTFAudioEmitterExtension( parser, listener )
@@ -31,10 +41,8 @@ function ThreeObject( props ) {
 
             return new VRMLoaderPlugin( parser );
         
-        } );
-            
+        } );           
 	} );
-
 	const { actions } = useAnimations( gltf.animations, gltf.scene );
 
 	const animationList = props.animations ? props.animations.split( ',' ) : '';
@@ -58,6 +66,7 @@ function ThreeObject( props ) {
         vrm.scene.scale.set( props.scale, props.scale, props.scale );
         return <primitive object={ vrm.scene } />;    
     }
+
     gltf.scene.position.set( 0, props.positionY, 0 );
     gltf.scene.rotation.set( 0, props.rotationY, 0 );
     gltf.scene.scale.set( props.scale, props.scale, props.scale );

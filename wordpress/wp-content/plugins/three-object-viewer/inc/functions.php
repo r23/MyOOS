@@ -37,9 +37,9 @@ function threeobjectviewer_enqueue_threeobjectloaderinit() {
     );
 }
 
-add_filter('upload_mimes', 'threeobjectviewer_add_file_types_to_uploads', 1, 1);
+add_filter('upload_mimes', __NAMESPACE__ . '\threeobjectviewer_add_file_types_to_uploads', 10, 4);
 /**
-* Adds glb and vrm types to allowed uploads.
+* Adds glb vrm and usdz types to allowed uploads.
 */
 function threeobjectviewer_add_file_types_to_uploads($file_types){
   $new_filetypes = array();
@@ -47,31 +47,25 @@ function threeobjectviewer_add_file_types_to_uploads($file_types){
   // $new_filetypes['glb'] = 'model/gltf-binary';
   $new_filetypes['glb'] = 'application/octet-stream';
   $new_filetypes['vrm'] = 'application/octet-stream';
-  $file_types = array_merge($file_types, $new_filetypes );
-  return $file_types;
+  $new_filetypes['usdz'] = 'model/vnd.usdz+zip';
+  return $new_filetypes;
 }
 
-add_filter('wp_check_filetype_and_ext', __NAMESPACE__ . '\threeobjectviewer_checkfiletypes', 10, 4);
-/**
- * Check the filetypes
- */
-function threeobjectviewer_checkfiletypes($data, $file, $filename, $mimes) {
-    if (!$data['type']) {
-        $wp_filetype = wp_check_filetype($filename, $mimes);
-        $ext = $wp_filetype['ext'];
-        $type = $wp_filetype['type'];
-        $proper_filename = $filename;
-        if ($type && 0 === strpos($type, 'model/') && $ext !== 'glb') {
-            $ext = $type = false;
-        }
-        if ($type && 0 === strpos($type, 'model/') && $ext !== 'vrm') {
-            $ext = $type = false;
-        }
-        $data['ext'] = $ext;
-        $data['type'] = $type;
-        $data['proper_filename'] = $proper_filename;
+add_filter( 'wp_check_filetype_and_ext',  __NAMESPACE__ . '\three_object_viewer_check_for_usdz', 10, 4 );
+function three_object_viewer_check_for_usdz( $types, $file, $filename, $mimes ) {
+    if ( false !== strpos( $filename, '.usdz' ) ) {
+        $types['ext']  = 'usdz';
+        $types['type'] = 'model/vnd.usdz+zip';
     }
-    return $data;
+    if ( false !== strpos( $filename, '.glb' ) ) {
+        $types['ext']  = 'glb';
+        $types['type'] = 'application/octet-stream';
+    }
+    if ( false !== strpos( $filename, '.vrm' ) ) {
+        $types['ext']  = 'vrm';
+        $types['type'] = 'application/octet-stream';
+    }
+    return $types;
 }
 
 add_action('wp_enqueue_scripts', __NAMESPACE__ . '\threeobjectviewer_frontend_assets');

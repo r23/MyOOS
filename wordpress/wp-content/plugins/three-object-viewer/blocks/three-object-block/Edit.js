@@ -68,6 +68,7 @@ export default function Edit( { attributes, setAttributes, isSelected } ) {
 	const ALLOWED_MEDIA_TYPES = [
 		'model/gltf-binary',
 		'application/octet-stream',
+		'model/vnd.usdz+zip'
 	];
 
 	const MyDropZone = () => {

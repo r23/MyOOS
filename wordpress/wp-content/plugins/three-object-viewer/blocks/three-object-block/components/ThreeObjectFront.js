@@ -3,6 +3,7 @@ import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas, useLoader, useFrame, useThree } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Physics, RigidBody } from "@react-three/rapier";
+import { USDZLoader } from 'three/examples/jsm/loaders/USDZLoader';
 
 import {
 	OrthographicCamera,
@@ -29,6 +30,14 @@ function SavedObject( props ) {
 	useThree( ( { camera } ) => {
 		camera.add( listener );
 	} );
+
+	// USDZ loader.
+	if(props.url.split(/[#?]/)[0].split('.').pop().trim() === "usdz") {
+
+		const usdz = useLoader( USDZLoader, url);
+
+        return <primitive scale={[ props.scale, props.scale, props.scale ]} position={[ 0, props.positionY, 0 ]} rotation={[ 0, props.rotationY, 0 ]} object={ usdz } />;
+	}
 
 	const gltf = useLoader( GLTFLoader, url, ( loader ) => {
 		loader.register(
