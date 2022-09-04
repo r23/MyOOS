@@ -48,7 +48,9 @@ function threeobjectviewer_add_file_types_to_uploads($file_types){
   $new_filetypes['glb'] = 'application/octet-stream';
   $new_filetypes['vrm'] = 'application/octet-stream';
   $new_filetypes['usdz'] = 'model/vnd.usdz+zip';
-  return $new_filetypes;
+  $file_types = array_merge($file_types, $new_filetypes );
+
+  return $file_types;
 }
 
 add_filter( 'wp_check_filetype_and_ext',  __NAMESPACE__ . '\three_object_viewer_check_for_usdz', 10, 4 );
