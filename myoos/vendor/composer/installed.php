@@ -5,18 +5,18 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'df316830214a90c1cacd56af261ca575c3c790f4',
+        'reference' => '881e1a376b746ec5a71adff7c6a76cb5aa3ab305',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
     'versions' => array(
         'adodb/adodb-php' => array(
-            'pretty_version' => 'v5.22.2',
-            'version' => '5.22.2.0',
+            'pretty_version' => 'v5.22.3',
+            'version' => '5.22.3.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../adodb/adodb-php',
             'aliases' => array(),
-            'reference' => '876bc2287171ea96a571f84c23845e44a759d9a0',
+            'reference' => 'b937df7f7efde5c98c501f6fc472ec3ab276c3c9',
             'dev_requirement' => false,
         ),
         'bacon/bacon-qr-code' => array(
@@ -187,7 +187,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'df316830214a90c1cacd56af261ca575c3c790f4',
+            'reference' => '881e1a376b746ec5a71adff7c6a76cb5aa3ab305',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
