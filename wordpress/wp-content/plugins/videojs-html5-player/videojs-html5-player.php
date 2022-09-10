@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Videojs HTML5 Player
-Version: 1.1.7
+Version: 1.1.8
 Plugin URI: https://wphowto.net/videojs-html5-player-for-wordpress-757
 Author: naa986
 Author URI: https://wphowto.net/
@@ -17,19 +17,26 @@ if (!class_exists('VIDEOJS_HTML5_PLAYER')) {
 
     class VIDEOJS_HTML5_PLAYER {
 
-        var $plugin_version = '1.1.7';
+        var $plugin_version = '1.1.8';
+        var $plugin_url;
+        var $plugin_path;
         var $videojs_version = '7.14.3';
 
         function __construct() {
             define('VIDEOJS_HTML5_PLAYER_VERSION', $this->plugin_version);
+            define('VIDEOJS_HTML5_PLAYER_SITE_URL', site_url());
+            define('VIDEOJS_HTML5_PLAYER_URL', $this->plugin_url());
+            define('VIDEOJS_HTML5_PLAYER_PATH', $this->plugin_path());
             $this->plugin_includes();
         }
 
         function plugin_includes() {
             if (is_admin()) {
                 add_filter('plugin_action_links', array($this, 'plugin_action_links'), 10, 2);
+                include_once('addons/videojs-html5-player-addons.php');
             }
             add_action('plugins_loaded', array($this, 'plugins_loaded_handler'));
+            add_action('admin_enqueue_scripts', array($this, 'enqueue_admin_scripts'));
             add_action('wp_enqueue_scripts', 'videojs_html5_player_enqueue_scripts');
             add_action('admin_menu', array($this, 'add_options_menu'));
             add_action('wp_head', 'videojs_html5_player_header');
@@ -39,11 +46,24 @@ if (!class_exists('VIDEOJS_HTML5_PLAYER')) {
             add_filter('the_excerpt', 'do_shortcode', 11);
             add_filter('the_content', 'do_shortcode', 11);
         }
+        
+        function enqueue_admin_scripts($hook) {
+            if('settings_page_videojs-html5-player-settings' != $hook) {
+                return;
+            }
+            wp_register_style('videojs-html5-player-addons-menu', VIDEOJS_HTML5_PLAYER_URL.'/addons/videojs-html5-player-addons.css');
+            wp_enqueue_style('videojs-html5-player-addons-menu');
+        }
 
         function plugin_url() {
             if ($this->plugin_url)
                 return $this->plugin_url;
             return $this->plugin_url = plugins_url(basename(plugin_dir_path(__FILE__)), basename(__FILE__));
+        }
+        
+        function plugin_path(){ 	
+            if ( $this->plugin_path ) return $this->plugin_path;		
+            return $this->plugin_path = untrailingslashit( plugin_dir_path( __FILE__ ) );
         }
 
         function plugin_action_links($links, $file) {
@@ -64,14 +84,68 @@ if (!class_exists('VIDEOJS_HTML5_PLAYER')) {
             }
         }
 
-        function options_page() {
+        function options_page() {          
+            $plugin_tabs = array(
+                'videojs-html5-player-settings' => __('Add-ons', 'videojs-html5-player'),
+                //'videojs-html5-player-settings&action=addons' => __('Add-ons', 'videojs-html5-player')
+            );
             $url = "https://wphowto.net/videojs-html5-player-for-wordpress-757";
-            $link_text = sprintf(wp_kses(__('For detailed documentation please visit the plugin homepage <a target="_blank" href="%s">here</a>.', 'videojs-html5-player'), array('a' => array('href' => array(), 'target' => array()))), esc_url($url));
-            ?>
-            <div class="wrap"><h2>Videojs HTML5 Player - v<?php echo $this->plugin_version; ?></h2>
-            <div class="update-nag"><?php echo $link_text;?></div>
-            </div>
-            <?php
+            $link_text = sprintf(__('Please visit the <a target="_blank" href="%s">Video.js plugin</a> documentation page for setup instructions.', 'videojs-html5-player'), esc_url($url));          
+            $allowed_html_tags = array(
+                'a' => array(
+                    'href' => array(),
+                    'target' => array()
+                )
+            );
+            echo '<div class="wrap"><h2>Videojs HTML5 Player - v'.VIDEOJS_HTML5_PLAYER_VERSION.'</h2>';               
+            echo '<div class="update-nag">'.wp_kses($link_text, $allowed_html_tags).'</div>';
+            $current = '';
+            $action = '';
+            if (isset($_GET['page'])) {
+                $current = sanitize_text_field($_GET['page']);
+                if (isset($_GET['action'])) {
+                    $action = sanitize_text_field($_GET['action']);
+                    $current .= "&action=" . $action;
+                }
+            }
+            $content = '';
+            $content .= '<h2 class="nav-tab-wrapper">';
+            foreach ($plugin_tabs as $location => $tabname) {
+                if ($current == $location) {
+                    $class = ' nav-tab-active';
+                } else {
+                    $class = '';
+                }
+                $content .= '<a class="nav-tab' . $class . '" href="?page=' . $location . '">' . $tabname . '</a>';
+            }
+            $content .= '</h2>';
+            $allowed_html_tags = array(
+                'a' => array(
+                    'href' => array(),
+                    'class' => array()
+                ),
+                'h2' => array(
+                    'href' => array(),
+                    'class' => array()
+                )
+            );
+            echo wp_kses($content, $allowed_html_tags);
+
+            if(!empty($action))
+            { 
+                switch($action)
+                {
+                    case 'addons':
+                        videojs_html5_player_display_addons();
+                        break;
+                }
+            }
+            else
+            {
+                videojs_html5_player_display_addons(); //$this->general_settings();
+            }
+
+            echo '</div>';
         }
 
     }

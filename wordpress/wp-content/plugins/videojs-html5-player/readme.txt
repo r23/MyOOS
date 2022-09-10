@@ -4,7 +4,7 @@ Donate link: https://wphowto.net/
 Tags: videojs, video, player, embed, html5
 Requires at least: 4.2
 Tested up to: 6.0
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -30,6 +30,10 @@ https://www.youtube.com/watch?v=uF-V6qGvcu8&rel=0
 * Clean and sleek player with no watermark
 * fallbacks for other HTML5-supported filetypes (WebM, Ogv)
 * HTTP streaming
+
+=== Video.js HTML5 Player Add-ons ===
+
+* [Disable Right Click](https://wphowto.net/videojs-html5-player-for-wordpress-757)
 
 === How to Use Video.js HTML5 Player ===
 
@@ -134,11 +138,15 @@ Yes.
 
 = Does Video.js plugin support HLS? =
 
-No.
+Yes.
+
+= Does Video.js plugin support HTTP streaming? =
+
+Yes.
 
 = What media formats does Video.js plugin support? =
 
-MP4, WebM and Ogv.
+MP4, WebM, Ogv and M3U8.
 
 == Screenshots ==
 
@@ -148,6 +156,9 @@ MP4, WebM and Ogv.
 none
 
 == Changelog ==
+
+= 1.1.8 =
+* Added support for Disable Right Click add-on.
 
 = 1.1.7 =
 * Added support for Video.js HTTP Streaming.
