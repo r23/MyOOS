@@ -31,23 +31,23 @@ function oosGetGeoZoneName($geo_zone_id)
 {
 
     // Get database information
-	$dbconn =& oosDBGetConn();
-	$oostable =& oosDBGetTables();
+    $dbconn =& oosDBGetConn();
+    $oostable =& oosDBGetTables();
 
-	$geo_zonestable = $oostable['geo_zones'];
-	$zones_sql = "SELECT geo_zone_name
+    $geo_zonestable = $oostable['geo_zones'];
+    $zones_sql = "SELECT geo_zone_name
                   FROM $geo_zonestable
                   WHERE geo_zone_id = '" . $geo_zone_id . "'";
-	$result = $dbconn->Execute($zones_sql);
+    $result = $dbconn->Execute($zones_sql);
 
-	if (!$result->RecordCount()) {
-		$geo_zone_name = $geo_zone_id;
-	} else {
-		$zones = $result->fields;
-		$geo_zone_name = $zones['geo_zone_name'];
-	}
+    if (!$result->RecordCount()) {
+        $geo_zone_name = $geo_zone_id;
+    } else {
+        $zones = $result->fields;
+        $geo_zone_name = $zones['geo_zone_name'];
+    }
 
-	return $geo_zone_name;
+    return $geo_zone_name;
 }
 
 
@@ -56,8 +56,8 @@ $nzPage = (!isset($_GET['zpage']) || !is_numeric($_GET['zpage'])) ? 1 : intval($
 
 $saction = (isset($_GET['saction']) ? $_GET['saction'] : '');
 
-if (!empty($saction)) {	
-      switch ($saction) {
+if (!empty($saction)) {
+    switch ($saction) {
       case 'insert_sub':
         $zID = oos_db_prepare_input($_GET['zID']);
         $zone_country_id = oos_db_prepare_input($_POST['zone_country_id']);
@@ -97,8 +97,8 @@ if (!empty($saction)) {
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 
 if (!empty($action)) {
-	switch ($action) {
-	case 'insert_zone':
+    switch ($action) {
+    case 'insert_zone':
         $geo_zone_name = oos_db_prepare_input($_POST['geo_zone_name']);
         $geo_zone_description = oos_db_prepare_input($_POST['geo_zone_description']);
 
@@ -136,8 +136,7 @@ if (!empty($action)) {
 require 'includes/header.php';
 
 if (isset($_GET['zID'])  && (($saction == 'edit') || ($saction == 'new'))) {
-
-?>
+    ?>
 <script>
 function resetZoneSelected(theForm) {
   if (theForm.state.value != '') {
@@ -164,7 +163,7 @@ function update_zone(theForm) {
 }
 </script>
 <?php
-  }
+}
 ?>
 <div class="wrapper">
 	<!-- Header //-->
@@ -263,13 +262,13 @@ function update_zone(theForm) {
               </tr>
               <tr>
                 <td align="right" colspan="3">
-<?php 
+<?php
 if (empty($saction)) {
-	echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>';
+    echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $_GET['zID']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>';
 
-	$szID = (isset($_GET['zID']) ? '&zID=' . intval($_GET['zID']) : '');
-	$sID = (empty( $sInfo->association_id) ? '' : '&sID=' . $sInfo->association_id);	
-	echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . $szID . '&action=list&spage=' . $nsPage . $sID . '&saction=new') . '">' . oos_button(BUTTON_INSERT) . '</a>';
+    $szID = (isset($_GET['zID']) ? '&zID=' . intval($_GET['zID']) : '');
+    $sID = (empty($sInfo->association_id) ? '' : '&sID=' . $sInfo->association_id);
+    echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . $szID . '&action=list&spage=' . $nsPage . $sID . '&saction=new') . '">' . oos_button(BUTTON_INSERT) . '</a>';
 } ?>	  
 	  </td>
               </tr>
@@ -321,7 +320,7 @@ if (empty($saction)) {
               </tr>
               <tr>
                 <td align="right" colspan="2"><?php if (empty($action)) {
-          echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . (empty( $zInfo->geo_zone_id) ? '' : '&zID=' . $zInfo->geo_zone_id) . '&action=new_zone') . '">' . oos_button(BUTTON_INSERT) . '</a>';
+          echo '<a href="' . oos_href_link_admin($aContents['geo_zones'], 'zpage=' . $nzPage . (empty($zInfo->geo_zone_id) ? '' : '&zID=' . $zInfo->geo_zone_id) . '&action=new_zone') . '">' . oos_button(BUTTON_INSERT) . '</a>';
       } ?></td>
               </tr>
             </table>
@@ -335,8 +334,8 @@ $heading = [];
 $contents = [];
 
 if ($action == 'list') {
-	switch ($saction) {
-	case 'new':
+    switch ($saction) {
+    case 'new':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_SUB_ZONE . '</b>');
 
 
@@ -348,10 +347,10 @@ if ($action == 'list') {
 
         break;
 
-	case 'edit':
+    case 'edit':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_SUB_ZONE . '</b>');
 
-		$sID = (empty( $sInfo->association_id) ? '' : '&sID=' . $sInfo->association_id);
+        $sID = (empty($sInfo->association_id) ? '' : '&sID=' . $sInfo->association_id);
 
         $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . (isset($_GET['zID']) ? '&zID=' . intval($_GET['zID']) : '') . '&action=list&spage=' . $nsPage . $sID . '&saction=save_sub', 'post', false));
         $contents[] = array('text' => TEXT_INFO_EDIT_SUB_ZONE_INTRO);
@@ -361,7 +360,7 @@ if ($action == 'list') {
 
         break;
 
-	case 'delete':
+    case 'delete':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_SUB_ZONE . '</b>');
 
         $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . (isset($_GET['zID']) ? '&zID=' . intval($_GET['zID']) : '') . '&action=list&spage=' . $nsPage . '&sID=' . $sInfo->association_id . '&saction=deleteconfirm_sub', 'post', false));
@@ -371,7 +370,7 @@ if ($action == 'list') {
 
         break;
 
-	default:
+    default:
         if (isset($sInfo) && is_object($sInfo)) {
             $heading[] = array('text' => '<b>' . $sInfo->countries_name . '</b>');
 
@@ -384,8 +383,8 @@ if ($action == 'list') {
         break;
     }
 } else {
-	switch ($action) {
-	case 'new_zone':
+    switch ($action) {
+    case 'new_zone':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_NEW_ZONE . '</b>');
 
         $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . (isset($_GET['zID']) ? '&zID=' . intval($_GET['zID']) : '') . '&action=insert_zone', 'post', false));
@@ -396,7 +395,7 @@ if ($action == 'list') {
 
         break;
 
-	case 'edit_zone':
+    case 'edit_zone':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_EDIT_ZONE . '</b>');
 
         $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=save_zone', 'post', false));
@@ -407,7 +406,7 @@ if ($action == 'list') {
 
         break;
 
-	case 'delete_zone':
+    case 'delete_zone':
         $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_ZONE . '</b>');
 
         $contents = array('form' => oos_draw_form('id', 'zones', $aContents['geo_zones'], 'zpage=' . $nzPage . '&zID=' . $zInfo->geo_zone_id . '&action=deleteconfirm_zone', 'post', false));
@@ -417,7 +416,7 @@ if ($action == 'list') {
 
         break;
 
-	default:
+    default:
         if (isset($zInfo) && is_object($zInfo)) {
             $heading[] = array('text' => '<b>' . $zInfo->geo_zone_name . '</b>');
 
