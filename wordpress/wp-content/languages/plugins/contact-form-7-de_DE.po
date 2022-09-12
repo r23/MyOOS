@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-08-30 12:14:02+0000\n"
+"PO-Revision-Date: 2022-09-12 10:53:44+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,7 +11,11 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
 
-#: includes/config-validator.php:581
+#: includes/config-validator.php:634
+msgid "Uploadable file size exceeds PHP’s maximum acceptable size."
+msgstr "Die maximale Größe hochlandbarer Dateien übersteigt die in PHP angegebene maximale Größe."
+
+#: includes/config-validator.php:583
 msgid "Colons are used in form-tag names."
 msgstr "Doppelpunkte werden in Formular-Tag-Namen verwendet."
 
@@ -176,7 +180,7 @@ msgstr "%1$s %2$s"
 msgid "Unique identifier for the contact form."
 msgstr "Eindeutiger Identifikator für das Kontaktformular."
 
-#: includes/config-validator.php:553
+#: includes/config-validator.php:555
 msgid "Dots are used in form-tag names."
 msgstr "Punkte werden im Namen des form-Tags verwendet."
 
@@ -415,11 +419,11 @@ msgstr "Zusätzliche Einstellungen"
 msgid "Error"
 msgstr "Fehler"
 
-#: includes/config-validator.php:772
+#: includes/config-validator.php:825
 msgid "The total size of attachment files is too large."
 msgstr "Die Gesamtgröße aller Anhänge ist zu groß."
 
-#: includes/config-validator.php:526
+#: includes/config-validator.php:528
 msgid "Unavailable HTML elements are used in the form template."
 msgstr "In diesem Formular-Template werden nicht verfügbare HTML-Elemente verwendet."
 
@@ -545,7 +549,7 @@ msgstr "Constant Contact"
 msgid "Email marketing"
 msgstr "E-Mail-Marketing"
 
-#: includes/config-validator.php:858
+#: includes/config-validator.php:911
 msgid "It is not allowed to use files outside the wp-content directory."
 msgstr "Es ist nicht erlaubt, Dateien außerhalb des Verzeichnisses „wp-content“ zu benutzen."
 
@@ -667,7 +671,7 @@ msgstr "Es ist schwer, die Entwicklung und den Support für dieses Plugin ohne B
 msgid "This contact form is available only for logged in users."
 msgstr "Dieses Kontaktformular ist nur für angemeldete Benutzer verfügbar."
 
-#: includes/config-validator.php:191
+#: includes/config-validator.php:192
 msgid "Deprecated settings are used."
 msgstr "Es werden veraltete Einstellungen verwendet."
 
@@ -702,36 +706,36 @@ msgstr "Ein vorhandenes Kontaktformular kann nicht erstellt werden."
 msgid "You are not allowed to access contact forms."
 msgstr "Du hast keine Berechtigung, um auf Kontaktformulare zuzugreifen."
 
-#: includes/config-validator.php:834
+#: includes/config-validator.php:887
 msgid "Attachment file does not exist at %path%."
 msgstr "Datei für Anhang in folgendem Pfad nicht vorhanden: %path%."
 
-#: includes/config-validator.php:691
+#: includes/config-validator.php:744
 msgid "Invalid mailbox syntax is used in the %name% field."
 msgstr "Ungültige Postfachsyntax wird im Feld %name% verwendet."
 
 #. translators: %names%: a list of form control names
-#: includes/config-validator.php:503
+#: includes/config-validator.php:505
 msgid "Unavailable names (%names%) are used for form controls."
 msgstr "Nicht verfügbare Namen (%names%) werden für Formularfelder verwendet."
 
-#: includes/config-validator.php:189
+#: includes/config-validator.php:190
 msgid "There are invalid mail header fields."
 msgstr "Es gibt ungültige Mail-Header-Felder."
 
-#: includes/config-validator.php:185
+#: includes/config-validator.php:186
 msgid "HTML tags are used in a message."
 msgstr "In einer Nachricht werden HTML-Tags verwendet."
 
-#: includes/config-validator.php:183
+#: includes/config-validator.php:184
 msgid "Sender email address does not belong to the site domain."
 msgstr "Die Absender-E-Mail-Adresse gehört nicht zur Domain der Website."
 
-#: includes/config-validator.php:181
+#: includes/config-validator.php:182
 msgid "Invalid mailbox syntax is used."
 msgstr "Es wird eine ungültige Mailbox-Syntax verwendet."
 
-#: includes/config-validator.php:179
+#: includes/config-validator.php:180
 msgid "There is a possible empty field."
 msgstr "Es gibt möglicherweise ein leeres Eingabefeld."
 
@@ -803,7 +807,7 @@ msgstr "Spammer nehmen alles ins Visier; deine Kontaktformulare sind da keine Au
 msgid "Getting spammed? You have protection."
 msgstr "Wirst du zugespammt? Du bist geschützt."
 
-#: includes/config-validator.php:187
+#: includes/config-validator.php:188
 msgid "Multiple form controls are in a single label element."
 msgstr "Mehrere Formularfelder sind in einem einzigen Beschriftungselement platziert."
 
@@ -862,7 +866,7 @@ msgstr "Eine Fehlkonfiguration führt zu Fehlern bei der E-Mail-Zustellung oder 
 msgid "Validate Contact Form 7 Configuration"
 msgstr "Konfiguration von Contact Form 7 validieren"
 
-#: includes/config-validator.php:36
+#: includes/config-validator.php:37
 msgid "https://contactform7.com/configuration-errors/"
 msgstr "https://contactform7.com/configuration-errors/"
 
