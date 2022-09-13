@@ -50,46 +50,87 @@
 $today = date("Y-m-d H:i:s");
 $server = $_SERVER['HTTP_HOST'];
 
+##
+# 1 - Default, 2 Latvia, 3-4 Historic, 5 - Germany, 6 - UK/GB default, 7 - USA / Austrailia, 8 - Hong Kong, 9 - Italy, 10 - Singapore, 11 - Brazil, 12 - Peru, 13 - Nigeria, 14 - Panama, 15 - Oman, 16 - Venezuela, 17 - Philippians, 18 - Vietnam, 19 - Hungary, 20 - Spain
 $address_format = '$firstname $lastname$cr$streets$cr$city, $postcode$cr$statecomma$country';
-$address_summary = '$city / $country';
+$address_summary = 'Default $city, $postcode / $state, $country';
 $result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (1, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
 $address_format = '$firstname $lastname$cr$streets$cr$city, $state    $postcode$cr$country';
-$address_summary = '$city, $state / $country';
+$address_summary = 'city, $state / $country';
 $result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (2, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
 $address_format =  '$firstname $lastname$cr$streets$cr$city$cr$postcode - $statecomma$country';
-$address_summary = '$state / $country';
+$address_summary = 'Historic $city / $postcode - $statecomma$country';
 $result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (3, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
 $address_format = '$firstname $lastname$cr$streets$cr$city ($postcode)$cr$country';
-$address_summary = '$postcode / $country';
+$address_summary = 'Historic $city ($postcode)';
 $result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (4, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
 $address_format = '$firstname $lastname$cr$streets$cr$postcode $city$cr$country';
 $address_summary = '$city / $country';
 $result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (5, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
-$address_format = '$firstname $lastname$cr$streets$cr$city$cr$state   $postcode$cr$country';
-$address_summary = '$city $country';
+$address_format = '$firstname $lastname$cr$streets$cr$city$cr$state$cr$postcode$cr$country';
+$address_summary = '$city / $state / $postcode';
 $result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (6, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
-$address_format = '$firstname $lastname$cr$streets$cr$city$cr$state$cr$postcode$cr$country';
+$address_format = '$firstname $lastname$cr$streets$cr$city $state $postcode$cr$country';
 $address_summary = '$city, $state / $country';
 $result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (7, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
 $address_format = '$firstname $lastname$cr$streets$cr$city$cr$postcode $country';
-$address_summary = '$country / $postcode';
+$address_summary = '$city';
 $result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (8, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
-$address_format = '$firstname $lastname$cr$streets$cr$city $state $postcode$cr$country';
-$address_summary = '$city / $country';
+$address_format = '$firstname $lastname$cr$streets$cr$postcode $city $state $postcode$cr$country';
+$address_summary = '$postcode $city $state';
 $result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (9, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
-$address_format = '$firstname $lastname$cr$streets$cr$postcode $city$cr$country';
+$address_format = '$firstname $lastname$cr$streets$cr$city $postcode$cr$country';
 $address_summary = '$city / $country';
 $result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (10, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
+$address_format = '$firstname $lastname$cr$streets$cr$city $state$cr$postcode$cr$country';
+$address_summary = '$city $state / $postcode';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (11, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_summary = '$firstname $lastname$cr$streets$cr$postcode$cr$city $state$cr$country';
+$address_summary = '$postcode / $city / $state';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (12, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$streets$cr$city $postcode$cr$state$cr$country';
+$address_summary = '$city $postcode / $state';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (13, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$streets$cr$postcode $city$cr$state$cr$country';
+$address_summary = '$postcode $city / $state';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (14, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$streets$cr$postcode$cr$city$cr$state$cr$country';
+$address_summary = '$postcode / $city / $state';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (15, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$streets$cr$city $postcode $state$cr$country';
+$address_summary = ' $city $postcode $state';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (16, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$streets$cr$city$cr$postcode $state$cr$country';
+$address_summary = '$city / $postcode $state';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (17, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$streets$cr$city$cr$state $postcode$cr$country';
+$address_summary = '$city / $state $postcode';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (18, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$city$cr$streets$cr$postcode$cr$country';
+$address_summary = '$city $street / $postcode';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (19, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
+
+$address_format = '$firstname $lastname$cr$streets$cr$postcode $city ($state)$cr$country';
+$address_summary = '$postcode $city ($state)';
+$result = $db->Execute("INSERT INTO " . $prefix_table . "address_format (address_format_id, address_format, address_summary) VALUES (20, '" . $address_format . "', '" . $address_summary . "')") or die("<b>".NOTUPDATED . $prefix_table . "address_format</b>");
 
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "address_format " . UPDATED .'</font>';
