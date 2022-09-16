@@ -1487,11 +1487,6 @@ var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(exte
 
 
 /**
- * External dependencies
- */
-
-
-/**
  * Convert settingId to widgetId.
  *
  * @param {string} settingId The setting id.
@@ -1561,7 +1556,12 @@ function blockToWidget(block) {
     };
   }
 
-  return { ...(0,external_lodash_namespaceObject.omit)(existingWidget, ['form', 'rendered']),
+  const {
+    form,
+    rendered,
+    ...restExistingWidget
+  } = existingWidget || {};
+  return { ...restExistingWidget,
     ...widget
   };
 }

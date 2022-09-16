@@ -2748,7 +2748,11 @@ class Listener {
   handleEvent(
   /** @type {any} */
   event) {
-    (0,external_lodash_namespaceObject.forEach)(this.listeners[event.type], instance => {
+    var _this$listeners$event;
+
+    (_this$listeners$event = this.listeners[event.type]) === null || _this$listeners$event === void 0 ? void 0 : _this$listeners$event.forEach((
+    /** @type {any} */
+    instance) => {
       instance.handleEvent(event);
     });
   }
@@ -2762,13 +2766,8 @@ class Listener {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -2821,13 +2820,13 @@ function withGlobalEvents(eventTypesToHandlers) {
       }
 
       componentDidMount() {
-        (0,external_lodash_namespaceObject.forEach)(eventTypesToHandlers, (_, eventType) => {
+        Object.keys(eventTypesToHandlers).forEach(eventType => {
           with_global_events_listener.add(eventType, this);
         });
       }
 
       componentWillUnmount() {
-        (0,external_lodash_namespaceObject.forEach)(eventTypesToHandlers, (_, eventType) => {
+        Object.keys(eventTypesToHandlers).forEach(eventType => {
           with_global_events_listener.remove(eventType, this);
         });
       }
@@ -3827,6 +3826,10 @@ function useMergeRefs(refs) {
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-dialog/index.js
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
 
@@ -3840,15 +3843,6 @@ function useMergeRefs(refs) {
 
 
 
-/**
- * @typedef {import('../use-focus-on-mount').default} useFocusOnMount
- */
-
-/**
- * @typedef DialogOptions
- * @property {Parameters<useFocusOnMount>[0]} focusOnMount Focus on mount arguments.
- * @property {() => void}                     onClose      Function to call when the dialog is closed.
- */
 
 /**
  * Returns a ref and props to apply to a dialog wrapper to enable the following behaviors:
@@ -3857,13 +3851,9 @@ function useMergeRefs(refs) {
  *  - return focus on unmount.
  *  - focus outside.
  *
- * @param {DialogOptions} options Dialog Options.
+ * @param  options Dialog Options.
  */
-
 function useDialog(options) {
-  /**
-   * @type {import('react').MutableRefObject<DialogOptions | undefined>}
-   */
   const currentOptions = (0,external_wp_element_namespaceObject.useRef)();
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     currentOptions.current = options;
@@ -3876,9 +3866,7 @@ function useDialog(options) {
 
     // This unstable prop  is here only to manage backward compatibility
     // for the Popover component otherwise, the onClose should be enough.
-    // @ts-ignore unstable property
     if ((_currentOptions$curre = currentOptions.current) !== null && _currentOptions$curre !== void 0 && _currentOptions$curre.__unstableOnClose) {
-      // @ts-ignore unstable property
       currentOptions.current.__unstableOnClose('focus-outside', event);
     } else if ((_currentOptions$curre2 = currentOptions.current) !== null && _currentOptions$curre2 !== void 0 && _currentOptions$curre2.onClose) {
       currentOptions.current.onClose();
@@ -3889,9 +3877,7 @@ function useDialog(options) {
       return;
     }
 
-    node.addEventListener('keydown', (
-    /** @type {KeyboardEvent} */
-    event) => {
+    node.addEventListener('keydown', event => {
       var _currentOptions$curre3;
 
       // Close on escape.
@@ -3902,7 +3888,7 @@ function useDialog(options) {
     });
   }, []);
   return [useMergeRefs([options.focusOnMount !== false ? constrainedTabbingRef : null, options.focusOnMount !== false ? focusReturnRef : null, options.focusOnMount !== false ? focusOnMountRef : null, closeOnEscapeRef]), { ...focusOutsideProps,
-    tabIndex: '-1'
+    tabIndex: -1
   }];
 }
 
@@ -4106,12 +4092,14 @@ const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? external_wp_el
  * Internal dependencies
  */
 
+ // Event handlers that are triggered from `document` listeners accept a MouseEvent,
+// while those triggered from React listeners accept a React.MouseEvent.
 
 /**
- * @param {Object}                  props
- * @param {(e: MouseEvent) => void} props.onDragStart
- * @param {(e: MouseEvent) => void} props.onDragMove
- * @param {(e: MouseEvent) => void} props.onDragEnd
+ * @param {Object}                                  props
+ * @param {(e: import('react').MouseEvent) => void} props.onDragStart
+ * @param {(e: MouseEvent) => void}                 props.onDragMove
+ * @param {(e?: MouseEvent) => void}                props.onDragEnd
  */
 
 function useDragging(_ref) {
@@ -4131,12 +4119,12 @@ function useDragging(_ref) {
     eventsRef.current.onDragMove = onDragMove;
     eventsRef.current.onDragEnd = onDragEnd;
   }, [onDragStart, onDragMove, onDragEnd]);
-  const onMouseMove = (0,external_wp_element_namespaceObject.useCallback)((
-  /** @type {MouseEvent} */
-  event) => eventsRef.current.onDragMove && eventsRef.current.onDragMove(event), []);
-  const endDrag = (0,external_wp_element_namespaceObject.useCallback)((
-  /** @type {MouseEvent} */
-  event) => {
+  /** @type {(e: MouseEvent) => void} */
+
+  const onMouseMove = (0,external_wp_element_namespaceObject.useCallback)(event => eventsRef.current.onDragMove && eventsRef.current.onDragMove(event), []);
+  /** @type {(e?: MouseEvent) => void} */
+
+  const endDrag = (0,external_wp_element_namespaceObject.useCallback)(event => {
     if (eventsRef.current.onDragEnd) {
       eventsRef.current.onDragEnd(event);
     }
@@ -4145,9 +4133,9 @@ function useDragging(_ref) {
     document.removeEventListener('mouseup', endDrag);
     setIsDragging(false);
   }, []);
-  const startDrag = (0,external_wp_element_namespaceObject.useCallback)((
-  /** @type {MouseEvent} */
-  event) => {
+  /** @type {(e: import('react').MouseEvent) => void} */
+
+  const startDrag = (0,external_wp_element_namespaceObject.useCallback)(event => {
     if (eventsRef.current.onDragStart) {
       eventsRef.current.onDragStart(event);
     }
@@ -4964,14 +4952,14 @@ function useFreshRef(value) {
 /**
  * A hook to facilitate drag and drop handling.
  *
- * @param {Object}                  props             Named parameters.
- * @param {boolean}                 props.isDisabled  Whether or not to disable the drop zone.
- * @param {(e: DragEvent) => void}  props.onDragStart Called when dragging has started.
- * @param {(e: DragEvent) => void}  props.onDragEnter Called when the zone is entered.
- * @param {(e: DragEvent) => void}  props.onDragOver  Called when the zone is moved within.
- * @param {(e: DragEvent) => void}  props.onDragLeave Called when the zone is left.
- * @param {(e: MouseEvent) => void} props.onDragEnd   Called when dragging has ended.
- * @param {(e: DragEvent) => void}  props.onDrop      Called when dropping in the zone.
+ * @param {Object}                  props               Named parameters.
+ * @param {boolean}                 [props.isDisabled]  Whether or not to disable the drop zone.
+ * @param {(e: DragEvent) => void}  [props.onDragStart] Called when dragging has started.
+ * @param {(e: DragEvent) => void}  [props.onDragEnter] Called when the zone is entered.
+ * @param {(e: DragEvent) => void}  [props.onDragOver]  Called when the zone is moved within.
+ * @param {(e: DragEvent) => void}  [props.onDragLeave] Called when the zone is left.
+ * @param {(e: MouseEvent) => void} [props.onDragEnd]   Called when dragging has ended.
+ * @param {(e: DragEvent) => void}  [props.onDrop]      Called when dropping in the zone.
  *
  * @return {import('react').RefCallback<HTMLElement>} Ref callback to be passed to the drop zone element.
  */

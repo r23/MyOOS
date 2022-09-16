@@ -758,6 +758,10 @@ function getScrollContainer(node) {
     if (/(auto|scroll)/.test(overflowY)) {
       return node;
     }
+  }
+
+  if (node.ownerDocument === node.parentNode) {
+    return node;
   } // Continue traversing.
 
 

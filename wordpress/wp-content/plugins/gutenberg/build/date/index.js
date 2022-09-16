@@ -1149,28 +1149,43 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "setSettings": () => (/* binding */ setSettings),
-/* harmony export */   "__experimentalGetSettings": () => (/* binding */ __experimentalGetSettings),
-/* harmony export */   "format": () => (/* binding */ format),
-/* harmony export */   "date": () => (/* binding */ date),
-/* harmony export */   "gmdate": () => (/* binding */ gmdate),
-/* harmony export */   "dateI18n": () => (/* binding */ dateI18n),
-/* harmony export */   "gmdateI18n": () => (/* binding */ gmdateI18n),
-/* harmony export */   "isInTheFuture": () => (/* binding */ isInTheFuture),
-/* harmony export */   "getDate": () => (/* binding */ getDate)
-/* harmony export */ });
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6292);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var moment_timezone_moment_timezone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2828);
-/* harmony import */ var moment_timezone_moment_timezone__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment_timezone_moment_timezone__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var moment_timezone_moment_timezone_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9971);
-/* harmony import */ var moment_timezone_moment_timezone_utils__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(moment_timezone_moment_timezone_utils__WEBPACK_IMPORTED_MODULE_2__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "__experimentalGetSettings": () => (/* binding */ __experimentalGetSettings),
+  "date": () => (/* binding */ date),
+  "dateI18n": () => (/* binding */ dateI18n),
+  "format": () => (/* binding */ format),
+  "getDate": () => (/* binding */ getDate),
+  "getSettings": () => (/* binding */ getSettings),
+  "gmdate": () => (/* binding */ gmdate),
+  "gmdateI18n": () => (/* binding */ gmdateI18n),
+  "isInTheFuture": () => (/* binding */ isInTheFuture),
+  "setSettings": () => (/* binding */ setSettings)
+});
+
+// EXTERNAL MODULE: external "moment"
+var external_moment_ = __webpack_require__(6292);
+var external_moment_default = /*#__PURE__*/__webpack_require__.n(external_moment_);
+// EXTERNAL MODULE: ./node_modules/moment-timezone/moment-timezone.js
+var moment_timezone = __webpack_require__(2828);
+// EXTERNAL MODULE: ./node_modules/moment-timezone/moment-timezone-utils.js
+var moment_timezone_utils = __webpack_require__(9971);
+;// CONCATENATED MODULE: external ["wp","deprecated"]
+const external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
+var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
+;// CONCATENATED MODULE: ./packages/date/build-module/index.js
 /**
  * External dependencies
  */
 
+
+
+/**
+ * WordPress dependencies
+ */
 
 
 /** @typedef {import('moment').Moment} Moment */
@@ -1284,13 +1299,13 @@ function setSettings(dateSettings) {
   settings = dateSettings;
   setupWPTimezone(); // Does moment already have a locale with the right name?
 
-  if (moment__WEBPACK_IMPORTED_MODULE_0___default().locales().includes(dateSettings.l10n.locale)) {
+  if (external_moment_default().locales().includes(dateSettings.l10n.locale)) {
     // Is that locale misconfigured, e.g. because we are on a site running
     // WordPress < 6.0?
-    if (moment__WEBPACK_IMPORTED_MODULE_0___default().localeData(dateSettings.l10n.locale).longDateFormat('LTS') === null) {
+    if (external_moment_default().localeData(dateSettings.l10n.locale).longDateFormat('LTS') === null) {
       // Delete the misconfigured locale.
       // @ts-ignore Type definitions are incorrect - null is permitted.
-      moment__WEBPACK_IMPORTED_MODULE_0___default().defineLocale(dateSettings.l10n.locale, null);
+      external_moment_default().defineLocale(dateSettings.l10n.locale, null);
     } else {
       // We have a properly configured locale, so no need to create one.
       return;
@@ -1298,9 +1313,9 @@ function setSettings(dateSettings) {
   } // defineLocale() will modify the current locale, so back it up.
 
 
-  const currentLocale = moment__WEBPACK_IMPORTED_MODULE_0___default().locale(); // Create locale.
+  const currentLocale = external_moment_default().locale(); // Create locale.
 
-  moment__WEBPACK_IMPORTED_MODULE_0___default().defineLocale(dateSettings.l10n.locale, {
+  external_moment_default().defineLocale(dateSettings.l10n.locale, {
     // Inherit anything missing from English. We don't load
     // moment-with-locales.js so English is all there is.
     parentLocale: 'en',
@@ -1319,18 +1334,18 @@ function setSettings(dateSettings) {
 
     longDateFormat: {
       LT: dateSettings.formats.time,
-      LTS: moment__WEBPACK_IMPORTED_MODULE_0___default().localeData('en').longDateFormat('LTS'),
-      L: moment__WEBPACK_IMPORTED_MODULE_0___default().localeData('en').longDateFormat('L'),
+      LTS: external_moment_default().localeData('en').longDateFormat('LTS'),
+      L: external_moment_default().localeData('en').longDateFormat('L'),
       LL: dateSettings.formats.date,
       LLL: dateSettings.formats.datetime,
-      LLLL: moment__WEBPACK_IMPORTED_MODULE_0___default().localeData('en').longDateFormat('LLLL')
+      LLLL: external_moment_default().localeData('en').longDateFormat('LLLL')
     },
     // From human_time_diff?
     // Set to `(number, withoutSuffix, key, isFuture) => {}` instead.
     relativeTime: dateSettings.l10n.relative
   }); // Restore the locale to what it was.
 
-  moment__WEBPACK_IMPORTED_MODULE_0___default().locale(currentLocale);
+  external_moment_default().locale(currentLocale);
 }
 /**
  * Returns the currently defined date settings.
@@ -1338,13 +1353,27 @@ function setSettings(dateSettings) {
  * @return {DateSettings} Settings, including locale data.
  */
 
-function __experimentalGetSettings() {
+function getSettings() {
   return settings;
+}
+/**
+ * Returns the currently defined date settings.
+ *
+ * @deprecated
+ * @return {DateSettings} Settings, including locale data.
+ */
+
+function __experimentalGetSettings() {
+  external_wp_deprecated_default()('wp.date.__experimentalGetSettings', {
+    since: '6.1',
+    alternative: 'wp.date.getSettings'
+  });
+  return getSettings();
 }
 
 function setupWPTimezone() {
   // Create WP timezone based off dateSettings.
-  moment__WEBPACK_IMPORTED_MODULE_0___default().tz.add(moment__WEBPACK_IMPORTED_MODULE_0___default().tz.pack({
+  external_moment_default().tz.add(external_moment_default().tz.pack({
     name: WP_ZONE,
     abbrs: [WP_ZONE],
     untils: [null],
@@ -1468,7 +1497,7 @@ const formatMap = {
    * @return {number} Formatted date.
    */
   B(momentDate) {
-    const timezoned = moment__WEBPACK_IMPORTED_MODULE_0___default()(momentDate).utcOffset(60);
+    const timezoned = external_moment_default()(momentDate).utcOffset(60);
     const seconds = parseInt(timezoned.format('s'), 10),
           minutes = parseInt(timezoned.format('m'), 10),
           hours = parseInt(timezoned.format('H'), 10);
@@ -1549,7 +1578,7 @@ function format(dateFormat) {
   let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
   let i, char;
   const newFormat = [];
-  const momentDate = moment__WEBPACK_IMPORTED_MODULE_0___default()(dateValue);
+  const momentDate = external_moment_default()(dateValue);
 
   for (i = 0; i < dateFormat.length; i++) {
     char = dateFormat[i]; // Is this an escape?
@@ -1618,7 +1647,7 @@ function date(dateFormat) {
 
 function gmdate(dateFormat) {
   let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
-  const dateMoment = moment__WEBPACK_IMPORTED_MODULE_0___default()(dateValue).utc();
+  const dateMoment = external_moment_default()(dateValue).utc();
   return format(dateFormat, dateMoment);
 }
 /**
@@ -1673,7 +1702,7 @@ function dateI18n(dateFormat) {
 
 function gmdateI18n(dateFormat) {
   let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
-  const dateMoment = moment__WEBPACK_IMPORTED_MODULE_0___default()(dateValue).utc();
+  const dateMoment = external_moment_default()(dateValue).utc();
   dateMoment.locale(settings.l10n.locale);
   return format(dateFormat, dateMoment);
 }
@@ -1686,8 +1715,8 @@ function gmdateI18n(dateFormat) {
  */
 
 function isInTheFuture(dateValue) {
-  const now = moment__WEBPACK_IMPORTED_MODULE_0___default().tz(WP_ZONE);
-  const momentObject = moment__WEBPACK_IMPORTED_MODULE_0___default().tz(dateValue, WP_ZONE);
+  const now = external_moment_default().tz(WP_ZONE);
+  const momentObject = external_moment_default().tz(dateValue, WP_ZONE);
   return momentObject.isAfter(now);
 }
 /**
@@ -1700,10 +1729,10 @@ function isInTheFuture(dateValue) {
 
 function getDate(dateString) {
   if (!dateString) {
-    return moment__WEBPACK_IMPORTED_MODULE_0___default().tz(WP_ZONE).toDate();
+    return external_moment_default().tz(WP_ZONE).toDate();
   }
 
-  return moment__WEBPACK_IMPORTED_MODULE_0___default().tz(dateString, WP_ZONE).toDate();
+  return external_moment_default().tz(dateString, WP_ZONE).toDate();
 }
 /**
  * Creates a moment instance using the given timezone or, if none is provided, using global settings.
@@ -1722,10 +1751,13 @@ function getDate(dateString) {
 
 function buildMoment(dateValue) {
   let timezone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  const dateMoment = moment__WEBPACK_IMPORTED_MODULE_0___default()(dateValue);
+  const dateMoment = external_moment_default()(dateValue);
 
   if (timezone && !isUTCOffset(timezone)) {
-    return dateMoment.tz(String(timezone));
+    // The ! isUTCOffset() check guarantees that timezone is a string.
+    return dateMoment.tz(
+    /** @type {string} */
+    timezone);
   }
 
   if (timezone && isUTCOffset(timezone)) {

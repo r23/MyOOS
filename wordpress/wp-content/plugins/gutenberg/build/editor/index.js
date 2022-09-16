@@ -1484,6 +1484,7 @@ __webpack_require__.d(selectors_namespaceObject, {
   "isCurrentPostPending": () => (isCurrentPostPending),
   "isCurrentPostPublished": () => (isCurrentPostPublished),
   "isCurrentPostScheduled": () => (isCurrentPostScheduled),
+  "isDeletingPost": () => (isDeletingPost),
   "isEditedPostAutosaveable": () => (isEditedPostAutosaveable),
   "isEditedPostBeingScheduled": () => (isEditedPostBeingScheduled),
   "isEditedPostDateFloating": () => (isEditedPostDateFloating),
@@ -1782,6 +1783,29 @@ function saving() {
   return state;
 }
 /**
+ * Reducer returning deleting post request state.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+
+function deleting() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'REQUEST_POST_DELETE_START':
+    case 'REQUEST_POST_DELETE_FINISH':
+      return {
+        pending: action.type === 'REQUEST_POST_DELETE_START'
+      };
+  }
+
+  return state;
+}
+/**
  * Post Lock State.
  *
  * @typedef {Object} PostLockState
@@ -1931,6 +1955,7 @@ function editorSettings() {
   postId,
   postType,
   saving,
+  deleting,
   postLock,
   template,
   postSavingLock,
@@ -2963,6 +2988,17 @@ function isEditedPostDateFloating(state) {
   }
 
   return false;
+}
+/**
+ * Returns true if the post is currently being deleted, or false otherwise.
+ *
+ * @param {Object} state Editor state.
+ *
+ * @return {boolean} Whether post is being deleted.
+ */
+
+function isDeletingPost(state) {
+  return !!state.deleting.pending;
 }
 /**
  * Returns true if the post is currently being saved, or false otherwise.
@@ -4289,6 +4325,9 @@ const trashPost = () => async _ref5 => {
     rest_base: restBase,
     rest_namespace: restNamespace = 'wp/v2'
   } = postType;
+  dispatch({
+    type: 'REQUEST_POST_DELETE_START'
+  });
 
   try {
     const post = select.getCurrentPost();
@@ -4302,6 +4341,10 @@ const trashPost = () => async _ref5 => {
       error
     }));
   }
+
+  dispatch({
+    type: 'REQUEST_POST_DELETE_FINISH'
+  });
 };
 /**
  * Action that autosaves the current post.  This
@@ -7384,13 +7427,15 @@ const DEFAULT_REMOVE_FEATURE_IMAGE_LABEL = (0,external_wp_i18n_namespaceObject._
 const instructions = (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('To edit the featured image, you need permission to upload media.'));
 
 function getMediaDetails(media, postId) {
+  var _media$media_details$, _media$media_details, _media$media_details$2, _media$media_details2;
+
   if (!media) {
     return {};
   }
 
   const defaultSize = (0,external_wp_hooks_namespaceObject.applyFilters)('editor.PostFeaturedImage.imageSize', 'large', media.id, postId);
 
-  if ((0,external_lodash_namespaceObject.has)(media, ['media_details', 'sizes', defaultSize])) {
+  if (defaultSize in ((_media$media_details$ = media === null || media === void 0 ? void 0 : (_media$media_details = media.media_details) === null || _media$media_details === void 0 ? void 0 : _media$media_details.sizes) !== null && _media$media_details$ !== void 0 ? _media$media_details$ : {})) {
     return {
       mediaWidth: media.media_details.sizes[defaultSize].width,
       mediaHeight: media.media_details.sizes[defaultSize].height,
@@ -7401,7 +7446,7 @@ function getMediaDetails(media, postId) {
 
   const fallbackSize = (0,external_wp_hooks_namespaceObject.applyFilters)('editor.PostFeaturedImage.imageSize', 'thumbnail', media.id, postId);
 
-  if ((0,external_lodash_namespaceObject.has)(media, ['media_details', 'sizes', fallbackSize])) {
+  if (fallbackSize in ((_media$media_details$2 = media === null || media === void 0 ? void 0 : (_media$media_details2 = media.media_details) === null || _media$media_details2 === void 0 ? void 0 : _media$media_details2.sizes) !== null && _media$media_details$2 !== void 0 ? _media$media_details$2 : {})) {
     return {
       mediaWidth: media.media_details.sizes[fallbackSize].width,
       mediaHeight: media.media_details.sizes[fallbackSize].height,
@@ -7418,7 +7463,7 @@ function getMediaDetails(media, postId) {
 }
 
 function PostFeaturedImage(_ref) {
-  var _media$media_details$, _media$media_details$2;
+  var _media$media_details$3, _media$media_details$4;
 
   let {
     currentPostId,
@@ -7473,7 +7518,7 @@ function PostFeaturedImage(_ref) {
     className: "hidden"
   }, media.alt_text && (0,external_wp_i18n_namespaceObject.sprintf)( // Translators: %s: The selected image alt text.
   (0,external_wp_i18n_namespaceObject.__)('Current image: %s'), media.alt_text), !media.alt_text && (0,external_wp_i18n_namespaceObject.sprintf)( // Translators: %s: The selected image filename.
-  (0,external_wp_i18n_namespaceObject.__)('The current image has no alternative text. The file name is: %s'), ((_media$media_details$ = media.media_details.sizes) === null || _media$media_details$ === void 0 ? void 0 : (_media$media_details$2 = _media$media_details$.full) === null || _media$media_details$2 === void 0 ? void 0 : _media$media_details$2.file) || media.slug)), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.MediaUploadCheck, {
+  (0,external_wp_i18n_namespaceObject.__)('The current image has no alternative text. The file name is: %s'), ((_media$media_details$3 = media.media_details.sizes) === null || _media$media_details$3 === void 0 ? void 0 : (_media$media_details$4 = _media$media_details$3.full) === null || _media$media_details$4 === void 0 ? void 0 : _media$media_details$4.file) || media.slug)), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.MediaUploadCheck, {
     fallback: instructions
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.MediaUpload, {
     title: postLabel.featured_image || DEFAULT_FEATURE_IMAGE_LABEL,
@@ -9049,10 +9094,8 @@ function PostSchedule(_ref) {
       date: new Date(eventDate)
     };
   }), [eventsByPostType]);
-
-  const settings = (0,external_wp_date_namespaceObject.__experimentalGetSettings)(); // To know if the current timezone is a 12 hour time with look for "a" in the time format
+  const settings = (0,external_wp_date_namespaceObject.getSettings)(); // To know if the current timezone is a 12 hour time with look for "a" in the time format
   // We also make sure this a is not escaped by a "/"
-
 
   const is12HourTime = /a(?!\\)/i.test(settings.formats.time.toLowerCase() // Test only the lower case a.
   .replace(/\\\\/g, '') // Replace "//" with empty strings.
@@ -9150,7 +9193,7 @@ function getPostScheduleLabel(dateAttribute) {
 function getTimezoneAbbreviation() {
   const {
     timezone
-  } = (0,external_wp_date_namespaceObject.__experimentalGetSettings)();
+  } = (0,external_wp_date_namespaceObject.getSettings)();
 
   if (timezone.abbr && isNaN(Number(timezone.abbr))) {
     return timezone.abbr;
@@ -9163,8 +9206,7 @@ function getTimezoneAbbreviation() {
 function isTimezoneSameAsSiteTimezone(date) {
   const {
     timezone
-  } = (0,external_wp_date_namespaceObject.__experimentalGetSettings)();
-
+  } = (0,external_wp_date_namespaceObject.getSettings)();
   const siteOffset = Number(timezone.offset);
   const dateOffset = -1 * (date.getTimezoneOffset() / 60);
   return siteOffset === dateOffset;
@@ -9260,7 +9302,6 @@ function MostUsedTerms(_ref) {
 
 
 
-
 /**
  * Internal dependencies
  */
@@ -9305,21 +9346,14 @@ function findOrCreateTerm(termName, restBase, namespace) {
       name: escapedTermName
     }
   }).catch(error => {
-    const errorCode = error.code;
-
-    if (errorCode === 'term_exists') {
-      // If the terms exist, fetch it instead of creating a new one.
-      const addRequest = external_wp_apiFetch_default()({
-        path: (0,external_wp_url_namespaceObject.addQueryArgs)(`/${namespace}/${restBase}`, { ...flat_term_selector_DEFAULT_QUERY,
-          search: escapedTermName
-        })
-      }).then(unescapeTerms);
-      return addRequest.then(searchResult => {
-        return (0,external_lodash_namespaceObject.find)(searchResult, result => isSameTermName(result.name, termName));
-      });
+    if (error.code !== 'term_exists') {
+      return Promise.reject(error);
     }
 
-    return Promise.reject(error);
+    return Promise.resolve({
+      id: error.data.term_id,
+      name: termName
+    });
   }).then(unescapeTerm);
 }
 
@@ -10439,7 +10473,12 @@ class PostPublishPanel extends external_wp_element_namespaceObject.Component {
       PrePublishExtension,
       ...additionalProps
     } = this.props;
-    const propsForPanel = (0,external_lodash_namespaceObject.omit)(additionalProps, ['hasPublishAction', 'isDirty', 'isPostTypeViewable']);
+    const {
+      hasPublishAction,
+      isDirty,
+      isPostTypeViewable,
+      ...propsForPanel
+    } = additionalProps;
     const isPublishedOrScheduled = isPublished || isScheduled && isBeingScheduled;
     const isPrePublish = !isPublishedOrScheduled && !isSaving;
     const isPostPublish = isPublishedOrScheduled && !isSaving;
@@ -11540,11 +11579,13 @@ function PostTitle(_, forwardedRef) {
 function PostTrash() {
   const {
     isNew,
+    isDeleting,
     postId
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const store = select(store_store);
     return {
       isNew: store.isEditedPostNew(),
+      isDeleting: store.isDeletingPost(),
       postId: store.getCurrentPostId()
     };
   }, []);
@@ -11560,7 +11601,9 @@ function PostTrash() {
     className: "editor-post-trash",
     isDestructive: true,
     variant: "secondary",
-    onClick: () => trashPost()
+    isBusy: isDeleting,
+    "aria-disabled": isDeleting,
+    onClick: isDeleting ? undefined : () => trashPost()
   }, (0,external_wp_i18n_namespaceObject.__)('Move to trash'));
 }
 
@@ -11775,7 +11818,7 @@ function PostURLLabel() {
   return usePostURLLabel();
 }
 function usePostURLLabel() {
-  const postLink = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getCurrentPost().link, []);
+  const postLink = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getPermalink(), []);
   return (0,external_wp_url_namespaceObject.filterURLForDisplay)((0,external_wp_url_namespaceObject.safeDecodeURIComponent)(postLink));
 }
 
@@ -12277,12 +12320,14 @@ function useBlockEditorSettings(settings, hasTemplate) {
     hasUploadPermissions,
     canUseUnfilteredHTML,
     userCanCreatePages,
-    pageOnFront
+    pageOnFront,
+    postType
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     var _canUser;
 
     const {
-      canUserUseUnfilteredHTML
+      canUserUseUnfilteredHTML,
+      getCurrentPostType
     } = select(store_store);
     const isWeb = external_wp_element_namespaceObject.Platform.OS === 'web';
     const {
@@ -12298,7 +12343,8 @@ function useBlockEditorSettings(settings, hasTemplate) {
       // Reusable blocks are fetched in the native version of this hook.
       hasUploadPermissions: (_canUser = canUser('create', 'media')) !== null && _canUser !== void 0 ? _canUser : true,
       userCanCreatePages: canUser('create', 'pages'),
-      pageOnFront: siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.page_on_front
+      pageOnFront: siteSettings === null || siteSettings === void 0 ? void 0 : siteSettings.page_on_front,
+      postType: getCurrentPostType()
     };
   }, []);
   const settingsBlockPatterns = (_settings$__experimen = settings.__experimentalAdditionalBlockPatterns) !== null && _settings$__experimen !== void 0 ? _settings$__experimen : // WP 6.0
@@ -12314,8 +12360,13 @@ function useBlockEditorSettings(settings, hasTemplate) {
     restBlockPatterns: select(external_wp_coreData_namespaceObject.store).getBlockPatterns(),
     restBlockPatternCategories: select(external_wp_coreData_namespaceObject.store).getBlockPatternCategories()
   }), []);
-  const blockPatterns = (0,external_wp_element_namespaceObject.useMemo)(() => (0,external_lodash_namespaceObject.unionBy)(settingsBlockPatterns, restBlockPatterns, 'name'), [settingsBlockPatterns, restBlockPatterns]);
-  const blockPatternCategories = (0,external_wp_element_namespaceObject.useMemo)(() => (0,external_lodash_namespaceObject.unionBy)(settingsBlockPatternCategories, restBlockPatternCategories, 'name'), [settingsBlockPatternCategories, restBlockPatternCategories]);
+  const blockPatterns = (0,external_wp_element_namespaceObject.useMemo)(() => [...(settingsBlockPatterns || []), ...(restBlockPatterns || [])].filter((x, index, arr) => index === arr.findIndex(y => x.name === y.name)).filter(_ref => {
+    let {
+      postTypes
+    } = _ref;
+    return !postTypes || Array.isArray(postTypes) && postTypes.includes(postType);
+  }), [settingsBlockPatterns, restBlockPatterns, postType]);
+  const blockPatternCategories = (0,external_wp_element_namespaceObject.useMemo)(() => [...(settingsBlockPatternCategories || []), ...(restBlockPatternCategories || [])].filter((x, index, arr) => index === arr.findIndex(y => x.name === y.name)), [settingsBlockPatternCategories, restBlockPatternCategories]);
   const {
     undo
   } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);

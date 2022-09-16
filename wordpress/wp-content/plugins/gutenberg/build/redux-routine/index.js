@@ -726,8 +726,6 @@ function isGenerator(object) {
 
 // EXTERNAL MODULE: ./node_modules/rungen/dist/index.js
 var dist = __webpack_require__(2290);
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./node_modules/is-promise/index.mjs
 function isPromise(obj) {
   return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
@@ -809,7 +807,6 @@ function isActionOfType(object, expectedType) {
 
 
 
-
 /**
  * Internal dependencies
  */
@@ -824,21 +821,24 @@ function isActionOfType(object, expectedType) {
 function createRuntime() {
   let controls = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   let dispatch = arguments.length > 1 ? arguments[1] : undefined;
-  const rungenControls = (0,external_lodash_namespaceObject.map)(controls, (control, actionType) => (value, next, iterate, yieldNext, yieldError) => {
-    if (!isActionOfType(value, actionType)) {
-      return false;
-    }
+  const rungenControls = Object.entries(controls).map(_ref => {
+    let [actionType, control] = _ref;
+    return (value, next, iterate, yieldNext, yieldError) => {
+      if (!isActionOfType(value, actionType)) {
+        return false;
+      }
 
-    const routine = control(value);
+      const routine = control(value);
 
-    if (isPromise(routine)) {
-      // Async control routine awaits resolution.
-      routine.then(yieldNext, yieldError);
-    } else {
-      yieldNext(routine);
-    }
+      if (isPromise(routine)) {
+        // Async control routine awaits resolution.
+        routine.then(yieldNext, yieldError);
+      } else {
+        yieldNext(routine);
+      }
 
-    return true;
+      return true;
+    };
   });
 
   const unhandledActionControl = (value, next) => {

@@ -2367,7 +2367,9 @@ const Section = _ref => {
   } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)("fieldset", {
     className: "interface-preferences-modal__section"
-  }, (0,external_wp_element_namespaceObject.createElement)("legend", null, (0,external_wp_element_namespaceObject.createElement)("h2", {
+  }, (0,external_wp_element_namespaceObject.createElement)("legend", {
+    className: "interface-preferences-modal__section-legend"
+  }, (0,external_wp_element_namespaceObject.createElement)("h2", {
     className: "interface-preferences-modal__section-title"
   }, title), description && (0,external_wp_element_namespaceObject.createElement)("p", {
     className: "interface-preferences-modal__section-description"
@@ -2395,6 +2397,7 @@ function BaseOption(_ref) {
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "interface-preferences-modal__option"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
+    __nextHasNoMarginBottom: true,
     help: help,
     label: label,
     checked: isChecked,
@@ -4167,6 +4170,21 @@ const listView = (0,external_wp_element_namespaceObject.createElement)(external_
 }));
 /* harmony default export */ const list_view = (listView);
 
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-up-down.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const chevronUpDown = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "m12 20-4.5-3.6-.9 1.2L12 22l5.5-4.4-.9-1.2L12 20zm0-16 4.5 3.6.9-1.2L12 2 6.5 6.4l.9 1.2L12 4z"
+}));
+/* harmony default export */ const chevron_up_down = (chevronUpDown);
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/external.js
 
 
@@ -5488,8 +5506,13 @@ function TemplateDetails(_ref) {
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
+
 
 
 
@@ -5518,6 +5541,8 @@ const preventDefault = event => {
 };
 
 function Header(_ref) {
+  var _window;
+
   let {
     openEntitiesSavedStates,
     isEntitiesSavedStatesOpen,
@@ -5534,7 +5559,8 @@ function Header(_ref) {
     listViewShortcut,
     isLoaded,
     isVisualMode,
-    settings
+    settings,
+    blockEditorMode
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       __experimentalGetPreviewDeviceType,
@@ -5554,6 +5580,9 @@ function Header(_ref) {
     const {
       getShortcutRepresentation
     } = select(external_wp_keyboardShortcuts_namespaceObject.store);
+    const {
+      __unstableGetEditorMode
+    } = select(external_wp_blockEditor_namespaceObject.store);
     const postType = getEditedPostType();
     const postId = getEditedPostId();
     const record = getEditedEntityRecord('postType', postType, postId);
@@ -5570,7 +5599,8 @@ function Header(_ref) {
       isListViewOpen: isListViewOpened(),
       listViewShortcut: getShortcutRepresentation('core/edit-site/toggle-list-view'),
       isVisualMode: getEditorMode() === 'visual',
-      settings: getSettings()
+      settings: getSettings(),
+      blockEditorMode: __unstableGetEditorMode()
     };
   }, []);
   const {
@@ -5578,6 +5608,9 @@ function Header(_ref) {
     setIsInserterOpened,
     setIsListViewOpened
   } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
+  const {
+    __unstableSetEditorMode
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
   const isLargeViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium');
   const openInserter = (0,external_wp_element_namespaceObject.useCallback)(() => {
     if (isInserterOpen) {
@@ -5594,6 +5627,8 @@ function Header(_ref) {
   const longLabel = (0,external_wp_i18n_namespaceObject._x)('Toggle block inserter', 'Generic label for block inserter button');
 
   const shortLabel = !isInserterOpen ? (0,external_wp_i18n_namespaceObject.__)('Add') : (0,external_wp_i18n_namespaceObject.__)('Close');
+  const isZoomedOutViewExperimentEnabled = ((_window = window) === null || _window === void 0 ? void 0 : _window.__experimentalEnableZoomedOutView) && isVisualMode;
+  const isZoomedOutView = blockEditorMode === 'zoom-out';
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-site-header"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.NavigableToolbar, {
@@ -5629,8 +5664,8 @@ function Header(_ref) {
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, {
     as: external_wp_components_namespaceObject.Button,
     className: "edit-site-header-toolbar__list-view-toggle",
+    disabled: !isVisualMode && isZoomedOutView,
     icon: list_view,
-    disabled: !isVisualMode,
     isPressed: isListViewOpen
     /* translators: button label text should, if possible, be under 16 characters. */
     ,
@@ -5639,6 +5674,20 @@ function Header(_ref) {
     shortcut: listViewShortcut,
     showTooltip: !showIconLabels,
     variant: showIconLabels ? 'tertiary' : undefined
+  }), isZoomedOutViewExperimentEnabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, {
+    as: external_wp_components_namespaceObject.Button,
+    className: "edit-site-header-toolbar__zoom-out-view-toggle",
+    icon: chevron_up_down,
+    isPressed: isZoomedOutView
+    /* translators: button label text should, if possible, be under 16 characters. */
+    ,
+    label: (0,external_wp_i18n_namespaceObject.__)('Zoom-out View'),
+    onClick: () => {
+      setPreviewDeviceType('desktop');
+      setIsListViewOpened(false);
+
+      __unstableSetEditorMode(isZoomedOutView ? 'edit' : 'zoom-out');
+    }
   })))), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-site-header_center"
   }, (0,external_wp_element_namespaceObject.createElement)(DocumentActions, {
@@ -5658,7 +5707,11 @@ function Header(_ref) {
     className: "edit-site-header_end"
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-site-header__actions"
-  }, !isFocusMode && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalPreviewOptions, {
+  }, !isFocusMode && (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: classnames_default()('edit-site-header__actions__preview-options', {
+      'is-zoomed-out': isZoomedOutView
+    })
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalPreviewOptions, {
     deviceType: deviceType,
     setDeviceType: setPreviewDeviceType
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
@@ -5669,7 +5722,7 @@ function Header(_ref) {
     as: "span"
   },
   /* translators: accessibility text */
-  (0,external_wp_i18n_namespaceObject.__)('(opens in a new tab)'))))), (0,external_wp_element_namespaceObject.createElement)(SaveButton, {
+  (0,external_wp_i18n_namespaceObject.__)('(opens in a new tab)')))))), (0,external_wp_element_namespaceObject.createElement)(SaveButton, {
     openEntitiesSavedStates: openEntitiesSavedStates,
     isEntitiesSavedStatesOpen: isEntitiesSavedStatesOpen
   }), (0,external_wp_element_namespaceObject.createElement)(pinned_items.Slot, {
@@ -6141,7 +6194,7 @@ const PRESET_METADATA = [{
   }]
 }, {
   path: ['spacing', 'spacingSizes'],
-  valueKey: 'spacingSizes',
+  valueKey: 'size',
   cssVarInfix: 'spacing',
   valueFunc: _ref3 => {
     let {
@@ -6404,7 +6457,8 @@ function useSetting(path, blockName) {
 
   const setSetting = newValue => {
     setUserConfig(currentConfig => {
-      const newUserConfig = (0,external_lodash_namespaceObject.cloneDeep)(currentConfig);
+      // Deep clone `currentConfig` to avoid mutating it later.
+      const newUserConfig = JSON.parse(JSON.stringify(currentConfig));
       const pathToSet = external_wp_blocks_namespaceObject.__EXPERIMENTAL_PATHS_WITH_MERGE[path] ? fullPath + '.custom' : fullPath;
       (0,external_lodash_namespaceObject.set)(newUserConfig, pathToSet, newValue);
       return newUserConfig;
@@ -6466,7 +6520,8 @@ function useStyle(path, blockName) {
 
   const setStyle = newValue => {
     setUserConfig(currentConfig => {
-      const newUserConfig = (0,external_lodash_namespaceObject.cloneDeep)(currentConfig);
+      // Deep clone `currentConfig` to avoid mutating it later.
+      const newUserConfig = JSON.parse(JSON.stringify(currentConfig));
       (0,external_lodash_namespaceObject.set)(newUserConfig, finalPath, getPresetVariableFromValue(mergedConfig.settings, blockName, path, newValue));
       return newUserConfig;
     });
@@ -6524,7 +6579,7 @@ function getSupportedGlobalStylesPanels(name) {
 
 
     if (external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[styleName].requiresOptOut) {
-      if ((0,external_lodash_namespaceObject.has)(blockType.supports, external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[styleName].support[0]) && (0,external_lodash_namespaceObject.get)(blockType.supports, external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[styleName].support) !== false) {
+      if (external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[styleName].support[0] in blockType.supports && (0,external_lodash_namespaceObject.get)(blockType.supports, external_wp_blocks_namespaceObject.__EXPERIMENTAL_STYLE_PROPERTY[styleName].support) !== false) {
         return supportKeys.push(styleName);
       }
     }
@@ -6920,19 +6975,20 @@ function splitStyleValue(value) {
 function splitGapValue(value) {
   // Check for shorthand value (a string value).
   if (value && typeof value === 'string') {
-    // Convert to value for individual sides for BoxControl.
+    // If the value is a string, treat it as a single side (top) for the spacing controls.
     return {
-      top: value,
-      right: value,
-      bottom: value,
-      left: value
+      top: value
     };
   }
 
-  return { ...value,
-    right: value === null || value === void 0 ? void 0 : value.left,
-    bottom: value === null || value === void 0 ? void 0 : value.top
-  };
+  if (value) {
+    return { ...value,
+      right: value === null || value === void 0 ? void 0 : value.left,
+      bottom: value === null || value === void 0 ? void 0 : value.top
+    };
+  }
+
+  return value;
 } // Props for managing `layout.contentSize`.
 
 
@@ -7027,18 +7083,6 @@ function useMarginProps(name) {
 function useBlockGapProps(name) {
   const [gapValue, setGapValue] = useStyle('spacing.blockGap', name);
   const gapValues = splitGapValue(gapValue);
-
-  const setGapValues = nextBoxGapValue => {
-    if (!nextBoxGapValue) {
-      setGapValue(null);
-    }
-
-    setGapValue({
-      top: nextBoxGapValue === null || nextBoxGapValue === void 0 ? void 0 : nextBoxGapValue.top,
-      left: nextBoxGapValue === null || nextBoxGapValue === void 0 ? void 0 : nextBoxGapValue.left
-    });
-  };
-
   const gapSides = (0,external_wp_blockEditor_namespaceObject.__experimentalUseCustomSides)(name, 'blockGap');
   const isAxialGap = gapSides && gapSides.some(side => AXIAL_SIDES.includes(side));
 
@@ -7047,6 +7091,22 @@ function useBlockGapProps(name) {
   const [userSetGapValue] = useStyle('spacing.blockGap', name, 'user');
 
   const hasGapValue = () => !!userSetGapValue;
+
+  const setGapValues = nextBoxGapValue => {
+    if (!nextBoxGapValue) {
+      setGapValue(null);
+    } // If axial gap is not enabled, treat the 'top' value as the shorthand gap value.
+
+
+    if (!isAxialGap && nextBoxGapValue !== null && nextBoxGapValue !== void 0 && nextBoxGapValue.hasOwnProperty('top')) {
+      setGapValue(nextBoxGapValue.top);
+    } else {
+      setGapValue({
+        top: nextBoxGapValue === null || nextBoxGapValue === void 0 ? void 0 : nextBoxGapValue.top,
+        left: nextBoxGapValue === null || nextBoxGapValue === void 0 ? void 0 : nextBoxGapValue.left
+      });
+    }
+  };
 
   return {
     gapValue,
@@ -7222,8 +7282,11 @@ function DimensionsPanel(_ref) {
     hasValue: hasGapValue,
     label: (0,external_wp_i18n_namespaceObject.__)('Block spacing'),
     onDeselect: resetGapValue,
-    isShownByDefault: true
-  }, isAxialGap ? (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalBoxControl, {
+    isShownByDefault: true,
+    className: classnames_default()({
+      'tools-panel-item-spacing': showSpacingPresetsControl
+    })
+  }, !showSpacingPresetsControl && (isAxialGap ? (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalBoxControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Block spacing'),
     min: 0,
     onChange: setGapValues,
@@ -7239,6 +7302,15 @@ function DimensionsPanel(_ref) {
     onChange: setGapValue,
     units: units,
     value: gapValue
+  })), showSpacingPresetsControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalSpacingSizesControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Block spacing'),
+    min: 0,
+    onChange: setGapValues,
+    sides: isAxialGap ? gapSides : ['top'] // Use 'top' as the shorthand property in non-axial configurations.
+    ,
+    values: gapValues,
+    allowReset: false,
+    splitOnAxis: isAxialGap
   })));
 }
 
@@ -7472,413 +7544,8 @@ function ContextMenu(_ref) {
 
 /* harmony default export */ const context_menu = (ContextMenu);
 
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/constants.js
-const VARIABLE_REFERENCE_PREFIX = 'var:';
-const VARIABLE_PATH_SEPARATOR_TOKEN_ATTRIBUTE = '|';
-const VARIABLE_PATH_SEPARATOR_TOKEN_STYLE = '--';
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/utils.js
-/**
- * External dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-/**
- * Returns a JSON representation of the generated CSS rules.
- *
- * @param  style   Style object.
- * @param  options Options object with settings to adjust how the styles are generated.
- * @param  path    An array of strings representing the path to the style value in the style object.
- * @param  ruleKey A CSS property key.
- *
- * @return GeneratedCSSRule[] CSS rules.
- */
-
-function generateRule(style, options, path, ruleKey) {
-  const styleValue = (0,external_lodash_namespaceObject.get)(style, path);
-  return styleValue ? [{
-    selector: options === null || options === void 0 ? void 0 : options.selector,
-    key: ruleKey,
-    value: getCSSVarFromStyleValue(styleValue)
-  }] : [];
-}
-/**
- * Returns a JSON representation of the generated CSS rules taking into account box model properties, top, right, bottom, left.
- *
- * @param  style                Style object.
- * @param  options              Options object with settings to adjust how the styles are generated.
- * @param  path                 An array of strings representing the path to the style value in the style object.
- * @param  ruleKeys             An array of CSS property keys and patterns.
- * @param  individualProperties The "sides" or individual properties for which to generate rules.
- *
- * @return GeneratedCSSRule[]  CSS rules.
- */
-
-function generateBoxRules(style, options, path, ruleKeys) {
-  let individualProperties = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : ['top', 'right', 'bottom', 'left'];
-  const boxStyle = (0,external_lodash_namespaceObject.get)(style, path);
-
-  if (!boxStyle) {
-    return [];
-  }
-
-  const rules = [];
-
-  if (typeof boxStyle === 'string') {
-    rules.push({
-      selector: options === null || options === void 0 ? void 0 : options.selector,
-      key: ruleKeys.default,
-      value: boxStyle
-    });
-  } else {
-    const sideRules = individualProperties.reduce((acc, side) => {
-      const value = getCSSVarFromStyleValue((0,external_lodash_namespaceObject.get)(boxStyle, [side]));
-
-      if (value) {
-        acc.push({
-          selector: options === null || options === void 0 ? void 0 : options.selector,
-          key: ruleKeys === null || ruleKeys === void 0 ? void 0 : ruleKeys.individual.replace('%s', upperFirst(side)),
-          value
-        });
-      }
-
-      return acc;
-    }, []);
-    rules.push(...sideRules);
-  }
-
-  return rules;
-}
-/**
- * Returns a CSS var value from incoming style value following the pattern `var:description|context|slug`.
- *
- * @param  styleValue A raw style value.
- *
- * @return string A CSS var value.
- */
-
-function getCSSVarFromStyleValue(styleValue) {
-  if (typeof styleValue === 'string' && styleValue.startsWith(VARIABLE_REFERENCE_PREFIX)) {
-    const variable = styleValue.slice(VARIABLE_REFERENCE_PREFIX.length).split(VARIABLE_PATH_SEPARATOR_TOKEN_ATTRIBUTE).join(VARIABLE_PATH_SEPARATOR_TOKEN_STYLE);
-    return `var(--wp--${variable})`;
-  }
-
-  return styleValue;
-}
-/**
- * Capitalizes the first letter in a string.
- *
- * @param {string} str The string whose first letter the function will capitalize.
- *
- * @return string A CSS var value.
- */
-
-function upperFirst(_ref) {
-  let [firstLetter, ...rest] = _ref;
-  return firstLetter.toUpperCase() + rest.join('');
-}
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/border/index.js
-/**
- * Internal dependencies
- */
-
-const border_color = {
-  name: 'color',
-  generate: function (style, options) {
-    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['border', 'color'];
-    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'borderColor';
-    return generateRule(style, options, path, ruleKey);
-  }
-};
-const radius = {
-  name: 'radius',
-  generate: (style, options) => {
-    return generateBoxRules(style, options, ['border', 'radius'], {
-      default: 'borderRadius',
-      individual: 'border%sRadius'
-    }, ['topLeft', 'topRight', 'bottomLeft', 'bottomRight']);
-  }
-};
-const borderStyle = {
-  name: 'style',
-  generate: function (style, options) {
-    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['border', 'style'];
-    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'borderStyle';
-    return generateRule(style, options, path, ruleKey);
-  }
-};
-const width = {
-  name: 'width',
-  generate: function (style, options) {
-    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['border', 'width'];
-    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'borderWidth';
-    return generateRule(style, options, path, ruleKey);
-  }
-};
-const borderDefinitionsWithIndividualStyles = [border_color, borderStyle, width];
-/**
- * Returns a curried generator function with the individual border property ('top' | 'right' | 'bottom' | 'left') baked in.
- *
- * @param  individualProperty Individual border property ('top' | 'right' | 'bottom' | 'left').
- *
- * @return StyleDefinition[ 'generate' ]
- */
-
-const createBorderGenerateFunction = individualProperty => (style, options) => {
-  var _style$border;
-
-  const styleValue = style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border[individualProperty];
-
-  if (!styleValue) {
-    return [];
-  }
-
-  return borderDefinitionsWithIndividualStyles.reduce((acc, borderDefinition) => {
-    const key = borderDefinition.name;
-
-    if (styleValue.hasOwnProperty(key) && typeof borderDefinition.generate === 'function') {
-      const ruleKey = `border${upperFirst(individualProperty)}${upperFirst(key)}`;
-      acc.push(...borderDefinition.generate(style, options, ['border', individualProperty, key], ruleKey));
-    }
-
-    return acc;
-  }, []);
-};
-
-const borderTop = {
-  name: 'borderTop',
-  generate: createBorderGenerateFunction('top')
-};
-const borderRight = {
-  name: 'borderRight',
-  generate: createBorderGenerateFunction('right')
-};
-const borderBottom = {
-  name: 'borderBottom',
-  generate: createBorderGenerateFunction('bottom')
-};
-const borderLeft = {
-  name: 'borderLeft',
-  generate: createBorderGenerateFunction('left')
-};
-/* harmony default export */ const border = ([...borderDefinitionsWithIndividualStyles, radius, borderTop, borderRight, borderBottom, borderLeft]);
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/color/background.js
-/**
- * Internal dependencies
- */
-
-const background = {
-  name: 'background',
-  generate: (style, options) => {
-    return generateRule(style, options, ['color', 'background'], 'backgroundColor');
-  }
-};
-/* harmony default export */ const color_background = (background);
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/color/gradient.js
-/**
- * Internal dependencies
- */
-
-const gradient = {
-  name: 'gradient',
-  generate: (style, options) => {
-    return generateRule(style, options, ['color', 'gradient'], 'background');
-  }
-};
-/* harmony default export */ const color_gradient = (gradient);
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/color/text.js
-/**
- * Internal dependencies
- */
-
-const text_text = {
-  name: 'text',
-  generate: (style, options) => {
-    return generateRule(style, options, ['color', 'text'], 'color');
-  }
-};
-/* harmony default export */ const color_text = (text_text);
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/color/index.js
-/**
- * Internal dependencies
- */
-
-
-
-/* harmony default export */ const styles_color = ([color_text, color_gradient, color_background]);
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/spacing/padding.js
-/**
- * Internal dependencies
- */
-
-const padding = {
-  name: 'padding',
-  generate: (style, options) => {
-    return generateBoxRules(style, options, ['spacing', 'padding'], {
-      default: 'padding',
-      individual: 'padding%s'
-    });
-  }
-};
-/* harmony default export */ const spacing_padding = (padding);
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/spacing/margin.js
-/**
- * Internal dependencies
- */
-
-const margin = {
-  name: 'margin',
-  generate: (style, options) => {
-    return generateBoxRules(style, options, ['spacing', 'margin'], {
-      default: 'margin',
-      individual: 'margin%s'
-    });
-  }
-};
-/* harmony default export */ const spacing_margin = (margin);
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/spacing/index.js
-/**
- * Internal dependencies
- */
-
-
-/* harmony default export */ const spacing = ([spacing_margin, spacing_padding]);
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/typography/index.js
-/**
- * Internal dependencies
- */
-
-const fontSize = {
-  name: 'fontSize',
-  generate: (style, options) => {
-    return generateRule(style, options, ['typography', 'fontSize'], 'fontSize');
-  }
-};
-const fontStyle = {
-  name: 'fontStyle',
-  generate: (style, options) => {
-    return generateRule(style, options, ['typography', 'fontStyle'], 'fontStyle');
-  }
-};
-const fontWeight = {
-  name: 'fontWeight',
-  generate: (style, options) => {
-    return generateRule(style, options, ['typography', 'fontWeight'], 'fontWeight');
-  }
-};
-const fontFamily = {
-  name: 'fontFamily',
-  generate: (style, options) => {
-    return generateRule(style, options, ['typography', 'fontFamily'], 'fontFamily');
-  }
-};
-const letterSpacing = {
-  name: 'letterSpacing',
-  generate: (style, options) => {
-    return generateRule(style, options, ['typography', 'letterSpacing'], 'letterSpacing');
-  }
-};
-const lineHeight = {
-  name: 'letterSpacing',
-  generate: (style, options) => {
-    return generateRule(style, options, ['typography', 'lineHeight'], 'lineHeight');
-  }
-};
-const textDecoration = {
-  name: 'textDecoration',
-  generate: (style, options) => {
-    return generateRule(style, options, ['typography', 'textDecoration'], 'textDecoration');
-  }
-};
-const textTransform = {
-  name: 'textTransform',
-  generate: (style, options) => {
-    return generateRule(style, options, ['typography', 'textTransform'], 'textTransform');
-  }
-};
-/* harmony default export */ const styles_typography = ([fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textDecoration, textTransform]);
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/index.js
-/**
- * Internal dependencies
- */
-
-
-
-
-const styleDefinitions = [...border, ...styles_color, ...spacing, ...styles_typography];
-
-;// CONCATENATED MODULE: ./packages/style-engine/build-module/index.js
-/**
- * External dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-/**
- * Generates a stylesheet for a given style object and selector.
- *
- * @param  style   Style object, for example, the value of a block's attributes.style object or the top level styles in theme.json
- * @param  options Options object with settings to adjust how the styles are generated.
- *
- * @return generated stylesheet.
- */
-
-function compileCSS(style) {
-  let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  const rules = getCSSRules(style, options); // If no selector is provided, treat generated rules as inline styles to be returned as a single string.
-
-  if (!(options !== null && options !== void 0 && options.selector)) {
-    const inlineRules = [];
-    rules.forEach(rule => {
-      inlineRules.push(`${kebabCase(rule.key)}: ${rule.value};`);
-    });
-    return inlineRules.join(' ');
-  }
-
-  const groupedRules = groupBy(rules, 'selector');
-  const selectorRules = Object.keys(groupedRules).reduce((acc, subSelector) => {
-    acc.push(`${subSelector} { ${groupedRules[subSelector].map(rule => `${kebabCase(rule.key)}: ${rule.value};`).join(' ')} }`);
-    return acc;
-  }, []);
-  return selectorRules.join('\n');
-}
-/**
- * Returns a JSON representation of the generated CSS rules.
- *
- * @param  style   Style object, for example, the value of a block's attributes.style object or the top level styles in theme.json
- * @param  options Options object with settings to adjust how the styles are generated.
- *
- * @return generated styles.
- */
-
-function getCSSRules(style) {
-  let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  const rules = [];
-  styleDefinitions.forEach(definition => {
-    if (typeof definition.generate === 'function') {
-      rules.push(...definition.generate(style, options));
-    }
-  });
-  return rules;
-}
-
+;// CONCATENATED MODULE: external ["wp","styleEngine"]
+const external_wp_styleEngine_namespaceObject = window["wp"]["styleEngine"];
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/use-global-styles-output.js
 
 
@@ -8072,7 +7739,7 @@ function getStylesDeclarations() {
 
     const pathToValue = value;
 
-    if ((0,external_lodash_namespaceObject.first)(pathToValue) === 'elements' || useEngine) {
+    if (pathToValue[0] === 'elements' || useEngine) {
       return declarations;
     }
 
@@ -8105,7 +7772,7 @@ function getStylesDeclarations() {
   }, []); // The goal is to move everything to server side generated engine styles
   // This is temporary as we absorb more and more styles into the engine.
 
-  const extraRules = getCSSRules(blockStyles);
+  const extraRules = (0,external_wp_styleEngine_namespaceObject.getCSSRules)(blockStyles);
   extraRules.forEach(rule => {
     var _ruleValue;
 
@@ -8178,8 +7845,8 @@ function getLayoutStyles(_ref6) {
         spacingStyles
       } = _ref7;
 
-      // Allow skipping default layout for themes that opt-in to block styles, but opt-out of blockGap.
-      if (!hasBlockGapSupport && 'default' === name) {
+      // Allow outputting fallback gap styles for flex layout type when block gap support isn't available.
+      if (!hasBlockGapSupport && 'flex' !== name) {
         return;
       }
 
@@ -8252,7 +7919,7 @@ function getLayoutStyles(_ref6) {
   return ruleset;
 }
 const getNodesWithStyles = (tree, blockSelectors) => {
-  var _tree$styles3;
+  var _tree$styles$blocks, _tree$styles3;
 
   const nodes = [];
 
@@ -8272,8 +7939,10 @@ const getNodesWithStyles = (tree, blockSelectors) => {
     });
   }
 
-  (0,external_lodash_namespaceObject.forEach)(external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS, (selector, name) => {
+  Object.entries(external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS).forEach(_ref11 => {
     var _tree$styles;
+
+    let [name, selector] = _ref11;
 
     if (!!((_tree$styles = tree.styles) !== null && _tree$styles !== void 0 && _tree$styles.elements[name])) {
       var _tree$styles2;
@@ -8285,9 +7954,10 @@ const getNodesWithStyles = (tree, blockSelectors) => {
     }
   }); // Iterate over blocks: they can have styles & elements.
 
-  (0,external_lodash_namespaceObject.forEach)((_tree$styles3 = tree.styles) === null || _tree$styles3 === void 0 ? void 0 : _tree$styles3.blocks, (node, blockName) => {
-    var _blockSelectors$block;
+  Object.entries((_tree$styles$blocks = (_tree$styles3 = tree.styles) === null || _tree$styles3 === void 0 ? void 0 : _tree$styles3.blocks) !== null && _tree$styles$blocks !== void 0 ? _tree$styles$blocks : {}).forEach(_ref12 => {
+    var _blockSelectors$block, _node$elements;
 
+    let [blockName, node] = _ref12;
     const blockStyles = pickStyleKeys(node);
 
     if (!!blockStyles && !!(blockSelectors !== null && blockSelectors !== void 0 && (_blockSelectors$block = blockSelectors[blockName]) !== null && _blockSelectors$block !== void 0 && _blockSelectors$block.selector)) {
@@ -8301,7 +7971,9 @@ const getNodesWithStyles = (tree, blockSelectors) => {
       });
     }
 
-    (0,external_lodash_namespaceObject.forEach)(node === null || node === void 0 ? void 0 : node.elements, (value, elementName) => {
+    Object.entries((_node$elements = node === null || node === void 0 ? void 0 : node.elements) !== null && _node$elements !== void 0 ? _node$elements : {}).forEach(_ref13 => {
+      let [elementName, value] = _ref13;
+
       if (!!value && !!(blockSelectors !== null && blockSelectors !== void 0 && blockSelectors[blockName]) && !!(external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS !== null && external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS !== void 0 && external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS[elementName])) {
         nodes.push({
           styles: value,
@@ -8316,7 +7988,7 @@ const getNodesWithStyles = (tree, blockSelectors) => {
   return nodes;
 };
 const getNodesWithSettings = (tree, blockSelectors) => {
-  var _tree$settings3, _tree$settings4;
+  var _tree$settings3, _tree$settings$blocks, _tree$settings4;
 
   const nodes = [];
 
@@ -8326,10 +7998,10 @@ const getNodesWithSettings = (tree, blockSelectors) => {
 
   const pickPresets = treeToPickFrom => {
     const presets = {};
-    PRESET_METADATA.forEach(_ref11 => {
+    PRESET_METADATA.forEach(_ref14 => {
       let {
         path
-      } = _ref11;
+      } = _ref14;
       const value = (0,external_lodash_namespaceObject.get)(treeToPickFrom, path, false);
 
       if (value !== false) {
@@ -8352,7 +8024,8 @@ const getNodesWithSettings = (tree, blockSelectors) => {
   } // Blocks.
 
 
-  (0,external_lodash_namespaceObject.forEach)((_tree$settings4 = tree.settings) === null || _tree$settings4 === void 0 ? void 0 : _tree$settings4.blocks, (node, blockName) => {
+  Object.entries((_tree$settings$blocks = (_tree$settings4 = tree.settings) === null || _tree$settings4 === void 0 ? void 0 : _tree$settings4.blocks) !== null && _tree$settings$blocks !== void 0 ? _tree$settings$blocks : {}).forEach(_ref15 => {
+    let [blockName, node] = _ref15;
     const blockPresets = pickPresets(node);
     const blockCustom = node.custom;
 
@@ -8369,12 +8042,12 @@ const getNodesWithSettings = (tree, blockSelectors) => {
 const toCustomProperties = (tree, blockSelectors) => {
   const settings = getNodesWithSettings(tree, blockSelectors);
   let ruleset = '';
-  settings.forEach(_ref12 => {
+  settings.forEach(_ref16 => {
     let {
       presets,
       custom,
       selector
-    } = _ref12;
+    } = _ref16;
     const declarations = getPresetsDeclarations(presets, tree === null || tree === void 0 ? void 0 : tree.settings);
     const customProps = flattenTree(custom, '--wp--custom--', '--');
 
@@ -8419,11 +8092,17 @@ const toStyles = function (tree, blockSelectors, hasBlockGapSupport, hasFallback
   }
 
   if (useRootPaddingAlign) {
-    ruleset += 'padding-right: 0; padding-left: 0; padding-top: var(--wp--style--root--padding-top); padding-bottom: var(--wp--style--root--padding-bottom) } .has-global-padding { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); } .has-global-padding > .alignfull { margin-right: calc(var(--wp--style--root--padding-right) * -1); margin-left: calc(var(--wp--style--root--padding-left) * -1); } .has-global-padding > .alignfull > :where([class*="wp-block-"]:not(.alignfull):not([class*="__"]),p,h1,h2,h3,h4,h5,h6,ul,ol) { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left);';
+    ruleset += `padding-right: 0; padding-left: 0; padding-top: var(--wp--style--root--padding-top); padding-bottom: var(--wp--style--root--padding-bottom) } 
+			.has-global-padding { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); } 
+			.has-global-padding :where(.has-global-padding) { padding-right: 0; padding-left: 0; } 
+			.has-global-padding > .alignfull { margin-right: calc(var(--wp--style--root--padding-right) * -1); margin-left: calc(var(--wp--style--root--padding-left) * -1); } 
+			.has-global-padding :where(.has-global-padding) > .alignfull { margin-right: 0; margin-left: 0; } 
+			.has-global-padding > .alignfull:where(:not(.has-global-padding)) > :where([class*="wp-block-"]:not(.alignfull):not([class*="__"]),p,h1,h2,h3,h4,h5,h6,ul,ol) { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); } 
+			.has-global-padding :where(.has-global-padding) > .alignfull:where(:not(.has-global-padding)) > :where([class*="wp-block-"]:not(.alignfull):not([class*="__"]),p,h1,h2,h3,h4,h5,h6,ul,ol) { padding-right: 0; padding-left: 0;`;
   }
 
   ruleset += '}';
-  nodesWithStyles.forEach(_ref13 => {
+  nodesWithStyles.forEach(_ref17 => {
     let {
       selector,
       duotoneSelector,
@@ -8431,13 +8110,13 @@ const toStyles = function (tree, blockSelectors, hasBlockGapSupport, hasFallback
       fallbackGapValue,
       hasLayoutSupport,
       featureSelectors
-    } = _ref13;
+    } = _ref17;
 
     // Process styles for block support features with custom feature level
     // CSS selectors set.
     if (featureSelectors) {
-      Object.entries(featureSelectors).forEach(_ref14 => {
-        let [featureName, featureSelector] = _ref14;
+      Object.entries(featureSelectors).forEach(_ref18 => {
+        let [featureName, featureSelector] = _ref18;
 
         if (styles !== null && styles !== void 0 && styles[featureName]) {
           const featureStyles = {
@@ -8489,14 +8168,14 @@ const toStyles = function (tree, blockSelectors, hasBlockGapSupport, hasFallback
     } // Check for pseudo selector in `styles` and handle separately.
 
 
-    const pseudoSelectorStyles = Object.entries(styles).filter(_ref15 => {
-      let [key] = _ref15;
+    const pseudoSelectorStyles = Object.entries(styles).filter(_ref19 => {
+      let [key] = _ref19;
       return key.startsWith(':');
     });
 
     if (pseudoSelectorStyles !== null && pseudoSelectorStyles !== void 0 && pseudoSelectorStyles.length) {
-      pseudoSelectorStyles.forEach(_ref16 => {
-        let [pseudoKey, pseudoStyle] = _ref16;
+      pseudoSelectorStyles.forEach(_ref20 => {
+        let [pseudoKey, pseudoStyle] = _ref20;
         const pseudoDeclarations = getStylesDeclarations(pseudoStyle);
 
         if (!(pseudoDeclarations !== null && pseudoDeclarations !== void 0 && pseudoDeclarations.length)) {
@@ -8532,11 +8211,11 @@ const toStyles = function (tree, blockSelectors, hasBlockGapSupport, hasFallback
     ruleset = ruleset + `.wp-site-blocks > * + * { margin-block-start: ${gapValue}; }`;
   }
 
-  nodesWithSettings.forEach(_ref17 => {
+  nodesWithSettings.forEach(_ref21 => {
     let {
       selector,
       presets
-    } = _ref17;
+    } = _ref21;
 
     if (ROOT_BLOCK_SELECTOR === selector) {
       // Do not add extra specificity for top-level classes.
@@ -8553,10 +8232,10 @@ const toStyles = function (tree, blockSelectors, hasBlockGapSupport, hasFallback
 };
 function toSvgFilters(tree, blockSelectors) {
   const nodesWithSettings = getNodesWithSettings(tree, blockSelectors);
-  return nodesWithSettings.flatMap(_ref18 => {
+  return nodesWithSettings.flatMap(_ref22 => {
     let {
       presets
-    } = _ref18;
+    } = _ref22;
     return getPresetsSvgFilters(presets);
   });
 }
@@ -8572,10 +8251,10 @@ const getBlockSelectors = blockTypes => {
     const fallbackGapValue = blockType === null || blockType === void 0 ? void 0 : (_blockType$supports4 = blockType.supports) === null || _blockType$supports4 === void 0 ? void 0 : (_blockType$supports4$ = _blockType$supports4.spacing) === null || _blockType$supports4$ === void 0 ? void 0 : (_blockType$supports4$2 = _blockType$supports4$.blockGap) === null || _blockType$supports4$2 === void 0 ? void 0 : _blockType$supports4$2.__experimentalDefault; // For each block support feature add any custom selectors.
 
     const featureSelectors = {};
-    Object.entries(BLOCK_SUPPORT_FEATURE_LEVEL_SELECTORS).forEach(_ref19 => {
+    Object.entries(BLOCK_SUPPORT_FEATURE_LEVEL_SELECTORS).forEach(_ref23 => {
       var _blockType$supports5, _blockType$supports5$;
 
-      let [featureKey, featureName] = _ref19;
+      let [featureKey, featureName] = _ref23;
       const featureSelector = blockType === null || blockType === void 0 ? void 0 : (_blockType$supports5 = blockType.supports) === null || _blockType$supports5 === void 0 ? void 0 : (_blockType$supports5$ = _blockType$supports5[featureKey]) === null || _blockType$supports5$ === void 0 ? void 0 : _blockType$supports5$.__experimentalSelector;
 
       if (featureSelector) {
@@ -8698,12 +8377,12 @@ const StylesPreview = _ref => {
       color
     } = _ref2;
     return color !== backgroundColor && color !== headingColor;
-  }).slice(0, 2); // Reset leaked styles from WP common.css.
+  }).slice(0, 2); // Reset leaked styles from WP common.css and remove main content layout padding.
 
   const editorStyles = (0,external_wp_element_namespaceObject.useMemo)(() => {
     if (styles) {
       return [...styles, {
-        css: 'body{min-width: 0;}',
+        css: 'body{min-width: 0;padding: 0;}',
         isGlobalStyles: true
       }];
     }
@@ -9638,7 +9317,11 @@ function GradientPalettePanel(_ref) {
   const [baseDefaultGradients] = useSetting('color.gradients.default', name, 'base');
   const [customGradients, setCustomGradients] = useSetting('color.gradients.custom', name);
   const [defaultPaletteEnabled] = useSetting('color.defaultGradients', name);
-  const [duotonePalette] = useSetting('color.duotone') || [];
+  const [customDuotone] = useSetting('color.duotone.custom') || [];
+  const [defaultDuotone] = useSetting('color.duotone.default') || [];
+  const [themeDuotone] = useSetting('color.duotone.theme') || [];
+  const [defaultDuotoneEnabled] = useSetting('color.defaultDuotone');
+  const duotonePalette = [...(customDuotone || []), ...(themeDuotone || []), ...(defaultDuotone && defaultDuotoneEnabled ? defaultDuotone : [])];
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalVStack, {
     className: "edit-site-global-styles-gradient-palette-panel",
     spacing: 10
@@ -9660,7 +9343,7 @@ function GradientPalettePanel(_ref) {
     paletteLabel: (0,external_wp_i18n_namespaceObject.__)('Custom'),
     emptyMessage: (0,external_wp_i18n_namespaceObject.__)('Custom gradients are empty! Add some gradients to create your own palette.'),
     slugPrefix: "custom-"
-  }), (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)(subtitle, null, (0,external_wp_i18n_namespaceObject.__)('Duotone')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
+  }), !!duotonePalette && !!duotonePalette.length && (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)(subtitle, null, (0,external_wp_i18n_namespaceObject.__)('Duotone')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
     margin: 3
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DuotonePicker, {
     duotonePalette: duotonePalette,
@@ -11156,6 +10839,7 @@ function TemplateCard() {
 
 
 
+
 const {
   Slot: InspectorSlot,
   Fill: InspectorFill
@@ -11165,16 +10849,19 @@ function SidebarComplementaryAreaFills() {
   const {
     sidebar,
     isEditorSidebarOpened,
-    hasBlockSelection
+    hasBlockSelection,
+    supportsGlobalStyles
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const _sidebar = select(store).getActiveComplementaryArea(constants_STORE_NAME);
 
     const _isEditorSidebarOpened = [SIDEBAR_BLOCK, SIDEBAR_TEMPLATE].includes(_sidebar);
 
+    const settings = select(store_store).getSettings();
     return {
       sidebar: _sidebar,
       isEditorSidebarOpened: _isEditorSidebarOpened,
-      hasBlockSelection: !!select(external_wp_blockEditor_namespaceObject.store).getBlockSelectionStart()
+      hasBlockSelection: !!select(external_wp_blockEditor_namespaceObject.store).getBlockSelectionStart(),
+      supportsGlobalStyles: !(settings !== null && settings !== void 0 && settings.supportsTemplatePartsMode)
     };
   }, []);
   const {
@@ -11215,7 +10902,7 @@ function SidebarComplementaryAreaFills() {
     headerClassName: "edit-site-sidebar__panel-tabs"
   }, sidebarName === SIDEBAR_TEMPLATE && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, null, (0,external_wp_element_namespaceObject.createElement)(TemplateCard, null)), sidebarName === SIDEBAR_BLOCK && (0,external_wp_element_namespaceObject.createElement)(InspectorSlot, {
     bubblesVirtually: true
-  })), (0,external_wp_element_namespaceObject.createElement)(GlobalStylesSidebar, null), (0,external_wp_element_namespaceObject.createElement)(MaybeNavigationMenuSidebar, null));
+  })), supportsGlobalStyles && (0,external_wp_element_namespaceObject.createElement)(GlobalStylesSidebar, null), (0,external_wp_element_namespaceObject.createElement)(MaybeNavigationMenuSidebar, null));
 }
 
 ;// CONCATENATED MODULE: external ["wp","htmlEntities"]
@@ -11328,6 +11015,7 @@ const NavigationPanel = _ref2 => {
   const {
     homeTemplate,
     isNavigationOpen,
+    isTemplatePartsMode,
     siteTitle
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
@@ -11338,10 +11026,15 @@ const NavigationPanel = _ref2 => {
       isNavigationOpened
     } = select(store_store);
     const siteData = getEntityRecord('root', '__unstableBase', undefined) || {};
+    const {
+      supportsTemplatePartsMode,
+      __unstableHomeTemplate
+    } = getSettings();
     return {
       siteTitle: siteData.name,
-      homeTemplate: getSettings().__unstableHomeTemplate,
-      isNavigationOpen: isNavigationOpened()
+      homeTemplate: __unstableHomeTemplate,
+      isNavigationOpen: isNavigationOpened(),
+      isTemplatePartsMode: !!supportsTemplatePartsMode
     };
   }, []);
   const {
@@ -11377,7 +11070,7 @@ const NavigationPanel = _ref2 => {
       href: "index.php"
     })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigationMenu, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigationGroup, {
       title: (0,external_wp_i18n_namespaceObject.__)('Editor')
-    }, (0,external_wp_element_namespaceObject.createElement)(NavLink, {
+    }, !isTemplatePartsMode && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(NavLink, {
       icon: library_home,
       title: (0,external_wp_i18n_namespaceObject.__)('Site'),
       item: SITE_EDITOR_KEY,
@@ -11393,7 +11086,7 @@ const NavigationPanel = _ref2 => {
         postId: undefined,
         postType: 'wp_template'
       }
-    }), (0,external_wp_element_namespaceObject.createElement)(NavLink, {
+    })), (0,external_wp_element_namespaceObject.createElement)(NavLink, {
       icon: symbol_filled,
       title: (0,external_wp_i18n_namespaceObject.__)('Template Parts'),
       item: "wp_template_part",
@@ -11744,6 +11437,7 @@ function CreateTemplatePartModal(_ref) {
  */
 
 
+
 function ConvertToTemplatePart(_ref) {
   let {
     clientIds,
@@ -11759,6 +11453,20 @@ function ConvertToTemplatePart(_ref) {
   const {
     createSuccessNotice
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
+  const {
+    canCreate
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      supportsTemplatePartsMode
+    } = select(store_store).getSettings();
+    return {
+      canCreate: !supportsTemplatePartsMode
+    };
+  }, []);
+
+  if (!canCreate) {
+    return null;
+  }
 
   const onConvert = async _ref2 => {
     let {
@@ -12091,7 +11799,13 @@ function ResizableEditor(_ref) {
     children,
     ...props
   } = _ref;
-  const deviceType = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).__experimentalGetPreviewDeviceType(), []);
+  const {
+    deviceType,
+    isZoomOutMode
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
+    deviceType: select(store_store).__experimentalGetPreviewDeviceType(),
+    isZoomOutMode: select(external_wp_blockEditor_namespaceObject.store).__unstableGetEditorMode() === 'zoom-out'
+  }), []);
   const deviceStyles = (0,external_wp_blockEditor_namespaceObject.__experimentalUseResizeCanvas)(deviceType);
   const [width, setWidth] = (0,external_wp_element_namespaceObject.useState)(DEFAULT_STYLES.width);
   const [height, setHeight] = (0,external_wp_element_namespaceObject.useState)(DEFAULT_STYLES.height);
@@ -12195,6 +11909,7 @@ function ResizableEditor(_ref) {
       right: HANDLE_STYLES_OVERRIDE
     }
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableIframe, extends_extends({
+    isZoomedOut: isZoomOutMode,
     style: enableResizing ? {
       height
     } : deviceStyles,
@@ -12222,7 +11937,6 @@ function ResizableEditor(_ref) {
 /**
  * External dependencies
  */
-
 
 /**
  * WordPress dependencies
@@ -12292,12 +12006,24 @@ function BlockEditor(_ref) {
     restBlockPatterns: select(external_wp_coreData_namespaceObject.store).getBlockPatterns(),
     restBlockPatternCategories: select(external_wp_coreData_namespaceObject.store).getBlockPatternCategories()
   }), []);
-  const blockPatterns = (0,external_wp_element_namespaceObject.useMemo)(() => (0,external_lodash_namespaceObject.unionBy)(settingsBlockPatterns, restBlockPatterns, 'name'), [settingsBlockPatterns, restBlockPatterns]);
-  const blockPatternCategories = (0,external_wp_element_namespaceObject.useMemo)(() => (0,external_lodash_namespaceObject.unionBy)(settingsBlockPatternCategories, restBlockPatternCategories, 'name'), [settingsBlockPatternCategories, restBlockPatternCategories]);
-  const settings = (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.omit)(storedSettings, ['__experimentalAdditionalBlockPatterns', '__experimentalAdditionalBlockPatternCategories']),
-    __experimentalBlockPatterns: blockPatterns,
-    __experimentalBlockPatternCategories: blockPatternCategories
-  }), [storedSettings, blockPatterns, blockPatternCategories]);
+  const blockPatterns = (0,external_wp_element_namespaceObject.useMemo)(() => [...(settingsBlockPatterns || []), ...(restBlockPatterns || [])].filter((x, index, arr) => index === arr.findIndex(y => x.name === y.name)).filter(_ref2 => {
+    let {
+      postTypes
+    } = _ref2;
+    return !postTypes || Array.isArray(postTypes) && postTypes.includes(templateType);
+  }), [settingsBlockPatterns, restBlockPatterns, templateType]);
+  const blockPatternCategories = (0,external_wp_element_namespaceObject.useMemo)(() => [...(settingsBlockPatternCategories || []), ...(restBlockPatternCategories || [])].filter((x, index, arr) => index === arr.findIndex(y => x.name === y.name)), [settingsBlockPatternCategories, restBlockPatternCategories]);
+  const settings = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const {
+      __experimentalAdditionalBlockPatterns,
+      __experimentalAdditionalBlockPatternCategories,
+      ...restStoredSettings
+    } = storedSettings;
+    return { ...restStoredSettings,
+      __experimentalBlockPatterns: blockPatterns,
+      __experimentalBlockPatternCategories: blockPatternCategories
+    };
+  }, [storedSettings, blockPatterns, blockPatternCategories]);
   const [blocks, onInput, onChange] = (0,external_wp_coreData_namespaceObject.useEntityBlockEditor)('postType', templateType);
   const {
     setPage
@@ -12364,10 +12090,10 @@ function BlockEditor(_ref) {
     className: "edit-site-block-editor__block-list wp-site-blocks",
     __experimentalLayout: LAYOUT,
     renderAppender: isTemplatePart && hasBlocks ? false : undefined
-  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableBlockSettingsMenuFirstItem, null, _ref2 => {
+  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableBlockSettingsMenuFirstItem, null, _ref3 => {
     let {
       onClose
-    } = _ref2;
+    } = _ref3;
     return (0,external_wp_element_namespaceObject.createElement)(BlockInspectorButton, {
       onClick: onClose
     });
@@ -13347,7 +13073,8 @@ function Editor(_ref) {
     previousShortcut,
     nextShortcut,
     editorMode,
-    showIconLabels
+    showIconLabels,
+    blockEditorMode
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       isInserterOpened,
@@ -13363,6 +13090,9 @@ function Editor(_ref) {
       hasFinishedResolution,
       getEntityRecord
     } = select(external_wp_coreData_namespaceObject.store);
+    const {
+      __unstableGetEditorMode
+    } = select(external_wp_blockEditor_namespaceObject.store);
     const postType = getEditedPostType();
     const postId = getEditedPostId(); // The currently selected entity to display. Typically template or template part.
 
@@ -13380,7 +13110,8 @@ function Editor(_ref) {
       previousShortcut: select(external_wp_keyboardShortcuts_namespaceObject.store).getAllShortcutKeyCombinations('core/edit-site/previous-region'),
       nextShortcut: select(external_wp_keyboardShortcuts_namespaceObject.store).getAllShortcutKeyCombinations('core/edit-site/next-region'),
       editorMode: getEditorMode(),
-      showIconLabels: select(external_wp_preferences_namespaceObject.store).get('core/edit-site', 'showIconLabels')
+      showIconLabels: select(external_wp_preferences_namespaceObject.store).get('core/edit-site', 'showIconLabels'),
+      blockEditorMode: __unstableGetEditorMode()
     };
   }, []);
   const {
@@ -13485,9 +13216,9 @@ function Editor(_ref) {
       onClick: openEntitiesSavedStates,
       "aria-expanded": false
     }, (0,external_wp_i18n_namespaceObject.__)('Open save panel')))),
-    footer: (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockBreadcrumb, {
+    footer: blockEditorMode !== 'zoom-out' ? (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockBreadcrumb, {
       rootLabelText: (0,external_wp_i18n_namespaceObject.__)('Template')
-    }),
+    }) : undefined,
     shortcuts: {
       previous: previousShortcut,
       next: nextShortcut
@@ -13809,15 +13540,66 @@ const usePublicTaxonomies = () => {
   }, [taxonomies]);
 };
 
+function usePostTypeNeedsUniqueIdentifier(publicPostTypes) {
+  const postTypeLabels = (0,external_wp_element_namespaceObject.useMemo)(() => publicPostTypes === null || publicPostTypes === void 0 ? void 0 : publicPostTypes.reduce((accumulator, _ref3) => {
+    let {
+      labels
+    } = _ref3;
+    const singularName = labels.singular_name.toLowerCase();
+    accumulator[singularName] = (accumulator[singularName] || 0) + 1;
+    return accumulator;
+  }, {}));
+  return (0,external_wp_element_namespaceObject.useCallback)(_ref4 => {
+    let {
+      labels,
+      slug
+    } = _ref4;
+    const singularName = labels.singular_name.toLowerCase();
+    return postTypeLabels[singularName] > 1 && singularName !== slug;
+  }, [postTypeLabels]);
+}
+
+function usePostTypeArchiveMenuItems() {
+  const publicPostTypes = usePublicPostTypes();
+  const postTypesWithArchives = (0,external_wp_element_namespaceObject.useMemo)(() => publicPostTypes === null || publicPostTypes === void 0 ? void 0 : publicPostTypes.filter(postType => postType.has_archive), [publicPostTypes]);
+  const existingTemplates = useExistingTemplates();
+  const needsUniqueIdentifier = usePostTypeNeedsUniqueIdentifier(postTypesWithArchives);
+  return (0,external_wp_element_namespaceObject.useMemo)(() => (postTypesWithArchives === null || postTypesWithArchives === void 0 ? void 0 : postTypesWithArchives.filter(postType => !(existingTemplates || []).some(existingTemplate => existingTemplate.slug === 'archive-' + postType.slug)).map(postType => {
+    var _postType$icon;
+
+    let title;
+
+    if (needsUniqueIdentifier(postType)) {
+      title = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %1s: Name of the post type e.g: "Post"; %2s: Slug of the post type e.g: "book".
+      (0,external_wp_i18n_namespaceObject.__)('Archive: %1$s (%2$s)'), postType.labels.singular_name, postType.slug);
+    } else {
+      title = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Name of the post type e.g: "Post".
+      (0,external_wp_i18n_namespaceObject.__)('Archive: %s'), postType.labels.singular_name);
+    }
+
+    return {
+      slug: 'archive-' + postType.slug,
+      description: (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Name of the post type e.g: "Post".
+      (0,external_wp_i18n_namespaceObject.__)('Displays an archive with the latests posts of type: %s.'), postType.labels.singular_name),
+      title,
+      // `icon` is the `menu_icon` property of a post type. We
+      // only handle `dashicons` for now, even if the `menu_icon`
+      // also supports urls and svg as values.
+      icon: (_postType$icon = postType.icon) !== null && _postType$icon !== void 0 && _postType$icon.startsWith('dashicons-') ? postType.icon.slice(10) : library_archive,
+      templatePrefix: 'archive'
+    };
+  })) || [], [postTypesWithArchives, existingTemplates, needsUniqueIdentifier]);
+}
 const usePostTypeMenuItems = onClickMenuItem => {
   const publicPostTypes = usePublicPostTypes();
   const existingTemplates = useExistingTemplates();
-  const defaultTemplateTypes = useDefaultTemplateTypes(); // `page`is a special case in template hierarchy.
+  const defaultTemplateTypes = useDefaultTemplateTypes();
+  const needsUniqueIdentifier = usePostTypeNeedsUniqueIdentifier(publicPostTypes); // `page`is a special case in template hierarchy.
 
-  const templatePrefixes = (0,external_wp_element_namespaceObject.useMemo)(() => publicPostTypes === null || publicPostTypes === void 0 ? void 0 : publicPostTypes.reduce((accumulator, _ref3) => {
+  const templatePrefixes = (0,external_wp_element_namespaceObject.useMemo)(() => publicPostTypes === null || publicPostTypes === void 0 ? void 0 : publicPostTypes.reduce((accumulator, _ref5) => {
     let {
       slug
-    } = _ref3;
+    } = _ref5;
     let suffix = slug;
 
     if (slug !== 'page') {
@@ -13826,28 +13608,12 @@ const usePostTypeMenuItems = onClickMenuItem => {
 
     accumulator[slug] = suffix;
     return accumulator;
-  }, {}), [publicPostTypes]); // We need to keep track of naming conflicts. If a conflict
-  // occurs, we need to add slug.
-
-  const postTypeLabels = publicPostTypes === null || publicPostTypes === void 0 ? void 0 : publicPostTypes.reduce((accumulator, _ref4) => {
-    let {
-      labels
-    } = _ref4;
-    const singularName = labels.singular_name.toLowerCase();
-    accumulator[singularName] = (accumulator[singularName] || 0) + 1;
-    return accumulator;
-  }, {});
-
-  const needsUniqueIdentifier = (labels, slug) => {
-    const singularName = labels.singular_name.toLowerCase();
-    return postTypeLabels[singularName] > 1 && singularName !== slug;
-  };
-
+  }, {}), [publicPostTypes]);
   const postTypesInfo = useEntitiesInfo('postType', templatePrefixes);
-  const existingTemplateSlugs = (existingTemplates || []).map(_ref5 => {
+  const existingTemplateSlugs = (existingTemplates || []).map(_ref6 => {
     let {
       slug
-    } = _ref5;
+    } = _ref6;
     return slug;
   });
   const menuItems = (publicPostTypes || []).reduce((accumulator, postType) => {
@@ -13862,15 +13628,15 @@ const usePostTypeMenuItems = onClickMenuItem => {
     // augment it with the specific template functionality.
 
     const generalTemplateSlug = templatePrefixes[slug];
-    const defaultTemplateType = defaultTemplateTypes === null || defaultTemplateTypes === void 0 ? void 0 : defaultTemplateTypes.find(_ref6 => {
+    const defaultTemplateType = defaultTemplateTypes === null || defaultTemplateTypes === void 0 ? void 0 : defaultTemplateTypes.find(_ref7 => {
       let {
         slug: _slug
-      } = _ref6;
+      } = _ref7;
       return _slug === generalTemplateSlug;
     });
     const hasGeneralTemplate = existingTemplateSlugs === null || existingTemplateSlugs === void 0 ? void 0 : existingTemplateSlugs.includes(generalTemplateSlug);
 
-    const _needsUniqueIdentifier = needsUniqueIdentifier(labels, slug);
+    const _needsUniqueIdentifier = needsUniqueIdentifier(postType);
 
     let menuItemTitle = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Name of the post type e.g: "Post".
     (0,external_wp_i18n_namespaceObject.__)('Single item: %s'), labels.singular_name);
@@ -13902,10 +13668,10 @@ const usePostTypeMenuItems = onClickMenuItem => {
           slug,
           config: {
             recordNamePath: 'title.rendered',
-            queryArgs: _ref7 => {
+            queryArgs: _ref8 => {
               let {
                 search
-              } = _ref7;
+              } = _ref8;
               return {
                 _fields: 'id,title,slug,link',
                 orderBy: search ? 'relevance' : 'modified',
@@ -13971,10 +13737,10 @@ const useTaxonomiesMenuItems = onClickMenuItem => {
   const existingTemplates = useExistingTemplates();
   const defaultTemplateTypes = useDefaultTemplateTypes(); // `category` and `post_tag` are special cases in template hierarchy.
 
-  const templatePrefixes = (0,external_wp_element_namespaceObject.useMemo)(() => publicTaxonomies === null || publicTaxonomies === void 0 ? void 0 : publicTaxonomies.reduce((accumulator, _ref8) => {
+  const templatePrefixes = (0,external_wp_element_namespaceObject.useMemo)(() => publicTaxonomies === null || publicTaxonomies === void 0 ? void 0 : publicTaxonomies.reduce((accumulator, _ref9) => {
     let {
       slug
-    } = _ref8;
+    } = _ref9;
     let suffix = slug;
 
     if (!['category', 'post_tag'].includes(slug)) {
@@ -13990,10 +13756,10 @@ const useTaxonomiesMenuItems = onClickMenuItem => {
   }, {}), [publicTaxonomies]); // We need to keep track of naming conflicts. If a conflict
   // occurs, we need to add slug.
 
-  const taxonomyLabels = publicTaxonomies === null || publicTaxonomies === void 0 ? void 0 : publicTaxonomies.reduce((accumulator, _ref9) => {
+  const taxonomyLabels = publicTaxonomies === null || publicTaxonomies === void 0 ? void 0 : publicTaxonomies.reduce((accumulator, _ref10) => {
     let {
       labels
-    } = _ref9;
+    } = _ref10;
     const singularName = labels.singular_name.toLowerCase();
     accumulator[singularName] = (accumulator[singularName] || 0) + 1;
     return accumulator;
@@ -14009,10 +13775,10 @@ const useTaxonomiesMenuItems = onClickMenuItem => {
   };
 
   const taxonomiesInfo = useEntitiesInfo('taxonomy', templatePrefixes);
-  const existingTemplateSlugs = (existingTemplates || []).map(_ref10 => {
+  const existingTemplateSlugs = (existingTemplates || []).map(_ref11 => {
     let {
       slug
-    } = _ref10;
+    } = _ref11;
     return slug;
   });
   const menuItems = (publicTaxonomies || []).reduce((accumulator, taxonomy) => {
@@ -14026,10 +13792,10 @@ const useTaxonomiesMenuItems = onClickMenuItem => {
     // augment it with the specific template functionality.
 
     const generalTemplateSlug = templatePrefixes[slug];
-    const defaultTemplateType = defaultTemplateTypes === null || defaultTemplateTypes === void 0 ? void 0 : defaultTemplateTypes.find(_ref11 => {
+    const defaultTemplateType = defaultTemplateTypes === null || defaultTemplateTypes === void 0 ? void 0 : defaultTemplateTypes.find(_ref12 => {
       let {
         slug: _slug
-      } = _ref11;
+      } = _ref12;
       return _slug === generalTemplateSlug;
     });
     const hasGeneralTemplate = existingTemplateSlugs === null || existingTemplateSlugs === void 0 ? void 0 : existingTemplateSlugs.includes(generalTemplateSlug);
@@ -14061,10 +13827,10 @@ const useTaxonomiesMenuItems = onClickMenuItem => {
           type: 'taxonomy',
           slug,
           config: {
-            queryArgs: _ref12 => {
+            queryArgs: _ref13 => {
               let {
                 search
-              } = _ref12;
+              } = _ref13;
               return {
                 _fields: 'id,name,slug,link',
                 orderBy: search ? 'name' : 'count',
@@ -14132,10 +13898,10 @@ function useAuthorNeedsUniqueIndentifier() {
     per_page: -1
   }), []);
   const authorsCountByName = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return (authors || []).reduce((authorsCount, _ref13) => {
+    return (authors || []).reduce((authorsCount, _ref14) => {
       let {
         name
-      } = _ref13;
+      } = _ref14;
       authorsCount[name] = (authorsCount[name] || 0) + 1;
       return authorsCount;
     }, {});
@@ -14160,10 +13926,10 @@ function useAuthorMenuItem(onClickMenuItem) {
   const defaultTemplateTypes = useDefaultTemplateTypes();
   const authorInfo = useEntitiesInfo('root', USE_AUTHOR_MENU_ITEM_TEMPLATE_PREFIX, USE_AUTHOR_MENU_ITEM_QUERY_PARAMETERS);
   const authorNeedsUniqueId = useAuthorNeedsUniqueIndentifier();
-  let authorMenuItem = defaultTemplateTypes === null || defaultTemplateTypes === void 0 ? void 0 : defaultTemplateTypes.find(_ref14 => {
+  let authorMenuItem = defaultTemplateTypes === null || defaultTemplateTypes === void 0 ? void 0 : defaultTemplateTypes.find(_ref15 => {
     let {
       slug
-    } = _ref14;
+    } = _ref15;
     return slug === 'author';
   });
 
@@ -14175,10 +13941,10 @@ function useAuthorMenuItem(onClickMenuItem) {
     };
   }
 
-  const hasGeneralTemplate = !!(existingTemplates !== null && existingTemplates !== void 0 && existingTemplates.find(_ref15 => {
+  const hasGeneralTemplate = !!(existingTemplates !== null && existingTemplates !== void 0 && existingTemplates.find(_ref16 => {
     let {
       slug
-    } = _ref15;
+    } = _ref16;
     return slug === 'author';
   }));
 
@@ -14192,10 +13958,10 @@ function useAuthorMenuItem(onClickMenuItem) {
         type: 'root',
         slug: 'user',
         config: {
-          queryArgs: _ref16 => {
+          queryArgs: _ref17 => {
             let {
               search
-            } = _ref16;
+            } = _ref17;
             return {
               _fields: 'id,name,slug,link',
               orderBy: search ? 'name' : 'registered_date',
@@ -14252,8 +14018,8 @@ function useAuthorMenuItem(onClickMenuItem) {
 const useExistingTemplateSlugs = templatePrefixes => {
   const existingTemplates = useExistingTemplates();
   const existingSlugs = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return Object.entries(templatePrefixes || {}).reduce((accumulator, _ref17) => {
-      let [slug, prefix] = _ref17;
+    return Object.entries(templatePrefixes || {}).reduce((accumulator, _ref18) => {
+      let [slug, prefix] = _ref18;
       const slugsWithTemplates = (existingTemplates || []).reduce((_accumulator, existingTemplate) => {
         const _prefix = `${prefix}-`;
 
@@ -14288,8 +14054,8 @@ const useTemplatesToExclude = function (entityName, templatePrefixes) {
   let additionalQueryParameters = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   const slugsToExcludePerEntity = useExistingTemplateSlugs(templatePrefixes);
   const recordsToExcludePerEntity = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    return Object.entries(slugsToExcludePerEntity || {}).reduce((accumulator, _ref18) => {
-      let [slug, slugsWithTemplates] = _ref18;
+    return Object.entries(slugsToExcludePerEntity || {}).reduce((accumulator, _ref19) => {
+      let [slug, slugsWithTemplates] = _ref19;
       const entitiesWithTemplates = select(external_wp_coreData_namespaceObject.store).getEntityRecords(entityName, slug, {
         _fields: 'id',
         context: 'view',
@@ -14330,10 +14096,10 @@ const useEntitiesInfo = function (entityName, templatePrefixes) {
     return Object.keys(templatePrefixes || {}).reduce((accumulator, slug) => {
       var _recordsToExcludePerE, _select$getEntityReco;
 
-      const existingEntitiesIds = (recordsToExcludePerEntity === null || recordsToExcludePerEntity === void 0 ? void 0 : (_recordsToExcludePerE = recordsToExcludePerEntity[slug]) === null || _recordsToExcludePerE === void 0 ? void 0 : _recordsToExcludePerE.map(_ref19 => {
+      const existingEntitiesIds = (recordsToExcludePerEntity === null || recordsToExcludePerEntity === void 0 ? void 0 : (_recordsToExcludePerE = recordsToExcludePerEntity[slug]) === null || _recordsToExcludePerE === void 0 ? void 0 : _recordsToExcludePerE.map(_ref20 => {
         let {
           id
-        } = _ref19;
+        } = _ref20;
         return id;
       })) || [];
       accumulator[slug] = {
@@ -14838,7 +14604,7 @@ function useMissingTemplates(setEntityForSuggestions, setShowCustomTemplateModal
   enhancedMissingDefaultTemplateTypes === null || enhancedMissingDefaultTemplateTypes === void 0 ? void 0 : enhancedMissingDefaultTemplateTypes.sort((template1, template2) => {
     return DEFAULT_TEMPLATE_SLUGS.indexOf(template1.slug) - DEFAULT_TEMPLATE_SLUGS.indexOf(template2.slug);
   });
-  const missingTemplates = [...enhancedMissingDefaultTemplateTypes, ...postTypesMenuItems, ...taxonomiesMenuItems];
+  const missingTemplates = [...enhancedMissingDefaultTemplateTypes, ...usePostTypeArchiveMenuItems(), ...postTypesMenuItems, ...taxonomiesMenuItems];
   return missingTemplates;
 }
 
@@ -14980,13 +14746,25 @@ function AddNewTemplate(_ref) {
  */
 
 
+
 function header_Header(_ref) {
   var _postType$labels;
 
   let {
     templateType
   } = _ref;
-  const postType = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).getPostType(templateType), [templateType]);
+  const {
+    canCreate,
+    postType
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      supportsTemplatePartsMode
+    } = select(store_store).getSettings();
+    return {
+      postType: select(external_wp_coreData_namespaceObject.store).getPostType(templateType),
+      canCreate: !supportsTemplatePartsMode
+    };
+  }, [templateType]);
 
   if (!postType) {
     return null;
@@ -14997,7 +14775,7 @@ function header_Header(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHeading, {
     level: 1,
     className: "edit-site-list-header__title"
-  }, (_postType$labels = postType.labels) === null || _postType$labels === void 0 ? void 0 : _postType$labels.name), (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, (_postType$labels = postType.labels) === null || _postType$labels === void 0 ? void 0 : _postType$labels.name), canCreate && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-site-list-header__right"
   }, (0,external_wp_element_namespaceObject.createElement)(AddNewTemplate, {
     templateType: templateType
@@ -15980,7 +15758,10 @@ function reinitializeEditor(target, settings) {
       // screen and land in the list screen.
       (0,external_wp_data_namespaceObject.dispatch)(store_store).setIsNavigationPanelOpened((0,external_wp_data_namespaceObject.select)(external_wp_viewport_namespaceObject.store).isViewportMatch('medium'));
     }
-  }
+  } // Prevent the default browser action for files dropped outside of dropzones.
+
+  window.addEventListener('dragover', e => e.preventDefault(), false);
+  window.addEventListener('drop', e => e.preventDefault(), false);
   (0,external_wp_element_namespaceObject.render)((0,external_wp_element_namespaceObject.createElement)(EditSiteApp, {
     reboot: reboot
   }), target);

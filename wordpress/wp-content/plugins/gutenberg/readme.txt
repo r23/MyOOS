@@ -1,7 +1,7 @@
 === Gutenberg ===
 Contributors: matveb, joen, karmatosed
 Tested up to: 6.0
-Stable tag: 14.0.2
+Stable tag: 14.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

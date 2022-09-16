@@ -211,7 +211,8 @@ const addDimensionsEventListener = (breakpoints, operators) => {
    */
 
   const queries = (0,external_lodash_namespaceObject.reduce)(breakpoints, (result, width, name) => {
-    (0,external_lodash_namespaceObject.forEach)(operators, (condition, operator) => {
+    Object.entries(operators).forEach(_ref => {
+      let [operator, condition] = _ref;
       const list = window.matchMedia(`(${condition}: ${width}px)`);
       list.addListener(setIsMatching);
       const key = [operator, name].join(' ');

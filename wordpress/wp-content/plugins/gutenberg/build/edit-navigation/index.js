@@ -414,7 +414,13 @@ const external_lodash_namespaceObject = window["lodash"];
  */
 
 function blockToMenuItem(block, menuItem, parentId, blockPosition, menuId) {
-  menuItem = (0,external_lodash_namespaceObject.omit)(menuItem, 'menus', 'meta', '_links');
+  const {
+    menus,
+    meta,
+    _links,
+    ...restMenuItem
+  } = menuItem;
+  menuItem = restMenuItem;
   menuItem.content = (0,external_lodash_namespaceObject.get)(menuItem.content, 'raw', menuItem.content);
   let attributes;
 

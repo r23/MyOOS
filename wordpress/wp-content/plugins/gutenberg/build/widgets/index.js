@@ -837,8 +837,9 @@ function Form(_ref) {
       focusOnMount: false,
       placement: "right",
       offset: 32,
-      __unstableForcePosition: true,
-      __unstableShift: true
+      resize: false,
+      flip: false,
+      shift: true
     }, (0,external_wp_element_namespaceObject.createElement)("div", {
       ref: ref,
       className: "wp-block-legacy-widget__edit-form",

@@ -102,17 +102,10 @@ const external_wp_blocks_namespaceObject = window["wp"]["blocks"];
 const external_wp_data_namespaceObject = window["wp"]["data"];
 ;// CONCATENATED MODULE: external ["wp","editor"]
 const external_wp_editor_namespaceObject = window["wp"]["editor"];
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/store/reducer.js
-/**
- * External dependencies
- */
-
 /**
  * WordPress dependencies
  */
-
 
 /**
  * Reducer returning an array of downloadable blocks.
@@ -206,7 +199,11 @@ const errorNotices = function () {
       };
 
     case 'CLEAR_ERROR_NOTICE':
-      return (0,external_lodash_namespaceObject.omit)(state, action.blockId);
+      const {
+        [action.blockId]: blockId,
+        ...restState
+      } = state;
+      return restState;
   }
 
   return state;
@@ -369,6 +366,8 @@ function getErrorNoticeForBlock(state, blockId) {
   return state.errorNotices[blockId];
 }
 
+;// CONCATENATED MODULE: external "lodash"
+const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: external ["wp","i18n"]
 const external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 ;// CONCATENATED MODULE: external ["wp","apiFetch"]

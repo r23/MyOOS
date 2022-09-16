@@ -962,7 +962,7 @@ function InlineLinkUI(_ref) {
     focusOnMount: focusOnMount.current,
     onClose: stopAddingLink,
     position: "bottom center",
-    __unstableShift: true
+    shift: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLinkControl, {
     key: forceRemountKey,
     value: linkValue,
@@ -1259,8 +1259,6 @@ const underline = {
 
 };
 
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
 /**
  * WordPress dependencies
@@ -1312,13 +1310,8 @@ const textColor = (0,external_wp_element_namespaceObject.createElement)(external
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -1419,10 +1412,12 @@ function ColorPicker(_ref) {
     onChange
   } = _ref;
   const colors = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _getSettings$colors;
+
     const {
       getSettings
     } = select(external_wp_blockEditor_namespaceObject.store);
-    return (0,external_lodash_namespaceObject.get)(getSettings(), ['colors'], []);
+    return (_getSettings$colors = getSettings().colors) !== null && _getSettings$colors !== void 0 ? _getSettings$colors : [];
   }, []);
   const onColorChange = (0,external_wp_element_namespaceObject.useCallback)(color => {
     onChange(setColors(value, name, colors, {
@@ -1481,13 +1476,8 @@ function InlineColorUI(_ref2) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -1552,7 +1542,7 @@ function TextColorEdit(_ref2) {
   const enableIsAddingColor = (0,external_wp_element_namespaceObject.useCallback)(() => setIsAddingColor(true), [setIsAddingColor]);
   const disableIsAddingColor = (0,external_wp_element_namespaceObject.useCallback)(() => setIsAddingColor(false), [setIsAddingColor]);
   const colorIndicatorStyle = (0,external_wp_element_namespaceObject.useMemo)(() => fillComputedColors(contentRef.current, getActiveColors(value, text_color_name, colors)), [value, colors]);
-  const hasColorsToChoose = !(0,external_lodash_namespaceObject.isEmpty)(colors) || !allowCustomControl;
+  const hasColorsToChoose = colors.length || !allowCustomControl;
 
   if (!hasColorsToChoose && !isActive) {
     return null;

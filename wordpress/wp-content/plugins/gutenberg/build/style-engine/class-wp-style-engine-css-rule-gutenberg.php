@@ -37,9 +37,9 @@ class WP_Style_Engine_CSS_Rule_Gutenberg {
 	/**
 	 * Constructor
 	 *
-	 * @param string                                 $selector     The CSS selector.
-	 * @param array|WP_Style_Engine_CSS_Declarations_Gutenberg $declarations An array of declarations (property => value pairs),
-	 *                                                             or a WP_Style_Engine_CSS_Declarations_Gutenberg object.
+	 * @param string                                    $selector     The CSS selector.
+	 * @param string[]|WP_Style_Engine_CSS_Declarations_Gutenberg $declarations An associative array of CSS definitions, e.g., array( "$property" => "$value", "$property" => "$value" ),
+	 *                                                                or a WP_Style_Engine_CSS_Declarations_Gutenberg object.
 	 */
 	public function __construct( $selector = '', $declarations = array() ) {
 		$this->set_selector( $selector );
@@ -47,7 +47,7 @@ class WP_Style_Engine_CSS_Rule_Gutenberg {
 	}
 
 	/**
-	 * Set the selector.
+	 * Sets the selector.
 	 *
 	 * @param string $selector The CSS selector.
 	 *
@@ -59,7 +59,7 @@ class WP_Style_Engine_CSS_Rule_Gutenberg {
 	}
 
 	/**
-	 * Set the declarations.
+	 * Sets the declarations.
 	 *
 	 * @param array|WP_Style_Engine_CSS_Declarations_Gutenberg $declarations An array of declarations (property => value pairs),
 	 *                                                             or a WP_Style_Engine_CSS_Declarations_Gutenberg object.
@@ -83,16 +83,16 @@ class WP_Style_Engine_CSS_Rule_Gutenberg {
 	}
 
 	/**
-	 * Get the declarations object.
+	 * Gets the declarations object.
 	 *
-	 * @return WP_Style_Engine_CSS_Declarations_Gutenberg
+	 * @return WP_Style_Engine_CSS_Declarations_Gutenberg The declarations object.
 	 */
 	public function get_declarations() {
 		return $this->declarations;
 	}
 
 	/**
-	 * Get the full selector.
+	 * Gets the full selector.
 	 *
 	 * @return string
 	 */
@@ -101,18 +101,18 @@ class WP_Style_Engine_CSS_Rule_Gutenberg {
 	}
 
 	/**
-	 * Get the CSS.
+	 * Gets the CSS.
 	 *
-	 * @param boolean $should_prettify Whether to add spacing, new lines and indents.
-	 * @param number  $indent_count    The number of tab indents to apply to the rule. Applies if `prettify` is `true`.
+	 * @param bool   $should_prettify Whether to add spacing, new lines and indents.
+	 * @param number $indent_count    The number of tab indents to apply to the rule. Applies if `prettify` is `true`.
 	 *
 	 * @return string
 	 */
 	public function get_css( $should_prettify = false, $indent_count = 0 ) {
 		$rule_indent         = $should_prettify ? str_repeat( "\t", $indent_count ) : '';
 		$declarations_indent = $should_prettify ? $indent_count + 1 : 0;
-		$new_line            = $should_prettify ? "\n" : '';
-		$space               = $should_prettify ? ' ' : '';
+		$suffix              = $should_prettify ? "\n" : '';
+		$spacer              = $should_prettify ? ' ' : '';
 		$selector            = $should_prettify ? str_replace( ',', ",\n", $this->get_selector() ) : $this->get_selector();
 		$css_declarations    = $this->declarations->get_declarations_string( $should_prettify, $declarations_indent );
 
@@ -120,6 +120,6 @@ class WP_Style_Engine_CSS_Rule_Gutenberg {
 			return '';
 		}
 
-		return "{$rule_indent}{$selector}{$space}{{$new_line}{$css_declarations}{$new_line}{$rule_indent}}";
+		return "{$rule_indent}{$selector}{$spacer}{{$suffix}{$css_declarations}{$suffix}{$rule_indent}}";
 	}
 }
