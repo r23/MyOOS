@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '2c02458e5b29d396edc13794d6ef32da049efa16',
+        'reference' => '5f9712acc57084158347c1ae8dc3fd5a8933b2ab',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -56,12 +56,12 @@
             'dev_requirement' => false,
         ),
         'dompdf/dompdf' => array(
-            'pretty_version' => 'v2.0.0',
-            'version' => '2.0.0.0',
+            'pretty_version' => 'v2.0.1',
+            'version' => '2.0.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../dompdf/dompdf',
             'aliases' => array(),
-            'reference' => '79573d8b8a141ec8a17312515de8740eed014fa9',
+            'reference' => 'c5310df0e22c758c85ea5288175fc6cd777bc085',
             'dev_requirement' => false,
         ),
         'endroid/qr-code' => array(
@@ -187,7 +187,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '2c02458e5b29d396edc13794d6ef32da049efa16',
+            'reference' => '5f9712acc57084158347c1ae8dc3fd5a8933b2ab',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -233,12 +233,12 @@
             'dev_requirement' => false,
         ),
         'phenx/php-svg-lib' => array(
-            'pretty_version' => '0.4.1',
-            'version' => '0.4.1.0',
+            'pretty_version' => '0.5.0',
+            'version' => '0.5.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phenx/php-svg-lib',
             'aliases' => array(),
-            'reference' => '4498b5df7b08e8469f0f8279651ea5de9626ed02',
+            'reference' => '76876c6cf3080bcb6f249d7d59705108166a6685',
             'dev_requirement' => false,
         ),
         'php-amqplib/php-amqplib' => array(
@@ -438,7 +438,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '7756fea7a811a23d92009e03fdad3b91352f9b4f',
+            'reference' => 'ecbc17ac0817caed746a243e3805dd256be9fcdb',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
