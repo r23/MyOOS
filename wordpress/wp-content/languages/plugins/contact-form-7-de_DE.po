@@ -2,18 +2,18 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-09-12 10:53:44+0000\n"
+"PO-Revision-Date: 2022-09-23 18:33:25+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.1\n"
+"X-Generator: GlotPress/4.0.0-alpha.3\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
 
 #: includes/config-validator.php:634
 msgid "Uploadable file size exceeds PHP’s maximum acceptable size."
-msgstr "Die maximale Größe hochlandbarer Dateien übersteigt die in PHP angegebene maximale Größe."
+msgstr "Die Dateigröße der hochzuladenden Datei übersteigt die von PHP vorgegebene maximale Größe."
 
 #: includes/config-validator.php:583
 msgid "Colons are used in form-tag names."
