@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ddb1d47aa0291c5e172659a9be0001118fad49f0',
+        'reference' => '760dd68dfb4dc9e0fa5e36412c3faedb31cfec47',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -65,12 +65,12 @@
             'dev_requirement' => false,
         ),
         'endroid/qr-code' => array(
-            'pretty_version' => '4.5.0',
-            'version' => '4.5.0.0',
+            'pretty_version' => '4.5.2',
+            'version' => '4.5.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../endroid/qr-code',
             'aliases' => array(),
-            'reference' => '36681470bd10352b53bcb9731bdf2270e0d79b22',
+            'reference' => 'aec7fb1f008ed515f0580d7871dffa19428efb82',
             'dev_requirement' => false,
         ),
         'evenement/evenement' => array(
@@ -187,7 +187,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ddb1d47aa0291c5e172659a9be0001118fad49f0',
+            'reference' => '760dd68dfb4dc9e0fa5e36412c3faedb31cfec47',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -438,7 +438,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '50a6bc0d820c35aab4d7818208f5ec815dff1fe1',
+            'reference' => 'd95ffb9a830a93858ba078d3f84964b713a47aae',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
@@ -1024,12 +1024,12 @@
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
-            'pretty_version' => 'v3.4.2',
-            'version' => '3.4.2.0',
+            'pretty_version' => 'v3.4.3',
+            'version' => '3.4.3.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../twig/twig',
             'aliases' => array(),
-            'reference' => 'e07cdd3d430cd7e453c31b36eb5ad6c0c5e43077',
+            'reference' => 'c38fd6b0b7f370c198db91ffd02e23b517426b58',
             'dev_requirement' => false,
         ),
         'videlalvaro/php-amqplib' => array(
