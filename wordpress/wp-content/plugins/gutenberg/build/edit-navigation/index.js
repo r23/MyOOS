@@ -3938,11 +3938,18 @@ function MenuActions(_ref) {
     isLoading
   } = _ref;
   const [selectedMenuId, setSelectedMenuId] = useSelectedMenuId();
-  const [menuName] = useMenuEntityProp('name', selectedMenuId); // The title ref is passed to the popover as the anchorRef so that the
-  // dropdown is centered over the whole title area rather than just one
-  // part of it.
+  const [menuName] = useMenuEntityProp('name', selectedMenuId); // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
 
-  const titleRef = (0,external_wp_element_namespaceObject.useRef)();
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null); // Memoize popoverProps to avoid returning a new object every time.
+
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    className: 'edit-navigation-menu-actions__switcher-dropdown',
+    position: 'bottom center',
+    // Use the title ref as the popover's anchor so that the dropdown is
+    // centered over the whole title area rather than just on part of it.
+    anchor: popoverAnchor
+  }), [popoverAnchor]);
 
   if (isLoading) {
     return (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -3953,7 +3960,7 @@ function MenuActions(_ref) {
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-navigation-menu-actions"
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    ref: titleRef,
+    ref: setPopoverAnchor,
     className: "edit-navigation-menu-actions__subtitle-wrapper"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalText, {
     size: "body",
@@ -3970,11 +3977,7 @@ function MenuActions(_ref) {
       showTooltip: false,
       __experimentalIsFocusable: true
     },
-    popoverProps: {
-      className: 'edit-navigation-menu-actions__switcher-dropdown',
-      position: 'bottom center',
-      anchorRef: titleRef.current
-    }
+    popoverProps: popoverProps
   }, _ref2 => {
     let {
       onClose

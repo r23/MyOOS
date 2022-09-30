@@ -5142,11 +5142,16 @@ function DocumentActions(_ref) {
   } = _ref;
   const {
     label
-  } = useSecondaryText(); // The title ref is passed to the popover as the anchorRef so that the
-  // dropdown is centered over the whole title area rather than just one
-  // part of it.
+  } = useSecondaryText(); // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
 
-  const titleRef = (0,external_wp_element_namespaceObject.useRef)(); // Return a simple loading indicator until we have information to show.
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null); // Memoize popoverProps to avoid returning a new object every time.
+
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    // Use the title wrapper as the popover anchor so that the dropdown is
+    // centered over the whole title area rather than just one part of it.
+    anchor: popoverAnchor
+  }), [popoverAnchor]); // Return a simple loading indicator until we have information to show.
 
   if (!isLoaded) {
     return (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -5166,7 +5171,7 @@ function DocumentActions(_ref) {
       'has-secondary-label': !!label
     })
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    ref: titleRef,
+    ref: setPopoverAnchor,
     className: "edit-site-document-actions__title-wrapper"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalText, {
     size: "body",
@@ -5180,9 +5185,7 @@ function DocumentActions(_ref) {
     size: "body",
     className: "edit-site-document-actions__secondary-item"
   }, label !== null && label !== void 0 ? label : ''), dropdownContent && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
-    popoverProps: {
-      anchorRef: titleRef.current
-    },
+    popoverProps: popoverProps,
     position: "bottom center",
     renderToggle: _ref2 => {
       let {
@@ -6548,7 +6551,7 @@ function useStyle(path, blockName) {
 
   return [result, setStyle];
 }
-const hooks_ROOT_BLOCK_SUPPORTS = ['background', 'backgroundColor', 'color', 'linkColor', 'buttonColor', 'fontFamily', 'fontSize', 'fontStyle', 'fontWeight', 'lineHeight', 'textDecoration', 'textTransform', 'padding', 'contentSize', 'wideSize', 'blockGap'];
+const hooks_ROOT_BLOCK_SUPPORTS = ['background', 'backgroundColor', 'color', 'linkColor', 'buttonColor', 'fontFamily', 'fontSize', 'fontStyle', 'fontWeight', 'lineHeight', 'textDecoration', 'padding', 'contentSize', 'wideSize', 'blockGap'];
 function getSupportedGlobalStylesPanels(name) {
   var _blockType$supports, _blockType$supports$s, _blockType$supports2, _blockType$supports2$, _blockType$supports3, _blockType$supports3$, _blockType$supports3$2, _blockType$supports3$3;
 
@@ -7349,9 +7352,34 @@ function useHasAppearanceControl(name) {
   return hasFontStyles || hasFontWeights;
 }
 
-function useHasLetterSpacingControl(name) {
+function useHasLetterSpacingControl(name, element) {
+  const setting = useSetting('typography.letterSpacing', name)[0];
+
+  if (!setting) {
+    return false;
+  }
+
+  if (!name && element === 'heading') {
+    return true;
+  }
+
   const supports = getSupportedGlobalStylesPanels(name);
-  return useSetting('typography.letterSpacing', name)[0] && supports.includes('letterSpacing');
+  return supports.includes('letterSpacing');
+}
+
+function useHasTextTransformControl(name, element) {
+  const setting = useSetting('typography.textTransform', name)[0];
+
+  if (!setting) {
+    return false;
+  }
+
+  if (!name && element === 'heading') {
+    return true;
+  }
+
+  const supports = getSupportedGlobalStylesPanels(name);
+  return supports.includes('textTransform');
 }
 
 function TypographyPanel(_ref) {
@@ -7376,7 +7404,8 @@ function TypographyPanel(_ref) {
   const hasFontWeights = useSetting('typography.fontWeight', name)[0] && supports.includes('fontWeight');
   const hasLineHeightEnabled = useHasLineHeightControl(name);
   const hasAppearanceControl = useHasAppearanceControl(name);
-  const hasLetterSpacingControl = useHasLetterSpacingControl(name);
+  const hasLetterSpacingControl = useHasLetterSpacingControl(name, element);
+  const hasTextTransformControl = useHasTextTransformControl(name, element);
   /* Disable font size controls when the option to style all headings is selected. */
 
   let hasFontSizeEnabled = supports.includes('fontSize');
@@ -7391,6 +7420,7 @@ function TypographyPanel(_ref) {
   const [fontWeight, setFontWeight] = useStyle(prefix + 'typography.fontWeight', name);
   const [lineHeight, setLineHeight] = useStyle(prefix + 'typography.lineHeight', name);
   const [letterSpacing, setLetterSpacing] = useStyle(prefix + 'typography.letterSpacing', name);
+  const [textTransform, setTextTransform] = useStyle(prefix + 'typography.textTransform', name);
   const [backgroundColor] = useStyle(prefix + 'color.background', name);
   const [gradientValue] = useStyle(prefix + 'color.gradient', name);
   const [color] = useStyle(prefix + 'color.text', name);
@@ -7495,7 +7525,16 @@ function TypographyPanel(_ref) {
     onChange: setLetterSpacing,
     size: "__unstable-large",
     __unstableInputWidth: "auto"
-  })));
+  }), hasTextTransformControl && (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-site-typography-panel__full-width-control"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalTextTransformControl, {
+    value: textTransform,
+    onChange: setTextTransform,
+    showNone: true,
+    isBlock: true,
+    size: "__unstable-large",
+    __nextHasNoMarginBottom: true
+  }))));
 }
 
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/context-menu.js
@@ -7927,7 +7966,7 @@ const getNodesWithStyles = (tree, blockSelectors) => {
     return nodes;
   }
 
-  const pickStyleKeys = treeToPickFrom => (0,external_lodash_namespaceObject.pickBy)(treeToPickFrom, (value, key) => ['border', 'color', 'spacing', 'typography', 'filter'].includes(key)); // Top-level.
+  const pickStyleKeys = treeToPickFrom => (0,external_lodash_namespaceObject.pickBy)(treeToPickFrom, (value, key) => ['border', 'color', 'spacing', 'typography', 'filter', 'outline'].includes(key)); // Top-level.
 
 
   const styles = pickStyleKeys(tree.styles);
@@ -8092,12 +8131,12 @@ const toStyles = function (tree, blockSelectors, hasBlockGapSupport, hasFallback
   }
 
   if (useRootPaddingAlign) {
-    ruleset += `padding-right: 0; padding-left: 0; padding-top: var(--wp--style--root--padding-top); padding-bottom: var(--wp--style--root--padding-bottom) } 
-			.has-global-padding { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); } 
-			.has-global-padding :where(.has-global-padding) { padding-right: 0; padding-left: 0; } 
-			.has-global-padding > .alignfull { margin-right: calc(var(--wp--style--root--padding-right) * -1); margin-left: calc(var(--wp--style--root--padding-left) * -1); } 
-			.has-global-padding :where(.has-global-padding) > .alignfull { margin-right: 0; margin-left: 0; } 
-			.has-global-padding > .alignfull:where(:not(.has-global-padding)) > :where([class*="wp-block-"]:not(.alignfull):not([class*="__"]),p,h1,h2,h3,h4,h5,h6,ul,ol) { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); } 
+    ruleset += `padding-right: 0; padding-left: 0; padding-top: var(--wp--style--root--padding-top); padding-bottom: var(--wp--style--root--padding-bottom) }
+			.has-global-padding { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); }
+			.has-global-padding :where(.has-global-padding) { padding-right: 0; padding-left: 0; }
+			.has-global-padding > .alignfull { margin-right: calc(var(--wp--style--root--padding-right) * -1); margin-left: calc(var(--wp--style--root--padding-left) * -1); }
+			.has-global-padding :where(.has-global-padding) > .alignfull { margin-right: 0; margin-left: 0; }
+			.has-global-padding > .alignfull:where(:not(.has-global-padding)) > :where([class*="wp-block-"]:not(.alignfull):not([class*="__"]),p,h1,h2,h3,h4,h5,h6,ul,ol) { padding-right: var(--wp--style--root--padding-right); padding-left: var(--wp--style--root--padding-left); }
 			.has-global-padding :where(.has-global-padding) > .alignfull:where(:not(.has-global-padding)) > :where([class*="wp-block-"]:not(.alignfull):not([class*="__"]),p,h1,h2,h3,h4,h5,h6,ul,ol) { padding-right: 0; padding-left: 0;`;
   }
 
@@ -10288,9 +10327,7 @@ function GlobalStylesSidebar() {
     icon: library_styles,
     closeLabel: (0,external_wp_i18n_namespaceObject.__)('Close global styles sidebar'),
     panelClassName: "edit-site-global-styles-sidebar__panel",
-    header: (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexBlock, null, (0,external_wp_element_namespaceObject.createElement)("strong", null, (0,external_wp_i18n_namespaceObject.__)('Styles')), (0,external_wp_element_namespaceObject.createElement)("span", {
-      className: "edit-site-global-styles-sidebar__beta"
-    }, (0,external_wp_i18n_namespaceObject.__)('Beta'))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropdownMenu, {
+    header: (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexBlock, null, (0,external_wp_element_namespaceObject.createElement)("strong", null, (0,external_wp_i18n_namespaceObject.__)('Styles'))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropdownMenu, {
       icon: more_vertical,
       label: (0,external_wp_i18n_namespaceObject.__)('More Global Styles Actions'),
       controls: [{
@@ -13458,6 +13495,28 @@ const media = (0,external_wp_element_namespaceObject.createElement)(external_wp_
 }));
 /* harmony default export */ const library_media = (media);
 
+;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/add-new-template/template-actions-loading-screen.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+function TemplateActionsLoadingScreen() {
+  const baseCssClass = 'edit-site-template-actions-loading-screen-modal';
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
+    isFullScreen: true,
+    isDismissible: false,
+    shouldCloseOnClickOutside: false,
+    shouldCloseOnEsc: false,
+    onRequestClose: () => {},
+    __experimentalHideHeader: true,
+    className: baseCssClass
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: `${baseCssClass}__content`
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null)));
+}
+
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/add-new-template/utils.js
 /**
  * External dependencies
@@ -13679,20 +13738,10 @@ const usePostTypeMenuItems = onClickMenuItem => {
               };
             },
             getSpecificTemplate: suggestion => {
-              let title = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: Represents the title of a user's custom template in the Site Editor, where %1$s is the singular name of a post type and %2$s is the name of the post, e.g. "Page: Hello".
-              (0,external_wp_i18n_namespaceObject.__)('%1$s: %2$s'), labels.singular_name, suggestion.name);
-              const description = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: Represents the description of a user's custom template in the Site Editor, e.g. "Template for Page: Hello"
-              (0,external_wp_i18n_namespaceObject.__)('Template for %1$s'), title);
-
-              if (_needsUniqueIdentifier) {
-                title = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: Represents the title of a user's custom template in the Site Editor, where %1$s is the template title and %2$s is the slug of the post type, e.g. "Project: Hello (project_type)"
-                (0,external_wp_i18n_namespaceObject.__)('%1$s (%2$s)'), title, slug);
-              }
-
+              const templateSlug = `${templatePrefixes[slug]}-${suggestion.slug}`;
               return {
-                title,
-                description,
-                slug: `${templatePrefixes[slug]}-${suggestion.slug}`,
+                title: templateSlug,
+                slug: templateSlug,
                 templatePrefix: templatePrefixes[slug]
               };
             }
@@ -13838,20 +13887,10 @@ const useTaxonomiesMenuItems = onClickMenuItem => {
               };
             },
             getSpecificTemplate: suggestion => {
-              let title = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: Represents the title of a user's custom template in the Site Editor, where %1$s is the singular name of a taxonomy and %2$s is the name of the term, e.g. "Category: shoes".
-              (0,external_wp_i18n_namespaceObject.__)('%1$s: %2$s'), labels.singular_name, suggestion.name);
-              const description = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: Represents the description of a user's custom template in the Site Editor, e.g. "Template for Category: shoes"
-              (0,external_wp_i18n_namespaceObject.__)('Template for %1$s'), title);
-
-              if (_needsUniqueIdentifier) {
-                title = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: Represents the title of a user's custom template in the Site Editor, where %1$s is the template title and %2$s is the slug of the taxonomy, e.g. "Category: shoes (product_tag)"
-                (0,external_wp_i18n_namespaceObject.__)('%1$s (%2$s)'), title, slug);
-              }
-
+              const templateSlug = `${templatePrefixes[slug]}-${suggestion.slug}`;
               return {
-                title,
-                description,
-                slug: `${templatePrefixes[slug]}-${suggestion.slug}`,
+                title: templateSlug,
+                slug: templateSlug,
                 templatePrefix: templatePrefixes[slug]
               };
             }
@@ -13891,26 +13930,6 @@ const useTaxonomiesMenuItems = onClickMenuItem => {
   }), [menuItems]);
   return taxonomiesMenuItems;
 };
-
-function useAuthorNeedsUniqueIndentifier() {
-  const authors = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_coreData_namespaceObject.store).getUsers({
-    who: 'authors',
-    per_page: -1
-  }), []);
-  const authorsCountByName = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return (authors || []).reduce((authorsCount, _ref14) => {
-      let {
-        name
-      } = _ref14;
-      authorsCount[name] = (authorsCount[name] || 0) + 1;
-      return authorsCount;
-    }, {});
-  }, [authors]);
-  return (0,external_wp_element_namespaceObject.useCallback)(name => {
-    return authorsCountByName[name] > 1;
-  }, [authorsCountByName]);
-}
-
 const USE_AUTHOR_MENU_ITEM_TEMPLATE_PREFIX = {
   user: 'author'
 };
@@ -13925,11 +13944,10 @@ function useAuthorMenuItem(onClickMenuItem) {
   const existingTemplates = useExistingTemplates();
   const defaultTemplateTypes = useDefaultTemplateTypes();
   const authorInfo = useEntitiesInfo('root', USE_AUTHOR_MENU_ITEM_TEMPLATE_PREFIX, USE_AUTHOR_MENU_ITEM_QUERY_PARAMETERS);
-  const authorNeedsUniqueId = useAuthorNeedsUniqueIndentifier();
-  let authorMenuItem = defaultTemplateTypes === null || defaultTemplateTypes === void 0 ? void 0 : defaultTemplateTypes.find(_ref15 => {
+  let authorMenuItem = defaultTemplateTypes === null || defaultTemplateTypes === void 0 ? void 0 : defaultTemplateTypes.find(_ref14 => {
     let {
       slug
-    } = _ref15;
+    } = _ref14;
     return slug === 'author';
   });
 
@@ -13941,10 +13959,10 @@ function useAuthorMenuItem(onClickMenuItem) {
     };
   }
 
-  const hasGeneralTemplate = !!(existingTemplates !== null && existingTemplates !== void 0 && existingTemplates.find(_ref16 => {
+  const hasGeneralTemplate = !!(existingTemplates !== null && existingTemplates !== void 0 && existingTemplates.find(_ref15 => {
     let {
       slug
-    } = _ref16;
+    } = _ref15;
     return slug === 'author';
   }));
 
@@ -13958,10 +13976,10 @@ function useAuthorMenuItem(onClickMenuItem) {
         type: 'root',
         slug: 'user',
         config: {
-          queryArgs: _ref17 => {
+          queryArgs: _ref16 => {
             let {
               search
-            } = _ref17;
+            } = _ref16;
             return {
               _fields: 'id,name,slug,link',
               orderBy: search ? 'name' : 'registered_date',
@@ -13970,16 +13988,10 @@ function useAuthorMenuItem(onClickMenuItem) {
             };
           },
           getSpecificTemplate: suggestion => {
-            const needsUniqueId = authorNeedsUniqueId(suggestion.name);
-            const title = needsUniqueId ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %1$s: Represents the name of an author e.g: "Jorge", %2$s: Represents the slug of an author e.g: "author-jorge-slug".
-            (0,external_wp_i18n_namespaceObject.__)('Author: %1$s (%2$s)'), suggestion.name, suggestion.slug) : (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Represents the name of an author e.g: "Jorge".
-            (0,external_wp_i18n_namespaceObject.__)('Author: %s'), suggestion.name);
-            const description = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Represents the name of an author e.g: "Jorge".
-            (0,external_wp_i18n_namespaceObject.__)('Template for Author: %s'), suggestion.name);
+            const templateSlug = `author-${suggestion.slug}`;
             return {
-              title,
-              description,
-              slug: `author-${suggestion.slug}`,
+              title: templateSlug,
+              slug: templateSlug,
               templatePrefix: 'author'
             };
           }
@@ -14018,8 +14030,8 @@ function useAuthorMenuItem(onClickMenuItem) {
 const useExistingTemplateSlugs = templatePrefixes => {
   const existingTemplates = useExistingTemplates();
   const existingSlugs = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return Object.entries(templatePrefixes || {}).reduce((accumulator, _ref18) => {
-      let [slug, prefix] = _ref18;
+    return Object.entries(templatePrefixes || {}).reduce((accumulator, _ref17) => {
+      let [slug, prefix] = _ref17;
       const slugsWithTemplates = (existingTemplates || []).reduce((_accumulator, existingTemplate) => {
         const _prefix = `${prefix}-`;
 
@@ -14054,8 +14066,8 @@ const useTemplatesToExclude = function (entityName, templatePrefixes) {
   let additionalQueryParameters = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   const slugsToExcludePerEntity = useExistingTemplateSlugs(templatePrefixes);
   const recordsToExcludePerEntity = (0,external_wp_data_namespaceObject.useSelect)(select => {
-    return Object.entries(slugsToExcludePerEntity || {}).reduce((accumulator, _ref19) => {
-      let [slug, slugsWithTemplates] = _ref19;
+    return Object.entries(slugsToExcludePerEntity || {}).reduce((accumulator, _ref18) => {
+      let [slug, slugsWithTemplates] = _ref18;
       const entitiesWithTemplates = select(external_wp_coreData_namespaceObject.store).getEntityRecords(entityName, slug, {
         _fields: 'id',
         context: 'view',
@@ -14096,10 +14108,10 @@ const useEntitiesInfo = function (entityName, templatePrefixes) {
     return Object.keys(templatePrefixes || {}).reduce((accumulator, slug) => {
       var _recordsToExcludePerE, _select$getEntityReco;
 
-      const existingEntitiesIds = (recordsToExcludePerEntity === null || recordsToExcludePerEntity === void 0 ? void 0 : (_recordsToExcludePerE = recordsToExcludePerEntity[slug]) === null || _recordsToExcludePerE === void 0 ? void 0 : _recordsToExcludePerE.map(_ref20 => {
+      const existingEntitiesIds = (recordsToExcludePerEntity === null || recordsToExcludePerEntity === void 0 ? void 0 : (_recordsToExcludePerE = recordsToExcludePerEntity[slug]) === null || _recordsToExcludePerE === void 0 ? void 0 : _recordsToExcludePerE.map(_ref19 => {
         let {
           id
-        } = _ref20;
+        } = _ref19;
         return id;
       })) || [];
       accumulator[slug] = {
@@ -14133,6 +14145,7 @@ const useEntitiesInfo = function (entityName, templatePrefixes) {
 /**
  * Internal dependencies
  */
+
 
 
 const EMPTY_ARRAY = [];
@@ -14253,7 +14266,8 @@ function AddCustomTemplateModal(_ref3) {
   let {
     onClose,
     onSelect,
-    entityForSuggestions
+    entityForSuggestions,
+    isCreatingTemplate
   } = _ref3;
   const [showSearchEntities, setShowSearchEntities] = (0,external_wp_element_namespaceObject.useState)(entityForSuggestions.hasGeneralTemplate);
   const baseCssClass = 'edit-site-custom-template-modal';
@@ -14263,7 +14277,7 @@ function AddCustomTemplateModal(_ref3) {
     className: baseCssClass,
     closeLabel: (0,external_wp_i18n_namespaceObject.__)('Close'),
     onRequestClose: onClose
-  }, !showSearchEntities && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Select whether to create a single template for all items or a specific one.')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
+  }, isCreatingTemplate && (0,external_wp_element_namespaceObject.createElement)(TemplateActionsLoadingScreen, null), !showSearchEntities && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Select whether to create a single template for all items or a specific one.')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
     className: `${baseCssClass}__contents`,
     gap: "4",
     align: "initial"
@@ -14324,11 +14338,17 @@ function AddCustomTemplateModal(_ref3) {
 
 
 
+/**
+ * Internal dependencies
+ */
+
+
 
 function AddCustomGenericTemplateModal(_ref) {
   let {
     onClose,
-    createTemplate
+    createTemplate,
+    isCreatingTemplate
   } = _ref;
   const [title, setTitle] = (0,external_wp_element_namespaceObject.useState)('');
 
@@ -14344,10 +14364,15 @@ function AddCustomGenericTemplateModal(_ref) {
     }
 
     setIsBusy(true);
-    createTemplate({
-      slug: 'wp-custom-template-' + (0,external_lodash_namespaceObject.kebabCase)(title || defaultTitle),
-      title: title || defaultTitle
-    }, false);
+
+    try {
+      await createTemplate({
+        slug: 'wp-custom-template-' + (0,external_lodash_namespaceObject.kebabCase)(title || defaultTitle),
+        title: title || defaultTitle
+      }, false);
+    } finally {
+      setIsBusy(false);
+    }
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
@@ -14357,7 +14382,7 @@ function AddCustomGenericTemplateModal(_ref) {
       onClose();
     },
     overlayClassName: "edit-site-custom-generic-template__modal"
-  }, (0,external_wp_element_namespaceObject.createElement)("form", {
+  }, isCreatingTemplate && (0,external_wp_element_namespaceObject.createElement)(TemplateActionsLoadingScreen, null), (0,external_wp_element_namespaceObject.createElement)("form", {
     onSubmit: onCreateTemplate
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
     align: "flex-start",
@@ -14412,6 +14437,7 @@ function AddCustomGenericTemplateModal(_ref) {
 
 
 
+
 const DEFAULT_TEMPLATE_SLUGS = ['front-page', 'single', 'page', 'index', 'archive', 'author', 'category', 'date', 'tag', 'taxonomy', 'search', '404'];
 const TEMPLATE_ICONS = {
   'front-page': library_home,
@@ -14435,6 +14461,7 @@ function NewTemplate(_ref) {
   const [showCustomTemplateModal, setShowCustomTemplateModal] = (0,external_wp_element_namespaceObject.useState)(false);
   const [showCustomGenericTemplateModal, setShowCustomGenericTemplateModal] = (0,external_wp_element_namespaceObject.useState)(false);
   const [entityForSuggestions, setEntityForSuggestions] = (0,external_wp_element_namespaceObject.useState)({});
+  const [isCreatingTemplate, setIsCreatingTemplate] = (0,external_wp_element_namespaceObject.useState)(false);
   const history = useHistory();
   const {
     saveEntityRecord
@@ -14449,6 +14476,12 @@ function NewTemplate(_ref) {
 
   async function createTemplate(template) {
     let isWPSuggestion = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+    if (isCreatingTemplate) {
+      return;
+    }
+
+    setIsCreatingTemplate(true);
 
     try {
       const {
@@ -14467,7 +14500,7 @@ function NewTemplate(_ref) {
             template_prefix: templatePrefix
           })
         });
-        templateContent = fallbackTemplate.content;
+        templateContent = fallbackTemplate.content.raw;
       }
 
       const newTemplate = await saveEntityRecord('postType', 'wp_template', {
@@ -14498,6 +14531,8 @@ function NewTemplate(_ref) {
       createErrorNotice(errorMessage, {
         type: 'snackbar'
       });
+    } finally {
+      setIsCreatingTemplate(false);
     }
   }
 
@@ -14518,7 +14553,7 @@ function NewTemplate(_ref) {
     toggleProps: {
       variant: 'primary'
     }
-  }, () => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.NavigableMenu, {
+  }, () => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, isCreatingTemplate && (0,external_wp_element_namespaceObject.createElement)(TemplateActionsLoadingScreen, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.NavigableMenu, {
     className: "edit-site-new-template-dropdown__popover"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, {
     label: postType.labels.add_new_item
@@ -14543,13 +14578,15 @@ function NewTemplate(_ref) {
     info: (0,external_wp_i18n_namespaceObject.__)('Custom templates can be applied to any post or page.'),
     key: "custom-template",
     onClick: () => setShowCustomGenericTemplateModal(true)
-  }, (0,external_wp_i18n_namespaceObject.__)('Custom template'))))), showCustomTemplateModal && (0,external_wp_element_namespaceObject.createElement)(add_custom_template_modal, {
+  }, (0,external_wp_i18n_namespaceObject.__)('Custom template')))))), showCustomTemplateModal && (0,external_wp_element_namespaceObject.createElement)(add_custom_template_modal, {
     onClose: () => setShowCustomTemplateModal(false),
     onSelect: createTemplate,
-    entityForSuggestions: entityForSuggestions
+    entityForSuggestions: entityForSuggestions,
+    isCreatingTemplate: isCreatingTemplate
   }), showCustomGenericTemplateModal && (0,external_wp_element_namespaceObject.createElement)(add_custom_generic_template_modal, {
     onClose: () => setShowCustomGenericTemplateModal(false),
-    createTemplate: createTemplate
+    createTemplate: createTemplate,
+    isCreatingTemplate: isCreatingTemplate
   }));
 }
 

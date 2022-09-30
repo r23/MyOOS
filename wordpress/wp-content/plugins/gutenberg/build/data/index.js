@@ -1255,6 +1255,8 @@ var equivalent_key_map_default = /*#__PURE__*/__webpack_require__.n(equivalent_k
 ;// CONCATENATED MODULE: external ["wp","reduxRoutine"]
 const external_wp_reduxRoutine_namespaceObject = window["wp"]["reduxRoutine"];
 var external_wp_reduxRoutine_default = /*#__PURE__*/__webpack_require__.n(external_wp_reduxRoutine_namespaceObject);
+;// CONCATENATED MODULE: external ["wp","compose"]
+const external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: ./packages/data/build-module/factory.js
 /**
  * Creates a selector function that takes additional curried argument with the
@@ -2156,6 +2158,7 @@ function invalidateResolutionForStoreSelector(selectorName) {
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -2390,7 +2393,7 @@ function instantiateReduxStore(key, options, registry, thunkArgs) {
   });
   return createStore(enhancedReducer, {
     root: initialState
-  }, (0,external_lodash_namespaceObject.flowRight)(enhancers));
+  }, (0,external_wp_compose_namespaceObject.compose)(enhancers));
 }
 /**
  * Maps selectors to a store.
@@ -3412,8 +3415,6 @@ function _extends() {
 }
 ;// CONCATENATED MODULE: external ["wp","element"]
 const external_wp_element_namespaceObject = window["wp"]["element"];
-;// CONCATENATED MODULE: external ["wp","compose"]
-const external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: external "React"
 const external_React_namespaceObject = window["React"];
 ;// CONCATENATED MODULE: ./node_modules/use-memo-one/dist/use-memo-one.esm.js
@@ -3780,6 +3781,7 @@ function useSelect(mapSelect, deps) {
 
   const depsChangedFlag = (0,external_wp_element_namespaceObject.useMemo)(() => ({}), deps || []);
   let mapOutput;
+  let selectorRan = false;
 
   if (_mapSelect) {
     mapOutput = latestMapOutput.current;
@@ -3791,6 +3793,7 @@ function useSelect(mapSelect, deps) {
     if (hasReplacedRegistry || hasReplacedMapSelect || hasLeftAsyncMode || lastMapSelectFailed) {
       try {
         mapOutput = wrapSelect(_mapSelect);
+        selectorRan = true;
       } catch (error) {
         let errorMessage = `An error occurred while running 'mapSelect': ${error.message}`;
 
@@ -3814,7 +3817,11 @@ function useSelect(mapSelect, deps) {
     latestRegistry.current = registry;
     latestMapSelect.current = _mapSelect;
     latestIsAsync.current = isAsync;
-    latestMapOutput.current = mapOutput;
+
+    if (selectorRan) {
+      latestMapOutput.current = mapOutput;
+    }
+
     latestMapOutputError.current = undefined;
   }); // React can sometimes clear the `useMemo` cache.
   // We use the cache-stable `useMemoOne` to avoid
@@ -3914,10 +3921,12 @@ function useSuspenseSelect(mapSelect, deps) {
   const hasReplacedRegistry = latestRegistry.current !== registry;
   const hasReplacedMapSelect = latestMapSelect.current !== _mapSelect;
   const hasLeftAsyncMode = latestIsAsync.current && !isAsync;
+  let selectorRan = false;
 
   if (hasReplacedRegistry || hasReplacedMapSelect || hasLeftAsyncMode) {
     try {
       mapOutput = wrapSelect(_mapSelect);
+      selectorRan = true;
     } catch (error) {
       mapOutputError = error;
     }
@@ -3927,7 +3936,11 @@ function useSuspenseSelect(mapSelect, deps) {
     latestRegistry.current = registry;
     latestMapSelect.current = _mapSelect;
     latestIsAsync.current = isAsync;
-    latestMapOutput.current = mapOutput;
+
+    if (selectorRan) {
+      latestMapOutput.current = mapOutput;
+    }
+
     latestMapOutputError.current = mapOutputError;
   }); // React can sometimes clear the `useMemo` cache.
   // We use the cache-stable `useMemoOne` to avoid

@@ -3808,14 +3808,20 @@ function VisualEditor(_ref2) {
   const {
     themeHasDisabledLayoutStyles,
     themeSupportsLayout,
-    assets
+    assets,
+    useRootPaddingAwareAlignments,
+    isFocusMode
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _settings$__experimen;
+
     const _settings = select(external_wp_blockEditor_namespaceObject.store).getSettings();
 
     return {
       themeHasDisabledLayoutStyles: _settings.disableLayoutStyles,
       themeSupportsLayout: _settings.supportsLayout,
-      assets: _settings.__unstableResolvedAssets
+      assets: _settings.__unstableResolvedAssets,
+      useRootPaddingAwareAlignments: (_settings$__experimen = _settings.__experimentalFeatures) === null || _settings$__experimen === void 0 ? void 0 : _settings$__experimen.useRootPaddingAwareAlignments,
+      isFocusMode: _settings.focusMode
     };
   }, []);
   const {
@@ -3878,7 +3884,11 @@ function VisualEditor(_ref2) {
       type: 'default'
     };
   }, [isTemplateMode, themeSupportsLayout, defaultLayout]);
-  const blockListLayoutClass = themeSupportsLayout ? 'is-layout-constrained' : 'is-layout-flow';
+  const blockListLayoutClass = classnames_default()({
+    'is-layout-constrained': themeSupportsLayout,
+    'is-layout-flow': !themeSupportsLayout,
+    'has-global-padding': useRootPaddingAwareAlignments
+  });
   const titleRef = (0,external_wp_element_namespaceObject.useRef)();
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     var _titleRef$current;
@@ -3924,7 +3934,9 @@ function VisualEditor(_ref2) {
     layout: layout,
     layoutDefinitions: defaultLayout === null || defaultLayout === void 0 ? void 0 : defaultLayout.definitions
   }), !isTemplateMode && (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "edit-post-visual-editor__post-title-wrapper",
+    className: classnames_default()('edit-post-visual-editor__post-title-wrapper', {
+      'is-focus-mode': isFocusMode
+    }),
     contentEditable: false
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostTitle, {
     ref: titleRef
@@ -4344,7 +4356,7 @@ function KeyboardShortcutHelpModal(_ref4) {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
     className: "edit-post-keyboard-shortcut-help-modal",
     title: (0,external_wp_i18n_namespaceObject.__)('Keyboard shortcuts'),
-    closeLabel: (0,external_wp_i18n_namespaceObject.__)('Close'),
+    closeButtonLabel: (0,external_wp_i18n_namespaceObject.__)('Close'),
     onRequestClose: toggleModal
   }, (0,external_wp_element_namespaceObject.createElement)(ShortcutSection, {
     className: "edit-post-keyboard-shortcut-help-modal__main-shortcuts",
@@ -6553,24 +6565,27 @@ const SettingsHeader = _ref => {
 
 
 function PostVisibility() {
-  const rowRef = (0,external_wp_element_namespaceObject.useRef)();
+  // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null); // Memoize popoverProps to avoid returning a new object every time.
+
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    // Anchor the popover to the middle of the entire row so that it doesn't
+    // move around when the label changes.
+    anchor: popoverAnchor
+  }), [popoverAnchor]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostVisibilityCheck, {
     render: _ref => {
       let {
         canEdit
       } = _ref;
       return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, {
-        ref: rowRef,
+        ref: setPopoverAnchor,
         className: "edit-post-post-visibility"
       }, (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_i18n_namespaceObject.__)('Visibility')), !canEdit && (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostVisibilityLabel, null)), canEdit && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
         position: "bottom left",
         contentClassName: "edit-post-post-visibility__dialog",
-        popoverProps: {
-          // Anchor the popover to the middle of the
-          // entire row so that it doesn't move around
-          // when the label changes.
-          anchorRef: rowRef.current
-        },
+        popoverProps: popoverProps,
         focusOnMount: true,
         renderToggle: _ref2 => {
           let {
@@ -6636,14 +6651,18 @@ function PostTrash() {
 
 
 function PostSchedule() {
-  const anchorRef = (0,external_wp_element_namespaceObject.useRef)();
+  // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null); // Memoize popoverProps to avoid returning a new object every time.
+
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    anchor: popoverAnchor
+  }), [popoverAnchor]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostScheduleCheck, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, {
     className: "edit-post-post-schedule",
-    ref: anchorRef
+    ref: setPopoverAnchor
   }, (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_i18n_namespaceObject.__)('Publish')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
-    popoverProps: {
-      anchorRef
-    },
+    popoverProps: popoverProps,
     position: "bottom left",
     contentClassName: "edit-post-post-schedule__dialog",
     focusOnMount: true,
@@ -7085,7 +7104,13 @@ function PostTemplateForm(_ref) {
 
 
 function PostTemplate() {
-  const anchorRef = (0,external_wp_element_namespaceObject.useRef)();
+  // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null); // Memoize popoverProps to avoid returning a new object every time.
+
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    anchor: popoverAnchor
+  }), [popoverAnchor]);
   const isVisible = (0,external_wp_data_namespaceObject.useSelect)(select => {
     var _select$canUser;
 
@@ -7117,11 +7142,9 @@ function PostTemplate() {
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, {
     className: "edit-post-post-template",
-    ref: anchorRef
+    ref: setPopoverAnchor
   }, (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_i18n_namespaceObject.__)('Template')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
-    popoverProps: {
-      anchorRef
-    },
+    popoverProps: popoverProps,
     position: "bottom left",
     className: "edit-post-post-template__dropdown",
     contentClassName: "edit-post-post-template__dialog",
@@ -7189,14 +7212,18 @@ function PostTemplateToggle(_ref3) {
 
 
 function PostURL() {
-  const anchorRef = (0,external_wp_element_namespaceObject.useRef)();
+  // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null); // Memoize popoverProps to avoid returning a new object every time.
+
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    anchor: popoverAnchor
+  }), [popoverAnchor]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostURLCheck, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, {
     className: "edit-post-post-url",
-    ref: anchorRef
+    ref: setPopoverAnchor
   }, (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_i18n_namespaceObject.__)('URL')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
-    popoverProps: {
-      anchorRef
-    },
+    popoverProps: popoverProps,
     position: "bottom left",
     className: "edit-post-post-url__dropdown",
     contentClassName: "edit-post-post-url__dialog",

@@ -145,14 +145,26 @@ function getCSSVarFromStyleValue(styleValue) {
 /**
  * Capitalizes the first letter in a string.
  *
- * @param {string} str The string whose first letter the function will capitalize.
+ * @param string The string whose first letter the function will capitalize.
  *
- * @return string A CSS var value.
+ * @return String with the first letter capitalized.
  */
 
-function upperFirst(_ref) {
-  let [firstLetter, ...rest] = _ref;
+function upperFirst(string) {
+  const [firstLetter, ...rest] = string;
   return firstLetter.toUpperCase() + rest.join('');
+}
+/**
+ * Converts an array of strings into a camelCase string.
+ *
+ * @param strings The strings to join into a camelCase string.
+ *
+ * @return camelCase string.
+ */
+
+function camelCaseJoin(strings) {
+  const [firstItem, ...rest] = strings;
+  return firstItem.toLowerCase() + rest.map(upperFirst).join('');
 }
 
 ;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/border/index.js
@@ -160,13 +172,38 @@ function upperFirst(_ref) {
  * Internal dependencies
  */
 
+/**
+ * Creates a function for generating CSS rules when the style path is the same as the camelCase CSS property used in React.
+ *
+ * @param path An array of strings representing the path to the style value in the style object.
+ *
+ * @return A function that generates CSS rules.
+ */
+
+function createBorderGenerateFunction(path) {
+  return (style, options) => generateRule(style, options, path, camelCaseJoin(path));
+}
+/**
+ * Creates a function for generating border-{top,bottom,left,right}-{color,style,width} CSS rules.
+ *
+ * @param edge The edge to create CSS rules for.
+ *
+ * @return A function that generates CSS rules.
+ */
+
+
+function createBorderEdgeGenerateFunction(edge) {
+  return (style, options) => {
+    return ['color', 'style', 'width'].flatMap(key => {
+      const path = ['border', edge, key];
+      return createBorderGenerateFunction(path)(style, options);
+    });
+  };
+}
+
 const color = {
   name: 'color',
-  generate: function (style, options) {
-    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['border', 'color'];
-    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'borderColor';
-    return generateRule(style, options, path, ruleKey);
-  }
+  generate: createBorderGenerateFunction(['border', 'color'])
 };
 const radius = {
   name: 'radius',
@@ -179,67 +216,29 @@ const radius = {
 };
 const borderStyle = {
   name: 'style',
-  generate: function (style, options) {
-    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['border', 'style'];
-    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'borderStyle';
-    return generateRule(style, options, path, ruleKey);
-  }
+  generate: createBorderGenerateFunction(['border', 'style'])
 };
 const width = {
   name: 'width',
-  generate: function (style, options) {
-    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['border', 'width'];
-    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'borderWidth';
-    return generateRule(style, options, path, ruleKey);
-  }
+  generate: createBorderGenerateFunction(['border', 'width'])
 };
-const borderDefinitionsWithIndividualStyles = [color, borderStyle, width];
-/**
- * Returns a curried generator function with the individual border property ('top' | 'right' | 'bottom' | 'left') baked in.
- *
- * @param  individualProperty Individual border property ('top' | 'right' | 'bottom' | 'left').
- *
- * @return StyleDefinition[ 'generate' ]
- */
-
-const createBorderGenerateFunction = individualProperty => (style, options) => {
-  var _style$border;
-
-  const styleValue = style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border[individualProperty];
-
-  if (!styleValue) {
-    return [];
-  }
-
-  return borderDefinitionsWithIndividualStyles.reduce((acc, borderDefinition) => {
-    const key = borderDefinition.name;
-
-    if (styleValue.hasOwnProperty(key) && typeof borderDefinition.generate === 'function') {
-      const ruleKey = `border${upperFirst(individualProperty)}${upperFirst(key)}`;
-      acc.push(...borderDefinition.generate(style, options, ['border', individualProperty, key], ruleKey));
-    }
-
-    return acc;
-  }, []);
-};
-
 const borderTop = {
   name: 'borderTop',
-  generate: createBorderGenerateFunction('top')
+  generate: createBorderEdgeGenerateFunction('top')
 };
 const borderRight = {
   name: 'borderRight',
-  generate: createBorderGenerateFunction('right')
+  generate: createBorderEdgeGenerateFunction('right')
 };
 const borderBottom = {
   name: 'borderBottom',
-  generate: createBorderGenerateFunction('bottom')
+  generate: createBorderEdgeGenerateFunction('bottom')
 };
 const borderLeft = {
   name: 'borderLeft',
-  generate: createBorderGenerateFunction('left')
+  generate: createBorderEdgeGenerateFunction('left')
 };
-/* harmony default export */ const border = ([...borderDefinitionsWithIndividualStyles, radius, borderTop, borderRight, borderBottom, borderLeft]);
+/* harmony default export */ const border = ([color, borderStyle, width, radius, borderTop, borderRight, borderBottom, borderLeft]);
 
 ;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/color/background.js
 /**
@@ -319,7 +318,7 @@ const offset = {
   name: 'offset',
   generate: function (style, options) {
     let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['outline', 'offset'];
-    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'outlineColor';
+    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'outlineOffset';
     return generateRule(style, options, path, ruleKey);
   }
 };

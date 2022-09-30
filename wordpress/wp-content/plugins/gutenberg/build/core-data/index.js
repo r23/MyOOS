@@ -683,6 +683,8 @@ __webpack_require__.d(resolvers_namespaceObject, {
 const external_wp_data_namespaceObject = window["wp"]["data"];
 ;// CONCATENATED MODULE: external "lodash"
 const external_lodash_namespaceObject = window["lodash"];
+;// CONCATENATED MODULE: external ["wp","compose"]
+const external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
 const external_wp_isShallowEqual_namespaceObject = window["wp"]["isShallowEqual"];
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_namespaceObject);
@@ -2905,6 +2907,7 @@ function getQueryParts(query) {
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -3064,7 +3067,7 @@ function itemIsComplete() {
  * @return {Object} Next state.
  */
 
-const receiveQueries = (0,external_lodash_namespaceObject.flowRight)([// Limit to matching action type so we don't attempt to replace action on
+const receiveQueries = (0,external_wp_compose_namespaceObject.compose)([// Limit to matching action type so we don't attempt to replace action on
 // an unhandled action.
 if_matching_action(action => 'query' in action), // Inject query parts into action for use both in `onSubKey` and reducer.
 replace_action(action => {
@@ -3145,6 +3148,7 @@ const queries = function () {
 /**
  * WordPress dependencies
  */
+
 
 
 
@@ -3352,7 +3356,7 @@ function themeGlobalStyleVariations() {
  */
 
 function entity(entityConfig) {
-  return (0,external_lodash_namespaceObject.flowRight)([// Limit to matching action type so we don't attempt to replace action on
+  return (0,external_wp_compose_namespaceObject.compose)([// Limit to matching action type so we don't attempt to replace action on
   // an unhandled action.
   if_matching_action(action => action.name && action.kind && action.name === entityConfig.name && action.kind === entityConfig.kind), // Inject the entity config into the action.
   replace_action(action => {

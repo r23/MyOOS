@@ -811,6 +811,14 @@ const isKeyboardEvent = (0,external_lodash_namespaceObject.mapValues)(modifiers,
 
       if (event.altKey && character.length === 1) {
         key = String.fromCharCode(event.keyCode).toLowerCase();
+      } // Replace some characters to match the key indicated
+      // by the shortcut on Windows.
+
+
+      if (!_isApple()) {
+        if (event.shiftKey && character.length === 1 && event.code === 'Comma') {
+          key = ',';
+        }
       } // For backwards compatibility.
 
 

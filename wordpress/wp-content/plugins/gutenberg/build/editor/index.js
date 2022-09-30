@@ -6717,6 +6717,7 @@ const unescapeTerms = terms => {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -6865,7 +6866,7 @@ function PageAttributesParent() {
     label: parentPageLabel,
     value: parentPostId,
     options: parentOptions,
-    onFilterValueChange: (0,external_lodash_namespaceObject.debounce)(handleKeydown, 300),
+    onFilterValueChange: (0,external_wp_compose_namespaceObject.debounce)(handleKeydown, 300),
     onChange: handleChange
   });
 }
@@ -6948,10 +6949,6 @@ const AUTHORS_QUERY = {
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/combobox.js
 
-
-/**
- * External dependencies
- */
 
 /**
  * WordPress dependencies
@@ -7064,7 +7061,7 @@ function PostAuthorCombobox() {
     label: (0,external_wp_i18n_namespaceObject.__)('Author'),
     options: authorOptions,
     value: authorId,
-    onFilterValueChange: (0,external_lodash_namespaceObject.debounce)(handleKeydown, 300),
+    onFilterValueChange: (0,external_wp_compose_namespaceObject.debounce)(handleKeydown, 300),
     onChange: handleSelect,
     isLoading: isLoading,
     allowReset: false
@@ -11350,7 +11347,6 @@ function PostTitle(_, forwardedRef) {
     isCleanNewPost,
     title,
     placeholder,
-    isFocusMode,
     hasFixedToolbar
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
@@ -11362,14 +11358,12 @@ function PostTitle(_, forwardedRef) {
     } = select(external_wp_blockEditor_namespaceObject.store);
     const {
       titlePlaceholder,
-      focusMode,
       hasFixedToolbar: _hasFixedToolbar
     } = getSettings();
     return {
       isCleanNewPost: _isCleanNewPost(),
       title: getEditedPostAttribute('title'),
       placeholder: titlePlaceholder,
-      isFocusMode: focusMode,
       hasFixedToolbar: _hasFixedToolbar
     };
   }, []);
@@ -11504,7 +11498,6 @@ function PostTitle(_, forwardedRef) {
 
   const className = classnames_default()('wp-block wp-block-post-title block-editor-block-list__block editor-post-title editor-post-title__input rich-text', {
     'is-selected': isSelected,
-    'is-focus-mode': isFocusMode,
     'has-fixed-toolbar': hasFixedToolbar
   });
 

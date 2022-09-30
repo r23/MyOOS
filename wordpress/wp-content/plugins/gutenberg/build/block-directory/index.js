@@ -1216,10 +1216,10 @@ function AutoBlockUninstaller() {
   return null;
 }
 
-;// CONCATENATED MODULE: external ["wp","components"]
-const external_wp_components_namespaceObject = window["wp"]["components"];
 ;// CONCATENATED MODULE: external ["wp","compose"]
 const external_wp_compose_namespaceObject = window["wp"]["compose"];
+;// CONCATENATED MODULE: external ["wp","components"]
+const external_wp_components_namespaceObject = window["wp"]["components"];
 ;// CONCATENATED MODULE: external ["wp","coreData"]
 const external_wp_coreData_namespaceObject = window["wp"]["coreData"];
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
@@ -1833,10 +1833,6 @@ function DownloadableBlocksPanel(_ref) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
 
@@ -1850,7 +1846,7 @@ function DownloadableBlocksPanel(_ref) {
 
 function InserterMenuDownloadableBlocksPanel() {
   const [debouncedFilterValue, setFilterValue] = (0,external_wp_element_namespaceObject.useState)('');
-  const debouncedSetFilterValue = (0,external_lodash_namespaceObject.debounce)(setFilterValue, 400);
+  const debouncedSetFilterValue = (0,external_wp_compose_namespaceObject.debounce)(setFilterValue, 400);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableInserterMenuExtension, null, _ref => {
     let {
       onSelect,
@@ -2076,7 +2072,8 @@ const ModifiedWarning = _ref2 => {
   } = _ref2;
   const {
     originalName,
-    originalUndelimitedContent
+    originalUndelimitedContent,
+    clientId
   } = props.attributes;
   const {
     replaceBlock
@@ -2089,7 +2086,13 @@ const ModifiedWarning = _ref2 => {
   };
 
   const hasContent = !!originalUndelimitedContent;
-  const hasHTMLBlock = (0,external_wp_blocks_namespaceObject.getBlockType)('core/html');
+  const hasHTMLBlock = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      canInsertBlockType,
+      getBlockRootClientId
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    return canInsertBlockType('core/html', getBlockRootClientId(clientId));
+  }, [clientId]);
   let messageHTML = (0,external_wp_i18n_namespaceObject.sprintf)(
   /* translators: %s: block name */
   (0,external_wp_i18n_namespaceObject.__)('Your site doesn’t include support for the %s block. You can try installing the block or remove it entirely.'), originalBlock.title || originalName);

@@ -4,6 +4,18 @@
 /******/ 	var __webpack_require__ = {};
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/define property getters */
 /******/ 	(() => {
 /******/ 		// define getter functions for harmony exports
@@ -69,6 +81,7 @@ __webpack_require__.d(__webpack_exports__, {
   "toHTMLString": () => (/* reexport */ toHTMLString),
   "toggleFormat": () => (/* reexport */ toggleFormat),
   "unregisterFormatType": () => (/* reexport */ unregisterFormatType),
+  "useAnchor": () => (/* reexport */ useAnchor),
   "useAnchorRef": () => (/* reexport */ useAnchorRef)
 });
 
@@ -3187,10 +3200,14 @@ function unregisterFormatType(name) {
 
 ;// CONCATENATED MODULE: external ["wp","element"]
 const external_wp_element_namespaceObject = window["wp"]["element"];
+;// CONCATENATED MODULE: external ["wp","deprecated"]
+const external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
+var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-anchor-ref.js
 /**
  * WordPress dependencies
  */
+
 
 /**
  * Internal dependencies
@@ -3224,6 +3241,11 @@ function useAnchorRef(_ref) {
     value,
     settings = {}
   } = _ref;
+  external_wp_deprecated_default()('`useAnchorRef` hook', {
+    since: '6.1',
+    version: '6.3',
+    alternative: '`useAnchor` hook'
+  });
   const {
     tagName,
     className,
@@ -3259,6 +3281,90 @@ function useAnchorRef(_ref) {
 
     return element.closest(tagName + (className ? '.' + className : ''));
   }, [activeFormat, value.start, value.end, tagName, className]);
+}
+
+;// CONCATENATED MODULE: ./packages/rich-text/build-module/component/use-anchor.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+/** @typedef {import('../register-format-type').RichTextFormatType} RichTextFormatType */
+
+/** @typedef {import('../create').RichTextValue} RichTextValue */
+
+/**
+ * @typedef {Object} VirtualAnchorElement
+ * @property {Function} getBoundingClientRect A function returning a DOMRect
+ * @property {Document} ownerDocument         The element's ownerDocument
+ */
+
+/**
+ * This hook, to be used in a format type's Edit component, returns the active
+ * element that is formatted, or a virtual element for the selection range if
+ * no format is active. The returned value is meant to be used for positioning
+ * UI, e.g. by passing it to the `Popover` component via the `anchor` prop.
+ *
+ * @param {Object}             $1                        Named parameters.
+ * @param {HTMLElement|null}   $1.editableContentElement The element containing
+ *                                                       the editable content.
+ * @param {RichTextValue}      $1.value                  Value to check for selection.
+ * @param {RichTextFormatType} $1.settings               The format type's settings.
+ * @return {Element|VirtualAnchorElement|undefined|null} The active element or selection range.
+ */
+
+function useAnchor(_ref) {
+  let {
+    editableContentElement,
+    value,
+    settings = {}
+  } = _ref;
+  const {
+    tagName,
+    className,
+    name
+  } = settings;
+  const activeFormat = name ? getActiveFormat(value, name) : undefined;
+  return (0,external_wp_element_namespaceObject.useMemo)(() => {
+    if (!editableContentElement) return;
+    const {
+      ownerDocument: {
+        defaultView
+      }
+    } = editableContentElement;
+    const selection = defaultView.getSelection();
+
+    if (!selection.rangeCount) {
+      return;
+    }
+
+    const range = selection.getRangeAt(0);
+
+    if (!activeFormat) {
+      return {
+        ownerDocument: range.startContainer.ownerDocument,
+
+        getBoundingClientRect() {
+          return range.getBoundingClientRect();
+        }
+
+      };
+    }
+
+    let element = range.startContainer; // If the caret is right before the element, select the next element.
+
+    element = element.nextElementSibling || element;
+
+    while (element.nodeType !== element.ELEMENT_NODE) {
+      element = element.parentNode;
+    }
+
+    return element.closest(tagName + (className ? '.' + className : ''));
+  }, [editableContentElement, activeFormat, value.start, value.end, tagName, className]);
 }
 
 ;// CONCATENATED MODULE: external ["wp","compose"]
@@ -3792,7 +3898,7 @@ function useInputAndSelection(props) {
           } = createRecord();
           record.current.activeFormats = use_input_and_selection_EMPTY_ACTIVE_FORMATS;
           onSelectionChange(offset);
-        } else if (element.contains(focusNode) && element !== focusNode) {
+        } else if (element.contains(focusNode)) {
           const {
             start,
             end: offset = start
@@ -4378,6 +4484,7 @@ function FormatEdit(_ref) {
 }
 
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/index.js
+
 
 
 

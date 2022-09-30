@@ -17871,6 +17871,8 @@ function useDeprecatedProps(_ref) {
 }
 
 function Button(props, ref) {
+  var _children$, _children$$props;
+
   const {
     href,
     target,
@@ -17895,6 +17897,8 @@ function Button(props, ref) {
     ...additionalProps
   } = useDeprecatedProps(props);
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(Button, 'components-button__description');
+  const hasChildren = (children === null || children === void 0 ? void 0 : children[0]) && children[0] !== null && // Tooltip should not considered as a child
+  (children === null || children === void 0 ? void 0 : (_children$ = children[0]) === null || _children$ === void 0 ? void 0 : (_children$$props = _children$.props) === null || _children$$props === void 0 ? void 0 : _children$$props.className) !== 'components-tooltip';
   const classes = classnames_default()('components-button', className, {
     'is-secondary': variant === 'secondary',
     'is-primary': variant === 'primary',
@@ -17904,7 +17908,7 @@ function Button(props, ref) {
     'is-busy': isBusy,
     'is-link': variant === 'link',
     'is-destructive': isDestructive,
-    'has-text': !!icon && !!children,
+    'has-text': !!icon && hasChildren,
     'has-icon': !!icon
   });
   const trulyDisabled = disabled && !isFocusable;
@@ -19056,6 +19060,7 @@ const getReferenceOwnerDocument = _ref => {
   var _resultingReferenceOw;
 
   let {
+    anchor,
     anchorRef,
     anchorRect,
     getAnchorRect,
@@ -19071,7 +19076,9 @@ const getReferenceOwnerDocument = _ref => {
   // See https://floating-ui.com/docs/virtual-elements for more info.
   let resultingReferenceOwnerDoc;
 
-  if (anchorRef !== null && anchorRef !== void 0 && anchorRef.top) {
+  if (anchor) {
+    resultingReferenceOwnerDoc = anchor.ownerDocument;
+  } else if (anchorRef !== null && anchorRef !== void 0 && anchorRef.top) {
     resultingReferenceOwnerDoc = anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.top.ownerDocument;
   } else if (anchorRef !== null && anchorRef !== void 0 && anchorRef.startContainer) {
     resultingReferenceOwnerDoc = anchorRef.startContainer.ownerDocument;
@@ -19094,6 +19101,7 @@ const getReferenceElement = _ref2 => {
   var _referenceElement;
 
   let {
+    anchor,
     anchorRef,
     anchorRect,
     getAnchorRect,
@@ -19101,7 +19109,9 @@ const getReferenceElement = _ref2 => {
   } = _ref2;
   let referenceElement = null;
 
-  if (anchorRef !== null && anchorRef !== void 0 && anchorRef.top) {
+  if (anchor) {
+    referenceElement = anchor;
+  } else if (anchorRef !== null && anchorRef !== void 0 && anchorRef.top) {
     // Create a virtual element for the ref. The expectation is that
     // if anchorRef.top is defined, then anchorRef.bottom is defined too.
     // Seems to be used by the block toolbar, when multiple blocks are selected
@@ -19241,7 +19251,6 @@ const UnforwardedPopover = (props, forwardedRef) => {
   var _frameOffsetRef$curre, _frameOffsetRef$curre2, _frameOffsetRef$curre3, _frameOffsetRef$curre4;
 
   const {
-    range,
     animate = true,
     headerTitle,
     onClose,
@@ -19253,22 +19262,26 @@ const UnforwardedPopover = (props, forwardedRef) => {
     placement: placementProp = 'bottom-start',
     offset: offsetProp = 0,
     focusOnMount = 'firstElement',
-    anchorRef,
-    anchorRect,
-    getAnchorRect,
+    anchor,
     expandOnMobile,
     onFocusOutside,
     __unstableSlotName = SLOT_NAME,
     flip = true,
     resize = true,
     shift = false,
-    __unstableShift,
+    // Deprecated props
     __unstableForcePosition,
+    __unstableShift,
+    anchorRef,
+    anchorRect,
+    getAnchorRect,
+    range,
+    // Rest
     ...contentProps
   } = props;
 
   if (range) {
-    external_wp_deprecated_default()('range prop in Popover component', {
+    external_wp_deprecated_default()('`range` prop in wp.components.Popover', {
       since: '6.1',
       version: '6.3'
     });
@@ -19278,7 +19291,7 @@ const UnforwardedPopover = (props, forwardedRef) => {
   let computedResizeProp = resize;
 
   if (__unstableForcePosition !== undefined) {
-    external_wp_deprecated_default()('__unstableForcePosition prop in Popover component', {
+    external_wp_deprecated_default()('`__unstableForcePosition` prop wp.components.Popover', {
       since: '6.1',
       version: '6.3',
       alternative: '`flip={ false }` and  `resize={ false }`'
@@ -19292,13 +19305,37 @@ const UnforwardedPopover = (props, forwardedRef) => {
   let shouldShift = shift;
 
   if (__unstableShift !== undefined) {
-    external_wp_deprecated_default()('`__unstableShift` prop in Popover component', {
+    external_wp_deprecated_default()('`__unstableShift` prop in wp.components.Popover', {
       since: '6.1',
       version: '6.3',
       alternative: '`shift` prop`'
     }); // Back-compat.
 
     shouldShift = __unstableShift;
+  }
+
+  if (anchorRef !== undefined) {
+    external_wp_deprecated_default()('`anchorRef` prop in wp.components.Popover', {
+      since: '6.1',
+      version: '6.3',
+      alternative: '`anchor` prop'
+    });
+  }
+
+  if (anchorRect !== undefined) {
+    external_wp_deprecated_default()('`anchorRect` prop in wp.components.Popover', {
+      since: '6.1',
+      version: '6.3',
+      alternative: '`anchor` prop'
+    });
+  }
+
+  if (getAnchorRect !== undefined) {
+    external_wp_deprecated_default()('`getAnchorRect` prop in wp.components.Popover', {
+      since: '6.1',
+      version: '6.3',
+      alternative: '`anchor` prop'
+    });
   }
 
   const arrowRef = (0,external_wp_element_namespaceObject.useRef)(null);
@@ -19432,6 +19469,7 @@ const UnforwardedPopover = (props, forwardedRef) => {
 
   (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
     const resultingReferenceOwnerDoc = getReferenceOwnerDocument({
+      anchor,
       anchorRef,
       anchorRect,
       getAnchorRect,
@@ -19439,6 +19477,7 @@ const UnforwardedPopover = (props, forwardedRef) => {
       fallbackDocument: document
     });
     const resultingReferenceElement = getReferenceElement({
+      anchor,
       anchorRef,
       anchorRect,
       getAnchorRect,
@@ -19446,7 +19485,7 @@ const UnforwardedPopover = (props, forwardedRef) => {
     });
     referenceCallbackRef(resultingReferenceElement);
     setReferenceOwnerDocument(resultingReferenceOwnerDoc);
-  }, [anchorRef, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.top, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.bottom, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.startContainer, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.current, anchorRect, getAnchorRect, fallbackReferenceElement, referenceCallbackRef]); // If the reference element is in a different ownerDocument (e.g. iFrame),
+  }, [anchor, anchorRef, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.top, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.bottom, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.startContainer, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.current, anchorRect, getAnchorRect, fallbackReferenceElement, referenceCallbackRef]); // If the reference element is in a different ownerDocument (e.g. iFrame),
   // we need to manually update the floating's position as the reference's owner
   // document scrolls. Also update the frame offset if the view resizes.
 
@@ -19523,7 +19562,7 @@ const UnforwardedPopover = (props, forwardedRef) => {
     }, content);
   }
 
-  if (anchorRef || anchorRect) {
+  if (anchorRef || anchorRect || anchor) {
     return content;
   }
 
@@ -19670,7 +19709,7 @@ const getRegularElement = _ref2 => {
 
 const addPopoverToGrandchildren = _ref3 => {
   let {
-    anchorRef,
+    anchor,
     grandchildren,
     isOver,
     offset,
@@ -19685,7 +19724,7 @@ const addPopoverToGrandchildren = _ref3 => {
     "aria-hidden": "true",
     animate: false,
     offset: offset,
-    anchorRef: anchorRef,
+    anchor: anchor,
     shift: true
   }, text, (0,external_wp_element_namespaceObject.createElement)(build_module_shortcut, {
     className: "components-tooltip__shortcut",
@@ -19728,13 +19767,15 @@ function Tooltip(props) {
 
   const [isMouseDown, setIsMouseDown] = (0,external_wp_element_namespaceObject.useState)(false);
   const [isOver, setIsOver] = (0,external_wp_element_namespaceObject.useState)(false);
-  const delayedSetIsOver = (0,external_wp_compose_namespaceObject.useDebounce)(setIsOver, delay); // Create a reference to the Tooltip's child, to be passed to the Popover
+  const delayedSetIsOver = (0,external_wp_compose_namespaceObject.useDebounce)(setIsOver, delay); // Using internal state (instead of a ref) for the popover anchor to make sure
+  // that the component re-renders when the anchor updates.
+
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null); // Create a reference to the Tooltip's child, to be passed to the Popover
   // so that the Tooltip can be correctly positioned. Also, merge with the
   // existing ref for the first child, so that its ref is preserved.
 
-  const childRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const existingChildRef = (_Children$toArray$ = external_wp_element_namespaceObject.Children.toArray(children)[0]) === null || _Children$toArray$ === void 0 ? void 0 : _Children$toArray$.ref;
-  const mergedChildRefs = (0,external_wp_compose_namespaceObject.useMergeRefs)([childRef, existingChildRef]);
+  const mergedChildRefs = (0,external_wp_compose_namespaceObject.useMergeRefs)([setPopoverAnchor, existingChildRef]);
 
   const createMouseDown = event => {
     // In firefox, the mouse down event is also fired when the select
@@ -19852,7 +19893,7 @@ function Tooltip(props) {
   } = child.props;
   const getElementWithPopover = disabled ? getDisabledElement : getRegularElement;
   const popoverData = {
-    anchorRef: childRef,
+    anchor: popoverAnchor,
     isOver,
     offset: 4,
     position,
@@ -27751,10 +27792,10 @@ function escapeRegExp(string) {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
+
 
 
 /**
@@ -27815,7 +27856,7 @@ function getDefaultUseItems(autocompleter) {
         options,
         isDebounced
       } = autocompleter;
-      const loadOptions = (0,external_lodash_namespaceObject.debounce)(() => {
+      const loadOptions = (0,external_wp_compose_namespaceObject.debounce)(() => {
         const promise = Promise.resolve(typeof options === 'function' ? options(filterValue) : options).then(optionsData => {
           if (promise.canceled) {
             return;
@@ -27885,8 +27926,8 @@ function getAutoCompleterUI(autocompleter) {
       contentRef
     } = _ref;
     const [items] = useItems(filterValue);
-    const anchorRef = (0,external_wp_richText_namespaceObject.useAnchorRef)({
-      ref: contentRef,
+    const popoverAnchor = (0,external_wp_richText_namespaceObject.useAnchor)({
+      editableContentElement: contentRef.current,
       value
     });
     (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
@@ -27904,7 +27945,7 @@ function getAutoCompleterUI(autocompleter) {
       onClose: onReset,
       position: "top right",
       className: "components-autocomplete__popover",
-      anchorRef: anchorRef
+      anchor: popoverAnchor
     }, (0,external_wp_element_namespaceObject.createElement)("div", {
       id: listBoxId,
       role: "listbox",
@@ -28555,7 +28596,7 @@ const LinkedBorderControl =  true ? {
   styles: "flex:1"
 } : 0;
 const BorderBoxControlLinkedButton = __next36pxDefaultSize => {
-  return /*#__PURE__*/emotion_react_browser_esm_css("flex:0;flex-basis:36px;margin-top:", __next36pxDefaultSize ? '6px' : '3px', ";" + ( true ? "" : 0),  true ? "" : 0);
+  return /*#__PURE__*/emotion_react_browser_esm_css("flex:0;flex-basis:24px;line-height:0;margin-top:", __next36pxDefaultSize ? '6px' : '3px', ";" + ( true ? "" : 0),  true ? "" : 0);
 };
 
 const BorderBoxStyleWithFallback = border => {
@@ -28651,10 +28692,9 @@ const component_BorderBoxControlLinkedButton = (props, forwardedRef) => {
   }, (0,external_wp_element_namespaceObject.createElement)(component, {
     className: className
   }, (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({}, buttonProps, {
-    variant: isLinked ? 'primary' : 'secondary',
     isSmall: true,
     icon: isLinked ? library_link : link_off,
-    iconSize: 16,
+    iconSize: 24,
     "aria-label": label,
     ref: forwardedRef
   }))));
@@ -28808,31 +28848,20 @@ function unit_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have
 
 const unit_control_styles_Root = emotion_styled_base_browser_esm("div",  true ? {
   target: "e1bagdl33"
-} : 0)("box-sizing:border-box;position:relative;&&& ", BackdropUI, "{transition:box-shadow 0.1s linear;}" + ( true ? "" : 0));
-
-var unit_control_styles_ref =  true ? {
-  name: "1y65o8",
-  styles: "&::-webkit-outer-spin-button,&::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}"
-} : 0;
-
-const arrowStyles = _ref2 => {
-  let {
-    disableUnits
-  } = _ref2;
-  if (disableUnits) return '';
-  return unit_control_styles_ref;
-}; // TODO: Resolve need to use &&& to increase specificity
+} : 0)("box-sizing:border-box;position:relative;&&& ", BackdropUI, "{transition:box-shadow 0.1s linear;}" + ( true ? "" : 0)); // TODO: Resolve need to use &&& to increase specificity
 // https://github.com/WordPress/gutenberg/issues/18483
-
 
 const ValueInput = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
   target: "e1bagdl32"
-} : 0)("&&&{input{appearance:none;-moz-appearance:textfield;display:block;width:100%;", arrowStyles, ";}}" + ( true ? "" : 0));
+} : 0)( true ? {
+  name: "7k5eyg",
+  styles: "&&&{input{display:block;width:100%;}}"
+} : 0);
 
-const baseUnitLabelStyles = _ref3 => {
+const baseUnitLabelStyles = _ref => {
   let {
     selectSize
-  } = _ref3;
+  } = _ref;
   const sizes = {
     default: /*#__PURE__*/emotion_react_browser_esm_css("box-sizing:border-box;padding:2px 1px;width:20px;color:", COLORS.gray[800], ";font-size:8px;line-height:1;letter-spacing:-0.5px;text-transform:uppercase;text-align-last:center;" + ( true ? "" : 0),  true ? "" : 0),
     large: /*#__PURE__*/emotion_react_browser_esm_css("box-sizing:border-box;min-width:24px;max-width:48px;height:24px;margin-inline-end:", space(2), ";padding:", space(1), ";color:", COLORS.ui.theme, ";font-size:13px;line-height:1;text-align-last:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" + ( true ? "" : 0),  true ? "" : 0)
@@ -28844,10 +28873,10 @@ const UnitLabel = emotion_styled_base_browser_esm("div",  true ? {
   target: "e1bagdl31"
 } : 0)("&&&{pointer-events:none;", baseUnitLabelStyles, ";color:", COLORS.gray[900], ";}" + ( true ? "" : 0));
 
-const unitSelectSizes = _ref4 => {
+const unitSelectSizes = _ref2 => {
   let {
     selectSize = 'default'
-  } = _ref4;
+  } = _ref2;
   const sizes = {
     default: /*#__PURE__*/emotion_react_browser_esm_css("height:100%;border:1px solid transparent;transition:box-shadow 0.1s linear,border 0.1s linear;", rtl({
       borderTopLeftRadius: 0,
@@ -29118,6 +29147,7 @@ var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.0
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -29149,7 +29179,10 @@ function Dropdown(props) {
     onClose,
     onToggle,
     style
-  } = props;
+  } = props; // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+
+  const [fallbackPopoverAnchor, setFallbackPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null);
   const containerRef = (0,external_wp_element_namespaceObject.useRef)();
   const [isOpen, setIsOpen] = useObservableState(false, onToggle);
   (0,external_wp_element_namespaceObject.useEffect)(() => () => {
@@ -29193,10 +29226,12 @@ function Dropdown(props) {
     onToggle: toggle,
     onClose: close
   };
-  const hasAnchorRef = !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.anchorRef) || !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.getAnchorRect) || !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.anchorRect);
+  const popoverPropsHaveAnchor = !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.anchor) || // Note: `anchorRef`, `getAnchorRect` and `anchorRect` are deprecated and
+  // be removed from `Popover` from WordPress 6.3
+  !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.anchorRef) || !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.getAnchorRect) || !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.anchorRect);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: classnames_default()('components-dropdown', className),
-    ref: containerRef // Some UAs focus the closest focusable parent when the toggle is
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([setFallbackPopoverAnchor, containerRef]) // Some UAs focus the closest focusable parent when the toggle is
     // clicked. Making this div focusable ensures such UAs will focus
     // it and `closeIfFocusOutside` can tell if the toggle was clicked.
     ,
@@ -29212,7 +29247,7 @@ function Dropdown(props) {
     // align with the editor header by default.
     ,
     offset: 13,
-    anchorRef: !hasAnchorRef ? containerRef : undefined
+    anchor: !popoverPropsHaveAnchor ? fallbackPopoverAnchor : undefined
   }, popoverProps, {
     className: classnames_default()('components-dropdown__content', popoverProps ? popoverProps.className : undefined, contentClassName)
   }), renderContent(args)));
@@ -29696,13 +29731,12 @@ function useControlledState(currentState) {
 
   /** @type {(nextState: T) => void} */
 
-  const setState = nextState => {
+  const setState = (0,external_wp_element_namespaceObject.useCallback)(nextState => {
     if (!hasCurrentState) {
       setInternalState(nextState);
     }
-  };
+  }, [hasCurrentState]);
   /* eslint-enable jsdoc/no-undefined-types */
-
 
   return [state, setState];
 }
@@ -29710,10 +29744,6 @@ function useControlledState(currentState) {
 /* harmony default export */ const use_controlled_state = (useControlledState);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/range-control/utils.js
-/**
- * External dependencies
- */
-
 /**
  * WordPress dependencies
  */
@@ -29725,7 +29755,6 @@ function useControlledState(currentState) {
 
 
 
-const utils_noop = () => {};
 /**
  * A float supported clamp function for a specific value.
  *
@@ -29735,8 +29764,6 @@ const utils_noop = () => {};
  *
  * @return A (float) number
  */
-
-
 function floatClamp(value, min, max) {
   if (typeof value !== 'number') {
     return null;
@@ -29768,58 +29795,10 @@ function useControlledRangeValue(settings) {
     } else {
       setInternalState(floatClamp(nextValue, min, max));
     }
-  }, [min, max]); // `state` can't be an empty string because we specified a fallback value of
+  }, [min, max, setInternalState]); // `state` can't be an empty string because we specified a fallback value of
   // `null` in `useControlledState`
 
   return [state, setState];
-}
-/**
- * Hook to encapsulate the debouncing "hover" to better handle the showing
- * and hiding of the Tooltip.
- *
- * @param  settings
- * @return Bound properties for use on a React.Node.
- */
-
-function useDebouncedHoverInteraction(settings) {
-  const {
-    onHide = utils_noop,
-    onMouseLeave = utils_noop,
-    onMouseMove = utils_noop,
-    onShow = utils_noop,
-    timeout = 300
-  } = settings;
-  const [show, setShow] = (0,external_wp_element_namespaceObject.useState)(false);
-  const timeoutRef = (0,external_wp_element_namespaceObject.useRef)();
-  const setDebouncedTimeout = (0,external_wp_element_namespaceObject.useCallback)(callback => {
-    window.clearTimeout(timeoutRef.current);
-    timeoutRef.current = window.setTimeout(callback, timeout);
-  }, [timeout]);
-  const handleOnMouseMove = (0,external_wp_element_namespaceObject.useCallback)(event => {
-    onMouseMove(event);
-    setDebouncedTimeout(() => {
-      if (!show) {
-        setShow(true);
-        onShow();
-      }
-    });
-  }, []);
-  const handleOnMouseLeave = (0,external_wp_element_namespaceObject.useCallback)(event => {
-    onMouseLeave(event);
-    setDebouncedTimeout(() => {
-      setShow(false);
-      onHide();
-    });
-  }, []);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    return () => {
-      window.clearTimeout(timeoutRef.current);
-    };
-  });
-  return {
-    onMouseMove: handleOnMouseMove,
-    onMouseLeave: handleOnMouseLeave
-  };
 }
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/range-control/styles/range-control-styles.js
@@ -30073,27 +30052,14 @@ const ActionRightWrapper = emotion_styled_base_browser_esm("span",  true ? {
 
 
 
-
-const input_range_noop = () => {};
-
 function input_range_InputRange(props, ref) {
   const {
     describedBy,
     label,
-    onHideTooltip = input_range_noop,
-    onMouseLeave = input_range_noop,
-    onMouseMove = input_range_noop,
-    onShowTooltip = input_range_noop,
     value,
     ...otherProps
   } = props;
-  const hoverInteractions = useDebouncedHoverInteraction({
-    onHide: onHideTooltip,
-    onMouseLeave,
-    onMouseMove,
-    onShow: onShowTooltip
-  });
-  return (0,external_wp_element_namespaceObject.createElement)(InputRange, extends_extends({}, otherProps, hoverInteractions, {
+  return (0,external_wp_element_namespaceObject.createElement)(InputRange, extends_extends({}, otherProps, {
     "aria-describedby": describedBy,
     "aria-label": label,
     "aria-hidden": false,
@@ -30309,7 +30275,7 @@ function useTooltipPosition(_ref) {
     if (inputRef && inputRef.current) {
       setPosition(tooltipPosition);
     }
-  }, [tooltipPosition]);
+  }, [tooltipPosition, inputRef]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     setTooltipPosition();
   }, [setTooltipPosition]);
@@ -35771,7 +35737,7 @@ function UnforwardedUnitControl(unitControlProps, forwardedRef) {
     if (parsedUnit !== undefined) {
       setUnit(parsedUnit);
     }
-  }, [parsedUnit]); // Stores parsed value for hand-off in state reducer.
+  }, [parsedUnit, setUnit]); // Stores parsed value for hand-off in state reducer.
 
   const refParsedQuantity = (0,external_wp_element_namespaceObject.useRef)(undefined);
   const classes = classnames_default()('components-unit-control', className);
@@ -35914,7 +35880,7 @@ function UnforwardedUnitControl(unitControlProps, forwardedRef) {
     autoComplete: autoComplete,
     className: classes,
     disabled: disabled,
-    disableUnits: disableUnits,
+    hideHTMLArrows: true,
     isPressEnterToChange: isPressEnterToChange,
     label: label,
     onBlur: handleOnBlur,
@@ -36422,10 +36388,6 @@ function useBorderBoxControlSplitControls(props) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
 
@@ -36457,15 +36419,17 @@ const BorderBoxControlSplitControls = (props, forwardedRef) => {
     __experimentalIsRenderedInSidebar,
     __next36pxDefaultSize,
     ...otherProps
-  } = useBorderBoxControlSplitControls(props);
-  const containerRef = (0,external_wp_element_namespaceObject.useRef)();
-  const mergedRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([containerRef, forwardedRef]);
-  const popoverProps = popoverPlacement ? {
+  } = useBorderBoxControlSplitControls(props); // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null); // Memoize popoverProps to avoid returning a new object every time.
+
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => popoverPlacement ? {
     placement: popoverPlacement,
     offset: popoverOffset,
-    anchorRef: containerRef,
+    anchor: popoverAnchor,
     shift: true
-  } : undefined;
+  } : undefined, [popoverPlacement, popoverOffset, popoverAnchor]);
   const sharedBorderControlProps = {
     colors,
     disableCustomColors,
@@ -36476,6 +36440,7 @@ const BorderBoxControlSplitControls = (props, forwardedRef) => {
     __experimentalIsRenderedInSidebar,
     __next36pxDefaultSize
   };
+  const mergedRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([setPopoverAnchor, forwardedRef]);
   return (0,external_wp_element_namespaceObject.createElement)(grid_component, extends_extends({}, otherProps, {
     ref: mergedRef,
     gap: 4
@@ -36746,10 +36711,6 @@ function useBorderBoxControl(props) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
 
@@ -36807,15 +36768,18 @@ const component_BorderBoxControl = (props, forwardedRef) => {
     __experimentalIsRenderedInSidebar,
     __next36pxDefaultSize = false,
     ...otherProps
-  } = useBorderBoxControl(props);
-  const containerRef = (0,external_wp_element_namespaceObject.useRef)();
-  const mergedRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([containerRef, forwardedRef]);
-  const popoverProps = popoverPlacement ? {
+  } = useBorderBoxControl(props); // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null); // Memoize popoverProps to avoid returning a new object every time.
+
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => popoverPlacement ? {
     placement: popoverPlacement,
     offset: popoverOffset,
-    anchorRef: containerRef,
+    anchor: popoverAnchor,
     shift: true
-  } : undefined;
+  } : undefined, [popoverPlacement, popoverOffset, popoverAnchor]);
+  const mergedRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([setPopoverAnchor, forwardedRef]);
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
     className: className
   }, otherProps, {
@@ -37017,7 +36981,6 @@ function BoxUnitControl(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(box_control_styles_UnitControl, extends_extends({
     "aria-label": label,
     className: "component-box-control__unit-control",
-    hideHTMLArrows: true,
     isFirst: isFirst,
     isLast: isLast,
     isOnly: isOnly,
@@ -37753,15 +37716,15 @@ function LinkedButton(_ref) {
     isLinked,
     ...props
   } = _ref;
-  const label = isLinked ? (0,external_wp_i18n_namespaceObject.__)('Unlink Sides') : (0,external_wp_i18n_namespaceObject.__)('Link Sides');
+  const label = isLinked ? (0,external_wp_i18n_namespaceObject.__)('Unlink sides') : (0,external_wp_i18n_namespaceObject.__)('Link sides'); // TODO: Remove span after merging https://github.com/WordPress/gutenberg/pull/44198
+
   return (0,external_wp_element_namespaceObject.createElement)(tooltip, {
     text: label
   }, (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({}, props, {
     className: "component-box-control__linked-button",
-    variant: isLinked ? 'primary' : 'secondary',
     isSmall: true,
     icon: isLinked ? library_link : link_off,
-    iconSize: 16,
+    iconSize: 24,
     "aria-label": label
   }))));
 }
@@ -52691,7 +52654,13 @@ function DropZoneComponent(_ref) {
       initial: disableMotion ? 'show' : 'hidden',
       animate: "show",
       exit: disableMotion ? 'show' : 'exit',
-      className: "components-drop-zone__content"
+      className: "components-drop-zone__content" // Without this, when this div is shown,
+      // Safari calls a onDropZoneLeave causing a loop because of this bug
+      // https://bugs.webkit.org/show_bug.cgi?id=66547
+      ,
+      style: {
+        pointerEvents: 'none'
+      }
     }, (0,external_wp_element_namespaceObject.createElement)(motion.div, {
       variants: foreground
     }, (0,external_wp_element_namespaceObject.createElement)(icons_build_module_icon, {
@@ -57410,7 +57379,8 @@ const useNavigationTreeMenu = props => {
     });
     return () => {
       removeMenu(key);
-    };
+    }; // Ignore exhaustive-deps rule for now. See https://github.com/WordPress/gutenberg/pull/44090
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 
@@ -57495,7 +57465,8 @@ function MenuTitleSearch(_ref) {
     const resultsFoundMessage = (0,external_wp_i18n_namespaceObject.sprintf)(
     /* translators: %d: number of results. */
     (0,external_wp_i18n_namespaceObject._n)('%d result found.', '%d results found.', count), count);
-    debouncedSpeak(resultsFoundMessage);
+    debouncedSpeak(resultsFoundMessage); // Ignore exhaustive-deps rule for now. See https://github.com/WordPress/gutenberg/pull/44090
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items, search]);
 
   const onClose = () => {
@@ -60102,7 +60073,7 @@ var Resizable = /** @class */ (function (_super) {
 
 
 
-const resize_tooltip_utils_noop = () => {};
+const utils_noop = () => {};
 
 const POSITIONS = {
   bottom: 'bottom',
@@ -60126,7 +60097,7 @@ function useResizeLabel(_ref) {
   let {
     axis,
     fadeTimeout = 180,
-    onResize = resize_tooltip_utils_noop,
+    onResize = utils_noop,
     position = POSITIONS.bottom,
     showPx = false
   } = _ref;
@@ -63216,12 +63187,13 @@ function getRowFocusables(rowElement) {
  * Renders both a table and tbody element, used to create a tree hierarchy.
  *
  * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/components/src/tree-grid/README.md
- * @param {Object}    props               Component props.
- * @param {WPElement} props.children      Children to be rendered.
- * @param {Function}  props.onExpandRow   Callback to fire when row is expanded.
- * @param {Function}  props.onCollapseRow Callback to fire when row is collapsed.
- * @param {Function}  props.onFocusRow    Callback to fire when moving focus to a different row.
- * @param {Object}    ref                 A ref to the underlying DOM table element.
+ * @param {Object}    props                      Component props.
+ * @param {WPElement} props.children             Children to be rendered.
+ * @param {Function}  props.onExpandRow          Callback to fire when row is expanded.
+ * @param {Function}  props.onCollapseRow        Callback to fire when row is collapsed.
+ * @param {Function}  props.onFocusRow           Callback to fire when moving focus to a different row.
+ * @param {string}    props.applicationAriaLabel Label to use for the application role.
+ * @param {Object}    ref                        A ref to the underlying DOM table element.
  */
 
 
@@ -63231,6 +63203,7 @@ function TreeGrid(_ref, ref) {
     onExpandRow = () => {},
     onCollapseRow = () => {},
     onFocusRow = () => {},
+    applicationAriaLabel,
     ...props
   } = _ref;
   const onKeyDown = (0,external_wp_element_namespaceObject.useCallback)(event => {
@@ -63430,11 +63403,14 @@ function TreeGrid(_ref, ref) {
 
   /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
 
-  return (0,external_wp_element_namespaceObject.createElement)(RovingTabIndex, null, (0,external_wp_element_namespaceObject.createElement)("table", extends_extends({}, props, {
+  return (0,external_wp_element_namespaceObject.createElement)(RovingTabIndex, null, (0,external_wp_element_namespaceObject.createElement)("div", {
+    role: "application",
+    "aria-label": applicationAriaLabel
+  }, (0,external_wp_element_namespaceObject.createElement)("table", extends_extends({}, props, {
     role: "treegrid",
     onKeyDown: onKeyDown,
     ref: ref
-  }), (0,external_wp_element_namespaceObject.createElement)("tbody", null, children)));
+  }), (0,external_wp_element_namespaceObject.createElement)("tbody", null, children))));
   /* eslint-enable jsx-a11y/no-noninteractive-element-to-interactive-role */
 }
 
@@ -64004,7 +63980,7 @@ function withFilters(hookName) {
      * mounted instance. This occurs a maximum of once per animation frame.
      */
 
-    const throttledForceUpdate = (0,external_lodash_namespaceObject.debounce)(() => {
+    const throttledForceUpdate = (0,external_wp_compose_namespaceObject.debounce)(() => {
       // Recreate the filtered component, only after delay so that it's
       // computed once, even if many filters added.
       FilteredComponent = (0,external_wp_hooks_namespaceObject.applyFilters)(hookName, OriginalComponent); // Force each instance to render.

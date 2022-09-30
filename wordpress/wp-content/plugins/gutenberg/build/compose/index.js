@@ -2157,9 +2157,11 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalUseDropZone": () => (/* reexport */ useDropZone),
   "__experimentalUseFixedWindowList": () => (/* reexport */ useFixedWindowList),
   "__experimentalUseFocusOutside": () => (/* reexport */ useFocusOutside),
-  "compose": () => (/* reexport */ compose),
+  "compose": () => (/* reexport */ higher_order_compose),
   "createHigherOrderComponent": () => (/* reexport */ createHigherOrderComponent),
+  "debounce": () => (/* reexport */ debounce),
   "ifCondition": () => (/* reexport */ if_condition),
+  "pipe": () => (/* reexport */ higher_order_pipe),
   "pure": () => (/* reexport */ higher_order_pure),
   "useAsyncList": () => (/* reexport */ use_async_list),
   "useConstrainedTabbing": () => (/* reexport */ use_constrained_tabbing),
@@ -2170,7 +2172,7 @@ __webpack_require__.d(__webpack_exports__, {
   "useFocusOnMount": () => (/* reexport */ useFocusOnMount),
   "useFocusReturn": () => (/* reexport */ use_focus_return),
   "useFocusableIframe": () => (/* reexport */ useFocusableIframe),
-  "useInstanceId": () => (/* reexport */ useInstanceId),
+  "useInstanceId": () => (/* reexport */ use_instance_id),
   "useIsomorphicLayoutEffect": () => (/* reexport */ use_isomorphic_layout_effect),
   "useKeyboardShortcut": () => (/* reexport */ use_keyboard_shortcut),
   "useMediaQuery": () => (/* reexport */ useMediaQuery),
@@ -2569,23 +2571,330 @@ const hocName = (name, Inner) => {
   return `${outer}(${inner})`;
 };
 
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
+;// CONCATENATED MODULE: ./packages/compose/build-module/utils/debounce/index.js
+/**
+ * Parts of this source were derived and modified from lodash,
+ * released under the MIT license.
+ *
+ * https://github.com/lodash/lodash
+ *
+ * Copyright JS Foundation and other contributors <https://js.foundation/>
+ *
+ * Based on Underscore.js, copyright Jeremy Ashkenas,
+ * DocumentCloud and Investigative Reporters & Editors <http://underscorejs.org/>
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals. For exact contribution history, see the revision history
+ * available at https://github.com/lodash/lodash
+ *
+ * The following license applies to all parts of this software except as
+ * documented below:
+ *
+ * ====
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+/**
+ * A simplified and properly typed version of lodash's `debounce`, that
+ * always uses timers instead of sometimes using rAF.
+ *
+ * Creates a debounced function that delays invoking `func` until after `wait`
+ * milliseconds have elapsed since the last time the debounced function was
+ * invoked. The debounced function comes with a `cancel` method to cancel delayed
+ * `func` invocations and a `flush` method to immediately invoke them. Provide
+ * `options` to indicate whether `func` should be invoked on the leading and/or
+ * trailing edge of the `wait` timeout. The `func` is invoked with the last
+ * arguments provided to the debounced function. Subsequent calls to the debounced
+ * function return the result of the last `func` invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the debounced function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * @param {Function}                   func             The function to debounce.
+ * @param {number}                     wait             The number of milliseconds to delay.
+ * @param {Partial< DebounceOptions >} options          The options object.
+ * @param {boolean}                    options.leading  Specify invoking on the leading edge of the timeout.
+ * @param {number}                     options.maxWait  The maximum time `func` is allowed to be delayed before it's invoked.
+ * @param {boolean}                    options.trailing Specify invoking on the trailing edge of the timeout.
+ *
+ * @return Returns the new debounced function.
+ */
+const debounce = (func, wait, options) => {
+  let lastArgs;
+  let lastThis;
+  let maxWait = 0;
+  let result;
+  let timerId;
+  let lastCallTime;
+  let lastInvokeTime = 0;
+  let leading = false;
+  let maxing = false;
+  let trailing = true;
+
+  if (options) {
+    leading = !!options.leading;
+    maxing = 'maxWait' in options;
+
+    if (options.maxWait !== undefined) {
+      maxWait = Math.max(options.maxWait, wait);
+    }
+
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  function invokeFunc(time) {
+    const args = lastArgs;
+    const thisArg = lastThis;
+    lastArgs = undefined;
+    lastThis = undefined;
+    lastInvokeTime = time;
+    result = func.apply(thisArg, args);
+    return result;
+  }
+
+  function startTimer(pendingFunc, waitTime) {
+    timerId = setTimeout(pendingFunc, waitTime);
+  }
+
+  function cancelTimer() {
+    if (timerId !== undefined) {
+      clearTimeout(timerId);
+    }
+  }
+
+  function leadingEdge(time) {
+    // Reset any `maxWait` timer.
+    lastInvokeTime = time; // Start the timer for the trailing edge.
+
+    startTimer(timerExpired, wait); // Invoke the leading edge.
+
+    return leading ? invokeFunc(time) : result;
+  }
+
+  function getTimeSinceLastCall(time) {
+    return time - (lastCallTime || 0);
+  }
+
+  function remainingWait(time) {
+    const timeSinceLastCall = getTimeSinceLastCall(time);
+    const timeSinceLastInvoke = time - lastInvokeTime;
+    const timeWaiting = wait - timeSinceLastCall;
+    return maxing ? Math.min(timeWaiting, maxWait - timeSinceLastInvoke) : timeWaiting;
+  }
+
+  function shouldInvoke(time) {
+    const timeSinceLastCall = getTimeSinceLastCall(time);
+    const timeSinceLastInvoke = time - lastInvokeTime; // Either this is the first call, activity has stopped and we're at the
+    // trailing edge, the system time has gone backwards and we're treating
+    // it as the trailing edge, or we've hit the `maxWait` limit.
+
+    return lastCallTime === undefined || timeSinceLastCall >= wait || timeSinceLastCall < 0 || maxing && timeSinceLastInvoke >= maxWait;
+  }
+
+  function timerExpired() {
+    const time = Date.now();
+
+    if (shouldInvoke(time)) {
+      return trailingEdge(time);
+    } // Restart the timer.
+
+
+    startTimer(timerExpired, remainingWait(time));
+    return undefined;
+  }
+
+  function clearTimer() {
+    timerId = undefined;
+  }
+
+  function trailingEdge(time) {
+    clearTimer(); // Only invoke if we have `lastArgs` which means `func` has been
+    // debounced at least once.
+
+    if (trailing && lastArgs) {
+      return invokeFunc(time);
+    }
+
+    lastArgs = lastThis = undefined;
+    return result;
+  }
+
+  function cancel() {
+    cancelTimer();
+    lastInvokeTime = 0;
+    clearTimer();
+    lastArgs = lastCallTime = lastThis = undefined;
+  }
+
+  function flush() {
+    return pending() ? trailingEdge(Date.now()) : result;
+  }
+
+  function pending() {
+    return timerId !== undefined;
+  }
+
+  function debounced() {
+    const time = Date.now();
+    const isInvoking = shouldInvoke(time);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    lastArgs = args;
+    lastThis = this;
+    lastCallTime = time;
+
+    if (isInvoking) {
+      if (!pending()) {
+        return leadingEdge(lastCallTime);
+      }
+
+      if (maxing) {
+        // Handle invocations in a tight loop.
+        startTimer(timerExpired, wait);
+        return invokeFunc(lastCallTime);
+      }
+    }
+
+    if (!pending()) {
+      startTimer(timerExpired, wait);
+    }
+
+    return result;
+  }
+
+  debounced.cancel = cancel;
+  debounced.flush = flush;
+  debounced.pending = pending;
+  return debounced;
+};
+
+;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/pipe.js
+/**
+ * Parts of this source were derived and modified from lodash,
+ * released under the MIT license.
+ *
+ * https://github.com/lodash/lodash
+ *
+ * Copyright JS Foundation and other contributors <https://js.foundation/>
+ *
+ * Based on Underscore.js, copyright Jeremy Ashkenas,
+ * DocumentCloud and Investigative Reporters & Editors <http://underscorejs.org/>
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals. For exact contribution history, see the revision history
+ * available at https://github.com/lodash/lodash
+ *
+ * The following license applies to all parts of this software except as
+ * documented below:
+ *
+ * ====
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+/**
+ * Creates a pipe function.
+ *
+ * Allows to choose whether to perform left-to-right or right-to-left composition.
+ *
+ * @see https://docs-lodash.com/v4/flow/
+ *
+ * @param {boolean} reverse True if right-to-left, false for left-to-right composition.
+ */
+const basePipe = function () {
+  let reverse = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  return function () {
+    for (var _len = arguments.length, funcs = new Array(_len), _key = 0; _key < _len; _key++) {
+      funcs[_key] = arguments[_key];
+    }
+
+    return function () {
+      const functions = funcs.flat();
+
+      if (reverse) {
+        functions.reverse();
+      }
+
+      for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        args[_key2] = arguments[_key2];
+      }
+
+      return functions.reduce((prev, func) => [func(...prev)], args)[0];
+    };
+  };
+};
+/**
+ * Composes multiple higher-order components into a single higher-order component. Performs left-to-right function
+ * composition, where each successive invocation is supplied the return value of the previous.
+ *
+ * This is inspired by `lodash`'s `flow` function.
+ *
+ * @see https://docs-lodash.com/v4/flow/
+ */
+
+
+const pipe = basePipe();
+
+/* harmony default export */ const higher_order_pipe = (pipe);
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/compose.js
 /**
- * External dependencies
+ * Internal dependencies
  */
 
 /**
  * Composes multiple higher-order components into a single higher-order component. Performs right-to-left function
  * composition, where each successive invocation is supplied the return value of the previous.
  *
- * This is just a re-export of `lodash`'s `flowRight` function.
+ * This is inspired by `lodash`'s `flowRight` function.
  *
  * @see https://docs-lodash.com/v4/flow-right/
  */
 
-/* harmony default export */ const compose = (external_lodash_namespaceObject.flowRight);
+const compose = basePipe(true);
+/* harmony default export */ const higher_order_compose = (compose);
 
 ;// CONCATENATED MODULE: external ["wp","element"]
 const external_wp_element_namespaceObject = window["wp"]["element"];
@@ -2699,6 +3008,8 @@ function _extends() {
 ;// CONCATENATED MODULE: external ["wp","deprecated"]
 const external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
+;// CONCATENATED MODULE: external "lodash"
+const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-global-events/listener.js
 /**
  * External dependencies
@@ -2875,25 +3186,16 @@ function withGlobalEvents(eventTypesToHandlers) {
 }
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-instance-id/index.js
-// Disable reason: Object and object are distinctly different types in TypeScript and we mean the lowercase object in thise case
-// but eslint wants to force us to use `Object`. See https://stackoverflow.com/questions/49464634/difference-between-object-and-object-in-typescript
-
-/* eslint-disable jsdoc/check-types */
-
 /**
  * WordPress dependencies
- */
-
-/**
- * @type {WeakMap<object, number>}
  */
 
 const instanceMap = new WeakMap();
 /**
  * Creates a new id for a given object.
  *
- * @param {object} object Object reference to create an id for.
- * @return {number} The instance id (index).
+ * @param  object Object reference to create an id for.
+ * @return The instance id (index).
  */
 
 function createId(object) {
@@ -2902,24 +3204,34 @@ function createId(object) {
   return instances;
 }
 /**
- * Provides a unique instance ID.
+ * Specify the useInstanceId *function* signatures.
  *
- * @param {object}          object           Object reference to create an id for.
- * @param {string}          [prefix]         Prefix for the unique id.
- * @param {string | number} [preferredId=''] Default ID to use.
- * @return {string | number} The unique instance id.
+ * More accurately, useInstanceId distinguishes between three different
+ * signatures:
+ *
+ * 1. When only object is given, the returned value is a number
+ * 2. When object and prefix is given, the returned value is a string
+ * 3. When preferredId is given, the returned value is the type of preferredId
  */
 
 
-function useInstanceId(object, prefix) {
-  let preferredId = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
+/**
+ * Provides a unique instance ID.
+ *
+ * @param  object        Object reference to create an id for.
+ * @param  [prefix]      Prefix for the unique id.
+ * @param  [preferredId] Default ID to use.
+ * @return The unique instance id.
+ */
+function useInstanceId(object, prefix, preferredId) {
   return (0,external_wp_element_namespaceObject.useMemo)(() => {
     if (preferredId) return preferredId;
     const id = createId(object);
     return prefix ? `${prefix}-${id}` : id;
   }, [object]);
 }
-/* eslint-enable jsdoc/check-types */
+
+/* harmony default export */ const use_instance_id = (useInstanceId);
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-instance-id/index.js
 
@@ -2937,7 +3249,7 @@ function useInstanceId(object, prefix) {
  */
 const withInstanceId = createHigherOrderComponent(WrappedComponent => {
   return props => {
-    const instanceId = useInstanceId(WrappedComponent); // @ts-ignore
+    const instanceId = use_instance_id(WrappedComponent); // @ts-ignore
 
     return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, _extends({}, props, {
       instanceId: instanceId
@@ -3909,6 +4221,7 @@ function useDialog(options) {
  */
 
 
+
 /**
  * Names of control nodes which qualify for disabled behavior.
  *
@@ -4046,7 +4359,7 @@ function useDisabled() {
     // additional mutations which should be ignored.
 
 
-    const debouncedDisable = (0,external_lodash_namespaceObject.debounce)(disable, undefined, {
+    const debouncedDisable = debounce(disable, 0, {
       leading: true
     });
     disable();
@@ -4849,16 +5162,18 @@ var useCallback = (/* unused pure expression or super */ null && (useCallbackOne
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
 
 
-/* eslint-disable jsdoc/valid-types */
+/**
+ * Internal dependencies
+ */
+
 
 /**
- * Debounces a function with Lodash's `debounce`. A new debounced function will
+ * Debounces a function similar to Lodash's `debounce`. A new debounced function will
  * be returned and any scheduled calls cancelled if any of the arguments change,
  * including the function to debounce, so please wrap functions created on
  * render in components in `useCallback`.
@@ -4867,15 +5182,14 @@ var useCallback = (/* unused pure expression or super */ null && (useCallbackOne
  *
  * @template {(...args: any[]) => void} TFunc
  *
- * @param {TFunc}                             fn        The function to debounce.
- * @param {number}                            [wait]    The number of milliseconds to delay.
- * @param {import('lodash').DebounceSettings} [options] The options object.
- * @return {import('lodash').DebouncedFunc<TFunc>} Debounced function.
+ * @param {TFunc}                                          fn        The function to debounce.
+ * @param {number}                                         [wait]    The number of milliseconds to delay.
+ * @param {import('../../utils/debounce').DebounceOptions} [options] The options object.
+ * @return {import('../../utils/debounce').DebouncedFunc<TFunc>} Debounced function.
  */
 
 function useDebounce(fn, wait, options) {
-  /* eslint-enable jsdoc/valid-types */
-  const debounced = useMemoOne(() => (0,external_lodash_namespaceObject.debounce)(fn, wait, options), [fn, wait, options]);
+  const debounced = useMemoOne(() => debounce(fn, wait !== null && wait !== void 0 ? wait : 0, options), [fn, wait, options]);
   (0,external_wp_element_namespaceObject.useEffect)(() => () => debounced.cancel(), [debounced]);
   return debounced;
 }
@@ -5081,6 +5395,8 @@ function useDropZone(_ref) {
       // leaving the drop zone, which means the `relatedTarget`
       // (element that has been entered) should be outside the drop
       // zone.
+      // Note: This is not entirely reliable in Safari due to this bug
+      // https://bugs.webkit.org/show_bug.cgi?id=66547
       if (isElementInZone(event.relatedTarget)) {
         return;
       }
@@ -5201,14 +5517,14 @@ function useFocusableIframe() {
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-fixed-window-list/index.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
 
 
+
+/**
+ * Internal dependencies
+ */
 
 
 const DEFAULT_INIT_WINDOW_SIZE = 30;
@@ -5298,7 +5614,7 @@ function useFixedWindowList(elementRef, itemHeight, totalItems, options) {
     };
 
     measureWindow(true);
-    const debounceMeasureList = (0,external_lodash_namespaceObject.debounce)(() => {
+    const debounceMeasureList = debounce(() => {
       measureWindow();
     }, 16);
     scrollContainer === null || scrollContainer === void 0 ? void 0 : scrollContainer.addEventListener('scroll', debounceMeasureList);
@@ -5366,7 +5682,10 @@ function useFixedWindowList(elementRef, itemHeight, totalItems, options) {
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/index.js
 // The `createHigherOrderComponent` helper and helper types.
- // Compose helper (aliased flowRight from Lodash)
+ // The `debounce` helper and its types.
+
+ // The `compose` and `pipe` helpers (inspired by `flowRight` and `flow` from Lodash).
+
 
  // Higher-order components.
 

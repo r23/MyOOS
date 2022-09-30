@@ -185,461 +185,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 /***/ }),
 
-/***/ 5027:
-/***/ (function(module) {
-
-/*! Fast Average Color | © 2019 Denis Seleznev | MIT License | https://github.com/hcodes/fast-average-color/ */
-(function (global, factory) {
-	 true ? module.exports = factory() :
-	0;
-}(this, (function () { 'use strict';
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
-    descriptor.enumerable = descriptor.enumerable || false;
-    descriptor.configurable = true;
-    if ("value" in descriptor) descriptor.writable = true;
-    Object.defineProperty(target, descriptor.key, descriptor);
-  }
-}
-
-function _createClass(Constructor, protoProps, staticProps) {
-  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
-  if (staticProps) _defineProperties(Constructor, staticProps);
-  return Constructor;
-}
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
-}
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit(arr, i) {
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
-
-var FastAverageColor =
-/*#__PURE__*/
-function () {
-  function FastAverageColor() {
-    _classCallCheck(this, FastAverageColor);
-  }
-
-  _createClass(FastAverageColor, [{
-    key: "getColorAsync",
-
-    /**
-     * Get asynchronously the average color from not loaded image.
-     *
-     * @param {HTMLImageElement} resource
-     * @param {Function} callback
-     * @param {Object|null} [options]
-     * @param {Array}  [options.defaultColor=[255, 255, 255, 255]]
-     * @param {*}      [options.data]
-     * @param {string} [options.mode="speed"] "precision" or "speed"
-     * @param {string} [options.algorithm="sqrt"] "simple", "sqrt" or "dominant"
-     * @param {number} [options.step=1]
-     * @param {number} [options.left=0]
-     * @param {number} [options.top=0]
-     * @param {number} [options.width=width of resource]
-     * @param {number} [options.height=height of resource]
-     */
-    value: function getColorAsync(resource, callback, options) {
-      if (resource.complete) {
-        callback.call(resource, this.getColor(resource, options), options && options.data);
-      } else {
-        this._bindImageEvents(resource, callback, options);
-      }
-    }
-    /**
-     * Get the average color from images, videos and canvas.
-     *
-     * @param {HTMLImageElement|HTMLVideoElement|HTMLCanvasElement} resource
-     * @param {Object|null} [options]
-     * @param {Array}  [options.defaultColor=[255, 255, 255, 255]]
-     * @param {*}      [options.data]
-     * @param {string} [options.mode="speed"] "precision" or "speed"
-     * @param {string} [options.algorithm="sqrt"] "simple", "sqrt" or "dominant"
-     * @param {number} [options.step=1]
-     * @param {number} [options.left=0]
-     * @param {number} [options.top=0]
-     * @param {number} [options.width=width of resource]
-     * @param {number} [options.height=height of resource]
-     *
-     * @returns {Object}
-     */
-
-  }, {
-    key: "getColor",
-    value: function getColor(resource, options) {
-      options = options || {};
-
-      var defaultColor = this._getDefaultColor(options),
-          originalSize = this._getOriginalSize(resource),
-          size = this._prepareSizeAndPosition(originalSize, options);
-
-      var error = null,
-          value = defaultColor;
-
-      if (!size.srcWidth || !size.srcHeight || !size.destWidth || !size.destHeight) {
-        return this._prepareResult(defaultColor, new Error('FastAverageColor: Incorrect sizes.'));
-      }
-
-      if (!this._ctx) {
-        this._canvas = this._makeCanvas();
-        this._ctx = this._canvas.getContext && this._canvas.getContext('2d');
-
-        if (!this._ctx) {
-          return this._prepareResult(defaultColor, new Error('FastAverageColor: Canvas Context 2D is not supported in this browser.'));
-        }
-      }
-
-      this._canvas.width = size.destWidth;
-      this._canvas.height = size.destHeight;
-
-      try {
-        this._ctx.clearRect(0, 0, size.destWidth, size.destHeight);
-
-        this._ctx.drawImage(resource, size.srcLeft, size.srcTop, size.srcWidth, size.srcHeight, 0, 0, size.destWidth, size.destHeight);
-
-        var bitmapData = this._ctx.getImageData(0, 0, size.destWidth, size.destHeight).data;
-
-        value = this.getColorFromArray4(bitmapData, options);
-      } catch (e) {
-        // Security error, CORS
-        // https://developer.mozilla.org/en/docs/Web/HTML/CORS_enabled_image
-        error = e;
-      }
-
-      return this._prepareResult(value, error);
-    }
-    /**
-     * Get the average color from a array when 1 pixel is 4 bytes.
-     *
-     * @param {Array|Uint8Array} arr
-     * @param {Object} [options]
-     * @param {string} [options.algorithm="sqrt"] "simple", "sqrt" or "dominant"
-     * @param {Array}  [options.defaultColor=[255, 255, 255, 255]]
-     * @param {number} [options.step=1]
-     *
-     * @returns {Array} [red (0-255), green (0-255), blue (0-255), alpha (0-255)]
-     */
-
-  }, {
-    key: "getColorFromArray4",
-    value: function getColorFromArray4(arr, options) {
-      options = options || {};
-      var bytesPerPixel = 4,
-          arrLength = arr.length;
-
-      if (arrLength < bytesPerPixel) {
-        return this._getDefaultColor(options);
-      }
-
-      var len = arrLength - arrLength % bytesPerPixel,
-          preparedStep = (options.step || 1) * bytesPerPixel,
-          algorithm = '_' + (options.algorithm || 'sqrt') + 'Algorithm';
-
-      if (typeof this[algorithm] !== 'function') {
-        throw new Error("FastAverageColor: ".concat(options.algorithm, " is unknown algorithm."));
-      }
-
-      return this[algorithm](arr, len, preparedStep);
-    }
-    /**
-     * Destroy the instance.
-     */
-
-  }, {
-    key: "destroy",
-    value: function destroy() {
-      delete this._canvas;
-      delete this._ctx;
-    }
-  }, {
-    key: "_getDefaultColor",
-    value: function _getDefaultColor(options) {
-      return this._getOption(options, 'defaultColor', [255, 255, 255, 255]);
-    }
-  }, {
-    key: "_getOption",
-    value: function _getOption(options, name, defaultValue) {
-      return typeof options[name] === 'undefined' ? defaultValue : options[name];
-    }
-  }, {
-    key: "_prepareSizeAndPosition",
-    value: function _prepareSizeAndPosition(originalSize, options) {
-      var srcLeft = this._getOption(options, 'left', 0),
-          srcTop = this._getOption(options, 'top', 0),
-          srcWidth = this._getOption(options, 'width', originalSize.width),
-          srcHeight = this._getOption(options, 'height', originalSize.height),
-          destWidth = srcWidth,
-          destHeight = srcHeight;
-
-      if (options.mode === 'precision') {
-        return {
-          srcLeft: srcLeft,
-          srcTop: srcTop,
-          srcWidth: srcWidth,
-          srcHeight: srcHeight,
-          destWidth: destWidth,
-          destHeight: destHeight
-        };
-      }
-
-      var maxSize = 100,
-          minSize = 10;
-      var factor;
-
-      if (srcWidth > srcHeight) {
-        factor = srcWidth / srcHeight;
-        destWidth = maxSize;
-        destHeight = Math.round(destWidth / factor);
-      } else {
-        factor = srcHeight / srcWidth;
-        destHeight = maxSize;
-        destWidth = Math.round(destHeight / factor);
-      }
-
-      if (destWidth > srcWidth || destHeight > srcHeight || destWidth < minSize || destHeight < minSize) {
-        destWidth = srcWidth;
-        destHeight = srcHeight;
-      }
-
-      return {
-        srcLeft: srcLeft,
-        srcTop: srcTop,
-        srcWidth: srcWidth,
-        srcHeight: srcHeight,
-        destWidth: destWidth,
-        destHeight: destHeight
-      };
-    }
-  }, {
-    key: "_simpleAlgorithm",
-    value: function _simpleAlgorithm(arr, len, preparedStep) {
-      var redTotal = 0,
-          greenTotal = 0,
-          blueTotal = 0,
-          alphaTotal = 0,
-          count = 0;
-
-      for (var i = 0; i < len; i += preparedStep) {
-        var alpha = arr[i + 3],
-            red = arr[i] * alpha,
-            green = arr[i + 1] * alpha,
-            blue = arr[i + 2] * alpha;
-        redTotal += red;
-        greenTotal += green;
-        blueTotal += blue;
-        alphaTotal += alpha;
-        count++;
-      }
-
-      return alphaTotal ? [Math.round(redTotal / alphaTotal), Math.round(greenTotal / alphaTotal), Math.round(blueTotal / alphaTotal), Math.round(alphaTotal / count)] : [0, 0, 0, 0];
-    }
-  }, {
-    key: "_sqrtAlgorithm",
-    value: function _sqrtAlgorithm(arr, len, preparedStep) {
-      var redTotal = 0,
-          greenTotal = 0,
-          blueTotal = 0,
-          alphaTotal = 0,
-          count = 0;
-
-      for (var i = 0; i < len; i += preparedStep) {
-        var red = arr[i],
-            green = arr[i + 1],
-            blue = arr[i + 2],
-            alpha = arr[i + 3];
-        redTotal += red * red * alpha;
-        greenTotal += green * green * alpha;
-        blueTotal += blue * blue * alpha;
-        alphaTotal += alpha;
-        count++;
-      }
-
-      return alphaTotal ? [Math.round(Math.sqrt(redTotal / alphaTotal)), Math.round(Math.sqrt(greenTotal / alphaTotal)), Math.round(Math.sqrt(blueTotal / alphaTotal)), Math.round(alphaTotal / count)] : [0, 0, 0, 0];
-    }
-  }, {
-    key: "_dominantAlgorithm",
-    value: function _dominantAlgorithm(arr, len, preparedStep) {
-      var colorHash = {},
-          divider = 24;
-
-      for (var i = 0; i < len; i += preparedStep) {
-        var red = arr[i],
-            green = arr[i + 1],
-            blue = arr[i + 2],
-            alpha = arr[i + 3],
-            key = Math.round(red / divider) + ',' + Math.round(green / divider) + ',' + Math.round(blue / divider);
-
-        if (colorHash[key]) {
-          colorHash[key] = [colorHash[key][0] + red * alpha, colorHash[key][1] + green * alpha, colorHash[key][2] + blue * alpha, colorHash[key][3] + alpha, colorHash[key][4] + 1];
-        } else {
-          colorHash[key] = [red * alpha, green * alpha, blue * alpha, alpha, 1];
-        }
-      }
-
-      var buffer = Object.keys(colorHash).map(function (key) {
-        return colorHash[key];
-      }).sort(function (a, b) {
-        var countA = a[4],
-            countB = b[4];
-        return countA > countB ? -1 : countA === countB ? 0 : 1;
-      });
-
-      var _buffer$ = _slicedToArray(buffer[0], 5),
-          redTotal = _buffer$[0],
-          greenTotal = _buffer$[1],
-          blueTotal = _buffer$[2],
-          alphaTotal = _buffer$[3],
-          count = _buffer$[4];
-
-      return alphaTotal ? [Math.round(redTotal / alphaTotal), Math.round(greenTotal / alphaTotal), Math.round(blueTotal / alphaTotal), Math.round(alphaTotal / count)] : [0, 0, 0, 0];
-    }
-  }, {
-    key: "_bindImageEvents",
-    value: function _bindImageEvents(resource, callback, options) {
-      var _this = this;
-
-      options = options || {};
-
-      var data = options && options.data,
-          defaultColor = this._getDefaultColor(options),
-          onload = function onload() {
-        unbindEvents();
-        callback.call(resource, _this.getColor(resource, options), data);
-      },
-          onerror = function onerror() {
-        unbindEvents();
-        callback.call(resource, _this._prepareResult(defaultColor, new Error('Image error')), data);
-      },
-          onabort = function onabort() {
-        unbindEvents();
-        callback.call(resource, _this._prepareResult(defaultColor, new Error('Image abort')), data);
-      },
-          unbindEvents = function unbindEvents() {
-        resource.removeEventListener('load', onload);
-        resource.removeEventListener('error', onerror);
-        resource.removeEventListener('abort', onabort);
-      };
-
-      resource.addEventListener('load', onload);
-      resource.addEventListener('error', onerror);
-      resource.addEventListener('abort', onabort);
-    }
-  }, {
-    key: "_prepareResult",
-    value: function _prepareResult(value, error) {
-      var rgb = value.slice(0, 3),
-          rgba = [].concat(rgb, value[3] / 255),
-          isDark = this._isDark(value);
-
-      return {
-        error: error,
-        value: value,
-        rgb: 'rgb(' + rgb.join(',') + ')',
-        rgba: 'rgba(' + rgba.join(',') + ')',
-        hex: this._arrayToHex(rgb),
-        hexa: this._arrayToHex(value),
-        isDark: isDark,
-        isLight: !isDark
-      };
-    }
-  }, {
-    key: "_getOriginalSize",
-    value: function _getOriginalSize(resource) {
-      if (resource instanceof HTMLImageElement) {
-        return {
-          width: resource.naturalWidth,
-          height: resource.naturalHeight
-        };
-      }
-
-      if (resource instanceof HTMLVideoElement) {
-        return {
-          width: resource.videoWidth,
-          height: resource.videoHeight
-        };
-      }
-
-      return {
-        width: resource.width,
-        height: resource.height
-      };
-    }
-  }, {
-    key: "_toHex",
-    value: function _toHex(num) {
-      var str = num.toString(16);
-      return str.length === 1 ? '0' + str : str;
-    }
-  }, {
-    key: "_arrayToHex",
-    value: function _arrayToHex(arr) {
-      return '#' + arr.map(this._toHex).join('');
-    }
-  }, {
-    key: "_isDark",
-    value: function _isDark(color) {
-      // http://www.w3.org/TR/AERT#color-contrast
-      var result = (color[0] * 299 + color[1] * 587 + color[2] * 114) / 1000;
-      return result < 128;
-    }
-  }, {
-    key: "_makeCanvas",
-    value: function _makeCanvas() {
-      return typeof window === 'undefined' ? new OffscreenCanvas(1, 1) : document.createElement('canvas');
-    }
-  }]);
-
-  return FastAverageColor;
-}();
-
-return FastAverageColor;
-
-})));
-
-
-/***/ }),
-
 /***/ 9756:
 /***/ ((module) => {
 
@@ -1276,7 +821,7 @@ module.exports = function isBlockMetadataExperimental(metadata) {
 /******/ 		};
 /******/ 	
 /******/ 		// Execute the module function
-/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
 /******/ 	
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
@@ -2878,7 +2423,7 @@ const avatar_metadata = {
   name: "core/avatar",
   title: "Avatar",
   category: "theme",
-  description: "Add a user's avatar.",
+  description: "Add a user\u2019s avatar.",
   textdomain: "default",
   attributes: {
     userId: {
@@ -3099,18 +2644,22 @@ const util_metadata = {
   textdomain: "default",
   attributes: {
     url: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     caption: {
       type: "string",
       source: "html",
-      selector: "figcaption"
+      selector: "figcaption",
+      __experimentalRole: "content"
     },
     type: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     providerNameSlug: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     allowResponsive: {
       type: "boolean",
@@ -3118,11 +2667,13 @@ const util_metadata = {
     },
     responsive: {
       type: "boolean",
-      "default": false
+      "default": false,
+      __experimentalRole: "content"
     },
     previewable: {
       type: "boolean",
-      "default": true
+      "default": true,
+      __experimentalRole: "content"
     }
   },
   supports: {
@@ -5053,6 +4604,7 @@ const linkOff = (0,external_wp_element_namespaceObject.createElement)(external_w
 
 
 
+
 const NEW_TAB_REL = 'noreferrer noopener';
 
 function WidthPanel(_ref) {
@@ -5142,15 +4694,18 @@ function ButtonEdit(props) {
       unlink();
       (_richTextRef$current = richTextRef.current) === null || _richTextRef$current === void 0 ? void 0 : _richTextRef$current.focus();
     }
-  }
+  } // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
 
+
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null);
   const borderProps = (0,external_wp_blockEditor_namespaceObject.__experimentalUseBorderProps)(attributes);
   const colorProps = (0,external_wp_blockEditor_namespaceObject.__experimentalUseColorProps)(attributes);
   const spacingProps = (0,external_wp_blockEditor_namespaceObject.__experimentalGetSpacingClassesAndStyles)(attributes);
   const ref = (0,external_wp_element_namespaceObject.useRef)();
   const richTextRef = (0,external_wp_element_namespaceObject.useRef)();
   const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
-    ref,
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([setPopoverAnchor, ref]),
     onKeyDown
   });
   const [isEditingURL, setIsEditingURL] = (0,external_wp_element_namespaceObject.useState)(false);
@@ -5226,7 +4781,7 @@ function ButtonEdit(props) {
       setIsEditingURL(false);
       (_richTextRef$current2 = richTextRef.current) === null || _richTextRef$current2 === void 0 ? void 0 : _richTextRef$current2.focus();
     },
-    anchorRef: ref === null || ref === void 0 ? void 0 : ref.current,
+    anchor: popoverAnchor,
     focusOnMount: isEditingURL ? 'firstElement' : false,
     __unstableSlotName: '__unstable-block-tools-after',
     shift: true
@@ -6071,6 +5626,15 @@ const calendar_metadata = {
   },
   supports: {
     align: true,
+    color: {
+      link: true,
+      __experimentalSkipSerialization: ["text", "background"],
+      __experimentalDefaultControls: {
+        background: true,
+        text: true
+      },
+      __experimentalSelector: "table, th"
+    },
     typography: {
       fontSize: true,
       lineHeight: true,
@@ -6423,10 +5987,6 @@ const ConvertToBlocksButton = _ref => {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
 
@@ -6476,6 +6036,7 @@ function ClassicEdit(_ref) {
   const {
     getMultiSelectedBlockClientIds
   } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_blockEditor_namespaceObject.store);
+  const canRemove = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_blockEditor_namespaceObject.store).canRemoveBlock(clientId), [clientId]);
   const didMount = (0,external_wp_element_namespaceObject.useRef)(false);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (!didMount.current) {
@@ -6538,7 +6099,7 @@ function ClassicEdit(_ref) {
       editor.on('mousedown touchstart', () => {
         bookmark = null;
       });
-      const debouncedOnChange = (0,external_lodash_namespaceObject.debounce)(() => {
+      const debouncedOnChange = (0,external_wp_compose_namespaceObject.debounce)(() => {
         const value = editor.getContent();
 
         if (value !== editor._lastChange) {
@@ -6642,7 +6203,7 @@ function ClassicEdit(_ref) {
   /* eslint-disable jsx-a11y/no-static-element-interactions */
 
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(convert_to_blocks_button, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, canRemove && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(convert_to_blocks_button, {
     clientId: clientId
   }))), (0,external_wp_element_namespaceObject.createElement)("div", (0,external_wp_blockEditor_namespaceObject.useBlockProps)(), (0,external_wp_element_namespaceObject.createElement)("div", {
     key: "toolbar",
@@ -6973,7 +6534,7 @@ const code_settings = {
     attributes: {
       /* eslint-disable @wordpress/i18n-no-collapsible-whitespace */
       // translators: Preserve \n markers for line breaks
-      content: (0,external_wp_i18n_namespaceObject.__)('// A "block" is the abstract term used\n// to describe units of markup that\n// when composed together, form the\n// content or layout of a page.\nregisterBlockType( name, settings );')
+      content: (0,external_wp_i18n_namespaceObject.__)('// A “block” is the abstract term used\n// to describe units of markup that\n// when composed together, form the\n// content or layout of a page.\nregisterBlockType( name, settings );')
       /* eslint-enable @wordpress/i18n-no-collapsible-whitespace */
 
     }
@@ -8721,7 +8282,7 @@ function CommentsLegacy(_ref) {
     }
   })), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, {
     actions: actions
-  }, (0,external_wp_i18n_namespaceObject.__)("Comments block: You're currently using the legacy version of the block. " + 'The following is just a placeholder - the final styling will likely look different. ' + 'For a better representation and more customization options, ' + 'switch the block to its editable mode.')), (0,external_wp_element_namespaceObject.createElement)(PostCommentsPlaceholder, {
+  }, (0,external_wp_i18n_namespaceObject.__)('Comments block: You’re currently using the legacy version of the block. ' + 'The following is just a placeholder - the final styling will likely look different. ' + 'For a better representation and more customization options, ' + 'switch the block to its editable mode.')), (0,external_wp_element_namespaceObject.createElement)(PostCommentsPlaceholder, {
     postId: postId,
     postType: postType
   })));
@@ -10558,7 +10119,7 @@ const comments_pagination_previous_metadata = {
   $schema: "https://schemas.wp.org/trunk/block.json",
   apiVersion: 2,
   name: "core/comments-pagination-previous",
-  title: "Previous Page",
+  title: "Comments Previous Page",
   category: "theme",
   parent: ["core/comments-pagination"],
   description: "Displays the previous comment's page link.",
@@ -10904,7 +10465,7 @@ const comments_pagination_next_metadata = {
   $schema: "https://schemas.wp.org/trunk/block.json",
   apiVersion: 2,
   name: "core/comments-pagination-next",
-  title: "Next Page",
+  title: "Comments Next Page",
   category: "theme",
   parent: ["core/comments-pagination"],
   description: "Displays the next comment's page link.",
@@ -11029,7 +10590,7 @@ const comments_pagination_numbers_metadata = {
   $schema: "https://schemas.wp.org/trunk/block.json",
   apiVersion: 2,
   name: "core/comments-pagination-numbers",
-  title: "Page Numbers",
+  title: "Comments Page Numbers",
   category: "theme",
   parent: ["core/comments-pagination"],
   description: "Displays a list of page numbers for comments pagination.",
@@ -11306,7 +10867,7 @@ function comments_title_edit_Edit(_ref) {
       showCommentsCount: value
     })
   })));
-  const postTitle = isSiteEditor ? (0,external_wp_i18n_namespaceObject.__)('"Post Title"') : `"${rawTitle}"`;
+  const postTitle = isSiteEditor ? (0,external_wp_i18n_namespaceObject.__)('“Post Title”') : `"${rawTitle}"`;
   let placeholder;
 
   if (showCommentsCount && commentsCount !== undefined) {
@@ -12699,9 +12260,508 @@ var r={grad:.9,turn:360,rad:360/(2*Math.PI)},t=function(r){return"string"==typeo
 ;// CONCATENATED MODULE: ./packages/block-library/node_modules/colord/plugins/names.mjs
 /* harmony default export */ function names(e,f){var a={white:"#ffffff",bisque:"#ffe4c4",blue:"#0000ff",cadetblue:"#5f9ea0",chartreuse:"#7fff00",chocolate:"#d2691e",coral:"#ff7f50",antiquewhite:"#faebd7",aqua:"#00ffff",azure:"#f0ffff",whitesmoke:"#f5f5f5",papayawhip:"#ffefd5",plum:"#dda0dd",blanchedalmond:"#ffebcd",black:"#000000",gold:"#ffd700",goldenrod:"#daa520",gainsboro:"#dcdcdc",cornsilk:"#fff8dc",cornflowerblue:"#6495ed",burlywood:"#deb887",aquamarine:"#7fffd4",beige:"#f5f5dc",crimson:"#dc143c",cyan:"#00ffff",darkblue:"#00008b",darkcyan:"#008b8b",darkgoldenrod:"#b8860b",darkkhaki:"#bdb76b",darkgray:"#a9a9a9",darkgreen:"#006400",darkgrey:"#a9a9a9",peachpuff:"#ffdab9",darkmagenta:"#8b008b",darkred:"#8b0000",darkorchid:"#9932cc",darkorange:"#ff8c00",darkslateblue:"#483d8b",gray:"#808080",darkslategray:"#2f4f4f",darkslategrey:"#2f4f4f",deeppink:"#ff1493",deepskyblue:"#00bfff",wheat:"#f5deb3",firebrick:"#b22222",floralwhite:"#fffaf0",ghostwhite:"#f8f8ff",darkviolet:"#9400d3",magenta:"#ff00ff",green:"#008000",dodgerblue:"#1e90ff",grey:"#808080",honeydew:"#f0fff0",hotpink:"#ff69b4",blueviolet:"#8a2be2",forestgreen:"#228b22",lawngreen:"#7cfc00",indianred:"#cd5c5c",indigo:"#4b0082",fuchsia:"#ff00ff",brown:"#a52a2a",maroon:"#800000",mediumblue:"#0000cd",lightcoral:"#f08080",darkturquoise:"#00ced1",lightcyan:"#e0ffff",ivory:"#fffff0",lightyellow:"#ffffe0",lightsalmon:"#ffa07a",lightseagreen:"#20b2aa",linen:"#faf0e6",mediumaquamarine:"#66cdaa",lemonchiffon:"#fffacd",lime:"#00ff00",khaki:"#f0e68c",mediumseagreen:"#3cb371",limegreen:"#32cd32",mediumspringgreen:"#00fa9a",lightskyblue:"#87cefa",lightblue:"#add8e6",midnightblue:"#191970",lightpink:"#ffb6c1",mistyrose:"#ffe4e1",moccasin:"#ffe4b5",mintcream:"#f5fffa",lightslategray:"#778899",lightslategrey:"#778899",navajowhite:"#ffdead",navy:"#000080",mediumvioletred:"#c71585",powderblue:"#b0e0e6",palegoldenrod:"#eee8aa",oldlace:"#fdf5e6",paleturquoise:"#afeeee",mediumturquoise:"#48d1cc",mediumorchid:"#ba55d3",rebeccapurple:"#663399",lightsteelblue:"#b0c4de",mediumslateblue:"#7b68ee",thistle:"#d8bfd8",tan:"#d2b48c",orchid:"#da70d6",mediumpurple:"#9370db",purple:"#800080",pink:"#ffc0cb",skyblue:"#87ceeb",springgreen:"#00ff7f",palegreen:"#98fb98",red:"#ff0000",yellow:"#ffff00",slateblue:"#6a5acd",lavenderblush:"#fff0f5",peru:"#cd853f",palevioletred:"#db7093",violet:"#ee82ee",teal:"#008080",slategray:"#708090",slategrey:"#708090",aliceblue:"#f0f8ff",darkseagreen:"#8fbc8f",darkolivegreen:"#556b2f",greenyellow:"#adff2f",seagreen:"#2e8b57",seashell:"#fff5ee",tomato:"#ff6347",silver:"#c0c0c0",sienna:"#a0522d",lavender:"#e6e6fa",lightgreen:"#90ee90",orange:"#ffa500",orangered:"#ff4500",steelblue:"#4682b4",royalblue:"#4169e1",turquoise:"#40e0d0",yellowgreen:"#9acd32",salmon:"#fa8072",saddlebrown:"#8b4513",sandybrown:"#f4a460",rosybrown:"#bc8f8f",darksalmon:"#e9967a",lightgoldenrodyellow:"#fafad2",snow:"#fffafa",lightgrey:"#d3d3d3",lightgray:"#d3d3d3",dimgray:"#696969",dimgrey:"#696969",olivedrab:"#6b8e23",olive:"#808000"},r={};for(var d in a)r[a[d]]=d;var l={};e.prototype.toName=function(f){if(!(this.rgba.a||this.rgba.r||this.rgba.g||this.rgba.b))return"transparent";var d,i,n=r[this.toHex()];if(n)return n;if(null==f?void 0:f.closest){var o=this.toRgb(),t=1/0,b="black";if(!l.length)for(var c in a)l[c]=new e(a[c]).toRgb();for(var g in a){var u=(d=o,i=l[g],Math.pow(d.r-i.r,2)+Math.pow(d.g-i.g,2)+Math.pow(d.b-i.b,2));u<t&&(t=u,b=g)}return b}};f.string.push([function(f){var r=f.toLowerCase(),d="transparent"===r?"#0000":a[r];return d?new e(d).toRgb():null},"name"])}
 
-// EXTERNAL MODULE: ./node_modules/fast-average-color/dist/index.js
-var dist = __webpack_require__(5027);
-var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
+;// CONCATENATED MODULE: ./node_modules/fast-average-color/dist/index.esm.js
+/*! Fast Average Color | © 2022 Denis Seleznev | MIT License | https://github.com/fast-average-color/fast-average-color */
+function toHex(num) {
+    var str = num.toString(16);
+    return str.length === 1 ? '0' + str : str;
+}
+function arrayToHex(arr) {
+    return '#' + arr.map(toHex).join('');
+}
+function isDark(color) {
+    // http://www.w3.org/TR/AERT#color-contrast
+    var result = (color[0] * 299 + color[1] * 587 + color[2] * 114) / 1000;
+    return result < 128;
+}
+function prepareIgnoredColor(color) {
+    if (!color) {
+        return [];
+    }
+    return isRGBArray(color) ? color : [color];
+}
+function isRGBArray(value) {
+    return Array.isArray(value[0]);
+}
+function isIgnoredColor(data, index, ignoredColor) {
+    for (var i = 0; i < ignoredColor.length; i++) {
+        if (isIgnoredColorAsNumbers(data, index, ignoredColor[i])) {
+            return true;
+        }
+    }
+    return false;
+}
+function isIgnoredColorAsNumbers(data, index, ignoredColor) {
+    switch (ignoredColor.length) {
+        case 3:
+            // [red, green, blue]
+            if (isIgnoredRGBColor(data, index, ignoredColor)) {
+                return true;
+            }
+            break;
+        case 4:
+            // [red, green, blue, alpha]
+            if (isIgnoredRGBAColor(data, index, ignoredColor)) {
+                return true;
+            }
+            break;
+        case 5:
+            // [red, green, blue, alpha, threshold]
+            if (isIgnoredRGBAColorWithThreshold(data, index, ignoredColor)) {
+                return true;
+            }
+            break;
+        default:
+            return false;
+    }
+}
+function isIgnoredRGBColor(data, index, ignoredColor) {
+    // Ignore if the pixel are transparent.
+    if (data[index + 3] !== 255) {
+        return true;
+    }
+    if (data[index] === ignoredColor[0] &&
+        data[index + 1] === ignoredColor[1] &&
+        data[index + 2] === ignoredColor[2]) {
+        return true;
+    }
+    return false;
+}
+function isIgnoredRGBAColor(data, index, ignoredColor) {
+    if (data[index + 3] && ignoredColor[3]) {
+        return data[index] === ignoredColor[0] &&
+            data[index + 1] === ignoredColor[1] &&
+            data[index + 2] === ignoredColor[2] &&
+            data[index + 3] === ignoredColor[3];
+    }
+    // Ignore rgb components if the pixel are fully transparent.
+    return data[index + 3] === ignoredColor[3];
+}
+function inRange(colorComponent, ignoredColorComponent, value) {
+    return colorComponent >= (ignoredColorComponent - value) &&
+        colorComponent <= (ignoredColorComponent + value);
+}
+function isIgnoredRGBAColorWithThreshold(data, index, ignoredColor) {
+    var redIgnored = ignoredColor[0];
+    var greenIgnored = ignoredColor[1];
+    var blueIgnored = ignoredColor[2];
+    var alphaIgnored = ignoredColor[3];
+    var threshold = ignoredColor[4];
+    var alphaData = data[index + 3];
+    var alphaInRange = inRange(alphaData, alphaIgnored, threshold);
+    if (!alphaIgnored) {
+        return alphaInRange;
+    }
+    if (!alphaData && alphaInRange) {
+        return true;
+    }
+    if (inRange(data[index], redIgnored, threshold) &&
+        inRange(data[index + 1], greenIgnored, threshold) &&
+        inRange(data[index + 2], blueIgnored, threshold) &&
+        alphaInRange) {
+        return true;
+    }
+    return false;
+}
+
+function dominantAlgorithm(arr, len, options) {
+    var colorHash = {};
+    var divider = 24;
+    var ignoredColor = options.ignoredColor;
+    var step = options.step;
+    var max = [0, 0, 0, 0, 0];
+    for (var i = 0; i < len; i += step) {
+        var red = arr[i];
+        var green = arr[i + 1];
+        var blue = arr[i + 2];
+        var alpha = arr[i + 3];
+        if (ignoredColor && isIgnoredColor(arr, i, ignoredColor)) {
+            continue;
+        }
+        var key = Math.round(red / divider) + ',' +
+            Math.round(green / divider) + ',' +
+            Math.round(blue / divider);
+        if (colorHash[key]) {
+            colorHash[key] = [
+                colorHash[key][0] + red * alpha,
+                colorHash[key][1] + green * alpha,
+                colorHash[key][2] + blue * alpha,
+                colorHash[key][3] + alpha,
+                colorHash[key][4] + 1
+            ];
+        }
+        else {
+            colorHash[key] = [red * alpha, green * alpha, blue * alpha, alpha, 1];
+        }
+        if (max[4] < colorHash[key][4]) {
+            max = colorHash[key];
+        }
+    }
+    var redTotal = max[0];
+    var greenTotal = max[1];
+    var blueTotal = max[2];
+    var alphaTotal = max[3];
+    var count = max[4];
+    return alphaTotal ? [
+        Math.round(redTotal / alphaTotal),
+        Math.round(greenTotal / alphaTotal),
+        Math.round(blueTotal / alphaTotal),
+        Math.round(alphaTotal / count)
+    ] : options.defaultColor;
+}
+
+function simpleAlgorithm(arr, len, options) {
+    var redTotal = 0;
+    var greenTotal = 0;
+    var blueTotal = 0;
+    var alphaTotal = 0;
+    var count = 0;
+    var ignoredColor = options.ignoredColor;
+    var step = options.step;
+    for (var i = 0; i < len; i += step) {
+        var alpha = arr[i + 3];
+        var red = arr[i] * alpha;
+        var green = arr[i + 1] * alpha;
+        var blue = arr[i + 2] * alpha;
+        if (ignoredColor && isIgnoredColor(arr, i, ignoredColor)) {
+            continue;
+        }
+        redTotal += red;
+        greenTotal += green;
+        blueTotal += blue;
+        alphaTotal += alpha;
+        count++;
+    }
+    return alphaTotal ? [
+        Math.round(redTotal / alphaTotal),
+        Math.round(greenTotal / alphaTotal),
+        Math.round(blueTotal / alphaTotal),
+        Math.round(alphaTotal / count)
+    ] : options.defaultColor;
+}
+
+function sqrtAlgorithm(arr, len, options) {
+    var redTotal = 0;
+    var greenTotal = 0;
+    var blueTotal = 0;
+    var alphaTotal = 0;
+    var count = 0;
+    var ignoredColor = options.ignoredColor;
+    var step = options.step;
+    for (var i = 0; i < len; i += step) {
+        var red = arr[i];
+        var green = arr[i + 1];
+        var blue = arr[i + 2];
+        var alpha = arr[i + 3];
+        if (ignoredColor && isIgnoredColor(arr, i, ignoredColor)) {
+            continue;
+        }
+        redTotal += red * red * alpha;
+        greenTotal += green * green * alpha;
+        blueTotal += blue * blue * alpha;
+        alphaTotal += alpha;
+        count++;
+    }
+    return alphaTotal ? [
+        Math.round(Math.sqrt(redTotal / alphaTotal)),
+        Math.round(Math.sqrt(greenTotal / alphaTotal)),
+        Math.round(Math.sqrt(blueTotal / alphaTotal)),
+        Math.round(alphaTotal / count)
+    ] : options.defaultColor;
+}
+
+function getDefaultColor(options) {
+    return getOption(options, 'defaultColor', [0, 0, 0, 0]);
+}
+function getOption(options, name, defaultValue) {
+    return (options[name] === undefined ? defaultValue : options[name]);
+}
+
+var MIN_SIZE = 10;
+var MAX_SIZE = 100;
+function isSvg(filename) {
+    return filename.search(/\.svg(\?|$)/i) !== -1;
+}
+function getOriginalSize(resource) {
+    if (isInstanceOfHTMLImageElement(resource)) {
+        var width = resource.naturalWidth;
+        var height = resource.naturalHeight;
+        // For SVG images with only viewBox attribute
+        if (!resource.naturalWidth && isSvg(resource.src)) {
+            width = height = MAX_SIZE;
+        }
+        return {
+            width: width,
+            height: height,
+        };
+    }
+    if (isInstanceOfHTMLVideoElement(resource)) {
+        return {
+            width: resource.videoWidth,
+            height: resource.videoHeight
+        };
+    }
+    return {
+        width: resource.width,
+        height: resource.height
+    };
+}
+function getSrc(resource) {
+    if (isInstanceOfHTMLCanvasElement(resource)) {
+        return 'canvas';
+    }
+    if (isInstanceOfOffscreenCanvas(resource)) {
+        return 'offscreencanvas';
+    }
+    if (isInstanceOfImageBitmap(resource)) {
+        return 'imagebitmap';
+    }
+    return resource.src;
+}
+function isInstanceOfHTMLImageElement(resource) {
+    return typeof HTMLImageElement !== 'undefined' && resource instanceof HTMLImageElement;
+}
+function isInstanceOfOffscreenCanvas(resource) {
+    return typeof OffscreenCanvas !== 'undefined' && resource instanceof OffscreenCanvas;
+}
+function isInstanceOfHTMLVideoElement(resource) {
+    return typeof HTMLVideoElement !== 'undefined' && resource instanceof HTMLVideoElement;
+}
+function isInstanceOfHTMLCanvasElement(resource) {
+    return typeof HTMLCanvasElement !== 'undefined' && resource instanceof HTMLCanvasElement;
+}
+function isInstanceOfImageBitmap(resource) {
+    return typeof ImageBitmap !== 'undefined' && resource instanceof ImageBitmap;
+}
+function prepareSizeAndPosition(originalSize, options) {
+    var srcLeft = getOption(options, 'left', 0);
+    var srcTop = getOption(options, 'top', 0);
+    var srcWidth = getOption(options, 'width', originalSize.width);
+    var srcHeight = getOption(options, 'height', originalSize.height);
+    var destWidth = srcWidth;
+    var destHeight = srcHeight;
+    if (options.mode === 'precision') {
+        return {
+            srcLeft: srcLeft,
+            srcTop: srcTop,
+            srcWidth: srcWidth,
+            srcHeight: srcHeight,
+            destWidth: destWidth,
+            destHeight: destHeight
+        };
+    }
+    var factor;
+    if (srcWidth > srcHeight) {
+        factor = srcWidth / srcHeight;
+        destWidth = MAX_SIZE;
+        destHeight = Math.round(destWidth / factor);
+    }
+    else {
+        factor = srcHeight / srcWidth;
+        destHeight = MAX_SIZE;
+        destWidth = Math.round(destHeight / factor);
+    }
+    if (destWidth > srcWidth || destHeight > srcHeight ||
+        destWidth < MIN_SIZE || destHeight < MIN_SIZE) {
+        destWidth = srcWidth;
+        destHeight = srcHeight;
+    }
+    return {
+        srcLeft: srcLeft,
+        srcTop: srcTop,
+        srcWidth: srcWidth,
+        srcHeight: srcHeight,
+        destWidth: destWidth,
+        destHeight: destHeight
+    };
+}
+var isWebWorkers = typeof window === 'undefined';
+function makeCanvas() {
+    return isWebWorkers ?
+        new OffscreenCanvas(1, 1) :
+        document.createElement('canvas');
+}
+
+var ERROR_PREFIX = 'FastAverageColor: ';
+function outputError(message, silent, error) {
+    if (!silent) {
+        console.error(ERROR_PREFIX + message);
+        if (error) {
+            console.error(error);
+        }
+    }
+}
+function getError(text) {
+    return Error(ERROR_PREFIX + text);
+}
+
+var FastAverageColor = /** @class */ (function () {
+    function FastAverageColor() {
+        this.canvas = null;
+        this.ctx = null;
+    }
+    /**
+     * Get asynchronously the average color from not loaded image.
+     */
+    FastAverageColor.prototype.getColorAsync = function (resource, options) {
+        if (!resource) {
+            return Promise.reject(getError('call .getColorAsync() without resource.'));
+        }
+        if (typeof resource === 'string') {
+            // Web workers
+            if (typeof Image === 'undefined') {
+                return Promise.reject(getError('resource as string is not supported in this environment'));
+            }
+            var img = new Image();
+            img.crossOrigin = options && options.crossOrigin || '';
+            img.src = resource;
+            return this.bindImageEvents(img, options);
+        }
+        else if (isInstanceOfHTMLImageElement(resource) && !resource.complete) {
+            return this.bindImageEvents(resource, options);
+        }
+        else {
+            var result = this.getColor(resource, options);
+            return result.error ? Promise.reject(result.error) : Promise.resolve(result);
+        }
+    };
+    /**
+     * Get the average color from images, videos and canvas.
+     */
+    FastAverageColor.prototype.getColor = function (resource, options) {
+        options = options || {};
+        var defaultColor = getDefaultColor(options);
+        if (!resource) {
+            outputError('call .getColor(null) without resource', options.silent);
+            return this.prepareResult(defaultColor);
+        }
+        var originalSize = getOriginalSize(resource);
+        var size = prepareSizeAndPosition(originalSize, options);
+        if (!size.srcWidth || !size.srcHeight || !size.destWidth || !size.destHeight) {
+            outputError("incorrect sizes for resource \"".concat(getSrc(resource), "\""), options.silent);
+            return this.prepareResult(defaultColor);
+        }
+        if (!this.canvas) {
+            this.canvas = makeCanvas();
+        }
+        if (!this.ctx) {
+            this.ctx = this.canvas.getContext && this.canvas.getContext('2d');
+            if (!this.ctx) {
+                outputError('Canvas Context 2D is not supported in this browser', options.silent);
+                return this.prepareResult(defaultColor);
+            }
+        }
+        this.canvas.width = size.destWidth;
+        this.canvas.height = size.destHeight;
+        var value = defaultColor;
+        try {
+            this.ctx.clearRect(0, 0, size.destWidth, size.destHeight);
+            this.ctx.drawImage(resource, size.srcLeft, size.srcTop, size.srcWidth, size.srcHeight, 0, 0, size.destWidth, size.destHeight);
+            var bitmapData = this.ctx.getImageData(0, 0, size.destWidth, size.destHeight).data;
+            value = this.getColorFromArray4(bitmapData, options);
+        }
+        catch (e) {
+            outputError("security error (CORS) for resource ".concat(getSrc(resource), ".\nDetails: https://developer.mozilla.org/en/docs/Web/HTML/CORS_enabled_image"), options.silent, e);
+        }
+        return this.prepareResult(value);
+    };
+    /**
+     * Get the average color from a array when 1 pixel is 4 bytes.
+     */
+    FastAverageColor.prototype.getColorFromArray4 = function (arr, options) {
+        options = options || {};
+        var bytesPerPixel = 4;
+        var arrLength = arr.length;
+        var defaultColor = getDefaultColor(options);
+        if (arrLength < bytesPerPixel) {
+            return defaultColor;
+        }
+        var len = arrLength - arrLength % bytesPerPixel;
+        var step = (options.step || 1) * bytesPerPixel;
+        var algorithm;
+        switch (options.algorithm || 'sqrt') {
+            case 'simple':
+                algorithm = simpleAlgorithm;
+                break;
+            case 'sqrt':
+                algorithm = sqrtAlgorithm;
+                break;
+            case 'dominant':
+                algorithm = dominantAlgorithm;
+                break;
+            default:
+                throw getError("".concat(options.algorithm, " is unknown algorithm"));
+        }
+        return algorithm(arr, len, {
+            defaultColor: defaultColor,
+            ignoredColor: prepareIgnoredColor(options.ignoredColor),
+            step: step
+        });
+    };
+    /**
+     * Get color data from value ([r, g, b, a]).
+     */
+    FastAverageColor.prototype.prepareResult = function (value) {
+        var rgb = value.slice(0, 3);
+        var rgba = [value[0], value[1], value[2], value[3] / 255];
+        var isDarkColor = isDark(value);
+        return {
+            value: [value[0], value[1], value[2], value[3]],
+            rgb: 'rgb(' + rgb.join(',') + ')',
+            rgba: 'rgba(' + rgba.join(',') + ')',
+            hex: arrayToHex(rgb),
+            hexa: arrayToHex(value),
+            isDark: isDarkColor,
+            isLight: !isDarkColor
+        };
+    };
+    /**
+     * Destroy the instance.
+     */
+    FastAverageColor.prototype.destroy = function () {
+        if (this.canvas) {
+            this.canvas.width = 1;
+            this.canvas.height = 1;
+            this.canvas = null;
+        }
+        this.ctx = null;
+    };
+    FastAverageColor.prototype.bindImageEvents = function (resource, options) {
+        var _this = this;
+        return new Promise(function (resolve, reject) {
+            var onload = function () {
+                unbindEvents();
+                var result = _this.getColor(resource, options);
+                if (result.error) {
+                    reject(result.error);
+                }
+                else {
+                    resolve(result);
+                }
+            };
+            var onerror = function () {
+                unbindEvents();
+                reject(getError("Error loading image \"".concat(resource.src, "\".")));
+            };
+            var onabort = function () {
+                unbindEvents();
+                reject(getError("Image \"".concat(resource.src, "\" loading aborted")));
+            };
+            var unbindEvents = function () {
+                resource.removeEventListener('load', onload);
+                resource.removeEventListener('error', onerror);
+                resource.removeEventListener('abort', onabort);
+            };
+            resource.addEventListener('load', onload);
+            resource.addEventListener('error', onerror);
+            resource.addEventListener('abort', onabort);
+        });
+    };
+    return FastAverageColor;
+}());
+
+
+
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/cover/edit/use-cover-is-dark.js
 /**
  * External dependencies
@@ -12716,7 +12776,7 @@ var dist_default = /*#__PURE__*/__webpack_require__.n(dist);
 
 function retrieveFastAverageColor() {
   if (!retrieveFastAverageColor.fastAverageColor) {
-    retrieveFastAverageColor.fastAverageColor = new (dist_default())();
+    retrieveFastAverageColor.fastAverageColor = new FastAverageColor();
   }
 
   return retrieveFastAverageColor.fastAverageColor;
@@ -12746,9 +12806,14 @@ function useCoverIsDark(url) {
     // If opacity is lower than 50 the dominant color is the image or video color,
     // so use that color for the dark mode computation.
     if (url && dimRatio <= 50 && elementRef.current) {
-      retrieveFastAverageColor().getColorAsync(elementRef.current, color => {
-        setIsDark(color.isDark);
-      });
+      retrieveFastAverageColor().getColorAsync(elementRef.current, {
+        // Previously the default color was white, but that changed
+        // in v6.0.0 so it has to be manually set now.
+        defaultColor: [255, 255, 255, 255],
+        // Errors that come up don't reject the promise, so error
+        // logging has to be silenced with this option.
+        silent: "production" === 'production'
+      }).then(color => setIsDark(color.isDark));
     }
   }, [url, url && dimRatio <= 50 && elementRef.current, setIsDark]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -14060,9 +14125,16 @@ const cover_settings = {
     innerBlocks: [{
       name: 'core/paragraph',
       attributes: {
-        customFontSize: 48,
         content: (0,external_wp_i18n_namespaceObject.__)('<strong>Snow Patrol</strong>'),
-        align: 'center'
+        align: 'center',
+        style: {
+          typography: {
+            fontSize: 48
+          },
+          color: {
+            text: 'white'
+          }
+        }
       }
     }]
   },
@@ -14911,18 +14983,22 @@ const transforms_metadata = {
   textdomain: "default",
   attributes: {
     url: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     caption: {
       type: "string",
       source: "html",
-      selector: "figcaption"
+      selector: "figcaption",
+      __experimentalRole: "content"
     },
     type: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     providerNameSlug: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     allowResponsive: {
       type: "boolean",
@@ -14930,11 +15006,13 @@ const transforms_metadata = {
     },
     responsive: {
       type: "boolean",
-      "default": false
+      "default": false,
+      __experimentalRole: "content"
     },
     previewable: {
       type: "boolean",
-      "default": true
+      "default": true,
+      __experimentalRole: "content"
     }
   },
   supports: {
@@ -15005,7 +15083,7 @@ const embed_transforms_transforms = {
 /** @typedef {import('@wordpress/blocks').WPBlockVariation} WPBlockVariation */
 
 /**
- * Template option choices for predefined columns layouts.
+ * The embed provider services.
  *
  * @type {WPBlockVariation[]}
  */
@@ -15409,18 +15487,22 @@ const embed_deprecated_metadata = {
   textdomain: "default",
   attributes: {
     url: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     caption: {
       type: "string",
       source: "html",
-      selector: "figcaption"
+      selector: "figcaption",
+      __experimentalRole: "content"
     },
     type: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     providerNameSlug: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     allowResponsive: {
       type: "boolean",
@@ -15428,11 +15510,13 @@ const embed_deprecated_metadata = {
     },
     responsive: {
       type: "boolean",
-      "default": false
+      "default": false,
+      __experimentalRole: "content"
     },
     previewable: {
       type: "boolean",
-      "default": true
+      "default": true,
+      __experimentalRole: "content"
     }
   },
   supports: {
@@ -15500,18 +15584,22 @@ const embed_metadata = {
   textdomain: "default",
   attributes: {
     url: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     caption: {
       type: "string",
       source: "html",
-      selector: "figcaption"
+      selector: "figcaption",
+      __experimentalRole: "content"
     },
     type: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     providerNameSlug: {
-      type: "string"
+      type: "string",
+      __experimentalRole: "content"
     },
     allowResponsive: {
       type: "boolean",
@@ -15519,11 +15607,13 @@ const embed_metadata = {
     },
     responsive: {
       type: "boolean",
-      "default": false
+      "default": false,
+      __experimentalRole: "content"
     },
     previewable: {
       type: "boolean",
-      "default": true
+      "default": true,
+      __experimentalRole: "content"
     }
   },
   supports: {
@@ -17226,8 +17316,8 @@ const deprecated_v3 = {
           attribute: 'data-link'
         },
         caption: {
-          type: 'array',
-          source: 'children',
+          type: 'string',
+          source: 'html',
           selector: 'figcaption'
         }
       }
@@ -17336,8 +17426,8 @@ const gallery_deprecated_v2 = {
           attribute: 'data-link'
         },
         caption: {
-          type: 'array',
-          source: 'children',
+          type: 'string',
+          source: 'html',
           selector: 'figcaption'
         }
       }
@@ -17551,7 +17641,7 @@ const sharedIcon = (0,external_wp_element_namespaceObject.createElement)(externa
 });
 
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/image/constants.js
-const MIN_SIZE = 20;
+const constants_MIN_SIZE = 20;
 const constants_LINK_DESTINATION_NONE = 'none';
 const constants_LINK_DESTINATION_MEDIA = 'media';
 const constants_LINK_DESTINATION_ATTACHMENT = 'attachment';
@@ -20443,7 +20533,6 @@ const group_deprecated_deprecated = [// Version with default layout.
 
 
 
-
 const htmlElementMessages = {
   header: (0,external_wp_i18n_namespaceObject.__)('The <header> element should represent introductory content, typically a group of introductory or navigational aids.'),
   main: (0,external_wp_i18n_namespaceObject.__)('The <main> element should be used for the primary content of your document only. '),
@@ -20499,23 +20588,6 @@ function GroupEdit(_ref) {
     renderAppender: hasInnerBlocks ? undefined : external_wp_blockEditor_namespaceObject.InnerBlocks.ButtonBlockAppender,
     __experimentalLayout: layoutSupportEnabled ? usedLayout : undefined
   });
-  const {
-    __unstableMarkNextChangeAsNotPersistent
-  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
-  const {
-    type: layoutType = null
-  } = layout;
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (layoutType) {
-      __unstableMarkNextChangeAsNotPersistent();
-
-      setAttributes({
-        layout: { ...layout,
-          type: layoutType
-        }
-      });
-    }
-  }, [layoutType]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, {
     __experimentalGroup: "advanced"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
@@ -20597,7 +20669,10 @@ const group_transforms_transforms = {
         return (0,external_wp_blocks_namespaceObject.createBlock)(block.name, block.attributes, block.innerBlocks);
       });
       return (0,external_wp_blocks_namespaceObject.createBlock)('core/group', {
-        align: widestAlignment
+        align: widestAlignment,
+        layout: {
+          type: 'constrained'
+        }
       }, groupInnerBlocks);
     }
 
@@ -20655,7 +20730,8 @@ const group_variations_variations = [{
       type: 'constrained'
     }
   },
-  scope: ['transform'],
+  isDefault: true,
+  scope: ['inserter', 'transform'],
   isActive: blockAttributes => {
     var _blockAttributes$layo, _blockAttributes$layo2, _blockAttributes$layo3;
 
@@ -20729,12 +20805,6 @@ const group_metadata = {
     templateLock: {
       type: ["string", "boolean"],
       "enum": ["all", "insert", "contentOnly", false]
-    },
-    layout: {
-      type: "object",
-      "default": {
-        type: "constrained"
-      }
     }
   },
   supports: {
@@ -22541,7 +22611,7 @@ function useClientWidth(ref, dependencies) {
  */
 
 
-function Image(_ref) {
+function image_Image(_ref) {
   var _imageRef$current3, _attributes$className;
 
   let {
@@ -22930,8 +23000,8 @@ function Image(_ref) {
     const currentWidth = width || imageWidthWithinContainer;
     const currentHeight = height || imageHeightWithinContainer;
     const ratio = naturalWidth / naturalHeight;
-    const minWidth = naturalWidth < naturalHeight ? MIN_SIZE : MIN_SIZE * ratio;
-    const minHeight = naturalHeight < naturalWidth ? MIN_SIZE : MIN_SIZE / ratio; // With the current implementation of ResizableBox, an image needs an
+    const minWidth = naturalWidth < naturalHeight ? constants_MIN_SIZE : constants_MIN_SIZE * ratio;
+    const minHeight = naturalHeight < naturalWidth ? constants_MIN_SIZE : constants_MIN_SIZE / ratio; // With the current implementation of ResizableBox, an image needs an
     // explicit pixel value for the max-width. In absence of being able to
     // set the content-width, this max-width is currently dictated by the
     // vanilla editor style. The following variable adds a buffer to this
@@ -23344,7 +23414,7 @@ function ImageEdit(_ref) {
     ref,
     className: classes
   });
-  return (0,external_wp_element_namespaceObject.createElement)("figure", blockProps, (temporaryURL || url) && (0,external_wp_element_namespaceObject.createElement)(Image, {
+  return (0,external_wp_element_namespaceObject.createElement)("figure", blockProps, (temporaryURL || url) && (0,external_wp_element_namespaceObject.createElement)(image_Image, {
     temporaryURL: temporaryURL,
     attributes: attributes,
     setAttributes: setAttributes,
@@ -26369,7 +26439,8 @@ function ListItemEdit(_ref2) {
     ref: useCopy(clientId)
   });
   const innerBlocksProps = (0,external_wp_blockEditor_namespaceObject.useInnerBlocksProps)(blockProps, {
-    allowedBlocks: ['core/list']
+    allowedBlocks: ['core/list'],
+    renderAppender: false
   });
   const useEnterRef = useEnter({
     content,
@@ -28316,14 +28387,21 @@ const external_wp_dom_namespaceObject = window["wp"]["dom"];
 function MissingBlockWarning(_ref) {
   let {
     attributes,
-    convertToHTML
+    convertToHTML,
+    clientId
   } = _ref;
   const {
     originalName,
     originalUndelimitedContent
   } = attributes;
   const hasContent = !!originalUndelimitedContent;
-  const hasHTMLBlock = (0,external_wp_blocks_namespaceObject.getBlockType)('core/html');
+  const hasHTMLBlock = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      canInsertBlockType,
+      getBlockRootClientId
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    return canInsertBlockType('core/html', getBlockRootClientId(clientId));
+  }, [clientId]);
   const actions = [];
   let messageHTML;
 
@@ -28528,7 +28606,7 @@ function MoreEdit(_ref) {
     onChange: toggleHideExcerpt,
     help: getHideExcerptHelp
   }))), (0,external_wp_element_namespaceObject.createElement)("div", (0,external_wp_blockEditor_namespaceObject.useBlockProps)(), (0,external_wp_element_namespaceObject.createElement)("input", {
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Read more link text'),
+    "aria-label": (0,external_wp_i18n_namespaceObject.__)('“Read more” link text'),
     type: "text",
     value: customText,
     placeholder: DEFAULT_TEXT,
@@ -29207,36 +29285,6 @@ const menu = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
 }));
 /* harmony default export */ const library_menu = (menu);
 
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/more-vertical.js
-
-
-/**
- * WordPress dependencies
- */
-
-const moreVertical = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M13 19h-2v-2h2v2zm0-6h-2v-2h2v2zm0-6h-2V5h2v2z"
-}));
-/* harmony default export */ const more_vertical = (moreVertical);
-
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/more-horizontal.js
-
-
-/**
- * WordPress dependencies
- */
-
-const moreHorizontal = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M11 13h2v-2h-2v2zm-6 0h2v-2H5v2zm12-2v2h2v-2h-2z"
-}));
-/* harmony default export */ const more_horizontal = (moreHorizontal);
-
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/edit/overlay-menu-icon.js
 
 
@@ -29253,14 +29301,6 @@ function OverlayMenuIcon(_ref) {
   if (icon === 'menu') {
     return (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
       icon: library_menu
-    });
-  } else if (icon === 'more-vertical') {
-    return (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
-      icon: more_vertical
-    });
-  } else if (icon === 'more-horizontal') {
-    return (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
-      icon: more_horizontal
     });
   }
 
@@ -29972,18 +30012,6 @@ function OverlayMenuPreview(_ref) {
     label: (0,external_wp_element_namespaceObject.createElement)(OverlayMenuIcon, {
       icon: "menu"
     })
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "more-vertical",
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('more vertical'),
-    label: (0,external_wp_element_namespaceObject.createElement)(OverlayMenuIcon, {
-      icon: "more-vertical"
-    })
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "more-horizontal",
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('more horizontal'),
-    label: (0,external_wp_element_namespaceObject.createElement)(OverlayMenuIcon, {
-      icon: "more-horizontal"
-    })
   })));
 }
 
@@ -30014,10 +30042,12 @@ function menuItemsToBlocks(menuItems) {
  * A recursive function that maps menu item nodes to blocks.
  *
  * @param {WPNavMenuItem[]} menuItems An array of WPNavMenuItem items.
+ * @param {number}          level     An integer representing the nesting level.
  * @return {Object} Object containing innerBlocks and mapping.
  */
 
 function mapMenuItemsToBlocks(menuItems) {
+  let level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
   let mapping = {}; // The menuItem should be in menu_order sort order.
 
   const sortedItems = [...menuItems].sort((a, b) => a.menu_order - b.menu_order);
@@ -30036,19 +30066,19 @@ function mapMenuItemsToBlocks(menuItems) {
       return block;
     }
 
-    const attributes = menuItemToBlockAttributes(menuItem); // If there are children recurse to build those nested blocks.
+    const blockType = (_menuItem$children = menuItem.children) !== null && _menuItem$children !== void 0 && _menuItem$children.length ? 'core/navigation-submenu' : 'core/navigation-link';
+    const attributes = menuItemToBlockAttributes(menuItem, blockType, level); // If there are children recurse to build those nested blocks.
 
     const {
       innerBlocks: nestedBlocks = [],
       // alias to avoid shadowing
       mapping: nestedMapping = {} // alias to avoid shadowing
 
-    } = (_menuItem$children = menuItem.children) !== null && _menuItem$children !== void 0 && _menuItem$children.length ? mapMenuItemsToBlocks(menuItem.children) : {}; // Update parent mapping with nested mapping.
+    } = (_menuItem$children2 = menuItem.children) !== null && _menuItem$children2 !== void 0 && _menuItem$children2.length ? mapMenuItemsToBlocks(menuItem.children, level + 1) : {}; // Update parent mapping with nested mapping.
 
     mapping = { ...mapping,
       ...nestedMapping
-    };
-    const blockType = (_menuItem$children2 = menuItem.children) !== null && _menuItem$children2 !== void 0 && _menuItem$children2.length ? 'core/navigation-submenu' : 'core/navigation-link'; // Create block with nested "innerBlocks".
+    }; // Create block with nested "innerBlocks".
 
     const block = (0,external_wp_blocks_namespaceObject.createBlock)(blockType, attributes, nestedBlocks); // Create mapping for menuItem -> block.
 
@@ -30084,12 +30114,14 @@ function mapMenuItemsToBlocks(menuItems) {
 /**
  * Convert block attributes to menu item.
  *
- * @param {WPNavMenuItem} menuItem the menu item to be converted to block attributes.
+ * @param {WPNavMenuItem} menuItem  the menu item to be converted to block attributes.
+ * @param {string}        blockType The block type.
+ * @param {number}        level     An integer representing the nesting level.
  * @return {Object} the block attributes converted from the WPNavMenuItem item.
  */
 
 
-function menuItemToBlockAttributes(_ref) {
+function menuItemToBlockAttributes(_ref, blockType, level) {
   var _object;
 
   let {
@@ -30143,6 +30175,12 @@ function menuItemToBlockAttributes(_ref) {
     }),
     ...(target === '_blank' && {
       opensInNewTab: true
+    }),
+    ...(blockType === 'core/navigation-submenu' && {
+      isTopLevelItem: level === 0
+    }),
+    ...(blockType === 'core/navigation-link' && {
+      isTopLevelLink: level === 0
     })
   };
 }
@@ -31865,6 +31903,7 @@ const addSubmenu = (0,external_wp_element_namespaceObject.createElement)(externa
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -32354,7 +32393,10 @@ function NavigationLinkEdit(_ref2) {
     replaceBlock,
     __unstableMarkNextChangeAsNotPersistent
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
-  const [isLinkOpen, setIsLinkOpen] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [isLinkOpen, setIsLinkOpen] = (0,external_wp_element_namespaceObject.useState)(false); // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null);
   const listItemRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const isDraggingWithin = useIsDraggingWithin(listItemRef);
 
@@ -32527,7 +32569,7 @@ function NavigationLinkEdit(_ref2) {
   }
 
   const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
-    ref: listItemRef,
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([setPopoverAnchor, listItemRef]),
     className: classnames_default()('wp-block-navigation-item', {
       'is-editing': isSelected || isParentOfSelectedBlock,
       'is-dragging-within': isDraggingWithin,
@@ -32649,7 +32691,7 @@ function NavigationLinkEdit(_ref2) {
   }, tooltipText))))), isLinkOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
     position: "bottom center",
     onClose: () => setIsLinkOpen(false),
-    anchorRef: listItemRef.current,
+    anchor: popoverAnchor,
     shift: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLinkControl, {
     hasTextControl: true,
@@ -33119,6 +33161,7 @@ const ItemSubmenuIcon = () => (0,external_wp_element_namespaceObject.createEleme
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -33453,7 +33496,10 @@ function NavigationSubmenuEdit(_ref) {
     __unstableMarkNextChangeAsNotPersistent,
     replaceBlock
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
-  const [isLinkOpen, setIsLinkOpen] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [isLinkOpen, setIsLinkOpen] = (0,external_wp_element_namespaceObject.useState)(false); // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null);
   const listItemRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const isDraggingWithin = edit_useIsDraggingWithin(listItemRef);
 
@@ -33605,7 +33651,7 @@ function NavigationSubmenuEdit(_ref) {
   }
 
   const blockProps = (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
-    ref: listItemRef,
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([setPopoverAnchor, listItemRef]),
     className: classnames_default()('wp-block-navigation-item', {
       'is-editing': isSelected || isParentOfSelectedBlock,
       'is-dragging-within': isDraggingWithin,
@@ -33723,7 +33769,7 @@ function NavigationSubmenuEdit(_ref) {
   }), !openSubmenusOnClick && isLinkOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
     position: "bottom center",
     onClose: () => setIsLinkOpen(false),
-    anchorRef: listItemRef.current,
+    anchor: popoverAnchor,
     shift: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLinkControl, {
     className: "wp-block-navigation-link__inline-link-input",
@@ -36774,8 +36820,14 @@ function PostDateEdit(_ref) {
     className: classnames_default()({
       [`has-text-align-${textAlign}`]: textAlign
     })
-  });
-  const timeRef = (0,external_wp_element_namespaceObject.useRef)();
+  }); // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null); // Memoize popoverProps to avoid returning a new object every time.
+
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    anchor: popoverAnchor
+  }), [popoverAnchor]);
   const isDescendentOfQueryLoop = Number.isFinite(queryId);
   const dateSettings = (0,external_wp_date_namespaceObject.getSettings)();
   const [siteFormat = dateSettings.formats.date] = (0,external_wp_coreData_namespaceObject.useEntityProp)('root', 'site', 'date_format');
@@ -36784,7 +36836,7 @@ function PostDateEdit(_ref) {
   const postType = (0,external_wp_data_namespaceObject.useSelect)(select => postTypeSlug ? select(external_wp_coreData_namespaceObject.store).getPostType(postTypeSlug) : null, [postTypeSlug]);
   let postDate = date ? (0,external_wp_element_namespaceObject.createElement)("time", {
     dateTime: (0,external_wp_date_namespaceObject.dateI18n)('c', date),
-    ref: timeRef
+    ref: setPopoverAnchor
   }, (0,external_wp_date_namespaceObject.dateI18n)(format || siteFormat, date)) : (0,external_wp_i18n_namespaceObject.__)('Post Date');
 
   if (isLink && date) {
@@ -36804,9 +36856,7 @@ function PostDateEdit(_ref) {
       });
     }
   }), date && !isDescendentOfQueryLoop && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
-    popoverProps: {
-      anchorRef: timeRef.current
-    },
+    popoverProps: popoverProps,
     renderContent: _ref2 => {
       let {
         onClose
@@ -37101,7 +37151,7 @@ function PostExcerptEditor(_ref) {
   const readMoreLink = (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
     className: "wp-block-post-excerpt__more-link",
     tagName: "a",
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('"Read more" link text'),
+    "aria-label": (0,external_wp_i18n_namespaceObject.__)('“Read more” link text'),
     placeholder: (0,external_wp_i18n_namespaceObject.__)('Add "read more" link text'),
     value: moreText,
     onChange: newMoreText => setAttributes({
@@ -37876,12 +37926,19 @@ function PostNavigationLinkEdit(_ref) {
       label,
       showTitle,
       textAlign,
-      linkLabel
+      linkLabel,
+      arrow
     },
     setAttributes
   } = _ref;
   const isNext = type === 'next';
   let placeholder = isNext ? (0,external_wp_i18n_namespaceObject.__)('Next') : (0,external_wp_i18n_namespaceObject.__)('Previous');
+  const arrowMap = {
+    none: '',
+    arrow: isNext ? '→' : '←',
+    chevron: isNext ? '»' : '«'
+  };
+  const displayArrow = arrowMap[arrow];
 
   if (showTitle) {
     /* translators: Label before for next and previous post. There is a space after the colon. */
@@ -37907,14 +37964,35 @@ function PostNavigationLinkEdit(_ref) {
     onChange: () => setAttributes({
       linkLabel: !linkLabel
     })
-  }))), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.AlignmentToolbar, {
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Arrow'),
+    value: arrow,
+    onChange: value => {
+      setAttributes({
+        arrow: value
+      });
+    },
+    help: (0,external_wp_i18n_namespaceObject.__)('A decorative arrow for the next and previous link.'),
+    isBlock: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "none",
+    label: (0,external_wp_i18n_namespaceObject._x)('None', 'Arrow option for Next/Previous link')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "arrow",
+    label: (0,external_wp_i18n_namespaceObject._x)('Arrow', 'Arrow option for Next/Previous link')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "chevron",
+    label: (0,external_wp_i18n_namespaceObject._x)('Chevron', 'Arrow option for Next/Previous link')
+  })))), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.AlignmentToolbar, {
     value: textAlign,
     onChange: nextAlign => {
       setAttributes({
         textAlign: nextAlign
       });
     }
-  })), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
+  })), (0,external_wp_element_namespaceObject.createElement)("div", blockProps, !isNext && displayArrow && (0,external_wp_element_namespaceObject.createElement)("span", {
+    className: `wp-block-post-navigation-link__arrow-previous is-arrow-${arrow}`
+  }, displayArrow), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
     tagName: "a",
     "aria-label": ariaLabel,
     placeholder: placeholder,
@@ -37926,7 +38004,10 @@ function PostNavigationLinkEdit(_ref) {
   }), showTitle && (0,external_wp_element_namespaceObject.createElement)("a", {
     href: "#post-navigation-pseudo-link",
     onClick: event => event.preventDefault()
-  }, (0,external_wp_i18n_namespaceObject.__)('An example title'))));
+  }, (0,external_wp_i18n_namespaceObject.__)('An example title')), isNext && displayArrow && (0,external_wp_element_namespaceObject.createElement)("span", {
+    className: `wp-block-post-navigation-link__arrow-next is-arrow-${arrow}`,
+    "aria-hidden": true
+  }, displayArrow)));
 }
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/next.js
@@ -38029,6 +38110,10 @@ const post_navigation_link_metadata = {
     linkLabel: {
       type: "boolean",
       "default": false
+    },
+    arrow: {
+      type: "string",
+      "default": "none"
     }
   },
   supports: {
@@ -38050,7 +38135,8 @@ const post_navigation_link_metadata = {
         fontSize: true
       }
     }
-  }
+  },
+  style: "wp-block-post-navigation-link"
 };
 
 
@@ -38169,21 +38255,6 @@ function PostTemplateEdit(_ref2) {
     page
   }] = queryContext;
   const [activeBlockContextId, setActiveBlockContextId] = (0,external_wp_element_namespaceObject.useState)();
-  let categorySlug = null;
-
-  if (templateSlug !== null && templateSlug !== void 0 && templateSlug.startsWith('category-')) {
-    categorySlug = templateSlug.replace('category-', '');
-  }
-
-  const {
-    records: categories,
-    hasResolved: hasResolvedCategories
-  } = (0,external_wp_coreData_namespaceObject.useEntityRecords)('taxonomy', 'category', {
-    context: 'view',
-    per_page: -1,
-    _fields: ['id'],
-    slug: categorySlug
-  });
   const {
     posts,
     blocks
@@ -38200,13 +38271,19 @@ function PostTemplateEdit(_ref2) {
       per_page: -1,
       context: 'view'
     });
+    const templateCategory = inherit && (templateSlug === null || templateSlug === void 0 ? void 0 : templateSlug.startsWith('category-')) && getEntityRecords('taxonomy', 'category', {
+      context: 'view',
+      per_page: 1,
+      _fields: ['id'],
+      slug: templateSlug.replace('category-', '')
+    });
     const query = {
       offset: perPage ? perPage * (page - 1) + offset : 0,
       order,
       orderby: orderBy
-    };
+    }; // There is no need to build the taxQuery if we inherit.
 
-    if (taxQuery) {
+    if (taxQuery && !inherit) {
       // We have to build the tax query for the REST API and use as
       // keys the taxonomies `rest_base` with the `term ids` as values.
       const builtTaxQuery = Object.entries(taxQuery).reduce((accumulator, _ref3) => {
@@ -38263,16 +38340,10 @@ function PostTemplateEdit(_ref2) {
       if (templateSlug !== null && templateSlug !== void 0 && templateSlug.startsWith('archive-')) {
         query.postType = templateSlug.replace('archive-', '');
         postType = query.postType;
-      } else if (!!categorySlug && hasResolvedCategories) {
-        query.taxQuery = {
-          category: categories.map(_ref5 => {
-            let {
-              id
-            } = _ref5;
-            return id;
-          })
-        };
-        taxQuery = query.taxQuery;
+      } else if (templateCategory) {
+        var _templateCategory$;
+
+        query.categories = (_templateCategory$ = templateCategory[0]) === null || _templateCategory$ === void 0 ? void 0 : _templateCategory$.id;
       }
     } // When we preview Query Loop blocks we should prefer the current
     // block's postType, which is passed through block context.
@@ -38285,7 +38356,7 @@ function PostTemplateEdit(_ref2) {
       }),
       blocks: getBlocks(clientId)
     };
-  }, [perPage, page, offset, order, orderBy, clientId, author, search, postType, exclude, sticky, inherit, templateSlug, taxQuery, parents, restQueryArgs, previewPostType, categories, categorySlug, hasResolvedCategories]);
+  }, [perPage, page, offset, order, orderBy, clientId, author, search, postType, exclude, sticky, inherit, templateSlug, taxQuery, parents, restQueryArgs, previewPostType]);
   const blockContexts = (0,external_wp_element_namespaceObject.useMemo)(() => posts === null || posts === void 0 ? void 0 : posts.map(post => ({
     postType: post.type,
     postId: post.id
@@ -40373,6 +40444,7 @@ function OrderControl(_ref) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -40660,6 +40732,42 @@ const getTransformedBlocksFromPattern = (blocks, queryBlockAttributes) => {
     queryClientIds
   };
 };
+/**
+ * Helper hook that determines if there is an active variation of the block
+ * and if there are available specific patterns for this variation.
+ * If there are, these patterns are going to be the only ones suggested to
+ * the user in setup and replace flow, without including the default ones
+ * for Query Loop.
+ *
+ * If there are no such patterns, the default ones for Query Loop are going
+ * to be suggested.
+ *
+ * @param {string} clientId   The block's client ID.
+ * @param {Object} attributes The block's attributes.
+ * @return {string} The block name to be used in the patterns suggestions.
+ */
+
+function useBlockNameForPatterns(clientId, attributes) {
+  const activeVariationName = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _select$getActiveBloc2;
+
+    return (_select$getActiveBloc2 = select(external_wp_blocks_namespaceObject.store).getActiveBlockVariation(queryLoopName, attributes)) === null || _select$getActiveBloc2 === void 0 ? void 0 : _select$getActiveBloc2.name;
+  }, [attributes]);
+  const blockName = `${queryLoopName}/${activeVariationName}`;
+  const activeVariationPatterns = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    if (!activeVariationName) {
+      return;
+    }
+
+    const {
+      getBlockRootClientId,
+      __experimentalGetPatternsByBlockTypes
+    } = select(external_wp_blockEditor_namespaceObject.store);
+    const rootClientId = getBlockRootClientId(clientId);
+    return __experimentalGetPatternsByBlockTypes(blockName, rootClientId);
+  }, [clientId, activeVariationName]);
+  return activeVariationPatterns !== null && activeVariationPatterns !== void 0 && activeVariationPatterns.length ? blockName : queryLoopName;
+}
 
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/query/edit/inspector-controls/author-control.js
 
@@ -41074,16 +41182,12 @@ function StickyControl(_ref) {
     options: stickyOptions,
     value: value,
     onChange: onChange,
-    help: (0,external_wp_i18n_namespaceObject.__)('Blog posts can be "stickied", a feature that places them at the top of the front page of posts, keeping it there until new sticky posts are published.')
+    help: (0,external_wp_i18n_namespaceObject.__)('Blog posts can be “stickied”, a feature that places them at the top of the front page of posts, keeping it there until new sticky posts are published.')
   });
 }
 
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/query/edit/inspector-controls/index.js
 
-
-/**
- * External dependencies
- */
 
 /**
  * WordPress dependencies
@@ -41163,7 +41267,7 @@ function QueryInspectorControls(_ref) {
   };
 
   const [querySearch, setQuerySearch] = (0,external_wp_element_namespaceObject.useState)(query.search);
-  const onChangeDebounced = (0,external_wp_element_namespaceObject.useCallback)((0,external_lodash_namespaceObject.debounce)(() => {
+  const onChangeDebounced = (0,external_wp_element_namespaceObject.useCallback)((0,external_wp_compose_namespaceObject.debounce)(() => {
     if (query.search !== querySearch) {
       setQuery({
         search: querySearch
@@ -41194,7 +41298,7 @@ function QueryInspectorControls(_ref) {
     value: postType,
     label: (0,external_wp_i18n_namespaceObject.__)('Post type'),
     onChange: onPostTypeChange,
-    help: (0,external_wp_i18n_namespaceObject.__)('WordPress contains different types of content and they are divided into collections called "Post types". By default there are a few different ones such as blog posts and pages, but plugins could add more.')
+    help: (0,external_wp_i18n_namespaceObject.__)('WordPress contains different types of content and they are divided into collections called “Post types”. By default there are a few different ones such as blog posts and pages, but plugins could add more.')
   }), showColumnsControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.RangeControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Columns'),
     value: displayLayout.columns,
@@ -41432,7 +41536,7 @@ function QueryContent(_ref) {
 
 
 function QueryPlaceholder(_ref) {
-  var _blockType$icon;
+  var _matchingVariation$ic, _blockType$icon;
 
   let {
     attributes,
@@ -41464,7 +41568,7 @@ function QueryPlaceholder(_ref) {
     };
   }, [name, clientId]);
   const matchingVariation = (0,external_wp_blockEditor_namespaceObject.__experimentalGetMatchingVariation)(attributes, allVariations);
-  const icon = (matchingVariation === null || matchingVariation === void 0 ? void 0 : matchingVariation.icon) || (blockType === null || blockType === void 0 ? void 0 : (_blockType$icon = blockType.icon) === null || _blockType$icon === void 0 ? void 0 : _blockType$icon.src);
+  const icon = (matchingVariation === null || matchingVariation === void 0 ? void 0 : (_matchingVariation$ic = matchingVariation.icon) === null || _matchingVariation$ic === void 0 ? void 0 : _matchingVariation$ic.src) || (matchingVariation === null || matchingVariation === void 0 ? void 0 : matchingVariation.icon) || (blockType === null || blockType === void 0 ? void 0 : (_blockType$icon = blockType.icon) === null || _blockType$icon === void 0 ? void 0 : _blockType$icon.src);
   const label = (matchingVariation === null || matchingVariation === void 0 ? void 0 : matchingVariation.title) || (blockType === null || blockType === void 0 ? void 0 : blockType.title);
 
   if (isStartingBlank) {
@@ -41566,16 +41670,30 @@ function QueryVariationPicker(_ref2) {
 const QueryEdit = props => {
   const {
     clientId,
-    name,
     attributes
   } = props;
   const [isPatternSelectionModalOpen, setIsPatternSelectionModalOpen] = (0,external_wp_element_namespaceObject.useState)(false);
+  const hasInnerBlocks = (0,external_wp_data_namespaceObject.useSelect)(select => !!select(external_wp_blockEditor_namespaceObject.store).getBlocks(clientId).length, [clientId]);
+  const Component = hasInnerBlocks ? QueryContent : QueryPlaceholder;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(Component, _extends({}, props, {
+    openPatternSelectionModal: () => setIsPatternSelectionModalOpen(true)
+  })), isPatternSelectionModalOpen && (0,external_wp_element_namespaceObject.createElement)(PatternSelectionModal, {
+    clientId: clientId,
+    attributes: attributes,
+    setIsPatternSelectionModalOpen: setIsPatternSelectionModalOpen
+  }));
+};
+
+function PatternSelectionModal(_ref) {
+  let {
+    clientId,
+    attributes,
+    setIsPatternSelectionModalOpen
+  } = _ref;
   const {
     replaceBlock,
     selectBlock
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
-  const hasInnerBlocks = (0,external_wp_data_namespaceObject.useSelect)(select => !!select(external_wp_blockEditor_namespaceObject.store).getBlocks(clientId).length, [clientId]);
-  const Component = hasInnerBlocks ? QueryContent : QueryPlaceholder;
 
   const onBlockPatternSelect = blocks => {
     const {
@@ -41594,9 +41712,8 @@ const QueryEdit = props => {
   const blockPreviewContext = (0,external_wp_element_namespaceObject.useMemo)(() => ({
     previewPostType: attributes.query.postType
   }), [attributes.query.postType]);
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(Component, _extends({}, props, {
-    openPatternSelectionModal: () => setIsPatternSelectionModalOpen(true)
-  })), isPatternSelectionModalOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
+  const blockNameForPatterns = useBlockNameForPatterns(clientId, attributes);
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
     className: "block-editor-query-pattern__selection-modal",
     title: (0,external_wp_i18n_namespaceObject.__)('Choose a pattern'),
     closeLabel: (0,external_wp_i18n_namespaceObject.__)('Cancel'),
@@ -41604,11 +41721,11 @@ const QueryEdit = props => {
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockContextProvider, {
     value: blockPreviewContext
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalBlockPatternSetup, {
-    blockName: name,
+    blockName: blockNameForPatterns,
     clientId: clientId,
     onBlockPatternSelect: onBlockPatternSelect
-  }))));
-};
+  })));
+}
 
 /* harmony default export */ const query_edit = (QueryEdit);
 
@@ -42721,7 +42838,7 @@ function QueryTitleEdit(_ref) {
         showSearchTerm: !showSearchTerm
       }),
       checked: showSearchTerm
-    }))), (0,external_wp_element_namespaceObject.createElement)(TagName, blockProps, showSearchTerm ? (0,external_wp_i18n_namespaceObject.__)('Search results for: "search term"') : (0,external_wp_i18n_namespaceObject.__)('Search results')));
+    }))), (0,external_wp_element_namespaceObject.createElement)(TagName, blockProps, showSearchTerm ? (0,external_wp_i18n_namespaceObject.__)('Search results for: “search term”') : (0,external_wp_i18n_namespaceObject.__)('Search results')));
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, {
@@ -43407,9 +43524,9 @@ const quote_transforms_transforms = {
         anchor,
         fontSize,
         style
-      }, (0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph', {
+      }, [(0,external_wp_blocks_namespaceObject.createBlock)('core/paragraph', {
         content: value
-      }));
+      })]);
     }
   }, {
     type: 'block',
@@ -43819,7 +43936,7 @@ function ReadMore(_ref) {
     checked: linkTarget === '_blank'
   }))), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, _extends({
     tagName: "a",
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('"Read more" link text'),
+    "aria-label": (0,external_wp_i18n_namespaceObject.__)('“Read more” link text'),
     placeholder: (0,external_wp_i18n_namespaceObject.__)('Read more'),
     value: content,
     onChange: newValue => setAttributes({
@@ -45430,8 +45547,8 @@ const SiteLogo = _ref => {
   const currentWidth = width || defaultWidth;
   const ratio = naturalWidth / naturalHeight;
   const currentHeight = currentWidth / ratio;
-  const minWidth = naturalWidth < naturalHeight ? MIN_SIZE : Math.ceil(MIN_SIZE * ratio);
-  const minHeight = naturalHeight < naturalWidth ? MIN_SIZE : Math.ceil(MIN_SIZE / ratio); // With the current implementation of ResizableBox, an image needs an
+  const minWidth = naturalWidth < naturalHeight ? constants_MIN_SIZE : Math.ceil(constants_MIN_SIZE * ratio);
+  const minHeight = naturalHeight < naturalWidth ? constants_MIN_SIZE : Math.ceil(constants_MIN_SIZE / ratio); // With the current implementation of ResizableBox, an image needs an
   // explicit pixel value for the max-width. In absence of being able to
   // set the content-width, this max-width is currently dictated by the
   // vanilla editor style. The following variable adds a buffer to this
@@ -46045,7 +46162,7 @@ const site_tagline_metadata = {
   name: "core/site-tagline",
   title: "Site Tagline",
   category: "theme",
-  description: "Describe in a few words what the site is about. The tagline can be used in search results or when sharing on social networks even if it's not displayed in the theme design.",
+  description: "Describe in a few words what the site is about. The tagline can be used in search results or when sharing on social networks even if it\u2019s not displayed in the theme design.",
   keywords: ["description"],
   textdomain: "default",
   attributes: {
@@ -47600,10 +47717,10 @@ const SocialLinkURLPopover = _ref => {
     url,
     setAttributes,
     setPopover,
-    anchorRef
+    popoverAnchor
   } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.URLPopover, {
-    anchorRef: anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.current,
+    anchor: popoverAnchor,
     onClose: () => setPopover(false)
   }, (0,external_wp_element_namespaceObject.createElement)("form", {
     className: "block-editor-url-popover__link-editor",
@@ -47647,8 +47764,10 @@ const SocialLinkEdit = _ref2 => {
   const [showURLPopover, setPopover] = (0,external_wp_element_namespaceObject.useState)(false);
   const classes = classnames_default()('wp-social-link', 'wp-social-link-' + service, {
     'wp-social-link__is-incomplete': !url
-  });
-  const ref = (0,external_wp_element_namespaceObject.useRef)();
+  }); // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null);
   const IconComponent = getIconBySite(service);
   const socialLinkName = getNameBySite(service);
   const socialLinkLabel = label !== null && label !== void 0 ? label : socialLinkName;
@@ -47673,7 +47792,7 @@ const SocialLinkEdit = _ref2 => {
     })
   })))), (0,external_wp_element_namespaceObject.createElement)("li", blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     className: "wp-block-social-link-anchor",
-    ref: ref,
+    ref: setPopoverAnchor,
     onClick: () => setPopover(true)
   }, (0,external_wp_element_namespaceObject.createElement)(IconComponent, null), (0,external_wp_element_namespaceObject.createElement)("span", {
     className: classnames_default()('wp-block-social-link-label', {
@@ -47683,7 +47802,7 @@ const SocialLinkEdit = _ref2 => {
     url: url,
     setAttributes: setAttributes,
     setPopover: setPopover,
-    anchorRef: ref
+    popoverAnchor: popoverAnchor
   }))));
 };
 
@@ -51909,10 +52028,7 @@ function TemplatePartSelectionModal(_ref) {
     area,
     clientId
   } = _ref;
-  const [searchValue, setSearchValue] = (0,external_wp_element_namespaceObject.useState)(''); // When the templatePartId is undefined,
-  // it means the user is creating a new one from the placeholder.
-
-  const isReplacingTemplatePartContent = !!templatePartId;
+  const [searchValue, setSearchValue] = (0,external_wp_element_namespaceObject.useState)('');
   const {
     templateParts
   } = useAlternativeTemplateParts(area, templatePartId); // We can map template parts to block patters to reuse the BlockPatternsList UI
@@ -51935,9 +52051,6 @@ function TemplatePartSelectionModal(_ref) {
   const {
     createSuccessNotice
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
-  const {
-    replaceInnerBlocks
-  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
   const onTemplatePartSelect = (0,external_wp_element_namespaceObject.useCallback)(templatePart => {
     var _templatePart$title;
 
@@ -51975,12 +52088,7 @@ function TemplatePartSelectionModal(_ref) {
     blockPatterns: filteredBlockPatterns,
     shownPatterns: shownBlockPatterns,
     onClickPattern: (pattern, blocks) => {
-      if (isReplacingTemplatePartContent) {
-        replaceInnerBlocks(clientId, blocks);
-      } else {
-        createFromBlocks(blocks, pattern.title);
-      }
-
+      createFromBlocks(blocks, pattern.title);
       onClose();
     }
   })), !hasTemplateParts && !hasBlockPatterns && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
@@ -52221,7 +52329,7 @@ function TemplatePartEdit(_ref) {
     return (0,external_wp_element_namespaceObject.createElement)(TagName, blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, null, (0,external_wp_i18n_namespaceObject.__)('Block cannot be rendered inside itself.')));
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalRecursionProvider, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalRecursionProvider, {
     uniqueId: templatePartId
   }, (0,external_wp_element_namespaceObject.createElement)(TemplatePartAdvancedControls, {
     tagName: tagName,
@@ -52250,7 +52358,7 @@ function TemplatePartEdit(_ref) {
     postId: templatePartId,
     hasInnerBlocks: innerBlocks.length > 0,
     layout: layout
-  }), !isPlaceholder && !isResolved && (0,external_wp_element_namespaceObject.createElement)(TagName, blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null)), isTemplatePartSelectionOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
+  }), !isPlaceholder && !isResolved && (0,external_wp_element_namespaceObject.createElement)(TagName, blockProps, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null))), isTemplatePartSelectionOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
     overlayClassName: "block-editor-template-part__selection-modal",
     title: (0,external_wp_i18n_namespaceObject.sprintf)( // Translators: %s as template part area title ("Header", "Footer", etc.).
     (0,external_wp_i18n_namespaceObject.__)('Choose a %s'), areaObject.label.toLowerCase()),
