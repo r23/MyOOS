@@ -1,6 +1,6 @@
 .wp-block-a8c-sketch__brush-style-popover {
   /**
-		* Take care of default width for popover content.
-		*/ }
+		 * Take care of default width for popover content.
+		 */ }
   .wp-block-a8c-sketch__brush-style-popover .components-popover__content {
     min-width: initial; }
