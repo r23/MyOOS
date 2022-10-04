@@ -1,15 +1,15 @@
-# Translation of Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) in German
-# This file is distributed under the same license as the Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release) package.
+# Translation of Plugins - Rank Math SEO - Stable (latest release) in German
+# This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-09-28 09:01:12+0000\n"
+"PO-Revision-Date: 2022-10-03 21:54:48+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: GlotPress/4.0.0-alpha.3\n"
 "Language: de\n"
-"Project-Id-Version: Plugins - Rank Math SEO – Best SEO Plugin For WordPress To Increase Your SEO Traffic - Stable (latest release)\n"
+"Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
 
 #: includes/replace-variables/class-post-variables.php:223
 msgid "Output list of terms from the primary taxonomy associated to the current post."
@@ -5290,11 +5290,6 @@ msgstr "Papierkorb"
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: includes/modules/redirections/class-table.php:232
-#: includes/modules/redirections/class-table.php:298
-msgid "Delete Permanently"
-msgstr "Dauerhaft löschen"
-
 #: includes/modules/redirections/class-table.php:167
 #: includes/modules/sitemap/class-admin.php:312
 msgid "Hide"
@@ -7879,6 +7874,11 @@ msgstr "Rank Math ist mit deiner PHP-Version kompatibel, wir empfehlen jedoch ei
 #: includes/admin/wizard/views/compatibility.php:63
 msgid "This plugin is compatible with your PHP version but we recommend updating to PHP 7.4 for increased speed and security."
 msgstr "Dieses Plugin ist mit deiner PHP-Version kompatibel. Wir empfehlen jedoch, ein Update auf PHP 7.4 durchzuführen, um die Geschwindigkeit und Sicherheit zu erhöhen."
+
+#: includes/modules/redirections/class-table.php:232
+#: includes/modules/redirections/class-table.php:298
+msgid "Delete Permanently"
+msgstr "Unwiderruflich löschen"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
