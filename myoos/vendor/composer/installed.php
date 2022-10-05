@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'b60a7197b1066b8e59e9c1b455a59a653f7a28dd',
+        'reference' => 'daad49405dbeb3894fedbaeef8a2877bd005bcd9',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -65,12 +65,12 @@
             'dev_requirement' => false,
         ),
         'endroid/qr-code' => array(
-            'pretty_version' => '4.5.2',
-            'version' => '4.5.2.0',
+            'pretty_version' => '4.6.0',
+            'version' => '4.6.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../endroid/qr-code',
             'aliases' => array(),
-            'reference' => 'aec7fb1f008ed515f0580d7871dffa19428efb82',
+            'reference' => 'b60873b14e2ca7bf3c3746f5e032023095a7e05c',
             'dev_requirement' => false,
         ),
         'evenement/evenement' => array(
@@ -187,7 +187,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'b60a7197b1066b8e59e9c1b455a59a653f7a28dd',
+            'reference' => 'daad49405dbeb3894fedbaeef8a2877bd005bcd9',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -438,7 +438,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '51ff2179e48fdb0d495649a9c0681f46de777f4e',
+            'reference' => 'b0d3e99ce9c8ec237338a70277dd409ffcf6cedc',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
