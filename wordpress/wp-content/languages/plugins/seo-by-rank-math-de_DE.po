@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-10-03 21:54:48+0000\n"
+"PO-Revision-Date: 2022-10-06 13:58:17+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4141,17 +4141,17 @@ msgid "Disabled"
 msgstr "Deaktiviert"
 
 #. translators: Pinterest webmaster link
-#: includes/settings/general/webmaster.php:66
+#: includes/settings/general/webmaster.php:68
 msgid "Pinterest Account"
 msgstr "Pinterest Konto"
 
 #. translators: Bing webmaster link
-#: includes/settings/general/webmaster.php:29
+#: includes/settings/general/webmaster.php:31
 msgid "Bing Webmaster Verification Page"
 msgstr "Bing Webmaster Verifizierungsseite"
 
 #. translators: Google Search Console Link
-#: includes/settings/general/webmaster.php:17
+#: includes/settings/general/webmaster.php:19
 msgid "Search Console Verification Page"
 msgstr "Verifizierungsseite der Suchkonsole"
 
@@ -4527,18 +4527,18 @@ msgid "Include Featured Images"
 msgstr "Ausgewählte Bilder einbinden"
 
 #. translators: Norton webmaster link
-#: includes/settings/general/webmaster.php:78
+#: includes/settings/general/webmaster.php:80
 msgid "Norton Ownership Verification Page"
 msgstr "Norton Verifizierung Seite"
 
 #. translators: Yandex webmaster link
-#: includes/settings/general/webmaster.php:53
+#: includes/settings/general/webmaster.php:55
 msgid "Yandex.Webmaster Page"
 msgstr "Yandex.Webmaster Seite"
 
 #. translators: Baidu webmaster link
-#: includes/settings/general/webmaster.php:39
 #: includes/settings/general/webmaster.php:41
+#: includes/settings/general/webmaster.php:43
 msgid "Baidu Webmaster Tools"
 msgstr "Baidu Webmaster Tools"
 
@@ -4546,15 +4546,15 @@ msgstr "Baidu Webmaster Tools"
 msgid "Author Archives"
 msgstr "Autoren Archive"
 
-#: includes/settings/general/webmaster.php:76
+#: includes/settings/general/webmaster.php:78
 msgid "Norton Safe Web Verification ID"
 msgstr "Norton Safe-Web-Verification-ID"
 
-#: includes/settings/general/webmaster.php:64
+#: includes/settings/general/webmaster.php:66
 msgid "Pinterest Verification ID"
 msgstr "Pinterest Verifizierungs-ID"
 
-#: includes/settings/general/webmaster.php:51
+#: includes/settings/general/webmaster.php:53
 msgid "Yandex Verification ID"
 msgstr "Yandex Verifizierungs-ID"
 
@@ -4574,11 +4574,11 @@ msgstr "Datum Archiv Titel"
 msgid "Date Archives"
 msgstr "Datum Archive"
 
-#: includes/settings/general/webmaster.php:27
+#: includes/settings/general/webmaster.php:29
 msgid "Bing Webmaster Tools"
 msgstr "Bing Webmaster Tools"
 
-#: includes/settings/general/webmaster.php:15
+#: includes/settings/general/webmaster.php:17
 msgid "Google Search Console"
 msgstr "Google Search Console"
 
@@ -7044,39 +7044,14 @@ msgstr "Wähle benutzerdefinierte Roboter-Metas für die Homepage, wie z.B. <cod
 msgid "You can use the separator character in titles by inserting <code>%separator%</code> or <code>%sep%</code> in the title fields."
 msgstr "Du kannst das Trennzeichen in Titeln verwenden, indem du <code>%separator%</code> or <code>%sep%</code> in die Titelfelder einfügst."
 
-#. translators: Yandex webmaster link
-#: includes/settings/general/webmaster.php:53
-msgid "Enter your Yandex verification HTML code or ID. Get it from here: %s"
-msgstr "Gebe deinen HTML-Code oder deine ID für die Yandex Verifizierung ein. Hier findest du diesen: %s"
-
 #: includes/settings/titles/author.php:34
 msgid "Change the <code>/author/</code> part in author archive URLs."
 msgstr "Ändere den Teil <code>/author/</code> in den URLs des Autorenarchivs."
 
-#. translators: Norton webmaster link
-#: includes/settings/general/webmaster.php:78
-msgid "Enter your Norton Safe Web verification HTML code or ID. Get it from here: %s"
-msgstr "Gebe deinen HTML-Code oder deine ID für die Norton Safe-Web-Verifizierung ein. Hier findest du diesen: %s"
-
-#. translators: Pinterest webmaster link
-#: includes/settings/general/webmaster.php:66
-msgid "Enter your Pinterest verification HTML code or ID. Get it from here: %s"
-msgstr "Gebe deinen Pinterest Verifikation-HTML-Code oder deine ID ein. Hier findest du diesen: %s"
-
-#. translators: Baidu webmaster link
-#: includes/settings/general/webmaster.php:41
-msgid "Enter your Baidu Webmaster Tools verification HTML code or ID. Get it from here: %s"
-msgstr "Gebe deinen Baidu Webmaster Tools Verifizierungs-HTML-Code oder deine ID ein. Hier findest du diesen: %s"
-
 #. translators: Bing webmaster link
-#: includes/settings/general/webmaster.php:29
+#: includes/settings/general/webmaster.php:31
 msgid "Enter your Bing Webmaster Tools verification HTML code or ID. Get it here: %s"
 msgstr "Gebe deinen HTML-Code oder deine ID für die Verifizierung der Bing Webmaster Tools ein. Du bekommst diesen hier: %s"
-
-#. translators: Google Search Console Link
-#: includes/settings/general/webmaster.php:17
-msgid "Enter your Google Search Console verification HTML code or ID. Get it from here: %s"
-msgstr "Gebe deinen HTML-Code oder deine ID für die Verifizierung der Google Search Console ein. Du bekommst diesen hier: %s"
 
 #: includes/modules/sitemap/settings/taxonomies.php:20
 msgid "Include archive pages for terms of this taxonomy in the XML sitemap."
@@ -7879,6 +7854,31 @@ msgstr "Dieses Plugin ist mit deiner PHP-Version kompatibel. Wir empfehlen jedoc
 #: includes/modules/redirections/class-table.php:298
 msgid "Delete Permanently"
 msgstr "Unwiderruflich löschen"
+
+#. translators: Norton webmaster link
+#: includes/settings/general/webmaster.php:80
+msgid "Enter your Norton Safe Web verification HTML code or ID. Learn how to get it: %s"
+msgstr "Geben deinen Norton Safe Web-Verifizierungs-HTML-Code oder deine ID ein. Erfahre, wie du diesen bekommst: %s"
+
+#. translators: Pinterest webmaster link
+#: includes/settings/general/webmaster.php:68
+msgid "Enter your Pinterest verification HTML code or ID. Learn how to get it: %s"
+msgstr "Gebe deinen Pinterest Verifikation-HTML-Code oder deine ID ein. Erfahre, wie du diesen bekommst: %s"
+
+#. translators: Yandex webmaster link
+#: includes/settings/general/webmaster.php:55
+msgid "Enter your Yandex verification HTML code or ID. Learn how to get it: %s"
+msgstr "Gebe deinen Yandex-Verifizierungs-HTML-Code oder deine ID ein. Erfahre, wie du diesen bekommst: %s"
+
+#. translators: Baidu webmaster link
+#: includes/settings/general/webmaster.php:43
+msgid "Enter your Baidu Webmaster Tools verification HTML code or ID. Learn how to get it: %s"
+msgstr "Gebe deinen Baidu Webmaster Tools Verifizierungs-HTML-Code oder deine ID ein. Erfahre, wie du diesen bekommst: %s"
+
+#. translators: Google Search Console Link
+#: includes/settings/general/webmaster.php:19
+msgid "Enter your Google Search Console verification HTML code or ID. Learn how to get it: %s"
+msgstr "Gebe deinen HTML-Code oder deine ID für die Verifizierung der Google Search Console ein. Erfahre, wie du diesen bekommst: %s"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
