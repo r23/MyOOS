@@ -105,17 +105,10 @@ __webpack_require__.d(actions_namespaceObject, {
 
 ;// CONCATENATED MODULE: external ["wp","data"]
 const external_wp_data_namespaceObject = window["wp"]["data"];
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/store/reducer.js
-/**
- * External dependencies
- */
-
 /**
  * WordPress dependencies
  */
-
 
 /**
  * Reducer managing the format types
@@ -140,7 +133,10 @@ function formatTypes() {
       };
 
     case 'REMOVE_FORMAT_TYPES':
-      return (0,external_lodash_namespaceObject.omit)(state, action.names);
+      return Object.fromEntries(Object.entries(state).filter(_ref => {
+        let [key] = _ref;
+        return !action.names.includes(key);
+      }));
   }
 
   return state;
@@ -452,7 +448,6 @@ function isShallowEqual(a, b, fromIndex) {
  * External dependencies
  */
 
-
 /**
  * Returns all the available format types.
  *
@@ -485,7 +480,7 @@ function getFormatType(state, name) {
  */
 
 function getFormatTypeForBareElement(state, bareElementTagName) {
-  return (0,external_lodash_namespaceObject.find)(getFormatTypes(state), _ref => {
+  return getFormatTypes(state).find(_ref => {
     let {
       className,
       tagName
@@ -503,7 +498,7 @@ function getFormatTypeForBareElement(state, bareElementTagName) {
  */
 
 function getFormatTypeForClassName(state, elementClassName) {
-  return (0,external_lodash_namespaceObject.find)(getFormatTypes(state), _ref2 => {
+  return getFormatTypes(state).find(_ref2 => {
     let {
       className
     } = _ref2;
@@ -518,10 +513,6 @@ function getFormatTypeForClassName(state, elementClassName) {
 
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/store/actions.js
 /**
- * External dependencies
- */
-
-/**
  * Returns an action object used in signalling that format types have been
  * added.
  *
@@ -529,11 +520,10 @@ function getFormatTypeForClassName(state, elementClassName) {
  *
  * @return {Object} Action object.
  */
-
 function addFormatTypes(formatTypes) {
   return {
     type: 'ADD_FORMAT_TYPES',
-    formatTypes: (0,external_lodash_namespaceObject.castArray)(formatTypes)
+    formatTypes: Array.isArray(formatTypes) ? formatTypes : [formatTypes]
   };
 }
 /**
@@ -547,7 +537,7 @@ function addFormatTypes(formatTypes) {
 function removeFormatTypes(names) {
   return {
     type: 'REMOVE_FORMAT_TYPES',
-    names: (0,external_lodash_namespaceObject.castArray)(names)
+    names: Array.isArray(names) ? names : [names]
   };
 }
 
@@ -1518,13 +1508,8 @@ function getActiveFormats(_ref) {
 
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/get-active-format.js
 /**
- * External dependencies
- */
-
-/**
  * Internal dependencies
  */
-
 
 /** @typedef {import('./create').RichTextValue} RichTextValue */
 
@@ -1544,8 +1529,13 @@ function getActiveFormats(_ref) {
  */
 
 function getActiveFormat(value, formatType) {
-  return (0,external_lodash_namespaceObject.find)(getActiveFormats(value), {
-    type: formatType
+  var _getActiveFormats;
+
+  return (_getActiveFormats = getActiveFormats(value)) === null || _getActiveFormats === void 0 ? void 0 : _getActiveFormats.find(_ref => {
+    let {
+      type
+    } = _ref;
+    return type === formatType;
   });
 }
 

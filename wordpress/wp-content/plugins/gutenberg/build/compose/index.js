@@ -2163,6 +2163,7 @@ __webpack_require__.d(__webpack_exports__, {
   "ifCondition": () => (/* reexport */ if_condition),
   "pipe": () => (/* reexport */ higher_order_pipe),
   "pure": () => (/* reexport */ higher_order_pure),
+  "throttle": () => (/* reexport */ throttle),
   "useAsyncList": () => (/* reexport */ use_async_list),
   "useConstrainedTabbing": () => (/* reexport */ use_constrained_tabbing),
   "useCopyOnClick": () => (/* reexport */ useCopyOnClick),
@@ -2793,6 +2794,95 @@ const debounce = (func, wait, options) => {
   return debounced;
 };
 
+;// CONCATENATED MODULE: ./packages/compose/build-module/utils/throttle/index.js
+/**
+ * Parts of this source were derived and modified from lodash,
+ * released under the MIT license.
+ *
+ * https://github.com/lodash/lodash
+ *
+ * Copyright JS Foundation and other contributors <https://js.foundation/>
+ *
+ * Based on Underscore.js, copyright Jeremy Ashkenas,
+ * DocumentCloud and Investigative Reporters & Editors <http://underscorejs.org/>
+ *
+ * This software consists of voluntary contributions made by many
+ * individuals. For exact contribution history, see the revision history
+ * available at https://github.com/lodash/lodash
+ *
+ * The following license applies to all parts of this software except as
+ * documented below:
+ *
+ * ====
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * A simplified and properly typed version of lodash's `throttle`, that
+ * always uses timers instead of sometimes using rAF.
+ *
+ * Creates a throttled function that only invokes `func` at most once per
+ * every `wait` milliseconds. The throttled function comes with a `cancel`
+ * method to cancel delayed `func` invocations and a `flush` method to
+ * immediately invoke them. Provide `options` to indicate whether `func`
+ * should be invoked on the leading and/or trailing edge of the `wait`
+ * timeout. The `func` is invoked with the last arguments provided to the
+ * throttled function. Subsequent calls to the throttled function return
+ * the result of the last `func` invocation.
+ *
+ * **Note:** If `leading` and `trailing` options are `true`, `func` is
+ * invoked on the trailing edge of the timeout only if the throttled function
+ * is invoked more than once during the `wait` timeout.
+ *
+ * If `wait` is `0` and `leading` is `false`, `func` invocation is deferred
+ * until the next tick, similar to `setTimeout` with a timeout of `0`.
+ *
+ * @param {Function}                   func             The function to throttle.
+ * @param {number}                     wait             The number of milliseconds to throttle invocations to.
+ * @param {Partial< ThrottleOptions >} options          The options object.
+ * @param {boolean}                    options.leading  Specify invoking on the leading edge of the timeout.
+ * @param {boolean}                    options.trailing Specify invoking on the trailing edge of the timeout.
+ * @return Returns the new throttled function.
+ */
+const throttle = (func, wait, options) => {
+  let leading = true;
+  let trailing = true;
+
+  if (options) {
+    leading = 'leading' in options ? !!options.leading : leading;
+    trailing = 'trailing' in options ? !!options.trailing : trailing;
+  }
+
+  return debounce(func, wait, {
+    leading,
+    trailing,
+    maxWait: wait
+  });
+};
+
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/pipe.js
 /**
  * Parts of this source were derived and modified from lodash,
@@ -3008,19 +3098,12 @@ function _extends() {
 ;// CONCATENATED MODULE: external ["wp","deprecated"]
 const external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-global-events/listener.js
-/**
- * External dependencies
- */
-
 /**
  * Class responsible for orchestrating event handling on the global window,
  * binding a single event to be shared across all handling instances, and
  * removing the handler when no instances are listening for the event.
  */
-
 class Listener {
   constructor() {
     /** @type {any} */
@@ -3047,7 +3130,13 @@ class Listener {
   eventType,
   /** @type {any} */
   instance) {
-    this.listeners[eventType] = (0,external_lodash_namespaceObject.without)(this.listeners[eventType], instance);
+    if (!this.listeners[eventType]) {
+      return;
+    }
+
+    this.listeners[eventType] = this.listeners[eventType].filter((
+    /** @type {any} */
+    listener) => listener !== instance);
 
     if (!this.listeners[eventType].length) {
       // Removing last listener for this type, so unbind event.
@@ -3263,13 +3352,8 @@ const withInstanceId = createHigherOrderComponent(WrappedComponent => {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 /**
  * Internal dependencies
@@ -3313,7 +3397,7 @@ const withSafeTimeout = createHigherOrderComponent(OriginalComponent => {
 
     clearTimeout(id) {
       clearTimeout(id);
-      this.timeouts = (0,external_lodash_namespaceObject.without)(this.timeouts, id);
+      this.timeouts.filter(timeoutId => timeoutId !== id);
     }
 
     render() {
@@ -3815,13 +3899,8 @@ function useFocusReturn(onFocusReturn) {
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focus-outside/index.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 /**
  * Input types which are classified as button types, for use in considering
@@ -3860,7 +3939,7 @@ function isFocusNormalizedButton(eventTarget) {
       return true;
 
     case 'INPUT':
-      return (0,external_lodash_namespaceObject.includes)(INPUT_BUTTON_TYPES,
+      return INPUT_BUTTON_TYPES.includes(
       /** @type {HTMLInputElement} */
       eventTarget.type);
   }
@@ -3955,7 +4034,7 @@ function useFocusOutside(onFocusOutside) {
       type,
       target
     } = event;
-    const isInteractionEnd = (0,external_lodash_namespaceObject.includes)(['mouseup', 'touchend'], type);
+    const isInteractionEnd = ['mouseup', 'touchend'].includes(type);
 
     if (isInteractionEnd) {
       preventBlurCheck.current = false;
@@ -4085,6 +4164,7 @@ function assignRef(ref, value) {
 
 function useMergeRefs(refs) {
   const element = (0,external_wp_element_namespaceObject.useRef)();
+  const isAttached = (0,external_wp_element_namespaceObject.useRef)(false);
   const didElementChange = (0,external_wp_element_namespaceObject.useRef)(false);
   /* eslint-disable jsdoc/no-undefined-types */
 
@@ -4101,7 +4181,7 @@ function useMergeRefs(refs) {
   // which case the ref callbacks will already have been called.
 
   (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
-    if (didElementChange.current === false) {
+    if (didElementChange.current === false && isAttached.current === true) {
       refs.forEach((ref, index) => {
         const previousRef = previousRefs.current[index];
 
@@ -4125,7 +4205,8 @@ function useMergeRefs(refs) {
     // Update the element so it can be used when calling ref callbacks on a
     // dependency change.
     assignRef(element, value);
-    didElementChange.current = true; // When an element changes, the current ref callback should be called
+    didElementChange.current = true;
+    isAttached.current = value !== null; // When an element changes, the current ref callback should be called
     // with the new element and the previous one with `null`.
 
     const refsToAssign = value ? currentRefs.current : previousRefs.current; // Update the latest refs.
@@ -4208,13 +4289,8 @@ function useDialog(options) {
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-disabled/index.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 /**
  * Internal dependencies
@@ -4290,7 +4366,7 @@ function useDisabled() {
       external_wp_dom_namespaceObject.focus.focusable.find(node).forEach(focusable => {
         var _node$ownerDocument$d;
 
-        if ((0,external_lodash_namespaceObject.includes)(DISABLED_ELIGIBLE_NODE_NAMES, focusable.nodeName) && // @ts-ignore
+        if (DISABLED_ELIGIBLE_NODE_NAMES.includes(focusable.nodeName) && // @ts-ignore
         !focusable.disabled) {
           focusable.setAttribute('disabled', '');
           updates.push(() => {
@@ -4484,7 +4560,6 @@ var mousetrap_global_bind = __webpack_require__(5538);
  */
 
 
-
 /**
  * WordPress dependencies
  */
@@ -4541,7 +4616,8 @@ shortcuts, callback) {
 
     /** @type {unknown} */
     document);
-    (0,external_lodash_namespaceObject.castArray)(shortcuts).forEach(shortcut => {
+    const shortcutsArray = Array.isArray(shortcuts) ? shortcuts : [shortcuts];
+    shortcutsArray.forEach(shortcut => {
       const keys = shortcut.split('+'); // Determines whether a key is a modifier by the length of the string.
       // E.g. if I add a pass a shortcut Shift+Cmd+M, it'll determine that
       // the modifiers are Shift and Cmd because they're not a single character.
@@ -5199,14 +5275,18 @@ function useDebounce(fn, wait, options) {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
 
 
 /**
- * Throttles a function with Lodash's `throttle`. A new throttled function will
+ * Internal dependencies
+ */
+
+
+/**
+ * Throttles a function similar to Lodash's `throttle`. A new throttled function will
  * be returned and any scheduled calls cancelled if any of the arguments change,
  * including the function to throttle, so please wrap functions created on
  * render in components in `useCallback`.
@@ -5215,14 +5295,14 @@ function useDebounce(fn, wait, options) {
  *
  * @template {(...args: any[]) => void} TFunc
  *
- * @param {TFunc}                             fn        The function to throttle.
- * @param {number}                            [wait]    The number of milliseconds to throttle invocations to.
- * @param {import('lodash').ThrottleSettings} [options] The options object. See linked documentation for details.
- * @return {import('lodash').DebouncedFunc<TFunc>} Throttled function.
+ * @param {TFunc}                                          fn        The function to throttle.
+ * @param {number}                                         [wait]    The number of milliseconds to throttle invocations to.
+ * @param {import('../../utils/throttle').ThrottleOptions} [options] The options object. See linked documentation for details.
+ * @return {import('../../utils/debounce').DebouncedFunc<TFunc>} Throttled function.
  */
 
 function useThrottle(fn, wait, options) {
-  const throttled = useMemoOne(() => (0,external_lodash_namespaceObject.throttle)(fn, wait, options), [fn, wait, options]);
+  const throttled = useMemoOne(() => throttle(fn, wait !== null && wait !== void 0 ? wait : 0, options), [fn, wait, options]);
   (0,external_wp_element_namespaceObject.useEffect)(() => () => throttled.cancel(), [throttled]);
   return throttled;
 }
@@ -5341,8 +5421,7 @@ function useDropZone(_ref) {
         return;
       }
 
-      isDragging = true;
-      ownerDocument.removeEventListener('dragenter', maybeDragStart); // Note that `dragend` doesn't fire consistently for file and
+      isDragging = true; // Note that `dragend` doesn't fire consistently for file and
       // HTML drag events where the drag origin is outside the browser
       // window. In Firefox it may also not fire if the originating
       // node is removed.
@@ -5438,7 +5517,6 @@ function useDropZone(_ref) {
       }
 
       isDragging = false;
-      ownerDocument.addEventListener('dragenter', maybeDragStart);
       ownerDocument.removeEventListener('dragend', maybeDragEnd);
       ownerDocument.removeEventListener('mousemove', maybeDragEnd);
 
@@ -5456,12 +5534,6 @@ function useDropZone(_ref) {
 
     ownerDocument.addEventListener('dragenter', maybeDragStart);
     return () => {
-      onDropRef.current = null;
-      onDragStartRef.current = null;
-      onDragEnterRef.current = null;
-      onDragLeaveRef.current = null;
-      onDragEndRef.current = null;
-      onDragOverRef.current = null;
       delete element.dataset.isDropZone;
       element.removeEventListener('drop', onDrop);
       element.removeEventListener('dragenter', onDragEnter);
@@ -5469,7 +5541,7 @@ function useDropZone(_ref) {
       element.removeEventListener('dragleave', onDragLeave);
       ownerDocument.removeEventListener('dragend', maybeDragEnd);
       ownerDocument.removeEventListener('mousemove', maybeDragEnd);
-      ownerDocument.addEventListener('dragenter', maybeDragStart);
+      ownerDocument.removeEventListener('dragenter', maybeDragStart);
     };
   }, [isDisabled]);
 }
@@ -5683,6 +5755,8 @@ function useFixedWindowList(elementRef, itemHeight, totalItems, options) {
 ;// CONCATENATED MODULE: ./packages/compose/build-module/index.js
 // The `createHigherOrderComponent` helper and helper types.
  // The `debounce` helper and its types.
+
+ // The `throttle` helper and its types.
 
  // The `compose` and `pipe` helpers (inspired by `flowRight` and `flow` from Lodash).
 

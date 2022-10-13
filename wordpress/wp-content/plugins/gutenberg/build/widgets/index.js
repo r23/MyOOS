@@ -913,9 +913,15 @@ function Preview(_ref) {
 
 
     function setHeight() {
+      var _iframe$contentDocume, _iframe$contentDocume2, _iframe$contentDocume3, _iframe$contentDocume4;
+
       // Pick the maximum of these two values to account for margin collapsing.
-      const height = Math.max(iframe.contentDocument.documentElement.offsetHeight, iframe.contentDocument.body.offsetHeight);
-      iframe.style.height = `${height}px`;
+      const height = Math.max((_iframe$contentDocume = (_iframe$contentDocume2 = iframe.contentDocument.documentElement) === null || _iframe$contentDocume2 === void 0 ? void 0 : _iframe$contentDocume2.offsetHeight) !== null && _iframe$contentDocume !== void 0 ? _iframe$contentDocume : 0, (_iframe$contentDocume3 = (_iframe$contentDocume4 = iframe.contentDocument.body) === null || _iframe$contentDocume4 === void 0 ? void 0 : _iframe$contentDocume4.offsetHeight) !== null && _iframe$contentDocume3 !== void 0 ? _iframe$contentDocume3 : 0); // Fallback to a height of 100px if the height cannot be determined.
+      // This ensures the block is still selectable. 100px should hopefully
+      // be not so big that it's annoying, and not so small that nothing
+      // can be seen.
+
+      iframe.style.height = `${height !== 0 ? height : 100}px`;
     }
 
     const {

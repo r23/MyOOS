@@ -7326,18 +7326,24 @@ function DimensionsPanel(_ref) {
 
 
 
-
 /**
  * Internal dependencies
  */
 
 
 function useHasTypographyPanel(name) {
+  const hasFontFamily = useHasFontFamilyControl(name);
   const hasLineHeight = useHasLineHeightControl(name);
   const hasFontAppearance = useHasAppearanceControl(name);
   const hasLetterSpacing = useHasLetterSpacingControl(name);
   const supports = getSupportedGlobalStylesPanels(name);
-  return hasLineHeight || hasFontAppearance || hasLetterSpacing || supports.includes('fontSize');
+  return hasFontFamily || hasLineHeight || hasFontAppearance || hasLetterSpacing || supports.includes('fontSize');
+}
+
+function useHasFontFamilyControl(name) {
+  const supports = getSupportedGlobalStylesPanels(name);
+  const [fontFamilies] = useSetting('typography.fontFamilies', name);
+  return supports.includes('fontFamily') && !!(fontFamilies !== null && fontFamilies !== void 0 && fontFamilies.length);
 }
 
 function useHasLineHeightControl(name) {
@@ -7350,6 +7356,22 @@ function useHasAppearanceControl(name) {
   const hasFontStyles = useSetting('typography.fontStyle', name)[0] && supports.includes('fontStyle');
   const hasFontWeights = useSetting('typography.fontWeight', name)[0] && supports.includes('fontWeight');
   return hasFontStyles || hasFontWeights;
+}
+
+function useAppearanceControlLabel(name) {
+  const supports = getSupportedGlobalStylesPanels(name);
+  const hasFontStyles = useSetting('typography.fontStyle', name)[0] && supports.includes('fontStyle');
+  const hasFontWeights = useSetting('typography.fontWeight', name)[0] && supports.includes('fontWeight');
+
+  if (!hasFontStyles) {
+    return (0,external_wp_i18n_namespaceObject.__)('Font weight');
+  }
+
+  if (!hasFontWeights) {
+    return (0,external_wp_i18n_namespaceObject.__)('Font style');
+  }
+
+  return (0,external_wp_i18n_namespaceObject.__)('Appearance');
 }
 
 function useHasLetterSpacingControl(name, element) {
@@ -7382,17 +7404,51 @@ function useHasTextTransformControl(name, element) {
   return supports.includes('textTransform');
 }
 
+function useStyleWithReset(path, blockName) {
+  const [style, setStyle] = useStyle(path, blockName);
+  const [userStyle] = useStyle(path, blockName, 'user');
+
+  const hasStyle = () => !!userStyle;
+
+  const resetStyle = () => setStyle(undefined);
+
+  return [style, setStyle, hasStyle, resetStyle];
+}
+
+function useFontAppearance(prefix, name) {
+  const [fontStyle, setFontStyle] = useStyle(prefix + 'typography.fontStyle', name);
+  const [userFontStyle] = useStyle(prefix + 'typography.fontStyle', name, 'user');
+  const [fontWeight, setFontWeight] = useStyle(prefix + 'typography.fontWeight', name);
+  const [userFontWeight] = useStyle(prefix + 'typography.fontWeight', name, 'user');
+
+  const hasFontAppearance = () => !!userFontStyle || !!userFontWeight;
+
+  const resetFontAppearance = () => {
+    setFontStyle(undefined);
+    setFontWeight(undefined);
+  };
+
+  return {
+    fontStyle,
+    setFontStyle,
+    fontWeight,
+    setFontWeight,
+    hasFontAppearance,
+    resetFontAppearance
+  };
+}
+
 function TypographyPanel(_ref) {
   let {
     name,
-    element
+    element,
+    headingLevel
   } = _ref;
-  const [selectedLevel, setCurrentTab] = (0,external_wp_element_namespaceObject.useState)('heading');
   const supports = getSupportedGlobalStylesPanels(name);
   let prefix = '';
 
   if (element === 'heading') {
-    prefix = `elements.${selectedLevel}.`;
+    prefix = `elements.${headingLevel}.`;
   } else if (element && element !== 'text') {
     prefix = `elements.${element}.`;
   }
@@ -7402,102 +7458,77 @@ function TypographyPanel(_ref) {
   const [fontFamilies] = useSetting('typography.fontFamilies', name);
   const hasFontStyles = useSetting('typography.fontStyle', name)[0] && supports.includes('fontStyle');
   const hasFontWeights = useSetting('typography.fontWeight', name)[0] && supports.includes('fontWeight');
+  const hasFontFamilyEnabled = useHasFontFamilyControl(name);
   const hasLineHeightEnabled = useHasLineHeightControl(name);
   const hasAppearanceControl = useHasAppearanceControl(name);
+  const appearanceControlLabel = useAppearanceControlLabel(name);
   const hasLetterSpacingControl = useHasLetterSpacingControl(name, element);
   const hasTextTransformControl = useHasTextTransformControl(name, element);
   /* Disable font size controls when the option to style all headings is selected. */
 
   let hasFontSizeEnabled = supports.includes('fontSize');
 
-  if (element === 'heading' && selectedLevel === 'heading') {
+  if (element === 'heading' && headingLevel === 'heading') {
     hasFontSizeEnabled = false;
   }
 
-  const [fontFamily, setFontFamily] = useStyle(prefix + 'typography.fontFamily', name);
-  const [fontSize, setFontSize] = useStyle(prefix + 'typography.fontSize', name);
-  const [fontStyle, setFontStyle] = useStyle(prefix + 'typography.fontStyle', name);
-  const [fontWeight, setFontWeight] = useStyle(prefix + 'typography.fontWeight', name);
-  const [lineHeight, setLineHeight] = useStyle(prefix + 'typography.lineHeight', name);
-  const [letterSpacing, setLetterSpacing] = useStyle(prefix + 'typography.letterSpacing', name);
-  const [textTransform, setTextTransform] = useStyle(prefix + 'typography.textTransform', name);
-  const [backgroundColor] = useStyle(prefix + 'color.background', name);
-  const [gradientValue] = useStyle(prefix + 'color.gradient', name);
-  const [color] = useStyle(prefix + 'color.text', name);
-  const extraStyles = element === 'link' ? {
-    textDecoration: 'underline'
-  } : {};
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
-    className: "edit-site-typography-panel",
-    initialOpen: true
-  }, (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "edit-site-typography-panel__preview",
-    style: {
-      fontFamily: fontFamily !== null && fontFamily !== void 0 ? fontFamily : 'serif',
-      background: gradientValue !== null && gradientValue !== void 0 ? gradientValue : backgroundColor,
-      color,
-      fontSize,
-      fontStyle,
-      fontWeight,
-      letterSpacing,
-      ...extraStyles
-    }
-  }, "Aa"), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalGrid, {
-    columns: 2,
-    rowGap: 16,
-    columnGap: 8
-  }, element === 'heading' && (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "edit-site-typography-panel__full-width-control"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
-    label: (0,external_wp_i18n_namespaceObject.__)('Select heading level'),
-    hideLabelFromVision: true,
-    value: selectedLevel,
-    onChange: setCurrentTab,
-    isBlock: true,
-    size: "__unstable-large",
-    __nextHasNoMarginBottom: true
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "heading"
-    /* translators: 'All' refers to selecting all heading levels 
-    and applying the same style to h1-h6. */
-    ,
-    label: (0,external_wp_i18n_namespaceObject.__)('All')
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "h1",
-    label: (0,external_wp_i18n_namespaceObject.__)('H1')
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "h2",
-    label: (0,external_wp_i18n_namespaceObject.__)('H2')
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "h3",
-    label: (0,external_wp_i18n_namespaceObject.__)('H3')
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "h4",
-    label: (0,external_wp_i18n_namespaceObject.__)('H4')
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "h5",
-    label: (0,external_wp_i18n_namespaceObject.__)('H5')
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
-    value: "h6",
-    label: (0,external_wp_i18n_namespaceObject.__)('H6')
-  }))), supports.includes('fontFamily') && (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "edit-site-typography-panel__full-width-control"
+  const [fontFamily, setFontFamily, hasFontFamily, resetFontFamily] = useStyleWithReset(prefix + 'typography.fontFamily', name);
+  const [fontSize, setFontSize, hasFontSize, resetFontSize] = useStyleWithReset(prefix + 'typography.fontSize', name);
+  const {
+    fontStyle,
+    setFontStyle,
+    fontWeight,
+    setFontWeight,
+    hasFontAppearance,
+    resetFontAppearance
+  } = useFontAppearance(prefix, name);
+  const [lineHeight, setLineHeight, hasLineHeight, resetLineHeight] = useStyleWithReset(prefix + 'typography.lineHeight', name);
+  const [letterSpacing, setLetterSpacing, hasLetterSpacing, resetLetterSpacing] = useStyleWithReset(prefix + 'typography.letterSpacing', name);
+  const [textTransform, setTextTransform, hasTextTransform, resetTextTransform] = useStyleWithReset(prefix + 'typography.textTransform', name);
+
+  const resetAll = () => {
+    resetFontFamily();
+    resetFontSize();
+    resetFontAppearance();
+    resetLineHeight();
+    resetLetterSpacing();
+    resetTextTransform();
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanel, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Typography'),
+    resetAll: resetAll
+  }, hasFontFamilyEnabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Font family'),
+    hasValue: hasFontFamily,
+    onDeselect: resetFontFamily,
+    isShownByDefault: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalFontFamilyControl, {
     fontFamilies: fontFamilies,
     value: fontFamily,
     onChange: setFontFamily,
     size: "__unstable-large",
     __nextHasNoMarginBottom: true
-  })), hasFontSizeEnabled && (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "edit-site-typography-panel__full-width-control"
+  })), hasFontSizeEnabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Font size'),
+    hasValue: hasFontSize,
+    onDeselect: resetFontSize,
+    isShownByDefault: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FontSizePicker, {
     value: fontSize,
     onChange: setFontSize,
     fontSizes: fontSizes,
     disableCustomFontSizes: disableCustomFontSizes,
+    withReset: false,
     size: "__unstable-large",
     __nextHasNoMarginBottom: true
-  })), hasAppearanceControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalFontAppearanceControl, {
+  })), hasAppearanceControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    className: "single-column",
+    label: appearanceControlLabel,
+    hasValue: hasFontAppearance,
+    onDeselect: resetFontAppearance,
+    isShownByDefault: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalFontAppearanceControl, {
     value: {
       fontStyle,
       fontWeight
@@ -7514,19 +7545,34 @@ function TypographyPanel(_ref) {
     hasFontWeights: hasFontWeights,
     size: "__unstable-large",
     __nextHasNoMarginBottom: true
-  }), hasLineHeightEnabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.LineHeightControl, {
+  })), hasLineHeightEnabled && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    className: "single-column",
+    label: (0,external_wp_i18n_namespaceObject.__)('Line height'),
+    hasValue: hasLineHeight,
+    onDeselect: resetLineHeight,
+    isShownByDefault: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.LineHeightControl, {
     __nextHasNoMarginBottom: true,
     __unstableInputWidth: "auto",
     value: lineHeight,
     onChange: setLineHeight,
     size: "__unstable-large"
-  }), hasLetterSpacingControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLetterSpacingControl, {
+  })), hasLetterSpacingControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    className: "single-column",
+    label: (0,external_wp_i18n_namespaceObject.__)('Letter spacing'),
+    hasValue: hasLetterSpacing,
+    onDeselect: resetLetterSpacing,
+    isShownByDefault: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLetterSpacingControl, {
     value: letterSpacing,
     onChange: setLetterSpacing,
     size: "__unstable-large",
     __unstableInputWidth: "auto"
-  }), hasTextTransformControl && (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "edit-site-typography-panel__full-width-control"
+  })), hasTextTransformControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Letter case'),
+    hasValue: hasTextTransform,
+    onDeselect: resetTextTransform,
+    isShownByDefault: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalTextTransformControl, {
     value: textTransform,
     onChange: setTextTransform,
@@ -7534,7 +7580,7 @@ function TypographyPanel(_ref) {
     isBlock: true,
     size: "__unstable-large",
     __nextHasNoMarginBottom: true
-  }))));
+  })));
 }
 
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/context-menu.js
@@ -7966,7 +8012,7 @@ const getNodesWithStyles = (tree, blockSelectors) => {
     return nodes;
   }
 
-  const pickStyleKeys = treeToPickFrom => (0,external_lodash_namespaceObject.pickBy)(treeToPickFrom, (value, key) => ['border', 'color', 'spacing', 'typography', 'filter', 'outline'].includes(key)); // Top-level.
+  const pickStyleKeys = treeToPickFrom => (0,external_lodash_namespaceObject.pickBy)(treeToPickFrom, (value, key) => ['border', 'color', 'spacing', 'typography', 'filter', 'outline', 'shadow'].includes(key)); // Top-level.
 
 
   const styles = pickStyleKeys(tree.styles);
@@ -8416,12 +8462,12 @@ const StylesPreview = _ref => {
       color
     } = _ref2;
     return color !== backgroundColor && color !== headingColor;
-  }).slice(0, 2); // Reset leaked styles from WP common.css and remove main content layout padding.
+  }).slice(0, 2); // Reset leaked styles from WP common.css and remove main content layout padding and border.
 
   const editorStyles = (0,external_wp_element_namespaceObject.useMemo)(() => {
     if (styles) {
       return [...styles, {
-        css: 'body{min-width: 0;padding: 0;}',
+        css: 'body{min-width: 0;padding: 0;border: none;}',
         isGlobalStyles: true
       }];
     }
@@ -8933,6 +8979,53 @@ function ScreenTypography(_ref2) {
 
 /* harmony default export */ const screen_typography = (ScreenTypography);
 
+;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/typography-preview.js
+
+
+/**
+ * Internal dependencies
+ */
+
+function TypographyPreview(_ref) {
+  let {
+    name,
+    element,
+    headingLevel
+  } = _ref;
+  let prefix = '';
+
+  if (element === 'heading') {
+    prefix = `elements.${headingLevel}.`;
+  } else if (element && element !== 'text') {
+    prefix = `elements.${element}.`;
+  }
+
+  const [fontFamily] = useStyle(prefix + 'typography.fontFamily', name);
+  const [gradientValue] = useStyle(prefix + 'color.gradient', name);
+  const [backgroundColor] = useStyle(prefix + 'color.background', name);
+  const [color] = useStyle(prefix + 'color.text', name);
+  const [fontSize] = useStyle(prefix + 'typography.fontSize', name);
+  const [fontStyle] = useStyle(prefix + 'typography.fontStyle', name);
+  const [fontWeight] = useStyle(prefix + 'typography.fontWeight', name);
+  const [letterSpacing] = useStyle(prefix + 'typography.letterSpacing', name);
+  const extraStyles = element === 'link' ? {
+    textDecoration: 'underline'
+  } : {};
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "edit-site-typography-preview",
+    style: {
+      fontFamily: fontFamily !== null && fontFamily !== void 0 ? fontFamily : 'serif',
+      background: gradientValue !== null && gradientValue !== void 0 ? gradientValue : backgroundColor,
+      color,
+      fontSize,
+      fontStyle,
+      fontWeight,
+      letterSpacing,
+      ...extraStyles
+    }
+  }, "Aa");
+}
+
 ;// CONCATENATED MODULE: ./packages/edit-site/build-module/components/global-styles/screen-typography-element.js
 
 
@@ -8940,9 +9033,12 @@ function ScreenTypography(_ref2) {
  * WordPress dependencies
  */
 
+
+
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -8970,12 +9066,55 @@ function ScreenTypographyElement(_ref) {
     name,
     element
   } = _ref;
+  const [headingLevel, setHeadingLevel] = (0,external_wp_element_namespaceObject.useState)('heading');
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(header, {
     title: screen_typography_element_elements[element].title,
     description: screen_typography_element_elements[element].description
-  }), (0,external_wp_element_namespaceObject.createElement)(TypographyPanel, {
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
+    marginX: 4
+  }, (0,external_wp_element_namespaceObject.createElement)(TypographyPreview, {
     name: name,
-    element: element
+    element: element,
+    headingLevel: headingLevel
+  })), element === 'heading' && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
+    marginX: 4,
+    marginBottom: "1em"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Select heading level'),
+    hideLabelFromVision: true,
+    value: headingLevel,
+    onChange: setHeadingLevel,
+    isBlock: true,
+    size: "__unstable-large",
+    __nextHasNoMarginBottom: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "heading"
+    /* translators: 'All' refers to selecting all heading levels 
+    and applying the same style to h1-h6. */
+    ,
+    label: (0,external_wp_i18n_namespaceObject.__)('All')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h1",
+    label: (0,external_wp_i18n_namespaceObject.__)('H1')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h2",
+    label: (0,external_wp_i18n_namespaceObject.__)('H2')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h3",
+    label: (0,external_wp_i18n_namespaceObject.__)('H3')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h4",
+    label: (0,external_wp_i18n_namespaceObject.__)('H4')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h5",
+    label: (0,external_wp_i18n_namespaceObject.__)('H5')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControlOption, {
+    value: "h6",
+    label: (0,external_wp_i18n_namespaceObject.__)('H6')
+  }))), (0,external_wp_element_namespaceObject.createElement)(TypographyPanel, {
+    name: name,
+    element: element,
+    headingLevel: headingLevel
   }));
 }
 
@@ -9051,12 +9190,12 @@ function Palette(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalZStack, {
     isLayered: false,
     offset: -8
-  }, colors.slice(0, 5).map(_ref2 => {
+  }, colors.slice(0, 5).map((_ref2, index) => {
     let {
       color
     } = _ref2;
     return (0,external_wp_element_namespaceObject.createElement)(color_indicator_wrapper, {
-      key: color
+      key: `${color}-${index}`
     }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ColorIndicator, {
       colorValue: color
     }));
@@ -10992,8 +11131,8 @@ const main_dashboard_button_Slot = _ref => {
   let {
     children
   } = _ref;
-  const slot = (0,external_wp_components_namespaceObject.__experimentalUseSlot)(slotName);
-  const hasFills = Boolean(slot.fills && slot.fills.length);
+  const fills = (0,external_wp_components_namespaceObject.__experimentalUseSlotFills)(slotName);
+  const hasFills = Boolean(fills && fills.length);
 
   if (!hasFills) {
     return children;
@@ -11850,34 +11989,14 @@ function ResizableEditor(_ref) {
   const mouseMoveTypingResetRef = (0,external_wp_blockEditor_namespaceObject.__unstableUseMouseMoveTypingReset)();
   const ref = (0,external_wp_compose_namespaceObject.useMergeRefs)([iframeRef, mouseMoveTypingResetRef]);
   (0,external_wp_element_namespaceObject.useEffect)(function autoResizeIframeHeight() {
-    const iframe = iframeRef.current;
-
-    if (!iframe || !enableResizing) {
+    if (!iframeRef.current || !enableResizing) {
       return;
     }
 
-    let timeoutId = null;
+    const iframe = iframeRef.current;
 
-    function resizeHeight() {
-      if (!timeoutId) {
-        // Throttle the updates on timeout. This code previously
-        // used `requestAnimationFrame`, but that seems to not
-        // always work before an iframe is ready.
-        timeoutId = iframe.contentWindow.setTimeout(() => {
-          const {
-            readyState
-          } = iframe.contentDocument; // Continue deferring the timeout until the document is ready.
-          // Only then will it have a height.
-
-          if (readyState !== 'interactive' && readyState !== 'complete') {
-            resizeHeight();
-            return;
-          }
-
-          setHeight(iframe.contentDocument.body.scrollHeight);
-          timeoutId = null; // 30 frames per second.
-        }, 1000 / 30);
-      }
+    function setFrameHeight() {
+      setHeight(iframe.contentDocument.body.scrollHeight);
     }
 
     let resizeObserver;
@@ -11886,25 +12005,21 @@ function ResizableEditor(_ref) {
       var _resizeObserver;
 
       (_resizeObserver = resizeObserver) === null || _resizeObserver === void 0 ? void 0 : _resizeObserver.disconnect();
-      resizeObserver = new iframe.contentWindow.ResizeObserver(resizeHeight); // Observe the body, since the `html` element seems to always
+      resizeObserver = new iframe.contentWindow.ResizeObserver(setFrameHeight); // Observe the body, since the `html` element seems to always
       // have a height of `100%`.
 
       resizeObserver.observe(iframe.contentDocument.body);
-      resizeHeight();
-    } // This is only required in Firefox for some unknown reasons.
+      setFrameHeight();
+    }
 
-
-    iframe.addEventListener('load', registerObserver); // This is required in Chrome and Safari.
-
-    registerObserver();
+    iframe.addEventListener('load', registerObserver);
     return () => {
-      var _iframe$contentWindow, _resizeObserver2;
+      var _resizeObserver2;
 
-      (_iframe$contentWindow = iframe.contentWindow) === null || _iframe$contentWindow === void 0 ? void 0 : _iframe$contentWindow.clearTimeout(timeoutId);
       (_resizeObserver2 = resizeObserver) === null || _resizeObserver2 === void 0 ? void 0 : _resizeObserver2.disconnect();
       iframe.removeEventListener('load', registerObserver);
     };
-  }, [enableResizing]);
+  }, [enableResizing, iframeRef.current]);
   const resizeWidthBy = (0,external_wp_element_namespaceObject.useCallback)(deltaPixels => {
     if (iframeRef.current) {
       setWidth(iframeRef.current.offsetWidth + deltaPixels);
@@ -15730,6 +15845,7 @@ function PluginSidebarMoreMenuItem(props) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -15756,8 +15872,25 @@ function reinitializeEditor(target, settings) {
       dashboardLink: "index.php"
     }), target);
     return;
-  } // This will be a no-op if the target doesn't have any React nodes.
+  }
+  /*
+   * Prevent adding the Clasic block in the site editor.
+   * Only add the filter when the site editor is initialized, not imported.
+   * Also only add the filter(s) after registerCoreBlocks()
+   * so that common filters in the block library are not overwritten.
+   *
+   * This usage here is inspired by previous usage of the filter in the post editor:
+   * https://github.com/WordPress/gutenberg/pull/37157
+   */
 
+
+  (0,external_wp_hooks_namespaceObject.addFilter)('blockEditor.__unstableCanInsertBlockType', 'removeClassicBlockFromInserter', (canInsert, blockType) => {
+    if (blockType.name === 'core/freeform') {
+      return false;
+    }
+
+    return canInsert;
+  }); // This will be a no-op if the target doesn't have any React nodes.
 
   (0,external_wp_element_namespaceObject.unmountComponentAtNode)(target);
   const reboot = reinitializeEditor.bind(null, target, settings); // We dispatch actions and update the store synchronously before rendering

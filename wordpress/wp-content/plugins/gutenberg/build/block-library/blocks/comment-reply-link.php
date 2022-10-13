@@ -34,7 +34,7 @@ function gutenberg_render_block_core_comment_reply_link( $attributes, $content, 
 
 	// Compute comment's depth iterating over its ancestors.
 	while ( ! empty( $parent_id ) ) {
-		$depth++;
+		++$depth;
 		$parent_id = get_comment( $parent_id )->comment_parent;
 	}
 
