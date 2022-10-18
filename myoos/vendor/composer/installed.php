@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'b260ecaf87d86cc3e0bf8e05d2713afbe4d0d9d0',
+        'reference' => 'e333c89fc521e47c6fc7e87b5b69a117ac635f3a',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -101,12 +101,12 @@
             'dev_requirement' => false,
         ),
         'friendsofphp/proxy-manager-lts' => array(
-            'pretty_version' => 'v1.0.12',
-            'version' => '1.0.12.0',
+            'pretty_version' => 'v1.0.13',
+            'version' => '1.0.13.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../friendsofphp/proxy-manager-lts',
             'aliases' => array(),
-            'reference' => '8419f0158715b30d4b99a5bd37c6a39671994ad7',
+            'reference' => '88354616f4cf4f6620910fd035e282173ba453e8',
             'dev_requirement' => false,
         ),
         'hisune/echarts-php' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'b260ecaf87d86cc3e0bf8e05d2713afbe4d0d9d0',
+            'reference' => 'e333c89fc521e47c6fc7e87b5b69a117ac635f3a',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
