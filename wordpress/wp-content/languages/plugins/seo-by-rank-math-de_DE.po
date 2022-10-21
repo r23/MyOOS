@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-10-06 13:58:17+0000\n"
+"PO-Revision-Date: 2022-10-20 19:21:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4465,10 +4465,6 @@ msgstr "SEO-Einstellungen"
 msgid "Others"
 msgstr "Andere"
 
-#: includes/admin/class-option-center.php:67
-msgid "Webmaster Tools"
-msgstr "Webmaster-Tools"
-
 #: includes/modules/image-seo/class-admin.php:45
 #: includes/modules/sitemap/sitemap-xsl.php:307
 #: assets/admin/js/rank-math-app.js:1
@@ -5507,7 +5503,7 @@ msgid "Redirection successfully deleted."
 msgstr "Umleitung erfolgreich gelöscht."
 
 #. translators: source pattern
-#: includes/modules/redirections/class-redirection.php:364
+#: includes/modules/redirections/class-redirection.php:365
 msgid "Invalid regex pattern: %s"
 msgstr "Ungültiges Regex-Muster: %s"
 
@@ -7879,6 +7875,10 @@ msgstr "Gebe deinen Baidu Webmaster Tools Verifizierungs-HTML-Code oder deine ID
 #: includes/settings/general/webmaster.php:19
 msgid "Enter your Google Search Console verification HTML code or ID. Learn how to get it: %s"
 msgstr "Gebe deinen HTML-Code oder deine ID für die Verifizierung der Google Search Console ein. Erfahre, wie du diesen bekommst: %s"
+
+#: includes/admin/class-option-center.php:67
+msgid "Webmaster Tools"
+msgstr "Webmaster Tools"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
