@@ -174,7 +174,7 @@ private static function w3all_get_phpbb_config(){
 }
 
 private static function verify_phpbb_credentials(){
-  global $w3all_phpbb_connection,$phpbb_config,$w3all_phpbb_usession,$w3all_config,$w3all_oninsert_wp_user,$wpdb,$w3cookie_domain,$w3all_anti_brute_force_yn,$w3all_bruteblock_phpbbulist,$w3all_phpbb_lang_switch_yn,$w3all_useragent,$wp_w3all_forum_folder_wp,$w3all_add_into_wp_u_capability;
+  global $w3all_url_to_cms,$w3all_phpbb_unotifications,$w3all_phpbb_unotifications_yn,$w3all_phpbb_connection,$phpbb_config,$w3all_phpbb_usession,$w3all_config,$w3all_oninsert_wp_user,$wpdb,$w3cookie_domain,$w3all_anti_brute_force_yn,$w3all_bruteblock_phpbbulist,$w3all_phpbb_lang_switch_yn,$w3all_useragent,$wp_w3all_forum_folder_wp,$w3all_add_into_wp_u_capability;
 
   if( isset( $_GET['action'] ) && $_GET['action'] == 'validate_2fa' ){
     return;
@@ -236,13 +236,11 @@ private static function verify_phpbb_credentials(){
     FROM ". $w3all_config["table_prefix"] ."sessions
     JOIN ". $w3all_config["table_prefix"] ."users ON ". $w3all_config["table_prefix"] ."users.user_id =  ". $phpbb_u ."
     AND ". $w3all_config["table_prefix"] ."sessions.session_id = '".$phpbb_sid."'
-     AND ". $w3all_config["table_prefix"] ."sessions.session_user_id = ". $w3all_config["table_prefix"] ."users.user_id
+     AND ". $w3all_config["table_prefix"] ."sessions.session_user_id = ". $phpbb_u ."
      AND ". $w3all_config["table_prefix"] ."sessions.session_user_id > 2
     JOIN ". $w3all_config["table_prefix"] ."groups ON ". $w3all_config["table_prefix"] ."groups.group_id = ". $w3all_config["table_prefix"] ."users.group_id
-      LEFT JOIN ". $w3all_config["table_prefix"] ."profile_fields_data ON ". $w3all_config["table_prefix"] ."profile_fields_data.user_id = ". $w3all_config["table_prefix"] ."sessions.session_user_id
-      LEFT JOIN ". $w3all_config["table_prefix"] ."banlist ON ". $w3all_config["table_prefix"] ."banlist.ban_userid = ". $w3all_config["table_prefix"] ."users.user_id AND ban_exclude = 0
-      LEFT JOIN ". $w3all_config["table_prefix"] ."notifications ON ". $w3all_config["table_prefix"] ."notifications.user_id = ". $w3all_config["table_prefix"] ."users.user_id
-       AND ". $w3all_config["table_prefix"] ."notifications.notification_read = 0
+      LEFT JOIN ". $w3all_config["table_prefix"] ."profile_fields_data ON ". $w3all_config["table_prefix"] ."profile_fields_data.user_id = ". $phpbb_u ."
+      LEFT JOIN ". $w3all_config["table_prefix"] ."banlist ON ". $w3all_config["table_prefix"] ."banlist.ban_userid = ". $phpbb_u ." AND ban_exclude = 0
      GROUP BY ". $w3all_config["table_prefix"] ."sessions.session_user_id");
   } elseif ( !empty( $phpbb_k ) ){ // remember me auto login
    $phpbb_user_session = $w3all_phpbb_connection->get_results("SELECT *
@@ -251,14 +249,16 @@ private static function verify_phpbb_credentials(){
     AND ". $w3all_config["table_prefix"] ."sessions_keys.key_id = '".md5($phpbb_k)."'
     AND ". $w3all_config["table_prefix"] ."users.user_id = ". $phpbb_u ."
     JOIN ". $w3all_config["table_prefix"] ."groups ON ". $w3all_config["table_prefix"] ."groups.group_id = ". $w3all_config["table_prefix"] ."users.group_id
-      LEFT JOIN ". $w3all_config["table_prefix"] ."profile_fields_data ON ". $w3all_config["table_prefix"] ."profile_fields_data.user_id = ". $w3all_config["table_prefix"] ."sessions_keys.user_id
-      LEFT JOIN ". $w3all_config["table_prefix"] ."banlist ON ". $w3all_config["table_prefix"] ."banlist.ban_userid = ". $w3all_config["table_prefix"] ."users.user_id AND ban_exclude = 0
-      LEFT JOIN ". $w3all_config["table_prefix"] ."notifications ON ". $w3all_config["table_prefix"] ."notifications.user_id = ". $w3all_config["table_prefix"] ."users.user_id
-       AND ". $w3all_config["table_prefix"] ."notifications.notification_read = 0
+      LEFT JOIN ". $w3all_config["table_prefix"] ."profile_fields_data ON ". $w3all_config["table_prefix"] ."profile_fields_data.user_id = ". $phpbb_u ."
+      LEFT JOIN ". $w3all_config["table_prefix"] ."banlist ON ". $w3all_config["table_prefix"] ."banlist.ban_userid = ". $phpbb_u ." AND ban_exclude = 0
      GROUP BY ". $w3all_config["table_prefix"] ."sessions_keys.user_id");
   } else {
      $phpbb_user_session = array();
     }
+
+  // Based on the above executed query '$phpbb_user_session[0]->user_id' could result empty
+  // so assure just after that this var is set with the correct uid
+  // ** more below
 
   // If it is a multisite, then Usernames can only contain lowercase letters (a-z) and numbers.
   // Setup as not linked this user (or get a loop)
@@ -273,18 +273,24 @@ private static function verify_phpbb_credentials(){
      }
     }
 
-   // may phpBB session expired while the WP user is still logged in
+   // May phpBB session expired while the WP user is still logged in
    // keep the user logged in resetting the user's phpBB session
    // remove -> $noBFF = true; on next and -> !isset($noBFF) on following two instructions
    // to let fire self::w3all_wp_logout(); instead, so to logout the logged WP user when no valid phpBB session found
 
+   // !! Security NOTE: 'self::phpBB_user_session_set' will not populate $phpbb_user_session
+   // then setup the phpBB session for the current WP logged in user.
+   // A possible bruteforce done by a logged in user will fail because the function setup the phpBB session only for the SAME logged in WP user
+   // and DO NOT populate $phpbb_user_session then code just below wrapped inside
+   // if(isset($phpbb_user_session[0])){
+   // that could update user's email and pass when mismatching, will NEVER execute
     if ( empty($phpbb_user_session) && $phpbb_u > 2 && is_user_logged_in() ) {
         self::phpBB_user_session_set($current_user);
         $noBFF = 1;
        }
 
   // START // w3all Brute Force Prevention // record addition
-  if ( empty($phpbb_user_session) && $phpbb_u > 2 && !isset($noBFF) ){ // do not match any session
+  if ( empty($phpbb_user_session) && $phpbb_u > 2 && !isset($noBFF) ){ // do not match any session and the user is not logged in WP
     // may should get only required values, not all users values
     $phpbb_user = $w3all_phpbb_connection->get_row("SELECT * FROM ".$w3all_config["table_prefix"]."users WHERE user_id = '".$phpbb_u."'");
     // index uid
@@ -302,18 +308,70 @@ private static function verify_phpbb_credentials(){
 
   } // END // w3all Brute Force Prevention // record addition
 
-  // so since the above, this should be not required, but leave in place
+  // Since the above this should be not required, but leave in place
   if ( empty( $phpbb_user_session ) && !isset($noBFF) && is_user_logged_in() ){
      self::w3all_wp_logout();
    }
 
  if(isset($phpbb_user_session[0])){
 
-  // assure that this array will contain the user_id
-  $phpbb_user_session[0]->user_id = $phpbb_u;
-  // lowercase email
-  $phpbb_user_session[0]->user_email = strtolower($phpbb_user_session[0]->user_email);
-  $current_user->user_email = strtolower($current_user->user_email);
+   // ** Assure that this array will contain the user_id
+   $phpbb_user_session[0]->user_id = $phpbb_u;
+   // lowercase email
+   $phpbb_user_session[0]->user_email = strtolower($phpbb_user_session[0]->user_email);
+   $current_user->user_email = strtolower($current_user->user_email);
+
+ // START Get all phpBB notifications for this user
+ // See Table: phpbb_notification_types
+ // and https://area51.phpbb.com/docs/code/3.3.x/phpbb/notification/type.html
+ // Are you able to improve the query? Let know!
+
+ // exclude bots and deactivated phpBB users
+  if( $w3all_phpbb_unotifications_yn > 0 && $phpbb_user_session[0]->user_type != 1 && $phpbb_user_session[0]->group_id != 6 ){ // there is almost an unread notification for this user
+
+   // Get PMs only if there are news, or the query will be slower (if there are, but even if there are not news PMS)
+    if( $phpbb_user_session[0]->user_new_privmsg > 0 && $w3all_phpbb_unotifications_yn == 1 )
+    {
+     $pmq =  "OR N.user_id = ". $phpbb_u ."
+       AND N.notification_type_id = 11
+       AND N.notification_read = 0
+       AND N.item_id = PM.msg_id
+       AND U.user_id = PM.author_id
+       AND P.post_id = (SELECT MIN(post_id) FROM ".$w3all_config["table_prefix"]."posts AS post_id)";
+     $pmq0 = ",PM.msg_id,PM.author_id";
+     $pmq1 = "JOIN ".$w3all_config["table_prefix"]."privmsgs AS PM";
+    } else { $pmq = $pmq0 = $pmq1 = ''; }
+      // NOTE that SELECT MIN(post_id) has been added for those conditions that have no references within the posts table
+      // so the result of the array of datas may contain records that are not as expected
+     $w3all_phpbb_unotifications = $w3all_phpbb_connection->get_results("SELECT N.*,P.post_id,P.topic_id,P.forum_id,P.poster_id,P.post_time,P.post_subject,U.username".$pmq0."
+        FROM ".$w3all_config["table_prefix"]."notifications AS N
+         JOIN ".$w3all_config["table_prefix"]."users AS U
+         JOIN ".$w3all_config["table_prefix"]."posts AS P
+         ".$pmq1."
+        ON N.user_id = ". $phpbb_u ."
+         AND N.notification_type_id IN(3,4,5,6,8,9,20,22)
+         AND N.notification_read = 0
+         AND P.post_id = N.item_id
+         AND U.user_id = P.poster_id
+        OR N.user_id = ". $phpbb_u ."
+         AND N.notification_type_id IN(1,2,10,19)
+         AND N.notification_read = 0
+         AND P.topic_id = N.item_id
+         AND U.user_id = P.poster_id
+        OR N.user_id = ". $phpbb_u ."
+         AND N.notification_type_id IN(7,12)
+         AND N.notification_read = 0
+         AND U.user_id = N.item_id
+         AND P.post_id = (SELECT MIN(post_id) FROM ".$w3all_config["table_prefix"]."posts AS post_id)
+        OR N.user_id = ". $phpbb_u ."
+         AND N.notification_type_id IN(13,14,15,16,17,18,21)
+         AND N.notification_read = 0
+         AND U.user_id = 1
+         AND P.post_id = (SELECT MIN(post_id) FROM ".$w3all_config["table_prefix"]."posts AS post_id)
+          ".$pmq."
+        GROUP BY N.notification_id ORDER BY N.notification_id DESC");
+
+  } // END Get all phpBB notifications for this user
 
   if( $current_user->user_email != $phpbb_user_session[0]->user_email )
   {
@@ -484,7 +542,7 @@ private static function verify_phpbb_credentials(){
       $ck_wpun_exists = username_exists($phpbb_user_session[0]->username); // this way, if allowing any char, is not the right way to check if phpBB usernames allowed with forbidden chars in wp
       $user_id = email_exists($phpbb_user_session[0]->user_email); // this is the right way, if email update only allowed in wp, or login and email update done only in phpBB side
 
- if ( ! $user_id && ! $ck_wpun_exists ) { // this phpBB user do not exists in WP
+ if ( ! $user_id && ! $ck_wpun_exists ) { // this phpBB user do not exist in WP
 
         if ( $phpbb_user_session[0]->group_name == 'ADMINISTRATORS' ){
                  $role = 'administrator';
@@ -549,7 +607,8 @@ private static function verify_phpbb_credentials(){
 
  }
 
-  if ( ! is_user_logged_in() && ! is_wp_error( $user_id ) && $user_id > 1 ) {
+  if ( ! is_user_logged_in() && ! is_wp_error( $user_id ) && $user_id > 1 )
+  {
 
     $user = $wpdb->get_row("SELECT * FROM $wpu_db_utab WHERE ID = '".$user_id."' OR LOWER(user_email) = '".$phpbb_user_session[0]->user_email."' ");
        if(empty($user)){
@@ -559,14 +618,20 @@ private static function verify_phpbb_credentials(){
     if( empty($user) OR $user->ID < 2 ) { return; }
 
        $remember = ( empty($phpbb_k) ) ? false : 1;
-
        wp_set_current_user( $user->ID, $user->user_login );
        wp_set_auth_cookie( $user->ID, $remember, is_ssl() );
-       define("PHPBBAUTHCOOKIEREL",true);
+       if(!defined("PHPBBAUTHCOOKIEREL")){
+        define("PHPBBAUTHCOOKIEREL",true);
+       }
        do_action( 'wp_login', $user->user_login, $user );
 
-    $redirect_to = isset( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
-    if ( ( empty( $redirect_to ) || $redirect_to == admin_url() ) ) {
+
+    if ( ! empty( $_REQUEST['redirect_to'] ) ) {
+      $redirect_to = $_REQUEST['redirect_to'];
+    }
+
+    if ( ( empty( $redirect_to ) || $redirect_to == admin_url() ) )
+    {
       // If the user doesn't belong to a blog, send them to user admin. If the user can't edit posts, send them to their profile.
       if ( is_multisite() && !get_active_blog_for_user($user->ID) && !is_super_admin( $user->ID ) )
         $redirect_to = user_admin_url();
@@ -574,23 +639,27 @@ private static function verify_phpbb_credentials(){
         $redirect_to = get_dashboard_url( $user->ID );
       elseif ( is_admin() )
         $redirect_to = admin_url( 'profile.php' );
-   // (try) check if it is a login done via phpBB into WP iframed page AND AVOID redirect to iframe if it is the first time login, so subsequent addition of the user in WP
-   // or duplicate WP insertion in wp will happen!!
-   // if it is a first time login, AVOID the redirect to page-forum (if in iframe mode and user regitered then login in phpBB iframed)
-  if( !isset($on_ins) && isset($_SERVER['REQUEST_URI']) && !empty($wp_w3all_forum_folder_wp) && strstr($_SERVER['REQUEST_URI'], $wp_w3all_forum_folder_wp) ){
+     // (try) check if it is a login done via phpBB into WP iframed page AND AVOID redirect to iframe if it is the first time login, so subsequent addition of the user in WP
+     // or duplicate WP insertion in wp will happen!!
+     // if it is a first time login, AVOID the redirect to page-forum (if in iframe mode and user regitered then login in phpBB iframed)
+     if( !isset($on_ins) && isset($_SERVER['REQUEST_URI']) && !empty($wp_w3all_forum_folder_wp) && strstr($_SERVER['REQUEST_URI'], $wp_w3all_forum_folder_wp) )
+     {
       $redirect_to = home_url() . '/' . $wp_w3all_forum_folder_wp; // this will cause duplicated user insert in wp, if phpBB login first time done in phpBB iframed
-  }
-
-   if (empty($redirect_to)){
-    wp_redirect(home_url()); exit();
-  }
-
       wp_redirect( $redirect_to ); exit();
+     }
+
+     if( !empty($redirect_to) ){
+      wp_redirect($redirect_to); exit();
+     }
     }
+    // again, may $redirect_to is not emtpy
+     if( !isset($on_ins) && isset($_SERVER['REQUEST_URI']) && !empty($wp_w3all_forum_folder_wp) && strstr($_SERVER['REQUEST_URI'], $wp_w3all_forum_folder_wp) )
+     {
+      $redirect_to = home_url() . '/' . $wp_w3all_forum_folder_wp; // this will cause duplicated user insert in wp, if phpBB login first time done in phpBB iframed
+      wp_redirect( $redirect_to ); exit();
+     }
 
- wp_redirect(home_url()); exit();
-
- }
+  }
 
     return;
 
@@ -698,8 +767,8 @@ ob_end_clean();
 private static function phpBB_user_session_set($wp_user_data){
 
   if(defined("W3ALL_SESSION_ARELEASED")){ return; }
-
-        global $w3all_phpbb_connection,$phpbb_config,$w3all_config,$wpdb,$w3all_useragent,$w3all_anti_brute_force_yn,$w3all_bruteblock_phpbbulist,$w3cookie_domain;
+// SECURITY NOTE - NEVER add/populate the '$phpbb_user_session' var (see verify_credentials)
+  global $w3all_phpbb_connection,$phpbb_config,$w3all_config,$wpdb,$w3all_useragent,$w3all_anti_brute_force_yn,$w3all_bruteblock_phpbbulist,$w3cookie_domain;
 
   if ( empty($w3all_phpbb_connection) OR !isset($wp_user_data->ID) OR $wp_user_data->ID == 1 ){
    return;
@@ -1832,6 +1901,44 @@ public static function wp_w3all_phpbb_delete_user_signup($user_id, $blog_id = ''
 //#######################
 // START SHORTCODEs for phpBB contents into WP
 //#######################
+
+public static function wp_w3all_phpbb_unotifications_short($atts){
+  global $w3all_phpbb_unotifications,$w3all_custom_output_files;
+
+  if (! empty($w3all_phpbb_unotifications))
+  {
+   if(is_array($atts))
+   {
+    $atts = array_map ('trim', $atts);
+   }
+
+   $ltm = shortcode_atts( array(
+   'ul_phpbb_unotifications_class' => '',
+   'li_phpbb_unotifications_class' => '',
+   ), $atts );
+
+    $ul_phpbb_unotifications_class = $ltm['ul_phpbb_unotifications_class'];
+    $li_phpbb_unotifications_class = $ltm['li_phpbb_unotifications_class'];
+
+    if( $w3all_custom_output_files > 0 )
+    {
+     $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/wp_w3all_phpbb_unotifications_short.php';
+     if (!file_exists($file)){ // old way compatibility
+     $file = ABSPATH . 'wp-content/plugins/wp-w3all-config/wp_w3all_phpbb_unotifications_short.php';
+     }
+     ob_start();
+      include($file);
+     return ob_get_clean();
+    } else {
+     $file = WPW3ALL_PLUGIN_DIR . 'views/wp_w3all_phpbb_unotifications_short.php';
+     ob_start();
+      include($file);
+     return ob_get_clean();
+    }
+
+  }
+
+}
 
 public static function wp_w3all_add_iframeResizer_lib(){
 echo "<script type=\"text/javascript\" src=\"".plugins_url()."/wp-w3all-phpbb-integration/addons/resizer/iframeResizer.min.js\"></script>

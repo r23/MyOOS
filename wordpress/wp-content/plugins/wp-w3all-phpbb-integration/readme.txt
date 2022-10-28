@@ -2,36 +2,38 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, users
-Stable tag: 2.6.5
+Stable tag: 2.6.6
 License: GPLv2 or later
 Requires at least: 5.0.0
-Tested up to: 6.0.3
+Tested up to: 6.1
 Requires PHP: 7.0
 
 WordPress w3all phpBB integration - easy, light, secure, powerful
 
 == Description ==
 WP w3all phpBB provides free user login and registration integration between a phpBB bulletin board and WordPress CMS.
-Easy, fast, light and secure.
+The easier, light, secure and powerful
 
 = Wp w3all phpBB integration =
 Integration cookie based between WordPress and phpBB installed on same and subdomains.
 
+After the setup and initialization of the plugin, WP users will automatically be added into phpBB when they register in WordPress, while without using the phpBB extension installed into phpBB, if users are allowed to register in phpBB, they will be added into WordPress when they will visit the WordPress side as logged in or at their first login in WordPress (or install the phpBB extension to add users at same time into WordPress when they register in phpBB). But you could use the plugin just only to transfer users between phpBB and Wordpress by activating the plugin as not linked (read the help install page), or to show phpBB posts into a WordPress hosted into another domain
+
 = Widgets =
-* Login/logout widget (users can login/logout/register on either Wordpress or phpBB).
-* Last Topic Posts widget(Links, Links and Text, With or Without Avatars), Read/Unread Topics/Posts.
+* Login/logout widget (users can login/logout/register on either Wordpress or phpBB)
+* Last Topic Posts widget(Links, Links and Text, With or Without Avatars), Read/Unread Topics/Posts
 
 = Auto Embed phpBB into WordPress Template =
 WP w3all phpBB is capable of running in iframe mode and automatically embedding phpBB into WordPress template. Setup for the iframe responsive embedded procedure is quick and quite easy!
 
-= WP to phpBB and phpBB to WP users transfer =
-Transfer over pre-existing WP users into your phpBB forums (and vice versa) when integration first begins. After the setup and initialization of the plugin, WP users will automatically be added into phpBB upon their first login, and vice versa. But you could use the plugin just only to transfer users between phpBB and Wordpress by activating the plugin as not linked (read the help install page), or to show phpBB posts into a WordPress hosted into another domain.
+= WP to phpBB and phpBB to WP users =
+Transfer WP users into your phpBB forums and vice versa
 
 = phpBB avatars into WordPress options =
-Option to use phpBB avatars to replace WP Gravatars.
+Option to use phpBB avatars to replace WP Gravatars
 
 = WordPress MUMS ready =
-It is possible to integrate a WP Multisite network, but linking the same phpBB forum into each subsite.
+It is possible to integrate a WP Multisite network, but linking the same phpBB forum into each subsite
 
 = Shortcodes and more options =
 * [Shortcode to display phpBB posts on WordPress posts/pages as formatted bbcode or plain text](https://www.axew3.com/w3/2017/07/wordpress-shortcode-phpbb-posts-into-wp-post/)
@@ -71,6 +73,13 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.6.6 =
+*Release Date - 25 Oct, 2022*
+* Add: phpBB notifications in WordPress (option)
+* Fix: main user session query into 'private static function verify_phpbb_credentials(){' to be faster
+* Release Logs: https://www.axew3.com/w3/forums/viewtopic.php?t=1762
+* Minor fixes
 
 = 2.6.5 =
 *Release Date - 1 Sep, 2022*
