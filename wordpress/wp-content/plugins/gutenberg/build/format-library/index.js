@@ -1306,6 +1306,21 @@ const textColor = (0,external_wp_element_namespaceObject.createElement)(external
 }));
 /* harmony default export */ const text_color = (textColor);
 
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/color.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const color = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M17.2 10.9c-.5-1-1.2-2.1-2.1-3.2-.6-.9-1.3-1.7-2.1-2.6L12 4l-1 1.1c-.6.9-1.3 1.7-2 2.6-.8 1.2-1.5 2.3-2 3.2-.6 1.2-1 2.2-1 3 0 3.4 2.7 6.1 6.1 6.1s6.1-2.7 6.1-6.1c0-.8-.3-1.8-1-3zm-5.1 7.6c-2.5 0-4.6-2.1-4.6-4.6 0-.3.1-1 .8-2.3.5-.9 1.1-1.9 2-3.1.7-.9 1.3-1.7 1.8-2.3.7.8 1.3 1.6 1.8 2.3.8 1.1 1.5 2.2 2 3.1.7 1.3.8 2 .8 2.3 0 2.5-2.1 4.6-4.6 4.6z"
+}));
+/* harmony default export */ const library_color = (color);
+
 ;// CONCATENATED MODULE: ./packages/format-library/build-module/text-color/inline.js
 
 
@@ -1552,7 +1567,7 @@ function TextColorEdit(_ref2) {
     className: "format-library-text-color-button",
     isActive: isActive,
     icon: (0,external_wp_element_namespaceObject.createElement)(icon, {
-      icon: text_color,
+      icon: Object.keys(activeAttributes).length ? text_color : library_color,
       style: colorIndicatorStyle
     }),
     title: text_color_title // If has no colors to choose but a color is active remove the color onClick.

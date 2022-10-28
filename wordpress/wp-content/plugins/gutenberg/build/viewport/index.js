@@ -58,8 +58,6 @@ __webpack_require__.d(selectors_namespaceObject, {
   "isViewportMatch": () => (isViewportMatch)
 });
 
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: external ["wp","compose"]
 const external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: external ["wp","data"]
@@ -177,13 +175,8 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
 
 ;// CONCATENATED MODULE: ./packages/viewport/build-module/listener.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -198,7 +191,10 @@ const addDimensionsEventListener = (breakpoints, operators) => {
    * maximum of one time per call stack.
    */
   const setIsMatching = (0,external_wp_compose_namespaceObject.debounce)(() => {
-    const values = (0,external_lodash_namespaceObject.mapValues)(queries, query => query.matches);
+    const values = Object.fromEntries(queries.map(_ref => {
+      let [key, query] = _ref;
+      return [key, query.matches];
+    }));
     (0,external_wp_data_namespaceObject.dispatch)(store).setIsMatching(values);
   }, 0, {
     leading: true
@@ -213,16 +209,16 @@ const addDimensionsEventListener = (breakpoints, operators) => {
    * @type {Object<string,MediaQueryList>}
    */
 
-  const queries = (0,external_lodash_namespaceObject.reduce)(breakpoints, (result, width, name) => {
-    Object.entries(operators).forEach(_ref => {
-      let [operator, condition] = _ref;
+  const operatorEntries = Object.entries(operators);
+  const queries = Object.entries(breakpoints).flatMap(_ref2 => {
+    let [name, width] = _ref2;
+    return operatorEntries.map(_ref3 => {
+      let [operator, condition] = _ref3;
       const list = window.matchMedia(`(${condition}: ${width}px)`);
-      list.addListener(setIsMatching);
-      const key = [operator, name].join(' ');
-      result[key] = list;
+      list.addEventListener('change', setIsMatching);
+      return [`${operator} ${name}`, list];
     });
-    return result;
-  }, {});
+  });
   window.addEventListener('orientationchange', setIsMatching); // Set initial values.
 
   setIsMatching();
@@ -256,13 +252,8 @@ const external_wp_element_namespaceObject = window["wp"]["element"];
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 /**
  * Higher-order component creator, creating a new component which renders with
@@ -289,7 +280,10 @@ const external_wp_element_namespaceObject = window["wp"]["element"];
  */
 
 const withViewportMatch = queries => {
-  const useViewPortQueriesResult = () => (0,external_lodash_namespaceObject.mapValues)(queries, query => {
+  const queryEntries = Object.entries(queries);
+
+  const useViewPortQueriesResult = () => Object.fromEntries(queryEntries.map(_ref => {
+    let [key, query] = _ref;
     let [operator, breakpointName] = query.split(' ');
 
     if (breakpointName === undefined) {
@@ -301,8 +295,8 @@ const withViewportMatch = queries => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
 
 
-    return (0,external_wp_compose_namespaceObject.useViewportMatch)(breakpointName, operator);
-  });
+    return [key, (0,external_wp_compose_namespaceObject.useViewportMatch)(breakpointName, operator)];
+  }));
 
   return (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(WrappedComponent => {
     return (0,external_wp_compose_namespaceObject.pure)(props => {

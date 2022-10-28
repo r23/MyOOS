@@ -683,7 +683,7 @@ const displayShortcutList = (0,external_lodash_namespaceObject.mapValues)(modifi
       // see: https://github.com/blakeembrey/change-case#options
 
       const capitalizedCharacter = capitalCase(character, {
-        stripRegexp: /[^A-Z0-9`,\.]/gi
+        stripRegexp: /[^A-Z0-9`,\.\\]/gi
       });
       return [...modifierKeys, capitalizedCharacter];
     }

@@ -2567,6 +2567,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalStyleProvider": () => (/* reexport */ style_provider),
   "__experimentalSurface": () => (/* reexport */ surface_component),
   "__experimentalText": () => (/* reexport */ text_component),
+  "__experimentalTheme": () => (/* reexport */ theme),
   "__experimentalToggleGroupControl": () => (/* reexport */ toggle_group_control_component),
   "__experimentalToggleGroupControlOption": () => (/* reexport */ toggle_group_control_option_component),
   "__experimentalToggleGroupControlOptionIcon": () => (/* reexport */ toggle_group_control_option_icon_component),
@@ -2587,7 +2588,6 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalVStack": () => (/* reexport */ v_stack_component),
   "__experimentalView": () => (/* reexport */ component),
   "__experimentalZStack": () => (/* reexport */ z_stack_component),
-  "__unstableAnimatePresence": () => (/* reexport */ AnimatePresence),
   "__unstableComposite": () => (/* reexport */ Composite),
   "__unstableCompositeGroup": () => (/* reexport */ CompositeGroup),
   "__unstableCompositeItem": () => (/* reexport */ CompositeItem),
@@ -20947,7 +20947,10 @@ function Tooltip(props) {
   const clearOnUnmount = () => {
     delayedSetIsOver.cancel();
     document.removeEventListener('mouseup', cancelIsMouseDown);
-  };
+  }; // Ignore reason: updating the deps array here could cause unexpected changes in behavior.
+  // Deferring until a more detailed investigation/refactor can be performed.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+
 
   (0,external_wp_element_namespaceObject.useEffect)(() => clearOnUnmount, []);
 
@@ -23500,270 +23503,6 @@ function Animate(_ref) {
     })
   });
 }
-
-;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/use-is-mounted.mjs
-
-
-
-function useIsMounted() {
-    var isMounted = (0,external_React_.useRef)(false);
-    useIsomorphicLayoutEffect(function () {
-        isMounted.current = true;
-        return function () {
-            isMounted.current = false;
-        };
-    }, []);
-    return isMounted;
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/use-force-update.mjs
-
-
-
-
-
-function use_force_update_useForceUpdate() {
-    var isMounted = useIsMounted();
-    var _a = tslib_es6_read((0,external_React_.useState)(0), 2), forcedRenderCount = _a[0], setForcedRenderCount = _a[1];
-    var forceRender = (0,external_React_.useCallback)(function () {
-        isMounted.current && setForcedRenderCount(forcedRenderCount + 1);
-    }, [forcedRenderCount]);
-    /**
-     * Defer this to the end of the next animation frame in case there are multiple
-     * synchronous calls.
-     */
-    var deferredForceRender = (0,external_React_.useCallback)(function () { return es.postRender(forceRender); }, [forceRender]);
-    return [deferredForceRender, forcedRenderCount];
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
-
-
-
-
-
-
-
-var PresenceChild = function (_a) {
-    var children = _a.children, initial = _a.initial, isPresent = _a.isPresent, onExitComplete = _a.onExitComplete, custom = _a.custom, presenceAffectsLayout = _a.presenceAffectsLayout;
-    var presenceChildren = useConstant(newChildrenMap);
-    var id = useId();
-    var context = (0,external_React_.useMemo)(function () { return ({
-        id: id,
-        initial: initial,
-        isPresent: isPresent,
-        custom: custom,
-        onExitComplete: function (childId) {
-            var e_1, _a;
-            presenceChildren.set(childId, true);
-            try {
-                for (var _b = __values(presenceChildren.values()), _c = _b.next(); !_c.done; _c = _b.next()) {
-                    var isComplete = _c.value;
-                    if (!isComplete)
-                        return; // can stop searching when any is incomplete
-                }
-            }
-            catch (e_1_1) { e_1 = { error: e_1_1 }; }
-            finally {
-                try {
-                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
-                }
-                finally { if (e_1) throw e_1.error; }
-            }
-            onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete();
-        },
-        register: function (childId) {
-            presenceChildren.set(childId, false);
-            return function () { return presenceChildren.delete(childId); };
-        },
-    }); }, 
-    /**
-     * If the presence of a child affects the layout of the components around it,
-     * we want to make a new context value to ensure they get re-rendered
-     * so they can detect that layout change.
-     */
-    presenceAffectsLayout ? undefined : [isPresent]);
-    (0,external_React_.useMemo)(function () {
-        presenceChildren.forEach(function (_, key) { return presenceChildren.set(key, false); });
-    }, [isPresent]);
-    /**
-     * If there's no `motion` components to fire exit animations, we want to remove this
-     * component immediately.
-     */
-    external_React_.useEffect(function () {
-        !isPresent && !presenceChildren.size && (onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete());
-    }, [isPresent]);
-    return (external_React_.createElement(PresenceContext_PresenceContext.Provider, { value: context }, children));
-};
-function newChildrenMap() {
-    return new Map();
-}
-
-
-
-;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
-
-
-
-
-
-
-
-
-
-
-var getChildKey = function (child) { return child.key || ""; };
-var isDev = "production" !== "production";
-function updateChildLookup(children, allChildren) {
-    var seenChildren = isDev ? new Set() : null;
-    children.forEach(function (child) {
-        var key = getChildKey(child);
-        if (isDev && seenChildren && seenChildren.has(key)) {
-            console.warn("Children of AnimatePresence require unique keys. \"".concat(key, "\" is a duplicate."));
-            seenChildren.add(key);
-        }
-        allChildren.set(key, child);
-    });
-}
-function onlyElements(children) {
-    var filtered = [];
-    // We use forEach here instead of map as map mutates the component key by preprending `.$`
-    external_React_.Children.forEach(children, function (child) {
-        if ((0,external_React_.isValidElement)(child))
-            filtered.push(child);
-    });
-    return filtered;
-}
-/**
- * `AnimatePresence` enables the animation of components that have been removed from the tree.
- *
- * When adding/removing more than a single child, every child **must** be given a unique `key` prop.
- *
- * Any `motion` components that have an `exit` property defined will animate out when removed from
- * the tree.
- *
- * ```jsx
- * import { motion, AnimatePresence } from 'framer-motion'
- *
- * export const Items = ({ items }) => (
- *   <AnimatePresence>
- *     {items.map(item => (
- *       <motion.div
- *         key={item.id}
- *         initial={{ opacity: 0 }}
- *         animate={{ opacity: 1 }}
- *         exit={{ opacity: 0 }}
- *       />
- *     ))}
- *   </AnimatePresence>
- * )
- * ```
- *
- * You can sequence exit animations throughout a tree using variants.
- *
- * If a child contains multiple `motion` components with `exit` props, it will only unmount the child
- * once all `motion` components have finished animating out. Likewise, any components using
- * `usePresence` all need to call `safeToRemove`.
- *
- * @public
- */
-var AnimatePresence = function (_a) {
-    var children = _a.children, custom = _a.custom, _b = _a.initial, initial = _b === void 0 ? true : _b, onExitComplete = _a.onExitComplete, exitBeforeEnter = _a.exitBeforeEnter, _c = _a.presenceAffectsLayout, presenceAffectsLayout = _c === void 0 ? true : _c;
-    // We want to force a re-render once all exiting animations have finished. We
-    // either use a local forceRender function, or one from a parent context if it exists.
-    var _d = tslib_es6_read(use_force_update_useForceUpdate(), 1), forceRender = _d[0];
-    var forceRenderLayoutGroup = (0,external_React_.useContext)(LayoutGroupContext).forceRender;
-    if (forceRenderLayoutGroup)
-        forceRender = forceRenderLayoutGroup;
-    var isMounted = useIsMounted();
-    // Filter out any children that aren't ReactElements. We can only track ReactElements with a props.key
-    var filteredChildren = onlyElements(children);
-    var childrenToRender = filteredChildren;
-    var exiting = new Set();
-    // Keep a living record of the children we're actually rendering so we
-    // can diff to figure out which are entering and exiting
-    var presentChildren = (0,external_React_.useRef)(childrenToRender);
-    // A lookup table to quickly reference components by key
-    var allChildren = (0,external_React_.useRef)(new Map()).current;
-    // If this is the initial component render, just deal with logic surrounding whether
-    // we play onMount animations or not.
-    var isInitialRender = (0,external_React_.useRef)(true);
-    useIsomorphicLayoutEffect(function () {
-        isInitialRender.current = false;
-        updateChildLookup(filteredChildren, allChildren);
-        presentChildren.current = childrenToRender;
-    });
-    useUnmountEffect(function () {
-        isInitialRender.current = true;
-        allChildren.clear();
-        exiting.clear();
-    });
-    if (isInitialRender.current) {
-        return (external_React_.createElement(external_React_.Fragment, null, childrenToRender.map(function (child) { return (external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? undefined : false, presenceAffectsLayout: presenceAffectsLayout }, child)); })));
-    }
-    // If this is a subsequent render, deal with entering and exiting children
-    childrenToRender = tslib_es6_spreadArray([], tslib_es6_read(childrenToRender), false);
-    // Diff the keys of the currently-present and target children to update our
-    // exiting list.
-    var presentKeys = presentChildren.current.map(getChildKey);
-    var targetKeys = filteredChildren.map(getChildKey);
-    // Diff the present children with our target children and mark those that are exiting
-    var numPresent = presentKeys.length;
-    for (var i = 0; i < numPresent; i++) {
-        var key = presentKeys[i];
-        if (targetKeys.indexOf(key) === -1) {
-            exiting.add(key);
-        }
-    }
-    // If we currently have exiting children, and we're deferring rendering incoming children
-    // until after all current children have exiting, empty the childrenToRender array
-    if (exitBeforeEnter && exiting.size) {
-        childrenToRender = [];
-    }
-    // Loop through all currently exiting components and clone them to overwrite `animate`
-    // with any `exit` prop they might have defined.
-    exiting.forEach(function (key) {
-        // If this component is actually entering again, early return
-        if (targetKeys.indexOf(key) !== -1)
-            return;
-        var child = allChildren.get(key);
-        if (!child)
-            return;
-        var insertionIndex = presentKeys.indexOf(key);
-        var onExit = function () {
-            allChildren.delete(key);
-            exiting.delete(key);
-            // Remove this child from the present children
-            var removeIndex = presentChildren.current.findIndex(function (presentChild) { return presentChild.key === key; });
-            presentChildren.current.splice(removeIndex, 1);
-            // Defer re-rendering until all exiting children have indeed left
-            if (!exiting.size) {
-                presentChildren.current = filteredChildren;
-                if (isMounted.current === false)
-                    return;
-                forceRender();
-                onExitComplete && onExitComplete();
-            }
-        };
-        childrenToRender.splice(insertionIndex, 0, external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom: custom, presenceAffectsLayout: presenceAffectsLayout }, child));
-    });
-    // Add `MotionContext` even to children that don't need it to ensure we're rendering
-    // the same tree between renders
-    childrenToRender = childrenToRender.map(function (child) {
-        var key = child.key;
-        return exiting.has(key) ? (child) : (external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout: presenceAffectsLayout }, child));
-    });
-    if (false) {}
-    return (external_React_.createElement(external_React_.Fragment, null, exiting.size
-        ? childrenToRender
-        : childrenToRender.map(function (child) { return (0,external_React_.cloneElement)(child); })));
-};
-
-
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/flex/context.js
 /**
@@ -37418,6 +37157,7 @@ const UnconnectedBorderControl = (props, forwardedRef) => {
   const {
     colors,
     disableCustomColors,
+    disableUnits,
     enableAlpha,
     enableStyle = true,
     hideLabelFromVision,
@@ -37472,6 +37212,7 @@ const UnconnectedBorderControl = (props, forwardedRef) => {
     onChange: onWidthChange,
     value: (border === null || border === void 0 ? void 0 : border.width) || '',
     placeholder: placeholder,
+    disableUnits: disableUnits,
     __unstableInputWidth: inputWidth
   }), withSlider && (0,external_wp_element_namespaceObject.createElement)(range_control, {
     label: (0,external_wp_i18n_namespaceObject.__)('Border width'),
@@ -38045,7 +37786,9 @@ function useBorderBoxControl(props) {
   const mixedBorders = hasMixedBorders(value);
   const splitBorders = hasSplitBorders(value);
   const linkedValue = splitBorders ? getCommonBorder(value) : value;
-  const splitValue = splitBorders ? value : getSplitBorders(value);
+  const splitValue = splitBorders ? value : getSplitBorders(value); // If no numeric width value is set, the unit select will be disabled.
+
+  const hasWidthValue = !isNaN(parseFloat(`${linkedValue === null || linkedValue === void 0 ? void 0 : linkedValue.width}`));
   const [isLinked, setIsLinked] = (0,external_wp_element_namespaceObject.useState)(!mixedBorders);
 
   const toggleLinked = () => setIsLinked(!isLinked);
@@ -38109,6 +37852,7 @@ function useBorderBoxControl(props) {
   }, [cx]);
   return { ...otherProps,
     className: classes,
+    disableUnits: mixedBorders && !hasWidthValue,
     hasMixedBorders: mixedBorders,
     isLinked,
     linkedControlClassName,
@@ -38164,6 +37908,7 @@ const component_BorderBoxControl = (props, forwardedRef) => {
     className,
     colors,
     disableCustomColors,
+    disableUnits,
     enableAlpha,
     enableStyle,
     hasMixedBorders,
@@ -38208,6 +37953,7 @@ const component_BorderBoxControl = (props, forwardedRef) => {
   }, isLinked ? (0,external_wp_element_namespaceObject.createElement)(border_control_component, {
     className: linkedControlClassName,
     colors: colors,
+    disableUnits: disableUnits,
     disableCustomColors: disableCustomColors,
     enableAlpha: enableAlpha,
     enableStyle: enableStyle,
@@ -42916,21 +42662,21 @@ function SuggestionsList(_ref) {
   const listRef = (0,external_wp_compose_namespaceObject.useRefEffect)(listNode => {
     // only have to worry about scrolling selected suggestion into view
     // when already expanded.
-    let id;
+    let rafId;
 
     if (selectedIndex > -1 && scrollIntoView && listNode.children[selectedIndex]) {
       setScrollingIntoView(true);
       lib_default()(listNode.children[selectedIndex], listNode, {
         onlyScrollIfNeeded: true
       });
-      id = window.setTimeout(() => {
+      rafId = requestAnimationFrame(() => {
         setScrollingIntoView(false);
-      }, 100);
+      });
     }
 
     return () => {
-      if (id !== undefined) {
-        window.clearTimeout(id);
+      if (rafId !== undefined) {
+        cancelAnimationFrame(rafId);
       }
     };
   }, [selectedIndex, scrollIntoView]);
@@ -43292,7 +43038,6 @@ function ComboboxControl(_ref) {
 /* harmony default export */ const combobox_control = (ComboboxControl);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/modal/aria-helper.js
-// @ts-nocheck
 const LIVE_REGION_ARIA_ROLES = new Set(['alert', 'status', 'log', 'marquee', 'timer']);
 let hiddenElements = [],
     isHidden = false;
@@ -43306,7 +43051,7 @@ let hiddenElements = [],
  * we should consider removing these helper functions in favor of
  * `aria-modal="true"`.
  *
- * @param {Element} unhiddenElement The element that should not be hidden.
+ * @param {HTMLDivElement} unhiddenElement The element that should not be hidden.
  */
 
 function hideApp(unhiddenElement) {
@@ -43337,7 +43082,7 @@ function hideApp(unhiddenElement) {
 
 function elementShouldBeHidden(element) {
   const role = element.getAttribute('role');
-  return !(element.tagName === 'SCRIPT' || element.hasAttribute('aria-hidden') || element.hasAttribute('aria-live') || LIVE_REGION_ARIA_ROLES.has(role));
+  return !(element.tagName === 'SCRIPT' || element.hasAttribute('aria-hidden') || element.hasAttribute('aria-live') || role && LIVE_REGION_ARIA_ROLES.has(role));
 }
 /**
  * Makes all elements in the body that have been hidden by `hideApp`
@@ -43359,16 +43104,15 @@ function showApp() {
 ;// CONCATENATED MODULE: ./packages/components/build-module/modal/index.js
 
 
-// @ts-nocheck
 
 /**
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
-
 
 
 
@@ -43379,11 +43123,11 @@ function showApp() {
 
 
 
- // Used to count the number of open modals.
 
+// Used to count the number of open modals.
 let openModalCount = 0;
 
-function Modal(props, forwardedRef) {
+function UnforwardedModal(props, forwardedRef) {
   const {
     bodyOpenClassName = 'modal-open',
     role = 'dialog',
@@ -43395,8 +43139,8 @@ function Modal(props, forwardedRef) {
 
     /* Accessibility. */
     aria = {
-      labelledby: null,
-      describedby: null
+      labelledby: undefined,
+      describedby: undefined
     },
     onRequestClose,
     icon,
@@ -43447,9 +43191,9 @@ function Modal(props, forwardedRef) {
   }
 
   const onContentContainerScroll = (0,external_wp_element_namespaceObject.useCallback)(e => {
-    var _e$target$scrollTop, _e$target;
+    var _e$currentTarget$scro, _e$currentTarget;
 
-    const scrollY = (_e$target$scrollTop = e === null || e === void 0 ? void 0 : (_e$target = e.target) === null || _e$target === void 0 ? void 0 : _e$target.scrollTop) !== null && _e$target$scrollTop !== void 0 ? _e$target$scrollTop : -1;
+    const scrollY = (_e$currentTarget$scro = e === null || e === void 0 ? void 0 : (_e$currentTarget = e.currentTarget) === null || _e$currentTarget === void 0 ? void 0 : _e$currentTarget.scrollTop) !== null && _e$currentTarget$scro !== void 0 ? _e$currentTarget$scro : -1;
 
     if (!hasScrolledContent && scrollY > 0) {
       setHasScrolledContent(true);
@@ -43472,9 +43216,9 @@ function Modal(props, forwardedRef) {
     ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([constrainedTabbingRef, focusReturnRef, focusOnMountRef]),
     role: role,
     "aria-label": contentLabel,
-    "aria-labelledby": contentLabel ? null : headingId,
+    "aria-labelledby": contentLabel ? undefined : headingId,
     "aria-describedby": aria.describedby,
-    tabIndex: "-1"
+    tabIndex: -1
   }, shouldCloseOnClickOutside ? focusOutsideProps : {}, {
     onKeyDown: onKeyDown
   }), (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -43500,8 +43244,41 @@ function Modal(props, forwardedRef) {
     label: closeButtonLabel || (0,external_wp_i18n_namespaceObject.__)('Close dialog')
   })), children)))), document.body);
 }
+/**
+ * Modals give users information and choices related to a task they’re trying to
+ * accomplish. They can contain critical information, require decisions, or
+ * involve multiple tasks.
+ *
+ * ```jsx
+ * import { Button, Modal } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MyModal = () => {
+ *   const [ isOpen, setOpen ] = useState( false );
+ *   const openModal = () => setOpen( true );
+ *   const closeModal = () => setOpen( false );
+ *
+ *   return (
+ *     <>
+ *       <Button variant="secondary" onClick={ openModal }>
+ *         Open Modal
+ *       </Button>
+ *       { isOpen && (
+ *         <Modal title="This is my modal" onRequestClose={ closeModal }>
+ *           <Button variant="secondary" onClick={ closeModal }>
+ *             My custom close button
+ *           </Button>
+ *         </Modal>
+ *       ) }
+ *     </>
+ *   );
+ * };
+ * ```
+ */
 
-/* harmony default export */ const modal = ((0,external_wp_element_namespaceObject.forwardRef)(Modal));
+
+const Modal = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedModal);
+/* harmony default export */ const modal = (Modal);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/confirm-dialog/styles.js
 function confirm_dialog_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
@@ -51927,7 +51704,7 @@ const arrowRight = (0,external_wp_element_namespaceObject.createElement)(externa
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M14.3 6.7l-1.1 1.1 4 4H4v1.5h13.3l-4.1 4.4 1.1 1.1 5.8-6.3z"
+  d: "m14.5 6.5-1 1 3.7 3.7H4v1.6h13.2l-3.7 3.7 1 1 5.6-5.5z"
 }));
 /* harmony default export */ const arrow_right = (arrowRight);
 
@@ -51942,7 +51719,7 @@ const arrowLeft = (0,external_wp_element_namespaceObject.createElement)(external
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M20 10.8H6.7l4.1-4.5-1.1-1.1-5.8 6.3 5.8 5.8 1.1-1.1-4-3.9H20z"
+  d: "M20 11.2H6.8l3.7-3.7-1-1L3.9 12l5.6 5.5 1-1-3.7-3.7H20z"
 }));
 /* harmony default export */ const arrow_left = (arrowLeft);
 
@@ -53230,13 +53007,8 @@ const disabled_styles_disabledStyles =  true ? {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 /**
  * Internal dependencies
@@ -53248,14 +53020,7 @@ const Context = (0,external_wp_element_namespaceObject.createContext)(false);
 const {
   Consumer,
   Provider: disabled_Provider
-} = Context; // Extracting this ContentWrapper component in order to make it more explicit
-// the same 'ContentWrapper' component is needed so that React can reconcile
-// the dom correctly when switching between disabled/non-disabled (instead
-// of thrashing the previous DOM and therefore losing the form fields values).
-
-const ContentWrapper = (0,external_wp_element_namespaceObject.forwardRef)((props, ref) => (0,external_wp_element_namespaceObject.createElement)("div", extends_extends({}, props, {
-  ref: ref
-})));
+} = Context;
 /**
  * `Disabled` is a component which disables descendant tabbable elements and prevents pointer interaction.
  *
@@ -53294,20 +53059,13 @@ function Disabled(_ref) {
     isDisabled = true,
     ...props
   } = _ref;
-  const ref = (0,external_wp_compose_namespaceObject.useDisabled)();
   const cx = useCx();
-
-  if (!isDisabled) {
-    return (0,external_wp_element_namespaceObject.createElement)(disabled_Provider, {
-      value: false
-    }, (0,external_wp_element_namespaceObject.createElement)(ContentWrapper, null, children));
-  }
-
   return (0,external_wp_element_namespaceObject.createElement)(disabled_Provider, {
-    value: true
-  }, (0,external_wp_element_namespaceObject.createElement)(ContentWrapper, extends_extends({
-    ref: ref,
-    className: cx(disabled_styles_disabledStyles, className, 'components-disabled')
+    value: isDisabled
+  }, (0,external_wp_element_namespaceObject.createElement)("div", extends_extends({
+    // @ts-ignore Reason: inert is a recent HTML attribute
+    inert: isDisabled ? 'true' : undefined,
+    className: isDisabled ? cx(disabled_styles_disabledStyles, className, 'components-disabled') : undefined
   }, props), children));
 }
 
@@ -53544,6 +53302,270 @@ const upload = (0,external_wp_element_namespaceObject.createElement)(external_wp
   d: "M18.5 15v3.5H13V6.7l4.5 4.1 1-1.1-6.2-5.8-5.8 5.8 1 1.1 4-4v11.7h-6V15H4v5h16v-5z"
 }));
 /* harmony default export */ const library_upload = (upload);
+
+;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/use-is-mounted.mjs
+
+
+
+function useIsMounted() {
+    var isMounted = (0,external_React_.useRef)(false);
+    useIsomorphicLayoutEffect(function () {
+        isMounted.current = true;
+        return function () {
+            isMounted.current = false;
+        };
+    }, []);
+    return isMounted;
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/use-force-update.mjs
+
+
+
+
+
+function use_force_update_useForceUpdate() {
+    var isMounted = useIsMounted();
+    var _a = tslib_es6_read((0,external_React_.useState)(0), 2), forcedRenderCount = _a[0], setForcedRenderCount = _a[1];
+    var forceRender = (0,external_React_.useCallback)(function () {
+        isMounted.current && setForcedRenderCount(forcedRenderCount + 1);
+    }, [forcedRenderCount]);
+    /**
+     * Defer this to the end of the next animation frame in case there are multiple
+     * synchronous calls.
+     */
+    var deferredForceRender = (0,external_React_.useCallback)(function () { return es.postRender(forceRender); }, [forceRender]);
+    return [deferredForceRender, forcedRenderCount];
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/components/AnimatePresence/PresenceChild.mjs
+
+
+
+
+
+
+
+var PresenceChild = function (_a) {
+    var children = _a.children, initial = _a.initial, isPresent = _a.isPresent, onExitComplete = _a.onExitComplete, custom = _a.custom, presenceAffectsLayout = _a.presenceAffectsLayout;
+    var presenceChildren = useConstant(newChildrenMap);
+    var id = useId();
+    var context = (0,external_React_.useMemo)(function () { return ({
+        id: id,
+        initial: initial,
+        isPresent: isPresent,
+        custom: custom,
+        onExitComplete: function (childId) {
+            var e_1, _a;
+            presenceChildren.set(childId, true);
+            try {
+                for (var _b = __values(presenceChildren.values()), _c = _b.next(); !_c.done; _c = _b.next()) {
+                    var isComplete = _c.value;
+                    if (!isComplete)
+                        return; // can stop searching when any is incomplete
+                }
+            }
+            catch (e_1_1) { e_1 = { error: e_1_1 }; }
+            finally {
+                try {
+                    if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                }
+                finally { if (e_1) throw e_1.error; }
+            }
+            onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete();
+        },
+        register: function (childId) {
+            presenceChildren.set(childId, false);
+            return function () { return presenceChildren.delete(childId); };
+        },
+    }); }, 
+    /**
+     * If the presence of a child affects the layout of the components around it,
+     * we want to make a new context value to ensure they get re-rendered
+     * so they can detect that layout change.
+     */
+    presenceAffectsLayout ? undefined : [isPresent]);
+    (0,external_React_.useMemo)(function () {
+        presenceChildren.forEach(function (_, key) { return presenceChildren.set(key, false); });
+    }, [isPresent]);
+    /**
+     * If there's no `motion` components to fire exit animations, we want to remove this
+     * component immediately.
+     */
+    external_React_.useEffect(function () {
+        !isPresent && !presenceChildren.size && (onExitComplete === null || onExitComplete === void 0 ? void 0 : onExitComplete());
+    }, [isPresent]);
+    return (external_React_.createElement(PresenceContext_PresenceContext.Provider, { value: context }, children));
+};
+function newChildrenMap() {
+    return new Map();
+}
+
+
+
+;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs
+
+
+
+
+
+
+
+
+
+
+var getChildKey = function (child) { return child.key || ""; };
+var isDev = "production" !== "production";
+function updateChildLookup(children, allChildren) {
+    var seenChildren = isDev ? new Set() : null;
+    children.forEach(function (child) {
+        var key = getChildKey(child);
+        if (isDev && seenChildren && seenChildren.has(key)) {
+            console.warn("Children of AnimatePresence require unique keys. \"".concat(key, "\" is a duplicate."));
+            seenChildren.add(key);
+        }
+        allChildren.set(key, child);
+    });
+}
+function onlyElements(children) {
+    var filtered = [];
+    // We use forEach here instead of map as map mutates the component key by preprending `.$`
+    external_React_.Children.forEach(children, function (child) {
+        if ((0,external_React_.isValidElement)(child))
+            filtered.push(child);
+    });
+    return filtered;
+}
+/**
+ * `AnimatePresence` enables the animation of components that have been removed from the tree.
+ *
+ * When adding/removing more than a single child, every child **must** be given a unique `key` prop.
+ *
+ * Any `motion` components that have an `exit` property defined will animate out when removed from
+ * the tree.
+ *
+ * ```jsx
+ * import { motion, AnimatePresence } from 'framer-motion'
+ *
+ * export const Items = ({ items }) => (
+ *   <AnimatePresence>
+ *     {items.map(item => (
+ *       <motion.div
+ *         key={item.id}
+ *         initial={{ opacity: 0 }}
+ *         animate={{ opacity: 1 }}
+ *         exit={{ opacity: 0 }}
+ *       />
+ *     ))}
+ *   </AnimatePresence>
+ * )
+ * ```
+ *
+ * You can sequence exit animations throughout a tree using variants.
+ *
+ * If a child contains multiple `motion` components with `exit` props, it will only unmount the child
+ * once all `motion` components have finished animating out. Likewise, any components using
+ * `usePresence` all need to call `safeToRemove`.
+ *
+ * @public
+ */
+var AnimatePresence = function (_a) {
+    var children = _a.children, custom = _a.custom, _b = _a.initial, initial = _b === void 0 ? true : _b, onExitComplete = _a.onExitComplete, exitBeforeEnter = _a.exitBeforeEnter, _c = _a.presenceAffectsLayout, presenceAffectsLayout = _c === void 0 ? true : _c;
+    // We want to force a re-render once all exiting animations have finished. We
+    // either use a local forceRender function, or one from a parent context if it exists.
+    var _d = tslib_es6_read(use_force_update_useForceUpdate(), 1), forceRender = _d[0];
+    var forceRenderLayoutGroup = (0,external_React_.useContext)(LayoutGroupContext).forceRender;
+    if (forceRenderLayoutGroup)
+        forceRender = forceRenderLayoutGroup;
+    var isMounted = useIsMounted();
+    // Filter out any children that aren't ReactElements. We can only track ReactElements with a props.key
+    var filteredChildren = onlyElements(children);
+    var childrenToRender = filteredChildren;
+    var exiting = new Set();
+    // Keep a living record of the children we're actually rendering so we
+    // can diff to figure out which are entering and exiting
+    var presentChildren = (0,external_React_.useRef)(childrenToRender);
+    // A lookup table to quickly reference components by key
+    var allChildren = (0,external_React_.useRef)(new Map()).current;
+    // If this is the initial component render, just deal with logic surrounding whether
+    // we play onMount animations or not.
+    var isInitialRender = (0,external_React_.useRef)(true);
+    useIsomorphicLayoutEffect(function () {
+        isInitialRender.current = false;
+        updateChildLookup(filteredChildren, allChildren);
+        presentChildren.current = childrenToRender;
+    });
+    useUnmountEffect(function () {
+        isInitialRender.current = true;
+        allChildren.clear();
+        exiting.clear();
+    });
+    if (isInitialRender.current) {
+        return (external_React_.createElement(external_React_.Fragment, null, childrenToRender.map(function (child) { return (external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, initial: initial ? undefined : false, presenceAffectsLayout: presenceAffectsLayout }, child)); })));
+    }
+    // If this is a subsequent render, deal with entering and exiting children
+    childrenToRender = tslib_es6_spreadArray([], tslib_es6_read(childrenToRender), false);
+    // Diff the keys of the currently-present and target children to update our
+    // exiting list.
+    var presentKeys = presentChildren.current.map(getChildKey);
+    var targetKeys = filteredChildren.map(getChildKey);
+    // Diff the present children with our target children and mark those that are exiting
+    var numPresent = presentKeys.length;
+    for (var i = 0; i < numPresent; i++) {
+        var key = presentKeys[i];
+        if (targetKeys.indexOf(key) === -1) {
+            exiting.add(key);
+        }
+    }
+    // If we currently have exiting children, and we're deferring rendering incoming children
+    // until after all current children have exiting, empty the childrenToRender array
+    if (exitBeforeEnter && exiting.size) {
+        childrenToRender = [];
+    }
+    // Loop through all currently exiting components and clone them to overwrite `animate`
+    // with any `exit` prop they might have defined.
+    exiting.forEach(function (key) {
+        // If this component is actually entering again, early return
+        if (targetKeys.indexOf(key) !== -1)
+            return;
+        var child = allChildren.get(key);
+        if (!child)
+            return;
+        var insertionIndex = presentKeys.indexOf(key);
+        var onExit = function () {
+            allChildren.delete(key);
+            exiting.delete(key);
+            // Remove this child from the present children
+            var removeIndex = presentChildren.current.findIndex(function (presentChild) { return presentChild.key === key; });
+            presentChildren.current.splice(removeIndex, 1);
+            // Defer re-rendering until all exiting children have indeed left
+            if (!exiting.size) {
+                presentChildren.current = filteredChildren;
+                if (isMounted.current === false)
+                    return;
+                forceRender();
+                onExitComplete && onExitComplete();
+            }
+        };
+        childrenToRender.splice(insertionIndex, 0, external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: false, onExitComplete: onExit, custom: custom, presenceAffectsLayout: presenceAffectsLayout }, child));
+    });
+    // Add `MotionContext` even to children that don't need it to ensure we're rendering
+    // the same tree between renders
+    childrenToRender = childrenToRender.map(function (child) {
+        var key = child.key;
+        return exiting.has(key) ? (child) : (external_React_.createElement(PresenceChild, { key: getChildKey(child), isPresent: true, presenceAffectsLayout: presenceAffectsLayout }, child));
+    });
+    if (false) {}
+    return (external_React_.createElement(external_React_.Fragment, null, exiting.size
+        ? childrenToRender
+        : childrenToRender.map(function (child) { return (0,external_React_.cloneElement)(child); })));
+};
+
+
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/drop-zone/index.js
 
@@ -55791,7 +55813,7 @@ function getSelectOptions(optionsArray, disableCustomFontSizes) {
     } = _ref;
     return {
       key: slug,
-      name,
+      name: name || slug,
       size,
       __experimentalHint: size && isSimpleCssValue(size) && parseFloat(String(size))
     };
@@ -55854,13 +55876,10 @@ const styles_Container = emotion_styled_base_browser_esm("fieldset",  true ? {
 } : 0);
 const HeaderLabel = /*#__PURE__*/emotion_styled_base_browser_esm(base_control.VisualLabel,  true ? {
   target: "e8tqeku3"
-} : 0)( true ? {
-  name: "1ykowef",
-  styles: "margin-bottom:0"
-} : 0);
+} : 0)("display:flex;gap:", space(1), ";justify-content:flex-start;margin-bottom:0;" + ( true ? "" : 0));
 const HeaderHint = emotion_styled_base_browser_esm("span",  true ? {
   target: "e8tqeku2"
-} : 0)("color:", COLORS.gray[700], ";margin-left:", space(1), ";" + ( true ? "" : 0));
+} : 0)("color:", COLORS.gray[700], ";" + ( true ? "" : 0));
 const Controls = emotion_styled_base_browser_esm("div",  true ? {
   target: "e8tqeku1"
 } : 0)(props => !props.__nextHasNoMarginBottom && `margin-bottom: ${space(6)};`, ";" + ( true ? "" : 0));
@@ -55972,7 +55991,7 @@ const UnforwardedFontSizePicker = (props, ref) => {
     } // Calculate the `hint` for toggle group control.
 
 
-    let hint = selectedOption.name;
+    let hint = (selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.name) || selectedOption.slug;
 
     if (!fontSizesContainComplexValues && typeof selectedOption.size === 'string') {
       const [, unit] = splitValueAndUnitFromSize(selectedOption.size);
@@ -58828,7 +58847,7 @@ var component_ref =  true ? {
   styles: "overflow-x:hidden"
 } : 0;
 
-function NavigatorProvider(props, forwardedRef) {
+function UnconnectedNavigatorProvider(props, forwardedRef) {
   const {
     initialPath,
     children,
@@ -58842,13 +58861,15 @@ function NavigatorProvider(props, forwardedRef) {
     let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     setLocationHistory([...locationHistory, { ...options,
       path,
-      isBack: false
+      isBack: false,
+      hasRestoredFocus: false
     }]);
   }, [locationHistory]);
   const goBack = (0,external_wp_element_namespaceObject.useCallback)(() => {
     if (locationHistory.length > 1) {
       setLocationHistory([...locationHistory.slice(0, -2), { ...locationHistory[locationHistory.length - 2],
-        isBack: true
+        isBack: true,
+        hasRestoredFocus: false
       }]);
     }
   }, [locationHistory]);
@@ -58905,8 +58926,8 @@ function NavigatorProvider(props, forwardedRef) {
  */
 
 
-const ConnectedNavigatorProvider = contextConnect(NavigatorProvider, 'NavigatorProvider');
-/* harmony default export */ const navigator_provider_component = (ConnectedNavigatorProvider);
+const NavigatorProvider = contextConnect(UnconnectedNavigatorProvider, 'NavigatorProvider');
+/* harmony default export */ const navigator_provider_component = (NavigatorProvider);
 
 ;// CONCATENATED MODULE: external ["wp","escapeHtml"]
 const external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
@@ -58914,13 +58935,10 @@ const external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
 
 
 
-function navigator_screen_component_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
 /**
  * External dependencies
  */
 // eslint-disable-next-line no-restricted-imports
-
 
 /**
  * WordPress dependencies
@@ -58938,19 +58956,13 @@ function navigator_screen_component_EMOTION_STRINGIFIED_CSS_ERROR_() { return "Y
 
 
 
-
 const animationEnterDelay = 0;
 const animationEnterDuration = 0.14;
 const animationExitDuration = 0.14;
 const animationExitDelay = 0; // Props specific to `framer-motion` can't be currently passed to `NavigatorScreen`,
 // as some of them would overlap with HTML props (e.g. `onAnimationStart`, ...)
 
-var navigator_screen_component_ref =  true ? {
-  name: "14x3t6z",
-  styles: "overflow-x:auto;max-height:100%"
-} : 0;
-
-function NavigatorScreen(props, forwardedRef) {
+function UnconnectedNavigatorScreen(props, forwardedRef) {
   const {
     children,
     className,
@@ -58963,9 +58975,7 @@ function NavigatorScreen(props, forwardedRef) {
   } = (0,external_wp_element_namespaceObject.useContext)(NavigatorContext);
   const isMatch = location.path === (0,external_wp_escapeHtml_namespaceObject.escapeAttribute)(path);
   const wrapperRef = (0,external_wp_element_namespaceObject.useRef)(null);
-  const previousLocation = (0,external_wp_compose_namespaceObject.usePrevious)(location);
-  const cx = useCx();
-  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(navigator_screen_component_ref, className), [className, cx]); // Focus restoration
+  const previousLocation = (0,external_wp_compose_namespaceObject.usePrevious)(location); // Focus restoration
 
   const isInitialLocation = location.isInitial && !location.isBack;
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -58973,12 +58983,13 @@ function NavigatorScreen(props, forwardedRef) {
     // - if the current location is not the initial one (to avoid moving focus on page load)
     // - when the screen becomes visible
     // - if the wrapper ref has been assigned
-    if (isInitialLocation || !isMatch || !wrapperRef.current) {
+    // - if focus hasn't already been restored for the current location
+    if (isInitialLocation || !isMatch || !wrapperRef.current || location.hasRestoredFocus) {
       return;
     }
 
     const activeElement = wrapperRef.current.ownerDocument.activeElement; // If an element is already focused within the wrapper do not focus the
-    // element. This prevents inputs or buttons from losing focus unecessarily.
+    // element. This prevents inputs or buttons from losing focus unnecessarily.
 
     if (wrapperRef.current.contains(activeElement)) {
       return;
@@ -58998,8 +59009,9 @@ function NavigatorScreen(props, forwardedRef) {
       elementToFocus = firstTabbable !== null && firstTabbable !== void 0 ? firstTabbable : wrapperRef.current;
     }
 
+    location.hasRestoredFocus = true;
     elementToFocus.focus();
-  }, [isInitialLocation, isMatch, location.isBack, previousLocation === null || previousLocation === void 0 ? void 0 : previousLocation.focusTargetSelector]);
+  }, [isInitialLocation, isMatch, location.hasRestoredFocus, location.isBack, previousLocation === null || previousLocation === void 0 ? void 0 : previousLocation.focusTargetSelector]);
   const mergedWrapperRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([forwardedRef, wrapperRef]);
 
   if (!isMatch) {
@@ -59009,7 +59021,7 @@ function NavigatorScreen(props, forwardedRef) {
   if (prefersReducedMotion) {
     return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
       ref: mergedWrapperRef,
-      className: classes
+      className: className
     }, otherProps), children);
   }
 
@@ -59042,7 +59054,7 @@ function NavigatorScreen(props, forwardedRef) {
   };
   return (0,external_wp_element_namespaceObject.createElement)(motion.div, extends_extends({
     ref: mergedWrapperRef,
-    className: classes
+    className: className
   }, otherProps, animatedProps), children);
 }
 /**
@@ -59081,8 +59093,8 @@ function NavigatorScreen(props, forwardedRef) {
  */
 
 
-const ConnectedNavigatorScreen = contextConnect(NavigatorScreen, 'NavigatorScreen');
-/* harmony default export */ const navigator_screen_component = (ConnectedNavigatorScreen);
+const NavigatorScreen = contextConnect(UnconnectedNavigatorScreen, 'NavigatorScreen');
+/* harmony default export */ const navigator_screen_component = (NavigatorScreen);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigator/use-navigator.js
 /**
@@ -59171,7 +59183,7 @@ function useNavigatorButton(props) {
 
 
 
-function NavigatorButton(props, forwardedRef) {
+function UnconnectedNavigatorButton(props, forwardedRef) {
   const navigatorButtonProps = useNavigatorButton(props);
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
     ref: forwardedRef
@@ -59212,8 +59224,8 @@ function NavigatorButton(props, forwardedRef) {
  */
 
 
-const ConnectedNavigatorButton = contextConnect(NavigatorButton, 'NavigatorButton');
-/* harmony default export */ const navigator_button_component = (ConnectedNavigatorButton);
+const NavigatorButton = contextConnect(UnconnectedNavigatorButton, 'NavigatorButton');
+/* harmony default export */ const navigator_button_component = (NavigatorButton);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigator/navigator-back-button/hook.js
 /**
@@ -59263,7 +59275,7 @@ function useNavigatorBackButton(props) {
 
 
 
-function NavigatorBackButton(props, forwardedRef) {
+function UnconnectedNavigatorBackButton(props, forwardedRef) {
   const navigatorBackButtonProps = useNavigatorBackButton(props);
   return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
     ref: forwardedRef
@@ -59305,8 +59317,8 @@ function NavigatorBackButton(props, forwardedRef) {
  */
 
 
-const ConnectedNavigatorBackButton = contextConnect(NavigatorBackButton, 'NavigatorBackButton');
-/* harmony default export */ const navigator_back_button_component = (ConnectedNavigatorBackButton);
+const NavigatorBackButton = contextConnect(UnconnectedNavigatorBackButton, 'NavigatorBackButton');
+/* harmony default export */ const navigator_back_button_component = (NavigatorBackButton);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/notice/index.js
 
@@ -61676,64 +61688,61 @@ function ResponsiveWrapper(_ref) {
  */
 
 
-const observeAndResizeJS = `
-	( function() {
-		var observer;
 
-		if ( ! window.MutationObserver || ! document.body || ! window.parent ) {
-			return;
-		}
+const observeAndResizeJS = function () {
+  const {
+    MutationObserver
+  } = window;
 
-		function sendResize() {
-			var clientBoundingRect = document.body.getBoundingClientRect();
+  if (!MutationObserver || !document.body || !window.parent) {
+    return;
+  }
 
-			window.parent.postMessage( {
-				action: 'resize',
-				width: clientBoundingRect.width,
-				height: clientBoundingRect.height,
-			}, '*' );
-		}
+  function sendResize() {
+    const clientBoundingRect = document.body.getBoundingClientRect();
+    window.parent.postMessage({
+      action: 'resize',
+      width: clientBoundingRect.width,
+      height: clientBoundingRect.height
+    }, '*');
+  }
 
-		observer = new MutationObserver( sendResize );
-		observer.observe( document.body, {
-			attributes: true,
-			attributeOldValue: false,
-			characterData: true,
-			characterDataOldValue: false,
-			childList: true,
-			subtree: true
-		} );
+  const observer = new MutationObserver(sendResize);
+  observer.observe(document.body, {
+    attributes: true,
+    attributeOldValue: false,
+    characterData: true,
+    characterDataOldValue: false,
+    childList: true,
+    subtree: true
+  });
+  window.addEventListener('load', sendResize, true); // Hack: Remove viewport unit styles, as these are relative
+  // the iframe root and interfere with our mechanism for
+  // determining the unconstrained page bounds.
 
-		window.addEventListener( 'load', sendResize, true );
+  function removeViewportStyles(ruleOrNode) {
+    if (ruleOrNode.style) {
+      ['width', 'height', 'minHeight', 'maxHeight'].forEach(function (style) {
+        if (/^\\d+(vmin|vmax|vh|vw)$/.test(ruleOrNode.style[style])) {
+          ruleOrNode.style[style] = '';
+        }
+      });
+    }
+  }
 
-		// Hack: Remove viewport unit styles, as these are relative
-		// the iframe root and interfere with our mechanism for
-		// determining the unconstrained page bounds.
-		function removeViewportStyles( ruleOrNode ) {
-			if( ruleOrNode.style ) {
-				[ 'width', 'height', 'minHeight', 'maxHeight' ].forEach( function( style ) {
-					if ( /^\\d+(vmin|vmax|vh|vw)$/.test( ruleOrNode.style[ style ] ) ) {
-						ruleOrNode.style[ style ] = '';
-					}
-				} );
-			}
-		}
+  Array.prototype.forEach.call(document.querySelectorAll('[style]'), removeViewportStyles);
+  Array.prototype.forEach.call(document.styleSheets, function (stylesheet) {
+    Array.prototype.forEach.call(stylesheet.cssRules || stylesheet.rules, removeViewportStyles);
+  });
+  document.body.style.position = 'absolute';
+  document.body.style.width = '100%';
+  document.body.setAttribute('data-resizable-iframe-connected', '');
+  sendResize(); // Resize events can change the width of elements with 100% width, but we don't
+  // get an DOM mutations for that, so do the resize when the window is resized, too.
 
-		Array.prototype.forEach.call( document.querySelectorAll( '[style]' ), removeViewportStyles );
-		Array.prototype.forEach.call( document.styleSheets, function( stylesheet ) {
-			Array.prototype.forEach.call( stylesheet.cssRules || stylesheet.rules, removeViewportStyles );
-		} );
+  window.addEventListener('resize', sendResize, true);
+};
 
-		document.body.style.position = 'absolute';
-		document.body.style.width = '100%';
-		document.body.setAttribute( 'data-resizable-iframe-connected', '' );
-
-		sendResize();
-
-		// Resize events can change the width of elements with 100% width, but we don't
-		// get an DOM mutations for that, so do the resize when the window is resized, too.
-		window.addEventListener( 'resize', sendResize, true );
-} )();`;
 const style = `
 	body {
 		margin: 0;
@@ -61822,7 +61831,7 @@ function Sandbox(_ref) {
     }), (0,external_wp_element_namespaceObject.createElement)("script", {
       type: "text/javascript",
       dangerouslySetInnerHTML: {
-        __html: observeAndResizeJS
+        __html: `(${observeAndResizeJS.toString()})();`
       }
     }), scripts.map(src => (0,external_wp_element_namespaceObject.createElement)("script", {
       key: src,
@@ -62388,7 +62397,7 @@ function TabPanel(_ref2) {
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(TabPanel, 'tab-panel');
   const [selected, setSelected] = (0,external_wp_element_namespaceObject.useState)();
 
-  const handleClick = tabKey => {
+  const handleTabSelection = tabKey => {
     setSelected(tabKey);
     onSelect === null || onSelect === void 0 ? void 0 : onSelect(tabKey);
   };
@@ -62406,8 +62415,8 @@ function TabPanel(_ref2) {
       name: selected
     });
 
-    if (!newSelectedTab) {
-      setSelected(initialTabName || (tabs.length > 0 ? tabs[0].name : undefined));
+    if (!newSelectedTab && tabs.length > 0) {
+      handleTabSelection(initialTabName || tabs[0].name);
     }
   }, [tabs]);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -62425,7 +62434,7 @@ function TabPanel(_ref2) {
     "aria-controls": `${instanceId}-${tab.name}-view`,
     selected: tab.name === selected,
     key: tab.name,
-    onClick: () => handleClick(tab.name)
+    onClick: () => handleTabSelection(tab.name)
   }, tab.title))), selectedTab && (0,external_wp_element_namespaceObject.createElement)("div", {
     key: selectedId,
     "aria-labelledby": selectedId,
@@ -62709,6 +62718,82 @@ const TextHighlight = props => {
   });
 };
 /* harmony default export */ const text_highlight = (TextHighlight);
+
+;// CONCATENATED MODULE: ./packages/components/build-module/theme/styles.js
+
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+const accentColor = _ref => {
+  let {
+    accent
+  } = _ref;
+  return accent ? /*#__PURE__*/emotion_react_browser_esm_css("--wp-components-color-accent:", accent, ";--wp-components-color-accent-darker-10:", colord_w(accent).darken(0.1).toHex(), ";--wp-components-color-accent-darker-20:", colord_w(accent).darken(0.2).toHex(), ";" + ( true ? "" : 0),  true ? "" : 0) : undefined;
+};
+
+const theme_styles_Wrapper = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e1krjpvb0"
+} : 0)(accentColor, ";" + ( true ? "" : 0));
+
+;// CONCATENATED MODULE: ./packages/components/build-module/theme/index.js
+
+
+/**
+ * External dependencies
+ */
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+colord_k([plugins_names, a11y]);
+/**
+ * `Theme` allows defining theme variables for components in the `@wordpress/components` package.
+ *
+ * Multiple `Theme` components can be nested in order to override specific theme variables.
+ *
+ *
+ * @example
+ * ```jsx
+ * import { __experimentalTheme as Theme } from '@wordpress/components';
+ *
+ * const Example = () => {
+ *   return (
+ *     <Theme accent="red">
+ *       <Button variant="primary">I'm red</Button>
+ *       <Theme accent="blue">
+ *         <Button variant="primary">I'm blue</Button>
+ *       </Theme>
+ *     </Theme>
+ *   );
+ * };
+ * ```
+ */
+
+function Theme(props) {
+  const {
+    accent
+  } = props;
+
+  if (accent && !colord_w(accent).isValid()) {
+    // eslint-disable-next-line no-console
+    console.warn(`wp.components.Theme: "${accent}" is not a valid color value for the 'accent' prop.`);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(theme_styles_Wrapper, props);
+}
+
+/* harmony default export */ const theme = (Theme);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/tip.js
 
@@ -63921,7 +64006,7 @@ function useToolsPanel(props) {
       });
       return items;
     });
-  }, [generateMenuItems, panelItems, setMenuItems]); // Force a menu item to be checked.
+  }, [panelItems, setMenuItems]); // Force a menu item to be checked.
   // This is intended for use with default panel items. They are displayed
   // separately to optional items and have different display states,
   // we need to update that when their value is customized.
@@ -63994,7 +64079,7 @@ function useToolsPanel(props) {
       shouldReset: true
     });
     setMenuItems(resetMenuItems);
-  }, [generateMenuItems, isResetting.current, panelItems, resetAll, setMenuItems]); // Assist ItemGroup styling when there are potentially hidden placeholder
+  }, [panelItems, resetAll, setMenuItems]); // Assist ItemGroup styling when there are potentially hidden placeholder
   // items by identifying first & last items that are toggled on for display.
 
   const getFirstVisibleItemLabel = items => {
@@ -64019,7 +64104,7 @@ function useToolsPanel(props) {
     shouldRenderPlaceholderItems,
     __experimentalFirstVisibleItemClass,
     __experimentalLastVisibleItemClass
-  }), [areAllOptionalControlsHidden, deregisterPanelItem, firstDisplayedItem, flagItemCustomization, isResetting.current, lastDisplayedItem, menuItems, panelId, panelItems, registerPanelItem, shouldRenderPlaceholderItems, __experimentalFirstVisibleItemClass, __experimentalLastVisibleItemClass]);
+  }), [areAllOptionalControlsHidden, deregisterPanelItem, firstDisplayedItem, flagItemCustomization, lastDisplayedItem, menuItems, panelId, panelItems, registerPanelItem, shouldRenderPlaceholderItems, __experimentalFirstVisibleItemClass, __experimentalLastVisibleItemClass]);
   return { ...otherProps,
     panelContext,
     resetAllItems,
@@ -64110,8 +64195,8 @@ function useToolsPanelItem(props) {
     __experimentalFirstVisibleItemClass,
     __experimentalLastVisibleItemClass
   } = useToolsPanelContext();
-  const hasValueCallback = (0,external_wp_element_namespaceObject.useCallback)(hasValue, [panelId]);
-  const resetAllFilterCallback = (0,external_wp_element_namespaceObject.useCallback)(resetAllFilter, [panelId]);
+  const hasValueCallback = (0,external_wp_element_namespaceObject.useCallback)(hasValue, [panelId, hasValue]);
+  const resetAllFilterCallback = (0,external_wp_element_namespaceObject.useCallback)(resetAllFilter, [panelId, resetAllFilter]);
   const previousPanelId = (0,external_wp_compose_namespaceObject.usePrevious)(currentPanelId);
   const hasMatchingPanel = currentPanelId === panelId || currentPanelId === null; // Registering the panel item allows the panel to include it in its
   // automatically generated menu and determine its initial checked status.
@@ -64132,7 +64217,7 @@ function useToolsPanelItem(props) {
         deregisterPanelItem(label);
       }
     };
-  }, [currentPanelId, hasMatchingPanel, isShownByDefault, label, hasValueCallback, panelId, previousPanelId, resetAllFilterCallback]);
+  }, [currentPanelId, hasMatchingPanel, isShownByDefault, label, hasValueCallback, panelId, previousPanelId, resetAllFilterCallback, registerPanelItem, deregisterPanelItem]);
   const isValueSet = hasValue();
   const wasValueSet = (0,external_wp_compose_namespaceObject.usePrevious)(isValueSet); // If this item represents a default control it will need to notify the
   // panel when a custom value has been set.
@@ -64141,7 +64226,7 @@ function useToolsPanelItem(props) {
     if (isShownByDefault && isValueSet && !wasValueSet) {
       flagItemCustomization(label);
     }
-  }, [isValueSet, wasValueSet, isShownByDefault, label]); // Note: `label` is used as a key when building menu item state in
+  }, [isValueSet, wasValueSet, isShownByDefault, label, flagItemCustomization]); // Note: `label` is used as a key when building menu item state in
   // `ToolsPanel`.
 
   const menuGroup = isShownByDefault ? 'default' : 'optional';
@@ -64161,7 +64246,7 @@ function useToolsPanelItem(props) {
     if (!isMenuItemChecked && wasMenuItemChecked) {
       onDeselect === null || onDeselect === void 0 ? void 0 : onDeselect();
     }
-  }, [hasMatchingPanel, isMenuItemChecked, isResetting, isValueSet, wasMenuItemChecked]); // The item is shown if it is a default control regardless of whether it
+  }, [hasMatchingPanel, isMenuItemChecked, isResetting, isValueSet, wasMenuItemChecked, onSelect, onDeselect]); // The item is shown if it is a default control regardless of whether it
   // has a value. Optional items are shown when they are checked or have
   // a value.
 
@@ -64172,7 +64257,7 @@ function useToolsPanelItem(props) {
     const firstItemStyle = firstDisplayedItem === label && __experimentalFirstVisibleItemClass;
     const lastItemStyle = lastDisplayedItem === label && __experimentalLastVisibleItemClass;
     return cx(ToolsPanelItem, placeholderStyle, className, firstItemStyle, lastItemStyle);
-  }, [isShown, shouldRenderPlaceholder, className, cx, firstDisplayedItem, lastDisplayedItem, __experimentalFirstVisibleItemClass, __experimentalLastVisibleItemClass]);
+  }, [isShown, shouldRenderPlaceholder, className, cx, firstDisplayedItem, lastDisplayedItem, __experimentalFirstVisibleItemClass, __experimentalLastVisibleItemClass, label]);
   return { ...otherProps,
     isShown,
     shouldRenderPlaceholder,
@@ -65025,7 +65110,7 @@ const withConstrainedTabbing = (0,external_wp_compose_namespaceObject.createHigh
         if (!(0,external_lodash_namespaceObject.isEqual)(newFallbackStyles, fallbackStyles)) {
           this.setState({
             fallbackStyles: newFallbackStyles,
-            grabStylesCompleted: !!(0,external_lodash_namespaceObject.every)(newFallbackStyles)
+            grabStylesCompleted: Object.values(newFallbackStyles).every(Boolean)
           });
         }
       }
@@ -65333,6 +65418,7 @@ const with_focus_return_Provider = _ref => {
 ;// CONCATENATED MODULE: ./packages/components/build-module/index.js
 // Primitives.
  // Components.
+
 
 
 

@@ -7911,6 +7911,8 @@ const ICON_COLORS = ['#191e23', '#f8f9f9'];
  */
 
 function isUnmodifiedDefaultBlock(block) {
+  var _blockType$attributes;
+
   const defaultBlockName = getDefaultBlockName();
 
   if (block.name !== defaultBlockName) {
@@ -7925,7 +7927,7 @@ function isUnmodifiedDefaultBlock(block) {
 
   const newDefaultBlock = isUnmodifiedDefaultBlock.block;
   const blockType = getBlockType(defaultBlockName);
-  return (0,external_lodash_namespaceObject.every)(blockType === null || blockType === void 0 ? void 0 : blockType.attributes, (value, key) => newDefaultBlock.attributes[key] === block.attributes[key]);
+  return Object.keys((_blockType$attributes = blockType === null || blockType === void 0 ? void 0 : blockType.attributes) !== null && _blockType$attributes !== void 0 ? _blockType$attributes : {}).every(key => newDefaultBlock.attributes[key] === block.attributes[key]);
 }
 /**
  * Function that checks if the parameter is a valid icon.

@@ -1267,7 +1267,8 @@ function cleanForSlug(string) {
   return remove_accents_default()(string) // Convert each group of whitespace, periods, and forward slashes to a hyphen.
   .replace(/[\s\./]+/g, '-') // Remove anything that's not a letter, number, underscore or hyphen.
   .replace(/[^\p{L}\p{N}_-]+/gu, '') // Convert to lowercase
-  .toLowerCase() // Remove any remaining leading or trailing hyphens.
+  .toLowerCase() // Replace multiple hyphens with a single one.
+  .replace(/-+/g, '-') // Remove any remaining leading or trailing hyphens.
   .replace(/(^-+)|(-+$)/g, '');
 }
 

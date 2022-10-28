@@ -145,7 +145,7 @@ function getCSSVarFromStyleValue(styleValue) {
 /**
  * Capitalizes the first letter in a string.
  *
- * @param string The string whose first letter the function will capitalize.
+ * @param  string The string whose first letter the function will capitalize.
  *
  * @return String with the first letter capitalized.
  */
@@ -157,7 +157,7 @@ function upperFirst(string) {
 /**
  * Converts an array of strings into a camelCase string.
  *
- * @param strings The strings to join into a camelCase string.
+ * @param  strings The strings to join into a camelCase string.
  *
  * @return camelCase string.
  */
@@ -175,7 +175,7 @@ function camelCaseJoin(strings) {
 /**
  * Creates a function for generating CSS rules when the style path is the same as the camelCase CSS property used in React.
  *
- * @param path An array of strings representing the path to the style value in the style object.
+ * @param  path An array of strings representing the path to the style value in the style object.
  *
  * @return A function that generates CSS rules.
  */
@@ -186,7 +186,7 @@ function createBorderGenerateFunction(path) {
 /**
  * Creates a function for generating border-{top,bottom,left,right}-{color,style,width} CSS rules.
  *
- * @param edge The edge to create CSS rules for.
+ * @param  edge The edge to create CSS rules for.
  *
  * @return A function that generates CSS rules.
  */

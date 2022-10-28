@@ -100,6 +100,7 @@ const external_wp_blocks_namespaceObject = window["wp"]["blocks"];
 
 
 
+const EMPTY_OBJECT = {};
 function rendererPath(block) {
   let attributes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   let urlQueryArgs = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
@@ -110,6 +111,29 @@ function rendererPath(block) {
     } : {}),
     ...urlQueryArgs
   });
+}
+function removeBlockSupportAttributes(attributes) {
+  const {
+    backgroundColor,
+    borderColor,
+    fontFamily,
+    fontSize,
+    gradient,
+    textColor,
+    className,
+    ...restAttributes
+  } = attributes;
+  const {
+    border,
+    color,
+    elements,
+    spacing,
+    typography,
+    ...restStyles
+  } = (attributes === null || attributes === void 0 ? void 0 : attributes.style) || EMPTY_OBJECT;
+  return { ...restAttributes,
+    style: restStyles
+  };
 }
 
 function DefaultEmptyResponsePlaceholder(_ref) {
@@ -164,6 +188,7 @@ function ServerSideRender(props) {
     className,
     httpMethod = 'GET',
     urlQueryArgs,
+    skipBlockSupportAttributes = false,
     EmptyResponsePlaceholder = DefaultEmptyResponsePlaceholder,
     ErrorResponsePlaceholder = DefaultErrorResponsePlaceholder,
     LoadingResponsePlaceholder = DefaultLoadingResponsePlaceholder
@@ -176,21 +201,27 @@ function ServerSideRender(props) {
   const [isLoading, setIsLoading] = (0,external_wp_element_namespaceObject.useState)(false);
 
   function fetchData() {
+    var _sanitizedAttributes, _sanitizedAttributes2;
+
     if (!isMountedRef.current) {
       return;
     }
 
     setIsLoading(true);
 
-    const sanitizedAttributes = attributes && (0,external_wp_blocks_namespaceObject.__experimentalSanitizeBlockAttributes)(block, attributes); // If httpMethod is 'POST', send the attributes in the request body instead of the URL.
+    let sanitizedAttributes = attributes && (0,external_wp_blocks_namespaceObject.__experimentalSanitizeBlockAttributes)(block, attributes);
+
+    if (skipBlockSupportAttributes) {
+      sanitizedAttributes = removeBlockSupportAttributes(sanitizedAttributes);
+    } // If httpMethod is 'POST', send the attributes in the request body instead of the URL.
     // This allows sending a larger attributes object than in a GET request, where the attributes are in the URL.
 
 
     const isPostRequest = 'POST' === httpMethod;
-    const urlAttributes = isPostRequest ? null : sanitizedAttributes !== null && sanitizedAttributes !== void 0 ? sanitizedAttributes : null;
+    const urlAttributes = isPostRequest ? null : (_sanitizedAttributes = sanitizedAttributes) !== null && _sanitizedAttributes !== void 0 ? _sanitizedAttributes : null;
     const path = rendererPath(block, urlAttributes, urlQueryArgs);
     const data = isPostRequest ? {
-      attributes: sanitizedAttributes !== null && sanitizedAttributes !== void 0 ? sanitizedAttributes : null
+      attributes: (_sanitizedAttributes2 = sanitizedAttributes) !== null && _sanitizedAttributes2 !== void 0 ? _sanitizedAttributes2 : null
     } : null; // Store the latest fetch request so that when we process it, we can
     // check if it is the current request, to avoid race conditions on slow networks.
 
@@ -294,7 +325,7 @@ function ServerSideRender(props) {
  * Constants
  */
 
-const EMPTY_OBJECT = {};
+const build_module_EMPTY_OBJECT = {};
 const ExportedServerSideRender = (0,external_wp_data_namespaceObject.withSelect)(select => {
   // FIXME: @wordpress/server-side-render should not depend on @wordpress/editor.
   // It is used by blocks that can be loaded into a *non-post* block editor.
@@ -314,10 +345,10 @@ const ExportedServerSideRender = (0,external_wp_data_namespaceObject.withSelect)
     }
   }
 
-  return EMPTY_OBJECT;
+  return build_module_EMPTY_OBJECT;
 })(_ref => {
   let {
-    urlQueryArgs = EMPTY_OBJECT,
+    urlQueryArgs = build_module_EMPTY_OBJECT,
     currentPostId,
     ...props
   } = _ref;
