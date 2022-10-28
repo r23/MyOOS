@@ -2702,12 +2702,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "d55c618dc2c5141caa00a416ca21bb6f06cf00e0"
+                "reference": "4ca1da7f180e80b639f8f41d0da8be7f50715d47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/d55c618dc2c5141caa00a416ca21bb6f06cf00e0",
-                "reference": "d55c618dc2c5141caa00a416ca21bb6f06cf00e0",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/4ca1da7f180e80b639f8f41d0da8be7f50715d47",
+                "reference": "4ca1da7f180e80b639f8f41d0da8be7f50715d47",
                 "shasum": ""
             },
             "conflict": {
@@ -3145,7 +3145,7 @@
                 "webcoast/deferred-image-processing": "<1.0.2",
                 "wikimedia/parsoid": "<0.12.2",
                 "willdurand/js-translation-bundle": "<2.1.1",
-                "wintercms/winter": "<1.0.475|>=1.1,<1.1.9",
+                "wintercms/winter": "<1.0.475|>=1.1,<1.1.10|>=1.2,<1.2.1",
                 "woocommerce/woocommerce": "<6.6",
                 "wp-cli/wp-cli": "<2.5",
                 "wp-graphql/wp-graphql": "<0.3.5",
@@ -3193,7 +3193,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<6.0.22"
             },
-            "time": "2022-10-27T00:18:37+00:00",
+            "time": "2022-10-27T19:05:37+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
