@@ -198,7 +198,7 @@ if (!defined('_ADODB_LAYER')) {
 		/**
 		 * ADODB version as a string.
 		 */
-		$ADODB_vers = 'v5.22.3  2022-09-06';
+		$ADODB_vers = 'v5.22.4  2022-10-28';
 
 		/**
 		 * Determines whether recordset->RecordCount() is used.
@@ -3943,9 +3943,7 @@ class ADORecordSet implements IteratorAggregate {
 	}
 
 	function __destruct() {
-		if($this->_queryID != -1) {
-			$this->Close();
-		}
+		$this->Close();
 	}
 
 	#[\ReturnTypeWillChange]
