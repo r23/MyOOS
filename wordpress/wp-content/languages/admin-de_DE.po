@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-10-31 13:19:33+0000\n"
+"PO-Revision-Date: 2022-11-03 23:00:59+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -52,6 +52,11 @@ msgstr "Unter <a href=\"%s\">learn.wordpress.org</a> findest du Tutorial-Videos,
 msgid "https://wordpress.org/plugins/performance-lab/"
 msgstr "https://de.wordpress.org/plugins/performance-lab/"
 
+#. translators: %s: Link to fluid typography demo.
+#: wp-admin/about.php:185
+msgid "<a href=\"%s\">Fluid typography</a> lets you define font sizes that adapt for easy reading in any screen size."
+msgstr "Mit <a href=\"%s\">Fließender Typografie</a> kannst du Schriftgrößen definieren, die sich an jede Bildschirmgröße anpassen."
+
 #: wp-admin/about.php:180
 msgid "More responsive text with fluid typography"
 msgstr "Mehr responsiver Text mit fließender Typografie"
@@ -95,9 +100,20 @@ msgstr "Voreinstellungen für Abstände für ein schnelleres und einheitliches D
 msgid "Filters for all your styles"
 msgstr "Filter für alle deine Stile"
 
+#. translators: %s: Link to query loop dev note.
+#: wp-admin/about.php:379
+msgid "<a href=\"%s\">New filters</a> let Query Block variations support custom queries for more powerful variations and advanced hierarchical post types filtering options."
+msgstr "<a href=\"%s\">Neue Filter</a> ermöglichen Abfrage-Blockvariationen die Unterstützung individueller Abfragen für mächtigere Variationen und erweiterte Filteroptionen für hierarchische Inhaltstypen."
+
 #: wp-admin/about.php:374
 msgid "Expanded support for Query Loop blocks"
 msgstr "Erweiterte Unterstützung für Abfrage-Loop-Blöcke"
+
+#. translators: 1: Link to block-based template parts in classic themes dev
+#. note, 2: Folder name.
+#: wp-admin/about.php:360
+msgid "<a href=\"%1$s\">Block template parts can now be defined in classic themes</a> by adding the appropriate HTML files to the %2$s directory at the root of the theme."
+msgstr "<a href=\"%1$s\">Block-Template-Teile können jetzt in klassischen Themes definiert werden</a>, indem die entsprechenden HTML-Dateien in das Verzeichnis %2$s im Stammverzeichnis des Themes hinzugefügt werden."
 
 #: wp-admin/about.php:355
 msgid "Block template parts in classic themes"
@@ -133,6 +149,11 @@ msgstr "Weitere interessante Informationen"
 msgid "Improved admin and editor accessibility"
 msgstr "Verbesserte Barrierefreiheit für Administratoren und Redakteure"
 
+#. translators: %s: Link style engine dev note.
+#: wp-admin/about.php:257
+msgid "The CSS rules for margin, padding, typography, colors, and borders within the <a href=\"%s\">styles engine</a> are now all in one place, reducing time spent on layout-specific tasks and helps to generate semantic class names."
+msgstr "Die CSS-Regeln für Außenabstand, Innenabstand, Typografie, Farben und Ränder innerhalb der <a href=\"%s\">Styles-Engine</a> befinden sich jetzt alle an einem Ort, was den Zeitaufwand für layoutspezifische Aufgaben reduziert und hilft, semantische Klassennamen zu erzeugen."
+
 #: wp-admin/about.php:252
 msgid "A streamlined style system"
 msgstr "Ein gestrafftes Stilsystem"
@@ -150,9 +171,18 @@ msgstr "Behalte deine Website-Editor-Einstellungen für später"
 msgid "https://wordpress.org/themes/tags/full-site-editing/"
 msgstr "https://wordpress.org/themes/tags/full-site-editing/"
 
+#. translators: %s: Link to "full site editing" themes on WordPress.org.
+#: wp-admin/about.php:218
+msgid "The Themes Directory has <a href=\"%s\">a filter for block themes</a>, and a pattern preview gives a better sense of what the theme might look like while exploring different themes and patterns."
+msgstr "Das Themes-Verzeichnis verfügt über <a href=\"%s\">einen Filter für Block-Themes</a> und eine Vorlagen-Vorschau vermittelt einen besseren Eindruck davon, wie das Theme aussehen könnte, während man verschiedene Themes und Vorlagen erkundet."
+
 #: wp-admin/about.php:213
 msgid "Find block themes faster"
 msgstr "Block-Themes schneller finden"
+
+#: wp-admin/about.php:174
+msgid "The List and Quote blocks now support inner blocks, allowing for more flexible and rich compositions like adding headings inside your Quote blocks."
+msgstr "Die Blöcke „Liste“ und „Zitat“ unterstützen jetzt innere Blöcke, was flexiblere und vielfältigere Kompositionen ermöglicht, wie z. B. das Hinzufügen von Überschriften innerhalb deiner Zitat-Blöcke."
 
 #: wp-admin/about.php:173
 msgid "Compose richer lists and quotes with inner blocks"
@@ -169,6 +199,10 @@ msgstr "Verbesserte Block-Platzhalter"
 #: wp-admin/about.php:156
 msgid "One-click lock settings for all inner blocks"
 msgstr "Einstellungen zur Sperrung aller inneren Blöcke mit nur einem Klick"
+
+#: wp-admin/about.php:150
+msgid "A cleaner, better-organized display helps you easily view and manage important post and page settings, especially the template picker and scheduler."
+msgstr "Eine übersichtlichere und besser organisierte Ansicht erleichtert dir die Anzeige und Verwaltung wichtiger Einstellungen für Beiträge und Seiten, insbesondere bei der Auswahl von Templates und bei der Zeitplanung."
 
 #: wp-admin/about.php:149
 msgid "Improved layout and visualization of document settings"
@@ -187,6 +221,12 @@ msgstr "Upgrades auf die <a href=\"%s\">Steuerelemente für Designelemente und -
 msgid "More consistency and control across design tools"
 msgstr "Mehr Konsistenz und Kontrolle bei den Design-Werkzeugen"
 
+#. translators: 1: Link to template options dev note, 2: Link to template
+#. creation dev note.
+#: wp-admin/about.php:90
+msgid "<a href=\"%1$s\">New templates</a> include a custom template for posts and pages in the Site Editor. Search-and-replace tools speed up the design of <a href=\"%2$s\">template parts</a>."
+msgstr "<a href=\"%1$s\">Neue Templates</a> enthalten ein individuelles Template für Beiträge und Seiten im Website-Editor. Werkzeuge zum Suchen und Ersetzen beschleunigen das Gestalten von <a href=\"%2$s\">Template-Teilen</a>."
+
 #: wp-admin/about.php:85
 msgid "A better creator experience with refined and additional templates"
 msgstr "Eine verbesserte Erfahrung beim Erstellen mit überarbeiteten und zusätzlichen Templates"
@@ -200,6 +240,10 @@ msgstr "Aufbauend auf den grundlegenden Elementen der Versionen 5.9 und 6.0 fü
 #: wp-admin/about.php:69
 msgid "A new default theme powered by 10 distinct style variations"
 msgstr "Ein neues Standard-Theme mit 10 unterschiedlichen Stil-Varianten"
+
+#: wp-admin/about.php:57
+msgid "This page highlights some of the most significant changes to the product since the May 2022 release of WordPress 6.0. You will also find resources for developers and anyone seeking a deeper understanding of WordPress."
+msgstr "Diese Seite hebt einige der wichtigsten Änderungen am Produkt seit der Veröffentlichung von WordPress 6.0 im Mai 2022 hervor. Außerdem findet man hier Ressourcen für Entwickler und alle, die ein tieferes Verständnis von WordPress anstreben."
 
 #: wp-admin/users.php:64
 msgid "<strong>Send password reset</strong> sends the user an email with a link to set a new password."
