@@ -288,6 +288,19 @@ const text_text = {
 
 /* harmony default export */ const styles_color = ([color_text, color_gradient, color_background]);
 
+;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/dimensions/index.js
+/**
+ * Internal dependencies
+ */
+
+const minHeight = {
+  name: 'minHeight',
+  generate: (style, options) => {
+    return generateRule(style, options, ['dimensions', 'minHeight'], 'minHeight');
+  }
+};
+/* harmony default export */ const dimensions = ([minHeight]);
+
 ;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/shadow/index.js
 /**
  * Internal dependencies
@@ -445,7 +458,8 @@ const textTransform = {
 
 
 
-const styleDefinitions = [...border, ...styles_color, ...outline, ...spacing, ...typography, ...styles_shadow];
+
+const styleDefinitions = [...border, ...styles_color, ...dimensions, ...outline, ...spacing, ...typography, ...styles_shadow];
 
 ;// CONCATENATED MODULE: ./packages/style-engine/build-module/index.js
 /**

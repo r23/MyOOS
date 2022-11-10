@@ -274,7 +274,7 @@ function InlineUI(_ref) {
     settings: image_image
   });
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
-    position: "bottom center",
+    placement: "bottom",
     focusOnMount: false,
     anchor: popoverAnchor,
     className: "block-editor-format-toolbar__image-popover"
@@ -961,7 +961,7 @@ function InlineLinkUI(_ref) {
     anchor: popoverAnchor,
     focusOnMount: focusOnMount.current,
     onClose: stopAddingLink,
-    position: "bottom center",
+    placement: "bottom",
     shift: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLinkControl, {
     key: forceRemountKey,

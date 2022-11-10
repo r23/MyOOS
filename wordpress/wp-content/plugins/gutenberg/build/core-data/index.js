@@ -1267,10 +1267,6 @@ const external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/queried-data/actions.js
 /**
- * External dependencies
- */
-
-/**
  * Returns an action object used in signalling that items have been received.
  *
  * @param {Array}   items Items received.
@@ -1278,11 +1274,10 @@ var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external
  *
  * @return {Object} Action object.
  */
-
 function receiveItems(items, edits) {
   return {
     type: 'RECEIVE_ITEMS',
-    items: (0,external_lodash_namespaceObject.castArray)(items),
+    items: Array.isArray(items) ? items : [items],
     persistedEdits: edits
   };
 }
@@ -1301,7 +1296,7 @@ function removeItems(kind, name, records) {
   let invalidateCache = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   return {
     type: 'REMOVE_ITEMS',
-    itemIds: (0,external_lodash_namespaceObject.castArray)(records),
+    itemIds: Array.isArray(records) ? records : [records],
     kind,
     name,
     invalidateCache
@@ -1356,7 +1351,7 @@ function chunk(arr, chunkSize) {
  * @param {Array} requests List of API requests to perform at once.
  *
  * @return {Promise} Promise that resolves to a list of objects containing
- *                   either `output` (if that request was succesful) or `error`
+ *                   either `output` (if that request was successful) or `error`
  *                   (if not ).
  */
 
@@ -1650,7 +1645,7 @@ const STORE_NAME = 'core';
 function receiveUserQuery(queryID, users) {
   return {
     type: 'RECEIVE_USER_QUERY',
-    users: (0,external_lodash_namespaceObject.castArray)(users),
+    users: Array.isArray(users) ? users : [users],
     queryID
   };
 }
@@ -1704,7 +1699,7 @@ function receiveEntityRecords(kind, name, records, query) {
   // Auto drafts should not have titles, but some plugins rely on them so we can't filter this
   // on the server.
   if (kind === 'postType') {
-    records = (0,external_lodash_namespaceObject.castArray)(records).map(record => record.status === 'auto-draft' ? { ...record,
+    records = (Array.isArray(records) ? records : [records]).map(record => record.status === 'auto-draft' ? { ...record,
       title: ''
     } : record);
   }
@@ -2384,7 +2379,7 @@ function receiveAutosaves(postId, autosaves) {
   return {
     type: 'RECEIVE_AUTOSAVES',
     postId,
-    autosaves: (0,external_lodash_namespaceObject.castArray)(autosaves)
+    autosaves: Array.isArray(autosaves) ? autosaves : [autosaves]
   };
 }
 

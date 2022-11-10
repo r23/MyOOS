@@ -416,17 +416,12 @@ const external_lodash_namespaceObject = window["lodash"];
 const external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 ;// CONCATENATED MODULE: ./packages/keycodes/build-module/platform.js
 /**
- * External dependencies
- */
-
-/**
  * Return true if platform is MacOS.
  *
  * @param {Window?} _window window object by default; used for DI testing.
  *
  * @return {boolean} True if MacOS; false otherwise.
  */
-
 function isAppleOS() {
   let _window = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
@@ -441,7 +436,7 @@ function isAppleOS() {
   const {
     platform
   } = _window.navigator;
-  return platform.indexOf('Mac') !== -1 || (0,external_lodash_namespaceObject.includes)(['iPad', 'iPhone'], platform);
+  return platform.indexOf('Mac') !== -1 || ['iPad', 'iPhone'].includes(platform);
 }
 
 ;// CONCATENATED MODULE: ./packages/keycodes/build-module/index.js
@@ -806,7 +801,9 @@ const isKeyboardEvent = (0,external_lodash_namespaceObject.mapValues)(modifiers,
       let key = event.key.toLowerCase();
 
       if (!character) {
-        return (0,external_lodash_namespaceObject.includes)(mods, key);
+        return mods.includes(
+        /** @type {WPModifierPart} */
+        key);
       }
 
       if (event.altKey && character.length === 1) {

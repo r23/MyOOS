@@ -3899,23 +3899,24 @@ function useFocusReturn(onFocusReturn) {
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focus-outside/index.js
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
 
 /**
  * Input types which are classified as button types, for use in considering
  * whether element is a (focus-normalized) button.
- *
- * @type {string[]}
  */
 
 const INPUT_BUTTON_TYPES = ['button', 'submit'];
 /**
- * @typedef {HTMLButtonElement | HTMLLinkElement | HTMLInputElement} FocusNormalizedButton
+ * List of HTML button elements subject to focus normalization
+ *
+ * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
  */
-// Disable reason: Rule doesn't support predicate return types.
-
-/* eslint-disable jsdoc/valid-types */
 
 /**
  * Returns true if the given element is a button element subject to focus
@@ -3923,11 +3924,10 @@ const INPUT_BUTTON_TYPES = ['button', 'submit'];
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
  *
- * @param {EventTarget} eventTarget The target from a mouse or touch event.
+ * @param  eventTarget The target from a mouse or touch event.
  *
- * @return {eventTarget is FocusNormalizedButton} Whether element is a button.
+ * @return Whether the element is a button element subject to focus normalization.
  */
-
 function isFocusNormalizedButton(eventTarget) {
   if (!(eventTarget instanceof window.HTMLElement)) {
     return false;
@@ -3939,66 +3939,28 @@ function isFocusNormalizedButton(eventTarget) {
       return true;
 
     case 'INPUT':
-      return INPUT_BUTTON_TYPES.includes(
-      /** @type {HTMLInputElement} */
-      eventTarget.type);
+      return INPUT_BUTTON_TYPES.includes(eventTarget.type);
   }
 
   return false;
 }
-/* eslint-enable jsdoc/valid-types */
-
-/**
- * @typedef {import('react').SyntheticEvent} SyntheticEvent
- */
-
-/**
- * @callback EventCallback
- * @param {SyntheticEvent} event input related event.
- */
-
-/**
- * @typedef FocusOutsideReactElement
- * @property {EventCallback} handleFocusOutside callback for a focus outside event.
- */
-
-/**
- * @typedef {import('react').MutableRefObject<FocusOutsideReactElement | undefined>} FocusOutsideRef
- */
-
-/**
- * @typedef {Object} FocusOutsideReturnValue
- * @property {EventCallback} onFocus      An event handler for focus events.
- * @property {EventCallback} onBlur       An event handler for blur events.
- * @property {EventCallback} onMouseDown  An event handler for mouse down events.
- * @property {EventCallback} onMouseUp    An event handler for mouse up events.
- * @property {EventCallback} onTouchStart An event handler for touch start events.
- * @property {EventCallback} onTouchEnd   An event handler for touch end events.
- */
 
 /**
  * A react hook that can be used to check whether focus has moved outside the
  * element the event handlers are bound to.
  *
- * @param {EventCallback} onFocusOutside A callback triggered when focus moves outside
- *                                       the element the event handlers are bound to.
+ * @param  onFocusOutside A callback triggered when focus moves outside
+ *                        the element the event handlers are bound to.
  *
- * @return {FocusOutsideReturnValue} An object containing event handlers. Bind the event handlers
- *                                   to a wrapping element element to capture when focus moves
- *                                   outside that element.
+ * @return An object containing event handlers. Bind the event handlers to a
+ * wrapping element element to capture when focus moves outside that element.
  */
-
-
 function useFocusOutside(onFocusOutside) {
   const currentOnFocusOutside = (0,external_wp_element_namespaceObject.useRef)(onFocusOutside);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     currentOnFocusOutside.current = onFocusOutside;
   }, [onFocusOutside]);
   const preventBlurCheck = (0,external_wp_element_namespaceObject.useRef)(false);
-  /**
-   * @type {import('react').MutableRefObject<number | undefined>}
-   */
-
   const blurCheckTimeoutId = (0,external_wp_element_namespaceObject.useRef)();
   /**
    * Cancel a blur check timeout.
@@ -4024,9 +3986,8 @@ function useFocusOutside(onFocusOutside) {
    * button elements when clicked, while others do. The logic here
    * intends to normalize this as treating click on buttons as focus.
    *
+   * @param  event
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
-   *
-   * @param {SyntheticEvent} event Event for mousedown or mouseup.
    */
 
   const normalizeButtonFocus = (0,external_wp_element_namespaceObject.useCallback)(event => {
@@ -4048,8 +4009,6 @@ function useFocusOutside(onFocusOutside) {
    *
    * Calls the `onFocusOutside` callback in an immediate timeout if focus has
    * move outside the bound element and is still within the document.
-   *
-   * @param {SyntheticEvent} event Blur event.
    */
 
   const queueBlurCheck = (0,external_wp_element_namespaceObject.useCallback)(event => {
@@ -5461,6 +5420,10 @@ function useDropZone(_ref) {
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-focusable-iframe/index.js
 /**
+ * External dependencies
+ */
+
+/**
  * Internal dependencies
  */
 
@@ -5468,7 +5431,7 @@ function useDropZone(_ref) {
  * Dispatches a bubbling focus event when the iframe receives focus. Use
  * `onFocus` as usual on the iframe or a parent element.
  *
- * @return {Object} Ref to pass to the iframe.
+ * @return Ref to pass to the iframe.
  */
 
 function useFocusableIframe() {
@@ -5488,7 +5451,6 @@ function useFocusableIframe() {
 
     function checkFocus() {
       if (ownerDocument && ownerDocument.activeElement === element) {
-        /** @type {HTMLElement} */
         element.focus();
       }
     }

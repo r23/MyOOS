@@ -3233,7 +3233,6 @@ function useAnchorRef(_ref) {
   } = _ref;
   external_wp_deprecated_default()('`useAnchorRef` hook', {
     since: '6.1',
-    version: '6.3',
     alternative: '`useAnchor` hook'
   });
   const {
