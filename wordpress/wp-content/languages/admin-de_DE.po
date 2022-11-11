@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-10 18:44:18+0000\n"
+"PO-Revision-Date: 2022-11-11 16:20:26+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -69,6 +69,11 @@ msgstr "Mehr responsiver Text mit fließender Typografie"
 msgid "Combine it with block locking options for even more advanced control over your blocks."
 msgstr "Kombiniere es mit den Optionen zur Sperrung von Blöcken, um eine noch bessere Kontrolle über deine Blöcke zu erhalten."
 
+#. translators: %s: Link to content locking dev note.
+#: wp-admin/about.php:473
+msgid "Thanks to <a href=\"%s\">content-only editing settings</a>, layouts can be locked within container blocks. In a content-only block, its children are invisible to the List View and entirely uneditable. So you control the layout while your writers can focus on the content."
+msgstr "Dank der <a href=\"%s\">Nur-Inhalt-Bearbeitungseinstellungen (engl.)</a> können Layouts in Container-Blöcken gesperrt werden. In einem reinen Inhaltsblock sind die untergeordneten Blöcke in der Listenansicht unsichtbar und können nicht bearbeitet werden. So hast du die Kontrolle über das Layout, während sich deine Autoren auf den Inhalt konzentrieren können."
+
 #: wp-admin/about.php:468
 msgid "Content-only editing support for container blocks"
 msgstr "Unterstützung für die ausschließliche Inhaltsbearbeitung von Container-Blöcken"
@@ -100,6 +105,11 @@ msgstr "Spare Zeit und hilf dabei, hartkodierte Werte in einem Theme zu vermeide
 msgid "Spacing presets for faster, consistent design"
 msgstr "Voreinstellungen für Abstände für ein schnelleres und einheitliches Design"
 
+#. translators: %s: Link to theme.json filters dev note.
+#: wp-admin/about.php:401
+msgid "<a href=\"%s\">Leverage filters</a> in the Styles sidebar to control settings at all four levels of your site—core, theme, user, or block, from less to more specific."
+msgstr "<a href=\"%s\">Verwende Filter</a> in der Seitenleiste „Stile“, um Einstellungen auf allen vier Ebenen deiner Website – Core, Design, Benutzer oder Block – von weniger spezifisch bis spezifisch zu steuern."
+
 #: wp-admin/about.php:396
 msgid "Filters for all your styles"
 msgstr "Filter für alle deine Stile"
@@ -107,7 +117,7 @@ msgstr "Filter für alle deine Stile"
 #. translators: %s: Link to query loop dev note.
 #: wp-admin/about.php:379
 msgid "<a href=\"%s\">New filters</a> let Query Block variations support custom queries for more powerful variations and advanced hierarchical post types filtering options."
-msgstr "Durch <a href=\"%s\">neue Filter</a> können Abfrage-Blockvariationen individuelle Abfragen für leistungsfähigere Variationen und erweiterte Filteroptionen für hierarchische Inhaltstypen unterstützen."
+msgstr "<a href=\"%s\">Neue Filter</a> ermöglichen Abfrageblock-Variationen die Unterstützung von individuellen Abfragen für leistungsfähigere Variationen und erweiterte Filteroptionen für hierarchische Inhaltstypen."
 
 #: wp-admin/about.php:374
 msgid "Expanded support for Query Loop blocks"
@@ -123,9 +133,19 @@ msgstr "<a href=\"%1$s\">Block-Template-Teile können jetzt in klassischen Theme
 msgid "Block template parts in classic themes"
 msgstr "Block-Template-Teile in klassischen Themes"
 
+#. translators: %s: Link to layout support refactor dev note.
+#: wp-admin/about.php:338
+msgid "The default content dimensions provided by themes can now be overridden in the Styles Sidebar, giving site builders better control over full-width content. Developers have <a href=\"%s\">fine-grained control over these controls</a>."
+msgstr "Die von Themes bereitgestellten Standardabmessungen für Inhalte können jetzt in der Seitenleiste „Stile“ überschrieben werden, wodurch Website-Ersteller eine bessere Kontrolle über Inhalte in voller Breite erhalten. Entwickler haben eine <a href=\"%s\">fein abgestufte Kontrolle über diese Steuerelemente.</a>"
+
 #: wp-admin/about.php:333
 msgid "Continued evolution of layout options"
 msgstr "Beständige Weiterentwicklung der Layout-Optionen"
+
+#. translators: %s: Link to styling elements dev note.
+#: wp-admin/about.php:320
+msgid "Updates include <a href=\"%s\">styling elements</a> like buttons, citations, and links globally; controlling hover, active, and focus states for links using theme.json (not available to control in the interface yet); and customizing outline support for blocks and elements, among other features."
+msgstr "Die Aktualisierungen beinhalten die <a href=\"%s\">Gestaltung von Elementen</a> wie Buttons, Zitate und Links auf globaler Ebene; Steuerung von Hover-, Aktiv- und Fokus-Zuständen für Links mithilfe von theme.json (noch nicht in der Benutzeroberfläche steuerbar); und Anpassung der Unterstützung von Konturen für Blöcke und Elemente, neben anderen Funktionen."
 
 #: wp-admin/about.php:315
 msgid "Updated interface options and features"
@@ -148,6 +168,11 @@ msgstr "6.1 enthält eine neue Lesedauer-Funktion, die Autoren von Inhalten die 
 #: wp-admin/about.php:291
 msgid "Other notes of interest"
 msgstr "Weitere interessante Informationen"
+
+#. translators: %s: Link to accessibility improvements dev note.
+#: wp-admin/about.php:278
+msgid "More than 40 improvements in accessibility include resolving focus loss problems in the editor, improving form labels and audible messages, making alternative text easier to edit, and fixing the sub-menu overlap in the expanded admin side navigation at smaller screen sizes and higher zoom levels. Learn more about <a href=\"%s\">accessibility in WordPress</a>."
+msgstr "Zu den mehr als 40 Verbesserungen der Barrierefreiheit gehören die Behebung von Fokusverlustproblemen im Editor, die Verbesserung von Formularbeschriftungen und akustischen Meldungen, die einfachere Bearbeitung von Alternativtext und und die Behebung der Überlappung von Untermenüs in der erweiterten Admin-Seitennavigation bei kleineren Bildschirmgrößen und höheren Zoomstufen. Weitere Informationen zur <a href=\"%s\">Barrierefreiheit in WordPress (engl.)</a>."
 
 #: wp-admin/about.php:273
 msgid "Improved admin and editor accessibility"
@@ -184,6 +209,14 @@ msgstr "Das Themes-Verzeichnis verfügt über <a href=\"%s\">einen Filter für B
 msgid "Find block themes faster"
 msgstr "Block-Themes schneller finden"
 
+#: wp-admin/about.php:204
+msgid "In WordPress 6.0, when you created a new page, you would see suggested patterns so you did not have to start with a blank page. In 6.1, you will also see the starter patterns modal when you create a new instance of any post type."
+msgstr "Wenn du unter WordPress 6.0 eine neue Seite erstellst, werden vorgeschlagene Vorlagen angezeigt, sodass du nicht mit einer leeren Seite beginnen musst. Unter 6.1 siehst du das Startvorlagen-Modal auch, wenn du eine neue Instanz eines beliebigen Inhaltstyps erstellst."
+
+#: wp-admin/about.php:203
+msgid "Add starter patterns to any post type"
+msgstr "Füge Startvorlagen zu jedem Inhaltstyp hinzu"
+
 #: wp-admin/about.php:174
 msgid "The List and Quote blocks now support inner blocks, allowing for more flexible and rich compositions like adding headings inside your Quote blocks."
 msgstr "Die Blöcke „Liste“ und „Zitat“ unterstützen jetzt innere Blöcke, was flexiblere und vielfältigere Kompositionen ermöglicht, wie z. B. das Hinzufügen von Überschriften innerhalb deiner Zitat-Blöcke."
@@ -200,6 +233,10 @@ msgstr "Verschiedene Blöcke verfügen über verbesserte Platzhalter, die Anpass
 msgid "Improved block placeholders"
 msgstr "Verbesserte Block-Platzhalter"
 
+#: wp-admin/about.php:157
+msgid "When locking blocks, a new toggle lets you apply your lock settings to all the blocks in a containing block like the group, cover, and column blocks."
+msgstr "Beim Sperren von Blöcken kannst du mit einem neuen Schalter deine Sperreinstellungen auf alle Blöcke in einem enthaltenden Block wie Gruppen-, Cover- und Spaltenblöcke anwenden."
+
 #: wp-admin/about.php:156
 msgid "One-click lock settings for all inner blocks"
 msgstr "Einstellungen zur Sperrung aller inneren Blöcke mit nur einem Klick"
@@ -211,6 +248,11 @@ msgstr "Eine übersichtlichere und besser organisierte Ansicht erleichtert dir d
 #: wp-admin/about.php:149
 msgid "Improved layout and visualization of document settings"
 msgstr "Optimiertes Layout und Visualisierung der Dokument-Einstellungen"
+
+#. translators: %s: Link to navigation block fallback dev note.
+#: wp-admin/about.php:131
+msgid "<a href=\"%s\">New fallback options</a> in the navigation block mean you can edit the menu that’s open; no searching needed. Plus, the controls for choosing and working on menus have their own place in the block settings. The mobile menu system also gets an upgrade with new features, including different icon options, to make the menu yours."
+msgstr "<a href=\"%s\">Neue Fallback-Optionen</a> im Navigationsblock beabsichtigen, dass du das geöffnete Menü bearbeiten kannst, ohne suchen zu müssen. Außerdem haben die Steuerelemente zum Auswählen und Bearbeiten von Menüs ihren eigenen Platz in den Blockeinstellungen. Auch das mobile Menüsystem erhält ein Upgrade mit neuen Funktionen, einschließlich verschiedener Icon-Optionen, um das Menü nach deinen Wünschen zu gestalten."
 
 #: wp-admin/about.php:126
 msgid "Menus just got easier to create and manage"
@@ -268,6 +310,10 @@ msgstr "<strong>Anzeigen</strong> führt dich zu einer öffentlichen Anzeigeseit
 #: wp-admin/upload.php:245
 msgid "<strong>Delete Permanently</strong> will delete the file from the media library (as well as from any posts to which it is currently attached)."
 msgstr "<strong>Endgültig löschen</strong> entfernt die Datei aus der Mediathek (und auch aus allen Beiträgen, in denen sie derzeit verwendet wird)."
+
+#: wp-admin/upload.php:244
+msgid "<strong>Edit</strong> takes you to a simple screen to edit that individual file&#8217;s metadata. You can also reach that screen by clicking on the media file name or thumbnail."
+msgstr "<strong>Bearbeiten</strong> führt dich zu einem einfachen Bildschirm, auf dem du die Metadaten der jeweiligen Datei bearbeiten kannst. Du kannst diesen Bildschirm auch erreichen, indem du auf den Namen der Mediendatei oder das Vorschaubild klickst."
 
 #: wp-admin/upload.php:242
 msgid "Hovering over a row reveals action links that allow you to manage media items. You can perform the following actions:"
