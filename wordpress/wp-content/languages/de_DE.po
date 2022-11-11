@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-09 07:44:50+0000\n"
+"PO-Revision-Date: 2022-11-10 21:30:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -466,22 +466,22 @@ msgid "Logged in as %1$s. <a href=\"%2$s\">Edit your profile</a>. <a href=\"%3$s
 msgstr "Du bist angemeldet als %1$s. <a href=\"%2$s\">Dein Profil bearbeiten</a>. <a href=\"%3$s\">Abmelden?</a>"
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Large.
-#: wp-includes/class-wp-theme-json.php:3018
+#: wp-includes/class-wp-theme-json.php:3023
 msgid "%sX-Large"
 msgstr "%sXL"
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Small.
-#: wp-includes/class-wp-theme-json.php:2981
+#: wp-includes/class-wp-theme-json.php:2986
 msgid "%sX-Small"
 msgstr "%sXS"
 
-#: wp-includes/class-wp-theme-json.php:2947
+#: wp-includes/class-wp-theme-json.php:2952
 msgid "Some of the theme.json settings.spacing.spacingScale values are invalid"
 msgstr "Einige der Werte in „theme.json settings.spacing.spacingScale“ sind ungültig"
 
 #. translators: 1: theme.json, 2: Value name, 3: Value path, 4: Another value
 #. name.
-#: wp-includes/class-wp-theme-json.php:1755
+#: wp-includes/class-wp-theme-json.php:1760
 msgid "Your %1$s file uses a dynamic value (%2$s) for the path at %3$s. However, the value at %3$s is also a dynamic value (pointing to %4$s) and pointing to another dynamic value is not supported. Please update %3$s to point directly to %4$s."
 msgstr "Deine Datei %1$s verwendet einen dynamischen Wert (%2$s) für den Pfad bei %3$s. Der Wert bei %3$s ist ebenfalls dynamisch (und zeigt auf %4$s); das Zeigen auf einen weiteren dynamischen Wert wird nicht unterstützt. Bitte aktualisiere %3$s so, dass er direkt auf %4$s zeigt."
 
@@ -1090,8 +1090,8 @@ msgstr "Website-Editor benutzen"
 #. translators: 1: Link to Site Editor documentation on HelpHub, 2: HTML
 #. button.
 #: wp-includes/script-loader.php:1290
-msgid "Hurray! Your theme supports Full Site Editing with blocks. <a href=\"%1$s\">Tell me more</a>. %2$s"
-msgstr "Hurra! Dein Theme unterstützt Full Site Editing mit Blöcken. <a href=\"%1$s\">Erzähle mir mehr</a>. %2$s"
+msgid "Hurray! Your theme supports site editing with blocks. <a href=\"%1$s\">Tell me more</a>. %2$s"
+msgstr "Hurra! Dein Theme unterstützt die Website-Bearbeitung mit Blöcken. <a href=\"%1$s\">Erzähle mir mehr</a>. %2$s"
 
 #: wp-includes/script-loader.php:1291 wp-includes/js/dist/edit-site.js:5665
 msgid "https://wordpress.org/support/article/site-editor/"
@@ -1846,12 +1846,12 @@ msgstr "Die Option %1$s konnte nicht bereinigt werden. Fehlercode: %2$s"
 
 #. translators: %s: URL to the themes page (also it activates the theme).
 #: wp-includes/customize/class-wp-customize-theme-control.php:267
-#: wp-admin/includes/theme.php:1017
+#: wp-admin/includes/theme.php:1018
 msgid "However, you can still <a href=\"%s\">activate this theme</a>, and use the Site Editor to customize it."
 msgstr "Allerdings kannst du immer noch <a href=\"%s\">dieses Theme aktivieren</a> und den Website-Editor verwenden, um es anzupassen."
 
 #: wp-includes/customize/class-wp-customize-theme-control.php:260
-#: wp-admin/includes/theme.php:1011
+#: wp-admin/includes/theme.php:1012
 msgid "This theme doesn't support Customizer."
 msgstr "Dieses Theme unterstützt den Customizer nicht."
 
@@ -2990,8 +2990,8 @@ msgstr "Tippe /, um einen Block auszuwählen"
 
 #: wp-includes/js/dist/block-editor.js:39703
 #: wp-includes/js/dist/edit-site.js:8237 wp-includes/js/dist/edit-site.js:10566
-#: wp-admin/includes/class-wp-screen.php:1207 wp-admin/includes/theme.php:342
-#: wp-admin/includes/theme.php:378 wp-admin/index.php:70
+#: wp-admin/includes/class-wp-screen.php:1207 wp-admin/includes/theme.php:343
+#: wp-admin/includes/theme.php:379 wp-admin/index.php:70
 msgid "Layout"
 msgstr "Layout"
 
@@ -4474,34 +4474,34 @@ msgstr "Die Konstante %s wird nicht mehr unterstützt."
 
 #. translators: %s: Theme name.
 #: wp-includes/customize/class-wp-customize-theme-control.php:161
-#: wp-admin/includes/theme.php:925 wp-admin/includes/update.php:778
+#: wp-admin/includes/theme.php:926 wp-admin/includes/update.php:778
 #: wp-admin/themes.php:453 wp-admin/themes.php:808 wp-admin/themes.php:1087
 msgid "There is a new version of %s available, but it does not work with your version of PHP."
 msgstr "Es gibt eine neue Version von %s, aber es funktioniert nicht mit deiner PHP-Version."
 
 #. translators: %s: Theme name.
 #: wp-includes/customize/class-wp-customize-theme-control.php:146
-#: wp-admin/includes/theme.php:910 wp-admin/includes/update.php:765
+#: wp-admin/includes/theme.php:911 wp-admin/includes/update.php:765
 #: wp-admin/themes.php:440 wp-admin/themes.php:793 wp-admin/themes.php:1072
 msgid "There is a new version of %s available, but it does not work with your version of WordPress."
 msgstr "Es gibt eine neue Version von %s, aber es funktioniert nicht mit deiner WordPress-Version."
 
 #. translators: %s: Theme name.
 #: wp-includes/customize/class-wp-customize-theme-control.php:116
-#: wp-admin/includes/theme.php:880 wp-admin/includes/update.php:737
+#: wp-admin/includes/theme.php:881 wp-admin/includes/update.php:737
 #: wp-admin/themes.php:412 wp-admin/themes.php:763 wp-admin/themes.php:1042
 msgid "There is a new version of %s available, but it does not work with your versions of WordPress and PHP."
 msgstr "Es gibt eine neue Version von %s, aber es funktioniert nicht mit deiner PHP- und WordPress-Version."
 
 #: wp-includes/customize/class-wp-customize-theme-control.php:220
-#: wp-admin/includes/theme.php:996 wp-admin/theme-install.php:355
+#: wp-admin/includes/theme.php:997 wp-admin/theme-install.php:355
 #: wp-admin/theme-install.php:545 wp-admin/themes.php:507
 #: wp-admin/themes.php:866 wp-admin/themes.php:1014
 msgid "This theme does not work with your version of PHP."
 msgstr "Dieses Theme funktioniert nicht mit deiner PHP-Version."
 
 #: wp-includes/customize/class-wp-customize-theme-control.php:209
-#: wp-admin/includes/theme.php:985 wp-admin/theme-install.php:344
+#: wp-admin/includes/theme.php:986 wp-admin/theme-install.php:344
 #: wp-admin/theme-install.php:534 wp-admin/themes.php:498
 #: wp-admin/themes.php:855 wp-admin/themes.php:1003
 msgid "This theme does not work with your version of WordPress."
@@ -4516,9 +4516,9 @@ msgstr "Dieses Theme funktioniert nicht mit deiner WordPress-Version."
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:726
 #: wp-admin/includes/class-wp-plugins-list-table.php:1291
 #: wp-admin/includes/class-wp-plugins-list-table.php:1310
-#: wp-admin/includes/plugin.php:1136 wp-admin/includes/theme.php:900
-#: wp-admin/includes/theme.php:931 wp-admin/includes/theme.php:977
-#: wp-admin/includes/theme.php:1000 wp-admin/includes/update-core.php:1058
+#: wp-admin/includes/plugin.php:1136 wp-admin/includes/theme.php:901
+#: wp-admin/includes/theme.php:932 wp-admin/includes/theme.php:978
+#: wp-admin/includes/theme.php:1001 wp-admin/includes/update-core.php:1058
 #: wp-admin/includes/update.php:757 wp-admin/includes/update.php:784
 #: wp-admin/install.php:245 wp-admin/theme-install.php:336
 #: wp-admin/theme-install.php:359 wp-admin/theme-install.php:526
@@ -4542,8 +4542,8 @@ msgstr "<a href=\"%s\">Erfahre mehr über die PHP-Aktualisierung (engl.)</a>."
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:717
 #: wp-admin/includes/class-wp-plugins-list-table.php:1285
 #: wp-admin/includes/class-wp-plugins-list-table.php:1301
-#: wp-admin/includes/theme.php:894 wp-admin/includes/theme.php:916
-#: wp-admin/includes/theme.php:971 wp-admin/includes/theme.php:989
+#: wp-admin/includes/theme.php:895 wp-admin/includes/theme.php:917
+#: wp-admin/includes/theme.php:972 wp-admin/includes/theme.php:990
 #: wp-admin/includes/update.php:751 wp-admin/includes/update.php:771
 #: wp-admin/theme-install.php:330 wp-admin/theme-install.php:348
 #: wp-admin/theme-install.php:520 wp-admin/theme-install.php:538
@@ -4560,7 +4560,7 @@ msgstr "<a href=\"%s\">Bitte aktualisiere WordPress</a>."
 #: wp-includes/customize/class-wp-customize-theme-control.php:187
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:693
 #: wp-admin/includes/class-wp-plugins-list-table.php:1277
-#: wp-admin/includes/theme.php:886 wp-admin/includes/theme.php:963
+#: wp-admin/includes/theme.php:887 wp-admin/includes/theme.php:964
 #: wp-admin/includes/update.php:743 wp-admin/theme-install.php:322
 #: wp-admin/theme-install.php:512 wp-admin/themes.php:418
 #: wp-admin/themes.php:478 wp-admin/themes.php:769 wp-admin/themes.php:833
@@ -4570,7 +4570,7 @@ msgid "<a href=\"%1$s\">Please update WordPress</a>, and then <a href=\"%2$s\">l
 msgstr "<a href=\"%1$s\">Bitte aktualisiere WordPress</a> und dann <a href=\"%2$s\">lerne mehr über die PHP-Aktualisierung (engl.)</a>."
 
 #: wp-includes/customize/class-wp-customize-theme-control.php:183
-#: wp-admin/includes/theme.php:959 wp-admin/theme-install.php:318
+#: wp-admin/includes/theme.php:960 wp-admin/theme-install.php:318
 #: wp-admin/theme-install.php:508 wp-admin/themes.php:474
 #: wp-admin/themes.php:829 wp-admin/themes.php:977
 msgid "This theme does not work with your versions of WordPress and PHP."
@@ -5548,7 +5548,7 @@ msgid "https://wordpress.org/support/article/css/"
 msgstr "https://wordpress.org/support/article/css/"
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Small.
-#: wp-includes/class-wp-theme-json.php:2981
+#: wp-includes/class-wp-theme-json.php:2986
 #: wp-includes/js/dist/block-library.js:48181
 msgid "Small"
 msgstr "Klein"
@@ -6249,8 +6249,8 @@ msgstr "Aus dem Papierkorb wiederherstellen"
 #: wp-admin/includes/class-wp-automatic-updater.php:1258
 #: wp-admin/includes/plugin-install.php:181
 #: wp-admin/includes/plugin-install.php:196
-#: wp-admin/includes/plugin-install.php:211 wp-admin/includes/theme.php:565
-#: wp-admin/includes/theme.php:579 wp-admin/includes/theme.php:594
+#: wp-admin/includes/plugin-install.php:211 wp-admin/includes/theme.php:566
+#: wp-admin/includes/theme.php:580 wp-admin/includes/theme.php:595
 #: wp-admin/includes/translation-install.php:66
 #: wp-admin/includes/translation-install.php:80
 #: wp-admin/includes/translation-install.php:92
@@ -6800,7 +6800,7 @@ msgstr "Element hinzugefügt."
 #: wp-admin/includes/dashboard.php:1291 wp-admin/includes/dashboard.php:1303
 #: wp-admin/includes/dashboard.php:1316 wp-admin/includes/dashboard.php:1886
 #: wp-admin/includes/media.php:3223 wp-admin/includes/meta-boxes.php:80
-#: wp-admin/includes/theme.php:859
+#: wp-admin/includes/theme.php:860
 msgid "(opens in a new tab)"
 msgstr "(öffnet in neuem Tab)"
 
@@ -8159,7 +8159,7 @@ msgstr "Themes auf WordPress.org suchen"
 
 #: wp-includes/customize/class-wp-customize-theme-control.php:291
 #: wp-includes/customize/class-wp-customize-theme-control.php:293
-#: wp-admin/includes/theme.php:1061 wp-admin/includes/theme.php:1064
+#: wp-admin/includes/theme.php:1062 wp-admin/includes/theme.php:1065
 msgid "Install &amp; Preview"
 msgstr "Installation und Vorschau"
 
@@ -10841,7 +10841,7 @@ msgstr "Nicht vorhandene Begriffe."
 
 #. translators: %s: Theme name.
 #: wp-includes/customize/class-wp-customize-theme-control.php:252
-#: wp-admin/includes/theme.php:1046 wp-admin/theme-install.php:385
+#: wp-admin/includes/theme.php:1047 wp-admin/theme-install.php:385
 #: wp-admin/theme-install.php:450 wp-admin/themes.php:554
 #: wp-admin/themes.php:914 wp-admin/themes.php:1135 wp-admin/js/updates.js:1415
 msgctxt "theme"
@@ -12720,7 +12720,7 @@ msgstr "Link-Text"
 #: wp-admin/includes/class-theme-installer-skin.php:131
 #: wp-admin/includes/class-theme-upgrader-skin.php:103
 #: wp-admin/includes/class-wp-themes-list-table.php:222
-#: wp-admin/includes/theme.php:1053 wp-admin/includes/theme.php:1055
+#: wp-admin/includes/theme.php:1054 wp-admin/includes/theme.php:1056
 #: wp-admin/theme-install.php:397 wp-admin/theme-install.php:414
 #: wp-admin/themes.php:562 wp-admin/themes.php:571 wp-admin/themes.php:922
 #: wp-admin/themes.php:931 wp-admin/themes.php:1141 wp-admin/themes.php:1152
@@ -13184,7 +13184,7 @@ msgstr "<strong>Fehler:</strong> Der Kommentar konnte nicht gespeichert werden. 
 
 #: wp-includes/update.php:208 wp-includes/update.php:446
 #: wp-includes/update.php:727 wp-admin/includes/plugin-install.php:182
-#: wp-admin/includes/theme.php:566 wp-admin/includes/translation-install.php:67
+#: wp-admin/includes/theme.php:567 wp-admin/includes/translation-install.php:67
 #: wp-admin/includes/update.php:142
 msgid "(WordPress could not establish a secure connection to WordPress.org. Please contact your server administrator.)"
 msgstr "(WordPress konnte keine sichere Verbindung zu WordPress.org herstellen. Bitte kontaktiere deinen Server-Administrator.)"
@@ -14155,8 +14155,8 @@ msgstr "Eine Liste der Seiten deiner Website."
 #: wp-includes/update.php:206 wp-includes/update.php:444
 #: wp-includes/update.php:725 wp-admin/includes/plugin-install.php:180
 #: wp-admin/includes/plugin-install.php:195
-#: wp-admin/includes/plugin-install.php:210 wp-admin/includes/theme.php:564
-#: wp-admin/includes/theme.php:578 wp-admin/includes/theme.php:593
+#: wp-admin/includes/plugin-install.php:210 wp-admin/includes/theme.php:565
+#: wp-admin/includes/theme.php:579 wp-admin/includes/theme.php:594
 #: wp-admin/includes/translation-install.php:65
 #: wp-admin/includes/translation-install.php:79
 #: wp-admin/includes/translation-install.php:91
@@ -14576,7 +14576,7 @@ msgid "Attachment Details"
 msgstr "Anhang-Details"
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Large.
-#: wp-includes/block-editor.php:172 wp-includes/class-wp-theme-json.php:3018
+#: wp-includes/block-editor.php:172 wp-includes/class-wp-theme-json.php:3023
 #: wp-includes/media-template.php:860 wp-includes/media-template.php:940
 #: wp-includes/media-template.php:1131 wp-includes/media.php:4204
 #: wp-includes/js/dist/block-editor.js:3709
@@ -14888,7 +14888,7 @@ msgstr "Datei auswählen"
 #: wp-includes/customize/class-wp-customize-theme-control.php:240
 #: wp-admin/customize.php:206
 #: wp-admin/includes/class-theme-upgrader-skin.php:92
-#: wp-admin/includes/theme.php:1035 wp-admin/menu.php:232
+#: wp-admin/includes/theme.php:1036 wp-admin/menu.php:232
 #: wp-admin/theme-install.php:400 wp-admin/themes.php:549
 #: wp-admin/themes.php:908 wp-admin/themes.php:1128
 msgid "Customize"
@@ -18608,7 +18608,7 @@ msgstr "Bilder"
 #: wp-admin/includes/class-wp-theme-install-list-table.php:370
 #: wp-admin/includes/class-wp-theme-install-list-table.php:502
 #: wp-admin/includes/class-wp-themes-list-table.php:262
-#: wp-admin/includes/theme.php:845 wp-admin/theme-install.php:373
+#: wp-admin/includes/theme.php:846 wp-admin/theme-install.php:373
 #: wp-admin/theme-install.php:474 wp-admin/themes.php:529
 #: wp-admin/themes.php:888 wp-admin/themes.php:969
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:718
@@ -18767,7 +18767,7 @@ msgstr "Größe"
 msgid "Full Size"
 msgstr "Vollständige Größe"
 
-#: wp-includes/block-editor.php:171 wp-includes/class-wp-theme-json.php:3000
+#: wp-includes/block-editor.php:171 wp-includes/class-wp-theme-json.php:3005
 #: wp-includes/media-template.php:859 wp-includes/media-template.php:939
 #: wp-includes/media-template.php:1130 wp-includes/media.php:4203
 #: wp-includes/js/dist/block-editor.js:3706
@@ -19156,7 +19156,7 @@ msgstr "Linkkategorie bearbeiten"
 #: wp-admin/includes/class-wp-users-list-table.php:280
 #: wp-admin/includes/class-wp-users-list-table.php:476
 #: wp-admin/includes/media.php:1725 wp-admin/includes/meta-boxes.php:1082
-#: wp-admin/includes/template.php:651 wp-admin/includes/theme.php:1039
+#: wp-admin/includes/template.php:651 wp-admin/includes/theme.php:1040
 #: wp-admin/includes/widgets.php:295 wp-admin/themes.php:651
 #: wp-admin/themes.php:1162 wp-admin/widgets-form.php:335
 #: wp-admin/includes/class-wp-ms-sites-list-table.php:285
@@ -19460,7 +19460,7 @@ msgstr "Dein Benutzerkonto ist nun aktiviert!"
 #: wp-admin/includes/class-wp-plugins-list-table.php:599
 #: wp-admin/includes/class-wp-plugins-list-table.php:867
 #: wp-admin/includes/class-wp-themes-list-table.php:215
-#: wp-admin/includes/theme.php:1049 wp-admin/theme-install.php:389
+#: wp-admin/includes/theme.php:1050 wp-admin/theme-install.php:389
 #: wp-admin/theme-install.php:453 wp-admin/themes.php:556
 #: wp-admin/themes.php:916 wp-admin/themes.php:1138 wp-admin/js/updates.js:766
 #: wp-admin/js/updates.js:1419

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-04 15:32:20+0000\n"
+"PO-Revision-Date: 2022-11-10 18:44:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -42,6 +42,10 @@ msgstr "Europe/Berlin"
 #, gp-priority: high
 msgid "Continue"
 msgstr "Weiter"
+
+#: wp-admin/includes/theme.php:335
+msgid "Site Editor"
+msgstr "Site Editor"
 
 #. translators: 1: Learn WordPress link.
 #: wp-admin/about.php:518
@@ -171,7 +175,7 @@ msgstr "Behalte deine Website-Editor-Einstellungen für später"
 msgid "https://wordpress.org/themes/tags/full-site-editing/"
 msgstr "https://wordpress.org/themes/tags/full-site-editing/"
 
-#. translators: %s: Link to "full site editing" themes on WordPress.org.
+#. translators: %s: Link to Block Themes on WordPress.org.
 #: wp-admin/about.php:218
 msgid "The Themes Directory has <a href=\"%s\">a filter for block themes</a>, and a pattern preview gives a better sense of what the theme might look like while exploring different themes and patterns."
 msgstr "Das Themes-Verzeichnis verfügt über <a href=\"%s\">einen Filter für Block-Themes</a> und eine Vorlagen-Vorschau vermittelt einen besseren Eindruck davon, wie das Theme aussehen könnte, während man verschiedene Themes und Vorlagen erkundet."
@@ -298,7 +302,7 @@ msgstr "Empfohlene Punkte werden als vorteilhaft für deine Website angesehen, a
 msgid "Critical issues are items that may have a high impact on your sites performance or security, and resolving these issues should be prioritized."
 msgstr "Kritische Probleme betreffen Elemente, die eine große Auswirkung auf die Leistung oder Sicherheit deiner Website haben können. Die Lösung dieser Probleme sollte priorisiert werden."
 
-#: wp-admin/site-editor.php:28
+#: wp-admin/site-editor.php:23 wp-admin/site-editor.php:28
 msgid "The theme you are currently using is not compatible with the Site Editor."
 msgstr "Das Theme, das du aktuell verwendest, ist nicht mit dem Website-Editor kompatibel."
 
@@ -901,10 +905,6 @@ msgstr "Im Status-Tab siehst du wichtige Informationen zu deiner WordPress-Konfi
 msgid "This screen allows you to obtain a health diagnosis of your site, and displays an overall rating of the status of your installation."
 msgstr "Diese Ansicht bietet dir eine Diagnose deiner Website. Sie zeigt eine allgemeine Bewertung des Zustands deiner Installation an."
 
-#: wp-admin/site-editor.php:23
-msgid "The theme you are currently using is not compatible with Full Site Editing."
-msgstr "Das Theme, das du aktuell verwendest, ist nicht mit Full Site Editing kompatibel."
-
 #: wp-admin/options-privacy.php:44
 msgid "<a href=\"https://wordpress.org/support/article/settings-privacy-screen/\">Documentation on Privacy Settings</a>"
 msgstr "<a href=\"https://wordpress.org/support/article/settings-privacy-screen/\">Dokumentation zu den Datenschutz-Einstellungen (engl.)</a>"
@@ -988,7 +988,7 @@ msgstr "Deine Website scheint die Basis-Authentifizierung zu verwenden, die derz
 msgid "%1$s &#8220;%2$s&#8221;"
 msgstr "%1$s &#8222;%2$s&#8220;"
 
-#: wp-admin/includes/theme.php:338
+#: wp-admin/includes/theme.php:339
 msgid "Template Editing"
 msgstr "Template-Bearbeitung"
 
@@ -1900,7 +1900,7 @@ msgstr "Umgebungstyp"
 msgid "Auto-updates are only available for plugins recognized by WordPress.org, or that include a compatible update system."
 msgstr "Automatische Aktualisierungen sind nur für Plugins verfügbar, die von WordPress.org erkannt werden oder die ein kompatibles Aktualisierungssystem beinhalten."
 
-#: wp-admin/includes/theme.php:874 wp-admin/themes.php:1036
+#: wp-admin/includes/theme.php:875 wp-admin/themes.php:1036
 msgid "Update Incompatible"
 msgstr "Aktualisierung nicht kompatibel"
 
@@ -2575,17 +2575,13 @@ msgstr "Erforderliche WordPress-Version"
 msgid "Theme name"
 msgstr "Theme-Name"
 
-#: wp-admin/includes/theme.php:1063 wp-admin/theme-install.php:432
+#: wp-admin/includes/theme.php:1064 wp-admin/theme-install.php:432
 #: wp-admin/theme-install.php:464
 msgctxt "theme"
 msgid "Cannot Install"
 msgstr "Installation nicht möglich"
 
-#: wp-admin/includes/theme.php:334
-msgid "Full Site Editing"
-msgstr "Full Site Editing"
-
-#: wp-admin/includes/theme.php:324
+#: wp-admin/includes/theme.php:325
 msgid "Block Editor Patterns"
 msgstr "Block-Editor-Vorlagen"
 
@@ -2645,11 +2641,11 @@ msgstr "PHP-Speicher-Limit (nur für Administrator-Ansichten)"
 msgid "Is this site discouraging search engines?"
 msgstr "Ist diese Website von Suchmaschinen ausgeschlossen?"
 
-#: wp-admin/includes/theme.php:350
+#: wp-admin/includes/theme.php:351
 msgid "Wide Blocks"
 msgstr "Breite Blöcke"
 
-#: wp-admin/includes/theme.php:325
+#: wp-admin/includes/theme.php:326
 msgid "Block Editor Styles"
 msgstr "Block-Editor-Stile"
 
@@ -3704,7 +3700,7 @@ msgstr "Es gibt eine neue Version von %1$s, aber sie funktioniert nicht mit dein
 msgid "This plugin failed to load properly and is paused during recovery mode."
 msgstr "Dieses Plugin konnte nicht richtig geladen werden und wird im Wiederherstellungsmodus angehalten."
 
-#: wp-admin/includes/theme.php:1208
+#: wp-admin/includes/theme.php:1209
 msgid "Go to the Themes screen"
 msgstr "Zur Themes-Ansicht wechseln"
 
@@ -4628,7 +4624,7 @@ msgid "Must Use Plugins"
 msgstr "Must-Use-Plugins"
 
 #: wp-admin/includes/class-wp-debug-data.php:153
-#: wp-admin/includes/theme.php:834 wp-admin/themes.php:958
+#: wp-admin/includes/theme.php:835 wp-admin/themes.php:958
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:917
 msgid "Active Theme"
 msgstr "Aktives Theme"
@@ -4898,15 +4894,15 @@ msgctxt "plugin"
 msgid "Resume %s"
 msgstr "%s fortsetzen"
 
-#: wp-admin/includes/theme.php:1206
+#: wp-admin/includes/theme.php:1207
 msgid "You can find more details and make changes on the Themes screen."
 msgstr "Weitere Details und Änderungen findest du in der Themes-Ansicht."
 
-#: wp-admin/includes/theme.php:1205
+#: wp-admin/includes/theme.php:1206
 msgid "One or more themes failed to load properly."
 msgstr "Mindestens ein Theme konnte nicht korrekt geladen werden."
 
-#: wp-admin/includes/theme.php:1176
+#: wp-admin/includes/theme.php:1177
 msgid "Could not resume the theme."
 msgstr "Das Theme konnte nicht wiederhergestellt werden."
 
@@ -6334,7 +6330,7 @@ msgid "Select one or more Theme features to filter by"
 msgstr "Wähle ein oder mehrere Funktionen nach denen die Themes gefiltert werden"
 
 #. translators: %s: Number of ratings.
-#: wp-admin/includes/theme.php:857 wp-admin/theme-install.php:489
+#: wp-admin/includes/theme.php:858 wp-admin/theme-install.php:489
 msgid "(%s ratings)"
 msgstr "(%s Bewertungen)"
 
@@ -6511,7 +6507,7 @@ msgstr "%s wurde erfolgreich gelöscht."
 msgid "The search for installed plugins will search for terms in their name, description, or author."
 msgstr "Die Suche nach installierten Plugins sucht nach Begriffen in deren Namen, in der Beschreibung oder sucht nach Autor."
 
-#: wp-admin/includes/theme.php:329
+#: wp-admin/includes/theme.php:330
 msgid "Custom Logo"
 msgstr "Individuelles Logo"
 
@@ -6643,43 +6639,43 @@ msgstr "Bitte aktualisiere WordPress jetzt"
 msgid "<a href=\"%1$s\">WordPress %2$s</a> is available! <a href=\"%3$s\" aria-label=\"%4$s\">Please update now</a>."
 msgstr "<a href=\"%1$s\">WordPress %2$s</a> ist verfügbar! <a href=\"%3$s\" aria-label=\"%4$s\">Bitte aktualisiere jetzt</a>."
 
-#: wp-admin/includes/theme.php:319
+#: wp-admin/includes/theme.php:320
 msgid "Portfolio"
 msgstr "Portfolio"
 
-#: wp-admin/includes/theme.php:318
+#: wp-admin/includes/theme.php:319
 msgid "Photography"
 msgstr "Fotografie"
 
-#: wp-admin/includes/dashboard.php:1314 wp-admin/includes/theme.php:317
+#: wp-admin/includes/dashboard.php:1314 wp-admin/includes/theme.php:318
 msgid "News"
 msgstr "News"
 
-#: wp-admin/includes/theme.php:315
+#: wp-admin/includes/theme.php:316
 msgid "Food & Drink"
 msgstr "Essen & Trinken"
 
-#: wp-admin/includes/theme.php:314
+#: wp-admin/includes/theme.php:315
 msgid "Entertainment"
 msgstr "Unterhaltung"
 
-#: wp-admin/includes/theme.php:313
+#: wp-admin/includes/theme.php:314
 msgid "Education"
 msgstr "Bildung"
 
-#: wp-admin/includes/theme.php:312
+#: wp-admin/includes/theme.php:313
 msgid "E-Commerce"
 msgstr "E-Commerce"
 
-#: wp-admin/includes/theme.php:311
+#: wp-admin/includes/theme.php:312
 msgid "Blog"
 msgstr "Blog"
 
-#: wp-admin/includes/theme.php:333
+#: wp-admin/includes/theme.php:334
 msgid "Footer Widgets"
 msgstr "Footer-Widgets"
 
-#: wp-admin/includes/theme.php:343
+#: wp-admin/includes/theme.php:344
 msgid "Grid Layout"
 msgstr "Raster-Layout"
 
@@ -8137,7 +8133,7 @@ msgstr ""
 "von allen auf ###SITENAME###\n"
 "###SITEURL###"
 
-#: wp-admin/includes/theme.php:821 wp-admin/themes.php:945
+#: wp-admin/includes/theme.php:822 wp-admin/themes.php:945
 msgid "Close details dialog"
 msgstr "Dialogfenster mit Detailansicht schließen"
 
@@ -8737,12 +8733,12 @@ msgctxt "theme"
 msgid "Active:"
 msgstr "Aktiv:"
 
-#: wp-admin/includes/theme.php:323
+#: wp-admin/includes/theme.php:324
 msgid "Accessibility Ready"
 msgstr "Für Barrierefreiheit geeignet"
 
 #. translators: %s: Theme name.
-#: wp-admin/includes/theme.php:948 wp-admin/themes.php:1115
+#: wp-admin/includes/theme.php:949 wp-admin/themes.php:1115
 msgid "This is a child theme of %s."
 msgstr "Dies ist ein Child-Theme von %s."
 
@@ -8836,15 +8832,15 @@ msgstr "Folgende Plugins wurden erfolgreich aktualisiert:"
 msgid "Add Widget"
 msgstr "Widget hinzufügen"
 
-#: wp-admin/includes/theme.php:820 wp-admin/themes.php:944
+#: wp-admin/includes/theme.php:821 wp-admin/themes.php:944
 msgid "Show next theme"
 msgstr "Nächstes Theme anzeigen"
 
-#: wp-admin/includes/theme.php:819 wp-admin/themes.php:943
+#: wp-admin/includes/theme.php:820 wp-admin/themes.php:943
 msgid "Show previous theme"
 msgstr "Vorheriges Theme anzeigen"
 
-#: wp-admin/includes/theme.php:869 wp-admin/themes.php:1031
+#: wp-admin/includes/theme.php:870 wp-admin/themes.php:1031
 msgid "Update Available"
 msgstr "Aktualisierung verfügbar"
 
@@ -11179,7 +11175,7 @@ msgstr "Website löschen"
 
 #. translators: %s: Plugin name.
 #: wp-admin/includes/class-wp-theme-install-list-table.php:493
-#: wp-admin/includes/deprecated.php:1387 wp-admin/includes/theme.php:1060
+#: wp-admin/includes/deprecated.php:1387 wp-admin/includes/theme.php:1061
 #: wp-admin/theme-install.php:425 wp-admin/theme-install.php:462
 #: wp-admin/includes/network.php:374
 msgid "Install"
@@ -11286,19 +11282,19 @@ msgstr ""
 "Bitte klicke auf den folgenden Link, um dein Benutzerkonto zu aktivieren:\n"
 "%%s"
 
-#: wp-admin/includes/meta-boxes.php:495 wp-admin/includes/theme.php:336
+#: wp-admin/includes/meta-boxes.php:495 wp-admin/includes/theme.php:337
 msgid "Post Formats"
 msgstr "Beitragsformate"
 
-#: wp-admin/includes/theme.php:335
+#: wp-admin/includes/theme.php:336
 msgid "Full Width Template"
 msgstr "Template mit voller Breite"
 
-#: wp-admin/includes/theme.php:332
+#: wp-admin/includes/theme.php:333
 msgid "Featured Images"
 msgstr "Beitragsbilder"
 
-#: wp-admin/includes/theme.php:331
+#: wp-admin/includes/theme.php:332
 msgid "Featured Image Header"
 msgstr "Individuelles Header-Bild"
 
@@ -11728,7 +11724,7 @@ msgstr "Der Aktualisierungsprozess beginnt. Dies kann eine Weile dauern, bitte h
 msgid "Apply Filters"
 msgstr "Filter anwenden"
 
-#: wp-admin/includes/theme.php:330
+#: wp-admin/includes/theme.php:331
 msgid "Editor Style"
 msgstr "Stylesheet für Editor"
 
@@ -13107,7 +13103,7 @@ msgstr "Zu bearbeitendes Theme wählen:"
 msgid "Edit Themes"
 msgstr "Themes bearbeiten"
 
-#: wp-admin/includes/theme.php:1028 wp-admin/themes.php:1121
+#: wp-admin/includes/theme.php:1029 wp-admin/themes.php:1121
 msgid "Tags:"
 msgstr "Tags:"
 
@@ -13924,7 +13920,7 @@ msgid "This theme is already installed."
 msgstr "Dieses Theme ist bereits installiert."
 
 #. translators: %s: Theme version.
-#: wp-admin/includes/theme.php:839 wp-admin/theme-install.php:500
+#: wp-admin/includes/theme.php:840 wp-admin/theme-install.php:500
 #: wp-admin/themes.php:963
 msgid "Version: %s"
 msgstr "Version: %s"
@@ -13937,51 +13933,51 @@ msgstr "Wenn du ein Theme im .zip-Format hast, kannst du es hier hochladen, um e
 msgid "Find Themes"
 msgstr "Themes finden"
 
-#: wp-admin/includes/theme.php:316
+#: wp-admin/includes/theme.php:317
 msgid "Holiday"
 msgstr "Feiertage"
 
-#: wp-admin/includes/theme.php:310 wp-admin/includes/theme.php:380
+#: wp-admin/includes/theme.php:311 wp-admin/includes/theme.php:381
 msgid "Subject"
 msgstr "Thema"
 
-#: wp-admin/includes/theme.php:337
+#: wp-admin/includes/theme.php:338
 msgid "Sticky Post"
 msgstr "Beitrag oben halten"
 
-#: wp-admin/includes/theme.php:339
+#: wp-admin/includes/theme.php:340
 msgid "Theme Options"
 msgstr "Theme-Einstellungen"
 
-#: wp-admin/includes/theme.php:327
+#: wp-admin/includes/theme.php:328
 msgid "Custom Colors"
 msgstr "Individuelle Farben"
 
-#: wp-admin/includes/theme.php:322 wp-admin/includes/theme.php:379
+#: wp-admin/includes/theme.php:323 wp-admin/includes/theme.php:380
 msgid "Features"
 msgstr "Funktionen"
 
-#: wp-admin/includes/theme.php:349
+#: wp-admin/includes/theme.php:350
 msgid "Right Sidebar"
 msgstr "Seitenleiste rechts"
 
-#: wp-admin/includes/theme.php:348
+#: wp-admin/includes/theme.php:349
 msgid "Left Sidebar"
 msgstr "Seitenleiste links"
 
-#: wp-admin/includes/theme.php:347
+#: wp-admin/includes/theme.php:348
 msgid "Four Columns"
 msgstr "Vier Spalten"
 
-#: wp-admin/includes/theme.php:346
+#: wp-admin/includes/theme.php:347
 msgid "Three Columns"
 msgstr "Drei Spalten"
 
-#: wp-admin/includes/theme.php:345
+#: wp-admin/includes/theme.php:346
 msgid "Two Columns"
 msgstr "Zwei Spalten"
 
-#: wp-admin/includes/theme.php:344
+#: wp-admin/includes/theme.php:345
 msgid "One Column"
 msgstr "Eine Spalte"
 
@@ -15636,7 +15632,7 @@ msgid "Header updated. <a href=\"%s\">Visit your site</a> to see how it looks."
 msgstr "Header aktualisiert. <a href=\"%s\">Sieh dir das Ergebnis an</a>."
 
 #: wp-admin/includes/class-custom-image-header.php:504
-#: wp-admin/includes/theme.php:328
+#: wp-admin/includes/theme.php:329
 msgid "Custom Header"
 msgstr "Individueller Header"
 
@@ -15656,7 +15652,7 @@ msgid "Background updated. <a href=\"%s\">Visit your site</a> to see how it look
 msgstr "Das Hintergrundbild wurde aktualisiert. <a href=\"%s\">Besuche deine Website</a>, um zu sehen, wie es aussieht."
 
 #: wp-admin/includes/class-custom-background.php:233
-#: wp-admin/includes/theme.php:326
+#: wp-admin/includes/theme.php:327
 msgid "Custom Background"
 msgstr "Individueller Hintergrund"
 
