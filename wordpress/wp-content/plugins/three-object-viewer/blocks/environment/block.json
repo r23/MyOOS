@@ -1,0 +1,53 @@
+{
+    "name": "three-object-viewer/environment",
+    "title": "3D Environment",
+    "description": "A 3D environment component for XP Portal",
+    "attributes": {
+        "align": {
+            "type": "string",
+            "default": "full"
+        },    
+        "scale": {
+            "type": "integer",
+            "default": 1
+        },
+        "positionX": {
+            "type": "integer",
+            "default": 0
+        },
+        "positionY": {
+            "type": "integer",
+            "default": 0
+        },
+        "rotationY": {
+            "type": "integer",
+            "default": 0
+        },
+        "threeObjectUrl": {
+            "type": "string",
+            "default": null
+        },
+        "threePreviewImage": {
+            "type": "string",
+            "default": null
+        },
+        "deviceTarget": {
+            "type": "string",
+            "default": "vr"
+        },
+        "animations": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "category": "design",
+    "apiVersion": 2,
+    "supports": {
+        "html": false,
+        "multiple": false,
+        "align": ["full"]
+    },
+    "editorScript": "file:../../build/block-environment.js",
+	"editorStyle": "file:../../build/block-environment.css",
+	"style": "file:../../build/block-environment.css"
+}

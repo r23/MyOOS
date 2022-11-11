@@ -5,7 +5,7 @@ import apiFetch from '@wordpress/api-fetch';
 
 window.addEventListener( 'load', async function () {
 	//Endpoint URL
-	const path = '/three-object-viewer/v1/three-model-viewer-settings/';
+	const path = '/three-object-viewer/v1/three-object-viewer-settings/';
 
 	//Get settings from the REST API endpoint
 	const getSettings = async () => {
@@ -28,6 +28,6 @@ window.addEventListener( 'load', async function () {
 
 	render(
 		<App getSettings={ getSettings } updateSettings={ updateSettings } />,
-		document.getElementById( 'three-model-viewer-settings' )
+		document.getElementById( 'three-object-viewer-settings' )
 	);
 } );

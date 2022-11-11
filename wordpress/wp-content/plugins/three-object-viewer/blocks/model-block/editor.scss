@@ -1,0 +1,50 @@
+
+ .wp-block-three-object-block {
+	border: 1px dotted #f00;
+}
+ .glb-preview-container {
+	 padding: 100px;
+	 text-align: center;
+	 align-items: center;
+	 align-content: center;
+	 background-color:#f2f2f2;
+ }
+
+ .glb-preview-container button{
+	padding: 15px;
+	border-radius: 30px;
+}
+
+.glb-preview-container button:hover{
+	border-radius: 30px;
+	// background-color:rgb(156, 199, 0);
+	cursor: pointer;
+}
+
+.three-object-block-tip {
+	overflow-wrap: break-word;
+	background-color: black;
+	color: white;
+	padding: 10px;
+	font-weight: 500;
+	max-width: 160px;
+	font-size: 12px;
+	margin-top: 0px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.three-object-block-url-input {
+	padding-bottom: 20px;
+}
+
+.three-object-block-url-input input{
+	height: 40px;
+}
+
+.block-editor-block-inspector .components-base-control.position-inputs:last-child  {
+	margin-bottom: 24px !important;
+}
+.block-editor-block-inspector .components-base-control.position-inputs  {
+	padding-right: 5px;
+}
