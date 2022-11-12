@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-11 00:30:58+0000\n"
+"PO-Revision-Date: 2022-11-12 02:12:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1655,16 +1655,16 @@ msgctxt "block style label"
 msgid "Fill"
 msgstr "Füllen"
 
-#: build/block-library/blocks/button/block.json
-#: build/block-library/blocks/tag-cloud/block.json
-msgctxt "block style label"
-msgid "Outline"
-msgstr "Outline"
-
 #: build/block-library/blocks/buttons/block.json
 msgctxt "block description"
 msgid "Prompt visitors to take action with a group of button-style links."
 msgstr "Besucher mit einer Gruppe von Button-Links zum Handeln auffordern."
+
+#: build/block-library/blocks/button/block.json
+#: build/block-library/blocks/tag-cloud/block.json
+msgctxt "block style label"
+msgid "Outline"
+msgstr "Kontur"
 
 #: build/block-library/blocks/button/block.json
 msgctxt "block description"
