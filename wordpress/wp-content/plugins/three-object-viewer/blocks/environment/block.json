@@ -1,7 +1,7 @@
 {
     "name": "three-object-viewer/environment",
     "title": "3D Environment",
-    "description": "A 3D environment component for XP Portal",
+    "description": "A 3D environment component",
     "attributes": {
         "align": {
             "type": "string",

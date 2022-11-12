@@ -192,12 +192,14 @@ function Spawn(spawn) {
 }
 
 function ImageObject(threeImage) {
-	const texture_2 = useLoader(THREE.TextureLoader, threeImage.url);
+	const texture2 = useLoader(THREE.TextureLoader, threeImage.url);
 	const imgObj = useRef();
 	const [isSelected, setIsSelected] = useState();
 	const threeImageBlockAttributes = wp.data
 		.select("core/block-editor")
 		.getBlockAttributes(threeImage.imageID);
+	const TransformController = ({ condition, wrap, children }) =>
+		condition ? wrap(children) : children;
 
 	return (
 		<Select
@@ -208,109 +210,77 @@ function ImageObject(threeImage) {
 			}}
 			filter={(items) => items}
 		>
-			{isSelected === true ? (
-				<TransformControls
-					mode={threeImage.transformMode}
-					object={imgObj}
-					size={0.5}
-					onObjectChange={(e) => {
-						const rot = new THREE.Euler(0, 0, 0, "XYZ");
-						const scale = e?.target.worldScale;
-						rot.setFromQuaternion(e?.target.worldQuaternion);
-						wp.data
-							.dispatch("core/block-editor")
-							.updateBlockAttributes(threeImage.imageID, {
-								positionX: e?.target.worldPosition.x,
-								positionY: e?.target.worldPosition.y,
-								positionZ: e?.target.worldPosition.z,
-								rotationX: rot.x,
-								rotationY: rot.y,
-								rotationZ: rot.z,
-								scaleX: scale.x,
-								scaleY: scale.y,
-								scaleZ: scale.z
-							});
-					}}
-				>
+			<TransformController
+				condition={isSelected}
+				wrap={(children) => (
+					<TransformControls
+						mode={threeImage.transformMode}
+						object={imgObj}
+						size={0.5}
+						onObjectChange={(e) => {
+							const rot = new THREE.Euler(0, 0, 0, "XYZ");
+							const scale = e?.target.worldScale;
+							rot.setFromQuaternion(e?.target.worldQuaternion);
+							wp.data
+								.dispatch("core/block-editor")
+								.updateBlockAttributes(threeImage.imageID, {
+									positionX: e?.target.worldPosition.x,
+									positionY: e?.target.worldPosition.y,
+									positionZ: e?.target.worldPosition.z,
+									rotationX: rot.x,
+									rotationY: rot.y,
+									rotationZ: rot.z,
+									scaleX: scale.x,
+									scaleY: scale.y,
+									scaleZ: scale.z
+								});
+						}}
+					>
+						{children}
+					</TransformControls>
+				)}
+			>
+				{threeImageBlockAttributes && (
 					<mesh
 						ref={imgObj}
 						visible
 						position={[
-							threeImage.positionX,
-							threeImage.positionY,
-							threeImage.positionZ
+							threeImageBlockAttributes.positionX,
+							threeImageBlockAttributes.positionY,
+							threeImageBlockAttributes.positionZ
 						]}
 						scale={[
-							threeImage.scaleX,
-							threeImage.scaleY,
-							threeImage.scaleZ
+							threeImageBlockAttributes.scaleX,
+							threeImageBlockAttributes.scaleY,
+							threeImageBlockAttributes.scaleZ
 						]}
 						rotation={[
-							threeImage.rotationX,
-							threeImage.rotationY,
-							threeImage.rotationZ
+							threeImageBlockAttributes.rotationX,
+							threeImageBlockAttributes.rotationY,
+							threeImageBlockAttributes.rotationZ
 						]}
 					>
 						<planeGeometry
 							args={[
-								threeImage.aspectWidth / 12,
-								threeImage.aspectHeight / 12
+								threeImageBlockAttributes.aspectWidth / 12,
+								threeImageBlockAttributes.aspectHeight / 12
 							]}
 						/>
-						{threeImage.transparent ? (
+						{threeImageBlockAttributes.transparent ? (
 							<meshBasicMaterial
 								transparent
 								side={THREE.DoubleSide}
-								map={texture_2}
+								map={texture2}
 							/>
 						) : (
 							<meshStandardMaterial
 								side={THREE.DoubleSide}
-								map={texture_2}
+								map={texture2}
 							/>
 						)}
 					</mesh>
-				</TransformControls>
-			) : (
-				<mesh
-					ref={imgObj}
-					visible
-					position={[
-						threeImageBlockAttributes.positionX,
-						threeImageBlockAttributes.positionY,
-						threeImageBlockAttributes.positionZ
-					]}
-					scale={[
-						threeImageBlockAttributes.scaleX,
-						threeImageBlockAttributes.scaleY,
-						threeImageBlockAttributes.scaleZ
-					]}
-					rotation={[
-						threeImageBlockAttributes.rotationX,
-						threeImageBlockAttributes.rotationY,
-						threeImageBlockAttributes.rotationZ
-					]}
-				>
-					<planeGeometry
-						args={[
-							threeImageBlockAttributes.aspectWidth / 12,
-							threeImageBlockAttributes.aspectHeight / 12
-						]}
-					/>
-					{threeImageBlockAttributes.transparent ? (
-						<meshBasicMaterial
-							transparent
-							side={THREE.DoubleSide}
-							map={texture_2}
-						/>
-					) : (
-						<meshStandardMaterial
-							side={THREE.DoubleSide}
-							map={texture_2}
-						/>
-					)}
-				</mesh>
-			)}
+				)}
+			</TransformController>
 		</Select>
 	);
 }

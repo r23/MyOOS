@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 1.0.0
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -46,8 +46,43 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.0.3 =
+Fix: Removes collider debug.
 
-= 1.0 =
+= 1.0.2 =
+Fix: Environment block settings were not respected on the front end. Should be good now!
+Fix: range controls in the Environment block were in a broken flex.
+
+= 1.0.1 =
+Environment blocks without a OMI collider will be treated as a trimesh collider. This means that every item used in the Environment block will be collidable/walkable.
+
+Image Block Edit Controls now update correctly. Fixed a bug where an image would return to its previous location after chaging position.
+
+
+= 1.0.0 =
+New Environment Block for building feature rich experiences. This is the start to something big. 
+
+3D Image Block- The Image block enables position and rotation settings for any image pulled from your media library. Support for transparency and a future update will include the ability to set external urls as the source.- 3D Video Block- Similar to image, the video block enables content creators to select video assets from the Media Library to attach to a plane in 3D space. I plan to add the ability to select external urls as well as custom mesh objects to render video on. The block can be paused and played by focusing your view in the direction of the video and clicking.
+
+3D Model Block- The model block supports adding usdz, vrm, and glb files to your environment. This block has the ability to loop animations and be set to collidable so visitors can walk on the mesh surface.
+
+Spawn Point Block- define where your visitors land when they enter your world.
+
+Portal Block- Enable metaverse traversal or dive deeper into your site using urls and collidable objects to trigger traversal. There are settings to control the label and positioning of the label so your visitors know where they are going. This is going to be revamped after release to bring a prompt before traversing to ensure no unintended behavior.
+
+Text Block- Use the text block to add text content inside of your worlds. You can define a color, position, and scale of the block of text. There will be more parameters in future updates.
+
+3D Sky Block- Wrap your world in a 360 spherical panoramic to simulate skies
+
+More to come! V1 will almost certainly be buggy, but please report any issues at github.com/antpb/three-object-viewer
+
+= 1.0.1 =
+Environment blocks without a OMI collider will be treated as a trimesh collider. This means that every item used in the Environment block will be collidable/walkable.
+
+Image Block Edit Controls now update correctly. Fixed a bug where an image would return to its previous location after chaging position.
+
+
+= 1.0.0 =
 New Environment Block for building feature rich experiences. This is the start to something big. 
 
 3D Image Block- The Image block enables position and rotation settings for any image pulled from your media library. Support for transparency and a future update will include the ability to set external urls as the source.- 3D Video Block- Similar to image, the video block enables content creators to select video assets from the Media Library to attach to a plane in 3D space. I plan to add the ability to select external urls as well as custom mesh objects to render video on. The block can be paused and played by focusing your view in the direction of the video and clicking.

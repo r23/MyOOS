@@ -657,6 +657,17 @@ function SavedObject(props) {
 		const portalsToAdd = [];
 		let omiColliders;
 
+		gltf.scene.scale.set(props.scale, props.scale, props.scale);
+		gltf.scene.position.set(
+			gltf.scene.position.x,
+			props.positionY,
+			gltf.scene.position.z
+		);
+		gltf.scene.rotation.set(
+			gltf.scene.rotation.x,
+			props.rotationY,
+			gltf.scene.rotation.z
+		);
 		if (gltf.userData.gltfExtensions?.OMI_collider) {
 			omiColliders = gltf.userData.gltfExtensions.OMI_collider.colliders;
 		}
@@ -714,7 +725,7 @@ function SavedObject(props) {
 
 	return (
 		<>
-			{meshes && (
+			{meshes && colliders.length > 0 && (
 				<primitive
 					// rotation={finalRotation}
 					castShadow
@@ -722,6 +733,11 @@ function SavedObject(props) {
 					// position={item.getWorldPosition(pos)}
 					object={meshes}
 				/>
+			)}
+			{meshes && colliders.length === 0 && (
+				<RigidBody type="fixed" colliders="trimesh">
+					<primitive object={meshes} />
+				</RigidBody>
 			)}
 			{portals &&
 				portals.map((item, index) => {

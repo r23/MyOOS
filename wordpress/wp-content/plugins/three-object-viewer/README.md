@@ -4,7 +4,8 @@
 
 ## Installation
 
-Download the release zip and install on your WordPress. 
+Download the from WordPress or install by searching for "Three Object Viewer" in the plugin repository in wp-admin.
+https://wordpress.org/plugins/three-object-viewer/
 
 
 ## Local Development
@@ -20,9 +21,9 @@ Download the release zip and install on your WordPress.
 
 - Build JS/CSS
     - `yarn build`
-- Start JS/CSS for development
+- Start JS/CSS for development - currently broken
     - `yarn start`
-- Test changed files
+- Test changed files - pending tests
     - `yarn test --watch`
 - Test all files once
     - `yarn test`

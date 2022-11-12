@@ -86,7 +86,10 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 	return (
 		<div {...useBlockProps()}>
 			<InspectorControls key="setting">
-				<Panel header="Settings">
+				<Panel
+					className="three-object-environment-edit-container"
+					header="Settings"
+				>
 					<PanelBody
 						title="GLB Object"
 						icon={more}
