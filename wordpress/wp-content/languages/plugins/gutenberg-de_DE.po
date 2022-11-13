@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-12 02:12:32+0000\n"
+"PO-Revision-Date: 2022-11-13 01:33:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -563,10 +563,6 @@ msgstr "(Autoren-Archiv von %s, wird in einem neuen Tab geöffnet)"
 msgid "Webfont provider \"%s\" is not registered."
 msgstr "Webfont-Anbieter „%s“ ist nicht registriert."
 
-#: lib/experimental/class-wp-webfonts.php:242
-msgid "Webfont font weight must be a properly formatted string or integer."
-msgstr "Das Webfont-Schriftgewicht muss eine korrekt formatierte Zeichenfolge oder Ganzzahl sein."
-
 #: lib/experimental/class-wp-webfonts.php:234
 msgid "Each webfont src must be a non-empty string."
 msgstr "Jede Webfont-SRC muss eine nicht leere Zeichenfolge sein."
@@ -578,6 +574,10 @@ msgstr "Die Webfont-SRC muss eine nicht leere Zeichenfolge oder ein Array von Ze
 #: lib/experimental/class-wp-webfonts.php:217
 msgid "Webfont font family must be a non-empty string."
 msgstr "Die Webfont-Schriftfamilie muss eine nicht leere Zeichenfolge sein."
+
+#: lib/experimental/class-wp-webfonts.php:242
+msgid "Webfont font weight must be a properly formatted string or integer."
+msgstr "Die Webfont-Schriftstärke muss eine korrekt formatierte Zeichenfolge oder Ganzzahl sein."
 
 #: build/block-library/blocks/read-more/block.json
 msgctxt "block title"
@@ -1008,11 +1008,6 @@ msgstr "Lebhaftes Grün-Cyan"
 
 #: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
 msgctxt "Color name"
-msgid "Light green cyan"
-msgstr "Helles Grün-Cyan"
-
-#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
-msgctxt "Color name"
 msgid "Luminous vivid amber"
 msgstr "Leuchtendes, lebhaftes Bernstein"
 
@@ -1025,6 +1020,11 @@ msgstr "Lebhaftes Rot"
 msgctxt "Gradient name"
 msgid "Luminous vivid amber to luminous vivid orange"
 msgstr "Leuchtend lebendiger Bernstein bis leuchtend lebendiges Orange"
+
+#: lib/compat/wordpress-6.0/theme.json lib/compat/wordpress-6.1/theme.json
+msgctxt "Color name"
+msgid "Light green cyan"
+msgstr "Helles Cyangrün"
 
 #: lib/compat/wordpress-6.0/block-patterns-update.php:156
 msgctxt "Block pattern title"
