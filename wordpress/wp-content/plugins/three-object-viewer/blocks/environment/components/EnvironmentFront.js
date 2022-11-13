@@ -382,7 +382,7 @@ function Portal(model) {
 	}, []);
 	// gltf.scene.position.set( model.positionX, model.positionY, model.positionZ );
 	// gltf.scene.rotation.set( 0, 0, 0 );
-	gltf.scene.scale.set(model.scaleX, model.scaleY, model.scaleZ);
+	// gltf.scene.scale.set(model.scaleX, model.scaleY, model.scaleZ);
 	// gltf.scene.rotation.set(model.rotationX , model.rotationY, model.rotationZ );
 	const copyGltf = useMemo(() => gltf.scene.clone(), [gltf.scene]);
 
@@ -390,12 +390,13 @@ function Portal(model) {
 		<>
 			<RigidBody
 				type="fixed"
-				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
-				position={[model.positionX, model.positionY, model.positionZ]}
 				colliders={"cuboid"}
 				onCollisionEnter={(props) =>
 					(window.location.href = model.destinationUrl)
 				}
+				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
+				position={[model.positionX, model.positionY, model.positionZ]}
+				scale={[model.scaleX, model.scaleY, model.scaleZ]}
 			>
 				<group
 					rotation={[
@@ -408,11 +409,13 @@ function Portal(model) {
 						model.positionY,
 						model.positionZ
 					]}
+					scale={[model.scaleX, model.scaleY, model.scaleZ]}
 				>
 					<Text
 						scale={[2, 2, 2]}
 						maxWidth={1}
 						alignX="center"
+						textAlign="center"
 						color={model.labelTextColor}
 						position={[
 							0 + model.labelOffsetX,

@@ -701,6 +701,7 @@ function PortalObject(model) {
 								color={portalBlockAttributes.labelTextColor}
 								maxWidth={1}
 								alignX="center"
+								textAlign="center"
 								position={[
 									0 + portalBlockAttributes.labelOffsetX,
 									0 + portalBlockAttributes.labelOffsetY,
