@@ -4,6 +4,7 @@ import { Canvas, useLoader, useFrame, useThree } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { Physics, RigidBody } from "@react-three/rapier";
 import { USDZLoader } from 'three/examples/jsm/loaders/USDZLoader';
+import { GLTFGoogleTiltBrushMaterialExtension } from "three-icosa";
 
 import {
 	OrthographicCamera,
@@ -40,6 +41,12 @@ function SavedObject( props ) {
 	}
 
 	const gltf = useLoader( GLTFLoader, url, ( loader ) => {
+		if(openbrushEnabled === true){
+			loader.register(
+				(parser) =>
+					new GLTFGoogleTiltBrushMaterialExtension(parser, openbrushDirectory)
+			);	
+		}
 		loader.register(
 			( parser ) => new GLTFAudioEmitterExtension( parser, listener )
 		);
@@ -61,6 +68,19 @@ function SavedObject( props ) {
 			} );
 		}
 	}, [] );
+
+	const generator = gltf.asset.generator;
+	if (String(generator).includes("Tilt Brush")) {
+		gltf.scene.position.set( 0, props.positionY, 0 );
+		gltf.scene.rotation.set( 0, props.rotationY, 0 );
+		gltf.scene.scale.set( props.scale, props.scale, props.scale );
+	
+		return (
+			<primitive 
+			object={gltf.scene} />
+		);
+	} 
+
     if(gltf?.userData?.gltfExtensions?.VRM){
 			const vrm = gltf.userData.vrm;
 			vrm.scene.position.set( 0, props.positionY, 0 );

@@ -102,23 +102,40 @@ function threeobjectviewer_frontend_assets() {
     //  );
     global $post;
     $post_slug = $post->post_name;
-
+	$openbrush_enabled = false;
+	$three_icosa_brushes_url = '';
 	if(is_singular()){
-		
+		if (!function_exists('is_plugin_active')) {
+			include_once(ABSPATH . 'wp-admin/includes/plugin.php');
+		}
+
 		//We only want the script if it's a singular page
 		$id = get_the_ID();
-		if(has_block('three-object-viewer/three-object-block',$id)){
+		if(has_block('three-object-viewer/three-object-block',$id)){			
+			if ( is_plugin_active( 'three-object-viewer-three-icosa/three-object-viewer-three-icosa.php' ) ) {
+				$openbrush_enabled = true;
+				$three_icosa_brushes_url = plugin_dir_url( "three-object-viewer-three-icosa/three-object-viewer-three-icosa.php" ) . 'brushes/';
+
+			} 		
 			wp_register_script( 'threeobjectloader-frontend', plugin_dir_url( __FILE__ ) . $default_frontend_js_three_viewer, ['wp-element', 'wp-data', 'wp-hooks'], '', true );
 			wp_localize_script( 'threeobjectloader-frontend', 'userData', $user_data_passed );
+			wp_localize_script( 'threeobjectloader-frontend', 'openbrushEnabled', $openbrush_enabled );
+			wp_localize_script( 'threeobjectloader-frontend', 'openbrushDirectory', $three_icosa_brushes_url );
 			wp_localize_script( 'threeobjectloader-frontend', 'threeObjectPlugin', $three_object_plugin );	
 			wp_enqueue_script( 
 				"threeobjectloader-frontend"
 			);
 		}
 		 if(has_block('three-object-viewer/environment',$id)){
+			if ( is_plugin_active( 'three-object-viewer-three-icosa/three-object-viewer-three-icosa.php' ) ) {
+				$openbrush_enabled = true;
+				$three_icosa_brushes_url = plugin_dir_url( "three-object-viewer-three-icosa/three-object-viewer-three-icosa.php" ) . 'brushes/';
+			} 
 			wp_register_script( 'versepress-frontend', plugin_dir_url( __FILE__ ) . $frontend_js, ['wp-element', 'wp-data', 'wp-hooks'], '', true );
 			wp_localize_script( 'versepress-frontend', 'userData', $user_data_passed );
 			wp_localize_script( 'versepress-frontend', 'postSlug', $post_slug );
+			wp_localize_script( 'versepress-frontend', 'openbrushDirectory', $three_icosa_brushes_url );
+			wp_localize_script( 'versepress-frontend', 'openbrushEnabled', $openbrush_enabled );
 			wp_localize_script( 'versepress-frontend', 'threeObjectPlugin', $three_object_plugin );	
 			wp_enqueue_script( 
 				"versepress-frontend"

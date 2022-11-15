@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 1.0.4
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -46,6 +46,10 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.0.5 =
+Added: Openbrush support in the Model Block and Three Object Block. To use, add a Model Block to a scene and select a Tilt Brush glb file. Plugin can be downloaded at: https://github.com/xpportal/three-object-viewer-three-icosa/releases/tag/0.1.1
+Fix: Initialize text at a better size when adding a Text Block
+
 = 1.0.4 =
 Fix: Scaling and alignment of Portal text was not true on the front end to what was saved in the editor. This update fixes the text positining and centers it to the object's 0,0,0 position.
 

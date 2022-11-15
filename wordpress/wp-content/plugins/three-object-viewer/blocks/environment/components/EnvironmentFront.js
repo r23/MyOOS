@@ -7,6 +7,7 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 // import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 import { Physics, RigidBody, Debug } from "@react-three/rapier";
 import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
+import { GLTFGoogleTiltBrushMaterialExtension } from "three-icosa";
 
 // import Networking from "./Networking";
 
@@ -191,6 +192,12 @@ function ModelObject(model) {
 		loader.register(
 			(parser) => new GLTFAudioEmitterExtension(parser, listener)
 		);
+		if(openbrushEnabled === true){
+			loader.register(
+				(parser) =>
+					new GLTFGoogleTiltBrushMaterialExtension(parser, openbrushDirectory)
+			);	
+		}
 		loader.register((parser) => {
 			return new VRMLoaderPlugin(parser);
 		});
@@ -208,6 +215,27 @@ function ModelObject(model) {
 			});
 		}
 	}, []);
+
+	const generator = gltf.asset.generator;
+
+	// return tilt brush if tilt brush
+	if (String(generator).includes("Tilt Brush")) {
+		return (
+			<primitive 
+			rotation={[
+				model.rotationX,
+				model.rotationY,
+				model.rotationZ
+			]}
+			position={[
+				model.positionX,
+				model.positionY,
+				model.positionZ
+			]}
+			scale={[model.scaleX, model.scaleY, model.scaleZ]}
+			object={gltf.scene} />
+		);
+	} 
 	if (gltf?.userData?.gltfExtensions?.VRM) {
 		const vrm = gltf.userData.vrm;
 		vrm.scene.position.set(
@@ -261,7 +289,7 @@ function ModelObject(model) {
 					// }
 				>
 					<primitive
-						object={modelClone}
+						object={copyGltf}
 						// castShadow
 						// receiveShadow
 						rotation={[
@@ -283,7 +311,7 @@ function ModelObject(model) {
 	return (
 		<>
 			<primitive
-				object={modelClone}
+				object={copyGltf}
 				// castShadow
 				// receiveShadow
 				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
@@ -580,6 +608,7 @@ function TextObject(model) {
 			>
 				<Text
 					className="content"
+					scale={[4, 4, 4]}
 					// rotation-y={-Math.PI / 2}
 					width={10}
 					height={10}
