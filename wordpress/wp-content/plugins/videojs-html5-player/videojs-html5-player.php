@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Videojs HTML5 Player
-Version: 1.1.8
+Version: 1.1.9
 Plugin URI: https://wphowto.net/videojs-html5-player-for-wordpress-757
 Author: naa986
 Author URI: https://wphowto.net/
@@ -17,7 +17,7 @@ if (!class_exists('VIDEOJS_HTML5_PLAYER')) {
 
     class VIDEOJS_HTML5_PLAYER {
 
-        var $plugin_version = '1.1.8';
+        var $plugin_version = '1.1.9';
         var $plugin_url;
         var $plugin_path;
         var $videojs_version = '7.14.3';
@@ -195,18 +195,18 @@ function videojs_html5_video_embed_handler($atts) {
         return __('you need to specify the src of the video file', 'videojs-html5-player');
     }
     //src
-    $src = '<source src="'.$url.'" type="video/mp4" />';
+    $src = '<source src="'.esc_url($url).'" type="video/mp4" />';
     if (!empty($webm)) {
-        $webm = '<source src="'.$webm.'" type="video/webm" />';
+        $webm = '<source src="'.esc_url($webm).'" type="video/webm" />';
         $src = $src.$webm; 
     }
     if (!empty($ogv)) {
-        $ogv = '<source src="'.$ogv.'" type="video/ogg" />';
+        $ogv = '<source src="'.esc_url($ogv).'" type="video/ogg" />';
         $src = $src.$ogv; 
     }
     //http streaming
     if (strpos($url, '.m3u8') !== false) {
-        $src = '<source src="'.$url.'" type="application/x-mpegURL" />';
+        $src = '<source src="'.esc_url($url).'" type="application/x-mpegURL" />';
     }
     //controls
     if($controls == "false") {
@@ -248,12 +248,13 @@ function videojs_html5_video_embed_handler($atts) {
     }
     //poster
     if(!empty($poster)) {
-        $poster = ' poster="'.$poster.'"';
+        $poster = ' poster="'.esc_url($poster).'"';
     }
     //playsinline
     $playsinline = ' playsinline';
     $id = uniqid();
     $player = "videojs".$id;
+    $esc_attr = 'esc_attr';
     //custom style
     $style = '';   
     if(!empty($width)){
@@ -267,7 +268,7 @@ EOT;
         
     }
     $output = <<<EOT
-    <video-js id="$player" class="vjs-big-play-centered"{$controls}{$preload}{$autoplay}{$loop}{$muted}{$poster}{$playsinline} data-setup='{"fluid": true}'>
+    <video-js id="{$esc_attr($player)}" class="vjs-big-play-centered"{$controls}{$preload}{$autoplay}{$loop}{$muted}{$poster}{$playsinline} data-setup='{"fluid": true}'>
         $src
     </video-js>
     $style       

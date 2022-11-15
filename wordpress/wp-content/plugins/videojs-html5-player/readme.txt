@@ -3,8 +3,8 @@ Contributors: naa986
 Donate link: https://wphowto.net/
 Tags: videojs, video, player, embed, html5
 Requires at least: 4.2
-Tested up to: 6.0
-Stable tag: 1.1.8
+Tested up to: 6.1
+Stable tag: 1.1.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -156,6 +156,9 @@ MP4, WebM, Ogv and M3U8.
 none
 
 == Changelog ==
+
+= 1.1.9 =
+* Made some security related improvements suggested by wpscan.
 
 = 1.1.8 =
 * Added support for Disable Right Click add-on.
