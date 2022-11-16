@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -46,6 +46,9 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.0.6 =
+Fix: Sky blocks were causing incredibly poor performance in VR. This is fixed by using a more optimized primitive for the skybox.
+
 = 1.0.5 =
 Added: Openbrush support in the Model Block and Three Object Block. To use, add a Model Block to a scene and select a Tilt Brush glb file. Plugin can be downloaded at: https://github.com/xpportal/three-object-viewer-three-icosa/releases/tag/0.1.1
 Fix: Initialize text at a better size when adding a Text Block

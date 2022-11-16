@@ -474,7 +474,7 @@ function Sky(sky) {
 			scale={[200, 200, 200]}
 			rotation={[0, 0, 0]}
 		>
-			<sphereGeometry args={[5, 200, 200]} />
+			<sphereGeometry args={[5, 10, 10]} />
 			<meshStandardMaterial side={THREE.DoubleSide} map={texture1} />
 		</mesh>
 	);
