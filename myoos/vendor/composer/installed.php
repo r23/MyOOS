@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'd94c04732bede8954fe1c0ab1014c04dc66be135',
+        'reference' => '5aa96905510f60f7b8355c75413583b5b679e34c',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -56,12 +56,12 @@
             'dev_requirement' => false,
         ),
         'doctrine/persistence' => array(
-            'pretty_version' => '3.0.4',
-            'version' => '3.0.4.0',
+            'pretty_version' => '3.1.0',
+            'version' => '3.1.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/persistence',
             'aliases' => array(),
-            'reference' => '05612da375f8a3931161f435f91d6704926e6ec5',
+            'reference' => '2a9c70a5e21f8968c5a46b79f819ea52f322080b',
             'dev_requirement' => false,
         ),
         'dompdf/dompdf' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'd94c04732bede8954fe1c0ab1014c04dc66be135',
+            'reference' => '5aa96905510f60f7b8355c75413583b5b679e34c',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
