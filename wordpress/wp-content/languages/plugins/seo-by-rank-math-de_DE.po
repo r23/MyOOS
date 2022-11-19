@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-02 21:59:07+0000\n"
+"PO-Revision-Date: 2022-11-19 10:58:09+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,14 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.3\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
+
+#: includes/admin/class-options.php:300
+msgid "Ctrl/Cmd + Enter"
+msgstr "Strg/Befehlstaste + Eingabetaste"
+
+#: includes/admin/class-admin.php:395
+msgid "Exclusive Offer!"
+msgstr "Exklusives Angebot!"
 
 #: includes/admin/wizard/class-your-site.php:95
 #: includes/modules/local-seo/views/titles-options.php:54
@@ -7147,7 +7155,7 @@ msgstr "Dein Theme kann die Site Tagline anzeigen und es kann auch in SEO-Titeln
 msgid "Start Site-Wide Analysis"
 msgstr "Starte die standortweite Analyse"
 
-#: includes/admin/class-admin.php:327
+#: includes/admin/class-admin.php:328
 #: includes/modules/role-manager/class-role-manager.php:131
 #: includes/traits/class-ajax.php:59
 msgid "You are not authorized to perform this action."
@@ -7764,6 +7772,10 @@ msgstr "Das ist Benutzerfreundlich und bringt die Schlüsselwörter in die URL. 
 msgid "It's not very kind on the eyes, and it does nothing for your site's SEO.  In fact, it can hurt it - Google's bot is quite cautious about crawling pages that look auto-generated."
 msgstr "Es ist nicht sehr freundlich für die Augen, und es tut nichts für die SEO deiner Website.  Tatsächlich kann es ihm schaden - Googles Bot ist sehr vorsichtig beim Crawlen von Seiten, die automatisch generiert aussehen."
 
+#: includes/modules/seo-analysis/seo-analysis-tests.php:38
+msgid "The tagline is the second option.  Choose a tagline that summarizes your site in a few words.  The tagline is also a good place to use your main keyword."
+msgstr "Der Slogan ist die zweite Option.  Wähle einen Slogan, der deine Website in wenigen Worten zusammenfasst.  Der Slogan ist auch ein guter Ort, um dein Haupt-Schlüsselwort zu verwenden."
+
 #: includes/modules/seo-analysis/seo-analysis-tests.php:122
 msgid "XML sitemaps are a special type of text file that tells search engines about the structure of your site. They're a list of all the resources (pages and files) you would like the search engine to index. You can assign different priorities, so certain pages will be crawled first. Before XML sitemaps, search engines were limited to indexing the content they could find by following links. That's still an important feature for search engine spiders, but XML sitemaps have made it easier for content creators and search engines to collaborate."
 msgstr "XML-Sitemaps sind eine spezielle Art von Textdatei, die Suchmaschinen über die Struktur deiner Website informiert. Es handelt sich um eine Liste aller Ressourcen (Seiten und Dateien), die die Suchmaschine indizieren soll. du kannst verschiedene Prioritäten vergeben, so dass bestimmte Seiten zuerst durchsucht werden. Vor XML-Sitemaps beschränkten sich Suchmaschinen auf die Indizierung von Inhalten, die sie über folgende Links finden konnten. Das ist immer noch ein wichtiges Feature für Suchmaschinen-Spider, aber XML-Sitemaps haben es für Inhaltsersteller und Suchmaschinen einfacher gemacht, zusammenzuarbeiten."
@@ -7771,10 +7783,6 @@ msgstr "XML-Sitemaps sind eine spezielle Art von Textdatei, die Suchmaschinen ü
 #: includes/modules/seo-analysis/seo-analysis-tests.php:79
 msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
 msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Fokus-Schlüsselwort hinzufügst, überprüft Rank Math, ob du das Schlüsselwort im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Schlüsselwort im Titel fehlt, wird es dir hier mitgeteilt."
-
-#: includes/modules/seo-analysis/seo-analysis-tests.php:38
-msgid "The tagline is the second option.  Choose a tagline that summarizes your site in a few words.  The tagline is also a good place to use your main keyword."
-msgstr "Der Slogan ist die zweite Option.  Wähle einen Slogan, der deine Website in wenigen Worten zusammenfasst.  Der Slogan ist auch ein guter Ort, um dein Haupt-Schlüsselwort zu verwenden."
 
 #. translators: link to general setting screen
 #: includes/modules/seo-analysis/seo-analysis-tests.php:37
@@ -8055,7 +8063,7 @@ msgstr "Zurück zum Dashboard"
 msgid "Modules"
 msgstr "Module"
 
-#: includes/admin/class-admin.php:69
+#: includes/admin/class-admin.php:70
 msgid "Facebook profile URL"
 msgstr "Facebook Profil-URL"
 
@@ -8072,11 +8080,11 @@ msgstr "Aktion nicht zulässig."
 msgid "Cleanup of %s data failed."
 msgstr "Die Bereinigung der %s-Daten ist fehlgeschlagen."
 
-#: includes/admin/class-admin.php:297
+#: includes/admin/class-admin.php:298
 msgid "Insert Link in Content"
 msgstr "Link in Inhalt einfügen"
 
-#: includes/admin/class-admin.php:296
+#: includes/admin/class-admin.php:297
 msgid "Copy Link URL to Clipboard"
 msgstr "Link URL in die Zwischenablage kopieren"
 
@@ -8282,7 +8290,7 @@ msgstr "Link einfügen/bearbeiten"
 msgid "Help &amp; Support"
 msgstr "Hilfe und Support"
 
-#: includes/admin/class-admin.php:68
+#: includes/admin/class-admin.php:69
 msgid "Twitter username (without @)"
 msgstr "Twitter-Benutzername (ohne @)"
 
@@ -8391,7 +8399,7 @@ msgstr "SEO-Beschreibung"
 msgid "Thank you for using <a href=\"%s\" target=\"_blank\">Rank Math</a>"
 msgstr "Vielen Dank, dass du <a href=\"%s\" target=\"_blank\">Rank Math</a> verwendest"
 
-#: includes/admin/class-admin.php:112
+#: includes/admin/class-admin.php:113
 msgid "The canonical URL you entered does not seem to be a valid URL. Please double check it in the SEO meta box &raquo; Advanced tab."
 msgstr "Die von dir eingegebene kanonische URL scheint keine gültige URL zu sein. Bitte überprüfen diese noch einmal in der SEO-Meta-Box &raquo; Registerkarte Erweitert."
 
