@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-17 09:39:34+0000\n"
+"PO-Revision-Date: 2022-11-19 19:22:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -565,18 +565,18 @@ msgstr "Die Datei „%s“ konnte nicht als Block-Vorlage registriert werden (Fe
 #. translators: %s is the Comment Author name.
 #: build/block-library/blocks/avatar.php:127
 msgid "(%s website link, opens in a new tab)"
-msgstr "(Link zur Website von %s, wird in einem neuen Tab geöffnet)"
+msgstr "(Der Link zur Website von %s wird in einem neuen Tab geöffnet)"
 
 #. translators: %s is the Author name.
 #: build/block-library/blocks/avatar.php:100
 msgid "(%s author archive, opens in a new tab)"
-msgstr "(Autoren-Archiv von %s, wird in einem neuen Tab geöffnet)"
+msgstr "(Das Autoren-Archiv von %s wird in einem neuen Tab geöffnet)"
 
 #. translators: %s is the provider name.
 #: lib/experimental/class-wp-webfonts.php:360
 #: lib/experimental/class-wp-webfonts.php:403
 msgid "Webfont provider \"%s\" is not registered."
-msgstr "Webfont-Anbieter „%s“ ist nicht registriert."
+msgstr "Der Webfont-Anbieter „%s“ ist nicht registriert."
 
 #: lib/experimental/class-wp-webfonts.php:242
 msgid "Webfont font weight must be a properly formatted string or integer."
@@ -743,7 +743,7 @@ msgstr "Kommentar veröffentlichen (veraltet)"
 #: build/block-library/blocks/pattern/block.json
 msgctxt "block description"
 msgid "Show a block pattern."
-msgstr "Block-Vorlage anzeigen."
+msgstr "Eine Block-Vorlage anzeigen."
 
 #: build/block-library/blocks/pattern/block.json
 msgctxt "block title"
@@ -1089,7 +1089,7 @@ msgstr "Link"
 
 #: build/block-library/blocks/calendar.php:22
 msgid "The calendar block is hidden because there are no published posts."
-msgstr "Der Kalender-Block ist verborgen, weil es keine veröffentlichen Beiträge gibt."
+msgstr "Der Kalender-Block ist verborgen, weil es keine veröffentlichten Beiträge gibt."
 
 #: build/block-library/blocks/video/block.json
 msgctxt "block keyword"
@@ -1848,7 +1848,7 @@ msgstr "Begriffsbeschreibung"
 #: build/block-library/blocks/post-comments-link/block.json
 msgctxt "block title"
 msgid "Post Comments Link"
-msgstr "Kommentar-Link veröffentlichen"
+msgstr "Link zu den Beitragskommentaren"
 
 #: build/block-library/blocks/loginout/block.json
 msgctxt "block title"
