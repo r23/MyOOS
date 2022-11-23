@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '6ce6cfab8bac35f89c7ae568fb13c7199089b677',
+        'reference' => 'ed01821093f5d71863cac3b87fbe2245527044c1',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '6ce6cfab8bac35f89c7ae568fb13c7199089b677',
+            'reference' => 'ed01821093f5d71863cac3b87fbe2245527044c1',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -447,7 +447,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'da95b1ad6506ec4dd087e04627f74f16cdb78c43',
+            'reference' => 'a1e30f9773206c2740bdb26d564857fe8ee897ae',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
@@ -460,12 +460,12 @@
             'dev_requirement' => false,
         ),
         'smarty/smarty' => array(
-            'pretty_version' => 'v4.2.1',
-            'version' => '4.2.1.0',
+            'pretty_version' => 'v4.3.0',
+            'version' => '4.3.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../smarty/smarty',
             'aliases' => array(),
-            'reference' => 'ffa2b81a8e354a49fd8a2f24742dc9dc399e8007',
+            'reference' => 'c02e9e135ea719b91f457a0072748ded0e852e7d',
             'dev_requirement' => false,
         ),
         'spatie/temporary-directory' => array(
