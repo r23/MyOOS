@@ -23,6 +23,8 @@ function threeobjectviewer_register_threeobjectloaderinit() {
     );
 }
 
+add_filter( 'run_wptexturize', '__return_false' );
+
 /**
 * Enqueue JavaScript and CSS for threeobjectloaderinit
 * @uses "wp_enqueue_script" action

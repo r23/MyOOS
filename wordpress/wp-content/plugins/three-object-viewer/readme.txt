@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -46,6 +46,9 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.0.7 =
+Fix: removes wp_texturize that was breaking url strings on the front end.
+
 = 1.0.6 =
 Fix: Sky blocks were causing incredibly poor performance in VR. This is fixed by using a more optimized primitive for the skybox.
 
