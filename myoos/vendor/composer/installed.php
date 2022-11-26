@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'cf0c01ee1d531ded5bd7e7cbc3ac46991bf1bd67',
+        'reference' => '684a11310e78543c3eff222b4ed1ccf4cf13a1c3',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -137,12 +137,12 @@
             'dev_requirement' => false,
         ),
         'maennchen/zipstream-php' => array(
-            'pretty_version' => '2.2.1',
-            'version' => '2.2.1.0',
+            'pretty_version' => '2.2.6',
+            'version' => '2.2.6.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../maennchen/zipstream-php',
             'aliases' => array(),
-            'reference' => '211e9ba1530ea5260b45d90c9ea252f56ec52729',
+            'reference' => '30ad6f93cf3efe4192bc7a4c9cad11ff8f4f237f',
             'dev_requirement' => false,
         ),
         'markbaker/complex' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'cf0c01ee1d531ded5bd7e7cbc3ac46991bf1bd67',
+            'reference' => '684a11310e78543c3eff222b4ed1ccf4cf13a1c3',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
