@@ -1666,6 +1666,37 @@ const FullscreenMode = _ref => {
 
 /* harmony default export */ const fullscreen_mode = (FullscreenMode);
 
+;// CONCATENATED MODULE: ./packages/interface/build-module/components/navigable-region/index.js
+
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+function NavigableRegion(_ref) {
+  let {
+    children,
+    className,
+    ariaLabel,
+    motionProps = {}
+  } = _ref;
+  const Tag = Object.keys(motionProps).length ? external_wp_components_namespaceObject.__unstableMotion.div : 'div';
+  return (0,external_wp_element_namespaceObject.createElement)(Tag, _extends({
+    className: classnames_default()('interface-navigable-region', className),
+    "aria-label": ariaLabel,
+    role: "region",
+    tabIndex: "-1"
+  }, motionProps), (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "interface-navigable-region__stacker"
+  }, children));
+}
+
 ;// CONCATENATED MODULE: ./packages/interface/build-module/components/interface-skeleton/index.js
 
 
@@ -1680,6 +1711,11 @@ const FullscreenMode = _ref => {
 
 
 
+
+
+/**
+ * Internal dependencies
+ */
 
 
 
@@ -1759,61 +1795,47 @@ function InterfaceSkeleton(_ref, ref) {
   return (0,external_wp_element_namespaceObject.createElement)("div", _extends({}, navigateRegionsProps, {
     ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, navigateRegionsProps.ref]),
     className: classnames_default()(className, 'interface-interface-skeleton', navigateRegionsProps.className, !!footer && 'has-footer')
-  }), !!drawer && (0,external_wp_element_namespaceObject.createElement)("div", {
+  }), !!drawer && (0,external_wp_element_namespaceObject.createElement)(NavigableRegion, {
     className: "interface-interface-skeleton__drawer",
-    role: "region",
-    "aria-label": mergedLabels.drawer,
-    tabIndex: "-1"
+    ariaLabel: mergedLabels.drawer
   }, drawer), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "interface-interface-skeleton__editor"
-  }, !!header && isDistractionFree && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__unstableMotion.div, {
-    initial: isDistractionFree ? 'hidden' : 'hover',
-    whileHover: "hover",
-    variants: headerVariants,
-    transition: {
-      type: 'tween',
-      delay: 0.8
-    },
+  }, !!header && isDistractionFree && (0,external_wp_element_namespaceObject.createElement)(NavigableRegion, {
     className: "interface-interface-skeleton__header",
-    role: "region",
     "aria-label": mergedLabels.header,
-    tabIndex: "-1"
-  }, header), !!header && !isDistractionFree && (0,external_wp_element_namespaceObject.createElement)("div", {
+    motionProps: {
+      initial: isDistractionFree ? 'hidden' : 'hover',
+      whileHover: 'hover',
+      variants: headerVariants,
+      transition: {
+        type: 'tween',
+        delay: 0.8
+      }
+    }
+  }, header), !!header && !isDistractionFree && (0,external_wp_element_namespaceObject.createElement)(NavigableRegion, {
     className: "interface-interface-skeleton__header",
-    role: "region",
-    "aria-label": mergedLabels.header,
-    tabIndex: "-1"
+    ariaLabel: mergedLabels.header
   }, header), isDistractionFree && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "interface-interface-skeleton__header"
   }, editorNotices), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "interface-interface-skeleton__body"
-  }, !!secondarySidebar && (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, !!secondarySidebar && (0,external_wp_element_namespaceObject.createElement)(NavigableRegion, {
     className: "interface-interface-skeleton__secondary-sidebar",
-    role: "region",
-    "aria-label": mergedLabels.secondarySidebar,
-    tabIndex: "-1"
+    ariaLabel: mergedLabels.secondarySidebar
   }, secondarySidebar), !!notices && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "interface-interface-skeleton__notices"
-  }, notices), (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, notices), (0,external_wp_element_namespaceObject.createElement)(NavigableRegion, {
     className: "interface-interface-skeleton__content",
-    role: "region",
-    "aria-label": mergedLabels.body,
-    tabIndex: "-1"
-  }, content), !!sidebar && (0,external_wp_element_namespaceObject.createElement)("div", {
+    ariaLabel: mergedLabels.body
+  }, content), !!sidebar && (0,external_wp_element_namespaceObject.createElement)(NavigableRegion, {
     className: "interface-interface-skeleton__sidebar",
-    role: "region",
-    "aria-label": mergedLabels.sidebar,
-    tabIndex: "-1"
-  }, sidebar), !!actions && (0,external_wp_element_namespaceObject.createElement)("div", {
+    ariaLabel: mergedLabels.sidebar
+  }, sidebar), !!actions && (0,external_wp_element_namespaceObject.createElement)(NavigableRegion, {
     className: "interface-interface-skeleton__actions",
-    role: "region",
-    "aria-label": mergedLabels.actions,
-    tabIndex: "-1"
-  }, actions))), !!footer && (0,external_wp_element_namespaceObject.createElement)("div", {
+    ariaLabel: mergedLabels.actions
+  }, actions))), !!footer && (0,external_wp_element_namespaceObject.createElement)(NavigableRegion, {
     className: "interface-interface-skeleton__footer",
-    role: "region",
-    "aria-label": mergedLabels.footer,
-    tabIndex: "-1"
+    ariaLabel: mergedLabels.footer
   }, footer));
 }
 
@@ -2134,6 +2156,7 @@ function BaseOption(_ref) {
 
 
 
+
 ;// CONCATENATED MODULE: ./packages/interface/build-module/index.js
 
 
@@ -2164,13 +2187,8 @@ const getMetaBoxContainer = location => {
 
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/store/actions.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -2483,7 +2501,7 @@ const requestMetaBoxUpdates = () => async _ref11 => {
   const activeMetaBoxLocations = select.getActiveMetaBoxLocations();
   const formDataToMerge = [baseFormData, ...activeMetaBoxLocations.map(location => new window.FormData(getMetaBoxContainer(location)))]; // Merge all form data objects into a single one.
 
-  const formData = (0,external_lodash_namespaceObject.reduce)(formDataToMerge, (memo, currentFormData) => {
+  const formData = formDataToMerge.reduce((memo, currentFormData) => {
     for (const [key, value] of currentFormData) {
       memo.append(key, value);
     }
@@ -4077,6 +4095,7 @@ function VisualEditor(_ref2) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -4123,6 +4142,42 @@ function KeyboardShortcuts() {
     setIsInserterOpened(false);
     setIsListViewOpened(false);
     closeGeneralSidebar();
+  };
+
+  const {
+    replaceBlocks
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
+  const {
+    getBlockName,
+    getSelectedBlockClientId,
+    getBlockAttributes
+  } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_blockEditor_namespaceObject.store);
+
+  const handleTextLevelShortcut = (event, level) => {
+    event.preventDefault();
+    const destinationBlockName = level === 0 ? 'core/paragraph' : 'core/heading';
+    const currentClientId = getSelectedBlockClientId();
+
+    if (currentClientId === null) {
+      return;
+    }
+
+    const blockName = getBlockName(currentClientId);
+
+    if (blockName !== 'core/paragraph' && blockName !== 'core/heading') {
+      return;
+    }
+
+    const currentAttributes = getBlockAttributes(currentClientId);
+    const {
+      content: currentContent,
+      align: currentAlign
+    } = currentAttributes;
+    replaceBlocks(currentClientId, (0,external_wp_blocks_namespaceObject.createBlock)(destinationBlockName, {
+      level,
+      content: currentContent,
+      align: currentAlign
+    }));
   };
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -4195,6 +4250,9 @@ function KeyboardShortcuts() {
       aliases: [{
         modifier: 'access',
         character: 'p'
+      }, {
+        modifier: 'ctrlShift',
+        character: '~'
       }]
     });
     registerShortcut({
@@ -4205,6 +4263,26 @@ function KeyboardShortcuts() {
         modifier: 'access',
         character: 'h'
       }
+    });
+    registerShortcut({
+      name: `core/block-editor/transform-heading-to-paragraph`,
+      category: 'block-library',
+      description: (0,external_wp_i18n_namespaceObject.__)('Transform heading to paragraph.'),
+      keyCombination: {
+        modifier: 'access',
+        character: `0`
+      }
+    });
+    [1, 2, 3, 4, 5, 6].forEach(level => {
+      registerShortcut({
+        name: `core/block-editor/transform-paragraph-to-heading-${level}`,
+        category: 'block-library',
+        description: (0,external_wp_i18n_namespaceObject.__)('Transform paragraph to heading.'),
+        keyCombination: {
+          modifier: 'access',
+          character: `${level}`
+        }
+      });
     });
   }, []);
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/toggle-mode', () => {
@@ -4238,6 +4316,13 @@ function KeyboardShortcuts() {
     }
   });
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/toggle-list-view', () => setIsListViewOpened(!isListViewOpened()));
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/block-editor/transform-heading-to-paragraph', event => handleTextLevelShortcut(event, 0));
+  [1, 2, 3, 4, 5, 6].forEach(level => {
+    //the loop is based off on a constant therefore
+    //the hook will execute the same way every time
+    //eslint-disable-next-line react-hooks/rules-of-hooks
+    (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)(`core/block-editor/transform-paragraph-to-heading-${level}`, event => handleTextLevelShortcut(event, level));
+  });
   return null;
 }
 
@@ -4295,6 +4380,18 @@ const textFormattingShortcuts = [{
     character: 'x'
   },
   description: (0,external_wp_i18n_namespaceObject.__)('Make the selected text inline code.')
+}, {
+  keyCombination: {
+    modifier: 'access',
+    character: '0'
+  },
+  description: (0,external_wp_i18n_namespaceObject.__)('Convert the current heading to a paragraph.')
+}, {
+  keyCombination: {
+    modifier: 'access',
+    character: '1-6'
+  },
+  description: (0,external_wp_i18n_namespaceObject.__)('Convert the current paragraph or heading to a heading of level 1 to 6.')
 }];
 
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/keyboard-shortcut-help-modal/shortcut.js
@@ -4809,9 +4906,8 @@ function BlockTypesChecklist(_ref) {
     key: blockType.name,
     className: "edit-post-block-manager__checklist-item"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
-    label: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, blockType.title, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockIcon, {
-      icon: blockType.icon
-    })),
+    __nextHasNoMarginBottom: true,
+    label: blockType.title,
     checked: value.includes(blockType.name),
     onChange: function () {
       for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
@@ -4820,6 +4916,8 @@ function BlockTypesChecklist(_ref) {
 
       return onItemChange(blockType.name, ...args);
     }
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockIcon, {
+    icon: blockType.icon
   }))));
 }
 
@@ -4909,25 +5007,17 @@ function BlockManagerCategory(_ref) {
   const checkedBlockNames = (0,external_lodash_namespaceObject.map)(filteredBlockTypes, 'name').filter(type => !hiddenBlockTypes.includes(type));
   const titleId = 'edit-post-block-manager__category-title-' + instanceId;
   const isAllChecked = checkedBlockNames.length === filteredBlockTypes.length;
-  let ariaChecked;
-
-  if (isAllChecked) {
-    ariaChecked = 'true';
-  } else if (checkedBlockNames.length > 0) {
-    ariaChecked = 'mixed';
-  } else {
-    ariaChecked = 'false';
-  }
-
+  const isIndeterminate = !isAllChecked && checkedBlockNames.length > 0;
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     role: "group",
     "aria-labelledby": titleId,
     className: "edit-post-block-manager__category"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.CheckboxControl, {
+    __nextHasNoMarginBottom: true,
     checked: isAllChecked,
     onChange: toggleAllVisible,
     className: "edit-post-block-manager__category-title",
-    "aria-checked": ariaChecked,
+    indeterminate: isIndeterminate,
     label: (0,external_wp_element_namespaceObject.createElement)("span", {
       id: titleId
     }, title)
@@ -5134,7 +5224,7 @@ function EditPostPreferencesModal() {
       featureName: "distractionFree",
       onToggle: toggleDistractionFree,
       help: (0,external_wp_i18n_namespaceObject.__)('Reduce visual distractions by hiding the toolbar and other elements to focus on writing.'),
-      label: (0,external_wp_i18n_namespaceObject.__)('Distraction Free')
+      label: (0,external_wp_i18n_namespaceObject.__)('Distraction free')
     }), (0,external_wp_element_namespaceObject.createElement)(enable_feature, {
       featureName: "focusMode",
       help: (0,external_wp_i18n_namespaceObject.__)('Highlights the current block and fades other content.'),
@@ -5579,13 +5669,13 @@ function HeaderToolbar() {
   const toggleListView = (0,external_wp_element_namespaceObject.useCallback)(() => setIsListViewOpened(!isListViewOpen), [setIsListViewOpened, isListViewOpen]);
   const overflowItems = (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, {
     as: external_wp_components_namespaceObject.Button,
-    className: "edit-post-header-toolbar__list-view-toggle",
+    className: "edit-post-header-toolbar__document-overview-toggle",
     icon: list_view,
     disabled: isTextModeEnabled,
     isPressed: isListViewOpen
     /* translators: button label text should, if possible, be under 16 characters. */
     ,
-    label: (0,external_wp_i18n_namespaceObject.__)('List View'),
+    label: (0,external_wp_i18n_namespaceObject.__)('Document Overview'),
     onClick: toggleListView,
     shortcut: listViewShortcut,
     showTooltip: !showIconLabels,
@@ -6811,15 +6901,15 @@ function ListViewSidebar() {
   const [tab, setTab] = (0,external_wp_element_namespaceObject.useState)('list-view');
   return (// eslint-disable-next-line jsx-a11y/no-static-element-interactions
     (0,external_wp_element_namespaceObject.createElement)("div", {
-      "aria-label": (0,external_wp_i18n_namespaceObject.__)('List View'),
-      className: "edit-post-editor__list-view-panel",
+      "aria-label": (0,external_wp_i18n_namespaceObject.__)('Document Overview'),
+      className: "edit-post-editor__document-overview-panel",
       onKeyDown: closeOnEscape
     }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      className: "edit-post-editor__list-view-panel-header components-panel__header edit-post-sidebar__panel-tabs",
+      className: "edit-post-editor__document-overview-panel-header components-panel__header edit-post-sidebar__panel-tabs",
       ref: headerFocusReturnRef
     }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
       icon: close_small,
-      label: (0,external_wp_i18n_namespaceObject.__)('Close List View Sidebar'),
+      label: (0,external_wp_i18n_namespaceObject.__)('Close Document Overview Sidebar'),
       onClick: () => setIsListViewOpened(false)
     }), (0,external_wp_element_namespaceObject.createElement)("ul", null, (0,external_wp_element_namespaceObject.createElement)("li", null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
       onClick: () => {
@@ -9347,7 +9437,7 @@ function Layout(_ref) {
 
     setEntitiesSavedStatesCallback(false);
   }, [entitiesSavedStatesCallback]);
-  const secondarySidebarLabel = isListViewOpened ? (0,external_wp_i18n_namespaceObject.__)('List View') : (0,external_wp_i18n_namespaceObject.__)('Block Library');
+  const secondarySidebarLabel = isListViewOpened ? (0,external_wp_i18n_namespaceObject.__)('Document Overview') : (0,external_wp_i18n_namespaceObject.__)('Block Library');
 
   const secondarySidebar = () => {
     if (mode === 'visual' && isInserterOpened) {

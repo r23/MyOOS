@@ -3331,6 +3331,7 @@ function useAnchor(_ref) {
       return;
     }
 
+    const selectionWithinEditableContentElement = editableContentElement === null || editableContentElement === void 0 ? void 0 : editableContentElement.contains(selection === null || selection === void 0 ? void 0 : selection.anchorNode);
     const range = selection.getRangeAt(0);
 
     if (!activeFormat) {
@@ -3338,7 +3339,7 @@ function useAnchor(_ref) {
         ownerDocument: range.startContainer.ownerDocument,
 
         getBoundingClientRect() {
-          return range.getBoundingClientRect();
+          return selectionWithinEditableContentElement ? range.getBoundingClientRect() : editableContentElement.getBoundingClientRect();
         }
 
       };

@@ -2452,7 +2452,7 @@ __webpack_require__.d(__webpack_exports__, {
   "DatePicker": () => (/* reexport */ date),
   "DateTimePicker": () => (/* reexport */ build_module_date_time),
   "Disabled": () => (/* reexport */ disabled),
-  "Draggable": () => (/* reexport */ Draggable),
+  "Draggable": () => (/* reexport */ draggable),
   "DropZone": () => (/* reexport */ drop_zone),
   "DropZoneProvider": () => (/* reexport */ DropZoneProvider),
   "Dropdown": () => (/* reexport */ Dropdown),
@@ -2561,6 +2561,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalNumberControl": () => (/* reexport */ number_control),
   "__experimentalPaletteEdit": () => (/* reexport */ PaletteEdit),
   "__experimentalParseQuantityAndUnitFromRawValue": () => (/* reexport */ parseQuantityAndUnitFromRawValue),
+  "__experimentalPopoverPositionToPlacement": () => (/* reexport */ positionToPlacement),
   "__experimentalRadio": () => (/* reexport */ radio_group_radio),
   "__experimentalRadioGroup": () => (/* reexport */ radio_group),
   "__experimentalScrollable": () => (/* reexport */ scrollable_component),
@@ -14940,6 +14941,7 @@ var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external
  *
  * @property {import('./types').IconKey} icon        Icon name
  * @property {string}                    [className] Class name
+ * @property {number}                    [size]      Size of the icon
  */
 
 /** @typedef {import('react').ComponentPropsWithoutRef<'span'> & OwnProps} Props */
@@ -14952,11 +14954,25 @@ function Dashicon(_ref) {
   let {
     icon,
     className,
+    size = 20,
+    style = {},
     ...extraProps
   } = _ref;
-  const iconClass = ['dashicon', 'dashicons', 'dashicons-' + icon, className].filter(Boolean).join(' ');
+  const iconClass = ['dashicon', 'dashicons', 'dashicons-' + icon, className].filter(Boolean).join(' '); // For retro-compatibility reasons (for example if people are overriding icon size with CSS), we add inline styles just if the size is different to the default
+
+  const sizeStyles = // using `!=` to catch both 20 and "20"
+  // eslint-disable-next-line eqeqeq
+  20 != size ? {
+    fontSize: `${size}px`,
+    width: `${size}px`,
+    height: `${size}px`
+  } : {};
+  const styles = { ...sizeStyles,
+    ...style
+  };
   return (0,external_wp_element_namespaceObject.createElement)("span", extends_extends({
-    className: iconClass
+    className: iconClass,
+    style: styles
   }, extraProps));
 }
 
@@ -14983,13 +14999,14 @@ function Dashicon(_ref) {
 function Icon(_ref) {
   let {
     icon = null,
-    size = 24,
+    size = 'string' === typeof icon ? 20 : 24,
     ...additionalProps
   } = _ref;
 
   if ('string' === typeof icon) {
     return (0,external_wp_element_namespaceObject.createElement)(dashicon, extends_extends({
-      icon: icon
+      icon: icon,
+      size: size
     }, additionalProps));
   }
 
@@ -20572,6 +20589,10 @@ const UnforwardedPopover = (props, forwardedRef) => {
   }, [update]); // When any of the possible anchor "sources" change,
   // recompute the reference element (real or virtual) and its owner document.
 
+  const anchorRefTop = anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.top;
+  const anchorRefBottom = anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.bottom;
+  const anchorRefStartContainer = anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.startContainer;
+  const anchorRefCurrent = anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.current;
   (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
     const resultingReferenceOwnerDoc = getReferenceOwnerDocument({
       anchor,
@@ -20590,16 +20611,16 @@ const UnforwardedPopover = (props, forwardedRef) => {
     });
     referenceCallbackRef(resultingReferenceElement);
     setReferenceOwnerDocument(resultingReferenceOwnerDoc);
-  }, [anchor, anchorRef, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.top, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.bottom, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.startContainer, anchorRef === null || anchorRef === void 0 ? void 0 : anchorRef.current, anchorRect, getAnchorRect, fallbackReferenceElement, referenceCallbackRef]); // If the reference element is in a different ownerDocument (e.g. iFrame),
+  }, [anchor, anchorRef, anchorRefTop, anchorRefBottom, anchorRefStartContainer, anchorRefCurrent, anchorRect, getAnchorRect, fallbackReferenceElement, referenceCallbackRef]); // If the reference element is in a different ownerDocument (e.g. iFrame),
   // we need to manually update the floating's position as the reference's owner
   // document scrolls. Also update the frame offset if the view resizes.
 
   (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
-    var _refs$floating, _refs$floating$curren2, _referenceOwnerDocume;
+    var _refs$floating$curren2, _referenceOwnerDocume;
 
     if ( // Reference and root documents are the same.
     referenceOwnerDocument === document || // Reference and floating are in the same document.
-    referenceOwnerDocument === (refs === null || refs === void 0 ? void 0 : (_refs$floating = refs.floating) === null || _refs$floating === void 0 ? void 0 : (_refs$floating$curren2 = _refs$floating.current) === null || _refs$floating$curren2 === void 0 ? void 0 : _refs$floating$curren2.ownerDocument) || // The reference's document has no view (i.e. window)
+    referenceOwnerDocument === ((_refs$floating$curren2 = refs.floating.current) === null || _refs$floating$curren2 === void 0 ? void 0 : _refs$floating$curren2.ownerDocument) || // The reference's document has no view (i.e. window)
     // or frame element (ie. it's not an iframe).
     !(referenceOwnerDocument !== null && referenceOwnerDocument !== void 0 && (_referenceOwnerDocume = referenceOwnerDocument.defaultView) !== null && _referenceOwnerDocume !== void 0 && _referenceOwnerDocume.frameElement)) {
       frameOffsetRef.current = undefined;
@@ -20620,7 +20641,7 @@ const UnforwardedPopover = (props, forwardedRef) => {
     return () => {
       defaultView.removeEventListener('resize', updateFrameOffset);
     };
-  }, [referenceOwnerDocument, update]);
+  }, [referenceOwnerDocument, update, refs.floating]);
   const mergedFloatingRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([floating, dialogRef, forwardedRef]); // Disable reason: We care to capture the _bubbled_ events from inputs
   // within popover as inferring close intent.
 
@@ -21467,11 +21488,12 @@ const ALERT = {
 }; // Matches @wordpress/base-styles
 
 const ADMIN = {
-  theme: 'var( --wp-admin-theme-color, #007cba)',
-  themeDark10: 'var( --wp-admin-theme-color-darker-10, #006ba1)'
+  theme: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))',
+  themeDark10: 'var(--wp-components-color-accent-darker-10, var(--wp-admin-theme-color-darker-10, #006ba1))'
 };
 const UI = {
   theme: ADMIN.theme,
+  themeDark10: ADMIN.themeDark10,
   background: white,
   backgroundDisabled: GRAY[100],
   border: GRAY[700],
@@ -23903,7 +23925,6 @@ function useFlex(props) {
   const directionAsArray = Array.isArray(directionProp) ? directionProp : [directionProp];
   const direction = useResponsiveValue(directionAsArray);
   const isColumn = typeof direction === 'string' && !!direction.includes('column');
-  const isReverse = typeof direction === 'string' && direction.includes('reverse');
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
     const base = /*#__PURE__*/emotion_react_browser_esm_css({
@@ -23916,7 +23937,7 @@ function useFlex(props) {
       width: !isColumn && expanded ? '100%' : undefined
     },  true ? "" : 0,  true ? "" : 0);
     return cx(Flex, base, isColumn ? ItemsColumn : ItemsRow, className);
-  }, [align, className, cx, direction, expanded, gap, isColumn, isReverse, justify, wrap]);
+  }, [align, className, cx, direction, expanded, gap, isColumn, justify, wrap]);
   return { ...otherProps,
     className: classes,
     isColumn
@@ -29125,6 +29146,7 @@ function getAngle(centerX, centerY, pointX, pointY) {
 
 
 
+
 function AnglePickerControl(_ref) {
   let {
     /** Start opting into the new margin-free styles that will become the default in a future version. */
@@ -29168,7 +29190,7 @@ function AnglePickerControl(_ref) {
       marginBottom: 0,
       marginRight: space(3),
       style: {
-        color: 'var( --wp-admin-theme-color )'
+        color: COLORS.ui.theme
       }
     }, "\xB0")
   })), (0,external_wp_element_namespaceObject.createElement)(flex_item_component, {
@@ -29638,7 +29660,7 @@ function useAutocomplete(_ref) {
   }
 
   function handleKeyDown(event) {
-    backspacing.current = event.code === 'Backspace';
+    backspacing.current = event.key === 'Backspace';
 
     if (!autocompleter) {
       return;
@@ -29648,11 +29670,15 @@ function useAutocomplete(_ref) {
       return;
     }
 
-    if (event.defaultPrevented) {
+    if (event.defaultPrevented || // Ignore keydowns from IMEs
+    event.isComposing || // Workaround for Mac Safari where the final Enter/Backspace of an IME composition
+    // is `isComposing=false`, even though it's technically still part of the composition.
+    // These can only be detected by keyCode.
+    event.keyCode === 229) {
       return;
     }
 
-    switch (event.code) {
+    switch (event.key) {
       case 'ArrowUp':
         setSelectedIndex((selectedIndex === 0 ? filteredOptions.length : selectedIndex) - 1);
         break;
@@ -31288,20 +31314,20 @@ const range_control_styles_Root = emotion_styled_base_browser_esm("div",  true ?
   styles: "-webkit-tap-highlight-color:transparent;align-items:flex-start;display:flex;justify-content:flex-start;padding:0;position:relative;touch-action:none;width:100%"
 } : 0);
 
-const wrapperColor = _ref4 => {
+const wrapperColor = _ref3 => {
   let {
     color = COLORS.ui.borderFocus
-  } = _ref4;
+  } = _ref3;
   return /*#__PURE__*/emotion_react_browser_esm_css({
     color
   },  true ? "" : 0,  true ? "" : 0);
 };
 
-const wrapperMargin = _ref5 => {
+const wrapperMargin = _ref4 => {
   let {
     marks,
     __nextHasNoMarginBottom
-  } = _ref5;
+  } = _ref4;
 
   if (!__nextHasNoMarginBottom) {
     return /*#__PURE__*/emotion_react_browser_esm_css({
@@ -31326,11 +31352,11 @@ const AfterIconWrapper = emotion_styled_base_browser_esm("span",  true ? {
   marginLeft: 6
 }), ";" + ( true ? "" : 0));
 
-const railBackgroundColor = _ref6 => {
+const railBackgroundColor = _ref5 => {
   let {
     disabled,
     railColor
-  } = _ref6;
+  } = _ref5;
   let background = railColor || '';
 
   if (disabled) {
@@ -31346,11 +31372,11 @@ const Rail = emotion_styled_base_browser_esm("span",  true ? {
   target: "e1epgpqk10"
 } : 0)("background-color:", COLORS.gray[300], ";left:0;pointer-events:none;right:0;display:block;height:", railHeight, "px;position:absolute;margin-top:", (rangeHeightValue - railHeight) / 2, "px;top:0;border-radius:", railHeight, "px;", railBackgroundColor, ";" + ( true ? "" : 0));
 
-const trackBackgroundColor = _ref7 => {
+const trackBackgroundColor = _ref6 => {
   let {
     disabled,
     trackColor
-  } = _ref7;
+  } = _ref6;
   let background = trackColor || 'currentColor';
 
   if (disabled) {
@@ -31372,11 +31398,11 @@ const MarksWrapper = emotion_styled_base_browser_esm("span",  true ? {
   styles: "display:block;pointer-events:none;position:relative;width:100%;user-select:none"
 } : 0);
 
-const markFill = _ref8 => {
+const markFill = _ref7 => {
   let {
     disabled,
     isFilled
-  } = _ref8;
+  } = _ref7;
   let backgroundColor = isFilled ? 'currentColor' : COLORS.gray[300];
 
   if (disabled) {
@@ -31392,10 +31418,10 @@ const Mark = emotion_styled_base_browser_esm("span",  true ? {
   target: "e1epgpqk7"
 } : 0)("height:", thumbSize, "px;left:0;position:absolute;top:-4px;width:1px;", markFill, ";" + ( true ? "" : 0));
 
-const markLabelFill = _ref9 => {
+const markLabelFill = _ref8 => {
   let {
     isFilled
-  } = _ref9;
+  } = _ref8;
   return /*#__PURE__*/emotion_react_browser_esm_css({
     color: isFilled ? COLORS.gray[700] : COLORS.gray[300]
   },  true ? "" : 0,  true ? "" : 0);
@@ -31405,16 +31431,11 @@ const MarkLabel = emotion_styled_base_browser_esm("span",  true ? {
   target: "e1epgpqk6"
 } : 0)("color:", COLORS.gray[300], ";left:0;font-size:11px;position:absolute;top:12px;transform:translateX( -50% );white-space:nowrap;", markLabelFill, ";" + ( true ? "" : 0));
 
-var _ref3 =  true ? {
-  name: "1sb75b3",
-  styles: "background-color:var( --wp-admin-theme-color )"
-} : 0;
-
-const thumbColor = _ref10 => {
+const thumbColor = _ref9 => {
   let {
     disabled
-  } = _ref10;
-  return disabled ? /*#__PURE__*/emotion_react_browser_esm_css("background-color:", COLORS.gray[400], ";" + ( true ? "" : 0),  true ? "" : 0) : _ref3;
+  } = _ref9;
+  return disabled ? /*#__PURE__*/emotion_react_browser_esm_css("background-color:", COLORS.gray[400], ";" + ( true ? "" : 0),  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css("background-color:", COLORS.ui.theme, ";" + ( true ? "" : 0),  true ? "" : 0);
 };
 
 const ThumbWrapper = emotion_styled_base_browser_esm("span",  true ? {
@@ -31427,11 +31448,11 @@ const ThumbWrapper = emotion_styled_base_browser_esm("span",  true ? {
   transform: 'translateX( -4.5px )'
 }), ";" + ( true ? "" : 0));
 
-const thumbFocus = _ref11 => {
+const thumbFocus = _ref10 => {
   let {
     isFocused
-  } = _ref11;
-  return isFocused ? /*#__PURE__*/emotion_react_browser_esm_css("&::before{content:' ';position:absolute;background-color:var( --wp-admin-theme-color );opacity:0.4;border-radius:50%;height:", thumbSize + 8, "px;width:", thumbSize + 8, "px;top:-4px;left:-4px;}" + ( true ? "" : 0),  true ? "" : 0) : '';
+  } = _ref10;
+  return isFocused ? /*#__PURE__*/emotion_react_browser_esm_css("&::before{content:' ';position:absolute;background-color:", COLORS.ui.theme, ";opacity:0.4;border-radius:50%;height:", thumbSize + 8, "px;width:", thumbSize + 8, "px;top:-4px;left:-4px;}" + ( true ? "" : 0),  true ? "" : 0) : '';
 };
 
 const Thumb = emotion_styled_base_browser_esm("span",  true ? {
@@ -31441,10 +31462,10 @@ const InputRange = emotion_styled_base_browser_esm("input",  true ? {
   target: "e1epgpqk3"
 } : 0)("box-sizing:border-box;cursor:pointer;display:block;height:100%;left:0;margin:0 -", thumbSize / 2, "px;opacity:0;outline:none;position:absolute;right:0;top:0;width:calc( 100% + ", thumbSize, "px );" + ( true ? "" : 0));
 
-const tooltipShow = _ref12 => {
+const tooltipShow = _ref11 => {
   let {
     show
-  } = _ref12;
+  } = _ref11;
   return /*#__PURE__*/emotion_react_browser_esm_css({
     opacity: show ? 1 : 0
   },  true ? "" : 0,  true ? "" : 0);
@@ -31460,10 +31481,10 @@ var range_control_styles_ref2 =  true ? {
   styles: "bottom:-80%"
 } : 0;
 
-const tooltipPosition = _ref13 => {
+const tooltipPosition = _ref12 => {
   let {
     position
-  } = _ref13;
+  } = _ref12;
   const isBottom = position === 'bottom';
 
   if (isBottom) {
@@ -35078,6 +35099,21 @@ const InputWithSlider = _ref => {
     onChange,
     value
   } = _ref;
+
+  const onNumberControlChange = newValue => {
+    if (!newValue) {
+      onChange(0);
+      return;
+    }
+
+    if (typeof newValue === 'string') {
+      onChange(parseInt(newValue, 10));
+      return;
+    }
+
+    onChange(newValue);
+  };
+
   return (0,external_wp_element_namespaceObject.createElement)(h_stack_component, {
     spacing: 4
   }, (0,external_wp_element_namespaceObject.createElement)(NumberControlWrapper, {
@@ -35085,9 +35121,8 @@ const InputWithSlider = _ref => {
     max: max,
     label: label,
     hideLabelFromVision: true,
-    value: value // @ts-expect-error TODO: Resolve discrepancy in NumberControl
-    ,
-    onChange: onChange,
+    value: value,
+    onChange: onNumberControlChange,
     prefix: (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
       as: text_component,
       paddingLeft: space(4),
@@ -36204,7 +36239,7 @@ function UnforwardedColorPalette(props, forwardedRef) {
     clearable = true,
     colors = [],
     disableCustomColors = false,
-    enableAlpha,
+    enableAlpha = false,
     onChange,
     value,
     __experimentalHasMultipleOrigins = false,
@@ -36634,10 +36669,14 @@ function useBorderControlDropdown(props) {
   const {
     border,
     className,
-    colors,
+    colors = [],
+    enableAlpha = false,
+    enableStyle = true,
     onChange,
     previousStyleSelection,
     size = 'default',
+    __experimentalHasMultipleOrigins = false,
+    __experimentalIsRenderedInSidebar = false,
     ...otherProps
   } = useContextSystem(props, 'BorderControlDropdown');
   const [widthValue] = parseQuantityAndUnitFromRawValue(border === null || border === void 0 ? void 0 : border.width);
@@ -36692,6 +36731,8 @@ function useBorderControlDropdown(props) {
     border,
     className: classes,
     colors,
+    enableAlpha,
+    enableStyle,
     indicatorClassName,
     indicatorWrapperClassName,
     onColorChange,
@@ -36699,7 +36740,9 @@ function useBorderControlDropdown(props) {
     onReset,
     popoverContentClassName,
     popoverControlsClassName,
-    resetButtonClassName
+    resetButtonClassName,
+    __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar
   };
 }
 
@@ -36793,6 +36836,7 @@ const BorderControlDropdown = (props, forwardedRef) => {
     colors,
     disableCustomColors,
     enableAlpha,
+    enableStyle,
     indicatorClassName,
     indicatorWrapperClassName,
     onReset,
@@ -36802,7 +36846,6 @@ const BorderControlDropdown = (props, forwardedRef) => {
     popoverControlsClassName,
     resetButtonClassName,
     showDropdownHeader,
-    enableStyle = true,
     __unstablePopoverProps,
     ...otherProps
   } = useBorderControlDropdown(props);
@@ -37216,12 +37259,17 @@ const sanitizeBorder = border => {
 function useBorderControl(props) {
   const {
     className,
+    colors = [],
     isCompact,
     onChange,
+    enableAlpha = true,
+    enableStyle = true,
     shouldSanitizeBorder = true,
     size = 'default',
     value: border,
     width,
+    __experimentalHasMultipleOrigins = false,
+    __experimentalIsRenderedInSidebar = false,
     ...otherProps
   } = useContextSystem(props, 'BorderControl');
   const [widthValue, originalWidthUnit] = parseQuantityAndUnitFromRawValue(border === null || border === void 0 ? void 0 : border.width);
@@ -37297,6 +37345,9 @@ function useBorderControl(props) {
   }, [cx]);
   return { ...otherProps,
     className: classes,
+    colors,
+    enableAlpha,
+    enableStyle,
     innerWrapperClassName,
     inputWidth: wrapperWidth,
     onBorderChange,
@@ -37307,7 +37358,9 @@ function useBorderControl(props) {
     value: border,
     widthUnit,
     widthValue,
-    size
+    size,
+    __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar
   };
 }
 
@@ -37356,7 +37409,7 @@ const UnconnectedBorderControl = (props, forwardedRef) => {
     disableCustomColors,
     disableUnits,
     enableAlpha,
-    enableStyle = true,
+    enableStyle,
     hideLabelFromVision,
     innerWrapperClassName,
     inputWidth,
@@ -37368,7 +37421,7 @@ const UnconnectedBorderControl = (props, forwardedRef) => {
     __unstablePopoverProps,
     previousStyleSelection,
     showDropdownHeader,
-    size = 'default',
+    size,
     sliderClassName,
     value: border,
     widthUnit,
@@ -37642,7 +37695,12 @@ const Grid = contextConnect(UnconnectedGrid, 'Grid');
 function useBorderBoxControlSplitControls(props) {
   const {
     className,
+    colors = [],
+    enableAlpha = false,
+    enableStyle = true,
     size = 'default',
+    __experimentalHasMultipleOrigins = false,
+    __experimentalIsRenderedInSidebar = false,
     ...otherProps
   } = useContextSystem(props, 'BorderBoxControlSplitControls'); // Generate class names.
 
@@ -37659,8 +37717,13 @@ function useBorderBoxControlSplitControls(props) {
   return { ...otherProps,
     centeredClassName,
     className: classes,
+    colors,
+    enableAlpha,
+    enableStyle,
     rightAlignedClassName,
-    size
+    size,
+    __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar
   };
 }
 
@@ -37976,8 +38039,14 @@ function mode(values) {
 function useBorderBoxControl(props) {
   const {
     className,
+    colors = [],
     onChange,
+    enableAlpha = false,
+    enableStyle = true,
+    size = 'default',
     value,
+    __experimentalHasMultipleOrigins = false,
+    __experimentalIsRenderedInSidebar = false,
     ...otherProps
   } = useContextSystem(props, 'BorderBoxControl');
   const mixedBorders = hasMixedBorders(value);
@@ -38052,7 +38121,10 @@ function useBorderBoxControl(props) {
   }, [cx]);
   return { ...otherProps,
     className: classes,
+    colors,
     disableUnits: mixedBorders && !hasWidthValue,
+    enableAlpha,
+    enableStyle,
     hasMixedBorders: mixedBorders,
     isLinked,
     linkedControlClassName,
@@ -38060,8 +38132,11 @@ function useBorderBoxControl(props) {
     onSplitChange,
     toggleLinked,
     linkedValue,
+    size,
     splitValue,
-    wrapperClassName
+    wrapperClassName,
+    __experimentalHasMultipleOrigins,
+    __experimentalIsRenderedInSidebar
   };
 }
 
@@ -38121,7 +38196,7 @@ const UnconnectedBorderBoxControl = (props, forwardedRef) => {
     onSplitChange,
     popoverPlacement,
     popoverOffset,
-    size = 'default',
+    size,
     splitValue,
     toggleLinked,
     wrapperClassName,
@@ -42592,7 +42667,9 @@ function PaletteEditListView(_ref4) {
         const newElements = elementsReference.current.filter(element => !isTemporaryElement(slugPrefix, element));
         onChange(newElements.length ? newElements : undefined);
       }
-    };
+    }; // Disable reason: adding the missing dependency here would cause breaking changes that will require
+    // a heavier refactor to avoid. See https://github.com/WordPress/gutenberg/pull/43911
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const debounceOnChange = (0,external_wp_compose_namespaceObject.useDebounce)(onChange, 100);
   return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
@@ -47814,7 +47891,8 @@ function CustomSelectControl(props) {
     size = 'default',
     value: _selectedItem,
     onMouseOver,
-    onMouseOut
+    onMouseOut,
+    __experimentalShowSelectedHint = false
   } = props;
   const {
     getLabelProps,
@@ -47902,7 +47980,9 @@ function CustomSelectControl(props) {
     'aria-labelledby': undefined,
     className: 'components-custom-select-control__button',
     describedBy: getDescribedBy()
-  })), custom_select_control_itemToString(selectedItem))), (0,external_wp_element_namespaceObject.createElement)("ul", extends_extends({}, menuProps, {
+  })), custom_select_control_itemToString(selectedItem), __experimentalShowSelectedHint && selectedItem.__experimentalHint && (0,external_wp_element_namespaceObject.createElement)("span", {
+    className: "components-custom-select-control__hint"
+  }, selectedItem.__experimentalHint))), (0,external_wp_element_namespaceObject.createElement)("ul", extends_extends({}, menuProps, {
     onKeyDown: onKeyDownHandler
   }), isOpen && items.map((item, index) => // eslint-disable-next-line react/jsx-key
   (0,external_wp_element_namespaceObject.createElement)("li", getItemProps({
@@ -53312,36 +53392,60 @@ Disabled.Consumer = Consumer;
 
 
 /**
+ * External dependencies
+ */
+
+/**
  * WordPress dependencies
  */
 
+
+/**
+ * Internal dependencies
+ */
 
 const dragImageClass = 'components-draggable__invisible-drag-image';
 const cloneWrapperClass = 'components-draggable__clone';
 const clonePadding = 0;
 const bodyClass = 'is-dragging-components-draggable';
 /**
- * @typedef RenderProp
- * @property {(event: import('react').DragEvent) => void} onDraggableStart `onDragStart` handler.
- * @property {(event: import('react').DragEvent) => void} onDraggableEnd   `onDragEnd` handler.
- */
-
-/**
- * @typedef Props
- * @property {(props: RenderProp) => JSX.Element | null}  children                         Children.
- * @property {(event: import('react').DragEvent) => void} [onDragStart]                    Callback when dragging starts.
- * @property {(event: import('react').DragEvent) => void} [onDragOver]                     Callback when dragging happens over the document.
- * @property {(event: import('react').DragEvent) => void} [onDragEnd]                      Callback when dragging ends.
- * @property {string}                                     [cloneClassname]                 Classname for the cloned element.
- * @property {string}                                     [elementId]                      ID for the element.
- * @property {any}                                        [transferData]                   Transfer data for the drag event.
- * @property {string}                                     [__experimentalTransferDataType] The transfer data type to set.
- * @property {import('react').ReactNode}                  __experimentalDragComponent      Component to show when dragging.
- */
-
-/**
- * @param {Props} props
- * @return {JSX.Element} A draggable component.
+ * `Draggable` is a Component that provides a way to set up a cross-browser
+ * (including IE) customizable drag image and the transfer data for the drag
+ * event. It decouples the drag handle and the element to drag: use it by
+ * wrapping the component that will become the drag handle and providing the DOM
+ * ID of the element to drag.
+ *
+ * Note that the drag handle needs to declare the `draggable="true"` property
+ * and bind the `Draggable`s `onDraggableStart` and `onDraggableEnd` event
+ * handlers to its own `onDragStart` and `onDragEnd` respectively. `Draggable`
+ * takes care of the logic to setup the drag image and the transfer data, but is
+ * not concerned with creating an actual DOM element that is draggable.
+ *
+ * ```jsx
+ * import { Draggable, Panel, PanelBody } from '@wordpress/components';
+ * import { Icon, more } from '@wordpress/icons';
+ *
+ * const MyDraggable = () => (
+ *   <div id="draggable-panel">
+ *     <Panel header="Draggable panel">
+ *       <PanelBody>
+ *         <Draggable elementId="draggable-panel" transferData={ {} }>
+ *           { ( { onDraggableStart, onDraggableEnd } ) => (
+ *             <div
+ *               className="example-drag-handle"
+ *               draggable
+ *               onDragStart={ onDraggableStart }
+ *               onDragEnd={ onDraggableEnd }
+ *             >
+ *               <Icon icon={ more } />
+ *             </div>
+ *           ) }
+ *         </Draggable>
+ *       </PanelBody>
+ *     </Panel>
+ *   </div>
+ * );
+ * ```
  */
 
 function Draggable(_ref) {
@@ -53356,14 +53460,12 @@ function Draggable(_ref) {
     __experimentalTransferDataType: transferDataType = 'text',
     __experimentalDragComponent: dragComponent
   } = _ref;
-
-  /** @type {import('react').MutableRefObject<HTMLDivElement | null>} */
   const dragComponentRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const cleanup = (0,external_wp_element_namespaceObject.useRef)(() => {});
   /**
    * Removes the element clone, resets cursor, and removes drag listener.
    *
-   * @param {import('react').DragEvent} event The non-custom DragEvent.
+   * @param  event The non-custom DragEvent.
    */
 
   function end(event) {
@@ -53382,20 +53484,19 @@ function Draggable(_ref) {
    * - Sets transfer data.
    * - Adds dragover listener.
    *
-   * @param {import('react').DragEvent} event The non-custom DragEvent.
+   * @param  event The non-custom DragEvent.
    */
 
 
   function start(event) {
-    // @ts-ignore We know that ownerDocument does exist on an Element
     const {
       ownerDocument
     } = event.target;
     event.dataTransfer.setData(transferDataType, JSON.stringify(transferData));
     const cloneWrapper = ownerDocument.createElement('div'); // Reset position to 0,0. Natural stacking order will position this lower, even with a transform otherwise.
 
-    cloneWrapper.style.top = 0;
-    cloneWrapper.style.left = 0;
+    cloneWrapper.style.top = '0';
+    cloneWrapper.style.left = '0';
     const dragImage = ownerDocument.createElement('div'); // Set a fake drag image to avoid browser defaults. Remove from DOM
     // right after. event.dataTransfer.setDragImage is not supported yet in
     // IE, we need to check for its existence first.
@@ -53431,8 +53532,8 @@ function Draggable(_ref) {
 
       const elementRect = element.getBoundingClientRect();
       const elementWrapper = element.parentNode;
-      const elementTopOffset = parseInt(elementRect.top, 10);
-      const elementLeftOffset = parseInt(elementRect.left, 10);
+      const elementTopOffset = elementRect.top;
+      const elementLeftOffset = elementRect.left;
       cloneWrapper.style.width = `${elementRect.width + clonePadding * 2}px`;
       const clone = element.cloneNode(true);
       clone.id = `clone-${elementId}`; // Position clone right over the original element (20px padding).
@@ -53441,18 +53542,19 @@ function Draggable(_ref) {
       y = elementTopOffset - clonePadding;
       cloneWrapper.style.transform = `translate( ${x}px, ${y}px )`; // Hack: Remove iFrames as it's causing the embeds drag clone to freeze.
 
-      Array.from(clone.querySelectorAll('iframe')).forEach(child => child.parentNode.removeChild(child));
+      Array.from(clone.querySelectorAll('iframe')).forEach(child => {
+        var _child$parentNode;
+
+        return (_child$parentNode = child.parentNode) === null || _child$parentNode === void 0 ? void 0 : _child$parentNode.removeChild(child);
+      });
       cloneWrapper.appendChild(clone); // Inject the cloneWrapper into the DOM.
 
-      elementWrapper.appendChild(cloneWrapper);
+      elementWrapper === null || elementWrapper === void 0 ? void 0 : elementWrapper.appendChild(cloneWrapper);
     } // Mark the current cursor coordinates.
 
 
     let cursorLeft = event.clientX;
     let cursorTop = event.clientY;
-    /**
-     * @param {import('react').DragEvent<Element>} e
-     */
 
     function over(e) {
       // Skip doing any work if mouse has not moved.
@@ -53483,8 +53585,6 @@ function Draggable(_ref) {
     // https://reactjs.org/docs/events.html#event-pooling
 
     event.persist();
-    /** @type {number | undefined} */
-
     let timerId;
 
     if (onDragStart) {
@@ -53522,6 +53622,7 @@ function Draggable(_ref) {
     ref: dragComponentRef
   }, dragComponent));
 }
+/* harmony default export */ const draggable = (Draggable);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/upload.js
 
@@ -54695,44 +54796,17 @@ function FocalPointUnitControl(props) {
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/styles/focal-point-style.js
 
 
-function focal_point_style_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
-
 /**
  * External dependencies
  */
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-const FocalPointWrapper = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e19snlhg3"
-} : 0)("background-color:transparent;cursor:grab;height:30px;margin:-15px 0 0 -15px;opacity:0.8;position:absolute;user-select:none;width:30px;will-change:transform;z-index:10000;", _ref => {
+const PointerCircle = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e19snlhg0"
+} : 0)("background-color:transparent;cursor:grab;height:48px;margin:-24px 0 0 -24px;position:absolute;user-select:none;width:48px;will-change:transform;z-index:10000;background:rgba( 255, 255, 255, 0.6 );border-radius:50%;backdrop-filter:blur( 4px );box-shadow:rgb( 0 0 0 / 20% ) 0px 0px 10px;", _ref => {
   let {
     isDragging
   } = _ref;
   return isDragging && 'cursor: grabbing;';
 }, ";" + ( true ? "" : 0));
-const PointerIconSVG = /*#__PURE__*/emotion_styled_base_browser_esm(external_wp_primitives_namespaceObject.SVG,  true ? {
-  target: "e19snlhg2"
-} : 0)( true ? {
-  name: "qkx60y",
-  styles: "display:block;height:100%;left:0;position:absolute;top:0;width:100%"
-} : 0);
-const PointerIconPathOutline = /*#__PURE__*/emotion_styled_base_browser_esm(external_wp_primitives_namespaceObject.Path,  true ? {
-  target: "e19snlhg1"
-} : 0)( true ? {
-  name: "1b3qpiw",
-  styles: "fill:white"
-} : 0);
-const PointerIconPathFill = /*#__PURE__*/emotion_styled_base_browser_esm(external_wp_primitives_namespaceObject.Path,  true ? {
-  target: "e19snlhg0"
-} : 0)("fill:", COLORS.ui.theme, ";" + ( true ? "" : 0));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/focal-point.js
 
@@ -54758,20 +54832,10 @@ function FocalPoint(_ref) {
     left,
     top
   };
-  return (0,external_wp_element_namespaceObject.createElement)(FocalPointWrapper, extends_extends({}, props, {
+  return (0,external_wp_element_namespaceObject.createElement)(PointerCircle, extends_extends({}, props, {
     className: classes,
     style: style
-  }), (0,external_wp_element_namespaceObject.createElement)(PointerIconSVG, {
-    className: "components-focal-point-picker__icon",
-    xmlns: "http://www.w3.org/2000/svg",
-    viewBox: "0 0 30 30"
-  }, (0,external_wp_element_namespaceObject.createElement)(PointerIconPathOutline, {
-    className: "components-focal-point-picker__icon-outline",
-    d: "M15 1C7.3 1 1 7.3 1 15s6.3 14 14 14 14-6.3 14-14S22.7 1 15 1zm0 22c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8z"
-  }), (0,external_wp_element_namespaceObject.createElement)(PointerIconPathFill, {
-    className: "components-focal-point-picker__icon-fill",
-    d: "M15 3C8.4 3 3 8.4 3 15s5.4 12 12 12 12-5.4 12-12S21.6 3 15 3zm0 22C9.5 25 5 20.5 5 15S9.5 5 15 5s10 4.5 10 10-4.5 10-10 10z"
-  })));
+  }));
 }
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/focal-point-picker/grid.js
@@ -55184,6 +55248,169 @@ const settings = (0,external_wp_element_namespaceObject.createElement)(external_
 }));
 /* harmony default export */ const library_settings = (settings);
 
+;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/utils.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Some themes use css vars for their font sizes, so until we
+ * have the way of calculating them don't display them.
+ *
+ * @param  value The value that is checked.
+ * @return Whether the value is a simple css value.
+ */
+
+function isSimpleCssValue(value) {
+  const sizeRegex = /^[\d\.]+(px|em|rem|vw|vh|%)?$/i;
+  return sizeRegex.test(String(value));
+}
+/**
+ * If all of the given font sizes have the same unit (e.g. 'px'), return that
+ * unit. Otherwise return null.
+ *
+ * @param  fontSizes List of font sizes.
+ * @return The common unit, or null.
+ */
+
+function getCommonSizeUnit(fontSizes) {
+  const [firstFontSize, ...otherFontSizes] = fontSizes;
+
+  if (!firstFontSize) {
+    return null;
+  }
+
+  const [, firstUnit] = parseQuantityAndUnitFromRawValue(firstFontSize.size);
+  const areAllSizesSameUnit = otherFontSizes.every(fontSize => {
+    const [, unit] = parseQuantityAndUnitFromRawValue(fontSize.size);
+    return unit === firstUnit;
+  });
+  return areAllSizesSameUnit ? firstUnit : null;
+}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/styles.js
+
+
+function font_size_picker_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+const styles_Container = emotion_styled_base_browser_esm("fieldset",  true ? {
+  target: "e8tqeku4"
+} : 0)( true ? {
+  name: "1t1ytme",
+  styles: "border:0;margin:0;padding:0"
+} : 0);
+const HeaderLabel = /*#__PURE__*/emotion_styled_base_browser_esm(base_control.VisualLabel,  true ? {
+  target: "e8tqeku3"
+} : 0)("display:flex;gap:", space(1), ";justify-content:flex-start;margin-bottom:0;" + ( true ? "" : 0));
+const HeaderHint = emotion_styled_base_browser_esm("span",  true ? {
+  target: "e8tqeku2"
+} : 0)("color:", COLORS.gray[700], ";" + ( true ? "" : 0));
+const Controls = emotion_styled_base_browser_esm("div",  true ? {
+  target: "e8tqeku1"
+} : 0)(props => !props.__nextHasNoMarginBottom && `margin-bottom: ${space(6)};`, ";" + ( true ? "" : 0));
+const ResetButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
+  target: "e8tqeku0"
+} : 0)("&&&{height:", props => props.size === '__unstable-large' ? '40px' : '30px', ";}" + ( true ? "" : 0));
+
+;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/font-size-picker-select.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+const DEFAULT_OPTION = {
+  key: 'default',
+  name: (0,external_wp_i18n_namespaceObject.__)('Default'),
+  value: undefined
+};
+const CUSTOM_OPTION = {
+  key: 'custom',
+  name: (0,external_wp_i18n_namespaceObject.__)('Custom')
+};
+
+const FontSizePickerSelect = props => {
+  var _options$find;
+
+  const {
+    fontSizes,
+    value,
+    disableCustomFontSizes,
+    size,
+    onChange,
+    onSelectCustom
+  } = props;
+  const areAllSizesSameUnit = !!getCommonSizeUnit(fontSizes);
+  const options = [DEFAULT_OPTION, ...fontSizes.map(fontSize => {
+    let hint;
+
+    if (areAllSizesSameUnit) {
+      const [quantity] = parseQuantityAndUnitFromRawValue(fontSize.size);
+
+      if (quantity !== undefined) {
+        hint = String(quantity);
+      }
+    } else if (isSimpleCssValue(fontSize.size)) {
+      hint = String(fontSize.size);
+    }
+
+    return {
+      key: fontSize.slug,
+      name: fontSize.name || fontSize.slug,
+      value: fontSize.size,
+      __experimentalHint: hint
+    };
+  }), ...(disableCustomFontSizes ? [] : [CUSTOM_OPTION])];
+  const selectedOption = value ? (_options$find = options.find(option => option.value === value)) !== null && _options$find !== void 0 ? _options$find : CUSTOM_OPTION : DEFAULT_OPTION;
+  return (0,external_wp_element_namespaceObject.createElement)(CustomSelectControl, {
+    __nextUnconstrainedWidth: true,
+    className: "components-font-size-picker__select",
+    label: (0,external_wp_i18n_namespaceObject.__)('Font size'),
+    hideLabelFromVision: true,
+    describedBy: (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Currently selected font size.
+    (0,external_wp_i18n_namespaceObject.__)('Currently selected font size: %s'), selectedOption.name),
+    options: options,
+    value: selectedOption,
+    __experimentalShowSelectedHint: true,
+    onChange: _ref => {
+      let {
+        selectedItem
+      } = _ref;
+
+      if (selectedItem === CUSTOM_OPTION) {
+        onSelectCustom();
+      } else {
+        onChange(selectedItem.value);
+      }
+    },
+    size: size
+  });
+};
+
+/* harmony default export */ const font_size_picker_select = (FontSizePickerSelect);
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/toggle-group-control/toggle-group-control/styles.js
 
 
@@ -55200,12 +55427,18 @@ function toggle_group_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "
 
 const ToggleGroupControl = _ref => {
   let {
+    isBlock,
     isDeselectable,
     size
   } = _ref;
-  return /*#__PURE__*/emotion_react_browser_esm_css("background:", COLORS.ui.background, ";border:1px solid transparent;display:inline-flex;min-width:0;padding:2px;position:relative;transition:transform ", config_values.transitionDurationFastest, " linear;", reduceMotion('transition'), " ", toggleGroupControlSize(size), " ", !isDeselectable && enclosingBorder, ";" + ( true ? "" : 0),  true ? "" : 0);
+  return /*#__PURE__*/emotion_react_browser_esm_css("background:", COLORS.ui.background, ";border:1px solid transparent;border-radius:", config_values.controlBorderRadius, ";display:inline-flex;min-width:0;padding:2px;position:relative;transition:transform ", config_values.transitionDurationFastest, " linear;", reduceMotion('transition'), " ", toggleGroupControlSize(size), " ", !isDeselectable && enclosingBorders(isBlock), ";" + ( true ? "" : 0),  true ? "" : 0);
 };
-const enclosingBorder = /*#__PURE__*/emotion_react_browser_esm_css("border-color:", COLORS.ui.border, ";border-radius:", config_values.controlBorderRadius, ";&:hover{border-color:", COLORS.ui.borderHover, ";}&:focus-within{border-color:", COLORS.ui.borderFocus, ";box-shadow:", config_values.controlBoxShadowFocus, ";outline:none;z-index:1;}" + ( true ? "" : 0),  true ? "" : 0);
+
+const enclosingBorders = isBlock => {
+  const enclosingBorder = /*#__PURE__*/emotion_react_browser_esm_css("border-color:", COLORS.ui.border, ";" + ( true ? "" : 0),  true ? "" : 0);
+  return /*#__PURE__*/emotion_react_browser_esm_css(isBlock && enclosingBorder, " &:hover{border-color:", COLORS.ui.borderHover, ";}&:focus-within{border-color:", COLORS.ui.borderFocus, ";box-shadow:", config_values.controlBoxShadowFocus, ";outline:none;z-index:1;}" + ( true ? "" : 0),  true ? "" : 0);
+};
+
 const toggleGroupControlSize = size => {
   const heights = {
     default: '36px',
@@ -55625,6 +55858,7 @@ function UnconnectedToggleGroupControl(props, forwardedRef) {
   } = useContextSystem(props, 'ToggleGroupControl');
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(ToggleGroupControl({
+    isBlock,
     isDeselectable,
     size
   }), isBlock && toggle_group_control_styles_block, className), [className, cx, isBlock, isDeselectable, size]);
@@ -56089,32 +56323,19 @@ function UnforwardedToggleGroupControlOption(props, ref) {
 const ToggleGroupControlOption = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedToggleGroupControlOption);
 /* harmony default export */ const toggle_group_control_option_component = (ToggleGroupControlOption);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/utils.js
+;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/constants.js
 /**
  * WordPress dependencies
  */
 
 /**
- * Internal dependencies
+ * List of T-shirt abbreviations.
+ *
+ * When there are 5 font sizes or fewer, we assume that the font sizes are
+ * ordered by size and show T-shirt labels.
  */
 
-const DEFAULT_FONT_SIZE = 'default';
-const DEFAULT_FONT_SIZE_OPTION = {
-  slug: DEFAULT_FONT_SIZE,
-  name: (0,external_wp_i18n_namespaceObject.__)('Default')
-};
-const CUSTOM_FONT_SIZE = 'custom';
-const CUSTOM_FONT_SIZE_OPTION = {
-  slug: CUSTOM_FONT_SIZE,
-  name: (0,external_wp_i18n_namespaceObject.__)('Custom')
-};
-/**
- * In case we have at most five font sizes, show a `T-shirt size`
- * alias as a label of the font size. The label assumes that the font sizes
- * are ordered accordingly - from smallest to largest.
- */
-
-const FONT_SIZES_ALIASES = [
+const T_SHIRT_ABBREVIATIONS = [
 /* translators: S stands for 'small' and is a size label. */
 (0,external_wp_i18n_namespaceObject.__)('S'),
 /* translators: M stands for 'medium' and is a size label. */
@@ -56126,91 +56347,19 @@ const FONT_SIZES_ALIASES = [
 /* translators: XXL stands for 'extra extra large' and is a size label. */
 (0,external_wp_i18n_namespaceObject.__)('XXL')];
 /**
- * Some themes use css vars for their font sizes, so until we
- * have the way of calculating them don't display them.
+ * List of T-shirt names.
  *
- * @param  value The value that is checked.
- * @return Whether the value is a simple css value.
+ * When there are 5 font sizes or fewer, we assume that the font sizes are
+ * ordered by size and show T-shirt labels.
  */
 
-function isSimpleCssValue(value) {
-  const sizeRegex = /^[\d\.]+(px|em|rem|vw|vh|%)?$/i;
-  return sizeRegex.test(String(value));
-}
-/**
- * Return font size options in the proper format depending
- * on the currently used control (select, toggle group).
- *
- * @param  useSelectControl       Whether to use a select control.
- * @param  optionsArray           Array of available font sizes objects.
- * @param  disableCustomFontSizes Flag that indicates if custom font sizes are disabled.
- * @return Array of font sizes in proper format for the used control.
- */
+const T_SHIRT_NAMES = [(0,external_wp_i18n_namespaceObject.__)('Small'), (0,external_wp_i18n_namespaceObject.__)('Medium'), (0,external_wp_i18n_namespaceObject.__)('Large'), (0,external_wp_i18n_namespaceObject.__)('Extra Large'), (0,external_wp_i18n_namespaceObject.__)('Extra Extra Large')];
 
-function getFontSizeOptions(useSelectControl, optionsArray, disableCustomFontSizes) {
-  if (disableCustomFontSizes && !optionsArray.length) {
-    return null;
-  }
+;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/font-size-picker-toggle-group.js
 
-  return useSelectControl ? getSelectOptions(optionsArray, disableCustomFontSizes) : getToggleGroupOptions(optionsArray);
-}
-
-function getSelectOptions(optionsArray, disableCustomFontSizes) {
-  const options = [DEFAULT_FONT_SIZE_OPTION, ...optionsArray, ...(disableCustomFontSizes ? [] : [CUSTOM_FONT_SIZE_OPTION])];
-  return options.map(_ref => {
-    let {
-      slug,
-      name,
-      size
-    } = _ref;
-    return {
-      key: slug,
-      name: name || slug,
-      size,
-      __experimentalHint: size && isSimpleCssValue(size) && parseFloat(String(size))
-    };
-  });
-}
-/**
- * Build options for the toggle group options.
- *
- * @param  optionsArray An array of font size options.
- * @param  labelAliases An array of alternative labels.
- * @return Remapped optionsArray.
- */
-
-
-function getToggleGroupOptions(optionsArray) {
-  let labelAliases = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : FONT_SIZES_ALIASES;
-  return optionsArray.map((_ref2, index) => {
-    let {
-      slug,
-      size,
-      name
-    } = _ref2;
-    return {
-      key: slug,
-      value: size,
-      label: labelAliases[index],
-      name: name || labelAliases[index]
-    };
-  });
-}
-function getSelectedOption(fontSizes, value) {
-  if (!value) {
-    return DEFAULT_FONT_SIZE_OPTION;
-  }
-
-  return fontSizes.find(font => font.size === value) || CUSTOM_FONT_SIZE_OPTION;
-}
-
-;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/styles.js
-
-
-function font_size_picker_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
 
 /**
- * External dependencies
+ * WordPress dependencies
  */
 
 /**
@@ -56220,24 +56369,32 @@ function font_size_picker_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You 
 
 
 
-const styles_Container = emotion_styled_base_browser_esm("fieldset",  true ? {
-  target: "e8tqeku4"
-} : 0)( true ? {
-  name: "1t1ytme",
-  styles: "border:0;margin:0;padding:0"
-} : 0);
-const HeaderLabel = /*#__PURE__*/emotion_styled_base_browser_esm(base_control.VisualLabel,  true ? {
-  target: "e8tqeku3"
-} : 0)("display:flex;gap:", space(1), ";justify-content:flex-start;margin-bottom:0;" + ( true ? "" : 0));
-const HeaderHint = emotion_styled_base_browser_esm("span",  true ? {
-  target: "e8tqeku2"
-} : 0)("color:", COLORS.gray[700], ";" + ( true ? "" : 0));
-const Controls = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e8tqeku1"
-} : 0)(props => !props.__nextHasNoMarginBottom && `margin-bottom: ${space(6)};`, ";" + ( true ? "" : 0));
-const ResetButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
-  target: "e8tqeku0"
-} : 0)("&&&{height:", props => props.size === '__unstable-large' ? '40px' : '30px', ";}" + ( true ? "" : 0));
+const FontSizePickerToggleGroup = props => {
+  const {
+    fontSizes,
+    value,
+    __nextHasNoMarginBottom,
+    size,
+    onChange
+  } = props;
+  return (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_component, {
+    __nextHasNoMarginBottom: __nextHasNoMarginBottom,
+    label: (0,external_wp_i18n_namespaceObject.__)('Font size'),
+    hideLabelFromVision: true,
+    value: value,
+    onChange: onChange,
+    isBlock: true,
+    size: size
+  }, fontSizes.map((fontSize, index) => (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_option_component, {
+    key: fontSize.slug,
+    value: fontSize.size,
+    label: T_SHIRT_ABBREVIATIONS[index],
+    "aria-label": fontSize.name || T_SHIRT_NAMES[index],
+    showTooltip: true
+  })));
+};
+
+/* harmony default export */ const font_size_picker_toggle_group = (FontSizePickerToggleGroup);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/font-size-picker/index.js
 
@@ -56256,6 +56413,7 @@ const ResetButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_bu
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -56296,58 +56454,38 @@ const UnforwardedFontSizePicker = (props, ref) => {
   const units = useCustomUnits({
     availableUnits: ['px', 'em', 'rem']
   });
-  /**
-   * The main font size UI displays a toggle group when the presets are less
-   * than six and a select control when they are more.
-   */
-
-  const fontSizesContainComplexValues = fontSizes.some(_ref => {
-    let {
-      size: sizeArg
-    } = _ref;
-    return !isSimpleCssValue(sizeArg);
-  });
   const shouldUseSelectControl = fontSizes.length > 5;
-  const options = (0,external_wp_element_namespaceObject.useMemo)(() => getFontSizeOptions(shouldUseSelectControl, fontSizes, disableCustomFontSizes), [shouldUseSelectControl, fontSizes, disableCustomFontSizes]);
-  const selectedOption = getSelectedOption(fontSizes, value);
-  const isCustomValue = selectedOption.slug === CUSTOM_FONT_SIZE;
+  const selectedFontSize = fontSizes.find(fontSize => fontSize.size === value);
+  const isCustomValue = !!value && !selectedFontSize;
   const [showCustomValueControl, setShowCustomValueControl] = (0,external_wp_element_namespaceObject.useState)(!disableCustomFontSizes && isCustomValue);
   const headerHint = (0,external_wp_element_namespaceObject.useMemo)(() => {
     if (showCustomValueControl) {
-      return `(${(0,external_wp_i18n_namespaceObject.__)('Custom')})`;
-    } // If we have a custom value that is not available in the font sizes,
-    // show it as a hint as long as it's a simple CSS value.
-
-
-    if (isCustomValue) {
-      return value !== undefined && isSimpleCssValue(value) && `(${value})`;
+      return (0,external_wp_i18n_namespaceObject.__)('Custom');
     }
 
-    if (shouldUseSelectControl) {
-      return (selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.size) !== undefined && isSimpleCssValue(selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.size) && `(${selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.size})`;
-    } // Calculate the `hint` for toggle group control.
+    if (!shouldUseSelectControl) {
+      if (selectedFontSize) {
+        return selectedFontSize.name || T_SHIRT_NAMES[fontSizes.indexOf(selectedFontSize)];
+      }
 
-
-    let hint = (selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.name) || selectedOption.slug;
-
-    if (!fontSizesContainComplexValues && typeof selectedOption.size === 'string') {
-      const [, unit] = parseQuantityAndUnitFromRawValue(selectedOption.size, units);
-      hint += `(${unit})`;
+      return '';
     }
 
-    return hint;
-  }, [showCustomValueControl, selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.name, selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.size, value, isCustomValue, shouldUseSelectControl, fontSizesContainComplexValues]);
+    const commonUnit = getCommonSizeUnit(fontSizes);
 
-  if (!options) {
+    if (commonUnit) {
+      return `(${commonUnit})`;
+    }
+
+    return '';
+  }, [showCustomValueControl, shouldUseSelectControl, selectedFontSize, fontSizes]);
+
+  if (fontSizes.length === 0 && disableCustomFontSizes) {
     return null;
-  } // This is used for select control only. We need to add support
-  // for ToggleGroupControl.
-
-
-  const currentFontSizeSR = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: Currently selected font size.
-  (0,external_wp_i18n_namespaceObject.__)('Currently selected font size: %s'), selectedOption.name); // If neither the value or first font size is a string, then FontSizePicker
+  } // If neither the value or first font size is a string, then FontSizePicker
   // operates in a legacy "unitless" mode where UnitControl can only be used
   // to select px values and onChange() is always called with number values.
+
 
   const hasUnits = typeof value === 'string' || typeof ((_fontSizes$ = fontSizes[0]) === null || _fontSizes$ === void 0 ? void 0 : _fontSizes$.size) === 'string';
   const [valueQuantity, valueUnit] = parseQuantityAndUnitFromRawValue(value, units);
@@ -56374,51 +56512,32 @@ const UnforwardedFontSizePicker = (props, ref) => {
   }))), (0,external_wp_element_namespaceObject.createElement)(Controls, {
     className: "components-font-size-picker__controls",
     __nextHasNoMarginBottom: __nextHasNoMarginBottom
-  }, !!fontSizes.length && shouldUseSelectControl && !showCustomValueControl && (0,external_wp_element_namespaceObject.createElement)(CustomSelectControl, {
-    __nextUnconstrainedWidth: true,
-    className: "components-font-size-picker__select",
-    label: (0,external_wp_i18n_namespaceObject.__)('Font size'),
-    hideLabelFromVision: true,
-    describedBy: currentFontSizeSR,
-    options: options,
-    value: options.find(option => option.key === selectedOption.slug),
-    onChange: _ref2 => {
-      let {
-        selectedItem
-      } = _ref2;
-
-      if (selectedItem.size === undefined) {
-        onChange === null || onChange === void 0 ? void 0 : onChange(undefined);
-      } else {
-        onChange === null || onChange === void 0 ? void 0 : onChange(hasUnits ? selectedItem.size : Number(selectedItem.size));
-      }
-
-      if (selectedItem.key === CUSTOM_FONT_SIZE) {
-        setShowCustomValueControl(true);
-      }
-    },
-    size: size
-  }), !shouldUseSelectControl && !showCustomValueControl && (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_component, {
-    __nextHasNoMarginBottom: __nextHasNoMarginBottom,
-    label: (0,external_wp_i18n_namespaceObject.__)('Font size'),
-    hideLabelFromVision: true,
+  }, !!fontSizes.length && shouldUseSelectControl && !showCustomValueControl && (0,external_wp_element_namespaceObject.createElement)(font_size_picker_select, {
+    fontSizes: fontSizes,
     value: value,
+    disableCustomFontSizes: disableCustomFontSizes,
+    size: size,
     onChange: newValue => {
       if (newValue === undefined) {
         onChange === null || onChange === void 0 ? void 0 : onChange(undefined);
       } else {
-        onChange === null || onChange === void 0 ? void 0 : onChange(hasUnits ? newValue : Number(newValue));
+        onChange === null || onChange === void 0 ? void 0 : onChange(hasUnits ? newValue : Number(newValue), fontSizes.find(fontSize => fontSize.size === newValue));
       }
     },
-    isBlock: true,
-    size: size
-  }, options.map(option => (0,external_wp_element_namespaceObject.createElement)(toggle_group_control_option_component, {
-    key: option.key,
-    value: option.value,
-    label: option.label,
-    "aria-label": option.name,
-    showTooltip: true
-  }))), !disableCustomFontSizes && showCustomValueControl && (0,external_wp_element_namespaceObject.createElement)(flex_component, {
+    onSelectCustom: () => setShowCustomValueControl(true)
+  }), !shouldUseSelectControl && !showCustomValueControl && (0,external_wp_element_namespaceObject.createElement)(font_size_picker_toggle_group, {
+    fontSizes: fontSizes,
+    value: value,
+    __nextHasNoMarginBottom: __nextHasNoMarginBottom,
+    size: size,
+    onChange: newValue => {
+      if (newValue === undefined) {
+        onChange === null || onChange === void 0 ? void 0 : onChange(undefined);
+      } else {
+        onChange === null || onChange === void 0 ? void 0 : onChange(hasUnits ? newValue : Number(newValue), fontSizes.find(fontSize => fontSize.size === newValue));
+      }
+    }
+  }), !disableCustomFontSizes && showCustomValueControl && (0,external_wp_element_namespaceObject.createElement)(flex_component, {
     className: "components-font-size-picker__custom-size-control"
   }, (0,external_wp_element_namespaceObject.createElement)(flex_item_component, {
     isBlock: true
@@ -56872,11 +56991,15 @@ function FormTokenField(props) {
   function onKeyDown(event) {
     let preventDefault = false;
 
-    if (event.defaultPrevented) {
+    if (event.defaultPrevented || // Ignore keydowns from IMEs
+    event.nativeEvent.isComposing || // Workaround for Mac Safari where the final Enter/Backspace of an IME composition
+    // is `isComposing=false`, even though it's technically still part of the composition.
+    // These can only be detected by keyCode.
+    event.keyCode === 229) {
       return;
     }
 
-    switch (event.code) {
+    switch (event.key) {
       case 'Backspace':
         preventDefault = handleDeleteKey(deleteTokenBeforeInput);
         break;
@@ -56926,11 +57049,10 @@ function FormTokenField(props) {
   }
 
   function onKeyPress(event) {
-    let preventDefault = false; // TODO: replace to event.code;
+    let preventDefault = false;
 
-    switch (event.charCode) {
-      case 44:
-        // Comma.
+    switch (event.key) {
+      case ',':
         preventDefault = handleCommaKey();
         break;
 
@@ -57767,7 +57889,6 @@ function KeyboardShortcuts(_ref2) {
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/menu-group/index.js
 
-// @ts-nocheck
 
 /**
  * External dependencies
@@ -57779,6 +57900,25 @@ function KeyboardShortcuts(_ref2) {
 
 
 
+/**
+ * Internal dependencies
+ */
+
+/**
+ * `MenuGroup` wraps a series of related `MenuItem` components into a common
+ * section.
+ *
+ * ```jsx
+ * import { MenuGroup, MenuItem } from '@wordpress/components';
+ *
+ * const MyMenuGroup = () => (
+ *   <MenuGroup label="Settings">
+ *     <MenuItem>Setting 1</MenuItem>
+ *     <MenuItem>Setting 2</MenuItem>
+ *   </MenuGroup>
+ * );
+ * ```
+ */
 function MenuGroup(props) {
   const {
     children,
@@ -57804,7 +57944,7 @@ function MenuGroup(props) {
     "aria-hidden": "true"
   }, label), (0,external_wp_element_namespaceObject.createElement)("div", {
     role: "group",
-    "aria-labelledby": label ? labelId : null
+    "aria-labelledby": label ? labelId : undefined
   }, children));
 }
 /* harmony default export */ const menu_group = (MenuGroup);
@@ -59353,7 +59493,11 @@ function UnconnectedNavigatorScreen(props, forwardedRef) {
   const wrapperRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const previousLocation = (0,external_wp_compose_namespaceObject.usePrevious)(location);
   const cx = useCx();
-  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(navigator_screen_component_ref, className), [className, cx]); // Focus restoration
+  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(navigator_screen_component_ref, className), [className, cx]);
+  const locationRef = (0,external_wp_element_namespaceObject.useRef)(location);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    locationRef.current = location;
+  }, [location]); // Focus restoration
 
   const isInitialLocation = location.isInitial && !location.isBack;
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -59362,7 +59506,7 @@ function UnconnectedNavigatorScreen(props, forwardedRef) {
     // - when the screen becomes visible
     // - if the wrapper ref has been assigned
     // - if focus hasn't already been restored for the current location
-    if (isInitialLocation || !isMatch || !wrapperRef.current || location.hasRestoredFocus) {
+    if (isInitialLocation || !isMatch || !wrapperRef.current || locationRef.current.hasRestoredFocus) {
       return;
     }
 
@@ -59387,9 +59531,9 @@ function UnconnectedNavigatorScreen(props, forwardedRef) {
       elementToFocus = firstTabbable !== null && firstTabbable !== void 0 ? firstTabbable : wrapperRef.current;
     }
 
-    location.hasRestoredFocus = true;
+    locationRef.current.hasRestoredFocus = true;
     elementToFocus.focus();
-  }, [isInitialLocation, isMatch, location.hasRestoredFocus, location.isBack, previousLocation === null || previousLocation === void 0 ? void 0 : previousLocation.focusTargetSelector]);
+  }, [isInitialLocation, isMatch, location.isBack, previousLocation === null || previousLocation === void 0 ? void 0 : previousLocation.focusTargetSelector]);
   const mergedWrapperRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([forwardedRef, wrapperRef]);
 
   if (!isMatch) {
@@ -60244,12 +60388,12 @@ function buildTermsTree(flatTerms) {
 
 
 
-function tree_select_getSelectOptions(tree) {
+function getSelectOptions(tree) {
   let level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
   return tree.flatMap(treeNode => [{
     value: treeNode.id,
     label: '\u00A0'.repeat(level * 3) + (0,external_lodash_namespaceObject.unescape)(treeNode.name)
-  }, ...tree_select_getSelectOptions(treeNode.children || [], level + 1)]);
+  }, ...getSelectOptions(treeNode.children || [], level + 1)]);
 }
 /**
  * TreeSelect component is used to generate select input fields.
@@ -60314,7 +60458,7 @@ function TreeSelect(_ref) {
     return [noOptionLabel && {
       value: '',
       label: noOptionLabel
-    }, ...tree_select_getSelectOptions(tree)].filter(option => !!option);
+    }, ...getSelectOptions(tree)].filter(option => !!option);
   }, [noOptionLabel, tree]);
   return (0,external_wp_element_namespaceObject.createElement)(SelectControl, extends_extends({
     label,
@@ -62577,7 +62721,7 @@ const spinAnimation = emotion_react_browser_esm_keyframes`
  `;
 const StyledSpinner = emotion_styled_base_browser_esm("svg",  true ? {
   target: "ea4tfvq2"
-} : 0)("width:", config_values.spinnerSize, "px;height:", config_values.spinnerSize, "px;display:inline-block;margin:5px 11px 0;position:relative;color:var( --wp-admin-theme-color );overflow:visible;" + ( true ? "" : 0));
+} : 0)("width:", config_values.spinnerSize, "px;height:", config_values.spinnerSize, "px;display:inline-block;margin:5px 11px 0;position:relative;color:", COLORS.ui.theme, ";overflow:visible;" + ( true ? "" : 0));
 const commonPathProps =  true ? {
   name: "9s4963",
   styles: "fill:transparent;stroke-width:1.5px"
@@ -62784,11 +62928,10 @@ function TabPanel(_ref2) {
   } = _ref2;
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(TabPanel, 'tab-panel');
   const [selected, setSelected] = (0,external_wp_element_namespaceObject.useState)();
-
-  const handleTabSelection = tabKey => {
+  const handleTabSelection = (0,external_wp_element_namespaceObject.useCallback)(tabKey => {
     setSelected(tabKey);
     onSelect === null || onSelect === void 0 ? void 0 : onSelect(tabKey);
-  };
+  }, [onSelect]);
 
   const onNavigate = (_childIndex, child) => {
     child.click();
@@ -62802,7 +62945,7 @@ function TabPanel(_ref2) {
     if (!(selectedTab !== null && selectedTab !== void 0 && selectedTab.name) && tabs.length > 0) {
       handleTabSelection(initialTabName || tabs[0].name);
     }
-  }, [tabs, selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.name, initialTabName]);
+  }, [tabs, selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.name, initialTabName, handleTabSelection]);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: className
   }, (0,external_wp_element_namespaceObject.createElement)(navigable_container_menu, {
@@ -62920,7 +63063,7 @@ const TextControl = (0,external_wp_element_namespaceObject.forwardRef)(Unforward
 
 
 const inputStyleNeutral = /*#__PURE__*/emotion_react_browser_esm_css("box-shadow:0 0 0 transparent;transition:box-shadow 0.1s linear;border-radius:", config_values.radiusBlockUi, ";border:", config_values.borderWidth, " solid ", COLORS.ui.border, ";" + ( true ? "" : 0),  true ? "" : 0);
-const inputStyleFocus = /*#__PURE__*/emotion_react_browser_esm_css("border-color:var( --wp-admin-theme-color );box-shadow:0 0 0 calc( ", config_values.borderWidthFocus, " - ", config_values.borderWidth, " ) var( --wp-admin-theme-color );outline:2px solid transparent;" + ( true ? "" : 0),  true ? "" : 0);
+const inputStyleFocus = /*#__PURE__*/emotion_react_browser_esm_css("border-color:", COLORS.ui.theme, ";box-shadow:0 0 0 calc( ", config_values.borderWidthFocus, " - ", config_values.borderWidth, " ) ", COLORS.ui.theme, ";outline:2px solid transparent;" + ( true ? "" : 0),  true ? "" : 0);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/breakpoint-values.js
 /* harmony default export */ const breakpoint_values = ({
@@ -64030,7 +64173,7 @@ const styles_DropdownMenu =  true ? {
 } : 0;
 const ResetLabel = emotion_styled_base_browser_esm("span",  true ? {
   target: "ews648u0"
-} : 0)("color:var( --wp-admin-theme-color-darker-10 );font-size:11px;font-weight:500;line-height:1.4;", rtl({
+} : 0)("color:", COLORS.ui.themeDark10, ";font-size:11px;font-weight:500;line-height:1.4;", rtl({
   marginLeft: space(3)
 }), " text-transform:uppercase;" + ( true ? "" : 0));
 const DefaultControlsItem = /*#__PURE__*/emotion_react_browser_esm_css("color:", COLORS.gray[900], ";&&[aria-disabled='true']{color:", COLORS.gray[700], ";opacity:1;&:hover{color:", COLORS.gray[700], ";}", ResetLabel, "{opacity:0.3;}}" + ( true ? "" : 0),  true ? "" : 0);
@@ -64563,7 +64706,7 @@ const ConnectedToolsPanel = contextConnect(component_ToolsPanel, 'ToolsPanel');
 
 
 function useToolsPanelItem(props) {
-  var _menuItems$menuGroup, _menuItems$menuGroup2;
+  var _menuItems$menuGroup, _menuItems$menuGroup2, _menuItems$menuGroup3;
 
   const {
     className,
@@ -64625,11 +64768,15 @@ function useToolsPanelItem(props) {
 
   const menuGroup = isShownByDefault ? 'default' : 'optional';
   const isMenuItemChecked = menuItems === null || menuItems === void 0 ? void 0 : (_menuItems$menuGroup = menuItems[menuGroup]) === null || _menuItems$menuGroup === void 0 ? void 0 : _menuItems$menuGroup[label];
-  const wasMenuItemChecked = (0,external_wp_compose_namespaceObject.usePrevious)(isMenuItemChecked); // Determine if the panel item's corresponding menu is being toggled and
+  const wasMenuItemChecked = (0,external_wp_compose_namespaceObject.usePrevious)(isMenuItemChecked);
+  const isRegistered = (menuItems === null || menuItems === void 0 ? void 0 : (_menuItems$menuGroup2 = menuItems[menuGroup]) === null || _menuItems$menuGroup2 === void 0 ? void 0 : _menuItems$menuGroup2[label]) !== undefined; // Determine if the panel item's corresponding menu is being toggled and
   // trigger appropriate callback if it is.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (isResetting || !hasMatchingPanel) {
+    // We check whether this item is currently registered as items rendered
+    // via fills can persist through the parent panel being remounted.
+    // See: https://github.com/WordPress/gutenberg/pull/45673
+    if (!isRegistered || isResetting || !hasMatchingPanel) {
       return;
     }
 
@@ -64640,11 +64787,11 @@ function useToolsPanelItem(props) {
     if (!isMenuItemChecked && wasMenuItemChecked) {
       onDeselect === null || onDeselect === void 0 ? void 0 : onDeselect();
     }
-  }, [hasMatchingPanel, isMenuItemChecked, isResetting, isValueSet, wasMenuItemChecked, onSelect, onDeselect]); // The item is shown if it is a default control regardless of whether it
+  }, [hasMatchingPanel, isMenuItemChecked, isRegistered, isResetting, isValueSet, wasMenuItemChecked, onSelect, onDeselect]); // The item is shown if it is a default control regardless of whether it
   // has a value. Optional items are shown when they are checked or have
   // a value.
 
-  const isShown = isShownByDefault ? (menuItems === null || menuItems === void 0 ? void 0 : (_menuItems$menuGroup2 = menuItems[menuGroup]) === null || _menuItems$menuGroup2 === void 0 ? void 0 : _menuItems$menuGroup2[label]) !== undefined : isMenuItemChecked;
+  const isShown = isShownByDefault ? (menuItems === null || menuItems === void 0 ? void 0 : (_menuItems$menuGroup3 = menuItems[menuGroup]) === null || _menuItems$menuGroup3 === void 0 ? void 0 : _menuItems$menuGroup3[label]) !== undefined : isMenuItemChecked;
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => {
     const placeholderStyle = shouldRenderPlaceholder && !isShown && ToolsPanelItemPlaceholder;
@@ -65351,6 +65498,9 @@ const defaultShortcuts = {
     modifier: 'ctrlShift',
     character: '`'
   }, {
+    modifier: 'ctrlShift',
+    character: '~'
+  }, {
     modifier: 'access',
     character: 'p'
   }],
@@ -65805,6 +65955,7 @@ const with_focus_return_Provider = _ref => {
 ;// CONCATENATED MODULE: ./packages/components/build-module/index.js
 // Primitives.
  // Components.
+
 
 
 

@@ -3012,15 +3012,18 @@ function createRegistry() {
   /**
    * Subscribe handler to a store.
    *
-   * @param {string[]} storeName The store name.
-   * @param {Function} handler   The function subscribed to the store.
+   * @param {string|StoreDescriptor} storeNameOrDescriptor The store name.
+   * @param {Function}               handler               The function subscribed to the store.
    * @return {Function} A function to unsubscribe the handler.
    */
 
 
-  function __unstableSubscribeStore(storeName, handler) {
-    if (storeName in stores) {
-      return stores[storeName].subscribe(handler);
+  function __unstableSubscribeStore(storeNameOrDescriptor, handler) {
+    const storeName = registry_isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
+    const store = stores[storeName];
+
+    if (store) {
+      return store.subscribe(handler);
     } // Trying to access a store that hasn't been registered,
     // this is a pattern rarely used but seen in some places.
     // We fallback to regular `subscribe` here for backward-compatibility for now.
@@ -3031,7 +3034,7 @@ function createRegistry() {
       return subscribe(handler);
     }
 
-    return parent.__unstableSubscribeStore(storeName, handler);
+    return parent.__unstableSubscribeStore(storeNameOrDescriptor, handler);
   }
 
   function batch(callback) {

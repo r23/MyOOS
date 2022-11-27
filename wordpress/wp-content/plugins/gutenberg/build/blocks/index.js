@@ -6128,6 +6128,11 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
     },
     useEngine: true
   },
+  minHeight: {
+    value: ['dimensions', 'minHeight'],
+    support: ['dimensions', 'minHeight'],
+    useEngine: true
+  },
   padding: {
     value: ['spacing', 'padding'],
     support: ['spacing', 'padding'],
@@ -7173,7 +7178,7 @@ const hasChildBlocksWithInserterSupport = blockName => {
   return (0,external_wp_data_namespaceObject.select)(store).hasChildBlocksWithInserterSupport(blockName);
 };
 /**
- * Registers a new block style variation for the given block.
+ * Registers a new block style for the given block.
  *
  * For more information on connecting the styles with CSS [the official documentation](/docs/reference-guides/block-api/block-styles.md#styles)
  *
@@ -7208,7 +7213,7 @@ const registerBlockStyle = (blockName, styleVariation) => {
   (0,external_wp_data_namespaceObject.dispatch)(store).addBlockStyles(blockName, styleVariation);
 };
 /**
- * Unregisters a block style variation for the given block.
+ * Unregisters a block style for the given block.
  *
  * @param {string} blockName          Name of block (example: “core/latest-posts”).
  * @param {string} styleVariationName Name of class applied to the block.
@@ -7876,7 +7881,6 @@ const getBlockFromExample = (name, example) => {
 
 
 
-
 /**
  * WordPress dependencies
  */
@@ -8094,7 +8098,8 @@ function __experimentalSanitizeBlockAttributes(name, attributes) {
     throw new Error(`Block type '${name}' is not registered.`);
   }
 
-  return (0,external_lodash_namespaceObject.reduce)(blockType.attributes, (accumulator, schema, key) => {
+  return Object.entries(blockType.attributes).reduce((accumulator, _ref) => {
+    let [key, schema] = _ref;
     const value = attributes[key];
 
     if (undefined !== value) {
@@ -8148,8 +8153,8 @@ function __experimentalGetBlockAttributesNamesByRole(name, role) {
  */
 
 function omit(object, keys) {
-  return Object.fromEntries(Object.entries(object).filter(_ref => {
-    let [key] = _ref;
+  return Object.fromEntries(Object.entries(object).filter(_ref2 => {
+    let [key] = _ref2;
     return !keys.includes(key);
   }));
 }
@@ -8277,7 +8282,7 @@ function blockTypes() {
   return state;
 }
 /**
- * Reducer managing the block style variations.
+ * Reducer managing the block styles.
  *
  * @param {Object} state  Current state.
  * @param {Object} action Dispatched action.
@@ -14408,9 +14413,15 @@ function iframeRemover(node) {
 function googleDocsUIdRemover(node) {
   if (!node.id || node.id.indexOf('docs-internal-guid-') !== 0) {
     return;
-  }
+  } // Google Docs sometimes wraps the content in a B tag. We don't want to keep
+  // this.
 
-  (0,external_wp_dom_namespaceObject.unwrap)(node);
+
+  if (node.tagName === 'B') {
+    (0,external_wp_dom_namespaceObject.unwrap)(node);
+  } else {
+    node.removeAttribute('id');
+  }
 }
 
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/html-formatting-remover.js
