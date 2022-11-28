@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '840e1dc1e7dcd25faed968b7d31ae49685555d01',
+        'reference' => '2b7afa36001c797f48caf779b4859ab1d2579251',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -137,12 +137,12 @@
             'dev_requirement' => false,
         ),
         'maennchen/zipstream-php' => array(
-            'pretty_version' => '2.2.6',
-            'version' => '2.2.6.0',
+            'pretty_version' => '2.3.0',
+            'version' => '2.3.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../maennchen/zipstream-php',
             'aliases' => array(),
-            'reference' => '30ad6f93cf3efe4192bc7a4c9cad11ff8f4f237f',
+            'reference' => '8df0a40fff7b5cbf86cf9a6d7d8d15b9bc03bc98',
             'dev_requirement' => false,
         ),
         'markbaker/complex' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '840e1dc1e7dcd25faed968b7d31ae49685555d01',
+            'reference' => '2b7afa36001c797f48caf779b4859ab1d2579251',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -447,7 +447,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '0399700d159e09b16645945758b65b921d3491fe',
+            'reference' => '6f53c627e2f44ac1bd2fbaf2a068e682f40968b5',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
