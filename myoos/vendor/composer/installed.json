@@ -2707,12 +2707,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "6f53c627e2f44ac1bd2fbaf2a068e682f40968b5"
+                "reference": "8597757623c4695eb4a3193eb23f2345f7e2f911"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6f53c627e2f44ac1bd2fbaf2a068e682f40968b5",
-                "reference": "6f53c627e2f44ac1bd2fbaf2a068e682f40968b5",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/8597757623c4695eb4a3193eb23f2345f7e2f911",
+                "reference": "8597757623c4695eb4a3193eb23f2345f7e2f911",
                 "shasum": ""
             },
             "conflict": {
@@ -2742,7 +2742,7 @@
                 "barrelstrength/sprout-base-email": "<1.2.7",
                 "barrelstrength/sprout-forms": "<3.9",
                 "barryvdh/laravel-translation-manager": "<0.6.2",
-                "baserproject/basercms": "<4.5.4",
+                "baserproject/basercms": "<=4.7.1",
                 "billz/raspap-webgui": "<=2.6.6",
                 "bk2k/bootstrap-package": ">=7.1,<7.1.2|>=8,<8.0.8|>=9,<9.0.4|>=9.1,<9.1.3|>=10,<10.0.10|>=11,<11.0.3",
                 "bmarshall511/wordpress_zero_spam": "<5.2.13",
@@ -3208,7 +3208,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<6.0.22"
             },
-            "time": "2022-11-28T12:05:40+00:00",
+            "time": "2022-11-28T23:04:00+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
@@ -4538,17 +4538,17 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.15",
-            "version_normalized": "5.4.15.0",
+            "version": "v5.4.16",
+            "version_normalized": "5.4.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "cd78e1359c61b59b3541cfae1d46e0997862f11a"
+                "reference": "7548c6f59aa223d3e8d41c9ddd880fa5654852e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/cd78e1359c61b59b3541cfae1d46e0997862f11a",
-                "reference": "cd78e1359c61b59b3541cfae1d46e0997862f11a",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/7548c6f59aa223d3e8d41c9ddd880fa5654852e0",
+                "reference": "7548c6f59aa223d3e8d41c9ddd880fa5654852e0",
                 "shasum": ""
             },
             "require": {
@@ -4674,7 +4674,7 @@
                 "cache/integration-tests": "dev-master",
                 "doctrine/annotations": "^1.13.1",
                 "doctrine/cache": "^1.11|^2.0",
-                "doctrine/collections": "~1.0",
+                "doctrine/collections": "^1.0|^2.0",
                 "doctrine/data-fixtures": "^1.1",
                 "doctrine/dbal": "^2.13.1|^3.0",
                 "doctrine/orm": "^2.7.4",
@@ -4698,7 +4698,7 @@
                 "twig/inky-extra": "^2.12|^3",
                 "twig/markdown-extra": "^2.12|^3"
             },
-            "time": "2022-10-28T17:52:30+00:00",
+            "time": "2022-11-28T18:09:11+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -4741,7 +4741,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.15"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.16"
             },
             "funding": [
                 {
