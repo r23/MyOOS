@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-19 10:58:09+0000\n"
+"PO-Revision-Date: 2022-11-30 15:45:19+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,112 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.3\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
+
+#: includes/modules/sitemap/settings/taxonomies.php:32
+msgid "Include archive pages for terms of this taxonomy in the HTML sitemap."
+msgstr "Füge Archivseiten für Begriffe dieser Taxonomie in die HTML-Sitemap ein."
+
+#: includes/modules/sitemap/settings/post-types.php:46
+msgid "Include this post type in the HTML sitemap if it's enabled."
+msgstr "Füge diesen Beitragstyp in die HTML-Sitemap ein, wenn er aktiviert ist."
+
+#: includes/modules/sitemap/settings/html-sitemap.php:129
+msgid "SEO Titles"
+msgstr "SEO-Titel"
+
+#: includes/modules/sitemap/settings/html-sitemap.php:126
+msgid "Show the post/term titles, or the SEO titles in the HTML sitemap."
+msgstr "Zeige die Post-/Term-Titel oder die SEO-Titel in der HTML-Sitemap an."
+
+#: includes/modules/sitemap/settings/html-sitemap.php:125
+#: includes/modules/sitemap/settings/html-sitemap.php:128
+msgid "Item Titles"
+msgstr "Artikeltitel"
+
+#: includes/modules/sitemap/settings/html-sitemap.php:115
+msgid "Show published dates for each post & page."
+msgstr "Zeige die veröffentlichten Daten für jeden Beitrag und jede Seite an."
+
+#: includes/modules/sitemap/settings/html-sitemap.php:114
+msgid "Show Dates"
+msgstr "Datum anzeigen"
+
+#: includes/modules/sitemap/settings/html-sitemap.php:102
+msgid "Alphabetical"
+msgstr "Alphabetisch"
+
+#: includes/modules/sitemap/settings/html-sitemap.php:97
+msgid "Choose how you want to sort the items in the HTML sitemap."
+msgstr "Wähle aus, wie du die Elemente in der HTML-Sitemap sortieren möchtest."
+
+#: includes/modules/sitemap/settings/html-sitemap.php:96
+msgid "Sort By"
+msgstr "Sortieren nach"
+
+#: includes/modules/sitemap/settings/html-sitemap.php:86
+msgid "Select a page"
+msgstr "Seite auswählen"
+
+#: includes/modules/sitemap/settings/html-sitemap.php:77
+msgid "Select the page to display the HTML sitemap. Once the settings are saved, the sitemap will be displayed below the content of the selected page."
+msgstr "Wähle die Seite aus, auf der die HTML-Sitemap angezeigt werden soll. Sobald die Einstellungen gespeichert sind, wird die Sitemap unter dem Inhalt der ausgewählten Seite angezeigt."
+
+#. translators: link to the selected page
+#: includes/modules/sitemap/settings/html-sitemap.php:66
+msgid "Selected page: <a href=\"%s\" target=\"_blank\" class=\"rank-math-selected-page\">%s</a>"
+msgstr "Ausgewählte Seite: <a href=\"%s\" target=\"_blank\" class=\"rank-math-selected-page\">%s</a>"
+
+#: includes/modules/sitemap/settings/html-sitemap.php:59
+msgid "Selected page: "
+msgstr "Ausgewählte Seite: "
+
+#: includes/modules/sitemap/settings/html-sitemap.php:28
+msgid "Choose how you want to display the HTML sitemap."
+msgstr "Wähle aus, wie die HTML-Sitemap angezeigt werden soll."
+
+#: includes/modules/sitemap/settings/html-sitemap.php:27
+msgid "Display Format"
+msgstr "Anzeige-Format"
+
+#: includes/modules/sitemap/settings/html-sitemap.php:18
+msgid "Enable the HTML sitemap."
+msgstr "Aktiviere die HTML-Sitemap."
+
+#: includes/modules/sitemap/settings/authors.php:39
+msgid "Include author archives in the HTML sitemap if it's enabled."
+msgstr "Füge Autorenarchive in die HTML-Sitemap ein, falls diese aktiviert ist."
+
+#: includes/modules/sitemap/settings/html-sitemap.php:43
+msgid "Use this shortcode to display the HTML sitemap."
+msgstr "Verwende diesen Kurzcode, um die HTML-Sitemap anzuzeigen."
+
+#: includes/modules/sitemap/settings/authors.php:38
+#: includes/modules/sitemap/settings/post-types.php:45
+#: includes/modules/sitemap/settings/taxonomies.php:31
+msgid "Include in HTML Sitemap"
+msgstr "In HTML-Sitemap einbinden"
+
+#: includes/modules/sitemap/settings/authors.php:29
+msgid "Include author archives in the XML sitemap."
+msgstr "Füge Autorenarchive in die XML-Sitemap ein."
+
+#: includes/modules/sitemap/class-admin.php:107
+msgid "Sitemap Settings %s"
+msgstr "Sitemap-Einstellungen %s"
+
+#: includes/modules/sitemap/class-admin.php:87
+msgid "This tab contains settings related to the HTML sitemap."
+msgstr "Diese Registerkarte enthält Einstellungen für die HTML-Sitemap."
+
+#. translators: new label
+#: includes/modules/sitemap/class-admin.php:85
+msgid "HTML Sitemap %s"
+msgstr "HTML-Sitemap %s"
+
+#: includes/admin/importers/class-aioseo.php:469
+#: includes/modules/sitemap/settings/html-sitemap.php:17
+msgid "HTML Sitemap"
+msgstr "HTML-Sitemap"
 
 #: includes/admin/class-options.php:300
 msgid "Ctrl/Cmd + Enter"
@@ -85,19 +191,19 @@ msgstr "SEO-Ergebnisse berechnen"
 msgid "Recalculating scores for posts %1$s - %2$s... "
 msgstr "Neuberechnung der Punktzahlen für Beiträge %1$s - %2$s... "
 
-#: includes/modules/database-tools/class-update-score.php:277
+#: includes/modules/database-tools/class-update-score.php:282
 msgid "The SEO Scores have been recalculated successfully!"
 msgstr "Die SEO-Ergebnisse wurden erfolgreich neu berechnet!"
 
-#: includes/modules/database-tools/class-update-score.php:269
+#: includes/modules/database-tools/class-update-score.php:274
 msgid "Calculated:"
 msgstr "Berechnet:"
 
-#: includes/modules/database-tools/class-update-score.php:265
+#: includes/modules/database-tools/class-update-score.php:270
 msgid "This process may take a while. Please keep this window open until the process is complete."
 msgstr "Dieser Vorgang kann eine Weile dauern. Bitte lasse dieses Fenster geöffnet, bis der Vorgang abgeschlossen ist."
 
-#: includes/modules/database-tools/class-update-score.php:264
+#: includes/modules/database-tools/class-update-score.php:269
 msgid "Recalculating SEO Scores"
 msgstr "SEO-Ergebnisse neu berechnen"
 
@@ -156,7 +262,7 @@ msgid "<strong>Min Size: 112Χ112px</strong>.<br />A squared image is preferred 
 msgstr "<strong>Mindestgröße: 112Χ112px</strong>.<br />Ein quadratisches Bild wird von den Suchmaschinen bevorzugt."
 
 #. translators: Link to kb article
-#: includes/modules/content-ai/class-content-ai.php:105
+#: includes/modules/content-ai/class-content-ai.php:106
 msgid "Get sophisticated AI suggestions for related Keywords, Questions & Links to include in the SEO meta & Content Area. %s."
 msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Keywords, Fragen und Links, die du in den SEO-Meta- und Content-Bereich aufnehmen kannst. %s."
 
@@ -350,7 +456,7 @@ msgstr "Frontend-Statistikleiste"
 msgid "Database Table: Inspections"
 msgstr "Datenbanktabelle: Inspektionen"
 
-#: includes/modules/analytics/google/class-request.php:269
+#: includes/modules/analytics/google/class-request.php:327
 msgid "Unknown error, call get_response() to find out what happened."
 msgstr "Unbekannter Fehler, rufe get_response() an, um herauszufinden, was passiert ist."
 
@@ -671,7 +777,7 @@ msgstr "Bringe dein SEO auf die nächste Stufe!"
 msgid "Free 15 Content AI Credits"
 msgstr "15 kostenlose Inhalts-KI Guthaben"
 
-#: includes/modules/sitemap/class-admin.php:219
+#: includes/modules/sitemap/class-admin.php:234
 msgid "Exclude this attachment from sitemap"
 msgstr "Diesen Anhang von der Sitemap ausschließen"
 
@@ -737,6 +843,11 @@ msgstr "URL zum Abrufen von HTML-Tags."
 msgid "Click to refresh the available credits."
 msgstr "Klicke auf aktualisieren, um das verfügbare Guthaben zu aktualisieren."
 
+#: includes/modules/sitemap/class-admin.php:68
+#: includes/modules/content-ai/assets/js/content-ai.js:1
+msgid "New!"
+msgstr "Neu!"
+
 #. translators: 1. Credits left 2. Buy more credits link
 #: includes/modules/content-ai/views/options.php:52
 msgid "%1$s credits left. Upgrade to get more credits from %2$s."
@@ -766,7 +877,7 @@ msgstr "Inhalts-KI ist für diesen Beitragstyp nicht aktiviert."
 msgid "Sorry, only authenticated users can research the keyword."
 msgstr "Leider können nur authentifizierte Benutzer das Schlüsselwort recherchieren."
 
-#: includes/modules/content-ai/class-content-ai.php:127
+#: includes/modules/content-ai/class-content-ai.php:128
 msgid "Rank Math Content AI"
 msgstr "Rang Math Inhalts-KI"
 
@@ -783,7 +894,7 @@ msgid "Get sophisticated AI suggestions for related Keywords, Questions & Links 
 msgstr "Erhalte ausgefeilte KI-Vorschläge für verwandte Schlüsselwörter, Fragen und Links, die du in den SEO-Meta- und Inhaltsbereich aufnehmen können. Unterstützt 80+ Länder."
 
 #: includes/module/class-manager.php:176
-#: includes/modules/content-ai/class-content-ai.php:103
+#: includes/modules/content-ai/class-content-ai.php:104
 #: includes/modules/role-manager/class-capability-manager.php:70
 #: includes/modules/content-ai/assets/js/content-ai.js:1
 msgid "Content AI"
@@ -969,7 +1080,7 @@ msgstr "Diese Funktion ist auf dem localhost nicht verfügbar."
 msgid "Automatically capitalize the first character of each word in the titles."
 msgstr "Der erste Buchstabe eines jeden Wortes im Titel wird automatisch groß geschrieben."
 
-#: includes/modules/sitemap/class-admin.php:313
+#: includes/modules/sitemap/class-admin.php:336
 msgid "I already added"
 msgstr "Ich habe es bereits gemacht"
 
@@ -1106,7 +1217,7 @@ msgid "CAUTION:"
 msgstr "VORSICHT:"
 
 #. Translators: placeholder is the post type name.
-#: includes/modules/sitemap/class-sitemap.php:130
+#: includes/modules/sitemap/class-sitemap.php:132
 msgid "Rank Math has detected a new post type: %1$s. You may want to check the settings of the <a href=\"%2$s\">Titles &amp; Meta page</a> and <a href=\"%3$s\">the Sitemap</a>."
 msgstr "Rank Math hat einen neuen Beitragstyp erkannt: %1$s. Du solltest die Einstellungen der <a href=\"%2$s\">Titel &amp; Meta-Seite</a> und <a href=\"%3$s\">der Sitemap</a> überprüfen."
 
@@ -1227,7 +1338,7 @@ msgid "Import all the redirections you have already set up in Yoast Premium."
 msgstr "Importiere alle Weiterleitungen, die du bereits in Yoast Premium eingerichtet hast."
 
 #. Translators: the placeholder is for the sitemap base url.
-#: includes/modules/sitemap/class-admin.php:306
+#: includes/modules/sitemap/class-admin.php:329
 msgid "Since you are using an NGINX server, you may need to add the following code to your %s <strong>if your Sitemap pages are not loading</strong>. If you are unsure how to do it, please contact your hosting provider."
 msgstr "Da du einen NGINX-Server verwendest, musst du möglicherweise den folgenden Code zu deinem %s hinzufügen, <strong>wenn deine Sitemap-Seiten nicht geladen werden</strong>. Wenn du dir nicht sicher bist, wie das geht, wenden dich bitte an deinen Hosting-Anbieter."
 
@@ -1496,7 +1607,7 @@ msgid "Import meta information of your terms like the titles, descriptions, robo
 msgstr "Importiere Metainformationen deiner Beiträge/Seiten wie Titel, Beschreibungen, Roboter-Meta, OpenGraph-Informationen etc."
 
 #. translators: reconnect link
-#: includes/modules/analytics/google/class-request.php:155
+#: includes/modules/analytics/google/class-request.php:168
 msgid "There is a problem with the Google auth token. Please <a href=\"%1$s\" class=\"button button-link rank-math-reconnect-google\">reconnect your app</a>"
 msgstr "Es gibt kein Refresh-Token. Bitte <a href=\"%1$s\" class=\"button button-link rank-math-reconnect-google\">Verbinde deine Anwendung erneut</a>"
 
@@ -2176,6 +2287,18 @@ msgstr "EDD-Produkt"
 msgid "WooCommerce Product"
 msgstr "WooCommerce-Produkt"
 
+#: includes/modules/sitemap/settings/html-sitemap.php:101
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+msgid "Modified Date"
+msgstr "Änderungsdatum"
+
+#: includes/modules/sitemap/settings/html-sitemap.php:100
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+msgid "Published Date"
+msgstr "Veröffentlichungsdatum"
+
 #: includes/frontend/class-shortcodes.php:364
 msgid "Email:"
 msgstr "E-Mail:"
@@ -2542,8 +2665,8 @@ msgid "Rank Math generates the default Sitemaps only and WPML takes care of the 
 msgstr "Rank Math erzeugt nur die Standard-Sitemaps, WPML kümmert sich um den Rest. Wenn ein Suchmaschinen-Crawler einen Beitrag oder eine Seite besucht, kann er über den hreflang-Tag die übersetzten Seiten finden. Das ist einer der von Google empfohlenen Methoden. Bitte %s"
 
 #. translators: %1$s: thing, %2$s: Learn more link.
-#: includes/modules/sitemap/class-admin.php:139
-#: includes/modules/sitemap/class-admin.php:197
+#: includes/modules/sitemap/class-admin.php:154
+#: includes/modules/sitemap/class-admin.php:212
 msgid "Change Sitemap settings of %1$s. %2$s."
 msgstr "Ändere die Sitemap-Einstellungen für %1$s. %2$s."
 
@@ -2691,7 +2814,7 @@ msgstr "Schalte automatische Updates ein, damit du immer die neueste Version von
 msgid "Invalid post ID."
 msgstr "Ungültige Beitrags-ID."
 
-#: includes/modules/sitemap/class-admin.php:307
+#: includes/modules/sitemap/class-admin.php:330
 msgid "configuration file"
 msgstr "Konfigurationsdatei"
 
@@ -2699,7 +2822,7 @@ msgstr "Konfigurationsdatei"
 msgid "Sorry, you are not allowed to create/update redirection."
 msgstr "Entschuldigung, du hast keine Erlaubnis Weiterleitungen zu erstellen oder zu bearbeiten."
 
-#: includes/modules/sitemap/class-admin.php:312
+#: includes/modules/sitemap/class-admin.php:335
 msgid "Click here to see the code."
 msgstr "Klicke hier, um den Code zu sehen."
 
@@ -2791,7 +2914,7 @@ msgid "Imported blocks from posts %1$s - %2$s out of %3$s "
 msgstr "Importierte Blöcke aus den Beiträgen %1$s - %2$s von %3$s "
 
 #. translators: sitemap url
-#: includes/modules/sitemap/class-admin.php:72
+#: includes/modules/sitemap/class-admin.php:78
 msgid "Your sitemap index can be found here: %s"
 msgstr "Deinen Sitemap-Index findest du hier: %s"
 
@@ -2977,7 +3100,7 @@ msgid "Redirect Orphan Attachments"
 msgstr "Umleitung von verwaisten Anhängen"
 
 #: includes/admin/class-option-center.php:238
-#: includes/modules/sitemap/class-admin.php:136
+#: includes/modules/sitemap/class-admin.php:151
 msgid "Attachments"
 msgstr "Anhänge"
 
@@ -3047,7 +3170,7 @@ msgstr "Benutzername"
 msgid "Unable to connect Rank Math."
 msgstr "Verbindung mit Rank Math nicht möglich."
 
-#: includes/modules/database-tools/class-update-score.php:279
+#: includes/modules/database-tools/class-update-score.php:284
 #: assets/admin/js/rank-math-app.js:1
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
@@ -3226,7 +3349,7 @@ msgstr "Erweiterte Roboter-Meta"
 msgid "You have not entered a tagline yet. It is a good idea to choose one. %1$sYou can fix this in the customizer%2$s."
 msgstr "Du hast noch keinen Slogan eingegeben. Es ist eine gute Idee, einen zu wählen. %1$sDu kannst dies im Customizer%2$s beheben."
 
-#: includes/admin/class-assets.php:201
+#: includes/admin/class-assets.php:199
 msgid "Add <code>rel=\"sponsored\"</code>"
 msgstr "Füge <code>rel=\"sponsored\"</code> hinzu"
 
@@ -3511,6 +3634,13 @@ msgstr "Template der SEO-Wertung"
 msgid "SEO Score Post Types"
 msgstr "Inhaltstyp der SEO-Wertung"
 
+#: includes/modules/sitemap/settings/html-sitemap.php:30
+#: includes/modules/sitemap/settings/html-sitemap.php:42
+#: includes/modules/schema/assets/js/schema-gutenberg.js:1
+#: includes/modules/schema/assets/js/schema-template.js:1
+msgid "Shortcode"
+msgstr "Shortcode"
+
 #: includes/module/class-manager.php:312
 msgid "bbPress"
 msgstr "bbPress"
@@ -3627,17 +3757,17 @@ msgid "Please activate bbPress plugin to use this module."
 msgstr "Bitte aktiviere das bbPress-Plugin, um dieses Modul zu verwenden."
 
 #: includes/3rdparty/divi/class-divi.php:151
-#: includes/admin/class-assets.php:132
+#: includes/admin/class-assets.php:130
 msgid "Please enter a valid URL."
 msgstr "Bitte gebe eine gültige URL ein."
 
 #: includes/3rdparty/divi/class-divi.php:150
-#: includes/admin/class-assets.php:131
+#: includes/admin/class-assets.php:129
 msgid "Please enter a valid email address."
 msgstr "Bitte gebe eine gültige E-Mail-Adresse ein."
 
 #: includes/3rdparty/divi/class-divi.php:148
-#: includes/admin/class-assets.php:129
+#: includes/admin/class-assets.php:127
 msgid "Please use the correct format."
 msgstr "Bitte nutze das korrekte Format."
 
@@ -4375,16 +4505,17 @@ msgstr "Produktpreis des aktuellen Produkts"
 msgid "Product's price."
 msgstr "Produktpreis."
 
-#: includes/modules/sitemap/settings/taxonomies.php:29
+#: includes/modules/sitemap/settings/taxonomies.php:45
 msgid "Include Empty Terms"
 msgstr "Leere Begriffe einbeziehen"
 
-#: includes/modules/sitemap/settings/post-types.php:46
+#: includes/modules/sitemap/settings/post-types.php:61
 msgid "Image Custom Fields"
 msgstr "Benutzerdefinierte Bildfelder"
 
+#: includes/modules/sitemap/settings/authors.php:28
 #: includes/modules/sitemap/settings/post-types.php:34
-#: includes/modules/sitemap/settings/taxonomies.php:19
+#: includes/modules/sitemap/settings/taxonomies.php:21
 msgid "Include in Sitemap"
 msgstr "In die Sitemap aufnehmen"
 
@@ -4408,15 +4539,15 @@ msgstr "Maximale Anzahl von Links auf jeder Sitemap-Seite."
 msgid "Links Per Sitemap"
 msgstr "Links pro Sitemap"
 
-#: includes/modules/sitemap/settings/authors.php:33
+#: includes/modules/sitemap/settings/authors.php:65
 msgid "Exclude Users"
 msgstr "Benutzer ausschließen"
 
-#: includes/modules/sitemap/settings/authors.php:22
+#: includes/modules/sitemap/settings/authors.php:53
 msgid "Selected roles will be excluded in the sitemap."
 msgstr "Ausgewählte Rollen werden in der Sitemap ausgeschlossen."
 
-#: includes/modules/sitemap/settings/authors.php:21
+#: includes/modules/sitemap/settings/authors.php:52
 msgid "Exclude User Roles"
 msgstr "Benutzerrollen ausschließen"
 
@@ -4426,27 +4557,27 @@ msgid "XML Sitemap %1$s %2$s"
 msgstr "XML-Sitemap %1$s %2$s"
 
 #. translators: Taxonomy singular label
-#: includes/modules/sitemap/class-admin.php:188
+#: includes/modules/sitemap/class-admin.php:203
 msgid "%s archives"
 msgstr "%s Archive"
 
-#: includes/modules/sitemap/class-admin.php:167
+#: includes/modules/sitemap/class-admin.php:182
 msgid "Taxonomies:"
 msgstr "Taxonomien:"
 
 #. translators: Post Type Sitemap Url
 #. translators: Taxonomy Sitemap Url
-#: includes/modules/sitemap/class-admin.php:143
-#: includes/modules/sitemap/class-admin.php:201
+#: includes/modules/sitemap/class-admin.php:158
+#: includes/modules/sitemap/class-admin.php:216
 msgid "Sitemap URL: %s"
 msgstr "Sitemap URL: %s"
 
 #. translators: Post Type label
-#: includes/modules/sitemap/class-admin.php:132
+#: includes/modules/sitemap/class-admin.php:147
 msgid "single %s"
 msgstr "einzelne %s"
 
-#: includes/modules/sitemap/class-admin.php:111
+#: includes/modules/sitemap/class-admin.php:126
 msgid "attachments"
 msgstr "Anhänge"
 
@@ -4930,17 +5061,18 @@ msgstr "Suche"
 #: includes/admin/wizard/views/ready.php:45
 #: includes/modules/404-monitor/class-admin.php:173
 #: includes/modules/analytics/class-analytics.php:470
-#: includes/modules/content-ai/class-content-ai.php:105
+#: includes/modules/content-ai/class-content-ai.php:106
 #: includes/modules/image-seo/class-admin.php:47
 #: includes/modules/instant-indexing/class-instant-indexing.php:196
 #: includes/modules/instant-indexing/class-instant-indexing.php:204
 #: includes/modules/redirections/class-admin.php:174
 #: includes/modules/robots-txt/class-robots-txt.php:69
 #: includes/modules/role-manager/views/main.php:28
-#: includes/modules/sitemap/class-admin.php:70
-#: includes/modules/sitemap/class-admin.php:81
-#: includes/modules/sitemap/class-admin.php:139
-#: includes/modules/sitemap/class-admin.php:197
+#: includes/modules/sitemap/class-admin.php:76
+#: includes/modules/sitemap/class-admin.php:87
+#: includes/modules/sitemap/class-admin.php:96
+#: includes/modules/sitemap/class-admin.php:154
+#: includes/modules/sitemap/class-admin.php:212
 #: includes/modules/woocommerce/class-admin.php:76
 msgid "Learn more"
 msgstr "Mehr erfahren"
@@ -5332,7 +5464,7 @@ msgid "Edit"
 msgstr "Bearbeiten"
 
 #: includes/modules/redirections/class-table.php:167
-#: includes/modules/sitemap/class-admin.php:312
+#: includes/modules/sitemap/class-admin.php:335
 msgid "Hide"
 msgstr "Ausblenden"
 
@@ -5412,6 +5544,7 @@ msgstr "Umleitung erfolgreich aktiviert."
 
 #: includes/modules/local-seo/views/titles-options.php:236
 #: includes/modules/local-seo/views/titles-options.php:254
+#: includes/modules/sitemap/settings/html-sitemap.php:58
 msgid "Select Page"
 msgstr "Wähle Seite"
 
@@ -5973,6 +6106,8 @@ msgstr "Maximale Seitenzahl"
 msgid "Max Pages"
 msgstr "Maximale Seiten"
 
+#: includes/modules/sitemap/settings/html-sitemap.php:31
+#: includes/modules/sitemap/settings/html-sitemap.php:76
 #: includes/replace-variables/class-advanced-variables.php:85
 msgid "Page"
 msgstr "Seite"
@@ -6025,7 +6160,7 @@ msgstr "Aktiv"
 msgid "Settings"
 msgstr "Einstellungen"
 
-#: includes/class-installer.php:344
+#: includes/class-installer.php:339
 #: includes/settings/general/breadcrumbs.php:65
 msgid "Home"
 msgstr "Startseite"
@@ -6170,7 +6305,8 @@ msgid "Misc Pages"
 msgstr "Sonstige Seiten"
 
 #: includes/admin/class-option-center.php:168
-#: includes/modules/sitemap/class-admin.php:79
+#: includes/modules/sitemap/class-admin.php:94
+#: includes/modules/sitemap/html-sitemap/class-authors.php:115
 msgid "Authors"
 msgstr "Autoren"
 
@@ -6294,21 +6430,21 @@ msgstr "WooCommerce"
 msgid "AMP plugin"
 msgstr "AMP Plugin"
 
-#: includes/class-installer.php:349
+#: includes/class-installer.php:344
 #: includes/settings/general/breadcrumbs.php:121
 msgid "404 Error: page not found"
 msgstr "404 Fehler: Seite nicht gefunden"
 
 #. translators: Search query term
 #. translators: placeholder
-#: includes/class-installer.php:348
+#: includes/class-installer.php:343
 #: includes/settings/general/breadcrumbs.php:110
 msgid "Results for %s"
 msgstr "Ergebnisse für %s"
 
 #. translators: Archive title
 #. translators: placeholder
-#: includes/class-installer.php:346
+#: includes/class-installer.php:341
 #: includes/settings/general/breadcrumbs.php:98
 msgid "Archives for %s"
 msgstr "Archiv für %s"
@@ -6459,6 +6595,7 @@ msgstr "Aktuelle Serverzeit mit benutzerdefiniertem Formatierungsmuster."
 msgid "ID of the current post/page"
 msgstr "ID des aktuellen Beitrags/Seite"
 
+#: includes/modules/sitemap/settings/html-sitemap.php:103
 #: includes/replace-variables/class-advanced-variables.php:32
 #: includes/replace-variables/class-advanced-variables.php:35
 msgid "Post ID"
@@ -7036,23 +7173,23 @@ msgstr "Leiten die Anhänge ohne übergeordneten Beitrag an diese URL weiter. La
 msgid "Redirect all attachment page URLs to the post they appear in. For more advanced redirection control, use the built-in %s."
 msgstr "Leite alle URLs von Anhänge-Seiten an den Beitrag weiter, in dem sie erscheinen. Für eine erweiterte Umleitungssteuerung verwende die integrierten %s."
 
-#: includes/modules/woocommerce/views/options-general.php:34
-msgid "Remove prefix from category URL."
-msgstr "Entferne das Präfix aus der Kategorie-URL."
-
 #: includes/settings/general/htaccess.php:52
 msgid "Be careful when editing the htaccess file, it is easy to make mistakes and break your site. If that happens, you can restore the file to its state <strong>before the last edit</strong> by replacing the htaccess file with the backup copy created by Rank Math in the same directory (<em>.htaccess_back_xxxxxx</em>) using an FTP client."
 msgstr "Sei vorsichtig beim Bearbeiten der htaccess-Datei, es ist leicht, Fehler zu machen und deine Website zu zerstören. Wenn dies der Fall ist, kannst du die Datei in ihren Zustand <strong>vor der letzten Bearbeitung</strong> zurücksetzen, indem du die htaccess-Datei durch die Sicherungskopie ersetzen, die von Rank Math im gleichen Verzeichnis (<em>.htaccess_back_xxxxxx</em>) mit einem FTP-Client erstellt wurde."
+
+#: includes/modules/woocommerce/views/options-general.php:34
+msgid "Remove prefix from category URL."
+msgstr "Entferne das Präfix aus der Kategorie-URL."
 
 #: includes/settings/general/links.php:110
 msgid "Automatically add <code>target=\"_blank\"</code> attribute for external links appearing in your posts, pages, and other post types to make them open in a new browser tab or window. The attribute is dynamically applied when the content is displayed, and the stored content is not changed."
 msgstr "Füge automatisch das Attribut <code>target=\"_blank\"</code> für externe Links hinzu, die in deinen Beiträgen, Seiten und anderen Beitragstypen erscheinen, damit sie in einem neuen Browser-Tab oder Fenster geöffnet werden. Das Attribut wird dynamisch angewendet, wenn der Inhalt angezeigt wird, und der gespeicherte Inhalt wird nicht geändert."
 
-#: includes/modules/sitemap/settings/post-types.php:47
+#: includes/modules/sitemap/settings/post-types.php:62
 msgid "Insert custom field (post meta) names which contain image URLs to include them in the sitemaps. Add one per line."
 msgstr "Füge benutzerdefinierte Feldnamen (Post-Meta-Namen) ein, die Bild-URLs enthalten, um sie in die Sitemaps aufzunehmen. Füge einen pro Zeile hinzu."
 
-#: includes/modules/sitemap/settings/taxonomies.php:30
+#: includes/modules/sitemap/settings/taxonomies.php:46
 msgid "Include archive pages of terms that have no posts associated."
 msgstr "Füge Archivseiten von Begriffen ein, denen keine Beiträge zugeordnet sind."
 
@@ -7085,7 +7222,7 @@ msgstr "Ändere den Teil <code>/author/</code> in den URLs des Autorenarchivs."
 msgid "Enter your Bing Webmaster Tools verification HTML code or ID. Get it here: %s"
 msgstr "Gebe deinen HTML-Code oder deine ID für die Verifizierung der Bing Webmaster Tools ein. Du bekommst diesen hier: %s"
 
-#: includes/modules/sitemap/settings/taxonomies.php:20
+#: includes/modules/sitemap/settings/taxonomies.php:22
 msgid "Include archive pages for terms of this taxonomy in the XML sitemap."
 msgstr "Binde Archivseiten für Begriffe dieser Taxonomie in die XML-Sitemap ein."
 
@@ -7105,20 +7242,20 @@ msgstr "Gebe die Post-IDs der Beiträge ein, die du von der Sitemap ausschließe
 msgid "Include the Featured Image too, even if it does not appear directly in the post content."
 msgstr "Schließe auch das vorgestellte Bild ein, auch wenn es nicht direkt im Inhalt des Beitrags angezeigt wird."
 
-#: includes/modules/sitemap/settings/authors.php:34
+#: includes/modules/sitemap/settings/authors.php:66
 msgid "Add user IDs, separated by commas, to exclude them from the sitemap."
 msgstr "Füge Benutzer-IDs hinzu, die durch Kommas getrennt sind, um sie von der Sitemap auszuschließen."
 
-#: includes/modules/sitemap/class-admin.php:147
+#: includes/modules/sitemap/class-admin.php:162
 msgid "Please note that this will add the attachment page URLs to the sitemap, not direct image URLs."
 msgstr "Bitte beachte, dass die URLs der Anhänge zur Sitemap hinzugefügt werden und nicht die direkten Bild-URLs."
 
-#: includes/modules/sitemap/class-admin.php:112
+#: includes/modules/sitemap/class-admin.php:127
 msgid "your product pages"
 msgstr "Deine Produktseiten"
 
 #. translators: Learn more link.
-#: includes/modules/sitemap/class-admin.php:81
+#: includes/modules/sitemap/class-admin.php:96
 msgid "Set the sitemap options for author archive pages. %s."
 msgstr "Lege die Sitemap-Optionen für Autorenarchivseiten fest. %s."
 
@@ -7409,7 +7546,7 @@ msgstr "Schritt überspringen"
 msgid "Enable support for the structured data, which adds Schema code in your website, resulting in rich search results, better CTR and more traffic."
 msgstr "Aktiviere die Unterstützung für die strukturierten Daten, mit denen Metadaten zu deiner Website hinzugefügt werden, was zu besseren Suchergebnissen und mehr Traffic führt."
 
-#: includes/modules/sitemap/class-admin.php:70
+#: includes/modules/sitemap/class-admin.php:76
 msgid "This tab contains General settings related to the XML sitemaps."
 msgstr "Diese Registerkarte enthält allgemeine Einstellungen in Bezug auf die XML-Sitemaps."
 
@@ -7601,7 +7738,7 @@ msgid "Post Formats Archive"
 msgstr "Beitrags-Formate Archiv"
 
 #. Translators: placeholder is the post type names separated with commas.
-#: includes/modules/sitemap/class-sitemap.php:134
+#: includes/modules/sitemap/class-sitemap.php:136
 msgid "Rank Math has detected new post types: %1$s. You may want to check the settings of the <a href=\"%2$s\">Titles &amp; Meta page</a> and <a href=\"%3$s\">the Sitemap</a>."
 msgstr "Wir haben neue Beitrags-Typen (%1$s) entdeckt und du solltest die Einstellungen von <a href=\"%2$s\">Titel &amp; Meta Seite</a> und <a href=\"%3$s\">der Sitemap</a> überprüfen."
 
@@ -7631,6 +7768,7 @@ msgid "For the best SEO results, use a custom permalink structure, preferably on
 msgstr "Für die besten SEO-Ergebnisse verwende eine benutzerdefinierte Permalink-Struktur, vorzugsweise eine, die den Posttitel enthält (<code>%%postname%%</code>). Du kannst es ändern, indem du zu <a href=\"%s\">Einstellungen &gt; Permalinks</a> navigierst"
 
 #: includes/modules/analytics/google/class-request.php:265
+#: includes/modules/analytics/google/class-request.php:323
 msgid "Bad request. Please check the code."
 msgstr "Fehlerhafte Anfrage. Bitte überprüfe den Code."
 
@@ -7714,7 +7852,7 @@ msgid "Import meta information of your posts/pages like the focus keyword, title
 msgstr "Importiere Meta-Informationen deiner Beiträge/Seiten wie das Fokus-Schlüsselwort, Titel, Beschreibungen, Roboter-Metas, OpenGraph-Informationen etc."
 
 #: includes/admin/class-option-center.php:228
-#: includes/modules/sitemap/class-admin.php:121
+#: includes/modules/sitemap/class-admin.php:136
 msgid "Post Types:"
 msgstr "Inhaltstypen:"
 
@@ -7752,13 +7890,21 @@ msgid "Include reference to images from the post content in sitemaps. This helps
 msgstr "Aufnahme von Verweisen auf Bilder aus dem Post-Inhalt in Sitemaps. Dies hilft Suchmaschinen, die wichtigen Bilder auf deinen Seiten zu indizieren."
 
 #. translators: Taxonomy singular label
-#: includes/modules/sitemap/class-admin.php:182
+#: includes/modules/sitemap/class-admin.php:197
 msgid "your product %s pages"
 msgstr "Deine Produkt %s Seiten"
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:71
 msgid "Rank Math uses these focus keywords to analyze your on-page content.  It can tell if you've done a good job of optimizing your text to rank for these keywords."
 msgstr "Rank Math verwendet diese Fokus-Schlüsselwörter, um deinen Inhalt auf der Seite zu analysieren. Es kann erkennen, ob du gute Arbeit geleistet habst, indem du deinen Text optimiert habst, um ihn für diese Schlüsselwort zu bewerten."
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:122
+msgid "XML sitemaps are a special type of text file that tells search engines about the structure of your site. They're a list of all the resources (pages and files) you would like the search engine to index. You can assign different priorities, so certain pages will be crawled first. Before XML sitemaps, search engines were limited to indexing the content they could find by following links. That's still an important feature for search engine spiders, but XML sitemaps have made it easier for content creators and search engines to collaborate."
+msgstr "XML-Sitemaps sind eine spezielle Art von Textdatei, die Suchmaschinen über die Struktur deiner Website informiert. Es handelt sich um eine Liste aller Ressourcen (Seiten und Dateien), die die Suchmaschine indizieren soll. du kannst verschiedene Prioritäten vergeben, so dass bestimmte Seiten zuerst durchsucht werden. Vor XML-Sitemaps beschränkten sich Suchmaschinen auf die Indizierung von Inhalten, die sie über folgende Links finden konnten. Das ist immer noch ein wichtiges Feature für Suchmaschinen-Spider, aber XML-Sitemaps haben es für Inhaltsersteller und Suchmaschinen einfacher gemacht, zusammenzuarbeiten."
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:79
+msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
+msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Fokus-Schlüsselwort hinzufügst, überprüft Rank Math, ob du das Schlüsselwort im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Schlüsselwort im Titel fehlt, wird es dir hier mitgeteilt."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:69
 msgid "Setting focus keywords for your posts allows Rank Math to analyse the content."
@@ -7775,14 +7921,6 @@ msgstr "Es ist nicht sehr freundlich für die Augen, und es tut nichts für die 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:38
 msgid "The tagline is the second option.  Choose a tagline that summarizes your site in a few words.  The tagline is also a good place to use your main keyword."
 msgstr "Der Slogan ist die zweite Option.  Wähle einen Slogan, der deine Website in wenigen Worten zusammenfasst.  Der Slogan ist auch ein guter Ort, um dein Haupt-Schlüsselwort zu verwenden."
-
-#: includes/modules/seo-analysis/seo-analysis-tests.php:122
-msgid "XML sitemaps are a special type of text file that tells search engines about the structure of your site. They're a list of all the resources (pages and files) you would like the search engine to index. You can assign different priorities, so certain pages will be crawled first. Before XML sitemaps, search engines were limited to indexing the content they could find by following links. That's still an important feature for search engine spiders, but XML sitemaps have made it easier for content creators and search engines to collaborate."
-msgstr "XML-Sitemaps sind eine spezielle Art von Textdatei, die Suchmaschinen über die Struktur deiner Website informiert. Es handelt sich um eine Liste aller Ressourcen (Seiten und Dateien), die die Suchmaschine indizieren soll. du kannst verschiedene Prioritäten vergeben, so dass bestimmte Seiten zuerst durchsucht werden. Vor XML-Sitemaps beschränkten sich Suchmaschinen auf die Indizierung von Inhalten, die sie über folgende Links finden konnten. Das ist immer noch ein wichtiges Feature für Suchmaschinen-Spider, aber XML-Sitemaps haben es für Inhaltsersteller und Suchmaschinen einfacher gemacht, zusammenzuarbeiten."
-
-#: includes/modules/seo-analysis/seo-analysis-tests.php:79
-msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
-msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Fokus-Schlüsselwort hinzufügst, überprüft Rank Math, ob du das Schlüsselwort im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Schlüsselwort im Titel fehlt, wird es dir hier mitgeteilt."
 
 #. translators: link to general setting screen
 #: includes/modules/seo-analysis/seo-analysis-tests.php:37
@@ -7968,28 +8106,28 @@ msgstr "Speichern"
 msgid "Rank Math"
 msgstr "Rank Math"
 
-#: includes/admin/class-assets.php:202
+#: includes/admin/class-assets.php:200
 msgid "Link Title"
 msgstr "Link-Titel"
 
-#: includes/admin/class-assets.php:195
+#: includes/admin/class-assets.php:193
 msgid "Add Link"
 msgstr "Link hinzufügen"
 
-#: includes/admin/class-assets.php:194
+#: includes/admin/class-assets.php:192
 #: includes/modules/redirections/class-form.php:41
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: includes/admin/class-assets.php:196
+#: includes/admin/class-assets.php:194
 msgid "(no title)"
 msgstr "(Kein Titel)"
 
-#: includes/admin/class-assets.php:197
+#: includes/admin/class-assets.php:195
 msgid "No matches found."
 msgstr "Keine Treffer gefunden."
 
-#: includes/admin/class-assets.php:198
+#: includes/admin/class-assets.php:196
 msgid "Link selected."
 msgstr "Link ausgewählt."
 
@@ -8002,7 +8140,7 @@ msgstr "Hilfe"
 #: includes/admin/class-admin-bar-menu.php:183
 #: includes/admin/class-admin-bar-menu.php:185
 #: includes/admin/class-admin-breadcrumbs.php:32
-#: includes/admin/class-admin-menu.php:90
+#: includes/admin/class-admin-menu.php:89
 #: includes/modules/version-control/class-version-control.php:220
 #: includes/modules/analytics/assets/js/stats.js:1
 msgid "Dashboard"
@@ -8048,7 +8186,7 @@ msgid "Title"
 msgstr "Titel"
 
 #: includes/3rdparty/divi/class-divi.php:149
-#: includes/admin/class-assets.php:130
+#: includes/admin/class-assets.php:128
 msgid "This field is required."
 msgstr "Dieses Feld ist erforderlich."
 
@@ -8067,7 +8205,7 @@ msgstr "Module"
 msgid "Facebook profile URL"
 msgstr "Facebook Profil-URL"
 
-#: includes/admin/class-assets.php:199 assets/admin/js/gutenberg-formats.js:1
+#: includes/admin/class-assets.php:197 assets/admin/js/gutenberg-formats.js:1
 msgid "Link inserted."
 msgstr "Link eingefügt."
 
@@ -8088,14 +8226,14 @@ msgstr "Link in Inhalt einfügen"
 msgid "Copy Link URL to Clipboard"
 msgstr "Link URL in die Zwischenablage kopieren"
 
-#: includes/admin/metabox/class-metabox.php:258
+#: includes/admin/metabox/class-metabox.php:257
 #: includes/settings/titles/post-types.php:273
 msgid "Link Suggestions"
 msgstr "Linkvorschläge"
 
 #. Plugin Name of the plugin
 #: includes/admin/class-admin-bar-menu.php:173
-#: includes/admin/metabox/class-metabox.php:342
+#: includes/admin/metabox/class-metabox.php:341
 msgid "Rank Math SEO"
 msgstr "Rank Math SEO"
 
@@ -8123,7 +8261,7 @@ msgstr "Kein Backup zum Wiederherstellen gefunden."
 msgid "Advanced"
 msgstr "Erweitert"
 
-#: includes/modules/sitemap/class-admin.php:68
+#: includes/modules/sitemap/class-admin.php:74
 #: assets/admin/js/rank-math-app.js:1
 msgid "General"
 msgstr "Allgemein"
@@ -8154,8 +8292,7 @@ msgstr "Massenbearbeitung dieses Feldes"
 
 #: includes/admin/views/import-export/import-export-panel.php:59
 #: includes/modules/role-manager/class-capability-manager.php:58
-#: includes/modules/sitemap/class-admin.php:91
-#: includes/modules/sitemap/class-admin.php:92
+#: includes/modules/sitemap/class-admin.php:106
 msgid "Sitemap Settings"
 msgstr "Sitemap-Einstellungen"
 
@@ -8282,11 +8419,11 @@ msgstr "Das Konto wurde erfolgreich verbunden"
 msgid "Cleanup of %s data successfully done."
 msgstr "Die Bereinigung der %s-Daten wurde erfolgreich durchgeführt."
 
-#: includes/admin/class-assets.php:193
+#: includes/admin/class-assets.php:191
 msgid "Insert/edit link"
 msgstr "Link einfügen/bearbeiten"
 
-#: includes/admin/class-admin-menu.php:100
+#: includes/admin/class-admin-menu.php:99
 msgid "Help &amp; Support"
 msgstr "Hilfe und Support"
 
@@ -8350,11 +8487,11 @@ msgstr "Bist du sicher, dass du diese Sicherung wiederherstellen möchten? Deine
 msgid "Are you sure you want to import settings into Rank Math? Don't worry, your current configuration will be saved as a backup."
 msgstr "Bist du sicher, dass du die Einstellungen in Rank Math importieren möchtest? Keine Sorge, deine aktuelle Konfiguration wird als Backup gespeichert."
 
-#: includes/admin/metabox/class-metabox.php:269
+#: includes/admin/metabox/class-metabox.php:268
 msgid "Click on the button to copy URL or insert link in content. You can also drag and drop links in the post content."
 msgstr "Klicke auf die Schaltfläche, um die URL zu kopieren oder einen Link in den Inhalt einzufügen. Du kannst auch Links per Drag & Drop in den Inhalt des Beitrags ziehen."
 
-#: includes/admin/metabox/class-metabox.php:278
+#: includes/admin/metabox/class-metabox.php:277
 msgid "We can't show any link suggestions for this post. Try selecting categories and tags for this post, and mark other posts as Pillar Content to make them show up here."
 msgstr "Wir können keine Linkvorschläge für diesen Beitrag machen. Versuche, Kategorien und Tags für diesen Beitrag auszuwählen, und markiere andere Beiträge als Säuleninhalt, damit sie hier angezeigt werden."
 
@@ -8395,7 +8532,7 @@ msgid "SEO Desc"
 msgstr "SEO-Beschreibung"
 
 #. translators: plugin url
-#: includes/admin/class-assets.php:177
+#: includes/admin/class-assets.php:175
 msgid "Thank you for using <a href=\"%s\" target=\"_blank\">Rank Math</a>"
 msgstr "Vielen Dank, dass du <a href=\"%s\" target=\"_blank\">Rank Math</a> verwendest"
 
@@ -8428,7 +8565,7 @@ msgstr "Preisspanne: "
 msgid "Settings could not be imported:"
 msgstr "Einstellungen konnten nicht importiert werden:"
 
-#: includes/admin/class-assets.php:200
+#: includes/admin/class-assets.php:198
 msgid "Add <code>rel=\"nofollow\"</code>"
 msgstr "Füge <code>rel=\"nofollow\"</code> hinzu"
 
