@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '007b9e3c972b9613f97f06c9ce616d05f163d75e',
+        'reference' => '9bc84fa1a3ceb37fe06f623b82705bce026a00b7',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -155,12 +155,12 @@
             'dev_requirement' => false,
         ),
         'markbaker/matrix' => array(
-            'pretty_version' => '3.0.0',
-            'version' => '3.0.0.0',
+            'pretty_version' => '3.0.1',
+            'version' => '3.0.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../markbaker/matrix',
             'aliases' => array(),
-            'reference' => 'c66aefcafb4f6c269510e9ac46b82619a904c576',
+            'reference' => '728434227fe21be27ff6d86621a1b13107a2562c',
             'dev_requirement' => false,
         ),
         'masterminds/html5' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '007b9e3c972b9613f97f06c9ce616d05f163d75e',
+            'reference' => '9bc84fa1a3ceb37fe06f623b82705bce026a00b7',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -447,7 +447,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'c4ccfdab77bd92444c6a2f7813bc20f29dbb9d13',
+            'reference' => '891ecbb72eac808c80fb97f2cce67824e94e5652',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
