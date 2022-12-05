@@ -26,12 +26,10 @@ use Twig\Token;
  *    <link rel="stylesheet" href="style.css" />
  *    <title>{% block title %}{% endblock %} - My Webpage</title>
  *  {% endblock %}
- *
- * @internal
  */
 final class BlockTokenParser extends AbstractTokenParser
 {
-    public function parse(Token $token): Node
+    public function parse(Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
@@ -66,13 +64,15 @@ final class BlockTokenParser extends AbstractTokenParser
         return new BlockReferenceNode($name, $lineno, $this->getTag());
     }
 
-    public function decideBlockEnd(Token $token): bool
+    public function decideBlockEnd(Token $token)
     {
         return $token->test('endblock');
     }
 
-    public function getTag(): string
+    public function getTag()
     {
         return 'block';
     }
 }
+
+class_alias('Twig\TokenParser\BlockTokenParser', 'Twig_TokenParser_Block');

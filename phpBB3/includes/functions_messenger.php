@@ -597,7 +597,7 @@ class messenger
 			$this->from = $board_contact;
 		}
 
-		$encode_eol = ($config['smtp_delivery']) ? "\r\n" : PHP_EOL;
+		$encode_eol = $config['smtp_delivery'] || PHP_VERSION_ID >= 80000 ? "\r\n" : PHP_EOL;
 
 		// Build to, cc and bcc strings
 		$to = $cc = $bcc = '';
@@ -629,7 +629,7 @@ class messenger
 			}
 			else
 			{
-				$result = phpbb_mail($mail_to, $this->subject, $this->msg, $headers, PHP_EOL, $err_msg);
+				$result = phpbb_mail($mail_to, $this->subject, $this->msg, $headers, $encode_eol, $err_msg);
 			}
 
 			if (!$result)
@@ -952,7 +952,8 @@ class queue
 							}
 							else
 							{
-								$result = phpbb_mail($to, $subject, $msg, $headers, PHP_EOL, $err_msg);
+								$encode_eol = $config['smtp_delivery'] || PHP_VERSION_ID >= 80000 ? "\r\n" : PHP_EOL;
+								$result = phpbb_mail($to, $subject, $msg, $headers, $encode_eol, $err_msg);
 							}
 
 							if (!$result)
@@ -1882,7 +1883,7 @@ function mail_encode($str, $eol = "\r\n")
 	{
 		$encoded_char = $is_quoted_printable
 			? $char = preg_replace_callback(
-				'/[=_\?\x20\x00-\x1F\x80-\xFF]/',
+				'/[()<>@,;:\\\\".\[\]=_?\x20\x00-\x1F\x80-\xFF]/',
 				function ($matches)
 				{
 					$hex = dechex(ord($matches[0]));

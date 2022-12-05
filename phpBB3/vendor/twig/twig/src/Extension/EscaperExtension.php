@@ -36,17 +36,17 @@ final class EscaperExtension extends AbstractExtension
         $this->setDefaultStrategy($defaultStrategy);
     }
 
-    public function getTokenParsers(): array
+    public function getTokenParsers()
     {
         return [new AutoEscapeTokenParser()];
     }
 
-    public function getNodeVisitors(): array
+    public function getNodeVisitors()
     {
         return [new EscaperNodeVisitor()];
     }
 
-    public function getFilters(): array
+    public function getFilters()
     {
         return [
             new TwigFilter('escape', 'twig_escape_filter', ['needs_environment' => true, 'is_safe_callback' => 'twig_escape_filter_is_safe']),
@@ -63,7 +63,7 @@ final class EscaperExtension extends AbstractExtension
      *
      * @param string|false|callable $defaultStrategy An escaping strategy
      */
-    public function setDefaultStrategy($defaultStrategy): void
+    public function setDefaultStrategy($defaultStrategy)
     {
         if ('name' === $defaultStrategy) {
             $defaultStrategy = [FileExtensionEscapingStrategy::class, 'guess'];
@@ -79,7 +79,7 @@ final class EscaperExtension extends AbstractExtension
      *
      * @return string|false The default strategy to use for the template
      */
-    public function getDefaultStrategy(string $name)
+    public function getDefaultStrategy($name)
     {
         // disable string callables to avoid calling a function named html or js,
         // or any other upcoming escaping strategy
@@ -133,11 +133,14 @@ final class EscaperExtension extends AbstractExtension
         }
     }
 }
+
+class_alias('Twig\Extension\EscaperExtension', 'Twig_Extension_Escaper');
 }
 
 namespace {
 use Twig\Environment;
 use Twig\Error\RuntimeError;
+use Twig\Extension\CoreExtension;
 use Twig\Extension\EscaperExtension;
 use Twig\Markup;
 use Twig\Node\Expression\ConstantExpression;
@@ -147,6 +150,8 @@ use Twig\Node\Node;
  * Marks a variable as being safe.
  *
  * @param string $string A PHP variable
+ *
+ * @return string
  */
 function twig_raw_filter($string)
 {
@@ -387,11 +392,18 @@ function twig_escape_filter(Environment $env, $string, $strategy = 'html', $char
             return rawurlencode($string);
 
         default:
+            // check the ones set on CoreExtension for BC (to be removed in 3.0)
+            $legacyEscapers = $env->getExtension(CoreExtension::class)->getEscapers(false);
+            if (array_key_exists($strategy, $legacyEscapers)) {
+                return $legacyEscapers[$strategy]($env, $string, $charset);
+            }
+
             $escapers = $env->getExtension(EscaperExtension::class)->getEscapers();
             if (array_key_exists($strategy, $escapers)) {
                 return $escapers[$strategy]($env, $string, $charset);
             }
 
+            $escapers = array_merge($legacyEscapers, $escapers);
             $validStrategies = implode(', ', array_merge(['html', 'js', 'url', 'css', 'html_attr'], array_keys($escapers)));
 
             throw new RuntimeError(sprintf('Invalid escaping strategy "%s" (valid ones: %s).', $strategy, $validStrategies));
