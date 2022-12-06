@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '0eade5a4875522e500dfdc18085c0823740d9337',
+        'reference' => 'd9d1ee6237ee7086f4406c4b8f84a1502925d486',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '0eade5a4875522e500dfdc18085c0823740d9337',
+            'reference' => 'd9d1ee6237ee7086f4406c4b8f84a1502925d486',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -447,7 +447,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '891ecbb72eac808c80fb97f2cce67824e94e5652',
+            'reference' => 'ae7d78fff43ae2c157a04b71f21c58d5009629ba',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
@@ -1024,12 +1024,12 @@
             ),
         ),
         'tecnickcom/tcpdf' => array(
-            'pretty_version' => '6.5.0',
-            'version' => '6.5.0.0',
+            'pretty_version' => '6.6.0',
+            'version' => '6.6.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
             'aliases' => array(),
-            'reference' => 'cc54c1503685e618b23922f53635f46e87653662',
+            'reference' => '154bba45ffc9c2a049aa9e21501d02472b24deb4',
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
