@@ -20,6 +20,7 @@ import { GLTFAudioEmitterExtension } from "three-omi";
 import { Perf } from "r3f-perf";
 // import EditControls from "./EditControls";
 import { Resizable } from "re-resizable";
+import defaultFont from "../../../inc/fonts/roboto.woff";
 
 function TextObject(text) {
 	const textObj = useRef();
@@ -86,7 +87,11 @@ function TextObject(text) {
 							]}
 							scale={[text.scaleX, text.scaleY, text.scaleZ]}
 						>
-							<Text scale={[4, 4, 4]} color={text.textColor}>
+							<Text
+								font={(threeObjectPlugin + defaultFont)}
+								scale={[4, 4, 4]}
+								color={text.textColor}
+							>
 								{text.textContent}
 							</Text>
 						</group>
@@ -417,9 +422,11 @@ function ModelObject(model) {
 	const { camera } = useThree();
 
 	const gltf = useLoader(GLTFLoader, model.url, (loader) => {
-		loader.register(
-			(parser) => new GLTFAudioEmitterExtension(parser, listener)
-		);
+		if(listener){
+			loader.register(
+				(parser) => new GLTFAudioEmitterExtension(parser, listener)
+			);	
+		}
 		loader.register((parser) => {
 			return new VRMLoaderPlugin(parser);
 		});
@@ -457,7 +464,7 @@ function ModelObject(model) {
 	}
 	gltf.scene.rotation.set(0, 0, 0);
 	const obj = useRef();
-	const copyGltf = useMemo(() => gltf.scene.clone(), [gltf.scene]);
+	// const copyGltf = useMemo(() => gltf.scene.clone(), [gltf.scene]);
 	const [isSelected, setIsSelected] = useState();
 	const [modelBlockAttributes, setModelBlockAttributes] = useState(
 		wp.data.select("core/block-editor").getBlockAttributes(model.modelId)
@@ -545,7 +552,7 @@ function ModelObject(model) {
 								modelBlockAttributes.scaleZ
 							]}
 						>
-							<primitive object={copyGltf} />
+							<primitive object={gltf.scene} />
 						</group>
 					)}
 				</TransformController>
@@ -697,6 +704,7 @@ function PortalObject(model) {
 							]}
 						>
 							<Text
+								font={(threeObjectPlugin + defaultFont)}
 								scale={[2, 2, 2]}
 								color={portalBlockAttributes.labelTextColor}
 								maxWidth={1}

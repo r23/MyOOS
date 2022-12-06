@@ -158,7 +158,7 @@ add_action('enqueue_block_assets', __NAMESPACE__ . '\threeobjectviewer_editor_as
  * Enqueue block frontend JavaScript
  */
 function threeobjectviewer_editor_assets() {
-
+    $three_object_plugin = plugins_url() . '/three-object-viewer/build/';
 
     $DEFAULT_BLOCKS = [
 						'three-object-viewer/three-portal-block',
@@ -173,6 +173,7 @@ function threeobjectviewer_editor_assets() {
                     ];
     $ALLOWED_BLOCKS = apply_filters( 'three-object-environment-inner-allowed-blocks', $DEFAULT_BLOCKS );
 
+	wp_localize_script( 'three-object-viewer-three-object-block-editor-script', 'threeObjectPlugin', $three_object_plugin );	
     wp_localize_script( 'three-object-viewer-three-object-block-editor-script', 'allowed_blocks', $ALLOWED_BLOCKS );
 
 }

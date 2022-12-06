@@ -5,7 +5,7 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
 // import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
-import { Physics, RigidBody, Debug } from "@react-three/rapier";
+import { Physics, RigidBody, Debug, Attractor, CuboidCollider } from "@react-three/rapier";
 import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
 import { GLTFGoogleTiltBrushMaterialExtension } from "three-icosa";
 
@@ -20,13 +20,15 @@ import {
 } from "@react-three/drei";
 // import { A11y } from "@react-three/a11y";
 import { GLTFAudioEmitterExtension } from "three-omi";
-import { VRCanvas, DefaultXRControllers, Hands } from "@react-three/xr";
+import { VRCanvas, DefaultXRControllers, Hands, XRButton } from "@react-three/xr";
 import { Perf } from "r3f-perf";
 import { VRMUtils, VRMLoaderPlugin } from "@pixiv/three-vrm";
 import TeleportTravel from "./TeleportTravel";
 import Player from "./Player";
 import defaultVRM from "../../../inc/avatars/3ov_default_avatar.vrm";
+import defaultFont from "../../../inc/fonts/roboto.woff";
 import { ItemBaseUI } from "@wordpress/components/build/navigation/styles/navigation-styles";
+import { BoxGeometry } from "three";
 
 function parseMatrixUri(uri) {
 	const SegmentToSigil = {
@@ -178,6 +180,7 @@ function Participant(participant) {
 }
 
 function ModelObject(model) {
+	const [clicked, setClickEvent] = useState();
 	const [url, set] = useState(model.url);
 	useEffect(() => {
 		setTimeout(() => set(model.url), 2000);
@@ -189,19 +192,30 @@ function ModelObject(model) {
 	});
 
 	const gltf = useLoader(GLTFLoader, url, (loader) => {
+		// const dracoLoader = new DRACOLoader();
+		// dracoLoader.setDecoderPath(
+		// 	"https://www.gstatic.com/draco/v1/decoders/"
+		// );
+		// loader.setDRACOLoader(dracoLoader);
+
 		loader.register(
 			(parser) => new GLTFAudioEmitterExtension(parser, listener)
 		);
-		if(openbrushEnabled === true){
+		if (openbrushEnabled === true) {
 			loader.register(
 				(parser) =>
-					new GLTFGoogleTiltBrushMaterialExtension(parser, openbrushDirectory)
-			);	
+					new GLTFGoogleTiltBrushMaterialExtension(
+						parser,
+						openbrushDirectory
+					)
+			);
 		}
 		loader.register((parser) => {
 			return new VRMLoaderPlugin(parser);
 		});
 	});
+
+	const audioObject = gltf.scene.getObjectByProperty('type', 'Audio');
 
 	const { actions } = useAnimations(gltf.animations, gltf.scene);
 	const animationClips = gltf.animations;
@@ -221,21 +235,15 @@ function ModelObject(model) {
 	// return tilt brush if tilt brush
 	if (String(generator).includes("Tilt Brush")) {
 		return (
-			<primitive 
-			rotation={[
-				model.rotationX,
-				model.rotationY,
-				model.rotationZ
-			]}
-			position={[
-				model.positionX,
-				model.positionY,
-				model.positionZ
-			]}
-			scale={[model.scaleX, model.scaleY, model.scaleZ]}
-			object={gltf.scene} />
+			<primitive
+				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
+				position={[model.positionX, model.positionY, model.positionZ]}
+				scale={[model.scaleX, model.scaleY, model.scaleZ]}
+				object={gltf.scene}
+			/>
 		);
-	} 
+	}
+
 	if (gltf?.userData?.gltfExtensions?.VRM) {
 		const vrm = gltf.userData.vrm;
 		vrm.scene.position.set(
@@ -263,9 +271,39 @@ function ModelObject(model) {
 	// 	}
 	// });
 
-	const copyGltf = useMemo(() => gltf.scene.clone(), [gltf.scene]);
-	const modelClone = SkeletonUtils.clone(gltf.scene);
+	// @todo figure out how to clone gltf proper with extensions and animations
+	// const copyGltf = useMemo(() => gltf.scene.clone(), [gltf.scene]);
+	// const modelClone = SkeletonUtils.clone(gltf.scene);
 	// modelClone.scene.castShadow = true;
+
+	//audioObject
+	// Add a triangle mesh on top of the video
+	const [triangle] = useState(() => {
+		const points = [];
+		points.push(
+			new THREE.Vector3(0, -3, 0),
+			new THREE.Vector3(0, 3, 0),
+			new THREE.Vector3(4, 0, 0)
+		);
+		const geometry = new THREE.BufferGeometry().setFromPoints(points);
+		const material = new THREE.MeshBasicMaterial({
+			color: 0x00000,
+			side: THREE.DoubleSide
+		});
+		const triangle = new THREE.Mesh(geometry, material);
+		return triangle;
+	});
+
+	const [circle] = useState(() => {
+		const geometryCircle = new THREE.CircleGeometry(5, 32);
+		const materialCircle = new THREE.MeshBasicMaterial({
+			color: 0xfffff,
+			side: THREE.DoubleSide
+		});
+		const circle = new THREE.Mesh(geometryCircle, materialCircle);
+		return circle;
+	});
+	
 	if (model.collidable === "1") {
 		return (
 			<>
@@ -283,13 +321,27 @@ function ModelObject(model) {
 						model.positionZ
 					]}
 					scale={[model.scaleX, model.scaleY, model.scaleZ]}
+					onCollisionExit={(manifold, target, other) => {
+						setClickEvent(!clicked);
+						if(audioObject){
+							if (clicked) {
+								audioObject.play();
+								triangle.material.visible = false;
+								circle.material.visible = false;
+							} else {
+								audioObject.pause();
+								triangle.material.visible = true;
+								circle.material.visible = true;
+							}
+						}
+					}}	
 					// onCollisionEnter={ ( props ) =>(
 					// 	// window.location.href = model.destinationUrl
 					// 	)
 					// }
 				>
 					<primitive
-						object={copyGltf}
+						object={gltf.scene}
 						// castShadow
 						// receiveShadow
 						rotation={[
@@ -311,7 +363,7 @@ function ModelObject(model) {
 	return (
 		<>
 			<primitive
-				object={copyGltf}
+				object={gltf.scene}
 				// castShadow
 				// receiveShadow
 				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
@@ -323,6 +375,7 @@ function ModelObject(model) {
 }
 
 function Portal(model) {
+	
 	if (model.object) {
 		return (
 			<>
@@ -338,6 +391,7 @@ function Portal(model) {
 					lockZ={false} // Lock the rotation on the z axis (default=false)
 				>
 					<Text
+						font={threeObjectPlugin + defaultFont}
 						scale={[2, 2, 2]}
 						maxWidth={1}
 						alignX="center"
@@ -419,7 +473,7 @@ function Portal(model) {
 			<RigidBody
 				type="fixed"
 				colliders={"cuboid"}
-				onCollisionEnter={(props) =>
+				onCollisionExit={(props) =>
 					(window.location.href = model.destinationUrl)
 				}
 				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
@@ -427,6 +481,7 @@ function Portal(model) {
 				scale={[model.scaleX, model.scaleY, model.scaleZ]}
 			>
 				<group
+					name="portal"
 					rotation={[
 						model.rotationX,
 						model.rotationY,
@@ -440,6 +495,7 @@ function Portal(model) {
 					scale={[model.scaleX, model.scaleY, model.scaleZ]}
 				>
 					<Text
+						font={threeObjectPlugin + defaultFont}
 						scale={[2, 2, 2]}
 						maxWidth={1}
 						alignX="center"
@@ -518,8 +574,8 @@ function ThreeImage(threeImage) {
 }
 
 function ThreeVideo(threeVideo) {
-	// const pauseImage = useLoader(TextureLoader, "PavingStones092_1K_Color.jpg");
-	const play = threeVideo.autoPlay === 0 ? true : false;
+	const play = threeVideo.autoPlay === "1" ? true : false;
+	const { scene } = useThree();
 	const [clicked, setClickEvent] = useState();
 	const [video] = useState(() =>
 		Object.assign(document.createElement("video"), {
@@ -529,64 +585,124 @@ function ThreeVideo(threeVideo) {
 			muted: true
 		})
 	);
+	// Add a triangle mesh on top of the video
+	const [triangle] = useState(() => {
+		const points = [];
+		points.push(
+			new THREE.Vector3(0, -3, 0),
+			new THREE.Vector3(0, 3, 0),
+			new THREE.Vector3(4, 0, 0)
+		);
+		const geometry = new THREE.BufferGeometry().setFromPoints(points);
+		const material = new THREE.MeshBasicMaterial({
+			color: 0x00000,
+			side: THREE.DoubleSide
+		});
+		const triangle = new THREE.Mesh(geometry, material);
+		return triangle;
+	});
 
-	useEffect(() => void (play && video.play()), [video, play]);
+	const [circle] = useState(() => {
+		const geometryCircle = new THREE.CircleGeometry(5, 32);
+		const materialCircle = new THREE.MeshBasicMaterial({
+			color: 0xfffff,
+			side: THREE.DoubleSide
+		});
+		const circle = new THREE.Mesh(geometryCircle, materialCircle);
+		return circle;
+	});
+
+	useEffect(() => {
+		if (play) {
+			triangle.material.visible = false;
+			circle.material.visible = false;
+			video.play();
+		} else {
+			triangle.material.visible = true;
+			circle.material.visible = true;
+		}
+	}, [video, play]);
 
 	return (
-		<Select
-			box
-			multiple
-			onChange={(e) => {
-				if (e.length !== 0) {
+		// <Select
+		// 	box
+		// 	multiple
+		// 	onChange={(e) => {
+		// 		if (e.length !== 0) {
+		// 			setClickEvent(!clicked);
+		// 			if (clicked) {
+		// 				video.play();
+		// 				triangle.material.visible = false;
+		// 				circle.material.visible = false;
+		// 			} else {
+		// 				video.pause();
+		// 				triangle.material.visible = true;
+		// 				circle.material.visible = true;
+		// 			}
+		// 		}
+		// 	}}
+		// 	filter={(items) => items}
+		// >
+		<group
+			name="video"
+			scale={[threeVideo.scaleX, threeVideo.scaleY, threeVideo.scaleZ]}
+			position={[
+				threeVideo.positionX,
+				threeVideo.positionY,
+				threeVideo.positionZ
+			]}
+			rotation={[
+				threeVideo.rotationX,
+				threeVideo.rotationY,
+				threeVideo.rotationZ
+			]}
+		>
+			<RigidBody
+				type="fixed"
+				colliders={"cuboid"}
+				ccd={true}
+				onCollisionExit={(manifold, target, other) => {
 					setClickEvent(!clicked);
 					if (clicked) {
 						video.play();
+						triangle.material.visible = false;
+						circle.material.visible = false;
 					} else {
 						video.pause();
+						triangle.material.visible = true;
+						circle.material.visible = true;
 					}
-				}
-			}}
-			filter={(items) => items}
-		>
-			<mesh
-				scale={[
-					threeVideo.scaleX,
-					threeVideo.scaleY,
-					threeVideo.scaleZ
-				]}
-				position={[
-					threeVideo.positionX,
-					threeVideo.positionY,
-					threeVideo.positionZ
-				]}
-				rotation={[
-					threeVideo.rotationX,
-					threeVideo.rotationY,
-					threeVideo.rotationZ
-				]}
+				}}
 			>
-				<meshBasicMaterial toneMapped={false}>
-					<videoTexture
-						attach="map"
-						args={[video]}
-						encoding={THREE.sRGBEncoding}
-					/>
-				</meshBasicMaterial>
-				<planeGeometry
-					args={[
-						threeVideo.aspectWidth / 12,
-						threeVideo.aspectHeight / 12
-					]}
-				/>
-			</mesh>
-		</Select>
+				<object3D>
+					<mesh>
+						<meshBasicMaterial toneMapped={false}>
+							<videoTexture
+								attach="map"
+								args={[video]}
+								encoding={THREE.sRGBEncoding}
+							/>
+						</meshBasicMaterial>
+						<planeGeometry
+							args={[
+								threeVideo.aspectWidth / 12,
+								threeVideo.aspectHeight / 12
+							]}
+						/>
+					</mesh>
+				</object3D>
+			</RigidBody>
+			<primitive position={[-1.5, 0, 0.1]} object={triangle} />
+			<primitive position={[0, 0, 0.05]} object={circle} />
+		</group>
+		// </Select>
 	);
 }
 
 function Floor(props) {
 	return (
 		<mesh position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]} {...props}>
-			<boxBufferGeometry args={[10000, 10000, 1]} attach="geometry" />
+			<BoxGeometry args={[10000, 10000, 1]} attach="geometry" />
 			<meshBasicMaterial
 				opacity={0}
 				transparent={true}
@@ -607,6 +723,7 @@ function TextObject(model) {
 				ref={htmlObj}
 			>
 				<Text
+					font={threeObjectPlugin + defaultFont}
 					className="content"
 					scale={[4, 4, 4]}
 					// rotation-y={-Math.PI / 2}
@@ -880,7 +997,6 @@ export default function EnvironmentFront(props) {
 						}}
 					>
 						{/* <Perf className="stats" /> */}
-						{/* <XRButton className="enter-vr" /> */}
 						<Hands />
 						<DefaultXRControllers />
 						<ambientLight intensity={0.5} />
@@ -901,7 +1017,8 @@ export default function EnvironmentFront(props) {
 							// castShadow
 						/>
 						<Suspense fallback={null}>
-							<Physics>
+							<Physics
+							>
 								<RigidBody></RigidBody>
 								{/* Debug physics */}
 								{/* <Debug /> */}
@@ -943,7 +1060,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-positionX"
-														  ).innerText
+														).innerText
 														: "";
 
 												const imagePosY =
@@ -952,7 +1069,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-positionY"
-														  ).innerText
+														).innerText
 														: "";
 
 												const imagePosZ =
@@ -961,7 +1078,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-positionZ"
-														  ).innerText
+														).innerText
 														: "";
 
 												const imageScaleX =
@@ -970,7 +1087,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-scaleX"
-														  ).innerText
+														).innerText
 														: "";
 
 												const imageScaleY =
@@ -979,7 +1096,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-scaleY"
-														  ).innerText
+														).innerText
 														: "";
 
 												const imageScaleZ =
@@ -988,7 +1105,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-scaleZ"
-														  ).innerText
+														).innerText
 														: "";
 
 												const imageRotationX =
@@ -997,7 +1114,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-rotationX"
-														  ).innerText
+														).innerText
 														: "";
 
 												const imageRotationY =
@@ -1006,7 +1123,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-rotationY"
-														  ).innerText
+														).innerText
 														: "";
 
 												const imageRotationZ =
@@ -1015,7 +1132,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-rotationZ"
-														  ).innerText
+														).innerText
 														: "";
 
 												const imageUrl =
@@ -1024,7 +1141,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-url"
-														  ).innerText
+														).innerText
 														: "";
 
 												const aspectHeight =
@@ -1033,7 +1150,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-aspect-height"
-														  ).innerText
+														).innerText
 														: "";
 
 												const aspectWidth =
@@ -1042,7 +1159,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-aspect-width"
-														  ).innerText
+														).innerText
 														: "";
 
 												const transparent =
@@ -1051,7 +1168,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.image-block-transparent"
-														  ).innerText
+														).innerText
 														: false;
 												return (
 													<ThreeImage
@@ -1093,7 +1210,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-positionX"
-														  ).innerText
+														).innerText
 														: "";
 
 												const videoPosY =
@@ -1102,7 +1219,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-positionY"
-														  ).innerText
+														).innerText
 														: "";
 
 												const videoPosZ =
@@ -1111,7 +1228,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-positionZ"
-														  ).innerText
+														).innerText
 														: "";
 
 												const videoScaleX =
@@ -1120,7 +1237,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-scaleX"
-														  ).innerText
+														).innerText
 														: "";
 
 												const videoScaleY =
@@ -1129,7 +1246,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-scaleY"
-														  ).innerText
+														).innerText
 														: "";
 
 												const videoScaleZ =
@@ -1138,7 +1255,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-scaleZ"
-														  ).innerText
+														).innerText
 														: "";
 
 												const videoRotationX =
@@ -1147,7 +1264,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-rotationX"
-														  ).innerText
+														).innerText
 														: "";
 
 												const videoRotationY =
@@ -1156,7 +1273,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-rotationY"
-														  ).innerText
+														).innerText
 														: "";
 
 												const videoRotationZ =
@@ -1165,7 +1282,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-rotationZ"
-														  ).innerText
+														).innerText
 														: "";
 
 												const videoUrl =
@@ -1174,7 +1291,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"div.video-block-url"
-														  ).innerText
+														).innerText
 														: "";
 
 												const aspectHeight =
@@ -1183,7 +1300,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-aspect-height"
-														  ).innerText
+														).innerText
 														: "";
 
 												const aspectWidth =
@@ -1192,7 +1309,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-aspect-width"
-														  ).innerText
+														).innerText
 														: "";
 
 												const autoPlay =
@@ -1201,7 +1318,7 @@ export default function EnvironmentFront(props) {
 													)
 														? item.querySelector(
 																"p.video-block-autoplay"
-														  ).innerText
+														).innerText
 														: false;
 
 												return (
@@ -1243,7 +1360,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.model-block-position-x"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelPosY =
@@ -1252,7 +1369,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.model-block-position-y"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelPosZ =
@@ -1261,7 +1378,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.model-block-position-z"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelScaleX =
@@ -1270,7 +1387,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.model-block-scale-x"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelScaleY =
@@ -1279,7 +1396,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.model-block-scale-y"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelScaleZ =
@@ -1288,7 +1405,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.model-block-scale-z"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelRotationX =
@@ -1297,7 +1414,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.model-block-rotation-x"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelRotationY =
@@ -1306,7 +1423,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.model-block-rotation-y"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelRotationZ =
@@ -1315,7 +1432,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.model-block-rotation-z"
-														  ).innerText
+														).innerText
 														: "";
 
 												const url = model.querySelector(
@@ -1323,7 +1440,7 @@ export default function EnvironmentFront(props) {
 												)
 													? model.querySelector(
 															"p.model-block-url"
-													  ).innerText
+													).innerText
 													: "";
 
 												const animations =
@@ -1332,7 +1449,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.model-block-animations"
-														  ).innerText
+														).innerText
 														: "";
 
 												const alt = model.querySelector(
@@ -1340,7 +1457,7 @@ export default function EnvironmentFront(props) {
 												)
 													? model.querySelector(
 															"p.model-block-alt"
-													  ).innerText
+													).innerText
 													: "";
 
 												const collidable =
@@ -1349,7 +1466,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.model-block-collidable"
-														  ).innerText
+														).innerText
 														: false;
 
 												return (
@@ -1385,7 +1502,7 @@ export default function EnvironmentFront(props) {
 														)
 															? model.querySelector(
 																	"p.three-text-content"
-															  ).innerText
+															).innerText
 															: "";
 													const rotationX =
 														model.querySelector(
@@ -1393,7 +1510,7 @@ export default function EnvironmentFront(props) {
 														)
 															? model.querySelector(
 																	"p.three-text-rotationX"
-															  ).innerText
+															).innerText
 															: "";
 													const rotationY =
 														model.querySelector(
@@ -1401,7 +1518,7 @@ export default function EnvironmentFront(props) {
 														)
 															? model.querySelector(
 																	"p.three-text-rotationY"
-															  ).innerText
+															).innerText
 															: "";
 													const rotationZ =
 														model.querySelector(
@@ -1409,7 +1526,7 @@ export default function EnvironmentFront(props) {
 														)
 															? model.querySelector(
 																	"p.three-text-rotationZ"
-															  ).innerText
+															).innerText
 															: "";
 													const positionX =
 														model.querySelector(
@@ -1417,7 +1534,7 @@ export default function EnvironmentFront(props) {
 														)
 															? model.querySelector(
 																	"p.three-text-positionX"
-															  ).innerText
+															).innerText
 															: "";
 													const positionY =
 														model.querySelector(
@@ -1425,7 +1542,7 @@ export default function EnvironmentFront(props) {
 														)
 															? model.querySelector(
 																	"p.three-text-positionY"
-															  ).innerText
+															).innerText
 															: "";
 													const positionZ =
 														model.querySelector(
@@ -1433,7 +1550,7 @@ export default function EnvironmentFront(props) {
 														)
 															? model.querySelector(
 																	"p.three-text-positionZ"
-															  ).innerText
+															).innerText
 															: "";
 													const scaleX =
 														model.querySelector(
@@ -1441,7 +1558,7 @@ export default function EnvironmentFront(props) {
 														)
 															? model.querySelector(
 																	"p.three-text-scaleX"
-															  ).innerText
+															).innerText
 															: "";
 													const scaleY =
 														model.querySelector(
@@ -1449,7 +1566,7 @@ export default function EnvironmentFront(props) {
 														)
 															? model.querySelector(
 																	"p.three-text-scaleY"
-															  ).innerText
+															).innerText
 															: "";
 													const scaleZ =
 														model.querySelector(
@@ -1457,7 +1574,7 @@ export default function EnvironmentFront(props) {
 														)
 															? model.querySelector(
 																	"p.three-text-scaleZ"
-															  ).innerText
+															).innerText
 															: "";
 
 													const textColor =
@@ -1466,7 +1583,7 @@ export default function EnvironmentFront(props) {
 														)
 															? model.querySelector(
 																	"p.three-text-color"
-															  ).innerText
+															).innerText
 															: "";
 
 													return (
@@ -1514,7 +1631,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-position-x"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelPosY =
@@ -1523,7 +1640,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-position-y"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelPosZ =
@@ -1532,7 +1649,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-position-z"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelScaleX =
@@ -1541,7 +1658,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-scale-x"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelScaleY =
@@ -1550,7 +1667,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-scale-y"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelScaleZ =
@@ -1559,7 +1676,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-scale-z"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelRotationX =
@@ -1568,7 +1685,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-rotation-x"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelRotationY =
@@ -1577,7 +1694,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-rotation-y"
-														  ).innerText
+														).innerText
 														: "";
 
 												const modelRotationZ =
@@ -1586,7 +1703,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-rotation-z"
-														  ).innerText
+														).innerText
 														: "";
 
 												const url = model.querySelector(
@@ -1594,7 +1711,7 @@ export default function EnvironmentFront(props) {
 												)
 													? model.querySelector(
 															"p.three-portal-block-url"
-													  ).innerText
+													).innerText
 													: "";
 
 												const destinationUrl =
@@ -1603,7 +1720,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-destination-url"
-														  ).innerText
+														).innerText
 														: "";
 
 												const animations =
@@ -1612,7 +1729,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-animations"
-														  ).innerText
+														).innerText
 														: "";
 
 												const label =
@@ -1621,7 +1738,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-label"
-														  ).innerText
+														).innerText
 														: "";
 
 												const labelOffsetX =
@@ -1630,7 +1747,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-label-offset-x"
-														  ).innerText
+														).innerText
 														: "";
 
 												const labelOffsetY =
@@ -1639,7 +1756,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-label-offset-y"
-														  ).innerText
+														).innerText
 														: "";
 
 												const labelOffsetZ =
@@ -1648,7 +1765,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-label-offset-z"
-														  ).innerText
+														).innerText
 														: "";
 												const labelTextColor =
 													model.querySelector(
@@ -1656,7 +1773,7 @@ export default function EnvironmentFront(props) {
 													)
 														? model.querySelector(
 																"p.three-portal-block-label-text-color"
-														  ).innerText
+														).innerText
 														: "";
 
 												return (

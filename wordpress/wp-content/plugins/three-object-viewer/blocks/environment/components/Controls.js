@@ -16,6 +16,7 @@ const Controls = (props) => {
 	const controlsRef = useRef();
 	const isLocked = useRef(false);
 	const [lock, setLock] = useState(false);
+	const [click, setClick] = useState(false);
 	const [moveForward, setMoveForward] = useState(false);
 	const [moveBackward, setMoveBackward] = useState(false);
 	const [moveLeft, setMoveLeft] = useState(false);
@@ -25,6 +26,11 @@ const Controls = (props) => {
 	const currentRigidbody = useRigidBody();
 	const { world, rapier } = useRapier();
 	const ray = new rapier.Ray({ x: 0, y: 0, z: 0 }, { x: 0, y: -1, z: 0 });
+
+	const pointerRay = new rapier.Ray(
+		{ x: 0, y: 0, z: 0 },
+		{ x: 0, y: 0, z: -1 }
+	);
 	const { camera, scene } = useThree();
 
 	useEffect(() => {
@@ -46,8 +52,16 @@ const Controls = (props) => {
 		// 		props.spawnPoint[2]
 		// 	);
 	}, []);
+	const raycaster = new THREE.Raycaster();
 
 	useFrame(() => {
+		// raycaster.set( camera.position, camera.getWorldDirection() );
+		// raycast forward from the camera and log hitting any objects
+		// var intersects = raycaster.intersectObjects( scene.children );
+		// if	(intersects.length > 0) {
+		// 	console.log(intersects[0].object);
+		// }
+
 		const playerThing = world.getRigidBody(props.something.current.handle);
 		const playerThingColliders = world.getCollider(
 			props.something.current.handle
@@ -62,6 +76,12 @@ const Controls = (props) => {
 			playerThing.setBodyType(0);
 		}
 		// playerThing.setRotation({x: Math.radToDeg(controlsRef.current.camera.rotation.x), y: Math.radToDeg(controlsRef.current.camera.rotation.y), z: Math.radToDeg(controlsRef.current.camera.rotation.z), w: 0}, true);
+
+		// pointerRay.origin.x = camera.position.x;
+		// pointerRay.origin.y = camera.position.y;
+		// pointerRay.origin.z = camera.position.z;
+		// console.log(pointerRay);
+
 		ray.origin.x = playerThing.translation().x;
 		ray.origin.y = playerThing.translation().y;
 		ray.origin.z = playerThing.translation().z;
@@ -70,6 +90,57 @@ const Controls = (props) => {
 		const maxToi = 14;
 		const solid = true;
 
+		if (click) {
+			if (raycaster) {
+				raycaster.setFromCamera({ x: 0, y: 0 }, camera);
+				const intersects = raycaster.intersectObjects(
+					scene.children,
+					true
+				);
+				if (intersects.length > 0) {
+					console.log(intersects[0].object.name);
+					const pointHitObject = scene.getObjectByName(
+						intersects[0].object.name
+					);
+					console.log(pointHitObject);
+					// add a rigidbody at the point of intersection
+					if (intersects[0].point) {
+						const rigidBodyDesc = new rapier.RigidBodyDesc(
+							rapier.RigidBodyType.Dynamic
+						)
+							// The rigid body translation.
+							// Default: zero vector.
+							.setTranslation(
+								intersects[0].point.x,
+								intersects[0].point.y,
+								intersects[0].point.z
+							)
+							// The linear velocity of this body.
+							// Default: zero velocity.
+							.setCanSleep(false)
+							// Whether or not CCD is enabled for this rigid-body.
+							// Default: false
+							.setCcdEnabled(true);
+						const rigidBody = world.createRigidBody(rigidBodyDesc);
+
+						const collider = world.createCollider(
+							rapier.ColliderDesc.cuboid(0.05, 0.05, 0.05),
+							rigidBody
+						);
+
+						// collider.setTranslation(intersects[0].point);
+						setTimeout(() => {
+							// console.log("removing collider", collider);
+							world.removeCollider(collider);
+							world.removeRigidBody(rigidBody);
+						}, 50);
+
+						// world.removeCollider(collider.handle);
+					}
+				}
+			}
+			setClick(false);
+		}
 		if (moveForward) {
 			// playerThing.applyImpulse({x:0, y:0, z:0.1}, true);
 			controlsRef.current.moveForward(velocity);
@@ -82,9 +153,24 @@ const Controls = (props) => {
 					solid,
 					0xfffffffff
 				);
+			// const pointerHit = world
+			// 	.raw()
+			// 	.queryPipeline.castRay(
+			// 		world.raw().colliders,
+			// 		pointerRay,
+			// 		maxToi,
+			// 		solid,
+			// 		0xfffffffff
+			// 	);
+
 			playerThing.lockRotations(true, true);
 			// playerThing.setRotation({x: 0, y: 1, z: 0, w: 0}, true);
+			// if (pointerHit){
+			// 	console.log(pointerHit);
+			// 	const pointerHitPoint = pointerRay.pointAt(hit.toi);
+			// 	console.log(pointerHitPoint);
 
+			// }
 			if (hit) {
 				const hitPoint = ray.pointAt(hit.toi);
 				playerThing.setTranslation({
@@ -315,6 +401,11 @@ const Controls = (props) => {
 			default:
 		}
 	};
+
+	// listen for a click event on the canvas
+	window.addEventListener("click", () => {
+		setClick(true);
+	});
 
 	const onKeyUp = function (event, props) {
 		switch (event.code) {
