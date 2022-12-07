@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'd9d1ee6237ee7086f4406c4b8f84a1502925d486',
+        'reference' => '2e12b7262de6c092aa5680baf286d331747bf2f1',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -146,12 +146,12 @@
             'dev_requirement' => false,
         ),
         'markbaker/complex' => array(
-            'pretty_version' => '3.0.1',
-            'version' => '3.0.1.0',
+            'pretty_version' => '3.0.2',
+            'version' => '3.0.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../markbaker/complex',
             'aliases' => array(),
-            'reference' => 'ab8bc271e404909db09ff2d5ffa1e538085c0f22',
+            'reference' => '95c56caa1cf5c766ad6d65b6344b807c1e8405b9',
             'dev_requirement' => false,
         ),
         'markbaker/matrix' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'd9d1ee6237ee7086f4406c4b8f84a1502925d486',
+            'reference' => '2e12b7262de6c092aa5680baf286d331747bf2f1',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -447,7 +447,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'ae7d78fff43ae2c157a04b71f21c58d5009629ba',
+            'reference' => '5ff66815edb2a9cb060eed77daa81f20ae6ce5b4',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
