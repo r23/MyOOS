@@ -1,4 +1,4 @@
-/******/ (() => { // webpackBootstrap
+/******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
 /***/ 6411:
@@ -291,7 +291,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ }),
 
 /***/ 4403:
-/***/ ((module, exports) => {
+/***/ (function(module, exports) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
   Copyright (c) 2018 Jed Watson.
@@ -355,7 +355,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 /***/ }),
 
 /***/ 4827:
-/***/ ((module) => {
+/***/ (function(module) {
 
 // This code has been refactored for 140 bytes
 // You can see the original here: https://github.com/twolfson/computedStyle/blob/04cd1da2e30fa45844f95f5cb1ac898e9b9ef050/lib/computedStyle.js
@@ -389,7 +389,7 @@ module.exports = computedStyle;
 /***/ }),
 
 /***/ 3613:
-/***/ ((module) => {
+/***/ (function(module) {
 
 "use strict";
 /*!
@@ -475,7 +475,7 @@ function escapeHtml(string) {
 /***/ }),
 
 /***/ 9894:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 // Load in dependencies
 var computedStyle = __webpack_require__(4827);
@@ -579,7 +579,7 @@ module.exports = lineHeight;
 /***/ }),
 
 /***/ 5372:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 "use strict";
 /**
@@ -651,7 +651,7 @@ module.exports = function() {
 /***/ }),
 
 /***/ 2652:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /**
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -670,7 +670,7 @@ if (false) { var throwOnDirectAccess, ReactIs; } else {
 /***/ }),
 
 /***/ 9567:
-/***/ ((module) => {
+/***/ (function(module) {
 
 "use strict";
 /**
@@ -824,7 +824,7 @@ exports.TextareaAutosize = React.forwardRef(function (props, ref) {
 /***/ }),
 
 /***/ 773:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 var __webpack_unused_export__;
@@ -837,7 +837,7 @@ exports.Z = TextareaAutosize_1.TextareaAutosize;
 /***/ }),
 
 /***/ 4793:
-/***/ ((module) => {
+/***/ (function(module) {
 
 var characterMap = {
 	"À": "A",
@@ -1263,7 +1263,7 @@ module.exports.remove = removeAccents;
 /***/ }),
 
 /***/ 9196:
-/***/ ((module) => {
+/***/ (function(module) {
 
 "use strict";
 module.exports = window["React"];
@@ -1298,363 +1298,363 @@ module.exports = window["React"];
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
-/******/ 	(() => {
+/******/ 	!function() {
 /******/ 		// getDefaultExport function for compatibility with non-harmony modules
-/******/ 		__webpack_require__.n = (module) => {
+/******/ 		__webpack_require__.n = function(module) {
 /******/ 			var getter = module && module.__esModule ?
-/******/ 				() => (module['default']) :
-/******/ 				() => (module);
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
 /******/ 			__webpack_require__.d(getter, { a: getter });
 /******/ 			return getter;
 /******/ 		};
-/******/ 	})();
+/******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
+/******/ 	!function() {
 /******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 		__webpack_require__.d = function(exports, definition) {
 /******/ 			for(var key in definition) {
 /******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
 /******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
 /******/ 				}
 /******/ 			}
 /******/ 		};
-/******/ 	})();
+/******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
-/******/ 	})();
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
-/******/ 	(() => {
+/******/ 	!function() {
 /******/ 		// define __esModule on exports
-/******/ 		__webpack_require__.r = (exports) => {
+/******/ 		__webpack_require__.r = function(exports) {
 /******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
 /******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
 /******/ 			}
 /******/ 			Object.defineProperty(exports, '__esModule', { value: true });
 /******/ 		};
-/******/ 	})();
+/******/ 	}();
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
+!function() {
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "AlignmentToolbar": () => (/* reexport */ AlignmentToolbar),
-  "Autocomplete": () => (/* reexport */ Autocomplete),
-  "AutosaveMonitor": () => (/* reexport */ autosave_monitor),
-  "BlockAlignmentToolbar": () => (/* reexport */ BlockAlignmentToolbar),
-  "BlockControls": () => (/* reexport */ BlockControls),
-  "BlockEdit": () => (/* reexport */ BlockEdit),
-  "BlockEditorKeyboardShortcuts": () => (/* reexport */ BlockEditorKeyboardShortcuts),
-  "BlockFormatControls": () => (/* reexport */ BlockFormatControls),
-  "BlockIcon": () => (/* reexport */ BlockIcon),
-  "BlockInspector": () => (/* reexport */ BlockInspector),
-  "BlockList": () => (/* reexport */ BlockList),
-  "BlockMover": () => (/* reexport */ BlockMover),
-  "BlockNavigationDropdown": () => (/* reexport */ BlockNavigationDropdown),
-  "BlockSelectionClearer": () => (/* reexport */ BlockSelectionClearer),
-  "BlockSettingsMenu": () => (/* reexport */ BlockSettingsMenu),
-  "BlockTitle": () => (/* reexport */ BlockTitle),
-  "BlockToolbar": () => (/* reexport */ BlockToolbar),
-  "CharacterCount": () => (/* reexport */ CharacterCount),
-  "ColorPalette": () => (/* reexport */ ColorPalette),
-  "ContrastChecker": () => (/* reexport */ ContrastChecker),
-  "CopyHandler": () => (/* reexport */ CopyHandler),
-  "DefaultBlockAppender": () => (/* reexport */ DefaultBlockAppender),
-  "DocumentOutline": () => (/* reexport */ document_outline),
-  "DocumentOutlineCheck": () => (/* reexport */ check),
-  "EditorHistoryRedo": () => (/* reexport */ editor_history_redo),
-  "EditorHistoryUndo": () => (/* reexport */ editor_history_undo),
-  "EditorKeyboardShortcutsRegister": () => (/* reexport */ register_shortcuts),
-  "EditorNotices": () => (/* reexport */ editor_notices),
-  "EditorProvider": () => (/* reexport */ provider),
-  "EditorSnackbars": () => (/* reexport */ EditorSnackbars),
-  "EntitiesSavedStates": () => (/* reexport */ EntitiesSavedStates),
-  "ErrorBoundary": () => (/* reexport */ error_boundary),
-  "FontSizePicker": () => (/* reexport */ FontSizePicker),
-  "InnerBlocks": () => (/* reexport */ InnerBlocks),
-  "Inserter": () => (/* reexport */ Inserter),
-  "InspectorAdvancedControls": () => (/* reexport */ InspectorAdvancedControls),
-  "InspectorControls": () => (/* reexport */ InspectorControls),
-  "LocalAutosaveMonitor": () => (/* reexport */ local_autosave_monitor),
-  "MediaPlaceholder": () => (/* reexport */ MediaPlaceholder),
-  "MediaUpload": () => (/* reexport */ MediaUpload),
-  "MediaUploadCheck": () => (/* reexport */ MediaUploadCheck),
-  "MultiSelectScrollIntoView": () => (/* reexport */ MultiSelectScrollIntoView),
-  "NavigableToolbar": () => (/* reexport */ NavigableToolbar),
-  "ObserveTyping": () => (/* reexport */ ObserveTyping),
-  "PageAttributesCheck": () => (/* reexport */ page_attributes_check),
-  "PageAttributesOrder": () => (/* reexport */ order),
-  "PageAttributesParent": () => (/* reexport */ page_attributes_parent),
-  "PageTemplate": () => (/* reexport */ post_template),
-  "PanelColorSettings": () => (/* reexport */ PanelColorSettings),
-  "PlainText": () => (/* reexport */ PlainText),
-  "PostAuthor": () => (/* reexport */ post_author),
-  "PostAuthorCheck": () => (/* reexport */ PostAuthorCheck),
-  "PostComments": () => (/* reexport */ post_comments),
-  "PostExcerpt": () => (/* reexport */ post_excerpt),
-  "PostExcerptCheck": () => (/* reexport */ post_excerpt_check),
-  "PostFeaturedImage": () => (/* reexport */ post_featured_image),
-  "PostFeaturedImageCheck": () => (/* reexport */ post_featured_image_check),
-  "PostFormat": () => (/* reexport */ PostFormat),
-  "PostFormatCheck": () => (/* reexport */ post_format_check),
-  "PostLastRevision": () => (/* reexport */ post_last_revision),
-  "PostLastRevisionCheck": () => (/* reexport */ post_last_revision_check),
-  "PostLockedModal": () => (/* reexport */ PostLockedModal),
-  "PostPendingStatus": () => (/* reexport */ post_pending_status),
-  "PostPendingStatusCheck": () => (/* reexport */ post_pending_status_check),
-  "PostPingbacks": () => (/* reexport */ post_pingbacks),
-  "PostPreviewButton": () => (/* reexport */ post_preview_button),
-  "PostPublishButton": () => (/* reexport */ post_publish_button),
-  "PostPublishButtonLabel": () => (/* reexport */ label),
-  "PostPublishPanel": () => (/* reexport */ post_publish_panel),
-  "PostSavedState": () => (/* reexport */ PostSavedState),
-  "PostSchedule": () => (/* reexport */ PostSchedule),
-  "PostScheduleCheck": () => (/* reexport */ post_schedule_check),
-  "PostScheduleLabel": () => (/* reexport */ PostScheduleLabel),
-  "PostSlug": () => (/* reexport */ post_slug),
-  "PostSlugCheck": () => (/* reexport */ PostSlugCheck),
-  "PostSticky": () => (/* reexport */ post_sticky),
-  "PostStickyCheck": () => (/* reexport */ post_sticky_check),
-  "PostSwitchToDraftButton": () => (/* reexport */ post_switch_to_draft_button),
-  "PostTaxonomies": () => (/* reexport */ post_taxonomies),
-  "PostTaxonomiesCheck": () => (/* reexport */ post_taxonomies_check),
-  "PostTaxonomiesFlatTermSelector": () => (/* reexport */ FlatTermSelector),
-  "PostTaxonomiesHierarchicalTermSelector": () => (/* reexport */ HierarchicalTermSelector),
-  "PostTextEditor": () => (/* reexport */ PostTextEditor),
-  "PostTitle": () => (/* reexport */ post_title),
-  "PostTrash": () => (/* reexport */ PostTrash),
-  "PostTrashCheck": () => (/* reexport */ post_trash_check),
-  "PostTypeSupportCheck": () => (/* reexport */ post_type_support_check),
-  "PostURL": () => (/* reexport */ PostURL),
-  "PostURLCheck": () => (/* reexport */ PostURLCheck),
-  "PostURLLabel": () => (/* reexport */ PostURLLabel),
-  "PostVisibility": () => (/* reexport */ PostVisibility),
-  "PostVisibilityCheck": () => (/* reexport */ post_visibility_check),
-  "PostVisibilityLabel": () => (/* reexport */ PostVisibilityLabel),
-  "RichText": () => (/* reexport */ RichText),
-  "RichTextShortcut": () => (/* reexport */ RichTextShortcut),
-  "RichTextToolbarButton": () => (/* reexport */ RichTextToolbarButton),
-  "ServerSideRender": () => (/* reexport */ (external_wp_serverSideRender_default())),
-  "SkipToSelectedBlock": () => (/* reexport */ SkipToSelectedBlock),
-  "TableOfContents": () => (/* reexport */ table_of_contents),
-  "TextEditorGlobalKeyboardShortcuts": () => (/* reexport */ TextEditorGlobalKeyboardShortcuts),
-  "ThemeSupportCheck": () => (/* reexport */ theme_support_check),
-  "TimeToRead": () => (/* reexport */ TimeToRead),
-  "URLInput": () => (/* reexport */ URLInput),
-  "URLInputButton": () => (/* reexport */ URLInputButton),
-  "URLPopover": () => (/* reexport */ URLPopover),
-  "UnsavedChangesWarning": () => (/* reexport */ UnsavedChangesWarning),
-  "VisualEditorGlobalKeyboardShortcuts": () => (/* reexport */ visual_editor_shortcuts),
-  "Warning": () => (/* reexport */ Warning),
-  "WordCount": () => (/* reexport */ WordCount),
-  "WritingFlow": () => (/* reexport */ WritingFlow),
-  "__unstableRichTextInputEvent": () => (/* reexport */ __unstableRichTextInputEvent),
-  "cleanForSlug": () => (/* reexport */ cleanForSlug),
-  "createCustomColorsHOC": () => (/* reexport */ createCustomColorsHOC),
-  "getColorClassName": () => (/* reexport */ getColorClassName),
-  "getColorObjectByAttributeValues": () => (/* reexport */ getColorObjectByAttributeValues),
-  "getColorObjectByColorValue": () => (/* reexport */ getColorObjectByColorValue),
-  "getFontSize": () => (/* reexport */ getFontSize),
-  "getFontSizeClass": () => (/* reexport */ getFontSizeClass),
-  "getTemplatePartIcon": () => (/* reexport */ getTemplatePartIcon),
-  "mediaUpload": () => (/* reexport */ mediaUpload),
-  "store": () => (/* reexport */ store_store),
-  "storeConfig": () => (/* reexport */ storeConfig),
-  "transformStyles": () => (/* reexport */ external_wp_blockEditor_namespaceObject.transformStyles),
-  "usePostScheduleLabel": () => (/* reexport */ usePostScheduleLabel),
-  "usePostURLLabel": () => (/* reexport */ usePostURLLabel),
-  "usePostVisibilityLabel": () => (/* reexport */ usePostVisibilityLabel),
-  "userAutocompleter": () => (/* reexport */ user),
-  "withColorContext": () => (/* reexport */ withColorContext),
-  "withColors": () => (/* reexport */ withColors),
-  "withFontSizes": () => (/* reexport */ withFontSizes)
+  "AlignmentToolbar": function() { return /* reexport */ AlignmentToolbar; },
+  "Autocomplete": function() { return /* reexport */ Autocomplete; },
+  "AutosaveMonitor": function() { return /* reexport */ autosave_monitor; },
+  "BlockAlignmentToolbar": function() { return /* reexport */ BlockAlignmentToolbar; },
+  "BlockControls": function() { return /* reexport */ BlockControls; },
+  "BlockEdit": function() { return /* reexport */ BlockEdit; },
+  "BlockEditorKeyboardShortcuts": function() { return /* reexport */ BlockEditorKeyboardShortcuts; },
+  "BlockFormatControls": function() { return /* reexport */ BlockFormatControls; },
+  "BlockIcon": function() { return /* reexport */ BlockIcon; },
+  "BlockInspector": function() { return /* reexport */ BlockInspector; },
+  "BlockList": function() { return /* reexport */ BlockList; },
+  "BlockMover": function() { return /* reexport */ BlockMover; },
+  "BlockNavigationDropdown": function() { return /* reexport */ BlockNavigationDropdown; },
+  "BlockSelectionClearer": function() { return /* reexport */ BlockSelectionClearer; },
+  "BlockSettingsMenu": function() { return /* reexport */ BlockSettingsMenu; },
+  "BlockTitle": function() { return /* reexport */ BlockTitle; },
+  "BlockToolbar": function() { return /* reexport */ BlockToolbar; },
+  "CharacterCount": function() { return /* reexport */ CharacterCount; },
+  "ColorPalette": function() { return /* reexport */ ColorPalette; },
+  "ContrastChecker": function() { return /* reexport */ ContrastChecker; },
+  "CopyHandler": function() { return /* reexport */ CopyHandler; },
+  "DefaultBlockAppender": function() { return /* reexport */ DefaultBlockAppender; },
+  "DocumentOutline": function() { return /* reexport */ document_outline; },
+  "DocumentOutlineCheck": function() { return /* reexport */ check; },
+  "EditorHistoryRedo": function() { return /* reexport */ editor_history_redo; },
+  "EditorHistoryUndo": function() { return /* reexport */ editor_history_undo; },
+  "EditorKeyboardShortcutsRegister": function() { return /* reexport */ register_shortcuts; },
+  "EditorNotices": function() { return /* reexport */ editor_notices; },
+  "EditorProvider": function() { return /* reexport */ provider; },
+  "EditorSnackbars": function() { return /* reexport */ EditorSnackbars; },
+  "EntitiesSavedStates": function() { return /* reexport */ EntitiesSavedStates; },
+  "ErrorBoundary": function() { return /* reexport */ error_boundary; },
+  "FontSizePicker": function() { return /* reexport */ FontSizePicker; },
+  "InnerBlocks": function() { return /* reexport */ InnerBlocks; },
+  "Inserter": function() { return /* reexport */ Inserter; },
+  "InspectorAdvancedControls": function() { return /* reexport */ InspectorAdvancedControls; },
+  "InspectorControls": function() { return /* reexport */ InspectorControls; },
+  "LocalAutosaveMonitor": function() { return /* reexport */ local_autosave_monitor; },
+  "MediaPlaceholder": function() { return /* reexport */ MediaPlaceholder; },
+  "MediaUpload": function() { return /* reexport */ MediaUpload; },
+  "MediaUploadCheck": function() { return /* reexport */ MediaUploadCheck; },
+  "MultiSelectScrollIntoView": function() { return /* reexport */ MultiSelectScrollIntoView; },
+  "NavigableToolbar": function() { return /* reexport */ NavigableToolbar; },
+  "ObserveTyping": function() { return /* reexport */ ObserveTyping; },
+  "PageAttributesCheck": function() { return /* reexport */ page_attributes_check; },
+  "PageAttributesOrder": function() { return /* reexport */ order; },
+  "PageAttributesParent": function() { return /* reexport */ page_attributes_parent; },
+  "PageTemplate": function() { return /* reexport */ post_template; },
+  "PanelColorSettings": function() { return /* reexport */ PanelColorSettings; },
+  "PlainText": function() { return /* reexport */ PlainText; },
+  "PostAuthor": function() { return /* reexport */ post_author; },
+  "PostAuthorCheck": function() { return /* reexport */ PostAuthorCheck; },
+  "PostComments": function() { return /* reexport */ post_comments; },
+  "PostExcerpt": function() { return /* reexport */ post_excerpt; },
+  "PostExcerptCheck": function() { return /* reexport */ post_excerpt_check; },
+  "PostFeaturedImage": function() { return /* reexport */ post_featured_image; },
+  "PostFeaturedImageCheck": function() { return /* reexport */ post_featured_image_check; },
+  "PostFormat": function() { return /* reexport */ PostFormat; },
+  "PostFormatCheck": function() { return /* reexport */ post_format_check; },
+  "PostLastRevision": function() { return /* reexport */ post_last_revision; },
+  "PostLastRevisionCheck": function() { return /* reexport */ post_last_revision_check; },
+  "PostLockedModal": function() { return /* reexport */ PostLockedModal; },
+  "PostPendingStatus": function() { return /* reexport */ post_pending_status; },
+  "PostPendingStatusCheck": function() { return /* reexport */ post_pending_status_check; },
+  "PostPingbacks": function() { return /* reexport */ post_pingbacks; },
+  "PostPreviewButton": function() { return /* reexport */ post_preview_button; },
+  "PostPublishButton": function() { return /* reexport */ post_publish_button; },
+  "PostPublishButtonLabel": function() { return /* reexport */ label; },
+  "PostPublishPanel": function() { return /* reexport */ post_publish_panel; },
+  "PostSavedState": function() { return /* reexport */ PostSavedState; },
+  "PostSchedule": function() { return /* reexport */ PostSchedule; },
+  "PostScheduleCheck": function() { return /* reexport */ post_schedule_check; },
+  "PostScheduleLabel": function() { return /* reexport */ PostScheduleLabel; },
+  "PostSlug": function() { return /* reexport */ post_slug; },
+  "PostSlugCheck": function() { return /* reexport */ PostSlugCheck; },
+  "PostSticky": function() { return /* reexport */ post_sticky; },
+  "PostStickyCheck": function() { return /* reexport */ post_sticky_check; },
+  "PostSwitchToDraftButton": function() { return /* reexport */ post_switch_to_draft_button; },
+  "PostTaxonomies": function() { return /* reexport */ post_taxonomies; },
+  "PostTaxonomiesCheck": function() { return /* reexport */ post_taxonomies_check; },
+  "PostTaxonomiesFlatTermSelector": function() { return /* reexport */ FlatTermSelector; },
+  "PostTaxonomiesHierarchicalTermSelector": function() { return /* reexport */ HierarchicalTermSelector; },
+  "PostTextEditor": function() { return /* reexport */ PostTextEditor; },
+  "PostTitle": function() { return /* reexport */ post_title; },
+  "PostTrash": function() { return /* reexport */ PostTrash; },
+  "PostTrashCheck": function() { return /* reexport */ post_trash_check; },
+  "PostTypeSupportCheck": function() { return /* reexport */ post_type_support_check; },
+  "PostURL": function() { return /* reexport */ PostURL; },
+  "PostURLCheck": function() { return /* reexport */ PostURLCheck; },
+  "PostURLLabel": function() { return /* reexport */ PostURLLabel; },
+  "PostVisibility": function() { return /* reexport */ PostVisibility; },
+  "PostVisibilityCheck": function() { return /* reexport */ post_visibility_check; },
+  "PostVisibilityLabel": function() { return /* reexport */ PostVisibilityLabel; },
+  "RichText": function() { return /* reexport */ RichText; },
+  "RichTextShortcut": function() { return /* reexport */ RichTextShortcut; },
+  "RichTextToolbarButton": function() { return /* reexport */ RichTextToolbarButton; },
+  "ServerSideRender": function() { return /* reexport */ (external_wp_serverSideRender_default()); },
+  "SkipToSelectedBlock": function() { return /* reexport */ SkipToSelectedBlock; },
+  "TableOfContents": function() { return /* reexport */ table_of_contents; },
+  "TextEditorGlobalKeyboardShortcuts": function() { return /* reexport */ TextEditorGlobalKeyboardShortcuts; },
+  "ThemeSupportCheck": function() { return /* reexport */ theme_support_check; },
+  "TimeToRead": function() { return /* reexport */ TimeToRead; },
+  "URLInput": function() { return /* reexport */ URLInput; },
+  "URLInputButton": function() { return /* reexport */ URLInputButton; },
+  "URLPopover": function() { return /* reexport */ URLPopover; },
+  "UnsavedChangesWarning": function() { return /* reexport */ UnsavedChangesWarning; },
+  "VisualEditorGlobalKeyboardShortcuts": function() { return /* reexport */ visual_editor_shortcuts; },
+  "Warning": function() { return /* reexport */ Warning; },
+  "WordCount": function() { return /* reexport */ WordCount; },
+  "WritingFlow": function() { return /* reexport */ WritingFlow; },
+  "__unstableRichTextInputEvent": function() { return /* reexport */ __unstableRichTextInputEvent; },
+  "cleanForSlug": function() { return /* reexport */ cleanForSlug; },
+  "createCustomColorsHOC": function() { return /* reexport */ createCustomColorsHOC; },
+  "getColorClassName": function() { return /* reexport */ getColorClassName; },
+  "getColorObjectByAttributeValues": function() { return /* reexport */ getColorObjectByAttributeValues; },
+  "getColorObjectByColorValue": function() { return /* reexport */ getColorObjectByColorValue; },
+  "getFontSize": function() { return /* reexport */ getFontSize; },
+  "getFontSizeClass": function() { return /* reexport */ getFontSizeClass; },
+  "getTemplatePartIcon": function() { return /* reexport */ getTemplatePartIcon; },
+  "mediaUpload": function() { return /* reexport */ mediaUpload; },
+  "store": function() { return /* reexport */ store_store; },
+  "storeConfig": function() { return /* reexport */ storeConfig; },
+  "transformStyles": function() { return /* reexport */ external_wp_blockEditor_namespaceObject.transformStyles; },
+  "usePostScheduleLabel": function() { return /* reexport */ usePostScheduleLabel; },
+  "usePostURLLabel": function() { return /* reexport */ usePostURLLabel; },
+  "usePostVisibilityLabel": function() { return /* reexport */ usePostVisibilityLabel; },
+  "userAutocompleter": function() { return /* reexport */ user; },
+  "withColorContext": function() { return /* reexport */ withColorContext; },
+  "withColors": function() { return /* reexport */ withColors; },
+  "withFontSizes": function() { return /* reexport */ withFontSizes; }
 });
 
 // NAMESPACE OBJECT: ./packages/editor/build-module/store/selectors.js
 var selectors_namespaceObject = {};
 __webpack_require__.r(selectors_namespaceObject);
 __webpack_require__.d(selectors_namespaceObject, {
-  "__experimentalGetDefaultTemplatePartAreas": () => (__experimentalGetDefaultTemplatePartAreas),
-  "__experimentalGetDefaultTemplateType": () => (__experimentalGetDefaultTemplateType),
-  "__experimentalGetDefaultTemplateTypes": () => (__experimentalGetDefaultTemplateTypes),
-  "__experimentalGetTemplateInfo": () => (__experimentalGetTemplateInfo),
-  "__unstableIsEditorReady": () => (__unstableIsEditorReady),
-  "canInsertBlockType": () => (canInsertBlockType),
-  "canUserUseUnfilteredHTML": () => (canUserUseUnfilteredHTML),
-  "didPostSaveRequestFail": () => (didPostSaveRequestFail),
-  "didPostSaveRequestSucceed": () => (didPostSaveRequestSucceed),
-  "getActivePostLock": () => (getActivePostLock),
-  "getAdjacentBlockClientId": () => (getAdjacentBlockClientId),
-  "getAutosaveAttribute": () => (getAutosaveAttribute),
-  "getBlock": () => (getBlock),
-  "getBlockAttributes": () => (getBlockAttributes),
-  "getBlockCount": () => (getBlockCount),
-  "getBlockHierarchyRootClientId": () => (getBlockHierarchyRootClientId),
-  "getBlockIndex": () => (getBlockIndex),
-  "getBlockInsertionPoint": () => (getBlockInsertionPoint),
-  "getBlockListSettings": () => (getBlockListSettings),
-  "getBlockMode": () => (getBlockMode),
-  "getBlockName": () => (getBlockName),
-  "getBlockOrder": () => (getBlockOrder),
-  "getBlockRootClientId": () => (getBlockRootClientId),
-  "getBlockSelectionEnd": () => (getBlockSelectionEnd),
-  "getBlockSelectionStart": () => (getBlockSelectionStart),
-  "getBlocks": () => (getBlocks),
-  "getBlocksByClientId": () => (getBlocksByClientId),
-  "getClientIdsOfDescendants": () => (getClientIdsOfDescendants),
-  "getClientIdsWithDescendants": () => (getClientIdsWithDescendants),
-  "getCurrentPost": () => (getCurrentPost),
-  "getCurrentPostAttribute": () => (getCurrentPostAttribute),
-  "getCurrentPostId": () => (getCurrentPostId),
-  "getCurrentPostLastRevisionId": () => (getCurrentPostLastRevisionId),
-  "getCurrentPostRevisionsCount": () => (getCurrentPostRevisionsCount),
-  "getCurrentPostType": () => (getCurrentPostType),
-  "getEditedPostAttribute": () => (getEditedPostAttribute),
-  "getEditedPostContent": () => (getEditedPostContent),
-  "getEditedPostPreviewLink": () => (getEditedPostPreviewLink),
-  "getEditedPostSlug": () => (getEditedPostSlug),
-  "getEditedPostVisibility": () => (getEditedPostVisibility),
-  "getEditorBlocks": () => (getEditorBlocks),
-  "getEditorSelection": () => (getEditorSelection),
-  "getEditorSelectionEnd": () => (getEditorSelectionEnd),
-  "getEditorSelectionStart": () => (getEditorSelectionStart),
-  "getEditorSettings": () => (getEditorSettings),
-  "getFirstMultiSelectedBlockClientId": () => (getFirstMultiSelectedBlockClientId),
-  "getGlobalBlockCount": () => (getGlobalBlockCount),
-  "getInserterItems": () => (getInserterItems),
-  "getLastMultiSelectedBlockClientId": () => (getLastMultiSelectedBlockClientId),
-  "getMultiSelectedBlockClientIds": () => (getMultiSelectedBlockClientIds),
-  "getMultiSelectedBlocks": () => (getMultiSelectedBlocks),
-  "getMultiSelectedBlocksEndClientId": () => (getMultiSelectedBlocksEndClientId),
-  "getMultiSelectedBlocksStartClientId": () => (getMultiSelectedBlocksStartClientId),
-  "getNextBlockClientId": () => (getNextBlockClientId),
-  "getPermalink": () => (getPermalink),
-  "getPermalinkParts": () => (getPermalinkParts),
-  "getPostEdits": () => (getPostEdits),
-  "getPostLockUser": () => (getPostLockUser),
-  "getPostTypeLabel": () => (getPostTypeLabel),
-  "getPreviousBlockClientId": () => (getPreviousBlockClientId),
-  "getSelectedBlock": () => (getSelectedBlock),
-  "getSelectedBlockClientId": () => (getSelectedBlockClientId),
-  "getSelectedBlockCount": () => (getSelectedBlockCount),
-  "getSelectedBlocksInitialCaretPosition": () => (getSelectedBlocksInitialCaretPosition),
-  "getStateBeforeOptimisticTransaction": () => (getStateBeforeOptimisticTransaction),
-  "getSuggestedPostFormat": () => (getSuggestedPostFormat),
-  "getTemplate": () => (getTemplate),
-  "getTemplateLock": () => (getTemplateLock),
-  "hasChangedContent": () => (hasChangedContent),
-  "hasEditorRedo": () => (hasEditorRedo),
-  "hasEditorUndo": () => (hasEditorUndo),
-  "hasInserterItems": () => (hasInserterItems),
-  "hasMultiSelection": () => (hasMultiSelection),
-  "hasNonPostEntityChanges": () => (hasNonPostEntityChanges),
-  "hasSelectedBlock": () => (hasSelectedBlock),
-  "hasSelectedInnerBlock": () => (hasSelectedInnerBlock),
-  "inSomeHistory": () => (inSomeHistory),
-  "isAncestorMultiSelected": () => (isAncestorMultiSelected),
-  "isAutosavingPost": () => (isAutosavingPost),
-  "isBlockInsertionPointVisible": () => (isBlockInsertionPointVisible),
-  "isBlockMultiSelected": () => (isBlockMultiSelected),
-  "isBlockSelected": () => (isBlockSelected),
-  "isBlockValid": () => (isBlockValid),
-  "isBlockWithinSelection": () => (isBlockWithinSelection),
-  "isCaretWithinFormattedText": () => (isCaretWithinFormattedText),
-  "isCleanNewPost": () => (isCleanNewPost),
-  "isCurrentPostPending": () => (isCurrentPostPending),
-  "isCurrentPostPublished": () => (isCurrentPostPublished),
-  "isCurrentPostScheduled": () => (isCurrentPostScheduled),
-  "isDeletingPost": () => (isDeletingPost),
-  "isEditedPostAutosaveable": () => (isEditedPostAutosaveable),
-  "isEditedPostBeingScheduled": () => (isEditedPostBeingScheduled),
-  "isEditedPostDateFloating": () => (isEditedPostDateFloating),
-  "isEditedPostDirty": () => (isEditedPostDirty),
-  "isEditedPostEmpty": () => (isEditedPostEmpty),
-  "isEditedPostNew": () => (isEditedPostNew),
-  "isEditedPostPublishable": () => (isEditedPostPublishable),
-  "isEditedPostSaveable": () => (isEditedPostSaveable),
-  "isFirstMultiSelectedBlock": () => (isFirstMultiSelectedBlock),
-  "isMultiSelecting": () => (isMultiSelecting),
-  "isPermalinkEditable": () => (isPermalinkEditable),
-  "isPostAutosavingLocked": () => (isPostAutosavingLocked),
-  "isPostLockTakeover": () => (isPostLockTakeover),
-  "isPostLocked": () => (isPostLocked),
-  "isPostSavingLocked": () => (isPostSavingLocked),
-  "isPreviewingPost": () => (isPreviewingPost),
-  "isPublishSidebarEnabled": () => (isPublishSidebarEnabled),
-  "isPublishingPost": () => (isPublishingPost),
-  "isSavingNonPostEntityChanges": () => (isSavingNonPostEntityChanges),
-  "isSavingPost": () => (isSavingPost),
-  "isSelectionEnabled": () => (isSelectionEnabled),
-  "isTyping": () => (isTyping),
-  "isValidTemplate": () => (isValidTemplate)
+  "__experimentalGetDefaultTemplatePartAreas": function() { return __experimentalGetDefaultTemplatePartAreas; },
+  "__experimentalGetDefaultTemplateType": function() { return __experimentalGetDefaultTemplateType; },
+  "__experimentalGetDefaultTemplateTypes": function() { return __experimentalGetDefaultTemplateTypes; },
+  "__experimentalGetTemplateInfo": function() { return __experimentalGetTemplateInfo; },
+  "__unstableIsEditorReady": function() { return __unstableIsEditorReady; },
+  "canInsertBlockType": function() { return canInsertBlockType; },
+  "canUserUseUnfilteredHTML": function() { return canUserUseUnfilteredHTML; },
+  "didPostSaveRequestFail": function() { return didPostSaveRequestFail; },
+  "didPostSaveRequestSucceed": function() { return didPostSaveRequestSucceed; },
+  "getActivePostLock": function() { return getActivePostLock; },
+  "getAdjacentBlockClientId": function() { return getAdjacentBlockClientId; },
+  "getAutosaveAttribute": function() { return getAutosaveAttribute; },
+  "getBlock": function() { return getBlock; },
+  "getBlockAttributes": function() { return getBlockAttributes; },
+  "getBlockCount": function() { return getBlockCount; },
+  "getBlockHierarchyRootClientId": function() { return getBlockHierarchyRootClientId; },
+  "getBlockIndex": function() { return getBlockIndex; },
+  "getBlockInsertionPoint": function() { return getBlockInsertionPoint; },
+  "getBlockListSettings": function() { return getBlockListSettings; },
+  "getBlockMode": function() { return getBlockMode; },
+  "getBlockName": function() { return getBlockName; },
+  "getBlockOrder": function() { return getBlockOrder; },
+  "getBlockRootClientId": function() { return getBlockRootClientId; },
+  "getBlockSelectionEnd": function() { return getBlockSelectionEnd; },
+  "getBlockSelectionStart": function() { return getBlockSelectionStart; },
+  "getBlocks": function() { return getBlocks; },
+  "getBlocksByClientId": function() { return getBlocksByClientId; },
+  "getClientIdsOfDescendants": function() { return getClientIdsOfDescendants; },
+  "getClientIdsWithDescendants": function() { return getClientIdsWithDescendants; },
+  "getCurrentPost": function() { return getCurrentPost; },
+  "getCurrentPostAttribute": function() { return getCurrentPostAttribute; },
+  "getCurrentPostId": function() { return getCurrentPostId; },
+  "getCurrentPostLastRevisionId": function() { return getCurrentPostLastRevisionId; },
+  "getCurrentPostRevisionsCount": function() { return getCurrentPostRevisionsCount; },
+  "getCurrentPostType": function() { return getCurrentPostType; },
+  "getEditedPostAttribute": function() { return getEditedPostAttribute; },
+  "getEditedPostContent": function() { return getEditedPostContent; },
+  "getEditedPostPreviewLink": function() { return getEditedPostPreviewLink; },
+  "getEditedPostSlug": function() { return getEditedPostSlug; },
+  "getEditedPostVisibility": function() { return getEditedPostVisibility; },
+  "getEditorBlocks": function() { return getEditorBlocks; },
+  "getEditorSelection": function() { return getEditorSelection; },
+  "getEditorSelectionEnd": function() { return getEditorSelectionEnd; },
+  "getEditorSelectionStart": function() { return getEditorSelectionStart; },
+  "getEditorSettings": function() { return getEditorSettings; },
+  "getFirstMultiSelectedBlockClientId": function() { return getFirstMultiSelectedBlockClientId; },
+  "getGlobalBlockCount": function() { return getGlobalBlockCount; },
+  "getInserterItems": function() { return getInserterItems; },
+  "getLastMultiSelectedBlockClientId": function() { return getLastMultiSelectedBlockClientId; },
+  "getMultiSelectedBlockClientIds": function() { return getMultiSelectedBlockClientIds; },
+  "getMultiSelectedBlocks": function() { return getMultiSelectedBlocks; },
+  "getMultiSelectedBlocksEndClientId": function() { return getMultiSelectedBlocksEndClientId; },
+  "getMultiSelectedBlocksStartClientId": function() { return getMultiSelectedBlocksStartClientId; },
+  "getNextBlockClientId": function() { return getNextBlockClientId; },
+  "getPermalink": function() { return getPermalink; },
+  "getPermalinkParts": function() { return getPermalinkParts; },
+  "getPostEdits": function() { return getPostEdits; },
+  "getPostLockUser": function() { return getPostLockUser; },
+  "getPostTypeLabel": function() { return getPostTypeLabel; },
+  "getPreviousBlockClientId": function() { return getPreviousBlockClientId; },
+  "getSelectedBlock": function() { return getSelectedBlock; },
+  "getSelectedBlockClientId": function() { return getSelectedBlockClientId; },
+  "getSelectedBlockCount": function() { return getSelectedBlockCount; },
+  "getSelectedBlocksInitialCaretPosition": function() { return getSelectedBlocksInitialCaretPosition; },
+  "getStateBeforeOptimisticTransaction": function() { return getStateBeforeOptimisticTransaction; },
+  "getSuggestedPostFormat": function() { return getSuggestedPostFormat; },
+  "getTemplate": function() { return getTemplate; },
+  "getTemplateLock": function() { return getTemplateLock; },
+  "hasChangedContent": function() { return hasChangedContent; },
+  "hasEditorRedo": function() { return hasEditorRedo; },
+  "hasEditorUndo": function() { return hasEditorUndo; },
+  "hasInserterItems": function() { return hasInserterItems; },
+  "hasMultiSelection": function() { return hasMultiSelection; },
+  "hasNonPostEntityChanges": function() { return hasNonPostEntityChanges; },
+  "hasSelectedBlock": function() { return hasSelectedBlock; },
+  "hasSelectedInnerBlock": function() { return hasSelectedInnerBlock; },
+  "inSomeHistory": function() { return inSomeHistory; },
+  "isAncestorMultiSelected": function() { return isAncestorMultiSelected; },
+  "isAutosavingPost": function() { return isAutosavingPost; },
+  "isBlockInsertionPointVisible": function() { return isBlockInsertionPointVisible; },
+  "isBlockMultiSelected": function() { return isBlockMultiSelected; },
+  "isBlockSelected": function() { return isBlockSelected; },
+  "isBlockValid": function() { return isBlockValid; },
+  "isBlockWithinSelection": function() { return isBlockWithinSelection; },
+  "isCaretWithinFormattedText": function() { return isCaretWithinFormattedText; },
+  "isCleanNewPost": function() { return isCleanNewPost; },
+  "isCurrentPostPending": function() { return isCurrentPostPending; },
+  "isCurrentPostPublished": function() { return isCurrentPostPublished; },
+  "isCurrentPostScheduled": function() { return isCurrentPostScheduled; },
+  "isDeletingPost": function() { return isDeletingPost; },
+  "isEditedPostAutosaveable": function() { return isEditedPostAutosaveable; },
+  "isEditedPostBeingScheduled": function() { return isEditedPostBeingScheduled; },
+  "isEditedPostDateFloating": function() { return isEditedPostDateFloating; },
+  "isEditedPostDirty": function() { return isEditedPostDirty; },
+  "isEditedPostEmpty": function() { return isEditedPostEmpty; },
+  "isEditedPostNew": function() { return isEditedPostNew; },
+  "isEditedPostPublishable": function() { return isEditedPostPublishable; },
+  "isEditedPostSaveable": function() { return isEditedPostSaveable; },
+  "isFirstMultiSelectedBlock": function() { return isFirstMultiSelectedBlock; },
+  "isMultiSelecting": function() { return isMultiSelecting; },
+  "isPermalinkEditable": function() { return isPermalinkEditable; },
+  "isPostAutosavingLocked": function() { return isPostAutosavingLocked; },
+  "isPostLockTakeover": function() { return isPostLockTakeover; },
+  "isPostLocked": function() { return isPostLocked; },
+  "isPostSavingLocked": function() { return isPostSavingLocked; },
+  "isPreviewingPost": function() { return isPreviewingPost; },
+  "isPublishSidebarEnabled": function() { return isPublishSidebarEnabled; },
+  "isPublishingPost": function() { return isPublishingPost; },
+  "isSavingNonPostEntityChanges": function() { return isSavingNonPostEntityChanges; },
+  "isSavingPost": function() { return isSavingPost; },
+  "isSelectionEnabled": function() { return isSelectionEnabled; },
+  "isTyping": function() { return isTyping; },
+  "isValidTemplate": function() { return isValidTemplate; }
 });
 
 // NAMESPACE OBJECT: ./packages/editor/build-module/store/actions.js
 var actions_namespaceObject = {};
 __webpack_require__.r(actions_namespaceObject);
 __webpack_require__.d(actions_namespaceObject, {
-  "__experimentalTearDownEditor": () => (__experimentalTearDownEditor),
-  "autosave": () => (autosave),
-  "clearSelectedBlock": () => (clearSelectedBlock),
-  "createUndoLevel": () => (createUndoLevel),
-  "disablePublishSidebar": () => (disablePublishSidebar),
-  "editPost": () => (editPost),
-  "enablePublishSidebar": () => (enablePublishSidebar),
-  "enterFormattedText": () => (enterFormattedText),
-  "exitFormattedText": () => (exitFormattedText),
-  "hideInsertionPoint": () => (hideInsertionPoint),
-  "insertBlock": () => (insertBlock),
-  "insertBlocks": () => (insertBlocks),
-  "insertDefaultBlock": () => (insertDefaultBlock),
-  "lockPostAutosaving": () => (lockPostAutosaving),
-  "lockPostSaving": () => (lockPostSaving),
-  "mergeBlocks": () => (mergeBlocks),
-  "moveBlockToPosition": () => (moveBlockToPosition),
-  "moveBlocksDown": () => (moveBlocksDown),
-  "moveBlocksUp": () => (moveBlocksUp),
-  "multiSelect": () => (multiSelect),
-  "receiveBlocks": () => (receiveBlocks),
-  "redo": () => (redo),
-  "refreshPost": () => (refreshPost),
-  "removeBlock": () => (removeBlock),
-  "removeBlocks": () => (removeBlocks),
-  "replaceBlock": () => (replaceBlock),
-  "replaceBlocks": () => (replaceBlocks),
-  "resetBlocks": () => (resetBlocks),
-  "resetEditorBlocks": () => (resetEditorBlocks),
-  "resetPost": () => (resetPost),
-  "savePost": () => (savePost),
-  "selectBlock": () => (selectBlock),
-  "setTemplateValidity": () => (setTemplateValidity),
-  "setupEditor": () => (setupEditor),
-  "setupEditorState": () => (setupEditorState),
-  "showInsertionPoint": () => (showInsertionPoint),
-  "startMultiSelect": () => (startMultiSelect),
-  "startTyping": () => (startTyping),
-  "stopMultiSelect": () => (stopMultiSelect),
-  "stopTyping": () => (stopTyping),
-  "synchronizeTemplate": () => (synchronizeTemplate),
-  "toggleBlockMode": () => (toggleBlockMode),
-  "toggleSelection": () => (toggleSelection),
-  "trashPost": () => (trashPost),
-  "undo": () => (undo),
-  "unlockPostAutosaving": () => (unlockPostAutosaving),
-  "unlockPostSaving": () => (unlockPostSaving),
-  "updateBlock": () => (updateBlock),
-  "updateBlockAttributes": () => (updateBlockAttributes),
-  "updateBlockListSettings": () => (updateBlockListSettings),
-  "updateEditorSettings": () => (updateEditorSettings),
-  "updatePost": () => (updatePost),
-  "updatePostLock": () => (updatePostLock)
+  "__experimentalTearDownEditor": function() { return __experimentalTearDownEditor; },
+  "autosave": function() { return autosave; },
+  "clearSelectedBlock": function() { return clearSelectedBlock; },
+  "createUndoLevel": function() { return createUndoLevel; },
+  "disablePublishSidebar": function() { return disablePublishSidebar; },
+  "editPost": function() { return editPost; },
+  "enablePublishSidebar": function() { return enablePublishSidebar; },
+  "enterFormattedText": function() { return enterFormattedText; },
+  "exitFormattedText": function() { return exitFormattedText; },
+  "hideInsertionPoint": function() { return hideInsertionPoint; },
+  "insertBlock": function() { return insertBlock; },
+  "insertBlocks": function() { return insertBlocks; },
+  "insertDefaultBlock": function() { return insertDefaultBlock; },
+  "lockPostAutosaving": function() { return lockPostAutosaving; },
+  "lockPostSaving": function() { return lockPostSaving; },
+  "mergeBlocks": function() { return mergeBlocks; },
+  "moveBlockToPosition": function() { return moveBlockToPosition; },
+  "moveBlocksDown": function() { return moveBlocksDown; },
+  "moveBlocksUp": function() { return moveBlocksUp; },
+  "multiSelect": function() { return multiSelect; },
+  "receiveBlocks": function() { return receiveBlocks; },
+  "redo": function() { return redo; },
+  "refreshPost": function() { return refreshPost; },
+  "removeBlock": function() { return removeBlock; },
+  "removeBlocks": function() { return removeBlocks; },
+  "replaceBlock": function() { return replaceBlock; },
+  "replaceBlocks": function() { return replaceBlocks; },
+  "resetBlocks": function() { return resetBlocks; },
+  "resetEditorBlocks": function() { return resetEditorBlocks; },
+  "resetPost": function() { return resetPost; },
+  "savePost": function() { return savePost; },
+  "selectBlock": function() { return selectBlock; },
+  "setTemplateValidity": function() { return setTemplateValidity; },
+  "setupEditor": function() { return setupEditor; },
+  "setupEditorState": function() { return setupEditorState; },
+  "showInsertionPoint": function() { return showInsertionPoint; },
+  "startMultiSelect": function() { return startMultiSelect; },
+  "startTyping": function() { return startTyping; },
+  "stopMultiSelect": function() { return stopMultiSelect; },
+  "stopTyping": function() { return stopTyping; },
+  "synchronizeTemplate": function() { return synchronizeTemplate; },
+  "toggleBlockMode": function() { return toggleBlockMode; },
+  "toggleSelection": function() { return toggleSelection; },
+  "trashPost": function() { return trashPost; },
+  "undo": function() { return undo; },
+  "unlockPostAutosaving": function() { return unlockPostAutosaving; },
+  "unlockPostSaving": function() { return unlockPostSaving; },
+  "updateBlock": function() { return updateBlock; },
+  "updateBlockAttributes": function() { return updateBlockAttributes; },
+  "updateBlockListSettings": function() { return updateBlockListSettings; },
+  "updateEditorSettings": function() { return updateEditorSettings; },
+  "updatePost": function() { return updatePost; },
+  "updatePostLock": function() { return updatePostLock; }
 });
 
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
@@ -1676,21 +1676,21 @@ function _extends() {
   return _extends.apply(this, arguments);
 }
 ;// CONCATENATED MODULE: external ["wp","element"]
-const external_wp_element_namespaceObject = window["wp"]["element"];
+var external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
+var external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: external ["wp","blocks"]
-const external_wp_blocks_namespaceObject = window["wp"]["blocks"];
+var external_wp_blocks_namespaceObject = window["wp"]["blocks"];
 ;// CONCATENATED MODULE: external ["wp","data"]
-const external_wp_data_namespaceObject = window["wp"]["data"];
+var external_wp_data_namespaceObject = window["wp"]["data"];
 ;// CONCATENATED MODULE: external ["wp","coreData"]
-const external_wp_coreData_namespaceObject = window["wp"]["coreData"];
+var external_wp_coreData_namespaceObject = window["wp"]["coreData"];
 ;// CONCATENATED MODULE: external ["wp","compose"]
-const external_wp_compose_namespaceObject = window["wp"]["compose"];
+var external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: external ["wp","hooks"]
-const external_wp_hooks_namespaceObject = window["wp"]["hooks"];
+var external_wp_hooks_namespaceObject = window["wp"]["hooks"];
 ;// CONCATENATED MODULE: external ["wp","blockEditor"]
-const external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
+var external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/store/defaults.js
 /**
  * WordPress dependencies
@@ -2039,7 +2039,7 @@ function editorSettings() {
 
   return state;
 }
-/* harmony default export */ const reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
+/* harmony default export */ var reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
   postId,
   postType,
   saving,
@@ -2351,14 +2351,14 @@ function isShallowEqual(a, b, fromIndex) {
 }
 
 ;// CONCATENATED MODULE: external ["wp","date"]
-const external_wp_date_namespaceObject = window["wp"]["date"];
+var external_wp_date_namespaceObject = window["wp"]["date"];
 ;// CONCATENATED MODULE: external ["wp","url"]
-const external_wp_url_namespaceObject = window["wp"]["url"];
+var external_wp_url_namespaceObject = window["wp"]["url"];
 ;// CONCATENATED MODULE: external ["wp","deprecated"]
-const external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
+var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
 ;// CONCATENATED MODULE: external ["wp","primitives"]
-const external_wp_primitives_namespaceObject = window["wp"]["primitives"];
+var external_wp_primitives_namespaceObject = window["wp"]["primitives"];
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/layout.js
 
 
@@ -2372,10 +2372,10 @@ const layout = (0,external_wp_element_namespaceObject.createElement)(external_wp
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M18 5.5H6a.5.5 0 00-.5.5v3h13V6a.5.5 0 00-.5-.5zm.5 5H10v8h8a.5.5 0 00.5-.5v-7.5zm-10 0h-3V18a.5.5 0 00.5.5h2.5v-8zM6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
 }));
-/* harmony default export */ const library_layout = (layout);
+/* harmony default export */ var library_layout = (layout);
 
 ;// CONCATENATED MODULE: external ["wp","preferences"]
-const external_wp_preferences_namespaceObject = window["wp"]["preferences"];
+var external_wp_preferences_namespaceObject = window["wp"]["preferences"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/store/constants.js
 /**
  * Set of post properties for which edits should assume a merging behavior,
@@ -2410,7 +2410,7 @@ const header = (0,external_wp_element_namespaceObject.createElement)(external_wp
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M18.5 10.5H10v8h8a.5.5 0 00.5-.5v-7.5zm-10 0h-3V18a.5.5 0 00.5.5h2.5v-8zM6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
 }));
-/* harmony default export */ const library_header = (header);
+/* harmony default export */ var library_header = (header);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/footer.js
 
@@ -2426,7 +2426,7 @@ const footer = (0,external_wp_element_namespaceObject.createElement)(external_wp
   fillRule: "evenodd",
   d: "M18 5.5h-8v8h8.5V6a.5.5 0 00-.5-.5zm-9.5 8h-3V6a.5.5 0 01.5-.5h2.5v8zM6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
 }));
-/* harmony default export */ const library_footer = (footer);
+/* harmony default export */ var library_footer = (footer);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/sidebar.js
 
@@ -2441,7 +2441,7 @@ const sidebar = (0,external_wp_element_namespaceObject.createElement)(external_w
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M18 5.5H6a.5.5 0 00-.5.5v3h13V6a.5.5 0 00-.5-.5zm.5 5H10v8h8a.5.5 0 00.5-.5v-7.5zM6 4h12a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V6a2 2 0 012-2z"
 }));
-/* harmony default export */ const library_sidebar = (sidebar);
+/* harmony default export */ var library_sidebar = (sidebar);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/symbol-filled.js
 
@@ -2456,7 +2456,7 @@ const symbolFilled = (0,external_wp_element_namespaceObject.createElement)(exter
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M21.3 10.8l-5.6-5.6c-.7-.7-1.8-.7-2.5 0l-5.6 5.6c-.7.7-.7 1.8 0 2.5l5.6 5.6c.3.3.8.5 1.2.5s.9-.2 1.2-.5l5.6-5.6c.8-.7.8-1.9.1-2.5zm-17.6 1L10 5.5l-1-1-6.3 6.3c-.7.7-.7 1.8 0 2.5L9 19.5l1.1-1.1-6.3-6.3c-.2 0-.2-.2-.1-.3z"
 }));
-/* harmony default export */ const symbol_filled = (symbolFilled);
+/* harmony default export */ var symbol_filled = (symbolFilled);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/utils/get-template-part-icon.js
 /**
@@ -3977,10 +3977,10 @@ const getPostTypeLabel = (0,external_wp_data_namespaceObject.createRegistrySelec
 });
 
 ;// CONCATENATED MODULE: external ["wp","apiFetch"]
-const external_wp_apiFetch_namespaceObject = window["wp"]["apiFetch"];
+var external_wp_apiFetch_namespaceObject = window["wp"]["apiFetch"];
 var external_wp_apiFetch_default = /*#__PURE__*/__webpack_require__.n(external_wp_apiFetch_namespaceObject);
 ;// CONCATENATED MODULE: external ["wp","notices"]
-const external_wp_notices_namespaceObject = window["wp"]["notices"];
+var external_wp_notices_namespaceObject = window["wp"]["notices"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/store/local-autosave.js
 /**
  * Function returning a sessionStorage key to set or retrieve a given post's
@@ -4015,7 +4015,7 @@ function localAutosaveClear(postId, isPostNew) {
 }
 
 ;// CONCATENATED MODULE: external ["wp","i18n"]
-const external_wp_i18n_namespaceObject = window["wp"]["i18n"];
+var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/store/utils/notice-builder.js
 /**
  * WordPress dependencies
@@ -5081,7 +5081,7 @@ function getUserLabel(user) {
  * @type {WPCompleter}
  */
 
-/* harmony default export */ const user = ({
+/* harmony default export */ var user = ({
   name: 'users',
   className: 'editor-autocompleters__user',
   triggerPrefix: '@',
@@ -5241,7 +5241,7 @@ class AutosaveMonitor extends external_wp_element_namespaceObject.Component {
   }
 
 }
-/* harmony default export */ const autosave_monitor = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)((select, ownProps) => {
+/* harmony default export */ var autosave_monitor = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)((select, ownProps) => {
   const {
     getReferenceByDistinctEdits
   } = select(external_wp_coreData_namespaceObject.store);
@@ -5272,7 +5272,7 @@ class AutosaveMonitor extends external_wp_element_namespaceObject.Component {
 }))])(AutosaveMonitor));
 
 ;// CONCATENATED MODULE: external ["wp","richText"]
-const external_wp_richText_namespaceObject = window["wp"]["richText"];
+var external_wp_richText_namespaceObject = window["wp"]["richText"];
 // EXTERNAL MODULE: ./node_modules/classnames/index.js
 var classnames = __webpack_require__(4403);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
@@ -5310,7 +5310,7 @@ const TableOfContentsItem = _ref => {
   }, children)));
 };
 
-/* harmony default export */ const document_outline_item = (TableOfContentsItem);
+/* harmony default export */ var document_outline_item = (TableOfContentsItem);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/document-outline/index.js
 
@@ -5426,7 +5426,7 @@ const DocumentOutline = _ref => {
     })), isIncorrectLevel && incorrectLevelContent, item.level === 1 && hasMultipleH1 && multipleH1Headings, hasTitle && item.level === 1 && !hasMultipleH1 && singleH1Headings);
   })));
 };
-/* harmony default export */ const document_outline = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var document_outline = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => {
   var _postType$supports$ti, _postType$supports;
 
   const {
@@ -5448,13 +5448,8 @@ const DocumentOutline = _ref => {
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/document-outline/check.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -5463,7 +5458,7 @@ function DocumentOutlineCheck(_ref) {
     blocks,
     children
   } = _ref;
-  const headings = (0,external_lodash_namespaceObject.filter)(blocks, block => block.name === 'core/heading');
+  const headings = blocks.filter(block => block.name === 'core/heading');
 
   if (headings.length < 1) {
     return null;
@@ -5472,12 +5467,12 @@ function DocumentOutlineCheck(_ref) {
   return children;
 }
 
-/* harmony default export */ const check = ((0,external_wp_data_namespaceObject.withSelect)(select => ({
+/* harmony default export */ var check = ((0,external_wp_data_namespaceObject.withSelect)(select => ({
   blocks: select(external_wp_blockEditor_namespaceObject.store).getBlocks()
 }))(DocumentOutlineCheck));
 
 ;// CONCATENATED MODULE: external ["wp","keyboardShortcuts"]
-const external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
+var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/global-keyboard-shortcuts/save-shortcut.js
 /**
  * WordPress dependencies
@@ -5541,7 +5536,7 @@ function SaveShortcut(_ref) {
   return null;
 }
 
-/* harmony default export */ const save_shortcut = (SaveShortcut);
+/* harmony default export */ var save_shortcut = (SaveShortcut);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/global-keyboard-shortcuts/visual-editor-shortcuts.js
 
@@ -5574,7 +5569,7 @@ function VisualEditorGlobalKeyboardShortcuts() {
   return (0,external_wp_element_namespaceObject.createElement)(save_shortcut, null);
 }
 
-/* harmony default export */ const visual_editor_shortcuts = (VisualEditorGlobalKeyboardShortcuts);
+/* harmony default export */ var visual_editor_shortcuts = (VisualEditorGlobalKeyboardShortcuts);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/global-keyboard-shortcuts/text-editor-shortcuts.js
 
@@ -5590,7 +5585,7 @@ function TextEditorGlobalKeyboardShortcuts() {
 }
 
 ;// CONCATENATED MODULE: external ["wp","keycodes"]
-const external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
+var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/global-keyboard-shortcuts/register-shortcuts.js
 
 
@@ -5649,10 +5644,10 @@ function EditorKeyboardShortcutsRegister() {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockEditorKeyboardShortcuts.Register, null);
 }
 
-/* harmony default export */ const register_shortcuts = (EditorKeyboardShortcutsRegister);
+/* harmony default export */ var register_shortcuts = (EditorKeyboardShortcutsRegister);
 
 ;// CONCATENATED MODULE: external ["wp","components"]
-const external_wp_components_namespaceObject = window["wp"]["components"];
+var external_wp_components_namespaceObject = window["wp"]["components"];
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/redo.js
 
 
@@ -5666,7 +5661,7 @@ const redo_redo = (0,external_wp_element_namespaceObject.createElement)(external
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M15.6 6.5l-1.1 1 2.9 3.3H8c-.9 0-1.7.3-2.3.9-1.4 1.5-1.4 4.2-1.4 5.6v.2h1.5v-.3c0-1.1 0-3.5 1-4.5.3-.3.7-.5 1.3-.5h9.2L14.5 15l1.1 1.1 4.6-4.6-4.6-5z"
 }));
-/* harmony default export */ const library_redo = (redo_redo);
+/* harmony default export */ var library_redo = (redo_redo);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/undo.js
 
@@ -5681,7 +5676,7 @@ const undo_undo = (0,external_wp_element_namespaceObject.createElement)(external
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M18.3 11.7c-.6-.6-1.4-.9-2.3-.9H6.7l2.9-3.3-1.1-1-4.5 5L8.5 16l1-1-2.7-2.7H16c.5 0 .9.2 1.3.5 1 1 1 3.4 1 4.5v.3h1.5v-.2c0-1.5 0-4.3-1.5-5.7z"
 }));
-/* harmony default export */ const library_undo = (undo_undo);
+/* harmony default export */ var library_undo = (undo_undo);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/editor-history/redo.js
 
@@ -5724,7 +5719,7 @@ function EditorHistoryRedo(props, ref) {
   }));
 }
 
-/* harmony default export */ const editor_history_redo = ((0,external_wp_element_namespaceObject.forwardRef)(EditorHistoryRedo));
+/* harmony default export */ var editor_history_redo = ((0,external_wp_element_namespaceObject.forwardRef)(EditorHistoryRedo));
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/editor-history/undo.js
 
@@ -5766,7 +5761,7 @@ function EditorHistoryUndo(props, ref) {
   }));
 }
 
-/* harmony default export */ const editor_history_undo = ((0,external_wp_element_namespaceObject.forwardRef)(EditorHistoryUndo));
+/* harmony default export */ var editor_history_undo = ((0,external_wp_element_namespaceObject.forwardRef)(EditorHistoryUndo));
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/template-validation-notice/index.js
 
@@ -5811,7 +5806,7 @@ function TemplateValidationNotice(_ref) {
   }, (0,external_wp_i18n_namespaceObject.__)('The content of your post doesn’t match the template assigned to your post type.'));
 }
 
-/* harmony default export */ const template_validation_notice = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => ({
+/* harmony default export */ var template_validation_notice = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => ({
   isValid: select(external_wp_blockEditor_namespaceObject.store).isValidTemplate()
 })), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => {
   const {
@@ -5828,13 +5823,8 @@ function TemplateValidationNotice(_ref) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -5849,13 +5839,19 @@ function EditorNotices(_ref) {
     notices,
     onRemove
   } = _ref;
-  const dismissibleNotices = (0,external_lodash_namespaceObject.filter)(notices, {
-    isDismissible: true,
-    type: 'default'
+  const dismissibleNotices = notices.filter(_ref2 => {
+    let {
+      isDismissible,
+      type
+    } = _ref2;
+    return isDismissible && type === 'default';
   });
-  const nonDismissibleNotices = (0,external_lodash_namespaceObject.filter)(notices, {
-    isDismissible: false,
-    type: 'default'
+  const nonDismissibleNotices = notices.filter(_ref3 => {
+    let {
+      isDismissible,
+      type
+    } = _ref3;
+    return !isDismissible && type === 'default';
   });
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.NoticeList, {
     notices: nonDismissibleNotices,
@@ -5866,7 +5862,7 @@ function EditorNotices(_ref) {
     onRemove: onRemove
   }, (0,external_wp_element_namespaceObject.createElement)(template_validation_notice, null)));
 }
-/* harmony default export */ const editor_notices = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => ({
+/* harmony default export */ var editor_notices = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => ({
   notices: select(external_wp_notices_namespaceObject.store).getNotices()
 })), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => ({
   onRemove: dispatch(external_wp_notices_namespaceObject.store).removeNotice
@@ -5876,13 +5872,8 @@ function EditorNotices(_ref) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -5891,8 +5882,11 @@ function EditorSnackbars() {
   const {
     removeNotice
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store);
-  const snackbarNotices = (0,external_lodash_namespaceObject.filter)(notices, {
-    type: 'snackbar'
+  const snackbarNotices = notices.filter(_ref => {
+    let {
+      type
+    } = _ref;
+    return type === 'snackbar';
   });
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SnackbarList, {
     notices: snackbarNotices,
@@ -5902,7 +5896,7 @@ function EditorSnackbars() {
 }
 
 ;// CONCATENATED MODULE: external ["wp","htmlEntities"]
-const external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
+var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/entities-saved-states/entity-record-item.js
 
 
@@ -6341,7 +6335,7 @@ class ErrorBoundary extends external_wp_element_namespaceObject.Component {
 
 }
 
-/* harmony default export */ const error_boundary = (ErrorBoundary);
+/* harmony default export */ var error_boundary = (ErrorBoundary);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/local-autosave-monitor/index.js
 
@@ -6537,7 +6531,7 @@ function LocalAutosaveMonitor() {
   });
 }
 
-/* harmony default export */ const local_autosave_monitor = ((0,external_wp_compose_namespaceObject.ifCondition)(hasSessionStorageSupport)(LocalAutosaveMonitor));
+/* harmony default export */ var local_autosave_monitor = ((0,external_wp_compose_namespaceObject.ifCondition)(hasSessionStorageSupport)(LocalAutosaveMonitor));
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/page-attributes/check.js
 /**
@@ -6576,7 +6570,7 @@ function PageAttributesCheck(_ref) {
 
   return children;
 }
-/* harmony default export */ const page_attributes_check = (PageAttributesCheck);
+/* harmony default export */ var page_attributes_check = (PageAttributesCheck);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-type-support-check/index.js
 /**
@@ -6621,7 +6615,7 @@ function PostTypeSupportCheck(_ref) {
 
   return children;
 }
-/* harmony default export */ const post_type_support_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_type_support_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     getEditedPostAttribute
   } = select(store_store);
@@ -6688,7 +6682,7 @@ function PageAttributesOrderWithChecks(props) {
   }, (0,external_wp_element_namespaceObject.createElement)(PageAttributesOrder, props));
 }
 
-/* harmony default export */ const order = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var order = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   return {
     order: select(store_store).getEditedPostAttribute('menu_order')
   };
@@ -6936,6 +6930,7 @@ function PageAttributesParent() {
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ComboboxControl, {
+    __nextHasNoMarginBottom: true,
     className: "editor-page-attributes__parent",
     label: parentPageLabel,
     value: parentPostId,
@@ -6944,7 +6939,7 @@ function PageAttributesParent() {
     onChange: handleChange
   });
 }
-/* harmony default export */ const page_attributes_parent = (PageAttributesParent);
+/* harmony default export */ var page_attributes_parent = (PageAttributesParent);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-template/index.js
 
@@ -7010,7 +7005,7 @@ function PostTemplate() {
     }))
   });
 }
-/* harmony default export */ const post_template = (PostTemplate);
+/* harmony default export */ var post_template = (PostTemplate);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/constants.js
 const AUTHORS_QUERY = {
@@ -7132,6 +7127,7 @@ function PostAuthorCombobox() {
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ComboboxControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Author'),
     options: authorOptions,
     value: authorId,
@@ -7142,7 +7138,7 @@ function PostAuthorCombobox() {
   });
 }
 
-/* harmony default export */ const combobox = (PostAuthorCombobox);
+/* harmony default export */ var combobox = (PostAuthorCombobox);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/select.js
 
@@ -7201,7 +7197,7 @@ function PostAuthorSelect() {
   });
 }
 
-/* harmony default export */ const post_author_select = (PostAuthorSelect);
+/* harmony default export */ var post_author_select = (PostAuthorSelect);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/index.js
 
@@ -7233,7 +7229,7 @@ function PostAuthor() {
   return (0,external_wp_element_namespaceObject.createElement)(post_author_select, null);
 }
 
-/* harmony default export */ const post_author = (PostAuthor);
+/* harmony default export */ var post_author = (PostAuthor);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-author/check.js
 
@@ -7314,7 +7310,7 @@ function PostComments(_ref) {
   });
 }
 
-/* harmony default export */ const post_comments = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_comments = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   return {
     commentStatus: select(store_store).getEditedPostAttribute('comment_status')
   };
@@ -7355,7 +7351,7 @@ function PostExcerpt(_ref) {
   }, (0,external_wp_i18n_namespaceObject.__)('Learn more about manual excerpts')));
 }
 
-/* harmony default export */ const post_excerpt = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_excerpt = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   return {
     excerpt: select(store_store).getEditedPostAttribute('excerpt')
   };
@@ -7383,10 +7379,10 @@ function PostExcerptCheck(props) {
   }));
 }
 
-/* harmony default export */ const post_excerpt_check = (PostExcerptCheck);
+/* harmony default export */ var post_excerpt_check = (PostExcerptCheck);
 
 ;// CONCATENATED MODULE: external ["wp","blob"]
-const external_wp_blob_namespaceObject = window["wp"]["blob"];
+var external_wp_blob_namespaceObject = window["wp"]["blob"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/theme-support-check/index.js
 /**
  * External dependencies
@@ -7429,7 +7425,7 @@ function ThemeSupportCheck(_ref) {
 
   return children;
 }
-/* harmony default export */ const theme_support_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var theme_support_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     getThemeSupports
   } = select(external_wp_coreData_namespaceObject.store);
@@ -7460,7 +7456,7 @@ function PostFeaturedImageCheck(props) {
   })));
 }
 
-/* harmony default export */ const post_featured_image_check = (PostFeaturedImageCheck);
+/* harmony default export */ var post_featured_image_check = (PostFeaturedImageCheck);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-featured-image/index.js
 
@@ -7707,7 +7703,7 @@ const applyWithDispatch = (0,external_wp_data_namespaceObject.withDispatch)((dis
 
   };
 });
-/* harmony default export */ const post_featured_image = ((0,external_wp_compose_namespaceObject.compose)(external_wp_components_namespaceObject.withNotices, applyWithSelect, applyWithDispatch, (0,external_wp_components_namespaceObject.withFilters)('editor.PostFeaturedImage'))(PostFeaturedImage));
+/* harmony default export */ var post_featured_image = ((0,external_wp_compose_namespaceObject.compose)(external_wp_components_namespaceObject.withNotices, applyWithSelect, applyWithDispatch, (0,external_wp_components_namespaceObject.withFilters)('editor.PostFeaturedImage'))(PostFeaturedImage));
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-format/check.js
 
@@ -7734,7 +7730,7 @@ function PostFormatCheck(_ref) {
   }));
 }
 
-/* harmony default export */ const post_format_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_format_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
   const editorSettings = select(store_store).getEditorSettings();
   return {
     disablePostFormats: editorSettings.disablePostFormats
@@ -7878,7 +7874,7 @@ const backup = (0,external_wp_element_namespaceObject.createElement)(external_wp
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M5.5 12h1.75l-2.5 3-2.5-3H4a8 8 0 113.134 6.35l.907-1.194A6.5 6.5 0 105.5 12zm9.53 1.97l-2.28-2.28V8.5a.75.75 0 00-1.5 0V12a.747.747 0 00.218.529l1.282-.84-1.28.842 2.5 2.5a.75.75 0 101.06-1.061z"
 }));
-/* harmony default export */ const library_backup = (backup);
+/* harmony default export */ var library_backup = (backup);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-last-revision/check.js
 
@@ -7908,7 +7904,7 @@ function PostLastRevisionCheck(_ref) {
     supportKeys: "revisions"
   }, children);
 }
-/* harmony default export */ const post_last_revision_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_last_revision_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     getCurrentPostLastRevisionId,
     getCurrentPostRevisionsCount
@@ -7954,7 +7950,7 @@ function LastRevision(_ref) {
   (0,external_wp_i18n_namespaceObject._n)('%d Revision', '%d Revisions', revisionsCount), revisionsCount)));
 }
 
-/* harmony default export */ const post_last_revision = ((0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_last_revision = ((0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     getCurrentPostLastRevisionId,
     getCurrentPostRevisionsCount
@@ -8206,7 +8202,7 @@ function PostPendingStatusCheck(_ref) {
 
   return children;
 }
-/* harmony default export */ const post_pending_status_check = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_pending_status_check = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     isCurrentPostPublished,
     getCurrentPostType,
@@ -8253,7 +8249,7 @@ function PostPendingStatus(_ref) {
     onChange: togglePendingStatus
   }));
 }
-/* harmony default export */ const post_pending_status = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => ({
+/* harmony default export */ var post_pending_status = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => ({
   status: select(store_store).getEditedPostAttribute('status')
 })), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => ({
   onUpdateStatus(status) {
@@ -8298,7 +8294,7 @@ function PostPingbacks(_ref) {
   });
 }
 
-/* harmony default export */ const post_pingbacks = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_pingbacks = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   return {
     pingStatus: select(store_store).getEditedPostAttribute('ping_status')
   };
@@ -8532,7 +8528,7 @@ class PostPreviewButton extends external_wp_element_namespaceObject.Component {
   }
 
 }
-/* harmony default export */ const post_preview_button = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)((select, _ref) => {
+/* harmony default export */ var post_preview_button = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)((select, _ref) => {
   let {
     forcePreviewLink,
     forceIsAutosaveable
@@ -8620,7 +8616,7 @@ function PublishButtonLabel(_ref) {
 
   return (0,external_wp_i18n_namespaceObject.__)('Publish');
 }
-/* harmony default export */ const label = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)((select, _ref2) => {
+/* harmony default export */ var label = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)((select, _ref2) => {
   let {
     forceIsSaving
   } = _ref2;
@@ -8838,7 +8834,7 @@ class PostPublishButton extends external_wp_element_namespaceObject.Component {
   }
 
 }
-/* harmony default export */ const post_publish_button = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_publish_button = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     isSavingPost,
     isAutosavingPost,
@@ -8900,7 +8896,7 @@ const closeSmall = (0,external_wp_element_namespaceObject.createElement)(externa
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M12 13.06l3.712 3.713 1.061-1.06L13.061 12l3.712-3.712-1.06-1.06L12 10.938 8.288 7.227l-1.061 1.06L10.939 12l-3.712 3.712 1.06 1.061L12 13.061z"
 }));
-/* harmony default export */ const close_small = (closeSmall);
+/* harmony default export */ var close_small = (closeSmall);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/wordpress.js
 
@@ -8915,7 +8911,7 @@ const wordpress = (0,external_wp_element_namespaceObject.createElement)(external
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M20 10c0-5.51-4.49-10-10-10C4.48 0 0 4.49 0 10c0 5.52 4.48 10 10 10 5.51 0 10-4.48 10-10zM7.78 15.37L4.37 6.22c.55-.02 1.17-.08 1.17-.08.5-.06.44-1.13-.06-1.11 0 0-1.45.11-2.37.11-.18 0-.37 0-.58-.01C4.12 2.69 6.87 1.11 10 1.11c2.33 0 4.45.87 6.05 2.34-.68-.11-1.65.39-1.65 1.58 0 .74.45 1.36.9 2.1.35.61.55 1.36.55 2.46 0 1.49-1.4 5-1.4 5l-3.03-8.37c.54-.02.82-.17.82-.17.5-.05.44-1.25-.06-1.22 0 0-1.44.12-2.38.12-.87 0-2.33-.12-2.33-.12-.5-.03-.56 1.2-.06 1.22l.92.08 1.26 3.41zM17.41 10c.24-.64.74-1.87.43-4.25.7 1.29 1.05 2.71 1.05 4.25 0 3.29-1.73 6.24-4.4 7.78.97-2.59 1.94-5.2 2.92-7.78zM6.1 18.09C3.12 16.65 1.11 13.53 1.11 10c0-1.3.23-2.48.72-3.59C3.25 10.3 4.67 14.2 6.1 18.09zm4.03-6.63l2.58 6.98c-.86.29-1.76.45-2.71.45-.79 0-1.57-.11-2.29-.33.81-2.38 1.62-4.74 2.42-7.1z"
 }));
-/* harmony default export */ const library_wordpress = (wordpress);
+/* harmony default export */ var library_wordpress = (wordpress);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-visibility/utils.js
 /**
@@ -9883,7 +9879,7 @@ function isSameDay(left, right) {
 var escape_html = __webpack_require__(3613);
 var escape_html_default = /*#__PURE__*/__webpack_require__.n(escape_html);
 ;// CONCATENATED MODULE: external ["wp","a11y"]
-const external_wp_a11y_namespaceObject = window["wp"]["a11y"];
+var external_wp_a11y_namespaceObject = window["wp"]["a11y"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/most-used-terms.js
 
 
@@ -10178,7 +10174,7 @@ function FlatTermSelector(_ref) {
     onSelect: appendTerm
   }));
 }
-/* harmony default export */ const flat_term_selector = ((0,external_wp_components_namespaceObject.withFilters)('editor.PostTaxonomyType')(FlatTermSelector));
+/* harmony default export */ var flat_term_selector = ((0,external_wp_components_namespaceObject.withFilters)('editor.PostTaxonomyType')(FlatTermSelector));
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/maybe-tags-panel.js
 
@@ -10241,7 +10237,7 @@ class MaybeTagsPanel extends external_wp_element_namespaceObject.Component {
 
 }
 
-/* harmony default export */ const maybe_tags_panel = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var maybe_tags_panel = ((0,external_wp_compose_namespaceObject.compose)((0,external_wp_data_namespaceObject.withSelect)(select => {
   const postType = select(store_store).getCurrentPostType();
   const tagsTaxonomy = select(external_wp_coreData_namespaceObject.store).getTaxonomy('post_tag');
   const tags = tagsTaxonomy && select(store_store).getEditedPostAttribute(tagsTaxonomy.rest_base);
@@ -10718,7 +10714,7 @@ function HierarchicalTermSelector(_ref) {
     className: "editor-post-taxonomies__hierarchical-terms-submit"
   }, newTermSubmitLabel)));
 }
-/* harmony default export */ const hierarchical_term_selector = ((0,external_wp_components_namespaceObject.withFilters)('editor.PostTaxonomyType')(HierarchicalTermSelector));
+/* harmony default export */ var hierarchical_term_selector = ((0,external_wp_components_namespaceObject.withFilters)('editor.PostTaxonomyType')(HierarchicalTermSelector));
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/maybe-category-panel.js
 
@@ -10778,7 +10774,7 @@ function MaybeCategoryPanel() {
   }));
 }
 
-/* harmony default export */ const maybe_category_panel = (MaybeCategoryPanel);
+/* harmony default export */ var maybe_category_panel = (MaybeCategoryPanel);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/prepublish.js
 
@@ -10897,7 +10893,7 @@ function PostPublishPanelPrepublish(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(PostSchedule, null))), (0,external_wp_element_namespaceObject.createElement)(PostFormatPanel, null), (0,external_wp_element_namespaceObject.createElement)(maybe_tags_panel, null), (0,external_wp_element_namespaceObject.createElement)(maybe_category_panel, null), children);
 }
 
-/* harmony default export */ const prepublish = (PostPublishPanelPrepublish);
+/* harmony default export */ var prepublish = (PostPublishPanelPrepublish);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-publish-panel/postpublish.js
 
@@ -11047,7 +11043,7 @@ class PostPublishPanelPostpublish extends external_wp_element_namespaceObject.Co
 
 }
 
-/* harmony default export */ const postpublish = ((0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var postpublish = ((0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     getEditedPostAttribute,
     getCurrentPost,
@@ -11177,7 +11173,7 @@ class PostPublishPanel extends external_wp_element_namespaceObject.Component {
   }
 
 }
-/* harmony default export */ const post_publish_panel = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_publish_panel = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     getPostType
   } = select(external_wp_coreData_namespaceObject.store);
@@ -11238,7 +11234,7 @@ const cloudUpload = (0,external_wp_element_namespaceObject.createElement)(extern
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M17.3 10.1c0-2.5-2.1-4.4-4.8-4.4-2.2 0-4.1 1.4-4.6 3.3h-.2C5.7 9 4 10.7 4 12.8c0 2.1 1.7 3.8 3.7 3.8h9c1.8 0 3.2-1.5 3.2-3.3.1-1.6-1.1-2.9-2.6-3.2zm-.5 5.1h-4v-2.4L14 14l1-1-3-3-3 3 1 1 1.2-1.2v2.4H7.7c-1.2 0-2.2-1.1-2.2-2.3s1-2.4 2.2-2.4H9l.3-1.1c.4-1.3 1.7-2.2 3.2-2.2 1.8 0 3.3 1.3 3.3 2.9v1.3l1.3.2c.8.1 1.4.9 1.4 1.8 0 1-.8 1.8-1.7 1.8z"
 }));
-/* harmony default export */ const cloud_upload = (cloudUpload);
+/* harmony default export */ var cloud_upload = (cloudUpload);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
 /**
@@ -11270,7 +11266,7 @@ function Icon(_ref) {
   });
 }
 
-/* harmony default export */ const icon = (Icon);
+/* harmony default export */ var icon = (Icon);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/check.js
 
@@ -11285,7 +11281,7 @@ const check_check = (0,external_wp_element_namespaceObject.createElement)(extern
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M16.7 7.1l-6.3 8.5-3.3-2.5-.9 1.2 4.5 3.4L17.9 8z"
 }));
-/* harmony default export */ const library_check = (check_check);
+/* harmony default export */ var library_check = (check_check);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/cloud.js
 
@@ -11300,7 +11296,7 @@ const cloud = (0,external_wp_element_namespaceObject.createElement)(external_wp_
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M17.3 10.1c0-2.5-2.1-4.4-4.8-4.4-2.2 0-4.1 1.4-4.6 3.3h-.2C5.7 9 4 10.7 4 12.8c0 2.1 1.7 3.8 3.7 3.8h9c1.8 0 3.2-1.5 3.2-3.3.1-1.6-1.1-2.9-2.6-3.2zm-.5 5.1h-9c-1.2 0-2.2-1.1-2.2-2.3s1-2.4 2.2-2.4h1.3l.3-1.1c.4-1.3 1.7-2.2 3.2-2.2 1.8 0 3.3 1.3 3.3 2.9v1.3l1.3.2c.8.1 1.4.9 1.4 1.8-.1 1-.9 1.8-1.8 1.8z"
 }));
-/* harmony default export */ const library_cloud = (cloud);
+/* harmony default export */ var library_cloud = (cloud);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-switch-to-draft-button/index.js
 
@@ -11360,7 +11356,7 @@ function PostSwitchToDraftButton(_ref) {
   }, alertMessage));
 }
 
-/* harmony default export */ const post_switch_to_draft_button = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_switch_to_draft_button = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     isSavingPost,
     isCurrentPostPublished,
@@ -11581,7 +11577,7 @@ function PostScheduleCheck(_ref) {
 
   return children;
 }
-/* harmony default export */ const post_schedule_check = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_schedule_check = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     getCurrentPost,
     getCurrentPostType
@@ -11675,7 +11671,7 @@ class PostSlug extends external_wp_element_namespaceObject.Component {
   }
 
 }
-/* harmony default export */ const post_slug = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_slug = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     getCurrentPost,
     getEditedPostAttribute
@@ -11731,7 +11727,7 @@ function PostStickyCheck(_ref) {
 
   return children;
 }
-/* harmony default export */ const post_sticky_check = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_sticky_check = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   const post = select(store_store).getCurrentPost();
   return {
     hasStickyAction: (0,external_lodash_namespaceObject.get)(post, ['_links', 'wp:action-sticky'], false),
@@ -11767,7 +11763,7 @@ function PostSticky(_ref) {
     onChange: () => onUpdateSticky(!postSticky)
   }));
 }
-/* harmony default export */ const post_sticky = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_sticky = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   return {
     postSticky: select(store_store).getEditedPostAttribute('sticky')
   };
@@ -11786,13 +11782,8 @@ function PostSticky(_ref) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -11813,8 +11804,8 @@ function PostTaxonomies(_ref) {
     taxonomies,
     taxonomyWrapper = identity
   } = _ref;
-  const availableTaxonomies = (0,external_lodash_namespaceObject.filter)(taxonomies, taxonomy => taxonomy.types.includes(postType));
-  const visibleTaxonomies = (0,external_lodash_namespaceObject.filter)(availableTaxonomies, // In some circumstances .visibility can end up as undefined so optional chaining operator required.
+  const availableTaxonomies = (taxonomies !== null && taxonomies !== void 0 ? taxonomies : []).filter(taxonomy => taxonomy.types.includes(postType));
+  const visibleTaxonomies = availableTaxonomies.filter( // In some circumstances .visibility can end up as undefined so optional chaining operator required.
   // https://github.com/WordPress/gutenberg/issues/40326
   taxonomy => {
     var _taxonomy$visibility;
@@ -11830,7 +11821,7 @@ function PostTaxonomies(_ref) {
     }), taxonomy));
   });
 }
-/* harmony default export */ const post_taxonomies = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_taxonomies = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   return {
     postType: select(store_store).getCurrentPostType(),
     taxonomies: select(external_wp_coreData_namespaceObject.store).getTaxonomies({
@@ -11865,7 +11856,7 @@ function PostTaxonomiesCheck(_ref) {
 
   return children;
 }
-/* harmony default export */ const post_taxonomies_check = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_taxonomies_check = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   return {
     postType: select(store_store).getCurrentPostType(),
     taxonomies: select(external_wp_coreData_namespaceObject.store).getTaxonomies({
@@ -11974,7 +11965,7 @@ function PostTextEditor() {
 }
 
 ;// CONCATENATED MODULE: external ["wp","dom"]
-const external_wp_dom_namespaceObject = window["wp"]["dom"];
+var external_wp_dom_namespaceObject = window["wp"]["dom"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-title/index.js
 
 
@@ -12229,7 +12220,7 @@ function PostTitle(_, forwardedRef) {
   /* eslint-enable jsx-a11y/heading-has-content, jsx-a11y/no-noninteractive-element-to-interactive-role */
 }
 
-/* harmony default export */ const post_title = ((0,external_wp_element_namespaceObject.forwardRef)(PostTitle));
+/* harmony default export */ var post_title = ((0,external_wp_element_namespaceObject.forwardRef)(PostTitle));
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-trash/index.js
 
@@ -12303,7 +12294,7 @@ function PostTrashCheck(_ref) {
   return children;
 }
 
-/* harmony default export */ const post_trash_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_trash_check = ((0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     isEditedPostNew,
     getCurrentPostId,
@@ -12517,7 +12508,7 @@ function PostVisibilityCheck(_ref) {
     canEdit
   });
 }
-/* harmony default export */ const post_visibility_check = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+/* harmony default export */ var post_visibility_check = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
   const {
     getCurrentPost,
     getCurrentPostType
@@ -12541,10 +12532,10 @@ const info = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
   d: "M12 3.2c-4.8 0-8.8 3.9-8.8 8.8 0 4.8 3.9 8.8 8.8 8.8 4.8 0 8.8-3.9 8.8-8.8 0-4.8-4-8.8-8.8-8.8zm0 16c-4 0-7.2-3.3-7.2-7.2C4.8 8 8 4.8 12 4.8s7.2 3.3 7.2 7.2c0 4-3.2 7.2-7.2 7.2zM11 17h2v-6h-2v6zm0-8h2V7h-2v2z"
 }));
-/* harmony default export */ const library_info = (info);
+/* harmony default export */ var library_info = (info);
 
 ;// CONCATENATED MODULE: external ["wp","wordcount"]
-const external_wp_wordcount_namespaceObject = window["wp"]["wordcount"];
+var external_wp_wordcount_namespaceObject = window["wp"]["wordcount"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/word-count/index.js
 
 
@@ -12720,7 +12711,7 @@ function TableOfContentsPanel(_ref) {
   );
 }
 
-/* harmony default export */ const panel = (TableOfContentsPanel);
+/* harmony default export */ var panel = (TableOfContentsPanel);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/table-of-contents/index.js
 
@@ -12782,7 +12773,7 @@ function TableOfContents(_ref, ref) {
   });
 }
 
-/* harmony default export */ const table_of_contents = ((0,external_wp_element_namespaceObject.forwardRef)(TableOfContents));
+/* harmony default export */ var table_of_contents = ((0,external_wp_element_namespaceObject.forwardRef)(TableOfContents));
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/unsaved-changes-warning/index.js
 /**
@@ -12840,7 +12831,7 @@ function UnsavedChangesWarning() {
 }
 
 ;// CONCATENATED MODULE: external ["wp","reusableBlocks"]
-const external_wp_reusableBlocks_namespaceObject = window["wp"]["reusableBlocks"];
+var external_wp_reusableBlocks_namespaceObject = window["wp"]["reusableBlocks"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/provider/with-registry-provider.js
 
 
@@ -12884,10 +12875,10 @@ const withRegistryProvider = (0,external_wp_compose_namespaceObject.createHigher
     value: subRegistry
   }, (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, additionalProps));
 }), 'withRegistryProvider');
-/* harmony default export */ const with_registry_provider = (withRegistryProvider);
+/* harmony default export */ var with_registry_provider = (withRegistryProvider);
 
 ;// CONCATENATED MODULE: external ["wp","mediaUtils"]
-const external_wp_mediaUtils_namespaceObject = window["wp"]["mediaUtils"];
+var external_wp_mediaUtils_namespaceObject = window["wp"]["mediaUtils"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/utils/media-upload/index.js
 /**
  * WordPress dependencies
@@ -12951,13 +12942,8 @@ function mediaUpload(_ref) {
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/provider/use-block-editor-settings.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -12968,6 +12954,7 @@ function mediaUpload(_ref) {
 
 
 
+const EMPTY_BLOCKS_LIST = [];
 /**
  * React hook used to compute the block editor settings to use for the post editor.
  *
@@ -13004,7 +12991,7 @@ function useBlockEditorSettings(settings, hasTemplate) {
       canUseUnfilteredHTML: canUserUseUnfilteredHTML(),
       reusableBlocks: isWeb ? select(external_wp_coreData_namespaceObject.store).getEntityRecords('postType', 'wp_block', {
         per_page: -1
-      }) : [],
+      }) : EMPTY_BLOCKS_LIST,
       // Reusable blocks are fetched in the native version of this hook.
       hasUploadPermissions: (_canUser = canUser('create', 'media')) !== null && _canUser !== void 0 ? _canUser : true,
       userCanCreatePages: canUser('create', 'pages'),
@@ -13056,12 +13043,18 @@ function useBlockEditorSettings(settings, hasTemplate) {
     return saveEntityRecord('postType', 'page', options);
   };
 
-  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...(0,external_lodash_namespaceObject.pick)(settings, ['__experimentalBlockDirectory', '__experimentalDiscussionSettings', '__experimentalFeatures', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'canLockBlocks', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomSpacingSizes', 'disableCustomGradients', 'disableLayoutStyles', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'generateAnchors', 'hasFixedToolbar', 'isDistractionFree', 'hasInlineToolbar', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableResolvedAssets']),
+  return (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...Object.fromEntries(Object.entries(settings).filter(_ref2 => {
+      let [key] = _ref2;
+      return ['__experimentalBlockDirectory', '__experimentalDiscussionSettings', '__experimentalFeatures', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'bodyPlaceholder', 'canLockBlocks', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomSpacingSizes', 'disableCustomGradients', 'disableLayoutStyles', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'focusMode', 'fontSizes', 'gradients', 'generateAnchors', 'hasFixedToolbar', 'isDistractionFree', 'hasInlineToolbar', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'maxWidth', 'onUpdateDefaultBlockStyles', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableResolvedAssets'].includes(key);
+    })),
     mediaUpload: hasUploadPermissions ? mediaUpload : undefined,
     __experimentalReusableBlocks: reusableBlocks,
     __experimentalBlockPatterns: blockPatterns,
     __experimentalBlockPatternCategories: blockPatternCategories,
     __experimentalFetchLinkSuggestions: (search, searchOptions) => (0,external_wp_coreData_namespaceObject.__experimentalFetchLinkSuggestions)(search, searchOptions, settings),
+    // TODO: We should find a proper way to consolidate similar cases
+    // like reusable blocks, fetch entities, etc.
+    __unstableFetchMedia: external_wp_coreData_namespaceObject.__experimentalFetchMedia,
     __experimentalFetchRichUrlData: external_wp_coreData_namespaceObject.__experimentalFetchUrlData,
     __experimentalCanUserUseUnfilteredHTML: canUseUnfilteredHTML,
     __experimentalUndo: undo,
@@ -13073,7 +13066,7 @@ function useBlockEditorSettings(settings, hasTemplate) {
   }), [settings, hasUploadPermissions, reusableBlocks, blockPatterns, blockPatternCategories, canUseUnfilteredHTML, undo, hasTemplate, userCanCreatePages, pageOnFront]);
 }
 
-/* harmony default export */ const use_block_editor_settings = (useBlockEditorSettings);
+/* harmony default export */ var use_block_editor_settings = (useBlockEditorSettings);
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/provider/index.js
 
@@ -13198,10 +13191,10 @@ function EditorProvider(_ref) {
   }, children, (0,external_wp_element_namespaceObject.createElement)(external_wp_reusableBlocks_namespaceObject.ReusableBlocksMenuItems, null)))));
 }
 
-/* harmony default export */ const provider = (with_registry_provider(EditorProvider));
+/* harmony default export */ var provider = (with_registry_provider(EditorProvider));
 
 ;// CONCATENATED MODULE: external ["wp","serverSideRender"]
-const external_wp_serverSideRender_namespaceObject = window["wp"]["serverSideRender"];
+var external_wp_serverSideRender_namespaceObject = window["wp"]["serverSideRender"];
 var external_wp_serverSideRender_default = /*#__PURE__*/__webpack_require__.n(external_wp_serverSideRender_namespaceObject);
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/deprecated.js
 
@@ -13429,8 +13422,7 @@ function cleanForSlug(string) {
 
 
 
-})();
-
+}();
 (window.wp = window.wp || {}).editor = __webpack_exports__;
 /******/ })()
 ;
