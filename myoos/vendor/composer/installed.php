@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '2e12b7262de6c092aa5680baf286d331747bf2f1',
+        'reference' => '38104c1bcf20c88e7db69bb941122f582a463a06',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'bacon/bacon-qr-code' => array(
-            'pretty_version' => '2.0.7',
-            'version' => '2.0.7.0',
+            'pretty_version' => '2.0.8',
+            'version' => '2.0.8.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../bacon/bacon-qr-code',
             'aliases' => array(),
-            'reference' => 'd70c840f68657ce49094b8d91f9ee0cc07fbf66c',
+            'reference' => '8674e51bb65af933a5ffaf1c308a660387c35c22',
             'dev_requirement' => false,
         ),
         'dasprid/enum' => array(
@@ -119,12 +119,12 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-code' => array(
-            'pretty_version' => '4.7.1',
-            'version' => '4.7.1.0',
+            'pretty_version' => '4.8.0',
+            'version' => '4.8.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-code',
             'aliases' => array(),
-            'reference' => '91aabc066d5620428120800c0eafc0411e441a62',
+            'reference' => 'dd19fe8e07cc3f374308565667eecd4958c22106',
             'dev_requirement' => false,
         ),
         'laminas/laminas-escaper' => array(
@@ -137,12 +137,12 @@
             'dev_requirement' => false,
         ),
         'maennchen/zipstream-php' => array(
-            'pretty_version' => '2.3.0',
-            'version' => '2.3.0.0',
+            'pretty_version' => 'v2.4.0',
+            'version' => '2.4.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../maennchen/zipstream-php',
             'aliases' => array(),
-            'reference' => '8df0a40fff7b5cbf86cf9a6d7d8d15b9bc03bc98',
+            'reference' => '3fa72e4c71a43f9e9118752a5c90e476a8dc9eb3',
             'dev_requirement' => false,
         ),
         'markbaker/complex' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '2e12b7262de6c092aa5680baf286d331747bf2f1',
+            'reference' => '38104c1bcf20c88e7db69bb941122f582a463a06',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -447,7 +447,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '5ff66815edb2a9cb060eed77daa81f20ae6ce5b4',
+            'reference' => '079707d2c3cc5d146e620c7cdd9b047719bc35fb',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
