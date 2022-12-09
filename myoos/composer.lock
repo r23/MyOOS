@@ -4219,12 +4219,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "079707d2c3cc5d146e620c7cdd9b047719bc35fb"
+                "reference": "a5d6404aa779f8c718f5e90164da5c37a6065aaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/079707d2c3cc5d146e620c7cdd9b047719bc35fb",
-                "reference": "079707d2c3cc5d146e620c7cdd9b047719bc35fb",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/a5d6404aa779f8c718f5e90164da5c37a6065aaf",
+                "reference": "a5d6404aa779f8c718f5e90164da5c37a6065aaf",
                 "shasum": ""
             },
             "conflict": {
@@ -4523,7 +4523,7 @@
                 "prestashop/blockwishlist": ">=2,<2.1.1",
                 "prestashop/contactform": ">=1.0.1,<4.3",
                 "prestashop/gamification": "<2.3.2",
-                "prestashop/prestashop": ">=1.6.0.10,<1.7.8.7",
+                "prestashop/prestashop": "<1.7.8.8",
                 "prestashop/productcomments": "<5.0.2",
                 "prestashop/ps_emailsubscription": "<2.6.1",
                 "prestashop/ps_facetedsearch": "<3.4.1",
@@ -4642,7 +4642,7 @@
                 "theonedemon/phpwhois": "<=4.2.5",
                 "thinkcmf/thinkcmf": "<=5.1.7",
                 "thorsten/phpmyfaq": "<3.1.8",
-                "tinymce/tinymce": "<5.10",
+                "tinymce/tinymce": "<5.10.7|>=6,<6.3.1",
                 "titon/framework": ">=0,<9.9.99",
                 "tobiasbg/tablepress": "<= 2.0-RC1",
                 "topthink/framework": "<=6.0.13",
@@ -4755,7 +4755,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-07T15:04:22+00:00"
+            "time": "2022-12-09T00:16:03+00:00"
         }
     ],
     "aliases": [],
