@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-11-13 01:33:21+0000\n"
+"PO-Revision-Date: 2022-12-09 02:01:04+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -682,7 +682,7 @@ msgstr "Home-Link"
 #: wp-includes/blocks/group/block.json
 msgctxt "block description"
 msgid "Gather blocks in a layout container."
-msgstr "Fasse Blöcke in einem Layout-Container zusammen."
+msgstr "Blöcke in einem Layout-Container zusammenfassen."
 
 #: wp-includes/blocks/comments-title/block.json
 msgctxt "block description"
@@ -1085,7 +1085,7 @@ msgstr "Hervorgehoben"
 
 #: wp-includes/script-loader.php:1295
 msgid "Use Site Editor"
-msgstr "Website-Editor benutzen"
+msgstr "Den Website-Editor benutzen"
 
 #. translators: 1: Link to Site Editor documentation on HelpHub, 2: HTML
 #. button.
@@ -1179,7 +1179,7 @@ msgstr "Beitrags-Navigations-Link"
 #: wp-includes/blocks/post-comments-form/block.json
 msgctxt "block description"
 msgid "Display a post's comments form."
-msgstr "Einen Beitrags-Kommentar anzeigen."
+msgstr "Ein Beitrags-Kommentarformular anzeigen."
 
 #: wp-includes/blocks/post-comments-form/block.json
 msgctxt "block title"
@@ -1663,11 +1663,11 @@ msgstr "Navigationsmenü-Archive"
 
 #: wp-includes/post.php:496
 msgid "No Navigation Menu found in Trash."
-msgstr "Kein Navigationsmenü im Papierkorb gefunden."
+msgstr "Es wurde kein Navigationsmenü im Papierkorb gefunden."
 
 #: wp-includes/post.php:495
 msgid "No Navigation Menu found."
-msgstr "Kein Navigationsmenü gefunden."
+msgstr "Es wurde kein Navigationsmenü gefunden."
 
 #: wp-includes/post.php:494
 msgid "Parent Navigation Menu:"
@@ -1993,7 +1993,7 @@ msgstr "Kategorie"
 #: wp-includes/block-template-utils.php:146
 #: wp-includes/js/dist/edit-site.js:14604
 msgid "Displays latest posts written by a single author."
-msgstr "Zeigt die neuesten Beiträge eines ausgewählten Autors an."
+msgstr "Zeigt die neuesten Beiträge eines einzelnen Autors an."
 
 #: wp-includes/block-template-utils.php:145
 msgctxt "Template name"
@@ -2478,7 +2478,7 @@ msgstr "Atom"
 #: wp-includes/blocks/rss/block.json
 msgctxt "block description"
 msgid "Display entries from any RSS or Atom feed."
-msgstr "Einträge von jedem RSS- oder Atom-Feed anzeigen."
+msgstr "Einträge eines beliebigen RSS- oder Atom-Feed anzeigen."
 
 #: wp-includes/blocks/quote/block.json
 msgctxt "block keyword"
@@ -3120,11 +3120,11 @@ msgstr "Widget-Typ unterstützt keine unverarbeiteten Instanzen."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:561
 msgid "Cannot set instance on a widget that does not extend WP_Widget."
-msgstr "Kann keine Instanz auf ein Widget anwenden, das WP_Widget nicht erweitert."
+msgstr "Eine Instanz kann nicht auf ein Widget angewendet werden, das WP_Widget nicht erweitert."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:552
 msgid "The provided widget type (id_base) cannot be updated."
-msgstr "Der angegebene Widget-Typ (id_base) lässt sich nicht aktualisieren."
+msgstr "Der angegebene Widget-Typ (id_base) kann nicht aktualisiert werden."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-widgets-controller.php:544
 msgid "Widget type (id_base) is required."
@@ -3421,7 +3421,7 @@ msgstr "Die Liste der Bereiche, auf die sich die Variation anwenden lässt. Ist 
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-block-types-controller.php:646
 msgid "The initial values for attributes."
-msgstr "Die Anfangswerte für Attribute."
+msgstr "Die urspünglichen Werte für Attribute."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-block-types-controller.php:640
 msgid "Indicates whether the current variation is the default one."
@@ -3453,7 +3453,7 @@ msgstr "Eindeutige Kennung für den Anhang."
 
 #: wp-includes/rest-api.php:1071
 msgid "Cookie check failed"
-msgstr "Cookie-Prüfung fehlgeschlagen"
+msgstr "Cookie-Prüfung ist fehlgeschlagen"
 
 #: wp-includes/class-wp-post-type.php:867
 msgctxt "navigation link block description"
@@ -7165,7 +7165,7 @@ msgstr "Personenbezogene Daten löschen"
 
 #: wp-includes/comment-template.php:2416
 msgid "Save my name, email, and website in this browser for the next time I comment."
-msgstr "Meinen Namen, meine E-Mail-Adresse und meine Website in diesem Browser speichern, bis ich wieder kommentiere."
+msgstr "Meinen Namen, meine E-Mail-Adresse und meine Website in diesem Browser, für die nächste Kommentierung, speichern."
 
 #: wp-includes/user.php:3815
 msgid "User Description"
