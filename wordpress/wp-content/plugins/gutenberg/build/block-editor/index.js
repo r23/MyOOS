@@ -21366,7 +21366,7 @@ function BlockListBlock(_ref2) {
     removeBlock
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   const onRemove = (0,external_wp_element_namespaceObject.useCallback)(() => removeBlock(clientId), [clientId]);
-  const parentLayout = useLayout(); // We wrap the BlockEdit component in a div that hides it when editing in
+  const parentLayout = useLayout() || {}; // We wrap the BlockEdit component in a div that hides it when editing in
   // HTML mode. This allows us to render all of the ancillary pieces
   // (InspectorControls, etc.) which are inside `BlockEdit` but not
   // `BlockHTML`, even in HTML mode.
@@ -21384,7 +21384,7 @@ function BlockListBlock(_ref2) {
     isSelectionEnabled: isSelectionEnabled,
     toggleSelection: toggleSelection,
     __unstableLayoutClassNames: layoutClassNames,
-    __unstableParentLayout: parentLayout
+    __unstableParentLayout: Object.keys(parentLayout).length ? parentLayout : undefined
   });
   const blockType = (0,external_wp_blocks_namespaceObject.getBlockType)(name);
 
@@ -35820,7 +35820,9 @@ function UncontrolledInnerBlocks(props) {
     renderAppender: renderAppender,
     __experimentalAppenderTagName: __experimentalAppenderTagName,
     __experimentalLayout: { ...__experimentalLayout,
-      allowSizingOnChildren
+      ...(allowSizingOnChildren && {
+        allowSizingOnChildren: true
+      })
     },
     wrapperRef: wrapperRef,
     placeholder: placeholder
