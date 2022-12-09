@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '5b0ac7e488b17c804e640764fe754596cb1e7786',
+        'reference' => 'c5a9bcd10b7c01b045fbc0650704e889af4c8438',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '5b0ac7e488b17c804e640764fe754596cb1e7786',
+            'reference' => 'c5a9bcd10b7c01b045fbc0650704e889af4c8438',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -260,12 +260,12 @@
             'dev_requirement' => false,
         ),
         'php-ffmpeg/php-ffmpeg' => array(
-            'pretty_version' => 'v1.0.1',
-            'version' => '1.0.1.0',
+            'pretty_version' => 'v1.1.0',
+            'version' => '1.1.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-ffmpeg/php-ffmpeg',
             'aliases' => array(),
-            'reference' => 'bda300b69acecf791d2934cd5ed43a8ba24febf6',
+            'reference' => 'eace6f174ff6d206ba648483ebe59760f7f6a0e1',
             'dev_requirement' => false,
         ),
         'php-http/async-client-implementation' => array(
