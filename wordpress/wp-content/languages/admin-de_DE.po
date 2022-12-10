@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-09 01:58:12+0000\n"
+"PO-Revision-Date: 2022-12-10 01:58:06+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -699,13 +699,13 @@ msgstr "Nachdem deine Seite zur Datenschutzerklärung eingerichtet wurde, empfeh
 #. translators: 1: .htaccess, 2: Documentation URL, 3: Ctrl + A, 4: ⌘ + A
 #: wp-admin/options-permalink.php:522
 msgid "<strong>Error:</strong> Your %1$s file is not <a href=\"%2$s\">writable</a>, so updating it automatically was not possible. These are the mod_rewrite rules you should have in your %1$s file. Click in the field and press %3$s (or %4$s on Mac) to select all."
-msgstr "Fehler: Deine %1$s-Datei ist nicht <a href=\"%2$s\">beschreibbar</a>, sodass ihre automatische Aktualisierung nicht möglich war. Darum findest du hier die mod_rewrite-Regeln für deine %1$s-Datei. Klicke in das Feld und drücke %3$s (oder %4$s am Mac), um alles auszuwählen."
+msgstr "<strong>Fehler:</strong> Deine %1$s-Datei ist nicht <a href=\"%2$s\">beschreibbar</a>, sodass ihre automatische Aktualisierung nicht möglich war. Darum findest du hier die mod_rewrite-Regeln für deine %1$s-Datei. Klicke in das Feld und drücke %3$s (oder %4$s am Mac), um alles auszuwählen."
 
 #. translators: 1: web.config, 2: Documentation URL, 3: Ctrl + A, 4: ⌘ + A,
 #. 5: Element code.
 #: wp-admin/options-permalink.php:454
 msgid "<strong>Error:</strong> Your %1$s file is not <a href=\"%2$s\">writable</a>, so updating it automatically was not possible. This is the URL rewrite rule you should have in your %1$s file. Click in the field and press %3$s (or %4$s on Mac) to select all. Then insert this rule inside of the %5$s element in %1$s file."
-msgstr "Fehler: Deine %1$s-Datei ist nicht <a href=\"%2$s\">beschreibbar</a>, sodass ihre automatische Aktualisierung nicht möglich war. Darum findest du hier die URL-Umschreibungsregel, die du in der %1$s-Datei speichern solltest. Klicke in das Feld und drücke %3$s (oder %4$s am Mac), um alles auszuwählen. Füge die Regel dann innerhalb des Elements %5$s in der %1$s-Datei ein."
+msgstr "<strong>Fehler:</strong> Deine %1$s-Datei ist nicht <a href=\"%2$s\">beschreibbar</a>, sodass ihre automatische Aktualisierung nicht möglich war. Darum findest du hier die URL-Umschreibungsregel, die du in der %1$s-Datei speichern solltest. Klicke in das Feld und drücke %3$s (oder %4$s am Mac), um alles auszuwählen. Füge die Regel dann innerhalb des Elements %5$s in der %1$s-Datei ein."
 
 #: wp-admin/options-discussion.php:221
 msgid "An avatar is an image that can be associated with a user across multiple websites. In this area, you can choose to display avatars of users who interact with the site."
@@ -2971,7 +2971,7 @@ msgstr "Die Einstellung %s ist nicht registriert. Nicht registrierte Einstellung
 
 #: wp-admin/edit-form-advanced.php:380
 msgid "<strong>Format</strong> &mdash; Post Formats designate how your theme will display a specific post. For example, you could have a <em>standard</em> blog post with a title and paragraphs, or a short <em>aside</em> that omits the title and contains a short text blurb. Your theme could enable all or some of 10 possible formats. <a href=\"https://wordpress.org/support/article/post-formats/#supported-formats\">Learn more about each post format</a>."
-msgstr "<strong>Format</strong> &ndash; Die Beitragsformate geben an, wie dein Theme einen bestimmten Beitrag anzeigt. Zum Beispiel kannst du einen <em>Standard</em>-Blogbeitrag mit Titel und Absätzen haben, oder einen kurzen <em>Beitrag</em>, der den Titel auslässt und einen kurzen Textabschnitt enthält. Dein Theme könnte alle oder einige der 10 möglichen Formate aktivieren. <a href=\"https://wordpress.org/support/article/post-formats/#supported-formats\">Erfahre mehr über jedes Beitrag-Format (engl.)</a>."
+msgstr "<strong>Format</strong> &ndash; Die Beitragsformate geben an, wie dein Theme einen bestimmten Beitrag anzeigt. Zum Beispiel kannst du einen <em>Standard</em>-Blogbeitrag mit Titel und Absätzen haben, oder einen kurzen <em>Beitrag</em>, der den Titel auslässt und einen kurzen Textabschnitt enthält. Dein Theme könnte alle oder einige der 10 möglichen Formate aktivieren. <a href=\"https://wordpress.org/support/article/post-formats/#supported-formats\">Erfahre mehr über jedes Beitragsformat (engl.)</a>."
 
 #: wp-admin/edit-form-advanced.php:337
 msgid "<a href=\"https://wordpress.org/support/article/pages-screen/\">Documentation on Editing Pages</a>"
@@ -3167,7 +3167,7 @@ msgstr "Passwortgeschützt"
 #. translators: %s: The name of the late cron event.
 #: wp-admin/includes/class-wp-site-health.php:1798
 msgid "The scheduled event, %s, is late to run. Your site still works, but this may indicate that scheduling posts or automated updates may not work as intended."
-msgstr "Das geplante Ereignis, %s, wird zu spät ausgeführt. Deine Website funktioniert noch, aber das kann darauf hindeuten, dass die Planung von Beiträgen oder automatisierten Updates nicht wie geplant funktioniert."
+msgstr "Das geplante Ereignis, %s, wird zu spät ausgeführt. Deine Website funktioniert noch, aber das kann darauf hindeuten, dass die Planung von Beiträgen oder automatisierten Updates nicht wie beabsichtigt funktioniert."
 
 #: wp-admin/includes/class-wp-site-health.php:1792
 msgid "A scheduled event is late"
@@ -3952,7 +3952,7 @@ msgstr "Hintergrund-Updates funktionieren"
 #. translators: %s: The name of the failed cron event.
 #: wp-admin/includes/class-wp-site-health.php:1785
 msgid "The scheduled event, %s, failed to run. Your site still works, but this may indicate that scheduling posts or automated updates may not work as intended."
-msgstr "Das geplante Ereignis, %s, konnte nicht ausgeführt werden. Deine Website funktioniert noch, aber das kann darauf hindeuten, dass die Planung von Beiträgen oder automatisierten Updates nicht wie geplant funktioniert."
+msgstr "Das geplante Ereignis, %s, konnte nicht ausgeführt werden. Deine Website funktioniert noch, aber das kann darauf hindeuten, dass die Planung von Beiträgen oder automatisierten Updates nicht wie vorgesehen funktioniert."
 
 #: wp-admin/includes/class-wp-site-health.php:1779
 msgid "A scheduled event has failed"
@@ -4159,8 +4159,8 @@ msgstr[1] "Deine Website hat %d installierte Themes, und sie sind alle auf dem n
 #: wp-admin/includes/class-wp-site-health.php:578
 msgid "Your site has %d theme waiting to be updated."
 msgid_plural "Your site has %d themes waiting to be updated."
-msgstr[0] "Deine Website hat %d Theme, das darauf wartet aktualisiert zu werden."
-msgstr[1] "Deine Website hat %d Themes, die darauf warten aktualisiert zu werden."
+msgstr[0] "Ihre Website hat %d Theme, das darauf wartet, aktualisiert zu werden."
+msgstr[1] "Ihre Website hat %d Themes, die darauf warten, aktualisiert zu werden."
 
 #: wp-admin/includes/class-wp-site-health.php:572
 msgid "You have themes waiting to be updated"
@@ -4776,13 +4776,13 @@ msgstr "<strong>WordPress-Veranstaltungen und Neuigkeiten</strong> &ndash; Beinh
 #. 3: Minimum required MySQL version number, 4: Current MySQL version number.
 #: wp-admin/update-core.php:133 wp-admin/upgrade.php:120
 msgid "You cannot update because <a href=\"%1$s\">WordPress %2$s</a> requires MySQL version %3$s or higher. You are running version %4$s."
-msgstr "Du kannst nicht aktualisieren, weil <a href=\"%1$s\">WordPress %2$s</a> MySQL-Version %3$s oder höher erfordert. Du verwendest die Version %4$s."
+msgstr "Du kannst nicht aktualisieren, weil <a href=\"%1$s\">WordPress %2$s</a> MySQL-Version %3$s oder höher erfordert. Du verwendest die Version %4$s."
 
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number,
 #. 3: Minimum required PHP version number, 4: Current PHP version number.
 #: wp-admin/update-core.php:124 wp-admin/upgrade.php:111
 msgid "You cannot update because <a href=\"%1$s\">WordPress %2$s</a> requires PHP version %3$s or higher. You are running version %4$s."
-msgstr "Du kannst nicht aktualisieren, weil <a href=\"%1$s\">WordPress %2$s</a> PHP-Version %3$s oder höher erfordert. Du verwendest die Version %4$s."
+msgstr "Du kannst nicht aktualisieren, weil <a href=\"%1$s\">WordPress %2$s</a> PHP-Version %3$s oder höher erfordert. Du verwendest die Version %4$s."
 
 #: wp-admin/nav-menus.php:944
 msgid "Add menu items"
@@ -4814,13 +4814,13 @@ msgstr "Erstelle unten dein erstes Menü."
 #. 3: Minimum required MySQL version number, 4: Current MySQL version number.
 #: wp-admin/install.php:278
 msgid "You cannot install because <a href=\"%1$s\">WordPress %2$s</a> requires MySQL version %3$s or higher. You are running version %4$s."
-msgstr "Du kannst nicht installieren, weil <a href=\"%1$s\">WordPress %2$s</a> MySQL-Version %3$s oder höher erfordert. Du verwendest die Version %4$s."
+msgstr "Du kannst nicht installieren, weil <a href=\"%1$s\">WordPress %2$s</a> MySQL-Version %3$s oder höher erfordert. Du verwendest die Version %4$s."
 
 #. translators: 1: URL to WordPress release notes, 2: WordPress version number,
 #. 3: Minimum required PHP version number, 4: Current PHP version number.
 #: wp-admin/install.php:269
 msgid "You cannot install because <a href=\"%1$s\">WordPress %2$s</a> requires PHP version %3$s or higher. You are running version %4$s."
-msgstr "Du kannst nicht installieren, weil <a href=\"%1$s\">WordPress %2$s</a> PHP-Version %3$s oder höher erfordert. Du verwendest die Version %4$s."
+msgstr "Du kannst nicht installieren, weil <a href=\"%1$s\">WordPress %2$s</a> PHP-Version %3$s oder höher erfordert. Du verwendest die Version %4$s."
 
 #: wp-admin/includes/class-wp-site-health.php:751
 #: wp-admin/includes/dashboard.php:1884
@@ -5945,14 +5945,14 @@ msgstr "Herunterladen des Installationspakets von %s &#8230;"
 #. translators: %s: Package URL.
 #: wp-admin/includes/class-language-pack-upgrader.php:117
 msgid "Downloading translation from %s&#8230;"
-msgstr "Herunterladen der Übersetzung von %s"
+msgstr "Herunterladen der Übersetzung von %s &#8230;"
 
 #. translators: %s: Package URL.
 #: wp-admin/includes/class-core-upgrader.php:33
 #: wp-admin/includes/class-plugin-upgrader.php:60
 #: wp-admin/includes/class-theme-upgrader.php:59
 msgid "Downloading update from %s&#8230;"
-msgstr "Herunterladen der Aktualisierung von %s&#8230;"
+msgstr "Herunterladen der Aktualisierung von %s &#8230;"
 
 #. translators: 1: wp-admin/includes/template.php, 2: add_meta_box(), 3:
 #. add_meta_boxes
@@ -6789,7 +6789,7 @@ msgstr "Du bist leider nicht berechtigt, die Links dieser Website zu bearbeiten.
 
 #: wp-admin/options-privacy.php:13 wp-admin/privacy-policy-guide.php:13
 msgid "Sorry, you are not allowed to manage privacy options on this site."
-msgstr "Du bist leider nicht berechtigt, den Datenschutz dieser Website zu verwalten."
+msgstr "Du bist leider nicht berechtigt, die Datenschutz-Optionen dieser Website zu verwalten."
 
 #: wp-admin/includes/ajax-actions.php:4704
 msgid "Plugin could not be deleted."
@@ -8734,7 +8734,7 @@ msgstr "In dieser Ansicht kannst du WordPress auf die neueste Version aktualisie
 #. translators: %s: https://wordpress.org/themes
 #: wp-admin/themes.php:156
 msgid "If you would like to see more themes to choose from, click on the &#8220;Add New&#8221; button and you will be able to browse or search for additional themes from the <a href=\"%s\">WordPress Theme Directory</a>. Themes in the WordPress Theme Directory are designed and developed by third parties, and are compatible with the license WordPress uses. Oh, and they&#8217;re free!"
-msgstr "Falls du weitere Themes zur Auswahl sehen möchten, klicke auf den Button &#8222;Hinzufügen&#8220; und du kannst dann nach weiteren Themes im <a href=\"%s\">WordPress Theme-Verzeichnis</a> stöbern und suchen. Alle Themes im WordPress-Theme-Verzeichnis wurden von Dritten designt und entwickelt und sind kompatibel, mit der von WordPress genutzten Lizenz (GPL). Ach ja, und sie sind auch noch kostenlos!"
+msgstr "Falls du weitere Themes zur Auswahl sehen möchten, klicke auf den Button &#8222;Hinzufügen&#8220; und du kannst dann nach weiteren Themes im <a href=\"%s\">WordPress-Theme-Verzeichnis</a> stöbern und suchen. Alle Themes im WordPress-Theme-Verzeichnis wurden von Dritten designt und entwickelt und sind kompatibel, mit der von WordPress genutzten Lizenz (GPL). Ach ja, und sie sind auch noch kostenlos!"
 
 #. translators: 1: Number of megabytes, 2: Percentage.
 #: wp-admin/includes/dashboard.php:1647
@@ -8794,7 +8794,7 @@ msgstr "Bei Vorschau auf kleineren Bildschirmen kannst du das Einklapp-Icon unte
 
 #: wp-admin/themes.php:174
 msgid "The theme being previewed is fully interactive &mdash; navigate to different pages to see how the theme handles posts, archives, and other page templates. The settings may differ depending on what theme features the theme being previewed supports. To accept the new settings and activate the theme all in one step, click the Activate &amp; Publish button above the menu."
-msgstr "Das in der Vorschau angezeigte Theme ist vollständig interaktiv &ndash; navigiere zu unterschiedlichen Seiten, um dir anzuschauen, wie das Theme mit Beiträgen, Archiven und anderen Seiten-Templates umgeht. Die Einstellungsmöglichkeiten können je nach Theme abweichen, was davon abhängt, welche Funktionen das gezeigte Theme enthält. Um die neuen Einstellungen in einem Schwung zu übernehmen und das Theme zu aktivieren, klicke über dem Menü auf den Button „Aktivieren &amp; Veröffentlichen“."
+msgstr "Das in der Vorschau angezeigte Theme ist vollständig interaktiv &ndash; navigiere zu unterschiedlichen Seiten, um dir anzuschauen, wie das Theme mit Beiträgen, Archiven und anderen Seiten-Templates umgeht. Die Einstellungsmöglichkeiten können je nach Theme abweichen, was davon abhängt, welche Funktionen das gezeigte Theme enthält. Um die neuen Einstellungen in einem Schwung zu übernehmen und das Theme zu aktivieren, klicke über dem Menü auf den Button „Aktivieren und Veröffentlichen“."
 
 #: wp-admin/themes.php:173
 msgid "Tap or hover on any theme then click the Live Preview button to see a live preview of that theme and change theme options in a separate, full-screen view. You can also find a Live Preview button at the bottom of the theme details screen. Any installed theme can be previewed and customized in this way."
@@ -9743,7 +9743,7 @@ msgstr "Nachschlagen"
 
 #: wp-admin/plugin-editor.php:129
 msgid "The documentation menu below the editor lists the PHP functions recognized in the plugin file. Clicking Look Up takes you to a web page about that particular function."
-msgstr "Das unterhalb des Editors befindliche Menü „Dokumentation“ enthält eine Auflistung aller in der Plugin-Datei erkannten PHP-Funktionen. Mit einem Klick auf „Nachschlagen“ gelangst du zu einer Seite mit weitergehenden Informationen zu der jeweils ausgewählten Funktion."
+msgstr "Das unterhalb des Editors befindliche Menü „Dokumentation“ enthält eine Auflistung aller in der Plugin-Datei erkannten PHP-Funktionen. Mit einem Klick auf „Nachschlagen“ gelangst du zu einer Website mit weitergehenden Informationen zu der jeweils ausgewählten Funktion."
 
 #. translators: %s: User's display name.
 #: wp-admin/includes/class-wp-posts-list-table.php:1091
@@ -10909,7 +10909,7 @@ msgstr "Bei Mauszeigerkontakt mit einem Eintrag in der Benutzerliste werden zus�
 
 #: wp-admin/users.php:48
 msgid "You can view all posts made by a user by clicking on the number under the Posts column."
-msgstr "Du kannst dir alle Beiträge eines bestimmten Benutzers anschauen, indem du auf die Zahl unter der Beitrags-Spalte klickst."
+msgstr "Du kannst dir alle Beiträge eines bestimmten Benutzers anschauen, indem du auf die Zahl unter der Beitragsspalte klickst."
 
 #: wp-admin/users.php:46
 msgid "You can hide/display columns based on your needs and decide how many users to list per screen using the Screen Options tab."
@@ -15164,7 +15164,7 @@ msgstr "Altes Theme konnte nicht entfernt werden."
 #: wp-admin/includes/class-theme-upgrader.php:61
 #: wp-admin/includes/class-theme-upgrader.php:78
 msgid "Removing the old version of the theme&#8230;"
-msgstr "Die alte Version des Themes wird entfernt&#8230;"
+msgstr "Die alte Version des Themes wird entfernt &#8230;"
 
 #: wp-admin/includes/class-theme-upgrader.php:56
 msgid "The theme is at the latest version."
@@ -15194,7 +15194,7 @@ msgstr "Altes Plugin konnte nicht entfernt werden."
 
 #: wp-admin/includes/class-plugin-upgrader.php:62
 msgid "Removing the old version of the plugin&#8230;"
-msgstr "Die alte Version des Plugins wird entfernt&#8230;"
+msgstr "Die alte Version des Plugins wird entfernt &#8230;"
 
 #: wp-admin/includes/class-core-upgrader.php:34
 #: wp-admin/includes/class-language-pack-upgrader.php:118

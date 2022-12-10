@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-09 02:01:04+0000\n"
+"PO-Revision-Date: 2022-12-09 16:45:47+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -5594,7 +5594,7 @@ msgstr "Ablaufdatum"
 
 #: wp-includes/user.php:3928
 msgid "User&#8217;s location data used for the Community Events in the WordPress Events and News dashboard widget."
-msgstr "Die Standortdaten des Benutzers, die für die Anzeige der Einträge im Dashboard-Widget „WordPress-Veranstaltungen und Neuigkeiten“ verwendet wird."
+msgstr "Die Standortdaten des Benutzers, die für die Anzeige der Einträge im Dashboard-Widget „WordPress-Veranstaltungen und Neuigkeiten“ verwendet werden."
 
 #: wp-includes/user.php:3927
 msgid "Community Events Location"
@@ -9263,7 +9263,7 @@ msgstr "Du bist leider nicht berechtigt, diesen Kommentar zu löschen."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-menu-items-controller.php:99
 msgid "Sorry, you are not allowed to view menu items."
-msgstr "Du bist leider nicht berechtigt, Menüeinträge anzuzeigen."
+msgstr "Du bist leider nicht berechtigt, Menüeinträge anzusehen."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:175
 msgid "Sorry, you are not allowed to view revisions of this post."
@@ -9704,7 +9704,7 @@ msgstr "Du bist leider nicht berechtigt, diesen Benutzer zu löschen."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:744
 msgid "Username is not editable."
-msgstr "Der Benutzername kann nicht bearbeitet werden."
+msgstr "Der Benutzername ist nicht editierbar."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-users-controller.php:679
 msgid "Sorry, you are not allowed to edit roles of this user."
@@ -9907,7 +9907,7 @@ msgstr "Titel für den Beitrag, wie er in der Datenbank vorliegt."
 #: wp-includes/rest-api/endpoints/class-wp-rest-menu-items-controller.php:720
 #: wp-includes/rest-api/endpoints/class-wp-rest-search-controller.php:259
 msgid "The title for the object."
-msgstr "Der Titel für den Beitrag."
+msgstr "Der Titel für das Objekt."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-posts-controller.php:2284
 msgid "A named status for the post."
@@ -9915,7 +9915,7 @@ msgstr "Ein benannter Status für den Beitrag."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:726
 msgid "An alphanumeric identifier for the revision unique to its type."
-msgstr "Eine alphanumerische Kennung für die Ressource, die eindeutig für ihren Typ ist."
+msgstr "Eine alphanumerische Kennung für die Revision, die für ihren Typ eindeutig ist."
 
 #: wp-includes/rest-api/endpoints/class-wp-rest-revisions-controller.php:715
 msgid "The date the revision was last modified, as GMT."
@@ -16663,7 +16663,7 @@ msgstr "E-Mail-Adresse:"
 
 #: wp-signup.php:280
 msgid "(Must be at least 4 characters, lowercase letters and numbers only.)"
-msgstr "(Bitte mindestens 4 Zeichen, nur Kleinbuchstaben und Zahlen.)"
+msgstr "(Es müssen mindestens 4 Zeichen sein, bitte nur Kleinbuchstaben und Zahlen.)"
 
 #: wp-signup.php:212
 msgid "Privacy:"
@@ -16734,11 +16734,11 @@ msgstr "[%s] Passwort zurücksetzen"
 
 #: wp-includes/user.php:2887
 msgid "Password reset is not allowed for this user"
-msgstr "Diesem Benutzer ist es nicht erlaubt, das Passwort zurückzusetzen"
+msgstr "Es nicht erlaubt, das Passwort dieses Benutzers zurückzusetzen"
 
 #: wp-includes/user.php:3044
 msgid "<strong>Error:</strong> Please enter a username or email address."
-msgstr "<strong>Fehler:</strong> Bitte gib einen Benutzernamen oder eine E-Mail-Adresse ein."
+msgstr "<strong>Fehler:</strong> Bitte einen Benutzernamen oder eine E-Mail-Adresse angeben."
 
 #: wp-login.php:152
 msgid "Powered by WordPress"
@@ -16914,7 +16914,7 @@ msgstr "AIM"
 
 #: wp-includes/user.php:2106
 msgid "Cannot create a user with an empty login name."
-msgstr "Kann keinen Benutzer mit leerem Anmeldnamen anlegen."
+msgstr "Es kann kein neuer Benutzer anlegt werden, wenn der Anmeldename leer ist."
 
 #: wp-includes/revision.php:331
 msgid "Cannot create a revision of a revision"
