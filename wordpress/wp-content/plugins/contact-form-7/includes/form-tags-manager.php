@@ -63,6 +63,7 @@ class WPCF7_FormTagsManager {
 
 	private $tag_types = array();
 	private $scanned_tags = null; // Tags scanned at the last time of scan()
+	private $placeholders = array();
 
 	private function __construct() {}
 
@@ -254,6 +255,70 @@ class WPCF7_FormTagsManager {
 
 
 	/**
+	 * Replace all form-tags in the given text with placeholders.
+	 */
+	public function replace_with_placeholders( $content ) {
+		if ( empty( $this->tag_types ) ) {
+			return $content;
+		}
+
+		$this->placeholders = array();
+
+		$callback = function ( $matches ) {
+			// Allow [[foo]] syntax for escaping a tag.
+			if ( '[' === $matches[1] and ']' === $matches[6] ) {
+				return $matches[0];
+			}
+
+			$tag = $matches[0];
+			$tag_type = $matches[2];
+
+			$block_or_hidden = $this->tag_type_supports(
+				$tag_type,
+				array( 'display-block', 'display-hidden' )
+			);
+
+			if ( $block_or_hidden ) {
+				$placeholder_tag_name = WPCF7_HTMLFormatter::placeholder_block;
+			} else {
+				$placeholder_tag_name = WPCF7_HTMLFormatter::placeholder_inline;
+			}
+
+			$placeholder = sprintf(
+				'<%1$s id="%2$s" />',
+				$placeholder_tag_name,
+				sha1( $tag )
+			);
+
+			list( $placeholder ) =
+				WPCF7_HTMLFormatter::normalize_start_tag( $placeholder );
+
+			$this->placeholders[$placeholder] = $tag;
+
+			return $placeholder;
+		};
+
+		return preg_replace_callback(
+			'/' . $this->tag_regex() . '/s',
+			$callback,
+			$content
+		);
+	}
+
+
+	/**
+	 * Replace placeholders in the given text with original form-tags.
+	 */
+	public function restore_from_placeholders( $content ) {
+		return str_replace(
+			array_keys( $this->placeholders ),
+			array_values( $this->placeholders ),
+			$content
+		);
+	}
+
+
+	/**
 	 * Replaces all form-tags in the text content.
 	 *
 	 * @param string $content The text content including form-tags.
@@ -407,11 +472,12 @@ class WPCF7_FormTagsManager {
 		}
 
 		$tag_type = $matches[2];
+		$tag_basetype = trim( $tag_type, '*' );
 		$attr = $this->parse_atts( $matches[3] );
 
 		$scanned_tag = array(
 			'type' => $tag_type,
-			'basetype' => trim( $tag_type, '*' ),
+			'basetype' => $tag_basetype,
 			'raw_name' => '',
 			'name' => '',
 			'options' => array(),
@@ -423,10 +489,16 @@ class WPCF7_FormTagsManager {
 			'content' => '',
 		);
 
-		if ( $this->tag_type_supports( $tag_type, 'singular' )
-		and $this->filter( $this->scanned_tags, array( 'type' => $tag_type ) ) ) {
-			// Another tag in the same type already exists. Ignore this one.
-			return $matches[0];
+		if ( $this->tag_type_supports( $tag_type, 'singular' ) ) {
+			$tags_in_same_basetype = $this->filter(
+				$this->scanned_tags,
+				array( 'basetype' => $tag_basetype )
+			);
+
+			if ( $tags_in_same_basetype ) {
+				// Another tag in the same base type already exists. Ignore this one.
+				return $matches[0];
+			}
 		}
 
 		if ( is_array( $attr ) ) {
@@ -514,5 +586,5 @@ class WPCF7_FormTagsManager {
 
 		return $atts;
 	}
-	
+
 }

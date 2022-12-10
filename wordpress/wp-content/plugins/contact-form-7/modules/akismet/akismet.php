@@ -5,6 +5,26 @@
  * @link https://akismet.com/development/api/
  */
 
+wpcf7_include_module_file( 'akismet/service.php' );
+
+
+add_action(
+	'wpcf7_init',
+	'wpcf7_akismet_register_service',
+	30, 0
+);
+
+/**
+ * Registers the Akismet service.
+ */
+function wpcf7_akismet_register_service() {
+	$integration = WPCF7_Integration::get_instance();
+
+	$integration->add_service( 'akismet',
+		WPCF7_Akismet::get_instance()
+	);
+}
+
 
 add_filter( 'wpcf7_spam', 'wpcf7_akismet', 10, 2 );
 
@@ -205,7 +225,10 @@ function wpcf7_akismet_comment_check( $comment ) {
 	}
 
 	if ( $submission = WPCF7_Submission::get_instance() ) {
-		$submission->akismet = array( 'comment' => $comment, 'spam' => $spam );
+		$submission->push( 'akismet', array(
+			'comment' => $comment,
+			'spam' => $spam,
+		) );
 	}
 
 	return apply_filters( 'wpcf7_akismet_comment_check', $spam, $comment );
@@ -245,4 +268,47 @@ function wpcf7_akismet_posted_data( $posted_data ) {
 	}
 
 	return $posted_data;
+}
+
+
+add_filter(
+	'wpcf7_default_template',
+	'wpcf7_akismet_default_template',
+	10, 2
+);
+
+function wpcf7_akismet_default_template( $template, $prop ) {
+	if ( ! wpcf7_akismet_is_available() ) {
+		return $template;
+	}
+
+	if ( 'form' === $prop ) {
+		$template = str_replace(
+			array(
+				'[text* your-name ',
+				'[email* your-email ',
+			),
+			array(
+				'[text* your-name akismet:author ',
+				'[email* your-email akismet:author_email ',
+			),
+			$template
+		);
+
+		$privacy_notice = sprintf( '%s %s',
+			__( "This form uses Akismet to reduce spam.", 'contact-form-7' ),
+			wpcf7_link(
+				'https://akismet.com/privacy/',
+				__( "Learn how your data is processed.", 'contact-form-7' ),
+				array(
+					'target' => '_blank',
+					'rel' => 'nofollow noopener',
+				)
+			)
+		);
+
+		$template .= "\n\n" . $privacy_notice;
+	}
+
+	return $template;
 }

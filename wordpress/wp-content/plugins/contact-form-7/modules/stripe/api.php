@@ -7,7 +7,7 @@
  */
 class WPCF7_Stripe_API {
 
-	const api_version = '2020-08-27';
+	const api_version = '2022-08-01';
 	const partner_id = 'pp_partner_HHbvqLh1AaO7Am';
 	const app_name = 'WordPress Contact Form 7';
 	const app_url = 'https://contactform7.com/stripe-integration/';
@@ -100,7 +100,7 @@ class WPCF7_Stripe_API {
 			'body' => $args,
 		);
 
-		$response = wp_remote_post( esc_url_raw( $endpoint ), $request );
+		$response = wp_remote_post( sanitize_url( $endpoint ), $request );
 
 		if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
 			if ( WP_DEBUG ) {
@@ -135,7 +135,7 @@ class WPCF7_Stripe_API {
 			'headers' => $this->default_headers(),
 		);
 
-		$response = wp_remote_get( esc_url_raw( $endpoint ), $request );
+		$response = wp_remote_get( sanitize_url( $endpoint ), $request );
 
 		if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
 			if ( WP_DEBUG ) {

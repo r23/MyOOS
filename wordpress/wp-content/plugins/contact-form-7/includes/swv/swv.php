@@ -20,12 +20,16 @@ function wpcf7_swv_available_rules() {
 		'number' => 'WPCF7_SWV_NumberRule',
 		'date' => 'WPCF7_SWV_DateRule',
 		'file' => 'WPCF7_SWV_FileRule',
+		'enum' => 'WPCF7_SWV_EnumRule',
+		'minitems' => 'WPCF7_SWV_MinItemsRule',
+		'maxitems' => 'WPCF7_SWV_MaxItemsRule',
 		'minlength' => 'WPCF7_SWV_MinLengthRule',
 		'maxlength' => 'WPCF7_SWV_MaxLengthRule',
 		'minnumber' => 'WPCF7_SWV_MinNumberRule',
 		'maxnumber' => 'WPCF7_SWV_MaxNumberRule',
 		'mindate' => 'WPCF7_SWV_MinDateRule',
 		'maxdate' => 'WPCF7_SWV_MaxDateRule',
+		'minfilesize' => 'WPCF7_SWV_MinFileSizeRule',
 		'maxfilesize' => 'WPCF7_SWV_MaxFileSizeRule',
 	);
 
@@ -272,7 +276,7 @@ abstract class WPCF7_SWV_CompositeRule extends WPCF7_SWV_Rule {
  */
 class WPCF7_SWV_Schema extends WPCF7_SWV_CompositeRule {
 
-	const version = 'Contact Form 7 SWV Schema 2022-03';
+	const version = 'Contact Form 7 SWV Schema 2022-10';
 
 	public function __construct( $properties = '' ) {
 		$this->properties = wp_parse_args( $properties, array(

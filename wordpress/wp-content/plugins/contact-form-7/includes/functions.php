@@ -147,9 +147,14 @@ function wpcf7_exclude_blank( $input ) {
  * Creates a comma-separated list from a multi-dimensional array.
  *
  * @param mixed $input Array or item of array.
+ * @param string|array $args Optional. Output options.
  * @return string Comma-separated list.
  */
-function wpcf7_flat_join( $input ) {
+function wpcf7_flat_join( $input, $args = '' ) {
+	$args = wp_parse_args( $args, array(
+		'separator' => ', ',
+	) );
+
 	$input = wpcf7_array_flatten( $input );
 	$output = array();
 
@@ -159,7 +164,7 @@ function wpcf7_flat_join( $input ) {
 		}
 	}
 
-	return implode( ', ', $output );
+	return implode( $args['separator'], $output );
 }
 
 
@@ -235,35 +240,43 @@ function wpcf7_load_css() {
  * @return string Formatted HTML attributes.
  */
 function wpcf7_format_atts( $atts ) {
-	$html = '';
+	$atts_filtered = array();
 
-	$prioritized_atts = array( 'type', 'name', 'value' );
+	foreach ( $atts as $name => $value ) {
+		$name = strtolower( trim( $name ) );
 
-	foreach ( $prioritized_atts as $att ) {
-		if ( isset( $atts[$att] ) ) {
-			$value = trim( $atts[$att] );
-			$html .= sprintf( ' %s="%s"', $att, esc_attr( $value ) );
-			unset( $atts[$att] );
-		}
-	}
-
-	foreach ( $atts as $key => $value ) {
-		$key = strtolower( trim( $key ) );
-
-		if ( ! preg_match( '/^[a-z_:][a-z_:.0-9-]*$/', $key ) ) {
+		if ( ! preg_match( '/^[a-z_:][a-z_:.0-9-]*$/', $name ) ) {
 			continue;
 		}
 
-		$value = trim( $value );
+		static $boolean_attributes = array(
+			'checked', 'disabled', 'multiple', 'readonly', 'required', 'selected',
+		);
 
-		if ( '' !== $value ) {
-			$html .= sprintf( ' %s="%s"', $key, esc_attr( $value ) );
+		if ( in_array( $name, $boolean_attributes ) and '' === $value ) {
+			$value = false;
+		}
+
+		if ( is_numeric( $value ) ) {
+			$value = (string) $value;
+		}
+
+		if ( null === $value or false === $value ) {
+			unset( $atts_filtered[$name] );
+		} elseif ( true === $value ) {
+			$atts_filtered[$name] = $name; // boolean attribute
+		} elseif ( is_string( $value ) ) {
+			$atts_filtered[$name] = trim( $value );
 		}
 	}
 
-	$html = trim( $html );
+	$output = '';
 
-	return $html;
+	foreach ( $atts_filtered as $name => $value ) {
+		$output .= sprintf( ' %1$s="%2$s"', $name, esc_attr( $value ) );
+	}
+
+	return trim( $output );
 }
 
 
@@ -276,22 +289,20 @@ function wpcf7_format_atts( $atts ) {
  * @return string Formatted anchor element.
  */
 function wpcf7_link( $url, $anchor_text, $args = '' ) {
-	$defaults = array(
-		'id' => '',
-		'class' => '',
+	$args = wp_parse_args( $args, array(
+		'id' => null,
+		'class' => null,
+	) );
+
+	$atts = array_merge( $args, array(
+		'href' => esc_url( $url ),
+	) );
+
+	return sprintf(
+		'<a %1$s>%2$s</a>',
+		wpcf7_format_atts( $atts ),
+		esc_html( $anchor_text )
 	);
-
-	$args = wp_parse_args( $args, $defaults );
-	$args = array_intersect_key( $args, $defaults );
-	$atts = wpcf7_format_atts( $args );
-
-	$link = sprintf( '<a href="%1$s"%3$s>%2$s</a>',
-		esc_url( $url ),
-		esc_html( $anchor_text ),
-		$atts ? ( ' ' . $atts ) : ''
-	);
-
-	return $link;
 }
 
 
@@ -305,7 +316,7 @@ function wpcf7_get_request_uri() {
 		$request_uri = add_query_arg( array() );
 	}
 
-	return esc_url_raw( $request_uri );
+	return sanitize_url( $request_uri );
 }
 
 

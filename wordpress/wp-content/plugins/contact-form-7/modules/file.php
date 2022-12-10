@@ -35,6 +35,7 @@ function wpcf7_file_form_tag_handler( $tag ) {
 	$atts['size'] = $tag->get_size_option( '40' );
 	$atts['class'] = $tag->get_class_option( $class );
 	$atts['id'] = $tag->get_id_option();
+	$atts['capture'] = $tag->get_option( 'capture', '(user|environment)', true );
 	$atts['tabindex'] = $tag->get_option( 'tabindex', 'signed_int', true );
 
 	$atts['accept'] = wpcf7_acceptable_filetypes(
@@ -122,7 +123,9 @@ function wpcf7_file_mail_tag( $replaced, $submitted, $html, $mail_tag ) {
 		$paths = (array) $uploaded_files[$name];
 		$paths = array_map( 'wp_basename', $paths );
 
-		$replaced = wpcf7_flat_join( $paths );
+		$replaced = wpcf7_flat_join( $paths, array(
+			'separator' => wp_get_list_item_separator(),
+		) );
 	}
 
 	return $replaced;
