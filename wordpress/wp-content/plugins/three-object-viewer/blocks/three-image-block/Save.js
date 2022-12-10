@@ -35,7 +35,7 @@ export default function save({ attributes }) {
 						{attributes.aspectWidth}
 					</p>
 					<p className="image-block-transparent">
-						{attributes.transparent}
+						{attributes.transparent ? 1 : 0}
 					</p>
 				</div>
 			</>

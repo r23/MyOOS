@@ -116,7 +116,7 @@ export default function Player(props) {
 							friction={0}
 							ref={rigidRef}
 							mass={0}
-							type={"dynamic"}
+							type={"static"}
 							onCollisionEnter={({ manifold, target }) => {
 								setRapierId(target.colliderSet.map.data[1]);
 								setContactPoint(manifold.solverContactPoint(0));
@@ -134,6 +134,7 @@ export default function Player(props) {
 								point={contactPoint}
 								something={rigidRef}
 								spawnPoint={props.spawnPoint}
+								spawnPointsToAdd={props.spawnPointsToAdd}
 							/>
 							<primitive
 								visible={false}

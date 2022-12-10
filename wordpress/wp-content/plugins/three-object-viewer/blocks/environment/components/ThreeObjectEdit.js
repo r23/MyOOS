@@ -183,7 +183,7 @@ function Spawn(spawn) {
 							scale={[1, 1, 1]}
 							rotation={[0, 0, 0]}
 						>
-							<boxGeometry args={[1, 0.2, 1]} />
+							<capsuleGeometry args={[.5, 1.3]} />
 							<meshStandardMaterial
 								side={THREE.DoubleSide}
 								color={0xff3399}

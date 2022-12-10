@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
 // import { Raycaster, Vector3, Math, Euler } from 'three';
-import * as THREE from "three";
+import { Euler, Raycaster, MathUtils } from "three";
 
 import { useFrame, useThree } from "@react-three/fiber";
 import { PointerLockControls } from "@react-three/drei";
 // import previewOptions from "@wordpress/block-editor/build/components/preview-options";
 import { useRapier, useRigidBody } from "@react-three/rapier";
 
-function touchStarted() {
-	getAudioContext().resume();
-}
+// function touchStarted() {
+// 	getAudioContext().resume();
+// }
 
 const Controls = (props) => {
 	const p2pcf = window.p2pcf;
@@ -21,8 +21,9 @@ const Controls = (props) => {
 	const [moveBackward, setMoveBackward] = useState(false);
 	const [moveLeft, setMoveLeft] = useState(false);
 	const [moveRight, setMoveRight] = useState(false);
-	const [spawnPos, setSpawnPos] = useState();
+	const [spawnPos, setSpawnPos] = useState(props.spawnPoint);
 	const [jump, setJump] = useState(false);
+	const [thirdPerson, setThirdPerson] = useState(false); // Add this line
 	const currentRigidbody = useRigidBody();
 	const { world, rapier } = useRapier();
 	const ray = new rapier.Ray({ x: 0, y: 0, z: 0 }, { x: 0, y: -1, z: 0 });
@@ -34,27 +35,39 @@ const Controls = (props) => {
 	const { camera, scene } = useThree();
 
 	useEffect(() => {
-		setSpawnPos(props.spawnPoint);
 		const playerThing = world.getRigidBody(props.something.current.handle);
-		// if (playerThing) {
-		// 	playerThing.setTranslation({
-		// 		x: props.spawnPoint[0],
-		// 		y: props.spawnPoint[1],
-		// 		z: props.spawnPoint[2]
-		// 	});
-		// }
+		const x = Number(spawnPos[0]);
+		const y = Number(spawnPos[1]);
+		const z = Number(spawnPos[2]);
 
-		// controlsRef.current
-		// 	.getObject()
-		// 	.parent.position.set(
-		// 		props.spawnPoint[0],
-		// 		props.spawnPoint[1],
-		// 		props.spawnPoint[2]
-		// 	);
+		setTimeout(() => {
+			let finalPoints = [];
+			if (props.spawnPointsToAdd) {
+				props.spawnPointsToAdd.forEach((point) => {
+					finalPoints.push([Number(point[0]), Number(point[1]), Number(point[2])]);
+				});
+			}
+			finalPoints.push([x, y, z]);
+			//pick a random point
+			let randomPoint = finalPoints[Math.floor(Math.random() * finalPoints.length)];
+			// Check if the converted values are valid and finite
+			// Set the camera's position
+			camera.position.set(randomPoint[0], randomPoint[1], randomPoint[2]);
+
+			playerThing.setTranslation({
+				x: randomPoint[0],
+				y: randomPoint[1],
+				z: randomPoint[2]
+			});
+		}, 20);
 	}, []);
-	const raycaster = new THREE.Raycaster();
+
+	const raycaster = new Raycaster();
 
 	useFrame(() => {
+
+		const playerThing = world.getRigidBody(props.something.current.handle);
+
 		// raycaster.set( camera.position, camera.getWorldDirection() );
 		// raycast forward from the camera and log hitting any objects
 		// var intersects = raycaster.intersectObjects( scene.children );
@@ -62,7 +75,6 @@ const Controls = (props) => {
 		// 	console.log(intersects[0].object);
 		// }
 
-		const playerThing = world.getRigidBody(props.something.current.handle);
 		const playerThingColliders = world.getCollider(
 			props.something.current.handle
 		);
@@ -98,11 +110,11 @@ const Controls = (props) => {
 					true
 				);
 				if (intersects.length > 0) {
-					console.log(intersects[0].object.name);
+					// console.log(intersects[0].object.name);
 					const pointHitObject = scene.getObjectByName(
 						intersects[0].object.name
 					);
-					console.log(pointHitObject);
+					// console.log(pointHitObject);
 					// add a rigidbody at the point of intersection
 					if (intersects[0].point) {
 						const rigidBodyDesc = new rapier.RigidBodyDesc(
@@ -142,64 +154,68 @@ const Controls = (props) => {
 			setClick(false);
 		}
 		if (moveForward) {
-			// playerThing.applyImpulse({x:0, y:0, z:0.1}, true);
-			controlsRef.current.moveForward(velocity);
-			const hit = world
-				.raw()
-				.queryPipeline.castRay(
-					world.raw().colliders,
-					ray,
-					maxToi,
-					solid,
-					0xfffffffff
-				);
-			// const pointerHit = world
-			// 	.raw()
-			// 	.queryPipeline.castRay(
-			// 		world.raw().colliders,
-			// 		pointerRay,
-			// 		maxToi,
-			// 		solid,
-			// 		0xfffffffff
-			// 	);
+			if (playerThing) {
+				controlsRef.current.moveForward(velocity);
+				const hit = world
+					.raw()
+					.queryPipeline.castRay(
+						world.raw().colliders,
+						ray,
+						maxToi,
+						solid,
+						0xfffffffff
+					);
 
-			playerThing.lockRotations(true, true);
-			// playerThing.setRotation({x: 0, y: 1, z: 0, w: 0}, true);
-			// if (pointerHit){
-			// 	console.log(pointerHit);
-			// 	const pointerHitPoint = pointerRay.pointAt(hit.toi);
-			// 	console.log(pointerHitPoint);
+				playerThing.lockRotations(true, true);
+				if (hit) {
+					const hitPoint = ray.pointAt(hit.toi);
+					playerThing.setTranslation({
+						x: controlsRef.current.camera.position.x,
+						y: hitPoint.y,
+						z: controlsRef.current.camera.position.z
+					});
+					camera.position.setY(hitPoint.y + 0.001);
+				}
+				if (p2pcf) {
+					const position = [
+						controlsRef.current.camera.position.x,
+						controlsRef.current.camera.position.y,
+						controlsRef.current.camera.position.z
+					];
+					const rotation = [
+						controlsRef.current.camera.rotation.x,
+						controlsRef.current.camera.rotation.y,
+						controlsRef.current.camera.rotation.z
+					];
+					const message =
+						`{ "${p2pcf.clientId}": [{ "position" : [` +
+						position +
+						`]},{ "rotation" : [` +
+						rotation +
+						`]},{ "profileImage" : ["` +
+						userData.profileImage +
+						`"]}]}`;
+					p2pcf.broadcast(new TextEncoder().encode(message));
+				}
 
-			// }
-			if (hit) {
-				const hitPoint = ray.pointAt(hit.toi);
-				playerThing.setTranslation({
-					x: controlsRef.current.camera.position.x,
-					y: hitPoint.y,
-					z: controlsRef.current.camera.position.z
-				});
-				camera.position.setY(hitPoint.y + 0.001);
-			}
-			if (p2pcf) {
-				const position = [
-					controlsRef.current.camera.position.x,
-					controlsRef.current.camera.position.y,
-					controlsRef.current.camera.position.z
-				];
-				const rotation = [
-					controlsRef.current.camera.rotation.x,
-					controlsRef.current.camera.rotation.y,
-					controlsRef.current.camera.rotation.z
-				];
-				const message =
-					`{ "${p2pcf.clientId}": [{ "position" : [` +
-					position +
-					`]},{ "rotation" : [` +
-					rotation +
-					`]},{ "profileImage" : ["` +
-					userData.profileImage +
-					`"]}]}`;
-				p2pcf.broadcast(new TextEncoder().encode(message));
+				// playerThing.applyImpulse({x:0, y:0, z:0.1}, true);
+				// const pointerHit = world
+				// 	.raw()
+				// 	.queryPipeline.castRay(
+				// 		world.raw().colliders,
+				// 		pointerRay,
+				// 		maxToi,
+				// 		solid,
+				// 		0xfffffffff
+				// 	);
+
+				// playerThing.setRotation({x: 0, y: 1, z: 0, w: 0}, true);
+				// if (pointerHit){
+				// 	console.log(pointerHit);
+				// 	const pointerHitPoint = pointerRay.pointAt(hit.toi);
+				// 	console.log(pointerHitPoint);
+
+				// }
 			}
 		} else if (moveLeft) {
 			playerThing.lockRotations(true, true);
@@ -336,7 +352,6 @@ const Controls = (props) => {
 		} else if (jump) {
 		}
 	});
-
 	const onKeyDown = function (event) {
 		switch (event.code) {
 			case "ArrowUp":
@@ -363,30 +378,42 @@ const Controls = (props) => {
 				setLock(false);
 				break;
 			case "KeyR":
-				// @todo revisit the respawn logic
-				// console.log(props);
-				// if (props.something.current) {
-				// 	const playerThing = world.getRigidBody(
-				// 		props.something.current.handle
-				// 	);
-				// 	if (playerThing) {
-				// 		playerThing.setTranslation({
-				// 			x: props.spawnPoint[0],
-				// 			y: props.spawnPoint[1],
-				// 			z: props.spawnPoint[2]
-				// 		});
-				// 		if (controlsRef.current) {
-				// 			console.log(controlsRef.current.getObject());
-				// 			controlsRef.current
-				// 				.getObject()
-				// 				.parent.position.set(
-				// 					props.spawnPoint[0],
-				// 					props.spawnPoint[1],
-				// 					props.spawnPoint[2]
-				// 				);
-				// 		}
-				// 	}
-				// }
+				if (props.something.current) {
+					const playerThing = world.getRigidBody(props.something.current.handle);
+
+					const x = Number(spawnPos[0]);
+					const y = Number(spawnPos[1]);
+					const z = Number(spawnPos[2]);
+					if (props.spawnPointsToAdd) {
+						let finalPoints = [];
+						props.spawnPointsToAdd.forEach((point) => {
+							finalPoints.push([Number(point.position.x), Number(point.position.y), Number(point.position.z)]);
+						});
+						finalPoints.push([x, y, z]);
+						//pick a random point
+						let randomPoint = finalPoints[Math.floor(Math.random() * finalPoints.length)];
+						// Check if the converted values are valid and finite
+						// Set the camera's position
+						camera.position.set(randomPoint[0], randomPoint[1], randomPoint[2]);
+
+						playerThing.setTranslation({
+							x: randomPoint[0],
+							y: randomPoint[1],
+							z: randomPoint[2]
+						});
+
+					} else {
+						// Check if the converted values are valid and finite
+						// Set the camera's position
+						camera.position.set(x, y, z);
+
+						playerThing.setTranslation({
+							x: x,
+							y: y,
+							z: z
+						});
+					}
+				}
 				setLock(false);
 				break;
 			case "Space":
@@ -407,7 +434,7 @@ const Controls = (props) => {
 		setClick(true);
 	});
 
-	const onKeyUp = function (event, props) {
+	const onKeyUp = function (event) {
 		switch (event.code) {
 			case "ArrowUp":
 			case "KeyW":
@@ -427,10 +454,9 @@ const Controls = (props) => {
 				setLock(true);
 				break;
 
-			// case "KeyR":
-			// 	setLock(true);
-			// 	break;
-
+			case "KeyR":
+				setLock(true);
+				break;
 			case "Space":
 				setJump(false);
 				setLock(true);
@@ -450,6 +476,7 @@ const Controls = (props) => {
 	document.addEventListener("keyup", onKeyUp);
 	return (
 		<PointerLockControls
+			position={[props.spawnPoint[0], props.spawnPoint[1], props.spawnPoint[2]]}
 			onUpdate={() => {
 				if (controlsRef.current) {
 					controlsRef.current.addEventListener("lock", () => {
@@ -485,13 +512,13 @@ const Controls = (props) => {
 					p2pcf.broadcast(new TextEncoder().encode(message));
 				}
 				const rotatingPlayer = scene.getObjectByName("playerOne");
-				const euler = new THREE.Euler();
+				const euler = new Euler();
 				const rotation = euler.setFromQuaternion(
 					controlsRef.current.camera.quaternion
 				);
 				const radians =
 					rotation.z > 0 ? rotation.z : 2 * Math.PI + rotation.z;
-				const degrees = THREE.MathUtils.radToDeg(radians);
+				const degrees = MathUtils.radToDeg(radians);
 				rotatingPlayer.rotation.set(0, radians, 0);
 			}}
 			ref={controlsRef}

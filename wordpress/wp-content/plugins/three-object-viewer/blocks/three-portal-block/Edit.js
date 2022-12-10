@@ -121,7 +121,6 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 
 	function handleClick(objectURL) {
 		if (objectURL) {
-			console.log("success good job", objectURL);
 			onImageSelect(objectURL);
 		}
 		console.log("fail", objectURL);

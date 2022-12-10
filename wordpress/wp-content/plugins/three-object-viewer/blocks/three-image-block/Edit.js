@@ -21,7 +21,6 @@ import { more } from "@wordpress/icons";
 
 export default function Edit({ attributes, setAttributes, isSelected }) {
 	const onImageSelect = (imageObject) => {
-		console.log(imageObject);
 		setAttributes({ imageUrl: null });
 		setAttributes({
 			imageUrl: imageObject.url,
@@ -63,8 +62,8 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 		setAttributes({ collidable: setting });
 	};
 
-	const onChangeTransparent = (transparent) => {
-		setAttributes({ transparent });
+	const onChangeTransparent = (transparentSetting) => {
+		setAttributes({ transparent: transparentSetting });
 	};
 
 	const { mediaUpload } = wp.editor;
@@ -93,7 +92,6 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 
 	function handleClick(objectURL) {
 		if (objectURL) {
-			console.log("success good job", objectURL);
 			onImageSelect(objectURL);
 		}
 		console.log("fail", objectURL);

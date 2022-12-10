@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 6.1
 Requires PHP: 7.2
-Stable tag: 1.0.8
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -46,6 +46,10 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.0.9 =
+Fixed: Spawn - Spawn block now properly loads a player in the spawn location.
+Added: Initial support for OMI_spawn_point.
+
 = 1.0.8 =
 Added: Click event for audio objects that contain KHR_audio. Improvements to come. To set a KHR_audio object to be interactable simply make the object collibable.
 Added: Video - Interactions to play/pause a video. A paused video will now show a play icon to resume the video source. Video audio to come soon!
@@ -53,8 +57,6 @@ Added: Portal - VR interactions for Portal block. Now clicking on the portal blo
 Fixed: Video - autoPlay property was not being properly respected.
 Fixed: Model and Environment Block - Animations were previously broken since the launch of the Environment Block. All should be good now with the caviat that you cannot use the same object twice in a scene. An update will fix this very soon.
 Fixed: Sky Block - fixed issue where teleportation to the sky was possible. Stay on the ground!
-Fixed: Fixed fallback for when gravatar is not available.
-Fixed: No long calling external Google font. Roboto now adding locally in the plugin.
 
 = 1.0.7 =
 Fix: removes wp_texturize that was breaking url strings on the front end.

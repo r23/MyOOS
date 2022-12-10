@@ -37,6 +37,7 @@ export default function TeleportTravel(props) {
 	const [isHovered, setIsHovered] = useState(false);
 	const [canTeleport, setCanTeleport] = useState(true);
 	const [canInteract, setCanInteract] = useState(false);
+	const [spawnPos, setSpawnPos] = useState(props.spawnPoint);
 	const [intersectionPoint, setIntersectionPoint] = useState();
 	const target = useRef();
 	const targetLoc = useRef();
@@ -48,9 +49,24 @@ export default function TeleportTravel(props) {
 		dir: new Vector3()
 	});
 
-	const { controllers, player } = useXR();
+	const { controllers, player, isPresenting } = useXR();
+
+	useEffect(() => {
+		const x = Number(spawnPos[0]);
+		const y = Number(spawnPos[1]) + 1.1;
+		const z = Number(spawnPos[2]);
+
+	if (isPresenting) {
+		player.position.x = x
+		player.position.y = y
+		player.position.z = z
+	}
+	}, [isPresenting])
+
+
 	// Set a variable finding an object in the three.js scene that is named reticle.
 	useEffect(() => {
+
 		// Remove the reticle when the controllers are registered.
 		const reticle = scene.getObjectByName("reticle");
 		if (controllers.length > 0 && reticle) {
@@ -166,7 +182,7 @@ export default function TeleportTravel(props) {
 				setTimeout(() => {
 					world.removeCollider(collider);
 					world.removeRigidBody(rigidBody);
-				}, 50);
+				}, 200);
 			}
 		}
 	}, [isHovered, canTeleport, canInteract]);

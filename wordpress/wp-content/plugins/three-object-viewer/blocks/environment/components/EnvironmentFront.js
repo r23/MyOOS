@@ -1,4 +1,5 @@
 import * as THREE from "three";
+// import { Reflector } from 'three/examples/jsm/objects/Reflector';
 import React, { Suspense, useRef, useState, useEffect, useMemo } from "react";
 import { useLoader, useThree } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -30,79 +31,20 @@ import defaultFont from "../../../inc/fonts/roboto.woff";
 import { ItemBaseUI } from "@wordpress/components/build/navigation/styles/navigation-styles";
 import { BoxGeometry } from "three";
 
-function parseMatrixUri(uri) {
-	const SegmentToSigil = {
-		u: "@",
-		user: "@",
-		r: "#",
-		room: "#",
-		roomid: "!"
-	};
+import { ThreeImage } from "./core/front/ThreeImage";
+import { ThreeVideo } from "./core/front/ThreeVideo";
+import { ModelObject } from "./core/front/ModelObject";
+import { Portal } from "./core/front/Portal";
+import { Sky } from "./core/front/Sky";
+import { TextObject } from "./core/front/TextObject";
 
-	const url = new URL(uri, window.location.href);
-
-	if (url.protocol === "matrix:") {
-		const matches = url.pathname.match(/^(\/\/.+\/)?(.+)$/);
-
-		let authority;
-		let path;
-
-		if (matches) {
-			if (matches.length === 3) {
-				authority = matches[1];
-				path = matches[2];
-			} else if (matches.length === 2) {
-				path = matches[1];
-			}
-		}
-
-		if (!path) {
-			throw new Error(`Invalid matrix uri "${uri}": No path provided`);
-		}
-
-		const segments = path.split("/");
-
-		if (segments.length !== 2 && segments.length !== 4) {
-			throw new Error(
-				`Invalid matrix uri "${uri}": Invalid number of segments`
-			);
-		}
-
-		const sigil1 = SegmentToSigil[segments[0]];
-
-		if (!sigil1) {
-			throw new Error(
-				`Invalid matrix uri "${uri}": Invalid segment ${segments[0]}`
-			);
-		}
-
-		if (!segments[1]) {
-			throw new Error(`Invalid matrix uri "${uri}": Empty segment`);
-		}
-
-		const mxid1 = `${sigil1}${segments[1]}`;
-
-		let mxid2;
-
-		if (segments.length === 4) {
-			if (
-				(sigil1 === "!" || sigil1 === "#") &&
-				(segments[2] === "e" || segments[2] === "event") &&
-				segments[3]
-			) {
-				mxid2 = `$${segments[3]}`;
-			} else {
-				throw new Error(
-					`Invalid matrix uri "${uri}": Invalid segment ${segments[2]}`
-				);
-			}
-		}
-		return { protocol: "matrix:", authority, mxid1, mxid2 };
-	}
-
-	return url;
-}
-
+/**
+ * Represents a participant in a virtual reality scene.
+ *
+ * @param {Object} participant - The props for the participant.
+ *
+ * @return {JSX.Element} The participant.
+ */
 function Participant(participant) {
 	// Participant VRM.
 	const fallbackURL = threeObjectPlugin + defaultVRM;
@@ -179,566 +121,6 @@ function Participant(participant) {
 	}
 }
 
-function ModelObject(model) {
-	const [clicked, setClickEvent] = useState();
-	const [url, set] = useState(model.url);
-	useEffect(() => {
-		setTimeout(() => set(model.url), 2000);
-	}, []);
-	const [listener] = useState(() => new THREE.AudioListener());
-
-	useThree(({ camera }) => {
-		camera.add(listener);
-	});
-
-	const gltf = useLoader(GLTFLoader, url, (loader) => {
-		// const dracoLoader = new DRACOLoader();
-		// dracoLoader.setDecoderPath(
-		// 	"https://www.gstatic.com/draco/v1/decoders/"
-		// );
-		// loader.setDRACOLoader(dracoLoader);
-
-		loader.register(
-			(parser) => new GLTFAudioEmitterExtension(parser, listener)
-		);
-		if (openbrushEnabled === true) {
-			loader.register(
-				(parser) =>
-					new GLTFGoogleTiltBrushMaterialExtension(
-						parser,
-						openbrushDirectory
-					)
-			);
-		}
-		loader.register((parser) => {
-			return new VRMLoaderPlugin(parser);
-		});
-	});
-
-	const audioObject = gltf.scene.getObjectByProperty('type', 'Audio');
-
-	const { actions } = useAnimations(gltf.animations, gltf.scene);
-	const animationClips = gltf.animations;
-	const animationList = model.animations ? model.animations.split(",") : "";
-	useEffect(() => {
-		if (animationList) {
-			animationList.forEach((name) => {
-				if (Object.keys(actions).includes(name)) {
-					console.log(actions[name].play());
-				}
-			});
-		}
-	}, []);
-
-	const generator = gltf.asset.generator;
-
-	// return tilt brush if tilt brush
-	if (String(generator).includes("Tilt Brush")) {
-		return (
-			<primitive
-				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
-				position={[model.positionX, model.positionY, model.positionZ]}
-				scale={[model.scaleX, model.scaleY, model.scaleZ]}
-				object={gltf.scene}
-			/>
-		);
-	}
-
-	if (gltf?.userData?.gltfExtensions?.VRM) {
-		const vrm = gltf.userData.vrm;
-		vrm.scene.position.set(
-			model.positionX,
-			model.positionY,
-			model.positionZ
-		);
-		VRMUtils.rotateVRM0(vrm);
-		const rotationVRM = vrm.scene.rotation.y + parseFloat(0);
-		vrm.scene.rotation.set(0, rotationVRM, 0);
-		vrm.scene.scale.set(1, 1, 1);
-		vrm.scene.scale.set(model.scaleX, model.scaleY, model.scaleZ);
-		return (
-			// <A11y role="content" description={model.alt} showAltText >
-			<primitive object={vrm.scene} />
-			// </A11y>
-		);
-	}
-	// gltf.scene.castShadow = true;
-	// enable shadows @todo figure this out
-	// gltf.scene.traverse(function (node) {
-	// 	if (node.isMesh) {
-	// 		node.castShadow = true;
-	// 		node.receiveShadow = true;
-	// 	}
-	// });
-
-	// @todo figure out how to clone gltf proper with extensions and animations
-	// const copyGltf = useMemo(() => gltf.scene.clone(), [gltf.scene]);
-	// const modelClone = SkeletonUtils.clone(gltf.scene);
-	// modelClone.scene.castShadow = true;
-
-	//audioObject
-	// Add a triangle mesh on top of the video
-	const [triangle] = useState(() => {
-		const points = [];
-		points.push(
-			new THREE.Vector3(0, -3, 0),
-			new THREE.Vector3(0, 3, 0),
-			new THREE.Vector3(4, 0, 0)
-		);
-		const geometry = new THREE.BufferGeometry().setFromPoints(points);
-		const material = new THREE.MeshBasicMaterial({
-			color: 0x00000,
-			side: THREE.DoubleSide
-		});
-		const triangle = new THREE.Mesh(geometry, material);
-		return triangle;
-	});
-
-	const [circle] = useState(() => {
-		const geometryCircle = new THREE.CircleGeometry(5, 32);
-		const materialCircle = new THREE.MeshBasicMaterial({
-			color: 0xfffff,
-			side: THREE.DoubleSide
-		});
-		const circle = new THREE.Mesh(geometryCircle, materialCircle);
-		return circle;
-	});
-	
-	if (model.collidable === "1") {
-		return (
-			<>
-				<RigidBody
-					type="fixed"
-					colliders={"trimesh"}
-					rotation={[
-						model.rotationX,
-						model.rotationY,
-						model.rotationZ
-					]}
-					position={[
-						model.positionX,
-						model.positionY,
-						model.positionZ
-					]}
-					scale={[model.scaleX, model.scaleY, model.scaleZ]}
-					onCollisionExit={(manifold, target, other) => {
-						setClickEvent(!clicked);
-						if(audioObject){
-							if (clicked) {
-								audioObject.play();
-								triangle.material.visible = false;
-								circle.material.visible = false;
-							} else {
-								audioObject.pause();
-								triangle.material.visible = true;
-								circle.material.visible = true;
-							}
-						}
-					}}	
-					// onCollisionEnter={ ( props ) =>(
-					// 	// window.location.href = model.destinationUrl
-					// 	)
-					// }
-				>
-					<primitive
-						object={gltf.scene}
-						// castShadow
-						// receiveShadow
-						rotation={[
-							model.rotationX,
-							model.rotationY,
-							model.rotationZ
-						]}
-						position={[
-							model.positionX,
-							model.positionY,
-							model.positionZ
-						]}
-						scale={[model.scaleX, model.scaleY, model.scaleZ]}
-					/>
-				</RigidBody>
-			</>
-		);
-	}
-	return (
-		<>
-			<primitive
-				object={gltf.scene}
-				// castShadow
-				// receiveShadow
-				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
-				position={[model.positionX, model.positionY, model.positionZ]}
-				scale={[model.scaleX, model.scaleY, model.scaleZ]}
-			/>
-		</>
-	);
-}
-
-function Portal(model) {
-	
-	if (model.object) {
-		return (
-			<>
-				<Billboard
-					position={[
-						model.positionX + 0.01,
-						model.positionY + 0.01,
-						model.positionZ + 0.01
-					]}
-					follow={true}
-					lockX={false}
-					lockY={false}
-					lockZ={false} // Lock the rotation on the z axis (default=false)
-				>
-					<Text
-						font={threeObjectPlugin + defaultFont}
-						scale={[2, 2, 2]}
-						maxWidth={1}
-						alignX="center"
-						// rotation={[model.rotationX , model.rotationY, model.rotationZ]}
-						// position={[model.positionX, model.positionY, model.positionZ]}
-						color="black"
-						position={[0, 0, 0]}
-					>
-						{model.label
-							? model.label + ": "
-							: "" + model.destinationUrl}
-					</Text>
-				</Billboard>
-				<RigidBody
-					type="fixed"
-					colliders={"trimesh"}
-					onCollisionEnter={() => {
-						const url = new URL(
-							model.destinationUrl,
-							window.location.href
-						);
-						if (url.protocol === "matrix:") {
-							const destination = parseMatrixUri(
-								model.destinationUrl
-							);
-							window.location.href =
-								"https://thirdroom.io/world/" +
-								destination.mxid1;
-						} else {
-							window.location.href = model.destinationUrl;
-						}
-					}}
-				>
-					<primitive visible={false} object={model.object} />
-				</RigidBody>
-			</>
-		);
-	}
-	const [url, set] = useState(model.url);
-
-	useEffect(() => {
-		setTimeout(() => set(model.url), 2000);
-	}, []);
-	const [listener] = useState(() => new THREE.AudioListener());
-
-	useThree(({ camera }) => {
-		camera.add(listener);
-	});
-
-	const gltf = useLoader(GLTFLoader, url, (loader) => {
-		loader.register(
-			(parser) => new GLTFAudioEmitterExtension(parser, listener)
-		);
-		loader.register((parser) => {
-			return new VRMLoaderPlugin(parser);
-		});
-	});
-
-	const { actions } = useAnimations(gltf.animations, gltf.scene);
-
-	const animationList = model.animations ? model.animations.split(",") : "";
-	useEffect(() => {
-		if (animationList) {
-			animationList.forEach((name) => {
-				if (Object.keys(actions).includes(name)) {
-					actions[name].play();
-				}
-			});
-		}
-	}, []);
-	// gltf.scene.position.set( model.positionX, model.positionY, model.positionZ );
-	// gltf.scene.rotation.set( 0, 0, 0 );
-	// gltf.scene.scale.set(model.scaleX, model.scaleY, model.scaleZ);
-	// gltf.scene.rotation.set(model.rotationX , model.rotationY, model.rotationZ );
-	const copyGltf = useMemo(() => gltf.scene.clone(), [gltf.scene]);
-
-	return (
-		<>
-			<RigidBody
-				type="fixed"
-				colliders={"cuboid"}
-				onCollisionExit={(props) =>
-					(window.location.href = model.destinationUrl)
-				}
-				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
-				position={[model.positionX, model.positionY, model.positionZ]}
-				scale={[model.scaleX, model.scaleY, model.scaleZ]}
-			>
-				<group
-					name="portal"
-					rotation={[
-						model.rotationX,
-						model.rotationY,
-						model.rotationZ
-					]}
-					position={[
-						model.positionX,
-						model.positionY,
-						model.positionZ
-					]}
-					scale={[model.scaleX, model.scaleY, model.scaleZ]}
-				>
-					<Text
-						font={threeObjectPlugin + defaultFont}
-						scale={[2, 2, 2]}
-						maxWidth={1}
-						alignX="center"
-						textAlign="center"
-						color={model.labelTextColor}
-						position={[
-							0 + model.labelOffsetX,
-							0 + model.labelOffsetY,
-							0 + model.labelOffsetZ
-						]}
-					>
-						{model.label + ": " + model.destinationUrl}
-					</Text>
-					<primitive object={copyGltf} />
-				</group>
-			</RigidBody>
-		</>
-	);
-}
-
-function Sky(sky) {
-	const skyUrl = sky.src[0].querySelector("p.sky-block-url")
-		? sky.src[0].querySelector("p.sky-block-url").innerText
-		: "";
-
-	const texture1 = useLoader(THREE.TextureLoader, skyUrl);
-
-	return (
-		<mesh
-			visible
-			position={[0, 0, 0]}
-			scale={[200, 200, 200]}
-			rotation={[0, 0, 0]}
-		>
-			<sphereGeometry args={[5, 10, 10]} />
-			<meshStandardMaterial side={THREE.DoubleSide} map={texture1} />
-		</mesh>
-	);
-}
-
-function ThreeImage(threeImage) {
-	const texture2 = useLoader(THREE.TextureLoader, threeImage.url);
-
-	return (
-		<mesh
-			visible
-			position={[
-				threeImage.positionX,
-				threeImage.positionY,
-				threeImage.positionZ
-			]}
-			scale={[threeImage.scaleX, threeImage.scaleY, threeImage.scaleZ]}
-			rotation={[
-				threeImage.rotationX,
-				threeImage.rotationY,
-				threeImage.rotationZ
-			]}
-		>
-			<planeGeometry
-				args={[
-					threeImage.aspectWidth / 12,
-					threeImage.aspectHeight / 12
-				]}
-			/>
-			{threeImage.transparent ? (
-				<meshBasicMaterial
-					transparent
-					side={THREE.DoubleSide}
-					map={texture2}
-				/>
-			) : (
-				<meshStandardMaterial side={THREE.DoubleSide} map={texture2} />
-			)}
-		</mesh>
-	);
-}
-
-function ThreeVideo(threeVideo) {
-	const play = threeVideo.autoPlay === "1" ? true : false;
-	const { scene } = useThree();
-	const [clicked, setClickEvent] = useState();
-	const [video] = useState(() =>
-		Object.assign(document.createElement("video"), {
-			src: threeVideo.url,
-			crossOrigin: "Anonymous",
-			loop: true,
-			muted: true
-		})
-	);
-	// Add a triangle mesh on top of the video
-	const [triangle] = useState(() => {
-		const points = [];
-		points.push(
-			new THREE.Vector3(0, -3, 0),
-			new THREE.Vector3(0, 3, 0),
-			new THREE.Vector3(4, 0, 0)
-		);
-		const geometry = new THREE.BufferGeometry().setFromPoints(points);
-		const material = new THREE.MeshBasicMaterial({
-			color: 0x00000,
-			side: THREE.DoubleSide
-		});
-		const triangle = new THREE.Mesh(geometry, material);
-		return triangle;
-	});
-
-	const [circle] = useState(() => {
-		const geometryCircle = new THREE.CircleGeometry(5, 32);
-		const materialCircle = new THREE.MeshBasicMaterial({
-			color: 0xfffff,
-			side: THREE.DoubleSide
-		});
-		const circle = new THREE.Mesh(geometryCircle, materialCircle);
-		return circle;
-	});
-
-	useEffect(() => {
-		if (play) {
-			triangle.material.visible = false;
-			circle.material.visible = false;
-			video.play();
-		} else {
-			triangle.material.visible = true;
-			circle.material.visible = true;
-		}
-	}, [video, play]);
-
-	return (
-		// <Select
-		// 	box
-		// 	multiple
-		// 	onChange={(e) => {
-		// 		if (e.length !== 0) {
-		// 			setClickEvent(!clicked);
-		// 			if (clicked) {
-		// 				video.play();
-		// 				triangle.material.visible = false;
-		// 				circle.material.visible = false;
-		// 			} else {
-		// 				video.pause();
-		// 				triangle.material.visible = true;
-		// 				circle.material.visible = true;
-		// 			}
-		// 		}
-		// 	}}
-		// 	filter={(items) => items}
-		// >
-		<group
-			name="video"
-			scale={[threeVideo.scaleX, threeVideo.scaleY, threeVideo.scaleZ]}
-			position={[
-				threeVideo.positionX,
-				threeVideo.positionY,
-				threeVideo.positionZ
-			]}
-			rotation={[
-				threeVideo.rotationX,
-				threeVideo.rotationY,
-				threeVideo.rotationZ
-			]}
-		>
-			<RigidBody
-				type="fixed"
-				colliders={"cuboid"}
-				ccd={true}
-				onCollisionExit={(manifold, target, other) => {
-					setClickEvent(!clicked);
-					if (clicked) {
-						video.play();
-						triangle.material.visible = false;
-						circle.material.visible = false;
-					} else {
-						video.pause();
-						triangle.material.visible = true;
-						circle.material.visible = true;
-					}
-				}}
-			>
-				<object3D>
-					<mesh>
-						<meshBasicMaterial toneMapped={false}>
-							<videoTexture
-								attach="map"
-								args={[video]}
-								encoding={THREE.sRGBEncoding}
-							/>
-						</meshBasicMaterial>
-						<planeGeometry
-							args={[
-								threeVideo.aspectWidth / 12,
-								threeVideo.aspectHeight / 12
-							]}
-						/>
-					</mesh>
-				</object3D>
-			</RigidBody>
-			<primitive position={[-1.5, 0, 0.1]} object={triangle} />
-			<primitive position={[0, 0, 0.05]} object={circle} />
-		</group>
-		// </Select>
-	);
-}
-
-function Floor(props) {
-	return (
-		<mesh position={[0, 0, 0]} rotation={[-Math.PI / 2, 0, 0]} {...props}>
-			<BoxGeometry args={[10000, 10000, 1]} attach="geometry" />
-			<meshBasicMaterial
-				opacity={0}
-				transparent={true}
-				attach="material"
-			/>
-		</mesh>
-	);
-}
-
-function TextObject(model) {
-	const htmlObj = useRef();
-	return (
-		<>
-			<group
-				position={[model.positionX, model.positionY, model.positionZ]}
-				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
-				scale={[model.scaleX, model.scaleY, model.scaleZ]}
-				ref={htmlObj}
-			>
-				<Text
-					font={threeObjectPlugin + defaultFont}
-					className="content"
-					scale={[4, 4, 4]}
-					// rotation-y={-Math.PI / 2}
-					width={10}
-					height={10}
-					color={model.textColor}
-					transform
-				>
-					{model.textContent}
-				</Text>
-			</group>
-		</>
-	);
-}
-
 function Participants(props) {
 	const [participants, setParticipant] = useState([]);
 	const p2pcf = window.p2pcf;
@@ -766,6 +148,13 @@ function Participants(props) {
 	);
 }
 
+/**
+ * Represents a saved object in a virtual reality world.
+ *
+ * @param {Object} props - The props for the saved object.
+ *
+ * @return {JSX.Element} The saved object.
+ */
 function SavedObject(props) {
 	const meshRef = useRef();
 	const [url, set] = useState(props.url);
@@ -804,6 +193,7 @@ function SavedObject(props) {
 		const collidersToAdd = [];
 		const meshesToAdd = [];
 		const portalsToAdd = [];
+		const spawnPointsToAdd = [];
 		let omiColliders;
 
 		gltf.scene.scale.set(props.scale, props.scale, props.scale);
@@ -834,10 +224,23 @@ function SavedObject(props) {
 			}
 			if (child.userData.gltfExtensions?.OMI_link) {
 				portalsToAdd.push(child);
+			} else if (child.userData.gltfExtensions?.OMI_spawn_point) {
+				spawnPointsToAdd.push(child);
 			} else {
 				meshesToAdd.push(child);
 			}
 		});
+
+		// Mirror logic.
+		// const mirror = new Reflector(
+		// 	new THREE.PlaneGeometry(10, 10),
+		// 	{
+		// 		color: new THREE.Color(0x7f7f7f),
+		// 		textureWidth: window.innerWidth * window.devicePixelRatio,
+		// 		textureHeight: window.innerHeight * window.devicePixelRatio
+		// 	}
+		// )
+		// gltf.scene.add(mirror);
 
 		meshesToAdd.forEach((mesh) => {
 			meshesScene.attach(mesh);
@@ -851,6 +254,7 @@ function SavedObject(props) {
 		setColliders(collidersToAdd);
 		setMeshes(meshesScene);
 		setPortals(portalsToAdd);
+		props.setSpawnPoints(spawnPointsToAdd);
 		// End OMI_collider logic.
 	}, []);
 
@@ -866,11 +270,6 @@ function SavedObject(props) {
 			});
 		}
 	}, []);
-	// Always seem to need to log this...
-	// console.log(gltf);
-	// const loader = new THREE.ObjectLoader();
-	// const object = await loader.loadAsync("models/json/lightmap/lightmap.json");
-	// scene.add(object);
 
 	return (
 		<>
@@ -908,6 +307,8 @@ function SavedObject(props) {
 							rotationZ={finalRotation.z}
 							object={item.parent}
 							label={props.label}
+							defaultFont={defaultFont}
+							threeObjectPlugin={threeObjectPlugin}
 							destinationUrl={
 								item.userData.gltfExtensions.OMI_link.uri
 							}
@@ -974,6 +375,8 @@ function SavedObject(props) {
 
 export default function EnvironmentFront(props) {
 	const [loaded, setLoaded] = useState(false);
+	const [spawnPoints, setSpawnPoints] = useState();
+
 	if (loaded === true) {
 		if (props.deviceTarget === "vr") {
 			return (
@@ -1003,18 +406,18 @@ export default function EnvironmentFront(props) {
 						<directionalLight
 							intensity={0.6}
 							position={[0, 2, 2]}
-							// shadow-mapSize-width={512}
-							// shadow-mapSize-height={512}
-							// shadow-camera-far={5000}
-							// shadow-camera-fov={15}
-							// shadow-camera-near={0.5}
-							// shadow-camera-left={-50}
-							// shadow-camera-bottom={-50}
-							// shadow-camera-right={50}
-							// shadow-camera-top={50}
-							// shadow-radius={1}
-							// shadow-bias={-0.001}
-							// castShadow
+						// shadow-mapSize-width={512}
+						// shadow-mapSize-height={512}
+						// shadow-camera-far={5000}
+						// shadow-camera-fov={15}
+						// shadow-camera-near={0.5}
+						// shadow-camera-left={-50}
+						// shadow-camera-bottom={-50}
+						// shadow-camera-right={50}
+						// shadow-camera-top={50}
+						// shadow-radius={1}
+						// shadow-bias={-0.001}
+						// castShadow
 						/>
 						<Suspense fallback={null}>
 							<Physics
@@ -1024,8 +427,13 @@ export default function EnvironmentFront(props) {
 								{/* <Debug /> */}
 								{props.threeUrl && (
 									<>
-										<TeleportTravel useNormal={false}>
+										<TeleportTravel
+											spawnPointsToAdd={props.spawnPointsToAdd}
+											spawnPoint={props.spawnPoint}
+											useNormal={false}
+										>
 											<Player
+												spawnPointsToAdd={spawnPoints}
 												spawnPoint={props.spawnPoint}
 											/>
 											<Participants />
@@ -1039,6 +447,7 @@ export default function EnvironmentFront(props) {
 												hasTip={props.hasTip}
 												animations={props.animations}
 												playerData={props.userData}
+												setSpawnPoints={setSpawnPoints}
 											/>
 											{Object.values(props.sky).map(
 												(item, index) => {
@@ -1059,7 +468,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-positionX"
 													)
 														? item.querySelector(
-																"p.image-block-positionX"
+															"p.image-block-positionX"
 														).innerText
 														: "";
 
@@ -1068,7 +477,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-positionY"
 													)
 														? item.querySelector(
-																"p.image-block-positionY"
+															"p.image-block-positionY"
 														).innerText
 														: "";
 
@@ -1077,7 +486,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-positionZ"
 													)
 														? item.querySelector(
-																"p.image-block-positionZ"
+															"p.image-block-positionZ"
 														).innerText
 														: "";
 
@@ -1086,7 +495,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-scaleX"
 													)
 														? item.querySelector(
-																"p.image-block-scaleX"
+															"p.image-block-scaleX"
 														).innerText
 														: "";
 
@@ -1095,7 +504,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-scaleY"
 													)
 														? item.querySelector(
-																"p.image-block-scaleY"
+															"p.image-block-scaleY"
 														).innerText
 														: "";
 
@@ -1104,7 +513,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-scaleZ"
 													)
 														? item.querySelector(
-																"p.image-block-scaleZ"
+															"p.image-block-scaleZ"
 														).innerText
 														: "";
 
@@ -1113,7 +522,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-rotationX"
 													)
 														? item.querySelector(
-																"p.image-block-rotationX"
+															"p.image-block-rotationX"
 														).innerText
 														: "";
 
@@ -1122,7 +531,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-rotationY"
 													)
 														? item.querySelector(
-																"p.image-block-rotationY"
+															"p.image-block-rotationY"
 														).innerText
 														: "";
 
@@ -1131,7 +540,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-rotationZ"
 													)
 														? item.querySelector(
-																"p.image-block-rotationZ"
+															"p.image-block-rotationZ"
 														).innerText
 														: "";
 
@@ -1140,7 +549,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-url"
 													)
 														? item.querySelector(
-																"p.image-block-url"
+															"p.image-block-url"
 														).innerText
 														: "";
 
@@ -1149,7 +558,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-aspect-height"
 													)
 														? item.querySelector(
-																"p.image-block-aspect-height"
+															"p.image-block-aspect-height"
 														).innerText
 														: "";
 
@@ -1158,7 +567,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-aspect-width"
 													)
 														? item.querySelector(
-																"p.image-block-aspect-width"
+															"p.image-block-aspect-width"
 														).innerText
 														: "";
 
@@ -1167,7 +576,7 @@ export default function EnvironmentFront(props) {
 														"p.image-block-transparent"
 													)
 														? item.querySelector(
-																"p.image-block-transparent"
+															"p.image-block-transparent"
 														).innerText
 														: false;
 												return (
@@ -1209,7 +618,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-positionX"
 													)
 														? item.querySelector(
-																"p.video-block-positionX"
+															"p.video-block-positionX"
 														).innerText
 														: "";
 
@@ -1218,7 +627,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-positionY"
 													)
 														? item.querySelector(
-																"p.video-block-positionY"
+															"p.video-block-positionY"
 														).innerText
 														: "";
 
@@ -1227,7 +636,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-positionZ"
 													)
 														? item.querySelector(
-																"p.video-block-positionZ"
+															"p.video-block-positionZ"
 														).innerText
 														: "";
 
@@ -1236,7 +645,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-scaleX"
 													)
 														? item.querySelector(
-																"p.video-block-scaleX"
+															"p.video-block-scaleX"
 														).innerText
 														: "";
 
@@ -1245,7 +654,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-scaleY"
 													)
 														? item.querySelector(
-																"p.video-block-scaleY"
+															"p.video-block-scaleY"
 														).innerText
 														: "";
 
@@ -1254,7 +663,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-scaleZ"
 													)
 														? item.querySelector(
-																"p.video-block-scaleZ"
+															"p.video-block-scaleZ"
 														).innerText
 														: "";
 
@@ -1263,7 +672,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-rotationX"
 													)
 														? item.querySelector(
-																"p.video-block-rotationX"
+															"p.video-block-rotationX"
 														).innerText
 														: "";
 
@@ -1272,7 +681,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-rotationY"
 													)
 														? item.querySelector(
-																"p.video-block-rotationY"
+															"p.video-block-rotationY"
 														).innerText
 														: "";
 
@@ -1281,7 +690,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-rotationZ"
 													)
 														? item.querySelector(
-																"p.video-block-rotationZ"
+															"p.video-block-rotationZ"
 														).innerText
 														: "";
 
@@ -1290,7 +699,7 @@ export default function EnvironmentFront(props) {
 														"div.video-block-url"
 													)
 														? item.querySelector(
-																"div.video-block-url"
+															"div.video-block-url"
 														).innerText
 														: "";
 
@@ -1299,7 +708,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-aspect-height"
 													)
 														? item.querySelector(
-																"p.video-block-aspect-height"
+															"p.video-block-aspect-height"
 														).innerText
 														: "";
 
@@ -1308,7 +717,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-aspect-width"
 													)
 														? item.querySelector(
-																"p.video-block-aspect-width"
+															"p.video-block-aspect-width"
 														).innerText
 														: "";
 
@@ -1317,7 +726,7 @@ export default function EnvironmentFront(props) {
 														"p.video-block-autoplay"
 													)
 														? item.querySelector(
-																"p.video-block-autoplay"
+															"p.video-block-autoplay"
 														).innerText
 														: false;
 
@@ -1359,7 +768,7 @@ export default function EnvironmentFront(props) {
 														"p.model-block-position-x"
 													)
 														? model.querySelector(
-																"p.model-block-position-x"
+															"p.model-block-position-x"
 														).innerText
 														: "";
 
@@ -1368,7 +777,7 @@ export default function EnvironmentFront(props) {
 														"p.model-block-position-y"
 													)
 														? model.querySelector(
-																"p.model-block-position-y"
+															"p.model-block-position-y"
 														).innerText
 														: "";
 
@@ -1377,7 +786,7 @@ export default function EnvironmentFront(props) {
 														"p.model-block-position-z"
 													)
 														? model.querySelector(
-																"p.model-block-position-z"
+															"p.model-block-position-z"
 														).innerText
 														: "";
 
@@ -1386,7 +795,7 @@ export default function EnvironmentFront(props) {
 														"p.model-block-scale-x"
 													)
 														? model.querySelector(
-																"p.model-block-scale-x"
+															"p.model-block-scale-x"
 														).innerText
 														: "";
 
@@ -1395,7 +804,7 @@ export default function EnvironmentFront(props) {
 														"p.model-block-scale-y"
 													)
 														? model.querySelector(
-																"p.model-block-scale-y"
+															"p.model-block-scale-y"
 														).innerText
 														: "";
 
@@ -1404,7 +813,7 @@ export default function EnvironmentFront(props) {
 														"p.model-block-scale-z"
 													)
 														? model.querySelector(
-																"p.model-block-scale-z"
+															"p.model-block-scale-z"
 														).innerText
 														: "";
 
@@ -1413,7 +822,7 @@ export default function EnvironmentFront(props) {
 														"p.model-block-rotation-x"
 													)
 														? model.querySelector(
-																"p.model-block-rotation-x"
+															"p.model-block-rotation-x"
 														).innerText
 														: "";
 
@@ -1422,7 +831,7 @@ export default function EnvironmentFront(props) {
 														"p.model-block-rotation-y"
 													)
 														? model.querySelector(
-																"p.model-block-rotation-y"
+															"p.model-block-rotation-y"
 														).innerText
 														: "";
 
@@ -1431,7 +840,7 @@ export default function EnvironmentFront(props) {
 														"p.model-block-rotation-z"
 													)
 														? model.querySelector(
-																"p.model-block-rotation-z"
+															"p.model-block-rotation-z"
 														).innerText
 														: "";
 
@@ -1439,7 +848,7 @@ export default function EnvironmentFront(props) {
 													"p.model-block-url"
 												)
 													? model.querySelector(
-															"p.model-block-url"
+														"p.model-block-url"
 													).innerText
 													: "";
 
@@ -1448,7 +857,7 @@ export default function EnvironmentFront(props) {
 														"p.model-block-animations"
 													)
 														? model.querySelector(
-																"p.model-block-animations"
+															"p.model-block-animations"
 														).innerText
 														: "";
 
@@ -1456,7 +865,7 @@ export default function EnvironmentFront(props) {
 													"p.model-block-alt"
 												)
 													? model.querySelector(
-															"p.model-block-alt"
+														"p.model-block-alt"
 													).innerText
 													: "";
 
@@ -1465,7 +874,7 @@ export default function EnvironmentFront(props) {
 														"p.model-block-collidable"
 													)
 														? model.querySelector(
-																"p.model-block-collidable"
+															"p.model-block-collidable"
 														).innerText
 														: false;
 
@@ -1501,7 +910,7 @@ export default function EnvironmentFront(props) {
 															"p.three-text-content"
 														)
 															? model.querySelector(
-																	"p.three-text-content"
+																"p.three-text-content"
 															).innerText
 															: "";
 													const rotationX =
@@ -1509,7 +918,7 @@ export default function EnvironmentFront(props) {
 															"p.three-text-rotationX"
 														)
 															? model.querySelector(
-																	"p.three-text-rotationX"
+																"p.three-text-rotationX"
 															).innerText
 															: "";
 													const rotationY =
@@ -1517,7 +926,7 @@ export default function EnvironmentFront(props) {
 															"p.three-text-rotationY"
 														)
 															? model.querySelector(
-																	"p.three-text-rotationY"
+																"p.three-text-rotationY"
 															).innerText
 															: "";
 													const rotationZ =
@@ -1525,7 +934,7 @@ export default function EnvironmentFront(props) {
 															"p.three-text-rotationZ"
 														)
 															? model.querySelector(
-																	"p.three-text-rotationZ"
+																"p.three-text-rotationZ"
 															).innerText
 															: "";
 													const positionX =
@@ -1533,7 +942,7 @@ export default function EnvironmentFront(props) {
 															"p.three-text-positionX"
 														)
 															? model.querySelector(
-																	"p.three-text-positionX"
+																"p.three-text-positionX"
 															).innerText
 															: "";
 													const positionY =
@@ -1541,7 +950,7 @@ export default function EnvironmentFront(props) {
 															"p.three-text-positionY"
 														)
 															? model.querySelector(
-																	"p.three-text-positionY"
+																"p.three-text-positionY"
 															).innerText
 															: "";
 													const positionZ =
@@ -1549,7 +958,7 @@ export default function EnvironmentFront(props) {
 															"p.three-text-positionZ"
 														)
 															? model.querySelector(
-																	"p.three-text-positionZ"
+																"p.three-text-positionZ"
 															).innerText
 															: "";
 													const scaleX =
@@ -1557,7 +966,7 @@ export default function EnvironmentFront(props) {
 															"p.three-text-scaleX"
 														)
 															? model.querySelector(
-																	"p.three-text-scaleX"
+																"p.three-text-scaleX"
 															).innerText
 															: "";
 													const scaleY =
@@ -1565,7 +974,7 @@ export default function EnvironmentFront(props) {
 															"p.three-text-scaleY"
 														)
 															? model.querySelector(
-																	"p.three-text-scaleY"
+																"p.three-text-scaleY"
 															).innerText
 															: "";
 													const scaleZ =
@@ -1573,7 +982,7 @@ export default function EnvironmentFront(props) {
 															"p.three-text-scaleZ"
 														)
 															? model.querySelector(
-																	"p.three-text-scaleZ"
+																"p.three-text-scaleZ"
 															).innerText
 															: "";
 
@@ -1582,7 +991,7 @@ export default function EnvironmentFront(props) {
 															"p.three-text-color"
 														)
 															? model.querySelector(
-																	"p.three-text-color"
+																"p.three-text-color"
 															).innerText
 															: "";
 
@@ -1604,6 +1013,8 @@ export default function EnvironmentFront(props) {
 															scaleX={scaleX}
 															scaleY={scaleY}
 															scaleZ={scaleZ}
+															defaultFont={defaultFont}
+															threeObjectPlugin={threeObjectPlugin}
 															textColor={
 																textColor
 															}
@@ -1616,8 +1027,8 @@ export default function EnvironmentFront(props) {
 															rotationZ={
 																rotationZ
 															}
-															// alt={alt}
-															// animations={animations}
+														// alt={alt}
+														// animations={animations}
 														/>
 													);
 												}
@@ -1630,7 +1041,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-position-x"
 													)
 														? model.querySelector(
-																"p.three-portal-block-position-x"
+															"p.three-portal-block-position-x"
 														).innerText
 														: "";
 
@@ -1639,7 +1050,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-position-y"
 													)
 														? model.querySelector(
-																"p.three-portal-block-position-y"
+															"p.three-portal-block-position-y"
 														).innerText
 														: "";
 
@@ -1648,7 +1059,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-position-z"
 													)
 														? model.querySelector(
-																"p.three-portal-block-position-z"
+															"p.three-portal-block-position-z"
 														).innerText
 														: "";
 
@@ -1657,7 +1068,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-scale-x"
 													)
 														? model.querySelector(
-																"p.three-portal-block-scale-x"
+															"p.three-portal-block-scale-x"
 														).innerText
 														: "";
 
@@ -1666,7 +1077,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-scale-y"
 													)
 														? model.querySelector(
-																"p.three-portal-block-scale-y"
+															"p.three-portal-block-scale-y"
 														).innerText
 														: "";
 
@@ -1675,7 +1086,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-scale-z"
 													)
 														? model.querySelector(
-																"p.three-portal-block-scale-z"
+															"p.three-portal-block-scale-z"
 														).innerText
 														: "";
 
@@ -1684,7 +1095,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-rotation-x"
 													)
 														? model.querySelector(
-																"p.three-portal-block-rotation-x"
+															"p.three-portal-block-rotation-x"
 														).innerText
 														: "";
 
@@ -1693,7 +1104,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-rotation-y"
 													)
 														? model.querySelector(
-																"p.three-portal-block-rotation-y"
+															"p.three-portal-block-rotation-y"
 														).innerText
 														: "";
 
@@ -1702,7 +1113,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-rotation-z"
 													)
 														? model.querySelector(
-																"p.three-portal-block-rotation-z"
+															"p.three-portal-block-rotation-z"
 														).innerText
 														: "";
 
@@ -1710,7 +1121,7 @@ export default function EnvironmentFront(props) {
 													"p.three-portal-block-url"
 												)
 													? model.querySelector(
-															"p.three-portal-block-url"
+														"p.three-portal-block-url"
 													).innerText
 													: "";
 
@@ -1719,7 +1130,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-destination-url"
 													)
 														? model.querySelector(
-																"p.three-portal-block-destination-url"
+															"p.three-portal-block-destination-url"
 														).innerText
 														: "";
 
@@ -1728,7 +1139,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-animations"
 													)
 														? model.querySelector(
-																"p.three-portal-block-animations"
+															"p.three-portal-block-animations"
 														).innerText
 														: "";
 
@@ -1737,7 +1148,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-label"
 													)
 														? model.querySelector(
-																"p.three-portal-block-label"
+															"p.three-portal-block-label"
 														).innerText
 														: "";
 
@@ -1746,7 +1157,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-label-offset-x"
 													)
 														? model.querySelector(
-																"p.three-portal-block-label-offset-x"
+															"p.three-portal-block-label-offset-x"
 														).innerText
 														: "";
 
@@ -1755,7 +1166,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-label-offset-y"
 													)
 														? model.querySelector(
-																"p.three-portal-block-label-offset-y"
+															"p.three-portal-block-label-offset-y"
 														).innerText
 														: "";
 
@@ -1764,7 +1175,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-label-offset-z"
 													)
 														? model.querySelector(
-																"p.three-portal-block-label-offset-z"
+															"p.three-portal-block-label-offset-z"
 														).innerText
 														: "";
 												const labelTextColor =
@@ -1772,7 +1183,7 @@ export default function EnvironmentFront(props) {
 														"p.three-portal-block-label-text-color"
 													)
 														? model.querySelector(
-																"p.three-portal-block-label-text-color"
+															"p.three-portal-block-label-text-color"
 														).innerText
 														: "";
 
@@ -1783,6 +1194,8 @@ export default function EnvironmentFront(props) {
 														destinationUrl={
 															destinationUrl
 														}
+														defaultFont={defaultFont}
+														threeObjectPlugin={threeObjectPlugin}
 														positionX={modelPosX}
 														positionY={modelPosY}
 														animations={animations}
@@ -1815,12 +1228,6 @@ export default function EnvironmentFront(props) {
 													/>
 												);
 											})}
-											{/* <RigidBody 
-												position={[0, -3, 0]}
-												type="fixed"
-											>
-													<Floor rotation={[-Math.PI / 2, 0, 0]} />
-											</RigidBody> */}
 										</TeleportTravel>
 									</>
 								)}
