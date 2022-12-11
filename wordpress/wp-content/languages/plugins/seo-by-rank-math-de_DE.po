@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-06 00:06:06+0000\n"
+"PO-Revision-Date: 2022-12-10 16:30:12+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3700,10 +3700,6 @@ msgstr "Erfahre mehr über <a href=\"%s\" target=\"_blank\">KML-Datei</a>."
 msgid "Site disconnected successfully."
 msgstr "Die Website wurde erfolgreich getrennt."
 
-#: includes/modules/schema/shortcode/person.php:41
-msgid "Job Title"
-msgstr "Stellenbezeichnung"
-
 #: includes/modules/schema/shortcode/jobposting.php:83
 #: includes/replace-variables/class-basic-variables.php:207
 msgid "Organization Logo"
@@ -3795,6 +3791,10 @@ msgstr "Beschäftigungsart "
 #: includes/module/class-manager.php:313
 msgid "Add proper Meta tags to your bbPress forum posts, categories, profiles, etc. Get more options to take control of what search engines see and how they see it."
 msgstr "Füge deinen bbPress-Forumseinträgen, Kategorien, Profilen usw. passende Meta-Tags hinzu. Erhalte mehr Optionen, um die Kontrolle darüber zu übernehmen, was Suchmaschinen sehen und wie sie es sehen."
+
+#: includes/modules/schema/shortcode/person.php:41
+msgid "Job Title"
+msgstr "Berufsbezeichnung"
 
 #: includes/helpers/class-choices.php:73
 msgid "Instructs search engines to index and show these pages in the search results."
