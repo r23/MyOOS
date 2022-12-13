@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '792f8a2defcc77edc3b7e5e2b9f102640161b7ea',
+        'reference' => '148a432c8d34da04b3bedd43fd6f89c2e7b403b2',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -74,12 +74,12 @@
             'dev_requirement' => false,
         ),
         'endroid/qr-code' => array(
-            'pretty_version' => '4.6.1',
-            'version' => '4.6.1.0',
+            'pretty_version' => '4.7.0',
+            'version' => '4.7.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../endroid/qr-code',
             'aliases' => array(),
-            'reference' => 'a75c913b0e4d6ad275e49a2c1de1cacffc6c2184',
+            'reference' => '027522766a7bb40e15686fd380b77e0aaa76b7d4',
             'dev_requirement' => false,
         ),
         'evenement/evenement' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '792f8a2defcc77edc3b7e5e2b9f102640161b7ea',
+            'reference' => '148a432c8d34da04b3bedd43fd6f89c2e7b403b2',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -447,7 +447,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'cd9af30140f6f34d9132986f4c6f04cf5e90cdc8',
+            'reference' => '3e59e9dfd2585e12a905c1f769c3214f7a957d41',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
@@ -1024,12 +1024,12 @@
             ),
         ),
         'tecnickcom/tcpdf' => array(
-            'pretty_version' => '6.6.0',
-            'version' => '6.6.0.0',
+            'pretty_version' => '6.6.1',
+            'version' => '6.6.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
             'aliases' => array(),
-            'reference' => '154bba45ffc9c2a049aa9e21501d02472b24deb4',
+            'reference' => 'a336b531f6f6b5487fca0caf034a671d4e60df5c',
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
