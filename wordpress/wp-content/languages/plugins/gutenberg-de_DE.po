@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-13 11:56:45+0000\n"
+"PO-Revision-Date: 2022-12-14 10:21:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -100,6 +100,14 @@ msgstr "Zufallsgenerator für Farben "
 #: lib/experiments-page.php:75
 msgid "Test the Global Styles color randomizer; a utility that lets you mix the current color palette pseudo-randomly."
 msgstr "Teste den Farbzufallsgenerator für globale Stile; ein Hilfsmittel, mit dem man die aktuelle Farbpalette nach dem Zufallsprinzip mischen kann."
+
+#: lib/experiments-page.php:63
+msgid "Test a new \"off canvas\" editor for navigation block using the block inspector and a tree view of the current menu"
+msgstr "Teste einen neuen „Off-Canvas“-Editor für Navigationsblöcke mit Hilfe des Blockinspektors und einer Baumansicht des aktuellen Menüs"
+
+#: lib/experiments-page.php:58
+msgid "Off canvas navigation editor "
+msgstr "Off-Canvas-Editor für die Navigation "
 
 #: lib/compat/wordpress-6.2/block-patterns.php:28
 msgctxt "Block pattern category"
