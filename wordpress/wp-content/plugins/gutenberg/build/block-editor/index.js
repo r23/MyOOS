@@ -35810,7 +35810,12 @@ function UncontrolledInnerBlocks(props) {
   }, [clientId]);
   const {
     allowSizingOnChildren = false
-  } = (0,external_wp_blocks_namespaceObject.getBlockSupport)(name, '__experimentalLayout') || {}; // This component needs to always be synchronous as it's the one changing
+  } = (0,external_wp_blocks_namespaceObject.getBlockSupport)(name, '__experimentalLayout') || {};
+  const layout = (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...__experimentalLayout,
+    ...(allowSizingOnChildren && {
+      allowSizingOnChildren: true
+    })
+  }), [__experimentalLayout, allowSizingOnChildren]); // This component needs to always be synchronous as it's the one changing
   // the async mode depending on the block selection.
 
   return (0,external_wp_element_namespaceObject.createElement)(BlockContextProvider, {
@@ -35819,11 +35824,7 @@ function UncontrolledInnerBlocks(props) {
     rootClientId: clientId,
     renderAppender: renderAppender,
     __experimentalAppenderTagName: __experimentalAppenderTagName,
-    __experimentalLayout: { ...__experimentalLayout,
-      ...(allowSizingOnChildren && {
-        allowSizingOnChildren: true
-      })
-    },
+    __experimentalLayout: layout,
     wrapperRef: wrapperRef,
     placeholder: placeholder
   }));
