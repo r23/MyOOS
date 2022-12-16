@@ -295,8 +295,10 @@ class WPCF7_HTMLFormatter {
 	public function append_text( $content ) {
 		if ( $this->is_inside( 'pre' ) ) {
 			$this->output .= $content;
+			return;
+		}
 
-		} elseif (
+		if (
 			$this->is_inside( self::p_child_elements ) or
 			$this->has_parent( self::p_nonparent_elements )
 		) {
@@ -308,37 +310,57 @@ class WPCF7_HTMLFormatter {
 			$this->output .= $content;
 
 		} else {
-			// Split up the contents into paragraphs, separated by double line breaks.
-			$paragraphs = preg_split( '/\n\s*\n/', $content );
 
-			if ( empty( $paragraphs ) ) {
-				return;
-			}
-
-			if ( $this->is_inside( 'p' ) ) {
-				$paragraph = array_shift( $paragraphs );
-
-				$paragraph = self::normalize_paragraph(
-					$paragraph,
-					$this->options['auto_br']
-				);
-
-				$this->output .= $paragraph;
-			}
-
-			foreach ( $paragraphs as $paragraph ) {
-				$this->start_tag( 'p' );
-
-				$paragraph = self::normalize_paragraph(
-					$paragraph,
-					$this->options['auto_br']
-				);
-
-				$this->output .= $paragraph;
-			}
-
-			if ( preg_match( '/\n\s*\n$/', $content ) ) {
+			// Close <p> if the content starts with multiple line breaks.
+			if ( preg_match( '/^\s*\n\s*\n\s*/', $content ) ) {
 				$this->end_tag( 'p' );
+			}
+
+			// Split up the contents into paragraphs, separated by double line breaks.
+			$paragraphs = preg_split( '/\s*\n\s*\n\s*/', $content );
+
+			$paragraphs = array_filter( $paragraphs, function ( $paragraph ) {
+				return '' !== trim( $paragraph );
+			} );
+
+			$paragraphs = array_values( $paragraphs );
+
+			if ( $paragraphs ) {
+				if ( $this->is_inside( 'p' ) ) {
+					$paragraph = array_shift( $paragraphs );
+
+					$paragraph = self::normalize_paragraph(
+						$paragraph,
+						$this->options['auto_br']
+					);
+
+					$this->output .= $paragraph;
+				}
+
+				foreach ( $paragraphs as $paragraph ) {
+					$this->start_tag( 'p' );
+
+					$paragraph = self::normalize_paragraph(
+						$paragraph,
+						$this->options['auto_br']
+					);
+
+					$this->output .= $paragraph;
+				}
+			}
+
+			// Close <p> if the content ends with multiple line breaks.
+			if ( preg_match( '/\s*\n\s*\n\s*$/', $content ) ) {
+				$this->end_tag( 'p' );
+			}
+
+			// Cases where the content is a single line break.
+			if ( preg_match( '/^\s*\n\s*$/', $content ) ) {
+				$auto_br = $this->options['auto_br'] && $this->is_inside( 'p' );
+
+				$content = self::normalize_paragraph( $content, $auto_br );
+
+				$this->output .= $content;
 			}
 		}
 	}
@@ -410,6 +432,9 @@ class WPCF7_HTMLFormatter {
 			while ( $element = array_shift( $this->stacked_elements ) ) {
 
 				if ( ! in_array( $element, self::p_child_elements ) ) {
+					// Remove unnecessary <br />.
+					$this->output = preg_replace( '/\s*<br \/>\s*$/', '', $this->output );
+
 					$this->output = rtrim( $this->output ) . "\n";
 
 					if ( $this->options['auto_indent'] ) {
@@ -420,11 +445,9 @@ class WPCF7_HTMLFormatter {
 				$this->output .= sprintf( '</%s>', $element );
 
 				// Remove trailing <p></p>.
-				$this->output = preg_replace(
-					'/<p>\s*<\/p>$/', '', $this->output, 1, $count
-				);
+				$this->output = preg_replace( '/<p>\s*<\/p>$/', '', $this->output );
 
-				if ( $count or $element === $tag_name ) {
+				if ( $element === $tag_name ) {
 					break;
 				}
 			}
