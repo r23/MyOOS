@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-13 23:37:38+0000\n"
+"PO-Revision-Date: 2022-12-16 06:30:53+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -205,6 +205,10 @@ msgstr "Stripe ist auf dieser Website aktiv."
 msgid "Stripe integration"
 msgstr "Stripe-Integration"
 
+#: modules/stripe/service.php:160
+msgid "Stripe is a simple and powerful way to accept payments online. Stripe has no setup fees, no monthly fees, and no hidden costs. Millions of businesses rely on Stripe’s software tools to accept payments securely and expand globally."
+msgstr "Stripe ist eine einfache und leistungsstarke Möglichkeit, Zahlungen online zu akzeptieren. Stripe hat keine Einrichtungsgebühren, keine monatlichen Gebühren und keine versteckten Kosten. Millionen von Unternehmen vertrauen auf die Software-Tools von Stripe, um Zahlungen sicher zu akzeptieren und weltweit zu expandieren."
+
 #. translators: 1: first name, 2: last name
 #: modules/sendinblue/sendinblue.php:114
 msgctxt "personal name"
@@ -361,6 +365,10 @@ msgstr "Sendinblue-Integration"
 msgid "https://contactform7.com/sendinblue-integration/"
 msgstr "https://contactform7.com/sendinblue-integration/"
 
+#: modules/sendinblue/service.php:149
+msgid "Store and organize your contacts while protecting user privacy on Sendinblue, the leading CRM & email marketing platform in Europe. Sendinblue offers unlimited contacts and advanced marketing features."
+msgstr "Verwalte und organisiere deine Kontakte, während du den Datenschutz deiner Benutzer bei Sendinblue, der führenden CRM- und E-Mail-Marketing-Plattform in Europa, schützt. Sendinblue bietet unendliche Kontakte und erweiterte Marketing-Funktionen."
+
 #: modules/sendinblue/service.php:126
 msgid "You have not been authenticated. Make sure the provided API key is correct."
 msgstr "Du wurdest nicht angemeldet. Stelle sicher, dass der API-Schlüssel korrekt ist."
@@ -512,6 +520,10 @@ msgstr "HTTP-Response: %1$s %2$s %3$s von %4$s"
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
+#: modules/recaptcha/service.php:270
+msgid "reCAPTCHA protects you against spam and other types of automated abuse. With Contact Form 7&#8217;s reCAPTCHA integration module, you can block abusive form submissions by spam bots."
+msgstr "reCAPTCHA schützt dich gegen Spam und andere Arten automatischen Missbrauchs. Mit dem reCAPTCHA-Integrations-Modul von Contact Form 7 kannst du diese Formular-Absendungen von Spam-Bots blockieren."
+
 #: modules/recaptcha/recaptcha.php:262 modules/recaptcha/service.php:277
 msgid "reCAPTCHA (v3)"
 msgstr "reCAPTCHA (v3)"
@@ -560,6 +572,10 @@ msgstr "Integration von Constant Contact"
 #: modules/constant-contact/service.php:377
 msgid "https://contactform7.com/constant-contact-integration/"
 msgstr "https://contactform7.com/constant-contact-integration/"
+
+#: modules/constant-contact/service.php:371
+msgid "The Constant Contact integration module allows you to send contact data collected through your contact forms to the Constant Contact API. You can create reliable email subscription services in a few easy steps."
+msgstr "Mit dem Integrations-Modul für Constant Contact kannst du Daten aus gesendeten Kontaktformularen an die Constant-Contact-API senden. Du kannst zuverlässige E-Mail-Abonnement-Dienste in wenigen einfachen Schritten erstellen."
 
 #: admin/includes/welcome-panel.php:157
 #: modules/constant-contact/contact-form-properties.php:173
