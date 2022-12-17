@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '88e2e0feff58b6b5188b17a7eefef050cebb823a',
+        'reference' => '960f2ff8db01054ddfb85b8d9c49414b5e13db24',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '88e2e0feff58b6b5188b17a7eefef050cebb823a',
+            'reference' => '960f2ff8db01054ddfb85b8d9c49414b5e13db24',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -1024,12 +1024,12 @@
             ),
         ),
         'tecnickcom/tcpdf' => array(
-            'pretty_version' => '6.6.1',
-            'version' => '6.6.1.0',
+            'pretty_version' => '6.6.2',
+            'version' => '6.6.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tecnickcom/tcpdf',
             'aliases' => array(),
-            'reference' => 'a336b531f6f6b5487fca0caf034a671d4e60df5c',
+            'reference' => 'e3cffc9bcbc76e89e167e9eb0bbda0cab7518459',
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
