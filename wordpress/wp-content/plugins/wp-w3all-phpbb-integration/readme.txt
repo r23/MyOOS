@@ -2,10 +2,10 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, users
-Stable tag: 2.6.6
+Stable tag: 2.6.7
 License: GPLv2 or later
 Requires at least: 5.0.0
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 7.0
 
 WordPress w3all phpBB integration - easy, light, secure, powerful
@@ -73,6 +73,14 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.6.7 =
+*Release Date - 16 Dec, 2022*
+* Fix: wp_login hook not firing when on wp_login page (when certain plugins installed)
+* Fix: little improve last_topics and last_topics_by_forums_ids shorcodes code
+* Fix: add cookie samesite param for the phpBB session cookie when on Php 7.4 or better, while leave the old setcookie code for all others olders Php versions
+* Fix: minor fixes
+* Hint: remember that instead to use the page-forum for the iframe integration, on the new WP templates editor, and themes like WP Twenty Twenty Three, you should use the Awesome iframe integration using shortcode: https://www.axew3.com/w3/2022/02/the-awesome-iframe-template-integration-using-shortcode/
 
 = 2.6.6 =
 *Release Date - 25 Oct, 2022*

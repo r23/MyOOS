@@ -276,7 +276,7 @@
 
     function isMessageFromMetaParent() {
       // Test if this message is from a parent above us. This is an ugly test, however, updating
-      // the message format would break backwards compatibility.
+      // the message format would break backwards compatibity.
       var retCode = messageData.type in { true: 1, false: 1, undefined: 1 }
 
       if (retCode) {
@@ -1317,11 +1317,11 @@
   /* istanbul ignore next */
   function tabVisible() {
     function resize() {
-      sendTriggerMsg('Tab Visible', 'resize')
+      sendTriggerMsg('Tab Visable', 'resize')
     }
 
     if ('hidden' !== document.visibilityState) {
-      log('document', 'Trigger event: Visibility change')
+      log('document', 'Trigger event: Visiblity change')
       debouce(resize, 16)
     }
   }

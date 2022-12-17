@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.6.6
+Version: 2.6.7
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -26,7 +26,7 @@ Copyright (C) 2022 - axew3.com
 // Security
 defined( 'ABSPATH' ) or die( 'forbidden' );
 if ( !function_exists( 'add_action' ) ) {
-  echo 'Hi there!  I\'m just a plugin, not much I can do when called directly.';
+  echo 'forbidden';
   exit;
 }
 
@@ -34,12 +34,12 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.6.6' );
+define( 'WPW3ALL_VERSION', '2.6.7' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-$w3all_phpbb_unotifications = $w3all_phpbb_connection = $phpbb_config = $w3all_phpbb_usession = $w3all_wp_email_exist_inphpbb = $w3all_oninsert_wp_user = $w3all_wpusers_delete_ary = $w3all_wpusers_delete_once = $phpbb_online_udata = $w3all_widget_phpbb_onlineStats_exec = ''; // $w3all_oninsert_wp_user used to check if WP is creating an user, switch to 1 before wp_insert_user fire so to avoid user's email check into phpBB
+$w3all_phpbb_unotifications = $wp_userphpbbavatar = $w3all_phpbb_connection = $phpbb_config = $w3all_phpbb_usession = $w3all_wp_email_exist_inphpbb = $w3all_oninsert_wp_user = $w3all_wpusers_delete_ary = $w3all_wpusers_delete_once = $phpbb_online_udata = $w3all_widget_phpbb_onlineStats_exec = ''; // $w3all_oninsert_wp_user used to check if WP is creating an user, switch to 1 before wp_insert_user fire so to avoid user's email check into phpBB
 
 $w3all_w_lastopicspost_max = get_option( 'widget_wp_w3all_widget_last_topics' );
 $config_avatars = get_option('w3all_conf_avatars');
@@ -219,9 +219,9 @@ if ( defined( 'WP_ADMIN' ) )
 
       if(!$wpu){ return; }
 
-       $wp_w3_ck_phpbb_ue_exist = WP_w3all_phpbb::phpBB_user_check($wpu->user_login, $wpu->user_email, 1);
+       $uexist = WP_w3all_phpbb::phpBB_user_check($wpu->user_login, $wpu->user_email, 1);
 
-        if($wp_w3_ck_phpbb_ue_exist === true && $w3all_oninsert_wp_user != 1){
+        if($uexist === true && $w3all_oninsert_wp_user != 1){
           if ( !function_exists( 'wp_delete_user' ) ) {
            require_once ABSPATH . '/wp-admin/includes/user.php';
           }
@@ -237,7 +237,7 @@ if ( defined( 'WP_ADMIN' ) )
 
         }
 
-       if(!$wp_w3_ck_phpbb_ue_exist){
+       if(!$uexist){
          $phpBB_user_add = WP_w3all_phpbb::create_phpBB_user_res($wpu);
        }
  }
@@ -340,7 +340,11 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
    $_POST['w3all_password'] = $_POST['pwd'];
   }
 
-  $passed_uname = trim(stripcslashes($_POST['w3all_username']));
+  $passed_uname = str_replace(chr(0), '', $_POST['w3all_username']);
+  $passed_uname = trim(stripcslashes($passed_uname));
+  // home_url( add_query_arg( [], $GLOBALS['wp']->request ) );
+  // $_POST['redirect_to'] = (!empty($_POST['redirect_to'])) ? str_replace(chr(0), '', $_POST['redirect_to']) : esc_url( wp_login_url( get_permalink() ) );
+   $_POST['redirect_to'] = (!empty($_POST['redirect_to'])) ? str_replace(chr(0), '', $_POST['redirect_to']) : home_url();
 
     if ( empty($passed_uname) ){
         if(strpos($_POST['redirect_to'],'?')){
@@ -479,7 +483,6 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
       }
 
      if(strpos($_POST['redirect_to'],'?')){
-      $_POST['redirect_to'] = str_replace(chr(0), '', $_POST['redirect_to']);
       wp_safe_redirect( $_POST['redirect_to'] . '&reauth=1' ); exit;
      } else {
        wp_safe_redirect( $_POST['redirect_to'] . '?reauth=1' ); exit;
@@ -514,7 +517,7 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
 // See step Bruteforce 'phpBB session keys Prevention check' for this, into class.wp.w3all-phpbb.php
 if(isset($_COOKIE["w3all_bruteblock"]) && $_COOKIE["w3all_bruteblock"] > 0){
   function w3all_bruteblock_login_message( $message ) {
-     return __('<strong>Notice: account Locked<br />Please re-login!</strong><br />Account logged out due to detected brute force attack against session or due to mismatching session<br /><strong>To fix the problem, please login now here!</strong>', 'wp-w3all-phpbb-integration');
+     return __('<strong>Notice: account Locked<br />Please login!</strong><br />Account logged out due to detected brute force attack against session or due to mismatching session<br /><strong>To fix the problem, please login now here!</strong>', 'wp-w3all-phpbb-integration');
   }
   add_filter( 'login_message', 'w3all_bruteblock_login_message', 10, 1 );
   setcookie ("w3all_bruteblock", "", time() - 2592000, "/", "$w3cookie_domain");
@@ -669,7 +672,6 @@ if(! defined("WPW3ALL_NOT_ULINKED")){
   add_action( 'wp_authenticate', array( 'WP_w3all_phpbb', 'w3_check_phpbb_profile_wpnu' ), 10, 1 );
   add_action( 'wp_logout', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_logout' ) );
   add_action( 'profile_update', 'wp_w3all_up_wp_prof_on_phpbb', 10, 2 );
-  add_action( 'wp_login', 'wp_w3all_phpbb_login', 10, 2);
   add_action( 'delete_user', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_delete_user' ) ); // x buddypress or ohers plugins that allow users to delete their own user's account on frontend profile
   add_action( 'user_profile_update_errors', 'w3all_user_profile_update_errors', 10, 1 );
   if(!empty($w3all_phpbb_wptoolbar_pm_yn)){
@@ -685,12 +687,12 @@ if(! defined("WPW3ALL_NOT_ULINKED")){
 
  if ( defined('W3PHPBBDBCONN') && !isset($w3deactivate_wp_w3all_plugin) )
  {
-
+    add_action( 'wp_login', 'wp_w3all_phpbb_login', 10, 2);
   if ( $w3all_phpbb_widget_mark_ru_yn == 1 ) {
-   add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_unread_topics'), 9);
-    if( $w3all_phpbb_widget_FA_mark_yn == 1 ){
-     add_action('wp_head','wp_w3all_add_phpbb_font_awesome');
-    }
+    add_action( 'init', array( 'WP_w3all_phpbb', 'w3all_get_unread_topics'), 9);
+   if( $w3all_phpbb_widget_FA_mark_yn == 1 ){
+    add_action('wp_head','wp_w3all_add_phpbb_font_awesome');
+   }
   }
 
 // Swap WordPress default Login, Register and Lost Password links

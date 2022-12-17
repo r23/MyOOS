@@ -1,15 +1,14 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-// This file views/phpbb_last_topics_single_multi_shortcode.php output shortcode 'w3allastopicspagesm' (Last Topics For specific forums ids shortcode)
 
-$w3all_avatars_yn = ( $w3all_get_phpbb_avatar_yn == 1 && $w3all_last_t_avatar_yn == 1 ) ? true : false; // avatars or not
-// if yes, check that it has not been disabled/redefined into this shortcode via no_avatar param
+ $w3all_avatars_yn = ( $w3all_get_phpbb_avatar_yn == 1 && $w3all_last_t_avatar_yn == 1 ) ? true : false; // avatars or not
+ // if yes, check that it has not been disabled/redefined into this shortcode via no_avatar param
  if ( $w3all_avatars_yn ) {
   $w3all_avatars_yn = $no_avatars > 0 ? false : $w3all_avatars_yn;
  }
  
-$dateformat = get_option('date_format');
-$gmtoffset = get_option('gmt_offset');
-$timeformat = get_option('time_format');
+ $dateformat = get_option('date_format');
+ $gmtoffset = get_option('gmt_offset');
+ $timeformat = get_option('time_format');
 
 // maintain compatibility with old way
 if(empty($w3_ul_class_ids)){
@@ -24,11 +23,9 @@ if(empty($w3_ul_class_ids)){
 
 if(!empty($last_topics)){
 
-if(defined("W3ALLPHPBBUAVAADDSHORTUSERS")){
- $w3phpbbuava = unserialize(W3ALLPHPBBUAVAADDSHORTUSERS);
-} elseif(defined("W3ALLPHPBBUAVA")){
- $w3phpbbuava = unserialize(W3ALLPHPBBUAVA);
-} else { $w3phpbbuava = array(); }
+  if(is_array($wp_userphpbbavatar)){
+   $w3phpbbuava = $wp_userphpbbavatar;
+  } else { $w3phpbbuava = array(); }
 
      echo "<ul class=\"".$w3all_lastopics_style_ul_class."\" style=\"".$w3all_lastopics_style_ul."\">\n";
 

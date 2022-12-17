@@ -68,12 +68,12 @@ private static function w3all_wp_logout($redirect = ''){
  }
 
     // remove phpBB cookies
-      setcookie ("$k", "", time() - 31622400, "/");
-      setcookie ("$sid", "", time() - 31622400, "/");
-      setcookie ("$u", "", time() - 31622400, "/");
-      setcookie ("$k", "", time() - 31622400, "/", "$w3cookie_domain");
-      setcookie ("$sid", "", time() - 31622400, "/", "$w3cookie_domain");
-      setcookie ("$u", "", time() - 31622400, "/", "$w3cookie_domain");
+      setcookie ("$k", "", 1, "/");
+      setcookie ("$sid", "", 1, "/");
+      setcookie ("$u", "", 1, "/");
+      setcookie ("$k", "", 1, "/", "$w3cookie_domain");
+      setcookie ("$sid", "", 1, "/", "$w3cookie_domain");
+      setcookie ("$u", "", 1, "/", "$w3cookie_domain");
 
     wp_logout();
 
@@ -127,14 +127,11 @@ private static function w3all_get_phpbb_config(){
 
    if(!empty($phpbb_config)){ return $phpbb_config; }
 
-   if( empty($w3all_phpbb_connection) ){
+   if( empty($w3all_phpbb_connection) OR empty($w3all_config["table_prefix"])){
     return array();
    }
 
-  ob_start();
    $a = $w3all_phpbb_connection->get_results("SELECT config_value FROM ". $w3all_config["table_prefix"] ."config WHERE config_name IN('allow_autologin','avatar_gallery_path','avatar_path','avatar_salt','cookie_domain','cookie_name','default_dateformat','default_lang','load_online_time','max_autologin_time','newest_user_id','newest_username','num_posts','num_topics','num_users','rand_seed','rand_seed_last_update','record_online_users','script_path','session_length','version') ORDER BY config_name ASC");
-  ob_get_contents();
-  ob_end_clean();
 
     if(empty($a)){ $phpbb_config = ''; return array(); }
 
@@ -867,14 +864,23 @@ private static function phpBB_user_session_set($wp_user_data){
       // This way, setup for 1 year by the way
       $cookie_expire = time() + 31536000;
 
+     if (version_compare(phpversion(), '7.3.0', '>')) {
+    // php version isn't high enough
+    }
       $secure = is_ssl();
       if(empty($w3cookie_domain)){
         $w3cookie_domain = 'localhost';
       }
 
-      setcookie ("$k", "$key_id_k", $cookie_expire, "/", $w3cookie_domain, $secure, true);
-      setcookie ("$sid", "$w3session_id", $cookie_expire, "/", $w3cookie_domain, $secure, true);
-      setcookie ("$u", "$phpbb_user_id", $cookie_expire, "/", $w3cookie_domain, $secure, true);
+      if( $secure && version_compare(phpversion(), '7.3.0', '>') ){
+       setcookie("$k", "$key_id_k", [ 'expires' => $cookie_expire, 'path' => '/', 'domain' => $w3cookie_domain, 'secure' => $secure, 'httponly' => false, 'samesite' => 'None' ]);
+       setcookie("$sid", "$w3session_id", [ 'expires' => $cookie_expire, 'path' => '/', 'domain' => $w3cookie_domain, 'secure' => $secure, 'httponly' => false, 'samesite' => 'None' ]);
+       setcookie("$u", "$phpbb_user_id", [ 'expires' => $cookie_expire, 'path' => '/', 'domain' => $w3cookie_domain, 'secure' => $secure, 'httponly' => false, 'samesite' => 'None' ]);
+      } else {
+        setcookie ("$k", "$key_id_k", $cookie_expire, "/", $w3cookie_domain, $secure, true);
+        setcookie ("$sid", "$w3session_id", $cookie_expire, "/", $w3cookie_domain, $secure, true);
+        setcookie ("$u", "$phpbb_user_id", $cookie_expire, "/", $w3cookie_domain, $secure, true);
+       }
 
    define("W3ALL_SESSION_ARELEASED", true);
 }
@@ -2119,10 +2125,10 @@ $maxitems = 0;
 
 // wp_w3all_get_phpbb_lastopics_short vers 1.0 x (phpbb_last_topics_forums_ids_shortcode.php) single or multiple forums
 public static function wp_w3all_phpbb_last_topics_single_multi_fp_short( $atts ) {
-  global $w3all_phpbb_connection,$w3all_phpbb_usession,$w3all_config,$w3all_url_to_cms,$w3all_get_topics_x_ugroup,$w3all_lasttopic_avatar_num,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn;
+  global $w3all_phpbb_connection,$wp_userphpbbavatar,$w3all_phpbb_usession,$w3all_config,$w3all_url_to_cms,$w3all_get_topics_x_ugroup,$w3all_lasttopic_avatar_num,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn;
 
  if(is_array($atts)){
-  $atts = array_map ('trim', $atts);
+  $atts = array_map('trim', $atts);
  } else {
   return;
  }
@@ -2227,16 +2233,17 @@ if(!empty($last_topics)){
 
 // wp_w3all_get_phpbb_lastopics_short vers 1.0
 public static function wp_w3all_get_phpbb_lastopics_short( $atts, $is_shortcode = true ) {
-  global $w3all_lasttopic_avatar_num,$w3all_url_to_cms,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn;
+  global $w3all_lasttopic_avatar_num,$wp_userphpbbavatar,$w3all_url_to_cms,$w3all_last_t_avatar_yn,$w3all_last_t_avatar_dim,$w3all_get_phpbb_avatar_yn,$w3all_phpbb_widget_mark_ru_yn,$w3all_custom_output_files,$w3all_phpbb_widget_FA_mark_yn;
 
   if(is_array($atts)){
-  $atts = array_map ('trim', $atts);
-} else {
-  return;
-}
+   $atts = array_map ('trim', $atts);
+  } else {
+     $atts = array();
+    }
+
     $ltm = shortcode_atts( array(
         'mode' => '0',
-        'topics_number' => '0',
+        'topics_number' => '5',
         'post_text' => '0',
         'text_words' => '0',
         'w3_ul_class' => '',
@@ -2645,11 +2652,12 @@ public static function w3_bbcode_rep0($matches)
 
 public static function wp_w3all_assoc_phpbb_wp_users() {
 
-  global $wp, $w3all_get_phpbb_avatar_yn,$phpbb_online_udata,$w3all_widget_phpbb_onlineStats_exec,$w3all_last_t_avatar_yn, $w3all_lasttopic_avatar_num, $w3all_wlastopicspost_max;
+  global $wp,$wp_userphpbbavatar,$w3all_get_phpbb_avatar_yn,$phpbb_online_udata,$w3all_widget_phpbb_onlineStats_exec,$w3all_last_t_avatar_yn, $w3all_lasttopic_avatar_num, $w3all_wlastopicspost_max;
 
     $w3all_lasttopic_avatar_num = $w3all_wlastopicspost_max > $w3all_lasttopic_avatar_num ? $w3all_wlastopicspost_max : $w3all_lasttopic_avatar_num;
 
   $w3all_avatars_yn = $w3all_get_phpbb_avatar_yn == 1 ? true : false;
+  $p_unames = array();
 
  $nposts = get_option('posts_per_page');
  $post_list = get_posts( array(

@@ -11,7 +11,7 @@ $w3TDSpacer = 'w3tdSpacer'; // declare class .$w3tdSpacer into your theme css or
 
 // NOTE: remove INLINE CSS here below if you want external css above take effect, because inline style take precedence
 
-// css styles - NOTE: should be a space before the style attribute (as code is more below)
+// css styles
 $w3TABwrapper_instyle = ' style="border-collapse:collapse;border-width:0;"';
 $w3timeSI_instyle = ' style="font-size:0.7em;"';
 
@@ -40,10 +40,10 @@ foreach ($last_topics as $key => $w3topic) {
   }
 
   $w3topic->topic_last_poster_name = (empty($w3topic->topic_last_poster_name)) ? __( 'Guest', 'wp-w3all-phpbb-integration' ) : $w3topic->topic_last_poster_name;
- if ( $wp_w3all_post_text == 1 ){
+ if ( $wp_w3all_post_text == 1 ){ // post text
    $w3topic->post_text = wp_w3all_remove_bbcode_tags($w3topic->post_text, $wp_w3all_text_words) . ' ...';
   } else {
-   $w3topic->post_text = ''; // if not post with text
+   $w3topic->post_text = ''; // no post text
   }
 
   $titleLinkToPost = '<a href="'.$w3all_url_to_cms.'/viewtopic.php?f='.$w3topic->forum_id.'&amp;t='.$w3topic->topic_id.'&amp;p='.$w3topic->post_id.'#p'.$w3topic->post_id.'">'.$w3topic->topic_title.'</a> '.$w3all_post_state_ru.'<br />';
@@ -87,11 +87,10 @@ echo __( 'by ' , 'wp-w3all-phpbb-integration' ). $w3topic->topic_last_poster_nam
 </td><!-- close td right -->';
 
 
-// the trick
-if(  $c0untn == $wp_w3all_columns_number ){ echo '</tr>'; }
-$c0untn++;
-$countn++;
-if(  $c0untn == $wp_w3all_columns_number ){ $c0untn = 0; }
+ if(  $c0untn == $wp_w3all_columns_number ){ echo '</tr>'; }
+  $c0untn++; $countn++;
+  
+ if(  $c0untn == $wp_w3all_columns_number ){ $c0untn = 0; }
  else {  echo '<td class="'.$w3TDSpacer.'"'.$w3TDSpacer_instyle.'></td>';  }
 
 } // END instance topics number

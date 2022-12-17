@@ -377,7 +377,7 @@
     manageTriggerEvent({
       method: method,
       eventType: 'Print',
-      eventNames: ['afterprint', 'beforeprint']
+      eventName: ['afterprint', 'beforeprint']
     })
     manageTriggerEvent({
       method: method,
@@ -945,7 +945,7 @@
       },
 
       offset: function () {
-        return getHeight.bodyOffset() // Backwards compatibility
+        return getHeight.bodyOffset() // Backwards compatability
       },
 
       bodyScroll: function getBodyScrollHeight() {
@@ -1213,7 +1213,7 @@
       },
       inPageLink: function inPageLinkF() {
         this.moveToAnchor()
-      }, // Backward compatibility
+      }, // Backward compatability
 
       pageInfo: function pageInfoFromParent() {
         var msgBody = getData()
@@ -1254,7 +1254,7 @@
 
     function isInitMsg() {
       // Test if this message is from a child below us. This is an ugly test, however, updating
-      // the message format would break backwards compatibility.
+      // the message format would break backwards compatibity.
       return event.data.split(':')[2] in { true: 1, false: 1 }
     }
 
