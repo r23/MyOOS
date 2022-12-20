@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'a1cd01a8278bbc369b5be811c8dccb31eb9e2693',
+        'reference' => '636bc4d4de84830bcce2ea63bf6bb1c2991c6230',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -56,12 +56,12 @@
             'dev_requirement' => false,
         ),
         'doctrine/persistence' => array(
-            'pretty_version' => '3.1.1',
-            'version' => '3.1.1.0',
+            'pretty_version' => '3.1.2',
+            'version' => '3.1.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/persistence',
             'aliases' => array(),
-            'reference' => 'd87426f07dd66f97cfdcf5210925e483b6c993b5',
+            'reference' => 'b44d128311af55275dbed6a4558ca59a2b9f9387',
             'dev_requirement' => false,
         ),
         'dompdf/dompdf' => array(
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'a1cd01a8278bbc369b5be811c8dccb31eb9e2693',
+            'reference' => '636bc4d4de84830bcce2ea63bf6bb1c2991c6230',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -447,7 +447,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '326a87e33bf91da7161ad24a6f7ab5d2bb63077a',
+            'reference' => 'ae56b0972de9f8ab3a86e47aac977ce048ecdaeb',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
