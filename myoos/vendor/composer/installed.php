@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '636bc4d4de84830bcce2ea63bf6bb1c2991c6230',
+        'reference' => 'cdfd3f22c2015b190efe156769949fbb483c4619',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '636bc4d4de84830bcce2ea63bf6bb1c2991c6230',
+            'reference' => 'cdfd3f22c2015b190efe156769949fbb483c4619',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -281,12 +281,12 @@
             ),
         ),
         'phpoffice/phpspreadsheet' => array(
-            'pretty_version' => '1.25.2',
-            'version' => '1.25.2.0',
+            'pretty_version' => '1.26.0',
+            'version' => '1.26.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpoffice/phpspreadsheet',
             'aliases' => array(),
-            'reference' => 'a317a09e7def49852400a4b3eca4a4b0790ceeb5',
+            'reference' => '5b6ceea9705b068f993e268e4debc566c2637063',
             'dev_requirement' => false,
         ),
         'phpoffice/phpword' => array(
@@ -447,7 +447,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => 'ae56b0972de9f8ab3a86e47aac977ce048ecdaeb',
+            'reference' => '58046a3fc3555eda6567a2bdae7195be6aa9babe',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
