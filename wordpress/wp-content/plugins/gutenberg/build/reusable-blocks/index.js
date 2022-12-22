@@ -399,11 +399,13 @@ function ReusableBlocksManageButton(_ref) {
   } = _ref;
   const {
     canRemove,
-    isVisible
+    isVisible,
+    innerBlockCount
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       getBlock,
-      canRemoveBlock
+      canRemoveBlock,
+      getBlockCount
     } = select(external_wp_blockEditor_namespaceObject.store);
     const {
       canUser
@@ -411,7 +413,8 @@ function ReusableBlocksManageButton(_ref) {
     const reusableBlock = getBlock(clientId);
     return {
       canRemove: canRemoveBlock(clientId),
-      isVisible: !!reusableBlock && (0,external_wp_blocks_namespaceObject.isReusableBlock)(reusableBlock) && !!canUser('update', 'blocks', reusableBlock.attributes.ref)
+      isVisible: !!reusableBlock && (0,external_wp_blocks_namespaceObject.isReusableBlock)(reusableBlock) && !!canUser('update', 'blocks', reusableBlock.attributes.ref),
+      innerBlockCount: getBlockCount(clientId)
     };
   }, [clientId]);
   const {
@@ -428,7 +431,7 @@ function ReusableBlocksManageButton(_ref) {
     })
   }, (0,external_wp_i18n_namespaceObject.__)('Manage Reusable blocks')), canRemove && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
     onClick: () => convertBlockToStatic(clientId)
-  }, (0,external_wp_i18n_namespaceObject.__)('Convert to regular blocks')));
+  }, innerBlockCount > 1 ? (0,external_wp_i18n_namespaceObject.__)('Convert to regular blocks') : (0,external_wp_i18n_namespaceObject.__)('Convert to regular block')));
 }
 
 /* harmony default export */ var reusable_blocks_manage_button = (ReusableBlocksManageButton);

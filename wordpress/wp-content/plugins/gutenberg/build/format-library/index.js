@@ -1814,6 +1814,74 @@ const keyboard = {
 
 };
 
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/help.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const help = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M12 4.75a7.25 7.25 0 100 14.5 7.25 7.25 0 000-14.5zM3.25 12a8.75 8.75 0 1117.5 0 8.75 8.75 0 01-17.5 0zM12 8.75a1.5 1.5 0 01.167 2.99c-.465.052-.917.44-.917 1.01V14h1.5v-.845A3 3 0 109 10.25h1.5a1.5 1.5 0 011.5-1.5zM11.25 15v1.5h1.5V15h-1.5z"
+}));
+/* harmony default export */ var library_help = (help);
+
+;// CONCATENATED MODULE: ./packages/format-library/build-module/unknown/index.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+const unknown_name = 'core/unknown';
+
+const unknown_title = (0,external_wp_i18n_namespaceObject.__)('Clear Unknown Formatting');
+
+const unknown = {
+  name: unknown_name,
+  title: unknown_title,
+  tagName: '*',
+  className: null,
+
+  edit(_ref) {
+    let {
+      isActive,
+      value,
+      onChange,
+      onFocus
+    } = _ref;
+
+    function onClick() {
+      onChange((0,external_wp_richText_namespaceObject.removeFormat)(value, unknown_name));
+      onFocus();
+    }
+
+    const selectedValue = (0,external_wp_richText_namespaceObject.slice)(value);
+    const hasUnknownFormats = selectedValue.formats.some(formats => {
+      return formats.some(format => format.type === unknown_name);
+    });
+
+    if (!isActive && !hasUnknownFormats) {
+      return null;
+    }
+
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichTextToolbarButton, {
+      name: "unknown",
+      icon: library_help,
+      title: unknown_title,
+      onClick: onClick,
+      isActive: true
+    });
+  }
+
+};
+
 ;// CONCATENATED MODULE: ./packages/format-library/build-module/default-formats.js
 /**
  * Internal dependencies
@@ -1829,7 +1897,8 @@ const keyboard = {
 
 
 
-/* harmony default export */ var default_formats = ([bold, code_code, image_image, italic, build_module_link_link, strikethrough, underline, text_color_textColor, subscript_subscript, superscript_superscript, keyboard]);
+
+/* harmony default export */ var default_formats = ([bold, code_code, image_image, italic, build_module_link_link, strikethrough, underline, text_color_textColor, subscript_subscript, superscript_superscript, keyboard, unknown]);
 
 ;// CONCATENATED MODULE: ./packages/format-library/build-module/index.js
 /**

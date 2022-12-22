@@ -1341,6 +1341,86 @@ module.exports = _extends({
 
 /***/ }),
 
+/***/ 5619:
+/***/ (function(module) {
+
+"use strict";
+
+
+// do not edit .js files directly - edit src/index.jst
+
+
+  var envHasBigInt64Array = typeof BigInt64Array !== 'undefined';
+
+
+module.exports = function equal(a, b) {
+  if (a === b) return true;
+
+  if (a && b && typeof a == 'object' && typeof b == 'object') {
+    if (a.constructor !== b.constructor) return false;
+
+    var length, i, keys;
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (!equal(a[i], b[i])) return false;
+      return true;
+    }
+
+
+    if ((a instanceof Map) && (b instanceof Map)) {
+      if (a.size !== b.size) return false;
+      for (i of a.entries())
+        if (!b.has(i[0])) return false;
+      for (i of a.entries())
+        if (!equal(i[1], b.get(i[0]))) return false;
+      return true;
+    }
+
+    if ((a instanceof Set) && (b instanceof Set)) {
+      if (a.size !== b.size) return false;
+      for (i of a.entries())
+        if (!b.has(i[0])) return false;
+      return true;
+    }
+
+    if (ArrayBuffer.isView(a) && ArrayBuffer.isView(b)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (a[i] !== b[i]) return false;
+      return true;
+    }
+
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
+
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;)
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+
+    for (i = length; i-- !== 0;) {
+      var key = keys[i];
+
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  // true if both NaN, false otherwise
+  return a!==a && b!==b;
+};
+
+
+/***/ }),
+
 /***/ 8575:
 /***/ (function(module) {
 
@@ -3402,6 +3482,7 @@ __webpack_require__.d(selectors_namespaceObject, {
   "getFirstMultiSelectedBlockClientId": function() { return getFirstMultiSelectedBlockClientId; },
   "getGlobalBlockCount": function() { return getGlobalBlockCount; },
   "getInserterItems": function() { return getInserterItems; },
+  "getLastInsertedBlockClientId": function() { return getLastInsertedBlockClientId; },
   "getLastMultiSelectedBlockClientId": function() { return getLastMultiSelectedBlockClientId; },
   "getLowestCommonAncestorWithSelectedBlock": function() { return getLowestCommonAncestorWithSelectedBlock; },
   "getMultiSelectedBlockClientIds": function() { return getMultiSelectedBlockClientIds; },
@@ -3589,6 +3670,9 @@ const groups = {
 };
 /* harmony default export */ var block_controls_groups = (groups);
 
+// EXTERNAL MODULE: ./node_modules/fast-deep-equal/es6/index.js
+var es6 = __webpack_require__(5619);
+var es6_default = /*#__PURE__*/__webpack_require__.n(es6);
 ;// CONCATENATED MODULE: external ["wp","i18n"]
 var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/store/defaults.js
@@ -3833,6 +3917,7 @@ function moveTo(array, from, to) {
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
@@ -3862,16 +3947,18 @@ const identity = x => x;
 
 function mapBlockOrder(blocks) {
   let rootClientId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  const result = {
-    [rootClientId]: []
-  };
+  const result = new Map();
+  const current = [];
+  result.set(rootClientId, current);
   blocks.forEach(block => {
     const {
       clientId,
       innerBlocks
     } = block;
-    result[rootClientId].push(clientId);
-    Object.assign(result, mapBlockOrder(innerBlocks, clientId));
+    current.push(clientId);
+    mapBlockOrder(innerBlocks, clientId).forEach((order, subClientId) => {
+      result.set(subClientId, order);
+    });
   });
   return result;
 }
@@ -3888,9 +3975,25 @@ function mapBlockOrder(blocks) {
 
 function mapBlockParents(blocks) {
   let rootClientId = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-  return blocks.reduce((result, block) => Object.assign(result, {
-    [block.clientId]: rootClientId
-  }, mapBlockParents(block.innerBlocks, block.clientId)), {});
+  const result = [];
+  const stack = [[rootClientId, blocks]];
+
+  while (stack.length) {
+    const [parent, currentBlocks] = stack.shift();
+    currentBlocks.forEach(_ref => {
+      let {
+        innerBlocks,
+        ...block
+      } = _ref;
+      result.push([block.clientId, parent]);
+
+      if (innerBlocks !== null && innerBlocks !== void 0 && innerBlocks.length) {
+        stack.push([block.clientId, innerBlocks]);
+      }
+    });
+  }
+
+  return result;
 }
 /**
  * Helper method to iterate through all blocks, recursing into inner blocks,
@@ -3900,12 +4003,28 @@ function mapBlockParents(blocks) {
  * @param {Array}    blocks    Blocks to flatten.
  * @param {Function} transform Transforming function to be applied to each block.
  *
- * @return {Object} Flattened object.
+ * @return {Array} Flattened object.
  */
 
 
 function flattenBlocks(blocks) {
   let transform = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : identity;
+  const result = [];
+  const stack = [...blocks];
+
+  while (stack.length) {
+    const {
+      innerBlocks,
+      ...block
+    } = stack.shift();
+    stack.push(...innerBlocks);
+    result.push([block.clientId, transform(block)]);
+  }
+
+  return result;
+}
+
+function getFlattenedClientIds(blocks) {
   const result = {};
   const stack = [...blocks];
 
@@ -3915,7 +4034,7 @@ function flattenBlocks(blocks) {
       ...block
     } = stack.shift();
     stack.push(...innerBlocks);
-    result[block.clientId] = transform(block);
+    result[block.clientId] = true;
   }
 
   return result;
@@ -3927,7 +4046,7 @@ function flattenBlocks(blocks) {
  *
  * @param {Array} blocks Blocks to flatten.
  *
- * @return {Object} Flattened block attributes object.
+ * @return {Array} Flattened block attributes object.
  */
 
 
@@ -3941,7 +4060,7 @@ function getFlattenedBlocksWithoutAttributes(blocks) {
  *
  * @param {Array} blocks Blocks to flatten.
  *
- * @return {Object} Flattened block attributes object.
+ * @return {Array} Flattened block attributes object.
  */
 
 
@@ -3960,7 +4079,7 @@ function getFlattenedBlockAttributes(blocks) {
 
 
 function hasSameKeys(a, b) {
-  return (0,external_lodash_namespaceObject.isEqual)(Object.keys(a), Object.keys(b));
+  return es6_default()(Object.keys(a), Object.keys(b));
 }
 /**
  * Returns true if, given the currently dispatching action and the previously
@@ -3974,11 +4093,11 @@ function hasSameKeys(a, b) {
  */
 
 function isUpdatingSameBlockAttribute(action, lastAction) {
-  return action.type === 'UPDATE_BLOCK_ATTRIBUTES' && lastAction !== undefined && lastAction.type === 'UPDATE_BLOCK_ATTRIBUTES' && (0,external_lodash_namespaceObject.isEqual)(action.clientIds, lastAction.clientIds) && hasSameKeys(action.attributes, lastAction.attributes);
+  return action.type === 'UPDATE_BLOCK_ATTRIBUTES' && lastAction !== undefined && lastAction.type === 'UPDATE_BLOCK_ATTRIBUTES' && es6_default()(action.clientIds, lastAction.clientIds) && hasSameKeys(action.attributes, lastAction.attributes);
 }
 
-function buildBlockTree(state, blocks) {
-  const result = {};
+function updateBlockTreeForBlocks(state, blocks) {
+  const treeToUpdate = state.tree;
   const stack = [...blocks];
   const flattenedBlocks = [...blocks];
 
@@ -3990,26 +4109,25 @@ function buildBlockTree(state, blocks) {
 
 
   for (const block of flattenedBlocks) {
-    result[block.clientId] = {};
+    treeToUpdate.set(block.clientId, {});
   }
 
   for (const block of flattenedBlocks) {
-    result[block.clientId] = Object.assign(result[block.clientId], { ...state.byClientId[block.clientId],
+    treeToUpdate.set(block.clientId, Object.assign(treeToUpdate.get(block.clientId), { ...state.byClientId.get(block.clientId),
       attributes: state.attributes.get(block.clientId),
-      innerBlocks: block.innerBlocks.map(subBlock => result[subBlock.clientId])
-    });
+      innerBlocks: block.innerBlocks.map(subBlock => treeToUpdate.get(subBlock.clientId))
+    }));
   }
-
-  return result;
 }
 
-function updateParentInnerBlocksInTree(state, tree, updatedClientIds) {
-  let updateChildrenOfUpdatedClientIds = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+function updateParentInnerBlocksInTree(state, updatedClientIds) {
+  let updateChildrenOfUpdatedClientIds = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  const treeToUpdate = state.tree;
   const uncontrolledParents = new Set([]);
   const controlledParents = new Set();
 
   for (const clientId of updatedClientIds) {
-    let current = updateChildrenOfUpdatedClientIds ? clientId : state.parents[clientId];
+    let current = updateChildrenOfUpdatedClientIds ? clientId : state.parents.get(clientId);
 
     do {
       if (state.controlledInnerBlocks[current]) {
@@ -4020,7 +4138,7 @@ function updateParentInnerBlocksInTree(state, tree, updatedClientIds) {
       } else {
         // Else continue traversing up through parents.
         uncontrolledParents.add(current);
-        current = state.parents[current];
+        current = state.parents.get(current);
       }
     } while (current !== undefined);
   } // To make sure the order of assignments doesn't matter,
@@ -4028,23 +4146,21 @@ function updateParentInnerBlocksInTree(state, tree, updatedClientIds) {
 
 
   for (const clientId of uncontrolledParents) {
-    tree[clientId] = { ...tree[clientId]
-    };
+    treeToUpdate.set(clientId, { ...treeToUpdate.get(clientId)
+    });
   }
 
   for (const clientId of uncontrolledParents) {
-    tree[clientId].innerBlocks = (state.order[clientId] || []).map(subClientId => tree[subClientId]);
+    treeToUpdate.get(clientId).innerBlocks = (state.order.get(clientId) || []).map(subClientId => treeToUpdate.get(subClientId));
   } // Controlled parent blocks, need a dedicated key for their inner blocks
   // to be used when doing getBlocks( controlledBlockClientId ).
 
 
   for (const clientId of controlledParents) {
-    tree['controlled||' + clientId] = {
-      innerBlocks: (state.order[clientId] || []).map(subClientId => tree[subClientId])
-    };
+    treeToUpdate.set('controlled||' + clientId, {
+      innerBlocks: (state.order.get(clientId) || []).map(subClientId => treeToUpdate.get(subClientId))
+    });
   }
-
-  return tree;
 }
 /**
  * Higher-order reducer intended to compute full block objects key for each block in the post.
@@ -4066,61 +4182,61 @@ const withBlockTree = reducer => function () {
     return state;
   }
 
-  newState.tree = state.tree ? state.tree : {};
+  newState.tree = state.tree ? state.tree : new Map();
 
   switch (action.type) {
     case 'RECEIVE_BLOCKS':
     case 'INSERT_BLOCKS':
       {
-        const subTree = buildBlockTree(newState, action.blocks);
-        newState.tree = updateParentInnerBlocksInTree(newState, { ...newState.tree,
-          ...subTree
-        }, action.rootClientId ? [action.rootClientId] : [''], true);
+        newState.tree = new Map(newState.tree);
+        updateBlockTreeForBlocks(newState, action.blocks);
+        updateParentInnerBlocksInTree(newState, action.rootClientId ? [action.rootClientId] : [''], true);
         break;
       }
 
     case 'UPDATE_BLOCK':
-      newState.tree = updateParentInnerBlocksInTree(newState, { ...newState.tree,
-        [action.clientId]: { ...newState.tree[action.clientId],
-          ...newState.byClientId[action.clientId],
-          attributes: newState.attributes.get(action.clientId)
-        }
-      }, [action.clientId], false);
+      newState.tree = new Map(newState.tree);
+      newState.tree.set(action.clientId, { ...newState.tree.get(action.clientId),
+        ...newState.byClientId.get(action.clientId),
+        attributes: newState.attributes.get(action.clientId)
+      });
+      updateParentInnerBlocksInTree(newState, [action.clientId], false);
       break;
 
     case 'UPDATE_BLOCK_ATTRIBUTES':
       {
-        const newSubTree = action.clientIds.reduce((result, clientId) => {
-          result[clientId] = { ...newState.tree[clientId],
+        newState.tree = new Map(newState.tree);
+        action.clientIds.forEach(clientId => {
+          newState.tree.set(clientId, { ...newState.tree.get(clientId),
             attributes: newState.attributes.get(clientId)
-          };
-          return result;
-        }, {});
-        newState.tree = updateParentInnerBlocksInTree(newState, { ...newState.tree,
-          ...newSubTree
-        }, action.clientIds, false);
+          });
+        });
+        updateParentInnerBlocksInTree(newState, action.clientIds, false);
         break;
       }
 
     case 'REPLACE_BLOCKS_AUGMENTED_WITH_CHILDREN':
       {
-        const subTree = buildBlockTree(newState, action.blocks);
-        newState.tree = updateParentInnerBlocksInTree(newState, { ...(0,external_lodash_namespaceObject.omit)(newState.tree, action.replacedClientIds.concat( // Controlled inner blocks are only removed
-          // if the block doesn't move to another position
-          // otherwise their content will be lost.
-          action.replacedClientIds.filter(clientId => !subTree[clientId]).map(clientId => 'controlled||' + clientId))),
-          ...subTree
-        }, action.blocks.map(b => b.clientId), false); // If there are no replaced blocks, it means we're removing blocks so we need to update their parent.
+        const inserterClientIds = getFlattenedClientIds(action.blocks);
+        newState.tree = new Map(newState.tree);
+        action.replacedClientIds.concat( // Controlled inner blocks are only removed
+        // if the block doesn't move to another position
+        // otherwise their content will be lost.
+        action.replacedClientIds.filter(clientId => !inserterClientIds[clientId]).map(clientId => 'controlled||' + clientId)).forEach(key => {
+          newState.tree.delete(key);
+        });
+        updateBlockTreeForBlocks(newState, action.blocks);
+        updateParentInnerBlocksInTree(newState, action.blocks.map(b => b.clientId), false); // If there are no replaced blocks, it means we're removing blocks so we need to update their parent.
 
         const parentsOfRemovedBlocks = [];
 
         for (const clientId of action.clientIds) {
-          if (state.parents[clientId] !== undefined && (state.parents[clientId] === '' || newState.byClientId[state.parents[clientId]])) {
-            parentsOfRemovedBlocks.push(state.parents[clientId]);
+          if (state.parents.get(clientId) !== undefined && (state.parents.get(clientId) === '' || newState.byClientId.get(state.parents.get(clientId)))) {
+            parentsOfRemovedBlocks.push(state.parents.get(clientId));
           }
         }
 
-        newState.tree = updateParentInnerBlocksInTree(newState, newState.tree, parentsOfRemovedBlocks, true);
+        updateParentInnerBlocksInTree(newState, parentsOfRemovedBlocks, true);
         break;
       }
 
@@ -4128,12 +4244,16 @@ const withBlockTree = reducer => function () {
       const parentsOfRemovedBlocks = [];
 
       for (const clientId of action.clientIds) {
-        if (state.parents[clientId] !== undefined && (state.parents[clientId] === '' || newState.byClientId[state.parents[clientId]])) {
-          parentsOfRemovedBlocks.push(state.parents[clientId]);
+        if (state.parents.get(clientId) !== undefined && (state.parents.get(clientId) === '' || newState.byClientId.get(state.parents.get(clientId)))) {
+          parentsOfRemovedBlocks.push(state.parents.get(clientId));
         }
       }
 
-      newState.tree = updateParentInnerBlocksInTree(newState, (0,external_lodash_namespaceObject.omit)(newState.tree, action.removedClientIds.concat(action.removedClientIds.map(clientId => 'controlled||' + clientId))), parentsOfRemovedBlocks, true);
+      newState.tree = new Map(newState.tree);
+      action.removedClientIds.concat(action.removedClientIds.map(clientId => 'controlled||' + clientId)).forEach(key => {
+        newState.tree.delete(key);
+      });
+      updateParentInnerBlocksInTree(newState, parentsOfRemovedBlocks, true);
       break;
 
     case 'MOVE_BLOCKS_TO_POSITION':
@@ -4150,7 +4270,8 @@ const withBlockTree = reducer => function () {
           updatedBlockUids.push(action.toRootClientId);
         }
 
-        newState.tree = updateParentInnerBlocksInTree(newState, newState.tree, updatedBlockUids, true);
+        newState.tree = new Map(newState.tree);
+        updateParentInnerBlocksInTree(newState, updatedBlockUids, true);
         break;
       }
 
@@ -4158,7 +4279,8 @@ const withBlockTree = reducer => function () {
     case 'MOVE_BLOCKS_DOWN':
       {
         const updatedBlockUids = [action.rootClientId ? action.rootClientId : ''];
-        newState.tree = updateParentInnerBlocksInTree(newState, newState.tree, updatedBlockUids, true);
+        newState.tree = new Map(newState.tree);
+        updateParentInnerBlocksInTree(newState, updatedBlockUids, true);
         break;
       }
 
@@ -4166,19 +4288,18 @@ const withBlockTree = reducer => function () {
       {
         const updatedBlockUids = [];
         newState.attributes.forEach((attributes, clientId) => {
-          if (newState.byClientId[clientId].name === 'core/block' && attributes.ref === action.updatedId) {
+          if (newState.byClientId.get(clientId).name === 'core/block' && attributes.ref === action.updatedId) {
             updatedBlockUids.push(clientId);
           }
         });
-        newState.tree = updateParentInnerBlocksInTree(newState, { ...newState.tree,
-          ...updatedBlockUids.reduce((result, clientId) => {
-            result[clientId] = { ...newState.byClientId[clientId],
-              attributes: newState.attributes.get(clientId),
-              innerBlocks: newState.tree[clientId].innerBlocks
-            };
-            return result;
-          }, {})
-        }, updatedBlockUids, false);
+        newState.tree = new Map(newState.tree);
+        updatedBlockUids.forEach(clientId => {
+          newState.tree.set(clientId, { ...newState.byClientId.get(clientId),
+            attributes: newState.attributes.get(clientId),
+            innerBlocks: newState.tree.get(clientId).innerBlocks
+          });
+        });
+        updateParentInnerBlocksInTree(newState, updatedBlockUids, false);
       }
   }
 
@@ -4275,7 +4396,7 @@ const withInnerBlocksRemoveCascade = reducer => (state, action) => {
     let result = clientIds;
 
     for (let i = 0; i < result.length; i++) {
-      if (!state.order[result[i]] || action.keepControlledInnerBlocks && action.keepControlledInnerBlocks[result[i]]) {
+      if (!state.order.get(result[i]) || action.keepControlledInnerBlocks && action.keepControlledInnerBlocks[result[i]]) {
         continue;
       }
 
@@ -4283,7 +4404,7 @@ const withInnerBlocksRemoveCascade = reducer => (state, action) => {
         result = [...result];
       }
 
-      result.push(...state.order[result[i]]);
+      result.push(...state.order.get(result[i]));
     }
 
     return result;
@@ -4324,19 +4445,17 @@ const withInnerBlocksRemoveCascade = reducer => (state, action) => {
 const withBlockReset = reducer => (state, action) => {
   if (action.type === 'RESET_BLOCKS') {
     const newState = { ...state,
-      byClientId: getFlattenedBlocksWithoutAttributes(action.blocks),
-      attributes: new Map(Object.entries(getFlattenedBlockAttributes(action.blocks))),
+      byClientId: new Map(getFlattenedBlocksWithoutAttributes(action.blocks)),
+      attributes: new Map(getFlattenedBlockAttributes(action.blocks)),
       order: mapBlockOrder(action.blocks),
-      parents: mapBlockParents(action.blocks),
+      parents: new Map(mapBlockParents(action.blocks)),
       controlledInnerBlocks: {}
     };
-    const subTree = buildBlockTree(newState, action.blocks);
-    newState.tree = { ...subTree,
-      // Root.
-      '': {
-        innerBlocks: action.blocks.map(subBlock => subTree[subBlock.clientId])
-      }
-    };
+    newState.tree = new Map(state === null || state === void 0 ? void 0 : state.tree);
+    updateBlockTreeForBlocks(newState, action.blocks);
+    newState.tree.set('', {
+      innerBlocks: action.blocks.map(subBlock => newState.tree.get(subBlock.clientId))
+    });
     return newState;
   }
 
@@ -4389,11 +4508,11 @@ const withReplaceInnerBlocks = reducer => (state, action) => {
 
   let stateAfterBlocksRemoval = state;
 
-  if (state.order[action.rootClientId]) {
+  if (state.order.get(action.rootClientId)) {
     stateAfterBlocksRemoval = reducer(stateAfterBlocksRemoval, {
       type: 'REMOVE_BLOCKS',
       keepControlledInnerBlocks: nestedControllers,
-      clientIds: state.order[action.rootClientId]
+      clientIds: state.order.get(action.rootClientId)
     });
   }
 
@@ -4407,26 +4526,21 @@ const withReplaceInnerBlocks = reducer => (state, action) => {
     // preserve their block order. Otherwise, an inner block controller's blocks
     // will be deleted entirely from its entity.
 
-    stateAfterInsert.order = { ...stateAfterInsert.order,
-      ...Object.keys(nestedControllers).reduce((result, key) => {
-        if (state.order[key]) {
-          result[key] = state.order[key];
-        }
+    const stateAfterInsertOrder = new Map(stateAfterInsert.order);
+    Object.keys(nestedControllers).forEach(key => {
+      if (state.order.get(key)) {
+        stateAfterInsertOrder.set(key, state.order.get(key));
+      }
+    });
+    stateAfterInsert.order = stateAfterInsertOrder;
+    stateAfterInsert.tree = new Map(stateAfterInsert.tree);
+    Object.keys(nestedControllers).forEach(_key => {
+      const key = `controlled||${_key}`;
 
-        return result;
-      }, {})
-    };
-    stateAfterInsert.tree = { ...stateAfterInsert.tree,
-      ...Object.keys(nestedControllers).reduce((result, _key) => {
-        const key = `controlled||${_key}`;
-
-        if (state.tree[key]) {
-          result[key] = state.tree[key];
-        }
-
-        return result;
-      }, {})
-    };
+      if (state.tree.has(key)) {
+        stateAfterInsert.tree.set(key, state.tree.get(key));
+      }
+    });
   }
 
   return stateAfterInsert;
@@ -4460,7 +4574,7 @@ const withSaveReusableBlock = reducer => (state, action) => {
     state.attributes.forEach((attributes, clientId) => {
       const {
         name
-      } = state.byClientId[clientId];
+      } = state.byClientId.get(clientId);
 
       if (name === 'core/block' && attributes.ref === id) {
         state.attributes.set(clientId, { ...attributes,
@@ -4509,52 +4623,79 @@ const blocks = (0,external_wp_compose_namespaceObject.pipe)(external_wp_data_nam
 withBlockTree, // Needs to be before withInnerBlocksRemoveCascade.
 withInnerBlocksRemoveCascade, withReplaceInnerBlocks, // Needs to be after withInnerBlocksRemoveCascade.
 withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetControlledBlocks)({
+  // The state is using a Map instead of a plain object for performance reasons.
+  // You can run the "./test/performance.js" unit test to check the impact
+  // code changes can have on this reducer.
   byClientId() {
-    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Map();
     let action = arguments.length > 1 ? arguments[1] : undefined;
 
     switch (action.type) {
       case 'RECEIVE_BLOCKS':
       case 'INSERT_BLOCKS':
-        return { ...state,
-          ...getFlattenedBlocksWithoutAttributes(action.blocks)
-        };
+        {
+          const newState = new Map(state);
+          getFlattenedBlocksWithoutAttributes(action.blocks).forEach(_ref2 => {
+            let [key, value] = _ref2;
+            newState.set(key, value);
+          });
+          return newState;
+        }
 
       case 'UPDATE_BLOCK':
-        // Ignore updates if block isn't known.
-        if (!state[action.clientId]) {
-          return state;
-        } // Do nothing if only attributes change.
+        {
+          // Ignore updates if block isn't known.
+          if (!state.has(action.clientId)) {
+            return state;
+          } // Do nothing if only attributes change.
 
 
-        const changes = (0,external_lodash_namespaceObject.omit)(action.updates, 'attributes');
+          const changes = (0,external_lodash_namespaceObject.omit)(action.updates, 'attributes');
 
-        if ((0,external_lodash_namespaceObject.isEmpty)(changes)) {
-          return state;
-        }
-
-        return { ...state,
-          [action.clientId]: { ...state[action.clientId],
-            ...changes
+          if ((0,external_lodash_namespaceObject.isEmpty)(changes)) {
+            return state;
           }
-        };
+
+          const newState = new Map(state);
+          newState.set(action.clientId, { ...state.get(action.clientId),
+            ...changes
+          });
+          return newState;
+        }
 
       case 'REPLACE_BLOCKS_AUGMENTED_WITH_CHILDREN':
-        if (!action.blocks) {
-          return state;
+        {
+          if (!action.blocks) {
+            return state;
+          }
+
+          const newState = new Map(state);
+          action.replacedClientIds.forEach(clientId => {
+            newState.delete(clientId);
+          });
+          getFlattenedBlocksWithoutAttributes(action.blocks).forEach(_ref3 => {
+            let [key, value] = _ref3;
+            newState.set(key, value);
+          });
+          return newState;
         }
 
-        return { ...(0,external_lodash_namespaceObject.omit)(state, action.replacedClientIds),
-          ...getFlattenedBlocksWithoutAttributes(action.blocks)
-        };
-
       case 'REMOVE_BLOCKS_AUGMENTED_WITH_CHILDREN':
-        return (0,external_lodash_namespaceObject.omit)(state, action.removedClientIds);
+        {
+          const newState = new Map(state);
+          action.removedClientIds.forEach(clientId => {
+            newState.delete(clientId);
+          });
+          return newState;
+        }
     }
 
     return state;
   },
 
+  // The state is using a Map instead of a plain object for performance reasons.
+  // You can run the "./test/performance.js" unit test to check the impact
+  // code changes can have on this reducer.
   attributes() {
     let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Map();
     let action = arguments.length > 1 ? arguments[1] : undefined;
@@ -4564,8 +4705,8 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetCont
       case 'INSERT_BLOCKS':
         {
           const newState = new Map(state);
-          Object.entries(getFlattenedBlockAttributes(action.blocks)).forEach(_ref => {
-            let [key, value] = _ref;
+          getFlattenedBlockAttributes(action.blocks).forEach(_ref4 => {
+            let [key, value] = _ref4;
             newState.set(key, value);
           });
           return newState;
@@ -4607,8 +4748,8 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetCont
             let hasUpdatedAttributes = false;
             const existingAttributes = state.get(clientId);
             const newAttributes = {};
-            updatedAttributeEntries.forEach(_ref2 => {
-              let [key, value] = _ref2;
+            updatedAttributeEntries.forEach(_ref5 => {
+              let [key, value] = _ref5;
 
               if (existingAttributes[key] !== value) {
                 hasUpdatedAttributes = true;
@@ -4637,8 +4778,8 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetCont
           action.replacedClientIds.forEach(clientId => {
             newState.delete(clientId);
           });
-          Object.entries(getFlattenedBlockAttributes(action.blocks)).forEach(_ref3 => {
-            let [key, value] = _ref3;
+          getFlattenedBlockAttributes(action.blocks).forEach(_ref6 => {
+            let [key, value] = _ref6;
             newState.set(key, value);
           });
           return newState;
@@ -4657,18 +4798,27 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetCont
     return state;
   },
 
+  // The state is using a Map instead of a plain object for performance reasons.
+  // You can run the "./test/performance.js" unit test to check the impact
+  // code changes can have on this reducer.
   order() {
-    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Map();
     let action = arguments.length > 1 ? arguments[1] : undefined;
 
     switch (action.type) {
       case 'RECEIVE_BLOCKS':
         {
+          var _state$get;
+
           const blockOrder = mapBlockOrder(action.blocks);
-          return { ...state,
-            ...(0,external_lodash_namespaceObject.omit)(blockOrder, ''),
-            '': ((state === null || state === void 0 ? void 0 : state['']) || []).concat(blockOrder[''])
-          };
+          const newState = new Map(state);
+          blockOrder.forEach((order, clientId) => {
+            if (clientId !== '') {
+              newState.set(clientId, order);
+            }
+          });
+          newState.set('', ((_state$get = state.get('')) !== null && _state$get !== void 0 ? _state$get : []).concat(blockOrder['']));
+          return newState;
         }
 
       case 'INSERT_BLOCKS':
@@ -4676,20 +4826,22 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetCont
           const {
             rootClientId = ''
           } = action;
-          const subState = state[rootClientId] || [];
+          const subState = state.get(rootClientId) || [];
           const mappedBlocks = mapBlockOrder(action.blocks, rootClientId);
           const {
             index = subState.length
           } = action;
-          return { ...state,
-            ...mappedBlocks,
-            [rootClientId]: insertAt(subState, mappedBlocks[rootClientId], index)
-          };
+          const newState = new Map(state);
+          mappedBlocks.forEach((order, clientId) => {
+            newState.set(clientId, order);
+          });
+          newState.set(rootClientId, insertAt(subState, mappedBlocks.get(rootClientId), index));
+          return newState;
         }
 
       case 'MOVE_BLOCKS_TO_POSITION':
         {
-          var _state$fromRootClient, _state$fromRootClient2;
+          var _state$get$filter, _state$get2;
 
           const {
             fromRootClientId = '',
@@ -4697,22 +4849,22 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetCont
             clientIds
           } = action;
           const {
-            index = state[toRootClientId].length
+            index = state.get(toRootClientId).length
           } = action; // Moving inside the same parent block.
 
           if (fromRootClientId === toRootClientId) {
-            const subState = state[toRootClientId];
+            const subState = state.get(toRootClientId);
             const fromIndex = subState.indexOf(clientIds[0]);
-            return { ...state,
-              [toRootClientId]: moveTo(state[toRootClientId], fromIndex, index, clientIds.length)
-            };
+            const newState = new Map(state);
+            newState.set(toRootClientId, moveTo(state.get(toRootClientId), fromIndex, index, clientIds.length));
+            return newState;
           } // Moving from a parent block to another.
 
 
-          return { ...state,
-            [fromRootClientId]: (_state$fromRootClient = (_state$fromRootClient2 = state[fromRootClientId]) === null || _state$fromRootClient2 === void 0 ? void 0 : _state$fromRootClient2.filter(id => !clientIds.includes(id))) !== null && _state$fromRootClient !== void 0 ? _state$fromRootClient : [],
-            [toRootClientId]: insertAt(state[toRootClientId], clientIds, index)
-          };
+          const newState = new Map(state);
+          newState.set(fromRootClientId, (_state$get$filter = (_state$get2 = state.get(fromRootClientId)) === null || _state$get2 === void 0 ? void 0 : _state$get2.filter(id => !clientIds.includes(id))) !== null && _state$get$filter !== void 0 ? _state$get$filter : []);
+          newState.set(toRootClientId, insertAt(state.get(toRootClientId), clientIds, index));
+          return newState;
         }
 
       case 'MOVE_BLOCKS_UP':
@@ -4722,16 +4874,16 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetCont
             rootClientId = ''
           } = action;
           const firstClientId = clientIds[0];
-          const subState = state[rootClientId];
+          const subState = state.get(rootClientId);
 
           if (!subState.length || firstClientId === subState[0]) {
             return state;
           }
 
           const firstIndex = subState.indexOf(firstClientId);
-          return { ...state,
-            [rootClientId]: moveTo(subState, firstIndex, firstIndex - 1, clientIds.length)
-          };
+          const newState = new Map(state);
+          newState.set(rootClientId, moveTo(subState, firstIndex, firstIndex - 1, clientIds.length));
+          return newState;
         }
 
       case 'MOVE_BLOCKS_DOWN':
@@ -4742,16 +4894,16 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetCont
           } = action;
           const firstClientId = clientIds[0];
           const lastClientId = clientIds[clientIds.length - 1];
-          const subState = state[rootClientId];
+          const subState = state.get(rootClientId);
 
           if (!subState.length || lastClientId === subState[subState.length - 1]) {
             return state;
           }
 
           const firstIndex = subState.indexOf(firstClientId);
-          return { ...state,
-            [rootClientId]: moveTo(subState, firstIndex, firstIndex + 1, clientIds.length)
-          };
+          const newState = new Map(state);
+          newState.set(rootClientId, moveTo(subState, firstIndex, firstIndex + 1, clientIds.length));
+          return newState;
         }
 
       case 'REPLACE_BLOCKS_AUGMENTED_WITH_CHILDREN':
@@ -4765,29 +4917,50 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetCont
           }
 
           const mappedBlocks = mapBlockOrder(action.blocks);
-          return (0,external_wp_compose_namespaceObject.pipe)([nextState => (0,external_lodash_namespaceObject.omit)(nextState, action.replacedClientIds), nextState => ({ ...nextState,
-            ...(0,external_lodash_namespaceObject.omit)(mappedBlocks, '')
-          }), nextState => (0,external_lodash_namespaceObject.mapValues)(nextState, subState => Object.values(subState).reduce((result, clientId) => {
-            if (clientId === clientIds[0]) {
-              return [...result, ...mappedBlocks['']];
+          const newState = new Map(state);
+          action.replacedClientIds.forEach(clientId => {
+            newState.delete(clientId);
+          });
+          mappedBlocks.forEach((order, clientId) => {
+            if (clientId !== '') {
+              newState.set(clientId, order);
             }
+          });
+          newState.forEach((order, clientId) => {
+            const newSubOrder = Object.values(order).reduce((result, subClientId) => {
+              if (subClientId === clientIds[0]) {
+                return [...result, ...mappedBlocks.get('')];
+              }
 
-            if (clientIds.indexOf(clientId) === -1) {
-              result.push(clientId);
-            }
+              if (clientIds.indexOf(subClientId) === -1) {
+                result.push(subClientId);
+              }
 
-            return result;
-          }, []))])(state);
+              return result;
+            }, []);
+            newState.set(clientId, newSubOrder);
+          });
+          return newState;
         }
 
       case 'REMOVE_BLOCKS_AUGMENTED_WITH_CHILDREN':
-        return (0,external_wp_compose_namespaceObject.pipe)([// Remove inner block ordering for removed blocks.
-        nextState => (0,external_lodash_namespaceObject.omit)(nextState, action.removedClientIds), // Remove deleted blocks from other blocks' orderings.
-        nextState => (0,external_lodash_namespaceObject.mapValues)(nextState, subState => {
-          var _subState$filter;
+        {
+          const newState = new Map(state); // Remove inner block ordering for removed blocks.
 
-          return (_subState$filter = subState === null || subState === void 0 ? void 0 : subState.filter(id => !action.removedClientIds.includes(id))) !== null && _subState$filter !== void 0 ? _subState$filter : [];
-        })])(state);
+          action.removedClientIds.forEach(clientId => {
+            newState.delete(clientId);
+          });
+          newState.forEach((order, clientId) => {
+            var _order$filter;
+
+            const newSubOrder = (_order$filter = order === null || order === void 0 ? void 0 : order.filter(id => !action.removedClientIds.includes(id))) !== null && _order$filter !== void 0 ? _order$filter : [];
+
+            if (newSubOrder.length !== order.length) {
+              newState.set(clientId, newSubOrder);
+            }
+          });
+          return newState;
+        }
     }
 
     return state;
@@ -4796,37 +4969,60 @@ withBlockReset, withPersistentBlockChange, withIgnoredBlockChange, withResetCont
   // While technically redundant data as the inverse of `order`, it serves as
   // an optimization for the selectors which derive the ancestry of a block.
   parents() {
-    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new Map();
     let action = arguments.length > 1 ? arguments[1] : undefined;
 
     switch (action.type) {
       case 'RECEIVE_BLOCKS':
-        return { ...state,
-          ...mapBlockParents(action.blocks)
-        };
+        {
+          const newState = new Map(state);
+          mapBlockParents(action.blocks).forEach(_ref7 => {
+            let [key, value] = _ref7;
+            newState.set(key, value);
+          });
+          return newState;
+        }
 
       case 'INSERT_BLOCKS':
-        return { ...state,
-          ...mapBlockParents(action.blocks, action.rootClientId || '')
-        };
+        {
+          const newState = new Map(state);
+          mapBlockParents(action.blocks, action.rootClientId || '').forEach(_ref8 => {
+            let [key, value] = _ref8;
+            newState.set(key, value);
+          });
+          return newState;
+        }
 
       case 'MOVE_BLOCKS_TO_POSITION':
         {
-          return { ...state,
-            ...action.clientIds.reduce((accumulator, id) => {
-              accumulator[id] = action.toRootClientId || '';
-              return accumulator;
-            }, {})
-          };
+          const newState = new Map(state);
+          action.clientIds.forEach(id => {
+            newState.set(id, action.toRootClientId || '');
+          });
+          return newState;
         }
 
       case 'REPLACE_BLOCKS_AUGMENTED_WITH_CHILDREN':
-        return { ...(0,external_lodash_namespaceObject.omit)(state, action.replacedClientIds),
-          ...mapBlockParents(action.blocks, state[action.clientIds[0]])
-        };
+        {
+          const newState = new Map(state);
+          action.replacedClientIds.forEach(clientId => {
+            newState.delete(clientId);
+          });
+          mapBlockParents(action.blocks, state.get(action.clientIds[0])).forEach(_ref9 => {
+            let [key, value] = _ref9;
+            newState.set(key, value);
+          });
+          return newState;
+        }
 
       case 'REMOVE_BLOCKS_AUGMENTED_WITH_CHILDREN':
-        return (0,external_lodash_namespaceObject.omit)(state, action.removedClientIds);
+        {
+          const newState = new Map(state);
+          action.removedClientIds.forEach(clientId => {
+            newState.delete(clientId);
+          });
+          return newState;
+        }
     }
 
     return state;
@@ -5227,7 +5423,7 @@ function insertionPoint() {
           operation
         }; // Bail out updates if the states are the same.
 
-        return (0,external_lodash_namespaceObject.isEqual)(state, nextState) ? state : nextState;
+        return es6_default()(state, nextState) ? state : nextState;
       }
 
     case 'HIDE_INSERTION_POINT':
@@ -5367,7 +5563,7 @@ const blockListSettings = function () {
           return state;
         }
 
-        if ((0,external_lodash_namespaceObject.isEqual)(state[clientId], action.settings)) {
+        if (es6_default()(state[clientId], action.settings)) {
           return state;
         }
 
@@ -5955,6 +6151,63 @@ function mapRichTextSettings(attributeDefinition) {
   };
 }
 
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/utils/sorting.js
+/**
+ * Recursive stable sorting comparator function.
+ *
+ * @param {string|Function} field Field to sort by.
+ * @param {Array}           items Items to sort.
+ * @param {string}          order Order, 'asc' or 'desc'.
+ * @return {Function} Comparison function to be used in a `.sort()`.
+ */
+const comparator = (field, items, order) => {
+  return (a, b) => {
+    let cmpA, cmpB;
+
+    if (typeof field === 'function') {
+      cmpA = field(a);
+      cmpB = field(b);
+    } else {
+      cmpA = a[field];
+      cmpB = b[field];
+    }
+
+    if (cmpA > cmpB) {
+      return order === 'asc' ? 1 : -1;
+    } else if (cmpB > cmpA) {
+      return order === 'asc' ? -1 : 1;
+    }
+
+    const orderA = items.findIndex(item => item === a);
+    const orderB = items.findIndex(item => item === b); // Stable sort: maintaining original array order
+
+    if (orderA > orderB) {
+      return 1;
+    } else if (orderB > orderA) {
+      return -1;
+    }
+
+    return 0;
+  };
+};
+/**
+ * Order items by a certain key.
+ * Supports decorator functions that allow complex picking of a comparison field.
+ * Sorts in ascending order by default, but supports descending as well.
+ * Stable sort - maintains original order of equal items.
+ *
+ * @param {Array}           items Items to order.
+ * @param {string|Function} field Field to order by.
+ * @param {string}          order Sorting order, `asc` or `desc`.
+ * @return {Array} Sorted items.
+ */
+
+
+function orderBy(items, field) {
+  let order = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'asc';
+  return items.concat().sort(comparator(field, items, order));
+}
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/store/selectors.js
 /**
  * External dependencies
@@ -5975,6 +6228,7 @@ function mapRichTextSettings(attributeDefinition) {
 /**
  * Internal dependencies
  */
+
 
 
 /**
@@ -6014,7 +6268,7 @@ const EMPTY_ARRAY = [];
  */
 
 function getBlockName(state, clientId) {
-  const block = state.blocks.byClientId[clientId];
+  const block = state.blocks.byClientId.get(clientId);
   const socialLinkName = 'core/social-link';
 
   if (external_wp_element_namespaceObject.Platform.OS !== 'web' && (block === null || block === void 0 ? void 0 : block.name) === socialLinkName) {
@@ -6037,7 +6291,7 @@ function getBlockName(state, clientId) {
  */
 
 function isBlockValid(state, clientId) {
-  const block = state.blocks.byClientId[clientId];
+  const block = state.blocks.byClientId.get(clientId);
   return !!block && block.isValid;
 }
 /**
@@ -6051,7 +6305,7 @@ function isBlockValid(state, clientId) {
  */
 
 function getBlockAttributes(state, clientId) {
-  const block = state.blocks.byClientId[clientId];
+  const block = state.blocks.byClientId.get(clientId);
 
   if (!block) {
     return null;
@@ -6082,25 +6336,21 @@ function getBlockAttributes(state, clientId) {
  */
 
 function getBlock(state, clientId) {
-  const block = state.blocks.byClientId[clientId];
-
-  if (!block) {
+  if (!state.blocks.byClientId.has(clientId)) {
     return null;
   }
 
-  return state.blocks.tree[clientId];
+  return state.blocks.tree.get(clientId);
 }
 const __unstableGetBlockWithoutInnerBlocks = rememo((state, clientId) => {
-  const block = state.blocks.byClientId[clientId];
-
-  if (!block) {
+  if (!state.blocks.byClientId.has(clientId)) {
     return null;
   }
 
-  return { ...block,
+  return { ...state.blocks.byClientId.get(clientId),
     attributes: getBlockAttributes(state, clientId)
   };
-}, (state, clientId) => [state.blocks.byClientId[clientId], state.blocks.attributes.get(clientId)]);
+}, (state, clientId) => [state.blocks.byClientId.get(clientId), state.blocks.attributes.get(clientId)]);
 /**
  * Returns all block objects for the current post being edited as an array in
  * the order they appear in the post. Note that this will exclude child blocks
@@ -6113,10 +6363,10 @@ const __unstableGetBlockWithoutInnerBlocks = rememo((state, clientId) => {
  */
 
 function getBlocks(state, rootClientId) {
-  var _state$blocks$tree$tr;
+  var _state$blocks$tree$ge;
 
   const treeKey = !rootClientId || !areInnerBlocksControlled(state, rootClientId) ? rootClientId || '' : 'controlled||' + rootClientId;
-  return ((_state$blocks$tree$tr = state.blocks.tree[treeKey]) === null || _state$blocks$tree$tr === void 0 ? void 0 : _state$blocks$tree$tr.innerBlocks) || EMPTY_ARRAY;
+  return ((_state$blocks$tree$ge = state.blocks.tree.get(treeKey)) === null || _state$blocks$tree$ge === void 0 ? void 0 : _state$blocks$tree$ge.innerBlocks) || EMPTY_ARRAY;
 }
 /**
  * Returns a stripped down block object containing only its client ID,
@@ -6206,7 +6456,7 @@ const getGlobalBlockCount = rememo((state, blockName) => {
   }
 
   return clientIds.reduce((accumulator, clientId) => {
-    const block = state.blocks.byClientId[clientId];
+    const block = state.blocks.byClientId.get(clientId);
     return block.name === blockName ? accumulator + 1 : accumulator;
   }, 0);
 }, state => [state.blocks.order, state.blocks.byClientId]);
@@ -6226,7 +6476,7 @@ const __experimentalGetGlobalBlocksByName = rememo((state, blockName) => {
 
   const clientIds = getClientIdsWithDescendants(state);
   const foundBlocks = clientIds.filter(clientId => {
-    const block = state.blocks.byClientId[clientId];
+    const block = state.blocks.byClientId.get(clientId);
     return block.name === blockName;
   });
   return foundBlocks.length > 0 ? foundBlocks : EMPTY_ARRAY;
@@ -6241,7 +6491,7 @@ const __experimentalGetGlobalBlocksByName = rememo((state, blockName) => {
  * @return {WPBlock[]} Block objects.
  */
 
-const getBlocksByClientId = rememo((state, clientIds) => (0,external_lodash_namespaceObject.map)(Array.isArray(clientIds) ? clientIds : [clientIds], clientId => getBlock(state, clientId)), (state, clientIds) => (0,external_lodash_namespaceObject.map)(Array.isArray(clientIds) ? clientIds : [clientIds], clientId => state.blocks.tree[clientId]));
+const getBlocksByClientId = rememo((state, clientIds) => (0,external_lodash_namespaceObject.map)(Array.isArray(clientIds) ? clientIds : [clientIds], clientId => getBlock(state, clientId)), (state, clientIds) => (0,external_lodash_namespaceObject.map)(Array.isArray(clientIds) ? clientIds : [clientIds], clientId => state.blocks.tree.get(clientId)));
 /**
  * Returns the number of blocks currently present in the post.
  *
@@ -6384,7 +6634,7 @@ function getSelectedBlock(state) {
  */
 
 function getBlockRootClientId(state, clientId) {
-  return state.blocks.parents[clientId] !== undefined ? state.blocks.parents[clientId] : null;
+  return state.blocks.parents.has(clientId) ? state.blocks.parents.get(clientId) : null;
 }
 /**
  * Given a block client ID, returns the list of all its parents from top to bottom.
@@ -6401,8 +6651,8 @@ const getBlockParents = rememo(function (state, clientId) {
   const parents = [];
   let current = clientId;
 
-  while (!!state.blocks.parents[current]) {
-    current = state.blocks.parents[current];
+  while (!!state.blocks.parents.get(current)) {
+    current = state.blocks.parents.get(current);
     parents.push(current);
   }
 
@@ -6461,7 +6711,7 @@ function getBlockHierarchyRootClientId(state, clientId) {
 
   do {
     parent = current;
-    current = state.blocks.parents[current];
+    current = state.blocks.parents.get(current);
   } while (current);
 
   return parent;
@@ -6540,7 +6790,7 @@ function getAdjacentBlockClientId(state, startClientId) {
   const {
     order
   } = state.blocks;
-  const orderSet = order[rootClientId];
+  const orderSet = order.get(rootClientId);
   const index = orderSet.indexOf(startClientId);
   const nextIndex = index + 1 * modifier; // Block was first in set and we're attempting to get previous.
 
@@ -6971,7 +7221,7 @@ const __unstableGetSelectedBlocksWithPartialSelection = state => {
  */
 
 function getBlockOrder(state, rootClientId) {
-  return state.blocks.order[rootClientId || ''] || EMPTY_ARRAY;
+  return state.blocks.order.get(rootClientId || '') || EMPTY_ARRAY;
 }
 /**
  * Returns the index at which the block corresponding to the specified client
@@ -7272,21 +7522,19 @@ function getTemplate(state) {
  * @param {Object}  state        Editor state.
  * @param {?string} rootClientId Optional block root client ID.
  *
- * @return {?string} Block Template Lock
+ * @return {string|false} Block Template Lock
  */
 
 function getTemplateLock(state, rootClientId) {
+  var _getBlockListSettings, _getBlockListSettings2;
+
   if (!rootClientId) {
-    return state.settings.templateLock;
+    var _state$settings$templ;
+
+    return (_state$settings$templ = state.settings.templateLock) !== null && _state$settings$templ !== void 0 ? _state$settings$templ : false;
   }
 
-  const blockListSettings = getBlockListSettings(state, rootClientId);
-
-  if (!blockListSettings) {
-    return undefined;
-  }
-
-  return blockListSettings.templateLock;
+  return (_getBlockListSettings = (_getBlockListSettings2 = getBlockListSettings(state, rootClientId)) === null || _getBlockListSettings2 === void 0 ? void 0 : _getBlockListSettings2.templateLock) !== null && _getBlockListSettings !== void 0 ? _getBlockListSettings : false;
 }
 
 const checkAllowList = function (list, item) {
@@ -7412,7 +7660,7 @@ const canInsertBlockTypeUnmemoized = function (state, blockName) {
  */
 
 
-const canInsertBlockType = rememo(canInsertBlockTypeUnmemoized, (state, blockName, rootClientId) => [state.blockListSettings[rootClientId], state.blocks.byClientId[rootClientId], state.settings.allowedBlockTypes, state.settings.templateLock]);
+const canInsertBlockType = rememo(canInsertBlockTypeUnmemoized, (state, blockName, rootClientId) => [state.blockListSettings[rootClientId], state.blocks.byClientId.get(rootClientId), state.settings.allowedBlockTypes, state.settings.templateLock]);
 /**
  * Determines if the given blocks are allowed to be inserted into the block
  * list.
@@ -7920,8 +8168,8 @@ const getBlockTransformItems = rememo(function (state, blocks) {
 
     return accumulator;
   }, []);
-  return (0,external_lodash_namespaceObject.orderBy)(possibleTransforms, block => itemsByName[block.name].frecency, 'desc');
-}, (state, rootClientId) => [state.blockListSettings[rootClientId], state.blocks.byClientId, state.preferences.insertUsage, state.settings.allowedBlockTypes, state.settings.templateLock, (0,external_wp_blocks_namespaceObject.getBlockTypes)()]);
+  return orderBy(possibleTransforms, block => itemsByName[block.name].frecency, 'desc');
+}, (state, blocks, rootClientId) => [state.blockListSettings[rootClientId], state.blocks.byClientId, state.preferences.insertUsage, state.settings.allowedBlockTypes, state.settings.templateLock, (0,external_wp_blocks_namespaceObject.getBlockTypes)()]);
 /**
  * Determines whether there are items to show in the inserter.
  *
@@ -7995,7 +8243,7 @@ const __experimentalGetDirectInsertBlock = rememo(function (state) {
   }
 
   return defaultBlock;
-}, (state, rootClientId) => [state.blockListSettings[rootClientId], state.blocks.tree[rootClientId]]);
+}, (state, rootClientId) => [state.blockListSettings[rootClientId], state.blocks.tree.get(rootClientId)]);
 
 const checkAllowListRecursive = (blocks, allowedBlockTypes) => {
   if (typeof allowedBlockTypes === 'boolean') {
@@ -8089,7 +8337,7 @@ const __experimentalGetAllowedPatterns = rememo(function (state) {
     });
   });
   return patternsAllowed;
-}, (state, rootClientId) => [state.settings.__experimentalBlockPatterns, state.settings.allowedBlockTypes, state.settings.templateLock, state.blockListSettings[rootClientId], state.blocks.byClientId[rootClientId]]);
+}, (state, rootClientId) => [state.settings.__experimentalBlockPatterns, state.settings.allowedBlockTypes, state.settings.templateLock, state.blockListSettings[rootClientId], state.blocks.byClientId.get(rootClientId)]);
 /**
  * Returns the list of patterns based on their declared `blockTypes`
  * and a block's name.
@@ -8116,7 +8364,7 @@ const __experimentalGetPatternsByBlockTypes = rememo(function (state, blockNames
 
     return pattern === null || pattern === void 0 ? void 0 : (_pattern$blockTypes = pattern.blockTypes) === null || _pattern$blockTypes === void 0 ? void 0 : (_pattern$blockTypes$s = _pattern$blockTypes.some) === null || _pattern$blockTypes$s === void 0 ? void 0 : _pattern$blockTypes$s.call(_pattern$blockTypes, blockName => normalizedBlockNames.includes(blockName));
   });
-}, (state, rootClientId) => [...__experimentalGetAllowedPatterns.getDependants(state, rootClientId)]);
+}, (state, blockNames, rootClientId) => [...__experimentalGetAllowedPatterns.getDependants(state, rootClientId)]);
 /**
  * Determines the items that appear in the available pattern transforms list.
  *
@@ -8171,7 +8419,7 @@ const __experimentalGetPatternTransformItems = rememo(function (state, blocks) {
    */
 
   return __experimentalGetPatternsByBlockTypes(state, selectedBlockNames, rootClientId);
-}, (state, rootClientId) => [...__experimentalGetPatternsByBlockTypes.getDependants(state, rootClientId)]);
+}, (state, blocks, rootClientId) => [...__experimentalGetPatternsByBlockTypes.getDependants(state, rootClientId)]);
 /**
  * Returns the Block List settings of a block, if any exist.
  *
@@ -8413,6 +8661,18 @@ function wasBlockJustInserted(state, clientId, source) {
   return lastBlockInserted.clientId === clientId && lastBlockInserted.source === source;
 }
 /**
+ * Gets the client id of the last inserted block.
+ *
+ * @param {Object} state Global application state.
+ * @return {string|undefined} Client Id of the last inserted block.
+ */
+
+function getLastInsertedBlockClientId(state) {
+  var _state$lastBlockInser;
+
+  return state === null || state === void 0 ? void 0 : (_state$lastBlockInser = state.lastBlockInserted) === null || _state$lastBlockInser === void 0 ? void 0 : _state$lastBlockInser.clientId;
+}
+/**
  * Tells if the block is visible on the canvas or not.
  *
  * @param {Object} state    Global application state.
@@ -8445,8 +8705,8 @@ const __unstableGetContentLockingParent = rememo((state, clientId) => {
   let current = clientId;
   let result;
 
-  while (!!state.blocks.parents[current]) {
-    current = state.blocks.parents[current];
+  while (state.blocks.parents.has(current)) {
+    current = state.blocks.parents.get(current);
 
     if (getTemplateLock(state, current) === 'contentOnly') {
       result = current;
@@ -10942,6 +11202,7 @@ const settings_settings = (0,external_wp_element_namespaceObject.createElement)(
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -11034,9 +11295,15 @@ function useSetting(path) {
       // eslint-disable-next-line no-console
       console.warn('Top level useSetting paths are disabled. Please use a subpath to query the information needed.');
       return undefined;
+    } // 0. Allow third parties to filter the block's settings at runtime.
+
+
+    let result = (0,external_wp_hooks_namespaceObject.applyFilters)('blockEditor.useSetting.before', undefined, path, clientId, blockName);
+
+    if (undefined !== result) {
+      return result;
     }
 
-    let result;
     const normalizedPath = removeCustomPrefixes(path); // 1. Take settings from the block instance or its ancestors.
     // Start from the current block and work our way up the ancestors.
 
@@ -12834,23 +13101,31 @@ function PaddingVisualizer(_ref2) {
  */
 
 
+
 /**
  * Internal dependencies
  */
 
 
 
-function helpText(selfStretch) {
-  switch (selfStretch) {
-    case 'fill':
-      return (0,external_wp_i18n_namespaceObject.__)('Stretch to fill available space.');
+function helpText(selfStretch, parentLayout) {
+  const {
+    orientation = 'horizontal'
+  } = parentLayout;
 
-    case 'fixed':
-      return (0,external_wp_i18n_namespaceObject.__)('Specify a fixed width.');
-
-    default:
-      return (0,external_wp_i18n_namespaceObject.__)('Fit contents.');
+  if (selfStretch === 'fill') {
+    return (0,external_wp_i18n_namespaceObject.__)('Stretch to fill available space.');
   }
+
+  if (selfStretch === 'fixed') {
+    if (orientation === 'horizontal') {
+      return (0,external_wp_i18n_namespaceObject.__)('Specify a fixed width.');
+    }
+
+    return (0,external_wp_i18n_namespaceObject.__)('Specify a fixed height.');
+  }
+
+  return (0,external_wp_i18n_namespaceObject.__)('Fit contents.');
 }
 /**
  * Inspector controls containing the child layout related configuration.
@@ -12880,11 +13155,22 @@ function ChildLayoutEdit(_ref) {
     selfStretch,
     flexSize
   } = childLayout;
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (selfStretch === 'fixed' && !flexSize) {
+      setAttributes({
+        style: { ...style,
+          layout: { ...childLayout,
+            selfStretch: 'fit'
+          }
+        }
+      });
+    }
+  }, []);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
     size: '__unstable-large',
     label: childLayoutOrientation(parentLayout),
     value: selfStretch || 'fit',
-    help: helpText(selfStretch),
+    help: helpText(selfStretch, parentLayout),
     onChange: value => {
       const newFlexSize = value !== 'fixed' ? null : flexSize;
       setAttributes({
@@ -12911,9 +13197,6 @@ function ChildLayoutEdit(_ref) {
     label: (0,external_wp_i18n_namespaceObject.__)('Fixed')
   })), selfStretch === 'fixed' && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalUnitControl, {
     size: '__unstable-large',
-    style: {
-      height: 'auto'
-    },
     onChange: value => {
       setAttributes({
         style: { ...style,
@@ -21524,8 +21807,7 @@ const applyWithDispatch = (0,external_wp_data_namespaceObject.withDispatch)((dis
     toggleSelection,
     __unstableMarkLastChangeAsPersistent,
     moveBlocksToPosition,
-    removeBlock,
-    selectBlock
+    removeBlock
   } = dispatch(store); // Do not add new properties here, use `useDispatch` instead to avoid
   // leaking new props to the public API (editor.BlockListBlock filter).
 
@@ -21572,9 +21854,50 @@ const applyWithDispatch = (0,external_wp_data_namespaceObject.withDispatch)((dis
         getBlock,
         getBlockAttributes,
         getBlockName,
-        getBlockOrder
-      } = registry.select(store); // For `Delete` or forward merge, we should do the exact same thing
+        getBlockOrder,
+        getBlockIndex,
+        getBlockRootClientId,
+        canInsertBlockType
+      } = registry.select(store);
+      /**
+       * Moves the block with clientId up one level. If the block type
+       * cannot be inserted at the new location, it will be attempted to
+       * convert to the default block type.
+       *
+       * @param {string}  _clientId       The block to move.
+       * @param {boolean} changeSelection Whether to change the selection
+       *                                  to the moved block.
+       */
+
+      function moveFirstItemUp(_clientId) {
+        let changeSelection = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+        const targetRootClientId = getBlockRootClientId(_clientId);
+        const blockOrder = getBlockOrder(_clientId);
+        const [firstClientId] = blockOrder;
+
+        if (blockOrder.length === 1 && (0,external_wp_blocks_namespaceObject.isUnmodifiedBlock)(getBlock(firstClientId))) {
+          removeBlock(_clientId);
+        } else {
+          if (canInsertBlockType(getBlockName(firstClientId), targetRootClientId)) {
+            moveBlocksToPosition([firstClientId], _clientId, targetRootClientId, getBlockIndex(_clientId));
+          } else {
+            const replacement = (0,external_wp_blocks_namespaceObject.switchToBlockType)(getBlock(firstClientId), (0,external_wp_blocks_namespaceObject.getDefaultBlockName)());
+
+            if (replacement && replacement.length) {
+              registry.batch(() => {
+                insertBlocks(replacement, getBlockIndex(_clientId), targetRootClientId, changeSelection);
+                removeBlock(firstClientId, false);
+              });
+            }
+          }
+
+          if (!getBlockOrder(_clientId).length && (0,external_wp_blocks_namespaceObject.isUnmodifiedBlock)(getBlock(_clientId))) {
+            removeBlock(_clientId, false);
+          }
+        }
+      } // For `Delete` or forward merge, we should do the exact same thing
       // as `Backspace`, but from the other block.
+
 
       if (forward) {
         if (rootClientId) {
@@ -21606,14 +21929,10 @@ const applyWithDispatch = (0,external_wp_data_namespaceObject.withDispatch)((dis
 
         if (!nextBlockClientId) {
           return;
-        } // Check if it's possibile to "unwrap" the following block
-        // before trying to merge.
+        }
 
-
-        const replacement = (0,external_wp_blocks_namespaceObject.switchToBlockType)(getBlock(nextBlockClientId), '*');
-
-        if (replacement && replacement.length) {
-          replaceBlocks(nextBlockClientId, replacement);
+        if (getBlockOrder(nextBlockClientId).length) {
+          moveFirstItemUp(nextBlockClientId, false);
         } else {
           mergeBlocks(clientId, nextBlockClientId);
         }
@@ -21637,18 +21956,9 @@ const applyWithDispatch = (0,external_wp_data_namespaceObject.withDispatch)((dis
               });
               return;
             }
-          } // Attempt to "unwrap" the block contents when there's no
-          // preceding block to merge with.
-
-
-          const replacement = (0,external_wp_blocks_namespaceObject.switchToBlockType)(getBlock(rootClientId), '*');
-
-          if (replacement && replacement.length) {
-            registry.batch(() => {
-              replaceBlocks(rootClientId, replacement);
-              selectBlock(replacement[0].clientId, 0);
-            });
           }
+
+          moveFirstItemUp(rootClientId);
         }
       }
     },
@@ -23671,7 +23981,9 @@ function Iframe(_ref3, ref) {
     head,
     tabIndex = 0,
     assets,
-    isZoomedOut,
+    scale = 1,
+    frameSize = 0,
+    readonly,
     ...props
   } = _ref3;
   const [, forceRender] = (0,external_wp_element_namespaceObject.useReducer)(() => ({}));
@@ -23774,17 +24086,18 @@ function Iframe(_ref3, ref) {
     title: (0,external_wp_i18n_namespaceObject.__)('Editor canvas')
   }), iframeDocument && (0,external_wp_element_namespaceObject.createPortal)((0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)("head", {
     ref: headRef
-  }, head, (0,external_wp_element_namespaceObject.createElement)("style", null, `html { transition: background 5s; ${isZoomedOut ? 'background: #2f2f2f; transition: background 0s;' : ''} }`)), (0,external_wp_element_namespaceObject.createElement)("body", {
+  }, head, (0,external_wp_element_namespaceObject.createElement)("style", null, `html { transition: background 5s; ${frameSize ? 'background: #2f2f2f; transition: background 0s;' : ''} }`)), (0,external_wp_element_namespaceObject.createElement)("body", {
     ref: bodyRef,
-    className: classnames_default()('block-editor-iframe__body', BODY_CLASS_NAME, ...bodyClasses, {
-      'is-zoomed-out': isZoomedOut
-    }),
-    style: isZoomedOut ? {
+    className: classnames_default()('block-editor-iframe__body', BODY_CLASS_NAME, ...bodyClasses),
+    style: {
       // This is the remaining percentage from the scaling down
       // of the iframe body(`scale(0.45)`). We also need to subtract
       // the body's bottom margin.
-      marginBottom: `-${contentHeight * 0.55 - 100}px`
-    } : {}
+      marginBottom: `-${contentHeight * (1 - scale) - frameSize}px`,
+      marginTop: frameSize,
+      transform: `scale( ${scale} )`
+    },
+    inert: readonly ? 'true' : undefined
   }, contentResizeListener, (0,external_wp_element_namespaceObject.createElement)("div", {
     style: {
       display: 'none'
@@ -25488,8 +25801,14 @@ function ScaledBlockPreview(_ref) {
     viewportWidth,
     containerWidth,
     __experimentalPadding,
-    __experimentalMinHeight
+    __experimentalMinHeight,
+    __experimentalStyles
   } = _ref;
+
+  if (!viewportWidth) {
+    viewportWidth = containerWidth;
+  }
+
   const [contentResizeListener, {
     height: contentHeight
   }] = (0,external_wp_compose_namespaceObject.useResizeObserver)();
@@ -25510,14 +25829,14 @@ function ScaledBlockPreview(_ref) {
 
   const editorStyles = (0,external_wp_element_namespaceObject.useMemo)(() => {
     if (styles) {
-      return [...styles, {
+      return [...styles, ...__experimentalStyles, {
         css: 'body{height:auto;overflow:hidden;}',
         __unstableType: 'presets'
       }];
     }
 
     return styles;
-  }, [styles]);
+  }, [styles, __experimentalStyles]);
   const svgFilters = (0,external_wp_element_namespaceObject.useMemo)(() => {
     var _duotone$default, _duotone$theme;
 
@@ -25620,7 +25939,8 @@ function BlockPreview(_ref) {
     blocks,
     __experimentalPadding = 0,
     viewportWidth = 1200,
-    __experimentalMinHeight
+    __experimentalMinHeight,
+    __experimentalStyles = []
   } = _ref;
   const originalSettings = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).getSettings(), []);
   const settings = (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...originalSettings,
@@ -25638,7 +25958,8 @@ function BlockPreview(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(AutoBlockPreview, {
     viewportWidth: viewportWidth,
     __experimentalPadding: __experimentalPadding,
-    __experimentalMinHeight: __experimentalMinHeight
+    __experimentalMinHeight: __experimentalMinHeight,
+    __experimentalStyles: __experimentalStyles
   }));
 }
 /**
@@ -26290,6 +26611,7 @@ function InserterListbox(_ref) {
 
 
 
+
 const getBlockNamespace = item => item.name.split('/')[0];
 
 const MAX_SUGGESTED_ITEMS = 6;
@@ -26310,7 +26632,7 @@ function BlockTypesTab(_ref) {
   } = _ref;
   const [items, categories, collections, onSelectItem] = use_block_types_state(rootClientId, onInsert);
   const suggestedItems = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return (0,external_lodash_namespaceObject.orderBy)(items, ['frecency'], ['desc']).slice(0, MAX_SUGGESTED_ITEMS);
+    return orderBy(items, 'frecency', 'desc').slice(0, MAX_SUGGESTED_ITEMS);
   }, [items]);
   const uncategorizedItems = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return items.filter(item => !item.category);
@@ -26478,13 +26800,30 @@ const usePatternsState = (onInsert, rootClientId) => {
 
 
 
-function BlockPattern(_ref) {
+const WithToolTip = _ref => {
+  let {
+    showTooltip,
+    title,
+    children
+  } = _ref;
+
+  if (showTooltip) {
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Tooltip, {
+      text: title
+    }, children);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, children);
+};
+
+function BlockPattern(_ref2) {
   let {
     isDraggable,
     pattern,
     onClick,
-    composite
-  } = _ref;
+    composite,
+    showTooltip
+  } = _ref2;
   const {
     blocks,
     viewportWidth
@@ -26495,17 +26834,20 @@ function BlockPattern(_ref) {
     isEnabled: isDraggable,
     blocks: blocks,
     isPattern: !!pattern
-  }, _ref2 => {
+  }, _ref3 => {
     let {
       draggable,
       onDragStart,
       onDragEnd
-    } = _ref2;
+    } = _ref3;
     return (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "block-editor-block-patterns-list__list-item",
       draggable: draggable,
       onDragStart: onDragStart,
       onDragEnd: onDragEnd
+    }, (0,external_wp_element_namespaceObject.createElement)(WithToolTip, {
+      showTooltip: showTooltip,
+      title: pattern.title
     }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__unstableCompositeItem, _extends({
       role: "option",
       as: "div"
@@ -26517,11 +26859,11 @@ function BlockPattern(_ref) {
     }), (0,external_wp_element_namespaceObject.createElement)(block_preview, {
       blocks: blocks,
       viewportWidth: viewportWidth
-    }), (0,external_wp_element_namespaceObject.createElement)("div", {
+    }), !showTooltip && (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "block-editor-block-patterns-list__item-title"
     }, pattern.title), !!pattern.description && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
       id: descriptionId
-    }, pattern.description)));
+    }, pattern.description))));
   });
 }
 
@@ -26531,15 +26873,16 @@ function BlockPatternPlaceholder() {
   });
 }
 
-function BlockPatternList(_ref3) {
+function BlockPatternList(_ref4) {
   let {
     isDraggable,
     blockPatterns,
     shownPatterns,
     onClickPattern,
     orientation,
-    label = (0,external_wp_i18n_namespaceObject.__)('Block Patterns')
-  } = _ref3;
+    label = (0,external_wp_i18n_namespaceObject.__)('Block Patterns'),
+    showTitlesAsTooltip
+  } = _ref4;
   const composite = (0,external_wp_components_namespaceObject.__unstableUseCompositeState)({
     orientation
   });
@@ -26554,7 +26897,8 @@ function BlockPatternList(_ref3) {
       pattern: pattern,
       onClick: onClickPattern,
       isDraggable: isDraggable,
-      composite: composite
+      composite: composite,
+      showTooltip: showTitlesAsTooltip
     }) : (0,external_wp_element_namespaceObject.createElement)(BlockPatternPlaceholder, {
       key: pattern.name
     });
@@ -27204,6 +27548,68 @@ function PatternsExplorerModal(_ref2) {
 
 /* harmony default export */ var explorer = (PatternsExplorerModal);
 
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/mobile-tab-navigation.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+function ScreenHeader(_ref) {
+  let {
+    title
+  } = _ref;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalVStack, {
+    spacing: 0
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalView, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, {
+    marginBottom: 0,
+    paddingX: 4,
+    paddingY: 3
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    spacing: 2
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorBackButton, {
+    style: // TODO: This style override is also used in ToolsPanelHeader.
+    // It should be supported out-of-the-box by Button.
+    {
+      minWidth: 24,
+      padding: 0
+    },
+    icon: (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_right : chevron_left,
+    isSmall: true,
+    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Navigate to the previous view')
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalSpacer, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHeading, {
+    level: 5
+  }, title))))));
+}
+
+function MobileTabNavigation(_ref2) {
+  let {
+    categories,
+    children
+  } = _ref2;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorProvider, {
+    initialPath: "/",
+    className: "block-editor-inserter__mobile-tab-navigation"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorScreen, {
+    path: "/"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, null, categories.map(category => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorButton, {
+    key: category.name,
+    path: `/category/${category.name}`,
+    as: external_wp_components_namespaceObject.__experimentalItem,
+    isAction: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexBlock, null, category.label), (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
+    icon: (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_left : chevron_right
+  })))))), categories.map(category => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorScreen, {
+    key: category.name,
+    path: `/category/${category.name}`
+  }, (0,external_wp_element_namespaceObject.createElement)(ScreenHeader, {
+    title: (0,external_wp_i18n_namespaceObject.__)('Back')
+  }), children(category))));
+}
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/block-patterns-tab.js
 
 
@@ -27219,6 +27625,7 @@ function PatternsExplorerModal(_ref2) {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -27247,11 +27654,12 @@ function usePatternsCategories() {
         name: nextName
       } = _ref2;
 
-      if (![currentName, nextName].includes('featured')) {
+      if (![currentName, nextName].some(categoryName => ['featured', 'text'].includes(categoryName))) {
         return 0;
-      }
+      } // Move `featured` category to the top and `text` to the bottom.
 
-      return currentName === 'featured' ? -1 : 1;
+
+      return currentName === 'featured' || nextName === 'text' ? -1 : 1;
     });
 
     if (allPatterns.some(pattern => !hasRegisteredCategory(pattern)) && !categories.find(category => category.name === 'uncategorized')) {
@@ -27270,7 +27678,8 @@ function BlockPatternsCategoryDialog(_ref3) {
   let {
     rootClientId,
     onInsert,
-    category
+    category,
+    showTitlesAsTooltip
   } = _ref3;
   const container = (0,external_wp_element_namespaceObject.useRef)();
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -27282,18 +27691,20 @@ function BlockPatternsCategoryDialog(_ref3) {
   }, [category]);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     ref: container,
-    className: "block-editor-inserter__patterns-category-panel"
+    className: "block-editor-inserter__patterns-category-dialog"
   }, (0,external_wp_element_namespaceObject.createElement)(BlockPatternsCategoryPanel, {
     rootClientId: rootClientId,
     onInsert: onInsert,
-    category: category
+    category: category,
+    showTitlesAsTooltip: showTitlesAsTooltip
   }));
 }
 function BlockPatternsCategoryPanel(_ref4) {
   let {
     rootClientId,
     onInsert,
-    category
+    category,
+    showTitlesAsTooltip
   } = _ref4;
   const [allPatterns,, onClick] = use_patterns_state(onInsert, rootClientId);
   const availableCategories = usePatternsCategories();
@@ -27317,7 +27728,9 @@ function BlockPatternsCategoryPanel(_ref4) {
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)("div", null, (0,external_wp_element_namespaceObject.createElement)("div", {
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "block-editor-inserter__patterns-category-panel"
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-inserter__patterns-category-panel-title"
   }, category.label), (0,external_wp_element_namespaceObject.createElement)("p", null, category.description), (0,external_wp_element_namespaceObject.createElement)(block_patterns_list, {
     shownPatterns: currentShownPatterns,
@@ -27326,7 +27739,8 @@ function BlockPatternsCategoryPanel(_ref4) {
     label: category.label,
     orientation: "vertical",
     category: category.label,
-    isDraggable: true
+    isDraggable: true,
+    showTitlesAsTooltip: showTitlesAsTooltip
   }));
 }
 
@@ -27362,45 +27776,18 @@ function BlockPatternsTabs(_ref5) {
     className: "block-editor-inserter__patterns-explore-button",
     onClick: () => setShowPatternsExplorer(true),
     variant: "secondary"
-  }, (0,external_wp_i18n_namespaceObject.__)('Explore all patterns')))))), isMobile && (0,external_wp_element_namespaceObject.createElement)(BlockPatternsTabNavigation, {
+  }, (0,external_wp_i18n_namespaceObject.__)('Explore all patterns')))))), isMobile && (0,external_wp_element_namespaceObject.createElement)(MobileTabNavigation, {
+    categories: categories
+  }, category => (0,external_wp_element_namespaceObject.createElement)(BlockPatternsCategoryPanel, {
     onInsert: onInsert,
-    rootClientId: rootClientId
-  }), showPatternsExplorer && (0,external_wp_element_namespaceObject.createElement)(explorer, {
+    rootClientId: rootClientId,
+    category: category,
+    showTitlesAsTooltip: false
+  })), showPatternsExplorer && (0,external_wp_element_namespaceObject.createElement)(explorer, {
     initialCategory: selectedCategory,
     patternCategories: categories,
     onModalClose: () => setShowPatternsExplorer(false)
   }));
-}
-
-function BlockPatternsTabNavigation(_ref6) {
-  let {
-    onInsert,
-    rootClientId
-  } = _ref6;
-  const categories = usePatternsCategories();
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorProvider, {
-    initialPath: "/"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorScreen, {
-    path: "/"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, null, categories.map(category => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorButton, {
-    key: category.name,
-    path: `/category/${category.name}`,
-    as: external_wp_components_namespaceObject.__experimentalItem,
-    isAction: true
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexBlock, null, category.label), (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
-    icon: (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_left : chevron_right
-  })))))), categories.map(category => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorScreen, {
-    key: category.name,
-    path: `/category/${category.name}`
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorBackButton, {
-    icon: (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_right : chevron_left,
-    isSmall: true,
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Navigate to the categories list')
-  }, (0,external_wp_i18n_namespaceObject.__)('Back')), (0,external_wp_element_namespaceObject.createElement)(BlockPatternsCategoryPanel, {
-    category: category,
-    rootClientId: rootClientId,
-    onInsert: onInsert
-  }))));
 }
 
 /* harmony default export */ var block_patterns_tab = (BlockPatternsTabs);
@@ -27497,23 +27884,11 @@ function ReusableBlocksTab(_ref3) {
 
 
 
-
 /**
  * Internal dependencies
  */
 
 
-function useDebouncedInput() {
-  const [input, setInput] = (0,external_wp_element_namespaceObject.useState)('');
-  const [debounced, setter] = (0,external_wp_element_namespaceObject.useState)('');
-  const setDebounced = (0,external_wp_compose_namespaceObject.useDebounce)(setter, 250);
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (debounced !== input) {
-      setDebounced(input);
-    }
-  }, [debounced, input]);
-  return [input, setInput, debounced];
-}
 function useMediaResults() {
   let options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   const [results, setResults] = (0,external_wp_element_namespaceObject.useState)();
@@ -27725,6 +28100,25 @@ function MediaList(_ref3) {
 
 /* harmony default export */ var media_list = (MediaList);
 
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/hooks/use-debounced-input.js
+/**
+ * WordPress dependencies
+ */
+
+
+function useDebouncedInput() {
+  let defaultValue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  const [input, setInput] = (0,external_wp_element_namespaceObject.useState)(defaultValue);
+  const [debounced, setter] = (0,external_wp_element_namespaceObject.useState)(defaultValue);
+  const setDebounced = (0,external_wp_compose_namespaceObject.useDebounce)(setter, 250);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (debounced !== input) {
+      setDebounced(input);
+    }
+  }, [debounced, input]);
+  return [input, setInput, debounced];
+}
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/inserter/media-tab/media-panel.js
 
 
@@ -27738,6 +28132,7 @@ function MediaList(_ref3) {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -27877,6 +28272,7 @@ const MediaUpload = () => null;
 
 
 
+
 const ALLOWED_MEDIA_TYPES = ['image', 'video', 'audio'];
 
 function MediaTab(_ref) {
@@ -27941,43 +28337,13 @@ function MediaTab(_ref) {
         "data-unstable-ignore-focus-outside-for-relatedtarget": ".media-modal"
       }, (0,external_wp_i18n_namespaceObject.__)('Open Media Library'));
     }
-  })))))), isMobile && (0,external_wp_element_namespaceObject.createElement)(MediaTabNavigation, {
+  })))))), isMobile && (0,external_wp_element_namespaceObject.createElement)(MobileTabNavigation, {
+    categories: mediaCategories
+  }, category => (0,external_wp_element_namespaceObject.createElement)(MediaCategoryPanel, {
     onInsert: onInsert,
     rootClientId: rootClientId,
-    mediaCategories: mediaCategories
-  }));
-}
-
-function MediaTabNavigation(_ref3) {
-  let {
-    onInsert,
-    rootClientId,
-    mediaCategories
-  } = _ref3;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorProvider, {
-    initialPath: "/"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorScreen, {
-    path: "/"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalItemGroup, null, mediaCategories.map(category => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorButton, {
-    key: category.name,
-    path: `/category/${category.name}`,
-    as: external_wp_components_namespaceObject.__experimentalItem,
-    isAction: true
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexBlock, null, category.label), (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
-    icon: (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_left : chevron_right
-  })))))), mediaCategories.map(category => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorScreen, {
-    key: category.name,
-    path: `/category/${category.name}`
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNavigatorBackButton, {
-    className: "rigatonious",
-    icon: (0,external_wp_i18n_namespaceObject.isRTL)() ? chevron_right : chevron_left,
-    isSmall: true,
-    "aria-label": (0,external_wp_i18n_namespaceObject.__)('Navigate to the categories list')
-  }, (0,external_wp_i18n_namespaceObject.__)('Back')), (0,external_wp_element_namespaceObject.createElement)(MediaCategoryPanel, {
-    rootClientId: rootClientId,
-    onInsert: onInsert,
     category: category
-  }))));
+  })));
 }
 
 /* harmony default export */ var media_tab = (MediaTab);
@@ -28013,6 +28379,7 @@ __unstableInserterMenuExtension.Slot = Slot;
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -28080,7 +28447,7 @@ function InserterSearchResults(_ref) {
       return [];
     }
 
-    const results = searchBlockItems((0,external_lodash_namespaceObject.orderBy)(blockTypes, ['frecency'], ['desc']), blockTypeCategories, blockTypeCollections, filterValue);
+    const results = searchBlockItems(orderBy(blockTypes, 'frecency', 'desc'), blockTypeCategories, blockTypeCollections, filterValue);
     return maxBlockTypesToShow !== undefined ? results.slice(0, maxBlockTypesToShow) : results;
   }, [filterValue, blockTypes, blockTypeCategories, blockTypeCollections, maxBlockTypes]); // Announce search results on change.
 
@@ -28251,6 +28618,7 @@ function InserterTabs(_ref) {
 
 
 
+
 function InserterMenu(_ref, ref) {
   let {
     rootClientId,
@@ -28264,7 +28632,7 @@ function InserterMenu(_ref, ref) {
     shouldFocusBlock = true,
     prioritizePatterns
   } = _ref;
-  const [filterValue, setFilterValue] = (0,external_wp_element_namespaceObject.useState)(__experimentalFilterValue);
+  const [filterValue, setFilterValue, delayedFilterValue] = useDebouncedInput(__experimentalFilterValue);
   const [hoveredItem, setHoveredItem] = (0,external_wp_element_namespaceObject.useState)(null);
   const [selectedPatternCategory, setSelectedPatternCategory] = (0,external_wp_element_namespaceObject.useState)(null);
   const [selectedMediaCategory, setSelectedMediaCategory] = (0,external_wp_element_namespaceObject.useState)(null);
@@ -28321,7 +28689,7 @@ function InserterMenu(_ref, ref) {
     className: "block-editor-inserter__tips"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
     as: "h2"
-  }, (0,external_wp_i18n_namespaceObject.__)('A tip for using the block editor')), (0,external_wp_element_namespaceObject.createElement)(tips, null))), [destinationRootClientId, onInsert, onHover, filterValue, showMostUsedBlocks, showInserterHelpPanel]);
+  }, (0,external_wp_i18n_namespaceObject.__)('A tip for using the block editor')), (0,external_wp_element_namespaceObject.createElement)(tips, null))), [destinationRootClientId, onInsert, onHover, delayedFilterValue, showMostUsedBlocks, showInserterHelpPanel]);
   const patternsTab = (0,external_wp_element_namespaceObject.useMemo)(() => (0,external_wp_element_namespaceObject.createElement)(block_patterns_tab, {
     rootClientId: destinationRootClientId,
     onInsert: onInsertPattern,
@@ -28356,9 +28724,9 @@ function InserterMenu(_ref, ref) {
       searchRef.current.focus();
     }
   }));
-  const showPatternPanel = selectedTab === 'patterns' && !filterValue && selectedPatternCategory;
-  const showAsTabs = !filterValue && (showPatterns || hasReusableBlocks || showMedia);
-  const showMediaPanel = selectedTab === 'media' && !filterValue && selectedMediaCategory;
+  const showPatternPanel = selectedTab === 'patterns' && !delayedFilterValue && selectedPatternCategory;
+  const showAsTabs = !delayedFilterValue && (showPatterns || hasReusableBlocks || showMedia);
+  const showMediaPanel = selectedTab === 'media' && !delayedFilterValue && selectedMediaCategory;
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-inserter__menu"
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -28376,10 +28744,10 @@ function InserterMenu(_ref, ref) {
     label: (0,external_wp_i18n_namespaceObject.__)('Search for blocks and patterns'),
     placeholder: (0,external_wp_i18n_namespaceObject.__)('Search'),
     ref: searchRef
-  }), !!filterValue && (0,external_wp_element_namespaceObject.createElement)("div", {
+  }), !!delayedFilterValue && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-inserter__no-tab-container"
   }, (0,external_wp_element_namespaceObject.createElement)(search_results, {
-    filterValue: filterValue,
+    filterValue: delayedFilterValue,
     onSelect: onSelect,
     onHover: onHover,
     rootClientId: rootClientId,
@@ -28394,7 +28762,7 @@ function InserterMenu(_ref, ref) {
     showMedia: showMedia,
     prioritizePatterns: prioritizePatterns,
     onSelect: setSelectedTab
-  }, getCurrentTab), !filterValue && !showAsTabs && (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, getCurrentTab), !delayedFilterValue && !showAsTabs && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-inserter__no-tab-container"
   }, blocksTab)), showMediaPanel && (0,external_wp_element_namespaceObject.createElement)(MediaCategoryDialog, {
     rootClientId: destinationRootClientId,
@@ -28405,7 +28773,8 @@ function InserterMenu(_ref, ref) {
   }), showPatternPanel && (0,external_wp_element_namespaceObject.createElement)(BlockPatternsCategoryDialog, {
     rootClientId: destinationRootClientId,
     onInsert: onInsertPattern,
-    category: selectedPatternCategory
+    category: selectedPatternCategory,
+    showTitlesAsTooltip: true
   }));
 }
 
@@ -29613,7 +29982,6 @@ function InbetweenInsertionPointPopover(_ref) {
       isInserterShown: insertionPoint === null || insertionPoint === void 0 ? void 0 : insertionPoint.__unstableWithInserter
     };
   }, []);
-  const isVertical = orientation === 'vertical';
   const disableMotion = (0,external_wp_compose_namespaceObject.useReducedMotion)();
 
   function onClick(event) {
@@ -29636,67 +30004,27 @@ function InbetweenInsertionPointPopover(_ref) {
     if (event.target !== ref.current) {
       openRef.current = true;
     }
-  } // Define animation variants for the line element.
+  }
 
-
-  const horizontalLine = {
-    start: {
-      width: 0,
-      top: '50%',
-      bottom: '50%',
-      x: 0
-    },
-    rest: {
-      width: 4,
-      top: 0,
-      bottom: 0,
-      x: -2
-    },
-    hover: {
-      width: 4,
-      top: 0,
-      bottom: 0,
-      x: -2
-    }
-  };
-  const verticalLine = {
-    start: {
-      height: 0,
-      left: '50%',
-      right: '50%',
-      y: 0
-    },
-    rest: {
-      height: 4,
-      left: 0,
-      right: 0,
-      y: -2
-    },
-    hover: {
-      height: 4,
-      left: 0,
-      right: 0,
-      y: -2
-    }
-  };
   const lineVariants = {
     // Initial position starts from the center and invisible.
-    start: { ...(!isVertical ? horizontalLine.start : verticalLine.start),
-      opacity: 0
+    start: {
+      opacity: 0,
+      scale: 0
     },
     // The line expands to fill the container. If the inserter is visible it
     // is delayed so it appears orchestrated.
-    rest: { ...(!isVertical ? horizontalLine.rest : verticalLine.rest),
+    rest: {
       opacity: 1,
-      borderRadius: '2px',
+      scale: 1,
       transition: {
         delay: isInserterShown ? 0.5 : 0,
         type: 'tween'
       }
     },
-    hover: { ...(!isVertical ? horizontalLine.hover : verticalLine.hover),
+    hover: {
       opacity: 1,
-      borderRadius: '2px',
+      scale: 1,
       transition: {
         delay: 0.5,
         type: 'tween'
@@ -35121,6 +35449,7 @@ function useNestedSettingsUpdate(clientId, allowedBlocks, __experimentalDefaultB
 
 function useInnerBlockTemplateSync(clientId, template, templateLock, templateInsertUpdatesSelection) {
   const {
+    getBlocks,
     getSelectedBlocksInitialCaretPosition,
     isBlockSelected
   } = (0,external_wp_data_namespaceObject.useSelect)(store);
@@ -35128,23 +35457,29 @@ function useInnerBlockTemplateSync(clientId, template, templateLock, templateIns
     replaceInnerBlocks,
     __unstableMarkNextChangeAsNotPersistent
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
-  const innerBlocks = (0,external_wp_data_namespaceObject.useSelect)(select => select(store).getBlocks(clientId), [clientId]);
   const {
-    getBlocks
-  } = (0,external_wp_data_namespaceObject.useSelect)(store); // Maintain a reference to the previous value so we can do a deep equality check.
+    innerBlocks
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
+    innerBlocks: select(store).getBlocks(clientId)
+  }), [clientId]); // Maintain a reference to the previous value so we can do a deep equality check.
 
   const existingTemplate = (0,external_wp_element_namespaceObject.useRef)(null);
   (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
-    // There's an implicit dependency between useInnerBlockTemplateSync and useNestedSettingsUpdate
+    let isCancelled = false; // There's an implicit dependency between useInnerBlockTemplateSync and useNestedSettingsUpdate
     // The former needs to happen after the latter and since the latter is using microtasks to batch updates (performance optimization),
     // we need to schedule this one in a microtask as well.
-    // Exemple: If you remove queueMicrotask here, ctrl + click to insert quote block won't close the inserter.
+    // Example: If you remove queueMicrotask here, ctrl + click to insert quote block won't close the inserter.
+
     window.queueMicrotask(() => {
-      // Only synchronize innerBlocks with template if innerBlocks are empty
+      if (isCancelled) {
+        return;
+      } // Only synchronize innerBlocks with template if innerBlocks are empty
       // or a locking "all" or "contentOnly" exists directly on the block.
+
+
       const currentInnerBlocks = getBlocks(clientId);
       const shouldApplyTemplate = currentInnerBlocks.length === 0 || templateLock === 'all' || templateLock === 'contentOnly';
-      const hasTemplateChanged = !(0,external_lodash_namespaceObject.isEqual)(template, existingTemplate.current);
+      const hasTemplateChanged = !es6_default()(template, existingTemplate.current);
 
       if (!shouldApplyTemplate || !hasTemplateChanged) {
         return;
@@ -35153,7 +35488,7 @@ function useInnerBlockTemplateSync(clientId, template, templateLock, templateIns
       existingTemplate.current = template;
       const nextBlocks = (0,external_wp_blocks_namespaceObject.synchronizeBlocksWithTemplate)(currentInnerBlocks, template);
 
-      if (!(0,external_lodash_namespaceObject.isEqual)(nextBlocks, currentInnerBlocks)) {
+      if (!es6_default()(nextBlocks, currentInnerBlocks)) {
         __unstableMarkNextChangeAsNotPersistent();
 
         replaceInnerBlocks(clientId, nextBlocks, currentInnerBlocks.length === 0 && templateInsertUpdatesSelection && nextBlocks.length !== 0 && isBlockSelected(clientId), // This ensures the "initialPosition" doesn't change when applying the template
@@ -35163,6 +35498,9 @@ function useInnerBlockTemplateSync(clientId, template, templateLock, templateIns
         getSelectedBlocksInitialCaretPosition());
       }
     });
+    return () => {
+      isCancelled = true;
+    };
   }, [innerBlocks, template, templateLock, clientId]);
 }
 
@@ -41811,7 +42149,6 @@ const withChildLayoutStyles = (0,external_wp_compose_namespaceObject.createHighe
 
   if (selfStretch === 'fixed' && flexSize) {
     css += `${selector} {
-				flex-shrink: 0;
 				flex-basis: ${flexSize};
 				box-sizing: border-box;
 			}`;
@@ -41969,7 +42306,7 @@ const content_lock_ui_withBlockControls = (0,external_wp_compose_namespaceObject
     className: classnames_default()(props.className, isEditingAsBlocks && 'is-content-locked-editing-as-blocks')
   })));
 }, 'withToolbarControls');
-(0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockEdit', 'core/style/with-block-controls', content_lock_ui_withBlockControls);
+(0,external_wp_hooks_namespaceObject.addFilter)('editor.BlockEdit', 'core/content-lock-ui/with-block-controls', content_lock_ui_withBlockControls);
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/metadata.js
 /**
@@ -42929,19 +43266,15 @@ const AlignmentToolbar = props => {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -42983,7 +43316,7 @@ function createBlockCompleter() {
       }, []);
       const [items, categories, collections] = use_block_types_state(rootClientId, block_noop);
       const filteredItems = (0,external_wp_element_namespaceObject.useMemo)(() => {
-        const initialFilteredItems = !!filterValue.trim() ? searchBlockItems(items, categories, collections, filterValue) : (0,external_lodash_namespaceObject.orderBy)(items, ['frecency'], ['desc']);
+        const initialFilteredItems = !!filterValue.trim() ? searchBlockItems(items, categories, collections, filterValue) : orderBy(items, 'frecency', 'desc');
         return initialFilteredItems.filter(item => item.name !== selectedBlockName).slice(0, block_SHOWN_BLOCK_TYPES);
       }, [filterValue, selectedBlockName, items, categories, collections]);
       const options = (0,external_wp_element_namespaceObject.useMemo)(() => filteredItems.map(blockItem => {
@@ -43072,6 +43405,8 @@ const post = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
 /**
  * WordPress dependencies
  */
+// Disable Reason: Needs to be refactored.
+// eslint-disable-next-line no-restricted-imports
 
 
 
@@ -44164,10 +44499,6 @@ function ListViewBlock(_ref) {
  * Internal dependencies
  */
 
-/**
- * Internal dependencies
- */
-
 
 
 
@@ -44223,10 +44554,12 @@ const countReducer = (expandedState, draggedClientIds, isExpandedByDefault) => (
   return count + 1;
 };
 
+const branch_noop = () => {};
+
 function ListViewBranch(props) {
   const {
     blocks,
-    selectBlock,
+    selectBlock = branch_noop,
     showBlockMovers,
     selectedClientIds,
     level = 1,
@@ -44326,9 +44659,6 @@ function ListViewBranch(props) {
   }));
 }
 
-ListViewBranch.defaultProps = {
-  selectBlock: () => {}
-};
 /* harmony default export */ var branch = ((0,external_wp_element_namespaceObject.memo)(ListViewBranch));
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/list-view/drop-indicator.js
@@ -45617,9 +45947,10 @@ const BlockPatternSetup = _ref4 => {
     clientId,
     blockName,
     filterPatternsFn,
-    onBlockPatternSelect
+    onBlockPatternSelect,
+    initialViewMode = VIEWMODES.carousel
   } = _ref4;
-  const [viewMode, setViewMode] = (0,external_wp_element_namespaceObject.useState)(VIEWMODES.carousel);
+  const [viewMode, setViewMode] = (0,external_wp_element_namespaceObject.useState)(initialViewMode);
   const [activeSlide, setActiveSlide] = (0,external_wp_element_namespaceObject.useState)(0);
   const {
     replaceBlock
@@ -47257,6 +47588,8 @@ const image_editor_constants_POPOVER_PROPS = {
 /**
  * WordPress dependencies
  */
+// Disable Reason: Needs to be refactored.
+// eslint-disable-next-line no-restricted-imports
 
 
 
@@ -49709,6 +50042,7 @@ function useInternalInputValue(value) {
  * @property {boolean=}                   withCreateSuggestion       Whether to allow creation of link value from suggestion.
  * @property {Object=}                    suggestionsQuery           Query parameters to pass along to wp.blockEditor.__experimentalFetchLinkSuggestions.
  * @property {boolean=}                   noURLSuggestion            Whether to add a fallback suggestion which treats the search query as a URL.
+ * @property {boolean=}                   hasTextControl             Whether to add a text field to the UI to update the value.title.
  * @property {string|Function|undefined}  createSuggestionButtonText The text to use in the button that calls createSuggestion.
  * @property {Function}                   renderControlBottom        Optional controls to be rendered at the bottom of the component.
  */
@@ -50517,15 +50851,17 @@ function block_ListViewBlock(_ref) {
       tabIndex: tabIndex,
       onFocus: onFocus
     });
-  }))), showBlockActions && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTreeGridCell, {
+  }))), showBlockActions && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, isEditable && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTreeGridCell, {
     className: listViewBlockEditClassName,
     "aria-selected": !!isSelected || forceSelectionContentLock
-  }, props => isEditable && (0,external_wp_element_namespaceObject.createElement)(block_edit_button, _extends({}, props, {
+  }, props => (0,external_wp_element_namespaceObject.createElement)(block_edit_button, _extends({}, props, {
     label: editAriaLabel,
     clientId: clientId
   }))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTreeGridCell, {
     className: listViewBlockSettingsClassName,
-    "aria-selected": !!isSelected || forceSelectionContentLock
+    "aria-selected": !!isSelected || forceSelectionContentLock,
+    colSpan: isEditable ? 1 : 2 // When an item is not editable then we don't output the cell for the edit button, so we need to adjust the colspan so that the HTML is valid.
+
   }, _ref5 => {
     let {
       ref,
@@ -50628,10 +50964,12 @@ const branch_countReducer = (expandedState, draggedClientIds, isExpandedByDefaul
   return count + 1;
 };
 
+const off_canvas_editor_branch_noop = () => {};
+
 function branch_ListViewBranch(props) {
   const {
     blocks,
-    selectBlock,
+    selectBlock = off_canvas_editor_branch_noop,
     showBlockMovers,
     selectedClientIds,
     level = 1,
@@ -50723,9 +51061,6 @@ function branch_ListViewBranch(props) {
   }));
 }
 
-branch_ListViewBranch.defaultProps = {
-  selectBlock: () => {}
-};
 /* harmony default export */ var off_canvas_editor_branch = ((0,external_wp_element_namespaceObject.memo)(branch_ListViewBranch));
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/off-canvas-editor/drop-indicator.js
@@ -51362,7 +51697,7 @@ function LinkControlTransforms(_ref) {
   const {
     replaceBlock
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
-  const featuredBlocks = ['core/site-logo', 'core/social-links', 'core/search'];
+  const featuredBlocks = ['core/page-list', 'core/site-logo', 'core/social-links', 'core/search'];
   const transforms = blockTransforms.filter(item => {
     return featuredBlocks.includes(item.name);
   });
@@ -52720,12 +53055,16 @@ const PanelColorSettings = _ref => {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
 
 
+
+
+/**
+ * Internal dependencies
+ */
 
 
 const format_toolbar_POPOVER_PROPS = {
@@ -52734,7 +53073,7 @@ const format_toolbar_POPOVER_PROPS = {
 };
 
 const FormatToolbar = () => {
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, ['bold', 'italic', 'link'].map(format => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Slot, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, ['bold', 'italic', 'link', 'unknown'].map(format => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Slot, {
     name: `RichText.ToolbarControls.${format}`,
     key: format
   })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Slot, {
@@ -52767,7 +53106,7 @@ const FormatToolbar = () => {
         }),
         describedBy: (0,external_wp_i18n_namespaceObject.__)('Displays more block tools')
       },
-      controls: (0,external_lodash_namespaceObject.orderBy)(fills.map(_ref3 => {
+      controls: orderBy(fills.map(_ref3 => {
         let [{
           props
         }] = _ref3;
@@ -52997,7 +53336,6 @@ var external_wp_shortcode_namespaceObject = window["wp"]["shortcode"];
 
 
 
-
 function addActiveFormats(value, activeFormats) {
   if (activeFormats !== null && activeFormats !== void 0 && activeFormats.length) {
     let index = value.formats.length;
@@ -53025,7 +53363,6 @@ function getMultilineTag(multiline) {
 function getAllowedFormats(_ref) {
   let {
     allowedFormats,
-    formattingControls,
     disableFormats
   } = _ref;
 
@@ -53033,20 +53370,7 @@ function getAllowedFormats(_ref) {
     return getAllowedFormats.EMPTY_ARRAY;
   }
 
-  if (!allowedFormats && !formattingControls) {
-    return;
-  }
-
-  if (allowedFormats) {
-    return allowedFormats;
-  }
-
-  external_wp_deprecated_default()('wp.blockEditor.RichText formattingControls prop', {
-    since: '5.4',
-    alternative: 'allowedFormats',
-    version: '6.2'
-  });
-  return formattingControls.map(name => `core/${name}`);
+  return allowedFormats;
 }
 getAllowedFormats.EMPTY_ARRAY = [];
 const isShortcode = text => (0,external_wp_shortcode_namespaceObject.regexp)('.*').test(text);
@@ -54254,7 +54578,6 @@ function RichTextWrapper(_ref, forwardedRef) {
     onReplace,
     placeholder,
     allowedFormats,
-    formattingControls,
     withoutInteractiveFormatting,
     onRemove,
     onMerge,
@@ -54330,7 +54653,6 @@ function RichTextWrapper(_ref, forwardedRef) {
   const multilineTag = getMultilineTag(multiline);
   const adjustedAllowedFormats = getAllowedFormats({
     allowedFormats,
-    formattingControls,
     disableFormats
   });
   const hasFormats = !adjustedAllowedFormats || adjustedAllowedFormats.length > 0;
@@ -55936,6 +56258,7 @@ function InspectorControlsTabs(_ref) {
  * WordPress dependencies
  */
 
+
 /**
  * Internal dependencies
  */
@@ -55943,6 +56266,33 @@ function InspectorControlsTabs(_ref) {
 
 
 
+
+
+const use_inspector_controls_tabs_EMPTY_ARRAY = [];
+
+function getShowTabs(blockName) {
+  var _window;
+
+  let tabSettings = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  // Don't allow settings to force the display of tabs if the block inspector
+  // tabs experiment hasn't been opted into.
+  if (!((_window = window) !== null && _window !== void 0 && _window.__experimentalEnableBlockInspectorTabs)) {
+    return false;
+  } // Block specific setting takes precedence over generic default.
+
+
+  if (tabSettings[blockName] !== undefined) {
+    return tabSettings[blockName];
+  } // Use generic default if set over the Gutenberg experiment option.
+
+
+  if (tabSettings.default !== undefined) {
+    return tabSettings.default;
+  }
+
+  return true;
+}
 
 function useInspectorControlsTabs(blockName) {
   const tabs = [];
@@ -55978,7 +56328,11 @@ function useInspectorControlsTabs(blockName) {
     tabs.push(TAB_SETTINGS);
   }
 
-  return tabs;
+  const tabSettings = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    return select(store).getSettings().__experimentalBlockInspectorTabs;
+  }, []);
+  const showTabs = getShowTabs(blockName, tabSettings);
+  return showTabs ? tabs : use_inspector_controls_tabs_EMPTY_ARRAY;
 }
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-inspector/index.js
@@ -56112,8 +56466,6 @@ function BlockInspectorLockedBlocks(_ref4) {
 }
 
 const BlockInspector = _ref5 => {
-  var _window;
-
   let {
     showNoBlockSelectedMessage = true
   } = _ref5;
@@ -56147,7 +56499,7 @@ const BlockInspector = _ref5 => {
     };
   }, []);
   const availableTabs = useInspectorControlsTabs(blockType === null || blockType === void 0 ? void 0 : blockType.name);
-  const showTabs = ((_window = window) === null || _window === void 0 ? void 0 : _window.__experimentalEnableBlockInspectorTabs) && availableTabs.length > 1;
+  const showTabs = (availableTabs === null || availableTabs === void 0 ? void 0 : availableTabs.length) > 1;
 
   if (count > 1) {
     return (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -56199,14 +56551,12 @@ const BlockInspector = _ref5 => {
 };
 
 const BlockInspectorSingleBlock = _ref6 => {
-  var _window2;
-
   let {
     clientId,
     blockName
   } = _ref6;
   const availableTabs = useInspectorControlsTabs(blockName);
-  const showTabs = ((_window2 = window) === null || _window2 === void 0 ? void 0 : _window2.__experimentalEnableBlockInspectorTabs) && availableTabs.length > 1;
+  const showTabs = (availableTabs === null || availableTabs === void 0 ? void 0 : availableTabs.length) > 1;
   const hasBlockStyles = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       getBlockStyles

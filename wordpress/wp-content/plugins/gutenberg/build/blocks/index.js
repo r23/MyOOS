@@ -1,6 +1,86 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 5619:
+/***/ (function(module) {
+
+"use strict";
+
+
+// do not edit .js files directly - edit src/index.jst
+
+
+  var envHasBigInt64Array = typeof BigInt64Array !== 'undefined';
+
+
+module.exports = function equal(a, b) {
+  if (a === b) return true;
+
+  if (a && b && typeof a == 'object' && typeof b == 'object') {
+    if (a.constructor !== b.constructor) return false;
+
+    var length, i, keys;
+    if (Array.isArray(a)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (!equal(a[i], b[i])) return false;
+      return true;
+    }
+
+
+    if ((a instanceof Map) && (b instanceof Map)) {
+      if (a.size !== b.size) return false;
+      for (i of a.entries())
+        if (!b.has(i[0])) return false;
+      for (i of a.entries())
+        if (!equal(i[1], b.get(i[0]))) return false;
+      return true;
+    }
+
+    if ((a instanceof Set) && (b instanceof Set)) {
+      if (a.size !== b.size) return false;
+      for (i of a.entries())
+        if (!b.has(i[0])) return false;
+      return true;
+    }
+
+    if (ArrayBuffer.isView(a) && ArrayBuffer.isView(b)) {
+      length = a.length;
+      if (length != b.length) return false;
+      for (i = length; i-- !== 0;)
+        if (a[i] !== b[i]) return false;
+      return true;
+    }
+
+
+    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
+    if (a.valueOf !== Object.prototype.valueOf) return a.valueOf() === b.valueOf();
+    if (a.toString !== Object.prototype.toString) return a.toString() === b.toString();
+
+    keys = Object.keys(a);
+    length = keys.length;
+    if (length !== Object.keys(b).length) return false;
+
+    for (i = length; i-- !== 0;)
+      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
+
+    for (i = length; i-- !== 0;) {
+      var key = keys[i];
+
+      if (!equal(a[key], b[key])) return false;
+    }
+
+    return true;
+  }
+
+  // true if both NaN, false otherwise
+  return a!==a && b!==b;
+};
+
+
+/***/ }),
+
 /***/ 9756:
 /***/ (function(module) {
 
@@ -5859,6 +5939,7 @@ __webpack_require__.d(__webpack_exports__, {
   "hasChildBlocksWithInserterSupport": function() { return /* reexport */ hasChildBlocksWithInserterSupport; },
   "isReusableBlock": function() { return /* reexport */ isReusableBlock; },
   "isTemplatePart": function() { return /* reexport */ isTemplatePart; },
+  "isUnmodifiedBlock": function() { return /* reexport */ isUnmodifiedBlock; },
   "isUnmodifiedDefaultBlock": function() { return /* reexport */ isUnmodifiedDefaultBlock; },
   "isValidBlockContent": function() { return /* reexport */ isValidBlockContent; },
   "isValidIcon": function() { return /* reexport */ isValidIcon; },
@@ -7905,33 +7986,38 @@ k([names, a11y]);
 
 const ICON_COLORS = ['#191e23', '#f8f9f9'];
 /**
- * Determines whether the block is a default block
- * and its attributes are equal to the default attributes
+ * Determines whether the block's attributes are equal to the default attributes
  * which means the block is unmodified.
  *
  * @param {WPBlock} block Block Object
  *
- * @return {boolean} Whether the block is an unmodified default block
+ * @return {boolean} Whether the block is an unmodified block.
+ */
+
+function isUnmodifiedBlock(block) {
+  var _blockType$attributes;
+
+  // Cache a created default block if no cache exists or the default block
+  // name changed.
+  if (!isUnmodifiedBlock[block.name]) {
+    isUnmodifiedBlock[block.name] = createBlock(block.name);
+  }
+
+  const newBlock = isUnmodifiedBlock[block.name];
+  const blockType = getBlockType(block.name);
+  return Object.keys((_blockType$attributes = blockType === null || blockType === void 0 ? void 0 : blockType.attributes) !== null && _blockType$attributes !== void 0 ? _blockType$attributes : {}).every(key => newBlock.attributes[key] === block.attributes[key]);
+}
+/**
+ * Determines whether the block is a default block and its attributes are equal
+ * to the default attributes which means the block is unmodified.
+ *
+ * @param {WPBlock} block Block Object
+ *
+ * @return {boolean} Whether the block is an unmodified default block.
  */
 
 function isUnmodifiedDefaultBlock(block) {
-  var _blockType$attributes;
-
-  const defaultBlockName = getDefaultBlockName();
-
-  if (block.name !== defaultBlockName) {
-    return false;
-  } // Cache a created default block if no cache exists or the default block
-  // name changed.
-
-
-  if (!isUnmodifiedDefaultBlock.block || isUnmodifiedDefaultBlock.block.name !== defaultBlockName) {
-    isUnmodifiedDefaultBlock.block = createBlock(defaultBlockName);
-  }
-
-  const newDefaultBlock = isUnmodifiedDefaultBlock.block;
-  const blockType = getBlockType(defaultBlockName);
-  return Object.keys((_blockType$attributes = blockType === null || blockType === void 0 ? void 0 : blockType.attributes) !== null && _blockType$attributes !== void 0 ? _blockType$attributes : {}).every(key => newDefaultBlock.attributes[key] === block.attributes[key]);
+  return block.name === getDefaultBlockName() && isUnmodifiedBlock(block);
 }
 /**
  * Function that checks if the parameter is a valid icon.
@@ -8416,7 +8502,12 @@ function categories() {
           return state;
         }
 
-        const categoryToChange = (0,external_lodash_namespaceObject.find)(state, ['slug', action.slug]);
+        const categoryToChange = state.find(_ref3 => {
+          let {
+            slug
+          } = _ref3;
+          return slug === action.slug;
+        });
 
         if (categoryToChange) {
           return (0,external_lodash_namespaceObject.map)(state, category => {
@@ -11137,6 +11228,9 @@ function tokenize(input, options) {
 
 
 
+// EXTERNAL MODULE: ./node_modules/fast-deep-equal/es6/index.js
+var es6 = __webpack_require__(5619);
+var es6_default = /*#__PURE__*/__webpack_require__.n(es6);
 ;// CONCATENATED MODULE: external ["wp","htmlEntities"]
 var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/api/validation/logger.js
@@ -11560,7 +11654,7 @@ const isEqualAttributesOfName = {
     return actualDiff.length === 0 && expectedDiff.length === 0;
   },
   style: (actual, expected) => {
-    return (0,external_lodash_namespaceObject.isEqual)(...[actual, expected].map(getStyleProperties));
+    return es6_default()(...[actual, expected].map(getStyleProperties));
   },
   // For each boolean attribute, mere presence of attribute in both is enough
   // to assume equivalence.
@@ -12638,15 +12732,16 @@ function isOfTypes(value, types) {
  * commentAttributes returns the attribute value depending on its source
  * definition of the given attribute key.
  *
- * @param {string}      attributeKey      Attribute key.
- * @param {Object}      attributeSchema   Attribute's schema.
- * @param {string|Node} innerHTML         Block's raw content.
- * @param {Object}      commentAttributes Block's comment attributes.
+ * @param {string} attributeKey      Attribute key.
+ * @param {Object} attributeSchema   Attribute's schema.
+ * @param {Node}   innerDOM          Parsed DOM of block's inner HTML.
+ * @param {Object} commentAttributes Block's comment attributes.
+ * @param {string} innerHTML         Raw HTML from block node's innerHTML property.
  *
  * @return {*} Attribute value.
  */
 
-function getBlockAttribute(attributeKey, attributeSchema, innerHTML, commentAttributes) {
+function getBlockAttribute(attributeKey, attributeSchema, innerDOM, commentAttributes, innerHTML) {
   let value;
 
   switch (attributeSchema.source) {
@@ -12654,6 +12749,11 @@ function getBlockAttribute(attributeKey, attributeSchema, innerHTML, commentAttr
     // block's "comment".
     case undefined:
       value = commentAttributes ? commentAttributes[attributeKey] : undefined;
+      break;
+    // raw source means that it's the original raw block content.
+
+    case 'raw':
+      value = innerHTML;
       break;
 
     case 'attribute':
@@ -12664,7 +12764,7 @@ function getBlockAttribute(attributeKey, attributeSchema, innerHTML, commentAttr
     case 'node':
     case 'query':
     case 'tag':
-      value = parseWithAttributeSchema(innerHTML, attributeSchema);
+      value = parseWithAttributeSchema(innerDOM, attributeSchema);
       break;
   }
 
@@ -12792,7 +12892,7 @@ function getBlockAttributes(blockTypeOrName, innerHTML) {
   let attributes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   const doc = parseHtml(innerHTML);
   const blockType = normalizeBlockType(blockTypeOrName);
-  const blockAttributes = (0,external_lodash_namespaceObject.mapValues)(blockType.attributes, (schema, key) => getBlockAttribute(key, schema, doc, attributes));
+  const blockAttributes = (0,external_lodash_namespaceObject.mapValues)(blockType.attributes, (schema, key) => getBlockAttribute(key, schema, doc, attributes, innerHTML));
   return (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.getBlockAttributes', blockAttributes, blockType, innerHTML, attributes);
 }
 
@@ -14614,7 +14714,7 @@ const {
  */
 
 function filterInlineHTML(HTML, preserveWhiteSpace) {
-  HTML = deepFilterHTML(HTML, [googleDocsUIdRemover, phrasingContentReducer, commentRemover]);
+  HTML = deepFilterHTML(HTML, [headRemover, googleDocsUIdRemover, phrasingContentReducer, commentRemover]);
   HTML = (0,external_wp_dom_namespaceObject.removeInvalidHTML)(HTML, (0,external_wp_dom_namespaceObject.getPhrasingContentSchema)('paste'), {
     inline: true
   });

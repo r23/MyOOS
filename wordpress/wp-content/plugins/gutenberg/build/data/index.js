@@ -2192,6 +2192,15 @@ const trimUndefinedValues = array => {
   }
 
   return result;
+}; // Convert Map objects to plain objects
+
+
+const mapToObject = (key, state) => {
+  if (state instanceof Map) {
+    return Object.fromEntries(state);
+  }
+
+  return state;
 };
 /**
  * Create a cache to track whether resolvers started running or not.
@@ -2379,7 +2388,10 @@ function instantiateReduxStore(key, options, registry, thunkArgs) {
   if (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__) {
     enhancers.push(window.__REDUX_DEVTOOLS_EXTENSION__({
       name: key,
-      instanceId: key
+      instanceId: key,
+      serialize: {
+        replacer: mapToObject
+      }
     }));
   }
 
@@ -2773,8 +2785,8 @@ function createEmitter() {
  * @property {Function} registerStore registers store.
  */
 
-function registry_isObject(object) {
-  return object !== null && typeof object === 'object';
+function getStoreName(storeNameOrDescriptor) {
+  return typeof storeNameOrDescriptor === 'string' ? storeNameOrDescriptor : storeNameOrDescriptor.name;
 }
 /**
  * Creates a new store registry, given an optional object of initial store
@@ -2801,16 +2813,39 @@ function createRegistry() {
     emitter.emit();
   }
   /**
-   * Subscribe to changes to any data.
+   * Subscribe to changes to any data, either in all stores in registry, or
+   * in one specific store.
    *
-   * @param {Function} listener Listener function.
+   * @param {Function}                listener              Listener function.
+   * @param {string|StoreDescriptor?} storeNameOrDescriptor Optional store name.
    *
    * @return {Function} Unsubscribe function.
    */
 
 
-  const subscribe = listener => {
-    return emitter.subscribe(listener);
+  const subscribe = (listener, storeNameOrDescriptor) => {
+    // subscribe to all stores
+    if (!storeNameOrDescriptor) {
+      return emitter.subscribe(listener);
+    } // subscribe to one store
+
+
+    const storeName = getStoreName(storeNameOrDescriptor);
+    const store = stores[storeName];
+
+    if (store) {
+      return store.subscribe(listener);
+    } // Trying to access a store that hasn't been registered,
+    // this is a pattern rarely used but seen in some places.
+    // We fallback to global `subscribe` here for backward-compatibility for now.
+    // See https://github.com/WordPress/gutenberg/pull/27466 for more info.
+
+
+    if (!parent) {
+      return emitter.subscribe(listener);
+    }
+
+    return parent.subscribe(listener, storeNameOrDescriptor);
   };
   /**
    * Calls a selector given the current state and extra arguments.
@@ -2823,7 +2858,7 @@ function createRegistry() {
 
 
   function select(storeNameOrDescriptor) {
-    const storeName = registry_isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
+    const storeName = getStoreName(storeNameOrDescriptor);
     listeningStores.add(storeName);
     const store = stores[storeName];
 
@@ -2857,7 +2892,7 @@ function createRegistry() {
 
 
   function resolveSelect(storeNameOrDescriptor) {
-    const storeName = registry_isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
+    const storeName = getStoreName(storeNameOrDescriptor);
     listeningStores.add(storeName);
     const store = stores[storeName];
 
@@ -2881,7 +2916,7 @@ function createRegistry() {
 
 
   function suspendSelect(storeNameOrDescriptor) {
-    const storeName = registry_isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
+    const storeName = getStoreName(storeNameOrDescriptor);
     listeningStores.add(storeName);
     const store = stores[storeName];
 
@@ -2902,7 +2937,7 @@ function createRegistry() {
 
 
   function dispatch(storeNameOrDescriptor) {
-    const storeName = registry_isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
+    const storeName = getStoreName(storeNameOrDescriptor);
     const store = stores[storeName];
 
     if (store) {
@@ -3009,33 +3044,6 @@ function createRegistry() {
     registerStoreInstance(storeName, store);
     return store.store;
   }
-  /**
-   * Subscribe handler to a store.
-   *
-   * @param {string|StoreDescriptor} storeNameOrDescriptor The store name.
-   * @param {Function}               handler               The function subscribed to the store.
-   * @return {Function} A function to unsubscribe the handler.
-   */
-
-
-  function __unstableSubscribeStore(storeNameOrDescriptor, handler) {
-    const storeName = registry_isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor;
-    const store = stores[storeName];
-
-    if (store) {
-      return store.subscribe(handler);
-    } // Trying to access a store that hasn't been registered,
-    // this is a pattern rarely used but seen in some places.
-    // We fallback to regular `subscribe` here for backward-compatibility for now.
-    // See https://github.com/WordPress/gutenberg/pull/27466 for more info.
-
-
-    if (!parent) {
-      return subscribe(handler);
-    }
-
-    return parent.__unstableSubscribeStore(storeNameOrDescriptor, handler);
-  }
 
   function batch(callback) {
     emitter.pause();
@@ -3059,8 +3067,7 @@ function createRegistry() {
     register,
     registerGenericStore,
     registerStore,
-    __unstableMarkListeningStores,
-    __unstableSubscribeStore
+    __unstableMarkListeningStores
   }; //
   // TODO:
   // This function will be deprecated as soon as it is no longer internally referenced.
@@ -3871,7 +3878,7 @@ function useSelect(mapSelect, deps) {
 
 
     onStoreChange();
-    const unsubscribers = listeningStores.current.map(storeName => registry.__unstableSubscribeStore(storeName, onChange));
+    const unsubscribers = listeningStores.current.map(storeName => registry.subscribe(onChange, storeName));
     isMounted.current = true;
     return () => {
       // The return value of the subscribe function could be undefined if the store is a custom generic store.
@@ -3986,7 +3993,7 @@ function useSuspenseSelect(mapSelect, deps) {
 
 
     onStoreChange();
-    const unsubscribers = listeningStores.current.map(storeName => registry.__unstableSubscribeStore(storeName, onChange));
+    const unsubscribers = listeningStores.current.map(storeName => registry.subscribe(onChange, storeName));
     isMounted.current = true;
     return () => {
       // The return value of the subscribe function could be undefined if the store is a custom generic store.
@@ -4475,10 +4482,14 @@ const suspendSelect = default_registry.suspendSelect;
 const build_module_dispatch = default_registry.dispatch;
 /**
  * Given a listener function, the function will be called any time the state value
- * of one of the registered stores has changed. This function returns a `unsubscribe`
- * function used to stop the subscription.
+ * of one of the registered stores has changed. If you specify the optional
+ * `storeNameOrDescriptor` parameter, the listener function will be called only
+ * on updates on that one specific registered store.
  *
- * @param {Function} listener Callback function.
+ * This function returns an `unsubscribe` function used to stop the subscription.
+ *
+ * @param {Function}                listener              Callback function.
+ * @param {string|StoreDescriptor?} storeNameOrDescriptor Optional store name.
  *
  * @example
  * ```js

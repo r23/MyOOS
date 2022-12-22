@@ -480,12 +480,19 @@ function getFormatType(state, name) {
  */
 
 function getFormatTypeForBareElement(state, bareElementTagName) {
-  return getFormatTypes(state).find(_ref => {
+  const formatTypes = getFormatTypes(state);
+  return formatTypes.find(_ref => {
     let {
       className,
       tagName
     } = _ref;
     return className === null && bareElementTagName === tagName;
+  }) || formatTypes.find(_ref2 => {
+    let {
+      className,
+      tagName
+    } = _ref2;
+    return className === null && '*' === tagName;
   });
 }
 /**
@@ -498,10 +505,10 @@ function getFormatTypeForBareElement(state, bareElementTagName) {
  */
 
 function getFormatTypeForClassName(state, elementClassName) {
-  return getFormatTypes(state).find(_ref2 => {
+  return getFormatTypes(state).find(_ref3 => {
     let {
       className
-    } = _ref2;
+    } = _ref3;
 
     if (className === null) {
       return false;
@@ -860,7 +867,7 @@ function createEmptyValue() {
 
 function toFormat(_ref) {
   let {
-    type,
+    tagName,
     attributes
   } = _ref;
   let formatType;
@@ -879,15 +886,15 @@ function toFormat(_ref) {
   }
 
   if (!formatType) {
-    formatType = (0,external_wp_data_namespaceObject.select)(store).getFormatTypeForBareElement(type);
+    formatType = (0,external_wp_data_namespaceObject.select)(store).getFormatTypeForBareElement(tagName);
   }
 
   if (!formatType) {
     return attributes ? {
-      type,
+      type: tagName,
       attributes
     } : {
-      type
+      type: tagName
     };
   }
 
@@ -897,7 +904,8 @@ function toFormat(_ref) {
 
   if (!attributes) {
     return {
-      type: formatType.name
+      type: formatType.name,
+      tagName
     };
   }
 
@@ -929,6 +937,7 @@ function toFormat(_ref) {
 
   return {
     type: formatType.name,
+    tagName,
     attributes: registeredAttributes,
     unregisteredAttributes
   };
@@ -1182,7 +1191,7 @@ function createFromElement(_ref2) {
 
   for (let index = 0; index < length; index++) {
     const node = element.childNodes[index];
-    const type = node.nodeName.toLowerCase();
+    const tagName = node.nodeName.toLowerCase();
 
     if (node.nodeType === node.TEXT_NODE) {
       let filter = removeReservedCharacters;
@@ -1210,16 +1219,16 @@ function createFromElement(_ref2) {
 
     if (isEditableTree && ( // Ignore any placeholders.
     node.getAttribute('data-rich-text-placeholder') || // Ignore any line breaks that are not inserted by us.
-    type === 'br' && !node.getAttribute('data-rich-text-line-break'))) {
+    tagName === 'br' && !node.getAttribute('data-rich-text-line-break'))) {
       accumulateSelection(accumulator, node, range, createEmptyValue());
       continue;
     }
 
-    if (type === 'script') {
+    if (tagName === 'script') {
       const value = {
         formats: [,],
         replacements: [{
-          type,
+          type: tagName,
           attributes: {
             'data-rich-text-script': node.getAttribute('data-rich-text-script') || encodeURIComponent(node.innerHTML)
           }
@@ -1231,7 +1240,7 @@ function createFromElement(_ref2) {
       continue;
     }
 
-    if (type === 'br') {
+    if (tagName === 'br') {
       accumulateSelection(accumulator, node, range, createEmptyValue());
       mergePair(accumulator, create({
         text: '\n'
@@ -1240,13 +1249,13 @@ function createFromElement(_ref2) {
     }
 
     const format = toFormat({
-      type,
+      tagName,
       attributes: getAttributes({
         element: node
       })
     });
 
-    if (multilineWrapperTags && multilineWrapperTags.indexOf(type) !== -1) {
+    if (multilineWrapperTags && multilineWrapperTags.indexOf(tagName) !== -1) {
       const value = createFromMultilineElement({
         element: node,
         range,
@@ -2318,6 +2327,7 @@ function restoreOnAttributes(attributes, isEditableTree) {
  *
  * @param {Object}  $1                        Named parameters.
  * @param {string}  $1.type                   The format type.
+ * @param {string}  $1.tagName                The tag name.
  * @param {Object}  $1.attributes             The format attributes.
  * @param {Object}  $1.unregisteredAttributes The unregistered format
  *                                            attributes.
@@ -2334,6 +2344,7 @@ function restoreOnAttributes(attributes, isEditableTree) {
 function fromFormat(_ref) {
   let {
     type,
+    tagName,
     attributes,
     unregisteredAttributes,
     object,
@@ -2384,7 +2395,7 @@ function fromFormat(_ref) {
   }
 
   return {
-    type: formatType.tagName,
+    type: formatType.tagName === '*' ? tagName : formatType.tagName,
     object: formatType.object,
     attributes: restoreOnAttributes(elementAttributes, isEditableTree)
   };
@@ -2513,6 +2524,7 @@ function toTree(_ref2) {
 
         const {
           type,
+          tagName,
           attributes,
           unregisteredAttributes
         } = format;
@@ -2520,6 +2532,7 @@ function toTree(_ref2) {
         const parent = getParent(pointer);
         const newNode = append(parent, fromFormat({
           type,
+          tagName,
           attributes,
           unregisteredAttributes,
           boundaryClass,
