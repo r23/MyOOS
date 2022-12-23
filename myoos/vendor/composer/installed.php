@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'b32f709049d1743b8f6aec12121c4df548a510fe',
+        'reference' => '461d6e149a4568c4106b4461ec8aa46ea02918de',
         'name' => 'myoos/myoos',
         'dev' => true,
     ),
@@ -196,7 +196,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'b32f709049d1743b8f6aec12121c4df548a510fe',
+            'reference' => '461d6e149a4568c4106b4461ec8aa46ea02918de',
             'dev_requirement' => false,
         ),
         'nesbot/carbon' => array(
@@ -447,7 +447,7 @@
             'aliases' => array(
                 0 => '9999999-dev',
             ),
-            'reference' => '58046a3fc3555eda6567a2bdae7195be6aa9babe',
+            'reference' => '57a3ee3eb79b9538f3012e6b66c04cdac0b551d1',
             'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
