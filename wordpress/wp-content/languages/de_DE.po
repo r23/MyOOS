@@ -4518,7 +4518,7 @@ msgstr "Dieses Theme funktioniert nicht mit deiner WordPress-Version."
 #: wp-admin/includes/class-wp-plugins-list-table.php:1310
 #: wp-admin/includes/plugin.php:1136 wp-admin/includes/theme.php:901
 #: wp-admin/includes/theme.php:932 wp-admin/includes/theme.php:978
-#: wp-admin/includes/theme.php:1001 wp-admin/includes/update-core.php:1059
+#: wp-admin/includes/theme.php:1001 wp-admin/includes/update-core.php:1057
 #: wp-admin/includes/update.php:757 wp-admin/includes/update.php:784
 #: wp-admin/install.php:245 wp-admin/theme-install.php:336
 #: wp-admin/theme-install.php:359 wp-admin/theme-install.php:526
