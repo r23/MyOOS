@@ -1803,7 +1803,7 @@ function registerFormatType(name, settings) {
   if (settings.className === null) {
     const formatTypeForBareElement = (0,external_wp_data_namespaceObject.select)(store).getFormatTypeForBareElement(settings.tagName);
 
-    if (formatTypeForBareElement) {
+    if (formatTypeForBareElement && formatTypeForBareElement.name !== 'core/unknown') {
       window.console.error(`Format "${formatTypeForBareElement.name}" is already registered to handle bare tag name "${settings.tagName}".`);
       return;
     }
