@@ -47,24 +47,26 @@ class WPCF7_HTMLFormatter {
 	 * a paragraph element.
 	 */
 	const p_nonparent_elements = array(
-		'colgroup', 'dl', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-		'head', 'hgroup', 'html', 'legend', 'menu', 'ol', 'optgroup',
-		'option', 'pre', 'rp', 'rt', 'style', 'summary', 'table',
-		'tbody', 'tfoot', 'thead', 'title', 'tr', 'ul',
+		'colgroup', 'dl', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head',
+		'hgroup', 'html', 'legend', 'menu', 'ol', 'pre', 'style', 'summary',
+		'table', 'tbody', 'tfoot', 'thead', 'title', 'tr', 'ul',
 	);
 
 	/**
-	 * HTML elements in the phrasing content category.
+	 * HTML elements in the phrasing content category, plus non-phrasing
+	 * content elements that can be grandchildren of a paragraph element.
 	 */
 	const p_child_elements = array(
 		'a', 'abbr', 'area', 'audio', 'b', 'bdi', 'bdo', 'br', 'button',
 		'canvas', 'cite', 'code', 'data', 'datalist', 'del', 'dfn',
 		'em', 'embed', 'i', 'iframe', 'img', 'input', 'ins', 'kbd',
-		'keygen', 'label', 'link', 'map', 'mark', 'math', 'meta',
+		'keygen', 'label', 'link', 'map', 'mark', 'meta',
 		'meter', 'noscript', 'object', 'output', 'picture', 'progress',
 		'q', 'ruby', 's', 'samp', 'script', 'select', 'slot', 'small',
-		'span', 'strong', 'sub', 'sup', 'svg', 'template', 'textarea',
-		'time', 'u', 'var', 'video', 'wbr', self::placeholder_inline,
+		'span', 'strong', 'sub', 'sup', 'template', 'textarea',
+		'time', 'u', 'var', 'video', 'wbr',
+		'optgroup', 'option', 'rp', 'rt', // non-phrasing grandchildren
+		self::placeholder_inline,
 	);
 
 	/**
@@ -396,6 +398,44 @@ class WPCF7_HTMLFormatter {
 		if ( 'li' === $tag_name ) {
 			// Close <li> if closing tag is omitted.
 			$this->end_tag( 'li' );
+		}
+
+		if ( 'optgroup' === $tag_name ) {
+			// Close <option> and <optgroup> if closing tag is omitted.
+			$this->end_tag( 'option' );
+			$this->end_tag( 'optgroup' );
+		}
+
+		if ( 'option' === $tag_name ) {
+			// Close <option> if closing tag is omitted.
+			$this->end_tag( 'option' );
+		}
+
+		if ( 'rp' === $tag_name or 'rt' === $tag_name ) {
+			// Close <rp> and <rt> if closing tag is omitted.
+			$this->end_tag( 'rp' );
+			$this->end_tag( 'rt' );
+		}
+
+		if ( 'td' === $tag_name or 'th' === $tag_name ) {
+			// Close <td> and <th> if closing tag is omitted.
+			$this->end_tag( 'td' );
+			$this->end_tag( 'th' );
+		}
+
+		if ( 'tr' === $tag_name ) {
+			// Close <tr> if closing tag is omitted.
+			$this->end_tag( 'tr' );
+		}
+
+		if ( 'tbody' === $tag_name or 'tfoot' === $tag_name ) {
+			// Close <thead> if closing tag is omitted.
+			$this->end_tag( 'thead' );
+		}
+
+		if ( 'tfoot' === $tag_name ) {
+			// Close <tbody> if closing tag is omitted.
+			$this->end_tag( 'tbody' );
 		}
 
 		if ( ! in_array( $tag_name, self::void_elements ) ) {
