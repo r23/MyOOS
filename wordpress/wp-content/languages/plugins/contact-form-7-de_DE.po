@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-16 06:30:53+0000\n"
+"PO-Revision-Date: 2022-12-28 17:25:57+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -46,7 +46,7 @@ msgstr "Erfahre, wie deine Daten verarbeitet werden."
 msgid "This form uses Akismet to reduce spam."
 msgstr "Dieses Formular verwendet Akismet, um Spam zu reduzieren."
 
-#: includes/contact-form.php:612
+#: includes/contact-form.php:616
 msgid "Contact form"
 msgstr "Kontaktformular"
 
@@ -706,7 +706,7 @@ msgstr "Wenn du gerne Contact Form 7 nutzt und es nützlich findest, dann erwäg
 msgid "It is hard to continue development and support for this plugin without contributions from users like you."
 msgstr "Es ist schwer, die Entwicklung und den Support für dieses Plugin ohne Beiträge von Nutzern wie dir fortzusetzen."
 
-#: includes/contact-form.php:519 includes/contact-form.php:1029
+#: includes/contact-form.php:523 includes/contact-form.php:1033
 msgid "This contact form is available only for logged in users."
 msgstr "Dieses Kontaktformular ist nur für angemeldete Benutzer verfügbar."
 
@@ -1418,11 +1418,11 @@ msgstr "Hiermit wird ein Formular-Tag für eine Zustimmungs-Checkbox generiert. 
 msgid "acceptance"
 msgstr "Zustimmung"
 
-#: includes/contact-form.php:220
+#: includes/contact-form.php:224
 msgid "<code>%1$s</code> property of a <code>WPCF7_ContactForm</code> object is <strong>no longer accessible</strong>. Use <code>%2$s</code> method instead."
 msgstr "<code>%1$s</code> Eigenschaft eines <code>WPCF7_ContactForm</code> Objekts ist <strong>nicht mehr zugänglich</strong>. Verwende <code>%2$s</code> Methode stattdessen."
 
-#: includes/contact-form.php:112 includes/contact-form.php:427
+#: includes/contact-form.php:112 includes/contact-form.php:431
 msgid "Untitled"
 msgstr "Ohne Titel"
 

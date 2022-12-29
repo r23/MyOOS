@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-28 07:57:04+0000\n"
+"PO-Revision-Date: 2022-12-28 17:08:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,6 +35,15 @@ msgstr "Portfolio"
 msgctxt "Block pattern category"
 msgid "Call to Action"
 msgstr "Call-to-Action"
+
+#: lib/compat/wordpress-6.2/block-patterns.php:93
+msgctxt "Block pattern category"
+msgid "About"
+msgstr "Über"
+
+#: lib/compat/wordpress-6.2/block-patterns.php:94
+msgid "Introduce yourself."
+msgstr "Stell dich vor."
 
 #: build/block-library/blocks/page-list-item/block.json
 msgctxt "block keyword"
@@ -407,17 +416,17 @@ msgstr "Gibt an, ob ein Template individuell oder Teil der Template-Hierarchie i
 msgid "Whether the V2 of the list block that uses inner blocks should be enabled."
 msgstr "Ob die V2 des Listenblocks, der innere Blöcke verwendet, aktiviert werden soll."
 
-#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1379
+#: lib/class-wp-theme-json-gutenberg.php:3166
 msgid "Some of the theme.json settings.spacing.spacingScale values are invalid"
 msgstr "Einige der Werte in „theme.json settings.spacing.spacingScale“ sind ungültig"
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Small.
-#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1413
+#: lib/class-wp-theme-json-gutenberg.php:3200
 msgid "%sX-Small"
 msgstr "%sXS"
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Large.
-#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1450
+#: lib/class-wp-theme-json-gutenberg.php:3237
 msgid "%sX-Large"
 msgstr "%sXL"
 
@@ -777,7 +786,7 @@ msgstr "Zeigt eine Liste von Seitenzahlen für die Kommentarpaginierung an."
 msgid "%s submenu"
 msgstr "Untermenü von %s"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Font size name"
 msgid "Extra Large"
 msgstr "Extra groß"
@@ -919,177 +928,177 @@ msgctxt "block description"
 msgid "Display a graphic to represent this site. Update the block, and the changes apply everywhere it’s used. This is different than the site icon, which is the smaller image visible in your dashboard, browser tabs, etc used to help others recognize this site."
 msgstr "Zeige eine Grafik an, um diese Website zu repräsentieren. Wenn du den Block aktualisiert, werden die Änderungen an jeder verwendeten Stelle übernommen. Das ist etwas anderes als das Website-Icon, das kleinere Bild, das in deinem Dashboard, in Browser-Tabs usw. verwendet wird, damit andere leichter diese Website wiedererkennen."
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Duotone name"
 msgid "Blue and orange"
 msgstr "Blau und Orange"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Duotone name"
 msgid "Purple and green"
 msgstr "Lila und Grün"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Duotone name"
 msgid "Magenta and yellow"
 msgstr "Magenta und Gelb"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Duotone name"
 msgid "Midnight"
 msgstr "Mitternacht"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Duotone name"
 msgid "Blue and red"
 msgstr "Blau und Rot"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Duotone name"
 msgid "Purple and yellow"
 msgstr "Lila und Gelb"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Duotone name"
 msgid "Grayscale"
 msgstr "Graustufen"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Duotone name"
 msgid "Dark grayscale"
 msgstr "Dunkle Graustufen"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Midnight"
 msgstr "Mitternacht"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Electric grass"
 msgstr "Elektrisches Gras"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Pale ocean"
 msgstr "Blasser Ozean"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Luminous dusk"
 msgstr "Leuchtende Dämmerung"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Blush bordeaux"
 msgstr "Errötendes Bordeaux"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Blush light purple"
 msgstr "Errötendes Hellviolett"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Cool to warm spectrum"
 msgstr "Kühles bis warmes Spektrum"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Very light gray to cyan bluish gray"
 msgstr "Sehr helles Grau bis bläuliches Cyangrau"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Luminous vivid orange to vivid red"
 msgstr "Leuchtendes, kräftiges Orange bis kräftiges Rot"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Light green cyan to vivid green cyan"
 msgstr "Hellgrünes Cyan bis leuchtend grünes Cyan"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Vivid cyan blue to vivid purple"
 msgstr "Kräftiges Cyanblau bis kräftiges Lila"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "Vivid purple"
 msgstr "Kräftiges Lila"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "Vivid cyan blue"
 msgstr "Lebhaftes Cyanblau"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "Luminous vivid orange"
 msgstr "Leuchtendes, kräftiges Orange"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "Pale pink"
 msgstr "Blasses Pink"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "White"
 msgstr "Weiß"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "Cyan bluish gray"
 msgstr "Zyan-bläuliches Grau"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "Black"
 msgstr "Schwarz"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Font size name"
 msgid "Large"
 msgstr "Groß"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Font size name"
 msgid "Medium"
 msgstr "Mittelgroß"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Font size name"
 msgid "Small"
 msgstr "Klein"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "Pale cyan blue"
 msgstr "Helles Cyanblau"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "Vivid green cyan"
 msgstr "Lebhaftes Grün-Cyan"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "Luminous vivid amber"
 msgstr "Leuchtendes, lebhaftes Bernstein"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "Vivid red"
 msgstr "Lebhaftes Rot"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Gradient name"
 msgid "Luminous vivid amber to luminous vivid orange"
 msgstr "Leuchtend lebendiger Bernstein bis leuchtend lebendiges Orange"
 
-#: lib/compat/wordpress-6.1/theme.json
+#: lib/theme.json
 msgctxt "Color name"
 msgid "Light green cyan"
 msgstr "Helles Cyangrün"
@@ -2488,8 +2497,8 @@ msgstr "Hebe Zitate visuell hervor. „Indem wir andere zitieren, zitieren wir u
 msgid "M j, Y g:i a"
 msgstr "j. M Y G:i"
 
-#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1432
-#: build/block-editor/index.js:3797 build/components/index.js:56734
+#: lib/class-wp-theme-json-gutenberg.php:3219 build/block-editor/index.js:3797
+#: build/components/index.js:56734
 msgid "Medium"
 msgstr "Mittel"
 
@@ -2660,7 +2669,7 @@ msgid "... like this one, which is right aligned."
 msgstr "… wie dieser, der rechtsbündig ist."
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Small.
-#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1413
+#: lib/class-wp-theme-json-gutenberg.php:3200
 #: build/block-library/index.js:49573 build/components/index.js:56734
 msgid "Small"
 msgstr "Klein"
@@ -2708,9 +2717,8 @@ msgid "https://wordpress.org/support/plugin/gutenberg/"
 msgstr "https://wordpress.org/support/plugin/gutenberg/"
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Large.
-#: lib/compat/wordpress-6.1/class-wp-theme-json-6-1.php:1450
-#: build/block-editor/index.js:3800 build/block-library/index.js:49579
-#: build/components/index.js:56734
+#: lib/class-wp-theme-json-gutenberg.php:3237 build/block-editor/index.js:3800
+#: build/block-library/index.js:49579 build/components/index.js:56734
 msgid "Large"
 msgstr "Groß"
 
