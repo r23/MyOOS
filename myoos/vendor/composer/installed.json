@@ -4541,17 +4541,17 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.16",
-            "version_normalized": "5.4.16.0",
+            "version": "v5.4.17",
+            "version_normalized": "5.4.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "7548c6f59aa223d3e8d41c9ddd880fa5654852e0"
+                "reference": "b9cb0433dda016d458ce06a45fc0084d421ea4f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/7548c6f59aa223d3e8d41c9ddd880fa5654852e0",
-                "reference": "7548c6f59aa223d3e8d41c9ddd880fa5654852e0",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/b9cb0433dda016d458ce06a45fc0084d421ea4f8",
+                "reference": "b9cb0433dda016d458ce06a45fc0084d421ea4f8",
                 "shasum": ""
             },
             "require": {
@@ -4587,7 +4587,7 @@
                 "masterminds/html5": "<2.6",
                 "ocramius/proxy-manager": "<2.1",
                 "phpdocumentor/reflection-docblock": "<3.2.2",
-                "phpdocumentor/type-resolver": "<1.4.0",
+                "phpdocumentor/type-resolver": "<1.4.0|>=1.7.0",
                 "phpunit/phpunit": "<5.4.3"
             },
             "provide": {
@@ -4675,7 +4675,7 @@
                 "async-aws/sns": "^1.0",
                 "async-aws/sqs": "^1.0",
                 "cache/integration-tests": "dev-master",
-                "doctrine/annotations": "^1.13.1",
+                "doctrine/annotations": "^1.13.1|^2",
                 "doctrine/cache": "^1.11|^2.0",
                 "doctrine/collections": "^1.0|^2.0",
                 "doctrine/data-fixtures": "^1.1",
@@ -4701,7 +4701,7 @@
                 "twig/inky-extra": "^2.12|^3",
                 "twig/markdown-extra": "^2.12|^3"
             },
-            "time": "2022-11-28T18:09:11+00:00",
+            "time": "2022-12-28T14:52:07+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -4744,7 +4744,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.16"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.17"
             },
             "funding": [
                 {
