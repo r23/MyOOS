@@ -3846,16 +3846,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.17",
+            "version": "v5.4.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "b9cb0433dda016d458ce06a45fc0084d421ea4f8"
+                "reference": "cb7c44398f6a4b8e357468664207a8eb9302ae94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/b9cb0433dda016d458ce06a45fc0084d421ea4f8",
-                "reference": "b9cb0433dda016d458ce06a45fc0084d421ea4f8",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/cb7c44398f6a4b8e357468664207a8eb9302ae94",
+                "reference": "cb7c44398f6a4b8e357468664207a8eb9302ae94",
                 "shasum": ""
             },
             "require": {
@@ -4046,7 +4046,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.17"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.18"
             },
             "funding": [
                 {
@@ -4062,7 +4062,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-12-28T14:52:07+00:00"
+            "time": "2022-12-29T18:54:20+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
