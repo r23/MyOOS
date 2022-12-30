@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-28 09:47:42+0000\n"
+"PO-Revision-Date: 2022-12-29 17:54:50+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -80,6 +80,38 @@ msgstr "Konkurrenz-Analysator"
 #: includes/modules/seo-analysis/class-seo-analysis.php:68
 msgid "SEO Analyzer"
 msgstr "SEO-Analysator"
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:161
+msgid "Verify auto-updates are enabled for Rank Math"
+msgstr "Überprüfen, ob automatische Updates für Rank Math aktiviert sind"
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:138
+msgid "Check the presence of sitemaps on your website"
+msgstr "Überprüfe das Vorhandensein von Sitemaps auf deiner Website"
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:128
+msgid "Confirm if Rank Math is connected to Search Console"
+msgstr "Bestätigen, ob Rank Math mit der Search Console verbunden ist"
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:90
+msgid "Verify the presence of focus keywords in your post titles"
+msgstr "Überprüfen des Vorhandenseins von Fokus-Schlüsselwörtern in deinen Beitragstiteln"
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:81
+msgid "Confirm focus keywords are set for all your posts"
+msgstr "Bestätige, dass Fokus-Schlüsselwörter für alle deine Beiträge festgelegt sind"
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:70
+msgid "Check your site for SEO-friendly permalink structure"
+msgstr "Überprüfe deine Website auf SEO-freundliche Permalink-Struktur"
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:56
+msgid "Check your site's visibility to search engines"
+msgstr "Überprüfe die Sichtbarkeit deiner Website für Suchmaschinen"
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:40
+msgid "Confirm custom tagline is set for your site"
+msgstr "Bestätige, dass ein benutzerdefinierter Slogan für deine Website festgelegt ist"
 
 #: includes/modules/database-tools/class-database-tools.php:395
 msgid "Convert FAQ, HowTo, & Table of Contents Blocks created using Yoast. Use this option to easily move your previous blocks into Rank Math."
@@ -8191,6 +8223,10 @@ msgstr "Webmaster-Tools"
 #: includes/replace-variables/class-basic-variables.php:93
 msgid "Site Title"
 msgstr "Seitentitel"
+
+#: includes/module/class-manager.php:245
+msgid "Let Rank Math analyze your website and your website's content using 28+ different tests to provide tailor-made SEO Analysis to you."
+msgstr "Lasse Rank Math deine Website und den Inhalt deiner Website anhand von 28+ verschiedenen Tests analysieren, um dir eine maßgeschneiderte SEO-Analyse bereitzustellen."
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20

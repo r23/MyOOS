@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-28 17:08:56+0000\n"
+"PO-Revision-Date: 2022-12-29 19:44:33+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -873,6 +873,10 @@ msgstr "Dieser Block ist veraltet. Bitte verwende stattdessen den Kommentar-Bloc
 msgctxt "block description"
 msgid "Show a block pattern."
 msgstr "Eine Block-Vorlage anzeigen."
+
+#: lib/compat/wordpress-6.2/class-gutenberg-rest-global-styles-controller-6-2.php:220
+msgid "Theme not found."
+msgstr "Das Theme wurde nicht gefunden."
 
 #. translators: %s is the Author name.
 #. translators: %s is the Comment Author name
