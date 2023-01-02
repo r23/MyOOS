@@ -171,7 +171,7 @@ private static function w3all_get_phpbb_config(){
 }
 
 private static function verify_phpbb_credentials(){
-  global $w3all_url_to_cms,$w3all_phpbb_unotifications,$w3all_phpbb_unotifications_yn,$w3all_phpbb_connection,$phpbb_config,$w3all_phpbb_usession,$w3all_config,$w3all_oninsert_wp_user,$wpdb,$w3cookie_domain,$w3all_anti_brute_force_yn,$w3all_bruteblock_phpbbulist,$w3all_phpbb_lang_switch_yn,$w3all_useragent,$wp_w3all_forum_folder_wp,$w3all_add_into_wp_u_capability;
+  global $w3all_link_roles_groups,$w3all_phpbb_profile_fields,$w3all_url_to_cms,$w3all_phpbb_unotifications,$w3all_phpbb_unotifications_yn,$w3all_phpbb_connection,$phpbb_config,$w3all_phpbb_usession,$w3all_config,$w3all_oninsert_wp_user,$wpdb,$w3cookie_domain,$w3all_anti_brute_force_yn,$w3all_bruteblock_phpbbulist,$w3all_phpbb_lang_switch_yn,$w3all_useragent,$wp_w3all_forum_folder_wp,$w3all_add_into_wp_u_capability;
 
   if( isset( $_GET['action'] ) && $_GET['action'] == 'validate_2fa' ){
     return;
@@ -253,6 +253,17 @@ private static function verify_phpbb_credentials(){
      $phpbb_user_session = array();
     }
 
+ if(isset($phpbb_user_session[0]))
+ { # *collect the current user's phpBB profile data
+  foreach($phpbb_user_session[0] as $k => $v)
+  {
+   if(substr($k,0,3)=='pf_'){
+     $w3all_phpbb_profile_fields[$k] = $v;
+     # *note that the array will NOT respect the DB tables columns order, so it is NOT suitable to build a query, but only to know the current user's phpBB Profiles Fields values or to count()
+    }
+  }
+ }
+
   // Based on the above executed query '$phpbb_user_session[0]->user_id' could result empty
   // so assure just after that this var is set with the correct uid
   // ** more below
@@ -321,50 +332,60 @@ private static function verify_phpbb_credentials(){
  // START Get all phpBB notifications for this user
  // See Table: phpbb_notification_types
  // and https://area51.phpbb.com/docs/code/3.3.x/phpbb/notification/type.html
- // Are you able to improve the query? Let know!
+ // Able to improve the query? Let know!
+ // The output of phpBB notifications is on file: /wp-content/plugins/wp-w3all-phpbb-integration/views/wp_w3all_phpbb_unotifications_short.php
 
- // exclude bots and deactivated phpBB users
+ // NOTE that SELECT MAX(post_id) has been added for conditions that have no references within the posts table
+ // so the user's data result into the array will contain records that are not as expected in these cases (as you can easily argue)
+ // these cases contain user's data to display, into the serialized $nnn->notification_data record (see wp_w3all_phpbb_unotifications_short.php)
+ 
+ // Exclude bots and deactivated phpBB users
   if( $w3all_phpbb_unotifications_yn > 0 && $phpbb_user_session[0]->user_type != 1 && $phpbb_user_session[0]->group_id != 6 ){ // there is almost an unread notification for this user
-
-   // Get PMs only if there are news, or the query will be slower (if there are, but even if there are not news PMS)
+   // Get PMs only if there are news, or the query will be slower (if there are, but even if there are no new PMS)
+   
+   // !!! NOTE that $phpbb_user_session[0]->user_new_privmsg sometime is set to 0 EVEN if there are old not read messages
     if( $phpbb_user_session[0]->user_new_privmsg > 0 && $w3all_phpbb_unotifications_yn == 1 )
     {
      $pmq =  "OR N.user_id = ". $phpbb_u ."
-       AND N.notification_type_id = 11
        AND N.notification_read = 0
+       AND N.notification_type_id = NT.notification_type_id
+       AND NT.notification_type_name IN('notification.type.pm')
        AND N.item_id = PM.msg_id
        AND U.user_id = PM.author_id
-       AND P.post_id = (SELECT MIN(post_id) FROM ".$w3all_config["table_prefix"]."posts AS post_id)";
+       AND P.post_id = (SELECT MAX(post_id) FROM ".$w3all_config["table_prefix"]."posts AS post_id)";
      $pmq0 = ",PM.msg_id,PM.author_id";
      $pmq1 = "JOIN ".$w3all_config["table_prefix"]."privmsgs AS PM";
     } else { $pmq = $pmq0 = $pmq1 = ''; }
-      // NOTE that SELECT MIN(post_id) has been added for those conditions that have no references within the posts table
-      // so the result of the array of datas may contain records that are not as expected
-     $w3all_phpbb_unotifications = $w3all_phpbb_connection->get_results("SELECT N.*,P.post_id,P.topic_id,P.forum_id,P.poster_id,P.post_time,P.post_subject,U.username".$pmq0."
+     $w3all_phpbb_unotifications = $w3all_phpbb_connection->get_results("SELECT N.*,NT.notification_type_name,P.post_id,P.topic_id,P.forum_id,P.poster_id,P.post_time,P.post_subject,U.username".$pmq0."
         FROM ".$w3all_config["table_prefix"]."notifications AS N
+         JOIN ".$w3all_config["table_prefix"]."notification_types AS NT
          JOIN ".$w3all_config["table_prefix"]."users AS U
          JOIN ".$w3all_config["table_prefix"]."posts AS P
          ".$pmq1."
         ON N.user_id = ". $phpbb_u ."
-         AND N.notification_type_id IN(3,4,5,6,8,9,20,22)
          AND N.notification_read = 0
+         AND N.notification_type_id = NT.notification_type_id
+         AND NT.notification_type_name IN('notification.type.quote','notification.type.bookmark','notification.type.post','notification.type.approve_post','notification.type.post_in_queue','notification.type.report_post','post_in_queue','notification.type.forum')
          AND P.post_id = N.item_id
          AND U.user_id = P.poster_id
         OR N.user_id = ". $phpbb_u ."
-         AND N.notification_type_id IN(1,2,10,19)
          AND N.notification_read = 0
+         AND N.notification_type_id = NT.notification_type_id
+         AND NT.notification_type_name IN('notification.type.topic','notification.type.approve_topic','notification.type.topic_in_queue','topic_in_queue')
          AND P.topic_id = N.item_id
          AND U.user_id = P.poster_id
         OR N.user_id = ". $phpbb_u ."
-         AND N.notification_type_id IN(7,12)
          AND N.notification_read = 0
+         AND N.notification_type_id = NT.notification_type_id
+         AND NT.notification_type_name IN('notification.type.group_request','notification.type.admin_activate_user')
          AND U.user_id = N.item_id
-         AND P.post_id = (SELECT MIN(post_id) FROM ".$w3all_config["table_prefix"]."posts AS post_id)
+         AND P.post_id = (SELECT MAX(post_id) FROM ".$w3all_config["table_prefix"]."posts AS post_id)
         OR N.user_id = ". $phpbb_u ."
-         AND N.notification_type_id IN(13,14,15,16,17,18,21)
          AND N.notification_read = 0
+         AND N.notification_type_id = NT.notification_type_id
+         AND NT.notification_type_name IN('notification.type.disapprove_post','notification.type.disapprove_topic','notification.type.group_request_approved','notification.type.report_pm','notification.type.report_pm_closed','notification.type.report_post_closed','report_pm')
          AND U.user_id = 1
-         AND P.post_id = (SELECT MIN(post_id) FROM ".$w3all_config["table_prefix"]."posts AS post_id)
+         AND P.post_id = (SELECT MAX(post_id) FROM ".$w3all_config["table_prefix"]."posts AS post_id)
           ".$pmq."
         GROUP BY N.notification_id ORDER BY N.notification_id DESC");
 
@@ -372,9 +393,9 @@ private static function verify_phpbb_credentials(){
 
   if( $current_user->user_email != $phpbb_user_session[0]->user_email )
   {
-    // if this is an user logged in phpBB, with another username/email, and the WP user logged in is another
+    // If this is an user logged in phpBB, with another username/email, and the WP user logged in is another
     // avoid going on that will cause an update to the same (and of the other) phpbb user email
-    // reset the wp user, let login with presented phpBB session
+    // reset the wp user, so after let login the presented phpBB user session
      if(email_exists($phpbb_user_session[0]->user_email)){
        clean_user_cache($current_user->ID);
        wp_destroy_current_session();
@@ -387,7 +408,7 @@ private static function verify_phpbb_credentials(){
  // Check for ban_id: if not empty then almost a ban by IP or EMAIL or USERNAME exists
  // Do not know if there is some other ban row that can exists into 'banlist', because only the first found retrieved into query above
 
- // The complete ban check is done when user login in wordpress, not when present session, because on the above main query this has been removed
+ // The complete ban check is done when user login in wordpress, not when presented session, because on the above main query this has been removed
  // REMOVED
       //OR ". $w3all_config["table_prefix"] ."banlist.ban_email = ". $w3all_config["table_prefix"] ."users.user_email AND ban_exclude = 0
       //OR ". $w3all_config["table_prefix"] ."banlist.ban_ip = ". $w3all_config["table_prefix"] ."sessions.session_ip AND ban_exclude = 0
@@ -428,6 +449,7 @@ private static function verify_phpbb_credentials(){
   }
 
    $w3all_phpbb_usession = $phpbb_user_session[0];
+   // old way
    $w3_phpbb_user_session = serialize($phpbb_user_session);
    define("W3PHPBBUSESSION", $w3_phpbb_user_session);
 
@@ -436,11 +458,28 @@ private static function verify_phpbb_credentials(){
     if( $phpbb_user_session[0]->user_lang == 'fa' ){ $phpbb_user_session[0]->user_lang = 'ps'; }
 
  if ( is_user_logged_in() ) {
-      // expired session // assumed _k as valid without checking if it is expired (well, could/should be may improved)
+      // expired session // assumed _k as valid without checking if it is expired (sisi lo so should be improved)
       if ( empty( $phpbb_k ) && ( time() - $phpbb_config["session_length"] ) > $phpbb_user_session[0]->session_time )
       {
         self::w3all_wp_logout();
-      } else { // update session
+      } else
+      { // UPDATE
+
+# If option enabled: Switch WP user to specified Role in WordPRess, when Group updated in phpBB
+# switch roles/groups: also see -> public static function phpbb_update_profile($user_id, $old_user_data) {
+
+  if($w3all_link_roles_groups > 1)
+  {
+   // include/execute code for this specific case (when on verify_credentials)
+    $w3all_switches_groups_roles_on_verify_credentials = true;
+
+      if (file_exists(ABSPATH.'wp-content/plugins/wp-w3all-custom/wpRoles_phpbbGroups.php')){
+       include(ABSPATH.'wp-content/plugins/wp-w3all-custom/wpRoles_phpbbGroups.php');
+      } else {
+       include(WPW3ALL_PLUGIN_DIR.'common/wpRoles_phpbbGroups.php');
+      }
+   }
+
     $update = $w3all_phpbb_connection->query("UPDATE ". $w3all_config["table_prefix"] ."sessions SET session_time = '".time()."' WHERE session_id = '$phpbb_sid' OR session_user_id = '".$phpbb_user_session[0]->user_id."' AND session_browser = '".$w3all_useragent ."'");
    // check for match between wp and phpbb profile fields
     $phpbb_user_session[0]->pf_phpbb_website = (!empty($phpbb_user_session[0]->pf_phpbb_website)) ? $phpbb_user_session[0]->pf_phpbb_website : $current_user->user_url;
@@ -873,9 +912,9 @@ private static function phpBB_user_session_set($wp_user_data){
       }
 
       if( $secure && version_compare(phpversion(), '7.3.0', '>') ){
-       setcookie("$k", "$key_id_k", [ 'expires' => $cookie_expire, 'path' => '/', 'domain' => $w3cookie_domain, 'secure' => $secure, 'httponly' => false, 'samesite' => 'None' ]);
-       setcookie("$sid", "$w3session_id", [ 'expires' => $cookie_expire, 'path' => '/', 'domain' => $w3cookie_domain, 'secure' => $secure, 'httponly' => false, 'samesite' => 'None' ]);
-       setcookie("$u", "$phpbb_user_id", [ 'expires' => $cookie_expire, 'path' => '/', 'domain' => $w3cookie_domain, 'secure' => $secure, 'httponly' => false, 'samesite' => 'None' ]);
+       setcookie("$k", "$key_id_k", [ 'expires' => $cookie_expire, 'path' => '/', 'domain' => $w3cookie_domain, 'secure' => $secure, 'httponly' => true, 'samesite' => 'None' ]);
+       setcookie("$sid", "$w3session_id", [ 'expires' => $cookie_expire, 'path' => '/', 'domain' => $w3cookie_domain, 'secure' => $secure, 'httponly' => true, 'samesite' => 'None' ]);
+       setcookie("$u", "$phpbb_user_id", [ 'expires' => $cookie_expire, 'path' => '/', 'domain' => $w3cookie_domain, 'secure' => $secure, 'httponly' => true, 'samesite' => 'None' ]);
       } else {
         setcookie ("$k", "$key_id_k", $cookie_expire, "/", $w3cookie_domain, $secure, true);
         setcookie ("$sid", "$w3session_id", $cookie_expire, "/", $w3cookie_domain, $secure, true);
@@ -952,7 +991,6 @@ if( $phpbb_uid > 2 )
     $ban_ids_remove = !empty($ban_ids_remove) ? substr($ban_ids_remove, 0, -1) : '';
 
     if(!empty($ban_ids_remove)){
-     //$w3phpbb_conn = self::w3all_db_connect();
      $w3all_phpbb_connection->query("DELETE FROM ".$w3all_config["table_prefix"]."banlist WHERE ban_id IN($ban_ids_remove)");
     }
 
@@ -1199,7 +1237,7 @@ private static function create_phpBB_user($wpu, $action = ''){
   // or: if ( class_exists('WooCommerce') OR isset($_POST['createaccount']) OR class_exists('somethingelse') ) {
  if ( class_exists('WooCommerce') && $w3all_phpbb_user_deactivated_yn != 1 && !current_user_can('create_users') )
  { // or may restrict more based on if some $_POST var exist or not
-     if( ! defined("W3ALL_SESSION_ARELEASED") && ! defined("PHPBBAUTHCOOKIEREL") ){
+     if( ! defined("PHPBBAUTHCOOKIEREL") ){
      $phpBB_user_session_set = self::phpBB_user_session_set_res($wpu);
     }
  }
@@ -1436,6 +1474,8 @@ public static function wp_w3all_wp_after_pass_reset( $user ) {
 public static function phpbb_pass_update($user, $new_pass) {
  // $new_pass is plain-text
 
+   if(defined('WPW3ALL_PASSW_AUPADTED')) { return; }
+
        global $w3all_config,$wpdb,$w3all_phpbb_connection;
 
      $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
@@ -1474,24 +1514,31 @@ public static function phpbb_pass_update($user, $new_pass) {
 
 // the profile_update hook fire also just after an user is created.
 // so return here if the $_GET['action'] == 'register' detected
-// anyway, may some other external plugin will work with his own vars: so may add here
+// or if the user still do not exist in phpBB
 
- if ( $user_id == 1 OR isset($_GET['action']) && $_GET['action'] == 'register' ){ return; }
+ if ( $user_id < 2 OR isset($_GET['action']) && $_GET['action'] == 'register' OR defined('WPW3ALL_UPROFILE_UPDATED') ){ return; }
 
-   global $w3all_phpbb_connection,$phpbb_config,$wpdb,$w3all_config,$w3all_phpbb_lang_switch_yn,$w3all_email_exist_inphpbb;
+   global $w3all_link_roles_groups,$w3all_phpbb_connection,$phpbb_config,$wpdb,$w3all_config,$w3all_phpbb_lang_switch_yn,$w3all_email_exist_inphpbb;
 
     if(empty($phpbb_config)){
      $phpbb_config = self::w3all_get_phpbb_config();
     }
 
      $phpbb_version = substr($phpbb_config["version"], 0, 3);
-     $wpu = get_user_by('ID', $user_id);
+     $wpu = get_user_by('ID', $user_id); // updated udata
 
-     if( $wpu === false ){ return; }
+     if(empty($wpu)){ return; }
 
      $phpbb_user_type = ( empty($wpu->roles) ) ? '1' : '0';
      $user_email_hash = self::w3all_phpbb_email_hash($wpu->user_email);
      $umeta = get_user_meta($user_id);
+
+    if ( is_multisite() ) {
+     // $wp_user_p_blog = get_user_meta($user_id, 'primary_blog', true);
+     // a normal user result with no capability in MU
+     // temp fix: set user type by the way as active in phpBB
+     $phpbb_user_type = 0;
+    }
 
      foreach($umeta as $u => $um){
        if( strpos($u,'_new_email') !== false ){
@@ -1506,21 +1553,34 @@ public static function phpbb_pass_update($user, $new_pass) {
      $old_user_email_hash = self::w3all_phpbb_email_hash($old_user_data->user_email);
      $username = esc_sql(mb_strtolower($old_user_data->user_login,'UTF-8'));
      $wpu->user_login = esc_sql(mb_strtolower($wpu->user_login,'UTF-8'));
-     $old_user_data->user_email = esc_sql(strtolower($old_user_data->user_email));
-     $wpu->user_email = esc_sql(strtolower($wpu->user_email));
+     $old_user_data->user_email = strtolower($old_user_data->user_email);
+     $wpu->user_email = strtolower($wpu->user_email);
      $user_email = isset($new_email) ? $old_user_data->user_email : $wpu->user_email;
 
-   if ( is_multisite() ) {
-//$wp_user_p_blog = get_user_meta($user_id, 'primary_blog', true);
-// a normal user result with no capability in MU
-// temp fix: set user type by the way as active in phpBB
-    $phpbb_user_type = 0;
+
+
+   #$uid = $w3all_phpbb_connection->get_var("SELECT user_id FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$old_user_data->user_email'");
+   $phpbbug = $w3all_phpbb_connection->get_results("SELECT user_id, group_id FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$old_user_data->user_email'");
+
+     if(empty($phpbbug[0])){ return; } // if the user (still?) do not exist
+
+   $uid  = $phpbbug[0]->user_id;
+   $ugid = $phpbbug[0]->group_id;
+
+# If option enabled: Switch WP user to specified Group in phpBB, when Role updated in WordPress
+# switch Roles/Groups: see also verify_credentials for the update of the user Role, of the current logged in user, when Group changed in phpBB
+
+  if($w3all_link_roles_groups > 0)
+  {
+   // execute code for this specific case (when on wp admin profile updated)
+   $w3all_switches_groups_roles_on_wpupdate_profile = true;
+
+      if (file_exists(ABSPATH.'wp-content/plugins/wp-w3all-custom/wpRoles_phpbbGroups.php')){
+       include(ABSPATH.'wp-content/plugins/wp-w3all-custom/wpRoles_phpbbGroups.php');
+      } else {
+       include(WPW3ALL_PLUGIN_DIR.'common/wpRoles_phpbbGroups.php');
+      }
    }
-
-  // $uid = $w3all_phpbb_connection->get_var("SELECT user_id FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$old_user_data->user_email' OR LOWER(username) = '$username'");
-   $uid = $w3all_phpbb_connection->get_var("SELECT user_id FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$old_user_data->user_email'");
-
-  if ( empty($uid) OR $uid < 3 ){ return; }
 
      $u_url = $wpu->user_url;
      $wp_umeta = get_user_meta($wpu->ID, '', false);
@@ -1596,6 +1656,7 @@ public static function phpbb_pass_update($user, $new_pass) {
        }
    } // END phpBB < 3.3.0
 
+  define('WPW3ALL_UPROFILE_UPDATED',true);
 }
 
 public static function w3_check_phpbb_profile_wpnu($username){ // email/user_login

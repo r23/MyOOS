@@ -6,14 +6,14 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.6.7
+Version: 2.6.8
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
 Text Domain: wp-w3all-phpbb-integration
 
 =====================================================================================
-Copyright (C) 2022 - axew3.com
+Copyright (C) 2023 - axew3.com
 =====================================================================================
 */
 
@@ -26,20 +26,20 @@ Copyright (C) 2022 - axew3.com
 // Security
 defined( 'ABSPATH' ) or die( 'forbidden' );
 if ( !function_exists( 'add_action' ) ) {
-  echo 'forbidden';
-  exit;
+  die( 'forbidden' );
 }
 
 if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3PHPBBLASTOPICS' ) OR defined( 'W3PHPBBCONFIG' ) OR defined( 'W3UNREADTOPICS' ) OR defined( 'W3ALLPHPBBUAVA' ) OR defined("W3BANCKEXEC") ):
   die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.6.7' );
+define( 'WPW3ALL_VERSION', '2.6.8' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
 $w3all_phpbb_unotifications = $wp_userphpbbavatar = $w3all_phpbb_connection = $phpbb_config = $w3all_phpbb_usession = $w3all_wp_email_exist_inphpbb = $w3all_oninsert_wp_user = $w3all_wpusers_delete_ary = $w3all_wpusers_delete_once = $phpbb_online_udata = $w3all_widget_phpbb_onlineStats_exec = ''; // $w3all_oninsert_wp_user used to check if WP is creating an user, switch to 1 before wp_insert_user fire so to avoid user's email check into phpBB
+$w3all_phpbb_profile_fields = array();
 
 $w3all_w_lastopicspost_max = get_option( 'widget_wp_w3all_widget_last_topics' );
 $config_avatars = get_option('w3all_conf_avatars');
@@ -113,6 +113,7 @@ if(isset($w3reset_cookie_domain)){
    $wp_w3all_phpbb_iframe_short_pages_yn = (isset($w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn']) && ! empty($w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn'])) ? trim($w3all_conf_pref['wp_w3all_phpbb_iframe_short_pages_yn']) : '';
    $wp_w3all_phpbb_iframe_short_token_yn = (isset($w3all_conf_pref['wp_w3all_phpbb_iframe_short_token_yn']) && ! empty($w3all_conf_pref['wp_w3all_phpbb_iframe_short_token_yn'])) ? trim($w3all_conf_pref['wp_w3all_phpbb_iframe_short_token_yn']) : '';
    $w3all_phpbb_unotifications_yn = (isset($w3all_conf_pref['w3all_phpbb_unotifications_yn']) && ! empty($w3all_conf_pref['w3all_phpbb_unotifications_yn'])) ? $w3all_conf_pref['w3all_phpbb_unotifications_yn'] : 0;
+   $w3all_link_roles_groups = (isset($w3all_conf_pref['w3all_link_roles_groups']) && ! empty($w3all_conf_pref['w3all_link_roles_groups'])) ? $w3all_conf_pref['w3all_link_roles_groups'] : 0;
 
    // to set W3PHPBBLASTOPICS
    // then used to avoid more calls in case of multiple widgets (not x shortcode by forums ids)
@@ -241,7 +242,6 @@ if ( defined( 'WP_ADMIN' ) )
          $phpBB_user_add = WP_w3all_phpbb::create_phpBB_user_res($wpu);
        }
  }
-
 
 function wp_w3all_up_phpbb_prof($user_id, $old_user_data) {
 

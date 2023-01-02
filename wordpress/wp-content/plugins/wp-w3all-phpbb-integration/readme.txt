@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, users
-Stable tag: 2.6.7
+Stable tag: 2.6.8
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 6.2
@@ -72,7 +72,15 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 2. Wp w3all (raw) WP users transfer to phpBB
 3. WP w3all auto embed phpBB into your WordPress template
 
-== Changelog ==
+== Changelog ==== Changelog ==
+
+= 2.6.8 =
+*Release Date - 1 Jan, 2023*
+* Fix: setcookie as httponly for the samesite cookie attribute
+* Add option: Roles -> Groups switches. Refer to inline option's hints on plugin admin page and this page for advanced (basic) suggestions: https://www.axew3.com/w3/2022/12/switch-wp-user-to-specified-group-in-phpbb-when-role-updated-in-wordpress-admin-user-profile-update/
+* Fix: the w3all_phpbb_unotifications shortcode. It should now work fine into any phpBB setup/configuration
+* Fix: minor fixes all around
+* Logs: https://www.axew3.com/w3/forums/viewtopic.php?t=1779
 
 = 2.6.7 =
 *Release Date - 16 Dec, 2022*
