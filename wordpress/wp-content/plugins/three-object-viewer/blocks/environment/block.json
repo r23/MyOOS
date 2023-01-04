@@ -45,6 +45,7 @@
     "supports": {
         "html": false,
         "multiple": false,
+		"hasOverlay": false,
         "align": ["full"]
     },
     "editorScript": "file:../../build/block-environment.js",

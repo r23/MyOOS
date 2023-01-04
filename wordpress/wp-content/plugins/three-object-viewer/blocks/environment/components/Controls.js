@@ -17,6 +17,7 @@ const Controls = (props) => {
 	const isLocked = useRef(false);
 	const [lock, setLock] = useState(false);
 	const [click, setClick] = useState(false);
+	const [shiftActive, setShift] = useState(false);
 	const [moveForward, setMoveForward] = useState(false);
 	const [moveBackward, setMoveBackward] = useState(false);
 	const [moveLeft, setMoveLeft] = useState(false);
@@ -30,7 +31,7 @@ const Controls = (props) => {
 
 	const pointerRay = new rapier.Ray(
 		{ x: 0, y: 0, z: 0 },
-		{ x: 0, y: 0, z: -1 }
+		{ x: 0, y: 0, z: -0.5 }
 	);
 	const { camera, scene } = useThree();
 
@@ -97,7 +98,7 @@ const Controls = (props) => {
 		ray.origin.x = playerThing.translation().x;
 		ray.origin.y = playerThing.translation().y;
 		ray.origin.z = playerThing.translation().z;
-		const velocity = 0.25;
+		const velocity = shiftActive ? 0.36 : 0.1;
 		world.raw().step();
 		const maxToi = 14;
 		const solid = true;
@@ -307,7 +308,6 @@ const Controls = (props) => {
 		} else if (moveRight) {
 			playerThing.lockRotations(true, true);
 			// playerThing.setRotation({x: 0, y: 0.707107, z: 0, w: 0.707107}, true);
-
 			controlsRef.current.moveRight(velocity);
 			const hit = world
 				.raw()
@@ -353,79 +353,88 @@ const Controls = (props) => {
 		}
 	});
 	const onKeyDown = function (event) {
-		switch (event.code) {
-			case "ArrowUp":
-			case "KeyW":
-				setMoveForward(true);
-				setLock(false);
-				break;
+		if(event.target instanceof HTMLInputElement){
+		return
+		} else {
+			switch (event.code) {
+				// case when both shift and the w key are pressed
+				case "ShiftLeft":
+					setShift(true);
+					setLock(false);
+					break;
+				case "ArrowUp":
+				case "KeyW":
+					setMoveForward(true);
+					setLock(false);
+					break;
 
-			case "ArrowLeft":
-			case "KeyA":
-				setMoveLeft(true);
-				setLock(false);
-				break;
+				case "ArrowLeft":
+				case "KeyA":
+					setMoveLeft(true);
+					setLock(false);
+					break;
 
-			case "ArrowDown":
-			case "KeyS":
-				setMoveBackward(true);
-				setLock(false);
-				break;
+				case "ArrowDown":
+				case "KeyS":
+					setMoveBackward(true);
+					setLock(false);
+					break;
 
-			case "ArrowRight":
-			case "KeyD":
-				setMoveRight(true);
-				setLock(false);
-				break;
-			case "KeyR":
-				if (props.something.current) {
-					const playerThing = world.getRigidBody(props.something.current.handle);
+				case "ArrowRight":
+				case "KeyD":
+					setMoveRight(true);
+					setLock(false);
+					break;
+				case "KeyR":
+					if (props.something.current) {
+						const playerThing = world.getRigidBody(props.something.current.handle);
 
-					const x = Number(spawnPos[0]);
-					const y = Number(spawnPos[1]);
-					const z = Number(spawnPos[2]);
-					if (props.spawnPointsToAdd) {
-						let finalPoints = [];
-						props.spawnPointsToAdd.forEach((point) => {
-							finalPoints.push([Number(point.position.x), Number(point.position.y), Number(point.position.z)]);
-						});
-						finalPoints.push([x, y, z]);
-						//pick a random point
-						let randomPoint = finalPoints[Math.floor(Math.random() * finalPoints.length)];
-						// Check if the converted values are valid and finite
-						// Set the camera's position
-						camera.position.set(randomPoint[0], randomPoint[1], randomPoint[2]);
+						const x = Number(spawnPos[0]);
+						const y = Number(spawnPos[1]);
+						const z = Number(spawnPos[2]);
+						if (props.spawnPointsToAdd) {
+							let finalPoints = [];
+							props.spawnPointsToAdd.forEach((point) => {
+								finalPoints.push([Number(point.position.x), Number(point.position.y), Number(point.position.z)]);
+							});
+							finalPoints.push([x, y, z]);
+							//pick a random point
+							let randomPoint = finalPoints[Math.floor(Math.random() * finalPoints.length)];
+							// Check if the converted values are valid and finite
+							// Set the camera's position
+							camera.position.set(randomPoint[0], randomPoint[1], randomPoint[2]);
 
-						playerThing.setTranslation({
-							x: randomPoint[0],
-							y: randomPoint[1],
-							z: randomPoint[2]
-						});
+							playerThing.setTranslation({
+								x: randomPoint[0],
+								y: randomPoint[1],
+								z: randomPoint[2]
+							});
 
-					} else {
-						// Check if the converted values are valid and finite
-						// Set the camera's position
-						camera.position.set(x, y, z);
+						} else {
+							// Check if the converted values are valid and finite
+							// Set the camera's position
+							camera.position.set(x, y, z);
 
-						playerThing.setTranslation({
-							x: x,
-							y: y,
-							z: z
-						});
+							playerThing.setTranslation({
+								x: x,
+								y: y,
+								z: z
+							});
+						}
 					}
-				}
-				setLock(false);
-				break;
-			case "Space":
-				setLock(false);
-				window.addEventListener("keydown", (e) => {
-					if (e.keyCode === 32 && e.target === document.body) {
-						e.preventDefault();
-					}
-				});
-				setJump(true);
-				break;
-			default:
+					setLock(false);
+					break;
+				case "Space":
+					setLock(false);
+					window.addEventListener("keydown", (e) => {
+						if (e.keyCode === 32 && e.target === document.body) {
+							e.preventDefault();
+						}
+					});
+					setJump(true);
+					break;
+				default:
+			}
 		}
 	};
 
@@ -436,6 +445,10 @@ const Controls = (props) => {
 
 	const onKeyUp = function (event) {
 		switch (event.code) {
+			case "ShiftLeft":
+				setShift(false);
+				setLock(true);
+				break;
 			case "ArrowUp":
 			case "KeyW":
 				setMoveForward(false);
@@ -472,8 +485,9 @@ const Controls = (props) => {
 		}
 	};
 
-	document.addEventListener("keydown", onKeyDown);
-	document.addEventListener("keyup", onKeyUp);
+		document.addEventListener("keydown", onKeyDown);
+		document.addEventListener("keyup", onKeyUp);
+
 	return (
 		<PointerLockControls
 			position={[props.spawnPoint[0], props.spawnPoint[1], props.spawnPoint[2]]}

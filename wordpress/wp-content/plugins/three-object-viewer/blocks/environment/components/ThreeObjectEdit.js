@@ -21,6 +21,7 @@ import { Perf } from "r3f-perf";
 // import EditControls from "./EditControls";
 import { Resizable } from "re-resizable";
 import defaultFont from "../../../inc/fonts/roboto.woff";
+const { registerStore } = wp.data;
 
 function TextObject(text) {
 	const textObj = useRef();
@@ -30,6 +31,14 @@ function TextObject(text) {
 		.getBlockAttributes(text.htmlobjectId);
 	const TransformController = ({ condition, wrap, children }) =>
 		condition ? wrap(children) : children;
+
+	useEffect(() => {
+		if( text.focusID === text.htmlobjectId ) {
+			const someFocus = new THREE.Vector3(Number(text.positionX), Number(text.positionY), Number(text.positionZ));
+			text.changeFocusPoint(someFocus);
+		}
+	}, [text.focusID]);
+
 	if (text) {
 		return (
 			<Select
@@ -41,10 +50,11 @@ function TextObject(text) {
 				filter={(items) => items}
 			>
 				<TransformController
-					condition={isSelected}
+					condition={text.focusID === text.htmlobjectId}
 					wrap={(children) => (
 						<TransformControls
 							mode={text.transformMode}
+							enabled={text.focusID === text.htmlobjectId}
 							object={textObj}
 							size={0.5}
 							onObjectChange={(e) => {
@@ -129,6 +139,14 @@ function Spawn(spawn) {
 		.getBlockAttributes(spawn.spawnpointID);
 	const TransformController = ({ condition, wrap, children }) =>
 		condition ? wrap(children) : children;
+
+	useEffect(() => {
+		if( spawn.focusID === spawn.spawnpointID ) {
+			const someFocus = new THREE.Vector3(Number(spawn.positionX), Number(spawn.positionY), Number(spawn.positionZ));
+			spawn.changeFocusPoint(someFocus);
+		}
+	}, [spawn.focusID]);
+	
 	if (spawn) {
 		return (
 			<Select
@@ -140,10 +158,11 @@ function Spawn(spawn) {
 				filter={(items) => items}
 			>
 				<TransformController
-					condition={isSelected}
+					condition={spawn.focusID === spawn.spawnpointID}
 					wrap={(children) => (
 						<TransformControls
 							mode={spawn.transformMode}
+							enabled={spawn.focusID === spawn.spawnpointID}
 							object={spawnObj}
 							size={0.5}
 							onObjectChange={(e) => {
@@ -206,6 +225,13 @@ function ImageObject(threeImage) {
 	const TransformController = ({ condition, wrap, children }) =>
 		condition ? wrap(children) : children;
 
+	useEffect(() => {
+		if( threeImage.focusID === threeImage.imageID ) {
+			const someFocus = new THREE.Vector3(Number(threeImage.positionX), Number(threeImage.positionY), Number(threeImage.positionZ));
+			threeImage.changeFocusPoint(someFocus);
+		}
+	}, [threeImage.focusID]);
+	
 	return (
 		<Select
 			box
@@ -216,10 +242,11 @@ function ImageObject(threeImage) {
 			filter={(items) => items}
 		>
 			<TransformController
-				condition={isSelected}
+				condition={threeImage.focusID === threeImage.imageID}
 				wrap={(children) => (
 					<TransformControls
 						mode={threeImage.transformMode}
+						enabled={threeImage.focusID === threeImage.imageID}
 						object={imgObj}
 						size={0.5}
 						onObjectChange={(e) => {
@@ -312,6 +339,13 @@ function VideoObject(threeVideo) {
 
 	useEffect(() => void (clicked && video.play()), [video, clicked]);
 
+	useEffect(() => {
+		if( threeVideo.focusID === threeVideo.videoID ) {
+			const someFocus = new THREE.Vector3(Number(threeVideo.positionX), Number(threeVideo.positionY), Number(threeVideo.positionZ));
+			threeVideo.changeFocusPoint(someFocus);
+		}
+	}, [threeVideo.focusID]);
+
 	return (
 		<Select
 			box
@@ -322,10 +356,10 @@ function VideoObject(threeVideo) {
 			filter={(items) => items}
 		>
 			<TransformController
-				condition={isSelected}
+				condition={threeVideo.focusID === threeVideo.videoID}
 				wrap={(children) => (
 					<TransformControls
-						enabled={isSelected}
+						enabled={threeVideo.focusID === threeVideo.videoID}
 						mode={
 							threeVideo.transformMode
 								? threeVideo.transformMode
@@ -355,15 +389,6 @@ function VideoObject(threeVideo) {
 									.select("core/block-editor")
 									.getBlockAttributes(threeVideo.videoID)
 							);
-
-							// if (threeVideo.shouldFocus) {
-							// 	setFocusPosition([
-							// 		e?.target.worldPosition.x,
-							// 		e?.target.worldPosition.y,
-							// 		e?.target.worldPosition.z
-							// 	]);
-							// 	camera.position.set(threeVideo.focusPosition);
-							// }
 						}}
 					>
 						{children}
@@ -409,10 +434,10 @@ function VideoObject(threeVideo) {
 	);
 }
 
-function ModelObject(model) {
-	const [url, set] = useState(model.url);
+function ModelObject(props) {
+	const [url, set] = useState(props.url);
 	useEffect(() => {
-		setTimeout(() => set(model.url), 2000);
+		setTimeout(() => set(props.url), 2000);
 	}, []);
 	const [listener] = useState(() => new THREE.AudioListener());
 
@@ -421,7 +446,7 @@ function ModelObject(model) {
 	});
 	const { camera } = useThree();
 
-	const gltf = useLoader(GLTFLoader, model.url, (loader) => {
+	const gltf = useLoader(GLTFLoader, props.url, (loader) => {
 		if(listener){
 			loader.register(
 				(parser) => new GLTFAudioEmitterExtension(parser, listener)
@@ -434,7 +459,7 @@ function ModelObject(model) {
 
 	const { actions } = useAnimations(gltf.animations, gltf.scene);
 
-	const animationList = model.animations ? model.animations.split(",") : "";
+	const animationList = props.animations ? props.animations.split(",") : "";
 	useEffect(() => {
 		if (animationList) {
 			animationList.forEach((name) => {
@@ -444,33 +469,107 @@ function ModelObject(model) {
 			});
 		}
 	}, []);
-	if (gltf?.userData?.gltfExtensions?.VRM) {
-		const vrm = gltf.userData.vrm;
-		vrm.scene.position.set(
-			model.positionX,
-			model.positionY,
-			model.positionZ
-		);
-		VRMUtils.rotateVRM0(vrm);
-		const rotationVRM = vrm.scene.rotation.y + parseFloat(0);
-		vrm.scene.rotation.set(0, rotationVRM, 0);
-		vrm.scene.scale.set(1, 1, 1);
-		vrm.scene.scale.set(model.scaleX, model.scaleY, model.scaleZ);
-		return (
-			// <A11y role="content" description={model.alt} >
-			<primitive object={vrm.scene} />
-			// </A11y>
-		);
-	}
-	gltf.scene.rotation.set(0, 0, 0);
-	const obj = useRef();
-	// const copyGltf = useMemo(() => gltf.scene.clone(), [gltf.scene]);
+	const TransformController = ({ condition, wrap, children }) =>
+	condition ? wrap(children) : children;
 	const [isSelected, setIsSelected] = useState();
 	const [modelBlockAttributes, setModelBlockAttributes] = useState(
-		wp.data.select("core/block-editor").getBlockAttributes(model.modelId)
+		wp.data.select("core/block-editor").getBlockAttributes(props.modelID)
 	);
-	const TransformController = ({ condition, wrap, children }) =>
-		condition ? wrap(children) : children;
+	const obj = useRef();
+
+	// update id if active
+	useEffect(() => {
+		if( props.focusID === props.modelID ) {
+			const someFocus = new THREE.Vector3(Number(props.positionX), Number(props.positionY), Number(props.positionZ));
+			props.changeFocusPoint(someFocus);
+		}
+	}, [props.focusID]);
+
+	if (gltf?.userData?.gltfExtensions?.VRM) {
+		const vrm = gltf.userData.vrm;
+		VRMUtils.rotateVRM0(vrm);
+		const rotationVRM = vrm.scene.rotation.y + parseFloat(0);
+		return (
+			<>
+				<Select
+					box
+					multiple
+					onChange={(e) => {
+						e.length !== 0 ? setIsSelected(true) : setIsSelected(false);
+					}}
+					filter={(items) => items}
+				>
+					<TransformController
+						condition={props.focusID === props.modelID}
+						wrap={(children) => (
+							<TransformControls
+								enabled={props.focusID === props.modelID}
+								mode={
+									props.transformMode
+										? props.transformMode
+										: "translate"
+								}
+								object={obj}
+								size={0.5}
+								onMouseUp={(e) => {
+									const rot = new THREE.Euler(0, 0, 0, "XYZ");
+									const scale = e?.target.worldScale;
+									rot.setFromQuaternion(
+										e?.target.worldQuaternion
+									);
+									wp.data
+										.dispatch("core/block-editor")
+										.updateBlockAttributes(props.modelID, {
+											positionX: e?.target.worldPosition.x,
+											positionY: e?.target.worldPosition.y,
+											positionZ: e?.target.worldPosition.z,
+											rotationX: rot.x,
+											rotationY: rot.y,
+											rotationZ: rot.z,
+											scaleX: scale.x,
+											scaleY: scale.y,
+											scaleZ: scale.z
+										});
+									setModelBlockAttributes(
+										wp.data
+											.select("core/block-editor")
+											.getBlockAttributes(props.modelID)
+									);
+								}}
+							>
+								{children}
+							</TransformControls>
+						)}
+					>
+						{modelBlockAttributes && (
+							<group
+								ref={obj}
+								position={[
+									modelBlockAttributes.positionX,
+									modelBlockAttributes.positionY,
+									modelBlockAttributes.positionZ
+								]}
+								rotation={[
+									modelBlockAttributes.rotationX,
+									modelBlockAttributes.rotationY,
+									modelBlockAttributes.rotationZ
+								]}
+								scale={[
+									modelBlockAttributes.scaleX,
+									modelBlockAttributes.scaleY,
+									modelBlockAttributes.scaleZ
+								]}
+							>
+								<primitive object={vrm.scene} />
+							</group>
+						)}
+					</TransformController>
+				</Select>
+			</>
+		);	
+	}
+	gltf.scene.rotation.set(0, 0, 0);
+	// const copyGltf = useMemo(() => gltf.scene.clone(), [gltf.scene]);
 
 	return (
 		<>
@@ -483,13 +582,13 @@ function ModelObject(model) {
 				filter={(items) => items}
 			>
 				<TransformController
-					condition={isSelected}
+					condition={props.focusID === props.modelID}
 					wrap={(children) => (
 						<TransformControls
-							enabled={isSelected}
+							enabled={props.focusID === props.modelID}
 							mode={
-								model.transformMode
-									? model.transformMode
+								props.transformMode
+									? props.transformMode
 									: "translate"
 							}
 							object={obj}
@@ -502,7 +601,7 @@ function ModelObject(model) {
 								);
 								wp.data
 									.dispatch("core/block-editor")
-									.updateBlockAttributes(model.modelId, {
+									.updateBlockAttributes(props.modelID, {
 										positionX: e?.target.worldPosition.x,
 										positionY: e?.target.worldPosition.y,
 										positionZ: e?.target.worldPosition.z,
@@ -516,17 +615,8 @@ function ModelObject(model) {
 								setModelBlockAttributes(
 									wp.data
 										.select("core/block-editor")
-										.getBlockAttributes(model.modelId)
+										.getBlockAttributes(props.modelID)
 								);
-
-								// if (model.shouldFocus) {
-								// 	setFocusPosition([
-								// 		e?.target.worldPosition.x,
-								// 		e?.target.worldPosition.y,
-								// 		e?.target.worldPosition.z
-								// 	]);
-								// 	camera.position.set(model.focusPosition);
-								// }
 							}}
 						>
 							{children}
@@ -566,6 +656,14 @@ function PortalObject(model) {
 	const [portalBlockAttributes, setPortalBlockAttributes] = useState(
 		wp.data.select("core/block-editor").getBlockAttributes(model.portalID)
 	);
+
+	useEffect(() => {
+		if( model.focusID === model.portalID ) {
+			const someFocus = new THREE.Vector3(Number(model.positionX), Number(model.positionY), Number(model.positionZ));
+			model.changeFocusPoint(someFocus);
+		}
+	}, [model.focusID]);
+
 	const TransformController = ({ condition, wrap, children }) =>
 		condition ? wrap(children) : children;
 
@@ -613,6 +711,7 @@ function PortalObject(model) {
 		vrm.scene.rotation.set(0, rotationVRM, 0);
 		vrm.scene.scale.set(1, 1, 1);
 		vrm.scene.scale.set(model.scaleX, model.scaleY, model.scaleZ);
+		
 		return (
 			// <A11y role="content" description={model.alt} >
 			<primitive object={vrm.scene} />
@@ -634,10 +733,10 @@ function PortalObject(model) {
 				filter={(items) => items}
 			>
 				<TransformController
-					condition={isSelected}
+					condition={model.focusID === model.portalID}
 					wrap={(children) => (
 						<TransformControls
-							enabled={isSelected}
+							enabled={model.focusID === model.portalID}
 							mode={
 								model.transformMode
 									? model.transformMode
@@ -669,15 +768,6 @@ function PortalObject(model) {
 										.select("core/block-editor")
 										.getBlockAttributes(model.portalID)
 								);
-
-								// if (model.shouldFocus) {
-								// 	setFocusPosition([
-								// 		e?.target.worldPosition.x,
-								// 		e?.target.worldPosition.y,
-								// 		e?.target.worldPosition.z
-								// 	]);
-								// 	camera.position.set(model.focusPosition);
-								// }
 							}}
 						>
 							{children}
@@ -883,10 +973,14 @@ function ThreeObject(props) {
 			{spawnpoint && (
 				<Spawn
 					spawnpointID={spawnpointID}
+					focusID ={props.focusID}
+					setFocusPosition={props.setFocusPosition}
+					selected={props.selected}
 					positionX={spawnpoint.positionX}
 					positionY={spawnpoint.positionY}
 					positionZ={spawnpoint.positionZ}
 					transformMode={props.transformMode}
+					changeFocusPoint={props.changeFocusPoint}					
 					// setFocusPosition={props.setFocusPosition}
 					shouldFocus={props.shouldFocus}
 				/>
@@ -907,8 +1001,12 @@ function ThreeObject(props) {
 							rotationZ={model.modelobject.rotationZ}
 							alt={model.modelobject.alt}
 							animations={model.modelobject.animations}
+							focusID ={props.focusID}
+							setFocusPosition={props.setFocusPosition}
+							focusPosition={props.focusPosition}
 							selected={props.selected}
-							modelId={model.modelID}
+							modelID={model.modelID}
+							changeFocusPoint={props.changeFocusPoint}
 							transformMode={props.transformMode}
 							// setFocusPosition={props.setFocusPosition}
 							shouldFocus={props.shouldFocus}
@@ -934,6 +1032,9 @@ function ThreeObject(props) {
 							animations={model.portalobject.animations}
 							selected={props.selected}
 							portalID={model.portalID}
+							focusID ={props.focusID}
+							changeFocusPoint={props.changeFocusPoint}
+							setFocusPosition={props.setFocusPosition}
 							transformMode={props.transformMode}
 							// setFocusPosition={props.setFocusPosition}
 							shouldFocus={props.shouldFocus}
@@ -959,6 +1060,9 @@ function ThreeObject(props) {
 							animations={model.imageobject.animations}
 							selected={props.selected}
 							imageID={model.imageID}
+							focusID ={props.focusID}
+							changeFocusPoint={props.changeFocusPoint}
+							setFocusPosition={props.setFocusPosition}
 							aspectHeight={model.imageobject.aspectHeight}
 							aspectWidth={model.imageobject.aspectWidth}
 							transformMode={props.transformMode}
@@ -984,10 +1088,12 @@ function ThreeObject(props) {
 							rotationZ={model.videoobject.rotationZ}
 							selected={props.selected}
 							videoID={model.videoID}
+							focusID ={props.focusID}
+							changeFocusPoint={props.changeFocusPoint}
+							setFocusPosition={props.setFocusPosition}
 							aspectHeight={model.videoobject.aspectHeight}
 							aspectWidth={model.videoobject.aspectWidth}
 							transformMode={props.transformMode}
-							// setFocusPosition={props.setFocusPosition}
 							shouldFocus={props.shouldFocus}
 						/>
 					);
@@ -1008,6 +1114,9 @@ function ThreeObject(props) {
 						rotationY={text.htmlobject.rotationY}
 						rotationZ={text.htmlobject.rotationZ}
 						textColor={text.htmlobject.textColor}
+						focusID ={props.focusID}
+						changeFocusPoint={props.changeFocusPoint}
+						setFocusPosition={props.setFocusPosition}
 						htmlobjectId={text.htmlobjectId}
 						transformMode={props.transformMode}
 					/>
@@ -1039,32 +1148,52 @@ function ThreeObject(props) {
 
 export default function ThreeObjectEdit(props) {
 	const [transformMode, setTransformMode] = useState("translate");
-	const [focusPosition, setFocusPosition] = useState([0, 0, 0]);
+
+	const [focusID, setFocusID] = useState([0, 0, 0]);
 	const [shouldFocus, setShouldFocus] = useState(false);
-	const onKeyUp = function (event) {
-		switch (event.code) {
-			case "KeyT":
-				setTransformMode("translate");
-				break;
-			case "KeyR":
-				setTransformMode("rotate");
-				break;
-			case "KeyS":
-				setTransformMode("scale");
-				break;
-			case "KeyF":
-				setShouldFocus(true);
-				break;
-			default:
-		}
-	};
-	document.addEventListener("keyup", onKeyUp);
+	useEffect(() => {
+		function onKeyUp(event) {
+			switch (event.code) {
+				case "KeyT":
+					setTransformMode("translate");
+					break;
+				case "KeyR":
+					setTransformMode("rotate");
+					break;
+				case "KeyS":
+					setTransformMode("scale");
+					break;
+				case "KeyF":
+					props.setFocus(props.focusPosition);
+					break;
+				default:
+			}
+		};
+		window.addEventListener('keyup', onKeyUp);
+		return () => {
+		  window.removeEventListener('keyup', onKeyUp);
+		};		
+	}, [props.focusPosition]);
+
+	useEffect(() => {
+		registerStore( 'three-object-environment-events', {
+			reducer: ( state = {}, action ) => {
+				return action;
+			},
+			actions: {
+				setFocusEvent( focus ) {
+					setFocusID(focus);
+					return { type: 'SET_FOCUS', focus };
+				}
+			}
+		});
+	}, []);
 
 	return (
 		<>
 			<Resizable
 				defaultSize={{
-					height: 550
+					height: 770
 				}}
 				enable={{
 					top: false,
@@ -1074,7 +1203,12 @@ export default function ThreeObjectEdit(props) {
 					topRight: false,
 					bottomRight: false,
 					bottomLeft: false,
-					topLeft: false
+					topLeft: false,
+				}}
+				style={{
+					flex: 1,
+					paddingLeft: "220px",
+					backgroundColor: "#cbcbcb",
 				}}
 			>
 				<Canvas
@@ -1091,7 +1225,8 @@ export default function ThreeObjectEdit(props) {
 					style={{
 						margin: "0 Auto",
 						height: "100%",
-						width: "100%"
+						width: "100%",
+						boxSizing: "border-box"
 					}}
 				>
 					{/* <Perf className="stats" /> */}
@@ -1119,12 +1254,16 @@ export default function ThreeObjectEdit(props) {
 								scale={props.scale}
 								animations={props.animations}
 								transformMode={transformMode}
-								// setFocusPosition={setFocusPosition}
+								setFocus={props.setFocus}
+								focusID={focusID}
+								setFocusPosition={props.setFocusPosition}
+								focusPosition={props.focusPosition}
 								shouldFocus={shouldFocus}
+								changeFocusPoint={props.changeFocusPoint}
 							/>
 						</Suspense>
 					)}
-					<OrbitControls makeDefault enableZoom={props.selected} />
+					<OrbitControls makeDefault enableZoom={props.selected} target={props.focusPoint}/>
 				</Canvas>
 			</Resizable>
 		</>

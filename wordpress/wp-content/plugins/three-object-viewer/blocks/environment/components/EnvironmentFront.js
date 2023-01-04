@@ -30,7 +30,6 @@ import defaultVRM from "../../../inc/avatars/3ov_default_avatar.vrm";
 import defaultFont from "../../../inc/fonts/roboto.woff";
 import { ItemBaseUI } from "@wordpress/components/build/navigation/styles/navigation-styles";
 import { BoxGeometry } from "three";
-
 import { ThreeImage } from "./core/front/ThreeImage";
 import { ThreeVideo } from "./core/front/ThreeVideo";
 import { ModelObject } from "./core/front/ModelObject";
@@ -898,6 +897,8 @@ export default function EnvironmentFront(props) {
 															modelRotationZ
 														}
 														alt={alt}
+														threeObjectPlugin={threeObjectPlugin}
+														defaultFont={defaultFont}
 														animations={animations}
 														collidable={collidable}
 													/>

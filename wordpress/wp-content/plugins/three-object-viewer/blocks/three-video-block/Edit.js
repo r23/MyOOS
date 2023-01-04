@@ -1,5 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./editor.scss";
 import {
 	useBlockProps,
@@ -19,7 +19,15 @@ import {
 } from "@wordpress/components";
 import { more } from "@wordpress/icons";
 
-export default function Edit({ attributes, setAttributes, isSelected }) {
+export default function Edit({ attributes, setAttributes, isSelected, clientId }) {
+	const { select, dispatch } = wp.data;
+	const { onSelectionChange, getSelectedBlock } = wp.blocks;
+	useEffect(() => {
+		if( isSelected ){
+					dispatch( 'three-object-environment-events' ).setFocusEvent( clientId );
+			}
+	}, [isSelected]);
+
 	const onImageSelect = (imageObject) => {
 		setAttributes({ videoUrl: null });
 		setAttributes({

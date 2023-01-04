@@ -53,7 +53,7 @@ export default function TeleportTravel(props) {
 
 	useEffect(() => {
 		const x = Number(spawnPos[0]);
-		const y = Number(spawnPos[1]) + 1.1;
+		const y = Number(spawnPos[1]) + 0.1;
 		const z = Number(spawnPos[2]);
 
 	if (isPresenting) {
@@ -138,7 +138,7 @@ export default function TeleportTravel(props) {
 		if (isHovered && !canInteract) {
 			targetLoc.current.position.set(
 				targetLoc.current.position.x,
-				targetLoc.current.position.y + 1.1,
+				targetLoc.current.position.y + 0.1,
 				targetLoc.current.position.z
 			);
 			if (canTeleport) {
@@ -155,7 +155,7 @@ export default function TeleportTravel(props) {
 					.setTranslation(
 						targetLoc.current.position.x,
 						targetLoc.current.position.y,
-						targetLoc.current.position.z - 0.01
+						targetLoc.current.position.z - 0.008
 					)
 					.setLinvel(0, 0, 0)
 					// The linear velocity of this body.

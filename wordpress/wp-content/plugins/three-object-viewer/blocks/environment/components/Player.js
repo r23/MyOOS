@@ -13,9 +13,9 @@ import { useXR } from "@react-three/xr";
 function Reticle() {
 	const { camera } = useThree();
 	var reticle = new THREE.Mesh(
-	new THREE.RingGeometry( 0.85 * 5, 5, 32),
-	new THREE.MeshBasicMaterial( {color: 0xffffff, side: THREE.DoubleSide })
-		);
+		new THREE.RingGeometry( 0.85 * 5, 5, 32),
+		new THREE.MeshBasicMaterial( {color: 0xffffff, side: THREE.DoubleSide })
+	);
 	reticle.position.z = -1000;
 	reticle.name = "reticle";
 	reticle.frustumCulled = false;
@@ -51,7 +51,7 @@ export default function Player(props) {
 			const posY = participantObject.parent.position.y;
 			// var posY = participantObject.userData.vrm.firstPerson.humanoid.humanBones.head.position.y;
 			// camera.position.setY( posY + 1.5 );
-			camera.position.setY(posY + 1.5);
+			camera.position.setY(posY + 0.15);
 			// participantObject.rotation.set([0, camera.rotation.y, 0]);
 			// participantObject.rotation.set(camera.rotation);
 		}
@@ -126,8 +126,8 @@ export default function Player(props) {
 							// }}
 						>
 							<CapsuleCollider
-								position={[0, 0.5, 0]}
-								args={[1, 1]}
+								position={[0, 0, 0]}
+								args={[0.7, 0.7]}
 							/>
 							<Controls
 								id={rapierId}

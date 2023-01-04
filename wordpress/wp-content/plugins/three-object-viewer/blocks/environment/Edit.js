@@ -1,5 +1,5 @@
 import { __ } from "@wordpress/i18n";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./editor.scss";
 import {
 	useBlockProps,
@@ -19,11 +19,21 @@ import {
 	DropZone
 } from "@wordpress/components";
 import { more } from "@wordpress/icons";
+import * as THREE from "three";
 
 import ThreeObjectEdit from "./components/ThreeObjectEdit";
 
 export default function Edit({ attributes, setAttributes, isSelected }) {
+	
 	const ALLOWED_BLOCKS = allowed_blocks;
+	const [focusPosition, setFocusPosition] = useState(new THREE.Vector3());
+	const [focusPoint, setFocus] = useState(new THREE.Vector3());
+
+	const changeFocusPoint = (newValue) => {
+		setFocusPosition(newValue);
+	}
+
+
 	const onChangeAnimations = (animations) => {
 		setAttributes({ animations });
 	};
@@ -216,7 +226,11 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 				</Panel>
 			</InspectorControls>
 			{isSelected ? (
-				<>
+				<>					
+				<InnerBlocks
+					renderAppender={ InnerBlocks.ButtonBlockAppender }
+					allowedBlocks={ALLOWED_BLOCKS}
+				/>
 					{attributes.threeObjectUrl ? (
 						<ThreeObjectEdit
 							url={attributes.threeObjectUrl}
@@ -230,6 +244,11 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 							positionY={attributes.positionY}
 							animations={attributes.animations}
 							rotationY={attributes.rotationY}
+							setFocusPosition={setFocusPosition}
+							setFocus={setFocus}
+							changeFocusPoint={changeFocusPoint}
+							focusPosition={focusPosition}
+							focusPoint={focusPoint}
 							selected={isSelected}
 						/>
 					) : (
@@ -249,7 +268,8 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 										Use URL
 									</button>
 								</div> */}
-								<MediaUpload
+							</div>
+							<MediaUpload
 									onSelect={(imageObject) =>
 										onImageSelect(imageObject)
 									}
@@ -267,13 +287,15 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 										</button>
 									)}
 								/>
-							</div>
 						</div>
 					)}
-					<InnerBlocks allowedBlocks={ALLOWED_BLOCKS} />
 				</>
 			) : (
 				<>
+				<InnerBlocks 
+					renderAppender={ InnerBlocks.ButtonBlockAppender } 
+					allowedBlocks={ALLOWED_BLOCKS}
+				/>
 					{attributes.threeObjectUrl ? (
 						<ThreeObjectEdit
 							url={attributes.threeObjectUrl}
@@ -287,6 +309,11 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 							positionY={attributes.positionY}
 							animations={attributes.animations}
 							rotationY={attributes.rotationY}
+							setFocusPosition={setFocusPosition}
+							setFocus={setFocus}
+							changeFocusPoint={changeFocusPoint}
+							focusPosition={focusPosition}
+							focusPoint={focusPoint}
 							selected={isSelected}
 						/>
 					) : (
@@ -324,7 +351,6 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 							/>
 						</div>
 					)}
-					<InnerBlocks allowedBlocks={ALLOWED_BLOCKS} />
 				</>
 			)}
 		</div>
