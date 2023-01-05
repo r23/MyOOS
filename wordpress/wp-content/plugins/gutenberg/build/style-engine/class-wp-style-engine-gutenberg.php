@@ -206,6 +206,12 @@ final class WP_Style_Engine_Gutenberg {
 				),
 				'path'          => array( 'typography', 'lineHeight' ),
 			),
+			'textColumns'    => array(
+				'property_keys' => array(
+					'default' => 'column-count',
+				),
+				'path'          => array( 'typography', 'textColumns' ),
+			),
 			'textDecoration' => array(
 				'property_keys' => array(
 					'default' => 'text-decoration',

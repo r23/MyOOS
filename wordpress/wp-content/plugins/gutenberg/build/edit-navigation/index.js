@@ -2775,9 +2775,7 @@ function NavigableRegion(_ref) {
     "aria-label": ariaLabel,
     role: "region",
     tabIndex: "-1"
-  }, props), (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: "interface-navigable-region__stacker"
-  }, children));
+  }, props), children);
 }
 
 ;// CONCATENATED MODULE: ./packages/interface/build-module/components/interface-skeleton/index.js
@@ -2830,6 +2828,7 @@ function InterfaceSkeleton(_ref, ref) {
     actions,
     labels,
     className,
+    enableRegionNavigation = true,
     // Todo: does this need to be a prop.
     // Can we use a dependency to keyboard-shortcuts directly?
     shortcuts
@@ -2873,8 +2872,8 @@ function InterfaceSkeleton(_ref, ref) {
       }
     }
   };
-  return (0,external_wp_element_namespaceObject.createElement)("div", _extends({}, navigateRegionsProps, {
-    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, navigateRegionsProps.ref]),
+  return (0,external_wp_element_namespaceObject.createElement)("div", _extends({}, enableRegionNavigation ? navigateRegionsProps : {}, {
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, enableRegionNavigation ? navigateRegionsProps.ref : undefined]),
     className: classnames_default()(className, 'interface-interface-skeleton', navigateRegionsProps.className, !!footer && 'has-footer')
   }), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "interface-interface-skeleton__editor"

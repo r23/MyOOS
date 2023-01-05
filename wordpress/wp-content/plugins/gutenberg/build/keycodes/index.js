@@ -673,12 +673,12 @@ const displayShortcutList = (0,external_lodash_namespaceObject.mapValues)(modifi
         return [...accumulator, replacementKey, '+'];
       },
       /** @type {string[]} */
-      []); // Symbols (`,.) are removed by the default regular expression,
+      []); // Symbols (~`,.) are removed by the default regular expression,
       // so override the rule to allow symbols used for shortcuts.
       // see: https://github.com/blakeembrey/change-case#options
 
       const capitalizedCharacter = capitalCase(character, {
-        stripRegexp: /[^A-Z0-9`,\.\\\-]/gi
+        stripRegexp: /[^A-Z0-9~`,\.\\\-]/gi
       });
       return [...modifierKeys, capitalizedCharacter];
     }
@@ -744,7 +744,10 @@ const shortcutAriaLabel = (0,external_lodash_namespaceObject.mapValues)(modifier
         '.': (0,external_wp_i18n_namespaceObject.__)('Period'),
 
         /* translators: backtick as in the character '`' */
-        '`': (0,external_wp_i18n_namespaceObject.__)('Backtick')
+        '`': (0,external_wp_i18n_namespaceObject.__)('Backtick'),
+
+        /* translators: tilde as in the character '~' */
+        '~': (0,external_wp_i18n_namespaceObject.__)('Tilde')
       };
       return [...modifier(_isApple), character].map(key => capitalCase((0,external_lodash_namespaceObject.get)(replacementKeyMap, key, key))).join(isApple ? ' ' : ' + ');
     }

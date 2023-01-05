@@ -3397,7 +3397,7 @@ const withSafeTimeout = createHigherOrderComponent(OriginalComponent => {
 
     clearTimeout(id) {
       clearTimeout(id);
-      this.timeouts.filter(timeoutId => timeoutId !== id);
+      this.timeouts = this.timeouts.filter(timeoutId => timeoutId !== id);
     }
 
     render() {

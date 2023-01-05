@@ -2535,7 +2535,7 @@ __webpack_require__.d(__webpack_exports__, {
   "Draggable": function() { return /* reexport */ draggable; },
   "DropZone": function() { return /* reexport */ drop_zone; },
   "DropZoneProvider": function() { return /* reexport */ DropZoneProvider; },
-  "Dropdown": function() { return /* reexport */ Dropdown; },
+  "Dropdown": function() { return /* reexport */ dropdown; },
   "DropdownMenu": function() { return /* reexport */ dropdown_menu; },
   "DuotonePicker": function() { return /* reexport */ duotone_picker; },
   "DuotoneSwatch": function() { return /* reexport */ duotone_swatch; },
@@ -2649,7 +2649,6 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalStyleProvider": function() { return /* reexport */ style_provider; },
   "__experimentalSurface": function() { return /* reexport */ surface_component; },
   "__experimentalText": function() { return /* reexport */ text_component; },
-  "__experimentalTheme": function() { return /* reexport */ theme; },
   "__experimentalToggleGroupControl": function() { return /* reexport */ toggle_group_control_component; },
   "__experimentalToggleGroupControlOption": function() { return /* reexport */ toggle_group_control_option_component; },
   "__experimentalToggleGroupControlOptionIcon": function() { return /* reexport */ toggle_group_control_option_icon_component; },
@@ -30174,7 +30173,6 @@ function useOnClickOutside(ref, handler) {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -30428,7 +30426,7 @@ function useAutocomplete(_ref) {
 
     const text = remove_accents_default()(textContent);
     const textAfterSelection = (0,external_wp_richText_namespaceObject.getTextContent)((0,external_wp_richText_namespaceObject.slice)(record, undefined, (0,external_wp_richText_namespaceObject.getTextContent)(record).length));
-    const completer = (0,external_lodash_namespaceObject.find)(completers, _ref2 => {
+    const completer = completers === null || completers === void 0 ? void 0 : completers.find(_ref2 => {
       let {
         triggerPrefix,
         allowContext
@@ -31206,16 +31204,15 @@ var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.0
 ;// CONCATENATED MODULE: ./packages/components/build-module/dropdown/index.js
 
 
-// @ts-nocheck
 
 /**
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -31235,8 +31232,8 @@ function useObservableState(initialState, onStateChange) {
   }];
 }
 
-function Dropdown(props) {
-  const {
+function UnforwardedDropdown(_ref, forwardedRef) {
+  let {
     renderContent,
     renderToggle,
     className,
@@ -31249,9 +31246,9 @@ function Dropdown(props) {
     onClose,
     onToggle,
     style
-  } = props; // Use internal state instead of a ref to make sure that the component
+  } = _ref;
+  // Use internal state instead of a ref to make sure that the component
   // re-renders when the popover's anchor updates.
-
   const [fallbackPopoverAnchor, setFallbackPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null);
   const containerRef = (0,external_wp_element_namespaceObject.useRef)();
   const [isOpen, setIsOpen] = useObservableState(false, onToggle);
@@ -31273,10 +31270,16 @@ function Dropdown(props) {
 
 
   function closeIfFocusOutside() {
+    var _ownerDocument$active;
+
+    if (!containerRef.current) {
+      return;
+    }
+
     const {
       ownerDocument
     } = containerRef.current;
-    const dialog = ownerDocument.activeElement.closest('[role="dialog"]');
+    const dialog = ownerDocument === null || ownerDocument === void 0 ? void 0 : (_ownerDocument$active = ownerDocument.activeElement) === null || _ownerDocument$active === void 0 ? void 0 : _ownerDocument$active.closest('[role="dialog"]');
 
     if (!containerRef.current.contains(ownerDocument.activeElement) && (!dialog || dialog.contains(containerRef.current))) {
       close();
@@ -31301,11 +31304,11 @@ function Dropdown(props) {
   !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.anchorRef) || !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.getAnchorRect) || !!(popoverProps !== null && popoverProps !== void 0 && popoverProps.anchorRect);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: classnames_default()('components-dropdown', className),
-    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([setFallbackPopoverAnchor, containerRef]) // Some UAs focus the closest focusable parent when the toggle is
+    ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([containerRef, forwardedRef, setFallbackPopoverAnchor]) // Some UAs focus the closest focusable parent when the toggle is
     // clicked. Making this div focusable ensures such UAs will focus
     // it and `closeIfFocusOutside` can tell if the toggle was clicked.
     ,
-    tabIndex: "-1",
+    tabIndex: -1,
     style: style
   }, renderToggle(args), isOpen && (0,external_wp_element_namespaceObject.createElement)(popover, extends_extends({
     position: position,
@@ -31322,6 +31325,35 @@ function Dropdown(props) {
     className: classnames_default()('components-dropdown__content', popoverProps ? popoverProps.className : undefined, contentClassName)
   }), renderContent(args)));
 }
+/**
+ * Renders a button that opens a floating content modal when clicked.
+ *
+ * ```jsx
+ * import { Button, Dropdown } from '@wordpress/components';
+ *
+ * const MyDropdown = () => (
+ *   <Dropdown
+ *     className="my-container-class-name"
+ *     contentClassName="my-popover-content-classname"
+ *     position="bottom right"
+ *     renderToggle={ ( { isOpen, onToggle } ) => (
+ *       <Button
+ *         variant="primary"
+ *         onClick={ onToggle }
+ *         aria-expanded={ isOpen }
+ *       >
+ *         Toggle Popover!
+ *       </Button>
+ *     ) }
+ *     renderContent={ () => <div>This is the content of the popover.</div> }
+ *   />
+ * );
+ * ```
+ */
+
+
+const Dropdown = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedDropdown);
+/* harmony default export */ var dropdown = (Dropdown);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/input-suffix-wrapper.js
 
@@ -36307,7 +36339,7 @@ function DropdownLinkAction(props) {
     dropdownProps,
     linkText
   } = props;
-  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, extends_extends({
+  return (0,external_wp_element_namespaceObject.createElement)(dropdown, extends_extends({
     className: classnames_default()('components-circular-option-picker__dropdown-link-action', className),
     renderToggle: _ref => {
       let {
@@ -36769,7 +36801,7 @@ function CustomColorPickerDropdown(_ref5) {
     }),
     ...receivedPopoverProps
   }), [isRenderedInSidebar, receivedPopoverProps]);
-  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, extends_extends({
+  return (0,external_wp_element_namespaceObject.createElement)(dropdown, extends_extends({
     contentClassName: "components-color-palette__custom-color-dropdown-content",
     popoverProps: popoverProps
   }, props));
@@ -36827,19 +36859,16 @@ function UnforwardedColorPalette(props, forwardedRef) {
     enableAlpha = false,
     onChange,
     value,
-    __experimentalHasMultipleOrigins = false,
     __experimentalIsRenderedInSidebar = false,
     ...otherProps
   } = props;
   const clearColor = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
-  const buttonLabelName = (0,external_wp_element_namespaceObject.useMemo)(() => extractColorNameFromCurrentValue(value, colors, __experimentalHasMultipleOrigins), [value, colors, __experimentalHasMultipleOrigins]); // Make sure that the `colors` array has a format (single/multiple) that is
-  // compatible with the `__experimentalHasMultipleOrigins` flag. This is true
-  // when __experimentalHasMultipleOrigins and areColorsMultiplePalette() are
-  // either both `true` or both `false`.
+  const hasMultipleColorOrigins = colors.length > 0 && colors[0].colors !== undefined;
+  const buttonLabelName = (0,external_wp_element_namespaceObject.useMemo)(() => extractColorNameFromCurrentValue(value, colors, hasMultipleColorOrigins), [value, colors, hasMultipleColorOrigins]); // Make sure that the `colors` array has a valid format.
 
-  if (colors.length > 0 && __experimentalHasMultipleOrigins !== areColorsMultiplePalette(colors)) {
+  if (colors.length > 0 && hasMultipleColorOrigins !== areColorsMultiplePalette(colors)) {
     // eslint-disable-next-line no-console
-    console.warn('wp.components.ColorPalette: please specify a format for the `colors` prop that is compatible with the `__experimentalHasMultipleOrigins` prop.');
+    console.warn('wp.components.ColorPalette: please specify a valid format for the `colors` prop. ');
     return null;
   }
 
@@ -36899,7 +36928,7 @@ function UnforwardedColorPalette(props, forwardedRef) {
         className: "components-color-palette__custom-color-value"
       }, valueWithoutLeadingHash));
     }
-  }), __experimentalHasMultipleOrigins ? (0,external_wp_element_namespaceObject.createElement)(MultiplePalettes, extends_extends({}, paletteCommonProps, {
+  }), hasMultipleColorOrigins ? (0,external_wp_element_namespaceObject.createElement)(MultiplePalettes, extends_extends({}, paletteCommonProps, {
     colors: colors
   })) : (0,external_wp_element_namespaceObject.createElement)(SinglePalette, extends_extends({}, paletteCommonProps, {
     colors: colors
@@ -37260,7 +37289,6 @@ function useBorderControlDropdown(props) {
     onChange,
     previousStyleSelection,
     size = 'default',
-    __experimentalHasMultipleOrigins = false,
     __experimentalIsRenderedInSidebar = false,
     ...otherProps
   } = useContextSystem(props, 'BorderControlDropdown');
@@ -37326,7 +37354,6 @@ function useBorderControlDropdown(props) {
     popoverContentClassName,
     popoverControlsClassName,
     resetButtonClassName,
-    __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar
   };
 }
@@ -37360,14 +37387,12 @@ function useBorderControlDropdown(props) {
 
 
 
-const component_noop = () => undefined;
-
-const getColorObject = (colorValue, colors, hasMultipleColorOrigins) => {
-  if (!colorValue || !colors) {
+const getColorObject = (colorValue, colors) => {
+  if (!colorValue || !colors || colors.length === 0) {
     return;
   }
 
-  if (hasMultipleColorOrigins) {
+  if (colors[0].colors !== undefined) {
     let matchedColor;
     colors.some(origin => origin.colors.some(color => {
       if (color.color === colorValue) {
@@ -37415,7 +37440,6 @@ const getToggleAriaLabel = (colorValue, colorObject, style, isStyleEnabled) => {
 
 const BorderControlDropdown = (props, forwardedRef) => {
   const {
-    __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar,
     border,
     colors,
@@ -37438,14 +37462,14 @@ const BorderControlDropdown = (props, forwardedRef) => {
     color,
     style
   } = border || {};
-  const colorObject = getColorObject(color, colors, !!__experimentalHasMultipleOrigins);
+  const colorObject = getColorObject(color, colors);
   const toggleAriaLabel = getToggleAriaLabel(color, colorObject, style, enableStyle);
   const showResetButton = color || style && style !== 'none';
   const dropdownPosition = __experimentalIsRenderedInSidebar ? 'bottom left' : undefined;
 
   const renderToggle = _ref => {
     let {
-      onToggle = component_noop
+      onToggle
     } = _ref;
     return (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
       onClick: onToggle,
@@ -37460,8 +37484,7 @@ const BorderControlDropdown = (props, forwardedRef) => {
       className: indicatorClassName,
       colorValue: color
     })));
-  }; // TODO: update types once Dropdown component is refactored to TypeScript.
-
+  };
 
   const renderContent = _ref2 => {
     let {
@@ -37483,7 +37506,6 @@ const BorderControlDropdown = (props, forwardedRef) => {
       onChange: onColorChange,
       colors,
       disableCustomColors,
-      __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
       __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
       clearable: false,
       enableAlpha: enableAlpha
@@ -37503,7 +37525,7 @@ const BorderControlDropdown = (props, forwardedRef) => {
     }, (0,external_wp_i18n_namespaceObject.__)('Reset to default'))));
   };
 
-  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, extends_extends({
+  return (0,external_wp_element_namespaceObject.createElement)(dropdown, extends_extends({
     renderToggle: renderToggle,
     renderContent: renderContent,
     popoverProps: { ...__unstablePopoverProps
@@ -37856,7 +37878,6 @@ function useBorderControl(props) {
     size = 'default',
     value: border,
     width,
-    __experimentalHasMultipleOrigins = false,
     __experimentalIsRenderedInSidebar = false,
     ...otherProps
   } = useContextSystem(props, 'BorderControl');
@@ -37947,7 +37968,6 @@ function useBorderControl(props) {
     widthUnit,
     widthValue,
     size,
-    __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar
   };
 }
@@ -38015,7 +38035,6 @@ const UnconnectedBorderControl = (props, forwardedRef) => {
     widthUnit,
     widthValue,
     withSlider,
-    __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar,
     ...otherProps
   } = useBorderControl(props);
@@ -38040,7 +38059,6 @@ const UnconnectedBorderControl = (props, forwardedRef) => {
       onChange: onBorderChange,
       previousStyleSelection: previousStyleSelection,
       showDropdownHeader: showDropdownHeader,
-      __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
       __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
       size: size
     }),
@@ -38288,7 +38306,6 @@ function useBorderBoxControlSplitControls(props) {
     enableAlpha = false,
     enableStyle = true,
     size = 'default',
-    __experimentalHasMultipleOrigins = false,
     __experimentalIsRenderedInSidebar = false,
     ...otherProps
   } = useContextSystem(props, 'BorderBoxControlSplitControls'); // Generate class names.
@@ -38311,7 +38328,6 @@ function useBorderBoxControlSplitControls(props) {
     enableStyle,
     rightAlignedClassName,
     size,
-    __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar
   };
 }
@@ -38349,7 +38365,6 @@ const BorderBoxControlSplitControls = (props, forwardedRef) => {
     rightAlignedClassName,
     size = 'default',
     value,
-    __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar,
     ...otherProps
   } = useBorderBoxControlSplitControls(props); // Use internal state instead of a ref to make sure that the component
@@ -38369,7 +38384,6 @@ const BorderBoxControlSplitControls = (props, forwardedRef) => {
     enableAlpha,
     enableStyle,
     isCompact: true,
-    __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar,
     size
   };
@@ -38634,7 +38648,6 @@ function useBorderBoxControl(props) {
     enableStyle = true,
     size = 'default',
     value,
-    __experimentalHasMultipleOrigins = false,
     __experimentalIsRenderedInSidebar = false,
     ...otherProps
   } = useContextSystem(props, 'BorderBoxControl');
@@ -38724,7 +38737,6 @@ function useBorderBoxControl(props) {
     size,
     splitValue,
     wrapperClassName,
-    __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar
   };
 }
@@ -38789,7 +38801,6 @@ const UnconnectedBorderBoxControl = (props, forwardedRef) => {
     splitValue,
     toggleLinked,
     wrapperClassName,
-    __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar,
     ...otherProps
   } = useBorderBoxControl(props); // Use internal state instead of a ref to make sure that the component
@@ -38828,7 +38839,6 @@ const UnconnectedBorderBoxControl = (props, forwardedRef) => {
     value: linkedValue,
     withSlider: true,
     width: size === '__unstable-large' ? '116px' : '110px',
-    __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
     size: size
   }) : (0,external_wp_element_namespaceObject.createElement)(border_box_control_split_controls_component, {
@@ -38840,7 +38850,6 @@ const UnconnectedBorderBoxControl = (props, forwardedRef) => {
     popoverPlacement: popoverPlacement,
     popoverOffset: popoverOffset,
     value: splitValue,
-    __experimentalHasMultipleOrigins: __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
     size: size
   }), (0,external_wp_element_namespaceObject.createElement)(border_box_control_linked_button_component, {
@@ -42553,11 +42562,10 @@ function GradientPicker(_ref5) {
     value,
     clearable = true,
     disableCustomGradients = false,
-    __experimentalHasMultipleOrigins,
     __experimentalIsRenderedInSidebar
   } = _ref5;
   const clearGradient = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
-  const Component = __experimentalHasMultipleOrigins && gradients !== null && gradients !== void 0 && gradients.length ? MultipleOrigin : SingleOrigin;
+  const Component = gradients !== null && gradients !== void 0 && gradients.length && gradients[0].gradients ? MultipleOrigin : SingleOrigin;
 
   if (!__nextHasNoMargin) {
     external_wp_deprecated_default()('Outer margin styles for wp.components.GradientPicker', {
@@ -42928,7 +42936,7 @@ function DropdownMenu(dropdownMenuProps) {
   const mergedPopoverProps = mergeProps({
     className: 'components-dropdown-menu__popover'
   }, popoverProps);
-  return (0,external_wp_element_namespaceObject.createElement)(Dropdown, {
+  return (0,external_wp_element_namespaceObject.createElement)(dropdown, {
     className: classnames_default()('components-dropdown-menu', className),
     popoverProps: mergedPopoverProps,
     renderToggle: _ref => {
@@ -53882,7 +53890,6 @@ const findSizeBySlug = (sizes, slug) => sizes.find(size => slug === size.slug);
  */
 
 
-
 /**
  * Internal dependencies
  */
@@ -56216,7 +56223,7 @@ const ToggleGroupControlAsButtonGroup = (0,external_wp_element_namespaceObject.f
 
 
 
-const toggle_group_control_component_noop = () => {};
+const component_noop = () => {};
 
 function UnconnectedToggleGroupControl(props, forwardedRef) {
   const {
@@ -56228,7 +56235,7 @@ function UnconnectedToggleGroupControl(props, forwardedRef) {
     label,
     hideLabelFromVision = false,
     help,
-    onChange = toggle_group_control_component_noop,
+    onChange = component_noop,
     size = 'default',
     value,
     children,
@@ -63231,7 +63238,6 @@ const component_Surface = contextConnect(UnconnectedSurface, 'Surface');
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -63324,8 +63330,11 @@ function TabPanel(_ref2) {
     child.click();
   };
 
-  const selectedTab = (0,external_lodash_namespaceObject.find)(tabs, {
-    name: selected
+  const selectedTab = tabs.find(_ref3 => {
+    let {
+      name
+    } = _ref3;
+    return name === selected;
   });
   const selectedId = `${instanceId}-${(_selectedTab$name = selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.name) !== null && _selectedTab$name !== void 0 ? _selectedTab$name : 'none'}`;
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -63633,194 +63642,6 @@ const TextHighlight = props => {
   });
 };
 /* harmony default export */ var text_highlight = (TextHighlight);
-
-;// CONCATENATED MODULE: ./packages/components/build-module/theme/styles.js
-
-
-/**
- * External dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-const colorVariables = _ref => {
-  let {
-    colors
-  } = _ref;
-  const shades = Object.entries(colors.gray || {}).map(_ref2 => {
-    let [k, v] = _ref2;
-    return `--wp-components-color-gray-${k}: ${v};`;
-  }).join('');
-  return [/*#__PURE__*/emotion_react_browser_esm_css("--wp-components-color-accent:", colors.accent, ";--wp-components-color-accent-darker-10:", colors.accentDarker10, ";--wp-components-color-accent-darker-20:", colors.accentDarker20, ";--wp-components-color-accent-inverted:", colors.accentInverted, ";--wp-components-color-background:", colors.background, ";--wp-components-color-foreground:", colors.foreground, ";--wp-components-color-foreground-inverted:", colors.foregroundInverted, ";", shades, ";" + ( true ? "" : 0),  true ? "" : 0)];
-};
-const theme_styles_Wrapper = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e1krjpvb0"
-} : 0)( true ? "" : 0);
-
-;// CONCATENATED MODULE: ./packages/components/build-module/theme/color-algorithms.js
-/**
- * External dependencies
- */
-
-
-
-/**
- * WordPress dependencies
- */
-
-
-/**
- * Internal dependencies
- */
-
-
-colord_k([names, a11y]);
-function generateThemeVariables(inputs) {
-  validateInputs(inputs);
-  const generatedColors = { ...generateAccentDependentColors(inputs.accent),
-    ...generateBackgroundDependentColors(inputs.background)
-  };
-  warnContrastIssues(checkContrasts(inputs, generatedColors));
-  return {
-    colors: generatedColors
-  };
-}
-
-function validateInputs(inputs) {
-  for (const [key, value] of Object.entries(inputs)) {
-    if (typeof value !== 'undefined' && !colord_w(value).isValid()) {
-      typeof process !== "undefined" && process.env && "production" !== "production" ? 0 : void 0;
-    }
-  }
-}
-
-function checkContrasts(inputs, outputs) {
-  const background = inputs.background || COLORS.white;
-  const accent = inputs.accent || '#007cba';
-  const foreground = outputs.foreground || COLORS.gray[900];
-  const gray = outputs.gray || COLORS.gray;
-  return {
-    accent: colord_w(background).isReadable(accent) ? undefined : `The background color ("${background}") does not have sufficient contrast against the accent color ("${accent}").`,
-    foreground: colord_w(background).isReadable(foreground) ? undefined : `The background color provided ("${background}") does not have sufficient contrast against the standard foreground colors.`,
-    grays: colord_w(background).contrast(gray[600]) >= 3 && colord_w(background).contrast(gray[700]) >= 4.5 ? undefined : `The background color provided ("${background}") cannot generate a set of grayscale foreground colors with sufficient contrast. Try adjusting the color to be lighter or darker.`
-  };
-}
-
-function warnContrastIssues(issues) {
-  for (const error of Object.values(issues)) {
-    if (error) {
-      typeof process !== "undefined" && process.env && "production" !== "production" ? 0 : void 0;
-    }
-  }
-}
-
-function generateAccentDependentColors(accent) {
-  if (!accent) return {};
-  return {
-    accent,
-    accentDarker10: colord_w(accent).darken(0.1).toHex(),
-    accentDarker20: colord_w(accent).darken(0.2).toHex(),
-    accentInverted: getForegroundForColor(accent)
-  };
-}
-
-function generateBackgroundDependentColors(background) {
-  if (!background) return {};
-  const foreground = getForegroundForColor(background);
-  return {
-    background,
-    foreground,
-    foregroundInverted: getForegroundForColor(foreground),
-    gray: generateShades(background, foreground)
-  };
-}
-
-function getForegroundForColor(color) {
-  return colord_w(color).isDark() ? COLORS.white : COLORS.gray[900];
-}
-
-function generateShades(background, foreground) {
-  // How much darkness you need to add to #fff to get the COLORS.gray[n] color
-  const SHADES = {
-    100: 0.06,
-    200: 0.121,
-    300: 0.132,
-    400: 0.2,
-    600: 0.42,
-    700: 0.543,
-    800: 0.821
-  }; // Darkness of COLORS.gray[ 900 ], relative to #fff
-
-  const limit = 0.884;
-  const direction = colord_w(background).isDark() ? 'lighten' : 'darken'; // Lightness delta between the background and foreground colors
-
-  const range = Math.abs(colord_w(background).toHsl().l - colord_w(foreground).toHsl().l) / 100;
-  const result = {};
-  Object.entries(SHADES).forEach(_ref => {
-    let [key, value] = _ref;
-    result[parseInt(key)] = colord_w(background)[direction](value / limit * range).toHex();
-  });
-  return result;
-}
-
-;// CONCATENATED MODULE: ./packages/components/build-module/theme/index.js
-
-
-
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-/**
- * `Theme` allows defining theme variables for components in the `@wordpress/components` package.
- *
- * Multiple `Theme` components can be nested in order to override specific theme variables.
- *
- *
- * @example
- * ```jsx
- * import { __experimentalTheme as Theme } from '@wordpress/components';
- *
- * const Example = () => {
- *   return (
- *     <Theme accent="red">
- *       <Button variant="primary">I'm red</Button>
- *       <Theme accent="blue">
- *         <Button variant="primary">I'm blue</Button>
- *       </Theme>
- *     </Theme>
- *   );
- * };
- * ```
- */
-
-function Theme(_ref) {
-  let {
-    accent,
-    background,
-    className,
-    ...props
-  } = _ref;
-  const cx = useCx();
-  const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(...colorVariables(generateThemeVariables({
-    accent,
-    background
-  })), className), [accent, background, className, cx]);
-  return (0,external_wp_element_namespaceObject.createElement)(theme_styles_Wrapper, extends_extends({
-    className: classes
-  }, props));
-}
-
-/* harmony default export */ var theme = (Theme);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/tip.js
 
@@ -66022,14 +65843,15 @@ function useNavigateRegions() {
   const [isFocusingRegions, setIsFocusingRegions] = (0,external_wp_element_namespaceObject.useState)(false);
 
   function focusRegion(offset) {
-    const regions = Array.from(ref.current.querySelectorAll('[role="region"]'));
+    const regions = Array.from(ref.current.querySelectorAll('[role="region"][tabindex="-1"]'));
 
     if (!regions.length) {
       return;
     }
 
-    let nextRegion = regions[0];
-    const selectedIndex = regions.indexOf(ref.current.ownerDocument.activeElement);
+    let nextRegion = regions[0]; // Based off the current element, use closest to determine the wrapping region since this operates up the DOM. Also, match tabindex to avoid edge cases with regions we do not want.
+
+    const selectedIndex = regions.indexOf(ref.current.ownerDocument.activeElement.closest('[role="region"][tabindex="-1"]'));
 
     if (selectedIndex !== -1) {
       let nextIndex = selectedIndex + offset;
@@ -66459,7 +66281,6 @@ const with_focus_return_Provider = _ref => {
 ;// CONCATENATED MODULE: ./packages/components/build-module/index.js
 // Primitives.
  // Components.
-
 
 
 

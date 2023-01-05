@@ -2804,7 +2804,7 @@ function createRegistry() {
   let parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   const stores = {};
   const emitter = createEmitter();
-  const listeningStores = new Set();
+  let listeningStores = null;
   /**
    * Global listener called for each store's update.
    */
@@ -2858,8 +2858,10 @@ function createRegistry() {
 
 
   function select(storeNameOrDescriptor) {
+    var _listeningStores;
+
     const storeName = getStoreName(storeNameOrDescriptor);
-    listeningStores.add(storeName);
+    (_listeningStores = listeningStores) === null || _listeningStores === void 0 ? void 0 : _listeningStores.add(storeName);
     const store = stores[storeName];
 
     if (store) {
@@ -2870,12 +2872,13 @@ function createRegistry() {
   }
 
   function __unstableMarkListeningStores(callback, ref) {
-    listeningStores.clear();
+    listeningStores = new Set();
 
     try {
       return callback.call(this);
     } finally {
       ref.current = Array.from(listeningStores);
+      listeningStores = null;
     }
   }
   /**
@@ -2892,8 +2895,10 @@ function createRegistry() {
 
 
   function resolveSelect(storeNameOrDescriptor) {
+    var _listeningStores2;
+
     const storeName = getStoreName(storeNameOrDescriptor);
-    listeningStores.add(storeName);
+    (_listeningStores2 = listeningStores) === null || _listeningStores2 === void 0 ? void 0 : _listeningStores2.add(storeName);
     const store = stores[storeName];
 
     if (store) {
@@ -2916,8 +2921,10 @@ function createRegistry() {
 
 
   function suspendSelect(storeNameOrDescriptor) {
+    var _listeningStores3;
+
     const storeName = getStoreName(storeNameOrDescriptor);
-    listeningStores.add(storeName);
+    (_listeningStores3 = listeningStores) === null || _listeningStores3 === void 0 ? void 0 : _listeningStores3.add(storeName);
     const store = stores[storeName];
 
     if (store) {

@@ -3031,6 +3031,28 @@ function getMergedItemIds(itemIds, nextItemIds, page, perPage) {
   return mergedItemIds;
 }
 /**
+ * Helper function to filter out entities with certain IDs.
+ * Entities are keyed by their ID.
+ *
+ * @param {Object} entities Entity objects, keyed by entity ID.
+ * @param {Array}  ids      Entity IDs to filter out.
+ *
+ * @return {Object} Filtered entities.
+ */
+
+function removeEntitiesById(entities, ids) {
+  return Object.fromEntries(Object.entries(entities).filter(_ref => {
+    let [id] = _ref;
+    return !ids.some(itemId => {
+      if (Number.isInteger(itemId)) {
+        return itemId === +id;
+      }
+
+      return itemId === id;
+    });
+  }));
+}
+/**
  * Reducer tracking items state, keyed by ID. Items are assumed to be normal,
  * where identifiers are common across all queries.
  *
@@ -3039,6 +3061,7 @@ function getMergedItemIds(itemIds, nextItemIds, page, perPage) {
  *
  * @return {Object} Next state.
  */
+
 
 function items() {
   let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -3063,7 +3086,7 @@ function items() {
       }
 
     case 'REMOVE_ITEMS':
-      return (0,external_lodash_namespaceObject.mapValues)(state, contextState => (0,external_lodash_namespaceObject.omit)(contextState, action.itemIds));
+      return (0,external_lodash_namespaceObject.mapValues)(state, contextState => removeEntitiesById(contextState, action.itemIds));
   }
 
   return state;
@@ -3117,7 +3140,7 @@ function itemIsComplete() {
       }
 
     case 'REMOVE_ITEMS':
-      return (0,external_lodash_namespaceObject.mapValues)(state, contextState => (0,external_lodash_namespaceObject.omit)(contextState, action.itemIds));
+      return (0,external_lodash_namespaceObject.mapValues)(state, contextState => removeEntitiesById(contextState, action.itemIds));
   }
 
   return state;

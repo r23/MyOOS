@@ -434,6 +434,12 @@ const lineHeight = {
     return generateRule(style, options, ['typography', 'lineHeight'], 'lineHeight');
   }
 };
+const textColumns = {
+  name: 'textColumns',
+  generate: (style, options) => {
+    return generateRule(style, options, ['typography', 'textColumns'], 'columnCount');
+  }
+};
 const textDecoration = {
   name: 'textDecoration',
   generate: (style, options) => {
@@ -446,7 +452,7 @@ const textTransform = {
     return generateRule(style, options, ['typography', 'textTransform'], 'textTransform');
   }
 };
-/* harmony default export */ var typography = ([fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textDecoration, textTransform]);
+/* harmony default export */ var typography = ([fontFamily, fontSize, fontStyle, fontWeight, letterSpacing, lineHeight, textColumns, textDecoration, textTransform]);
 
 ;// CONCATENATED MODULE: ./packages/style-engine/build-module/styles/index.js
 /**

@@ -1805,10 +1805,12 @@ function registerLegacyWidgetVariations(settings) {
  * Note that for the block to be useful, any scripts required by a widget must
  * be loaded into the page.
  *
+ * @param {Object} supports Block support settings.
  * @see https://developer.wordpress.org/block-editor/how-to-guides/widgets/legacy-widget-block/
  */
 
 function registerLegacyWidgetBlock() {
+  let supports = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   const {
     metadata,
     settings,
@@ -1817,7 +1819,11 @@ function registerLegacyWidgetBlock() {
   (0,external_wp_blocks_namespaceObject.registerBlockType)({
     name,
     ...metadata
-  }, settings);
+  }, { ...settings,
+    supports: { ...settings.supports,
+      ...supports
+    }
+  });
 }
 /**
  * Registers the Widget Group block.
