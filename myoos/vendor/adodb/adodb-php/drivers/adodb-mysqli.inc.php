@@ -39,6 +39,7 @@ if (!defined('MYSQLI_READ_DEFAULT_GROUP')) define('MYSQLI_READ_DEFAULT_GROUP',1)
 /**
  * Class ADODB_mysqli
  */
+#[AllowDynamicProperties]
 class ADODB_mysqli extends ADOConnection {
 	var $databaseType = 'mysqli';
 	var $dataProvider = 'mysql';
@@ -1479,6 +1480,7 @@ class ADODB_mysqli extends ADOConnection {
 /**
  * Class ADORecordSet_mysqli
  */
+#[AllowDynamicProperties]
 class ADORecordSet_mysqli extends ADORecordSet{
 
 	var $databaseType = "mysqli";

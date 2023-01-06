@@ -6,7 +6,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -27,6 +27,7 @@
    ----------------------------------------------------------------------
  */
 
+#[AllowDynamicProperties]
 class ot_xmembers
 {
     public $title;

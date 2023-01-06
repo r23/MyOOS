@@ -41,6 +41,7 @@ use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 
+#[AllowDynamicProperties]
 class paypal_api
 {
     public $code;

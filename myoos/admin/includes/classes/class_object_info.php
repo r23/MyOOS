@@ -6,7 +6,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -26,6 +26,7 @@
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
+#[AllowDynamicProperties]
 class objectInfo
 {
     /**
