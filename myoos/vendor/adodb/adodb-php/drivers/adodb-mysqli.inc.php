@@ -1882,6 +1882,7 @@ class ADORecordSet_mysqli extends ADORecordSet{
 /**
  * Class ADORecordSet_array_mysqli
  */
+#[AllowDynamicProperties]
 class ADORecordSet_array_mysqli extends ADORecordSet_array
 {
 	/**
