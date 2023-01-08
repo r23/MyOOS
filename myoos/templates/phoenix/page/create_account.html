@@ -38,8 +38,8 @@
 						{if $smarty.const.ACCOUNT_GENDER eq 'true'}
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="gender">{$lang.entry_gender} *</label>
-								<div class="col-sm-5">{$gender}
-									<input type="radio" id="gender" name="gender" value="m" {if $gender eq m}checked="checked"{/if} required> {$lang.male} <input type="radio" id="gender" name="gender" value="f" {if $gender eq f}checked="checked"{/if} required> {$lang.female} <input  type="radio" id="gender" name="gender" value="d" {if $gender eq d}checked="checked"{/if} required> {$lang.diverse} 
+								<div class="col-sm-5">
+									<input type="radio" id="gender" name="gender" value="m" {if $smarty.post.gender eq m}checked="checked"{/if} required> {$lang.male} <input type="radio" id="gender" name="gender" value="f" {if $smarty.post.gender eq f}checked="checked"{/if} required> {$lang.female} <input  type="radio" id="gender" name="gender" value="d" {if $smarty.post.gender eq d}checked="checked"{/if} required> {$lang.diverse} 
 								</div>						
 							</div>
 						{/if}				
