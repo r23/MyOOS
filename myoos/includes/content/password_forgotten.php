@@ -63,7 +63,8 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     $customerstable = $oostable['customers'];
     $check_customer_sql = "SELECT customers_id, customers_gender, customers_firstname, customers_lastname
                            FROM $customerstable
-                           WHERE customers_email_address = '" . oos_db_input($email_address) . "'";
+						   WHERE customers_login = '1'
+							AND customers_email_address = '" . oos_db_input($email_address) . "'";
     $check_customer_result = $dbconn->Execute($check_customer_sql);
 
     if ($check_customer_result->RecordCount()) {
@@ -102,15 +103,15 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
         $smarty->assign(
             array(
-                'shop_name'        => STORE_NAME,
+                'shop_name'       => STORE_NAME,
                 'shop_url'        => OOS_HTTPS_SERVER . OOS_SHOP,
-                'shop_logo'        => STORE_LOGO,
+                'shop_logo'       => STORE_LOGO,
                 'services_url'    => PHPBB_URL,
                 'blog_url'        => BLOG_URL,
-                'imprint_url'    => oos_href_link($aContents['information'], 'information_id=1', false, true),
-                'login_url'        => oos_href_link($aContents['login'], '', false, true),
-                'greet'            => $sGreet,
-                'password'         => $newpass
+                'imprint_url'     => oos_href_link($aContents['information'], 'information_id=1', false, true),
+                'login_url'       => oos_href_link($aContents['login'], '', false, true),
+                'greet'           => $sGreet,
+                'password'        => $newpass
             )
         );
 
@@ -124,8 +125,12 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         $_SESSION['success_message'] = $aLang['text_password_sent'];
         oos_redirect(oos_href_link($aContents['login']));
     } else {
-        $_SESSION['error_message'] = $aLang['text_no_email_address_found'];
-        oos_redirect(oos_href_link($aContents['password_forgotten']));
+		#  $_SESSION['error_message'] = $aLang['text_no_email_address_found'];
+		#  oos_redirect(oos_href_link($aContents['password_forgotten']));
+		# no info for attackers
+		$_SESSION['success_message'] = $aLang['text_password_sent'];
+        oos_redirect(oos_href_link($aContents['login']));	
+		
     }
 } else {
 
