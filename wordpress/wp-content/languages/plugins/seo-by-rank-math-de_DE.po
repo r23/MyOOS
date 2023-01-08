@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-12-31 04:16:55+0000\n"
+"PO-Revision-Date: 2023-01-08 04:11:15+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -8220,13 +8220,13 @@ msgstr "Format, das verwendet wird, wenn die Adresse unter Verwendung des <code>
 msgid "Webmaster Tools"
 msgstr "Webmaster-Tools"
 
-#: includes/replace-variables/class-basic-variables.php:93
-msgid "Site Title"
-msgstr "Seitentitel"
-
 #: includes/module/class-manager.php:245
 msgid "Let Rank Math analyze your website and your website's content using 28+ different tests to provide tailor-made SEO Analysis to you."
 msgstr "Lasse Rank Math deine Website und den Inhalt deiner Website anhand von 28+ verschiedenen Tests analysieren, um dir eine maßgeschneiderte SEO-Analyse bereitzustellen."
+
+#: includes/replace-variables/class-basic-variables.php:93
+msgid "Site Title"
+msgstr "Website-Titel"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
