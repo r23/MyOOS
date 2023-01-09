@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-01-08 04:11:15+0000\n"
+"PO-Revision-Date: 2023-01-08 16:24:16+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -50,11 +50,6 @@ msgstr "Stärken und Schwächen bewerten"
 #: includes/modules/seo-analysis/views/competitor-analysis.php:212
 msgid "Analyze competitor websites to gain an edge"
 msgstr "Analysiere Websites von Mitbewerbern, um sich einen Vorteil zu verschaffen"
-
-#. translators: 1: Date, 2: Time.
-#: includes/modules/seo-analysis/class-seo-analyzer.php:341
-msgid "%1$s at %2$s"
-msgstr "%1$s um %2$s"
 
 #. translators: 1: Date, 2: Time.
 #: includes/modules/seo-analysis/class-seo-analyzer.php:341
@@ -112,6 +107,11 @@ msgstr "Überprüfe die Sichtbarkeit deiner Website für Suchmaschinen"
 #: includes/modules/seo-analysis/seo-analysis-tests.php:40
 msgid "Confirm custom tagline is set for your site"
 msgstr "Bestätige, dass ein benutzerdefinierter Slogan für deine Website festgelegt ist"
+
+#. translators: 1: Date, 2: Time.
+#: includes/modules/seo-analysis/class-seo-analyzer.php:341
+msgid "%1$s at %2$s"
+msgstr "%1$s um %2$s Uhr"
 
 #: includes/modules/database-tools/class-database-tools.php:395
 msgid "Convert FAQ, HowTo, & Table of Contents Blocks created using Yoast. Use this option to easily move your previous blocks into Rank Math."
