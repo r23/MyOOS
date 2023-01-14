@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-01-08 16:24:16+0000\n"
+"PO-Revision-Date: 2023-01-14 11:25:41+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,27 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.3\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
+
+#: includes/settings/titles/social.php:85
+msgid "Additional Profiles"
+msgstr "Zusätzliche Profile"
+
+#: includes/admin/importers/class-aioseo.php:63
+msgid "Import Social URLs of your author archive pages."
+msgstr "Importiere Social Media-URLs deiner Autorenarchivseiten."
+
+#. translators: Link to social setting KB article
+#: includes/admin/class-option-center.php:155
+msgid "Add social account information to your website's Schema and Open Graph. %s."
+msgstr "Füge dem Schema und Open Graph deiner Website Informationen zu sozialen Konten hinzu. %s."
+
+#: includes/admin/class-admin.php:411 includes/settings/titles/social.php:86
+msgid "Additional Profiles to add in the <code>sameAs</code> Schema property."
+msgstr "Zusätzliche Profile, die der <code>sameAs</code> Schema-Eigenschaft hinzugefügt werden sollen."
+
+#: includes/admin/class-admin.php:73
+msgid "Additional profile URLs"
+msgstr "Zusätzliche Profil-URLs"
 
 #: includes/modules/seo-analysis/views/serp-preview.php:29
 msgid "(No Description)"
@@ -113,7 +134,7 @@ msgstr "Bestätige, dass ein benutzerdefinierter Slogan für deine Website festg
 msgid "%1$s at %2$s"
 msgstr "%1$s um %2$s Uhr"
 
-#: includes/modules/database-tools/class-database-tools.php:395
+#: includes/modules/database-tools/class-database-tools.php:390
 msgid "Convert FAQ, HowTo, & Table of Contents Blocks created using Yoast. Use this option to easily move your previous blocks into Rank Math."
 msgstr "Konvertiere FAQ-, Anleitungs- und Inhaltsverzeichnisblöcke, die mit Yoast erstellt wurden. Verwende diese Option, um deine vorherigen Blöcke einfach in Rank Math zu verschieben."
 
@@ -189,11 +210,11 @@ msgstr "Übernehme die Kontrolle über die Standardeinstellungen, die für Rank 
 msgid "Blocks"
 msgstr "Blöcke"
 
-#: includes/modules/database-tools/class-database-tools.php:406
+#: includes/modules/database-tools/class-database-tools.php:401
 msgid "Are you sure you want to convert AIOSEO blocks into Rank Math blocks? This action is irreversible."
 msgstr "Sind du sicher, dass du AIOSEO-Blöcke in Rank Math-Blöcke konvertieren möchtest? Diese Aktion ist nicht umkehrbar."
 
-#: includes/modules/database-tools/class-database-tools.php:404
+#: includes/modules/database-tools/class-database-tools.php:399
 msgid "AIOSEO Block Converter"
 msgstr "AIOSEO Block Konvertierer"
 
@@ -289,7 +310,7 @@ msgstr "Füge Autorenarchive in die XML-Sitemap ein."
 msgid "This tab contains settings related to the HTML sitemap."
 msgstr "Diese Registerkarte enthält Einstellungen für die HTML-Sitemap."
 
-#: includes/admin/importers/class-aioseo.php:469
+#: includes/admin/importers/class-aioseo.php:470
 #: includes/modules/sitemap/class-admin.php:79
 #: includes/modules/sitemap/settings/html-sitemap.php:17
 msgid "HTML Sitemap"
@@ -299,7 +320,7 @@ msgstr "HTML-Sitemap"
 msgid "Ctrl/Cmd + Enter"
 msgstr "Strg/Befehlstaste + Eingabetaste"
 
-#: includes/admin/class-admin.php:395
+#: includes/admin/class-admin.php:398
 msgid "Exclusive Offer!"
 msgstr "Exklusives Angebot!"
 
@@ -352,7 +373,7 @@ msgstr "Ausgabeliste der Begriffe aus der primären Taxonomie, die dem aktuellen
 msgid "Primary Terms"
 msgstr "Primäre Begriffe"
 
-#: includes/modules/database-tools/class-database-tools.php:440
+#: includes/modules/database-tools/class-database-tools.php:435
 msgid "Update SEO Scores"
 msgstr "SEO-Ergebnisse aktualisieren"
 
@@ -385,11 +406,11 @@ msgstr "Dieser Vorgang kann eine Weile dauern. Bitte lasse dieses Fenster geöff
 msgid "Recalculating SEO Scores"
 msgstr "SEO-Ergebnisse neu berechnen"
 
-#: includes/modules/database-tools/class-database-tools.php:442
+#: includes/modules/database-tools/class-database-tools.php:437
 msgid "Recalculate Scores"
 msgstr "Ergebnisse neu berechnen"
 
-#: includes/modules/database-tools/class-database-tools.php:441
+#: includes/modules/database-tools/class-database-tools.php:436
 msgid "This tool will calculate the SEO score for the posts/pages that have a Focus Keyword set. Note: This process may take some time and the browser tab must be kept open while it is running."
 msgstr "Dieses Tool berechnet das SEO-Ergebniss für alle Beiträge/Seiten neu, für die ein Fokus Schlüsselwort festgelegt ist. Hinweis: Dieser Vorgang kann einige Zeit in Anspruch nehmen und der Browser-Tab muss geöffnet gehalten werden, während er ausgeführt wird."
 
@@ -562,15 +583,15 @@ msgstr "Standard-Rich-Snippet, das beim Erstellen eines neuen Beitrags dieses Ty
 msgid "Navigate to %1$sSettings > Reading%2$s and turn off this option: \"Discourage search engines from indexing this site\"."
 msgstr "Navigiere zu %1$sEinstellungen > Lese%2$s und deaktiviere diese Option: \"Suchmaschinen davon abhalten, diese Website zu indizieren\"."
 
-#: includes/modules/database-tools/class-database-tools.php:387
+#: includes/modules/database-tools/class-database-tools.php:382
 msgid "Fix Collations"
 msgstr "Sortierungen korrigieren"
 
-#: includes/modules/database-tools/class-database-tools.php:386
+#: includes/modules/database-tools/class-database-tools.php:381
 msgid "In some cases, the Analytics database tables or columns don't match with each other, which can cause database errors. This tool can fix that issue."
 msgstr "In einigen Fällen stimmen die Tabellen oder Spalten der Analytics-Datenbank nicht überein, was zu Datenbankfehlern führen kann. Dieses Tool kann dieses Problem beheben."
 
-#: includes/modules/database-tools/class-database-tools.php:385
+#: includes/modules/database-tools/class-database-tools.php:380
 msgid "Fix Analytics table collations"
 msgstr "Korrigieren von Analytics-Tabellenkollatierungen"
 
@@ -626,7 +647,7 @@ msgstr "Frontend-Statistikleiste"
 msgid "Database Table: Inspections"
 msgstr "Datenbanktabelle: Inspektionen"
 
-#: includes/modules/analytics/google/class-request.php:327
+#: includes/modules/analytics/google/class-request.php:341
 msgid "Unknown error, call get_response() to find out what happened."
 msgstr "Unbekannter Fehler, rufe get_response() an, um herauszufinden, was passiert ist."
 
@@ -1308,11 +1329,11 @@ msgstr[1] "Blöcke in %d Stellen erfolgreich umgewandelt."
 msgid "Spain"
 msgstr "Spanien"
 
-#: includes/admin/importers/class-aioseo.php:74
+#: includes/admin/importers/class-aioseo.php:75
 msgid "Import Locations Settings."
 msgstr "Einstellungen für den Import von Standorten."
 
-#: includes/admin/importers/class-aioseo.php:70
+#: includes/admin/importers/class-aioseo.php:71
 msgid "Import all the redirections you have already set up in AIO SEO Premium."
 msgstr "Importiere alle Weiterleitungen, die du bereits in AIO SEO Premium eingerichtet hast."
 
@@ -1359,23 +1380,23 @@ msgstr "Ja, ich möchte mehr erfahren"
 msgid "Know more about the PRO version"
 msgstr "Erfahre mehr über die PRO Version"
 
-#: includes/modules/database-tools/class-database-tools.php:433
+#: includes/modules/database-tools/class-database-tools.php:428
 msgid "Are you sure you want to delete the old schema data? This action is irreversible."
 msgstr "Möchtest du die alten Schemadaten wirklich löschen? Diese Aktion ist nicht umkehrbar."
 
-#: includes/modules/database-tools/class-database-tools.php:432
+#: includes/modules/database-tools/class-database-tools.php:427
 msgid "Delete the schema data from the old format (<1.0.48). Note: This process is irreversible and will delete all the metadata prefixed with rank_math_snippet."
 msgstr "Lösche die Schemadaten aus dem alten Format (<1.0.48). Hinweis: Dieser Vorgang ist nicht umkehrbar und löscht alle Metadaten mit dem Präfix rank_math_snippet."
 
-#: includes/modules/database-tools/class-database-tools.php:431
+#: includes/modules/database-tools/class-database-tools.php:426
 msgid "Delete Old Schema Data"
 msgstr "Alte Schemadaten löschen"
 
-#: includes/modules/database-tools/class-database-tools.php:325
+#: includes/modules/database-tools/class-database-tools.php:320
 msgid "Deletion started. A success message will be shown here once the process completes. You can close this page."
 msgstr "Löschvorgang gestartet. Nach Abschluss des Vorgangs wird hier eine Erfolgsmeldung angezeigt. Du kannst diese Seite schließen."
 
-#: includes/modules/database-tools/class-database-tools.php:319
+#: includes/modules/database-tools/class-database-tools.php:314
 msgid "No data found to delete."
 msgstr "Keine Daten zum Löschen gefunden."
 
@@ -1492,7 +1513,7 @@ msgstr "<b>Rank Math Warnung:</b> Das Ändern der Permalinks auf einer lebenden,
 
 #: includes/modules/seo-analysis/class-seo-analyzer.php:435
 msgid "Rank Math SEO Analyzer error: "
-msgstr "Rank Math SEO-Analysator Fehler: "
+msgstr "Rank Math SEO Analysefehler: "
 
 #. Translators: placeholder is the post type names separated with commas.
 #: includes/admin/class-notices.php:113
@@ -1534,21 +1555,21 @@ msgstr "Erweiterte Schema, Analytics und vieles mehr..."
 msgid "Upgrade to PRO"
 msgstr "Upgrade auf PRO"
 
-#: includes/modules/database-tools/class-database-tools.php:188
+#: includes/modules/database-tools/class-database-tools.php:183
 msgid "No Redirections found."
 msgstr "Keine Umleitungen gefunden."
 
-#: includes/modules/database-tools/class-database-tools.php:169
+#: includes/modules/database-tools/class-database-tools.php:164
 msgid "No 404 log data found."
 msgstr "Keine 404-Protokolldaten gefunden."
 
-#: includes/modules/database-tools/class-database-tools.php:149
+#: includes/modules/database-tools/class-database-tools.php:144
 msgid "No Internal Links data found."
 msgstr "Es wurden keine Daten für interne Links gefunden."
 
 #: includes/modules/database-tools/class-database-tools.php:124
 msgid "SEO Analyzer data has already been cleared."
-msgstr "Die Daten des SEO-Analysators sind bereits gelöscht worden."
+msgstr "Die Daten der SEO-Analyse sind bereits gelöscht worden."
 
 #: includes/modules/database-tools/class-database-tools.php:102
 msgid "No Rank Math transients found."
@@ -1728,7 +1749,7 @@ msgstr "Datenabruf abgebrochen."
 msgid "Cancel Fetching"
 msgstr "Abrufen abbrechen"
 
-#: includes/modules/database-tools/class-database-tools.php:219
+#: includes/modules/database-tools/class-database-tools.php:214
 msgid "Table re-creation started. It might take a couple of minutes."
 msgstr "Die Neuerstellung der Tabelle wurde gestartet. Das kann ein paar Minuten dauern."
 
@@ -1765,24 +1786,24 @@ msgstr "Zurücksetzen"
 msgid "It seems like the connection with your Google account & Rank Math needs to be made again. <a href=\"%s\" class=\"rank-math-reconnect-google\">Please click here.</a>"
 msgstr "Es scheint, dass die Verbindung mit deinem Google-Konto und Rank Math erneut hergestellt werden muss. <a href=\"%s\" class=\"rank-math-reconnect-google\"> Bitte klicke hier. </a>"
 
-#: includes/modules/database-tools/class-database-tools.php:379
+#: includes/modules/database-tools/class-database-tools.php:374
 msgid "Check if required tables exist and create them if not."
 msgstr "Überprüfe, ob erforderliche Tabellen vorhanden sind, und erstelle sie, falls nicht."
 
-#: includes/modules/database-tools/class-database-tools.php:378
+#: includes/modules/database-tools/class-database-tools.php:373
 msgid "Re-create Missing Database Tables"
 msgstr "Erstelle fehlende Datenbanktabellen neu"
 
-#: includes/admin/importers/class-aioseo.php:66
+#: includes/admin/importers/class-aioseo.php:67
 msgid "Import meta information of your terms like the titles, descriptions, robots meta, OpenGraph info, etc."
 msgstr "Importiere Metainformationen deiner Beiträge/Seiten wie Titel, Beschreibungen, Roboter-Meta, OpenGraph-Informationen etc."
 
 #. translators: reconnect link
-#: includes/modules/analytics/google/class-request.php:168
+#: includes/modules/analytics/google/class-request.php:176
 msgid "There is a problem with the Google auth token. Please <a href=\"%1$s\" class=\"button button-link rank-math-reconnect-google\">reconnect your app</a>"
 msgstr "Es gibt kein Refresh-Token. Bitte <a href=\"%1$s\" class=\"button button-link rank-math-reconnect-google\">Verbinde deine Anwendung erneut</a>"
 
-#: includes/modules/database-tools/class-database-tools.php:380
+#: includes/modules/database-tools/class-database-tools.php:375
 msgid "Re-create Tables"
 msgstr "Tabellen neu erstellen"
 
@@ -2537,7 +2558,7 @@ msgid "Import Data"
 msgstr "Daten importieren"
 
 #: includes/admin/importers/abstract-importer.php:133
-#: includes/admin/importers/class-aioseo.php:74
+#: includes/admin/importers/class-aioseo.php:75
 msgid "Import Locations"
 msgstr "Orte importieren"
 
@@ -2741,11 +2762,6 @@ msgstr "Ändere die SEO-Optionen für die Autorenarchive. %s."
 msgid "Add SEO meta and OpenGraph details to your homepage. %s."
 msgstr "Füge SEO-Meta- und OpenGraph-Details zu deiner Homepage hinzu. %s."
 
-#. translators: Link to social setting KB article
-#: includes/admin/class-option-center.php:155
-msgid "Add social meta to your website's Schema for Knowledge Graph cards. %s."
-msgstr "Füge dem Schema deiner Website für Knowledge-Graph-Cards Social-Metainformationen hinzu. %s."
-
 #: includes/admin/class-option-center.php:149
 msgid "Use the <code>[rank_math_contact_info]</code> shortcode to display contact information in a nicely formatted way. You should also claim your business on Google if you have not already."
 msgstr "Verwende den Shortcode <code>[rank_math_contact_info]</code>, um Kontaktinformationen ansprechend formatiert anzuzeigen. Du solltest außerdem dein Unternehmen bei Google anmelden, wenn du das nicht bereits getan hast."
@@ -2870,8 +2886,8 @@ msgstr "Das Fehler-Log kann nicht abgerufen werden."
 msgid "If you have %s enabled, errors will be stored in a log file. Here you can find the last 100 lines in reversed order so that you or the Rank Math support team can view it easily. The file cannot be edited here."
 msgstr "Wenn du %s aktiviert hast, werden Fehler in eine Log-Datei gespeichert. Du findest hier die letzten 100 Zeilen in umgekehrter Reihenfolge, damit der Support von Rank Math sie leicht einsehen kann. Du kannst die Datei an dieser Stelle nicht bearbeiten."
 
-#: includes/modules/database-tools/class-database-tools.php:287
-#: includes/modules/database-tools/class-database-tools.php:306
+#: includes/modules/database-tools/class-database-tools.php:282
+#: includes/modules/database-tools/class-database-tools.php:301
 msgid "Conversion started. A success message will be shown here once the process completes. You can close this page."
 msgstr "Umwandlung gestartet. Eine Bestätigung wird angezeigt, sobald der Vorgang abgeschlossen ist. Du kannst diese Seite jetzt schließen."
 
@@ -3073,7 +3089,7 @@ msgstr "Blöcke importieren"
 msgid "Import and convert all compatible blocks in post contents."
 msgstr "Importiere und konvertiere alle kompatiblen Blöcke in Beitragsinhalten."
 
-#: includes/admin/importers/class-yoast.php:1195
+#: includes/admin/importers/class-yoast.php:1208
 msgid "No post found."
 msgstr "Es wurden keine Beiträge gefunden."
 
@@ -3092,13 +3108,13 @@ msgstr "Deinen Sitemap-Index findest du hier: %s"
 msgid "Numbered"
 msgstr "Nummeriert"
 
-#: includes/modules/database-tools/class-database-tools.php:281
-#: includes/modules/database-tools/class-database-tools.php:300
+#: includes/modules/database-tools/class-database-tools.php:276
+#: includes/modules/database-tools/class-database-tools.php:295
 msgid "No posts found to convert."
 msgstr "Es wurden keine Stellen zur Umwandlung gefunden."
 
-#: includes/modules/database-tools/class-database-tools.php:397
-#: includes/modules/database-tools/class-database-tools.php:407
+#: includes/modules/database-tools/class-database-tools.php:392
+#: includes/modules/database-tools/class-database-tools.php:402
 msgid "Convert Blocks"
 msgstr "Blöcke konvertieren"
 
@@ -3107,15 +3123,15 @@ msgstr "Blöcke konvertieren"
 msgid "Unordered"
 msgstr "Ungeordnet"
 
-#: includes/modules/database-tools/class-database-tools.php:396
+#: includes/modules/database-tools/class-database-tools.php:391
 msgid "Are you sure you want to convert Yoast blocks into Rank Math blocks? This action is irreversible."
 msgstr "Bist du sicher, dass du die Yoast-Blöcke in Rank-Math-Blöcke umwandeln möchtest? Diese Aktion ist unumkehrbar."
 
-#: includes/modules/database-tools/class-database-tools.php:394
+#: includes/modules/database-tools/class-database-tools.php:389
 msgid "Yoast Block Converter"
 msgstr "Yoast-Block-Konverter"
 
-#: includes/modules/database-tools/class-database-tools.php:405
+#: includes/modules/database-tools/class-database-tools.php:400
 msgid "Convert TOC block created using AIOSEO. Use this option to easily move your previous blocks into Rank Math."
 msgstr "Konvertiere den mit AIOSEO erstellten TOC-Block. Mit dieser Option kannst du deine früheren Blöcke einfach in Rank Math verschieben."
 
@@ -3176,7 +3192,7 @@ msgid "This update will install a beta version of Rank Math."
 msgstr "Dieses Update installiert eine Beta-Version von Rank Math."
 
 #: includes/module/class-manager.php:278
-#: includes/modules/database-tools/class-database-tools.php:339
+#: includes/modules/database-tools/class-database-tools.php:334
 msgid "Database Tools"
 msgstr "Datenbank-Tools"
 
@@ -3396,40 +3412,40 @@ msgstr "Entferne die Schema-Markup-Daten aus den Archivseiten des WooCommerce-Sh
 msgid "Remove Schema Markup on Shop Archives"
 msgstr "Schema-Markup aus Shop-Archiven entfernen"
 
-#: includes/modules/database-tools/class-database-tools.php:370
-#: includes/modules/database-tools/class-database-tools.php:373
+#: includes/modules/database-tools/class-database-tools.php:365
+#: includes/modules/database-tools/class-database-tools.php:368
 msgid "Clear 404 Log"
 msgstr "404-Protokoll löschen"
 
-#: includes/modules/database-tools/class-database-tools.php:414
+#: includes/modules/database-tools/class-database-tools.php:409
 msgid "In some instances, the internal links data might show an inflated number or no number at all. Deleting the internal links data might fix the issue."
 msgstr "In einigen Fällen können die Daten der internen Links eine überhöhte oder gar keine Zahl anzeigen. Das Löschen der Daten der internen Links könnte das Problem beheben."
 
-#: includes/modules/database-tools/class-database-tools.php:356
+#: includes/modules/database-tools/class-database-tools.php:351
 msgid "Flush SEO Analyzer Data"
-msgstr "SEO-Analysator Daten spülen"
+msgstr "Flush SEO Analysedaten"
 
-#: includes/modules/database-tools/class-database-tools.php:365
+#: includes/modules/database-tools/class-database-tools.php:360
 msgid "Remove transients"
 msgstr "Transienten entfernen"
 
-#: includes/modules/database-tools/class-database-tools.php:363
+#: includes/modules/database-tools/class-database-tools.php:358
 msgid "Remove Rank Math Transients"
 msgstr "Entferne Rank Math Transienten"
 
-#: includes/modules/database-tools/class-database-tools.php:364
+#: includes/modules/database-tools/class-database-tools.php:359
 msgid "If you see any issue while using Rank Math or one of its options - clearing the Rank Math transients fixes the problem in most cases. Deleting transients does not delete ANY data added using Rank Math."
 msgstr "Wenn Du bei der Verwendung von Rank Math oder einer seiner Optionen ein Problem feststellst, wird das Problem in den meisten Fällen behoben, indem Du die Rank Math-Transienten löscht. Durch das Löschen von Transienten werden keine mit Rank Math hinzugefügten Daten gelöscht."
 
-#: includes/modules/database-tools/class-database-tools.php:357
+#: includes/modules/database-tools/class-database-tools.php:352
 msgid "Need a clean slate or not able to run the SEO Analyzer tool? Flushing the analysis data might fix the issue. Flushing SEO Analyzer data is entirely safe and doesn't remove any critical data from your website."
-msgstr "Benötigst du eine neue Version oder kannst du das SEO-Analysator Werkzeug nicht ausführen? Durch Leeren der SEO-Analysator Daten kann das Problem möglicherweise behoben werden. Das Löschen von SEO-Analysator Daten ist absolut sicher und entfernt keine kritischen Daten von deiner Website."
+msgstr "Benötigst du eine neue Version oder kannst du das SEO-Analyse-Tool nicht ausführen? Durch Leeren der Analysedaten kann das Problem möglicherweise behoben werden. Das Löschen von SEO-Analysedaten ist absolut sicher und entfernt keine kritischen Daten von deiner Website."
 
-#: includes/modules/database-tools/class-database-tools.php:423
+#: includes/modules/database-tools/class-database-tools.php:418
 msgid "Getting a redirection loop or need a fresh start? Delete all the redirections using this tool. Note: This process is irreversible and will delete ALL your redirection rules."
 msgstr "Erhalte eine Umleitungsschleife oder benötigst du einen Neuanfang? Lösche alle Umleitungen mit diesem Tool. Hinweis: Dieser Vorgang ist irreversibel und löscht ALLE deiner Umleitungsregeln."
 
-#: includes/modules/database-tools/class-database-tools.php:371
+#: includes/modules/database-tools/class-database-tools.php:366
 msgid "Is the 404 error log getting out of hand? Use this option to clear ALL 404 logs generated by your website in the Rank Math 404 Monitor."
 msgstr "Ist das 404-Fehlerprotokoll außer Kontrolle geraten? Verwende diese Option, um ALLE 404-Protokolle zu löschen, die von Deiner Website im Rank Math 404-Monitor generiert wurden."
 
@@ -3535,27 +3551,27 @@ msgstr "Du hast noch keinen Slogan eingegeben. Es ist eine gute Idee, einen zu w
 msgid "Add <code>rel=\"sponsored\"</code>"
 msgstr "Füge <code>rel=\"sponsored\"</code> hinzu"
 
-#: includes/modules/database-tools/class-database-tools.php:358
+#: includes/modules/database-tools/class-database-tools.php:353
 msgid "Clear SEO Analyzer"
-msgstr "Übersichtlicher SEO-Analysator"
+msgstr "SEO-Analyse leeren"
 
 #: includes/module/class-manager.php:342
 msgid "ACF"
 msgstr "ACF"
 
-#: includes/modules/database-tools/class-database-tools.php:136
+#: includes/modules/database-tools/class-database-tools.php:131
 msgid "SEO Analyzer data successfully deleted."
-msgstr "SEO-Analysator Daten erfolgreich gelöscht."
+msgstr "Die SEO-Analyse-Daten wurden erfolgreich gelöscht."
 
 #: includes/modules/status/class-status.php:58
 msgid "Status & Tools"
 msgstr "Status & Werkzeuge"
 
-#: includes/modules/database-tools/class-database-tools.php:416
+#: includes/modules/database-tools/class-database-tools.php:411
 msgid "Delete Internal Links"
 msgstr "Interne Links löschen"
 
-#: includes/modules/database-tools/class-database-tools.php:425
+#: includes/modules/database-tools/class-database-tools.php:420
 msgid "Delete Redirections"
 msgstr "Weiterleitungen löschen"
 
@@ -3563,15 +3579,15 @@ msgstr "Weiterleitungen löschen"
 msgid "Please activate ACF plugin to use this module."
 msgstr "Bitte aktiviere ACF Plugin für dieses Modul."
 
-#: includes/modules/database-tools/class-database-tools.php:175
+#: includes/modules/database-tools/class-database-tools.php:170
 msgid "404 Log successfully deleted."
 msgstr "404 Protokoll erfolgreich gelöscht."
 
-#: includes/modules/database-tools/class-database-tools.php:413
+#: includes/modules/database-tools/class-database-tools.php:408
 msgid "Delete Internal Links Data"
 msgstr "Daten der internen Links löschen"
 
-#: includes/modules/database-tools/class-database-tools.php:422
+#: includes/modules/database-tools/class-database-tools.php:417
 msgid "Delete Redirections Rules"
 msgstr "Umleitungsregeln löschen"
 
@@ -3579,19 +3595,19 @@ msgstr "Umleitungsregeln löschen"
 msgid "System Status"
 msgstr "Systemstatus"
 
-#: includes/modules/database-tools/class-database-tools.php:372
+#: includes/modules/database-tools/class-database-tools.php:367
 msgid "Are you sure you want to delete the 404 log? This action is irreversible."
 msgstr "Bist du sicher, dass du das 404-Protokoll löschen möchtest? Diese Aktion kann nicht rückgängig gemacht werden."
 
-#: includes/modules/database-tools/class-database-tools.php:195
+#: includes/modules/database-tools/class-database-tools.php:190
 msgid "Redirection rules successfully deleted."
 msgstr "Weiterleitungsregeln erfolgreich gelöscht."
 
-#: includes/modules/database-tools/class-database-tools.php:156
+#: includes/modules/database-tools/class-database-tools.php:151
 msgid "Internal Links successfully deleted."
 msgstr "Interne Links erfolgreich gelöscht."
 
-#: includes/modules/database-tools/class-database-tools.php:424
+#: includes/modules/database-tools/class-database-tools.php:419
 msgid "Are you sure you want to delete all the Redirection Rules? This action is irreversible."
 msgstr "Möchtest du wirklich alle Umleitungsregeln löschen? Diese Aktion kann nicht rückgängig gemacht werden."
 
@@ -3599,7 +3615,7 @@ msgstr "Möchtest du wirklich alle Umleitungsregeln löschen? Diese Aktion kann 
 msgid "ACF support helps Rank Math SEO read and analyze content written in the Advanced Custom Fields. If your theme uses ACF, you should enable this option."
 msgstr "Der ACF-Support hilft Rank Math SEO, Inhalte zu lesen und zu analysieren, die in den erweiterten benutzerdefinierten Feldern geschrieben wurden. Wenn dein Design ACF verwendet, solltest du diese Option aktivieren."
 
-#: includes/modules/database-tools/class-database-tools.php:415
+#: includes/modules/database-tools/class-database-tools.php:410
 msgid "Are you sure you want to delete Internal Links Data? This action is irreversible."
 msgstr "Möchtest du die internen Links wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden."
 
@@ -4203,10 +4219,12 @@ msgid "Insert personal Facebook profile URL to show Facebook Authorship when you
 msgstr "Füge eine persönliche URL für das Facebook-Profil ein, um die Facebook-Autorenschaft anzuzeigen, wenn deine Artikel auf Facebook freigegeben werden. Beispiel:"
 
 #: includes/settings/titles/social.php:16
+#: includes/settings/titles/social.php:67
 msgid "Enter your complete Facebook page URL here. eg:"
 msgstr "Gib hier deine komplette Facebook-Seiten-URL ein. Beispiel:"
 
 #: includes/settings/titles/social.php:15
+#: includes/settings/titles/social.php:66
 msgid "Facebook Page URL"
 msgstr "URL der Facebook-Seite"
 
@@ -4289,7 +4307,7 @@ msgstr "%s Archiv-Beschreibungen"
 msgid "Remove Snippet Data"
 msgstr "Snippet-Daten entfernen"
 
-#: includes/settings/titles/social.php:66
+#: includes/settings/titles/social.php:76
 msgid "Twitter Username"
 msgstr "Twitter-Benutzername"
 
@@ -4363,9 +4381,9 @@ msgstr "Verhindere, dass passwortgeschützte Seiten und Beiträge von Suchmaschi
 
 #: includes/settings/titles/misc.php:131
 msgid "Prevent all paginated pages from getting indexed by search engines."
-msgstr "Verhindere, dass paginierte Seiten von Suchmaschinen indiziert werden."
+msgstr "Verhindere, dass paginierte Archivseiten von Suchmaschinen indiziert werden."
 
-#: includes/settings/titles/social.php:67
+#: includes/settings/titles/social.php:77
 msgid "Enter the Twitter username of the author to add <code>twitter:creator</code> tag to posts. eg: <code>RankMathSEO</code>"
 msgstr "Gebe den Twitter-Benutzernamen des Autors ein, um Beiträge mit dem Tag <code>twitter:creator</code>  zu versehen. Beispiel: <code>RankMathSEO</code>"
 
@@ -5120,7 +5138,7 @@ msgstr "Bilder einbinden"
 #: includes/admin/views/import-export/backup-panel.php:43
 #: includes/modules/404-monitor/class-table.php:150
 #: includes/modules/404-monitor/class-table.php:270
-#: includes/modules/database-tools/class-database-tools.php:434
+#: includes/modules/database-tools/class-database-tools.php:429
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Delete"
@@ -5725,12 +5743,6 @@ msgstr "Umleitung erfolgreich deaktiviert."
 #: includes/modules/redirections/class-admin.php:256
 msgid "Redirection successfully activated."
 msgstr "Umleitung erfolgreich aktiviert."
-
-#: includes/modules/local-seo/views/titles-options.php:236
-#: includes/modules/local-seo/views/titles-options.php:254
-#: includes/modules/sitemap/settings/html-sitemap.php:58
-msgid "Select Page"
-msgstr "Wähle Seite"
 
 #: includes/modules/local-seo/views/titles-options.php:230
 msgid "The price range of the business, for example $$$."
@@ -6838,6 +6850,7 @@ msgid "Public Post Types"
 msgstr "Öffentliche Beitragsarten"
 
 #: includes/admin/importers/abstract-importer.php:130
+#: includes/admin/importers/class-aioseo.php:63
 msgid "Import Author Meta"
 msgstr "Autoren-Meta importieren"
 
@@ -7124,7 +7137,7 @@ msgid "Imported term meta for %s terms."
 msgstr "Importierte Term-Meta für %s Bedingungen."
 
 #: includes/admin/importers/abstract-importer.php:129
-#: includes/admin/importers/class-aioseo.php:66
+#: includes/admin/importers/class-aioseo.php:67
 msgid "Import Term Meta"
 msgstr "Term-Meta importieren"
 
@@ -7407,7 +7420,7 @@ msgstr "Binde Archivseiten für Begriffe dieser Taxonomie in die XML-Sitemap ein
 
 #: includes/modules/sitemap/settings/general.php:84
 msgid "Automatically notify Google when a sitemap gets updated."
-msgstr "Benachrichtige Google automatisch, wenn eine Sitemap aktualisiert wird."
+msgstr "Benachrichtige Google &amp; Bing automatisch, wenn eine Sitemap aktualisiert wird."
 
 #: includes/modules/sitemap/settings/general.php:74
 msgid "Add term IDs, separated by comma. This option is applied for all taxonomies."
@@ -7467,7 +7480,7 @@ msgstr "Die meisten WordPress-Themen platziere die Tagline deiner Website an ein
 msgid "Your theme may display the Site Tagline, and it can also be used in SEO titles &amp; descriptions. Set it to something unique. You can change it by navigating to <a href=\"%s\">Settings &gt; General</a>."
 msgstr "Dein Theme kann die Site Tagline anzeigen und es kann auch in SEO-Titeln und Beschreibungen verwendet werden. Stelle es auf etwas Einzigartiges ein. Du kannst es ändern, indem du zu <a href=\"%s\">Einstellungen &gt; Allgemein</a> navigierst."
 
-#: includes/admin/class-admin.php:328
+#: includes/admin/class-admin.php:331
 #: includes/modules/role-manager/class-role-manager.php:131
 #: includes/traits/class-ajax.php:59
 msgid "You are not authorized to perform this action."
@@ -7747,7 +7760,7 @@ msgid "Redirections"
 msgstr "Weiterleitungen"
 
 #: includes/admin/importers/abstract-importer.php:131
-#: includes/admin/importers/class-aioseo.php:70
+#: includes/admin/importers/class-aioseo.php:71
 msgid "Import Redirections"
 msgstr "Weiterleitungen importieren"
 
@@ -7938,8 +7951,8 @@ msgstr "Du hast die Google Search Console noch nicht verlinkt."
 msgid "For the best SEO results, use a custom permalink structure, preferably one that includes the post title (<code>%%postname%%</code>). You can change it by navigating to <a href=\"%s\">Settings &gt; Permalinks</a>"
 msgstr "Für die besten SEO-Ergebnisse verwende eine benutzerdefinierte Permalink-Struktur, vorzugsweise eine, die den Posttitel enthält (<code>%%postname%%</code>). Du kannst es ändern, indem du zu <a href=\"%s\">Einstellungen &gt; Permalinks</a> navigierst"
 
-#: includes/modules/analytics/google/class-request.php:265
-#: includes/modules/analytics/google/class-request.php:323
+#: includes/modules/analytics/google/class-request.php:279
+#: includes/modules/analytics/google/class-request.php:337
 msgid "Bad request. Please check the code."
 msgstr "Fehlerhafte Anfrage. Bitte überprüfe den Code."
 
@@ -8069,14 +8082,6 @@ msgstr "Deine Produkt %s Seiten"
 msgid "Rank Math uses these focus keywords to analyze your on-page content.  It can tell if you've done a good job of optimizing your text to rank for these keywords."
 msgstr "Rank Math verwendet diese Fokus-Schlüsselwörter, um deinen Inhalt auf der Seite zu analysieren. Es kann erkennen, ob du gute Arbeit geleistet habst, indem du deinen Text optimiert habst, um ihn für diese Schlüsselwort zu bewerten."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:134
-msgid "XML sitemaps are a special type of text file that tells search engines about the structure of your site. They're a list of all the resources (pages and files) you would like the search engine to index. You can assign different priorities, so certain pages will be crawled first. Before XML sitemaps, search engines were limited to indexing the content they could find by following links. That's still an important feature for search engine spiders, but XML sitemaps have made it easier for content creators and search engines to collaborate."
-msgstr "XML-Sitemaps sind eine spezielle Art von Textdatei, die Suchmaschinen über die Struktur deiner Website informiert. Es handelt sich um eine Liste aller Ressourcen (Seiten und Dateien), die die Suchmaschine indizieren soll. du kannst verschiedene Prioritäten vergeben, so dass bestimmte Seiten zuerst durchsucht werden. Vor XML-Sitemaps beschränkten sich Suchmaschinen auf die Indizierung von Inhalten, die sie über folgende Links finden konnten. Das ist immer noch ein wichtiges Feature für Suchmaschinen-Spider, aber XML-Sitemaps haben es für Inhaltsersteller und Suchmaschinen einfacher gemacht, zusammenzuarbeiten."
-
-#: includes/modules/seo-analysis/seo-analysis-tests.php:87
-msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
-msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Fokus-Schlüsselwort hinzufügst, überprüft Rank Math, ob du das Schlüsselwort im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Schlüsselwort im Titel fehlt, wird es dir hier mitgeteilt."
-
 #: includes/modules/seo-analysis/seo-analysis-tests.php:75
 msgid "Setting focus keywords for your posts allows Rank Math to analyse the content."
 msgstr "Das Setzen von Fokus-Schlüsselwörter für deine Beiträge ermöglicht es Rank Math, den Inhalt zu analysieren."
@@ -8088,6 +8093,14 @@ msgstr "Das ist Benutzerfreundlich und bringt die Schlüsselwörter in die URL. 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:64
 msgid "It's not very kind on the eyes, and it does nothing for your site's SEO.  In fact, it can hurt it - Google's bot is quite cautious about crawling pages that look auto-generated."
 msgstr "Es ist nicht sehr freundlich für die Augen, und es tut nichts für die SEO deiner Website.  Tatsächlich kann es ihm schaden - Googles Bot ist sehr vorsichtig beim Crawlen von Seiten, die automatisch generiert aussehen."
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:134
+msgid "XML sitemaps are a special type of text file that tells search engines about the structure of your site. They're a list of all the resources (pages and files) you would like the search engine to index. You can assign different priorities, so certain pages will be crawled first. Before XML sitemaps, search engines were limited to indexing the content they could find by following links. That's still an important feature for search engine spiders, but XML sitemaps have made it easier for content creators and search engines to collaborate."
+msgstr "XML-Sitemaps sind eine spezielle Art von Textdatei, die Suchmaschinen über die Struktur deiner Website informiert. Es handelt sich um eine Liste aller Ressourcen (Seiten und Dateien), die die Suchmaschine indizieren soll. du kannst verschiedene Prioritäten vergeben, so dass bestimmte Seiten zuerst durchsucht werden. Vor XML-Sitemaps beschränkten sich Suchmaschinen auf die Indizierung von Inhalten, die sie über folgende Links finden konnten. Das ist immer noch ein wichtiges Feature für Suchmaschinen-Spider, aber XML-Sitemaps haben es für Inhaltsersteller und Suchmaschinen einfacher gemacht, zusammenzuarbeiten."
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:87
+msgid "HTML Page Titles play a large role in Google's ranking algorithm.  When you add a Focus Keyword to a post or page, Rank Math will check to see that you used the keyword in the title.  If it finds any posts or pages that are missing the keyword in the title, it will tell you here."
+msgstr "HTML-Seitenüberschriften spielen eine große Rolle im Ranking-Algorithmus von Google.  Wenn du einem Beitrag oder einer Seite ein Fokus-Schlüsselwort hinzufügst, überprüft Rank Math, ob du das Schlüsselwort im Titel verwendet hast. Wenn es irgendwelche Beiträge oder Seiten findet, bei denen das Schlüsselwort im Titel fehlt, wird es dir hier mitgeteilt."
 
 #: includes/modules/seo-analysis/seo-analysis-tests.php:38
 msgid "The tagline is the second option.  Choose a tagline that summarizes your site in a few words.  The tagline is also a good place to use your main keyword."
@@ -8227,6 +8240,12 @@ msgstr "Lasse Rank Math deine Website und den Inhalt deiner Website anhand von 2
 #: includes/replace-variables/class-basic-variables.php:93
 msgid "Site Title"
 msgstr "Website-Titel"
+
+#: includes/modules/local-seo/views/titles-options.php:236
+#: includes/modules/local-seo/views/titles-options.php:254
+#: includes/modules/sitemap/settings/html-sitemap.php:58
+msgid "Select Page"
+msgstr "Seite auswählen"
 
 #: includes/admin/metabox/class-taxonomy-screen.php:130
 #: includes/settings/general/rss-vars-table.php:20
@@ -8375,7 +8394,7 @@ msgstr "Zurück zum Dashboard"
 msgid "Modules"
 msgstr "Module"
 
-#: includes/admin/class-admin.php:70
+#: includes/admin/class-admin.php:72
 msgid "Facebook profile URL"
 msgstr "Facebook Profil-URL"
 
@@ -8392,11 +8411,11 @@ msgstr "Aktion nicht zulässig."
 msgid "Cleanup of %s data failed."
 msgstr "Die Bereinigung der %s-Daten ist fehlgeschlagen."
 
-#: includes/admin/class-admin.php:298
+#: includes/admin/class-admin.php:301
 msgid "Insert Link in Content"
 msgstr "Link in Inhalt einfügen"
 
-#: includes/admin/class-admin.php:297
+#: includes/admin/class-admin.php:300
 msgid "Copy Link URL to Clipboard"
 msgstr "Link URL in die Zwischenablage kopieren"
 
@@ -8602,7 +8621,7 @@ msgstr "Link einfügen/bearbeiten"
 msgid "Help &amp; Support"
 msgstr "Hilfe und Support"
 
-#: includes/admin/class-admin.php:69
+#: includes/admin/class-admin.php:71
 msgid "Twitter username (without @)"
 msgstr "Twitter-Benutzername (ohne @)"
 
@@ -8711,7 +8730,7 @@ msgstr "SEO-Beschreibung"
 msgid "Thank you for using <a href=\"%s\" target=\"_blank\">Rank Math</a>"
 msgstr "Vielen Dank, dass du <a href=\"%s\" target=\"_blank\">Rank Math</a> verwendest"
 
-#: includes/admin/class-admin.php:113
+#: includes/admin/class-admin.php:116
 msgid "The canonical URL you entered does not seem to be a valid URL. Please double check it in the SEO meta box &raquo; Advanced tab."
 msgstr "Die von dir eingegebene kanonische URL scheint keine gültige URL zu sein. Bitte überprüfen diese noch einmal in der SEO-Meta-Box &raquo; Registerkarte Erweitert."
 

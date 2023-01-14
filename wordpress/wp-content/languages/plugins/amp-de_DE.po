@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - AMP - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-07-12 19:23:29+0000\n"
+"PO-Revision-Date: 2023-01-11 00:07:52+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.1\n"
+"X-Generator: GlotPress/4.0.0-alpha.3\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - AMP - Stable (latest release)\n"
 
@@ -2642,7 +2642,7 @@ msgstr "Entfernt"
 #. translators: Meta box date format
 #: includes/validation/class-amp-validated-url-post-type.php:2256
 msgid "M j, Y @ H:i"
-msgstr "j. M Y, G:i"
+msgstr "j. M Y \\u\\m G:i \\U\\h\\r"
 
 #: includes/validation/class-amp-validated-url-post-type.php:1851
 #: includes/validation/class-amp-validated-url-post-type.php:2195
