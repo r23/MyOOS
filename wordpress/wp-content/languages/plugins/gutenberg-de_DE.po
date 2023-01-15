@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-01-11 03:46:47+0000\n"
+"PO-Revision-Date: 2023-01-15 02:34:39+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2550,7 +2550,7 @@ msgstr "Hebe Zitate visuell hervor. „Indem wir andere zitieren, zitieren wir u
 #. https://www.php.net/manual/datetime.format.php
 #: lib/compat/wordpress-6.1/date-settings.php:69
 msgid "M j, Y g:i a"
-msgstr "j. M Y G:i"
+msgstr "j. M. Y G:i"
 
 #: lib/class-wp-theme-json-gutenberg.php:3257 build/block-editor/index.js:3797
 #: build/components/index.js:56741
