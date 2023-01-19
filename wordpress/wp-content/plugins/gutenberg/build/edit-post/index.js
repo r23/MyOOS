@@ -3588,62 +3588,6 @@ function WelcomeGuideMenuItem() {
   });
 }
 
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/list-view.js
-
-
-/**
- * WordPress dependencies
- */
-
-const listView = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  viewBox: "0 0 24 24",
-  xmlns: "http://www.w3.org/2000/svg"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M13.8 5.2H3v1.5h10.8V5.2zm-3.6 12v1.5H21v-1.5H10.2zm7.2-6H6.6v1.5h10.8v-1.5z"
-}));
-/* harmony default export */ var list_view = (listView);
-
-;// CONCATENATED MODULE: ./packages/edit-post/build-module/plugins/navigation-list-view-menu-item.js
-var _window;
-
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-
-
-const NavMenuSidebarToggle = () => {
-  // eslint-disable-next-line @wordpress/data-no-store-string-literals
-  const {
-    openGeneralSidebar
-  } = (0,external_wp_data_namespaceObject.useDispatch)('core/edit-post');
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarButton, {
-    className: "components-toolbar__control",
-    label: (0,external_wp_i18n_namespaceObject.__)('Open navigation list view'),
-    onClick: () => openGeneralSidebar('edit-post/block'),
-    icon: list_view
-  }));
-};
-
-let MaybeNavMenuSidebarToggle = external_wp_element_namespaceObject.Fragment;
-const isOffCanvasNavigationEditorEnabled = ((_window = window) === null || _window === void 0 ? void 0 : _window.__experimentalEnableOffCanvasNavigationEditor) === true;
-
-if (isOffCanvasNavigationEditorEnabled) {
-  MaybeNavMenuSidebarToggle = NavMenuSidebarToggle;
-}
-
-const NavigationEditMenuItem = () => {
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockEditorProvider, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableBlockToolbarLastItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableBlockNameContext.Consumer, null, blockName => blockName === 'core/navigation' && (0,external_wp_element_namespaceObject.createElement)(MaybeNavMenuSidebarToggle, null))));
-};
-
-/* harmony default export */ var navigation_list_view_menu_item = (NavigationEditMenuItem);
-
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/plugins/index.js
 
 
@@ -3658,7 +3602,6 @@ const NavigationEditMenuItem = () => {
 /**
  * Internal dependencies
  */
-
 
 
 
@@ -3688,7 +3631,7 @@ const NavigationEditMenuItem = () => {
       },
       /* translators: accessibility text */
       (0,external_wp_i18n_namespaceObject.__)('(opens in a new tab)'))));
-    }), (0,external_wp_element_namespaceObject.createElement)(navigation_list_view_menu_item, null));
+    }));
   }
 
 });
@@ -3746,59 +3689,6 @@ const arrowLeft = (0,external_wp_element_namespaceObject.createElement)(external
 }));
 /* harmony default export */ var arrow_left = (arrowLeft);
 
-;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/visual-editor/block-inspector-button.js
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-const block_inspector_button_noop = () => {};
-
-function BlockInspectorButton(_ref) {
-  let {
-    onClick = block_inspector_button_noop,
-    small = false
-  } = _ref;
-  const {
-    shortcut,
-    areAdvancedSettingsOpened
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
-    shortcut: select(external_wp_keyboardShortcuts_namespaceObject.store).getShortcutRepresentation('core/edit-post/toggle-sidebar'),
-    areAdvancedSettingsOpened: select(store_store).getActiveGeneralSidebarName() === 'edit-post/block'
-  }), []);
-  const {
-    openGeneralSidebar,
-    closeGeneralSidebar
-  } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
-  const label = areAdvancedSettingsOpened ? (0,external_wp_i18n_namespaceObject.__)('Hide more settings') : (0,external_wp_i18n_namespaceObject.__)('Show more settings');
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
-    onClick: () => {
-      if (areAdvancedSettingsOpened) {
-        closeGeneralSidebar();
-        (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('Block settings closed'));
-      } else {
-        openGeneralSidebar('edit-post/block');
-        (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.__)('Additional settings are now available in the Editor block settings sidebar'));
-      }
-
-      onClick();
-    },
-    shortcut: shortcut
-  }, !small && label);
-}
-/* harmony default export */ var block_inspector_button = (BlockInspectorButton);
-
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/visual-editor/index.js
 
 
@@ -3826,14 +3716,12 @@ function BlockInspectorButton(_ref) {
 
 
 
-
 function MaybeIframe(_ref) {
   let {
     children,
     contentRef,
     shouldIframe,
     styles,
-    assets,
     style
   } = _ref;
   const ref = (0,external_wp_blockEditor_namespaceObject.__unstableUseMouseMoveTypingReset)();
@@ -3856,7 +3744,6 @@ function MaybeIframe(_ref) {
     head: (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableEditorStyles, {
       styles: styles
     }),
-    assets: assets,
     ref: ref,
     contentRef: contentRef,
     style: {
@@ -3952,7 +3839,6 @@ function VisualEditor(_ref2) {
   const {
     themeHasDisabledLayoutStyles,
     themeSupportsLayout,
-    assets,
     isFocusMode
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const _settings = select(external_wp_blockEditor_namespaceObject.store).getSettings();
@@ -3960,7 +3846,6 @@ function VisualEditor(_ref2) {
     return {
       themeHasDisabledLayoutStyles: _settings.disableLayoutStyles,
       themeSupportsLayout: _settings.supportsLayout,
-      assets: _settings.__unstableResolvedAssets,
       isFocusMode: _settings.focusMode
     };
   }, []);
@@ -4095,8 +3980,7 @@ function VisualEditor(_ref2) {
   }, (0,external_wp_element_namespaceObject.createElement)(MaybeIframe, {
     shouldIframe: isBlockBasedTheme && !hasMetaBoxes || isTemplateMode || deviceType === 'Tablet' || deviceType === 'Mobile',
     contentRef: contentRef,
-    styles: styles,
-    assets: assets
+    styles: styles
   }, themeSupportsLayout && !themeHasDisabledLayoutStyles && !isTemplateMode && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLayoutStyle, {
     selector: ".edit-post-visual-editor__post-title-wrapper, .block-editor-block-list__layout.is-root-container",
     layout: fallbackLayout,
@@ -4121,14 +4005,7 @@ function VisualEditor(_ref2) {
     className: isTemplateMode ? 'wp-site-blocks' : `${blockListLayoutClass} wp-block-post-content` // Ensure root level blocks receive default/flow blockGap styling rules.
     ,
     __experimentalLayout: blockListLayout
-  }))))), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableBlockSettingsMenuFirstItem, null, _ref3 => {
-    let {
-      onClose
-    } = _ref3;
-    return (0,external_wp_element_namespaceObject.createElement)(block_inspector_button, {
-      onClick: onClose
-    });
-  }));
+  }))))));
 }
 
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/keyboard-shortcuts/index.js
@@ -5607,6 +5484,21 @@ function FullscreenModeClose(_ref) {
 
 /* harmony default export */ var fullscreen_mode_close = (FullscreenModeClose);
 
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/list-view.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const listView = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  viewBox: "0 0 24 24",
+  xmlns: "http://www.w3.org/2000/svg"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M13.8 5.2H3v1.5h10.8V5.2zm-3.6 12v1.5H21v-1.5H10.2zm7.2-6H6.6v1.5h10.8v-1.5z"
+}));
+/* harmony default export */ var list_view = (listView);
+
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/plus.js
 
 
@@ -6223,13 +6115,8 @@ const chevronDown = (0,external_wp_element_namespaceObject.createElement)(extern
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -6288,6 +6175,8 @@ function DeleteTemplate() {
   const isRevertable = template === null || template === void 0 ? void 0 : template.has_theme_file;
 
   const onDelete = () => {
+    var _settings$availableTe;
+
     clearSelectedBlock();
     setIsEditingTemplate(false);
     setShowConfirmDialog(false);
@@ -6295,9 +6184,10 @@ function DeleteTemplate() {
       template: ''
     });
     const settings = getEditorSettings();
-    const newAvailableTemplates = (0,external_lodash_namespaceObject.pickBy)(settings.availableTemplates, (_title, id) => {
+    const newAvailableTemplates = Object.fromEntries(Object.entries((_settings$availableTe = settings.availableTemplates) !== null && _settings$availableTe !== void 0 ? _settings$availableTe : {}).filter(_ref => {
+      let [id] = _ref;
       return id !== template.slug;
-    });
+    }));
     updateEditorSettings({ ...settings,
       availableTemplates: newAvailableTemplates
     });
@@ -7586,6 +7476,7 @@ function PostTemplateForm(_ref) {
     status: "warning",
     isDismissible: false
   }, (0,external_wp_i18n_namespaceObject.__)('The posts page template cannot be changed.')) : (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     hideLabelFromVision: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Template'),
     value: (_selectedOption$value = selectedOption === null || selectedOption === void 0 ? void 0 : selectedOption.value) !== null && _selectedOption$value !== void 0 ? _selectedOption$value : '',

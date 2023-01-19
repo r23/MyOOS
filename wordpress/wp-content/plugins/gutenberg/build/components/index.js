@@ -2583,7 +2583,7 @@ __webpack_require__.d(__webpack_exports__, {
   "ResizableBox": function() { return /* reexport */ resizable_box; },
   "ResponsiveWrapper": function() { return /* reexport */ responsive_wrapper; },
   "SVG": function() { return /* reexport */ external_wp_primitives_namespaceObject.SVG; },
-  "SandBox": function() { return /* reexport */ Sandbox; },
+  "SandBox": function() { return /* reexport */ sandbox; },
   "ScrollLock": function() { return /* reexport */ scroll_lock; },
   "SearchControl": function() { return /* reexport */ search_control; },
   "SelectControl": function() { return /* reexport */ select_control; },
@@ -32703,7 +32703,6 @@ const RangeControl = (0,external_wp_element_namespaceObject.forwardRef)(Unforwar
 
 
 
-
 const NumberControlWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(number_control,  true ? {
   target: "ez9hsf47"
 } : 0)(Container, "{width:", space(24), ";}" + ( true ? "" : 0));
@@ -32730,7 +32729,7 @@ const ColorInputWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_comp
 } : 0)("padding-top:", space(4), ";padding-left:", space(4), ";padding-right:", space(3), ";padding-bottom:", space(5), ";" + ( true ? "" : 0));
 const ColorfulWrapper = emotion_styled_base_browser_esm("div",  true ? {
   target: "ez9hsf41"
-} : 0)(boxSizingReset, ";width:216px;.react-colorful{display:flex;flex-direction:column;align-items:center;width:216px;height:auto;overflow:hidden;}.react-colorful__saturation{width:100%;border-radius:0;height:216px;margin-bottom:", space(4), ";border-bottom:none;}.react-colorful__hue,.react-colorful__alpha{width:184px;height:16px;border-radius:16px;margin-bottom:", space(2), ";}.react-colorful__pointer{height:16px;width:16px;border:none;box-shadow:0 0 2px 0 rgba( 0, 0, 0, 0.25 );outline:2px solid transparent;}.react-colorful__pointer-fill{box-shadow:inset 0 0 0 ", config_values.borderWidthFocus, " #fff;}", interactiveHueStyles, " ", StyledField, "{margin-bottom:0;}" + ( true ? "" : 0));
+} : 0)(boxSizingReset, ";width:216px;.react-colorful{display:flex;flex-direction:column;align-items:center;width:216px;height:auto;overflow:hidden;}.react-colorful__saturation{width:100%;border-radius:0;height:216px;margin-bottom:", space(4), ";border-bottom:none;}.react-colorful__hue,.react-colorful__alpha{width:184px;height:16px;border-radius:16px;margin-bottom:", space(2), ";}.react-colorful__pointer{height:16px;width:16px;border:none;box-shadow:0 0 2px 0 rgba( 0, 0, 0, 0.25 );outline:2px solid transparent;}.react-colorful__pointer-fill{box-shadow:inset 0 0 0 ", config_values.borderWidthFocus, " #fff;}", interactiveHueStyles, ";" + ( true ? "" : 0));
 const CopyButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_button,  true ? {
   target: "ez9hsf40"
 } : 0)("&&&&&{min-width:", space(6), ";padding:0;>svg{margin-right:0;}}" + ( true ? "" : 0));
@@ -36174,6 +36173,7 @@ const ColorPicker = (props, forwardedRef) => {
   }), (0,external_wp_element_namespaceObject.createElement)(AuxiliaryColorArtefactWrapper, null, (0,external_wp_element_namespaceObject.createElement)(AuxiliaryColorArtefactHStackHeader, {
     justify: "space-between"
   }, (0,external_wp_element_namespaceObject.createElement)(styles_SelectControl, {
+    __nextHasNoMarginBottom: true,
     options: options,
     value: colorType,
     onChange: nextColorType => setColorType(nextColorType),
@@ -41330,8 +41330,8 @@ const itemWrapper =  true ? {
   styles: "width:100%;display:block"
 } : 0;
 const item =  true ? {
-  name: "a5hqs6",
-  styles: "width:100%;display:block;margin:0;color:inherit"
+  name: "150ruhm",
+  styles: "box-sizing:border-box;width:100%;display:block;margin:0;color:inherit"
 } : 0;
 const bordered = /*#__PURE__*/emotion_react_browser_esm_css("border:1px solid ", config_values.surfaceBorderColor, ";" + ( true ? "" : 0),  true ? "" : 0);
 const separated = /*#__PURE__*/emotion_react_browser_esm_css(">*:not( marquee )>*{border-bottom:1px solid ", config_values.surfaceBorderColor, ";}>*:last-of-type>*:not( :focus ){border-bottom-color:transparent;}" + ( true ? "" : 0),  true ? "" : 0);
@@ -41417,7 +41417,7 @@ const useItemGroupContext = () => (0,external_wp_element_namespaceObject.useCont
 
 
 
-function ItemGroup(props, forwardedRef) {
+function UnconnectedItemGroup(props, forwardedRef) {
   const {
     isBordered,
     isSeparated,
@@ -41439,8 +41439,31 @@ function ItemGroup(props, forwardedRef) {
     ref: forwardedRef
   })));
 }
+/**
+ * `ItemGroup` displays a list of `Item`s grouped and styled together.
+ *
+ * @example
+ * ```jsx
+ * import {
+ *   __experimentalItemGroup as ItemGroup,
+ *   __experimentalItem as Item,
+ * } from '@wordpress/components';
+ *
+ * function Example() {
+ *   return (
+ *     <ItemGroup>
+ *       <Item>Code</Item>
+ *       <Item>is</Item>
+ *       <Item>Poetry</Item>
+ *     </ItemGroup>
+ *   );
+ * }
+ * ```
+ */
 
-/* harmony default export */ var item_group_component = (contextConnect(ItemGroup, 'ItemGroup'));
+
+const ItemGroup = contextConnect(UnconnectedItemGroup, 'ItemGroup');
+/* harmony default export */ var item_group_component = (ItemGroup);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/gradient-bar/constants.js
 const GRADIENT_MARKERS_WIDTH = 16;
@@ -43822,7 +43845,11 @@ function ComboboxControl(_ref) {
   const onKeyDown = event => {
     let preventDefault = false;
 
-    if (event.defaultPrevented) {
+    if (event.defaultPrevented || // Ignore keydowns from IMEs
+    event.nativeEvent.isComposing || // Workaround for Mac Safari where the final Enter/Backspace of an IME composition
+    // is `isComposing=false`, even though it's technically still part of the composition.
+    // These can only be detected by keyCode.
+    event.keyCode === 229) {
       return;
     }
 
@@ -54999,7 +55026,7 @@ function getExtension() {
 function isVideoType() {
   let filename = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
   if (!filename) return false;
-  return VIDEO_EXTENSIONS.includes(getExtension(filename));
+  return filename.startsWith('data:video/') || VIDEO_EXTENSIONS.includes(getExtension(filename));
 }
 /**
  * Transforms a fraction value to a percentage value.
@@ -58155,7 +58182,7 @@ function hook_useItem(props) {
 
 
 
-function component_Item(props, forwardedRef) {
+function UnconnectedItem(props, forwardedRef) {
   const {
     role,
     wrapperClassName,
@@ -58168,8 +58195,32 @@ function component_Item(props, forwardedRef) {
     ref: forwardedRef
   })));
 }
+/**
+ * `Item` is used in combination with `ItemGroup` to display a list of items
+ * grouped and styled together.
+ *
+ * @example
+ * ```jsx
+ * import {
+ *   __experimentalItemGroup as ItemGroup,
+ *   __experimentalItem as Item,
+ * } from '@wordpress/components';
+ *
+ * function Example() {
+ *   return (
+ *     <ItemGroup>
+ *       <Item>Code</Item>
+ *       <Item>is</Item>
+ *       <Item>Poetry</Item>
+ *     </ItemGroup>
+ *   );
+ * }
+ * ```
+ */
 
-/* harmony default export */ var item_component = (contextConnect(component_Item, 'Item'));
+
+const component_Item = contextConnect(UnconnectedItem, 'Item');
+/* harmony default export */ var item_component = (component_Item);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/input-prefix-wrapper.js
 
@@ -60619,7 +60670,8 @@ body_ForwardedComponent.displayName = 'PanelBody';
  */
 
 
-const PanelRow = (0,external_wp_element_namespaceObject.forwardRef)((_ref, ref) => {
+
+const PanelRow = (_ref, ref) => {
   let {
     className,
     children
@@ -60628,8 +60680,9 @@ const PanelRow = (0,external_wp_element_namespaceObject.forwardRef)((_ref, ref) 
     className: classnames_default()('components-panel__row', className),
     ref: ref
   }, children);
-});
-/* harmony default export */ var row = (PanelRow);
+};
+
+/* harmony default export */ var row = ((0,external_wp_element_namespaceObject.forwardRef)(PanelRow));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/placeholder/index.js
 
@@ -60957,6 +61010,7 @@ function QueryControls(_ref) {
     onOrderByChange
   } = _ref;
   return [onOrderChange && onOrderByChange && (0,external_wp_element_namespaceObject.createElement)(select_control, {
+    __nextHasNoMarginBottom: true,
     key: "query-controls-order-select",
     label: (0,external_wp_i18n_namespaceObject.__)('Order by'),
     value: `${orderBy}/${order}`,
@@ -62539,7 +62593,7 @@ const HANDLE_STYLES = {
   bottomLeft: HANDLE_STYLES_OVERRIDES
 };
 
-function ResizableBox(_ref, ref) {
+function UnforwardedResizableBox(_ref, ref) {
   let {
     className,
     children,
@@ -62556,7 +62610,8 @@ function ResizableBox(_ref, ref) {
   }, props), children, showTooltip && (0,external_wp_element_namespaceObject.createElement)(resize_tooltip, tooltipProps));
 }
 
-/* harmony default export */ var resizable_box = ((0,external_wp_element_namespaceObject.forwardRef)(ResizableBox));
+const ResizableBox = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedResizableBox);
+/* harmony default export */ var resizable_box = (ResizableBox);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/responsive-wrapper/index.js
 
@@ -62571,7 +62626,26 @@ function ResizableBox(_ref, ref) {
 
 
 
+/**
+ * Internal dependencies
+ */
 
+/**
+ * A wrapper component that maintains its aspect ratio when resized.
+ *
+ * ```jsx
+ * import { ResponsiveWrapper } from '@wordpress/components';
+ *
+ * const MyResponsiveWrapper = () => (
+ * 	<ResponsiveWrapper naturalWidth={ 2000 } naturalHeight={ 680 }>
+ * 		<img
+ * 			src="https://s.w.org/style/images/about/WordPress-logotype-standard.png"
+ * 			alt="WordPress"
+ * 		/>
+ * 	</ResponsiveWrapper>
+ * );
+ * ```
+ */
 function ResponsiveWrapper(_ref) {
   let {
     naturalWidth,
@@ -62588,7 +62662,7 @@ function ResponsiveWrapper(_ref) {
   }
 
   const imageStyle = {
-    paddingBottom: naturalWidth < containerWidth ? naturalHeight : naturalHeight / naturalWidth * 100 + '%'
+    paddingBottom: naturalWidth < (containerWidth !== null && containerWidth !== void 0 ? containerWidth : 0) ? naturalHeight : naturalHeight / naturalWidth * 100 + '%'
   };
   const TagName = isInline ? 'span' : 'div';
   return (0,external_wp_element_namespaceObject.createElement)(TagName, {
@@ -62610,6 +62684,9 @@ function ResponsiveWrapper(_ref) {
  */
 
 
+/**
+ * Internal dependencies
+ */
 
 const observeAndResizeJS = function () {
   const {
@@ -62663,7 +62740,8 @@ const observeAndResizeJS = function () {
   // get an DOM mutations for that, so do the resize when the window is resized, too.
 
   window.addEventListener('resize', sendResize, true);
-};
+}; // TODO: These styles shouldn't be coupled with WordPress.
+
 
 const style = `
 	body {
@@ -62687,7 +62765,19 @@ const style = `
 		margin-bottom: 0 !important;
 	}
 `;
-function Sandbox(_ref) {
+/**
+ * This component provides an isolated environment for arbitrary HTML via iframes.
+ *
+ * ```jsx
+ * import { SandBox } from '@wordpress/components';
+ *
+ * const MySandBox = () => (
+ * 	<SandBox html="<p>Content</p>" title="SandBox" type="embed" />
+ * );
+ * ```
+ */
+
+function SandBox(_ref) {
   let {
     html = '',
     title = '',
@@ -62702,13 +62792,15 @@ function Sandbox(_ref) {
 
   function isFrameAccessible() {
     try {
-      return !!ref.current.contentDocument.body;
+      var _ref$current, _ref$current$contentD;
+
+      return !!((_ref$current = ref.current) !== null && _ref$current !== void 0 && (_ref$current$contentD = _ref$current.contentDocument) !== null && _ref$current$contentD !== void 0 && _ref$current$contentD.body);
     } catch (e) {
       return false;
     }
   }
 
-  function trySandbox() {
+  function trySandBox() {
     let forceRerender = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
     if (!isFrameAccessible()) {
@@ -62719,11 +62811,8 @@ function Sandbox(_ref) {
       contentDocument,
       ownerDocument
     } = ref.current;
-    const {
-      body
-    } = contentDocument;
 
-    if (!forceRerender && null !== body.getAttribute('data-resizable-iframe-connected')) {
+    if (!forceRerender && null !== (contentDocument === null || contentDocument === void 0 ? void 0 : contentDocument.body.getAttribute('data-resizable-iframe-connected'))) {
       return;
     } // Put the html snippet into a html document, and then write it to the iframe's document
     // we can use this in the future to inject custom styles or scripts.
@@ -62768,10 +62857,12 @@ function Sandbox(_ref) {
   }
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    trySandbox();
+    var _iframe$ownerDocument;
 
-    function tryNoForceSandbox() {
-      trySandbox(false);
+    trySandBox();
+
+    function tryNoForceSandBox() {
+      trySandBox(false);
     }
 
     function checkMessageForResize(event) {
@@ -62801,32 +62892,27 @@ function Sandbox(_ref) {
     }
 
     const iframe = ref.current;
-    const {
-      ownerDocument
-    } = iframe;
-    const {
-      defaultView
-    } = ownerDocument; // This used to be registered using <iframe onLoad={} />, but it made the iframe blank
+    const defaultView = iframe === null || iframe === void 0 ? void 0 : (_iframe$ownerDocument = iframe.ownerDocument) === null || _iframe$ownerDocument === void 0 ? void 0 : _iframe$ownerDocument.defaultView; // This used to be registered using <iframe onLoad={} />, but it made the iframe blank
     // after reordering the containing block. See these two issues for more details:
     // https://github.com/WordPress/gutenberg/issues/6146
     // https://github.com/facebook/react/issues/18752
 
-    iframe.addEventListener('load', tryNoForceSandbox, false);
-    defaultView.addEventListener('message', checkMessageForResize);
+    iframe === null || iframe === void 0 ? void 0 : iframe.addEventListener('load', tryNoForceSandBox, false);
+    defaultView === null || defaultView === void 0 ? void 0 : defaultView.addEventListener('message', checkMessageForResize);
     return () => {
-      iframe === null || iframe === void 0 ? void 0 : iframe.removeEventListener('load', tryNoForceSandbox, false);
-      defaultView.addEventListener('message', checkMessageForResize);
+      iframe === null || iframe === void 0 ? void 0 : iframe.removeEventListener('load', tryNoForceSandBox, false);
+      defaultView === null || defaultView === void 0 ? void 0 : defaultView.addEventListener('message', checkMessageForResize);
     }; // Ignore reason: passing `exhaustive-deps` will likely involve a more detailed refactor.
     // See https://github.com/WordPress/gutenberg/pull/44378
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    trySandbox(); // Ignore reason: passing `exhaustive-deps` will likely involve a more detailed refactor.
+    trySandBox(); // Ignore reason: passing `exhaustive-deps` will likely involve a more detailed refactor.
     // See https://github.com/WordPress/gutenberg/pull/44378
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [title, styles, scripts]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    trySandbox(true); // Ignore reason: passing `exhaustive-deps` will likely involve a more detailed refactor.
+    trySandBox(true); // Ignore reason: passing `exhaustive-deps` will likely involve a more detailed refactor.
     // See https://github.com/WordPress/gutenberg/pull/44378
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [html, type]);
@@ -62840,6 +62926,8 @@ function Sandbox(_ref) {
     height: Math.ceil(height)
   });
 }
+
+/* harmony default export */ var sandbox = (SandBox);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/snackbar/index.js
 
@@ -63254,7 +63342,6 @@ const component_Surface = contextConnect(UnconnectedSurface, 'Surface');
 const TabButton = _ref => {
   let {
     tabId,
-    onClick,
     children,
     selected,
     ...rest
@@ -63264,7 +63351,7 @@ const TabButton = _ref => {
     tabIndex: selected ? null : -1,
     "aria-selected": selected,
     id: tabId,
-    onClick: onClick
+    __experimentalIsFocusable: true
   }, rest), children);
 };
 /**
@@ -63338,10 +63425,15 @@ function TabPanel(_ref2) {
   });
   const selectedId = `${instanceId}-${(_selectedTab$name = selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.name) !== null && _selectedTab$name !== void 0 ? _selectedTab$name : 'none'}`;
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (!(selectedTab !== null && selectedTab !== void 0 && selectedTab.name) && tabs.length > 0) {
-      handleTabSelection(initialTabName || tabs[0].name);
+    const firstEnabledTab = tabs.find(tab => !tab.disabled);
+    const initialTab = tabs.find(tab => tab.name === initialTabName);
+
+    if (!(selectedTab !== null && selectedTab !== void 0 && selectedTab.name) && firstEnabledTab) {
+      handleTabSelection(initialTab && !initialTab.disabled ? initialTab.name : firstEnabledTab.name);
+    } else if (selectedTab !== null && selectedTab !== void 0 && selectedTab.disabled && firstEnabledTab) {
+      handleTabSelection(firstEnabledTab.name);
     }
-  }, [tabs, selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.name, initialTabName, handleTabSelection]);
+  }, [tabs, selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.name, selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.disabled, initialTabName, handleTabSelection]);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: className
   }, (0,external_wp_element_namespaceObject.createElement)(navigable_container_menu, {
@@ -63358,6 +63450,7 @@ function TabPanel(_ref2) {
     selected: tab.name === selected,
     key: tab.name,
     onClick: () => handleTabSelection(tab.name),
+    disabled: tab.disabled,
     label: tab.icon && tab.title,
     icon: tab.icon,
     showTooltip: !!tab.icon
@@ -63909,7 +64002,7 @@ var ToolbarItem = createComponent({
 
 
 
-;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-context/index.js
+;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-context/index.js
 /**
  * WordPress dependencies
  */
@@ -63917,7 +64010,7 @@ var ToolbarItem = createComponent({
 const ToolbarContext = (0,external_wp_element_namespaceObject.createContext)();
 /* harmony default export */ var toolbar_context = (ToolbarContext);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-item/index.js
+;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-item/index.js
 
 
 
@@ -63970,7 +64063,7 @@ function toolbar_item_ToolbarItem(_ref, ref) {
 
 /* harmony default export */ var toolbar_item = ((0,external_wp_element_namespaceObject.forwardRef)(toolbar_item_ToolbarItem));
 
-;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-button/toolbar-button-container.js
+;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-button/toolbar-button-container.js
 
 
 const ToolbarButtonContainer = props => (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -63979,7 +64072,7 @@ const ToolbarButtonContainer = props => (0,external_wp_element_namespaceObject.c
 
 /* harmony default export */ var toolbar_button_container = (ToolbarButtonContainer);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-button/index.js
+;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-button/index.js
 
 
 
@@ -64053,7 +64146,7 @@ function ToolbarButton(_ref, ref) {
 
 /* harmony default export */ var toolbar_button = ((0,external_wp_element_namespaceObject.forwardRef)(ToolbarButton));
 
-;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-group/toolbar-group-container.js
+;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-group/toolbar-group-container.js
 
 
 
@@ -64070,7 +64163,7 @@ const ToolbarGroupContainer = _ref => {
 
 /* harmony default export */ var toolbar_group_container = (ToolbarGroupContainer);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-group/toolbar-group-collapsed.js
+;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-group/toolbar-group-collapsed.js
 
 
 
@@ -64112,7 +64205,7 @@ function ToolbarGroupCollapsed(_ref) {
 
 /* harmony default export */ var toolbar_group_collapsed = (ToolbarGroupCollapsed);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-group/index.js
+;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-group/index.js
 
 
 
@@ -64297,7 +64390,7 @@ var Toolbar = createComponent({
 
 
 
-;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-container.js
+;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar/toolbar-container.js
 
 
 
@@ -64342,7 +64435,7 @@ function ToolbarContainer(_ref, ref) {
 
 /* harmony default export */ var toolbar_container = ((0,external_wp_element_namespaceObject.forwardRef)(ToolbarContainer));
 
-;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/index.js
+;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar/index.js
 
 
 
@@ -64402,7 +64495,7 @@ function toolbar_Toolbar(_ref, ref) {
 
 /* harmony default export */ var toolbar = ((0,external_wp_element_namespaceObject.forwardRef)(toolbar_Toolbar));
 
-;// CONCATENATED MODULE: ./packages/components/build-module/toolbar-dropdown-menu/index.js
+;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-dropdown-menu/index.js
 
 
 
@@ -65360,15 +65453,15 @@ function TreeGrid(_ref, ref) {
             onExpandRow(activeRow);
             event.preventDefault();
             return;
-          } // If a row is focused, and it is expanded, focuses the rightmost cell in the row.
+          } // If a row is focused, and it is expanded, focuses the next cell in the row.
 
 
           const focusableItems = getRowFocusables(activeRow);
 
           if (focusableItems.length > 0) {
-            var _focusableItems;
+            var _focusableItems$nextI;
 
-            (_focusableItems = focusableItems[focusableItems.length - 1]) === null || _focusableItems === void 0 ? void 0 : _focusableItems.focus();
+            (_focusableItems$nextI = focusableItems[nextIndex]) === null || _focusableItems$nextI === void 0 ? void 0 : _focusableItems$nextI.focus();
           }
         } // Prevent key use for anything else. For example, Voiceover
         // will start reading text on continued use of left/right arrow
@@ -66281,11 +66374,6 @@ const with_focus_return_Provider = _ref => {
 ;// CONCATENATED MODULE: ./packages/components/build-module/index.js
 // Primitives.
  // Components.
-
-
-
-
-
 
 
 

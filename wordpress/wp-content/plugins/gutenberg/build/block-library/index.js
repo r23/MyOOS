@@ -2005,6 +2005,7 @@ function ArchivesEdit(_ref) {
       showPostCounts: !showPostCounts
     })
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Group by:'),
     options: [{
       label: (0,external_wp_i18n_namespaceObject.__)('Year'),
@@ -3296,6 +3297,7 @@ function AudioEdit(_ref) {
     onChange: toggleAttribute('loop'),
     checked: loop
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject._x)('Preload', 'noun; Audio block parameter'),
     value: preload || '' // `undefined` is required for the preload attribute to be unset.
     ,
@@ -3321,6 +3323,7 @@ function AudioEdit(_ref) {
     controls: "controls",
     src: src
   })), isTemporaryAudio && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null), showCaption && (!external_wp_blockEditor_namespaceObject.RichText.isEmpty(caption) || isSelected) && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
+    identifier: "caption",
     tagName: "figcaption",
     className: (0,external_wp_blockEditor_namespaceObject.__experimentalGetElementClassName)('caption'),
     ref: captionRef,
@@ -8299,13 +8302,18 @@ const v1 = {
 function CommentsInspectorControls(_ref) {
   let {
     attributes: {
-      TagName
+      tagName
     },
     setAttributes
   } = _ref;
+  const htmlElementMessages = {
+    section: (0,external_wp_i18n_namespaceObject.__)("The <section> element should represent a standalone portion of the document that can't be better represented by another element."),
+    aside: (0,external_wp_i18n_namespaceObject.__)("The <aside> element should represent a portion of a document whose content is only indirectly related to the document's main content.")
+  };
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, {
     __experimentalGroup: "advanced"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('HTML element'),
     options: [{
       label: (0,external_wp_i18n_namespaceObject.__)('Default (<div>)'),
@@ -8317,10 +8325,11 @@ function CommentsInspectorControls(_ref) {
       label: '<aside>',
       value: 'aside'
     }],
-    value: TagName,
+    value: tagName,
     onChange: value => setAttributes({
       tagName: value
-    })
+    }),
+    help: htmlElementMessages[tagName]
   })));
 }
 
@@ -15000,6 +15009,7 @@ class EmbedPreview extends external_wp_element_namespaceObject.Component {
     }, (0,external_wp_i18n_namespaceObject.sprintf)(
     /* translators: %s: host providing embed content e.g: www.youtube.com */
     (0,external_wp_i18n_namespaceObject.__)("Embedded content from %s can't be previewed in the editor."), parsedHostBaseUrl))), (!external_wp_blockEditor_namespaceObject.RichText.isEmpty(caption) || isSelected) && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
+      identifier: "caption",
       tagName: "figcaption",
       className: (0,external_wp_blockEditor_namespaceObject.__experimentalGetElementClassName)('caption'),
       placeholder: (0,external_wp_i18n_namespaceObject.__)('Add caption'),
@@ -16400,6 +16410,7 @@ function FileBlockInspector(_ref) {
   })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
     title: (0,external_wp_i18n_namespaceObject.__)('Settings')
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Link to'),
     value: textLinkHref,
     options: linkDestinationOptions,
@@ -18401,6 +18412,7 @@ const Gallery = props => {
     className: "blocks-gallery-media-placeholder-wrapper"
   }, mediaPlaceholder), (0,external_wp_element_namespaceObject.createElement)(RichTextVisibilityHelper, {
     isHidden: !isSelected && external_wp_blockEditor_namespaceObject.RichText.isEmpty(caption),
+    identifier: "caption",
     tagName: "figcaption",
     className: classnames_default()('blocks-gallery-caption', (0,external_wp_blockEditor_namespaceObject.__experimentalGetElementClassName)('caption')),
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Gallery caption text'),
@@ -19064,6 +19076,7 @@ function GalleryEdit(props) {
     onChange: toggleImageCrop,
     help: getImageCropHelp
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Link to'),
     value: linkTo,
     onChange: setLinkTo,
@@ -19074,6 +19087,7 @@ function GalleryEdit(props) {
     checked: linkTarget === '_blank',
     onChange: toggleOpenInNewTab
   }), (imageSizeOptions === null || imageSizeOptions === void 0 ? void 0 : imageSizeOptions.length) > 0 && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Image size'),
     value: sizeSlug,
     options: imageSizeOptions,
@@ -19991,12 +20005,14 @@ function edit_GalleryEdit(props) {
     onChange: toggleImageCrop,
     help: getImageCropHelp
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Link to'),
     value: linkTo,
     onChange: setLinkTo,
     options: edit_linkOptions,
     hideCancelButton: true
   }), shouldShowSizeOptions && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Image size'),
     value: sizeSlug,
     options: imageSizeOptions,
@@ -21270,6 +21286,7 @@ function GroupEditControls(_ref) {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, {
     __experimentalGroup: "advanced"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('HTML element'),
     options: [{
       label: (0,external_wp_i18n_namespaceObject.__)('Default (<div>)'),
@@ -21602,6 +21619,9 @@ const group_metadata = {
         style: true,
         width: true
       }
+    },
+    position: {
+      sticky: true
     },
     typography: {
       fontSize: true,
@@ -23520,7 +23540,6 @@ function image_Image(_ref) {
     canInsertCover,
     imageEditing,
     imageSizes,
-    maxWidth,
     mediaUpload
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
@@ -23531,7 +23550,7 @@ function image_Image(_ref) {
     const rootClientId = getBlockRootClientId(clientId);
     const settings = Object.fromEntries(Object.entries(getSettings()).filter(_ref2 => {
       let [key] = _ref2;
-      return ['imageEditing', 'imageSizes', 'maxWidth', 'mediaUpload'].includes(key);
+      return ['imageEditing', 'imageSizes', 'mediaUpload'].includes(key);
     }));
     return { ...settings,
       canInsertCover: canInsertBlockType('core/cover', rootClientId)
@@ -23872,14 +23891,10 @@ function image_Image(_ref) {
     const minHeight = naturalHeight < naturalWidth ? constants_MIN_SIZE : constants_MIN_SIZE / ratio; // With the current implementation of ResizableBox, an image needs an
     // explicit pixel value for the max-width. In absence of being able to
     // set the content-width, this max-width is currently dictated by the
-    // vanilla editor style. The following variable adds a buffer to this
-    // vanilla style, so 3rd party themes have some wiggleroom. This does,
-    // in most cases, allow you to scale the image beyond the width of the
-    // main column, though not infinitely.
-    // @todo It would be good to revisit this once a content-width variable
-    // becomes available.
+    // vanilla editor style. We'll use the clientWidth here, to prevent the width
+    // of the image growing larger than the width of the block column.
 
-    const maxWidthBuffer = maxWidth * 2.5;
+    const maxWidthBuffer = clientWidth;
     let showRightHandle = false;
     let showLeftHandle = false;
     /* eslint-disable no-lonely-if */
@@ -23949,6 +23964,7 @@ function image_Image(_ref) {
     isEditing: isEditingImage,
     onFinishEditing: () => setIsEditingImage(false)
   }, !temporaryURL && controls, img, showCaption && (!external_wp_blockEditor_namespaceObject.RichText.isEmpty(caption) || isSelected) && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
+    identifier: "caption",
     className: (0,external_wp_blockEditor_namespaceObject.__experimentalGetElementClassName)('caption'),
     ref: captionRef,
     tagName: "figcaption",
@@ -25240,14 +25256,17 @@ function LatestPostsEdit(_ref) {
     } = select(external_wp_coreData_namespaceObject.store);
     const settings = select(external_wp_blockEditor_namespaceObject.store).getSettings();
     const catIds = categories && categories.length > 0 ? categories.map(cat => cat.id) : [];
-    const latestPostsQuery = (0,external_lodash_namespaceObject.pickBy)({
+    const latestPostsQuery = Object.fromEntries(Object.entries({
       categories: catIds,
       author: selectedAuthor,
       order,
       orderby: orderBy,
       per_page: postsToShow,
       _embed: 'wp:featuredmedia'
-    }, value => typeof value !== 'undefined');
+    }).filter(_ref2 => {
+      let [, value] = _ref2;
+      return typeof value !== 'undefined';
+    }));
     return {
       defaultImageWidth: (0,external_lodash_namespaceObject.get)(settings.imageDimensions, [featuredImageSizeSlug, 'width'], 0),
       defaultImageHeight: (0,external_lodash_namespaceObject.get)(settings.imageDimensions, [featuredImageSizeSlug, 'height'], 0),
@@ -25275,16 +25294,16 @@ function LatestPostsEdit(_ref) {
     });
   };
 
-  const imageSizeOptions = imageSizes.filter(_ref2 => {
+  const imageSizeOptions = imageSizes.filter(_ref3 => {
     let {
       slug
-    } = _ref2;
+    } = _ref3;
     return slug !== 'full';
-  }).map(_ref3 => {
+  }).map(_ref4 => {
     let {
       name,
       slug
-    } = _ref3;
+    } = _ref4;
     return {
       value: slug,
       label: name
@@ -25481,7 +25500,7 @@ function LatestPostsEdit(_ref) {
   const dateFormat = (0,external_wp_date_namespaceObject.getSettings)().formats.date;
   return (0,external_wp_element_namespaceObject.createElement)("div", null, inspectorControls, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarGroup, {
     controls: layoutControls
-  })), (0,external_wp_element_namespaceObject.createElement)("ul", blockProps, displayPosts.map((post, i) => {
+  })), (0,external_wp_element_namespaceObject.createElement)("ul", blockProps, displayPosts.map(post => {
     const titleTrimmed = post.title.rendered.trim();
     let excerpt = post.excerpt.rendered;
     const currentAuthor = authorList === null || authorList === void 0 ? void 0 : authorList.find(author => author.id === post.author);
@@ -25512,7 +25531,7 @@ function LatestPostsEdit(_ref) {
       onClick: showRedirectionPreventedNotice
     }, (0,external_wp_i18n_namespaceObject.__)('Read more'))) : excerpt;
     return (0,external_wp_element_namespaceObject.createElement)("li", {
-      key: i
+      key: post.id
     }, renderFeaturedImage && (0,external_wp_element_namespaceObject.createElement)("div", {
       className: imageClasses
     }, addLinkToFeaturedImage ? (0,external_wp_element_namespaceObject.createElement)("a", {
@@ -30140,7 +30159,9 @@ function NavigationMenuSelector(_ref) {
       const label = (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(title.rendered);
 
       if (id === currentMenuId && !isCreatingMenu) {
-        setSelectorLabel(currentTitle);
+        setSelectorLabel(
+        /* translators: %s is the name of a navigation menu. */
+        (0,external_wp_i18n_namespaceObject.sprintf)((0,external_wp_i18n_namespaceObject.__)('You are currently editing %s'), label));
         setEnableOptions(shouldEnableMenuSelector);
       }
 
@@ -30162,7 +30183,7 @@ function NavigationMenuSelector(_ref) {
     if (!hasResolvedNavigationMenus) {
       setSelectorLabel((0,external_wp_i18n_namespaceObject.__)('Loading …'));
     } else if (noMenuSelected || noBlockMenus || menuUnavailable) {
-      setSelectorLabel((0,external_wp_i18n_namespaceObject.__)('Select menu'));
+      setSelectorLabel((0,external_wp_i18n_namespaceObject.__)('Choose a Navigation menu'));
       setEnableOptions(shouldEnableMenuSelector);
     }
 
@@ -31605,6 +31626,98 @@ const ManageMenusButton = _ref => {
 
 /* harmony default export */ var manage_menus_button = (ManageMenusButton);
 
+;// CONCATENATED MODULE: ./packages/icons/build-module/library/add-submenu.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+const addSubmenu = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24"
+}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
+  d: "M2 12c0 3.6 2.4 5.5 6 5.5h.5V19l3-2.5-3-2.5v2H8c-2.5 0-4.5-1.5-4.5-4s2-4.5 4.5-4.5h3.5V6H8c-3.6 0-6 2.4-6 6zm19.5-1h-8v1.5h8V11zm0 5h-8v1.5h8V16zm0-10h-8v1.5h8V6z"
+}));
+/* harmony default export */ var add_submenu = (addSubmenu);
+
+;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/leaf-more-menu.js
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+const leaf_more_menu_POPOVER_PROPS = {
+  className: 'block-editor-block-settings-menu__popover',
+  position: 'bottom right',
+  variant: 'toolbar'
+};
+const LeafMoreMenu = props => {
+  const {
+    clientId,
+    block
+  } = props;
+  const {
+    insertBlock,
+    replaceBlock,
+    removeBlocks,
+    replaceInnerBlocks
+  } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_blockEditor_namespaceObject.store);
+  const label = (0,external_wp_i18n_namespaceObject.sprintf)(
+  /* translators: %s: block name */
+  (0,external_wp_i18n_namespaceObject.__)('Remove %s'), (0,external_wp_blockEditor_namespaceObject.BlockTitle)({
+    clientId,
+    maximumLength: 25
+  }));
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropdownMenu, _extends({
+    icon: more_vertical,
+    label: (0,external_wp_i18n_namespaceObject.__)('Options'),
+    className: "block-editor-block-settings-menu",
+    popoverProps: leaf_more_menu_POPOVER_PROPS,
+    noIcons: true
+  }, props), _ref => {
+    let {
+      onClose
+    } = _ref;
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuGroup, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+      icon: add_submenu,
+      onClick: () => {
+        const updateSelectionOnInsert = false;
+        const newLink = (0,external_wp_blocks_namespaceObject.createBlock)('core/navigation-link');
+
+        if (block.name === 'core/navigation-submenu') {
+          insertBlock(newLink, block.innerBlocks.length, clientId, updateSelectionOnInsert);
+        } else {
+          // Convert to a submenu if the block currently isn't one.
+          const newSubmenu = (0,external_wp_blocks_namespaceObject.createBlock)('core/navigation-submenu', block.attributes, block.innerBlocks); // The following must happen as two independent actions.
+          // Why? Because the offcanvas editor relies on the getLastInsertedBlocksClientIds
+          // selector to determine which block is "active". As the UX needs the newLink to be
+          // the "active" block it must be the last block to be inserted.
+          // Therefore the Submenu is first created and **then** the newLink is inserted
+          // thus ensuring it is the last inserted block.
+
+          replaceBlock(clientId, newSubmenu);
+          replaceInnerBlocks(newSubmenu.clientId, [newLink], updateSelectionOnInsert);
+        }
+
+        onClose();
+      }
+    }, (0,external_wp_i18n_namespaceObject.__)('Add submenu item')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
+      onClick: () => {
+        removeBlocks([clientId], false);
+        onClose();
+      }
+    }, label));
+  });
+};
+
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation/edit/menu-inspector-controls.js
 
 
@@ -31622,39 +31735,52 @@ const ManageMenusButton = _ref => {
 
 
 
-const MenuInspectorControls = _ref => {
-  var _window, _window2;
+/* translators: %s: The name of a menu. */
 
+const actionLabel = (0,external_wp_i18n_namespaceObject.__)("Switch to '%s'");
+
+const ExperimentMainContent = _ref => {
   let {
     clientId,
-    createNavigationMenuIsSuccess,
-    createNavigationMenuIsError,
-    currentMenuId = null,
-    isNavigationMenuMissing,
-    isManageMenusButtonDisabled,
-    onCreateNew,
-    onSelectClassicMenu,
-    onSelectNavigationMenu
+    currentMenuId,
+    isLoading,
+    isNavigationMenuMissing
   } = _ref;
-  const isOffCanvasNavigationEditorEnabled = ((_window = window) === null || _window === void 0 ? void 0 : _window.__experimentalEnableOffCanvasNavigationEditor) === true;
-  const menuControlsSlot = (_window2 = window) !== null && _window2 !== void 0 && _window2.__experimentalEnableBlockInspectorTabs ? 'list' : undefined;
-  /* translators: %s: The name of a menu. */
-
-  const actionLabel = (0,external_wp_i18n_namespaceObject.__)("Switch to '%s'"); // Provide a hierarchy of clientIds for the given Navigation block (clientId).
+  // Provide a hierarchy of clientIds for the given Navigation block (clientId).
   // This is required else the list view will display the entire block tree.
-
-
   const clientIdsTree = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       __unstableGetClientIdsTree
     } = select(external_wp_blockEditor_namespaceObject.store);
     return __unstableGetClientIdsTree(clientId);
   }, [clientId]);
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, {
-    __experimentalGroup: menuControlsSlot
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
-    title: isOffCanvasNavigationEditorEnabled ? null : (0,external_wp_i18n_namespaceObject.__)('Menu')
-  }, isOffCanvasNavigationEditorEnabled ? (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+
+  if (currentMenuId && isNavigationMenuMissing) {
+    return (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Select or create a menu'));
+  }
+
+  if (isLoading) {
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalOffCanvasEditor, {
+    blocks: clientIdsTree,
+    isExpanded: true,
+    selectBlockInCanvas: false,
+    LeafMoreMenu: LeafMoreMenu
+  });
+};
+
+const ExperimentControls = props => {
+  const {
+    createNavigationMenuIsSuccess,
+    createNavigationMenuIsError,
+    currentMenuId = null,
+    onCreateNew,
+    onSelectClassicMenu,
+    onSelectNavigationMenu
+  } = props;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     className: "wp-block-navigation-off-canvas-editor__header"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHeading, {
     className: "wp-block-navigation-off-canvas-editor__title",
@@ -31667,11 +31793,20 @@ const MenuInspectorControls = _ref => {
     createNavigationMenuIsSuccess: createNavigationMenuIsSuccess,
     createNavigationMenuIsError: createNavigationMenuIsError,
     actionLabel: actionLabel
-  })), currentMenuId && isNavigationMenuMissing ? (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('Select or create a menu')) : (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalOffCanvasEditor, {
-    blocks: clientIdsTree,
-    isExpanded: true,
-    selectBlockInCanvas: false
-  })) : (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(navigation_menu_selector, {
+  })), (0,external_wp_element_namespaceObject.createElement)(ExperimentMainContent, props));
+};
+
+const DefaultControls = props => {
+  const {
+    createNavigationMenuIsSuccess,
+    createNavigationMenuIsError,
+    currentMenuId = null,
+    isManageMenusButtonDisabled,
+    onCreateNew,
+    onSelectClassicMenu,
+    onSelectNavigationMenu
+  } = props;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(navigation_menu_selector, {
     currentMenuId: currentMenuId,
     onSelectClassicMenu: onSelectClassicMenu,
     onSelectNavigationMenu: onSelectNavigationMenu,
@@ -31681,7 +31816,19 @@ const MenuInspectorControls = _ref => {
     actionLabel: actionLabel
   }), (0,external_wp_element_namespaceObject.createElement)(manage_menus_button, {
     disabled: isManageMenusButtonDisabled
-  }))));
+  }));
+};
+
+const MenuInspectorControls = props => {
+  var _window;
+
+  const isOffCanvasNavigationEditorEnabled = ((_window = window) === null || _window === void 0 ? void 0 : _window.__experimentalEnableOffCanvasNavigationEditor) === true;
+  const menuControlsSlot = isOffCanvasNavigationEditorEnabled ? 'list' : undefined;
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, {
+    __experimentalGroup: menuControlsSlot
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
+    title: isOffCanvasNavigationEditorEnabled ? null : (0,external_wp_i18n_namespaceObject.__)('Menu')
+  }, isOffCanvasNavigationEditorEnabled ? (0,external_wp_element_namespaceObject.createElement)(ExperimentControls, props) : (0,external_wp_element_namespaceObject.createElement)(DefaultControls, props)));
 };
 
 /* harmony default export */ var menu_inspector_controls = (MenuInspectorControls);
@@ -32193,7 +32340,8 @@ function Navigation(_ref) {
       isManageMenusButtonDisabled: isManageMenusButtonDisabled,
       onCreateNew: createUntitledEmptyNavigationMenu,
       onSelectClassicMenu: onSelectClassicMenu,
-      onSelectNavigationMenu: onSelectNavigationMenu
+      onSelectNavigationMenu: onSelectNavigationMenu,
+      isLoading: isLoading
     }), stylingInspectorControls, (0,external_wp_element_namespaceObject.createElement)(ResponsiveWrapper, {
       id: clientId,
       onToggle: setResponsiveMenuVisibility,
@@ -32224,7 +32372,8 @@ function Navigation(_ref) {
       isManageMenusButtonDisabled: isManageMenusButtonDisabled,
       onCreateNew: createUntitledEmptyNavigationMenu,
       onSelectClassicMenu: onSelectClassicMenu,
-      onSelectNavigationMenu: onSelectNavigationMenu
+      onSelectNavigationMenu: onSelectNavigationMenu,
+      isLoading: isLoading
     }), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, null, (0,external_wp_i18n_namespaceObject.__)('Navigation menu has been deleted or is unavailable. '), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
       onClick: createUntitledEmptyNavigationMenu,
       variant: "link"
@@ -32274,7 +32423,8 @@ function Navigation(_ref) {
     isManageMenusButtonDisabled: isManageMenusButtonDisabled,
     onCreateNew: createUntitledEmptyNavigationMenu,
     onSelectClassicMenu: onSelectClassicMenu,
-    onSelectNavigationMenu: onSelectNavigationMenu
+    onSelectNavigationMenu: onSelectNavigationMenu,
+    isLoading: isLoading
   }), stylingInspectorControls, isEntityAvailable && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, {
     __experimentalGroup: "advanced"
   }, hasResolvedCanUserUpdateNavigationMenu && canUserUpdateNavigationMenu && (0,external_wp_element_namespaceObject.createElement)(NavigationMenuNameControl, null), hasResolvedCanUserDeleteNavigationMenu && canUserDeleteNavigationMenu && (0,external_wp_element_namespaceObject.createElement)(NavigationMenuDeleteControl, {
@@ -33136,21 +33286,6 @@ const customLink = (0,external_wp_element_namespaceObject.createElement)(externa
 }));
 /* harmony default export */ var custom_link = (customLink);
 
-;// CONCATENATED MODULE: ./packages/icons/build-module/library/add-submenu.js
-
-
-/**
- * WordPress dependencies
- */
-
-const addSubmenu = (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.SVG, {
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: "0 0 24 24"
-}, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M2 12c0 3.6 2.4 5.5 6 5.5h.5V19l3-2.5-3-2.5v2H8c-2.5 0-4.5-1.5-4.5-4s2-4.5 4.5-4.5h3.5V6H8c-3.6 0-6 2.4-6 6zm19.5-1h-8v1.5h8V11zm0 5h-8v1.5h8V16zm0-10h-8v1.5h8V6z"
-}));
-/* harmony default export */ var add_submenu = (addSubmenu);
-
 ;// CONCATENATED MODULE: ./packages/block-library/build-module/navigation-link/link-ui.js
 
 
@@ -33437,9 +33572,9 @@ const updateAttributes = function () {
   const isCustomLink = !newKind && !isBuiltInType || newKind === 'custom';
   const kind = isCustomLink ? 'custom' : newKind;
   setAttributes({ // Passed `url` may already be encoded. To prevent double encoding, decodeURI is executed to revert to the original string.
-    ...(newUrl && {
-      url: encodeURI((0,external_wp_url_namespaceObject.safeDecodeURI)(newUrl))
-    }),
+    ...{
+      url: newUrl ? encodeURI((0,external_wp_url_namespaceObject.safeDecodeURI)(newUrl)) : newUrl
+    },
     ...(label && {
       label
     }),
@@ -33868,7 +34003,10 @@ function NavigationLinkEdit(_ref) {
   const DEFAULT_BLOCK = {
     name: 'core/navigation-link'
   };
-  const innerBlocksProps = (0,external_wp_blockEditor_namespaceObject.useInnerBlocksProps)(blockProps, {
+  const innerBlocksProps = (0,external_wp_blockEditor_namespaceObject.useInnerBlocksProps)({ ...blockProps,
+    className: 'remove-outline' // Remove the outline from the inner blocks container.
+
+  }, {
     allowedBlocks: ALLOWED_BLOCKS,
     __experimentalDefaultBlock: DEFAULT_BLOCK,
     __experimentalDirectInsert: true,
@@ -33912,9 +34050,9 @@ function NavigationLinkEdit(_ref) {
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
     value: url || '',
     onChange: urlValue => {
-      setAttributes({
+      updateAttributes({
         url: urlValue
-      });
+      }, setAttributes, attributes);
     },
     label: (0,external_wp_i18n_namespaceObject.__)('URL'),
     autoComplete: "off"
@@ -35923,7 +36061,8 @@ const page_list_item_metadata = {
     reusable: false,
     html: false,
     lock: false,
-    inserter: false
+    inserter: false,
+    __experimentalToolbar: false
   },
   editorStyle: "wp-block-page-list-editor",
   style: "wp-block-page-list"
@@ -36995,6 +37134,7 @@ function PostAuthorEdit(_ref) {
     onChange: handleSelect,
     allowReset: false
   }) || (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Author'),
     value: authorId,
     options: authorOptions,
@@ -37006,6 +37146,7 @@ function PostAuthorEdit(_ref) {
       showAvatar: !showAvatar
     })
   }), showAvatar && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Avatar size'),
     value: attributes.avatarSize,
     options: avatarSizes,
@@ -38945,6 +39086,7 @@ const DimensionControls = _ref => {
     isShownByDefault: false,
     panelId: clientId
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Image size'),
     value: sizeSlug || DEFAULT_SIZE,
     options: imageSizeOptions,
@@ -41940,6 +42082,7 @@ function OrderControl(_ref) {
     onChange
   } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Order by'),
     value: `${orderBy}/${order}`,
     options: orderOptions,
@@ -42802,6 +42945,7 @@ function StickyControl(_ref) {
     onChange
   } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Sticky posts'),
     options: stickyOptions,
     value: value,
@@ -42923,6 +43067,7 @@ function QueryInspectorControls(_ref) {
       inherit: !!value
     })
   }), showPostTypeControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     options: postTypesSelectOptions,
     value: postType,
     label: (0,external_wp_i18n_namespaceObject.__)('Post type'),
@@ -43118,6 +43263,11 @@ function QueryContent(_ref) {
     }
   });
 
+  const htmlElementMessages = {
+    main: (0,external_wp_i18n_namespaceObject.__)('The <main> element should be used for the primary content of your document only. '),
+    section: (0,external_wp_i18n_namespaceObject.__)("The <section> element should represent a standalone portion of the document that can't be better represented by another element."),
+    aside: (0,external_wp_i18n_namespaceObject.__)("The <aside> element should represent a portion of a document whose content is only indirectly related to the document's main content.")
+  };
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(QueryInspectorControls, {
     attributes: attributes,
     setQuery: updateQuery,
@@ -43132,6 +43282,7 @@ function QueryContent(_ref) {
   })), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, {
     __experimentalGroup: "advanced"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('HTML element'),
     options: [{
       label: (0,external_wp_i18n_namespaceObject.__)('Default (<div>)'),
@@ -43149,7 +43300,8 @@ function QueryContent(_ref) {
     value: TagName,
     onChange: value => setAttributes({
       tagName: value
-    })
+    }),
+    help: htmlElementMessages[TagName]
   })), (0,external_wp_element_namespaceObject.createElement)(TagName, innerBlocksProps));
 }
 
@@ -49549,6 +49701,7 @@ const SocialLinkURLPopover = _ref => {
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-editor-url-input"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.URLInput, {
+    __nextHasNoMarginBottom: true,
     value: url,
     onChange: nextURL => setAttributes({
       url: nextURL
@@ -49605,7 +49758,7 @@ const SocialLinkEdit = _ref2 => {
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Link label'),
     help: (0,external_wp_i18n_namespaceObject.__)('Briefly describe the link to help screen reader users.'),
-    value: label,
+    value: label || '',
     onChange: value => setAttributes({
       label: value
     })
@@ -52268,6 +52421,7 @@ function TableEdit(_ref2) {
       ...borderProps.style
     }
   }, renderedSections), !isEmpty && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
+    identifier: "caption",
     tagName: "figcaption",
     className: (0,external_wp_blockEditor_namespaceObject.__experimentalGetElementClassName)('caption'),
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Table caption text'),
@@ -53292,6 +53446,7 @@ function TagCloudEdit(_ref) {
   const inspectorControls = (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
     title: (0,external_wp_i18n_namespaceObject.__)('Settings')
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Taxonomy'),
     options: getTaxonomyOptions(),
     value: taxonomy,
@@ -54457,6 +54612,14 @@ function TemplatePartAdvancedControls(_ref) {
       })
     };
   }, []);
+  const htmlElementMessages = {
+    header: (0,external_wp_i18n_namespaceObject.__)('The <header> element should represent introductory content, typically a group of introductory or navigational aids.'),
+    main: (0,external_wp_i18n_namespaceObject.__)('The <main> element should be used for the primary content of your document only. '),
+    section: (0,external_wp_i18n_namespaceObject.__)("The <section> element should represent a standalone portion of the document that can't be better represented by another element."),
+    article: (0,external_wp_i18n_namespaceObject.__)('The <article> element should represent a self-contained, syndicatable portion of the document.'),
+    aside: (0,external_wp_i18n_namespaceObject.__)("The <aside> element should represent a portion of a document whose content is only indirectly related to the document's main content."),
+    footer: (0,external_wp_i18n_namespaceObject.__)('The <footer> element should represent a footer for its nearest sectioning element (e.g.: <section>, <article>, <main> etc.).')
+  };
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.InspectorControls, {
     __experimentalGroup: "advanced"
   }, isEntityAvailable && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
@@ -54467,12 +54630,14 @@ function TemplatePartAdvancedControls(_ref) {
     },
     onFocus: event => event.target.select()
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Area'),
     labelPosition: "top",
     options: areaOptions,
     value: area,
     onChange: setArea
   })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('HTML element'),
     options: [{
       label: (0,external_wp_i18n_namespaceObject.sprintf)(
@@ -54504,7 +54669,8 @@ function TemplatePartAdvancedControls(_ref) {
     value: tagName || '',
     onChange: value => setAttributes({
       tagName: value
-    })
+    }),
+    help: htmlElementMessages[tagName]
   }), !hasInnerBlocks && (0,external_wp_element_namespaceObject.createElement)(TemplatePartImportControls, {
     area: area,
     setAttributes: setAttributes
@@ -55838,25 +56004,26 @@ const VideoSettings = _ref => {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Autoplay'),
     onChange: toggleFactory.autoplay,
-    checked: autoplay,
+    checked: !!autoplay,
     help: getAutoplayHelp
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Loop'),
     onChange: toggleFactory.loop,
-    checked: loop
+    checked: !!loop
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Muted'),
     onChange: toggleFactory.muted,
-    checked: muted
+    checked: !!muted
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Playback controls'),
     onChange: toggleFactory.controls,
-    checked: controls
+    checked: !!controls
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToggleControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Play inline'),
     onChange: toggleFactory.playsInline,
-    checked: playsInline
+    checked: !!playsInline
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Preload'),
     value: preload,
     onChange: onChangePreload,
@@ -55986,6 +56153,7 @@ function SingleTrackEditor(_ref2) {
     value: srcLang,
     help: (0,external_wp_i18n_namespaceObject.__)('Language tag (en, fr, etc.)')
   })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     className: "block-library-video-tracks-editor__single-track-editor-kind-select",
     options: KIND_OPTIONS,
     value: kind,
@@ -56424,6 +56592,7 @@ function VideoEdit(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(Tracks, {
     tracks: tracks
   }))), isTemporaryVideo && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null), showCaption && (!external_wp_blockEditor_namespaceObject.RichText.isEmpty(caption) || isSelected) && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichText, {
+    identifier: "caption",
     tagName: "figcaption",
     className: (0,external_wp_blockEditor_namespaceObject.__experimentalGetElementClassName)('caption'),
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Video caption text'),

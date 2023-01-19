@@ -251,6 +251,7 @@ function WidgetTypeSelector(_ref) {
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.SelectControl, {
+    __nextHasNoMarginBottom: true,
     label: (0,external_wp_i18n_namespaceObject.__)('Select a legacy widget to display:'),
     value: selectedId !== null && selectedId !== void 0 ? selectedId : '',
     options: [{
@@ -1076,7 +1077,7 @@ function Empty(_ref) {
       icon: library_brush
     }),
     label: (0,external_wp_i18n_namespaceObject.__)('Legacy Widget')
-  }, (0,external_wp_element_namespaceObject.createElement)(WidgetTypeSelector, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexBlock, null, (0,external_wp_element_namespaceObject.createElement)(WidgetTypeSelector, {
     selectedId: id !== null && id !== void 0 ? id : idBase,
     onSelect: _ref2 => {
       let {
@@ -1104,7 +1105,7 @@ function Empty(_ref) {
         });
       }
     }
-  }));
+  }))));
 }
 
 function NotEmpty(_ref3) {

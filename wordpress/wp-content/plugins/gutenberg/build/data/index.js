@@ -3432,53 +3432,6 @@ function _extends() {
 }
 ;// CONCATENATED MODULE: external ["wp","element"]
 var external_wp_element_namespaceObject = window["wp"]["element"];
-;// CONCATENATED MODULE: external "React"
-var external_React_namespaceObject = window["React"];
-;// CONCATENATED MODULE: ./node_modules/use-memo-one/dist/use-memo-one.esm.js
-
-
-function areInputsEqual(newInputs, lastInputs) {
-  if (newInputs.length !== lastInputs.length) {
-    return false;
-  }
-
-  for (var i = 0; i < newInputs.length; i++) {
-    if (newInputs[i] !== lastInputs[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
-
-function useMemoOne(getResult, inputs) {
-  var initial = (0,external_React_namespaceObject.useState)(function () {
-    return {
-      inputs: inputs,
-      result: getResult()
-    };
-  })[0];
-  var committed = (0,external_React_namespaceObject.useRef)(initial);
-  var isInputMatch = Boolean(inputs && committed.current.inputs && areInputsEqual(inputs, committed.current.inputs));
-  var cache = isInputMatch ? committed.current : {
-    inputs: inputs,
-    result: getResult()
-  };
-  (0,external_React_namespaceObject.useEffect)(function () {
-    committed.current = cache;
-  }, [cache]);
-  return cache.result;
-}
-function useCallbackOne(callback, inputs) {
-  return useMemoOne(function () {
-    return callback;
-  }, inputs);
-}
-var useMemo = (/* unused pure expression or super */ null && (useMemoOne));
-var useCallback = (/* unused pure expression or super */ null && (useCallbackOne));
-
-
-
 ;// CONCATENATED MODULE: external ["wp","priorityQueue"]
 var external_wp_priorityQueue_namespaceObject = window["wp"]["priorityQueue"];
 ;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
@@ -3661,14 +3614,8 @@ function useAsyncMode() {
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/use-select/index.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
-
 
 
 
@@ -3677,9 +3624,6 @@ function useAsyncMode() {
  */
 
 
-
-
-const noop = () => {};
 
 const renderQueue = (0,external_wp_priorityQueue_namespaceObject.createQueue)();
 /**
@@ -3699,6 +3643,129 @@ const renderQueue = (0,external_wp_priorityQueue_namespaceObject.createQueue)();
 
 /** @typedef {import('../../types').MapSelect} MapSelect */
 
+function Store(registry, suspense) {
+  const select = suspense ? registry.suspendSelect : registry.select;
+  const queueContext = {};
+  let lastMapSelect;
+  let lastMapResult;
+  let lastMapResultValid = false;
+  let lastIsAsync;
+  let subscribe;
+
+  const createSubscriber = stores => listener => {
+    // Invalidate the value right after subscription was created. React will
+    // call `getValue` after subscribing, to detect store updates that happened
+    // in the interval between the `getValue` call during render and creating
+    // the subscription, which is slightly delayed. We need to ensure that this
+    // second `getValue` call will compute a fresh value.
+    lastMapResultValid = false;
+
+    const onStoreChange = () => {
+      // Invalidate the value on store update, so that a fresh value is computed.
+      lastMapResultValid = false;
+      listener();
+    };
+
+    const onChange = () => {
+      if (lastIsAsync) {
+        renderQueue.add(queueContext, onStoreChange);
+      } else {
+        onStoreChange();
+      }
+    };
+
+    const unsubs = stores.map(storeName => {
+      return registry.subscribe(onChange, storeName);
+    });
+    return () => {
+      // The return value of the subscribe function could be undefined if the store is a custom generic store.
+      for (const unsub of unsubs) {
+        unsub === null || unsub === void 0 ? void 0 : unsub();
+      } // Cancel existing store updates that were already scheduled.
+
+
+      renderQueue.cancel(queueContext);
+    };
+  };
+
+  return (mapSelect, resubscribe, isAsync) => {
+    const selectValue = () => mapSelect(select, registry);
+
+    function updateValue(selectFromStore) {
+      // If the last value is valid, and the `mapSelect` callback hasn't changed,
+      // then we can safely return the cached value. The value can change only on
+      // store update, and in that case value will be invalidated by the listener.
+      if (lastMapResultValid && mapSelect === lastMapSelect) {
+        return lastMapResult;
+      }
+
+      const mapResult = selectFromStore(); // If the new value is shallow-equal to the old one, keep the old one so
+      // that we don't trigger unwanted updates that do a `===` check.
+
+      if (!external_wp_isShallowEqual_default()(lastMapResult, mapResult)) {
+        lastMapResult = mapResult;
+      }
+
+      lastMapResultValid = true;
+    }
+
+    function getValue() {
+      // Update the value in case it's been invalidated or `mapSelect` has changed.
+      updateValue(selectValue);
+      return lastMapResult;
+    } // When transitioning from async to sync mode, cancel existing store updates
+    // that have been scheduled, and invalidate the value so that it's freshly
+    // computed. It might have been changed by the update we just cancelled.
+
+
+    if (lastIsAsync && !isAsync) {
+      lastMapResultValid = false;
+      renderQueue.cancel(queueContext);
+    } // Either initialize the `subscribe` function, or create a new one if `mapSelect`
+    // changed and has dependencies.
+    // Usage without dependencies, `useSelect( ( s ) => { ... } )`, will subscribe
+    // only once, at mount, and won't resubscibe even if `mapSelect` changes.
+
+
+    if (!subscribe || resubscribe && mapSelect !== lastMapSelect) {
+      // Find out what stores the `mapSelect` callback is selecting from and
+      // use that list to create subscriptions to specific stores.
+      const listeningStores = {
+        current: null
+      };
+      updateValue(() => registry.__unstableMarkListeningStores(selectValue, listeningStores));
+      subscribe = createSubscriber(listeningStores.current);
+    } else {
+      updateValue(selectValue);
+    }
+
+    lastIsAsync = isAsync;
+    lastMapSelect = mapSelect; // Return a pair of functions that can be passed to `useSyncExternalStore`.
+
+    return {
+      subscribe,
+      getValue
+    };
+  };
+}
+
+function useStaticSelect(storeName) {
+  return useRegistry().select(storeName);
+}
+
+function useMappingSelect(suspense, mapSelect, deps) {
+  const registry = useRegistry();
+  const isAsync = useAsyncMode();
+  const store = (0,external_wp_element_namespaceObject.useMemo)(() => Store(registry, suspense), [registry]);
+  const selector = (0,external_wp_element_namespaceObject.useCallback)(mapSelect, deps);
+  const {
+    subscribe,
+    getValue
+  } = store(selector, !!deps, isAsync);
+  const result = (0,external_wp_element_namespaceObject.useSyncExternalStore)(subscribe, getValue, getValue);
+  (0,external_wp_element_namespaceObject.useDebugValue)(result);
+  return result;
+}
 /**
  * Custom react hook for retrieving props from registered selectors.
  *
@@ -3764,140 +3831,25 @@ const renderQueue = (0,external_wp_priorityQueue_namespaceObject.createQueue)();
  * @return {UseSelectReturn<T>} A custom react hook.
  */
 
+
 function useSelect(mapSelect, deps) {
-  const hasMappingFunction = 'function' === typeof mapSelect; // If we're recalling a store by its name or by
-  // its descriptor then we won't be caching the
-  // calls to `mapSelect` because we won't be calling it.
+  // On initial call, on mount, determine the mode of this `useSelect` call
+  // and then never allow it to change on subsequent updates.
+  const staticSelectMode = typeof mapSelect !== 'function';
+  const staticSelectModeRef = (0,external_wp_element_namespaceObject.useRef)(staticSelectMode);
 
-  if (!hasMappingFunction) {
-    deps = [];
-  } // Because of the "rule of hooks" we have to call `useCallback`
-  // on every invocation whether or not we have a real function
-  // for `mapSelect`. we'll create this intermediate variable to
-  // fulfill that need and then reference it with our "real"
-  // `_mapSelect` if we can.
-
-
-  const callbackMapper = (0,external_wp_element_namespaceObject.useCallback)(hasMappingFunction ? mapSelect : noop, deps);
-
-  const _mapSelect = hasMappingFunction ? callbackMapper : null;
-
-  const registry = useRegistry();
-  const isAsync = useAsyncMode();
-  const latestRegistry = (0,external_wp_element_namespaceObject.useRef)(registry);
-  const latestMapSelect = (0,external_wp_element_namespaceObject.useRef)();
-  const latestIsAsync = (0,external_wp_element_namespaceObject.useRef)(isAsync);
-  const latestMapOutput = (0,external_wp_element_namespaceObject.useRef)();
-  const latestMapOutputError = (0,external_wp_element_namespaceObject.useRef)(); // Keep track of the stores being selected in the _mapSelect function,
-  // and only subscribe to those stores later.
-
-  const listeningStores = (0,external_wp_element_namespaceObject.useRef)([]);
-  const wrapSelect = (0,external_wp_element_namespaceObject.useCallback)(callback => registry.__unstableMarkListeningStores(() => callback(registry.select, registry), listeningStores), [registry]); // Generate a "flag" for used in the effect dependency array.
-  // It's different than just using `mapSelect` since deps could be undefined,
-  // in that case, we would still want to memoize it.
-
-  const depsChangedFlag = (0,external_wp_element_namespaceObject.useMemo)(() => ({}), deps || []);
-  let mapOutput;
-  let selectorRan = false;
-
-  if (_mapSelect) {
-    mapOutput = latestMapOutput.current;
-    const hasReplacedRegistry = latestRegistry.current !== registry;
-    const hasReplacedMapSelect = latestMapSelect.current !== _mapSelect;
-    const hasLeftAsyncMode = latestIsAsync.current && !isAsync;
-    const lastMapSelectFailed = !!latestMapOutputError.current;
-
-    if (hasReplacedRegistry || hasReplacedMapSelect || hasLeftAsyncMode || lastMapSelectFailed) {
-      try {
-        mapOutput = wrapSelect(_mapSelect);
-        selectorRan = true;
-      } catch (error) {
-        let errorMessage = `An error occurred while running 'mapSelect': ${error.message}`;
-
-        if (latestMapOutputError.current) {
-          errorMessage += `\nThe error may be correlated with this previous error:\n`;
-          errorMessage += `${latestMapOutputError.current.stack}\n\n`;
-          errorMessage += 'Original stack trace:';
-        } // eslint-disable-next-line no-console
-
-
-        console.error(errorMessage);
-      }
-    }
+  if (staticSelectMode !== staticSelectModeRef.current) {
+    const prevMode = staticSelectModeRef.current ? 'static' : 'mapping';
+    const nextMode = staticSelectMode ? 'static' : 'mapping';
+    throw new Error(`Switching useSelect from ${prevMode} to ${nextMode} is not allowed`);
   }
-
-  (0,external_wp_compose_namespaceObject.useIsomorphicLayoutEffect)(() => {
-    if (!hasMappingFunction) {
-      return;
-    }
-
-    latestRegistry.current = registry;
-    latestMapSelect.current = _mapSelect;
-    latestIsAsync.current = isAsync;
-
-    if (selectorRan) {
-      latestMapOutput.current = mapOutput;
-    }
-
-    latestMapOutputError.current = undefined;
-  }); // React can sometimes clear the `useMemo` cache.
-  // We use the cache-stable `useMemoOne` to avoid
-  // losing queues.
-
-  const queueContext = useMemoOne(() => ({
-    queue: true
-  }), [registry]);
-  const [, forceRender] = (0,external_wp_element_namespaceObject.useReducer)(s => s + 1, 0);
-  const isMounted = (0,external_wp_element_namespaceObject.useRef)(false);
-  (0,external_wp_compose_namespaceObject.useIsomorphicLayoutEffect)(() => {
-    if (!hasMappingFunction) {
-      return;
-    }
-
-    const onStoreChange = () => {
-      try {
-        const newMapOutput = wrapSelect(latestMapSelect.current);
-
-        if (external_wp_isShallowEqual_default()(latestMapOutput.current, newMapOutput)) {
-          return;
-        }
-
-        latestMapOutput.current = newMapOutput;
-      } catch (error) {
-        latestMapOutputError.current = error;
-      }
-
-      forceRender();
-    };
-
-    const onChange = () => {
-      if (!isMounted.current) {
-        return;
-      }
-
-      if (latestIsAsync.current) {
-        renderQueue.add(queueContext, onStoreChange);
-      } else {
-        onStoreChange();
-      }
-    }; // Catch any possible state changes during mount before the subscription
-    // could be set.
+  /* eslint-disable react-hooks/rules-of-hooks */
+  // `staticSelectMode` is not allowed to change during the hook instance's,
+  // lifetime, so the rules of hooks are not really violated.
 
 
-    onStoreChange();
-    const unsubscribers = listeningStores.current.map(storeName => registry.subscribe(onChange, storeName));
-    isMounted.current = true;
-    return () => {
-      // The return value of the subscribe function could be undefined if the store is a custom generic store.
-      unsubscribers.forEach(unsubscribe => unsubscribe === null || unsubscribe === void 0 ? void 0 : unsubscribe());
-      renderQueue.cancel(queueContext);
-      isMounted.current = false;
-    }; // If you're tempted to eliminate the spread dependencies below don't do it!
-    // We're passing these in from the calling function and want to make sure we're
-    // examining every individual value inside the `deps` array.
-  }, [registry, wrapSelect, hasMappingFunction, depsChangedFlag]);
-  (0,external_wp_element_namespaceObject.useDebugValue)(mapOutput);
-  return hasMappingFunction ? mapOutput : registry.select(mapSelect);
+  return staticSelectMode ? useStaticSelect(mapSelect) : useMappingSelect(false, mapSelect, deps);
+  /* eslint-enable react-hooks/rules-of-hooks */
 }
 /**
  * A variant of the `useSelect` hook that has the same API, but will throw a
@@ -3916,105 +3868,7 @@ function useSelect(mapSelect, deps) {
  */
 
 function useSuspenseSelect(mapSelect, deps) {
-  const _mapSelect = (0,external_wp_element_namespaceObject.useCallback)(mapSelect, deps);
-
-  const registry = useRegistry();
-  const isAsync = useAsyncMode();
-  const latestRegistry = (0,external_wp_element_namespaceObject.useRef)(registry);
-  const latestMapSelect = (0,external_wp_element_namespaceObject.useRef)();
-  const latestIsAsync = (0,external_wp_element_namespaceObject.useRef)(isAsync);
-  const latestMapOutput = (0,external_wp_element_namespaceObject.useRef)();
-  const latestMapOutputError = (0,external_wp_element_namespaceObject.useRef)(); // Keep track of the stores being selected in the `mapSelect` function,
-  // and only subscribe to those stores later.
-
-  const listeningStores = (0,external_wp_element_namespaceObject.useRef)([]);
-  const wrapSelect = (0,external_wp_element_namespaceObject.useCallback)(callback => registry.__unstableMarkListeningStores(() => callback(registry.suspendSelect, registry), listeningStores), [registry]); // Generate a "flag" for used in the effect dependency array.
-  // It's different than just using `mapSelect` since deps could be undefined,
-  // in that case, we would still want to memoize it.
-
-  const depsChangedFlag = (0,external_wp_element_namespaceObject.useMemo)(() => ({}), deps || []);
-  let mapOutput = latestMapOutput.current;
-  let mapOutputError = latestMapOutputError.current;
-  const hasReplacedRegistry = latestRegistry.current !== registry;
-  const hasReplacedMapSelect = latestMapSelect.current !== _mapSelect;
-  const hasLeftAsyncMode = latestIsAsync.current && !isAsync;
-  let selectorRan = false;
-
-  if (hasReplacedRegistry || hasReplacedMapSelect || hasLeftAsyncMode) {
-    try {
-      mapOutput = wrapSelect(_mapSelect);
-      selectorRan = true;
-    } catch (error) {
-      mapOutputError = error;
-    }
-  }
-
-  (0,external_wp_compose_namespaceObject.useIsomorphicLayoutEffect)(() => {
-    latestRegistry.current = registry;
-    latestMapSelect.current = _mapSelect;
-    latestIsAsync.current = isAsync;
-
-    if (selectorRan) {
-      latestMapOutput.current = mapOutput;
-    }
-
-    latestMapOutputError.current = mapOutputError;
-  }); // React can sometimes clear the `useMemo` cache.
-  // We use the cache-stable `useMemoOne` to avoid
-  // losing queues.
-
-  const queueContext = useMemoOne(() => ({
-    queue: true
-  }), [registry]);
-  const [, forceRender] = (0,external_wp_element_namespaceObject.useReducer)(s => s + 1, 0);
-  const isMounted = (0,external_wp_element_namespaceObject.useRef)(false);
-  (0,external_wp_compose_namespaceObject.useIsomorphicLayoutEffect)(() => {
-    const onStoreChange = () => {
-      try {
-        const newMapOutput = wrapSelect(latestMapSelect.current);
-
-        if (external_wp_isShallowEqual_default()(latestMapOutput.current, newMapOutput)) {
-          return;
-        }
-
-        latestMapOutput.current = newMapOutput;
-      } catch (error) {
-        latestMapOutputError.current = error;
-      }
-
-      forceRender();
-    };
-
-    const onChange = () => {
-      if (!isMounted.current) {
-        return;
-      }
-
-      if (latestIsAsync.current) {
-        renderQueue.add(queueContext, onStoreChange);
-      } else {
-        onStoreChange();
-      }
-    }; // catch any possible state changes during mount before the subscription
-    // could be set.
-
-
-    onStoreChange();
-    const unsubscribers = listeningStores.current.map(storeName => registry.subscribe(onChange, storeName));
-    isMounted.current = true;
-    return () => {
-      // The return value of the subscribe function could be undefined if the store is a custom generic store.
-      unsubscribers.forEach(unsubscribe => unsubscribe === null || unsubscribe === void 0 ? void 0 : unsubscribe());
-      renderQueue.cancel(queueContext);
-      isMounted.current = false;
-    };
-  }, [registry, wrapSelect, depsChangedFlag]);
-
-  if (mapOutputError) {
-    throw mapOutputError;
-  }
-
-  return mapOutput;
+  return useMappingSelect(true, mapSelect, deps);
 }
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/with-select/index.js
