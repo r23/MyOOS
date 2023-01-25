@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '255fe148a9c27213a25f5252d94c0787a8a7a0ef',
+        'reference' => '3c8ae91f033a5ecfaa7b273a687d026535507df1',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -193,7 +193,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '255fe148a9c27213a25f5252d94c0787a8a7a0ef',
+            'reference' => '3c8ae91f033a5ecfaa7b273a687d026535507df1',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -281,9 +281,9 @@
             ),
         ),
         'phpoffice/phpspreadsheet' => array(
-            'pretty_version' => '1.26.0',
-            'version' => '1.26.0.0',
-            'reference' => '5b6ceea9705b068f993e268e4debc566c2637063',
+            'pretty_version' => '1.27.0',
+            'version' => '1.27.0.0',
+            'reference' => 'eeb8582f9cabf5a7f4ef78015691163233a1834f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpoffice/phpspreadsheet',
             'aliases' => array(),
@@ -442,7 +442,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '3c4c1cc9bc3eed8e57f63780161896336c455de1',
+            'reference' => '4265cef31c3786efc7f82d134b61897742d365f0',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
