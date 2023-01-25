@@ -2,7 +2,7 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, users
-Stable tag: 2.6.8
+Stable tag: 2.6.9
 License: GPLv2 or later
 Requires at least: 5.0.0
 Tested up to: 6.2
@@ -72,7 +72,22 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 2. Wp w3all (raw) WP users transfer to phpBB
 3. WP w3all auto embed phpBB into your WordPress template
 
-== Changelog ==== Changelog ==
+== Changelog ==
+
+= 2.6.9 =
+*Release Date - 23 Jan, 2023*
+* Fix: /wp-content/plugins/wp-w3all-phpbb-integration/views/wp_w3all_phpbb_unotifications_short.php about all remaining bugs and add latest lacking cases: type.forum, type.disapprove_topic, type.disapprove_post
+* Fix: the $w3all_phpbb_unotifications global var is now initialized as array into wp_w3all.php so that when used count($w3all_phpbb_unotifications) to display notifications count, will be not necessary to check if the var is or not empty before to count().
+* Fix: Pm notifications are now retrieved based on $phpbb_user_session[0]->user_unread_privmsg var that replace $phpbb_user_session[0]->user_new_privmsg
+* Fix: missing default WP 'author' role added into '/wp-content/plugins/wp-w3all-phpbb-integration/common/wpRoles_phpbbGroups.php'
+* Fix: Roles/Groups switches, see related option hints, the linked help page and '/wp-content/plugins/wp-w3all-phpbb-integration/common/wpRoles_phpbbGroups.php'
+* Fix: wrong hint about Author/Editor, related to "Switch the WP user to specified Group in phpBB, when Role updated in WordPress or vice versa" option
+* Fix: Buddypress, Memberpress and Woocommerce registration, pass update, email change flows.
+* Fix: minor fixes all around.
+* Note: read this about Buddypress, Memberpress and Woocommerce: https://www.axew3.com/w3/forums/viewtopic.php?p=5939#p5939
+* Add: option Only get the total notifications count, of any type, default phpBB and customs types created by extensions. If selected, then just use echo $w3all_phpbb_unotifications; in this case, to display the number of unread notifications, declaring it as global, into any Php template or (maybe) some other plugin.
+* Remove: an obsolete function.
+* More logs, please read: https://www.axew3.com/w3/forums/viewtopic.php?t=1781
 
 = 2.6.8 =
 *Release Date - 1 Jan, 2023*

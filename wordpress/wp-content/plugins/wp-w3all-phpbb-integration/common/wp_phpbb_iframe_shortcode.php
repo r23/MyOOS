@@ -1,5 +1,5 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-// copyright 2022 axew3.com
+// (C) 2022 - axew3.com
 // wp_w3all_phpbb_iframe_short vers 1.0
 
  add_action('wp_enqueue_scripts', 'wp_w3all_short_enqueue_scripts');
@@ -21,7 +21,7 @@ function wp_w3all_phpbb_iframe_short( $atts ){
         'security_token' => ''
      ), $atts );
   }
-  
+
   if( !empty($wp_w3all_phpbb_iframe_short_token_yn) && $ltm['security_token'] != $wp_w3all_phpbb_iframe_short_token_yn )
   { return; }
 
@@ -32,8 +32,8 @@ function wp_w3all_phpbb_iframe_short( $atts ){
    $ltm['scroll_default'] = strtolower($ltm['scroll_default']) == 'yes' ? 'yes' : 'no';
 
    if( $w3all_custom_output_files == 1 ) {
-   	 $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/wp_w3all_phpbb_iframe_short.php';
-   	 if (!file_exists($file)){
+     $file = ABSPATH . 'wp-content/plugins/wp-w3all-custom/wp_w3all_phpbb_iframe_short.php';
+     if (!file_exists($file)){
      $file = ABSPATH . 'wp-content/plugins/wp-w3all-config/wp_w3all_phpbb_iframe_short.php';
      }
      ob_start();

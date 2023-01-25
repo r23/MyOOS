@@ -22,6 +22,7 @@ $w3phpbbuava = unserialize(W3ALLPHPBBUAVA);
 echo "<ul class=\"".$w3all_lastopics_style_ul_class."\" style=\"".$w3all_lastopics_style_ul."\">\n";
 
 $countn = 0;
+
 foreach ($last_topics as $key => $value) {
 
 if(!empty($w3phpbbuava)){
@@ -42,7 +43,7 @@ if ( $countn < $topics_number ){
 
   if ( $w3all_avatars_yn )
   {
-   if( $value->user_id == 2 ){ // switch if install admins (uid 1 WP - uid 2 phpBB) 
+   if( $value->user_id == 2 ){ // switch if install admins (uid 1 WP - uid 2 phpBB)
      $wpu = get_user_by('ID', 1);
     } else {
          $wpu = get_user_by('email', $value->user_email);

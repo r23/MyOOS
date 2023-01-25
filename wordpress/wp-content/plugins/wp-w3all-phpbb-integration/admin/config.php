@@ -251,17 +251,17 @@ echo __('it depend on how Cms are configured to run as integrated (where you all
 <h1 style="color:green">WP_w3all Preferences</h1>
 <hr />
 <br />
-<button id="w3confprefoption" class="button">w3all Preferences</button>
-<br /><br />
+<button id="w3confprefoption" class="button" disabled>w3all Preferences</button>
+<br />
 <div id="w3all_confpref_page" style="padding:5px;margin:0 20px; 0 0">
-<script>
+<!--<script>
 jQuery('#w3all_confpref_page').hide();
 jQuery( "#w3confprefoption" ).click(function(e) {
  e.preventDefault();
 jQuery( "#w3all_confpref_page" ).toggle();
 });
-</script>
-<hr />
+</script>-->
+
 <h3><?php echo __('Add newly WordPress registered users into specified phpBB group', 'wp-w3all-phpbb-integration');?></h3>
 
 <?php
@@ -327,10 +327,12 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 <hr />
 
 <?php echo __('<h3>Switch the WP user to specified Group in phpBB, when Role updated in WordPress or vice versa</h3>', 'wp-w3all-phpbb-integration'); ?>
-<?php echo __('When an admin promote or demote an user in WP (Role change), update the user group in phpBB following these rules:<br />Editor in WP or Woocommerce Shop Manager -> Global Moderators in phpBB<br />Contributor, Subscriber, Author or Woocommerce customer -> Registered group in phpBB<br />Administrator in WP will be set as Administrator in phpBB (not with all founder\'s powers)<br/>No role in WP will be deactivated in phpBB<br />Before to activate and for more custom and complex switches (and all about) see: <a href="https://www.axew3.com/w3/2022/12/switch-wp-user-to-specified-group-in-phpbb-when-role-updated-in-wordpress-admin-user-profile-update/" target="_blank">Switch the WP user to specified Group in phpBB, when Role updated in WordPress</a>', 'wp-w3all-phpbb-integration'); ?>
+<?php echo __('Note that enabling this option, it require to \'know how\' things works about Roles/Groups on respective CMS and for custom configurations, it is required Php knowledge.<br /><br />When an admin promote or demote an user in WP (Role change), update the user group in phpBB following these rules:<br />Editor in WP or Woocommerce Shop Manager -> Global Moderators in phpBB<br />Contributor, Subscriber, Author or Woocommerce customer -> Registered group in phpBB<br />Administrator in WP will be set as Administrator in phpBB (with not all founder\'s powers)<br/>No role in WP will be deactivated in phpBB<br /><br />Before to activate and for more custom and complex switches (and all about) see: <a href="https://www.axew3.com/w3/2022/12/phpbb-wordpress-roles-groups-switch/" target="_blank">Switch the WP user to specified Group in phpBB, when Role updated in WordPress</a>', 'wp-w3all-phpbb-integration'); ?>
 <p><input type="radio" name="w3all_conf_pref[w3all_link_roles_groups]" id="w3all_link_roles_groups_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_link_roles_groups']); ?> /> <?php echo __('Disable', 'wp-w3all-phpbb-integration'); ?></p>
-<p><input type="radio" name="w3all_conf_pref[w3all_link_roles_groups]" id="w3all_link_roles_groups_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_link_roles_groups']); ?> /> <?php echo __('Enable: only update user\'s Group in phpBB when Role updated in WordPress (admin - user profile update)', 'wp-w3all-phpbb-integration'); ?></p>
-<p><input type="radio" name="w3all_conf_pref[w3all_link_roles_groups]" id="w3all_link_roles_groups_2" value="2" <?php checked('2', $w3all_conf_pref['w3all_link_roles_groups']); ?> /> <?php echo __('Enable: also update Role in WordPress if user\'s group changed in phpBB (when the same logged in user will visit the WP side)', 'wp-w3all-phpbb-integration'); ?></p>
+<p><input type="radio" name="w3all_conf_pref[w3all_link_roles_groups]" id="w3all_link_roles_groups_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_link_roles_groups']); ?> /> <?php echo __('Only update user\'s Group in phpBB when Role updated in WordPress (admin - user profile update)', 'wp-w3all-phpbb-integration'); ?></p>
+<p><input type="radio" name="w3all_conf_pref[w3all_link_roles_groups]" id="w3all_link_roles_groups_2" value="2" <?php checked('2', $w3all_conf_pref['w3all_link_roles_groups']); ?> /> <?php echo __('Also update the user\'s Group in phpBB if the Role changed in WordPress, not due to an explicit \'Admin - user profile update\' action, but due to some plugin Role update that fire on the background, maybe due to a subscribed membership', 'wp-w3all-phpbb-integration'); ?></p>
+<p><input type="radio" name="w3all_conf_pref[w3all_link_roles_groups]" id="w3all_link_roles_groups_2" value="3" <?php checked('3', $w3all_conf_pref['w3all_link_roles_groups']); ?> /> <?php echo __('Only update Role in WordPress if user\'s group changed in phpBB (when the same logged in user will visit the WP side)', 'wp-w3all-phpbb-integration'); ?></p>
+
 <hr />
 
 <?php echo __('<h3 style="text-decoration:underline;text-decoration-color:#FA8072">Enable/Disable check of the email in phpBB before it is updated in WordPress (front-end plugins pages)</h3>', 'wp-w3all-phpbb-integration'); ?>
@@ -384,10 +386,11 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 <p><input type="radio" name="w3all_conf_pref[w3all_phpbb_wptoolbar_pm_yn]" id="w3all_phpbb_wptoolbar_pm_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_phpbb_wptoolbar_pm_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_phpbb_wptoolbar_pm_yn]" id="w3all_phpbb_wptoolbar_pm_yn_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_phpbb_wptoolbar_pm_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
 <hr />
-<?php echo __('<h3>phpBB user notifications</h3>Get phpBB user\'s notifications<br />Activate phpBB notifications option to use the related &nbsp;<i>w3all_phpbb_notifications</i>&nbsp; shortcode or<br /> the var (array) &nbsp;<i style="font-size:110%">$w3all_phpbb_unotifications</i>&nbsp; declaring it as global, into any Php template (ex: into a <i>wp_head</i> action/function) or plugin code', 'wp-w3all-phpbb-integration'); ?>
+<?php echo __('<h3>phpBB user notifications</h3>Get phpBB user\'s notifications<br />Activate phpBB notifications option to use the related &nbsp;<i>w3all_phpbb_notifications</i>&nbsp; shortcode or<br /> the var (array) &nbsp;<i style="font-size:110%">$w3all_phpbb_unotifications</i>&nbsp; declaring it as global, into any Php template (ex: into a <i>wp_head</i> action/function) or plugin code.<br />Note that only default phpBB notifications are retrieved, and not those created by installed phpBB extensions. See the option that get the count of all notifications if you want so. Just use <i style="background-color:#fff">echo $w3all_phpbb_unotifications;</i> in this case, to display the number of unread notifications, declaring it as global, into any Php template or (maybe) some other plugin', 'wp-w3all-phpbb-integration'); ?>
 <p><a target="_blank" href="https://www.axew3.com/w3/2022/10/phpbb-notifications-into-wordpress/">phpbb-notifications-into-wordpress shortcode page</a></p>
-<p><input type="radio" name="w3all_conf_pref[w3all_phpbb_unotifications_yn]" id="w3all_phpbb_unotifications_yn_2" value="2" <?php checked('2', $w3all_conf_pref['w3all_phpbb_unotifications_yn']); ?> /> <?php echo __('Yes, but exclude Private Messages', 'wp-w3all-phpbb-integration'); ?></p>
-<p><input type="radio" name="w3all_conf_pref[w3all_phpbb_unotifications_yn]" id="w3all_phpbb_unotifications_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_phpbb_unotifications_yn']); ?> /> <?php echo __('Yes, also Private Messages (slower (only) when there are new messages to retrieve)', 'wp-w3all-phpbb-integration'); ?></p>
+<p><input type="radio" name="w3all_conf_pref[w3all_phpbb_unotifications_yn]" id="w3all_phpbb_unotifications_yn_2" value="4" <?php checked('4', $w3all_conf_pref['w3all_phpbb_unotifications_yn']); ?> /> <?php echo __('Only get the total notifications count, of any type, default phpBB and customs types created by extensions', 'wp-w3all-phpbb-integration'); ?></p>
+<p><input type="radio" name="w3all_conf_pref[w3all_phpbb_unotifications_yn]" id="w3all_phpbb_unotifications_yn_2" value="2" <?php checked('2', $w3all_conf_pref['w3all_phpbb_unotifications_yn']); ?> /> <?php echo __('Yes, but exclude Private Messages (only default phpBB notifications)', 'wp-w3all-phpbb-integration'); ?></p>
+<p><input type="radio" name="w3all_conf_pref[w3all_phpbb_unotifications_yn]" id="w3all_phpbb_unotifications_yn_1" value="1" <?php checked('1', $w3all_conf_pref['w3all_phpbb_unotifications_yn']); ?> /> <?php echo __('Yes, also Private Messages. Slower when there are new messages to retrieve (only default phpBB notifications)', 'wp-w3all-phpbb-integration'); ?></p>
 <p><input type="radio" name="w3all_conf_pref[w3all_phpbb_unotifications_yn]" id="w3all_phpbb_unotifications_yn_0" value="0" <?php checked('0', $w3all_conf_pref['w3all_phpbb_unotifications_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
 <hr />
 <?php echo __('<h3>Language update/switch on profile for users between WordPress and phpBB</h3>When user change language on profile, it will be so updated also on phpBB/WP. <br /><strong>Note: if same language do not exist</strong> installed also into phpBB, (ex. an user switch on his WP profile to a language available into WordPress, but that has not been installed into phpBB) phpBB may will return error for this user on certain situations (on send out a PM for example)', 'wp-w3all-phpbb-integration'); ?>
@@ -409,29 +412,7 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 </form>
 </div>
 <hr /><hr />
-<div style="margin-top:2.0em;margin-right:1.0em;">
-<form name="w3all_conf_avatars" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
-<h1 style="color:green">WP_w3all Avatars Options (1.0)</h1>
-<hr />
-<?php echo __('<h3>Use phpBB avatar to replace WordPress user\'s avatar</h3>If set to Yes, Gravatars profiles images on WordPress, are replaced by phpBB user\'s avatars images, where an avatar image is available in phpBB for the user. Return WP Gravatar of the user, if no avatar image has been found in phpBB (one single fast query to get avatars for all users).<br /><b>Note</b>: you can activate only this option, if you do not want to display user\'s avatars on WP_w3all Last Forum Topics Widgets, but only on WP posts.<br /><b>Note: if this option is set to No (not active) others avatar\'s options <i>Last Forums Topics widgets</i> here below, do not affect</b>.<br />Check that on <i>WordPress Admin -> Settings -> Discussion</i> the setting about avatars is enabled. Check also that it isn\'t set to BLANK this setting (if you do not want really it)', 'wp-w3all-phpbb-integration'); ?>
-<p><input type="radio" name="w3all_conf_avatars[w3all_get_phpbb_avatar_yn]" id="w3all_conf_pref_avatar_1" value="1" <?php checked('1', $w3all_config_avatars['w3all_get_phpbb_avatar_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
-<p><input type="radio" name="w3all_conf_avatars[w3all_get_phpbb_avatar_yn]" id="w3all_conf_pref_avatar_0" value="0" <?php checked('0', $w3all_config_avatars['w3all_get_phpbb_avatar_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
-<div style="padding:20px 35px;background-color:#fff;border-top:2px solid #869eff;border-bottom:2px solid #869eff">
-<?php echo __('<h3 style="color:#869eff">Activate phpBB avatars on widgets</h3>', 'wp-w3all-phpbb-integration'); ?>
-<p><input type="radio" name="w3all_conf_avatars[w3all_avatar_on_last_t_yn]" id="w3all_avatar_on_last_t_1" value="1" <?php checked('1', $w3all_config_avatars['w3all_avatar_on_last_t_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
-<p><input type="radio" name="w3all_conf_avatars[w3all_avatar_on_last_t_yn]" id="w3all_avatar_on_last_t_0" value="0" <?php checked('0', $w3all_config_avatars['w3all_avatar_on_last_t_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
-<hr />
-<?php echo __('<h3>Widgets avatar\'s dimension</h3>Set the avatar dimension (in pixel) Ex: 50<br />Note: affect only if the above <i style="color:#869eff">Activate phpBB avatars</i> option is set to yes', 'wp-w3all-phpbb-integration'); ?>
-<p><input id="w3all_lasttopic_avatar_dim" name="w3all_conf_avatars[w3all_lasttopic_avatar_dim]" type="text" size="25" value="<?php echo esc_attr( $w3all_config_avatars['w3all_lasttopic_avatar_dim'] ); ?>"></p>
-<hr />
-<?php echo __('<h3>Last Forums Topics number of users\'s avatars to retrieve</h3><strong><span style="color:red">Note:</span> if not set, 10 by default, but this value need to be set the same as is the most hight value of topic\'s numbers you choose to display on Last Topics Widgets OR last Topics shortcodes. Example:</strong> if activating different Last Forums Topics shortcodes/widgets, you choose to display 5 topics in one widget or shortcode instance, 15 into another, and 20 topics into another, then set 20 as value here.<br />Note: affect only if the above <i style="color:#869eff">Activate phpBB avatars on widgets</i> option is set to yes', 'wp-w3all-phpbb-integration'); ?>
-<p><input id="w3all_lasttopic_avatar_num" name="w3all_conf_avatars[w3all_lasttopic_avatar_num]" type="text" size="25" placeholder="10" value="<?php echo esc_attr( $w3all_config_avatars['w3all_lasttopic_avatar_num'] ); ?>"></p>
-</div><!-- close <div style="padding:20px 35px -->
-<br />
-<input type="submit" name="submit" class="button button-primary" value="<?php echo __('Save WP_w3all Avatars Options', 'wp-w3all-phpbb-integration');?>">
-<br />
-</form>
-</div>
+
 
 <div style="padding:20px 35px;margin-top:4.0em;margin-right:1.0em;background-color:#dcccff;border-top:2px solid #cbb3ff;border-bottom:2px solid #cbb3ff">
 <form name="w3all_conf_pref_template_embed" id="w3all-conf-pref-template-embed" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
@@ -461,7 +442,31 @@ if (! in_array($w3all_conf_pref['w3all_add_into_wp_u_capability'], $existentWPRo
 </form><br /><hr style="border-color:gray" />
 </div>
 
-<div style="background-color:#FFF;margin:0 20px 0 0;display:flex;flex-direction:row-reverse;align-items:center;justify-content:center;">
+<div style="margin-top:3.0em;margin-right:1.0em;">
+<form name="w3all_conf_avatars" id="w3all-conf-pref" action="<?php echo esc_url( $up_conf_w3all_url ); ?>" method="POST">
+<h1 style="color:green;">WP_w3all Avatars Options (1.0)</h1>
+<hr style="border-top:2px solid #869eff;" />
+<?php echo __('<h3>Use phpBB avatar to replace WordPress user\'s avatar</h3>If set to Yes, Gravatars profiles images on WordPress, are replaced by phpBB user\'s avatars images, where an avatar image is available in phpBB for the user. Return WP Gravatar of the user, if no avatar image has been found in phpBB (one single fast query to get avatars for all users).<br /><b>Note</b>: you can activate only this option, if you do not want to display user\'s avatars on WP_w3all Last Forum Topics Widgets, but only on WP posts.<br /><b>Note: if this option is set to No (not active) others avatar\'s options <i>Last Forums Topics widgets</i> here below, do not affect</b>.<br />Check that on <i>WordPress Admin -> Settings -> Discussion</i> the setting about avatars is enabled. Check also that it isn\'t set to BLANK this setting (if you do not want really it)', 'wp-w3all-phpbb-integration'); ?>
+<p><input type="radio" name="w3all_conf_avatars[w3all_get_phpbb_avatar_yn]" id="w3all_conf_pref_avatar_1" value="1" <?php checked('1', $w3all_config_avatars['w3all_get_phpbb_avatar_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
+<p><input type="radio" name="w3all_conf_avatars[w3all_get_phpbb_avatar_yn]" id="w3all_conf_pref_avatar_0" value="0" <?php checked('0', $w3all_config_avatars['w3all_get_phpbb_avatar_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
+<div style="padding:20px 35px;background-color:#fff;border-bottom:2px solid #869eff">
+<?php echo __('<h3 style="color:#869eff">Activate phpBB avatars on widgets</h3>', 'wp-w3all-phpbb-integration'); ?>
+<p><input type="radio" name="w3all_conf_avatars[w3all_avatar_on_last_t_yn]" id="w3all_avatar_on_last_t_1" value="1" <?php checked('1', $w3all_config_avatars['w3all_avatar_on_last_t_yn']); ?> /> <?php echo __('Yes', 'wp-w3all-phpbb-integration'); ?></p>
+<p><input type="radio" name="w3all_conf_avatars[w3all_avatar_on_last_t_yn]" id="w3all_avatar_on_last_t_0" value="0" <?php checked('0', $w3all_config_avatars['w3all_avatar_on_last_t_yn']); ?> /> <?php echo __('No', 'wp-w3all-phpbb-integration'); ?></p>
+<hr />
+<?php echo __('<h3>Widgets avatar\'s dimension</h3>Set the avatar dimension (in pixel) Ex: 50<br />Note: affect only if the above <i style="color:#869eff">Activate phpBB avatars</i> option is set to yes', 'wp-w3all-phpbb-integration'); ?>
+<p><input id="w3all_lasttopic_avatar_dim" name="w3all_conf_avatars[w3all_lasttopic_avatar_dim]" type="text" size="25" value="<?php echo esc_attr( $w3all_config_avatars['w3all_lasttopic_avatar_dim'] ); ?>"></p>
+<hr />
+<?php echo __('<h3>Last Forums Topics number of users\'s avatars to retrieve</h3><strong><span style="color:red">Note:</span> if not set, 10 by default, but this value need to be set the same as is the most hight value of topic\'s numbers you choose to display on Last Topics Widgets OR last Topics shortcodes. Example:</strong> if activating different Last Forums Topics shortcodes/widgets, you choose to display 5 topics in one widget or shortcode instance, 15 into another, and 20 topics into another, then set 20 as value here.<br />Note: affect only if the above <i style="color:#869eff">Activate phpBB avatars on widgets</i> option is set to yes', 'wp-w3all-phpbb-integration'); ?>
+<p><input id="w3all_lasttopic_avatar_num" name="w3all_conf_avatars[w3all_lasttopic_avatar_num]" type="text" size="25" placeholder="10" value="<?php echo esc_attr( $w3all_config_avatars['w3all_lasttopic_avatar_num'] ); ?>"></p>
+</div><!-- close <div style="padding:20px 35px -->
+<br />
+<input type="submit" name="submit" class="button button-primary" value="<?php echo __('Save WP_w3all Avatars Options', 'wp-w3all-phpbb-integration');?>">
+<br />
+</form>
+</div>
+
+<div style="background-color:#FFF;margin:20px 20px 0 0;display:flex;flex-direction:row-reverse;align-items:center;justify-content:center;">
 
 <h4 style="padding:0 2.5em 0;font-weight:700"><span style="font-size:90%;color:red;">&hearts;</span> <a href="https://www.paypal.me/alessionanni" target="_blank">Support this Plugin</a></h4>
 <h4 style="padding:0 2.5em 0;font-weight:700"><a href="https://www.axew3.com/w3/2022/02/phpbb-wordpress-integration-common-tasks-extension/" target="_blank">phpBB WordPress Integration extension</a></h4>

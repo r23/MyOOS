@@ -6,6 +6,15 @@
 # This file can be edited as more like, and can be copied into the 'wp-content/plugins/wp-w3all-custom/wpRoles_phpbbGroups.php' folder
 # so that when the plugin will update, custom modifications will not be lost
 
+
+# Vars
+# $w3all_roles_to_groups_on_wpupdate_profile (declared on file class.wp.w3all-phpbb.php -> function phpbb_update_profile )
+# $w3all_roles_to_groups_on_verify_credentials (declared on file class.wp.w3all-phpbb.php -> function verify_phpbb_credentials )
+
+# $w3all_groups_to_roles_on_verify_credentials (declared on file class.wp.w3all-phpbb.php -> function verify_phpbb_credentials )
+# are used to determine which part of code may is not executed, due to options values or because one option could conflict with the other, during some WP profile update process
+
+
 # phpBB: https://www.phpbb.com/support/docs/en/3.3/ug/adminguide/groups_types/
 # some default phpBB group
 // group_id 2 = registered
@@ -16,7 +25,7 @@
 
 # used to determine roles against groups
 $wp_normal_roles_ary  = ['subscriber', 'contributor', 'author', 'customer'];
-$wp_editors_roles_ary = ['editor'];
+$wp_editors_roles_ary = ['editor', 'shop_manager'];
 $wp_admins_roles_ary  = ['administrator'];
 
 /*
@@ -30,11 +39,11 @@ $wpRoles_phpBBGroups = array_merge($wpRolesphpBBGroups,$wooAndcustom_wpRolesphpB
 
 ############################################
 ### START
-# Roles -> Groups switches WHEN ON --> wp_profile_update
-# -> for the updated user
-# so -> synchronous
+# Roles -> Groups switches WHEN ON --> wp_profile_update (see public static function phpbb_update_profile on class.wp.w3all-phpbb.php)
+# -> for the updated WP user
+# synchronous
 
-if(isset($w3all_switches_groups_roles_on_wpupdate_profile))
+if( isset($w3all_roles_to_groups_on_wpupdate_profile) )
 {
   // **** MemberPress note: do not know if it is a bug of the version 10 Legacy i am testing on, or a default behavior, but when an user is set as NoRole in WordPress,
   // WP set/leave the user as subscriber by the way.
@@ -45,7 +54,7 @@ if(isset($w3all_switches_groups_roles_on_wpupdate_profile))
 
   // has been set as NoRole in WP?
      if( empty($wpu->roles) )
-      { // if no role for this site, deactivate in phpBB
+      { // if no role for this site deactivate in phpBB
         $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '1' WHERE user_id = '$uid'");
       }
 
@@ -60,8 +69,8 @@ if(isset($w3all_switches_groups_roles_on_wpupdate_profile))
           // even if the user_group table can contain duplicated values
           // *** Note: maybe (?) the phpBB user should be removed from any other group which may belong to into phpBB OR should be added into more groups?
 
-       if( $wpu->roles[0] == 'subscriber' OR $wpu->roles[0] == 'contributor' OR $wpu->roles[0] == 'customer' )
-       { # SUBSCRIBER, CONTRIBUTOR, CUSTOMER set as registered
+       if( $wpu->roles[0] == 'author' OR $wpu->roles[0] == 'subscriber' OR $wpu->roles[0] == 'contributor' OR $wpu->roles[0] == 'customer' )
+       { # AUTHOR, SUBSCRIBER, CONTRIBUTOR, CUSTOMER set as registered
          if( $ugid != 2 )
          {
           $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '0', user_permissions = '', group_id = '2' WHERE user_id = '$uid'");
@@ -70,7 +79,7 @@ if(isset($w3all_switches_groups_roles_on_wpupdate_profile))
          }
 
        } elseif( $wpu->roles[0] == 'editor' OR $wpu->roles[0] == 'shop_manager' )
-         { # EDITOR, SHOP MAMANGER set as global moderator
+         { # EDITOR, SHOP MANAGER set as global moderator
           if( $ugid != 4 )
           {
            $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '0', user_permissions = '', group_id = '4' WHERE user_id = '$uid'");
@@ -98,10 +107,65 @@ if(isset($w3all_switches_groups_roles_on_wpupdate_profile))
 ############################################
 ### START
 # WP Roles -> phpBB Groups switches WHEN ON --> verify_credentials
-# -> for the current logged in user
-# so -> asynchronous
+# -> for the current logged in user (and data changed in WP, not due to an explicit WP profile update action, but due to some plugin Role update that fire on the background, may due to a subscribed membership or something else
+# asynchronous
+# Do not execute this if on WP admin profile update action -> function phpbb_update_profile -> class.wp.w3all-phpbb.php
 
-if(isset($w3all_switches_groups_roles_on_verify_credentials))
+if( isset($w3all_roles_to_groups_on_verify_credentials) && !isset($w3all_roles_to_groups_on_wpupdate_profile) )
+{
+    # some default phpBB groups
+    // group_id 2 = registered
+    // group_id 4 = global moderator
+    // group_id 5 = administrator
+
+   // NoRole in WP?
+     if( empty($current_user->roles) )
+      { // if no role for this site deactivate in phpBB
+        $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '1' WHERE user_id = '$uid'");
+      }
+
+   if( !empty($current_user->roles) )
+   {
+       if( $current_user->roles[0] == 'author' OR $current_user->roles[0] == 'subscriber' OR $current_user->roles[0] == 'contributor' OR $current_user->roles[0] == 'customer' )
+       { # AUTHOR, SUBSCRIBER, CONTRIBUTOR, CUSTOMER set as registered
+         if( $phpbb_user_session[0]->group_id != 2 )
+         {
+          $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '0', user_permissions = '', group_id = '2' WHERE user_id = '$uid'");
+          $w3all_phpbb_connection->query("DELETE FROM ".$w3all_config["table_prefix"]."user_group WHERE user_id = '$uid' AND group_id IN('2','$ugid')");
+          $w3all_phpbb_connection->query("INSERT INTO ".$w3all_config["table_prefix"]."user_group (group_id, user_id, group_leader, user_pending) VALUES ('2','$uid','0','0')");
+         }
+       } elseif( $current_user->roles[0] == 'editor' OR $current_user->roles[0] == 'shop_manager' )
+         { # EDITOR, SHOP MANAGER set as global moderator
+          if( $phpbb_user_session[0]->group_id != 4 )
+          {
+           $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '0', user_permissions = '', group_id = '4' WHERE user_id = '$uid'");
+           $w3all_phpbb_connection->query("DELETE FROM ".$w3all_config["table_prefix"]."user_group WHERE user_id = '$uid' AND group_id IN('4','$ugid')");
+           $w3all_phpbb_connection->query("INSERT INTO ".$w3all_config["table_prefix"]."user_group (group_id, user_id, group_leader, user_pending) VALUES ('4','$uid','0','0')");
+          }
+
+         } elseif( $current_user->roles[0] == 'administrator' && $phpbb_user_session[0]->group_id != 5 )
+           { # ADMINISTRATOR set as administrator, global mod and registered
+             $w3all_phpbb_connection->query("UPDATE ".$w3all_config["table_prefix"]."users SET user_type = '0', user_permissions = '', group_id = '5' WHERE user_id = '$uid'");
+             //$w3all_phpbb_connection->query("DELETE FROM ".$w3all_config["table_prefix"]."user_group WHERE user_id = '$uid' AND group_id IN('5','$ugid')");
+             //$w3all_phpbb_connection->query("INSERT INTO ".$w3all_config["table_prefix"]."user_group (group_id, user_id, group_leader, user_pending) VALUES ('5','$uid','0','0')");
+             $w3all_phpbb_connection->query("DELETE FROM ".$w3all_config["table_prefix"]."user_group WHERE user_id = '$uid' AND group_id IN('2','4','5','$ugid')");
+             $w3all_phpbb_connection->query("INSERT INTO ".$w3all_config["table_prefix"]."user_group (group_id, user_id, group_leader, user_pending) VALUES ('2','$uid','0','0'),('4','$uid','0','0'),('5','$uid','0','0')");
+           }
+  }
+}
+
+# Roles -> Groups switches ON verify_credentials
+### END
+############################################
+
+
+############################################
+### START
+# Groups -> Roles switches WHEN ON --> verify_credentials
+# -> for the current logged in user (and data changed in phpBB)
+# asynchronous
+
+if( isset($w3all_groups_to_roles_on_verify_credentials) )
 {
     # some default phpBB groups
     // group_id 2 = registered
@@ -114,13 +178,14 @@ if(isset($w3all_switches_groups_roles_on_verify_credentials))
           $usr->remove_role($current_user->roles[0]); # should remove all roles instead and not only the primary? Or should add to existent?
           $usr->set_role('subscriber');
           $refresh_u = true;
-        } elseif($phpbb_user_session[0]->group_id == 4 && $current_user->roles[0] != 'editor')
-         #elseif($phpbb_user_session[0]->group_id == 4 && !in_array($current_user->roles[0],$wp_editors_roles_ary))
+
+        } elseif($phpbb_user_session[0]->group_id == 4 && !in_array($current_user->roles[0],$wp_editors_roles_ary))
           {
             $usr = new WP_User($current_user->ID);
             $usr->remove_role($current_user->roles[0]); # should remove all roles instead and not only the primary? Or should add to existent?
             $usr->set_role('editor');
             $refresh_u = true;
+
           } elseif($phpbb_user_session[0]->group_id == 5 && $current_user->roles[0] != 'administrator')
             {
              # $usr = new WP_User($current_user->ID);
@@ -144,7 +209,7 @@ if(isset($w3all_switches_groups_roles_on_verify_credentials))
 
 }
 
-# Roles -> Groups switches ON verify_credentials
+# Groups -> Roles switches ON verify_credentials
 ### END
 ############################################
 

@@ -145,7 +145,8 @@ public function wp_w3all_phpbb_last_topics($post_text, $topics_number, $text_wor
   $wp_w3all_post_text = $post_text;
   $wp_w3all_text_words = $text_words;
 
-   if ( $w3all_phpbb_widget_mark_ru_yn == 1 && is_user_logged_in() ) {
+  if ( $w3all_phpbb_widget_mark_ru_yn == 1 && is_user_logged_in() ) {
+
     if (defined("W3UNREADTOPICS")){
      $phpbb_unread_topics = unserialize(W3UNREADTOPICS);
     }

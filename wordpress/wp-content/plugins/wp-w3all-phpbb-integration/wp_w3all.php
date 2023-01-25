@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.6.8
+Version: 2.6.9
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -33,13 +33,13 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.6.8' );
+define( 'WPW3ALL_VERSION', '2.6.9' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-$w3all_phpbb_unotifications = $wp_userphpbbavatar = $w3all_phpbb_connection = $phpbb_config = $w3all_phpbb_usession = $w3all_wp_email_exist_inphpbb = $w3all_oninsert_wp_user = $w3all_wpusers_delete_ary = $w3all_wpusers_delete_once = $phpbb_online_udata = $w3all_widget_phpbb_onlineStats_exec = ''; // $w3all_oninsert_wp_user used to check if WP is creating an user, switch to 1 before wp_insert_user fire so to avoid user's email check into phpBB
-$w3all_phpbb_profile_fields = array();
+$wp_userphpbbavatar = $w3all_phpbb_connection = $phpbb_config = $w3all_phpbb_usession = $w3all_wp_email_exist_inphpbb = $w3all_oninsert_wp_user = $w3all_wpusers_delete_ary = $w3all_wpusers_delete_once = $phpbb_online_udata = $w3all_widget_phpbb_onlineStats_exec = ''; // $w3all_oninsert_wp_user used to check if WP is creating an user, switch to 1 before wp_insert_user fire so to avoid user's email check into phpBB
+$w3all_phpbb_profile_fields = $w3all_phpbb_unotifications = array();
 
 $w3all_w_lastopicspost_max = get_option( 'widget_wp_w3all_widget_last_topics' );
 $config_avatars = get_option('w3all_conf_avatars');
@@ -247,16 +247,15 @@ function wp_w3all_up_phpbb_prof($user_id, $old_user_data) {
 
    $phpBB_upp = WP_w3all_phpbb::phpbb_update_profile($user_id, $old_user_data);
 
-   $redirect_to = '';
     if($phpBB_upp === true && current_user_can( 'manage_options' )){
         $redirect_to = admin_url() . 'user-edit.php?user_id='.$user_id;
      }
 }
 
 if(! defined("WPW3ALL_NOT_ULINKED")){
-
  add_action( 'user_profile_update_errors', 'w3all_user_profile_update_errors', 10, 1 );
- add_action( 'profile_update', 'wp_w3all_up_phpbb_prof', 10, 2 );
+ add_action( 'profile_update', 'wp_w3all_up_phpbb_prof', 20, 2 ); // since WP 5.8 $userdata added
+ //add_action( 'profile_update', array( 'WP_w3all_phpbb', 'wp_phpbb_update_profile' ), 10, 3 );
  add_action( 'user_register', 'wp_w3all_phpbb_registration_save_adm', 10, 1 );
  add_action( 'delete_user', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_delete_user' ) );
  // if these two fires because activated, may then the other add_action( 'delete_user' should not fire while this is active. It only deactivate in phpBB
@@ -342,9 +341,7 @@ function wp_w3all_user_session_set( $logged_in_cookie, $expire, $expiration, $us
 
   $passed_uname = str_replace(chr(0), '', $_POST['w3all_username']);
   $passed_uname = trim(stripcslashes($passed_uname));
-  // home_url( add_query_arg( [], $GLOBALS['wp']->request ) );
-  // $_POST['redirect_to'] = (!empty($_POST['redirect_to'])) ? str_replace(chr(0), '', $_POST['redirect_to']) : esc_url( wp_login_url( get_permalink() ) );
-   $_POST['redirect_to'] = (!empty($_POST['redirect_to'])) ? str_replace(chr(0), '', $_POST['redirect_to']) : home_url();
+    $_POST['redirect_to'] = (!empty($_POST['redirect_to'])) ? str_replace(chr(0), '', $_POST['redirect_to']) : home_url();
 
     if ( empty($passed_uname) ){
         if(strpos($_POST['redirect_to'],'?')){
@@ -555,9 +552,9 @@ function wp_w3all_check_fields($errors, $sanitized_user_login, $user_email) {
         return $errors;
         }
 
-     $t = WP_w3all_phpbb::ck_phpbb_user_by_ue($sanitized_user_login, $user_email);
+     $u = WP_w3all_phpbb::ck_phpbb_user($sanitized_user_login, $user_email);
 
-      if(!empty($t)){
+      if(!empty($u)){
          $errors->add( 'w3all_user_exist', __( '<strong>Error</strong>: provided email or username already exists on our forum database.', 'wp-w3all-phpbb-integration' ) );
          return $errors;
       }
@@ -574,7 +571,7 @@ function wp_w3all_wp_after_password_reset($user, $new_pass) {
 function wp_w3all_phpbb_registration_save($user_id) {
 
      $wpu = get_user_by('ID', $user_id);
-    if( empty( WP_w3all_phpbb::wp_w3all_get_phpbb_user_info($wpu->user_email )) ){
+    if( !empty($wpu->user_email) && empty( WP_w3all_phpbb::wp_w3all_get_phpbb_user_info($wpu->user_email)) ){
      $phpBB_user_add = WP_w3all_phpbb::create_phpBB_user_res($wpu);
     }
 }
@@ -627,28 +624,6 @@ function wp_w3all_add_phpbb_font_awesome(){
    return $redirect;
  }
 
-function w3all_rememberme_long($expire) { // Set remember me wp cookie to expire in one year
-    return 31536000; // YEAR_IN_SECONDS;
-   }
-
-function w3all_filter_pre_user_email($raw_user_email) {
-
- if ( is_user_logged_in() && ! is_admin() ) { // front-end page
-   // there is only the passed email to be updated (maybe): check if it exist
-   $raw_user_email = sanitize_email($raw_user_email);
-   if( is_email($raw_user_email) && !email_exists($raw_user_email) ){ // if the email do not exist, then maybe it is an update
-    $ck = WP_w3all_phpbb::ck_phpbb_user( $user_login = '', $raw_user_email );
-     global $w3all_oninsert_wp_user;
-      if( !empty($ck) && $w3all_oninsert_wp_user != 1 ){
-        $wpu = get_user_by('ID',get_current_user_id());
-        $raw_user_email = $wpu->user_email; // Not so elegant: reset to the old one, instead to stop with an error that will go to broke ajax calls or something else (ex in woocommerce transactions)
-        //the user will not be updated but (maybe, it depend by plugins) no message will be thrown, and the user's email notification (email changed), may will fire, even if the email do not changed at all
-        //the email notification action should be suppressed here in case
-      }
-    }
-  }
-  return $raw_user_email;
-}
 
 if(! defined("WPW3ALL_NOT_ULINKED")){
   if ($w3all_disable_ck_email_before_wp_update < 1){ // 0 enabled
@@ -665,17 +640,17 @@ if(! defined("WPW3ALL_NOT_ULINKED")){
   }
   add_filter( 'auth_cookie_expiration', 'w3all_rememberme_long' );
   // this is not required since 2.4.0, because registrations allowed only in phpBB OR WP. Anyway leave it here to may check for problems
-  add_filter( 'registration_errors', 'wp_w3all_check_fields', 10, 3 ); // this prevent any user addition (may not external plugins) if phpBB email or username already exist in phpBB, into default wordpress flavors
+  add_filter( 'registration_errors', 'wp_w3all_check_fields', 10, 3 ); // prevent user addition (may not external plugins) if phpBB email or username already exist in phpBB, into default wordpress
   add_action( 'user_register', 'wp_w3all_phpbb_registration_save', 10, 1 );
   add_action( 'password_reset', 'wp_w3all_wp_after_password_reset', 10, 2 );
-  // a phpBB user not logged into phpBB, WP login first time, ) (may still) not existent in wp
+  // a phpBB user not logged into phpBB, WP login first time, (may still) not existent in wp
   add_action( 'wp_authenticate', array( 'WP_w3all_phpbb', 'w3_check_phpbb_profile_wpnu' ), 10, 1 );
   add_action( 'wp_logout', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_logout' ) );
   add_action( 'profile_update', 'wp_w3all_up_wp_prof_on_phpbb', 10, 2 );
-  add_action( 'delete_user', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_delete_user' ) ); // x buddypress or ohers plugins that allow users to delete their own user's account on frontend profile
+  add_action( 'delete_user', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_delete_user' ) ); // x buddypress or ohers plugins that allow users to delete their own user's account on frontend
   add_action( 'user_profile_update_errors', 'w3all_user_profile_update_errors', 10, 1 );
   if(!empty($w3all_phpbb_wptoolbar_pm_yn)){
-   add_action( 'admin_bar_menu', 'wp_w3all_toolbar_new_phpbbpm', 999 );  // notify about new phpBB pm
+   add_action( 'admin_bar_menu', 'wp_w3all_toolbar_new_phpbbpm', 999 );  // notify about new phpBB pms
   }
 
 } // END this -> if(! defined("WPW3ALL_NOT_ULINKED")){
@@ -695,7 +670,7 @@ if(! defined("WPW3ALL_NOT_ULINKED")){
    }
   }
 
-// Swap WordPress default Login, Register and Lost Password links
+// Swap WordPress default Register and Lost Password links
 if( $w3all_wp_phpbb_lrl_links_switch_yn > 0 ){
  add_filter( 'lostpassword_url', 'phpbb_reset_pass_url', 10, 2 );
  add_filter( 'register_url', 'phpbb_register_url', 10, 1);
@@ -735,10 +710,11 @@ if(! is_admin())
 // replaced by 'wp_w3all_toolbar_new_phpbbpm', where page-forum push with js on parent
 // add_action('wp_head','wp_w3all_new_phpbbpm_wp_menu_item_push');
 
-// signup common check
+// signup common check and common checks
 if(! defined("WPW3ALL_NOT_ULINKED")){
  add_filter( 'validate_username', 'w3all_on_signup_check', 1, 2 ); // give precedence, prevent others to add a signup not needed
  add_action( 'init', 'w3all_add_phpbb_user' );
+ add_filter( 'wp_pre_insert_user_data', 'w3all_wp_pre_insert_user_data', 10, 4 );
 }
 
 // jQuery
@@ -747,6 +723,36 @@ add_action('wp_enqueue_scripts', 'wp_w3all_enqueue_scripts');
   wp_enqueue_script("jquery");
  }
 
+function w3all_rememberme_long($expire) { // Set remember me wp cookie to expire in one year
+    return 31536000; // YEAR_IN_SECONDS;
+   }
+
+
+function w3all_filter_pre_user_email($raw_user_email) {
+
+  if ( is_user_logged_in() && ! is_admin() ) { // front-end page
+
+  global $phpbb_config;
+
+   // there is only the passed email to be updated (maybe): check if it exist
+   // Buddypress email notification is sent before this
+   $raw_user_email = sanitize_email($raw_user_email);
+   if( is_email($raw_user_email) && !email_exists($raw_user_email) ){ // if the email do not exist, then maybe it is an update
+    $ck = WP_w3all_phpbb::ck_phpbb_user( $user_login = '', $raw_user_email );
+     if( !empty($ck) ){
+        $wpu = get_user_by('ID',get_current_user_id());
+        $raw_user_email = $wpu->user_email; // Not so elegant: reset to the old one, instead to stop with an error that will go to broke ajax calls or something else (ex in woocommerce transactions)
+
+        $error = new WP_Error();
+        $error->add( 'invalid_email', 'Error: username or email address already exist into our forum.' );
+        //the user will not be updated but (maybe, it depend by plugins) no message will be thrown, and the user's email notification (email changed), may will fire, even if the email do not changed at all
+        //the email notification action should be suppressed here in case
+      }
+    }
+  }
+
+  return $raw_user_email;
+}
 
 function wp_w3all_phpbb_iframe_shortif()
  {
@@ -806,7 +812,8 @@ function w3all_edit_profile_url( $url, $user_id, $scheme ) {
 
  function w3all_on_signup_check( $valid, $username ) {
 
-      if( isset($_POST['signup_username']) && isset($_POST['signup_email']) OR isset($_POST['username']) && isset($_POST['email']) ){
+      if( isset($_POST['signup_username']) && isset($_POST['signup_email']) OR isset($_POST['username']) && isset($_POST['email']) )
+      {
          $username = isset($_POST['signup_username']) ? $_POST['signup_username'] : $_POST['username'];
          $email = isset($_POST['signup_email']) ? $_POST['signup_email'] : $_POST['email'];
           $username = trim( $username );
@@ -817,10 +824,19 @@ function w3all_edit_profile_url( $url, $user_id, $scheme ) {
          }
 
          $wp_w3_ck_phpbb_ue_exist = WP_w3all_phpbb::ck_phpbb_user($username, $email);
+         if(!empty($wp_w3_ck_phpbb_ue_exist))
+         {
 
-         if(!empty($wp_w3_ck_phpbb_ue_exist)){
-            temp_wp_w3_error_on_update();
+          if (defined('BP_VERSION')) { // detect if Buddypress installed
+           $bp = buddypress();
+           $bp->signup->errors['signup_email'] = __( 'Error: Username or email address already existent into our forum.', 'wp-w3all-phpbb-integration' );
+           return false;
+          }
+
+          $error = new WP_Error();
+          $error->add( 'invalid_email', 'Error: Username or email address already existent into our forum.' );
           return false;
+
          }
       }
 
@@ -1030,9 +1046,374 @@ return $post_std;
 
 } // END // 2nd // // if ( defined('W3PHPBBDBCONN') && !isset($w3deactivate_wp_w3all_plugin) && !defined( 'WP_ADMIN' ) )
 
+// avoid user additon in wp when registration done into WP front end pages (like mepr membership subscription page)
+// wp_pre_insert_user_data wp-includes/user.php
+function w3all_wp_pre_insert_user_data($data, $update, $updating_user_id, $userdata){
+  global $phpbb_config;
+
+   if(!empty($phpbb_config)){
+    $cu = $phpbb_config["cookie_name"].'_u';
+   }
+
+# param $updating_user_id -> null when inserting a new user
+  if(empty($updating_user_id) && isset($cu) && intval($_COOKIE[$cu]) < 3)
+  {
+   if(is_array($userdata) && !empty($userdata['user_email'])){
+    $u = WP_w3all_phpbb::ck_phpbb_user($userdata['user_login'], $userdata['user_email']);
+   } elseif(is_object($userdata) && !empty($userdata->user_email)){
+      $u = WP_w3all_phpbb::ck_phpbb_user($userdata->user_login, $userdata->user_email);
+     }
+
+    if( ! empty($u) ){
+     $data = '';
+     $error = new WP_Error();
+     $error->add( 'invalid_email', 'Error: Username or email address exist into our forum.' );
+    }
+  } /*elseif($updating_user_id > 1){ // updating user
+      }*/
+
+   return $data;
+}
+
+ function temp_wp_w3_error_on_update($redirect_to = ''){
+
+  if( $redirect_to == 'onlymsg' ){
+    echo $message = __( '<h3>Error: the provided email is paired to another user into our forum</h3>', 'wp-w3all-phpbb-integration' );
+  } elseif (!empty($redirect_to) && current_user_can( 'manage_options' )){
+      echo $message = __( '<h3>Error: username or email already exist.</h3>  Username and/or email already exist, and result to be paired with another user account into the forum<br />', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.$redirect_to.'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
+      } else {
+        echo $message = __( '<h3>Error: username or email already exist.</h3> Username and/or email already exist, and result to be paired with another user account into the forum<br />', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.get_edit_user_link().'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
+       }
+ }
+
+function wp_w3_error($redirect_to='', $message=''){
+   if(empty($message)){
+        echo $message = __( '<h3>Error: username exist or email paired to another username into our forum</h3><br /><br />', 'wp-w3all-phpbb-integration' );
+      }
+}
+
+function w3all_user_profile_update_errors( $array ) {
+
+ // this do not work on frontend plugin like on mepr
+
+ // on front-end pages the check is done by add_filter( 'pre_user_email' (do not work on mepr)
+ // and wp_pre_insert_user_data (work on mepr)
+
+ // check for duplicated emails into phpBB
+ // Note that this fire after user's email change request fired, if update done on wp profile: so remove and return error, if email update occur
+ // and return error any time, any wp profile field updated, like password, if more than one email records found into phpBB. Or the update will occur for all those users with same email in phpBB
+
+ // if there are errors already do not follow
+  if(!empty($array->errors) OR !empty($array->error_data)){
+   return;
+  }
+
+  if(!isset($_POST['user_id'])){ // adding an user in wp-admin, there is no $_POST['user_id'] here
+   return;
+  }
+
+  global $wpdb;
+  $wpu_db_umtab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
+  $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
+
+  //if ( get_current_user_id() == $_POST['user_id'] ){ // then the changed email is stored as temp email
+  if ( $_POST['checkuser_id'] == $_POST['user_id'] OR get_current_user_id() == $_POST['user_id'] ){ // same user updating, then the changed email is stored as temp email
+   $uid = intval($_POST['user_id']);
+   $wpunewemail = $wpdb->get_row("SELECT * FROM $wpu_db_umtab WHERE user_id = '".$uid."' AND meta_key = '_new_email'");
+    if(!empty($wpunewemail)){
+     $wpunewemail = unserialize($wpunewemail->meta_value);
+     $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $wpunewemail['newemail'] );
+    }
+
+   if( !empty($phpbb_u) ){
+     delete_user_meta($uid, '_new_email'); // remove new email change request
+     $array->add( 'w3_ck_phpbb_duplicated_email_error', __( '<strong>Error</strong>: the email belong to another user into our forum.', 'wp-w3all-phpbb-integration' ) );
+    }
+    return;
+  }
+
+  // if ( get_current_user_id() != $_POST['user_id'] ){ // user editing another user: then the changed email can be checked as $_POST['email']
+  if( !empty($_POST['email']) && $_POST['checkuser_id'] != $_POST['user_id'] ) // user editing another user: then the changed email can be checked as $_POST['email']
+  {
+
+    if( ! email_exists(sanitize_email($_POST['email'])) ){ // only if the update is going to change the email also, check then
+
+    $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $_POST['email'] );
+     if(!empty($phpbb_u))
+    {
+     wp_w3_error($redirect_to='', $message='');
+     exit;
+    }
+   }
+  }
+
+}
+
+// This is for feed shortcode param 'w3feed_text_words' and may valid only for a phpBB feed
+// If this param passed, and is a phpBB feed, as on 3.2.5 the feed content return
+// last part containing 'Statistics:' text - the follow grab and reassign
+// statistics on bottom of the item, removing 'Statistics:'
+function wp_w3all_R_num_of_words_parse($post_str, $words){
+$pos0 = strpos($post_str, "<p>");
+if( preg_match('/(.+)(<p>.?Statistics:(.+)<\/p>)/', $post_str, $str_post_data) > 0 ){
+
+ if(isset($str_post_data[1])){
+  $pcontent = '<p>' . trim($str_post_data[1]) .' </p>';
+ }
+ if(isset($str_post_data[3])){
+  $pinfo = '<p>' . $str_post_data[3].'</p>';
+ }
+} else { $pinfo = ''; $pcontent = $post_str; }
+
+ $post_string = explode(' ',$pcontent);
+
+  if( count($post_string) > $words ){
+
+ $post_std = ''; $i = 0; $b = $words;
+
+  foreach ($post_string as $post_st) {
+    if( $i < $b ){ // offset of 1
+      $post_std .= $post_st . ' ';
+    }
+   $i++;
+  }
+
+ $post_std .= ' ...';
+
+} else { $post_std = $pcontent; }
+
+$post_std .= $pinfo;
+
+return $post_std;
+
+}
+
+
+function w3all_add_phpbb_user() {
+
+  // work with the phpBB WordPress extension -> cURL
+
+  global $w3all_add_into_wp_u_capability,$phpbb_config,$w3all_oninsert_wp_user,$wpdb,$wp_w3all_forum_folder_wp;
+     if( isset($_REQUEST["w3alladdphpbbuid"]) ){
+      $phpbbuid = intval($_REQUEST["w3alladdphpbbuid"]);
+      $uemail = str_replace(chr(0), '', $_REQUEST["w3alladdphpbbuemail"]);
+      $w3allastoken = trim(str_replace(chr(0), '', $_REQUEST["w3allastoken"]));
+
+      if( $phpbbuid < 3 ){ return; }
+     } else { return; }
+
+    if (empty($phpbb_config)){
+     $phpbb_config = WP_w3all_phpbb::w3all_get_phpbb_config_res();
+    }
+
+   // check that the presented token match
+
+      if(!empty($phpbb_config["avatar_salt"]))
+      {
+       if( ! password_verify($phpbb_config["avatar_salt"], $w3allastoken) )
+       { return; }
+      } else { return; }
+
+   $email = sanitize_email($uemail);
+   if( is_email($email) ) {
+     $user = get_user_by( 'email', $email );
+   }
+
+     if( !isset($user) OR !empty($user) ) // existent user into wp, or something else goes wrong
+   { return; }
+
+   $phpbb_user = WP_w3all_phpbb::wp_w3all_get_phpbb_user_info_by_email($email);
+
+   if(!isset($phpbb_user[0])){ return; }
+
+   if( $phpbb_user[0]->user_type == 1 ){ // user deactivated in phpBB
+    // OR more below**:
+    // $role = $phpbb_user[0]->user_type == 1 ? '' : $role;
+     echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: it is required that you activate your account into our forum.</strong></p>', 'wp-w3all-phpbb-integration');
+      exit;
+   }
+
+   $contains_cyrillic = (bool) preg_match('/[\p{Cyrillic}]/u', $phpbb_user[0]->username);
+
+  if ( is_multisite() && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$phpbb_user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$phpbb_user[0]->username) OR strlen($phpbb_user[0]->username) > 50 )
+  {
+
+    if (!defined('WPW3ALL_NOT_ULINKED')){
+     define('WPW3ALL_NOT_ULINKED', true);
+    }
+
+        if( isset($_SERVER['REQUEST_URI']) && !empty($wp_w3all_forum_folder_wp) && strstr($_SERVER['REQUEST_URI'], $wp_w3all_forum_folder_wp) ){
+         echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: your forum username contains illegal characters not allowed in this system or contains more than 50 characters.<br />The forum cannot be displayed on this page.<br />Please contact an administrator.</strong></p>', 'wp-w3all-phpbb-integration');
+         exit;
+        }
+
+        echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: your forum username contains illegal characters not allowed in this system or contains more than 50 characters.<br />Please contact an administrator.</strong></p>', 'wp-w3all-phpbb-integration');
+        return;
+  }
+
+   // mums allow only '[0-9a-z]'
+   // if do not contain non latin chars, let wp create any wp user_login with this passed username
+  if ( is_multisite() && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$phpbb_user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$phpbb_user[0]->username) OR strlen($phpbb_user[0]->username) > 50 ){
+
+    if (!defined('WPW3ALL_NOT_ULINKED')){
+     define('WPW3ALL_NOT_ULINKED', true);
+    }
+       // since this function is intented to be executed only when NOT on iframe mode, this should be not required here
+        if( isset($_SERVER['REQUEST_URI']) && !empty($wp_w3all_forum_folder_wp) && strstr($_SERVER['REQUEST_URI'], $wp_w3all_forum_folder_wp) ){
+         echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: your forum username contains illegal characters not allowed in this system or contains more than 50 characters.<br />The forum cannot be displayed on this page.<br />Please contact an administrator.</strong></p>', 'wp-w3all-phpbb-integration');
+         exit;
+        }
+
+        echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: your forum username contains illegal characters not allowed in this system or contains more than 50 characters.<br />Please contact an administrator.</strong></p>', 'wp-w3all-phpbb-integration');
+        return;
+  }
+
+
+  if ( $phpbb_user[0]->group_name == 'ADMINISTRATORS' ){
+          $role = 'administrator';
+        } elseif ( $phpbb_user[0]->group_name == 'GLOBAL_MODERATORS' ){
+          $role = 'editor';
+        } else { // as option is set
+                 $role = $w3all_add_into_wp_u_capability;
+                }
+         //** if deactivated, since the code above, execution never arrive here
+          $role = $phpbb_user[0]->user_type == 1 ? array() : $role;
+
+              $userdata = array(
+               'user_login'       =>  $phpbb_user[0]->username,
+               'user_pass'        =>  $phpbb_user[0]->user_password,
+               'user_email'       =>  $phpbb_user[0]->user_email,
+               'user_registered'  =>  date_i18n( 'Y-m-d H:i:s', $phpbb_user[0]->user_regdate ),
+               'role'             =>  $role
+               );
+
+      $w3all_oninsert_wp_user = 1;
+      $user_id = wp_insert_user( $userdata );
+
+   if ( is_wp_error( $user_id ) ) {
+    echo '<div style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><p>' . $user_id->get_error_message() . '</p></div>';
+    echo __('<div><p style="padding:30px;background-color:#fff;color:#000;font-size:1.0em"><strong>Error: try to reload page, but if the error persist may mean that the forum\'s logged in username contains illegal characters that are not allowed on this system. Please contact an administrator.</strong></p></div>', 'wp-w3all-phpbb-integration');
+    exit;
+   }
+
+  if ( ! is_wp_error( $user_id ) ) {
+
+     $phpbb_username = preg_replace( '/\s+/', ' ', $phpbb_user[0]->username );
+     $phpbb_username = esc_sql($phpbb_username);
+     $user_username_clean = sanitize_user( $phpbb_user[0]->username, $strict = false );
+     $user_username_clean = esc_sql(mb_strtolower($user_username_clean,'UTF-8'));
+     $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
+     $wpu_db_umtab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
+
+    if ($contains_cyrillic) {
+       // update user_login and user_nicename and force to be what needed
+       // update the pass, since re-hashed by wp_insert_user()
+       $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user[0]->user_password."', user_nicename = '".$user_username_clean."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
+       $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
+     } else { // leave as is (may cleaned and different) the just created user_login
+        $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_user[0]->user_password."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
+        $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
+       }
+
+   }
+
+} // END function w3all_add_phpbb_user()
+
+// let users login with any hash, if integration connection problems occurs and they have been logged out, and hash changed
+ if ( !defined('W3PHPBBDBCONN') )
+ {
+
+  if ( ! function_exists( 'wp_check_password' ) ) :
+
+function wp_check_password($password, $hash, $user_id = '') {
+
+// wp do not allow char \ on password
+// phpBB allow \ char on password
+
+   global $wpdb,$wp_hasher;
+   $password = trim($password);
+   $check = false;
+   $hash_x_wp = $hash;
+
+    if( empty($password) OR empty($hash) ){
+      return apply_filters( 'check_password', false, $password, $hash, $user_id );
+    }
+
+   // If the hash still old md5
+    if ( $hash != null && strlen($hash) <= 32 ) {
+        $check = hash_equals( $hash, md5( $password ) );
+     }
+
+ // Argon2i and Argon2id password hash
+ if( substr($hash, 0, 8) == '$argon2i' ){
+  $password = stripslashes(htmlspecialchars($password, ENT_COMPAT)); // " do not need to be converted
+  $check = password_verify($password, $hash);
+  $HArgon2i = true;
+ }
+
+ if ( !isset($check) OR $check !== true && !isset($HArgon2i) ){ // check the default Wp pass: md5 check failed or not fired above
+   if ( empty($wp_hasher) ) {
+    require_once( ABSPATH . WPINC . '/class-phpass.php');
+    $wp_hasher = new PasswordHash(8, true); // 8 wp default
+   }
+    $check = $wp_hasher->CheckPassword($password, $hash_x_wp);
+  }
+
+ if ($check !== true && strlen($hash) > 32 && !isset($HArgon2i)){ // Wp check failed, check phpBB pass that's may not Argon2i
+    $password = stripslashes($password);
+    $password = htmlspecialchars($password, ENT_COMPAT);
+    $check = password_verify($password, $hash);
+  }
+
+     if ($check === true){
+      return apply_filters( 'check_password', $check, $password, $hash, $user_id );
+      } else {
+      return apply_filters( 'check_password', false, $password, $hash, $user_id );
+      }
+
+}
+
+endif;
+
+ }
+
+ function w3all_get_phpbb_onlineStats() {
+
+    global $w3all_config,$phpbb_config,$w3all_phpbb_connection,$phpbb_online_udata;
+
+    if (empty($phpbb_config)){
+     $phpbb_config = WP_w3all_phpbb::w3all_get_phpbb_config_res();
+    }
+
+   if(!empty($phpbb_online_udata)) { return $phpbb_online_udata; }
+
+   if( $phpbb_config['load_online_time'] > 0 )
+   {
+    $losTime = time()-($phpbb_config['load_online_time']*60);
+    $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_id, S.session_user_id, S.session_time AS session_time, S.session_ip, U.user_id, U.username, U.user_email
+     FROM ".$w3all_config["table_prefix"]."sessions AS S
+     JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = S.session_user_id
+     WHERE S.session_time > $losTime
+     GROUP BY S.session_ip
+     ORDER BY U.username",ARRAY_A);
+   }
+    /*
+    // this include sessions from same IP, existing (may) due to same user, navigating the forum with different browsers
+      GROUP BY S.session_id
+      ORDER BY U.username",ARRAY_A);
+    // this way, Guests from same IP should be purged and so it should be done after.
+    */
+
+  $phpbb_online_udata = empty($phpbb_uonline_udata) ? array() : $phpbb_uonline_udata;
+
+   return $phpbb_online_udata;
+
+}
 
 /////////////////////////
+//////////////////////////////////////////////////
 // W3ALL WPMS MU START
+//////////////////////////////////////////////////
 /////////////////////////
 
 if( is_multisite() && ! defined("WPW3ALL_NOT_ULINKED") ){
@@ -1043,7 +1424,7 @@ function w3all_wpmu_validate_user_signup( $result ){
   // this fire before user signup, so to prevent wp user signup/addition and/or errors, if the user already exist into phpBB
     $test =  WP_w3all_phpbb::ck_phpbb_user($result['user_name'], $result['user_email']);
   if( !empty($test) ){
-    $errA = array("user_email" => array( "0" => "Error: the username and/or email address already exists, or is associated with another existing user account on our forum database"));
+    $errA = array("user_email" => array( "0" => "Error: the username and/or email address already exists, or is associated with another existing user account into our forum database"));
    $result['errors']->errors = $errA;
   }
  }
@@ -1188,349 +1569,9 @@ add_action( 'remove_user_from_blog', 'w3all_remove_user_from_blog', 10, 2 );
 
 } // END if( is_multisite() && ! defined("WPW3ALL_NOT_ULINKED") )
 
+//////////////////////////////////////////////////
 /////////////////////////
 // W3ALL WPMS MU END
 /////////////////////////
+//////////////////////////////////////////////////
 
-
- function temp_wp_w3_error_on_update($redirect_to = ''){
-
-  if( $redirect_to == 'onlymsg' ){
-    echo $message = __( '<h3>Error: the provided email is paired to another user into our forum</h3>', 'wp-w3all-phpbb-integration' );
-  } elseif (!empty($redirect_to) && current_user_can( 'manage_options' )){
-      echo $message = __( '<h3>Error: username or email already exists.</h3>  Username and/or email already exists, or is associated with another existing user account into our forum<br />', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.$redirect_to.'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
-      } else {
-         echo $message = __( '<h3>Error: username or email already exists.</h3> Username and/or email already exists, and results to be paired to another existent user account into our forum<br />', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.get_edit_user_link().'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
-       }
- }
-
-function wp_w3_error($redirect_to='', $message=''){
-   if(empty($message)){
-        echo $message = __( '<h3>Error: username or email already exists</h3>The username and/or email address already exists, or results to be paired to another existing user account into our forum<br /><br />', 'wp-w3all-phpbb-integration' );
-      }
-}
-
-function w3all_user_profile_update_errors( $array ) {
-
- // note that this do not work on frontend plugin like on mepr
- // if a plugin do not let fire native wordpress hooks, then something like this will never fire
- // can be added custom forcing, via an init hook that could check for $_POST vars and enqueue if necessary
-
- // on front-end pages the check is done by add_filter( 'pre_user_email'
-
- // check for duplicated emails into phpBB
- // Note that this fire after user's email change request fired, if update done on wp profile: so remove and return error, if email update occur
- // and return error any time, any wp profile field updated, like password, if more than one email records found into phpBB. Or the update will occur for all those users with same email in phpBB
-
- // if there are errors already do not follow
-  if(!empty($array->errors) OR !empty($array->error_data)){
-   return;
-  }
-
-  if(!isset($_POST['user_id'])){ // adding an user in wp-admin, there is no $_POST['user_id'] here
-   return;
-  }
-
-  global $wpdb;
-  $wpu_db_umtab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
-  $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
-
-  //if ( get_current_user_id() == $_POST['user_id'] ){ // then the changed email is stored as temp email
-  if ( $_POST['checkuser_id'] == $_POST['user_id'] OR get_current_user_id() == $_POST['user_id'] ){ // same user updating, then the changed email is stored as temp email
-   $uid = intval($_POST['user_id']);
-   $wpunewemail = $wpdb->get_row("SELECT * FROM $wpu_db_umtab WHERE user_id = '".$uid."' AND meta_key = '_new_email'");
-    if(!empty($wpunewemail)){
-     $wpunewemail = unserialize($wpunewemail->meta_value);
-     $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $wpunewemail['newemail'] );
-    }
-
-   if( !empty($phpbb_u) ){
-     delete_user_meta($uid, '_new_email'); // remove new email change request
-     $array->add( 'w3_ck_phpbb_duplicated_email_error', __( '<strong>Error</strong>: email paired to another user into our forum.', 'wp-w3all-phpbb-integration' ) );
-    }
-    return;
-  }
-
-  // if ( get_current_user_id() != $_POST['user_id'] ){ // user editing another user: then the changed email can be checked as $_POST['email']
-  if( !empty($_POST['email']) && $_POST['checkuser_id'] != $_POST['user_id'] ) // user editing another user: then the changed email can be checked as $_POST['email']
-  {
-
-    if( ! email_exists(sanitize_email($_POST['email'])) ){ // only if the update is going to change the email also, check then
-
-    $phpbb_u = WP_w3all_phpbb::ck_phpbb_user( '', $_POST['email'] );
-     if(!empty($phpbb_u))
-    {
-     wp_w3_error($redirect_to='', $message='');
-     exit;
-    }
-   }
-  }
-
-}
-
-// This is for feed shortcode param 'w3feed_text_words' and may valid only for a phpBB feed
-// If this param passed, and is a phpBB feed, as on 3.2.5 the feed content return
-// last part containing 'Statistics:' text - the follow grab and reassign
-// statistics on bottom of the item, removing 'Statistics:'
-function wp_w3all_R_num_of_words_parse($post_str, $words){
-$pos0 = strpos($post_str, "<p>");
-if( preg_match('/(.+)(<p>.?Statistics:(.+)<\/p>)/', $post_str, $str_post_data) > 0 ){
-
- if(isset($str_post_data[1])){
-  $pcontent = '<p>' . trim($str_post_data[1]) .' </p>';
- }
- if(isset($str_post_data[3])){
-  $pinfo = '<p>' . $str_post_data[3].'</p>';
- }
-} else { $pinfo = ''; $pcontent = $post_str; }
-
- $post_string = explode(' ',$pcontent);
-
-  if( count($post_string) > $words ){
-
- $post_std = ''; $i = 0; $b = $words;
-
-  foreach ($post_string as $post_st) {
-    if( $i < $b ){ // offset of 1
-      $post_std .= $post_st . ' ';
-    }
-   $i++;
-  }
-
- $post_std .= ' ...';
-
-} else { $post_std = $pcontent; }
-
-$post_std .= $pinfo;
-
-return $post_std;
-
-}
-
-
-function w3all_add_phpbb_user() {
-
-  // work with the phpBB WordPress extension -> cURL
-
-  global $w3all_add_into_wp_u_capability,$phpbb_config,$w3all_oninsert_wp_user,$wpdb,$wp_w3all_forum_folder_wp;
-     if( isset($_POST["w3alladdphpbbuid"]) ){
-      $phpbbuid = intval($_POST["w3alladdphpbbuid"]);
-      $uemail = str_replace(chr(0), '', $_POST["w3alladdphpbbuemail"]);
-      $w3allastoken = trim(str_replace(chr(0), '', $_POST["w3allastoken"]));
-      //$purl = str_replace(chr(0), '', urldecode($_POST["w3alladdphpbbuwpurl"]));
-
-      if( $phpbbuid < 3 ){ return; }
-     } else {
-        return; }
-
-    if (empty($phpbb_config)){
-     $phpbb_config = WP_w3all_phpbb::w3all_get_phpbb_config_res();
-    }
-
-   // check that the presented token match or return
-
-      if(!empty($phpbb_config["avatar_salt"]))
-      {
-      if( ! password_verify($phpbb_config["avatar_salt"], $w3allastoken) )
-       {
-        return;
-       }
-      } else {
-       return;
-      }
-
-   $email = sanitize_email($uemail);
-   if( is_email($email) ) {
-     $user = get_user_by( 'email', $email );
-   }
-
-     if( !isset($user) OR !empty($user) ) // existent user into wp, or something else goes wrong
-   { return; }
-
-   $phpbb_user = WP_w3all_phpbb::wp_w3all_get_phpbb_user_info_by_email($email);
-
- if(!isset($phpbb_user[0])){
-   return;
-  }
-
-   if( $phpbb_user[0]->user_type == 1 ){ // user deactivated
-     echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: it is required that you activate your account into our forum.</strong></p>', 'wp-w3all-phpbb-integration');
-      exit;
-   }
-
-   $contains_cyrillic = (bool) preg_match('/[\p{Cyrillic}]/u', $phpbb_user[0]->username);
-
-  if ( is_multisite() && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$phpbb_user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$phpbb_user[0]->username) OR strlen($phpbb_user[0]->username) > 50 )
-  {
-
-    if (!defined('WPW3ALL_NOT_ULINKED')){
-     define('WPW3ALL_NOT_ULINKED', true);
-    }
-
-        if( isset($_SERVER['REQUEST_URI']) && !empty($wp_w3all_forum_folder_wp) && strstr($_SERVER['REQUEST_URI'], $wp_w3all_forum_folder_wp) ){
-         echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: your forum username contains illegal characters not allowed in this system or contains more than 50 characters.<br />The forum cannot be displayed on this page.<br />Please contact an administrator.</strong></p>', 'wp-w3all-phpbb-integration');
-         exit;
-        }
-
-        echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: your forum username contains illegal characters not allowed in this system or contains more than 50 characters.<br />Please contact an administrator.</strong></p>', 'wp-w3all-phpbb-integration');
-        return;
-  }
-
-   // mums allow only '[0-9a-z]'
-   // if do not contain non latin chars, let wp create any wp user_login with this passed username
-  if ( is_multisite() && preg_match('/[^0-9A-Za-z\p{Cyrillic}]/u',$phpbb_user[0]->username) OR $contains_cyrillic && preg_match('/[^-0-9A-Za-z _.@\p{Cyrillic}]/u',$phpbb_user[0]->username) OR strlen($phpbb_user[0]->username) > 50 ){
-
-    if (!defined('WPW3ALL_NOT_ULINKED')){
-     define('WPW3ALL_NOT_ULINKED', true);
-    }
-       // since this function is intented to be executed only when NOT on iframe mode, this should be not required here
-        if( isset($_SERVER['REQUEST_URI']) && !empty($wp_w3all_forum_folder_wp) && strstr($_SERVER['REQUEST_URI'], $wp_w3all_forum_folder_wp) ){
-         echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: your forum username contains illegal characters not allowed in this system or contains more than 50 characters.<br />The forum cannot be displayed on this page.<br />Please contact an administrator.</strong></p>', 'wp-w3all-phpbb-integration');
-         exit;
-        }
-
-        echo __('<p style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><strong>Notice: your forum username contains illegal characters not allowed in this system or contains more than 50 characters.<br />Please contact an administrator.</strong></p>', 'wp-w3all-phpbb-integration');
-        return;
-  }
-
-
-  if ( $phpbb_user[0]->group_name == 'ADMINISTRATORS' ){
-          $role = 'administrator';
-        } elseif ( $phpbb_user[0]->group_name == 'GLOBAL_MODERATORS' ){
-          $role = 'editor';
-        } else { // default to WP subscriber
-                 $role = $w3all_add_into_wp_u_capability;
-                }
-
-          $role = $phpbb_user[0]->user_type == 1 ? '' : $role;
-
-              $userdata = array(
-               'user_login'       =>  $phpbb_user[0]->username,
-               'user_pass'        =>  $phpbb_user[0]->user_password,
-               'user_email'       =>  $phpbb_user[0]->user_email,
-               'user_registered'  =>  date_i18n( 'Y-m-d H:i:s', $phpbb_user[0]->user_regdate ),
-               'role'             =>  $role
-               );
-
-      $w3all_oninsert_wp_user = 1;
-      $user_id = wp_insert_user( $userdata );
-
-   if ( is_wp_error( $user_id ) ) {
-    echo '<div style="padding:30px;background-color:#fff;color:#000;font-size:1.3em"><p>' . $user_id->get_error_message() . '</p></div>';
-    echo __('<div><p style="padding:30px;background-color:#fff;color:#000;font-size:1.0em"><strong>Error: try to reload page, but if the error persist may mean that the forum\'s logged in username contains illegal characters that are not allowed on this system. Please contact an administrator.</strong></p></div>', 'wp-w3all-phpbb-integration');
-    exit;
-   }
-
-  if ( ! is_wp_error( $user_id ) ) {
-
-     $phpbb_username = preg_replace( '/\s+/', ' ', $phpbb_user[0]->username );
-     $phpbb_username = esc_sql($phpbb_username);
-     $user_username_clean = sanitize_user( $phpbb_user[0]->username, $strict = false );
-     $user_username_clean = esc_sql(mb_strtolower($user_username_clean,'UTF-8'));
-     $wpu_db_utab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'users' : $wpdb->prefix . 'users';
-     $wpu_db_umtab = (is_multisite()) ? WPW3ALL_MAIN_DBPREFIX . 'usermeta' : $wpdb->prefix . 'usermeta';
-
-    if ($contains_cyrillic) {
-       // update user_login and user_nicename and force to be what needed
-       // update the pass, since re-hashed by wp_insert_user()
-       $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user[0]->user_password."', user_nicename = '".$user_username_clean."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
-       $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
-     } else { // leave as is (may cleaned and different) the just created user_login
-        $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_user[0]->user_password."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
-        $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
-       }
-
-   }
-
-} // END function w3all_add_phpbb_user()
-
-// let users login with any hash, if integration connection problems occurs and they have been logged out, and hash changed
- if ( !defined('W3PHPBBDBCONN') )
- {
-
-  if ( ! function_exists( 'wp_check_password' ) ) :
-
-function wp_check_password($password, $hash, $user_id = '') {
-
-// wp do not allow char \ on password
-// phpBB allow \ char on password
-
-   global $wpdb,$wp_hasher;
-   $password = trim($password);
-   $check = false;
-   $hash_x_wp = $hash;
-
-    if( empty($password) OR empty($hash) ){
-      return apply_filters( 'check_password', false, $password, $hash, $user_id );
-    }
-
-   // If the hash still old md5
-    if ( $hash != null && strlen($hash) <= 32 ) {
-        $check = hash_equals( $hash, md5( $password ) );
-     }
-
- // Argon2i and Argon2id password hash
- if( substr($hash, 0, 8) == '$argon2i' ){
-  $password = stripslashes(htmlspecialchars($password, ENT_COMPAT)); // " do not need to be converted
-  $check = password_verify($password, $hash);
-  $HArgon2i = true;
- }
-
- if ( !isset($check) OR $check !== true && !isset($HArgon2i) ){ // check the default Wp pass: md5 check failed or not fired above
-   if ( empty($wp_hasher) ) {
-    require_once( ABSPATH . WPINC . '/class-phpass.php');
-    $wp_hasher = new PasswordHash(8, true); // 8 wp default
-   }
-    $check = $wp_hasher->CheckPassword($password, $hash_x_wp);
-  }
-
- if ($check !== true && strlen($hash) > 32 && !isset($HArgon2i)){ // Wp check failed, check phpBB pass that's may not Argon2i
-    $password = stripslashes($password);
-    $password = htmlspecialchars($password, ENT_COMPAT);
-    $check = password_verify($password, $hash);
-  }
-
-     if ($check === true){
-      return apply_filters( 'check_password', $check, $password, $hash, $user_id );
-      } else {
-      return apply_filters( 'check_password', false, $password, $hash, $user_id );
-      }
-
-}
-
-endif;
-
- }
-
- function w3all_get_phpbb_onlineStats() {
-
-    global $w3all_config,$phpbb_config,$w3all_phpbb_connection,$phpbb_online_udata;
-
-    if (empty($phpbb_config)){
-     $phpbb_config = WP_w3all_phpbb::w3all_get_phpbb_config_res();
-    }
-
-   if(!empty($phpbb_online_udata)) { return $phpbb_online_udata; }
-
-   if( $phpbb_config['load_online_time'] > 0 )
-   {
-    $losTime = time()-($phpbb_config['load_online_time']*60);
-    $phpbb_uonline_udata = $w3all_phpbb_connection->get_results("SELECT S.session_id, S.session_user_id, S.session_time AS session_time, S.session_ip, U.user_id, U.username, U.user_email
-     FROM ".$w3all_config["table_prefix"]."sessions AS S
-     JOIN ".$w3all_config["table_prefix"]."users AS U on U.user_id = S.session_user_id
-     WHERE S.session_time > $losTime
-     GROUP BY S.session_ip
-     ORDER BY U.username",ARRAY_A);
-   }
-    /*
-    // this include sessions from same IP, existing (may) due to same user, navigating the forum with different browsers
-      GROUP BY S.session_id
-      ORDER BY U.username",ARRAY_A);
-    // this way, Guests from same IP should be purged and so it should be done after.
-    */
-
-  $phpbb_online_udata = empty($phpbb_uonline_udata) ? array() : $phpbb_uonline_udata;
-
-   return $phpbb_online_udata;
-
-}
