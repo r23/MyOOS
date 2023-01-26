@@ -39,7 +39,7 @@ class WPCF7_HTMLFormatter {
 		'address', 'article', 'aside', 'blockquote', 'body', 'caption',
 		'dd', 'details', 'dialog', 'div', 'dt', 'fieldset', 'figcaption',
 		'figure', 'footer', 'form', 'header', 'li', 'main', 'nav',
-		'section', 'template', 'td', 'th',
+		'section', 'td', 'th',
 	);
 
 	/**
@@ -49,7 +49,7 @@ class WPCF7_HTMLFormatter {
 	const p_nonparent_elements = array(
 		'colgroup', 'dl', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head',
 		'hgroup', 'html', 'legend', 'menu', 'ol', 'pre', 'style', 'summary',
-		'table', 'tbody', 'tfoot', 'thead', 'title', 'tr', 'ul',
+		'table', 'tbody', 'template', 'tfoot', 'thead', 'title', 'tr', 'ul',
 	);
 
 	/**
@@ -63,7 +63,7 @@ class WPCF7_HTMLFormatter {
 		'keygen', 'label', 'link', 'map', 'mark', 'meta',
 		'meter', 'noscript', 'object', 'output', 'picture', 'progress',
 		'q', 'ruby', 's', 'samp', 'script', 'select', 'slot', 'small',
-		'span', 'strong', 'sub', 'sup', 'template', 'textarea',
+		'span', 'strong', 'sub', 'sup', 'textarea',
 		'time', 'u', 'var', 'video', 'wbr',
 		'optgroup', 'option', 'rp', 'rt', // non-phrasing grandchildren
 		self::placeholder_inline,
@@ -79,9 +79,9 @@ class WPCF7_HTMLFormatter {
 		'dt', 'em', 'fieldset', 'figcaption', 'figure', 'footer', 'form',
 		'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'i', 'ins', 'kbd',
 		'label', 'legend', 'li', 'main', 'map', 'mark', 'meter', 'nav',
-		'noscript', 'object', 'output', 'p', 'pre', 'progress', 'q', 'rt',
+		'noscript', 'object', 'output', 'p', 'progress', 'q', 'rt',
 		'ruby', 's', 'samp', 'section', 'slot', 'small', 'span', 'strong',
-		'sub', 'summary', 'sup', 'td', 'template', 'th', 'time', 'u', 'var',
+		'sub', 'summary', 'sup', 'td', 'th', 'time', 'u', 'var',
 		'video',
 	);
 
@@ -281,9 +281,7 @@ class WPCF7_HTMLFormatter {
 		}
 
 		// Close all remaining tags.
-		if ( $this->stacked_elements ) {
-			$this->end_tag( end( $this->stacked_elements ) );
-		}
+		$this->close_all_tags();
 
 		return $this->output;
 	}
@@ -295,24 +293,16 @@ class WPCF7_HTMLFormatter {
 	 * @param string $content Text node content.
 	 */
 	public function append_text( $content ) {
-		if ( $this->is_inside( 'pre' ) ) {
+		if ( $this->is_inside( array( 'pre', 'template' ) ) ) {
 			$this->output .= $content;
 			return;
 		}
 
 		if (
-			$this->is_inside( self::p_child_elements ) or
-			$this->has_parent( self::p_nonparent_elements )
+			empty( $this->stacked_elements ) or
+			$this->has_parent( 'p' ) or
+			$this->has_parent( self::p_parent_elements )
 		) {
-			$auto_br = $this->options['auto_br'] &&
-				$this->has_parent( self::br_parent_elements );
-
-			$content = self::normalize_paragraph( $content, $auto_br );
-
-			$this->output .= $content;
-
-		} else {
-
 			// Close <p> if the content starts with multiple line breaks.
 			if ( preg_match( '/^\s*\n\s*\n\s*/', $content ) ) {
 				$this->end_tag( 'p' );
@@ -342,6 +332,8 @@ class WPCF7_HTMLFormatter {
 				foreach ( $paragraphs as $paragraph ) {
 					$this->start_tag( 'p' );
 
+					$paragraph = ltrim( $paragraph );
+
 					$paragraph = self::normalize_paragraph(
 						$paragraph,
 						$this->options['auto_br']
@@ -364,6 +356,13 @@ class WPCF7_HTMLFormatter {
 
 				$this->output .= $content;
 			}
+		} else {
+			$auto_br = $this->options['auto_br'] &&
+				$this->has_parent( self::br_parent_elements );
+
+			$content = self::normalize_paragraph( $content, $auto_br );
+
+			$this->output .= $content;
 		}
 	}
 
@@ -384,7 +383,11 @@ class WPCF7_HTMLFormatter {
 				// Open <p> if it does not exist.
 				$this->start_tag( 'p' );
 			}
-		} else {
+		} elseif (
+			'p' === $tag_name or
+			in_array( $tag_name, self::p_parent_elements ) or
+			in_array( $tag_name, self::p_nonparent_elements )
+		) {
 			// Close <p> if it exists.
 			$this->end_tag( 'p' );
 		}
@@ -457,7 +460,7 @@ class WPCF7_HTMLFormatter {
 
 
 	/**
-	 * Appends an end tag to the output property.
+	 * Closes an element and its open descendants at a time.
 	 *
 	 * @param string $tag An end tag.
 	 */
@@ -468,30 +471,88 @@ class WPCF7_HTMLFormatter {
 			$tag_name = strtolower( $tag );
 		}
 
-		if ( $this->is_inside( $tag_name ) ) {
-			while ( $element = array_shift( $this->stacked_elements ) ) {
+		$stacked_elements = array_values( $this->stacked_elements );
 
-				if ( ! in_array( $element, self::p_child_elements ) ) {
-					// Remove unnecessary <br />.
-					$this->output = preg_replace( '/\s*<br \/>\s*$/', '', $this->output );
+		$tag_position = array_search( $tag_name, $stacked_elements );
 
-					$this->output = rtrim( $this->output ) . "\n";
+		if ( false === $tag_position ) {
+			return;
+		}
 
-					if ( $this->options['auto_indent'] ) {
-						$this->output .= self::indent( count( $this->stacked_elements ) );
-					}
-				}
+		// Element groups that make up an indirect nesting structure.
+		// Descendant can contain ancestors.
+		static $nesting_families = array(
+			array(
+				'ancestors' => array( 'dl', ),
+				'descendants' => array( 'dd', 'dt', ),
+			),
+			array(
+				'ancestors' => array( 'ol', 'ul', 'menu', ),
+				'descendants' => array( 'li', ),
+			),
+			array(
+				'ancestors' => array( 'table', ),
+				'descendants' => array( 'td', 'th', 'tr', 'thead', 'tbody', 'tfoot', ),
+			),
+		);
 
-				$this->output .= sprintf( '</%s>', $element );
+		foreach ( $nesting_families as $family ) {
+			$ancestors = (array) $family['ancestors'];
+			$descendants = (array) $family['descendants'];
 
-				// Remove trailing <p></p>.
-				$this->output = preg_replace( '/<p>\s*<\/p>$/', '', $this->output );
+			if ( in_array( $tag_name, $descendants ) ) {
+				$intersect = array_intersect(
+					$ancestors,
+					array_slice( $stacked_elements, 0, $tag_position )
+				);
 
-				if ( $element === $tag_name ) {
-					break;
+				if ( $intersect ) { // Ancestor appears after descendant.
+					return;
 				}
 			}
 		}
+
+		while ( $element = array_shift( $this->stacked_elements ) ) {
+			$this->append_end_tag( $element );
+
+			if ( $element === $tag_name ) {
+				break;
+			}
+		}
+	}
+
+
+	/**
+	 * Closes all open tags.
+	 */
+	public function close_all_tags() {
+		while ( $element = array_shift( $this->stacked_elements ) ) {
+			$this->append_end_tag( $element );
+		}
+	}
+
+
+	/**
+	 * Appends an end tag to the output property.
+	 *
+	 * @param string $tag_name Tag name.
+	 */
+	public function append_end_tag( $tag_name ) {
+		if ( ! in_array( $tag_name, self::p_child_elements ) ) {
+			// Remove unnecessary <br />.
+			$this->output = preg_replace( '/\s*<br \/>\s*$/', '', $this->output );
+
+			$this->output = rtrim( $this->output ) . "\n";
+
+			if ( $this->options['auto_indent'] ) {
+				$this->output .= self::indent( count( $this->stacked_elements ) );
+			}
+		}
+
+		$this->output .= sprintf( '</%s>', $tag_name );
+
+		// Remove trailing <p></p>.
+		$this->output = preg_replace( '/<p>\s*<\/p>$/', '', $this->output );
 	}
 
 
