@@ -1547,6 +1547,11 @@ public static function phpbb_pass_update($user, $new_pass) {
      $old_user_data->user_email = strtolower($old_user_data->user_email);
      $wpu->user_email = strtolower($wpu->user_email);
      $user_email = isset($new_email) ? $old_user_data->user_email : $wpu->user_email;
+     // if all the above failed on detect that there is the email update and:
+     if( current_user_can('edit_user') && get_current_user_id() != $user_id ){
+      $wpu->user_email = isset($_REQUEST['email']) && $old_user_data->user_email != $_REQUEST['email'] && is_email(sanitize_email($_REQUEST['email'])) ? $_REQUEST['email'] : $old_user_data->user_email;
+      $wpu->user_email = esc_sql(strtolower($wpu->user_email));
+     }
 
    #$uid = $w3all_phpbb_connection->get_var("SELECT user_id FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$old_user_data->user_email'");
    $phpbbug = $w3all_phpbb_connection->get_results("SELECT user_id, group_id FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$old_user_data->user_email'");
@@ -1557,7 +1562,7 @@ public static function phpbb_pass_update($user, $new_pass) {
    $ugid = $phpbbug[0]->group_id;
 
 # If option enabled: Switch WP user to specified Group in phpBB, when Role updated in WordPress
-# switch Roles/Groups: see also verify_credentials for the update of the user Role, of the current logged in user, when Group changed in phpBB
+# switch Roles/Groups: see also $user_id for the update of the user Role, of the current logged in user, when Group changed in phpBB
 
   if( $w3all_link_roles_groups == 1 OR $w3all_link_roles_groups == 2 )
   {
