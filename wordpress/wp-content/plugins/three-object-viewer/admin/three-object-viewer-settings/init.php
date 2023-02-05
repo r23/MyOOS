@@ -1,5 +1,5 @@
 <?php
-//Register assets for Model Viewer Settings
+//Register assets for 3OV Settings
 add_action('init', function () {
     wp_enqueue_media();
     $handle = 'three-object-viewer-settings';
@@ -25,31 +25,39 @@ add_action('rest_api_init', function (){
         //Endpoint to get settings from
         [
             'methods' => ['GET'],
-            'callback' => function($request){
-                return rest_ensure_response( [
-                    'data' => [
-                        'enabled' => false,
-                    ]
-                ], 200);
-            },
-            'permission_callback' => function(){
+			'callback' => function($request){
+				return rest_ensure_response( [
+					'enabled' => get_option( '3ov_ai_enabled', false ),
+					'networkWorker' => get_option( '3ov_mp_networkWorker', '' ),
+					'openApiKey' => three_decrypt ( get_option( '3ov_ai_openApiKey', '' ) ),
+					'allowPublicAI' => get_option( '3ov_ai_allow', '' ),
+					'defaultVRM' => get_option( '3ov_defaultVRM', '' ),
+				], 200);
+			},
+					'permission_callback' => function(){
                 return current_user_can('manage_options');
             }
         ],
         //Endpoint to update settings at
         [
             'methods' => ['POST'],
-            'callback' => function($request){
-                return rest_ensure_response( $request->get_params(), 200);
-            },
-            'permission_callback' => function(){
+			'callback' => function($request){
+				$data = $request->get_json_params();
+				update_option( '3ov_ai_enabled', $data['enabled'] );
+				update_option( '3ov_mp_networkWorker', $data['networkWorker'] );
+				update_option( '3ov_defaultVRM', $data['defaultVRM'] );
+				update_option( '3ov_ai_allow', $data['allowPublicAI'] );
+				update_option( '3ov_ai_openApiKey', three_encrypt( $data['openApiKey'] ) );
+				return rest_ensure_response( $data, 200);
+			},
+			'permission_callback' => function(){
                 return current_user_can('manage_options');
             }
         ]
     ]);
 });
 
-//Enqueue assets for Model Viewer Settings on admin page only
+//Enqueue assets for 3OV Settings on admin page only
 add_action('admin_enqueue_scripts', function ($hook) {
     if ('toplevel_page_three-object-viewer-settings' != $hook) {
         return;
@@ -57,11 +65,11 @@ add_action('admin_enqueue_scripts', function ($hook) {
     wp_enqueue_script('three-object-viewer-settings');
 });
 
-//Register Model Viewer Settings menu page
+//Register 3OV Settings menu page
 add_action('admin_menu', function () {
     add_menu_page(
-        __('Model Viewer Settings', 'three-object-viewer'),
-        __('Model Viewer Settings', 'three-object-viewer'),
+        __('3OV Settings', 'three-object-viewer'),
+        __('3OV Settings', 'three-object-viewer'),
         'manage_options',
         'three-object-viewer-settings',
         function () {
@@ -70,3 +78,30 @@ add_action('admin_menu', function () {
         }
     );
 });
+
+function three_encrypt($value = ""){
+    if( empty( $value ) ) {
+        return $value;
+    }
+    
+    $output = null;
+    $secret_key = defined('AUTH_KEY') ? AUTH_KEY : "";
+    $secret_iv = defined('SECURE_AUTH_KEY') ? SECURE_AUTH_KEY : "";
+    $key = hash('sha256',$secret_key);
+    $iv = substr(hash('sha256',$secret_iv),0,16);
+    return base64_encode(openssl_encrypt($value,"AES-256-CBC",$key,0,$iv));
+}
+
+function three_decrypt($value = ""){
+    if( empty( $value ) ) {
+        return $value;
+    }
+
+    $output = null;
+    $secret_key = defined('AUTH_KEY') ? AUTH_KEY : "";
+    $secret_iv = defined('SECURE_AUTH_KEY') ? SECURE_AUTH_KEY : "";
+    $key = hash('sha256',$secret_key);
+    $iv = substr(hash('sha256',$secret_iv),0,16);
+
+    return openssl_decrypt(base64_decode($value),"AES-256-CBC",$key,0,$iv);
+}

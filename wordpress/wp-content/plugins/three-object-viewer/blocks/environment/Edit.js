@@ -101,7 +101,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 					header="Settings"
 				>
 					<PanelBody
-						title="GLB Object"
+						title="Environment Object (Changing this value changes your scenes ground planes)"
 						icon={more}
 						initialOpen={true}
 					>
@@ -124,8 +124,8 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 								render={({ open }) => (
 									<button onClick={open}>
 										{attributes.threeObjectUrl
-											? "Replace Object"
-											: "Select Object"}
+											? "Replace Environment"
+											: "Select Environment"}
 									</button>
 								)}
 							/>
@@ -340,6 +340,7 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 								type="image"
 								allowedTypes={ALLOWED_MEDIA_TYPES}
 								value={attributes.threeObjectUrl}
+								// unstableSidebarImageFlow
 								render={({ open }) => (
 									<button
 										className="three-object-viewer-button"

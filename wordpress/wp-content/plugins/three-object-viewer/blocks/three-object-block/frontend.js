@@ -45,6 +45,8 @@ threeApp.forEach((threeApp) => {
 
 		render(
 			<ThreeObjectFront
+				threeObjectPlugin={threeObjectPlugin}
+				defaultAvatarAnimation={defaultAvatarAnimation}
 				threeUrl={threeUrl}
 				deviceTarget={deviceTarget}
 				zoom={zoom}

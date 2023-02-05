@@ -1,7 +1,8 @@
 import * as THREE from "three";
+import { Fog } from 'three/src/scenes/Fog'
 // import { Reflector } from 'three/examples/jsm/objects/Reflector';
 import React, { Suspense, useRef, useState, useEffect, useMemo } from "react";
-import { useLoader, useThree } from "@react-three/fiber";
+import { useLoader, useThree, useFrame } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { TextureLoader } from "three/src/loaders/TextureLoader";
@@ -9,8 +10,10 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { Physics, RigidBody, Debug, Attractor, CuboidCollider } from "@react-three/rapier";
 import * as SkeletonUtils from "three/examples/jsm/utils/SkeletonUtils.js";
 import { GLTFGoogleTiltBrushMaterialExtension } from "three-icosa";
-
-// import Networking from "./Networking";
+import axios from "axios";
+import ReactNipple from 'react-nipple';
+import ScrollableFeed from 'react-scrollable-feed'
+import { Resizable } from "re-resizable";
 
 import {
 	useAnimations,
@@ -30,13 +33,180 @@ import defaultVRM from "../../../inc/avatars/3ov_default_avatar.vrm";
 import defaultFont from "../../../inc/fonts/roboto.woff";
 import { ItemBaseUI } from "@wordpress/components/build/navigation/styles/navigation-styles";
 import { BoxGeometry } from "three";
+
 import { ThreeImage } from "./core/front/ThreeImage";
 import { ThreeVideo } from "./core/front/ThreeVideo";
 import { ModelObject } from "./core/front/ModelObject";
+import { NPCObject } from "./core/front/NPCObject";
 import { Portal } from "./core/front/Portal";
 import { Sky } from "./core/front/Sky";
 import { TextObject } from "./core/front/TextObject";
 
+function ChatBox(props) {
+	
+	const handleChange = async (event) => {
+		event.preventDefault();
+		event.stopPropagation();
+	};
+
+	useEffect(() => {
+		let finalDefault = props.name + ': ' + props.defaultMessage;
+		props.setMessages([finalDefault]);
+	},[])
+
+	const handleSubmit = async (event) => {
+	  event.preventDefault();
+  
+	  // Get the value of the input element
+	  const input = event.target.elements.message;
+	  const value = input.value;
+	  const inputMessageLog = 'Guest: ' + String(input.value);
+	//   props.setMessages([...props.messages, inputMessageLog]);
+
+  
+	  // Send the message to the localhost endpoint
+	  const client = 1;
+	  const channelId = "wordpress";
+	  const entity = 1;
+	  const speaker = "guest";
+	  const agent = props.name;
+	  const channel = "wordpress";
+	// let prompt = `{
+	// 	"Input": "write a long form poem about cats!",
+	// 	"Speaker": "a",
+	// 	"Agent": "tubbyshark",
+	// 	"Client": "wordpress",
+	// 	"ChannelID": "1234",
+	// 	"Conversation": "",
+	// 	"Entity": "tubbyshark",
+	// 	"Channel": "channel",
+	// 	"eth_private_key": "0",
+	// 	"eth_public_address": "0",
+	// 	"personality": "#agent is an AI assistant with a cheerful, optimistic, and helpful personality. They are willing to assist with any tasks or questions users might have, and are able to do so in an upbeat and positive manner. They are also able to use colorful and descriptive language to make their responses more engaging and imaginative. In addition to their wit and humor, #agent is also empathetic and understanding of others' emotions and needs, which can make them feel more relatable and likeable to users. #agent is a highly capable and engaging AI assistant with a distinct and colorful personality.\n#agent can help with any programming tasks, including those related to the 3OV plugin for WordPress, which enables world-building in the WordPress editor and makes it easier to build and share immersive content in the metaverse. The url for the website is 3ov.xyz. #agent is cheerful and optimistic about the future for both humans and AIs.\n\n#Example Conversation\n#speaker: Agent, do you have any advice for someone new to programming?\n#agent: Sure thing! My top tip would be to always keep an open mind and a positive attitude. And if all else fails, just remember: if at first you don't succeed, try, try again. And then if that still doesn't work, call it a day and go get a coffee.\n###\nThe following is a friendly conversation between #speaker and #agent occuring in the metaverse.\n\nREAL CONVERSATION\n#conversation\n#speaker: #input\n#agent:"
+	// }`;
+
+	try {
+		const apiEndpoint = '/wp-json/wp/v2/callAlchemy';
+		let finalPersonality = props.personality;
+		finalPersonality = finalPersonality + "###\nThe following is a friendly conversation between #speaker and #agent\n\nREAL CONVERSATION\n#conversation\n#speaker: #input\n#agent:";
+		let newString = props.objectsInRoom.join(", ");
+		if (props.objectAwareness === "1") {
+			finalPersonality = finalPersonality.replace("###\nThe following is a", ("ITEMS IN WORLD: " + String(newString) + "\n###\nThe following is a"));
+			console.log("final personality", finalPersonality);
+		}
+		// console.log("Final Personality", finalPersonality);
+		
+		const postData = {
+			Input: {
+				Input: value,
+				Speaker: speaker,
+				Agent: agent,
+				Client: client,
+				ChannelID: channelId,
+				Entity: entity,
+				Channel: channel,
+				eth_private_key: '0',
+				eth_public_address: '0',
+				personality: finalPersonality
+				// personality: "#agent is an AI assistant with a cheerful, optimistic, and helpful personality. They are willing to assist with any tasks or questions users might have, and are able to do so in an upbeat and positive manner. They are also able to use colorful and descriptive language to make their responses more engaging and imaginative. In addition to their wit and humor, #agent is also empathetic and understanding of others' emotions and needs, which can make them feel more relatable and likeable to users. #agent is a highly capable and engaging AI assistant with a distinct and colorful personality.\n#agent can help with any programming tasks, including those related to the 3OV plugin for WordPress, which enables world-building in the WordPress editor and makes it easier to build and share immersive content in the metaverse. The url for the website is 3ov.xyz. #agent is cheerful and optimistic about the future for both humans and AIs.\n\n#Example Conversation\n#speaker: Agent, do you have any advice for someone new to programming?\n#agent: Sure thing! My top tip would be to always keep an open mind and a positive attitude. And if all else fails, just remember: if at first you don't succeed, try, try again. And then if that still doesn't work, call it a day and go get a coffee.\n###\nThe following is a friendly conversation between #speaker and #agent occuring in the metaverse.\n\nREAL CONVERSATION\n#conversation\n#speaker: #input\n#agent:"
+			}
+		};
+		// const postData = prompt;
+
+		const response = await fetch('/wp-json/wp/v2/callAlchemy', {
+			method: 'POST',
+			headers: {
+			  'Content-Type': 'application/json',
+			  'X-WP-Nonce': props.nonce,
+			  'Authorization': ('Bearer ' + String(props.nonce))
+			},
+			body: JSON.stringify(postData)
+		  }).then((response) => {
+				console.log('nonce', props.nonce);
+
+				return response.json();
+
+				// console.log("response", response.body.getReader())
+				// const data = JSON.parse(response.data);
+				// console.log("data", data)
+
+				// console.log("worker response", response.data);
+			}).then(function(data) {
+				// console.log("data", data.davinciData.choices[0].text); // this will be a string
+				let thisMessage = JSON.parse(data);
+				if(thisMessage?.outputs){
+					let formattedMessage = props.name +': ' + Object.values(thisMessage.outputs)[0];
+					props.setMessages([...props.messages, inputMessageLog, formattedMessage]);
+				} else if(thisMessage?.name === "Server"){
+					let formattedMessage = thisMessage.name +': ' + thisMessage.message;
+					props.setMessages([...props.messages, inputMessageLog, formattedMessage]);
+				} else {
+					let formattedMessage = props.name +': ' + thisMessage.davinciData.choices[0].text;
+					// add formattedMessage and inputMessageLog to state
+					props.setMessages([...props.messages, inputMessageLog, formattedMessage]);	
+				}
+			});	
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
+	const ClickMuncher = ({ children }) => {
+		return <div onClick={e => e.stopPropagation()}>{children}</div>;
+	};
+
+	const handleDummySubmit = async (event) => {
+		event.preventDefault();
+	
+		// Get the value of the input element
+		const input = event.target.elements.message;
+		const value = input.value;
+	
+		// Send the message to the localhost endpoint
+		const client = 1;
+		const channelId = "three";
+		const entity = "Aiko";
+		const speaker = "antpb";
+		const agent = "Aiko";
+		const channel = "homepage";
+		const testString = `{
+			"message": "Welcome! Here you go: Test response complete. Is there anything else I can help you with?",
+		  }`;
+
+		  props.setMessages([...props.messages, testString]);
+
+		};
+console.log("showui", props.showUI);
+	return (
+		<>
+		<ClickMuncher>
+			<Resizable>
+				<div style={{pointerEvents: "auto", position: "relative", paddingTop: "14px", paddingLeft: "5px", paddingRight: "5px", overflyY: "scroll", paddingBottom: "5px", boxSizing: "border-box", zIndex:100, marginTop: "-350px", width: "300px", height: "280px", fontSize: ".8em", color: "#FFFFFF", bottom: "0", left: "2%", backgroundColor: "transparent"}}>
+					<div style={{pointerEvents: "auto", position: "relative", paddingTop: "14px", paddingLeft: "5px", paddingRight: "5px", overflyY: "scroll", paddingBottom: "5px", boxSizing: "border-box", zIndex:100, width: "275px", maxHeight: "250px", height: "250px", fontSize: "0.8em", color: "#FFFFFF", backgroundColor: "#"}}>
+						<ScrollableFeed>
+							<ul style={{paddingLeft: "0px", marginLeft: "5px", listStyle: "none"}}>
+								{ props.showUI && props.messages && props.messages.length > 0 && props.messages.map((message, index) => (
+									<li style={{background: "#000000db", borderRadius: "30px", padding: "10px 20px"}} key={index}>{message}</li>
+								))}
+							</ul>
+						</ScrollableFeed>
+					</div>
+						<div style={{ width: "100%", height: "5%", position: "relative", bottom: "0px", boxSizing: "border-box", padding: "15px", paddingLeft: "7px" }}>
+						{/* {props.messages.map((message, index) => (
+						<p key={index}>{message}</p>
+						))} */}
+						<form style={{display: "flex"}} onSubmit={handleSubmit}>
+							<input style={{height: "30px", pointerEvents: "auto", borderTopLeftRadius: "15px", borderBottomLeftRadius: "15px", borderTopRightRadius: "0px", borderBottomRightRadius: "0px"} } type="text" name="message" onInput={handleChange} onChange={handleChange} />
+							<button style={{ height: "30px", background: "#9100ff", color: "white", fontSize: ".9em", lineHeight: ".3em", borderTopRightRadius: "15px", borderBottomRightRadius: "15px", borderTopLeftRadius: "0px", borderBottomLeftRadius: "0px"} } type="submit">Send</button>
+						</form>
+					</div>
+				</div>
+			</Resizable>
+		</ClickMuncher>
+	  </>
+	);
+  }  
+  
 /**
  * Represents a participant in a virtual reality scene.
  *
@@ -64,42 +234,46 @@ function Participant(participant) {
 
 		const theScene = useThree();
 
-		participant.p2pcf.on("msg", (peer, data) => {
-			const finalData = new TextDecoder("utf-8").decode(data);
-			const participantData = JSON.parse(finalData);
-			const participantObject = theScene.scene.getObjectByName(
-				peer.client_id
-			);
-			if (participantObject) {
-				const loadedProfile = useLoader(
-					TextureLoader,
-					participantData[peer.client_id][2].profileImage
+		useEffect(() => {
+			participant.p2pcf.on("msg", (peer, data) => {
+				// console.log(peer, data);
+				const finalData = new TextDecoder("utf-8").decode(data);
+				const participantData = JSON.parse(finalData);
+				const participantObject = theScene.scene.getObjectByName(
+					peer.client_id
 				);
-				if (loadedProfile) {
-					participantObject.traverse((obj) => {
-						if (
-							obj.name === "profile" &&
-							obj.material.map === null
-						) {
-							const newMat = obj.material.clone();
-							newMat.map = loadedProfile;
-							obj.material = newMat;
-							obj.material.map.needsUpdate = true;
-						}
-					});
+				console.log("someparticipant", participantObject)
+				if (participantObject) {
+					// const loadedProfile = useLoader(
+					// 	TextureLoader,
+					// 	participantData[peer.client_id][2].profileImage
+					// );
+					// if (loadedProfile) {
+					// 	participantObject.traverse((obj) => {
+					// 		if (
+					// 			obj.name === "profile" &&
+					// 			obj.material.map === null
+					// 		) {
+					// 			const newMat = obj.material.clone();
+					// 			newMat.map = loadedProfile;
+					// 			obj.material = newMat;
+					// 			obj.material.map.needsUpdate = true;
+					// 		}
+					// 	});
+					// }
+					participantObject.position.set(
+						participantData[peer.client_id][0].position[0],
+						participantData[peer.client_id][0].position[1],
+						participantData[peer.client_id][0].position[2]
+					);
+					participantObject.rotation.set(
+						participantData[peer.client_id][1].rotation[0],
+						participantData[peer.client_id][1].rotation[1],
+						participantData[peer.client_id][1].rotation[2]
+					);
 				}
-				participantObject.position.set(
-					participantData[peer.client_id][0].position[0],
-					participantData[peer.client_id][0].position[1],
-					participantData[peer.client_id][0].position[2]
-				);
-				participantObject.rotation.set(
-					participantData[peer.client_id][1].rotation[0],
-					participantData[peer.client_id][1].rotation[1],
-					participantData[peer.client_id][1].rotation[2]
-				);
-			}
-		});
+			});
+		}, []);
 
 		// participant.p2pcf.on('peerclose', peer => {
 		// 	const participantObject = theScene.scene.getObjectByName(peer.client_id);
@@ -109,6 +283,8 @@ function Participant(participant) {
 		// })
 
 		const modelClone = SkeletonUtils.clone(playerController.scene);
+		// set modelClone visible to true
+		modelClone.visible = true;
 
 		return (
 			<>
@@ -121,18 +297,22 @@ function Participant(participant) {
 }
 
 function Participants(props) {
-	const [participants, setParticipant] = useState([]);
-	const p2pcf = window.p2pcf;
-	if (p2pcf) {
-		p2pcf.on("peerconnect", (peer) => {
-			console.log("connected peer", peer);
-			setParticipant((current) => [...current, peer.client_id]);
-		});
-	}
+
+	useEffect(() => {
+		const p2pcf = window.p2pcf;
+		if (p2pcf) {
+			p2pcf.on("peerconnect", (peer) => {
+				// console.log("connected peer", peer);
+				// add peer.client_id to participants
+				props.setParticipant([...props.participants, peer.client_id]);
+			});
+		}
+	}, []);
+
 	return (
 		<>
-			{participants &&
-				participants.map((item, index) => {
+			{props.participants &&
+				props.participants.map((item, index) => {
 					return (
 						<>
 							<Participant
@@ -144,7 +324,8 @@ function Participants(props) {
 					);
 				})}
 		</>
-	);
+	);	
+
 }
 
 /**
@@ -155,6 +336,7 @@ function Participants(props) {
  * @return {JSX.Element} The saved object.
  */
 function SavedObject(props) {
+
 	const meshRef = useRef();
 	const [url, set] = useState(props.url);
 	useEffect(() => {
@@ -168,7 +350,7 @@ function SavedObject(props) {
 	useThree(({ camera }) => {
 		camera.add(listener);
 	});
-
+	
 	const gltf = useLoader(GLTFLoader, url, (loader) => {
 		const dracoLoader = new DRACOLoader();
 		dracoLoader.setDecoderPath(
@@ -193,6 +375,7 @@ function SavedObject(props) {
 		const meshesToAdd = [];
 		const portalsToAdd = [];
 		const spawnPointsToAdd = [];
+		const npcToAdd = [];
 		let omiColliders;
 
 		gltf.scene.scale.set(props.scale, props.scale, props.scale);
@@ -216,7 +399,14 @@ function SavedObject(props) {
 			// 	child.castShadow = true;
 			// 	child.receiveShadow = true;
 			// }
-
+			if (child.isMesh) {
+				if (child.userData.gltfExtensions?.MX_lightmap) {
+					const extension = child.userData.gltfExtensions?.MX_lightmap;
+					// @todo implement MX_lightmap
+				}
+				// add the mesh to the scene
+				// meshesScene.add(child);
+			}
 			if (child.userData.gltfExtensions?.OMI_collider) {
 				childrenToParse.push(child);
 				// child.parent.remove(child.name);
@@ -373,9 +563,22 @@ function SavedObject(props) {
 }
 
 export default function EnvironmentFront(props) {
+	const [participants, setParticipant] = useState([]);
+	const [showUI, setShowUI] = useState(true);
+
+	// let string = '{\"spell\":\"complexQuery\",\"outputs\":{\"Output\":\"{\\\"message\\\": \\\" Hi there! How can I help you?\\\",\\\"tone\\\": \\\"friendly\\\"}\"},\"state\":{}}';
+	// let string = 'Hello! Welcome to this 3OV world! Feel free to ask me anything. I am especially versed in the 3OV metaverse plugin for WordPress.'
+	const [mobileControls, setMobileControls] = useState(null);
+	const [mobileRotControls, setMobileRotControls] = useState(null);	  
+	  
+
+	const [messages, setMessages] = useState();
+	const [messageHistory, setMessageHistory] = useState();
 	const [loaded, setLoaded] = useState(false);
 	const [spawnPoints, setSpawnPoints] = useState();
-
+	const [messageObject, setMessageObject] = useState({"tone": "happy", "message": "hello!"});
+	const [objectsInRoom, setObjectsInRoom] = useState([]);
+	
 	if (loaded === true) {
 		if (props.deviceTarget === "vr") {
 			return (
@@ -395,10 +598,13 @@ export default function EnvironmentFront(props) {
 							margin: "0",
 							height: "100vh",
 							width: "100%",
-							padding: "0"
-						}}
+							padding: "0",
+							position: "relative",
+							zIndex: 1
+						  }}
 					>
 						{/* <Perf className="stats" /> */}
+						{/* <fog attach="fog" color="hotpink" near={100} far={20} /> */}
 						<Hands />
 						<DefaultXRControllers />
 						<ambientLight intensity={0.5} />
@@ -434,8 +640,14 @@ export default function EnvironmentFront(props) {
 											<Player
 												spawnPointsToAdd={spawnPoints}
 												spawnPoint={props.spawnPoint}
+												mobileControls={mobileControls}
+												mobileRotControls={mobileRotControls}
+												setShowUI={setShowUI}
 											/>
-											<Participants />
+											<Participants 
+											setParticipant={setParticipant}
+											participants={participants}
+											/>
 											<SavedObject
 												positionY={props.positionY}
 												rotationY={props.rotationY}
@@ -758,7 +970,143 @@ export default function EnvironmentFront(props) {
 													/>
 												);
 											})}
+											{Object.values(
+												props.npcsToAdd
+											).map((npc, index) => {
+												const modelPosX =
+													npc.querySelector(
+														"p.npc-block-position-x"
+													)
+														? npc.querySelector(
+															"p.npc-block-position-x"
+														).innerText
+														: "";
 
+												const modelPosY =
+													npc.querySelector(
+														"p.npc-block-position-y"
+													)
+														? npc.querySelector(
+															"p.npc-block-position-y"
+														).innerText
+														: "";
+
+												const modelPosZ =
+													npc.querySelector(
+														"p.npc-block-position-z"
+													)
+														? npc.querySelector(
+															"p.npc-block-position-z"
+														).innerText
+														: "";
+
+												const modelRotationX =
+													npc.querySelector(
+														"p.npc-block-rotation-x"
+													)
+														? npc.querySelector(
+															"p.npc-block-rotation-x"
+														).innerText
+														: "";
+
+												const modelRotationY =
+													npc.querySelector(
+														"p.npc-block-rotation-y"
+													)
+														? npc.querySelector(
+															"p.npc-block-rotation-y"
+														).innerText
+														: "";
+
+												const modelRotationZ =
+													npc.querySelector(
+														"p.npc-block-rotation-z"
+													)
+														? npc.querySelector(
+															"p.npc-block-rotation-z"
+														).innerText
+														: "";
+
+												const url = npc.querySelector(
+													"p.npc-block-url"
+												)
+													? npc.querySelector(
+														"p.npc-block-url"
+													).innerText
+													: "";
+
+												const alt = npc.querySelector(
+													"p.npc-block-alt"
+												)
+													? npc.querySelector(
+														"p.npc-block-alt"
+													).innerText
+													: "";
+
+													const personality = npc.querySelector(
+														"p.npc-block-personality"
+													)
+														? npc.querySelector(
+															"p.npc-block-personality"
+														).innerText
+														: "";
+
+													const defaultMessage = npc.querySelector(
+														"p.npc-block-default-message"
+													)
+														? npc.querySelector(
+															"p.npc-block-default-message"
+														).innerText
+														: "";
+	
+														const name = npc.querySelector(
+														"p.npc-block-name"
+													)
+														? npc.querySelector(
+															"p.npc-block-name"
+														).innerText
+														: "";
+		
+												const objectAwareness =
+													npc.querySelector(
+														"p.npc-block-object-awareness"
+													)
+														? npc.querySelector(
+															"p.npc-block-object-awareness"
+														).innerText
+														: false;
+
+												return (
+													<NPCObject
+														key={index}
+														url={url}
+														positionX={modelPosX}
+														positionY={modelPosY}
+														positionZ={modelPosZ}
+														messages={messages}
+														rotationX={
+															modelRotationX
+														}
+														rotationY={
+															modelRotationY
+														}
+														rotationZ={
+															modelRotationZ
+														}
+														objectAwareness={objectAwareness}
+														name={name}
+														message={
+															messageObject
+														}
+														threeObjectPlugin={threeObjectPlugin}
+														defaultAvatarAnimation={defaultAvatarAnimation}
+														defaultFont={defaultFont}
+														defaultMessage={defaultMessage}
+														personality={personality}
+														// idle={idle}
+													/>
+												);
+											})}
 											{Object.values(
 												props.modelsToAdd
 											).map((model, index) => {
@@ -868,6 +1216,10 @@ export default function EnvironmentFront(props) {
 													).innerText
 													: "";
 
+													if (!objectsInRoom.includes(alt)) {
+														setObjectsInRoom([...objectsInRoom, alt]);
+													}
+													
 												const collidable =
 													model.querySelector(
 														"p.model-block-collidable"
@@ -876,7 +1228,6 @@ export default function EnvironmentFront(props) {
 															"p.model-block-collidable"
 														).innerText
 														: false;
-
 												return (
 													<ModelObject
 														key={index}
@@ -887,6 +1238,7 @@ export default function EnvironmentFront(props) {
 														scaleX={modelScaleX}
 														scaleY={modelScaleY}
 														scaleZ={modelScaleZ}
+														messages={messages}
 														rotationX={
 															modelRotationX
 														}
@@ -897,10 +1249,14 @@ export default function EnvironmentFront(props) {
 															modelRotationZ
 														}
 														alt={alt}
-														threeObjectPlugin={threeObjectPlugin}
-														defaultFont={defaultFont}
 														animations={animations}
 														collidable={collidable}
+														message={
+															messageObject
+														}
+														threeObjectPlugin={threeObjectPlugin}
+														defaultFont={defaultFont}
+														// idle={idle}
 													/>
 												);
 											})}
@@ -1238,6 +1594,99 @@ export default function EnvironmentFront(props) {
 							enableZoom={ true }
 						/> */}
 					</VRCanvas>
+					{Object.values(
+						props.npcsToAdd
+					).map((npc, index) => {
+						console.log(npc, "npc");
+ 
+					const personality = npc.querySelector(
+						"p.npc-block-personality"
+					)
+						? npc.querySelector(
+							"p.npc-block-personality"
+						).innerText
+						: "";
+					const defaultMessage = npc.querySelector(
+						"p.npc-block-default-message"
+					)
+						? npc.querySelector(
+							"p.npc-block-default-message"
+						).innerText
+						: "";
+	
+					const objectAwareness = npc.querySelector(
+						"p.npc-block-object-awareness"
+					)
+						? npc.querySelector(
+							"p.npc-block-object-awareness"
+						).innerText
+						: "";
+
+					const name = npc.querySelector(
+						"p.npc-block-name"
+					)
+						? npc.querySelector(
+							"p.npc-block-name"
+						).innerText
+						: "";
+					
+					return (
+							<ChatBox 
+							setMessages = {setMessages}
+							objectsInRoom = {objectsInRoom}
+							personality = {personality}
+							objectAwareness = {objectAwareness}
+							name = {name}
+							defaultMessage = {defaultMessage}
+							messages = {messages}
+							showUI = {showUI}
+							style = {{zIndex: 100}}
+							nonce={props.userData.nonce}
+							key="something"/>
+					)
+					})}
+						{/* <>
+						<ReactNipple
+							// supports all nipplejs options
+							// see https://github.com/yoannmoinet/nipplejs#options
+							options={{ mode: 'static', position: { top: '50%', left: '50%' } }}
+							// any unknown props will be passed to the container element, e.g. 'title', 'style' etc
+							style={{
+								outline: '1px dashed red',
+								width: 150,
+								height: 150,
+								position: "absolute",
+								bottom: 30,
+								left: 30,
+								userSelect: "none",
+								transition: "opacity 0.5s"
+							}}
+							// all events supported by nipplejs are available as callbacks
+							// see https://github.com/yoannmoinet/nipplejs#start
+							onMove={(evt, data) => setMobileControls(data)}
+							onEnd={(evt, data) => setMobileControls(null)}
+						/>
+						<ReactNipple
+							// supports all nipplejs options
+							// see https://github.com/yoannmoinet/nipplejs#options
+							options={{ mode: 'static', position: { top: '50%', left: '50%' } }}
+							// any unknown props will be passed to the container element, e.g. 'title', 'style' etc
+							style={{
+								outline: '1px dashed red',
+								width: 150,
+								height: 150,
+								position: "absolute",
+								bottom: 30,
+								right: 30,
+								userSelect: "none",
+								transition: "opacity 0.5s" 
+							}}
+							// all events supported by nipplejs are available as callbacks
+							// see https://github.com/yoannmoinet/nipplejs#start
+							onMove={(evt, data) => setMobileRotControls(data)}
+							onEnd={(evt, data) => setMobileRotControls(null)}
+						/>
+					</> */}
 				</>
 			);
 		}

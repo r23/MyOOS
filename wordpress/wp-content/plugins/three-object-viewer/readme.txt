@@ -1,8 +1,8 @@
 === Three Object Viewer ===
 Requires at least: 5.7
-Tested up to: 6.1
+Tested up to: 6.1.1
 Requires PHP: 7.2
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -11,7 +11,7 @@ A WordPress plugin for drag and drop 3D content creation compatible with most XR
 
 == Description ==
 Welcome to the metaverse, WordPress!
-The Three Object Viewer plugin is a drag and drop way to publish virtual worlds or 3D content using your WordPress site. The plugin supports AR VR and 2D in a browser window and runs React Three Fiber under the hood with support for the three-omi audio emitter extension.
+The 3OV plugin is a drag and drop way to publish virtual worlds or 3D content using your WordPress site. The plugin supports AR VR and 2D in a browser window and runs React Three Fiber under the hood with support for many interoperable extensions. Newly added is our AI features in the NPC block! Give it a try! 
 
 ## Drag and drop WebXR
 The three object viewer plugin makes it possible to drag and drop 3D (glb) files into your WordPress block editor content. Wherever you can put a block, you can put a virtual world.
@@ -20,13 +20,17 @@ Your website can truly become a virtual world when your visitors click the “En
 ## Implements Open Metaverse Interoperability Extensions
 This plugin supports the three-omi package built by contributors of the Open Metaverse Interoperability group. As new extensions are added, this plugin will be updated to support those features. Some potential components in the future include physics and collision events.
 
-## Currently Supported Three OMI Extensions
+## Currently Supported OMI, KHR, and other Extensions
 
 KHR_audio – Play both spatial and global audio in your scenes by creating a scene here in the build.xpportal.io Spoke editor. From there you can export a glb file that supports the Three OMI Audio Emitter Extension.
 
-OMI_collider -
+OMI_collider - allows for walking on surfaces
 
-OMI_link - 
+OMI_link - Metaverse traversal! You can walk into an object with a omi_link extension to emulate hyperlink actions. 
+
+OMI_spawn_point - Set where your player loads in.
+
+SXP_personality - Utilize Magick ML or our Alchemy Worker to power your NPCs using the new 3OV NPC Block!
 
 == Installation ==
 This plugin can be installed directly from your WordPress site.
@@ -46,6 +50,17 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.2.0 =
+Added: NPC Block for AI assistants in your 3OV worlds - you can use our endpoint up to 15 free requests before you'll need to use your own openai api key. We'll be publishing a post soon on how to configure your own logic in MagickML or your own worker.
+Added: 3OV Settings panel to control global 3OV settings.
+Added: Setting for default VRM animation. You can use any mixamo and similar FBX file as the source for your NPC and VRM file's default animations.
+Added: Three Object Block now uses default idle animation for fbx files. Try it in AR!
+Added: Settings for AI settings. You can configure your endpoint for your ai system. If you are using MagickML, you will not need to define an OpenAI api key. Just point it to your Magick instance. If you would like to use our worker, define your openai key there and everything should work as expected.
+Fixed: Namespace collisions.
+Fixed: Adjusted lighting to be slightly darker. Things were getting washed out.
+Fixed: adjusted the character controller height to 0.33. Things were feeling low in all worlds so this could revert if folks arent happy. (Will be configurable in future release)
+
+
 = 1.1.0 =
 Fixed: Controller was loading characters too high. Scale has changed so scenes may need to be verified to be as previously saved.
 Fixed: VRM objects will load with an idle animation.

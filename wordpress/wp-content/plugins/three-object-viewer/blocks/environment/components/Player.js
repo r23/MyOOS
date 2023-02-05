@@ -51,7 +51,7 @@ export default function Player(props) {
 			const posY = participantObject.parent.position.y;
 			// var posY = participantObject.userData.vrm.firstPerson.humanoid.humanBones.head.position.y;
 			// camera.position.setY( posY + 1.5 );
-			camera.position.setY(posY + 0.15);
+			camera.position.setY(posY + 0.23);
 			// participantObject.rotation.set([0, camera.rotation.y, 0]);
 			// participantObject.rotation.set(camera.rotation);
 		}
@@ -135,6 +135,9 @@ export default function Player(props) {
 								something={rigidRef}
 								spawnPoint={props.spawnPoint}
 								spawnPointsToAdd={props.spawnPointsToAdd}
+								mobileControls={props.mobileControls}
+								mobileRotControls={props.mobileRotControls}
+								setShowUI={props.setShowUI}
 							/>
 							<primitive
 								visible={false}

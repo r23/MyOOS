@@ -11,7 +11,7 @@ import {
 } from "@react-three/drei";
 import { GLTFAudioEmitterExtension } from "three-omi";
 import { GLTFGoogleTiltBrushMaterialExtension } from "three-icosa";
-import { VRMUtils, VRMSchema, VRMLoaderPlugin, VRMExpressionPresetName } from "@pixiv/three-vrm";
+import { VRMUtils, VRMSchema, VRMLoaderPlugin, VRMExpressionPresetName, VRMHumanBoneName } from "@pixiv/three-vrm";
 import idle from "../../../../../inc/avatars/friendly.fbx";
 import friendly from "../../../../../inc/avatars/idle.fbx";
 import talking from "../../../../../inc/avatars/talking.fbx";
@@ -83,7 +83,8 @@ const mixamoVRMRigMap = {
  * @param {VRM} vrm A target VRM
  * @returns {Promise<AnimationClip>} The converted AnimationClip
  */
-function loadMixamoAnimation(url, vrm, positionY, positionX, positionZ, scaleX, scaleY, scaleZ, rotationX, rotationY, rotationZ, rotationW) {
+function loadMixamoAnimation(url, vrm) {
+	console.log("url", url);
 	const loader = new FBXLoader(); // A loader which loads FBX
 	return loader.loadAsync(url).then((asset) => {
 		const clip = AnimationClip.findByName(asset.animations, 'mixamo.com'); // extract the AnimationClip
@@ -170,19 +171,47 @@ function loadMixamoAnimation(url, vrm, positionY, positionX, positionZ, scaleX, 
  *
  * @return {JSX.Element} The model object.
  */
-export function ModelObject(model) {
+export function NPCObject(model) {
 	const [idleFile, setIdleFile] = useState(model.threeObjectPlugin + idle);
 	const [clicked, setClickEvent] = useState();
+	const [activeMessage, setActiveMessage] = useState([]);
+	const [headPositionY, setHeadPositionY] = useState([]);
 	const [url, set] = useState(model.url);
 	useEffect(() => {
 		setTimeout(() => set(model.url), 2000);
 	}, []);	
+
+	// useEffect(() => {
+	// 	if (activeMessage?.tone){
+	// 		if ( activeMessage.tone === "neutral" || activeMessage.tone === "idle" ){
+	// 			currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 0 );
+	// 			currentVrm.update(clock.getDelta());
+	// 		}
+	// 		else if ( activeMessage.tone === "confused" ){
+	// 			currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 1 );
+	// 			currentVrm.update(clock.getDelta());
+		
+	// 		} else if ( activeMessage.tone === "friendly" ){
+	// 			currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 1 );
+	// 			currentVrm.update(clock.getDelta());
+	// 		} else if ( activeMessage.tone === "angry" ){
+	// 			currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 1 );
+	// 			currentVrm.update(clock.getDelta());
+		
+	// 		}	
+	// 	}
+	// 	// create variable that converts activeMessage to json
+	// }, [activeMessage]);
 
 	const [listener] = useState(() => new AudioListener());
 	const { scene, clock } = useThree();
 	useThree(({ camera }) => {
 		camera.add(listener);
 	});
+	// vrm helpers
+	// const helperRoot = new Group();
+	// helperRoot.renderOrder = 10000;
+	// scene.add(helperRoot);
 
 	const gltf = useLoader(GLTFLoader, url, (loader) => {
 		// const dracoLoader = new DRACOLoader();
@@ -214,6 +243,14 @@ export function ModelObject(model) {
 	const animationClips = gltf.animations;
 	const animationList = model.animations ? model.animations.split(",") : "";
 
+
+	useEffect(() => {
+		console.log("allmessages", model)
+
+		setActiveMessage(model.messages[model.messages.length - 1]);
+		console.log("activemessage", activeMessage)
+	}, [model.messages]);
+
 	useEffect(() => {
 		if (animationList) {
 			animationList.forEach((name) => {
@@ -226,18 +263,6 @@ export function ModelObject(model) {
 
 	const generator = gltf.asset.generator;
 
-	// return tilt brush if tilt brush
-	if (String(generator).includes("Tilt Brush")) {
-		return (
-			<primitive
-				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
-				position={[model.positionX, model.positionY, model.positionZ]}
-				scale={[model.scaleX, model.scaleY, model.scaleZ]}
-				object={gltf.scene}
-			/>
-		);
-	}
-
 	if (gltf?.userData?.gltfExtensions?.VRM) {	
 		const vrm = gltf.userData.vrm;
 		VRMUtils.rotateVRM0(vrm);
@@ -245,14 +270,69 @@ export function ModelObject(model) {
 		vrm.scene.traverse((obj) => {
 			obj.frustumCulled = false;
 		});
+		vrm.scene.name = "assistant";
 
 		// scene.add(vrm.scene);
 
+
 		const currentVrm = vrm;
 		const currentMixer = new AnimationMixer(currentVrm.scene);
+
+		useEffect(() => {
+			// if (currentVrm) {
+			// 	setHeadPositionY(currentVrm.humanoid.getRawBoneNode(VRMHumanBoneName.Head).position.y);
+			// }
+			if (currentVrm) {
+				let head = currentVrm.humanoid.getRawBoneNode(VRMHumanBoneName.Head);
+				let worldPos = new Vector3();
+				head.getWorldPosition(worldPos);
+				setHeadPositionY(worldPos.y);
+			}
+		}, [currentVrm]);
+
 		// Load animation
 		useFrame((state, delta) => {
 			if (currentVrm) {
+
+				let outputJson;
+				if (activeMessage) {
+					// messageObject = JSON.parse(activeMessage);
+					// const outputString = messageObject.outputs.Output;
+					try {
+						const outputJSON = JSON.parse(activeMessage);
+						console.log(outputJSON);
+					} catch (e) {
+						const outputJSON = JSON.parse("null");
+					}
+
+					currentVrm.expressionManager.setValue( VRMExpressionPresetName.Neutral, 0 );
+					currentVrm.expressionManager.setValue( VRMExpressionPresetName.Relaxed, 0.8 );
+						currentVrm.update(clock.getDelta());
+			
+					if(outputJSON.tone){
+						//convert outputJSON.tone to lowercase
+						outputJSON.tone = outputJSON.tone.toLowerCase();
+
+						// Extract the Output parameter
+						if(outputJSON.tone.toLowerCase() === "neutral" ){
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 0 );
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 0 );
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 0 );
+						} else if (outputJSON.tone.toLowerCase() === "confused" ){
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 1 );
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 1 );
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 0 );
+						} else if (outputJSON.tone.toLowerCase() === "friendly" ){
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 0 );
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 1 );
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 0 );
+						} else if (outputJSON.tone.toLowerCase() === "angry" ){
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 0 );
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 0 );
+							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 1 );
+						}
+					}
+				}
 				currentVrm.update(delta);
 			}
 			if (currentMixer) {
@@ -260,20 +340,56 @@ export function ModelObject(model) {
 			}
 		});
 
-		// retarget the animations from mixamo to the current vrm
-		useEffect(() => {
-		if (currentVrm) {
-			loadMixamoAnimation(idleFile, currentVrm, model.positionX, model.positionY, model.positionZ, model.scaleX, model.scaleY, model.scaleZ).then((clip) => {
+		// retarget the animations from mixamo to the current vrm 
+		if (model.defaultAvatarAnimation){
+			loadMixamoAnimation(model.defaultAvatarAnimation, currentVrm).then((clip) => {
 				currentMixer.clipAction(clip).play();
 				currentMixer.update(clock.getDelta());
-			});
+			});	
+		} else {
+			loadMixamoAnimation(idleFile, currentVrm).then((clip) => {
+				currentMixer.clipAction(clip).play();
+				currentMixer.update(clock.getDelta());
+			});	
 		}
-		}, []);
+
+		let testObject;
+		let outputJSON;
+		if (activeMessage && activeMessage?.length > 0) {
+			testObject = activeMessage;
+			const outputString = testObject;
+			outputJSON = outputString;
+			// outputJSON = outputString;
+
+			// Extract the Output parameter
+			// console.log("that obj", outputJSON);
+
+		}
+
 		return (
 			<group
 				position={[model.positionX, model.positionY, model.positionZ]}
 				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
 			>
+				<Text
+					font={model.threeObjectPlugin + model.defaultFont}
+					position={[0.6, headPositionY, 0]}
+					className="content"
+					scale={[0.5, 0.5, 0.5]}
+					// rotation-y={-Math.PI / 2}
+					width={0.1}
+					maxWidth={1}
+					wrap={0.1}
+					height={0.1}
+					color={0xffffff}
+					transform
+				>
+					{outputJSON && String(outputJSON)}
+				</Text>
+				<mesh position={[0.6, headPositionY, -0.01]}>
+					<planeGeometry attach="geometry" args={[0.65, 1.5]} />
+					<meshBasicMaterial attach="material" color={0x000000} opacity={0.5}	transparent={ true } />
+				</mesh>
 				<primitive object={vrm.scene} />
 			</group>
 		);
@@ -320,72 +436,46 @@ export function ModelObject(model) {
 		return circle;
 	});
 
-	if (model.collidable === "1") {
-		return (
-			<>
-				<RigidBody
-					type="fixed"
-					colliders={audioObject ? "cuboid" : "trimesh"}
-					rotation={[
-						model.rotationX,
-						model.rotationY,
-						model.rotationZ
-					]}
-					position={[
-						model.positionX,
-						model.positionY,
-						model.positionZ
-					]}
-					scale={[model.scaleX + 0.01, model.scaleY + 0.01, model.scaleZ + 0.01]}
-					onCollisionEnter={(manifold, target, other) => {
-						setClickEvent(!clicked);
-						if (audioObject) {
-							if (clicked) {
-								audioObject.play();
-								triangle.material.visible = false;
-								circle.material.visible = false;
-							} else {
-								audioObject.pause();
-								triangle.material.visible = true;
-								circle.material.visible = true;
-							}
-						}
-					}}
-				// onCollisionEnter={ ( props ) =>(
-				// 	// window.location.href = model.destinationUrl
-				// 	)
-				// }
-				>
-					<primitive
-						object={gltf.scene}
-						// castShadow
-						// receiveShadow
-						rotation={[
-							model.rotationX,
-							model.rotationY,
-							model.rotationZ
-						]}
-						position={[
-							model.positionX,
-							model.positionY,
-							model.positionZ
-						]}
-						scale={[model.scaleX, model.scaleY, model.scaleZ]}
-					/>
-				</RigidBody>
-			</>
-		);
+	let outputJSON;
+	let testObject;
+	if (activeMessage && activeMessage?.length > 0) {
+		testObject = activeMessage;
+		const outputString = testObject;
+		outputJSON = outputString;
+		// outputJSON = outputString;
+
+		// Extract the Output parameter
+		// console.log("that obj", outputJSON);
 	}
+
 	return (
 		<>
-			<primitive
-				object={gltf.scene}
-				// castShadow
-				// receiveShadow
-				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
+			<group
 				position={[model.positionX, model.positionY, model.positionZ]}
-				scale={[model.scaleX, model.scaleY, model.scaleZ]}
-			/>
+				rotation={[model.rotationX, model.rotationY, model.rotationZ]}
+			>
+				<Text
+					font={model.threeObjectPlugin + model.defaultFont}
+					position={[0.6, 0.9, 0]}
+					className="content"
+					scale={[0.5, 0.5, 0.5]}
+					// rotation-y={-Math.PI / 2}
+					width={0.1}
+					maxWidth={1}
+					wrap={0.1}
+					height={0.1}
+					color={0xffffff}
+					transform
+				>
+					{outputJSON && String(outputJSON)}
+					{/* {outputJSON && ("Tone: " + String(outputJSON.tone))} */}
+				</Text>
+				<mesh position={[0.6, 0.9, -0.01]}>
+					<planeGeometry attach="geometry" args={[0.65, 1.5]} />
+					<meshBasicMaterial attach="material" color={0x000000} opacity={0.5}	transparent={ true } />
+				</mesh>
+				<primitive object={gltf.scene} />
+			</group>
 		</>
 	);
 }
