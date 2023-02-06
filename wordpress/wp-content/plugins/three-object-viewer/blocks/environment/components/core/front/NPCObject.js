@@ -84,7 +84,6 @@ const mixamoVRMRigMap = {
  * @returns {Promise<AnimationClip>} The converted AnimationClip
  */
 function loadMixamoAnimation(url, vrm) {
-	console.log("url", url);
 	const loader = new FBXLoader(); // A loader which loads FBX
 	return loader.loadAsync(url).then((asset) => {
 		const clip = AnimationClip.findByName(asset.animations, 'mixamo.com'); // extract the AnimationClip
@@ -245,10 +244,10 @@ export function NPCObject(model) {
 
 
 	useEffect(() => {
-		console.log("allmessages", model)
+		// console.log("allmessages", model)
 
 		setActiveMessage(model.messages[model.messages.length - 1]);
-		console.log("activemessage", activeMessage)
+		// console.log("activemessage", activeMessage)
 	}, [model.messages]);
 
 	useEffect(() => {
@@ -309,29 +308,29 @@ export function NPCObject(model) {
 					currentVrm.expressionManager.setValue( VRMExpressionPresetName.Relaxed, 0.8 );
 						currentVrm.update(clock.getDelta());
 			
-					if(outputJSON.tone){
-						//convert outputJSON.tone to lowercase
-						outputJSON.tone = outputJSON.tone.toLowerCase();
+					// if(outputJSON.tone){
+					// 	//convert outputJSON.tone to lowercase
+					// 	outputJSON.tone = outputJSON.tone.toLowerCase();
 
-						// Extract the Output parameter
-						if(outputJSON.tone.toLowerCase() === "neutral" ){
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 0 );
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 0 );
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 0 );
-						} else if (outputJSON.tone.toLowerCase() === "confused" ){
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 1 );
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 1 );
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 0 );
-						} else if (outputJSON.tone.toLowerCase() === "friendly" ){
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 0 );
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 1 );
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 0 );
-						} else if (outputJSON.tone.toLowerCase() === "angry" ){
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 0 );
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 0 );
-							currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 1 );
-						}
-					}
+					// 	// Extract the Output parameter
+					// 	if(outputJSON.tone.toLowerCase() === "neutral" ){
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 0 );
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 0 );
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 0 );
+					// 	} else if (outputJSON.tone.toLowerCase() === "confused" ){
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 1 );
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 1 );
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 0 );
+					// 	} else if (outputJSON.tone.toLowerCase() === "friendly" ){
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 0 );
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 1 );
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 0 );
+					// 	} else if (outputJSON.tone.toLowerCase() === "angry" ){
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Surprised, 0 );
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Happy, 0 );
+					// 		currentVrm.expressionManager.setValue( VRMExpressionPresetName.Angry, 1 );
+					// 	}
+					// }
 				}
 				currentVrm.update(delta);
 			}

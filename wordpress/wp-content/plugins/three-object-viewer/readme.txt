@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 6.1.1
 Requires PHP: 7.2
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -50,6 +50,10 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.2.1 =
+Fixes: Clears input after sending a message to a NPC
+Removes cruft that made it into the release. Pardon my logs. :)
+
 = 1.2.0 =
 Added: NPC Block for AI assistants in your 3OV worlds - you can use our endpoint up to 15 free requests before you'll need to use your own openai api key. We'll be publishing a post soon on how to configure your own logic in MagickML or your own worker.
 Added: 3OV Settings panel to control global 3OV settings.

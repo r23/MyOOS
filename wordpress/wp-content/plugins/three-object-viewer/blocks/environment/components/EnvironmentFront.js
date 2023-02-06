@@ -62,6 +62,7 @@ function ChatBox(props) {
 	  const value = input.value;
 	  const inputMessageLog = 'Guest: ' + String(input.value);
 	//   props.setMessages([...props.messages, inputMessageLog]);
+	input.value = '';
 
   
 	  // Send the message to the localhost endpoint
@@ -92,9 +93,7 @@ function ChatBox(props) {
 		let newString = props.objectsInRoom.join(", ");
 		if (props.objectAwareness === "1") {
 			finalPersonality = finalPersonality.replace("###\nThe following is a", ("ITEMS IN WORLD: " + String(newString) + "\n###\nThe following is a"));
-			console.log("final personality", finalPersonality);
 		}
-		// console.log("Final Personality", finalPersonality);
 		
 		const postData = {
 			Input: {
@@ -122,7 +121,6 @@ function ChatBox(props) {
 			},
 			body: JSON.stringify(postData)
 		  }).then((response) => {
-				console.log('nonce', props.nonce);
 
 				return response.json();
 
@@ -151,7 +149,7 @@ function ChatBox(props) {
 		}
 	};
 
-	const ClickMuncher = ({ children }) => {
+	const ClickStop = ({ children }) => {
 		return <div onClick={e => e.stopPropagation()}>{children}</div>;
 	};
 
@@ -176,10 +174,9 @@ function ChatBox(props) {
 		  props.setMessages([...props.messages, testString]);
 
 		};
-console.log("showui", props.showUI);
 	return (
 		<>
-		<ClickMuncher>
+		<ClickStop>
 			<Resizable>
 				<div style={{pointerEvents: "auto", position: "relative", paddingTop: "14px", paddingLeft: "5px", paddingRight: "5px", overflyY: "scroll", paddingBottom: "5px", boxSizing: "border-box", zIndex:100, marginTop: "-350px", width: "300px", height: "280px", fontSize: ".8em", color: "#FFFFFF", bottom: "0", left: "2%", backgroundColor: "transparent"}}>
 					<div style={{pointerEvents: "auto", position: "relative", paddingTop: "14px", paddingLeft: "5px", paddingRight: "5px", overflyY: "scroll", paddingBottom: "5px", boxSizing: "border-box", zIndex:100, width: "275px", maxHeight: "250px", height: "250px", fontSize: "0.8em", color: "#FFFFFF", backgroundColor: "#"}}>
@@ -202,7 +199,7 @@ console.log("showui", props.showUI);
 					</div>
 				</div>
 			</Resizable>
-		</ClickMuncher>
+		</ClickStop>
 	  </>
 	);
   }  
@@ -242,7 +239,6 @@ function Participant(participant) {
 				const participantObject = theScene.scene.getObjectByName(
 					peer.client_id
 				);
-				console.log("someparticipant", participantObject)
 				if (participantObject) {
 					// const loadedProfile = useLoader(
 					// 	TextureLoader,
@@ -1597,7 +1593,6 @@ export default function EnvironmentFront(props) {
 					{Object.values(
 						props.npcsToAdd
 					).map((npc, index) => {
-						console.log(npc, "npc");
  
 					const personality = npc.querySelector(
 						"p.npc-block-personality"
