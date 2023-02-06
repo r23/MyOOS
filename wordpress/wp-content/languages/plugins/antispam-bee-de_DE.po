@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Antispam Bee - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2022-06-24 22:54:31+0000\n"
+"PO-Revision-Date: 2023-02-06 10:31:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.1\n"
+"X-Generator: GlotPress/4.0.0-alpha.3\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Antispam Bee - Stable (latest release)\n"
 
@@ -32,7 +32,7 @@ msgstr "https://antispambee.pluginkollektiv.org/de/dokumentation/#bestimmte-laen
 msgid "https://antispambee.pluginkollektiv.org/documentation/#trust-commenters-with-a-gravatar"
 msgstr "https://antispambee.pluginkollektiv.org/de/dokumentation/#kommentatoren-mit-gravatar-vertrauen"
 
-#: antispam_bee.php:2604
+#: antispam_bee.php:2600
 msgid "Pingback"
 msgstr "Pingback"
 
@@ -64,12 +64,12 @@ msgstr "Erlaubte %1$sISO Länder-Codes%2$s für diese Option."
 msgid "Denied  %1$sISO country codes%2$s for this option."
 msgstr "Verbotene %1$sISO Länder-Codes%2$s für diese Option."
 
-#: antispam_bee.php:498
+#: antispam_bee.php:492
 msgid "Manually"
 msgstr "Manuell"
 
 #. Plugin URI of the plugin
-#: antispam_bee.php:2659
+#: antispam_bee.php:2655
 msgid "https://antispambee.pluginkollektiv.org/"
 msgstr "https://antispambee.pluginkollektiv.org/de/"
 
@@ -77,14 +77,10 @@ msgstr "https://antispambee.pluginkollektiv.org/de/"
 #. Asian characters), enter 'characters_excluding_spaces' or
 #. 'characters_including_spaces'. Otherwise, enter 'words'. Do not translate
 #. into your own language.
-#: antispam_bee.php:1939
+#: antispam_bee.php:1935
 msgctxt "Word count type. Do not translate!"
 msgid "words"
 msgstr "words"
-
-#: inc/gui.class.php:537
-msgid "https://wordpress.org/support/plugin/antispam-bee"
-msgstr "https://wordpress.org/support/plugin/antispam-bee/"
 
 #: inc/gui.class.php:468
 msgid "If checked, you will delete all data Antispam Bee creates, when uninstalling the plugin."
@@ -94,15 +90,15 @@ msgstr "Wenn diese Option aktiviert ist, werden alle von Antispam Bee erstellten
 msgid "Delete Antispam Bee data when uninstalling"
 msgstr "Antispam-Bee-Daten bei Deinstallation löschen"
 
-#: antispam_bee.php:2601
+#: antispam_bee.php:2597
 msgid "Trackback"
 msgstr "Trackback"
 
-#: antispam_bee.php:2599
+#: antispam_bee.php:2595
 msgid "Comment"
 msgstr "Kommentar"
 
-#: antispam_bee.php:497
+#: antispam_bee.php:491
 msgid "Identical Post title and blog title"
 msgstr "Identischer Beitrags- und Blog-Titel"
 
@@ -115,11 +111,11 @@ msgid "Block or allow comments from specific countries"
 msgstr "Kommentare aus bestimmten Ländern blockieren oder zulassen"
 
 #. translators: The number of spam comments Antispam Bee blocked so far.
-#: antispam_bee.php:774
+#: antispam_bee.php:767
 msgid "%s Blocked"
 msgstr "%s blockiert"
 
-#: antispam_bee.php:488
+#: antispam_bee.php:482
 msgid "Honeypot"
 msgstr "Honeypot"
 
@@ -152,7 +148,7 @@ msgid "FAQ"
 msgstr "FAQ"
 
 #: inc/gui.class.php:531
-msgid "https://wordpress.org/plugins/antispam-bee/faq/"
+msgid "https://wordpress.org/plugins/antispam-bee/#faq"
 msgstr "https://de.wordpress.org/plugins/antispam-bee/#faq"
 
 #: inc/gui.class.php:505
@@ -225,43 +221,43 @@ msgstr "Prüfung auf Nutzung eines Gravatar-Bildes. Bitte beachte den %1$sDatens
 msgid "No review of already commented users"
 msgstr "Keine Prüfung bereits kommentierender Benutzer"
 
-#: antispam_bee.php:636 inc/gui.class.php:537
+#: antispam_bee.php:629 inc/gui.class.php:537
 msgid "Support"
 msgstr "Support"
 
-#: antispam_bee.php:635 inc/gui.class.php:528
+#: antispam_bee.php:628 inc/gui.class.php:528
 msgid "Donate"
 msgstr "Spenden"
 
-#: antispam_bee.php:496
+#: antispam_bee.php:490
 msgid "Regular Expression"
 msgstr "Regulärer Ausdruck"
 
-#: antispam_bee.php:495
+#: antispam_bee.php:489
 msgid "Comment Language"
 msgstr "Kommentarsprache"
 
-#: antispam_bee.php:494
+#: antispam_bee.php:488
 msgid "BBCode"
 msgstr "BBCode"
 
-#: antispam_bee.php:493
+#: antispam_bee.php:487
 msgid "Country Check"
 msgstr "Ländererkennung"
 
-#: antispam_bee.php:491
+#: antispam_bee.php:485
 msgid "Local DB Spam"
 msgstr "Lokale Spam-DB"
 
-#: antispam_bee.php:492
+#: antispam_bee.php:486
 msgid "Fake IP"
 msgstr "Gefälschte IP"
 
-#: antispam_bee.php:490
+#: antispam_bee.php:484
 msgid "Empty Data"
 msgstr "Unausgefüllte Felder"
 
-#: antispam_bee.php:489
+#: antispam_bee.php:483
 msgid "Comment time"
 msgstr "Kommentarzeit"
 
@@ -395,54 +391,54 @@ msgstr "Antispam-Regeln"
 msgid "Cheatin&#8217; uh?"
 msgstr "Schummeln, was?"
 
-#: antispam_bee.php:2658
+#: antispam_bee.php:2654
 msgid "Notify message by Antispam Bee"
 msgstr "Benachrichtigung von Antispam Bee"
 
-#: antispam_bee.php:2654
+#: antispam_bee.php:2650
 msgid "Spam list"
 msgstr "Spam-Liste"
 
-#: antispam_bee.php:2650
+#: antispam_bee.php:2646
 msgid "Approve it"
 msgstr "Freigeben"
 
-#: antispam_bee.php:2644
+#: antispam_bee.php:2640
 msgid "Delete it"
 msgstr "Löschen"
 
-#: antispam_bee.php:2638
+#: antispam_bee.php:2634
 msgid "Trash it"
 msgstr "In den Papierkorb"
 
-#: antispam_bee.php:2629 inc/columns.class.php:28 inc/gui.class.php:453
+#: antispam_bee.php:2625 inc/columns.class.php:28 inc/gui.class.php:453
 msgid "Spam Reason"
 msgstr "Spam-Grund"
 
-#: antispam_bee.php:2622
+#: antispam_bee.php:2618
 msgid "Type"
 msgstr "Typ"
 
-#: antispam_bee.php:2614
+#: antispam_bee.php:2610
 msgid "Author"
 msgstr "Autor"
 
-#: antispam_bee.php:2610
+#: antispam_bee.php:2606
 msgid "New spam comment on your post"
 msgstr "Neuer Spam-Kommentar zu deinem Beitrag"
 
-#: antispam_bee.php:2594
+#: antispam_bee.php:2590
 msgid "Content removed by Antispam Bee"
 msgstr "Inhalt von Antispam Bee entfernt"
 
-#: antispam_bee.php:2586
+#: antispam_bee.php:2582
 msgid "Comment marked as spam"
 msgstr "Kommentar als Spam markiert"
 
-#: antispam_bee.php:881
+#: antispam_bee.php:874
 msgid "No data available."
 msgstr "Noch keine Daten vorhanden."
 
-#: antispam_bee.php:611
+#: antispam_bee.php:604
 msgid "Settings"
 msgstr "Einstellungen"
