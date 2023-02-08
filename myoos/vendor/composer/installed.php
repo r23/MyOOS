@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '4ce175f5bbbac7f43af80d145456bfecb8421ada',
+        'reference' => '6fe1b55b1e06d5b0647acd475979a14e1fc6bfa7',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -193,7 +193,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '4ce175f5bbbac7f43af80d145456bfecb8421ada',
+            'reference' => '6fe1b55b1e06d5b0647acd475979a14e1fc6bfa7',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -281,9 +281,9 @@
             ),
         ),
         'phpoffice/phpspreadsheet' => array(
-            'pretty_version' => '1.27.0',
-            'version' => '1.27.0.0',
-            'reference' => 'eeb8582f9cabf5a7f4ef78015691163233a1834f',
+            'pretty_version' => '1.27.1',
+            'version' => '1.27.1.0',
+            'reference' => 'ef4e6ef74990239946d3983451a9bbed5ef1be5d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpoffice/phpspreadsheet',
             'aliases' => array(),
@@ -442,7 +442,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '90538aab13dced1209eb1b30e169308fea0fd783',
+            'reference' => '791eb80857c7e8646a9b013ef548d73b872c0375',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
@@ -1033,9 +1033,9 @@
             'dev_requirement' => false,
         ),
         'twig/twig' => array(
-            'pretty_version' => 'v3.5.0',
-            'version' => '3.5.0.0',
-            'reference' => '3ffcf4b7d890770466da3b2666f82ac054e7ec72',
+            'pretty_version' => 'v3.5.1',
+            'version' => '3.5.1.0',
+            'reference' => 'a6e0510cc793912b451fd40ab983a1d28f611c15',
             'type' => 'library',
             'install_path' => __DIR__ . '/../twig/twig',
             'aliases' => array(),
