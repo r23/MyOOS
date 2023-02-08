@@ -30,6 +30,7 @@ import { VRMUtils, VRMLoaderPlugin } from "@pixiv/three-vrm";
 import TeleportTravel from "./TeleportTravel";
 import Player from "./Player";
 import defaultVRM from "../../../inc/avatars/3ov_default_avatar.vrm";
+import defaultEnvironment from "../../../inc/assets/default_grid.glb";
 import defaultFont from "../../../inc/fonts/roboto.woff";
 import { ItemBaseUI } from "@wordpress/components/build/navigation/styles/navigation-styles";
 import { BoxGeometry } from "three";
@@ -574,6 +575,7 @@ export default function EnvironmentFront(props) {
 	const [spawnPoints, setSpawnPoints] = useState();
 	const [messageObject, setMessageObject] = useState({"tone": "happy", "message": "hello!"});
 	const [objectsInRoom, setObjectsInRoom] = useState([]);
+	const [url, setURL] = useState(props.threeUrl ? props.threeUrl : (threeObjectPlugin + defaultEnvironment));
 	
 	if (loaded === true) {
 		if (props.deviceTarget === "vr") {
@@ -626,7 +628,7 @@ export default function EnvironmentFront(props) {
 								<RigidBody></RigidBody>
 								{/* Debug physics */}
 								{/* <Debug /> */}
-								{props.threeUrl && (
+								{url && (
 									<>
 										<TeleportTravel
 											spawnPointsToAdd={props.spawnPointsToAdd}
@@ -647,7 +649,7 @@ export default function EnvironmentFront(props) {
 											<SavedObject
 												positionY={props.positionY}
 												rotationY={props.rotationY}
-												url={props.threeUrl}
+												url={url}
 												color={props.backgroundColor}
 												hasZoom={props.hasZoom}
 												scale={props.scale}

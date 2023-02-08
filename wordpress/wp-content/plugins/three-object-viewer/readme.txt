@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 6.1.1
 Requires PHP: 7.2
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -50,6 +50,11 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.2.2 =
+Added: New transform control buttons in the editor to toggle between scale, rotation, translation.
+Added: Now Environment Block initializes with a starter grid object and a spawn point to get you started quicker.
+Fixes: Errors in WordPress messages from NPC responses were not scoped to root Namespace
+
 = 1.2.1 =
 Fixes: Clears input after sending a message to a NPC
 Removes cruft that made it into the release. Pardon my logs. :)

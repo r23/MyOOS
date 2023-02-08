@@ -16,6 +16,7 @@ import {
 } from "@react-three/drei";
 import { VRMUtils, VRMLoaderPlugin } from "@pixiv/three-vrm";
 import { GLTFAudioEmitterExtension } from "three-omi";
+import { Icon, moveTo, rotateLeft, resizeCornerNE } from "@wordpress/icons";
 // import { A11y } from "@react-three/a11y";
 import { Perf } from "r3f-perf";
 // import EditControls from "./EditControls";
@@ -1376,6 +1377,69 @@ function ThreeObject(props) {
 export default function ThreeObjectEdit(props) {
 	const [transformMode, setTransformMode] = useState("translate");
 
+	const ObjectControls = (props) => {
+		const [label, setLabel] = useState("transform");
+	  
+		const handleClick = (newLabel) => {
+		  setLabel(newLabel);
+		};
+	  
+		return (
+		  <div style={{ position: "relative", zIndex: 100 }}>
+			<div
+			  style={{
+				display: "flex",
+				justifyContent: "flex-end",
+				position: "absolute",
+				top: "0",
+				right: "0",
+			  }}
+			>
+			  <div style={{ display: "flex", justifyContent: "space-between" }}>
+				<button
+					title="translate"
+					style={{
+						backgroundColor:
+							props.transformMode === "translate" ? "lightgray" : "white",
+							borderRadius: "10px",
+							paddingTop: "5px",
+							marginRight: "5px",
+						}}
+					active={true}
+					onClick={() => props.setTransformMode("translate")}>
+						<Icon size={20} icon={moveTo}/>
+				</button>
+				<button
+					title="rotate"
+					style={{
+						backgroundColor:
+							props.transformMode === "rotate" ? "lightgray" : "white",
+							borderRadius: "10px",
+							paddingTop: "5px",
+							marginRight: "5px",
+					}}
+					onClick={() => props.setTransformMode("rotate")}
+				>
+						<Icon size={20} icon={rotateLeft}/>
+				</button>
+				<button
+					title="scale"
+					style={{
+						backgroundColor:
+							props.transformMode === "scale" ? "lightgray" : "white",
+							borderRadius: "10px",
+							paddingTop: "5px",
+							marginRight: "5px",
+						}}
+					onClick={() => props.setTransformMode("scale")}>
+						<Icon size={20} icon={resizeCornerNE}/>
+				</button>
+			  </div>
+			</div>
+		  </div>
+		);
+	  };
+
 	const [focusID, setFocusID] = useState([0, 0, 0]);
 	const [shouldFocus, setShouldFocus] = useState(false);
 	useEffect(() => {
@@ -1418,6 +1482,7 @@ export default function ThreeObjectEdit(props) {
 
 	return (
 		<>
+			<ObjectControls transformMode={transformMode} setTransformMode={setTransformMode}/>
 			<Resizable
 				defaultSize={{
 					height: 770

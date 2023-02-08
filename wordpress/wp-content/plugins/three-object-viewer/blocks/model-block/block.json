@@ -56,7 +56,7 @@
         },
         "collidable": {
             "type": "boolean",
-            "default": false
+            "default": true
         }
     },
     "category": "design",

@@ -243,7 +243,7 @@ class Plugin
 		
 		// turn $json_blob into json
 		$new_blob = json_encode($json_blob);
-	
+		
 		// $tempblob = `{ "Input": "write a long form poem about cats!", "Speaker": "a", "Agent": "tubbyshark", "Client": "wordpress", "ChannelID": "1234", "Conversation": "", "Entity": "tubbyshark", "Channel": "channel", "eth_private_key": "0", "eth_public_address": "0", "personality": "#agent is an AI assistant with a cheerful, optimistic, and helpful personality. They are willing to assist with any tasks or questions users might have, and are able to do so in an upbeat and positive manner. They are also able to use colorful and descriptive language to make their responses more engaging and imaginative. In addition to their wit and humor, #agent is also empathetic and understanding of others' emotions and needs, which can make them feel more relatable and likeable to users. #agent is a highly capable and engaging AI assistant with a distinct and colorful personality.\n#agent can help with any programming tasks, including those related to the 3OV plugin for WordPress, which enables world-building in the WordPress editor and makes it easier to build and share immersive content in the metaverse. The url for the website is 3ov.xyz. #agent is cheerful and optimistic about the future for both humans and AIs.\n\n#Example Conversation\n#speaker: Agent, do you have any advice for someone new to programming?\n#agent: Sure thing! My top tip would be to always keep an open mind and a positive attitude. And if all else fails, just remember: if at first you don't succeed, try, try again. And then if that still doesn't work, call it a day and go get a coffee.\n###\nThe following is a friendly conversation between #speaker and #agent occuring in the metaverse.\n\nREAL CONVERSATION\n#conversation\n#speaker: #input\n#agent:" }`;
 		// if api_key is not an empty string load the worker
 		if ($api_key != '') {
@@ -255,7 +255,6 @@ class Plugin
 			),
 			'timeout'     => 45,
 			'body' => $new_blob,
-			//TEMPORARY, REMOVE BEFORE PRODUCTION
 			'sslverify' => false,
 		) );
 		} else {
@@ -266,7 +265,6 @@ class Plugin
 				),
 				'timeout'     => 45,
 				'body' => $new_blob,
-				//TEMPORARY, REMOVE BEFORE PRODUCTION
 				'sslverify' => false,
 			) );
 		}
@@ -274,12 +272,12 @@ class Plugin
 		if ( is_wp_error( $response ) ) {
 		  // WP_Error object
 		  $error_message = $response->get_error_message();
-		  return new WP_Error( 'api_call_failed', $error_message, array( 'status' => 500 ) );
+		  return new \WP_Error( 'api_call_failed', $error_message, array( 'status' => 500 ) );
 		}
 	
 		// Check for non-200 status code
 		if ( wp_remote_retrieve_response_code( $response ) != 200 ) {
-		  return new WP_Error( 'api_call_failed', 'Non-200 status code returned', array( 'status' => wp_remote_retrieve_response_code( $response ) ) );
+		  return new \WP_Error( 'api_call_failed', 'Non-200 status code returned', array( 'status' => wp_remote_retrieve_response_code( $response ) ) );
 		}
 	
 		$body = wp_remote_retrieve_body( $response );
@@ -290,7 +288,7 @@ class Plugin
 	  function check_bearer_token( $request ) {
 		$nonce = $request->get_header( 'X-WP-Nonce' );
 		if ( ! $nonce || ! wp_verify_nonce( $nonce, 'wp_rest' ) ) {
-		  return new WP_Error( 'invalid_nonce', 'The nonce provided in the X-WP-Nonce header is invalid', array( 'status' => 401 ) );
+		  return new \WP_Error( 'invalid_nonce', 'The nonce provided in the X-WP-Nonce header is invalid', array( 'status' => 401 ) );
 		}
 		return true;
 	  }
