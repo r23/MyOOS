@@ -64,19 +64,31 @@ final class MobileRedirection implements Service, Registerable {
 		add_filter( 'amp_default_options', [ $this, 'filter_default_options' ] );
 		add_filter( 'amp_options_updating', [ $this, 'sanitize_options' ], 10, 2 );
 
-		if ( AMP_Options_Manager::get_option( Option::MOBILE_REDIRECT ) && ! amp_is_canonical() ) {
-			add_action( 'template_redirect', [ $this, 'redirect' ], PHP_INT_MAX );
+		if ( ! amp_is_canonical() ) {
+			$sandboxing_level           = amp_get_sandboxing_level();
+			$is_mobile_redirect_enabled = AMP_Options_Manager::get_option( Option::MOBILE_REDIRECT );
 
-			// Enable AMP-to-AMP linking by default to avoid redirecting to AMP version when navigating.
-			// A low priority is used so that sites can continue overriding this if they have done so.
-			add_filter( 'amp_to_amp_linking_enabled', '__return_true', 0 );
+			// Add alternative link if mobile redirection is enabled or sandboxing level is set to loose or moderate.
+			if ( $is_mobile_redirect_enabled || ( 1 === $sandboxing_level || 2 === $sandboxing_level ) ) {
+				add_action( 'wp_head', [ $this, 'add_mobile_alternative_link' ] );
+			}
 
-			add_filter( 'comment_post_redirect', [ $this, 'filter_comment_post_redirect' ] );
+			if ( ! $is_mobile_redirect_enabled ) {
+				add_action( 'template_redirect', [ $this, 'maybe_add_mobile_switcher_link' ], PHP_INT_MAX );
+			} else {
+				add_action( 'template_redirect', [ $this, 'redirect' ], PHP_INT_MAX );
 
-			// Amend the comments/respond links to go to non-AMP page when in legacy Reader mode.
-			if ( amp_is_legacy() ) {
-				add_filter( 'get_comments_link', [ $this, 'add_noamp_mobile_query_var' ] ); // For get_comments_link().
-				add_filter( 'respond_link', [ $this, 'add_noamp_mobile_query_var' ] ); // For comments_popup_link().
+				// Enable AMP-to-AMP linking by default to avoid redirecting to AMP version when navigating.
+				// A low priority is used so that sites can continue overriding this if they have done so.
+				add_filter( 'amp_to_amp_linking_enabled', '__return_true', 0 );
+
+				add_filter( 'comment_post_redirect', [ $this, 'filter_comment_post_redirect' ] );
+
+				// Amend the comments/respond links to go to non-AMP page when in legacy Reader mode.
+				if ( amp_is_legacy() ) {
+					add_filter( 'get_comments_link', [ $this, 'add_noamp_mobile_query_var' ] ); // For get_comments_link().
+					add_filter( 'respond_link', [ $this, 'add_noamp_mobile_query_var' ] ); // For comments_popup_link().
+				}
 			}
 		}
 	}
@@ -144,11 +156,9 @@ final class MobileRedirection implements Service, Registerable {
 		}
 
 		// Print the mobile switcher styles.
-		add_action( 'wp_head', [ $this, 'add_mobile_version_switcher_styles' ] );
-		add_action( 'amp_post_template_head', [ $this, 'add_mobile_version_switcher_styles' ] ); // For legacy Reader mode theme.
+		$this->add_mobile_switcher_head_hooks();
 
 		if ( ! amp_is_request() ) {
-			add_action( 'wp_head', [ $this, 'add_mobile_alternative_link' ] );
 			if ( $js ) {
 				// Add mobile redirection script.
 				add_action( 'wp_head', [ $this, 'add_mobile_redirect_script' ], ~PHP_INT_MAX );
@@ -165,19 +175,51 @@ final class MobileRedirection implements Service, Registerable {
 			}
 
 			// Add a link to the footer to allow for navigation to the AMP version.
-			add_action( 'wp_footer', [ $this, 'add_mobile_version_switcher_link' ] );
+			$this->add_mobile_switcher_footer_hooks();
 		} else {
 			if ( ! $js && $this->is_redirection_disabled_via_cookie() ) {
 				$this->set_mobile_redirection_disabled_cookie( false );
 			}
 
-			add_filter( 'amp_to_amp_linking_element_excluded', [ $this, 'filter_amp_to_amp_linking_element_excluded' ], 100, 2 );
-			add_filter( 'amp_to_amp_linking_element_query_vars', [ $this, 'filter_amp_to_amp_linking_element_query_vars' ], 10, 2 );
+			$this->add_a2a_linking_hooks();
 
 			// Add a link to the footer to allow for navigation to the non-AMP version.
-			add_action( 'wp_footer', [ $this, 'add_mobile_version_switcher_link' ] );
-			add_action( 'amp_post_template_footer', [ $this, 'add_mobile_version_switcher_link' ] ); // For legacy Reader mode theme.
+			$this->add_mobile_switcher_footer_hooks();
 		}
+	}
+
+	/**
+	 * Add mobile switcher link in footer when serving an AMP page.
+	 */
+	public function maybe_add_mobile_switcher_link() {
+		if ( amp_is_request() ) {
+			$this->add_mobile_switcher_head_hooks();
+			$this->add_mobile_switcher_footer_hooks();
+		}
+	}
+
+	/**
+	 * Add mobile version switcher head hooks.
+	 */
+	private function add_mobile_switcher_head_hooks() {
+		add_action( 'wp_head', [ $this, 'add_mobile_version_switcher_styles' ] );
+		add_action( 'amp_post_template_head', [ $this, 'add_mobile_version_switcher_styles' ] ); // For legacy Reader mode theme.
+	}
+
+	/**
+	 * Add mobile version switcher footer hooks.
+	 */
+	private function add_mobile_switcher_footer_hooks() {
+		add_action( 'wp_footer', [ $this, 'add_mobile_version_switcher_link' ] );
+		add_action( 'amp_post_template_footer', [ $this, 'add_mobile_version_switcher_link' ] ); // For legacy Reader mode theme.
+	}
+
+	/**
+	 * Add AMP-to-AMP linking hooks.
+	 */
+	private function add_a2a_linking_hooks() {
+		add_filter( 'amp_to_amp_linking_element_excluded', [ $this, 'filter_amp_to_amp_linking_element_excluded' ], 100, 2 );
+		add_filter( 'amp_to_amp_linking_element_query_vars', [ $this, 'filter_amp_to_amp_linking_element_query_vars' ], 10, 2 );
 	}
 
 	/**
@@ -481,10 +523,12 @@ final class MobileRedirection implements Service, Registerable {
 	 * @link https://developers.google.com/search/mobile-sites/mobile-seo/separate-urls#annotation-in-the-html
 	 */
 	public function add_mobile_alternative_link() {
-		printf(
-			'<link rel="alternate" type="text/html" media="only screen and (max-width: 640px)" href="%s">',
-			esc_url( $this->get_current_amp_url() )
-		);
+		if ( amp_is_available() && ! amp_is_request() ) {
+			printf(
+				'<link rel="alternate" type="text/html" media="only screen and (max-width: 640px)" href="%s">',
+				esc_url( $this->get_current_amp_url() )
+			);
+		}
 	}
 
 	/**
@@ -573,6 +617,10 @@ final class MobileRedirection implements Service, Registerable {
 		 * @param string $text Link text to display.
 		 */
 		$text = apply_filters( 'amp_mobile_version_switcher_link_text', $text );
+
+		if ( empty( $text ) ) {
+			return;
+		}
 
 		$hide_switcher = (
 			// The switcher must always be shown in the AMP version to allow accessing the non-AMP version.

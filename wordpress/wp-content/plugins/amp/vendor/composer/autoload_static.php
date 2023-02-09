@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc
+class ComposerStaticInitcc25ff0c1c5a876a70f648d3c13596f2
 {
     public static $files = array (
         '356506e5d3d2f49e680971cd925046fa' => __DIR__ . '/..' . '/ampproject/amp-toolbox/include/compatibility-fixes.php',
@@ -75,6 +75,7 @@ class ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc
         'AMP_Embed_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-embed-sanitizer.php',
         'AMP_Facebook_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-facebook-embed-handler.php',
         'AMP_Form_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-form-sanitizer.php',
+        'AMP_GTag_Script_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-gtag-script-sanitizer.php',
         'AMP_Gallery_Block_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-gallery-block-sanitizer.php',
         'AMP_Gallery_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-gallery-embed-handler.php',
         'AMP_Gfycat_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-gfycat-embed-handler.php',
@@ -90,6 +91,7 @@ class ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc
         'AMP_Link_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-link-sanitizer.php',
         'AMP_Meetup_Embed_Handler' => __DIR__ . '/../..' . '/includes/embeds/class-amp-meetup-embed-handler.php',
         'AMP_Meta_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-meta-sanitizer.php',
+        'AMP_Native_Img_Attributes_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-native-img-attributes-sanitizer.php',
         'AMP_Nav_Menu_Dropdown_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-nav-menu-dropdown-sanitizer.php',
         'AMP_Nav_Menu_Toggle_Sanitizer' => __DIR__ . '/../..' . '/includes/sanitizers/class-amp-nav-menu-toggle-sanitizer.php',
         'AMP_Noscript_Fallback' => __DIR__ . '/../..' . '/includes/sanitizers/trait-amp-noscript-fallback.php',
@@ -166,6 +168,7 @@ class ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc
         'AmpProject\\AmpWP\\Cli\\AmpCommandNamespace' => __DIR__ . '/../..' . '/src/Cli/AmpCommandNamespace.php',
         'AmpProject\\AmpWP\\Cli\\CommandNamespaceRegistration' => __DIR__ . '/../..' . '/src/Cli/CommandNamespaceRegistration.php',
         'AmpProject\\AmpWP\\Cli\\OptimizerCommand' => __DIR__ . '/../..' . '/src/Cli/OptimizerCommand.php',
+        'AmpProject\\AmpWP\\Cli\\OptionCommand' => __DIR__ . '/../..' . '/src/Cli/OptionCommand.php',
         'AmpProject\\AmpWP\\Cli\\TransformerCommand' => __DIR__ . '/../..' . '/src/Cli/TransformerCommand.php',
         'AmpProject\\AmpWP\\Cli\\ValidationCommand' => __DIR__ . '/../..' . '/src/Cli/ValidationCommand.php',
         'AmpProject\\AmpWP\\Component\\CaptionedSlide' => __DIR__ . '/../..' . '/src/Component/CaptionedSlide.php',
@@ -1427,9 +1430,9 @@ class ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit1005b300fac3b9e59da88de2e4021bbc::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitcc25ff0c1c5a876a70f648d3c13596f2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitcc25ff0c1c5a876a70f648d3c13596f2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitcc25ff0c1c5a876a70f648d3c13596f2::$classMap;
 
         }, null, ClassLoader::class);
     }
