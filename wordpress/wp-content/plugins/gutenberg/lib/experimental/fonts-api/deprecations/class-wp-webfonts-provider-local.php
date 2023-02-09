@@ -1,10 +1,17 @@
 <?php
 /**
- * Webfonts API: Provider for locally-hosted fonts.
+ * Fonts API: Provider for locally-hosted fonts.
+ *
+ * Part of the backwards-compatibility (BC) layer for all
+ * deprecated publicly exposed methods and functionality.
+ *
+ * This class/file will NOT be backported to Core. Rather for sites
+ * using the previous API, it exists to prevent breakages, giving
+ * developers time to upgrade their code.
  *
  * @package    WordPress
- * @subpackage WebFonts
- * @since      6.0.0
+ * @subpackage Fonts
+ * @since      X.X.X
  */
 
 if ( class_exists( 'WP_Webfonts_Provider_Local' ) ) {
@@ -12,17 +19,13 @@ if ( class_exists( 'WP_Webfonts_Provider_Local' ) ) {
 }
 
 /**
- * A core bundled provider for generating `@font-face` styles
+ * A deprecated core bundled provider for generating `@font-face` styles
  * from locally-hosted font files.
  *
- * This provider builds an optimized `src` (for browser support)
- * and then generates the `@font-face` styles.
+ * BACKPORT NOTE: Do not backport this file to Core.
  *
- * All know-how (business logic) for how to interact with and
- * generate styles from locally-hosted font files is contained
- * in this provider.
- *
- * @since 6.0.0
+ * @since X.X.X
+ * @deprecated GB 15.1 Use `WP_Fonts_Provider_Local` instead.
  */
 class WP_Webfonts_Provider_Local extends WP_Webfonts_Provider {
 
@@ -41,6 +44,8 @@ class WP_Webfonts_Provider_Local extends WP_Webfonts_Provider {
 	 * @since 6.1.0
 	 */
 	public function __construct() {
+		_deprecated_function( __METHOD__, 'GB 15.1', 'WP_Fonts_Provider_Local' );
+
 		if (
 			function_exists( 'is_admin' ) && ! is_admin()
 			&&

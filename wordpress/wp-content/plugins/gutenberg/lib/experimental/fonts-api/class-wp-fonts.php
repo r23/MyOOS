@@ -1,13 +1,13 @@
 <?php
 /**
- * Web Fonts API class.
+ * WP Fonts API class.
  *
  * @package    WordPress
- * @subpackage WebFonts
+ * @subpackage Fonts API
  * @since      X.X.X
  */
 
-if ( class_exists( 'WP_Web_Fonts' ) ) {
+if ( class_exists( 'WP_Fonts' ) ) {
 	return;
 }
 
@@ -16,7 +16,7 @@ if ( class_exists( 'WP_Web_Fonts' ) ) {
  *
  * @since X.X.X
  */
-class WP_Web_Fonts extends WP_Webfonts {
+class WP_Fonts extends WP_Webfonts {
 
 	/**
 	 * An array of registered providers.
@@ -28,9 +28,9 @@ class WP_Web_Fonts extends WP_Webfonts {
 	private $providers = array();
 
 	/**
-	 * The flipped $to_do array of web font handles.
+	 * The flipped $to_do array of font handles.
 	 *
-	 * Used for a faster lookup of the web font handles.
+	 * Used for a faster lookup of the font handles.
 	 *
 	 * @since X.X.X
 	 *
@@ -69,12 +69,12 @@ class WP_Web_Fonts extends WP_Webfonts {
 	 */
 	public function __construct() {
 		/**
-		 * Filters the web font variation's property defaults.
+		 * Filters the font variation's property defaults.
 		 *
 		 * @since X.X.X
 		 *
 		 * @param array $defaults {
-		 *     An array of required web font properties and defaults.
+		 *     An array of required font properties and defaults.
 		 *
 		 *     @type string $provider     The provider ID. Default 'local'.
 		 *     @type string $font-family  The font-family property. Default empty string.
@@ -83,16 +83,16 @@ class WP_Web_Fonts extends WP_Webfonts {
 		 *     @type string $font-display The font-display property. Default 'fallback'.
 		 * }
 		 */
-		$this->variation_property_defaults = apply_filters( 'wp_webfont_variation_defaults', $this->variation_property_defaults );
+		$this->variation_property_defaults = apply_filters( 'wp_font_variation_defaults', $this->variation_property_defaults );
 
 		/**
-		 * Fires when the WP_Webfonts instance is initialized.
+		 * Fires when the WP_Fonts instance is initialized.
 		 *
 		 * @since X.X.X
 		 *
-		 * @param WP_Web_Fonts $wp_webfonts WP_Web_Fonts instance (passed by reference).
+		 * @param WP_Fonts $wp_fonts WP_Fonts instance (passed by reference).
 		 */
-		do_action_ref_array( 'wp_default_webfonts', array( &$this ) );
+		do_action_ref_array( 'wp_default_fonts', array( &$this ) );
 	}
 
 	/**
@@ -184,7 +184,7 @@ class WP_Web_Fonts extends WP_Webfonts {
 	 * @return string|null Font family handle when registration successes. Null on failure.
 	 */
 	public function add_font_family( $font_family ) {
-		$font_family_handle = WP_Webfonts_Utils::convert_font_family_into_handle( $font_family );
+		$font_family_handle = WP_Fonts_Utils::convert_font_family_into_handle( $font_family );
 		if ( ! $font_family_handle ) {
 			return null;
 		}
@@ -238,13 +238,13 @@ class WP_Web_Fonts extends WP_Webfonts {
 	 * @return string|null Variation handle on success. Else null.
 	 */
 	public function add_variation( $font_family_handle, array $variation, $variation_handle = '' ) {
-		if ( ! WP_Webfonts_Utils::is_defined( $font_family_handle ) ) {
+		if ( ! WP_Fonts_Utils::is_defined( $font_family_handle ) ) {
 			trigger_error( 'Font family handle must be a non-empty string.' );
 			return null;
 		}
 
 		// When there is a variation handle, check it.
-		if ( '' !== $variation_handle && ! WP_Webfonts_Utils::is_defined( $variation_handle ) ) {
+		if ( '' !== $variation_handle && ! WP_Fonts_Utils::is_defined( $variation_handle ) ) {
 			trigger_error( 'Variant handle must be a non-empty string.' );
 			return null;
 		}
@@ -265,7 +265,7 @@ class WP_Web_Fonts extends WP_Webfonts {
 
 		// When there's no variation handle, attempt to create one.
 		if ( '' === $variation_handle ) {
-			$variation_handle = WP_Webfonts_Utils::convert_variation_into_handle( $font_family_handle, $variation );
+			$variation_handle = WP_Fonts_Utils::convert_variation_into_handle( $font_family_handle, $variation );
 			if ( is_null( $variation_handle ) ) {
 				return null;
 			}
@@ -386,7 +386,7 @@ class WP_Web_Fonts extends WP_Webfonts {
 		if ( ! empty( $variation['src'] ) ) {
 			foreach ( (array) $variation['src'] as $src ) {
 				if ( empty( $src ) || ! is_string( $src ) ) {
-					trigger_error( 'Each webfont src must be a non-empty string.' );
+					trigger_error( 'Each font src must be a non-empty string.' );
 					return false;
 				}
 			}
@@ -444,7 +444,7 @@ class WP_Web_Fonts extends WP_Webfonts {
 	 *                                      Default false.
 	 * @param int|false            $group   Optional. Group level: level (int), no group (false).
 	 *
-	 * @return array|string[] Array of web font handles that have been processed.
+	 * @return array|string[] Array of font handles that have been processed.
 	 *                        An empty array if none were processed.
 	 */
 	public function do_items( $handles = false, $group = false ) {
@@ -467,7 +467,7 @@ class WP_Web_Fonts extends WP_Webfonts {
 				/* translators: %s is the provider name. */
 				trigger_error(
 					sprintf(
-						'Class "%s" not found for "%s" web font provider',
+						'Class "%s" not found for "%s" font provider',
 						$provider['class'],
 						$provider_id
 					)
@@ -522,7 +522,7 @@ class WP_Web_Fonts extends WP_Webfonts {
 	 */
 	private function validate_handles( $handles ) {
 		// Validate each element is a non-empty string handle.
-		$handles = array_filter( (array) $handles, array( WP_Webfonts_Utils::class, 'is_defined' ) );
+		$handles = array_filter( (array) $handles, array( WP_Fonts_Utils::class, 'is_defined' ) );
 
 		if ( empty( $handles ) ) {
 			trigger_error( 'Handles must be a non-empty string or array of non-empty strings' );
@@ -561,7 +561,7 @@ class WP_Web_Fonts extends WP_Webfonts {
 
 		// Invoke provider to print its styles.
 		$provider = $this->get_provider_instance( $provider_id );
-		$provider->set_webfonts( $properties_by_font );
+		$provider->set_fonts( $properties_by_font );
 		$provider->print_styles();
 
 		// Clean up.
@@ -571,7 +571,7 @@ class WP_Web_Fonts extends WP_Webfonts {
 	}
 
 	/**
-	 * Retrieves a list of enqueued web font variations for a provider.
+	 * Retrieves a list of enqueued font variations for a provider.
 	 *
 	 * @since X.X.X
 	 *
@@ -731,7 +731,7 @@ class WP_Web_Fonts extends WP_Webfonts {
 			}
 
 			$variation_obj        = $this->registered[ $variation_handle ];
-			$variation_properties = array( 'origin' => 'gutenberg_wp_webfonts_api' );
+			$variation_properties = array( 'origin' => 'gutenberg_wp_fonts_api' );
 			foreach ( $variation_obj->extra['font-properties'] as $property_name => $property_value ) {
 				$property_in_camelcase                          = lcfirst( str_replace( '-', '', ucwords( $property_name, '-' ) ) );
 				$variation_properties[ $property_in_camelcase ] = $property_value;

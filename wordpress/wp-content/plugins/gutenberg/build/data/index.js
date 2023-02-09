@@ -1500,6 +1500,18 @@ const builtinControls = {
   })
 };
 
+;// CONCATENATED MODULE: external ["wp","experiments"]
+var external_wp_experiments_namespaceObject = window["wp"]["experiments"];
+;// CONCATENATED MODULE: ./packages/data/build-module/experiments.js
+/**
+ * WordPress dependencies
+ */
+
+const {
+  lock,
+  unlock
+} = (0,external_wp_experiments_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/data');
+
 ;// CONCATENATED MODULE: ./node_modules/is-promise/index.mjs
 function isPromise(obj) {
   return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
@@ -2170,6 +2182,7 @@ function invalidateResolutionForStoreSelector(selectorName) {
 
 
 
+
 /** @typedef {import('../types').DataRegistry} DataRegistry */
 
 /**
@@ -2259,7 +2272,19 @@ function createResolversCache() {
 
 
 function createReduxStore(key, options) {
-  return {
+  const privateActions = {};
+  const privateSelectors = {};
+  const privateRegistrationFunctions = {
+    privateActions,
+    registerPrivateActions: actions => {
+      Object.assign(privateActions, actions);
+    },
+    privateSelectors,
+    registerPrivateSelectors: selectors => {
+      Object.assign(privateSelectors, selectors);
+    }
+  };
+  const storeDescriptor = {
     name: key,
     instantiate: registry => {
       const reducer = options.reducer;
@@ -2279,12 +2304,20 @@ function createReduxStore(key, options) {
         }
 
       };
-      const store = instantiateReduxStore(key, options, registry, thunkArgs);
+      const store = instantiateReduxStore(key, options, registry, thunkArgs); // Expose the private registration functions on the store
+      // so they can be copied to a sub registry in registry.js.
+
+      lock(store, privateRegistrationFunctions);
       const resolversCache = createResolversCache();
       let resolvers;
       const actions = mapActions({ ...actions_namespaceObject,
         ...options.actions
       }, store);
+      lock(actions, new Proxy(privateActions, {
+        get: (target, prop) => {
+          return mapActions(privateActions, store)[prop] || actions[prop];
+        }
+      }));
       let selectors = mapSelectors({ ...(0,external_lodash_namespaceObject.mapValues)(selectors_namespaceObject, selector => function (state) {
           for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
             args[_key - 1] = arguments[_key];
@@ -2306,6 +2339,17 @@ function createReduxStore(key, options) {
           };
         })
       }, store);
+      lock(selectors, new Proxy(privateSelectors, {
+        get: (target, prop) => {
+          return mapSelectors((0,external_lodash_namespaceObject.mapValues)(privateSelectors, selector => function (state) {
+            for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
+              args[_key3 - 1] = arguments[_key3];
+            }
+
+            return selector(state.root, ...args);
+          }), store)[prop] || selectors[prop];
+        }
+      }));
 
       if (options.resolvers) {
         const result = mapResolvers(options.resolvers, selectors, store, resolversCache);
@@ -2363,7 +2407,12 @@ function createReduxStore(key, options) {
         subscribe
       };
     }
-  };
+  }; // Expose the private registration functions on the store
+  // descriptor. That's a natural choice since that's where the
+  // public actions and selectors are stored .
+
+  lock(storeDescriptor, privateRegistrationFunctions);
+  return storeDescriptor;
 }
 /**
  * Creates a redux store for a namespace.
@@ -2489,8 +2538,8 @@ function mapResolveSelectors(selectors, store) {
     // (including exceptions) to a Promise, no additional extra behavior is needed.
     if (!selector.hasResolver) {
       return async function () {
-        for (var _len3 = arguments.length, args = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
-          args[_key3] = arguments[_key3];
+        for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+          args[_key4] = arguments[_key4];
         }
 
         return selector.apply(null, args);
@@ -2498,8 +2547,8 @@ function mapResolveSelectors(selectors, store) {
     }
 
     return function () {
-      for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-        args[_key4] = arguments[_key4];
+      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
+        args[_key5] = arguments[_key5];
       }
 
       return new Promise((resolve, reject) => {
@@ -2553,8 +2602,8 @@ function mapSuspendSelectors(selectors, store) {
     }
 
     return function () {
-      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
-        args[_key5] = arguments[_key5];
+      for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
+        args[_key6] = arguments[_key6];
       }
 
       const result = selector.apply(null, args);
@@ -2615,8 +2664,8 @@ function mapResolvers(resolvers, selectors, store, resolversCache) {
     }
 
     const selectorResolver = function () {
-      for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
-        args[_key6] = arguments[_key6];
+      for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
+        args[_key7] = arguments[_key7];
       }
 
       async function fulfillSelector() {
@@ -2678,8 +2727,8 @@ async function fulfillResolver(store, resolvers, selectorName) {
     return;
   }
 
-  for (var _len7 = arguments.length, args = new Array(_len7 > 3 ? _len7 - 3 : 0), _key7 = 3; _key7 < _len7; _key7++) {
-    args[_key7 - 3] = arguments[_key7];
+  for (var _len8 = arguments.length, args = new Array(_len8 > 3 ? _len8 - 3 : 0), _key8 = 3; _key8 < _len8; _key8++) {
+    args[_key8 - 3] = arguments[_key8];
   }
 
   const action = resolver.fulfill(...args);
@@ -2753,6 +2802,7 @@ function createEmitter() {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -3012,7 +3062,17 @@ function createRegistry() {
     };
 
     stores[name] = store;
-    store.subscribe(globalListener);
+    store.subscribe(globalListener); // Copy private actions and selectors from the parent store.
+
+    if (parent) {
+      try {
+        unlock(store.store).registerPrivateActions(unlock(parent).privateActionsOf(name));
+        unlock(store.store).registerPrivateSelectors(unlock(parent).privateSelectorsOf(name));
+      } catch (e) {// unlock() throws if store.store was not locked.
+        // The error indicates there's nothing to do here so let's
+        // ignore it.
+      }
+    }
   }
   /**
    * Registers a new store given a store descriptor.
@@ -3100,7 +3160,26 @@ function createRegistry() {
     parent.subscribe(globalListener);
   }
 
-  return withPlugins(registry);
+  const registryWithPlugins = withPlugins(registry);
+  lock(registryWithPlugins, {
+    privateActionsOf: name => {
+      try {
+        return unlock(stores[name].store).privateActions;
+      } catch (e) {
+        // unlock() throws an error the store was not locked – this means
+        // there no private actions are available
+        return {};
+      }
+    },
+    privateSelectorsOf: name => {
+      try {
+        return unlock(stores[name].store).privateSelectors;
+      } catch (e) {
+        return {};
+      }
+    }
+  });
+  return registryWithPlugins;
 }
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/default-registry.js

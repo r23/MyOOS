@@ -6875,7 +6875,7 @@ function getBlockSettingsFromMetadata(_ref3) {
  * } );
  * ```
  *
- * @return {?WPBlockType} The block, if it has been successfully registered;
+ * @return {WPBlockType | undefined} The block, if it has been successfully registered;
  *                    otherwise `undefined`.
  */
 
@@ -7031,7 +7031,7 @@ function unregisterBlockCollection(namespace) {
  * };
  * ```
  *
- * @return {?WPBlockType} The previous block value, if it has been successfully
+ * @return {WPBlockType | undefined} The previous block value, if it has been successfully
  *                    unregistered; otherwise `undefined`.
  */
 
@@ -8510,7 +8510,7 @@ function categories() {
         });
 
         if (categoryToChange) {
-          return (0,external_lodash_namespaceObject.map)(state, category => {
+          return state.map(category => {
             if (category.slug === action.slug) {
               return { ...category,
                 ...action.category
@@ -9406,11 +9406,11 @@ function selectors_getGroupingBlockName(state) {
  */
 
 const selectors_getChildBlockNames = rememo((state, blockName) => {
-  return (0,external_lodash_namespaceObject.map)(selectors_getBlockTypes(state).filter(blockType => {
+  return selectors_getBlockTypes(state).filter(blockType => {
     var _blockType$parent;
 
     return (_blockType$parent = blockType.parent) === null || _blockType$parent === void 0 ? void 0 : _blockType$parent.includes(blockName);
-  }), _ref2 => {
+  }).map(_ref2 => {
     let {
       name
     } = _ref2;
@@ -9750,7 +9750,7 @@ function isFunction(maybeFunc) {
  * @param {Object}      thunkArgs        Argument object for the thunk middleware.
  * @param {Function}    thunkArgs.select Function to select from the store.
  *
- * @return {?WPBlockType} The block, if it has been successfully registered; otherwise `undefined`.
+ * @return {WPBlockType | undefined} The block, if it has been successfully registered; otherwise `undefined`.
  */
 
 
@@ -11493,7 +11493,7 @@ class DecodeEntityParser {
    *
    * @param {string} entity Entity fragment discovered in HTML.
    *
-   * @return {?string} Entity substitute value.
+   * @return {string | undefined} Entity substitute value.
    */
   parse(entity) {
     if (isValidCharacterReference(entity)) {
@@ -11749,7 +11749,7 @@ const isEqualTokensOfType = {
  *
  * @param {Object[]} tokens Set of tokens to search.
  *
- * @return {Object} Next non-whitespace token.
+ * @return {Object | undefined} Next non-whitespace token.
  */
 
 function getNextNonWhitespaceToken(tokens) {
@@ -13269,7 +13269,7 @@ function applyBlockValidation(unvalidatedBlock, blockType) {
  * @param {WPRawBlock}   rawBlock The raw block object.
  * @param {ParseOptions} options  Extra options for handling block parsing.
  *
- * @return {WPBlock} Fully parsed block.
+ * @return {WPBlock | undefined} Fully parsed block.
  */
 
 

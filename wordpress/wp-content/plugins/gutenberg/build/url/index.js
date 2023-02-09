@@ -889,10 +889,28 @@ function isValidFragment(fragment) {
   return /^#[^\s#?\/]*$/.test(fragment);
 }
 
+;// CONCATENATED MODULE: ./packages/url/build-module/safe-decode-uri-component.js
+/**
+ * Safely decodes a URI component with `decodeURIComponent`. Returns the URI component unmodified if
+ * `decodeURIComponent` throws an error.
+ *
+ * @param {string} uriComponent URI component to decode.
+ *
+ * @return {string} Decoded URI component if possible.
+ */
+function safeDecodeURIComponent(uriComponent) {
+  try {
+    return decodeURIComponent(uriComponent);
+  } catch (uriComponentError) {
+    return uriComponent;
+  }
+}
+
 ;// CONCATENATED MODULE: ./packages/url/build-module/get-query-args.js
 /**
  * Internal dependencies
  */
+
 
 /** @typedef {import('./get-query-arg').QueryArgParsed} QueryArgParsed */
 
@@ -966,7 +984,7 @@ function getQueryArgs(url) {
   ).replace(/\+/g, '%20').split('&').reduce((accumulator, keyValue) => {
     const [key, value = ''] = keyValue.split('=') // Filtering avoids decoding as `undefined` for value, where
     // default is restored in destructuring assignment.
-    .filter(Boolean).map(decodeURIComponent);
+    .filter(Boolean).map(safeDecodeURIComponent);
 
     if (key) {
       const segments = key.replace(/\]/g, '').split('[');
@@ -1168,23 +1186,6 @@ function safeDecodeURI(uri) {
     return decodeURI(uri);
   } catch (uriError) {
     return uri;
-  }
-}
-
-;// CONCATENATED MODULE: ./packages/url/build-module/safe-decode-uri-component.js
-/**
- * Safely decodes a URI component with `decodeURIComponent`. Returns the URI component unmodified if
- * `decodeURIComponent` throws an error.
- *
- * @param {string} uriComponent URI component to decode.
- *
- * @return {string} Decoded URI component if possible.
- */
-function safeDecodeURIComponent(uriComponent) {
-  try {
-    return decodeURIComponent(uriComponent);
-  } catch (uriComponentError) {
-    return uriComponent;
   }
 }
 

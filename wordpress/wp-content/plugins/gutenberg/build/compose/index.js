@@ -3301,6 +3301,8 @@ function createId(object) {
  * 1. When only object is given, the returned value is a number
  * 2. When object and prefix is given, the returned value is a string
  * 3. When preferredId is given, the returned value is the type of preferredId
+ *
+ * @param object Object reference to create an id for.
  */
 
 
@@ -4295,7 +4297,15 @@ function useDisabled() {
     isDisabled: isDisabledProp = false
   } = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   return useRefEffect(node => {
+    var _node$ownerDocument;
+
     if (isDisabledProp) {
+      return;
+    }
+
+    const defaultView = node === null || node === void 0 ? void 0 : (_node$ownerDocument = node.ownerDocument) === null || _node$ownerDocument === void 0 ? void 0 : _node$ownerDocument.defaultView;
+
+    if (!defaultView) {
       return;
     }
     /** A variable keeping track of the previous updates in order to restore them. */
@@ -4305,7 +4315,7 @@ function useDisabled() {
 
     const disable = () => {
       node.childNodes.forEach(child => {
-        if (!(child instanceof HTMLElement)) {
+        if (!(child instanceof defaultView.HTMLElement)) {
           return;
         }
 
@@ -4999,20 +5009,18 @@ function useAsyncList(list) {
     }
 
     setCurrent(firstItems);
-    let nextIndex = firstItems.length;
     const asyncQueue = (0,external_wp_priorityQueue_namespaceObject.createQueue)();
 
-    const append = () => {
+    const append = nextIndex => () => {
       if (list.length <= nextIndex) {
         return;
       }
 
       setCurrent(state => [...state, ...list.slice(nextIndex, nextIndex + step)]);
-      nextIndex += step;
-      asyncQueue.add({}, append);
+      asyncQueue.add({}, append(nextIndex + step));
     };
 
-    asyncQueue.add({}, append);
+    asyncQueue.add({}, append(firstItems.length));
     return () => asyncQueue.reset();
   }, [list]);
   return current;

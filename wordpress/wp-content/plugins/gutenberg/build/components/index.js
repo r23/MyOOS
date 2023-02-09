@@ -2576,7 +2576,7 @@ __webpack_require__.d(__webpack_exports__, {
   "Placeholder": function() { return /* reexport */ placeholder; },
   "Polygon": function() { return /* reexport */ external_wp_primitives_namespaceObject.Polygon; },
   "Popover": function() { return /* reexport */ popover; },
-  "QueryControls": function() { return /* reexport */ QueryControls; },
+  "QueryControls": function() { return /* reexport */ query_controls; },
   "RadioControl": function() { return /* reexport */ radio_control; },
   "RangeControl": function() { return /* reexport */ range_control; },
   "Rect": function() { return /* reexport */ external_wp_primitives_namespaceObject.Rect; },
@@ -18000,16 +18000,15 @@ const VisuallyHidden = contextConnect(UnconnectedVisuallyHidden, 'VisuallyHidden
 ;// CONCATENATED MODULE: ./packages/components/build-module/button/index.js
 
 
-// @ts-nocheck
 
 /**
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
-
 
 
 
@@ -18074,12 +18073,10 @@ function useDeprecatedProps(_ref) {
   };
 }
 
-function Button(props, ref) {
+function UnforwardedButton(props, ref) {
   var _children$, _children$$props;
 
   const {
-    href,
-    target,
     isSmall,
     isPressed,
     isBusy,
@@ -18098,10 +18095,19 @@ function Button(props, ref) {
     variant,
     __experimentalIsFocusable: isFocusable,
     describedBy,
-    ...additionalProps
+    ...buttonOrAnchorProps
   } = useDeprecatedProps(props);
+  const {
+    href,
+    target,
+    ...additionalProps
+  } = 'href' in buttonOrAnchorProps ? buttonOrAnchorProps : {
+    href: undefined,
+    target: undefined,
+    ...buttonOrAnchorProps
+  };
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(Button, 'components-button__description');
-  const hasChildren = (children === null || children === void 0 ? void 0 : children[0]) && children[0] !== null && // Tooltip should not considered as a child
+  const hasChildren = 'string' === typeof children && !!children || Array.isArray(children) && (children === null || children === void 0 ? void 0 : children[0]) && children[0] !== null && // Tooltip should not considered as a child
   (children === null || children === void 0 ? void 0 : (_children$ = children[0]) === null || _children$ === void 0 ? void 0 : (_children$$props = _children$.props) === null || _children$$props === void 0 ? void 0 : _children$$props.className) !== 'components-tooltip';
   const classes = classnames_default()('components-button', className, {
     'is-secondary': variant === 'secondary',
@@ -18117,24 +18123,28 @@ function Button(props, ref) {
   });
   const trulyDisabled = disabled && !isFocusable;
   const Tag = href !== undefined && !trulyDisabled ? 'a' : 'button';
-  const tagProps = Tag === 'a' ? {
-    href,
-    target
-  } : {
+  const buttonProps = Tag === 'button' ? {
     type: 'button',
     disabled: trulyDisabled,
     'aria-pressed': isPressed
-  };
+  } : {};
+  const anchorProps = Tag === 'a' ? {
+    href,
+    target
+  } : {};
 
   if (disabled && isFocusable) {
     // In this case, the button will be disabled, but still focusable and
     // perceivable by screen reader users.
-    tagProps['aria-disabled'] = true;
+    buttonProps['aria-disabled'] = true;
+    anchorProps['aria-disabled'] = true;
 
     for (const disabledEvent of disabledEventsOnDisabledButton) {
       additionalProps[disabledEvent] = event => {
-        event.stopPropagation();
-        event.preventDefault();
+        if (event) {
+          event.stopPropagation();
+          event.preventDefault();
+        }
       };
     }
   } // Should show the tooltip if...
@@ -18146,20 +18156,22 @@ function Button(props, ref) {
   !!label && // The children are empty and...
   !(children !== null && children !== void 0 && children.length) && // The tooltip is not explicitly disabled.
   false !== showTooltip);
-  const descriptionId = describedBy ? instanceId : null;
+  const descriptionId = describedBy ? instanceId : undefined;
   const describedById = additionalProps['aria-describedby'] || descriptionId;
-  const element = (0,external_wp_element_namespaceObject.createElement)(Tag, extends_extends({}, tagProps, additionalProps, {
+  const commonProps = {
     className: classes,
-    "aria-label": additionalProps['aria-label'] || label,
-    "aria-describedby": describedById,
-    ref: ref
-  }), icon && iconPosition === 'left' && (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
+    'aria-label': additionalProps['aria-label'] || label,
+    'aria-describedby': describedById,
+    ref
+  };
+  const elementChildren = (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, icon && iconPosition === 'left' && (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
     icon: icon,
     size: iconSize
   }), text && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, text), icon && iconPosition === 'right' && (0,external_wp_element_namespaceObject.createElement)(build_module_icon, {
     icon: icon,
     size: iconSize
   }), children);
+  const element = Tag === 'a' ? (0,external_wp_element_namespaceObject.createElement)("a", extends_extends({}, anchorProps, additionalProps, commonProps), elementChildren) : (0,external_wp_element_namespaceObject.createElement)("button", extends_extends({}, buttonProps, additionalProps, commonProps), elementChildren);
 
   if (!shouldShowTooltip) {
     return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, element, describedBy && (0,external_wp_element_namespaceObject.createElement)(visually_hidden_component, null, (0,external_wp_element_namespaceObject.createElement)("span", {
@@ -18175,7 +18187,24 @@ function Button(props, ref) {
     id: descriptionId
   }, describedBy)));
 }
-/* harmony default export */ var build_module_button = ((0,external_wp_element_namespaceObject.forwardRef)(Button));
+/**
+ * Lets users take actions and make choices with a single click or tap.
+ *
+ * ```jsx
+ * import { Button } from '@wordpress/components';
+ * const Mybutton = () => (
+ *   <Button
+ *     variant="primary"
+ *     onClick={ handleClick }
+ *   >
+ *     Click here
+ *   </Button>
+ * );
+ * ```
+ */
+
+const Button = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedButton);
+/* harmony default export */ var build_module_button = (Button);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/scroll-lock/index.js
 /**
@@ -18305,17 +18334,7 @@ const useSlot = name => {
     getSlot,
     subscribe
   } = (0,external_wp_element_namespaceObject.useContext)(context);
-  const [slot, setSlot] = (0,external_wp_element_namespaceObject.useState)(getSlot(name));
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    setSlot(getSlot(name));
-    const unsubscribe = subscribe(() => {
-      setSlot(getSlot(name));
-    });
-    return unsubscribe; // Ignore reason: Modifying this dep array could introduce unexpected changes in behavior,
-    // so we'll leave it as=is until the hook can be properly refactored for exhaustive-deps.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [name]);
-  return slot;
+  return (0,external_wp_element_namespaceObject.useSyncExternalStore)(subscribe, () => getSlot(name), () => getSlot(name));
 };
 
 /* harmony default export */ var use_slot = (useSlot);
@@ -18439,6 +18458,7 @@ class SlotComponent extends external_wp_element_namespaceObject.Component {
     const {
       registerSlot
     } = this.props;
+    this.isUnmounted = false;
     registerSlot(this.props.name, this);
   }
 
@@ -19607,6 +19627,7 @@ function useForceUpdate() {
   const [, setState] = (0,external_wp_element_namespaceObject.useState)({});
   const mounted = (0,external_wp_element_namespaceObject.useRef)(true);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
+    mounted.current = true;
     return () => {
       mounted.current = false;
     };
@@ -21197,8 +21218,8 @@ const ALIGNMENT_LABEL = {
   'top center': (0,external_wp_i18n_namespaceObject.__)('Top Center'),
   'top right': (0,external_wp_i18n_namespaceObject.__)('Top Right'),
   'center left': (0,external_wp_i18n_namespaceObject.__)('Center Left'),
-  'center center': (0,external_wp_i18n_namespaceObject.__)('Center Center'),
-  center: (0,external_wp_i18n_namespaceObject.__)('Center Center'),
+  'center center': (0,external_wp_i18n_namespaceObject.__)('Center'),
+  center: (0,external_wp_i18n_namespaceObject.__)('Center'),
   'center right': (0,external_wp_i18n_namespaceObject.__)('Center Right'),
   'bottom left': (0,external_wp_i18n_namespaceObject.__)('Bottom Left'),
   'bottom center': (0,external_wp_i18n_namespaceObject.__)('Bottom Center'),
@@ -28606,8 +28627,10 @@ function InputField(_ref, ref) {
     onKeyDown: handleOnKeyDown,
     onMouseDown: handleOnMouseDown,
     ref: ref,
-    inputSize: size,
-    value: value,
+    inputSize: size // Fallback to `''` to avoid "uncontrolled to controlled" warning.
+    // See https://github.com/WordPress/gutenberg/pull/47250 for details.
+    ,
+    value: value !== null && value !== void 0 ? value : '',
     type: type
   }));
 }
@@ -29314,7 +29337,6 @@ function UnconnectedHStack(props, forwardedRef) {
  *
  * `HStack` can render anything inside.
  *
- * @example
  * ```jsx
  * import {
  * 	__experimentalHStack as HStack,
@@ -29490,7 +29512,7 @@ function UnforwardedNumberControl(_ref, forwardedRef) {
   } = _ref;
 
   if (hideHTMLArrows) {
-    external_wp_deprecated_default()('hideHTMLArrows', {
+    external_wp_deprecated_default()('wp.components.NumberControl hideHTMLArrows prop ', {
       alternative: 'spinControls="none"',
       since: '6.2',
       version: '6.3'
@@ -30069,7 +30091,6 @@ function getDefaultUseItems(autocompleter) {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -30128,7 +30149,7 @@ function getAutoCompleterUI(autocompleter) {
       id: listBoxId,
       role: "listbox",
       className: "components-autocomplete__results"
-    }, (0,external_lodash_namespaceObject.map)(items, (option, index) => (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+    }, items.map((option, index) => (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
       key: option.key,
       id: `components-autocomplete-item-${instanceId}-${option.key}`,
       role: "option",
@@ -31215,6 +31236,7 @@ var a11y_o=function(o){var t=o/255;return t<.04045?t/12.92:Math.pow((t+.055)/1.0
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -31241,14 +31263,24 @@ function UnforwardedDropdown(_ref, forwardedRef) {
     expandOnMobile,
     headerTitle,
     focusOnMount,
-    position,
     popoverProps,
     onClose,
     onToggle,
-    style
+    style,
+    // Deprecated props
+    position
   } = _ref;
-  // Use internal state instead of a ref to make sure that the component
+
+  if (position !== undefined) {
+    external_wp_deprecated_default()('`position` prop in wp.components.Dropdown', {
+      since: '6.2',
+      alternative: '`popoverProps.placement` prop',
+      hint: 'Note that the `position` prop will override any values passed through the `popoverProps.placement` prop.'
+    });
+  } // Use internal state instead of a ref to make sure that the component
   // re-renders when the popover's anchor updates.
+
+
   const [fallbackPopoverAnchor, setFallbackPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null);
   const containerRef = (0,external_wp_element_namespaceObject.useRef)();
   const [isOpen, setIsOpen] = useObservableState(false, onToggle);
@@ -31322,7 +31354,7 @@ function UnforwardedDropdown(_ref, forwardedRef) {
     offset: 13,
     anchor: !popoverPropsHaveAnchor ? fallbackPopoverAnchor : undefined
   }, popoverProps, {
-    className: classnames_default()('components-dropdown__content', popoverProps ? popoverProps.className : undefined, contentClassName)
+    className: classnames_default()('components-dropdown__content', popoverProps === null || popoverProps === void 0 ? void 0 : popoverProps.className, contentClassName)
   }), renderContent(args)));
 }
 /**
@@ -31334,18 +31366,18 @@ function UnforwardedDropdown(_ref, forwardedRef) {
  * const MyDropdown = () => (
  *   <Dropdown
  *     className="my-container-class-name"
- *     contentClassName="my-popover-content-classname"
- *     position="bottom right"
+ *     contentClassName="my-dropdown-content-classname"
+ *     popoverProps={ { placement: 'bottom-start' } }
  *     renderToggle={ ( { isOpen, onToggle } ) => (
  *       <Button
  *         variant="primary"
  *         onClick={ onToggle }
  *         aria-expanded={ isOpen }
  *       >
- *         Toggle Popover!
+ *         Toggle Dropdown!
  *       </Button>
  *     ) }
- *     renderContent={ () => <div>This is the content of the popover.</div> }
+ *     renderContent={ () => <div>This is the content of the dropdown.</div> }
  *   />
  * );
  * ```
@@ -36673,6 +36705,86 @@ function UnconnectedDropdownContentWrapper(props, forwardedRef) {
 const DropdownContentWrapper = contextConnect(UnconnectedDropdownContentWrapper, 'DropdownContentWrapper');
 /* harmony default export */ var dropdown_content_wrapper = (DropdownContentWrapper);
 
+;// CONCATENATED MODULE: ./packages/components/build-module/color-palette/utils.js
+/**
+ * External dependencies
+ */
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+colord_k([names, a11y]);
+const extractColorNameFromCurrentValue = function (currentValue) {
+  let colors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  let showMultiplePalettes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  if (!currentValue) {
+    return '';
+  }
+
+  const currentValueIsCssVariable = /^var\(/.test(currentValue);
+  const normalizedCurrentValue = currentValueIsCssVariable ? currentValue : colord_w(currentValue).toHex(); // Normalize format of `colors` to simplify the following loop
+
+  const colorPalettes = showMultiplePalettes ? colors : [{
+    colors: colors
+  }];
+
+  for (const {
+    colors: paletteColors
+  } of colorPalettes) {
+    for (const {
+      name: colorName,
+      color: colorValue
+    } of paletteColors) {
+      const normalizedColorValue = currentValueIsCssVariable ? colorValue : colord_w(colorValue).toHex();
+
+      if (normalizedCurrentValue === normalizedColorValue) {
+        return colorName;
+      }
+    }
+  } // translators: shown when the user has picked a custom color (i.e not in the palette of colors).
+
+
+  return (0,external_wp_i18n_namespaceObject.__)('Custom');
+};
+const showTransparentBackground = currentValue => {
+  if (typeof currentValue === 'undefined') {
+    return true;
+  }
+
+  return colord_w(currentValue).alpha() === 0;
+}; // The PaletteObject type has a `colors` property (an array of ColorObject),
+// while the ColorObject type has a `color` property (the CSS color value).
+
+const isMultiplePaletteObject = obj => Array.isArray(obj.colors) && !('color' in obj);
+const isMultiplePaletteArray = arr => {
+  return arr.length > 0 && arr.every(colorObj => isMultiplePaletteObject(colorObj));
+};
+const normalizeColorValue = (value, ref) => {
+  const currentValueIsCssVariable = /^var\(/.test(value !== null && value !== void 0 ? value : '');
+
+  if (!currentValueIsCssVariable || !(ref !== null && ref !== void 0 && ref.current)) {
+    return value;
+  }
+
+  const {
+    ownerDocument
+  } = ref.current;
+  const {
+    defaultView
+  } = ownerDocument;
+  const computedBackgroundColor = defaultView === null || defaultView === void 0 ? void 0 : defaultView.getComputedStyle(ref.current).backgroundColor;
+  return computedBackgroundColor ? colord_w(computedBackgroundColor).toHex() : value;
+};
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-palette/index.js
 
 
@@ -36692,6 +36804,7 @@ const DropdownContentWrapper = contextConnect(UnconnectedDropdownContentWrapper,
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -36806,52 +36919,9 @@ function CustomColorPickerDropdown(_ref5) {
     popoverProps: popoverProps
   }, props));
 }
-const extractColorNameFromCurrentValue = function (currentValue) {
-  let colors = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-  let showMultiplePalettes = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-
-  if (!currentValue) {
-    return '';
-  }
-
-  const currentValueIsCssVariable = /^var\(/.test(currentValue);
-  const normalizedCurrentValue = currentValueIsCssVariable ? currentValue : colord_w(currentValue).toHex(); // Normalize format of `colors` to simplify the following loop
-
-  const colorPalettes = showMultiplePalettes ? colors : [{
-    colors: colors
-  }];
-
-  for (const {
-    colors: paletteColors
-  } of colorPalettes) {
-    for (const {
-      name: colorName,
-      color: colorValue
-    } of paletteColors) {
-      const normalizedColorValue = currentValueIsCssVariable ? colorValue : colord_w(colorValue).toHex();
-
-      if (normalizedCurrentValue === normalizedColorValue) {
-        return colorName;
-      }
-    }
-  } // translators: shown when the user has picked a custom color (i.e not in the palette of colors).
-
-
-  return (0,external_wp_i18n_namespaceObject.__)('Custom');
-};
-const showTransparentBackground = currentValue => {
-  if (typeof currentValue === 'undefined') {
-    return true;
-  }
-
-  return colord_w(currentValue).alpha() === 0;
-};
-
-const areColorsMultiplePalette = colors => {
-  return colors.every(colorObj => Array.isArray(colorObj.colors));
-};
 
 function UnforwardedColorPalette(props, forwardedRef) {
+  const customColorPaletteRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const {
     clearable = true,
     colors = [],
@@ -36863,19 +36933,13 @@ function UnforwardedColorPalette(props, forwardedRef) {
     ...otherProps
   } = props;
   const clearColor = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
-  const hasMultipleColorOrigins = colors.length > 0 && colors[0].colors !== undefined;
-  const buttonLabelName = (0,external_wp_element_namespaceObject.useMemo)(() => extractColorNameFromCurrentValue(value, colors, hasMultipleColorOrigins), [value, colors, hasMultipleColorOrigins]); // Make sure that the `colors` array has a valid format.
-
-  if (colors.length > 0 && hasMultipleColorOrigins !== areColorsMultiplePalette(colors)) {
-    // eslint-disable-next-line no-console
-    console.warn('wp.components.ColorPalette: please specify a valid format for the `colors` prop. ');
-    return null;
-  }
+  const hasMultipleColorOrigins = isMultiplePaletteArray(colors);
+  const buttonLabelName = (0,external_wp_element_namespaceObject.useMemo)(() => extractColorNameFromCurrentValue(value, colors, hasMultipleColorOrigins), [value, colors, hasMultipleColorOrigins]);
 
   const renderCustomColorPicker = () => (0,external_wp_element_namespaceObject.createElement)(dropdown_content_wrapper, {
     paddingSize: "none"
   }, (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
-    color: value,
+    color: normalizeColorValue(value, customColorPaletteRef),
     onChange: color => onChange(color),
     enableAlpha: enableAlpha
   }));
@@ -36906,6 +36970,7 @@ function UnforwardedColorPalette(props, forwardedRef) {
       } = _ref6;
       return (0,external_wp_element_namespaceObject.createElement)(flex_component, {
         as: 'button',
+        ref: customColorPaletteRef,
         justify: "space-between",
         align: "flex-start",
         className: "components-color-palette__custom-color",
@@ -37387,12 +37452,14 @@ function useBorderControlDropdown(props) {
 
 
 
+
 const getColorObject = (colorValue, colors) => {
-  if (!colorValue || !colors || colors.length === 0) {
+  if (!colorValue || !colors) {
     return;
   }
 
-  if (colors[0].colors !== undefined) {
+  if (isMultiplePaletteArray(colors)) {
+    // Multiple origins
     let matchedColor;
     colors.some(origin => origin.colors.some(color => {
       if (color.color === colorValue) {
@@ -37403,7 +37470,8 @@ const getColorObject = (colorValue, colors) => {
       return false;
     }));
     return matchedColor;
-  }
+  } // Single origin
+
 
   return colors.find(color => color.color === colorValue);
 };
@@ -37475,7 +37543,7 @@ const BorderControlDropdown = (props, forwardedRef) => {
       onClick: onToggle,
       variant: "tertiary",
       "aria-label": toggleAriaLabel,
-      position: dropdownPosition,
+      tooltipPosition: dropdownPosition,
       label: (0,external_wp_i18n_namespaceObject.__)('Border color and style picker'),
       showTooltip: true
     }, (0,external_wp_element_namespaceObject.createElement)("span", {
@@ -41636,7 +41704,7 @@ function updateControlPointColorByPosition(points, position, newColor) {
  * @param {number}  mouseXCoordinate Horizontal coordinate of the mouse position.
  * @param {Element} containerElement Container for the gradient picker.
  *
- * @return {number} Whole number percentage from the left.
+ * @return {number | undefined} Whole number percentage from the left.
  */
 
 function getHorizontalRelativeGradientPosition(mouseXCoordinate, containerElement) {
@@ -42503,7 +42571,14 @@ function CustomGradientPicker(_ref3) {
 
 
 
+ // The Multiple Origin Gradients have a `gradients` property (an array of
+// gradient objects), while Single Origin ones have a `gradient` property.
 
+const isMultipleOriginObject = obj => Array.isArray(obj.gradients) && !('gradient' in obj);
+
+const isMultipleOriginArray = arr => {
+  return arr.length > 0 && arr.every(gradientObj => isMultipleOriginObject(gradientObj));
+};
 
 function SingleOrigin(_ref) {
   let {
@@ -42588,7 +42663,7 @@ function GradientPicker(_ref5) {
     __experimentalIsRenderedInSidebar
   } = _ref5;
   const clearGradient = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
-  const Component = gradients !== null && gradients !== void 0 && gradients.length && gradients[0].gradients ? MultipleOrigin : SingleOrigin;
+  const Component = isMultipleOriginArray(gradients) ? MultipleOrigin : SingleOrigin;
 
   if (!__nextHasNoMargin) {
     external_wp_deprecated_default()('Outer margin styles for wp.components.GradientPicker', {
@@ -44205,7 +44280,7 @@ function UnforwardedModal(props, forwardedRef) {
   }, title)), isDismissible && (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     onClick: onRequestClose,
     icon: library_close,
-    label: closeButtonLabel || (0,external_wp_i18n_namespaceObject.__)('Close dialog')
+    label: closeButtonLabel || (0,external_wp_i18n_namespaceObject.__)('Close')
   })), children)))), document.body);
 }
 /**
@@ -52802,10 +52877,10 @@ const TIMEZONELESS_FORMAT = "yyyy-MM-dd'T'HH:mm:ss";
  */
 
 
+
 /**
  * WordPress dependencies
  */
-
 
 
 
@@ -57210,7 +57285,7 @@ function Token(_ref) {
   }, transformedValue)), (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     className: "components-form-token-field__remove-token",
     icon: close_small,
-    onClick: !disabled && onClick,
+    onClick: !disabled ? onClick : undefined,
     label: messages.remove,
     "aria-describedby": `components-form-token-field__token-text-${instanceId}`
   }));
@@ -58085,7 +58160,10 @@ function GuidePage(props) {
 ;// CONCATENATED MODULE: ./packages/components/build-module/button/deprecated.js
 
 
-// @ts-nocheck
+
+/**
+ * External dependencies
+ */
 
 /**
  * WordPress dependencies
@@ -58098,12 +58176,12 @@ function GuidePage(props) {
 
 
 
-function IconButton(_ref, ref) {
+function UnforwardedIconButton(_ref, ref) {
   let {
+    label,
     labelPosition,
     size,
     tooltip,
-    label,
     ...props
   } = _ref;
   external_wp_deprecated_default()('wp.components.IconButton', {
@@ -58120,7 +58198,7 @@ function IconButton(_ref, ref) {
   }));
 }
 
-/* harmony default export */ var deprecated = ((0,external_wp_element_namespaceObject.forwardRef)(IconButton));
+/* harmony default export */ var deprecated = ((0,external_wp_element_namespaceObject.forwardRef)(UnforwardedIconButton));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/item-group/item/hook.js
 /**
@@ -58268,15 +58346,13 @@ const InputControlPrefixWrapper = contextConnect(UnconnectedInputControlPrefixWr
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
 
 
-
+/**
+ * Internal dependencies
+ */
 
 function KeyboardShortcut(_ref) {
   let {
@@ -58293,6 +58369,37 @@ function KeyboardShortcut(_ref) {
   });
   return null;
 }
+/**
+ * `KeyboardShortcuts` is a component which handles keyboard sequences during the lifetime of the rendering element.
+ *
+ * When passed children, it will capture key events which occur on or within the children. If no children are passed, events are captured on the document.
+ *
+ * It uses the [Mousetrap](https://craig.is/killing/mice) library to implement keyboard sequence bindings.
+ *
+ * ```jsx
+ * import { KeyboardShortcuts } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MyKeyboardShortcuts = () => {
+ * 	const [ isAllSelected, setIsAllSelected ] = useState( false );
+ * 	const selectAll = () => {
+ * 		setIsAllSelected( true );
+ * 	};
+ *
+ * 	return (
+ * 		<div>
+ * 			<KeyboardShortcuts
+ * 				shortcuts={ {
+ * 					'mod+a': selectAll,
+ * 				} }
+ * 			/>
+ * 			[cmd/ctrl + A] Combination pressed? { isAllSelected ? 'Yes' : 'No' }
+ * 		</div>
+ * 	);
+ * };
+ * ```
+ */
+
 
 function KeyboardShortcuts(_ref2) {
   let {
@@ -58301,19 +58408,22 @@ function KeyboardShortcuts(_ref2) {
     bindGlobal,
     eventName
   } = _ref2;
-  const target = (0,external_wp_element_namespaceObject.useRef)();
-  const element = (0,external_lodash_namespaceObject.map)(shortcuts, (callback, shortcut) => (0,external_wp_element_namespaceObject.createElement)(KeyboardShortcut, {
-    key: shortcut,
-    shortcut: shortcut,
-    callback: callback,
-    bindGlobal: bindGlobal,
-    eventName: eventName,
-    target: target
-  })); // Render as non-visual if there are no children pressed. Keyboard
+  const target = (0,external_wp_element_namespaceObject.useRef)(null);
+  const element = Object.entries(shortcuts !== null && shortcuts !== void 0 ? shortcuts : {}).map(_ref3 => {
+    let [shortcut, callback] = _ref3;
+    return (0,external_wp_element_namespaceObject.createElement)(KeyboardShortcut, {
+      key: shortcut,
+      shortcut: shortcut,
+      callback: callback,
+      bindGlobal: bindGlobal,
+      eventName: eventName,
+      target: target
+    });
+  }); // Render as non-visual if there are no children pressed. Keyboard
   // events will be bound to the document instead.
 
   if (!external_wp_element_namespaceObject.Children.count(children)) {
-    return element;
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, element);
   }
 
   return (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -60302,15 +60412,11 @@ const NavigatorBackButton = contextConnect(UnconnectedNavigatorBackButton, 'Navi
  */
 
 
-/** @typedef {import('@wordpress/element').WPElement} WPElement */
 
 const notice_noop = () => {};
 /**
  * Custom hook which announces the message with the given politeness, if a
  * valid message is provided.
- *
- * @param {string|WPElement}     [message]  Message to announce.
- * @param {'polite'|'assertive'} politeness Politeness to announce.
  */
 
 
@@ -60322,15 +60428,6 @@ function useSpokenMessage(message, politeness) {
     }
   }, [spokenMessage, politeness]);
 }
-/**
- * Given a notice status, returns an assumed default politeness for the status.
- * Defaults to 'assertive'.
- *
- * @param {string} [status] Notice status.
- *
- * @return {'polite'|'assertive'} Notice politeness.
- */
-
 
 function getDefaultPoliteness(status) {
   switch (status) {
@@ -60344,6 +60441,18 @@ function getDefaultPoliteness(status) {
       return 'assertive';
   }
 }
+/**
+ * `Notice` is a component used to communicate feedback to the user.
+ *
+ *```jsx
+ * import { Notice } from `@wordpress/components`;
+ *
+ * const MyNotice = () => (
+ *   <Notice status="error">An unknown error occurred.</Notice>
+ * );
+ * ```
+ */
+
 
 function Notice(_ref) {
   let {
@@ -60366,7 +60475,7 @@ function Notice(_ref) {
     'is-dismissible': isDismissible
   });
 
-  if (__unstableHTML) {
+  if (__unstableHTML && typeof children === 'string') {
     children = (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, null, children);
   }
 
@@ -60438,15 +60547,30 @@ function Notice(_ref) {
 
 const list_noop = () => {};
 /**
- * Renders a list of notices.
+ * `NoticeList` is a component used to render a collection of notices.
  *
- * @param {Object}   $0           Props passed to the component.
- * @param {Array}    $0.notices   Array of notices to render.
- * @param {Function} $0.onRemove  Function called when a notice should be removed / dismissed.
- * @param {Object}   $0.className Name of the class used by the component.
- * @param {Object}   $0.children  Array of children to be rendered inside the notice list.
+ *```jsx
+ * import { Notice, NoticeList } from `@wordpress/components`;
  *
- * @return {Object} The rendered notices list.
+ * const MyNoticeList = () => {
+ *	const [ notices, setNotices ] = useState( [
+ *		{
+ *			id: 'second-notice',
+ *			content: 'second notice content',
+ *		},
+ *		{
+ *			id: 'fist-notice',
+ *			content: 'first notice content',
+ *		},
+ *	] );
+ *
+ *	const removeNotice = ( id ) => {
+ *		setNotices( notices.filter( ( notice ) => notice.id !== id ) );
+ *	};
+ *
+ *	return <NoticeList notices={ notices } onRemove={ removeNotice } />;
+ *};
+ *```
  */
 
 
@@ -60778,19 +60902,23 @@ function Placeholder(props) {
  */
 
 /**
- * Returns terms in a tree form.
- *
- * @param {Array} flatTerms Array of terms in flat format.
- *
- * @return {Array} Array of terms in tree format.
+ * Internal dependencies
  */
 
+/**
+ * Returns terms in a tree form.
+ *
+ * @param  flatTerms Array of terms in flat format.
+ *
+ * @return Terms in tree format.
+ */
 function buildTermsTree(flatTerms) {
   const flatTermsWithParentAndChildren = flatTerms.map(term => {
     return {
       children: [],
       parent: null,
-      ...term
+      ...term,
+      id: String(term.id)
     };
   });
   const termsByParent = (0,external_lodash_namespaceObject.groupBy)(flatTermsWithParentAndChildren, 'parent');
@@ -60811,13 +60939,11 @@ function buildTermsTree(flatTerms) {
   return fillWithChildren(termsByParent['0'] || []);
 }
 
+;// CONCATENATED MODULE: external ["wp","htmlEntities"]
+var external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-select/index.js
 
 
-
-/**
- * External dependencies
- */
 
 /**
  * WordPress dependencies
@@ -60834,7 +60960,7 @@ function getSelectOptions(tree) {
   let level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
   return tree.flatMap(treeNode => [{
     value: treeNode.id,
-    label: '\u00A0'.repeat(level * 3) + (0,external_lodash_namespaceObject.unescape)(treeNode.name)
+    label: '\u00A0'.repeat(level * 3) + (0,external_wp_htmlEntities_namespaceObject.decodeEntities)(treeNode.name)
   }, ...getSelectOptions(treeNode.children || [], level + 1)]);
 }
 /**
@@ -60911,41 +61037,6 @@ function TreeSelect(_ref) {
 }
 /* harmony default export */ var tree_select = (TreeSelect);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/query-controls/category-select.js
-
-
-
-/**
- * Internal dependencies
- */
-
-
-/**
- * WordPress dependencies
- */
-
-
-function CategorySelect(_ref) {
-  let {
-    label,
-    noOptionLabel,
-    categoriesList,
-    selectedCategoryId,
-    onChange,
-    ...props
-  } = _ref;
-  const termsTree = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return buildTermsTree(categoriesList);
-  }, [categoriesList]);
-  return (0,external_wp_element_namespaceObject.createElement)(tree_select, extends_extends({
-    label,
-    noOptionLabel,
-    onChange,
-    tree: termsTree,
-    selectedId: selectedCategoryId
-  }, props));
-}
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/query-controls/author-select.js
 
 
@@ -60960,17 +61051,60 @@ function AuthorSelect(_ref) {
     noOptionLabel,
     authorList,
     selectedAuthorId,
-    onChange
+    onChange: onChangeProp
   } = _ref;
   if (!authorList) return null;
   const termsTree = buildTermsTree(authorList);
   return (0,external_wp_element_namespaceObject.createElement)(tree_select, {
     label,
     noOptionLabel,
-    onChange,
+    // Since the `multiple` attribute is not passed to `TreeSelect`, it is
+    // safe to assume that the argument of `onChange` cannot be `string[]`.
+    // The correct solution would be to type `SelectControl` better, so that
+    // the type of `value` and `onChange` vary depending on `multiple`.
+    onChange: onChangeProp,
     tree: termsTree,
-    selectedId: selectedAuthorId
+    selectedId: selectedAuthorId !== undefined ? String(selectedAuthorId) : undefined
   });
+}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/query-controls/category-select.js
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * WordPress dependencies
+ */
+
+function CategorySelect(_ref) {
+  let {
+    label,
+    noOptionLabel,
+    categoriesList,
+    selectedCategoryId,
+    onChange: onChangeProp,
+    ...props
+  } = _ref;
+  const termsTree = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return buildTermsTree(categoriesList);
+  }, [categoriesList]);
+  return (0,external_wp_element_namespaceObject.createElement)(tree_select, extends_extends({
+    label,
+    noOptionLabel,
+    // Since the `multiple` attribute is not passed to `TreeSelect`, it is
+    // safe to assume that the argument of `onChange` cannot be `string[]`.
+    // The correct solution would be to type `SelectControl` better, so that
+    // the type of `value` and `onChange` vary depending on `multiple`.
+    onChange: onChangeProp,
+    tree: termsTree,
+    selectedId: selectedCategoryId !== undefined ? String(selectedCategoryId) : undefined
+  }, props));
 }
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/query-controls/index.js
@@ -60987,29 +61121,64 @@ function AuthorSelect(_ref) {
 
 
 
+
+
 const DEFAULT_MIN_ITEMS = 1;
 const DEFAULT_MAX_ITEMS = 100;
 const MAX_CATEGORIES_SUGGESTIONS = 20;
+
+function isSingleCategorySelection(props) {
+  return 'categoriesList' in props;
+}
+
+function isMultipleCategorySelection(props) {
+  return 'categorySuggestions' in props;
+}
+/**
+ * Controls to query for posts.
+ *
+ * ```jsx
+ * const MyQueryControls = () => (
+ *   <QueryControls
+ *     { ...{ maxItems, minItems, numberOfItems, order, orderBy } }
+ *     onOrderByChange={ ( newOrderBy ) => {
+ *       updateQuery( { orderBy: newOrderBy } )
+ *     }
+ *     onOrderChange={ ( newOrder ) => {
+ *       updateQuery( { order: newOrder } )
+ *     }
+ *     categoriesList={ categories }
+ *     selectedCategoryId={ category }
+ *     onCategoryChange={ ( newCategory ) => {
+ *       updateQuery( { category: newCategory } )
+ *     }
+ *     onNumberOfItemsChange={ ( newNumberOfItems ) => {
+ *       updateQuery( { numberOfItems: newNumberOfItems } )
+ *     } }
+ *   />
+ * );
+ * ```
+ */
+
+
 function QueryControls(_ref) {
   let {
     authorList,
     selectedAuthorId,
-    categoriesList,
-    selectedCategoryId,
-    categorySuggestions,
-    selectedCategories,
     numberOfItems,
     order,
     orderBy,
     maxItems = DEFAULT_MAX_ITEMS,
     minItems = DEFAULT_MIN_ITEMS,
-    onCategoryChange,
     onAuthorChange,
     onNumberOfItemsChange,
     onOrderChange,
-    onOrderByChange
+    onOrderByChange,
+    // Props for single OR multiple category selection are not destructured here,
+    // but instead are destructured inline where necessary.
+    ...props
   } = _ref;
-  return [onOrderChange && onOrderByChange && (0,external_wp_element_namespaceObject.createElement)(select_control, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, [onOrderChange && onOrderByChange && (0,external_wp_element_namespaceObject.createElement)(select_control, {
     __nextHasNoMarginBottom: true,
     key: "query-controls-order-select",
     label: (0,external_wp_i18n_namespaceObject.__)('Order by'),
@@ -61030,6 +61199,10 @@ function QueryControls(_ref) {
       value: 'title/desc'
     }],
     onChange: value => {
+      if (typeof value !== 'string') {
+        return;
+      }
+
       const [newOrderBy, newOrder] = value.split('/');
 
       if (newOrder !== order) {
@@ -61040,22 +61213,26 @@ function QueryControls(_ref) {
         onOrderByChange(newOrderBy);
       }
     }
-  }), categoriesList && onCategoryChange && (0,external_wp_element_namespaceObject.createElement)(CategorySelect, {
+  }), isSingleCategorySelection(props) && props.categoriesList && props.onCategoryChange && (0,external_wp_element_namespaceObject.createElement)(CategorySelect, {
     key: "query-controls-category-select",
-    categoriesList: categoriesList,
+    categoriesList: props.categoriesList,
     label: (0,external_wp_i18n_namespaceObject.__)('Category'),
     noOptionLabel: (0,external_wp_i18n_namespaceObject.__)('All'),
-    selectedCategoryId: selectedCategoryId,
-    onChange: onCategoryChange
-  }), categorySuggestions && onCategoryChange && (0,external_wp_element_namespaceObject.createElement)(form_token_field, {
+    selectedCategoryId: props.selectedCategoryId,
+    onChange: props.onCategoryChange
+  }), isMultipleCategorySelection(props) && props.categorySuggestions && props.onCategoryChange && (0,external_wp_element_namespaceObject.createElement)(form_token_field, {
     key: "query-controls-categories-select",
     label: (0,external_wp_i18n_namespaceObject.__)('Categories'),
-    value: selectedCategories && selectedCategories.map(item => ({
+    value: props.selectedCategories && props.selectedCategories.map(item => ({
       id: item.id,
+      // Keeping the fallback to `item.value` for legacy reasons,
+      // even if items of `selectedCategories` should not have a
+      // `value` property.
+      // @ts-expect-error
       value: item.name || item.value
     })),
-    suggestions: Object.keys(categorySuggestions),
-    onChange: onCategoryChange,
+    suggestions: Object.keys(props.categorySuggestions),
+    onChange: props.onCategoryChange,
     maxSuggestions: MAX_CATEGORIES_SUGGESTIONS
   }), onAuthorChange && (0,external_wp_element_namespaceObject.createElement)(AuthorSelect, {
     key: "query-controls-author-select",
@@ -61073,8 +61250,9 @@ function QueryControls(_ref) {
     min: minItems,
     max: maxItems,
     required: true
-  })];
+  })]);
 }
+/* harmony default export */ var query_controls = (QueryControls);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/radio-group/radio-context/index.js
 /**
@@ -63348,7 +63526,7 @@ const TabButton = _ref => {
   } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
     role: "tab",
-    tabIndex: selected ? null : -1,
+    tabIndex: selected ? undefined : -1,
     "aria-selected": selected,
     id: tabId,
     __experimentalIsFocusable: true
@@ -63423,17 +63601,45 @@ function TabPanel(_ref2) {
     } = _ref3;
     return name === selected;
   });
-  const selectedId = `${instanceId}-${(_selectedTab$name = selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.name) !== null && _selectedTab$name !== void 0 ? _selectedTab$name : 'none'}`;
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    const firstEnabledTab = tabs.find(tab => !tab.disabled);
-    const initialTab = tabs.find(tab => tab.name === initialTabName);
+  const selectedId = `${instanceId}-${(_selectedTab$name = selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.name) !== null && _selectedTab$name !== void 0 ? _selectedTab$name : 'none'}`; // Handle selecting the initial tab.
 
-    if (!(selectedTab !== null && selectedTab !== void 0 && selectedTab.name) && firstEnabledTab) {
-      handleTabSelection(initialTab && !initialTab.disabled ? initialTab.name : firstEnabledTab.name);
-    } else if (selectedTab !== null && selectedTab !== void 0 && selectedTab.disabled && firstEnabledTab) {
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // If there's a selected tab, don't override it.
+    if (selectedTab) {
+      return;
+    }
+
+    const initialTab = tabs.find(tab => tab.name === initialTabName); // Wait for the denoted initial tab to be declared before making a
+    // selection. This ensures that if a tab is declared lazily it can
+    // still receive initial selection.
+
+    if (initialTabName && !initialTab) {
+      return;
+    }
+
+    if (initialTab && !initialTab.disabled) {
+      // Select the initial tab if it's not disabled.
+      handleTabSelection(initialTab.name);
+    } else {
+      // Fallback to the first enabled tab when the initial is disabled.
+      const firstEnabledTab = tabs.find(tab => !tab.disabled);
+      if (firstEnabledTab) handleTabSelection(firstEnabledTab.name);
+    }
+  }, [tabs, selectedTab, initialTabName, handleTabSelection]); // Handle the currently selected tab becoming disabled.
+
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // This effect only runs when the selected tab is defined and becomes disabled.
+    if (!(selectedTab !== null && selectedTab !== void 0 && selectedTab.disabled)) {
+      return;
+    }
+
+    const firstEnabledTab = tabs.find(tab => !tab.disabled); // If the currently selected tab becomes disabled, select the first enabled tab.
+    // (if there is one).
+
+    if (firstEnabledTab) {
       handleTabSelection(firstEnabledTab.name);
     }
-  }, [tabs, selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.name, selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.disabled, initialTabName, handleTabSelection]);
+  }, [tabs, selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.disabled, handleTabSelection]);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: className
   }, (0,external_wp_element_namespaceObject.createElement)(navigable_container_menu, {
@@ -65333,7 +65539,7 @@ function RovingTabIndex(_ref) {
  *
  * @param {Element} rowElement The DOM element representing the row.
  *
- * @return {?Array} The array of focusables in the row.
+ * @return {Array | undefined} The array of focusables in the row.
  */
 
 function getRowFocusables(rowElement) {

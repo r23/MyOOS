@@ -1226,7 +1226,6 @@ var external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
 /**
  * Internal dependencies
  */
- // Disable reason: JSDoc linter doesn't seem to parse the union (`&`) correctly.
 
 /** @typedef {{children: string} & import('react').ComponentPropsWithoutRef<'div'>} RawHTMLProps */
 

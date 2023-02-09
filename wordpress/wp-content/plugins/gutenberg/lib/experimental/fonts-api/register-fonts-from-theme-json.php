@@ -5,11 +5,11 @@
  * @package gutenberg
  */
 
-if ( ! function_exists( 'gutenberg_register_webfonts_from_theme_json' ) ) {
+if ( ! function_exists( 'gutenberg_register_fonts_from_theme_json' ) ) {
 	/**
-	 * Register webfonts defined in theme.json.
+	 * Register fonts defined in theme.json.
 	 */
-	function gutenberg_register_webfonts_from_theme_json() {
+	function gutenberg_register_fonts_from_theme_json() {
 		// Get settings.
 		$settings = WP_Theme_JSON_Resolver_Gutenberg::get_merged_data()->get_settings();
 
@@ -44,8 +44,8 @@ if ( ! function_exists( 'gutenberg_register_webfonts_from_theme_json' ) ) {
 			return;
 		}
 
-		$webfonts = array();
-		$handles  = array();
+		$fonts   = array();
+		$handles = array();
 
 		// Look for fontFamilies.
 		foreach ( $settings['typography']['fontFamilies'] as $font_families ) {
@@ -86,43 +86,46 @@ if ( ! function_exists( 'gutenberg_register_webfonts_from_theme_json' ) ) {
 						}
 					}
 
-					$font_family_handle = WP_Webfonts_Utils::get_font_family_from_variation( $font_face );
+					$font_family_handle = WP_Fonts_Utils::get_font_family_from_variation( $font_face );
 					if ( empty( $font_family_handle ) && isset( $font_family['slug'] ) ) {
 						$font_family_handle = $font_family['slug'];
 					}
 					if ( ! empty( $font_family_handle ) ) {
-						$font_family_handle = WP_Webfonts_Utils::convert_font_family_into_handle( $font_family_handle );
+						$font_family_handle = WP_Fonts_Utils::convert_font_family_into_handle( $font_family_handle );
 					}
 					if ( empty( $font_family_handle ) ) {
 						_doing_it_wrong( __FUNCTION__, __( 'Font family not defined in the variation or "slug".', 'gutenberg' ), '6.1.0' );
 					}
 
 					$handles[] = $font_family_handle;
-					if ( ! array_key_exists( $font_family_handle, $webfonts ) ) {
-						$webfonts[ $font_family_handle ] = array();
+					if ( ! array_key_exists( $font_family_handle, $fonts ) ) {
+						$fonts[ $font_family_handle ] = array();
 					}
 
-					$webfonts[ $font_family_handle ][] = $font_face;
+					$fonts[ $font_family_handle ][] = $font_face;
 				}
 			}
 		}
 
-		wp_register_webfonts( $webfonts );
-		wp_enqueue_webfonts( $handles );
+		wp_register_fonts( $fonts );
+		wp_enqueue_fonts( $handles );
 	}
 }
 
-if ( ! function_exists( 'gutenberg_add_registered_webfonts_to_theme_json' ) ) {
+if ( ! function_exists( 'gutenberg_add_registered_fonts_to_theme_json' ) ) {
 	/**
 	 * Add missing fonts data to the global styles.
 	 *
 	 * @param array $data The global styles.
 	 * @return array The global styles with missing fonts data.
 	 */
-	function gutenberg_add_registered_webfonts_to_theme_json( $data ) {
-		$font_families_registered = wp_webfonts()->get_registered_font_families();
-		$font_families_from_theme = ! empty( $data['settings']['typography']['fontFamilies'] )
-			? $data['settings']['typography']['fontFamilies']
+	function gutenberg_add_registered_fonts_to_theme_json( $data ) {
+		$font_families_registered = wp_fonts()->get_registered_font_families();
+
+		$raw_data = $data->get_raw_data();
+
+		$font_families_from_theme = ! empty( $raw_data['settings']['typography']['fontFamilies']['theme'] )
+			? $raw_data['settings']['typography']['fontFamilies']['theme']
 			: array();
 
 		/**
@@ -134,8 +137,8 @@ if ( ! function_exists( 'gutenberg_add_registered_webfonts_to_theme_json' ) ) {
 		$get_families = static function ( $families_data ) {
 			$families = array();
 			foreach ( $families_data as $family ) {
-				$font_family = WP_Webfonts_Utils::get_font_family_from_variation( $family );
-				$handle      = WP_Webfonts_Utils::convert_font_family_into_handle( $font_family );
+				$font_family = WP_Fonts_Utils::get_font_family_from_variation( $family );
+				$handle      = WP_Fonts_Utils::convert_font_family_into_handle( $font_family );
 				if ( ! empty( $handle ) ) {
 					$families[ $handle ] = true;
 				}
@@ -157,27 +160,30 @@ if ( ! function_exists( 'gutenberg_add_registered_webfonts_to_theme_json' ) ) {
 
 		// Make sure the path to settings.typography.fontFamilies.theme exists
 		// before adding missing fonts.
-		if ( empty( $data['settings'] ) ) {
-			$data['settings'] = array();
+		if ( empty( $raw_data['settings'] ) ) {
+			$raw_data['settings'] = array();
 		}
-		if ( empty( $data['settings']['typography'] ) ) {
-			$data['settings']['typography'] = array();
+		if ( empty( $raw_data['settings']['typography'] ) ) {
+			$raw_data['settings']['typography'] = array();
 		}
-		if ( empty( $data['settings']['typography']['fontFamilies'] ) ) {
-			$data['settings']['typography']['fontFamilies'] = array();
+		if ( empty( $raw_data['settings']['typography']['fontFamilies'] ) ) {
+			$raw_data['settings']['typography']['fontFamilies'] = array();
+		}
+		if ( empty( $raw_data['settings']['typography']['fontFamilies'] ) ) {
+			$raw_data['settings']['typography']['fontFamilies']['theme'] = array();
 		}
 
 		foreach ( $to_add as $font_family_handle ) {
-			$data['settings']['typography']['fontFamilies'][] = wp_webfonts()->to_theme_json( $font_family_handle );
+			$raw_data['settings']['typography']['fontFamilies']['theme'][] = wp_fonts()->to_theme_json( $font_family_handle );
 		}
 
-		return $data;
+		return new WP_Theme_JSON_Gutenberg( $raw_data );
 	}
 }
 
-// `gutenberg_register_webfonts_from_theme_json()` calls `WP_Theme_JSON_Resolver_Gutenberg::get_merged_data()`, which instantiates `WP_Theme_JSON_Gutenberg()`;
+// `gutenberg_register_fonts_from_theme_json()` calls `WP_Theme_JSON_Resolver_Gutenberg::get_merged_data()`, which instantiates `WP_Theme_JSON_Gutenberg()`;
 // Gutenberg server-side blocks are registered via the init hook with a priority value of `20`. E.g., `add_action( 'init', 'register_block_core_image', 20 )`;
 // This priority value is added dynamically during the build. See: tools/webpack/blocks.js.
 // We want to make sure Gutenberg blocks are re-registered before any Theme_JSON operations take place
 // so that we have access to updated merged data.
-add_action( 'init', 'gutenberg_register_webfonts_from_theme_json', 21 );
+add_action( 'init', 'gutenberg_register_fonts_from_theme_json', 21 );

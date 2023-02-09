@@ -291,38 +291,6 @@ function gutenberg_register_block_core_navigation_submenu() {
 add_action( 'init', 'gutenberg_register_block_core_navigation_submenu', 20 );
 
 /**
- * Disables display of block inspector tabs for the Navigation Submenu block.
- *
- * This is only a temporary measure until we have a TabPanel and mechanism that
- * will allow the Navigation Submenu to programmatically select a tab when
- * edited via a specific context.
- *
- * See:
- * - https://github.com/WordPress/gutenberg/issues/45951
- * - https://github.com/WordPress/gutenberg/pull/46321
- * - https://github.com/WordPress/gutenberg/pull/46271
- *
- * @param array $settings Default editor settings.
- * @return array Filtered editor settings.
- */
-function gutenberg_gutenberg_disable_tabs_for_navigation_submenu_block( $settings ) {
-	$current_tab_settings = _wp_array_get(
-		$settings,
-		array( 'blockInspectorTabs' ),
-		array()
-	);
-
-	$settings['blockInspectorTabs'] = array_merge(
-		$current_tab_settings,
-		array( 'core/navigation-submenu' => false )
-	);
-
-	return $settings;
-}
-
-add_filter( 'block_editor_settings_all', 'gutenberg_gutenberg_disable_tabs_for_navigation_submenu_block' );
-
-/**
  * Enables animation of the block inspector for the Navigation Submenu block.
  *
  * See:
@@ -332,7 +300,7 @@ add_filter( 'block_editor_settings_all', 'gutenberg_gutenberg_disable_tabs_for_n
  * @param array $settings Default editor settings.
  * @return array Filtered editor settings.
  */
-function gutenberg_gutenberg_enable_animation_for_navigation_submenu_inspector( $settings ) {
+function gutenberg_block_core_navigation_submenu_enable_inspector_animation( $settings ) {
 	$current_animation_settings = _wp_array_get(
 		$settings,
 		array( '__experimentalBlockInspectorAnimation' ),
@@ -352,4 +320,4 @@ function gutenberg_gutenberg_enable_animation_for_navigation_submenu_inspector( 
 	return $settings;
 }
 
-add_filter( 'block_editor_settings_all', 'gutenberg_gutenberg_enable_animation_for_navigation_submenu_inspector' );
+add_filter( 'block_editor_settings_all', 'gutenberg_block_core_navigation_submenu_enable_inspector_animation' );

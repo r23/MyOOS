@@ -643,7 +643,6 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
   "EntityProvider": function() { return /* reexport */ EntityProvider; },
   "__experimentalFetchLinkSuggestions": function() { return /* reexport */ _experimental_fetch_link_suggestions; },
-  "__experimentalFetchMedia": function() { return /* reexport */ fetchMedia; },
   "__experimentalFetchUrlData": function() { return /* reexport */ _experimental_fetch_url_data; },
   "__experimentalUseEntityRecord": function() { return /* reexport */ __experimentalUseEntityRecord; },
   "__experimentalUseEntityRecords": function() { return /* reexport */ __experimentalUseEntityRecords; },
@@ -2678,9 +2677,10 @@ async function loadPostTypeEntities() {
   const postTypes = await external_wp_apiFetch_default()({
     path: '/wp/v2/types?context=view'
   });
-  return (0,external_lodash_namespaceObject.map)(postTypes, (postType, name) => {
+  return Object.entries(postTypes !== null && postTypes !== void 0 ? postTypes : {}).map(_ref => {
     var _postType$rest_namesp;
 
+    let [name, postType] = _ref;
     const isTemplate = ['wp_template', 'wp_template_part'].includes(name);
     const namespace = (_postType$rest_namesp = postType === null || postType === void 0 ? void 0 : postType.rest_namespace) !== null && _postType$rest_namesp !== void 0 ? _postType$rest_namesp : 'wp/v2';
     return {
@@ -2720,9 +2720,10 @@ async function loadTaxonomyEntities() {
   const taxonomies = await external_wp_apiFetch_default()({
     path: '/wp/v2/taxonomies?context=view'
   });
-  return (0,external_lodash_namespaceObject.map)(taxonomies, (taxonomy, name) => {
+  return Object.entries(taxonomies !== null && taxonomies !== void 0 ? taxonomies : {}).map(_ref2 => {
     var _taxonomy$rest_namesp;
 
+    let [name, taxonomy] = _ref2;
     const namespace = (_taxonomy$rest_namesp = taxonomy === null || taxonomy === void 0 ? void 0 : taxonomy.rest_namespace) !== null && _taxonomy$rest_namesp !== void 0 ? _taxonomy$rest_namesp : 'wp/v2';
     return {
       kind: 'taxonomy',
@@ -2773,11 +2774,11 @@ const getMethodName = function (kind, name) {
  * @return {(thunkArgs: object) => Promise<Array>} Entities
  */
 
-const getOrLoadEntitiesConfig = kind => async _ref => {
+const getOrLoadEntitiesConfig = kind => async _ref3 => {
   let {
     select,
     dispatch
-  } = _ref;
+  } = _ref3;
   let configs = select.getEntitiesConfig(kind);
 
   if (configs && configs.length !== 0) {
@@ -3185,7 +3186,7 @@ on_sub_key('stableKey')])(function () {
     return state;
   }
 
-  return getMergedItemIds(state || [], (0,external_lodash_namespaceObject.map)(action.items, key), page, perPage);
+  return getMergedItemIds(state || [], action.items.map(item => item[key]), page, perPage);
 });
 /**
  * Reducer tracking queries state.
@@ -3301,7 +3302,7 @@ function users() {
           }), {})
         },
         queries: { ...state.queries,
-          [action.queryID]: (0,external_lodash_namespaceObject.map)(action.users, user => user.id)
+          [action.queryID]: action.users.map(user => user.id)
         }
       };
   }
@@ -4408,8 +4409,10 @@ function getCurrentUser(state) {
  */
 
 const getUserQueryResults = rememo((state, queryID) => {
-  const queryResults = state.users.queries[queryID];
-  return (0,external_lodash_namespaceObject.map)(queryResults, id => state.users.byId[id]);
+  var _state$users$queries$;
+
+  const queryResults = (_state$users$queries$ = state.users.queries[queryID]) !== null && _state$users$queries$ !== void 0 ? _state$users$queries$ : [];
+  return queryResults.map(id => state.users.byId[id]);
 }, (state, queryID) => [state.users.queries[queryID], state.users.byId]);
 /**
  * Returns the loaded entities for the given kind.
@@ -6578,23 +6581,7 @@ const fetchUrlData = async function (url) {
 
 /* harmony default export */ var _experimental_fetch_url_data = (fetchUrlData);
 
-;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/fetch-media.js
-/**
- * WordPress dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-async function fetchMedia() {
-  let settings = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return (0,external_wp_data_namespaceObject.resolveSelect)(STORE_NAME).getMediaItems(settings);
-}
-
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/fetch/index.js
-
 
 
 

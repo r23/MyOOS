@@ -338,7 +338,6 @@ function ReusableBlockConvertButton(_ref) {
       }
     }, (0,external_wp_i18n_namespaceObject.__)('Create Reusable block')), isModalOpen && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
       title: (0,external_wp_i18n_namespaceObject.__)('Create Reusable block'),
-      closeLabel: (0,external_wp_i18n_namespaceObject.__)('Close'),
       onRequestClose: () => {
         setIsModalOpen(false);
         setTitle('');
@@ -352,20 +351,22 @@ function ReusableBlockConvertButton(_ref) {
         setTitle('');
         onClose();
       }
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalVStack, {
+      spacing: "5"
     }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
+      __nextHasNoMarginBottom: true,
       label: (0,external_wp_i18n_namespaceObject.__)('Name'),
       value: title,
       onChange: setTitle
-    }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
-      className: "reusable-blocks-menu-items__convert-modal-actions",
-      justify: "flex-end"
-    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+      justify: "right"
+    }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
       variant: "tertiary",
       onClick: () => {
         setIsModalOpen(false);
         setTitle('');
       }
-    }, (0,external_wp_i18n_namespaceObject.__)('Cancel'))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    }, (0,external_wp_i18n_namespaceObject.__)('Cancel')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
       variant: "primary",
       type: "submit"
     }, (0,external_wp_i18n_namespaceObject.__)('Save')))))));
