@@ -1362,6 +1362,7 @@ FileETag None
 
 
 
+
 # BEGIN WordPress
 # Die Anweisungen (Zeilen) zwischen „BEGIN WordPress“ und „END WordPress“ sind
 # dynamisch generiert und sollten nur über WordPress-Filter geändert werden.
