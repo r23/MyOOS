@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-02-10 08:48:03+0000\n"
+"PO-Revision-Date: 2023-02-18 21:34:15+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1010,15 +1010,15 @@ msgctxt "block title"
 msgid "Post Template"
 msgstr "Beitrags-Template"
 
-#: build/block-library/blocks/post-template/block.json
-msgctxt "block description"
-msgid "Contains the block elements used to render a post, like the title, date, featured image, content or excerpt, and more."
-msgstr "Enthält die Blockelemente, die für die Ausgabe eines Beitrage benutzt werden, beispielsweise Titel, Datum, Beitragsbild, Inhalt oder Textauszug und mehr."
-
 #: build/block-library/blocks/query/block.json
 msgctxt "block description"
 msgid "An advanced block that allows displaying post types based on different query parameters and visual configurations."
 msgstr "Ein erweiterter Block, der das Anzeigen von Inhaltstypen anhand verschiedener Abfrage-Parameter und visueller Konfigurationen erlaubt."
+
+#: build/block-library/blocks/post-template/block.json
+msgctxt "block description"
+msgid "Contains the block elements used to render a post, like the title, date, featured image, content or excerpt, and more."
+msgstr "Enthält die Blockelemente, die für die Ausgabe eines Beitrags verwendet werden, beispielsweise Titel, Datum, Beitragsbild, Inhalt oder Textauszug und mehr."
 
 #: build/block-library/blocks/calendar.php:22
 msgid "The calendar block is hidden because there are no published posts."
@@ -1237,7 +1237,7 @@ msgstr "Beitragsbegriffe."
 #: build/block-library/blocks/post-title/block.json
 msgctxt "block description"
 msgid "Displays the title of a post, page, or any other content-type."
-msgstr "Zeigt den Titel eine Beitrags, einer Seite oder eines anderen Inhaltstyps an."
+msgstr "Zeigt den Titel eines Beitrags, einer Seite oder eines sonstigen Inhaltstyps an."
 
 #: build/block-library/blocks/post-navigation-link/block.json
 msgctxt "block description"
