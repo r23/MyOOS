@@ -1995,12 +1995,12 @@ const deleteEntityRecord = function (kind, name, recordId, query) {
  * Returns an action object that triggers an
  * edit to an entity record.
  *
- * @param {string}  kind                 Kind of the edited entity record.
- * @param {string}  name                 Name of the edited entity record.
- * @param {number}  recordId             Record ID of the edited entity record.
- * @param {Object}  edits                The edits.
- * @param {Object}  options              Options for the edit.
- * @param {boolean} [options.undoIgnore] Whether to ignore the edit in undo history or not.
+ * @param {string}        kind                 Kind of the edited entity record.
+ * @param {string}        name                 Name of the edited entity record.
+ * @param {number|string} recordId             Record ID of the edited entity record.
+ * @param {Object}        edits                The edits.
+ * @param {Object}        options              Options for the edit.
+ * @param {boolean}       [options.undoIgnore] Whether to ignore the edit in undo history or not.
  *
  * @return {Object} Action object.
  */
@@ -4360,8 +4360,8 @@ const EMPTY_OBJECT = {};
  * Returns true if a request is in progress for embed preview data, or false
  * otherwise.
  *
- * @param  state Data state.
- * @param  url   URL the preview would be for.
+ * @param state Data state.
+ * @param url   URL the preview would be for.
  *
  * @return Whether a request is in progress for an embed preview.
  */
@@ -4374,9 +4374,9 @@ const isRequestingEmbedPreview = (0,external_wp_data_namespaceObject.createRegis
  *
  * @deprecated since 11.3. Callers should use `select( 'core' ).getUsers({ who: 'authors' })` instead.
  *
- * @param  state Data state.
- * @param  query Optional object of query parameters to
- *               include with request.
+ * @param      state Data state.
+ * @param      query Optional object of query parameters to
+ *                   include with request.
  * @return Authors list.
  */
 
@@ -4391,7 +4391,7 @@ function getAuthors(state, query) {
 /**
  * Returns the current user.
  *
- * @param  state Data state.
+ * @param state Data state.
  *
  * @return Current user object.
  */
@@ -4402,8 +4402,8 @@ function getCurrentUser(state) {
 /**
  * Returns all the users returned by a query ID.
  *
- * @param  state   Data state.
- * @param  queryID Query ID.
+ * @param state   Data state.
+ * @param queryID Query ID.
  *
  * @return Users list.
  */
@@ -4418,8 +4418,8 @@ const getUserQueryResults = rememo((state, queryID) => {
  * Returns the loaded entities for the given kind.
  *
  * @deprecated since WordPress 6.0. Use getEntitiesConfig instead
- * @param  state Data state.
- * @param  kind  Entity kind.
+ * @param      state Data state.
+ * @param      kind  Entity kind.
  *
  * @return Array of entities with config matching kind.
  */
@@ -4434,8 +4434,8 @@ function getEntitiesByKind(state, kind) {
 /**
  * Returns the loaded entities for the given kind.
  *
- * @param  state Data state.
- * @param  kind  Entity kind.
+ * @param state Data state.
+ * @param kind  Entity kind.
  *
  * @return Array of entities with config matching kind.
  */
@@ -4447,9 +4447,9 @@ function getEntitiesConfig(state, kind) {
  * Returns the entity config given its kind and name.
  *
  * @deprecated since WordPress 6.0. Use getEntityConfig instead
- * @param  state Data state.
- * @param  kind  Entity kind.
- * @param  name  Entity name.
+ * @param      state Data state.
+ * @param      kind  Entity kind.
+ * @param      name  Entity name.
  *
  * @return Entity config
  */
@@ -4464,9 +4464,9 @@ function getEntity(state, kind, name) {
 /**
  * Returns the entity config given its kind and name.
  *
- * @param  state Data state.
- * @param  kind  Entity kind.
- * @param  name  Entity name.
+ * @param state Data state.
+ * @param kind  Entity kind.
+ * @param name  Entity name.
  *
  * @return Entity config
  */
@@ -4506,12 +4506,12 @@ function getEntityConfig(state, kind, name) {
  * yet received, undefined if the value entity is known to not exist, or the
  * entity object if it exists and is received.
  *
- * @param  state State tree
- * @param  kind  Entity kind.
- * @param  name  Entity name.
- * @param  key   Record's key
- * @param  query Optional query. If requesting specific
- *               fields, fields must always include the ID.
+ * @param state State tree
+ * @param kind  Entity kind.
+ * @param name  Entity name.
+ * @param key   Record's key
+ * @param query Optional query. If requesting specific
+ *              fields, fields must always include the ID.
  *
  * @return Record.
  */
@@ -4564,10 +4564,10 @@ const getEntityRecord = rememo((state, kind, name, key, query) => {
 /**
  * Returns the Entity's record object by key. Doesn't trigger a resolver nor requests the entity records from the API if the entity record isn't available in the local state.
  *
- * @param  state State tree
- * @param  kind  Entity kind.
- * @param  name  Entity name.
- * @param  key   Record's key
+ * @param state State tree
+ * @param kind  Entity kind.
+ * @param name  Entity name.
+ * @param key   Record's key
  *
  * @return Record.
  */
@@ -4579,10 +4579,10 @@ function __experimentalGetEntityRecordNoResolver(state, kind, name, key) {
  * Returns the entity's record object by key,
  * with its attributes mapped to their raw values.
  *
- * @param  state State tree.
- * @param  kind  Entity kind.
- * @param  name  Entity name.
- * @param  key   Record's key.
+ * @param state State tree.
+ * @param kind  Entity kind.
+ * @param name  Entity name.
+ * @param key   Record's key.
  *
  * @return Object with the entity's raw attributes.
  */
@@ -4611,10 +4611,10 @@ const getRawEntityRecord = rememo((state, kind, name, key) => {
  * Returns true if records have been received for the given set of parameters,
  * or false otherwise.
  *
- * @param  state State tree
- * @param  kind  Entity kind.
- * @param  name  Entity name.
- * @param  query Optional terms query.
+ * @param state State tree
+ * @param kind  Entity kind.
+ * @param name  Entity name.
+ * @param query Optional terms query.
  *
  * @return  Whether entity records have been received.
  */
@@ -4634,11 +4634,11 @@ function hasEntityRecords(state, kind, name, query) {
 /**
  * Returns the Entity's records.
  *
- * @param  state State tree
- * @param  kind  Entity kind.
- * @param  name  Entity name.
- * @param  query Optional terms query. If requesting specific
- *               fields, fields must always include the ID.
+ * @param state State tree
+ * @param kind  Entity kind.
+ * @param name  Entity name.
+ * @param query Optional terms query. If requesting specific
+ *              fields, fields must always include the ID.
  *
  * @return Records.
  */
@@ -4657,7 +4657,7 @@ const getEntityRecords = (state, kind, name, query) => {
 /**
  * Returns the list of dirty entity records.
  *
- * @param  state State tree.
+ * @param state State tree.
  *
  * @return The list of updated records
  */
@@ -4697,7 +4697,7 @@ const __experimentalGetDirtyEntityRecords = rememo(state => {
 /**
  * Returns the list of entities currently being saved.
  *
- * @param  state State tree.
+ * @param state State tree.
  *
  * @return The list of records being saved.
  */
@@ -4736,10 +4736,10 @@ const __experimentalGetEntitiesBeingSaved = rememo(state => {
 /**
  * Returns the specified entity record's edits.
  *
- * @param  state    State tree.
- * @param  kind     Entity kind.
- * @param  name     Entity name.
- * @param  recordId Record ID.
+ * @param state    State tree.
+ * @param kind     Entity kind.
+ * @param name     Entity name.
+ * @param recordId Record ID.
  *
  * @return The entity record's edits.
  */
@@ -4754,10 +4754,10 @@ function getEntityRecordEdits(state, kind, name, recordId) {
  * are not considered for change detection.
  * They are defined in the entity's config.
  *
- * @param  state    State tree.
- * @param  kind     Entity kind.
- * @param  name     Entity name.
- * @param  recordId Record ID.
+ * @param state    State tree.
+ * @param kind     Entity kind.
+ * @param name     Entity name.
+ * @param recordId Record ID.
  *
  * @return The entity record's non transient edits.
  */
@@ -4784,10 +4784,10 @@ const getEntityRecordNonTransientEdits = rememo((state, kind, name, recordId) =>
  * Returns true if the specified entity record has edits,
  * and false otherwise.
  *
- * @param  state    State tree.
- * @param  kind     Entity kind.
- * @param  name     Entity name.
- * @param  recordId Record ID.
+ * @param state    State tree.
+ * @param kind     Entity kind.
+ * @param name     Entity name.
+ * @param recordId Record ID.
  *
  * @return Whether the entity record has edits or not.
  */
@@ -4798,10 +4798,10 @@ function hasEditsForEntityRecord(state, kind, name, recordId) {
 /**
  * Returns the specified entity record, merged with its edits.
  *
- * @param  state    State tree.
- * @param  kind     Entity kind.
- * @param  name     Entity name.
- * @param  recordId Record ID.
+ * @param state    State tree.
+ * @param kind     Entity kind.
+ * @param name     Entity name.
+ * @param recordId Record ID.
  *
  * @return The entity record, merged with its edits.
  */
@@ -4817,10 +4817,10 @@ const getEditedEntityRecord = rememo((state, kind, name, recordId) => ({ ...getR
 /**
  * Returns true if the specified entity record is autosaving, and false otherwise.
  *
- * @param  state    State tree.
- * @param  kind     Entity kind.
- * @param  name     Entity name.
- * @param  recordId Record ID.
+ * @param state    State tree.
+ * @param kind     Entity kind.
+ * @param name     Entity name.
+ * @param recordId Record ID.
  *
  * @return Whether the entity record is autosaving or not.
  */
@@ -4835,10 +4835,10 @@ function isAutosavingEntityRecord(state, kind, name, recordId) {
 /**
  * Returns true if the specified entity record is saving, and false otherwise.
  *
- * @param  state    State tree.
- * @param  kind     Entity kind.
- * @param  name     Entity name.
- * @param  recordId Record ID.
+ * @param state    State tree.
+ * @param kind     Entity kind.
+ * @param name     Entity name.
+ * @param recordId Record ID.
  *
  * @return Whether the entity record is saving or not.
  */
@@ -4849,10 +4849,10 @@ function isSavingEntityRecord(state, kind, name, recordId) {
 /**
  * Returns true if the specified entity record is deleting, and false otherwise.
  *
- * @param  state    State tree.
- * @param  kind     Entity kind.
- * @param  name     Entity name.
- * @param  recordId Record ID.
+ * @param state    State tree.
+ * @param kind     Entity kind.
+ * @param name     Entity name.
+ * @param recordId Record ID.
  *
  * @return Whether the entity record is deleting or not.
  */
@@ -4863,10 +4863,10 @@ function isDeletingEntityRecord(state, kind, name, recordId) {
 /**
  * Returns the specified entity record's last save error.
  *
- * @param  state    State tree.
- * @param  kind     Entity kind.
- * @param  name     Entity name.
- * @param  recordId Record ID.
+ * @param state    State tree.
+ * @param kind     Entity kind.
+ * @param name     Entity name.
+ * @param recordId Record ID.
  *
  * @return The entity record's save error.
  */
@@ -4877,10 +4877,10 @@ function getLastEntitySaveError(state, kind, name, recordId) {
 /**
  * Returns the specified entity record's last delete error.
  *
- * @param  state    State tree.
- * @param  kind     Entity kind.
- * @param  name     Entity name.
- * @param  recordId Record ID.
+ * @param state    State tree.
+ * @param kind     Entity kind.
+ * @param name     Entity name.
+ * @param recordId Record ID.
  *
  * @return The entity record's save error.
  */
@@ -4895,7 +4895,7 @@ function getLastEntityDeleteError(state, kind, name, recordId) {
  * of the history stack we are at. 0 is the
  * last edit, -1 is the second last, and so on.
  *
- * @param  state State tree.
+ * @param state State tree.
  *
  * @return The current undo offset.
  */
@@ -4907,7 +4907,7 @@ function getCurrentUndoOffset(state) {
  * Returns the previous edit from the current undo offset
  * for the entity records edits history, if any.
  *
- * @param  state State tree.
+ * @param state State tree.
  *
  * @return The edit.
  */
@@ -4920,7 +4920,7 @@ function getUndoEdit(state) {
  * Returns the next edit from the current undo offset
  * for the entity records edits history, if any.
  *
- * @param  state State tree.
+ * @param state State tree.
  *
  * @return The edit.
  */
@@ -4932,7 +4932,7 @@ function getRedoEdit(state) {
  * Returns true if there is a previous edit from the current undo offset
  * for the entity records edits history, and false otherwise.
  *
- * @param  state State tree.
+ * @param state State tree.
  *
  * @return Whether there is a previous edit or not.
  */
@@ -4944,7 +4944,7 @@ function hasUndo(state) {
  * Returns true if there is a next edit from the current undo offset
  * for the entity records edits history, and false otherwise.
  *
- * @param  state State tree.
+ * @param state State tree.
  *
  * @return Whether there is a next edit or not.
  */
@@ -4955,7 +4955,7 @@ function hasRedo(state) {
 /**
  * Return the current theme.
  *
- * @param  state Data state.
+ * @param state Data state.
  *
  * @return The current theme.
  */
@@ -4966,7 +4966,7 @@ function getCurrentTheme(state) {
 /**
  * Return the ID of the current global styles object.
  *
- * @param  state Data state.
+ * @param state Data state.
  *
  * @return The current global styles ID.
  */
@@ -4977,7 +4977,7 @@ function __experimentalGetCurrentGlobalStylesId(state) {
 /**
  * Return theme supports data in the index.
  *
- * @param  state Data state.
+ * @param state Data state.
  *
  * @return Index data.
  */
@@ -4990,8 +4990,8 @@ function getThemeSupports(state) {
 /**
  * Returns the embed preview for the given URL.
  *
- * @param  state Data state.
- * @param  url   Embedded URL.
+ * @param state Data state.
+ * @param url   Embedded URL.
  *
  * @return Undefined if the preview has not been fetched, otherwise, the preview fetched from the embed preview API.
  */
@@ -5006,8 +5006,8 @@ function getEmbedPreview(state, url) {
  * We need to be able to determine if a URL is embeddable or not, based on what we
  * get back from the oEmbed preview API.
  *
- * @param  state Data state.
- * @param  url   Embedded URL.
+ * @param state Data state.
+ * @param url   Embedded URL.
  *
  * @return Is the preview for the URL an oEmbed link fallback.
  */
@@ -5031,10 +5031,10 @@ function isPreviewEmbedFallback(state, url) {
  *
  * https://developer.wordpress.org/rest-api/reference/
  *
- * @param  state    Data state.
- * @param  action   Action to check. One of: 'create', 'read', 'update', 'delete'.
- * @param  resource REST resource to check, e.g. 'media' or 'posts'.
- * @param  id       Optional ID of the rest resource to check.
+ * @param state    Data state.
+ * @param action   Action to check. One of: 'create', 'read', 'update', 'delete'.
+ * @param resource REST resource to check, e.g. 'media' or 'posts'.
+ * @param id       Optional ID of the rest resource to check.
  *
  * @return Whether or not the user can perform the action,
  *                             or `undefined` if the OPTIONS request is still being made.
@@ -5052,10 +5052,10 @@ function canUser(state, action, resource, id) {
  *
  * https://developer.wordpress.org/rest-api/reference/
  *
- * @param  state    Data state.
- * @param  kind     Entity kind.
- * @param  name     Entity name.
- * @param  recordId Record's id.
+ * @param state    Data state.
+ * @param kind     Entity kind.
+ * @param name     Entity name.
+ * @param recordId Record's id.
  * @return Whether or not the user can edit,
  * or `undefined` if the OPTIONS request is still being made.
  */
@@ -5076,9 +5076,9 @@ function canUserEditEntityRecord(state, kind, name, recordId) {
  * May return multiple autosaves since the backend stores one autosave per
  * author for each post.
  *
- * @param  state    State tree.
- * @param  postType The type of the parent post.
- * @param  postId   The id of the parent post.
+ * @param state    State tree.
+ * @param postType The type of the parent post.
+ * @param postId   The id of the parent post.
  *
  * @return An array of autosaves for the post, or undefined if there is none.
  */
@@ -5089,10 +5089,10 @@ function getAutosaves(state, postType, postId) {
 /**
  * Returns the autosave for the post and author.
  *
- * @param  state    State tree.
- * @param  postType The type of the parent post.
- * @param  postId   The id of the parent post.
- * @param  authorId The id of the author.
+ * @param state    State tree.
+ * @param postType The type of the parent post.
+ * @param postId   The id of the parent post.
+ * @param authorId The id of the author.
  *
  * @return The autosave for the post and author.
  */
@@ -5108,9 +5108,9 @@ function getAutosave(state, postType, postId, authorId) {
 /**
  * Returns true if the REST request for autosaves has completed.
  *
- * @param  state    State tree.
- * @param  postType The type of the parent post.
- * @param  postId   The id of the parent post.
+ * @param state    State tree.
+ * @param postType The type of the parent post.
+ * @param postId   The id of the parent post.
  *
  * @return True if the REST request was completed. False otherwise.
  */
@@ -5132,7 +5132,7 @@ const hasFetchedAutosaves = (0,external_wp_data_namespaceObject.createRegistrySe
  * );
  * ```
  *
- * @param  state Editor state.
+ * @param state Editor state.
  *
  * @return A value whose reference will change only when an edit occurs.
  */
@@ -5142,8 +5142,8 @@ state => [], state => [state.undo.length, state.undo.offset, state.undo.flattene
 /**
  * Retrieve the frontend template used for a given link.
  *
- * @param  state Editor state.
- * @param  link  Link.
+ * @param state Editor state.
+ * @param link  Link.
  *
  * @return The template record.
  */
@@ -5162,7 +5162,7 @@ function __experimentalGetTemplateForLink(state, link) {
 /**
  * Retrieve the current theme's base global styles
  *
- * @param  state Editor state.
+ * @param state Editor state.
  *
  * @return The Global Styles object.
  */
@@ -5179,7 +5179,7 @@ function __experimentalGetCurrentThemeBaseGlobalStyles(state) {
 /**
  * Return the ID of the current global styles object.
  *
- * @param  state Data state.
+ * @param state Data state.
  *
  * @return The current global styles ID.
  */
@@ -5196,7 +5196,7 @@ function __experimentalGetCurrentThemeGlobalStylesVariations(state) {
 /**
  * Retrieve the list of registered block patterns.
  *
- * @param  state Data state.
+ * @param state Data state.
  *
  * @return Block pattern list.
  */
@@ -5207,7 +5207,7 @@ function getBlockPatterns(state) {
 /**
  * Retrieve the list of registered block pattern categories.
  *
- * @param  state Data state.
+ * @param state Data state.
  *
  * @return Block pattern category list.
  */
@@ -6745,10 +6745,10 @@ const enrichSelectors = memoize(selectors => {
  *
  * @since 6.1.0 Introduced in WordPress core.
  *
- * @param  kind     Kind of the entity, e.g. `root` or a `postType`. See rootEntitiesConfig in ../entities.ts for a list of available kinds.
- * @param  name     Name of the entity, e.g. `plugin` or a `post`. See rootEntitiesConfig in ../entities.ts for a list of available names.
- * @param  recordId ID of the requested entity record.
- * @param  options  Optional hook options.
+ * @param    kind     Kind of the entity, e.g. `root` or a `postType`. See rootEntitiesConfig in ../entities.ts for a list of available kinds.
+ * @param    name     Name of the entity, e.g. `plugin` or a `post`. See rootEntitiesConfig in ../entities.ts for a list of available names.
+ * @param    recordId ID of the requested entity record.
+ * @param    options  Optional hook options.
  * @example
  * ```js
  * import { useEntityRecord } from '@wordpress/core-data';
@@ -6897,10 +6897,10 @@ const use_entity_records_EMPTY_ARRAY = [];
  *
  * @since 6.1.0 Introduced in WordPress core.
  *
- * @param  kind      Kind of the entity, e.g. `root` or a `postType`. See rootEntitiesConfig in ../entities.ts for a list of available kinds.
- * @param  name      Name of the entity, e.g. `plugin` or a `post`. See rootEntitiesConfig in ../entities.ts for a list of available names.
- * @param  queryArgs Optional HTTP query description for how to fetch the data, passed to the requested API endpoint.
- * @param  options   Optional hook options.
+ * @param    kind      Kind of the entity, e.g. `root` or a `postType`. See rootEntitiesConfig in ../entities.ts for a list of available kinds.
+ * @param    name      Name of the entity, e.g. `plugin` or a `post`. See rootEntitiesConfig in ../entities.ts for a list of available names.
+ * @param    queryArgs Optional HTTP query description for how to fetch the data, passed to the requested API endpoint.
+ * @param    options   Optional hook options.
  * @example
  * ```js
  * import { useEntityRecord } from '@wordpress/core-data';
@@ -6987,8 +6987,8 @@ function __experimentalUseEntityRecords(kind, name, queryArgs, options) {
  *
  * @since 6.1.0 Introduced in WordPress core.
  *
- * @param  resource The resource in question, e.g. media.
- * @param  id       ID of a specific resource entry, if needed, e.g. 10.
+ * @param    resource The resource in question, e.g. media.
+ * @param    id       ID of a specific resource entry, if needed, e.g. 10.
  *
  * @example
  * ```js

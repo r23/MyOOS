@@ -148,14 +148,17 @@ const code_code = {
       start,
       text
     } = value;
-    const characterBefore = text.slice(start - 1, start); // Quick check the text for the necessary character.
+    const characterBefore = text[start - 1]; // Quick check the text for the necessary character.
 
     if (characterBefore !== BACKTICK) {
       return value;
     }
 
-    const textBefore = text.slice(0, start - 1);
-    const indexBefore = textBefore.lastIndexOf(BACKTICK);
+    if (start - 2 < 0) {
+      return value;
+    }
+
+    const indexBefore = text.lastIndexOf(BACKTICK, start - 2);
 
     if (indexBefore === -1) {
       return value;
@@ -293,18 +296,21 @@ function InlineUI(_ref) {
       });
       event.preventDefault();
     }
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    alignment: "bottom",
+    spacing: "0"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNumberControl, {
     className: "block-editor-format-toolbar__image-container-value",
-    type: "number",
     label: (0,external_wp_i18n_namespaceObject.__)('Width'),
     value: width,
     min: 1,
     onChange: newWidth => setWidth(newWidth)
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    className: "block-editor-format-toolbar__image-container-button",
     icon: keyboard_return,
     label: (0,external_wp_i18n_namespaceObject.__)('Apply'),
     type: "submit"
-  })));
+  }))));
 }
 
 function Edit(_ref2) {

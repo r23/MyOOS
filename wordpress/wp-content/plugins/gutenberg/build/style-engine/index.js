@@ -63,10 +63,10 @@ const VARIABLE_PATH_SEPARATOR_TOKEN_STYLE = '--';
 /**
  * Returns a JSON representation of the generated CSS rules.
  *
- * @param  style   Style object.
- * @param  options Options object with settings to adjust how the styles are generated.
- * @param  path    An array of strings representing the path to the style value in the style object.
- * @param  ruleKey A CSS property key.
+ * @param style   Style object.
+ * @param options Options object with settings to adjust how the styles are generated.
+ * @param path    An array of strings representing the path to the style value in the style object.
+ * @param ruleKey A CSS property key.
  *
  * @return GeneratedCSSRule[] CSS rules.
  */
@@ -82,11 +82,11 @@ function generateRule(style, options, path, ruleKey) {
 /**
  * Returns a JSON representation of the generated CSS rules taking into account box model properties, top, right, bottom, left.
  *
- * @param  style                Style object.
- * @param  options              Options object with settings to adjust how the styles are generated.
- * @param  path                 An array of strings representing the path to the style value in the style object.
- * @param  ruleKeys             An array of CSS property keys and patterns.
- * @param  individualProperties The "sides" or individual properties for which to generate rules.
+ * @param style                Style object.
+ * @param options              Options object with settings to adjust how the styles are generated.
+ * @param path                 An array of strings representing the path to the style value in the style object.
+ * @param ruleKeys             An array of CSS property keys and patterns.
+ * @param individualProperties The "sides" or individual properties for which to generate rules.
  *
  * @return GeneratedCSSRule[]  CSS rules.
  */
@@ -129,7 +129,7 @@ function generateBoxRules(style, options, path, ruleKeys) {
 /**
  * Returns a CSS var value from incoming style value following the pattern `var:description|context|slug`.
  *
- * @param  styleValue A raw style value.
+ * @param styleValue A raw style value.
  *
  * @return string A CSS var value.
  */
@@ -145,7 +145,7 @@ function getCSSVarFromStyleValue(styleValue) {
 /**
  * Capitalizes the first letter in a string.
  *
- * @param  string The string whose first letter the function will capitalize.
+ * @param string The string whose first letter the function will capitalize.
  *
  * @return String with the first letter capitalized.
  */
@@ -157,7 +157,7 @@ function upperFirst(string) {
 /**
  * Converts an array of strings into a camelCase string.
  *
- * @param  strings The strings to join into a camelCase string.
+ * @param strings The strings to join into a camelCase string.
  *
  * @return camelCase string.
  */
@@ -175,7 +175,7 @@ function camelCaseJoin(strings) {
 /**
  * Creates a function for generating CSS rules when the style path is the same as the camelCase CSS property used in React.
  *
- * @param  path An array of strings representing the path to the style value in the style object.
+ * @param path An array of strings representing the path to the style value in the style object.
  *
  * @return A function that generates CSS rules.
  */
@@ -186,7 +186,7 @@ function createBorderGenerateFunction(path) {
 /**
  * Creates a function for generating border-{top,bottom,left,right}-{color,style,width} CSS rules.
  *
- * @param  edge The edge to create CSS rules for.
+ * @param edge The edge to create CSS rules for.
  *
  * @return A function that generates CSS rules.
  */
@@ -482,8 +482,8 @@ const styleDefinitions = [...border, ...styles_color, ...dimensions, ...outline,
  *
  * @since 6.1.0 Introduced in WordPress core.
  *
- * @param  style   Style object, for example, the value of a block's attributes.style object or the top level styles in theme.json
- * @param  options Options object with settings to adjust how the styles are generated.
+ * @param style   Style object, for example, the value of a block's attributes.style object or the top level styles in theme.json
+ * @param options Options object with settings to adjust how the styles are generated.
  *
  * @return A generated stylesheet or inline style declarations.
  */
@@ -512,8 +512,8 @@ function compileCSS(style) {
  *
  * @since 6.1.0 Introduced in WordPress core.
  *
- * @param  style   Style object, for example, the value of a block's attributes.style object or the top level styles in theme.json
- * @param  options Options object with settings to adjust how the styles are generated.
+ * @param style   Style object, for example, the value of a block's attributes.style object or the top level styles in theme.json
+ * @param options Options object with settings to adjust how the styles are generated.
  *
  * @return A collection of objects containing the selector, if any, the CSS property key (camelcase) and parsed CSS value.
  */

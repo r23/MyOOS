@@ -1758,6 +1758,7 @@ function DownloadableBlocksNoResults() {
 
 
 
+const EMPTY_ARRAY = [];
 
 function DownloadableBlocksPanel(_ref) {
   let {
@@ -1813,10 +1814,22 @@ function DownloadableBlocksPanel(_ref) {
   const hasPermission = select(external_wp_coreData_namespaceObject.store).canUser('read', 'block-directory/search');
 
   function getInstallableBlocks(term) {
-    return getDownloadableBlocks(term).filter(block => canInsertBlockType(block, rootClientId, true));
+    const downloadableBlocks = getDownloadableBlocks(term);
+    const installableBlocks = downloadableBlocks.filter(block => canInsertBlockType(block, rootClientId, true));
+
+    if (downloadableBlocks.length === installableBlocks.length) {
+      return downloadableBlocks;
+    }
+
+    return installableBlocks;
   }
 
-  const downloadableItems = hasPermission ? getInstallableBlocks(filterValue) : [];
+  let downloadableItems = hasPermission ? getInstallableBlocks(filterValue) : [];
+
+  if (downloadableItems.length === 0) {
+    downloadableItems = EMPTY_ARRAY;
+  }
+
   const isLoading = isRequestingDownloadableBlocks(filterValue);
   return {
     downloadableItems,

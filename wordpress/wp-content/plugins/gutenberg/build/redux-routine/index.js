@@ -814,8 +814,8 @@ function isActionOfType(object, expectedType) {
 /**
  * Create a co-routine runtime.
  *
- * @param  controls Object of control handlers.
- * @param  dispatch Unhandled action dispatch.
+ * @param controls Object of control handlers.
+ * @param dispatch Unhandled action dispatch.
  */
 
 function createRuntime() {

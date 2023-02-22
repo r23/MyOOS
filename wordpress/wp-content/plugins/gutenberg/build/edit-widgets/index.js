@@ -166,6 +166,7 @@ var selectors_namespaceObject = {};
 __webpack_require__.r(selectors_namespaceObject);
 __webpack_require__.d(selectors_namespaceObject, {
   "getActiveComplementaryArea": function() { return getActiveComplementaryArea; },
+  "isComplementaryAreaLoading": function() { return isComplementaryAreaLoading; },
   "isFeatureActive": function() { return isFeatureActive; },
   "isItemPinned": function() { return isItemPinned; }
 });
@@ -643,11 +644,18 @@ const getActiveComplementaryArea = (0,external_wp_data_namespaceObject.createReg
   } // Return `null` to indicate the user hid the complementary area.
 
 
-  if (!isComplementaryAreaVisible) {
+  if (isComplementaryAreaVisible === false) {
     return null;
   }
 
   return state === null || state === void 0 ? void 0 : (_state$complementaryA = state.complementaryAreas) === null || _state$complementaryA === void 0 ? void 0 : _state$complementaryA[scope];
+});
+const isComplementaryAreaLoading = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, scope) => {
+  var _state$complementaryA2;
+
+  const isVisible = select(external_wp_preferences_namespaceObject.store).get(scope, 'isComplementaryAreaVisible');
+  const identifier = state === null || state === void 0 ? void 0 : (_state$complementaryA2 = state.complementaryAreas) === null || _state$complementaryA2 === void 0 ? void 0 : _state$complementaryA2[scope];
+  return isVisible && identifier === undefined;
 });
 /**
  * Returns a boolean indicating if an item is pinned or not.
@@ -1101,21 +1109,24 @@ function useAdjustComplementaryListener(scope, identifier, activeArea, isActive,
     disableComplementaryArea
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    // If the complementary area is active and the editor is switching from a big to a small window size.
+    // If the complementary area is active and the editor is switching from
+    // a big to a small window size.
     if (isActive && isSmall && !previousIsSmall.current) {
-      // Disable the complementary area.
-      disableComplementaryArea(scope); // Flag the complementary area to be reopened when the window size goes from small to big.
+      disableComplementaryArea(scope); // Flag the complementary area to be reopened when the window size
+      // goes from small to big.
 
       shouldOpenWhenNotSmall.current = true;
-    } else if ( // If there is a flag indicating the complementary area should be enabled when we go from small to big window size
-    // and we are going from a small to big window size.
+    } else if ( // If there is a flag indicating the complementary area should be
+    // enabled when we go from small to big window size and we are going
+    // from a small to big window size.
     shouldOpenWhenNotSmall.current && !isSmall && previousIsSmall.current) {
-      // Remove the flag indicating the complementary area should be enabled.
-      shouldOpenWhenNotSmall.current = false; // Enable the complementary area.
-
+      // Remove the flag indicating the complementary area should be
+      // enabled.
+      shouldOpenWhenNotSmall.current = false;
       enableComplementaryArea(scope, identifier);
-    } else if ( // If the flag is indicating the current complementary should be reopened but another complementary area becomes active,
-    // remove the flag.
+    } else if ( // If the flag is indicating the current complementary should be
+    // reopened but another complementary area becomes active, remove
+    // the flag.
     shouldOpenWhenNotSmall.current && activeArea && activeArea !== identifier) {
       shouldOpenWhenNotSmall.current = false;
     }
@@ -1146,6 +1157,7 @@ function ComplementaryArea(_ref3) {
     showIconLabels = false
   } = _ref3;
   const {
+    isLoading,
     isActive,
     isPinned,
     activeArea,
@@ -1154,12 +1166,14 @@ function ComplementaryArea(_ref3) {
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       getActiveComplementaryArea,
+      isComplementaryAreaLoading,
       isItemPinned
     } = select(store);
 
     const _activeArea = getActiveComplementaryArea(scope);
 
     return {
+      isLoading: isComplementaryAreaLoading(scope),
       isActive: _activeArea === identifier,
       isPinned: isItemPinned(scope, identifier),
       activeArea: _activeArea,
@@ -1175,8 +1189,12 @@ function ComplementaryArea(_ref3) {
     unpinItem
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // Set initial visibility: For large screens, enable if it's active by
+    // default. For small screens, always initially disable.
     if (isActiveByDefault && activeArea === undefined && !isSmall) {
       enableComplementaryArea(scope, identifier);
+    } else if (activeArea === undefined && isSmall) {
+      disableComplementaryArea(scope, identifier);
     }
   }, [activeArea, isActiveByDefault, scope, identifier, isSmall]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, isPinnable && (0,external_wp_element_namespaceObject.createElement)(pinned_items, {
@@ -1186,6 +1204,7 @@ function ComplementaryArea(_ref3) {
     identifier: identifier,
     isPressed: isActive && (!showIconLabels || isLarge),
     "aria-expanded": isActive,
+    "aria-disabled": isLoading,
     label: title,
     icon: showIconLabels ? library_check : icon,
     showTooltip: !showIconLabels,
@@ -3027,9 +3046,9 @@ const useLastSelectedWidgetArea = () => (0,external_wp_data_namespaceObject.useS
 const ALLOW_REUSABLE_BLOCKS = false;
 const ENABLE_EXPERIMENTAL_FSE_BLOCKS = false;
 
-;// CONCATENATED MODULE: external ["wp","experiments"]
-var external_wp_experiments_namespaceObject = window["wp"]["experiments"];
-;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/experiments.js
+;// CONCATENATED MODULE: external ["wp","privateApis"]
+var external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
+;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/private-apis.js
 /**
  * WordPress dependencies
  */
@@ -3037,7 +3056,7 @@ var external_wp_experiments_namespaceObject = window["wp"]["experiments"];
 const {
   lock,
   unlock
-} = (0,external_wp_experiments_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/edit-widgets');
+} = (0,external_wp_privateApis_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/edit-widgets');
 
 ;// CONCATENATED MODULE: ./packages/edit-widgets/build-module/components/widget-areas-block-editor-provider/index.js
 
@@ -3067,7 +3086,7 @@ const {
 
 const {
   ExperimentalBlockEditorProvider
-} = unlock(external_wp_blockEditor_namespaceObject.experiments);
+} = unlock(external_wp_blockEditor_namespaceObject.privateApis);
 function WidgetAreasBlockEditorProvider(_ref) {
   let {
     blockEditorSettings,
@@ -3581,7 +3600,7 @@ const textFormattingShortcuts = [{
   keyCombination: {
     character: '[['
   },
-  description: (0,external_wp_i18n_namespaceObject.__)('Insert a link to a post or page')
+  description: (0,external_wp_i18n_namespaceObject.__)('Insert a link to a post or page.')
 }, {
   keyCombination: {
     modifier: 'primary',

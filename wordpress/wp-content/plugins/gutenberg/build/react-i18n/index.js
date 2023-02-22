@@ -83,7 +83,7 @@ var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 /**
  * Utility to make a new context value
  *
- * @param  i18n
+ * @param i18n
  */
 function makeContextValue(i18n) {
   return {
@@ -118,7 +118,7 @@ const I18nContext = (0,external_wp_element_namespaceObject.createContext)(makeCo
  * You can also instantiate the provider without the `i18n` prop. In that case it will use the
  * default `I18n` instance exported from `@wordpress/i18n`.
  *
- * @param  props i18n provider props.
+ * @param props i18n provider props.
  * @return Children wrapped in the I18nProvider.
  */
 function I18nProvider(props) {
@@ -167,7 +167,7 @@ const useI18n = () => (0,external_wp_element_namespaceObject.useContext)(I18nCon
  * export default withI18n( MyComponent );
  * ```
  *
- * @param  InnerComponent React component to be wrapped and receive the i18n functions like `__`
+ * @param InnerComponent React component to be wrapped and receive the i18n functions like `__`
  * @return The wrapped component
  */
 function withI18n(InnerComponent) {

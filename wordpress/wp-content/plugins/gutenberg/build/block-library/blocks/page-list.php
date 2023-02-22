@@ -150,7 +150,8 @@ function gutenberg_block_core_page_list_render_nested_page_list( $open_submenus_
 	if ( empty( $nested_pages ) ) {
 		return;
 	}
-	$markup = '';
+	$front_page_id = (int) get_option( 'page_on_front' );
+	$markup        = '';
 	foreach ( (array) $nested_pages as $page ) {
 		$css_class       = $page['is_active'] ? ' current-menu-item' : '';
 		$aria_current    = $page['is_active'] ? ' aria-current="page"' : '';
@@ -181,7 +182,6 @@ function gutenberg_block_core_page_list_render_nested_page_list( $open_submenus_
 			}
 		}
 
-		$front_page_id = (int) get_option( 'page_on_front' );
 		if ( (int) $page['page_id'] === $front_page_id ) {
 			$css_class .= ' menu-item-home';
 		}
@@ -282,14 +282,14 @@ function gutenberg_render_block_core_page_list( $attributes, $content, $block ) 
 			$pages_with_children[ $page->post_parent ][ $page->ID ] = array(
 				'page_id'   => $page->ID,
 				'title'     => $page->post_title,
-				'link'      => get_permalink( $page->ID ),
+				'link'      => get_permalink( $page ),
 				'is_active' => $is_active,
 			);
 		} else {
 			$top_level_pages[ $page->ID ] = array(
 				'page_id'   => $page->ID,
 				'title'     => $page->post_title,
-				'link'      => get_permalink( $page->ID ),
+				'link'      => get_permalink( $page ),
 				'is_active' => $is_active,
 			);
 

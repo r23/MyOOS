@@ -2542,8 +2542,8 @@ function pascalCase(input, options) {
  * Given a function mapping a component to an enhanced component and modifier
  * name, returns the enhanced component augmented with a generated displayName.
  *
- * @param  mapComponent Function mapping component to enhanced component.
- * @param  modifierName Seed name from which to generated display name.
+ * @param mapComponent Function mapping component to enhanced component.
+ * @param modifierName Seed name from which to generated display name.
  *
  * @return Component class with generated display name assigned.
  */
@@ -2561,8 +2561,8 @@ function createHigherOrderComponent(mapComponent, modifierName) {
  *     hocName( 'MyMemo', Widget ) === 'MyMemo(Widget)';
  *     hocName( 'MyMemo', <div /> ) === 'MyMemo(Component)';
  *
- * @param  name  Name assigned to higher-order component's wrapper component.
- * @param  Inner Wrapped component inside higher-order component.
+ * @param name  Name assigned to higher-order component's wrapper component.
+ * @param Inner Wrapped component inside higher-order component.
  * @return       Wrapped name of higher-order component.
  */
 
@@ -3012,7 +3012,7 @@ var external_wp_element_namespaceObject = window["wp"]["element"];
  * <ConditionalComponent foo="bar" />; // => <div>bar</div>;
  * ```
  *
- * @param  predicate Function to test condition.
+ * @param predicate Function to test condition.
  *
  * @return Higher-order component.
  */
@@ -3283,7 +3283,7 @@ const instanceMap = new WeakMap();
 /**
  * Creates a new id for a given object.
  *
- * @param  object Object reference to create an id for.
+ * @param object Object reference to create an id for.
  * @return The instance id (index).
  */
 
@@ -3309,9 +3309,9 @@ function createId(object) {
 /**
  * Provides a unique instance ID.
  *
- * @param  object        Object reference to create an id for.
- * @param  [prefix]      Prefix for the unique id.
- * @param  [preferredId] Default ID to use.
+ * @param object        Object reference to create an id for.
+ * @param [prefix]      Prefix for the unique id.
+ * @param [preferredId] Default ID to use.
  * @return The unique instance id.
  */
 function useInstanceId(object, prefix, preferredId) {
@@ -3493,8 +3493,8 @@ var external_wp_dom_namespaceObject = window["wp"]["dom"];
  * to be removed. It *is* necessary if you add dependencies because the ref
  * callback will be called multiple times for the same node.
  *
- * @param  callback     Callback with ref as argument.
- * @param  dependencies Dependencies of the callback.
+ * @param callback     Callback with ref as argument.
+ * @param dependencies Dependencies of the callback.
  *
  * @return Ref callback.
  */
@@ -3563,14 +3563,33 @@ function useConstrainedTabbing() {
       const action = shiftKey ? 'findPrevious' : 'findNext';
       const nextElement = external_wp_dom_namespaceObject.focus.tabbable[action](
       /** @type {HTMLElement} */
-      target) || null; // If the element that is about to receive focus is outside the
+      target) || null; // When the target element contains the element that is about to
+      // receive focus, for example when the target is a tabbable
+      // container, browsers may disagree on where to move focus next.
+      // In this case we can't rely on native browsers behavior. We need
+      // to manage focus instead.
+      // See https://github.com/WordPress/gutenberg/issues/46041.
+
+      if (
+      /** @type {HTMLElement} */
+      target.contains(nextElement)) {
+        event.preventDefault();
+        /** @type {HTMLElement} */
+
+        nextElement === null || nextElement === void 0 ? void 0 : nextElement.focus();
+        return;
+      } // If the element that is about to receive focus is inside the
+      // area, rely on native browsers behavior and let tabbing follow
+      // the native tab sequence.
+
+
+      if (node.contains(nextElement)) {
+        return;
+      } // If the element that is about to receive focus is outside the
       // area, move focus to a div and insert it at the start or end of
       // the area, depending on the direction. Without preventing default
       // behaviour, the browser will then move focus to the next element.
 
-      if (node.contains(nextElement)) {
-        return;
-      }
 
       const domAction = shiftKey ? 'append' : 'prepend';
       const {
@@ -3922,7 +3941,7 @@ const INPUT_BUTTON_TYPES = ['button', 'submit'];
  *
  * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
  *
- * @param  eventTarget The target from a mouse or touch event.
+ * @param eventTarget The target from a mouse or touch event.
  *
  * @return Whether the element is a button element subject to focus normalization.
  */
@@ -3947,8 +3966,8 @@ function isFocusNormalizedButton(eventTarget) {
  * A react hook that can be used to check whether focus has moved outside the
  * element the event handlers are bound to.
  *
- * @param  onFocusOutside A callback triggered when focus moves outside
- *                        the element the event handlers are bound to.
+ * @param onFocusOutside A callback triggered when focus moves outside
+ *                       the element the event handlers are bound to.
  *
  * @return An object containing event handlers. Bind the event handlers to a
  * wrapping element element to capture when focus moves outside that element.
@@ -3984,7 +4003,7 @@ function useFocusOutside(onFocusOutside) {
    * button elements when clicked, while others do. The logic here
    * intends to normalize this as treating click on buttons as focus.
    *
-   * @param  event
+   * @param event
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Clicking_and_focus
    */
 
@@ -4216,7 +4235,7 @@ function useMergeRefs(refs) {
  *  - return focus on unmount.
  *  - focus outside.
  *
- * @param  options Dialog Options.
+ * @param options Dialog Options.
  */
 function useDialog(options) {
   const currentOptions = (0,external_wp_element_namespaceObject.useRef)();
@@ -4580,7 +4599,7 @@ function useMediaQuery(query) {
  * Use something's value from the previous render.
  * Based on https://usehooks.com/usePrevious/.
  *
- * @param  value The value to track.
+ * @param value The value to track.
  *
  * @return The value from the previous render.
  */
@@ -4832,6 +4851,7 @@ function useResizeObserver() {
 
   const didUnmount = (0,external_wp_element_namespaceObject.useRef)(false);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
+    didUnmount.current = false;
     return () => {
       didUnmount.current = true;
     };
@@ -4962,8 +4982,8 @@ var external_wp_priorityQueue_namespaceObject = window["wp"]["priorityQueue"];
 /**
  * Returns the first items from list that are present on state.
  *
- * @param  list  New array.
- * @param  state Current state.
+ * @param list  New array.
+ * @param state Current state.
  * @return First items present iin state.
  */
 function getFirstItemsPresentInState(list, state) {
@@ -4985,8 +5005,8 @@ function getFirstItemsPresentInState(list, state) {
  * React hook returns an array which items get asynchronously appended from a source array.
  * This behavior is useful if we want to render a list of items asynchronously for performance reasons.
  *
- * @param  list   Source array.
- * @param  config Configuration object.
+ * @param list   Source array.
+ * @param config Configuration object.
  *
  * @return Async array.
  */

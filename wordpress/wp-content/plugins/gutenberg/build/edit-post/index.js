@@ -176,6 +176,7 @@ var selectors_namespaceObject = {};
 __webpack_require__.r(selectors_namespaceObject);
 __webpack_require__.d(selectors_namespaceObject, {
   "getActiveComplementaryArea": function() { return getActiveComplementaryArea; },
+  "isComplementaryAreaLoading": function() { return isComplementaryAreaLoading; },
   "isFeatureActive": function() { return isFeatureActive; },
   "isItemPinned": function() { return isItemPinned; }
 });
@@ -1037,11 +1038,18 @@ const getActiveComplementaryArea = (0,external_wp_data_namespaceObject.createReg
   } // Return `null` to indicate the user hid the complementary area.
 
 
-  if (!isComplementaryAreaVisible) {
+  if (isComplementaryAreaVisible === false) {
     return null;
   }
 
   return state === null || state === void 0 ? void 0 : (_state$complementaryA = state.complementaryAreas) === null || _state$complementaryA === void 0 ? void 0 : _state$complementaryA[scope];
+});
+const isComplementaryAreaLoading = (0,external_wp_data_namespaceObject.createRegistrySelector)(select => (state, scope) => {
+  var _state$complementaryA2;
+
+  const isVisible = select(external_wp_preferences_namespaceObject.store).get(scope, 'isComplementaryAreaVisible');
+  const identifier = state === null || state === void 0 ? void 0 : (_state$complementaryA2 = state.complementaryAreas) === null || _state$complementaryA2 === void 0 ? void 0 : _state$complementaryA2[scope];
+  return isVisible && identifier === undefined;
 });
 /**
  * Returns a boolean indicating if an item is pinned or not.
@@ -1493,21 +1501,24 @@ function useAdjustComplementaryListener(scope, identifier, activeArea, isActive,
     disableComplementaryArea
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    // If the complementary area is active and the editor is switching from a big to a small window size.
+    // If the complementary area is active and the editor is switching from
+    // a big to a small window size.
     if (isActive && isSmall && !previousIsSmall.current) {
-      // Disable the complementary area.
-      disableComplementaryArea(scope); // Flag the complementary area to be reopened when the window size goes from small to big.
+      disableComplementaryArea(scope); // Flag the complementary area to be reopened when the window size
+      // goes from small to big.
 
       shouldOpenWhenNotSmall.current = true;
-    } else if ( // If there is a flag indicating the complementary area should be enabled when we go from small to big window size
-    // and we are going from a small to big window size.
+    } else if ( // If there is a flag indicating the complementary area should be
+    // enabled when we go from small to big window size and we are going
+    // from a small to big window size.
     shouldOpenWhenNotSmall.current && !isSmall && previousIsSmall.current) {
-      // Remove the flag indicating the complementary area should be enabled.
-      shouldOpenWhenNotSmall.current = false; // Enable the complementary area.
-
+      // Remove the flag indicating the complementary area should be
+      // enabled.
+      shouldOpenWhenNotSmall.current = false;
       enableComplementaryArea(scope, identifier);
-    } else if ( // If the flag is indicating the current complementary should be reopened but another complementary area becomes active,
-    // remove the flag.
+    } else if ( // If the flag is indicating the current complementary should be
+    // reopened but another complementary area becomes active, remove
+    // the flag.
     shouldOpenWhenNotSmall.current && activeArea && activeArea !== identifier) {
       shouldOpenWhenNotSmall.current = false;
     }
@@ -1538,6 +1549,7 @@ function ComplementaryArea(_ref3) {
     showIconLabels = false
   } = _ref3;
   const {
+    isLoading,
     isActive,
     isPinned,
     activeArea,
@@ -1546,12 +1558,14 @@ function ComplementaryArea(_ref3) {
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       getActiveComplementaryArea,
+      isComplementaryAreaLoading,
       isItemPinned
     } = select(store);
 
     const _activeArea = getActiveComplementaryArea(scope);
 
     return {
+      isLoading: isComplementaryAreaLoading(scope),
       isActive: _activeArea === identifier,
       isPinned: isItemPinned(scope, identifier),
       activeArea: _activeArea,
@@ -1567,8 +1581,12 @@ function ComplementaryArea(_ref3) {
     unpinItem
   } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // Set initial visibility: For large screens, enable if it's active by
+    // default. For small screens, always initially disable.
     if (isActiveByDefault && activeArea === undefined && !isSmall) {
       enableComplementaryArea(scope, identifier);
+    } else if (activeArea === undefined && isSmall) {
+      disableComplementaryArea(scope, identifier);
     }
   }, [activeArea, isActiveByDefault, scope, identifier, isSmall]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, isPinnable && (0,external_wp_element_namespaceObject.createElement)(pinned_items, {
@@ -1578,6 +1596,7 @@ function ComplementaryArea(_ref3) {
     identifier: identifier,
     isPressed: isActive && (!showIconLabels || isLarge),
     "aria-expanded": isActive,
+    "aria-disabled": isLoading,
     label: title,
     icon: showIconLabels ? library_check : icon,
     showTooltip: !showIconLabels,
@@ -4238,8 +4257,13 @@ function KeyboardShortcuts() {
       const sidebarToOpen = getBlockSelectionStart() ? 'edit-post/block' : 'edit-post/document';
       openGeneralSidebar(sidebarToOpen);
     }
+  }); // Only opens the list view. Other functionality for this shortcut happens in the rendered sidebar.
+
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/toggle-list-view', () => {
+    if (!isListViewOpened()) {
+      setIsListViewOpened(true);
+    }
   });
-  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/toggle-list-view', () => setIsListViewOpened(!isListViewOpened()));
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/block-editor/transform-heading-to-paragraph', event => handleTextLevelShortcut(event, 0));
   [1, 2, 3, 4, 5, 6].forEach(level => {
     //the loop is based off on a constant therefore
@@ -4285,7 +4309,7 @@ const textFormattingShortcuts = [{
   keyCombination: {
     character: '[['
   },
-  description: (0,external_wp_i18n_namespaceObject.__)('Insert a link to a post or page')
+  description: (0,external_wp_i18n_namespaceObject.__)('Insert a link to a post or page.')
 }, {
   keyCombination: {
     modifier: 'primary',
@@ -5599,10 +5623,13 @@ function HeaderToolbar() {
     showTooltip: !showIconLabels,
     variant: showIconLabels ? 'tertiary' : undefined
   }));
-  const openInserter = (0,external_wp_element_namespaceObject.useCallback)(() => {
+  const toggleInserter = (0,external_wp_element_namespaceObject.useCallback)(() => {
     if (isInserterOpened) {
-      // Focusing the inserter button closes the inserter popover.
+      // Focusing the inserter button should close the inserter popover.
+      // However, there are some cases it won't close when the focus is lost.
+      // See https://github.com/WordPress/gutenberg/issues/43090 for more details.
       inserterButton.current.focus();
+      setIsInserterOpened(false);
     } else {
       setIsInserterOpened(true);
     }
@@ -5624,7 +5651,7 @@ function HeaderToolbar() {
     variant: "primary",
     isPressed: isInserterOpened,
     onMouseDown: preventDefault,
-    onClick: openInserter,
+    onClick: toggleInserter,
     disabled: !isInserterEnabled,
     icon: library_plus,
     label: showIconLabels ? shortLabel : longLabel,
@@ -6461,13 +6488,8 @@ function TemplateTitle() {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -6505,7 +6527,6 @@ function Header(_ref) {
     isDistractionFreeMode: select(store_store).isFeatureActive('distractionFree')
   }), []);
   const isDistractionFree = isDistractionFreeMode && isLargeViewport;
-  const classes = classnames_default()('edit-post-header');
   const slideY = {
     hidden: isDistractionFree ? {
       y: '-50'
@@ -6535,7 +6556,7 @@ function Header(_ref) {
     }
   };
   return (0,external_wp_element_namespaceObject.createElement)("div", {
-    className: classes
+    className: "edit-post-header"
   }, (0,external_wp_element_namespaceObject.createElement)(main_dashboard_button.Slot, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__unstableMotion.div, {
     variants: slideX,
     transition: {
@@ -6669,6 +6690,8 @@ function InserterSidebar() {
   })));
 }
 
+;// CONCATENATED MODULE: external ["wp","dom"]
+var external_wp_dom_namespaceObject = window["wp"]["dom"];
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/secondary-sidebar/list-view-outline.js
 
 
@@ -6797,6 +6820,8 @@ function ListViewOutline() {
 
 
 
+
+
 /**
  * Internal dependencies
  */
@@ -6818,12 +6843,50 @@ function ListViewSidebar() {
     }
   }
 
-  const [tab, setTab] = (0,external_wp_element_namespaceObject.useState)('list-view');
+  const [tab, setTab] = (0,external_wp_element_namespaceObject.useState)('list-view'); // This ref refers to the sidebar as a whole.
+
+  const sidebarRef = (0,external_wp_element_namespaceObject.useRef)(); // This ref refers to the list view tab button.
+
+  const listViewTabRef = (0,external_wp_element_namespaceObject.useRef)(); // This ref refers to the outline tab button.
+
+  const outlineTabRef = (0,external_wp_element_namespaceObject.useRef)(); // This ref refers to the list view application area.
+
+  const listViewRef = (0,external_wp_element_namespaceObject.useRef)();
+  /*
+   * Callback function to handle list view or outline focus.
+   *
+   * @param {string} currentTab The current tab. Either list view or outline.
+   *
+   * @return void
+   */
+
+  function handleSidebarFocus(currentTab) {
+    // List view tab is selected.
+    if (currentTab === 'list-view') {
+      // Either focus the list view or the list view tab button. Must have a fallback because the list view does not render when there are no blocks.
+      const listViewApplicationFocus = external_wp_dom_namespaceObject.focus.tabbable.find(listViewRef.current)[0];
+      const listViewFocusArea = sidebarRef.current.contains(listViewApplicationFocus) ? listViewApplicationFocus : listViewTabRef.current;
+      listViewFocusArea.focus(); // Outline tab is selected.
+    } else {
+      outlineTabRef.current.focus();
+    }
+  } // This only fires when the sidebar is open because of the conditional rendering. It is the same shortcut to open but that is defined as a global shortcut and only fires when the sidebar is closed.
+
+
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/toggle-list-view', () => {
+    // If the sidebar has focus, it is safe to close.
+    if (sidebarRef.current.contains(sidebarRef.current.ownerDocument.activeElement)) {
+      setIsListViewOpened(false); // If the list view or outline does not have focus, focus should be moved to it.
+    } else {
+      handleSidebarFocus(tab);
+    }
+  });
   return (// eslint-disable-next-line jsx-a11y/no-static-element-interactions
     (0,external_wp_element_namespaceObject.createElement)("div", {
       "aria-label": (0,external_wp_i18n_namespaceObject.__)('Document Overview'),
       className: "edit-post-editor__document-overview-panel",
-      onKeyDown: closeOnEscape
+      onKeyDown: closeOnEscape,
+      ref: sidebarRef
     }, (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "edit-post-editor__document-overview-panel-header components-panel__header edit-post-sidebar__panel-tabs",
       ref: headerFocusReturnRef
@@ -6832,6 +6895,7 @@ function ListViewSidebar() {
       label: (0,external_wp_i18n_namespaceObject.__)('Close Document Overview Sidebar'),
       onClick: () => setIsListViewOpened(false)
     }), (0,external_wp_element_namespaceObject.createElement)("ul", null, (0,external_wp_element_namespaceObject.createElement)("li", null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+      ref: listViewTabRef,
       onClick: () => {
         setTab('list-view');
       },
@@ -6840,6 +6904,7 @@ function ListViewSidebar() {
       }),
       "aria-current": tab === 'list-view'
     }, (0,external_wp_i18n_namespaceObject.__)('List View'))), (0,external_wp_element_namespaceObject.createElement)("li", null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+      ref: outlineTabRef,
       onClick: () => {
         setTab('outline');
       },
@@ -6848,7 +6913,7 @@ function ListViewSidebar() {
       }),
       "aria-current": tab === 'outline'
     }, (0,external_wp_i18n_namespaceObject.__)('Outline'))))), (0,external_wp_element_namespaceObject.createElement)("div", {
-      ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([contentFocusReturnRef, focusOnMountRef]),
+      ref: (0,external_wp_compose_namespaceObject.useMergeRefs)([contentFocusReturnRef, focusOnMountRef, listViewRef]),
       className: "edit-post-editor__list-view-container"
     }, tab === 'list-view' && (0,external_wp_element_namespaceObject.createElement)("div", {
       className: "edit-post-editor__list-view-panel-content"
@@ -9535,9 +9600,9 @@ function EditorInitialization(_ref) {
   return null;
 }
 
-;// CONCATENATED MODULE: external ["wp","experiments"]
-var external_wp_experiments_namespaceObject = window["wp"]["experiments"];
-;// CONCATENATED MODULE: ./packages/edit-post/build-module/experiments.js
+;// CONCATENATED MODULE: external ["wp","privateApis"]
+var external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
+;// CONCATENATED MODULE: ./packages/edit-post/build-module/private-apis.js
 /**
  * WordPress dependencies
  */
@@ -9545,7 +9610,7 @@ var external_wp_experiments_namespaceObject = window["wp"]["experiments"];
 const {
   lock,
   unlock
-} = (0,external_wp_experiments_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/edit-post');
+} = (0,external_wp_privateApis_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/edit-post');
 
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/editor.js
 
@@ -9572,7 +9637,7 @@ const {
 
 const {
   ExperimentalEditorProvider
-} = unlock(external_wp_editor_namespaceObject.experiments);
+} = unlock(external_wp_editor_namespaceObject.privateApis);
 
 function Editor(_ref) {
   let {
@@ -9685,7 +9750,7 @@ function Editor(_ref) {
     }
 
     return result;
-  }, [settings, hasFixedToolbar, focusMode, isDistractionFree, hiddenBlockTypes, blockTypes, preferredStyleVariations, setIsInserterOpened, updatePreferredStyleVariations, keepCaretInsideBlock]);
+  }, [settings, hasFixedToolbar, hasInlineToolbar, focusMode, isDistractionFree, hiddenBlockTypes, blockTypes, preferredStyleVariations, setIsInserterOpened, updatePreferredStyleVariations, keepCaretInsideBlock]);
   const styles = (0,external_wp_element_namespaceObject.useMemo)(() => {
     var _settings$styles;
 

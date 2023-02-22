@@ -1460,7 +1460,6 @@ __webpack_require__.d(__webpack_exports__, {
   "__unstableRichTextInputEvent": function() { return /* reexport */ __unstableRichTextInputEvent; },
   "cleanForSlug": function() { return /* reexport */ cleanForSlug; },
   "createCustomColorsHOC": function() { return /* reexport */ createCustomColorsHOC; },
-  "experiments": function() { return /* reexport */ experiments; },
   "getColorClassName": function() { return /* reexport */ getColorClassName; },
   "getColorObjectByAttributeValues": function() { return /* reexport */ getColorObjectByAttributeValues; },
   "getColorObjectByColorValue": function() { return /* reexport */ getColorObjectByColorValue; },
@@ -1468,6 +1467,7 @@ __webpack_require__.d(__webpack_exports__, {
   "getFontSizeClass": function() { return /* reexport */ getFontSizeClass; },
   "getTemplatePartIcon": function() { return /* reexport */ getTemplatePartIcon; },
   "mediaUpload": function() { return /* reexport */ mediaUpload; },
+  "privateApis": function() { return /* reexport */ privateApis; },
   "store": function() { return /* reexport */ store_store; },
   "storeConfig": function() { return /* reexport */ storeConfig; },
   "transformStyles": function() { return /* reexport */ external_wp_blockEditor_namespaceObject.transformStyles; },
@@ -6356,7 +6356,6 @@ class ErrorBoundary extends external_wp_element_namespaceObject.Component {
 
 const requestIdleCallback = window.requestIdleCallback ? window.requestIdleCallback : window.requestAnimationFrame;
 let hasStorageSupport;
-let uniqueId = 0;
 /**
  * Function which returns true if the current environment supports browser
  * sessionStorage, or false otherwise. The result of this function is cached and
@@ -6364,17 +6363,19 @@ let uniqueId = 0;
  */
 
 const hasSessionStorageSupport = () => {
-  if (typeof hasStorageSupport === 'undefined') {
-    try {
-      // Private Browsing in Safari 10 and earlier will throw an error when
-      // attempting to set into sessionStorage. The test here is intentional in
-      // causing a thrown error as condition bailing from local autosave.
-      window.sessionStorage.setItem('__wpEditorTestSessionStorage', '');
-      window.sessionStorage.removeItem('__wpEditorTestSessionStorage');
-      hasStorageSupport = true;
-    } catch (error) {
-      hasStorageSupport = false;
-    }
+  if (hasStorageSupport !== undefined) {
+    return hasStorageSupport;
+  }
+
+  try {
+    // Private Browsing in Safari 10 and earlier will throw an error when
+    // attempting to set into sessionStorage. The test here is intentional in
+    // causing a thrown error as condition bailing from local autosave.
+    window.sessionStorage.setItem('__wpEditorTestSessionStorage', '');
+    window.sessionStorage.removeItem('__wpEditorTestSessionStorage');
+    hasStorageSupport = true;
+  } catch {
+    hasStorageSupport = false;
   }
 
   return hasStorageSupport;
@@ -6415,7 +6416,7 @@ function useAutosaveNotice() {
 
     try {
       localAutosave = JSON.parse(localAutosave);
-    } catch (error) {
+    } catch {
       // Not usable if it can't be parsed.
       return;
     }
@@ -6448,9 +6449,9 @@ function useAutosaveNotice() {
       return;
     }
 
-    const noticeId = `wpEditorAutosaveRestore${++uniqueId}`;
+    const id = 'wpEditorAutosaveRestore';
     createWarningNotice((0,external_wp_i18n_namespaceObject.__)('The backup of this post in your browser is different from the version below.'), {
-      id: noticeId,
+      id,
       actions: [{
         label: (0,external_wp_i18n_namespaceObject.__)('Restore the backup'),
 
@@ -6461,7 +6462,7 @@ function useAutosaveNotice() {
           } = edits;
           editPost(editsWithoutContent);
           resetEditorBlocks((0,external_wp_blocks_namespaceObject.parse)(edits.content));
-          removeNotice(noticeId);
+          removeNotice(id);
         }
 
       }]
@@ -6518,11 +6519,7 @@ function LocalAutosaveMonitor() {
   }, []);
   useAutosaveNotice();
   useAutosavePurge();
-  const {
-    localAutosaveInterval
-  } = (0,external_wp_data_namespaceObject.useSelect)(select => ({
-    localAutosaveInterval: select(store_store).getEditorSettings().localAutosaveInterval
-  }), []);
+  const localAutosaveInterval = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getEditorSettings().localAutosaveInterval, []);
   return (0,external_wp_element_namespaceObject.createElement)(autosave_monitor, {
     interval: localAutosaveInterval,
     autosave: deferredAutosave
@@ -6661,17 +6658,15 @@ const PageAttributesOrder = _ref => {
   };
 
   const value = orderInput === null ? order : orderInput;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
-    className: "editor-page-attributes__order",
-    type: "number",
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexBlock, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNumberControl, {
     label: (0,external_wp_i18n_namespaceObject.__)('Order'),
     value: value,
     onChange: setUpdatedOrder,
-    size: 6,
+    labelPosition: "side",
     onBlur: () => {
       setOrderInput(null);
     }
-  });
+  })));
 };
 
 function PageAttributesOrderWithChecks(props) {
@@ -9925,7 +9920,7 @@ function MostUsedTerms(_ref) {
       _terms: mostUsedTerms,
       showTerms: (mostUsedTerms === null || mostUsedTerms === void 0 ? void 0 : mostUsedTerms.length) >= MIN_MOST_USED_TERMS
     };
-  }, []);
+  }, [taxonomy.slug]);
 
   if (!showTerms) {
     return null;
@@ -9991,8 +9986,6 @@ const flat_term_selector_EMPTY_ARRAY = [];
 const MAX_TERMS_SUGGESTIONS = 20;
 const flat_term_selector_DEFAULT_QUERY = {
   per_page: MAX_TERMS_SUGGESTIONS,
-  orderby: 'count',
-  order: 'desc',
   _fields: 'id,name',
   context: 'view'
 };
@@ -13202,7 +13195,7 @@ function mediaUpload(_ref) {
 
 
 const EMPTY_BLOCKS_LIST = [];
-const BLOCK_EDITOR_SETTINGS = ['__experimentalBlockDirectory', '__experimentalBlockInspectorAnimation', '__experimentalDiscussionSettings', '__experimentalFeatures', '__experimentalGlobalStylesBaseStyles', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'blockInspectorTabs', 'allowedMimeTypes', 'bodyPlaceholder', 'canLockBlocks', 'capabilities', 'clearBlockSelection', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomSpacingSizes', 'disableCustomGradients', 'disableLayoutStyles', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'enableOpenverseMediaCategory', 'focusMode', 'fontSizes', 'gradients', 'generateAnchors', 'hasFixedToolbar', 'hasInlineToolbar', 'isDistractionFree', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'locale', 'maxWidth', 'onUpdateDefaultBlockStyles', 'postsPerPage', 'readOnly', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableHasCustomAppender', '__unstableIsPreviewMode', '__unstableResolvedAssets'];
+const BLOCK_EDITOR_SETTINGS = ['__experimentalBlockDirectory', '__experimentalDiscussionSettings', '__experimentalFeatures', '__experimentalGlobalStylesBaseStyles', '__experimentalPreferredStyleVariations', '__experimentalSetIsInserterOpened', '__unstableGalleryWithImageBlocks', 'alignWide', 'allowedBlockTypes', 'blockInspectorTabs', 'allowedMimeTypes', 'bodyPlaceholder', 'canLockBlocks', 'capabilities', 'clearBlockSelection', 'codeEditingEnabled', 'colors', 'disableCustomColors', 'disableCustomFontSizes', 'disableCustomSpacingSizes', 'disableCustomGradients', 'disableLayoutStyles', 'enableCustomLineHeight', 'enableCustomSpacing', 'enableCustomUnits', 'enableOpenverseMediaCategory', 'focusMode', 'fontSizes', 'gradients', 'generateAnchors', 'hasFixedToolbar', 'hasInlineToolbar', 'isDistractionFree', 'imageDefaultSize', 'imageDimensions', 'imageEditing', 'imageSizes', 'isRTL', 'keepCaretInsideBlock', 'locale', 'maxWidth', 'onUpdateDefaultBlockStyles', 'postsPerPage', 'readOnly', 'styles', 'template', 'templateLock', 'titlePlaceholder', 'supportsLayout', 'widgetTypesToHideFromLegacyWidgetBlock', '__unstableHasCustomAppender', '__unstableIsPreviewMode', '__unstableResolvedAssets', '__unstableIsBlockBasedTheme'];
 /**
  * React hook used to compute the block editor settings to use for the post editor.
  *
@@ -13314,8 +13307,8 @@ function useBlockEditorSettings(settings, hasTemplate) {
 
 /* harmony default export */ var use_block_editor_settings = (useBlockEditorSettings);
 
-;// CONCATENATED MODULE: external ["wp","experiments"]
-var external_wp_experiments_namespaceObject = window["wp"]["experiments"];
+;// CONCATENATED MODULE: external ["wp","privateApis"]
+var external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
 ;// CONCATENATED MODULE: ./packages/editor/build-module/lockUnlock.js
 /**
  * WordPress dependencies
@@ -13324,7 +13317,7 @@ var external_wp_experiments_namespaceObject = window["wp"]["experiments"];
 const {
   lock,
   unlock
-} = (0,external_wp_experiments_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/editor');
+} = (0,external_wp_privateApis_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/editor');
 
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/provider/index.js
 
@@ -13350,7 +13343,7 @@ const {
 
 const {
   ExperimentalBlockEditorProvider
-} = unlock(external_wp_blockEditor_namespaceObject.experiments);
+} = unlock(external_wp_blockEditor_namespaceObject.privateApis);
 const ExperimentalEditorProvider = with_registry_provider(_ref => {
   let {
     __unstableTemplate,
@@ -13678,14 +13671,14 @@ function cleanForSlug(string) {
 
 
 
-;// CONCATENATED MODULE: ./packages/editor/build-module/experiments.js
+;// CONCATENATED MODULE: ./packages/editor/build-module/private-apis.js
 /**
  * Internal dependencies
  */
 
 
-const experiments = {};
-lock(experiments, {
+const privateApis = {};
+lock(privateApis, {
   ExperimentalEditorProvider: ExperimentalEditorProvider
 });
 

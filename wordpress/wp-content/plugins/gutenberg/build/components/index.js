@@ -2506,7 +2506,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  "AnglePickerControl": function() { return /* reexport */ AnglePickerControl; },
+  "AnglePickerControl": function() { return /* reexport */ angle_picker_control; },
   "Animate": function() { return /* reexport */ Animate; },
   "Autocomplete": function() { return /* reexport */ Autocomplete; },
   "BaseControl": function() { return /* reexport */ base_control; },
@@ -2527,7 +2527,7 @@ __webpack_require__.d(__webpack_exports__, {
   "ColorPicker": function() { return /* reexport */ LegacyAdapter; },
   "ComboboxControl": function() { return /* reexport */ combobox_control; },
   "CustomGradientPicker": function() { return /* reexport */ CustomGradientPicker; },
-  "CustomSelectControl": function() { return /* reexport */ CustomSelectControl; },
+  "CustomSelectControl": function() { return /* reexport */ StableCustomSelectControl; },
   "Dashicon": function() { return /* reexport */ dashicon; },
   "DatePicker": function() { return /* reexport */ date; },
   "DateTimePicker": function() { return /* reexport */ build_module_date_time; },
@@ -2563,7 +2563,7 @@ __webpack_require__.d(__webpack_exports__, {
   "Line": function() { return /* reexport */ external_wp_primitives_namespaceObject.Line; },
   "MenuGroup": function() { return /* reexport */ menu_group; },
   "MenuItem": function() { return /* reexport */ menu_item; },
-  "MenuItemsChoice": function() { return /* reexport */ MenuItemsChoice; },
+  "MenuItemsChoice": function() { return /* reexport */ menu_items_choice; },
   "Modal": function() { return /* reexport */ modal; },
   "NavigableMenu": function() { return /* reexport */ navigable_container_menu; },
   "Notice": function() { return /* reexport */ build_module_notice; },
@@ -2612,7 +2612,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalApplyValueToSides": function() { return /* reexport */ applyValueToSides; },
   "__experimentalBorderBoxControl": function() { return /* reexport */ border_box_control_component; },
   "__experimentalBorderControl": function() { return /* reexport */ border_control_component; },
-  "__experimentalBoxControl": function() { return /* reexport */ BoxControl; },
+  "__experimentalBoxControl": function() { return /* reexport */ box_control; },
   "__experimentalConfirmDialog": function() { return /* reexport */ confirm_dialog_component; },
   "__experimentalDimensionControl": function() { return /* reexport */ dimension_control; },
   "__experimentalDivider": function() { return /* reexport */ divider_component; },
@@ -2638,10 +2638,10 @@ __webpack_require__.d(__webpack_exports__, {
   "__experimentalNavigatorButton": function() { return /* reexport */ navigator_button_component; },
   "__experimentalNavigatorProvider": function() { return /* reexport */ navigator_provider_component; },
   "__experimentalNavigatorScreen": function() { return /* reexport */ navigator_screen_component; },
+  "__experimentalNavigatorToParentButton": function() { return /* reexport */ navigator_to_parent_button_component; },
   "__experimentalNumberControl": function() { return /* reexport */ number_control; },
   "__experimentalPaletteEdit": function() { return /* reexport */ PaletteEdit; },
   "__experimentalParseQuantityAndUnitFromRawValue": function() { return /* reexport */ parseQuantityAndUnitFromRawValue; },
-  "__experimentalPopoverPositionToPlacement": function() { return /* reexport */ positionToPlacement; },
   "__experimentalRadio": function() { return /* reexport */ radio_group_radio; },
   "__experimentalRadioGroup": function() { return /* reexport */ radio_group; },
   "__experimentalScrollable": function() { return /* reexport */ scrollable_component; },
@@ -2681,6 +2681,7 @@ __webpack_require__.d(__webpack_exports__, {
   "__unstableUseNavigateRegions": function() { return /* reexport */ useNavigateRegions; },
   "createSlotFill": function() { return /* reexport */ createSlotFill; },
   "navigateRegions": function() { return /* reexport */ navigate_regions; },
+  "privateApis": function() { return /* reexport */ privateApis; },
   "useBaseControlProps": function() { return /* reexport */ useBaseControlProps; },
   "withConstrainedTabbing": function() { return /* reexport */ with_constrained_tabbing; },
   "withFallbackStyles": function() { return /* reexport */ with_fallback_styles; },
@@ -15060,6 +15061,8 @@ const close_close = (0,external_wp_element_namespaceObject.createElement)(extern
 ;// CONCATENATED MODULE: external ["wp","deprecated"]
 var external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
+;// CONCATENATED MODULE: external ["wp","dom"]
+var external_wp_dom_namespaceObject = window["wp"]["dom"];
 ;// CONCATENATED MODULE: ./packages/components/build-module/dashicon/index.js
 
 
@@ -15378,7 +15381,7 @@ var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
 /**
  * Generates the connected component CSS className based on the namespace.
  *
- * @param  namespace The name of the connected component.
+ * @param namespace The name of the connected component.
  * @return The generated CSS className.
  */
 
@@ -17621,8 +17624,8 @@ function useContextSystem(props, namespace) {
  * Forwards ref (React.ForwardRef) and "Connects" (or registers) a component
  * within the Context system under a specified namespace.
  *
- * @param  Component The component to register into the Context system.
- * @param  namespace The namespace to register the component under.
+ * @param Component The component to register into the Context system.
+ * @param namespace The namespace to register the component under.
  * @return The connected WordPressComponent
  */
 function contextConnect(Component, namespace) {
@@ -17634,8 +17637,8 @@ function contextConnect(Component, namespace) {
  * "Connects" (or registers) a component within the Context system under a specified namespace.
  * Does not forward a ref.
  *
- * @param  Component The component to register into the Context system.
- * @param  namespace The namespace to register the component under.
+ * @param Component The component to register into the Context system.
+ * @param namespace The namespace to register the component under.
  * @return The connected WordPressComponent
  */
 
@@ -17677,7 +17680,7 @@ function _contextConnect(Component, namespace, options) {
 /**
  * Attempts to retrieve the connected namespace from a component.
  *
- * @param  Component The component to retrieve a namespace from.
+ * @param Component The component to retrieve a namespace from.
  * @return The connected namespaces.
  */
 
@@ -17702,8 +17705,8 @@ function getConnectNamespace(Component) {
 /**
  * Checks to see if a component is connected within the Context system.
  *
- * @param  Component The component to retrieve a namespace from.
- * @param  match     The namespace to check.
+ * @param Component The component to retrieve a namespace from.
+ * @param match     The namespace to check.
  */
 
 function hasConnectNamespace(Component, match) {
@@ -20079,7 +20082,7 @@ const POSITION_TO_PLACEMENT = {
  * Converts the `Popover`'s legacy "position" prop to the new "placement" prop
  * (used by `floating-ui`).
  *
- * @param  position The legacy position
+ * @param position The legacy position
  * @return The corresponding placement
  */
 
@@ -20154,14 +20157,19 @@ const PLACEMENT_TO_ANIMATION_ORIGIN = {
   'left-end': {
     originX: 1,
     originY: 1
-  } // open from bottom, right
+  },
+  // open from bottom, right
+  overlay: {
+    originX: 0.5,
+    originY: 0.5
+  } // open from center, center
 
 };
 /**
  * Given the floating-ui `placement`, compute the framer-motion props for the
  * popover's entry animation.
  *
- * @param  placement A placement string from floating ui
+ * @param placement A placement string from floating ui
  * @return The object containing the motion props
  */
 
@@ -20189,7 +20197,7 @@ const placementToMotionAnimationProps = placement => {
 /**
  * Returns the offset of a document's frame element.
  *
- * @param  document The iframe's owner document.
+ * @param document The iframe's owner document.
  *
  * @return The offset of the document's frame element, or undefined if the
  * document has no frame element.
@@ -20208,6 +20216,24 @@ const getFrameOffset = document => {
   return {
     x: iframeRect.left,
     y: iframeRect.top
+  };
+};
+const getFrameScale = document => {
+  var _document$defaultView2;
+
+  const frameElement = document === null || document === void 0 ? void 0 : (_document$defaultView2 = document.defaultView) === null || _document$defaultView2 === void 0 ? void 0 : _document$defaultView2.frameElement;
+
+  if (!frameElement) {
+    return {
+      x: 1,
+      y: 1
+    };
+  }
+
+  const rect = frameElement.getBoundingClientRect();
+  return {
+    x: rect.width / frameElement.offsetWidth,
+    y: rect.height / frameElement.offsetHeight
   };
 };
 const getReferenceOwnerDocument = _ref => {
@@ -20259,7 +20285,8 @@ const getReferenceElement = _ref2 => {
     anchorRef,
     anchorRect,
     getAnchorRect,
-    fallbackReferenceElement
+    fallbackReferenceElement,
+    scale
   } = _ref2;
   let referenceElement = null;
 
@@ -20308,6 +20335,18 @@ const getReferenceElement = _ref2 => {
     // If no explicit ref is passed via props, fall back to
     // anchoring to the popover's parent node.
     referenceElement = fallbackReferenceElement.parentElement;
+  }
+
+  if (referenceElement && (scale.x !== 1 || scale.y !== 1)) {
+    // If the popover is inside an iframe, the coordinates of the
+    // reference element need to be scaled to match the iframe's scale.
+    const rect = referenceElement.getBoundingClientRect();
+    referenceElement = {
+      getBoundingClientRect() {
+        return new window.DOMRect(rect.x * scale.x, rect.y * scale.y, rect.width * scale.x, rect.height * scale.y);
+      }
+
+    };
   } // Convert any `undefined` value to `null`.
 
 
@@ -20451,6 +20490,45 @@ const limitShift = function () {
   };
 };
 
+;// CONCATENATED MODULE: ./packages/components/build-module/popover/overlay-middlewares.js
+/**
+ * External dependencies
+ */
+
+function overlayMiddlewares() {
+  return [{
+    name: 'overlay',
+
+    fn(_ref) {
+      let {
+        rects
+      } = _ref;
+      return rects.reference;
+    }
+
+  }, k({
+    apply(_ref2) {
+      var _elements$floating;
+
+      let {
+        rects,
+        elements
+      } = _ref2;
+      const {
+        firstElementChild
+      } = (_elements$floating = elements.floating) !== null && _elements$floating !== void 0 ? _elements$floating : {}; // Only HTMLElement instances have the `style` property.
+
+      if (!(firstElementChild instanceof HTMLElement)) return; // Reduce the height of the popover to the available space.
+
+      Object.assign(firstElementChild.style, {
+        width: `${rects.reference.width}px`,
+        height: `${rects.reference.height}px`
+      });
+    }
+
+  })];
+}
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/popover/index.js
 
 
@@ -20471,9 +20549,11 @@ const limitShift = function () {
 
 
 
+
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -20633,7 +20713,7 @@ const UnforwardedPopover = (props, forwardedRef) => {
    */
 
   const frameOffsetRef = (0,external_wp_element_namespaceObject.useRef)(getFrameOffset(referenceOwnerDocument));
-  const middleware = [// Custom middleware which adjusts the popover's position by taking into
+  const middleware = [...(placementProp === 'overlay' ? overlayMiddlewares() : []), // Custom middleware which adjusts the popover's position by taking into
   // account the offset of the anchor's iframe (if any) compared to the page.
   {
     name: 'frameOffset',
@@ -20727,7 +20807,7 @@ const UnforwardedPopover = (props, forwardedRef) => {
       arrow: arrowData
     }
   } = useFloating({
-    placement: normalizedPlacementFromProps,
+    placement: normalizedPlacementFromProps === 'overlay' ? undefined : normalizedPlacementFromProps,
     middleware,
     whileElementsMounted: (referenceParam, floatingParam, updateParam) => N(referenceParam, floatingParam, updateParam, {
       animationFrame: true
@@ -20752,12 +20832,14 @@ const UnforwardedPopover = (props, forwardedRef) => {
       fallbackReferenceElement,
       fallbackDocument: document
     });
+    const scale = getFrameScale(resultingReferenceOwnerDoc);
     const resultingReferenceElement = getReferenceElement({
       anchor,
       anchorRef,
       anchorRect,
       getAnchorRect,
-      fallbackReferenceElement
+      fallbackReferenceElement,
+      scale
     });
     referenceCallbackRef(resultingReferenceElement);
     setReferenceOwnerDocument(resultingReferenceOwnerDoc);
@@ -20780,6 +20862,10 @@ const UnforwardedPopover = (props, forwardedRef) => {
     const {
       defaultView
     } = referenceOwnerDocument;
+    const {
+      frameElement
+    } = defaultView;
+    const scrollContainer = frameElement ? (0,external_wp_dom_namespaceObject.getScrollContainer)(frameElement) : null;
 
     const updateFrameOffset = () => {
       frameOffsetRef.current = getFrameOffset(referenceOwnerDocument);
@@ -20787,9 +20873,11 @@ const UnforwardedPopover = (props, forwardedRef) => {
     };
 
     defaultView.addEventListener('resize', updateFrameOffset);
+    scrollContainer === null || scrollContainer === void 0 ? void 0 : scrollContainer.addEventListener('scroll', updateFrameOffset);
     updateFrameOffset();
     return () => {
       defaultView.removeEventListener('resize', updateFrameOffset);
+      scrollContainer === null || scrollContainer === void 0 ? void 0 : scrollContainer.removeEventListener('scroll', updateFrameOffset);
     };
   }, [referenceOwnerDocument, update, refs.floating]);
   const mergedFloatingRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([floating, dialogRef, forwardedRef]); // Disable reason: We care to capture the _bubbled_ events from inputs
@@ -21230,7 +21318,7 @@ const ALIGNMENTS = GRID.flat();
 /**
  * Parses and transforms an incoming value to better match the alignment values
  *
- * @param  value An alignment value to parse.
+ * @param value An alignment value to parse.
  *
  * @return The parsed value.
  */
@@ -21242,8 +21330,8 @@ function transformValue(value) {
 /**
  * Creates an item ID based on a prefix ID and an alignment value.
  *
- * @param  prefixId An ID to prefix.
- * @param  value    An alignment value.
+ * @param prefixId An ID to prefix.
+ * @param value    An alignment value.
  *
  * @return The item id.
  */
@@ -21255,7 +21343,7 @@ function getItemId(prefixId, value) {
 /**
  * Retrieves the alignment index from a value.
  *
- * @param  alignment Value to check.
+ * @param alignment Value to check.
  *
  * @return The index of a matching alignment.
  */
@@ -24366,7 +24454,7 @@ const GRID_BASE = '4px';
  * When given a unit value or one of the named CSS values like `auto`,
  * it will simply return the value back.
  *
- * @param  value A number, numeric string, or a unit value.
+ * @param value A number, numeric string, or a unit value.
  */
 
 function space(value) {
@@ -28035,7 +28123,7 @@ function useGesture(handlers, config = {}) {
 /**
  * Gets a CSS cursor value based on a drag direction.
  *
- * @param  dragDirection The drag direction.
+ * @param dragDirection The drag direction.
  * @return  The CSS cursor value.
  */
 function getDragCursor(dragDirection) {
@@ -28174,7 +28262,7 @@ const RESET = 'RESET';
 /**
  * Prepares initialState for the reducer.
  *
- * @param  initialState The initial state.
+ * @param initialState The initial state.
  * @return Prepared initialState for the reducer
  */
 function mergeInitialState() {
@@ -28194,7 +28282,7 @@ function mergeInitialState() {
  * exception for CONTROL actions is because they represent controlled updates
  * from props and no case has yet presented for their specialization.
  *
- * @param  composedStateReducers A reducer to specialize state changes.
+ * @param composedStateReducers A reducer to specialize state changes.
  * @return The reducer.
  */
 
@@ -28293,9 +28381,9 @@ function inputControlStateReducer(composedStateReducers) {
  * This technique uses the "stateReducer" design pattern:
  * https://kentcdodds.com/blog/the-state-reducer-pattern/
  *
- * @param  stateReducer    An external state reducer.
- * @param  initialState    The initial state for the reducer.
- * @param  onChangeHandler A handler for the onChange event.
+ * @param stateReducer    An external state reducer.
+ * @param initialState    The initial state for the reducer.
+ * @param onChangeHandler A handler for the onChange event.
  * @return State, dispatch, and a collection of actions.
  */
 
@@ -29252,7 +29340,7 @@ function getAlignmentProps(alignment) {
 /**
  * Gets a collection of available children elements from a React component's children prop.
  *
- * @param  children
+ * @param children
  *
  * @return An array of available children.
  */
@@ -29722,19 +29810,19 @@ const deprecatedBottomMargin = _ref => {
 };
 
 const angle_picker_control_styles_Root = /*#__PURE__*/emotion_styled_base_browser_esm(flex_component,  true ? {
-  target: "e65ony43"
+  target: "eln3bjz3"
 } : 0)(deprecatedBottomMargin, ";" + ( true ? "" : 0));
 const CircleRoot = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e65ony42"
+  target: "eln3bjz2"
 } : 0)("border-radius:50%;border:", config_values.borderWidth, " solid ", COLORS.ui.border, ";box-sizing:border-box;cursor:grab;height:", CIRCLE_SIZE, "px;overflow:hidden;width:", CIRCLE_SIZE, "px;" + ( true ? "" : 0));
 const CircleIndicatorWrapper = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e65ony41"
+  target: "eln3bjz1"
 } : 0)( true ? {
   name: "1r307gh",
   styles: "box-sizing:border-box;position:relative;width:100%;height:100%;:focus-visible{outline:none;}"
 } : 0);
 const CircleIndicator = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e65ony40"
+  target: "eln3bjz0"
 } : 0)("background:", COLORS.ui.theme, ";border-radius:50%;border:", INNER_CIRCLE_SIZE, "px solid ", COLORS.ui.theme, ";bottom:0;box-sizing:border-box;display:block;height:0px;left:0;margin:auto;position:absolute;right:0;top:-", CIRCLE_SIZE / 2, "px;width:0px;" + ( true ? "" : 0));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/angle-picker-control/angle-circle.js
@@ -29758,11 +29846,15 @@ function AngleCircle(_ref) {
     onChange,
     ...props
   } = _ref;
-  const angleCircleRef = (0,external_wp_element_namespaceObject.useRef)();
+  const angleCircleRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const angleCircleCenter = (0,external_wp_element_namespaceObject.useRef)();
   const previousCursorValue = (0,external_wp_element_namespaceObject.useRef)();
 
   const setAngleCircleCenter = () => {
+    if (angleCircleRef.current === null) {
+      return;
+    }
+
     const rect = angleCircleRef.current.getBoundingClientRect();
     angleCircleCenter.current = {
       x: rect.x + rect.width / 2,
@@ -29771,16 +29863,25 @@ function AngleCircle(_ref) {
   };
 
   const changeAngleToPosition = event => {
-    const {
-      x: centerX,
-      y: centerY
-    } = angleCircleCenter.current; // Prevent (drag) mouse events from selecting and accidentally
+    var _event$target;
+
+    if (event === undefined) {
+      return;
+    } // Prevent (drag) mouse events from selecting and accidentally
     // triggering actions from other elements.
+
 
     event.preventDefault(); // Input control needs to lose focus and by preventDefault above, it doesn't.
 
-    event.target.focus();
-    onChange(getAngle(centerX, centerY, event.clientX, event.clientY));
+    (_event$target = event.target) === null || _event$target === void 0 ? void 0 : _event$target.focus();
+
+    if (angleCircleCenter.current !== undefined && onChange !== undefined) {
+      const {
+        x: centerX,
+        y: centerY
+      } = angleCircleCenter.current;
+      onChange(getAngle(centerX, centerY, event.clientX, event.clientY));
+    }
   };
 
   const {
@@ -29802,31 +29903,26 @@ function AngleCircle(_ref) {
 
       document.body.style.cursor = 'grabbing';
     } else {
-      document.body.style.cursor = previousCursorValue.current || null;
+      document.body.style.cursor = previousCursorValue.current || '';
       previousCursorValue.current = undefined;
     }
   }, [isDragging]);
-  return (
-    /* eslint-disable jsx-a11y/no-static-element-interactions */
-    (0,external_wp_element_namespaceObject.createElement)(CircleRoot, extends_extends({
-      ref: angleCircleRef,
-      onMouseDown: startDrag,
-      className: "components-angle-picker-control__angle-circle",
-      style: isDragging ? {
-        cursor: 'grabbing'
-      } : undefined
-    }, props), (0,external_wp_element_namespaceObject.createElement)(CircleIndicatorWrapper, {
-      style: value ? {
-        transform: `rotate(${value}deg)`
-      } : undefined,
-      className: "components-angle-picker-control__angle-circle-indicator-wrapper",
-      tabIndex: -1
-    }, (0,external_wp_element_namespaceObject.createElement)(CircleIndicator, {
-      className: "components-angle-picker-control__angle-circle-indicator"
-    })))
-    /* eslint-enable jsx-a11y/no-static-element-interactions */
-
-  );
+  return (0,external_wp_element_namespaceObject.createElement)(CircleRoot, extends_extends({
+    ref: angleCircleRef,
+    onMouseDown: startDrag,
+    className: "components-angle-picker-control__angle-circle",
+    style: isDragging ? {
+      cursor: 'grabbing'
+    } : undefined
+  }, props), (0,external_wp_element_namespaceObject.createElement)(CircleIndicatorWrapper, {
+    style: value ? {
+      transform: `rotate(${value}deg)`
+    } : undefined,
+    className: "components-angle-picker-control__angle-circle-indicator-wrapper",
+    tabIndex: -1
+  }, (0,external_wp_element_namespaceObject.createElement)(CircleIndicator, {
+    className: "components-angle-picker-control__angle-circle-indicator"
+  })));
 }
 
 function getAngle(centerX, centerY, pointX, pointY) {
@@ -29847,6 +29943,7 @@ function getAngle(centerX, centerY, pointX, pointY) {
 ;// CONCATENATED MODULE: ./packages/components/build-module/angle-picker-control/index.js
 
 
+
 /**
  * External dependencies
  */
@@ -29854,6 +29951,7 @@ function getAngle(centerX, centerY, pointX, pointY) {
 /**
  * WordPress dependencies
  */
+
 
 
 
@@ -29869,15 +29967,16 @@ function getAngle(centerX, centerY, pointX, pointY) {
 
 
 
-function AnglePickerControl(_ref) {
-  let {
-    /** Start opting into the new margin-free styles that will become the default in a future version. */
+
+function UnforwardedAnglePickerControl(props, ref) {
+  const {
     __nextHasNoMarginBottom = false,
     className,
     label = (0,external_wp_i18n_namespaceObject.__)('Angle'),
     onChange,
-    value
-  } = _ref;
+    value,
+    ...restProps
+  } = props;
 
   if (!__nextHasNoMarginBottom) {
     external_wp_deprecated_default()('Bottom margin styles for wp.components.AnglePickerControl', {
@@ -29888,16 +29987,21 @@ function AnglePickerControl(_ref) {
   }
 
   const handleOnNumberChange = unprocessedValue => {
-    const inputValue = unprocessedValue !== '' ? parseInt(unprocessedValue, 10) : 0;
+    if (onChange === undefined) {
+      return;
+    }
+
+    const inputValue = unprocessedValue !== undefined && unprocessedValue !== '' ? parseInt(unprocessedValue, 10) : 0;
     onChange(inputValue);
   };
 
   const classes = classnames_default()('components-angle-picker-control', className);
-  return (0,external_wp_element_namespaceObject.createElement)(angle_picker_control_styles_Root, {
+  return (0,external_wp_element_namespaceObject.createElement)(angle_picker_control_styles_Root, extends_extends({}, restProps, {
+    ref: ref,
     __nextHasNoMarginBottom: __nextHasNoMarginBottom,
     className: classes,
     gap: 4
-  }, (0,external_wp_element_namespaceObject.createElement)(flex_block_component, null, (0,external_wp_element_namespaceObject.createElement)(number_control, {
+  }), (0,external_wp_element_namespaceObject.createElement)(flex_block_component, null, (0,external_wp_element_namespaceObject.createElement)(number_control, {
     label: label,
     className: "components-angle-picker-control__input-field",
     max: 360,
@@ -29926,6 +30030,32 @@ function AnglePickerControl(_ref) {
     onChange: onChange
   })));
 }
+/**
+ * `AnglePickerControl` is a React component to render a UI that allows users to
+ * pick an angle. Users can choose an angle in a visual UI with the mouse by
+ * dragging an angle indicator inside a circle or by directly inserting the
+ * desired angle in a text field.
+ *
+ * ```jsx
+ * import { useState } from '@wordpress/element';
+ * import { AnglePickerControl } from '@wordpress/components';
+ *
+ * function Example() {
+ *   const [ angle, setAngle ] = useState( 0 );
+ *   return (
+ *     <AnglePickerControl
+ *       value={ angle }
+ *       onChange={ setAngle }
+ *       __nextHasNoMarginBottom
+ *     </>
+ *   );
+ * }
+ * ```
+ */
+
+
+const AnglePickerControl = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedAnglePickerControl);
+/* harmony default export */ var angle_picker_control = (AnglePickerControl);
 
 // EXTERNAL MODULE: ./node_modules/remove-accents/index.js
 var remove_accents = __webpack_require__(4793);
@@ -30633,7 +30763,7 @@ function Autocomplete(_ref3) {
  *
  * Namely, it takes care of generating a unique `id`, properly associating it with the `label` and `help` elements.
  *
- * @param  props
+ * @param props
  */
 function useBaseControlProps(props) {
   const {
@@ -31472,8 +31602,16 @@ const select_control_styles_fontSizeStyles = _ref2 => {
 const select_control_styles_sizeStyles = _ref3 => {
   let {
     __next36pxDefaultSize,
+    multiple,
     selectSize = 'default'
   } = _ref3;
+
+  if (multiple) {
+    // When `multiple`, just use the native browser styles
+    // without setting explicit height.
+    return;
+  }
+
   const sizes = {
     default: {
       height: 36,
@@ -31513,39 +31651,44 @@ const chevronIconSize = 18;
 const sizePaddings = _ref4 => {
   let {
     __next36pxDefaultSize,
+    multiple,
     selectSize = 'default'
   } = _ref4;
-  const iconWidth = chevronIconSize;
-  const sizes = {
-    default: {
-      paddingLeft: 16,
-      paddingRight: 16 + iconWidth
-    },
-    small: {
-      paddingLeft: 8,
-      paddingRight: 8 + iconWidth
-    },
-    '__unstable-large': {
-      paddingLeft: 16,
-      paddingRight: 16 + iconWidth
-    }
+  const padding = {
+    default: 16,
+    small: 8,
+    '__unstable-large': 16
   };
 
   if (!__next36pxDefaultSize) {
-    sizes.default = {
-      paddingLeft: 8,
-      paddingRight: 8 + iconWidth
-    };
+    padding.default = 8;
   }
 
-  return rtl(sizes[selectSize] || sizes.default);
+  const selectedPadding = padding[selectSize] || padding.default;
+  return rtl({
+    paddingLeft: selectedPadding,
+    paddingRight: selectedPadding + chevronIconSize,
+    ...(multiple ? {
+      paddingTop: selectedPadding,
+      paddingBottom: selectedPadding
+    } : {})
+  });
+};
+
+const overflowStyles = _ref5 => {
+  let {
+    multiple
+  } = _ref5;
+  return {
+    overflow: multiple ? 'auto' : 'hidden'
+  };
 }; // TODO: Resolve need to use &&& to increase specificity
 // https://github.com/WordPress/gutenberg/issues/18483
 
 
 const Select = emotion_styled_base_browser_esm("select",  true ? {
   target: "e1mv6sxx2"
-} : 0)("&&&{appearance:none;background:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.gray[900], ";display:block;font-family:inherit;margin:0;width:100%;max-width:none;cursor:pointer;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;", select_control_styles_disabledStyles, ";", select_control_styles_fontSizeStyles, ";", select_control_styles_sizeStyles, ";", sizePaddings, ";}" + ( true ? "" : 0));
+} : 0)("&&&{appearance:none;background:transparent;box-sizing:border-box;border:none;box-shadow:none!important;color:", COLORS.gray[900], ";display:block;font-family:inherit;margin:0;width:100%;max-width:none;cursor:pointer;white-space:nowrap;text-overflow:ellipsis;", select_control_styles_disabledStyles, ";", select_control_styles_fontSizeStyles, ";", select_control_styles_sizeStyles, ";", sizePaddings, ";", overflowStyles, ";}" + ( true ? "" : 0));
 const DownArrowWrapper = emotion_styled_base_browser_esm("div",  true ? {
   target: "e1mv6sxx1"
 } : 0)("margin-inline-end:", space(-1), ";line-height:0;" + ( true ? "" : 0));
@@ -31732,7 +31875,7 @@ function UnforwardedSelectControl(_ref, ref) {
     isFocused: isFocused,
     label: label,
     size: size,
-    suffix: suffix || (0,external_wp_element_namespaceObject.createElement)(select_control_chevron_down, null),
+    suffix: suffix || !multiple && (0,external_wp_element_namespaceObject.createElement)(select_control_chevron_down, null),
     prefix: prefix,
     labelPosition: labelPosition,
     __next36pxDefaultSize: __next36pxDefaultSize
@@ -31802,8 +31945,8 @@ const SelectControl = (0,external_wp_element_namespaceObject.forwardRef)(Unforwa
 /**
  * @template T
  * @typedef Options
- * @property {T | undefined} initial  Initial value
- * @property {T | ""}        fallback Fallback value
+ * @property {T}      [initial] Initial value
+ * @property {T | ""} fallback  Fallback value
  */
 
 /** @type {Readonly<{ initial: undefined, fallback: '' }>} */
@@ -31892,9 +32035,9 @@ function useControlledState(currentState) {
 /**
  * A float supported clamp function for a specific value.
  *
- * @param  value The value to clamp.
- * @param  min   The minimum value.
- * @param  max   The maximum value.
+ * @param value The value to clamp.
+ * @param min   The minimum value.
+ * @param max   The maximum value.
  *
  * @return A (float) number
  */
@@ -31908,7 +32051,7 @@ function floatClamp(value, min, max) {
 /**
  * Hook to store a clamped value, derived from props.
  *
- * @param  settings
+ * @param settings
  * @return The controlled value and the value setter.
  */
 
@@ -36103,10 +36246,10 @@ const Picker = _ref => {
 /**
  * Simplified and improved implementation of useControlledState.
  *
- * @param  props
- * @param  props.defaultValue
- * @param  props.value
- * @param  props.onChange
+ * @param props
+ * @param props.defaultValue
+ * @param props.value
+ * @param props.onChange
  * @return The controlled value and the value setter.
  */
 function useControlledValue(_ref) {
@@ -36768,20 +36911,28 @@ const isMultiplePaletteObject = obj => Array.isArray(obj.colors) && !('color' in
 const isMultiplePaletteArray = arr => {
   return arr.length > 0 && arr.every(colorObj => isMultiplePaletteObject(colorObj));
 };
-const normalizeColorValue = (value, ref) => {
+/**
+ * Transform a CSS variable used as background color into the color value itself.
+ *
+ * @param value   The color value that may be a CSS variable.
+ * @param element The element for which to get the computed style.
+ * @return The background color value computed from a element.
+ */
+
+const normalizeColorValue = (value, element) => {
   const currentValueIsCssVariable = /^var\(/.test(value !== null && value !== void 0 ? value : '');
 
-  if (!currentValueIsCssVariable || !(ref !== null && ref !== void 0 && ref.current)) {
+  if (!currentValueIsCssVariable || element === null) {
     return value;
   }
 
   const {
     ownerDocument
-  } = ref.current;
+  } = element;
   const {
     defaultView
   } = ownerDocument;
-  const computedBackgroundColor = defaultView === null || defaultView === void 0 ? void 0 : defaultView.getComputedStyle(ref.current).backgroundColor;
+  const computedBackgroundColor = defaultView === null || defaultView === void 0 ? void 0 : defaultView.getComputedStyle(element).backgroundColor;
   return computedBackgroundColor ? colord_w(computedBackgroundColor).toHex() : value;
 };
 
@@ -36866,7 +37017,8 @@ function MultiplePalettes(_ref3) {
     colors,
     onChange,
     value,
-    actions
+    actions,
+    headingLevel
   } = _ref3;
 
   if (colors.length === 0) {
@@ -36884,7 +37036,9 @@ function MultiplePalettes(_ref3) {
     return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
       spacing: 2,
       key: index
-    }, (0,external_wp_element_namespaceObject.createElement)(ColorHeading, null, name), (0,external_wp_element_namespaceObject.createElement)(SinglePalette, {
+    }, (0,external_wp_element_namespaceObject.createElement)(ColorHeading, {
+      level: headingLevel
+    }, name), (0,external_wp_element_namespaceObject.createElement)(SinglePalette, {
       clearColor: clearColor,
       colors: colorPalette,
       onChange: newColor => onChange(newColor, index),
@@ -36921,7 +37075,6 @@ function CustomColorPickerDropdown(_ref5) {
 }
 
 function UnforwardedColorPalette(props, forwardedRef) {
-  const customColorPaletteRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const {
     clearable = true,
     colors = [],
@@ -36930,21 +37083,26 @@ function UnforwardedColorPalette(props, forwardedRef) {
     onChange,
     value,
     __experimentalIsRenderedInSidebar = false,
+    headingLevel = 2,
     ...otherProps
   } = props;
+  const [normalizedColorValue, setNormalizedColorValue] = (0,external_wp_element_namespaceObject.useState)(value);
   const clearColor = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
+  const customColorPaletteCallbackRef = (0,external_wp_element_namespaceObject.useCallback)(node => {
+    setNormalizedColorValue(normalizeColorValue(value, node));
+  }, [value]);
   const hasMultipleColorOrigins = isMultiplePaletteArray(colors);
   const buttonLabelName = (0,external_wp_element_namespaceObject.useMemo)(() => extractColorNameFromCurrentValue(value, colors, hasMultipleColorOrigins), [value, colors, hasMultipleColorOrigins]);
 
   const renderCustomColorPicker = () => (0,external_wp_element_namespaceObject.createElement)(dropdown_content_wrapper, {
     paddingSize: "none"
   }, (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
-    color: normalizeColorValue(value, customColorPaletteRef),
+    color: normalizedColorValue,
     onChange: color => onChange(color),
     enableAlpha: enableAlpha
   }));
 
-  const colordColor = colord_w(value !== null && value !== void 0 ? value : '');
+  const colordColor = colord_w(normalizedColorValue !== null && normalizedColorValue !== void 0 ? normalizedColorValue : '');
   const valueWithoutLeadingHash = value !== null && value !== void 0 && value.startsWith('#') ? value.substring(1) : value !== null && value !== void 0 ? value : '';
   const customColorAccessibleLabel = !!valueWithoutLeadingHash ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %1$s: The name of the color e.g: "vivid red". %2$s: The color's hex code e.g: "#f00".
   (0,external_wp_i18n_namespaceObject.__)('Custom color picker. The currently selected color is called "%1$s" and has a value of "%2$s".'), buttonLabelName, valueWithoutLeadingHash) : (0,external_wp_i18n_namespaceObject.__)('Custom color picker.');
@@ -36955,7 +37113,8 @@ function UnforwardedColorPalette(props, forwardedRef) {
     value,
     actions: !!clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
       onClick: clearColor
-    }, (0,external_wp_i18n_namespaceObject.__)('Clear'))
+    }, (0,external_wp_i18n_namespaceObject.__)('Clear')),
+    headingLevel
   };
   return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, extends_extends({
     spacing: 3,
@@ -36970,7 +37129,7 @@ function UnforwardedColorPalette(props, forwardedRef) {
       } = _ref6;
       return (0,external_wp_element_namespaceObject.createElement)(flex_component, {
         as: 'button',
-        ref: customColorPaletteRef,
+        ref: customColorPaletteCallbackRef,
         justify: "space-between",
         align: "flex-start",
         className: "components-color-palette__custom-color",
@@ -37149,9 +37308,9 @@ const DEFAULT_UNIT = allUnits.px;
  * Moving forward, ideally the value should be a string that contains both
  * the value and unit, example: '10px'
  *
- * @param  rawValue     The raw value as a string (may or may not contain the unit)
- * @param  fallbackUnit The unit used as a fallback, if not unit is detected in the `value`
- * @param  allowedUnits Units to derive from.
+ * @param rawValue     The raw value as a string (may or may not contain the unit)
+ * @param fallbackUnit The unit used as a fallback, if not unit is detected in the `value`
+ * @param allowedUnits Units to derive from.
  * @return The extracted quantity and unit. The quantity can be `undefined` in case the raw value
  * could not be parsed to a number correctly. The unit can be `undefined` in case the unit parse
  * from the raw value could not be matched against the list of allowed units.
@@ -37164,7 +37323,7 @@ function getParsedQuantityAndUnit(rawValue, fallbackUnit, allowedUnits) {
 /**
  * Checks if units are defined.
  *
- * @param  units List of units.
+ * @param units List of units.
  * @return Whether the list actually contains any units.
  */
 
@@ -37178,8 +37337,8 @@ function hasUnits(units) {
  * Parses a quantity and unit from a raw string value, given a list of allowed
  * units and otherwise falling back to the default unit.
  *
- * @param  rawValue     The raw value as a string (may or may not contain the unit)
- * @param  allowedUnits Units to derive from.
+ * @param rawValue     The raw value as a string (may or may not contain the unit)
+ * @param allowedUnits Units to derive from.
  * @return The extracted quantity and unit. The quantity can be `undefined` in case the raw value
  * could not be parsed to a number correctly. The unit can be `undefined` in case the unit parsed
  * from the raw value could not be matched against the list of allowed units.
@@ -37215,10 +37374,10 @@ function parseQuantityAndUnitFromRawValue(rawValue) {
  * Parses quantity and unit from a raw value. Validates parsed value, using fallback
  * value if invalid.
  *
- * @param  rawValue         The next value.
- * @param  allowedUnits     Units to derive from.
- * @param  fallbackQuantity The fallback quantity, used in case it's not possible to parse a valid quantity from the raw value.
- * @param  fallbackUnit     The fallback unit, used in case it's not possible to parse a valid unit from the raw value.
+ * @param rawValue         The next value.
+ * @param allowedUnits     Units to derive from.
+ * @param fallbackQuantity The fallback quantity, used in case it's not possible to parse a valid quantity from the raw value.
+ * @param fallbackUnit     The fallback unit, used in case it's not possible to parse a valid unit from the raw value.
  * @return The extracted quantity and unit. The quantity can be `undefined` in case the raw value
  * could not be parsed to a number correctly, and the `fallbackQuantity` was also `undefined`. The
  * unit can be `undefined` only if the unit parsed from the raw value could not be matched against
@@ -37245,7 +37404,7 @@ function getValidParsedQuantityAndUnit(rawValue, allowedUnits, fallbackQuantity,
  * Takes a unit value and finds the matching accessibility label for the
  * unit abbreviation.
  *
- * @param  unit Unit value (example: `px`)
+ * @param unit Unit value (example: `px`)
  * @return a11y label for the unit abbreviation
  */
 
@@ -37256,8 +37415,8 @@ function getAccessibleLabelForUnit(unit) {
 /**
  * Filters available units based on values defined a list of allowed unit values.
  *
- * @param  allowedUnitValues Collection of allowed unit value strings.
- * @param  availableUnits    Collection of available unit objects.
+ * @param allowedUnitValues Collection of allowed unit value strings.
+ * @param availableUnits    Collection of available unit objects.
  * @return Filtered units.
  */
 
@@ -37274,10 +37433,10 @@ function filterUnitsWithSettings() {
  * TODO: ideally this hook shouldn't be needed
  * https://github.com/WordPress/gutenberg/pull/31822#discussion_r633280823
  *
- * @param  args                An object containing units, settingPath & defaultUnits.
- * @param  args.units          Collection of all potentially available units.
- * @param  args.availableUnits Collection of unit value strings for filtering available units.
- * @param  args.defaultValues  Collection of default values for defined units. Example: `{ px: 350, em: 15 }`.
+ * @param args                An object containing units, settingPath & defaultUnits.
+ * @param args.units          Collection of all potentially available units.
+ * @param args.availableUnits Collection of unit value strings for filtering available units.
+ * @param args.defaultValues  Collection of default values for defined units. Example: `{ px: 350, em: 15 }`.
  *
  * @return Filtered list of units, with their default values updated following the `defaultValues`
  * argument's property.
@@ -37310,9 +37469,9 @@ const useCustomUnits = _ref => {
  * accurately displayed in the UI, even if the intention is to hide
  * the availability of that unit.
  *
- * @param  rawValue   Selected value to parse.
- * @param  legacyUnit Legacy unit value, if rawValue needs it appended.
- * @param  units      List of available units.
+ * @param rawValue   Selected value to parse.
+ * @param legacyUnit Legacy unit value, if rawValue needs it appended.
+ * @param units      List of available units.
  *
  * @return A collection of units containing the unit for the current value.
  */
@@ -37806,8 +37965,8 @@ function UnforwardedUnitControl(unitControlProps, forwardedRef) {
    * This allows us to tap into actions to transform the (next) state for
    * InputControl.
    *
-   * @param  state  State from InputControl
-   * @param  action Action triggering state change
+   * @param state  State from InputControl
+   * @param action Action triggering state change
    * @return The updated state to apply to InputControl
    */
 
@@ -38500,7 +38659,7 @@ const UNITED_VALUE_REGEX = /^([\d.\-+]*)\s*(fr|cm|mm|Q|in|pc|pt|px|em|ex|ch|rem|
 /**
  * Parses a number and unit from a value.
  *
- * @param  toParse Value to parse
+ * @param toParse Value to parse
  *
  * @return  The extracted number and unit.
  */
@@ -38521,8 +38680,8 @@ function parseCSSUnitValue(toParse) {
 /**
  * Combines a value and a unit into a unit value.
  *
- * @param  value
- * @param  unit
+ * @param value
+ * @param unit
  *
  * @return The unit value.
  */
@@ -38670,7 +38829,7 @@ const getMostCommonUnit = values => {
  * Finds the mode value out of the array passed favouring the first value
  * as a tiebreaker.
  *
- * @param  values Values to determine the mode from.
+ * @param values Values to determine the mode from.
  *
  * @return The mode value.
  */
@@ -38997,37 +39156,37 @@ function box_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have 
 
 
 const box_control_styles_Root = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e7pk0lh6"
+  target: "e1jovhle6"
 } : 0)( true ? {
   name: "14bvcyk",
   styles: "box-sizing:border-box;max-width:235px;padding-bottom:12px;width:100%"
 } : 0);
 const Header = /*#__PURE__*/emotion_styled_base_browser_esm(flex_component,  true ? {
-  target: "e7pk0lh5"
+  target: "e1jovhle5"
 } : 0)( true ? {
   name: "5bhc30",
   styles: "margin-bottom:8px"
 } : 0);
 const HeaderControlWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_component,  true ? {
-  target: "e7pk0lh4"
+  target: "e1jovhle4"
 } : 0)( true ? {
   name: "aujtid",
   styles: "min-height:30px;gap:0"
 } : 0);
 const UnitControlWrapper = emotion_styled_base_browser_esm("div",  true ? {
-  target: "e7pk0lh3"
+  target: "e1jovhle3"
 } : 0)( true ? {
   name: "112jwab",
   styles: "box-sizing:border-box;max-width:80px"
 } : 0);
 const LayoutContainer = /*#__PURE__*/emotion_styled_base_browser_esm(flex_component,  true ? {
-  target: "e7pk0lh2"
+  target: "e1jovhle2"
 } : 0)( true ? {
   name: "xy18ro",
   styles: "justify-content:center;padding-top:8px"
 } : 0);
 const Layout = /*#__PURE__*/emotion_styled_base_browser_esm(flex_component,  true ? {
-  target: "e7pk0lh1"
+  target: "e1jovhle1"
 } : 0)( true ? {
   name: "3tw5wk",
   styles: "position:relative;height:100%;width:100%;justify-content:flex-start"
@@ -39083,7 +39242,7 @@ const unitControlMarginStyles = _ref4 => {
 };
 
 const box_control_styles_UnitControl = /*#__PURE__*/emotion_styled_base_browser_esm(unit_control,  true ? {
-  target: "e7pk0lh0"
+  target: "e1jovhle0"
 } : 0)("max-width:60px;", unitControlBorderRadiusStyles, ";", unitControlMarginStyles, ";" + ( true ? "" : 0));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/box-control/unit-control.js
@@ -39192,8 +39351,8 @@ const ALL_SIDES = ['top', 'right', 'bottom', 'left'];
  * Gets an items with the most occurrence within an array
  * https://stackoverflow.com/a/20762713
  *
- * @param {Array<any>} arr Array of items to check.
- * @return {any} The item with the most occurrences.
+ * @param arr Array of items to check.
+ * @return The item with the most occurrences.
  */
 
 function utils_mode(arr) {
@@ -39202,11 +39361,11 @@ function utils_mode(arr) {
 /**
  * Gets the 'all' input value and unit from values data.
  *
- * @param {Object} values         Box values.
- * @param {Object} selectedUnits  Box units.
- * @param {Array}  availableSides Available box sides to evaluate.
+ * @param values         Box values.
+ * @param selectedUnits  Box units.
+ * @param availableSides Available box sides to evaluate.
  *
- * @return {string} A value + unit for the 'all' input.
+ * @return A value + unit for the 'all' input.
  */
 
 
@@ -39250,8 +39409,8 @@ function getAllValue() {
 /**
  * Determine the most common unit selection to use as a fallback option.
  *
- * @param {Object} selectedUnits Current unit selections for individual sides.
- * @return {string} Most common unit selection.
+ * @param selectedUnits Current unit selections for individual sides.
+ * @return  Most common unit selection.
  */
 
 function getAllUnitFallback(selectedUnits) {
@@ -39265,11 +39424,11 @@ function getAllUnitFallback(selectedUnits) {
 /**
  * Checks to determine if values are mixed.
  *
- * @param {Object} values        Box values.
- * @param {Object} selectedUnits Box units.
- * @param {Array}  sides         Available box sides to evaluate.
+ * @param values        Box values.
+ * @param selectedUnits Box units.
+ * @param sides         Available box sides to evaluate.
  *
- * @return {boolean} Whether values are mixed.
+ * @return Whether values are mixed.
  */
 
 function isValuesMixed() {
@@ -39283,9 +39442,9 @@ function isValuesMixed() {
 /**
  * Checks to determine if values are defined.
  *
- * @param {Object} values Box values.
+ * @param values Box values.
  *
- * @return {boolean} Whether values are mixed.
+ * @return  Whether values are mixed.
  */
 
 function isValuesDefined(values) {
@@ -39298,9 +39457,9 @@ function isValuesDefined(values) {
  * Get initial selected side, factoring in whether the sides are linked,
  * and whether the vertical / horizontal directions are grouped via splitOnAxis.
  *
- * @param {boolean} isLinked    Whether the box control's fields are linked.
- * @param {boolean} splitOnAxis Whether splitting by horizontal or vertical axis.
- * @return {string} The initial side.
+ * @param isLinked    Whether the box control's fields are linked.
+ * @param splitOnAxis Whether splitting by horizontal or vertical axis.
+ * @return The initial side.
  */
 
 function getInitialSide(isLinked, splitOnAxis) {
@@ -39318,8 +39477,8 @@ function getInitialSide(isLinked, splitOnAxis) {
  * to their appropriate sides to facilitate correctly determining value for
  * all input control.
  *
- * @param {Array} sides Available sides for box control.
- * @return {Array} Normalized sides configuration.
+ * @param sides Available sides for box control.
+ * @return Normalized sides configuration.
  */
 
 function normalizeSides(sides) {
@@ -39344,11 +39503,11 @@ function normalizeSides(sides) {
  * Applies a value to an object representing top, right, bottom and left sides
  * while taking into account any custom side configuration.
  *
- * @param {Object}        currentValues The current values for each side.
- * @param {string|number} newValue      The value to apply to the sides object.
- * @param {string[]}      sides         Array defining valid sides.
+ * @param currentValues The current values for each side.
+ * @param newValue      The value to apply to the sides object.
+ * @param sides         Array defining valid sides.
  *
- * @return {Object} Object containing the updated values for each side.
+ * @return Object containing the updated values for each side.
  */
 
 function applyValueToSides(currentValues, newValue, sides) {
@@ -39401,7 +39560,7 @@ function AllInputControl(_ref) {
   const allValue = getAllValue(values, selectedUnits, sides);
   const hasValues = isValuesDefined(values);
   const isMixed = hasValues && isValuesMixed(values, selectedUnits, sides);
-  const allPlaceholder = isMixed ? LABELS.mixed : null;
+  const allPlaceholder = isMixed ? LABELS.mixed : undefined;
 
   const handleOnFocus = event => {
     onFocus(event, {
@@ -39410,7 +39569,7 @@ function AllInputControl(_ref) {
   };
 
   const handleOnChange = next => {
-    const isNumeric = !isNaN(parseFloat(next));
+    const isNumeric = next !== undefined && !isNaN(parseFloat(next));
     const nextValue = isNumeric ? next : undefined;
     const nextValues = applyValueToSides(values, nextValue, sides);
     onChange(nextValues);
@@ -39507,20 +39666,20 @@ function BoxInputControls(_ref) {
     let {
       event
     } = _ref2;
-    const {
-      altKey
-    } = event;
     const nextValues = { ...values
     };
-    const isNumeric = !isNaN(parseFloat(next));
+    const isNumeric = next !== undefined && !isNaN(parseFloat(next));
     const nextValue = isNumeric ? next : undefined;
     nextValues[side] = nextValue;
     /**
      * Supports changing pair sides. For example, holding the ALT key
      * when changing the TOP will also update BOTTOM.
      */
+    // @ts-expect-error - TODO: event.altKey is only present when the change event was
+    // triggered by a keyboard event. Should this feature be implemented differently so
+    // it also works with drag events?
 
-    if (altKey) {
+    if (event.altKey) {
       switch (side) {
         case 'top':
           nextValues.bottom = nextValue;
@@ -39662,7 +39821,7 @@ function AxialInputControls(_ref) {
 
     const nextValues = { ...values
     };
-    const isNumeric = !isNaN(parseFloat(next));
+    const isNumeric = next !== undefined && !isNaN(parseFloat(next));
     const nextValue = isNumeric ? next : undefined;
 
     if (side === 'vertical') {
@@ -39733,13 +39892,13 @@ function box_control_icon_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You 
  */
 
 const box_control_icon_styles_Root = emotion_styled_base_browser_esm("span",  true ? {
-  target: "eaw9yqk8"
+  target: "e1j5nr4z8"
 } : 0)( true ? {
   name: "1w884gc",
   styles: "box-sizing:border-box;display:block;width:24px;height:24px;position:relative;padding:4px"
 } : 0);
 const Viewbox = emotion_styled_base_browser_esm("span",  true ? {
-  target: "eaw9yqk7"
+  target: "e1j5nr4z7"
 } : 0)( true ? {
   name: "i6vjox",
   styles: "box-sizing:border-box;display:block;position:relative;width:100%;height:100%"
@@ -39756,43 +39915,43 @@ const strokeFocus = _ref => {
 };
 
 const Stroke = emotion_styled_base_browser_esm("span",  true ? {
-  target: "eaw9yqk6"
+  target: "e1j5nr4z6"
 } : 0)("box-sizing:border-box;display:block;pointer-events:none;position:absolute;", strokeFocus, ";" + ( true ? "" : 0));
 
 const VerticalStroke = /*#__PURE__*/emotion_styled_base_browser_esm(Stroke,  true ? {
-  target: "eaw9yqk5"
+  target: "e1j5nr4z5"
 } : 0)( true ? {
   name: "1k2w39q",
   styles: "bottom:3px;top:3px;width:2px"
 } : 0);
 
 const HorizontalStroke = /*#__PURE__*/emotion_styled_base_browser_esm(Stroke,  true ? {
-  target: "eaw9yqk4"
+  target: "e1j5nr4z4"
 } : 0)( true ? {
   name: "1q9b07k",
   styles: "height:2px;left:3px;right:3px"
 } : 0);
 
 const TopStroke = /*#__PURE__*/emotion_styled_base_browser_esm(HorizontalStroke,  true ? {
-  target: "eaw9yqk3"
+  target: "e1j5nr4z3"
 } : 0)( true ? {
   name: "abcix4",
   styles: "top:0"
 } : 0);
 const RightStroke = /*#__PURE__*/emotion_styled_base_browser_esm(VerticalStroke,  true ? {
-  target: "eaw9yqk2"
+  target: "e1j5nr4z2"
 } : 0)( true ? {
   name: "1wf8jf",
   styles: "right:0"
 } : 0);
 const BottomStroke = /*#__PURE__*/emotion_styled_base_browser_esm(HorizontalStroke,  true ? {
-  target: "eaw9yqk1"
+  target: "e1j5nr4z1"
 } : 0)( true ? {
   name: "8tapst",
   styles: "bottom:0"
 } : 0);
 const LeftStroke = /*#__PURE__*/emotion_styled_base_browser_esm(VerticalStroke,  true ? {
-  target: "eaw9yqk0"
+  target: "e1j5nr4z0"
 } : 0)( true ? {
   name: "1ode3cm",
   styles: "left:0"
@@ -39914,6 +40073,32 @@ function box_control_useUniqueId(idProp) {
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(BoxControl, 'inspector-box-control');
   return idProp || instanceId;
 }
+/**
+ * BoxControl components let users set values for Top, Right, Bottom, and Left.
+ * This can be used as an input control for values like `padding` or `margin`.
+ *
+ * ```jsx
+ * import { __experimentalBoxControl as BoxControl } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const Example = () => {
+ * 	const [ values, setValues ] = useState( {
+ * 		top: '50px',
+ * 		left: '10%',
+ * 		right: '10%',
+ * 		bottom: '50px',
+ * 	} );
+ *
+ * 	return (
+ * 		<BoxControl
+ * 			values={ values }
+ * 			onChange={ ( nextValues ) => setValues( nextValues ) }
+ * 		/>
+ * 	);
+ * };
+ * ```
+ */
+
 
 function BoxControl(_ref) {
   let {
@@ -39956,7 +40141,7 @@ function BoxControl(_ref) {
     setSide(getInitialSide(!isLinked, splitOnAxis));
   };
 
-  const handleOnFocus = (event, _ref2) => {
+  const handleOnFocus = (_event, _ref2) => {
     let {
       side: nextSide
     } = _ref2;
@@ -39998,7 +40183,7 @@ function BoxControl(_ref) {
     id: headingId
   }, label)), allowReset && (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     className: "component-box-control__reset-button",
-    isSecondary: true,
+    variant: "secondary",
     isSmall: true,
     onClick: handleOnReset,
     disabled: !isDirty
@@ -40015,6 +40200,8 @@ function BoxControl(_ref) {
   }))), !isLinked && !splitOnAxis && (0,external_wp_element_namespaceObject.createElement)(BoxInputControls, inputControlProps));
 }
 
+
+/* harmony default export */ var box_control = (BoxControl);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/button-group/index.js
 
@@ -42438,10 +42625,9 @@ const GradientAnglePicker = _ref => {
     }));
   };
 
-  return (0,external_wp_element_namespaceObject.createElement)(AnglePickerControl, {
+  return (0,external_wp_element_namespaceObject.createElement)(angle_picker_control, {
     __nextHasNoMarginBottom: true,
     onChange: onAngleChange,
-    labelPosition: "top",
     value: hasGradient ? angle : ''
   });
 };
@@ -42626,7 +42812,8 @@ function MultipleOrigin(_ref3) {
     gradients,
     onChange,
     value,
-    actions
+    actions,
+    headingLevel
   } = _ref3;
   return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
     spacing: 3,
@@ -42639,7 +42826,9 @@ function MultipleOrigin(_ref3) {
     return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
       spacing: 2,
       key: index
-    }, (0,external_wp_element_namespaceObject.createElement)(ColorHeading, null, name), (0,external_wp_element_namespaceObject.createElement)(SingleOrigin, extends_extends({
+    }, (0,external_wp_element_namespaceObject.createElement)(ColorHeading, {
+      level: headingLevel
+    }, name), (0,external_wp_element_namespaceObject.createElement)(SingleOrigin, extends_extends({
       clearGradient: clearGradient,
       gradients: gradientSet,
       onChange: gradient => onChange(gradient, index),
@@ -42660,7 +42849,8 @@ function GradientPicker(_ref5) {
     value,
     clearable = true,
     disableCustomGradients = false,
-    __experimentalIsRenderedInSidebar
+    __experimentalIsRenderedInSidebar,
+    headingLevel = 2
   } = _ref5;
   const clearGradient = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
   const Component = isMultipleOriginArray(gradients) ? MultipleOrigin : SingleOrigin;
@@ -42696,7 +42886,8 @@ function GradientPicker(_ref5) {
       value: value,
       actions: clearable && !disableCustomGradients && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
         onClick: clearGradient
-      }, (0,external_wp_i18n_namespaceObject.__)('Clear'))
+      }, (0,external_wp_i18n_namespaceObject.__)('Clear')),
+      headingLevel: headingLevel
     })))
   );
 }
@@ -42716,8 +42907,6 @@ const menu = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
 }));
 /* harmony default export */ var library_menu = (menu);
 
-;// CONCATENATED MODULE: external ["wp","dom"]
-var external_wp_dom_namespaceObject = window["wp"]["dom"];
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/container.js
 
 
@@ -43427,6 +43616,7 @@ function PaletteEdit(_ref6) {
     colors = EMPTY_ARRAY,
     onChange,
     paletteLabel,
+    paletteLabelHeadingLevel = 2,
     emptyMessage,
     canOnlyChangeValues,
     canReset,
@@ -43450,7 +43640,9 @@ function PaletteEdit(_ref6) {
       setIsEditing(true);
     }
   }, [isGradient, elements]);
-  return (0,external_wp_element_namespaceObject.createElement)(PaletteEditStyles, null, (0,external_wp_element_namespaceObject.createElement)(PaletteHStackHeader, null, (0,external_wp_element_namespaceObject.createElement)(PaletteHeading, null, paletteLabel), (0,external_wp_element_namespaceObject.createElement)(PaletteActionsContainer, null, hasElements && isEditing && (0,external_wp_element_namespaceObject.createElement)(DoneButton, {
+  return (0,external_wp_element_namespaceObject.createElement)(PaletteEditStyles, null, (0,external_wp_element_namespaceObject.createElement)(PaletteHStackHeader, null, (0,external_wp_element_namespaceObject.createElement)(PaletteHeading, {
+    level: paletteLabelHeadingLevel
+  }, paletteLabel), (0,external_wp_element_namespaceObject.createElement)(PaletteActionsContainer, null, hasElements && isEditing && (0,external_wp_element_namespaceObject.createElement)(DoneButton, {
     isSmall: true,
     onClick: () => {
       setIsEditing(false);
@@ -43832,23 +44024,74 @@ function SuggestionsList(_ref) {
 const combobox_control_noop = () => {};
 
 const DetectOutside = with_focus_outside(class extends external_wp_element_namespaceObject.Component {
+  // @ts-expect-error - TODO: Should be resolved when `withFocusOutside` is refactored to TypeScript
   handleFocusOutside(event) {
+    // @ts-expect-error - TODO: Should be resolved when `withFocusOutside` is refactored to TypeScript
     this.props.onFocusOutside(event);
   }
 
   render() {
+    // @ts-expect-error - TODO: Should be resolved when `withFocusOutside` is refactored to TypeScript
     return this.props.children;
   }
 
 });
 
+const getIndexOfMatchingSuggestion = (selectedSuggestion, matchingSuggestions) => selectedSuggestion === null ? -1 : matchingSuggestions.indexOf(selectedSuggestion);
+/**
+ * `ComboboxControl` is an enhanced version of a [`SelectControl`](../select-control/README.md) with the addition of
+ * being able to search for options using a search input.
+ *
+ * ```jsx
+ * import { ComboboxControl } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const options = [
+ * 	{
+ * 		value: 'small',
+ * 		label: 'Small',
+ * 	},
+ * 	{
+ * 		value: 'normal',
+ * 		label: 'Normal',
+ * 	},
+ * 	{
+ * 		value: 'large',
+ * 		label: 'Large',
+ * 	},
+ * ];
+ *
+ * function MyComboboxControl() {
+ * 	const [ fontSize, setFontSize ] = useState();
+ * 	const [ filteredOptions, setFilteredOptions ] = useState( options );
+ * 	return (
+ * 		<ComboboxControl
+ * 			label="Font Size"
+ * 			value={ fontSize }
+ * 			onChange={ setFontSize }
+ * 			options={ filteredOptions }
+ * 			onFilterValueChange={ ( inputValue ) =>
+ * 				setFilteredOptions(
+ * 					options.filter( ( option ) =>
+ * 						option.label
+ * 							.toLowerCase()
+ * 							.startsWith( inputValue.toLowerCase() )
+ * 					)
+ * 				)
+ * 			}
+ * 		/>
+ * 	);
+ * }
+ * ```
+ */
+
+
 function ComboboxControl(_ref) {
   var _currentOption$label;
 
   let {
-    /** Start opting into the new margin-free styles that will become the default in a future version. */
     __nextHasNoMarginBottom = false,
-    __next36pxDefaultSize,
+    __next36pxDefaultSize = false,
     value: valueProp,
     label,
     options,
@@ -43877,7 +44120,7 @@ function ComboboxControl(_ref) {
   const [isExpanded, setIsExpanded] = (0,external_wp_element_namespaceObject.useState)(false);
   const [inputHasFocus, setInputHasFocus] = (0,external_wp_element_namespaceObject.useState)(false);
   const [inputValue, setInputValue] = (0,external_wp_element_namespaceObject.useState)('');
-  const inputContainer = (0,external_wp_element_namespaceObject.useRef)();
+  const inputContainer = (0,external_wp_element_namespaceObject.useRef)(null);
   const matchingSuggestions = (0,external_wp_element_namespaceObject.useMemo)(() => {
     const startsWithMatch = [];
     const containsMatch = [];
@@ -43904,7 +44147,7 @@ function ComboboxControl(_ref) {
 
   const handleArrowNavigation = function () {
     let offset = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-    const index = matchingSuggestions.indexOf(selectedSuggestion);
+    const index = getIndexOfMatchingSuggestion(selectedSuggestion, matchingSuggestions);
     let nextIndex = index + offset;
 
     if (nextIndex < 0) {
@@ -43988,14 +44231,16 @@ function ComboboxControl(_ref) {
   };
 
   const handleOnReset = () => {
+    var _inputContainer$curre;
+
     setValue(null);
-    inputContainer.current.focus();
+    (_inputContainer$curre = inputContainer.current) === null || _inputContainer$curre === void 0 ? void 0 : _inputContainer$curre.focus();
   }; // Update current selections when the filter input changes.
 
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     const hasMatchingSuggestions = matchingSuggestions.length > 0;
-    const hasSelectedMatchingSuggestions = matchingSuggestions.indexOf(selectedSuggestion) > 0;
+    const hasSelectedMatchingSuggestions = getIndexOfMatchingSuggestion(selectedSuggestion, matchingSuggestions) > 0;
 
     if (hasMatchingSuggestions && !hasSelectedMatchingSuggestions) {
       // If the current selection isn't present in the list of suggestions, then automatically select the first item from the list of suggestions.
@@ -44023,14 +44268,13 @@ function ComboboxControl(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(base_control, {
     __nextHasNoMarginBottom: __nextHasNoMarginBottom,
     className: classnames_default()(className, 'components-combobox-control'),
-    tabIndex: "-1",
     label: label,
     id: `components-form-token-input-${instanceId}`,
     hideLabelFromVision: hideLabelFromVision,
     help: help
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-combobox-control__suggestions-container",
-    tabIndex: "-1",
+    tabIndex: -1,
     onKeyDown: onKeyDown
   }, (0,external_wp_element_namespaceObject.createElement)(InputWrapperFlex, {
     __next36pxDefaultSize: __next36pxDefaultSize
@@ -44042,7 +44286,7 @@ function ComboboxControl(_ref) {
     onFocus: onFocus,
     onBlur: onBlur,
     isExpanded: isExpanded,
-    selectedSuggestionIndex: matchingSuggestions.indexOf(selectedSuggestion),
+    selectedSuggestionIndex: getIndexOfMatchingSuggestion(selectedSuggestion, matchingSuggestions),
     onChange: onInputChange
   })), allowReset && (0,external_wp_element_namespaceObject.createElement)(flex_item_component, null, (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
     className: "components-combobox-control__reset",
@@ -44051,13 +44295,17 @@ function ComboboxControl(_ref) {
     onClick: handleOnReset,
     label: (0,external_wp_i18n_namespaceObject.__)('Reset')
   }))), isExpanded && (0,external_wp_element_namespaceObject.createElement)(suggestions_list, {
-    instanceId: instanceId,
+    instanceId: instanceId // The empty string for `value` here is not actually used, but is
+    // just a quick way to satisfy the TypeScript requirements of SuggestionsList.
+    // See: https://github.com/WordPress/gutenberg/pull/47581/files#r1091089330
+    ,
     match: {
-      label: inputValue
+      label: inputValue,
+      value: ''
     },
     displayTransform: suggestion => suggestion.label,
     suggestions: matchingSuggestions,
-    selectedIndex: matchingSuggestions.indexOf(selectedSuggestion),
+    selectedIndex: getIndexOfMatchingSuggestion(selectedSuggestion, matchingSuggestions),
     onHover: setSelectedSuggestion,
     onSelect: onSuggestionSelected,
     scrollIntoView: true,
@@ -44148,6 +44396,7 @@ function showApp() {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -44192,7 +44441,24 @@ function UnforwardedModal(props, forwardedRef) {
   const constrainedTabbingRef = (0,external_wp_compose_namespaceObject.useConstrainedTabbing)();
   const focusReturnRef = (0,external_wp_compose_namespaceObject.useFocusReturn)();
   const focusOutsideProps = (0,external_wp_compose_namespaceObject.__experimentalUseFocusOutside)(onRequestClose);
+  const contentRef = (0,external_wp_element_namespaceObject.useRef)(null);
+  const childrenContainerRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const [hasScrolledContent, setHasScrolledContent] = (0,external_wp_element_namespaceObject.useState)(false);
+  const [hasScrollableContent, setHasScrollableContent] = (0,external_wp_element_namespaceObject.useState)(false); // Determines whether the Modal content is scrollable and updates the state.
+
+  const isContentScrollable = (0,external_wp_element_namespaceObject.useCallback)(() => {
+    if (!contentRef.current) {
+      return;
+    }
+
+    const closestScrollContainer = (0,external_wp_dom_namespaceObject.getScrollContainer)(contentRef.current);
+
+    if (contentRef.current === closestScrollContainer) {
+      setHasScrollableContent(true);
+    } else {
+      setHasScrollableContent(false);
+    }
+  }, [contentRef]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     openModalCount++;
 
@@ -44209,7 +44475,20 @@ function UnforwardedModal(props, forwardedRef) {
         showApp();
       }
     };
-  }, [bodyOpenClassName]);
+  }, [bodyOpenClassName]); // Calls the isContentScrollable callback when the Modal children container resizes.
+
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
+    if (!window.ResizeObserver || !childrenContainerRef.current) {
+      return;
+    }
+
+    const resizeObserver = new ResizeObserver(isContentScrollable);
+    resizeObserver.observe(childrenContainerRef.current);
+    isContentScrollable();
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, [isContentScrollable, childrenContainerRef]);
 
   function handleEscapeKeyDown(event) {
     if ( // Ignore keydowns from IMEs
@@ -44263,10 +44542,14 @@ function UnforwardedModal(props, forwardedRef) {
   }), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: classnames_default()('components-modal__content', {
       'hide-header': __experimentalHideHeader,
+      'is-scrollable': hasScrollableContent,
       'has-scrolled-content': hasScrolledContent
     }),
     role: "document",
-    onScroll: onContentContainerScroll
+    onScroll: onContentContainerScroll,
+    ref: contentRef,
+    "aria-label": hasScrollableContent ? (0,external_wp_i18n_namespaceObject.__)('Scrollable section') : undefined,
+    tabIndex: hasScrollableContent ? 0 : undefined
   }, !__experimentalHideHeader && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-modal__header"
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
@@ -44281,7 +44564,9 @@ function UnforwardedModal(props, forwardedRef) {
     onClick: onRequestClose,
     icon: library_close,
     label: closeButtonLabel || (0,external_wp_i18n_namespaceObject.__)('Close')
-  })), children)))), document.body);
+  })), (0,external_wp_element_namespaceObject.createElement)("div", {
+    ref: childrenContainerRef
+  }, children))))), document.body);
 }
 /**
  * Modals give users information and choices related to a task they’re trying to
@@ -48754,6 +49039,11 @@ function CustomSelectControl(props) {
     className: "components-custom-select-control__item-icon"
   })))));
 }
+function StableCustomSelectControl(props) {
+  return (0,external_wp_element_namespaceObject.createElement)(CustomSelectControl, extends_extends({}, props, {
+    __experimentalShowSelectedHint: false
+  }));
+}
 
 ;// CONCATENATED MODULE: ./node_modules/use-lilius/build/index.es.js
 
@@ -52855,7 +53145,7 @@ const DayButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_butt
  * Like date-fn's toDate, but tries to guess the format when a string is
  * given.
  *
- * @param  input Value to turn into a date.
+ * @param input Value to turn into a date.
  */
 
 function inputToDate(input) {
@@ -53477,7 +53767,7 @@ function from12hTo24h(hours, isPm) {
  * given width. For example, the hours and minutes inputs are padded to 2 so
  * that '4' appears as '04'.
  *
- * @param  pad How many digits the value should be.
+ * @param pad How many digits the value should be.
  */
 
 
@@ -54216,7 +54506,7 @@ function Draggable(_ref) {
   /**
    * Removes the element clone, resets cursor, and removes drag listener.
    *
-   * @param  event The non-custom DragEvent.
+   * @param event The non-custom DragEvent.
    */
 
   function end(event) {
@@ -54235,7 +54525,7 @@ function Draggable(_ref) {
    * - Sets transfer data.
    * - Adds dragover listener.
    *
-   * @param  event The non-custom DragEvent.
+   * @param event The non-custom DragEvent.
    */
 
 
@@ -55082,7 +55372,7 @@ const VIDEO_EXTENSIONS = ['avi', 'mpg', 'mpeg', 'mov', 'mp4', 'm4v', 'ogg', 'ogv
 /**
  * Gets the extension of a file name.
  *
- * @param  filename The file name.
+ * @param filename The file name.
  * @return  The extension of the file name.
  */
 
@@ -55094,7 +55384,7 @@ function getExtension() {
 /**
  * Checks if a file is a video.
  *
- * @param  filename The file name.
+ * @param filename The file name.
  * @return Whether the file is a video.
  */
 
@@ -55106,7 +55396,7 @@ function isVideoType() {
 /**
  * Transforms a fraction value to a percentage value.
  *
- * @param  fraction The fraction value.
+ * @param fraction The fraction value.
  * @return A percentage value.
  */
 
@@ -55748,7 +56038,7 @@ const settings = (0,external_wp_element_namespaceObject.createElement)(external_
  * Some themes use css vars for their font sizes, so until we
  * have the way of calculating them don't display them.
  *
- * @param  value The value that is checked.
+ * @param value The value that is checked.
  * @return Whether the value is a simple css value.
  */
 
@@ -55760,7 +56050,7 @@ function isSimpleCssValue(value) {
  * If all of the given font sizes have the same unit (e.g. 'px'), return that
  * unit. Otherwise return null.
  *
- * @param  fontSizes List of font sizes.
+ * @param fontSizes List of font sizes.
  * @return The common unit, or null.
  */
 
@@ -58581,6 +58871,40 @@ function MenuItem(props, ref) {
 
 
 const menu_items_choice_noop = () => {};
+/**
+ * `MenuItemsChoice` functions similarly to a set of `MenuItem`s, but allows the user to select one option from a set of multiple choices.
+ *
+ *
+ * ```jsx
+ * import { MenuGroup, MenuItemsChoice } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MyMenuItemsChoice = () => {
+ * 	const [ mode, setMode ] = useState( 'visual' );
+ * 	const choices = [
+ * 		{
+ * 			value: 'visual',
+ * 			label: 'Visual editor',
+ * 		},
+ * 		{
+ * 			value: 'text',
+ * 			label: 'Code editor',
+ * 		},
+ * 	];
+ *
+ * 	return (
+ * 		<MenuGroup label="Editor">
+ * 			<MenuItemsChoice
+ * 				choices={ choices }
+ * 				value={ mode }
+ * 				onSelect={ ( newMode ) => setMode( newMode ) }
+ * 			/>
+ * 		</MenuGroup>
+ * 	);
+ * };
+ * ```
+ */
+
 
 function MenuItemsChoice(_ref) {
   let {
@@ -58589,7 +58913,7 @@ function MenuItemsChoice(_ref) {
     onSelect,
     value
   } = _ref;
-  return choices.map(item => {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, choices.map(item => {
     const isSelected = value === item.value;
     return (0,external_wp_element_namespaceObject.createElement)(menu_item, {
       key: item.value,
@@ -58608,8 +58932,10 @@ function MenuItemsChoice(_ref) {
       onMouseLeave: () => onHover(null),
       "aria-label": item['aria-label']
     }, item.label);
-  });
+  }));
 }
+
+/* harmony default export */ var menu_items_choice = (MenuItemsChoice);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/tabbable.js
 
@@ -59867,9 +60193,466 @@ function NavigationMenu(props) {
 const initialContextValue = {
   location: {},
   goTo: () => {},
-  goBack: () => {}
+  goBack: () => {},
+  goToParent: () => {},
+  addScreen: () => {},
+  removeScreen: () => {},
+  params: {}
 };
 const NavigatorContext = (0,external_wp_element_namespaceObject.createContext)(initialContextValue);
+
+;// CONCATENATED MODULE: ./packages/components/node_modules/path-to-regexp/dist.es2015/index.js
+/**
+ * Tokenize input string.
+ */
+function lexer(str) {
+    var tokens = [];
+    var i = 0;
+    while (i < str.length) {
+        var char = str[i];
+        if (char === "*" || char === "+" || char === "?") {
+            tokens.push({ type: "MODIFIER", index: i, value: str[i++] });
+            continue;
+        }
+        if (char === "\\") {
+            tokens.push({ type: "ESCAPED_CHAR", index: i++, value: str[i++] });
+            continue;
+        }
+        if (char === "{") {
+            tokens.push({ type: "OPEN", index: i, value: str[i++] });
+            continue;
+        }
+        if (char === "}") {
+            tokens.push({ type: "CLOSE", index: i, value: str[i++] });
+            continue;
+        }
+        if (char === ":") {
+            var name = "";
+            var j = i + 1;
+            while (j < str.length) {
+                var code = str.charCodeAt(j);
+                if (
+                // `0-9`
+                (code >= 48 && code <= 57) ||
+                    // `A-Z`
+                    (code >= 65 && code <= 90) ||
+                    // `a-z`
+                    (code >= 97 && code <= 122) ||
+                    // `_`
+                    code === 95) {
+                    name += str[j++];
+                    continue;
+                }
+                break;
+            }
+            if (!name)
+                throw new TypeError("Missing parameter name at ".concat(i));
+            tokens.push({ type: "NAME", index: i, value: name });
+            i = j;
+            continue;
+        }
+        if (char === "(") {
+            var count = 1;
+            var pattern = "";
+            var j = i + 1;
+            if (str[j] === "?") {
+                throw new TypeError("Pattern cannot start with \"?\" at ".concat(j));
+            }
+            while (j < str.length) {
+                if (str[j] === "\\") {
+                    pattern += str[j++] + str[j++];
+                    continue;
+                }
+                if (str[j] === ")") {
+                    count--;
+                    if (count === 0) {
+                        j++;
+                        break;
+                    }
+                }
+                else if (str[j] === "(") {
+                    count++;
+                    if (str[j + 1] !== "?") {
+                        throw new TypeError("Capturing groups are not allowed at ".concat(j));
+                    }
+                }
+                pattern += str[j++];
+            }
+            if (count)
+                throw new TypeError("Unbalanced pattern at ".concat(i));
+            if (!pattern)
+                throw new TypeError("Missing pattern at ".concat(i));
+            tokens.push({ type: "PATTERN", index: i, value: pattern });
+            i = j;
+            continue;
+        }
+        tokens.push({ type: "CHAR", index: i, value: str[i++] });
+    }
+    tokens.push({ type: "END", index: i, value: "" });
+    return tokens;
+}
+/**
+ * Parse a string for the raw tokens.
+ */
+function dist_es2015_parse(str, options) {
+    if (options === void 0) { options = {}; }
+    var tokens = lexer(str);
+    var _a = options.prefixes, prefixes = _a === void 0 ? "./" : _a;
+    var defaultPattern = "[^".concat(escapeString(options.delimiter || "/#?"), "]+?");
+    var result = [];
+    var key = 0;
+    var i = 0;
+    var path = "";
+    var tryConsume = function (type) {
+        if (i < tokens.length && tokens[i].type === type)
+            return tokens[i++].value;
+    };
+    var mustConsume = function (type) {
+        var value = tryConsume(type);
+        if (value !== undefined)
+            return value;
+        var _a = tokens[i], nextType = _a.type, index = _a.index;
+        throw new TypeError("Unexpected ".concat(nextType, " at ").concat(index, ", expected ").concat(type));
+    };
+    var consumeText = function () {
+        var result = "";
+        var value;
+        while ((value = tryConsume("CHAR") || tryConsume("ESCAPED_CHAR"))) {
+            result += value;
+        }
+        return result;
+    };
+    while (i < tokens.length) {
+        var char = tryConsume("CHAR");
+        var name = tryConsume("NAME");
+        var pattern = tryConsume("PATTERN");
+        if (name || pattern) {
+            var prefix = char || "";
+            if (prefixes.indexOf(prefix) === -1) {
+                path += prefix;
+                prefix = "";
+            }
+            if (path) {
+                result.push(path);
+                path = "";
+            }
+            result.push({
+                name: name || key++,
+                prefix: prefix,
+                suffix: "",
+                pattern: pattern || defaultPattern,
+                modifier: tryConsume("MODIFIER") || "",
+            });
+            continue;
+        }
+        var value = char || tryConsume("ESCAPED_CHAR");
+        if (value) {
+            path += value;
+            continue;
+        }
+        if (path) {
+            result.push(path);
+            path = "";
+        }
+        var open = tryConsume("OPEN");
+        if (open) {
+            var prefix = consumeText();
+            var name_1 = tryConsume("NAME") || "";
+            var pattern_1 = tryConsume("PATTERN") || "";
+            var suffix = consumeText();
+            mustConsume("CLOSE");
+            result.push({
+                name: name_1 || (pattern_1 ? key++ : ""),
+                pattern: name_1 && !pattern_1 ? defaultPattern : pattern_1,
+                prefix: prefix,
+                suffix: suffix,
+                modifier: tryConsume("MODIFIER") || "",
+            });
+            continue;
+        }
+        mustConsume("END");
+    }
+    return result;
+}
+/**
+ * Compile a string to a template function for the path.
+ */
+function dist_es2015_compile(str, options) {
+    return tokensToFunction(dist_es2015_parse(str, options), options);
+}
+/**
+ * Expose a method for transforming tokens into the path function.
+ */
+function tokensToFunction(tokens, options) {
+    if (options === void 0) { options = {}; }
+    var reFlags = flags(options);
+    var _a = options.encode, encode = _a === void 0 ? function (x) { return x; } : _a, _b = options.validate, validate = _b === void 0 ? true : _b;
+    // Compile all the tokens into regexps.
+    var matches = tokens.map(function (token) {
+        if (typeof token === "object") {
+            return new RegExp("^(?:".concat(token.pattern, ")$"), reFlags);
+        }
+    });
+    return function (data) {
+        var path = "";
+        for (var i = 0; i < tokens.length; i++) {
+            var token = tokens[i];
+            if (typeof token === "string") {
+                path += token;
+                continue;
+            }
+            var value = data ? data[token.name] : undefined;
+            var optional = token.modifier === "?" || token.modifier === "*";
+            var repeat = token.modifier === "*" || token.modifier === "+";
+            if (Array.isArray(value)) {
+                if (!repeat) {
+                    throw new TypeError("Expected \"".concat(token.name, "\" to not repeat, but got an array"));
+                }
+                if (value.length === 0) {
+                    if (optional)
+                        continue;
+                    throw new TypeError("Expected \"".concat(token.name, "\" to not be empty"));
+                }
+                for (var j = 0; j < value.length; j++) {
+                    var segment = encode(value[j], token);
+                    if (validate && !matches[i].test(segment)) {
+                        throw new TypeError("Expected all \"".concat(token.name, "\" to match \"").concat(token.pattern, "\", but got \"").concat(segment, "\""));
+                    }
+                    path += token.prefix + segment + token.suffix;
+                }
+                continue;
+            }
+            if (typeof value === "string" || typeof value === "number") {
+                var segment = encode(String(value), token);
+                if (validate && !matches[i].test(segment)) {
+                    throw new TypeError("Expected \"".concat(token.name, "\" to match \"").concat(token.pattern, "\", but got \"").concat(segment, "\""));
+                }
+                path += token.prefix + segment + token.suffix;
+                continue;
+            }
+            if (optional)
+                continue;
+            var typeOfMessage = repeat ? "an array" : "a string";
+            throw new TypeError("Expected \"".concat(token.name, "\" to be ").concat(typeOfMessage));
+        }
+        return path;
+    };
+}
+/**
+ * Create path match function from `path-to-regexp` spec.
+ */
+function dist_es2015_match(str, options) {
+    var keys = [];
+    var re = pathToRegexp(str, keys, options);
+    return regexpToFunction(re, keys, options);
+}
+/**
+ * Create a path match function from `path-to-regexp` output.
+ */
+function regexpToFunction(re, keys, options) {
+    if (options === void 0) { options = {}; }
+    var _a = options.decode, decode = _a === void 0 ? function (x) { return x; } : _a;
+    return function (pathname) {
+        var m = re.exec(pathname);
+        if (!m)
+            return false;
+        var path = m[0], index = m.index;
+        var params = Object.create(null);
+        var _loop_1 = function (i) {
+            if (m[i] === undefined)
+                return "continue";
+            var key = keys[i - 1];
+            if (key.modifier === "*" || key.modifier === "+") {
+                params[key.name] = m[i].split(key.prefix + key.suffix).map(function (value) {
+                    return decode(value, key);
+                });
+            }
+            else {
+                params[key.name] = decode(m[i], key);
+            }
+        };
+        for (var i = 1; i < m.length; i++) {
+            _loop_1(i);
+        }
+        return { path: path, index: index, params: params };
+    };
+}
+/**
+ * Escape a regular expression string.
+ */
+function escapeString(str) {
+    return str.replace(/([.+*?=^!:${}()[\]|/\\])/g, "\\$1");
+}
+/**
+ * Get the flags for a regexp from the options.
+ */
+function flags(options) {
+    return options && options.sensitive ? "" : "i";
+}
+/**
+ * Pull out keys from a regexp.
+ */
+function regexpToRegexp(path, keys) {
+    if (!keys)
+        return path;
+    var groupsRegex = /\((?:\?<(.*?)>)?(?!\?)/g;
+    var index = 0;
+    var execResult = groupsRegex.exec(path.source);
+    while (execResult) {
+        keys.push({
+            // Use parenthesized substring match if available, index otherwise
+            name: execResult[1] || index++,
+            prefix: "",
+            suffix: "",
+            modifier: "",
+            pattern: "",
+        });
+        execResult = groupsRegex.exec(path.source);
+    }
+    return path;
+}
+/**
+ * Transform an array into a regexp.
+ */
+function arrayToRegexp(paths, keys, options) {
+    var parts = paths.map(function (path) { return pathToRegexp(path, keys, options).source; });
+    return new RegExp("(?:".concat(parts.join("|"), ")"), flags(options));
+}
+/**
+ * Create a path regexp from string input.
+ */
+function stringToRegexp(path, keys, options) {
+    return tokensToRegexp(dist_es2015_parse(path, options), keys, options);
+}
+/**
+ * Expose a function for taking tokens and returning a RegExp.
+ */
+function tokensToRegexp(tokens, keys, options) {
+    if (options === void 0) { options = {}; }
+    var _a = options.strict, strict = _a === void 0 ? false : _a, _b = options.start, start = _b === void 0 ? true : _b, _c = options.end, end = _c === void 0 ? true : _c, _d = options.encode, encode = _d === void 0 ? function (x) { return x; } : _d, _e = options.delimiter, delimiter = _e === void 0 ? "/#?" : _e, _f = options.endsWith, endsWith = _f === void 0 ? "" : _f;
+    var endsWithRe = "[".concat(escapeString(endsWith), "]|$");
+    var delimiterRe = "[".concat(escapeString(delimiter), "]");
+    var route = start ? "^" : "";
+    // Iterate over the tokens and create our regexp string.
+    for (var _i = 0, tokens_1 = tokens; _i < tokens_1.length; _i++) {
+        var token = tokens_1[_i];
+        if (typeof token === "string") {
+            route += escapeString(encode(token));
+        }
+        else {
+            var prefix = escapeString(encode(token.prefix));
+            var suffix = escapeString(encode(token.suffix));
+            if (token.pattern) {
+                if (keys)
+                    keys.push(token);
+                if (prefix || suffix) {
+                    if (token.modifier === "+" || token.modifier === "*") {
+                        var mod = token.modifier === "*" ? "?" : "";
+                        route += "(?:".concat(prefix, "((?:").concat(token.pattern, ")(?:").concat(suffix).concat(prefix, "(?:").concat(token.pattern, "))*)").concat(suffix, ")").concat(mod);
+                    }
+                    else {
+                        route += "(?:".concat(prefix, "(").concat(token.pattern, ")").concat(suffix, ")").concat(token.modifier);
+                    }
+                }
+                else {
+                    if (token.modifier === "+" || token.modifier === "*") {
+                        route += "((?:".concat(token.pattern, ")").concat(token.modifier, ")");
+                    }
+                    else {
+                        route += "(".concat(token.pattern, ")").concat(token.modifier);
+                    }
+                }
+            }
+            else {
+                route += "(?:".concat(prefix).concat(suffix, ")").concat(token.modifier);
+            }
+        }
+    }
+    if (end) {
+        if (!strict)
+            route += "".concat(delimiterRe, "?");
+        route += !options.endsWith ? "$" : "(?=".concat(endsWithRe, ")");
+    }
+    else {
+        var endToken = tokens[tokens.length - 1];
+        var isEndDelimited = typeof endToken === "string"
+            ? delimiterRe.indexOf(endToken[endToken.length - 1]) > -1
+            : endToken === undefined;
+        if (!strict) {
+            route += "(?:".concat(delimiterRe, "(?=").concat(endsWithRe, "))?");
+        }
+        if (!isEndDelimited) {
+            route += "(?=".concat(delimiterRe, "|").concat(endsWithRe, ")");
+        }
+    }
+    return new RegExp(route, flags(options));
+}
+/**
+ * Normalize the given path string, returning a regular expression.
+ *
+ * An empty array can be passed in for the keys, which will hold the
+ * placeholder key descriptions. For example, using `/user/:id`, `keys` will
+ * contain `[{ name: 'id', delimiter: '/', optional: false, repeat: false }]`.
+ */
+function pathToRegexp(path, keys, options) {
+    if (path instanceof RegExp)
+        return regexpToRegexp(path, keys);
+    if (Array.isArray(path))
+        return arrayToRegexp(path, keys, options);
+    return stringToRegexp(path, keys, options);
+}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/navigator/utils/router.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+function matchPath(path, pattern) {
+  const matchingFunction = dist_es2015_match(pattern, {
+    decode: decodeURIComponent
+  });
+  return matchingFunction(path);
+}
+
+function patternMatch(path, screens) {
+  for (const screen of screens) {
+    const matched = matchPath(path, screen.path);
+
+    if (matched) {
+      return {
+        params: matched.params,
+        id: screen.id
+      };
+    }
+  }
+
+  return undefined;
+}
+function findParent(path, screens) {
+  if (!path.startsWith('/')) {
+    return undefined;
+  }
+
+  const pathParts = path.split('/');
+  let parentPath;
+
+  while (pathParts.length > 1 && parentPath === undefined) {
+    pathParts.pop();
+    const potentialParentPath = pathParts.join('/') === '' ? '/' : pathParts.join('/');
+
+    if (screens.find(screen => {
+      return matchPath(potentialParentPath, screen.path) !== false;
+    })) {
+      parentPath = potentialParentPath;
+    }
+  }
+
+  return parentPath;
+}
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigator/navigator-provider/component.js
 
@@ -59886,6 +60669,7 @@ function component_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to 
  */
 
 
+
 /**
  * Internal dependencies
  */
@@ -59894,6 +60678,23 @@ function component_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to 
 
 
 
+
+const MAX_HISTORY_LENGTH = 50;
+
+function screensReducer() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'add':
+      return [...state, action.screen];
+
+    case 'remove':
+      return state.filter(s => s.id !== action.screen.id);
+  }
+
+  return state;
+}
 
 var component_ref =  true ? {
   name: "15bx5k",
@@ -59910,14 +60711,47 @@ function UnconnectedNavigatorProvider(props, forwardedRef) {
   const [locationHistory, setLocationHistory] = (0,external_wp_element_namespaceObject.useState)([{
     path: initialPath
   }]);
-  const goTo = (0,external_wp_element_namespaceObject.useCallback)(function (path) {
-    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    setLocationHistory(prevLocationHistory => [...prevLocationHistory, { ...options,
-      path,
-      isBack: false,
-      hasRestoredFocus: false
-    }]);
-  }, []);
+  const currentLocationHistory = (0,external_wp_element_namespaceObject.useRef)([]);
+  const [screens, dispatch] = (0,external_wp_element_namespaceObject.useReducer)(screensReducer, []);
+  const currentScreens = (0,external_wp_element_namespaceObject.useRef)([]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    currentScreens.current = screens;
+  }, [screens]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    currentLocationHistory.current = locationHistory;
+  }, [locationHistory]);
+  const currentMatch = (0,external_wp_element_namespaceObject.useRef)();
+  const matchedPath = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    let currentPath;
+
+    if (locationHistory.length === 0 || (currentPath = locationHistory[locationHistory.length - 1].path) === undefined) {
+      currentMatch.current = undefined;
+      return undefined;
+    }
+
+    const resolvePath = path => {
+      const newMatch = patternMatch(path, screens); // If the new match is the same as the current match,
+      // return the previous one for performance reasons.
+
+      if (currentMatch.current && newMatch && external_wp_isShallowEqual_default()(newMatch.params, currentMatch.current.params) && newMatch.id === currentMatch.current.id) {
+        return currentMatch.current;
+      }
+
+      return newMatch;
+    };
+
+    const newMatch = resolvePath(currentPath);
+    currentMatch.current = newMatch;
+    return newMatch;
+  }, [screens, locationHistory]);
+  const addScreen = (0,external_wp_element_namespaceObject.useCallback)(screen => dispatch({
+    type: 'add',
+    screen
+  }), []);
+  const removeScreen = (0,external_wp_element_namespaceObject.useCallback)(screen => dispatch({
+    type: 'remove',
+    screen
+  }), []);
   const goBack = (0,external_wp_element_namespaceObject.useCallback)(() => {
     setLocationHistory(prevLocationHistory => {
       if (prevLocationHistory.length <= 1) {
@@ -59930,13 +60764,67 @@ function UnconnectedNavigatorProvider(props, forwardedRef) {
       }];
     });
   }, []);
+  const goTo = (0,external_wp_element_namespaceObject.useCallback)(function (path) {
+    let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+    const {
+      focusTargetSelector,
+      isBack = false,
+      ...restOptions
+    } = options;
+    const isNavigatingToPreviousPath = isBack && currentLocationHistory.current.length > 1 && currentLocationHistory.current[currentLocationHistory.current.length - 2].path === path;
+
+    if (isNavigatingToPreviousPath) {
+      goBack();
+      return;
+    }
+
+    setLocationHistory(prevLocationHistory => {
+      const newLocation = { ...restOptions,
+        path,
+        isBack,
+        hasRestoredFocus: false
+      };
+
+      if (prevLocationHistory.length < 1) {
+        return [newLocation];
+      }
+
+      return [...prevLocationHistory.slice(prevLocationHistory.length > MAX_HISTORY_LENGTH - 1 ? 1 : 0, -1), // Assign `focusTargetSelector` to the previous location in history
+      // (the one we just navigated from).
+      { ...prevLocationHistory[prevLocationHistory.length - 1],
+        focusTargetSelector
+      }, newLocation];
+    });
+  }, [goBack]);
+  const goToParent = (0,external_wp_element_namespaceObject.useCallback)(() => {
+    const currentPath = currentLocationHistory.current[currentLocationHistory.current.length - 1].path;
+
+    if (currentPath === undefined) {
+      return;
+    }
+
+    const parentPath = findParent(currentPath, currentScreens.current);
+
+    if (parentPath === undefined) {
+      return;
+    }
+
+    goTo(parentPath, {
+      isBack: true
+    });
+  }, [goTo]);
   const navigatorContextValue = (0,external_wp_element_namespaceObject.useMemo)(() => ({
     location: { ...locationHistory[locationHistory.length - 1],
       isInitial: locationHistory.length === 1
     },
+    params: matchedPath ? matchedPath.params : {},
+    match: matchedPath ? matchedPath.id : undefined,
     goTo,
-    goBack
-  }), [locationHistory, goTo, goBack]);
+    goBack,
+    goToParent,
+    addScreen,
+    removeScreen
+  }), [locationHistory, matchedPath, goTo, goBack, goToParent, addScreen, removeScreen]);
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)( // Prevents horizontal overflow while animating screen transitions.
   () => cx(component_ref, className), [className, cx]);
@@ -60029,6 +60917,7 @@ var navigator_screen_component_ref =  true ? {
 } : 0;
 
 function UnconnectedNavigatorScreen(props, forwardedRef) {
+  const screenId = (0,external_wp_element_namespaceObject.useId)();
   const {
     children,
     className,
@@ -60037,11 +60926,21 @@ function UnconnectedNavigatorScreen(props, forwardedRef) {
   } = useContextSystem(props, 'NavigatorScreen');
   const prefersReducedMotion = (0,external_wp_compose_namespaceObject.useReducedMotion)();
   const {
-    location
+    location,
+    match,
+    addScreen,
+    removeScreen
   } = (0,external_wp_element_namespaceObject.useContext)(NavigatorContext);
-  const isMatch = location.path === (0,external_wp_escapeHtml_namespaceObject.escapeAttribute)(path);
+  const isMatch = match === screenId;
   const wrapperRef = (0,external_wp_element_namespaceObject.useRef)(null);
-  const previousLocation = (0,external_wp_compose_namespaceObject.usePrevious)(location);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    const screen = {
+      id: screenId,
+      path: (0,external_wp_escapeHtml_namespaceObject.escapeAttribute)(path)
+    };
+    addScreen(screen);
+    return () => removeScreen(screen);
+  }, [screenId, path, addScreen, removeScreen]);
   const cx = useCx();
   const classes = (0,external_wp_element_namespaceObject.useMemo)(() => cx(navigator_screen_component_ref, className), [className, cx]);
   const locationRef = (0,external_wp_element_namespaceObject.useRef)(location);
@@ -60070,8 +60969,8 @@ function UnconnectedNavigatorScreen(props, forwardedRef) {
     let elementToFocus = null; // When navigating back, if a selector is provided, use it to look for the
     // target element (assumed to be a node inside the current NavigatorScreen)
 
-    if (location.isBack && previousLocation !== null && previousLocation !== void 0 && previousLocation.focusTargetSelector) {
-      elementToFocus = wrapperRef.current.querySelector(previousLocation.focusTargetSelector);
+    if (location.isBack && location !== null && location !== void 0 && location.focusTargetSelector) {
+      elementToFocus = wrapperRef.current.querySelector(location.focusTargetSelector);
     } // If the previous query didn't run or find any element to focus, fallback
     // to the first tabbable element in the screen (or the screen itself).
 
@@ -60083,7 +60982,7 @@ function UnconnectedNavigatorScreen(props, forwardedRef) {
 
     locationRef.current.hasRestoredFocus = true;
     elementToFocus.focus();
-  }, [isInitialLocation, isMatch, location.isBack, previousLocation === null || previousLocation === void 0 ? void 0 : previousLocation.focusTargetSelector]);
+  }, [isInitialLocation, isMatch, location.isBack, location.focusTargetSelector]);
   const mergedWrapperRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([forwardedRef, wrapperRef]);
 
   if (!isMatch) {
@@ -60185,13 +61084,17 @@ const NavigatorScreen = contextConnect(UnconnectedNavigatorScreen, 'NavigatorScr
 function useNavigator() {
   const {
     location,
+    params,
     goTo,
-    goBack
+    goBack,
+    goToParent
   } = (0,external_wp_element_namespaceObject.useContext)(NavigatorContext);
   return {
     location,
     goTo,
-    goBack
+    goBack,
+    goToParent,
+    params
   };
 }
 
@@ -60315,16 +61218,24 @@ function useNavigatorBackButton(props) {
   const {
     onClick,
     as = build_module_button,
+    goToParent: goToParentProp = false,
     ...otherProps
   } = useContextSystem(props, 'NavigatorBackButton');
   const {
-    goBack
+    goBack,
+    goToParent
   } = use_navigator();
   const handleClick = (0,external_wp_element_namespaceObject.useCallback)(e => {
     e.preventDefault();
-    goBack();
+
+    if (goToParentProp) {
+      goToParent();
+    } else {
+      goBack();
+    }
+
     onClick === null || onClick === void 0 ? void 0 : onClick(e);
-  }, [goBack, onClick]);
+  }, [goToParentProp, goToParent, goBack, onClick]);
   return {
     as,
     onClick: handleClick,
@@ -60391,6 +61302,68 @@ function UnconnectedNavigatorBackButton(props, forwardedRef) {
 
 const NavigatorBackButton = contextConnect(UnconnectedNavigatorBackButton, 'NavigatorBackButton');
 /* harmony default export */ var navigator_back_button_component = (NavigatorBackButton);
+
+;// CONCATENATED MODULE: ./packages/components/build-module/navigator/navigator-to-parent-button/component.js
+
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function UnconnectedNavigatorToParentButton(props, forwardedRef) {
+  const navigatorToParentButtonProps = useNavigatorBackButton({ ...props,
+    goToParent: true
+  });
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({
+    ref: forwardedRef
+  }, navigatorToParentButtonProps));
+}
+/*
+ * The `NavigatorToParentButton` component can be used to navigate to a screen and
+ * should be used in combination with the `NavigatorProvider`, the
+ * `NavigatorScreen` and the `NavigatorButton` components (or the `useNavigator`
+ * hook).
+ *
+ * @example
+ * ```jsx
+ * import {
+ *   __experimentalNavigatorProvider as NavigatorProvider,
+ *   __experimentalNavigatorScreen as NavigatorScreen,
+ *   __experimentalNavigatorButton as NavigatorButton,
+ *   __experimentalNavigatorToParentButton as NavigatorToParentButton,
+ * } from '@wordpress/components';
+ *
+ * const MyNavigation = () => (
+ *   <NavigatorProvider initialPath="/">
+ *     <NavigatorScreen path="/">
+ *       <p>This is the home screen.</p>
+ *        <NavigatorButton path="/child">
+ *          Navigate to child screen.
+ *       </NavigatorButton>
+ *     </NavigatorScreen>
+ *
+ *     <NavigatorScreen path="/child">
+ *       <p>This is the child screen.</p>
+ *       <NavigatorToParentButton>
+ *         Go to parent
+ *       </NavigatorToParentButton>
+ *     </NavigatorScreen>
+ *   </NavigatorProvider>
+ * );
+ * ```
+ */
+
+
+const NavigatorToParentButton = contextConnect(UnconnectedNavigatorToParentButton, 'NavigatorToParentButton');
+/* harmony default export */ var navigator_to_parent_button_component = (NavigatorToParentButton);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/notice/index.js
 
@@ -60604,6 +61577,15 @@ function NoticeList(_ref) {
 ;// CONCATENATED MODULE: ./packages/components/build-module/panel/header.js
 
 
+/**
+ * Internal dependencies
+ */
+
+/**
+ * `PanelHeader` renders the header for the `Panel`.
+ * This is used by the `Panel` component under the hood,
+ * so it does not typically need to be used.
+ */
 function PanelHeader(_ref) {
   let {
     label,
@@ -60634,7 +61616,7 @@ function PanelHeader(_ref) {
 
 
 
-function Panel(_ref, ref) {
+function UnforwardedPanel(_ref, ref) {
   let {
     header,
     className,
@@ -60648,8 +61630,26 @@ function Panel(_ref, ref) {
     label: header
   }), children);
 }
+/**
+ * `Panel` expands and collapses multiple sections of content.
+ *
+ * ```jsx
+ * import { Panel, PanelBody, PanelRow } from '@wordpress/components';
+ * import { more } from '@wordpress/icons';
+ *
+ * const MyPanel = () => (
+ * 	<Panel header="My Panel">
+ * 		<PanelBody title="My Block Settings" icon={ more } initialOpen={ true }>
+ * 			<PanelRow>My Panel Inputs and Labels</PanelRow>
+ * 		</PanelBody>
+ * 	</Panel>
+ * );
+ * ```
+ */
 
-/* harmony default export */ var panel = ((0,external_wp_element_namespaceObject.forwardRef)(Panel));
+
+const Panel = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedPanel);
+/* harmony default export */ var panel = (Panel);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/chevron-up.js
 
@@ -60795,7 +61795,7 @@ body_ForwardedComponent.displayName = 'PanelBody';
 
 
 
-const PanelRow = (_ref, ref) => {
+function UnforwardedPanelRow(_ref, ref) {
   let {
     className,
     children
@@ -60804,9 +61804,15 @@ const PanelRow = (_ref, ref) => {
     className: classnames_default()('components-panel__row', className),
     ref: ref
   }, children);
-};
+}
+/**
+ * `PanelRow` is a generic container for rows within a `PanelBody`.
+ * It is a flex container with a top margin for spacing.
+ */
 
-/* harmony default export */ var row = ((0,external_wp_element_namespaceObject.forwardRef)(PanelRow));
+
+const PanelRow = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedPanelRow);
+/* harmony default export */ var row = (PanelRow);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/placeholder/index.js
 
@@ -60908,7 +61914,7 @@ function Placeholder(props) {
 /**
  * Returns terms in a tree form.
  *
- * @param  flatTerms Array of terms in flat format.
+ * @param flatTerms Array of terms in flat format.
  *
  * @return Terms in tree format.
  */
@@ -62345,12 +63351,12 @@ const POSITIONS = {
  * Custom hook that manages resize listener events. It also provides a label
  * based on current resize width x height values.
  *
- * @param  props
- * @param  props.axis        Only shows the label corresponding to the axis.
- * @param  props.fadeTimeout Duration (ms) before deactivating the resize label.
- * @param  props.onResize    Callback when a resize occurs. Provides { width, height } callback.
- * @param  props.position    Adjusts label value.
- * @param  props.showPx      Whether to add `PX` to the label.
+ * @param props
+ * @param props.axis        Only shows the label corresponding to the axis.
+ * @param props.fadeTimeout Duration (ms) before deactivating the resize label.
+ * @param props.onResize    Callback when a resize occurs. Provides { width, height } callback.
+ * @param props.position    Adjusts label value.
+ * @param props.showPx      Whether to add `PX` to the label.
  *
  * @return Properties for hook.
  */
@@ -62477,14 +63483,14 @@ function useResizeLabel(_ref) {
 /**
  * Gets the resize label based on width and height values (as well as recent changes).
  *
- * @param  props
- * @param  props.axis     Only shows the label corresponding to the axis.
- * @param  props.height   Height value.
- * @param  props.moveX    Recent width (x axis) changes.
- * @param  props.moveY    Recent width (y axis) changes.
- * @param  props.position Adjusts label value.
- * @param  props.showPx   Whether to add `PX` to the label.
- * @param  props.width    Width value.
+ * @param props
+ * @param props.axis     Only shows the label corresponding to the axis.
+ * @param props.height   Height value.
+ * @param props.moveX    Recent width (x axis) changes.
+ * @param props.moveY    Recent width (y axis) changes.
+ * @param props.position Adjusts label value.
+ * @param props.showPx   Whether to add `PX` to the label.
+ * @param props.width    Width value.
  *
  * @return The rendered label.
  */
@@ -62559,24 +63565,24 @@ function resize_tooltip_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You ha
 
 
 const resize_tooltip_styles_Root = emotion_styled_base_browser_esm("div",  true ? {
-  target: "ekdag503"
+  target: "e1wq7y4k3"
 } : 0)( true ? {
   name: "1cd7zoc",
   styles: "bottom:0;box-sizing:border-box;left:0;pointer-events:none;position:absolute;right:0;top:0"
 } : 0);
 const TooltipWrapper = emotion_styled_base_browser_esm("div",  true ? {
-  target: "ekdag502"
+  target: "e1wq7y4k2"
 } : 0)( true ? {
   name: "ajymcs",
   styles: "align-items:center;box-sizing:border-box;display:inline-flex;justify-content:center;opacity:0;pointer-events:none;transition:opacity 120ms linear"
 } : 0);
 const resize_tooltip_styles_Tooltip = emotion_styled_base_browser_esm("div",  true ? {
-  target: "ekdag501"
+  target: "e1wq7y4k1"
 } : 0)("background:", COLORS.gray[900], ";border-radius:2px;box-sizing:border-box;font-size:12px;color:", COLORS.ui.textDark, ";padding:4px 8px;position:relative;" + ( true ? "" : 0)); // TODO: Resolve need to use &&& to increase specificity
 // https://github.com/WordPress/gutenberg/issues/18483
 
 const LabelText = /*#__PURE__*/emotion_styled_base_browser_esm(text_component,  true ? {
-  target: "ekdag500"
+  target: "e1wq7y4k0"
 } : 0)("&&&{color:", COLORS.ui.textDark, ";display:block;font-size:13px;line-height:1.4;white-space:nowrap;}" + ( true ? "" : 0));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/resizable-box/resize-tooltip/label.js
@@ -63132,8 +64138,8 @@ const NOTICE_TIMEOUT = 10000;
  * Custom hook which announces the message with the given politeness, if a
  * valid message is provided.
  *
- * @param  message    Message to announce.
- * @param  politeness Politeness to announce.
+ * @param message    Message to announce.
+ * @param politeness Politeness to announce.
  */
 
 function snackbar_useSpokenMessage(message, politeness) {
@@ -64209,6 +65215,8 @@ var ToolbarItem = createComponent({
 
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-context/index.js
+// @ts-nocheck
+
 /**
  * WordPress dependencies
  */
@@ -64219,6 +65227,7 @@ const ToolbarContext = (0,external_wp_element_namespaceObject.createContext)();
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-item/index.js
 
 
+// @ts-nocheck
 
 /**
  * External dependencies
@@ -64272,6 +65281,7 @@ function toolbar_item_ToolbarItem(_ref, ref) {
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-button/toolbar-button-container.js
 
 
+// @ts-nocheck
 const ToolbarButtonContainer = props => (0,external_wp_element_namespaceObject.createElement)("div", {
   className: props.className
 }, props.children);
@@ -64281,6 +65291,7 @@ const ToolbarButtonContainer = props => (0,external_wp_element_namespaceObject.c
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-button/index.js
 
 
+// @ts-nocheck
 
 /**
  * External dependencies
@@ -64356,6 +65367,7 @@ function ToolbarButton(_ref, ref) {
 
 
 
+// @ts-nocheck
 const ToolbarGroupContainer = _ref => {
   let {
     className,
@@ -64372,6 +65384,7 @@ const ToolbarGroupContainer = _ref => {
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-group/toolbar-group-collapsed.js
 
 
+// @ts-nocheck
 
 /**
  * WordPress dependencies
@@ -64414,6 +65427,7 @@ function ToolbarGroupCollapsed(_ref) {
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-group/index.js
 
 
+// @ts-nocheck
 
 /**
  * External dependencies
@@ -64604,10 +65618,10 @@ var Toolbar = createComponent({
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -64616,7 +65630,7 @@ var Toolbar = createComponent({
 
 
 
-function ToolbarContainer(_ref, ref) {
+function UnforwardedToolbarContainer(_ref, ref) {
   let {
     label,
     ...props
@@ -64639,7 +65653,8 @@ function ToolbarContainer(_ref, ref) {
   );
 }
 
-/* harmony default export */ var toolbar_container = ((0,external_wp_element_namespaceObject.forwardRef)(ToolbarContainer));
+const ToolbarContainer = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedToolbarContainer);
+/* harmony default export */ var toolbar_container = (ToolbarContainer);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar/index.js
 
@@ -64649,10 +65664,10 @@ function ToolbarContainer(_ref, ref) {
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -64661,18 +65676,8 @@ function ToolbarContainer(_ref, ref) {
 
 
 
-/**
- * Renders a toolbar.
- *
- * To add controls, simply pass `ToolbarButton` components as children.
- *
- * @param {Object} props             Component props.
- * @param {string} [props.className] Class to set on the container div.
- * @param {string} [props.label]     ARIA label for toolbar container.
- * @param {Object} ref               React Element ref.
- */
 
-function toolbar_Toolbar(_ref, ref) {
+function UnforwardedToolbar(_ref, ref) {
   let {
     className,
     label,
@@ -64698,12 +65703,35 @@ function toolbar_Toolbar(_ref, ref) {
     ref: ref
   }, props));
 }
+/**
+ * Renders a toolbar.
+ *
+ * To add controls, simply pass `ToolbarButton` components as children.
+ *
+ * ```jsx
+ * import { Toolbar, ToolbarButton } from '@wordpress/components';
+ * import { formatBold, formatItalic, link } from '@wordpress/icons';
+ *
+ * function MyToolbar() {
+ *   return (
+ *     <Toolbar label="Options">
+ *       <ToolbarButton icon={ formatBold } label="Bold" />
+ *       <ToolbarButton icon={ formatItalic } label="Italic" />
+ *       <ToolbarButton icon={ link } label="Link" />
+ *     </Toolbar>
+ *   );
+ * }
+ * ```
+ */
 
-/* harmony default export */ var toolbar = ((0,external_wp_element_namespaceObject.forwardRef)(toolbar_Toolbar));
+
+const toolbar_Toolbar = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedToolbar);
+/* harmony default export */ var toolbar = (toolbar_Toolbar);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-dropdown-menu/index.js
 
 
+// @ts-nocheck
 
 /**
  * WordPress dependencies
@@ -64844,6 +65872,7 @@ const useToolsPanelContext = () => (0,external_wp_element_namespaceObject.useCon
 function useToolsPanelHeader(props) {
   const {
     className,
+    headingLevel = 2,
     ...otherProps
   } = useContextSystem(props, 'ToolsPanelHeader');
   const cx = useCx();
@@ -64870,6 +65899,7 @@ function useToolsPanelHeader(props) {
     dropdownMenuClassName,
     hasMenuItems,
     headingClassName,
+    headingLevel,
     menuItems,
     className: classes
   };
@@ -64992,6 +66022,7 @@ const component_ToolsPanelHeader = (props, forwardedRef) => {
     dropdownMenuClassName,
     hasMenuItems,
     headingClassName,
+    headingLevel = 2,
     label: labelText,
     menuItems,
     resetAll,
@@ -65016,7 +66047,7 @@ const component_ToolsPanelHeader = (props, forwardedRef) => {
   return (0,external_wp_element_namespaceObject.createElement)(h_stack_component, extends_extends({}, headerProps, {
     ref: forwardedRef
   }), (0,external_wp_element_namespaceObject.createElement)(heading_component, {
-    level: 2,
+    level: headingLevel,
     className: headingClassName
   }, labelText), hasMenuItems && (0,external_wp_element_namespaceObject.createElement)(dropdown_menu, {
     icon: dropDownMenuIcon,
@@ -65082,12 +66113,12 @@ const generateMenuItems = _ref => {
       isShownByDefault,
       label
     } = _ref2;
-    const group = isShownByDefault ? 'default' : 'optional'; // If a menu item for this label already exists, do not overwrite its value.
-    // This can cause default controls that have been flagged as customized to
-    // lose their value.
+    const group = isShownByDefault ? 'default' : 'optional'; // If a menu item for this label has already been flagged as customized
+    // (for default controls), or toggled on (for optional controls), do not
+    // overwrite its value as those controls would lose that state.
 
     const existingItemValue = currentMenuItems === null || currentMenuItems === void 0 ? void 0 : (_currentMenuItems$gro = currentMenuItems[group]) === null || _currentMenuItems$gro === void 0 ? void 0 : _currentMenuItems$gro[label];
-    const value = existingItemValue !== undefined ? existingItemValue : hasValue();
+    const value = existingItemValue ? existingItemValue : hasValue();
     menuItems[group][label] = shouldReset ? false : value;
   });
   return menuItems;
@@ -65098,10 +66129,11 @@ const isMenuItemTypeEmpty = obj => obj && Object.keys(obj).length === 0;
 function useToolsPanel(props) {
   const {
     className,
+    headingLevel = 2,
     resetAll,
     panelId,
-    hasInnerWrapper,
-    shouldRenderPlaceholderItems,
+    hasInnerWrapper = false,
+    shouldRenderPlaceholderItems = false,
     __experimentalFirstVisibleItemClass,
     __experimentalLastVisibleItemClass,
     ...otherProps
@@ -65267,6 +66299,7 @@ function useToolsPanel(props) {
     __experimentalLastVisibleItemClass
   }), [areAllOptionalControlsHidden, deregisterPanelItem, firstDisplayedItem, flagItemCustomization, lastDisplayedItem, menuItems, panelId, panelItems, registerPanelItem, shouldRenderPlaceholderItems, __experimentalFirstVisibleItemClass, __experimentalLastVisibleItemClass]);
   return { ...otherProps,
+    headingLevel,
     panelContext,
     resetAllItems,
     toggleItem,
@@ -65291,13 +66324,14 @@ function useToolsPanel(props) {
 
 
 
-const component_ToolsPanel = (props, forwardedRef) => {
+const UnconnectedToolsPanel = (props, forwardedRef) => {
   const {
     children,
     label,
     panelContext,
     resetAllItems,
     toggleItem,
+    headingLevel,
     ...toolsPanelProps
   } = useToolsPanel(props);
   return (0,external_wp_element_namespaceObject.createElement)(grid_component, extends_extends({}, toolsPanelProps, {
@@ -65308,12 +66342,66 @@ const component_ToolsPanel = (props, forwardedRef) => {
   }, (0,external_wp_element_namespaceObject.createElement)(tools_panel_header_component, {
     label: label,
     resetAll: resetAllItems,
-    toggleItem: toggleItem
+    toggleItem: toggleItem,
+    headingLevel: headingLevel
   }), children));
 };
+/**
+ * The `ToolsPanel` is a container component that displays its children preceded
+ * by a header. The header includes a dropdown menu which is automatically
+ * generated from the panel's inner `ToolsPanelItems`.
+ *
+ * @example
+ * ```jsx
+ * import { __ } from '@wordpress/i18n';
+ * import {
+ *   __experimentalToolsPanel as ToolsPanel,
+ *   __experimentalToolsPanelItem as ToolsPanelItem,
+ *   __experimentalUnitControl as UnitControl
+ * } from '@wordpress/components';
+ *
+ * function Example() {
+ *   const [ height, setHeight ] = useState();
+ *   const [ width, setWidth ] = useState();
+ *
+ *   const resetAll = () => {
+ *     setHeight();
+ *     setWidth();
+ *   }
+ *
+ *   return (
+ *     <ToolsPanel label={ __( 'Dimensions' ) } resetAll={ resetAll }>
+ *       <ToolsPanelItem
+ *         hasValue={ () => !! height }
+ *         label={ __( 'Height' ) }
+ *         onDeselect={ () => setHeight() }
+ *       >
+ *         <UnitControl
+ *           label={ __( 'Height' ) }
+ *           onChange={ setHeight }
+ *           value={ height }
+ *         />
+ *       </ToolsPanelItem>
+ *       <ToolsPanelItem
+ *         hasValue={ () => !! width }
+ *         label={ __( 'Width' ) }
+ *         onDeselect={ () => setWidth() }
+ *       >
+ *         <UnitControl
+ *           label={ __( 'Width' ) }
+ *           onChange={ setWidth }
+ *           value={ width }
+ *         />
+ *       </ToolsPanelItem>
+ *     </ToolsPanel>
+ *   );
+ * }
+ * ```
+ */
 
-const ConnectedToolsPanel = contextConnect(component_ToolsPanel, 'ToolsPanel');
-/* harmony default export */ var tools_panel_component = (ConnectedToolsPanel);
+
+const component_ToolsPanel = contextConnect(UnconnectedToolsPanel, 'ToolsPanel');
+/* harmony default export */ var tools_panel_component = (component_ToolsPanel);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/tools-panel/tools-panel-item/hook.js
 /**
@@ -65329,16 +66417,19 @@ const ConnectedToolsPanel = contextConnect(component_ToolsPanel, 'ToolsPanel');
 
 
 
+
+const hook_noop = () => {};
+
 function useToolsPanelItem(props) {
   var _menuItems$menuGroup, _menuItems$menuGroup2, _menuItems$menuGroup3;
 
   const {
     className,
     hasValue,
-    isShownByDefault,
+    isShownByDefault = false,
     label,
     panelId,
-    resetAllFilter,
+    resetAllFilter = hook_noop,
     onDeselect,
     onSelect,
     ...otherProps
@@ -65378,22 +66469,31 @@ function useToolsPanelItem(props) {
         deregisterPanelItem(label);
       }
     };
-  }, [currentPanelId, hasMatchingPanel, isShownByDefault, label, hasValueCallback, panelId, previousPanelId, resetAllFilterCallback, registerPanelItem, deregisterPanelItem]);
-  const isValueSet = hasValue();
-  const wasValueSet = (0,external_wp_compose_namespaceObject.usePrevious)(isValueSet); // If this item represents a default control it will need to notify the
-  // panel when a custom value has been set.
-
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (isShownByDefault && isValueSet && !wasValueSet) {
-      flagItemCustomization(label);
-    }
-  }, [isValueSet, wasValueSet, isShownByDefault, label, flagItemCustomization]); // Note: `label` is used as a key when building menu item state in
+  }, [currentPanelId, hasMatchingPanel, isShownByDefault, label, hasValueCallback, panelId, previousPanelId, resetAllFilterCallback, registerPanelItem, deregisterPanelItem]); // Note: `label` is used as a key when building menu item state in
   // `ToolsPanel`.
 
   const menuGroup = isShownByDefault ? 'default' : 'optional';
   const isMenuItemChecked = menuItems === null || menuItems === void 0 ? void 0 : (_menuItems$menuGroup = menuItems[menuGroup]) === null || _menuItems$menuGroup === void 0 ? void 0 : _menuItems$menuGroup[label];
   const wasMenuItemChecked = (0,external_wp_compose_namespaceObject.usePrevious)(isMenuItemChecked);
-  const isRegistered = (menuItems === null || menuItems === void 0 ? void 0 : (_menuItems$menuGroup2 = menuItems[menuGroup]) === null || _menuItems$menuGroup2 === void 0 ? void 0 : _menuItems$menuGroup2[label]) !== undefined; // Determine if the panel item's corresponding menu is being toggled and
+  const isRegistered = (menuItems === null || menuItems === void 0 ? void 0 : (_menuItems$menuGroup2 = menuItems[menuGroup]) === null || _menuItems$menuGroup2 === void 0 ? void 0 : _menuItems$menuGroup2[label]) !== undefined;
+  const isValueSet = hasValue();
+  const wasValueSet = (0,external_wp_compose_namespaceObject.usePrevious)(isValueSet);
+  const newValueSet = isValueSet && !wasValueSet; // Notify the panel when an item's value has been set.
+  //
+  // 1. For default controls, this is so "reset" appears beside its menu item.
+  // 2. For optional controls, when the panel ID is `null`, it allows the
+  // panel to ensure the item is toggled on for display in the menu, given the
+  // value has been set external to the control.
+
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (!newValueSet) {
+      return;
+    }
+
+    if (isShownByDefault || currentPanelId === null) {
+      flagItemCustomization(label, menuGroup);
+    }
+  }, [currentPanelId, newValueSet, isShownByDefault, menuGroup, label, flagItemCustomization]); // Determine if the panel item's corresponding menu is being toggled and
   // trigger appropriate callback if it is.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
@@ -65447,7 +66547,7 @@ function useToolsPanelItem(props) {
 
 // This wraps controls to be conditionally displayed within a tools panel. It
 // prevents props being applied to HTML elements that would make them invalid.
-const component_ToolsPanelItem = (props, forwardedRef) => {
+const UnconnectedToolsPanelItem = (props, forwardedRef) => {
   const {
     children,
     isShown,
@@ -65466,8 +66566,8 @@ const component_ToolsPanelItem = (props, forwardedRef) => {
   }), children);
 };
 
-const ConnectedToolsPanelItem = contextConnect(component_ToolsPanelItem, 'ToolsPanelItem');
-/* harmony default export */ var tools_panel_item_component = (ConnectedToolsPanelItem);
+const component_ToolsPanelItem = contextConnect(UnconnectedToolsPanelItem, 'ToolsPanelItem');
+/* harmony default export */ var tools_panel_item_component = (component_ToolsPanelItem);
 
 ;// CONCATENATED MODULE: external ["wp","keycodes"]
 var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
@@ -65476,7 +66576,7 @@ var external_wp_keycodes_namespaceObject = window["wp"]["keycodes"];
  * WordPress dependencies
  */
 
-const RovingTabIndexContext = (0,external_wp_element_namespaceObject.createContext)();
+const RovingTabIndexContext = (0,external_wp_element_namespaceObject.createContext)(undefined);
 const useRovingTabIndexContext = () => (0,external_wp_element_namespaceObject.useContext)(RovingTabIndexContext);
 const RovingTabIndexProvider = RovingTabIndexContext.Provider;
 
@@ -65496,9 +66596,6 @@ const RovingTabIndexProvider = RovingTabIndexContext.Provider;
  * Provider for adding roving tab index behaviors to tree grid structures.
  *
  * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/components/src/tree-grid/README.md
- *
- * @param {Object}    props          Component props.
- * @param {WPElement} props.children Children to be rendered
  */
 
 function RovingTabIndex(_ref) {
@@ -65533,24 +66630,19 @@ function RovingTabIndex(_ref) {
  */
 
 
+
 /**
  * Return focusables in a row element, excluding those from other branches
  * nested within the row.
  *
- * @param {Element} rowElement The DOM element representing the row.
+ * @param rowElement The DOM element representing the row.
  *
- * @return {Array | undefined} The array of focusables in the row.
+ * @return The array of focusables in the row.
  */
-
 function getRowFocusables(rowElement) {
   const focusablesInRow = external_wp_dom_namespaceObject.focus.focusable.find(rowElement, {
     sequential: true
   });
-
-  if (!focusablesInRow || !focusablesInRow.length) {
-    return;
-  }
-
   return focusablesInRow.filter(focusable => {
     return focusable.closest('[role="row"]') === rowElement;
   });
@@ -65558,18 +66650,12 @@ function getRowFocusables(rowElement) {
 /**
  * Renders both a table and tbody element, used to create a tree hierarchy.
  *
- * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/components/src/tree-grid/README.md
- * @param {Object}    props                      Component props.
- * @param {WPElement} props.children             Children to be rendered.
- * @param {Function}  props.onExpandRow          Callback to fire when row is expanded.
- * @param {Function}  props.onCollapseRow        Callback to fire when row is collapsed.
- * @param {Function}  props.onFocusRow           Callback to fire when moving focus to a different row.
- * @param {string}    props.applicationAriaLabel Label to use for the application role.
- * @param {Object}    ref                        A ref to the underlying DOM table element.
  */
 
 
-function TreeGrid(_ref, ref) {
+function UnforwardedTreeGrid(_ref,
+/** A ref to the underlying DOM table element. */
+ref) {
   let {
     children,
     onExpandRow = () => {},
@@ -65602,12 +66688,17 @@ function TreeGrid(_ref, ref) {
       currentTarget: treeGridElement
     } = event;
 
-    if (!treeGridElement.contains(activeElement)) {
+    if (!activeElement || !treeGridElement.contains(activeElement)) {
       return;
     } // Calculate the columnIndex of the active element.
 
 
     const activeRow = activeElement.closest('[role="row"]');
+
+    if (!activeRow) {
+      return;
+    }
+
     const focusablesInRow = getRowFocusables(activeRow);
     const currentColumnIndex = focusablesInRow.indexOf(activeElement);
     const canExpandCollapse = 0 === currentColumnIndex;
@@ -65637,13 +66728,15 @@ function TreeGrid(_ref, ref) {
           } // If a row is focused, and it is collapsed, moves to the parent row (if there is one).
 
 
-          const level = Math.max(parseInt((_activeRow$getAttribu = activeRow === null || activeRow === void 0 ? void 0 : activeRow.getAttribute('aria-level')) !== null && _activeRow$getAttribu !== void 0 ? _activeRow$getAttribu : 1, 10) - 1, 1);
+          const level = Math.max(parseInt((_activeRow$getAttribu = activeRow === null || activeRow === void 0 ? void 0 : activeRow.getAttribute('aria-level')) !== null && _activeRow$getAttribu !== void 0 ? _activeRow$getAttribu : '1', 10) - 1, 1);
           const rows = Array.from(treeGridElement.querySelectorAll('[role="row"]'));
           let parentRow = activeRow;
           const currentRowIndex = rows.indexOf(activeRow);
 
           for (let i = currentRowIndex; i >= 0; i--) {
-            if (parseInt(rows[i].getAttribute('aria-level'), 10) === level) {
+            const ariaLevel = rows[i].getAttribute('aria-level');
+
+            if (ariaLevel !== null && parseInt(ariaLevel, 10) === level) {
               parentRow = rows[i];
               break;
             }
@@ -65785,8 +66878,72 @@ function TreeGrid(_ref, ref) {
   }), (0,external_wp_element_namespaceObject.createElement)("tbody", null, children))));
   /* eslint-enable jsx-a11y/no-noninteractive-element-to-interactive-role */
 }
+/**
+ * `TreeGrid` is used to create a tree hierarchy.
+ * It is not a visually styled component, but instead helps with adding
+ * keyboard navigation and roving tab index behaviors to tree grid structures.
+ *
+ * A tree grid is a hierarchical 2 dimensional UI component, for example it could be
+ * used to implement a file system browser.
+ *
+ * A tree grid allows the user to navigate using arrow keys.
+ * Up/down to navigate vertically across rows, and left/right to navigate horizontally
+ * between focusables in a row.
+ *
+ * The `TreeGrid` renders both a `table` and `tbody` element, and is intended to be used
+ * with `TreeGridRow` (`tr`) and `TreeGridCell` (`td`) to build out a grid.
+ *
+ * ```jsx
+ * function TreeMenu() {
+ * 	return (
+ * 		<TreeGrid>
+ * 			<TreeGridRow level={ 1 } positionInSet={ 1 } setSize={ 2 }>
+ * 				<TreeGridCell>
+ * 					{ ( props ) => (
+ * 						<Button onClick={ onSelect } { ...props }>Select</Button>
+ * 					) }
+ * 				</TreeGridCell>
+ * 				<TreeGridCell>
+ * 					{ ( props ) => (
+ * 						<Button onClick={ onMove } { ...props }>Move</Button>
+ * 					) }
+ * 				</TreeGridCell>
+ * 			</TreeGridRow>
+ * 			<TreeGridRow level={ 1 } positionInSet={ 2 } setSize={ 2 }>
+ * 				<TreeGridCell>
+ * 					{ ( props ) => (
+ * 						<Button onClick={ onSelect } { ...props }>Select</Button>
+ * 					) }
+ * 				</TreeGridCell>
+ * 				<TreeGridCell>
+ * 					{ ( props ) => (
+ * 						<Button onClick={ onMove } { ...props }>Move</Button>
+ * 					) }
+ * 				</TreeGridCell>
+ * 			</TreeGridRow>
+ * 			<TreeGridRow level={ 2 } positionInSet={ 1 } setSize={ 1 }>
+ * 				<TreeGridCell>
+ * 					{ ( props ) => (
+ * 						<Button onClick={ onSelect } { ...props }>Select</Button>
+ * 					) }
+ * 				</TreeGridCell>
+ * 				<TreeGridCell>
+ * 					{ ( props ) => (
+ * 						<Button onClick={ onMove } { ...props }>Move</Button>
+ * 					) }
+ * 				</TreeGridCell>
+ * 			</TreeGridRow>
+ * 		</TreeGrid>
+ * 	);
+ * }
+ * ```
+ *
+ * @see {@link https://www.w3.org/TR/wai-aria-practices/examples/treegrid/treegrid-1.html}
+ */
 
-/* harmony default export */ var tree_grid = ((0,external_wp_element_namespaceObject.forwardRef)(TreeGrid));
+
+const TreeGrid = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedTreeGrid);
+/* harmony default export */ var tree_grid = (TreeGrid);
 
 
 
@@ -65799,8 +66956,11 @@ function TreeGrid(_ref, ref) {
  * WordPress dependencies
  */
 
+/**
+ * Internal dependencies
+ */
 
-function TreeGridRow(_ref, ref) {
+function UnforwardedTreeGridRow(_ref, ref) {
   let {
     children,
     level,
@@ -65809,24 +66969,26 @@ function TreeGridRow(_ref, ref) {
     isExpanded,
     ...props
   } = _ref;
-  return (// Disable reason: Due to an error in the ARIA 1.1 specification, the
-    // aria-posinset and aria-setsize properties are not supported on row
-    // elements. This is being corrected in ARIA 1.2. Consequently, the
-    // linting rule fails when validating this markup.
-    //
-    // eslint-disable-next-line jsx-a11y/role-supports-aria-props
-    (0,external_wp_element_namespaceObject.createElement)("tr", extends_extends({}, props, {
-      ref: ref,
-      role: "row",
-      "aria-level": level,
-      "aria-posinset": positionInSet,
-      "aria-setsize": setSize,
-      "aria-expanded": isExpanded
-    }), children)
-  );
+  return (0,external_wp_element_namespaceObject.createElement)("tr", extends_extends({}, props, {
+    ref: ref,
+    role: "row",
+    "aria-level": level,
+    "aria-posinset": positionInSet,
+    "aria-setsize": setSize,
+    "aria-expanded": isExpanded
+  }), children);
 }
+/**
+ * `TreeGridRow` is used to create a tree hierarchy.
+ * It is not a visually styled component, but instead helps with adding
+ * keyboard navigation and roving tab index behaviors to tree grid structures.
+ *
+ * @see {@link https://www.w3.org/TR/wai-aria-practices/examples/treegrid/treegrid-1.html}
+ */
 
-/* harmony default export */ var tree_grid_row = ((0,external_wp_element_namespaceObject.forwardRef)(TreeGridRow));
+
+const TreeGridRow = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedTreeGridRow);
+/* harmony default export */ var tree_grid_row = (TreeGridRow);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-grid/roving-tab-index-item.js
 
@@ -65840,14 +67002,15 @@ function TreeGridRow(_ref, ref) {
  */
 
 
-/* harmony default export */ var roving_tab_index_item = ((0,external_wp_element_namespaceObject.forwardRef)(function RovingTabIndexItem(_ref, forwardedRef) {
+const RovingTabIndexItem = (0,external_wp_element_namespaceObject.forwardRef)(function UnforwardedRovingTabIndexItem(_ref, forwardedRef) {
   let {
     children,
     as: Component,
     ...props
   } = _ref;
   const localRef = (0,external_wp_element_namespaceObject.useRef)();
-  const ref = forwardedRef || localRef;
+  const ref = forwardedRef || localRef; // @ts-expect-error - We actually want to throw an error if this is undefined.
+
   const {
     lastFocusedElement,
     setLastFocusedElement
@@ -65855,10 +67018,14 @@ function TreeGridRow(_ref, ref) {
   let tabIndex;
 
   if (lastFocusedElement) {
-    tabIndex = lastFocusedElement === ref.current ? 0 : -1;
+    tabIndex = lastFocusedElement === ( // TODO: The original implementation simply used `ref.current` here, assuming
+    // that a forwarded ref would always be an object, which is not necessarily true.
+    // This workaround maintains the original runtime behavior in a type-safe way,
+    // but should be revisited.
+    'current' in ref ? ref.current : undefined) ? 0 : -1;
   }
 
-  const onFocus = event => setLastFocusedElement(event.target);
+  const onFocus = event => setLastFocusedElement === null || setLastFocusedElement === void 0 ? void 0 : setLastFocusedElement(event.target);
 
   const allProps = {
     ref,
@@ -65871,8 +67038,10 @@ function TreeGridRow(_ref, ref) {
     return children(allProps);
   }
 
+  if (!Component) return null;
   return (0,external_wp_element_namespaceObject.createElement)(Component, allProps, children);
-}));
+});
+/* harmony default export */ var roving_tab_index_item = (RovingTabIndexItem);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-grid/item.js
 
@@ -65887,7 +67056,8 @@ function TreeGridRow(_ref, ref) {
  */
 
 
-/* harmony default export */ var tree_grid_item = ((0,external_wp_element_namespaceObject.forwardRef)(function TreeGridItem(_ref, ref) {
+
+function UnforwardedTreeGridItem(_ref, ref) {
   let {
     children,
     ...props
@@ -65895,7 +67065,18 @@ function TreeGridRow(_ref, ref) {
   return (0,external_wp_element_namespaceObject.createElement)(roving_tab_index_item, extends_extends({
     ref: ref
   }, props), children);
-}));
+}
+/**
+ * `TreeGridItem` is used to create a tree hierarchy.
+ * It is not a visually styled component, but instead helps with adding
+ * keyboard navigation and roving tab index behaviors to tree grid structures.
+ *
+ * @see {@link https://www.w3.org/TR/wai-aria-practices/examples/treegrid/treegrid-1.html}
+ */
+
+
+const TreeGridItem = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedTreeGridItem);
+/* harmony default export */ var tree_grid_item = (TreeGridItem);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/tree-grid/cell.js
 
@@ -65910,7 +67091,8 @@ function TreeGridRow(_ref, ref) {
  */
 
 
-/* harmony default export */ var cell = ((0,external_wp_element_namespaceObject.forwardRef)(function TreeGridCell(_ref, ref) {
+
+function UnforwardedTreeGridCell(_ref, ref) {
   let {
     children,
     withoutGridItem = false,
@@ -65918,10 +67100,21 @@ function TreeGridRow(_ref, ref) {
   } = _ref;
   return (0,external_wp_element_namespaceObject.createElement)("td", extends_extends({}, props, {
     role: "gridcell"
-  }), withoutGridItem ? children : (0,external_wp_element_namespaceObject.createElement)(tree_grid_item, {
+  }), withoutGridItem ? (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, children) : (0,external_wp_element_namespaceObject.createElement)(tree_grid_item, {
     ref: ref
   }, children));
-}));
+}
+/**
+ * `TreeGridCell` is used to create a tree hierarchy.
+ * It is not a visually styled component, but instead helps with adding
+ * keyboard navigation and roving tab index behaviors to tree grid structures.
+ *
+ * @see {@link https://www.w3.org/TR/wai-aria-practices/examples/treegrid/treegrid-1.html}
+ */
+
+
+const TreeGridCell = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedTreeGridCell);
+/* harmony default export */ var cell = (TreeGridCell);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/isolated-event-container/index.js
 
@@ -66577,10 +67770,32 @@ const with_focus_return_Provider = _ref => {
   return Component;
 }));
 
+;// CONCATENATED MODULE: external ["wp","privateApis"]
+var external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
+;// CONCATENATED MODULE: ./packages/components/build-module/private-apis.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+const {
+  lock,
+  unlock
+} = (0,external_wp_privateApis_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/components');
+const privateApis = {};
+lock(privateApis, {
+  CustomSelectControl: CustomSelectControl,
+  __experimentalPopoverLegacyPositionToPlacement: positionToPlacement
+});
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/index.js
 // Primitives.
  // Components.
-
 
 
 
@@ -66706,6 +67921,8 @@ const with_focus_return_Provider = _ref => {
 
 
 
+
+ // Private APIs.
 
 
 

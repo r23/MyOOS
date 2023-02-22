@@ -184,7 +184,7 @@ function isValidFocusableArea(element) {
  *                                       not sequentially focusable.
  *                                       https://html.spec.whatwg.org/multipage/interaction.html#the-tabindex-attribute
  *
- * @return {Element[]} Focusable elements.
+ * @return {HTMLElement[]} Focusable elements.
  */
 
 
@@ -730,7 +730,8 @@ function getComputedStyle(element) {
  */
 
 /**
- * Given a DOM node, finds the closest scrollable container node.
+ * Given a DOM node, finds the closest scrollable container node or the node
+ * itself, if scrollable.
  *
  * @param {Element | null} node Node from which to start.
  *
