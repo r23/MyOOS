@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-02-18 21:34:15+0000\n"
+"PO-Revision-Date: 2023-02-22 17:43:05+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: Plugins - Gutenberg - Stable (latest release)\n"
 
-#: lib/experimental/html/class-wp-html-tag-processor.php:603
+#: lib/compat/wordpress-6.2/html-api/class-wp-html-tag-processor.php:718
 msgid "Too many bookmarks: cannot create any more."
 msgstr "Zu viele Lesezeichen: Es können keine weiteren erstellt werden."
 
@@ -36,13 +36,9 @@ msgstr "Die Schriftfamilie ist nicht in der Variante oder in der „Titelform“
 msgid "An array of template types where the pattern fits."
 msgstr "Ein Array von Template-Typen, auf die diese Vorlage passt."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:172
-msgid "Whether to enable animation when showing and hiding the block inspector."
-msgstr "Ob die Animation beim Ein- und Ausblenden des Block-Inspektors aktiviert werden soll."
-
 #. translators: 1: theme.json, 2: Value name, 3: Value path, 4: Another value
 #. name.
-#: lib/class-wp-theme-json-gutenberg.php:1956
+#: lib/class-wp-theme-json-gutenberg.php:1966
 msgid "Your %1$s file uses a dynamic value (%2$s) for the path at %3$s. However, the value at %3$s is also a dynamic value (pointing to %4$s) and pointing to another dynamic value is not supported. Please update %3$s to point directly to %4$s."
 msgstr "Deine %1$s-Datei verwendet einen dynamischen Wert (%2$s) für den Pfad bei %3$s. Der Wert bei %3$s ist jedoch ebenfalls ein dynamischer Wert (der auf %4$s verweist) und der Verweis auf einen anderen dynamischen Wert wird nicht unterstützt. Bitte aktualisiere %3$s, um direkt auf %4$s zu verweisen."
 
@@ -116,7 +112,7 @@ msgstr "Verschiedene Layouts mit Video oder Audio."
 msgid "Markup is not allowed in CSS."
 msgstr "Markup ist in CSS nicht erlaubt."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:202
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:196
 msgid "Block inspector tab display overrides."
 msgstr "Die Anzeige des Tabs Block-Inspektor wird überschrieben."
 
@@ -171,12 +167,13 @@ msgstr "Vorlagen, die Buttons und Aufforderungen zum Handeln enthalten."
 
 #. translators: %s is either the post title or post ID to describe the link for
 #. screen readers.
-#: build/block-library/blocks/read-more.php:25
+#: build/block-library/blocks/read-more.php:32
 msgid ": %s"
 msgstr ": %s"
 
+#. translators: %s is post ID to describe the link for screen readers.
 #: build/block-library/blocks/read-more.php:26
-msgid "untitled post "
+msgid "untitled post %s"
 msgstr "Beitrag ohne Titel "
 
 #: lib/compat/wordpress-6.2/block-patterns.php:15
@@ -229,8 +226,8 @@ msgstr "Die Kategoriebeschreibung in menschenlesbarem Format."
 
 #. translators: Custom template description in the Site Editor. %s: Post title.
 #. translators: Custom template description in the Site Editor. %s: Term title.
-#: lib/compat/wordpress-6.1/block-template-utils.php:306
-#: lib/compat/wordpress-6.1/block-template-utils.php:382
+#: lib/compat/wordpress-6.1/block-template-utils.php:307
+#: lib/compat/wordpress-6.1/block-template-utils.php:383
 msgid "Template for %s"
 msgstr "Template für %s"
 
@@ -255,7 +252,7 @@ msgstr "Vorherige Seite der Kommentare"
 #. translators: Represents the title of a user's custom template in the Site
 #. Editor referencing a deleted author, where %s is the author's nicename, e.g.
 #. "Deleted author: jane-doe".
-#: lib/compat/wordpress-6.1/block-template-utils.php:487
+#: lib/compat/wordpress-6.1/block-template-utils.php:488
 msgid "Deleted author: %s"
 msgstr "Gelöschter Autor: %s"
 
@@ -263,8 +260,8 @@ msgstr "Gelöschter Autor: %s"
 #. that was not found. 1: Post type singular name, 2: Post type slug.
 #. translators: Custom template title in the Site Editor, referencing a
 #. taxonomy term that was not found. 1: Taxonomy singular name, 2: Term slug.
-#: lib/compat/wordpress-6.1/block-template-utils.php:287
-#: lib/compat/wordpress-6.1/block-template-utils.php:364
+#: lib/compat/wordpress-6.1/block-template-utils.php:288
+#: lib/compat/wordpress-6.1/block-template-utils.php:365
 msgid "Not found: %1$s (%2$s)"
 msgstr "Das konnte nicht gefunden werden: %1$s (%2$s)"
 
@@ -280,7 +277,7 @@ msgstr "Teste eine neue verkleinerte Ansicht des Website-Editors (Achtung: Die n
 msgid "Whether a theme uses block-based template parts."
 msgstr "Ob das Theme blockbasierte Template-Teile nutzt."
 
-#: lib/compat/wordpress-6.1/rest-api.php:79
+#: lib/compat/wordpress-6.1/rest-api.php:63
 msgid "If the value is a string, the value will be used as the archive slug. If the value is false the post type has no archive."
 msgstr "Wenn der Wert eine Zeichenfolge ist, wird der Wert als Titelform des Archivs verwendet. Wenn der Wert false ist, hat der Inhaltstyp kein Archiv."
 
@@ -292,7 +289,7 @@ msgstr "$store muss eine Instanz von WP_Style_Engine_CSS_Rules_Store_Gutenberg s
 msgid "The theme you are currently using doesn't block-based template parts."
 msgstr "Das derzeit aktive Theme nutzt keine blockbasierten Template-Teile."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:313
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:307
 msgid "Disables custom spacing sizes."
 msgstr "Deaktiviert individuelle Größen der Abstände."
 
@@ -302,10 +299,12 @@ msgid "Search results for: \"%s\""
 msgstr "Suchergebnisse für: „%s“"
 
 #: lib/compat/wordpress-6.1/class-gutenberg-rest-templates-controller.php:31
+#: lib/compat/wordpress-6.3/class-gutenberg-rest-templates-controller-6-3.php:31
 msgid "The slug of the template to get the fallback for"
 msgstr "Die Titelform des Templates, um das Fallback zu erhalten für"
 
 #: lib/compat/wordpress-6.1/class-gutenberg-rest-templates-controller.php:40
+#: lib/compat/wordpress-6.3/class-gutenberg-rest-templates-controller-6-3.php:40
 msgid "The template prefix for the created template. This is used to extract the main template type ex. in `taxonomy-books` we extract the `taxonomy`"
 msgstr "Das Template-Präfix für das erstellte Template. Hiermit wird die Hauptvorlagenart extrahiert. Beispielsweise wird aus „Taxonomie-Bücher“ das Wort/Präfix „Taxonomie“ extrahiert."
 
@@ -313,17 +312,18 @@ msgstr "Das Template-Präfix für das erstellte Template. Hiermit wird die Haupt
 msgid "Whether the theme disables generated layout styles."
 msgstr "Gibt an, ob das Theme generierte Layout-Stile deaktiviert."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:226
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:220
 msgid "Disables output of layout styles."
 msgstr "Deaktiviert die Ausgabe von Layout-Stilen."
 
 #. translators: Represents the title of a user's custom template in the Site
 #. Editor, where %s is the author's name, e.g. "Author: Jane Doe".
-#: lib/compat/wordpress-6.1/block-template-utils.php:495
+#: lib/compat/wordpress-6.1/block-template-utils.php:496
 msgid "Author: %s"
 msgstr "Autor: %s"
 
 #: lib/compat/wordpress-6.1/class-gutenberg-rest-templates-controller.php:36
+#: lib/compat/wordpress-6.3/class-gutenberg-rest-templates-controller-6-3.php:36
 msgid "Indicates if a template is custom or part of the template hierarchy"
 msgstr "Gibt an, ob ein Template individuell oder Teil der Template-Hierarchie ist"
 
@@ -331,31 +331,31 @@ msgstr "Gibt an, ob ein Template individuell oder Teil der Template-Hierarchie i
 msgid "Whether the V2 of the list block that uses inner blocks should be enabled."
 msgstr "Ob die V2 des Listenblocks, der innere Blöcke verwendet, aktiviert werden soll."
 
-#: lib/class-wp-theme-json-gutenberg.php:3333
+#: lib/class-wp-theme-json-gutenberg.php:3351
 msgid "Some of the theme.json settings.spacing.spacingScale values are invalid"
 msgstr "Einige der Werte in „theme.json settings.spacing.spacingScale“ sind ungültig"
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Small.
-#: lib/class-wp-theme-json-gutenberg.php:3367
+#: lib/class-wp-theme-json-gutenberg.php:3385
 msgid "%sX-Small"
 msgstr "%sXS"
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Large.
-#: lib/class-wp-theme-json-gutenberg.php:3404
+#: lib/class-wp-theme-json-gutenberg.php:3422
 msgid "%sX-Large"
 msgstr "%sXL"
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:303
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:297
 msgid "Active theme spacing sizes."
 msgstr "Abstandsgrößen des aktiven Themes."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:308
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:302
 msgid "Active theme spacing scale."
 msgstr "Abstandsskalierung des aktiven Themes."
 
 #. translators: Represents the description of a user's custom template in the
 #. Site Editor, e.g. "Template for Author: Jane Doe".
-#: lib/compat/wordpress-6.1/block-template-utils.php:500
+#: lib/compat/wordpress-6.1/block-template-utils.php:501
 msgid "Template for %1$s"
 msgstr "Template für %1$s"
 
@@ -375,7 +375,7 @@ msgstr "Kategorien-Liste"
 
 #. translators: %s: Number of comments.
 #: build/block-library/blocks/comments-title.php:59
-#: build/block-library/index.js:11228
+#: build/block-library/index.js:11240
 msgid "%s response"
 msgid_plural "%s responses"
 msgstr[0] "%s Antwort"
@@ -383,7 +383,7 @@ msgstr[1] "%s Antworten"
 
 #. translators: 1: Number of comments, 2: Post title.
 #: build/block-library/blocks/comments-title.php:45
-#: build/block-library/index.js:11221
+#: build/block-library/index.js:11233
 msgid "%1$s response to %2$s"
 msgid_plural "%1$s responses to %2$s"
 msgstr[0] "%1$s Antwort zu %2$s"
@@ -405,7 +405,7 @@ msgid "Comments"
 msgstr "Kommentare"
 
 #: build/block-library/blocks/comments-title.php:72
-#: build/block-library/index.js:11239
+#: build/block-library/index.js:11251
 msgid "Response"
 msgstr "Antwort"
 
@@ -423,17 +423,17 @@ msgstr "Das Datum und die Uhrzeit der Aktualisierung der Einstellungen."
 
 #. translators: %s: Post title.
 #: build/block-library/blocks/comments-title.php:66
-#: build/block-library/index.js:11233
+#: build/block-library/index.js:11245
 msgid "Response to %s"
 msgstr "Antwort auf %s"
 
 #: build/block-library/blocks/comments-title.php:55
-#: build/block-library/index.js:11224
+#: build/block-library/index.js:11236
 msgid "One response"
 msgstr "Eine Antwort"
 
 #: build/block-library/blocks/comments-title.php:74
-#: build/block-library/index.js:11241
+#: build/block-library/index.js:11253
 msgid "Responses"
 msgstr "Antworten"
 
@@ -454,13 +454,13 @@ msgstr "Zeigt einen Titel mit der Anzahl der Kommentare an"
 
 #. translators: %s: Post title.
 #: build/block-library/blocks/comments-title.php:69
-#: build/block-library/index.js:11236
+#: build/block-library/index.js:11248
 msgid "Responses to %s"
 msgstr "Antworten auf %s"
 
 #. translators: %s: Post title.
 #: build/block-library/blocks/comments-title.php:41
-#: build/block-library/index.js:8458 build/block-library/index.js:11217
+#: build/block-library/index.js:8470 build/block-library/index.js:11229
 msgid "One response to %s"
 msgstr "Eine Antwort auf %s"
 
@@ -581,12 +581,12 @@ msgid "Could not register file \"%s\" as a block pattern (\"Title\" field missin
 msgstr "Die Datei „%s“ konnte nicht als Block-Vorlage registriert werden (Feld „Titel“ fehlt)"
 
 #. translators: %s is the Comment Author name.
-#: build/block-library/blocks/avatar.php:127
+#: build/block-library/blocks/avatar.php:79
 msgid "(%s website link, opens in a new tab)"
 msgstr "(Der Link zur Website von %s wird in einem neuen Tab geöffnet)"
 
 #. translators: %s is the Author name.
-#: build/block-library/blocks/avatar.php:100
+#: build/block-library/blocks/avatar.php:52
 msgid "(%s author archive, opens in a new tab)"
 msgstr "(Das Autoren-Archiv von %s wird in einem neuen Tab geöffnet)"
 
@@ -611,14 +611,14 @@ msgid "Displays the link of a post, page, or any other content-type."
 msgstr "Zeigt den Link eines Beitrags, einer Seite oder eines anderen Inhaltstyps an."
 
 #: build/block-library/blocks/comments-pagination-previous.php:18
-#: build/block-library/index.js:8464 build/block-library/index.js:8519
-#: build/block-library/index.js:10423
+#: build/block-library/index.js:8476 build/block-library/index.js:8531
+#: build/block-library/index.js:10435
 msgid "Older Comments"
 msgstr "Ältere Kommentare"
 
 #: build/block-library/blocks/comments-pagination-next.php:25
-#: build/block-library/index.js:8468 build/block-library/index.js:8523
-#: build/block-library/index.js:10759
+#: build/block-library/index.js:8480 build/block-library/index.js:8535
+#: build/block-library/index.js:10771
 msgid "Newer Comments"
 msgstr "Neuere Kommentare"
 
@@ -772,8 +772,8 @@ msgstr "Das Theme wurde nicht gefunden."
 
 #. translators: %s is the Author name.
 #. translators: %s is the Comment Author name
-#: build/block-library/blocks/avatar.php:85
-#: build/block-library/blocks/avatar.php:112
+#: build/block-library/blocks/avatar.php:37
+#: build/block-library/blocks/avatar.php:64
 #: build/block-library/blocks/comment-author-avatar.php:50
 #: build/block-library/index.js:2207 build/block-library/index.js:2250
 msgid "%s Avatar"
@@ -1651,13 +1651,13 @@ msgctxt "block description"
 msgid "Embed a simple audio player."
 msgstr "Einen einfachen Audio-Player einbetten."
 
-#: build/block-library/blocks/navigation.php:793
-#: build/block-library/index.js:30583
+#: build/block-library/blocks/navigation.php:795
+#: build/block-library/index.js:30632
 msgid "Open menu"
 msgstr "Menü öffnen"
 
-#: build/block-library/blocks/navigation.php:794
-#: build/block-library/index.js:30597
+#: build/block-library/blocks/navigation.php:796
+#: build/block-library/index.js:30646
 msgid "Close menu"
 msgstr "Menü schließen"
 
@@ -1673,72 +1673,72 @@ msgstr "Styles konsolidiert aus Core, Theme und Benutzerquellen."
 msgid "Settings consolidated from core, theme, and user origins."
 msgstr "Einstellungen konsolidiert aus Core, Theme und Benutzerquellen."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:292
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:286
 msgid "Active theme font sizes."
 msgstr "Schriftgrößen des aktiven Themes."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:298
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:292
 msgid "Active theme gradients."
 msgstr "Verläufe des aktiven Themes."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:286
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:280
 msgid "Active theme color palette."
 msgstr "Farbpalette des aktiven Themes."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:280
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:274
 msgid "Maximum upload size in bytes allowed for the site."
 msgstr "Maximale Upload-Größe für diese Website in Bytes."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:274
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:268
 msgid "Available image sizes."
 msgstr "Verfügbare Bildgrößen."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:268
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:262
 msgid "Determines whether the image editing feature is enabled."
 msgstr "Stellt fest, ob die Bearbeitung von Bildern aktiviert ist."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:196
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:190
 msgid "Returns all the categories for block types that will be shown in the block editor."
 msgstr "Gibt alle Kategorien für Block-Typen aus, die im Block-Editor angezeigt werden."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:262
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:256
 msgid "Available image dimensions."
 msgstr "Verfügbare Bildgrößen."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:256
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:250
 msgid "Default size for images."
 msgstr "Standardgrößen für Bilder."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:250
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:244
 msgid "Determines whether the current locale is right-to-left (RTL)."
 msgstr "Stellt fest, ob die aktuelle Sprache von rechts nach links (RTL) geschrieben wird."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:244
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:238
 msgid "Enables custom units."
 msgstr "Aktiviert individuelle Einheiten."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:238
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:232
 msgid "Enables custom spacing."
 msgstr "Aktiviert individuelle Abstände."
 
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:208
 #: lib/experimental/class-wp-rest-block-editor-settings-controller.php:214
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:220
 msgid "Disables custom font size."
 msgstr "Deaktiviert die individuelle Schriftgröße."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:232
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:226
 msgid "Enables custom line height."
 msgstr "Aktiviert die individuelle Zeilenhöhe."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:208
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:202
 msgid "Disables custom colors."
 msgstr "Deaktiviert individuelle Farben."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:190
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:184
 msgid "List of allowed mime types and file extensions."
 msgstr "Liste erlaubter MIME-Typen und Dateierweiterungen."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:184
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:178
 msgid "List of allowed block types."
 msgstr "Liste erlaubter Block-Typen."
 
@@ -1750,7 +1750,7 @@ msgstr "Widget-Typen, die für den Legacy-Widget-Block nicht sichtbar sein solle
 msgid "Enable/disable layouts support in container blocks."
 msgstr "Die Unterstützung für Layouts in Container-Blöcken de-/aktivieren."
 
-#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:178
+#: lib/experimental/class-wp-rest-block-editor-settings-controller.php:172
 msgid "Enable/Disable Wide/Full Alignments."
 msgstr "Ausrichtungen für Gesamte oder Weite Breite de-/aktivieren."
 
@@ -1791,14 +1791,14 @@ msgctxt "block title"
 msgid "Login/out"
 msgstr "An-/abmelden"
 
-#: build/block-library/blocks/file.php:37 build/block-library/index.js:16297
-#: build/block-library/index.js:16401 build/block-library/index.js:16497
+#: build/block-library/blocks/file.php:37 build/block-library/index.js:16310
+#: build/block-library/index.js:16414 build/block-library/index.js:16510
 msgid "PDF embed"
 msgstr "PDF-Einbettung"
 
 #. translators: %s: filename.
-#: build/block-library/blocks/file.php:34 build/block-library/index.js:16299
-#: build/block-library/index.js:16403 build/block-library/index.js:16499
+#: build/block-library/blocks/file.php:34 build/block-library/index.js:16312
+#: build/block-library/index.js:16416 build/block-library/index.js:16512
 msgid "Embed of %s."
 msgstr "Einbettung von %s."
 
@@ -1824,7 +1824,7 @@ msgstr "Beitragsformat-Link"
 
 #: build/block-library/blocks/latest-posts.php:147
 #: build/block-library/blocks/latest-posts.php:162
-#: build/block-library/index.js:38399
+#: build/block-library/index.js:38419
 msgid "This content is password protected."
 msgstr "Dieser Inhalt ist passwortgeschützt."
 
@@ -1832,8 +1832,8 @@ msgstr "Dieser Inhalt ist passwortgeschützt."
 #. name, 2: Post title.
 #. translators: Custom template title in the Site Editor. 1: Taxonomy singular
 #. name, 2: Term title.
-#: lib/compat/wordpress-6.1/block-template-utils.php:299
-#: lib/compat/wordpress-6.1/block-template-utils.php:375
+#: lib/compat/wordpress-6.1/block-template-utils.php:300
+#: lib/compat/wordpress-6.1/block-template-utils.php:376
 msgid "%1$s: %2$s"
 msgstr "%1$s: %2$s"
 
@@ -1863,19 +1863,19 @@ msgid "Next"
 msgstr "Vorwärts"
 
 #: build/block-library/blocks/query-pagination-previous.php:22
-#: build/block-library/index.js:44965
+#: build/block-library/index.js:45095
 msgid "Previous Page"
 msgstr "Vorherige Seite"
 
 #: build/block-library/blocks/query-pagination-next.php:23
-#: build/block-library/index.js:44768
+#: build/block-library/index.js:44898
 msgid "Next Page"
 msgstr "Nächste Seite"
 
 #. translators: %s: Template part slug.
 #. translators: %s: Template part slug
 #: build/block-library/blocks/template-part.php:117
-#: build/block-library/index.js:55142
+#: build/block-library/index.js:55268
 msgid "Template part has been deleted or is unavailable: %s"
 msgstr "Das Template-Teil wurde gelöscht oder ist nicht verfügbar: %s"
 
@@ -2173,13 +2173,13 @@ msgctxt "block title"
 msgid "Post Terms"
 msgstr "Beitragsbegriffe"
 
-#: build/block-library/index.js:9413
+#: build/block-library/index.js:9425
 #: build/block-library/blocks/comment-date/block.json
 msgctxt "block title"
 msgid "Comment Date"
 msgstr "Kommentar-Datum"
 
-#: build/block-library/index.js:9258
+#: build/block-library/index.js:9270
 #: build/block-library/blocks/comment-content/block.json
 msgctxt "block title"
 msgid "Comment Content"
@@ -2195,7 +2195,7 @@ msgctxt "block title"
 msgid "Site Title"
 msgstr "Website-Titel"
 
-#: lib/compat/wordpress-6.1/block-template-utils.php:424
+#: lib/compat/wordpress-6.1/block-template-utils.php:425
 msgid "No theme is defined for this template."
 msgstr "Für dieses Template ist kein Theme definiert."
 
@@ -2222,7 +2222,7 @@ msgstr "Der Vorlagentitel in menschenlesbarem Format."
 #. translators: byline. %s: current author.
 #. translators: %s: the author.
 #: build/block-library/blocks/latest-posts.php:123
-#: build/block-library/blocks/rss.php:64 build/block-library/index.js:25743
+#: build/block-library/blocks/rss.php:64 build/block-library/index.js:25788
 msgid "by %s"
 msgstr "von %s"
 
@@ -2258,25 +2258,25 @@ msgid "Featured"
 msgstr "Hervorhebungen"
 
 #: build/block-library/blocks/query-title.php:42
-#: build/block-library/index.js:45104
+#: build/block-library/index.js:45234
 msgid "Search results"
 msgstr "Suchergebnisse"
 
 #. translators: accessibility text for the content landmark region.
 #: lib/experimental/navigation-theme-opt-in.php:349
-#: build/block-editor/index.js:23069 build/block-editor/index.js:59561
-#: build/edit-post/index.js:1750 build/edit-site/index.js:2337
-#: build/edit-site/index.js:7940 build/edit-widgets/index.js:1315
-#: build/edit-post/index.min.js:1597 build/edit-site/index.min.js:2185
-#: build/edit-site/index.min.js:8438 build/edit-widgets/index.min.js:1209
+#: build/block-editor/index.js:14937 build/block-editor/index.js:56661
+#: build/edit-post/index.js:1769 build/edit-site/index.js:2356
+#: build/edit-site/index.js:8155 build/edit-widgets/index.js:1334
+#: build/edit-post/index.min.js:1625 build/edit-site/index.min.js:2213
+#: build/edit-site/index.min.js:8619 build/edit-widgets/index.min.js:1237
 msgid "Content"
 msgstr "Inhalt"
 
-#: build/block-library/blocks/navigation.php:790
-#: build/block-library/blocks/navigation.php:815
-#: build/block-library/index.js:30578 build/block-library/index.js:30588
-#: build/block-library/index.js:31960 build/block-library/index.js:32390
-#: build/block-library/index.js:32590 build/core-data/index.js:2583
+#: build/block-library/blocks/navigation.php:792
+#: build/block-library/blocks/navigation.php:817
+#: build/block-library/index.js:30627 build/block-library/index.js:30637
+#: build/block-library/index.js:31925 build/block-library/index.js:32331
+#: build/block-library/index.js:32529 build/core-data/index.js:2583
 msgid "Menu"
 msgstr "Menü"
 
@@ -2308,8 +2308,8 @@ msgstr "Der Block-Editor enthält experimentelle Funktionen, die bereits währen
 
 #: lib/compat/wordpress-6.1/template-parts-screen.php:46
 #: lib/compat/wordpress-6.1/template-parts-screen.php:47
-#: build/edit-site/index.js:4957 build/editor/index.js:6031
-#: build/edit-site/index.min.js:5023 build/editor/index.min.js:5760
+#: build/edit-site/index.js:4958 build/editor/index.js:6031
+#: build/edit-site/index.min.js:4999 build/editor/index.min.js:5760
 msgid "Template Parts"
 msgstr "Template-Teile"
 
@@ -2331,18 +2331,18 @@ msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zurzeit nicht. Vers
 
 #: build/block-library/blocks/search.php:23
 #: build/block-library/blocks/search.php:24
-#: build/block-library/blocks/search.php:46 build/block-editor/index.js:35979
-#: build/block-editor/index.js:37379 build/block-editor/index.js:37954
-#: build/block-editor/index.js:38093 build/block-library/index.js:43710
-#: build/block-library/index.js:46897 build/block-library/index.js:47071
-#: build/block-library/index.js:47072 build/block-library/index.js:47186
-#: build/block-library/index.js:47187 build/block-library/index.js:54688
-#: build/components/index.js:58753 build/edit-site/index.js:9172
-#: build/edit-site/index.min.js:9989
+#: build/block-library/blocks/search.php:46 build/block-editor/index.js:27439
+#: build/block-editor/index.js:28857 build/block-editor/index.js:29432
+#: build/block-editor/index.js:29571 build/block-library/index.js:43840
+#: build/block-library/index.js:47027 build/block-library/index.js:47201
+#: build/block-library/index.js:47202 build/block-library/index.js:47316
+#: build/block-library/index.js:47317 build/block-library/index.js:54814
+#: build/components/index.js:59079 build/edit-site/index.js:9263
+#: build/edit-site/index.min.js:9974
 msgid "Search"
 msgstr "Suchen"
 
-#: build/block-library/index.js:15250
+#: build/block-library/index.js:15263
 #: build/block-library/blocks/embed/block.json
 msgctxt "block title"
 msgid "Embed"
@@ -2369,8 +2369,8 @@ msgstr "Hebe Zitate visuell hervor. „Indem wir andere zitieren, zitieren wir u
 msgid "M j, Y g:i a"
 msgstr "j. M. Y G:i"
 
-#: lib/class-wp-theme-json-gutenberg.php:3386 build/block-editor/index.js:3824
-#: build/components/index.js:56843
+#: lib/class-wp-theme-json-gutenberg.php:3404 build/block-editor/index.js:3827
+#: build/components/index.js:57133
 msgid "Medium"
 msgstr "Mittel"
 
@@ -2399,7 +2399,7 @@ msgstr "Hilf, Gutenberg zu gestalten"
 msgid "The WordPress community"
 msgstr "Die WordPress-Community"
 
-#: post-content.php:159 build/block-library/index.js:22782
+#: post-content.php:159 build/block-library/index.js:22804
 msgid "Code is Poetry"
 msgstr "Code ist Poesie"
 
@@ -2541,8 +2541,8 @@ msgid "... like this one, which is right aligned."
 msgstr "… wie dieser, der rechtsbündig ist."
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Small.
-#: lib/class-wp-theme-json-gutenberg.php:3367
-#: build/block-library/index.js:50349 build/components/index.js:56843
+#: lib/class-wp-theme-json-gutenberg.php:3385
+#: build/block-library/index.js:50475 build/components/index.js:57133
 msgid "Small"
 msgstr "Klein"
 
@@ -2589,8 +2589,8 @@ msgid "https://wordpress.org/support/plugin/gutenberg/"
 msgstr "https://wordpress.org/support/plugin/gutenberg/"
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Large.
-#: lib/class-wp-theme-json-gutenberg.php:3404 build/block-editor/index.js:3827
-#: build/block-library/index.js:50355 build/components/index.js:56843
+#: lib/class-wp-theme-json-gutenberg.php:3422 build/block-editor/index.js:3830
+#: build/block-library/index.js:50481 build/components/index.js:57133
 msgid "Large"
 msgstr "Groß"
 
@@ -2603,20 +2603,20 @@ msgstr "Füge einen Block hinzu, der Inhalte von anderen Websites wie Twitter od
 msgid "Pagination"
 msgstr "Seitennummerierung"
 
-#: build/block-library/blocks/navigation.php:792
-#: build/block-editor/index.js:58499 build/block-editor/index.js:60806
-#: build/block-library/index.js:30601 build/block-library/index.js:32390
-#: build/block-library/index.js:56536 build/components/index.js:44283
-#: build/components/index.js:53900 build/edit-post/index.js:4520
-#: build/edit-post/index.js:5614 build/edit-site/index.js:16100
-#: build/edit-post/index.min.js:4694 build/edit-post/index.min.js:5887
-#: build/edit-site/index.min.js:18027
+#: build/block-library/blocks/navigation.php:794
+#: build/block-editor/index.js:55547 build/block-editor/index.js:57905
+#: build/block-library/index.js:30650 build/block-library/index.js:32331
+#: build/block-library/index.js:56668 build/components/index.js:44566
+#: build/components/index.js:54190 build/edit-post/index.js:4544
+#: build/edit-post/index.js:5641 build/edit-site/index.js:16231
+#: build/edit-post/index.min.js:4725 build/edit-post/index.min.js:5921
+#: build/edit-site/index.min.js:18060
 msgid "Close"
 msgstr "Schließen"
 
-#: build/block-library/blocks/read-more.php:30
-#: build/block-library/index.js:25722 build/block-library/index.js:29814
-#: build/block-library/index.js:46215
+#: build/block-library/blocks/read-more.php:37
+#: build/block-library/index.js:25767 build/block-library/index.js:29859
+#: build/block-library/index.js:46345
 msgid "Read more"
 msgstr "Weiterlesen"
 
@@ -2629,28 +2629,29 @@ msgstr "Weiterlesen"
 #. the nicename of the author, e.g. "Author: Jane Doe (jane-doe)".
 #. translators: %1s: Name of the taxonomy e.g: "Category"; %2s: Slug of the
 #. taxonomy e.g: "product_cat".
-#: lib/compat/wordpress-6.1/block-template-utils.php:320
-#: lib/compat/wordpress-6.1/block-template-utils.php:399
-#: lib/compat/wordpress-6.1/block-template-utils.php:515
-#: build/edit-site/index.js:5541 build/edit-site/index.min.js:5612
+#: lib/compat/wordpress-6.1/block-template-utils.php:321
+#: lib/compat/wordpress-6.1/block-template-utils.php:400
+#: lib/compat/wordpress-6.1/block-template-utils.php:516
+#: build/edit-site/index.js:5542 build/edit-site/index.min.js:5588
 msgid "%1$s (%2$s)"
 msgstr "%1$s (%2$s)"
 
 #: build/block-library/blocks/categories.php:35
-#: build/block-library/index.js:5987 build/block-library/index.js:6039
-#: build/components/index.js:61225
+#: build/block-library/index.js:5999 build/block-library/index.js:6051
+#: build/components/index.js:62231
 msgid "Categories"
 msgstr "Kategorien"
 
 #: build/block-library/blocks/comment-edit-link.php:45
-#: build/block-editor/index.js:38798 build/block-editor/index.js:40398
-#: build/block-editor/index.js:55546 build/block-editor/index.js:58382
-#: build/block-library/index.js:8503 build/block-library/index.js:9630
-#: build/block-library/index.js:35785 build/block-library/index.js:35787
-#: build/block-library/index.js:35805 build/block-library/index.js:35972
-#: build/block-library/index.js:56439 build/edit-site/index.js:3320
-#: build/edit-site/index.js:16429 build/edit-site/index.min.js:3314
-#: build/edit-site/index.min.js:18380
+#: build/block-editor/index.js:51772 build/block-editor/index.js:52592
+#: build/block-editor/index.js:55430 build/block-editor/index.js:59594
+#: build/block-library/index.js:8515 build/block-library/index.js:9642
+#: build/block-library/index.js:35804 build/block-library/index.js:35806
+#: build/block-library/index.js:35824 build/block-library/index.js:35992
+#: build/block-library/index.js:56571 build/edit-site/index.js:3303
+#: build/edit-site/index.js:6813 build/edit-site/index.js:7258
+#: build/edit-site/index.min.js:3274 build/edit-site/index.min.js:7132
+#: build/edit-site/index.min.js:7582
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -2659,22 +2660,22 @@ msgstr "Bearbeiten"
 #. translators: Data label for the Block Settings Sidebar tab.
 #: lib/experimental/navigation-theme-opt-in.php:91
 #: lib/experimental/navigation-theme-opt-in.php:96
-#: build/edit-post/index.js:6940 build/edit-post/index.js:6959
-#: build/edit-post/index.js:6961 build/edit-site/index.js:11790
-#: build/edit-site/index.js:11805 build/edit-site/index.js:11807
-#: build/edit-widgets/index.js:3351 build/edit-post/index.min.js:7285
-#: build/edit-post/index.min.js:7325 build/edit-post/index.min.js:7329
-#: build/edit-site/index.min.js:13149 build/edit-site/index.min.js:13174
-#: build/edit-site/index.min.js:13178 build/edit-widgets/index.min.js:3455
+#: build/edit-post/index.js:7005 build/edit-post/index.js:7024
+#: build/edit-post/index.js:7026 build/edit-site/index.js:11800
+#: build/edit-site/index.js:11815 build/edit-site/index.js:11817
+#: build/edit-widgets/index.js:3370 build/edit-post/index.min.js:7370
+#: build/edit-post/index.min.js:7410 build/edit-post/index.min.js:7414
+#: build/edit-site/index.min.js:13051 build/edit-site/index.min.js:13076
+#: build/edit-site/index.min.js:13080 build/edit-widgets/index.min.js:3483
 msgid "Block"
 msgstr "Block"
 
 #: build/block-library/blocks/latest-comments.php:31
 #: build/block-library/blocks/latest-posts.php:72
-#: build/block-library/blocks/rss.php:35 build/block-library/index.js:25739
-#: build/core-data/index.js:6499 build/edit-post/index.js:8525
-#: build/editor/index.js:11027 build/edit-post/index.min.js:9016
-#: build/editor/index.min.js:11163
+#: build/block-library/blocks/rss.php:35 build/block-library/index.js:25784
+#: build/core-data/index.js:6499 build/edit-post/index.js:8590
+#: build/editor/index.js:11020 build/edit-post/index.min.js:9101
+#: build/editor/index.min.js:11170
 msgid "(no title)"
 msgstr "(kein Titel)"
 
@@ -2691,7 +2692,7 @@ msgid "Documentation"
 msgstr "Dokumentation"
 
 #: build/block-library/blocks/categories.php:34
-#: build/block-library/index.js:5989
+#: build/block-library/index.js:6001
 msgid "Select Category"
 msgstr "Kategorie auswählen"
 

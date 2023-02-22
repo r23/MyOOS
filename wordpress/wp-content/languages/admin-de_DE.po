@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-02-18 21:57:33+0000\n"
+"PO-Revision-Date: 2023-02-21 15:28:03+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -42,6 +42,16 @@ msgstr "Europe/Berlin"
 #, gp-priority: high
 msgid "Continue"
 msgstr "Weiter"
+
+#. translators: The localized WordPress download URL.
+#: wp-admin/about.php:648
+msgid "https://wordpress.org/download/"
+msgstr "https://de.wordpress.org/download/"
+
+#. translators: %s: The major version of WordPress for this branch.
+#: wp-admin/about.php:645
+msgid "This is the final release of WordPress %s"
+msgstr "Dies ist die letzte Veröffentlichung von WordPress %s"
 
 #: wp-admin/includes/theme.php:335
 msgid "Site Editor"
