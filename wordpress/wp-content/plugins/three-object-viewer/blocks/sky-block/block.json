@@ -6,7 +6,27 @@
         "skyUrl": {
             "type": "string",
             "default": null
-        }
+        },
+        "distance": {
+            "type": "int",
+            "default": 170000
+        },
+		"rayleigh": {
+			"type": "int",
+			"default": 1
+		},
+		"sunPositionX": {
+			"type": "int",
+			"default": 0
+		},
+		"sunPositionY": {
+			"type": "int",
+			"default": 10000
+		},
+		"sunPositionZ": {
+			"type": "int",
+			"default": -10000
+		}
     },
     "category": "design",
     "parent":  [ "three-object-viewer/environment" ],

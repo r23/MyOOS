@@ -12,7 +12,8 @@ import {
 	Stats,
 	Select,
 	Text,
-	useAspect
+	useAspect,
+	Sky
 } from "@react-three/drei";
 import { VRMUtils, VRMLoaderPlugin } from "@pixiv/three-vrm";
 import { GLTFAudioEmitterExtension } from "three-omi";
@@ -113,7 +114,7 @@ function TextObject(text) {
 	}
 }
 
-function Sky(sky) {
+function ThreeSky(sky) {
 	const skyUrl = sky.src.skyUrl;
 	if (skyUrl) {
 		const texture_1 = useLoader(THREE.TextureLoader, skyUrl);
@@ -122,13 +123,21 @@ function Sky(sky) {
 			<mesh
 				visible
 				position={[0, 0, 0]}
-				scale={[200, 200, 200]}
+				scale={[1, 1, 1]}
 				rotation={[0, 0, 0]}
 			>
-				<sphereGeometry args={[5, 10, 10]} />
+				<sphereGeometry args={[300, 50, 50]} />
 				<meshStandardMaterial side={THREE.DoubleSide} map={texture_1} />
 			</mesh>
 		);
+	} else {
+		return(
+			<Sky
+				distance={sky.src.distance}
+				sunPosition={[sky.src.sunPositionX, sky.src.sunPositionY, sky.src.sunPositionZ]}
+				rayleigh={sky.src.rayleigh}
+			/>
+		)
 	}
 }
 
@@ -1121,7 +1130,7 @@ function ThreeObject(props) {
 	const [url, set] = useState(props.url);
 	useEffect(() => {
 		setTimeout(() => set(props.url), 2000);
-	}, []);
+	}, [props.url]);
 	const [listener] = useState(() => new THREE.AudioListener());
 
 	useThree(({ camera }) => {
@@ -1171,7 +1180,7 @@ function ThreeObject(props) {
 
 	return (
 		<>
-			{skyobject && <Sky skyobjectId={skyobjectId} src={skyobject} />}
+			{skyobject && <ThreeSky skyobjectId={skyobjectId} src={skyobject} />}
 			{spawnpoint && (
 				<Spawn
 					spawnpointID={spawnpointID}

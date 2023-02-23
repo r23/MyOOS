@@ -1,5 +1,5 @@
 import { Suspense, useState, useEffect } from "@wordpress/element";
-
+  
 //Main component for admin page app
 export default function App({ getSettings, updateSettings }) {
 

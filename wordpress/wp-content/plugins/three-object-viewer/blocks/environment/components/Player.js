@@ -16,6 +16,7 @@ function Reticle() {
 		new THREE.RingGeometry( 0.85 * 5, 5, 32),
 		new THREE.MeshBasicMaterial( {color: 0xffffff, side: THREE.DoubleSide })
 	);
+	reticle.scale.set(1.3, 1.3, 1.3);
 	reticle.position.z = -1000;
 	reticle.name = "reticle";
 	reticle.frustumCulled = false;

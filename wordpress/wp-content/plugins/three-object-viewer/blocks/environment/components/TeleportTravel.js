@@ -66,7 +66,6 @@ export default function TeleportTravel(props) {
 
 	// Set a variable finding an object in the three.js scene that is named reticle.
 	useEffect(() => {
-
 		// Remove the reticle when the controllers are registered.
 		const reticle = scene.getObjectByName("reticle");
 		if (controllers.length > 0 && reticle) {

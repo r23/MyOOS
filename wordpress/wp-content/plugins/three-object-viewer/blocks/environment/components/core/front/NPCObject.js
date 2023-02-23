@@ -84,9 +84,20 @@ const mixamoVRMRigMap = {
  * @returns {Promise<AnimationClip>} The converted AnimationClip
  */
 function loadMixamoAnimation(url, vrm) {
-	const loader = new FBXLoader(); // A loader which loads FBX
+	let loader;
+	if (url.endsWith('.fbx')) {
+	loader = new FBXLoader(); // A loader which loads FBX
+	} else {
+	loader = new GLTFLoader(); // A loader which loads GLTF
+	}
 	return loader.loadAsync(url).then((asset) => {
-		const clip = AnimationClip.findByName(asset.animations, 'mixamo.com'); // extract the AnimationClip
+		const clip = asset.animations[0]; // extract the AnimationClip
+
+		// if asset is glb extract the scene
+		if (url.endsWith('.glb')) {
+			asset = asset.scene;
+		}
+
 		const tracks = []; // KeyframeTracks compatible with VRM will be added here
 
 		const restRotationInverse = new Quaternion();
@@ -95,11 +106,20 @@ function loadMixamoAnimation(url, vrm) {
 		const _vec3 = new Vector3();
 
 		// Adjust with reference to hips height.
-		const motionHipsHeight = asset.getObjectByName('mixamorigHips').position.y;
+		const mixamoHips = asset.getObjectByName('mixamorigHips');
+		const regularHips = asset.getObjectByName('hips');
+		let mainHip;
+		if (mixamoHips) {
+			console.log("mixamo hips");
+			mainHip = mixamoHips.position.y;
+		} else if (regularHips) {
+			console.log("reg hips");
+			mainHip = regularHips.position.y;
+		}
 		const vrmHipsY = vrm.humanoid?.getNormalizedBoneNode('hips').getWorldPosition(_vec3).y;
 		const vrmRootY = vrm.scene.getWorldPosition(_vec3).y;
 		const vrmHipsHeight = Math.abs(vrmHipsY - vrmRootY);
-		const hipsPositionScale = vrmHipsHeight / motionHipsHeight;
+		const hipsPositionScale = vrmHipsHeight / mainHip;
 
 		clip.tracks.forEach((track) => {
 			// Convert each tracks for VRM use, and push to `tracks`
@@ -341,10 +361,11 @@ export function NPCObject(model) {
 
 		// retarget the animations from mixamo to the current vrm 
 		if (model.defaultAvatarAnimation){
+			console.log("model.defaultAvatarAnimation", model.defaultAvatarAnimation);
 			loadMixamoAnimation(model.defaultAvatarAnimation, currentVrm).then((clip) => {
 				currentMixer.clipAction(clip).play();
 				currentMixer.update(clock.getDelta());
-			});	
+			});
 		} else {
 			loadMixamoAnimation(idleFile, currentVrm).then((clip) => {
 				currentMixer.clipAction(clip).play();

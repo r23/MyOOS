@@ -54,7 +54,7 @@
         "html": false,
         "multiple": true
     },
-    "editorScript": "file:../../build/block-three-object-block.js",
+    "editorScript": ["file:../../build/block-three-object-block.js"],
 	"editorStyle": "file:../../build/block-three-object-block.css",
 	"style": "file:../../build/block-three-object-block.css"
 }

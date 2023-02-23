@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 6.1.1
 Requires PHP: 7.2
-Stable tag: 1.2.2
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -50,6 +50,14 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.3.1 =
+Fixes: downgrade r3f to compatible version
+
+= 1.3.0 =
+Added: New Sky Block controls to allow skies without images.
+Fixes: Environment block was previously not allowing to change the environment.
+Fixes: Allows for glb files to be set as default animation in the settings page.
+
 = 1.2.2 =
 Added: New transform control buttons in the editor to toggle between scale, rotation, translation.
 Added: Now Environment Block initializes with a starter grid object and a spawn point to get you started quicker.

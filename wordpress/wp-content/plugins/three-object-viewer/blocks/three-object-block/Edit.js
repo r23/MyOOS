@@ -244,7 +244,6 @@ export default function Edit( { attributes, setAttributes, isSelected } ) {
 					</PanelBody>
 				</Panel>
 			</InspectorControls>
-			{ isSelected ? (
 				<>
 					{ attributes.threeObjectUrl ? (
 						<ThreeObjectEdit
@@ -296,56 +295,6 @@ export default function Edit( { attributes, setAttributes, isSelected } ) {
 						</div>
 					) }
 				</>
-			) : (
-				<>
-					{ attributes.threeObjectUrl ? (
-						<ThreeObjectEdit
-							url={ attributes.threeObjectUrl }
-							backgroundColor={ attributes.bg_color }
-							deviceTarget={ attributes.deviceTarget }
-							zoom={ attributes.zoom }
-							scale={ attributes.scale }
-							hasZoom={ attributes.hasZoom }
-							hasTip={ attributes.hasTip }
-							positionX={ attributes.positionX }
-							positionY={ attributes.positionY }
-							animations={ attributes.animations }
-							rotationY={ attributes.rotationY }
-						/>
-					) : (
-						<div className="glb-preview-container">
-							<MyDropZone />
-							<div>
-								<span>
-									Select a glb file to render in the canvas:
-								</span>
-								{/* <div className="three-object-block-url-input"> 
-								<input onChange={(e) => console.log(e.target.value) && setEnteredURL(e.target.value)}></input> 
-									<button 
-										className="three-object-viewer-button" 
-										onClick={	handleClick(enteredURL) }
-									>
-										Use URL
-									</button>
-								</div> */}
-							</div>
-							<MediaUpload
-								onSelect={ ( imageObject ) =>
-									onImageSelect( imageObject )
-								}
-								type="image"
-								allowedTypes={ ALLOWED_MEDIA_TYPES }
-								value={ attributes.threeObjectUrl }
-								render={ ( { open } ) => (
-									<button className="three-object-viewer-button" onClick={ open }>
-										Select From Media Library
-									</button>
-								) }
-							/>
-						</div>
-					) }
-				</>
-			) }
 		</div>
 	);
 }
