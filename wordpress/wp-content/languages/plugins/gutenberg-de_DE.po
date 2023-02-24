@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-02-22 17:43:05+0000\n"
+"PO-Revision-Date: 2023-02-23 17:04:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,22 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.3\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Gutenberg - Stable (latest release)\n"
+
+#: lib/compat/wordpress-6.2/html-api/class-wp-html-tag-processor.php:1822
+msgid "Invalid attribute name."
+msgstr "Ungültiger Attributname."
+
+#: lib/compat/wordpress-6.2/html-api/class-wp-html-tag-processor.php:2133
+msgid "The query argument must be an array or a tag name."
+msgstr "Das Abfrageargument muss ein Array oder ein Tag-Name sein."
+
+#: lib/compat/wordpress-6.2/html-api/class-wp-html-tag-processor.php:1485
+msgid "Unknown bookmark name."
+msgstr "Unbekannter Name des Lesezeichens."
+
+#: lib/compat/wordpress-6.2/html-api/class-wp-html-tag-processor.php:1494
+msgid "Too many calls to seek() - this can lead to performance issues."
+msgstr "Zu viele Aufrufe von seek() - dies kann zu Leistungsproblemen führen."
 
 #: lib/compat/wordpress-6.2/html-api/class-wp-html-tag-processor.php:718
 msgid "Too many bookmarks: cannot create any more."

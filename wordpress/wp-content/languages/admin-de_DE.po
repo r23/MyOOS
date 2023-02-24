@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-02-21 15:28:03+0000\n"
+"PO-Revision-Date: 2023-02-23 20:51:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1022,11 +1022,11 @@ msgctxt "plugin"
 msgid "Cannot Activate"
 msgstr "Eine Aktivierung ist nicht möglich"
 
-#: wp-admin/includes/class-wp-debug-data.php:923
+#: wp-admin/includes/class-wp-debug-data.php:921
 msgid "Max connections number"
 msgstr "Maximale Anzahl von Verbindungen"
 
-#: wp-admin/includes/class-wp-debug-data.php:918
+#: wp-admin/includes/class-wp-debug-data.php:916
 msgid "Max allowed packet size"
 msgstr "Maximal erlaubte Paketgröße"
 
@@ -1194,15 +1194,15 @@ msgstr "Lerne, wie du <a href=\"%s\" class=\"update-browser-link\">unbeschwert s
 msgid "Internet Explorer does not give you the best WordPress experience. Switch to Microsoft Edge, or another more modern browser to get the most from your site."
 msgstr "Der Internet Explorer bietet dir nicht die bestmögliche WordPress-Erfahrung. Wechsle zu Microsoft Edge oder einen anderen modernen Browser, um das meiste aus deiner Website herauszuholen."
 
-#: wp-admin/includes/class-wp-debug-data.php:650
+#: wp-admin/includes/class-wp-debug-data.php:648
 msgid "GD supported file formats"
 msgstr "Von GD unterstützte Dateiformate"
 
-#: wp-admin/includes/class-wp-debug-data.php:610
+#: wp-admin/includes/class-wp-debug-data.php:608
 msgid "Unable to determine"
 msgstr "Nicht feststellbar"
 
-#: wp-admin/includes/class-wp-debug-data.php:609
+#: wp-admin/includes/class-wp-debug-data.php:607
 msgid "ImageMagick supported file formats"
 msgstr "Von ImageMagick unterstützte Dateiformate"
 
@@ -2210,7 +2210,7 @@ msgstr "Die Seite zur Verifizierung der E-Mail-Adresse des Administrators wird n
 msgid "<a href=\"https://wordpress.org/support/article/plugins-themes-auto-updates/\">Learn more: Auto-updates documentation</a>"
 msgstr "Erfahre mehr in der <a href=\"https://wordpress.org/support/article/plugins-themes-auto-updates/\">Dokumentation zu automatischen Aktualisierungen (engl.)</a>"
 
-#: wp-admin/includes/class-wp-debug-data.php:1191 wp-admin/plugins.php:575
+#: wp-admin/includes/class-wp-debug-data.php:1189 wp-admin/plugins.php:575
 #: wp-admin/themes.php:197 wp-admin/update-core.php:1006
 #: wp-admin/network/themes.php:312
 msgid "Auto-updates"
@@ -2665,31 +2665,31 @@ msgstr "Das aktuell bestehende Plugin konnte nicht entfernt werden."
 msgid "Removing the current plugin&#8230;"
 msgstr "Entferne das bestehende Plugin &#8230;"
 
-#: wp-admin/includes/class-wp-debug-data.php:1277
+#: wp-admin/includes/class-wp-debug-data.php:1275
 msgid "Auto-update"
 msgstr "Automatische Aktualisierung"
 
-#: wp-admin/includes/class-wp-debug-data.php:1042
-#: wp-admin/includes/class-wp-debug-data.php:1358
+#: wp-admin/includes/class-wp-debug-data.php:1040
+#: wp-admin/includes/class-wp-debug-data.php:1356
 #: wp-admin/includes/class-wp-plugins-list-table.php:1170
 #: wp-admin/themes.php:698 wp-admin/js/updates.js:2984
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:788
 msgid "Auto-updates disabled"
 msgstr "Automatische Aktualisierungen deaktiviert"
 
-#: wp-admin/includes/class-wp-debug-data.php:1040
-#: wp-admin/includes/class-wp-debug-data.php:1356
+#: wp-admin/includes/class-wp-debug-data.php:1038
+#: wp-admin/includes/class-wp-debug-data.php:1354
 #: wp-admin/includes/class-wp-plugins-list-table.php:1168
 #: wp-admin/themes.php:700 wp-admin/js/updates.js:2973
 #: wp-admin/includes/class-wp-ms-themes-list-table.php:786
 msgid "Auto-updates enabled"
 msgstr "Automatische Aktualisierungen aktiviert"
 
-#: wp-admin/includes/class-wp-debug-data.php:812
+#: wp-admin/includes/class-wp-debug-data.php:810
 msgid "Are pretty permalinks supported?"
 msgstr "Werden sprechende Permalinks unterstützt?"
 
-#: wp-admin/includes/class-wp-debug-data.php:751
+#: wp-admin/includes/class-wp-debug-data.php:749
 msgid "PHP memory limit (only for admin screens)"
 msgstr "PHP-Speicher-Limit (nur für Administrator-Ansichten)"
 
@@ -2866,7 +2866,7 @@ msgstr "Bestätigungsanfragen erneut senden"
 msgid "Delete requests"
 msgstr "Anfragen löschen"
 
-#: wp-admin/includes/class-wp-debug-data.php:900
+#: wp-admin/includes/class-wp-debug-data.php:898
 msgid "Table prefix"
 msgstr "Tabellenpräfix"
 
@@ -3276,11 +3276,11 @@ msgstr "Nach links drehen"
 msgid "All automatic updates are disabled."
 msgstr "Alle automatischen Aktualisierungen sind deaktiviert."
 
-#: wp-admin/includes/class-wp-debug-data.php:912
+#: wp-admin/includes/class-wp-debug-data.php:910
 msgid "Database collation"
 msgstr "Datenbank-Kollation"
 
-#: wp-admin/includes/class-wp-debug-data.php:906
+#: wp-admin/includes/class-wp-debug-data.php:904
 msgid "Database charset"
 msgstr "Datenbank-Zeichensatz"
 
@@ -3760,15 +3760,15 @@ msgstr "Dieses Plugin konnte nicht richtig geladen werden und wird im Wiederhers
 msgid "Go to the Themes screen"
 msgstr "Zur Themes-Ansicht wechseln"
 
-#: wp-admin/includes/class-wp-debug-data.php:1697
+#: wp-admin/includes/class-wp-debug-data.php:1695
 msgid "Total size is not available. Some errors were encountered when determining the size of your installation."
 msgstr "Die Gesamtgröße ist nicht verfügbar. Bei der Bestimmung der Größe deiner Installation sind einige Fehler aufgetreten."
 
-#: wp-admin/includes/class-wp-debug-data.php:1646
+#: wp-admin/includes/class-wp-debug-data.php:1644
 msgid "The size cannot be calculated. The directory is not accessible. Usually caused by invalid permissions."
 msgstr "Die Größe kann nicht berechnet werden. Das Verzeichnis ist nicht zugänglich. In der Regel verursacht durch ungültige Berechtigungen."
 
-#: wp-admin/includes/class-wp-debug-data.php:1653
+#: wp-admin/includes/class-wp-debug-data.php:1651
 msgid "The directory size calculation has timed out. Usually caused by a very large number of sub-directories and files."
 msgstr "Die Berechnung der Verzeichnisgröße ist abgebrochen. In der Regel wird dies durch eine sehr große Anzahl von Unterverzeichnissen und Dateien verursacht."
 
@@ -4335,21 +4335,21 @@ msgstr "Der Filter %s ist aktiviert."
 msgid "A plugin has prevented updates by disabling %s."
 msgstr "Ein Plugin hat Aktualisierungen verhindert, indem es %s deaktiviert hat."
 
-#: wp-admin/includes/class-wp-debug-data.php:1393
+#: wp-admin/includes/class-wp-debug-data.php:1391
 msgid "The must use plugins directory"
 msgstr "Das Must-Use-Plugins-Verzeichnis"
 
-#: wp-admin/includes/class-wp-debug-data.php:1148
+#: wp-admin/includes/class-wp-debug-data.php:1146
 msgid "Theme features"
 msgstr "Theme-Funktionen"
 
 #: wp-admin/includes/class-theme-installer-skin.php:244
-#: wp-admin/includes/class-wp-debug-data.php:1143
+#: wp-admin/includes/class-wp-debug-data.php:1141
 msgid "Parent theme"
 msgstr "Übergeordnetes Theme"
 
-#: wp-admin/includes/class-wp-debug-data.php:1138
-#: wp-admin/includes/class-wp-debug-data.php:1233
+#: wp-admin/includes/class-wp-debug-data.php:1136
+#: wp-admin/includes/class-wp-debug-data.php:1231
 msgid "Author website"
 msgstr "Website des Autors"
 
@@ -4357,146 +4357,146 @@ msgstr "Website des Autors"
 #. translators: %s: Latest plugin version number.
 #. translators: %s: Latest theme version number.
 #: wp-admin/includes/class-wp-debug-data.php:56
-#: wp-admin/includes/class-wp-debug-data.php:1004
-#: wp-admin/includes/class-wp-debug-data.php:1095
-#: wp-admin/includes/class-wp-debug-data.php:1207
-#: wp-admin/includes/class-wp-debug-data.php:1327
+#: wp-admin/includes/class-wp-debug-data.php:1002
+#: wp-admin/includes/class-wp-debug-data.php:1093
+#: wp-admin/includes/class-wp-debug-data.php:1205
+#: wp-admin/includes/class-wp-debug-data.php:1325
 msgid "(Latest version: %s)"
 msgstr "(Aktuelle Version: %s)"
 
 #. translators: 1: Plugin version number. 2: Plugin author name.
 #. translators: 1: Theme version number. 2: Theme author name.
-#: wp-admin/includes/class-wp-debug-data.php:939
-#: wp-admin/includes/class-wp-debug-data.php:986
-#: wp-admin/includes/class-wp-debug-data.php:1309
+#: wp-admin/includes/class-wp-debug-data.php:937
+#: wp-admin/includes/class-wp-debug-data.php:984
+#: wp-admin/includes/class-wp-debug-data.php:1307
 msgid "Version %1$s by %2$s"
 msgstr "Version %1$s von %2$s"
 
-#: wp-admin/includes/class-wp-debug-data.php:934
-#: wp-admin/includes/class-wp-debug-data.php:981
-#: wp-admin/includes/class-wp-debug-data.php:1304
+#: wp-admin/includes/class-wp-debug-data.php:932
+#: wp-admin/includes/class-wp-debug-data.php:979
+#: wp-admin/includes/class-wp-debug-data.php:1302
 msgid "No version or author information is available."
 msgstr "Es sind keine Versions- oder Autoren-Informationen verfügbar."
 
-#: wp-admin/includes/class-wp-debug-data.php:872
+#: wp-admin/includes/class-wp-debug-data.php:870
 msgid "Server version"
 msgstr "Server-Version"
 
-#: wp-admin/includes/class-wp-debug-data.php:867
+#: wp-admin/includes/class-wp-debug-data.php:865
 msgid "Extension"
 msgstr "Erweiterung"
 
 #. translators: %s: .htaccess
-#: wp-admin/includes/class-wp-debug-data.php:831
+#: wp-admin/includes/class-wp-debug-data.php:829
 msgid "Your %s file contains only core WordPress features."
 msgstr "Deine %s-Datei enthält nur die WordPress-Core-Funktionen."
 
 #. translators: %s: .htaccess
-#: wp-admin/includes/class-wp-debug-data.php:828
+#: wp-admin/includes/class-wp-debug-data.php:826
 msgid "Custom rules have been added to your %s file."
 msgstr "Individuelle Regeln wurden deiner %s-Datei hinzugefügt."
 
-#: wp-admin/includes/class-wp-debug-data.php:835
+#: wp-admin/includes/class-wp-debug-data.php:833
 msgid ".htaccess rules"
 msgstr ".htaccess-Regeln"
 
-#: wp-admin/includes/class-wp-debug-data.php:803
+#: wp-admin/includes/class-wp-debug-data.php:801
 msgid "Is the Imagick library available?"
 msgstr "Ist die Imagick-Bibliothek verfügbar?"
 
-#: wp-admin/includes/class-wp-debug-data.php:794
+#: wp-admin/includes/class-wp-debug-data.php:792
 msgid "Is SUHOSIN installed?"
 msgstr "Ist SUHOSIN installiert?"
 
-#: wp-admin/includes/class-wp-debug-data.php:779
-#: wp-admin/includes/class-wp-debug-data.php:784
+#: wp-admin/includes/class-wp-debug-data.php:777
+#: wp-admin/includes/class-wp-debug-data.php:782
 msgid "cURL version"
 msgstr "cURL-Version"
 
-#: wp-admin/includes/class-wp-debug-data.php:770
+#: wp-admin/includes/class-wp-debug-data.php:768
 msgid "PHP post max size"
 msgstr "Maximale Größe der PHP-Post-Daten (post_max_size)"
 
-#: wp-admin/includes/class-wp-debug-data.php:766
+#: wp-admin/includes/class-wp-debug-data.php:764
 msgid "Upload max filesize"
 msgstr "Maximale Dateigröße beim Upload (upload_max_filesize)"
 
-#: wp-admin/includes/class-wp-debug-data.php:762
+#: wp-admin/includes/class-wp-debug-data.php:760
 msgid "Max input time"
 msgstr "Maximale Eingabe-Zeit (max_input_time)"
 
-#: wp-admin/includes/class-wp-debug-data.php:747
-#: wp-admin/includes/class-wp-debug-data.php:756
+#: wp-admin/includes/class-wp-debug-data.php:745
+#: wp-admin/includes/class-wp-debug-data.php:754
 msgid "PHP memory limit"
 msgstr "PHP-Speicher-Limit (memory_limit)"
 
-#: wp-admin/includes/class-wp-debug-data.php:741
+#: wp-admin/includes/class-wp-debug-data.php:739
 msgid "PHP time limit"
 msgstr "Maximale PHP-Ausführungszeit (max_execution_time)"
 
-#: wp-admin/includes/class-wp-debug-data.php:737
+#: wp-admin/includes/class-wp-debug-data.php:735
 msgid "PHP max input variables"
 msgstr "Maximale PHP-Eingabe-Variablen (max_input_vars)"
 
 #. translators: %s: ini_get()
 #: wp-admin/includes/class-wp-debug-data.php:538
-#: wp-admin/includes/class-wp-debug-data.php:730
+#: wp-admin/includes/class-wp-debug-data.php:728
 msgid "Unable to determine some settings, as the %s function has been disabled."
 msgstr "Einige Einstellungen konnten nicht ausgelesen werden, da die Funktion %s deaktiviert ist."
 
-#: wp-admin/includes/class-wp-debug-data.php:727
+#: wp-admin/includes/class-wp-debug-data.php:725
 msgid "Server settings"
 msgstr "Server-Einstellungen"
 
-#: wp-admin/includes/class-wp-debug-data.php:720
+#: wp-admin/includes/class-wp-debug-data.php:718
 msgid "Unable to determine PHP SAPI"
 msgstr "Es ist nicht möglich, die PHP-SAPI zu bestimmen"
 
-#: wp-admin/includes/class-wp-debug-data.php:719
+#: wp-admin/includes/class-wp-debug-data.php:717
 msgid "PHP SAPI"
 msgstr "PHP-SAPI"
 
-#: wp-admin/includes/class-wp-debug-data.php:690
+#: wp-admin/includes/class-wp-debug-data.php:688
 msgid "(Does not support 64bit values)"
 msgstr "(Unterstützt keine 64bit-Werte)"
 
-#: wp-admin/includes/class-wp-debug-data.php:690
+#: wp-admin/includes/class-wp-debug-data.php:688
 msgid "(Supports 64bit values)"
 msgstr "(Unterstützt 64bit-Werte)"
 
-#: wp-admin/includes/class-wp-debug-data.php:714
+#: wp-admin/includes/class-wp-debug-data.php:712
 msgid "PHP version"
 msgstr "PHP-Version"
 
-#: wp-admin/includes/class-wp-debug-data.php:710
+#: wp-admin/includes/class-wp-debug-data.php:708
 msgid "Unable to determine what web server software is used"
 msgstr "Die verwendete Webserver-Software kann nicht ermittelt werden"
 
-#: wp-admin/includes/class-wp-debug-data.php:709
+#: wp-admin/includes/class-wp-debug-data.php:707
 msgid "Web server"
 msgstr "Webserver"
 
-#: wp-admin/includes/class-wp-debug-data.php:705
+#: wp-admin/includes/class-wp-debug-data.php:703
 msgid "Unable to determine server architecture"
 msgstr "Es ist nicht möglich, die Server-Architektur zu bestimmen"
 
-#: wp-admin/includes/class-wp-debug-data.php:704
+#: wp-admin/includes/class-wp-debug-data.php:702
 msgid "Server architecture"
 msgstr "Server-Architektur"
 
-#: wp-admin/includes/class-wp-debug-data.php:671
+#: wp-admin/includes/class-wp-debug-data.php:669
 msgid "Ghostscript version"
 msgstr "Ghostscript-Version"
 
-#: wp-admin/includes/class-wp-debug-data.php:666
+#: wp-admin/includes/class-wp-debug-data.php:664
 msgid "Unable to determine if Ghostscript is installed"
 msgstr "Es kann nicht festgestellt werden, ob Ghostscript installiert ist"
 
-#: wp-admin/includes/class-wp-debug-data.php:623
+#: wp-admin/includes/class-wp-debug-data.php:621
 msgid "GD version"
 msgstr "GD-Version"
 
-#: wp-admin/includes/class-wp-debug-data.php:597
+#: wp-admin/includes/class-wp-debug-data.php:595
 msgid "Imagick Resource Limits"
 msgstr "Imagick-Resource-Limits"
 
@@ -4511,7 +4511,7 @@ msgstr "ImageMagick-Versionsnummer"
 #: wp-admin/includes/class-wp-debug-data.php:491
 #: wp-admin/includes/class-wp-debug-data.php:513
 #: wp-admin/includes/class-wp-debug-data.php:530
-#: wp-admin/includes/class-wp-debug-data.php:1681
+#: wp-admin/includes/class-wp-debug-data.php:1679
 msgid "Not available"
 msgstr "Nicht verfügbar"
 
@@ -4547,8 +4547,8 @@ msgstr "Ort des Plugins-Verzeichnisses"
 msgid "Themes directory size"
 msgstr "Größe des Themes-Verzeichnisses"
 
-#: wp-admin/includes/class-wp-debug-data.php:1152
-#: wp-admin/includes/class-wp-debug-data.php:1238
+#: wp-admin/includes/class-wp-debug-data.php:1150
+#: wp-admin/includes/class-wp-debug-data.php:1236
 msgid "Theme directory location"
 msgstr "Ort des Theme-Verzeichnisses"
 
@@ -4609,7 +4609,7 @@ msgstr "Das „wp-content“-Verzeichnis"
 #: wp-admin/includes/class-wp-debug-data.php:360
 #: wp-admin/includes/class-wp-debug-data.php:365
 #: wp-admin/includes/class-wp-debug-data.php:370
-#: wp-admin/includes/class-wp-debug-data.php:1394
+#: wp-admin/includes/class-wp-debug-data.php:1392
 msgid "Not writable"
 msgstr "Nicht beschreibbar"
 
@@ -4618,7 +4618,7 @@ msgstr "Nicht beschreibbar"
 #: wp-admin/includes/class-wp-debug-data.php:360
 #: wp-admin/includes/class-wp-debug-data.php:365
 #: wp-admin/includes/class-wp-debug-data.php:370
-#: wp-admin/includes/class-wp-debug-data.php:1394
+#: wp-admin/includes/class-wp-debug-data.php:1392
 msgid "Writable"
 msgstr "Beschreibbar"
 
@@ -4642,8 +4642,8 @@ msgstr "Dateisystem-Berechtigungen"
 #: wp-admin/includes/class-wp-debug-data.php:261
 #: wp-admin/includes/class-wp-debug-data.php:327
 #: wp-admin/includes/class-wp-debug-data.php:332
-#: wp-admin/includes/class-wp-debug-data.php:1139
-#: wp-admin/includes/class-wp-debug-data.php:1234
+#: wp-admin/includes/class-wp-debug-data.php:1137
+#: wp-admin/includes/class-wp-debug-data.php:1232
 msgid "Undefined"
 msgstr "Nicht definiert"
 
@@ -8216,7 +8216,7 @@ msgstr "Größe in Megabyte"
 
 #: wp-admin/includes/ms.php:305
 msgid "Site Upload Space Quota"
-msgstr "Speicher-Quota für Uploads der Website"
+msgstr "Speicherplatzkontingent für Uploads der Website"
 
 #: wp-admin/includes/class-wp-automatic-updater.php:1409
 msgid ""
@@ -8545,7 +8545,7 @@ msgstr "Anzahl"
 
 #: wp-admin/includes/class-wp-plugins-list-table.php:1076
 msgid "View details"
-msgstr "Details ansehen"
+msgstr "Details anzeigen"
 
 #: wp-admin/includes/class-wp-plugin-install-list-table.php:657
 msgid "More Details"
@@ -8656,7 +8656,7 @@ msgstr "<strong>Entfernen</strong> ermöglicht es dir, einen Benutzer von deiner
 #: wp-admin/theme-install.php:369
 msgctxt "theme"
 msgid "Details &amp; Preview"
-msgstr "Details &amp; Vorschau"
+msgstr "Details und Vorschau"
 
 #: wp-admin/theme-install.php:59
 msgid "Search themes..."
@@ -9719,7 +9719,7 @@ msgstr "Vielen Dank für die Aktualisierung! Bitte besuche die Seite <a href=\"%
 msgid "All right, sparky! You&#8217;ve made it through this part of the installation. WordPress can now communicate with your database. If you are ready, time now to&hellip;"
 msgstr "Alles klar! Diesen Teil der Installation hast du geschafft. WordPress kann jetzt mit deiner Datenbank kommunizieren. Wenn du bereit bist, kannst du jetzt die &hellip;"
 
-#: wp-admin/includes/class-wp-debug-data.php:877
+#: wp-admin/includes/class-wp-debug-data.php:875
 msgid "Client version"
 msgstr "Client-Version"
 
@@ -10413,8 +10413,8 @@ msgstr "[%s] Neue Administrator-E-Mail-Adresse"
 #: wp-admin/includes/class-wp-debug-data.php:297
 #: wp-admin/includes/class-wp-debug-data.php:302
 #: wp-admin/includes/class-wp-debug-data.php:553
-#: wp-admin/includes/class-wp-debug-data.php:1184
-#: wp-admin/includes/class-wp-debug-data.php:1270
+#: wp-admin/includes/class-wp-debug-data.php:1182
+#: wp-admin/includes/class-wp-debug-data.php:1268
 msgid "Disabled"
 msgstr "Deaktiviert"
 
@@ -10475,7 +10475,7 @@ msgstr "Los geht's!"
 msgid "Table prefix (if you want to run more than one WordPress in a single database)"
 msgstr "Tabellen-Präfix (falls du mehrere WordPress-Installationen innerhalb einer Datenbank aufbauen möchtest)"
 
-#: wp-admin/includes/class-wp-debug-data.php:888 wp-admin/setup-config.php:166
+#: wp-admin/includes/class-wp-debug-data.php:886 wp-admin/setup-config.php:166
 msgid "Database host"
 msgstr "Datenbank-Host"
 
@@ -10483,11 +10483,11 @@ msgstr "Datenbank-Host"
 msgid "Database password"
 msgstr "Datenbank-Passwort"
 
-#: wp-admin/includes/class-wp-debug-data.php:882 wp-admin/setup-config.php:164
+#: wp-admin/includes/class-wp-debug-data.php:880 wp-admin/setup-config.php:164
 msgid "Database username"
 msgstr "Datenbank-Benutzername"
 
-#: wp-admin/includes/class-wp-debug-data.php:894 wp-admin/setup-config.php:163
+#: wp-admin/includes/class-wp-debug-data.php:892 wp-admin/setup-config.php:163
 msgid "Database name"
 msgstr "Datenbank-Name"
 
@@ -10560,7 +10560,7 @@ msgstr "Die Inhalte deiner Website können in eine Datei exportiert werden, um d
 #. translators: 1: Table name, 2: Error message.
 #: wp-admin/maint/repair.php:126
 msgid "Failed to repair the %1$s table. Error: %2$s"
-msgstr "Reparieren der %1$s Tabelle fehlgeschlagen. Fehler: %2$s"
+msgstr "Die Reparatur der Tabelle %1$s ist fehlgeschlagen. Fehler: %2$s"
 
 #: wp-admin/user-new.php:267
 msgid "New users will receive an email letting them know they&#8217;ve been added as a user for your site. This email will also contain their password. Check the box if you do not want the user to receive a welcome email."
@@ -11203,9 +11203,9 @@ msgstr "Super-Administrator"
 #. translators: %s: Theme version.
 #: wp-admin/includes/ajax-actions.php:4568
 #: wp-admin/includes/ajax-actions.php:4611
-#: wp-admin/includes/class-wp-debug-data.php:950
-#: wp-admin/includes/class-wp-debug-data.php:997
-#: wp-admin/includes/class-wp-debug-data.php:1320
+#: wp-admin/includes/class-wp-debug-data.php:948
+#: wp-admin/includes/class-wp-debug-data.php:995
+#: wp-admin/includes/class-wp-debug-data.php:1318
 #: wp-admin/includes/class-wp-plugins-list-table.php:1052
 #: wp-admin/includes/update.php:233 wp-admin/includes/update.php:275
 #: wp-admin/index.php:113
@@ -12361,8 +12361,8 @@ msgstr "Du hast Version %1$s installiert. Aktualisiere auf Version %2$s."
 #: wp-admin/includes/class-wp-debug-data.php:297
 #: wp-admin/includes/class-wp-debug-data.php:302
 #: wp-admin/includes/class-wp-debug-data.php:553
-#: wp-admin/includes/class-wp-debug-data.php:1182
-#: wp-admin/includes/class-wp-debug-data.php:1268
+#: wp-admin/includes/class-wp-debug-data.php:1180
+#: wp-admin/includes/class-wp-debug-data.php:1266
 msgid "Enabled"
 msgstr "Aktiviert"
 

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.1.x - Development - Administration - Network Admin package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-02-18 21:25:52+0000\n"
+"PO-Revision-Date: 2023-02-23 19:07:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1116,7 +1116,7 @@ msgstr "Du kannst auch auf die Profilseite des Benutzers gehen, indem du auf den
 
 #: wp-admin/network/settings.php:55
 msgid "Upload settings control the size of the uploaded files and the amount of available upload space for each site. You can change the default value for specific sites when you edit a particular site. Allowed file types are also listed (space separated only)."
-msgstr "Die &#8222;Upload-Einstellungen&#8220; kontrollieren die Größe von hochgeladenen Dateien und den insgesamt zur Verfügung stehenden Speicherplatz für Uploads für jede Website. Du kannst diesen Wert (Speicher-Quota) für eine spezifische Website ändern, indem du diese spezielle Website bearbeitest (unter: Netzwerkverwaltung > Websites > Bearbeiten > Einstellungen > ganz unten). Zugelassene Dateitypen können ebenfalls aufgelistet werden; jeweils durch Leerzeichen getrennt."
+msgstr "Die &#8222;Upload-Einstellungen&#8220; kontrollieren die Größe von hochgeladenen Dateien und den insgesamt zur Verfügung stehenden Speicherplatz für Uploads für jede Website. Du kannst diesen Wert (Speicherplatzkontingent) für eine spezifische Website ändern, indem du diese spezielle Website bearbeitest (unter: Netzwerkverwaltung > Websites > Bearbeiten > Einstellungen > ganz unten). Zugelassene Dateitypen können ebenfalls aufgelistet werden; jeweils durch Leerzeichen getrennt."
 
 #: wp-admin/network/sites.php:38
 msgid "Visit to go to the front-end site live."
