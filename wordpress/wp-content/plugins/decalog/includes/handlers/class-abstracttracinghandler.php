@@ -105,6 +105,14 @@ abstract class AbstractTracingHandler extends AbstractProcessingHandler {
 	protected $privacy = [];
 
 	/**
+	 * The service name.
+	 *
+	 * @since  3.7.0
+	 * @var    string    $service    Service name.
+	 */
+	protected $service = '';
+
+	/**
 	 * Activated processors.
 	 *
 	 * @since  3.0.0
@@ -149,14 +157,19 @@ abstract class AbstractTracingHandler extends AbstractProcessingHandler {
 	 *
 	 * @param   string  $uuid       The UUID of the logger.
 	 * @param   int     $format     The format in which to push data:
-	 *                              100 - Zipkin.
+	 *                              * 100 - Zipkin.
+	 *                              * 200 - Jaeger.
+	 *                              * 300 - Datadog.
+	 *                              * 400 - Decalog.
 	 * @param   int     $sampling   The sampling rate (0->1000).
 	 * @param   string  $tags       The tags to add for each span.
+	 * @param   string  $service    The service name.
 	 * @since    3.0.0
 	 */
-	public function __construct( $uuid, $format, $sampling, $tags ) {
-		$this->uuid   = $uuid;
-		$this->format = $format;
+	public function __construct( $uuid, $format, $sampling, $tags, $service = 'WordPress' ) {
+		$this->uuid    = $uuid;
+		$this->format  = $format;
+		$this->service = $service;
 		if ( isset( $tags ) && is_string( $tags ) && '' !== $tags ) {
 			if ( false !== strpos( $tags, ',' ) ) {
 				$tags = explode( ',', $tags );
@@ -221,7 +234,7 @@ abstract class AbstractTracingHandler extends AbstractProcessingHandler {
 			}
 		}
 		foreach ( $this->traces as $index => $span ) {
-			if ( 0 < count( $this->ftags ) ) {
+			if ( 0 < count( $this->ftags ) && 200 != $this->format ) {
 				if ( array_key_exists( 'tags', $span ) && is_array( $span['tags'] ) ) {
 					$span['tags'] = array_merge( $span['tags'], $this->ftags );
 				} else {
@@ -286,9 +299,18 @@ abstract class AbstractTracingHandler extends AbstractProcessingHandler {
 		$spans   = [];
 		$process = new JProcess(
 			[
-				'serviceName' => 'WP',
+				'serviceName' => $this->service,
 			]
 		);
+		foreach ( $this->ftags as $key => $tag ) {
+			$process->tags[] = new JTag(
+				[
+					'key'   => $key,
+					'vType' => JTagType::STRING,
+					'vStr'  => (string) $tag,
+				]
+			);
+		}
 		foreach ( $this->traces as $span ) {
 			$s = [
 				'traceIdLow'  => (int) base_convert( substr( $span['traceId'], 16, 16 ), 16, 10 ),
@@ -305,6 +327,15 @@ abstract class AbstractTracingHandler extends AbstractProcessingHandler {
 			} else {
 				$s['parentSpanId']  = 0;
 				$s['operationName'] = $span['localEndpoint']['serviceName'] . ' [' . str_replace( 'CALL:', '', $span['name'] . ']' );
+			}
+			if ( isset( $span['kind'] ) && is_string( $span['kind'] ) ) {
+				$s['tags'][] = new JTag(
+					[
+						'key'   => 'span.kind',
+						'vType' => JTagType::STRING,
+						'vStr'  => strtolower( $span['kind'] ),
+					]
+				);
 			}
 			if ( isset( $span['tags'] ) && is_array( $span['tags'] ) && 0 < count( $span['tags'] ) ) {
 				foreach ( $span['tags'] as $key => $tag ) {

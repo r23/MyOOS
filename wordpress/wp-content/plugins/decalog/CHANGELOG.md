@@ -3,6 +3,33 @@ All notable changes to **DecaLog** are documented in this *changelog*.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and **DecaLog** adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.7.0] - 2023-02-24
+
+The developments of PerfOps One suite, of which this plugin is a part, is now sponsored by [Hosterra](https://hosterra.eu).
+
+Hosterra is a web hosting company I founded in late 2022 whose purpose is to propose web services operating in a European data center that is water and energy efficient and ensures a first step towards GDPR compliance.
+
+This sponsoring is a way to keep PerfOps One plugins suite free, open source and independent.
+
+### Added
+- Compatibility with WordPress 6.2.
+- It's now possible to define failsafe loggers right in the `wp-config.php` file (thanks to [Jan Thiel](https://github.com/JanThiel)).
+- Jaeger and Zipkin traces loggers now support SpanKind feature (thanks to [YR Chen](https://github.com/stevapple)).
+- It's now possible to add a custom service name for tracers using Jaeger thrift over HTTP format.
+- New option to not report non-existent metrics.
+
+### Changed
+- Upgraded Monolog library from version 2.8.0 to version 2.9.1.
+- Improved browser logger for events.
+- Fixed tags are now passed as global tags when tracing with Jaeger logger (thanks to [YR Chen](https://github.com/stevapple)).
+- Great resources improvement for WordPress installs where there's no monitoring needed (thanks to [Jan Thiel](https://github.com/JanThiel)).
+- Improved loading by removing unneeded jQuery references in public rendering (thanks to [Kishorchand](https://github.com/Kishorchandth)).
+
+### Fixed
+- Some weird processes can try to delete null attachments, and it produces PHP warning (thanks to [Axel Ducoron](https://github.com/aksld)).
+- In some edge-cases, detecting IP may produce PHP deprecation warnings (thanks to [YR Chen](https://github.com/stevapple)).
+- Some strings should not be translatable (thanks to [Laurent Millet](https://profiles.wordpress.org/wplmillet/)).
+
 ## [3.6.3] - 2022-12-01
 
 ### Changed
