@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="{$content_language}">
 <head>
-<meta charset="utf-8" />
-<meta name="language" content="{$content_language}" />
+<meta charset="utf-8">
+<meta name="language" content="{$content_language}">
 <title>{$pagetitle}</title>
 <!-- mobile settings -->
-<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0">
 <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-<meta name="description" lang="{$content_language}" content="{$meta_description}" />
-<meta name="author" content="{$smarty.const.OOS_META_AUTHOR}" />
+<meta name="description" lang="{$content_language}" content="{$meta_description}">
+<meta name="author" content="{$smarty.const.OOS_META_AUTHOR}">
 {*
 	DO NOT REMOVE THE FOLLOWING - FAILURE TO COMPLY IS A DIRECT VIOLATION
 	OF THE GNU GENERAL PUBLIC LICENSE - http://www.gnu.org/copyleft/gpl.html
 *}
 <meta name="Generator" content="{$smarty.const.OOS_FULL_NAME} - {$smarty.const.OOS_HOME}  All rights reserved.">
-<meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}" />	
+<meta name="creation" content="{$smarty.now|date_format:"%a,%d %b %Y"}">	
 {assign var='robots' value=$robots|default:'index, follow, noodp, noydir'}
-<meta name="robots" content="{$robots}, max-snippet:100, max-image-preview:large" />
+<meta name="robots" content="{$robots}, max-snippet:100, max-image-preview:large">
 {if $canonical}
-<link rel="canonical" href="{$canonical}" />
+<link rel="canonical" href="{$canonical}">
 {/if}
 <meta property="og:locale" content="{$locale}">
 <meta property="og:type" content="product">
@@ -47,12 +47,12 @@
 
 <base href="{$oos_base}">
 
-<link rel="stylesheet" href="{$theme}/css/font-awesome.min.css" />
+<link rel="stylesheet" href="{$theme}/css/font-awesome.min.css">
 
 <!-- CSS MyOOS Theme -->
 <link rel="stylesheet" href="{$theme}/css/myoos.min.css">
-<link rel="stylesheet" href="{$theme}/css/vendor.min.css" />
-<link rel="stylesheet" href="{$theme}/css/theme.min.css" />
+<link rel="stylesheet" href="{$theme}/css/vendor.min.css">
+<link rel="stylesheet" href="{$theme}/css/theme.min.css">
 {$oos_css}
 
 {if !empty($smarty.const.SITE_ICONS)}
