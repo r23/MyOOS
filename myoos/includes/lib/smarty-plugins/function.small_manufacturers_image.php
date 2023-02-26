@@ -75,5 +75,5 @@ function smarty_function_small_manufacturers_image($params, &$smarty)
         }
     }
 
-    return '<img class="img-fluid ' . $class . '" src="' . $image . '" alt="' . $alt . '" ' . $extra . ' />';
+    return '<img class="img-fluid ' . $class . '" src="' . $image . '" alt="' . $alt . '" ' . $extra . '>';
 }

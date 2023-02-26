@@ -79,5 +79,5 @@ function smarty_function_category_image($params, &$smarty)
         }
     }
 
-    return '<img class="img-fluid ' . $class . '" src="' . $image . '" alt="' . strip_tags($alt) . '" ' . $extra . ' />';
+    return '<img class="img-fluid ' . $class . '" src="' . $image . '" alt="' . strip_tags($alt) . '" ' . $extra . '>';
 }

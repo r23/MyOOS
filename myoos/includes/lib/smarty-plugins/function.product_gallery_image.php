@@ -77,5 +77,5 @@ function smarty_function_product_gallery_image($params, &$smarty)
         }
     }
 
-    return '<img src="' . $src . '" alt="' . strip_tags($alt) . '" ' . $extra . ' />';
+    return '<img src="' . $src . '" alt="' . strip_tags($alt) . '" ' . $extra . '>';
 }
