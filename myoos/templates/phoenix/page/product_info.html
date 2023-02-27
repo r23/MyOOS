@@ -71,8 +71,8 @@
 					{if $product_info.products_product_quantity}
 						<div class="quantity">
 							<span itemprop="weight" itemscope itemtype="https://schema.org/QuantitativeValue">
-								<meta itemprop="value" content="{$product_info.products_product_quantity}"/>
-								<meta itemprop="unitText" content="{$products_units[$product_info.products_units_id].0|strtoupper}"/>
+								<meta itemprop="value" content="{$product_info.products_product_quantity}">
+								<meta itemprop="unitText" content="{$products_units[$product_info.products_units_id].0|strtoupper}">
 							</span>
 						</div>							
 					{/if}
@@ -128,9 +128,9 @@
 			<div id="item_price">
 				<h4 class="price">{$info_product_price}</h4>
 				<span itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-					<meta itemprop="price" content="{$schema_product_price}"/>
-					<meta itemprop="priceCurrency" content="{$currency}"/>
-					<meta itemprop="itemCondition" content="https://schema.org/NewCondition"/>
+					<meta itemprop="price" content="{$schema_product_price}">
+					<meta itemprop="priceCurrency" content="{$currency}">
+					<meta itemprop="itemCondition" content="https://schema.org/NewCondition">
 				</span>
 			</div>
 		{/if}
@@ -215,7 +215,7 @@
 							{/if}							
 
 							<div class="stock-status available mb-15 d-flex">
-								<link itemprop="availability" href="https://schema.org/InStock"/>               
+								<link itemprop="availability" href="https://schema.org/InStock">               
 								<span class="stock-label text-success"><i class="fa fa-check"></i> {$lang.in_stock}</span>
 							</div>					
 						
@@ -255,8 +255,8 @@
 	
 						{if $reviews_total gt 0}
 							<span itemprop="aggregateRating" itemscope itemtype="https://schema.org/AggregateRating">
-								<meta itemprop="ratingCount" content="{$reviews_total}" />
-								<meta itemprop="ratingValue" content="{$average_rating}" />
+								<meta itemprop="ratingCount" content="{$reviews_total}" >
+								<meta itemprop="ratingValue" content="{$average_rating}" >
 							</span>						
 						
 							<div class="rating rating-{$average_rating|round:0} fs-13"><!-- rating-0 ... rating-5 --></div> ({$reviews_total})
@@ -383,7 +383,7 @@
 									<h2>{$lang.text_test_it}</h2>
 	
 									<div class="relative mb-3">
-										<img class="img-fluid " src="images/qrcode/{$qrcode}" alt="{$product_info.products_name}"  />
+										<img class="img-fluid " src="images/qrcode/{$qrcode}" alt="{$product_info.products_name}">
 									</div>
 								</div>
 							</div>
