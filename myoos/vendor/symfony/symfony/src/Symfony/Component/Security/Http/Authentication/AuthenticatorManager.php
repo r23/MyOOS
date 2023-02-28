@@ -22,7 +22,7 @@ use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
-use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\Debug\TraceableAuthenticator;
@@ -84,7 +84,7 @@ class AuthenticatorManager implements AuthenticatorManagerInterface, UserAuthent
         $token = $this->eventDispatcher->dispatch(new AuthenticationTokenCreatedEvent($token, $passport))->getAuthenticatedToken();
 
         // authenticate this in the system
-        return $this->handleAuthenticationSuccess($token, $passport, $request, $authenticator);
+        return $this->handleAuthenticationSuccess($token, $passport, $request, $authenticator, $this->tokenStorage->getToken());
     }
 
     public function supports(Request $request): ?bool
@@ -174,6 +174,7 @@ class AuthenticatorManager implements AuthenticatorManagerInterface, UserAuthent
     private function executeAuthenticator(AuthenticatorInterface $authenticator, Request $request): ?Response
     {
         $passport = null;
+        $previousToken = $this->tokenStorage->getToken();
 
         try {
             // get the passport from the Authenticator
@@ -224,7 +225,7 @@ class AuthenticatorManager implements AuthenticatorManagerInterface, UserAuthent
         }
 
         // success! (sets the token on the token storage, etc)
-        $response = $this->handleAuthenticationSuccess($authenticatedToken, $passport, $request, $authenticator);
+        $response = $this->handleAuthenticationSuccess($authenticatedToken, $passport, $request, $authenticator, $previousToken);
         if ($response instanceof Response) {
             return $response;
         }
@@ -236,7 +237,7 @@ class AuthenticatorManager implements AuthenticatorManagerInterface, UserAuthent
         return null;
     }
 
-    private function handleAuthenticationSuccess(TokenInterface $authenticatedToken, PassportInterface $passport, Request $request, AuthenticatorInterface $authenticator): ?Response
+    private function handleAuthenticationSuccess(TokenInterface $authenticatedToken, PassportInterface $passport, Request $request, AuthenticatorInterface $authenticator, ?TokenInterface $previousToken): ?Response
     {
         // @deprecated since Symfony 5.3
         $user = $authenticatedToken->getUser();
@@ -252,7 +253,7 @@ class AuthenticatorManager implements AuthenticatorManagerInterface, UserAuthent
             $this->eventDispatcher->dispatch($loginEvent, SecurityEvents::INTERACTIVE_LOGIN);
         }
 
-        $this->eventDispatcher->dispatch($loginSuccessEvent = new LoginSuccessEvent($authenticator, $passport, $authenticatedToken, $request, $response, $this->firewallName));
+        $this->eventDispatcher->dispatch($loginSuccessEvent = new LoginSuccessEvent($authenticator, $passport, $authenticatedToken, $request, $response, $this->firewallName, $previousToken));
 
         return $loginSuccessEvent->getResponse();
     }
@@ -268,7 +269,7 @@ class AuthenticatorManager implements AuthenticatorManagerInterface, UserAuthent
 
         // Avoid leaking error details in case of invalid user (e.g. user not found or invalid account status)
         // to prevent user enumeration via response content comparison
-        if ($this->hideUserNotFoundExceptions && ($authenticationException instanceof UsernameNotFoundException || ($authenticationException instanceof AccountStatusException && !$authenticationException instanceof CustomUserMessageAccountStatusException))) {
+        if ($this->hideUserNotFoundExceptions && ($authenticationException instanceof UserNotFoundException || ($authenticationException instanceof AccountStatusException && !$authenticationException instanceof CustomUserMessageAccountStatusException))) {
             $authenticationException = new BadCredentialsException('Bad credentials.', 0, $authenticationException);
         }
 
