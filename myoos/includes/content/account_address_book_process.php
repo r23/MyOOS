@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -458,6 +458,9 @@ if ($state_has_zones == 'true') {
    $smarty->assign('country_name', $country_name);
 
 $smarty->assign('entry', $entry);
+
+// register the outputfilter
+$smarty->loadFilter('output', 'trimwhitespace');
 
 // display the template
 $smarty->display($aTemplate['page']);

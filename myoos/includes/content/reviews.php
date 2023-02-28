@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -141,6 +141,9 @@ if (!$smarty->isCached($aTemplate['page'], $nContentCacheID)) {
 }
 
 $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination'], $nContentCacheID));
+
+// register the outputfilter
+$smarty->loadFilter('output', 'trimwhitespace');
 
 // display the template
 $smarty->display($aTemplate['page']);

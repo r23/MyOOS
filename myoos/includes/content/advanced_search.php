@@ -117,6 +117,8 @@ $smarty->assign(
         'manufacturersID'     => $aManufacturersID
     )
 );
+// register the outputfilter
+$smarty->loadFilter('output', 'trimwhitespace');
 
 // display the template
 $smarty->display($aTemplate['page']);

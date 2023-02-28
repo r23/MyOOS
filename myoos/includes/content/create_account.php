@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -593,6 +593,9 @@ $smarty->assign('email_address', $email_address);
 
 $smarty->assign('snapshot', $snapshot);
 $smarty->assign('login_agree', sprintf($aLang['agree'], oos_href_link($aContents['information'], 'information_id=2'), oos_href_link($aContents['information'], 'information_id=4')));
+
+// register the outputfilter
+$smarty->loadFilter('output', 'trimwhitespace');
 
 // display the template
 $smarty->display($aTemplate['page']);

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -400,6 +400,9 @@ require_once MYOOS_INCLUDE_PATH . '/includes/modules/product_listing.php';
 
 $smarty->assign('oos_get_all_get_params', oos_get_all_get_parameters(array('sort', 'page')));
 $smarty->assign('pagination', $smarty->fetch($aTemplate['pagination']));
+
+// register the outputfilter
+$smarty->loadFilter('output', 'trimwhitespace');
 
 // display the template
 $smarty->display($aTemplate['page']);

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -142,6 +142,9 @@ $sql = "SELECT pd.products_id, pd.products_name
             AND pd.products_languages_id = '" . intval($nLanguageID) . "'
           ORDER BY pd.products_name";
 $smarty->assign('products_array', $dbconn->GetAll($sql));
+
+// register the outputfilter
+$smarty->loadFilter('output', 'trimwhitespace');
 
 // display the template
 $smarty->display($aTemplate['page']);
