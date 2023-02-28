@@ -107,5 +107,8 @@ if (!$smarty->isCached($aTemplate['upcoming_products'], $sModulesCacheID)) {
 }
 $smarty->assign('upcoming_products', $smarty->fetch($aTemplate['upcoming_products'], $sModulesCacheID));
 
+// register the outputfilter
+$smarty->loadFilter('output', 'trimwhitespace');
+
 // display the template
 $smarty->display($aTemplate['page']);
