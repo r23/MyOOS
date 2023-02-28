@@ -1,0 +1,19 @@
+Subject: Antwort in „{TOPIC_TITLE}“
+
+Hallo {USERNAME},
+
+im Thema „{TOPIC_TITLE}“ gab es eine neue Antwort<!-- IF AUTHOR_NAME != '' --> von {AUTHOR_NAME}<!-- ENDIF -->, seitdem du „{SITENAME}“ zuletzt besucht hast. Du erhältst keine weitere Benachrichtigung, bis du das Thema besucht hast.
+
+Du kannst dir die neueste Antwort ansehen, wenn du folgenden Link aufrufst:
+{U_NEWEST_POST}
+
+Du kannst dir das Thema ansehen, wenn du folgenden Link aufrufst:
+{U_TOPIC}
+
+Du kannst dir das Forum ansehen, wenn du folgenden Link aufrufst:
+{U_FORUM}
+
+Wenn du das Thema nicht länger abonnieren möchtest, rufe folgenden Link auf:
+{U_STOP_WATCHING_TOPIC}
+
+{EMAIL_SIG}

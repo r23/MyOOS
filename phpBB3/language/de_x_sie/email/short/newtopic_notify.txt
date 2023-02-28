@@ -1,0 +1,11 @@
+Subject: Neues Thema in „{FORUM_NAME}“
+
+Guten Tag {USERNAME},
+
+im Forum „{FORUM_NAME}“ wurde ein neues Thema „{TOPIC_TITLE}“<!-- IF AUTHOR_NAME != '' --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt, seitdem Sie „{SITENAME}“ zuletzt besucht haben. Sie erhalten keine weitere Benachrichtigung, bis Sie das Forum besucht haben.
+{U_FORUM}
+
+Wenn Sie das Forum nicht länger abonnieren möchten, verwenden Sie entweder den Link „Abonnement des Forums beenden“ im entsprechenden Forum oder rufen Sie folgenden Link auf:
+{U_STOP_WATCHING_FORUM}
+
+{EMAIL_SIG}

@@ -1,0 +1,9 @@
+Subject: Meldung geschlossen — „{PM_SUBJECT}“
+
+Guten Tag {USERNAME},
+
+Ihre Meldung zur Privaten Nachricht „{PM_SUBJECT}“ auf „{SITENAME}“ wurde von einem Moderator oder Administrator bearbeitet. Die Meldung ist nun geschlossen.
+
+Wenn Sie weitere Fragen dazu haben, können Sie {CLOSER_NAME} mit einer Privaten Nachricht kontaktieren.
+
+{EMAIL_SIG}

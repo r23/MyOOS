@@ -1,0 +1,13 @@
+Subject: Antwort in „{TOPIC_TITLE}“
+
+Guten Tag {USERNAME},
+
+im Thema „{TOPIC_TITLE}“ gab es eine neue Antwort<!-- IF AUTHOR_NAME != '' --> von {AUTHOR_NAME}<!-- ENDIF -->, seitdem Sie „{SITENAME}“ zuletzt besucht haben. Sie erhalten keine weitere Benachrichtigung, bis Sie das Forum besucht haben.
+
+Sie können sich die neuesten Antworten seit Ihrem letzten Besuch ansehen, wenn Sie folgenden Link aufrufen:
+{U_NEWEST_POST}
+
+Wenn Sie das Forum nicht länger abonnieren möchten, rufen Sie folgenden Link auf:
+{U_STOP_WATCHING_TOPIC}
+
+{EMAIL_SIG}

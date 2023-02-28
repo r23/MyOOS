@@ -1,0 +1,18 @@
+Subject: Antwort in „{FORUM_NAME}“
+List-Unsubscribe: <{U_STOP_WATCHING_FORUM}>
+
+Guten Tag {USERNAME},
+
+im Forum „{FORUM_NAME}“ gab es im Thema „{TOPIC_TITLE}“ eine neue Antwort<!-- IF AUTHOR_NAME != '' --> von {AUTHOR_NAME}<!-- ENDIF -->, seitdem Sie „{SITENAME}“ zuletzt besucht haben.. Sie erhalten keine weitere Benachrichtigung, bis Sie das Thema besucht haben.
+{U_NEWEST_POST}
+
+Sie können sich das Thema ansehen, wenn Sie folgenden Link aufrufen:
+{U_TOPIC}
+
+Sie können sich das Forum ansehen, wenn Sie folgenden Link aufrufen:
+{U_FORUM}
+
+Wenn Sie das Forum nicht länger abonnieren möchten, rufen Sie folgenden Link auf:
+{U_STOP_WATCHING_FORUM}
+
+{EMAIL_SIG}

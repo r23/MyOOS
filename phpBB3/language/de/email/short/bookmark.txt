@@ -1,0 +1,13 @@
+Subject: Antwort in „{TOPIC_TITLE}“
+
+Hallo {USERNAME},
+
+im Thema „{TOPIC_TITLE}“ gab es eine neue Antwort, seitdem du „{SITENAME}“ zuletzt besucht hast. Du hast ein Lesezeichen auf dieses Thema gesetzt. Du erhältst keine weitere Benachrichtigung, bis du das Thema besucht hast.
+
+Du kannst dir die neuesten Antworten seit deinem letzten Besuch ansehen, wenn du folgenden Link aufrufst:
+{U_NEWEST_POST}
+
+Wenn du nicht länger E-Mails erhalten möchtest, wenn auf ein Thema, für das du ein Lesezeichen gesetzt hast, geantwortet wurde, musst du deine Benachrichtigungseinstellungen ändern. Diese kannst du ändern, wenn du folgenden Link aufrufst:
+{U_NOTIFICATION_SETTINGS}
+
+{EMAIL_SIG}

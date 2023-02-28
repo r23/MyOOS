@@ -1,0 +1,11 @@
+Subject: Sie wurden in eine Benutzergruppe aufgenommen
+
+Herzlichen Glückwunsch,
+
+Sie wurden in die Benutzergruppe „{GROUP_NAME}“ auf „{SITENAME}“ aufgenommen.
+Dieser Vorgang wurde von einem Gruppenleiter oder einem Administrator durchgeführt. Kontaktieren Sie ihn, wenn Sie weitere Informationen erhalten möchten.
+
+Sie können sich die Mitgliederliste der Gruppe ansehen, wenn Sie folgenden Link aufrufen:
+{U_GROUP}
+
+{EMAIL_SIG}

@@ -1,0 +1,19 @@
+Subject: Zitiert in „{TOPIC_TITLE}“
+
+Hallo {USERNAME},
+
+„{AUTHOR_NAME}“ hat dich im Thema „{TOPIC_TITLE}“ auf „{SITENAME}“ zitiert.
+
+Du kannst dir den Beitrag, in dem du zitiert wurdest, ansehen, wenn du folgenden Link aufrufst:
+{U_VIEW_POST}
+
+Du kannst dir das Thema ansehen, wenn du folgenden Link aufrufst:
+{U_TOPIC}
+
+Du kannst dir das Forum ansehen, wenn du folgenden Link aufrufst:
+{U_FORUM}
+
+Wenn du nicht länger E-Mails erhalten möchtest, wenn du in einem Beitrag zitiert wurdest, musst du deine Benachrichtigungseinstellungen unter folgendem Link ändern: 
+{U_NOTIFICATION_SETTINGS}
+
+{EMAIL_SIG}

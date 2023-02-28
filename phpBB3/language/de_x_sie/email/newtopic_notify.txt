@@ -1,0 +1,15 @@
+Subject: Neues Thema in „{FORUM_NAME}“
+List-Unsubscribe: <{U_STOP_WATCHING_FORUM}>
+
+Guten Tag {USERNAME},
+
+im Forum „{FORUM_NAME}“ wurde ein neues Thema „{TOPIC_TITLE}“<!-- IF AUTHOR_NAME != '' --> von {AUTHOR_NAME}<!-- ENDIF --> erstellt, seitdem Sie „{SITENAME}“ zuletzt besucht haben. Sie erhalten keine weitere Benachrichtigung, bis Sie das Forum besucht haben.
+{U_FORUM}
+
+Klicken Sie auf den folgenden Link, um das neue Thema aufzurufen:
+{U_TOPIC}
+
+Wenn Sie das Forum nicht länger abonnieren möchten, rufen Sie folgenden Link auf:
+{U_STOP_WATCHING_FORUM}
+
+{EMAIL_SIG}

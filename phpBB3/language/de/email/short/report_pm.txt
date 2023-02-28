@@ -1,0 +1,10 @@
+Subject: Gemeldete Private Nachricht — „{SUBJECT}“
+
+Hallo {USERNAME},
+
+eine Private Nachricht mit dem Titel „{SUBJECT}“ von „{AUTHOR_NAME}“ auf „{SITENAME}“ wurde gemeldet.
+
+Du kannst dir die Meldung ansehen, wenn du folgenden Link aufrufst:
+{U_VIEW_REPORT}
+
+{EMAIL_SIG}

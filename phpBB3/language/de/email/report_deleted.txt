@@ -1,0 +1,7 @@
+Subject: Meldung gelöscht — „{POST_SUBJECT}“
+
+Hallo {USERNAME},
+
+deine Meldung zum Beitrag „{POST_SUBJECT}“ in „{TOPIC_TITLE}“ auf „{SITENAME}“ wurde von einem Moderator oder Administrator gelöscht.
+
+{EMAIL_SIG}
