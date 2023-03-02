@@ -33,7 +33,7 @@ function chartLine($xAxisData, $seriesData, $title = '')
 {
     global $oCurrencies;
 
-    Hisune\EchartsPHP\Config::$dist = OOS_HTTPS_SERVER . OOS_SHOP . '/js/echarts/dist';
+    Hisune\EchartsPHP\Config::$dist = OOS_HTTPS_SERVER . OOS_SHOP . 'js/echarts/dist';
 
     $chart = new Hisune\EchartsPHP\ECharts();
     $xAxis = new Hisune\EchartsPHP\Doc\IDE\XAxis();
