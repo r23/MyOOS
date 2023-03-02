@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '46e4bb998ba11c69a137b38875ea912e2f022373',
+        'reference' => '556e3e5f1383819729686e5332cd57baea6b94f9',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -29,9 +29,9 @@
             'dev_requirement' => false,
         ),
         'dasprid/enum' => array(
-            'pretty_version' => '1.0.3',
-            'version' => '1.0.3.0',
-            'reference' => '5abf82f213618696dda8e3bf6f64dd042d8542b2',
+            'pretty_version' => '1.0.4',
+            'version' => '1.0.4.0',
+            'reference' => '8e6b6ea76eabbf19ea2bf5b67b98e1860474012f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../dasprid/enum',
             'aliases' => array(),
@@ -193,7 +193,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '46e4bb998ba11c69a137b38875ea912e2f022373',
+            'reference' => '556e3e5f1383819729686e5332cd57baea6b94f9',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -442,7 +442,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '6ab259b93537fda94e80a3e7c545957ce0848052',
+            'reference' => '3a45705887412bb03836d4cf363d4c60fa306e82',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
