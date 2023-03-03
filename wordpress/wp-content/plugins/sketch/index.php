@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Sketch
  * Description: Draw and write freely on a canvas. The block offers color selection, different brush sizes, and with its transparent background can be layered on top of any container block, like groups or covers.
- * Version:     1.1.0
+ * Version:     1.2.0
  * Author:      Automattic
  * Author URI:  https://automattic.com
  * License:     GPL v2 or later
