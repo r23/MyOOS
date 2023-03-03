@@ -284,8 +284,7 @@
 			});
 		});		
 
-		// id: $(this).attr("data-id"),
-		// $("#clear-cart").click(function(){
+		// remove
 		$(document).on('click', '.item-remove-btn', function () {
 			var id = $(this).attr('data-id');
 			$.ajax({
@@ -338,7 +337,7 @@ var cnArgs = {/literal}{$cookiearray|@json_encode nofilter};{literal}
 {literal}
 <script>
     var cookieSettings = new BootstrapCookieConsentSettings({
-        contentURL: "./cookie_consent",
+        contentURL: "{/literal}{$smarty.const.OOS_COOKIE_CONSENT}{literal}",
         postSelectionCallback: function () {
             location.reload() // reload after selection
         }

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -35,6 +35,7 @@ define('OOS_SHOP_IMAGES', OOS_HTTPS_SERVER . OOS_SHOP . OOS_IMAGES);
 define('OOS_ICONS', OOS_IMAGES . 'icons/');
 
 define('OOS_MEDIA', 'media/');
+define('OOS_COOKIE_CONSENT', OOS_HTTPS_SERVER . OOS_SHOP . 'cookie_consent');
 define('OOS_DOWNLOAD', OOS_SHOP . 'pub/');
 
 define('OOS_ABSOLUTE_PATH', '');
