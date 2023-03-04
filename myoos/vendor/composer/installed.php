@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'c8b4e38afe3a19ea542f1e576dd2fa74a27a2a91',
+        'reference' => '977208b348f4907e32c590d4540b297887bf43b2',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -119,9 +119,9 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-code' => array(
-            'pretty_version' => '4.8.0',
-            'version' => '4.8.0.0',
-            'reference' => 'dd19fe8e07cc3f374308565667eecd4958c22106',
+            'pretty_version' => '4.9.0',
+            'version' => '4.9.0.0',
+            'reference' => 'c1706ecde17f87ae8bab169c4b88006c9253d3a5',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-code',
             'aliases' => array(),
@@ -193,7 +193,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'c8b4e38afe3a19ea542f1e576dd2fa74a27a2a91',
+            'reference' => '977208b348f4907e32c590d4540b297887bf43b2',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -438,17 +438,6 @@
             'provided' => array(
                 0 => '1.0|2.0',
             ),
-        ),
-        'roave/security-advisories' => array(
-            'pretty_version' => 'dev-latest',
-            'version' => 'dev-latest',
-            'reference' => '2f3a048ff643e4aff8308eaeea738c82dfac0a81',
-            'type' => 'metapackage',
-            'install_path' => NULL,
-            'aliases' => array(
-                0 => '9999999-dev',
-            ),
-            'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
             'pretty_version' => '8.4.0',
