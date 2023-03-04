@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'adf77128dc4ab6d79ff3da1a3e682bdac92fd832',
+        'reference' => '2184b5ff33fd9ed81da590708fa8a4324b642b52',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -193,7 +193,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'adf77128dc4ab6d79ff3da1a3e682bdac92fd832',
+            'reference' => '2184b5ff33fd9ed81da590708fa8a4324b642b52',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -447,6 +447,17 @@
             'provided' => array(
                 0 => '1.0|2.0',
             ),
+        ),
+        'roave/security-advisories' => array(
+            'pretty_version' => 'dev-latest',
+            'version' => 'dev-latest',
+            'reference' => '91fab0df509bae51a5e0c0d224f3e088cea08ea2',
+            'type' => 'metapackage',
+            'install_path' => NULL,
+            'aliases' => array(
+                0 => '9999999-dev',
+            ),
+            'dev_requirement' => true,
         ),
         'sabberworm/php-css-parser' => array(
             'pretty_version' => '8.4.0',
