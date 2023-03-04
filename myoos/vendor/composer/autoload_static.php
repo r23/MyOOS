@@ -13,6 +13,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
+        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         '2324d0e5cadd603331d27de142371f0b' => __DIR__ . '/..' . '/symfony/contracts/Deprecation/function.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
         '6a47392539ca2329373e0d33e1dba053' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/bootstrap.php',
@@ -21,7 +22,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'bf9f5270ae66ac6fa0290b4bf47867b7' => __DIR__ . '/..' . '/adodb/adodb-php/adodb.inc.php',
-        'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
         'e22ae735ee74205d021eaeb4f10c1e64' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/String/Resources/functions.php',
     );
 
@@ -77,6 +77,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'PragmaRX\\Google2FA\\' => 19,
             'PhpOffice\\PhpWord\\' => 18,
             'PhpOffice\\PhpSpreadsheet\\' => 25,
+            'PhpAmqpLib\\' => 11,
             'ParagonIE\\ConstantTime\\' => 23,
         ),
         'M' => 
@@ -275,6 +276,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'PhpOffice\\PhpSpreadsheet\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
+        ),
+        'PhpAmqpLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/php-amqplib/php-amqplib/PhpAmqpLib',
         ),
         'ParagonIE\\ConstantTime\\' => 
         array (

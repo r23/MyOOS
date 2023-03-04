@@ -1712,6 +1712,90 @@
             "install-path": "../phenx/php-svg-lib"
         },
         {
+            "name": "php-amqplib/php-amqplib",
+            "version": "v3.5.2",
+            "version_normalized": "3.5.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-amqplib/php-amqplib.git",
+                "reference": "703eef998946f4972e630c3e3d827f7cf020fe68"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-amqplib/php-amqplib/zipball/703eef998946f4972e630c3e3d827f7cf020fe68",
+                "reference": "703eef998946f4972e630c3e3d827f7cf020fe68",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-sockets": "*",
+                "php": "^7.1||^8.0",
+                "phpseclib/phpseclib": "^2.0|^3.0"
+            },
+            "conflict": {
+                "php": "7.4.0 - 7.4.1"
+            },
+            "replace": {
+                "videlalvaro/php-amqplib": "self.version"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "nategood/httpful": "^0.2.20",
+                "phpunit/phpunit": "^7.5|^9.5",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "time": "2023-03-01T18:03:56+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.0-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "PhpAmqpLib\\": "PhpAmqpLib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Alvaro Videla",
+                    "role": "Original Maintainer"
+                },
+                {
+                    "name": "Raúl Araya",
+                    "email": "nubeiro@gmail.com",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Luke Bakken",
+                    "email": "luke@bakken.io",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Ramūnas Dronga",
+                    "email": "github@ramuno.lt",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Formerly videlalvaro/php-amqplib.  This library is a pure PHP implementation of the AMQP protocol. It's been tested against RabbitMQ.",
+            "homepage": "https://github.com/php-amqplib/php-amqplib/",
+            "keywords": [
+                "message",
+                "queue",
+                "rabbitmq"
+            ],
+            "support": {
+                "issues": "https://github.com/php-amqplib/php-amqplib/issues",
+                "source": "https://github.com/php-amqplib/php-amqplib/tree/v3.5.2"
+            },
+            "install-path": "../php-amqplib/php-amqplib"
+        },
+        {
             "name": "php-ffmpeg/php-ffmpeg",
             "version": "v1.1.0",
             "version_normalized": "1.1.0.0",

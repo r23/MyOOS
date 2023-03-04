@@ -43,6 +43,7 @@ return array(
     'PragmaRX\\Google2FA\\' => array($vendorDir . '/pragmarx/google2fa/src'),
     'PhpOffice\\PhpWord\\' => array($vendorDir . '/phpoffice/phpword/src/PhpWord'),
     'PhpOffice\\PhpSpreadsheet\\' => array($vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet'),
+    'PhpAmqpLib\\' => array($vendorDir . '/php-amqplib/php-amqplib/PhpAmqpLib'),
     'ParagonIE\\ConstantTime\\' => array($vendorDir . '/paragonie/constant_time_encoding/src'),
     'MyCLabs\\Enum\\' => array($vendorDir . '/myclabs/php-enum/src'),
     'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),

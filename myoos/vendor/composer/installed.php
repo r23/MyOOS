@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'b87b62143c5a35d3338df7600fe2906c09331daf',
+        'reference' => 'adf77128dc4ab6d79ff3da1a3e682bdac92fd832',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -193,7 +193,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'b87b62143c5a35d3338df7600fe2906c09331daf',
+            'reference' => 'adf77128dc4ab6d79ff3da1a3e682bdac92fd832',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -256,6 +256,15 @@
             'reference' => '76876c6cf3080bcb6f249d7d59705108166a6685',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phenx/php-svg-lib',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'php-amqplib/php-amqplib' => array(
+            'pretty_version' => 'v3.5.2',
+            'version' => '3.5.2.0',
+            'reference' => '703eef998946f4972e630c3e3d827f7cf020fe68',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../php-amqplib/php-amqplib',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -1029,6 +1038,12 @@
             'install_path' => __DIR__ . '/../twig/twig',
             'aliases' => array(),
             'dev_requirement' => false,
+        ),
+        'videlalvaro/php-amqplib' => array(
+            'dev_requirement' => false,
+            'replaced' => array(
+                0 => 'v3.5.2',
+            ),
         ),
     ),
 );
