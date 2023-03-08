@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '8a46410062a7299ea84015ae43f9d1bd5bfec6a0',
+        'reference' => '56528a0c0ec44421e0738b34af2b023b29e63c9e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -119,9 +119,9 @@
             'dev_requirement' => false,
         ),
         'laminas/laminas-code' => array(
-            'pretty_version' => '4.9.0',
-            'version' => '4.9.0.0',
-            'reference' => 'c1706ecde17f87ae8bab169c4b88006c9253d3a5',
+            'pretty_version' => '4.10.0',
+            'version' => '4.10.0.0',
+            'reference' => 'ad8b36073f9ac792716478befadca0798cc15635',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laminas/laminas-code',
             'aliases' => array(),
@@ -193,7 +193,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '8a46410062a7299ea84015ae43f9d1bd5bfec6a0',
+            'reference' => '56528a0c0ec44421e0738b34af2b023b29e63c9e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -451,7 +451,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => 'd80ca3aac1b3d4007637306c2effa9af5998d3bd',
+            'reference' => '79408c4514c73048f390982372ca364384157c35',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
