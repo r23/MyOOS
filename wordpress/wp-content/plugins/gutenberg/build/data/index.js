@@ -2322,8 +2322,9 @@ function invalidateResolutionForStoreSelector(selectorName) {
 
 /**
  * @typedef {import('../types').ReduxStoreConfig<State,Actions,Selectors>} ReduxStoreConfig
- * @template State,Selectors
+ * @template State
  * @template {Record<string,import('../../types').ActionCreator>} Actions
+ * @template Selectors
  */
 
 const trimUndefinedValues = array => {
@@ -2408,8 +2409,9 @@ function createResolversCache() {
  * } );
  * ```
  *
- * @template State,Selectors
+ * @template State
  * @template {Record<string,import('../../types').ActionCreator>} Actions
+ * @template Selectors
  * @param {string}                                    key     Unique namespace identifier.
  * @param {ReduxStoreConfig<State,Actions,Selectors>} options Registered store options, with properties
  *                                                            describing reducer, actions, selectors,
@@ -3862,8 +3864,9 @@ const renderQueue = (0,external_wp_priorityQueue_namespaceObject.createQueue)();
 
 /**
  * @typedef {import('../../types').ReduxStoreConfig<State,Actions,Selectors>} ReduxStoreConfig
- * @template State,Selectors
+ * @template State
  * @template {Record<string,import('../../types').ActionCreator>} Actions
+ * @template Selectors
  */
 
 /** @typedef {import('../../types').MapSelect} MapSelect */
@@ -4509,11 +4512,11 @@ const build_module_combineReducers = (turbo_combine_reducers_default());
  * ```
  *
  * @return {Object} Object containing the store's selectors.
- *
- * @type {(storeNameOrDescriptor: StoreDescriptor|string) => Object}
  */
 
-const build_module_select = default_registry.select;
+function build_module_select(storeNameOrDescriptor) {
+  return default_registry.select(storeNameOrDescriptor);
+}
 /**
  * Given a store descriptor, returns an object containing the store's selectors pre-bound to state
  * so that you only need to supply additional arguments, and modified so that they return promises
@@ -4567,11 +4570,11 @@ const suspendSelect = default_registry.suspendSelect;
  * dispatch( myCustomStore ).setPrice( 'hammer', 9.75 );
  * ```
  * @return {Object} Object containing the action creators.
- *
- * @type {(storeNameOrDescriptor: StoreDescriptor|string) => Object}
  */
 
-const build_module_dispatch = default_registry.dispatch;
+function build_module_dispatch(storeNameOrDescriptor) {
+  return default_registry.dispatch(storeNameOrDescriptor);
+}
 /**
  * Given a listener function, the function will be called any time the state value
  * of one of the registered stores has changed. If you specify the optional

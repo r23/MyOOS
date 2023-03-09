@@ -3733,6 +3733,7 @@ const arrowLeft = (0,external_wp_element_namespaceObject.createElement)(external
  */
 
 
+const isGutenbergPlugin =  true ? true : 0;
 
 function MaybeIframe(_ref) {
   let {
@@ -3996,7 +3997,7 @@ function VisualEditor(_ref2) {
     initial: desktopCanvasStyles,
     className: previewMode
   }, (0,external_wp_element_namespaceObject.createElement)(MaybeIframe, {
-    shouldIframe: isBlockBasedTheme && !hasMetaBoxes || isTemplateMode || deviceType === 'Tablet' || deviceType === 'Mobile',
+    shouldIframe: isGutenbergPlugin && isBlockBasedTheme && !hasMetaBoxes || isTemplateMode || deviceType === 'Tablet' || deviceType === 'Mobile',
     contentRef: contentRef,
     styles: styles
   }, themeSupportsLayout && !themeHasDisabledLayoutStyles && !isTemplateMode && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLayoutStyle, {
@@ -4111,15 +4112,15 @@ function KeyboardShortcuts() {
       return;
     }
 
-    const currentAttributes = getBlockAttributes(currentClientId);
-    const {
-      content: currentContent,
-      align: currentAlign
-    } = currentAttributes;
+    const attributes = getBlockAttributes(currentClientId);
+    const textAlign = blockName === 'core/paragraph' ? 'align' : 'textAlign';
+    const destinationTextAlign = destinationBlockName === 'core/paragraph' ? 'align' : 'textAlign';
     replaceBlocks(currentClientId, (0,external_wp_blocks_namespaceObject.createBlock)(destinationBlockName, {
       level,
-      content: currentContent,
-      align: currentAlign
+      content: attributes.content,
+      ...{
+        [destinationTextAlign]: attributes[textAlign]
+      }
     }));
   };
 
@@ -4208,7 +4209,7 @@ function KeyboardShortcuts() {
       }
     });
     registerShortcut({
-      name: `core/block-editor/transform-heading-to-paragraph`,
+      name: `core/edit-post/transform-heading-to-paragraph`,
       category: 'block-library',
       description: (0,external_wp_i18n_namespaceObject.__)('Transform heading to paragraph.'),
       keyCombination: {
@@ -4218,7 +4219,7 @@ function KeyboardShortcuts() {
     });
     [1, 2, 3, 4, 5, 6].forEach(level => {
       registerShortcut({
-        name: `core/block-editor/transform-paragraph-to-heading-${level}`,
+        name: `core/edit-post/transform-paragraph-to-heading-${level}`,
         category: 'block-library',
         description: (0,external_wp_i18n_namespaceObject.__)('Transform paragraph to heading.'),
         keyCombination: {
@@ -4264,12 +4265,12 @@ function KeyboardShortcuts() {
       setIsListViewOpened(true);
     }
   });
-  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/block-editor/transform-heading-to-paragraph', event => handleTextLevelShortcut(event, 0));
+  (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/edit-post/transform-heading-to-paragraph', event => handleTextLevelShortcut(event, 0));
   [1, 2, 3, 4, 5, 6].forEach(level => {
     //the loop is based off on a constant therefore
     //the hook will execute the same way every time
     //eslint-disable-next-line react-hooks/rules-of-hooks
-    (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)(`core/block-editor/transform-paragraph-to-heading-${level}`, event => handleTextLevelShortcut(event, level));
+    (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)(`core/edit-post/transform-paragraph-to-heading-${level}`, event => handleTextLevelShortcut(event, level));
   });
   return null;
 }
@@ -5398,7 +5399,6 @@ const wordpress = (0,external_wp_element_namespaceObject.createElement)(external
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -5418,6 +5418,8 @@ const wordpress = (0,external_wp_element_namespaceObject.createElement)(external
 
 
 function FullscreenModeClose(_ref) {
+  var _postType$labels$view, _postType$labels;
+
   let {
     showTooltip,
     icon,
@@ -5500,7 +5502,7 @@ function FullscreenModeClose(_ref) {
     href: href !== null && href !== void 0 ? href : (0,external_wp_url_namespaceObject.addQueryArgs)('edit.php', {
       post_type: postType.slug
     }),
-    label: (0,external_lodash_namespaceObject.get)(postType, ['labels', 'view_items'], (0,external_wp_i18n_namespaceObject.__)('Back')),
+    label: (_postType$labels$view = postType === null || postType === void 0 ? void 0 : (_postType$labels = postType.labels) === null || _postType$labels === void 0 ? void 0 : _postType$labels.view_items) !== null && _postType$labels$view !== void 0 ? _postType$labels$view : (0,external_wp_i18n_namespaceObject.__)('Back'),
     showTooltip: showTooltip
   }, buttonIcon));
 }
@@ -6023,13 +6025,8 @@ function PostPublishButtonOrToggle(_ref) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -6050,6 +6047,8 @@ function DevicePreview() {
     isViewable,
     deviceType
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _postType$viewable;
+
     const {
       getEditedPostAttribute
     } = select(external_wp_editor_namespaceObject.store);
@@ -6061,7 +6060,7 @@ function DevicePreview() {
       hasActiveMetaboxes: select(store_store).hasMetaBoxes(),
       isSaving: select(store_store).isSavingMetaBoxes(),
       isPostSaveable: select(external_wp_editor_namespaceObject.store).isEditedPostSaveable(),
-      isViewable: (0,external_lodash_namespaceObject.get)(postType, ['viewable'], false),
+      isViewable: (_postType$viewable = postType === null || postType === void 0 ? void 0 : postType.viewable) !== null && _postType$viewable !== void 0 ? _postType$viewable : false,
       deviceType: select(store_store).__experimentalGetPreviewDeviceType()
     };
   }, []);
@@ -7910,13 +7909,8 @@ function PostTaxonomies() {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -7935,6 +7929,8 @@ function PostTaxonomies() {
 const featured_image_PANEL_NAME = 'featured-image';
 
 function FeaturedImage(_ref) {
+  var _postType$labels$feat, _postType$labels;
+
   let {
     isEnabled,
     isOpened,
@@ -7947,7 +7943,7 @@ function FeaturedImage(_ref) {
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostFeaturedImageCheck, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
-    title: (0,external_lodash_namespaceObject.get)(postType, ['labels', 'featured_image'], (0,external_wp_i18n_namespaceObject.__)('Featured image')),
+    title: (_postType$labels$feat = postType === null || postType === void 0 ? void 0 : (_postType$labels = postType.labels) === null || _postType$labels === void 0 ? void 0 : _postType$labels.featured_image) !== null && _postType$labels$feat !== void 0 ? _postType$labels$feat : (0,external_wp_i18n_namespaceObject.__)('Featured image'),
     opened: isOpened,
     onToggle: onTogglePanel
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostFeaturedImage, null)));
@@ -8100,13 +8096,8 @@ function DiscussionPanel(_ref) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -8123,6 +8114,8 @@ function DiscussionPanel(_ref) {
 
 const page_attributes_PANEL_NAME = 'page-attributes';
 function PageAttributes() {
+  var _postType$labels$attr, _postType$labels;
+
   const {
     isEnabled,
     isOpened,
@@ -8161,7 +8154,7 @@ function PageAttributes() {
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PageAttributesCheck, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelBody, {
-    title: (0,external_lodash_namespaceObject.get)(postType, ['labels', 'attributes'], (0,external_wp_i18n_namespaceObject.__)('Page attributes')),
+    title: (_postType$labels$attr = postType === null || postType === void 0 ? void 0 : (_postType$labels = postType.labels) === null || _postType$labels === void 0 ? void 0 : _postType$labels.attributes) !== null && _postType$labels$attr !== void 0 ? _postType$labels$attr : (0,external_wp_i18n_namespaceObject.__)('Page attributes'),
     opened: isOpened,
     onToggle: onTogglePanel
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PageAttributesParent, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PageAttributesOrder, null))));
@@ -9404,13 +9397,6 @@ function Layout(_ref) {
     };
   }, []);
   const isDistractionFree = isDistractionFreeMode && isLargeViewport;
-  const className = classnames_default()('edit-post-layout', 'is-mode-' + mode, {
-    'is-sidebar-opened': sidebarIsOpened,
-    'has-fixed-toolbar': hasFixedToolbar,
-    'has-metaboxes': hasActiveMetaboxes,
-    'show-icon-labels': showIconLabels,
-    'is-distraction-free': isDistractionFree
-  });
 
   const openSidebarPanel = () => openGeneralSidebar(hasBlockSelected ? 'edit-post/block' : 'edit-post/document'); // Inserter and Sidebars are mutually exclusive
 
@@ -9435,6 +9421,14 @@ function Layout(_ref) {
 
     setEntitiesSavedStatesCallback(false);
   }, [entitiesSavedStatesCallback]);
+  const className = classnames_default()('edit-post-layout', 'is-mode-' + mode, {
+    'is-sidebar-opened': sidebarIsOpened,
+    'has-fixed-toolbar': hasFixedToolbar,
+    'has-metaboxes': hasActiveMetaboxes,
+    'show-icon-labels': showIconLabels,
+    'is-distraction-free': isDistractionFree,
+    'is-entity-save-view-open': !!entitiesSavedStatesCallback
+  });
   const secondarySidebarLabel = isListViewOpened ? (0,external_wp_i18n_namespaceObject.__)('Document Overview') : (0,external_wp_i18n_namespaceObject.__)('Block Library');
 
   const secondarySidebar = () => {

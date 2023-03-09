@@ -2421,6 +2421,147 @@ if (true) {
 
 /***/ }),
 
+/***/ 2364:
+/***/ (function(module) {
+
+"use strict";
+
+
+var isMergeableObject = function isMergeableObject(value) {
+	return isNonNullObject(value)
+		&& !isSpecial(value)
+};
+
+function isNonNullObject(value) {
+	return !!value && typeof value === 'object'
+}
+
+function isSpecial(value) {
+	var stringValue = Object.prototype.toString.call(value);
+
+	return stringValue === '[object RegExp]'
+		|| stringValue === '[object Date]'
+		|| isReactElement(value)
+}
+
+// see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
+var canUseSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7;
+
+function isReactElement(value) {
+	return value.$$typeof === REACT_ELEMENT_TYPE
+}
+
+function emptyTarget(val) {
+	return Array.isArray(val) ? [] : {}
+}
+
+function cloneUnlessOtherwiseSpecified(value, options) {
+	return (options.clone !== false && options.isMergeableObject(value))
+		? deepmerge(emptyTarget(value), value, options)
+		: value
+}
+
+function defaultArrayMerge(target, source, options) {
+	return target.concat(source).map(function(element) {
+		return cloneUnlessOtherwiseSpecified(element, options)
+	})
+}
+
+function getMergeFunction(key, options) {
+	if (!options.customMerge) {
+		return deepmerge
+	}
+	var customMerge = options.customMerge(key);
+	return typeof customMerge === 'function' ? customMerge : deepmerge
+}
+
+function getEnumerableOwnPropertySymbols(target) {
+	return Object.getOwnPropertySymbols
+		? Object.getOwnPropertySymbols(target).filter(function(symbol) {
+			return Object.propertyIsEnumerable.call(target, symbol)
+		})
+		: []
+}
+
+function getKeys(target) {
+	return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target))
+}
+
+function propertyIsOnObject(object, property) {
+	try {
+		return property in object
+	} catch(_) {
+		return false
+	}
+}
+
+// Protects from prototype poisoning and unexpected merging up the prototype chain.
+function propertyIsUnsafe(target, key) {
+	return propertyIsOnObject(target, key) // Properties are safe to merge if they don't exist in the target yet,
+		&& !(Object.hasOwnProperty.call(target, key) // unsafe if they exist up the prototype chain,
+			&& Object.propertyIsEnumerable.call(target, key)) // and also unsafe if they're nonenumerable.
+}
+
+function mergeObject(target, source, options) {
+	var destination = {};
+	if (options.isMergeableObject(target)) {
+		getKeys(target).forEach(function(key) {
+			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
+		});
+	}
+	getKeys(source).forEach(function(key) {
+		if (propertyIsUnsafe(target, key)) {
+			return
+		}
+
+		if (propertyIsOnObject(target, key) && options.isMergeableObject(source[key])) {
+			destination[key] = getMergeFunction(key, options)(target[key], source[key], options);
+		} else {
+			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
+		}
+	});
+	return destination
+}
+
+function deepmerge(target, source, options) {
+	options = options || {};
+	options.arrayMerge = options.arrayMerge || defaultArrayMerge;
+	options.isMergeableObject = options.isMergeableObject || isMergeableObject;
+	// cloneUnlessOtherwiseSpecified is added to `options` so that custom arrayMerge()
+	// implementations can use it. The caller may not replace it.
+	options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified;
+
+	var sourceIsArray = Array.isArray(source);
+	var targetIsArray = Array.isArray(target);
+	var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
+
+	if (!sourceAndTargetTypesMatch) {
+		return cloneUnlessOtherwiseSpecified(source, options)
+	} else if (sourceIsArray) {
+		return options.arrayMerge(target, source, options)
+	} else {
+		return mergeObject(target, source, options)
+	}
+}
+
+deepmerge.all = function deepmergeAll(array, options) {
+	if (!Array.isArray(array)) {
+		throw new Error('first argument should be an array')
+	}
+
+	return array.reduce(function(prev, next) {
+		return deepmerge(prev, next, options)
+	}, {})
+};
+
+var deepmerge_1 = deepmerge;
+
+module.exports = deepmerge_1;
+
+
+/***/ }),
+
 /***/ 9196:
 /***/ (function(module) {
 
@@ -15181,11 +15322,48 @@ function Icon(_ref) {
 
 ;// CONCATENATED MODULE: external ["wp","warning"]
 var external_wp_warning_namespaceObject = window["wp"]["warning"];
+// EXTERNAL MODULE: ./packages/components/node_modules/deepmerge/dist/cjs.js
+var cjs = __webpack_require__(2364);
+var cjs_default = /*#__PURE__*/__webpack_require__.n(cjs);
 // EXTERNAL MODULE: ./node_modules/fast-deep-equal/es6/index.js
 var es6 = __webpack_require__(5619);
 var es6_default = /*#__PURE__*/__webpack_require__.n(es6);
-;// CONCATENATED MODULE: external "lodash"
-var external_lodash_namespaceObject = window["lodash"];
+;// CONCATENATED MODULE: ./node_modules/is-plain-object/dist/is-plain-object.mjs
+/*!
+ * is-plain-object <https://github.com/jonschlinkert/is-plain-object>
+ *
+ * Copyright (c) 2014-2017, Jon Schlinkert.
+ * Released under the MIT License.
+ */
+
+function is_plain_object_isObject(o) {
+  return Object.prototype.toString.call(o) === '[object Object]';
+}
+
+function is_plain_object_isPlainObject(o) {
+  var ctor,prot;
+
+  if (is_plain_object_isObject(o) === false) return false;
+
+  // If has modified constructor
+  ctor = o.constructor;
+  if (ctor === undefined) return true;
+
+  // If has modified prototype
+  prot = ctor.prototype;
+  if (is_plain_object_isObject(prot) === false) return false;
+
+  // If constructor does not have an Object-specific method
+  if (prot.hasOwnProperty('isPrototypeOf') === false) {
+    return false;
+  }
+
+  // Most likely a plain Object
+  return true;
+}
+
+
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/utils/hooks/use-update-effect.js
 /**
  * WordPress dependencies
@@ -15224,6 +15402,7 @@ function useUpdateEffect(effect, deps) {
 /**
  * External dependencies
  */
+
 
 
 /**
@@ -15266,7 +15445,7 @@ function useContextSystemBridge(_ref) {
   }, [value]); // `parentContext` will always be memoized (i.e., the result of this hook itself)
   // or the default value from when the `ComponentsContext` was originally
   // initialized (which will never change, it's a static variable)
-  // so this memoization will prevent `merge` and `JSON.parse/stringify` from rerunning unless
+  // so this memoization will prevent `deepmerge()` from rerunning unless
   // the references to `value` change OR the `parentContext` has an actual material change
   // (because again, it's guaranteed to be memoized or a static reference to the empty object
   // so we know that the only changes for `parentContext` are material ones... i.e., why we
@@ -15274,11 +15453,13 @@ function useContextSystemBridge(_ref) {
   // need to bother with the `value`). The `useUpdateEffect` above will ensure that we are
   // correctly warning when the `value` isn't being properly memoized. All of that to say
   // that this should be super safe to assume that `useMemo` will only run on actual
-  // changes to the two dependencies, therefore saving us calls to `merge` and `JSON.parse/stringify`!
+  // changes to the two dependencies, therefore saving us calls to `deepmerge()`!
 
   const config = (0,external_wp_element_namespaceObject.useMemo)(() => {
     // Deep clone `parentContext` to avoid mutating it later.
-    return (0,external_lodash_namespaceObject.merge)(JSON.parse(JSON.stringify(parentContext)), value);
+    return cjs_default()(parentContext !== null && parentContext !== void 0 ? parentContext : {}, value !== null && value !== void 0 ? value : {}, {
+      isMergeableObject: is_plain_object_isPlainObject
+    });
   }, [parentContext, value]);
   return config;
 }
@@ -15369,6 +15550,8 @@ function getConnectedNamespace() {
   };
 }
 
+;// CONCATENATED MODULE: external "lodash"
+var external_lodash_namespaceObject = window["lodash"];
 // EXTERNAL MODULE: ./node_modules/memize/index.js
 var memize = __webpack_require__(9756);
 var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
@@ -30227,9 +30410,12 @@ function getDefaultUseItems(autocompleter) {
 
 
 
+
 /**
  * Internal dependencies
  */
+
+
 
 
 
@@ -30256,7 +30442,16 @@ function getAutoCompleterUI(autocompleter) {
       editableContentElement: contentRef.current,
       value
     });
+    const [needsA11yCompat, setNeedsA11yCompat] = (0,external_wp_element_namespaceObject.useState)(false);
     const popoverRef = (0,external_wp_element_namespaceObject.useRef)();
+    const popoverRefs = (0,external_wp_compose_namespaceObject.useMergeRefs)([popoverRef, (0,external_wp_compose_namespaceObject.useRefEffect)(node => {
+      if (!contentRef.current) return; // If the popover is rendered in a different document than
+      // the content, we need to duplicate the options list in the
+      // content document so that it's available to the screen
+      // readers, which check the DOM ID based aira-* attributes.
+
+      setNeedsA11yCompat(node.ownerDocument !== contentRef.current.ownerDocument);
+    }, [contentRef])]);
     useOnClickOutside(popoverRef, reset);
     (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
       onChangeOptions(items); // Temporarily disabling exhaustive-deps to avoid introducing unexpected side effecst.
@@ -30268,28 +30463,37 @@ function getAutoCompleterUI(autocompleter) {
       return null;
     }
 
-    return (0,external_wp_element_namespaceObject.createElement)(popover, {
+    const ListBox = _ref2 => {
+      let {
+        Component = 'div'
+      } = _ref2;
+      return (0,external_wp_element_namespaceObject.createElement)(Component, {
+        id: listBoxId,
+        role: "listbox",
+        className: "components-autocomplete__results"
+      }, items.map((option, index) => (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
+        key: option.key,
+        id: `components-autocomplete-item-${instanceId}-${option.key}`,
+        role: "option",
+        "aria-selected": index === selectedIndex,
+        disabled: option.isDisabled,
+        className: classnames_default()('components-autocomplete__result', className, {
+          'is-selected': index === selectedIndex
+        }),
+        onClick: () => onSelect(option)
+      }, option.label)));
+    };
+
+    return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(popover, {
       focusOnMount: false,
       onClose: onReset,
       placement: "top-start",
       className: "components-autocomplete__popover",
       anchor: popoverAnchor,
-      ref: popoverRef
-    }, (0,external_wp_element_namespaceObject.createElement)("div", {
-      id: listBoxId,
-      role: "listbox",
-      className: "components-autocomplete__results"
-    }, items.map((option, index) => (0,external_wp_element_namespaceObject.createElement)(build_module_button, {
-      key: option.key,
-      id: `components-autocomplete-item-${instanceId}-${option.key}`,
-      role: "option",
-      "aria-selected": index === selectedIndex,
-      disabled: option.isDisabled,
-      className: classnames_default()('components-autocomplete__result', className, {
-        'is-selected': index === selectedIndex
-      }),
-      onClick: () => onSelect(option)
-    }, option.label))));
+      ref: popoverRefs
+    }, (0,external_wp_element_namespaceObject.createElement)(ListBox, null)), contentRef.current && needsA11yCompat && (0,external_ReactDOM_namespaceObject.createPortal)((0,external_wp_element_namespaceObject.createElement)(ListBox, {
+      Component: visually_hidden_component
+    }), contentRef.current.ownerDocument.body));
   }
 
   return AutocompleterUI;
@@ -30339,6 +30543,7 @@ function useOnClickOutside(ref, handler) {
 
 
 
+const EMPTY_ARRAY = [];
 /**
  * A raw completer option.
  *
@@ -30426,7 +30631,7 @@ function useAutocomplete(_ref) {
   const debouncedSpeak = (0,external_wp_compose_namespaceObject.useDebounce)(external_wp_a11y_namespaceObject.speak, 500);
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(useAutocomplete);
   const [selectedIndex, setSelectedIndex] = (0,external_wp_element_namespaceObject.useState)(0);
-  const [filteredOptions, setFilteredOptions] = (0,external_wp_element_namespaceObject.useState)([]);
+  const [filteredOptions, setFilteredOptions] = (0,external_wp_element_namespaceObject.useState)(EMPTY_ARRAY);
   const [filterValue, setFilterValue] = (0,external_wp_element_namespaceObject.useState)('');
   const [autocompleter, setAutocompleter] = (0,external_wp_element_namespaceObject.useState)(null);
   const [AutocompleterUI, setAutocompleterUI] = (0,external_wp_element_namespaceObject.useState)(null);
@@ -30477,7 +30682,7 @@ function useAutocomplete(_ref) {
 
   function reset() {
     setSelectedIndex(0);
-    setFilteredOptions([]);
+    setFilteredOptions(EMPTY_ARRAY);
     setFilterValue('');
     setAutocompleter(null);
     setAutocompleterUI(null);
@@ -30571,24 +30776,22 @@ function useAutocomplete(_ref) {
   }, [record]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (!textContent) {
-      reset();
+      if (autocompleter) reset();
       return;
     }
 
-    const text = remove_accents_default()(textContent);
-    const textAfterSelection = (0,external_wp_richText_namespaceObject.getTextContent)((0,external_wp_richText_namespaceObject.slice)(record, undefined, (0,external_wp_richText_namespaceObject.getTextContent)(record).length));
     const completer = completers === null || completers === void 0 ? void 0 : completers.find(_ref2 => {
       let {
         triggerPrefix,
         allowContext
       } = _ref2;
-      const index = text.lastIndexOf(triggerPrefix);
+      const index = textContent.lastIndexOf(triggerPrefix);
 
       if (index === -1) {
         return false;
       }
 
-      const textWithoutTrigger = text.slice(index + triggerPrefix.length);
+      const textWithoutTrigger = textContent.slice(index + triggerPrefix.length);
       const tooDistantFromTrigger = textWithoutTrigger.length > 50; // 50 chars seems to be a good limit.
       // This is a final barrier to prevent the effect from completing with
       // an extremely long string, which causes the editor to slow-down
@@ -30622,7 +30825,9 @@ function useAutocomplete(_ref) {
         return false;
       }
 
-      if (allowContext && !allowContext(text.slice(0, index), textAfterSelection)) {
+      const textAfterSelection = (0,external_wp_richText_namespaceObject.getTextContent)((0,external_wp_richText_namespaceObject.slice)(record, undefined, (0,external_wp_richText_namespaceObject.getTextContent)(record).length));
+
+      if (allowContext && !allowContext(textContent.slice(0, index), textAfterSelection)) {
         return false;
       }
 
@@ -30634,11 +30839,12 @@ function useAutocomplete(_ref) {
     });
 
     if (!completer) {
-      reset();
+      if (autocompleter) reset();
       return;
     }
 
     const safeTrigger = escapeRegExp(completer.triggerPrefix);
+    const text = remove_accents_default()(textContent);
     const match = text.slice(text.lastIndexOf(completer.triggerPrefix)).match(new RegExp(`${safeTrigger}([\u0000-\uFFFF]*)$`));
     const query = match && match[1];
     setAutocompleter(completer);
@@ -30676,11 +30882,24 @@ function useAutocomplete(_ref) {
   };
 }
 
+function useLastDifferentValue(value) {
+  const history = (0,external_wp_element_namespaceObject.useRef)(new Set());
+  history.current.add(value); // Keep the history size to 2.
+
+  if (history.current.size > 2) {
+    history.current.delete(Array.from(history.current)[0]);
+  }
+
+  return Array.from(history.current)[0];
+}
+
 function useAutocompleteProps(options) {
-  const [isVisible, setIsVisible] = (0,external_wp_element_namespaceObject.useState)(false);
   const ref = (0,external_wp_element_namespaceObject.useRef)();
-  const recordAfterInput = (0,external_wp_element_namespaceObject.useRef)();
   const onKeyDownRef = (0,external_wp_element_namespaceObject.useRef)();
+  const {
+    record
+  } = options;
+  const previousRecord = useLastDifferentValue(record);
   const {
     popover,
     listBoxId,
@@ -30690,37 +30909,20 @@ function useAutocompleteProps(options) {
     contentRef: ref
   });
   onKeyDownRef.current = onKeyDown;
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (isVisible) {
-      if (!recordAfterInput.current) {
-        recordAfterInput.current = options.record;
-      } else if (recordAfterInput.current.start !== options.record.start || recordAfterInput.current.end !== options.record.end) {
-        setIsVisible(false);
-        recordAfterInput.current = null;
-      }
-    } // eslint-disable-next-line react-hooks/exhaustive-deps
-
-  }, [options.record]);
   const mergedRefs = (0,external_wp_compose_namespaceObject.useMergeRefs)([ref, (0,external_wp_compose_namespaceObject.useRefEffect)(element => {
     function _onKeyDown(event) {
       onKeyDownRef.current(event);
     }
 
-    function _onInput() {
-      // Only show auto complete UI if the user is inputting text.
-      setIsVisible(true);
-      recordAfterInput.current = null;
-    }
-
     element.addEventListener('keydown', _onKeyDown);
-    element.addEventListener('input', _onInput);
     return () => {
       element.removeEventListener('keydown', _onKeyDown);
-      element.removeEventListener('input', _onInput);
     };
-  }, [])]);
+  }, [])]); // We only want to show the popover if the user has typed something.
 
-  if (!isVisible) {
+  const didUserInput = record.text !== (previousRecord === null || previousRecord === void 0 ? void 0 : previousRecord.text);
+
+  if (!didUserInput) {
     return {
       ref: mergedRefs
     };
@@ -32793,6 +32995,7 @@ function UnforwardedRangeControl(props, forwardedRef) {
     },
     trackColor: trackColor
   }), (0,external_wp_element_namespaceObject.createElement)(ThumbWrapper, {
+    className: "components-range-control__thumb-wrapper",
     style: offsetStyle,
     disabled: disabled
   }, (0,external_wp_element_namespaceObject.createElement)(Thumb, {
@@ -36467,7 +36670,6 @@ const check = (0,external_wp_element_namespaceObject.createElement)(external_wp_
 ;// CONCATENATED MODULE: ./packages/components/build-module/circular-option-picker/index.js
 
 
-// @ts-nocheck
 
 /**
  * External dependencies
@@ -36485,15 +36687,14 @@ const check = (0,external_wp_element_namespaceObject.createElement)(external_wp_
 
 
 
-
-function Option(props) {
-  const {
+function Option(_ref) {
+  let {
     className,
     isSelected,
     selectedIconProps,
     tooltipText,
     ...additionalProps
-  } = props;
+  } = _ref;
   const optionButton = (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
     isPressed: isSelected,
     className: "components-circular-option-picker__option"
@@ -36506,21 +36707,20 @@ function Option(props) {
     icon: library_check
   }, selectedIconProps ? selectedIconProps : {})));
 }
-
-function DropdownLinkAction(props) {
-  const {
+function DropdownLinkAction(_ref2) {
+  let {
     buttonProps,
     className,
     dropdownProps,
     linkText
-  } = props;
+  } = _ref2;
   return (0,external_wp_element_namespaceObject.createElement)(dropdown, extends_extends({
     className: classnames_default()('components-circular-option-picker__dropdown-link-action', className),
-    renderToggle: _ref => {
+    renderToggle: _ref3 => {
       let {
         isOpen,
         onToggle
-      } = _ref;
+      } = _ref3;
       return (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
         "aria-expanded": isOpen,
         "aria-haspopup": "true",
@@ -36530,18 +36730,62 @@ function DropdownLinkAction(props) {
     }
   }, dropdownProps));
 }
-
-function ButtonAction(props) {
-  const {
+function ButtonAction(_ref4) {
+  let {
     className,
     children,
     ...additionalProps
-  } = props;
+  } = _ref4;
   return (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
     className: classnames_default()('components-circular-option-picker__clear', className),
     variant: "tertiary"
   }, additionalProps), children);
 }
+/**
+ *`CircularOptionPicker` is a component that displays a set of options as circular buttons.
+ *
+ * ```jsx
+ * import { CircularOptionPicker } from '../circular-option-picker';
+ * import { useState } from '@wordpress/element';
+ *
+ * const Example = () => {
+ * 	const [ currentColor, setCurrentColor ] = useState();
+ * 	const colors = [
+ * 		{ color: '#f00', name: 'Red' },
+ * 		{ color: '#0f0', name: 'Green' },
+ * 		{ color: '#00f', name: 'Blue' },
+ * 	];
+ * 	const colorOptions = (
+ * 		<>
+ * 			{ colors.map( ( { color, name }, index ) => {
+ * 				return (
+ * 					<CircularOptionPicker.Option
+ * 						key={ `${ color }-${ index }` }
+ * 						tooltipText={ name }
+ * 						style={ { backgroundColor: color, color } }
+ * 						isSelected={ index === currentColor }
+ * 						onClick={ () => setCurrentColor( index ) }
+ * 						aria-label={ name }
+ * 					/>
+ * 				);
+ * 			} ) }
+ * 		</>
+ * 	);
+ * 	return (
+ * 		<CircularOptionPicker
+ * 				options={ colorOptions }
+ * 				actions={
+ * 					<CircularOptionPicker.ButtonAction
+ * 						onClick={ () => setCurrentColor( undefined ) }
+ * 					>
+ * 						{ 'Clear' }
+ * 					</CircularOptionPicker.ButtonAction>
+ * 				}
+ * 			/>
+ * 	);
+ * };
+ * ```
+ */
 
 function CircularOptionPicker(props) {
   const {
@@ -36558,9 +36802,11 @@ function CircularOptionPicker(props) {
     className: "components-circular-option-picker__custom-clear-wrapper"
   }, actions));
 }
+
 CircularOptionPicker.Option = Option;
 CircularOptionPicker.ButtonAction = ButtonAction;
 CircularOptionPicker.DropdownLinkAction = DropdownLinkAction;
+/* harmony default export */ var circular_option_picker = (CircularOptionPicker);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/v-stack/hook.js
 /**
@@ -36984,7 +37230,7 @@ function SinglePalette(_ref) {
       } = _ref2;
       const colordColor = colord_w(color);
       const isSelected = value === color;
-      return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
+      return (0,external_wp_element_namespaceObject.createElement)(circular_option_picker.Option, {
         key: `${color}-${index}`,
         isSelected: isSelected,
         selectedIconProps: isSelected ? {
@@ -37003,7 +37249,7 @@ function SinglePalette(_ref) {
       });
     });
   }, [colors, value, onChange, clearColor]);
-  return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker, {
+  return (0,external_wp_element_namespaceObject.createElement)(circular_option_picker, {
     className: className,
     options: colorOptions,
     actions: actions
@@ -37111,7 +37357,7 @@ function UnforwardedColorPalette(props, forwardedRef) {
     clearColor,
     onChange,
     value,
-    actions: !!clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
+    actions: !!clearable && (0,external_wp_element_namespaceObject.createElement)(circular_option_picker.ButtonAction, {
       onClick: clearColor
     }, (0,external_wp_i18n_namespaceObject.__)('Clear')),
     headingLevel
@@ -42781,7 +43027,7 @@ function SingleOrigin(_ref) {
         gradient,
         name
       } = _ref2;
-      return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
+      return (0,external_wp_element_namespaceObject.createElement)(circular_option_picker.Option, {
         key: gradient,
         value: gradient,
         isSelected: value === gradient,
@@ -42798,7 +43044,7 @@ function SingleOrigin(_ref) {
       });
     });
   }, [gradients, value, onChange, clearGradient]);
-  return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker, {
+  return (0,external_wp_element_namespaceObject.createElement)(circular_option_picker, {
     className: className,
     options: gradientOptions,
     actions: actions
@@ -42884,7 +43130,7 @@ function GradientPicker(_ref5) {
       gradients: gradients,
       onChange: onChange,
       value: value,
-      actions: clearable && !disableCustomGradients && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
+      actions: clearable && !disableCustomGradients && (0,external_wp_element_namespaceObject.createElement)(circular_option_picker.ButtonAction, {
         onClick: clearGradient
       }, (0,external_wp_i18n_namespaceObject.__)('Clear')),
       headingLevel: headingLevel
@@ -43245,12 +43491,16 @@ function DropdownMenu(dropdownMenuProps) {
         }
       };
 
+      const {
+        as: Toggle = build_module_button,
+        ...restToggleProps
+      } = toggleProps !== null && toggleProps !== void 0 ? toggleProps : {};
       const mergedToggleProps = mergeProps({
         className: classnames_default()('components-dropdown-menu__toggle', {
           'is-opened': isOpen
         })
-      }, toggleProps);
-      return (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({}, mergedToggleProps, {
+      }, restToggleProps);
+      return (0,external_wp_element_namespaceObject.createElement)(Toggle, extends_extends({}, mergedToggleProps, {
         icon: icon,
         onClick: event => {
           onToggle(event);
@@ -43332,7 +43582,7 @@ function palette_edit_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have
 
 
 
-const IndicatorStyled = /*#__PURE__*/emotion_styled_base_browser_esm(CircularOptionPicker.Option,  true ? {
+const IndicatorStyled = /*#__PURE__*/emotion_styled_base_browser_esm(circular_option_picker.Option,  true ? {
   target: "e5bw3229"
 } : 0)("width:", space(6), ";height:", space(6), ";pointer-events:none;" + ( true ? "" : 0));
 const NameInputControl = /*#__PURE__*/emotion_styled_base_browser_esm(input_control,  true ? {
@@ -43609,11 +43859,11 @@ function PaletteEditListView(_ref5) {
   }))));
 }
 
-const EMPTY_ARRAY = [];
+const palette_edit_EMPTY_ARRAY = [];
 function PaletteEdit(_ref6) {
   let {
     gradients,
-    colors = EMPTY_ARRAY,
+    colors = palette_edit_EMPTY_ARRAY,
     onChange,
     paletteLabel,
     paletteLabelHeadingLevel = 2,
@@ -55171,7 +55421,7 @@ function DuotonePicker(_ref) {
   } = _ref;
   const [defaultDark, defaultLight] = (0,external_wp_element_namespaceObject.useMemo)(() => getDefaultColors(colorPalette), [colorPalette]);
   const isUnset = value === 'unset';
-  const unsetOption = (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
+  const unsetOption = (0,external_wp_element_namespaceObject.createElement)(circular_option_picker.Option, {
     key: "unset",
     value: "unset",
     isSelected: isUnset,
@@ -55196,7 +55446,7 @@ function DuotonePicker(_ref) {
     const label = name ? (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: The name of the option e.g: "Dark grayscale".
     (0,external_wp_i18n_namespaceObject.__)('Duotone: %s'), name) : tooltipText;
     const isSelected = es6_default()(colors, value);
-    return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.Option, {
+    return (0,external_wp_element_namespaceObject.createElement)(circular_option_picker.Option, {
       key: slug,
       value: colors,
       isSelected: isSelected,
@@ -55208,9 +55458,9 @@ function DuotonePicker(_ref) {
       }
     });
   });
-  return (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker, {
+  return (0,external_wp_element_namespaceObject.createElement)(circular_option_picker, {
     options: unsetable ? [unsetOption, ...options] : options,
-    actions: !!clearable && (0,external_wp_element_namespaceObject.createElement)(CircularOptionPicker.ButtonAction, {
+    actions: !!clearable && (0,external_wp_element_namespaceObject.createElement)(circular_option_picker.ButtonAction, {
       onClick: () => onChange(undefined)
     }, (0,external_wp_i18n_namespaceObject.__)('Clear'))
   }, (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
@@ -65852,6 +66102,8 @@ const ToolsPanelContext = (0,external_wp_element_namespaceObject.createContext)(
   registerPanelItem: tools_panel_context_noop,
   deregisterPanelItem: tools_panel_context_noop,
   flagItemCustomization: tools_panel_context_noop,
+  registerResetAllFilter: tools_panel_context_noop,
+  deregisterResetAllFilter: tools_panel_context_noop,
   areAllOptionalControlsHidden: true
 });
 const useToolsPanelContext = () => (0,external_wp_element_namespaceObject.useContext)(ToolsPanelContext);
@@ -66151,6 +66403,7 @@ function useToolsPanel(props) {
   }, [wasResetting]); // Allow panel items to register themselves.
 
   const [panelItems, setPanelItems] = (0,external_wp_element_namespaceObject.useState)([]);
+  const [resetAllFilters, setResetAllFilters] = (0,external_wp_element_namespaceObject.useState)([]);
   const registerPanelItem = (0,external_wp_element_namespaceObject.useCallback)(item => {
     setPanelItems(items => {
       const newItems = [...items]; // If an item with this label has already been registered, remove it
@@ -66183,7 +66436,17 @@ function useToolsPanel(props) {
 
       return newItems;
     });
-  }, [setPanelItems]); // Manage and share display state of menu items representing child controls.
+  }, [setPanelItems]);
+  const registerResetAllFilter = (0,external_wp_element_namespaceObject.useCallback)(newFilter => {
+    setResetAllFilters(filters => {
+      return [...filters, newFilter];
+    });
+  }, [setResetAllFilters]);
+  const deregisterResetAllFilter = (0,external_wp_element_namespaceObject.useCallback)(filterToRemove => {
+    setResetAllFilters(filters => {
+      return filters.filter(filter => filter !== filterToRemove);
+    });
+  }, [setResetAllFilters]); // Manage and share display state of menu items representing child controls.
 
   const [menuItems, setMenuItems] = (0,external_wp_element_namespaceObject.useState)({
     default: {},
@@ -66255,15 +66518,8 @@ function useToolsPanel(props) {
 
   const resetAllItems = (0,external_wp_element_namespaceObject.useCallback)(() => {
     if (typeof resetAll === 'function') {
-      isResetting.current = true; // Collect available reset filters from panel items.
-
-      const filters = [];
-      panelItems.forEach(item => {
-        if (item.resetAllFilter) {
-          filters.push(item.resetAllFilter);
-        }
-      });
-      resetAll(filters);
+      isResetting.current = true;
+      resetAll(resetAllFilters);
     } // Turn off display of all non-default items.
 
 
@@ -66272,7 +66528,7 @@ function useToolsPanel(props) {
       shouldReset: true
     });
     setMenuItems(resetMenuItems);
-  }, [panelItems, resetAll, setMenuItems]); // Assist ItemGroup styling when there are potentially hidden placeholder
+  }, [panelItems, resetAllFilters, resetAll, setMenuItems]); // Assist ItemGroup styling when there are potentially hidden placeholder
   // items by identifying first & last items that are toggled on for display.
 
   const getFirstVisibleItemLabel = items => {
@@ -66286,6 +66542,7 @@ function useToolsPanel(props) {
   const panelContext = (0,external_wp_element_namespaceObject.useMemo)(() => ({
     areAllOptionalControlsHidden,
     deregisterPanelItem,
+    deregisterResetAllFilter,
     firstDisplayedItem,
     flagItemCustomization,
     hasMenuItems: !!panelItems.length,
@@ -66294,10 +66551,11 @@ function useToolsPanel(props) {
     menuItems,
     panelId,
     registerPanelItem,
+    registerResetAllFilter,
     shouldRenderPlaceholderItems,
     __experimentalFirstVisibleItemClass,
     __experimentalLastVisibleItemClass
-  }), [areAllOptionalControlsHidden, deregisterPanelItem, firstDisplayedItem, flagItemCustomization, lastDisplayedItem, menuItems, panelId, panelItems, registerPanelItem, shouldRenderPlaceholderItems, __experimentalFirstVisibleItemClass, __experimentalLastVisibleItemClass]);
+  }), [areAllOptionalControlsHidden, deregisterPanelItem, deregisterResetAllFilter, firstDisplayedItem, flagItemCustomization, lastDisplayedItem, menuItems, panelId, panelItems, registerResetAllFilter, registerPanelItem, shouldRenderPlaceholderItems, __experimentalFirstVisibleItemClass, __experimentalLastVisibleItemClass]);
   return { ...otherProps,
     headingLevel,
     panelContext,
@@ -66437,6 +66695,8 @@ function useToolsPanelItem(props) {
   const {
     panelId: currentPanelId,
     menuItems,
+    registerResetAllFilter,
+    deregisterResetAllFilter,
     registerPanelItem,
     deregisterPanelItem,
     flagItemCustomization,
@@ -66459,7 +66719,6 @@ function useToolsPanelItem(props) {
         hasValue: hasValueCallback,
         isShownByDefault,
         label,
-        resetAllFilter: resetAllFilterCallback,
         panelId
       });
     }
@@ -66469,7 +66728,18 @@ function useToolsPanelItem(props) {
         deregisterPanelItem(label);
       }
     };
-  }, [currentPanelId, hasMatchingPanel, isShownByDefault, label, hasValueCallback, panelId, previousPanelId, resetAllFilterCallback, registerPanelItem, deregisterPanelItem]); // Note: `label` is used as a key when building menu item state in
+  }, [currentPanelId, hasMatchingPanel, isShownByDefault, label, hasValueCallback, panelId, previousPanelId, registerPanelItem, deregisterPanelItem]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    if (hasMatchingPanel) {
+      registerResetAllFilter(resetAllFilterCallback);
+    }
+
+    return () => {
+      if (hasMatchingPanel) {
+        deregisterResetAllFilter(resetAllFilterCallback);
+      }
+    };
+  }, [registerResetAllFilter, deregisterResetAllFilter, resetAllFilterCallback, hasMatchingPanel]); // Note: `label` is used as a key when building menu item state in
   // `ToolsPanel`.
 
   const menuGroup = isShownByDefault ? 'default' : 'optional';
@@ -67405,6 +67675,15 @@ function useNavigateRegions() {
 
 /**
  * WordPress dependencies
+ */
+
+/**
+ * `withConstrainedTabbing` is a React [higher-order component](https://facebook.github.io/react/docs/higher-order-components.html)
+ * adding the ability to constrain keyboard navigation with the Tab key within a component.
+ * For accessibility reasons, some UI components need to constrain Tab navigation, for example
+ * modal dialogs or similar UI. Use of this component is recommended only in cases where a way to
+ * navigate away from the wrapped component is implemented by other means, usually by pressing
+ * the Escape key or using a specific UI control, e.g. a "Close" button.
  */
 
 const withConstrainedTabbing = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(WrappedComponent => function ComponentWithConstrainedTabbing(props) {

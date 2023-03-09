@@ -429,7 +429,7 @@ const letterSpacing = {
   }
 };
 const lineHeight = {
-  name: 'letterSpacing',
+  name: 'lineHeight',
   generate: (style, options) => {
     return generateRule(style, options, ['typography', 'lineHeight'], 'lineHeight');
   }

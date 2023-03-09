@@ -2462,7 +2462,6 @@ function receiveAutosaves(postId, autosaves) {
  * External dependencies
  */
 
-
 /**
  * WordPress dependencies
  */
@@ -2490,7 +2489,9 @@ const rootEntitiesConfig = [{
   kind: 'root',
   baseURL: '/wp/v2/settings',
   getTitle: record => {
-    return (0,external_lodash_namespaceObject.get)(record, ['title'], (0,external_wp_i18n_namespaceObject.__)('Site Title'));
+    var _record$title;
+
+    return (_record$title = record === null || record === void 0 ? void 0 : record.title) !== null && _record$title !== void 0 ? _record$title : (0,external_wp_i18n_namespaceObject.__)('Site Title');
   }
 }, {
   label: (0,external_wp_i18n_namespaceObject.__)('Post Type'),
@@ -2612,9 +2613,9 @@ const rootEntitiesConfig = [{
   plural: 'globalStylesVariations',
   // Should be different than name.
   getTitle: record => {
-    var _record$title;
+    var _record$title2;
 
-    return (record === null || record === void 0 ? void 0 : (_record$title = record.title) === null || _record$title === void 0 ? void 0 : _record$title.rendered) || (record === null || record === void 0 ? void 0 : record.title);
+    return (record === null || record === void 0 ? void 0 : (_record$title2 = record.title) === null || _record$title2 === void 0 ? void 0 : _record$title2.rendered) || (record === null || record === void 0 ? void 0 : record.title);
   }
 }, {
   label: (0,external_wp_i18n_namespaceObject.__)('Themes'),
@@ -2700,9 +2701,9 @@ async function loadPostTypeEntities() {
       },
       rawAttributes: POST_RAW_ATTRIBUTES,
       getTitle: record => {
-        var _record$title2, _record$slug;
+        var _record$title3, _record$slug;
 
-        return (record === null || record === void 0 ? void 0 : (_record$title2 = record.title) === null || _record$title2 === void 0 ? void 0 : _record$title2.rendered) || (record === null || record === void 0 ? void 0 : record.title) || (isTemplate ? capitalCase((_record$slug = record.slug) !== null && _record$slug !== void 0 ? _record$slug : '') : String(record.id));
+        return (record === null || record === void 0 ? void 0 : (_record$title3 = record.title) === null || _record$title3 === void 0 ? void 0 : _record$title3.rendered) || (record === null || record === void 0 ? void 0 : record.title) || (isTemplate ? capitalCase((_record$slug = record.slug) !== null && _record$slug !== void 0 ? _record$slug : '') : String(record.id));
       },
       __unstablePrePersist: isTemplate ? undefined : prePersistPostType,
       __unstable_rest_base: postType.rest_base
@@ -3481,12 +3482,14 @@ function entity(entityConfig) {
             }
 
             const nextEdits = Object.keys(edits).reduce((acc, key) => {
+              var _record$key$raw, _record$key;
+
               // If the edited value is still different to the persisted value,
               // keep the edited value in edits.
               if ( // Edits are the "raw" attribute values, but records may have
               // objects with more properties, so we use `get` here for the
               // comparison.
-              !es6_default()(edits[key], (0,external_lodash_namespaceObject.get)(record[key], 'raw', record[key])) && ( // Sometimes the server alters the sent value which means
+              !es6_default()(edits[key], (_record$key$raw = (_record$key = record[key]) === null || _record$key === void 0 ? void 0 : _record$key.raw) !== null && _record$key$raw !== void 0 ? _record$key$raw : record[key]) && ( // Sometimes the server alters the sent value which means
               // we need to also remove the edits before the api request.
               !action.persistedEdits || !es6_default()(edits[key], action.persistedEdits[key]))) {
                 acc[key] = edits[key];
@@ -4258,7 +4261,10 @@ function getQueriedItemsUncached(state, query) {
 
       for (let f = 0; f < fields.length; f++) {
         const field = fields[f].split('.');
-        const value = (0,external_lodash_namespaceObject.get)(item, field);
+        let value = item;
+        field.forEach(fieldName => {
+          value = value[fieldName];
+        });
         (0,external_lodash_namespaceObject.set)(filteredItem, field, value);
       }
     } else {
@@ -4516,9 +4522,9 @@ function getEntityConfig(state, kind, name) {
  * @return Record.
  */
 const getEntityRecord = rememo((state, kind, name, key, query) => {
-  var _query$context, _queriedState$items$c;
+  var _state$entities$recor, _state$entities$recor2, _state$entities$recor3, _query$context, _queriedState$items$c;
 
-  const queriedState = (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'queriedData']);
+  const queriedState = (_state$entities$recor = state.entities.records) === null || _state$entities$recor === void 0 ? void 0 : (_state$entities$recor2 = _state$entities$recor[kind]) === null || _state$entities$recor2 === void 0 ? void 0 : (_state$entities$recor3 = _state$entities$recor2[name]) === null || _state$entities$recor3 === void 0 ? void 0 : _state$entities$recor3.queriedData;
 
   if (!queriedState) {
     return undefined;
@@ -4547,7 +4553,10 @@ const getEntityRecord = rememo((state, kind, name, key, query) => {
 
     for (let f = 0; f < fields.length; f++) {
       const field = fields[f].split('.');
-      const value = (0,external_lodash_namespaceObject.get)(item, field);
+      let value = item;
+      field.forEach(fieldName => {
+        value = value[fieldName];
+      });
       (0,external_lodash_namespaceObject.set)(filteredItem, field, value);
     }
 
@@ -4556,10 +4565,10 @@ const getEntityRecord = rememo((state, kind, name, key, query) => {
 
   return item;
 }, (state, kind, name, recordId, query) => {
-  var _query$context2;
+  var _query$context2, _state$entities$recor4, _state$entities$recor5, _state$entities$recor6, _state$entities$recor7, _state$entities$recor8, _state$entities$recor9, _state$entities$recor10, _state$entities$recor11, _state$entities$recor12, _state$entities$recor13;
 
   const context = (_query$context2 = query === null || query === void 0 ? void 0 : query.context) !== null && _query$context2 !== void 0 ? _query$context2 : 'default';
-  return [(0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'queriedData', 'items', context, recordId]), (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'queriedData', 'itemIsComplete', context, recordId])];
+  return [(_state$entities$recor4 = state.entities.records) === null || _state$entities$recor4 === void 0 ? void 0 : (_state$entities$recor5 = _state$entities$recor4[kind]) === null || _state$entities$recor5 === void 0 ? void 0 : (_state$entities$recor6 = _state$entities$recor5[name]) === null || _state$entities$recor6 === void 0 ? void 0 : (_state$entities$recor7 = _state$entities$recor6.queriedData) === null || _state$entities$recor7 === void 0 ? void 0 : (_state$entities$recor8 = _state$entities$recor7.items[context]) === null || _state$entities$recor8 === void 0 ? void 0 : _state$entities$recor8[recordId], (_state$entities$recor9 = state.entities.records) === null || _state$entities$recor9 === void 0 ? void 0 : (_state$entities$recor10 = _state$entities$recor9[kind]) === null || _state$entities$recor10 === void 0 ? void 0 : (_state$entities$recor11 = _state$entities$recor10[name]) === null || _state$entities$recor11 === void 0 ? void 0 : (_state$entities$recor12 = _state$entities$recor11.queriedData) === null || _state$entities$recor12 === void 0 ? void 0 : (_state$entities$recor13 = _state$entities$recor12.itemIsComplete[context]) === null || _state$entities$recor13 === void 0 ? void 0 : _state$entities$recor13[recordId]];
 });
 /**
  * Returns the Entity's record object by key. Doesn't trigger a resolver nor requests the entity records from the API if the entity record isn't available in the local state.
@@ -4591,10 +4600,12 @@ const getRawEntityRecord = rememo((state, kind, name, key) => {
   const record = getEntityRecord(state, kind, name, key);
   return record && Object.keys(record).reduce((accumulator, _key) => {
     if (isRawAttribute(getEntityConfig(state, kind, name), _key)) {
+      var _record$_key$raw, _record$_key;
+
       // Because edits are the "raw" attribute values,
       // we return those from record selectors to make rendering,
       // comparisons, and joins with edits easier.
-      accumulator[_key] = (0,external_lodash_namespaceObject.get)(record[_key], 'raw', record[_key]);
+      accumulator[_key] = (_record$_key$raw = (_record$_key = record[_key]) === null || _record$_key === void 0 ? void 0 : _record$_key.raw) !== null && _record$_key$raw !== void 0 ? _record$_key$raw : record[_key];
     } else {
       accumulator[_key] = record[_key];
     }
@@ -4602,10 +4613,10 @@ const getRawEntityRecord = rememo((state, kind, name, key) => {
     return accumulator;
   }, {});
 }, (state, kind, name, recordId, query) => {
-  var _query$context3;
+  var _query$context3, _state$entities$recor14, _state$entities$recor15, _state$entities$recor16, _state$entities$recor17, _state$entities$recor18, _state$entities$recor19, _state$entities$recor20, _state$entities$recor21, _state$entities$recor22, _state$entities$recor23;
 
   const context = (_query$context3 = query === null || query === void 0 ? void 0 : query.context) !== null && _query$context3 !== void 0 ? _query$context3 : 'default';
-  return [state.entities.config, (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'queriedData', 'items', context, recordId]), (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'queriedData', 'itemIsComplete', context, recordId])];
+  return [state.entities.config, (_state$entities$recor14 = state.entities.records) === null || _state$entities$recor14 === void 0 ? void 0 : (_state$entities$recor15 = _state$entities$recor14[kind]) === null || _state$entities$recor15 === void 0 ? void 0 : (_state$entities$recor16 = _state$entities$recor15[name]) === null || _state$entities$recor16 === void 0 ? void 0 : (_state$entities$recor17 = _state$entities$recor16.queriedData) === null || _state$entities$recor17 === void 0 ? void 0 : (_state$entities$recor18 = _state$entities$recor17.items[context]) === null || _state$entities$recor18 === void 0 ? void 0 : _state$entities$recor18[recordId], (_state$entities$recor19 = state.entities.records) === null || _state$entities$recor19 === void 0 ? void 0 : (_state$entities$recor20 = _state$entities$recor19[kind]) === null || _state$entities$recor20 === void 0 ? void 0 : (_state$entities$recor21 = _state$entities$recor20[name]) === null || _state$entities$recor21 === void 0 ? void 0 : (_state$entities$recor22 = _state$entities$recor21.queriedData) === null || _state$entities$recor22 === void 0 ? void 0 : (_state$entities$recor23 = _state$entities$recor22.itemIsComplete[context]) === null || _state$entities$recor23 === void 0 ? void 0 : _state$entities$recor23[recordId]];
 });
 /**
  * Returns true if records have been received for the given set of parameters,
@@ -4643,9 +4654,11 @@ function hasEntityRecords(state, kind, name, query) {
  * @return Records.
  */
 const getEntityRecords = (state, kind, name, query) => {
+  var _state$entities$recor24, _state$entities$recor25, _state$entities$recor26;
+
   // Queried data state is prepopulated for all known entities. If this is not
   // assigned for the given parameters, then it is known to not exist.
-  const queriedState = (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'queriedData']);
+  const queriedState = (_state$entities$recor24 = state.entities.records) === null || _state$entities$recor24 === void 0 ? void 0 : (_state$entities$recor25 = _state$entities$recor24[kind]) === null || _state$entities$recor25 === void 0 ? void 0 : (_state$entities$recor26 = _state$entities$recor25[name]) === null || _state$entities$recor26 === void 0 ? void 0 : _state$entities$recor26.queriedData;
 
   if (!queriedState) {
     return null;
@@ -4745,7 +4758,9 @@ const __experimentalGetEntitiesBeingSaved = rememo(state => {
  */
 
 function getEntityRecordEdits(state, kind, name, recordId) {
-  return (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'edits', recordId]);
+  var _state$entities$recor27, _state$entities$recor28, _state$entities$recor29, _state$entities$recor30;
+
+  return (_state$entities$recor27 = state.entities.records) === null || _state$entities$recor27 === void 0 ? void 0 : (_state$entities$recor28 = _state$entities$recor27[kind]) === null || _state$entities$recor28 === void 0 ? void 0 : (_state$entities$recor29 = _state$entities$recor28[name]) === null || _state$entities$recor29 === void 0 ? void 0 : (_state$entities$recor30 = _state$entities$recor29.edits) === null || _state$entities$recor30 === void 0 ? void 0 : _state$entities$recor30[recordId];
 }
 /**
  * Returns the specified entity record's non transient edits.
@@ -4779,7 +4794,11 @@ const getEntityRecordNonTransientEdits = rememo((state, kind, name, recordId) =>
 
     return acc;
   }, {});
-}, (state, kind, name, recordId) => [state.entities.config, (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'edits', recordId])]);
+}, (state, kind, name, recordId) => {
+  var _state$entities$recor31, _state$entities$recor32, _state$entities$recor33, _state$entities$recor34;
+
+  return [state.entities.config, (_state$entities$recor31 = state.entities.records) === null || _state$entities$recor31 === void 0 ? void 0 : (_state$entities$recor32 = _state$entities$recor31[kind]) === null || _state$entities$recor32 === void 0 ? void 0 : (_state$entities$recor33 = _state$entities$recor32[name]) === null || _state$entities$recor33 === void 0 ? void 0 : (_state$entities$recor34 = _state$entities$recor33.edits) === null || _state$entities$recor34 === void 0 ? void 0 : _state$entities$recor34[recordId]];
+});
 /**
  * Returns true if the specified entity record has edits,
  * and false otherwise.
@@ -4809,10 +4828,10 @@ function hasEditsForEntityRecord(state, kind, name, recordId) {
 const getEditedEntityRecord = rememo((state, kind, name, recordId) => ({ ...getRawEntityRecord(state, kind, name, recordId),
   ...getEntityRecordEdits(state, kind, name, recordId)
 }), (state, kind, name, recordId, query) => {
-  var _query$context4;
+  var _query$context4, _state$entities$recor35, _state$entities$recor36, _state$entities$recor37, _state$entities$recor38, _state$entities$recor39, _state$entities$recor40, _state$entities$recor41, _state$entities$recor42, _state$entities$recor43, _state$entities$recor44, _state$entities$recor45, _state$entities$recor46;
 
   const context = (_query$context4 = query === null || query === void 0 ? void 0 : query.context) !== null && _query$context4 !== void 0 ? _query$context4 : 'default';
-  return [state.entities.config, (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'queriedData', 'items', context, recordId]), (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'queriedData', 'itemIsComplete', context, recordId]), (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'edits', recordId])];
+  return [state.entities.config, (_state$entities$recor35 = state.entities.records) === null || _state$entities$recor35 === void 0 ? void 0 : (_state$entities$recor36 = _state$entities$recor35[kind]) === null || _state$entities$recor36 === void 0 ? void 0 : (_state$entities$recor37 = _state$entities$recor36[name]) === null || _state$entities$recor37 === void 0 ? void 0 : (_state$entities$recor38 = _state$entities$recor37.queriedData.items[context]) === null || _state$entities$recor38 === void 0 ? void 0 : _state$entities$recor38[recordId], (_state$entities$recor39 = state.entities.records) === null || _state$entities$recor39 === void 0 ? void 0 : (_state$entities$recor40 = _state$entities$recor39[kind]) === null || _state$entities$recor40 === void 0 ? void 0 : (_state$entities$recor41 = _state$entities$recor40[name]) === null || _state$entities$recor41 === void 0 ? void 0 : (_state$entities$recor42 = _state$entities$recor41.queriedData.itemIsComplete[context]) === null || _state$entities$recor42 === void 0 ? void 0 : _state$entities$recor42[recordId], (_state$entities$recor43 = state.entities.records) === null || _state$entities$recor43 === void 0 ? void 0 : (_state$entities$recor44 = _state$entities$recor43[kind]) === null || _state$entities$recor44 === void 0 ? void 0 : (_state$entities$recor45 = _state$entities$recor44[name]) === null || _state$entities$recor45 === void 0 ? void 0 : (_state$entities$recor46 = _state$entities$recor45.edits) === null || _state$entities$recor46 === void 0 ? void 0 : _state$entities$recor46[recordId]];
 });
 /**
  * Returns true if the specified entity record is autosaving, and false otherwise.
@@ -4826,10 +4845,12 @@ const getEditedEntityRecord = rememo((state, kind, name, recordId) => ({ ...getR
  */
 
 function isAutosavingEntityRecord(state, kind, name, recordId) {
+  var _state$entities$recor47, _state$entities$recor48, _state$entities$recor49, _state$entities$recor50, _state$entities$recor51;
+
   const {
     pending,
     isAutosave
-  } = (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'saving', recordId], {});
+  } = (_state$entities$recor47 = (_state$entities$recor48 = state.entities.records) === null || _state$entities$recor48 === void 0 ? void 0 : (_state$entities$recor49 = _state$entities$recor48[kind]) === null || _state$entities$recor49 === void 0 ? void 0 : (_state$entities$recor50 = _state$entities$recor49[name]) === null || _state$entities$recor50 === void 0 ? void 0 : (_state$entities$recor51 = _state$entities$recor50.saving) === null || _state$entities$recor51 === void 0 ? void 0 : _state$entities$recor51[recordId]) !== null && _state$entities$recor47 !== void 0 ? _state$entities$recor47 : {};
   return Boolean(pending && isAutosave);
 }
 /**
@@ -4844,7 +4865,9 @@ function isAutosavingEntityRecord(state, kind, name, recordId) {
  */
 
 function isSavingEntityRecord(state, kind, name, recordId) {
-  return (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'saving', recordId, 'pending'], false);
+  var _state$entities$recor52, _state$entities$recor53, _state$entities$recor54, _state$entities$recor55, _state$entities$recor56, _state$entities$recor57;
+
+  return (_state$entities$recor52 = (_state$entities$recor53 = state.entities.records) === null || _state$entities$recor53 === void 0 ? void 0 : (_state$entities$recor54 = _state$entities$recor53[kind]) === null || _state$entities$recor54 === void 0 ? void 0 : (_state$entities$recor55 = _state$entities$recor54[name]) === null || _state$entities$recor55 === void 0 ? void 0 : (_state$entities$recor56 = _state$entities$recor55.saving) === null || _state$entities$recor56 === void 0 ? void 0 : (_state$entities$recor57 = _state$entities$recor56[recordId]) === null || _state$entities$recor57 === void 0 ? void 0 : _state$entities$recor57.pending) !== null && _state$entities$recor52 !== void 0 ? _state$entities$recor52 : false;
 }
 /**
  * Returns true if the specified entity record is deleting, and false otherwise.
@@ -4858,7 +4881,9 @@ function isSavingEntityRecord(state, kind, name, recordId) {
  */
 
 function isDeletingEntityRecord(state, kind, name, recordId) {
-  return (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'deleting', recordId, 'pending'], false);
+  var _state$entities$recor58, _state$entities$recor59, _state$entities$recor60, _state$entities$recor61, _state$entities$recor62, _state$entities$recor63;
+
+  return (_state$entities$recor58 = (_state$entities$recor59 = state.entities.records) === null || _state$entities$recor59 === void 0 ? void 0 : (_state$entities$recor60 = _state$entities$recor59[kind]) === null || _state$entities$recor60 === void 0 ? void 0 : (_state$entities$recor61 = _state$entities$recor60[name]) === null || _state$entities$recor61 === void 0 ? void 0 : (_state$entities$recor62 = _state$entities$recor61.deleting) === null || _state$entities$recor62 === void 0 ? void 0 : (_state$entities$recor63 = _state$entities$recor62[recordId]) === null || _state$entities$recor63 === void 0 ? void 0 : _state$entities$recor63.pending) !== null && _state$entities$recor58 !== void 0 ? _state$entities$recor58 : false;
 }
 /**
  * Returns the specified entity record's last save error.
@@ -4872,7 +4897,9 @@ function isDeletingEntityRecord(state, kind, name, recordId) {
  */
 
 function getLastEntitySaveError(state, kind, name, recordId) {
-  return (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'saving', recordId, 'error']);
+  var _state$entities$recor64, _state$entities$recor65, _state$entities$recor66, _state$entities$recor67, _state$entities$recor68;
+
+  return (_state$entities$recor64 = state.entities.records) === null || _state$entities$recor64 === void 0 ? void 0 : (_state$entities$recor65 = _state$entities$recor64[kind]) === null || _state$entities$recor65 === void 0 ? void 0 : (_state$entities$recor66 = _state$entities$recor65[name]) === null || _state$entities$recor66 === void 0 ? void 0 : (_state$entities$recor67 = _state$entities$recor66.saving) === null || _state$entities$recor67 === void 0 ? void 0 : (_state$entities$recor68 = _state$entities$recor67[recordId]) === null || _state$entities$recor68 === void 0 ? void 0 : _state$entities$recor68.error;
 }
 /**
  * Returns the specified entity record's last delete error.
@@ -4886,7 +4913,9 @@ function getLastEntitySaveError(state, kind, name, recordId) {
  */
 
 function getLastEntityDeleteError(state, kind, name, recordId) {
-  return (0,external_lodash_namespaceObject.get)(state.entities.records, [kind, name, 'deleting', recordId, 'error']);
+  var _state$entities$recor69, _state$entities$recor70, _state$entities$recor71, _state$entities$recor72, _state$entities$recor73;
+
+  return (_state$entities$recor69 = state.entities.records) === null || _state$entities$recor69 === void 0 ? void 0 : (_state$entities$recor70 = _state$entities$recor69[kind]) === null || _state$entities$recor70 === void 0 ? void 0 : (_state$entities$recor71 = _state$entities$recor70[name]) === null || _state$entities$recor71 === void 0 ? void 0 : (_state$entities$recor72 = _state$entities$recor71.deleting) === null || _state$entities$recor72 === void 0 ? void 0 : (_state$entities$recor73 = _state$entities$recor72[recordId]) === null || _state$entities$recor73 === void 0 ? void 0 : _state$entities$recor73.error;
 }
 /**
  * Returns the current undo offset for the
@@ -5042,7 +5071,7 @@ function isPreviewEmbedFallback(state, url) {
 
 function canUser(state, action, resource, id) {
   const key = [action, resource, id].filter(Boolean).join('/');
-  return (0,external_lodash_namespaceObject.get)(state, ['userPermissions', key]);
+  return state.userPermissions[key];
 }
 /**
  * Returns whether the current user can edit the given entity.
