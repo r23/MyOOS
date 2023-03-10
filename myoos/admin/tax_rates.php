@@ -265,7 +265,9 @@ if (!empty($action)) {
       $contents[] = array('text' => '<br>' . TEXT_INFO_ZONE_NAME . '<br>' . oosGeoZonesPullDown('name="tax_zone_id" style="font-size:10px"'));
       $contents[] = array('text' => '<br>' . TEXT_INFO_TAX_RATE . '<br>' . oos_draw_input_field('tax_rate'));
       $contents[] = array('text' => '<br>' . TEXT_INFO_RATE_DESCRIPTION . '<br>' . oos_draw_input_field('tax_description'));
-      $contents[] = array('text' => '<br>' . TEXT_INFO_TAX_RATE_PRIORITY . '<br>' . oos_draw_input_field('tax_priority', $trInfo->tax_priority));
+	  if (isset($trInfo) && is_object($trInfo)) {
+		$contents[] = array('text' => '<br>' . TEXT_INFO_TAX_RATE_PRIORITY . '<br>' . oos_draw_input_field('tax_priority', $trInfo->tax_priority));
+      }
       $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_INSERT) . '&nbsp;<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
       break;
 
