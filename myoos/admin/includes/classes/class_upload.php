@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -424,7 +424,7 @@ class upload
 
     public function get_config_bytes($val)
     {
-        $val = trim($val);
+        $val = trim((string) $val);
         $last = strtolower($val[strlen($val)-1]);
         $val = (int)$val;
         switch ($last) {
@@ -625,7 +625,7 @@ class upload
         // Remove path information and dots around the filename, to prevent uploading
         // into different directories or replacing hidden system files.
         // Also remove control characters and spaces (\x00..\x20) around the filename:
-        $name = trim($this->basename(stripslashes($name)), ".\x00..\x20");
+        $name = ttrim((string) $this->basename(stripslashes($name)), ".\x00..\x20");
         // Replace dots in filenames to avoid security issues with servers
         // that interpret multiple file extensions, e.g. "example.php.png":
         $replacement = $this->options['replace_dots_in_filenames'];

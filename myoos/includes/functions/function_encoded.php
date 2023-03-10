@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Released under the GNU General Public License
    ----------------------------------------------------------------------
@@ -172,7 +172,7 @@ function oos_make_filename($sStr)
     $sStr = str_replace($special_chars, '', $sStr);
     $sStr = str_replace(['%20', '+'], '-', $sStr);
     $sStr = preg_replace('/[\r\n\t -]+/', '-', $sStr);
-    $sStr = trim($sStr, '.-_');
+    $sStr = trim((string) $sStr, '.-_');
     $sStr = strtolower($sStr);
 
     return $sStr;

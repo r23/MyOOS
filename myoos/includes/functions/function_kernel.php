@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -102,7 +102,7 @@ function oos_random_select($query, $limit = '')
 function oos_prepare_input($sStr)
 {
     if (is_string($sStr)) {
-        return trim(oos_sanitize_string(stripslashes($sStr)));
+        return trim((string) oos_sanitize_string(stripslashes($sStr)));
     } elseif (is_array($sStr)) {
         foreach ($sStr as $key => $value) {
             $sStr[$key] = oos_prepare_input($value);
@@ -118,7 +118,7 @@ function oos_sanitize_string($sStr)
 {
     $aPatterns = ['/ +/','/[<>]/'];
     $aReplace = [' ', '_'];
-    return preg_replace($aPatterns, $aReplace, trim($sStr));
+    return preg_replace($aPatterns, $aReplace, trim((string) $sStr));
 }
 
 
@@ -1379,7 +1379,7 @@ function oos_output_string($sStr, $aTranslate = null)
         $aTranslate = ['"' => '&quot;'];
     }
 
-    return strtr(trim($sStr), $aTranslate);
+    return strtr(trim((string) $sStr), $aTranslate);
 }
 
 
@@ -1723,7 +1723,7 @@ function oos_strip_suffix($filename)
  */
 function oos_strip_all($sStr)
 {
-    $sStr = trim($sStr);
+    $sStr = trim((string) $sStr);
     $sStr = strtolower($sStr);
 
     return preg_match("/[^[:alnum:]._-]/", "", $sStr);

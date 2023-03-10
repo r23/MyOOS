@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -318,7 +318,7 @@ function oos_output_string($sStr, $aTranslate = null)
         $aTranslate = array('"' => '&quot;');
     }
 
-    return strtr(trim($sStr), $aTranslate);
+    return strtr(trim((string) $sStr), $aTranslate);
 }
 
 
@@ -1045,7 +1045,7 @@ function oos_get_serialized_variable(&$serialization_data, $variable_name, $vari
 function oos_prepare_input($sStr)
 {
     if (is_string($sStr)) {
-        return trim(oos_sanitize_string(stripslashes($sStr)));
+        return trim((string) oos_sanitize_string(stripslashes($sStr)));
     } elseif (is_array($sStr)) {
         foreach ($sStr as $key => $value) {
             $sStr[$key] = oos_prepare_input($value);
@@ -1061,7 +1061,7 @@ function oos_sanitize_string($sStr)
 {
     $aPatterns = array('/ +/','/[<>]/');
     $aReplace = array(' ', '_');
-    return preg_replace($aPatterns, $aReplace, trim($sStr));
+    return preg_replace($aPatterns, $aReplace, trim((string) $sStr));
 }
 
 

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -64,7 +64,7 @@ function oos_get_subcategories(&$aSubcategories, $nParentId = 0)
   */
 function oos_parse_search_string($sSearch = '', &$objects)
 {
-    $sSearch = trim(strtolower($sSearch));
+    $sSearch = trim((string) strtolower($sSearch));
 
     // Break up $sSearch on whitespace; quoted string will be reconstructed later
     $pieces = preg_split('/[[:space:]]+/', $sSearch);
@@ -96,7 +96,7 @@ function oos_parse_search_string($sSearch = '', &$objects)
         // Check individual words
 
         if ((substr($pieces[$k], -1) != '"') && (substr($pieces[$k], 0, 1) != '"')) {
-            $objects[] = trim($pieces[$k]);
+            $objects[] = trim((string) $pieces[$k]);
 
             for ($j=0; $j<count($post_objects); $j++) {
                 $objects[] = $post_objects[$j];
@@ -110,14 +110,14 @@ function oos_parse_search_string($sSearch = '', &$objects)
             */
 
             // Add this word to the $tmpstring, starting the $tmpstring
-            $tmpstring = trim(preg_match('/"/', ' ', $pieces[$k]));
+            $tmpstring = trim((string) preg_match('/"/', ' ', $pieces[$k]));
 
             // Check for one possible exception to the rule. That there is a single quoted word.
             if (substr($pieces[$k], -1) == '"') {
                 // Turn the flag off for future iterations
                 $flag = 'off';
 
-                $objects[] = trim($pieces[$k]);
+                $objects[] = trim((string) $pieces[$k]);
 
                 for ($j=0; $j<count($post_objects); $j++) {
                     $objects[] = $post_objects[$j];
@@ -162,11 +162,11 @@ function oos_parse_search_string($sSearch = '', &$objects)
                                 kill the $tmpstring, turn the $flag "off", and return.
                     */
                     $sTmp = preg_replace('/"/', ' ', $pieces[$k]);
-                    $tmpstring .= ' ' . trim($sTmp);
+                    $tmpstring .= ' ' . trim((string) $sTmp);
 
 
                     // Push the $tmpstring onto the array of stuff to search for
-                    $objects[] = trim($tmpstring);
+                    $objects[] = trim((string) $tmpstring);
 
                     for ($j=0; $j<count($post_objects); $j++) {
                         $objects[] = $post_objects[$j];

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -225,7 +225,7 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
 function oos_db_prepare_input($sStr)
 {
     if (is_string($sStr)) {
-        return trim(stripslashes($sStr));
+        return trim((string) stripslashes($sStr));
     } elseif (is_array($sStr)) {
         reset($sStr);
         foreach ($sStr as $key => $value) {

@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
   ----------------------------------------------------------------------
    Released under the GNU General Public License
    ----------------------------------------------------------------------
@@ -76,7 +76,7 @@ function load_data($url)
   */
 function oos_validate_is_vatid($sVatno)
 {
-    $sVatno = trim($sVatno);
+    $sVatno = trim((string) $sVatno);
     $sVatno = strtoupper($sVatno);
 
     $aRemove = [' ', '-', '/', '.', ':', ',', ';', '#'];

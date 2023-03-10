@@ -6,7 +6,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -94,7 +94,7 @@ function smarty_function_html_href_link($params, &$smarty)
         $parameters .= $oos_get;
     }
 
-    $content = trim($content);
+    $content = trim((string) $content);
 
     $link = OOS_HTTPS_SERVER . OOS_SHOP;
 

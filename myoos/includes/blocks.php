@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -46,7 +46,7 @@ $block_sql .= " ORDER BY b.block_side, b.block_sort_order ASC";
 $block_result = $dbconn->GetAll($block_sql);
 foreach ($block_result as $block) {
     $block_heading = $block['block_name'];
-    $block_file = trim($block['block_file']);
+    $block_file = trim((string) $block['block_file']);
     $block_side = $block['block_side'];
 
     if (empty($block_file)) {
@@ -61,7 +61,7 @@ foreach ($block_result as $block) {
         if ((USE_CACHE == 'true') && (!isset($_SESSION))) {
             $smarty->setCaching(Smarty::CACHING_LIFETIME_CURRENT);
         }
-        $bid = trim('oos_' . $block['block_cache'] . '_cache_id');
+        $bid = trim((string) 'oos_' . $block['block_cache'] . '_cache_id');
         if (!$smarty->isCached($block_tpl, ${$bid})) {
             include_once MYOOS_INCLUDE_PATH . '/includes/blocks/block_' . $block_file . '.php';
         }

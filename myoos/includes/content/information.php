@@ -31,7 +31,7 @@ $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 $nInformationsID = isset($_GET['information_id']) ? $_GET['information_id']+0 : 1;
-$sGroup = trim($aUser['text']);
+$sGroup = trim((string) $aUser['text']);
 $nContentCacheID = $sTheme . '|info|' . $sGroup . '|information|' . $nInformationsID . '|' . $sLanguage;
 
 $sCanonical = oos_href_link($aContents['information'], 'information_id=' . intval($nInformationsID), false, true);

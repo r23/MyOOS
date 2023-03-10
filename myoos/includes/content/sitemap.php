@@ -32,7 +32,7 @@ $aTemplate['page'] = $sTheme . '/page/sitemap.html';
 $nPageType = OOS_PAGE_TYPE_MAINPAGE;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-$sGroup = trim($aUser['text']);
+$sGroup = trim((string) $aUser['text']);
 $nContentCacheID = $sTheme . '|info|' . $sGroup . '|sitemap|' . $sLanguage;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/system.php';

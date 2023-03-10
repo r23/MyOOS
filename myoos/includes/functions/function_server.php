@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -187,7 +187,7 @@ function oos_server_get_base_url()
     $sProtocol = oos_server_get_protocol();
     $sPath = oos_server_get_base_uri();
 
-    $sBaseurl = trim($sProtocol . $sServer . $sPath . '/');
+    $sBaseurl = trim((string) $sProtocol . $sServer . $sPath . '/');
     return $sBaseurl;
 }
 
@@ -292,7 +292,7 @@ function oos_max_upload_size()
  */
 function oos_convert_hr_to_bytes($value)
 {
-    $value = strtolower(trim($value));
+    $value = strtolower(trim((string) $value));
     $bytes = (int) $value;
 
     if (false !== strpos($value, 'g')) {

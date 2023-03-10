@@ -55,7 +55,7 @@ $nPageType = OOS_PAGE_TYPE_CATALOG;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
 $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
-$sGroup = trim($aUser['text']);
+$sGroup = trim((string) $aUser['text']);
 $nContentCacheID = $sTheme . '|products|reviews|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 
 $sCanonical = oos_href_link($aContents['reviews'], 'page=' . $nPage, false, true);

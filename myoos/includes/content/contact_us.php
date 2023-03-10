@@ -38,7 +38,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'send')) {
 
     $email_address = strtolower($email_address);
 
-    if (is_email(trim($email_address))) {
+    if (is_email(trim((string) $email_address))) {
         if (empty($subject)) {
             $subject = $aLang['email_subject'];
         }
