@@ -807,9 +807,9 @@ $result = $db->Execute("INSERT INTO " . $prefix_table . "tax_class (tax_class_id
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "tax_class " . UPDATED .'</font>';
 
 
-$result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_priority, tax_rate, tax_description, last_modified, date_added) VALUES (1, 1, 1, 1, '19', 'enthaltene MwSt. 19%', NULL, " . $db->DBTimeStamp($today) . ")") or die("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_priority, tax_rate, tax_description, last_modified, date_added) VALUES (2, 1, 2, 1, '7', 'enthaltene MwSt. 7%', NULL, " . $db->DBTimeStamp($today) . ")") or die("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");
-$result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_priority, tax_rate, tax_description, last_modified, date_added) VALUES (3, 1, 3, 1, '0', 'Steuerfrei', NULL, " . $db->DBTimeStamp($today) . ")") or die("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_rate, tax_description, last_modified, date_added) VALUES (1, 1, 1, '19', 'enthaltene MwSt. 19%', NULL, " . $db->DBTimeStamp($today) . ")") or die("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_rate, tax_description, last_modified, date_added) VALUES (2, 1, 1, '7', 'enthaltene MwSt. 7%', NULL, " . $db->DBTimeStamp($today) . ")") or die("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");
+$result = $db->Execute("INSERT INTO " . $prefix_table . "tax_rates (tax_rates_id, tax_zone_id, tax_class_id, tax_rate, tax_description, last_modified, date_added) VALUES (3, 1, 1, '0', 'Steuerfrei', NULL, " . $db->DBTimeStamp($today) . ")") or die("<b>".NOTUPDATED . $prefix_table . "tax_rates</b>");
 
 echo '<br /><img src="images/yes.gif" alt="" border="0" align="absmiddle"> <font class="oos-title">' . $prefix_table . "tax_rates " . UPDATED .'</font>';
 

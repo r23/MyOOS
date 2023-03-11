@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -1354,7 +1354,6 @@ $flds = "
   tax_rates_id I NOTNULL AUTO PRIMARY,
   tax_zone_id I NOTNULL,
   tax_class_id I NOTNULL,
-  tax_priority I2 DEFAULT 1,
   tax_rate N '7.4' NOTNULL,
   tax_description C(255) NOTNULL,
   last_modified T,

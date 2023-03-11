@@ -320,7 +320,7 @@ if ($aUser['price_with_tax'] == 1) {
 }
 
 if (($aUser['price_with_tax'] == 1) && ((isset($_GET['pfrom']) && oos_is_not_null($_GET['pfrom'])) || (isset($_GET['pto']) && oos_is_not_null($_GET['pto'])))) {
-    $where_str .= " GROUP BY p.products_id, tr.tax_priority";
+    $where_str .= " GROUP BY p.products_id";
 }
 
 if ((!isset($_GET['sort'])) || (!preg_match('/[1-8][ad]/', $_GET['sort'])) || (substr($_GET['sort'], 0, 1) > count($column_list))) {
