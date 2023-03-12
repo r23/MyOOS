@@ -6,7 +6,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -286,6 +286,7 @@ define('IMAGE_NEW_FOLDER', 'Neues Verzeichnis');
 define('IMAGE_NEW_LANGUAGE', 'Neue Sprache anlegen');
 define('IMAGE_NEW_NEWSLETTER', 'Neues Rundschreiben');
 define('IMAGE_NEW_PRODUCT', 'Neuen Artikel aufnehmen');
+define('IMAGE_NEW_PRODUCT_STATUS', 'Neuen Produktstatus anlegen');
 define('IMAGE_NEW_TAB', 'Neuen Tab aufnehmen');
 define('IMAGE_NEW_TAX_CLASS', 'Neue Steuerklasse erstellen');
 define('IMAGE_NEW_TAX_RATE', 'Neuen Steuersatz anlegen');

@@ -4,7 +4,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -116,6 +116,17 @@ if (!empty($action)) {
 
         oos_redirect_admin(oos_href_link_admin($aContents['products_status'], 'page=' . $nPage));
         break;
+		
+    case 'delete':
+        $psID = oos_db_prepare_input($_GET['psID']);
+
+        $remove_status = true;
+        if ($psID == DEFAULT_PRODUTS_STATUS_ID) {
+            $remove_status = false;
+            $messageStack->add(ERROR_REMOVE_DEFAULT_ORDER_STATUS, 'error');
+        } 
+        break;	
+		
     }
 }
   require 'includes/header.php';
@@ -215,6 +226,16 @@ if (!empty($action)) {
                     <td class="smallText" valign="top"><?php echo $products_status_split->display_count($products_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, $nPage, TEXT_DISPLAY_NUMBER_OF_PRODUCTS_STATUS); ?></td>
                     <td class="smallText" align="right"><?php echo $products_status_split->display_links($products_status_result_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $nPage); ?></td>
                   </tr>
+<?php
+  if (empty($action)) {
+      ?>
+                  <tr>
+                    <td colspan="2" align="right"><?php echo '<a href="' . oos_href_link_admin($aContents['products_status'], 'page=' . $nPage . '&action=new') . '">' . oos_button(IMAGE_NEW_PRODUCT_STATUS) . '</a>'; ?></td>
+                  </tr>
+<?php
+  }
+?>				  
+				  
                 </table></td>
               </tr>
             </table></td>
