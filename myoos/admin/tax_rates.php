@@ -104,6 +104,8 @@ if (!empty($action)) {
         $tax_rate = oos_db_prepare_input($_POST['tax_rate']);
         $tax_description = oos_db_prepare_input($_POST['tax_description']);
 
+		$tax_rate = str_replace(',', '.', $tax_rate);
+
         $tax_ratestable = $oostable['tax_rates'];
         $dbconn->Execute("INSERT INTO $tax_ratestable (tax_zone_id, tax_class_id, tax_rate, tax_description, date_added) VALUES ('" . oos_db_input($tax_zone_id) . "', '" . oos_db_input($tax_class_id) . "', '" . oos_db_input($tax_rate) . "', '" . oos_db_input($tax_description) . "', now())");
 
@@ -117,6 +119,8 @@ if (!empty($action)) {
         $tax_class_id = oos_db_prepare_input($_POST['tax_class_id']);
         $tax_rate = oos_db_prepare_input($_POST['tax_rate']);
         $tax_description = oos_db_prepare_input($_POST['tax_description']);
+
+		$tax_rate = str_replace(',', '.', $tax_rate);
 
         $tax_ratestable = $oostable['tax_rates'];
         $dbconn->Execute("UPDATE $tax_ratestable SET tax_rates_id = '" . oos_db_input($tax_rates_id) . "', tax_zone_id = '" . oos_db_input($tax_zone_id) . "', tax_class_id = '" . oos_db_input($tax_class_id) . "', tax_rate = '" . oos_db_input($tax_rate) . "', tax_description = '" . oos_db_input($tax_description) . "', last_modified = now() WHERE tax_rates_id = '" . oos_db_input($tax_rates_id) . "'");
@@ -217,7 +221,7 @@ if (!empty($action)) {
       } ?>
 				<td><?php echo $rates['geo_zone_name']; ?></td>
                 <td><?php echo $rates['tax_class_title']; ?></td>
-                <td><?php echo oos_display_tax_value($rates['tax_rate']); ?>%</td>
+                <td><?php echo oos_display_tax_value($rates['tax_rate']); ?> %</td>
                 <td class="text-right"><?php if (isset($trInfo) && is_object($trInfo) && ($rates['tax_rates_id'] == $trInfo->tax_rates_id)) {
           echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
       } else {
