@@ -394,8 +394,8 @@ define('ENTRY_TAX_YES', 'incl. MwSt.');
 define('ENTRY_TAX_NO', 'excl. MwSt.');
 
 
-define('ENTRY_YES', 'ja');
-define('ENTRY_NO', 'nein');
+define('ENTRY_YES', 'Ja');
+define('ENTRY_NO', 'Nein');
 
 define('ENTRY_ON', 'An');
 define('ENTRY_OFF', 'Aus');

@@ -109,7 +109,7 @@ if (!empty($action)) {
         $tax_ratestable = $oostable['tax_rates'];
         $dbconn->Execute("INSERT INTO $tax_ratestable (tax_zone_id, tax_class_id, tax_rate, tax_description, date_added) VALUES ('" . oos_db_input($tax_zone_id) . "', '" . oos_db_input($tax_class_id) . "', '" . oos_db_input($tax_rate) . "', '" . oos_db_input($tax_description) . "', now())");
 
-        oos_redirect_admin(oos_href_link_admin($aContents['tax_rates']));
+        oos_redirect_admin(oos_href_link_admin($aContents['tax_rates'], 'page=' . $nPage));
         break;
 
       case 'save':
@@ -206,7 +206,7 @@ if (!empty($action)) {
                            $geo_zonestable z
                        ON r.tax_zone_id = z.geo_zone_id
                       WHERE r.tax_class_id = tc.tax_class_id
-					  ORDER BY z.geo_zone_name";				  				  
+					  ORDER BY z.geo_zone_name, tc.tax_class_title";				  				  
   $rates_split = new splitPageResults($nPage, MAX_DISPLAY_SEARCH_RESULTS, $rates_result_raw, $rates_result_numrows);
   $rates_result = $dbconn->Execute($rates_result_raw);
   while ($rates = $rates_result->fields) {
