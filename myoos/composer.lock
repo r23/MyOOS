@@ -4273,12 +4273,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "0aad20933686be0e30c54a0e1adf36b3b6dc7173"
+                "reference": "ad434708152844968e15adf8eb3f4a2d7066242e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/0aad20933686be0e30c54a0e1adf36b3b6dc7173",
-                "reference": "0aad20933686be0e30c54a0e1adf36b3b6dc7173",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/ad434708152844968e15adf8eb3f4a2d7066242e",
+                "reference": "ad434708152844968e15adf8eb3f4a2d7066242e",
                 "shasum": ""
             },
             "conflict": {
@@ -4490,6 +4490,7 @@
                 "kimai/kimai": "<1.1",
                 "kitodo/presentation": "<3.1.2",
                 "klaviyo/magento2-extension": ">=1,<3",
+                "knplabs/knp-snappy": "<=1.4.1",
                 "krayin/laravel-crm": "<1.2.2",
                 "kreait/firebase-php": ">=3.2,<3.8.1",
                 "la-haute-societe/tcpdf": "<6.2.22",
@@ -4858,7 +4859,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-15T23:04:16+00:00"
+            "time": "2023-03-17T19:03:58+00:00"
         }
     ],
     "aliases": [],
