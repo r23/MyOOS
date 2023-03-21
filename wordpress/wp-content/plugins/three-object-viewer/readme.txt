@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 6.1.1
 Requires PHP: 7.2
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -50,6 +50,9 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.3.2 =
+Fixes: Media Library logic in the settings page was using the incorrect action. h/t emotionull, thanks for the report!
+
 = 1.3.1 =
 Fixes: downgrade r3f to compatible version
 

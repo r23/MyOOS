@@ -1,6 +1,6 @@
 <?php
 //Register assets for 3OV Settings
-add_action('init', function () {
+add_action('admin_enqueue_scripts', function () {
     wp_enqueue_media();
     $handle = 'three-object-viewer-settings';
     if( file_exists(dirname(__FILE__, 3). "/build/admin-page-$handle.asset.php" ) ){
