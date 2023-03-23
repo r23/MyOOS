@@ -2017,7 +2017,7 @@ function WelcomeGuide(_ref) {
   }, (0,external_wp_i18n_namespaceObject.__)('Get the Classic Widgets plugin.'))), (0,external_wp_element_namespaceObject.createElement)("p", {
     className: "customize-widgets-welcome-guide__more-info"
   }, (0,external_wp_i18n_namespaceObject.__)('New to the block editor?'), (0,external_wp_element_namespaceObject.createElement)("br", null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
-    href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/support/article/wordpress-editor/')
+    href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/documentation/article/wordpress-block-editor/')
   }, (0,external_wp_i18n_namespaceObject.__)("Here's a detailed guide."))));
 }
 

@@ -3802,9 +3802,35 @@ function useCopyToClipboard(text, onSuccess) {
 function useFocusOnMount() {
   let focusOnMount = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'firstElement';
   const focusOnMountRef = (0,external_wp_element_namespaceObject.useRef)(focusOnMount);
+  /**
+   * Sets focus on a DOM element.
+   *
+   * @param {HTMLElement} target The DOM element to set focus to.
+   * @return {void}
+   */
+
+  const setFocus = target => {
+    target.focus({
+      // When focusing newly mounted dialogs,
+      // the position of the popover is often not right on the first render
+      // This prevents the layout shifts when focusing the dialogs.
+      preventScroll: true
+    });
+  };
+  /** @type {import('react').MutableRefObject<ReturnType<setTimeout> | undefined>} */
+
+
+  const timerId = (0,external_wp_element_namespaceObject.useRef)();
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     focusOnMountRef.current = focusOnMount;
   }, [focusOnMount]);
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    return () => {
+      if (timerId.current) {
+        clearTimeout(timerId.current);
+      }
+    };
+  }, []);
   return (0,external_wp_element_namespaceObject.useCallback)(node => {
     var _node$ownerDocument$a, _node$ownerDocument;
 
@@ -3816,24 +3842,20 @@ function useFocusOnMount() {
       return;
     }
 
-    let target = node;
-
     if (focusOnMountRef.current === 'firstElement') {
-      const firstTabbable = external_wp_dom_namespaceObject.focus.tabbable.find(node)[0];
+      timerId.current = setTimeout(() => {
+        const firstTabbable = external_wp_dom_namespaceObject.focus.tabbable.find(node)[0];
 
-      if (firstTabbable) {
-        target =
-        /** @type {HTMLElement} */
-        firstTabbable;
-      }
+        if (firstTabbable) {
+          setFocus(
+          /** @type {HTMLElement} */
+          firstTabbable);
+        }
+      }, 0);
+      return;
     }
 
-    target.focus({
-      // When focusing newly mounted dialogs,
-      // the position of the popover is often not right on the first render
-      // This prevents the layout shifts when focusing the dialogs.
-      preventScroll: true
-    });
+    setFocus(node);
   }, []);
 }
 

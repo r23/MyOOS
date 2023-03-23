@@ -6164,6 +6164,11 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
     requiresOptOut: true,
     useEngine: true
   },
+  columnCount: {
+    value: ['typography', 'textColumns'],
+    support: ['typography', 'textColumns'],
+    useEngine: true
+  },
   filter: {
     value: ['filter', 'duotone'],
     support: ['color', '__experimentalDuotone']
@@ -7659,10 +7664,6 @@ const isPossibleTransformForSource = (transform, direction, blocks) => {
 
 
   if (!maybeCheckTransformIsMatch(transform, blocks)) {
-    return false;
-  }
-
-  if (transform.usingMobileTransformations && isWildcardBlockTransform(transform) && !isContainerGroupBlock(sourceBlock.name)) {
     return false;
   }
 
@@ -9702,6 +9703,11 @@ function filterElementBlockSupports(blockSupports, name, element) {
 
 
     if (support === 'letterSpacing' && !name && !['heading', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(element)) {
+      return false;
+    } // Text columns is only available for blocks.
+
+
+    if (support === 'textColumns' && !name) {
       return false;
     }
 
@@ -13163,7 +13169,10 @@ function applyBlockDeprecatedVersions(block, rawBlock, blockType) {
       isEligible = stubFalse
     } = deprecatedDefinitions[i];
 
-    if (block.isValid && !isEligible(parsedAttributes, block.innerBlocks)) {
+    if (block.isValid && !isEligible(parsedAttributes, block.innerBlocks, {
+      blockNode: rawBlock,
+      block
+    })) {
       continue;
     } // Block type properties which could impact either serialization or
     // parsing are not considered in the deprecated block type by default,

@@ -273,7 +273,6 @@ function InlineUI(_ref) {
   const [width, setWidth] = (0,external_wp_element_namespaceObject.useState)(style === null || style === void 0 ? void 0 : style.replace(/\D/g, ''));
   const popoverAnchor = (0,external_wp_richText_namespaceObject.useAnchor)({
     editableContentElement: contentRef.current,
-    value,
     settings: image_image
   });
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
@@ -945,7 +944,6 @@ function InlineLinkUI(_ref) {
 
   const popoverAnchor = (0,external_wp_richText_namespaceObject.useAnchor)({
     editableContentElement: contentRef.current,
-    value,
     settings: build_module_link_link
   }); // Generate a string based key that is unique to this anchor reference.
   // This is used to force re-mount the LinkControl component to avoid
@@ -1486,7 +1484,6 @@ function InlineColorUI(_ref2) {
    */
   const popoverAnchor = (0,external_wp_blockEditor_namespaceObject.useCachedTruthy)((0,external_wp_richText_namespaceObject.useAnchor)({
     editableContentElement: contentRef.current,
-    value,
     settings: text_color_textColor
   }));
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {

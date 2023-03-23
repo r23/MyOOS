@@ -1828,9 +1828,12 @@ function registerLegacyWidgetBlock() {
 }
 /**
  * Registers the Widget Group block.
+ *
+ * @param {Object} supports Block support settings.
  */
 
 function registerWidgetGroupBlock() {
+  let supports = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   const {
     metadata,
     settings,
@@ -1839,7 +1842,11 @@ function registerWidgetGroupBlock() {
   (0,external_wp_blocks_namespaceObject.registerBlockType)({
     name,
     ...metadata
-  }, settings);
+  }, { ...settings,
+    supports: { ...settings.supports,
+      ...supports
+    }
+  });
 }
 
 

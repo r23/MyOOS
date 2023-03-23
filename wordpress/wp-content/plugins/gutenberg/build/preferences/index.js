@@ -248,13 +248,13 @@ function setDefaults(scope, defaults) {
 }
 /** @typedef {() => Promise<Object>} WPPreferencesPersistenceLayerGet */
 
-/** @typedef {(*) => void} WPPreferencesPersistenceLayerSet */
+/** @typedef {(Object) => void} WPPreferencesPersistenceLayerSet */
 
 /**
  * @typedef WPPreferencesPersistenceLayer
  *
  * @property {WPPreferencesPersistenceLayerGet} get An async function that gets data from the persistence layer.
- * @property {WPPreferencesPersistenceLayerSet} set A  function that sets data in the persistence layer.
+ * @property {WPPreferencesPersistenceLayerSet} set A function that sets data in the persistence layer.
  */
 
 /**

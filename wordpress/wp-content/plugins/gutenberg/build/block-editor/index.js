@@ -3502,6 +3502,7 @@ __webpack_require__.d(selectors_namespaceObject, {
   "getTemplate": function() { return getTemplate; },
   "getTemplateLock": function() { return getTemplateLock; },
   "hasBlockMovingClientId": function() { return selectors_hasBlockMovingClientId; },
+  "hasDraggedInnerBlock": function() { return hasDraggedInnerBlock; },
   "hasInserterItems": function() { return hasInserterItems; },
   "hasMultiSelection": function() { return hasMultiSelection; },
   "hasSelectedBlock": function() { return hasSelectedBlock; },
@@ -3614,13 +3615,16 @@ __webpack_require__.d(actions_namespaceObject, {
 var global_styles_namespaceObject = {};
 __webpack_require__.r(global_styles_namespaceObject);
 __webpack_require__.d(global_styles_namespaceObject, {
+  "BorderPanel": function() { return BorderPanel; },
   "DimensionsPanel": function() { return DimensionsPanel; },
   "GlobalStylesContext": function() { return GlobalStylesContext; },
   "TypographyPanel": function() { return TypographyPanel; },
+  "useColorsPerOrigin": function() { return useColorsPerOrigin; },
   "useGlobalSetting": function() { return useGlobalSetting; },
   "useGlobalStyle": function() { return useGlobalStyle; },
   "useGlobalStylesOutput": function() { return useGlobalStylesOutput; },
   "useGlobalStylesReset": function() { return useGlobalStylesReset; },
+  "useHasBorderPanel": function() { return useHasBorderPanel; },
   "useHasDimensionsPanel": function() { return useHasDimensionsPanel; },
   "useHasTypographyPanel": function() { return useHasTypographyPanel; },
   "useSettingsForBlockElement": function() { return useSettingsForBlockElement; }
@@ -7391,12 +7395,26 @@ function isBlockSelected(state, clientId) {
  * @param {string}  clientId Block client ID.
  * @param {boolean} deep     Perform a deep check.
  *
- * @return {boolean} Whether the block as an inner block selected
+ * @return {boolean} Whether the block has an inner block selected
  */
 
 function hasSelectedInnerBlock(state, clientId) {
   let deep = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
   return getBlockOrder(state, clientId).some(innerClientId => isBlockSelected(state, innerClientId) || isBlockMultiSelected(state, innerClientId) || deep && hasSelectedInnerBlock(state, innerClientId, deep));
+}
+/**
+ * Returns true if one of the block's inner blocks is dragged.
+ *
+ * @param {Object}  state    Editor state.
+ * @param {string}  clientId Block client ID.
+ * @param {boolean} deep     Perform a deep check.
+ *
+ * @return {boolean} Whether the block has an inner block dragged
+ */
+
+function hasDraggedInnerBlock(state, clientId) {
+  let deep = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+  return getBlockOrder(state, clientId).some(innerClientId => isBlockBeingDragged(state, innerClientId) || deep && hasDraggedInnerBlock(state, innerClientId, deep));
 }
 /**
  * Returns true if the block corresponding to the specified client ID is
@@ -8883,14 +8901,14 @@ function __unstableHasActiveBlockOverlayActive(state, clientId) {
   return shouldEnableIfUnselected && !isBlockSelected(state, clientId) && !hasSelectedInnerBlock(state, clientId, true);
 }
 function __unstableIsWithinBlockOverlay(state, clientId) {
-  let parent = state.blocks.parents[clientId];
+  let parent = state.blocks.parents.get(clientId);
 
   while (!!parent) {
     if (__unstableHasActiveBlockOverlayActive(state, parent)) {
       return true;
     }
 
-    parent = state.blocks.parents[parent];
+    parent = state.blocks.parents.get(parent);
   }
 
   return false;
@@ -9241,12 +9259,12 @@ function selectBlock(clientId) {
  * clientId (or optionally, its first parent from bottom to top)
  * should be selected.
  *
- * @param {string}  clientId      Block client ID.
- * @param {boolean} orFirstParent If true, select the first parent if there is no previous block.
+ * @param {string}  clientId         Block client ID.
+ * @param {boolean} fallbackToParent If true, select the first parent if there is no previous block.
  */
 
 const selectPreviousBlock = function (clientId) {
-  let orFirstParent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  let fallbackToParent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
   return _ref4 => {
     let {
       select,
@@ -9256,7 +9274,7 @@ const selectPreviousBlock = function (clientId) {
 
     if (previousBlockClientId) {
       dispatch.selectBlock(previousBlockClientId, -1);
-    } else if (orFirstParent) {
+    } else if (fallbackToParent) {
       const firstParentClientId = select.getBlockRootClientId(clientId);
 
       if (firstParentClientId) {
@@ -10060,8 +10078,11 @@ const mergeBlocks = (firstBlockClientId, secondBlockClientId) => _ref16 => {
  * the set of specified client IDs are to be removed.
  *
  * @param {string|string[]} clientIds      Client IDs of blocks to remove.
- * @param {boolean}         selectPrevious True if the previous block should be
- *                                         selected when a block is removed.
+ * @param {boolean}         selectPrevious True if the previous block
+ *                                         or the immediate parent
+ *                                         (if no previous block exists)
+ *                                         should be selected
+ *                                         when a block is removed.
  */
 
 const removeBlocks = function (clientIds) {
@@ -10085,8 +10106,7 @@ const removeBlocks = function (clientIds) {
     }
 
     if (selectPrevious) {
-      const shouldSelectParent = true;
-      dispatch.selectPreviousBlock(clientIds[0], shouldSelectParent);
+      dispatch.selectPreviousBlock(clientIds[0], selectPrevious);
     }
 
     dispatch({
@@ -12427,6 +12447,7 @@ const GlobalStylesContext = (0,external_wp_element_namespaceObject.createContext
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -12438,7 +12459,7 @@ const EMPTY_CONFIG = {
   settings: {},
   styles: {}
 };
-const VALID_SETTINGS = ['appearanceTools', 'useRootPaddingAwareAlignments', 'border.color', 'border.radius', 'border.style', 'border.width', 'shadow.presets', 'shadow.defaultPresets', 'color.background', 'color.custom', 'color.customDuotone', 'color.customGradient', 'color.defaultDuotone', 'color.defaultGradients', 'color.defaultPalette', 'color.duotone', 'color.gradients', 'color.link', 'color.palette', 'color.text', 'custom', 'dimensions.minHeight', 'layout.contentSize', 'layout.definitions', 'layout.wideSize', 'position.fixed', 'position.sticky', 'spacing.customSpacingSize', 'spacing.spacingSizes', 'spacing.spacingScale', 'spacing.blockGap', 'spacing.margin', 'spacing.padding', 'spacing.units', 'typography.fluid', 'typography.customFontSize', 'typography.dropCap', 'typography.fontFamilies', 'typography.fontSizes', 'typography.fontStyle', 'typography.fontWeight', 'typography.letterSpacing', 'typography.lineHeight', 'typography.textDecoration', 'typography.textTransform'];
+const VALID_SETTINGS = ['appearanceTools', 'useRootPaddingAwareAlignments', 'border.color', 'border.radius', 'border.style', 'border.width', 'shadow.presets', 'shadow.defaultPresets', 'color.background', 'color.custom', 'color.customDuotone', 'color.customGradient', 'color.defaultDuotone', 'color.defaultGradients', 'color.defaultPalette', 'color.duotone', 'color.gradients', 'color.link', 'color.palette', 'color.text', 'custom', 'dimensions.minHeight', 'layout.contentSize', 'layout.definitions', 'layout.wideSize', 'position.fixed', 'position.sticky', 'spacing.customSpacingSize', 'spacing.spacingSizes', 'spacing.spacingScale', 'spacing.blockGap', 'spacing.margin', 'spacing.padding', 'spacing.units', 'typography.fluid', 'typography.customFontSize', 'typography.dropCap', 'typography.fontFamilies', 'typography.fontSizes', 'typography.fontStyle', 'typography.fontWeight', 'typography.letterSpacing', 'typography.lineHeight', 'typography.textColumns', 'typography.textDecoration', 'typography.textTransform'];
 const useGlobalStylesReset = () => {
   const {
     user: config,
@@ -12522,7 +12543,7 @@ function useGlobalStyle(path, blockName) {
 
   switch (source) {
     case 'all':
-      rawResult = // The stlyes.css path is allowed to be empty, so don't revert to base if undefined.
+      rawResult = // The styles.css path is allowed to be empty, so don't revert to base if undefined.
       finalPath === 'styles.css' ? (0,external_lodash_namespaceObject.get)(userConfig, finalPath) : (0,external_lodash_namespaceObject.get)(mergedConfig, finalPath);
       result = shouldDecodeEncode ? getValueFromVariable(mergedConfig, blockName, rawResult) : rawResult;
       break;
@@ -12588,7 +12609,16 @@ function useSettingsForBlockElement(parentSettings, blockName, element) {
           [key]: false
         };
       }
-    });
+    }); // The column-count style is named text column to reduce confusion with
+    // the columns block and manage expectations from the support.
+    // See: https://github.com/WordPress/gutenberg/pull/33587
+
+    if (!supportedStyles.includes('columnCount')) {
+      updatedSettings.typography = { ...updatedSettings.typography,
+        textColumns: false
+      };
+    }
+
     ['contentSize', 'wideSize'].forEach(key => {
       if (!supportedStyles.includes(key)) {
         updatedSettings.layout = { ...updatedSettings.layout,
@@ -12624,8 +12654,49 @@ function useSettingsForBlockElement(parentSettings, blockName, element) {
       };
     }
 
+    ['radius', 'color', 'style', 'width'].forEach(key => {
+      if (!supportedStyles.includes('border' + key.charAt(0).toUpperCase() + key.slice(1))) {
+        updatedSettings.border = { ...updatedSettings.border,
+          [key]: false
+        };
+      }
+    });
     return updatedSettings;
   }, [parentSettings, supportedStyles, supports]);
+}
+function useColorsPerOrigin(settings) {
+  var _settings$color, _settings$color$palet, _settings$color2, _settings$color2$pale, _settings$color3, _settings$color3$pale, _settings$color4;
+
+  const customColors = settings === null || settings === void 0 ? void 0 : (_settings$color = settings.color) === null || _settings$color === void 0 ? void 0 : (_settings$color$palet = _settings$color.palette) === null || _settings$color$palet === void 0 ? void 0 : _settings$color$palet.custom;
+  const themeColors = settings === null || settings === void 0 ? void 0 : (_settings$color2 = settings.color) === null || _settings$color2 === void 0 ? void 0 : (_settings$color2$pale = _settings$color2.palette) === null || _settings$color2$pale === void 0 ? void 0 : _settings$color2$pale.theme;
+  const defaultColors = settings === null || settings === void 0 ? void 0 : (_settings$color3 = settings.color) === null || _settings$color3 === void 0 ? void 0 : (_settings$color3$pale = _settings$color3.palette) === null || _settings$color3$pale === void 0 ? void 0 : _settings$color3$pale.default;
+  const shouldDisplayDefaultColors = settings === null || settings === void 0 ? void 0 : (_settings$color4 = settings.color) === null || _settings$color4 === void 0 ? void 0 : _settings$color4.defaultPalette;
+  return (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const result = [];
+
+    if (themeColors && themeColors.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject._x)('Theme', 'Indicates this palette comes from the theme.'),
+        colors: themeColors
+      });
+    }
+
+    if (shouldDisplayDefaultColors && defaultColors && defaultColors.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject._x)('Default', 'Indicates this palette comes from WordPress.'),
+        colors: defaultColors
+      });
+    }
+
+    if (customColors && customColors.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject._x)('Custom', 'Indicates this palette is created by the user.'),
+        colors: customColors
+      });
+    }
+
+    return result;
+  }, [customColors, themeColors, defaultColors, shouldDisplayDefaultColors]);
 }
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/utils.js
@@ -12821,6 +12892,7 @@ function useBlockSettings(name, parentLayout) {
   const fontStyle = use_setting_useSetting('typography.fontStyle');
   const fontWeight = use_setting_useSetting('typography.fontWeight');
   const lineHeight = use_setting_useSetting('typography.lineHeight');
+  const textColumns = use_setting_useSetting('typography.textColumns');
   const textDecoration = use_setting_useSetting('typography.textDecoration');
   const textTransform = use_setting_useSetting('typography.textTransform');
   const letterSpacing = use_setting_useSetting('typography.letterSpacing');
@@ -12831,8 +12903,26 @@ function useBlockSettings(name, parentLayout) {
   const units = use_setting_useSetting('spacing.units');
   const minHeight = use_setting_useSetting('dimensions.minHeight');
   const layout = use_setting_useSetting('layout');
+  const borderColor = use_setting_useSetting('border.color');
+  const borderRadius = use_setting_useSetting('border.radius');
+  const borderStyle = use_setting_useSetting('border.style');
+  const borderWidth = use_setting_useSetting('border.width');
+  const customColorsEnabled = use_setting_useSetting('color.custom');
+  const customColors = use_setting_useSetting('color.palette.custom');
+  const themeColors = use_setting_useSetting('color.palette.theme');
+  const defaultColors = use_setting_useSetting('color.palette.default');
+  const defaultPalette = use_setting_useSetting('color.defaultPalette');
   const rawSettings = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return {
+      color: {
+        palette: {
+          custom: customColors,
+          theme: themeColors,
+          default: defaultColors
+        },
+        defaultPalette,
+        custom: customColorsEnabled
+      },
       typography: {
         fontFamilies: {
           custom: fontFamilies
@@ -12844,6 +12934,7 @@ function useBlockSettings(name, parentLayout) {
         fontStyle,
         fontWeight,
         lineHeight,
+        textColumns,
         textDecoration,
         textTransform,
         letterSpacing
@@ -12857,13 +12948,19 @@ function useBlockSettings(name, parentLayout) {
         blockGap,
         units
       },
+      border: {
+        color: borderColor,
+        radius: borderRadius,
+        style: borderStyle,
+        width: borderWidth
+      },
       dimensions: {
         minHeight
       },
       layout,
       parentLayout
     };
-  }, [fontFamilies, fontSizes, customFontSize, fontStyle, fontWeight, lineHeight, textDecoration, textTransform, letterSpacing, padding, margin, blockGap, spacingSizes, units, minHeight, layout, parentLayout]);
+  }, [fontFamilies, fontSizes, customFontSize, fontStyle, fontWeight, lineHeight, textColumns, textDecoration, textTransform, letterSpacing, padding, margin, blockGap, spacingSizes, units, minHeight, layout, parentLayout, borderColor, borderRadius, borderStyle, borderWidth, customColorsEnabled, customColors, themeColors, defaultColors, defaultPalette]);
   return useSettingsForBlockElement(rawSettings, name);
 }
 
@@ -13437,13 +13534,17 @@ var external_wp_styleEngine_namespaceObject = window["wp"]["styleEngine"];
   inspectorControls: function DefaultLayoutInspectorControls(_ref) {
     let {
       layout,
-      onChange
+      onChange,
+      layoutBlockSupport = {}
     } = _ref;
     const {
       wideSize,
       contentSize,
       justifyContent = 'center'
     } = layout;
+    const {
+      allowJustification = true
+    } = layoutBlockSupport;
 
     const onJustificationChange = value => {
       onChange({ ...layout,
@@ -13505,7 +13606,7 @@ var external_wp_styleEngine_namespaceObject = window["wp"]["styleEngine"];
       icon: stretch_wide
     }))), (0,external_wp_element_namespaceObject.createElement)("p", {
       className: "block-editor-hooks__layout-controls-helptext"
-    }, (0,external_wp_i18n_namespaceObject.__)('Customize the width for all elements that are assigned to the center or wide columns.')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
+    }, (0,external_wp_i18n_namespaceObject.__)('Customize the width for all elements that are assigned to the center or wide columns.')), allowJustification && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToggleGroupControl, {
       __nextHasNoMarginBottom: true,
       label: (0,external_wp_i18n_namespaceObject.__)('Justification'),
       value: justifyContent,
@@ -14838,8 +14939,7 @@ function aria_label_addSaveProps(extraProps, blockType, attributes) {
 
 
 /**
- * Filters registered block settings, extending attributes with anchor using ID
- * of the first node.
+ * Filters registered block settings, extending attributes to include `className`.
  *
  * @param {Object} settings Original block settings.
  *
@@ -14861,6 +14961,7 @@ function custom_class_name_addAttribute(settings) {
 /**
  * Override the default edit UI to include a new block inspector control for
  * assigning the custom class name, if block supports custom class name.
+ * The control is displayed within the Advanced panel in the block inspector.
  *
  * @param {WPComponent} BlockEdit Original component.
  *
@@ -14892,8 +14993,8 @@ const custom_class_name_withInspectorControl = (0,external_wp_compose_namespaceO
   };
 }, 'withInspectorControl');
 /**
- * Override props assigned to save component to inject anchor ID, if block
- * supports anchor. This is only applied if the block's save result is an
+ * Override props assigned to save component to inject the className, if block
+ * supports customClassName. This is only applied if the block's save result is an
  * element and not a markup string.
  *
  * @param {Object} extraProps Additional props applied to save element.
@@ -15355,7 +15456,6 @@ function BlockCompare(_ref) {
 
 
 
-
 /**
  * Internal dependencies
  */
@@ -15363,37 +15463,81 @@ function BlockCompare(_ref) {
 
 
 
+
+const blockToBlocks = block => (0,external_wp_blocks_namespaceObject.rawHandler)({
+  HTML: block.originalContent
+});
+
 function BlockInvalidWarning(_ref) {
   let {
-    convertToHTML,
-    convertToBlocks,
-    convertToClassic,
-    attemptBlockRecovery,
-    block
+    clientId
   } = _ref;
-  const hasHTMLBlock = !!(0,external_wp_blocks_namespaceObject.getBlockType)('core/html');
+  const {
+    block,
+    canInsertHTMLBlock,
+    canInsertClassicBlock
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    const {
+      canInsertBlockType,
+      getBlock,
+      getBlockRootClientId
+    } = select(store);
+    const rootClientId = getBlockRootClientId(clientId);
+    return {
+      block: getBlock(clientId),
+      canInsertHTMLBlock: canInsertBlockType('core/html', rootClientId),
+      canInsertClassicBlock: canInsertBlockType('core/freeform', rootClientId)
+    };
+  }, [clientId]);
+  const {
+    replaceBlock
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   const [compare, setCompare] = (0,external_wp_element_namespaceObject.useState)(false);
-  const onCompare = (0,external_wp_element_namespaceObject.useCallback)(() => setCompare(true), []);
-  const onCompareClose = (0,external_wp_element_namespaceObject.useCallback)(() => setCompare(false), []); // We memo the array here to prevent the children components from being updated unexpectedly.
+  const onCompareClose = (0,external_wp_element_namespaceObject.useCallback)(() => setCompare(false), []);
+  const convert = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    toClassic() {
+      const classicBlock = (0,external_wp_blocks_namespaceObject.createBlock)('core/freeform', {
+        content: block.originalContent
+      });
+      return replaceBlock(block.clientId, classicBlock);
+    },
 
-  const hiddenActions = (0,external_wp_element_namespaceObject.useMemo)(() => [{
+    toHTML() {
+      const htmlBlock = (0,external_wp_blocks_namespaceObject.createBlock)('core/html', {
+        content: block.originalContent
+      });
+      return replaceBlock(block.clientId, htmlBlock);
+    },
+
+    toBlocks() {
+      const newBlocks = blockToBlocks(block);
+      return replaceBlock(block.clientId, newBlocks);
+    },
+
+    toRecoveredBlock() {
+      const recoveredBlock = (0,external_wp_blocks_namespaceObject.createBlock)(block.name, block.attributes, block.innerBlocks);
+      return replaceBlock(block.clientId, recoveredBlock);
+    }
+
+  }), [block, replaceBlock]);
+  const secondaryActions = (0,external_wp_element_namespaceObject.useMemo)(() => [{
     // translators: Button to fix block content
     title: (0,external_wp_i18n_namespaceObject._x)('Resolve', 'imperative verb'),
-    onClick: onCompare
-  }, hasHTMLBlock && {
+    onClick: () => setCompare(true)
+  }, canInsertHTMLBlock && {
     title: (0,external_wp_i18n_namespaceObject.__)('Convert to HTML'),
-    onClick: convertToHTML
-  }, {
+    onClick: convert.toHTML
+  }, canInsertClassicBlock && {
     title: (0,external_wp_i18n_namespaceObject.__)('Convert to Classic Block'),
-    onClick: convertToClassic
-  }].filter(Boolean), [onCompare, convertToHTML, convertToClassic]);
+    onClick: convert.toClassic
+  }].filter(Boolean), [canInsertHTMLBlock, canInsertClassicBlock, convert]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(warning, {
     actions: [(0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
       key: "recover",
-      onClick: attemptBlockRecovery,
+      onClick: convert.toRecoveredBlock,
       variant: "primary"
     }, (0,external_wp_i18n_namespaceObject.__)('Attempt Block Recovery'))],
-    secondaryActions: hiddenActions
+    secondaryActions: secondaryActions
   }, (0,external_wp_i18n_namespaceObject.__)('This block contains unexpected or invalid content.')), compare && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
     title: // translators: Dialog title to fix block content
     (0,external_wp_i18n_namespaceObject.__)('Resolve Block'),
@@ -15401,67 +15545,12 @@ function BlockInvalidWarning(_ref) {
     className: "block-editor-block-compare"
   }, (0,external_wp_element_namespaceObject.createElement)(block_compare, {
     block: block,
-    onKeep: convertToHTML,
-    onConvert: convertToBlocks,
+    onKeep: convert.toHTML,
+    onConvert: convert.toBlocks,
     convertor: blockToBlocks,
     convertButtonText: (0,external_wp_i18n_namespaceObject.__)('Convert to Blocks')
   })));
 }
-
-const blockToClassic = block => (0,external_wp_blocks_namespaceObject.createBlock)('core/freeform', {
-  content: block.originalContent
-});
-
-const blockToHTML = block => (0,external_wp_blocks_namespaceObject.createBlock)('core/html', {
-  content: block.originalContent
-});
-
-const blockToBlocks = block => (0,external_wp_blocks_namespaceObject.rawHandler)({
-  HTML: block.originalContent
-});
-
-const recoverBlock = _ref2 => {
-  let {
-    name,
-    attributes,
-    innerBlocks
-  } = _ref2;
-  return (0,external_wp_blocks_namespaceObject.createBlock)(name, attributes, innerBlocks);
-};
-
-/* harmony default export */ var block_invalid_warning = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)((select, _ref3) => {
-  let {
-    clientId
-  } = _ref3;
-  return {
-    block: select(store).getBlock(clientId)
-  };
-}), (0,external_wp_data_namespaceObject.withDispatch)((dispatch, _ref4) => {
-  let {
-    block
-  } = _ref4;
-  const {
-    replaceBlock
-  } = dispatch(store);
-  return {
-    convertToClassic() {
-      replaceBlock(block.clientId, blockToClassic(block));
-    },
-
-    convertToHTML() {
-      replaceBlock(block.clientId, blockToHTML(block));
-    },
-
-    convertToBlocks() {
-      replaceBlock(block.clientId, blockToBlocks(block));
-    },
-
-    attemptBlockRecovery() {
-      replaceBlock(block.clientId, recoverBlock(block));
-    }
-
-  };
-})])(BlockInvalidWarning));
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/block-list/block-crash-warning.js
 
@@ -21093,7 +21182,7 @@ function BlockListBlock(_ref2) {
     const saveContent = __unstableBlockSource ? (0,external_wp_blocks_namespaceObject.serializeRawBlock)(__unstableBlockSource) : (0,external_wp_blocks_namespaceObject.getSaveContent)(blockType, attributes);
     block = (0,external_wp_element_namespaceObject.createElement)(Block, {
       className: "has-warning"
-    }, (0,external_wp_element_namespaceObject.createElement)(block_invalid_warning, {
+    }, (0,external_wp_element_namespaceObject.createElement)(BlockInvalidWarning, {
       clientId: clientId
     }), (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, null, (0,external_wp_dom_namespaceObject.safeHTML)(saveContent)));
   } else if (mode === 'html') {
@@ -21736,12 +21825,17 @@ function useBlockSync(_ref) {
     resetBlocks,
     resetSelection,
     replaceInnerBlocks,
+    selectBlock,
     setHasControlledInnerBlocks,
     __unstableMarkNextChangeAsNotPersistent
   } = registry.dispatch(store);
   const {
+    hasSelectedBlock,
     getBlockName,
-    getBlocks
+    getBlocks,
+    getSelectionStart,
+    getSelectionEnd,
+    getBlock
   } = registry.select(store);
   const isControlled = (0,external_wp_data_namespaceObject.useSelect)(select => {
     return !clientId || select(store).areInnerBlocksControlled(clientId);
@@ -21816,10 +21910,21 @@ function useBlockSync(_ref) {
       // bound sync, unset the outbound value to avoid considering it in
       // subsequent renders.
       pendingChanges.current.outgoing = [];
+      const hadSelecton = hasSelectedBlock();
+      const selectionAnchor = getSelectionStart();
+      const selectionFocus = getSelectionEnd();
       setControlledBlocks();
 
       if (controlledSelection) {
         resetSelection(controlledSelection.selectionStart, controlledSelection.selectionEnd, controlledSelection.initialPosition);
+      } else {
+        const selectionStillExists = getBlock(selectionAnchor.clientId);
+
+        if (hadSelecton && !selectionStillExists) {
+          selectBlock(clientId);
+        } else {
+          resetSelection(selectionAnchor, selectionFocus);
+        }
       }
     }
   }, [controlledBlocks, clientId]);
@@ -21833,8 +21938,6 @@ function useBlockSync(_ref) {
   }, [isControlled]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     const {
-      getSelectionStart,
-      getSelectionEnd,
       getSelectedBlocksInitialCaretPosition,
       isLastBlockChangePersistent,
       __unstableIsLastBlockChangeIgnored,
@@ -28206,7 +28309,8 @@ function InserterSearchResults(_ref) {
     isDraggable = true,
     shouldFocusBlock = true,
     prioritizePatterns,
-    selectBlockOnInsert
+    selectBlockOnInsert,
+    orderInitialBlockItems
   } = _ref;
   const debouncedSpeak = (0,external_wp_compose_namespaceObject.useDebounce)(external_wp_a11y_namespaceObject.speak, 500);
   const [destinationRootClientId, onInsertBlocks] = use_insertion_point({
@@ -28239,9 +28343,15 @@ function InserterSearchResults(_ref) {
       return [];
     }
 
-    const results = searchBlockItems(orderBy(blockTypes, 'frecency', 'desc'), blockTypeCategories, blockTypeCollections, filterValue);
+    let orderedItems = orderBy(blockTypes, 'frecency', 'desc');
+
+    if (!filterValue && orderInitialBlockItems) {
+      orderedItems = orderInitialBlockItems(orderedItems);
+    }
+
+    const results = searchBlockItems(orderedItems, blockTypeCategories, blockTypeCollections, filterValue);
     return maxBlockTypesToShow !== undefined ? results.slice(0, maxBlockTypesToShow) : results;
-  }, [filterValue, blockTypes, blockTypeCategories, blockTypeCollections, maxBlockTypes]); // Announce search results on change.
+  }, [filterValue, blockTypes, blockTypeCategories, blockTypeCollections, maxBlockTypes, orderInitialBlockItems]); // Announce search results on change.
 
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (!filterValue) {
@@ -28371,7 +28481,7 @@ function InserterTabs(_ref) {
     }
 
     return tempTabs;
-  }, [prioritizePatterns, blocksTab, showPatterns, patternsTab, showReusableBlocks, showMedia, reusableBlocksTab]);
+  }, [prioritizePatterns, showPatterns, showReusableBlocks, showMedia]);
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TabPanel, {
     className: "block-editor-inserter__tabs",
     tabs: tabs,
@@ -28491,7 +28601,7 @@ function InserterMenu(_ref, ref) {
     className: "block-editor-inserter__tips"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
     as: "h2"
-  }, (0,external_wp_i18n_namespaceObject.__)('A tip for using the block editor')), (0,external_wp_element_namespaceObject.createElement)(tips, null))), [destinationRootClientId, onInsert, onHover, delayedFilterValue, showMostUsedBlocks, showInserterHelpPanel]);
+  }, (0,external_wp_i18n_namespaceObject.__)('A tip for using the block editor')), (0,external_wp_element_namespaceObject.createElement)(tips, null))), [destinationRootClientId, onInsert, onHover, showMostUsedBlocks, showInserterHelpPanel]);
   const patternsTab = (0,external_wp_element_namespaceObject.useMemo)(() => (0,external_wp_element_namespaceObject.createElement)(block_patterns_tab, {
     rootClientId: destinationRootClientId,
     onInsert: onInsertPattern,
@@ -28618,7 +28728,8 @@ function QuickInserter(_ref) {
     clientId,
     isAppender,
     prioritizePatterns,
-    selectBlockOnInsert
+    selectBlockOnInsert,
+    orderInitialBlockItems
   } = _ref;
   const [filterValue, setFilterValue] = (0,external_wp_element_namespaceObject.useState)('');
   const [destinationRootClientId, onInsertBlocks] = use_insertion_point({
@@ -28696,7 +28807,8 @@ function QuickInserter(_ref) {
     maxBlockTypes: SHOWN_BLOCK_TYPES,
     isDraggable: false,
     prioritizePatterns: prioritizePatterns,
-    selectBlockOnInsert: selectBlockOnInsert
+    selectBlockOnInsert: selectBlockOnInsert,
+    orderInitialBlockItems: orderInitialBlockItems
   })), setInserterIsOpened && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     className: "block-editor-inserter__quick-inserter-expand",
     onClick: onBrowseAll,
@@ -28742,21 +28854,23 @@ const defaultRenderToggle = _ref => {
     toggleProps = {},
     prioritizePatterns
   } = _ref;
-  let label;
-
-  if (hasSingleBlockType) {
-    label = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: the name of the block when there is only one
-    (0,external_wp_i18n_namespaceObject._x)('Add %s', 'directly add the only allowed block'), blockTitle);
-  } else if (prioritizePatterns) {
-    label = (0,external_wp_i18n_namespaceObject.__)('Add pattern');
-  } else {
-    label = (0,external_wp_i18n_namespaceObject._x)('Add block', 'Generic label for block inserter button');
-  }
-
   const {
+    as: Wrapper = external_wp_components_namespaceObject.Button,
+    label: labelProp,
     onClick,
     ...rest
-  } = toggleProps; // Handle both onClick functions from the toggle and the parent component.
+  } = toggleProps;
+  let label = labelProp;
+
+  if (!label && hasSingleBlockType) {
+    label = (0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: the name of the block when there is only one
+    (0,external_wp_i18n_namespaceObject._x)('Add %s', 'directly add the only allowed block'), blockTitle);
+  } else if (!label && prioritizePatterns) {
+    label = (0,external_wp_i18n_namespaceObject.__)('Add pattern');
+  } else if (!label) {
+    label = (0,external_wp_i18n_namespaceObject._x)('Add block', 'Generic label for block inserter button');
+  } // Handle both onClick functions from the toggle and the parent component.
+
 
   function handleClick(event) {
     if (onToggle) {
@@ -28768,7 +28882,7 @@ const defaultRenderToggle = _ref => {
     }
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, _extends({
+  return (0,external_wp_element_namespaceObject.createElement)(Wrapper, _extends({
     icon: library_plus,
     label: label,
     tooltipPosition: "bottom",
@@ -28780,7 +28894,7 @@ const defaultRenderToggle = _ref => {
   }, rest));
 };
 
-class Inserter extends external_wp_element_namespaceObject.Component {
+class PrivateInserter extends external_wp_element_namespaceObject.Component {
   constructor() {
     super(...arguments);
     this.onToggle = this.onToggle.bind(this);
@@ -28860,7 +28974,8 @@ class Inserter extends external_wp_element_namespaceObject.Component {
       __experimentalIsQuick: isQuick,
       prioritizePatterns,
       onSelectOrClose,
-      selectBlockOnInsert
+      selectBlockOnInsert,
+      orderInitialBlockItems
     } = this.props;
 
     if (isQuick) {
@@ -28878,7 +28993,8 @@ class Inserter extends external_wp_element_namespaceObject.Component {
         clientId: clientId,
         isAppender: isAppender,
         prioritizePatterns: prioritizePatterns,
-        selectBlockOnInsert: selectBlockOnInsert
+        selectBlockOnInsert: selectBlockOnInsert,
+        orderInitialBlockItems: orderInitialBlockItems
       });
     }
 
@@ -28929,7 +29045,7 @@ class Inserter extends external_wp_element_namespaceObject.Component {
 
 }
 
-/* harmony default export */ var inserter = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)((select, _ref4) => {
+const ComposedPrivateInserter = (0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)((select, _ref4) => {
   var _getBlockVariations;
 
   let {
@@ -29101,7 +29217,15 @@ class Inserter extends external_wp_element_namespaceObject.Component {
     clientId
   } = _ref6;
   return hasItems || !isAppender && !rootClientId && !clientId;
-})])(Inserter));
+})])(PrivateInserter);
+const Inserter = (0,external_wp_element_namespaceObject.forwardRef)((props, ref) => {
+  return (0,external_wp_element_namespaceObject.createElement)(ComposedPrivateInserter, _extends({
+    ref: ref
+  }, props, {
+    orderInitialBlockItems: undefined
+  }));
+});
+/* harmony default export */ var inserter = (Inserter);
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/default-block-appender/index.js
 
@@ -33234,6 +33358,12 @@ const FONT_STYLE_SUPPORT_KEY = 'typography.__experimentalFontStyle';
 const FONT_WEIGHT_SUPPORT_KEY = 'typography.__experimentalFontWeight';
 /**
  * Key within block settings' supports array indicating support for text
+ * columns e.g. settings found in `block.json`.
+ */
+
+const TEXT_COLUMNS_SUPPORT_KEY = 'typography.textColumns';
+/**
+ * Key within block settings' supports array indicating support for text
  * decorations e.g. settings found in `block.json`.
  */
 
@@ -33251,7 +33381,7 @@ const TEXT_TRANSFORM_SUPPORT_KEY = 'typography.__experimentalTextTransform';
 
 const LETTER_SPACING_SUPPORT_KEY = 'typography.__experimentalLetterSpacing';
 const LAYOUT_SUPPORT_KEY = '__experimentalLayout';
-const TYPOGRAPHY_SUPPORT_KEYS = [LINE_HEIGHT_SUPPORT_KEY, FONT_SIZE_SUPPORT_KEY, FONT_STYLE_SUPPORT_KEY, FONT_WEIGHT_SUPPORT_KEY, FONT_FAMILY_SUPPORT_KEY, TEXT_DECORATION_SUPPORT_KEY, TEXT_TRANSFORM_SUPPORT_KEY, LETTER_SPACING_SUPPORT_KEY];
+const TYPOGRAPHY_SUPPORT_KEYS = [LINE_HEIGHT_SUPPORT_KEY, FONT_SIZE_SUPPORT_KEY, FONT_STYLE_SUPPORT_KEY, FONT_WEIGHT_SUPPORT_KEY, FONT_FAMILY_SUPPORT_KEY, TEXT_COLUMNS_SUPPORT_KEY, TEXT_DECORATION_SUPPORT_KEY, TEXT_TRANSFORM_SUPPORT_KEY, LETTER_SPACING_SUPPORT_KEY];
 const SPACING_SUPPORT_KEY = 'spacing';
 const styleSupportKeys = [...TYPOGRAPHY_SUPPORT_KEYS, BORDER_SUPPORT_KEY, COLOR_SUPPORT_KEY, SPACING_SUPPORT_KEY];
 /**
@@ -34010,10 +34140,13 @@ function ConvertToGroupButton(_ref) {
  * It is used in `BlockSettingsMenuControls` to know if `ConvertToGroupButton`
  * should be rendered, to avoid ending up with an empty MenuGroup.
  *
+ * @param {?string[]} selectedClientIds An optional array of clientIds to group. The selected blocks
+ *                                      from the block editor store are used if this is not provided.
+ *
  * @return {ConvertToGroupButtonProps} Returns the properties needed by `ConvertToGroupButton`.
  */
 
-function useConvertToGroupButtonProps() {
+function useConvertToGroupButtonProps(selectedClientIds) {
   const {
     clientIds,
     isGroupable,
@@ -34033,7 +34166,7 @@ function useConvertToGroupButtonProps() {
       getGroupingBlockName
     } = select(external_wp_blocks_namespaceObject.store);
 
-    const _clientIds = getSelectedBlockClientIds();
+    const _clientIds = selectedClientIds !== null && selectedClientIds !== void 0 && selectedClientIds.length ? selectedClientIds : getSelectedBlockClientIds();
 
     const _groupingBlockName = getGroupingBlockName();
 
@@ -34058,7 +34191,7 @@ function useConvertToGroupButtonProps() {
       blocksSelection: _blocksSelection,
       groupingBlockName: _groupingBlockName
     };
-  }, []);
+  }, [selectedClientIds]);
   return {
     clientIds,
     isGroupable,
@@ -34426,7 +34559,7 @@ const BlockSettingsMenuControlsSlot = _ref => {
   const showLockButton = selectedClientIds.length === 1 && canLock; // Check if current selection of blocks is Groupable or Ungroupable
   // and pass this props down to ConvertToGroupButton.
 
-  const convertToGroupButtonProps = useConvertToGroupButtonProps();
+  const convertToGroupButtonProps = useConvertToGroupButtonProps(selectedClientIds);
   const {
     isGroupable,
     isUngroupable
@@ -37270,6 +37403,182 @@ function BlockListItems(props) {
   }, (0,external_wp_element_namespaceObject.createElement)(Items, props));
 }
 
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors/utils.js
+/**
+ * External dependencies
+ */
+
+
+
+
+k([names, a11y]);
+/**
+ * Provided an array of color objects as set by the theme or by the editor defaults,
+ * and the values of the defined color or custom color returns a color object describing the color.
+ *
+ * @param {Array}   colors       Array of color objects as set by the theme or by the editor defaults.
+ * @param {?string} definedColor A string containing the color slug.
+ * @param {?string} customColor  A string containing the customColor value.
+ *
+ * @return {?Object} If definedColor is passed and the name is found in colors,
+ *                   the color object exactly as set by the theme or editor defaults is returned.
+ *                   Otherwise, an object that just sets the color is defined.
+ */
+
+const getColorObjectByAttributeValues = (colors, definedColor, customColor) => {
+  if (definedColor) {
+    const colorObj = colors === null || colors === void 0 ? void 0 : colors.find(color => color.slug === definedColor);
+
+    if (colorObj) {
+      return colorObj;
+    }
+  }
+
+  return {
+    color: customColor
+  };
+};
+/**
+ * Provided an array of color objects as set by the theme or by the editor defaults, and a color value returns the color object matching that value or undefined.
+ *
+ * @param {Array}   colors     Array of color objects as set by the theme or by the editor defaults.
+ * @param {?string} colorValue A string containing the color value.
+ *
+ * @return {?Object} Color object included in the colors array whose color property equals colorValue.
+ *                   Returns undefined if no color object matches this requirement.
+ */
+
+const getColorObjectByColorValue = (colors, colorValue) => {
+  return colors === null || colors === void 0 ? void 0 : colors.find(color => color.color === colorValue);
+};
+/**
+ * Returns a class based on the context a color is being used and its slug.
+ *
+ * @param {string} colorContextName Context/place where color is being used e.g: background, text etc...
+ * @param {string} colorSlug        Slug of the color.
+ *
+ * @return {?string} String with the class corresponding to the color in the provided context.
+ *                   Returns undefined if either colorContextName or colorSlug are not provided.
+ */
+
+function getColorClassName(colorContextName, colorSlug) {
+  if (!colorContextName || !colorSlug) {
+    return undefined;
+  }
+
+  return `has-${(0,external_lodash_namespaceObject.kebabCase)(colorSlug)}-${colorContextName}`;
+}
+/**
+ * Given an array of color objects and a color value returns the color value of the most readable color in the array.
+ *
+ * @param {Array}   colors     Array of color objects as set by the theme or by the editor defaults.
+ * @param {?string} colorValue A string containing the color value.
+ *
+ * @return {string} String with the color value of the most readable color.
+ */
+
+function getMostReadableColor(colors, colorValue) {
+  const colordColor = w(colorValue);
+
+  const getColorContrast = _ref => {
+    let {
+      color
+    } = _ref;
+    return colordColor.contrast(color);
+  };
+
+  const maxContrast = Math.max(...colors.map(getColorContrast));
+  return colors.find(color => getColorContrast(color) === maxContrast).color;
+}
+
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/use-multiple-origin-colors-and-gradients.js
+/**
+ * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
+ */
+
+
+/**
+ * Retrieves color and gradient related settings.
+ *
+ * The arrays for colors and gradients are made up of color palettes from each
+ * origin i.e. "Core", "Theme", and "User".
+ *
+ * @return {Object} Color and gradient related settings.
+ */
+
+function useMultipleOriginColorsAndGradients() {
+  const colorGradientSettings = {
+    disableCustomColors: !use_setting_useSetting('color.custom'),
+    disableCustomGradients: !use_setting_useSetting('color.customGradient')
+  };
+  const customColors = use_setting_useSetting('color.palette.custom');
+  const themeColors = use_setting_useSetting('color.palette.theme');
+  const defaultColors = use_setting_useSetting('color.palette.default');
+  const shouldDisplayDefaultColors = use_setting_useSetting('color.defaultPalette');
+  colorGradientSettings.colors = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const result = [];
+
+    if (themeColors && themeColors.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject._x)('Theme', 'Indicates this palette comes from the theme.'),
+        colors: themeColors
+      });
+    }
+
+    if (shouldDisplayDefaultColors && defaultColors && defaultColors.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject._x)('Default', 'Indicates this palette comes from WordPress.'),
+        colors: defaultColors
+      });
+    }
+
+    if (customColors && customColors.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject._x)('Custom', 'Indicates this palette comes from the theme.'),
+        colors: customColors
+      });
+    }
+
+    return result;
+  }, [defaultColors, themeColors, customColors]);
+  const customGradients = use_setting_useSetting('color.gradients.custom');
+  const themeGradients = use_setting_useSetting('color.gradients.theme');
+  const defaultGradients = use_setting_useSetting('color.gradients.default');
+  const shouldDisplayDefaultGradients = use_setting_useSetting('color.defaultGradients');
+  colorGradientSettings.gradients = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const result = [];
+
+    if (themeGradients && themeGradients.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject._x)('Theme', 'Indicates this palette comes from the theme.'),
+        gradients: themeGradients
+      });
+    }
+
+    if (shouldDisplayDefaultGradients && defaultGradients && defaultGradients.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject._x)('Default', 'Indicates this palette comes from WordPress.'),
+        gradients: defaultGradients
+      });
+    }
+
+    if (customGradients && customGradients.length) {
+      result.push({
+        name: (0,external_wp_i18n_namespaceObject._x)('Custom', 'Indicates this palette is created by the user.'),
+        gradients: customGradients
+      });
+    }
+
+    return result;
+  }, [customGradients, themeGradients, defaultGradients]);
+  return colorGradientSettings;
+}
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/border-radius-control/utils.js
 /**
  * WordPress dependencies
@@ -37687,265 +37996,296 @@ function BorderRadiusControl(_ref) {
   })));
 }
 
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/border-radius.js
+;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/global-styles/border-panel.js
 
 
-/**
- * Internal dependencies
- */
-
-
-
-/**
- * Inspector control panel containing the border radius related configuration.
- *
- * @param {Object} props Block properties.
- *
- * @return {WPElement} Border radius edit element.
- */
-
-function BorderRadiusEdit(props) {
-  var _style$border;
-
-  const {
-    attributes: {
-      style
-    },
-    setAttributes
-  } = props;
-
-  const onChange = newRadius => {
-    const newStyle = utils_cleanEmptyObject({ ...style,
-      border: { ...(style === null || style === void 0 ? void 0 : style.border),
-        radius: newRadius
-      }
-    });
-    setAttributes({
-      style: newStyle
-    });
-  };
-
-  return (0,external_wp_element_namespaceObject.createElement)(BorderRadiusControl, {
-    values: style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border.radius,
-    onChange: onChange
-  });
-}
-/**
- * Checks if there is a current value in the border radius block support
- * attributes.
- *
- * @param {Object} props Block props.
- * @return {boolean}     Whether or not the block has a border radius value set.
- */
-
-function hasBorderRadiusValue(props) {
-  var _props$attributes$sty, _props$attributes$sty2;
-
-  const borderRadius = (_props$attributes$sty = props.attributes.style) === null || _props$attributes$sty === void 0 ? void 0 : (_props$attributes$sty2 = _props$attributes$sty.border) === null || _props$attributes$sty2 === void 0 ? void 0 : _props$attributes$sty2.radius;
-
-  if (typeof borderRadius === 'object') {
-    return Object.entries(borderRadius).some(Boolean);
-  }
-
-  return !!borderRadius;
-}
-/**
- * Resets the border radius block support attributes. This can be used when
- * disabling the border radius support controls for a block via a progressive
- * discovery panel.
- *
- * @param {Object} props               Block props.
- * @param {Object} props.attributes    Block's attributes.
- * @param {Object} props.setAttributes Function to set block's attributes.
- */
-
-function resetBorderRadius(_ref) {
-  let {
-    attributes = {},
-    setAttributes
-  } = _ref;
-  const {
-    style
-  } = attributes;
-  setAttributes({
-    style: removeBorderAttribute(style, 'radius')
-  });
-}
-
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors/utils.js
-/**
- * External dependencies
- */
-
-
-
-
-k([names, a11y]);
-/**
- * Provided an array of color objects as set by the theme or by the editor defaults,
- * and the values of the defined color or custom color returns a color object describing the color.
- *
- * @param {Array}   colors       Array of color objects as set by the theme or by the editor defaults.
- * @param {?string} definedColor A string containing the color slug.
- * @param {?string} customColor  A string containing the customColor value.
- *
- * @return {?Object} If definedColor is passed and the name is found in colors,
- *                   the color object exactly as set by the theme or editor defaults is returned.
- *                   Otherwise, an object that just sets the color is defined.
- */
-
-const getColorObjectByAttributeValues = (colors, definedColor, customColor) => {
-  if (definedColor) {
-    const colorObj = colors === null || colors === void 0 ? void 0 : colors.find(color => color.slug === definedColor);
-
-    if (colorObj) {
-      return colorObj;
-    }
-  }
-
-  return {
-    color: customColor
-  };
-};
-/**
- * Provided an array of color objects as set by the theme or by the editor defaults, and a color value returns the color object matching that value or undefined.
- *
- * @param {Array}   colors     Array of color objects as set by the theme or by the editor defaults.
- * @param {?string} colorValue A string containing the color value.
- *
- * @return {?Object} Color object included in the colors array whose color property equals colorValue.
- *                   Returns undefined if no color object matches this requirement.
- */
-
-const getColorObjectByColorValue = (colors, colorValue) => {
-  return colors === null || colors === void 0 ? void 0 : colors.find(color => color.color === colorValue);
-};
-/**
- * Returns a class based on the context a color is being used and its slug.
- *
- * @param {string} colorContextName Context/place where color is being used e.g: background, text etc...
- * @param {string} colorSlug        Slug of the color.
- *
- * @return {?string} String with the class corresponding to the color in the provided context.
- *                   Returns undefined if either colorContextName or colorSlug are not provided.
- */
-
-function getColorClassName(colorContextName, colorSlug) {
-  if (!colorContextName || !colorSlug) {
-    return undefined;
-  }
-
-  return `has-${(0,external_lodash_namespaceObject.kebabCase)(colorSlug)}-${colorContextName}`;
-}
-/**
- * Given an array of color objects and a color value returns the color value of the most readable color in the array.
- *
- * @param {Array}   colors     Array of color objects as set by the theme or by the editor defaults.
- * @param {?string} colorValue A string containing the color value.
- *
- * @return {string} String with the color value of the most readable color.
- */
-
-function getMostReadableColor(colors, colorValue) {
-  const colordColor = w(colorValue);
-
-  const getColorContrast = _ref => {
-    let {
-      color
-    } = _ref;
-    return colordColor.contrast(color);
-  };
-
-  const maxContrast = Math.max(...colors.map(getColorContrast));
-  return colors.find(color => getColorContrast(color) === maxContrast).color;
-}
-
-;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/colors-gradients/use-multiple-origin-colors-and-gradients.js
 /**
  * WordPress dependencies
  */
 
 
+
 /**
  * Internal dependencies
  */
 
 
-/**
- * Retrieves color and gradient related settings.
- *
- * The arrays for colors and gradients are made up of color palettes from each
- * origin i.e. "Core", "Theme", and "User".
- *
- * @return {Object} Color and gradient related settings.
- */
 
-function useMultipleOriginColorsAndGradients() {
-  const colorGradientSettings = {
-    disableCustomColors: !use_setting_useSetting('color.custom'),
-    disableCustomGradients: !use_setting_useSetting('color.customGradient')
+
+function useHasBorderPanel(settings) {
+  const controls = [useHasBorderColorControl(settings), useHasBorderRadiusControl(settings), useHasBorderStyleControl(settings), useHasBorderWidthControl(settings)];
+  return controls.some(Boolean);
+}
+
+function useHasBorderColorControl(settings) {
+  var _settings$border;
+
+  return settings === null || settings === void 0 ? void 0 : (_settings$border = settings.border) === null || _settings$border === void 0 ? void 0 : _settings$border.color;
+}
+
+function useHasBorderRadiusControl(settings) {
+  var _settings$border2;
+
+  return settings === null || settings === void 0 ? void 0 : (_settings$border2 = settings.border) === null || _settings$border2 === void 0 ? void 0 : _settings$border2.radius;
+}
+
+function useHasBorderStyleControl(settings) {
+  var _settings$border3;
+
+  return settings === null || settings === void 0 ? void 0 : (_settings$border3 = settings.border) === null || _settings$border3 === void 0 ? void 0 : _settings$border3.style;
+}
+
+function useHasBorderWidthControl(settings) {
+  var _settings$border4;
+
+  return settings === null || settings === void 0 ? void 0 : (_settings$border4 = settings.border) === null || _settings$border4 === void 0 ? void 0 : _settings$border4.width;
+}
+
+function applyFallbackStyle(border) {
+  if (!border) {
+    return border;
+  }
+
+  if (!border.style && (border.color || border.width)) {
+    return { ...border,
+      style: 'solid'
+    };
+  }
+
+  return border;
+}
+
+function applyAllFallbackStyles(border) {
+  if (!border) {
+    return border;
+  }
+
+  if ((0,external_wp_components_namespaceObject.__experimentalHasSplitBorders)(border)) {
+    return {
+      top: applyFallbackStyle(border.top),
+      right: applyFallbackStyle(border.right),
+      bottom: applyFallbackStyle(border.bottom),
+      left: applyFallbackStyle(border.left)
+    };
+  }
+
+  return applyFallbackStyle(border);
+}
+
+function BorderToolsPanel(_ref) {
+  let {
+    resetAllFilter,
+    onChange,
+    value,
+    panelId,
+    children
+  } = _ref;
+
+  const resetAll = () => {
+    const updatedValue = resetAllFilter(value);
+    onChange(updatedValue);
   };
-  const customColors = use_setting_useSetting('color.palette.custom');
-  const themeColors = use_setting_useSetting('color.palette.theme');
-  const defaultColors = use_setting_useSetting('color.palette.default');
-  const shouldDisplayDefaultColors = use_setting_useSetting('color.defaultPalette');
-  colorGradientSettings.colors = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    const result = [];
 
-    if (themeColors && themeColors.length) {
-      result.push({
-        name: (0,external_wp_i18n_namespaceObject._x)('Theme', 'Indicates this palette comes from the theme.'),
-        colors: themeColors
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanel, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Border'),
+    resetAll: resetAll,
+    panelId: panelId
+  }, children);
+}
+
+const border_panel_DEFAULT_CONTROLS = {
+  radius: true,
+  color: true,
+  width: true
+};
+function BorderPanel(_ref2) {
+  let {
+    as: Wrapper = BorderToolsPanel,
+    value,
+    onChange,
+    inheritedValue = value,
+    settings,
+    panelId,
+    defaultControls = border_panel_DEFAULT_CONTROLS
+  } = _ref2;
+  const colors = useColorsPerOrigin(settings);
+
+  const decodeValue = rawValue => getValueFromVariable({
+    settings
+  }, '', rawValue);
+
+  const encodeColorValue = colorValue => {
+    const allColors = colors.flatMap(_ref3 => {
+      let {
+        colors: originColors
+      } = _ref3;
+      return originColors;
+    });
+    const colorObject = allColors.find(_ref4 => {
+      let {
+        color
+      } = _ref4;
+      return color === colorValue;
+    });
+    return colorObject ? 'var:preset|color|' + colorObject.slug : colorValue;
+  };
+
+  const decodeColorValue = (0,external_wp_element_namespaceObject.useCallback)(colorValue => {
+    const allColors = colors.flatMap(_ref5 => {
+      let {
+        colors: originColors
+      } = _ref5;
+      return originColors;
+    });
+    const colorObject = allColors.find(_ref6 => {
+      let {
+        slug
+      } = _ref6;
+      return colorValue === 'var:preset|color|' + slug;
+    });
+    return colorObject ? colorObject.color : colorValue;
+  }, [colors]);
+  const border = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    var _inheritedValue$borde, _inheritedValue$borde2;
+
+    if ((0,external_wp_components_namespaceObject.__experimentalHasSplitBorders)(inheritedValue === null || inheritedValue === void 0 ? void 0 : inheritedValue.border)) {
+      const borderValue = { ...(inheritedValue === null || inheritedValue === void 0 ? void 0 : inheritedValue.border)
+      };
+      ['top', 'right', 'bottom', 'left'].forEach(side => {
+        var _borderValue$side;
+
+        borderValue[side] = { ...borderValue[side],
+          color: decodeColorValue((_borderValue$side = borderValue[side]) === null || _borderValue$side === void 0 ? void 0 : _borderValue$side.color)
+        };
+      });
+      return borderValue;
+    }
+
+    return { ...(inheritedValue === null || inheritedValue === void 0 ? void 0 : inheritedValue.border),
+      color: inheritedValue !== null && inheritedValue !== void 0 && (_inheritedValue$borde = inheritedValue.border) !== null && _inheritedValue$borde !== void 0 && _inheritedValue$borde.color ? decodeColorValue(inheritedValue === null || inheritedValue === void 0 ? void 0 : (_inheritedValue$borde2 = inheritedValue.border) === null || _inheritedValue$borde2 === void 0 ? void 0 : _inheritedValue$borde2.color) : undefined
+    };
+  }, [inheritedValue === null || inheritedValue === void 0 ? void 0 : inheritedValue.border, decodeColorValue]);
+
+  const setBorder = newBorder => onChange({ ...value,
+    border: newBorder
+  });
+
+  const showBorderColor = useHasBorderColorControl(settings);
+  const showBorderStyle = useHasBorderStyleControl(settings);
+  const showBorderWidth = useHasBorderWidthControl(settings); // Border radius.
+
+  const showBorderRadius = useHasBorderRadiusControl(settings);
+  const borderRadiusValues = decodeValue(border === null || border === void 0 ? void 0 : border.radius);
+
+  const setBorderRadius = newBorderRadius => setBorder({ ...border,
+    radius: newBorderRadius
+  });
+
+  const hasBorderRadius = () => {
+    var _value$border;
+
+    const borderValues = value === null || value === void 0 ? void 0 : (_value$border = value.border) === null || _value$border === void 0 ? void 0 : _value$border.radius;
+
+    if (typeof borderValues === 'object') {
+      return Object.entries(borderValues).some(Boolean);
+    }
+
+    return !!borderValues;
+  };
+
+  const resetBorder = () => {
+    if (hasBorderRadius()) {
+      var _value$border2;
+
+      return setBorder({
+        radius: value === null || value === void 0 ? void 0 : (_value$border2 = value.border) === null || _value$border2 === void 0 ? void 0 : _value$border2.radius
       });
     }
 
-    if (shouldDisplayDefaultColors && defaultColors && defaultColors.length) {
-      result.push({
-        name: (0,external_wp_i18n_namespaceObject._x)('Default', 'Indicates this palette comes from WordPress.'),
-        colors: defaultColors
-      });
+    setBorder(undefined);
+  };
+
+  const onBorderChange = newBorder => {
+    // Ensure we have a visible border style when a border width or
+    // color is being selected.
+    const newBorderWithStyle = applyAllFallbackStyles(newBorder); // As we can't conditionally generate styles based on if other
+    // style properties have been set we need to force split border
+    // definitions for user set border styles. Border radius is derived
+    // from the same property i.e. `border.radius` if it is a string
+    // that is used. The longhand border radii styles are only generated
+    // if that property is an object.
+    //
+    // For borders (color, style, and width) those are all properties on
+    // the `border` style property. This means if the theme.json defined
+    // split borders and the user condenses them into a flat border or
+    // vice-versa we'd get both sets of styles which would conflict.
+
+    const updatedBorder = !(0,external_wp_components_namespaceObject.__experimentalHasSplitBorders)(newBorderWithStyle) ? {
+      top: newBorderWithStyle,
+      right: newBorderWithStyle,
+      bottom: newBorderWithStyle,
+      left: newBorderWithStyle
+    } : {
+      color: null,
+      style: null,
+      width: null,
+      ...newBorderWithStyle
+    };
+    ['top', 'right', 'bottom', 'left'].forEach(side => {
+      var _updatedBorder$side;
+
+      updatedBorder[side] = { ...updatedBorder[side],
+        color: encodeColorValue((_updatedBorder$side = updatedBorder[side]) === null || _updatedBorder$side === void 0 ? void 0 : _updatedBorder$side.color)
+      };
+    }); // As radius is maintained separately to color, style, and width
+    // maintain its value. Undefined values here will be cleaned when
+    // global styles are saved.
+
+    setBorder({
+      radius: border === null || border === void 0 ? void 0 : border.radius,
+      ...updatedBorder
+    });
+  };
+
+  const resetAllFilter = (0,external_wp_element_namespaceObject.useCallback)(previousValue => {
+    return { ...previousValue,
+      border: undefined
+    };
+  }, []);
+  const showBorderByDefault = (defaultControls === null || defaultControls === void 0 ? void 0 : defaultControls.color) || (defaultControls === null || defaultControls === void 0 ? void 0 : defaultControls.width);
+  return (0,external_wp_element_namespaceObject.createElement)(Wrapper, {
+    resetAllFilter: resetAllFilter,
+    value: value,
+    onChange: onChange,
+    panelId: panelId
+  }, (showBorderWidth || showBorderColor) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    hasValue: () => (0,external_wp_components_namespaceObject.__experimentalIsDefinedBorder)(value === null || value === void 0 ? void 0 : value.border),
+    label: (0,external_wp_i18n_namespaceObject.__)('Border'),
+    onDeselect: () => resetBorder(),
+    isShownByDefault: showBorderByDefault,
+    panelId: panelId
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalBorderBoxControl, {
+    colors: colors,
+    enableAlpha: true,
+    enableStyle: showBorderStyle,
+    onChange: onBorderChange,
+    popoverOffset: 40,
+    popoverPlacement: "left-start",
+    value: border,
+    __experimentalIsRenderedInSidebar: true,
+    size: '__unstable-large'
+  })), showBorderRadius && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    hasValue: hasBorderRadius,
+    label: (0,external_wp_i18n_namespaceObject.__)('Radius'),
+    onDeselect: () => setBorderRadius(undefined),
+    isShownByDefault: defaultControls.radius,
+    panelId: panelId
+  }, (0,external_wp_element_namespaceObject.createElement)(BorderRadiusControl, {
+    values: borderRadiusValues,
+    onChange: newValue => {
+      setBorderRadius(newValue || undefined);
     }
-
-    if (customColors && customColors.length) {
-      result.push({
-        name: (0,external_wp_i18n_namespaceObject._x)('Custom', 'Indicates this palette comes from the theme.'),
-        colors: customColors
-      });
-    }
-
-    return result;
-  }, [defaultColors, themeColors, customColors]);
-  const customGradients = use_setting_useSetting('color.gradients.custom');
-  const themeGradients = use_setting_useSetting('color.gradients.theme');
-  const defaultGradients = use_setting_useSetting('color.gradients.default');
-  const shouldDisplayDefaultGradients = use_setting_useSetting('color.defaultGradients');
-  colorGradientSettings.gradients = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    const result = [];
-
-    if (themeGradients && themeGradients.length) {
-      result.push({
-        name: (0,external_wp_i18n_namespaceObject._x)('Theme', 'Indicates this palette comes from the theme.'),
-        gradients: themeGradients
-      });
-    }
-
-    if (shouldDisplayDefaultGradients && defaultGradients && defaultGradients.length) {
-      result.push({
-        name: (0,external_wp_i18n_namespaceObject._x)('Default', 'Indicates this palette comes from WordPress.'),
-        gradients: defaultGradients
-      });
-    }
-
-    if (customGradients && customGradients.length) {
-      result.push({
-        name: (0,external_wp_i18n_namespaceObject._x)('Custom', 'Indicates this palette is created by the user.'),
-        gradients: customGradients
-      });
-    }
-
-    return result;
-  }, [customGradients, themeGradients, defaultGradients]);
-  return colorGradientSettings;
+  })));
 }
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/hooks/border.js
@@ -37965,7 +38305,6 @@ function useMultipleOriginColorsAndGradients() {
 
 
 
-
 /**
  * Internal dependencies
  */
@@ -37975,52 +38314,7 @@ function useMultipleOriginColorsAndGradients() {
 
 
 
-
 const border_BORDER_SUPPORT_KEY = '__experimentalBorder';
-const borderSides = ['top', 'right', 'bottom', 'left'];
-
-const hasBorderValue = props => {
-  const {
-    borderColor,
-    style
-  } = props.attributes;
-  return (0,external_wp_components_namespaceObject.__experimentalIsDefinedBorder)(style === null || style === void 0 ? void 0 : style.border) || !!borderColor;
-}; // The border color, style, and width are omitted so they get undefined. The
-// border radius is separate and must retain its selection.
-
-
-const resetBorder = _ref => {
-  var _style$border;
-
-  let {
-    attributes = {},
-    setAttributes
-  } = _ref;
-  const {
-    style
-  } = attributes;
-  setAttributes({
-    borderColor: undefined,
-    style: { ...style,
-      border: utils_cleanEmptyObject({
-        radius: style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border.radius
-      })
-    }
-  });
-};
-
-const resetBorderFilter = newAttributes => {
-  var _newAttributes$style, _newAttributes$style$;
-
-  return { ...newAttributes,
-    borderColor: undefined,
-    style: { ...newAttributes.style,
-      border: {
-        radius: (_newAttributes$style = newAttributes.style) === null || _newAttributes$style === void 0 ? void 0 : (_newAttributes$style$ = _newAttributes$style.border) === null || _newAttributes$style$ === void 0 ? void 0 : _newAttributes$style$.radius
-      }
-    }
-  };
-};
 
 const getColorByProperty = (colors, property, value) => {
   let matchedColor;
@@ -38035,12 +38329,12 @@ const getColorByProperty = (colors, property, value) => {
   return matchedColor;
 };
 
-const getMultiOriginColor = _ref2 => {
+const getMultiOriginColor = _ref => {
   let {
     colors,
     namedColor,
     customColor
-  } = _ref2;
+  } = _ref;
 
   // Search each origin (default, theme, or user) for matching color by name.
   if (namedColor) {
@@ -38065,60 +38359,6 @@ const getMultiOriginColor = _ref2 => {
   };
 };
 
-const getBorderObject = (attributes, colors) => {
-  const {
-    borderColor,
-    style
-  } = attributes;
-  const {
-    border: borderStyles
-  } = style || {}; // If we have a named color for a flat border. Fetch that color object and
-  // apply that color's value to the color property within the style object.
-
-  if (borderColor) {
-    const {
-      color
-    } = getMultiOriginColor({
-      colors,
-      namedColor: borderColor
-    });
-    return color ? { ...borderStyles,
-      color
-    } : borderStyles;
-  } // Individual side border color slugs are stored within the border style
-  // object. If we don't have a border styles object we have nothing further
-  // to hydrate.
-
-
-  if (!borderStyles) {
-    return borderStyles;
-  } // If we have named colors for the individual side borders, retrieve their
-  // related color objects and apply the real color values to the split
-  // border objects.
-
-
-  const hydratedBorderStyles = { ...borderStyles
-  };
-  borderSides.forEach(side => {
-    var _hydratedBorderStyles;
-
-    const colorSlug = getColorSlugFromVariable((_hydratedBorderStyles = hydratedBorderStyles[side]) === null || _hydratedBorderStyles === void 0 ? void 0 : _hydratedBorderStyles.color);
-
-    if (colorSlug) {
-      const {
-        color
-      } = getMultiOriginColor({
-        colors,
-        namedColor: colorSlug
-      });
-      hydratedBorderStyles[side] = { ...hydratedBorderStyles[side],
-        color
-      };
-    }
-  });
-  return hydratedBorderStyles;
-};
-
 function getColorSlugFromVariable(value) {
   const namedColor = /var:preset\|color\|(.+)/.exec(value);
 
@@ -38129,142 +38369,95 @@ function getColorSlugFromVariable(value) {
   return null;
 }
 
-function BorderPanel(props) {
+function styleToAttributes(style) {
+  var _style$border;
+
+  if ((0,external_wp_components_namespaceObject.__experimentalHasSplitBorders)(style === null || style === void 0 ? void 0 : style.border)) {
+    return {
+      style,
+      borderColor: undefined
+    };
+  }
+
+  const borderColorValue = style === null || style === void 0 ? void 0 : (_style$border = style.border) === null || _style$border === void 0 ? void 0 : _style$border.color;
+  const borderColorSlug = borderColorValue !== null && borderColorValue !== void 0 && borderColorValue.startsWith('var:preset|color|') ? borderColorSlug.substring('var:preset|color|'.length) : undefined;
+  const updatedStyle = { ...style
+  };
+  updatedStyle.border = { ...updatedStyle.border,
+    color: borderColorSlug ? undefined : borderColorValue
+  };
+  return {
+    style: utils_cleanEmptyObject(updatedStyle),
+    borderColor: borderColorSlug
+  };
+}
+
+function attributesToStyle(attributes) {
+  var _attributes$style, _attributes$style2, _attributes$style3, _attributes$style3$bo;
+
+  if ((0,external_wp_components_namespaceObject.__experimentalHasSplitBorders)((_attributes$style = attributes.style) === null || _attributes$style === void 0 ? void 0 : _attributes$style.border)) {
+    return attributes.style;
+  }
+
+  return { ...attributes.style,
+    border: { ...((_attributes$style2 = attributes.style) === null || _attributes$style2 === void 0 ? void 0 : _attributes$style2.border),
+      color: attributes.borderColor ? 'var:preset|color|' + attributes.borderColor : (_attributes$style3 = attributes.style) === null || _attributes$style3 === void 0 ? void 0 : (_attributes$style3$bo = _attributes$style3.border) === null || _attributes$style3$bo === void 0 ? void 0 : _attributes$style3$bo.color
+    }
+  };
+}
+
+function BordersInspectorControl(_ref2) {
+  let {
+    children,
+    resetAllFilter
+  } = _ref2;
+  const attributesResetAllFilter = (0,external_wp_element_namespaceObject.useCallback)(attributes => {
+    const existingStyle = attributesToStyle(attributes);
+    const updatedStyle = resetAllFilter(existingStyle);
+    return { ...attributes,
+      ...styleToAttributes(updatedStyle)
+    };
+  }, [resetAllFilter]);
+  return (0,external_wp_element_namespaceObject.createElement)(inspector_controls, {
+    group: "border",
+    resetAllFilter: attributesResetAllFilter
+  }, children);
+}
+
+function border_BorderPanel(props) {
   const {
-    attributes,
     clientId,
+    name,
+    attributes,
     setAttributes
   } = props;
-  const {
-    style
-  } = attributes;
-  const {
-    colors
-  } = useMultipleOriginColorsAndGradients();
-  const isSupported = border_hasBorderSupport(props.name);
-  const isColorSupported = use_setting_useSetting('border.color') && border_hasBorderSupport(props.name, 'color');
-  const isRadiusSupported = use_setting_useSetting('border.radius') && border_hasBorderSupport(props.name, 'radius');
-  const isStyleSupported = use_setting_useSetting('border.style') && border_hasBorderSupport(props.name, 'style');
-  const isWidthSupported = use_setting_useSetting('border.width') && border_hasBorderSupport(props.name, 'width');
-  const isDisabled = [!isColorSupported, !isRadiusSupported, !isStyleSupported, !isWidthSupported].every(Boolean);
+  const settings = useBlockSettings(name);
+  const isEnabled = useHasBorderPanel(settings);
+  const value = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    return attributesToStyle({
+      style: attributes.style,
+      borderColor: attributes.borderColor
+    });
+  }, [attributes.style, attributes.borderColor]);
 
-  if (isDisabled || !isSupported) {
+  const onChange = newStyle => {
+    setAttributes(styleToAttributes(newStyle));
+  };
+
+  if (!isEnabled) {
     return null;
   }
 
-  const defaultBorderControls = (0,external_wp_blocks_namespaceObject.getBlockSupport)(props.name, [border_BORDER_SUPPORT_KEY, '__experimentalDefaultControls']);
-  const showBorderByDefault = (defaultBorderControls === null || defaultBorderControls === void 0 ? void 0 : defaultBorderControls.color) || (defaultBorderControls === null || defaultBorderControls === void 0 ? void 0 : defaultBorderControls.width);
-
-  const onBorderChange = newBorder => {
-    var _style$border2;
-
-    // Filter out named colors and apply them to appropriate block
-    // attributes so that CSS classes can be used to apply those colors.
-    // e.g. has-primary-border-top-color.
-    let newBorderStyles = { ...newBorder
-    };
-    let newBorderColor;
-
-    if ((0,external_wp_components_namespaceObject.__experimentalHasSplitBorders)(newBorder)) {
-      // For each side check if the side has a color value set
-      // If so, determine if it belongs to a named color, in which case
-      // we update the color property.
-      //
-      // This deliberately overwrites `newBorderStyles` to avoid mutating
-      // the passed object which causes problems otherwise.
-      newBorderStyles = {
-        top: { ...newBorder.top
-        },
-        right: { ...newBorder.right
-        },
-        bottom: { ...newBorder.bottom
-        },
-        left: { ...newBorder.left
-        }
-      };
-      borderSides.forEach(side => {
-        var _newBorder$side;
-
-        if ((_newBorder$side = newBorder[side]) !== null && _newBorder$side !== void 0 && _newBorder$side.color) {
-          var _newBorder$side2;
-
-          const colorObject = getMultiOriginColor({
-            colors,
-            customColor: (_newBorder$side2 = newBorder[side]) === null || _newBorder$side2 === void 0 ? void 0 : _newBorder$side2.color
-          });
-
-          if (colorObject.slug) {
-            newBorderStyles[side].color = `var:preset|color|${colorObject.slug}`;
-          }
-        }
-      });
-    } else if (newBorder !== null && newBorder !== void 0 && newBorder.color) {
-      // We have a flat border configuration. Apply named color slug to
-      // `borderColor` attribute and clear color style property if found.
-      const customColor = newBorder === null || newBorder === void 0 ? void 0 : newBorder.color;
-      const colorObject = getMultiOriginColor({
-        colors,
-        customColor
-      });
-
-      if (colorObject.slug) {
-        newBorderColor = colorObject.slug;
-        newBorderStyles.color = undefined;
-      }
-    } // Ensure previous border radius styles are maintained and clean
-    // overall result for empty objects or properties.
-
-
-    const newStyle = utils_cleanEmptyObject({ ...style,
-      border: {
-        radius: style === null || style === void 0 ? void 0 : (_style$border2 = style.border) === null || _style$border2 === void 0 ? void 0 : _style$border2.radius,
-        ...newBorderStyles
-      }
-    });
-    setAttributes({
-      style: newStyle,
-      borderColor: newBorderColor
-    });
-  };
-
-  const hydratedBorder = getBorderObject(attributes, colors);
-  return (0,external_wp_element_namespaceObject.createElement)(inspector_controls, {
-    group: "border"
-  }, (isWidthSupported || isColorSupported) && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
-    hasValue: () => hasBorderValue(props),
-    label: (0,external_wp_i18n_namespaceObject.__)('Border'),
-    onDeselect: () => resetBorder(props),
-    isShownByDefault: showBorderByDefault,
-    resetAllFilter: resetBorderFilter,
-    panelId: clientId
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalBorderBoxControl, {
-    colors: colors,
-    enableAlpha: true,
-    enableStyle: isStyleSupported,
-    onChange: onBorderChange,
-    popoverOffset: 40,
-    popoverPlacement: "left-start",
-    size: "__unstable-large",
-    value: hydratedBorder,
-    __experimentalIsRenderedInSidebar: true
-  })), isRadiusSupported && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
-    hasValue: () => hasBorderRadiusValue(props),
-    label: (0,external_wp_i18n_namespaceObject.__)('Radius'),
-    onDeselect: () => resetBorderRadius(props),
-    isShownByDefault: defaultBorderControls === null || defaultBorderControls === void 0 ? void 0 : defaultBorderControls.radius,
-    resetAllFilter: newAttributes => {
-      var _newAttributes$style2;
-
-      return { ...newAttributes,
-        style: { ...newAttributes.style,
-          border: { ...((_newAttributes$style2 = newAttributes.style) === null || _newAttributes$style2 === void 0 ? void 0 : _newAttributes$style2.border),
-            radius: undefined
-          }
-        }
-      };
-    },
-    panelId: clientId
-  }, (0,external_wp_element_namespaceObject.createElement)(BorderRadiusEdit, props)));
+  const defaultControls = (0,external_wp_blocks_namespaceObject.getBlockSupport)(props.name, [border_BORDER_SUPPORT_KEY, '__experimentalDefaultControls']);
+  return (0,external_wp_element_namespaceObject.createElement)(BorderPanel, {
+    as: BordersInspectorControl,
+    panelId: clientId,
+    name: name,
+    settings: settings,
+    value: value,
+    onChange: onChange,
+    defaultControls: defaultControls
+  });
 }
 /**
  * Determine whether there is block support for border properties.
@@ -38305,7 +38498,7 @@ function border_hasBorderSupport(blockName) {
  */
 
 function removeBorderAttribute(style, attribute) {
-  return utils_cleanEmptyObject({ ...style,
+  return cleanEmptyObject({ ...style,
     border: { ...(style === null || style === void 0 ? void 0 : style.border),
       [attribute]: undefined
     }
@@ -38373,7 +38566,7 @@ function border_addSaveProps(props, blockType, attributes) {
 
 
 function getBorderClasses(attributes) {
-  var _style$border3;
+  var _style$border2;
 
   const {
     borderColor,
@@ -38381,7 +38574,7 @@ function getBorderClasses(attributes) {
   } = attributes;
   const borderColorClass = getColorClassName('border-color', borderColor);
   return classnames_default()({
-    'has-border-color': borderColor || (style === null || style === void 0 ? void 0 : (_style$border3 = style.border) === null || _style$border3 === void 0 ? void 0 : _style$border3.color),
+    'has-border-color': borderColor || (style === null || style === void 0 ? void 0 : (_style$border2 = style.border) === null || _style$border2 === void 0 ? void 0 : _style$border2.color),
     [borderColorClass]: !!borderColorClass
   });
 }
@@ -38424,7 +38617,7 @@ function addEditProps(settings) {
 
 
 const withBorderColorPaletteStyles = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(BlockListBlock => props => {
-  var _style$border4, _style$border4$top, _style$border5, _style$border5$right, _style$border6, _style$border6$bottom, _style$border7, _style$border7$left, _props$wrapperProps;
+  var _style$border3, _style$border3$top, _style$border4, _style$border4$right, _style$border5, _style$border5$bottom, _style$border6, _style$border6$left, _props$wrapperProps;
 
   const {
     name,
@@ -38452,25 +38645,25 @@ const withBorderColorPaletteStyles = (0,external_wp_compose_namespaceObject.crea
     color: borderTopColor
   } = getMultiOriginColor({
     colors,
-    namedColor: getColorSlugFromVariable(style === null || style === void 0 ? void 0 : (_style$border4 = style.border) === null || _style$border4 === void 0 ? void 0 : (_style$border4$top = _style$border4.top) === null || _style$border4$top === void 0 ? void 0 : _style$border4$top.color)
+    namedColor: getColorSlugFromVariable(style === null || style === void 0 ? void 0 : (_style$border3 = style.border) === null || _style$border3 === void 0 ? void 0 : (_style$border3$top = _style$border3.top) === null || _style$border3$top === void 0 ? void 0 : _style$border3$top.color)
   });
   const {
     color: borderRightColor
   } = getMultiOriginColor({
     colors,
-    namedColor: getColorSlugFromVariable(style === null || style === void 0 ? void 0 : (_style$border5 = style.border) === null || _style$border5 === void 0 ? void 0 : (_style$border5$right = _style$border5.right) === null || _style$border5$right === void 0 ? void 0 : _style$border5$right.color)
+    namedColor: getColorSlugFromVariable(style === null || style === void 0 ? void 0 : (_style$border4 = style.border) === null || _style$border4 === void 0 ? void 0 : (_style$border4$right = _style$border4.right) === null || _style$border4$right === void 0 ? void 0 : _style$border4$right.color)
   });
   const {
     color: borderBottomColor
   } = getMultiOriginColor({
     colors,
-    namedColor: getColorSlugFromVariable(style === null || style === void 0 ? void 0 : (_style$border6 = style.border) === null || _style$border6 === void 0 ? void 0 : (_style$border6$bottom = _style$border6.bottom) === null || _style$border6$bottom === void 0 ? void 0 : _style$border6$bottom.color)
+    namedColor: getColorSlugFromVariable(style === null || style === void 0 ? void 0 : (_style$border5 = style.border) === null || _style$border5 === void 0 ? void 0 : (_style$border5$bottom = _style$border5.bottom) === null || _style$border5$bottom === void 0 ? void 0 : _style$border5$bottom.color)
   });
   const {
     color: borderLeftColor
   } = getMultiOriginColor({
     colors,
-    namedColor: getColorSlugFromVariable(style === null || style === void 0 ? void 0 : (_style$border7 = style.border) === null || _style$border7 === void 0 ? void 0 : (_style$border7$left = _style$border7.left) === null || _style$border7$left === void 0 ? void 0 : _style$border7$left.color)
+    namedColor: getColorSlugFromVariable(style === null || style === void 0 ? void 0 : (_style$border6 = style.border) === null || _style$border6 === void 0 ? void 0 : (_style$border6$left = _style$border6.left) === null || _style$border6$left === void 0 ? void 0 : _style$border6$left.color)
   });
   const extraStyles = {
     borderTopColor: borderTopColor || borderColorValue,
@@ -40288,6 +40481,8 @@ function TextDecorationControl(_ref) {
 
 
 
+const MIN_TEXT_COLUMNS = 1;
+const MAX_TEXT_COLUMNS = 6;
 function useHasTypographyPanel(settings) {
   const hasFontFamily = useHasFontFamilyControl(settings);
   const hasLineHeight = useHasLineHeightControl(settings);
@@ -40295,8 +40490,9 @@ function useHasTypographyPanel(settings) {
   const hasLetterSpacing = useHasLetterSpacingControl(settings);
   const hasTextTransform = useHasTextTransformControl(settings);
   const hasTextDecoration = useHasTextDecorationControl(settings);
+  const hasTextColumns = useHasTextColumnsControl(settings);
   const hasFontSize = useHasFontSizeControl(settings);
-  return hasFontFamily || hasLineHeight || hasFontAppearance || hasLetterSpacing || hasTextTransform || hasFontSize || hasTextDecoration;
+  return hasFontFamily || hasLineHeight || hasFontAppearance || hasLetterSpacing || hasTextTransform || hasFontSize || hasTextDecoration || hasTextColumns;
 }
 
 function useHasFontSizeControl(settings) {
@@ -40365,6 +40561,12 @@ function useHasTextDecorationControl(settings) {
   return settings === null || settings === void 0 ? void 0 : (_settings$typography11 = settings.typography) === null || _settings$typography11 === void 0 ? void 0 : _settings$typography11.textDecoration;
 }
 
+function useHasTextColumnsControl(settings) {
+  var _settings$typography12;
+
+  return settings === null || settings === void 0 ? void 0 : (_settings$typography12 = settings.typography) === null || _settings$typography12 === void 0 ? void 0 : _settings$typography12.textColumns;
+}
+
 function TypographyToolsPanel(_ref3) {
   let {
     resetAllFilter,
@@ -40393,10 +40595,11 @@ const typography_panel_DEFAULT_CONTROLS = {
   lineHeight: true,
   letterSpacing: true,
   textTransform: true,
-  textDecoration: true
+  textDecoration: true,
+  textColumns: true
 };
 function TypographyPanel(_ref4) {
-  var _settings$typography12, _ref5, _fontFamiliesPerOrigi2, _inheritedValue$typog, _settings$typography13, _settings$typography$2, _settings$typography14, _ref7, _fontSizesPerOrigin$c2, _inheritedValue$typog2, _settings$typography15, _settings$typography16, _inheritedValue$typog3, _inheritedValue$typog4, _inheritedValue$typog5, _inheritedValue$typog6, _inheritedValue$typog7, _inheritedValue$typog8;
+  var _settings$typography13, _ref5, _fontFamiliesPerOrigi2, _inheritedValue$typog, _settings$typography14, _settings$typography$2, _settings$typography15, _ref7, _fontSizesPerOrigin$c2, _inheritedValue$typog2, _settings$typography16, _settings$typography17, _inheritedValue$typog3, _inheritedValue$typog4, _inheritedValue$typog5, _inheritedValue$typog6, _inheritedValue$typog7, _inheritedValue$typog8, _inheritedValue$typog9;
 
   let {
     as: Wrapper = TypographyToolsPanel,
@@ -40414,7 +40617,7 @@ function TypographyPanel(_ref4) {
 
 
   const hasFontFamilyEnabled = useHasFontFamilyControl(settings);
-  const fontFamiliesPerOrigin = settings === null || settings === void 0 ? void 0 : (_settings$typography12 = settings.typography) === null || _settings$typography12 === void 0 ? void 0 : _settings$typography12.fontFamilies;
+  const fontFamiliesPerOrigin = settings === null || settings === void 0 ? void 0 : (_settings$typography13 = settings.typography) === null || _settings$typography13 === void 0 ? void 0 : _settings$typography13.fontFamilies;
   const fontFamilies = (_ref5 = (_fontFamiliesPerOrigi2 = fontFamiliesPerOrigin === null || fontFamiliesPerOrigin === void 0 ? void 0 : fontFamiliesPerOrigin.custom) !== null && _fontFamiliesPerOrigi2 !== void 0 ? _fontFamiliesPerOrigi2 : fontFamiliesPerOrigin === null || fontFamiliesPerOrigin === void 0 ? void 0 : fontFamiliesPerOrigin.theme) !== null && _ref5 !== void 0 ? _ref5 : fontFamiliesPerOrigin === null || fontFamiliesPerOrigin === void 0 ? void 0 : fontFamiliesPerOrigin.default;
   const fontFamily = decodeValue(inheritedValue === null || inheritedValue === void 0 ? void 0 : (_inheritedValue$typog = inheritedValue.typography) === null || _inheritedValue$typog === void 0 ? void 0 : _inheritedValue$typog.fontFamily);
 
@@ -40444,8 +40647,8 @@ function TypographyPanel(_ref4) {
 
 
   const hasFontSizeEnabled = useHasFontSizeControl(settings);
-  const disableCustomFontSizes = !(settings !== null && settings !== void 0 && (_settings$typography13 = settings.typography) !== null && _settings$typography13 !== void 0 && _settings$typography13.customFontSize);
-  const fontSizesPerOrigin = (_settings$typography$2 = settings === null || settings === void 0 ? void 0 : (_settings$typography14 = settings.typography) === null || _settings$typography14 === void 0 ? void 0 : _settings$typography14.fontSizes) !== null && _settings$typography$2 !== void 0 ? _settings$typography$2 : {};
+  const disableCustomFontSizes = !(settings !== null && settings !== void 0 && (_settings$typography14 = settings.typography) !== null && _settings$typography14 !== void 0 && _settings$typography14.customFontSize);
+  const fontSizesPerOrigin = (_settings$typography$2 = settings === null || settings === void 0 ? void 0 : (_settings$typography15 = settings.typography) === null || _settings$typography15 === void 0 ? void 0 : _settings$typography15.fontSizes) !== null && _settings$typography$2 !== void 0 ? _settings$typography$2 : {};
   const fontSizes = (_ref7 = (_fontSizesPerOrigin$c2 = fontSizesPerOrigin === null || fontSizesPerOrigin === void 0 ? void 0 : fontSizesPerOrigin.custom) !== null && _fontSizesPerOrigin$c2 !== void 0 ? _fontSizesPerOrigin$c2 : fontSizesPerOrigin === null || fontSizesPerOrigin === void 0 ? void 0 : fontSizesPerOrigin.theme) !== null && _ref7 !== void 0 ? _ref7 : fontSizesPerOrigin.default;
   const fontSize = decodeValue(inheritedValue === null || inheritedValue === void 0 ? void 0 : (_inheritedValue$typog2 = inheritedValue.typography) === null || _inheritedValue$typog2 === void 0 ? void 0 : _inheritedValue$typog2.fontSize);
 
@@ -40469,8 +40672,8 @@ function TypographyPanel(_ref4) {
 
   const hasAppearanceControl = useHasAppearanceControl(settings);
   const appearanceControlLabel = useAppearanceControlLabel(settings);
-  const hasFontStyles = settings === null || settings === void 0 ? void 0 : (_settings$typography15 = settings.typography) === null || _settings$typography15 === void 0 ? void 0 : _settings$typography15.fontStyle;
-  const hasFontWeights = settings === null || settings === void 0 ? void 0 : (_settings$typography16 = settings.typography) === null || _settings$typography16 === void 0 ? void 0 : _settings$typography16.fontWeight;
+  const hasFontStyles = settings === null || settings === void 0 ? void 0 : (_settings$typography16 = settings.typography) === null || _settings$typography16 === void 0 ? void 0 : _settings$typography16.fontStyle;
+  const hasFontWeights = settings === null || settings === void 0 ? void 0 : (_settings$typography17 = settings.typography) === null || _settings$typography17 === void 0 ? void 0 : _settings$typography17.fontWeight;
   const fontStyle = decodeValue(inheritedValue === null || inheritedValue === void 0 ? void 0 : (_inheritedValue$typog3 = inheritedValue.typography) === null || _inheritedValue$typog3 === void 0 ? void 0 : _inheritedValue$typog3.fontStyle);
   const fontWeight = decodeValue(inheritedValue === null || inheritedValue === void 0 ? void 0 : (_inheritedValue$typog4 = inheritedValue.typography) === null || _inheritedValue$typog4 === void 0 ? void 0 : _inheritedValue$typog4.fontWeight);
 
@@ -40535,11 +40738,31 @@ function TypographyPanel(_ref4) {
     return !!(value !== null && value !== void 0 && (_value$typography6 = value.typography) !== null && _value$typography6 !== void 0 && _value$typography6.letterSpacing);
   };
 
-  const resetLetterSpacing = () => setLetterSpacing(undefined); // Text Transform
+  const resetLetterSpacing = () => setLetterSpacing(undefined); // Text Columns
+
+
+  const hasTextColumnsControl = useHasTextColumnsControl(settings);
+  const textColumns = decodeValue(inheritedValue === null || inheritedValue === void 0 ? void 0 : (_inheritedValue$typog7 = inheritedValue.typography) === null || _inheritedValue$typog7 === void 0 ? void 0 : _inheritedValue$typog7.textColumns);
+
+  const setTextColumns = newValue => {
+    onChange({ ...value,
+      typography: { ...(value === null || value === void 0 ? void 0 : value.typography),
+        textColumns: newValue
+      }
+    });
+  };
+
+  const hasTextColumns = () => {
+    var _value$typography7;
+
+    return !!(value !== null && value !== void 0 && (_value$typography7 = value.typography) !== null && _value$typography7 !== void 0 && _value$typography7.textColumns);
+  };
+
+  const resetTextColumns = () => setTextColumns(undefined); // Text Transform
 
 
   const hasTextTransformControl = useHasTextTransformControl(settings);
-  const textTransform = decodeValue(inheritedValue === null || inheritedValue === void 0 ? void 0 : (_inheritedValue$typog7 = inheritedValue.typography) === null || _inheritedValue$typog7 === void 0 ? void 0 : _inheritedValue$typog7.textTransform);
+  const textTransform = decodeValue(inheritedValue === null || inheritedValue === void 0 ? void 0 : (_inheritedValue$typog8 = inheritedValue.typography) === null || _inheritedValue$typog8 === void 0 ? void 0 : _inheritedValue$typog8.textTransform);
 
   const setTextTransform = newValue => {
     onChange({ ...value,
@@ -40550,16 +40773,16 @@ function TypographyPanel(_ref4) {
   };
 
   const hasTextTransform = () => {
-    var _value$typography7;
+    var _value$typography8;
 
-    return !!(value !== null && value !== void 0 && (_value$typography7 = value.typography) !== null && _value$typography7 !== void 0 && _value$typography7.textTransform);
+    return !!(value !== null && value !== void 0 && (_value$typography8 = value.typography) !== null && _value$typography8 !== void 0 && _value$typography8.textTransform);
   };
 
   const resetTextTransform = () => setTextTransform(undefined); // Text Decoration
 
 
   const hasTextDecorationControl = useHasTextDecorationControl(settings);
-  const textDecoration = decodeValue(inheritedValue === null || inheritedValue === void 0 ? void 0 : (_inheritedValue$typog8 = inheritedValue.typography) === null || _inheritedValue$typog8 === void 0 ? void 0 : _inheritedValue$typog8.textDecoration);
+  const textDecoration = decodeValue(inheritedValue === null || inheritedValue === void 0 ? void 0 : (_inheritedValue$typog9 = inheritedValue.typography) === null || _inheritedValue$typog9 === void 0 ? void 0 : _inheritedValue$typog9.textDecoration);
 
   const setTextDecoration = newValue => {
     onChange({ ...value,
@@ -40570,9 +40793,9 @@ function TypographyPanel(_ref4) {
   };
 
   const hasTextDecoration = () => {
-    var _value$typography8;
+    var _value$typography9;
 
-    return !!(value !== null && value !== void 0 && (_value$typography8 = value.typography) !== null && _value$typography8 !== void 0 && _value$typography8.textDecoration);
+    return !!(value !== null && value !== void 0 && (_value$typography9 = value.typography) !== null && _value$typography9 !== void 0 && _value$typography9.textDecoration);
   };
 
   const resetTextDecoration = () => setTextDecoration(undefined);
@@ -40656,6 +40879,22 @@ function TypographyPanel(_ref4) {
     onChange: setLetterSpacing,
     size: "__unstable-large",
     __unstableInputWidth: "auto"
+  })), hasTextColumnsControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
+    className: "single-column",
+    label: (0,external_wp_i18n_namespaceObject.__)('Text columns'),
+    hasValue: hasTextColumns,
+    onDeselect: resetTextColumns,
+    isShownByDefault: defaultControls.textColumns,
+    panelId: panelId
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalNumberControl, {
+    label: (0,external_wp_i18n_namespaceObject.__)('Text columns'),
+    max: MAX_TEXT_COLUMNS,
+    min: MIN_TEXT_COLUMNS,
+    onChange: setTextColumns,
+    size: "__unstable-large",
+    spinControls: "custom",
+    value: textColumns,
+    initialPosition: 1
   })), hasTextDecorationControl && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalToolsPanelItem, {
     className: "single-column",
     label: (0,external_wp_i18n_namespaceObject.__)('Text decoration'),
@@ -41259,12 +41498,13 @@ function omit(object, keys) {
 const typography_LETTER_SPACING_SUPPORT_KEY = 'typography.__experimentalLetterSpacing';
 const typography_TEXT_TRANSFORM_SUPPORT_KEY = 'typography.__experimentalTextTransform';
 const typography_TEXT_DECORATION_SUPPORT_KEY = 'typography.__experimentalTextDecoration';
+const typography_TEXT_COLUMNS_SUPPORT_KEY = 'typography.textColumns';
 const typography_FONT_STYLE_SUPPORT_KEY = 'typography.__experimentalFontStyle';
 const typography_FONT_WEIGHT_SUPPORT_KEY = 'typography.__experimentalFontWeight';
 const TYPOGRAPHY_SUPPORT_KEY = 'typography';
-const typography_TYPOGRAPHY_SUPPORT_KEYS = [line_height_LINE_HEIGHT_SUPPORT_KEY, font_size_FONT_SIZE_SUPPORT_KEY, typography_FONT_STYLE_SUPPORT_KEY, typography_FONT_WEIGHT_SUPPORT_KEY, font_family_FONT_FAMILY_SUPPORT_KEY, typography_TEXT_DECORATION_SUPPORT_KEY, typography_TEXT_TRANSFORM_SUPPORT_KEY, typography_LETTER_SPACING_SUPPORT_KEY];
+const typography_TYPOGRAPHY_SUPPORT_KEYS = [line_height_LINE_HEIGHT_SUPPORT_KEY, font_size_FONT_SIZE_SUPPORT_KEY, typography_FONT_STYLE_SUPPORT_KEY, typography_FONT_WEIGHT_SUPPORT_KEY, font_family_FONT_FAMILY_SUPPORT_KEY, typography_TEXT_COLUMNS_SUPPORT_KEY, typography_TEXT_DECORATION_SUPPORT_KEY, typography_TEXT_TRANSFORM_SUPPORT_KEY, typography_LETTER_SPACING_SUPPORT_KEY];
 
-function styleToAttributes(style) {
+function typography_styleToAttributes(style) {
   var _style$typography, _style$typography2;
 
   const updatedStyle = { ...omit(style, ['fontFamily'])
@@ -41283,7 +41523,7 @@ function styleToAttributes(style) {
   };
 }
 
-function attributesToStyle(attributes) {
+function typography_attributesToStyle(attributes) {
   var _attributes$style, _attributes$style2, _attributes$style2$ty;
 
   return { ...attributes.style,
@@ -41300,10 +41540,10 @@ function TypographyInspectorControl(_ref2) {
     resetAllFilter
   } = _ref2;
   const attributesResetAllFilter = (0,external_wp_element_namespaceObject.useCallback)(attributes => {
-    const existingStyle = attributesToStyle(attributes);
+    const existingStyle = typography_attributesToStyle(attributes);
     const updatedStyle = resetAllFilter(existingStyle);
     return { ...attributes,
-      ...styleToAttributes(updatedStyle)
+      ...typography_styleToAttributes(updatedStyle)
     };
   }, [resetAllFilter]);
   return (0,external_wp_element_namespaceObject.createElement)(inspector_controls, {
@@ -41323,7 +41563,7 @@ function typography_TypographyPanel(_ref3) {
   const settings = useBlockSettings(name, __unstableParentLayout);
   const isEnabled = useHasTypographyPanel(settings);
   const value = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    return attributesToStyle({
+    return typography_attributesToStyle({
       style: attributes.style,
       fontFamily: attributes.fontFamily,
       fontSize: attributes.fontSize
@@ -41331,7 +41571,7 @@ function typography_TypographyPanel(_ref3) {
   }, [attributes.style, attributes.fontSize, attributes.fontFamily]);
 
   const onChange = newStyle => {
-    setAttributes(styleToAttributes(newStyle));
+    setAttributes(typography_styleToAttributes(newStyle));
   };
 
   if (!isEnabled) {
@@ -43299,7 +43539,7 @@ function style_addEditProps(settings) {
 
 const withBlockControls = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(BlockEdit => props => {
   const shouldDisplayControls = useDisplayBlockControls();
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, shouldDisplayControls && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(ColorEdit, props), (0,external_wp_element_namespaceObject.createElement)(typography_TypographyPanel, props), (0,external_wp_element_namespaceObject.createElement)(BorderPanel, props), (0,external_wp_element_namespaceObject.createElement)(dimensions_DimensionsPanel, props)), (0,external_wp_element_namespaceObject.createElement)(BlockEdit, props));
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, shouldDisplayControls && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(ColorEdit, props), (0,external_wp_element_namespaceObject.createElement)(typography_TypographyPanel, props), (0,external_wp_element_namespaceObject.createElement)(border_BorderPanel, props), (0,external_wp_element_namespaceObject.createElement)(dimensions_DimensionsPanel, props)), (0,external_wp_element_namespaceObject.createElement)(BlockEdit, props));
 }, 'withToolbarControls');
 /**
  * Override the default block element to include elements styles.
@@ -43813,7 +44053,8 @@ const layoutBlockSupportKey = '__experimentalLayout';
 /**
  * Generates the utility classnames for the given block's layout attributes.
  *
- * @param { Object } block Block object.
+ * @param { Object } blockAttributes Block attributes.
+ * @param { string } blockName       Block name.
  *
  * @return { Array } Array of CSS classname strings.
  */
@@ -43821,7 +44062,8 @@ const layoutBlockSupportKey = '__experimentalLayout';
 function useLayoutClasses() {
   var _globalLayoutSettings, _globalLayoutSettings2;
 
-  let block = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let blockAttributes = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let blockName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
   const rootPaddingAlignment = (0,external_wp_data_namespaceObject.useSelect)(select => {
     var _getSettings$__experi;
 
@@ -43832,15 +44074,11 @@ function useLayoutClasses() {
   }, []);
   const globalLayoutSettings = use_setting_useSetting('layout') || {};
   const {
-    attributes = {},
-    name
-  } = block;
-  const {
     layout
-  } = attributes;
+  } = blockAttributes;
   const {
     default: defaultBlockLayout
-  } = (0,external_wp_blocks_namespaceObject.getBlockSupport)(name, layoutBlockSupportKey) || {};
+  } = (0,external_wp_blocks_namespaceObject.getBlockSupport)(blockName, layoutBlockSupportKey) || {};
   const usedLayout = layout !== null && layout !== void 0 && layout.inherit || layout !== null && layout !== void 0 && layout.contentSize || layout !== null && layout !== void 0 && layout.wideSize ? { ...layout,
     type: 'constrained'
   } : layout || defaultBlockLayout || {};
@@ -43849,7 +44087,9 @@ function useLayoutClasses() {
   if (globalLayoutSettings !== null && globalLayoutSettings !== void 0 && (_globalLayoutSettings = globalLayoutSettings.definitions) !== null && _globalLayoutSettings !== void 0 && (_globalLayoutSettings2 = _globalLayoutSettings[(usedLayout === null || usedLayout === void 0 ? void 0 : usedLayout.type) || 'default']) !== null && _globalLayoutSettings2 !== void 0 && _globalLayoutSettings2.className) {
     var _globalLayoutSettings3, _globalLayoutSettings4;
 
-    layoutClassnames.push(globalLayoutSettings === null || globalLayoutSettings === void 0 ? void 0 : (_globalLayoutSettings3 = globalLayoutSettings.definitions) === null || _globalLayoutSettings3 === void 0 ? void 0 : (_globalLayoutSettings4 = _globalLayoutSettings3[(usedLayout === null || usedLayout === void 0 ? void 0 : usedLayout.type) || 'default']) === null || _globalLayoutSettings4 === void 0 ? void 0 : _globalLayoutSettings4.className);
+    const baseClassName = globalLayoutSettings === null || globalLayoutSettings === void 0 ? void 0 : (_globalLayoutSettings3 = globalLayoutSettings.definitions) === null || _globalLayoutSettings3 === void 0 ? void 0 : (_globalLayoutSettings4 = _globalLayoutSettings3[(usedLayout === null || usedLayout === void 0 ? void 0 : usedLayout.type) || 'default']) === null || _globalLayoutSettings4 === void 0 ? void 0 : _globalLayoutSettings4.className;
+    const compoundClassName = `wp-block-${blockName.split('/').pop()}-${baseClassName}`;
+    layoutClassnames.push(baseClassName, compoundClassName);
   }
 
   if ((usedLayout !== null && usedLayout !== void 0 && usedLayout.inherit || usedLayout !== null && usedLayout !== void 0 && usedLayout.contentSize || (usedLayout === null || usedLayout === void 0 ? void 0 : usedLayout.type) === 'constrained') && rootPaddingAlignment) {
@@ -43873,8 +44113,9 @@ function useLayoutClasses() {
 /**
  * Generates a CSS rule with the given block's layout styles.
  *
- * @param { Object } block    Block object.
- * @param { string } selector A selector to use in generating the CSS rule.
+ * @param { Object } blockAttributes Block attributes.
+ * @param { string } blockName       Block name.
+ * @param { string } selector        A selector to use in generating the CSS rule.
  *
  * @return { string } CSS rule.
  */
@@ -43882,16 +44123,13 @@ function useLayoutClasses() {
 function useLayoutStyles() {
   var _fullLayoutType$getLa;
 
-  let block = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let selector = arguments.length > 1 ? arguments[1] : undefined;
-  const {
-    attributes = {},
-    name
-  } = block;
+  let blockAttributes = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let blockName = arguments.length > 1 ? arguments[1] : undefined;
+  let selector = arguments.length > 2 ? arguments[2] : undefined;
   const {
     layout = {},
     style = {}
-  } = attributes; // Update type for blocks using legacy layouts.
+  } = blockAttributes; // Update type for blocks using legacy layouts.
 
   const usedLayout = layout !== null && layout !== void 0 && layout.inherit || layout !== null && layout !== void 0 && layout.contentSize || layout !== null && layout !== void 0 && layout.wideSize ? { ...layout,
     type: 'constrained'
@@ -43901,7 +44139,7 @@ function useLayoutStyles() {
   const blockGapSupport = use_setting_useSetting('spacing.blockGap');
   const hasBlockGapSupport = blockGapSupport !== null;
   const css = fullLayoutType === null || fullLayoutType === void 0 ? void 0 : (_fullLayoutType$getLa = fullLayoutType.getLayoutStyle) === null || _fullLayoutType$getLa === void 0 ? void 0 : _fullLayoutType$getLa.call(fullLayoutType, {
-    blockName: name,
+    blockName,
     selector,
     layout,
     layoutDefinitions: globalLayoutSettings === null || globalLayoutSettings === void 0 ? void 0 : globalLayoutSettings.definitions,
@@ -44086,8 +44324,7 @@ const layout_withInspectorControls = (0,external_wp_compose_namespaceObject.crea
 const withLayoutStyles = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(BlockListBlock => props => {
   const {
     name,
-    attributes,
-    block
+    attributes
   } = props;
   const hasLayoutBlockSupport = (0,external_wp_blocks_namespaceObject.hasBlockSupport)(name, layoutBlockSupportKey);
   const disableLayoutStyles = (0,external_wp_data_namespaceObject.useSelect)(select => {
@@ -44109,7 +44346,7 @@ const withLayoutStyles = (0,external_wp_compose_namespaceObject.createHigherOrde
   const usedLayout = layout !== null && layout !== void 0 && layout.inherit || layout !== null && layout !== void 0 && layout.contentSize || layout !== null && layout !== void 0 && layout.wideSize ? { ...layout,
     type: 'constrained'
   } : layout || defaultBlockLayout || {};
-  const layoutClasses = hasLayoutBlockSupport ? useLayoutClasses(block) : null; // Higher specificity to override defaults from theme.json.
+  const layoutClasses = hasLayoutBlockSupport ? useLayoutClasses(attributes, name) : null; // Higher specificity to override defaults from theme.json.
 
   const selector = `.wp-container-${id}.wp-container-${id}`;
   const blockGapSupport = use_setting_useSetting('spacing.blockGap');
@@ -46947,7 +47184,6 @@ function useBlockSelection() {
     getBlockName,
     getBlockParents,
     getBlockSelectionStart,
-    getBlockSelectionEnd,
     getSelectedBlockClientIds,
     hasMultiSelection,
     hasSelectedBlock
@@ -47040,7 +47276,7 @@ function useBlockSelection() {
     if (label) {
       (0,external_wp_a11y_namespaceObject.speak)(label);
     }
-  }, [clearSelectedBlock, getBlockName, getBlockType, getBlockParents, getBlockSelectionStart, getBlockSelectionEnd, getSelectedBlockClientIds, hasMultiSelection, hasSelectedBlock, multiSelect, selectBlock]);
+  }, [clearSelectedBlock, getBlockName, getBlockType, getBlockParents, getBlockSelectionStart, getSelectedBlockClientIds, hasMultiSelection, hasSelectedBlock, multiSelect, selectBlock]);
   return {
     updateBlockSelection
   };
@@ -51306,6 +51542,7 @@ const globe = (0,external_wp_element_namespaceObject.createElement)(external_wp_
 
 
 
+
 const ICONS_MAP = {
   post: post_list,
   page: library_page,
@@ -51361,8 +51598,9 @@ const LinkControlSearchItem = _ref2 => {
     className: "block-editor-link-control__search-item-header"
   }, (0,external_wp_element_namespaceObject.createElement)("span", {
     className: "block-editor-link-control__search-item-title"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextHighlight, {
-    text: suggestion.title,
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextHighlight // The component expects a plain text string.
+  , {
+    text: (0,external_wp_dom_namespaceObject.__unstableStripHTML)(suggestion.title),
     highlight: searchTerm
   })), (0,external_wp_element_namespaceObject.createElement)("span", {
     "aria-hidden": !isURL,
@@ -52468,7 +52706,7 @@ function LinkControl(_ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     variant: "primary",
     onClick: handleSubmit,
-    className: "xblock-editor-link-control__search-submit",
+    className: "block-editor-link-control__search-submit",
     disabled: currentInputIsEmpty // Disallow submitting empty values.
 
   }, (0,external_wp_i18n_namespaceObject.__)('Apply')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
@@ -53497,7 +53735,6 @@ const FormatToolbar = () => {
 
 function InlineSelectionToolbar(_ref) {
   let {
-    value,
     editableContentElement,
     activeFormats
   } = _ref;
@@ -53506,7 +53743,6 @@ function InlineSelectionToolbar(_ref) {
   const settings = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_richText_namespaceObject.store).getFormatType(lastFormatType), [lastFormatType]);
   const popoverAnchor = (0,external_wp_richText_namespaceObject.useAnchor)({
     editableContentElement,
-    value,
     settings
   });
   return (0,external_wp_element_namespaceObject.createElement)(InlineToolbar, {
@@ -53555,7 +53791,6 @@ const FormatToolbarContainer = _ref3 => {
 
     return (0,external_wp_element_namespaceObject.createElement)(InlineSelectionToolbar, {
       editableContentElement: editableContentElement,
-      value: value,
       activeFormats: activeFormats
     });
   } // Render regular toolbar.
@@ -58590,21 +58825,27 @@ function evalMathExpression(cssUnit) {
 
   const cssUnitsBits = cssUnit.match(/\d+\.?\d*[a-zA-Z]+|\.\d+[a-zA-Z]+/g);
 
-  for (const unit of cssUnitsBits) {
-    // Standardize the unit to px and extract the value.
-    const parsedUnit = parseUnit(getPxFromCssUnit(unit));
+  if (cssUnitsBits) {
+    for (const unit of cssUnitsBits) {
+      // Standardize the unit to px and extract the value.
+      const parsedUnit = parseUnit(getPxFromCssUnit(unit));
 
-    if (!parseFloat(parsedUnit.value)) {
-      errorFound = true; // End early since we are dealing with a null value.
+      if (!parseFloat(parsedUnit.value)) {
+        errorFound = true; // End early since we are dealing with a null value.
 
-      break;
+        break;
+      }
+
+      cssUnit = cssUnit.replace(unit, parsedUnit.value);
     }
-
-    cssUnit = cssUnit.replace(unit, parsedUnit.value);
+  } else {
+    errorFound = true;
   } // For mixed math expressions wrapped within CSS expressions
 
 
-  if (!errorFound && cssUnit.match(/(max|min|clamp)/g)) {
+  const expressionsMatches = cssUnit.match(/(max|min|clamp)/g);
+
+  if (!errorFound && expressionsMatches) {
     const values = cssUnit.split(',');
 
     for (const currentValue of values) {
@@ -58859,13 +59100,14 @@ function getPresetsDeclarations() {
 /**
  * Transform given preset tree into a set of preset class declarations.
  *
- * @param {string} blockSelector
- * @param {Object} blockPresets
+ * @param {?string} blockSelector
+ * @param {Object}  blockPresets
  * @return {string} CSS declarations for the preset classes.
  */
 
 
-function getPresetsClasses(blockSelector) {
+function getPresetsClasses() {
+  let blockSelector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '*';
   let blockPresets = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
   return PRESET_METADATA.reduce((declarations, _ref2) => {
     let {
@@ -59132,7 +59374,7 @@ function getLayoutStyles(_ref6) {
               // For fallback gap styles, use lower specificity, to ensure styles do not unintentionally override theme styles.
               combinedSelector = selector === ROOT_BLOCK_SELECTOR ? `:where(.${className}${(spacingStyle === null || spacingStyle === void 0 ? void 0 : spacingStyle.selector) || ''})` : `:where(${selector}.${className}${(spacingStyle === null || spacingStyle === void 0 ? void 0 : spacingStyle.selector) || ''})`;
             } else {
-              combinedSelector = selector === ROOT_BLOCK_SELECTOR ? `${selector} .${className}${(spacingStyle === null || spacingStyle === void 0 ? void 0 : spacingStyle.selector) || ''}` : `${selector}.${className}${(spacingStyle === null || spacingStyle === void 0 ? void 0 : spacingStyle.selector) || ''}`;
+              combinedSelector = selector === ROOT_BLOCK_SELECTOR ? `${selector} .${className}${(spacingStyle === null || spacingStyle === void 0 ? void 0 : spacingStyle.selector) || ''}` : `${selector}-${className}${selector}-${className}${(spacingStyle === null || spacingStyle === void 0 ? void 0 : spacingStyle.selector) || ''}`;
             }
 
             ruleset += `${combinedSelector} { ${declarations.join('; ')}; }`;
@@ -59207,15 +59449,15 @@ const getNodesWithStyles = (tree, blockSelectors) => {
   }
 
   Object.entries(external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS).forEach(_ref12 => {
-    var _tree$styles;
+    var _tree$styles, _tree$styles$elements;
 
     let [name, selector] = _ref12;
 
-    if (!!((_tree$styles = tree.styles) !== null && _tree$styles !== void 0 && _tree$styles.elements[name])) {
-      var _tree$styles2;
+    if (!!((_tree$styles = tree.styles) !== null && _tree$styles !== void 0 && (_tree$styles$elements = _tree$styles.elements) !== null && _tree$styles$elements !== void 0 && _tree$styles$elements[name])) {
+      var _tree$styles2, _tree$styles2$element;
 
       nodes.push({
-        styles: (_tree$styles2 = tree.styles) === null || _tree$styles2 === void 0 ? void 0 : _tree$styles2.elements[name],
+        styles: (_tree$styles2 = tree.styles) === null || _tree$styles2 === void 0 ? void 0 : (_tree$styles2$element = _tree$styles2.elements) === null || _tree$styles2$element === void 0 ? void 0 : _tree$styles2$element[name],
         selector
       });
     }
@@ -59236,11 +59478,13 @@ const getNodesWithStyles = (tree, blockSelectors) => {
     }
 
     if (!!blockStyles && !!(blockSelectors !== null && blockSelectors !== void 0 && (_blockSelectors$block = blockSelectors[blockName]) !== null && _blockSelectors$block !== void 0 && _blockSelectors$block.selector)) {
+      var _blockSelectors$block2;
+
       nodes.push({
         duotoneSelector: blockSelectors[blockName].duotoneSelector,
         fallbackGapValue: blockSelectors[blockName].fallbackGapValue,
         hasLayoutSupport: blockSelectors[blockName].hasLayoutSupport,
-        selector: blockSelectors[blockName].selector,
+        selector: (_blockSelectors$block2 = blockSelectors[blockName]) === null || _blockSelectors$block2 === void 0 ? void 0 : _blockSelectors$block2.selector,
         styles: blockStyles,
         featureSelectors: blockSelectors[blockName].featureSelectors,
         styleVariationSelectors: blockSelectors[blockName].styleVariationSelectors
@@ -59251,9 +59495,11 @@ const getNodesWithStyles = (tree, blockSelectors) => {
       let [elementName, value] = _ref14;
 
       if (!!value && !!(blockSelectors !== null && blockSelectors !== void 0 && blockSelectors[blockName]) && !!(external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS !== null && external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS !== void 0 && external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS[elementName])) {
+        var _blockSelectors$block3;
+
         nodes.push({
           styles: value,
-          selector: blockSelectors[blockName].selector.split(',').map(sel => {
+          selector: (_blockSelectors$block3 = blockSelectors[blockName]) === null || _blockSelectors$block3 === void 0 ? void 0 : _blockSelectors$block3.selector.split(',').map(sel => {
             const elementSelectors = external_wp_blocks_namespaceObject.__EXPERIMENTAL_ELEMENTS[elementName].split(',');
             return elementSelectors.map(elementSelector => sel + ' ' + elementSelector);
           }).join(',')
@@ -59306,10 +59552,12 @@ const getNodesWithSettings = (tree, blockSelectors) => {
     const blockCustom = node.custom;
 
     if (!(0,external_lodash_namespaceObject.isEmpty)(blockPresets) || !!blockCustom) {
+      var _blockSelectors$block4;
+
       nodes.push({
         presets: blockPresets,
         custom: blockCustom,
-        selector: blockSelectors[blockName].selector
+        selector: (_blockSelectors$block4 = blockSelectors[blockName]) === null || _blockSelectors$block4 === void 0 ? void 0 : _blockSelectors$block4.selector
       });
     }
   });
@@ -59613,9 +59861,9 @@ const getBlockSelectors = (blockTypes, getBlockStyles) => {
  */
 
 function updateConfigWithSeparator(config) {
-  var _config$styles, _config$styles2, _config$styles2$block, _config$styles3, _config$styles3$block, _config$styles4, _config$styles4$block;
+  var _config$styles, _config$styles$blocks, _config$styles2, _config$styles2$block, _config$styles2$block2, _config$styles3, _config$styles3$block, _config$styles3$block2, _config$styles4, _config$styles4$block, _config$styles4$block2;
 
-  const needsSeparatorStyleUpdate = ((_config$styles = config.styles) === null || _config$styles === void 0 ? void 0 : _config$styles.blocks['core/separator']) && ((_config$styles2 = config.styles) === null || _config$styles2 === void 0 ? void 0 : (_config$styles2$block = _config$styles2.blocks['core/separator'].color) === null || _config$styles2$block === void 0 ? void 0 : _config$styles2$block.background) && !((_config$styles3 = config.styles) !== null && _config$styles3 !== void 0 && (_config$styles3$block = _config$styles3.blocks['core/separator'].color) !== null && _config$styles3$block !== void 0 && _config$styles3$block.text) && !((_config$styles4 = config.styles) !== null && _config$styles4 !== void 0 && (_config$styles4$block = _config$styles4.blocks['core/separator'].border) !== null && _config$styles4$block !== void 0 && _config$styles4$block.color);
+  const needsSeparatorStyleUpdate = ((_config$styles = config.styles) === null || _config$styles === void 0 ? void 0 : (_config$styles$blocks = _config$styles.blocks) === null || _config$styles$blocks === void 0 ? void 0 : _config$styles$blocks['core/separator']) && ((_config$styles2 = config.styles) === null || _config$styles2 === void 0 ? void 0 : (_config$styles2$block = _config$styles2.blocks) === null || _config$styles2$block === void 0 ? void 0 : (_config$styles2$block2 = _config$styles2$block['core/separator'].color) === null || _config$styles2$block2 === void 0 ? void 0 : _config$styles2$block2.background) && !((_config$styles3 = config.styles) !== null && _config$styles3 !== void 0 && (_config$styles3$block = _config$styles3.blocks) !== null && _config$styles3$block !== void 0 && (_config$styles3$block2 = _config$styles3$block['core/separator'].color) !== null && _config$styles3$block2 !== void 0 && _config$styles3$block2.text) && !((_config$styles4 = config.styles) !== null && _config$styles4 !== void 0 && (_config$styles4$block = _config$styles4.blocks) !== null && _config$styles4$block !== void 0 && (_config$styles4$block2 = _config$styles4$block['core/separator'].border) !== null && _config$styles4$block2 !== void 0 && _config$styles4$block2.color);
 
   if (needsSeparatorStyleUpdate) {
     var _config$styles5;
@@ -59714,6 +59962,7 @@ function useGlobalStylesOutput() {
 
 
 
+
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/components/off-canvas-editor/appender.js
 
 
@@ -59733,6 +59982,8 @@ function useGlobalStylesOutput() {
 
 
 
+
+const prioritizedInserterBlocks = ['core/navigation-link/page', 'core/navigation-link'];
 const Appender = (0,external_wp_element_namespaceObject.forwardRef)((_ref, ref) => {
   let {
     nestingLevel,
@@ -59769,18 +60020,39 @@ const Appender = (0,external_wp_element_namespaceObject.forwardRef)((_ref, ref) 
     (0,external_wp_a11y_namespaceObject.speak)((0,external_wp_i18n_namespaceObject.sprintf)( // translators: %s: name of block being inserted (i.e. Paragraph, Image, Group etc)
     (0,external_wp_i18n_namespaceObject.__)('%s block inserted'), insertedBlockTitle), 'assertive');
   }, [insertedBlockTitle]);
+  const orderInitialBlockItems = (0,external_wp_element_namespaceObject.useCallback)(items => {
+    items.sort((_ref2, _ref3) => {
+      let {
+        id: aName
+      } = _ref2;
+      let {
+        id: bName
+      } = _ref3;
+      // Sort block items according to `prioritizedInserterBlocks`.
+      let aIndex = prioritizedInserterBlocks.indexOf(aName);
+      let bIndex = prioritizedInserterBlocks.indexOf(bName); // All other block items should come after that.
+
+      if (aIndex < 0) aIndex = prioritizedInserterBlocks.length;
+      if (bIndex < 0) bIndex = prioritizedInserterBlocks.length;
+      return aIndex - bIndex;
+    });
+    return items;
+  }, []);
 
   if (hideInserter) {
     return null;
   }
 
+  const {
+    PrivateInserter
+  } = unlock(privateApis);
   const descriptionId = `off-canvas-editor-appender__${instanceId}`;
   const description = (0,external_wp_i18n_namespaceObject.sprintf)(
   /* translators: 1: The name of the block. 2: The numerical position of the block. 3: The level of nesting for the block. */
   (0,external_wp_i18n_namespaceObject.__)('Append to %1$s block at position %2$d, Level %3$d'), blockTitle, blockCount + 1, nestingLevel);
   return (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "offcanvas-editor-appender"
-  }, (0,external_wp_element_namespaceObject.createElement)(inserter, _extends({
+  }, (0,external_wp_element_namespaceObject.createElement)(PrivateInserter, _extends({
     ref: ref,
     rootClientId: clientId,
     position: "bottom right",
@@ -59796,7 +60068,8 @@ const Appender = (0,external_wp_element_namespaceObject.forwardRef)((_ref, ref) 
       if (maybeInsertedBlock !== null && maybeInsertedBlock !== void 0 && maybeInsertedBlock.clientId) {
         setInsertedBlock(maybeInsertedBlock);
       }
-    }
+    },
+    orderInitialBlockItems: orderInitialBlockItems
   })), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "offcanvas-editor-appender__description",
     id: descriptionId
@@ -60237,7 +60510,6 @@ function LinkUI(props) {
     placement: "bottom",
     onClose: props.onClose,
     anchor: props.anchor,
-    __unstableSlotName: '__unstable-block-tools-after',
     shift: true
   }, (0,external_wp_element_namespaceObject.createElement)(link_control, {
     hasTextControl: true,
@@ -60835,7 +61107,8 @@ function branch_ListViewBranch(props) {
     fixedListWindow,
     isExpanded,
     parentId,
-    shouldShowInnerBlocks = true
+    shouldShowInnerBlocks = true,
+    showAppender: showAppenderProp = true
   } = props;
   const isContentLocked = (0,external_wp_data_namespaceObject.useSelect)(select => {
     return !!(parentId && select(store).getTemplateLock(parentId) === 'contentOnly');
@@ -60850,7 +61123,7 @@ function branch_ListViewBranch(props) {
   } // Only show the appender at the first level.
 
 
-  const showAppender = level === 1;
+  const showAppender = showAppenderProp && level === 1;
   const filteredBlocks = blocks.filter(Boolean);
   const blockCount = filteredBlocks.length; // The appender means an extra row in List View, so add 1 to the row count.
 
@@ -60913,7 +61186,8 @@ function branch_ListViewBranch(props) {
       fixedListWindow: fixedListWindow,
       isBranchSelected: isSelectedBranch,
       selectedClientIds: selectedClientIds,
-      isExpanded: isExpanded
+      isExpanded: isExpanded,
+      showAppender: showAppenderProp
     }));
   }), showAppender && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTreeGridRow, {
     level: level,
@@ -61505,21 +61779,25 @@ const off_canvas_editor_BLOCK_LIST_ITEM_HEIGHT = 36;
  *
  * @param {Object}  props                 Components props.
  * @param {string}  props.id              An HTML element id for the root element of ListView.
+ * @param {string}  props.parentClientId  The client id of the parent block.
  * @param {Array}   props.blocks          Custom subset of block client IDs to be used instead of the default hierarchy.
  * @param {boolean} props.showBlockMovers Flag to enable block movers
  * @param {boolean} props.isExpanded      Flag to determine whether nested levels are expanded by default.
  * @param {Object}  props.LeafMoreMenu    Optional more menu substitution.
  * @param {string}  props.description     Optional accessible description for the tree grid component.
  * @param {string}  props.onSelect        Optional callback to be invoked when a block is selected.
+ * @param {string}  props.showAppender    Flag to show or hide the block appender.
  * @param {Object}  ref                   Forwarded ref
  */
 
 function OffCanvasEditor(_ref, ref) {
   let {
     id,
+    parentClientId,
     blocks,
     showBlockMovers = false,
     isExpanded = false,
+    showAppender = true,
     LeafMoreMenu,
     description = (0,external_wp_i18n_namespaceObject.__)('Block navigation structure'),
     onSelect
@@ -61534,11 +61812,9 @@ function OffCanvasEditor(_ref, ref) {
   } = use_list_view_client_ids_useListViewClientIds(blocks);
   const {
     visibleBlockCount,
-    shouldShowInnerBlocks,
-    parentId
+    shouldShowInnerBlocks
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
-      getBlockRootClientId,
       getGlobalBlockCount,
       getClientIdsOfDescendants,
       __unstableGetEditorMode
@@ -61546,8 +61822,7 @@ function OffCanvasEditor(_ref, ref) {
     const draggedBlockCount = (draggedClientIds === null || draggedClientIds === void 0 ? void 0 : draggedClientIds.length) > 0 ? getClientIdsOfDescendants(draggedClientIds).length + 1 : 0;
     return {
       visibleBlockCount: getGlobalBlockCount() - draggedBlockCount,
-      shouldShowInnerBlocks: __unstableGetEditorMode() !== 'zoom-out',
-      parentId: blocks.length > 0 ? getBlockRootClientId(blocks[0].clientId) : undefined
+      shouldShowInnerBlocks: __unstableGetEditorMode() !== 'zoom-out'
     };
   }, [draggedClientIds, blocks]);
   const {
@@ -61650,14 +61925,15 @@ function OffCanvasEditor(_ref, ref) {
   }, (0,external_wp_element_namespaceObject.createElement)(context_ListViewContext.Provider, {
     value: contextValue
   }, (0,external_wp_element_namespaceObject.createElement)(off_canvas_editor_branch, {
-    parentId: parentId,
+    parentId: parentClientId,
     blocks: clientIdsTree,
     selectBlock: selectEditorBlock,
     showBlockMovers: showBlockMovers,
     fixedListWindow: fixedListWindow,
     selectedClientIds: selectedClientIds,
     isExpanded: isExpanded,
-    shouldShowInnerBlocks: shouldShowInnerBlocks
+    shouldShowInnerBlocks: shouldShowInnerBlocks,
+    showAppender: showAppender
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalTreeGridRow, {
     level: 1,
     setSize: 1,
@@ -61825,6 +62101,7 @@ function LeafMoreMenu(props) {
 
 
 
+
 /**
  * Private @wordpress/block-editor APIs.
  */
@@ -61833,7 +62110,8 @@ const privateApis = {};
 lock(privateApis, { ...global_styles_namespaceObject,
   ExperimentalBlockEditorProvider: ExperimentalBlockEditorProvider,
   LeafMoreMenu: LeafMoreMenu,
-  OffCanvasEditor: off_canvas_editor
+  OffCanvasEditor: off_canvas_editor,
+  PrivateInserter: ComposedPrivateInserter
 });
 
 ;// CONCATENATED MODULE: ./packages/block-editor/build-module/index.js

@@ -58,11 +58,10 @@ function gutenberg_block_core_comment_template_render_comments( $comments, $bloc
 				$block_content .= sprintf( '<ol>%1$s</ol>', $inner_content );
 				--$comment_depth;
 			} else {
-				$inner_content  = gutenberg_block_core_comment_template_render_comments(
+				$block_content .= gutenberg_block_core_comment_template_render_comments(
 					$children,
 					$block
 				);
-				$block_content .= sprintf( $inner_content );
 			}
 		}
 

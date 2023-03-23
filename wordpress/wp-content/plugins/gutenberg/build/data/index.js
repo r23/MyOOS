@@ -4117,6 +4117,8 @@ function useSuspenseSelect(mapSelect, deps) {
  */
 
 
+/** @typedef {import('@wordpress/element').WPComponent} WPComponent */
+
 /**
  * Higher-order component used to inject state-derived props using registered
  * selectors.
@@ -4230,6 +4232,8 @@ const useDispatchWithMap = (dispatchMap, deps) => {
  * Internal dependencies
  */
 
+
+/** @typedef {import('@wordpress/element').WPComponent} WPComponent */
 
 /**
  * Higher-order component used to add dispatch props using registered action
