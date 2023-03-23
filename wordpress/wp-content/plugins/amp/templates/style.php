@@ -94,6 +94,18 @@ $alignwide_max = $content_max_width > 0 ? $content_max_width * 2 : 1920
 	margin: 0 auto;
 }
 
+.amp-wp-article-content > p.has-background {
+	/*
+	 * The 2.375 value comes from the $block-bg-padding--h SCSS variable:
+	 * https://github.com/WordPress/gutenberg/blob/22ca90c/packages/base-styles/_variables.scss#L98-L104
+	 * https://github.com/WordPress/gutenberg/blob/22ca90c/packages/block-library/src/paragraph/style.scss#L41-L43
+	 */
+	margin-left: -2.375em;
+	margin-right: -2.375em;
+	margin-block-start: 0;
+	margin-block-end: 16px;
+}
+
 /* Template Styles */
 
 .amp-wp-content,
@@ -113,7 +125,7 @@ body {
 	color: <?php echo sanitize_hex_color( $text_color ); ?>;
 	font-family: Georgia, 'Times New Roman', Times, Serif;
 	font-weight: 300;
-	line-height: 1.75em;
+	line-height: 1.75;
 }
 
 p,

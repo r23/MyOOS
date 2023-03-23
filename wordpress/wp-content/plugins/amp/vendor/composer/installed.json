@@ -141,17 +141,17 @@
         },
         {
             "name": "sabberworm/php-css-parser",
-            "version": "8.4.0",
-            "version_normalized": "8.4.0.0",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabberworm/PHP-CSS-Parser.git",
-                "reference": "e41d2140031d533348b2192a83f02d8dd8a71d30"
+                "reference": "cc791ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/e41d2140031d533348b2192a83f02d8dd8a71d30",
-                "reference": "e41d2140031d533348b2192a83f02d8dd8a71d30",
+                "url": "https://api.github.com/repos/sabberworm/PHP-CSS-Parser/zipball/cc791ad",
+                "reference": "cc791ad",
                 "shasum": ""
             },
             "require": {
@@ -159,19 +159,20 @@
                 "php": ">=5.6.20"
             },
             "require-dev": {
-                "codacy/coverage": "^1.4",
-                "phpunit/phpunit": "^4.8.36"
+                "codacy/coverage": "^1.4.3",
+                "phpunit/phpunit": "^5.7.27"
             },
             "suggest": {
                 "ext-mbstring": "for parsing UTF-8 CSS"
             },
-            "time": "2021-12-11T13:40:54+00:00",
+            "time": "2023-01-25T01:20:01+00:00",
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "patches_applied": {
-                    "1. Add additional validation for size unit <https://github.com/sabberworm/PHP-CSS-Parser/pull/350>": "https://github.com/westonruter/PHP-CSS-Parser/commit/5b1d6a4abe43f4311d9b4674913ca665ed8c43aa.diff",
-                    "2. Validate name-start code points for identifier <https://github.com/westonruter/PHP-CSS-Parser/pull/2>": "https://github.com/westonruter/PHP-CSS-Parser/commit/9f96bc97fcb1e848a2f6ca6f658009996883dffc.diff",
-                    "3. Fix parsing CSS selectors which contain commas <https://github.com/westonruter/PHP-CSS-Parser/pull/1>": "https://github.com/westonruter/PHP-CSS-Parser/commit/dc18ba737fd6a611189a5b83729396500676f8dd.diff"
+                    "1. Validate name-start code points for identifier <https://github.com/westonruter/PHP-CSS-Parser/pull/2>": "https://github.com/sabberworm/PHP-CSS-Parser/compare/cc791ad...westonruter:PHP-CSS-Parser:fix/malformed-identifier-without-tests.diff",
+                    "2. Fix parsing CSS selectors which contain commas <https://github.com/westonruter/PHP-CSS-Parser/pull/1>": "https://github.com/sabberworm/PHP-CSS-Parser/compare/cc791ad...westonruter:PHP-CSS-Parser:fix/selector-comma-parsing-without-tests.diff",
+                    "3. Parse simple expressions <https://github.com/sabberworm/PHP-CSS-Parser/pull/389>": "https://github.com/sabberworm/PHP-CSS-Parser/compare/cc791ad...westonruter:PHP-CSS-Parser:fix/expression-parsing-without-tests.diff"
                 }
             },
             "installation-source": "dist",
@@ -198,7 +199,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sabberworm/PHP-CSS-Parser/issues",
-                "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/8.4.0"
+                "source": "https://github.com/sabberworm/PHP-CSS-Parser/tree/master"
             },
             "install-path": "../sabberworm/php-css-parser"
         },

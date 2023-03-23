@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitcc25ff0c1c5a876a70f648d3c13596f2
+class ComposerStaticInitb01de5a5e4a9a5142429384727b3cb65
 {
     public static $files = array (
         '356506e5d3d2f49e680971cd925046fa' => __DIR__ . '/..' . '/ampproject/amp-toolbox/include/compatibility-fixes.php',
@@ -1393,6 +1393,7 @@ class ComposerStaticInitcc25ff0c1c5a876a70f648d3c13596f2
         'Sabberworm\\CSS\\OutputFormat' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/OutputFormat.php',
         'Sabberworm\\CSS\\OutputFormatter' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/OutputFormatter.php',
         'Sabberworm\\CSS\\Parser' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parser.php',
+        'Sabberworm\\CSS\\Parsing\\Anchor' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parsing/Anchor.php',
         'Sabberworm\\CSS\\Parsing\\OutputException' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parsing/OutputException.php',
         'Sabberworm\\CSS\\Parsing\\ParserState' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parsing/ParserState.php',
         'Sabberworm\\CSS\\Parsing\\SourceException' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Parsing/SourceException.php',
@@ -1415,6 +1416,7 @@ class ComposerStaticInitcc25ff0c1c5a876a70f648d3c13596f2
         'Sabberworm\\CSS\\Value\\CalcFunction' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/CalcFunction.php',
         'Sabberworm\\CSS\\Value\\CalcRuleValueList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/CalcRuleValueList.php',
         'Sabberworm\\CSS\\Value\\Color' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/Color.php',
+        'Sabberworm\\CSS\\Value\\Expression' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/Expression.php',
         'Sabberworm\\CSS\\Value\\LineName' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/LineName.php',
         'Sabberworm\\CSS\\Value\\PrimitiveValue' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/PrimitiveValue.php',
         'Sabberworm\\CSS\\Value\\RuleValueList' => __DIR__ . '/..' . '/sabberworm/php-css-parser/src/Value/RuleValueList.php',
@@ -1430,9 +1432,9 @@ class ComposerStaticInitcc25ff0c1c5a876a70f648d3c13596f2
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitcc25ff0c1c5a876a70f648d3c13596f2::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitcc25ff0c1c5a876a70f648d3c13596f2::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitcc25ff0c1c5a876a70f648d3c13596f2::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb01de5a5e4a9a5142429384727b3cb65::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb01de5a5e4a9a5142429384727b3cb65::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb01de5a5e4a9a5142429384727b3cb65::$classMap;
 
         }, null, ClassLoader::class);
     }
