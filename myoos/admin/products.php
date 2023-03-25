@@ -464,33 +464,33 @@ if ($action == 'new_product' || $action == 'edit_product') {
         $product_gallery_result =  $dbconn->Execute("SELECT products_id, image_name, sort_order FROM $product_gallerytable WHERE products_id = '" . intval($product['products_id']) . "' ORDER BY sort_order");
 
         while ($product_images = $product_gallery_result->fields) {
-            $pInfo->products_larger_images[] = array('products_id' => $product_images['products_id'],
+            $pInfo->products_larger_images[] = ['products_id' => $product_images['products_id'],
                                                     'image' => $product_images['image_name'],
-                                                    'sort_order' => $product_images['sort_order']);
+                                                    'sort_order' => $product_images['sort_order']];
             // Move that ADOdb pointer!
             $product_gallery_result->MoveNext();
         }
     }
 
     $manufacturers_array = [];
-    $manufacturers_array = array(array('id' => '', 'text' => TEXT_NONE));
+    $manufacturers_array = [['id' => '', 'text' => TEXT_NONE]];
     $manufacturerstable = $oostable['manufacturers'];
     $manufacturers_result = $dbconn->Execute("SELECT manufacturers_id, manufacturers_name FROM $manufacturerstable ORDER BY manufacturers_name");
     while ($manufacturers = $manufacturers_result->fields) {
-        $manufacturers_array[] = array('id' => $manufacturers['manufacturers_id'],
-                                     'text' => $manufacturers['manufacturers_name']);
+        $manufacturers_array[] = ['id' => $manufacturers['manufacturers_id'],
+                                  'text' => $manufacturers['manufacturers_name']];
 
         // Move that ADOdb pointer!
         $manufacturers_result->MoveNext();
     }
 
     $tax_class_array = [];
-    $tax_class_array = array(array('id' => '0', 'text' => TEXT_NONE));
+    $tax_class_array = [['id' => '0', 'text' => TEXT_NONE]];
     $tax_classtable = $oostable['tax_class'];
     $tax_class_result = $dbconn->Execute("SELECT tax_class_id, tax_class_title FROM $tax_classtable ORDER BY tax_class_title");
     while ($tax_class = $tax_class_result->fields) {
-        $tax_class_array[] = array('id' => $tax_class['tax_class_id'],
-                                 'text' => $tax_class['tax_class_title']);
+        $tax_class_array[] = ['id' => $tax_class['tax_class_id'],
+                              'text' => $tax_class['tax_class_title']];
 
         // Move that ADOdb pointer!
         $tax_class_result->MoveNext();
@@ -499,12 +499,12 @@ if ($action == 'new_product' || $action == 'edit_product') {
 
     $products_units_array = [];
     $unit_of_measure = [];
-    $products_units_array = array(array('id' => '0', 'text' => TEXT_NONE));
+    $products_units_array = [['id' => '0', 'text' => TEXT_NONE]];
     $products_unitstable = $oostable['products_units'];
     $products_units_result = $dbconn->Execute("SELECT products_units_id, products_unit_name, unit_of_measure FROM $products_unitstable WHERE languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_unit_name");
     while ($products_units = $products_units_result->fields) {
-        $products_units_array[] = array('id' => $products_units['products_units_id'],
-                                      'text' => $products_units['products_unit_name']);
+        $products_units_array[] = ['id' => $products_units['products_units_id'],
+                                   'text' => $products_units['products_unit_name']];
         if ((!empty($products_units['unit_of_measure'])) && (!in_array($products_units['unit_of_measure'], $unit_of_measure))) {
             $unit_of_measure[] = $products_units['unit_of_measure'];
         }
@@ -516,12 +516,12 @@ if ($action == 'new_product' || $action == 'edit_product') {
 
 
     $products_status_array = [];
-    $products_status_array = array(array('id' => '0', 'text' => TEXT_PRODUCT_NOT_AVAILABLE));
+    $products_status_array = [['id' => '0', 'text' => TEXT_PRODUCT_NOT_AVAILABLE]];
     $products_statustable = $oostable['products_status'];
     $products_status_result = $dbconn->Execute("SELECT products_status_id, products_status_name FROM $products_statustable WHERE products_status_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY products_status_id");
     while ($products_status = $products_status_result->fields) {
-        $products_status_array[] = array('id' => $products_status['products_status_id'],
-                                       'text' => $products_status['products_status_name']);
+        $products_status_array[] = ['id' => $products_status['products_status_id'],
+                                    'text' => $products_status['products_status_name']];
 
         // Move that ADOdb pointer!
         $products_status_result->MoveNext();
@@ -536,8 +536,8 @@ if ($action == 'new_product' || $action == 'edit_product') {
     $settingstable = $oostable['setting'];
     $setting_result = $dbconn->Execute("SELECT setting_id, setting_name FROM $settingstable WHERE setting_languages_id = '" . intval($_SESSION['language_id']) . "' ORDER BY setting_id");
     while ($setting = $setting_result->fields) {
-        $aSetting[] = array('id' => $setting['setting_id'],
-                            'text' => $setting['setting_name']);
+        $aSetting[] = ['id' => $setting['setting_id'],
+                       'text' => $setting['setting_name']];
         // Move that ADOdb pointer!
         $setting_result->MoveNext();
     }
