@@ -75,7 +75,7 @@ function oos_parse_search_string($sSearch = '', &$objects)
     for ($k=0; $k<count($pieces); $k++) {
         while (substr($pieces[$k], 0, 1) == '(') {
             $objects[] = '(';
-            if (strlen($pieces[$k]) > 1) {
+            if (strlen($pieces[$k] ?? '') > 1) {
                 $pieces[$k] = substr($pieces[$k], 1);
             } else {
                 $pieces[$k] = '';
@@ -86,7 +86,7 @@ function oos_parse_search_string($sSearch = '', &$objects)
 
         while (substr($pieces[$k], -1) == ')') {
             $post_objects[] = ')';
-            if (strlen($pieces[$k]) > 1) {
+            if (strlen($pieces[$k] ?? '') > 1) {
                 $pieces[$k] = substr($pieces[$k], 0, -1);
             } else {
                 $pieces[$k] = '';
@@ -140,7 +140,7 @@ function oos_parse_search_string($sSearch = '', &$objects)
             while (($flag == 'on') && ($k < count($pieces))) {
                 while (substr($pieces[$k], -1) == ')') {
                     $post_objects[] = ')';
-                    if (strlen($pieces[$k]) > 1) {
+                    if (strlen($pieces[$k] ?? '') > 1) {
                         $pieces[$k] = substr($pieces[$k], 0, -1);
                     } else {
                         $pieces[$k] = '';
@@ -240,9 +240,9 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
     $month_abbr = ['jan','feb','mar','apr','may','jun','jul','aug','sep','oct','nov','dec'];
     $no_of_days = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-    $format_string = strtolower($format_string);
+    $format_string = strtolower($format_string ?? '');
 
-    if (strlen($date_to_check) != strlen($format_string)) {
+    if (strlen($date_to_check ?? '') != strlen($format_string ?? '')) {
         return false;
     }
 
@@ -291,7 +291,7 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
             }
         }
     } else {
-        if (strlen($format_string) == 8 || strlen($format_string) == 9) {
+        if (strlen($format_string ?? '') == 8 || strlen($format_string ?? '') == 9) {
             $pos_month = strpos($format_string, 'mmm');
             if ($pos_month != false) {
                 $month = substr($date_to_check, $pos_month, 3);
@@ -313,7 +313,7 @@ function oos_checkdate($date_to_check, $format_string, &$date_array)
         $year = substr($date_to_check, strpos($format_string, 'yyyy'), 4);
     }
 
-    if (strlen($year) != 4) {
+    if (strlen($year ?? '') != 4) {
         return false;
     }
 

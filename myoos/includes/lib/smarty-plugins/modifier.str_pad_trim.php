@@ -28,7 +28,7 @@
 
 function smarty_modifier_str_pad_trim($string, $length, $pad_string=' ', $pad_type='right')
 {
-    $strlen = strlen($string);
+    $strlen = strlen($string ?? '');
     if ($strlen == $length) {
         return $string;
     } // that was easy.

@@ -1083,8 +1083,8 @@ function oos_get_uprid($prid, $parameters)
                 if (is_numeric($option) && is_numeric($sValue)) {
                     $attributes_ids .= '{' . intval($option) . '}' . intval($sValue);
                 } elseif (strstr($option, TEXT_PREFIX)) {
-                    $text_option = substr($option, strlen(TEXT_PREFIX));
-                    $sLen = strlen($sValue);
+                    $text_option = substr($option, strlen(TEXT_PREFIX ?? ''));
+                    $sLen = strlen($sValue ?? '');
                     $attributes_ids .= '{' . intval($text_option) . '}' . intval($sLen);
                 } else {
                     $attributes_check = false;
@@ -1512,7 +1512,7 @@ function locale($locale)
     }
 
     // Convert locales like "es" to "es_ES", in case that works for the given locale (sometimes it does).
-    if (2 === strlen($locale)) {
+    if (2 === strlen($locale ?? '')) {
         $locale = strtolower($locale) . '_' . strtoupper($locale);
     }
 

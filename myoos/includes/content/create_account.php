@@ -118,18 +118,18 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         }
     }
 
-    if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
+    if (strlen($firstname ?? '') < ENTRY_FIRST_NAME_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_first_name_error']);
     }
 
-    if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
+    if (strlen($lastname ?? '') < ENTRY_LAST_NAME_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_last_name_error']);
     }
 
     if (ACCOUNT_DOB == 'true') {
-        if ((strlen($dob) < ENTRY_DOB_MIN_LENGTH) || (!empty($dob)
+        if ((strlen($dob ?? '') < ENTRY_DOB_MIN_LENGTH) || (!empty($dob)
             && (!is_numeric(oos_date_raw($dob))
             || !checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))
         ) {
@@ -138,7 +138,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         }
     }
 
-    if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
+    if (strlen($email_address ?? '') < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_email_address_error']);
     } elseif (is_email($email_address) == false) {
@@ -169,22 +169,22 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         }
     }
 
-    if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
+    if (strlen($street_address ?? '') < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_street_address_error']);
     }
 
-    if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
+    if (strlen($postcode ?? '') < ENTRY_POSTCODE_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_post_code_error']);
     }
 
-    if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
+    if (strlen($city ?? '') < ENTRY_CITY_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_city_error']);
     }
 
-    if (is_numeric($country) == false) {
+    if (is_numeric($country ?? '') == false) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_country_error']);
     }
@@ -213,7 +213,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
                 $oMessage->add('danger', $aLang['entry_state_error_select']);
             }
         } else {
-            if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
+            if (strlen($state ?? '') < ENTRY_STATE_MIN_LENGTH) {
                 $bError = true;
                 $oMessage->add('danger', $aLang['entry_state_error']);
             }
@@ -224,7 +224,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         $password_error = false;
     } else {
         if (CUSTOMER_NOT_LOGIN == 'false') {
-            if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
+            if (strlen($password ?? '') < ENTRY_PASSWORD_MIN_LENGTH) {
                 $bError = true;
                 $oMessage->add('danger', $aLang['entry_password_error']);
             } elseif ($password != $confirmation) {

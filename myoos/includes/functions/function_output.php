@@ -317,7 +317,7 @@ function oos_draw_hidden_field($name, $value = '', $parameters = '')
     $field = '<input type="hidden" name="' . oos_output_string($name) . '"';
 
 
-    if (strlen($value) > 0) {
+    if (strlen($value ?? '') > 0) {
         $field .= ' value="' . oos_output_string($value) . '"';
     } elseif ((isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name]))) {
         if ((isset($_GET[$name]) && is_string($_GET[$name]))) {

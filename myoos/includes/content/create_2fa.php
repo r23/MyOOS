@@ -75,7 +75,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
 
     $code = str_replace(" ", "", $code);
 
-    if (strlen($code) < 6) {
+    if (strlen($code ?? '') < 6) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_code_error']);
     }

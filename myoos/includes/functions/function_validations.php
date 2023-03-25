@@ -61,7 +61,7 @@ function is_email($value)
  */
 function oos_validate_is_url($sUrl)
 {
-    if (strlen($sUrl) == 0) {
+    if (strlen($sUrl ?? '') == 0) {
         return false;
     }
 

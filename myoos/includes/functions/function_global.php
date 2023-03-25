@@ -155,7 +155,7 @@ function oos_is_not_null($value)
             return false;
         }
     } else {
-        if (($value != '') && (strtolower($value) != 'null') && (strlen(trim((string) $value)) > 0)) {
+		if (($value ?? '') != '' && (strtolower($value) != 'null') && (strlen(trim((string) $value)) > 0)) {
             return true;
         } else {
             return false;
@@ -174,7 +174,7 @@ function oos_empty($value)
             return true;
         }
     } else {
-        if ((strtolower($value) != 'null') && (strlen(trim((string) $value)) > 0)) {
+		if ((strtolower($value ?? '') != 'null') && (strlen(trim((string) $value)) > 0)) {
             return false;
         } else {
             return true;
@@ -217,7 +217,7 @@ function oos_create_random_value($length, $type = 'mixed')
     }
 
     $rand_value = '';
-    while (strlen($rand_value) < $length) {
+    while (strlen($rand_value ?? '') < $length) {
         if ($type == 'digits') {
             $char = oos_rand(0, 9);
         } else {

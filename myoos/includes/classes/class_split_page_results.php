@@ -65,7 +65,7 @@ class splitPageResults
 
         $this->number_of_rows_per_page = $max_rows;
 
-        $pos_to = strlen($this->sql_query);
+        $pos_to = strlen($this->sql_query ?? '');
         $pos_from = strpos($this->sql_query, 'FROM', 0);
 
         $pos_group_by = strpos($this->sql_query, ' GROUP BY', $pos_from);

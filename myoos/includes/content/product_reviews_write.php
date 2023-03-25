@@ -91,7 +91,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process')
     $headline = oos_db_prepare_input($_POST['headline']);
 
     $bError = false;
-    if (strlen($review) < REVIEW_TEXT_MIN_LENGTH) {
+    if (strlen($review ?? '') < REVIEW_TEXT_MIN_LENGTH) {
         $oMessage->add('danger', $aLang['review_text']);
         $bError = true;
     }
@@ -101,7 +101,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'reviews-write-process')
         $bError = true;
     }
 
-    if (strlen($headline) < 10) {
+    if (strlen($headline ?? '') < 10) {
         $oMessage->add('danger', $aLang['review_headline']);
         $bError = true;
     }

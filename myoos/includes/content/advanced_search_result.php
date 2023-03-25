@@ -63,39 +63,39 @@ $errorno = 0;
 $dfrom_to_check = (($dfrom == DOB_FORMAT_STRING) ? '' : $dfrom);
 $dto_to_check = (($dto == DOB_FORMAT_STRING) ? '' : $dto);
 
-if (strlen($dfrom_to_check) > 0) {
+if (strlen($dfrom_to_check ?? '') > 0) {
     if (!oos_checkdate($dfrom_to_check, DOB_FORMAT_STRING, $dfrom_array)) {
         $errorno += 10;
     }
 }
 
-if (strlen($dto_to_check) > 0) {
+if (strlen($dto_to_check ?? '') > 0) {
     if (!oos_checkdate($dto_to_check, DOB_FORMAT_STRING, $dto_array)) {
         $errorno += 100;
     }
 }
 
-if (strlen($dfrom_to_check) > 0 && !(($errorno & 10) == 10) && strlen($dto_to_check) > 0 && !(($errorno & 100) == 100)) {
+if (strlen($dfrom_to_check ?? '') > 0 && !(($errorno & 10) == 10) && strlen($dto_to_check) > 0 && !(($errorno & 100) == 100)) {
     if (mktime(0, 0, 0, $dfrom_array[1], $dfrom_array[2], $dfrom_array[0]) > mktime(0, 0, 0, $dto_array[1], $dto_array[2], $dto_array[0])) {
         $errorno += 1000;
     }
 }
 
-if (strlen($pfrom) > 0) {
+if (strlen($pfrom ?? '') > 0) {
     $pfrom_to_check = oos_var_prep_for_os($pfrom);
     if (!settype($pfrom_to_check, "double")) {
         $errorno += 10000;
     }
 }
 
-if (strlen($pto) > 0) {
+if (strlen($pto ?? '') > 0) {
     $pto_to_check = oos_var_prep_for_os($pto);
     if (!settype($pto_to_check, "double")) {
         $errorno += 100000;
     }
 }
 
-if (strlen($pfrom) > 0 && !(($errorno & 10000) == 10000) && strlen($pto) > 0 && !(($errorno & 100000) == 100000)) {
+if (strlen($pfrom ?? '') > 0 && !(($errorno & 10000) == 10000) && strlen($pto) > 0 && !(($errorno & 100000) == 100000)) {
     if ($pfrom_to_check > $pto_to_check) {
         $errorno += 1000000;
     }

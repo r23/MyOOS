@@ -879,6 +879,8 @@ function oos_round($number, $precision)
 
 function oos_get_tax_rate_value($class_id)
 {
+	
+	echo 'ja';
     return oos_get_tax_rate($class_id, -1, -1);
 }
 

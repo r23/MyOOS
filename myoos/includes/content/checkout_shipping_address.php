@@ -117,12 +117,12 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
             }
         }
 
-        if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
+        if (strlen($firstname ?? '') < ENTRY_FIRST_NAME_MIN_LENGTH) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_first_name_error']);
         }
 
-        if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
+        if (strlen($lastname ?? '') < ENTRY_LAST_NAME_MIN_LENGTH) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_last_name_error']);
         }
@@ -136,17 +136,17 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
             }
         }
 
-        if (strlen($street_address) < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
+        if (strlen($street_address ?? '') < ENTRY_STREET_ADDRESS_MIN_LENGTH) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_street_address_error']);
         }
 
-        if (strlen($postcode) < ENTRY_POSTCODE_MIN_LENGTH) {
+        if (strlen($postcode ?? '') < ENTRY_POSTCODE_MIN_LENGTH) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_post_code_error']);
         }
 
-        if (strlen($city) < ENTRY_CITY_MIN_LENGTH) {
+        if (strlen($city ?? '') < ENTRY_CITY_MIN_LENGTH) {
             $bError = true;
             $oMessage->add('danger', $aLang['entry_city_error']);
         }
@@ -180,7 +180,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'submit')
                     $oMessage->add('danger', $aLang['entry_state_error_select']);
                 }
             } else {
-                if (strlen($state) < ENTRY_STATE_MIN_LENGTH) {
+                if (strlen($state ?? '') < ENTRY_STATE_MIN_LENGTH) {
                     $bError = true;
                     $oMessage->add('danger', $aLang['entry_state_error']);
                 }

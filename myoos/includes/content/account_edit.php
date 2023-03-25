@@ -91,18 +91,18 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         }
     }
 
-    if (strlen($firstname) < ENTRY_FIRST_NAME_MIN_LENGTH) {
+    if (strlen($firstname ?? '') < ENTRY_FIRST_NAME_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_first_name_error']);
     }
 
-    if (strlen($lastname) < ENTRY_LAST_NAME_MIN_LENGTH) {
+    if (strlen($lastname ?? '') < ENTRY_LAST_NAME_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_last_name_error']);
     }
 
     if (ACCOUNT_DOB == 'true') {
-        if ((strlen($dob) < ENTRY_DOB_MIN_LENGTH) || (!empty($dob)
+        if ((strlen($dob ?? '') < ENTRY_DOB_MIN_LENGTH) || (!empty($dob)
             && (!is_numeric(oos_date_raw($dob))
             || !checkdate(substr(oos_date_raw($dob), 4, 2), substr(oos_date_raw($dob), 6, 2), substr(oos_date_raw($dob), 0, 4))))
         ) {
@@ -111,7 +111,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         }
     }
 
-    if (strlen($email_address) < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
+    if (strlen($email_address ?? '') < ENTRY_EMAIL_ADDRESS_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_email_address_error']);
     } elseif (is_email($email_address) == false) {
@@ -130,7 +130,7 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
         }
     }
 
-    if (strlen($password) < ENTRY_PASSWORD_MIN_LENGTH) {
+    if (strlen($password ?? '') < ENTRY_PASSWORD_MIN_LENGTH) {
         $bError = true;
         $oMessage->add('danger', $aLang['entry_password_error']);
     } elseif ($password != $confirmation) {
