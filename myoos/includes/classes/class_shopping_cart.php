@@ -350,7 +350,7 @@ class shoppingCart
                         if (trim($value) == null) {
                             $blank_value = true;
                         } else {
-                            $option = substr($option, strlen(TEXT_PREFIX));
+                            $option = substr($option, strlen(TEXT_PREFIX ?? ''));
                             // $attr_value = htmlspecialchars(stripslashes((string)$value), ENT_QUOTES, 'UTF-8');
                             $attr_value = stripslashes($value);
                             $value = PRODUCTS_OPTIONS_VALUE_TEXT_ID;
