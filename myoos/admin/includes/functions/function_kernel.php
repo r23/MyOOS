@@ -970,8 +970,9 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
                 AND tr.tax_class_id = '" . intval($class_id) . "'";
     $result = $dbconn->Execute($query);
 
+/*
 echo 'Ralf';
-RalfSELECT SUM(tax_rate) AS tax_rate
+SELECT SUM(tax_rate) AS tax_rate
               FROM dwq_tax_rates tr LEFT JOIN
                    dwq_zones_to_geo_zones za
                  ON (tr.tax_zone_id = za.geo_zone_id) LEFT JOIN
@@ -981,13 +982,14 @@ RalfSELECT SUM(tax_rate) AS tax_rate
                   OR za.zone_country_id = '81')
                 AND (za.zone_id is null OR za.zone_id = '0'
                   OR za.zone_id = '88')
-                AND tr.tax_class_id = '2
+                AND tr.tax_class_id = '2'
 
 
+Ergebnis  tax_rate = 105 ?!
 echo $query;
 print_r($result);
 exit;
-
+*/
     if ($result->RecordCount()) {
         $tax_multiplier = 0;
         while ($tax = $result->fields) {

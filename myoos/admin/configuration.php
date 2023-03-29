@@ -316,7 +316,17 @@ if (!empty($action)) {
             $value_field = oos_draw_file_field('site_image') . '<br>' . $cInfo->configuration_value;
         } else {
             if ($cInfo->set_function) {
-                eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars((string)$cInfo->configuration_value, ENT_QUOTES, 'UTF-8') . '");');
+				
+				// Allowed values for $cInfo->set_function
+				$whitelist = ['oos_cfg_select_option', 'oos_cfg_pull_down_order_statuses', 'oos_cfg_get_order_status_name', 'oos_cfg_pull_down_zone_classes', 'pull_down_country_list']
+
+				// Check if $cInfo->set_function is in the whitelist
+				if (in_array ($cInfo->set_function, $whitelist)) {
+					// Evaluation of the code
+					eval('$value_field = ' . $cInfo->set_function . '"' . htmlspecialchars((string)$cInfo->configuration_value, ENT_QUOTES, 'UTF-8') . '");');
+				} else {
+					die ('Invalid value for $cInfo->set_function: '.$cInfo->set_function);
+				}				
             } else {
                 $value_field = oos_draw_input_field('configuration_value', $cInfo->configuration_value);
             }
