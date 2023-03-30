@@ -14,7 +14,7 @@
  * * Sicherheitsschlüssel
  * * und ABSPATH.
  *
- * @link https://wordpress.org/support/article/editing-wp-config-php/
+ * @link https://wordpress.org/documentation/article/editing-wp-config-php/
  *
  * @package WordPress
  */
@@ -96,7 +96,7 @@ $table_prefix = 'wp_';
  * Besuche den Codex, um mehr Informationen über andere Konstanten zu finden,
  * die zum Debuggen genutzt werden können.
  *
- * @link https://wordpress.org/support/article/debugging-in-wordpress/
+ * @link https://wordpress.org/documentation/article/debugging-in-wordpress/
  */
 define( 'WP_DEBUG', false );
 

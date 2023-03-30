@@ -2,19 +2,19 @@
 # This file is distributed under the same license as the Themes - Twenty Twenty-Two package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-02-08 02:18:18+0000\n"
+"PO-Revision-Date: 2023-03-29 19:36:13+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.3\n"
+"X-Generator: GlotPress/4.0.0-alpha.4\n"
 "Language: de\n"
 "Project-Id-Version: Themes - Twenty Twenty-Two\n"
 
 #. Description of the theme
 #, gp-priority: high
-msgid "Built on a solidly designed foundation, Twenty Twenty-Two embraces the idea that everyone deserves a truly unique website. The theme’s subtle styles are inspired by the diversity and versatility of birds: its typography is lightweight yet strong, its color palette is drawn from nature, and its layout elements sit gently on the page. The true richness of Twenty Twenty-Two lies in its opportunity for customization. The theme is built to take advantage of the Full Site Editing features introduced in WordPress 5.9, which means that colors, typography, and the layout of every single page on your site can be customized to suit your vision. It also includes dozens of block patterns, opening the door to a wide range of professionally designed layouts in just a few clicks. Whether you’re building a single-page website, a blog, a business website, or a portfolio, Twenty Twenty-Two will help you create a site that is uniquely yours."
-msgstr "Twenty Twenty-Two basiert auf einer solide gestalteten Grundlage und vertritt die Idee, dass jeder eine wirklich einzigartige Website verdient. Die subtilen Stile des Themes sind von der Vielfalt und Vielseitigkeit der Vögel inspiriert: Die Typografie ist leicht und doch stark, die Farbpalette ist der Natur entnommen, und die Layout-Elemente sitzen sanft auf der Seite. Der wahre Reichtum von Twenty Twenty-Two liegt in der Möglichkeit der individuellen Anpassung. Das Theme wurde so entwickelt, dass es die Vorteile der in WordPress 5.9 eingeführten Full-Site-Editing-Funktionen nutzt, was bedeutet, dass Farben, Typografie und das Layout jeder einzelnen Seite deiner Website individuell angepasst werden können, um deinen Vorstellungen zu entsprechen. Außerdem enthält es Dutzende von Blockvorlagen, die dir mit nur wenigen Klicks die Tür zu einer breiten Palette professionell gestalteter Layouts öffnen. Ganz gleich, ob du eine Onepage-Website, einen Blog, eine Unternehmenswebsite oder ein Portfolio erstellst, Twenty Twenty-Two hilft dir dabei, eine Website zu erstellen, die ganz auf dich zugeschnitten ist."
+msgid "Built on a solidly designed foundation, Twenty Twenty-Two embraces the idea that everyone deserves a truly unique website. The theme’s subtle styles are inspired by the diversity and versatility of birds: its typography is lightweight yet strong, its color palette is drawn from nature, and its layout elements sit gently on the page. The true richness of Twenty Twenty-Two lies in its opportunity for customization. The theme is built to take advantage of the Site Editor features introduced in WordPress 5.9, which means that colors, typography, and the layout of every single page on your site can be customized to suit your vision. It also includes dozens of block patterns, opening the door to a wide range of professionally designed layouts in just a few clicks. Whether you’re building a single-page website, a blog, a business website, or a portfolio, Twenty Twenty-Two will help you create a site that is uniquely yours."
+msgstr "Twenty Twenty-Two basiert auf einer solide gestalteten Grundlage und vertritt die Idee, dass jeder eine wirklich einzigartige Website verdient. Die subtilen Stile des Themes sind von der Vielfalt und Vielseitigkeit der Vögel inspiriert: Die Typografie ist leicht und doch stark, die Farbpalette ist der Natur entnommen und die Layout-Elemente sitzen sanft auf der Seite. Der wahre Reichtum von Twenty Twenty-Two liegt in der Möglichkeit der individuellen Anpassung. Das Theme wurde so entwickelt, dass es die Vorteile der in WordPress 5.9 eingeführten Website-Editor-Funktionen nutzt, was bedeutet, dass Farben, Typografie und das Layout jeder einzelnen Seite deiner Website individuell angepasst werden können, um deinen Vorstellungen zu entsprechen. Außerdem enthält es Dutzende von Blockvorlagen, die dir mit nur wenigen Klicks die Tür zu einer breiten Palette professionell gestalteter Layouts öffnen. Ganz gleich, ob du eine Onepage-Website, einen Blog, eine Unternehmenswebsite oder ein Portfolio erstellst, Twenty Twenty-Two hilft dir dabei, eine Website zu erstellen, die ganz auf dich zugeschnitten ist."
 
 #. Theme Name of the theme
 #, gp-priority: high
@@ -502,16 +502,13 @@ msgid "Title and button header"
 msgstr "Header mit Titel und Button"
 
 #: inc/patterns/header-text-only-with-tagline-black-background.php:6
-msgid "Text-only header with tagline and black background"
-msgstr "Reiner Text-Header mit Untertitel und schwarzem Hintergrund"
-
-#: inc/patterns/header-text-only-salmon-background.php:6
-msgid "Text-only header with salmon background"
-msgstr "Reiner Text-Header mit lachsfarbenem Hintergrund"
+msgid "Text-only header with tagline and background"
+msgstr "Reiner Text-Header mit Untertitel und Hintergrund"
 
 #: inc/patterns/header-text-only-green-background.php:6
-msgid "Text-only header with green background"
-msgstr "Reiner Text-Header mit grünem Hintergrund"
+#: inc/patterns/header-text-only-salmon-background.php:6
+msgid "Text-only header with background"
+msgstr "Reiner Text-Header mit Hintergrund"
 
 #: inc/patterns/header-stacked.php:6
 msgid "Logo and navigation header"
@@ -522,16 +519,16 @@ msgid "Small header with dark background"
 msgstr "Kleiner Header mit dunklem Hintergrund"
 
 #: inc/patterns/header-logo-navigation-social-black-background.php:6
-msgid "Logo, navigation, and social links header with black background"
-msgstr "Header mit Logo, Navigation, Social Links und schwarzem Hintergrund"
+msgid "Logo, navigation, and social links header with background"
+msgstr "Header mit Logo, Navigation, Social Links und Hintergrund"
 
 #: inc/patterns/header-logo-navigation-offset-tagline.php:6
 msgid "Logo, navigation, and offset tagline Header"
 msgstr "Header mit Logo, Navigation und abgesetztem Untertitel"
 
 #: inc/patterns/header-logo-navigation-gray-background.php:6
-msgid "Logo and navigation header with gray background"
-msgstr "Header mit Logo, Navigation und grauem Hintergrund"
+msgid "Logo and navigation header with background"
+msgstr "Header mit Logo, Navigation und Hintergrund"
 
 #: inc/patterns/header-large-dark.php:24
 #: inc/patterns/hidden-heading-and-bird.php:14
@@ -559,16 +556,16 @@ msgid "Default header"
 msgstr "Standard-Header"
 
 #: inc/patterns/header-centered-title-navigation-social.php:6
-msgid "Centered header with navigation, social links, and salmon background"
-msgstr "Zentrierter Header mit Navigation, Social Links und lachsfarbenem Hintergrund"
+msgid "Centered header with navigation, social links, and background"
+msgstr "Zentrierter Header mit Navigation, Social Links und Hintergrund"
 
 #: inc/patterns/header-centered-logo.php:6
 msgid "Header with centered logo"
 msgstr "Header mit zentriertem Logo"
 
 #: inc/patterns/header-centered-logo-black-background.php:6
-msgid "Header with centered logo and black background"
-msgstr "Header mit zentriertem Logo und schwarzem Hintergrund"
+msgid "Header with centered logo and background"
+msgstr "Header mit zentriertem Logo und Hintergrund"
 
 #: inc/patterns/general-wide-image-intro-buttons.php:31
 msgid "Learn More"
