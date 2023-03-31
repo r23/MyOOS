@@ -58,7 +58,7 @@ class product_notification
             $products_result->MoveNext();
         }
 
-        $choose_audience_string = '<script language="javascript"><!--
+        $choose_audience_string = '<script>
 function mover(move) {
   if (move == \'remove\') {
     for (x=0; x<(document.notifications.products.length); x++) {
@@ -100,7 +100,7 @@ function selectAll(FormName, SelectBox) {
     return true;
   }
 }
-//--></script>';
+</script>';
 
         $choose_audience_string .= '<form name="notifications" action="' . oos_href_link_admin($aContents['newsletters'], 'page=' . $_GET['page'] . '&nID=' . $_GET['nID'] . '&action=confirm') . '" method="post" onSubmit="return selectAll(\'notifications\', \'chosen[]\')"><table border="0" width="100%" cellspacing="0" cellpadding="2">' . "\n" .
                                '  <tr>' . "\n" .
