@@ -5,7 +5,7 @@
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2022 by the MyOOS Development Team.
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
@@ -103,7 +103,7 @@ class payment
 
         $js = '';
         if (is_array($this->modules)) {
-            $js = '<script language="javascript"><!-- ' . "\n" .
+            $js = '<script>' . "\n" .
               'public function check_form() {' . "\n" .
               '  var error = 0;' . "\n" .
               '  var error_message = "' . $aLang['js_error'] . '";' . "\n" .
@@ -139,7 +139,7 @@ class payment
                '    return true;' . "\n" .
                '  }' . "\n" .
                '}' . "\n" .
-               '//--></script>' . "\n";
+               '</script>' . "\n";
         }
 
         return $js;
