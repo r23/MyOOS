@@ -300,7 +300,19 @@ if (!empty($action)) {
       for ($i = 0, $n = count($languages); $i < $n; $i++) {
           $block_inputs_string .= '<br>' . oos_flag_icon($languages[$i]) . '&nbsp;' . oos_draw_input_field('block_name[' . $languages[$i]['id'] . ']', oos_get_block_name($bInfo->block_id, $languages[$i]['id']));
       }
-      eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars((string)$bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
+
+		// Allowed values for $bInfo->set_function
+		$whitelist = ['oos_cfg_select_option', 'oos_cfg_pull_down_order_statuses', 'oos_cfg_get_order_status_name', 'oos_cfg_pull_down_zone_classes', 'pull_down_country_list']
+
+		// Check if $bInfo->set_function is in the whitelist
+		if (in_array ($cInfo->set_function, $whitelist)) {
+					// Evaluation of the code
+					eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars((string)$bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
+		} else {
+			die ('Invalid value for $cInfo->set_function: '.$bInfo->set_function);
+		}	  
+	    
+     # eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars((string)$bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
 
       $contents[] = array('text' => '<br>' . TEXT_BLOCK_NAME . $block_inputs_string);
       $contents[] = array('text' => '<br><b>' . TEXT_BLOCK_FUNCTION . ':</b><br>' . oos_draw_input_field('function', $bInfo->block_file));
