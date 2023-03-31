@@ -51,7 +51,7 @@ class messageStack
     {
         $message = trim($message);
 
-        if (strlen($message ?? '' > 0) {
+        if (strlen($message ?? '') > 0) {
             if (!in_array($type, ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark'])) {
                 $type = 'danger';
             }
