@@ -153,7 +153,7 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
         } else {
             echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $files['admin_files_id']) . '\'">' . "\n";
         } ?>
-                <td>tt<?php echo $files['admin_files_name']; ?></td>
+                <td><?php echo $files['admin_files_name']; ?></td>
                 <td class="text-right"><?php if (isset($fInfo) && is_object($fInfo) && ($files['admin_files_id'] == $fInfo->admin_files_id)) {
             echo '<button class="btn btn-info" type="button"><i class="fa fa-eye-slash" title="' . IMAGE_ICON_INFO . '" aria-hidden="true"></i></i></button>';
         } else {
@@ -163,7 +163,8 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
         <?php
         // Move that ADOdb pointer!
         $db_file_result->MoveNext();
-    } ?>
+    }
+?>
               <tr>
                 <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
@@ -318,11 +319,11 @@ case 'store_file':
                     'text' => $val);
     }
 	
-		$cPath = (isset($_GET['cPath']) ? '&cPath=' . oos_prepare_input($_GET['cPath']) : '');	
-		$admin_files_id = (isset($files['admin_files_id']) ? '&admin_files_id=' .oos_prepare_input($files['admin_files_id']) : '');
+		$cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : '');	
+		$admin_files_id = (isset($files['admin_files_id']) ? oos_prepare_input($files['admin_files_id']) : '');
 		
-        $contents = array('form' => oos_draw_form('id', 'store_file', $aContents['admin_files'], $cPath . $admin_files_id . '&action=file_store', 'post', false, 'enctype="multipart/form-data"'));
-        $contents[] = array('text' => '<b>' . TEXT_INFO_NEW_FILE_BOX .  ucfirst(substr_replace($current_box['admin_box_name'], '', -4)) . '</b>');
+        $contents = array('form' => oos_draw_form('id', 'store_file', $aContents['admin_files'], '&cPath=' . $cPath . '&admin_files_id=' . $admin_files_id . '&action=file_store', 'post', false, 'enctype="multipart/form-data"'));
+        $contents[] = array('text' => '<b>' . TEXT_INFO_NEW_FILE_BOX .  ucfirst(substr_replace(($current_box['admin_box_name'] ?? ''), '', -4)) . '</b>');
         $contents[] = array('text' => TEXT_INFO_NEW_FILE_INTRO );
         $contents[] = array('align' => 'left', 'text' => '<br>&nbsp;' . oos_draw_pull_down_menu('admin_files_name', $show, $show));
         $contents[] = array('text' => oos_draw_hidden_field('admin_files_to_boxes', $_GET['cPath']));
@@ -333,11 +334,11 @@ case 'store_file':
 case 'remove_file':
     $heading[] = array('text' => '<b>' . TEXT_INFO_HEADING_DELETE_FILE . '</b>');
 
-	$cPath = (isset($_GET['cPath']) ? '&cPath=' . oos_prepare_input($_GET['cPath']) : '');	
-	$admin_files_id = (isset($files['admin_files_id']) ? '&admin_files_id=' .oos_prepare_input($files['admin_files_id']) : '');
+	$cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : '');	
+	$admin_files_id = (isset($files['admin_files_id']) ? oos_prepare_input($files['admin_files_id']) : '');
 
 
-    $contents = array('form' => oos_draw_form('id', 'remove_file', $aContents['admin_files'], 'action=file_remove&cPath=' .$cPath . $admin_files_id, 'post', false, 'enctype="multipart/form-data"'));
+    $contents = array('form' => oos_draw_form('id', 'remove_file', $aContents['admin_files'], 'action=file_remove&cPath=' .$cPath . '&admin_files_id=' . $admin_files_id, 'post', false, 'enctype="multipart/form-data"'));
     $contents[] = array('text' => oos_draw_hidden_field('admin_files_id', $_GET['fID']));
     $contents[] = array('text' =>  sprintf(TEXT_INFO_DELETE_FILE_INTRO, $fInfo->admin_files_name, ucfirst(substr_replace($current_box['admin_box_name'], '', -4))) );
     $contents[] = array('align' => 'center', 'text' => '<br>' . oos_submit_button(BUTTON_CONFIRM) . ' <a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&fID=' . $_GET['fID']) . '" role="button"><strong>' . BUTTON_CANCEL . '</strong></a>');
