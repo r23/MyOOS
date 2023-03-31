@@ -239,12 +239,26 @@ export default function Edit({ attributes, setAttributes, isSelected }) {
 					</PanelBody>
 				</Panel>
 			</InspectorControls>
-				<>					
-				<InnerBlocks
-					renderAppender={ InnerBlocks.ButtonBlockAppender }
-					allowedBlocks={ALLOWED_BLOCKS}
-					template={TEMPLATE}
-				/>
+				<>
+				<div
+				style={{
+					height: "90vh",
+					maxWidth: "220px",
+					width: "220px",
+					overflowY: "scroll",
+					position: "absolute",
+					top: "0px",
+					left: "0px",
+					zIndex: "1",
+					backgroundColor: "#2a2a2a"
+				}}
+				>
+					<InnerBlocks
+						renderAppender={ InnerBlocks.ButtonBlockAppender }
+						allowedBlocks={ALLOWED_BLOCKS}
+						template={TEMPLATE}
+					/>
+				</div>
 					{mainModel && (
 						<ThreeObjectEdit
 							url={mainModel}

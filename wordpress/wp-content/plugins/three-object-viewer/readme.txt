@@ -1,8 +1,8 @@
 === Three Object Viewer ===
 Requires at least: 5.7
-Tested up to: 6.1.1
+Tested up to: 6.2
 Requires PHP: 7.2
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -50,6 +50,9 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.3.3 =
+Fixes: 3OV is now fully compatible with the iframed/site editor. Yay! This was a scary bug that I didnt know how we'd solve. We we're able to contribute a fix upstream in Three.js! Please do report any problems.
+
 = 1.3.2 =
 Fixes: Media Library logic in the settings page was using the incorrect action. h/t emotionull, thanks for the report!
 

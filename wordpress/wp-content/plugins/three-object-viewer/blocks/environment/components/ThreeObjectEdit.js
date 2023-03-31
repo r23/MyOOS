@@ -1488,13 +1488,19 @@ export default function ThreeObjectEdit(props) {
 			}
 		});
 	}, []);
+	const canvasRef = useRef(null);
+	const handleCanvasCreated = ({ gl, size, viewport }) => {
+		gl.setPixelRatio(viewport.dpr);
+		gl.setSize(size.width, size.height);
+	};
 
 	return (
 		<>
 			<ObjectControls transformMode={transformMode} setTransformMode={setTransformMode}/>
 			<Resizable
 				defaultSize={{
-					height: 770
+					height: "90vh",
+					width: "100vw",
 				}}
 				enable={{
 					top: false,
@@ -1521,12 +1527,14 @@ export default function ThreeObjectEdit(props) {
 						zoom: props.zoom,
 						position: [0, 0, 20]
 					}}
+					ref={canvasRef}
 					shadowMap
 					performance={{ min: 0.5 }}
+					onCreated={handleCanvasCreated}
 					style={{
 						margin: "0 Auto",
-						height: "100%",
-						width: "100%",
+						height: "100vh",
+						width: "100vw",
 						boxSizing: "border-box"
 					}}
 				>

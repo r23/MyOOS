@@ -75,20 +75,16 @@
 }
 
 .wp-block-three-object-viewer-environment .block-editor-inner-blocks {
-    background-color: #2a2a2a;
-    height: 210px;
-    // overflow: scroll;
-    position: absolute;
-	// flex: 1;
-    top: 0px;
-    max-width: 220px;
-	width: 220px !important;
-    height: 773px;
-	max-height: 773px;
-	overflow-y: scroll;
-	z-index: 1;
 }
 
+.wp-block-three-object-viewer-environment .block-editor-inner-blocks.iframe {
+	height: 100vh;
+  }
+  
+  .wp-block-three-object-viewer-environment .block-editor-inner-blocks:not(.iframe) {
+	height: 90vh;
+  }
+  
 .three-object-environment-edit-container .components-panel__row {
     display: block;
 }
