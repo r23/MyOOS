@@ -1534,7 +1534,7 @@ export default function ThreeObjectEdit(props) {
 					style={{
 						margin: "0 Auto",
 						height: "100vh",
-						width: "100vw",
+						// width: "100vw",
 						boxSizing: "border-box"
 					}}
 				>

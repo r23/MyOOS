@@ -110,10 +110,8 @@ function loadMixamoAnimation(url, vrm) {
 		const regularHips = asset.getObjectByName('hips');
 		let mainHip;
 		if (mixamoHips) {
-			console.log("mixamo hips");
 			mainHip = mixamoHips.position.y;
 		} else if (regularHips) {
-			console.log("reg hips");
 			mainHip = regularHips.position.y;
 		}
 		const vrmHipsY = vrm.humanoid?.getNormalizedBoneNode('hips').getWorldPosition(_vec3).y;
@@ -319,7 +317,6 @@ export function NPCObject(model) {
 					// const outputString = messageObject.outputs.Output;
 					try {
 						const outputJSON = JSON.parse(activeMessage);
-						console.log(outputJSON);
 					} catch (e) {
 						const outputJSON = JSON.parse("null");
 					}
@@ -361,7 +358,6 @@ export function NPCObject(model) {
 
 		// retarget the animations from mixamo to the current vrm 
 		if (model.defaultAvatarAnimation){
-			console.log("model.defaultAvatarAnimation", model.defaultAvatarAnimation);
 			loadMixamoAnimation(model.defaultAvatarAnimation, currentVrm).then((clip) => {
 				currentMixer.clipAction(clip).play();
 				currentMixer.update(clock.getDelta());

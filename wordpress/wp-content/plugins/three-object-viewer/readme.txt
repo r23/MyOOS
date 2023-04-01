@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 6.2
 Requires PHP: 7.2
-Stable tag: 1.3.3
+Stable tag: 1.3.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -50,6 +50,9 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.3.4 =
+Fixed: Incompatibility between Three.js and three-vrm was causing vrm files to fail to render. This should be in working order again.
+
 = 1.3.3 =
 Fixes: 3OV is now fully compatible with the iframed/site editor. Yay! This was a scary bug that I didnt know how we'd solve. We we're able to contribute a fix upstream in Three.js! Please do report any problems.
 
