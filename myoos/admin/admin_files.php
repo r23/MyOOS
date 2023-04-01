@@ -166,7 +166,7 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
     }
 ?>
               <tr>
-                <td colspan="2"><table border="0" width="100%" cellspacing="0" cellpadding="2">
+                <td colspan="4"><table border="0" width="100%" cellspacing="0" cellpadding="2">
                   <tr>
                     <td class="smallText" valign="top"><?php echo TEXT_COUNT_FILES . $file_count; ?></td>
                     <td class="smallText" valign="top" align="right"><?php echo '<a class="btn btn-sm btn-warning mb-20" href="' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $_GET['cPath']) . '" role="button"><strong><i class="fa fa-chevron-left"></i> ' . BUTTON_BACK . '</strong></a>&nbsp<a href="' . oos_href_link_admin($aContents['admin_files'], 'cPath=' . $_GET['cPath'] . '&action=store_file') . '">' . oos_button(BUTTON_INSERT_FILE) . '</a>'; ?>&nbsp;</td>
@@ -210,7 +210,7 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
                 $boxes[] = array('admin_boxes_name' => $boxes_file,
                        'admin_boxes_id' => 'b' . $none);
             } elseif ((substr("$boxes_file", -4) == '.php') && (in_array($boxes_file, $installed_boxes))) {
-                $db_boxes_id_query = "SELECT admin_files_id AS admin_boxes_id FROM " . $oostable['admin_files'] . " WHERE admin_files_is_boxes = 1 AND admin_files_name = '" . intval($boxes_file) . "'";
+                $db_boxes_id_query = "SELECT admin_files_id AS admin_boxes_id FROM " . $oostable['admin_files'] . " WHERE admin_files_is_boxes = 1 AND admin_files_name = '" . oos_db_input($boxes_file) . "'";			
                 $db_boxes_id = $dbconn->GetRow($db_boxes_id_query);
 
                 $boxes[] = array('admin_boxes_name' => $boxes_file,
@@ -229,6 +229,7 @@ if (isset($_GET['fID']) || isset($_GET['cPath'])) {
             if ((!isset($_GET['cID']) || (isset($_GET['none']) &&  $_GET['none'] == $boxes[$i]['admin_boxes_id']) || ($_GET['cID'] == $boxes[$i]['admin_boxes_id'])) && !isset($cInfo)) {
                 $cInfo = new objectInfo($boxes[$i]);
             }
+		
             if (isset($cInfo) && is_object($cInfo) && ($boxes[$i]['admin_boxes_id'] == $cInfo->admin_boxes_id)) {
                 if (substr("$cInfo->admin_boxes_id", 0, 1) == 'b') {
                     echo '                  <tr onclick="document.location.href=\'' . oos_href_link_admin($aContents['admin_files'], 'cID=' . $boxes[$i]['admin_boxes_id']) . '\'">' . "\n";
