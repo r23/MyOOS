@@ -120,24 +120,27 @@ function ChatBox(props) {
 
 				return response.json();
 
-				// console.log("response", response.body.getReader())
-				// const data = JSON.parse(response.data);
-				// console.log("data", data)
-
-				// console.log("worker response", response.data);
 			}).then(function(data) {
 				// console.log("data", data.davinciData.choices[0].text); // this will be a string
 				let thisMessage = JSON.parse(data);
-				if(thisMessage?.outputs){
-					let formattedMessage = props.name +': ' + Object.values(thisMessage.outputs)[0];
+				if(thisMessage?.model === "gpt-4-0314"){
+					let formattedMessage = props.name +': ' + thisMessage.choices[0].message.content;
 					props.setMessages([...props.messages, inputMessageLog, formattedMessage]);
-				} else if(thisMessage?.name === "Server"){
-					let formattedMessage = thisMessage.name +': ' + thisMessage.message;
+				} else if (thisMessage?.model === "gpt-3.5-turbo-0301"){
+					let formattedMessage = props.name +': ' + Object.values(thisMessage.choices)[0].message.content;
 					props.setMessages([...props.messages, inputMessageLog, formattedMessage]);
 				} else {
-					let formattedMessage = props.name +': ' + thisMessage.davinciData.choices[0].text;
-					// add formattedMessage and inputMessageLog to state
-					props.setMessages([...props.messages, inputMessageLog, formattedMessage]);	
+					if(thisMessage?.outputs){
+						let formattedMessage = props.name +': ' + Object.values(thisMessage.outputs)[0];
+						props.setMessages([...props.messages, inputMessageLog, formattedMessage]);
+					} else if(thisMessage?.name === "Server"){
+						let formattedMessage = thisMessage.name +': ' + thisMessage.message;
+						props.setMessages([...props.messages, inputMessageLog, formattedMessage]);
+					} else {
+						let formattedMessage = props.name +': ' + thisMessage.davinciData?.choices[0].text;
+						// add formattedMessage and inputMessageLog to state
+						props.setMessages([...props.messages, inputMessageLog, formattedMessage]);	
+					}
 				}
 			});	
 		} catch (error) {

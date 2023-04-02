@@ -2,7 +2,7 @@
 Requires at least: 5.7
 Tested up to: 6.2
 Requires PHP: 7.2
-Stable tag: 1.3.4
+Stable tag: 1.3.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Author: antpb
@@ -50,6 +50,9 @@ It can also be installed manually using a zip file.
 
 
 == Changelog ==
+= 1.3.5 =
+Added: GPT-4 compatibility for NPCs. You can use https://alchemy-gpt-4.sxp.digital as your ai url to use GPT-4 or host your own using the very same worker: https://github.com/xpportal/alchemy-worker-gpt4. (Note: you'll need access to gpt-4 for this to work. You are not able to use our keys.)
+
 = 1.3.4 =
 Fixed: Incompatibility between Three.js and three-vrm was causing vrm files to fail to render. This should be in working order again.
 

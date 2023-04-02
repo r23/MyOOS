@@ -13,7 +13,6 @@ import {
  * @return {JSX.Element} The sky.
  */
 export function ThreeSky(sky) {
-	console.log(sky);
 	const skyUrl = sky.src[0].querySelector("p.sky-block-url")
 	? sky.src[0].querySelector("p.sky-block-url").innerText
 	: "";
