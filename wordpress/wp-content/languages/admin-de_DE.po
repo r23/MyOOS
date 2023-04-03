@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.2.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-03-29 13:25:55+0000\n"
+"PO-Revision-Date: 2023-04-02 19:47:35+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -4125,8 +4125,8 @@ msgstr[1] "Deine Website hat %d installierte Themes, und sie sind alle auf dem n
 #: wp-admin/includes/class-wp-site-health.php:578
 msgid "Your site has %d theme waiting to be updated."
 msgid_plural "Your site has %d themes waiting to be updated."
-msgstr[0] "Ihre Website hat %d Theme, das darauf wartet, aktualisiert zu werden."
-msgstr[1] "Ihre Website hat %d Themes, die darauf warten, aktualisiert zu werden."
+msgstr[0] "Deine Website hat %d Theme, das darauf wartet, aktualisiert zu werden."
+msgstr[1] "Deine Website hat %d Themes, die darauf warten, aktualisiert zu werden."
 
 #: wp-admin/includes/class-wp-site-health.php:572
 msgid "You have themes waiting to be updated"
@@ -9827,11 +9827,11 @@ msgstr "Wähle ein Hintergrundbild"
 
 #: wp-admin/includes/class-custom-image-header.php:130
 msgid "In the Header Text section of this page, you can choose whether to display this text or hide it. You can also choose a color for the text by clicking the Select Color button and either typing in a legitimate HTML hex value, e.g. &#8220;#ff0000&#8221; for red, or by choosing a color using the color picker."
-msgstr "Du kannst wählen, ob du den Header-Text anzeigen lassen möchtest oder nicht. Du kannst auch die Farbe der Schrift wählen. Dazu verwende bitte HTML Hex-Werte (wie: &#8222;#ff0000&#8220; für rot) oder klicke &#8222;Farbe wählen&#8220;, um das Farbauswahlfeld zu nutzen."
+msgstr "Du kannst wählen, ob du den Header-Text anzeigen lassen möchtest oder nicht. Du kannst auch eine Farbe für den Text auswählen, indem du auf den Button &#8222;Farbe wählen&#8220; klickst und entweder einen HTML-Hex-Wert eingibst, z. B. &#8222;#ff0000&#8220; für Rot, oder indem du mit dem Farbwähler eine Farbe auswählst."
 
 #: wp-admin/includes/class-custom-background.php:93
 msgid "You can also choose a background color by clicking the Select Color button and either typing in a legitimate HTML hex value, e.g. &#8220;#ff0000&#8221; for red, or by choosing a color using the color picker."
-msgstr "Du kannst auch eine Hintergrundfarbe auswählen, indem du auf den Button &#8222;Farbe wählen&#8220; klickst und dann einen gültigen HTML Hex-Wert eingibst, wie z. B. &#8222;#ff0000&#8220; für Rot; oder wähle eine Farbe aus der Palette des Farbmischers."
+msgstr "Du kannst auch eine Hintergrundfarbe auswählen, indem du auf den Button &#8222;Farbe wählen&#8220; klickst und dann einen gültigen HTML-Hex-Wert eingibst, wie z. B. &#8222;#ff0000&#8220; für Rot, oder indem du mit dem Farbwähler eine Farbe auswählst."
 
 #: wp-admin/edit-comments.php:202
 msgid "In the <strong>In response to</strong> column, there are three elements. The text is the name of the post that inspired the comment, and links to the post editor for that entry. The View Post link leads to that post on your live site. The small bubble with the number in it shows the number of approved comments that post has received. If there are pending comments, a red notification circle with the number of pending comments is displayed. Clicking the notification circle will filter the comments screen to show only pending comments on that post."
