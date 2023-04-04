@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '1f3095add629613db6662261e8d1a18d1f7fb3c2',
+        'reference' => '07750dca2b3941b3d9a2128bac27feb35d31902e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'adodb/adodb-php' => array(
-            'pretty_version' => 'v5.22.4',
-            'version' => '5.22.4.0',
-            'reference' => 'bb87e83338c99038986878ac78f680becf9e8091',
+            'pretty_version' => 'v5.22.5',
+            'version' => '5.22.5.0',
+            'reference' => 'bacd08a8232b6d941b9902f02d323f53de81fafe',
             'type' => 'library',
             'install_path' => __DIR__ . '/../adodb/adodb-php',
             'aliases' => array(),
@@ -193,7 +193,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '1f3095add629613db6662261e8d1a18d1f7fb3c2',
+            'reference' => '07750dca2b3941b3d9a2128bac27feb35d31902e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -260,9 +260,9 @@
             'dev_requirement' => false,
         ),
         'php-amqplib/php-amqplib' => array(
-            'pretty_version' => 'v3.5.2',
-            'version' => '3.5.2.0',
-            'reference' => '703eef998946f4972e630c3e3d827f7cf020fe68',
+            'pretty_version' => 'v3.5.3',
+            'version' => '3.5.3.0',
+            'reference' => 'bccaaf8ef8bcf18b4ab41e645e92537752b887bd',
             'type' => 'library',
             'install_path' => __DIR__ . '/../php-amqplib/php-amqplib',
             'aliases' => array(),
@@ -395,9 +395,9 @@
             'dev_requirement' => false,
         ),
         'psr/http-message' => array(
-            'pretty_version' => '1.0.1',
-            'version' => '1.0.1.0',
-            'reference' => 'f6561bf28d520154e4b0ec72be95418abe6d9363',
+            'pretty_version' => '1.1',
+            'version' => '1.1.0.0',
+            'reference' => 'cb6ce4845ce34a8ad9e68117c10ee90a29919eba',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psr/http-message',
             'aliases' => array(),
@@ -451,7 +451,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '859e034a7425f6fd0c30c58198f831ac6c7e6bfb',
+            'reference' => '49bcdfcfebe63a59d1b19b1eb12737868011e2c7',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
@@ -1053,7 +1053,7 @@
         'videlalvaro/php-amqplib' => array(
             'dev_requirement' => false,
             'replaced' => array(
-                0 => 'v3.5.2',
+                0 => 'v3.5.3',
             ),
         ),
     ),

@@ -21,7 +21,7 @@
 
 // security - hide paths
 if (!defined('ADODB_DIR')) die();
-#[AllowDynamicProperties]
+
 class ADODB2_mysql extends ADODB_DataDict {
 	var $databaseType = 'mysql';
 	var $alterCol = ' MODIFY COLUMN';
