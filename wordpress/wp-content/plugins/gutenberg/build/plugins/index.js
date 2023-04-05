@@ -261,6 +261,9 @@ var memize = __webpack_require__(9756);
 var memize_default = /*#__PURE__*/__webpack_require__.n(memize);
 ;// CONCATENATED MODULE: external ["wp","hooks"]
 var external_wp_hooks_namespaceObject = window["wp"]["hooks"];
+;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
+var external_wp_isShallowEqual_namespaceObject = window["wp"]["isShallowEqual"];
+var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_namespaceObject);
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
 function _extends() {
   _extends = Object.assign || function (target) {
@@ -604,6 +607,7 @@ function getPlugins(scope) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -611,9 +615,16 @@ function getPlugins(scope) {
 
 
 
+const getPluginContext = memize_default()((icon, name) => ({
+  icon,
+  name
+}));
 /**
  * A component that renders all plugin fills in a hidden div.
  *
+ * @param {Object}             props
+ * @param {string|undefined}   props.scope
+ * @param {Function|undefined} props.onError
  * @example
  * ```js
  * // Using ES5 syntax
@@ -646,69 +657,54 @@ function getPlugins(scope) {
  * @return {WPComponent} The component to be rendered.
  */
 
-class PluginArea extends external_wp_element_namespaceObject.Component {
-  constructor() {
-    super(...arguments);
-    this.setPlugins = this.setPlugins.bind(this);
-    this.memoizedContext = memize_default()((name, icon) => {
-      return {
-        name,
-        icon
-      };
-    });
-    this.state = this.getCurrentPluginsState();
-  }
-
-  getCurrentPluginsState() {
+function PluginArea(_ref) {
+  let {
+    scope,
+    onError
+  } = _ref;
+  const store = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    let lastValue;
     return {
-      plugins: getPlugins(this.props.scope).map(_ref => {
-        let {
-          icon,
-          name,
-          render
-        } = _ref;
-        return {
-          Plugin: render,
-          context: this.memoizedContext(name, icon)
+      subscribe(listener) {
+        (0,external_wp_hooks_namespaceObject.addAction)('plugins.pluginRegistered', 'core/plugins/plugin-area/plugins-registered', listener);
+        (0,external_wp_hooks_namespaceObject.addAction)('plugins.pluginUnregistered', 'core/plugins/plugin-area/plugins-unregistered', listener);
+        return () => {
+          (0,external_wp_hooks_namespaceObject.removeAction)('plugins.pluginRegistered', 'core/plugins/plugin-area/plugins-registered');
+          (0,external_wp_hooks_namespaceObject.removeAction)('plugins.pluginUnregistered', 'core/plugins/plugin-area/plugins-unregistered');
         };
-      })
-    };
-  }
+      },
 
-  componentDidMount() {
-    (0,external_wp_hooks_namespaceObject.addAction)('plugins.pluginRegistered', 'core/plugins/plugin-area/plugins-registered', this.setPlugins);
-    (0,external_wp_hooks_namespaceObject.addAction)('plugins.pluginUnregistered', 'core/plugins/plugin-area/plugins-unregistered', this.setPlugins);
-  }
+      getValue() {
+        const nextValue = getPlugins(scope);
 
-  componentWillUnmount() {
-    (0,external_wp_hooks_namespaceObject.removeAction)('plugins.pluginRegistered', 'core/plugins/plugin-area/plugins-registered');
-    (0,external_wp_hooks_namespaceObject.removeAction)('plugins.pluginUnregistered', 'core/plugins/plugin-area/plugins-unregistered');
-  }
+        if (!external_wp_isShallowEqual_default()(lastValue, nextValue)) {
+          lastValue = nextValue;
+        }
 
-  setPlugins() {
-    this.setState(this.getCurrentPluginsState);
-  }
-
-  render() {
-    return (0,external_wp_element_namespaceObject.createElement)("div", {
-      style: {
-        display: 'none'
+        return lastValue;
       }
-    }, this.state.plugins.map(_ref2 => {
-      let {
-        context,
-        Plugin
-      } = _ref2;
-      return (0,external_wp_element_namespaceObject.createElement)(Provider, {
-        key: context.name,
-        value: context
-      }, (0,external_wp_element_namespaceObject.createElement)(PluginErrorBoundary, {
-        name: context.name,
-        onError: this.props.onError
-      }, (0,external_wp_element_namespaceObject.createElement)(Plugin, null)));
-    }));
-  }
 
+    };
+  }, [scope]);
+  const plugins = (0,external_wp_element_namespaceObject.useSyncExternalStore)(store.subscribe, store.getValue);
+  return (0,external_wp_element_namespaceObject.createElement)("div", {
+    style: {
+      display: 'none'
+    }
+  }, plugins.map(_ref2 => {
+    let {
+      icon,
+      name,
+      render: Plugin
+    } = _ref2;
+    return (0,external_wp_element_namespaceObject.createElement)(Provider, {
+      key: name,
+      value: getPluginContext(icon, name)
+    }, (0,external_wp_element_namespaceObject.createElement)(PluginErrorBoundary, {
+      name: name,
+      onError: onError
+    }, (0,external_wp_element_namespaceObject.createElement)(Plugin, null)));
+  }));
 }
 
 /* harmony default export */ var plugin_area = (PluginArea);

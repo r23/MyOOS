@@ -6171,11 +6171,15 @@ const __EXPERIMENTAL_STYLE_PROPERTY = {
   },
   filter: {
     value: ['filter', 'duotone'],
-    support: ['color', '__experimentalDuotone']
+    support: ['filter', 'duotone']
   },
   linkColor: {
     value: ['elements', 'link', 'color', 'text'],
     support: ['color', 'link']
+  },
+  captionColor: {
+    value: ['elements', 'caption', 'color', 'text'],
+    support: ['color', 'caption']
   },
   buttonColor: {
     value: ['elements', 'button', 'color', 'text'],
@@ -6819,6 +6823,13 @@ function unstable__bootstrapServerSideBlockDefinitions(definitions) {
 
       if (serverSideBlockDefinitions[blockName].ancestor === undefined && definitions[blockName].ancestor) {
         serverSideBlockDefinitions[blockName].ancestor = definitions[blockName].ancestor;
+      } // The `selectors` prop is not yet included in the server provided
+      // definitions. Polyfill it as well. This can be removed when the
+      // minimum supported WordPress is >= 6.3.
+
+
+      if (serverSideBlockDefinitions[blockName].selectors === undefined && definitions[blockName].selectors) {
+        serverSideBlockDefinitions[blockName].selectors = definitions[blockName].selectors;
       }
 
       continue;
@@ -6847,7 +6858,7 @@ function getBlockSettingsFromMetadata(_ref3) {
     textdomain,
     ...metadata
   } = _ref3;
-  const allowedFields = ['apiVersion', 'title', 'category', 'parent', 'ancestor', 'icon', 'description', 'keywords', 'attributes', 'providesContext', 'usesContext', 'supports', 'styles', 'example', 'variations'];
+  const allowedFields = ['apiVersion', 'title', 'category', 'parent', 'ancestor', 'icon', 'description', 'keywords', 'attributes', 'providesContext', 'usesContext', 'selectors', 'supports', 'styles', 'example', 'variations'];
   const settings = Object.fromEntries(Object.entries(metadata).filter(_ref4 => {
     let [key] = _ref4;
     return allowedFields.includes(key);
@@ -6923,6 +6934,7 @@ function registerBlockType(blockNameOrMetadata, settings) {
     attributes: {},
     providesContext: {},
     usesContext: [],
+    selectors: {},
     supports: {},
     styles: [],
     variations: [],
@@ -9674,7 +9686,7 @@ const __experimentalHasContentRoleAttribute = rememo((state, blockTypeName) => {
 
 
 
-const ROOT_BLOCK_SUPPORTS = ['background', 'backgroundColor', 'color', 'linkColor', 'buttonColor', 'fontFamily', 'fontSize', 'fontStyle', 'fontWeight', 'lineHeight', 'padding', 'contentSize', 'wideSize', 'blockGap', 'textDecoration', 'textTransform', 'letterSpacing'];
+const ROOT_BLOCK_SUPPORTS = ['background', 'backgroundColor', 'color', 'linkColor', 'captionColor', 'buttonColor', 'headingColor', 'fontFamily', 'fontSize', 'fontStyle', 'fontWeight', 'lineHeight', 'padding', 'contentSize', 'wideSize', 'blockGap', 'textDecoration', 'textTransform', 'letterSpacing'];
 /**
  * Filters the list of supported styles for a given element.
  *

@@ -231,9 +231,9 @@ function createFrame(element, tokenStart, tokenLength, prevOffset, leadingTextSt
  * }
  * ```
  *
- * @param {string} interpolatedString The interpolation string to be parsed.
- * @param {Object} conversionMap      The map used to convert the string to
- *                                    a react element.
+ * @param {string}                    interpolatedString The interpolation string to be parsed.
+ * @param {Record<string, WPElement>} conversionMap      The map used to convert the string to
+ *                                                       a react element.
  * @throws {TypeError}
  * @return {WPElement}  A wp element.
  */
@@ -764,37 +764,40 @@ var client = __webpack_require__(4470);
 /**
  * Renders a given element into the target DOM node.
  *
- * @param {import('./react').WPElement} element Element to render.
- * @param {HTMLElement}                 target  DOM node into which element should be rendered.
+ * @deprecated since WordPress 6.2.0. Use `createRoot` instead.
+ * @see https://react.dev/reference/react-dom/render
  */
 
 
 /**
  * Hydrates a given element into the target DOM node.
  *
- * @param {import('./react').WPElement} element Element to hydrate.
- * @param {HTMLElement}                 target  DOM node into which element should be hydrated.
+ * @deprecated since WordPress 6.2.0. Use `hydrateRoot` instead.
+ * @see https://react.dev/reference/react-dom/hydrate
  */
 
 
 /**
  * Creates a new React root for the target DOM node.
  *
- * @see https://reactjs.org/docs/react-dom-client.html#createroot
+ * @since 6.2.0 Introduced in WordPress core.
+ * @see https://react.dev/reference/react-dom/client/createRoot
  */
 
 
 /**
  * Creates a new React root for the target DOM node and hydrates it with a pre-generated markup.
  *
- * @see https://reactjs.org/docs/react-dom-client.html#hydrateroot
+ * @since 6.2.0 Introduced in WordPress core.
+ * @see https://react.dev/reference/react-dom/client/hydrateRoot
  */
 
 
 /**
  * Removes any mounted element from the target DOM node.
  *
- * @param {Element} target DOM node in which element is to be removed
+ * @deprecated since WordPress 6.2.0. Use `root.unmount()` instead.
+ * @see https://react.dev/reference/react-dom/unmountComponentAtNode
  */
 
 

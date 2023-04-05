@@ -6693,13 +6693,8 @@ var remove_accents = __webpack_require__(4793);
 var remove_accents_default = /*#__PURE__*/__webpack_require__.n(remove_accents);
 ;// CONCATENATED MODULE: ./packages/editor/build-module/utils/terms.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 /**
  * Returns terms in a tree form.
@@ -6716,12 +6711,29 @@ function buildTermsTree(flatTerms) {
       parent: null,
       ...term
     };
-  });
-  const termsByParent = (0,external_lodash_namespaceObject.groupBy)(flatTermsWithParentAndChildren, 'parent');
+  }); // All terms should have a `parent` because we're about to index them by it.
 
-  if (termsByParent.null && termsByParent.null.length) {
+  if (flatTermsWithParentAndChildren.some(_ref => {
+    let {
+      parent
+    } = _ref;
+    return parent === null;
+  })) {
     return flatTermsWithParentAndChildren;
   }
+
+  const termsByParent = flatTermsWithParentAndChildren.reduce((acc, term) => {
+    const {
+      parent
+    } = term;
+
+    if (!acc[parent]) {
+      acc[parent] = [];
+    }
+
+    acc[parent].push(term);
+    return acc;
+  }, {});
 
   const fillWithChildren = terms => {
     return terms.map(term => {
@@ -8127,6 +8139,9 @@ function PostLockedModal() {
     shouldCloseOnEsc: false,
     isDismissible: false,
     className: "editor-post-locked-modal"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    alignment: "top",
+    spacing: 6
   }, !!userAvatar && (0,external_wp_element_namespaceObject.createElement)("img", {
     src: userAvatar,
     alt: (0,external_wp_i18n_namespaceObject.__)('Avatar'),
@@ -8147,14 +8162,13 @@ function PostLockedModal() {
     PreviewLink: (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
       href: previewLink
     }, (0,external_wp_i18n_namespaceObject.__)('preview'))
-  })), (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('If you take over, the other user will lose editing control to the post, but their changes will be saved.'))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
+  })), (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('If you take over, the other user will lose editing control to the post, but their changes will be saved.'))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
     className: "editor-post-locked-modal__buttons",
-    justify: "flex-end",
-    expanded: false
-  }, !isTakeover && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    justify: "flex-end"
+  }, !isTakeover && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     variant: "tertiary",
     href: unlockUrl
-  }, (0,external_wp_i18n_namespaceObject.__)('Take over'))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+  }, (0,external_wp_i18n_namespaceObject.__)('Take over')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     variant: "primary",
     href: allPostsUrl
   }, allPostsLabel)))));
@@ -10906,6 +10920,7 @@ function PostPublishPanelPrepublish(_ref) {
 
 
 const POSTNAME = '%postname%';
+const PAGENAME = '%pagename%';
 /**
  * Returns URL for a future post.
  *
@@ -10921,6 +10936,10 @@ const getFuturePostUrl = post => {
 
   if (post.permalink_template.includes(POSTNAME)) {
     return post.permalink_template.replace(POSTNAME, slug);
+  }
+
+  if (post.permalink_template.includes(PAGENAME)) {
+    return post.permalink_template.replace(PAGENAME, slug);
   }
 
   return post.permalink_template;

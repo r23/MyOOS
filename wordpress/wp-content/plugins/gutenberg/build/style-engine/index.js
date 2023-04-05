@@ -500,7 +500,22 @@ function compileCSS(style) {
     return inlineRules.join(' ');
   }
 
-  const groupedRules = (0,external_lodash_namespaceObject.groupBy)(rules, 'selector');
+  const groupedRules = rules.reduce((acc, rule) => {
+    const {
+      selector
+    } = rule;
+
+    if (!selector) {
+      return acc;
+    }
+
+    if (!acc[selector]) {
+      acc[selector] = [];
+    }
+
+    acc[selector].push(rule);
+    return acc;
+  }, {});
   const selectorRules = Object.keys(groupedRules).reduce((acc, subSelector) => {
     acc.push(`${subSelector} { ${groupedRules[subSelector].map(rule => `${(0,external_lodash_namespaceObject.kebabCase)(rule.key)}: ${rule.value};`).join(' ')} }`);
     return acc;

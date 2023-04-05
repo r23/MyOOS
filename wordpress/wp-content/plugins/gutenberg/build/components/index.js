@@ -2648,7 +2648,7 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
   "AnglePickerControl": function() { return /* reexport */ angle_picker_control; },
-  "Animate": function() { return /* reexport */ Animate; },
+  "Animate": function() { return /* reexport */ build_module_animate; },
   "Autocomplete": function() { return /* reexport */ Autocomplete; },
   "BaseControl": function() { return /* reexport */ base_control; },
   "BlockQuotation": function() { return /* reexport */ external_wp_primitives_namespaceObject.BlockQuotation; },
@@ -2667,7 +2667,7 @@ __webpack_require__.d(__webpack_exports__, {
   "ColorPalette": function() { return /* reexport */ color_palette; },
   "ColorPicker": function() { return /* reexport */ LegacyAdapter; },
   "ComboboxControl": function() { return /* reexport */ combobox_control; },
-  "CustomGradientPicker": function() { return /* reexport */ CustomGradientPicker; },
+  "CustomGradientPicker": function() { return /* reexport */ custom_gradient_picker; },
   "CustomSelectControl": function() { return /* reexport */ StableCustomSelectControl; },
   "Dashicon": function() { return /* reexport */ dashicon; },
   "DatePicker": function() { return /* reexport */ date; },
@@ -2693,7 +2693,7 @@ __webpack_require__.d(__webpack_exports__, {
   "FormToggle": function() { return /* reexport */ form_toggle; },
   "FormTokenField": function() { return /* reexport */ form_token_field; },
   "G": function() { return /* reexport */ external_wp_primitives_namespaceObject.G; },
-  "GradientPicker": function() { return /* reexport */ GradientPicker; },
+  "GradientPicker": function() { return /* reexport */ gradient_picker; },
   "Guide": function() { return /* reexport */ guide; },
   "GuidePage": function() { return /* reexport */ GuidePage; },
   "HorizontalRule": function() { return /* reexport */ external_wp_primitives_namespaceObject.HorizontalRule; },
@@ -24286,30 +24286,20 @@ AlignmentMatrixControl.Icon = icon;
  */
 
 /**
- * @typedef {'top' | 'top left' | 'top right' | 'middle' | 'middle left' | 'middle right' | 'bottom' | 'bottom left' | 'bottom right'} AppearOrigin
- * @typedef {'left' | 'right'} SlideInOrigin
- * @typedef {{ type: 'appear'; origin?: AppearOrigin }} AppearOptions
- * @typedef {{ type: 'slide-in'; origin?: SlideInOrigin }} SlideInOptions
- * @typedef {{ type: 'loading' }} LoadingOptions
- * @typedef {AppearOptions | SlideInOptions | LoadingOptions} GetAnimateOptions
+ * Internal dependencies
  */
-
-/* eslint-disable jsdoc/valid-types */
 
 /**
- * @param {GetAnimateOptions['type']} type The animation type
- * @return {'top' | 'left'} Default origin
+ * @param type The animation type
+ * @return Default origin
  */
-
 function getDefaultOrigin(type) {
   return type === 'appear' ? 'top' : 'left';
 }
-/* eslint-enable jsdoc/valid-types */
-
 /**
- * @param {GetAnimateOptions} options
+ * @param options
  *
- * @return {string | undefined} ClassName that applies the animations
+ * @return ClassName that applies the animations
  */
 
 
@@ -24336,7 +24326,24 @@ function getAnimateClassName(options) {
   }
 
   return undefined;
-} // @ts-ignore Reason: Planned for deprecation
+}
+/**
+ * Simple interface to introduce animations to components.
+ *
+ * ```jsx
+ * import { Animate, Notice } from '@wordpress/components';
+ *
+ * const MyAnimatedNotice = () => (
+ * 	<Animate type="slide-in" options={ { origin: 'top' } }>
+ * 		{ ( { className } ) => (
+ * 			<Notice className={ className } status="success">
+ * 				<p>Animation finished.</p>
+ * 			</Notice>
+ * 		) }
+ * 	</Animate>
+ * );
+ * ```
+ */
 
 function Animate(_ref) {
   let {
@@ -24351,6 +24358,7 @@ function Animate(_ref) {
     })
   });
 }
+/* harmony default export */ var build_module_animate = (Animate);
 
 ;// CONCATENATED MODULE: ./node_modules/framer-motion/dist/es/utils/use-is-mounted.mjs
 
@@ -24824,7 +24832,202 @@ function UnconnectedFlexBlock(props, forwardedRef) {
 const FlexBlock = contextConnect(UnconnectedFlexBlock, 'FlexBlock');
 /* harmony default export */ var flex_block_component = (FlexBlock);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/flex/flex-item/component.js
+;// CONCATENATED MODULE: ./packages/components/build-module/ui/utils/space.js
+/**
+ * The argument value for the `space()` utility function.
+ *
+ * When this is a number or a numeric string, it will be interpreted as a
+ * multiplier for the grid base value (4px). For example, `space( 2 )` will be 8px.
+ *
+ * Otherwise, it will be interpreted as a literal CSS length value. For example,
+ * `space( 'auto' )` will be 'auto', and `space( '2px' )` will be 2px.
+ */
+const GRID_BASE = '4px';
+/**
+ * A function that handles numbers, numeric strings, and unit values.
+ *
+ * When given a number or a numeric string, it will return the grid-based
+ * value as a factor of GRID_BASE, defined above.
+ *
+ * When given a unit value or one of the named CSS values like `auto`,
+ * it will simply return the value back.
+ *
+ * @param value A number, numeric string, or a unit value.
+ */
+
+function space(value) {
+  var _window$CSS, _window$CSS$supports;
+
+  if (typeof value === 'undefined') {
+    return undefined;
+  } // Handle empty strings, if it's the number 0 this still works.
+
+
+  if (!value) {
+    return '0';
+  }
+
+  const asInt = typeof value === 'number' ? value : Number(value); // Test if the input has a unit, was NaN, or was one of the named CSS values (like `auto`), in which case just use that value.
+
+  if (typeof window !== 'undefined' && (_window$CSS = window.CSS) !== null && _window$CSS !== void 0 && (_window$CSS$supports = _window$CSS.supports) !== null && _window$CSS$supports !== void 0 && _window$CSS$supports.call(_window$CSS, 'margin', value.toString()) || Number.isNaN(asInt)) {
+    return value.toString();
+  }
+
+  return `calc(${GRID_BASE} * ${value})`;
+}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/utils/rtl.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+const LOWER_LEFT_REGEXP = new RegExp(/-left/g);
+const LOWER_RIGHT_REGEXP = new RegExp(/-right/g);
+const UPPER_LEFT_REGEXP = new RegExp(/Left/g);
+const UPPER_RIGHT_REGEXP = new RegExp(/Right/g);
+/**
+ * Flips a CSS property from left <-> right.
+ *
+ * @param {string} key The CSS property name.
+ *
+ * @return {string} The flipped CSS property name, if applicable.
+ */
+
+function getConvertedKey(key) {
+  if (key === 'left') {
+    return 'right';
+  }
+
+  if (key === 'right') {
+    return 'left';
+  }
+
+  if (LOWER_LEFT_REGEXP.test(key)) {
+    return key.replace(LOWER_LEFT_REGEXP, '-right');
+  }
+
+  if (LOWER_RIGHT_REGEXP.test(key)) {
+    return key.replace(LOWER_RIGHT_REGEXP, '-left');
+  }
+
+  if (UPPER_LEFT_REGEXP.test(key)) {
+    return key.replace(UPPER_LEFT_REGEXP, 'Right');
+  }
+
+  if (UPPER_RIGHT_REGEXP.test(key)) {
+    return key.replace(UPPER_RIGHT_REGEXP, 'Left');
+  }
+
+  return key;
+}
+/**
+ * An incredibly basic ltr -> rtl converter for style properties
+ *
+ * @param {import('react').CSSProperties} ltrStyles
+ *
+ * @return {import('react').CSSProperties} Converted ltr -> rtl styles
+ */
+
+
+const convertLTRToRTL = function () {
+  let ltrStyles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return Object.fromEntries(Object.entries(ltrStyles).map(_ref => {
+    let [key, value] = _ref;
+    return [getConvertedKey(key), value];
+  }));
+};
+/**
+ * A higher-order function that create an incredibly basic ltr -> rtl style converter for CSS objects.
+ *
+ * @param {import('react').CSSProperties} ltrStyles   Ltr styles. Converts and renders from ltr -> rtl styles, if applicable.
+ * @param {import('react').CSSProperties} [rtlStyles] Rtl styles. Renders if provided.
+ *
+ * @return {() => import('@emotion/react').SerializedStyles} A function to output CSS styles for Emotion's renderer
+ */
+
+function rtl() {
+  let ltrStyles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let rtlStyles = arguments.length > 1 ? arguments[1] : undefined;
+  return () => {
+    if (rtlStyles) {
+      // @ts-ignore: `css` types are wrong, it can accept an object: https://emotion.sh/docs/object-styles#with-css
+      return (0,external_wp_i18n_namespaceObject.isRTL)() ? /*#__PURE__*/emotion_react_browser_esm_css(rtlStyles,  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css(ltrStyles,  true ? "" : 0);
+    } // @ts-ignore: `css` types are wrong, it can accept an object: https://emotion.sh/docs/object-styles#with-css
+
+
+    return (0,external_wp_i18n_namespaceObject.isRTL)() ? /*#__PURE__*/emotion_react_browser_esm_css(convertLTRToRTL(ltrStyles),  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css(ltrStyles,  true ? "" : 0);
+  };
+}
+/**
+ * Call this in the `useMemo` dependency array to ensure that subsequent renders will
+ * cause rtl styles to update based on the `isRTL` return value even if all other dependencies
+ * remain the same.
+ *
+ * @example
+ * const styles = useMemo( () => {
+ *   return css`
+ *     ${ rtl( { marginRight: '10px' } ) }
+ *   `;
+ * }, [ rtl.watch() ] );
+ */
+
+rtl.watch = () => (0,external_wp_i18n_namespaceObject.isRTL)();
+
+;// CONCATENATED MODULE: ./packages/components/build-module/spacer/hook.js
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+
+const isDefined = o => typeof o !== 'undefined' && o !== null;
+
+function useSpacer(props) {
+  const {
+    className,
+    margin,
+    marginBottom = 2,
+    marginLeft,
+    marginRight,
+    marginTop,
+    marginX,
+    marginY,
+    padding,
+    paddingBottom,
+    paddingLeft,
+    paddingRight,
+    paddingTop,
+    paddingX,
+    paddingY,
+    ...otherProps
+  } = useContextSystem(props, 'Spacer');
+  const cx = useCx();
+  const classes = cx(isDefined(margin) && /*#__PURE__*/emotion_react_browser_esm_css("margin:", space(margin), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginY) && /*#__PURE__*/emotion_react_browser_esm_css("margin-bottom:", space(marginY), ";margin-top:", space(marginY), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginX) && /*#__PURE__*/emotion_react_browser_esm_css("margin-left:", space(marginX), ";margin-right:", space(marginX), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginTop) && /*#__PURE__*/emotion_react_browser_esm_css("margin-top:", space(marginTop), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginBottom) && /*#__PURE__*/emotion_react_browser_esm_css("margin-bottom:", space(marginBottom), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginLeft) && rtl({
+    marginLeft: space(marginLeft)
+  })(), isDefined(marginRight) && rtl({
+    marginRight: space(marginRight)
+  })(), isDefined(padding) && /*#__PURE__*/emotion_react_browser_esm_css("padding:", space(padding), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingY) && /*#__PURE__*/emotion_react_browser_esm_css("padding-bottom:", space(paddingY), ";padding-top:", space(paddingY), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingX) && /*#__PURE__*/emotion_react_browser_esm_css("padding-left:", space(paddingX), ";padding-right:", space(paddingX), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingTop) && /*#__PURE__*/emotion_react_browser_esm_css("padding-top:", space(paddingTop), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingBottom) && /*#__PURE__*/emotion_react_browser_esm_css("padding-bottom:", space(paddingBottom), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingLeft) && rtl({
+    paddingLeft: space(paddingLeft)
+  })(), isDefined(paddingRight) && rtl({
+    paddingRight: space(paddingRight)
+  })(), className);
+  return { ...otherProps,
+    className: classes
+  };
+}
+
+;// CONCATENATED MODULE: ./packages/components/build-module/spacer/component.js
 
 
 
@@ -24839,32 +25042,40 @@ const FlexBlock = contextConnect(UnconnectedFlexBlock, 'FlexBlock');
 
 
 
-function UnconnectedFlexItem(props, forwardedRef) {
-  const flexItemProps = useFlexItem(props);
-  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, flexItemProps, {
+function UnconnectedSpacer(props, forwardedRef) {
+  const spacerProps = useSpacer(props);
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, spacerProps, {
     ref: forwardedRef
   }));
 }
 /**
- * `FlexItem` is a primitive layout component that aligns content within layout
- * containers like `Flex`.
+ * `Spacer` is a primitive layout component that providers inner (`padding`) or outer (`margin`) space in-between components. It can also be used to adaptively provide space within an `HStack` or `VStack`.
+ *
+ * `Spacer` comes with a bunch of shorthand props to adjust `margin` and `padding`. The values of these props
+ * can either be a number (which will act as a multiplier to the library's grid system base of 4px),
+ * or a literal CSS value string.
  *
  * ```jsx
- * import { Flex, FlexItem } from '@wordpress/components';
+ * import { Spacer } from `@wordpress/components`
  *
  * function Example() {
  *   return (
- *     <Flex>
- *       <FlexItem>...</FlexItem>
- *     </Flex>
+ *     <View>
+ *       <Spacer>
+ *         <Heading>WordPress.org</Heading>
+ *       </Spacer>
+ *       <Text>
+ *         Code is Poetry
+ *       </Text>
+ *     </View>
  *   );
  * }
  * ```
  */
 
 
-const FlexItem = contextConnect(UnconnectedFlexItem, 'FlexItem');
-/* harmony default export */ var flex_item_component = (FlexItem);
+const Spacer = contextConnect(UnconnectedSpacer, 'Spacer');
+/* harmony default export */ var spacer_component = (Spacer);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/plus.js
 
@@ -24956,50 +25167,6 @@ function useResponsiveValue(values) {
     /* eslint-enable jsdoc/no-undefined-types */
     index >= array.length ? array.length - 1 : index]
   );
-}
-
-;// CONCATENATED MODULE: ./packages/components/build-module/ui/utils/space.js
-/**
- * The argument value for the `space()` utility function.
- *
- * When this is a number or a numeric string, it will be interpreted as a
- * multiplier for the grid base value (4px). For example, `space( 2 )` will be 8px.
- *
- * Otherwise, it will be interpreted as a literal CSS length value. For example,
- * `space( 'auto' )` will be 'auto', and `space( '2px' )` will be 2px.
- */
-const GRID_BASE = '4px';
-/**
- * A function that handles numbers, numeric strings, and unit values.
- *
- * When given a number or a numeric string, it will return the grid-based
- * value as a factor of GRID_BASE, defined above.
- *
- * When given a unit value or one of the named CSS values like `auto`,
- * it will simply return the value back.
- *
- * @param value A number, numeric string, or a unit value.
- */
-
-function space(value) {
-  var _window$CSS, _window$CSS$supports;
-
-  if (typeof value === 'undefined') {
-    return undefined;
-  } // Handle empty strings, if it's the number 0 this still works.
-
-
-  if (!value) {
-    return '0';
-  }
-
-  const asInt = typeof value === 'number' ? value : Number(value); // Test if the input has a unit, was NaN, or was one of the named CSS values (like `auto`), in which case just use that value.
-
-  if (typeof window !== 'undefined' && (_window$CSS = window.CSS) !== null && _window$CSS !== void 0 && (_window$CSS$supports = _window$CSS.supports) !== null && _window$CSS$supports !== void 0 && _window$CSS$supports.call(_window$CSS, 'margin', value.toString()) || Number.isNaN(asInt)) {
-    return value.toString();
-  }
-
-  return `calc(${GRID_BASE} * ${value})`;
 }
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/flex/flex/hook.js
@@ -25134,6 +25301,48 @@ function UnconnectedFlex(props, forwardedRef) {
 
 const component_Flex = contextConnect(UnconnectedFlex, 'Flex');
 /* harmony default export */ var flex_component = (component_Flex);
+
+;// CONCATENATED MODULE: ./packages/components/build-module/flex/flex-item/component.js
+
+
+
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+
+function UnconnectedFlexItem(props, forwardedRef) {
+  const flexItemProps = useFlexItem(props);
+  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, flexItemProps, {
+    ref: forwardedRef
+  }));
+}
+/**
+ * `FlexItem` is a primitive layout component that aligns content within layout
+ * containers like `Flex`.
+ *
+ * ```jsx
+ * import { Flex, FlexItem } from '@wordpress/components';
+ *
+ * function Example() {
+ *   return (
+ *     <Flex>
+ *       <FlexItem>...</FlexItem>
+ *     </Flex>
+ *   );
+ * }
+ * ```
+ */
+
+
+const FlexItem = contextConnect(UnconnectedFlexItem, 'FlexItem');
+/* harmony default export */ var flex_item_component = (FlexItem);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/truncate/styles.js
 function truncate_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "You have tried to stringify object returned from `css` function. It isn't supposed to be used directly (e.g. as value of the `className` prop), but rather handed to emotion so it can handle it (e.g. as value of `css` prop)."; }
@@ -26062,108 +26271,6 @@ const baseLabelTypography =  true ? {
   name: "9amh4a",
   styles: "font-size:11px;font-weight:500;line-height:1.4;text-transform:uppercase"
 } : 0;
-
-;// CONCATENATED MODULE: ./packages/components/build-module/utils/rtl.js
-/**
- * External dependencies
- */
-
-/**
- * WordPress dependencies
- */
-
-
-const LOWER_LEFT_REGEXP = new RegExp(/-left/g);
-const LOWER_RIGHT_REGEXP = new RegExp(/-right/g);
-const UPPER_LEFT_REGEXP = new RegExp(/Left/g);
-const UPPER_RIGHT_REGEXP = new RegExp(/Right/g);
-/**
- * Flips a CSS property from left <-> right.
- *
- * @param {string} key The CSS property name.
- *
- * @return {string} The flipped CSS property name, if applicable.
- */
-
-function getConvertedKey(key) {
-  if (key === 'left') {
-    return 'right';
-  }
-
-  if (key === 'right') {
-    return 'left';
-  }
-
-  if (LOWER_LEFT_REGEXP.test(key)) {
-    return key.replace(LOWER_LEFT_REGEXP, '-right');
-  }
-
-  if (LOWER_RIGHT_REGEXP.test(key)) {
-    return key.replace(LOWER_RIGHT_REGEXP, '-left');
-  }
-
-  if (UPPER_LEFT_REGEXP.test(key)) {
-    return key.replace(UPPER_LEFT_REGEXP, 'Right');
-  }
-
-  if (UPPER_RIGHT_REGEXP.test(key)) {
-    return key.replace(UPPER_RIGHT_REGEXP, 'Left');
-  }
-
-  return key;
-}
-/**
- * An incredibly basic ltr -> rtl converter for style properties
- *
- * @param {import('react').CSSProperties} ltrStyles
- *
- * @return {import('react').CSSProperties} Converted ltr -> rtl styles
- */
-
-
-const convertLTRToRTL = function () {
-  let ltrStyles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object.fromEntries(Object.entries(ltrStyles).map(_ref => {
-    let [key, value] = _ref;
-    return [getConvertedKey(key), value];
-  }));
-};
-/**
- * A higher-order function that create an incredibly basic ltr -> rtl style converter for CSS objects.
- *
- * @param {import('react').CSSProperties} ltrStyles   Ltr styles. Converts and renders from ltr -> rtl styles, if applicable.
- * @param {import('react').CSSProperties} [rtlStyles] Rtl styles. Renders if provided.
- *
- * @return {() => import('@emotion/react').SerializedStyles} A function to output CSS styles for Emotion's renderer
- */
-
-function rtl() {
-  let ltrStyles = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let rtlStyles = arguments.length > 1 ? arguments[1] : undefined;
-  return () => {
-    if (rtlStyles) {
-      // @ts-ignore: `css` types are wrong, it can accept an object: https://emotion.sh/docs/object-styles#with-css
-      return (0,external_wp_i18n_namespaceObject.isRTL)() ? /*#__PURE__*/emotion_react_browser_esm_css(rtlStyles,  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css(ltrStyles,  true ? "" : 0);
-    } // @ts-ignore: `css` types are wrong, it can accept an object: https://emotion.sh/docs/object-styles#with-css
-
-
-    return (0,external_wp_i18n_namespaceObject.isRTL)() ? /*#__PURE__*/emotion_react_browser_esm_css(convertLTRToRTL(ltrStyles),  true ? "" : 0) : /*#__PURE__*/emotion_react_browser_esm_css(ltrStyles,  true ? "" : 0);
-  };
-}
-/**
- * Call this in the `useMemo` dependency array to ensure that subsequent renders will
- * cause rtl styles to update based on the `isRTL` return value even if all other dependencies
- * remain the same.
- *
- * @example
- * const styles = useMemo( () => {
- *   return css`
- *     ${ rtl( { marginRight: '10px' } ) }
- *   `;
- * }, [ rtl.watch() ] );
- */
-
-rtl.watch = () => (0,external_wp_i18n_namespaceObject.isRTL)();
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/input-control/styles/input-control-styles.js
 
@@ -29753,105 +29860,6 @@ function UnconnectedHStack(props, forwardedRef) {
 const HStack = contextConnect(UnconnectedHStack, 'HStack');
 /* harmony default export */ var h_stack_component = (HStack);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/spacer/hook.js
-/**
- * External dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-
-const isDefined = o => typeof o !== 'undefined' && o !== null;
-
-function useSpacer(props) {
-  const {
-    className,
-    margin,
-    marginBottom = 2,
-    marginLeft,
-    marginRight,
-    marginTop,
-    marginX,
-    marginY,
-    padding,
-    paddingBottom,
-    paddingLeft,
-    paddingRight,
-    paddingTop,
-    paddingX,
-    paddingY,
-    ...otherProps
-  } = useContextSystem(props, 'Spacer');
-  const cx = useCx();
-  const classes = cx(isDefined(margin) && /*#__PURE__*/emotion_react_browser_esm_css("margin:", space(margin), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginY) && /*#__PURE__*/emotion_react_browser_esm_css("margin-bottom:", space(marginY), ";margin-top:", space(marginY), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginX) && /*#__PURE__*/emotion_react_browser_esm_css("margin-left:", space(marginX), ";margin-right:", space(marginX), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginTop) && /*#__PURE__*/emotion_react_browser_esm_css("margin-top:", space(marginTop), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginBottom) && /*#__PURE__*/emotion_react_browser_esm_css("margin-bottom:", space(marginBottom), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(marginLeft) && rtl({
-    marginLeft: space(marginLeft)
-  })(), isDefined(marginRight) && rtl({
-    marginRight: space(marginRight)
-  })(), isDefined(padding) && /*#__PURE__*/emotion_react_browser_esm_css("padding:", space(padding), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingY) && /*#__PURE__*/emotion_react_browser_esm_css("padding-bottom:", space(paddingY), ";padding-top:", space(paddingY), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingX) && /*#__PURE__*/emotion_react_browser_esm_css("padding-left:", space(paddingX), ";padding-right:", space(paddingX), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingTop) && /*#__PURE__*/emotion_react_browser_esm_css("padding-top:", space(paddingTop), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingBottom) && /*#__PURE__*/emotion_react_browser_esm_css("padding-bottom:", space(paddingBottom), ";" + ( true ? "" : 0),  true ? "" : 0), isDefined(paddingLeft) && rtl({
-    paddingLeft: space(paddingLeft)
-  })(), isDefined(paddingRight) && rtl({
-    paddingRight: space(paddingRight)
-  })(), className);
-  return { ...otherProps,
-    className: classes
-  };
-}
-
-;// CONCATENATED MODULE: ./packages/components/build-module/spacer/component.js
-
-
-
-/**
- * External dependencies
- */
-
-/**
- * Internal dependencies
- */
-
-
-
-
-function UnconnectedSpacer(props, forwardedRef) {
-  const spacerProps = useSpacer(props);
-  return (0,external_wp_element_namespaceObject.createElement)(component, extends_extends({}, spacerProps, {
-    ref: forwardedRef
-  }));
-}
-/**
- * `Spacer` is a primitive layout component that providers inner (`padding`) or outer (`margin`) space in-between components. It can also be used to adaptively provide space within an `HStack` or `VStack`.
- *
- * `Spacer` comes with a bunch of shorthand props to adjust `margin` and `padding`. The values of these props
- * can either be a number (which will act as a multiplier to the library's grid system base of 4px),
- * or a literal CSS value string.
- *
- * ```jsx
- * import { Spacer } from `@wordpress/components`
- *
- * function Example() {
- *   return (
- *     <View>
- *       <Spacer>
- *         <Heading>WordPress.org</Heading>
- *       </Spacer>
- *       <Text>
- *         Code is Poetry
- *       </Text>
- *     </View>
- *   );
- * }
- * ```
- */
-
-
-const Spacer = contextConnect(UnconnectedSpacer, 'Spacer');
-/* harmony default export */ var spacer_component = (Spacer);
-
 ;// CONCATENATED MODULE: ./packages/components/build-module/number-control/index.js
 
 
@@ -30103,8 +30111,9 @@ function angle_picker_control_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return "
 
 
 
+
 const CIRCLE_SIZE = 32;
-const INNER_CIRCLE_SIZE = 3;
+const INNER_CIRCLE_SIZE = 6;
 
 const deprecatedBottomMargin = _ref => {
   let {
@@ -30114,20 +30123,23 @@ const deprecatedBottomMargin = _ref => {
 };
 
 const angle_picker_control_styles_Root = /*#__PURE__*/emotion_styled_base_browser_esm(flex_component,  true ? {
-  target: "eln3bjz3"
+  target: "eln3bjz4"
 } : 0)(deprecatedBottomMargin, ";" + ( true ? "" : 0));
 const CircleRoot = emotion_styled_base_browser_esm("div",  true ? {
-  target: "eln3bjz2"
-} : 0)("border-radius:50%;border:", config_values.borderWidth, " solid ", COLORS.ui.border, ";box-sizing:border-box;cursor:grab;height:", CIRCLE_SIZE, "px;overflow:hidden;width:", CIRCLE_SIZE, "px;" + ( true ? "" : 0));
+  target: "eln3bjz3"
+} : 0)("border-radius:50%;border:", config_values.borderWidth, " solid ", COLORS.ui.border, ";box-sizing:border-box;cursor:grab;height:", CIRCLE_SIZE, "px;overflow:hidden;width:", CIRCLE_SIZE, "px;:active{cursor:grabbing;}" + ( true ? "" : 0));
 const CircleIndicatorWrapper = emotion_styled_base_browser_esm("div",  true ? {
-  target: "eln3bjz1"
+  target: "eln3bjz2"
 } : 0)( true ? {
   name: "1r307gh",
   styles: "box-sizing:border-box;position:relative;width:100%;height:100%;:focus-visible{outline:none;}"
 } : 0);
 const CircleIndicator = emotion_styled_base_browser_esm("div",  true ? {
+  target: "eln3bjz1"
+} : 0)("background:", COLORS.ui.theme, ";border-radius:50%;box-sizing:border-box;display:block;left:50%;top:4px;transform:translateX( -50% );position:absolute;width:", INNER_CIRCLE_SIZE, "px;height:", INNER_CIRCLE_SIZE, "px;" + ( true ? "" : 0));
+const UnitText = /*#__PURE__*/emotion_styled_base_browser_esm(text_component,  true ? {
   target: "eln3bjz0"
-} : 0)("background:", COLORS.ui.theme, ";border-radius:50%;border:", INNER_CIRCLE_SIZE, "px solid ", COLORS.ui.theme, ";bottom:0;box-sizing:border-box;display:block;height:0px;left:0;margin:auto;position:absolute;right:0;top:-", CIRCLE_SIZE / 2, "px;width:0px;" + ( true ? "" : 0));
+} : 0)("color:", COLORS.ui.theme, ";margin-right:", space(3), ";" + ( true ? "" : 0));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/angle-picker-control/angle-circle.js
 
@@ -30214,10 +30226,7 @@ function AngleCircle(_ref) {
   return (0,external_wp_element_namespaceObject.createElement)(CircleRoot, extends_extends({
     ref: angleCircleRef,
     onMouseDown: startDrag,
-    className: "components-angle-picker-control__angle-circle",
-    style: isDragging ? {
-      cursor: 'grabbing'
-    } : undefined
+    className: "components-angle-picker-control__angle-circle"
   }, props), (0,external_wp_element_namespaceObject.createElement)(CircleIndicatorWrapper, {
     style: value ? {
       transform: `rotate(${value}deg)`
@@ -30269,9 +30278,6 @@ function getAngle(centerX, centerY, pointX, pointY) {
 
 
 
-
-
-
 function UnforwardedAnglePickerControl(props, ref) {
   const {
     __nextHasNoMarginBottom = false,
@@ -30300,11 +30306,13 @@ function UnforwardedAnglePickerControl(props, ref) {
   };
 
   const classes = classnames_default()('components-angle-picker-control', className);
+  const unitText = (0,external_wp_element_namespaceObject.createElement)(UnitText, null, "\xB0");
+  const [prefixedUnitText, suffixedUnitText] = (0,external_wp_i18n_namespaceObject.isRTL)() ? [unitText, null] : [null, unitText];
   return (0,external_wp_element_namespaceObject.createElement)(angle_picker_control_styles_Root, extends_extends({}, restProps, {
     ref: ref,
     __nextHasNoMarginBottom: __nextHasNoMarginBottom,
     className: classes,
-    gap: 4
+    gap: 2
   }), (0,external_wp_element_namespaceObject.createElement)(flex_block_component, null, (0,external_wp_element_namespaceObject.createElement)(number_control, {
     label: label,
     className: "components-angle-picker-control__input-field",
@@ -30315,19 +30323,11 @@ function UnforwardedAnglePickerControl(props, ref) {
     step: "1",
     value: value,
     spinControls: "none",
-    suffix: (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
-      as: text_component,
-      marginBottom: 0,
-      marginRight: space(3),
-      style: {
-        color: COLORS.ui.theme
-      }
-    }, "\xB0")
-  })), (0,external_wp_element_namespaceObject.createElement)(flex_item_component, {
-    style: {
-      marginBottom: space(1),
-      marginTop: 'auto'
-    }
+    prefix: prefixedUnitText,
+    suffix: suffixedUnitText
+  })), (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
+    marginBottom: "1",
+    marginTop: "auto"
   }, (0,external_wp_element_namespaceObject.createElement)(angle_circle, {
     "aria-hidden": "true",
     value: value,
@@ -36429,10 +36429,6 @@ const HexInput = _ref => {
 
 
 /**
- * External dependencies
- */
-
-/**
  * Internal dependencies
  */
 
@@ -36479,6 +36475,10 @@ function index_module_u(){return(index_module_u=Object.assign||function(e){for(v
  * WordPress dependencies
  */
 
+
+/**
+ * Internal dependencies
+ */
 
 const Picker = _ref => {
   let {
@@ -36575,7 +36575,7 @@ const options = [{
   value: 'hex'
 }];
 
-const ColorPicker = (props, forwardedRef) => {
+const UnconnectedColorPicker = (props, forwardedRef) => {
   const {
     enableAlpha = false,
     color: colorProp,
@@ -36627,8 +36627,8 @@ const ColorPicker = (props, forwardedRef) => {
   }))));
 };
 
-const ConnectedColorPicker = contextConnect(ColorPicker, 'ColorPicker');
-/* harmony default export */ var color_picker_component = (ConnectedColorPicker);
+const ColorPicker = contextConnect(UnconnectedColorPicker, 'ColorPicker');
+/* harmony default export */ var color_picker_component = (ColorPicker);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/color-picker/use-deprecated-props.js
 /**
@@ -42034,50 +42034,30 @@ const KEYBOARD_CONTROL_POINT_VARIATION = MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_P
 const MINIMUM_DISTANCE_BETWEEN_INSERTER_AND_MARKER = (INSERT_POINT_WIDTH + GRADIENT_MARKERS_WIDTH) / 2;
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/gradient-bar/utils.js
-// @ts-nocheck
-
 /**
  * Internal dependencies
  */
 
-/**
- * Control point for the gradient bar.
- *
- * @typedef {Object} ControlPoint
- * @property {string} color    Color of the control point.
- * @property {number} position Integer position of the control point as a percentage.
- */
-
-/**
- * Color as parsed from the gradient by gradient-parser.
- *
- * @typedef {Object} Color
- * @property {string} r   Red component.
- * @property {string} g   Green component.
- * @property {string} b   Green component.
- * @property {string} [a] Optional alpha component.
- */
 
 /**
  * Clamps a number between 0 and 100.
  *
- * @param {number} value Value to clamp.
+ * @param value Value to clamp.
  *
- * @return {number} Value clamped between 0 and 100.
+ * @return Value clamped between 0 and 100.
  */
-
 function clampPercent(value) {
   return Math.max(0, Math.min(100, value));
 }
 /**
  * Check if a control point is overlapping with another.
  *
- * @param {ControlPoint[]} value        Array of control points.
- * @param {number}         initialIndex Index of the position to test.
- * @param {number}         newPosition  New position of the control point.
- * @param {number}         minDistance  Distance considered to be overlapping.
+ * @param value        Array of control points.
+ * @param initialIndex Index of the position to test.
+ * @param newPosition  New position of the control point.
+ * @param minDistance  Distance considered to be overlapping.
  *
- * @return {boolean} True if the point is overlapping.
+ * @return True if the point is overlapping.
  */
 
 function isOverlapping(value, initialIndex, newPosition) {
@@ -42095,11 +42075,11 @@ function isOverlapping(value, initialIndex, newPosition) {
 /**
  * Adds a control point from an array and returns the new array.
  *
- * @param {ControlPoint[]} points   Array of control points.
- * @param {number}         position Position to insert the new point.
- * @param {Color}          color    Color to update the control point at index.
+ * @param points   Array of control points.
+ * @param position Position to insert the new point.
+ * @param color    Color to update the control point at index.
  *
- * @return {ControlPoint[]} New array of control points.
+ * @return New array of control points.
  */
 
 function addControlPoint(points, position, color) {
@@ -42115,25 +42095,25 @@ function addControlPoint(points, position, color) {
 /**
  * Removes a control point from an array and returns the new array.
  *
- * @param {ControlPoint[]} points Array of control points.
- * @param {number}         index  Index to remove.
+ * @param points Array of control points.
+ * @param index  Index to remove.
  *
- * @return {ControlPoint[]} New array of control points.
+ * @return New array of control points.
  */
 
 function removeControlPoint(points, index) {
-  return points.filter((point, pointIndex) => {
+  return points.filter((_point, pointIndex) => {
     return pointIndex !== index;
   });
 }
 /**
  * Updates a control point from an array and returns the new array.
  *
- * @param {ControlPoint[]} points   Array of control points.
- * @param {number}         index    Index to update.
- * @param {ControlPoint[]} newPoint New control point to replace the index.
+ * @param points   Array of control points.
+ * @param index    Index to update.
+ * @param newPoint New control point to replace the index.
  *
- * @return {ControlPoint[]} New array of control points.
+ * @return New array of control points.
  */
 
 function updateControlPoint(points, index, newPoint) {
@@ -42144,11 +42124,11 @@ function updateControlPoint(points, index, newPoint) {
 /**
  * Updates the position of a control point from an array and returns the new array.
  *
- * @param {ControlPoint[]} points      Array of control points.
- * @param {number}         index       Index to update.
- * @param {number}         newPosition Position to move the control point at index.
+ * @param points      Array of control points.
+ * @param index       Index to update.
+ * @param newPosition Position to move the control point at index.
  *
- * @return {ControlPoint[]} New array of control points.
+ * @return New array of control points.
  */
 
 function updateControlPointPosition(points, index, newPosition) {
@@ -42164,11 +42144,11 @@ function updateControlPointPosition(points, index, newPosition) {
 /**
  * Updates the position of a control point from an array and returns the new array.
  *
- * @param {ControlPoint[]} points   Array of control points.
- * @param {number}         index    Index to update.
- * @param {Color}          newColor Color to update the control point at index.
+ * @param points   Array of control points.
+ * @param index    Index to update.
+ * @param newColor Color to update the control point at index.
  *
- * @return {ControlPoint[]} New array of control points.
+ * @return New array of control points.
  */
 
 function updateControlPointColor(points, index, newColor) {
@@ -42180,11 +42160,11 @@ function updateControlPointColor(points, index, newColor) {
 /**
  * Updates the position of a control point from an array and returns the new array.
  *
- * @param {ControlPoint[]} points   Array of control points.
- * @param {number}         position Position of the color stop.
- * @param {string}         newColor Color to update the control point at index.
+ * @param points   Array of control points.
+ * @param position Position of the color stop.
+ * @param newColor Color to update the control point at index.
  *
- * @return {ControlPoint[]} New array of control points.
+ * @return New array of control points.
  */
 
 function updateControlPointColorByPosition(points, position, newColor) {
@@ -42194,10 +42174,10 @@ function updateControlPointColorByPosition(points, position, newColor) {
 /**
  * Gets the horizontal coordinate when dragging a control point with the mouse.
  *
- * @param {number}  mouseXCoordinate Horizontal coordinate of the mouse position.
- * @param {Element} containerElement Container for the gradient picker.
+ * @param mouseXcoordinate Horizontal coordinate of the mouse position.
+ * @param containerElement Container for the gradient picker.
  *
- * @return {number | undefined} Whole number percentage from the left.
+ * @return Whole number percentage from the left.
  */
 
 function getHorizontalRelativeGradientPosition(mouseXCoordinate, containerElement) {
@@ -42216,7 +42196,6 @@ function getHorizontalRelativeGradientPosition(mouseXCoordinate, containerElemen
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/gradient-bar/control-points.js
 
 
-// @ts-nocheck
 
 /**
  * External dependencies
@@ -42300,6 +42279,10 @@ function ControlPoints(_ref3) {
   const controlPointMoveState = (0,external_wp_element_namespaceObject.useRef)();
 
   const onMouseMove = event => {
+    if (controlPointMoveState.current === undefined || gradientPickerDomRef.current === null) {
+      return;
+    }
+
     const relativePosition = getHorizontalRelativeGradientPosition(event.clientX, gradientPickerDomRef.current);
     const {
       initialPosition,
@@ -42330,10 +42313,12 @@ function ControlPoints(_ref3) {
   cleanEventListenersRef.current = cleanEventListeners;
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     return () => {
-      cleanEventListenersRef.current();
+      var _cleanEventListenersR;
+
+      (_cleanEventListenersR = cleanEventListenersRef.current) === null || _cleanEventListenersR === void 0 ? void 0 : _cleanEventListenersR.call(cleanEventListenersRef);
     };
   }, []);
-  return controlPoints.map((point, index) => {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, controlPoints.map((point, index) => {
     const initialPosition = point === null || point === void 0 ? void 0 : point.position;
     return ignoreMarkerPosition !== initialPosition && (0,external_wp_element_namespaceObject.createElement)(GradientColorPickerDropdown, {
       isRenderedInSidebar: __experimentalIsRenderedInSidebar,
@@ -42416,7 +42401,7 @@ function ControlPoints(_ref3) {
         transform: 'translateX( -50% )'
       }
     });
-  });
+  }));
 }
 
 function InsertPoint(_ref6) {
@@ -42481,7 +42466,6 @@ ControlPoints.InsertPoint = InsertPoint;
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/gradient-bar/index.js
 
-// @ts-nocheck
 
 /**
  * External dependencies
@@ -42500,7 +42484,7 @@ ControlPoints.InsertPoint = InsertPoint;
 
 
 
-function customGradientBarReducer(state, action) {
+const customGradientBarReducer = (state, action) => {
   switch (action.type) {
     case 'MOVE_INSERTER':
       if (state.id === 'IDLE' || state.id === 'MOVING_INSERTER') {
@@ -42560,7 +42544,7 @@ function customGradientBarReducer(state, action) {
   }
 
   return state;
-}
+};
 
 const customGradientBarReducerInitialState = {
   id: 'IDLE'
@@ -42573,12 +42557,16 @@ function CustomGradientBar(_ref) {
     onChange,
     disableInserter = false,
     disableAlpha = false,
-    __experimentalIsRenderedInSidebar
+    __experimentalIsRenderedInSidebar = false
   } = _ref;
-  const gradientMarkersContainerDomRef = (0,external_wp_element_namespaceObject.useRef)();
+  const gradientMarkersContainerDomRef = (0,external_wp_element_namespaceObject.useRef)(null);
   const [gradientBarState, gradientBarStateDispatch] = (0,external_wp_element_namespaceObject.useReducer)(customGradientBarReducer, customGradientBarReducerInitialState);
 
   const onMouseEnterAndMove = event => {
+    if (!gradientMarkersContainerDomRef.current) {
+      return;
+    }
+
     const insertPosition = getHorizontalRelativeGradientPosition(event.clientX, gradientMarkersContainerDomRef.current); // If the insert point is close to an existing control point don't show it.
 
     if (controlPoints.some(_ref2 => {
@@ -42616,11 +42604,14 @@ function CustomGradientBar(_ref) {
     }),
     onMouseEnter: onMouseEnterAndMove,
     onMouseMove: onMouseEnterAndMove,
-    style: {
-      background
-    },
     onMouseLeave: onMouseLeave
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
+    className: "components-custom-gradient-picker__gradient-bar-background",
+    style: {
+      background,
+      opacity: hasGradient ? 1 : 0.4
+    }
+  }), (0,external_wp_element_namespaceObject.createElement)("div", {
     ref: gradientMarkersContainerDomRef,
     className: "components-custom-gradient-picker__markers-container"
   }, !disableInserter && (isMovingInserter || isInsertingControlPoint) && (0,external_wp_element_namespaceObject.createElement)(control_points.InsertPoint, {
@@ -42671,7 +42662,7 @@ const DEFAULT_GRADIENT = 'linear-gradient(135deg, rgba(6, 147, 227, 1) 0%, rgb(1
 const DEFAULT_LINEAR_GRADIENT_ANGLE = 180;
 const HORIZONTAL_GRADIENT_ORIENTATION = {
   type: 'angular',
-  value: 90
+  value: '90'
 };
 const GRADIENT_OPTIONS = [{
   value: 'linear-gradient',
@@ -42696,7 +42687,13 @@ const DIRECTIONAL_ORIENTATION_ANGLE_MAP = {
 };
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/serializer.js
-// @ts-nocheck
+/**
+ * External dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
 function serializeGradientColor(_ref) {
   let {
     type,
@@ -42736,7 +42733,7 @@ function serializeGradientColorStop(_ref2) {
   })} ${serializeGradientPosition(length)}`;
 }
 function serializeGradientOrientation(orientation) {
-  if (!orientation || orientation.type !== 'angular') {
+  if (Array.isArray(orientation) || !orientation || orientation.type !== 'angular') {
     return;
   }
 
@@ -42750,16 +42747,18 @@ function serializeGradient(_ref3) {
   } = _ref3;
   const serializedOrientation = serializeGradientOrientation(orientation);
   const serializedColorStops = colorStops.sort((colorStop1, colorStop2) => {
-    var _colorStop1$length$va, _colorStop1$length, _colorStop2$length$va, _colorStop2$length;
+    const getNumericStopValue = colorStop => {
+      var _colorStop$length;
 
-    return ((_colorStop1$length$va = colorStop1 === null || colorStop1 === void 0 ? void 0 : (_colorStop1$length = colorStop1.length) === null || _colorStop1$length === void 0 ? void 0 : _colorStop1$length.value) !== null && _colorStop1$length$va !== void 0 ? _colorStop1$length$va : 0) - ((_colorStop2$length$va = colorStop2 === null || colorStop2 === void 0 ? void 0 : (_colorStop2$length = colorStop2.length) === null || _colorStop2$length === void 0 ? void 0 : _colorStop2$length.value) !== null && _colorStop2$length$va !== void 0 ? _colorStop2$length$va : 0);
+      return (colorStop === null || colorStop === void 0 ? void 0 : (_colorStop$length = colorStop.length) === null || _colorStop$length === void 0 ? void 0 : _colorStop$length.value) === undefined ? 0 : parseInt(colorStop.length.value);
+    };
+
+    return getNumericStopValue(colorStop1) - getNumericStopValue(colorStop2);
   }).map(serializeGradientColorStop);
   return `${type}(${[serializedOrientation, ...serializedColorStops].filter(Boolean).join(',')})`;
 }
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/utils.js
-// @ts-nocheck
-
 /**
  * External dependencies
  */
@@ -42791,18 +42790,23 @@ function getGradientAstWithDefault(value) {
   // gradientAST will contain the gradient AST as parsed by gradient-parser npm module.
   // More information of its structure available at https://www.npmjs.com/package/gradient-parser#ast.
   let gradientAST;
+  let hasGradient = !!value;
+  const valueToParse = value !== null && value !== void 0 ? value : DEFAULT_GRADIENT;
 
   try {
-    gradientAST = build_node.parse(value)[0];
-    gradientAST.value = value;
+    gradientAST = build_node.parse(valueToParse)[0];
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.warn('wp.components.CustomGradientPicker failed to parse the gradient with error', error);
     gradientAST = build_node.parse(DEFAULT_GRADIENT)[0];
-    gradientAST.value = DEFAULT_GRADIENT;
+    hasGradient = false;
   }
 
-  if (((_gradientAST$orientat = gradientAST.orientation) === null || _gradientAST$orientat === void 0 ? void 0 : _gradientAST$orientat.type) === 'directional') {
-    gradientAST.orientation.type = 'angular';
-    gradientAST.orientation.value = DIRECTIONAL_ORIENTATION_ANGLE_MAP[gradientAST.orientation.value].toString();
+  if (!Array.isArray(gradientAST.orientation) && ((_gradientAST$orientat = gradientAST.orientation) === null || _gradientAST$orientat === void 0 ? void 0 : _gradientAST$orientat.type) === 'directional') {
+    gradientAST.orientation = {
+      type: 'angular',
+      value: DIRECTIONAL_ORIENTATION_ANGLE_MAP[gradientAST.orientation.value].toString()
+    };
   }
 
   if (gradientAST.colorStops.some(hasUnsupportedLength)) {
@@ -42812,14 +42816,16 @@ function getGradientAstWithDefault(value) {
     const step = 100 / (colorStops.length - 1);
     colorStops.forEach((stop, index) => {
       stop.length = {
-        value: step * index,
+        value: `${step * index}`,
         type: '%'
       };
     });
-    gradientAST.value = serializeGradient(gradientAST);
   }
 
-  return gradientAST;
+  return {
+    gradientAST,
+    hasGradient
+  };
 }
 function getGradientAstWithControlPoints(gradientAST, newControlPoints) {
   return { ...gradientAST,
@@ -42840,7 +42846,7 @@ function getGradientAstWithControlPoints(gradientAST, newControlPoints) {
           value: position === null || position === void 0 ? void 0 : position.toString()
         },
         type: a < 1 ? 'rgba' : 'rgb',
-        value: a < 1 ? [r, g, b, a] : [r, g, b]
+        value: a < 1 ? [`${r}`, `${g}`, `${b}`, `${a}`] : [`${r}`, `${g}`, `${b}`]
       };
     })
   };
@@ -42878,13 +42884,13 @@ function custom_gradient_picker_styles_EMOTION_STRINGIFIED_CSS_ERROR_() { return
  */
 
 const SelectWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_block_component,  true ? {
-  target: "e99xvul1"
+  target: "e10bzpgi1"
 } : 0)( true ? {
   name: "1gvx10y",
   styles: "flex-grow:5"
 } : 0);
 const AccessoryWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_block_component,  true ? {
-  target: "e99xvul0"
+  target: "e10bzpgi0"
 } : 0)( true ? {
   name: "1gvx10y",
   styles: "flex-grow:5"
@@ -42892,16 +42898,15 @@ const AccessoryWrapper = /*#__PURE__*/emotion_styled_base_browser_esm(flex_block
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/custom-gradient-picker/index.js
 
-// @ts-nocheck
 
 /**
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -42932,7 +42937,7 @@ const GradientAnglePicker = _ref => {
     onChange(serializeGradient({ ...gradientAST,
       orientation: {
         type: 'angular',
-        value: newAngle
+        value: `${newAngle}`
       }
     }));
   };
@@ -42956,9 +42961,7 @@ const GradientTypePicker = _ref2 => {
 
   const onSetLinearGradient = () => {
     onChange(serializeGradient({ ...gradientAST,
-      ...(gradientAST.orientation ? {} : {
-        orientation: HORIZONTAL_GRADIENT_ORIENTATION
-      }),
+      orientation: gradientAST.orientation ? undefined : HORIZONTAL_GRADIENT_ORIENTATION,
       type: 'linear-gradient'
     }));
   };
@@ -42991,9 +42994,31 @@ const GradientTypePicker = _ref2 => {
     onChange: handleOnChange,
     options: GRADIENT_OPTIONS,
     size: "__unstable-large",
-    value: hasGradient && type
+    value: hasGradient ? type : undefined
   });
 };
+/**
+ * CustomGradientPicker is a React component that renders a UI for specifying
+ * linear or radial gradients. Radial gradients are displayed in the picker as
+ * a slice of the gradient from the center to the outside.
+ *
+ * ```jsx
+ * import { CustomGradientPicker } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MyCustomGradientPicker = () => {
+ *   const [ gradient, setGradient ] = useState();
+ *
+ *   return (
+ *     <CustomGradientPicker
+ *			value={ gradient }
+ *			onChange={ setGradient }
+ *     />
+ *   );
+ * };
+ * ```
+ */
+
 
 function CustomGradientPicker(_ref3) {
   let {
@@ -43001,20 +43026,27 @@ function CustomGradientPicker(_ref3) {
     __nextHasNoMargin = false,
     value,
     onChange,
-    __experimentalIsRenderedInSidebar
+    __experimentalIsRenderedInSidebar = false
   } = _ref3;
-  const gradientAST = getGradientAstWithDefault(value); // On radial gradients the bar should display a linear gradient.
+  const {
+    gradientAST,
+    hasGradient
+  } = getGradientAstWithDefault(value); // On radial gradients the bar should display a linear gradient.
   // On radial gradients the bar represents a slice of the gradient from the center until the outside.
   // On liner gradients the bar represents the color stops from left to right independently of the angle.
 
-  const background = getLinearGradientRepresentation(gradientAST);
-  const hasGradient = gradientAST.value !== DEFAULT_GRADIENT; // Control points color option may be hex from presets, custom colors will be rgb.
+  const background = getLinearGradientRepresentation(gradientAST); // Control points color option may be hex from presets, custom colors will be rgb.
   // The position should always be a percentage.
 
-  const controlPoints = gradientAST.colorStops.map(colorStop => ({
-    color: getStopCssColor(colorStop),
-    position: parseInt(colorStop.length.value)
-  }));
+  const controlPoints = gradientAST.colorStops.map(colorStop => {
+    return {
+      color: getStopCssColor(colorStop),
+      // Although it's already been checked by `hasUnsupportedLength` in `getGradientAstWithDefault`,
+      // TypeScript doesn't know that `colorStop.length` is not undefined here.
+      // @ts-expect-error
+      position: parseInt(colorStop.length.value)
+    };
+  });
 
   if (!__nextHasNoMargin) {
     external_wp_deprecated_default()('Outer margin styles for wp.components.CustomGradientPicker', {
@@ -43050,11 +43082,11 @@ function CustomGradientPicker(_ref3) {
     onChange: onChange
   }))));
 }
+/* harmony default export */ var custom_gradient_picker = (CustomGradientPicker);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/gradient-picker/index.js
 
 
-// @ts-nocheck
 
 /**
  * WordPress dependencies
@@ -43070,9 +43102,10 @@ function CustomGradientPicker(_ref3) {
 
 
 
- // The Multiple Origin Gradients have a `gradients` property (an array of
-// gradient objects), while Single Origin ones have a `gradient` property.
 
+
+// The Multiple Origin Gradients have a `gradients` property (an array of
+// gradient objects), while Single Origin ones have a `gradient` property.
 const isMultipleOriginObject = obj => Array.isArray(obj.gradients) && !('gradient' in obj);
 
 const isMultipleOriginArray = arr => {
@@ -43152,12 +43185,64 @@ function MultipleOrigin(_ref3) {
   }));
 }
 
+function gradient_picker_Component(props) {
+  if (isMultipleOriginArray(props.gradients)) {
+    return (0,external_wp_element_namespaceObject.createElement)(MultipleOrigin, props);
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(SingleOrigin, props);
+}
+/**
+ *  GradientPicker is a React component that renders a color gradient picker to
+ * define a multi step gradient. There's either a _linear_ or a _radial_ type
+ * available.
+ *
+ * ```jsx
+ *import { GradientPicker } from '@wordpress/components';
+ *import { useState } from '@wordpress/element';
+ *
+ *const myGradientPicker = () => {
+ *	const [ gradient, setGradient ] = useState( null );
+ *
+ *	return (
+ *		<GradientPicker
+ *			__nextHasNoMargin
+ *			value={ gradient }
+ *			onChange={ ( currentGradient ) => setGradient( currentGradient ) }
+ *			gradients={ [
+ *				{
+ *					name: 'JShine',
+ *					gradient:
+ *						'linear-gradient(135deg,#12c2e9 0%,#c471ed 50%,#f64f59 100%)',
+ *					slug: 'jshine',
+ *				},
+ *				{
+ *					name: 'Moonlit Asteroid',
+ *					gradient:
+ *						'linear-gradient(135deg,#0F2027 0%, #203A43 0%, #2c5364 100%)',
+ *					slug: 'moonlit-asteroid',
+ *				},
+ *				{
+ *					name: 'Rastafarie',
+ *					gradient:
+ *						'linear-gradient(135deg,#1E9600 0%, #FFF200 0%, #FF0000 100%)',
+ *					slug: 'rastafari',
+ *				},
+ *			] }
+ *		/>
+ *	);
+ *};
+ *```
+ *
+ */
+
+
 function GradientPicker(_ref5) {
   let {
     /** Start opting into the new margin-free styles that will become the default in a future version. */
     __nextHasNoMargin = false,
     className,
-    gradients,
+    gradients = [],
     onChange,
     value,
     clearable = true,
@@ -43166,7 +43251,6 @@ function GradientPicker(_ref5) {
     headingLevel = 2
   } = _ref5;
   const clearGradient = (0,external_wp_element_namespaceObject.useCallback)(() => onChange(undefined), [onChange]);
-  const Component = isMultipleOriginArray(gradients) ? MultipleOrigin : SingleOrigin;
 
   if (!__nextHasNoMargin) {
     external_wp_deprecated_default()('Outer margin styles for wp.components.GradientPicker', {
@@ -43177,22 +43261,21 @@ function GradientPicker(_ref5) {
   }
 
   const deprecatedMarginSpacerProps = !__nextHasNoMargin ? {
-    marginTop: !(gradients !== null && gradients !== void 0 && gradients.length) ? 3 : undefined,
+    marginTop: !gradients.length ? 3 : undefined,
     marginBottom: !clearable ? 6 : 0
   } : {};
   return (// Outmost Spacer wrapper can be removed when deprecation period is over
     (0,external_wp_element_namespaceObject.createElement)(spacer_component, extends_extends({
       marginBottom: 0
     }, deprecatedMarginSpacerProps), (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
-      spacing: gradients !== null && gradients !== void 0 && gradients.length ? 4 : 0
-    }, !disableCustomGradients && (0,external_wp_element_namespaceObject.createElement)(CustomGradientPicker, {
+      spacing: gradients.length ? 4 : 0
+    }, !disableCustomGradients && (0,external_wp_element_namespaceObject.createElement)(custom_gradient_picker, {
       __nextHasNoMargin: true,
       __experimentalIsRenderedInSidebar: __experimentalIsRenderedInSidebar,
       value: value,
       onChange: onChange
-    }), ((gradients === null || gradients === void 0 ? void 0 : gradients.length) || clearable) && (0,external_wp_element_namespaceObject.createElement)(Component, {
+    }), (gradients.length || clearable) && (0,external_wp_element_namespaceObject.createElement)(gradient_picker_Component, {
       className: className,
-      clearable: clearable,
       clearGradient: clearGradient,
       gradients: gradients,
       onChange: onChange,
@@ -43204,6 +43287,7 @@ function GradientPicker(_ref5) {
     })))
   );
 }
+/* harmony default export */ var gradient_picker = (GradientPicker);
 
 ;// CONCATENATED MODULE: ./packages/icons/build-module/library/menu.js
 
@@ -43789,7 +43873,7 @@ function ColorPickerPopover(_ref2) {
     }
   }), isGradient && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "components-palette-edit__popover-gradient-picker"
-  }, (0,external_wp_element_namespaceObject.createElement)(CustomGradientPicker, {
+  }, (0,external_wp_element_namespaceObject.createElement)(custom_gradient_picker, {
     __nextHasNoMargin: true,
     __experimentalIsRenderedInSidebar: true,
     value: element.gradient,
@@ -44076,8 +44160,7 @@ function PaletteEdit(_ref6) {
       }));
     },
     element: elements[editingElement !== null && editingElement !== void 0 ? editingElement : -1]
-  }), !isEditing && (isGradient ? // @ts-expect-error TODO: Remove when GradientPicker is typed.
-  (0,external_wp_element_namespaceObject.createElement)(GradientPicker, {
+  }), !isEditing && (isGradient ? (0,external_wp_element_namespaceObject.createElement)(gradient_picker, {
     __nextHasNoMargin: true,
     gradients: gradients,
     onChange: onSelectPaletteItem,
@@ -55288,6 +55371,10 @@ const swatch = (0,external_wp_element_namespaceObject.createElement)(external_wp
  */
 
 
+/**
+ * Internal dependencies
+ */
+
 colord_k([names]);
 /**
  * Object representation for a color.
@@ -55301,9 +55388,9 @@ colord_k([names]);
 /**
  * Calculate the brightest and darkest values from a color palette.
  *
- * @param {Object[]} palette Color palette for the theme.
+ * @param palette Color palette for the theme.
  *
- * @return {string[]} Tuple of the darkest color and brightest color.
+ * @return Tuple of the darkest color and brightest color.
  */
 
 function getDefaultColors(palette) {
@@ -55321,9 +55408,11 @@ function getDefaultColors(palette) {
     let [min, max] = _ref2;
     return [current.brightness <= min.brightness ? current : min, current.brightness >= max.brightness ? current : max];
   }, [{
-    brightness: 1
+    brightness: 1,
+    color: ''
   }, {
-    brightness: 0
+    brightness: 0,
+    color: ''
   }]).map(_ref3 => {
     let {
       color
@@ -55334,10 +55423,10 @@ function getDefaultColors(palette) {
 /**
  * Generate a duotone gradient from a list of colors.
  *
- * @param {string[]} colors CSS color strings.
- * @param {string}   angle  CSS gradient angle.
+ * @param colors CSS color strings.
+ * @param angle  CSS gradient angle.
  *
- * @return {string} CSS gradient string for the duotone swatch.
+ * @return  CSS gradient string for the duotone swatch.
  */
 
 function getGradientFromCSSColors() {
@@ -55350,9 +55439,9 @@ function getGradientFromCSSColors() {
 /**
  * Convert a color array to an array of color stops.
  *
- * @param {string[]} colors CSS colors array
+ * @param colors CSS colors array
  *
- * @return {Object[]} Color stop information.
+ * @return Color stop information.
  */
 
 function getColorStopsFromColors(colors) {
@@ -55364,9 +55453,9 @@ function getColorStopsFromColors(colors) {
 /**
  * Convert a color stop array to an array colors.
  *
- * @param {Object[]} colorStops Color stop information.
+ * @param colorStops Color stop information.
  *
- * @return {string[]} CSS colors array.
+ * @return CSS colors array.
  */
 
 function getColorsFromColorStops() {
@@ -55407,7 +55496,7 @@ function DuotoneSwatch(_ref) {
 
 /* harmony default export */ var duotone_swatch = (DuotoneSwatch);
 
-;// CONCATENATED MODULE: ./packages/components/build-module/color-list-picker/index.js
+;// CONCATENATED MODULE: ./packages/components/build-module/duotone-picker/color-list-picker/index.js
 
 
 /**
@@ -55539,6 +55628,39 @@ function CustomDuotoneBar(_ref) {
 
 
 
+/**
+ * ```jsx
+ * import { DuotonePicker, DuotoneSwatch } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const DUOTONE_PALETTE = [
+ * 	{ colors: [ '#8c00b7', '#fcff41' ], name: 'Purple and yellow', slug: 'purple-yellow' },
+ * 	{ colors: [ '#000097', '#ff4747' ], name: 'Blue and red', slug: 'blue-red' },
+ * ];
+ *
+ * const COLOR_PALETTE = [
+ * 	{ color: '#ff4747', name: 'Red', slug: 'red' },
+ * 	{ color: '#fcff41', name: 'Yellow', slug: 'yellow' },
+ * 	{ color: '#000097', name: 'Blue', slug: 'blue' },
+ * 	{ color: '#8c00b7', name: 'Purple', slug: 'purple' },
+ * ];
+ *
+ * const Example = () => {
+ * 	const [ duotone, setDuotone ] = useState( [ '#000000', '#ffffff' ] );
+ * 	return (
+ * 		<>
+ * 			<DuotonePicker
+ * 				duotonePalette={ DUOTONE_PALETTE }
+ * 				colorPalette={ COLOR_PALETTE }
+ * 				value={ duotone }
+ * 				onChange={ setDuotone }
+ * 			/>
+ * 			<DuotoneSwatch values={ duotone } />
+ * 		</>
+ * 	);
+ * };
+ * ```
+ */
 function DuotonePicker(_ref) {
   let {
     clearable = true,
@@ -55616,7 +55738,10 @@ function DuotonePicker(_ref) {
         newColors[1] = defaultLight;
       }
 
-      const newValue = newColors.length >= 2 ? newColors : undefined;
+      const newValue = newColors.length >= 2 ? newColors : undefined; // @ts-expect-error TODO: The color arrays for a DuotonePicker should be a tuple of two colors,
+      // but it's currently typed as a string[].
+      // See also https://github.com/WordPress/gutenberg/pull/49060#discussion_r1136951035
+
       onChange(newValue);
     }
   }))));
@@ -58017,6 +58142,7 @@ const TokensAndInputWrapperFlex = /*#__PURE__*/emotion_styled_base_browser_esm(f
 
 
 
+
 const form_token_field_identity = value => value;
 /**
  * A `FormTokenField` is a field similar to the tags and categories fields in the interim editor chrome,
@@ -58060,7 +58186,8 @@ function FormTokenField(props) {
     __experimentalValidateInput = () => true,
     __experimentalShowHowTo = true,
     __next36pxDefaultSize = false,
-    __experimentalAutoSelectFirstMatch = false
+    __experimentalAutoSelectFirstMatch = false,
+    __nextHasNoMarginBottom = false
   } = props;
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(FormTokenField); // We reset to these initial values again in the onBlur
 
@@ -58625,9 +58752,12 @@ function FormTokenField(props) {
     onHover: onSuggestionHovered,
     onSelect: onSuggestionSelected,
     __experimentalRenderItem: __experimentalRenderItem
-  })), __experimentalShowHowTo && (0,external_wp_element_namespaceObject.createElement)("p", {
+  })), !__nextHasNoMarginBottom && (0,external_wp_element_namespaceObject.createElement)(spacer_component, {
+    marginBottom: 2
+  }), __experimentalShowHowTo && (0,external_wp_element_namespaceObject.createElement)(StyledHelp, {
     id: `components-form-token-suggestions-howto-${instanceId}`,
-    className: "components-form-token-field__help"
+    className: "components-form-token-field__help",
+    __nextHasNoMarginBottom: __nextHasNoMarginBottom
   }, tokenizeOnSpace ? (0,external_wp_i18n_namespaceObject.__)('Separate with commas, spaces, or the Enter key.') : (0,external_wp_i18n_namespaceObject.__)('Separate with commas or the Enter key.')));
   /* eslint-enable jsx-a11y/no-static-element-interactions */
 }
@@ -65107,7 +65237,7 @@ function TabPanel(_ref2) {
   });
   const selectedId = `${instanceId}-${(_selectedTab$name = selectedTab === null || selectedTab === void 0 ? void 0 : selectedTab.name) !== null && _selectedTab$name !== void 0 ? _selectedTab$name : 'none'}`; // Handle selecting the initial tab.
 
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
+  (0,external_wp_element_namespaceObject.useLayoutEffect)(() => {
     // If there's a selected tab, don't override it.
     if (selectedTab) {
       return;
@@ -65306,7 +65436,7 @@ const breakpoint = point => `@media (min-width: ${breakpoint_values[point]})`;
 
 
 
-const inputControl = /*#__PURE__*/emotion_react_browser_esm_css("font-family:", font('default.fontFamily'), ";padding:6px 8px;", inputStyleNeutral, ";font-size:", font('mobileTextMinFontSize'), ";line-height:normal;", breakpoint('small'), "{font-size:", font('default.fontSize'), ";line-height:normal;}&:focus{", inputStyleFocus, ";}&::-webkit-input-placeholder{color:", COLORS.ui.darkGrayPlaceholder, ";}&::-moz-placeholder{opacity:1;color:", COLORS.ui.darkGrayPlaceholder, ";}&:-ms-input-placeholder{color:", COLORS.ui.darkGrayPlaceholder, ";}.is-dark-theme &{&::-webkit-input-placeholder{color:", COLORS.ui.lightGrayPlaceholder, ";}&::-moz-placeholder{opacity:1;color:", COLORS.ui.lightGrayPlaceholder, ";}&:-ms-input-placeholder{color:", COLORS.ui.lightGrayPlaceholder, ";}}" + ( true ? "" : 0),  true ? "" : 0);
+const inputControl = /*#__PURE__*/emotion_react_browser_esm_css("display:block;font-family:", font('default.fontFamily'), ";padding:6px 8px;", inputStyleNeutral, ";font-size:", font('mobileTextMinFontSize'), ";line-height:normal;", breakpoint('small'), "{font-size:", font('default.fontSize'), ";line-height:normal;}&:focus{", inputStyleFocus, ";}&::-webkit-input-placeholder{color:", COLORS.ui.darkGrayPlaceholder, ";}&::-moz-placeholder{opacity:1;color:", COLORS.ui.darkGrayPlaceholder, ";}&:-ms-input-placeholder{color:", COLORS.ui.darkGrayPlaceholder, ";}.is-dark-theme &{&::-webkit-input-placeholder{color:", COLORS.ui.lightGrayPlaceholder, ";}&::-moz-placeholder{opacity:1;color:", COLORS.ui.lightGrayPlaceholder, ";}&:-ms-input-placeholder{color:", COLORS.ui.lightGrayPlaceholder, ";}}" + ( true ? "" : 0),  true ? "" : 0);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/textarea-control/styles/textarea-control-styles.js
 
@@ -66632,8 +66762,13 @@ const generateMenuItems = _ref => {
   let {
     panelItems,
     shouldReset,
-    currentMenuItems
+    currentMenuItems,
+    menuItemOrder
   } = _ref;
+  const newMenuItems = {
+    default: {},
+    optional: {}
+  };
   const menuItems = {
     default: {},
     optional: {}
@@ -66652,7 +66787,28 @@ const generateMenuItems = _ref => {
 
     const existingItemValue = currentMenuItems === null || currentMenuItems === void 0 ? void 0 : (_currentMenuItems$gro = currentMenuItems[group]) === null || _currentMenuItems$gro === void 0 ? void 0 : _currentMenuItems$gro[label];
     const value = existingItemValue ? existingItemValue : hasValue();
-    menuItems[group][label] = shouldReset ? false : value;
+    newMenuItems[group][label] = shouldReset ? false : value;
+  }); // Loop the known, previously registered items first to maintain menu order.
+
+  menuItemOrder.forEach(key => {
+    if (newMenuItems.default.hasOwnProperty(key)) {
+      menuItems.default[key] = newMenuItems.default[key];
+    }
+
+    if (newMenuItems.optional.hasOwnProperty(key)) {
+      menuItems.optional[key] = newMenuItems.optional[key];
+    }
+  }); // Loop newMenuItems object adding any that aren't in the known items order.
+
+  Object.keys(newMenuItems.default).forEach(key => {
+    if (!menuItems.default.hasOwnProperty(key)) {
+      menuItems.default[key] = newMenuItems.default[key];
+    }
+  });
+  Object.keys(newMenuItems.optional).forEach(key => {
+    if (!menuItems.optional.hasOwnProperty(key)) {
+      menuItems.optional[key] = newMenuItems.optional[key];
+    }
   });
   return menuItems;
 };
@@ -66684,8 +66840,10 @@ function useToolsPanel(props) {
   }, [wasResetting]); // Allow panel items to register themselves.
 
   const [panelItems, setPanelItems] = (0,external_wp_element_namespaceObject.useState)([]);
+  const [menuItemOrder, setMenuItemOrder] = (0,external_wp_element_namespaceObject.useState)([]);
   const [resetAllFilters, setResetAllFilters] = (0,external_wp_element_namespaceObject.useState)([]);
   const registerPanelItem = (0,external_wp_element_namespaceObject.useCallback)(item => {
+    // Add item to panel items.
     setPanelItems(items => {
       const newItems = [...items]; // If an item with this label has already been registered, remove it
       // first. This can happen when an item is moved between the default
@@ -66698,8 +66856,17 @@ function useToolsPanel(props) {
       }
 
       return [...newItems, item];
+    }); // Track the initial order of item registration. This is used for
+    // maintaining menu item order later.
+
+    setMenuItemOrder(items => {
+      if (items.includes(item.label)) {
+        return items;
+      }
+
+      return [...items, item.label];
     });
-  }, [setPanelItems]); // Panels need to deregister on unmount to avoid orphans in menu state.
+  }, [setPanelItems, setMenuItemOrder]); // Panels need to deregister on unmount to avoid orphans in menu state.
   // This is an issue when panel items are being injected via SlotFills.
 
   const deregisterPanelItem = (0,external_wp_element_namespaceObject.useCallback)(label => {
@@ -66739,11 +66906,12 @@ function useToolsPanel(props) {
       const items = generateMenuItems({
         panelItems,
         shouldReset: false,
-        currentMenuItems: prevState
+        currentMenuItems: prevState,
+        menuItemOrder
       });
       return items;
     });
-  }, [panelItems, setMenuItems]); // Force a menu item to be checked.
+  }, [panelItems, setMenuItems, menuItemOrder]); // Force a menu item to be checked.
   // This is intended for use with default panel items. They are displayed
   // separately to optional items and have different display states,
   // we need to update that when their value is customized.
@@ -66806,10 +66974,11 @@ function useToolsPanel(props) {
 
     const resetMenuItems = generateMenuItems({
       panelItems,
+      menuItemOrder,
       shouldReset: true
     });
     setMenuItems(resetMenuItems);
-  }, [panelItems, resetAllFilters, resetAll, setMenuItems]); // Assist ItemGroup styling when there are potentially hidden placeholder
+  }, [panelItems, resetAllFilters, resetAll, setMenuItems, menuItemOrder]); // Assist ItemGroup styling when there are potentially hidden placeholder
   // items by identifying first & last items that are toggled on for display.
 
   const getFirstVisibleItemLabel = items => {

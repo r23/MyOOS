@@ -1473,6 +1473,10 @@ function concat() {
 /** @typedef {import('./create').RichTextFormatList} RichTextFormatList */
 
 /**
+ * Internal dependencies
+ */
+
+/**
  * Gets the all format objects at the start of the selection.
  *
  * @param {RichTextValue} value                Value to inspect.
@@ -1481,14 +1485,15 @@ function concat() {
  *
  * @return {RichTextFormatList} Active format objects.
  */
-function getActiveFormats(_ref) {
-  let {
+
+function getActiveFormats(value) {
+  let EMPTY_ACTIVE_FORMATS = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  const {
     formats,
     start,
     end,
     activeFormats
-  } = _ref;
-  let EMPTY_ACTIVE_FORMATS = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  } = value;
 
   if (start === undefined) {
     return EMPTY_ACTIVE_FORMATS;
@@ -1510,9 +1515,45 @@ function getActiveFormats(_ref) {
     }
 
     return formatsAfter;
+  } // If there's no formats at the start index, there are not active formats.
+
+
+  if (!formats[start]) {
+    return EMPTY_ACTIVE_FORMATS;
   }
 
-  return formats[start] || EMPTY_ACTIVE_FORMATS;
+  const selectedFormats = formats.slice(start, end); // Clone the formats so we're not mutating the live value.
+
+  const _activeFormats = [...selectedFormats[0]];
+  let i = selectedFormats.length; // For performance reasons, start from the end where it's much quicker to
+  // realise that there are no active formats.
+
+  while (i--) {
+    const formatsAtIndex = selectedFormats[i]; // If we run into any index without formats, we're sure that there's no
+    // active formats.
+
+    if (!formatsAtIndex) {
+      return EMPTY_ACTIVE_FORMATS;
+    }
+
+    let ii = _activeFormats.length; // Loop over the active formats and remove any that are not present at
+    // the current index.
+
+    while (ii--) {
+      const format = _activeFormats[ii];
+
+      if (!formatsAtIndex.find(_format => isFormatEqual(format, _format))) {
+        _activeFormats.splice(ii, 1);
+      }
+    } // If there are no active formats, we can stop.
+
+
+    if (_activeFormats.length === 0) {
+      return EMPTY_ACTIVE_FORMATS;
+    }
+  }
+
+  return _activeFormats || EMPTY_ACTIVE_FORMATS;
 }
 
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/get-active-format.js
@@ -1538,9 +1579,7 @@ function getActiveFormats(_ref) {
  */
 
 function getActiveFormat(value, formatType) {
-  var _getActiveFormats;
-
-  return (_getActiveFormats = getActiveFormats(value)) === null || _getActiveFormats === void 0 ? void 0 : _getActiveFormats.find(_ref => {
+  return getActiveFormats(value).find(_ref => {
     let {
       type
     } = _ref;

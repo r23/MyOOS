@@ -4587,29 +4587,52 @@ shortcuts, callback) {
  */
 
 /**
+ * A new MediaQueryList object for the media query
+ *
+ * @param {string} [query] Media Query.
+ * @return {MediaQueryList|null} A new object for the media query
+ */
+
+function getMediaQueryList(query) {
+  if (query && typeof window !== 'undefined' && typeof window.matchMedia === 'function') {
+    return window.matchMedia(query);
+  }
+
+  return null;
+}
+/**
  * Runs a media query and returns its value when it changes.
  *
  * @param {string} [query] Media Query.
  * @return {boolean} return value of the media query.
  */
 
+
 function useMediaQuery(query) {
-  const [match, setMatch] = (0,external_wp_element_namespaceObject.useState)(() => !!(query && typeof window !== 'undefined' && window.matchMedia(query).matches));
-  (0,external_wp_element_namespaceObject.useEffect)(() => {
-    if (!query) {
-      return;
-    }
+  const source = (0,external_wp_element_namespaceObject.useMemo)(() => {
+    const mediaQueryList = getMediaQueryList(query);
+    return {
+      /** @type {(onStoreChange: () => void) => () => void} */
+      subscribe(onStoreChange) {
+        if (!mediaQueryList) {
+          return () => {};
+        }
 
-    const updateMatch = () => setMatch(window.matchMedia(query).matches);
+        mediaQueryList.addEventListener('change', onStoreChange);
+        return () => {
+          mediaQueryList.removeEventListener('change', onStoreChange);
+        };
+      },
 
-    updateMatch();
-    const list = window.matchMedia(query);
-    list.addListener(updateMatch);
-    return () => {
-      list.removeListener(updateMatch);
+      getValue() {
+        var _mediaQueryList$match;
+
+        return (_mediaQueryList$match = mediaQueryList === null || mediaQueryList === void 0 ? void 0 : mediaQueryList.matches) !== null && _mediaQueryList$match !== void 0 ? _mediaQueryList$match : false;
+      }
+
     };
   }, [query]);
-  return !!query && match;
+  return (0,external_wp_element_namespaceObject.useSyncExternalStore)(source.subscribe, source.getValue, () => false);
 }
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/hooks/use-previous/index.js

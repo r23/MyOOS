@@ -3753,9 +3753,6 @@ function MaybeIframe(_ref) {
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableIframe, {
-    head: (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableEditorStyles, {
-      styles: styles
-    }),
     ref: ref,
     contentRef: contentRef,
     style: {
@@ -3764,7 +3761,9 @@ function MaybeIframe(_ref) {
       display: 'block'
     },
     name: "editor-canvas"
-  }, children);
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__unstableEditorStyles, {
+    styles: styles
+  }), children);
 }
 /**
  * Given an array of nested blocks, find the first Post Content

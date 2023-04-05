@@ -1,7 +1,7 @@
 === Gutenberg ===
 Contributors: matveb, joen, karmatosed
 Tested up to: 6.1
-Stable tag: 15.3.1
+Stable tag: 15.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,12 @@ The development hub for the Gutenberg project can be found at <a href="https://g
 The best place to report bugs, feature suggestions, or any other feedback is at <a href="https://github.com/WordPress/gutenberg/issues">the Gutenberg GitHub issues page</a>. Before submitting a new issue, please search the existing issues to check if someone else has reported the same feedback.
 
 While we try to triage issues reported here on the plugin forum, you’ll get a faster response (and reduce duplication of effort) by keeping feedback centralized in GitHub.
+
+= Where can I report security bugs? =
+
+The Gutenberg team and WordPress community take security bugs seriously. We appreciate your efforts to responsibly disclose your findings, and will make every effort to acknowledge your contributions.
+
+To report a security issue, please visit the [WordPress HackerOne](https://hackerone.com/wordpress) program.
 
 = Do I have to use the Gutenberg plugin to get access to these features? =
 
