@@ -969,7 +969,6 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
                   OR za.zone_id = '" . intval($zone_id) . "')
                 AND tr.tax_class_id = '" . intval($class_id) . "'";
     $result = $dbconn->Execute($query);
-
 /*
 echo 'Ralf';
 SELECT SUM(tax_rate) AS tax_rate
