@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-04-05 17:43:31+0000\n"
+"PO-Revision-Date: 2023-04-05 19:28:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -15,6 +15,14 @@ msgstr ""
 msgctxt "Template name"
 msgid "Index"
 msgstr "Index"
+
+#: lib/experiments-page.php:70
+msgid "Grid variation for Group block "
+msgstr "Raster-Variante für den Block Gruppe "
+
+#: lib/experiments-page.php:75
+msgid "Test the Grid layout type as a new variation of Group block."
+msgstr "Teste den Layout-Typ Raster als neue Variante des Blocks Gruppe."
 
 #: lib/compat/wordpress-6.2/block-template-utils.php:132
 msgid "Displays your site's front page, whether it is set to display latest posts or a static page. The Front Page template takes precedence over all templates."
