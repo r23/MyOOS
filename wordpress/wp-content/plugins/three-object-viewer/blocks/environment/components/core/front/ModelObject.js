@@ -185,11 +185,10 @@ export function ModelObject(model) {
 	});
 
 	const gltf = useLoader(GLTFLoader, url, (loader) => {
-		// const dracoLoader = new DRACOLoader();
-		// dracoLoader.setDecoderPath(
-		// 	"https://www.gstatic.com/draco/v1/decoders/"
-		// );
-		// loader.setDRACOLoader(dracoLoader);
+		const dracoLoader = new DRACOLoader();
+		dracoLoader.setDecoderPath( model.threeObjectPluginRoot + "/inc/utils/draco/");
+		dracoLoader.setDecoderConfig({type: 'js'}); // (Optional) Override detection of WASM support.
+		loader.setDRACOLoader(dracoLoader);
 
 		loader.register(
 			(parser) => new GLTFAudioEmitterExtension(parser, listener)

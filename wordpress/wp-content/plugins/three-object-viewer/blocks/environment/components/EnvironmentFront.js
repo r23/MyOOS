@@ -348,9 +348,8 @@ function SavedObject(props) {
 	
 	const gltf = useLoader(GLTFLoader, url, (loader) => {
 		const dracoLoader = new DRACOLoader();
-		dracoLoader.setDecoderPath(
-			"https://www.gstatic.com/draco/v1/decoders/"
-		);
+		dracoLoader.setDecoderPath( threeObjectPluginRoot + "/inc/utils/draco/");
+		dracoLoader.setDecoderConfig({type: 'js'}); // (Optional) Override detection of WASM support.
 		loader.setDRACOLoader(dracoLoader);
 
 		loader.register(
@@ -929,16 +928,33 @@ export default function EnvironmentFront(props) {
 														).innerText
 														: "";
 
-												const autoPlay =
+														const autoPlay =
+														item.querySelector(
+															"p.video-block-autoplay"
+														)
+															? item.querySelector(
+																"p.video-block-autoplay"
+															).innerText
+															: false;
+	
+													const customModel =
 													item.querySelector(
-														"p.video-block-autoplay"
+														"p.video-block-custom-model"
 													)
 														? item.querySelector(
-															"p.video-block-autoplay"
+															"p.video-block-custom-model"
 														).innerText
 														: false;
+													const videoModelUrl =
+													item.querySelector(
+														"div.video-block-model-url"
+													)
+													? item.querySelector(
+														"div.video-block-model-url"
+													).innerText
+													: "";
 
-												return (
+															return (
 													<ThreeVideo
 														key={index}
 														url={videoUrl}
@@ -964,6 +980,10 @@ export default function EnvironmentFront(props) {
 															aspectWidth
 														}
 														autoPlay={autoPlay}
+														customModel={customModel}
+														threeObjectPlugin={threeObjectPlugin}
+														threeObjectPluginRoot={threeObjectPluginRoot}
+														modelUrl={videoModelUrl}
 													/>
 												);
 											})}
@@ -1096,6 +1116,7 @@ export default function EnvironmentFront(props) {
 															messageObject
 														}
 														threeObjectPlugin={threeObjectPlugin}
+														threeObjectPluginRoot={threeObjectPluginRoot}
 														defaultAvatarAnimation={defaultAvatarAnimation}
 														defaultFont={defaultFont}
 														defaultMessage={defaultMessage}
@@ -1252,6 +1273,7 @@ export default function EnvironmentFront(props) {
 															messageObject
 														}
 														threeObjectPlugin={threeObjectPlugin}
+														threeObjectPluginRoot={threeObjectPluginRoot}
 														defaultFont={defaultFont}
 														// idle={idle}
 													/>
@@ -1579,6 +1601,7 @@ export default function EnvironmentFront(props) {
 														labelTextColor={
 															labelTextColor
 														}
+														threeObjectPluginRoot={threeObjectPluginRoot}
 													/>
 												);
 											})}

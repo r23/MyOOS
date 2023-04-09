@@ -26,172 +26,98 @@ registerBlockType(blockConfig.name, {
 	deprecated: [
 		{
 			attributes: {
-				bg_color: {
-					type: "string",
-					default: "#FFFFFF"
-				},
-				zoom: {
-					type: "integer",
-					default: 90
-				},
-				scale: {
-					type: "integer",
-					default: 1
-				},
-				positionX: {
-					type: "integer",
-					default: 0
-				},
-				positionY: {
-					type: "integer",
-					default: 0
-				},
-				rotationY: {
-					type: "integer",
-					default: 0
-				},
-				threeObjectUrl: {
+				videoUrl: {
 					type: "string",
 					default: null
-				},
-				hasZoom: {
-					type: "bool",
-					default: false
-				},
-				hasTip: {
+				  },
+				  modelUrl: {
+					type: "string",
+					default: null
+				  },
+				  autoPlay: {
 					type: "bool",
 					default: true
+				  },
+				  scaleX: {
+					type: "int",
+					default: 1
+				  },
+				  scaleY: {
+					type: "int",
+					default: 1
+				  },
+				  scaleZ: {
+					type: "int",
+					default: 1
+				  },
+				  positionX: {
+					type: "int",
+					default: 0
+				  },
+				  positionY: {
+					type: "int",
+					default: 0
+				  },
+				  positionZ: {
+					type: "int",
+					default: 0
+				  },
+				  rotationX: {
+					type: "int",
+					default: 0
+				  },
+				  rotationY: {
+					type: "int",
+					default: 0
+				  },
+				  rotationZ: {
+					type: "int",
+					default: 0
+				  },
+				  aspectHeight: {
+					type: "int",
+					default: 0
+				  },
+				  aspectWidth: {
+					type: "int",
+					default: 0
+				  }
 				},
-				deviceTarget: {
-					type: "string",
-					default: "2d"
-				}
-			},
 			save(props) {
 				return (
 					<div {...useBlockProps.save()}>
 						<>
-							<div className="three-object-three-app">
-								<p className="three-object-block-device-target">
-									{props.attributes.deviceTarget}
+							<div className="three-object-three-app-video-block">
+								<div className="video-block-url">{props.attributes.videoUrl}</div>
+								<p className="video-block-scaleX">{props.attributes.scaleX}</p>
+								<p className="video-block-scaleY">{props.attributes.scaleY}</p>
+								<p className="video-block-scaleZ">{props.attributes.scaleZ}</p>
+								<p className="video-block-positionX">
+									{props.attributes.positionX}
 								</p>
-								<p className="three-object-block-url">
-									{props.attributes.threeObjectUrl}
-								</p>
-								<p className="three-object-scale">
-									{props.attributes.scale}
-								</p>
-								<p className="three-object-background-color">
-									{props.attributes.bg_color}
-								</p>
-								<p className="three-object-zoom">
-									{props.attributes.zoom}
-								</p>
-								<p className="three-object-has-zoom">
-									{props.attributes.hasZoom ? 1 : 0}
-								</p>
-								<p className="three-object-has-tip">
-									{props.attributes.hasTip ? 1 : 0}
-								</p>
-								<p className="three-object-position-y">
+								<p className="video-block-positionY">
 									{props.attributes.positionY}
 								</p>
-								<p className="three-object-rotation-y">
+								<p className="video-block-positionZ">
+									{props.attributes.positionZ}
+								</p>
+								<p className="video-block-rotationX">
+									{props.attributes.rotationX}
+								</p>
+								<p className="video-block-rotationY">
 									{props.attributes.rotationY}
 								</p>
-								<p className="three-object-scale">
-									{props.attributes.scale}
+								<p className="video-block-rotationZ">
+									{props.attributes.rotationZ}
 								</p>
-							</div>
-						</>
-					</div>
-				);
-			}
-		},
-		{
-			attributes: {
-				bg_color: {
-					type: "string",
-					default: "#FFFFFF"
-				},
-				zoom: {
-					type: "integer",
-					default: 90
-				},
-				scale: {
-					type: "integer",
-					default: 1
-				},
-				positionX: {
-					type: "integer",
-					default: 0
-				},
-				positionY: {
-					type: "integer",
-					default: 0
-				},
-				rotationY: {
-					type: "integer",
-					default: 0
-				},
-				threeObjectUrl: {
-					type: "string",
-					default: null
-				},
-				hasZoom: {
-					type: "bool",
-					default: false
-				},
-				hasTip: {
-					type: "bool",
-					default: true
-				},
-				deviceTarget: {
-					type: "string",
-					default: "2d"
-				},
-				animations: {
-					type: "string",
-					default: ""
-				}
-			},
-			save(props) {
-				return (
-					<div {...useBlockProps.save()}>
-						<>
-							<div className="three-object-three-app">
-								<p className="three-object-block-device-target">
-									{props.attributes.deviceTarget}
+								<p className="video-block-aspect-height">
+									{props.attributes.aspectHeight}
 								</p>
-								<p className="three-object-block-url">
-									{props.attributes.threeObjectUrl}
+								<p className="video-block-aspect-width">
+									{props.attributes.aspectWidth}
 								</p>
-								<p className="three-object-scale">
-									{props.attributes.scale}
-								</p>
-								<p className="three-object-background-color">
-									{props.attributes.bg_color}
-								</p>
-								<p className="three-object-zoom">
-									{props.attributes.zoom}
-								</p>
-								<p className="three-object-has-zoom">
-									{props.attributes.hasZoom ? 1 : 0}
-								</p>
-								<p className="three-object-has-tip">
-									{props.attributes.hasTip ? 1 : 0}
-								</p>
-								<p className="three-object-position-y">
-									{props.attributes.positionY}
-								</p>
-								<p className="three-object-rotation-y">
-									{props.attributes.rotationY}
-								</p>
-								<p className="three-object-scale">
-									{props.attributes.scale}
-								</p>
-								<p className="three-object-animations">
-									{props.attributes.animations}
+								<p className="video-block-autoplay">
+									{props.attributes.autoPlay ? 1 : 0}
 								</p>
 							</div>
 						</>

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLoader, useThree } from "@react-three/fiber";
-import { Vector3, BufferGeometry, MeshBasicMaterial, DoubleSide, Mesh, CircleGeometry, sRGBEncoding } from "three";
+import { VideoTexture, Vector3, BufferGeometry, MeshBasicMaterial, DoubleSide, Mesh, CircleGeometry, sRGBEncoding } from "three";
 import { RigidBody } from "@react-three/rapier";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { VRMUtils, VRMLoaderPlugin } from "@pixiv/three-vrm";
+import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 
 /**
  * Renders a video in a three.js scene.
@@ -14,6 +17,9 @@ export function ThreeVideo(threeVideo) {
 	const play = threeVideo.autoPlay === "1" ? true : false;
 	const { scene } = useThree();
 	const [clicked, setClickEvent] = useState();
+	const [screen, setScreen] = useState(null);
+	const [screenParent, setScreenParent] = useState(null);
+
 	const [video] = useState(() =>
 		Object.assign(document.createElement("video"), {
 			src: threeVideo.url,
@@ -22,6 +28,40 @@ export function ThreeVideo(threeVideo) {
 			muted: true
 		})
 	);
+		const gltf = (threeVideo.customModel === "1") ? useLoader(GLTFLoader, threeVideo.modelUrl, (loader) => {
+			const dracoLoader = new DRACOLoader();
+			dracoLoader.setDecoderPath( threeVideo.threeObjectPluginRoot + "/inc/utils/draco/");
+			dracoLoader.setDecoderConfig({type: 'js'}); // (Optional) Override detection of WASM support.
+			loader.setDRACOLoader(dracoLoader);
+	
+			loader.register((parser) => {
+			return new VRMLoaderPlugin(parser);
+			});
+		}) : null;
+	useEffect(() => {
+		if (threeVideo.customModel === "1") {
+			if (gltf.scene) {
+				let foundScreen;
+				gltf.scene.traverse((child) => {
+					if (child.name === "screen") {
+					  foundScreen = child;
+					}
+				});
+				if (foundScreen) {
+					setScreen(foundScreen);
+					setScreenParent(foundScreen.parent);
+					// Update screen's material with video texture
+					const videoTexture = new VideoTexture(video);
+					videoTexture.encoding = sRGBEncoding;
+					const material = new MeshBasicMaterial({ map: videoTexture, toneMapped: false });
+					foundScreen.material = material;
+				}
+			}
+
+		}
+
+	}, [gltf]);
+
 	// Add a triangle mesh on top of the video
 	const [triangle] = useState(() => {
 		const points = [];
@@ -94,6 +134,9 @@ export function ThreeVideo(threeVideo) {
 				threeVideo.rotationZ
 			]}
 		>
+			{threeVideo.customModel === "1" && gltf ? (
+						<primitive object={gltf.scene} />
+						) : (
 			<RigidBody
 				type="fixed"
 				colliders={"cuboid"}
@@ -112,23 +155,23 @@ export function ThreeVideo(threeVideo) {
 				}}
 			>
 				<object3D>
-					<mesh>
-						<meshBasicMaterial toneMapped={false}>
-							<videoTexture
-								attach="map"
-								args={[video]}
-								encoding={sRGBEncoding}
+						<mesh>
+							<meshBasicMaterial toneMapped={false}>
+								<videoTexture
+									attach="map"
+									args={[video]}
+									encoding={sRGBEncoding}
+								/>
+							</meshBasicMaterial>
+							<planeGeometry
+								args={[
+									threeVideo.aspectWidth / 12,
+									threeVideo.aspectHeight / 12
+								]}
 							/>
-						</meshBasicMaterial>
-						<planeGeometry
-							args={[
-								threeVideo.aspectWidth / 12,
-								threeVideo.aspectHeight / 12
-							]}
-						/>
-					</mesh>
+						</mesh>
 				</object3D>
-			</RigidBody>
+			</RigidBody>)}
 			<primitive position={[-1.5, 0, 0.1]} object={triangle} />
 			<primitive position={[0, 0, 0.05]} object={circle} />
 		</group>

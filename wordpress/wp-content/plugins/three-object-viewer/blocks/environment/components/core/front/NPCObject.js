@@ -231,11 +231,10 @@ export function NPCObject(model) {
 	// scene.add(helperRoot);
 
 	const gltf = useLoader(GLTFLoader, url, (loader) => {
-		// const dracoLoader = new DRACOLoader();
-		// dracoLoader.setDecoderPath(
-		// 	"https://www.gstatic.com/draco/v1/decoders/"
-		// );
-		// loader.setDRACOLoader(dracoLoader);
+		const dracoLoader = new DRACOLoader();
+		dracoLoader.setDecoderPath( model.threeObjectPluginRoot + "/inc/utils/draco/");
+		dracoLoader.setDecoderConfig({type: 'js'}); // (Optional) Override detection of WASM support.
+		loader.setDRACOLoader(dracoLoader);
 
 		loader.register(
 			(parser) => new GLTFAudioEmitterExtension(parser, listener)
@@ -389,7 +388,7 @@ export function NPCObject(model) {
 			>
 				<Text
 					font={model.threeObjectPlugin + model.defaultFont}
-					position={[0.6, headPositionY, 0]}
+					position={[0.6, (Number(headPositionY) - 0.5), 0]}
 					className="content"
 					scale={[0.5, 0.5, 0.5]}
 					// rotation-y={-Math.PI / 2}
@@ -402,7 +401,7 @@ export function NPCObject(model) {
 				>
 					{outputJSON && String(outputJSON)}
 				</Text>
-				<mesh position={[0.6, headPositionY, -0.01]}>
+				<mesh position={[0.6,  (Number(headPositionY) - 0.5), -0.01]}>
 					<planeGeometry attach="geometry" args={[0.65, 1.5]} />
 					<meshBasicMaterial attach="material" color={0x000000} opacity={0.5}	transparent={ true } />
 				</mesh>
@@ -410,6 +409,7 @@ export function NPCObject(model) {
 			</group>
 		);
 	}
+	
 	// gltf.scene.castShadow = true;
 	// enable shadows @todo figure this out
 	// gltf.scene.traverse(function (node) {

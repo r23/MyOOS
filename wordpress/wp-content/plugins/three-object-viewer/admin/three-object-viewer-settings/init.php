@@ -13,7 +13,9 @@ add_action('admin_enqueue_scripts', function () {
             $assets['version']
         );
         $three_object_plugin = plugins_url() . '/three-object-viewer/build/';
+        $three_object_plugin_root = plugins_url() . '/three-object-viewer/';
         wp_localize_script( $handle, 'threeObjectPlugin', $three_object_plugin );
+        wp_localize_script( $handle, 'threeObjectPluginRoot', $three_object_plugin_root );
     
     }
 });

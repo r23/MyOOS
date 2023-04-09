@@ -7,7 +7,7 @@
 	position: relative;
 	top: 0;
 	bottom: 0;
-	width:100%;
+	width: 105%;
 	height: 100vh;
 }
 
@@ -76,6 +76,10 @@
 
 .wp-block-three-object-viewer-environment .block-editor-inner-blocks {
 }
+
+// .wp-block-three-object-viewer-environment {
+// 	width: 100vw;
+// }
 
 .wp-block-three-object-viewer-environment .block-editor-inner-blocks.iframe {
 	height: 100vh;

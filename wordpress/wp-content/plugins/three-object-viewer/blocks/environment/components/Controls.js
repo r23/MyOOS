@@ -175,7 +175,7 @@ const Controls = (props) => {
 		ray.origin.x = playerThing.translation().x;
 		ray.origin.y = playerThing.translation().y;
 		ray.origin.z = playerThing.translation().z;
-		const velocity = shiftActive ? 0.36 : 0.1;
+		const velocity = shiftActive ? 0.28 : 0.08;
 		world.raw().step();
 		const maxToi = 14;
 		const solid = true;

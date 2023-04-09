@@ -134,6 +134,7 @@ class Plugin
 			);
 		}
 		$three_object_plugin = plugins_url() . '/three-object-viewer/build/';
+		$three_object_plugin_root = plugins_url() . '/three-object-viewer/';
 	
 		// new variable named default_animation that checks if the wp_option for '3ov_defaultVRM' is available.
 		// if it is, it will use that value, if not, it will use the default value of 'default.vrm'
@@ -166,6 +167,7 @@ class Plugin
 				wp_localize_script( 'threeobjectloader-frontend', 'openbrushEnabled', $openbrush_enabled );
 				wp_localize_script( 'threeobjectloader-frontend', 'openbrushDirectory', $three_icosa_brushes_url );
 				wp_localize_script( 'threeobjectloader-frontend', 'threeObjectPlugin', $three_object_plugin );	
+				wp_localize_script( 'threeobjectloader-frontend', 'threeObjectPluginRoot', $three_object_plugin_root );	
 				wp_localize_script( 'threeobjectloader-frontend', 'defaultAvatarAnimation', $default_animation );	
 				wp_enqueue_script( 
 					"threeobjectloader-frontend"
@@ -182,6 +184,7 @@ class Plugin
 				wp_localize_script( 'versepress-frontend', 'openbrushDirectory', $three_icosa_brushes_url );
 				wp_localize_script( 'versepress-frontend', 'openbrushEnabled', $openbrush_enabled );
 				wp_localize_script( 'versepress-frontend', 'threeObjectPlugin', $three_object_plugin );
+				wp_localize_script( 'versepress-frontend', 'threeObjectPluginRoot', $three_object_plugin_root );	
 				wp_localize_script( 'versepress-frontend', 'defaultAvatarAnimation', $default_animation );	
 				wp_enqueue_script( 
 					"versepress-frontend"
@@ -299,6 +302,7 @@ class Plugin
 	 */
 	function threeobjectviewer_editor_assets() {
 		$three_object_plugin = plugins_url() . '/three-object-viewer/build/';
+		$three_object_plugin_root = plugins_url() . '/three-object-viewer/';
 	
 		$DEFAULT_BLOCKS = [
 							'three-object-viewer/three-portal-block',
@@ -314,6 +318,7 @@ class Plugin
 		$ALLOWED_BLOCKS = apply_filters( 'three-object-environment-inner-allowed-blocks', $DEFAULT_BLOCKS );
 	
 		wp_localize_script( 'three-object-viewer-three-object-block-editor-script', 'threeObjectPlugin', $three_object_plugin );	
+		wp_localize_script( 'three-object-viewer-three-object-block-editor-script', 'threeObjectPluginRoot', $three_object_plugin_root );	
 		wp_localize_script( 'three-object-viewer-three-object-block-editor-script', 'allowed_blocks', $ALLOWED_BLOCKS );
 	
 	}

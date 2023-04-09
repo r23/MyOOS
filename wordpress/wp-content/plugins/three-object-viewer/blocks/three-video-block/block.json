@@ -7,6 +7,10 @@
             "type": "string",
             "default": null
         },
+        "modelUrl": {
+            "type": "string",
+            "default": null
+        },
         "autoPlay": {
             "type": "bool",
             "default": true
@@ -54,6 +58,10 @@
         "aspectWidth": {
             "type": "int",
             "default":0
+        },
+        "customModel": {
+            "type": "bool",
+            "default": false
         }
     },
     "category": "design",

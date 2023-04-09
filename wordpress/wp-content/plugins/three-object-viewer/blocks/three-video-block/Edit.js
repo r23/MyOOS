@@ -36,6 +36,12 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 			aspectWidth: imageObject.width
 		});
 	};
+	const onModelSelect = (modelObject) => {
+		setAttributes({ modelUrl: null });
+		setAttributes({
+			modelUrl: modelObject.url,
+		});
+	};
 	const onChangePositionX = (positionX) => {
 		setAttributes({ positionX });
 	};
@@ -70,9 +76,22 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 		setAttributes({ autoPlay: autoPlaySetting });
 	};
 
+	const onChangeCustomModel = (customModelSetting) => {
+		setAttributes({ 			
+			aspectHeight: attributes.aspectHeight,
+			aspectWidth: attributes.aspectWidth
+		});
+
+		setAttributes({ customModel: customModelSetting });
+	};
+
 	const { mediaUpload } = wp.editor;
 
 	const ALLOWED_MEDIA_TYPES = ["video"];
+	const THREE_ALLOWED_MEDIA_TYPES = [
+		"model/gltf-binary",
+		"application/octet-stream"
+	];
 
 	const MyDropZone = () => {
 		const [hasDropped, setHasDropped] = useState(false);
@@ -121,14 +140,14 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 									onImageSelect(imageObject)
 								}
 								type="image"
-								label="Image File"
+								label="Video File"
 								allowedTypes={ALLOWED_MEDIA_TYPES}
 								value={attributes.videoUrl}
 								render={({ open }) => (
 									<button onClick={open}>
 										{attributes.videoUrl
-											? "Replace Image"
-											: "Select Image"}
+											? "Replace Video"
+											: "Select Video"}
 									</button>
 								)}
 							/>
@@ -147,6 +166,39 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 								}}
 							/>
 						</PanelRow>
+						<PanelRow>
+							{attributes.videoUrl && (
+							<ToggleControl
+								label="Custom Model"
+								help={
+									attributes.customModel
+										? "Item will use a custom model. Name your faces 'screen'."
+										: "Item will not use a custom model."
+								}
+								checked={attributes.customModel}
+								onChange={(e) => {
+									onChangeCustomModel(e);
+								}}
+							/>)}
+						</PanelRow>
+						{attributes.customModel && (<PanelRow>
+							<MediaUpload
+								onSelect={(modelObject) =>
+									onModelSelect(modelObject)
+								}
+								// type="file"
+								label="Custom Model"
+								allowedTypes={THREE_ALLOWED_MEDIA_TYPES}
+								value={attributes.customModel}
+								render={({ open }) => (
+									<button onClick={open}>
+										{attributes.customModel
+											? "Replace model"
+											: "Select model"}
+									</button>
+								)}
+							/>
+						</PanelRow>)}
 						<PanelRow>
 							<TextControl
 								className="position-inputs"
