@@ -318,7 +318,7 @@ if (!empty($action)) {
             if ($cInfo->set_function) {
 				
 				// Allowed values for $cInfo->set_function
-				$whitelist = ['oos_cfg_select_option', 'oos_cfg_pull_down_order_statuses', 'oos_cfg_get_order_status_name', 'oos_cfg_pull_down_zone_classes', 'pull_down_country_list']
+				$whitelist = ['oos_cfg_select_option', 'oos_cfg_pull_down_order_statuses', 'oos_cfg_get_order_status_name', 'oos_cfg_pull_down_zone_classes', 'pull_down_country_list'];
 
 				// Check if $cInfo->set_function is in the whitelist
 				if (in_array ($cInfo->set_function, $whitelist)) {
