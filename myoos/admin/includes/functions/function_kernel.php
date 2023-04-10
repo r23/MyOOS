@@ -879,8 +879,6 @@ function oos_round($number, $precision)
 
 function oos_get_tax_rate_value($class_id)
 {
-	
-	echo 'ja';
     return oos_get_tax_rate($class_id, -1, -1);
 }
 
@@ -969,26 +967,6 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
                   OR za.zone_id = '" . intval($zone_id) . "')
                 AND tr.tax_class_id = '" . intval($class_id) . "'";
     $result = $dbconn->Execute($query);
-/*
-echo 'Ralf';
-SELECT SUM(tax_rate) AS tax_rate
-              FROM dwq_tax_rates tr LEFT JOIN
-                   dwq_zones_to_geo_zones za
-                 ON (tr.tax_zone_id = za.geo_zone_id) LEFT JOIN
-                   dwq_geo_zones tz
-                 ON (tz.geo_zone_id = tr.tax_zone_id)
-              WHERE (za.zone_country_id IS null or za.zone_country_id = '0'
-                  OR za.zone_country_id = '81')
-                AND (za.zone_id is null OR za.zone_id = '0'
-                  OR za.zone_id = '88')
-                AND tr.tax_class_id = '2'
-
-
-Ergebnis  tax_rate = 105 ?!
-echo $query;
-print_r($result);
-exit;
-*/
     if ($result->RecordCount()) {
         $tax_multiplier = 0;
         while ($tax = $result->fields) {
