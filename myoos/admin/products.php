@@ -1022,9 +1022,9 @@ function calcBasePriceFactor() {
                             </div>
                            </div>
                         </fieldset>
-<script type="text/javascript"><!--
+<script>
 updateWithTax();
-//--></script>
+</script>
 
                        <fieldset>
                            <div class="form-group row">
@@ -1282,8 +1282,7 @@ updateWithTax();
                      </div>
 				 				 
                      <div class="tab-pane" id="picture" role="tabpanel">
-		<script type="text/javascript">
-		// <!-- <![CDATA[
+		<script>
 		window.totalinputs = 3;
 		function addUploadBoxes(placeholderid, copyfromid, num) {
 			for (i = 0; i < num; i++) {
@@ -1300,7 +1299,6 @@ updateWithTax();
 			$('#uploadboxes').html('<div id="place" style="display: none;"></div>');
 			addUploadBoxes('place', 'filetemplate', 3);
 		}
-		// ]]> -->
 	</script>
 
 
