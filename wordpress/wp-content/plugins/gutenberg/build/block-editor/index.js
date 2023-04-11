@@ -12783,7 +12783,7 @@ function normalizePath(path) {
 
 
 function cloneObject(object) {
-  if (typeof object === 'object') {
+  if (object && typeof object === 'object') {
     return { ...Object.fromEntries(Object.entries(object).map(_ref => {
         let [key, value] = _ref;
         return [key, cloneObject(value)];
