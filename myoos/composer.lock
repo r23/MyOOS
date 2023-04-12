@@ -4273,12 +4273,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "892a245d17587a4a3749d0b4faf99b60f3ba22e8"
+                "reference": "13fc9476f35dd20b80b93d95572cca8c7784bd40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/892a245d17587a4a3749d0b4faf99b60f3ba22e8",
-                "reference": "892a245d17587a4a3749d0b4faf99b60f3ba22e8",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/13fc9476f35dd20b80b93d95572cca8c7784bd40",
+                "reference": "13fc9476f35dd20b80b93d95572cca8c7784bd40",
                 "shasum": ""
             },
             "conflict": {
@@ -4763,7 +4763,7 @@
                 "unisharp/laravel-filemanager": "<=2.5.1",
                 "userfrosting/userfrosting": ">=0.3.1,<4.6.3",
                 "usmanhalalit/pixie": "<1.0.3|>=2,<2.0.2",
-                "uvdesk/community-skeleton": "<1.1",
+                "uvdesk/community-skeleton": "<=1.1.1",
                 "vanilla/safecurl": "<0.9.2",
                 "verot/class.upload.php": "<=1.0.3|>=2,<=2.0.4",
                 "vova07/yii2-fileapi-widget": "<0.1.9",
@@ -4865,7 +4865,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-10T17:04:04+00:00"
+            "time": "2023-04-11T22:04:13+00:00"
         }
     ],
     "aliases": [],
