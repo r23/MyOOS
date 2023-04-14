@@ -9,7 +9,7 @@
  * Domain Path: /lang
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Version:     2.11.2
+ * Version:     2.11.3
  *
  * @package Antispam Bee
  **/
@@ -151,7 +151,7 @@ class Antispam_Bee {
 
 		self::_init_internal_vars();
 
-		if ( self::_current_page( 'dashboard' ) || self::_current_page( 'plugins' ) || self::_current_page( 'options' ) || self::_current_page( 'edit-comments' ) ) {
+		if ( self::_current_page( 'dashboard' ) || self::_current_page( 'plugins' ) || self::_current_page( 'options' ) || self::_current_page( 'edit-comments' ) || self::_current_page( 'admin-post' ) ) {
 			self::load_plugin_lang();
 			self::add_reasons_to_defaults();
 		}
