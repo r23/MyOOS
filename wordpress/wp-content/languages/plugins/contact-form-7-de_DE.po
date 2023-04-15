@@ -2,12 +2,12 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-01-24 12:40:23+0000\n"
+"PO-Revision-Date: 2023-04-14 20:26:16+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.3\n"
+"X-Generator: GlotPress/4.0.0-alpha.4\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
 
@@ -26,7 +26,7 @@ msgctxt "block title"
 msgid "Contact Form 7"
 msgstr "Contact Form 7"
 
-#: modules/select.php:84
+#: modules/select.php:88
 msgid "&#8212;Please choose an option&#8212;"
 msgstr "&#8211; Bitte auswählen &#8211;"
 
@@ -70,27 +70,27 @@ msgstr "Bitte gib eine URL ein."
 msgid "Please enter an email address."
 msgstr "Bitte gib eine E-Mail-Adresse ein."
 
-#: modules/number.php:187
+#: modules/number.php:191
 msgid "This field has a too large number."
 msgstr "Die Zahl in diesem Feld ist zu groß."
 
-#: modules/number.php:182
+#: modules/number.php:186
 msgid "This field has a too small number."
 msgstr "Die Zahl in diesem Feld ist zu klein."
 
-#: modules/number.php:177
+#: modules/number.php:181
 msgid "Please enter a number."
 msgstr "Bitte gibt eine Zahl ein."
 
-#: modules/date.php:168
+#: modules/date.php:172
 msgid "This field has a too late date."
 msgstr "Das Datum in diesem Feld ist zu spät."
 
-#: modules/date.php:163
+#: modules/date.php:167
 msgid "This field has a too early date."
 msgstr "Das Datum in diesem Feld ist zu früh."
 
-#: modules/date.php:158
+#: modules/date.php:162
 msgid "Please enter a date in YYYY-MM-DD format."
 msgstr "Bitte gib das Datum im Format YYYY-MM-DD ein."
 
@@ -99,7 +99,7 @@ msgid "The request payload format is not supported."
 msgstr "Das Request-Payload-Format wird nicht unterstützt."
 
 #. translators: 1: WordPress hook name, 2: version number
-#: includes/functions.php:619
+#: includes/functions.php:572
 msgid "Hook %1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s with no alternative available."
 msgstr "Der Hook %1$s ist seit Contact Form 7 Version %2$s <strong>veraltet</strong> und es ist keine Alternative verfügbar."
 
@@ -121,7 +121,7 @@ msgstr "Füll bitte dieses Feld aus."
 
 #. translators: 1: PHP function name, 2: version number, 3: alternative
 #. function name
-#: includes/functions.php:570
+#: includes/functions.php:523
 msgid "Function %1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s! Use %3$s instead."
 msgstr "Funktion %1$s ist seit Contact Form 7 Version %2$s <strong>veraltet</strong>! Nutze stattdessen %3$s."
 
@@ -131,7 +131,7 @@ msgstr "Spam-Schutz"
 
 #. translators: Developer debugging message. 1: PHP function name, 2:
 #. Explanatory message, 3: Contact Form 7 version number.
-#: includes/functions.php:654
+#: includes/functions.php:607
 msgid "Function %1$s was called incorrectly. %2$s %3$s"
 msgstr "Die Funktion %1$s wurde fehlerhaft aufgerufen. %2$s %3$s"
 
@@ -281,7 +281,7 @@ msgstr "Noch keine aktive E-Mail-Vorlage vorhanden."
 
 #: modules/sendinblue/contact-form-properties.php:249
 msgid "&mdash; Select &mdash;"
-msgstr "&mdash; Auswählen &mdash;"
+msgstr "&ndash; Auswählen &ndash;"
 
 #: modules/sendinblue/contact-form-properties.php:238
 msgid "Select an email template:"
@@ -380,17 +380,17 @@ msgstr "Du wurdest nicht angemeldet. Stelle sicher, dass der API-Schlüssel korr
 msgid "Sendinblue"
 msgstr "Sendinblue"
 
-#: includes/mail.php:180
+#: includes/mail.php:244
 msgid "Failed to attach a file. The total file size exceeds the limit of 25 megabytes."
 msgstr "Das Anhängen einer Datei ist fehlgeschlagen. Die Gesamtgröße der Datei überschreitet den Grenzwert von 25 Megabyte."
 
 #. translators: %s: Attachment file path.
-#: includes/mail.php:159
+#: includes/mail.php:223
 msgid "Failed to attach a file. %s is not a readable file."
 msgstr "Das Anhängen einer Datei ist fehlgeschlagen. %s ist keine lesbare Datei."
 
 #. translators: %s: Attachment file path.
-#: includes/mail.php:144
+#: includes/mail.php:208
 msgid "Failed to attach a file. %s is not in the allowed directory."
 msgstr "Das Anhängen einer Datei ist fehlgeschlagen. %s befindet sich nicht im zulässigen Verzeichnis."
 
@@ -414,18 +414,14 @@ msgstr "Es werden Wörter von der Sperrliste verwendet (%s)."
 msgid "Disallowed words are used."
 msgstr "Es werden Wörter von der Sperrliste verwendet."
 
-#: includes/contact-form-functions.php:224
-msgid "Not Found"
-msgstr "Nicht gefunden"
-
 #. translators: %s: Contact Form 7 version number.
-#: includes/functions.php:646
+#: includes/functions.php:599
 msgid "(This message was added in Contact Form 7 version %s.)"
 msgstr "(Dieser Hinweis wurde in Contact&nbsp;Form&nbsp;7 Version&nbsp;%s hinzugefügt.)"
 
 #: includes/special-mail-tags.php:22 includes/special-mail-tags.php:97
 #: includes/special-mail-tags.php:164 includes/special-mail-tags.php:218
-#: modules/flamingo.php:292
+#: modules/flamingo.php:304
 msgid "The fourth parameter ($mail_tag) must be an instance of the WPCF7_MailTag class."
 msgstr "Der vierte Parameter ($mail_tag) muss eine Instanz der Klasse WPCF7_MailTag sein."
 
@@ -458,7 +454,7 @@ msgstr "Zusätzliche Einstellungen"
 msgid "Error"
 msgstr "Fehler"
 
-#: includes/config-validator.php:825
+#: includes/config-validator.php:832
 msgid "The total size of attachment files is too large."
 msgstr "Die Gesamtgröße aller Anhänge ist zu groß."
 
@@ -474,11 +470,11 @@ msgstr "reCAPTCHA ist auf dieser Website aktiv."
 msgid "reCAPTCHA response token is empty."
 msgstr "reCaptcha-Antwort-Token ist leer."
 
-#: includes/submission.php:719
+#: includes/submission.php:714
 msgid "Submitted nonce is invalid."
 msgstr "Eingereichte Nonce ist ungültig."
 
-#: includes/submission.php:710
+#: includes/submission.php:705
 msgid "User-Agent string is unnaturally short."
 msgstr "Der User-Agent-String ist unnatürlich kurz."
 
@@ -512,7 +508,7 @@ msgid "Connection established."
 msgstr "Verbindung aufgebaut."
 
 #. translators: 1: response code, 2: message, 3: body, 4: URL
-#: includes/functions.php:693
+#: includes/functions.php:646
 msgid "HTTP Response: %1$s %2$s %3$s from %4$s"
 msgstr "HTTP-Response: %1$s %2$s %3$s von %4$s"
 
@@ -588,7 +584,7 @@ msgstr "Constant Contact"
 msgid "Email marketing"
 msgstr "E-Mail-Marketing"
 
-#: includes/config-validator.php:911
+#: includes/config-validator.php:918
 msgid "It is not allowed to use files outside the wp-content directory."
 msgstr "Es ist nicht erlaubt, Dateien außerhalb des Verzeichnisses „wp-content“ zu benutzen."
 
@@ -745,11 +741,11 @@ msgstr "Ein vorhandenes Kontaktformular kann nicht erstellt werden."
 msgid "You are not allowed to access contact forms."
 msgstr "Du hast keine Berechtigung, um auf Kontaktformulare zuzugreifen."
 
-#: includes/config-validator.php:887
+#: includes/config-validator.php:894
 msgid "Attachment file does not exist at %path%."
 msgstr "Datei für Anhang in folgendem Pfad nicht vorhanden: %path%."
 
-#: includes/config-validator.php:744
+#: includes/config-validator.php:751
 msgid "Invalid mailbox syntax is used in the %name% field."
 msgstr "Ungültige Postfachsyntax wird im Feld %name% verwendet."
 
@@ -807,7 +803,7 @@ msgstr "1 Fehler in der Konfiguration entdeckt"
 
 #. translators: 1: WordPress hook name, 2: version number, 3: alternative hook
 #. name
-#: includes/functions.php:608
+#: includes/functions.php:561
 msgid "Hook %1$s is <strong>deprecated</strong> since Contact Form 7 version %2$s! Use %3$s instead."
 msgstr "Der Hook %1$s ist seit Contact Form 7 Version %2$s <strong>veraltet</strong>! Nutze stattdessen %3$s."
 
@@ -1085,19 +1081,19 @@ msgstr "Hiermit wird ein Formular-Tag für einen Absende-Button generiert. Weite
 msgid "submit"
 msgstr "Senden"
 
-#: modules/select.php:199
+#: modules/select.php:203
 msgid "Insert a blank item as the first option"
 msgstr "Füge ein leeres Element als erste Option ein"
 
-#: modules/select.php:198
+#: modules/select.php:202
 msgid "Allow multiple selections"
 msgstr "Mehrfachauswahl erlaubt"
 
-#: modules/select.php:165
+#: modules/select.php:169
 msgid "Generate a form-tag for a drop-down menu. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein Drop-Down-Menü generiert. Weitere Informationen unter %s (engl.)."
 
-#: modules/select.php:158
+#: modules/select.php:162
 msgid "drop-down menu"
 msgstr "Drop-Down Menü"
 
@@ -1129,39 +1125,39 @@ msgstr "Quiz"
 msgid "Sender does not enter the correct answer to the quiz"
 msgstr "Der Absender gibt nicht die richtige Antwort auf das Quiz ein"
 
-#: modules/number.php:225
+#: modules/number.php:229
 msgid "Slider"
 msgstr "Schieberegler"
 
-#: modules/number.php:224
+#: modules/number.php:228
 msgid "Spinbox"
 msgstr "Spinbox"
 
-#: modules/number.php:209
+#: modules/number.php:213
 msgid "Number fields"
 msgstr "Zahlenfelder"
 
-#: modules/number.php:209
+#: modules/number.php:213
 msgid "https://contactform7.com/number-fields/"
 msgstr "https://contactform7.com/number-fields/"
 
-#: modules/number.php:207
+#: modules/number.php:211
 msgid "Generate a form-tag for a field for numeric value input. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein Feld mit numerischer Werteingabe generiert. Weitere Informationen unter %s (engl.)."
 
-#: modules/number.php:199
+#: modules/number.php:203
 msgid "number"
 msgstr "Zahl"
 
-#: modules/number.php:186
+#: modules/number.php:190
 msgid "Number is larger than maximum limit"
 msgstr "Zahl ist größer als das erlaubte Maximum"
 
-#: modules/number.php:181
+#: modules/number.php:185
 msgid "Number is smaller than minimum limit"
 msgstr "Zahl ist niedriger als das erlaubte Minimum"
 
-#: modules/number.php:176
+#: modules/number.php:180
 msgid "Number format that the sender entered is invalid"
 msgstr "Die eingegebene Zahlenformat ist ungültig"
 
@@ -1214,113 +1210,113 @@ msgstr "Das Hochladen ist für den Dateityp nicht erlaubt"
 msgid "Uploading a file fails for any reason"
 msgstr "Fehler aus unbekannten Gründen beim Hochladen der Datei"
 
-#: modules/date.php:231 modules/number.php:255
+#: modules/date.php:235 modules/number.php:259
 msgid "Max"
 msgstr "Max."
 
-#: modules/date.php:226 modules/number.php:250
+#: modules/date.php:230 modules/number.php:254
 msgid "Min"
 msgstr "Min."
 
-#: modules/date.php:221 modules/date.php:224 modules/number.php:245
-#: modules/number.php:248
+#: modules/date.php:225 modules/date.php:228 modules/number.php:249
+#: modules/number.php:252
 msgid "Range"
 msgstr "Bereich"
 
-#: modules/date.php:217 modules/number.php:241 modules/text.php:265
+#: modules/date.php:221 modules/number.php:245 modules/text.php:265
 #: modules/textarea.php:178
 msgid "Use this text as the placeholder of the field"
 msgstr "Verwende diesen Text als Platzhalter für das Feld"
 
-#: modules/date.php:215 modules/number.php:239 modules/text.php:263
+#: modules/date.php:219 modules/number.php:243 modules/text.php:263
 #: modules/textarea.php:176
 msgid "Default value"
 msgstr "Standardwert"
 
-#: modules/date.php:190
+#: modules/date.php:194
 msgid "Date field"
 msgstr "Datumsfeld"
 
-#: modules/date.php:190
+#: modules/date.php:194
 msgid "https://contactform7.com/date-field/"
 msgstr "https://contactform7.com/date-field/"
 
-#: modules/date.php:188
+#: modules/date.php:192
 msgid "Generate a form-tag for a date input field. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für ein Datums-Eingabefeld generiert. Weitere Informationen unter %s (engl.)."
 
-#: modules/date.php:180
+#: modules/date.php:184
 msgid "date"
 msgstr "Datum"
 
-#: modules/date.php:167
+#: modules/date.php:171
 msgid "Date is later than maximum limit"
 msgstr "Das Datum liegt nach dem letzten erlaubten Datum"
 
-#: modules/date.php:162
+#: modules/date.php:166
 msgid "Date is earlier than minimum limit"
 msgstr "Das Datum liegt vor dem ersten erlaubten Datum"
 
-#: modules/date.php:157
+#: modules/date.php:161
 msgid "Date format that the sender entered is invalid"
 msgstr "Das eingegebene Datumsformat ist ungültig"
 
-#: modules/checkbox.php:304 modules/date.php:261 modules/number.php:285
-#: modules/select.php:228 modules/text.php:321 modules/textarea.php:205
+#: modules/checkbox.php:303 modules/date.php:265 modules/number.php:289
+#: modules/select.php:232 modules/text.php:321 modules/textarea.php:205
 msgid "To use the value input through this field in a mail field, you need to insert the corresponding mail-tag (%s) into the field on the Mail tab."
 msgstr "Um die Werteingabe über dieses Feld in einem E-Mail-Feld zu verwenden, musst du das zugehörige E-Mail-Tag (%s) in das Feld des E-Mail-Tabs einsetzen."
 
-#: modules/checkbox.php:274
+#: modules/checkbox.php:273
 msgid "Make checkboxes exclusive"
 msgstr "Checkbox exklusiv machen"
 
-#: modules/checkbox.php:272
+#: modules/checkbox.php:271
 msgid "Wrap each item with label element"
 msgstr "Jeden Eintrag mit Beschreibung umfassen"
 
-#: modules/checkbox.php:271
+#: modules/checkbox.php:270
 msgid "Put a label first, a checkbox last"
 msgstr "Beschriftung vorne, Checkbox hinten"
 
-#: modules/checkbox.php:270 modules/select.php:197
+#: modules/checkbox.php:269 modules/select.php:201
 msgid "One option per line."
 msgstr "Eine Option pro Zeile."
 
-#: modules/checkbox.php:253 modules/date.php:204 modules/file.php:165
-#: modules/number.php:228 modules/select.php:181 modules/text.php:252
+#: modules/checkbox.php:252 modules/date.php:208 modules/file.php:165
+#: modules/number.php:232 modules/select.php:185 modules/text.php:252
 #: modules/textarea.php:165
 msgid "Required field"
 msgstr "Pflichtfeld"
 
-#: modules/checkbox.php:249 modules/checkbox.php:252 modules/date.php:200
-#: modules/date.php:203 modules/file.php:161 modules/file.php:164
-#: modules/number.php:219 modules/number.php:222 modules/select.php:177
-#: modules/select.php:180 modules/text.php:248 modules/text.php:251
+#: modules/checkbox.php:248 modules/checkbox.php:251 modules/date.php:204
+#: modules/date.php:207 modules/file.php:161 modules/file.php:164
+#: modules/number.php:223 modules/number.php:226 modules/select.php:181
+#: modules/select.php:184 modules/text.php:248 modules/text.php:251
 #: modules/textarea.php:161 modules/textarea.php:164
 msgid "Field type"
 msgstr "Feld-Typ"
 
-#: modules/checkbox.php:238 modules/select.php:167
+#: modules/checkbox.php:237 modules/select.php:171
 msgid "Checkboxes, radio buttons and menus"
 msgstr "Checkboxen, Radio-Buttons und Menüs"
 
-#: modules/checkbox.php:238 modules/select.php:167
+#: modules/checkbox.php:237 modules/select.php:171
 msgid "https://contactform7.com/checkboxes-radio-buttons-and-menus/"
 msgstr "https://contactform7.com/checkboxes-radio-buttons-and-menus/"
 
-#: modules/checkbox.php:235
+#: modules/checkbox.php:234
 msgid "Generate a form-tag for a group of radio buttons. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für eine Gruppe von Radio-Buttons generiert. Weitere Informationen unter %s (engl.)."
 
-#: modules/checkbox.php:233
+#: modules/checkbox.php:232
 msgid "Generate a form-tag for a group of checkboxes. For more details, see %s."
 msgstr "Hiermit wird ein Formular-Tag für eine Gruppe von Checkboxen generiert. Weitere Informationen unter %s (engl.)."
 
-#: modules/checkbox.php:220
+#: modules/checkbox.php:219
 msgid "radio buttons"
 msgstr "Radio-Buttons"
 
-#: modules/checkbox.php:218
+#: modules/checkbox.php:217
 msgid "checkboxes"
 msgstr "Checkboxen"
 
@@ -1365,38 +1361,38 @@ msgstr "Dein eingegebener Code ist falsch."
 msgid "The code that sender entered does not match the CAPTCHA"
 msgstr "Der eingegebene Code stimmt nicht mit dem angezeigten Captcha-Code überein"
 
-#: modules/acceptance.php:302 modules/checkbox.php:299 modules/date.php:256
-#: modules/file.php:204 modules/number.php:280 modules/quiz.php:269
-#: modules/really-simple-captcha.php:337 modules/select.php:223
+#: modules/acceptance.php:302 modules/checkbox.php:298 modules/date.php:260
+#: modules/file.php:204 modules/number.php:284 modules/quiz.php:269
+#: modules/really-simple-captcha.php:337 modules/select.php:227
 #: modules/submit.php:88 modules/text.php:316 modules/textarea.php:200
 msgid "Insert Tag"
 msgstr "Tag einfügen"
 
-#: modules/acceptance.php:289 modules/checkbox.php:286 modules/date.php:244
-#: modules/file.php:191 modules/number.php:268 modules/quiz.php:256
+#: modules/acceptance.php:289 modules/checkbox.php:285 modules/date.php:248
+#: modules/file.php:191 modules/number.php:272 modules/quiz.php:256
 #: modules/really-simple-captcha.php:310 modules/really-simple-captcha.php:325
-#: modules/select.php:210 modules/submit.php:75 modules/text.php:303
+#: modules/select.php:214 modules/submit.php:75 modules/text.php:303
 #: modules/textarea.php:187
 msgid "Class attribute"
 msgstr "Klassen-Attribut"
 
-#: modules/acceptance.php:284 modules/checkbox.php:281 modules/date.php:239
-#: modules/file.php:186 modules/number.php:263 modules/quiz.php:251
+#: modules/acceptance.php:284 modules/checkbox.php:280 modules/date.php:243
+#: modules/file.php:186 modules/number.php:267 modules/quiz.php:251
 #: modules/really-simple-captcha.php:305 modules/really-simple-captcha.php:320
-#: modules/select.php:205 modules/submit.php:70 modules/text.php:298
+#: modules/select.php:209 modules/submit.php:70 modules/text.php:298
 #: modules/textarea.php:182
 msgid "Id attribute"
 msgstr "ID-Attribut"
 
 #: modules/acceptance.php:274 modules/acceptance.php:277
-#: modules/checkbox.php:265 modules/checkbox.php:268 modules/select.php:192
-#: modules/select.php:195
+#: modules/checkbox.php:264 modules/checkbox.php:267 modules/select.php:196
+#: modules/select.php:199
 msgid "Options"
 msgstr "Optionen"
 
-#: modules/acceptance.php:264 modules/checkbox.php:260 modules/date.php:210
-#: modules/file.php:171 modules/number.php:234 modules/quiz.php:235
-#: modules/really-simple-captcha.php:295 modules/select.php:187
+#: modules/acceptance.php:264 modules/checkbox.php:259 modules/date.php:214
+#: modules/file.php:171 modules/number.php:238 modules/quiz.php:235
+#: modules/really-simple-captcha.php:295 modules/select.php:191
 #: modules/text.php:258 modules/textarea.php:171
 #: includes/block-editor/index.js:1
 msgid "Name"
@@ -1476,7 +1472,7 @@ msgstr "Nachrichtentext:"
 msgid "Subject: %s"
 msgstr "Betreff: %s"
 
-#. translators: %s: [your-name] <[your-email]>
+#. translators: %s: [your-name] [your-email]
 #: includes/contact-form-template.php:64
 msgid "From: %s"
 msgstr "Von: %s"
@@ -1872,6 +1868,6 @@ msgid "Contact"
 msgstr "Formulare"
 
 #. Plugin Name of the plugin
-#: admin/admin.php:29 modules/flamingo.php:203
+#: admin/admin.php:29 modules/flamingo.php:215
 msgid "Contact Form 7"
 msgstr "Contact Form 7"
