@@ -334,7 +334,7 @@ if (($action == 'new') || ($action == 'edit')) {
         }
 
         echo "\n";
-        echo '<script type="text/javascript"><!--' . "\n";
+        echo '<script>' . "\n";
         echo 'var taxRate = ' . $tax['tax_rate'] . ';' . "\n"; ?>
 function doRound(x, places) {
   num = Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
@@ -363,7 +363,7 @@ function updateNet() {
 }
 
 
-//--></script>
+</script>
 <?php
     } else {
         ?>

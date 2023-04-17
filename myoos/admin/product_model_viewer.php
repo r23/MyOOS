@@ -189,7 +189,7 @@ if (!empty($action)) {
 
 require 'includes/header.php';
 ?>
-<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+<script src="js/ckeditor/ckeditor.js"></script>
 <!-- body //-->
 <div class="wrapper">
     <!-- Header //-->

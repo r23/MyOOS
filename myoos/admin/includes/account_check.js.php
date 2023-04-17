@@ -26,8 +26,7 @@
 if (substr(basename($_SERVER['PHP_SELF']), 0, 12) == 'admin_member') {
     ?>
 
-<script language="JavaScript" type="text/JavaScript">
-<!--
+<script>
 function validateForm() {
   var p,z,xEmail,errors='',dbEmail,result=0,i;
 
@@ -90,15 +89,13 @@ function checkSub(obj) {
   if (num>0) { groupID.checked = true; }
   else { groupID.checked = false; }
 }
-//-->
 </script>
 
     <?php
 } else {
         ?>
 
-<script language="JavaScript" type="text/JavaScript">
-<!--
+<script>
 function validateForm() {
   var p,z,xEmail,errors='',dbEmail,result=0,i;
 
@@ -140,7 +137,6 @@ function validateForm() {
   document.returnValue = (errors == '');
 }
 
-//-->
 </script>
 
     <?php

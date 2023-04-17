@@ -936,7 +936,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $back_url_params .= '&cID=' . $cInfo->categories_id;
         }
     } ?>
-<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+<script src="js/ckeditor/ckeditor.js"></script>
     <!-- Breadcrumbs //-->
     <div class="content-heading">
         <div class="col-lg-12">
@@ -1264,8 +1264,7 @@ if ($action == 'new_category' || $action == 'edit_category') {
                      </div>
 
                      <div class="tab-pane" id="picture" role="tabpanel">
-    <script type="text/javascript">
-    // <!-- <![CDATA[
+    <script>
         window.totalinputs = 3;
         function addUploadBoxes(placeholderid, copyfromid, num) {
             for (i = 0; i < num; i++) {
@@ -1282,7 +1281,6 @@ if ($action == 'new_category' || $action == 'edit_category') {
             $('#uploadboxes').html('<div id="place" style="display: none;"></div>');
             addUploadBoxes('place', 'filetemplate', 3);
         }
-    // ]]> -->
     </script>
 
         <div class="row mb-3">
