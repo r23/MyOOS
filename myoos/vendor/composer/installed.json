@@ -2769,12 +2769,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "6b077f852cc72d9c585dbf1241746b5af08ea1d4"
+                "reference": "39006a790754a68b3a476069297b0cb83abb17d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/6b077f852cc72d9c585dbf1241746b5af08ea1d4",
-                "reference": "6b077f852cc72d9c585dbf1241746b5af08ea1d4",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/39006a790754a68b3a476069297b0cb83abb17d2",
+                "reference": "39006a790754a68b3a476069297b0cb83abb17d2",
                 "shasum": ""
             },
             "conflict": {
@@ -3136,8 +3136,8 @@
                 "scheb/two-factor-bundle": ">=0,<3.26|>=4,<4.11",
                 "sensiolabs/connect": "<4.2.3",
                 "serluck/phpwhois": "<=4.2.6",
-                "shopware/core": "<=6.4.18",
-                "shopware/platform": "<=6.4.18",
+                "shopware/core": "<=6.4.20",
+                "shopware/platform": "<=6.4.20",
                 "shopware/production": "<=6.3.5.2",
                 "shopware/shopware": "<=5.7.14",
                 "shopware/storefront": "<=6.4.8.1",
@@ -3166,6 +3166,7 @@
                 "simplesamlphp/simplesamlphp-module-openidprovider": "<0.9",
                 "simplito/elliptic-php": "<1.0.6",
                 "sitegeist/fluid-components": "<3.5",
+                "slim/psr7": "<1.6.1",
                 "slim/slim": "<2.6",
                 "smarty/smarty": "<3.1.48|>=4,<4.3.1",
                 "snipe/snipe-it": "<=6.0.14|>= 6.0.0-RC-1, <= 6.0.0-RC-5",
@@ -3325,7 +3326,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<6.0.22"
             },
-            "time": "2023-04-17T18:04:34+00:00",
+            "time": "2023-04-18T23:04:21+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
