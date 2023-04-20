@@ -3479,7 +3479,7 @@ const listView = (0,external_wp_element_namespaceObject.createElement)(external_
   viewBox: "0 0 24 24",
   xmlns: "http://www.w3.org/2000/svg"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M13.8 5.2H3v1.5h10.8V5.2zm-3.6 12v1.5H21v-1.5H10.2zm7.2-6H6.6v1.5h10.8v-1.5z"
+  d: "M3 6h11v1.5H3V6Zm3.5 5.5h11V13h-11v-1.5ZM21 17H10v1.5h11V17Z"
 }));
 /* harmony default export */ var list_view = (listView);
 
@@ -3999,7 +3999,7 @@ function MoreMenu() {
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
     role: "menuitem",
     icon: library_external,
-    href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/support/article/block-based-widgets-editor/'),
+    href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/documentation/article/block-based-widgets-editor/'),
     target: "_blank",
     rel: "noopener noreferrer"
   }, (0,external_wp_i18n_namespaceObject.__)('Help'), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {

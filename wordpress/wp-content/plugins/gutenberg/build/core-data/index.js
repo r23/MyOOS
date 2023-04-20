@@ -764,8 +764,6 @@ var external_wp_data_namespaceObject = window["wp"]["data"];
 // EXTERNAL MODULE: ./node_modules/fast-deep-equal/es6/index.js
 var es6 = __webpack_require__(5619);
 var es6_default = /*#__PURE__*/__webpack_require__.n(es6);
-;// CONCATENATED MODULE: external "lodash"
-var external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: external ["wp","compose"]
 var external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
@@ -2966,13 +2964,8 @@ function getQueryParts(query) {
 
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/queried-data/reducer.js
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -3088,7 +3081,10 @@ function items() {
       }
 
     case 'REMOVE_ITEMS':
-      return (0,external_lodash_namespaceObject.mapValues)(state, contextState => removeEntitiesById(contextState, action.itemIds));
+      return Object.fromEntries(Object.entries(state).map(_ref2 => {
+        let [itemId, contextState] = _ref2;
+        return [itemId, removeEntitiesById(contextState, action.itemIds)];
+      }));
   }
 
   return state;
@@ -3142,7 +3138,10 @@ function itemIsComplete() {
       }
 
     case 'REMOVE_ITEMS':
-      return (0,external_lodash_namespaceObject.mapValues)(state, contextState => removeEntitiesById(contextState, action.itemIds));
+      return Object.fromEntries(Object.entries(state).map(_ref3 => {
+        let [itemId, contextState] = _ref3;
+        return [itemId, removeEntitiesById(contextState, action.itemIds)];
+      }));
   }
 
   return state;
@@ -3211,13 +3210,13 @@ const queries = function () {
         result[itemId] = true;
         return result;
       }, {});
-      return (0,external_lodash_namespaceObject.mapValues)(state, contextQueries => {
-        return (0,external_lodash_namespaceObject.mapValues)(contextQueries, queryItems => {
-          return queryItems.filter(queryId => {
-            return !removedItems[queryId];
-          });
-        });
-      });
+      return Object.fromEntries(Object.entries(state).map(_ref4 => {
+        let [queryGroup, contextQueries] = _ref4;
+        return [queryGroup, Object.fromEntries(Object.entries(contextQueries).map(_ref5 => {
+          let [query, queryItems] = _ref5;
+          return [query, queryItems.filter(queryId => !removedItems[queryId])];
+        }))];
+      }));
 
     default:
       return state;
@@ -3234,7 +3233,6 @@ const queries = function () {
 /**
  * External dependencies
  */
-
 
 /**
  * WordPress dependencies
@@ -3600,7 +3598,18 @@ const entities = function () {
   let entitiesDataReducer = state.reducer;
 
   if (!entitiesDataReducer || newConfig !== state.config) {
-    const entitiesByKind = (0,external_lodash_namespaceObject.groupBy)(newConfig, 'kind');
+    const entitiesByKind = newConfig.reduce((acc, record) => {
+      const {
+        kind
+      } = record;
+
+      if (!acc[kind]) {
+        acc[kind] = [];
+      }
+
+      acc[kind].push(record);
+      return acc;
+    }, {});
     entitiesDataReducer = (0,external_wp_data_namespaceObject.combineReducers)(Object.entries(entitiesByKind).reduce((memo, _ref) => {
       let [kind, subEntities] = _ref;
       const kindReducer = (0,external_wp_data_namespaceObject.combineReducers)(subEntities.reduce((kindMemo, entityConfig) => ({ ...kindMemo,

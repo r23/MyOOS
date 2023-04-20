@@ -42690,10 +42690,6 @@ const DIRECTIONAL_ORIENTATION_ANGLE_MAP = {
 /**
  * External dependencies
  */
-
-/**
- * Internal dependencies
- */
 function serializeGradientColor(_ref) {
   let {
     type,
@@ -55261,24 +55257,21 @@ function DropZoneComponent(_ref) {
   let children;
   const backdrop = {
     hidden: {
-      scaleY: 0,
       opacity: 0
     },
     show: {
-      scaleY: 1,
       opacity: 1,
       transition: {
         type: 'tween',
         duration: 0.2,
-        delay: 0.1,
-        delayChildren: 0.2
+        delay: 0,
+        delayChildren: 0.1
       }
     },
     exit: {
-      scaleY: 1,
       opacity: 0,
       transition: {
-        duration: 0.3,
+        duration: 0.2,
         delayChildren: 0
       }
     }
@@ -55286,11 +55279,14 @@ function DropZoneComponent(_ref) {
   const foreground = {
     hidden: {
       opacity: 0,
-      scale: 0.75
+      scale: 0.9
     },
     show: {
       opacity: 1,
-      scale: 1
+      scale: 1,
+      transition: {
+        duration: 0.1
+      }
     },
     exit: {
       opacity: 0,
@@ -59597,7 +59593,7 @@ const search = (0,external_wp_element_namespaceObject.createElement)(external_wp
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M13.5 6C10.5 6 8 8.5 8 11.5c0 1.1.3 2.1.9 3l-3.4 3 1 1.1 3.4-2.9c1 .9 2.2 1.4 3.6 1.4 3 0 5.5-2.5 5.5-5.5C19 8.5 16.5 6 13.5 6zm0 9.5c-2.2 0-4-1.8-4-4s1.8-4 4-4 4 1.8 4 4-1.8 4-4 4z"
+  d: "M13 5c-3.3 0-6 2.7-6 6 0 1.4.5 2.7 1.3 3.7l-3.8 3.8 1.1 1.1 3.8-3.8c1 .8 2.3 1.3 3.7 1.3 3.3 0 6-2.7 6-6S16.3 5 13 5zm0 10.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z"
 }));
 /* harmony default export */ var library_search = (search);
 
@@ -61390,6 +61386,7 @@ function UnconnectedNavigatorProvider(props, forwardedRef) {
     const {
       focusTargetSelector,
       isBack = false,
+      skipFocus = false,
       ...restOptions
     } = options;
     const isNavigatingToPreviousPath = isBack && currentLocationHistory.current.length > 1 && currentLocationHistory.current[currentLocationHistory.current.length - 2].path === path;
@@ -61403,7 +61400,8 @@ function UnconnectedNavigatorProvider(props, forwardedRef) {
       const newLocation = { ...restOptions,
         path,
         isBack,
-        hasRestoredFocus: false
+        hasRestoredFocus: false,
+        skipFocus
       };
 
       if (prevLocationHistory.length < 1) {
@@ -61576,7 +61574,8 @@ function UnconnectedNavigatorScreen(props, forwardedRef) {
     // - when the screen becomes visible
     // - if the wrapper ref has been assigned
     // - if focus hasn't already been restored for the current location
-    if (isInitialLocation || !isMatch || !wrapperRef.current || locationRef.current.hasRestoredFocus) {
+    // - if the `skipFocus` option is not set to `true`. This is useful when we trigger the navigation outside of NavigatorScreen.
+    if (isInitialLocation || !isMatch || !wrapperRef.current || locationRef.current.hasRestoredFocus || location.skipFocus) {
       return;
     }
 
@@ -61603,7 +61602,7 @@ function UnconnectedNavigatorScreen(props, forwardedRef) {
 
     locationRef.current.hasRestoredFocus = true;
     elementToFocus.focus();
-  }, [isInitialLocation, isMatch, location.isBack, location.focusTargetSelector]);
+  }, [isInitialLocation, isMatch, location.isBack, location.focusTargetSelector, location.skipFocus]);
   const mergedWrapperRef = (0,external_wp_compose_namespaceObject.useMergeRefs)([forwardedRef, wrapperRef]);
 
   if (!isMatch) {
@@ -62702,7 +62701,8 @@ function AuthorSelect(_ref) {
     noOptionLabel,
     onChange: onChangeProp,
     tree: termsTree,
-    selectedId: selectedAuthorId !== undefined ? String(selectedAuthorId) : undefined
+    selectedId: selectedAuthorId !== undefined ? String(selectedAuthorId) : undefined,
+    __nextHasNoMarginBottom: true
   });
 }
 
@@ -62738,7 +62738,9 @@ function CategorySelect(_ref) {
     onChange: onChangeProp,
     tree: termsTree,
     selectedId: selectedCategoryId !== undefined ? String(selectedCategoryId) : undefined
-  }, props));
+  }, props, {
+    __nextHasNoMarginBottom: true
+  }));
 }
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/query-controls/index.js
@@ -62751,6 +62753,7 @@ function CategorySelect(_ref) {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -62812,7 +62815,10 @@ function QueryControls(_ref) {
     // but instead are destructured inline where necessary.
     ...props
   } = _ref;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, [onOrderChange && onOrderByChange && (0,external_wp_element_namespaceObject.createElement)(select_control, {
+  return (0,external_wp_element_namespaceObject.createElement)(v_stack_component, {
+    spacing: "4",
+    className: "components-query-controls"
+  }, [onOrderChange && onOrderByChange && (0,external_wp_element_namespaceObject.createElement)(select_control, {
     __nextHasNoMarginBottom: true,
     key: "query-controls-order-select",
     label: (0,external_wp_i18n_namespaceObject.__)('Order by'),
@@ -62855,6 +62861,7 @@ function QueryControls(_ref) {
     selectedCategoryId: props.selectedCategoryId,
     onChange: props.onCategoryChange
   }), isMultipleCategorySelection(props) && props.categorySuggestions && props.onCategoryChange && (0,external_wp_element_namespaceObject.createElement)(form_token_field, {
+    __nextHasNoMarginBottom: true,
     key: "query-controls-categories-select",
     label: (0,external_wp_i18n_namespaceObject.__)('Categories'),
     value: props.selectedCategories && props.selectedCategories.map(item => ({

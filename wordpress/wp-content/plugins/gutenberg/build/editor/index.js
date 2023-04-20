@@ -4977,18 +4977,21 @@ const createWithMetaAttributeSource = metaAttributes => (0,external_wp_compose_n
   const postType = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).getCurrentPostType(), []);
   const [meta, setMeta] = (0,external_wp_coreData_namespaceObject.useEntityProp)('postType', postType, 'meta');
   const mergedAttributes = (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...attributes,
-    ...(0,external_lodash_namespaceObject.mapValues)(metaAttributes, metaKey => meta[metaKey])
+    ...Object.fromEntries(Object.entries(metaAttributes).map(_ref2 => {
+      let [attributeKey, metaKey] = _ref2;
+      return [attributeKey, meta[metaKey]];
+    }))
   }), [attributes, meta]);
   return (0,external_wp_element_namespaceObject.createElement)(BlockEdit, _extends({
     attributes: mergedAttributes,
     setAttributes: nextAttributes => {
       const nextMeta = Object.fromEntries(Object.entries(nextAttributes !== null && nextAttributes !== void 0 ? nextAttributes : {}).filter( // Filter to intersection of keys between the updated
       // attributes and those with an associated meta key.
-      _ref2 => {
-        let [key] = _ref2;
+      _ref3 => {
+        let [key] = _ref3;
         return key in metaAttributes;
-      }).map(_ref3 => {
-        let [attributeKey, value] = _ref3;
+      }).map(_ref4 => {
+        let [attributeKey, value] = _ref4;
         return [// Rename the keys to the expected meta key name.
         metaAttributes[attributeKey], value];
       }));
@@ -5015,12 +5018,17 @@ function shimAttributeSource(settings) {
   var _settings$attributes;
 
   /** @type {WPMetaAttributeMapping} */
-  const metaAttributes = (0,external_lodash_namespaceObject.mapValues)(Object.fromEntries(Object.entries((_settings$attributes = settings.attributes) !== null && _settings$attributes !== void 0 ? _settings$attributes : {}).filter(_ref4 => {
+  const metaAttributes = Object.fromEntries(Object.entries((_settings$attributes = settings.attributes) !== null && _settings$attributes !== void 0 ? _settings$attributes : {}).filter(_ref5 => {
     let [, {
       source
-    }] = _ref4;
+    }] = _ref5;
     return source === 'meta';
-  })), 'meta');
+  }).map(_ref6 => {
+    let [attributeKey, {
+      meta
+    }] = _ref6;
+    return [attributeKey, meta];
+  }));
 
   if (!(0,external_lodash_namespaceObject.isEmpty)(metaAttributes)) {
     settings.edit = createWithMetaAttributeSource(metaAttributes)(settings.edit);
@@ -5048,10 +5056,10 @@ function shimAttributeSource(settings) {
 // In the future, we could support updating block settings, at which point this
 // implementation could use that mechanism instead.
 
-(0,external_wp_data_namespaceObject.select)(external_wp_blocks_namespaceObject.store).getBlockTypes().map(_ref5 => {
+(0,external_wp_data_namespaceObject.select)(external_wp_blocks_namespaceObject.store).getBlockTypes().map(_ref7 => {
   let {
     name
-  } = _ref5;
+  } = _ref7;
   return (0,external_wp_data_namespaceObject.select)(external_wp_blocks_namespaceObject.store).getBlockType(name);
 }).forEach(shimAttributeSource);
 
@@ -7362,7 +7370,7 @@ function PostExcerpt(_ref) {
     onChange: value => onUpdateExcerpt(value),
     value: excerpt
   }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
-    href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/support/article/settings-sidebar/#excerpt')
+    href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/documentation/article/page-post-settings-sidebar/#excerpt')
   }, (0,external_wp_i18n_namespaceObject.__)('Learn more about manual excerpts')));
 }
 
@@ -10679,9 +10687,11 @@ function HierarchicalTermSelector(_ref) {
   const filterLabel = (_taxonomy$labels$sear = taxonomy === null || taxonomy === void 0 ? void 0 : (_taxonomy$labels3 = taxonomy.labels) === null || _taxonomy$labels3 === void 0 ? void 0 : _taxonomy$labels3.search_items) !== null && _taxonomy$labels$sear !== void 0 ? _taxonomy$labels$sear : (0,external_wp_i18n_namespaceObject.__)('Search Terms');
   const groupLabel = (_taxonomy$name = taxonomy === null || taxonomy === void 0 ? void 0 : taxonomy.name) !== null && _taxonomy$name !== void 0 ? _taxonomy$name : (0,external_wp_i18n_namespaceObject.__)('Terms');
   const showFilter = availableTerms.length >= MIN_TERMS_COUNT_FOR_FILTER;
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, showFilter && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
+    direction: "column",
+    gap: "4"
+  }, showFilter && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
     __nextHasNoMarginBottom: true,
-    className: "editor-post-taxonomies__hierarchical-terms-filter",
     label: filterLabel,
     value: filterValue,
     onChange: setFilter
@@ -10690,14 +10700,17 @@ function HierarchicalTermSelector(_ref) {
     tabIndex: "0",
     role: "group",
     "aria-label": groupLabel
-  }, renderTerms('' !== filterValue ? filteredTermsTree : availableTermsTree)), !loading && hasCreateAction && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+  }, renderTerms('' !== filterValue ? filteredTermsTree : availableTermsTree)), !loading && hasCreateAction && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     onClick: onToggleForm,
     className: "editor-post-taxonomies__hierarchical-terms-add",
     "aria-expanded": showForm,
     variant: "link"
-  }, newTermButtonLabel), showForm && (0,external_wp_element_namespaceObject.createElement)("form", {
+  }, newTermButtonLabel)), showForm && (0,external_wp_element_namespaceObject.createElement)("form", {
     onSubmit: onAddTerm
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalVStack, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Flex, {
+    direction: "column",
+    gap: "4"
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
     __nextHasNoMarginBottom: true,
     className: "editor-post-taxonomies__hierarchical-terms-input",
     label: newTermLabel,
@@ -10705,16 +10718,17 @@ function HierarchicalTermSelector(_ref) {
     onChange: onChangeFormName,
     required: true
   }), !!availableTerms.length && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TreeSelect, {
+    __nextHasNoMarginBottom: true,
     label: parentSelectLabel,
     noOptionLabel: noParentOption,
     onChange: onChangeFormParent,
     selectedId: formParent,
     tree: availableTermsTree
-  })), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
     variant: "secondary",
     type: "submit",
     className: "editor-post-taxonomies__hierarchical-terms-submit"
-  }, newTermSubmitLabel)));
+  }, newTermSubmitLabel)))));
 }
 /* harmony default export */ var hierarchical_term_selector = ((0,external_wp_components_namespaceObject.withFilters)('editor.PostTaxonomyType')(HierarchicalTermSelector));
 
@@ -12376,7 +12390,7 @@ function PostURL(_ref) {
     autoComplete: "off",
     spellCheck: "false",
     help: (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_i18n_namespaceObject.__)('The last part of the URL.'), ' ', (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ExternalLink, {
-      href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/support/article/settings-sidebar/#permalink')
+      href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/documentation/article/page-post-settings-sidebar/#permalink')
     }, (0,external_wp_i18n_namespaceObject.__)('Learn more.'))),
     onChange: newValue => {
       editPost({

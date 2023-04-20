@@ -3634,7 +3634,7 @@ function WelcomeGuideMenuItem() {
       }), (0,external_wp_element_namespaceObject.createElement)(WelcomeGuideMenuItem, null), (0,external_wp_element_namespaceObject.createElement)(CopyContentMenuItem, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.MenuItem, {
         role: "menuitem",
         icon: library_external,
-        href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/support/article/wordpress-editor/'),
+        href: (0,external_wp_i18n_namespaceObject.__)('https://wordpress.org/documentation/article/wordpress-block-editor/'),
         target: "_blank",
         rel: "noopener noreferrer"
       }, (0,external_wp_i18n_namespaceObject.__)('Help'), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.VisuallyHidden, {
@@ -3849,16 +3849,20 @@ function VisualEditor(_ref2) {
   } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_editor_namespaceObject.store);
   const hasMetaBoxes = (0,external_wp_data_namespaceObject.useSelect)(select => select(store_store).hasMetaBoxes(), []);
   const {
+    hasRootPaddingAwareAlignments,
+    isFocusMode,
     themeHasDisabledLayoutStyles,
-    themeSupportsLayout,
-    isFocusMode
+    themeSupportsLayout
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    var _settings$__experimen;
+
     const _settings = select(external_wp_blockEditor_namespaceObject.store).getSettings();
 
     return {
       themeHasDisabledLayoutStyles: _settings.disableLayoutStyles,
       themeSupportsLayout: _settings.supportsLayout,
-      isFocusMode: _settings.focusMode
+      isFocusMode: _settings.focusMode,
+      hasRootPaddingAwareAlignments: (_settings$__experimen = _settings.__experimentalFeatures) === null || _settings$__experimen === void 0 ? void 0 : _settings$__experimen.useRootPaddingAwareAlignments
     };
   }, []);
   const {
@@ -3938,11 +3942,14 @@ function VisualEditor(_ref2) {
     const parseableContent = typeof (editedPostTemplate === null || editedPostTemplate === void 0 ? void 0 : editedPostTemplate.content) === 'string' ? editedPostTemplate === null || editedPostTemplate === void 0 ? void 0 : editedPostTemplate.content : '';
     return getPostContentAttributes((0,external_wp_blocks_namespaceObject.parse)(parseableContent)) || {};
   }, [editedPostTemplate === null || editedPostTemplate === void 0 ? void 0 : editedPostTemplate.content, editedPostTemplate === null || editedPostTemplate === void 0 ? void 0 : editedPostTemplate.blocks, postContentAttributes]);
-  const layout = (newestPostContentAttributes === null || newestPostContentAttributes === void 0 ? void 0 : newestPostContentAttributes.layout) || {};
+  const {
+    layout = {},
+    align = ''
+  } = newestPostContentAttributes || {};
   const postContentLayoutClasses = (0,external_wp_blockEditor_namespaceObject.__experimentaluseLayoutClasses)(newestPostContentAttributes, 'core/post-content');
   const blockListLayoutClass = classnames_default()({
     'is-layout-flow': !themeSupportsLayout
-  }, themeSupportsLayout && postContentLayoutClasses);
+  }, themeSupportsLayout && postContentLayoutClasses, align && `align${align}`);
   const postContentLayoutStyles = (0,external_wp_blockEditor_namespaceObject.__experimentaluseLayoutStyles)(newestPostContentAttributes, 'core/post-content', '.block-editor-block-list__layout.is-root-container'); // Update type for blocks using legacy layouts.
 
   const postContentLayout = (0,external_wp_element_namespaceObject.useMemo)(() => {
@@ -3970,7 +3977,12 @@ function VisualEditor(_ref2) {
   styles = (0,external_wp_element_namespaceObject.useMemo)(() => [...styles, {
     // We should move this in to future to the body.
     css: `.edit-post-visual-editor__post-title-wrapper{margin-top:4rem}` + (paddingBottom ? `body{padding-bottom:${paddingBottom}}` : '')
-  }], [styles]);
+  }], [styles]); // Add some styles for alignwide/alignfull Post Content and its children.
+
+  const alignCSS = `.is-root-container.alignwide { max-width: var(--wp--style--global--wide-size); margin-left: auto; margin-right: auto;}
+		.is-root-container.alignwide:where(.is-layout-flow) > :not(.alignleft):not(.alignright) { max-width: var(--wp--style--global--wide-size);}
+		.is-root-container.alignfull { max-width: none; margin-left: auto; margin-right: auto;}
+		.is-root-container.alignfull:where(.is-layout-flow) > :not(.alignleft):not(.alignright) { max-width: none;}`;
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.BlockTools, {
     __unstableContentRef: ref,
     className: classnames_default()('edit-post-visual-editor', {
@@ -4001,14 +4013,17 @@ function VisualEditor(_ref2) {
     selector: ".edit-post-visual-editor__post-title-wrapper, .block-editor-block-list__layout.is-root-container",
     layout: fallbackLayout,
     layoutDefinitions: globalLayoutSettings === null || globalLayoutSettings === void 0 ? void 0 : globalLayoutSettings.definitions
+  }), align && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLayoutStyle, {
+    css: alignCSS
   }), postContentLayoutStyles && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLayoutStyle, {
     layout: postContentLayout,
     css: postContentLayoutStyles,
     layoutDefinitions: globalLayoutSettings === null || globalLayoutSettings === void 0 ? void 0 : globalLayoutSettings.definitions
   })), !isTemplateMode && (0,external_wp_element_namespaceObject.createElement)("div", {
     className: classnames_default()('edit-post-visual-editor__post-title-wrapper', {
-      'is-focus-mode': isFocusMode
-    }, 'is-layout-flow'),
+      'is-focus-mode': isFocusMode,
+      'has-global-padding': hasRootPaddingAwareAlignments
+    }),
     contentEditable: false
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostTitle, {
     ref: titleRef
@@ -5510,7 +5525,7 @@ const listView = (0,external_wp_element_namespaceObject.createElement)(external_
   viewBox: "0 0 24 24",
   xmlns: "http://www.w3.org/2000/svg"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M13.8 5.2H3v1.5h10.8V5.2zm-3.6 12v1.5H21v-1.5H10.2zm7.2-6H6.6v1.5h10.8v-1.5z"
+  d: "M3 6h11v1.5H3V6Zm3.5 5.5h11V13h-11v-1.5ZM21 17H10v1.5h11V17Z"
 }));
 /* harmony default export */ var list_view = (listView);
 
@@ -5951,7 +5966,7 @@ function PostPublishButtonOrToggle(_ref) {
    * Conditions to show a BUTTON (publish directly) or a TOGGLE (open publish sidebar):
    *
    * 1) We want to show a BUTTON when the post status is at the _final stage_
-   * for a particular role (see https://wordpress.org/support/article/post-status/):
+   * for a particular role (see https://wordpress.org/documentation/article/post-status/):
    *
    * - is published
    * - is scheduled to be published
@@ -6870,7 +6885,6 @@ function ListViewSidebar() {
   });
   return (// eslint-disable-next-line jsx-a11y/no-static-element-interactions
     (0,external_wp_element_namespaceObject.createElement)("div", {
-      "aria-label": (0,external_wp_i18n_namespaceObject.__)('Document Overview'),
       className: "edit-post-editor__document-overview-panel",
       onKeyDown: closeOnEscape,
       ref: sidebarRef
@@ -6879,7 +6893,7 @@ function ListViewSidebar() {
       ref: headerFocusReturnRef
     }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
       icon: close_small,
-      label: (0,external_wp_i18n_namespaceObject.__)('Close Document Overview Sidebar'),
+      label: (0,external_wp_i18n_namespaceObject.__)('Close'),
       onClick: () => setIsListViewOpened(false)
     }), (0,external_wp_element_namespaceObject.createElement)("ul", null, (0,external_wp_element_namespaceObject.createElement)("li", null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
       ref: listViewTabRef,
