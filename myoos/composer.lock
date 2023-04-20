@@ -4273,12 +4273,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "39006a790754a68b3a476069297b0cb83abb17d2"
+                "reference": "685cc175e08d0e370787bc511a186de6220ae3cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/39006a790754a68b3a476069297b0cb83abb17d2",
-                "reference": "39006a790754a68b3a476069297b0cb83abb17d2",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/685cc175e08d0e370787bc511a186de6220ae3cf",
+                "reference": "685cc175e08d0e370787bc511a186de6220ae3cf",
                 "shasum": ""
             },
             "conflict": {
@@ -4449,7 +4449,7 @@
                 "gregwar/rst": "<1.0.3",
                 "grumpydictator/firefly-iii": "<6",
                 "guzzlehttp/guzzle": "<6.5.8|>=7,<7.4.5",
-                "guzzlehttp/psr7": "<1.8.4|>=2,<2.1.1",
+                "guzzlehttp/psr7": "<1.9.1|>=2,<2.4.5",
                 "harvesthq/chosen": "<1.8.7",
                 "helloxz/imgurl": "= 2.31|<=2.31",
                 "hillelcoren/invoice-ninja": "<5.3.35",
@@ -4866,7 +4866,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-18T23:04:21+00:00"
+            "time": "2023-04-19T19:04:05+00:00"
         }
     ],
     "aliases": [],
