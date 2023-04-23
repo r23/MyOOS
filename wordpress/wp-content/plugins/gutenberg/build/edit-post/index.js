@@ -6217,7 +6217,7 @@ function DeleteTemplate() {
       let [id] = _ref;
       return id !== template.slug;
     }));
-    updateEditorSettings({ ...settings,
+    updateEditorSettings({
       availableTemplates: newAvailableTemplates
     });
     deleteEntityRecord('postType', 'wp_template', template.id, {
@@ -6316,14 +6316,9 @@ function EditTemplateTitle() {
       const settings = getEditorSettings();
       const newAvailableTemplates = Object.fromEntries(Object.entries((_settings$availableTe = settings.availableTemplates) !== null && _settings$availableTe !== void 0 ? _settings$availableTe : {}).map(_ref => {
         let [id, existingTitle] = _ref;
-
-        if (id !== template.slug) {
-          return existingTitle;
-        }
-
-        return newTitle;
+        return [id, id !== template.slug ? existingTitle : newTitle];
       }));
-      updateEditorSettings({ ...settings,
+      updateEditorSettings({
         availableTemplates: newAvailableTemplates
       });
       editEntityRecord('postType', 'wp_template', template.id, {
