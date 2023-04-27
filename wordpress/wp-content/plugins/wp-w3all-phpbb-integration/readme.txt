@@ -1,14 +1,14 @@
 === WP w3all phpBB ===
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
-Tags: wordpress, phpbb, integration, template, users
-Stable tag: 2.7.0
+Tags: wordpress, phpbb, integration, template, user
+Stable tag: 2.7.1
 License: GPLv2 or later
 Requires at least: 5.0.0
-Tested up to: 6.2
+Tested up to: 6.3
 Requires PHP: 7.0
 
-WordPress w3all phpBB integration - easy, light, secure, powerful
+WordPress w3all phpBB integration - easy, light, secure, powerful.
 
 == Description ==
 WP w3all phpBB provides free user login and registration integration between a phpBB bulletin board and WordPress CMS.
@@ -73,6 +73,11 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.7.1 =
+*Release Date - 26 Apr, 2023*
+* Fix: wp_insert_user function, used by the 'phpBB extension' (if it has been installed into phpBB, and option active) for the user addition in WP via cURL, when an user register in phpBB side: on tests it fail with error 'Not enough data provided' when the email value is provided (WP 6.2)
+* Minor fixes
 
 = 2.7.0 =
 *Release Date - 27 Jan, 2023*

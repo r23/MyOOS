@@ -74,7 +74,9 @@ if ( $countn < $topics_number ){
 
          if ($wp_w3all_post_text == 1){ // links, post text, author and date
 
-          $value->post_text = wp_w3all_remove_bbcode_tags($value->post_text, $wp_w3all_text_words);
+         // $value->post_text = WP_w3all_phpbb::w3all_bbcodeconvert($value->post_text);
+         // but after, the wp_w3all_remove_bbcode_tags() strip html converted tags: so to get the html result, strip_tags() should be removed on it
+         $value->post_text = wp_w3all_remove_bbcode_tags($value->post_text, $wp_w3all_text_words);
 
           if ($w3all_avatars_yn){
 

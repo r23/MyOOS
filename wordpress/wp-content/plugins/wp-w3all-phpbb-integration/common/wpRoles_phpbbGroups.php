@@ -1,7 +1,7 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
 // (C) 2023 - axew3.com
 
-# The groups/roles integration can be complex as more like
+# The groups/roles integration can be so complex
 # It is substantially quite hard to put here any possible combination of things expecting that it will fit the required for any possible scenario.
 # This file can be edited as more like, and can be copied into the 'wp-content/plugins/wp-w3all-custom/wpRoles_phpbbGroups.php' folder
 # so that when the plugin will update, custom modifications will not be lost

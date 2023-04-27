@@ -3,14 +3,13 @@
 class WP_w3all_phpbb {
 
 // lost on the way
-
  //protected $config = '';
  //protected $w3db_conn = '';
  //protected $phpbb_config = '';
  //protected $phpbb_user_session = '';
 
- //static $w3all_phpbb_connection = '' ;
-
+ #static $phpbbconnection,$phpbbconfig;
+ #static $phpbbusersession;
 
 public static function wp_w3all_phpbb_init() {
 
@@ -26,7 +25,7 @@ public static function wp_w3all_phpbb_init() {
     self::verify_phpbb_credentials();
   endif;
 
-  if ( $w3all_get_phpbb_avatar_yn == 1 ):
+  if ( $w3all_get_phpbb_avatar_yn > 0 ):
     self::init_w3all_avatars();
   endif;
 
@@ -51,7 +50,7 @@ private static function w3all_wp_logout($redirect = ''){
 
          if ( preg_match('/[^0-9A-Za-z]/',$k_md5) OR preg_match('/[^0-9A-Za-z]/',$s_id) OR preg_match('/[^0-9]/',$u_id) ){
                die( "Please clean up cookies on your browser." );
-              }
+          }
 
   if( $u_id == 2 ){  return; }
 
@@ -86,11 +85,11 @@ private static function w3all_wp_logout($redirect = ''){
  }
 
 private static function w3all_db_connect(){
- global $w3all_phpbb_connection;
+ global $w3all_phpbb_connection,$w3all_config_db;
 
  if(defined('W3PHPBBDBCONN')){
-  $w3all_config_db = W3PHPBBDBCONN; // switch to W3PHPBBDBCONN-only, on vers 2.6.0
- } else { global $w3all_config_db; } // to be removed on vers 2.6.0
+  $w3all_config_db = W3PHPBBDBCONN; // switch to W3PHPBBDBCONN-only
+ }
 
  if(empty($w3all_config_db) OR defined('W3ALLCONNWRONGPARAMS')){ return; }
 
@@ -135,7 +134,7 @@ private static function w3all_get_phpbb_config(){
 
     if(empty($a)){ $phpbb_config = ''; return array(); }
 
-      // Order is alphabetical
+      // alphabetical order
       $res = array( 'allow_autologin' => $a[0]->config_value,
                     'avatar_gallery_path' => $a[1]->config_value,
                     'avatar_path' => $a[2]->config_value,
@@ -163,6 +162,7 @@ private static function w3all_get_phpbb_config(){
   update_option( 'w3all_phpbb_cookie', $res["cookie_domain"] );
  }
 
+  #self::$phpbbconfig = $res;
   define("W3PHPBBCONFIG", $res);
   $phpbb_config = $res;
 
@@ -289,7 +289,7 @@ private static function verify_phpbb_credentials(){
    // !! Security NOTE: 'self::phpBB_user_session_set' will not populate $phpbb_user_session
    // then setup the phpBB session for the current WP logged in user.
    // A possible bruteforce done by a logged in user will fail because the function setup the phpBB session only for the SAME logged in WP user
-   // and DO NOT populate $phpbb_user_session then code just below wrapped inside
+   // and DO NOT populate $phpbb_user_session, then the code just below wrapped inside
    // if(isset($phpbb_user_session[0])){
    // that could update user's email and pass when mismatching, will NEVER execute
     if ( empty($phpbb_user_session) && $phpbb_u > 2 && is_user_logged_in() ) {
@@ -419,7 +419,7 @@ private static function verify_phpbb_credentials(){
 
  // Banned Deactivated trick // +- the same done into w3_check_phpbb_profile_wpnu()
  // Check for ban_id: if not empty then almost a ban by IP or EMAIL or USERNAME exists
- // Do not know if there is some other ban row that can exists into 'banlist', because only the first found retrieved into query above
+ // Do not know if there is some other ban row that can exists into 'banlist', because only the first found retrieved into the query above
 
  // The complete ban check is done when user login in wordpress, not when presented session, because on the above main query this has been removed
  // REMOVED
@@ -439,7 +439,7 @@ private static function verify_phpbb_credentials(){
      self::w3all_wp_logout('wp_login_url');
   }
 
-     // NOTE TODO: could also set the bruteforce record for this user (also) here, when necessary, so at next time, the code flow will stop more above without wasting resources until here
+     // NOTE TODO: could be set the bruteforce record for this user (also) here, so at next time, the code flow will stop more above without wasting resources until here
 
     // but if a ban exist, even if expired, check by the way this user for bans
     // w3_phpbb_ban() function will remove expired bans: so next time we'll be here up and running, in case
@@ -471,7 +471,7 @@ private static function verify_phpbb_credentials(){
     if( $phpbb_user_session[0]->user_lang == 'fa' ){ $phpbb_user_session[0]->user_lang = 'ps'; }
 
  if ( is_user_logged_in() ) {
-      // expired session // assumed _k as valid without checking if it is expired (sisi lo so should be improved)
+      // expired session // assumed _k as valid without checking if it is expired
       if ( empty( $phpbb_k ) && ( time() - $phpbb_config["session_length"] ) > $phpbb_user_session[0]->session_time )
       {
         self::w3all_wp_logout();
@@ -769,8 +769,6 @@ $gaf = $w3all_phpbb_connection->get_results("SELECT DISTINCT ".$w3all_config["ta
   $topics_x_ugroup = '';
 }
 
-ob_start();
-
   if (empty( $w3all_exclude_phpbb_forums )){
 
    $topics = $w3all_phpbb_connection->get_results("SELECT T.*, P.*, U.*
@@ -808,9 +806,6 @@ ob_start();
     LIMIT 0,$ntopics");
 
   }
-
-ob_get_contents();
-ob_end_clean();
 
      $t = is_array($topics) ? serialize($topics) : serialize(array());
     if(!defined("W3PHPBBLASTOPICS")){
@@ -1372,7 +1367,7 @@ public static function check_phpbb_passw_match_on_wp_auth ( $user_email, $is_php
       $wpu->user_email = esc_sql(strtolower($wpu->user_email));
       $wpu->user_login = esc_sql(mb_strtolower($wpu->user_login,'UTF-8'));
 
-      $phpbb_pae = $w3all_phpbb_connection->get_row("SELECT user_password, user_email FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$wpu->user_email' OR LOWER(username) = '$wpu->user_login'");
+      $phpbb_pae = $w3all_phpbb_connection->get_row("SELECT user_password, user_email FROM ".$w3all_config["table_prefix"]."users WHERE LOWER(user_email) = '$wpu->user_email'");
 
        if( defined("WPUSERCREATED") OR !empty($phpbb_pae) && $phpbb_pae->user_password != $wpu->user_pass ){
 
@@ -1929,7 +1924,7 @@ public static function wp_w3all_get_phpbb_user_info_by_ID($id){
 
   $id = intval($id);
 
-  if(intval($id) < 3){ return false; }
+  if($id < 3){ return false; }
 
     $phpbb_user = $w3all_phpbb_connection->get_results("SELECT *
     FROM ". $w3all_config["table_prefix"] ."groups

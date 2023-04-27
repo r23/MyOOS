@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.7.0
+Version: 2.7.1
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -33,7 +33,7 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.7.0' );
+define( 'WPW3ALL_VERSION', '2.7.1' );
 define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -257,11 +257,11 @@ if(! defined("WPW3ALL_NOT_ULINKED")){
  add_action( 'profile_update', 'wp_w3all_up_phpbb_prof', 20, 2 ); // since WP 5.8 $userdata added
  //add_action( 'profile_update', array( 'WP_w3all_phpbb', 'wp_phpbb_update_profile' ), 10, 3 );
  add_action( 'user_register', 'wp_w3all_phpbb_registration_save_adm', 10, 1 );
- add_action( 'delete_user', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_delete_user' ) );
+ add_action( 'delete_user', array( 'WP_w3all_phpbb', 'wp_w3all_phpbb_delete_user' ) ); // for phpBB ext
  // if these two fires because activated, may then the other add_action( 'delete_user' should not fire while this is active. It only deactivate in phpBB
  // Do not go to disable anyway, because if this will fail (it is one cURL call that will execute on start)
  // the other will work by the way. This also, run only once in case, at first delete delete_user
- // to understand these two hooks, see phpBB/ext/w3all/phpbbwordpressintegration/event/main_listener.php
+ // to understand these two hooks, see phpBB/ext/w3all/phpbbwordpress/event/main_listener.php
  if( $w3all_delete_users_into_phpbb_ext > 0 )
  {
   include( WPW3ALL_PLUGIN_DIR.'common/phpbb_endpoints_ext_functions.php' );
@@ -829,12 +829,12 @@ function w3all_edit_profile_url( $url, $user_id, $scheme ) {
 
           if (defined('BP_VERSION')) { // detect if Buddypress installed
            $bp = buddypress();
-           $bp->signup->errors['signup_email'] = __( 'Error: Username or email address already existent into our forum.', 'wp-w3all-phpbb-integration' );
+           $bp->signup->errors['signup_email'] = __( 'Error: Username or email address exists into our forum.', 'wp-w3all-phpbb-integration' );
            return false;
           }
 
           $error = new WP_Error();
-          $error->add( 'invalid_email', 'Error: Username or email address already existent into our forum.' );
+          $error->add( 'invalid_email', 'Error: Username or email address exists into our forum.' );
           return false;
 
          }
@@ -924,8 +924,8 @@ function wp_check_password($password, $hash, $user_id = '') {
 // phpBB allow \ char on password
 
    global $wpdb,$wp_hasher,$w3all_add_into_phpBB_after_confirm;
-   $password = trim($password);
-   //$password = str_replace(chr(0), '', $password);
+   #$password = trim($password);
+   $password = trim(str_replace(chr(0), '', $password));
    $check = false;
    $hash_x_wp = $hash;
 
@@ -1080,15 +1080,15 @@ function w3all_wp_pre_insert_user_data($data, $update, $updating_user_id, $userd
   if( $redirect_to == 'onlymsg' ){
     echo $message = __( '<h3>Error: the provided email is paired to another user into our forum</h3>', 'wp-w3all-phpbb-integration' );
   } elseif (!empty($redirect_to) && current_user_can( 'manage_options' )){
-      echo $message = __( '<h3>Error: username or email already exist.</h3>  Username and/or email already exist, and result to be paired with another user account into the forum<br />', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.$redirect_to.'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
+      echo $message = __( '<h3>Error: username or email already exists into our forum.</h3>', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.$redirect_to.'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
       } else {
-        echo $message = __( '<h3>Error: username or email already exist.</h3> Username and/or email already exist, and result to be paired with another user account into the forum<br />', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.get_edit_user_link().'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
+        echo $message = __( '<h3>Error: username or email already exists into our forum.</h3>', 'wp-w3all-phpbb-integration' ) . '<h4><a href="'.get_edit_user_link().'">' . __( 'Return back', 'wp-w3all-phpbb-integration' ) . '</a><h4>';
        }
  }
 
 function wp_w3_error($redirect_to='', $message=''){
    if(empty($message)){
-        echo $message = __( '<h3>Error: username exist or email paired to another username into our forum</h3><br /><br />', 'wp-w3all-phpbb-integration' );
+        echo $message = __( '<h3>Error: username or email already exists into our forum.</h3>', 'wp-w3all-phpbb-integration' );
       }
 }
 
@@ -1279,14 +1279,15 @@ function w3all_add_phpbb_user() {
          //** if deactivated, since the code above, execution never arrive here
           $role = $phpbb_user[0]->user_type == 1 ? array() : $role;
 
-              $userdata = array(
+             $userdata = array(
                'user_login'       =>  $phpbb_user[0]->username,
-               'user_pass'        =>  $phpbb_user[0]->user_password,
-               'user_email'       =>  $phpbb_user[0]->user_email,
+               'user_pass'        =>  md5($phpbb_user[0]->user_password),
+               //'user_email'       =>  $phpbb_user[0]->user_email, // on WP 6.2 the wp_insert_user function, on cULR tests, fail with error "Not enough data provided" when email value provided
                'user_registered'  =>  date_i18n( 'Y-m-d H:i:s', $phpbb_user[0]->user_regdate ),
                'role'             =>  $role
                );
 
+      $userdata = array_map ('trim', $userdata);
       $w3all_oninsert_wp_user = 1;
       $user_id = wp_insert_user( $userdata );
 
@@ -1308,10 +1309,11 @@ function w3all_add_phpbb_user() {
     if ($contains_cyrillic) {
        // update user_login and user_nicename and force to be what needed
        // update the pass, since re-hashed by wp_insert_user()
-       $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user[0]->user_password."', user_nicename = '".$user_username_clean."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
+       //$wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user[0]->user_password."', user_nicename = '".$user_username_clean."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
+       $wpdb->query("UPDATE $wpu_db_utab SET user_login = '".$phpbb_username."', user_pass = '".$phpbb_user[0]->user_password."', user_nicename = '".$user_username_clean."', user_email = '".$phpbb_user[0]->user_email."', display_name = '".$phpbb_username."' WHERE ID = ".$user_id."");
        $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
      } else { // leave as is (may cleaned and different) the just created user_login
-        $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_user[0]->user_password."', display_name = '".$phpbb_username."' WHERE ID = '$user_id'");
+        $wpdb->query("UPDATE $wpu_db_utab SET user_pass = '".$phpbb_user[0]->user_password."', display_name = '".$phpbb_username."', user_email = '".$phpbb_user[0]->user_email."' WHERE ID = '$user_id'");
         $wpdb->query("UPDATE $wpu_db_umtab SET meta_value = '".$phpbb_username."' WHERE user_id = '$user_id' AND meta_key = 'nickname'");
        }
 
@@ -1331,7 +1333,8 @@ function wp_check_password($password, $hash, $user_id = '') {
 // phpBB allow \ char on password
 
    global $wpdb,$wp_hasher;
-   $password = trim($password);
+   #$password = trim($password);
+   $password = trim(str_replace(chr(0), '', $password));
    $check = false;
    $hash_x_wp = $hash;
 
@@ -1475,7 +1478,7 @@ function w3all_wpmu_activate_user_phpbb( $user_id, $password, $meta='' ) {
        $result = add_user_to_blog($blogID, $user_id, $role);
      /*
      // this way add user to all existent network blogs, until 100
-     // 'if you specify null to the ‘network_id’ then all site infomation in the network are returned'
+     // 'if you specify null to the network_id then all site infomation in the network are returned'
      // see https://developer.wordpress.org/reference/functions/wp_get_sites/
        $args = array(
         'network_id' => null,
@@ -1574,4 +1577,3 @@ add_action( 'remove_user_from_blog', 'w3all_remove_user_from_blog', 10, 2 );
 // W3ALL WPMS MU END
 /////////////////////////
 //////////////////////////////////////////////////
-

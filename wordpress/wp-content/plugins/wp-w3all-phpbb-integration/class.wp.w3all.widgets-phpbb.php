@@ -4,7 +4,7 @@ class WP_w3all_widget_login extends WP_Widget
   function __construct() {
     parent::__construct(
       'wp_w3all_widget_login',
-      __( 'WP phpBB w3all Login' , 'wp-w3all-phpbb-integration'),
+      'WP phpBB w3all Login',
       array( 'description' => __( 'Display the widget WP phpBB login form' , 'wp-w3all-phpbb-integration') )
     );
   }
@@ -275,5 +275,5 @@ function wp_w3all_register_widgets() {
 }
 
 if(defined('W3PHPBBDBCONN')){
-add_action( 'widgets_init', 'wp_w3all_register_widgets' );
+ add_action( 'widgets_init', 'wp_w3all_register_widgets' );
 }
