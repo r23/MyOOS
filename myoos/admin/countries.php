@@ -28,11 +28,21 @@ $action = (isset($_GET['action']) ? $_GET['action'] : '');
   if (!empty($action)) {
       switch ($action) {
       case 'insert':
-        $dbconn->Execute("INSERT INTO " . $oostable['countries'] . " (countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES ('" . oos_db_input($countries_name) . "', '" . oos_db_input($countries_iso_code_2) . "', '" . oos_db_input($countries_iso_code_3) . "', '" . oos_db_input($address_format_id) . "')");
+		$countries_name = (isset($_POST['countries_name']) ? oos_prepare_input($_POST['countries_name']) : '');	  
+		$countries_iso_code_2 = (isset($_POST['countries_iso_code_2']) ? oos_prepare_input($_POST['countries_iso_code_2']) : '');	
+		$countries_iso_code_3 = (isset($_POST['countries_iso_code_3']) ? oos_prepare_input($_POST['countries_iso_code_3']) : '');	
+		$address_format_id = (!isset($_GET['address_format_id']) || !is_numeric($_GET['address_format_id'])) ? 1 : intval($_GET['address_format_id']);
+  
+		$dbconn->Execute("INSERT INTO " . $oostable['countries'] . " (countries_name, countries_iso_code_2, countries_iso_code_3, address_format_id) VALUES ('" . oos_db_input($countries_name) . "', '" . oos_db_input($countries_iso_code_2) . "', '" . oos_db_input($countries_iso_code_3) . "', '" . oos_db_input($address_format_id) . "')");
         oos_redirect_admin(oos_href_link_admin($aContents['countries']));
         break;
 
       case 'save':
+		$countries_name = (isset($_POST['countries_name']) ? oos_prepare_input($_POST['countries_name']) : '');	  
+		$countries_iso_code_2 = (isset($_POST['countries_iso_code_2']) ? oos_prepare_input($_POST['countries_iso_code_2']) : '');	
+		$countries_iso_code_3 = (isset($_POST['countries_iso_code_3']) ? oos_prepare_input($_POST['countries_iso_code_3']) : '');	
+		$address_format_id = (!isset($_GET['address_format_id']) || !is_numeric($_GET['address_format_id'])) ? 1 : intval($_GET['address_format_id']);
+
         $countries_id = oos_db_prepare_input($_GET['cID']);
 
         $dbconn->Execute("UPDATE " . $oostable['countries'] . " SET countries_name = '" . oos_db_input($countries_name) . "', countries_iso_code_2 = '" . oos_db_input($countries_iso_code_2) . "', countries_iso_code_3 = '" . oos_db_input($countries_iso_code_3) . "', address_format_id = '" . oos_db_input($address_format_id) . "' WHERE countries_id = '" . oos_db_input($countries_id) . "'");
