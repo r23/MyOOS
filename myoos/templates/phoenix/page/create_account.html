@@ -20,6 +20,137 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="innerWrapper clearfix">
+##
+
+              <fieldset>
+                <legend>{$lang.category_personal}</legend>
+				<form name="account_edit"class="form-horizontal"  action="{html_href_link modul=$modules.user file=$filename.create_account_process connection=SSL}" method="post" onSubmit="return check_form();">
+					<input type="hidden" name="action" value="process">				
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <h3 class="title">{$lang.category_personal}</h3>
+                    </div>
+                    <div class="col-xl-8 ml-xl-auto">
+                      <div class="form-group row">
+                        <label for="billingFirstName" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_first_name} <small class="text-default">*</small></label>
+                        <div class="col-lg-10">
+						  <input type="text" class="form-control" id="billingFirstName" name="firstname" value="{$account.customers_firstname}">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="billingLastName" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_last_name} <small class="text-default">*</small></label>
+                        <div class="col-lg-10">
+							<input type="text" class="form-control" id="billingLastName" name="lastname" value="{$account.customers_lastname}">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="billingemail" class="col-lg-2 control-label text-lg-right col-form-label">E-Mail <small class="text-default">*</small></label>
+                        <div class="col-lg-10">
+							<input type="email" class="form-control" id="billingemail" name="email_address" value="{$email_address}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="space"></div>
+
+{if $smarty.const.ACCOUNT_COMPANY eq 'true'}		  
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <h3 class="title mt-5 mt-lg-0">{$lang.category_company}</h3>
+                    </div>
+                    <div class="col-xl-8 ml-xl-auto">
+                      <div class="form-group row">
+                        <label for="billingAddress1" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_company}</label>
+                        <div class="col-lg-10">
+							<input type="text"  class="form-control" id="billingCompany" name="company" value="{$account.entry_company}">
+                        </div>
+                      </div>
+					  
+  {if $smarty.const.ACCOUNT_OWNER eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_owner}</td>
+            <td class="main">&nbsp;<input type="text" name="owner" value="{$account.entry_owner}"></td>
+          </tr>
+
+  {/if}
+  {if $smarty.const.ACCOUNT_VAT_ID eq 'true'}
+          <tr>
+            <td class="main">&nbsp;{$lang.entry_vat_id}</td>
+            <td class="main">&nbsp;<input type="text" name="vat_id" value="{$account.customers_vat_id}"></td>
+          </tr>
+  {/if}				  
+	                    </div>
+                  </div>					  
+{/if}			
+                  <div class="space"></div>
+	                  <div class="row">
+                    <div class="col-xl-3">
+                      <h3 class="title mt-5 mt-lg-0">{$lang.category_address}</h3>
+                    </div>
+                    <div class="col-xl-8 ml-xl-auto">
+                      <div class="form-group row">
+                        <label for="billingAddress1" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_street_address} <small class="text-default">*</small></label>
+                        <div class="col-lg-10">
+							<input type="text" class="form-control" id="billingAddress1" name="street_address" value="{$account.entry_street_address}">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label for="billingPostalCode" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_post_code} <small class="text-default">*</small></label>
+                        <div class="col-lg-10">
+							<input type="text" class="form-control" id="billingPostalCode" name="postcode" value="{$account.entry_postcode}">
+                        </div>
+                      </div>					  
+                      <div class="form-group row">
+                        <label for="billingCity" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_city} <small class="text-default">*</small></label>
+                        <div class="col-lg-10">
+							<input type="text" class="form-control" id="billingCity" name="city" value="{$account.entry_city}">
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_country} <small class="text-default">*</small></label>
+                        <div class="col-lg-10">{oos_get_country_list name=country selected=$account.entry_country_id}</div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="space"></div>				  
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <h3 class="title mt-5 mt-lg-0">{$lang.category_contact}</h3>
+                    </div>
+                    <div class="col-xl-8 ml-xl-auto">
+                      <div class="form-group row">
+                        <label for="billingAddress1" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_telephone_number} </label>
+                        <div class="col-lg-10">
+							<input type="text" name="telephone" class="form-control" id="billingtelephone" value="{$account.customers_telephone}">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="space"></div>
+                  <div class="row">
+                    <div class="col-xl-3">
+                      <h3 class="title mt-5 mt-lg-0">{$lang.category_contact}</h3>
+                    </div>
+                    <div class="col-xl-8 ml-xl-auto">
+                      <div class="form-group row">
+                        <label for="billingAddress1" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_dsgvo_title} </label>
+                        <div class="col-lg-10">
+							<label class="checkbox m-0">
+								<input type="checkbox" class="form-check-input" id="agree" name="agree" value="yes" required>{$login_agree}
+							</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>				  
+			</fieldset>
+				  
+	  
+		 
+##
+
+
 				
 				<!-- REGISTER -->
 				<div class="card">
