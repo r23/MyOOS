@@ -20,39 +20,54 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="innerWrapper clearfix">
-##
+					<form name="create_account" id="create_account" class="form-horizontal" action="{html_get_link}" method="POST">
+						<input type="hidden" name="action" value="process">
+						<input type="hidden" name="content" value="{$filename.create_account}">	
+					{if $mySystem.sed}
+						<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
+						<input type="hidden" name="formid" value="{$mySystem.formid}">
+					{/if}
 
-              <fieldset>
-                <legend>{$lang.category_personal}</legend>
-				<form name="account_edit"class="form-horizontal"  action="{html_href_link modul=$modules.user file=$filename.create_account_process connection=SSL}" method="post" onSubmit="return check_form();">
-					<input type="hidden" name="action" value="process">				
-                  <div class="row">
-                    <div class="col-xl-3">
-                      <h3 class="title">{$lang.category_personal}</h3>
-                    </div>
-                    <div class="col-xl-8 ml-xl-auto">
-                      <div class="form-group row">
-                        <label for="billingFirstName" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_first_name} <small class="text-default">*</small></label>
-                        <div class="col-lg-10">
-						  <input type="text" class="form-control" id="billingFirstName" name="firstname" value="{$account.customers_firstname}">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="billingLastName" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_last_name} <small class="text-default">*</small></label>
-                        <div class="col-lg-10">
-							<input type="text" class="form-control" id="billingLastName" name="lastname" value="{$account.customers_lastname}">
-                        </div>
-                      </div>
-                      <div class="form-group row">
-                        <label for="billingemail" class="col-lg-2 control-label text-lg-right col-form-label">E-Mail <small class="text-default">*</small></label>
-                        <div class="col-lg-10">
-							<input type="email" class="form-control" id="billingemail" name="email_address" value="{$email_address}">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+
+
+					<fieldset>
+						<legend>{$lang.category_personal}</legend>
+		
+						<div class="row">
+							<div class="col-xl-3">
+								<h3 class="title">{$lang.category_personal}</h3>
+							</div>
+							<div class="col-xl-8 ml-xl-auto">
+								<div class="form-group row">
+									<label for="firstname" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_first_name} <small class="text-default">*</small></label>
+									<div class="col-lg-10">
+										<input type="text" value="{$smarty.post.firstname|escape}" class="form-control" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}" required>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="lastname" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_last_name} <small class="text-default">*</small></label>
+									<div class="col-lg-10">
+										<input type="text" value="{$smarty.post.lastname|escape}" class="form-control" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}" required>
+									</div>
+								</div>
+							{if $smarty.const.ACCOUNT_DOB eq 'true'}
+								<div class="form-group row">
+									<label for="dob" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_date_of_birth}</label>
+									<div class="col-lg-10">
+										<input type="text" value="{$smarty.post.dob|escape}" class="form-control" id="dob" name="dob" placeholder="{$lang.entry_date_of_birth_text}">
+									</div>
+								</div>							
+							{/if}								
+								<div class="form-group row">
+									<label for="email_address" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_email_address} <small class="text-default">*</small></label>
+									<div class="col-lg-10">
+										<input type="text" value="{$smarty.post.email_address|escape}" class="form-control" id="email_address" name="email_address" placeholder="{$lang.entry_email_address}" required>
+									</div>
+								</div>
+							</div>
+						</div>
                   <div class="space"></div>
-
+##
 {if $smarty.const.ACCOUNT_COMPANY eq 'true'}		  
                   <div class="row">
                     <div class="col-xl-3">
@@ -175,33 +190,7 @@
 							</div>
 						{/if}				
 						
-							<div class="form-group">
-								<label class="col-sm-4 form-control-label" for="firstname">{$lang.entry_first_name} *</label>
-								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.firstname|escape}" class="form-control" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}" required>
-								</div>
-							</div>
-
-							<div class="form-group">
-								<label class="col-sm-4 form-control-label" for="lastname">{$lang.entry_last_name} *</label>
-								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.lastname|escape}" class="form-control" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}" required>
-								</div>
-							</div>
-						{if $smarty.const.ACCOUNT_DOB eq 'true'}
-							<div class="form-group">
-								<label class="col-sm-4 form-control-label" for="dob">{$lang.entry_date_of_birth} *</label>
-								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.dob|escape}" class="form-control" id="dob" name="dob" placeholder="{$lang.entry_date_of_birth_text}" required>
-								</div>
-							</div>
-						{/if}
-							<div class="form-group">
-								<label class="col-sm-4 form-control-label" for="email_address">{$lang.entry_email_address} *</label>
-								<div class="col-sm-5">
-									<input type="text" value="{$smarty.post.email_address|escape}" class="form-control" id="email_address" name="email_address" placeholder="{$lang.entry_email_address}" required>
-								</div>
-							</div>							
+						
 						
 						{if $smarty.const.ACCOUNT_COMPANY eq 'true'}
 						<hr />
