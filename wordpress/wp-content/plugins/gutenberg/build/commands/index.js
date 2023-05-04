@@ -3000,6 +3000,38 @@ var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 var external_wp_components_namespaceObject = window["wp"]["components"];
 ;// CONCATENATED MODULE: external ["wp","keyboardShortcuts"]
 var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
+;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
+/**
+ * WordPress dependencies
+ */
+
+/** @typedef {{icon: JSX.Element, size?: number} & import('@wordpress/primitives').SVGProps} IconProps */
+
+/**
+ * Return an SVG icon.
+ *
+ * @param {IconProps} props icon is the SVG component to render
+ *                          size is a number specifiying the icon size in pixels
+ *                          Other props will be passed to wrapped SVG component
+ *
+ * @return {JSX.Element}  Icon component
+ */
+
+function Icon(_ref) {
+  let {
+    icon,
+    size = 24,
+    ...props
+  } = _ref;
+  return (0,external_wp_element_namespaceObject.cloneElement)(icon, {
+    width: size,
+    height: size,
+    ...props
+  });
+}
+
+/* harmony default export */ var icon = (Icon);
+
 ;// CONCATENATED MODULE: ./packages/commands/build-module/store/reducer.js
 /**
  * WordPress dependencies
@@ -3026,7 +3058,8 @@ function commands() {
             name: action.name,
             label: action.label,
             group: action.group,
-            callback: action.callback
+            callback: action.callback,
+            icon: action.icon
           }
         }
       };
@@ -3099,10 +3132,11 @@ const reducer = (0,external_wp_data_namespaceObject.combineReducers)({
  *
  * @typedef {Object} WPCommandConfig
  *
- * @property {string}   name     Command name.
- * @property {string}   label    Command label.
- * @property {string=}  group    Command group.
- * @property {Function} callback Command callback.
+ * @property {string}      name     Command name.
+ * @property {string}      label    Command label.
+ * @property {string=}     group    Command group.
+ * @property {JSX.Element} icon     Command icon.
+ * @property {Function}    callback Command callback.
  */
 
 /**
@@ -3130,6 +3164,7 @@ function registerCommand(_ref) {
   let {
     name,
     label,
+    icon,
     callback,
     group = ''
   } = _ref;
@@ -3137,6 +3172,7 @@ function registerCommand(_ref) {
     type: 'REGISTER_COMMAND',
     name,
     label,
+    icon,
     callback,
     group
   };
@@ -3195,7 +3231,7 @@ function unregisterCommandLoader(name, group) {
   };
 }
 
-;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
+;// CONCATENATED MODULE: ./node_modules/rememo/rememo.js
 
 
 /** @typedef {(...args: any[]) => *[]} GetDependants */
@@ -3559,6 +3595,7 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -3590,12 +3627,15 @@ function CommandMenuLoader(_ref) {
     onSelect: () => command.callback({
       close
     })
-  }, (0,external_wp_element_namespaceObject.createElement)("span", {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    alignment: "left",
     className: "commands-command-menu__item"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextHighlight, {
+  }, (0,external_wp_element_namespaceObject.createElement)(icon, {
+    icon: command.icon
+  }), (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextHighlight, {
     text: command.label,
     highlight: search
-  }))))));
+  })))))));
 }
 
 function CommandMenuLoaderWrapper(_ref2) {
@@ -3646,20 +3686,21 @@ function CommandMenuGroup(_ref3) {
       loaders: getCommandLoaders(group)
     };
   }, [group]);
-  return (0,external_wp_element_namespaceObject.createElement)(Le.Group, {
-    heading: group
-  }, commands.map(command => (0,external_wp_element_namespaceObject.createElement)(Le.Item, {
+  return (0,external_wp_element_namespaceObject.createElement)(Le.Group, null, commands.map(command => (0,external_wp_element_namespaceObject.createElement)(Le.Item, {
     key: command.name,
     value: command.name,
     onSelect: () => command.callback({
       close
     })
-  }, (0,external_wp_element_namespaceObject.createElement)("span", {
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    alignment: "left",
     className: "commands-command-menu__item"
-  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextHighlight, {
+  }, (0,external_wp_element_namespaceObject.createElement)(icon, {
+    icon: command.icon
+  }), (0,external_wp_element_namespaceObject.createElement)("span", null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextHighlight, {
     text: command.label,
     highlight: search
-  })))), loaders.map(loader => (0,external_wp_element_namespaceObject.createElement)(CommandMenuLoaderWrapper, {
+  }))))), loaders.map(loader => (0,external_wp_element_namespaceObject.createElement)(CommandMenuLoaderWrapper, {
     key: loader.name,
     hook: loader.hook,
     search: search,
@@ -3732,8 +3773,8 @@ function CommandMenu() {
     autoFocus: true,
     value: search,
     onValueChange: setSearch,
-    placeholder: (0,external_wp_i18n_namespaceObject.__)('Search for content and templates, or try commands like "Add…"')
-  })), (0,external_wp_element_namespaceObject.createElement)(Le.List, null, !isLoading && (0,external_wp_element_namespaceObject.createElement)(Le.Empty, null, (0,external_wp_i18n_namespaceObject.__)('No results found.')), groups.map(group => (0,external_wp_element_namespaceObject.createElement)(CommandMenuGroup, {
+    placeholder: (0,external_wp_i18n_namespaceObject.__)('Type a command or search')
+  })), search && (0,external_wp_element_namespaceObject.createElement)(Le.List, null, !isLoading && (0,external_wp_element_namespaceObject.createElement)(Le.Empty, null, (0,external_wp_i18n_namespaceObject.__)('No results found.')), groups.map(group => (0,external_wp_element_namespaceObject.createElement)(CommandMenuGroup, {
     key: group,
     group: group,
     search: search,

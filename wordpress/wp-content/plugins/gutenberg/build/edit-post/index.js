@@ -2700,7 +2700,7 @@ const initializeMetaBoxes = () => _ref15 => {
   });
 };
 
-;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
+;// CONCATENATED MODULE: ./node_modules/rememo/rememo.js
 
 
 /** @typedef {(...args: any[]) => *[]} GetDependants */
@@ -5544,6 +5544,18 @@ const plus = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
 }));
 /* harmony default export */ var library_plus = (plus);
 
+;// CONCATENATED MODULE: external ["wp","privateApis"]
+var external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
+;// CONCATENATED MODULE: ./packages/edit-post/build-module/private-apis.js
+/**
+ * WordPress dependencies
+ */
+
+const {
+  lock,
+  unlock
+} = (0,external_wp_privateApis_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/edit-post');
+
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/header/header-toolbar/index.js
 
 
@@ -5565,6 +5577,7 @@ const plus = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
 
 
 
+
 const preventDefault = event => {
   event.preventDefault();
 };
@@ -5581,12 +5594,17 @@ function HeaderToolbar() {
     isTextModeEnabled,
     showIconLabels,
     isListViewOpen,
-    listViewShortcut
+    listViewShortcut,
+    selectedBlockId,
+    hasFixedToolbar
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       hasInserterItems,
       getBlockRootClientId,
-      getBlockSelectionEnd
+      getBlockSelectionEnd,
+      getSelectedBlockClientId,
+      getFirstMultiSelectedBlockClientId,
+      getSettings
     } = select(external_wp_blockEditor_namespaceObject.store);
     const {
       getEditorSettings
@@ -5600,6 +5618,8 @@ function HeaderToolbar() {
       getShortcutRepresentation
     } = select(external_wp_keyboardShortcuts_namespaceObject.store);
     return {
+      hasFixedToolbar: getSettings().hasFixedToolbar,
+      selectedBlockId: getSelectedBlockClientId() || getFirstMultiSelectedBlockClientId(),
       // This setting (richEditingEnabled) should not live in the block editor's setting.
       isInserterEnabled: getEditorMode() === 'visual' && getEditorSettings().richEditingEnabled && hasInserterItems(getBlockRootClientId(getBlockSelectionEnd())),
       isInserterOpened: select(store_store).isInserterOpened(),
@@ -5609,8 +5629,18 @@ function HeaderToolbar() {
       listViewShortcut: getShortcutRepresentation('core/edit-post/toggle-list-view')
     };
   }, []);
+  const {
+    useShouldContextualToolbarShow
+  } = unlock(external_wp_blockEditor_namespaceObject.privateApis);
   const isLargeViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('medium');
   const isWideViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('wide');
+  const {
+    shouldShowContextualToolbar,
+    canFocusHiddenToolbar
+  } = useShouldContextualToolbarShow(selectedBlockId); // If there's a block toolbar to be focused, disable the focus shortcut for the document toolbar.
+  // There's a fixed block toolbar when the fixed toolbar option is enabled or when the browser width is less than the large viewport.
+
+  const blockToolbarCanBeFocused = shouldShowContextualToolbar || canFocusHiddenToolbar || (hasFixedToolbar || !isLargeViewport) && selectedBlockId;
   /* translators: accessibility text for the editor toolbar */
 
   const toolbarAriaLabel = (0,external_wp_i18n_namespaceObject.__)('Document tools');
@@ -5648,7 +5678,8 @@ function HeaderToolbar() {
   const shortLabel = !isInserterOpened ? (0,external_wp_i18n_namespaceObject.__)('Add') : (0,external_wp_i18n_namespaceObject.__)('Close');
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.NavigableToolbar, {
     className: "edit-post-header-toolbar",
-    "aria-label": toolbarAriaLabel
+    "aria-label": toolbarAriaLabel,
+    shouldUseKeyboardFocusShortcut: !blockToolbarCanBeFocused
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "edit-post-header-toolbar__left"
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ToolbarItem, {
@@ -9264,6 +9295,7 @@ function StartPageOptions() {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
     className: "edit-post-start-page-options__modal",
     title: (0,external_wp_i18n_namespaceObject.__)('Choose a pattern'),
+    isFullScreen: true,
     onRequestClose: () => {
       setModalState(START_PAGE_MODAL_STATES.CLOSED);
     }
@@ -9588,18 +9620,6 @@ function EditorInitialization(_ref) {
   useUpdatePostLinkListener(postId);
   return null;
 }
-
-;// CONCATENATED MODULE: external ["wp","privateApis"]
-var external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
-;// CONCATENATED MODULE: ./packages/edit-post/build-module/private-apis.js
-/**
- * WordPress dependencies
- */
-
-const {
-  lock,
-  unlock
-} = (0,external_wp_privateApis_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/edit-post');
 
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/editor.js
 

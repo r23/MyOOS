@@ -1678,8 +1678,6 @@ function _extends() {
 }
 ;// CONCATENATED MODULE: external ["wp","element"]
 var external_wp_element_namespaceObject = window["wp"]["element"];
-;// CONCATENATED MODULE: external "lodash"
-var external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: external ["wp","blocks"]
 var external_wp_blocks_namespaceObject = window["wp"]["blocks"];
 ;// CONCATENATED MODULE: external ["wp","data"]
@@ -2052,7 +2050,7 @@ function editorSettings() {
   postAutosavingLock
 }));
 
-;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
+;// CONCATENATED MODULE: ./node_modules/rememo/rememo.js
 
 
 /** @typedef {(...args: any[]) => *[]} GetDependants */
@@ -4926,13 +4924,8 @@ const store_store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -4996,7 +4989,7 @@ const createWithMetaAttributeSource = metaAttributes => (0,external_wp_compose_n
         metaAttributes[attributeKey], value];
       }));
 
-      if (!(0,external_lodash_namespaceObject.isEmpty)(nextMeta)) {
+      if (Object.entries(nextMeta).length) {
         setMeta(nextMeta);
       }
 
@@ -5030,7 +5023,7 @@ function shimAttributeSource(settings) {
     return [attributeKey, meta];
   }));
 
-  if (!(0,external_lodash_namespaceObject.isEmpty)(metaAttributes)) {
+  if (Object.entries(metaAttributes).length) {
     settings.edit = createWithMetaAttributeSource(metaAttributes)(settings.edit);
   }
 
@@ -6063,13 +6056,8 @@ function EntityTypeList(_ref) {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -6137,7 +6125,18 @@ function EntitiesSavedStates(_ref) {
     createErrorNotice
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_notices_namespaceObject.store); // To group entities by type.
 
-  const partitionedSavables = (0,external_lodash_namespaceObject.groupBy)(dirtyEntityRecords, 'name'); // Sort entity groups.
+  const partitionedSavables = dirtyEntityRecords.reduce((acc, record) => {
+    const {
+      name
+    } = record;
+
+    if (!acc[name]) {
+      acc[name] = [];
+    }
+
+    acc[name].push(record);
+    return acc;
+  }, {}); // Sort entity groups.
 
   const {
     site: siteSavables,
@@ -6965,13 +6964,8 @@ function PageAttributesParent() {
 
 
 /**
- * External dependencies
- */
-
-/**
  * WordPress dependencies
  */
-
 
 
 
@@ -7007,7 +7001,7 @@ function PostTemplate() {
     editPost
   } = (0,external_wp_data_namespaceObject.useDispatch)(store_store);
 
-  if (!isViewable || (0,external_lodash_namespaceObject.isEmpty)(availableTemplates)) {
+  if (!isViewable || !availableTemplates || !Object.keys(availableTemplates).length) {
     return null;
   }
 

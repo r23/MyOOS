@@ -92,7 +92,7 @@ function gutenberg_render_block_core_post_featured_image( $attributes, $content,
 	if ( ! $height && ! $width && ! $aspect_ratio ) {
 		$wrapper_attributes = get_block_wrapper_attributes();
 	} else {
-		$wrapper_attributes = get_block_wrapper_attributes( array( 'style' => $aspect_ratio . $width . $height ) );
+		$wrapper_attributes = get_block_wrapper_attributes( array( 'style' => $aspect_ratio . $width . $height . 'max-width:100%;' ) );
 	}
 	return "<figure {$wrapper_attributes}>{$featured_image}</figure>";
 }

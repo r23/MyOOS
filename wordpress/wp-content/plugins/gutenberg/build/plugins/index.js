@@ -293,6 +293,10 @@ var external_wp_compose_namespaceObject = window["wp"]["compose"];
  */
 
 
+/**
+ * Internal dependencies
+ */
+
 const {
   Consumer,
   Provider
@@ -305,9 +309,9 @@ const {
  * A Higher Order Component used to inject Plugin context to the
  * wrapped component.
  *
- * @param {Function} mapContextToProps Function called on every context change,
- *                                     expected to return object of props to
- *                                     merge with the component's own props.
+ * @param  mapContextToProps Function called on every context change,
+ *                           expected to return object of props to
+ *                           merge with the component's own props.
  *
  * @return {WPComponent} Enhanced component with injected context as props.
  */
@@ -322,6 +326,9 @@ const withPluginContext = mapContextToProps => (0,external_wp_compose_namespaceO
  */
 
 class PluginErrorBoundary extends external_wp_element_namespaceObject.Component {
+  /**
+   * @param {Object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -334,6 +341,10 @@ class PluginErrorBoundary extends external_wp_element_namespaceObject.Component 
       hasError: true
     };
   }
+  /**
+   * @param {Error} error Error object passed by React.
+   */
+
 
   componentDidCatch(error) {
     const {
@@ -381,36 +392,17 @@ const plugins = (0,external_wp_element_namespaceObject.createElement)(external_w
  */
 
 
-/**
- * Defined behavior of a plugin type.
- *
- * @typedef {Object} WPPlugin
- *
- * @property {string}                    name    A string identifying the plugin. Must be
- *                                               unique across all registered plugins.
- * @property {string|WPElement|Function} [icon]  An icon to be shown in the UI. It can
- *                                               be a slug of the Dashicon, or an element
- *                                               (or function returning an element) if you
- *                                               choose to render your own SVG.
- * @property {Function}                  render  A component containing the UI elements
- *                                               to be rendered.
- * @property {string}                    [scope] The optional scope to be used when rendering inside
- *                                               a plugin area. No scope by default.
- */
 
 /**
  * Plugin definitions keyed by plugin name.
- *
- * @type {Object.<string,WPPlugin>}
  */
-
 const api_plugins = {};
 /**
  * Registers a plugin to the editor.
  *
- * @param {string}                 name     A string identifying the plugin.Must be
- *                                          unique across all registered plugins.
- * @param {Omit<WPPlugin, 'name'>} settings The settings for this plugin.
+ * @param name     A string identifying the plugin. Must be
+ *                 unique across all registered plugins.
+ * @param settings The settings for this plugin.
  *
  * @example
  * ```js
@@ -480,7 +472,7 @@ const api_plugins = {};
  * } );
  * ```
  *
- * @return {WPPlugin} The final plugin settings object.
+ * @return The final plugin settings object.
  */
 
 function registerPlugin(name, settings) {
@@ -537,7 +529,7 @@ function registerPlugin(name, settings) {
 /**
  * Unregisters a plugin by name.
  *
- * @param {string} name Plugin name.
+ * @param name Plugin name.
  *
  * @example
  * ```js
@@ -555,8 +547,8 @@ function registerPlugin(name, settings) {
  * unregisterPlugin( 'plugin-name' );
  * ```
  *
- * @return {WPPlugin | undefined} The previous plugin settings object, if it has been
- *                     successfully unregistered; otherwise `undefined`.
+ * @return The previous plugin settings object, if it has been
+ *         successfully unregistered; otherwise `undefined`.
  */
 
 function unregisterPlugin(name) {
@@ -573,9 +565,9 @@ function unregisterPlugin(name) {
 /**
  * Returns a registered plugin settings.
  *
- * @param {string} name Plugin name.
+ * @param name Plugin name.
  *
- * @return {?WPPlugin} Plugin setting.
+ * @return Plugin setting.
  */
 
 function getPlugin(name) {
@@ -584,10 +576,10 @@ function getPlugin(name) {
 /**
  * Returns all registered plugins without a scope or for a given scope.
  *
- * @param {string} [scope] The scope to be used when rendering inside
- *                         a plugin area. No scope by default.
+ * @param scope The scope to be used when rendering inside
+ *              a plugin area. No scope by default.
  *
- * @return {WPPlugin[]} The list of plugins without a scope or for a given scope.
+ * @return The list of plugins without a scope or for a given scope.
  */
 
 function getPlugins(scope) {
@@ -622,9 +614,9 @@ const getPluginContext = memize_default()((icon, name) => ({
 /**
  * A component that renders all plugin fills in a hidden div.
  *
- * @param {Object}             props
- * @param {string|undefined}   props.scope
- * @param {Function|undefined} props.onError
+ * @param  props
+ * @param  props.scope
+ * @param  props.onError
  * @example
  * ```js
  * // Using ES5 syntax
@@ -663,7 +655,7 @@ function PluginArea(_ref) {
     onError
   } = _ref;
   const store = (0,external_wp_element_namespaceObject.useMemo)(() => {
-    let lastValue;
+    let lastValue = [];
     return {
       subscribe(listener) {
         (0,external_wp_hooks_namespaceObject.addAction)('plugins.pluginRegistered', 'core/plugins/plugin-area/plugins-registered', listener);

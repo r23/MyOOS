@@ -176,7 +176,7 @@ let uniqueId = 0;
 /**
  * Returns an action object used in signalling that a notice is to be created.
  *
- * @param {string}                [status='info']              Notice status.
+ * @param {string|undefined}      status                       Notice status ("info" if undefined is passed).
  * @param {string}                content                      Notice message.
  * @param {Object}                [options]                    Notice options.
  * @param {string}                [options.context='global']   Context under which to
@@ -567,8 +567,6 @@ function getNotices(state) {
  * Store definition for the notices namespace.
  *
  * @see https://github.com/WordPress/gutenberg/blob/HEAD/packages/data/README.md#createReduxStore
- *
- * @type {Object}
  */
 
 const store = (0,external_wp_data_namespaceObject.createReduxStore)('core/notices', {

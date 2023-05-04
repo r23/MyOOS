@@ -3319,7 +3319,7 @@ function useInstanceId(object, prefix, preferredId) {
     if (preferredId) return preferredId;
     const id = createId(object);
     return prefix ? `${prefix}-${id}` : id;
-  }, [object]);
+  }, [object, preferredId, prefix]);
 }
 
 /* harmony default export */ var use_instance_id = (useInstanceId);

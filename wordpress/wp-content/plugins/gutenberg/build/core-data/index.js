@@ -3892,7 +3892,7 @@ function blockPatternCategories() {
   blockPatternCategories
 }));
 
-;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
+;// CONCATENATED MODULE: ./node_modules/rememo/rememo.js
 
 
 /** @typedef {(...args: any[]) => *[]} GetDependants */

@@ -733,25 +733,44 @@ function getComputedStyle(element) {
  * Given a DOM node, finds the closest scrollable container node or the node
  * itself, if scrollable.
  *
- * @param {Element | null} node Node from which to start.
- *
+ * @param {Element | null} node      Node from which to start.
+ * @param {?string}        direction Direction of scrollable container to search for ('vertical', 'horizontal', 'all').
+ *                                   Defaults to 'vertical'.
  * @return {Element | undefined} Scrollable container node, if found.
  */
 
 function getScrollContainer(node) {
+  let direction = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'vertical';
+
   if (!node) {
     return undefined;
-  } // Scrollable if scrollable height exceeds displayed...
+  }
 
+  if (direction === 'vertical' || direction === 'all') {
+    // Scrollable if scrollable height exceeds displayed...
+    if (node.scrollHeight > node.clientHeight) {
+      // ...except when overflow is defined to be hidden or visible
+      const {
+        overflowY
+      } = getComputedStyle(node);
 
-  if (node.scrollHeight > node.clientHeight) {
-    // ...except when overflow is defined to be hidden or visible
-    const {
-      overflowY
-    } = getComputedStyle(node);
+      if (/(auto|scroll)/.test(overflowY)) {
+        return node;
+      }
+    }
+  }
 
-    if (/(auto|scroll)/.test(overflowY)) {
-      return node;
+  if (direction === 'horizontal' || direction === 'all') {
+    // Scrollable if scrollable width exceeds displayed...
+    if (node.scrollWidth > node.clientWidth) {
+      // ...except when overflow is defined to be hidden or visible
+      const {
+        overflowX
+      } = getComputedStyle(node);
+
+      if (/(auto|scroll)/.test(overflowX)) {
+        return node;
+      }
     }
   }
 
@@ -762,7 +781,7 @@ function getScrollContainer(node) {
 
   return getScrollContainer(
   /** @type {Element} */
-  node.parentNode);
+  node.parentNode, direction);
 }
 
 ;// CONCATENATED MODULE: ./packages/dom/build-module/dom/get-offset-parent.js

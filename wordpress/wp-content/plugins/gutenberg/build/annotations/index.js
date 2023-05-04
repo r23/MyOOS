@@ -441,7 +441,7 @@ function annotations() {
 }
 /* harmony default export */ var reducer = (annotations);
 
-;// CONCATENATED MODULE: ./node_modules/rememo/es/rememo.js
+;// CONCATENATED MODULE: ./node_modules/rememo/rememo.js
 
 
 /** @typedef {(...args: any[]) => *[]} GetDependants */
