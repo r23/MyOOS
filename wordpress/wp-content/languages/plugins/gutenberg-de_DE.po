@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-05-04 06:13:07+0000\n"
+"PO-Revision-Date: 2023-05-10 04:21:59+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2351,11 +2351,6 @@ msgctxt "block title"
 msgid "Post Date"
 msgstr "Beitragsdatum"
 
-#: build/block-library/blocks/post-excerpt/block.json
-msgctxt "block title"
-msgid "Post Excerpt"
-msgstr "Beitragsauszug"
-
 #: build/block-library/blocks/post-featured-image/block.json
 msgctxt "block title"
 msgid "Post Featured Image"
@@ -2472,6 +2467,11 @@ msgstr "Template-Teil"
 msgctxt "block title"
 msgid "Site Title"
 msgstr "Website-Titel"
+
+#: build/block-library/blocks/post-excerpt/block.json
+msgctxt "block title"
+msgid "Post Excerpt"
+msgstr "Beitrags-Textauszug"
 
 #: lib/compat/wordpress-6.1/block-template-utils.php:397
 msgid "No theme is defined for this template."
