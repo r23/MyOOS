@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '0808ed392a128aea33883d848f608956cd6f50e8',
+        'reference' => 'ddf28e8176f2667af59835201fbf57c36c3d4e71',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -56,9 +56,9 @@
             'dev_requirement' => false,
         ),
         'doctrine/persistence' => array(
-            'pretty_version' => '3.1.4',
-            'version' => '3.1.4.0',
-            'reference' => '8bf8ab15960787f1a49d405f6eb8c787b4841119',
+            'pretty_version' => '3.2.0',
+            'version' => '3.2.0.0',
+            'reference' => '63fee8c33bef740db6730eb2a750cd3da6495603',
             'type' => 'library',
             'install_path' => __DIR__ . '/../doctrine/persistence',
             'aliases' => array(),
@@ -193,7 +193,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '0808ed392a128aea33883d848f608956cd6f50e8',
+            'reference' => 'ddf28e8176f2667af59835201fbf57c36c3d4e71',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -451,7 +451,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => 'd1af11449398214f9664514ce705c5154ead9c38',
+            'reference' => '11bdd8961a56a24eb56f2fe533ca38a6d2267f18',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
