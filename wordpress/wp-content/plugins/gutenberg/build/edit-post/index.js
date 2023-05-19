@@ -3649,6 +3649,10 @@ function WelcomeGuideMenuItem() {
 
 ;// CONCATENATED MODULE: external ["wp","keyboardShortcuts"]
 var external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShortcuts"];
+;// CONCATENATED MODULE: external ["wp","commands"]
+var external_wp_commands_namespaceObject = window["wp"]["commands"];
+;// CONCATENATED MODULE: external ["wp","coreCommands"]
+var external_wp_coreCommands_namespaceObject = window["wp"]["coreCommands"];
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/text-editor/index.js
 
 
@@ -4174,7 +4178,7 @@ function KeyboardShortcuts() {
     registerShortcut({
       name: 'core/edit-post/toggle-sidebar',
       category: 'global',
-      description: (0,external_wp_i18n_namespaceObject.__)('Show or hide the settings sidebar.'),
+      description: (0,external_wp_i18n_namespaceObject.__)('Show or hide the Settings sidebar.'),
       keyCombination: {
         modifier: 'primaryShift',
         character: ','
@@ -5594,17 +5598,12 @@ function HeaderToolbar() {
     isTextModeEnabled,
     showIconLabels,
     isListViewOpen,
-    listViewShortcut,
-    selectedBlockId,
-    hasFixedToolbar
+    listViewShortcut
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
       hasInserterItems,
       getBlockRootClientId,
-      getBlockSelectionEnd,
-      getSelectedBlockClientId,
-      getFirstMultiSelectedBlockClientId,
-      getSettings
+      getBlockSelectionEnd
     } = select(external_wp_blockEditor_namespaceObject.store);
     const {
       getEditorSettings
@@ -5618,8 +5617,6 @@ function HeaderToolbar() {
       getShortcutRepresentation
     } = select(external_wp_keyboardShortcuts_namespaceObject.store);
     return {
-      hasFixedToolbar: getSettings().hasFixedToolbar,
-      selectedBlockId: getSelectedBlockClientId() || getFirstMultiSelectedBlockClientId(),
       // This setting (richEditingEnabled) should not live in the block editor's setting.
       isInserterEnabled: getEditorMode() === 'visual' && getEditorSettings().richEditingEnabled && hasInserterItems(getBlockRootClientId(getBlockSelectionEnd())),
       isInserterOpened: select(store_store).isInserterOpened(),
@@ -5636,11 +5633,12 @@ function HeaderToolbar() {
   const isWideViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('wide');
   const {
     shouldShowContextualToolbar,
-    canFocusHiddenToolbar
-  } = useShouldContextualToolbarShow(selectedBlockId); // If there's a block toolbar to be focused, disable the focus shortcut for the document toolbar.
+    canFocusHiddenToolbar,
+    fixedToolbarCanBeFocused
+  } = useShouldContextualToolbarShow(); // If there's a block toolbar to be focused, disable the focus shortcut for the document toolbar.
   // There's a fixed block toolbar when the fixed toolbar option is enabled or when the browser width is less than the large viewport.
 
-  const blockToolbarCanBeFocused = shouldShowContextualToolbar || canFocusHiddenToolbar || (hasFixedToolbar || !isLargeViewport) && selectedBlockId;
+  const blockToolbarCanBeFocused = shouldShowContextualToolbar || canFocusHiddenToolbar || fixedToolbarCanBeFocused;
   /* translators: accessibility text for the editor toolbar */
 
   const toolbarAriaLabel = (0,external_wp_i18n_namespaceObject.__)('Document tools');
@@ -6123,6 +6121,46 @@ function DevicePreview() {
   }))));
 }
 
+;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/view-link/index.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+
+function ViewLink() {
+  const {
+    permalink,
+    isPublished,
+    label
+  } = (0,external_wp_data_namespaceObject.useSelect)(select => {
+    // Grab post type to retrieve the view_item label.
+    const postTypeSlug = select(external_wp_editor_namespaceObject.store).getCurrentPostType();
+    const postType = select(external_wp_coreData_namespaceObject.store).getPostType(postTypeSlug);
+    return {
+      permalink: select(external_wp_editor_namespaceObject.store).getPermalink(),
+      isPublished: select(external_wp_editor_namespaceObject.store).isCurrentPostPublished(),
+      label: postType === null || postType === void 0 ? void 0 : postType.labels.view_item
+    };
+  }, []); // Only render the view button if the post is published and has a permalink.
+
+  if (!isPublished || !permalink) {
+    return null;
+  }
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    icon: library_external,
+    label: label || (0,external_wp_i18n_namespaceObject.__)('View post'),
+    href: permalink,
+    target: "_blank"
+  });
+}
+
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/header/main-dashboard-button/index.js
 
 
@@ -6536,6 +6574,7 @@ function TemplateTitle() {
 
 
 
+
 function Header(_ref) {
   let {
     setEntitiesSavedStatesCallback
@@ -6616,7 +6655,7 @@ function Header(_ref) {
     forceIsDirty: hasActiveMetaboxes,
     forceIsSaving: isSaving,
     showIconLabels: showIconLabels
-  }), (0,external_wp_element_namespaceObject.createElement)(DevicePreview, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostPreviewButton, {
+  }), (0,external_wp_element_namespaceObject.createElement)(ViewLink, null), (0,external_wp_element_namespaceObject.createElement)(DevicePreview, null), (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostPreviewButton, {
     forceIsAutosaveable: hasActiveMetaboxes,
     forcePreviewLink: isSaving ? null : undefined
   }), (0,external_wp_element_namespaceObject.createElement)(post_publish_button_or_toggle, {
@@ -7138,7 +7177,9 @@ function PostVisibilityToggle(_ref4) {
 
 
 function PostTrash() {
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostTrashCheck, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.PanelRow, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostTrash, null)));
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostTrashCheck, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, {
+    isBlock: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostTrash, null)));
 }
 
 ;// CONCATENATED MODULE: ./packages/edit-post/build-module/components/sidebar/post-schedule/index.js
@@ -7773,6 +7814,7 @@ function PostURLToggle(_ref3) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -7805,7 +7847,12 @@ function PostStatus(_ref) {
     title: (0,external_wp_i18n_namespaceObject.__)('Summary'),
     opened: isOpened,
     onToggle: onTogglePanel
-  }, (0,external_wp_element_namespaceObject.createElement)(plugin_post_status_info.Slot, null, fills => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(post_visibility, null), (0,external_wp_element_namespaceObject.createElement)(PostSchedule, null), (0,external_wp_element_namespaceObject.createElement)(PostTemplate, null), (0,external_wp_element_namespaceObject.createElement)(PostURL, null), (0,external_wp_element_namespaceObject.createElement)(post_sticky, null), (0,external_wp_element_namespaceObject.createElement)(post_pending_status, null), (0,external_wp_element_namespaceObject.createElement)(post_format, null), (0,external_wp_element_namespaceObject.createElement)(post_slug, null), (0,external_wp_element_namespaceObject.createElement)(post_author, null), fills, (0,external_wp_element_namespaceObject.createElement)(PostTrash, null))));
+  }, (0,external_wp_element_namespaceObject.createElement)(plugin_post_status_info.Slot, null, fills => (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(post_visibility, null), (0,external_wp_element_namespaceObject.createElement)(PostSchedule, null), (0,external_wp_element_namespaceObject.createElement)(PostTemplate, null), (0,external_wp_element_namespaceObject.createElement)(PostURL, null), (0,external_wp_element_namespaceObject.createElement)(post_sticky, null), (0,external_wp_element_namespaceObject.createElement)(post_pending_status, null), (0,external_wp_element_namespaceObject.createElement)(post_format, null), (0,external_wp_element_namespaceObject.createElement)(post_slug, null), (0,external_wp_element_namespaceObject.createElement)(post_author, null), fills, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+    style: {
+      marginTop: '16px'
+    },
+    spacing: 4
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.PostSwitchToDraftButton, null), (0,external_wp_element_namespaceObject.createElement)(PostTrash, null)))));
 }
 
 /* harmony default export */ var post_status = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
@@ -8738,7 +8785,7 @@ const SettingsSidebar = () => {
     header: (0,external_wp_element_namespaceObject.createElement)(settings_header, {
       sidebarName: sidebarName
     }),
-    closeLabel: (0,external_wp_i18n_namespaceObject.__)('Close settings'),
+    closeLabel: (0,external_wp_i18n_namespaceObject.__)('Close Settings'),
     headerClassName: "edit-post-sidebar__panel-tabs"
     /* translators: button label text should, if possible, be under 16 characters. */
     ,
@@ -9636,6 +9683,8 @@ function EditorInitialization(_ref) {
 
 
 
+
+
 /**
  * Internal dependencies
  */
@@ -9647,8 +9696,13 @@ function EditorInitialization(_ref) {
 const {
   ExperimentalEditorProvider
 } = unlock(external_wp_editor_namespaceObject.privateApis);
+const {
+  useCommands
+} = unlock(external_wp_coreCommands_namespaceObject.privateApis);
 
 function Editor(_ref) {
+  var _window;
+
   let {
     postId,
     postType,
@@ -9656,6 +9710,7 @@ function Editor(_ref) {
     initialEdits,
     ...props
   } = _ref;
+  useCommands();
   const {
     hasFixedToolbar,
     focusMode,
@@ -9786,7 +9841,7 @@ function Editor(_ref) {
     initialEdits: initialEdits,
     useSubRegistry: false,
     __unstableTemplate: isTemplateMode ? template : undefined
-  }, props), (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.ErrorBoundary, null, (0,external_wp_element_namespaceObject.createElement)(EditorInitialization, {
+  }, props), (0,external_wp_element_namespaceObject.createElement)(external_wp_editor_namespaceObject.ErrorBoundary, null, ((_window = window) === null || _window === void 0 ? void 0 : _window.__experimentalEnableCommandCenter) && (0,external_wp_element_namespaceObject.createElement)(external_wp_commands_namespaceObject.CommandMenu, null), (0,external_wp_element_namespaceObject.createElement)(EditorInitialization, {
     postId: postId
   }), (0,external_wp_element_namespaceObject.createElement)(components_layout, {
     styles: styles

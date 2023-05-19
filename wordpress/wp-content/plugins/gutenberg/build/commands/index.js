@@ -228,6 +228,8 @@ __webpack_require__.d(__webpack_exports__, {
 var actions_namespaceObject = {};
 __webpack_require__.r(actions_namespaceObject);
 __webpack_require__.d(actions_namespaceObject, {
+  "close": function() { return actions_close; },
+  "open": function() { return actions_open; },
   "registerCommand": function() { return registerCommand; },
   "registerCommandLoader": function() { return registerCommandLoader; },
   "unregisterCommand": function() { return unregisterCommand; },
@@ -240,7 +242,8 @@ __webpack_require__.r(selectors_namespaceObject);
 __webpack_require__.d(selectors_namespaceObject, {
   "getCommandLoaders": function() { return getCommandLoaders; },
   "getCommands": function() { return getCommands; },
-  "getGroups": function() { return getGroups; }
+  "getGroups": function() { return getGroups; },
+  "isOpen": function() { return selectors_isOpen; }
 });
 
 ;// CONCATENATED MODULE: external ["wp","element"]
@@ -3117,10 +3120,35 @@ function commandLoaders() {
 
   return state;
 }
+/**
+ * Reducer returning the command center open state.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {boolean} Updated state.
+ */
+
+
+function isOpen() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'OPEN':
+      return true;
+
+    case 'CLOSE':
+      return false;
+  }
+
+  return state;
+}
 
 const reducer = (0,external_wp_data_namespaceObject.combineReducers)({
   commands,
-  commandLoaders
+  commandLoaders,
+  isOpen
 });
 /* harmony default export */ var store_reducer = (reducer);
 
@@ -3228,6 +3256,28 @@ function unregisterCommandLoader(name, group) {
     type: 'UNREGISTER_COMMAND_LOADER',
     name,
     group
+  };
+}
+/**
+ * Opens the command center.
+ *
+ * @return {Object} action.
+ */
+
+function actions_open() {
+  return {
+    type: 'OPEN'
+  };
+}
+/**
+ * Closes the command center.
+ *
+ * @return {Object} action.
+ */
+
+function actions_close() {
+  return {
+    type: 'CLOSE'
   };
 }
 
@@ -3550,6 +3600,9 @@ const getCommandLoaders = rememo((state, group) => {
 
   return Object.values((_state$commandLoaders = state.commandLoaders[group]) !== null && _state$commandLoaders !== void 0 ? _state$commandLoaders : {});
 }, (state, group) => [state.commandLoaders[group]]);
+function selectors_isOpen(state) {
+  return state.isOpen;
+}
 
 ;// CONCATENATED MODULE: ./packages/commands/build-module/store/index.js
 /**
@@ -3713,18 +3766,25 @@ function CommandMenu() {
     registerShortcut
   } = (0,external_wp_data_namespaceObject.useDispatch)(external_wp_keyboardShortcuts_namespaceObject.store);
   const [search, setSearch] = (0,external_wp_element_namespaceObject.useState)('');
-  const [open, setOpen] = (0,external_wp_element_namespaceObject.useState)(false);
   const {
-    groups
+    groups,
+    isOpen
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     const {
-      getGroups
+      getGroups,
+      isOpen: _isOpen
     } = select(store);
     return {
-      groups: getGroups()
+      groups: getGroups(),
+      isOpen: _isOpen()
     };
   }, []);
+  const {
+    open,
+    close
+  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
   const [loaders, setLoaders] = (0,external_wp_element_namespaceObject.useState)({});
+  const commandMenuInput = (0,external_wp_element_namespaceObject.useRef)();
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     registerShortcut({
       name: 'core/commands',
@@ -3738,7 +3798,12 @@ function CommandMenu() {
   }, [registerShortcut]);
   (0,external_wp_keyboardShortcuts_namespaceObject.useShortcut)('core/commands', event => {
     event.preventDefault();
-    setOpen(prevOpen => !prevOpen);
+
+    if (isOpen) {
+      close();
+    } else {
+      open();
+    }
   }, {
     bindGlobal: true
   });
@@ -3746,12 +3811,19 @@ function CommandMenu() {
     [name]: value
   })), []);
 
-  const close = () => {
+  const closeAndReset = () => {
     setSearch('');
-    setOpen(false);
+    close();
   };
 
-  if (!open) {
+  (0,external_wp_element_namespaceObject.useEffect)(() => {
+    // Focus the command menu input when mounting the modal.
+    if (isOpen) {
+      commandMenuInput.current.focus();
+    }
+  }, [isOpen]);
+
+  if (!isOpen) {
     return false;
   }
 
@@ -3759,7 +3831,7 @@ function CommandMenu() {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Modal, {
     className: "commands-command-menu",
     overlayClassName: "commands-command-menu__overlay",
-    onRequestClose: close,
+    onRequestClose: closeAndReset,
     __experimentalHideHeader: true
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "commands-command-menu__container"
@@ -3768,9 +3840,7 @@ function CommandMenu() {
   }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "commands-command-menu__header"
   }, (0,external_wp_element_namespaceObject.createElement)(Le.Input, {
-    // The input should be focused when the modal is opened.
-    // eslint-disable-next-line jsx-a11y/no-autofocus
-    autoFocus: true,
+    ref: commandMenuInput,
     value: search,
     onValueChange: setSearch,
     placeholder: (0,external_wp_i18n_namespaceObject.__)('Type a command or search')
@@ -3779,7 +3849,7 @@ function CommandMenu() {
     group: group,
     search: search,
     setLoader: setLoader,
-    close: close
+    close: closeAndReset
   }))))));
 }
 
@@ -3816,12 +3886,13 @@ function useCommand(command) {
       name: command.name,
       group: command.group,
       label: command.label,
+      icon: command.icon,
       callback: currentCallback.current
     });
     return () => {
       unregisterCommand(command.name, command.group);
     };
-  }, [command.name, command.label, command.group, registerCommand, unregisterCommand]);
+  }, [command.name, command.label, command.group, command.icon, registerCommand, unregisterCommand]);
 }
 
 ;// CONCATENATED MODULE: ./packages/commands/build-module/hooks/use-command-loader.js
@@ -3874,6 +3945,7 @@ function useCommandLoader(_ref) {
 
 
 
+
 const {
   lock,
   unlock
@@ -3881,7 +3953,8 @@ const {
 const privateApis = {};
 lock(privateApis, {
   useCommand: useCommand,
-  useCommandLoader: useCommandLoader
+  useCommandLoader: useCommandLoader,
+  store: store
 });
 
 ;// CONCATENATED MODULE: ./packages/commands/build-module/index.js

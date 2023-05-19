@@ -577,7 +577,7 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
 (0,external_wp_data_namespaceObject.register)(store);
 
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/is-format-equal.js
-/** @typedef {import('./create').RichTextFormat} RichTextFormat */
+/** @typedef {import('./types').RichTextFormat} RichTextFormat */
 
 /**
  * Optimised equality check for format objects.
@@ -639,7 +639,7 @@ function isFormatEqual(format1, format2) {
  * Internal dependencies
  */
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Normalises formats: ensures subsequent adjacent equal formats have the same
@@ -677,9 +677,9 @@ function normaliseFormats(value) {
  * Internal dependencies
  */
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
-/** @typedef {import('./create').RichTextFormat} RichTextFormat */
+/** @typedef {import('./types').RichTextFormat} RichTextFormat */
 
 function replace(array, index, value) {
   array = array.slice();
@@ -837,25 +837,7 @@ const ZWNBSP = '\ufeff';
 
 
 
-/**
- * @typedef {Object} RichTextFormat
- *
- * @property {string} type Format type.
- */
-
-/**
- * @typedef {Array<RichTextFormat>} RichTextFormatList
- */
-
-/**
- * @typedef {Object} RichTextValue
- *
- * @property {string}                    text         Text.
- * @property {Array<RichTextFormatList>} formats      Formats.
- * @property {Array<RichTextFormat>}     replacements Replacements.
- * @property {number|undefined}          start        Selection start.
- * @property {number|undefined}          end          Selection end.
- */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 function createEmptyValue() {
   return {
@@ -1432,7 +1414,7 @@ function getAttributes(_ref4) {
  */
 
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Concats a pair of rich text values. Not that this mutates `a` and does NOT
@@ -1468,9 +1450,9 @@ function concat() {
 }
 
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/get-active-formats.js
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
-/** @typedef {import('./create').RichTextFormatList} RichTextFormatList */
+/** @typedef {import('./types').RichTextFormatList} RichTextFormatList */
 
 /**
  * Internal dependencies
@@ -1561,9 +1543,9 @@ function getActiveFormats(value) {
  * Internal dependencies
  */
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
-/** @typedef {import('./create').RichTextFormat} RichTextFormat */
+/** @typedef {import('./types').RichTextFormat} RichTextFormat */
 
 /**
  * Gets the format object by type at the start of the selection. This can be
@@ -1592,9 +1574,9 @@ function getActiveFormat(value, formatType) {
  * Internal dependencies
  */
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
-/** @typedef {import('./create').RichTextFormat} RichTextFormat */
+/** @typedef {import('./types').RichTextFormat} RichTextFormat */
 
 /**
  * Gets the active object, if there is any.
@@ -1624,7 +1606,7 @@ function getActiveObject(_ref) {
  * Internal dependencies
  */
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 const pattern = new RegExp(`[${OBJECT_REPLACEMENT_CHARACTER}${LINE_SEPARATOR}]`, 'g');
 /**
@@ -1644,7 +1626,9 @@ function getTextContent(_ref) {
 }
 
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/is-collapsed.js
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/**
+ * Internal dependencies
+ */
 
 /**
  * Check if the selection of a Rich Text value is collapsed or not. Collapsed
@@ -1652,10 +1636,10 @@ function getTextContent(_ref) {
  * is no selection, `undefined` will be returned. This is similar to
  * `window.getSelection().isCollapsed()`.
  *
- * @param {RichTextValue} value The rich text value to check.
- *
- * @return {boolean|undefined} True if the selection is collapsed, false if not,
- *                             undefined if there is no selection.
+ * @param props       The rich text value to check.
+ * @param props.start
+ * @param props.end
+ * @return True if the selection is collapsed, false if not, undefined if there is no selection.
  */
 function isCollapsed(_ref) {
   let {
@@ -1675,7 +1659,7 @@ function isCollapsed(_ref) {
  * Internal dependencies
  */
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Check if a Rich Text value is Empty, meaning it contains no text or any
@@ -1733,7 +1717,7 @@ function isEmptyLine(_ref2) {
  */
 
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Combine an array of Rich Text values into one, optionally separated by
@@ -1879,7 +1863,7 @@ function registerFormatType(name, settings) {
  * Internal dependencies
  */
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Remove any format object from a Rich Text value by type from the given
@@ -1971,7 +1955,7 @@ function filterFormats(formats, index, formatType) {
  */
 
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Insert a Rich Text value, an HTML string, or a plain text string, into a
@@ -2018,7 +2002,7 @@ function insert(value, valueToInsert) {
  */
 
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Remove content from a Rich Text value between the given `startIndex` and
@@ -2040,7 +2024,7 @@ function remove(value, startIndex, endIndex) {
  * Internal dependencies
  */
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Search a Rich Text value and replace the match(es) with `replacement`. This
@@ -2118,7 +2102,7 @@ function replace_replace(_ref, pattern, replacement) {
  */
 
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Insert a line break character into a Rich Text value at the given
@@ -2158,9 +2142,9 @@ function insertLineSeparator(value) {
  */
 
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
-/** @typedef {import('./create').RichTextFormat} RichTextFormat */
+/** @typedef {import('./types').RichTextFormat} RichTextFormat */
 
 /**
  * Insert a format as an object into a Rich Text value at the given
@@ -2185,7 +2169,7 @@ function insertObject(value, formatToInsert, startIndex, endIndex) {
 }
 
 ;// CONCATENATED MODULE: ./packages/rich-text/build-module/slice.js
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Slice a Rich Text value from `startIndex` to `endIndex`. Indices are
@@ -2224,7 +2208,7 @@ function slice(value) {
  * Internal dependencies
  */
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Split a Rich Text value in two at the given `startIndex` and `endIndex`, or
@@ -2695,7 +2679,7 @@ function isRangeEqual(a, b) {
 
 
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Creates a path as an array of indices from the given root node to the given
@@ -3026,7 +3010,7 @@ var external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
  */
 
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Create an HTML string from a Rich Text value. If a `multilineTag` is
@@ -3174,9 +3158,9 @@ var external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 
 
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
-/** @typedef {import('./create').RichTextFormat} RichTextFormat */
+/** @typedef {import('./types').RichTextFormat} RichTextFormat */
 
 /**
  * Toggles a format object to a Rich Text value at the current selection.
@@ -3217,14 +3201,14 @@ function toggleFormat(value, format) {
  */
 
 
-/** @typedef {import('./register-format-type').RichTextFormatType} RichTextFormatType */
+/** @typedef {import('./register-format-type').WPFormat} WPFormat */
 
 /**
  * Unregisters a format.
  *
  * @param {string} name Format name.
  *
- * @return {RichTextFormatType|undefined} The previous format value, if it has
+ * @return {WPFormat|undefined} The previous format value, if it has
  *                                        been successfully unregistered;
  *                                        otherwise `undefined`.
  */
@@ -3257,11 +3241,14 @@ var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external
  */
 
 
-/** @typedef {import('@wordpress/element').RefObject} RefObject */
+/**
+ * @template T
+ * @typedef {import('@wordpress/element').RefObject<T>} RefObject<T>
+ */
 
-/** @typedef {import('../register-format-type').RichTextFormatType} RichTextFormatType */
+/** @typedef {import('../register-format-type').WPFormat} WPFormat */
 
-/** @typedef {import('../create').RichTextValue} RichTextValue */
+/** @typedef {import('../types').RichTextValue} RichTextValue */
 
 /**
  * This hook, to be used in a format type's Edit component, returns the active
@@ -3273,7 +3260,7 @@ var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external
  * @param {RefObject<HTMLElement>} $1.ref      React ref of the element
  *                                             containing  the editable content.
  * @param {RichTextValue}          $1.value    Value to check for selection.
- * @param {RichTextFormatType}     $1.settings The format type's settings.
+ * @param {WPFormat}               $1.settings The format type's settings.
  *
  * @return {Element|Range} The active element or selection range.
  */
@@ -3330,9 +3317,9 @@ function useAnchorRef(_ref) {
  * WordPress dependencies
  */
 
-/** @typedef {import('../register-format-type').RichTextFormatType} RichTextFormatType */
+/** @typedef {import('../register-format-type').WPFormat} WPFormat */
 
-/** @typedef {import('../create').RichTextValue} RichTextValue */
+/** @typedef {import('../types').RichTextValue} RichTextValue */
 
 /**
  * Given a range and a format tag name and class name, returns the closest
@@ -3375,8 +3362,8 @@ function getFormatElement(range, editableContentElement, tagName, className) {
 }
 /**
  * @typedef {Object} VirtualAnchorElement
- * @property {Function} getBoundingClientRect A function returning a DOMRect
- * @property {Document} ownerDocument         The element's ownerDocument
+ * @property {() => DOMRect} getBoundingClientRect A function returning a DOMRect
+ * @property {Document}      ownerDocument         The element's ownerDocument
  */
 
 /**
@@ -3436,10 +3423,10 @@ function getAnchor(editableContentElement, tagName, className) {
  * no format is active. The returned value is meant to be used for positioning
  * UI, e.g. by passing it to the `Popover` component via the `anchor` prop.
  *
- * @param {Object}             $1                        Named parameters.
- * @param {HTMLElement|null}   $1.editableContentElement The element containing
- *                                                       the editable content.
- * @param {RichTextFormatType} $1.settings               The format type's settings.
+ * @param {Object}           $1                        Named parameters.
+ * @param {HTMLElement|null} $1.editableContentElement The element containing
+ *                                                     the editable content.
+ * @param {WPFormat=}        $1.settings               The format type's settings.
  * @return {Element|VirtualAnchorElement|undefined|null} The active element or selection range.
  */
 
@@ -3791,7 +3778,7 @@ function useSelectObject() {
  * Internal dependencies
  */
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Efficiently updates all the formats from `start` (including) until `end`
@@ -4214,7 +4201,7 @@ function useSelectionChangeCompat() {
 
 
 
-/** @typedef {import('./create').RichTextValue} RichTextValue */
+/** @typedef {import('./types').RichTextValue} RichTextValue */
 
 /**
  * Removes a line separator character, if existing, from a Rich Text value at
@@ -4675,6 +4662,10 @@ function FormatEdit(_ref) {
 
 
 
+/**
+ * An object which represents a formatted string. See main `@wordpress/rich-text`
+ * documentation for more information.
+ */
 
 (window.wp = window.wp || {}).richText = __webpack_exports__;
 /******/ })()

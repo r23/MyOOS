@@ -6066,6 +6066,7 @@ function EntityTypeList(_ref) {
 
 
 
+
 /**
  * Internal dependencies
  */
@@ -6083,11 +6084,37 @@ const PUBLISH_ON_SAVE_ENTITIES = [{
   kind: 'postType',
   name: 'wp_navigation'
 }];
+
+function identity(values) {
+  return values;
+}
+
+function isPreviewingTheme() {
+  var _window;
+
+  return ((_window = window) === null || _window === void 0 ? void 0 : _window.__experimentalEnableThemePreviews) && (0,external_wp_url_namespaceObject.getQueryArg)(window.location.href, 'theme_preview') !== undefined;
+}
+
+function currentlyPreviewingTheme() {
+  if (isPreviewingTheme()) {
+    return (0,external_wp_url_namespaceObject.getQueryArg)(window.location.href, 'theme_preview');
+  }
+
+  return null;
+}
+
 function EntitiesSavedStates(_ref) {
+  var _theme$name;
+
   let {
-    close
+    close,
+    onSave = identity
   } = _ref;
   const saveButtonRef = (0,external_wp_element_namespaceObject.useRef)();
+  const {
+    getTheme
+  } = (0,external_wp_data_namespaceObject.useSelect)(external_wp_coreData_namespaceObject.store);
+  const theme = getTheme(currentlyPreviewingTheme());
   const {
     dirtyEntityRecords
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
@@ -6168,7 +6195,7 @@ function EntitiesSavedStates(_ref) {
     }
   };
 
-  const saveCheckedEntities = () => {
+  const saveCheckedEntitiesAndActivate = () => {
     const entitiesToSave = dirtyEntityRecords.filter(_ref3 => {
       let {
         kind,
@@ -6209,6 +6236,8 @@ function EntitiesSavedStates(_ref) {
     __unstableMarkLastChangeAsPersistent();
 
     Promise.all(pendingSavedRecords).then(values => {
+      return onSave(values);
+    }).then(values => {
       if (values.some(value => typeof value === 'undefined')) {
         createErrorNotice((0,external_wp_i18n_namespaceObject.__)('Saving failed.'));
       } else {
@@ -6225,6 +6254,18 @@ function EntitiesSavedStates(_ref) {
   const [saveDialogRef, saveDialogProps] = (0,external_wp_compose_namespaceObject.__experimentalUseDialog)({
     onClose: () => dismissPanel()
   });
+  const isDirty = dirtyEntityRecords.length - unselectedEntities.length > 0;
+  const activateSaveEnabled = isPreviewingTheme() || isDirty;
+  let activateSaveLabel;
+
+  if (isPreviewingTheme() && isDirty) {
+    activateSaveLabel = (0,external_wp_i18n_namespaceObject.__)('Activate & Save');
+  } else if (isPreviewingTheme()) {
+    activateSaveLabel = (0,external_wp_i18n_namespaceObject.__)('Activate');
+  } else {
+    activateSaveLabel = (0,external_wp_i18n_namespaceObject.__)('Save');
+  }
+
   return (0,external_wp_element_namespaceObject.createElement)("div", _extends({
     ref: saveDialogRef
   }, saveDialogProps, {
@@ -6237,17 +6278,17 @@ function EntitiesSavedStates(_ref) {
     as: external_wp_components_namespaceObject.Button,
     ref: saveButtonRef,
     variant: "primary",
-    disabled: dirtyEntityRecords.length - unselectedEntities.length === 0,
-    onClick: saveCheckedEntities,
+    disabled: !activateSaveEnabled,
+    onClick: saveCheckedEntitiesAndActivate,
     className: "editor-entities-saved-states__save-button"
-  }, (0,external_wp_i18n_namespaceObject.__)('Save')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, {
+  }, activateSaveLabel), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, {
     isBlock: true,
     as: external_wp_components_namespaceObject.Button,
     variant: "secondary",
     onClick: dismissPanel
   }, (0,external_wp_i18n_namespaceObject.__)('Cancel'))), (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "entities-saved-states__text-prompt"
-  }, (0,external_wp_element_namespaceObject.createElement)("strong", null, (0,external_wp_i18n_namespaceObject.__)('Are you ready to save?')), (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('The following changes have been made to your site, templates, and content.'))), sortedPartitionedSavables.map(list => {
+  }, (0,external_wp_element_namespaceObject.createElement)("strong", null, (0,external_wp_i18n_namespaceObject.__)('Are you ready to save?')), isPreviewingTheme() && (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.sprintf)('Saving your changes will change your active theme to  %1$s.', theme === null || theme === void 0 ? void 0 : (_theme$name = theme.name) === null || _theme$name === void 0 ? void 0 : _theme$name.rendered)), isDirty && (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('The following changes have been made to your site, templates, and content.'))), sortedPartitionedSavables.map(list => {
     return (0,external_wp_element_namespaceObject.createElement)(EntityTypeList, {
       key: list[0].name,
       list: list,
@@ -7499,8 +7540,6 @@ const DEFAULT_FEATURE_IMAGE_LABEL = (0,external_wp_i18n_namespaceObject.__)('Fea
 
 const DEFAULT_SET_FEATURE_IMAGE_LABEL = (0,external_wp_i18n_namespaceObject.__)('Set featured image');
 
-const DEFAULT_REMOVE_FEATURE_IMAGE_LABEL = (0,external_wp_i18n_namespaceObject.__)('Remove image');
-
 const instructions = (0,external_wp_element_namespaceObject.createElement)("p", null, (0,external_wp_i18n_namespaceObject.__)('To edit the featured image, you need permission to upload media.'));
 
 function getMediaDetails(media, postId) {
@@ -7540,7 +7579,7 @@ function getMediaDetails(media, postId) {
 }
 
 function PostFeaturedImage(_ref) {
-  var _media$media_details$3, _media$media_details$4, _postType$labels, _postType$labels3, _postType$labels4;
+  var _media$media_details$3, _media$media_details$4, _postType$labels;
 
   let {
     currentPostId,
@@ -7552,6 +7591,7 @@ function PostFeaturedImage(_ref) {
     noticeUI,
     noticeOperations
   } = _ref;
+  const toggleRef = (0,external_wp_element_namespaceObject.useRef)();
   const [isLoading, setIsLoading] = (0,external_wp_element_namespaceObject.useState)(false);
   const mediaUpload = (0,external_wp_data_namespaceObject.useSelect)(select => {
     return select(external_wp_blockEditor_namespaceObject.store).getSettings().mediaUpload;
@@ -7611,9 +7651,10 @@ function PostFeaturedImage(_ref) {
       return (0,external_wp_element_namespaceObject.createElement)("div", {
         className: "editor-post-featured-image__container"
       }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+        ref: toggleRef,
         className: !featuredImageId ? 'editor-post-featured-image__toggle' : 'editor-post-featured-image__preview',
         onClick: open,
-        "aria-label": !featuredImageId ? null : (0,external_wp_i18n_namespaceObject.__)('Edit or update the image'),
+        "aria-label": !featuredImageId ? null : (0,external_wp_i18n_namespaceObject.__)('Edit or replace the image'),
         "aria-describedby": !featuredImageId ? null : `editor-post-featured-image-${featuredImageId}-describedby`
       }, !!featuredImageId && media && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.ResponsiveWrapper, {
         naturalWidth: mediaWidth,
@@ -7622,31 +7663,25 @@ function PostFeaturedImage(_ref) {
       }, (0,external_wp_element_namespaceObject.createElement)("img", {
         src: mediaSourceUrl,
         alt: ""
-      })), isLoading && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null), !featuredImageId && !isLoading && ((postType === null || postType === void 0 ? void 0 : (_postType$labels2 = postType.labels) === null || _postType$labels2 === void 0 ? void 0 : _postType$labels2.set_featured_image) || DEFAULT_SET_FEATURE_IMAGE_LABEL)), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropZone, {
+      })), isLoading && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Spinner, null), !featuredImageId && !isLoading && ((postType === null || postType === void 0 ? void 0 : (_postType$labels2 = postType.labels) === null || _postType$labels2 === void 0 ? void 0 : _postType$labels2.set_featured_image) || DEFAULT_SET_FEATURE_IMAGE_LABEL)), !!featuredImageId && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalHStack, {
+        className: "editor-post-featured-image__actions"
+      }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+        className: "editor-post-featured-image__action",
+        onClick: open // Prefer that screen readers use the .editor-post-featured-image__preview button.
+        ,
+        "aria-hidden": "true"
+      }, (0,external_wp_i18n_namespaceObject.__)('Replace')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+        className: "editor-post-featured-image__action",
+        onClick: () => {
+          onRemoveImage();
+          toggleRef.current.focus();
+        }
+      }, (0,external_wp_i18n_namespaceObject.__)('Remove'))), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.DropZone, {
         onFilesDrop: onDropFiles
       }));
     },
     value: featuredImageId
-  })), !!featuredImageId && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.MediaUploadCheck, null, media && (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.MediaUpload, {
-    title: (postType === null || postType === void 0 ? void 0 : (_postType$labels3 = postType.labels) === null || _postType$labels3 === void 0 ? void 0 : _postType$labels3.featured_image) || DEFAULT_FEATURE_IMAGE_LABEL,
-    onSelect: onUpdateImage,
-    unstableFeaturedImageFlow: true,
-    allowedTypes: ALLOWED_MEDIA_TYPES,
-    modalClass: "editor-post-featured-image__media-modal",
-    render: _ref4 => {
-      let {
-        open
-      } = _ref4;
-      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-        onClick: open,
-        variant: "secondary"
-      }, (0,external_wp_i18n_namespaceObject.__)('Replace Image'));
-    }
-  }), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    onClick: onRemoveImage,
-    variant: "link",
-    isDestructive: true
-  }, (postType === null || postType === void 0 ? void 0 : (_postType$labels4 = postType.labels) === null || _postType$labels4 === void 0 ? void 0 : _postType$labels4.remove_featured_image) || DEFAULT_REMOVE_FEATURE_IMAGE_LABEL))));
+  }))));
 }
 
 const applyWithSelect = (0,external_wp_data_namespaceObject.withSelect)(select => {
@@ -7668,13 +7703,13 @@ const applyWithSelect = (0,external_wp_data_namespaceObject.withSelect)(select =
     featuredImageId
   };
 });
-const applyWithDispatch = (0,external_wp_data_namespaceObject.withDispatch)((dispatch, _ref5, _ref6) => {
+const applyWithDispatch = (0,external_wp_data_namespaceObject.withDispatch)((dispatch, _ref4, _ref5) => {
   let {
     noticeOperations
-  } = _ref5;
+  } = _ref4;
   let {
     select
-  } = _ref6;
+  } = _ref5;
   const {
     editPost
   } = dispatch(store_store);
@@ -7690,8 +7725,8 @@ const applyWithDispatch = (0,external_wp_data_namespaceObject.withDispatch)((dis
         allowedTypes: ['image'],
         filesList,
 
-        onFileChange(_ref7) {
-          let [image] = _ref7;
+        onFileChange(_ref6) {
+          let [image] = _ref6;
           editPost({
             featured_media: image.id
           });
@@ -11310,90 +11345,6 @@ const cloud = (0,external_wp_element_namespaceObject.createElement)(external_wp_
 }));
 /* harmony default export */ var library_cloud = (cloud);
 
-;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-switch-to-draft-button/index.js
-
-
-/**
- * WordPress dependencies
- */
-
-
-
-
-
-/**
- * Internal dependencies
- */
-
-
-
-function PostSwitchToDraftButton(_ref) {
-  let {
-    isSaving,
-    isPublished,
-    isScheduled,
-    onClick
-  } = _ref;
-  const isMobileViewport = (0,external_wp_compose_namespaceObject.useViewportMatch)('small', '<');
-  const [showConfirmDialog, setShowConfirmDialog] = (0,external_wp_element_namespaceObject.useState)(false);
-
-  if (!isPublished && !isScheduled) {
-    return null;
-  }
-
-  let alertMessage;
-
-  if (isPublished) {
-    alertMessage = (0,external_wp_i18n_namespaceObject.__)('Are you sure you want to unpublish this post?');
-  } else if (isScheduled) {
-    alertMessage = (0,external_wp_i18n_namespaceObject.__)('Are you sure you want to unschedule this post?');
-  }
-
-  const handleConfirm = () => {
-    setShowConfirmDialog(false);
-    onClick();
-  };
-
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-    className: "editor-post-switch-to-draft",
-    onClick: () => {
-      setShowConfirmDialog(true);
-    },
-    disabled: isSaving,
-    variant: "tertiary"
-  }, isMobileViewport ? (0,external_wp_i18n_namespaceObject.__)('Draft') : (0,external_wp_i18n_namespaceObject.__)('Switch to draft')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalConfirmDialog, {
-    isOpen: showConfirmDialog,
-    onConfirm: handleConfirm,
-    onCancel: () => setShowConfirmDialog(false)
-  }, alertMessage));
-}
-
-/* harmony default export */ var post_switch_to_draft_button = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
-  const {
-    isSavingPost,
-    isCurrentPostPublished,
-    isCurrentPostScheduled
-  } = select(store_store);
-  return {
-    isSaving: isSavingPost(),
-    isPublished: isCurrentPostPublished(),
-    isScheduled: isCurrentPostScheduled()
-  };
-}), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => {
-  const {
-    editPost,
-    savePost
-  } = dispatch(store_store);
-  return {
-    onClick: () => {
-      editPost({
-        status: 'draft'
-      });
-      savePost();
-    }
-  };
-})])(PostSwitchToDraftButton));
-
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-saved-state/index.js
 
 
@@ -11415,7 +11366,6 @@ function PostSwitchToDraftButton(_ref) {
 /**
  * Internal dependencies
  */
-
 
 
 /**
@@ -11444,10 +11394,8 @@ function PostSavedState(_ref) {
     isDirty,
     isNew,
     isPending,
-    isPublished,
     isSaveable,
     isSaving,
-    isScheduled,
     hasPublishAction
   } = (0,external_wp_data_namespaceObject.useSelect)(select => {
     var _getCurrentPost$_link, _getCurrentPost, _getCurrentPost$_link2;
@@ -11495,10 +11443,6 @@ function PostSavedState(_ref) {
 
   if (!hasPublishAction && isPending) {
     return null;
-  }
-
-  if (isPublished || isScheduled) {
-    return (0,external_wp_element_namespaceObject.createElement)(post_switch_to_draft_button, null);
   }
   /* translators: button label text should, if possible, be under 16 characters. */
 
@@ -11785,6 +11729,95 @@ function PostSticky(_ref) {
   };
 })])(PostSticky));
 
+;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-switch-to-draft-button/index.js
+
+
+/**
+ * WordPress dependencies
+ */
+
+
+
+
+
+/**
+ * Internal dependencies
+ */
+
+
+
+function PostSwitchToDraftButton(_ref) {
+  let {
+    isSaving,
+    isPublished,
+    isScheduled,
+    onClick
+  } = _ref;
+  const [showConfirmDialog, setShowConfirmDialog] = (0,external_wp_element_namespaceObject.useState)(false);
+
+  if (!isPublished && !isScheduled) {
+    return null;
+  }
+
+  let alertMessage;
+
+  if (isPublished) {
+    alertMessage = (0,external_wp_i18n_namespaceObject.__)('Are you sure you want to unpublish this post?');
+  } else if (isScheduled) {
+    alertMessage = (0,external_wp_i18n_namespaceObject.__)('Are you sure you want to unschedule this post?');
+  }
+
+  const handleConfirm = () => {
+    setShowConfirmDialog(false);
+    onClick();
+  };
+
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.FlexItem, {
+    isBlock: true
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+    className: "editor-post-switch-to-draft",
+    onClick: () => {
+      setShowConfirmDialog(true);
+    },
+    disabled: isSaving,
+    variant: "secondary",
+    style: {
+      width: '100%',
+      display: 'block'
+    }
+  }, (0,external_wp_i18n_namespaceObject.__)('Switch to draft')), (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__experimentalConfirmDialog, {
+    isOpen: showConfirmDialog,
+    onConfirm: handleConfirm,
+    onCancel: () => setShowConfirmDialog(false)
+  }, alertMessage));
+}
+
+/* harmony default export */ var post_switch_to_draft_button = ((0,external_wp_compose_namespaceObject.compose)([(0,external_wp_data_namespaceObject.withSelect)(select => {
+  const {
+    isSavingPost,
+    isCurrentPostPublished,
+    isCurrentPostScheduled
+  } = select(store_store);
+  return {
+    isSaving: isSavingPost(),
+    isPublished: isCurrentPostPublished(),
+    isScheduled: isCurrentPostScheduled()
+  };
+}), (0,external_wp_data_namespaceObject.withDispatch)(dispatch => {
+  const {
+    editPost,
+    savePost
+  } = dispatch(store_store);
+  return {
+    onClick: () => {
+      editPost({
+        status: 'draft'
+      });
+      savePost();
+    }
+  };
+})])(PostSwitchToDraftButton));
+
 ;// CONCATENATED MODULE: ./packages/editor/build-module/components/post-taxonomies/index.js
 
 
@@ -11803,13 +11836,13 @@ function PostSticky(_ref) {
 
 
 
-const identity = x => x;
+const post_taxonomies_identity = x => x;
 
 function PostTaxonomies(_ref) {
   let {
     postType,
     taxonomies,
-    taxonomyWrapper = identity
+    taxonomyWrapper = post_taxonomies_identity
   } = _ref;
   const availableTaxonomies = (taxonomies !== null && taxonomies !== void 0 ? taxonomies : []).filter(taxonomy => taxonomy.types.includes(postType));
   const visibleTaxonomies = availableTaxonomies.filter( // In some circumstances .visibility can end up as undefined so optional chaining operator required.

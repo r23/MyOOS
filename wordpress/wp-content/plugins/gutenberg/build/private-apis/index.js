@@ -54,7 +54,7 @@ __webpack_require__.d(__webpack_exports__, {
 /**
  * The list of core modules allowed to opt-in to the private APIs.
  */
-const CORE_MODULES_USING_PRIVATE_APIS = ['@wordpress/block-editor', '@wordpress/block-library', '@wordpress/blocks', '@wordpress/commands', '@wordpress/components', '@wordpress/customize-widgets', '@wordpress/data', '@wordpress/edit-post', '@wordpress/edit-site', '@wordpress/edit-widgets', '@wordpress/editor'];
+const CORE_MODULES_USING_PRIVATE_APIS = ['@wordpress/block-editor', '@wordpress/block-library', '@wordpress/blocks', '@wordpress/commands', '@wordpress/components', '@wordpress/core-commands', '@wordpress/customize-widgets', '@wordpress/data', '@wordpress/edit-post', '@wordpress/edit-site', '@wordpress/edit-widgets', '@wordpress/editor', '@wordpress/router'];
 /**
  * A list of core modules that already opted-in to
  * the privateApis package.

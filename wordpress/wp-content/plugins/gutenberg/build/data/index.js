@@ -602,13 +602,13 @@ __webpack_require__.d(__webpack_exports__, {
   "createRegistry": function() { return /* reexport */ createRegistry; },
   "createRegistryControl": function() { return /* reexport */ createRegistryControl; },
   "createRegistrySelector": function() { return /* reexport */ createRegistrySelector; },
-  "dispatch": function() { return /* binding */ build_module_dispatch; },
+  "dispatch": function() { return /* reexport */ dispatch_dispatch; },
   "plugins": function() { return /* reexport */ plugins_namespaceObject; },
   "register": function() { return /* binding */ register; },
   "registerGenericStore": function() { return /* binding */ registerGenericStore; },
   "registerStore": function() { return /* binding */ registerStore; },
   "resolveSelect": function() { return /* binding */ build_module_resolveSelect; },
-  "select": function() { return /* binding */ build_module_select; },
+  "select": function() { return /* reexport */ select_select; },
   "subscribe": function() { return /* binding */ subscribe; },
   "suspendSelect": function() { return /* binding */ suspendSelect; },
   "use": function() { return /* binding */ use; },
@@ -631,6 +631,7 @@ __webpack_require__.d(selectors_namespaceObject, {
   "getResolutionState": function() { return getResolutionState; },
   "hasFinishedResolution": function() { return hasFinishedResolution; },
   "hasResolutionFailed": function() { return hasResolutionFailed; },
+  "hasResolvingSelectors": function() { return hasResolvingSelectors; },
   "hasStartedResolution": function() { return hasStartedResolution; },
   "isResolving": function() { return isResolving; }
 });
@@ -2132,6 +2133,21 @@ function isResolving(state, selectorName, args) {
 
 function getCachedResolvers(state) {
   return state;
+}
+/**
+ * Whether the store has any currently resolving selectors.
+ *
+ * @param {State} state Data state.
+ *
+ * @return {boolean} True if one or more selectors are resolving, false otherwise.
+ */
+
+function hasResolvingSelectors(state) {
+  return [...Object.values(state)].some(selectorState => [...selectorState._map.values()].some(resolution => {
+    var _resolution$;
+
+    return ((_resolution$ = resolution[1]) === null || _resolution$ === void 0 ? void 0 : _resolution$.status) === 'resolving';
+  }));
 }
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/redux-store/metadata/actions.js
@@ -4468,6 +4484,64 @@ const useDispatch = storeNameOrDescriptor => {
 
 /* harmony default export */ var use_dispatch = (useDispatch);
 
+;// CONCATENATED MODULE: ./packages/data/build-module/dispatch.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Given a store descriptor, returns an object of the store's action creators.
+ * Calling an action creator will cause it to be dispatched, updating the state value accordingly.
+ *
+ * Note: Action creators returned by the dispatch will return a promise when
+ * they are called.
+ *
+ * @param storeNameOrDescriptor The store descriptor. The legacy calling convention of passing
+ *                              the store name is also supported.
+ *
+ * @example
+ * ```js
+ * import { dispatch } from '@wordpress/data';
+ * import { store as myCustomStore } from 'my-custom-store';
+ *
+ * dispatch( myCustomStore ).setPrice( 'hammer', 9.75 );
+ * ```
+ * @return Object containing the action creators.
+ */
+
+function dispatch_dispatch(storeNameOrDescriptor) {
+  return default_registry.dispatch(storeNameOrDescriptor);
+}
+
+;// CONCATENATED MODULE: ./packages/data/build-module/select.js
+/**
+ * Internal dependencies
+ */
+
+/**
+ * Given a store descriptor, returns an object of the store's selectors.
+ * The selector functions are been pre-bound to pass the current state automatically.
+ * As a consumer, you need only pass arguments of the selector, if applicable.
+ *
+ *
+ * @param storeNameOrDescriptor The store descriptor. The legacy calling convention
+ *                              of passing the store name is also supported.
+ *
+ * @example
+ * ```js
+ * import { select } from '@wordpress/data';
+ * import { store as myCustomStore } from 'my-custom-store';
+ *
+ * select( myCustomStore ).getPrice( 'hammer' );
+ * ```
+ *
+ * @return Object containing the store's selectors.
+ */
+
+function select_select(storeNameOrDescriptor) {
+  return default_registry.select(storeNameOrDescriptor);
+}
+
 ;// CONCATENATED MODULE: ./packages/data/build-module/index.js
 /**
  * External dependencies
@@ -4480,6 +4554,8 @@ const useDispatch = storeNameOrDescriptor => {
 
 
 /** @typedef {import('./types').StoreDescriptor} StoreDescriptor */
+
+
 
 
 
@@ -4543,29 +4619,6 @@ const useDispatch = storeNameOrDescriptor => {
 
 const build_module_combineReducers = (turbo_combine_reducers_default());
 /**
- * Given a store descriptor, returns an object of the store's selectors.
- * The selector functions are been pre-bound to pass the current state automatically.
- * As a consumer, you need only pass arguments of the selector, if applicable.
- *
- * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
- *                                                       convention of passing the store name is
- *                                                       also supported.
- *
- * @example
- * ```js
- * import { select } from '@wordpress/data';
- * import { store as myCustomStore } from 'my-custom-store';
- *
- * select( myCustomStore ).getPrice( 'hammer' );
- * ```
- *
- * @return {Object} Object containing the store's selectors.
- */
-
-function build_module_select(storeNameOrDescriptor) {
-  return default_registry.select(storeNameOrDescriptor);
-}
-/**
  * Given a store descriptor, returns an object containing the store's selectors pre-bound to state
  * so that you only need to supply additional arguments, and modified so that they return promises
  * that resolve to their eventual values, after any resolvers have ran.
@@ -4599,30 +4652,6 @@ const build_module_resolveSelect = default_registry.resolveSelect;
  */
 
 const suspendSelect = default_registry.suspendSelect;
-/**
- * Given a store descriptor, returns an object of the store's action creators.
- * Calling an action creator will cause it to be dispatched, updating the state value accordingly.
- *
- * Note: Action creators returned by the dispatch will return a promise when
- * they are called.
- *
- * @param {StoreDescriptor|string} storeNameOrDescriptor The store descriptor. The legacy calling
- *                                                       convention of passing the store name is
- *                                                       also supported.
- *
- * @example
- * ```js
- * import { dispatch } from '@wordpress/data';
- * import { store as myCustomStore } from 'my-custom-store';
- *
- * dispatch( myCustomStore ).setPrice( 'hammer', 9.75 );
- * ```
- * @return {Object} Object containing the action creators.
- */
-
-function build_module_dispatch(storeNameOrDescriptor) {
-  return default_registry.dispatch(storeNameOrDescriptor);
-}
 /**
  * Given a listener function, the function will be called any time the state value
  * of one of the registered stores has changed. If you specify the optional

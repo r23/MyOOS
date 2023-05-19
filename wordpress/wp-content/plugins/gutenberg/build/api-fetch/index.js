@@ -598,6 +598,37 @@ const mediaUploadMiddleware = (options, next) => {
 
 /* harmony default export */ var media_upload = (mediaUploadMiddleware);
 
+;// CONCATENATED MODULE: ./packages/api-fetch/build-module/middlewares/theme-preview.js
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * This appends a `theme_preview` parameter to the REST API request URL if
+ * the admin URL contains a `theme` GET parameter.
+ *
+ * @param {Record<string, any>} themePath
+ * @return {import('../types').APIFetchMiddleware} Preloading middleware.
+ */
+
+const createThemePreviewMiddleware = themePath => (options, next) => {
+  if (typeof options.url === 'string' && !(0,external_wp_url_namespaceObject.hasQueryArg)(options.url, 'theme_preview')) {
+    options.url = (0,external_wp_url_namespaceObject.addQueryArgs)(options.url, {
+      theme_preview: themePath
+    });
+  }
+
+  if (typeof options.path === 'string' && !(0,external_wp_url_namespaceObject.hasQueryArg)(options.path, 'theme_preview')) {
+    options.path = (0,external_wp_url_namespaceObject.addQueryArgs)(options.path, {
+      theme_preview: themePath
+    });
+  }
+
+  return next(options);
+};
+
+/* harmony default export */ var theme_preview = (createThemePreviewMiddleware);
+
 ;// CONCATENATED MODULE: ./packages/api-fetch/build-module/index.js
 /**
  * WordPress dependencies
@@ -606,6 +637,7 @@ const mediaUploadMiddleware = (options, next) => {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -777,6 +809,7 @@ apiFetch.createPreloadingMiddleware = preloading;
 apiFetch.createRootURLMiddleware = root_url;
 apiFetch.fetchAllMiddleware = fetch_all_middleware;
 apiFetch.mediaUploadMiddleware = media_upload;
+apiFetch.createThemePreviewMiddleware = theme_preview;
 /* harmony default export */ var build_module = (apiFetch);
 
 (window.wp = window.wp || {}).apiFetch = __webpack_exports__["default"];

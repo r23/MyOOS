@@ -64,8 +64,8 @@ function gutenberg_render_block_core_post_terms( $attributes, $content, $block )
 function gutenberg_register_block_core_post_terms() {
 	$taxonomies = get_taxonomies(
 		array(
-			'public'       => true,
-			'show_in_rest' => true,
+			'publicly_queryable' => true,
+			'show_in_rest'       => true,
 		),
 		'objects'
 	);

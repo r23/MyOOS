@@ -494,6 +494,13 @@ function closeOuterElement(endOffset) {
  */
 
 /**
+ * Object containing a React synthetic event.
+ *
+ * @template T
+ * @typedef {import('react').RefObject<T>} RefObject<T>
+ */
+
+/**
  * Object that provides utilities for dealing with React children.
  */
 

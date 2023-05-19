@@ -19175,6 +19175,7 @@ function UnforwardedButton(props, ref) {
   var _children$, _children$$props;
 
   const {
+    __next40pxDefaultSize,
     isSmall,
     isPressed,
     isBusy,
@@ -19208,6 +19209,7 @@ function UnforwardedButton(props, ref) {
   const hasChildren = 'string' === typeof children && !!children || Array.isArray(children) && (children === null || children === void 0 ? void 0 : children[0]) && children[0] !== null && // Tooltip should not considered as a child
   (children === null || children === void 0 ? void 0 : (_children$ = children[0]) === null || _children$ === void 0 ? void 0 : (_children$$props = _children$.props) === null || _children$$props === void 0 ? void 0 : _children$$props.className) !== 'components-tooltip';
   const classes = classnames_default()('components-button', className, {
+    'is-next-40px-default-size': __next40pxDefaultSize,
     'is-secondary': variant === 'secondary',
     'is-primary': variant === 'primary',
     'is-small': isSmall,
@@ -19438,8 +19440,6 @@ const useSlot = name => {
 /* harmony default export */ var use_slot = (useSlot);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/fill.js
-
-
 // @ts-nocheck
 
 /**
@@ -19452,14 +19452,15 @@ const useSlot = name => {
 
 
 
-
-function FillComponent(_ref) {
+function Fill(_ref) {
   let {
     name,
-    children,
+    children
+  } = _ref;
+  const {
     registerFill,
     unregisterFill
-  } = _ref;
+  } = (0,external_wp_element_namespaceObject.useContext)(context);
   const slot = use_slot(name);
   const ref = (0,external_wp_element_namespaceObject.useRef)({
     name,
@@ -19494,31 +19495,8 @@ function FillComponent(_ref) {
     // We'll leave them as-is until a more detailed investigation/refactor can be performed.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
-
-  if (!slot || !slot.node) {
-    return null;
-  } // If a function is passed as a child, provide it with the fillProps.
-
-
-  if (typeof children === 'function') {
-    children = children(slot.props.fillProps);
-  }
-
-  return (0,external_wp_element_namespaceObject.createPortal)(children, slot.node);
+  return null;
 }
-
-const Fill = props => (0,external_wp_element_namespaceObject.createElement)(context.Consumer, null, _ref2 => {
-  let {
-    registerFill,
-    unregisterFill
-  } = _ref2;
-  return (0,external_wp_element_namespaceObject.createElement)(FillComponent, extends_extends({}, props, {
-    registerFill: registerFill,
-    unregisterFill: unregisterFill
-  }));
-});
-
-/* harmony default export */ var fill = (Fill);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/slot-fill/slot.js
 
@@ -19549,7 +19527,6 @@ class SlotComponent extends external_wp_element_namespaceObject.Component {
   constructor() {
     super(...arguments);
     this.isUnmounted = false;
-    this.bindNode = this.bindNode.bind(this);
   }
 
   componentDidMount() {
@@ -19579,10 +19556,6 @@ class SlotComponent extends external_wp_element_namespaceObject.Component {
       unregisterSlot(prevProps.name);
       registerSlot(name, this);
     }
-  }
-
-  bindNode(node) {
-    this.node = node;
   }
 
   forceUpdate() {
@@ -20544,37 +20517,22 @@ const slot_fill_context_SlotFillContext = (0,external_wp_element_namespaceObject
 
 
 function use_slot_useSlot(name) {
-  const {
-    updateSlot: registryUpdateSlot,
-    unregisterSlot: registryUnregisterSlot,
-    registerFill: registryRegisterFill,
-    unregisterFill: registryUnregisterFill,
-    ...registry
-  } = (0,external_wp_element_namespaceObject.useContext)(slot_fill_context);
+  const registry = (0,external_wp_element_namespaceObject.useContext)(slot_fill_context);
   const slots = useSnapshot(registry.slots, {
     sync: true
-  }); // The important bit here is that this call ensures
-  // the hook only causes a re-render if the slot
-  // with the given name change, not any other slot.
+  }); // The important bit here is that the `useSnapshot` call ensures that the
+  // hook only causes a re-render if the slot with the given name changes,
+  // not any other slot.
 
   const slot = slots.get(name);
-  const updateSlot = (0,external_wp_element_namespaceObject.useCallback)(fillProps => {
-    registryUpdateSlot(name, fillProps);
-  }, [name, registryUpdateSlot]);
-  const unregisterSlot = (0,external_wp_element_namespaceObject.useCallback)(slotRef => {
-    registryUnregisterSlot(name, slotRef);
-  }, [name, registryUnregisterSlot]);
-  const registerFill = (0,external_wp_element_namespaceObject.useCallback)(fillRef => {
-    registryRegisterFill(name, fillRef);
-  }, [name, registryRegisterFill]);
-  const unregisterFill = (0,external_wp_element_namespaceObject.useCallback)(fillRef => {
-    registryUnregisterFill(name, fillRef);
-  }, [name, registryUnregisterFill]);
+  const api = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    updateSlot: fillProps => registry.updateSlot(name, fillProps),
+    unregisterSlot: ref => registry.unregisterSlot(name, ref),
+    registerFill: ref => registry.registerFill(name, ref),
+    unregisterFill: ref => registry.unregisterFill(name, ref)
+  }), [name, registry]);
   return { ...slot,
-    updateSlot,
-    unregisterSlot,
-    registerFill,
-    unregisterFill
+    ...api
   };
 }
 
@@ -20747,8 +20705,9 @@ function fill_Fill(_ref) {
     unregisterFill,
     ...slot
   } = use_slot_useSlot(name);
+  const rerender = useForceUpdate();
   const ref = (0,external_wp_element_namespaceObject.useRef)({
-    rerender: useForceUpdate()
+    rerender
   });
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     // We register fills so we can keep track of their existence.
@@ -20853,68 +20812,78 @@ var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(exte
 
 
 
-function useSlotRegistry() {
-  const slots = (0,external_wp_element_namespaceObject.useRef)(proxyMap());
-  const fills = (0,external_wp_element_namespaceObject.useRef)(proxyMap());
-  const registerSlot = (0,external_wp_element_namespaceObject.useCallback)((name, ref, fillProps) => {
-    const slot = slots.current.get(name) || {};
-    slots.current.set(name, vanilla_ref({ ...slot,
+function createSlotRegistry() {
+  const slots = proxyMap();
+  const fills = proxyMap();
+
+  function registerSlot(name, ref, fillProps) {
+    const slot = slots.get(name) || {};
+    slots.set(name, vanilla_ref({ ...slot,
       ref: ref || slot.ref,
       fillProps: fillProps || slot.fillProps || {}
     }));
-  }, []);
-  const unregisterSlot = (0,external_wp_element_namespaceObject.useCallback)((name, ref) => {
-    var _slots$current$get;
+  }
+
+  function unregisterSlot(name, ref) {
+    var _slots$get;
 
     // Make sure we're not unregistering a slot registered by another element
     // See https://github.com/WordPress/gutenberg/pull/19242#issuecomment-590295412
-    if (((_slots$current$get = slots.current.get(name)) === null || _slots$current$get === void 0 ? void 0 : _slots$current$get.ref) === ref) {
-      slots.current.delete(name);
+    if (((_slots$get = slots.get(name)) === null || _slots$get === void 0 ? void 0 : _slots$get.ref) === ref) {
+      slots.delete(name);
     }
-  }, []);
-  const updateSlot = (0,external_wp_element_namespaceObject.useCallback)((name, fillProps) => {
-    const slot = slots.current.get(name);
+  }
+
+  function updateSlot(name, fillProps) {
+    const slot = slots.get(name);
 
     if (!slot) {
       return;
     }
 
-    if (!external_wp_isShallowEqual_default()(slot.fillProps, fillProps)) {
-      slot.fillProps = fillProps;
-      const slotFills = fills.current.get(name);
-
-      if (slotFills) {
-        // Force update fills.
-        slotFills.map(fill => fill.current.rerender());
-      }
+    if (external_wp_isShallowEqual_default()(slot.fillProps, fillProps)) {
+      return;
     }
-  }, []);
-  const registerFill = (0,external_wp_element_namespaceObject.useCallback)((name, ref) => {
-    fills.current.set(name, vanilla_ref([...(fills.current.get(name) || []), ref]));
-  }, []);
-  const unregisterFill = (0,external_wp_element_namespaceObject.useCallback)((name, ref) => {
-    if (fills.current.get(name)) {
-      fills.current.set(name, vanilla_ref(fills.current.get(name).filter(fillRef => fillRef !== ref)));
-    }
-  }, []); // Memoizing the return value so it can be directly passed to Provider value
 
-  const registry = (0,external_wp_element_namespaceObject.useMemo)(() => ({
-    slots: slots.current,
-    fills: fills.current,
+    slot.fillProps = fillProps;
+    const slotFills = fills.get(name);
+
+    if (slotFills) {
+      // Force update fills.
+      slotFills.map(fill => fill.current.rerender());
+    }
+  }
+
+  function registerFill(name, ref) {
+    fills.set(name, vanilla_ref([...(fills.get(name) || []), ref]));
+  }
+
+  function unregisterFill(name, ref) {
+    const fillsForName = fills.get(name);
+
+    if (!fillsForName) {
+      return;
+    }
+
+    fills.set(name, vanilla_ref(fillsForName.filter(fillRef => fillRef !== ref)));
+  }
+
+  return {
+    slots,
+    fills,
     registerSlot,
     updateSlot,
     unregisterSlot,
     registerFill,
     unregisterFill
-  }), [registerSlot, updateSlot, unregisterSlot, registerFill, unregisterFill]);
-  return registry;
+  };
 }
 
 function SlotFillProvider(_ref) {
   let {
     children
   } = _ref;
-  const registry = useSlotRegistry();
+  const [registry] = (0,external_wp_element_namespaceObject.useState)(createSlotRegistry);
   return (0,external_wp_element_namespaceObject.createElement)(slot_fill_context.Provider, {
     value: registry
   }, children);
@@ -20942,7 +20911,6 @@ class provider_SlotFillProvider extends external_wp_element_namespaceObject.Comp
     this.unregisterFill = this.unregisterFill.bind(this);
     this.getSlot = this.getSlot.bind(this);
     this.getFills = this.getFills.bind(this);
-    this.hasFills = this.hasFills.bind(this);
     this.subscribe = this.subscribe.bind(this);
     this.slots = {};
     this.fills = {};
@@ -20954,7 +20922,6 @@ class provider_SlotFillProvider extends external_wp_element_namespaceObject.Comp
       unregisterFill: this.unregisterFill,
       getSlot: this.getSlot,
       getFills: this.getFills,
-      hasFills: this.hasFills,
       subscribe: this.subscribe
     };
   }
@@ -21013,10 +20980,6 @@ class provider_SlotFillProvider extends external_wp_element_namespaceObject.Comp
     return this.fills[name];
   }
 
-  hasFills(name) {
-    return this.fills[name] && !!this.fills[name].length;
-  }
-
   forceUpdateSlot(name) {
     const slot = this.getSlot(name);
 
@@ -21069,7 +21032,7 @@ function slot_fill_Fill(props) {
   // We're adding both Fills here so they can register themselves before
   // their respective slot has been registered. Only the Fill that has a slot
   // will render. The other one will return null.
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(fill, props), (0,external_wp_element_namespaceObject.createElement)(fill_Fill, props));
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(Fill, props), (0,external_wp_element_namespaceObject.createElement)(fill_Fill, props));
 }
 const slot_fill_Slot = (0,external_wp_element_namespaceObject.forwardRef)((_ref, ref) => {
   let {
@@ -21120,7 +21083,6 @@ const createPrivateSlotFill = name => {
     ...privateSlotFill
   };
 };
-
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/popover/utils.js
 /**
@@ -22844,11 +22806,11 @@ const ALERT = {
   yellow: '#f0b849',
   red: '#d94f4f',
   green: '#4ab866'
-}; // Matches @wordpress/base-styles
+}; // Matches the Modern admin scheme in @wordpress/base-styles
 
 const ADMIN = {
-  theme: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba))',
-  themeDark10: 'var(--wp-components-color-accent-darker-10, var(--wp-admin-theme-color-darker-10, #006ba1))'
+  theme: 'var(--wp-components-color-accent, var(--wp-admin-theme-color, #3858e9))',
+  themeDark10: 'var(--wp-components-color-accent-darker-10, var(--wp-admin-theme-color-darker-10, #2145e6))'
 };
 const UI = {
   theme: ADMIN.theme,
@@ -31115,8 +31077,6 @@ function getDefaultUseItems(autocompleter) {
  * WordPress dependencies
  */
 
- // Error expected because `@wordpress/rich-text` is not yet fully typed.
-// @ts-expect-error
 
 
 
@@ -31410,6 +31370,8 @@ function useAutocomplete(_ref) {
     if ((0,external_wp_richText_namespaceObject.isCollapsed)(record)) {
       return (0,external_wp_richText_namespaceObject.getTextContent)((0,external_wp_richText_namespaceObject.slice)(record, 0));
     }
+
+    return '';
   }, [record]);
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     if (!textContent) {
@@ -42369,7 +42331,8 @@ function UnconnectedCardMedia(props, forwardedRef) {
   }));
 }
 /**
- * `CardMedia` provides a container for media elements within a `Card`.
+ * `CardMedia` provides a container for full-bleed content within a `Card`,
+ * such as images, video, or even just a background color.
  *
  * @example
  * ```jsx
@@ -44029,13 +43992,19 @@ const menu = (0,external_wp_element_namespaceObject.createElement)(external_wp_p
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/container.js
 
 
-// @ts-nocheck
+
+/**
+ * External dependencies
+ */
 
 /**
  * WordPress dependencies
  */
 
 
+/**
+ * Internal dependencies
+ */
 
 const container_noop = () => {};
 
@@ -44054,8 +44023,8 @@ function cycleValue(value, total, offset) {
 }
 
 class NavigableContainer extends external_wp_element_namespaceObject.Component {
-  constructor() {
-    super(...arguments);
+  constructor(args) {
+    super(args);
     this.onKeyDown = this.onKeyDown.bind(this);
     this.bindContainer = this.bindContainer.bind(this);
     this.getFocusableContext = this.getFocusableContext.bind(this);
@@ -44063,18 +44032,24 @@ class NavigableContainer extends external_wp_element_namespaceObject.Component {
   }
 
   componentDidMount() {
-    // We use DOM event listeners instead of React event listeners
+    if (!this.container) {
+      return;
+    } // We use DOM event listeners instead of React event listeners
     // because we want to catch events from the underlying DOM tree
     // The React Tree can be different from the DOM tree when using
     // portals. Block Toolbars for instance are rendered in a separate
     // React Trees.
+
+
     this.container.addEventListener('keydown', this.onKeyDown);
-    this.container.addEventListener('focus', this.onFocus);
   }
 
   componentWillUnmount() {
+    if (!this.container) {
+      return;
+    }
+
     this.container.removeEventListener('keydown', this.onKeyDown);
-    this.container.removeEventListener('focus', this.onFocus);
   }
 
   bindContainer(ref) {
@@ -44091,6 +44066,10 @@ class NavigableContainer extends external_wp_element_namespaceObject.Component {
   }
 
   getFocusableContext(target) {
+    if (!this.container) {
+      return null;
+    }
+
     const {
       onlyBrowserTabstops
     } = this.props;
@@ -44110,14 +44089,12 @@ class NavigableContainer extends external_wp_element_namespaceObject.Component {
   }
 
   getFocusableIndex(focusables, target) {
-    const directIndex = focusables.indexOf(target);
-
-    if (directIndex !== -1) {
-      return directIndex;
-    }
+    return focusables.indexOf(target);
   }
 
   onKeyDown(event) {
+    var _event$target2, _event$target2$ownerD;
+
     if (this.props.onKeyDown) {
       this.props.onKeyDown(event);
     }
@@ -44134,19 +44111,18 @@ class NavigableContainer extends external_wp_element_namespaceObject.Component {
     const offset = eventToOffset(event); // eventToOffset returns undefined if the event is not handled by the component.
 
     if (offset !== undefined && stopNavigationEvents) {
+      var _event$target;
+
       // Prevents arrow key handlers bound to the document directly interfering.
       event.stopImmediatePropagation(); // When navigating a collection of items, prevent scroll containers
       // from scrolling. The preventDefault also prevents Voiceover from
       // 'handling' the event, as voiceover will try to use arrow keys
       // for highlighting text.
 
-      const targetRole = event.target.getAttribute('role');
-      const targetHasMenuItemRole = MENU_ITEM_ROLES.includes(targetRole); // `preventDefault()` on tab to avoid having the browser move the focus
-      // after this component has already moved it.
+      const targetRole = (_event$target = event.target) === null || _event$target === void 0 ? void 0 : _event$target.getAttribute('role');
+      const targetHasMenuItemRole = !!targetRole && MENU_ITEM_ROLES.includes(targetRole);
 
-      const isTab = event.code === 'Tab';
-
-      if (targetHasMenuItemRole || isTab) {
+      if (targetHasMenuItemRole) {
         event.preventDefault();
       }
     }
@@ -44155,7 +44131,13 @@ class NavigableContainer extends external_wp_element_namespaceObject.Component {
       return;
     }
 
-    const context = getFocusableContext(event.target.ownerDocument.activeElement);
+    const activeElement = (_event$target2 = event.target) === null || _event$target2 === void 0 ? void 0 : (_event$target2$ownerD = _event$target2.ownerDocument) === null || _event$target2$ownerD === void 0 ? void 0 : _event$target2$ownerD.activeElement;
+
+    if (!activeElement) {
+      return;
+    }
+
+    const context = getFocusableContext(activeElement);
 
     if (!context) {
       return;
@@ -44169,7 +44151,12 @@ class NavigableContainer extends external_wp_element_namespaceObject.Component {
 
     if (nextIndex >= 0 && nextIndex < focusables.length) {
       focusables[nextIndex].focus();
-      onNavigate(nextIndex, focusables[nextIndex]);
+      onNavigate(nextIndex, focusables[nextIndex]); // `preventDefault()` on tab to avoid having the browser move the focus
+      // after this component has already moved it.
+
+      if (event.code === 'Tab') {
+        event.preventDefault();
+      }
     }
   }
 
@@ -44204,7 +44191,10 @@ forwardedNavigableContainer.displayName = 'NavigableContainer';
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/menu.js
 
 
-// @ts-nocheck
+
+/**
+ * External dependencies
+ */
 
 /**
  * WordPress dependencies
@@ -44215,7 +44205,7 @@ forwardedNavigableContainer.displayName = 'NavigableContainer';
  */
 
 
-function NavigableMenu(_ref, ref) {
+function UnforwardedNavigableMenu(_ref, ref) {
   let {
     role = 'menu',
     orientation = 'vertical',
@@ -44249,6 +44239,8 @@ function NavigableMenu(_ref, ref) {
       // in an offset.
       return 0;
     }
+
+    return undefined;
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(container, extends_extends({
@@ -44256,11 +44248,38 @@ function NavigableMenu(_ref, ref) {
     stopNavigationEvents: true,
     onlyBrowserTabstops: false,
     role: role,
-    "aria-orientation": role === 'presentation' ? null : orientation,
+    "aria-orientation": role !== 'presentation' && (orientation === 'vertical' || orientation === 'horizontal') ? orientation : undefined,
     eventToOffset: eventToOffset
   }, rest));
 }
-/* harmony default export */ var navigable_container_menu = ((0,external_wp_element_namespaceObject.forwardRef)(NavigableMenu));
+/**
+ * A container for a navigable menu.
+ *
+ *  ```jsx
+ *  import {
+ *    NavigableMenu,
+ *    Button,
+ *  } from '@wordpress/components';
+ *
+ *  function onNavigate( index, target ) {
+ *    console.log( `Navigates to ${ index }`, target );
+ *  }
+ *
+ *  const MyNavigableContainer = () => (
+ *    <div>
+ *      <span>Navigable Menu:</span>
+ *      <NavigableMenu onNavigate={ onNavigate } orientation="horizontal">
+ *        <Button variant="secondary">Item 1</Button>
+ *        <Button variant="secondary">Item 2</Button>
+ *        <Button variant="secondary">Item 3</Button>
+ *      </NavigableMenu>
+ *    </div>
+ *  );
+ *  ```
+ */
+
+const NavigableMenu = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedNavigableMenu);
+/* harmony default export */ var navigable_container_menu = (NavigableMenu);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/dropdown-menu/index.js
 
@@ -44497,6 +44516,7 @@ const RemoveButton = /*#__PURE__*/emotion_styled_base_browser_esm(build_module_b
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
@@ -44578,14 +44598,19 @@ function ColorPickerPopover(_ref2) {
     isGradient,
     element,
     onChange,
+    popoverProps: receivedPopoverProps,
     onClose = () => {}
   } = _ref2;
-  return (0,external_wp_element_namespaceObject.createElement)(popover, {
-    placement: "left-start",
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({
+    shift: true,
     offset: 20,
-    className: "components-palette-edit__popover",
+    placement: 'left-start',
+    ...receivedPopoverProps,
+    className: classnames_default()('components-palette-edit__popover', receivedPopoverProps === null || receivedPopoverProps === void 0 ? void 0 : receivedPopoverProps.className)
+  }), [receivedPopoverProps]);
+  return (0,external_wp_element_namespaceObject.createElement)(popover, extends_extends({}, popoverProps, {
     onClose: onClose
-  }, !isGradient && (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
+  }), !isGradient && (0,external_wp_element_namespaceObject.createElement)(LegacyAdapter, {
     color: element.color,
     enableAlpha: true,
     onChange: newColor => {
@@ -44616,15 +44641,24 @@ function palette_edit_Option(_ref3) {
     onStartEditing,
     onRemove,
     onStopEditing,
+    popoverProps: receivedPopoverProps,
     slugPrefix,
     isGradient
   } = _ref3;
   const focusOutsideProps = (0,external_wp_compose_namespaceObject.__experimentalUseFocusOutside)(onStopEditing);
-  const value = isGradient ? element.gradient : element.color;
+  const value = isGradient ? element.gradient : element.color; // Use internal state instead of a ref to make sure that the component
+  // re-renders when the popover's anchor updates.
+
+  const [popoverAnchor, setPopoverAnchor] = (0,external_wp_element_namespaceObject.useState)(null);
+  const popoverProps = (0,external_wp_element_namespaceObject.useMemo)(() => ({ ...receivedPopoverProps,
+    // Use the custom palette color item as the popover anchor.
+    anchor: popoverAnchor
+  }), [popoverAnchor, receivedPopoverProps]);
   return (0,external_wp_element_namespaceObject.createElement)(PaletteItem, extends_extends({
     className: isEditing ? 'is-selected' : undefined,
     as: "div",
-    onClick: onStartEditing
+    onClick: onStartEditing,
+    ref: setPopoverAnchor
   }, isEditing ? { ...focusOutsideProps
   } : {
     style: {
@@ -44652,7 +44686,8 @@ function palette_edit_Option(_ref3) {
   }))), isEditing && (0,external_wp_element_namespaceObject.createElement)(ColorPickerPopover, {
     isGradient: isGradient,
     onChange: onChange,
-    element: element
+    element: element,
+    popoverProps: popoverProps
   }));
 }
 
@@ -44674,7 +44709,8 @@ function PaletteEditListView(_ref5) {
     setEditingElement,
     canOnlyChangeValues,
     slugPrefix,
-    isGradient
+    isGradient,
+    popoverProps
   } = _ref5;
   // When unmounting the component if there are empty elements (the user did not complete the insertion) clean them.
   const elementsReference = (0,external_wp_element_namespaceObject.useRef)();
@@ -44734,7 +44770,8 @@ function PaletteEditListView(_ref5) {
         setEditingElement(null);
       }
     },
-    slugPrefix: slugPrefix
+    slugPrefix: slugPrefix,
+    popoverProps: popoverProps
   }))));
 }
 
@@ -44770,7 +44807,8 @@ function PaletteEdit(_ref6) {
     emptyMessage,
     canOnlyChangeValues,
     canReset,
-    slugPrefix = ''
+    slugPrefix = '',
+    popoverProps
   } = _ref6;
   const isGradient = !!gradients;
   const elements = isGradient ? gradients : colors;
@@ -44867,7 +44905,8 @@ function PaletteEdit(_ref6) {
     editingElement: editingElement,
     setEditingElement: setEditingElement,
     slugPrefix: slugPrefix,
-    isGradient: isGradient
+    isGradient: isGradient,
+    popoverProps: popoverProps
   }), !isEditing && editingElement !== null && (0,external_wp_element_namespaceObject.createElement)(ColorPickerPopover, {
     isGradient: isGradient,
     onClose: () => setEditingElement(null),
@@ -44881,7 +44920,8 @@ function PaletteEdit(_ref6) {
         return currentElement;
       }));
     },
-    element: elements[editingElement !== null && editingElement !== void 0 ? editingElement : -1]
+    element: elements[editingElement !== null && editingElement !== void 0 ? editingElement : -1],
+    popoverProps: popoverProps
   }), !isEditing && (isGradient ? (0,external_wp_element_namespaceObject.createElement)(gradient_picker, {
     __nextHasNoMargin: true,
     gradients: gradients,
@@ -44913,14 +44953,14 @@ function PaletteEdit(_ref6) {
 
 const deprecatedDefaultSize = _ref => {
   let {
-    __next36pxDefaultSize
+    __next40pxDefaultSize
   } = _ref;
-  return !__next36pxDefaultSize && /*#__PURE__*/emotion_react_browser_esm_css("height:28px;padding-left:", space(1), ";padding-right:", space(1), ";" + ( true ? "" : 0),  true ? "" : 0);
+  return !__next40pxDefaultSize && /*#__PURE__*/emotion_react_browser_esm_css("height:28px;padding-left:", space(1), ";padding-right:", space(1), ";" + ( true ? "" : 0),  true ? "" : 0);
 };
 
 const InputWrapperFlex = /*#__PURE__*/emotion_styled_base_browser_esm(flex_component,  true ? {
   target: "evuatpg0"
-} : 0)("height:34px;padding-left:", space(2), ";padding-right:", space(2), ";", deprecatedDefaultSize, ";" + ( true ? "" : 0));
+} : 0)("height:38px;padding-left:", space(2), ";padding-right:", space(2), ";", deprecatedDefaultSize, ";" + ( true ? "" : 0));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/form-token-field/token-input.js
 
@@ -45151,6 +45191,32 @@ function SuggestionsList(_ref) {
   }, props)));
 }, 'withFocusOutside'));
 
+;// CONCATENATED MODULE: ./packages/components/build-module/utils/use-deprecated-props.js
+/**
+ * WordPress dependencies
+ */
+
+function useDeprecated36pxDefaultSizeProp(props,
+/** The component identifier in dot notation, e.g. `wp.components.ComponentName`. */
+componentIdentifier) {
+  const {
+    __next36pxDefaultSize,
+    __next40pxDefaultSize,
+    ...otherProps
+  } = props;
+
+  if (typeof __next36pxDefaultSize !== 'undefined') {
+    external_wp_deprecated_default()('`__next36pxDefaultSize` prop in ' + componentIdentifier, {
+      alternative: '`__next40pxDefaultSize`',
+      since: '6.3'
+    });
+  }
+
+  return { ...otherProps,
+    __next40pxDefaultSize: __next40pxDefaultSize !== null && __next40pxDefaultSize !== void 0 ? __next40pxDefaultSize : __next36pxDefaultSize
+  };
+}
+
 ;// CONCATENATED MODULE: ./packages/components/build-module/combobox-control/index.js
 
 
@@ -45170,6 +45236,7 @@ function SuggestionsList(_ref) {
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -45246,12 +45313,12 @@ const getIndexOfMatchingSuggestion = (selectedSuggestion, matchingSuggestions) =
  */
 
 
-function ComboboxControl(_ref) {
+function ComboboxControl(props) {
   var _currentOption$label;
 
-  let {
+  const {
     __nextHasNoMarginBottom = false,
-    __next36pxDefaultSize = false,
+    __next40pxDefaultSize = false,
     value: valueProp,
     label,
     options,
@@ -45265,7 +45332,7 @@ function ComboboxControl(_ref) {
       selected: (0,external_wp_i18n_namespaceObject.__)('Item selected.')
     },
     __experimentalRenderItem
-  } = _ref;
+  } = useDeprecated36pxDefaultSizeProp(props, 'wp.components.ComboboxControl');
   const [value, setValue] = useControlledValue({
     value: valueProp,
     onChange: onChangeProp
@@ -45437,7 +45504,7 @@ function ComboboxControl(_ref) {
     tabIndex: -1,
     onKeyDown: onKeyDown
   }, (0,external_wp_element_namespaceObject.createElement)(InputWrapperFlex, {
-    __next36pxDefaultSize: __next36pxDefaultSize
+    __next40pxDefaultSize: __next40pxDefaultSize
   }, (0,external_wp_element_namespaceObject.createElement)(flex_block_component, null, (0,external_wp_element_namespaceObject.createElement)(token_input, {
     className: "components-combobox-control__input",
     instanceId: instanceId,
@@ -45725,7 +45792,8 @@ function UnforwardedModal(props, forwardedRef) {
     icon: library_close,
     label: closeButtonLabel || (0,external_wp_i18n_namespaceObject.__)('Close')
   })), (0,external_wp_element_namespaceObject.createElement)("div", {
-    ref: childrenContainerRef
+    ref: childrenContainerRef,
+    className: "components-modal__children-container"
   }, children))))), document.body);
 }
 /**
@@ -55457,8 +55525,8 @@ const findSizeBySlug = (sizes, slug) => sizes.find(size => slug === size.slug);
  * This feature is still experimental. “Experimental” means this is an early implementation subject to drastic and breaking changes.
  *
  * ```jsx
- * import { useState } from 'react';
  * import { __experimentalDimensionControl as DimensionControl } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
  *
  * export default function MyCustomDimensionControl() {
  * 	const [ paddingSize, setPaddingSize ] = useState( '' );
@@ -55813,14 +55881,10 @@ function Draggable(_ref) {
     const throttledDragOver = (0,external_wp_compose_namespaceObject.throttle)(over, 16);
     ownerDocument.addEventListener('dragover', throttledDragOver); // Update cursor to 'grabbing', document wide.
 
-    ownerDocument.body.classList.add(bodyClass); // Allow the Synthetic Event to be accessed from asynchronous code.
-    // https://reactjs.org/docs/events.html#event-pooling
-
-    event.persist();
-    let timerId;
+    ownerDocument.body.classList.add(bodyClass);
 
     if (onDragStart) {
-      timerId = setTimeout(() => onDragStart(event));
+      onDragStart(event);
     }
 
     cleanup.current = () => {
@@ -55836,7 +55900,6 @@ function Draggable(_ref) {
 
       ownerDocument.body.classList.remove(bodyClass);
       ownerDocument.removeEventListener('dragover', throttledDragOver);
-      clearTimeout(timerId);
     };
   }
 
@@ -58831,15 +58894,15 @@ function Token(_ref) {
 
 const deprecatedPaddings = _ref => {
   let {
-    __next36pxDefaultSize,
+    __next40pxDefaultSize,
     hasTokens
   } = _ref;
-  return !__next36pxDefaultSize && /*#__PURE__*/emotion_react_browser_esm_css("padding-top:", space(hasTokens ? 1 : 0.5), ";padding-bottom:", space(hasTokens ? 1 : 0.5), ";" + ( true ? "" : 0),  true ? "" : 0);
+  return !__next40pxDefaultSize && /*#__PURE__*/emotion_react_browser_esm_css("padding-top:", space(hasTokens ? 1 : 0.5), ";padding-bottom:", space(hasTokens ? 1 : 0.5), ";" + ( true ? "" : 0),  true ? "" : 0);
 };
 
 const TokensAndInputWrapperFlex = /*#__PURE__*/emotion_styled_base_browser_esm(flex_component,  true ? {
   target: "ehq8nmi0"
-} : 0)("padding:5px ", space(1), ";", deprecatedPaddings, ";" + ( true ? "" : 0));
+} : 0)("padding:7px;", deprecatedPaddings, ";" + ( true ? "" : 0));
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/form-token-field/index.js
 
@@ -58861,6 +58924,7 @@ const TokensAndInputWrapperFlex = /*#__PURE__*/emotion_styled_base_browser_esm(f
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -58912,10 +58976,10 @@ function FormTokenField(props) {
     __experimentalExpandOnFocus = false,
     __experimentalValidateInput = () => true,
     __experimentalShowHowTo = true,
-    __next36pxDefaultSize = false,
+    __next40pxDefaultSize = false,
     __experimentalAutoSelectFirstMatch = false,
     __nextHasNoMarginBottom = false
-  } = props;
+  } = useDeprecated36pxDefaultSizeProp(props, 'wp.components.FormTokenField');
   const instanceId = (0,external_wp_compose_namespaceObject.useInstanceId)(FormTokenField); // We reset to these initial values again in the onBlur
 
   const [incompleteTokenValue, setIncompleteTokenValue] = (0,external_wp_element_namespaceObject.useState)('');
@@ -59467,7 +59531,7 @@ function FormTokenField(props) {
     align: "center",
     gap: 1,
     wrap: true,
-    __next36pxDefaultSize: __next36pxDefaultSize,
+    __next40pxDefaultSize: __next40pxDefaultSize,
     hasTokens: !!value.length
   }, renderTokensAndInput()), isExpanded && (0,external_wp_element_namespaceObject.createElement)(suggestions_list, {
     instanceId: instanceId,
@@ -60220,7 +60284,10 @@ function MenuItemsChoice(_ref) {
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigable-container/tabbable.js
 
 
-// @ts-nocheck
+
+/**
+ * External dependencies
+ */
 
 /**
  * WordPress dependencies
@@ -60231,7 +60298,7 @@ function MenuItemsChoice(_ref) {
  */
 
 
-function TabbableContainer(_ref, ref) {
+function UnforwardedTabbableContainer(_ref, ref) {
   let {
     eventToOffset,
     ...props
@@ -60261,6 +60328,8 @@ function TabbableContainer(_ref, ref) {
     if (eventToOffset) {
       return eventToOffset(evt);
     }
+
+    return undefined;
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(container, extends_extends({
@@ -60270,7 +60339,43 @@ function TabbableContainer(_ref, ref) {
     eventToOffset: innerEventToOffset
   }, props));
 }
-/* harmony default export */ var tabbable = ((0,external_wp_element_namespaceObject.forwardRef)(TabbableContainer));
+/**
+ * A container for tabbable elements.
+ *
+ *  ```jsx
+ *  import {
+ *    TabbableContainer,
+ *    Button,
+ *  } from '@wordpress/components';
+ *
+ *  function onNavigate( index, target ) {
+ *    console.log( `Navigates to ${ index }`, target );
+ *  }
+ *
+ *  const MyTabbableContainer = () => (
+ *    <div>
+ *      <span>Tabbable Container:</span>
+ *      <TabbableContainer onNavigate={ onNavigate }>
+ *        <Button variant="secondary" tabIndex="0">
+ *          Section 1
+ *        </Button>
+ *        <Button variant="secondary" tabIndex="0">
+ *          Section 2
+ *        </Button>
+ *        <Button variant="secondary" tabIndex="0">
+ *          Section 3
+ *        </Button>
+ *        <Button variant="secondary" tabIndex="0">
+ *          Section 4
+ *        </Button>
+ *      </TabbableContainer>
+ *    </div>
+ *  );
+ *  ```
+ */
+
+const TabbableContainer = (0,external_wp_element_namespaceObject.forwardRef)(UnforwardedTabbableContainer);
+/* harmony default export */ var tabbable = (TabbableContainer);
 
 ;// CONCATENATED MODULE: ./packages/components/build-module/navigation/constants.js
 const ROOT_MENU = 'root';
@@ -66595,16 +66700,15 @@ const ToolbarContext = (0,external_wp_element_namespaceObject.createContext)(und
 ;// CONCATENATED MODULE: ./packages/components/build-module/toolbar/toolbar-item/index.js
 
 
-// @ts-nocheck
 
 /**
  * External dependencies
  */
 
+
 /**
  * WordPress dependencies
  */
-
 
 
 /**
@@ -66634,6 +66738,10 @@ function toolbar_item_ToolbarItem(_ref, ref) {
   if (!accessibleToolbarState) {
     if (Component) {
       return (0,external_wp_element_namespaceObject.createElement)(Component, allProps, children);
+    }
+
+    if (typeof children !== 'function') {
+      return null;
     }
 
     return children(allProps);
@@ -66729,8 +66837,7 @@ function UnforwardedToolbarButton(_ref, ref) {
     className: classnames_default()('components-toolbar-button', className)
   }, extraProps, props, {
     ref: ref
-  }), // @ts-expect-error
-  toolbarItemProps => (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
+  }), toolbarItemProps => (0,external_wp_element_namespaceObject.createElement)(build_module_button, extends_extends({
     label: title,
     isPressed: isActive,
     disabled: isDisabled

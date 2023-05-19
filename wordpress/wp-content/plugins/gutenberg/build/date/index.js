@@ -1162,6 +1162,7 @@ __webpack_require__.d(__webpack_exports__, {
   "getSettings": function() { return /* binding */ getSettings; },
   "gmdate": function() { return /* binding */ gmdate; },
   "gmdateI18n": function() { return /* binding */ gmdateI18n; },
+  "humanTimeDiff": function() { return /* binding */ humanTimeDiff; },
   "isInTheFuture": function() { return /* binding */ isInTheFuture; },
   "setSettings": function() { return /* binding */ setSettings; }
 });
@@ -1733,6 +1734,20 @@ function getDate(dateString) {
   }
 
   return external_moment_default().tz(dateString, WP_ZONE).toDate();
+}
+/**
+ * Returns a human-readable time difference between two dates, like human_time_diff() in PHP.
+ *
+ * @param {Moment | Date | string}             from From date, in the WP timezone.
+ * @param {Moment | Date | string | undefined} to   To date, formatted in the WP timezone.
+ *
+ * @return {string} Human-readable time difference.
+ */
+
+function humanTimeDiff(from, to) {
+  const fromMoment = external_moment_default().tz(from, WP_ZONE);
+  const toMoment = to ? external_moment_default().tz(to, WP_ZONE) : external_moment_default().tz(WP_ZONE);
+  return fromMoment.from(toMoment);
 }
 /**
  * Creates a moment instance using the given timezone or, if none is provided, using global settings.

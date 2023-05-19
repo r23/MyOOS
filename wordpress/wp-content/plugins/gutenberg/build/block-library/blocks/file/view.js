@@ -71,7 +71,7 @@ const hidePdfEmbedsOnUnsupportedBrowsers = () => {
  * Internal dependencies
  */
 
-hidePdfEmbedsOnUnsupportedBrowsers();
+document.addEventListener('DOMContentLoaded', hidePdfEmbedsOnUnsupportedBrowsers);
 
 /******/ })()
 ;

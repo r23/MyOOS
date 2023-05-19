@@ -674,6 +674,8 @@ __webpack_require__.d(build_module_actions_namespaceObject, {
   "receiveCurrentUser": function() { return receiveCurrentUser; },
   "receiveEmbedPreview": function() { return receiveEmbedPreview; },
   "receiveEntityRecords": function() { return receiveEntityRecords; },
+  "receiveNavigationFallbackId": function() { return receiveNavigationFallbackId; },
+  "receiveThemeGlobalStyleRevisions": function() { return receiveThemeGlobalStyleRevisions; },
   "receiveThemeSupports": function() { return receiveThemeSupports; },
   "receiveUploadPermissions": function() { return receiveUploadPermissions; },
   "receiveUserPermission": function() { return receiveUserPermission; },
@@ -703,6 +705,7 @@ __webpack_require__.d(build_module_selectors_namespaceObject, {
   "getBlockPatternCategories": function() { return getBlockPatternCategories; },
   "getBlockPatterns": function() { return getBlockPatterns; },
   "getCurrentTheme": function() { return getCurrentTheme; },
+  "getCurrentThemeGlobalStylesRevisions": function() { return getCurrentThemeGlobalStylesRevisions; },
   "getCurrentUser": function() { return getCurrentUser; },
   "getEditedEntityRecord": function() { return getEditedEntityRecord; },
   "getEmbedPreview": function() { return getEmbedPreview; },
@@ -716,6 +719,7 @@ __webpack_require__.d(build_module_selectors_namespaceObject, {
   "getEntityRecords": function() { return getEntityRecords; },
   "getLastEntityDeleteError": function() { return getLastEntityDeleteError; },
   "getLastEntitySaveError": function() { return getLastEntitySaveError; },
+  "getNavigationFallbackId": function() { return getNavigationFallbackId; },
   "getRawEntityRecord": function() { return getRawEntityRecord; },
   "getRedoEdit": function() { return getRedoEdit; },
   "getReferenceByDistinctEdits": function() { return getReferenceByDistinctEdits; },
@@ -750,11 +754,13 @@ __webpack_require__.d(resolvers_namespaceObject, {
   "getBlockPatternCategories": function() { return resolvers_getBlockPatternCategories; },
   "getBlockPatterns": function() { return resolvers_getBlockPatterns; },
   "getCurrentTheme": function() { return resolvers_getCurrentTheme; },
+  "getCurrentThemeGlobalStylesRevisions": function() { return resolvers_getCurrentThemeGlobalStylesRevisions; },
   "getCurrentUser": function() { return resolvers_getCurrentUser; },
   "getEditedEntityRecord": function() { return resolvers_getEditedEntityRecord; },
   "getEmbedPreview": function() { return resolvers_getEmbedPreview; },
   "getEntityRecord": function() { return resolvers_getEntityRecord; },
   "getEntityRecords": function() { return resolvers_getEntityRecords; },
+  "getNavigationFallbackId": function() { return resolvers_getNavigationFallbackId; },
   "getRawEntityRecord": function() { return resolvers_getRawEntityRecord; },
   "getThemeSupports": function() { return resolvers_getThemeSupports; }
 });
@@ -1888,6 +1894,25 @@ function receiveThemeSupports() {
   };
 }
 /**
+ * Returns an action object used in signalling that the theme global styles CPT post revisions have been received.
+ * Ignored from documentation as it's internal to the data store.
+ *
+ * @ignore
+ *
+ * @param {number} currentId The post id.
+ * @param {Array}  revisions The global styles revisions.
+ *
+ * @return {Object} Action object.
+ */
+
+function receiveThemeGlobalStyleRevisions(currentId, revisions) {
+  return {
+    type: 'RECEIVE_THEME_GLOBAL_STYLE_REVISIONS',
+    currentId,
+    revisions
+  };
+}
+/**
  * Returns an action object used in signalling that the preview data for
  * a given URl has been received.
  * Ignored from documentation as it's internal to the data store.
@@ -2452,6 +2477,20 @@ function receiveAutosaves(postId, autosaves) {
     type: 'RECEIVE_AUTOSAVES',
     postId,
     autosaves: Array.isArray(autosaves) ? autosaves : [autosaves]
+  };
+}
+/**
+ * Returns an action object signalling that the fallback Navigation
+ * Menu id has been received.
+ *
+ * @param {integer} fallbackId the id of the fallback Navigation Menu
+ * @return {Object} Action object.
+ */
+
+function receiveNavigationFallbackId(fallbackId) {
+  return {
+    type: 'RECEIVE_NAVIGATION_FALLBACK_ID',
+    fallbackId
   };
 }
 
@@ -3874,6 +3913,39 @@ function blockPatternCategories() {
 
   return state;
 }
+function navigationFallbackId() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'RECEIVE_NAVIGATION_FALLBACK_ID':
+      return action.fallbackId;
+  }
+
+  return state;
+}
+/**
+ * Reducer managing the theme global styles revisions.
+ *
+ * @param {Record<string, object>} state  Current state.
+ * @param {Object}                 action Dispatched action.
+ *
+ * @return {Record<string, object>} Updated state.
+ */
+
+function themeGlobalStyleRevisions() {
+  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  let action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case 'RECEIVE_THEME_GLOBAL_STYLE_REVISIONS':
+      return { ...state,
+        [action.currentId]: action.revisions
+      };
+  }
+
+  return state;
+}
 /* harmony default export */ var build_module_reducer = ((0,external_wp_data_namespaceObject.combineReducers)({
   terms,
   users,
@@ -3882,6 +3954,7 @@ function blockPatternCategories() {
   currentUser,
   themeGlobalStyleVariations,
   themeBaseGlobalStyles,
+  themeGlobalStyleRevisions,
   taxonomies,
   entities,
   undo: reducer_undo,
@@ -3889,7 +3962,8 @@ function blockPatternCategories() {
   userPermissions,
   autosaves,
   blockPatterns,
-  blockPatternCategories
+  blockPatternCategories,
+  navigationFallbackId
 }));
 
 ;// CONCATENATED MODULE: ./node_modules/rememo/rememo.js
@@ -4430,7 +4504,7 @@ const isRequestingEmbedPreview = (0,external_wp_data_namespaceObject.createRegis
  *
  * @param      state Data state.
  * @param      query Optional object of query parameters to
- *                   include with request.
+ *                   include with request. For valid query parameters see the [Users page](https://developer.wordpress.org/rest-api/reference/users/) in the REST API Handbook and see the arguments for [List Users](https://developer.wordpress.org/rest-api/reference/users/#list-users) and [Retrieve a User](https://developer.wordpress.org/rest-api/reference/users/#retrieve-a-user).
  * @return Authors list.
  */
 
@@ -4565,7 +4639,7 @@ function getEntityConfig(state, kind, name) {
  * @param name  Entity name.
  * @param key   Record's key
  * @param query Optional query. If requesting specific
- *              fields, fields must always include the ID.
+ *              fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available "Retrieve a [Entity kind]".
  *
  * @return Record.
  */
@@ -4673,7 +4747,7 @@ const getRawEntityRecord = rememo((state, kind, name, key) => {
  * @param state State tree
  * @param kind  Entity kind.
  * @param name  Entity name.
- * @param query Optional terms query.
+ * @param query Optional terms query. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
  *
  * @return  Whether entity records have been received.
  */
@@ -4697,7 +4771,7 @@ function hasEntityRecords(state, kind, name, query) {
  * @param kind  Entity kind.
  * @param name  Entity name.
  * @param query Optional terms query. If requesting specific
- *              fields, fields must always include the ID.
+ *              fields, fields must always include the ID. For valid query parameters see the [Reference](https://developer.wordpress.org/rest-api/reference/) in the REST API Handbook and select the entity kind. Then see the arguments available for "List [Entity kind]s".
  *
  * @return Records.
  */
@@ -5292,6 +5366,33 @@ function getBlockPatterns(state) {
 function getBlockPatternCategories(state) {
   return state.blockPatternCategories;
 }
+/**
+ * Retrieve the fallback Navigation.
+ *
+ * @param state Data state.
+ * @return The ID for the fallback Navigation post.
+ */
+
+function getNavigationFallbackId(state) {
+  return state.navigationFallbackId;
+}
+/**
+ * Returns the revisions of the current global styles theme.
+ *
+ * @param state Data state.
+ *
+ * @return The current global styles.
+ */
+
+function getCurrentThemeGlobalStylesRevisions(state) {
+  const currentGlobalStylesId = __experimentalGetCurrentGlobalStylesId(state);
+
+  if (!currentGlobalStylesId) {
+    return null;
+  }
+
+  return state.themeGlobalStyleRevisions[currentGlobalStylesId];
+}
 
 ;// CONCATENATED MODULE: ./node_modules/camel-case/dist.es2015/index.js
 
@@ -5509,7 +5610,7 @@ const resolvers_getEntityRecords = function (kind, name) {
       let records = Object.values(await external_wp_apiFetch_default()({
         path
       })); // If we request fields but the result doesn't contain the fields,
-      // explicitely set these fields as "undefined"
+      // explicitly set these fields as "undefined"
       // that way we consider the query "fullfilled".
 
       if (query._fields) {
@@ -5743,15 +5844,16 @@ const resolvers_experimentalGetTemplateForLink = link => async _ref11 => {
     dispatch,
     resolveSelect
   } = _ref11;
-  // Ideally this should be using an apiFetch call
-  // We could potentially do so by adding a "filter" to the `wp_template` end point.
-  // Also it seems the returned object is not a regular REST API post type.
   let template;
 
   try {
-    template = await window.fetch((0,external_wp_url_namespaceObject.addQueryArgs)(link, {
-      '_wp-find-template': true
-    })).then(res => res.json()).then(_ref12 => {
+    // This is NOT calling a REST endpoint but rather ends up with a response from
+    // an Ajax function which has a different shape from a WP_REST_Response.
+    template = await external_wp_apiFetch_default()({
+      url: (0,external_wp_url_namespaceObject.addQueryArgs)(link, {
+        '_wp-find-template': true
+      })
+    }).then(_ref12 => {
       let {
         data
       } = _ref12;
@@ -5821,15 +5923,46 @@ const resolvers_experimentalGetCurrentThemeGlobalStylesVariations = () => async 
 
   dispatch.__experimentalReceiveThemeGlobalStyleVariations(currentTheme.stylesheet, variations);
 };
-const resolvers_getBlockPatterns = () => async _ref16 => {
+/**
+ * Fetches and returns the revisions of the current global styles theme.
+ */
+
+const resolvers_getCurrentThemeGlobalStylesRevisions = () => async _ref16 => {
+  var _record$_links, _record$_links$versio, _record$_links$versio2;
+
   let {
+    resolveSelect,
     dispatch
   } = _ref16;
+  const globalStylesId = await resolveSelect.__experimentalGetCurrentGlobalStylesId();
+  const record = globalStylesId ? await resolveSelect.getEntityRecord('root', 'globalStyles', globalStylesId) : undefined;
+  const revisionsURL = record === null || record === void 0 ? void 0 : (_record$_links = record._links) === null || _record$_links === void 0 ? void 0 : (_record$_links$versio = _record$_links['version-history']) === null || _record$_links$versio === void 0 ? void 0 : (_record$_links$versio2 = _record$_links$versio[0]) === null || _record$_links$versio2 === void 0 ? void 0 : _record$_links$versio2.href;
+
+  if (revisionsURL) {
+    const resetRevisions = await external_wp_apiFetch_default()({
+      url: revisionsURL
+    });
+    const revisions = resetRevisions === null || resetRevisions === void 0 ? void 0 : resetRevisions.map(revision => Object.fromEntries(Object.entries(revision).map(_ref17 => {
+      let [key, value] = _ref17;
+      return [camelCase(key), value];
+    })));
+    dispatch.receiveThemeGlobalStyleRevisions(globalStylesId, revisions);
+  }
+};
+
+resolvers_getCurrentThemeGlobalStylesRevisions.shouldInvalidate = action => {
+  return action.type === 'SAVE_ENTITY_RECORD_FINISH' && action.kind === 'root' && !action.error && action.name === 'globalStyles';
+};
+
+const resolvers_getBlockPatterns = () => async _ref18 => {
+  let {
+    dispatch
+  } = _ref18;
   const restPatterns = await external_wp_apiFetch_default()({
     path: '/wp/v2/block-patterns/patterns'
   });
-  const patterns = restPatterns === null || restPatterns === void 0 ? void 0 : restPatterns.map(pattern => Object.fromEntries(Object.entries(pattern).map(_ref17 => {
-    let [key, value] = _ref17;
+  const patterns = restPatterns === null || restPatterns === void 0 ? void 0 : restPatterns.map(pattern => Object.fromEntries(Object.entries(pattern).map(_ref19 => {
+    let [key, value] = _ref19;
     return [camelCase(key), value];
   })));
   dispatch({
@@ -5837,10 +5970,10 @@ const resolvers_getBlockPatterns = () => async _ref16 => {
     patterns
   });
 };
-const resolvers_getBlockPatternCategories = () => async _ref18 => {
+const resolvers_getBlockPatternCategories = () => async _ref20 => {
   let {
     dispatch
-  } = _ref18;
+  } = _ref20;
   const categories = await external_wp_apiFetch_default()({
     path: '/wp/v2/block-patterns/categories'
   });
@@ -5848,6 +5981,26 @@ const resolvers_getBlockPatternCategories = () => async _ref18 => {
     type: 'RECEIVE_BLOCK_PATTERN_CATEGORIES',
     categories
   });
+};
+const resolvers_getNavigationFallbackId = () => async _ref21 => {
+  var _fallback$_embedded;
+
+  let {
+    dispatch
+  } = _ref21;
+  const fallback = await external_wp_apiFetch_default()({
+    path: (0,external_wp_url_namespaceObject.addQueryArgs)('/wp-block-editor/v1/navigation-fallback', {
+      _embed: true
+    })
+  });
+  const record = fallback === null || fallback === void 0 ? void 0 : (_fallback$_embedded = fallback._embedded) === null || _fallback$_embedded === void 0 ? void 0 : _fallback$_embedded.self;
+  dispatch.receiveNavigationFallbackId(fallback === null || fallback === void 0 ? void 0 : fallback.id);
+
+  if (record) {
+    dispatch.receiveEntityRecords('postType', 'wp_navigation', record); // Resolve to avoid further network requests.
+
+    dispatch.finishResolution('getEntityRecord', ['postType', 'wp_navigation', fallback === null || fallback === void 0 ? void 0 : fallback.id]);
+  }
 };
 
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/locks/utils.js
