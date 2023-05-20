@@ -396,7 +396,7 @@ msgstr "Element der Seitenliste"
 
 #: wp-includes/js/dist/edit-site.js:12348
 #: wp-includes/js/dist/edit-site.js:12992
-#: wp-includes/js/dist/edit-site.js:17127 wp-admin/about.php:187
+#: wp-includes/js/dist/edit-site.js:17127 wp-admin/about.php:213
 msgid "Style Book"
 msgstr "Stilbuch"
 
@@ -10681,7 +10681,7 @@ msgctxt "post type general name"
 msgid "Changesets"
 msgstr "Änderungs-Sets"
 
-#: wp-includes/post.php:171 wp-includes/post.php:172 wp-admin/about.php:201
+#: wp-includes/post.php:171 wp-includes/post.php:172 wp-admin/about.php:227
 msgid "Custom CSS"
 msgstr "Individuelles CSS"
 

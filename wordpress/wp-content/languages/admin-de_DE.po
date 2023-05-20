@@ -188,122 +188,122 @@ msgstr "<a href=\"https://wordpress.org/documentation/article/understand-comment
 msgid "<a href=\"https://wordpress.org/documentation/article/customizer/\">Documentation on Customizer</a>"
 msgstr "<a href=\"https://wordpress.org/documentation/article/customizer/\">Dokumentation über den Customizer (engl.)</a>"
 
-#: wp-admin/about.php:235
+#: wp-admin/about.php:261
 msgid "Default WordPress themes offer better privacy with Google Fonts now included."
 msgstr "Die Standard-WordPress-Themes bieten jetzt dank integrierter Google Fonts besseren Datenschutz."
 
-#: wp-admin/about.php:234
+#: wp-admin/about.php:260
 msgid "Local fonts in themes"
 msgstr "Lokale Schriften in Themes"
 
-#: wp-admin/about.php:225
+#: wp-admin/about.php:251
 msgid "Options to import your favorite widgets from Classic themes to Block themes."
 msgstr "Optionen zum Importieren deiner bevorzugten Widgets aus klassischen Themes in Block-Themes."
 
-#: wp-admin/about.php:224
+#: wp-admin/about.php:250
 msgid "Importing widgets"
 msgstr "Widgets importieren"
 
-#: wp-admin/about.php:215
+#: wp-admin/about.php:241
 msgid "Choose to keep top-level group blocks fixed to the top of a page as visitors scroll."
 msgstr "Auswählen, ob Gruppenblöcke der obersten Ebene am oberen Seitenrand angeheftet bleiben, wenn Besucher die Seite scrollen."
 
-#: wp-admin/about.php:214
+#: wp-admin/about.php:240
 msgid "Sticky positioning"
 msgstr "Oben gehaltene Positionierung"
 
-#: wp-admin/about.php:202
+#: wp-admin/about.php:228
 msgid "Power up your site any way you wish. Add CSS to your site, or your blocks, for another level of control over your site&#8217;s look and feel."
 msgstr "Gestalte deine Website, wie du willst. Füge CSS zu deiner Website oder deinen Blöcken hinzu, um mehr Kontrolle über das Aussehen deiner Website zu erhalten."
 
-#: wp-admin/about.php:195
+#: wp-admin/about.php:221
 msgid "Perfect the design on one type of block, then copy and paste those styles to other blocks to get just the look you want."
 msgstr "Perfektioniere das Design für einen Blocktyp, dann kopiere diese Stile und füge sie in andere Blöcke ein, um genau das gewünschte Aussehen zu erhalten."
 
-#: wp-admin/about.php:194
+#: wp-admin/about.php:220
 msgid "Copy and paste styles"
 msgstr "Stile kopieren und einfügen"
 
-#: wp-admin/about.php:188
+#: wp-admin/about.php:214
 msgid "Use the new Style Book to get a complete overview of how every block in your site&#8217;s library looks. All in one place, all at a glance."
 msgstr "Verwende das neue Stilbuch, um einen vollständigen Überblick darüber zu erhalten, wie jeder Block in der Bibliothek deiner Website aussieht. Alles an einem Ort, alles auf einen Blick."
 
-#: wp-admin/about.php:178
+#: wp-admin/about.php:204
 msgid "Stable and ready for you to dive in and explore: 6.2 is your personal invitation to discover what the next generation of WordPress—and Block themes—can do."
 msgstr "Stabil und bereit für dich, um einzutauchen und zu erforschen: 6.2 ist deine persönliche Einladung, herauszufinden, was die nächste Generation von WordPress – und Block-Themes – alles kann."
 
-#: wp-admin/about.php:177
+#: wp-admin/about.php:203
 msgid "Experience the Site Editor, now out of beta"
 msgstr "Erlebe den Website-Editor, der jetzt aus der Beta-Phase heraus ist"
 
-#: wp-admin/about.php:171
+#: wp-admin/about.php:197
 msgid "For those times you want to be alone with your ideas. You can now hide all your panels and controls, leaving you free to bring your content to life."
 msgstr "Für die Momente, in denen du mit deinen Ideen allein sein willst. Du kannst jetzt alle Bedienfelder und Steuerelemente ausblenden, wodurch du die Freiheit hast, deine Inhalte zum Leben zu erwecken."
 
-#: wp-admin/about.php:170
+#: wp-admin/about.php:196
 msgid "Focus on writing with Distraction Free mode"
 msgstr "Fokussiere dich auf das Schreiben mithilfe des ablenkungsfreien Modus"
 
-#: wp-admin/about.php:161
+#: wp-admin/about.php:187
 msgid "Openverse&#8217;s library catalogs over 600 million free, openly licensed stock images and audio—and now it&#8217;s directly integrated into the Editor."
 msgstr "Die Bibliothek von Openverse enthält mehr als 600 Millionen kostenlose, offen lizenzierte Stock-Fotos und Audio – und ist jetzt direkt in den Editor integriert."
 
-#: wp-admin/about.php:160
+#: wp-admin/about.php:186
 msgid "Explore Openverse media right from the Editor"
 msgstr "Erkunde die Openverse-Medien direkt vom Editor aus"
 
-#: wp-admin/about.php:154
+#: wp-admin/about.php:180
 msgid "Discover a new collection of header and footer patterns to choose from. Use them with any block theme as a quick, high-quality starting point for your site&#8217;s templates."
 msgstr "Entdecke eine neue Sammlung von Header- und Footer-Vorlagen, aus denen du wählen kannst. Verwende sie mit jedem Block-Theme als schnellen und hochwertigen Ausgangspunkt für deine Website-Templates."
 
-#: wp-admin/about.php:153
+#: wp-admin/about.php:179
 msgid "Build faster with headers and footers for block themes"
 msgstr "Schnellere Gestaltung mit Header und Footer für Block-Themes"
 
-#: wp-admin/about.php:139
+#: wp-admin/about.php:165
 msgid "Your block settings sidebar is better organized with tabs for Settings and Styles. So the tools you need are easy to identify and access."
 msgstr "Deine Seitenleiste für die Block-Einstellungen ist nun besser mit den Tabs für Einstellungen und Stile organisiert. So sind die Werkzeuge, die du benötigst, leichter zu erkennen und zu erreichen."
 
-#: wp-admin/about.php:138
+#: wp-admin/about.php:164
 msgid "Find the controls you want when you need them"
 msgstr "Finde die benötigten Steuerelemente, wenn du sie brauchst"
 
-#: wp-admin/about.php:132
+#: wp-admin/about.php:158
 msgid "A refreshed design gives you more visibility and easier access to the content you need. Use the Media tab to drag and drop content from your existing Media Library quickly. Find patterns faster with a split view that lets you navigate categories and see previews all at once."
 msgstr "Ein überarbeitetes Design sorgt für mehr Sichtbarkeit und einen einfacheren Zugriff auf die benötigten Inhalte. Verwende den Tab „Medien“, um Inhalte schnell per Drag-and-drop aus deiner bestehenden Mediathek einzufügen. Finde Vorlagen schneller mit einer geteilten Ansicht, in der du gleichzeitig durch Kategorien navigieren und Vorschauen sehen kannst."
 
-#: wp-admin/about.php:131
+#: wp-admin/about.php:157
 msgid "Discover a smoother experience for the Block Inserter"
 msgstr "Entdecke ein flüssigeres Arbeiten mit dem Block-Inserter"
 
-#: wp-admin/about.php:115
+#: wp-admin/about.php:141
 msgid "A new sidebar experience makes it easier to edit your site&#8217;s navigation. Add, remove, and reorder menu items faster—no matter how complex your menus are."
 msgstr "Eine neue Seitenleiste macht es einfacher, die Navigation deiner Website zu bearbeiten. Füge Menüelemente schneller hinzu, entferne sie und ordne sie neu an – unabhängig davon, wie komplex deine Menüs sind."
 
-#: wp-admin/about.php:114
+#: wp-admin/about.php:140
 msgid "Manage your menu in more ways with the Navigation block"
 msgstr "Verwalte dein Menü auf mehr Arten mit dem Navigations-Block"
 
-#: wp-admin/about.php:108
+#: wp-admin/about.php:134
 msgid "An updated interface gives you more control over your site editing experience. Browse through full previews of your templates and template parts, then jump into editing your site from wherever you choose."
 msgstr "Eine aktualisierte Oberfläche gibt dir mehr Kontrolle über deine Website-Bearbeitung. Navigiere durch vollständige Vorschau-Ansichten deiner Templates und Template-Teile und bearbeite deine Website von wo aus immer du willst."
 
-#: wp-admin/about.php:107
+#: wp-admin/about.php:133
 msgid "Explore and edit your site from the Site Editor"
 msgstr "Erkunde und bearbeite deine Website mit dem Website-Editor"
 
 #. translators: 1: Count of enhancements, 2: Count of bug fixes.
-#: wp-admin/about.php:91
+#: wp-admin/about.php:117
 msgid "WordPress 6.2 includes more than %1$s enhancements and %2$s bug fixes. This page highlights the latest features since the November 2022 release of WordPress 6.1. From quick highlights to developer resources, there&#8217;s a lot to explore."
 msgstr "WordPress 6.2 enthält mehr als %1$s Verbesserungen und %2$s Fehlerbehebungen. Diese Seite hebt die neuesten Funktionen seit der Veröffentlichung von WordPress 6.1 im November 2022 hervor. Von kurzen Highlights bis hin zu Ressourcen für Entwickler gibt es eine Menge zu entdecken."
 
 #. translators: The localized WordPress download URL.
-#: wp-admin/about.php:374
+#: wp-admin/about.php:400
 msgid "https://wordpress.org/download/"
 msgstr "https://de.wordpress.org/download/"
 
 #. translators: %s: The major version of WordPress for this branch.
-#: wp-admin/about.php:371
+#: wp-admin/about.php:397
 msgid "This is the final release of WordPress %s"
 msgstr "Dies ist die letzte Veröffentlichung von WordPress %s"
 
@@ -312,7 +312,7 @@ msgid "Site Editor"
 msgstr "Website-Editor"
 
 #. translators: 1: Learn WordPress link.
-#: wp-admin/about.php:259
+#: wp-admin/about.php:285
 msgid "Explore <a href=\"%s\">learn.wordpress.org</a> for tutorial videos, online workshops, courses, and lesson plans for Meetup organizers, including new features in WordPress."
 msgstr "Unter <a href=\"%s\">learn.wordpress.org</a> findest du Tutorial-Videos, Online-Workshops, Kurse und Unterrichtspläne für Meetup-Organisatoren, einschließlich neuer Funktionen in WordPress."
 
@@ -644,31 +644,31 @@ msgid "Reach out to WordPress Core developers to ensure you'll never have this p
 msgstr "Wende dich an die WordPress-Core-Entwickler, um sicherzustellen, dass du dieses Problem nie wieder haben wirst."
 
 #. translators: 1: WordPress version number, 2: Link to update WordPress
-#: wp-admin/about.php:368
+#: wp-admin/about.php:394
 msgid "Important! Your version of WordPress (%1$s) will stop receiving security updates in the near future. To keep your site secure, please <a href=\"%2$s\">update to the latest version of WordPress</a>."
 msgstr "Wichtig! Deine WordPress-Version (%1$s) wird in naher Zukunft keine Sicherheitsaktualisierungen mehr erhalten. Damit deine Website sicher bleibt, <a href=\"%2$s\">aktualisiere bitte auf die neueste Version von WordPress</a>."
 
 #. translators: 1: WordPress version number, 2: Link to update WordPress
-#: wp-admin/about.php:365
+#: wp-admin/about.php:391
 msgid "Important! Your version of WordPress (%1$s) is no longer supported, you will not receive any security updates for your website. To keep your site secure, please <a href=\"%2$s\">update to the latest version of WordPress</a>."
 msgstr "Wichtig! Deine WordPress-Version (%1$s) wird nicht mehr unterstützt. Du erhältst keine Sicherheitsaktualisierungen mehr für deine Website. Damit deine Website sicher bleibt, <a href=\"%2$s\">aktualisiere bitte auf die neueste Version von WordPress</a>."
 
-#: wp-admin/about.php:280
+#: wp-admin/about.php:306
 msgid "https://make.wordpress.org/core/2023/03/09/wordpress-6-2-field-guide/"
 msgstr "https://make.wordpress.org/core/2023/03/09/wordpress-6-2-field-guide/"
 
 #. translators: 1: WordPress Release Notes link, 2: WordPress version number.
-#: wp-admin/about.php:297
+#: wp-admin/about.php:323
 msgid "<a href=\"%1$s\">Read the WordPress %2$s Release Notes</a> for more information on the included enhancements and issues fixed, installation information, developer notes and resources, release contributors, and the list of file changes in this release."
 msgstr "<a href=\"%1$s\">Lies die WordPress-%2$s-Veröffentlichungshinweise (engl.)</a> für weitere Informationen über enthaltene Verbesserungen und behobene Probleme, Installation, Hinweise zur Entwicklung und zu den Ressourcen, die Mitwirkenden der Veröffentlichung und die Liste der Datei-Änderungen in dieser Version."
 
 #. translators: %s: WordPress Field Guide link.
-#: wp-admin/about.php:279
+#: wp-admin/about.php:305
 msgid "Check out the latest version of the <a href=\"%s\">WordPress Field Guide</a>. It is overflowing with detailed developer notes to help you build with WordPress."
 msgstr "Schau dir die neueste Version des <a href=\"%s\">WordPress-Field-Guides (engl.)</a> an. Er ist voll mit detaillierten Hinweisen für die Entwicklungsarbeit, die dir dabei helfen, mit WordPress zu arbeiten."
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:250
+#: wp-admin/about.php:276
 msgid "Learn more about WordPress %s"
 msgstr "Weitere Informationen über WordPress %s"
 
@@ -1598,7 +1598,7 @@ msgstr "Neues Anwendungspasswort hinzufügen"
 msgid "Required to create an Application Password, but not to update the user."
 msgstr "Erforderlich, um ein Anwendungspasswort zu erstellen, aber nicht, um den Benutzer zu aktualisieren."
 
-#: wp-admin/about.php:315
+#: wp-admin/about.php:341
 msgid "Go to Updates"
 msgstr "Zu den Aktualisierungen"
 
@@ -4894,7 +4894,7 @@ msgstr "Installation nicht möglich"
 
 #. translators: %s: WordPress version.
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:67 wp-admin/about.php:300
+#: wp-admin/about.php:67 wp-admin/about.php:93 wp-admin/about.php:326
 #: wp-admin/includes/update.php:306 wp-admin/index.php:119
 #: wp-admin/install.php:247 wp-admin/update-core.php:94 wp-admin/upgrade.php:81
 msgid "https://wordpress.org/support/wordpress-version/version-%s/"
@@ -7260,7 +7260,7 @@ msgid "(Currently set to: %s)"
 msgstr "(Aktueller Wert: %s)"
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:339
+#: wp-admin/about.php:365
 msgid "<strong>Version %s</strong> addressed one security issue."
 msgstr "<strong>Version %s</strong> behob ein Sicherheitsproblem."
 
@@ -7272,15 +7272,15 @@ msgstr "https://de.gravatar.com/"
 msgid "Profile Picture"
 msgstr "Profilbild"
 
-#: wp-admin/about.php:47 wp-admin/about.php:336
+#: wp-admin/about.php:47 wp-admin/about.php:362
 msgid "Maintenance and Security Releases"
 msgstr "Wartungs- und Sicherheits-Updates"
 
-#: wp-admin/about.php:333
+#: wp-admin/about.php:359
 msgid "Security Releases"
 msgstr "Sicherheits-Updates"
 
-#: wp-admin/about.php:330
+#: wp-admin/about.php:356
 msgid "Maintenance Releases"
 msgstr "Wartungs-Updates"
 
@@ -10623,47 +10623,49 @@ msgstr "Werkzeugleiste für mich auf der Website anzeigen"
 
 #. translators: %s: HelpHub URL.
 #. translators: %s: Documentation URL.
-#: wp-admin/about.php:64 wp-admin/about.php:362
+#: wp-admin/about.php:64 wp-admin/about.php:90 wp-admin/about.php:388
 msgid "For more information, see <a href=\"%s\">the release notes</a>."
 msgstr "Weitere Informationen findest du in den <a href=\"%s\">Veröffentlichungsmitteilungen</a>."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs. More
 #. than one security issue.
-#: wp-admin/about.php:52 wp-admin/about.php:356
+#: wp-admin/about.php:78 wp-admin/about.php:382
 msgid "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed some security issues and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob Sicherheitsprobleme und %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob Sicherheitsprobleme und %2$s Fehler."
 
+#. translators: 1: WordPress version number, 2: Plural number of bugs. More
+#. than one security issue.
 #. translators: 1: WordPress version number, 2: Plural number of bugs. Singular
 #. security issue.
-#: wp-admin/about.php:350
+#: wp-admin/about.php:52 wp-admin/about.php:376
 msgid "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed a security issue and fixed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob ein Sicherheitsproblem und %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob ein Sicherheitsproblem und %2$s Fehler."
 
 #. translators: 1: WordPress version number, 2: Plural number of bugs.
-#: wp-admin/about.php:344
+#: wp-admin/about.php:370
 msgid "<strong>Version %1$s</strong> addressed %2$s bug."
 msgid_plural "<strong>Version %1$s</strong> addressed %2$s bugs."
 msgstr[0] "<strong>Version %1$s</strong> behob %2$s Fehler."
 msgstr[1] "<strong>Version %1$s</strong> behob %2$s Fehler."
 
 #. translators: %s: WordPress version number.
-#: wp-admin/about.php:341
+#: wp-admin/about.php:367
 msgid "<strong>Version %s</strong> addressed some security issues."
 msgstr "<strong>Version %s</strong> behob einige Sicherheitsprobleme."
 
-#: wp-admin/about.php:335
+#: wp-admin/about.php:361
 msgid "Maintenance and Security Release"
 msgstr "Wartungs- und Sicherheits-Update"
 
-#: wp-admin/about.php:332
+#: wp-admin/about.php:358
 msgid "Security Release"
 msgstr "Sicherheits-Update"
 
-#: wp-admin/about.php:329
+#: wp-admin/about.php:355
 msgid "Maintenance Release"
 msgstr "Wartungs-Update"
 
@@ -10941,15 +10943,15 @@ msgid "Because this is a multisite installation, you may add accounts that alrea
 msgstr "Da dies eine Multisite-Installation ist, kannst du Konten hinzufügen, die bereits im Netzwerk vorhanden sind, indem du einen Benutzernamen oder eine E-Mail-Adresse angibst und eine Rolle definierst. Für weitere Optionen, wie zum Beispiel das Festlegen eines Passworts, musst du Netzwerkadministrator sein. Du kannst dann über „Netzwerkadministrator &gt; Alle Benutzer“ das Profil des Benutzers verändern."
 
 #. translators: %s: Version number.
-#: wp-admin/about.php:82
+#: wp-admin/about.php:108
 msgid "Welcome to WordPress %s"
 msgstr "Willkommen bei WordPress %s"
 
-#: wp-admin/about.php:318
+#: wp-admin/about.php:344
 msgid "Go to Dashboard &rarr; Home"
 msgstr "Zum Dashboard &rarr; Startseite"
 
-#: wp-admin/about.php:315
+#: wp-admin/about.php:341
 msgid "Go to Dashboard &rarr; Updates"
 msgstr "Weiter zu Dashboard &rarr; Aktualisierungen"
 
@@ -12716,7 +12718,7 @@ msgstr "WordPress-Aktualisierungen"
 msgid "Edit menu item"
 msgstr "Menüeintrag bearbeiten"
 
-#: wp-admin/about.php:318 wp-admin/includes/network.php:148
+#: wp-admin/about.php:344 wp-admin/includes/network.php:148
 msgid "Go to Dashboard"
 msgstr "Zum Dashboard"
 
