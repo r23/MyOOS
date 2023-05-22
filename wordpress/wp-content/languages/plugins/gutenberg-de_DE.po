@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-05-19 16:58:44+0000\n"
+"PO-Revision-Date: 2023-05-20 17:34:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -35,14 +35,6 @@ msgstr "Live-Vorschau von %s"
 msgid "Navigation block"
 msgstr "Navigationsblock"
 
-#: lib/experiments-page.php:111
-msgid "Enable Block Theme Previews"
-msgstr "Block-Theme-Vorschauen aktivieren"
-
-#: lib/experiments-page.php:106
-msgid "Block Theme Previews"
-msgstr "Block-Theme-Vorschauen"
-
 #: lib/experiments-page.php:123
 msgid "Test the Navigation block using the Interactivity API"
 msgstr "Teste den Navigationsblock mit der Interaktivitäts-API"
@@ -51,6 +43,14 @@ msgstr "Teste den Navigationsblock mit der Interaktivitäts-API"
 msgctxt "block description"
 msgid "Add an image or video with a text overlay."
 msgstr "Ein Bild oder ein Video mit einem Text-Overlay hinzufügen."
+
+#: lib/experiments-page.php:106
+msgid "Block Theme Previews"
+msgstr "Vorabansichten für das Block-Theme"
+
+#: lib/experiments-page.php:111
+msgid "Enable Block Theme Previews"
+msgstr "Vorabansichten für das Block-Theme aktivieren"
 
 #: lib/experimental/class-wp-rest-navigation-fallback-controller.php:128
 msgid "The unique identifier for the Navigation Menu."

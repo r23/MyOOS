@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 6.2.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-05-16 20:13:28+0000\n"
+"PO-Revision-Date: 2023-05-22 12:57:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1617,7 +1617,7 @@ msgstr "Weiter zur Plugin-Installation"
 
 #: wp-admin/includes/class-plugin-installer-skin.php:133
 msgid "Go to Importers"
-msgstr "Weiter zu „Daten importieren“"
+msgstr "Weiter zu den Importern"
 
 #: wp-admin/includes/class-theme-installer-skin.php:158
 msgid "Go to Theme Installer"
@@ -11685,7 +11685,7 @@ msgstr "Autoren:"
 
 #: wp-admin/export.php:188
 msgid "This will contain all of your posts, pages, comments, custom fields, terms, navigation menus, and custom posts."
-msgstr "Der Export enthält dann alle Beiträge, Seiten, Kommentare, individuelle Felder, Kategorien, Schlagwörter, Navigationsmenüs und individuelle Inhaltstypen."
+msgstr "Der Export enthält dann alle Beiträge, Seiten, Kommentare, individuellen Felder, Kategorien, Schlagwörter, Navigationsmenüs und individuellen Inhaltstypen."
 
 #: wp-admin/export.php:187
 msgid "All content"
@@ -15410,11 +15410,11 @@ msgstr "Dieses Format, das wir „WordPress eXtended RSS“ oder WXR nennen, bei
 
 #: wp-admin/export.php:173
 msgid "When you click the button below WordPress will create an XML file for you to save to your computer."
-msgstr "Wenn du unten auf Export-Datei herunterladen klickst, wird WordPress eine XML-Datei für dich erstellen, die du auf deinem Computer speichern kannst."
+msgstr "Wenn du unten auf „Export-Datei herunterladen“ klickst, wird WordPress eine XML-Datei für dich erstellen, die du auf deinem Computer speichern kannst."
 
 #: wp-admin/export.php:20 wp-admin/menu.php:373
 msgid "Export"
-msgstr "Daten exportieren"
+msgstr "Export"
 
 #. translators: %s: Number of posts.
 #: wp-admin/includes/class-wp-posts-list-table.php:345
