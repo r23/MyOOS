@@ -3897,16 +3897,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v5.4.23",
+            "version": "v5.4.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "7644fac86711ee76c9726f7a810e6b2b563e48d0"
+                "reference": "3be3895cafae6967f4fd0d0f5189678272a2a1ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/7644fac86711ee76c9726f7a810e6b2b563e48d0",
-                "reference": "7644fac86711ee76c9726f7a810e6b2b563e48d0",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/3be3895cafae6967f4fd0d0f5189678272a2a1ab",
+                "reference": "3be3895cafae6967f4fd0d0f5189678272a2a1ab",
                 "shasum": ""
             },
             "require": {
@@ -3943,7 +3943,7 @@
                 "ocramius/proxy-manager": "<2.1",
                 "phpdocumentor/reflection-docblock": "<3.2.2",
                 "phpdocumentor/type-resolver": "<1.4.0",
-                "phpunit/phpunit": "<5.4.3"
+                "phpunit/phpunit": "<7.5|9.1.2"
             },
             "provide": {
                 "php-http/async-client-implementation": "*",
@@ -4043,13 +4043,14 @@
                 "nyholm/psr7": "^1.0",
                 "pda/pheanstalk": "^4.0",
                 "php-http/httplug": "^1.0|^2.0",
+                "php-http/message-factory": "^1.0",
                 "phpdocumentor/reflection-docblock": "^3.0|^4.0|^5.0",
                 "phpstan/phpdoc-parser": "^1.0",
                 "predis/predis": "~1.1",
                 "psr/http-client": "^1.0",
                 "psr/simple-cache": "^1.0|^2.0",
                 "symfony/mercure-bundle": "^0.3",
-                "symfony/phpunit-bridge": "^5.2|^6.0",
+                "symfony/phpunit-bridge": "^5.4|^6.0|^7.0",
                 "symfony/runtime": "self.version",
                 "symfony/security-acl": "~2.8|~3.0",
                 "twig/cssinliner-extra": "^2.12|^3",
@@ -4097,7 +4098,7 @@
             ],
             "support": {
                 "issues": "https://github.com/symfony/symfony/issues",
-                "source": "https://github.com/symfony/symfony/tree/v5.4.23"
+                "source": "https://github.com/symfony/symfony/tree/v5.4.24"
             },
             "funding": [
                 {
@@ -4113,7 +4114,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-04-28T13:30:08+00:00"
+            "time": "2023-05-27T08:09:51+00:00"
         },
         {
             "name": "tecnickcom/tcpdf",
