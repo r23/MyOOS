@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('react', 'wp-deprecated', 'wp-dom', 'wp-element', 'wp-is-shallow-equal', 'wp-keycodes', 'wp-polyfill', 'wp-priority-queue'), 'version' => 'e6bdc87f4b8c70acda77');
+<?php return array('dependencies' => array('react', 'wp-deprecated', 'wp-dom', 'wp-element', 'wp-is-shallow-equal', 'wp-keycodes', 'wp-polyfill', 'wp-priority-queue'), 'version' => '88b237bf1da18357db8d');

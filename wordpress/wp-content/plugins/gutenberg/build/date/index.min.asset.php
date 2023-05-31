@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('moment', 'wp-deprecated', 'wp-polyfill'), 'version' => 'fefa7b41f294a4572366');
+<?php return array('dependencies' => array('moment', 'wp-deprecated', 'wp-polyfill'), 'version' => '1bc5d2c56f7dc0d0e4c7');

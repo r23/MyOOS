@@ -1,8 +1,8 @@
-/******/ (function() { // webpackBootstrap
+/******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 var __webpack_exports__ = {};
 
-;// CONCATENATED MODULE: ./packages/block-library/build-module/file/utils.js
+;// CONCATENATED MODULE: ./packages/block-library/build-module/file/utils/index.js
 /**
  * Uses a combination of user agent matching and feature detection to determine whether
  * the current browser supports rendering PDFs inline.
