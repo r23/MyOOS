@@ -51446,12 +51446,16 @@ const SocialLinkEdit = _ref2 => {
   } = attributes;
   const {
     showLabels,
+    iconColor,
     iconColorValue,
+    iconBackgroundColor,
     iconBackgroundColorValue
   } = context;
   const [showURLPopover, setPopover] = (0,external_wp_element_namespaceObject.useState)(false);
   const classes = classnames_default()('wp-social-link', 'wp-social-link-' + service, {
-    'wp-social-link__is-incomplete': !url
+    'wp-social-link__is-incomplete': !url,
+    [`has-${iconColor}-color`]: iconColor,
+    [`has-${iconBackgroundColor}-background-color`]: iconBackgroundColor
   }); // Use internal state instead of a ref to make sure that the component
   // re-renders when the popover's anchor updates.
 
@@ -51541,7 +51545,7 @@ const social_link_metadata = {
       type: "string"
     }
   },
-  usesContext: ["openInNewTab", "showLabels", "iconColorValue", "iconBackgroundColorValue"],
+  usesContext: ["openInNewTab", "showLabels", "iconColor", "iconColorValue", "iconBackgroundColor", "iconBackgroundColorValue"],
   supports: {
     anchor: true,
     reusable: false,
@@ -52012,7 +52016,9 @@ const social_links_metadata = {
   providesContext: {
     openInNewTab: "openInNewTab",
     showLabels: "showLabels",
+    iconColor: "iconColor",
     iconColorValue: "iconColorValue",
+    iconBackgroundColor: "iconBackgroundColor",
     iconBackgroundColorValue: "iconBackgroundColorValue"
   },
   supports: {
