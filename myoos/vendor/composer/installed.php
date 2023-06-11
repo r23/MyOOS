@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '464125cb70851b99711b650c4a1275bb74e764a1',
+        'reference' => 'b98a258f6d9416b2326d044c53fe60b780334f98',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'adodb/adodb-php' => array(
-            'pretty_version' => 'v5.22.5',
-            'version' => '5.22.5.0',
-            'reference' => 'bacd08a8232b6d941b9902f02d323f53de81fafe',
+            'pretty_version' => 'v5.22.6',
+            'version' => '5.22.6.0',
+            'reference' => '2e916ebc543b95f955af3c91366d799b8c6134aa',
             'type' => 'library',
             'install_path' => __DIR__ . '/../adodb/adodb-php',
             'aliases' => array(),
@@ -193,7 +193,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '464125cb70851b99711b650c4a1275bb74e764a1',
+            'reference' => 'b98a258f6d9416b2326d044c53fe60b780334f98',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
