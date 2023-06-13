@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => '60545b1266dcfb254edd04332c5f1b1d3835e1f1',
+        'reference' => '93f2849c630ac56ad45b55f403e1d3abbfc7f980',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -193,7 +193,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '60545b1266dcfb254edd04332c5f1b1d3835e1f1',
+            'reference' => '93f2849c630ac56ad45b55f403e1d3abbfc7f980',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -308,9 +308,9 @@
             'dev_requirement' => false,
         ),
         'phpseclib/phpseclib' => array(
-            'pretty_version' => '3.0.19',
-            'version' => '3.0.19.0',
-            'reference' => 'cc181005cf548bfd8a4896383bb825d859259f95',
+            'pretty_version' => '3.0.20',
+            'version' => '3.0.20.0',
+            'reference' => '543a1da81111a0bfd6ae7bbc2865c5e89ed3fc67',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpseclib/phpseclib',
             'aliases' => array(),
@@ -451,7 +451,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '22b763b5abdc69572b66c462cd85c2b2135f56aa',
+            'reference' => '7d728f50cf52ce838ac1c1504190823b4dc06b4d',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
