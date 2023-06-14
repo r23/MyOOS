@@ -109,16 +109,11 @@ function apiFetch(request) {
  * @param args                  Arguments passed without change to the `@wordpress/data` control.
  */
 
-function build_module_select(storeNameOrDescriptor, selectorName) {
+function build_module_select(storeNameOrDescriptor, selectorName, ...args) {
   external_wp_deprecated_default()('`select` control in `@wordpress/data-controls`', {
     since: '5.7',
     alternative: 'built-in `resolveSelect` control in `@wordpress/data`'
   });
-
-  for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-    args[_key - 2] = arguments[_key];
-  }
-
   return external_wp_data_namespaceObject.controls.resolveSelect(storeNameOrDescriptor, selectorName, ...args);
 }
 /**
@@ -130,16 +125,11 @@ function build_module_select(storeNameOrDescriptor, selectorName) {
  * @param args                  Arguments passed without change to the `@wordpress/data` control.
  */
 
-function syncSelect(storeNameOrDescriptor, selectorName) {
+function syncSelect(storeNameOrDescriptor, selectorName, ...args) {
   external_wp_deprecated_default()('`syncSelect` control in `@wordpress/data-controls`', {
     since: '5.7',
     alternative: 'built-in `select` control in `@wordpress/data`'
   });
-
-  for (var _len2 = arguments.length, args = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-    args[_key2 - 2] = arguments[_key2];
-  }
-
   return external_wp_data_namespaceObject.controls.select(storeNameOrDescriptor, selectorName, ...args);
 }
 /**
@@ -151,16 +141,11 @@ function syncSelect(storeNameOrDescriptor, selectorName) {
  * @param args                  Arguments passed without change to the `@wordpress/data` control.
  */
 
-function dispatch(storeNameOrDescriptor, actionName) {
+function dispatch(storeNameOrDescriptor, actionName, ...args) {
   external_wp_deprecated_default()('`dispatch` control in `@wordpress/data-controls`', {
     since: '5.7',
     alternative: 'built-in `dispatch` control in `@wordpress/data`'
   });
-
-  for (var _len3 = arguments.length, args = new Array(_len3 > 2 ? _len3 - 2 : 0), _key3 = 2; _key3 < _len3; _key3++) {
-    args[_key3 - 2] = arguments[_key3];
-  }
-
   return external_wp_data_namespaceObject.controls.dispatch(storeNameOrDescriptor, actionName, ...args);
 }
 /**
@@ -218,17 +203,13 @@ const __unstableAwaitPromise = function (promise) {
  */
 
 const controls = {
-  AWAIT_PROMISE: _ref => {
-    let {
-      promise
-    } = _ref;
-    return promise;
-  },
+  AWAIT_PROMISE: ({
+    promise
+  }) => promise,
 
-  API_FETCH(_ref2) {
-    let {
-      request
-    } = _ref2;
+  API_FETCH({
+    request
+  }) {
     return external_wp_apiFetch_default()(request);
   }
 

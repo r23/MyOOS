@@ -420,9 +420,7 @@ const external_wp_i18n_namespaceObject = window["wp"]["i18n"];
  *
  * @return {boolean} True if MacOS; false otherwise.
  */
-function isAppleOS() {
-  let _window = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-
+function isAppleOS(_window = null) {
   if (!_window) {
     if (typeof window === 'undefined') {
       return false;
@@ -599,10 +597,7 @@ const ZERO = 48;
  */
 
 function mapValues(object, mapFn) {
-  return Object.fromEntries(Object.entries(object).map(_ref => {
-    let [key, value] = _ref;
-    return [key, mapFn(value)];
-  }));
+  return Object.fromEntries(Object.entries(object).map(([key, value]) => [key, mapFn(value)]));
 }
 /**
  * Object that contains functions that return the available modifier
@@ -646,9 +641,7 @@ const rawShortcut = mapValues(modifiers, (
 modifier) => {
   return (
     /** @type {WPKeyHandler<string>} */
-    function (character) {
-      let _isApple = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : isAppleOS;
-
+    (character, _isApple = isAppleOS) => {
       return [...modifier(_isApple), character.toLowerCase()].join('+');
     }
   );
@@ -672,9 +665,7 @@ const displayShortcutList = mapValues(modifiers, (
 modifier) => {
   return (
     /** @type {WPKeyHandler<string[]>} */
-    function (character) {
-      let _isApple = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : isAppleOS;
-
+    (character, _isApple = isAppleOS) => {
       const isApple = _isApple();
 
       const replacementKeyMap = {
@@ -726,11 +717,7 @@ const displayShortcut = mapValues(displayShortcutList, (
 shortcutList) => {
   return (
     /** @type {WPKeyHandler<string>} */
-    function (character) {
-      let _isApple = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : isAppleOS;
-
-      return shortcutList(character, _isApple).join('');
-    }
+    (character, _isApple = isAppleOS) => shortcutList(character, _isApple).join('')
   );
 });
 /**
@@ -753,9 +740,7 @@ const shortcutAriaLabel = mapValues(modifiers, (
 modifier) => {
   return (
     /** @type {WPKeyHandler<string>} */
-    function (character) {
-      let _isApple = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : isAppleOS;
-
+    (character, _isApple = isAppleOS) => {
       const isApple = _isApple();
       /** @type {Record<string,string>} */
 
@@ -824,9 +809,7 @@ const isKeyboardEvent = mapValues(modifiers, (
 getModifiers) => {
   return (
     /** @type {WPEventKeyHandler} */
-    function (event, character) {
-      let _isApple = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : isAppleOS;
-
+    (event, character, _isApple = isAppleOS) => {
       const mods = getModifiers(_isApple);
       const eventMods = getEventModifiers(event);
       /** @type {Record<string,string>} */

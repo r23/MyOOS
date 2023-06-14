@@ -1442,9 +1442,7 @@ function createRegistrySelector(registrySelector) {
   // Create a selector function that is bound to the registry referenced by `selector.registry`
   // and that has the same API as a regular selector. Binding it in such a way makes it
   // possible to call the selector directly from another selector.
-  const selector = function () {
-    return registrySelector(selector.registry.select)(...arguments);
-  };
+  const selector = (...args) => registrySelector(selector.registry.select)(...args);
   /**
    * Flag indicating that the selector is a registry selector that needs the correct registry
    * reference to be assigned to `selecto.registry` to make it work correctly.
@@ -1522,11 +1520,7 @@ function isObject(object) {
  */
 
 
-function controls_select(storeNameOrDescriptor, selectorName) {
-  for (var _len = arguments.length, args = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-    args[_key - 2] = arguments[_key];
-  }
-
+function controls_select(storeNameOrDescriptor, selectorName, ...args) {
   return {
     type: SELECT,
     storeKey: isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor,
@@ -1560,11 +1554,7 @@ function controls_select(storeNameOrDescriptor, selectorName) {
  */
 
 
-function resolveSelect(storeNameOrDescriptor, selectorName) {
-  for (var _len2 = arguments.length, args = new Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-    args[_key2 - 2] = arguments[_key2];
-  }
-
+function resolveSelect(storeNameOrDescriptor, selectorName, ...args) {
   return {
     type: RESOLVE_SELECT,
     storeKey: isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor,
@@ -1594,11 +1584,7 @@ function resolveSelect(storeNameOrDescriptor, selectorName) {
  */
 
 
-function dispatch(storeNameOrDescriptor, actionName) {
-  for (var _len3 = arguments.length, args = new Array(_len3 > 2 ? _len3 - 2 : 0), _key3 = 2; _key3 < _len3; _key3++) {
-    args[_key3 - 2] = arguments[_key3];
-  }
-
+function dispatch(storeNameOrDescriptor, actionName, ...args) {
   return {
     type: DISPATCH,
     storeKey: isObject(storeNameOrDescriptor) ? storeNameOrDescriptor.name : storeNameOrDescriptor,
@@ -1613,31 +1599,24 @@ const controls = {
   dispatch
 };
 const builtinControls = {
-  [SELECT]: createRegistryControl(registry => _ref => {
-    let {
-      storeKey,
-      selectorName,
-      args
-    } = _ref;
-    return registry.select(storeKey)[selectorName](...args);
-  }),
-  [RESOLVE_SELECT]: createRegistryControl(registry => _ref2 => {
-    let {
-      storeKey,
-      selectorName,
-      args
-    } = _ref2;
+  [SELECT]: createRegistryControl(registry => ({
+    storeKey,
+    selectorName,
+    args
+  }) => registry.select(storeKey)[selectorName](...args)),
+  [RESOLVE_SELECT]: createRegistryControl(registry => ({
+    storeKey,
+    selectorName,
+    args
+  }) => {
     const method = registry.select(storeKey)[selectorName].hasResolver ? 'resolveSelect' : 'select';
     return registry[method](storeKey)[selectorName](...args);
   }),
-  [DISPATCH]: createRegistryControl(registry => _ref3 => {
-    let {
-      storeKey,
-      actionName,
-      args
-    } = _ref3;
-    return registry.dispatch(storeKey)[actionName](...args);
-  })
+  [DISPATCH]: createRegistryControl(registry => ({
+    storeKey,
+    actionName,
+    args
+  }) => registry.dispatch(storeKey)[actionName](...args))
 };
 
 ;// CONCATENATED MODULE: external ["wp","privateApis"]
@@ -1687,19 +1666,11 @@ const coreDataStore = {
   name: 'core/data',
 
   instantiate(registry) {
-    const getCoreDataSelector = selectorName => function (key) {
-      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        args[_key - 1] = arguments[_key];
-      }
-
+    const getCoreDataSelector = selectorName => (key, ...args) => {
       return registry.select(key)[selectorName](...args);
     };
 
-    const getCoreDataAction = actionName => function (key) {
-      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-        args[_key2 - 1] = arguments[_key2];
-      }
-
+    const getCoreDataAction = actionName => (key, ...args) => {
       return registry.dispatch(key)[actionName](...args);
     };
 
@@ -1746,11 +1717,8 @@ const coreDataStore = {
 
 const createResolversCacheMiddleware = (registry, reducerKey) => () => next => action => {
   const resolvers = registry.select(store).getCachedResolvers(reducerKey);
-  Object.entries(resolvers).forEach(_ref => {
-    var _registry$stores, _registry$stores$redu, _registry$stores$redu2;
-
-    let [selectorName, resolversByArgs] = _ref;
-    const resolver = (_registry$stores = registry.stores) === null || _registry$stores === void 0 ? void 0 : (_registry$stores$redu = _registry$stores[reducerKey]) === null || _registry$stores$redu === void 0 ? void 0 : (_registry$stores$redu2 = _registry$stores$redu.resolvers) === null || _registry$stores$redu2 === void 0 ? void 0 : _registry$stores$redu2[selectorName];
+  Object.entries(resolvers).forEach(([selectorName, resolversByArgs]) => {
+    const resolver = registry.stores?.[reducerKey]?.resolvers?.[selectorName];
 
     if (!resolver || !resolver.shouldInvalidate) {
       return;
@@ -1760,7 +1728,7 @@ const createResolversCacheMiddleware = (registry, reducerKey) => () => next => a
       // resolversByArgs is the map Map([ args ] => boolean) storing the cache resolution status for a given selector.
       // If the value is "finished" or "error" it means this resolver has finished its resolution which means we need
       // to invalidate it, if it's true it means it's inflight and the invalidation is not necessary.
-      if ((value === null || value === void 0 ? void 0 : value.status) !== 'finished' && (value === null || value === void 0 ? void 0 : value.status) !== 'error' || !resolver.shouldInvalidate(action, ...args)) {
+      if (value?.status !== 'finished' && value?.status !== 'error' || !resolver.shouldInvalidate(action, ...args)) {
         return;
       } // Trigger cache invalidation
 
@@ -1796,9 +1764,7 @@ function createThunkMiddleware(args) {
  * @param actionProperty Action property by which to key object.
  * @return Higher-order reducer.
  */
-const onSubKey = actionProperty => reducer => function () {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let action = arguments.length > 1 ? arguments[1] : undefined;
+const onSubKey = actionProperty => reducer => (state = {}, action) => {
   // Retrieve subkey from action. Do not track if undefined; useful for cases
   // where reducer is scoped by action shape.
   const key = action[actionProperty];
@@ -1859,10 +1825,7 @@ function selectorArgsToStateKey(args) {
  *
  *  selectorName -> EquivalentKeyMap<Array,boolean>
  */
-const subKeysIsResolved = onSubKey('selectorName')(function () {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : new (equivalent_key_map_default())();
-  let action = arguments.length > 1 ? arguments[1] : undefined;
-
+const subKeysIsResolved = onSubKey('selectorName')((state = new (equivalent_key_map_default())(), action) => {
   switch (action.type) {
     case 'START_RESOLUTION':
       {
@@ -1958,10 +1921,7 @@ const subKeysIsResolved = onSubKey('selectorName')(function () {
  * @return Next state.
  */
 
-const isResolved = function () {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let action = arguments.length > 1 ? arguments[1] : undefined;
-
+const isResolved = (state = {}, action) => {
   switch (action.type) {
     case 'INVALIDATE_RESOLUTION_FOR_STORE':
       return {};
@@ -2070,9 +2030,7 @@ function hasStartedResolution(state, selectorName, args) {
  */
 
 function hasFinishedResolution(state, selectorName, args) {
-  var _getResolutionState;
-
-  const status = (_getResolutionState = getResolutionState(state, selectorName, args)) === null || _getResolutionState === void 0 ? void 0 : _getResolutionState.status;
+  const status = getResolutionState(state, selectorName, args)?.status;
   return status === 'finished' || status === 'error';
 }
 /**
@@ -2087,9 +2045,7 @@ function hasFinishedResolution(state, selectorName, args) {
  */
 
 function hasResolutionFailed(state, selectorName, args) {
-  var _getResolutionState2;
-
-  return ((_getResolutionState2 = getResolutionState(state, selectorName, args)) === null || _getResolutionState2 === void 0 ? void 0 : _getResolutionState2.status) === 'error';
+  return getResolutionState(state, selectorName, args)?.status === 'error';
 }
 /**
  * Returns the resolution error for a given selector name, and arguments set.
@@ -2105,7 +2061,7 @@ function hasResolutionFailed(state, selectorName, args) {
 
 function getResolutionError(state, selectorName, args) {
   const resolutionState = getResolutionState(state, selectorName, args);
-  return (resolutionState === null || resolutionState === void 0 ? void 0 : resolutionState.status) === 'error' ? resolutionState.error : null;
+  return resolutionState?.status === 'error' ? resolutionState.error : null;
 }
 /**
  * Returns true if resolution has been triggered but has not yet completed for
@@ -2119,9 +2075,7 @@ function getResolutionError(state, selectorName, args) {
  */
 
 function isResolving(state, selectorName, args) {
-  var _getResolutionState3;
-
-  return ((_getResolutionState3 = getResolutionState(state, selectorName, args)) === null || _getResolutionState3 === void 0 ? void 0 : _getResolutionState3.status) === 'resolving';
+  return getResolutionState(state, selectorName, args)?.status === 'resolving';
 }
 /**
  * Returns the list of the cached resolvers.
@@ -2151,11 +2105,7 @@ function hasResolvingSelectors(state) {
    *
    * @see https://github.com/aduth/equivalent-key-map
    */
-  Array.from(selectorState._map.values()).some(resolution => {
-    var _resolution$;
-
-    return ((_resolution$ = resolution[1]) === null || _resolution$ === void 0 ? void 0 : _resolution$.status) === 'resolving';
-  }));
+  Array.from(selectorState._map.values()).some(resolution => resolution[1]?.status === 'resolving'));
 }
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/redux-store/metadata/actions.js
@@ -2372,12 +2322,7 @@ const trimUndefinedValues = array => {
  */
 
 
-const mapValues = (obj, callback) => Object.entries(obj !== null && obj !== void 0 ? obj : {}).reduce((acc, _ref) => {
-  let [key, value] = _ref;
-  return { ...acc,
-    [key]: callback(value, key)
-  };
-}, {}); // Convert Map objects to plain objects
+const mapValues = (obj, callback) => Object.fromEntries(Object.entries(obj !== null && obj !== void 0 ? obj : {}).map(([key, value]) => [key, callback(value, key)])); // Convert Map objects to plain objects
 
 
 const mapToObject = (key, state) => {
@@ -2483,60 +2428,63 @@ function createReduxStore(key, options) {
 
       lock(store, privateRegistrationFunctions);
       const resolversCache = createResolversCache();
-      let resolvers;
-      const actions = mapActions({ ...actions_namespaceObject,
-        ...options.actions
-      }, store);
-      lock(actions, new Proxy(privateActions, {
-        get: (target, prop) => {
-          return mapActions(privateActions, store)[prop] || actions[prop];
-        }
-      }));
-      let selectors = mapSelectors({ ...mapValues(selectors_namespaceObject, selector => function (state) {
-          for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-            args[_key - 1] = arguments[_key];
-          }
 
-          return selector(state.metadata, ...args);
-        }),
-        ...mapValues(options.selectors, selector => {
-          if (selector.isRegistrySelector) {
-            selector.registry = registry;
-          }
-
-          return function (state) {
-            for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
-              args[_key2 - 1] = arguments[_key2];
-            }
-
-            return selector(state.root, ...args);
-          };
-        })
-      }, store);
-      lock(selectors, new Proxy(privateSelectors, {
-        get: (target, prop) => {
-          return mapSelectors(mapValues(privateSelectors, selector => {
-            if (selector.isRegistrySelector) {
-              selector.registry = registry;
-            }
-
-            return function (state) {
-              for (var _len3 = arguments.length, args = new Array(_len3 > 1 ? _len3 - 1 : 0), _key3 = 1; _key3 < _len3; _key3++) {
-                args[_key3 - 1] = arguments[_key3];
-              }
-
-              return selector(state.root, ...args);
-            };
-          }), store)[prop] || selectors[prop];
-        }
-      }));
-
-      if (options.resolvers) {
-        const result = mapResolvers(options.resolvers, selectors, store, resolversCache);
-        resolvers = result.resolvers;
-        selectors = result.selectors;
+      function bindAction(action) {
+        return (...args) => Promise.resolve(store.dispatch(action(...args)));
       }
 
+      const actions = { ...mapValues(actions_namespaceObject, bindAction),
+        ...mapValues(options.actions, bindAction)
+      };
+      lock(actions, new Proxy(privateActions, {
+        get: (target, prop) => {
+          const privateAction = privateActions[prop];
+          return privateAction ? bindAction(privateAction) : actions[prop];
+        }
+      }));
+
+      function bindSelector(selector) {
+        if (selector.isRegistrySelector) {
+          selector.registry = registry;
+        }
+
+        const boundSelector = (...args) => {
+          const state = store.__unstableOriginalGetState();
+
+          return selector(state.root, ...args);
+        };
+
+        boundSelector.hasResolver = false;
+        return boundSelector;
+      }
+
+      function bindMetadataSelector(selector) {
+        const boundSelector = (...args) => {
+          const state = store.__unstableOriginalGetState();
+
+          return selector(state.metadata, ...args);
+        };
+
+        boundSelector.hasResolver = false;
+        return boundSelector;
+      }
+
+      let selectors = { ...mapValues(selectors_namespaceObject, bindMetadataSelector),
+        ...mapValues(options.selectors, bindSelector)
+      };
+      let resolvers;
+
+      if (options.resolvers) {
+        resolvers = mapResolvers(options.resolvers);
+        selectors = mapSelectorsWithResolvers(selectors, resolvers, store, resolversCache);
+      }
+
+      lock(selectors, new Proxy(privateSelectors, {
+        get: (target, prop) => {
+          const privateSelector = privateSelectors[prop];
+          return privateSelector ? bindSelector(privateSelector) : selectors[prop];
+        }
+      }));
       const resolveSelectors = mapResolveSelectors(selectors, store);
       const suspendSelectors = mapSuspendSelectors(selectors, store);
 
@@ -2637,61 +2585,6 @@ function instantiateReduxStore(key, options, registry, thunkArgs) {
   }, (0,external_wp_compose_namespaceObject.compose)(enhancers));
 }
 /**
- * Maps selectors to a store.
- *
- * @param {Object} selectors Selectors to register. Keys will be used as the
- *                           public facing API. Selectors will get passed the
- *                           state as first argument.
- * @param {Object} store     The store to which the selectors should be mapped.
- * @return {Object} Selectors mapped to the provided store.
- */
-
-
-function mapSelectors(selectors, store) {
-  const createStateSelector = registrySelector => {
-    const selector = function runSelector() {
-      // This function is an optimized implementation of:
-      //
-      //   selector( store.getState(), ...arguments )
-      //
-      // Where the above would incur an `Array#concat` in its application,
-      // the logic here instead efficiently constructs an arguments array via
-      // direct assignment.
-      const argsLength = arguments.length;
-      const args = new Array(argsLength + 1);
-      args[0] = store.__unstableOriginalGetState();
-
-      for (let i = 0; i < argsLength; i++) {
-        args[i + 1] = arguments[i];
-      }
-
-      return registrySelector(...args);
-    };
-
-    selector.hasResolver = false;
-    return selector;
-  };
-
-  return mapValues(selectors, createStateSelector);
-}
-/**
- * Maps actions to dispatch from a given store.
- *
- * @param {Object} actions Actions to register.
- * @param {Object} store   The redux store to which the actions should be mapped.
- *
- * @return {Object} Actions mapped to the redux store provided.
- */
-
-
-function mapActions(actions, store) {
-  const createBoundAction = action => function () {
-    return Promise.resolve(store.dispatch(action(...arguments)));
-  };
-
-  return mapValues(actions, createBoundAction);
-}
-/**
  * Maps selectors to functions that return a resolution promise for them
  *
  * @param {Object} selectors Selectors to map.
@@ -2717,20 +2610,10 @@ function mapResolveSelectors(selectors, store) {
     // If the selector doesn't have a resolver, just convert the return value
     // (including exceptions) to a Promise, no additional extra behavior is needed.
     if (!selector.hasResolver) {
-      return async function () {
-        for (var _len4 = arguments.length, args = new Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
-          args[_key4] = arguments[_key4];
-        }
-
-        return selector.apply(null, args);
-      };
+      return async (...args) => selector.apply(null, args);
     }
 
-    return function () {
-      for (var _len5 = arguments.length, args = new Array(_len5), _key5 = 0; _key5 < _len5; _key5++) {
-        args[_key5] = arguments[_key5];
-      }
-
+    return (...args) => {
       return new Promise((resolve, reject) => {
         const hasFinished = () => selectors.hasFinishedResolution(selectorName, args);
 
@@ -2781,11 +2664,7 @@ function mapSuspendSelectors(selectors, store) {
       return selector;
     }
 
-    return function () {
-      for (var _len6 = arguments.length, args = new Array(_len6), _key6 = 0; _key6 < _len6; _key6++) {
-        args[_key6] = arguments[_key6];
-      }
-
+    return (...args) => {
       const result = selector.apply(null, args);
 
       if (selectors.hasFinishedResolution(selectorName, args)) {
@@ -2808,22 +2687,15 @@ function mapSuspendSelectors(selectors, store) {
   });
 }
 /**
- * Returns resolvers with matched selectors for a given namespace.
- * Resolvers are side effects invoked once per argument set of a given selector call,
- * used in ensuring that the data needs for the selector are satisfied.
+ * Convert resolvers to a normalized form, an object with `fulfill` method and
+ * optional methods like `isFulfilled`.
  *
- * @param {Object} resolvers      Resolvers to register.
- * @param {Object} selectors      The current selectors to be modified.
- * @param {Object} store          The redux store to which the resolvers should be mapped.
- * @param {Object} resolversCache Resolvers Cache.
+ * @param {Object} resolvers Resolver to convert
  */
 
 
-function mapResolvers(resolvers, selectors, store, resolversCache) {
-  // The `resolver` can be either a function that does the resolution, or, in more advanced
-  // cases, an object with a `fullfill` method and other optional methods like `isFulfilled`.
-  // Here we normalize the `resolver` function to an object with `fulfill` method.
-  const mappedResolvers = mapValues(resolvers, resolver => {
+function mapResolvers(resolvers) {
+  return mapValues(resolvers, resolver => {
     if (resolver.fulfill) {
       return resolver;
     }
@@ -2834,88 +2706,69 @@ function mapResolvers(resolvers, selectors, store, resolversCache) {
 
     };
   });
+}
+/**
+ * Returns resolvers with matched selectors for a given namespace.
+ * Resolvers are side effects invoked once per argument set of a given selector call,
+ * used in ensuring that the data needs for the selector are satisfied.
+ *
+ * @param {Object} selectors      The current selectors to be modified.
+ * @param {Object} resolvers      Resolvers to register.
+ * @param {Object} store          The redux store to which the resolvers should be mapped.
+ * @param {Object} resolversCache Resolvers Cache.
+ */
 
-  const mapSelector = (selector, selectorName) => {
+
+function mapSelectorsWithResolvers(selectors, resolvers, store, resolversCache) {
+  function fulfillSelector(resolver, selectorName, args) {
+    const state = store.getState();
+
+    if (resolversCache.isRunning(selectorName, args) || typeof resolver.isFulfilled === 'function' && resolver.isFulfilled(state, ...args)) {
+      return;
+    }
+
+    const {
+      metadata
+    } = store.__unstableOriginalGetState();
+
+    if (hasStartedResolution(metadata, selectorName, args)) {
+      return;
+    }
+
+    resolversCache.markAsRunning(selectorName, args);
+    setTimeout(async () => {
+      resolversCache.clear(selectorName, args);
+      store.dispatch(startResolution(selectorName, args));
+
+      try {
+        const action = resolver.fulfill(...args);
+
+        if (action) {
+          await store.dispatch(action);
+        }
+
+        store.dispatch(finishResolution(selectorName, args));
+      } catch (error) {
+        store.dispatch(failResolution(selectorName, args, error));
+      }
+    }, 0);
+  }
+
+  return mapValues(selectors, (selector, selectorName) => {
     const resolver = resolvers[selectorName];
 
     if (!resolver) {
-      selector.hasResolver = false;
       return selector;
     }
 
-    const selectorResolver = function () {
-      for (var _len7 = arguments.length, args = new Array(_len7), _key7 = 0; _key7 < _len7; _key7++) {
-        args[_key7] = arguments[_key7];
-      }
-
-      async function fulfillSelector() {
-        const state = store.getState();
-
-        if (resolversCache.isRunning(selectorName, args) || typeof resolver.isFulfilled === 'function' && resolver.isFulfilled(state, ...args)) {
-          return;
-        }
-
-        const {
-          metadata
-        } = store.__unstableOriginalGetState();
-
-        if (hasStartedResolution(metadata, selectorName, args)) {
-          return;
-        }
-
-        resolversCache.markAsRunning(selectorName, args);
-        setTimeout(async () => {
-          resolversCache.clear(selectorName, args);
-          store.dispatch(startResolution(selectorName, args));
-
-          try {
-            await fulfillResolver(store, mappedResolvers, selectorName, ...args);
-            store.dispatch(finishResolution(selectorName, args));
-          } catch (error) {
-            store.dispatch(failResolution(selectorName, args, error));
-          }
-        });
-      }
-
-      fulfillSelector(...args);
+    const selectorResolver = (...args) => {
+      fulfillSelector(resolver, selectorName, args);
       return selector(...args);
     };
 
     selectorResolver.hasResolver = true;
     return selectorResolver;
-  };
-
-  return {
-    resolvers: mappedResolvers,
-    selectors: mapValues(selectors, mapSelector)
-  };
-}
-/**
- * Calls a resolver given arguments
- *
- * @param {Object} store        Store reference, for fulfilling via resolvers
- * @param {Object} resolvers    Store Resolvers
- * @param {string} selectorName Selector name to fulfill.
- * @param {Array}  args         Selector Arguments.
- */
-
-
-async function fulfillResolver(store, resolvers, selectorName) {
-  const resolver = resolvers[selectorName];
-
-  if (!resolver) {
-    return;
-  }
-
-  for (var _len8 = arguments.length, args = new Array(_len8 > 3 ? _len8 - 3 : 0), _key8 = 3; _key8 < _len8; _key8++) {
-    args[_key8 - 3] = arguments[_key8];
-  }
-
-  const action = resolver.fulfill(...args);
-
-  if (action) {
-    await store.dispatch(action);
-  }
+  });
 }
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/utils/emitter.js
@@ -3024,9 +2877,7 @@ function getStoreName(storeNameOrDescriptor) {
  */
 
 
-function createRegistry() {
-  let storeConfigs = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let parent = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+function createRegistry(storeConfigs = {}, parent = null) {
   const stores = {};
   const emitter = createEmitter();
   let listeningStores = null;
@@ -3083,17 +2934,15 @@ function createRegistry() {
 
 
   function select(storeNameOrDescriptor) {
-    var _listeningStores;
-
     const storeName = getStoreName(storeNameOrDescriptor);
-    (_listeningStores = listeningStores) === null || _listeningStores === void 0 ? void 0 : _listeningStores.add(storeName);
+    listeningStores?.add(storeName);
     const store = stores[storeName];
 
     if (store) {
       return store.getSelectors();
     }
 
-    return parent === null || parent === void 0 ? void 0 : parent.select(storeName);
+    return parent?.select(storeName);
   }
 
   function __unstableMarkListeningStores(callback, ref) {
@@ -3120,10 +2969,8 @@ function createRegistry() {
 
 
   function resolveSelect(storeNameOrDescriptor) {
-    var _listeningStores2;
-
     const storeName = getStoreName(storeNameOrDescriptor);
-    (_listeningStores2 = listeningStores) === null || _listeningStores2 === void 0 ? void 0 : _listeningStores2.add(storeName);
+    listeningStores?.add(storeName);
     const store = stores[storeName];
 
     if (store) {
@@ -3146,10 +2993,8 @@ function createRegistry() {
 
 
   function suspendSelect(storeNameOrDescriptor) {
-    var _listeningStores3;
-
     const storeName = getStoreName(storeNameOrDescriptor);
-    (_listeningStores3 = listeningStores) === null || _listeningStores3 === void 0 ? void 0 : _listeningStores3.add(storeName);
+    listeningStores?.add(storeName);
     const store = stores[storeName];
 
     if (store) {
@@ -3183,9 +3028,7 @@ function createRegistry() {
 
 
   function withPlugins(attributes) {
-    return Object.fromEntries(Object.entries(attributes).map(_ref => {
-      let [key, attribute] = _ref;
-
+    return Object.fromEntries(Object.entries(attributes).map(([key, attribute]) => {
       if (typeof attribute !== 'function') {
         return [key, attribute];
       }
@@ -3241,8 +3084,8 @@ function createRegistry() {
         listener();
       });
       return () => {
-        unsubscribeFromStore === null || unsubscribeFromStore === void 0 ? void 0 : unsubscribeFromStore();
-        unsubscribeFromEmitter === null || unsubscribeFromEmitter === void 0 ? void 0 : unsubscribeFromEmitter();
+        unsubscribeFromStore?.();
+        unsubscribeFromEmitter?.();
       };
     };
 
@@ -3971,7 +3814,7 @@ function Store(registry, suspense) {
 
         for (const unsub of unsubs.values()) {
           // The return value of the subscribe function could be undefined if the store is a custom generic store.
-          unsub === null || unsub === void 0 ? void 0 : unsub();
+          unsub?.();
         } // Cancel existing store updates that were already scheduled.
 
 
@@ -4277,17 +4120,13 @@ const useDispatchWithMap = (dispatchMap, deps) => {
   });
   return (0,external_wp_element_namespaceObject.useMemo)(() => {
     const currentDispatchProps = currentDispatchMap.current(registry.dispatch, registry);
-    return Object.fromEntries(Object.entries(currentDispatchProps).map(_ref => {
-      let [propName, dispatcher] = _ref;
-
+    return Object.fromEntries(Object.entries(currentDispatchProps).map(([propName, dispatcher]) => {
       if (typeof dispatcher !== 'function') {
         // eslint-disable-next-line no-console
         console.warn(`Property ${propName} returned from dispatchMap in useDispatchWithMap must be a function.`);
       }
 
-      return [propName, function () {
-        return currentDispatchMap.current(registry.dispatch, registry)[propName](...arguments);
-      }];
+      return [propName, (...args) => currentDispatchMap.current(registry.dispatch, registry)[propName](...args)];
     }));
   }, [registry, ...deps]);
 };

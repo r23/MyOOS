@@ -1,1 +1,1 @@
-<?php return array('dependencies' => array('wp-commands', 'wp-core-data', 'wp-data', 'wp-element', 'wp-i18n', 'wp-polyfill', 'wp-primitives', 'wp-private-apis', 'wp-router', 'wp-url'), 'version' => '7647d7ba8c8a1f226588');
+<?php return array('dependencies' => array('wp-commands', 'wp-core-data', 'wp-data', 'wp-element', 'wp-i18n', 'wp-polyfill', 'wp-primitives', 'wp-private-apis', 'wp-router', 'wp-url'), 'version' => '3899d347a2a479a1bf51');

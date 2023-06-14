@@ -1575,8 +1575,7 @@ const formatMap = {
  * @return {string} Formatted date.
  */
 
-function format(dateFormat) {
-  let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
+function format(dateFormat, dateValue = new Date()) {
   let i, char;
   const newFormat = [];
   const momentDate = external_moment_default()(dateValue);
@@ -1629,9 +1628,7 @@ function format(dateFormat) {
  * @return {string} Formatted date in English.
  */
 
-function date(dateFormat) {
-  let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
-  let timezone = arguments.length > 2 ? arguments[2] : undefined;
+function date(dateFormat, dateValue = new Date(), timezone) {
   const dateMoment = buildMoment(dateValue, timezone);
   return format(dateFormat, dateMoment);
 }
@@ -1646,8 +1643,7 @@ function date(dateFormat) {
  * @return {string} Formatted date in English.
  */
 
-function gmdate(dateFormat) {
-  let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
+function gmdate(dateFormat, dateValue = new Date()) {
   const dateMoment = external_moment_default()(dateValue).utc();
   return format(dateFormat, dateMoment);
 }
@@ -1673,10 +1669,7 @@ function gmdate(dateFormat) {
  * @return {string} Formatted date.
  */
 
-function dateI18n(dateFormat) {
-  let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
-  let timezone = arguments.length > 2 ? arguments[2] : undefined;
-
+function dateI18n(dateFormat, dateValue = new Date(), timezone) {
   if (true === timezone) {
     return gmdateI18n(dateFormat, dateValue);
   }
@@ -1701,8 +1694,7 @@ function dateI18n(dateFormat) {
  * @return {string} Formatted date.
  */
 
-function gmdateI18n(dateFormat) {
-  let dateValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : new Date();
+function gmdateI18n(dateFormat, dateValue = new Date()) {
   const dateMoment = external_moment_default()(dateValue).utc();
   dateMoment.locale(settings.l10n.locale);
   return format(dateFormat, dateMoment);
@@ -1764,8 +1756,7 @@ function humanTimeDiff(from, to) {
  * @return {Moment} a moment instance.
  */
 
-function buildMoment(dateValue) {
-  let timezone = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+function buildMoment(dateValue, timezone = '') {
   const dateMoment = external_moment_default()(dateValue);
 
   if (timezone && !isUTCOffset(timezone)) {

@@ -198,10 +198,9 @@ const icons = {
   wp_template_part: symbol_filled
 };
 
-const getNavigationCommandLoaderPerPostType = postType => function useNavigationCommandLoader(_ref) {
-  let {
-    search
-  } = _ref;
+const getNavigationCommandLoaderPerPostType = postType => function useNavigationCommandLoader({
+  search
+}) {
   const history = useHistory();
   const supportsSearch = !['wp_template', 'wp_template_part'].includes(postType);
   const {
@@ -229,21 +228,18 @@ const getNavigationCommandLoaderPerPostType = postType => function useNavigation
   }, [supportsSearch, search]);
   const commands = (0,external_wp_element_namespaceObject.useMemo)(() => {
     return (records !== null && records !== void 0 ? records : []).slice(0, 10).map(record => {
-      var _getPath, _record$title, _record$title2, _record$title3;
-
-      const isSiteEditor = (_getPath = (0,external_wp_url_namespaceObject.getPath)(window.location.href)) === null || _getPath === void 0 ? void 0 : _getPath.includes('site-editor.php');
+      const isSiteEditor = (0,external_wp_url_namespaceObject.getPath)(window.location.href)?.includes('site-editor.php');
       const extraArgs = isSiteEditor ? {
         canvas: (0,external_wp_url_namespaceObject.getQueryArg)(window.location.href, 'canvas')
       } : {};
       return {
         name: postType + '-' + record.id,
-        searchLabel: ((_record$title = record.title) === null || _record$title === void 0 ? void 0 : _record$title.rendered) + ' ' + record.id,
-        label: (_record$title2 = record.title) !== null && _record$title2 !== void 0 && _record$title2.rendered ? (_record$title3 = record.title) === null || _record$title3 === void 0 ? void 0 : _record$title3.rendered : (0,external_wp_i18n_namespaceObject.__)('(no title)'),
+        searchLabel: record.title?.rendered + ' ' + record.id,
+        label: record.title?.rendered ? record.title?.rendered : (0,external_wp_i18n_namespaceObject.__)('(no title)'),
         icon: icons[postType],
-        callback: _ref2 => {
-          let {
-            close
-          } = _ref2;
+        callback: ({
+          close
+        }) => {
           const args = {
             postType,
             postId: record.id,

@@ -73,6 +73,11 @@ const focusableSelectors = ['a[href]', 'area[href]', 'input:not([disabled]):not(
           context
         }) => {
           return context.core.image.lightboxEnabled ? 'dialog' : '';
+        },
+        imageSrc: ({
+          context
+        }) => {
+          return context.core.image.initialized ? context.core.image.imageSrc : '';
         }
       }
     }

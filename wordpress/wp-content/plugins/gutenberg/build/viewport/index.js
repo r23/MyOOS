@@ -72,10 +72,7 @@ const external_wp_data_namespaceObject = window["wp"]["data"];
  *
  * @return {Object} Updated state.
  */
-function reducer() {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let action = arguments.length > 1 ? arguments[1] : undefined;
-
+function reducer(state = {}, action) {
   switch (action.type) {
     case 'SET_IS_MATCHING':
       return action.values;
@@ -191,10 +188,7 @@ const addDimensionsEventListener = (breakpoints, operators) => {
    * maximum of one time per call stack.
    */
   const setIsMatching = (0,external_wp_compose_namespaceObject.debounce)(() => {
-    const values = Object.fromEntries(queries.map(_ref => {
-      let [key, query] = _ref;
-      return [key, query.matches];
-    }));
+    const values = Object.fromEntries(queries.map(([key, query]) => [key, query.matches]));
     (0,external_wp_data_namespaceObject.dispatch)(store).setIsMatching(values);
   }, 0, {
     leading: true
@@ -210,10 +204,8 @@ const addDimensionsEventListener = (breakpoints, operators) => {
    */
 
   const operatorEntries = Object.entries(operators);
-  const queries = Object.entries(breakpoints).flatMap(_ref2 => {
-    let [name, width] = _ref2;
-    return operatorEntries.map(_ref3 => {
-      let [operator, condition] = _ref3;
+  const queries = Object.entries(breakpoints).flatMap(([name, width]) => {
+    return operatorEntries.map(([operator, condition]) => {
       const list = window.matchMedia(`(${condition}: ${width}px)`);
       list.addEventListener('change', setIsMatching);
       return [`${operator} ${name}`, list];
@@ -282,8 +274,7 @@ const external_wp_element_namespaceObject = window["wp"]["element"];
 const withViewportMatch = queries => {
   const queryEntries = Object.entries(queries);
 
-  const useViewPortQueriesResult = () => Object.fromEntries(queryEntries.map(_ref => {
-    let [key, query] = _ref;
+  const useViewPortQueriesResult = () => Object.fromEntries(queryEntries.map(([key, query]) => {
     let [operator, breakpointName] = query.split(' ');
 
     if (breakpointName === undefined) {

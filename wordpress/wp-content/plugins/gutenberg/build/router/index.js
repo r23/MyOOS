@@ -143,16 +143,14 @@ function getLocationWithParams(location) {
   };
 }
 
-function RouterProvider(_ref) {
-  let {
-    children
-  } = _ref;
+function RouterProvider({
+  children
+}) {
   const [location, setLocation] = (0,external_wp_element_namespaceObject.useState)(() => getLocationWithParams(build_module_history.location));
   (0,external_wp_element_namespaceObject.useEffect)(() => {
-    return build_module_history.listen(_ref2 => {
-      let {
-        location: updatedLocation
-      } = _ref2;
+    return build_module_history.listen(({
+      location: updatedLocation
+    }) => {
       setLocation(getLocationWithParams(updatedLocation));
     });
   }, []);

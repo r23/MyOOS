@@ -687,11 +687,7 @@ function closeOuterElement(endOffset) {
  * @return {Array} The concatenated value.
  */
 
-function concatChildren() {
-  for (var _len = arguments.length, childrenArguments = new Array(_len), _key = 0; _key < _len; _key++) {
-    childrenArguments[_key] = arguments[_key];
-  }
-
+function concatChildren(...childrenArguments) {
   return childrenArguments.reduce((accumulator, children, i) => {
     external_React_namespaceObject.Children.forEach(children, (child, j) => {
       if (child && 'string' !== typeof child) {
@@ -716,7 +712,7 @@ function concatChildren() {
 
 function switchChildrenNodeName(children, nodeName) {
   return children && external_React_namespaceObject.Children.map(children, (elt, index) => {
-    if (typeof (elt === null || elt === void 0 ? void 0 : elt.valueOf()) === 'string') {
+    if (typeof elt?.valueOf() === 'string') {
       return (0,external_React_namespaceObject.createElement)(nodeName, {
         key: index
       }, elt);
@@ -821,7 +817,7 @@ const isEmptyElement = element => {
     return false;
   }
 
-  if (typeof (element === null || element === void 0 ? void 0 : element.valueOf()) === 'string' || Array.isArray(element)) {
+  if (typeof element?.valueOf() === 'string' || Array.isArray(element)) {
     return !element.length;
   }
 
@@ -1260,11 +1256,10 @@ const external_wp_escapeHtml_namespaceObject = window["wp"]["escapeHtml"];
  * @return {JSX.Element} Dangerously-rendering component.
  */
 
-function RawHTML(_ref) {
-  let {
-    children,
-    ...props
-  } = _ref;
+function RawHTML({
+  children,
+  ...props
+}) {
   let rawHtml = ''; // Cast children as an array, and concatenate each element if it is a string.
 
   external_React_namespaceObject.Children.toArray(children).forEach(child => {
@@ -1567,9 +1562,7 @@ function getNormalStylePropertyValue(property, value) {
  */
 
 
-function renderElement(element, context) {
-  let legacyContext = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
+function renderElement(element, context, legacyContext = {}) {
   if (null === element || undefined === element || false === element) {
     return '';
   }
@@ -1647,8 +1640,7 @@ function renderElement(element, context) {
  * @return {string} Serialized element.
  */
 
-function renderNativeComponent(type, props, context) {
-  let legacyContext = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+function renderNativeComponent(type, props, context, legacyContext = {}) {
   let content = '';
 
   if (type === 'textarea' && props.hasOwnProperty('value')) {
@@ -1693,8 +1685,7 @@ function renderNativeComponent(type, props, context) {
  * @return {string} Serialized element
  */
 
-function renderComponent(Component, props, context) {
-  let legacyContext = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+function renderComponent(Component, props, context, legacyContext = {}) {
   const instance = new
   /** @type {import('react').ComponentClass} */
   Component(props, legacyContext);
@@ -1722,8 +1713,7 @@ function renderComponent(Component, props, context) {
  * @return {string} Serialized children.
  */
 
-function renderChildren(children, context) {
-  let legacyContext = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+function renderChildren(children, context, legacyContext = {}) {
   let result = '';
   children = Array.isArray(children) ? children : [children];
 

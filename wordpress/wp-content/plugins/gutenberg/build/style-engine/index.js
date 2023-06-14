@@ -74,7 +74,7 @@ const VARIABLE_PATH_SEPARATOR_TOKEN_STYLE = '--';
 function generateRule(style, options, path, ruleKey) {
   const styleValue = (0,external_lodash_namespaceObject.get)(style, path);
   return styleValue ? [{
-    selector: options === null || options === void 0 ? void 0 : options.selector,
+    selector: options?.selector,
     key: ruleKey,
     value: getCSSVarFromStyleValue(styleValue)
   }] : [];
@@ -91,8 +91,7 @@ function generateRule(style, options, path, ruleKey) {
  * @return GeneratedCSSRule[]  CSS rules.
  */
 
-function generateBoxRules(style, options, path, ruleKeys) {
-  let individualProperties = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : ['top', 'right', 'bottom', 'left'];
+function generateBoxRules(style, options, path, ruleKeys, individualProperties = ['top', 'right', 'bottom', 'left']) {
   const boxStyle = (0,external_lodash_namespaceObject.get)(style, path);
 
   if (!boxStyle) {
@@ -103,7 +102,7 @@ function generateBoxRules(style, options, path, ruleKeys) {
 
   if (typeof boxStyle === 'string') {
     rules.push({
-      selector: options === null || options === void 0 ? void 0 : options.selector,
+      selector: options?.selector,
       key: ruleKeys.default,
       value: boxStyle
     });
@@ -113,8 +112,8 @@ function generateBoxRules(style, options, path, ruleKeys) {
 
       if (value) {
         acc.push({
-          selector: options === null || options === void 0 ? void 0 : options.selector,
-          key: ruleKeys === null || ruleKeys === void 0 ? void 0 : ruleKeys.individual.replace('%s', upperFirst(side)),
+          selector: options?.selector,
+          key: ruleKeys?.individual.replace('%s', upperFirst(side)),
           value
         });
       }
@@ -321,33 +320,25 @@ const shadow = {
 
 const outline_color = {
   name: 'color',
-  generate: function (style, options) {
-    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['outline', 'color'];
-    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'outlineColor';
+  generate: (style, options, path = ['outline', 'color'], ruleKey = 'outlineColor') => {
     return generateRule(style, options, path, ruleKey);
   }
 };
 const offset = {
   name: 'offset',
-  generate: function (style, options) {
-    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['outline', 'offset'];
-    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'outlineOffset';
+  generate: (style, options, path = ['outline', 'offset'], ruleKey = 'outlineOffset') => {
     return generateRule(style, options, path, ruleKey);
   }
 };
 const outlineStyle = {
   name: 'style',
-  generate: function (style, options) {
-    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['outline', 'style'];
-    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'outlineStyle';
+  generate: (style, options, path = ['outline', 'style'], ruleKey = 'outlineStyle') => {
     return generateRule(style, options, path, ruleKey);
   }
 };
 const outline_width = {
   name: 'width',
-  generate: function (style, options) {
-    let path = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : ['outline', 'width'];
-    let ruleKey = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'outlineWidth';
+  generate: (style, options, path = ['outline', 'width'], ruleKey = 'outlineWidth') => {
     return generateRule(style, options, path, ruleKey);
   }
 };
@@ -488,11 +479,10 @@ const styleDefinitions = [...border, ...styles_color, ...dimensions, ...outline,
  * @return A generated stylesheet or inline style declarations.
  */
 
-function compileCSS(style) {
-  let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+function compileCSS(style, options = {}) {
   const rules = getCSSRules(style, options); // If no selector is provided, treat generated rules as inline styles to be returned as a single string.
 
-  if (!(options !== null && options !== void 0 && options.selector)) {
+  if (!options?.selector) {
     const inlineRules = [];
     rules.forEach(rule => {
       inlineRules.push(`${(0,external_lodash_namespaceObject.kebabCase)(rule.key)}: ${rule.value};`);
@@ -533,8 +523,7 @@ function compileCSS(style) {
  * @return A collection of objects containing the selector, if any, the CSS property key (camelcase) and parsed CSS value.
  */
 
-function getCSSRules(style) {
-  let options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+function getCSSRules(style, options = {}) {
   const rules = [];
   styleDefinitions.forEach(definition => {
     if (typeof definition.generate === 'function') {

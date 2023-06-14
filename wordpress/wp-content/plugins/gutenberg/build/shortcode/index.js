@@ -237,8 +237,7 @@ function memize(fn, options) {
  * @return {WPShortcodeMatch | undefined} Matched information.
  */
 
-function next(tag, text) {
-  let index = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+function next(tag, text, index = 0) {
   const re = regexp(tag);
   re.lastIndex = index;
   const match = re.exec(text);
@@ -471,8 +470,7 @@ const shortcode = Object.assign(function (options) {
   } else if (attributes.length === attributeTypes.length && attributeTypes.every((t, key) => t === attributes[key])) {
     this.attrs = attributes; // Handle a flat object of attributes.
   } else {
-    Object.entries(attributes).forEach(_ref => {
-      let [key, value] = _ref;
+    Object.entries(attributes).forEach(([key, value]) => {
       this.set(key, value);
     });
   }
@@ -529,8 +527,7 @@ Object.assign(shortcode.prototype, {
         text += ' ' + value;
       }
     });
-    Object.entries(this.attrs.named).forEach(_ref2 => {
-      let [name, value] = _ref2;
+    Object.entries(this.attrs.named).forEach(([name, value]) => {
       text += ' ' + name + '="' + value + '"';
     }); // If the tag is marked as `single` or `self-closing`, close the tag and
     // ignore any additional content.

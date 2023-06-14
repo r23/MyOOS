@@ -222,6 +222,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.d(__webpack_exports__, {
   "CommandMenu": () => (/* reexport */ CommandMenu),
   "privateApis": () => (/* reexport */ privateApis),
+  "store": () => (/* reexport */ store),
   "useCommand": () => (/* reexport */ useCommand),
   "useCommandLoader": () => (/* reexport */ useCommandLoader)
 });
@@ -234,7 +235,6 @@ __webpack_require__.d(actions_namespaceObject, {
   "open": () => (actions_open),
   "registerCommand": () => (registerCommand),
   "registerCommandLoader": () => (registerCommandLoader),
-  "setContext": () => (setContext),
   "unregisterCommand": () => (unregisterCommand),
   "unregisterCommandLoader": () => (unregisterCommandLoader)
 });
@@ -247,6 +247,13 @@ __webpack_require__.d(selectors_namespaceObject, {
   "getCommands": () => (getCommands),
   "getContext": () => (getContext),
   "isOpen": () => (selectors_isOpen)
+});
+
+// NAMESPACE OBJECT: ./packages/commands/build-module/store/private-actions.js
+var private_actions_namespaceObject = {};
+__webpack_require__.r(private_actions_namespaceObject);
+__webpack_require__.d(private_actions_namespaceObject, {
+  "setContext": () => (setContext)
 });
 
 ;// CONCATENATED MODULE: external ["wp","element"]
@@ -3023,12 +3030,11 @@ const external_wp_keyboardShortcuts_namespaceObject = window["wp"]["keyboardShor
  * @return {JSX.Element}  Icon component
  */
 
-function Icon(_ref) {
-  let {
-    icon,
-    size = 24,
-    ...props
-  } = _ref;
+function Icon({
+  icon,
+  size = 24,
+  ...props
+}) {
   return (0,external_wp_element_namespaceObject.cloneElement)(icon, {
     width: size,
     height: size,
@@ -3052,10 +3058,7 @@ function Icon(_ref) {
  * @return {Object} Updated state.
  */
 
-function commands() {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let action = arguments.length > 1 ? arguments[1] : undefined;
-
+function commands(state = {}, action) {
   switch (action.type) {
     case 'REGISTER_COMMAND':
       return { ...state,
@@ -3091,10 +3094,7 @@ function commands() {
  */
 
 
-function commandLoaders() {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  let action = arguments.length > 1 ? arguments[1] : undefined;
-
+function commandLoaders(state = {}, action) {
   switch (action.type) {
     case 'REGISTER_COMMAND_LOADER':
       return { ...state,
@@ -3127,10 +3127,7 @@ function commandLoaders() {
  */
 
 
-function isOpen() {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-  let action = arguments.length > 1 ? arguments[1] : undefined;
-
+function isOpen(state = false, action) {
   switch (action.type) {
     case 'OPEN':
       return true;
@@ -3151,10 +3148,7 @@ function isOpen() {
  */
 
 
-function context() {
-  let state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'root';
-  let action = arguments.length > 1 ? arguments[1] : undefined;
-
+function context(state = 'root', action) {
   switch (action.type) {
     case 'SET_CONTEXT':
       return action.context;
@@ -3276,20 +3270,6 @@ function actions_open() {
 function actions_close() {
   return {
     type: 'CLOSE'
-  };
-}
-/**
- * Sets the active context.
- *
- * @param {string} context Context.
- *
- * @return {Object} action.
- */
-
-function setContext(context) {
-  return {
-    type: 'SET_CONTEXT',
-    context
   };
 }
 
@@ -3596,26 +3576,47 @@ function isShallowEqual(a, b, fromIndex) {
  * External dependencies
  */
 
-const getCommands = rememo(function (state) {
-  let contextual = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  return Object.values(state.commands).filter(command => {
-    const isContextual = command.context && command.context === state.context;
-    return contextual ? isContextual : !isContextual;
-  });
-}, state => [state.commands, state.context]);
-const getCommandLoaders = rememo(function (state) {
-  let contextual = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  return Object.values(state.commandLoaders).filter(loader => {
-    const isContextual = loader.context && loader.context === state.context;
-    return contextual ? isContextual : !isContextual;
-  });
-}, state => [state.commandLoaders, state.context]);
+const getCommands = rememo((state, contextual = false) => Object.values(state.commands).filter(command => {
+  const isContextual = command.context && command.context === state.context;
+  return contextual ? isContextual : !isContextual;
+}), state => [state.commands, state.context]);
+const getCommandLoaders = rememo((state, contextual = false) => Object.values(state.commandLoaders).filter(loader => {
+  const isContextual = loader.context && loader.context === state.context;
+  return contextual ? isContextual : !isContextual;
+}), state => [state.commandLoaders, state.context]);
 function selectors_isOpen(state) {
   return state.isOpen;
 }
 function getContext(state) {
   return state.context;
 }
+
+;// CONCATENATED MODULE: ./packages/commands/build-module/store/private-actions.js
+/**
+ * Sets the active context.
+ *
+ * @param {string} context Context.
+ *
+ * @return {Object} action.
+ */
+function setContext(context) {
+  return {
+    type: 'SET_CONTEXT',
+    context
+  };
+}
+
+;// CONCATENATED MODULE: external ["wp","privateApis"]
+const external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
+;// CONCATENATED MODULE: ./packages/commands/build-module/lock-unlock.js
+/**
+ * WordPress dependencies
+ */
+
+const {
+  lock,
+  unlock
+} = (0,external_wp_privateApis_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/commands');
 
 ;// CONCATENATED MODULE: ./packages/commands/build-module/store/index.js
 /**
@@ -3625,6 +3626,8 @@ function getContext(state) {
 /**
  * Internal dependencies
  */
+
+
 
 
 
@@ -3644,6 +3647,7 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
   selectors: selectors_namespaceObject
 });
 (0,external_wp_data_namespaceObject.register)(store);
+unlock(store).registerPrivateActions(private_actions_namespaceObject);
 
 ;// CONCATENATED MODULE: ./packages/commands/build-module/components/command-menu.js
 
@@ -3668,16 +3672,15 @@ const store = (0,external_wp_data_namespaceObject.createReduxStore)(STORE_NAME, 
 
 
 
-function CommandMenuLoader(_ref) {
+function CommandMenuLoader({
+  name,
+  search,
+  hook,
+  setLoader,
+  close
+}) {
   var _hook;
 
-  let {
-    name,
-    search,
-    hook,
-    setLoader,
-    close
-  } = _ref;
   const {
     isLoading,
     commands = []
@@ -3713,13 +3716,12 @@ function CommandMenuLoader(_ref) {
   })));
 }
 
-function CommandMenuLoaderWrapper(_ref2) {
-  let {
-    hook,
-    search,
-    setLoader,
-    close
-  } = _ref2;
+function CommandMenuLoaderWrapper({
+  hook,
+  search,
+  setLoader,
+  close
+}) {
   // The "hook" prop is actually a custom React hook
   // so to avoid breaking the rules of hooks
   // the CommandMenuLoaderWrapper component need to be
@@ -3741,13 +3743,12 @@ function CommandMenuLoaderWrapper(_ref2) {
     close: close
   });
 }
-function CommandMenuGroup(_ref3) {
-  let {
-    isContextual,
-    search,
-    setLoader,
-    close
-  } = _ref3;
+function CommandMenuGroup({
+  isContextual,
+  search,
+  setLoader,
+  close
+}) {
   const {
     commands,
     loaders
@@ -3875,8 +3876,6 @@ function CommandMenu() {
   })))));
 }
 
-;// CONCATENATED MODULE: external ["wp","privateApis"]
-const external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
 ;// CONCATENATED MODULE: ./packages/commands/build-module/hooks/use-command-context.js
 /**
  * WordPress dependencies
@@ -3886,6 +3885,7 @@ const external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
 /**
  * Internal dependencies
  */
+
 
 
 /**
@@ -3901,7 +3901,7 @@ function useCommandContext(context) {
   const initialContext = (0,external_wp_element_namespaceObject.useRef)(getContext());
   const {
     setContext
-  } = (0,external_wp_data_namespaceObject.useDispatch)(store);
+  } = unlock((0,external_wp_data_namespaceObject.useDispatch)(store));
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     setContext(context);
   }, [context, setContext]); // This effects ensures that on unmount, we restore the context
@@ -3915,23 +3915,13 @@ function useCommandContext(context) {
 
 ;// CONCATENATED MODULE: ./packages/commands/build-module/private-apis.js
 /**
- * WordPress dependencies
- */
-
-/**
  * Internal dependencies
  */
 
 
-
-const {
-  lock,
-  unlock
-} = (0,external_wp_privateApis_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/commands');
 const privateApis = {};
 lock(privateApis, {
-  useCommandContext: useCommandContext,
-  store: store
+  useCommandContext: useCommandContext
 });
 
 ;// CONCATENATED MODULE: ./packages/commands/build-module/hooks/use-command.js
@@ -4010,6 +4000,7 @@ function useCommandLoader(loader) {
 }
 
 ;// CONCATENATED MODULE: ./packages/commands/build-module/index.js
+
 
 
 

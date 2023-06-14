@@ -469,7 +469,7 @@ const mergeDeepSignals = (target, source) => {
       value: inheritedValue,
       children: children
     }), document.body);
-  }); // data-wp-effect.[name]
+  }); // data-wp-effect--[name]
 
   directive('effect', ({
     directives: {
@@ -486,7 +486,7 @@ const mergeDeepSignals = (target, source) => {
         });
       });
     });
-  }); // data-wp-init.[name]
+  }); // data-wp-init--[name]
 
   directive('init', ({
     directives: {
@@ -503,7 +503,7 @@ const mergeDeepSignals = (target, source) => {
         });
       }, []);
     });
-  }); // data-wp-on.[event]
+  }); // data-wp-on--[event]
 
   directive('on', ({
     directives: {
@@ -522,7 +522,7 @@ const mergeDeepSignals = (target, source) => {
         });
       };
     });
-  }); // data-wp-class.[classname]
+  }); // data-wp-class--[classname]
 
   directive('class', ({
     directives: {
@@ -552,7 +552,7 @@ const mergeDeepSignals = (target, source) => {
         }
       }, []);
     });
-  }); // data-wp-bind.[attribute]
+  }); // data-wp-bind--[attribute]
 
   directive('bind', ({
     directives: {
@@ -605,7 +605,7 @@ const mergeDeepSignals = (target, source) => {
   });
 });
 ;// CONCATENATED MODULE: ./packages/block-library/src/utils/interactivity/constants.js
-const directivePrefix = 'data-wp-';
+const directivePrefix = 'wp';
 ;// CONCATENATED MODULE: ./packages/block-library/src/utils/interactivity/vdom.js
 /**
  * External dependencies
@@ -616,9 +616,19 @@ const directivePrefix = 'data-wp-';
  */
 
 
-const ignoreAttr = `${directivePrefix}ignore`;
-const islandAttr = `${directivePrefix}island`;
-const directiveParser = new RegExp(`${directivePrefix}([^.]+)\.?(.*)$`);
+const ignoreAttr = `data-${directivePrefix}-ignore`;
+const islandAttr = `data-${directivePrefix}-interactive`;
+const fullPrefix = `data-${directivePrefix}-`; // Regular expression for directive parsing.
+
+const directiveParser = new RegExp(`^data-${directivePrefix}-` + // ${p} must be a prefix string, like 'wp'.
+// Match alphanumeric characters including hyphen-separated
+// segments. It excludes underscore intentionally to prevent confusion.
+// E.g., "custom-directive".
+'([a-z0-9]+(?:-[a-z0-9]+)*)' + // (Optional) Match '--' followed by any alphanumeric charachters. It
+// excludes underscore intentionally to prevent confusion, but it can
+// contain multiple hyphens. E.g., "--custom-prefix--with-more-info".
+'(?:--([a-z0-9][a-z0-9-]+))?$', 'i' // Case insensitive.
+);
 const hydratedIslands = new WeakSet(); // Recursive function that transforms a DOM tree into vDOM.
 
 function toVdom(root) {
@@ -654,7 +664,7 @@ function toVdom(root) {
     for (let i = 0; i < attributes.length; i++) {
       const n = attributes[i].name;
 
-      if (n[directivePrefix.length] && n.slice(0, directivePrefix.length) === directivePrefix) {
+      if (n[fullPrefix.length] && n.slice(0, fullPrefix.length) === fullPrefix) {
         if (n === ignoreAttr) {
           ignore = true;
         } else if (n === islandAttr) {
@@ -716,7 +726,7 @@ function toVdom(root) {
 
 
 const init = async () => {
-  document.querySelectorAll(`[${directivePrefix}island]`).forEach(node => {
+  document.querySelectorAll(`[data-${directivePrefix}-interactive]`).forEach(node => {
     if (!hydratedIslands.has(node)) {
       const fragment = createRootFragment(node.parentNode, node);
       const vdom = toVdom(node);

@@ -547,11 +547,10 @@ async function importReusableBlock(file) {
 
 
 
-function ImportForm(_ref) {
-  let {
-    instanceId,
-    onUpload
-  } = _ref;
+function ImportForm({
+  instanceId,
+  onUpload
+}) {
   const inputId = 'list-reusable-blocks-import-form-' + instanceId;
   const formRef = (0,external_wp_element_namespaceObject.useRef)();
   const [isLoading, setIsLoading] = (0,external_wp_element_namespaceObject.useState)(false);
@@ -649,34 +648,27 @@ function ImportForm(_ref) {
 
 
 
-function ImportDropdown(_ref) {
-  let {
-    onUpload
-  } = _ref;
+function ImportDropdown({
+  onUpload
+}) {
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Dropdown, {
     popoverProps: {
       placement: 'bottom-start'
     },
     contentClassName: "list-reusable-blocks-import-dropdown__content",
-    renderToggle: _ref2 => {
-      let {
-        isOpen,
-        onToggle
-      } = _ref2;
-      return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
-        "aria-expanded": isOpen,
-        onClick: onToggle,
-        variant: "primary"
-      }, (0,external_wp_i18n_namespaceObject.__)('Import from JSON'));
-    },
-    renderContent: _ref3 => {
-      let {
-        onClose
-      } = _ref3;
-      return (0,external_wp_element_namespaceObject.createElement)(import_form, {
-        onUpload: (0,external_wp_compose_namespaceObject.pipe)(onClose, onUpload)
-      });
-    }
+    renderToggle: ({
+      isOpen,
+      onToggle
+    }) => (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Button, {
+      "aria-expanded": isOpen,
+      onClick: onToggle,
+      variant: "primary"
+    }, (0,external_wp_i18n_namespaceObject.__)('Import from JSON')),
+    renderContent: ({
+      onClose
+    }) => (0,external_wp_element_namespaceObject.createElement)(import_form, {
+      onUpload: (0,external_wp_compose_namespaceObject.pipe)(onClose, onUpload)
+    })
   });
 }
 

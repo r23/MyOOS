@@ -613,11 +613,10 @@ const getPluginContext = memize((icon, name) => ({
  * @return {WPComponent} The component to be rendered.
  */
 
-function PluginArea(_ref) {
-  let {
-    scope,
-    onError
-  } = _ref;
+function PluginArea({
+  scope,
+  onError
+}) {
   const store = (0,external_wp_element_namespaceObject.useMemo)(() => {
     let lastValue = [];
     return {
@@ -647,20 +646,17 @@ function PluginArea(_ref) {
     style: {
       display: 'none'
     }
-  }, plugins.map(_ref2 => {
-    let {
-      icon,
-      name,
-      render: Plugin
-    } = _ref2;
-    return (0,external_wp_element_namespaceObject.createElement)(Provider, {
-      key: name,
-      value: getPluginContext(icon, name)
-    }, (0,external_wp_element_namespaceObject.createElement)(PluginErrorBoundary, {
-      name: name,
-      onError: onError
-    }, (0,external_wp_element_namespaceObject.createElement)(Plugin, null)));
-  }));
+  }, plugins.map(({
+    icon,
+    name,
+    render: Plugin
+  }) => (0,external_wp_element_namespaceObject.createElement)(Provider, {
+    key: name,
+    value: getPluginContext(icon, name)
+  }, (0,external_wp_element_namespaceObject.createElement)(PluginErrorBoundary, {
+    name: name,
+    onError: onError
+  }, (0,external_wp_element_namespaceObject.createElement)(Plugin, null)))));
 }
 
 /* harmony default export */ const plugin_area = (PluginArea);
