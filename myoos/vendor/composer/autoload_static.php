@@ -82,7 +82,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         ),
         'M' => 
         array (
-            'MyCLabs\\Enum\\' => 13,
             'Matrix\\' => 7,
             'Masterminds\\' => 12,
         ),
@@ -284,10 +283,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'ParagonIE\\ConstantTime\\' => 
         array (
             0 => __DIR__ . '/..' . '/paragonie/constant_time_encoding/src',
-        ),
-        'MyCLabs\\Enum\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
         'Matrix\\' => 
         array (

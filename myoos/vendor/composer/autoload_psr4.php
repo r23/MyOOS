@@ -45,7 +45,6 @@ return array(
     'PhpOffice\\PhpSpreadsheet\\' => array($vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet'),
     'PhpAmqpLib\\' => array($vendorDir . '/php-amqplib/php-amqplib/PhpAmqpLib'),
     'ParagonIE\\ConstantTime\\' => array($vendorDir . '/paragonie/constant_time_encoding/src'),
-    'MyCLabs\\Enum\\' => array($vendorDir . '/myclabs/php-enum/src'),
     'Matrix\\' => array($vendorDir . '/markbaker/matrix/classes/src'),
     'Masterminds\\' => array($vendorDir . '/masterminds/html5/src'),
     'Laminas\\Escaper\\' => array($vendorDir . '/laminas/laminas-escaper/src'),
