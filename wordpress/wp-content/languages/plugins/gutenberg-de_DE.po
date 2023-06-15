@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-05-31 20:25:27+0000\n"
+"PO-Revision-Date: 2023-06-14 20:52:07+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,28 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.4\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Gutenberg - Stable (latest release)\n"
+
+#. translators: %s: Image alt text.
+#: build/block-library/blocks/image.php:58
+msgid "Enlarge image: %s"
+msgstr "Bild vergrößern: %s"
+
+#: build/block-library/blocks/image.php:52
+msgid "Enlarge image"
+msgstr "Bild vergrößern"
+
+#: lib/experiments-page.php:118
+msgid "Pattern enhancements"
+msgstr "Vorlagen-Verbesserungen"
+
+#: lib/experiments-page.php:123
+msgid "Test the Pattern block enhancements"
+msgstr "Teste die Verbesserungen an Block-Vorlagen"
+
+#. translators: %s: duotone filter ID
+#: lib/class-wp-duotone-gutenberg.php:718
+msgid "The duotone id \"%s\" is not registered in theme.json settings"
+msgstr "Die Duotone-ID „%s“ ist nicht in den theme.json-Einstellungen registriert"
 
 #: lib/compat/wordpress-6.3/theme-previews.php:93
 msgid "Live Preview"
@@ -2048,7 +2070,7 @@ msgstr "Nächste Seite"
 #. translators: %s: Template part slug.
 #. translators: %s: Template part slug
 #: build/block-library/blocks/template-part.php:118
-#: build/block-library/index.js:56740
+#: build/block-library/index.js:56746
 msgid "Template part has been deleted or is unavailable: %s"
 msgstr "Das Template-Teil wurde gelöscht oder ist nicht verfügbar: %s"
 
@@ -2520,7 +2542,7 @@ msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zurzeit nicht. Vers
 #: build/block-editor/index.js:29379 build/block-library/index.js:45031
 #: build/block-library/index.js:48157 build/block-library/index.js:48331
 #: build/block-library/index.js:48332 build/block-library/index.js:48446
-#: build/block-library/index.js:48447 build/block-library/index.js:56239
+#: build/block-library/index.js:48447 build/block-library/index.js:56245
 #: build/components/index.js:60461 build/edit-site/index.js:9653
 #: build/edit-site/index.min.js:10498
 msgid "Search"
@@ -2736,7 +2758,7 @@ msgstr "… wie dieser, der rechtsbündig ist."
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Small.
 #: lib/class-wp-theme-json-gutenberg.php:3379
-#: build/block-library/index.js:51723 build/components/index.js:58423
+#: build/block-library/index.js:51727 build/components/index.js:58423
 msgid "Small"
 msgstr "Klein"
 
@@ -2784,7 +2806,7 @@ msgstr "https://wordpress.org/support/plugin/gutenberg/"
 
 #. translators: %s: Digit to indicate multiple of sizing, eg. 2X-Large.
 #: lib/class-wp-theme-json-gutenberg.php:3416 build/block-editor/index.js:3993
-#: build/block-library/index.js:51729 build/components/index.js:58423
+#: build/block-library/index.js:51733 build/components/index.js:58423
 msgid "Large"
 msgstr "Groß"
 
@@ -2801,7 +2823,7 @@ msgstr "Seitennummerierung"
 #: build/block-library/blocks/navigation.php:599
 #: build/block-editor/index.js:58321 build/block-editor/index.js:60848
 #: build/block-library/index.js:31297 build/block-library/index.js:33428
-#: build/block-library/index.js:58126 build/components/index.js:45869
+#: build/block-library/index.js:58132 build/components/index.js:45869
 #: build/edit-post/index.js:4559 build/edit-post/index.js:5676
 #: build/edit-post/index.js:6961 build/edit-site/index.js:5617
 #: build/edit-site/index.js:13232 build/edit-site/index.js:15485
@@ -2836,7 +2858,7 @@ msgstr "Kategorien"
 #: build/block-library/index.js:8581 build/block-library/index.js:9715
 #: build/block-library/index.js:36584 build/block-library/index.js:36862
 #: build/block-library/index.js:36865 build/block-library/index.js:36867
-#: build/block-library/index.js:58029 build/edit-site/index.js:2942
+#: build/block-library/index.js:58035 build/edit-site/index.js:2942
 #: build/edit-site/index.js:8200 build/edit-site/index.js:9025
 #: build/edit-site/index.min.js:2889 build/edit-site/index.min.js:8783
 #: build/edit-site/index.min.js:9703
