@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Gutenberg - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-06-14 20:52:07+0000\n"
+"PO-Revision-Date: 2023-06-17 23:55:54+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,14 +24,22 @@ msgstr "Bild vergrößern"
 msgid "Pattern enhancements"
 msgstr "Vorlagen-Verbesserungen"
 
-#: lib/experiments-page.php:123
-msgid "Test the Pattern block enhancements"
-msgstr "Teste die Verbesserungen an Block-Vorlagen"
-
 #. translators: %s: duotone filter ID
 #: lib/class-wp-duotone-gutenberg.php:718
 msgid "The duotone id \"%s\" is not registered in theme.json settings"
 msgstr "Die Duotone-ID „%s“ ist nicht in den theme.json-Einstellungen registriert"
+
+#: lib/experiments-page.php:123
+msgid "Test the Pattern block enhancements"
+msgstr "Teste die Verbesserungen der Block-Vorlagen"
+
+#: lib/experiments-page.php:106
+msgid "Core blocks"
+msgstr "Kern-Blöcke"
+
+#: lib/experiments-page.php:111
+msgid "Test the core blocks using the Interactivity API"
+msgstr "Teste die Kern-Blöcke mittels Interaktivitäts-API"
 
 #: lib/compat/wordpress-6.3/theme-previews.php:93
 msgid "Live Preview"
