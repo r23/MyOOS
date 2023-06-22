@@ -8,8 +8,10 @@ use Closure;
 use DateTimeInterface;
 use DeflateContext;
 use RuntimeException;
+use ZipStream\Exception\FileSizeIncorrectException;
 use ZipStream\Exception\OverflowException;
 use ZipStream\Exception\ResourceActionException;
+use ZipStream\Exception\SimulationFileUnknownException;
 use ZipStream\Exception\StreamNotReadableException;
 use ZipStream\Exception\StreamNotSeekableException;
 
@@ -32,28 +34,30 @@ class File
 
     private readonly string $fileName;
 
-    private int $totalSize = 0;
-
     /**
-     * @var resource
+     * @var resource|null
      */
     private $stream;
 
     /**
-     * @param resource $stream
+     * @param Closure $dataCallback
+     * @psalm-param Closure(): resource $dataCallback
      */
     public function __construct(
         string $fileName,
-        private int $startOffset,
+        private readonly Closure $dataCallback,
+        private readonly OperationMode $operationMode,
+        private readonly int $startOffset,
         private readonly CompressionMethod $compressionMethod,
         private readonly string $comment,
         private readonly DateTimeInterface $lastModificationDateTime,
         private readonly int $deflateLevel,
         private readonly ?int $maxSize,
+        private readonly ?int $exactSize,
         private readonly bool $enableZip64,
         private readonly bool $enableZeroHeader,
         private readonly Closure $send,
-        $stream,
+        private readonly Closure $recordSentBytes,
     ) {
         $this->fileName = self::filterFilename($fileName);
         $this->checkEncoding();
@@ -62,37 +66,111 @@ class File
             $this->generalPurposeBitFlag |= GeneralPurposeBitFlag::ZERO_HEADER;
         }
 
-        $this->selectVersion();
+        $this->version = $this->compressionMethod === CompressionMethod::DEFLATE ? Version::DEFLATE : Version::STORE;
+    }
 
-        if (!$this->enableZeroHeader && !stream_get_meta_data($stream)['seekable']) {
-            throw new StreamNotSeekableException();
-        }
-        if (!(
-            str_contains(stream_get_meta_data($stream)['mode'], 'r')
-            || str_contains(stream_get_meta_data($stream)['mode'], 'w+')
-            || str_contains(stream_get_meta_data($stream)['mode'], 'a+')
-            || str_contains(stream_get_meta_data($stream)['mode'], 'x+')
-            || str_contains(stream_get_meta_data($stream)['mode'], 'c+')
-        )) {
-            throw new StreamNotReadableException();
-        }
-        $this->stream = $stream;
+    public function cloneSimulationExecution(): self
+    {
+        return new self(
+            $this->fileName,
+            $this->dataCallback,
+            OperationMode::NORMAL,
+            $this->startOffset,
+            $this->compressionMethod,
+            $this->comment,
+            $this->lastModificationDateTime,
+            $this->deflateLevel,
+            $this->maxSize,
+            $this->exactSize,
+            $this->enableZip64,
+            $this->enableZeroHeader,
+            $this->send,
+            $this->recordSentBytes,
+        );
     }
 
     public function process(): string
     {
-        if (!$this->enableZeroHeader) {
+        $forecastSize = $this->forecastSize();
+
+        if ($this->enableZeroHeader) {
+            // No calculation required
+        } elseif ($this->isSimulation() && $forecastSize) {
+            $this->uncompressedSize = $forecastSize;
+            $this->compressedSize = $forecastSize;
+        } else {
             $this->readStream(send: false);
-            if (rewind($this->stream) === false) {
-                throw new ResourceActionException('rewind', $this->stream);
+            if (rewind($this->unpackStream()) === false) {
+                throw new ResourceActionException('rewind', $this->unpackStream());
             }
         }
 
         $this->addFileHeader();
-        $this->readStream(send: true);
-        $this->addFileFooter();
 
+        $detectedSize = $forecastSize ?? $this->compressedSize;
+
+        if (
+            $this->isSimulation() &&
+            $detectedSize > 0
+        ) {
+            ($this->recordSentBytes)($detectedSize);
+        } else {
+            $this->readStream(send: true);
+        }
+
+        $this->addFileFooter();
         return $this->getCdrFile();
+    }
+
+    /**
+     * @return resource
+     */
+    private function unpackStream()
+    {
+        if ($this->stream) {
+            return $this->stream;
+        }
+
+        if ($this->operationMode === OperationMode::SIMULATE_STRICT) {
+            throw new SimulationFileUnknownException();
+        }
+
+        $this->stream = ($this->dataCallback)();
+
+        if (!$this->enableZeroHeader && !stream_get_meta_data($this->stream)['seekable']) {
+            throw new StreamNotSeekableException();
+        }
+        if (!(
+            str_contains(stream_get_meta_data($this->stream)['mode'], 'r')
+            || str_contains(stream_get_meta_data($this->stream)['mode'], 'w+')
+            || str_contains(stream_get_meta_data($this->stream)['mode'], 'a+')
+            || str_contains(stream_get_meta_data($this->stream)['mode'], 'x+')
+            || str_contains(stream_get_meta_data($this->stream)['mode'], 'c+')
+        )) {
+            throw new StreamNotReadableException();
+        }
+
+        return $this->stream;
+    }
+
+    private function forecastSize(): ?int
+    {
+        if ($this->compressionMethod !== CompressionMethod::STORE) {
+            return null;
+        }
+        if ($this->exactSize) {
+            return $this->exactSize;
+        }
+        $fstat = fstat($this->unpackStream());
+        if (!$fstat || !array_key_exists('size', $fstat) || $fstat['size'] < 1) {
+            return null;
+        }
+
+        if ($this->maxSize !== null && $this->maxSize < $fstat['size']) {
+            return $this->maxSize;
+        }
+
+        return $fstat['size'];
     }
 
     /**
@@ -100,7 +178,15 @@ class File
      */
     private function addFileHeader(): void
     {
-        $footer = $this->buildZip64ExtraBlock($this->enableZeroHeader && $this->enableZip64);
+        $forceEnableZip64 = $this->enableZeroHeader && $this->enableZip64;
+
+        $footer = $this->buildZip64ExtraBlock($forceEnableZip64);
+
+        $zip64Enabled = $footer !== '';
+
+        if($zip64Enabled) {
+            $this->version = Version::ZIP64;
+        }
 
         if ($this->generalPurposeBitFlag & GeneralPurposeBitFlag::EFS) {
             // Put the tricky entry to
@@ -108,17 +194,16 @@ class File
             $footer .= Zs\ExtendedInformationExtraField::generate();
         }
 
-
         $data = LocalFileHeader::generate(
             versionNeededToExtract: $this->version->value,
             generalPurposeBitFlag: $this->generalPurposeBitFlag,
             compressionMethod: $this->compressionMethod,
             lastModificationDateTime: $this->lastModificationDateTime,
             crc32UncompressedData: $this->crc,
-            compressedSize: ($this->enableZip64 || $this->enableZeroHeader || $this->compressedSize > 0xFFFFFFFF)
+            compressedSize: $zip64Enabled
                 ? 0xFFFFFFFF
                 : $this->compressedSize,
-            uncompressedSize: ($this->enableZip64 || $this->enableZeroHeader || $this->uncompressedSize > 0xFFFFFFFF)
+            uncompressedSize: $zip64Enabled
                 ? 0xFFFFFFFF
                 : $this->uncompressedSize,
             fileName: $this->fileName,
@@ -127,8 +212,6 @@ class File
 
 
         ($this->send)($data);
-
-        $this->totalSize +=  strlen($data);
     }
 
     /**
@@ -157,20 +240,6 @@ class File
                 mb_check_encoding($this->comment, 'UTF-8')) {
             $this->generalPurposeBitFlag |= GeneralPurposeBitFlag::EFS;
         }
-    }
-
-    private function selectVersion(): void
-    {
-        if ($this->enableZip64) {
-            $this->version = Version::ZIP64;
-            return;
-        }
-        if ($this->compressionMethod === CompressionMethod::DEFLATE) {
-            $this->version = Version::DEFLATE;
-            return;
-        }
-
-        $this->version = Version::STORE;
     }
 
     private function buildZip64ExtraBlock(bool $force = false): string
@@ -202,7 +271,7 @@ class File
             return '';
         }
 
-        if ($this->version !== Version::ZIP64) {
+        if (!$this->enableZip64) {
             throw new OverflowException();
         }
 
@@ -239,8 +308,6 @@ class File
         }
 
         ($this->send)($footer);
-
-        $this->totalSize += strlen($footer);
     }
 
     private function readStream(bool $send): void
@@ -251,10 +318,18 @@ class File
 
         $deflate = $this->compressionInit();
 
-        while (!feof($this->stream) && ($this->maxSize === null || $this->uncompressedSize < $this->maxSize)) {
-            $readLength = min(($this->maxSize ?? PHP_INT_MAX) - $this->uncompressedSize, self::CHUNKED_READ_BLOCK_SIZE);
+        while (
+            !feof($this->unpackStream()) &&
+            ($this->maxSize === null || $this->uncompressedSize < $this->maxSize) &&
+            ($this->exactSize === null || $this->uncompressedSize < $this->exactSize)
+        ) {
+            $readLength = min(
+                ($this->maxSize ?? PHP_INT_MAX) - $this->uncompressedSize,
+                ($this->exactSize ?? PHP_INT_MAX) - $this->uncompressedSize,
+                self::CHUNKED_READ_BLOCK_SIZE
+            );
 
-            $data = fread($this->stream, $readLength);
+            $data = fread($this->unpackStream(), $readLength);
 
             hash_update($hash, $data);
 
@@ -264,7 +339,7 @@ class File
                 $data =  deflate_add(
                     $deflate,
                     $data,
-                    feof($this->stream) ? ZLIB_FINISH : ZLIB_NO_FLUSH
+                    feof($this->unpackStream()) ? ZLIB_FINISH : ZLIB_NO_FLUSH
                 );
             }
 
@@ -272,8 +347,11 @@ class File
 
             if ($send) {
                 ($this->send)($data);
-                $this->totalSize += strlen($data);
             }
+        }
+
+        if ($this->exactSize && $this->uncompressedSize !== $this->exactSize) {
+            throw new FileSizeIncorrectException(expectedSize: $this->exactSize, actualSize: $this->uncompressedSize);
         }
 
         $this->crc = hexdec(hash_final($hash));
@@ -333,5 +411,10 @@ class File
                 ? 0xFFFFFFFF
                 : $this->startOffset,
         );
+    }
+
+    private function isSimulation(): bool
+    {
+        return $this->operationMode === OperationMode::SIMULATE_LAX || $this->operationMode === OperationMode::SIMULATE_STRICT;
     }
 }

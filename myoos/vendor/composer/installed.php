@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'b78fa22cd8445ed25027f5c0f179bfcbfa5580eb',
+        'reference' => '73c26954f9fb39df7cca217cd9245c910e5394ab',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -137,9 +137,9 @@
             'dev_requirement' => false,
         ),
         'maennchen/zipstream-php' => array(
-            'pretty_version' => '3.0.2',
-            'version' => '3.0.2.0',
-            'reference' => 'b46726e666b5d2ad32959ae9492ee1034e798162',
+            'pretty_version' => '3.1.0',
+            'version' => '3.1.0.0',
+            'reference' => 'b8174494eda667f7d13876b4a7bfef0f62a7c0d1',
             'type' => 'library',
             'install_path' => __DIR__ . '/../maennchen/zipstream-php',
             'aliases' => array(),
@@ -184,7 +184,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'b78fa22cd8445ed25027f5c0f179bfcbfa5580eb',
+            'reference' => '73c26954f9fb39df7cca217cd9245c910e5394ab',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -442,7 +442,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => 'e47f876d3b2df4a1354964c32820b4d7c10b8675',
+            'reference' => '4e267f401487bcc7edb65cd7b6af218018aa32b4',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
