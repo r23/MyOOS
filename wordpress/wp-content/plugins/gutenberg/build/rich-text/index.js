@@ -860,6 +860,7 @@ function toFormat({
 
   if (!attributes) {
     return {
+      formatType,
       type: formatType.name,
       tagName
     };
@@ -891,7 +892,12 @@ function toFormat({
     unregisteredAttributes[name] = attributes[name];
   }
 
+  if (formatType.contentEditable === false) {
+    delete unregisteredAttributes.contenteditable;
+  }
+
   return {
+    formatType,
     type: formatType.name,
     tagName,
     attributes: registeredAttributes,
@@ -1206,7 +1212,23 @@ function createFromElement({
       attributes: getAttributes({
         element: node
       })
-    });
+    }); // When a format type is declared as not editable, replace it with an
+    // object replacement character and preserve the inner HTML.
+
+    if (format?.formatType?.contentEditable === false) {
+      delete format.formatType;
+      accumulateSelection(accumulator, node, range, createEmptyValue());
+      mergePair(accumulator, {
+        formats: [,],
+        replacements: [{ ...format,
+          innerHTML: node.innerHTML
+        }],
+        text: OBJECT_REPLACEMENT_CHARACTER
+      });
+      continue;
+    }
+
+    if (format) delete format.formatType;
 
     if (multilineWrapperTags && multilineWrapperTags.indexOf(tagName) !== -1) {
       const value = createFromMultilineElement({
@@ -2327,6 +2349,12 @@ function fromFormat({
     } else {
       elementAttributes.class = formatType.className;
     }
+  } // When a format is declared as non editable, make it non editable in the
+  // editor.
+
+
+  if (isEditableTree && formatType.contentEditable === false) {
+    elementAttributes.contenteditable = 'false';
   }
 
   return {
@@ -2500,16 +2528,32 @@ function toTree({
     }
 
     if (character === OBJECT_REPLACEMENT_CHARACTER) {
-      if (!isEditableTree && replacements[i]?.type === 'script') {
+      const replacement = replacements[i];
+      if (!replacement) continue;
+      const {
+        type,
+        attributes,
+        innerHTML
+      } = replacement;
+      const formatType = get_format_type_getFormatType(type);
+
+      if (!isEditableTree && type === 'script') {
         pointer = append(getParent(pointer), fromFormat({
           type: 'script',
           isEditableTree
         }));
         append(pointer, {
-          html: decodeURIComponent(replacements[i].attributes['data-rich-text-script'])
+          html: decodeURIComponent(attributes['data-rich-text-script'])
         });
+      } else if (formatType?.contentEditable === false) {
+        // For non editable formats, render the stored inner HTML.
+        pointer = append(getParent(pointer), fromFormat({ ...replacement,
+          isEditableTree,
+          boundaryClass: start === i && end === i + 1
+        }));
+        if (innerHTML) append(pointer, innerHTML);
       } else {
-        pointer = append(getParent(pointer), fromFormat({ ...replacements[i],
+        pointer = append(getParent(pointer), fromFormat({ ...replacement,
           object: true,
           isEditableTree
         }));
@@ -3422,12 +3466,15 @@ function useBoundaryStyle({
 }) {
   const ref = (0,external_wp_element_namespaceObject.useRef)();
   const {
-    activeFormats = []
+    activeFormats = [],
+    replacements,
+    start
   } = record.current;
+  const activeReplacement = replacements[start];
   (0,external_wp_element_namespaceObject.useEffect)(() => {
     // There's no need to recalculate the boundary styles if no formats are
     // active, because no boundary styles will be visible.
-    if (!activeFormats || !activeFormats.length) {
+    if ((!activeFormats || !activeFormats.length) && !activeReplacement) {
       return;
     }
 
@@ -3461,7 +3508,7 @@ function useBoundaryStyle({
     if (globalStyle.innerHTML !== style) {
       globalStyle.innerHTML = style;
     }
-  }, [activeFormats]);
+  }, [activeFormats, activeReplacement]);
   return ref;
 }
 
@@ -3489,8 +3536,11 @@ function useCopyHandler(props) {
         multilineTag,
         preserveWhiteSpace
       } = propsRef.current;
+      const {
+        ownerDocument
+      } = element;
 
-      if (isCollapsed(record.current) || !element.contains(element.ownerDocument.activeElement)) {
+      if (isCollapsed(record.current) || !element.contains(ownerDocument.activeElement)) {
         return;
       }
 
@@ -3506,11 +3556,17 @@ function useCopyHandler(props) {
       event.clipboardData.setData('rich-text', 'true');
       event.clipboardData.setData('rich-text-multi-line-tag', multilineTag || '');
       event.preventDefault();
+
+      if (event.type === 'cut') {
+        ownerDocument.execCommand('delete');
+      }
     }
 
     element.addEventListener('copy', onCopy);
+    element.addEventListener('cut', onCopy);
     return () => {
       element.removeEventListener('copy', onCopy);
+      element.removeEventListener('cut', onCopy);
     };
   }, []);
 }
@@ -3642,7 +3698,7 @@ function useSelectObject() {
         target
       } = event; // If the child element has no text content, it must be an object.
 
-      if (target === element || target.textContent) {
+      if (target === element || target.textContent && target.isContentEditable) {
         return;
       }
 
@@ -3652,16 +3708,29 @@ function useSelectObject() {
       const {
         defaultView
       } = ownerDocument;
+      const selection = defaultView.getSelection(); // If it's already selected, do nothing and let default behavior
+      // happen. This means it's "click-through".
+
+      if (selection.containsNode(target)) return;
       const range = ownerDocument.createRange();
-      const selection = defaultView.getSelection();
       range.selectNode(target);
       selection.removeAllRanges();
       selection.addRange(range);
+      event.preventDefault();
+    }
+
+    function onFocusIn(event) {
+      // When there is incoming focus from a link, select the object.
+      if (event.relatedTarget && !element.contains(event.relatedTarget) && event.relatedTarget.tagName === 'A') {
+        onClick(event);
+      }
     }
 
     element.addEventListener('click', onClick);
+    element.addEventListener('focusin', onFocusIn);
     return () => {
       element.removeEventListener('click', onClick);
+      element.removeEventListener('focusin', onFocusIn);
     };
   }, []);
 }
@@ -4322,6 +4391,7 @@ function useRichText({
   const hadSelectionUpdate = (0,external_wp_element_namespaceObject.useRef)(false);
 
   if (!record.current) {
+    hadSelectionUpdate.current = isSelected;
     setRecordFromProps(); // Sometimes formats are added programmatically and we need to make
     // sure it's persisted to the block store / markup. If these formats
     // are not applied, they could cause inconsistencies between the data

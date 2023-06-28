@@ -3005,7 +3005,8 @@ function ifCondition(predicate) {
       return null;
     }
 
-    return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, props);
+    return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, { ...props
+    });
   }, 'ifCondition');
 }
 
@@ -3052,31 +3053,14 @@ const pure = createHigherOrderComponent(function (WrappedComponent) {
     }
 
     render() {
-      return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, this.props);
+      return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, { ...this.props
+      });
     }
 
   };
 }, 'pure');
 /* harmony default export */ const higher_order_pure = (pure);
 
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
 ;// CONCATENATED MODULE: external ["wp","deprecated"]
 const external_wp_deprecated_namespaceObject = window["wp"]["deprecated"];
 var external_wp_deprecated_default = /*#__PURE__*/__webpack_require__.n(external_wp_deprecated_namespaceObject);
@@ -3142,7 +3126,6 @@ class Listener {
 /* harmony default export */ const listener = (Listener);
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-global-events/index.js
-
 
 
 /**
@@ -3238,9 +3221,9 @@ function withGlobalEvents(eventTypesToHandlers) {
       }
 
       render() {
-        return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, _extends({}, this.props.ownProps, {
+        return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, { ...this.props.ownProps,
           ref: this.handleRef
-        }));
+        });
       }
 
     }
@@ -3307,7 +3290,6 @@ function useInstanceId(object, prefix, preferredId) {
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-instance-id/index.js
 
 
-
 /**
  * Internal dependencies
  */
@@ -3322,15 +3304,14 @@ const withInstanceId = createHigherOrderComponent(WrappedComponent => {
   return props => {
     const instanceId = use_instance_id(WrappedComponent); // @ts-ignore
 
-    return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, _extends({}, props, {
+    return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, { ...props,
       instanceId: instanceId
-    }));
+    });
   };
 }, 'instanceId');
 /* harmony default export */ const with_instance_id = (withInstanceId);
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-safe-timeout/index.js
-
 
 
 /**
@@ -3384,10 +3365,10 @@ const withSafeTimeout = createHigherOrderComponent(OriginalComponent => {
 
     render() {
       return (// @ts-ignore
-        (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, _extends({}, this.props, {
+        (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, { ...this.props,
           setTimeout: this.setTimeout,
           clearTimeout: this.clearTimeout
-        }))
+        })
       );
     }
 
@@ -3396,7 +3377,6 @@ const withSafeTimeout = createHigherOrderComponent(OriginalComponent => {
 /* harmony default export */ const with_safe_timeout = (withSafeTimeout);
 
 ;// CONCATENATED MODULE: ./packages/compose/build-module/higher-order/with-state/index.js
-
 
 
 /**
@@ -3436,9 +3416,10 @@ function withState(initialState = {}) {
       }
 
       render() {
-        return (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, _extends({}, this.props, this.state, {
+        return (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, { ...this.props,
+          ...this.state,
           setState: this.setState
-        }));
+        });
       }
 
     };

@@ -1,6 +1,147 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 1919:
+/***/ ((module) => {
+
+"use strict";
+
+
+var isMergeableObject = function isMergeableObject(value) {
+	return isNonNullObject(value)
+		&& !isSpecial(value)
+};
+
+function isNonNullObject(value) {
+	return !!value && typeof value === 'object'
+}
+
+function isSpecial(value) {
+	var stringValue = Object.prototype.toString.call(value);
+
+	return stringValue === '[object RegExp]'
+		|| stringValue === '[object Date]'
+		|| isReactElement(value)
+}
+
+// see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
+var canUseSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7;
+
+function isReactElement(value) {
+	return value.$$typeof === REACT_ELEMENT_TYPE
+}
+
+function emptyTarget(val) {
+	return Array.isArray(val) ? [] : {}
+}
+
+function cloneUnlessOtherwiseSpecified(value, options) {
+	return (options.clone !== false && options.isMergeableObject(value))
+		? deepmerge(emptyTarget(value), value, options)
+		: value
+}
+
+function defaultArrayMerge(target, source, options) {
+	return target.concat(source).map(function(element) {
+		return cloneUnlessOtherwiseSpecified(element, options)
+	})
+}
+
+function getMergeFunction(key, options) {
+	if (!options.customMerge) {
+		return deepmerge
+	}
+	var customMerge = options.customMerge(key);
+	return typeof customMerge === 'function' ? customMerge : deepmerge
+}
+
+function getEnumerableOwnPropertySymbols(target) {
+	return Object.getOwnPropertySymbols
+		? Object.getOwnPropertySymbols(target).filter(function(symbol) {
+			return Object.propertyIsEnumerable.call(target, symbol)
+		})
+		: []
+}
+
+function getKeys(target) {
+	return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target))
+}
+
+function propertyIsOnObject(object, property) {
+	try {
+		return property in object
+	} catch(_) {
+		return false
+	}
+}
+
+// Protects from prototype poisoning and unexpected merging up the prototype chain.
+function propertyIsUnsafe(target, key) {
+	return propertyIsOnObject(target, key) // Properties are safe to merge if they don't exist in the target yet,
+		&& !(Object.hasOwnProperty.call(target, key) // unsafe if they exist up the prototype chain,
+			&& Object.propertyIsEnumerable.call(target, key)) // and also unsafe if they're nonenumerable.
+}
+
+function mergeObject(target, source, options) {
+	var destination = {};
+	if (options.isMergeableObject(target)) {
+		getKeys(target).forEach(function(key) {
+			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
+		});
+	}
+	getKeys(source).forEach(function(key) {
+		if (propertyIsUnsafe(target, key)) {
+			return
+		}
+
+		if (propertyIsOnObject(target, key) && options.isMergeableObject(source[key])) {
+			destination[key] = getMergeFunction(key, options)(target[key], source[key], options);
+		} else {
+			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
+		}
+	});
+	return destination
+}
+
+function deepmerge(target, source, options) {
+	options = options || {};
+	options.arrayMerge = options.arrayMerge || defaultArrayMerge;
+	options.isMergeableObject = options.isMergeableObject || isMergeableObject;
+	// cloneUnlessOtherwiseSpecified is added to `options` so that custom arrayMerge()
+	// implementations can use it. The caller may not replace it.
+	options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified;
+
+	var sourceIsArray = Array.isArray(source);
+	var targetIsArray = Array.isArray(target);
+	var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
+
+	if (!sourceAndTargetTypesMatch) {
+		return cloneUnlessOtherwiseSpecified(source, options)
+	} else if (sourceIsArray) {
+		return options.arrayMerge(target, source, options)
+	} else {
+		return mergeObject(target, source, options)
+	}
+}
+
+deepmerge.all = function deepmergeAll(array, options) {
+	if (!Array.isArray(array)) {
+		throw new Error('first argument should be an array')
+	}
+
+	return array.reduce(function(prev, next) {
+		return deepmerge(prev, next, options)
+	}, {})
+};
+
+var deepmerge_1 = deepmerge;
+
+module.exports = deepmerge_1;
+
+
+/***/ }),
+
 /***/ 5619:
 /***/ ((module) => {
 
@@ -8648,19 +8789,45 @@ function isShallowEqual(a, b, fromIndex) {
 // EXTERNAL MODULE: ./node_modules/remove-accents/index.js
 var remove_accents = __webpack_require__(4793);
 var remove_accents_default = /*#__PURE__*/__webpack_require__.n(remove_accents);
-;// CONCATENATED MODULE: external "lodash"
-const external_lodash_namespaceObject = window["lodash"];
 ;// CONCATENATED MODULE: external ["wp","compose"]
 const external_wp_compose_namespaceObject = window["wp"]["compose"];
+;// CONCATENATED MODULE: ./packages/blocks/build-module/store/utils.js
+/**
+ * Helper util to return a value from a certain path of the object.
+ * Path is specified as either:
+ * - a string of properties, separated by dots, for example: "x.y".
+ * - an array of properties, for example `[ 'x', 'y' ]`.
+ * You can also specify a default value in case the result is nullish.
+ *
+ * @param {Object}       object       Input object.
+ * @param {string|Array} path         Path to the object property.
+ * @param {*}            defaultValue Default value if the value at the specified path is nullish.
+ * @return {*} Value of the object property at the specified path.
+ */
+const getValueFromObjectPath = (object, path, defaultValue) => {
+  var _value;
+
+  const normalizedPath = Array.isArray(path) ? path : path.split('.');
+  let value = object;
+  normalizedPath.forEach(fieldName => {
+    value = value?.[fieldName];
+  });
+  return (_value = value) !== null && _value !== void 0 ? _value : defaultValue;
+};
+
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/store/selectors.js
 /**
  * External dependencies
  */
 
 
-
 /**
  * WordPress dependencies
+ */
+
+
+/**
+ * Internal dependencies
  */
 
 
@@ -9241,7 +9408,7 @@ const selectors_getBlockSupport = (state, nameOrType, feature, defaultSupports) 
     return defaultSupports;
   }
 
-  return (0,external_lodash_namespaceObject.get)(blockType.supports, feature, defaultSupports);
+  return getValueFromObjectPath(blockType.supports, feature, defaultSupports);
 };
 /**
  * Returns true if the block defines support for a feature, or false otherwise.
@@ -9432,10 +9599,10 @@ const __experimentalHasContentRoleAttribute = rememo((state, blockTypeName) => {
  * External dependencies
  */
 
-
 /**
  * Internal dependencies
  */
+
 
 
 
@@ -9517,13 +9684,13 @@ const getSupportedStyles = rememo((state, name, element) => {
 
 
     if (__EXPERIMENTAL_STYLE_PROPERTY[styleName].requiresOptOut) {
-      if (__EXPERIMENTAL_STYLE_PROPERTY[styleName].support[0] in blockType.supports && (0,external_lodash_namespaceObject.get)(blockType.supports, __EXPERIMENTAL_STYLE_PROPERTY[styleName].support) !== false) {
+      if (__EXPERIMENTAL_STYLE_PROPERTY[styleName].support[0] in blockType.supports && getValueFromObjectPath(blockType.supports, __EXPERIMENTAL_STYLE_PROPERTY[styleName].support) !== false) {
         supportKeys.push(styleName);
         return;
       }
     }
 
-    if ((0,external_lodash_namespaceObject.get)(blockType.supports, __EXPERIMENTAL_STYLE_PROPERTY[styleName].support, false)) {
+    if (getValueFromObjectPath(blockType.supports, __EXPERIMENTAL_STYLE_PROPERTY[styleName].support, false)) {
       supportKeys.push(styleName);
     }
   });
@@ -10031,7 +10198,7 @@ const STORE_NAME = 'core/blocks';
 
 ;// CONCATENATED MODULE: external ["wp","privateApis"]
 const external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
-;// CONCATENATED MODULE: ./packages/blocks/build-module/private-apis.js
+;// CONCATENATED MODULE: ./packages/blocks/build-module/lock-unlock.js
 /**
  * WordPress dependencies
  */
@@ -10194,7 +10361,7 @@ function getBlockProps(props = {}) {
     blockType,
     attributes
   } = blockPropsProvider;
-  return (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.getSaveContent.extraProps', { ...props
+  return getBlockProps.skipFilters ? props : (0,external_wp_hooks_namespaceObject.applyFilters)('blocks.getSaveContent.extraProps', { ...props
   }, blockType, attributes);
 }
 /**
@@ -10206,7 +10373,15 @@ function getBlockProps(props = {}) {
 function getInnerBlocksProps(props = {}) {
   const {
     innerBlocks
-  } = innerBlocksPropsProvider; // Value is an array of blocks, so defer to block serializer.
+  } = innerBlocksPropsProvider;
+  const [firstBlock] = innerBlocks !== null && innerBlocks !== void 0 ? innerBlocks : [];
+  if (!firstBlock) return props; // If the innerBlocks passed to `getSaveElement` are not blocks but already
+  // components, return the props as is. This is the case for
+  // `getRichTextValues`.
+
+  if (!firstBlock.clientId) return { ...props,
+    children: innerBlocks
+  }; // Value is an array of blocks, so defer to block serializer.
 
   const html = serialize(innerBlocks, {
     isInnerBlocks: true
@@ -10230,6 +10405,7 @@ function getInnerBlocksProps(props = {}) {
 
 function getSaveElement(blockTypeOrName, attributes, innerBlocks = []) {
   const blockType = normalizeBlockType(blockTypeOrName);
+  if (!blockType?.save) return null;
   let {
     save
   } = blockType; // Component classes are unsupported for save since serialization must
@@ -13891,6 +14067,9 @@ function segmentHTMLToShortcodeBlock(HTML, lastIndex = 0, excludedBlockNames = [
 
 /* harmony default export */ const shortcode_converter = (segmentHTMLToShortcodeBlock);
 
+// EXTERNAL MODULE: ./node_modules/deepmerge/dist/cjs.js
+var cjs = __webpack_require__(1919);
+var cjs_default = /*#__PURE__*/__webpack_require__.n(cjs);
 ;// CONCATENATED MODULE: ./packages/blocks/build-module/api/raw-handling/utils.js
 /**
  * External dependencies
@@ -13906,6 +14085,50 @@ function segmentHTMLToShortcodeBlock(HTML, lastIndex = 0, excludedBlockNames = [
  */
 
 
+
+
+const customMerge = key => {
+  return (srcValue, objValue) => {
+    switch (key) {
+      case 'children':
+        {
+          if (objValue === '*' || srcValue === '*') {
+            return '*';
+          }
+
+          return { ...objValue,
+            ...srcValue
+          };
+        }
+
+      case 'attributes':
+      case 'require':
+        {
+          return [...(objValue || []), ...(srcValue || [])];
+        }
+
+      case 'isMatch':
+        {
+          // If one of the values being merge is undefined (matches everything),
+          // the result of the merge will be undefined.
+          if (!objValue || !srcValue) {
+            return undefined;
+          } // When merging two isMatch functions, the result is a new function
+          // that returns if one of the source functions returns true.
+
+
+          return (...args) => {
+            return objValue(...args) || srcValue(...args);
+          };
+        }
+    }
+
+    return cjs_default()(objValue, srcValue, {
+      customMerge,
+      clone: false
+    });
+  };
+};
 
 function getBlockContentSchemaFromTransforms(transforms, context) {
   const phrasingContentSchema = (0,external_wp_dom_namespaceObject.getPhrasingContentSchema)(context);
@@ -13943,40 +14166,9 @@ function getBlockContentSchemaFromTransforms(transforms, context) {
       }];
     }));
   });
-  return (0,external_lodash_namespaceObject.mergeWith)({}, ...schemas, (objValue, srcValue, key) => {
-    switch (key) {
-      case 'children':
-        {
-          if (objValue === '*' || srcValue === '*') {
-            return '*';
-          }
-
-          return { ...objValue,
-            ...srcValue
-          };
-        }
-
-      case 'attributes':
-      case 'require':
-        {
-          return [...(objValue || []), ...(srcValue || [])];
-        }
-
-      case 'isMatch':
-        {
-          // If one of the values being merge is undefined (matches everything),
-          // the result of the merge will be undefined.
-          if (!objValue || !srcValue) {
-            return undefined;
-          } // When merging two isMatch functions, the result is a new function
-          // that returns if one of the source functions returns true.
-
-
-          return (...args) => {
-            return objValue(...args) || srcValue(...args);
-          };
-        }
-    }
+  return cjs_default().all(schemas, {
+    customMerge,
+    clone: false
   });
 }
 /**

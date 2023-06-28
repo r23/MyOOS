@@ -1048,7 +1048,10 @@ function Edit(props) {
       'is-wide-widget': isWide
     })
   });
-  return (0,external_wp_element_namespaceObject.createElement)("div", blockProps, !id && !idBase ? (0,external_wp_element_namespaceObject.createElement)(Empty, props) : (0,external_wp_element_namespaceObject.createElement)(NotEmpty, props));
+  return (0,external_wp_element_namespaceObject.createElement)("div", { ...blockProps
+  }, !id && !idBase ? (0,external_wp_element_namespaceObject.createElement)(Empty, { ...props
+  }) : (0,external_wp_element_namespaceObject.createElement)(NotEmpty, { ...props
+  }));
 }
 
 function Empty({
@@ -1452,9 +1455,12 @@ function edit_Edit(props) {
   const {
     innerBlocks
   } = (0,external_wp_data_namespaceObject.useSelect)(select => select(external_wp_blockEditor_namespaceObject.store).getBlock(clientId), [clientId]);
-  return (0,external_wp_element_namespaceObject.createElement)("div", (0,external_wp_blockEditor_namespaceObject.useBlockProps)({
-    className: 'widget'
-  }), innerBlocks.length === 0 ? (0,external_wp_element_namespaceObject.createElement)(PlaceholderContent, props) : (0,external_wp_element_namespaceObject.createElement)(PreviewContent, props));
+  return (0,external_wp_element_namespaceObject.createElement)("div", { ...(0,external_wp_blockEditor_namespaceObject.useBlockProps)({
+      className: 'widget'
+    })
+  }, innerBlocks.length === 0 ? (0,external_wp_element_namespaceObject.createElement)(PlaceholderContent, { ...props
+  }) : (0,external_wp_element_namespaceObject.createElement)(PreviewContent, { ...props
+  }));
 }
 
 function PlaceholderContent({

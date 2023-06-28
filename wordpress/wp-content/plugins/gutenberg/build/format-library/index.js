@@ -460,7 +460,7 @@ const linkOff = (0,external_wp_element_namespaceObject.createElement)(external_w
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M15.6 7.3h-.7l1.6-3.5-.9-.4-3.9 8.5H9v1.5h2l-1.3 2.8H8.4c-2 0-3.7-1.7-3.7-3.7s1.7-3.7 3.7-3.7H10V7.3H8.4c-2.9 0-5.2 2.3-5.2 5.2 0 2.9 2.3 5.2 5.2 5.2H9l-1.4 3.2.9.4 5.7-12.5h1.4c2 0 3.7 1.7 3.7 3.7s-1.7 3.7-3.7 3.7H14v1.5h1.6c2.9 0 5.2-2.3 5.2-5.2 0-2.9-2.4-5.2-5.2-5.2z"
+  d: "M17.031 4.703 15.576 4l-1.56 3H14v.03l-2.324 4.47H9.5V13h1.396l-1.502 2.889h-.95a3.694 3.694 0 0 1 0-7.389H10V7H8.444a5.194 5.194 0 1 0 0 10.389h.17L7.5 19.53l1.416.719L15.049 8.5h.507a3.694 3.694 0 0 1 0 7.39H14v1.5h1.556a5.194 5.194 0 0 0 .273-10.383l1.202-2.304Z"
 }));
 /* harmony default export */ const link_off = (linkOff);
 
@@ -475,7 +475,7 @@ const link_link = (0,external_wp_element_namespaceObject.createElement)(external
   xmlns: "http://www.w3.org/2000/svg",
   viewBox: "0 0 24 24"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M15.6 7.2H14v1.5h1.6c2 0 3.7 1.7 3.7 3.7s-1.7 3.7-3.7 3.7H14v1.5h1.6c2.8 0 5.2-2.3 5.2-5.2 0-2.9-2.3-5.2-5.2-5.2zM4.7 12.4c0-2 1.7-3.7 3.7-3.7H10V7.2H8.4c-2.9 0-5.2 2.3-5.2 5.2 0 2.9 2.3 5.2 5.2 5.2H10v-1.5H8.4c-2 0-3.7-1.7-3.7-3.7zm4.6.9h5.3v-1.5H9.3v1.5z"
+  d: "M10 17.389H8.444A5.194 5.194 0 1 1 8.444 7H10v1.5H8.444a3.694 3.694 0 0 0 0 7.389H10v1.5ZM14 7h1.556a5.194 5.194 0 0 1 0 10.39H14v-1.5h1.556a3.694 3.694 0 0 0 0-7.39H14V7Zm-4.5 6h5v-1.5h-5V13Z"
 }));
 /* harmony default export */ const library_link = (link_link);
 
@@ -944,6 +944,7 @@ function InlineLinkUI({
     anchor: popoverAnchor,
     focusOnMount: focusOnMount.current,
     onClose: stopAddingLink,
+    onFocusOutside: () => stopAddingLink(false),
     placement: "bottom",
     shift: true
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.__experimentalLinkControl, {
@@ -1039,9 +1040,12 @@ function link_Edit({
     }
   }
 
-  function stopAddingLink() {
+  function stopAddingLink(returnFocus = true) {
     setAddingLink(false);
-    onFocus();
+
+    if (returnFocus) {
+      onFocus();
+    }
   }
 
   function onRemoveFormat() {
@@ -1720,7 +1724,7 @@ const button_button = (0,external_wp_element_namespaceObject.createElement)(exte
   viewBox: "0 0 24 24",
   xmlns: "http://www.w3.org/2000/svg"
 }, (0,external_wp_element_namespaceObject.createElement)(external_wp_primitives_namespaceObject.Path, {
-  d: "M19 6.5H5c-1.1 0-2 .9-2 2v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7c0-1.1-.9-2-2-2zm.5 9c0 .3-.2.5-.5.5H5c-.3 0-.5-.2-.5-.5v-7c0-.3.2-.5.5-.5h14c.3 0 .5.2.5.5v7zM8 12.8h8v-1.5H8v1.5z"
+  d: "M8 12.5h8V11H8v1.5Z M19 6.5H5a2 2 0 0 0-2 2V15a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a2 2 0 0 0-2-2ZM5 8h14a.5.5 0 0 1 .5.5V15a.5.5 0 0 1-.5.5H5a.5.5 0 0 1-.5-.5V8.5A.5.5 0 0 1 5 8Z"
 }));
 /* harmony default export */ const library_button = (button_button);
 
@@ -1882,25 +1886,16 @@ const language_language = {
   title: language_title
 };
 
-function language_Edit(props) {
-  const {
-    contentRef,
-    isActive,
-    onChange,
-    value
-  } = props;
-  const popoverAnchor = (0,external_wp_richText_namespaceObject.useAnchor)({
-    editableContentElement: contentRef.current,
-    settings: language_language
-  });
-  const [lang, setLang] = (0,external_wp_element_namespaceObject.useState)('');
-  const [dir, setDir] = (0,external_wp_element_namespaceObject.useState)('ltr');
+function language_Edit({
+  isActive,
+  value,
+  onChange,
+  contentRef
+}) {
   const [isPopoverVisible, setIsPopoverVisible] = (0,external_wp_element_namespaceObject.useState)(false);
 
   const togglePopover = () => {
     setIsPopoverVisible(state => !state);
-    setLang('');
-    setDir('ltr');
   };
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.Fragment, null, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.RichTextToolbarButton, {
@@ -1916,14 +1911,35 @@ function language_Edit(props) {
     },
     isActive: isActive,
     role: "menuitemcheckbox"
-  }), isPopoverVisible && (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
+  }), isPopoverVisible && (0,external_wp_element_namespaceObject.createElement)(InlineLanguageUI, {
+    value: value,
+    onChange: onChange,
+    onClose: togglePopover,
+    contentRef: contentRef
+  }));
+}
+
+function InlineLanguageUI({
+  value,
+  contentRef,
+  onChange,
+  onClose
+}) {
+  const popoverAnchor = (0,external_wp_richText_namespaceObject.useAnchor)({
+    editableContentElement: contentRef.current,
+    settings: language_language
+  });
+  const [lang, setLang] = (0,external_wp_element_namespaceObject.useState)('');
+  const [dir, setDir] = (0,external_wp_element_namespaceObject.useState)('ltr');
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.Popover, {
     className: "block-editor-format-toolbar__language-popover",
     anchor: popoverAnchor,
     placement: "bottom",
-    onClose: togglePopover
+    onClose: onClose
   }, (0,external_wp_element_namespaceObject.createElement)("form", {
     className: "block-editor-format-toolbar__language-container-content",
     onSubmit: event => {
+      event.preventDefault();
       onChange((0,external_wp_richText_namespaceObject.applyFormat)(value, {
         type: language_name,
         attributes: {
@@ -1931,8 +1947,7 @@ function language_Edit(props) {
           dir
         }
       }));
-      togglePopover();
-      event.preventDefault();
+      onClose();
     }
   }, (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.TextControl, {
     label: language_title,
@@ -1956,7 +1971,7 @@ function language_Edit(props) {
     variant: "primary",
     type: "submit",
     text: (0,external_wp_i18n_namespaceObject.__)('Apply')
-  })))));
+  }))));
 }
 
 ;// CONCATENATED MODULE: ./packages/format-library/build-module/default-formats.js

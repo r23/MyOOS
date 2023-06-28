@@ -228,28 +228,9 @@ const external_wp_hooks_namespaceObject = window["wp"]["hooks"];
 ;// CONCATENATED MODULE: external ["wp","isShallowEqual"]
 const external_wp_isShallowEqual_namespaceObject = window["wp"]["isShallowEqual"];
 var external_wp_isShallowEqual_default = /*#__PURE__*/__webpack_require__.n(external_wp_isShallowEqual_namespaceObject);
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
 ;// CONCATENATED MODULE: external ["wp","compose"]
 const external_wp_compose_namespaceObject = window["wp"]["compose"];
 ;// CONCATENATED MODULE: ./packages/plugins/build-module/components/plugin-context/index.js
-
 
 
 /**
@@ -281,7 +262,9 @@ const {
  */
 
 const withPluginContext = mapContextToProps => (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(OriginalComponent => {
-  return props => (0,external_wp_element_namespaceObject.createElement)(Consumer, null, context => (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, _extends({}, props, mapContextToProps(context, props))));
+  return props => (0,external_wp_element_namespaceObject.createElement)(Consumer, null, context => (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, { ...props,
+    ...mapContextToProps(context, props)
+  }));
 }, 'withPluginContext');
 
 ;// CONCATENATED MODULE: ./packages/plugins/build-module/components/plugin-error-boundary/index.js

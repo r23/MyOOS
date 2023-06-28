@@ -147,24 +147,6 @@ __webpack_require__.d(__webpack_exports__, {
   "default": () => (/* binding */ build_module)
 });
 
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
 ;// CONCATENATED MODULE: external ["wp","element"]
 const external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external ["wp","data"]
@@ -186,7 +168,6 @@ const external_wp_components_namespaceObject = window["wp"]["components"];
 ;// CONCATENATED MODULE: external ["wp","blocks"]
 const external_wp_blocks_namespaceObject = window["wp"]["blocks"];
 ;// CONCATENATED MODULE: ./packages/server-side-render/build-module/server-side-render.js
-
 
 
 /**
@@ -383,21 +364,23 @@ function ServerSideRender(props) {
   const hasError = response?.error;
 
   if (isLoading) {
-    return (0,external_wp_element_namespaceObject.createElement)(LoadingResponsePlaceholder, _extends({}, props, {
+    return (0,external_wp_element_namespaceObject.createElement)(LoadingResponsePlaceholder, { ...props,
       showLoader: showLoader
-    }), hasResponse && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
+    }, hasResponse && (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
       className: className
     }, response));
   }
 
   if (hasEmptyResponse || !hasResponse) {
-    return (0,external_wp_element_namespaceObject.createElement)(EmptyResponsePlaceholder, props);
+    return (0,external_wp_element_namespaceObject.createElement)(EmptyResponsePlaceholder, { ...props
+    });
   }
 
   if (hasError) {
-    return (0,external_wp_element_namespaceObject.createElement)(ErrorResponsePlaceholder, _extends({
-      response: response
-    }, props));
+    return (0,external_wp_element_namespaceObject.createElement)(ErrorResponsePlaceholder, {
+      response: response,
+      ...props
+    });
   }
 
   return (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, {
@@ -406,7 +389,6 @@ function ServerSideRender(props) {
 }
 
 ;// CONCATENATED MODULE: ./packages/server-side-render/build-module/index.js
-
 
 
 /**
@@ -459,9 +441,10 @@ const ExportedServerSideRender = (0,external_wp_data_namespaceObject.withSelect)
       ...urlQueryArgs
     };
   }, [currentPostId, urlQueryArgs]);
-  return (0,external_wp_element_namespaceObject.createElement)(ServerSideRender, _extends({
-    urlQueryArgs: newUrlQueryArgs
-  }, props));
+  return (0,external_wp_element_namespaceObject.createElement)(ServerSideRender, {
+    urlQueryArgs: newUrlQueryArgs,
+    ...props
+  });
 });
 /* harmony default export */ const build_module = (ExportedServerSideRender);
 

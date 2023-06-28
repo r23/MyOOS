@@ -42,8 +42,6 @@ __webpack_require__.d(__webpack_exports__, {
   "privateApis": () => (/* reexport */ privateApis)
 });
 
-;// CONCATENATED MODULE: external ["wp","privateApis"]
-const external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
 ;// CONCATENATED MODULE: external ["wp","element"]
 const external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
@@ -161,20 +159,24 @@ function RouterProvider({
   }, children));
 }
 
-;// CONCATENATED MODULE: ./packages/router/build-module/private-apis.js
+;// CONCATENATED MODULE: external ["wp","privateApis"]
+const external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
+;// CONCATENATED MODULE: ./packages/router/build-module/lock-unlock.js
 /**
  * WordPress dependencies
  */
-
-/**
- * Internal dependencies
- */
-
 
 const {
   lock,
   unlock
 } = (0,external_wp_privateApis_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/router');
+
+;// CONCATENATED MODULE: ./packages/router/build-module/private-apis.js
+/**
+ * Internal dependencies
+ */
+
+
 const privateApis = {};
 lock(privateApis, {
   useHistory: useHistory,

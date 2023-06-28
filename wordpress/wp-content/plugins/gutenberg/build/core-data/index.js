@@ -5688,7 +5688,8 @@ const resolvers_getNavigationFallbackId = () => async ({
   dispatch.receiveNavigationFallbackId(fallback?.id);
 
   if (record) {
-    dispatch.receiveEntityRecords('postType', 'wp_navigation', record); // Resolve to avoid further network requests.
+    const invalidateNavigationQueries = true;
+    dispatch.receiveEntityRecords('postType', 'wp_navigation', record, undefined, invalidateNavigationQueries); // Resolve to avoid further network requests.
 
     dispatch.finishResolution('getEntityRecord', ['postType', 'wp_navigation', fallback?.id]);
   }
@@ -5974,6 +5975,20 @@ function createLocksActions() {
 const external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external ["wp","blocks"]
 const external_wp_blocks_namespaceObject = window["wp"]["blocks"];
+;// CONCATENATED MODULE: external ["wp","blockEditor"]
+const external_wp_blockEditor_namespaceObject = window["wp"]["blockEditor"];
+;// CONCATENATED MODULE: external ["wp","privateApis"]
+const external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
+;// CONCATENATED MODULE: ./packages/core-data/build-module/private-apis.js
+/**
+ * WordPress dependencies
+ */
+
+const {
+  lock,
+  unlock
+} = (0,external_wp_privateApis_namespaceObject.__dangerousOptInToUnstableAPIsOnlyForCoreModules)('I know using unstable features means my plugin or theme will inevitably break on the next WordPress release.', '@wordpress/core-data');
+
 ;// CONCATENATED MODULE: ./packages/core-data/build-module/entity-provider.js
 
 
@@ -5983,14 +5998,17 @@ const external_wp_blocks_namespaceObject = window["wp"]["blocks"];
 
 
 
+
 /**
  * Internal dependencies
  */
 
 
+
 /** @typedef {import('@wordpress/blocks').WPBlock} WPBlock */
 
 const EMPTY_ARRAY = [];
+let oldFootnotes = {};
 /**
  * Internal dependencies
  */
@@ -6131,6 +6149,8 @@ function useEntityProp(kind, name, prop, _id) {
 function useEntityBlockEditor(kind, name, {
   id: _id
 } = {}) {
+  const [meta, updateMeta] = useEntityProp(kind, name, 'meta', _id);
+  const registry = (0,external_wp_data_namespaceObject.useRegistry)();
   const providerId = useEntityId(kind, name);
   const id = _id !== null && _id !== void 0 ? _id : providerId;
   const {
@@ -6163,6 +6183,49 @@ function useEntityBlockEditor(kind, name, {
       });
     }
   }, [content]);
+  const updateFootnotes = (0,external_wp_element_namespaceObject.useCallback)(_blocks => {
+    if (!meta) return; // If meta.footnotes is empty, it means the meta is not registered.
+
+    if (meta.footnotes === undefined) return;
+    const {
+      getRichTextValues
+    } = unlock(external_wp_blockEditor_namespaceObject.privateApis);
+
+    const _content = getRichTextValues(_blocks).join('') || '';
+
+    const newOrder = []; // This can be avoided when
+    // https://github.com/WordPress/gutenberg/pull/43204 lands. We can then
+    // get the order directly from the rich text values.
+
+    if (_content.indexOf('data-fn') !== -1) {
+      const regex = /data-fn="([^"]+)"/g;
+      let match;
+
+      while ((match = regex.exec(_content)) !== null) {
+        newOrder.push(match[1]);
+      }
+    }
+
+    const footnotes = meta.footnotes ? JSON.parse(meta.footnotes) : [];
+    const currentOrder = footnotes.map(fn => fn.id);
+    if (currentOrder.join('') === newOrder.join('')) return;
+    const newFootnotes = newOrder.map(fnId => footnotes.find(fn => fn.id === fnId) || oldFootnotes[fnId] || {
+      id: fnId,
+      content: ''
+    });
+    oldFootnotes = { ...oldFootnotes,
+      ...footnotes.reduce((acc, fn) => {
+        if (!newOrder.includes(fn.id)) {
+          acc[fn.id] = fn;
+        }
+
+        return acc;
+      }, {})
+    };
+    updateMeta({ ...meta,
+      footnotes: JSON.stringify(newFootnotes)
+    });
+  }, [meta, updateMeta]);
   const onChange = (0,external_wp_element_namespaceObject.useCallback)((newBlocks, options) => {
     const {
       selection
@@ -6184,8 +6247,11 @@ function useEntityBlockEditor(kind, name, {
       blocks: blocksForSerialization = []
     }) => (0,external_wp_blocks_namespaceObject.__unstableSerializeAndClean)(blocksForSerialization);
 
-    editEntityRecord(kind, name, id, edits);
-  }, [kind, name, id, blocks]);
+    registry.batch(() => {
+      updateFootnotes(edits.blocks);
+      editEntityRecord(kind, name, id, edits);
+    });
+  }, [kind, name, id, blocks, updateFootnotes]);
   const onInput = (0,external_wp_element_namespaceObject.useCallback)((newBlocks, options) => {
     const {
       selection
@@ -6194,8 +6260,11 @@ function useEntityBlockEditor(kind, name, {
       blocks: newBlocks,
       selection
     };
-    editEntityRecord(kind, name, id, edits);
-  }, [kind, name, id]);
+    registry.batch(() => {
+      updateFootnotes(edits.blocks);
+      editEntityRecord(kind, name, id, edits);
+    });
+  }, [kind, name, id, updateFootnotes]);
   return [blocks !== null && blocks !== void 0 ? blocks : EMPTY_ARRAY, onInput, onChange];
 }
 
@@ -6899,7 +6968,7 @@ function useEntityRecord(kind, name, recordId, options = {
       throwOnError: true,
       ...saveOptions
     })
-  }), [recordId]);
+  }), [editEntityRecord, kind, name, recordId, saveEditedEntityRecord]);
   const {
     editedRecord,
     hasEdits
@@ -6912,7 +6981,9 @@ function useEntityRecord(kind, name, recordId, options = {
     ...querySelectRest
   } = useQuerySelect(query => {
     if (!options.enabled) {
-      return null;
+      return {
+        data: null
+      };
     }
 
     return query(store).getEntityRecord(kind, name, recordId);
@@ -6957,7 +7028,7 @@ const use_entity_records_EMPTY_ARRAY = [];
  * @param    options   Optional hook options.
  * @example
  * ```js
- * import { useEntityRecord } from '@wordpress/core-data';
+ * import { useEntityRecords } from '@wordpress/core-data';
  *
  * function PageTitlesList() {
  *   const { records, isResolving } = useEntityRecords( 'postType', 'page' );

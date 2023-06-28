@@ -1192,24 +1192,6 @@ const external_wp_compose_namespaceObject = window["wp"]["compose"];
 const external_wp_components_namespaceObject = window["wp"]["components"];
 ;// CONCATENATED MODULE: external ["wp","coreData"]
 const external_wp_coreData_namespaceObject = window["wp"]["coreData"];
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
 ;// CONCATENATED MODULE: external ["wp","htmlEntities"]
 const external_wp_htmlEntities_namespaceObject = window["wp"]["htmlEntities"];
 ;// CONCATENATED MODULE: ./packages/icons/build-module/icon/index.js
@@ -1412,7 +1394,6 @@ const DownloadableBlockNotice = ({
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/downloadable-block-list-item/index.js
 
 
-
 /**
  * WordPress dependencies
  */
@@ -1507,11 +1488,11 @@ function DownloadableBlockListItem({
     statusText = (0,external_wp_i18n_namespaceObject.__)('Installing…');
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__unstableCompositeItem, _extends({
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__unstableCompositeItem, {
     __experimentalIsFocusable: true,
     role: "option",
-    as: external_wp_components_namespaceObject.Button
-  }, composite, {
+    as: external_wp_components_namespaceObject.Button,
+    ...composite,
     className: "block-directory-downloadable-block-list-item",
     onClick: event => {
       event.preventDefault();
@@ -1526,7 +1507,7 @@ function DownloadableBlockListItem({
     }),
     showTooltip: true,
     tooltipPosition: "top center"
-  }), (0,external_wp_element_namespaceObject.createElement)("div", {
+  }, (0,external_wp_element_namespaceObject.createElement)("div", {
     className: "block-directory-downloadable-block-list-item__icon"
   }, (0,external_wp_element_namespaceObject.createElement)(downloadable_block_icon, {
     icon: icon,
@@ -1555,7 +1536,6 @@ function DownloadableBlockListItem({
 /* harmony default export */ const downloadable_block_list_item = (DownloadableBlockListItem);
 
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/components/downloadable-blocks-list/index.js
-
 
 
 /**
@@ -1588,11 +1568,11 @@ function DownloadableBlocksList({
     return null;
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__unstableComposite, _extends({}, composite, {
+  return (0,external_wp_element_namespaceObject.createElement)(external_wp_components_namespaceObject.__unstableComposite, { ...composite,
     role: "listbox",
     className: "block-directory-downloadable-blocks-list",
     "aria-label": (0,external_wp_i18n_namespaceObject.__)('Blocks available for install')
-  }), items.map(item => {
+  }, items.map(item => {
     return (0,external_wp_element_namespaceObject.createElement)(downloadable_block_list_item, {
       key: item.id,
       composite: composite,
@@ -1977,7 +1957,6 @@ function InstallButton({
 ;// CONCATENATED MODULE: ./packages/block-directory/build-module/plugins/get-install-missing/index.js
 
 
-
 /**
  * WordPress dependencies
  */
@@ -2018,12 +1997,13 @@ const getInstallMissing = OriginalComponent => props => {
   }, [originalName]); // The user can't install blocks, or the block isn't available for download.
 
   if (!hasPermission || !block) {
-    return (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, props);
+    return (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, { ...props
+    });
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)(ModifiedWarning, _extends({}, props, {
+  return (0,external_wp_element_namespaceObject.createElement)(ModifiedWarning, { ...props,
     originalBlock: block
-  }));
+  });
 };
 
 const ModifiedWarning = ({
@@ -2074,7 +2054,8 @@ const ModifiedWarning = ({
     }, (0,external_wp_i18n_namespaceObject.__)('Keep as HTML')));
   }
 
-  return (0,external_wp_element_namespaceObject.createElement)("div", (0,external_wp_blockEditor_namespaceObject.useBlockProps)(), (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, {
+  return (0,external_wp_element_namespaceObject.createElement)("div", { ...(0,external_wp_blockEditor_namespaceObject.useBlockProps)()
+  }, (0,external_wp_element_namespaceObject.createElement)(external_wp_blockEditor_namespaceObject.Warning, {
     actions: actions
   }, messageHTML), (0,external_wp_element_namespaceObject.createElement)(external_wp_element_namespaceObject.RawHTML, null, originalUndelimitedContent));
 };

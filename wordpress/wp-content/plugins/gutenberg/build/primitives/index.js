@@ -267,7 +267,8 @@ const SVG = ({
   }; // Disable reason: We need to have a way to render HTML tag for web.
   // eslint-disable-next-line react/forbid-elements
 
-  return (0,external_wp_element_namespaceObject.createElement)("svg", appliedProps);
+  return (0,external_wp_element_namespaceObject.createElement)("svg", { ...appliedProps
+  });
 };
 
 ;// CONCATENATED MODULE: ./packages/primitives/build-module/horizontal-rule/index.js

@@ -44,30 +44,11 @@ __webpack_require__.d(__webpack_exports__, {
   "withI18n": () => (/* binding */ withI18n)
 });
 
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
 ;// CONCATENATED MODULE: external ["wp","element"]
 const external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external ["wp","i18n"]
 const external_wp_i18n_namespaceObject = window["wp"]["i18n"];
 ;// CONCATENATED MODULE: ./packages/react-i18n/build-module/index.js
-
 
 
 /**
@@ -173,7 +154,9 @@ const useI18n = () => (0,external_wp_element_namespaceObject.useContext)(I18nCon
 function withI18n(InnerComponent) {
   const EnhancedComponent = props => {
     const i18nProps = useI18n();
-    return (0,external_wp_element_namespaceObject.createElement)(InnerComponent, _extends({}, props, i18nProps));
+    return (0,external_wp_element_namespaceObject.createElement)(InnerComponent, { ...props,
+      ...i18nProps
+    });
   };
 
   const innerComponentName = InnerComponent.displayName || InnerComponent.name || 'Component';

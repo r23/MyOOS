@@ -722,26 +722,7 @@ function useShortcut(name, callback, {
   }, [name, isDisabled]);
 }
 
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
 ;// CONCATENATED MODULE: ./packages/keyboard-shortcuts/build-module/components/shortcut-provider.js
-
 
 
 /**
@@ -779,9 +760,9 @@ function ShortcutProvider(props) {
 
   return (0,external_wp_element_namespaceObject.createElement)(Provider, {
     value: keyboardShortcuts
-  }, (0,external_wp_element_namespaceObject.createElement)("div", _extends({}, props, {
+  }, (0,external_wp_element_namespaceObject.createElement)("div", { ...props,
     onKeyDown: onKeyDown
-  })));
+  }));
   /* eslint-enable jsx-a11y/no-static-element-interactions */
 }
 

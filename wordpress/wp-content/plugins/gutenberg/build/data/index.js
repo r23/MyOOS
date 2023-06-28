@@ -1,6 +1,147 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 1919:
+/***/ ((module) => {
+
+"use strict";
+
+
+var isMergeableObject = function isMergeableObject(value) {
+	return isNonNullObject(value)
+		&& !isSpecial(value)
+};
+
+function isNonNullObject(value) {
+	return !!value && typeof value === 'object'
+}
+
+function isSpecial(value) {
+	var stringValue = Object.prototype.toString.call(value);
+
+	return stringValue === '[object RegExp]'
+		|| stringValue === '[object Date]'
+		|| isReactElement(value)
+}
+
+// see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
+var canUseSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7;
+
+function isReactElement(value) {
+	return value.$$typeof === REACT_ELEMENT_TYPE
+}
+
+function emptyTarget(val) {
+	return Array.isArray(val) ? [] : {}
+}
+
+function cloneUnlessOtherwiseSpecified(value, options) {
+	return (options.clone !== false && options.isMergeableObject(value))
+		? deepmerge(emptyTarget(value), value, options)
+		: value
+}
+
+function defaultArrayMerge(target, source, options) {
+	return target.concat(source).map(function(element) {
+		return cloneUnlessOtherwiseSpecified(element, options)
+	})
+}
+
+function getMergeFunction(key, options) {
+	if (!options.customMerge) {
+		return deepmerge
+	}
+	var customMerge = options.customMerge(key);
+	return typeof customMerge === 'function' ? customMerge : deepmerge
+}
+
+function getEnumerableOwnPropertySymbols(target) {
+	return Object.getOwnPropertySymbols
+		? Object.getOwnPropertySymbols(target).filter(function(symbol) {
+			return Object.propertyIsEnumerable.call(target, symbol)
+		})
+		: []
+}
+
+function getKeys(target) {
+	return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target))
+}
+
+function propertyIsOnObject(object, property) {
+	try {
+		return property in object
+	} catch(_) {
+		return false
+	}
+}
+
+// Protects from prototype poisoning and unexpected merging up the prototype chain.
+function propertyIsUnsafe(target, key) {
+	return propertyIsOnObject(target, key) // Properties are safe to merge if they don't exist in the target yet,
+		&& !(Object.hasOwnProperty.call(target, key) // unsafe if they exist up the prototype chain,
+			&& Object.propertyIsEnumerable.call(target, key)) // and also unsafe if they're nonenumerable.
+}
+
+function mergeObject(target, source, options) {
+	var destination = {};
+	if (options.isMergeableObject(target)) {
+		getKeys(target).forEach(function(key) {
+			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
+		});
+	}
+	getKeys(source).forEach(function(key) {
+		if (propertyIsUnsafe(target, key)) {
+			return
+		}
+
+		if (propertyIsOnObject(target, key) && options.isMergeableObject(source[key])) {
+			destination[key] = getMergeFunction(key, options)(target[key], source[key], options);
+		} else {
+			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
+		}
+	});
+	return destination
+}
+
+function deepmerge(target, source, options) {
+	options = options || {};
+	options.arrayMerge = options.arrayMerge || defaultArrayMerge;
+	options.isMergeableObject = options.isMergeableObject || isMergeableObject;
+	// cloneUnlessOtherwiseSpecified is added to `options` so that custom arrayMerge()
+	// implementations can use it. The caller may not replace it.
+	options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified;
+
+	var sourceIsArray = Array.isArray(source);
+	var targetIsArray = Array.isArray(target);
+	var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
+
+	if (!sourceAndTargetTypesMatch) {
+		return cloneUnlessOtherwiseSpecified(source, options)
+	} else if (sourceIsArray) {
+		return options.arrayMerge(target, source, options)
+	} else {
+		return mergeObject(target, source, options)
+	}
+}
+
+deepmerge.all = function deepmergeAll(array, options) {
+	if (!Array.isArray(array)) {
+		throw new Error('first argument should be an array')
+	}
+
+	return array.reduce(function(prev, next) {
+		return deepmerge(prev, next, options)
+	}, {})
+};
+
+var deepmerge_1 = deepmerge;
+
+module.exports = deepmerge_1;
+
+
+/***/ }),
+
 /***/ 2167:
 /***/ ((module) => {
 
@@ -371,147 +512,6 @@ function combineReducers( reducers ) {
 }
 
 module.exports = combineReducers;
-
-
-/***/ }),
-
-/***/ 1879:
-/***/ ((module) => {
-
-"use strict";
-
-
-var isMergeableObject = function isMergeableObject(value) {
-	return isNonNullObject(value)
-		&& !isSpecial(value)
-};
-
-function isNonNullObject(value) {
-	return !!value && typeof value === 'object'
-}
-
-function isSpecial(value) {
-	var stringValue = Object.prototype.toString.call(value);
-
-	return stringValue === '[object RegExp]'
-		|| stringValue === '[object Date]'
-		|| isReactElement(value)
-}
-
-// see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
-var canUseSymbol = typeof Symbol === 'function' && Symbol.for;
-var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7;
-
-function isReactElement(value) {
-	return value.$$typeof === REACT_ELEMENT_TYPE
-}
-
-function emptyTarget(val) {
-	return Array.isArray(val) ? [] : {}
-}
-
-function cloneUnlessOtherwiseSpecified(value, options) {
-	return (options.clone !== false && options.isMergeableObject(value))
-		? deepmerge(emptyTarget(value), value, options)
-		: value
-}
-
-function defaultArrayMerge(target, source, options) {
-	return target.concat(source).map(function(element) {
-		return cloneUnlessOtherwiseSpecified(element, options)
-	})
-}
-
-function getMergeFunction(key, options) {
-	if (!options.customMerge) {
-		return deepmerge
-	}
-	var customMerge = options.customMerge(key);
-	return typeof customMerge === 'function' ? customMerge : deepmerge
-}
-
-function getEnumerableOwnPropertySymbols(target) {
-	return Object.getOwnPropertySymbols
-		? Object.getOwnPropertySymbols(target).filter(function(symbol) {
-			return Object.propertyIsEnumerable.call(target, symbol)
-		})
-		: []
-}
-
-function getKeys(target) {
-	return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target))
-}
-
-function propertyIsOnObject(object, property) {
-	try {
-		return property in object
-	} catch(_) {
-		return false
-	}
-}
-
-// Protects from prototype poisoning and unexpected merging up the prototype chain.
-function propertyIsUnsafe(target, key) {
-	return propertyIsOnObject(target, key) // Properties are safe to merge if they don't exist in the target yet,
-		&& !(Object.hasOwnProperty.call(target, key) // unsafe if they exist up the prototype chain,
-			&& Object.propertyIsEnumerable.call(target, key)) // and also unsafe if they're nonenumerable.
-}
-
-function mergeObject(target, source, options) {
-	var destination = {};
-	if (options.isMergeableObject(target)) {
-		getKeys(target).forEach(function(key) {
-			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
-		});
-	}
-	getKeys(source).forEach(function(key) {
-		if (propertyIsUnsafe(target, key)) {
-			return
-		}
-
-		if (propertyIsOnObject(target, key) && options.isMergeableObject(source[key])) {
-			destination[key] = getMergeFunction(key, options)(target[key], source[key], options);
-		} else {
-			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
-		}
-	});
-	return destination
-}
-
-function deepmerge(target, source, options) {
-	options = options || {};
-	options.arrayMerge = options.arrayMerge || defaultArrayMerge;
-	options.isMergeableObject = options.isMergeableObject || isMergeableObject;
-	// cloneUnlessOtherwiseSpecified is added to `options` so that custom arrayMerge()
-	// implementations can use it. The caller may not replace it.
-	options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified;
-
-	var sourceIsArray = Array.isArray(source);
-	var targetIsArray = Array.isArray(target);
-	var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
-
-	if (!sourceAndTargetTypesMatch) {
-		return cloneUnlessOtherwiseSpecified(source, options)
-	} else if (sourceIsArray) {
-		return options.arrayMerge(target, source, options)
-	} else {
-		return mergeObject(target, source, options)
-	}
-}
-
-deepmerge.all = function deepmergeAll(array, options) {
-	if (!Array.isArray(array)) {
-		throw new Error('first argument should be an array')
-	}
-
-	return array.reduce(function(prev, next) {
-		return deepmerge(prev, next, options)
-	}, {})
-};
-
-var deepmerge_1 = deepmerge;
-
-module.exports = deepmerge_1;
 
 
 /***/ })
@@ -1445,7 +1445,7 @@ function createRegistrySelector(registrySelector) {
   const selector = (...args) => registrySelector(selector.registry.select)(...args);
   /**
    * Flag indicating that the selector is a registry selector that needs the correct registry
-   * reference to be assigned to `selecto.registry` to make it work correctly.
+   * reference to be assigned to `selector.registry` to make it work correctly.
    * be mapped as a registry selector.
    *
    * @type {boolean}
@@ -1621,7 +1621,7 @@ const builtinControls = {
 
 ;// CONCATENATED MODULE: external ["wp","privateApis"]
 const external_wp_privateApis_namespaceObject = window["wp"]["privateApis"];
-;// CONCATENATED MODULE: ./packages/data/build-module/private-apis.js
+;// CONCATENATED MODULE: ./packages/data/build-module/lock-unlock.js
 /**
  * WordPress dependencies
  */
@@ -2362,6 +2362,23 @@ function createResolversCache() {
 
   };
 }
+
+function createBindingCache(bind) {
+  const cache = new WeakMap();
+  return {
+    get(item) {
+      let boundItem = cache.get(item);
+
+      if (!boundItem) {
+        boundItem = bind(item);
+        cache.set(item, boundItem);
+      }
+
+      return boundItem;
+    }
+
+  };
+}
 /**
  * Creates a data store descriptor for the provided Redux store configuration containing
  * properties describing reducer, actions, selectors, controls and resolvers.
@@ -2411,11 +2428,11 @@ function createReduxStore(key, options) {
         registry,
 
         get dispatch() {
-          return Object.assign(action => store.dispatch(action), getActions());
+          return thunkActions;
         },
 
         get select() {
-          return Object.assign(selector => selector(store.__unstableOriginalGetState()), getSelectors());
+          return thunkSelectors;
         },
 
         get resolveSelect() {
@@ -2436,12 +2453,17 @@ function createReduxStore(key, options) {
       const actions = { ...mapValues(actions_namespaceObject, bindAction),
         ...mapValues(options.actions, bindAction)
       };
-      lock(actions, new Proxy(privateActions, {
+      const boundPrivateActions = createBindingCache(bindAction);
+      const allActions = new Proxy(() => {}, {
         get: (target, prop) => {
           const privateAction = privateActions[prop];
-          return privateAction ? bindAction(privateAction) : actions[prop];
+          return privateAction ? boundPrivateActions.get(privateAction) : actions[prop];
         }
-      }));
+      });
+      const thunkActions = new Proxy(allActions, {
+        apply: (target, thisArg, [action]) => store.dispatch(action)
+      });
+      lock(actions, allActions);
 
       function bindSelector(selector) {
         if (selector.isRegistrySelector) {
@@ -2479,12 +2501,23 @@ function createReduxStore(key, options) {
         selectors = mapSelectorsWithResolvers(selectors, resolvers, store, resolversCache);
       }
 
-      lock(selectors, new Proxy(privateSelectors, {
+      const boundPrivateSelectors = createBindingCache(bindSelector); // Pre-bind the private selectors that have been registered by the time of
+      // instantiation, so that registry selectors are bound to the registry.
+
+      for (const privateSelector of Object.values(privateSelectors)) {
+        boundPrivateSelectors.get(privateSelector);
+      }
+
+      const allSelectors = new Proxy(() => {}, {
         get: (target, prop) => {
           const privateSelector = privateSelectors[prop];
-          return privateSelector ? bindSelector(privateSelector) : selectors[prop];
+          return privateSelector ? boundPrivateSelectors.get(privateSelector) : selectors[prop];
         }
-      }));
+      });
+      const thunkSelectors = new Proxy(allSelectors, {
+        apply: (target, thisArg, [selector]) => selector(store.__unstableOriginalGetState())
+      });
+      lock(selectors, allSelectors);
       const resolveSelectors = mapResolveSelectors(selectors, store);
       const suspendSelectors = mapSuspendSelectors(selectors, store);
 
@@ -3254,8 +3287,8 @@ function is_plain_object_isPlainObject(o) {
 
 
 
-// EXTERNAL MODULE: ./packages/data/node_modules/deepmerge/dist/cjs.js
-var cjs = __webpack_require__(1879);
+// EXTERNAL MODULE: ./node_modules/deepmerge/dist/cjs.js
+var cjs = __webpack_require__(1919);
 var cjs_default = /*#__PURE__*/__webpack_require__.n(cjs);
 ;// CONCATENATED MODULE: ./packages/data/build-module/plugins/persistence/storage/object.js
 let objectStorage;
@@ -3525,24 +3558,6 @@ persistencePlugin.__unstableMigrate = () => {};
 ;// CONCATENATED MODULE: ./packages/data/build-module/plugins/index.js
 
 
-;// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/extends.js
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
 ;// CONCATENATED MODULE: external ["wp","element"]
 const external_wp_element_namespaceObject = window["wp"]["element"];
 ;// CONCATENATED MODULE: external ["wp","priorityQueue"]
@@ -4024,7 +4039,6 @@ function useSuspenseSelect(mapSelect, deps) {
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/with-select/index.js
 
 
-
 /**
  * WordPress dependencies
  */
@@ -4081,7 +4095,9 @@ const withSelect = mapSelectToProps => (0,external_wp_compose_namespaceObject.cr
   const mapSelect = (select, registry) => mapSelectToProps(select, ownProps, registry);
 
   const mergeProps = useSelect(mapSelect);
-  return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, _extends({}, ownProps, mergeProps));
+  return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, { ...ownProps,
+    ...mergeProps
+  });
 }), 'withSelect');
 
 /* harmony default export */ const with_select = (withSelect);
@@ -4134,7 +4150,6 @@ const useDispatchWithMap = (dispatchMap, deps) => {
 /* harmony default export */ const use_dispatch_with_map = (useDispatchWithMap);
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/with-dispatch/index.js
-
 
 
 /**
@@ -4234,13 +4249,14 @@ const withDispatch = mapDispatchToProps => (0,external_wp_compose_namespaceObjec
   const mapDispatch = (dispatch, registry) => mapDispatchToProps(dispatch, ownProps, registry);
 
   const dispatchProps = use_dispatch_with_map(mapDispatch, []);
-  return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, _extends({}, ownProps, dispatchProps));
+  return (0,external_wp_element_namespaceObject.createElement)(WrappedComponent, { ...ownProps,
+    ...dispatchProps
+  });
 }, 'withDispatch');
 
 /* harmony default export */ const with_dispatch = (withDispatch);
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/with-registry/index.js
-
 
 
 /**
@@ -4261,9 +4277,9 @@ const withDispatch = mapDispatchToProps => (0,external_wp_compose_namespaceObjec
  * @return {WPComponent} Enhanced component.
  */
 
-const withRegistry = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(OriginalComponent => props => (0,external_wp_element_namespaceObject.createElement)(RegistryConsumer, null, registry => (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, _extends({}, props, {
+const withRegistry = (0,external_wp_compose_namespaceObject.createHigherOrderComponent)(OriginalComponent => props => (0,external_wp_element_namespaceObject.createElement)(RegistryConsumer, null, registry => (0,external_wp_element_namespaceObject.createElement)(OriginalComponent, { ...props,
   registry: registry
-}))), 'withRegistry');
+})), 'withRegistry');
 /* harmony default export */ const with_registry = (withRegistry);
 
 ;// CONCATENATED MODULE: ./packages/data/build-module/components/use-dispatch/use-dispatch.js
