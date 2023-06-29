@@ -1,1 +1,0 @@
-<?php return array('dependencies' => array('wp-components/build/navigation/styles/navigation-styles', 'wp-polyfill'), 'version' => '58abfa6251168382389795db9a81292a');

@@ -1,2 +1,0 @@
-<?php 
-/** Actions and Filters **/
