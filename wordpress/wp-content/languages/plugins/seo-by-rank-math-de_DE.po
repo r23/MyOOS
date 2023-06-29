@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-06-15 10:42:57+0000\n"
+"PO-Revision-Date: 2023-06-28 10:00:43+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,18 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.4\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
+
+#: includes/modules/version-control/views/beta-optin-panel.php:21
+msgid "You cannot turn on the Beta Tester feature because site wide plugins auto-update option is disabled on your site."
+msgstr "Du kannst die Beta-Tester-Funktion nicht aktivieren, weil die Option zur automatischen Aktualisierung von Plugins auf deiner Website deaktiviert ist."
+
+#: includes/modules/version-control/views/auto-update-panel.php:20
+msgid "You cannot turn on auto-updates to automatically update to stable versions of Rank Math as soon as they are released, because site wide plugins auto-update option is disabled on your site."
+msgstr "Du kannst die automatischen Updates nicht aktivieren, um automatisch auf stabile Versionen von Rank Math zu aktualisieren, sobald diese veröffentlicht werden, da die Option für die automatische Aktualisierung von Plugins auf deiner Website deaktiviert ist."
+
+#: includes/modules/seo-analysis/seo-analysis-tests.php:180
+msgid "Site wide plugins auto-update option is disabled on your site."
+msgstr "Die Option zur automatischen Aktualisierung von Plugins ist auf deiner Website deaktiviert."
 
 #: includes/modules/analytics/google/class-console.php:220
 msgid "The Google Search Console request failed."
@@ -610,7 +622,7 @@ msgid "Default rich snippet selected when creating a new post of this type. If %
 msgstr "Standard-Rich-Snippet, das beim Erstellen eines neuen Beitrags dieses Typs ausgewählt wurde. Wenn %s ausgewählt ist, wird es auf alle vorhandenen Beiträge angewendet, für die kein Schema ausgewählt ist."
 
 #. translators: %1$s: opening tag of the link, %2$s: the closing tag
-#: includes/modules/seo-analysis/seo-analysis-tests.php:506
+#: includes/modules/seo-analysis/seo-analysis-tests.php:514
 msgid "Navigate to %1$sSettings > Reading%2$s and turn off this option: \"Discourage search engines from indexing this site\"."
 msgstr "Navigiere zu %1$sEinstellungen > Lese%2$s und deaktiviere diese Option: \"Suchmaschinen davon abhalten, diese Website zu indizieren\"."
 
@@ -1340,7 +1352,7 @@ msgstr "Wenn für einzelne Beiträge/Seiten/CPTs kein Ausgewähltes Bild oder Op
 msgid "If you are new to Rank Math, %s to learn more."
 msgstr "Wenn du neu bei Rank Math bist, erfahre mehr über %s."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:311
+#: includes/modules/seo-analysis/seo-analysis-tests.php:318
 msgid "Could not check Focus Keywords in posts - the post meta table exceeds the size limit."
 msgstr "Fokus-Schlüsselwörter in Beiträgen konnten nicht überprüft werden - die Beitrag-Meta-Tabelle überschreitet die Größenbegrenzung."
 
@@ -1736,11 +1748,11 @@ msgstr "Rank Math SEO"
 msgid "Hey, we noticed you've been using %s for more than a week now – that's awesome!"
 msgstr "Hey, uns ist aufgefallen, dass du %s jetzt seit mehr als einer Woche verwendest – das ist großartig!"
 
-#: includes/modules/version-control/views/auto-update-panel.php:44
+#: includes/modules/version-control/views/auto-update-panel.php:53
 msgid "Update Notification Email"
 msgstr "Update Benachrichtigungs E-Mail"
 
-#: includes/modules/version-control/views/auto-update-panel.php:39
+#: includes/modules/version-control/views/auto-update-panel.php:48
 msgid "When auto-updates are turned off, you can enable update notifications, to send an email to the site administrator when an update is available for Rank Math."
 msgstr "Wenn die automatischen Updates deaktiviert sind, kannst du Update-Benachrichtigungen aktivieren, um eine E-Mail an den Seiten-Administrator zu senden, wenn ein Update für Rank Math verfügbar ist."
 
@@ -1804,7 +1816,7 @@ msgstr "Einstellungen des Moduls Instant Indexing. %s."
 msgid "Submit URLs"
 msgstr "URLs einreichen"
 
-#: includes/replace-variables/class-basic-variables.php:233
+#: includes/replace-variables/class-basic-variables.php:240
 msgid "Organization URL added in Local SEO Settings."
 msgstr "Organisations-URL in den lokalen SEO-Einstellungen hinzugefügt."
 
@@ -2560,11 +2572,11 @@ msgstr "Knowledge-Base-Artikel:"
 msgid "With the 404 monitor you can see where users and search engines are unable to find your content."
 msgstr "Der 404-Monitor zeigt dir, wo Nutzer und Suchmaschinen deine Inhalte nicht finden können."
 
-#: includes/replace-variables/class-basic-variables.php:211
+#: includes/replace-variables/class-basic-variables.php:218
 msgid "The Organization Name added in Local SEO Settings."
 msgstr "Firmenname in Local-SEO-Einstellungen hinzugefügt."
 
-#: includes/replace-variables/class-basic-variables.php:222
+#: includes/replace-variables/class-basic-variables.php:229
 msgid "Organization Logo added in Local SEO Settings."
 msgstr "Firmenlogo in Local-SEO-Einstellungen hinzugefügt."
 
@@ -2597,7 +2609,7 @@ msgstr "Orte importieren"
 msgid "You are using the recommended WordPress version."
 msgstr "Du verwendest die mindestens empfohlene WordPress-Version."
 
-#: includes/replace-variables/class-basic-variables.php:210
+#: includes/replace-variables/class-basic-variables.php:217
 msgid "Organization Name"
 msgstr "Name des Unternehmens"
 
@@ -2923,7 +2935,7 @@ msgid "Conversion started. A success message will be shown here once the process
 msgstr "Umwandlung gestartet. Eine Bestätigung wird angezeigt, sobald der Vorgang abgeschlossen ist. Du kannst diese Seite jetzt schließen."
 
 #. Translators: placeholder is an activate button.
-#: includes/modules/seo-analysis/seo-analysis-tests.php:188
+#: includes/modules/seo-analysis/seo-analysis-tests.php:195
 msgid "Automatic updates are not enabled on your site. %s"
 msgstr "Automatische Updates sind für deine Website nicht eingeschaltet. %s"
 
@@ -3012,13 +3024,13 @@ msgid "Automatic Updates"
 msgstr "Automatische Aktualisierungen"
 
 #. Translators: placeholder is an activate button.
-#: includes/modules/seo-analysis/seo-analysis-tests.php:189
+#: includes/modules/seo-analysis/seo-analysis-tests.php:196
 msgid "Enable Auto Updates"
 msgstr "Automatische Aktualisierungen einschalten"
 
 #: includes/modules/seo-analysis/class-seo-analyzer.php:485
-#: includes/modules/seo-analysis/seo-analysis-tests.php:180
-#: includes/modules/seo-analysis/seo-analysis-tests.php:192
+#: includes/modules/seo-analysis/seo-analysis-tests.php:187
+#: includes/modules/seo-analysis/seo-analysis-tests.php:199
 msgid "Rank Math auto-update option is enabled on your site."
 msgstr "Rank Math aktualisiert sich auf deiner Site automatisch."
 
@@ -3171,15 +3183,15 @@ msgid "Import & Export"
 msgstr "Import & Export"
 
 #. translators: Warning.
-#: includes/modules/version-control/views/beta-optin-panel.php:21
+#: includes/modules/version-control/views/beta-optin-panel.php:29
 msgid "%s It is not recommended to use the beta version on live production sites."
 msgstr "%s Es wird nicht empfohlen, die Beta-Version auf Live-Produktionsstandorten zu verwenden."
 
-#: includes/modules/version-control/views/beta-optin-panel.php:19
+#: includes/modules/version-control/views/beta-optin-panel.php:27
 msgid "You can take part in shaping Rank Math by test-driving the newest features and letting us know what you think. Turn on the Beta Tester feature to get notified about new beta releases. The beta version will not install automatically and you always have the option to ignore it."
 msgstr "Du kannst an der Gestaltung von Rank Math mitwirken, indem du die neuesten Funktionen ausprobierst und uns deine Meinung mitteilst. Schalte die Funktion Beta-Tester ein, um über neue Beta-Versionen benachrichtigt zu werden. Die Betaversion wird nicht automatisch installiert und du hast immer die Möglichkeit, sie zu ignorieren."
 
-#: includes/modules/version-control/views/beta-optin-panel.php:16
+#: includes/modules/version-control/views/beta-optin-panel.php:17
 msgid "Beta Opt-in"
 msgstr "Beta Opt-in"
 
@@ -3245,22 +3257,22 @@ msgstr "%s Frühere Versionen sind möglicherweise nicht sicher oder stabil. Geh
 msgid "If you are facing issues after an update, you can reinstall a previous version with this tool."
 msgstr "Wenn du nach einem Update auf Probleme stößt, kannst du mit diesem Tool eine frühere Version erneut installieren."
 
-#: includes/modules/version-control/views/auto-update-panel.php:63
+#: includes/modules/version-control/views/auto-update-panel.php:73
 msgid "Rank Math will not auto-update because you have rolled back to a previous version. Update to the latest version manually to make this option work again."
 msgstr "Rank Math wird nicht automatisch aktualisiert, da du auf eine frühere Version zurückgesetzt hast. Aktualisiere manuell auf die neueste Version, damit diese Option wieder funktioniert."
 
-#: includes/modules/version-control/views/auto-update-panel.php:18
+#: includes/modules/version-control/views/auto-update-panel.php:26
 msgid "Turn on auto-updates to automatically update to stable versions of Rank Math as soon as they are released. The beta versions will never install automatically."
 msgstr "Aktiviere die automatische Aktualisierung, um automatisch auf stabile Versionen von Rank Math zu aktualisieren, sobald diese veröffentlicht werden. Die Beta-Versionen werden niemals automatisch installiert."
 
 #: includes/module/class-manager.php:272
-#: includes/modules/version-control/class-version-control.php:244
-#: includes/modules/version-control/class-version-control.php:260
+#: includes/modules/version-control/class-version-control.php:246
+#: includes/modules/version-control/class-version-control.php:262
 msgid "Version Control"
 msgstr "Versionskontrolle"
 
 #. translators: Placeholder is version number.
-#: includes/modules/version-control/class-version-control.php:166
+#: includes/modules/version-control/class-version-control.php:168
 msgid "Are you sure you want to install version %s?"
 msgstr "Möchtest du die Version %s wirklich installieren?"
 
@@ -3276,7 +3288,7 @@ msgstr "Plugin-Rollback erfolgreich."
 msgid "Rollback Plugin"
 msgstr "Rollback Plugin"
 
-#: includes/modules/version-control/views/beta-optin-panel.php:26
+#: includes/modules/version-control/views/beta-optin-panel.php:34
 msgid "Beta Tester"
 msgstr "Beta-Tester"
 
@@ -3288,7 +3300,7 @@ msgstr "Du nutzt die neueste Version des Plugins."
 msgid "Rollback to Previous Version"
 msgstr "Rückkehr zur vorherigen Version"
 
-#: includes/modules/version-control/views/auto-update-panel.php:23
+#: includes/modules/version-control/views/auto-update-panel.php:31
 msgid "Auto Update Plugin"
 msgstr "Plugin automatisch aktualisieren"
 
@@ -3303,7 +3315,7 @@ msgstr "Rollback-Version: "
 
 #. translators: Warning.
 #. translators: placeholder is the word "warning".
-#: includes/modules/version-control/views/beta-optin-panel.php:21
+#: includes/modules/version-control/views/beta-optin-panel.php:29
 #: includes/modules/version-control/views/version-control-panel.php:22
 msgid "Warning: "
 msgstr "Warnung: "
@@ -3574,7 +3586,7 @@ msgstr "Erweiterte Roboter-Meta"
 
 #. translators: %1$s link to the customize settings, %2$s closing tag for the
 #. link
-#: includes/modules/seo-analysis/seo-analysis-tests.php:210
+#: includes/modules/seo-analysis/seo-analysis-tests.php:217
 msgid "You have not entered a tagline yet. It is a good idea to choose one. %1$sYou can fix this in the customizer%2$s."
 msgstr "Du hast noch keinen Slogan eingegeben. Es ist eine gute Idee, einen zu wählen. %1$sDu kannst dies im Customizer%2$s beheben."
 
@@ -3744,8 +3756,8 @@ msgid "Robots Txt"
 msgstr "Robots Txt"
 
 #: includes/admin/class-options.php:307
-#: includes/modules/version-control/views/auto-update-panel.php:70
-#: includes/modules/version-control/views/beta-optin-panel.php:43
+#: includes/modules/version-control/views/auto-update-panel.php:81
+#: includes/modules/version-control/views/beta-optin-panel.php:51
 #: assets/admin/js/common.js:1
 msgid "Save Changes"
 msgstr "Änderungen speichern"
@@ -3770,7 +3782,7 @@ msgstr "Test für Google Rich-Suchergebnisse - Googlebot Smartphone"
 msgid "Google Rich Results (Mobile)"
 msgstr "Google Rich-Suchergebnisse (Mobile)"
 
-#: includes/modules/version-control/views/auto-update-panel.php:15
+#: includes/modules/version-control/views/auto-update-panel.php:16
 msgid "Auto Update"
 msgstr "Automatische Aktualisierung"
 
@@ -3798,11 +3810,11 @@ msgstr "Aktiviert oder deaktiviert Autorenarchive. Wenn deaktiviert, wird das Au
 msgid "Enable auto update of the plugin"
 msgstr "Aktiviere das automatische Update des Plugins"
 
-#: includes/replace-variables/class-manager.php:102
+#: includes/replace-variables/class-manager.php:104
 msgid "Variable names can only contain alphanumeric characters, underscores and dashes."
 msgstr "Variablennamen können nur alphanumerische Zeichen, Unterstriche und Bindestriche enthalten."
 
-#: includes/replace-variables/class-manager.php:107
+#: includes/replace-variables/class-manager.php:109
 msgid "The variable has already been registered."
 msgstr "Die Variable wurde bereits registriert."
 
@@ -3812,22 +3824,22 @@ msgid "Enable or disable the date archives (e.g: %s). If this option is disabled
 msgstr "Aktiviere oder deaktiviere das Datumsarchiv (_z.B.: %s). Wenn diese Option deaktiviert ist, werden die Datumsarchive auf die Homepage umgeleitet."
 
 #. translators: Taxonomy name.
-#: includes/replace-variables/class-manager.php:273
+#: includes/replace-variables/class-manager.php:285
 msgid "%s Description"
 msgstr "%s Beschreibung"
 
 #. translators: Taxonomy name.
-#: includes/replace-variables/class-manager.php:271
+#: includes/replace-variables/class-manager.php:283
 msgid "%s Title"
 msgstr "%s Titel"
 
-#: includes/replace-variables/class-manager.php:290
+#: includes/replace-variables/class-manager.php:302
 #: includes/replace-variables/class-term-variables.php:70
 #: includes/replace-variables/class-term-variables.php:72
 msgid "Custom Term description."
 msgstr "Individuelle Begriffs-Beschreibung."
 
-#: includes/replace-variables/class-manager.php:279
+#: includes/replace-variables/class-manager.php:291
 msgid "Custom Term title."
 msgstr "Titel des benutzerdefinierten Begriffs."
 
@@ -3931,12 +3943,12 @@ msgid "Site disconnected successfully."
 msgstr "Die Website wurde erfolgreich getrennt."
 
 #: includes/modules/schema/shortcode/jobposting.php:83
-#: includes/replace-variables/class-basic-variables.php:221
+#: includes/replace-variables/class-basic-variables.php:228
 msgid "Organization Logo"
 msgstr "Logo des Unternehmens"
 
 #: includes/modules/schema/shortcode/jobposting.php:76
-#: includes/replace-variables/class-basic-variables.php:232
+#: includes/replace-variables/class-basic-variables.php:239
 msgid "Organization URL"
 msgstr "URL des Unternehmens"
 
@@ -4175,11 +4187,11 @@ msgstr "Benutzerdefiniert (Shortcode verwenden)"
 msgid "Blog Public"
 msgstr "Öffentlicher Blog"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:514
+#: includes/modules/seo-analysis/seo-analysis-tests.php:522
 msgid "Your site is accessible by search engine."
 msgstr "Deine Website ist über eine Suchmaschine zugänglich."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:503
+#: includes/modules/seo-analysis/seo-analysis-tests.php:511
 msgid "Attention: Search Engines can't see your website."
 msgstr "Achtung: Suchmaschinen können deine Website nicht sehen."
 
@@ -4612,15 +4624,15 @@ msgid "Add <code>alt</code> attributes for <code>images</code> without <code>alt
 msgstr "Füge <code>alt</code> Attribute für <code>Bilder</code> ohne <code>alt</code> Attribute automatisch hinzu. Das Attribut wird dynamisch angewendet, wenn der Inhalt angezeigt wird, und der gespeicherte Inhalt wird nicht geändert."
 
 #. translators: permalink structure
-#: includes/modules/seo-analysis/seo-analysis-tests.php:272
+#: includes/modules/seo-analysis/seo-analysis-tests.php:279
 msgid "Post permalink structure is set to %s."
 msgstr "Die Post Permalink-Struktur ist auf %s gesetzt."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:265
+#: includes/modules/seo-analysis/seo-analysis-tests.php:272
 msgid "Permalinks are set to a custom structure but the post titles do not appear in the permalinks."
 msgstr "Permalinks sind auf eine benutzerdefinierte Struktur eingestellt, aber die Post-Titel erscheinen nicht in den Permalinks."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:258
+#: includes/modules/seo-analysis/seo-analysis-tests.php:265
 msgid "Permalinks are set to the default value. <em>Pretty permalinks</em> are disabled. "
 msgstr "Permalinks werden auf den Standardwert gesetzt. <em>Pretty Permalinks</em> sind deaktiviert. "
 
@@ -4832,15 +4844,15 @@ msgstr "URL ändern"
 msgid "Selected page: %s"
 msgstr "Ausgewählte Seite: %s"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:494
+#: includes/modules/seo-analysis/seo-analysis-tests.php:502
 msgid "No sitemaps found."
 msgstr "Keine Sitemaps gefunden."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:494
+#: includes/modules/seo-analysis/seo-analysis-tests.php:502
 msgid "Your site has one or more sitemaps."
 msgstr "Deine Seite hat eine oder mehrere Sitemaps."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:295
+#: includes/modules/seo-analysis/seo-analysis-tests.php:302
 msgid "Google Search Console has been linked."
 msgstr "Die Google Search Console wurde verlinkt."
 
@@ -4917,7 +4929,7 @@ msgid "Edit .htaccess"
 msgstr ".htaccess Datei bearbeiten"
 
 #. translators: post ID count
-#: includes/modules/seo-analysis/seo-analysis-tests.php:390
+#: includes/modules/seo-analysis/seo-analysis-tests.php:397
 msgid "+%d More..."
 msgstr "+%d Mehr..."
 
@@ -6535,7 +6547,7 @@ msgstr "Sonstige Seiten"
 msgid "Authors"
 msgstr "Autoren"
 
-#: includes/replace-variables/class-basic-variables.php:73
+#: includes/replace-variables/class-basic-variables.php:80
 msgid "Counter"
 msgstr "Zähler"
 
@@ -6543,7 +6555,7 @@ msgstr "Zähler"
 msgid "Global Meta"
 msgstr "Globale Meta"
 
-#: includes/replace-variables/class-basic-variables.php:194
+#: includes/replace-variables/class-basic-variables.php:201
 msgid "Current Time (advanced)"
 msgstr "Aktuelle Zeit (erweitert)"
 
@@ -6555,43 +6567,43 @@ msgstr "Geändertes Datum mit benutzerdefiniertem Formatierungsmuster."
 msgid "Date Modified (advanced)"
 msgstr "Änderungsdatum (erweitert)"
 
-#: includes/replace-variables/class-basic-variables.php:167
+#: includes/replace-variables/class-basic-variables.php:174
 msgid "Current Year"
 msgstr "Aktuelles Jahr"
 
-#: includes/replace-variables/class-basic-variables.php:157
+#: includes/replace-variables/class-basic-variables.php:164
 msgid "Current server month"
 msgstr "Aktueller Server-Monat"
 
-#: includes/replace-variables/class-basic-variables.php:168
+#: includes/replace-variables/class-basic-variables.php:175
 msgid "Current server year"
 msgstr "Aktuelles Server-Jahr"
 
-#: includes/replace-variables/class-basic-variables.php:156
+#: includes/replace-variables/class-basic-variables.php:163
 msgid "Current Month"
 msgstr "Aktueller Monat"
 
-#: includes/replace-variables/class-basic-variables.php:146
+#: includes/replace-variables/class-basic-variables.php:153
 msgid "Current server day"
 msgstr "Aktueller Server-Tag"
 
-#: includes/replace-variables/class-basic-variables.php:145
+#: includes/replace-variables/class-basic-variables.php:152
 msgid "Current Day"
 msgstr "Aktueller Tag"
 
-#: includes/replace-variables/class-basic-variables.php:135
+#: includes/replace-variables/class-basic-variables.php:142
 msgid "Current server date"
 msgstr "Aktuelles Server-Datum"
 
-#: includes/replace-variables/class-basic-variables.php:65
+#: includes/replace-variables/class-basic-variables.php:72
 msgid "example search"
 msgstr "Beispielsuche"
 
-#: includes/replace-variables/class-basic-variables.php:63
+#: includes/replace-variables/class-basic-variables.php:70
 msgid "Search query (only available on search results page)"
 msgstr "Suchanfrage (nur auf der Suchergebnisseite verfügbar)"
 
-#: includes/replace-variables/class-basic-variables.php:62
+#: includes/replace-variables/class-basic-variables.php:69
 msgid "Search Query"
 msgstr "Suchanfrage"
 
@@ -6624,11 +6636,11 @@ msgstr "Beitragskategorie"
 msgid "Example Tag 1, Example Tag 2"
 msgstr "Beispiel Tag 1, Beispiel Tag 2"
 
-#: includes/replace-variables/class-basic-variables.php:118
+#: includes/replace-variables/class-basic-variables.php:125
 msgid "Site Description"
 msgstr "Seitenbeschreibung"
 
-#: includes/replace-variables/class-basic-variables.php:51
+#: includes/replace-variables/class-basic-variables.php:58
 #: includes/settings/general/breadcrumbs.php:37
 #: includes/settings/titles/global.php:51
 msgid "Separator Character"
@@ -6812,7 +6824,7 @@ msgstr "Ausgabeliste der Kategorien, die dem aktuellen Beitrag zugeordnet sind, 
 msgid "Categories (advanced)"
 msgstr "Kategorien (erweitert)"
 
-#: includes/replace-variables/class-basic-variables.php:195
+#: includes/replace-variables/class-basic-variables.php:202
 msgid "Current server time with custom formatting pattern."
 msgstr "Aktuelle Serverzeit mit benutzerdefiniertem Formatierungsmuster."
 
@@ -6830,11 +6842,11 @@ msgstr "Beitrags-ID"
 msgid "Author ID"
 msgstr "ID des Autors"
 
-#: includes/replace-variables/class-basic-variables.php:86
+#: includes/replace-variables/class-basic-variables.php:93
 msgid "File Name of the attachment"
 msgstr "Dateiname des Anhangs"
 
-#: includes/replace-variables/class-basic-variables.php:85
+#: includes/replace-variables/class-basic-variables.php:92
 msgid "File Name"
 msgstr "Dateiname"
 
@@ -6994,15 +7006,15 @@ msgstr "Beispiel Tag 1 | Beispiel Tag 2"
 msgid "Output list of tags associated to the current post, with customization options."
 msgstr "Ausgabe einer Liste von Tags, die dem aktuellen Beitrag zugeordnet sind, mit Anpassungsoptionen."
 
-#: includes/replace-variables/class-basic-variables.php:134
+#: includes/replace-variables/class-basic-variables.php:141
 msgid "Current Date"
 msgstr "Aktuelles Datum"
 
-#: includes/replace-variables/class-basic-variables.php:184
+#: includes/replace-variables/class-basic-variables.php:191
 msgid "Current server time"
 msgstr "Aktuelle Serverzeit"
 
-#: includes/replace-variables/class-basic-variables.php:183
+#: includes/replace-variables/class-basic-variables.php:190
 msgid "Current Time"
 msgstr "Aktuelle Zeit"
 
@@ -7099,7 +7111,7 @@ msgstr "Weiter zur Hilfe-Seite"
 msgid "Redirection Debugger"
 msgstr "Umleitungs-Fehlersuche"
 
-#: includes/replace-variables/class-basic-variables.php:74
+#: includes/replace-variables/class-basic-variables.php:81
 msgid "Starts at 1 and increments by 1."
 msgstr "Beginnt bei 1 und erhöht sich um 1."
 
@@ -7209,11 +7221,11 @@ msgstr "Homepage-Breadcrumb im Pfad anzeigen."
 msgid "Site-wide analysis"
 msgstr "Seitenweite Analyse"
 
-#: includes/replace-variables/class-basic-variables.php:119
+#: includes/replace-variables/class-basic-variables.php:126
 msgid "Description of the site"
 msgstr "Beschreibung der Website"
 
-#: includes/replace-variables/class-basic-variables.php:108
+#: includes/replace-variables/class-basic-variables.php:115
 msgid "Title of the site"
 msgstr "Titel der Website"
 
@@ -7724,11 +7736,11 @@ msgstr "Klicken hier, um zu erfahren, wie du Rank Math richtig einrichtest"
 msgid "Your Website: %s"
 msgstr "Deine Website: %s"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:226
+#: includes/modules/seo-analysis/seo-analysis-tests.php:233
 msgid "Your Site Tagline is set to a custom value."
 msgstr "Dein Seiten Slogan ist auf einen benutzerdefinierten Wert eingestellt."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:220
+#: includes/modules/seo-analysis/seo-analysis-tests.php:227
 msgid "Your Site Tagline is set to the default value <em>Just another WordPress site</em>."
 msgstr "Dein Seiten Slogan ist auf den Standardwert <em>Nur eine weitere WordPress-Seite</em> eingestellt."
 
@@ -7876,7 +7888,7 @@ msgstr "Überprüfe 404 Fehler auf deiner Website"
 msgid "Edit robots.txt"
 msgstr "Bearbeiten der robots.txt"
 
-#: includes/replace-variables/class-basic-variables.php:52
+#: includes/replace-variables/class-basic-variables.php:59
 msgid "Separator character, as set in the Title Settings"
 msgstr "Trennzeichen, wie in den Titeleinstellungen eingestellt"
 
@@ -7965,7 +7977,7 @@ msgstr "Entferne das WooCommerce Generator-Tag aus dem Quellcode."
 msgid "Remove parent slugs from category URL."
 msgstr "Entferne übergeordnete Slugs aus der Kategorie-URL."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:295
+#: includes/modules/seo-analysis/seo-analysis-tests.php:302
 msgid "You have not linked Google Search Console yet."
 msgstr "Du hast die Google Search Console noch nicht verlinkt."
 
@@ -7996,16 +8008,16 @@ msgstr "Bearbeite die SEO-Einstellungen für die Suchergebnisseite"
 msgid "Edit default SEO settings for this post type"
 msgstr "Bearbeite die Standard-SEO-Einstellungen für diesen Beitragstyp"
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:375
+#: includes/modules/seo-analysis/seo-analysis-tests.php:382
 msgid "Focus keywords appear in the titles of published posts where it is set."
 msgstr "Fokus-Schlüsselwörter erscheinen in den Titeln der veröffentlichten Beiträge, wo sie gesetzt sind."
 
 #. translators: post type links
-#: includes/modules/seo-analysis/seo-analysis-tests.php:358
+#: includes/modules/seo-analysis/seo-analysis-tests.php:365
 msgid "There are %s with no focus keyword set."
 msgstr "Es gibt %s ohne Fokus-Schlüsselwort."
 
-#: includes/modules/seo-analysis/seo-analysis-tests.php:348
+#: includes/modules/seo-analysis/seo-analysis-tests.php:355
 msgid "All published posts have focus keywords set."
 msgstr "Alle veröffentlichten Beiträge haben Fokus-Schlüsselwörter gesetzt."
 
@@ -8191,7 +8203,7 @@ msgid "Update data manually"
 msgstr "Daten manuell aktualisieren"
 
 #. translators: post type links
-#: includes/modules/seo-analysis/seo-analysis-tests.php:396
+#: includes/modules/seo-analysis/seo-analysis-tests.php:403
 msgid "There are %s published posts where the primary focus keyword does not appear in the post title."
 msgstr "Es gibt %s veröffentlichte Beiträge, bei denen das Fokus-Schlüsselwort nicht im Beitragstitel erscheint."
 
@@ -8260,7 +8272,7 @@ msgstr "Webmaster-Tools"
 msgid "Let Rank Math analyze your website and your website's content using 28+ different tests to provide tailor-made SEO Analysis to you."
 msgstr "Lasse Rank Math deine Website und den Inhalt deiner Website anhand von 28+ verschiedenen Tests analysieren, um dir eine maßgeschneiderte SEO-Analyse bereitzustellen."
 
-#: includes/replace-variables/class-basic-variables.php:107
+#: includes/replace-variables/class-basic-variables.php:114
 msgid "Site Title"
 msgstr "Website-Titel"
 
@@ -8361,7 +8373,7 @@ msgstr "Hilfe"
 #: includes/admin/class-admin-bar-menu.php:185
 #: includes/admin/class-admin-breadcrumbs.php:32
 #: includes/admin/class-admin-menu.php:89
-#: includes/modules/version-control/class-version-control.php:234
+#: includes/modules/version-control/class-version-control.php:236
 #: includes/modules/analytics/assets/js/stats.js:1
 msgid "Dashboard"
 msgstr "Dashboard"
