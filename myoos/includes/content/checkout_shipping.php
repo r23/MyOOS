@@ -78,7 +78,6 @@ if ($_SESSION['cart']->show_total() > $_SESSION['customer_max_order']) {
     oos_redirect(oos_href_link($aContents['info_max_order']));
 }
 
-
 require_once MYOOS_INCLUDE_PATH . '/includes/languages/' . $sLanguage . '/checkout_shipping.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_address.php';
 
