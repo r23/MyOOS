@@ -625,7 +625,7 @@ class upload
         // Remove path information and dots around the filename, to prevent uploading
         // into different directories or replacing hidden system files.
         // Also remove control characters and spaces (\x00..\x20) around the filename:
-        $name = ttrim((string) $this->basename(stripslashes($name)), ".\x00..\x20");
+        $name = trim((string) $this->basename(stripslashes($name)), ".\x00..\x20");
         // Replace dots in filenames to avoid security issues with servers
         // that interpret multiple file extensions, e.g. "example.php.png":
         $replacement = $this->options['replace_dots_in_filenames'];
