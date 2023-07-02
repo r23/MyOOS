@@ -237,7 +237,7 @@ function oos_db_prepare_input($sStr)
     }
 }
 
-function oosDBOutput($sStr)
+function oos_db_output($sStr)
 {
     return mysqli::escape_string($sStr);
 }

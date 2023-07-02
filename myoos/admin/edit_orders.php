@@ -819,7 +819,7 @@ if (($action == 'edit') && ($order_exists == true)) {
             echo '            <td class="smallText">' . $orders_status_array[$orders_history['orders_status_id']] . '</td>' . "\n";
 
             if ($CommentsWithStatus) {
-                echo '            <td class="smallText">' . nl2br(oosDBOutput($orders_history['comments'])) . '&nbsp;</td>' . "\n";
+                echo '            <td class="smallText">' . nl2br(oos_db_output($orders_history['comments'])) . '&nbsp;</td>' . "\n";
             }
 
             echo '          </tr>' . "\n";
