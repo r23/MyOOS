@@ -38,7 +38,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
  */
 
 
-
+#[\AllowDynamicProperties]
 class upload
 {
     public $file;
