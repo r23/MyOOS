@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-07-01 07:39:44+0000\n"
+"PO-Revision-Date: 2023-07-03 08:13:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1329,7 +1329,7 @@ msgstr "Rank Math konnte aufgrund eines Dateisystemproblems nicht feststellen, o
 #. Translators: placeholders are anchor opening and closing tags.
 #: includes/modules/analytics/views/email-reports/header-after.php:37
 msgid "If you can see the site data in your Search Console and Analytics accounts, but not here, then %1$s try reconnecting your account %2$s and make sure that the correct properties are selected in the %1$s Analytics Settings%2$s."
-msgstr "Wenn du die Website-Daten in deinem Search Console- und Analytics-Konten sehen kannst, aber nicht hier, dann %1$s versuche, dein Konto %2$s erneut zu verbinden und stelle  sicher, dass die richtigen Eigenschaften in den %1$s Analytics-Einstellungen%2$s ausgewählt sind."
+msgstr "Wenn du die Website-Daten in deinen Search-Console- und Analytics-Konten sehen kannst, aber nicht hier, dann %1$s versuche, dein Konto erneut zu verbinden %2$s und stelle sicher, dass die richtigen Eigenschaften in den %1$s Analytics-Einstellungen%2$s ausgewählt sind."
 
 #: includes/modules/analytics/views/email-reports/header-after.php:35
 msgid "It seems that there are no stats to show right now."
@@ -4294,7 +4294,7 @@ msgstr "%s Archiv-Titel"
 
 #: includes/settings/titles/social.php:79
 msgid "Enter the Twitter username of the author to add <code>twitter:creator</code> tag to posts. eg: <code>RankMathSEO</code>"
-msgstr "Gebe den Twitter-Benutzernamen des Autors ein, um Beiträge mit dem Tag <code>twitter:creator</code>  zu versehen. Beispiel: <code>RankMathSEO</code>"
+msgstr "Gib den Twitter-Benutzernamen des Autors ein, um Beiträge mit dem Tag <code>twitter:creator</code> zu versehen. Beispiel: <code>RankMathSEO</code>"
 
 #: includes/settings/titles/social.php:78
 msgid "Twitter Username"
