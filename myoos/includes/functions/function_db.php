@@ -162,7 +162,7 @@ function oos_db_input($sStr)
 {
     $sStr = (string)$sStr;
 
-    if (function_exists('mysqli::escape_string ')) {
+    if (function_exists('mysqli::escape_string')) {
         return mysqli::escape_string($sStr);
     }
 
@@ -239,7 +239,7 @@ function oos_db_prepare_input($sStr)
 
 function oos_db_output($sStr)
 {
-    return mysqli::escape_string($sStr);
+    return return trim((string) stripslashes($sStr));
 }
 
 function dosql($table, $flds)
