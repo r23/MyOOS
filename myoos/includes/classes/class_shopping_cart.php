@@ -516,7 +516,6 @@ class shoppingCart
         $currency_type = (isset($_SESSION['currency']) ? $_SESSION['currency'] : DEFAULT_CURRENCY);
         $decimal_places = $oCurrencies->get_decimal_places($currency_type);
 
-
         reset($this->contents);
         foreach (array_keys($this->contents) as $products_id) {
             $nQuantity = $this->contents[$products_id]['qty'];
@@ -531,7 +530,6 @@ class shoppingCart
                 $products_price = $product['products_price'];
                 $prid = $product['products_id'];
                 $products_tax = oos_get_tax_rate($product['products_tax_class_id']);
-
 
                 $products_weight = $product['products_weight'];
 
@@ -587,7 +585,7 @@ class shoppingCart
                 $this->info['total'] +=  $nPrice;
 
                 // tax
-                if ($aUser['price_with_tax'] == 1) {
+                if ($aUser['price_with_tax'] == 1) {					
                     $this->info['tax'] += $nPrice - ($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax)));
                     $nPriceNet = oos_round(($nPrice / (($products_tax < 10) ? "1.0" . str_replace('.', '', $products_tax) : "1." . str_replace('.', '', $products_tax))), $decimal_places);
                     if (isset($this->info['tax_groups']["$products_tax"])) {
@@ -606,12 +604,11 @@ class shoppingCart
                         $this->info['tax_groups']["$products_tax"] = oos_round(($products_tax / 100) * $nPrice, $decimal_places);
                         $this->info['net_total']["$products_tax"] = $nPrice;
                     }
-                }
+                }			
             }
         }
-    }
-
-
+	}
+		
     public function products_price_actual($product_id, $actual_price, $products_qty)
     {
         $new_price = $actual_price;

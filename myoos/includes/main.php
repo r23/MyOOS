@@ -25,7 +25,6 @@
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-// debug
 $debug = false;
 
 date_default_timezone_set('Europe/Berlin');

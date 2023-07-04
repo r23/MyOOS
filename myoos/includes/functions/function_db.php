@@ -239,7 +239,7 @@ function oos_db_prepare_input($sStr)
 
 function oos_db_output($sStr)
 {
-    return return trim((string) stripslashes($sStr));
+    return trim((string) stripslashes($sStr));
 }
 
 function dosql($table, $flds)

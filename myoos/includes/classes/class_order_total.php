@@ -75,6 +75,7 @@ class order_total
             }
         }
 
+
         return $order_total_array;
     }
 
