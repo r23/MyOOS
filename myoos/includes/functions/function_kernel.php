@@ -729,7 +729,7 @@ function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
                   ON (tz.geo_zone_id = tr.tax_zone_id)
               WHERE ztg.zone_country_id = '" . intval($country_id) . "'
 			  AND  (ztg.zone_id is null or ztg.zone_id = '0' or ztg.zone_id = '" . intval($zone_id) . "') 
-			  AND   tr.tax_class_id = '" . intval($class_id) . "'";				  
+			  AND   tr.tax_class_id = '" . intval($class_id) . "'";	
         $tax_result = $dbconn->Execute($query);	
         if (!$tax_result) {
             return 0;
