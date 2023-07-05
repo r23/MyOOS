@@ -24,7 +24,6 @@
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-
 if ($debug == 1) {
     echo '<pre>';
     print_r($_SESSION);
