@@ -265,13 +265,16 @@ class order
         $class =& $_SESSION['payment'];
 
         if ($this->content_type == 'virtual') {
+            $_SESSION['customer_country_id'] = $billing_address['entry_country_id'];
+            $_SESSION['customer_zone_id'] = $billing_address['entry_zone_id'];				
             $tax_address = array('entry_country_id' => $billing_address['entry_country_id'],
                                 'entry_zone_id' => $billing_address['entry_zone_id']);
         } else {
+            $_SESSION['customer_country_id'] = $shipping_address['entry_country_id'];
+            $_SESSION['customer_zone_id'] = $shipping_address['entry_zone_id'];		
             $tax_address = array('entry_country_id' => $shipping_address['entry_country_id'],
                                 'entry_zone_id' => $shipping_address['entry_zone_id']);
         }
-
 
         $this->info = array('order_status' => DEFAULT_ORDERS_STATUS_ID,
                           'currency' => $_SESSION['currency'],
