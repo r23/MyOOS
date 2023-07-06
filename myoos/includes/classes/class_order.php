@@ -31,6 +31,7 @@ class order
     public $products;
     public $customer;
     public $delivery;
+	public $billing;
     public $content_type;
 
     public function __construct($order_id = '')
