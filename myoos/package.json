@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "aframe-extras": "^7.0.0"
+    "aframe-extras": "^7.0.0",
+    "three": "^0.154.0"
   }
 }
