@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "aframe-extras": "^7.0.0",
+    "mind-ar": "^1.2.3",
     "three": "^0.154.0"
   }
 }
