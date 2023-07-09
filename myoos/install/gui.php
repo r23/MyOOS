@@ -303,6 +303,19 @@ function print_Admin()
         '  <td align="left"><font class="oos-normal">' . ADMIN_PHONE . '</font></td>' . "\n" .
         '  <td><input type="text" name="phone" SIZE=30 maxlength=80 value=""></td>' . "\n" .
         ' </tr>' . "\n" .
+		
+        ' <tr>' . "\n" .
+        '  <td align="left"><font class="oos-normal">' . ADMIN_PHONE . '</font></td>' . "\n" .
+        '  <td><input type="text" name="phone" SIZE=30 maxlength=80 value=""></td>' . "\n" .
+        ' </tr>' . "\n" .
+        ' <tr>' . "\n" .
+        '  <td align="left">&nbsp;</td>' . "\n" .
+        '  <td>&nbsp;</td>' . "\n" .
+        ' </tr>' . "\n" .		
+        ' <tr>' . "\n" .
+        '  <td align="left"><font class="oos-normal"<b>Länderbezogene Umsatzsteuer anlegen</b><br><b>Hinweis:</b> Nur anwählen, wenn Sie <b>nicht</b> am <br>One-Stop-Shop-Verfahren (OSS) teilnehmen.</font>' . "\n" .
+        ' <td><input type="checkbox" name="gst" checked></td>' . "\n" .	
+        ' </tr>' . "\n" .	
         '</table>' . "\n" .
         '<br /><br />' . "\n";
     print_FormHidden();
@@ -367,6 +380,10 @@ function print_ChangeLogin()
         '  <td align="left">&nbsp;</td>' . "\n" .
         '  <td>&nbsp;</td>' . "\n" .
         ' </tr>' . "\n" .
+        ' <tr>' . "\n" .
+        '  <td align="left"><font class="oos-normal"<b>Länderbezogene Umsatzsteuer anlegen</b><br><b>Hinweis:</b> Nur anwählen, wenn Sie <b>nicht</b> am <br>One-Stop-Shop-Verfahren (OSS) teilnehmen.</font>' . "\n" .
+        ' <td><input type="checkbox" name="gst" checked></td>' . "\n" .	
+        ' </tr>' . "\n" .			
         '</table>' . "\n";
     print_DBHidden();
     print_ServerHidden();
@@ -417,10 +434,27 @@ function print_Login()
         ' <tr>' . "\n" .
         '  <td align="left">&nbsp;</td>' . "\n" .
         '  <td>&nbsp;</td>' . "\n" .
-        ' </tr>' . "\n" .
-        ' <tr>' . "\n" .
+        ' </tr>' . "\n";
+
+if (isset($_POST['gst'])) {		
+    echo ' <tr>' . "\n" .
+        '  <td align="left"><font class="oos-normal"<b>Länderbezogene Umsatzsteuer anlegen</b>' . "\n" .
+        ' <td><b>JA</b></td>' . "\n" .	
+        ' </tr>' . "\n";
+} else {
+    echo ' <tr>' . "\n" .
+        '  <td align="left"><font class="oos-normal"<b>Länderbezogene Umsatzsteuer anlegen</b>' . "\n" .
+        ' <td><b>Nein</b></td>' . "\n" .	
+        ' </tr>' . "\n";
+}	
+		
+    echo ' <tr>' . "\n" .
         '  <td>&nbsp;</td>' . "\n" .
         '  <td>' . "\n";
+        ' <tr>' . "\n" .
+        '  <td align="left">&nbsp;</td>' . "\n" .
+        '  <td>&nbsp;</td>' . "\n" .
+        ' </tr>' . "\n";		
     print_FormHidden();
     echo '<input type="hidden" name="op" value="Change Login">' . "\n" .
         '<input type="submit" value="' . BTN_CHANGE_INFO . '"><br />' . "\n" .
