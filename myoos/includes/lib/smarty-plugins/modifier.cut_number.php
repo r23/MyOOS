@@ -19,10 +19,10 @@
  */
 function smarty_modifier_cut_number($number)
 {
-    $number = explode(".", $number, 2);
+    $aNumber = explode(".", $number, 2);
 
-    if ($number[1] == '0000') {
-        return $number[0];
+    if ($aNumber[1] == '0000') {
+        return $aNumber[0];
     }
 
     return $number;
