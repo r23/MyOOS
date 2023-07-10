@@ -436,7 +436,7 @@ function print_Login()
         '  <td>&nbsp;</td>' . "\n" .
         ' </tr>' . "\n" .
 		' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal">' . GST . '</font></td>' . "\n" .
+        '  <td align="left"><font class="oos-normal">' . GST . '</font></td>' . "\n";
 
 if (isset($_POST['gst'])) {		
     echo ' <td><b>' . YES . '</b></td>' . "\n";
