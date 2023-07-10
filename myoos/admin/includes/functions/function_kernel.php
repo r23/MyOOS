@@ -939,47 +939,49 @@ function oos_add_tax($price, $tax)
 function oos_get_tax_rate($class_id, $country_id = -1, $zone_id = -1)
 {
     if (($country_id == -1) && ($zone_id == -1)) {
-        if (!isset($_SESSION['customer_id'])) {
-            $country_id = STORE_COUNTRY;
-            $zone_id = STORE_ZONE;
-        } else {
-            $country_id = $_SESSION['customer_country_id'];
-            $zone_id = $_SESSION['customer_zone_id'];
-        }
+        $country_id = STORE_COUNTRY;
+        $zone_id = STORE_ZONE;
     }
 
-    // Get database information
-    $dbconn =& oosDBGetConn();
-    $oostable =& oosDBGetTables();
+	static $tax_rates = [];
 
-    $tax_ratestable = $oostable['tax_rates'];
-    $zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
-    $geo_zonestable = $oostable['geo_zones'];
-    $query = "SELECT SUM(tax_rate) AS tax_rate
-              FROM $tax_ratestable tr LEFT JOIN
-                   $zones_to_geo_zonestable za
+
+    if (!isset($tax_rates[$class_id][$country_id][$zone_id]['rate'])) {
+		// Get database information
+		$dbconn =& oosDBGetConn();
+		$oostable =& oosDBGetTables();
+
+		$tax_ratestable = $oostable['tax_rates'];
+		$zones_to_geo_zonestable = $oostable['zones_to_geo_zones'];
+		$geo_zonestable = $oostable['geo_zones'];
+		$query = "SELECT SUM(tax_rate) AS tax_rate
+				FROM $tax_ratestable tr LEFT JOIN
+					$zones_to_geo_zonestable za
                  ON (tr.tax_zone_id = za.geo_zone_id) LEFT JOIN
                    $geo_zonestable tz
                  ON (tz.geo_zone_id = tr.tax_zone_id)
-              WHERE (za.zone_country_id IS null or za.zone_country_id = '0'
-                  OR za.zone_country_id = '" . intval($country_id) . "')
-                AND (za.zone_id is null OR za.zone_id = '0'
-                  OR za.zone_id = '" . intval($zone_id) . "')
+              WHERE za.zone_country_id = '" . intval($country_id) . "'
+                AND (za.zone_id is null OR za.zone_id = '0' OR za.zone_id = '" . intval($zone_id) . "')
                 AND tr.tax_class_id = '" . intval($class_id) . "'";
-    $result = $dbconn->Execute($query);
-    if ($result->RecordCount()) {
-        $tax_multiplier = 0;
-        while ($tax = $result->fields) {
-            $tax_multiplier += $tax['tax_rate'];
+		$result = $dbconn->Execute($query);
+		if (!$result) {
+			return 0;
+		}
 
-            // Move that ADOdb pointer!
-            $result->MoveNext();
+        if ($result->RecordCount() > 0) {
+            $tax_multiplier = 1.0;
+            while ($tax = $result->fields) {
+                $tax_multiplier *= 1.0 + ($tax['tax_rate'] / 100);
+                $result->MoveNext();
+            }
+            $tax_rates[$class_id][$country_id][$zone_id]['rate'] = ($tax_multiplier - 1.0) * 100;
+        } else {
+            $tax_rates[$class_id][$country_id][$zone_id]['rate'] = 0;
         }
-
-        return $tax_multiplier;
-    } else {
-        return 0;
     }
+
+    return $tax_rates[$class_id][$country_id][$zone_id]['rate'];
+
 }
 
 
