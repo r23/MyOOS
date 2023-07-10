@@ -199,6 +199,10 @@ define('ADMIN_ERROR', 'Error:');
 define('ADMIN_PASSWORD_ERROR', 'Please give You a \'Admin Password\' !');
 define('ADMIN_EMAIL_ERROR', 'Please give You a \'Admin E-Mail\' !');
 
+define('GST_CHECK', '<b>Create country-specific VAT.</b><br><b>Note:</b> Only select if you do not participate in the One-Stop-Shop procedure (OSS).');
+define('GST', '<b>Create country-specific VAT</b>');
+
+
 define('INPUT_DATA', 'Data for MyOOS [Shopsystem] ');
 
 define('FINISH_1', 'Thank saying');

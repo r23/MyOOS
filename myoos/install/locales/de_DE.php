@@ -208,6 +208,10 @@ define('ADMIN_ERROR', 'Fehler:');
 define('ADMIN_PASSWORD_ERROR', 'Bitte geben Sie ein \'Passwort\' ein!');
 define('ADMIN_EMAIL_ERROR', 'Bitte geben Sie Ihre \'E-Mail Adresse\' ein!');
 
+define('GST_CHECK', '<b>Länderbezogene Umsatzsteuer anlegen</b><br><b>Hinweis:</b> Nur anwählen, wenn Sie <b>nicht</b> am <br>One-Stop-Shop-Verfahren (OSS) teilnehmen.');
+define('GST', '<b>Länderbezogene Umsatzsteuer anlegen</b>');
+
+
 define('INPUT_DATA', 'Daten für MyOOS [Shopsystem] ');
 
 define('FINISH_1', 'Danksagung');

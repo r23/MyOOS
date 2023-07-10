@@ -313,8 +313,8 @@ function print_Admin()
         '  <td>&nbsp;</td>' . "\n" .
         ' </tr>' . "\n" .		
         ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal"<b>Länderbezogene Umsatzsteuer anlegen</b><br><b>Hinweis:</b> Nur anwählen, wenn Sie <b>nicht</b> am <br>One-Stop-Shop-Verfahren (OSS) teilnehmen.</font>' . "\n" .
-        ' <td><input type="checkbox" name="gst" checked></td>' . "\n" .	
+        '  <td align="left"><font class="oos-normal">' . GST_CHECK . '</font></td>' . "\n" .
+        '  <td><input type="checkbox" name="gst" checked></td>' . "\n" .	
         ' </tr>' . "\n" .	
         '</table>' . "\n" .
         '<br /><br />' . "\n";
@@ -381,8 +381,8 @@ function print_ChangeLogin()
         '  <td>&nbsp;</td>' . "\n" .
         ' </tr>' . "\n" .
         ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal"<b>Länderbezogene Umsatzsteuer anlegen</b><br><b>Hinweis:</b> Nur anwählen, wenn Sie <b>nicht</b> am <br>One-Stop-Shop-Verfahren (OSS) teilnehmen.</font>' . "\n" .
-        ' <td><input type="checkbox" name="gst" checked></td>' . "\n" .	
+        '  <td align="left"><font class="oos-normal">' . GST_CHECK . '</font></td>' . "\n" .
+        '  <td><input type="checkbox" name="gst" checked></td>' . "\n" .	
         ' </tr>' . "\n" .			
         '</table>' . "\n";
     print_DBHidden();
@@ -434,21 +434,18 @@ function print_Login()
         ' <tr>' . "\n" .
         '  <td align="left">&nbsp;</td>' . "\n" .
         '  <td>&nbsp;</td>' . "\n" .
-        ' </tr>' . "\n";
+        ' </tr>' . "\n" .
+		' <tr>' . "\n" .
+        '  <td align="left"><font class="oos-normal">' . GST . '</font></td>' . "\n" .
 
 if (isset($_POST['gst'])) {		
-    echo ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal"<b>Länderbezogene Umsatzsteuer anlegen</b>' . "\n" .
-        ' <td><b>JA</b></td>' . "\n" .	
-        ' </tr>' . "\n";
+    echo ' <td><b>' . YES . '</b></td>' . "\n";
 } else {
-    echo ' <tr>' . "\n" .
-        '  <td align="left"><font class="oos-normal"<b>Länderbezogene Umsatzsteuer anlegen</b>' . "\n" .
-        ' <td><b>Nein</b></td>' . "\n" .	
-        ' </tr>' . "\n";
+    echo ' <td><b>' . NO . '</b></td>' . "\n";
 }	
 		
-    echo ' <tr>' . "\n" .
+    echo ' </tr>' . "\n" .
+		' <tr>' . "\n" .
         '  <td>&nbsp;</td>' . "\n" .
         '  <td>' . "\n";
         ' <tr>' . "\n" .
