@@ -249,7 +249,17 @@ $products_unitstable = $oostable['products_units'];
 $query = "SELECT products_units_id, products_unit_name, unit_of_measure
 		FROM $products_unitstable
 		WHERE languages_id = '" . intval($nLanguageID) . "'";
-$products_units = $dbconn->GetAssoc($query);
+$products_unit_result = $dbconn->Execute($query);
+$products_units = []; // initialize a new array
+while ($products_unit = $products_unit_result->fields) {
+    // get the products_units_id as the index for the new array
+    $index = $products_unit['products_units_id'];
+    // insert the products_unit_name and unit_of_measure as a numeric array under the index
+    $products_units[$index] = [$products_unit['products_unit_name'], $products_unit['unit_of_measure']];
+    // Move that ADOdb pointer!
+    $products_unit_result->MoveNext();
+}		
+	
 
 // PAngV
 $sPAngV = $aLang['text_tax_incl'];
