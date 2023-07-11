@@ -194,7 +194,8 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
                 break;
 
             default:
-                $query .= '\'' . oos_db_input($value) . '\', ';
+				$qString = $dbconn->qStr($value);
+                $query .= $qString . ', ';
                 break;
             }
         }
@@ -212,7 +213,8 @@ function oos_db_perform($table, $data, $action = 'INSERT', $parameters = '')
                 break;
 
             default:
-                $query .= $columns . ' = \'' . oos_db_input($value) . '\', ';
+				$qString = $dbconn->qStr($value);
+                $query .= $columns . ' = ' . $qString . ', ';
                 break;
             }
         }

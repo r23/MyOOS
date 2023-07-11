@@ -61,16 +61,6 @@ class shoppingCart
                 $towlid = $this->contents[$products_id]['towlid'];
                 $free_redemption = $this->contents[$products_id]['return_free_of_charge'];
 
-                /*
-                                if ($_SESSION['customer_wishlist_link_id'] == $towlid) {
-                                    $towlid = '';
-                                    $customers_wishlisttable = $oostable['customers_wishlist'];
-                                    $dbconn->Execute("DELETE FROM $customers_wishlisttable WHERE customers_id= '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($products_id) . "'");
-                                    $customers_wishlist_attributestable = $oostable['customers_wishlist_attributes'];
-                                    $dbconn->Execute("DELETE FROM $customers_wishlist_attributestable WHERE customers_id= '" . intval($_SESSION['customer_id']) . "'  AND products_id = '" . oos_db_input($products_id) . "'");
-                                }
-                */
-
                 $customers_baskettable = $oostable['customers_basket'];
                 $product_sql = "SELECT products_id
                           FROM $customers_baskettable
