@@ -39,35 +39,6 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 
 
 /**
- * Forcefully disable register_globals if enabled
- *
- * Based from work by Richard Heyes (http://www.phpguru.org)
- */
-if ((int)ini_get('register_globals') > 0) {
-    if (isset($_REQUEST['GLOBALS'])) {
-        die('GLOBALS overwrite attempt detected');
-    }
-
-    $noUnset = ['GLOBALS', '_GET', '_POST', '_COOKIE', '_REQUEST', '_SERVER', '_ENV', '_FILES'];
-
-    $input = array_merge($_GET, $_POST, $_COOKIE, $_SERVER, $_ENV, $_FILES, isset($_SESSION) && is_array($_SESSION) ? $_SESSION : []);
-
-    foreach ($input as $k => $v) {
-        if (!in_array($k, $noUnset) && isset($GLOBALS[$k])) {
-            $GLOBALS[$k] = null;
-            unset($GLOBALS[$k]);
-        }
-    }
-
-    unset($noUnset);
-    unset($input);
-    unset($k);
-    unset($v);
-}
-
-
-
-/**
  * Fix for PHP as CGI hosts that set SCRIPT_FILENAME to
  * something ending in php.cgi for all requests
  */
