@@ -197,7 +197,7 @@ if (($action == 'preview') && isset($_POST['customers_email_address'])) {
                 <td></td>
               </tr>
               <tr>
-                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br><?php echo nl2br(htmlspecialchars(stripslashes((string)$_POST['message'])), ENT_QUOTES, 'UTF-8'); ?></td>
+                <td class="smallText"><b><?php echo TEXT_MESSAGE; ?></b><br><?php echo nl2br(htmlspecialchars(stripslashes((string)$_POST['message']), ENT_QUOTES, 'UTF-8')); ?></td>
               </tr>
               <tr>
                 <td></td>
