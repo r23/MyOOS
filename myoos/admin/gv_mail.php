@@ -31,8 +31,7 @@ $currencies = new currencies();
 $action = (isset($_GET['action']) ? $_GET['action'] : '');
 $sCustomer = isset($_GET['customer']) ? oos_prepare_input($_GET['customer']) : '';
 
-
-if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $_POST['email_to']) && (!$_POST['back_x'])) {
+if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $_POST['email_to']) && (!isset($_POST['back_x']))) {
     switch ($_POST['customers_email_address']) {
     case '***':
         $customerstable = $oostable['customers'];
@@ -59,15 +58,17 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $
         break;
     }
 
-    if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && (!$_POST['back_x'])) {
+    if (($action == 'send_email_to_user') && ($_POST['customers_email_address']) && (!isset($_POST['back_x']))) {
 
-        // (Re)create it, if it's gone missing.
-        if (! ($phpmailer instanceof PHPMailer\PHPMailer\PHPMailer)) {
-            include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
-            include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
-            include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
-            $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
-        }
+		global $phpmailer;
+
+		// (Re)create it, if it's gone missing.
+		if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
+			require_once MYOOS_INCLUDE_PATH . 'includes/lib/phpmailer/src/PHPMailer.php';
+			require_once MYOOS_INCLUDE_PATH . 'includes/lib/phpmailer/src/SMTP.php';
+			require_once MYOOS_INCLUDE_PATH . 'includes/lib/phpmailer/src/Exception.php';
+			$phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
+		}
 
         $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
         $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
