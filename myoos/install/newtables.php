@@ -77,14 +77,14 @@ $table = $prefix_table . 'address_book';
 $flds = "
    address_book_id I NOTNULL AUTO PRIMARY,
    customers_id I NOTNULL DEFAULT '0' PRIMARY,
-   entry_gender C(1) NOTNULL,
+   entry_gender C(1),
    entry_company C(32),
    entry_owner C(32),
    entry_vat_id C(20) NULL,
    entry_vat_id_status I1 DEFAULT '0' NOTNULL,
    entry_firstname C(32) NOTNULL,
    entry_lastname C(32) NOTNULL,
-   entry_street_address C(64) NOTNULL,
+   entry_street_address C(64) DEFAULT '' NOTNULL,
    entry_postcode C(10) NOTNULL,
    entry_city C(32) NOTNULL,
    entry_state C(32),
@@ -173,7 +173,7 @@ $flds = "
   block_login_flag I2 NOTNULL DEFAULT '0',
   block_author_name C(32),
   block_author_www C(255),
-  block_modules_group C(32) NOTNULL,
+  block_modules_group C(32),
   date_added T,
   last_modified T,
   set_function C(255) NULL
@@ -498,7 +498,7 @@ dosql($table, $flds);
 $table = $prefix_table . 'customers';
 $flds = "
    customers_id I NOTNULL AUTO PRIMARY,
-   customers_gender C(1) NOTNULL,
+   customers_gender C(1),
    customers_firstname C(32) NOTNULL,
    customers_lastname C(32) NOTNULL,
    customers_dob T,
@@ -763,7 +763,7 @@ dosql($table, $flds);
 $table = $prefix_table . 'newsletter_recipients';
 $flds = "
 	recipients_id I NOTNULL AUTO PRIMARY,
-	customers_gender C(1) NOTNULL,
+	customers_gender C(1),
 	customers_firstname C(32) NOTNULL,
 	customers_lastname C(32) NOTNULL,
 	customers_email_address C(96) NOTNULL,

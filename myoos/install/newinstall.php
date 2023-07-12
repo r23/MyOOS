@@ -126,6 +126,9 @@ function oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $pho
     for ($x=3;$x<10;$x++) {
         $wishlist_link_id .= substr($sTime, $x, 1) . oos_create_random_value(1, $type = 'chars');
     }
+	
+	
+	
     $sql = "INSERT INTO ". $prefix_table . "customers
             (customers_firstname,
              customers_lastname,
@@ -158,17 +161,29 @@ function oosInputData($gender, $firstname, $name, $pwd, $repeatpwd, $email, $pho
     $customer_id = $db->Insert_ID();
 
     $book_id = 1;
-    $country = 81;
+    $country = 81;	
+	$gender = ' ';
+	$street_address  = ' ';
+	$postcode = ' ';
+	$city = ' ';	
     $sql = "INSERT INTO ". $prefix_table . "address_book
             (customers_id,
+			entry_gender,
              address_book_id,
              entry_firstname,
              entry_lastname,
+			 entry_street_address,
+			 entry_postcode,
+			 entry_city,
              entry_country_id)
              VALUES (" . $db->qstr($customer_id) . ','
+					. $db->qstr($gender) . ','
                      . $db->qstr($book_id) . ','
                      . $db->qstr($firstname) . ','
                      . $db->qstr($name) . ','
+ 					 . $db->qstr($street_address) . ','
+					 . $db->qstr($postcode) . ','				 
+					 . $db->qstr($city) . ','
                      . $db->qstr($country) . ")";
     $result = $db->Execute($sql);
     if ($result === false) {
