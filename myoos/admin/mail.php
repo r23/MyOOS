@@ -47,51 +47,49 @@ if (($action == 'send_email_to_user') && isset($_POST['customers_email_address']
         break;
     }
 
-    // Instantiate a new mail object
-    // (Re)create it, if it's gone missing.
-    if (! ($phpmailer instanceof PHPMailer\PHPMailer\PHPMailer)) {
-        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/PHPMailer.php';
-        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/SMTP.php';
-        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/Exception.php';
-        $send_mail = new PHPMailer\PHPMailer\PHPMailer(true);
+	global $phpmailer;
+
+	// (Re)create it, if it's gone missing.
+	if ( ! ( $phpmailer instanceof PHPMailer\PHPMailer\PHPMailer ) ) {
+        require_once MYOOS_INCLUDE_PATH . 'includes/lib/phpmailer/src/PHPMailer.php';
+        require_once MYOOS_INCLUDE_PATH . 'includes/lib/phpmailer/src/SMTP.php';
+        require_once MYOOS_INCLUDE_PATH . 'includes/lib/phpmailer/src/Exception.php';
+        $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
     }
 
-
-
-
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : 'en');
-    $send_mail->SetLanguage($sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/');
+    $phpmailer->SetLanguage($sLang, OOS_ABSOLUTE_PATH . 'includes/lib/phpmailer/language/');
 
-    $send_mail->CharSet = CHARSET;
-    $send_mail->IsMail();
+    $phpmailer->CharSet = CHARSET;
+    $phpmailer->IsMail();
 
-    $send_mail->From = $from_mail ? $from_mail : STORE_OWNER_EMAIL_ADDRESS;
-    $send_mail->FromName = $from_name ? $from_name : STORE_OWNER;
-    $send_mail->Mailer = EMAIL_TRANSPORT;
+	$phpmailer->From = isset($_POST['from_mail']) ? oos_db_prepare_input($_POST['from_mail']) : STORE_OWNER_EMAIL_ADDRESS;
+	$phpmailer->FromName = isset($_POST['from_name']) ? oos_db_prepare_input($_POST['from_name']) : STORE_OWNER;
+    $phpmailer->Mailer = EMAIL_TRANSPORT;
 
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
-        $send_mail->IsSMTP(); // set mailer to use SMTP
-        $send_mail->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
-        $send_mail->Username = OOS_SMTPUSER; // SMTP username
-        $send_mail->Password = OOS_SMTPPASS; // SMTP password
-        $send_mail->Host     = OOS_SMTPHOST; // specify main and backup server
+        $phpmailer->IsSMTP(); // set mailer to use SMTP
+        $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
+        $phpmailer->Username = OOS_SMTPUSER; // SMTP username
+        $phpmailer->Password = OOS_SMTPPASS; // SMTP password
+        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server
     } elseif // Set sendmail path
       (EMAIL_TRANSPORT == 'sendmail') {
         if (!oos_empty(OOS_SENDMAIL)) {
-            $send_mail->Sendmail = OOS_SENDMAIL;
-            $send_mail->IsSendmail();
+            $phpmailer->Sendmail = OOS_SENDMAIL;
+            $phpmailer->IsSendmail();
         }
     }
 
-    $send_mail->Subject = $subject;
+	$phpmailer->Subject = isset($_POST['subject']) ? oos_db_prepare_input($_POST['subject']) : STORE_NAME;
 
     while ($mail = $mail_result->fields) {
-        $send_mail->Body = $message;
-        $send_mail->AddAddress($mail['customers_email_address'], $mail['customers_firstname'] . ' ' . $mail['customers_lastname']);
-        $send_mail->Send();
-        $send_mail->ClearAddresses();
-        $send_mail->ClearAttachments();
+		$phpmailer->Body = isset($_POST['message']) ? oos_db_prepare_input($_POST['message']) : '';
+        $phpmailer->AddAddress($mail['customers_email_address'], $mail['customers_firstname'] . ' ' . $mail['customers_lastname']);
+        $phpmailer->Send();
+        $phpmailer->ClearAddresses();
+        $phpmailer->ClearAttachments();
 
         // Move that ADOdb pointer!
         $mail_result->MoveNext();

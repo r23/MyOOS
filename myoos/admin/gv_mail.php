@@ -99,9 +99,8 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $
             $phpmailer->clearReplyTos();
 
             $phpmailer->IsMail();
-
-            $phpmailer->From = $from_mail ? $from_mail : STORE_OWNER_EMAIL_ADDRESS;
-            $phpmailer->FromName = $from_name ? $from_name : STORE_OWNER;
+            $phpmailer->From = isset($_POST['from_mail']) ? oos_db_prepare_input($_POST['from_mail']) : STORE_OWNER_EMAIL_ADDRESS;
+			$phpmailer->FromName = isset($_POST['from_name']) ? oos_db_prepare_input($_POST['from_name']) : STORE_OWNER;		
             $phpmailer->Mailer = EMAIL_TRANSPORT;
 
             // Add smtp values if needed
@@ -119,8 +118,9 @@ if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $
                 }
             }
 
-            $phpmailer->Subject = $subject;
-            $phpmailer->Body = $message;
+			$phpmailer->Subject = isset($_POST['subject']) ? oos_db_prepare_input($_POST['subject']) : STORE_NAME;
+			$phpmailer->Body = isset($_POST['message']) ? oos_db_prepare_input($_POST['message']) : '';
+
             $phpmailer->AddAddress($mail['customers_email_address'], $mail['customers_firstname'] . ' ' . $mail['customers_lastname']);
             $phpmailer->Send();
             $phpmailer->ClearAddresses();
