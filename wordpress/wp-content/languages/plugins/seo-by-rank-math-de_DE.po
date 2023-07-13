@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-07-03 08:13:45+0000\n"
+"PO-Revision-Date: 2023-07-12 12:03:10+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,10 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.4\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
+
+#: includes/admin/class-admin.php:264
+msgid "Please update to WordPress v6.0 or higher as Rank Math SEO will soon stop supporting lower versions."
+msgstr "Bitte aktualisiere auf WordPress v6.0 oder höher, da Rank Math SEO in Kürze die Unterstützung niedrigerer Versionen einstellen wird."
 
 #: includes/modules/version-control/views/beta-optin-panel.php:21
 msgid "You cannot turn on the Beta Tester feature because site wide plugins auto-update option is disabled on your site."
@@ -27,11 +31,11 @@ msgstr "Die Option zur automatischen Aktualisierung von Plugins ist auf deiner W
 msgid "The Google Search Console request failed."
 msgstr "Die Anfrage der Google Search Console ist fehlgeschlagen."
 
-#: includes/modules/analytics/google/class-analytics.php:321
+#: includes/modules/analytics/google/class-analytics.php:341
 msgid "The Google Analytics Console request failed."
 msgstr "Die Anfrage der Google Analytics Console ist fehlgeschlagen."
 
-#: includes/modules/analytics/google/class-analytics.php:245
+#: includes/modules/analytics/google/class-analytics.php:246
 msgid "The Google Analytics request failed."
 msgstr "Die Google Analytics-Anfrage ist fehlgeschlagen."
 
@@ -67,11 +71,11 @@ msgstr "Importiere Social Media-URLs deiner Autorenarchivseiten."
 msgid "Add social account information to your website's Schema and Open Graph. %s."
 msgstr "Füge dem Schema und Open Graph deiner Website Informationen zu sozialen Konten hinzu. %s."
 
-#: includes/admin/class-admin.php:411 includes/settings/titles/social.php:88
+#: includes/admin/class-admin.php:428 includes/settings/titles/social.php:88
 msgid "Additional Profiles to add in the <code>sameAs</code> Schema property."
 msgstr "Zusätzliche Profile, die der <code>sameAs</code> Schema-Eigenschaft hinzugefügt werden sollen."
 
-#: includes/admin/class-admin.php:73
+#: includes/admin/class-admin.php:74
 msgid "Additional profile URLs"
 msgstr "Zusätzliche Profil-URLs"
 
@@ -363,7 +367,7 @@ msgstr "HTML-Sitemap"
 msgid "Ctrl/Cmd + Enter"
 msgstr "Strg/Befehlstaste + Eingabetaste"
 
-#: includes/admin/class-admin.php:398
+#: includes/admin/class-admin.php:415
 msgid "Exclusive Offer!"
 msgstr "Exklusives Angebot!"
 
@@ -5528,7 +5532,7 @@ msgstr "Update-Funktionen"
 msgid "Control which user has access to which options of Rank Math. %s"
 msgstr "Steuere, welcher Benutzer Zugriff auf welche Optionen von Rank Math hat. %s"
 
-#: includes/admin/class-admin.php:331
+#: includes/admin/class-admin.php:348
 #: includes/modules/role-manager/class-role-manager.php:132
 #: includes/traits/class-ajax.php:59
 msgid "You are not authorized to perform this action."
@@ -8606,6 +8610,8 @@ msgstr "Linkvorschläge"
 
 #. Plugin Name of the plugin
 #: includes/admin/class-admin-bar-menu.php:173
+#: includes/admin/class-admin-menu.php:87
+#: includes/admin/class-registration.php:213
 #: includes/admin/metabox/class-metabox.php:341
 msgid "Rank Math SEO"
 msgstr "Rank Math SEO"
@@ -8712,15 +8718,15 @@ msgstr "Ein"
 msgid "Off"
 msgstr "Aus"
 
-#: includes/admin/class-admin.php:301
+#: includes/admin/class-admin.php:318
 msgid "Insert Link in Content"
 msgstr "Link in Inhalt einfügen"
 
-#: includes/admin/class-admin.php:300
+#: includes/admin/class-admin.php:317
 msgid "Copy Link URL to Clipboard"
 msgstr "Link URL in die Zwischenablage kopieren"
 
-#: includes/admin/class-admin.php:116
+#: includes/admin/class-admin.php:117
 msgid "The canonical URL you entered does not seem to be a valid URL. Please double check it in the SEO meta box &raquo; Advanced tab."
 msgstr "Die von dir eingegebene kanonische URL scheint keine gültige URL zu sein. Bitte überprüfen diese noch einmal in der SEO-Meta-Box &raquo; Registerkarte Erweitert."
 
@@ -8751,32 +8757,31 @@ msgstr "Hilfe"
 msgid "Modules"
 msgstr "Module"
 
-#: includes/admin/class-admin.php:72
+#: includes/admin/class-admin.php:73
 msgid "Facebook profile URL"
 msgstr "Facebook Profil-URL"
 
-#: includes/admin/class-admin.php:71
+#: includes/admin/class-admin.php:72
 msgid "Twitter username (without @)"
 msgstr "Twitter-Benutzername (ohne @)"
 
 #: includes/admin/class-admin-bar-menu.php:183
 #: includes/admin/class-admin-bar-menu.php:185
 #: includes/admin/class-admin-breadcrumbs.php:32
-#: includes/admin/class-admin-menu.php:89
+#: includes/admin/class-admin-menu.php:100
 #: includes/modules/version-control/class-version-control.php:236
 #: includes/modules/analytics/assets/js/stats.js:1
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: includes/admin/class-admin-menu.php:99
+#: includes/admin/class-admin-menu.php:110
 msgid "Help &amp; Support"
 msgstr "Hilfe und Support"
 
 #. Author of the plugin
 #: includes/admin/class-admin-menu.php:60
 #: includes/admin/class-post-filters.php:168
-#: includes/admin/class-registration.php:212
-#: includes/admin/class-registration.php:213 includes/class-cmb2.php:177
+#: includes/admin/class-registration.php:212 includes/class-cmb2.php:177
 #: includes/modules/analytics/views/email-reports/header.php:38
 #: includes/modules/role-manager/class-members.php:47
 #: includes/modules/role-manager/class-user-role-editor.php:58
