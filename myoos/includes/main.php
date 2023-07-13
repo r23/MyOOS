@@ -103,17 +103,21 @@ while ($configuration = $configuration_result->fields) {
     $configuration_result->MoveNext();
 }
 
-$bNecessary = false;
+// technically necessary cookies
+$bNecessary = true;
 $bAnalyses = false;
 $bPersonalization = false;
 
-$consentCookieJson = isset($_COOKIE['myoos-cookie-consent']) ? oos_prepare_input($_COOKIE['myoos-cookie-consent']) : false;
+$consentCookieJson = isset($_COOKIE['myoos-cookie-consent']) ? oos_prepare_input($_COOKIE['myoos-cookie-consent']) : true;
 if ($consentCookieJson) {
     $consentCookie = json_decode($consentCookieJson);
 
+	/*
+	// technically necessary cookies
     if ($consentCookie && $consentCookie->necessary == 1) {
         $bNecessary = true;
     }
+	*/
 
     if ($consentCookie && $consentCookie->analyses == 1) {
         $bAnalyses = true;
@@ -123,6 +127,7 @@ if ($consentCookieJson) {
         $bPersonalization = true;
     }
 }
+
 
 require_once MYOOS_INCLUDE_PATH . '/includes/lib/Phoenix/Core/Session.php';
 $session = new Phoenix_Session();
@@ -213,6 +218,7 @@ $sContent = oos_var_prep_for_os($sContent);
 
 
 if ($session->hasStarted() === true) {
+
     if (!(preg_match('/^[a-z0-9]{26}$/i', $session->getId()) || preg_match('/^[a-z0-9]{32}$/i', $session->getId()))) {
         $session->regenerate(true);
     }
