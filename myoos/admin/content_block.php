@@ -302,12 +302,12 @@ if (!empty($action)) {
       }
 
 		// Allowed values for $bInfo->set_function
-		$whitelist = ['oos_cfg_select_option', 'oos_cfg_pull_down_order_statuses', 'oos_cfg_get_order_status_name', 'oos_cfg_pull_down_zone_classes', 'pull_down_country_list']
+		$whitelist = ['oos_cfg_select_option', 'oos_cfg_pull_down_order_statuses', 'oos_cfg_get_order_status_name', 'oos_cfg_pull_down_zone_classes', 'pull_down_country_list'];
 
 		// Check if $bInfo->set_function is in the whitelist
-		if (in_array ($cInfo->set_function, $whitelist)) {
-					// Evaluation of the code
-					eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars((string)$bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
+		if (in_array($bInfo->set_function, $whitelist)) {
+			// Evaluation of the code
+			eval('$value_field = ' . $bInfo->set_function . '"' . htmlspecialchars((string)$bInfo->block_side, ENT_QUOTES, 'UTF-8') . '");');
 		} else {
 			die ('Invalid value for $cInfo->set_function: '.$bInfo->set_function);
 		}	  
