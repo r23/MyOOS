@@ -107,7 +107,7 @@ $table = $prefix_table . 'admin';
 $flds = "
   admin_id I NOTNULL AUTO PRIMARY,
   admin_groups_id I DEFAULT NULL,
-  admin_gender C(1) NOTNULL,
+  admin_gender C(1),
   admin_firstname C(32) NOTNULL,
   admin_lastname C(32) NULL,
   admin_email_address C(96) NOTNULL,
@@ -507,7 +507,7 @@ $flds = "
    customers_2fa_active C(1) DEFAULT '0' NOTNULL,
    guest_email_address C(96),  
    customers_default_address_id I2 DEFAULT '1' NOTNULL,
-   customers_telephone C(32) NOTNULL,
+   customers_telephone C(32),
    customers_password C(255) NOTNULL,
    customers_wishlist_link_id C(32) NOTNULL,
    customers_status  C(1) DEFAULT '1' NOTNULL,
@@ -793,7 +793,6 @@ $table = $prefix_table . 'orders';
 $flds = "
   orders_id I NOTNULL AUTO PRIMARY,
   customers_id I NOTNULL,
-  customers_cid I NOTNULL,
   customers_firstname C(32) NOTNULL,
   customers_lastname C(32) NOTNULL,
   customers_name C(64) NOTNULL,
