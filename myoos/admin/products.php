@@ -1477,7 +1477,9 @@ updateWithTax();
         <td>
 <table border="0" width="100%" cellspacing="0" cellpadding="0">
           <tr>
-            <td class="pageHeading"><?php echo oos_flag_icon($aLanguages[$i]) . '&nbsp;' . $pInfo->products_name; ?></td>
+            <td class="pageHeading"><?php 
+	$id = 0;
+	echo oos_flag_icon($aLanguages[$id]) . '&nbsp;' . $pInfo->products_name; ?></td>
 			<td class="pageHeading" align="right"><?php echo $currencies->format($pInfo->products_price); ?></td>
           </tr>
 <?php
