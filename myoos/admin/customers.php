@@ -757,7 +757,7 @@ function check_form() {
               $countriestable = $oostable['countries'];
               $country_result = $dbconn->Execute("SELECT countries_name
                                             FROM $countriestable
-                                            WHERE countries_id = '" . intval($customers['entry_country_id']) . "'");
+                                            WHERE countries_id = '" . intval($customers['entry_country_id']) . "'");	
               $country = $country_result->fields;
 
               $reviewstable = $oostable['reviews'];
@@ -766,10 +766,10 @@ function check_form() {
                                             WHERE customers_id = '" . intval($customers['customers_id']) . "'");
               $reviews = $reviews_result->fields;
 
-              $customer_info = array_merge($country, $info, $reviews);
+				$customer_info = array_merge($country, $info, $reviews);
 
-              $cInfo_array = array_merge($customers, $customer_info);
-              $cInfo = new objectInfo($cInfo_array);
+				$cInfo_array = array_merge($customers, $customer_info);
+				$cInfo = new objectInfo($cInfo_array);
           }
 
           if (isset($cInfo) && is_object($cInfo) && ($customers['customers_id'] == $cInfo->customers_id)) {
