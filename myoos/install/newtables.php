@@ -802,7 +802,7 @@ $flds = "
   customers_postcode C(10) NOTNULL,
   customers_state C(32),
   customers_country C(32) NOTNULL,
-  customers_telephone C(32) NOTNULL,
+  customers_telephone C(32),
   customers_email_address C(96) NOTNULL,
   customers_address_format_id I2 NOTNULL,
   delivery_firstname C(32) NOTNULL,
