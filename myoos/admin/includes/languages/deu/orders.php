@@ -72,6 +72,8 @@ define('ENTRY_DATE_LAST_UPDATED', 'letzte Aktualisierung am:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Kunde benachrichtigen:');
 define('ENTRY_NOTIFY_COMMENTS', 'Kommentare mitsenden:');
 define('ENTRY_PRINTABLE', 'Rechnung drucken');
+define('ENTRY_ADD_SERIAL', 'Seriennummer hinzufügen');
+define('ENTRY_ENTER_SERIAL', 'Seriennummer eingeben');
 
 define('TEXT_YES', 'Ja, ich möchte bei Auslieferung des neuen Gerätes ein Altgerät unentgeltlich zurückgeben.');
 define('TEXT_NO', 'Nein, ich möchte bei Auslieferung des neuen Gerätes kein Altgerät unentgeltlich zurückgeben.');

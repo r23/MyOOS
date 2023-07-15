@@ -72,6 +72,9 @@ define('ENTRY_DATE_LAST_UPDATED', 'Date Last Updated:');
 define('ENTRY_NOTIFY_CUSTOMER', 'Notify Customer:');
 define('ENTRY_NOTIFY_COMMENTS', 'Append Comments:');
 define('ENTRY_PRINTABLE', 'Print Invoice');
+define('ENTRY_ADD_SERIAL', 'Add Serial #');
+define('ENTRY_ENTER_SERIAL', 'Enter Serial #');
+
 
 define('TEXT_YES', 'Yes, I would like to return an old device free of charge upon delivery of the new device.');
 define('TEXT_NO', 'No, I do not want to return an old device free of charge when the new device is delivered.');

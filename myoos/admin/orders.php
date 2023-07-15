@@ -192,8 +192,9 @@ if (!empty($action)) {
         $serial = oos_db_prepare_input($_GET['serial']);
 
         $orders_productstable = $oostable['orders_products'];
-        $dbconn->Execute("UPDATE $orders_productstable SET products_serial_number = '" . oos_db_input($serial_number) . "' WHERE orders_id = '" . oos_db_input($oID) . "' AND orders_products_id = '" . oos_db_input($serial) . "'");
-
+		$query = "UPDATE $orders_productstable SET products_serial_number = '" . oos_db_input($serial_number) . "' WHERE orders_id = '" . oos_db_input($oID) . "' AND products_id = '" . oos_db_input($serial) . "'";
+		$dbconn->Execute($query);
+		
         $messageStack->add_session(SUCCESS_ORDER_UPDATED, 'success');
 
         oos_redirect_admin(oos_href_link_admin($aContents['orders'], oos_get_all_get_params(array('action')) . 'action=edit&serial_updated=1'));
@@ -390,8 +391,8 @@ require 'includes/header.php';
             }
         }
         echo '            </td>' . "\n";
+        $serial_number = ENTRY_ADD_SERIAL;
 
-        $serial_number = "Add Serial #";
         if (oos_is_not_null($order->products[$i]['serial_number'])) {
             $serial_number = $order->products[$i]['serial_number'];
         }
@@ -406,7 +407,7 @@ require 'includes/header.php';
 
         if ((isset($_GET['serial']) && ($_GET['serial'] == $i)) || (isset($_GET['serial_updated']) && ($_GET['serial_updated'] <> 1))) {
             echo '          <tr class="dataTableRow">' . "\n" .
-             '            <td colspan="2" valign="top" align="right">Enter Serial #:&nbsp;</td>' . "\n";
+             '            <td colspan="2" valign="top" align="right">' . ENTRY_ENTER_SERIAL . ':&nbsp;</td>' . "\n";
 
             echo '            <td colspan="7" valign="top">' .
                           oos_draw_form('id', 'serial_form', $aContents['orders'], 'action=update_serial&oID=' . $oID . '&serial=' . $order->products[$i]['id'], 'post', false) .
