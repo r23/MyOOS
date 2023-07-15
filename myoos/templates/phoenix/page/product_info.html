@@ -282,15 +282,7 @@
 		<div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="product_details_desc clearfix">
-					
-					{if $chart}		
-						<div class="relative mb-3">
-							{$chart}	
-						</div>
-					{/if}	
-					
-					
+                    <div class="product_details_desc clearfix">					
 						<div class="description_area">
 							{$product_info.products_description} 							
 						</div>
@@ -437,6 +429,26 @@
 			</div>
 		</div>	
 	{/if}
+
+
+		{if $chart}	
+			<div class="container">
+				<div class="row">
+					<div class="col-6">
+						<div class="relative mb-15">
+							{$chart}	
+						</div>
+	                </div>
+					<div class="col-6">
+						<div class="relative mb-15">
+							
+						</div>
+	                </div>
+				</div>
+			</div>
+		{/if}
+
+
 
 		<div class="container">
             <div class="row">
