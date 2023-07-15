@@ -526,7 +526,7 @@ $flds = "
   products_id C(32) NOTNULL,
   customers_basket_quantity I2 NOTNULL DEFAULT '1',
   free_redemption C(1) DEFAULT '',
-  final_price N '10.4'  NOTNULL,
+  final_price N '10.4' NOTNULL DEFAULT '0.0000',
   customers_basket_date_added C(8)
 ";
 dosql($table, $flds);
@@ -600,7 +600,7 @@ $flds = "
   products_id C(32) NOTNULL,
   customers_wishlist_quantity I2 NOTNULL DEFAULT '1', 
   free_redemption C(1) DEFAULT '',
-  final_price N '10.4'  NOTNULL,
+  final_price N '10.4' NOTNULL DEFAULT '0.0000',
   customers_wishlist_date_added C(8) DEFAULT ''
 ";
 dosql($table, $flds);
