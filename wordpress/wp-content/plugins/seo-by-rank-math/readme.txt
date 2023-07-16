@@ -5,7 +5,7 @@ Tags: seo, sitemap, google search console, schema, redirection, WordPress SEO
 Tested up to: 6.2.2
 Requires at least: 5.6
 Requires PHP: 7.4
-Stable tag: 1.0.119
+Stable tag: 1.0.119.1
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -592,5 +592,8 @@ Please drop us an email at support@rankmath.com and we would be more than happy 
 - Fixed: [Unpublish when Expired setting in the JobPosting Schema](https://rankmath.com/kb/jobposting-schema/#unpublish-when-expired) was not sticking after updating the post
 - Fixed: [Google Analytics 4 integration](https://rankmath.com/kb/using-ga4/) issue on some setups due to missing medium dimension
 - Fixed: [Site Analytics](https://rankmath.com/kb/analytics/#site-analytics) issue on Multisite sub-directory installation
+
+= 1.0.119.1 [July 16, 2023] =
+- Improved: Strengthened the security of the plugin. Thanks to [Patchstack](https://patchstack.com/) for revealing it responsibly
 
 Full changelog can be found here - **[Rank Math changelog](https://rankmath.com/changelog/?utm_source=Plugin&utm_medium=Changelog&utm_campaign=WP)**
