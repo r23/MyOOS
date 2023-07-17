@@ -2708,17 +2708,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "63f15424de3fd93ab776497787df3bb2eded004b"
+                "reference": "e5af9ce18347a240cb120454a8c2665c5b162aa1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/63f15424de3fd93ab776497787df3bb2eded004b",
-                "reference": "63f15424de3fd93ab776497787df3bb2eded004b",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e5af9ce18347a240cb120454a8c2665c5b162aa1",
+                "reference": "e5af9ce18347a240cb120454a8c2665c5b162aa1",
                 "shasum": ""
             },
             "conflict": {
                 "3f/pygmentize": "<1.2",
-                "admidio/admidio": "<4.2.9",
+                "admidio/admidio": "<4.2.10",
                 "adodb/adodb-php": "<=5.20.20|>=5.21,<=5.21.3",
                 "aheinze/cockpit": "<=2.2.1",
                 "aimeos/aimeos-typo3": "<19.10.12|>=20,<20.10.5",
@@ -3300,7 +3300,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<6.0.22"
             },
-            "time": "2023-07-14T22:04:26+00:00",
+            "time": "2023-07-17T11:04:34+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
