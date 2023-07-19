@@ -48,19 +48,19 @@
                       <div class="form-group row">
                         <label for="FirstName" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_first_name} <small class="text-default">*</small></label>
                         <div class="col-lg-10">
-						  <input type="text" class="form-control" id="billingFirstName" name="firstname" value="{$account.customers_firstname}">
+							<input type="text" value="{$smarty.post.firstname|escape}" class="form-control" id="firstname" name="firstname" placeholder="{$lang.entry_first_name}" required>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="LastName" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_last_name} <small class="text-default">*</small></label>
                         <div class="col-lg-10">
-							<input type="text" class="form-control" id="billingLastName" name="lastname" value="{$account.customers_lastname}">
+							<input type="text" value="{$smarty.post.lastname|escape}" class="form-control" id="lastname" name="lastname" placeholder="{$lang.entry_last_name}" required>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="email" class="col-lg-2 control-label text-lg-right col-form-label">E-Mail <small class="text-default">*</small></label>
                         <div class="col-lg-10">
-							<input type="email" class="form-control" id="billingemail" name="email_address" value="{$email_address}">
+							<input type="email" value="{$smarty.post.email_address|escape}" class="form-control" id="email_address" name="email_address" placeholder="{$lang.entry_email_address}" required>
                         </div>
                       </div>
                     </div>
@@ -105,19 +105,19 @@
                       <div class="form-group row">
                         <label for="billingAddress1" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_street_address} <small class="text-default">*</small></label>
                         <div class="col-lg-10">
-							<input type="text" class="form-control" id="billingAddress1" name="street_address" value="{$account.entry_street_address}">
+							<input type="text" value="{$smarty.post.street_address|escape}" class="form-control" id="street_address" name="street_address" placeholder="{$lang.entry_street_address}" required>
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="billingPostalCode" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_post_code} <small class="text-default">*</small></label>
                         <div class="col-lg-10">
-							<input type="text" class="form-control" id="billingPostalCode" name="postcode" value="{$account.entry_postcode}">
+							<input type="text" value="{$smarty.post.postcode|escape}" class="form-control" id="postcode" name="postcode" placeholder="{$lang.entry_post_code}" required>
                         </div>
                       </div>					  
                       <div class="form-group row">
                         <label for="billingCity" class="col-lg-2 control-label text-lg-right col-form-label">{$lang.entry_city} <small class="text-default">*</small></label>
                         <div class="col-lg-10">
-							<input type="text" class="form-control" id="billingCity" name="city" value="{$account.entry_city}">
+							<input type="text" value="{$smarty.post.city|escape}" class="form-control" id="city" name="city" placeholder="{$lang.entry_city}" required>
                         </div>
                       </div>
 
@@ -181,7 +181,7 @@
 
 {if $smarty.const.NEWSLETTER eq 'true'}
               <fieldset>
-                <legend>{$lang.entry_dsgvo_title}</legend>				  
+                <legend></legend>				  
 				  
                   <div class="row">
 					<div class="col-lg-12">
@@ -250,15 +250,7 @@
 					</div>
 					<div class="card-body">
 
-						{if $smarty.const.ACCOUNT_GENDER eq 'true'}
-							<div class="form-group">
-								<label class="col-sm-4 form-control-label" for="gender">{$lang.entry_gender} *</label>
-								<div class="col-sm-5">
-									<input type="radio" id="gender" name="gender" value="m" {if $smarty.post.gender eq m}checked="checked"{/if} required> {$lang.male} <input type="radio" id="gender" name="gender" value="f" {if $smarty.post.gender eq f}checked="checked"{/if} required> {$lang.female} <input  type="radio" id="gender" name="gender" value="d" {if $smarty.post.gender eq d}checked="checked"{/if} required> {$lang.diverse} 
-								</div>						
-							</div>
-						{/if}				
-						
+
 							<div class="form-group">
 								<label class="col-sm-4 form-control-label" for="firstname">{$lang.entry_first_name} *</label>
 								<div class="col-sm-5">
