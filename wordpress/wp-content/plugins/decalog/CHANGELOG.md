@@ -3,6 +3,22 @@ All notable changes to **DecaLog** are documented in this *changelog*.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and **DecaLog** adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+
+## [3.8.0] - 2023-07-19
+
+### Added
+- Compatibility with WordPress 6.3.
+- Datadog events logging now supports all events levels (thanks to [Jan Thiel](https://github.com/JanThiel)).
+
+### Changed
+- The color for `shmop` test in Site Health is now gray to not worry to much about it (was previously orange).
+
+### Fixed
+- The url for console error remediation is wrong.
+
+### Removed
+- Support for WP Activity Log plugin because it doesn't adhere to observability basic standards.
+
 ## [3.7.1] - 2023-03-02
 
 ### Fixed
