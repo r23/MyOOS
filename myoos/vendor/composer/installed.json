@@ -2708,12 +2708,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "3596a07e255491ec8092b554f559a2670267e058"
+                "reference": "7521cb38a353696d8c0f8eca07527d51096f6730"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/3596a07e255491ec8092b554f559a2670267e058",
-                "reference": "3596a07e255491ec8092b554f559a2670267e058",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/7521cb38a353696d8c0f8eca07527d51096f6730",
+                "reference": "7521cb38a353696d8c0f8eca07527d51096f6730",
                 "shasum": ""
             },
             "conflict": {
@@ -3102,6 +3102,7 @@
                 "scheb/two-factor-bundle": ">=0,<3.26|>=4,<4.11",
                 "sensiolabs/connect": "<4.2.3",
                 "serluck/phpwhois": "<=4.2.6",
+                "sfroemken/url_redirect": "<=1.2.1",
                 "sheng/yiicms": "<=1.2",
                 "shopware/core": "<=6.4.20",
                 "shopware/platform": "<=6.4.20",
@@ -3110,6 +3111,7 @@
                 "shopware/storefront": "<=6.4.8.1",
                 "shopxo/shopxo": "<2.2.6",
                 "showdoc/showdoc": "<2.10.4",
+                "silverstripe-australia/advancedreports": ">=1,<=2",
                 "silverstripe/admin": "<=3",
                 "silverstripe/assets": ">=1,<1.11.1",
                 "silverstripe/cms": "<4.11.3",
@@ -3133,6 +3135,7 @@
                 "simplesamlphp/simplesamlphp-module-openidprovider": "<0.9",
                 "simplito/elliptic-php": "<1.0.6",
                 "sitegeist/fluid-components": "<3.5",
+                "sjbr/sr-freecap": "<=2.5.2",
                 "slim/psr7": "<1.4.1|>=1.5,<1.5.1|>=1.6,<1.6.1",
                 "slim/slim": "<2.6",
                 "smarty/smarty": "<3.1.48|>=4,<4.3.1",
@@ -3302,7 +3305,7 @@
                 "zfr/zfr-oauth2-server-module": "<0.1.2",
                 "zoujingli/thinkadmin": "<6.0.22"
             },
-            "time": "2023-07-18T00:24:41+00:00",
+            "time": "2023-07-18T20:04:29+00:00",
             "default-branch": true,
             "type": "metapackage",
             "notification-url": "https://packagist.org/downloads/",
@@ -3399,17 +3402,17 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v4.3.1",
-            "version_normalized": "4.3.1.0",
+            "version": "v4.3.2",
+            "version_normalized": "4.3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "e28cb0915b4e3749bf57d4ebae2984e25395cfe5"
+                "reference": "1d9cda2be34fd6edb74924684260636fd0b89288"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/e28cb0915b4e3749bf57d4ebae2984e25395cfe5",
-                "reference": "e28cb0915b4e3749bf57d4ebae2984e25395cfe5",
+                "url": "https://api.github.com/repos/smarty-php/smarty/zipball/1d9cda2be34fd6edb74924684260636fd0b89288",
+                "reference": "1d9cda2be34fd6edb74924684260636fd0b89288",
                 "shasum": ""
             },
             "require": {
@@ -3419,7 +3422,7 @@
                 "phpunit/phpunit": "^8.5 || ^7.5",
                 "smarty/smarty-lexer": "^3.1"
             },
-            "time": "2023-03-28T19:47:03+00:00",
+            "time": "2023-07-19T10:27:36+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -3462,7 +3465,7 @@
             "support": {
                 "forum": "https://github.com/smarty-php/smarty/discussions",
                 "issues": "https://github.com/smarty-php/smarty/issues",
-                "source": "https://github.com/smarty-php/smarty/tree/v4.3.1"
+                "source": "https://github.com/smarty-php/smarty/tree/v4.3.2"
             },
             "install-path": "../smarty/smarty"
         },

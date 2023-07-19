@@ -3,7 +3,7 @@
         'name' => 'myoos/myoos',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'fd5af400f08ec4d6fa2d9881f05bcc283fd44ada',
+        'reference' => 'f6de607eccea828d61979d7e764c0f280a18e2be',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -184,7 +184,7 @@
         'myoos/myoos' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'fd5af400f08ec4d6fa2d9881f05bcc283fd44ada',
+            'reference' => 'f6de607eccea828d61979d7e764c0f280a18e2be',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -442,7 +442,7 @@
         'roave/security-advisories' => array(
             'pretty_version' => 'dev-latest',
             'version' => 'dev-latest',
-            'reference' => '3596a07e255491ec8092b554f559a2670267e058',
+            'reference' => '7521cb38a353696d8c0f8eca07527d51096f6730',
             'type' => 'metapackage',
             'install_path' => NULL,
             'aliases' => array(
@@ -460,9 +460,9 @@
             'dev_requirement' => false,
         ),
         'smarty/smarty' => array(
-            'pretty_version' => 'v4.3.1',
-            'version' => '4.3.1.0',
-            'reference' => 'e28cb0915b4e3749bf57d4ebae2984e25395cfe5',
+            'pretty_version' => 'v4.3.2',
+            'version' => '4.3.2.0',
+            'reference' => '1d9cda2be34fd6edb74924684260636fd0b89288',
             'type' => 'library',
             'install_path' => __DIR__ . '/../smarty/smarty',
             'aliases' => array(),
