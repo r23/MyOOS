@@ -583,37 +583,38 @@ final class ReaderThemeSupportFeatures implements Service, Registerable {
 			return wp_theme_has_theme_json();
 		}
 
-		static $theme_has_support = null;
+		static $theme_has_support = [];
+
+		$stylesheet = get_stylesheet();
 
 		if (
-			null !== $theme_has_support &&
+			isset( $theme_has_support[ $stylesheet ] ) &&
 
 			/*
 			* Ignore static cache when `WP_DEBUG` is enabled. Why? To avoid interfering with
-			* the theme developer's workflow.
-			*
-			* @todo Replace `WP_DEBUG` once an "in development mode" check is available in Core.
+			* the theme developer's workflow. Note that core uses a newer wp_get_development_mode() check.
 			*/
-			! ( defined( 'WP_DEBUG' ) && WP_DEBUG ) &&
-
-			/*
-			* Ignore cache when automated test suites are running. Why? To ensure
-			* the static cache is reset between each test.
-			*/
-			! ( defined( 'WP_RUN_CORE_TESTS' ) && WP_RUN_CORE_TESTS )
+			! ( defined( 'WP_DEBUG' ) && WP_DEBUG )
 		) {
-			return $theme_has_support;
+			return $theme_has_support[ $stylesheet ];
 		}
 
-		// Does the theme have its own theme.json?
-		$theme_has_support = is_readable( get_stylesheet_directory() . '/theme.json' );
+		$stylesheet_directory = get_stylesheet_directory();
+		$template_directory   = get_template_directory();
 
-		// Look up the parent if the child does not have a theme.json.
-		if ( ! $theme_has_support ) {
-			$theme_has_support = is_readable( get_template_directory() . '/theme.json' );
+		// This is the same as get_theme_file_path(), which isn't available in load-styles.php context.
+		if ( $stylesheet_directory !== $template_directory && file_exists( $stylesheet_directory . '/theme.json' ) ) {
+			$path = $stylesheet_directory . '/theme.json';
+		} else {
+			$path = $template_directory . '/theme.json';
 		}
 
-		return $theme_has_support;
+		/** This filter is documented in wp-includes/link-template.php */
+		$path = apply_filters( 'theme_file_path', $path, 'theme.json' );
+
+		$theme_has_support[ $stylesheet ] = file_exists( $path );
+
+		return $theme_has_support[ $stylesheet ];
 	}
 
 	/**

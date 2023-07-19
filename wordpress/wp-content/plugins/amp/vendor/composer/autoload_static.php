@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb01de5a5e4a9a5142429384727b3cb65
+class ComposerStaticInit2a1baf90b33f510f0618d577bd91acc9
 {
     public static $files = array (
         '356506e5d3d2f49e680971cd925046fa' => __DIR__ . '/..' . '/ampproject/amp-toolbox/include/compatibility-fixes.php',
@@ -1432,9 +1432,9 @@ class ComposerStaticInitb01de5a5e4a9a5142429384727b3cb65
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb01de5a5e4a9a5142429384727b3cb65::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb01de5a5e4a9a5142429384727b3cb65::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb01de5a5e4a9a5142429384727b3cb65::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit2a1baf90b33f510f0618d577bd91acc9::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit2a1baf90b33f510f0618d577bd91acc9::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit2a1baf90b33f510f0618d577bd91acc9::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -66,6 +66,14 @@ class AMP_Core_Block_Handler extends AMP_Base_Embed_Handler {
 	 * Register embed.
 	 */
 	public function register_embed() {
+		/*
+		 * Disable interactivity API on core/navigation block.
+		 * Currently this support is added by Gutenberg plugin, but it will be a part of WP 6.3 as well.
+		 *
+		 * @TODO: Need to revisit once Interactivity API is landed in WP Core.
+		*/
+		add_filter( 'gutenberg_should_block_use_interactivity_api', '__return_false' );
+
 		add_filter( 'render_block', [ $this, 'filter_rendered_block' ], 0, 2 );
 		add_filter( 'widget_text_content', [ $this, 'preserve_widget_text_element_dimensions' ], PHP_INT_MAX );
 	}
@@ -74,6 +82,7 @@ class AMP_Core_Block_Handler extends AMP_Base_Embed_Handler {
 	 * Unregister embed.
 	 */
 	public function unregister_embed() {
+		remove_filter( 'gutenberg_should_block_use_interactivity_api', '__return_false' );
 		remove_filter( 'render_block', [ $this, 'filter_rendered_block' ], 0 );
 		remove_filter( 'widget_text_content', [ $this, 'preserve_widget_text_element_dimensions' ], PHP_INT_MAX );
 	}
@@ -569,6 +578,7 @@ class AMP_Core_Block_Handler extends AMP_Base_Embed_Handler {
 		foreach ( $dom->xpath->query( '//div[ @class = "textwidget" ]' ) as $text_widget ) {
 			// Restore the width/height attributes which were preserved in preserve_widget_text_element_dimensions.
 			foreach ( $dom->xpath->query( sprintf( './/*[ @%s or @%s ]', self::AMP_PRESERVED_WIDTH_ATTRIBUTE_NAME, self::AMP_PRESERVED_HEIGHT_ATTRIBUTE_NAME ), $text_widget ) as $element ) {
+				/** @var DOMElement $element */
 				if ( $element->hasAttribute( self::AMP_PRESERVED_WIDTH_ATTRIBUTE_NAME ) ) {
 					$element->setAttribute( Attribute::WIDTH, $element->getAttribute( self::AMP_PRESERVED_WIDTH_ATTRIBUTE_NAME ) );
 					$element->removeAttribute( self::AMP_PRESERVED_WIDTH_ATTRIBUTE_NAME );
@@ -586,6 +596,7 @@ class AMP_Core_Block_Handler extends AMP_Base_Embed_Handler {
 			 * responsive so this is built-in. Note also the style rule for .wp-video in amp-default.css.
 			 */
 			foreach ( $dom->xpath->query( './/div[ @class = "wp-video" and @style ]', $text_widget ) as $element ) {
+				/** @var DOMElement $element */
 				$element->removeAttribute( 'style' );
 			}
 		}
