@@ -6,7 +6,7 @@
 Plugin Name: WordPress w3all phpBB integration
 Plugin URI: http://axew3.com/w3
 Description: Integration plugin between WordPress and phpBB. It provide free integration - users transfer/login/register. Easy, light, secure, powerful
-Version: 2.7.1
+Version: 2.7.2
 Author: axew3
 Author URI: http://www.axew3.com/w3
 License: GPLv2 or later
@@ -33,12 +33,12 @@ if ( defined( 'W3PHPBBDBCONN' ) OR defined( 'W3PHPBBUSESSION' ) OR defined( 'W3P
   die( 'Forbidden' );
 endif;
 
-define( 'WPW3ALL_VERSION', '2.7.1' );
-define( 'WPW3ALL_MINIMUM_WP_VERSION', '5.0' );
+define( 'WPW3ALL_VERSION', '2.7.2' );
+define( 'WPW3ALL_MINIMUM_WP_VERSION', '6.0' );
 define( 'WPW3ALL_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'WPW3ALL_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-$wp_userphpbbavatar = $w3all_phpbb_connection = $phpbb_config = $w3all_phpbb_usession = $w3all_wp_email_exist_inphpbb = $w3all_oninsert_wp_user = $w3all_wpusers_delete_ary = $w3all_wpusers_delete_once = $phpbb_online_udata = $w3all_widget_phpbb_onlineStats_exec = ''; // $w3all_oninsert_wp_user used to check if WP is creating an user, switch to 1 before wp_insert_user fire so to avoid user's email check into phpBB
+$wp_userphpbbavatar = $w3all_u_ava_urls = $w3all_bbcode_tohtml = $w3all_phpbb_connection = $phpbb_config = $phpbb_user_data = $w3all_phpbb_usession = $w3all_wp_email_exist_inphpbb = $w3all_oninsert_wp_user = $w3all_wpusers_delete_ary = $w3all_wpusers_delete_once = $phpbb_online_udata = $w3all_widget_phpbb_onlineStats_exec = $w3all_user_email_hash = $phpbb_unread_topics = ''; // $w3all_oninsert_wp_user used to check if WP is creating an user, switch to 1 before wp_insert_user fire so to avoid user's email check into phpBB
 $w3all_phpbb_profile_fields = $w3all_phpbb_unotifications = array();
 
 $w3all_w_lastopicspost_max = get_option( 'widget_wp_w3all_widget_last_topics' );
@@ -90,7 +90,7 @@ if(isset($w3reset_cookie_domain)){
    $w3all_last_t_avatar_dim = isset($w3all_config_avatars['w3all_lasttopic_avatar_dim']) ? $w3all_config_avatars['w3all_lasttopic_avatar_dim'] : '';
    $w3all_lasttopic_avatar_num = isset($w3all_config_avatars['w3all_lasttopic_avatar_num']) ? $w3all_config_avatars['w3all_lasttopic_avatar_num'] : '';
 
-   $w3all_conf_pref = empty(trim($w3all_conf_pref)) ? array() : unserialize($w3all_conf_pref);
+   $w3all_conf_pref = empty($w3all_conf_pref) ? array() : unserialize($w3all_conf_pref);
    $w3all_transfer_phpbb_yn = isset($w3all_conf_pref['w3all_transfer_phpbb_yn']) ? $w3all_conf_pref['w3all_transfer_phpbb_yn'] : '';
    $w3all_phpbb_widget_mark_ru_yn = isset($w3all_conf_pref['w3all_phpbb_widget_mark_ru_yn']) ? $w3all_conf_pref['w3all_phpbb_widget_mark_ru_yn'] : '';
    $w3all_phpbb_widget_FA_mark_yn = isset($w3all_conf_pref['w3all_phpbb_widget_FA_mark_yn']) ? $w3all_conf_pref['w3all_phpbb_widget_FA_mark_yn'] : 0;
@@ -528,10 +528,10 @@ if(isset($_COOKIE["w3all_set_cmsg"]) && !empty($_COOKIE["w3all_set_cmsg"])){
      return __('Notice: your username, IP or email is currently banned into our forum. Please contact an administrator.', 'wp-w3all-phpbb-integration');
     }
     if(trim($_COOKIE["w3all_set_cmsg"]) == 'phpbb_deactivated'){
-     return __('Notice: the specified username is currently inactive into our forum. Please contact an administrator.', 'wp-w3all-phpbb-integration');
+     return __('Notice: the username is currently inactive into our forum. Please contact an administrator.', 'wp-w3all-phpbb-integration');
     }
     if(trim($_COOKIE["w3all_set_cmsg"]) == 'phpbb_uname_chars_error'){
-     return __('Notice: the specified username contains characters not allowed in this system. Please contact an administrator.', 'wp-w3all-phpbb-integration');
+     return __('Notice: the forum username contains forbidden characters into this system. Please contact an administrator.', 'wp-w3all-phpbb-integration');
     }
     if(trim($_COOKIE["w3all_set_cmsg"]) == 'phpbb_sess_brutef_error'){
      return __('Notice: mismatching session. Please login here to unlock your account.', 'wp-w3all-phpbb-integration');
@@ -714,7 +714,9 @@ if(! is_admin())
 if(! defined("WPW3ALL_NOT_ULINKED")){
  add_filter( 'validate_username', 'w3all_on_signup_check', 1, 2 ); // give precedence, prevent others to add a signup not needed
  add_action( 'init', 'w3all_add_phpbb_user' );
- add_filter( 'wp_pre_insert_user_data', 'w3all_wp_pre_insert_user_data', 10, 4 );
+  if ( ! defined( 'WP_ADMIN' ) ){ // let run it only for front end plugin pages
+   add_filter( 'wp_pre_insert_user_data', 'w3all_wp_pre_insert_user_data', 10, 4 );
+  }
 }
 
 // jQuery
@@ -996,12 +998,10 @@ function wp_check_password($password, $hash, $user_id = '') {
            //create user in phpBB, login the user wp (that will setup the phpbb session also)
           }*/
 
-        $wp_uid_added_into_phpbb = WP_w3all_phpbb::create_phpBB_user_res($wpu, 'add_u_phpbb_after_login');
+        WP_w3all_phpbb::create_phpBB_user_res($wpu, 'add_u_phpbb_after_login');
        }
 
-///////////
-
-        $phpBB_user_session_set = WP_w3all_phpbb::phpBB_user_session_set_res($wpu);
+        WP_w3all_phpbb::phpBB_user_session_set_res($wpu);
       } else {
            $check = false;
         }
@@ -1055,7 +1055,7 @@ function w3all_wp_pre_insert_user_data($data, $update, $updating_user_id, $userd
     $cu = $phpbb_config["cookie_name"].'_u';
    }
 
-# param $updating_user_id -> null when inserting a new user
+  # param $updating_user_id -> null when inserting a new user
   if(empty($updating_user_id) && isset($cu) && intval($_COOKIE[$cu]) < 3)
   {
    if(is_array($userdata) && !empty($userdata['user_email'])){
@@ -1069,9 +1069,8 @@ function w3all_wp_pre_insert_user_data($data, $update, $updating_user_id, $userd
      $error = new WP_Error();
      $error->add( 'invalid_email', 'Error: Username or email address exist into our forum.' );
     }
-  } /*elseif($updating_user_id > 1){ // updating user
+   } /*elseif($updating_user_id > 1){ // updating user
       }*/
-
    return $data;
 }
 

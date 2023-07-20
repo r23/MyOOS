@@ -21,7 +21,7 @@ foreach($phpbb_online_udata as $udata) :
    // use widget $ava_dimension if the value has been set for this widget
    // do not rewrite global $w3all_last_t_avatar_dim
     if( $online_ulink_yn > 0 ){
-     echo get_avatar($udata['user_email'], $avatar_dim,'',$udata['username']) 
+     echo get_avatar($udata['user_email'], $avatar_dim,'',$udata['username'])
      .'<a href="'.$w3all_url_to_cms.'/memberlist.php?mode=viewprofile&u='.$udata['user_id'].'">'.$udata['username'].'</a>';
     } else {
        echo '<a href="'.$w3all_url_to_cms.'/memberlist.php?mode=viewprofile&u='.$udata['user_id'].'">'.get_avatar($udata['user_email'], $avatar_dim,'',$udata['username']).'</a>';

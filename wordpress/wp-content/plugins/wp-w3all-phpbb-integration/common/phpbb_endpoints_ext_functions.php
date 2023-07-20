@@ -1,4 +1,4 @@
- <?php defined( 'ABSPATH' ) or die( 'forbidden' );
+<?php defined( 'ABSPATH' ) or die( 'forbidden' );
 // to understand these, see phpBB/ext/w3all/phpbbwordpressintegration/event/main_listener.php
 // included into wp_w3all.php only if option/s active
 // list of hooks for endpoints in wp_w3all.php:

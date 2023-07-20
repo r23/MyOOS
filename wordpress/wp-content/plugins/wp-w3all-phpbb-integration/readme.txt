@@ -2,20 +2,19 @@
 Contributors: axewww
 Donate link: http://www.paypal.me/alessionanni/
 Tags: wordpress, phpbb, integration, template, user
-Stable tag: 2.7.1
+Stable tag: 2.7.2
 License: GPLv2 or later
-Requires at least: 5.0.0
+Requires at least: 6.0.0
 Tested up to: 6.3
-Requires PHP: 7.0
+Requires PHP: 7.2
 
 WordPress w3all phpBB integration - easy, light, secure, powerful.
 
 == Description ==
 WP w3all phpBB provides free user login and registration integration between a phpBB bulletin board and WordPress CMS.
-The easier, light, secure and powerful
 
 = Wp w3all phpBB integration =
-Integration cookie based between WordPress and phpBB installed on same and subdomains.
+Integration cookie based between WordPress and phpBB installed on same and subdomains
 
 After the setup and initialization of the plugin, WP users will automatically be added into phpBB when they register in WordPress, while without using the phpBB extension installed into phpBB, if users are allowed to register in phpBB, they will be added into WordPress when they will visit the WordPress side as logged in or at their first login in WordPress (or install the phpBB extension to add users at same time into WordPress when they register in phpBB). But you could use the plugin just only to transfer users between phpBB and Wordpress by activating the plugin as not linked (read the help install page), or to show phpBB posts into a WordPress hosted into another domain
 
@@ -73,6 +72,14 @@ WP w3all phpBB help page with common questions, setup and usage guides, and answ
 3. WP w3all auto embed phpBB into your WordPress template
 
 == Changelog ==
+
+= 2.7.2 =
+*Release Date - 19 Jul, 2023*
+* Fix: warnings on PHP Version 8.2.6> - PHP Deprecated:  Use of "self" in callables is deprecated in .../wp-w3all-phpbb-integration/class.wp.w3all-phpbb.php on line ... (and wp_w3all.php file)
+* Fix: add_filter( 'wp_pre_insert_user_data' on file wp_w3all.php: run it only when on front end (external plugins registration pages). As reported here https://wordpress.org/support/topic/cannot-create-new-wp-users/#post-16904026 it has been tested without possiblity to reproduce the issue on Php 8.2.6 and the last nightly WP. Anyway, and in any case, it should be now resolved.
+* Update: updated all iframe resize files to latest 4.3.6 version on folder /wp-w3all-phpbb-integration/addons/resizer/  https://github.com/davidjbradshaw/iframe-resizer
+* Hint: if using the iframe template integration, remember to update/replace the files iframeResizer.contentWindow.map and iframeResizer.contentWindow.min.js into the phpBB root, that you have to copy on folder: /wp-content/plugins/wp-w3all-phpbb-integration/addons/resizer then remember to Recompile stale style components on phpBB ACP
+* Minor fixes all around (also hints)
 
 = 2.7.1 =
 *Release Date - 26 Apr, 2023*

@@ -5,7 +5,7 @@
  if ( $w3all_avatars_yn ) {
   $w3all_avatars_yn = $no_avatars > 0 ? false : $w3all_avatars_yn;
  }
- 
+
  $dateformat = get_option('date_format');
  $gmtoffset = get_option('gmt_offset');
  $timeformat = get_option('time_format');
@@ -80,9 +80,9 @@ if(!empty($w3phpbbuava)){
        }
 
          if ( $wp_w3all_post_text == 1 ){ // links, post text, author and date
-          
+
           $value->post_text = wp_w3all_remove_bbcode_tags($value->post_text, $wp_w3all_text_words);
-          
+
           if ( $w3all_avatars_yn ){
 
              echo "<li class=\"".$w3all_lastopics_style_li_class."\"><table style=\"border-spacing:0;border-collapse:collapse;vertical-align:middle;margin:0;border:0;\"><tr><td style=\"border:0;width:".$w3all_last_t_avatar_dim."px;\">".$w3all_avatar_display."</td><td style=\"border:0;width:auto\"><a href=\"$w3all_url_to_cms/viewtopic.php?f=$value->forum_id&amp;t=$value->topic_id&amp;p=$value->post_id#p$value->post_id\">$value->topic_title</a> ".$w3all_post_state_ru."<br />$value->post_text ...<br />". __( 'by ' , 'wp-w3all-phpbb-integration' )." $value->topic_last_poster_name<br />". date_i18n( $dateformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ." ". date_i18n( $timeformat, $value->topic_last_post_time + ( 3600 * $gmtoffset) ) ."</td></tr></table></li>\n";

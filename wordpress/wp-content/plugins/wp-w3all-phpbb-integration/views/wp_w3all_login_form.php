@@ -1,5 +1,5 @@
 <?php defined( 'ABSPATH' ) or die( 'forbidden' );
-     
+
 if(is_home()){
 $current_url = get_home_url();
 } else {
