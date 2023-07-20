@@ -16,22 +16,21 @@
 </div>
 {/if}
 
-	<div class="container">
+	<div class="container account">
 		<div class="row">
 			<div class="col-md-12">
 			
-              <fieldset>
-                <legend>{$lang.category_personal}</legend>
-				
+			<fieldset>
+                <legend>{$lang.category_personal}</legend>			
 					<form name="create_account" id="create_account" class="form-horizontal" action="{html_get_link}" method="POST">
-						<fieldset>
 							<input type="hidden" name="action" value="process">
 							<input type="hidden" name="content" value="{$filename.create_account}">	
 						{if $mySystem.sed}
 							<input type="hidden" name="{$mySystem.session_name}" value="{$mySystem.session_id}">
 							<input type="hidden" name="formid" value="{$mySystem.formid}">
 						{/if}				
-			
+
+				
                   <div class="row">
                     <div class="col-xl-3">
                       <h3 class="title">{$lang.category_personal}</h3>
