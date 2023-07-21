@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Contact Form 7 - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-04-14 20:26:16+0000\n"
+"PO-Revision-Date: 2023-07-21 08:36:55+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,37 @@ msgstr ""
 "X-Generator: GlotPress/4.0.0-alpha.4\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Contact Form 7 - Stable (latest release)\n"
+
+#: modules/sendinblue/service.php:163
+msgid "Brevo is active on this site."
+msgstr "Brevo ist auf dieser Website aktiv."
+
+#: modules/sendinblue/contact-form-properties.php:109
+#: modules/sendinblue/service.php:30
+msgid "Brevo (formerly Sendinblue)"
+msgstr "Brevo (bisher Sendinblue)"
+
+#: modules/sendinblue/contact-form-properties.php:101
+#: modules/sendinblue/service.php:156
+msgid "Brevo (formerly Sendinblue) integration"
+msgstr "Brevo (bisher Sendinblue) Integration"
+
+#: admin/includes/welcome-panel.php:153
+#: modules/sendinblue/contact-form-properties.php:297
+msgid "Brevo"
+msgstr "Brevo"
+
+#: admin/admin.php:689
+msgid "The next major release of Contact Form 7 will discontinue support for outdated PHP versions. If you don't upgrade PHP, you will not be able to upgrade the plugin."
+msgstr "Das nächste große Update von Contact Form 7 wird veraltete PHP-Versionen nicht mehr unterstützen. Wenn du deine PHP-Version nicht aktualisiert, wirst du nicht in der Lage sein, das Plugin zu aktualisieren."
+
+#: includes/contact-form-functions.php:230
+msgid "Contact form not found."
+msgstr "Kontaktformular wurde nicht gefunden."
+
+#: includes/contact-form-functions.php:229
+msgid "Error:"
+msgstr "Fehler:"
 
 #: includes/block-editor/block.json
 msgctxt "block keyword"
@@ -328,6 +359,10 @@ msgstr "Füge die Formularabsender zu deinen Kontaktlisten hinzu"
 msgid "Contact lists"
 msgstr "Kontaktlisten"
 
+#: modules/sendinblue/contact-form-properties.php:97
+msgid "You can set up the Brevo integration here. For details, see %s."
+msgstr "Du kannst die Brevo-Integration hier einrichten. Detail findest du auf %s."
+
 #: modules/sendinblue/service.php:212
 msgid "Save changes"
 msgstr "Änderungen speichern"
@@ -350,6 +385,10 @@ msgstr "Integration konfigurieren"
 #: modules/sendinblue/service.php:155
 msgid "https://contactform7.com/sendinblue-integration/"
 msgstr "https://contactform7.com/sendinblue-integration/"
+
+#: modules/sendinblue/service.php:149
+msgid "Store and organize your contacts while protecting user privacy on Brevo, the leading CRM & email marketing platform in Europe. Brevo offers unlimited contacts and advanced marketing features."
+msgstr "Verwalte und organisiere deine Kontakte, während du den Datenschutz deiner Benutzer bei Brevo, der führenden CRM- und E-Mail-Marketing-Plattform in Europa, schützt. Brevo bietet unendliche Kontakte und erweiterte Marketing-Funktionen."
 
 #: modules/sendinblue/service.php:126
 msgid "You have not been authenticated. Make sure the provided API key is correct."
