@@ -1,11 +1,11 @@
 <?php
-/* ----------------------------------------------------------------------
-   $Id: newconfigdata.php,v 1.4 2009/01/16 13:37:39 r23 Exp $
+/**
+   ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2021 by the MyOOS Development Team
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 

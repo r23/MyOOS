@@ -1,6 +1,6 @@
 <?php
-/* ----------------------------------------------------------------------
-   $Id: newtables.php,v 1.2 2007/06/26 21:35:03 r23 Exp $
+/**
+   ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -1207,14 +1207,17 @@ dosql($table, $flds);
 
 $table = $prefix_table . 'products_price_alarm_recipients';
 $flds = "
-	price_alarm_recipients_id I NOTNULL AUTO PRIMARY,
-	customers_email_address C(96) NOTNULL,
-	date_added T,
-	mail_key C(32) NOTNULL,
-	mail_sha1 C(232) NOTNULL,
-	key_sent T,
-	status I1 DEFAULT '0'
+  price_alarm_recipients_id I NOTNULL AUTO PRIMARY,
+  price_alert_receiver_email_address C(96) NOTNULL,
+  price_alert_receiver_password C(255),	
+  customers_id I,
+  date_added T,
+  mail_key C(32) NOTNULL,
+  mail_sha1 C(232) NOTNULL,
+  key_sent T,
+  status I1 DEFAULT '0'
 ";
+dosql($table, $flds);
 
 
 $table = $prefix_table . 'products_price_alarm_history';

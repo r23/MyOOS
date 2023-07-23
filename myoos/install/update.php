@@ -1,6 +1,5 @@
 <?php
 /* ----------------------------------------------------------------------
-   $Id: update.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
@@ -114,114 +113,13 @@ case "Finish":
     print_oosFinish();
     break;
 
-case "myOOS 2.4.51":
+
+case "myOOS 2.4.58":
     oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2451($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
+    oosDoUpgrade2458($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
     print_Next();
     break;
 
-
-case "myOOS 2.4.50":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2450($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.49":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2449($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.48":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2448($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.47":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2447($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.46":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2446($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.45":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2445($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.40":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2440($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.39":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2439($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.38":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2438($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.34":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2434($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.33":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2433($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.26":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2426($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.20":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2420($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.16":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2416($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.3":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade243($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.4.1":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade241($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
-
-case "myOOS 2.3.12":
-    oosDBInit($dbhost, $dbuname, $dbpass, $dbname, $dbtype);
-    oosDoUpgrade2312($dbhost, $dbuname, $dbpass, $dbname, $prefix_table, $dbtype);
-    print_Next();
-    break;
 
 default:
 

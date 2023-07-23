@@ -1,11 +1,11 @@
 <?php
-/* ----------------------------------------------------------------------
-   $Id: modify_configure.php,v 1.1 2007/06/13 16:41:18 r23 Exp $
+/**
+   ----------------------------------------------------------------------
 
    MyOOS [Shopsystem]
    https://www.oos-shop.de
 
-   Copyright (c) 2003 - 2021 by the MyOOS Development Team
+   Copyright (c) 2003 - 2023 by the MyOOS Development Team.
    ----------------------------------------------------------------------
    Based on:
 
