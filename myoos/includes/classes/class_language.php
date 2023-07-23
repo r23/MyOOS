@@ -33,7 +33,6 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
 class language
 {
     public $language;
-	public $languages;
     public $_languages = [];
 
     public function __construct()
