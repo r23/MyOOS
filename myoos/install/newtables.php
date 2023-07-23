@@ -1193,6 +1193,43 @@ $flds = "
 dosql($table, $flds);
 
 
+
+$table = $prefix_table . 'products_price_alarm';
+$flds = "
+  products_price_alarm_id I NOTNULL AUTO PRIMARY,
+  products_id I NOTNULL PRIMARY,
+  price_alarm_recipients_id I NOTNULL PRIMARY,
+  products_price N '10.4' NOTNULL DEFAULT '0.0000',
+  date_added T
+";
+dosql($table, $flds);
+
+
+$table = $prefix_table . 'products_price_alarm_recipients';
+$flds = "
+	price_alarm_recipients_id I NOTNULL AUTO PRIMARY,
+	customers_email_address C(96) NOTNULL,
+	date_added T,
+	mail_key C(32) NOTNULL,
+	mail_sha1 C(232) NOTNULL,
+	key_sent T,
+	status I1 DEFAULT '0'
+";
+
+
+$table = $prefix_table . 'products_price_alarm_history';
+$flds = "
+  price_alarm_recipients_status_history_id I NOTNULL AUTO PRIMARY,
+  price_alarm_recipients_id I NOTNULL DEFAULT '0',
+  new_value I1 NOTNULL DEFAULT '0',
+  old_value I1 DEFAULT NULL,
+  date_added T,
+  customer_notified I1 DEFAULT '0'
+";
+dosql($table, $flds);
+
+
+
 $table = $prefix_table . 'products_price_history';
 $flds = "
   products_price_history_id I NOTNULL AUTO PRIMARY,
