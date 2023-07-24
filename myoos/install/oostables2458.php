@@ -61,22 +61,6 @@ $flds = "
 ";
 dosql($table, $flds);
 
-
-$table = $prefix_table . 'products_price_alarm_recipients';
-$flds = "
-  price_alarm_recipients_id I NOTNULL AUTO PRIMARY,
-  price_alert_receiver_email_address C(96) NOTNULL,
-  price_alert_receiver_password C(255),	
-  customers_id I,
-  date_added T,
-  mail_key C(32) NOTNULL,
-  mail_sha1 C(232) NOTNULL,
-  key_sent T,
-  status I1 DEFAULT '0'
-";
-dosql($table, $flds);
-
-
 $table = $prefix_table . 'products_price_alarm_history';
 $flds = "
   price_alarm_recipients_status_history_id I NOTNULL AUTO PRIMARY,
@@ -88,3 +72,16 @@ $flds = "
 ";
 dosql($table, $flds);
 
+
+$table = $prefix_table . 'products_price_alarm_recipients';
+$flds = "
+  price_alarm_recipients_id I NOTNULL AUTO PRIMARY,
+  price_alert_receiver_email_address C(96) NOTNULL,
+  price_alert_receiver_password C(255),	
+  date_added T,
+  mail_key C(32) NOTNULL,
+  mail_sha1 C(232) NOTNULL,
+  key_sent T,
+  status I1 DEFAULT '0'
+";
+dosql($table, $flds);
