@@ -1,11 +1,10 @@
 <!-- Off-canvas cart-->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvas-cart" aria-labelledby="offcanvas-cartLabel">
-	<div class="offcanvas-header d-flex justify-content-between align-items-center">
-		<h3 class="offcanvas-title">{$lang.header_title_cart_contents}</h3>
-		<button class="btn-close text-reset" type="button" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-	</div>
-
-	<div class="offcanvas-body">
+<div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvas-cart" aria-labelledby="offcanvas-cartLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvas-cartLabel">{$lang.header_title_cart_contents}</h5>
+		<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div> 
+  <div class="offcanvas-body">
 		<div id="div-to-refresh" class="offcanvas-body-inner">
 		{if $cart_count_contents > 0}		
 			<div class="text-right"><button id="clear-cart" type="button" class="btn btn-link"><i class="fa fa-remove" aria-hidden="true"></i> {$lang.text_clear_cart}</button></div>
