@@ -1,0 +1,103 @@
+    <div class="modal fade" id="pricealertModalToggle" aria-labelledby="pricealertModalToggleLabel" tabindex="-1" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-1" id="pricealertModalToggleLabel">{$lang.text_price_alert_heading_1}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+    <div class="row">
+          <div class="col-8 col-sm-6">
+<h3>{$lang.text_price_alert_intro}</h3>
+<div class="form-check mb-2">
+	<input class="form-check-input form-check-input-default" type="radio" name="pricealert" value="5" id="radioDefault" checked>
+	<label class="form-check-label" for="radioDefault">
+	<span class="text-start">{$lang.text_save} 5%</span>
+	<span class="text-end">{$lang.text_under} {$pricealert.five}</span>
+	</label>
+</div>
+<div class="form-check mb-2">
+	<input class="form-check-input form-check-input-default" type="radio" name="pricealert" value="10" id="radioDefault">
+	<label class="form-check-label" for="radioDefault">
+	<span class="text-start">{$lang.text_save} 10%</span>
+	<span class="text-end">{$lang.text_under} {$pricealert.ten}</span>
+	</label>
+</div>
+<div class="form-check mb-2">
+	<input class="form-check-input form-check-input-primary" type="radio" name="pricealert" value="15" id="radioPrimary">
+	<label class="form-check-label" for="radioPrimary">
+	<span class="text-start">{$lang.text_save} 15%</span>
+	<span class="text-end">{$lang.text_under} {$pricealert.fifteen}</span>
+	</label>
+</div>
+
+
+          </div>
+          <div class="col-4 col-sm-6">
+
+	<div class="text-center">
+		{product_image dir=small src=$product_info.products_image alt=$product_info.products_name}
+	</div>
+	<div class="text-center">
+		{$product_info.products_name|truncate:18:"":true|close_tags}
+	</div>
+	{$lang.text_current_price} <strong>{$info_product_price}</strong>
+
+
+
+          </div>
+    </div>
+
+          </div>
+		  
+  
+		  
+          <div class="modal-footer">
+		  
+		  <h2>{$lang.text_save_heading}</h2>
+
+			<p>{$lang.text_save_info}</p>
+			<div class="d-grid gap-2">
+				<button id="pricealert" class="btn btn-primary" data-bs-target="#pricealertModalToggle2" data-bs-toggle="modal">{$lang.button_place_price_alert}</button>
+			</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="pricealertModalToggle2" aria-labelledby="pricealertModalToggleLabel2" tabindex="-1" style="display: none;" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title" id="pricealertModalToggleLabel2">{$lang.text_price_alert_heading_2}</h1>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+		  
+			<h3>{$lang.text_price_alert_intro}</h3>
+						<div class="form-group">
+							<label class="sr-only" for="signin-email">Email</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><span class="input-group-text" id="signin-email-icon"><i data-feather="mail"></i></span></div>
+								<input class="form-control" type="email" name="email_address" id="signin-email" placeholder="{$lang.entry_email_address}" aria-label="Email" aria-describedby="signin-email-icon" required>
+								<div class="invalid-feedback">{$lang.text_please_provide_email_address}.</div>
+							</div>
+						</div>
+								
+						<div class="form-group">
+							<label class="sr-only" for="signin-password">Password</label>
+							<div class="input-group">
+								<div class="input-group-prepend"><span class="input-group-text" id="signin-password-icon"><i data-feather="lock"></i></span></div>
+								<input class="form-control" name="password" type="password" id="signin-password" placeholder="{$lang.entry_password}" aria-label="Password" aria-describedby="signin-password-icon" required>
+								<div class="invalid-feedback">{$lang.text_please_enter_a_password}.</div>
+							</div>
+						</div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary" type="submit">{$lang.button_save_price_alert}</button>
+          </div>  
+        </div>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" data-bs-target="#pricealertModalToggle" data-bs-toggle="modal"><i class="fa fa-clock-o" aria-hidden="true"></i> {$lang.button_set_price_alert}</button>

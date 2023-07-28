@@ -65,6 +65,16 @@ $aLang['text_month'] = 'Monat';
 $aLang['text_months'] = 'Monate';
 $aLang['text_year'] = 'Jahr';
 
+$aLang['text_price_alert_heading_1'] = 'Preisalarm stellen';
+$aLang['text_price_alert_intro'] = 'Benachrichtigen Sie mich, wenn der Preis sinkt:';
+$aLang['text_save'] = 'spare';
+$aLang['text_under'] = 'unter';
+$aLang['text_current_price'] = 'Aktueller Preis:';
+$aLang['text_save_heading'] = 'Speichern Sie Ihren Preisalarm';
+$aLang['text_save_info'] = 'Verpassen Sie Ihre personalisierte Benachrichtigung nicht, wenn Ihr Wunschpreis erreicht wird.';
+
+$aLang['text_price_alert_heading_2'] = 'Preisalarm speichern';
+
 // modules/slavery_listing.php
 $aLang['text_buy'] = '1 x \'';
 $aLang['text_now'] = '\' bestellen!';

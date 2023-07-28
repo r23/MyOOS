@@ -101,5 +101,7 @@ $aContents = [
 'checkout_success'                => $prefix_filename . 'checkout_success',
 //ajax
 'clear_cart_ajax'                 => $prefix_filename . 'clear_cart',
-'shopping_cart_ajax'              => $prefix_filename . 'shopping_cart'
+'shopping_cart_ajax'              => $prefix_filename . 'shopping_cart',
+'pricealert_ajax'                 => $prefix_filename . 'pricealert'
+
 ];

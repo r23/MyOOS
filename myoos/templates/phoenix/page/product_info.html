@@ -434,14 +434,18 @@
 		{if $chart}	
 			<div class="container">
 				<div class="row">
-					<div class="col-6">
+					<div class="col-9">
 						<div class="relative mb-15">
 							{$chart}	
 						</div>
 	                </div>
-					<div class="col-6">
+					<div class="col-3">
 						<div class="relative mb-15">
-							
+
+{if $pricealert}
+	{include file="phoenix/canvas/_pricealert.html"}
+{/if}		
+
 						</div>
 	                </div>
 				</div>

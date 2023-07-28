@@ -262,6 +262,33 @@
 			
 		}
 
+
+		// pricealert
+		$(document).on('click', '#pricealert', function () {
+			$.ajax({
+				url: 'get_data.php',
+				headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+				method: 'POST',
+				dataType: 'json',
+				cache: false,
+				data:{{/literal}				
+			{if $mySystem.sed}
+					{$mySystem.session_name} : "{$mySystem.session_id}",
+					formid : "{$mySystem.formid}",
+			{/if}				
+					name:  "{$filename.pricealert_ajax}"{literal}
+				},
+				success: function(response) {
+					$('#div-to-refresh').html(response);
+					$('#count-contents').html(0);
+			}
+			});
+		});	
+
+
+
+
+
 		// clear_cart
 		$(document).on('click', '#clear-cart', function () {
 			$.ajax({
