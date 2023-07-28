@@ -2,14 +2,22 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-07-12 12:03:10+0000\n"
+"PO-Revision-Date: 2023-07-26 15:35:23+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.4\n"
+"X-Generator: GlotPress/4.0.0-alpha.6\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
+
+#: includes/modules/redirections/class-form.php:240
+msgid "The redirection you are trying to update may cause an infinite loop. Please check the source and destination URLs."
+msgstr "Die Umleitung, die du aktualisieren möchtest, kann eine Endlosschleife verursachen. Bitte überprüfe die Quell- und Ziel-URLs."
+
+#: includes/modules/redirections/class-form.php:237
+msgid "The redirection you are trying to create may cause an infinite loop. Please check the source and destination URLs. The redirection has been deactivated."
+msgstr "Die Umleitung, die du erstellen möchtest, kann eine Endlosschleife verursachen. Bitte überprüfe die Quell- und Ziel-URLs. Die Umleitung wurde deaktiviert."
 
 #: includes/admin/class-admin.php:264
 msgid "Please update to WordPress v6.0 or higher as Rank Math SEO will soon stop supporting lower versions."
@@ -2129,6 +2137,8 @@ msgid "Created"
 msgstr "Erstellt am"
 
 #: includes/admin/wizard/views/search-console-ui.php:231
+#: includes/modules/404-monitor/class-table.php:108
+#: includes/modules/404-monitor/class-table.php:147
 #: includes/modules/redirections/class-table.php:243
 #: assets/admin/js/common.js:1
 msgid "View"
@@ -6044,11 +6054,11 @@ msgid "Redirection successfully deleted."
 msgstr "Umleitung erfolgreich gelöscht."
 
 #. translators: source pattern
-#: includes/modules/redirections/class-redirection.php:365
+#: includes/modules/redirections/class-redirection.php:393
 msgid "Invalid regex pattern: %s"
 msgstr "Ungültiges Regex-Muster: %s"
 
-#: includes/modules/redirections/class-form.php:235
+#: includes/modules/redirections/class-form.php:245
 msgid "Please add at least one valid source URL."
 msgstr "Bitte füge mindestens eine gültige Quell-URL hinzu."
 
@@ -6504,34 +6514,34 @@ msgstr "<strong>Details anzeigen</strong> zeigt Details zu den 404 Anfragen."
 msgid "Hovering over a row in the list will display action links that allow you to manage the item. You can perform the following actions:"
 msgstr "Wenn du mit der Maus über eine Zeile in der Liste fährst, werden Aktionslinks angezeigt, mit denen du das Element verwalten kannst. DU kannst die folgenden Aktionen durchführen:"
 
-#: includes/modules/404-monitor/class-table.php:222
+#: includes/modules/404-monitor/class-table.php:228
 msgid "Access Time"
 msgstr "Zugriffszeit"
 
-#: includes/modules/404-monitor/class-table.php:221
+#: includes/modules/404-monitor/class-table.php:227
 #: includes/modules/redirections/class-table.php:266
 msgid "Hits"
 msgstr "Treffer"
 
-#: includes/modules/404-monitor/class-table.php:220
+#: includes/modules/404-monitor/class-table.php:226
 msgid "User-Agent"
 msgstr "Benutzer-Agent"
 
-#: includes/modules/404-monitor/class-table.php:219
+#: includes/modules/404-monitor/class-table.php:225
 msgid "Referer"
 msgstr "Referer"
 
-#: includes/modules/404-monitor/class-table.php:218
+#: includes/modules/404-monitor/class-table.php:224
 msgid "URI"
 msgstr "URL"
 
-#: includes/modules/404-monitor/class-table.php:206
-#: includes/modules/404-monitor/class-table.php:269
+#: includes/modules/404-monitor/class-table.php:212
+#: includes/modules/404-monitor/class-table.php:275
 #: assets/admin/js/rank-math-app.js:1
 msgid "Redirect"
 msgstr "Weiterleitung"
 
-#: includes/modules/404-monitor/class-table.php:190
+#: includes/modules/404-monitor/class-table.php:196
 msgid "View Redirection"
 msgstr "Umleitung anzeigen"
 
@@ -7848,8 +7858,8 @@ msgstr "Es gibt kein Sicherung."
 
 #: includes/admin/views/import-export/backup-panel.php:33
 #: includes/admin/views/import-export/backup-panel.php:43
-#: includes/modules/404-monitor/class-table.php:150
-#: includes/modules/404-monitor/class-table.php:270
+#: includes/modules/404-monitor/class-table.php:156
+#: includes/modules/404-monitor/class-table.php:276
 #: includes/modules/database-tools/class-database-tools.php:429
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
