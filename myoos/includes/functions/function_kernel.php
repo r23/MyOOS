@@ -1825,10 +1825,32 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
         $phpmailer->IsSMTP(); // set mailer to use SMTP
+		$phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server		
         $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
         $phpmailer->Username = OOS_SMTPUSER; // SMTP username
         $phpmailer->Password = OOS_SMTPPASS; // SMTP password
-        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server
+        
+		
+		//Set the encryption mechanism to use:
+		// - SMTPS (implicit TLS on port 465) or
+		// - STARTTLS (explicit TLS on port 587)
+		switch (OOS_SMTPENCRYPTION) {
+			case 1:
+				$phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+				break;
+			case 2:
+				$phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+				break;
+			default:
+				$phpmailer->SMTPSecure = '';
+				break;
+		}
+
+		//Set the SMTP port number:
+		// - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
+		// - 587 for SMTP+STARTTLS
+		$phpmailer->Port = OOS_SMTPPORT; 		
+		
     } else {
         // Set sendmail path
         if (EMAIL_TRANSPORT == 'sendmail') {
