@@ -1750,7 +1750,7 @@ function oos_cut_number($number)
  */
 function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $email_html, $from_email_name, $from_email_address, $attachments = [])
 {
-    global $oEvent;
+    global $oEvent, $phpmailer;
 
     if (!is_object($oEvent) || (!$oEvent->installed_plugin('mail'))) {
         return false;
@@ -1787,23 +1787,10 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         $attachments = explode("\n", str_replace("\r\n", "\n", $attachments));
     }
 
-    $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
+    $phpmailer = new PHPMailer(true);
 
-    global $phpmailer;
-
-    // (Re)create it, if it's gone missing
-    if (! ($phpmailer instanceof PHPMailer\PHPMailer\PHPMailer)) {
-        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
-        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
-        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/Exception.php';
-        $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
-
-        $phpmailer::$validator = static function ($to_email_address) {
-            return (bool) is_email($to_email_address);
-        };
-    }
-
-    //To load the French version
+    // load the appropriate language version
+	$sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
     $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
 
     // Empty out the values that may be set.
@@ -1814,13 +1801,11 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 
     $phpmailer->IsMail();
 
-
     $phpmailer->CharSet   = 'UTF-8';
     $phpmailer->Encoding  = 'base64';
 
     $phpmailer->From = $from_email_address ? $from_email_address : STORE_OWNER_EMAIL_ADDRESS;
     $phpmailer->FromName = $from_email_name ? $from_email_name : STORE_OWNER;
-    $phpmailer->Mailer = EMAIL_TRANSPORT;
 
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
@@ -1834,23 +1819,13 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 		//Set the encryption mechanism to use:
 		// - SMTPS (implicit TLS on port 465) or
 		// - STARTTLS (explicit TLS on port 587)
-		switch (OOS_SMTPENCRYPTION) {
-			case 1:
-				$phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-				break;
-			case 2:
-				$phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-				break;
-			default:
-				$phpmailer->SMTPSecure = '';
-				break;
-		}
+		$phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+		$phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 
 		//Set the SMTP port number:
 		// - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
 		// - 587 for SMTP+STARTTLS
-		$phpmailer->Port = OOS_SMTPPORT; 		
-		
+		$phpmailer->Port = OOS_SMTPPORT; 	
     } else {
         // Set sendmail path
         if (EMAIL_TRANSPORT == 'sendmail') {

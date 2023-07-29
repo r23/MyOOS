@@ -34,6 +34,11 @@ if (function_exists('ini_set')) {
     ini_set('display_errors', true);
 }
 
+//Import PHPMailer classes into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 use Symfony\Component\HttpFoundation\Request;
 
 $autoloader = include_once __DIR__ . '/vendor/autoload.php';
