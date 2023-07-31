@@ -215,7 +215,7 @@
 							<th class="text-right"><?php echo TABLE_HEADING_STATUS; ?></th>
 							<th class="text-right"><?php echo TABLE_HEADING_ACTION; ?>&nbsp;</th>
 						</tr>	
-					</thead>
+					</thead>			
 <?php
   foreach ($aDirectory as $sName) {
       if (isset($_SESSION['language']) &&  file_exists(OOS_ABSOLUTE_PATH . 'includes/plugins/' . $sName . '/lang/' . $_SESSION['language'] . '.php')) {
@@ -308,7 +308,7 @@
           if ($value['set_function']) {
               eval('$keys .= ' . $value['set_function'] . "'" . $value['value'] . "', '" . $key . "');");
           } else {
-              $keys .= oos_draw_input_field('configuration[' . $key . ']', $value['value']);
+			$keys .= oos_draw_input_field('configuration[' . $key . ']', $value['value'], '', false, 'text', true, false, '', $key);
           }
           $keys .= '<br><br>';
       }
@@ -415,5 +415,25 @@
 
 <?php
     require 'includes/bottom.php';
+?>
+<script>
+// Eine Funktion definieren, die den Portwert basierend auf der Verschlüsselung ändert
+function changePort() {
+  // Das ausgewählte Optionsfeld finden
+  var encryption = document.querySelector('input.OOS_SMTPENCRYPTION:checked');
+  // Den entsprechenden Portwert zuweisen
+  var port = encryption.value === "SSL" ? 465 : encryption.value === "TLS" ? 587 : 25;
+  // Den Wert des Port-Eingabefeldes aktualisieren
+  document.querySelector('input#OOS_SMTPPORT').value = port;
+}
+
+// Einen Event-Listener hinzufügen, der die Funktion aufruft, wenn sich ein Optionsfeld ändert
+var radios = document.querySelectorAll('input.OOS_SMTPENCRYPTION');
+for (var i = 0; i < radios.length; i++) {
+  radios[i].addEventListener('change', changePort);
+}
+</script>	
+
+<?php
     require 'includes/nice_exit.php';
 ?>

@@ -80,11 +80,9 @@ class oos_event_mail
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPUSER', '', 6, 8, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPPASS', '', 6, 9, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
         $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPHOST', '', 6, 10, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
-
-        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPENCRYPTION', '', 6, 11, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, 'oos_cfg_radio(array(\'NONE\', \'SSL\', \'TLS\'),')");
-        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPPORT', '', 6, 10, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
-
-        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SENDMAIL', '', 6, 11, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
+		$dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPENCRYPTION', '', 6, 11, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, 'oos_cfg_select_option(array(\'NONE\', \'SSL\', \'TLS\'),')");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SMTPPORT', '', 6, 12, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
+        $dbconn->Execute("INSERT INTO $configurationtable (configuration_key, configuration_value, configuration_group_id, sort_order, last_modified, date_added, use_function, set_function) VALUES ('OOS_SENDMAIL', '', 6, 13, NULL, " . $dbconn->DBTimeStamp($today) . ", NULL, NULL)");
 
         return true;
     }
@@ -104,6 +102,6 @@ class oos_event_mail
 
     public function config_item()
     {
-        return array('SEND_EXTRA_ORDER_EMAILS_TO', 'EMAIL_TRANSPORT', 'EMAIL_LINEFEED', 'EMAIL_USE_HTML', 'ENTRY_EMAIL_ADDRESS_CHECK', 'OOS_SMTPAUTH', 'OOS_SMTPUSER', 'OOS_SMTPPASS', 'OOS_SMTPHOST', 'OOS_SENDMAIL', 'OOS_SMTPENCRYPTION', 'OOS_SMTPPORT');
+        return array('SEND_EXTRA_ORDER_EMAILS_TO', 'EMAIL_TRANSPORT', 'EMAIL_LINEFEED', 'EMAIL_USE_HTML', 'ENTRY_EMAIL_ADDRESS_CHECK', 'OOS_SMTPAUTH', 'OOS_SMTPUSER', 'OOS_SMTPPASS', 'OOS_SMTPHOST', 'OOS_SMTPENCRYPTION', 'OOS_SMTPPORT', 'OOS_SENDMAIL');
     }
 }

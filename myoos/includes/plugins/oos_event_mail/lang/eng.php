@@ -40,7 +40,13 @@ define('OOS_SMTPPASS_TITLE', 'SMTP password');
 define('OOS_SMTPPASS_DESC', 'SMTP password');
 
 define('OOS_SMTPHOST_TITLE', 'Sets the SMTP hosts.');
-define('OOS_SMTPHOST_DESC', 'All hosts must be separated by a semicolon.  You can also specify a different port for each host by using this format: [hostname:port]  (e.g. "smtp1.example.com:25;smtp2.example.com"). Hosts will be tried in order.');
+define('OOS_SMTPHOST_DESC', 'smtp.example.com');
 
 define('OOS_SENDMAIL_TITLE', 'Sets the path of the sendmail program');
 define('OOS_SENDMAIL_DESC', '/var/qmail/bin/sendmail');
+
+define('OOS_SMTPENCRYPTION_TITLE', 'Type of encryption');
+define('OOS_SMTPENCRYPTION_DESC', 'none, SSL, TTS');
+
+define('OOS_SMTPPORT_TITLE', 'SMTP-Port');
+define('OOS_SMTPPORT_DESC', '');
