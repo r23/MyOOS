@@ -162,7 +162,7 @@ function oos_cfg_select_option($select_array, $key_value, $key = '')
     for ($i = 0, $n = count($select_array); $i < $n; $i++) {
         $name = ((oos_is_not_null($key)) ? 'configuration[' . $key . ']' : 'configuration_value');
 
-        $string .= '<br><input type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
+        $string .= '<br><input class="' . $key . '" type="radio" name="' . $name . '" value="' . $select_array[$i] . '"';
 
         if ($key_value == $select_array[$i]) {
             $string .= ' checked="checked"';

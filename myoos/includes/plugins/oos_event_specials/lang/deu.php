@@ -21,7 +21,7 @@ define('MIN_DISPLAY_NEW_SPECILAS_DESC', 'Minimale Anzahl von Produkten, die im \
 define('MAX_DISPLAY_NEW_SPECILAS_TITLE', 'Sonderangebote');
 define('MAX_DISPLAY_NEW_SPECILAS_DESC', 'Maximale Anzahl von neuen Sonderangeboten, die auf der \'Sonderangebote\'-Seite angezeigt werden');
 
-define('MAX_RANDOM_SELECT_SPECIALS_TITLE', 'Zuf&auml;llige Sonderangebote');
+define('MAX_RANDOM_SELECT_SPECIALS_TITLE', 'Zufällige Sonderangebote');
 define('MAX_RANDOM_SELECT_SPECIALS_DESC', 'Die Menge der Sonderangebote, aus denen per Zufall ein Sonderangebot angezeigt wird');
 
 define('MAX_DISPLAY_SPECIAL_PRODUCTS_TITLE', 'Sonderangebote');

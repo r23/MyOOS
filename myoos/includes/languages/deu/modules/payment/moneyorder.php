@@ -21,8 +21,8 @@
    ----------------------------------------------------------------------
  */
 
-define('MODULE_PAYMENT_MONEYORDER_STATUS_TITLE', 'Vorkasse/Bank&uuml;berweisung');
-define('MODULE_PAYMENT_MONEYORDER_STATUS_DESC', 'Möchten Sie Zahlungen per Vorkasse/Bank&uuml;berweisung akzeptieren?');
+define('MODULE_PAYMENT_MONEYORDER_STATUS_TITLE', 'Vorkasse/Banküberweisung');
+define('MODULE_PAYMENT_MONEYORDER_STATUS_DESC', 'Möchten Sie Zahlungen per Vorkasse/Banküberweisung akzeptieren?');
 
 define('MODULE_PAYMENT_MONEYORDER_PAYTO_TITLE', 'Zahlbar an:');
 define('MODULE_PAYMENT_MONEYORDER_PAYTO_DESC', 'An wen sollen Zahlungen erfolgen?');
@@ -36,6 +36,6 @@ define('MODULE_PAYMENT_MONEYORDER_ZONE_DESC', 'Wenn eine Zone ausgewählt ist, g
 define('MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID_TITLE', 'Bestellstatus festlegen');
 define('MODULE_PAYMENT_MONEYORDER_ORDER_STATUS_ID_DESC', 'Bestellungen, welche mit diesem Modul gemacht werden, auf diesen Status setzen.');
 
-$aLang['module_payment_moneyorder_text_title'] = 'Vorkasse/Bank&uuml;berweisung';
+$aLang['module_payment_moneyorder_text_title'] = 'Vorkasse/Banküberweisung';
 $aLang['module_payment_moneyorder_text_description'] = 'Zahlbar an:&nbsp;' . (defined('MODULE_PAYMENT_MONEYORDER_PAYTO') ? nl2br(MODULE_PAYMENT_MONEYORDER_PAYTO) : '') . '<br />Kontoinhaber:<br />' . nl2br(STORE_OWNER) . '<br /><br />' . 'Die Ware wird ausgeliefert wenn der Betrag auf unserem Konto eingegangen ist.';
 $aLang['module_payment_moneyorder_text_email_footer'] = "Zahlbar an: ". (defined('MODULE_PAYMENT_MONEYORDER_PAYTO') ? nl2br(MODULE_PAYMENT_MONEYORDER_PAYTO) : '') . "\n\nKontoinhaber:\n" . STORE_OWNER . "\n\n" . 'Ihre Bestellung wird nach Geldeingang auf unser Konto an Sie versendet.';

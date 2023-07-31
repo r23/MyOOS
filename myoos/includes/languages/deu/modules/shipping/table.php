@@ -25,7 +25,7 @@ define('MODULE_SHIPPING_TABLE_STATUS_TITLE', 'Tabellarische Versandkosten aktivi
 define('MODULE_SHIPPING_TABLE_STATUS_DESC', 'Möchten Sie Tabellarische Versandkosten anbieten?');
 
 define('MODULE_SHIPPING_TABLE_COST_TITLE', 'Versandkosten');
-define('MODULE_SHIPPING_TABLE_COST_DESC', 'Die Versandkosten basieren auf Gesamtkosten oder Gesamtgewicht der bestellten Waren. Beispiel: 25:5.50,50:8.50,etc.. Bis 25 werden 5.50 verrechnet, dar&uuml;ber bis 50 werden 8.50 verrechnet, etc');
+define('MODULE_SHIPPING_TABLE_COST_DESC', 'Die Versandkosten basieren auf Gesamtkosten oder Gesamtgewicht der bestellten Waren. Beispiel: 25:5.50,50:8.50,etc.. Bis 25 werden 5.50 verrechnet, darüber bis 50 werden 8.50 verrechnet, etc');
 
 define('MODULE_SHIPPING_TABLE_MODE_TITLE', 'Versandkosten');
 define('MODULE_SHIPPING_TABLE_MODE_DESC', 'Die Versandkosten basieren auf Gesamtkosten oder Gesamtgewicht der bestellten Waren.');

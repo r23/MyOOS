@@ -1850,6 +1850,10 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         $phpmailer->Body = $text;
     }
 
+	// Attach a file from the server as an attachment
+	// $phpmailer->addAttachment('log.xml', 'Log.xml');
+
+
     // Send message
     $phpmailer->Send();
 }

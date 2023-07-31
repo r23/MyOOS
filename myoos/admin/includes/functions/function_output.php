@@ -332,9 +332,9 @@ function oos_draw_form($id, $name, $action, $parameters = '', $method = 'post', 
   * @param  $placeholder
   * @return string
   */
-function oos_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true, $disabled = false, $placeholder = '')
+function oos_draw_input_field($name, $value = '', $parameters = '', $required = false, $type = 'text', $reinsert_value = true, $disabled = false, $placeholder = '', $id = '')
 {
-    $field = '<input class="form-control" type="' . $type . '" name="' . $name . '"';
+    $field = '<input id="' . $id . '" class="form-control" type="' . $type . '" name="' . $name . '"';
 
     if (($reinsert_value == true) && ((isset($_GET[$name]) && is_string($_GET[$name])) || (isset($_POST[$name]) && is_string($_POST[$name])))) {
         if (isset($_GET[$name]) && is_string($_GET[$name])) {
