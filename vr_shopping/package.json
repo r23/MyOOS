@@ -19,6 +19,7 @@
   "dependencies": {
     "aframe-blink-controls": "^0.4.3",
     "aframe-extras": "^7.0.0",
-    "debug": "^2.6.9"
+    "debug": "^2.6.9",
+    "xml2js": "^0.5.0"
   }
 }
