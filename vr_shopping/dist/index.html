@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>A-Frame VR Shooping</title>
+		<script src="main.js"></script>
+	</head>
+    <body>
+        <a-scene scene_update webxr="referenceSpaceType:local">
+            <a-assets>
+                <img id="skyTexture" src="texture/background.webp">
+            </a-assets>
+            <a-sky src="#skyTexture"></a-sky>
+ 
+			<a-entity gltf-model="url(zu/Ihrer/gltf/Datei)"></a-entity>
+			
+			<!-- camera rig -->
+			<a-entity id="player">
+				<!-- camera -->
+				<a-entity id="camera" camera wasd-controls look-controls></a-entity>
+				<!-- hand controls -->
+				<a-entity id="left-hand" oculus-touch-controls="hand: left" blink-controls></a-entity>
+				<a-entity id="right-hand" oculus-touch-controls="hand: right"></a-entity>
+			</a-entity>
+        </a-scene>
+    </body>
+</html>
