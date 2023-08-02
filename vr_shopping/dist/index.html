@@ -11,13 +11,14 @@
                 <img id="skyTexture" src="texture/background.webp">
             </a-assets>
             <a-sky src="#skyTexture"></a-sky>
- 
-			<a-entity gltf-model="url(zu/Ihrer/gltf/Datei)"></a-entity>
-			
+ 			
 			<!-- camera rig -->
-			<a-entity id="wraper" position="0 1.7 0">
+			<a-entity id="wraper" movement-controls kinematic-body>
 				<!-- camera -->
-				<a-entity id="camera" camera wasd-controls look-controls position="0 0 0" >
+				<a-entity id="camera" camera 
+								position="0 1.6 0"
+								wasd-controls
+								look-controls="pointerLockEnabled: true">
 					<a-cursor></a-cursor>
 				</a-entity>
 				<!-- hand controls -->

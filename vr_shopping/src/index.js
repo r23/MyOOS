@@ -7,6 +7,7 @@ import { PhysicsLoader } from "enable3d";
 import { AmmoPhysics } from "enable3d/node_modules/@enable3d/ammo-physics";
 
 require('aframe-extras');
+require('aframe-blink-controls');
 
 let scene;
 let wraper;
