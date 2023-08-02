@@ -15,9 +15,11 @@
 			<a-entity gltf-model="url(zu/Ihrer/gltf/Datei)"></a-entity>
 			
 			<!-- camera rig -->
-			<a-entity id="player">
+			<a-entity id="wraper" position="0 1.7 0">
 				<!-- camera -->
-				<a-entity id="camera" camera wasd-controls look-controls></a-entity>
+				<a-entity id="camera" camera wasd-controls look-controls position="0 0 0" >
+					<a-cursor></a-cursor>
+				</a-entity>
 				<!-- hand controls -->
 				<a-entity id="left-hand" oculus-touch-controls="hand: left" blink-controls></a-entity>
 				<a-entity id="right-hand" oculus-touch-controls="hand: right"></a-entity>
