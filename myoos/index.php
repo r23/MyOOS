@@ -34,14 +34,20 @@ if (function_exists('ini_set')) {
     ini_set('display_errors', true);
 }
 
+
+
+use Symfony\Component\HttpFoundation\Request;
+
 //Import PHPMailer classes into the global namespace
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-use Symfony\Component\HttpFoundation\Request;
+# $autoloader = include_once __DIR__ . '/vendor/autoload.php';
 
-$autoloader = include_once __DIR__ . '/vendor/autoload.php';
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+
 $request = Request::createFromGlobals();
 
 define('MYOOS_INCLUDE_PATH', dirname(__FILE__)=='/' ? '' : dirname(__FILE__));

@@ -42,6 +42,24 @@ if (isset($bForm) && ($bForm == true)) {
 <script src="js/plugins/mustache/mustache.min.js"></script>
 <script src="js/general.js"></script>
 
+<script>
+// Eine Funktion definieren, die den Portwert basierend auf der Verschlüsselung ändert
+function changePort() {
+  // Das ausgewählte Optionsfeld finden
+  var encryption = document.querySelector('input.OOS_SMTPENCRYPTION:checked');
+  // Den entsprechenden Portwert zuweisen
+  var port = encryption.value === "SSL" ? 465 : encryption.value === "TLS" ? 587 : 25;
+  // Den Wert des Port-Eingabefeldes aktualisieren
+  document.querySelector('input#OOS_SMTPPORT').value = port;
+}
+
+// Einen Event-Listener hinzufügen, der die Funktion aufruft, wenn sich ein Optionsfeld ändert
+var radios = document.querySelectorAll('input.OOS_SMTPENCRYPTION');
+for (var i = 0; i < radios.length; i++) {
+  radios[i].addEventListener('change', changePort);
+}
+</script>
+
 <!-- HTML5 shim and Respond.js IE support of HTML5 elements and media queries -->
 <!--[if lt IE 9]>
     <script src="js/plugin/respond.js"></script>

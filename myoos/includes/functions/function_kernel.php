@@ -1787,11 +1787,18 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
         $attachments = explode("\n", str_replace("\r\n", "\n", $attachments));
     }
 
-    $phpmailer = new PHPMailer(true);
+    // (Re)create it, if it's gone missing
+    if (! ($phpmailer instanceof PHPMailer)) {
+		require_once MYOOS_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/src/Exception.php';
+		require_once MYOOS_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/src/PHPMailer.php';
+		require_once MYOOS_INCLUDE_PATH . '/vendor/phpmailer/phpmailer/src/SMTP.php';	
+		$phpmailer = new PHPMailer\PHPMailer\PHPMailer();
+   }
 
+#	$phpmailer = new PHPMailer\PHPMailer\PHPMailer();	
     // load the appropriate language version
 	$sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
-    $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
+    $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/vendor/phpmailer/phpmailer//language/');
 
     // Empty out the values that may be set.
     $phpmailer->clearAllRecipients();
@@ -1807,9 +1814,14 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     $phpmailer->From = $from_email_address ? $from_email_address : STORE_OWNER_EMAIL_ADDRESS;
     $phpmailer->FromName = $from_email_name ? $from_email_name : STORE_OWNER;
 
+	$phpmailer->AddAddress(STORE_OWNER_EMAIL_ADDRESS, STORE_OWNER);
+
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
         $phpmailer->IsSMTP(); // set mailer to use SMTP
+		
+		//	$phpmailer->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
+		
 		$phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server		
         $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
         $phpmailer->Username = OOS_SMTPUSER; // SMTP username
@@ -1819,13 +1831,14 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 		//Set the encryption mechanism to use:
 		// - SMTPS (implicit TLS on port 465) or
 		// - STARTTLS (explicit TLS on port 587)
-		$phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-		$phpmailer->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+		$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+		$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
 
 		//Set the SMTP port number:
 		// - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
 		// - 587 for SMTP+STARTTLS
-		$phpmailer->Port = OOS_SMTPPORT; 	
+		$phpmailer->Port = OOS_SMTPPORT; 		
+		
     } else {
         // Set sendmail path
         if (EMAIL_TRANSPORT == 'sendmail') {
@@ -1852,10 +1865,8 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 
 	// Attach a file from the server as an attachment
 	// $phpmailer->addAttachment('log.xml', 'Log.xml');
+	$phpmailer->Send();
 
-
-    // Send message
-    $phpmailer->Send();
 }
 
 function oos_newsletter_subscribe_mail($email_address)
