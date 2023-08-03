@@ -62,6 +62,11 @@ if (!defined('MYOOS_INCLUDE_PATH')) {
     define('MYOOS_INCLUDE_PATH', OOS_ABSOLUTE_PATH);
 }
 
+//Import PHPMailer classes into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
 use Symfony\Component\HttpFoundation\Request;
 
 $autoloader = include_once MYOOS_INCLUDE_PATH . '/vendor/autoload.php';

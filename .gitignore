@@ -394,3 +394,6 @@ r23_3d_model.zip
 /vr_shopping/dist/.rnd
 /vr_shopping/dist/cert.pem
 /vr_shopping/dist/key.pem
+/vr_shopping/public/cert.pem
+/vr_shopping/public/key.pem
+/vr_shopping/public/.rnd

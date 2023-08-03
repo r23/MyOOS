@@ -1,8 +1,7 @@
 import * as THREE from "three";
 import * as AFRAME from "aframe";
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-// import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { PhysicsLoader } from "enable3d";
 import { AmmoPhysics } from "enable3d/node_modules/@enable3d/ammo-physics";
 
@@ -23,7 +22,8 @@ let sphere_radius = 0.5;
 let camera_height = 1;
 let ready = false;
 
-const controls = new OrbitControls( camera, renderer.domElement );
+// const scene = new THREE.Scene();
+
 const loader = new GLTFLoader();
 const clock = new THREE.Clock();
 
@@ -41,11 +41,6 @@ let rooms = [
 // context.room = roomNames.indexOf(roomName) !== -1 ? roomNames.indexOf(roomName) : 0;
 // console.log(`Current room "${roomNames[context.room]}", ${context.room}`);
 // const debug = urlObject.searchParams.has('debug');
-
-
-document.addEventListener("DOMContentLoaded", function (event) {
-    PhysicsLoader('/lib', () => MainScene());
-});
 
 
 AFRAME.registerComponent("scene_update", {
@@ -83,11 +78,11 @@ let MainScene = function () {
     camera_physics_object.body.setAngularFactor(0, 0, 0);
     camera_physics_object.body.setFriction(0);
 
-    loadGLBWithData();
+     loadGLBWithData();
 }
 
 let loadGLBWithData = function () {
-    loader.load("models/hall.glb",
+    loader.load("model/hall.glb",
         (glb) => {
             scene.object3D.add(glb.scene);
             glb.scene.traverse(function (child) {
