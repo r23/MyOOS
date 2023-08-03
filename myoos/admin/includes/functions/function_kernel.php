@@ -1195,17 +1195,7 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 
     $sLang = (isset($_SESSION['iso_639_1']) ? $_SESSION['iso_639_1'] : DEFAULT_LANGUAGE_CODE);
 
-    // (Re)create it, if it's gone missing
-    if (! ($phpmailer instanceof PHPMailer\PHPMailer\PHPMailer)) {
-        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/PHPMailer.php';
-        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/SMTP.php';
-        include_once MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/src/Exception.php';
-        $phpmailer = new PHPMailer\PHPMailer\PHPMailer(true);
-
-        $phpmailer::$validator = static function ($to_email_address) {
-            return (bool) is_email($to_email_address);
-        };
-    }
+	$phpmailer = new PHPMailer\PHPMailer\PHPMailer();
 
     //To load the French version
     $phpmailer->setLanguage($sLang, MYOOS_INCLUDE_PATH . '/includes/lib/phpmailer/language/');
@@ -1218,7 +1208,6 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
 
     $phpmailer->IsMail();
 
-
     $phpmailer->CharSet   = 'UTF-8';
     $phpmailer->Encoding  = 'base64';
 
@@ -1229,10 +1218,26 @@ function oos_mail($to_name, $to_email_address, $email_subject, $email_text, $ema
     // Add smtp values if needed
     if (EMAIL_TRANSPORT == 'smtp') {
         $phpmailer->IsSMTP(); // set mailer to use SMTP
+		
+		// $phpmailer->SMTPDebug = PHPMailer\PHPMailer\SMTP::DEBUG_SERVER;
+		
+		$phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server		
         $phpmailer->SMTPAuth = OOS_SMTPAUTH; // turn on SMTP authentication
         $phpmailer->Username = OOS_SMTPUSER; // SMTP username
         $phpmailer->Password = OOS_SMTPPASS; // SMTP password
-        $phpmailer->Host     = OOS_SMTPHOST; // specify main and backup server
+        
+		
+		// Set the encryption mechanism to use:
+		// - SMTPS (implicit TLS on port 465) or
+		// - STARTTLS (explicit TLS on port 587)
+		$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
+		$phpmailer->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
+
+		// Set the SMTP port number:
+		// - 465 for SMTP with implicit TLS, a.k.a. RFC8314 SMTPS or
+		// - 587 for SMTP+STARTTLS
+		$phpmailer->Port = OOS_SMTPPORT; 		
+		
     } else {
         // Set sendmail path
         if (EMAIL_TRANSPORT == 'sendmail') {
