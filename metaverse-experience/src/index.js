@@ -32,3 +32,5 @@ const clock = new THREE.Clock();
 
 const title = 'React with Webpack and Babel';
 
+let greeting = " --- Hallo Welt!---"
+console.log(greeting.length)
