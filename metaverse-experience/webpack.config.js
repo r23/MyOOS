@@ -6,6 +6,22 @@ module.exports = {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
     },
-    target: 'node'
+    target: 'node',
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                include: [
+                    path.resolve(__dirname, 'src'),
+                    require.resolve('aframe-physics-system')
+                ],
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
+            }
+        ]
+    }
 };
-
