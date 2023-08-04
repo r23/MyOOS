@@ -335,7 +335,7 @@ if (($action == 'new') || ($action == 'edit')) {
 
         echo "\n";
         echo '<script>' . "\n";
-        echo 'var taxRate = ' . $tax['tax_rate'] . ';' . "\n"; ?>
+        echo 'let taxRate = ' . $tax['tax_rate'] . ';' . "\n"; ?>
 function doRound(x, places) {
   num = Math.round(x * Math.pow(10, places)) / Math.pow(10, places);
   return num.toFixed(places);    
@@ -343,7 +343,7 @@ function doRound(x, places) {
 
 
 function updateWithTax() {
-  var grossValue = document.forms["new_special"].specials_price.value;
+  let grossValue = document.forms["new_special"].specials_price.value;
   
   if (taxRate > 0) {
     grossValue = grossValue * ((taxRate / 100) + 1);
@@ -353,7 +353,7 @@ function updateWithTax() {
 }
 
 function updateNet() {
-  var netValue = document.forms["new_special"].specials_price_gross.value;
+  let netValue = document.forms["new_special"].specials_price_gross.value;
   
   if (taxRate > 0) {
     netValue = netValue / ((taxRate / 100) + 1);

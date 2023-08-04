@@ -983,8 +983,8 @@ function doRound(x, places) {
 }
 
 function calcBasePriceFactor() {
-  var pqty = document.forms["attributes"].options_values_quantity.value;
-  var bqty = document.forms["attributes"].options_values_base_quantity.value;
+  let pqty = document.forms["attributes"].options_values_quantity.value;
+  let bqty = document.forms["attributes"].options_values_base_quantity.value;
 
   if ((pqty != 0) || (bqty != 0)) {
      document.forms["attributes"].options_values_base_price.value = doRound(bqty / pqty, 6);

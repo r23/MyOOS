@@ -305,8 +305,8 @@ function resetZoneSelected(theForm) {
 }
 
 function update_zone(theForm) {
-  var NumState = theForm.entry_zone_id.options.length;
-  var SelectedCountry = '';
+  let NumState = theForm.entry_zone_id.options.length;
+  let SelectedCountry = '';
 
   while(NumState > 0) {
     NumState--;
@@ -321,23 +321,23 @@ function update_zone(theForm) {
 }
 
 function check_form() {
-  var error = 0;
-  var error_message = "<?php echo JS_ERROR; ?>";
+  let error = 0;
+  let error_message = "<?php echo JS_ERROR; ?>";
 
-  var customers_firstname = document.customers.customers_firstname.value;
-  var customers_lastname = document.customers.customers_lastname.value;
+  let customers_firstname = document.customers.customers_firstname.value;
+  let customers_lastname = document.customers.customers_lastname.value;
 <?php
   if (ACCOUNT_COMPANY == 'true') {
-      echo 'var entry_company = document.customers.entry_company.value;' . "\n";
+      echo 'let entry_company = document.customers.entry_company.value;' . "\n";
   }
       if (ACCOUNT_DOB == 'true') {
-          echo 'var customers_dob = document.customers.customers_dob.value;' . "\n";
+          echo 'let customers_dob = document.customers.customers_dob.value;' . "\n";
       } ?>
-  var customers_email_address = document.customers.customers_email_address.value;  
-  var entry_street_address = document.customers.entry_street_address.value;
-  var entry_postcode = document.customers.entry_postcode.value;
-  var entry_city = document.customers.entry_city.value;
-  var customers_telephone = document.customers.customers_telephone.value;
+  let customers_email_address = document.customers.customers_email_address.value;  
+  let entry_street_address = document.customers.entry_street_address.value;
+  let entry_postcode = document.customers.entry_postcode.value;
+  let entry_city = document.customers.entry_city.value;
+  let customers_telephone = document.customers.customers_telephone.value;
 
 <?php if (ACCOUNT_GENDER == 'true') { ?>
   if (document.customers.customers_gender[0].checked || document.customers.customers_gender[1].checked || document.customers.customers_gender[2].checked) {

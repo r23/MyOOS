@@ -563,7 +563,7 @@ if ($action == 'new_product' || $action == 'edit_product') {
 <script src="js/ckeditor/ckeditor.js"></script>
 
 <script>
-var tax_rates = new Array();
+let tax_rates = new Array();
 <?php
     for ($i=0, $n=sizeof($tax_class_array); $i<$n; $i++) {
         if ($tax_class_array[$i]['id'] > 0) {
@@ -577,8 +577,8 @@ function doRound(x, places) {
 }
 
 function getTaxRate() {
-  var selected_value = document.forms["new_product"].products_tax_class_id.selectedIndex;
-  var parameterVal = document.forms["new_product"].products_tax_class_id[selected_value].value;
+  let selected_value = document.forms["new_product"].products_tax_class_id.selectedIndex;
+  let parameterVal = document.forms["new_product"].products_tax_class_id[selected_value].value;
 
   if ( (parameterVal > 0) && (tax_rates[parameterVal] > 0) ) {
     return tax_rates[parameterVal];
@@ -588,13 +588,13 @@ function getTaxRate() {
 }
 
 function updateWithTax() {
-  var taxRate = getTaxRate();
-  var grossValue = document.forms["new_product"].products_price.value;
-  var grossListValue = document.forms["new_product"].products_price_list.value;
-  var grossDiscount1Value = document.forms["new_product"].products_discount1.value;
-  var grossDiscount2Value = document.forms["new_product"].products_discount2.value;
-  var grossDiscount3Value = document.forms["new_product"].products_discount3.value;
-  var grossDiscount4Value = document.forms["new_product"].products_discount4.value;
+  let taxRate = getTaxRate();
+  let grossValue = document.forms["new_product"].products_price.value;
+  let grossListValue = document.forms["new_product"].products_price_list.value;
+  let grossDiscount1Value = document.forms["new_product"].products_discount1.value;
+  let grossDiscount2Value = document.forms["new_product"].products_discount2.value;
+  let grossDiscount3Value = document.forms["new_product"].products_discount3.value;
+  let grossDiscount4Value = document.forms["new_product"].products_discount4.value;
   
   if (taxRate > 0) {
     grossValue = grossValue * ((taxRate / 100) + 1);
@@ -614,13 +614,13 @@ function updateWithTax() {
 }
 
 function updateNet() {
-  var taxRate = getTaxRate();
-  var netValue = document.forms["new_product"].products_price_gross.value;
-  var netListValue = document.forms["new_product"].products_price_list_gross.value;
-  var netDiscount1Value = document.forms["new_product"].products_discount_gross1.value;
-  var netDiscount2Value = document.forms["new_product"].products_discount_gross2.value;
-  var netDiscount3Value = document.forms["new_product"].products_discount_gross3.value; 
-  var netDiscount4Value = document.forms["new_product"].products_discount_gross4.value; 
+  let taxRate = getTaxRate();
+  let netValue = document.forms["new_product"].products_price_gross.value;
+  let netListValue = document.forms["new_product"].products_price_list_gross.value;
+  let netDiscount1Value = document.forms["new_product"].products_discount_gross1.value;
+  let netDiscount2Value = document.forms["new_product"].products_discount_gross2.value;
+  let netDiscount3Value = document.forms["new_product"].products_discount_gross3.value; 
+  let netDiscount4Value = document.forms["new_product"].products_discount_gross4.value; 
   
   if (taxRate > 0) {
     netValue = netValue / ((taxRate / 100) + 1);
@@ -640,8 +640,8 @@ function updateNet() {
 }
 
 function calcBasePriceFactor() {
-  var pqty = document.forms["new_product"].products_product_quantity.value;
-  var bqty = document.forms["new_product"].products_base_quantity.value;
+  let pqty = document.forms["new_product"].products_product_quantity.value;
+  let bqty = document.forms["new_product"].products_base_quantity.value;
 
   if ((pqty != 0) || (bqty != 0)) {
      document.forms["new_product"].products_base_price.value = doRound(bqty / pqty, 6);

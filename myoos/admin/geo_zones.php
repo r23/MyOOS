@@ -148,8 +148,8 @@ function resetZoneSelected(theForm) {
 }
 
 function update_zone(theForm) {
-  var NumState = theForm.zone_id.options.length;
-  var SelectedCountry = "";
+  let NumState = theForm.zone_id.options.length;
+  let SelectedCountry = "";
 
   while(NumState > 0) {
     NumState--;

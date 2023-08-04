@@ -203,7 +203,7 @@ function oos_get_all_get_params($exclude_array = '')
   * @copyright Copyright (C) 2001 by the Post-Nuke Development Team.
   * @version   Revision: 2.0  - changed by Author: r23  on Date: 2004/01/12 06:02:08
   * @access    private
-  * @param     var variable to prepare
+  * @param     let variable to prepare
   * @param     ...
   * @returns   string/array
   * in, otherwise an array of prepared variables
@@ -223,10 +223,10 @@ function oos_var_prep_for_os()
     $resarray = [];
     foreach (func_get_args() as $ourvar) {
         // Parse out bad things
-        $ourvar = preg_replace($search, $replace, $ourvar);
+        $ourlet = preg_replace($search, $replace, $ourvar);
 
         // Prepare var
-        $ourvar = oos_sanitize_string($ourvar);
+        $ourlet = oos_sanitize_string($ourvar);
 
 
         // Add to array

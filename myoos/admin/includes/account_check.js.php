@@ -28,11 +28,11 @@ if (substr(basename($_SERVER['PHP_SELF']), 0, 12) == 'admin_member') {
 
 <script>
 function validateForm() {
-  var p,z,xEmail,errors='',dbEmail,result=0,i;
+  let p,z,xEmail,errors='',dbEmail,result=0,i;
 
-  var adminName1 = document.newmember.admin_firstname.value;
-  var adminName2 = document.newmember.admin_lastname.value;
-  var adminEmail = document.newmember.admin_email_address.value;
+  let adminName1 = document.newmember.admin_firstname.value;
+  let adminName2 = document.newmember.admin_lastname.value;
+  let adminEmail = document.newmember.admin_email_address.value;
 
   if (adminName1 == '') { 
     errors+='<?php echo JS_ALERT_FIRSTNAME; ?>';
@@ -60,7 +60,7 @@ function validateForm() {
 
 
 function checkGroups(obj) {
-  var subgroupID,i;
+  let subgroupID,i;
   subgroupID = eval("this.defineForm.subgroups_"+parseFloat((obj.id).substring(7)));
 
   if (subgroupID.length > 0) {
@@ -75,7 +75,7 @@ function checkGroups(obj) {
 }
 
 function checkSub(obj) {
-  var groupID,subgroupID,i,num=0;
+  let groupID,subgroupID,i,num=0;
   groupID = eval("this.defineForm.groups_"+parseFloat((obj.id).substring(10)));
   subgroupID = eval("this.defineForm."+(obj.id));
 
@@ -97,13 +97,13 @@ function checkSub(obj) {
 
 <script>
 function validateForm() {
-  var p,z,xEmail,errors='',dbEmail,result=0,i;
+  let p,z,xEmail,errors='',dbEmail,result=0,i;
 
-  var adminName1 = document.account.admin_firstname.value;
-  var adminName2 = document.account.admin_lastname.value;
-  var adminEmail = document.account.admin_email_address.value;
-  var adminPass1 = document.account.admin_password.value;
-  var adminPass2 = document.account.admin_password_confirm.value;
+  let adminName1 = document.account.admin_firstname.value;
+  let adminName2 = document.account.admin_lastname.value;
+  let adminEmail = document.account.admin_email_address.value;
+  let adminPass1 = document.account.admin_password.value;
+  let adminPass2 = document.account.admin_password_confirm.value;
   
   if (adminName1 == '') {
     errors+='<?php echo JS_ALERT_FIRSTNAME; ?>';
