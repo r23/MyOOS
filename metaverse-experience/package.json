@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "aframe": "^1.4.2",
     "aframe-extras": "^7.0.0",
+    "aframe-physics-system": "^4.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",

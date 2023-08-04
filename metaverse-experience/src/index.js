@@ -8,6 +8,7 @@ import { Canvas, useFrame } from '@react-three/fiber';
 
 
 require('aframe-extras');
+require('aframe-physics-system');
 
 
 let scene;
