@@ -57,7 +57,8 @@
 		"php-ffmpeg/php-ffmpeg": "^1.0",
 		"phpseclib/phpseclib": "~3.0",
 		"php-amqplib/php-amqplib": "^3.5",
-		"phpmailer/phpmailer": "^6.8"
+		"phpmailer/phpmailer": "^6.8",
+		"api-platform/core": "^2.7"
     },
 	"require-dev": {
 		"roave/security-advisories": "dev-latest"

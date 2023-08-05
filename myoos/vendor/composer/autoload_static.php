@@ -22,6 +22,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'bf9f5270ae66ac6fa0290b4bf47867b7' => __DIR__ . '/..' . '/adodb/adodb-php/adodb.inc.php',
+        '72280e2fa915e603a1f900c17186d14b' => __DIR__ . '/..' . '/api-platform/core/src/deprecation.php',
         'e22ae735ee74205d021eaeb4f10c1e64' => __DIR__ . '/..' . '/symfony/symfony/src/Symfony/Component/String/Resources/functions.php',
     );
 
@@ -81,6 +82,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'ParagonIE\\ConstantTime\\' => 23,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
+        'N' => 
+        array (
+            'Negotiation\\' => 12,
+        ),
         'M' => 
         array (
             'Matrix\\' => 7,
@@ -108,6 +113,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             'Dompdf\\' => 7,
             'Doctrine\\Persistence\\' => 21,
+            'Doctrine\\Inflector\\' => 19,
             'Doctrine\\Deprecations\\' => 22,
             'Doctrine\\Common\\' => 16,
             'DASPRiD\\Enum\\' => 13,
@@ -123,6 +129,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         ),
         'A' => 
         array (
+            'ApiPlatform\\' => 12,
             'Alchemy\\BinaryDriver\\' => 21,
         ),
     );
@@ -289,6 +296,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
+        'Negotiation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willdurand/negotiation/src/Negotiation',
+        ),
         'Matrix\\' => 
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
@@ -329,6 +340,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             0 => __DIR__ . '/..' . '/doctrine/persistence/src/Persistence',
         ),
+        'Doctrine\\Inflector\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
+        ),
         'Doctrine\\Deprecations\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
@@ -352,6 +367,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         'BaconQrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/bacon/bacon-qr-code/src',
+        ),
+        'ApiPlatform\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/api-platform/core/src',
         ),
         'Alchemy\\BinaryDriver\\' => 
         array (
