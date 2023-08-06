@@ -41,7 +41,6 @@
 		"symfony/symfony": "~5.0",
 		"smarty/smarty": "~4.0",
 		"mobiledetect/mobiledetectlib": "^2.8",
-		"paypal/rest-api-sdk-php": "*",
 		"stripe/stripe-php": "^7.0",
 		"endroid/qr-code": "^4.4",
 		"symfony/intl": "^5.0",

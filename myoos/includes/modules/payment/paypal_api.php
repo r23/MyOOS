@@ -22,11 +22,6 @@
  */
 
 
-if (defined('IS_ADMIN_FLAG')) {
-    $composerAutoload = MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
-    include $composerAutoload;
-}
-
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Item;
@@ -40,6 +35,13 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\Transaction;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
+
+
+if (defined('IS_ADMIN_FLAG')) {
+    $composerAutoload = MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
+    include $composerAutoload;
+}
+
 
 #[AllowDynamicProperties]
 class paypal_api
@@ -148,8 +150,8 @@ class paypal_api
 
 
         /**
- * @var \Paypal\Rest\ApiContext $apiContext
-*/
+		* @var \Paypal\Rest\ApiContext $apiContext
+		*/
         $apiContext = getApiContext($clientId, $clientSecret);
 
 
@@ -344,8 +346,8 @@ class paypal_api
 
 
         /**
- * @var \Paypal\Rest\ApiContext $apiContext
-*/
+        * @var \Paypal\Rest\ApiContext $apiContext
+        */
         $apiContext = getApiContext($clientId, $clientSecret);
 
 
