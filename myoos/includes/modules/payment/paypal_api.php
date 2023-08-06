@@ -37,6 +37,8 @@ use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
 
 
+require MYOOS_INCLUDE_PATH  . '/lib/PayPal-PHP-SDK/autoload.php';
+
 if (defined('IS_ADMIN_FLAG')) {
     $composerAutoload = MYOOS_INCLUDE_PATH . '/vendor/autoload.php';
     include $composerAutoload;
