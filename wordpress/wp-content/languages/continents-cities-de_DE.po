@@ -1,15 +1,15 @@
-# Translation of WordPress - 6.2.x - Development - Continents & Cities in German
-# This file is distributed under the same license as the WordPress - 6.2.x - Development - Continents & Cities package.
+# Translation of WordPress - 6.3.x - Development - Continents & Cities in German
+# This file is distributed under the same license as the WordPress - 6.3.x - Development - Continents & Cities package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-03-24 22:02:18+0000\n"
+"PO-Revision-Date: 2023-08-07 00:17:46+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.4\n"
+"X-Generator: GlotPress/4.0.0-alpha.7\n"
 "Language: de\n"
-"Project-Id-Version: WordPress - 6.2.x - Development - Continents & Cities\n"
+"Project-Id-Version: WordPress - 6.3.x - Development - Continents & Cities\n"
 
 #: wp-admin/includes/continents-cities.php:523
 msgid "Kanton"
@@ -569,7 +569,7 @@ msgstr "Kopenhagen"
 
 #: wp-admin/includes/continents-cities.php:440
 msgid "Chisinau"
-msgstr "Chisinau"
+msgstr "Kischinau"
 
 #: wp-admin/includes/continents-cities.php:438
 msgid "Budapest"
