@@ -34,6 +34,32 @@ function wpcf7_get_contact_form_by_old_id( $old_id ) {
 
 
 /**
+ * Searches for a contact form by a hash string.
+ *
+ * @param string $hash Part of a hash string.
+ * @return WPCF7_ContactForm Contact form object.
+ */
+function wpcf7_get_contact_form_by_hash( $hash ) {
+	global $wpdb;
+
+	$hash = trim( $hash );
+
+	if ( strlen( $hash ) < 7 ) {
+		return null;
+	}
+
+	$like = $wpdb->esc_like( $hash ) . '%';
+
+	$q = "SELECT post_id FROM $wpdb->postmeta WHERE meta_key = '_hash'"
+		. $wpdb->prepare( " AND meta_value LIKE %s", $like );
+
+	if ( $post_id = $wpdb->get_var( $q ) ) {
+		return wpcf7_contact_form( $post_id );
+	}
+}
+
+
+/**
  * Searches for a contact form by title.
  *
  * @param string $title Title of contact form.
@@ -166,20 +192,22 @@ function wpcf7_get_message( $status ) {
  */
 function wpcf7_form_controls_class( $type, $default_classes = '' ) {
 	$type = trim( $type );
-	$default_classes = array_filter( explode( ' ', $default_classes ) );
 
-	$classes = array_merge( array( 'wpcf7-form-control' ), $default_classes );
+	if ( is_string( $default_classes ) ) {
+		$default_classes = explode( ' ', $default_classes );
+	}
 
-	$typebase = rtrim( $type, '*' );
-	$required = ( '*' == substr( $type, -1 ) );
+	$classes = array(
+		'wpcf7-form-control',
+		sprintf( 'wpcf7-%s', rtrim( $type, '*' ) ),
+	);
 
-	$classes[] = 'wpcf7-' . $typebase;
-
-	if ( $required ) {
+	if ( str_ends_with( $type, '*' ) ) {
 		$classes[] = 'wpcf7-validates-as-required';
 	}
 
-	$classes = array_unique( $classes );
+	$classes = array_merge( $classes, $default_classes );
+	$classes = array_filter( array_unique( $classes ) );
 
 	return implode( ' ', $classes );
 }
@@ -196,7 +224,7 @@ function wpcf7_contact_form_tag_func( $atts, $content = null, $code = '' ) {
 	if ( 'contact-form-7' == $code ) {
 		$atts = shortcode_atts(
 			array(
-				'id' => 0,
+				'id' => '',
 				'title' => '',
 				'html_id' => '',
 				'html_name' => '',
@@ -207,10 +235,16 @@ function wpcf7_contact_form_tag_func( $atts, $content = null, $code = '' ) {
 			$atts, 'wpcf7'
 		);
 
-		$id = (int) $atts['id'];
+		$id = trim( $atts['id'] );
 		$title = trim( $atts['title'] );
 
-		if ( ! $contact_form = wpcf7_contact_form( $id ) ) {
+		$contact_form = wpcf7_get_contact_form_by_hash( $id );
+
+		if ( ! $contact_form ) {
+			$contact_form = wpcf7_contact_form( $id );
+		}
+
+		if ( ! $contact_form ) {
 			$contact_form = wpcf7_get_contact_form_by_title( $title );
 		}
 
@@ -414,4 +448,20 @@ function wpcf7_sanitize_additional_settings( $input, $default_template = '' ) {
 
 	$output = trim( $input );
 	return $output;
+}
+
+
+/**
+ * Generates a random hash string for a contact form.
+ *
+ * @param int $post_id Post ID.
+ * @return string SHA-1 hash.
+ */
+function wpcf7_generate_contact_form_hash( $post_id ) {
+	return sha1( implode( '|', array(
+		get_current_user_id(),
+		$post_id,
+		time(),
+		home_url(),
+	) ) );
 }

@@ -35,7 +35,7 @@ class WPCF7_FormTag implements ArrayAccess {
 	 * Returns true if the type has a trailing asterisk.
 	 */
 	public function is_required() {
-		return ( '*' === substr( $this->type, -1 ) );
+		return str_ends_with( $this->type, '*' );
 	}
 
 
@@ -115,7 +115,21 @@ class WPCF7_FormTag implements ArrayAccess {
 	 * Retrieves the id option value from the form-tag.
 	 */
 	public function get_id_option() {
-		return $this->get_option( 'id', 'id', true );
+		static $used = array();
+
+		$option = $this->get_option( 'id', 'id', true );
+
+		if (
+			! $option or
+			str_starts_with( $option, 'wpcf7' ) or
+			in_array( $option, $used, true )
+		) {
+			return false;
+		}
+
+		$used[] = $option;
+
+		return $option;
 	}
 
 
@@ -134,9 +148,10 @@ class WPCF7_FormTag implements ArrayAccess {
 
 		$options = array_merge(
 			(array) $default_classes,
-			(array) $this->get_option( 'class', 'class' )
+			(array) $this->get_option( 'class' )
 		);
 
+		$options = array_map( 'sanitize_html_class', $options );
 		$options = array_filter( array_unique( $options ) );
 
 		if ( empty( $options ) ) {

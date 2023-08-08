@@ -18,6 +18,7 @@ class WPCF7_ContactForm {
 	private $responses_count = 0;
 	private $scanned_form_tags;
 	private $shortcode_atts = array();
+	private $hash = '';
 
 
 	/**
@@ -207,11 +208,12 @@ class WPCF7_ContactForm {
 		$post = get_post( $post );
 
 		if ( $post
-		and self::post_type == get_post_type( $post ) ) {
+		and self::post_type === get_post_type( $post ) ) {
 			$this->id = $post->ID;
 			$this->name = $post->post_name;
 			$this->title = $post->post_title;
 			$this->locale = get_post_meta( $post->ID, '_locale', true );
+			$this->hash = get_post_meta( $post->ID, '_hash', true );
 
 			$this->construct_properties( $post );
 			$this->upgrade();
@@ -472,6 +474,17 @@ class WPCF7_ContactForm {
 
 
 	/**
+	 * Retrieves the random hash string tied to this contact form.
+	 *
+	 * @param int $length Length of hash string.
+	 * @return string Hash string unique to this contact form.
+	 */
+	public function hash( $length = 7 ) {
+		return substr( $this->hash, 0, absint( $length ) );
+	}
+
+
+	/**
 	 * Returns the specified shortcode attribute value.
 	 *
 	 * @param string $name Shortcode attribute name.
@@ -626,9 +639,9 @@ class WPCF7_ContactForm {
 			'data-status' => $data_status_attr,
 		);
 
-		$atts = wpcf7_format_atts( $atts );
+		$atts += (array) apply_filters( 'wpcf7_form_additional_atts', array() );
 
-		$html .= sprintf( '<form %s>', $atts ) . "\n";
+		$html .= sprintf( '<form %s>', wpcf7_format_atts( $atts ) ) . "\n";
 		$html .= $this->form_hidden_fields();
 		$html .= $this->form_elements();
 
@@ -1263,6 +1276,11 @@ class WPCF7_ContactForm {
 				update_post_meta( $post_id, '_locale', $this->locale );
 			}
 
+			add_post_meta( $post_id, '_hash',
+				wpcf7_generate_contact_form_hash( $post_id ),
+				true // Unique
+			);
+
 			if ( $this->initial() ) {
 				$this->id = $post_id;
 				do_action( 'wpcf7_after_create', $this );
@@ -1333,8 +1351,8 @@ class WPCF7_ContactForm {
 			}
 		} else {
 			$shortcode = sprintf(
-				'[contact-form-7 id="%1$d" title="%2$s"]',
-				$this->id,
+				'[contact-form-7 id="%1$s" title="%2$s"]',
+				$this->hash(),
 				$title
 			);
 		}
