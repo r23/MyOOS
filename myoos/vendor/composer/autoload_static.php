@@ -107,6 +107,7 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         ),
         'E' => 
         array (
+            'Evenement\\' => 10,
             'Endroid\\QrCode\\' => 15,
         ),
         'D' => 
@@ -328,6 +329,10 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
         array (
             0 => __DIR__ . '/..' . '/php-ffmpeg/php-ffmpeg/src/FFMpeg',
         ),
+        'Evenement\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/evenement/evenement/src',
+        ),
         'Endroid\\QrCode\\' => 
         array (
             0 => __DIR__ . '/..' . '/endroid/qr-code/src',
@@ -384,13 +389,6 @@ class ComposerStaticInit4d6b45e6a70704e8709ae49fdd543789
             'HTMLPurifier' => 
             array (
                 0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
-            ),
-        ),
-        'E' => 
-        array (
-            'Evenement' => 
-            array (
-                0 => __DIR__ . '/..' . '/evenement/evenement/src',
             ),
         ),
         'D' => 
