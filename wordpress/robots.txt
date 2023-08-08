@@ -24,3 +24,6 @@ Disallow: /*.xhtml$
 
 User-agent: ia_archiver
 Disallow: /
+
+User-agent: GPTBot
+Disallow: /
