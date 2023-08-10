@@ -375,3 +375,6 @@ r23_3d_model.zip
 /myoos/media/models/gltf/BoomBox
 /myoos/media/models/gltf/barhocker
 /metaverse-experience/asset/blender/*.blend1
+/metaverse-experience/asset/3d_painter/hall.spp
+/metaverse-experience/asset/3d_painter/*.painter_lock
+/metaverse-experience/asset/blender/export_fbx/hall.fbx
