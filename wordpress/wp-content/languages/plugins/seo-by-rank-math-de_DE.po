@@ -2,14 +2,28 @@
 # This file is distributed under the same license as the Plugins - Rank Math SEO - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2023-07-26 15:35:23+0000\n"
+"PO-Revision-Date: 2023-08-09 13:47:38+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: GlotPress/4.0.0-alpha.6\n"
+"X-Generator: GlotPress/4.0.0-alpha.7\n"
 "Language: de\n"
 "Project-Id-Version: Plugins - Rank Math SEO - Stable (latest release)\n"
+
+#: includes/modules/sitemap/settings/authors.php:53
+msgid "Selected roles will be excluded from the XML &amp; HTML sitemaps."
+msgstr "Ausgewählte Rollen werden von den XML &amp; HTML-Sitemaps ausgeschlossen."
+
+#. Translators: link to the update page.
+#: includes/modules/content-ai/class-rest.php:217
+msgid "Please update"
+msgstr "Bitte aktualisieren"
+
+#. Translators: link to the update page.
+#: includes/modules/content-ai/class-rest.php:216
+msgid "There is a new version of Content AI available! %s the Rank Math SEO plugin to use this feature."
+msgstr "Es ist eine neue Version der Inhalts-KI verfügbar! %s das Rank Math SEO Plugin, um diese Funktion zu nutzen."
 
 #: includes/modules/redirections/class-form.php:240
 msgid "The redirection you are trying to update may cause an infinite loop. Please check the source and destination URLs."
@@ -35,7 +49,7 @@ msgstr "Du kannst die automatischen Updates nicht aktivieren, um automatisch auf
 msgid "Site wide plugins auto-update option is disabled on your site."
 msgstr "Die Option zur automatischen Aktualisierung von Plugins ist auf deiner Website deaktiviert."
 
-#: includes/modules/analytics/google/class-console.php:220
+#: includes/modules/analytics/google/class-console.php:221
 msgid "The Google Search Console request failed."
 msgstr "Die Anfrage der Google Search Console ist fehlgeschlagen."
 
@@ -47,10 +61,10 @@ msgstr "Die Anfrage der Google Analytics Console ist fehlgeschlagen."
 msgid "The Google Analytics request failed."
 msgstr "Die Google Analytics-Anfrage ist fehlgeschlagen."
 
-#: includes/modules/analytics/class-ajax.php:158
-#: includes/modules/analytics/class-ajax.php:174
-#: includes/modules/analytics/class-ajax.php:200
-#: includes/modules/analytics/class-ajax.php:265
+#: includes/modules/analytics/class-ajax.php:157
+#: includes/modules/analytics/class-ajax.php:173
+#: includes/modules/analytics/class-ajax.php:199
+#: includes/modules/analytics/class-ajax.php:264
 msgid "Data import will not work for this service as sufficient permissions are not given."
 msgstr "Der Datenimport funktioniert für diesen Dienst nicht, da keine ausreichenden Berechtigungen vorhanden sind."
 
@@ -275,11 +289,11 @@ msgstr "AIOSEO Block Konvertierer"
 
 #: includes/modules/sitemap/settings/taxonomies.php:32
 msgid "Include archive pages for terms of this taxonomy in the HTML sitemap."
-msgstr "Füge Archivseiten für Begriffe dieser Taxonomie in die HTML-Sitemap ein."
+msgstr "Archivseiten für Begriffe dieser Taxonomie in die HTML-Sitemap einbinden."
 
 #: includes/modules/sitemap/settings/post-types.php:46
 msgid "Include this post type in the HTML sitemap if it's enabled."
-msgstr "Füge diesen Beitragstyp in die HTML-Sitemap ein, wenn er aktiviert ist."
+msgstr "Diesen Inhaltstyp in die HTML-Sitemap einfügen, wenn aktiviert."
 
 #: includes/modules/sitemap/settings/html-sitemap.php:129
 msgid "SEO Titles"
@@ -287,16 +301,16 @@ msgstr "SEO-Titel"
 
 #: includes/modules/sitemap/settings/html-sitemap.php:126
 msgid "Show the post/term titles, or the SEO titles in the HTML sitemap."
-msgstr "Zeige die Post-/Term-Titel oder die SEO-Titel in der HTML-Sitemap an."
+msgstr "Beitrags-/Begriff- oder SEO-Titel in der HTML-Sitemap anzeigen."
 
 #: includes/modules/sitemap/settings/html-sitemap.php:125
 #: includes/modules/sitemap/settings/html-sitemap.php:128
 msgid "Item Titles"
-msgstr "Artikeltitel"
+msgstr "Titel der Einträge"
 
 #: includes/modules/sitemap/settings/html-sitemap.php:115
 msgid "Show published dates for each post & page."
-msgstr "Zeige die veröffentlichten Daten für jeden Beitrag und jede Seite an."
+msgstr "Veröffentlichungsdaten für jeden Beitrag und jede Seite anzeigen."
 
 #: includes/modules/sitemap/settings/html-sitemap.php:114
 msgid "Show Dates"
@@ -345,7 +359,7 @@ msgstr "Anzeige-Format"
 
 #: includes/modules/sitemap/settings/html-sitemap.php:18
 msgid "Enable the HTML sitemap."
-msgstr "Aktiviere die HTML-Sitemap."
+msgstr "HTML-Sitemap aktivieren."
 
 #: includes/modules/sitemap/settings/authors.php:39
 msgid "Include author archives in the HTML sitemap if it's enabled."
@@ -865,7 +879,7 @@ msgstr "Manuell"
 
 #: includes/modules/instant-indexing/views/history.php:12
 msgid "Clear History"
-msgstr "Historie leeren"
+msgstr "Verlauf leeren"
 
 #: includes/modules/instant-indexing/views/console.php:26
 msgctxt "URL slug placeholder"
@@ -917,7 +931,7 @@ msgstr "Noch keine Einreichungen."
 
 #: includes/modules/instant-indexing/class-instant-indexing.php:359
 msgid "Error: could not get history."
-msgstr "Fehler: Verlauf konnte nicht abgerufen werden."
+msgstr "Fehler: Konnte keinen Verlauf abrufen."
 
 #: includes/modules/instant-indexing/class-instant-indexing.php:358
 msgid "Error: could not clear history."
@@ -1101,7 +1115,7 @@ msgstr "%1$s Guthaben übrig. Aktualisiere, um mehr Guthaben von %2$s zu erhalte
 
 #: includes/modules/content-ai/views/options.php:34
 msgid "Select the post type you use for Content AI."
-msgstr "Wähle den Beitragstyp, den du für Inhalts-KI verwenden."
+msgstr "Wähle den Beitragstyp, den du für Inhalts-KI verwendest."
 
 #: includes/modules/content-ai/views/options.php:33
 msgid "Select Post Type"
@@ -1111,15 +1125,15 @@ msgstr "Beitragstyp auswählen"
 msgid "Default Country"
 msgstr "Standard Land"
 
-#: includes/modules/content-ai/class-rest.php:251
+#: includes/modules/content-ai/class-rest.php:257
 msgid "You have used all the free credits which are allowed to this domain."
 msgstr "Du hast für diese Domäne das kostenlose Guthaben aufgebraucht."
 
-#: includes/modules/content-ai/class-rest.php:245
+#: includes/modules/content-ai/class-rest.php:251
 msgid "This feature is not available on the localhost."
 msgstr "Diese Funktion ist auf dem localhost nicht verfügbar."
 
-#: includes/modules/content-ai/class-rest.php:222
+#: includes/modules/content-ai/class-rest.php:228
 msgid "No data found for the researched keyword."
 msgstr "Für das recherchierte Schlüsselwort wurden keine Daten gefunden."
 
@@ -1792,11 +1806,11 @@ msgstr "Vergeben"
 msgid "Cancel Fetch"
 msgstr "Abrufen abbrechen"
 
-#: includes/modules/analytics/class-ajax.php:357
+#: includes/modules/analytics/class-ajax.php:356
 msgid "Data fetching started in the background."
 msgstr "Das Abrufen der Daten wurde im Hintergrund gestartet."
 
-#: includes/modules/analytics/class-ajax.php:323
+#: includes/modules/analytics/class-ajax.php:322
 msgid "Data fetching cancelled."
 msgstr "Datenabruf abgebrochen."
 
@@ -2660,7 +2674,7 @@ msgstr "Einstellungen sichern"
 #. translators: Link to learn about import export panel KB article
 #: includes/admin/views/import-export/import-export-panel.php:19
 msgid "Import or export your Rank Math settings, This option is useful for replicating Rank Math settings across multiple websites. %s"
-msgstr "Importiere oder exportiere deine Rank Math Einstellungen. Diese Option ist praktisch, wenn du die gleichen Einstellungen auf mehrere Webseite verwenden willst. %s"
+msgstr "Importiere oder exportiere deine Rank Math Einstellungen. Diese Option ist praktisch, wenn du die gleichen Einstellungen auf mehreren Websites verwenden willst. %s"
 
 #: includes/admin/views/import-export/import-export-panel.php:14
 msgid "Plugin Settings"
@@ -3117,24 +3131,24 @@ msgstr "Blöcke-Import fehlgeschlagen."
 msgid "Imported blocks from posts %1$s - %2$s out of %3$s "
 msgstr "Importierte Blöcke aus den Beiträgen %1$s - %2$s von %3$s "
 
-#: includes/modules/schema/blocks/class-block-howto.php:508
+#: includes/modules/schema/blocks/class-block-howto.php:499
 msgid "Total Time:"
 msgstr "Gesamtzeit:"
 
 #. translators: placeholders are units of time, e.g. '1 day, 8 hours and 30
 #. minutes'
-#: includes/modules/schema/blocks/class-block-howto.php:502
+#: includes/modules/schema/blocks/class-block-howto.php:493
 msgid "%1$s, %2$s and %3$s"
 msgstr "%1$s, %2$s und %3$s"
 
 #. translators: placeholders are units of time, e.g. '1 hour and 30 minutes'
-#: includes/modules/schema/blocks/class-block-howto.php:500
+#: includes/modules/schema/blocks/class-block-howto.php:491
 msgid "%1$s and %2$s"
 msgstr "%1$s und %2$s"
 
 #. translators: %d is the number of minutes.
 #. translators: %d: minutes
-#: includes/modules/schema/blocks/class-block-howto.php:493
+#: includes/modules/schema/blocks/class-block-howto.php:484
 #: includes/opengraph/class-slack.php:311
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -3142,14 +3156,14 @@ msgstr[0] "%d Minute"
 msgstr[1] "%d Minuten"
 
 #. translators: %d is the number of hours.
-#: includes/modules/schema/blocks/class-block-howto.php:488
+#: includes/modules/schema/blocks/class-block-howto.php:479
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d Stunde"
 msgstr[1] "%d Stunden"
 
 #. translators: %d is the number of days.
-#: includes/modules/schema/blocks/class-block-howto.php:483
+#: includes/modules/schema/blocks/class-block-howto.php:474
 msgid "%d day"
 msgid_plural "%d days"
 msgstr[0] "%d Tag"
@@ -4022,33 +4036,33 @@ msgstr "Wähle die Taxonomie der Produktmarke, die du in Schema.org und OpenGrap
 msgid "Brand"
 msgstr "Marke"
 
-#: includes/modules/sitemap/sitemap-xsl.php:173
+#: includes/modules/sitemap/sitemap-xsl.php:174
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Longitude"
 msgstr "Längengrad"
 
-#: includes/modules/sitemap/sitemap-xsl.php:172
+#: includes/modules/sitemap/sitemap-xsl.php:173
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Latitude"
 msgstr "Breitengrad"
 
-#: includes/modules/sitemap/sitemap-xsl.php:171
+#: includes/modules/sitemap/sitemap-xsl.php:172
 msgid "Phone number"
 msgstr "Telefonnummer"
 
 #. translators: link to rankmath.com
-#: includes/modules/sitemap/sitemap-xsl.php:144
+#: includes/modules/sitemap/sitemap-xsl.php:145
 msgid "Learn more about <a href=\"%s\" target=\"_blank\">KML File</a>."
 msgstr "Erfahre mehr über <a href=\"%s\" target=\"_blank\">KML-Datei</a>."
 
 #. translators: link to rankmath.com
-#: includes/modules/sitemap/sitemap-xsl.php:131
+#: includes/modules/sitemap/sitemap-xsl.php:132
 msgid "This KML File is generated by <a href=\"%s\" target=\"_blank\">Rank Math WordPress SEO Plugin</a>. It is used to provide location information to Google."
 msgstr "Dieses KML File wird generiert von <a href=\"%s\" target=\"_blank\">Rank Math WordPress SEO Plugin</a>. Es wird verwendet, um Google Standortinformationen zur Verfügung zu stellen."
 
-#: includes/modules/sitemap/sitemap-xsl.php:123
+#: includes/modules/sitemap/sitemap-xsl.php:124
 msgid "KML File"
 msgstr "KML-Datei"
 
@@ -4084,41 +4098,41 @@ msgstr "Einstellungen und Metadaten vom Plugin %1$s importieren."
 msgid "Import meta data from the %1$s plugin."
 msgstr "Metadaten vom Plugin %1$s importieren."
 
-#: includes/modules/sitemap/sitemap-xsl.php:309
+#: includes/modules/sitemap/sitemap-xsl.php:310
 msgid "Last Mod."
 msgstr "Zuletzt geändert."
 
 #. translators: xsl value count
-#: includes/modules/sitemap/sitemap-xsl.php:161
-#: includes/modules/sitemap/sitemap-xsl.php:297
+#: includes/modules/sitemap/sitemap-xsl.php:162
+#: includes/modules/sitemap/sitemap-xsl.php:298
 msgid "<a href=\"%s\">&#8592; Sitemap Index</a>"
 msgstr "<a href=\"%s\">&#8592; Sitemap Index</a>"
 
 #. translators: xsl value count
-#: includes/modules/sitemap/sitemap-xsl.php:287
+#: includes/modules/sitemap/sitemap-xsl.php:288
 msgid "This XML Sitemap contains <strong>%s</strong> URLs."
 msgstr "Diese XML-Sitemap enthält <strong>%s</strong> URLs."
 
-#: includes/modules/sitemap/sitemap-xsl.php:259
+#: includes/modules/sitemap/sitemap-xsl.php:260
 msgid "Last Modified"
 msgstr "Zuletzt geändert"
 
 #. translators: xsl value count
-#: includes/modules/sitemap/sitemap-xsl.php:248
+#: includes/modules/sitemap/sitemap-xsl.php:249
 msgid "This XML Sitemap Index file contains <strong>%s</strong> sitemaps."
 msgstr "Diese Indexdatei der XML-Sitemap enthält <strong>%s</strong> Sitemaps."
 
 #. translators: link to rankmath.com
-#: includes/modules/sitemap/sitemap-xsl.php:232
+#: includes/modules/sitemap/sitemap-xsl.php:233
 msgid "Learn more about <a href=\"%s\" target=\"_blank\">XML Sitemaps</a>."
 msgstr "Mehr über <a href=\"%s\" target=\"_blank\">XML Sitemaps</a> erfahren."
 
 #. translators: link to rankmath.com
-#: includes/modules/sitemap/sitemap-xsl.php:219
+#: includes/modules/sitemap/sitemap-xsl.php:220
 msgid "This XML Sitemap is generated by <a href=\"%s\" target=\"_blank\">Rank Math WordPress SEO Plugin</a>. It is what search engines like Google use to crawl and re-crawl posts/pages/products/images/archives on your website."
 msgstr "Diese XML-Sitemap wird generiert von <a href=\"%s\" target=\"_blank\">Rank Math WordPress SEO Plugin</a>. Es ist dass, was Suchmaschinen wie Google verwenden, um Beitragsseiten-Produkte-Bildarchive auf deiner Website zu durchsuchen und neu zu durchsuchen."
 
-#: includes/modules/sitemap/sitemap-xsl.php:211
+#: includes/modules/sitemap/sitemap-xsl.php:212
 msgid "XML Sitemap"
 msgstr "XML-Sitemap"
 
@@ -4650,7 +4664,7 @@ msgstr "Norton Verifizierung Seite"
 #. translators: Norton webmaster link
 #: includes/settings/general/webmaster.php:80
 msgid "Enter your Norton Safe Web verification HTML code or ID. Learn how to get it: %s"
-msgstr "Geben deinen Norton Safe Web-Verifizierungs-HTML-Code oder deine ID ein. Erfahre, wie du diesen bekommst: %s"
+msgstr "Gib deinen HTML-Code oder deine ID für die Verifizierung bei Norton Safe Web ein. Du bekommst diese hier: %s"
 
 #: includes/settings/general/webmaster.php:78
 msgid "Norton Safe Web Verification ID"
@@ -4664,7 +4678,7 @@ msgstr "Pinterest Konto"
 #. translators: Pinterest webmaster link
 #: includes/settings/general/webmaster.php:68
 msgid "Enter your Pinterest verification HTML code or ID. Learn how to get it: %s"
-msgstr "Gebe deinen Pinterest Verifikation-HTML-Code oder deine ID ein. Erfahre, wie du diesen bekommst: %s"
+msgstr "Gib deinen HTML-Code oder deine ID für die Verifizierung bei Pinterest ein. Du bekommst diese hier: %s"
 
 #: includes/settings/general/webmaster.php:66
 msgid "Pinterest Verification ID"
@@ -4678,7 +4692,7 @@ msgstr "Yandex.Webmaster Seite"
 #. translators: Yandex webmaster link
 #: includes/settings/general/webmaster.php:55
 msgid "Enter your Yandex verification HTML code or ID. Learn how to get it: %s"
-msgstr "Gebe deinen Yandex-Verifizierungs-HTML-Code oder deine ID ein. Erfahre, wie du diesen bekommst: %s"
+msgstr "Gib deinen HTML-Code oder deine ID für die Verifizierung bei Yandex ein. Du bekommst diese hier: %s"
 
 #: includes/settings/general/webmaster.php:53
 msgid "Yandex Verification ID"
@@ -4687,7 +4701,7 @@ msgstr "Yandex Verifizierungs-ID"
 #. translators: Baidu webmaster link
 #: includes/settings/general/webmaster.php:43
 msgid "Enter your Baidu Webmaster Tools verification HTML code or ID. Learn how to get it: %s"
-msgstr "Gebe deinen Baidu Webmaster Tools Verifizierungs-HTML-Code oder deine ID ein. Erfahre, wie du diesen bekommst: %s"
+msgstr "Gib deinen HTML-Code oder deine ID für die Verifizierung der Baidu Webmaster Tools ein. Du bekommst diese hier: %s"
 
 #. translators: Baidu webmaster link
 #: includes/settings/general/webmaster.php:41
@@ -4703,7 +4717,7 @@ msgstr "Bing Webmaster Verifizierungsseite"
 #. translators: Bing webmaster link
 #: includes/settings/general/webmaster.php:31
 msgid "Enter your Bing Webmaster Tools verification HTML code or ID. Get it here: %s"
-msgstr "Gebe deinen HTML-Code oder deine ID für die Verifizierung der Bing Webmaster Tools ein. Du bekommst diesen hier: %s"
+msgstr "Gib deinen HTML-Code oder deine ID für die Verifizierung der Bing Webmaster Tools ein. Du bekommst diese hier: %s"
 
 #: includes/settings/general/webmaster.php:29
 msgid "Bing Webmaster Tools"
@@ -4717,7 +4731,7 @@ msgstr "Verifizierungsseite der Suchkonsole"
 #. translators: Google Search Console Link
 #: includes/settings/general/webmaster.php:19
 msgid "Enter your Google Search Console verification HTML code or ID. Learn how to get it: %s"
-msgstr "Gebe deinen HTML-Code oder deine ID für die Verifizierung der Google Search Console ein. Erfahre, wie du diesen bekommst: %s"
+msgstr "Gib deinen HTML-Code oder deine ID für die Verifizierung der Google Search Console ein. Du bekommst diese hier: %s"
 
 #: includes/settings/general/webmaster.php:17
 msgid "Google Search Console"
@@ -5033,7 +5047,7 @@ msgstr "Leere Begriffe einbeziehen"
 
 #: includes/modules/sitemap/settings/taxonomies.php:22
 msgid "Include archive pages for terms of this taxonomy in the XML sitemap."
-msgstr "Binde Archivseiten für Begriffe dieser Taxonomie in die XML-Sitemap ein."
+msgstr "Archivseiten für Begriffe dieser Taxonomie in die XML-Sitemap einbinden."
 
 #: includes/modules/sitemap/settings/post-types.php:62
 msgid "Insert custom field (post meta) names which contain image URLs to include them in the sitemaps. Add one per line."
@@ -5045,7 +5059,7 @@ msgstr "Individuelle Bildfelder"
 
 #: includes/modules/sitemap/settings/post-types.php:35
 msgid "Include this post type in the XML sitemap."
-msgstr "Füge diesen Beitrags-Typ in die XML-Sitemap ein."
+msgstr "Diesen Inhaltstyp in die XML-Sitemap einfügen."
 
 #: includes/modules/sitemap/settings/authors.php:28
 #: includes/modules/sitemap/settings/post-types.php:34
@@ -5108,10 +5122,6 @@ msgstr "Füge Benutzer-IDs hinzu, die durch Kommas getrennt sind, um sie von der
 #: includes/modules/sitemap/settings/authors.php:65
 msgid "Exclude Users"
 msgstr "Benutzer ausschließen"
-
-#: includes/modules/sitemap/settings/authors.php:53
-msgid "Selected roles will be excluded in the sitemap."
-msgstr "Ausgewählte Rollen werden in der Sitemap ausgeschlossen."
 
 #: includes/modules/sitemap/settings/authors.php:52
 msgid "Exclude User Roles"
@@ -5473,11 +5483,11 @@ msgstr "Elemente"
 msgid "Warnings"
 msgstr "Warnhinweise"
 
-#: includes/modules/analytics/class-ajax.php:334
+#: includes/modules/analytics/class-ajax.php:333
 msgid "Google oAuth is not authorized."
 msgstr "Google oAuth ist nicht autorisiert."
 
-#: includes/modules/analytics/class-ajax.php:369
+#: includes/modules/analytics/class-ajax.php:368
 msgid "Not a valid settings founds to delete cache."
 msgstr "Es wurde keine gültige Einstellung zum Löschen des Caches gefunden."
 
@@ -6327,7 +6337,7 @@ msgstr "Adressformat"
 #: includes/modules/schema/shortcode/event.php:62
 #: includes/modules/schema/shortcode/person.php:27
 #: includes/modules/schema/shortcode/restaurant.php:20
-#: includes/modules/sitemap/sitemap-xsl.php:170
+#: includes/modules/sitemap/sitemap-xsl.php:171
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
 msgid "Address"
@@ -6362,7 +6372,7 @@ msgstr "URL des Artikels."
 #: includes/modules/local-seo/views/titles-options.php:74
 #: includes/modules/schema/shortcode/book.php:20
 #: includes/modules/schema/shortcode/music.php:20
-#: includes/modules/sitemap/sitemap-xsl.php:307
+#: includes/modules/sitemap/sitemap-xsl.php:308
 #: includes/settings/titles/local.php:68
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
@@ -6375,7 +6385,7 @@ msgid "Logo"
 msgstr "Logo"
 
 #: includes/modules/schema/shortcode/book.php:36
-#: includes/modules/sitemap/sitemap-xsl.php:169
+#: includes/modules/sitemap/sitemap-xsl.php:170
 #: includes/opengraph/class-slack.php:360
 #: includes/modules/schema/assets/js/schema-gutenberg.js:1
 #: includes/modules/schema/assets/js/schema-template.js:1
@@ -6879,7 +6889,7 @@ msgid "SEO options related to featured images and media appearing in your post c
 msgstr "SEO-Optionen im Zusammenhang mit den vorgestellten Bildern und Medien, die in deinem Beitrag erscheinen. %s."
 
 #: includes/modules/image-seo/class-admin.php:45
-#: includes/modules/sitemap/sitemap-xsl.php:308
+#: includes/modules/sitemap/sitemap-xsl.php:309
 #: assets/admin/js/rank-math-app.js:1
 msgid "Images"
 msgstr "Bilder"
@@ -7558,7 +7568,7 @@ msgstr "Wähle deine Sitemap-Konfiguration und die Art der Beiträge oder Seiten
 
 #: includes/admin/wizard/class-sitemap.php:33
 #: includes/module/class-manager.php:143
-#: includes/modules/sitemap/sitemap-xsl.php:258
+#: includes/modules/sitemap/sitemap-xsl.php:259
 msgid "Sitemap"
 msgstr "Sitemap"
 
@@ -8717,7 +8727,7 @@ msgstr "Bist du sicher, dass du die Einstellungen in Rank Math importieren möch
 #: includes/modules/schema/blocks/toc/assets/js/index.js:1
 #: includes/modules/schema/blocks/toc/assets/src/toolbar.js:28
 msgid "None"
-msgstr "Nichts"
+msgstr "Kein"
 
 #: includes/admin/class-cmb2-fields.php:126
 msgid "On"
