@@ -20,7 +20,7 @@ defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.'
  * Currently version.
  * use SemVer - https://semver.org
  */
-define('OOS_VERSION', '2.4.61-dev');
+define('OOS_VERSION', '2.4.62-dev');
 
 // Complete software name string
 define('OOS_FULL_NAME', 'MyOOS ' . OOS_VERSION);
