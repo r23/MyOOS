@@ -6,16 +6,22 @@
 		<script src="main.js"></script>
 	</head>
     <body>
-        <a-scene scene_update webxr="referenceSpaceType:local">
-            <a-assets>
-                <img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg">
-            </a-assets>
-            <a-sky src="#skyTexture"></a-sky>			
-
-			<a-entity gltf-model="model/hall.glb"></a-entity>
-
+		<a-scene renderer="webxr: true"> <!-- activates the WebXRManager from A-Frame -->
+			<a-entity id="renderer"></a-entity> <!-- an entity to access the renderer -->
+		  
+			<a-assets>
+			  <img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg">
+			  <a-asset-item id="floor" src="model/floor.glb"></a-asset-item>
+			</a-assets>
+			<a-sky src="#skyTexture"></a-sky>			
+		  
+			<a-entity gltf-model="model/hall.glb" scale="1 1 1" position="-5 0 -10" rotation="0 -45 0"></a-entity>
+		  
+			<a-entity gltf-model="#floor" position="0 0 0" rotation="0 -45 0"></a-entity>
+		  
+		
 			<!-- camera rig -->
-			<a-entity id="wraper" movement-controls kinematic-body>
+			<a-entity id="cameraRig" movement-controls kinematic-body>
 				<!-- camera -->
 				<a-entity id="camera" camera 
 								position="0 1.6 0"
@@ -27,6 +33,7 @@
 				<a-entity id="left-hand" oculus-touch-controls="hand: left" blink-controls></a-entity>
 				<a-entity id="right-hand" oculus-touch-controls="hand: right"></a-entity>
 			</a-entity>			
-        </a-scene>
+        </a-scene>			
+			
     </body>
 </html>

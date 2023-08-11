@@ -1,50 +1,46 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import * as THREE from "three";
-import * as AFRAME from "aframe";
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { Canvas, useFrame } from '@react-three/fiber';
+// Als Module importieren
+import * as THREE from 'three';
+import * as AFRAME from 'aframe';
 
+// Aus dem heruntergeladenen Ordner importieren
+// Aus dem Three.js-Paket importieren
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+
+
+// import { Canvas, useFrame } from '@react-three/fiber';
 
 require('aframe-extras');
 require('aframe-physics-system');
 
+var el = this.el; // The entity to which this component is attached.
+var scene = el.sceneEl; // The A-Frame Scene
 
-let scene;
-let wraper;
-let camera;
-let cursor;
+// var el = document.querySelector('#renderer'); // access to the entity
+var renderer = el.components.renderer.renderer; // access the renderer
+renderer.xr.setSessionMode( 'immersive-vr' ); // activates the VR mode
 
-let gamepad;
+var threeScene = scene.getObject3D('scene'); // Die Three.js-Szene
 
-let physics;
-let camera_physics_object;
+// Erstellt eine neue Three.js-Kamera
+// var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); 
 
-let sphere_radius = 0.5;
-let camera_height = 1;
-let ready = false;
+// Zugriff auf die A-Frame-Kamera
+var camera = document.querySelector('#camera').getObject3D('camera');
 
-
-const controls = new OrbitControls(camera, renderer.domElement);
-const loader = new GLTFLoader();
-const clock = new THREE.Clock();
+var controls = new PointerLockControls( camera, document.body );
+threeScene.add( controls.getObject() ) // fügt die Steuerung der Szene hinzu
 
 
-AFRAME.registerPrimitive('a-ocean', {
-  // Attaches the `ocean` component by default.
-  // Defaults the ocean to be parallel to the ground.
-  defaultComponents: {
-    ocean: {},
-    rotation: {x: -90, y: 0, z: 0}
-  },
+function animate() {
+  renderer.render( scene, camera ); // Rendert die Szene
+}
 
-  // Maps HTML attributes to the `ocean` component's properties.
-  mappings: {
-    width: 'ocean.width',
-    depth: 'ocean.depth',
-    density: 'ocean.density',
-    color: 'ocean.color',
-    opacity: 'ocean.opacity'
-  }
-});
+// verwendet requestAnimationFrame, um die animate-Funktion aufzurufen
+function loop() {
+  requestAnimationFrame( loop ); // Ruft die loop-Funktion wieder auf
+  animate(); // Ruft die animate-Funktion auf
+}
+
+loop(); // Startet die loop-Funktion
