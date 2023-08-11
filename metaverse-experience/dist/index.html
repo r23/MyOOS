@@ -6,9 +6,8 @@
 		<script src="main.js"></script>
 	</head>
     <body>
-		<a-scene renderer="webxr: true"> <!-- activates the WebXRManager from A-Frame -->
-			<a-entity id="renderer"></a-entity> <!-- an entity to access the renderer -->
-		  
+		<a-scene vr-mode-ui="enabled: true"> <!-- creates a UI element for the VR mode -->
+					  
 			<a-assets>
 			  <img id="skyTexture" src="texture/kloofendal_43d_clear_puresky.jpg">
 			  <a-asset-item id="floor" src="model/floor.glb"></a-asset-item>
