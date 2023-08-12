@@ -27,10 +27,11 @@
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
 $bActive = ($_SESSION['selected_box'] == 'administrator') ? true : false;
+$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 
 $aBlocks[] = array(
     'heading' => BOX_HEADING_ADMINISTRATOR,
-    'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=administrator'),
+    'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(array('selected_box')) . 'selected_box=administrator'),
     'icon' => 'fa fa-user',
     'active' => $bActive,
     'contents' => array(

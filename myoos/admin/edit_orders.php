@@ -40,9 +40,8 @@ require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_order.php';
 
 $language = oos_db_prepare_input($_SESSION['language']);
 
-
+$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 $step = $_GET['step'] ?? $_POST['step'] ?? 1;
-
 $oID = isset($_GET['oID']) ? intval($_GET['oID']) : '';
 
 $update_products = isset($_POST['update_products']) ? oos_db_prepare_input($_POST['update_products']) : '';
@@ -731,7 +730,7 @@ if (($action == 'edit') && ($order_exists == true)) {
       <td align="right" colspan="6">
         <table border="0" cellspacing="0" cellpadding="2" width="100%">
         <tr>
-        <td align='center' valign='top'><br><a href="<?php print $_SERVER['PHP_SELF'] . "?oID=$oID&action=add_product&step=1"; ?>"><u><b><font size='3'><?php echo TEXT_DATE_ORDER_ADDNEW; ?> </font></b></u></a></td>
+        <td align='center' valign='top'><br><a href="<?php print $php_self . "?oID=$oID&action=add_product&step=1"; ?>"><u><b><font size='3'><?php echo TEXT_DATE_ORDER_ADDNEW; ?> </font></b></u></a></td>
         <td align='right'>
         <table border="0" cellspacing="0" cellpadding="2">
     <?php
@@ -934,7 +933,7 @@ if ($action == "add_product") {
     }
 
     // Step 1: Choose Category
-    echo '<tr class="dataTableRow"><form action="'.$_SERVER['PHP_SELF'].'?oID='.$oID.'&action='.$action.'" method="POST">'."\n";
+    echo '<tr class="dataTableRow"><form action="'.$php_self.'?oID='.$oID.'&action='.$action.'" method="POST">'."\n";
     echo '<td class="dataTableContent" align="right"><b>STEP 1:</b></td><td class="dataTableContent" valign="top">';
     echo ' ' . oos_draw_pull_down_menu('add_product_categories_id', oos_get_category_tree(), $current_category_id, 'onChange="this.form.submit();"');
     echo '<input type="hidden" name="step" value="2">';
@@ -944,7 +943,7 @@ if ($action == "add_product") {
 
     // Step 2: Choose Product
     if (($step > 1) && ($add_product_categories_id > 0)) {
-        echo '<tr class="dataTableRow"><form action="'.$_SERVER['PHP_SELF'].'?oID='.$oID.'&action='.$action.'" method="POST">' . "\n";
+        echo '<tr class="dataTableRow"><form action="'.$php_self.'?oID='.$oID.'&action='.$action.'" method="POST">' . "\n";
         echo '<td class="dataTableContent" align="right"><b>STEP 2:</b></td><td class="dataTableContent" valign="top"><select name="add_product_products_id" onChange="this.form.submit();">';
         $ProductOptions = '<option value="0">' .  ADDPRODUCT_TEXT_SELECT_PRODUCT . "\n";
         asort($ProductList[$add_product_categories_id]);
@@ -981,7 +980,7 @@ if ($action == "add_product") {
                 $result->MoveNext();
             }
 
-            echo '<tr class="dataTableRow"><form action="'.$_SERVER['PHP_SELF'].'?oID='.$oID.'&action='.$action.'" method="POST">'."\n";
+            echo '<tr class="dataTableRow"><form action="'.$php_self.'?oID='.$oID.'&action='.$action.'" method="POST">'."\n";
             echo '<td class="dataTableContent" align="right"><b>STEP 3:</b></td><td class="dataTableContent" valign="top">';
             foreach ($ProductOptionValues as $OptionID => $OptionValues) {
                 $OptionOption = '<b>' . $Options[$OptionID] . '</b> - <select name="add_product_options['.$OptionID.']">';
@@ -1010,7 +1009,7 @@ if ($action == "add_product") {
 
     // Step 4: Confirm
     if ($step > 3) {
-        echo '<tr class="dataTableRow"><form action="'.$_SERVER['PHP_SELF'].'?oID='.$oID.'&action='.$action.'" method="POST">'."\n";
+        echo '<tr class="dataTableRow"><form action="'.$php_self.'?oID='.$oID.'&action='.$action.'" method="POST">'."\n";
         echo '<td class="dataTableContent" align="right"><b>STEP 4:</b></td>';
         echo '<td class="dataTableContent" valign="top"><input name="add_product_quantity" size="2" value="1">' . ADDPRODUCT_TEXT_CONFIRM_QUANTITY . '</td>';
         echo '<td class="dataTableContent" align="center"><input type="submit" value="' . ADDPRODUCT_TEXT_CONFIRM_ADDNOW . '">';

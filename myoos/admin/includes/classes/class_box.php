@@ -21,10 +21,11 @@
    ----------------------------------------------------------------------
    Example usage:
 
+   $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
    $heading = [];
    $heading[] = array('params' => 'class="menuBoxHeading"',
                       'text'  => BOX_HEADING_TOOLS,
-                      'link'  => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=tools'));
+                      'link'  => oos_href_link_admin(basename($php_self), oos_get_all_get_params(array('selected_box')) . 'selected_box=tools'));
 
    $contents = [];
    $contents[] = array('text'  => SOME_TEXT);

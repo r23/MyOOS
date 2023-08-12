@@ -172,7 +172,9 @@ if (!empty($action)) {
           $nInfo = new objectInfo(array());
       }
 
-      $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+		$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+		$file_extension = substr($php_self, strrpos($php_self, '.'));
+
       $directory_array = [];
       if ($dir = dir('includes/modules/newsletters/')) {
           while ($file = $dir->read()) {
@@ -254,8 +256,9 @@ if (!empty($action)) {
 
       $nInfo = new objectInfo($newsletter);
 
-      include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-      include 'includes/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+      $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+      include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($php_self, strrpos($php_self, '.'));
+      include 'includes/modules/newsletters/' . $nInfo->module . substr($php_self, strrpos($php_self, '.'));
       $module_name = $nInfo->module;
       $module = new $module_name($nInfo->title, $nInfo->content); ?>
       <tr>
@@ -273,8 +276,9 @@ if (!empty($action)) {
 
       $nInfo = new objectInfo($newsletter);
 
-      include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-      include 'includes/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+      $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+      include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($php_self, strrpos($php_self, '.'));
+      include 'includes/modules/newsletters/' . $nInfo->module . substr($php_self, strrpos($php_self, '.'));
       $module_name = $nInfo->module;
       $module = new $module_name($nInfo->title, $nInfo->content); ?>
       <tr>
@@ -288,8 +292,9 @@ if (!empty($action)) {
 
       $nInfo = new objectInfo($newsletter);
 
-      include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
-      include 'includes/modules/newsletters/' . $nInfo->module . substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+      $php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+      include 'includes/languages/' . $_SESSION['language'] . '/modules/newsletters/' . $nInfo->module . substr($php_self, strrpos($php_self, '.'));
+      include 'includes/modules/newsletters/' . $nInfo->module . substr($php_self, strrpos($php_self, '.'));
       $module_name = $nInfo->module;
       $module = new $module_name($nInfo->title, $nInfo->content); ?>
       <tr>

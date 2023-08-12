@@ -26,12 +26,12 @@
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-
+$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
 $bActive = ($_SESSION['selected_box'] == 'modules') ? true : false;
 
 $aBlocks[] = array(
     'heading' => BOX_HEADING_MODULES,
-    'link' => oos_href_link_admin(basename($_SERVER['PHP_SELF']), oos_get_all_get_params(array('selected_box')) . 'selected_box=modules'),
+    'link' => oos_href_link_admin(basename($php_self), oos_get_all_get_params(array('selected_box')) . 'selected_box=modules'),
     'icon' => 'fa fa-edit',
     'active' => $bActive,
     'contents' => array(

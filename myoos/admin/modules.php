@@ -99,7 +99,8 @@ if (!empty($action)) {
 
         case 'install':
         case 'remove':
-            $file_extension = oos_db_prepare_input(substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.')));
+			$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+            $file_extension = oos_db_prepare_input(substr($php_self, strrpos($php_self, '.')));
             $class = oos_db_prepare_input(basename($_GET['module']));
 
             if (file_exists($module_directory . $class . $file_extension)) {
@@ -182,7 +183,8 @@ require 'includes/header.php';
 						</tr>	
 					</thead>
 <?php
-    $file_extension = substr($_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '.'));
+	$php_self = filter_var($_SERVER['PHP_SELF'], FILTER_SANITIZE_URL);
+    $file_extension = substr($php_self, strrpos($php_self, '.'));
     $directory_array = [];
     if ($oDir = @dir($module_directory)) {
         while ($file = $oDir->read()) {
