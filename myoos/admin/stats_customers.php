@@ -27,7 +27,7 @@ require 'includes/main.php';
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $rows = 0;
 
 require 'includes/header.php';

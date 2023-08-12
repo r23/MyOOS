@@ -33,7 +33,7 @@ if (isset($_GET['selected_box'])) {
     $_GET['oldaction'] = '';
 }
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = (isset($_GET['action']) ? oos_db_prepare_input($_GET['action']) : '');
 $oldaction = (isset($_GET['oldaction']) ? oos_db_prepare_input($_GET['oldaction']) : '');
 

@@ -44,8 +44,8 @@ function oos_set_slider_status($slider_id, $status)
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
-$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $sID = (isset($_GET['sID']) ? intval($_GET['sID']) : '');
 
 

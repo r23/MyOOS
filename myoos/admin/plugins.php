@@ -22,7 +22,7 @@
   require 'includes/main.php';
   require 'includes/functions/function_modules.php';
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+  $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
   $installed = explode(';', MODULE_PLUGIN_EVENT_INSTALLED);
 

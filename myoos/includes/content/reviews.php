@@ -54,7 +54,7 @@ $aTemplate['pagination'] = $sTheme . '/system/_pagination.html';
 $nPageType = OOS_PAGE_TYPE_CATALOG;
 $sPagetitle = $aLang['heading_title'] . ' ' . OOS_META_TITLE;
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $sGroup = trim((string) $aUser['text']);
 $nContentCacheID = $sTheme . '|products|reviews|' . $nPage. '|' . $sGroup . '|' . $sLanguage;
 

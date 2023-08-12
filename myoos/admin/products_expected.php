@@ -24,7 +24,7 @@ define('OOS_VALID_MOD', 'yes');
 require 'includes/main.php';
 require 'includes/functions/function_products.php';
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
   $productstable = $oostable['products'];
   $dbconn->Execute("UPDATE $productstable SET products_date_available = '' WHERE to_days(now()) > to_days(products_date_available)");

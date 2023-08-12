@@ -45,7 +45,7 @@ if (!isset($_SESSION['customer_id'])) {
     oos_redirect(oos_href_link($aContents['login']));
 }
 
-$nPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 // split-page-results
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';

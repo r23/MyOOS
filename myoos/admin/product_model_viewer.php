@@ -25,7 +25,7 @@ require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
 
-$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
 

@@ -26,10 +26,10 @@ require 'includes/main.php';
 
 require 'includes/functions/function_categories.php';
 
-$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 
 if (!empty($action)) {

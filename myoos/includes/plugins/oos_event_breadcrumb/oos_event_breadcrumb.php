@@ -69,7 +69,7 @@ class oos_event_breadcrumb
 
 
         $oBreadcrumb->add($aLang['header_title_top'], oos_href_link($aContents['home']));
-        $nPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+        $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
         // add category names or the manufacturer name to the breadcrumb trail
         if (isset($aCategoryPath) && (count($aCategoryPath) > 0)) {

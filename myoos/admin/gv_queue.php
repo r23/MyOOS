@@ -24,8 +24,8 @@ require 'includes/main.php';
 require 'includes/classes/class_currencies.php';
 $currencies = new currencies();
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
-$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
 if ($action == 'confirmrelease' && isset($_GET['gid'])) {
     $coupon_gv_queuetable = $oostable['coupon_gv_queue'];

@@ -28,7 +28,7 @@ require 'includes/classes/class_currencies.php';
 
 $currencies = new currencies();
 
-$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $sCustomer = isset($_GET['customer']) ? oos_prepare_input($_GET['customer']) : '';
 
 if (($action == 'send_email_to_user') && ($_POST['customers_email_address'] || $_POST['email_to']) && (!isset($_POST['back_x']))) {

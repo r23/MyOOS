@@ -24,9 +24,9 @@ require 'includes/main.php';
 require 'includes/functions/function_informations.php';
 
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $iID = (isset($_GET['iID']) ? intval($_GET['iID']) : 0);
-$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
 if (!empty($action)) {
     switch ($action) {

@@ -26,7 +26,7 @@
  */
 defined('OOS_VALID_MOD') or die('Direct Access to this location is not allowed.');
 
-$nPage = isset($_GET['page']) ? intval($_GET['page']) : 1;
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 require_once MYOOS_INCLUDE_PATH . '/includes/classes/class_split_page_results.php';
 require_once MYOOS_INCLUDE_PATH . '/includes/functions/function_listing.php';

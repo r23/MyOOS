@@ -242,7 +242,7 @@ if ($category_depth == 'nested') {
 
 
     $nManufacturersID = (isset($_GET['manufacturers_id']) ? intval($_GET['manufacturers_id']) : 0);
-    $nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+    $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
     $nFilterID = (isset($_GET['filter_id']) ? intval($_GET['filter_id']) : 0);
     $sSort = (isset($_GET['sort']) ? oos_var_prep_for_os($_GET['sort']) : '');
 

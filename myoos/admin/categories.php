@@ -28,10 +28,10 @@ require 'includes/classes/class_upload.php';
 
 $currencies = new currencies();
 
-$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
 $cID = (isset($_GET['cID']) ? intval($_GET['cID']) : 0);
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 $sSearch = (isset($_GET['search']) ? oos_prepare_input($_GET['search']) : '');
 

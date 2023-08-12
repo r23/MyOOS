@@ -24,10 +24,11 @@ require 'includes/main.php';
 
 $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
 
-$nPage = (!isset($_GET['page']) || !is_numeric($_GET['page'])) ? 1 : intval($_GET['page']);
-$action = (isset($_GET['action']) ? $_GET['action'] : '');
-$mID = (isset($_GET['mID']) ? intval($_GET['mID']) : '');
-$gID = (isset($_GET['gID']) ? intval($_GET['gID']) : '');
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
+$mID = filter_input(INPUT_GET, 'mID', FILTER_VALIDATE_INT);
+$gID = filter_input(INPUT_GET, 'gID', FILTER_VALIDATE_INT);
+
 
 if (!empty($action)) {
     switch ($action) {

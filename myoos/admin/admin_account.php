@@ -19,12 +19,14 @@
    ---------------------------------------------------------------------- */
 
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  $current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
+$current_boxes = OOS_ABSOLUTE_PATH . 'admin/includes/boxes/';
 
-  $action = (isset($_GET['action']) ? $_GET['action'] : '');
+$nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
+
+  $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
   if (!empty($action)) {
       switch ($action) {
@@ -69,9 +71,9 @@
 
             oos_db_perform($oostable['admin'], $sql_data_array, 'UPDATE', 'admin_id = \'' . $admin_id . '\'');
 
-            //oos_mail($_POST['admin_firstname'] . ' ' . $_POST['admin_lastname'], $_POST['admin_email_address'], ADMIN_EMAIL_SUBJECT, sprintf(ADMIN_EMAIL_TEXT, $_POST['admin_firstname'], OOS_HTTPS_SERVER . OOS_SHOP . OOS_ADMIN, $_POST['admin_email_address'], $hiddenPassword, STORE_OWNER), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
+            oos_mail($_POST['admin_firstname'] . ' ' . $_POST['admin_lastname'], $_POST['admin_email_address'], ADMIN_EMAIL_SUBJECT, sprintf(ADMIN_EMAIL_TEXT, $_POST['admin_firstname'], OOS_HTTPS_SERVER . OOS_SHOP . OOS_ADMIN, $_POST['admin_email_address'], $hiddenPassword, STORE_OWNER), STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 
-            oos_redirect_admin(oos_href_link_admin($aContents['admin_account'], 'page=' . $_GET['page'] . '&mID=' . $admin_id));
+            oos_redirect_admin(oos_href_link_admin($aContents['admin_account'], 'page=' . $nPage . '&mID=' . $admin_id));
         }
         break;
     }

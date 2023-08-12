@@ -94,7 +94,7 @@ if (!empty($saction)) {
 }
 
 
-$action = (isset($_GET['action']) ? $_GET['action'] : '');
+$action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
 if (!empty($action)) {
     switch ($action) {
