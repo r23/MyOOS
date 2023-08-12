@@ -108,7 +108,7 @@ $bNecessary = true;
 $bAnalyses = false;
 $bPersonalization = false;
 
-$consentCookieJson = isset($_COOKIE['myoos-cookie-consent']) ? oos_prepare_input($_COOKIE['myoos-cookie-consent']) : false;
+$consentCookieJson = filter_input(INPUT_COOKIE, 'myoos-cookie-consent', FILTER_DEFAULT);
 if ($consentCookieJson) {
     $consentCookie = json_decode($consentCookieJson);
 

@@ -43,8 +43,6 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-# $autoloader = include_once __DIR__ . '/vendor/autoload.php';
-
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 

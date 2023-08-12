@@ -42,8 +42,7 @@ function smarty_function_html_oos_image($params, &$smarty)
     $image = '';
     $extra = '';
 
-    $basedir = isset($_SERVER['DOCUMENT_ROOT']) ? $_SERVER['DOCUMENT_ROOT'] : '';
-
+    $basedir = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT', FILTER_DEFAULT);
 
     foreach ($params as $_key => $_val) {
         switch ($_key) {
