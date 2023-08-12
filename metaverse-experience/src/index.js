@@ -5,8 +5,8 @@ import 'aframe-extras/dist/aframe-extras.loaders.min.js';
 import 'aframe-blink-controls/dist/aframe-blink-controls.min.js'; 
 import 'aframe-physics-system/dist/aframe-physics-system.min.js';
 
-import { OrbitControls, PointerLockControls } from 'three/examples/jsm/controls';
-
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
 
 var el = this.el; // The entity to which this component is attached.
 var scene = el.sceneEl; // The A-Frame Scene
