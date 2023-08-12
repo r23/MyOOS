@@ -1,12 +1,12 @@
 import * as THREE from 'three';
 import * as AFRAME from 'aframe';
 
-// Aus dem Three.js-Paket importieren
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { PointerLockControls } from 'three/examples/jsm/controls/PointerLockControls';
+import 'aframe-extras/dist/aframe-extras.loaders.min.js'; 
+import 'aframe-blink-controls/dist/aframe-blink-controls.min.js'; 
+import 'aframe-physics-system/dist/aframe-physics-system.min.js';
 
-require('aframe-extras');
-require('aframe-physics-system');
+import { OrbitControls, PointerLockControls } from 'three/examples/jsm/controls';
+
 
 var el = this.el; // The entity to which this component is attached.
 var scene = el.sceneEl; // The A-Frame Scene
