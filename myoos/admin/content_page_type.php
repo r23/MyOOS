@@ -82,7 +82,7 @@ if (!empty($action)) {
     switch ($action) {
     case 'insert':
     case 'save':
-        $page_type_id = oos_db_prepare_input($_GET['ptID']);
+		$page_type_id = filter_input(INPUT_GET, 'ptID', FILTER_VALIDATE_INT);
 
         $languages = oos_get_languages();
         for ($i = 0, $n = count($languages); $i < $n; $i++) {
@@ -111,15 +111,15 @@ if (!empty($action)) {
         break;
 
     case 'deleteconfirm':
-        $ptID = oos_db_prepare_input($_GET['ptID']);
-
+		$ptID = filter_input(INPUT_GET, 'ptID', FILTER_VALIDATE_INT);
+		
         $dbconn->Execute("DELETE FROM " . $oostable['page_type'] . " WHERE page_type_id = '" . oos_db_input($ptID) . "'");
 
         oos_redirect_admin(oos_href_link_admin($aContents['content_page_type'], 'page=' . $nPage));
         break;
 
     case 'delete':
-        $ptID = oos_db_prepare_input($_GET['ptID']);
+        $ptID = filter_input(INPUT_GET, 'ptID', FILTER_VALIDATE_INT);
 
         $status_result = $dbconn->Execute("SELECT COUNT(*) AS total FROM " . $oostable['block_to_page_type'] . " WHERE page_type_id = '" . oos_db_input($ptID) . "'");
         $status = $status_result->fields;

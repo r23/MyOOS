@@ -20,17 +20,16 @@
    ----------------------------------------------------------------------
  */
 
-  define('OOS_VALID_MOD', 'yes');
-  require 'includes/main.php';
+define('OOS_VALID_MOD', 'yes');
+require 'includes/main.php';
 
-  require 'includes/classes/class_currencies.php';
-  $currencies = new currencies();
+require 'includes/classes/class_currencies.php';
+$currencies = new currencies();
 
-  $oID = oos_db_prepare_input($_GET['oID']);
+$oID = filter_input(INPUT_GET, 'oID', FILTER_VALIDATE_INT);
 
-  require '../includes/classes/class_order.php';
-  $order = new order($oID);
-
+require '../includes/classes/class_order.php';
+$order = new order($oID);
 ?>
 <!doctype html public "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html <?php echo HTML_PARAMS; ?>>

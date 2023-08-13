@@ -33,7 +33,7 @@ if (!empty($action)) {
     switch ($action) {
         case 'insert':
         case 'save':
-            $currency_id = oos_db_prepare_input($_GET['cID']);
+            $currency_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
             $title = oos_db_prepare_input($_POST['title']);
             $code = oos_db_prepare_input($_POST['code']);
@@ -67,7 +67,7 @@ if (!empty($action)) {
             break;
 
         case 'deleteconfirm':
-            $currencies_id = oos_db_prepare_input($_GET['cID']);
+            $currencies_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
             $currency_result = $dbconn->Execute("SELECT currencies_id FROM " . $oostable['currencies'] . " WHERE code = '" . DEFAULT_CURRENCY . "'");
             $currency = $currency_result->fields;

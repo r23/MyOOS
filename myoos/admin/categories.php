@@ -29,7 +29,7 @@ require 'includes/classes/class_upload.php';
 $currencies = new currencies();
 
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-$cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
+$cPath = filter_input(INPUT_GET, 'cPath', FILTER_SANITIZE_STRING) ?: $current_category_id; 
 $cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0; 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 

@@ -223,6 +223,7 @@ if (($action == 'new') || ($action == 'edit')) {
     $form_action = 'insert';
     if (($action == 'edit') && isset($_GET['sID'])) {
         $form_action = 'update';
+		$sID = filter_input(INPUT_GET, 'sID', FILTER_VALIDATE_INT);
 
         $slidertable = $oostable['categories_slider'];
         $productstable = $oostable['products'];
@@ -241,6 +242,8 @@ if (($action == 'new') || ($action == 'edit')) {
 
         $sInfo = new objectInfo($product);
     } elseif (($action == 'new') && isset($_GET['pID'])) {
+		$pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT);
+
         $productstable = $oostable['products'];
         $products_descriptiontable = $oostable['products_description'];
         $sql = "SELECT p.products_id, p.products_image, pd.products_name
@@ -249,7 +252,7 @@ if (($action == 'new') || ($action == 'edit')) {
               WHERE p.products_setting = '2' AND
 					p.products_id = pd.products_id AND
                     pd.products_languages_id = '" . intval($_SESSION['language_id']) . "' AND
-                    p.products_id = '" . intval($_GET['pID']) . "'";
+                    p.products_id = '" . intval($pID) . "'";
         $product = $dbconn->GetRow($sql);
 
         $sInfo = new objectInfo($product);

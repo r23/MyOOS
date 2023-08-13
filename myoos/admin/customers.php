@@ -721,12 +721,12 @@ function check_form() {
 <?php
     $search = '';
       if (isset($_GET['search']) && oos_is_not_null($_GET['search'])) {
-          $keywords = oos_db_prepare_input($_GET['search']);
+          $keywords = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING);
           $search = "WHERE c.customers_lastname like '%" . $keywords . "%' or c.customers_firstname like '%" . oos_db_input($keywords) . "%' or c.customers_email_address like '%" . oos_db_input($keywords) . "'";
       }
       if (isset($_GET['status'])) {
-          $status = oos_db_prepare_input($_GET['status']);
-          $search ="WHERE c.customers_status = '". $status . "'";
+          $status = filter_input(INPUT_GET, 'status', FILTER_SANITIZE_STRING);
+          $search ="WHERE c.customers_status = '". oos_db_input($status) . "'";
       }
 
       $customerstable = $oostable['customers'];
@@ -847,7 +847,8 @@ function check_form() {
         $contents[] = array('text' => '<table border="0" cellspacing="0" cellpadding="5"><tr><td class="smallText" align="center">' . TABLE_HEADING_NEW_VALUE .' </td><td class="smallText" align="center">' . TABLE_HEADING_DATE_ADDED );
 
         if (isset($_GET['cID'])) {
-            $customers_id = intval($_GET['cID']);
+			$customers_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
+
             $customers_status_historytable = $oostable['customers_status_history'];
             $customers_history_sql = "SELECT new_value, old_value, date_added, customer_notified 
                                 FROM $customers_status_historytable
