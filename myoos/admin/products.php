@@ -31,7 +31,7 @@ $currencies = new currencies();
 
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
-$pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
+$pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0;
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 
@@ -77,7 +77,8 @@ if (!empty($action)) {
                 }
             }
 
-            $products_id = isset($_GET['pID']) ? intval($_GET['pID']) : '';
+
+			$products_id = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT);
             $products_date_available = isset($_POST['products_date_available']) ? oos_db_prepare_input($_POST['products_date_available']) : '';
 
             if (isset($_POST['products_base_price'])) {

@@ -55,26 +55,21 @@ if (isset($_POST['action']) && ($_POST['action'] == 'process')
     && (isset($_SESSION['formid']) && ($_SESSION['formid'] == $_POST['formid']))
 ) {
     if (ACCOUNT_GENDER == 'true') {
-        if (isset($_POST['gender'])) {
-            $gender = oos_db_prepare_input($_POST['gender']);
-        } else {
-            $gender = false;
-        }
+        $gender = filter_input(INPUT_POST, 'gender', FILTER_SANITIZE_STRING);
     }
-    $firstname = oos_db_prepare_input($_POST['firstname']);
-    $lastname = oos_db_prepare_input($_POST['lastname']);
+	$firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+	$lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
     if (ACCOUNT_DOB == 'true') {
-        $dob = oos_db_prepare_input($_POST['dob']);
+		$dob = filter_input(INPUT_POST, 'dob', FILTER_SANITIZE_STRING);
     }
-    $email_address = oos_db_prepare_input($_POST['email_address']);
+	$email_address = filter_input(INPUT_POST, 'email_address', FILTER_VALIDATE_EMAIL);
     if (ACCOUNT_TELEPHONE  == 'true') {
-        $telephone = oos_db_prepare_input($_POST['telephone']);
+		$telephone = filter_input(INPUT_POST, 'telephone', FILTER_SANITIZE_STRING);
     }
-    $password = oos_db_prepare_input($_POST['password']);
-    $confirmation = oos_db_prepare_input($_POST['confirmation']);
-    if (isset($_POST['newsletter'])) {
-        $newsletter = oos_db_prepare_input($_POST['newsletter']);
-    }
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+    $confirmation = filter_input(INPUT_POST, 'confirmation', FILTER_SANITIZE_STRING);
+	$newsletter = filter_input(INPUT_POST, 'newsletter', FILTER_SANITIZE_STRING);
+
     $firstname = oos_remove_shouting($firstname, true);
     $lastname = oos_remove_shouting_name($lastname, true);
     $email_address = strtolower($email_address);

@@ -27,7 +27,7 @@ require 'includes/functions/function_categories.php';
 
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
-$pID = (isset($_GET['pID']) ? intval($_GET['pID']) : 0);
+$pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT) ?: 0; 
 
 if (!empty($action)) {
     switch ($action) {

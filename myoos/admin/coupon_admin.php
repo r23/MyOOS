@@ -1139,7 +1139,7 @@ case 'voucherreport':
         break;
 
     default:
-        $coupon_id = isset($_GET['cID']) ? intval($_GET['cID']) : '';
+		$coupon_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
         $coupon_code = isset($cInfo->coupon_code) ? $cInfo->coupon_code : '';
         $coupon_start_date = isset($cInfo->coupon_start_date) ? $cInfo->coupon_start_date : '';
         $coupon_expire_date = isset($cInfo->coupon_expire_date) ? $cInfo->coupon_expire_date : '';

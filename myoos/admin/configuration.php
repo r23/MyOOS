@@ -23,8 +23,7 @@ require 'includes/main.php';
 
 require 'includes/functions/function_modules.php';
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-$cID = (isset($_GET['cID']) ? intval($_GET['cID']) : 0);
-
+$cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0; 
 
 if (!empty($action)) {
     switch ($action) {

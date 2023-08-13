@@ -151,7 +151,7 @@ if (!empty($action)) {
             }
         break;
       case 'statusconfirm':
-        $customers_id = isset($_GET['cID']) ? intval($_GET['cID']) : '';
+		$customers_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
         $pdm_status = isset($_POST['pdm_status']) ? intval($_POST['pdm_status']) : 1;
         $customer_notified = isset($_POST['customer_notified']) ? intval($_POST['customer_notified']) : 0;
 
@@ -182,7 +182,7 @@ if (!empty($action)) {
         }
         break;
       case 'update':
-        $customers_id = isset($_GET['cID']) ? intval($_GET['cID']) : '';
+        $customers_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
         $customers_firstname = isset($_POST['customers_firstname']) ? oos_db_prepare_input($_POST['customers_firstname']) : '';
         $customers_lastname = isset($_POST['customers_lastname']) ? oos_db_prepare_input($_POST['customers_lastname']) : '';

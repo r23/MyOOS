@@ -51,8 +51,8 @@ $currencies = new currencies();
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-$sID = (isset($_GET['sID']) ? intval($_GET['sID']) : '');
-$pID = (isset($_GET['pID']) ? intval($_GET['pID']) : '');
+$sID = filter_input(INPUT_GET, 'sID', FILTER_VALIDATE_INT);
+$pID = filter_input(INPUT_GET, 'pID', FILTER_VALIDATE_INT);
 
 if (!empty($action)) {
     switch ($action) {

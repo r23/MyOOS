@@ -23,8 +23,7 @@ require 'includes/main.php';
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-$nID = (isset($_GET['nID']) ? intval($_GET['nID']) : '');
-
+$nID = filter_input(INPUT_GET, 'nID', FILTER_VALIDATE_INT);
 
 if (!empty($action)) {
     switch ($action) {

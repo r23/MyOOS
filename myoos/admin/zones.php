@@ -37,7 +37,7 @@ if (!empty($action)) {
             break;
 
         case 'save':
-            $zone_id = oos_db_prepare_input($_GET['cID']);
+			$zone_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
             $zonestable = $oostable['zones'];
             $dbconn->Execute("UPDATE $zonestable SET zone_country_id = '" . oos_db_input($zone_country_id) . "', zone_code = '" . oos_db_input($zone_code) . "', zone_name = '" . oos_db_input($zone_name) . "' WHERE zone_id = '" . oos_db_input($zone_id) . "'");
@@ -45,7 +45,7 @@ if (!empty($action)) {
             break;
 
         case 'deleteconfirm':
-            $zone_id = oos_db_prepare_input($_GET['cID']);
+            $zone_id = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT);
 
             $zonestable = $oostable['zones'];
             $dbconn->Execute("DELETE FROM $zonestable WHERE zone_id = '" . oos_db_input($zone_id) . "'");

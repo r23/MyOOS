@@ -30,7 +30,7 @@ $currencies = new currencies();
 
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 $cPath = (isset($_GET['cPath']) ? oos_prepare_input($_GET['cPath']) : $current_category_id);
-$cID = (isset($_GET['cID']) ? intval($_GET['cID']) : 0);
+$cID = filter_input(INPUT_GET, 'cID', FILTER_VALIDATE_INT) ?: 0; 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 
 $sSearch = (isset($_GET['search']) ? oos_prepare_input($_GET['search']) : '');

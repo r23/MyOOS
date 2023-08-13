@@ -46,7 +46,7 @@ $currencies = new currencies();
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
-$sID = (isset($_GET['sID']) ? intval($_GET['sID']) : '');
+$sID = filter_input(INPUT_GET, 'sID', FILTER_VALIDATE_INT);
 
 
 if (!empty($action)) {

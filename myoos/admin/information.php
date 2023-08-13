@@ -25,7 +25,7 @@ require 'includes/functions/function_informations.php';
 
 
 $nPage = filter_input(INPUT_GET, 'page', FILTER_VALIDATE_INT) ?: 1;
-$iID = (isset($_GET['iID']) ? intval($_GET['iID']) : 0);
+$iID = filter_input(INPUT_GET, 'iID', FILTER_VALIDATE_INT);
 $action = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRING);
 
 if (!empty($action)) {
